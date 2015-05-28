@@ -1,0 +1,377 @@
+footer {
+    padding-top: 2em;
+    text-align: center;
+    color: #737373;
+}
+
+footer>p {
+    margin: 0
+}
+
+.profile-value {
+    font-size: 21px
+}
+
+.has-error .help-block {
+    color: #737373;
+}
+
+.navbar {
+  border-radius: 0;
+}
+
+.TableInlineEdit .xcell {
+    width: 40px
+}
+
+.table>tbody {
+    border-bottom: 1px solid #ddd;
+}
+
+.ProgressBar .progress {
+    background: #ccc;
+}
+
+.coord-after {
+    vertical-align: super;
+}
+
+.coord-abbr {
+    font-size: 0.7em
+}
+
+div.modal-backdrop.in {
+    bottom: 0px;  /* TODO: should be fixed in updated bootstrap.css */
+    z-index: 1040;
+}
+div.modal {
+    z-index: 1050;
+}
+
+.keyword-table {
+    margin-bottom: 6px
+}
+
+.ThemeKeywords, .ThemeKeywordsExtra, .TaxonKeywordsExtra {
+    margin-bottom: 20px
+}
+
+.noborder {
+  border: none;
+}
+
+.DocumentTeaser.list-group-item {
+    cursor: auto;
+}
+
+.DocumentTeaser .lead .link {
+    cursor: pointer;
+}
+
+.DocumentTeaser .lead .link:hover {
+    text-decoration: underline;
+}
+
+.topic-path {
+    font-size: 0.7em;
+    color: #777;
+}
+
+.KeywordsThemeTable .topic-cell {
+    padding-left: 8px
+}
+
+.clickable-text, .btn, .list-group-item {
+    cursor: pointer;
+}
+
+.map {
+    height: 300px;
+    margin-bottom: 10px;
+}
+
+.map .ol-viewport {
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.hover-only {
+    opacity: 0
+}
+
+tr:hover .hover-only {
+    opacity: 1
+}
+
+.abstract-textarea .expandingArea {
+    min-height: 4em
+}
+
+.expandingArea {
+  position: relative;
+}
+
+.expandingArea > textarea,
+.expandingArea > pre {
+  /* Make the text soft-wrap */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  height: auto;
+}
+
+.expandingArea > textarea {
+  /* The border-box box model is used to allow
+   * padding whilst still keeping the overall width
+   * at exactly that of the containing element.
+   */
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+  /* This height is used when JS is disabled */
+  height: 100px;
+}
+
+.expandingArea.active > textarea {
+  /* Hide any scrollbars */
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  /* Remove WebKit user-resize widget */
+  resize: none;
+}
+
+.expandingArea > pre {
+  display: none;
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.expandingArea.active > pre {
+  display: block;
+  /* Hide the text; just using it for sizing */
+  visibility: hidden;
+}
+
+@-webkit-keyframes info-fade {
+   0% {background: #d9edf7;}
+   100% {}
+}
+
+@keyframes info-fade {
+   0% {background: #d9edf7;}
+   100% {}
+}
+
+@-webkit-keyframes warning-fade {
+   0% {background: #fcf8e3;}
+   100% {}
+}
+
+@keyframes warning-fade {
+   0% {background: #fcf8e3;}
+   100% {}
+}
+
+.highlight {
+   -webkit-animation: info-fade 0.75s ease-in 1;
+   animation: info-fade 0.75s ease-in 1;
+}
+
+.TableInlineEdit {
+    margin-bottom: 1em;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+.PageViewBody {
+    background-color: #fff;
+}
+
+/* http://stackoverflow.com/a/4407335/176453 */
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.StreetField .form-group {
+    margin-bottom: 3px
+}
+
+.DateInputs {
+    display: flex;
+}
+
+.DateInputs > .form-group,
+.DateInputs > .form-group input{
+    text-align: center;
+}
+
+.DateInputs > .form-group .help-block {
+    font-size: 0.9em;
+}
+
+.DateInputs > .slash {
+    padding: .2em 0.25em 0;
+    font-size: 1.4em
+
+}
+
+.DateInputs > .btn {
+}
+
+.DateInputs .form-group {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.DateInputs .form-group .help-block {
+    margin-bottom: 0;
+}
+
+.Date {
+    padding-bottom: 1em;
+}
+
+.AddressField .help-block,
+.ContactDetails .help-block{
+    font-size: 0.8em
+}
+
+.navbar-header {
+    float:left;
+}
+
+.navbar-right {
+    float:right;
+}
+
+.navbar-nav > li {
+    float: left;
+}
+
+.pagehead {
+    position: relative;
+    margin-bottom: 20px;
+    padding-bottom: 17px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.account-page .container .panel {
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.head {
+}
+
+.BoxMap {
+    display: block;
+    height: 300px;
+    width: 100%;
+    background: #eee;
+}
+
+.wauto {
+    width: auto
+}
+
+.PageViewBody {
+    border: 1px solid #ccc;
+    padding: 1em;
+}
+
+.PageViewBody {
+    margin-top: 0;
+}
+
+.Home .PageViewBody {
+    /*padding-top: 0;*/
+    border-top: 0;
+    margin-top: 0;
+}
+
+.PageViewBody .alert {
+    margin-bottom: 0;
+}
+
+.PageViewBody .alert :last-child {
+    margin-bottom: 0;
+}
+
+.PageViewBody h2 {
+    margin-top: 0;
+    padding-top: 1em
+}
+
+.GeographicCoverage .MultiBoxMap {
+    height: 300px;
+    background-color: #eee;
+}
+
+.OrganisationInputField > .form-group {
+    margin-bottom: 0px
+}
+
+.OrganisationInputField {
+    margin-bottom: 15px
+}
+
+/* Detach tabs from content when they start to wrap */
+@media (max-width: 991px) {
+	.nav-tabs {
+		padding-bottom: 3px;
+		text-align: center;
+	}
+
+	/* Use inline-block instead of float to allow centering */
+	.nav-tabs > li {
+		float: none;
+		display: inline-block;
+		padding: 3px;
+	}
+
+	.nav-tabs > li > a {
+		border-radius: 4px;
+		border-width: 1px;
+	}
+
+	.nav-tabs > li:not(.active) > a {
+    	border-bottom-color: transparent;
+    }
+
+	.nav-tabs > li.active > a,
+	.nav-tabs > li.active:hover > a {
+		border-bottom-color: #ddd;
+	}
+}
+
+.dropzone {
+    border: 2px dashed #888;
+    border-radius: 5px;
+    padding: 1em;
+    cursor: pointer !important;
+}
+
+.dropzone:hover {
+    border-color: #444;
+}
+
+.has-error .input-group-btn .btn {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  border-left-width: 0;
+}
+
+.has-error .input-group .form-control {
+  border-right-width: 0;
+}

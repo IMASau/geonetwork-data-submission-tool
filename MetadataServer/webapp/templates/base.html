@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block head_title %}{{request.site.sitecontent.title}} {{request.site.sitecontent.tag_line}}{% endblock %}</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'metcalf/resources/public/css/pikaday.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf/resources/public/css/ol.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'metcalf/resources/public/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf/resources/public/css/fixed-data-table.inc.css' %}">
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="{% static 'polyfills/html5shiv.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'polyfills/respond.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'polyfills/es5-shim.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'polyfills/es5-sham.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'polyfills/console-polyfill.js' %}"></script>
+    <![endif]-->
+
+
+    <style>
+    </style>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+    {% block page %}
+    {% block body %}
+
+    <nav class="navbar navbar-inverse" data-reactid=".0.0">
+        <div class="container" data-reactid=".0.0.0">
+            <div class="navbar-header" data-reactid=".0.0.0.0">
+                <a class="navbar-brand" href="{% url 'LandingPage' %}"
+                   data-reactid=".0.0.0.0.0">{{request.site.sitecontent.title}} {{request.site.sitecontent.tag_line}}</a></div>
+            <div class="navbar-text navbar-right" data-reactid=".0.0.0.1">
+                {% block navright %}{% endblock %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+    {% bootstrap_messages %}
+    {% block container %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+        {% block content %}
+        {% endblock %}
+        </div>
+    </div>
+    {% endblock %}
+    </div>
+    {% endblock %}
+    {% block footer %}
+    <div class="container">
+        <footer>
+            <p>Built with love by
+                <a href="http://www.condense.com.au">Condense</a> for
+                <a href="http://www.imas.utas.edu.au">IMAS</a></p>
+
+        </footer>
+    </div>
+    {% endblock %}
+{% endblock %}
+
+
+</body>
+</html>

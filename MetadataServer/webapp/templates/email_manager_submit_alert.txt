@@ -1,0 +1,11 @@
+
+New metadata available!
+
+{{ document.owner }} submitted a metadata record for review.
+
+{{ document.title }}
+{{ document.uuid }}
+
+Edit record - http://{{site.domain}}{{ document.get_absolute_url }}
+Process record - http://{{site.domain}}{% url 'admin:backend_document_change' document.pk %}
+Export record - http://{{site.domain}}{% url 'Export' uuid=document.pk %}

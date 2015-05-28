@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block body %}
+    <div id="Content"></div>
+
+    <script>
+    var payload = {{ content|safe }}
+    </script>
+
+    {% if debug %}
+    <script type="text/javascript" src="{% static 'metcalf/resources/public/js/dev/goog/base.js' %}"></script>
+    <script type="text/javascript" src="{% static 'metcalf/resources/public/js/dev.js' %}"></script>
+    <script>
+        goog.require('metcalf.dev')
+    </script>
+    {% else %}
+    <script src="{% static 'metcalf/resources/public/js/prod.js' %}"></script>
+    {% endif %}
+
+{% endblock %}

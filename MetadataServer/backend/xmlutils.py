@@ -12,6 +12,52 @@ SPECIAL_KEYS = ['namespaces', 'nodes', 'xpath', 'export', 'attributes', 'contain
                 'default', 'removeWhen', 'template']
 
 
+def get_value_type(eles):
+    try:
+        return eles[0].getchildren()[0].tag
+    except:
+        return None
+
+
+def extract_fields(tree, spec, **kwargs):
+    if isinstance(spec, list):
+        spec = spec[0]
+        many = True
+    else:
+        many = False
+
+    if 'namespaces' in spec:
+        kwargs['namespaces'] = spec['namespaces']
+
+    eles = tree.xpath(spec['xpath'], **kwargs)
+
+    if spec.get('required') or 'nodes' in spec:
+        assert len(eles) > 0, "We require at least one xpath match for required fields and all branches.\n{0}\n{1}".format(spec['xpath'], eles)
+
+    field = spec.copy()
+    for special_key in SPECIAL_KEYS:
+        if special_key in field: del field[special_key]
+
+    if many:
+        field['many'] = True
+        field['initial'] = spec.get('initial', [])
+        if 'nodes' in spec:
+            field['fields'] = {k: extract_fields(eles[0], v, **kwargs)
+                               for k, v in spec['nodes'].iteritems()}
+        else:
+            field['type'] = get_value_type(eles)
+
+    elif 'nodes' in spec:
+        for k, v in spec['nodes'].iteritems():
+            field[k] = extract_fields(eles[0], v, **kwargs)
+
+    else:
+        field['type'] = get_value_type(eles)
+        field['initial'] = spec.get('initial', None)
+
+    return field
+
+
 def value(ele, **kwargs):
     """
     Extract value.  Either tagged or text.  Always one value.
@@ -77,7 +123,7 @@ def process_node_child(ele, spec, **kwargs):
             else:
                 return value(ele, **kwargs)
         else:
-            get_default(spec)
+            return get_default(spec)
 
 
 def extract_xml_data(tree, spec, **kwargs):

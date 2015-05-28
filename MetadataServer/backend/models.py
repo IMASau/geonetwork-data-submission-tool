@@ -14,7 +14,7 @@ from rest_framework.renderers import JSONRenderer
 from django_fsm import FSMField, transition
 
 from backend.utils import to_json
-from backend.xmlutils import extract_xml_data, data_to_xml
+from backend.xmlutils import extract_xml_data, data_to_xml, extract_fields
 from backend.emails import *
 from backend.spec_2_0 import make_spec
 
@@ -32,6 +32,7 @@ class MetadataTemplate(models.Model):
         try:
             tree = etree.fromstring(self.file.read())
             spec = make_spec(science_keyword=ScienceKeyword)
+            fields = extract_fields(tree, spec)
             data = extract_xml_data(tree, spec)
             # FIXME data_to_xml will validate presence of all nodes in the template, but only when data is fully mocked up
             data = json.loads(JSONRenderer().render(data))

@@ -23,56 +23,10 @@ from backend.utils import to_json
 from frontend.forms import DocumentAttachmentForm
 from frontend.models import SiteContent
 from frontend.permissions import is_document_editor
-from backend.xmlutils import extract_xml_data, SPECIAL_KEYS, data_to_xml
+from backend.xmlutils import extract_xml_data, extract_fields, data_to_xml
 from backend.spec_2_0 import *
 
 spec = make_spec(science_keyword=ScienceKeyword)
-
-
-def get_value_type(eles):
-    try:
-        return eles[0].getchildren()[0].tag
-    except:
-        return None
-
-
-def extract_fields(tree, spec, **kwargs):
-    if isinstance(spec, list):
-        spec = spec[0]
-        many = True
-    else:
-        many = False
-
-    if 'namespaces' in spec:
-        kwargs['namespaces'] = spec['namespaces']
-
-    eles = tree.xpath(spec['xpath'], **kwargs)
-
-    if spec.get('required'):
-        assert len(eles) > 0, "We require at least one xpath match.\n{0}\n{1}".format(spec['xpath'], eles)
-
-    field = spec.copy()
-    for special_key in SPECIAL_KEYS:
-        if special_key in field: del field[special_key]
-
-    if many:
-        field['many'] = True
-        field['initial'] = spec.get('initial', [])
-        if 'nodes' in spec:
-            field['fields'] = {k: extract_fields(eles[0], v, **kwargs)
-                               for k, v in spec['nodes'].iteritems()}
-        else:
-            field['type'] = get_value_type(eles)
-
-    elif 'nodes' in spec:
-        for k, v in spec['nodes'].iteritems():
-            field[k] = extract_fields(eles[0], v, **kwargs)
-
-    else:
-        field['type'] = get_value_type(eles)
-        field['initial'] = spec.get('initial', None)
-
-    return field
 
 
 def theme_keywords():

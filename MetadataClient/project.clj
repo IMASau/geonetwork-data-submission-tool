@@ -4,7 +4,7 @@
             :license {:name "Eclipse Public License"
                       :url  "http://www.eclipse.org/legal/epl-v10.html"}
 
-            :source-paths ["src/cljs" "test/cljs"]
+            :source-paths ["src/cljs"]
 
             :clean-targets ^{:protect false}
             ["resources/public/js/dev"
@@ -54,7 +54,7 @@
                                              :nrepl-port       7888
                                              :css-dirs         ["resources/public/css"]}
 
-                                 :cljsbuild {:builds {:app {:source-paths ["env/dev/cljs" "test/cljs"]
+                                 :cljsbuild {:builds {:app {:source-paths ["env/dev/cljs"]
                                                             :figwheel {:on-jsload "metcalf.dev/test-and-main"}}}}}
 
                        :uberjar {:hooks       [leiningen.cljsbuild]

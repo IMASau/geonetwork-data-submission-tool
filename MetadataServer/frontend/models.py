@@ -4,7 +4,7 @@ from django.db import models
 
 class SiteContent(models.Model):
     site = models.OneToOneField(Site)
-    title = models.CharField(max_length=16, default="IMAS")
+    title = models.CharField(max_length=32, default="IMAS")
     organisation_url = models.URLField(blank=True, null=True)
     tag_line = models.CharField(max_length=128, default="Data Submission Tool")
     email = models.EmailField(default="imas.datamanager@utas.edu.au")

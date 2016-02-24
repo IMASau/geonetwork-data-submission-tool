@@ -1236,11 +1236,14 @@
       (let [party-field (observe-path owner party-path)
             organisation-name (-> party-field :value :organisationName :value)
             disabled (get-in party-field [:value :organisationName :disabled])
-            institutions (observe-path owner [:institutions])]
+            institutions (observe-path owner [:institutions])
+            value (or (first (filter #(= organisation-name (:organisationName %)) institutions))
+                      {:organisationName organisation-name})]
         (html [:div.OrganisationInputField
                (om/build select-om-all.core/AutoComplete
                          {:placeholder  "Organisation"
-                          :default      (first (filter #(= organisation-name (:organisationName %)) institutions))
+                          :default      value
+                          :value        value
                           :editable?    true
                           :disabled?    disabled
                           :datasource   institutions

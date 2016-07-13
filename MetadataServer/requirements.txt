@@ -1,9 +1,13 @@
-Django==1.8.1
-djangorestframework==3.1.1
-django-debug-toolbar==1.3.0
-django-extensions==1.5.3
-pytz==2015.2
-lxml==3.4.4
+# This is the master file; see deploy_requirements.txt for production.
+# If necessary we could have a core set of requirements, and source
+# that in for differences between prod/testing (eg, psycopg2 only in
+# prod, and django-extensions only for testing)
+
+Django==1.8.13
+djangorestframework==3.3.3
+django-extensions==1.6.7
+pytz==2016.4
+lxml==3.6.0
 -e git://github.com/condense/django-allauth.git@fix-email-required-widget#egg=django-allauth
 django-uuidfield==0.5.0
 xmlunittest==0.3.1

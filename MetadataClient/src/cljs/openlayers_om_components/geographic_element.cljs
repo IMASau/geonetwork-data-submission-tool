@@ -6,7 +6,7 @@
             ol.View
             ol.proj
             ol.extent
-            ol.source.MapQuest
+            ol.source.OSM
             ol.FeatureOverlay
             ol.style.Style
             ol.style.Fill
@@ -94,7 +94,7 @@
 
 (defn init-map! [owner props]
   (let [node (om/get-node owner "map")
-        source (ol.source.MapQuest. #js {:layer "sat"})
+        source (ol.source.OSM. #js {:layer "sat"})
         raster (ol.layer.Tile. #js {:source source})
         view (ol.View. #js {:center  #js [-11000000 4600000]
                             :zoom    (get props :zoom 4)

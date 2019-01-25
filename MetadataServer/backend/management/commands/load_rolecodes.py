@@ -1,6 +1,7 @@
 import csv
 import datetime
 import logging
+import urllib2
 
 import requests
 from django.contrib.admin.models import CHANGE, LogEntry
@@ -74,10 +75,11 @@ class Command(BaseCommand):
     def _fetch_rolecodes(self):
         """Returns a generator of RoleCode objects, created from the latest
         xml from isotc211."""
-        url = 'http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml'
+        url = 'https://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml'
         
         # Retrieve file.
-        tree = etree.parse(url)
+        document = urllib2.urlopen(url)
+        tree = etree.parse(document)
         
         # Define namespaces used by various elements
         base_namespace = "{http://www.isotc211.org/2005/gmx}"

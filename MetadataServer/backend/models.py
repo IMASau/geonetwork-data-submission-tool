@@ -92,7 +92,7 @@ class DataFeed(models.Model):
     def unschedule(self):
         pass
 
-    @transition(field=state, source=[IDLE, SCHEDULED], target=ACTIVE, permission='backend.datafeed_admin')
+    @transition(field=state, source=[SCHEDULED], target=ACTIVE, permission='backend.datafeed_admin')
     def start(self):
         self.last_refresh = timezone.now()
         self.last_output = ""

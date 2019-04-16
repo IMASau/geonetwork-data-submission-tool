@@ -41,7 +41,7 @@ class MetadataTemplate(models.Model):
             raise ValidationError({'file': e.message})
 
     def __unicode__(self):
-        return "{1} (#{0})".format(self.pk, self.name)
+        return u"{1} (#{0})".format(self.pk, self.name)
 
 
 class DocumentManager(models.Manager):
@@ -149,7 +149,7 @@ class Document(models.Model):
         return self.draftmetadata_set.all()[0]
 
     def __unicode__(self):
-        return "{0} - {1} ({2})".format(str(self.uuid)[:8], self.short_title(), self.owner.username)
+        return u"{0} - {1} ({2})".format(str(self.uuid)[:8], self.short_title(), self.owner.username)
 
     def is_editor(self, user):
         return user.is_staff or (user == self.owner)

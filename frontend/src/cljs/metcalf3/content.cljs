@@ -108,7 +108,7 @@
                            :label  "Supporting resources"
                            :many   true
                            :value  []
-                           :fields {:description {:type  nil
+                           :fields {:name {:type  nil
                                                   :page  :about
                                                   :label "Title"}
                                     :url         {:type  nil
@@ -326,14 +326,7 @@
                            :supplementalInformation       {:type   nil
                                                            :page   :about
                                                            :label  "Publications associated with dataset"
-                                                           :many   true
-                                                           :value  []
-                                                           :fields {:description {:type  nil
-                                                                                  :page  :about
-                                                                                  :label "Title"}
-                                                                    :url         {:type  nil
-                                                                                  :page  :about
-                                                                                  :label "URL"}}}
+                                                           :many   true}
                            :citedResponsibleParty         {:type   nil
                                                            :many   true
                                                            :fields responsible-party-defaults

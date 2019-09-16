@@ -1360,6 +1360,8 @@
                     {:keys [document urls site]} @(rf/subscribe [:subs/get-derived-path [:context]])
                     {:keys [portal_title portal_url email]} site
                     {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
+                    db @(rf/subscribe [:subs/get-derived-state])
+                    bleargh (js/console.log {:db db})
                     {:keys [terms_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])
                     {:keys [disabled dirty]} @(rf/subscribe [:subs/get-derived-path [:form]])
                     noteForDataManager @(rf/subscribe [:subs/get-derived-path [:form :fields :noteForDataManager]])
@@ -1963,6 +1965,19 @@
        :add-label   "Add use limitation"
        :field-path  path}]]))
 
+(defn SupplementalInformationRowEdit [path this]
+  [textarea-field path])
+
+(defn SupplementalInformation [path this]
+  [:div
+   [:label "Any supplemental information such as file naming conventions"]
+   [TableModalEdit
+    {:form        SupplementalInformationRowEdit
+     :title       "Additional Detail"
+     :placeholder ""
+     :add-label   "Additional detail"
+     :field-path  path}]])
+
 
 (defn ResourceConstraints [props this]
   [:div.ResourceConstraints
@@ -1973,38 +1988,21 @@
             :target "_blank"}
         "https://creativecommons.org/licenses/by/4.0/"]]])
 
-(defn SupplementalFieldEdit [path this]
+(defn SupportingResourceFieldEdit [path this]
   [:div
-   [InputField {:path (conj path :value :description)}]
+   [InputField {:path (conj path :value :name)}]
    [InputField {:path (conj path :value :url)}]])
 
-(defn SupplementalInformation [path this]
-  [:div
-   [:label "Publications associated with dataset"]
-   [TableModalEdit
-    {:ths         ["Title" "URL"]
-     :tds-fn      (comp (partial map (comp #(or % "--") :value)) (juxt :description :url) :value)
-     :form        SupplementalFieldEdit
-     :title       "Publication"
-     :placeholder ""
-     :add-label   "Add publication"
-     :field-path  path}]])
-
-(defn SupportingResourceRowEdit [path this]
-  [:div
-   [InputField {:path (conj path :value :description)}]
-   [InputField {:path (conj path :value :url)}]])
-
-(defn SupportingResources [path this]
+(defn SupportingResource [path this]
   [:div
    [:label "Any resources with hyperlinks (including Publications)"]
    [TableModalEdit
     {:ths         ["Title" "URL"]
-     :tds-fn      (comp (partial map (comp #(or % "--") :value)) (juxt :description :url) :value)
-     :form        SupportingResourceRowEdit
-     :title       "Supporting Resource"
+     :tds-fn      (comp (partial map (comp #(or % "--") :value)) (juxt :name :url) :value)
+     :form        SupportingResourceFieldEdit
+     :title       "Publication"
      :placeholder ""
-     :add-label   "Add supporting resource"
+     :add-label   "Add publication"
      :field-path  path}]])
 
 (defmethod PageTabView ["Edit" :about]
@@ -2020,8 +2018,8 @@
    [UseLimitations [:form :fields :identificationInfo :useLimitations]]
    [:br]
    [:h4 "Supplemental information"]
+   [SupportingResource [:form :fields :supportingResources]]
    [SupplementalInformation [:form :fields :identificationInfo :supplementalInformation]]
-   [SupportingResources [:form :fields :supportingResources]]
    [:br]
    [:h4 "Distribution"]
    [InputField {:path [:form :fields :distributionInfo :distributionFormat :name]}]

@@ -81,6 +81,23 @@
                     }
                 }
             },
+            "supportingResources": {
+                "many": true,
+                "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()=\"WWW:LINK-1.0-http--link\"]",
+                "keep": false,
+                "nodes": {
+                    "name": {
+                        "xpath": "cit:CI_OnlineResource/cit:name",
+                        "valueChild": "gco:CharacterString",
+                        "required": true
+                    },
+                    "url": {
+                        "xpath": "cit:CI_OnlineResource/cit:linkage",
+                        "valueChild": "gco:CharacterString",
+                        "required": true
+                    }
+                }
+            },
             "dataQualityInfo": {
                 "xpath": "mdb:dataQualityInfo",
                 "nodes": {
@@ -313,6 +330,7 @@
                     },
                     "supplementalInformation": {
                         "many": true,
+                        "valueChild": "gco:CharacterString",
                         "xpath": "mri:supplementalInformation",
                         "keep": false
                     },

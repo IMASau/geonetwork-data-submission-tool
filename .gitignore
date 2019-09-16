@@ -1,0 +1,20 @@
+out
+.iml
+.idea
+venv
+.iws
+.ipr
+backend/guide
+.DS_Store
+.iml
+frontend/node_modules
+frontend/dist
+
+# windows needs *s to work properly
+*.iws
+*.ipr
+*.iml
+*.idea
+*.lock
+backend/mcp2-template_spec_2.json
+backend/mcp2-template.xml

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% load settings %}
+{% load frontend_tags %}
+{% load gitrev %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{% block head_title %}{{sitecontent.title}} {{sitecontent.tag_line}}{% endblock %}</title>
+    {% bootstrap_css %}
+
+    <link rel="stylesheet" href="{% static 'metcalf3/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/pikaday.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/ol.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/fixed-data-table.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint-datetime.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint-select.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/table.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="https://maps.googleapis.com/maps/api/js?key={% GMAPS_API_KEY %}&libraries=drawing"
+            async defer></script>
+
+    {% bootstrap_javascript jquery=1 %}
+
+
+    <style>
+    </style>
+
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+{% block page %}
+{% block body %}
+
+<nav class="navbar navbar-inverse" data-reactid=".0.0">
+    <div class="container" data-reactid=".0.0.0">
+        <div class="navbar-header" data-reactid=".0.0.0.0">
+            <a class="navbar-brand" href="{% url 'LandingPage' %}"
+               data-reactid=".0.0.0.0.0">{{sitecontent.title}} {{sitecontent.tag_line}}</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            {% block navright %}
+            {% endblock %}
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    {% bootstrap_messages %}
+    {% block container %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}
+{% block footer %}
+<div class="container">
+    <footer>
+        <p>Built with love by
+            <a href="http://www.condense.com.au">Condense</a> for
+            <a href="http://portal.tern.org.au/">TERN</a>. Version: {% gitrev %}</p>
+    </footer>
+</div>
+{% endblock %}
+{% endblock %}
+
+
+</body>
+</html>

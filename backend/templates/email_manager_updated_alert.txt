@@ -1,0 +1,10 @@
+
+{{ document.owner }} has modified their metadata submission. Make sure you export a current version of the record before uploading it.
+
+{{ document.title }}
+
+{{ document.pk }}
+
+Edit record - http://{{site.domain}}{{ document.get_absolute_url }}
+Process record - http://{{site.domain}}{% url 'admin:backend_document_change' document.pk %}
+Export record - http://{{site.domain}}{% url 'Export' uuid=document.pk %}

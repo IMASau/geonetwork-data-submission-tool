@@ -1,0 +1,17 @@
+
+<p>New metadata available!</p>
+
+<p>{{ document.owner }} submitted a metadata record for review.</p>
+
+<blockquote>{{ document.title }}</blockquote>
+
+<p>{{ document.uuid }}</p>
+
+<ul>
+    <li><a href="http://{{site.domain}}{{ document.get_absolute_url }}">
+    Edit record</a></li>
+    <li><a href="http://{{site.domain}}{% url 'admin:backend_document_change' document.pk %}">
+    Process record</a></li>
+    <li><a href="http://{{site.domain}}{% url 'Export' uuid=document.pk %}">
+    Export record</a></li>
+</ul>

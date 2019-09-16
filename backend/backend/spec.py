@@ -191,7 +191,6 @@ def parse_individual_orcid(x):
     return orcid
 
 def parse_codeListValue(x):
-    print(x.attrib['codeListValue'])
     return x.attrib['codeListValue']
 
 def parse_organisation_identifier(x):

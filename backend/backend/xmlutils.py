@@ -324,7 +324,6 @@ def spec_data_from_batch(batch_spec, key):
 
 
 def data_to_xml(data, xml_node, spec, nsmap, element_index=0, silent=True, fieldKey = None):
-    print('fieldKey', fieldKey)
     # indicates that the spec allows more than one value for this node
     if is_many(spec):
         # sets many to false on the spec, because the spec is passed into the subsequent data_to_xml call
@@ -440,7 +439,6 @@ def data_to_xml(data, xml_node, spec, nsmap, element_index=0, silent=True, field
                     gco = '{%s}' % nsmap['gco']
                     #TODO: this only works if we don't have actual time information
                     if element.tag == '%sDateTime' % gco:
-                        print('writing', final_value, element)
                         element.text = '%sT00:00:00' % final_value
                     else:
                         element.text = final_value

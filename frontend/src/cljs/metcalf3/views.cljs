@@ -1626,7 +1626,10 @@
   (let [party-value-path (conj party-path :value)
         party-value @(rf/subscribe [:subs/get-derived-path party-value-path])
         {:keys [individualName givenName familyName phone facsimile orcid
-                electronicMailAddress organisationName isUserAdded]} party-value]
+                electronicMailAddress organisationName isUserAdded]} party-value
+        electronicMailAddress (if (:value isUserAdded)
+                                (assoc electronicMailAddress :required true)
+                                electronicMailAddress)]
     [:div.ResponsiblePartyField
 
 

@@ -49,7 +49,6 @@
                            :page :who}
    :electronicMailAddress {:type     nil
                            :label    "Email address"
-                           :required true
                            :page     :who}
    :address               {:deliveryPoint      {:type nil}
                            :deliveryPoint2     {:type nil}

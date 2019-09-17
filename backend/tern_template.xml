@@ -233,7 +233,6 @@
                   <gco:CharacterString>2.0.0</gco:CharacterString>
                </cit:edition>
                <cit:identifier>
-
                   <mcc:MD_Identifier>
                      <mcc:authority>
                         <cit:CI_Citation>

@@ -17,7 +17,7 @@ class InstitutionViewSet(viewsets.ModelViewSet):
 
 class PersonViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.PersonSerializer
-    search_fields = ('familyName', 'givenName', 'prefLabel')
+    search_fields = ('familyName', 'givenName', 'prefLabel', 'electronicMailAddress')
     queryset = models.Person.objects.all()
 
     def get_queryset(self):

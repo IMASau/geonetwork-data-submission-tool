@@ -330,6 +330,7 @@ class Person(models.Model):
     orcid = models.CharField(max_length=50, verbose_name="ORCID ID", default="")
     prefLabel = models.CharField(max_length=512, default="")
     isUserAdded = models.BooleanField(default=False,verbose_name="User Added")
+    electronicMailAddress = models.CharField(max_length=256,default="",verbose_name='email')
 
     def __str__(self):
         return self.uri

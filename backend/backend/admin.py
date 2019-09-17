@@ -26,7 +26,7 @@ class InstitutionAdmin(admin.ModelAdmin):
                        'country']
 
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ['familyName', 'givenName', 'honorificPrefix', 'prefLabel', 'orcid', 'organisation', 'isUserAdded']
+    list_display = ['familyName', 'givenName', 'honorificPrefix', 'prefLabel', 'electronicMailAddress', 'orcid', 'organisation', 'isUserAdded']
     search_fields = ['familyName', 'givenName', 'orcid']
 
     def organisation(self, obj):

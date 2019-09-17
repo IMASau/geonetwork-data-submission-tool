@@ -105,6 +105,7 @@ class Command(BaseCommand):
         _honorificPrefix_pred = URIRef('http://schema.org/honorificPrefix')
         _orgUri_pred = URIRef('http://schema.org/memberOf')
         _orcid_pred = URIRef('http://schema.org/sameAs')
+        _email_pred = URIRef('http://schema.org/email')
         _prefLabel_pred = URIRef('http://www.w3.org/2004/02/skos/core#prefLabel')
         persons = graph.subjects(_type_pred, _person_object)
         for subject in persons:
@@ -114,6 +115,7 @@ class Command(BaseCommand):
             honorificPrefix = Command.pred_value_or_empty(graph, subject, _honorificPrefix_pred)
             orgUri = Command.pred_value_or_empty(graph, subject, _orgUri_pred)
             prefLabel = Command.pred_value_or_empty(graph, subject, _prefLabel_pred)
+            email = Command.pred_value_or_empty(graph, subject, _email_pred)
             orcid = Command.pred_value_or_empty(graph, subject, _orcid_pred)
             orcid = orcid.replace('https://orcid.org/','')
             orcid = orcid.replace('http://orcid.org/','')
@@ -127,6 +129,7 @@ class Command(BaseCommand):
                 givenName=givenName,
                 honorificPrefix=honorificPrefix,
                 orcid=orcid,
+                electronicMailAddress=email,
                 prefLabel=prefLabel,
                 isUserAdded=False
             )

@@ -313,6 +313,7 @@ def personFromData(data):
                 matchingPerson.familyName = data['familyName']
                 matchingPerson.orcid = data['orcid'] or ''
                 matchingPerson.prefLabel = data['givenName'] + ' ' + data['familyName']
+                matchingPerson.electronicMailAddress = data['electronicMailAddress']
                 matchingPerson.save()
         except Person.DoesNotExist:
             inst = Person.objects.create(uri=uri,
@@ -321,6 +322,7 @@ def personFromData(data):
                                          familyName=data['familyName'],
                                          orcid=data['orcid'] or '',
                                          prefLabel=data['givenName'] + ' ' + data['familyName'],
+                                         electronicMailAddress=data['electronicMailAddress'],
                                          isUserAdded=True)
             inst.save()
 

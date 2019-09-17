@@ -215,7 +215,8 @@
   (fn [{:keys [db]} [_ person-path option]]
     (let [option (if (map? option) option (utils/js-lookup option))
           option (clojure.walk/keywordize-keys option)
-          {:keys [givenName prefLabel familyName uri orcid orgUri isUserAdded]} option
+          {:keys [givenName prefLabel familyName uri orcid
+                  orgUri isUserAdded electronicMailAddress]} option
           org (when orgUri
                 (first (filter (fn [x]
                                  (= orgUri (gobj/get x "uri"))) (:options (get-in db [:api :institution])))))
@@ -226,6 +227,7 @@
                  (update-in person-path assoc-in [:orcid :value] orcid)
                  (update-in person-path assoc-in [:individualName :value] prefLabel)
                  (update-in person-path assoc-in [:familyName :value] familyName)
+                 (update-in person-path assoc-in [:electronicMailAddress :value] electronicMailAddress)
                  (update-in person-path assoc-in [:isUserAdded :value] isUserAdded))]
       {:db db
        :dispatch [:handlers/org-changed person-path org]})))

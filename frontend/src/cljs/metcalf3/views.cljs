@@ -1653,6 +1653,9 @@
         [InputWidget (assoc givenName
                        :on-change #(rf/dispatch [:handlers/person-detail-changed party-value-path :givenName % isUserAdded]))]]]
 
+      [InputWidget (assoc electronicMailAddress
+                     :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :electronicMailAddress) %]))]
+
       [InputWidget (assoc orcid
                      :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :orcid) %]))]
 
@@ -1670,8 +1673,7 @@
        [InputWidget (assoc facsimile
                       :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :facsimile) %]))]
 
-       [InputWidget (assoc electronicMailAddress
-                      :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :electronicMailAddress) %]))]]]]))
+       ]]]))
 
 (defn FieldError [{:keys [errors label]} this]
   [:span.FieldError label ": " (first errors)])

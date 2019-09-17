@@ -850,7 +850,6 @@
 
               [:div.GeographicCoverage
                [:h4 "Geographic Coverage"]
-               [CheckboxField [:form :fields :identificationInfo :geographicElement :hasGeographicCoverage]]
                (when hasGeographicCoverage
                  [:div.row
                   [:div.col-sm-6

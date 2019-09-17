@@ -1641,7 +1641,7 @@
        {;need this to make sure the drop down is rendered above any other input fields
         :style {:position "relative"
                 :z-index  10}}
-       [:label "Contact" (when (:required individualName) " *")]
+       [:label "Contact name" (when (:required individualName) " *")]
        [PersonInputField party-path]
        [:p.help-block "If you cannot find the person in the list above, please enter details below"]]]
      [:div

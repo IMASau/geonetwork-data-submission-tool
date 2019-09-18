@@ -211,7 +211,9 @@
                </cit:date>
                <cit:date>
                   <cit:CI_Date>
-                     <cit:date/>
+                     <cit:date>
+                        <gco:DateTime>2014-06-27T11:07:36</gco:DateTime>
+                     </cit:date>
                      <cit:dateType>
                         <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode"
                                              codeListValue="publication"/>
@@ -686,6 +688,51 @@
                         <mcc:MD_Identifier>
                            <mcc:code>
                               <gcx:Anchor xlink:href="https://vocabs.ands.org.au/viewById/20">ANZSRC Fields of Research</gcx:Anchor>
+                           </mcc:code>
+                        </mcc:MD_Identifier>
+                     </cit:identifier>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:title="GCMD Science" xlink:role="uri" xlink:type="simple"
+                              xlink:href="http://linkeddata.tern.org.au/def/agent/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                              xlink:show="new">HUMIDITY</gcx:Anchor>
+               </mri:keyword>
+  
+               <mri:keyword>
+                  <gcx:Anchor xlink:title="GCMD Science" xlink:role="uri" xlink:type="simple"
+                              xlink:href="uri:http://linkeddata.tern.org.au/def/agent/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                              xlink:show="other">INCOMING SOLAR RADIATION</gcx:Anchor>
+               </mri:keyword>
+
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode"
+                                          codeListValue="theme"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>GCMD Earth Science and Earth Science Services Keywords</gco:CharacterString>
+                     </cit:title>
+                     <cit:date>
+                        <cit:CI_Date>
+                           <cit:date>
+                              <gco:Date>2018-11-07</gco:Date>
+                           </cit:date>
+                           <cit:dateType>
+                              <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode"
+                                                   codeListValue="publication"/>
+                           </cit:dateType>
+                        </cit:CI_Date>
+                     </cit:date>
+                     <cit:identifier>
+                        <mcc:MD_Identifier>
+                           <mcc:code>
+                              <gcx:Anchor xlink:href="https://vocabs.ands.org.au/viewById/238">GCMD Science Keywords</gcx:Anchor>
                            </mcc:code>
                         </mcc:MD_Identifier>
                      </cit:identifier>

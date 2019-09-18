@@ -176,10 +176,16 @@
                                                            :help  "Brief statement about the purpose of the study"
                                                            :page  :what}
                            :keywordsTheme                 {:keywords {:type        nil
-                                                                      :label       "Research theme keywords"
+                                                                      :label       "Research theme keywords, GCMD Science Keywords"
                                                                       :help        "Select up to 12 research theme keywords describing your data"
                                                                       :placeholder "Search for keywords"
                                                                       :required    true
+                                                                      :page        :what}}
+                           :keywordsThemeAnzsrc                 {:keywords {:type        nil
+                                                                      :label       "Research theme keywords, ANZSRC Fields of Research"
+                                                                      :help        "Select up to 12 research theme keywords describing your data"
+                                                                      :placeholder "Search for keywords"
+                                                                      :required    false
                                                                       :page        :what}}
                            :keywordsThemeExtra            {:keywords {:type        nil
                                                                       :label       "Additional theme keywords"

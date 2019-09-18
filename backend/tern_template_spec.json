@@ -372,7 +372,7 @@
                         "keep": false
                     },
                     "keywordsTheme": {
-                        "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[not(@uuid=\"Data_Group\")][mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName]",
+                        "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[not(@uuid=\"Data_Group\")][mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor[@xlink:href=\"https://vocabs.ands.org.au/viewById/238\"]]",
                         "nodes": {
                             "keywords": {
                                 "xpath": "mri:keyword/gcx:Anchor",
@@ -394,6 +394,30 @@
                             }
                         },
                         "required": true,
+                        "notes": "Theme keywords (selecting from controlled list in thesaurus)"
+                    },
+                    "keywordsThemeAnzsrc": {
+                        "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[not(@uuid=\"Data_Group\")][mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor[@xlink:href=\"https://vocabs.ands.org.au/viewById/20\"]]",
+                        "nodes": {
+                            "keywords": {
+                                "xpath": "mri:keyword/gcx:Anchor",
+                                "many": true,
+                                "container": "mri:keyword",
+                                "keep": false,
+                                "export": false,
+                                "exportTo": {
+                                    "xpath": "mri:keyword/gcx:Anchor",
+                                    "attributes": {
+                                        "text": {
+                                            "function": "science_keyword_name"
+                                        }
+                                    }
+                                },
+                                "parser": {
+                                    "function": "parse_keywords"
+                                }
+                            }
+                        },
                         "notes": "Theme keywords (selecting from controlled list in thesaurus)"
                     },
                     "dataParameters": {

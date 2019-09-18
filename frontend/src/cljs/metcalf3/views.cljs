@@ -306,7 +306,7 @@
      [:div.topic-value (last rowData)]]))
 
 (defn KeywordsThemeTable
-  [_ this]
+  [keyword-type this]
   (letfn [(init-state [this]
             {:columnWidths     [26 (- 900 26)]
              :isColumnResizing false
@@ -321,10 +321,10 @@
               (update-table-width this)))
           (render [this]
             (let [{:keys [query width columnWidths isColumnResizing scrollToRow autowidth-id]} (r/state this)]
-              (let [keywords-path [:form :fields :identificationInfo :keywordsTheme :keywords]
+              (let [keywords-path [:form :fields :identificationInfo keyword-type :keywords]
                     keywords @(rf/subscribe [:subs/get-derived-path keywords-path])
                     uuids (zipmap (map :value (:value keywords)) (range))
-                    table @(rf/subscribe [:subs/get-derived-path [:theme :table]])
+                    table @(rf/subscribe [:subs/get-derived-path [:theme keyword-type :table]])
                     results (if (blank? query)
                               table
                               (vec (filter-table false table query)))
@@ -510,16 +510,16 @@
      [KeywordsThemeCell rowData]]))
 
 (defn modal-dialog-theme-keywords
-  [_ this]
+  [keyword-type this]
   (let [{:keys [message on-confirm on-cancel]} @(rf/subscribe [:subs/get-modal-props])]
-    [Modal {:ok-copy      "OK"
+    [Modal {:ok-copy      "Done"
             :dialog-class "modal-lg"
             :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Research theme keywords"]
             :modal-body   [:div
                            [:p.help-block "Select keyword(s) to add to record"]
-                           [KeywordsThemeTable nil]]
+                           [KeywordsThemeTable keyword-type]]
             :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-            :hide-footer  true}]))
+            :on-save   #(rf/dispatch [:handlers/close-modal])}]))
 
 (defn TopicCategories
   [_ this]
@@ -578,7 +578,7 @@
        :render            render})))
 
 (defn ThemeKeywords
-  [_ this]
+  [keyword-type this]
   (letfn [(init-state [this]
             {:new-value  nil
              :input      ""
@@ -586,11 +586,11 @@
              :highlight  #{}})
           (render [this]
             (let [{:keys [new-value show-modal highlight options]} (r/state this)]
-              (let [keywords-theme-path [:form :fields :identificationInfo :keywordsTheme]
+              (let [keywords-theme-path [:form :fields :identificationInfo keyword-type]
                     keywords-path (conj keywords-theme-path :keywords)
                     {:keys [keywords]} @(rf/subscribe [:subs/get-derived-path keywords-theme-path])
                     {:keys [value placeholder disabled help] :as props} keywords
-                    theme-table @(rf/subscribe [:subs/get-derived-path [:theme :table]])
+                    theme-table @(rf/subscribe [:subs/get-derived-path [:theme keyword-type :table]])
                     set-value! #(r/set-state this {:new-value %})
                     add! (fn [uuid] (when-not (empty? uuid)
                                       (when (not-any? (comp #{uuid} :value)
@@ -599,7 +599,8 @@
                                       (handle-highlight-new this uuid)
                                       (set-value! nil)))
                     lookup (fn [uuid] (first (filterv #(= uuid (first %)) theme-table)))
-                    show-modal! #(rf/dispatch [:handlers/open-modal {:type :ThemeKeywords}])
+                    show-modal! #(rf/dispatch [:handlers/open-modal {:type :ThemeKeywords
+                                                                     :keyword-type keyword-type}])
                     options (into-array (for [[value & path :as rowData] theme-table]
                                           #js {:value   value
                                                :rowData rowData
@@ -1756,7 +1757,8 @@
     [textarea-field [:form :fields :identificationInfo :abstract]]]
    [:span.abstract-textarea
     [textarea-field [:form :fields :identificationInfo :purpose]]]
-   [ThemeKeywords nil]
+   [ThemeKeywords :keywordsTheme]
+   [ThemeKeywords :keywordsThemeAnzsrc]
    [ThemeKeywordsExtra nil]
    [TaxonKeywordsExtra nil]])
 
@@ -2328,7 +2330,7 @@
       (case (:type modal-props)
         :TableModalEditForm [modal-dialog-table-modal-edit-form nil]
         :TableModalAddForm [modal-dialog-table-modal-add-form nil]
-        :ThemeKeywords [modal-dialog-theme-keywords nil]
+        :ThemeKeywords [modal-dialog-theme-keywords (:keyword-type modal-props)]
         :parametername [modal-dialog-parametername nil]
         :parameterunit [modal-dialog-parameterunit nil]
         :parameterinstrument [modal-dialog-parameterinstrument nil]

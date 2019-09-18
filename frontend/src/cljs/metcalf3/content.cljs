@@ -87,9 +87,13 @@
                                                   :page  :upload
                                                   :label "Protocol"
                                                   :options
-                                                         [["OGC:WMS-1.3.0-http-get-map" "OGC Web Map Service (WMS)"]
-                                                          ["OGC:WFS-1.0.0-http-get-capabilities" "OGC Web Feature Service (WFS)"]
-                                                          ["WWW:LINK-1.0-http--downloaddata" "Other/unknown"]]}}}
+                                                         [["WWW:DOWNLOAD-1.0-http--download" "HTTP"]
+                                                          ["OGC:WCS-1.1.0-http-get-capabilities" "WCS"]
+                                                          ["OGC:WMS-1.3.0-http-get-map" "OGC Web Map Service (WMS)"]
+                                                          ["OGC:WFS-1.1.0-http-get-capabilities" "OGC Web Feature Service (WFS)"]
+                                                          ["WWW:LINK-1.0-http--opendap" "OPeNDAP"]
+                                                          ["FTP" "FTP"]
+                                                          ["WWW:DOWNLOAD-1.0-http--downloaddata" "Other/unknown"]]}}}
      :attachments         {:type   nil
                            :page   :upload
                            :label  "Attachments"
@@ -284,6 +288,8 @@
                                                            :fields {:longName     {:term              {:type     nil
                                                                                                        :page     :about
                                                                                                        :label    "Name"
+                                                                                                       :help "Name of the measured parameter e.g. Vegetation height"
+                                                                                                       :placeholder "Start typing to filter the list"
                                                                                                        :required true}
                                                                                    :vocabularyTermURL {:type nil
                                                                                                        :page :about}
@@ -300,7 +306,9 @@
                                                                                    :placeholder ""
                                                                                    :page        :about}
                                                                     :unit         {:term              {:type nil :label "Unit" :required true
-                                                                                                       :page :about}
+                                                                                                       :page :about
+                                                                                                       :placeholder "Start typing to filter the list"
+                                                                                                       :help "Unit of measurement"}
                                                                                    :vocabularyTermURL {:type nil
                                                                                                        :page :about}
                                                                                    :vocabularyVersion {:type nil
@@ -308,7 +316,9 @@
                                                                                    :termDefinition    {:type nil
                                                                                                        :page :about}}
                                                                     :instrument   {:term              {:type  nil
-                                                                                                       :label "Instrument"}
+                                                                                                       :label "Instrument"
+                                                                                                       :placeholder "Start typing to filter the list"
+                                                                                                       :help "Sensor used to measure the parameter"}
                                                                                    :vocabularyTermURL {:type nil
                                                                                                        :page :about}
                                                                                    :vocabularyVersion {:type nil
@@ -317,6 +327,8 @@
                                                                                                        :page :about}}
                                                                     :platform     {:term              {:type  nil
                                                                                                        :label "Platform"
+                                                                                                       :placeholder "Start typing to filter the list"
+                                                                                                       :help "Is the data measured from land, air, satellite or a model?"
                                                                                                        :page  :about}
                                                                                    :vocabularyTermURL {:type nil
                                                                                                        :page :about}

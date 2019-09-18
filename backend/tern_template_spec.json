@@ -74,20 +74,20 @@
                     "description": {
                         "label": "Description",
                         "xpath": "cit:CI_OnlineResource/cit:description",
+                        "valueChild": "gco:CharacterString",
                         "required": true
                     },
                     "url": {
-                        "label": "URL",
-                        "xpath": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
+                        "xpath": "cit:CI_OnlineResource/cit:linkage",
+                        "valueChild": "gco:CharacterString",
                         "required": true
                     },
                     "name": {
-                        "label": "Layer",
                         "xpath": "cit:CI_OnlineResource/cit:name",
+                        "valueChild": "gco:CharacterString",
                         "required": false
                     },
                     "protocol": {
-                        "label": "Protocol",
                         "xpath": "cit:CI_OnlineResource/cit:protocol",
                         "required": true
                     }

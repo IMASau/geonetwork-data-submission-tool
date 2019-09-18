@@ -363,18 +363,22 @@
   :handlers/person-detail-changed
   ins/std-ins
   (fn [db [_ path field value isUserAdded]]
-    ; we just generate a new UUID any time they change the name
+    ; if they change the name and it's not already a custom user, generate a new uuid
     (let [new-uuid (random-uuid)
           person-uri (str "http://linkeddata.tern.org.au/def/agent/" new-uuid)
-          db (if (:value isUserAdded)
+          current-value (get-in db (conj path field :value))
+          value-changed (not= current-value value)
+          db' (if (:value isUserAdded)
                db
                (-> db
                    (assoc-in (conj path :uri :value) person-uri)
                    (update-in (conj path :isUserAdded) assoc :value true :show-errors true)))]
       (s/assert vector? path)
-      (-> db
-          (update-in (conj path field) assoc :value value :show-errors true)
-          (update-in (conj path :individualName) assoc :value "" :show-errors true)))))
+      (if value-changed
+        (-> db'
+            (update-in (conj path field) assoc :value value :show-errors true)
+            (update-in (conj path :individualName) assoc :value "" :show-errors true))
+        db))))
 
 (rf/reg-event-db
   :handlers/value-changed

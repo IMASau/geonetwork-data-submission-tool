@@ -2,8 +2,14 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 from fsm_admin.mixins import FSMTransitionMixin
+from django.http import HttpResponseRedirect
+import datetime
+import requests
+from django.contrib import messages
+from lxml import etree
 
 from backend import models
+from frontend.models import SiteContent
 
 
 class InstitutionAdmin(admin.ModelAdmin):
@@ -119,7 +125,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
     readonly_fields = ['status', 'action_links', 'submission_note']
     inlines = [DocumentAttachmentInline]
     fieldsets = [
-        (None, {'fields': ('title', 'template', 'owner', 'status', 'submission_note')}),
+        (None, {'fields': ('title', 'template', 'owner', 'status', 'submission_note', 'doi')}),
         ('Export', {'fields': ('action_links',)}),
     ]
 
@@ -128,12 +134,13 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
             return obj.latest_draft.noteForDataManager
 
     def action_links(self, obj):
-        return format_html("<a href='{0}' target='_blank'>Edit</a> | "
-                           "<a href='{1}' target='_blank'>Export XML</a> | "
-                           "<a href='{2}' target='_blank'>Export MEF</a>",
-                           reverse('Edit', kwargs={'uuid': obj.uuid}),
-                           reverse('Export', kwargs={'uuid': obj.uuid}),
-                           reverse('MEF', kwargs={'uuid': obj.uuid}))
+        htmlString = ("<a href='{0}' target='_blank'>Edit</a> | "
+                     "<a href='{1}' target='_blank'>Export XML</a> | "
+                     "<a href='{2}' target='_blank'>Export MEF</a>")
+        replacements = [reverse('Edit', kwargs={'uuid': obj.uuid}),
+                        reverse('Export', kwargs={'uuid': obj.uuid}),
+                        reverse('MEF', kwargs={'uuid': obj.uuid})]
+        return format_html(htmlString, *replacements)
 
     action_links.short_description = "Actions"
 

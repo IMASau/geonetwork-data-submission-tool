@@ -445,11 +445,7 @@ def data_to_xml(data, xml_node, spec, nsmap, element_index=0, silent=True, field
                 else:
                     element.set(attr, final_value)
             if has_exportTo(spec):
-                for sub_spec in get_exportTo(spec):
-                    # export to list of nodes is usually about keeping their data, not cloning first node
-                    if is_many(spec):
-                        sub_spec['fanout'] = True
-                    data_to_xml(data, xml_node, sub_spec, nsmap, element_index, silent, fieldKey=fieldKey)
+                data_to_xml(data, xml_node, get_exportTo(spec), nsmap, element_index, silent, fieldKey=fieldKey)
 
     if is_postprocess(spec):
         get_postprocess(spec)(data, xml_node, spec, nsmap, element_index, silent)

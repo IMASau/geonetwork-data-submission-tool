@@ -1,7 +1,9 @@
 # from frontend.router import rest_serialize
+import requests
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
@@ -297,7 +299,6 @@ def mef(request, uuid):
         tmp.close()
     return response
 
-
 def home(request):
     sitecontent, _ = SiteContent.objects.get_or_create(site=get_current_site(request))
     return render_to_response("home.html", {'sitecontent': sitecontent})
@@ -338,9 +339,14 @@ def save(request, uuid):
         if (doc.status == doc.SUBMITTED):
             doc.resubmit()
         doc.save()
+
+        #update the publication date
+        data['identificationInfo']['datePublication'] = today()
+
         inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
         inst.noteForDataManager = data['noteForDataManager'] or ''
         inst.agreedToTerms = data['agreedToTerms'] or False
+        inst.doiRequested = data['doiRequested'] or False
         inst.save()
 
         # add any new people to the database

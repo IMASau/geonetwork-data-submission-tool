@@ -36,6 +36,18 @@
             "function": "prune_if_empty"
         },
         "nodes": {
+            "fileIdentifier": {
+                "xpath": "mdb:metadataIdentifier/mcc:MD_Identifier/mcc:code",
+                "valueChild": "gco:CharacterString",
+                "exportTo": {
+                    "xpath": "mdb:metadataLinkage/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
+                    "attributes": {
+                        "text": {
+                            "function": "geonetwork_url"
+                        }
+                    }
+                }
+            },
             "distributionInfo": {
                 "xpath": "mdb:distributionInfo/mrd:MD_Distribution",
                 "nodes": {
@@ -122,8 +134,33 @@
                         "label": "Title",
                         "required": true
                     },
+                    "doi": {
+                        "xpath": "mri:citation/cit:CI_Citation/cit:identifier/mcc:MD_Identifier",
+                        "container": "mri:citation/cit:CI_Citation/cit:identifier",
+                        "keep": false,
+                        "nodes": {
+                            "code": {
+                                "xpath": "mcc:code",
+                                "valueChild": "gco:CharacterString",
+                                "keep": false
+                            },
+                            "codeSpace": {
+                                "xpath": "mcc:codeSpace",
+                                "valueChild": "gco:CharacterString",
+                                "keep": false
+                            }
+                        }
+                    },
                     "dateCreation": {
                         "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",
+                        "valueChild": "gco:DateTime",
+                        "required": true,
+                        "default": {
+                            "function": "today"
+                        }
+                    },
+                    "datePublication": {
+                        "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]/cit:date",
                         "valueChild": "gco:DateTime",
                         "required": true,
                         "default": {
@@ -490,6 +527,12 @@
             "agreedToTerms": {
                 "!docstring": "Fake node so we can pass some additional metadata as payload",
                 "xpath": "agreedToTerms",
+                "default": false,
+                "export": false
+            },
+            "doiRequested": {
+                "!docstring": "Fake node so we can pass some additional metadata as payload",
+                "xpath": "doiRequested",
                 "default": false,
                 "export": false
             }

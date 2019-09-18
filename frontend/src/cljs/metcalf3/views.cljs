@@ -1360,11 +1360,11 @@
                     {:keys [portal_title portal_url email]} site
                     {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
                     db @(rf/subscribe [:subs/get-derived-state])
-                    bleargh (js/console.log {:db db})
                     {:keys [terms_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])
                     {:keys [disabled dirty]} @(rf/subscribe [:subs/get-derived-path [:form]])
                     noteForDataManager @(rf/subscribe [:subs/get-derived-path [:form :fields :noteForDataManager]])
                     agreedToTerms @(rf/subscribe [:subs/get-derived-path [:form :fields :agreedToTerms]])
+                    doiRequested @(rf/subscribe [:subs/get-derived-path [:form :fields :doiRequested]])
                     is-are (if (> errors 1) "are" "is")
                     plural (if (> errors 1) "s")
                     has-errors? (and errors (> errors 0))
@@ -1389,6 +1389,8 @@
                       [:div
                        [:strong "Note for the data manager:"]
                        [:p (:value noteForDataManager)]]))]
+                 [:div
+                  [CheckboxField [:form :fields :doiRequested] [:span "Please mint a DOI for this submission"]]]
                  [:div
                   [:a
                    {:onClick #(r/set-state this {:is-open (not is-open)})}

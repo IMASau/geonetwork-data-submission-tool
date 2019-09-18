@@ -352,6 +352,10 @@
                            :label "I have read and agree to the terms and conditions"
                            :page  :lodge
                            :value false}
+     :doiRequested       {:type  nil
+                           :label "Please mint a DOI for this submission"
+                           :page  :lodge
+                           :value false}
      :resourceLineage     {:lineage     {:type  nil
                                          :label "Lineage"
                                          :page  :about}

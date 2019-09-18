@@ -10,6 +10,9 @@ class SiteContent(models.Model):
     organisation_url = models.URLField(blank=True, null=True)
     tag_line = models.CharField(max_length=128, default="Data Submission Tool")
     email = models.EmailField(default="imas.datamanager@utas.edu.au")
+    doiUri = models.CharField(max_length=1024,default='https://doi.tern.uq.edu.au/test/index.php?r=api/create&user_id=tern.data@uq.edu.au',
+                              verbose_name="DOI Service URI",
+                              help_text="Base create URI for the DOI minting service")
     homepage_image = ProcessedImageField(
         blank=True,
         null=True,
@@ -17,7 +20,7 @@ class SiteContent(models.Model):
         processors=[ResizeToFill(2048, 1024)],
         format='JPEG',
         options={'quality': 60},
-        help_text="This is the image uses on the homepage.  It needs to " \
+        help_text="This is the image used on the homepage.  It needs to " \
                   "be high res so it looks good and it needs to be fairly dark " \
                   "so that the copy has good contrast and can be easily read. We "
                   "will optimise the size so it's not too heavy.")

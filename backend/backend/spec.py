@@ -135,9 +135,6 @@ def parse_keywords(x):
 def science_keyword_from_uuid(x):
     return KWARGS['science_keyword'].objects.get(UUID=x).as_str()
 
-def keywords_link(x):
-    return "http://metadata.imas.utas.edu.au:/geonetwork/srv/eng/xml.keyword.get?thesaurus=external.theme.sciencekeywords&id=http://gcmdservices.gsfc.nasa.gov/kms/concept/"+ x
-
 def date_as_string(x):
     return datetime.datetime.strptime(x[: 10], '%Y-%m-%d').date().isoformat()
 
@@ -221,6 +218,8 @@ def write_orcid(x):
 def vocab_text(x):
     return x['term']
 
+def geonetwork_url(x):
+    return 'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=x)
 
 SPEC_FUNCTIONS = {
     "massage_version_number": massage_version_number,
@@ -232,7 +231,6 @@ SPEC_FUNCTIONS = {
     "today": today,
     "parse_keywords": parse_keywords,
     "science_keyword_from_uuid": science_keyword_from_uuid,
-    "keywords_link": keywords_link,
     "date_as_string": date_as_string,
     "has_geographic_coverage": has_geographic_coverage,
     "to_string" : to_string,
@@ -251,5 +249,6 @@ SPEC_FUNCTIONS = {
     "parse_codeListValue": parse_codeListValue,
     "vocab_url": vocab_url,
     "vocab_text": vocab_text,
-    "write_orcid": write_orcid
+    "write_orcid": write_orcid,
+    "geonetwork_url": geonetwork_url
 }

@@ -75,37 +75,35 @@ class Command(BaseCommand):
     def _fetch_rolecodes(self):
         """Returns a generator of RoleCode objects, created from the latest
         xml from isotc211."""
-        url = 'https://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml'
+        url = 'https://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml'
         
         # Retrieve file.
         document = urlopen(url)
         tree = etree.parse(document)
         
         # Define namespaces used by various elements
-        base_namespace = "{http://www.isotc211.org/2005/gmx}"
-        gml_namespace = "{http://www.opengis.net/gml/3.2}"
-        
-        role_code_sections = tree.findall("//" + base_namespace + "CodeListDictionary")
+        ns = {'cat': 'http://standards.iso.org/iso/19115/-3/cat/1.0',
+              'gco': 'http://standards.iso.org/iso/19115/-3/gco/1.0'}
+
+        role_code_sections = tree.findall("//{" + ns['cat'] + "}CT_Codelist", ns)
         
         # Find correct section
         correct_section = None
         for section in role_code_sections:
-            if section.attrib[gml_namespace + "id"] == "CI_RoleCode":
+            print(section.attrib["id"])
+            if section.attrib["id"] == "CI_RoleCode":
                 correct_section = section
-        
-        
+
         if correct_section is not None:
-            for child in correct_section:
-                if child.tag == base_namespace + "codeEntry":
-                    
-                    inner = child.find("" + base_namespace + "CodeDefinition")
-                    desc = inner.find("" + gml_namespace + "description").text
-                    identifier = inner.find("" + gml_namespace + "identifier").text
-                    
-                    yield RoleCode(Identifier=identifier,
-                                   Description=desc)
+            for child in correct_section.findall('cat:codeEntry', ns):
+                inner = child.find("cat:CT_CodelistValue", ns)
+                desc = inner.find("cat:description", ns).find("gco:CharacterString", ns).text
+                identifier = inner.find("cat:identifier", ns).find("gco:ScopedName", ns).text
+
+                yield RoleCode(Identifier=identifier,
+                               Description=desc)
         else:
-            raise CommandError('Could not read xml file - no CodeListDectionary element with id "CI_RoleCode"')
+            raise CommandError('Could not read xml file - no CodeListDictionary element with id "CI_RoleCode"')
 
 
 

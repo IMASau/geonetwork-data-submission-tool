@@ -18,8 +18,8 @@
          :required false
          :page :who}
    :familyName            {:type        nil
-                           :label       "Family name"
-                           :placeholder "Family name"
+                           :label       "Surname"
+                           :placeholder "Surname"
                            :required    true
                            :page        :who}
    :givenName             {:type        nil

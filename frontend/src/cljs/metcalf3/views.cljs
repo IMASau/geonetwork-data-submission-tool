@@ -1652,11 +1652,11 @@
 
       [:div.row
        [:div.col-md-6
-        [InputWidget (assoc familyName
-                       :on-change #(rf/dispatch [:handlers/person-detail-changed party-value-path :familyName % isUserAdded]))]]
-       [:div.col-md-6
         [InputWidget (assoc givenName
-                       :on-change #(rf/dispatch [:handlers/person-detail-changed party-value-path :givenName % isUserAdded]))]]]
+                       :on-change #(rf/dispatch [:handlers/person-detail-changed party-value-path :givenName % isUserAdded]))]]
+       [:div.col-md-6
+        [InputWidget (assoc familyName
+                       :on-change #(rf/dispatch [:handlers/person-detail-changed party-value-path :familyName % isUserAdded]))]]]
 
       [InputWidget (assoc electronicMailAddress
                      :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :electronicMailAddress) %]))]

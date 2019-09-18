@@ -1271,7 +1271,7 @@
                [:div.text-center.dropzone {:on-click #(.click (js/document.getElementById file-id))}
                 [:h3
                  (or (and file (.-name file)) placeholder
-                     "Drop file here or click to upload")]
+                     "Drop file here or click here to upload")]
                 [:span.help-block "Maximum file size 100 MB"]]
                [:input
                 {:id        file-id
@@ -1335,7 +1335,7 @@
                     [:button.btn.btn-primary
                      {:on-click #(upload! this upload-form file reset-file-drop)
                       :disabled (or uploading (not file))}
-                     "Upload"]])])))]
+                     "Confirm Upload"]])])))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))

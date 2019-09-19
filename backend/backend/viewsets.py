@@ -73,7 +73,7 @@ class ParameterNameNodeFilter(django_filters.FilterSet):
 
 
 class ParameterNameViewSet(viewsets.ModelViewSet):
-    queryset = models.ParameterName.objects.all()
+    queryset = models.ParameterName.objects.all().order_by('Name')
     serializer_class = serializers.ParameterNameSerializer
     filter_backends = (filters.SearchFilter, DjangoFilterBackend, ParentFilter)
     filter_class = ParameterNameNodeFilter
@@ -92,7 +92,7 @@ class ParameterUnitNodeFilter(django_filters.FilterSet):
 
 
 class ParameterUnitViewSet(viewsets.ModelViewSet):
-    queryset = models.ParameterUnit.objects.all()
+    queryset = models.ParameterUnit.objects.all().order_by('Name')
     serializer_class = serializers.ParameterUnitSerializer
     filter_backends = (filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter, ParentFilter)
     filter_class = ParameterUnitNodeFilter
@@ -110,7 +110,7 @@ class ParameterInstrumentNodeFilter(django_filters.FilterSet):
 
 
 class ParameterInstrumentViewSet(viewsets.ModelViewSet):
-    queryset = models.ParameterInstrument.objects.all()
+    queryset = models.ParameterInstrument.objects.all().order_by('Name')
     serializer_class = serializers.ParameterInstrumentSerializer
     filter_backends = (filters.SearchFilter, DjangoFilterBackend, ParentFilter)
     filter_class = ParameterInstrumentNodeFilter
@@ -127,8 +127,9 @@ class ParameterPlatformNodeFilter(django_filters.FilterSet):
 
 
 class ParameterPlatformViewSet(viewsets.ModelViewSet):
-    queryset = models.ParameterPlatform.objects.all()
+    queryset = models.ParameterPlatform.objects.all().order_by('Name')
     serializer_class = serializers.ParameterPlatformSerializer
     filter_backends = (filters.SearchFilter, DjangoFilterBackend, ParentFilter)
     filter_class = ParameterPlatformNodeFilter
+    ordering_fields = ['Name']
     search_fields = ('Name', 'Definition')

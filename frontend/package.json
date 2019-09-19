@@ -8,7 +8,7 @@
     "@blueprintjs/datetime": "^3.9.0",
     "@blueprintjs/select": "^3.8.0",
     "@blueprintjs/table": "^3.5.0",
-    "fixed-data-table-2": "^0.8.26",
+    "fixed-data-table-2": "0.8.26",
     "leaflet": "^1.5.1",
     "moment": "^2.24.0",
     "react": "^16.8.6",

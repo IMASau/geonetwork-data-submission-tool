@@ -48,6 +48,14 @@ class ScienceKeywordViewSet(viewsets.ModelViewSet):
                      'VariableLevel2', 'VariableLevel3', 'DetailedVariable')
 
 
+class AnzsrcKeywordViewSet(viewsets.ModelViewSet):
+    queryset = models.AnzsrcKeyword.objects.all()
+    serializer_class = serializers.AnzsrcKeywordSerializer
+
+    search_fields = ('Category', 'Topic', 'Term', 'VariableLevel1',
+                     'VariableLevel2', 'VariableLevel3', 'DetailedVariable')
+
+
 class RoleCodeViewSet(viewsets.ModelViewSet):
     queryset = models.RoleCode.objects.all()
     serializer_class = serializers.RoleCodeSerializer

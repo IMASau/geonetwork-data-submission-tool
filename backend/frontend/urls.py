@@ -9,6 +9,7 @@ from frontend.views import *
 router = routers.DefaultRouter()
 router.register(r'institution', viewsets.InstitutionViewSet)
 router.register(r'sciencekeyword', viewsets.ScienceKeywordViewSet)
+router.register(r'anzsrckeyword', viewsets.AnzsrcKeywordViewSet)
 router.register(r'rolecode', viewsets.RoleCodeViewSet)
 router.register(r'parametername', viewsets.ParameterNameViewSet)
 router.register(r'parameterunit', viewsets.ParameterUnitViewSet)

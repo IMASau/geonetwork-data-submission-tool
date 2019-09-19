@@ -28,6 +28,10 @@ class ScienceKeywordSerializer(serializers.ModelSerializer):
         model = models.ScienceKeyword
         fields = '__all__'
 
+class AnzsrcKeywordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.AnzsrcKeyword
+        fields = '__all__'
 
 class RoleCodeSerializer(serializers.ModelSerializer):
     class Meta:

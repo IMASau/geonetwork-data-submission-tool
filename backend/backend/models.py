@@ -529,6 +529,27 @@ class ScienceKeyword(models.Model):
                     'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
                     'DetailedVariable']
 
+class AnzsrcKeyword(models.Model):
+    UUID = models.CharField(max_length=256,primary_key=True,default='', editable=False,verbose_name="URL")
+    Category = models.CharField(max_length=128)
+    Topic = models.CharField(max_length=128)
+    Term = models.CharField(max_length=128)
+    VariableLevel1 = models.CharField(max_length=128)
+    VariableLevel2 = models.CharField(max_length=128)
+    VariableLevel3 = models.CharField(max_length=128)
+    DetailedVariable = models.CharField(max_length=128)
+
+    def as_str(self):
+        return ' | '.join(filter(
+            lambda x: x,
+            [self.Category, self.Topic, self.Term,
+             self.VariableLevel1, self.VariableLevel2, self.VariableLevel3, self.DetailedVariable]))
+
+    class Meta:
+        ordering = ['Category', 'Topic', 'Term',
+                    'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
+                    'DetailedVariable']
+
 
 class RoleCode(models.Model):
     UUID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

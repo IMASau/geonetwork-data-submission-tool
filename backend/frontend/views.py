@@ -27,7 +27,7 @@ from rest_framework.views import APIView
 from tempfile import TemporaryFile
 from zipfile import ZipFile, ZipInfo
 
-from backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, MetadataTemplate, TopicCategory, Person
+from backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, AnzsrcKeyword, MetadataTemplate, TopicCategory, Person
 from backend.spec import *
 from backend.utils import to_json, get_exception_message
 from backend.xmlutils import extract_fields, data_to_xml
@@ -40,9 +40,16 @@ def theme_keywords():
     return ScienceKeyword.objects.all().exclude(Topic="").values_list(
         'UUID', 'Topic', 'Term', 'VariableLevel1', 'VariableLevel2', 'VariableLevel3')
 
+
+def anzsrc_keywords():
+    return AnzsrcKeyword.objects.all().exclude(Topic="").values_list(
+        'UUID', 'Topic', 'Term', 'VariableLevel1', 'VariableLevel2', 'VariableLevel3')
+
+
 def topic_categories():
     return TopicCategory.objects.all().values_list(
         'identifier', 'name')
+
 
 def master_urls():
     return {
@@ -430,7 +437,7 @@ def edit(request, uuid):
         "data": data,
         "attachments": AttachmentSerializer(doc.attachments.all(), many=True).data,
         "theme": {"keywordsTheme": {"table": theme_keywords()},
-                  "keywordsThemeAnzsrc": {"table": theme_keywords()}},
+                  "keywordsThemeAnzsrc": {"table": anzsrc_keywords()}},
         "topicCategories": {"table": topic_categories()},
         # "institutions": [inst.to_dict() for inst in Institution.objects.all()],
         "page": {"name": request.resolver_match.url_name}

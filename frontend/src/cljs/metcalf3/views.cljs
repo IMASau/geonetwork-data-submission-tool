@@ -945,8 +945,9 @@
                     (ReactSelect
                       {:value             #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)}
                        :options           selectable-options
+                       :is-searchable     true
                        :getOptionValue    (fn [option]
-                                            (gobj/get option "vocabularyTermURL"))
+                                            (gobj/get option "term"))
                        :formatOptionLabel (fn [props]
                                             (r/as-element (api-option-renderer options props)))
                        :onChange          (fn [option]
@@ -957,8 +958,9 @@
                     (ReactSelect
                       {:value             "(new term)"
                        :options           (conj selectable-options other-option)
+                       :is-searchable     true
                        :getOptionValue    (fn [option]
-                                            (gobj/get option "vocabularyTermURL"))
+                                            (gobj/get option "term"))
                        :formatOptionLabel (fn [props]
                                             (r/as-element (api-option-renderer options props)))
                        :onChange          (fn [option]

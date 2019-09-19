@@ -14,11 +14,6 @@ python manage.py runserver
 
 Additional steps when setting up locally:
 
-### Load fixtures
-```
-python manage.py loaddata backend\fixtures\sciencekeywords.json
-```
-
 ### Load external sources
 ```
 python manage.py load_parameterunits
@@ -30,6 +25,7 @@ python manage.py load_persons
 python manage.py load_rolecodes
 python manage.py load_samplingfrequencies
 python manage.py load_topiccategories
+python manage.py load_sciencekeywords
 ```
 
 ---

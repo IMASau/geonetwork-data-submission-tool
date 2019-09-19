@@ -2,6 +2,7 @@
   (:require cljsjs.react-select
             cljsjs.react-virtualized
             [goog.object :as gobj]
+            [cljs.spec.alpha :as s]
             [clojure.string :as string]
             [metcalf3.utils :as utils]
             [reagent.core :as r]))
@@ -32,61 +33,48 @@
 (defn VirtualScroll [props]
   (VirtualScroll* (normalize-props props)))
 
-(defn render-menu [this raw-args]
-  (let [{:keys [focusedOption focusOption labelKey options selectValue valueArray]} (utils/js-lookup raw-args)
-        {:keys [maxHeight optionHeight optionRenderer]} (r/props this)
-        focusedOptionIndex (.indexOf options focusedOption)
-        n-options (count options)
-        height (js/Math.min maxHeight (* optionHeight n-options))
+(defn VirtualizedSelect [props]
+  (let [{:keys [value options getOptionValue onChange placeholder formatOptionLabel]} props]
 
-        default-option-renderer
-        (fn [{:keys [focusedOption focusOption labelKey option selectValue]}]
-          (let [{:keys [optionHeight]} (r/props this)
-                className (if (identical? option focusedOption)
-                            "VirtualizedSelectOption VirtualizedSelectFocusedOption"
-                            "VirtualizedSelectOption")]
-            (r/as-element [:div {:class         className
-                                 :on-click      #(selectValue option)
-                                 :on-mouse-over #(focusOption option)
-                                 :style         {:height optionHeight}}
-                           (aget option labelKey)])))
+    (s/assert array? options)
+    (s/assert ifn? onChange)
+    (s/assert ifn? formatOptionLabel)
+    (s/assert string? placeholder)
 
-        innerRowRenderer (or optionRenderer default-option-renderer)
-
-        wrapped-row-renderer
-        (fn [args]
-          (let [idx (aget args "index")
-                option (aget options idx)]
-            (innerRowRenderer
-              (utils/js-lookup! #js {:focusedOption      focusedOption
-                                     :focusedOptionIndex focusedOptionIndex
-                                     :focusOption        focusOption
-                                     :labelKey           labelKey
-                                     :option             option
-                                     :options            options
-                                     :optionHeight       optionHeight
-                                     :selectValue        selectValue
-                                     :valueArray         valueArray}))))]
-
-    (AutoSizer
-      {:disableHeight true
-       :children      (fn [args]
-                        (let [{:keys [width]} (utils/js-lookup args)]
-                          (VirtualScroll {:className        "VirtualSelectGrid"
-                                          :height           height
-                                          :overscanRowCount 0
-                                          :rowCount         n-options
-                                          :rowHeight        optionHeight
-                                          :rowRenderer      wrapped-row-renderer
-                                          :scrollToIndex    focusedOptionIndex
-                                          :width            width})))})))
-
-(defn VirtualizedSelect [props this]
-  (ReactSelect (merge {:clearable    true
-                       :searchable   true
-                       :menuRenderer #(render-menu this %)
-                       :menuStyle    #js {:overflow "hidden"}}
-                      props)))
+    (ReactSelect*
+      #js {:value            value
+           :options          options
+           :clearable        true
+           :searchable       true
+           :onChange         onChange
+           :placeholder      placeholder
+           :styles           #js {:menuPortal (fn [base] (doto (gobj/clone base)
+                                                           (gobj/set "zIndex" 9999)))}
+           :menuPortalTarget js/document.body
+           :components       #js {:Option   (fn [props]
+                                              (let [data (gobj/get props "data")
+                                                    props' (doto (gobj/clone props)
+                                                             (gobj/set "children" #js [(formatOptionLabel data)]))]
+                                                (SelectComponents.Option* props')))
+                                  :MenuList (fn [this]
+                                              (let [children (gobj/get this "children")
+                                                    options (gobj/get this "options")
+                                                    maxHeight (gobj/get this "maxHeight")
+                                                    getValue (gobj/get this "getValue")
+                                                    itemCount (.-length children)
+                                                    value (getValue)
+                                                    height 40
+                                                    initialOffset (* height (.indexOf options value))]
+                                                (ReactWindow*
+                                                  #js {:children            (fn [props]
+                                                                              (let [index (gobj/get props "index")
+                                                                                    style (gobj/get props "style")
+                                                                                    child (aget children index)]
+                                                                                (r/as-element [:div {:style style} child])))
+                                                       :height              maxHeight
+                                                       :itemSize            height
+                                                       :itemCount           itemCount
+                                                       :initialScrollOffset initialOffset})))}})))
 
 ;the actual virtualized implementation. Missing select and hover (kind of important)
 (comment (defn VirtualizedSelect [{:keys [props list-props children-renderer] :as args} this]

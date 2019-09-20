@@ -112,11 +112,11 @@
                            :many   true
                            :value  []
                            :fields {:name {:type  nil
-                                                  :page  :about
-                                                  :label "Title"}
-                                    :url         {:type  nil
-                                                  :page  :about
-                                                  :label "URL"}}}
+                                           :page  :about
+                                           :label "Title"}
+                                    :url  {:type  nil
+                                           :page  :about
+                                           :label "URL"}}}
      :dataQualityInfo     {:methods {:type  nil
                                      :rows  20
                                      :label "Data Quality Methods"
@@ -185,7 +185,7 @@
                                                                       :placeholder "Search for keywords"
                                                                       :required    true
                                                                       :page        :what}}
-                           :keywordsThemeAnzsrc                 {:keywords {:type        nil
+                           :keywordsThemeAnzsrc           {:keywords {:type        nil
                                                                       :label       "Research theme keywords, ANZSRC Fields of Research"
                                                                       :help        "Select up to 12 research theme keywords describing your data"
                                                                       :placeholder "Search for keywords"
@@ -210,18 +210,11 @@
                                                            :label    "End date"
                                                            :required true
                                                            :page     :when}
-                           :samplingFrequency             {:type    nil
-                                                           :label   "Sampling frequency"
-                                                           :options [["daily" "Daily"]
-                                                                     ["weekly" "Weekly"]
-                                                                     ["monthly" "Monthly"]
-                                                                     ["quarterly" "Quarterly"]
-                                                                     ["annually" "Annually"]
-                                                                     ["ongoing" "Ongoing"]
-                                                                     ["asNeeded" "As required"]
-                                                                     ["irregular" "Irregular"]
-                                                                     ["none-planned" "None planned"]]
-                                                           :page    :when}
+                           :samplingFrequency             {:label "Sampling frequency"
+                                                           :uri  {:type  nil
+                                                                  :page  :when}
+                                                           :prefLabel  {:type  nil
+                                                                        :page  :when}}
                            :geographicElement             {:hasGeographicCoverage {:type  nil
                                                                                    :label "Does data have a geographic coverage?"
                                                                                    :page  :where
@@ -285,12 +278,12 @@
                                                            :type   nil
                                                            :many   true
                                                            :page   :about
-                                                           :fields {:longName     {:term              {:type     nil
-                                                                                                       :page     :about
-                                                                                                       :label    "Name"
-                                                                                                       :help "Name of the measured parameter e.g. Vegetation height"
+                                                           :fields {:longName     {:term              {:type        nil
+                                                                                                       :page        :about
+                                                                                                       :label       "Name"
+                                                                                                       :help        "Name of the measured parameter e.g. Vegetation height"
                                                                                                        :placeholder "Start typing to filter the list"
-                                                                                                       :required true}
+                                                                                                       :required    true}
                                                                                    :vocabularyTermURL {:type nil
                                                                                                        :page :about}
                                                                                    :vocabularyVersion {:type nil
@@ -305,31 +298,31 @@
                                                                                    :label       "Serial Number"
                                                                                    :placeholder ""
                                                                                    :page        :about}
-                                                                    :unit         {:term              {:type nil :label "Unit" :required true
-                                                                                                       :page :about
+                                                                    :unit         {:term              {:type        nil :label "Unit" :required true
+                                                                                                       :page        :about
                                                                                                        :placeholder "Start typing to filter the list"
-                                                                                                       :help "Unit of measurement"}
+                                                                                                       :help        "Unit of measurement"}
                                                                                    :vocabularyTermURL {:type nil
                                                                                                        :page :about}
                                                                                    :vocabularyVersion {:type nil
                                                                                                        :page :about}
                                                                                    :termDefinition    {:type nil
                                                                                                        :page :about}}
-                                                                    :instrument   {:term              {:type  nil
-                                                                                                       :label "Instrument"
+                                                                    :instrument   {:term              {:type        nil
+                                                                                                       :label       "Instrument"
                                                                                                        :placeholder "Start typing to filter the list"
-                                                                                                       :help "Sensor used to measure the parameter"}
+                                                                                                       :help        "Sensor used to measure the parameter"}
                                                                                    :vocabularyTermURL {:type nil
                                                                                                        :page :about}
                                                                                    :vocabularyVersion {:type nil
                                                                                                        :page :about}
                                                                                    :termDefinition    {:type nil
                                                                                                        :page :about}}
-                                                                    :platform     {:term              {:type  nil
-                                                                                                       :label "Platform"
+                                                                    :platform     {:term              {:type        nil
+                                                                                                       :label       "Platform"
                                                                                                        :placeholder "Start typing to filter the list"
-                                                                                                       :help "Is the data measured from land, air, satellite or a model?"
-                                                                                                       :page  :about}
+                                                                                                       :help        "Is the data measured from land, air, satellite or a model?"
+                                                                                                       :page        :about}
                                                                                    :vocabularyTermURL {:type nil
                                                                                                        :page :about}
                                                                                    :vocabularyVersion {:type nil
@@ -340,10 +333,10 @@
                                                            :label "Use limitations"
                                                            :many  true
                                                            :page  :about}
-                           :supplementalInformation       {:type   nil
-                                                           :page   :about
-                                                           :label  "Publications associated with dataset"
-                                                           :many   true}
+                           :supplementalInformation       {:type  nil
+                                                           :page  :about
+                                                           :label "Publications associated with dataset"
+                                                           :many  true}
                            :citedResponsibleParty         {:type   nil
                                                            :many   true
                                                            :fields responsible-party-defaults
@@ -370,7 +363,7 @@
                            :label "I have read and agree to the terms and conditions"
                            :page  :lodge
                            :value false}
-     :doiRequested       {:type  nil
+     :doiRequested        {:type  nil
                            :label "Please mint a DOI for this submission"
                            :page  :lodge
                            :value false}

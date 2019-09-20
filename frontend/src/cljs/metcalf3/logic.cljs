@@ -505,6 +505,7 @@
                      :parameterinstrument {:uri (str URL_ROOT "/api/parameterinstrument.json") :options nil}
                      :parameterplatform   {:uri (str URL_ROOT "/api/parameterplatform.json") :options nil}
                      :rolecode            {:uri (str URL_ROOT "/api/rolecode.json") :options nil}
+                     :samplingfrequency            {:uri (str URL_ROOT "/api/samplingfrequency.json") :options nil}
                      :person              {:uri (str URL_ROOT "/api/person.json") :options nil}
                      :institution         {:uri (str URL_ROOT "/api/institution.json") :options nil}
                      :topiccategory       {:uri (str URL_ROOT "/api/topiccategory.json") :options nil}})

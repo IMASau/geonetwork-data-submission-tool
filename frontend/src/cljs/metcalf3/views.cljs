@@ -918,9 +918,66 @@
    [:div.topic-path (string/join " > " (map #(aget % "term") (term-option-path options option)))]
    [:div.topic-value (aget option "term")]])
 
+(defn sampling-frequency-renderer [options option]
+  (aget option "prefLabel"))
+
 (defn other-term?
   [{:keys [term vocabularyTermURL] :as dp-term}]
   (and (:value term) (empty? (:value vocabularyTermURL))))
+
+(defn SamplingFrequencySelectField
+  [_ this]
+  (letfn [(will-mount [this]
+            (let [{:keys [api-path] :as props} (r/props this)]
+              (rf/dispatch [:handlers/load-api-options api-path])))
+          (render [this]
+            (let [{:keys [api-path path]} (r/props this)
+                  path (conj path :samplingFrequency)
+                  value-path (conj path :value 0 :value)
+                  {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])
+                  {:keys [prefLabel uri ] :as freq} @(rf/subscribe [:subs/get-derived-path value-path])
+                  samplingFrequency @(rf/subscribe [:subs/get-derived-path path])
+                  {:keys [label help required errors show-errors]} samplingFrequency
+                  other-option #js {:uri "(new term)" :prefLabel (str (:value prefLabel))}
+                  new-term? (other-term? freq)]
+              [:div
+               (if new-term? [:span.pull-right.new-term.text-primary
+                              [:span.glyphicon.glyphicon-asterisk]
+                              " New term"])
+               (if label [:label label (if required " *")])
+               [:div.flex-row
+                [:div.flex-row-field
+                 [:div.form-group {:class (if (and show-errors (not (empty? errors))) "has-error")}
+                  (if-not new-term?
+                    (ReactSelect
+                      {:value             #js {:uri (:value uri) :prefLabel (:value prefLabel)}
+                       :options           options
+                       :is-searchable     true
+                       :getOptionValue    (fn [option]
+                                            (gobj/get option "prefLabel"))
+                       :formatOptionLabel (fn [props]
+                                            (r/as-element (sampling-frequency-renderer options props)))
+                       :onChange          (fn [option]
+                                            (rf/dispatch [:handlers/update-sampling-frequency value-path option]))
+                       :noResultsText     "No results found.  Click browse to add a new entry."})
+
+
+                    (ReactSelect
+                      {:value             "(new term)"
+                       :options           (conj options other-option)
+                       :is-searchable     true
+                       :getOptionValue    (fn [option]
+                                            (gobj/get option "term"))
+                       :formatOptionLabel (fn [props]
+                                            (r/as-element (api-option-renderer options props)))
+                       :onChange          (fn [option]
+                                            (when-not (= option other-option)
+                                              (rf/dispatch [:handlers/update-dp-term value-path option])))
+                       :noResultsText     "No results found.  Click browse to add a new entry."}))
+                  [:p.help-block help]]]]]))]
+    (r/create-class
+      {:component-will-mount will-mount
+       :render               render})))
 
 (defn ApiTermSelectField
   [{:keys [param-type api-path dp-term-path]} this]
@@ -1771,7 +1828,9 @@
    [:h2 "3. When"]
    [date-field [:form :fields :identificationInfo :beginPosition]]
    [date-field [:form :fields :identificationInfo :endPosition]]
-   [SelectField [:form :fields :identificationInfo :samplingFrequency]]])
+   [:div.row
+    [:div.col-md-4
+     [SamplingFrequencySelectField {:api-path [:api :samplingfrequency] :path [:form :fields :identificationInfo]}]]]])
 
 (defmethod PageTabView ["Edit" :where]
   [page this]

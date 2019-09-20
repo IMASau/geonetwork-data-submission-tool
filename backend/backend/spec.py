@@ -218,6 +218,12 @@ def write_orcid(x):
 def vocab_text(x):
     return x['term']
 
+def sampling_text(x):
+    return x['prefLabel']
+
+def sampling_uri(x):
+    return x['uri']
+
 def geonetwork_url(x):
     return 'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=x)
 
@@ -249,6 +255,8 @@ SPEC_FUNCTIONS = {
     "parse_codeListValue": parse_codeListValue,
     "vocab_url": vocab_url,
     "vocab_text": vocab_text,
+    "sampling_uri": sampling_uri,
+    "sampling_text": sampling_text,
     "write_orcid": write_orcid,
     "geonetwork_url": geonetwork_url
 }

@@ -420,6 +420,20 @@
                         },
                         "notes": "Theme keywords (selecting from controlled list in thesaurus)"
                     },
+                    "samplingFrequency": {
+                        "xpath": "mri:descriptiveKeywords/mri:MD_Keywords/mri:keyword/gcx:Anchor[@xlink:title=\"GCMDTemporal\"]",
+                        "keep": false,
+                        "many": true,
+                        "container": "mri:descriptiveKeywords[mri:MD_Keywords/mri:keyword/gcx:Anchor[@xlink:title=\"GCMDTemporal\"]]",
+                        "attributes": {
+                            "text": {
+                                "function": "sampling_text"
+                            },
+                            "xlink:href": {
+                                "function": "sampling_uri"
+                            }
+                        }
+                    },
                     "dataParameters": {
                         "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[@uuid=\"Data_Group\"]",
                         "container": "mri:descriptiveKeywords[mri:MD_Keywords[@uuid=\"Data_Group\"]]",
@@ -431,11 +445,6 @@
                             },
                             "unit": {
                                 "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"UOM\"]",
-                                "nodes": {
-                                    "vocabularyTermURL": {
-                                        "xpath": "@xlink:href"
-                                    }
-                                },
                                 "attributes": {
                                     "text": {
                                         "function": "vocab_text"
@@ -447,11 +456,6 @@
                             },
                             "platform": {
                                 "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"Platform\"]",
-                                "nodes": {
-                                    "vocabularyTermURL": {
-                                        "xpath": "@xlink:href"
-                                    }
-                                },
                                 "attributes": {
                                     "text": {
                                         "function": "vocab_text"
@@ -463,11 +467,6 @@
                             },
                             "longName": {
                                 "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"Parameter\"]",
-                                "nodes": {
-                                    "vocabularyTermURL": {
-                                        "xpath": "@xlink:href"
-                                    }
-                                },
                                 "attributes": {
                                     "text": {
                                         "function": "vocab_text"
@@ -479,11 +478,6 @@
                             },
                             "instrument": {
                                 "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"Instrument\"]",
-                                "nodes": {
-                                    "vocabularyTermURL": {
-                                        "xpath": "@xlink:href"
-                                    }
-                                },
                                 "attributes": {
                                     "text": {
                                         "function": "vocab_text"

@@ -14,6 +14,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from rdflib import Graph, URIRef
+from urllib.request import urlopen
+
+from lxml import etree
 
 from backend.models import SamplingFrequency
 
@@ -36,15 +39,20 @@ class Command(BaseCommand):
             with transaction.atomic():
                 SamplingFrequency.objects.all().delete()
 
-                sampling_frequencies = self._fetch_tern_data('ardc-curated_gcmd-temporalresolutionrange')
-                if not sampling_frequencies:
-                    raise CommandError('No TERN sampling frequencies found, assuming error; aborting')
+                src_url = 'https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange?format=xml'
+                sampling_frequencies = []
+                with urlopen(src_url) as f:
+                    tree = etree.parse(f)
+                    freqs = tree.findall('conceptBrief')
+                    for freq in freqs:
+                        isLeaf = freq.attrib['isLeaf']
+                        if isLeaf == 'true':
+                            uuid = freq.attrib['uuid']
+                            uri = 'https://gcmd.nasa.gov/kms/concept/{uuid}.xml'.format(uuid=uuid)
+                            prefLabel = freq.attrib['prefLabel']
+                            prefLabelSortText = freq.attrib.get('prefLabelSortText', prefLabel)
+                            sampling_frequencies.append(SamplingFrequency(uri=uri, prefLabel=prefLabel, prefLabelSortText=prefLabelSortText))
 
-                sampling_frequencies = [i for i in sampling_frequencies]
-
-                for freq in sampling_frequencies:
-                    freq.uri = freq.uri
-                    freq.prefLabel = freq.prefLabel
 
                 SamplingFrequency.objects.bulk_create(sampling_frequencies)
 

@@ -198,6 +198,16 @@
           (update-in dp-term-path assoc-in [:termDefinition :value] termDefinition)))))
 
 (rf/reg-event-db
+  :handlers/update-sampling-frequency
+  ins/std-ins
+  (fn [db [_ path option]]
+    (let [option (if (map? option) option (utils/js-lookup option))
+          {:keys [prefLabel uri]} option]
+      (-> db
+          (update-in path assoc-in [:prefLabel :value] prefLabel)
+          (update-in path assoc-in [:uri :value] uri)))))
+
+(rf/reg-event-db
   :handlers/update-method-term
   ins/std-ins
   (fn [db [_ method-path option]]

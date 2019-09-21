@@ -25,7 +25,6 @@
    [north east]])
 
 (defn geographicElement->bounds [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude] :as bounds}]
-  (js/console.log "DFSDFSDFSDF" {:bounds bounds})
   [[(:value southBoundLatitude) (:value westBoundLongitude)]
    [(:value northBoundLatitude) (:value eastBoundLongitude)]])
 
@@ -115,7 +114,6 @@
                      :westBoundLongitude (apply min lngs)})))))
 
 ; TODO: dispatch on change
-; TODO: reset when props change
 
 (defn box-map2
   [_]
@@ -151,7 +149,8 @@
 
             base-layer
             (into [react-leaflet/feature-group
-                   {:ref #(reset! *fg %)}
+                   {:ref #(reset! *fg %)
+                    :key (str "feature-group" @(rf/subscribe [:subs/get-form-tick]))}
                    [react-leaflet/edit-control
                     {:position   "topright"
                      :draw       {:polyline     false

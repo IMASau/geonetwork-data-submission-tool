@@ -3,7 +3,7 @@
 
 (def log-effects
   (rf/->interceptor
-    :id ::after
+    :id ::log-effects
     :after (fn [ctx]
              (doseq [[k v] (rf/get-effect ctx)
                      :when (not= k :db)]

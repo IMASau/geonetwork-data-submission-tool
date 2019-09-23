@@ -855,8 +855,9 @@
                (when hasGeographicCoverage
                  [:div.row
                   [:div.col-sm-5
-                   [boxmap/box-map
-                    {:map-props {:boxes boxes}
+                   [boxmap/box-map2
+                    {:boxes-path boxes-path
+                     :map-props {:boxes boxes}
                      :ref       (fn [boxmap] (r/set-state this {:boxmap boxmap}))
                      :disabled  disabled}]]
                   [:div.col-sm-7

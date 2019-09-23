@@ -208,6 +208,16 @@
           (update-in path assoc-in [:uri :value] uri)))))
 
 (rf/reg-event-db
+  :handlers/update-boxes
+  ins/std-ins
+  (fn [db [_ boxes-path boxes]]
+    (let [boxes-value-path (conj boxes-path :value)
+          box-values (mapv (fn [box] {:value box}) boxes)
+          db (assoc-in db boxes-value-path box-values)]
+      db)))
+
+
+(rf/reg-event-db
   :handlers/update-method-term
   ins/std-ins
   (fn [db [_ method-path option]]

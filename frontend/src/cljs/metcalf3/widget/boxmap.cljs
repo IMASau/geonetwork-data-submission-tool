@@ -24,6 +24,14 @@
   [[south west]
    [north east]])
 
+(defn geographicElement->point [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude] :as bounds}]
+  [(:value southBoundLatitude) (:value westBoundLongitude)])
+
+(defn geographicElement->point?
+  [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude] :as bounds}]
+  (and (= (:value southBoundLatitude) (:value northBoundLatitude))
+       (= (:value westBoundLongitude) (:value eastBoundLongitude))))
+
 (defn geographicElement->bounds [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude] :as bounds}]
   [[(:value southBoundLatitude) (:value westBoundLongitude)]
    [(:value northBoundLatitude) (:value eastBoundLongitude)]])
@@ -88,9 +96,11 @@
         base-layer]
        (for [box (:value boxes)]
          (when (not (some nil? (map :value (vals (:value box)))))
-           [react-leaflet/rectangle
-            {:bounds (geographicElement->bounds (:value box))}])
-         ))]))
+           (if (geographicElement->point? (:value box))
+             [react-leaflet/marker
+              {:position (geographicElement->point (:value box))}]
+             [react-leaflet/rectangle
+              {:bounds (geographicElement->bounds (:value box))}]))))]))
 
 
 (defn fg->data [fg]
@@ -100,25 +110,25 @@
         geometries (mapv :geometry (:features data))]
     (for [{:keys [type coordinates]} geometries]
       (case type
-        "Point" (let [[lat lng] coordinates]
-                  {:northBoundLatitude lat
-                   :southBoundLatitude lat
-                   :eastBoundLongitude lng
-                   :westBoundLongitude lng})
+        "Point" (let [[lng lat] coordinates]
+                  {:northBoundLatitude {:value lat}
+                   :southBoundLatitude {:value lat}
+                   :eastBoundLongitude {:value lng}
+                   :westBoundLongitude {:value lng}})
         "Polygon" (let [[rect] coordinates
-                        lats (map first rect)
-                        lngs (map second rect)]
-                    {:northBoundLatitude (apply max lats)
-                     :southBoundLatitude (apply min lats)
-                     :eastBoundLongitude (apply max lngs)
-                     :westBoundLongitude (apply min lngs)})))))
+                        lngs (map first rect)
+                        lats (map second rect)]
+                    {:northBoundLatitude {:value (apply max lats)}
+                     :southBoundLatitude {:value (apply min lats)}
+                     :eastBoundLongitude {:value (apply max lngs)}
+                     :westBoundLongitude {:value (apply min lngs)}})))))
 
 ; TODO: dispatch on change
 
 (defn box-map2
   [_]
   (let [*fg (atom nil)]
-    (fn [{:keys [map-props]}]
+    (fn [{:keys [map-props boxes-path]}]
       (let [initial-props map-props
             map-props @(rf/subscribe [:map/props])
             map-props (merge initial-props map-props)
@@ -129,10 +139,13 @@
                          :attribution "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"}]
             initial-elements (for [box (:value boxes)]
                                (when (not (some nil? (map :value (vals (:value box)))))
-                                 [react-leaflet/rectangle
-                                  {:bounds (geographicElement->bounds (:value box))}]))]
+                                 (if (geographicElement->point? (:value box))
+                                   [react-leaflet/marker
+                                    {:position (geographicElement->point (:value box))}]
+                                   [react-leaflet/rectangle
+                                    {:bounds (geographicElement->bounds (:value box))}])))]
         (letfn [(handle-change []
-                  (js/console.log ::new-boxes (fg->data @*fg)))]
+                  (rf/dispatch [:handlers/update-boxes boxes-path (fg->data @*fg)]))]
 
           [:div.map-wrapper
            [react-leaflet/map (merge

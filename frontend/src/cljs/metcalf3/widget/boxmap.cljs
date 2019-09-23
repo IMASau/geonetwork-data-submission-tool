@@ -17,7 +17,7 @@
    :west  (ocall bounds :getWest)})
 
 (defn bounds->geojson [{:keys [north south east west]}]
-  {:type "Polygon"
+  {:type        "Polygon"
    :coordinates [[[west south] [west north] [east north] [east south] [west south]]]})
 
 (defn map->bounds [{:keys [west south east north] :as bounds}]
@@ -25,7 +25,6 @@
    [north east]])
 
 (defn geographicElement->bounds [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude] :as bounds}]
-  (js/console.log "DFSDFSDFSDF" {:bounds bounds})
   [[(:value southBoundLatitude) (:value westBoundLongitude)]
    [(:value northBoundLatitude) (:value eastBoundLongitude)]])
 
@@ -92,6 +91,81 @@
            [react-leaflet/rectangle
             {:bounds (geographicElement->bounds (:value box))}])
          ))]))
+
+
+(defn fg->data [fg]
+  (let [leaflet-element (.-leafletElement fg)
+        geo-json (.toGeoJSON leaflet-element)
+        data (js->clj geo-json :keywordize-keys true)
+        geometries (mapv :geometry (:features data))]
+    (for [{:keys [type coordinates]} geometries]
+      (case type
+        "Point" (let [[lat lng] coordinates]
+                  {:northBoundLatitude lat
+                   :southBoundLatitude lat
+                   :eastBoundLongitude lng
+                   :westBoundLongitude lng})
+        "Polygon" (let [[rect] coordinates
+                        lats (map first rect)
+                        lngs (map second rect)]
+                    {:northBoundLatitude (apply max lats)
+                     :southBoundLatitude (apply min lats)
+                     :eastBoundLongitude (apply max lngs)
+                     :westBoundLongitude (apply min lngs)})))))
+
+; TODO: dispatch on change
+
+(defn box-map2
+  [_]
+  (let [*fg (atom nil)]
+    (fn [{:keys [map-props]}]
+      (let [initial-props map-props
+            map-props @(rf/subscribe [:map/props])
+            map-props (merge initial-props map-props)
+            {:keys [boxes]} map-props
+            extents (boxes->extents boxes)
+            base-layer [react-leaflet/tile-layer
+                        {:url         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                         :attribution "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"}]
+            initial-elements (for [box (:value boxes)]
+                               (when (not (some nil? (map :value (vals (:value box)))))
+                                 [react-leaflet/rectangle
+                                  {:bounds (geographicElement->bounds (:value box))}]))]
+        (letfn [(handle-change []
+                  (js/console.log ::new-boxes (fg->data @*fg)))]
+
+          [:div.map-wrapper
+           [react-leaflet/map (merge
+                                {;:crs                  (gget "L.CRS.EPSG4326")
+                                 :id                   "map"
+                                 :style                {:height "400px" :width "400px"}
+                                 :use-fly-to           true
+                                 :center               [-42 147]
+                                 :zoom                 5
+                                 :keyboard             false ; handled externally
+                                 :close-popup-on-click false ; We'll handle that ourselves
+                                 }
+                                (when (not (some nil? (vals extents))) {:bounds (map->bounds extents)}))
+
+            base-layer
+            (into [react-leaflet/feature-group
+                   {:ref #(reset! *fg %)
+                    :key (str "feature-group" @(rf/subscribe [:subs/get-form-tick]))}
+                   [react-leaflet/edit-control
+                    {:position   "topright"
+                     :draw       {:polyline     false
+                                  :polygon      false
+                                  :rectangle    {}
+                                  :circle       false
+                                  :marker       {}
+                                  :circlemarker false}
+                     :edit       {:edit   {}
+                                  :remove {}
+                                  :poly   {}}
+                     :on-edited  handle-change
+                     :on-deleted handle-change
+                     :on-created handle-change}]]
+                  initial-elements)]])))))
 
 
 

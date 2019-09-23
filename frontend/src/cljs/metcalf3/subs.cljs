@@ -137,8 +137,8 @@
           error-help (when (and show-errors (seq errors))
                        (string/join ". " errors))]
       (js/console.log :textarea-field/get-props.field {:field field
-                                                       :path path
-                                                       :db derived-db})
+                                                       :path  path
+                                                       :db    derived-db})
       {:label      label
        :labelInfo  (when required "*")
        :helperText (or error-help help)
@@ -152,3 +152,7 @@
   :map/props
   (fn [db _] (:map db)))
 
+(rf/reg-sub
+  :subs/get-form-tick
+  (fn [db _]
+    (get db :form/tick 0)))

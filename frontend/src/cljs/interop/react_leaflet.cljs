@@ -11,6 +11,7 @@
 (def circle (r/adapt-react-class js/ReactLeaflet.Circle))
 (def circle-marker (r/adapt-react-class js/ReactLeaflet.CircleMarker))
 (def div-overlay (r/adapt-react-class js/ReactLeaflet.DivOverlay))
+(def edit-control (r/adapt-react-class js/ReactLeaflet.EditControl))
 (def feature-group (r/adapt-react-class js/ReactLeaflet.FeatureGroup))
 (def geo-json (r/adapt-react-class js/ReactLeaflet.GeoJSON))
 (def grid-layer (r/adapt-react-class js/ReactLeaflet.GridLayer))

@@ -476,6 +476,7 @@ class Institution(models.Model):
     prefLabel = models.CharField(max_length=512, default="")
     altLabel = models.CharField(max_length=512, default="")
     exactMatch = models.CharField(max_length=512, default="")
+    isUserAdded = models.BooleanField(default=False,verbose_name="User Added")
 
     # EDMO fields
     # http://seadatanet.maris2.nl/v_edmo/browse_export.asp?order=&step=&count=0

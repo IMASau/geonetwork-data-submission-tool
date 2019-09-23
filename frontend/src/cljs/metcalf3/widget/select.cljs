@@ -12,6 +12,8 @@
 (def SelectComponents.Option* (js/React.createFactory js/SelectComponents.Option))
 (def SelectComponents.ValueContainer* (js/React.createFactory js/SelectComponents.ValueContainer))
 (def ReactSelectAsync* (js/React.createFactory js/AsyncSelect))
+(def ReactSelectCreatable* (js/React.createFactory js/Creatable))
+(def ReactSelectAsyncCreatable* (js/React.createFactory js/AsyncCreatable))
 (def AutoSizer* (js/React.createFactory js/ReactVirtualized.AutoSizer))
 (def VirtualScroll* (js/React.createFactory js/ReactVirtualized.VirtualScroll))
 
@@ -23,6 +25,12 @@
 
 (defn ReactSelect [props]
   (ReactSelect* (normalize-props props)))
+
+(defn ReactSelectCreatable [props]
+  (ReactSelectCreatable* (normalize-props props)))
+
+(defn ReactSelectAsyncCreatable [props]
+  (ReactSelectAsyncCreatable* (normalize-props props)))
 
 (defn ReactSelectAsync [props]
   (ReactSelectAsync* (normalize-props props)))

@@ -27,7 +27,8 @@ from rest_framework.views import APIView
 from tempfile import TemporaryFile
 from zipfile import ZipFile, ZipInfo
 
-from backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, AnzsrcKeyword, MetadataTemplate, TopicCategory, Person
+from backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
+    AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from backend.spec import *
 from backend.utils import to_json, get_exception_message
 from backend.xmlutils import extract_fields, data_to_xml
@@ -334,6 +335,22 @@ def personFromData(data):
                                          isUserAdded=True)
             inst.save()
 
+def institutionFromData(data):
+    orgUri = data['organisationIdentifier']
+    if orgUri:
+        try:
+            matchingOrg = Institution.objects.get(uri=orgUri)
+            if matchingOrg.isUserAdded:
+                matchingOrg.prefLabel = data['organisationName']
+                matchingOrg.organisationName = data['organisationName']
+        except Institution.DoesNotExist:
+            inst = Institution.objects.create(uri=orgUri,
+                                              prefLabel=data['organisationName'],
+                                              altLabel=data['organisationName'],
+                                              organisationName=data['organisationName'],
+                                              isUserAdded=True)
+            inst.save()
+
 @login_required
 @api_view(['POST'])
 def save(request, uuid):
@@ -356,15 +373,17 @@ def save(request, uuid):
         inst.doiRequested = data['doiRequested'] or False
         inst.save()
 
-        # add any new people to the database
+        # add any new people or institutions to the database
         pointOfContacts = data['identificationInfo']['pointOfContact']
         citedResponsibleParties = data['identificationInfo']['citedResponsibleParty']
 
         for pointOfContact in pointOfContacts:
             personFromData(pointOfContact)
+            institutionFromData(pointOfContact)
 
         for citedResponsibleParty in citedResponsibleParties:
             personFromData(citedResponsibleParty)
+            institutionFromData(citedResponsibleParty)
 
 
         # Remove any attachments which are no longer mentioned in the XML.

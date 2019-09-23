@@ -15,6 +15,8 @@ import { EditControl } from 'react-leaflet-draw';
 import FixedDataTable2 from 'fixed-data-table-2';
 import Select, { components } from "react-select";
 import AsyncSelect from 'react-select/async';
+import Creatable from 'react-select/creatable';
+import AsyncCreatable from 'react-select/async-creatable';
 
 window.React = React;
 window.ReactDOM = ReactDOM;
@@ -33,3 +35,5 @@ window.FixedDataTable2 = FixedDataTable2;
 window.Select = Select;
 window.SelectComponents = components;
 window.AsyncSelect = AsyncSelect;
+window.Creatable = Creatable;
+window.AsyncCreatable = AsyncCreatable;

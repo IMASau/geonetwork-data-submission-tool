@@ -13,7 +13,7 @@ from frontend.models import SiteContent
 
 
 class InstitutionAdmin(admin.ModelAdmin):
-    list_display = ['prefLabel', 'organisationName', 'deliveryPoint', 'city', 'administrativeArea', 'postalCode',
+    list_display = ['prefLabel', 'organisationName', 'isUserAdded', 'deliveryPoint', 'city', 'administrativeArea', 'postalCode',
                     'country']
     search_fields = ['prefLabel', 'altLabel', 'uri',
                      'organisationName', 'deliveryPoint', 'deliveryPoint2', 'city', 'administrativeArea', 'postalCode',

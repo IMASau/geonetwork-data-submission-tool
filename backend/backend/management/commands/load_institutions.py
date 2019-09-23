@@ -34,23 +34,25 @@ class Command(BaseCommand):
 
         try:
             with transaction.atomic():
-                Institution.objects.all().delete()
+                Institution.objects.all().filter(isUserAdded=False).delete()
 
                 tern_institutions = self._fetch_tern_data('org')
                 if not tern_institutions:
                     raise CommandError('No TERN organisations found, assuming error; aborting')
 
-                tern_institutions = [i for i in tern_institutions]
+                new_institutions = []
 
                 for tern_institution in tern_institutions:
+                    tern_institution.organisationName = tern_institution.altLabel or tern_institution.prefLabel
+                    #if a user added institutions with the same uri exists delete them
+                    try:
+                        inst = Institution.objects.get(uri=tern_institution.uri)
+                        inst.delete()
+                    except Institution.DoesNotExist:
+                        pass
+                    new_institutions.append(tern_institution)
 
-                    tern_institution.organisationName = \
-                        tern_institution.altLabel or tern_institution.prefLabel
-
-                    if not tern_institution.exactMatch:
-                        continue
-
-                Institution.objects.bulk_create(tern_institutions)
+                Institution.objects.bulk_create(new_institutions)
 
                 LogEntry.objects.log_action(
                     user_id=adminpk,
@@ -115,5 +117,6 @@ class Command(BaseCommand):
                 prefLabel=preflabel,
                 altLabel=altLabel,
                 #not present in TERN data
-                exactMatch=''
+                exactMatch='',
+                isUserAdded=False
             )

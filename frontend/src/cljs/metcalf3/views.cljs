@@ -18,7 +18,7 @@
             [oops.core :refer [ocall oget gget]]
             [metcalf3.widget.boxmap :as boxmap]
             [metcalf3.widget.modal :refer [Modal]]
-            [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync VirtualizedSelect SelectComponents.Option* SelectComponents.ValueContainer*]]
+            [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectAsyncCreatable VirtualizedSelect SelectComponents.Option* SelectComponents.ValueContainer*]]
             [metcalf3.widget.table :refer [Table Column Cell]]
             [metcalf3.widget.tree :refer [Tree TermTree TermList]]
             [re-frame.core :as rf]
@@ -1538,26 +1538,26 @@
   [_]
   (letfn [(component-did-mount [this]
             (set-input-value this))
-          (component-will-receive-props [this new-argv]
-            (let [[_ next-props] new-argv
-                  props (r/props this)]
-              (utils/on-change props next-props [:value] #(set-input-value this))))
           (render [this]
-            (let [{:keys [on-input-change on-blur on-change disabled party-path] :as props} (r/props this)
-                  {:keys [input-value]} (r/state this)]
+            (let [{:keys [on-input-change on-blur on-change disabled party-path] :as props} (r/props this)]
               (let [{:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
-                    {:keys [value]} @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationName)])
-                    js-value #js {:organisationName (or value "")}]
-                (ReactSelectAsync
+                    orgId (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationIdentifier)]))
+                    orgName (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationName)]))
+                    js-value #js {:uri (or orgId "")
+                                  :organisationName (or orgName "")}]
+                (ReactSelectAsyncCreatable
                   {:value             js-value
                    :disabled          disabled
                    :defaultOptions    true
                    :getOptionValue    (fn [option]
                                         (gobj/get option "uri"))
                    :formatOptionLabel (fn [props]
-                                        (gobj/get props "organisationName"))
+                                        (let [is-created? (gobj/get props "__isCreated__")]
+                                          (if is-created?
+                                            (str "Create new organisation \"" (gobj/get props "organisationName") "\"")
+                                            (gobj/get props "organisationName"))))
                    :loadOptions       (fn [input callback]
-                                        (ajax/GET (str URL_ROOT  "/api/institution.json")
+                                        (ajax/GET (str URL_ROOT "/api/institution.json")
                                                   {:handler
                                                    (fn [{:strs [results] :as data}]
                                                      (callback (clj->js results)))
@@ -1569,6 +1569,10 @@
                                                     :offset 0
                                                     :limit  100}}))
                    :onChange          #(on-change (js->clj %))
+                   :getNewOptionData  (fn [input]
+                                        #js {:uri              (str "http://linkeddata.tern.org.au/def/agent/" (random-uuid))
+                                             :organisationName input
+                                             :__isCreated__    true})
                    :noResultsText     "No results found"
                    :onBlurResetsInput false
                    :isClearable       true
@@ -1578,7 +1582,6 @@
                    :placeholder       "Start typing to search..."}))))]
     (r/create-class
       {:component-did-mount          component-did-mount
-       :component-will-receive-props component-will-receive-props
        :render                       render})))
 
 (defn PersonPickerWidget

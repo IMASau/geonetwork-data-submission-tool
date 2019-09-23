@@ -18,13 +18,13 @@ from urllib.request import urlopen
 
 from lxml import etree
 
-from backend.models import SamplingFrequency
+from backend.models import HorizontalResolution
 
 
 logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
-    help = 'Refresh sampling frequencies list from online'
+    help = 'Refresh horizontal resolutions list from online'
 
     def add_arguments(self, parser):
         parser.add_argument('--admin-id',
@@ -37,10 +37,10 @@ class Command(BaseCommand):
 
         try:
             with transaction.atomic():
-                SamplingFrequency.objects.all().delete()
+                HorizontalResolution.objects.all().delete()
 
-                src_url = 'https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange?format=xml'
-                sampling_frequencies = []
+                src_url = 'https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange?format=xml'
+                horizontal_resolutions = []
                 with urlopen(src_url) as f:
                     tree = etree.parse(f)
                     freqs = tree.findall('conceptBrief')
@@ -51,18 +51,18 @@ class Command(BaseCommand):
                             uri = 'https://gcmd.nasa.gov/kms/concept/{uuid}.xml'.format(uuid=uuid)
                             prefLabel = freq.attrib['prefLabel']
                             prefLabelSortText = freq.attrib.get('prefLabelSortText', prefLabel)
-                            sampling_frequencies.append(SamplingFrequency(uri=uri, prefLabel=prefLabel, prefLabelSortText=prefLabelSortText))
+                            horizontal_resolutions.append(HorizontalResolution(uri=uri, prefLabel=prefLabel, prefLabelSortText=prefLabelSortText))
 
 
-                SamplingFrequency.objects.bulk_create(sampling_frequencies)
+                HorizontalResolution.objects.bulk_create(horizontal_resolutions)
 
                 LogEntry.objects.log_action(
                     user_id=adminpk,
-                    content_type_id=ContentType.objects.get_for_model(SamplingFrequency).pk,
+                    content_type_id=ContentType.objects.get_for_model(HorizontalResolution).pk,
                     object_id='',  # Hack; this disables the link in the admin log
-                    object_repr=u'Refreshed sampling frequency list - {:%Y-%m-%d %H:%M}'.format(datetime.datetime.utcnow()),
+                    object_repr=u'Refreshed horizontal resolution list - {:%Y-%m-%d %H:%M}'.format(datetime.datetime.utcnow()),
                     action_flag=CHANGE)
-            logger.info("Finished loading {} sampling frequencies".format(SamplingFrequency.objects.count()))
+            logger.info("Finished loading {} horizontal resolutions".format(HorizontalResolution.objects.count()))
         except:
             import traceback
             logger.error(traceback.format_exc())

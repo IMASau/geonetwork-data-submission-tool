@@ -497,8 +497,15 @@
             </cit:CI_Responsibility>
          </mri:pointOfContact>
          <mri:spatialResolution>
+            
             <mri:MD_Resolution>
-               <mri:distance/>
+           
+               <mri:levelOfDetail>                              
+                  <gcx:Anchor xlink:title="GCMD_Horizontal" xlink:role="uri" xlink:type="simple"
+                     xlink:href="https://gcmd.nasa.gov/kms/concept/abf43d91-a65d-4b3b-a6dd-593e211b2c7b.xml"
+                  xlink:show="new">1 meter - &lt; 30 meters</gcx:Anchor>
+               </mri:levelOfDetail>
+
             </mri:MD_Resolution>
          </mri:spatialResolution>
          <mri:topicCategory>
@@ -506,7 +513,10 @@
          </mri:topicCategory>
          <mri:topicCategory/>
          <mri:extent>
-            <gex:EX_Extent>             
+            <gex:EX_Extent>
+               <gex:description>
+                  <gco:CharacterString></gco:CharacterString>
+               </gex:description>
                <gex:geographicElement>
                   <gex:EX_GeographicBoundingBox>
                      <gex:westBoundLongitude>

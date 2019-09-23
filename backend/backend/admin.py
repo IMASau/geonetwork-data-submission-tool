@@ -42,13 +42,20 @@ class PersonAdmin(admin.ModelAdmin):
         else:
             return org.organisationName
 
+
 class SamplingFrequencyAdmin(admin.ModelAdmin):
     list_display = ['prefLabel']
     search_fields = ['prefLabel']
 
+class HorizontalResolutionAdmin(admin.ModelAdmin):
+    list_display = ['prefLabel']
+    search_fields = ['prefLabel']
+
+
 class TopicCategoryAdmin(admin.ModelAdmin):
     list_display = ['identifier']
     search_fields = ['identifier']
+
 
 class DraftMetadataAdmin(admin.ModelAdmin):
     list_display = ['time', 'user', 'document']
@@ -231,4 +238,5 @@ admin.site.register(models.ParameterPlatform, ParameterPlatformAdmin)
 admin.site.register(models.RoleCode, RoleCodeAdmin)
 admin.site.register(models.Person, PersonAdmin)
 admin.site.register(models.SamplingFrequency, SamplingFrequencyAdmin)
+admin.site.register(models.HorizontalResolution, HorizontalResolutionAdmin)
 admin.site.register(models.TopicCategory, TopicCategoryAdmin)

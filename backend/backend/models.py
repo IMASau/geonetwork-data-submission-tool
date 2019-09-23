@@ -687,10 +687,18 @@ class ParameterPlatform(ns_tree.NS_Node):
     def termDefinition(self):
         return self.Definition
 
+
 class SamplingFrequency(models.Model):
     uri = models.CharField(primary_key=True,max_length=512, default="")
     prefLabel = models.CharField(max_length=256)
     prefLabelSortText = models.CharField(max_length=256, default="")
+
+
+class HorizontalResolution(models.Model):
+    uri = models.CharField(primary_key=True,max_length=512, default="")
+    prefLabel = models.CharField(max_length=256)
+    prefLabelSortText = models.CharField(max_length=256, default="")
+
 
 class TopicCategory(models.Model):
     identifier = models.CharField(primary_key=True,max_length=256)

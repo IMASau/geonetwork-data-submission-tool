@@ -245,7 +245,7 @@
 
 (defn textarea-field
   [path]
-  (let [{:keys [label labelInfo helperText value disabled change-v intent]} @(rf/subscribe [:textarea-field/get-props path])]
+  (let [{:keys [label labelInfo helperText value disabled change-v intent placeholder]} @(rf/subscribe [:textarea-field/get-props path])]
     [bp3/form-group
      {:label      label
       :labelInfo  labelInfo
@@ -255,6 +255,7 @@
       {:growVertically true
        :onValueChange  #(rf/dispatch (conj change-v %))
        :disabled       disabled
+       :placeholder    placeholder
        :value          value
        :fill           true
        :intent         intent}]]))
@@ -853,32 +854,34 @@
                [:h4 "Geographic Coverage"]
                (when hasGeographicCoverage
                  [:div.row
-                  [:div.col-sm-6
+                  [:div.col-sm-5
                    [boxmap/box-map
                     {:map-props {:boxes boxes}
                      :ref       (fn [boxmap] (r/set-state this {:boxmap boxmap}))
                      :disabled  disabled}]]
-                  [:div.col-sm-6
-                   [TableModalEdit {:ths           ["North limit" "West limit" "South limit" "East limit"]
-                                    :tds-fn        (fn [geographicElement]
-                                                     (let [{:keys [northBoundLatitude westBoundLongitude
-                                                                   eastBoundLongitude southBoundLatitude]}
-                                                           (:value geographicElement)]
-                                                       [(print-nice (:value northBoundLatitude))
-                                                        (print-nice (:value westBoundLongitude))
-                                                        (print-nice (:value southBoundLatitude))
-                                                        (print-nice (:value eastBoundLongitude))]))
-                                    :default-field (-> (logic/new-value-field boxes)
-                                                       (update-in [:value :northBoundLatitude] merge (:northBoundLatitude 0))
-                                                       (update-in [:value :southBoundLatitude] merge (:southBoundLatitude 0))
-                                                       (update-in [:value :eastBoundLongitude] merge (:eastBoundLongitude 0))
-                                                       (update-in [:value :westBoundLongitude] merge (:westBoundLongitude 0)))
-                                    :form          CoordField
-                                    :title         "Geographic Coordinates"
-                                    :on-new-click  nil
-                                    :field-path    boxes-path
-                                    :placeholder   [:span "Please input in decimal degrees in coordinate reference system WGS84. A converter is available here: "
-                                                    [:a {:href "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp" :target "blank"} "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp"]]}]]])]))]
+                  [:div.col-sm-7
+                   [:div
+                    [textarea-field [:form :fields :identificationInfo :geographicElement :siteDescription]]
+                    [TableModalEdit {:ths           ["North limit" "West limit" "South limit" "East limit"]
+                                     :tds-fn        (fn [geographicElement]
+                                                      (let [{:keys [northBoundLatitude westBoundLongitude
+                                                                    eastBoundLongitude southBoundLatitude]}
+                                                            (:value geographicElement)]
+                                                        [(print-nice (:value northBoundLatitude))
+                                                         (print-nice (:value westBoundLongitude))
+                                                         (print-nice (:value southBoundLatitude))
+                                                         (print-nice (:value eastBoundLongitude))]))
+                                     :default-field (-> (logic/new-value-field boxes)
+                                                        (update-in [:value :northBoundLatitude] merge (:northBoundLatitude 0))
+                                                        (update-in [:value :southBoundLatitude] merge (:southBoundLatitude 0))
+                                                        (update-in [:value :eastBoundLongitude] merge (:eastBoundLongitude 0))
+                                                        (update-in [:value :westBoundLongitude] merge (:westBoundLongitude 0)))
+                                     :form          CoordField
+                                     :title         "Geographic Coordinates"
+                                     :on-new-click  nil
+                                     :field-path    boxes-path
+                                     :placeholder   [:span "Please input in decimal degrees in coordinate reference system WGS84. A converter is available here: "
+                                                     [:a {:href "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp" :target "blank"} "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp"]]}]]]])]))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))
@@ -918,62 +921,43 @@
    [:div.topic-path (string/join " > " (map #(aget % "term") (term-option-path options option)))]
    [:div.topic-value (aget option "term")]])
 
-(defn sampling-frequency-renderer [options option]
+(defn nasa-list-renderer [options option]
   (aget option "prefLabel"))
 
 (defn other-term?
   [{:keys [term vocabularyTermURL] :as dp-term}]
   (and (:value term) (empty? (:value vocabularyTermURL))))
 
-(defn SamplingFrequencySelectField
+(defn NasaListSelectField
   [_ this]
   (letfn [(will-mount [this]
-            (let [{:keys [api-path] :as props} (r/props this)]
-              (rf/dispatch [:handlers/load-api-options api-path])))
+            (let [{:keys [keyword] :as props} (r/props this)]
+              (rf/dispatch [:handlers/load-api-options [:api keyword]])))
           (render [this]
-            (let [{:keys [api-path path]} (r/props this)
-                  path (conj path :samplingFrequency)
+            (let [{:keys [keyword path on-change]} (r/props this)
+                  path (conj path keyword)
                   value-path (conj path :value 0 :value)
-                  {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])
+                  {:keys [options]} @(rf/subscribe [:subs/get-derived-path [:api keyword]])
                   {:keys [prefLabel uri ] :as freq} @(rf/subscribe [:subs/get-derived-path value-path])
-                  samplingFrequency @(rf/subscribe [:subs/get-derived-path path])
-                  {:keys [label help required errors show-errors]} samplingFrequency
-                  other-option #js {:uri "(new term)" :prefLabel (str (:value prefLabel))}
+                  path-value @(rf/subscribe [:subs/get-derived-path path])
+                  {:keys [label help required errors show-errors]} path-value
                   new-term? (other-term? freq)]
               [:div
-               (if new-term? [:span.pull-right.new-term.text-primary
-                              [:span.glyphicon.glyphicon-asterisk]
-                              " New term"])
                (if label [:label label (if required " *")])
                [:div.flex-row
                 [:div.flex-row-field
                  [:div.form-group {:class (if (and show-errors (not (empty? errors))) "has-error")}
-                  (if-not new-term?
-                    (ReactSelect
-                      {:value             #js {:uri (:value uri) :prefLabel (:value prefLabel)}
-                       :options           options
-                       :is-searchable     true
-                       :getOptionValue    (fn [option]
-                                            (gobj/get option "prefLabel"))
-                       :formatOptionLabel (fn [props]
-                                            (r/as-element (sampling-frequency-renderer options props)))
-                       :onChange          (fn [option]
-                                            (rf/dispatch [:handlers/update-sampling-frequency value-path option]))
-                       :noResultsText     "No results found.  Click browse to add a new entry."})
-
-
-                    (ReactSelect
-                      {:value             "(new term)"
-                       :options           (conj options other-option)
-                       :is-searchable     true
-                       :getOptionValue    (fn [option]
-                                            (gobj/get option "term"))
-                       :formatOptionLabel (fn [props]
-                                            (r/as-element (api-option-renderer options props)))
-                       :onChange          (fn [option]
-                                            (when-not (= option other-option)
-                                              (rf/dispatch [:handlers/update-dp-term value-path option])))
-                       :noResultsText     "No results found.  Click browse to add a new entry."}))
+                  (ReactSelect
+                    {:value             #js {:uri (:value uri) :prefLabel (:value prefLabel)}
+                     :options           options
+                     :is-searchable     true
+                     :getOptionValue    (fn [option]
+                                          (gobj/get option "prefLabel"))
+                     :formatOptionLabel (fn [props]
+                                          (r/as-element (nasa-list-renderer options props)))
+                     :onChange          (fn [option]
+                                          (rf/dispatch [:handlers/update-nasa-list-value value-path option]))
+                     :noResultsText     "No results found.  Click browse to add a new entry."})
                   [:p.help-block help]]]]]))]
     (r/create-class
       {:component-will-mount will-mount
@@ -1830,7 +1814,8 @@
    [date-field [:form :fields :identificationInfo :endPosition]]
    [:div.row
     [:div.col-md-4
-     [SamplingFrequencySelectField {:api-path [:api :samplingfrequency] :path [:form :fields :identificationInfo]}]]]])
+     [NasaListSelectField {:keyword :samplingFrequency
+                           :path [:form :fields :identificationInfo]}]]]])
 
 (defmethod PageTabView ["Edit" :where]
   [page this]
@@ -2030,7 +2015,7 @@
      [TableModalEdit
       {:form        UseLimitationsFieldEdit
        :title       "Use Limitation"
-       :placeholder ""
+       :placeholder "While every care is taken to ensure the accuracy of this information, the author makes no representations or warranties about its accuracy, reliability, \n                     completeness or suitability for any particular purpose and disclaims all responsibility and all liability \n                     (including without limitation, liability in negligence) for all expenses, losses, damages (including indirect or consequential damage) \n                     and costs which might be incurred as a result of the information being inaccurate or incomplete in any way and for any reason."
        :add-label   "Add use limitation"
        :field-path  path}]]))
 
@@ -2081,6 +2066,12 @@
    [:h2 "7: About Dataset"]
    [:h4 "Data parameters"]
    [DataParametersTable [:form :fields :identificationInfo :dataParameters]]
+   [:br]
+   [:h4 "Pixel Size"]
+   [:div.row
+    [:div.col-md-6
+     [NasaListSelectField {:keyword :horizontalResolution
+                           :path [:form :fields :identificationInfo]}]]]
    [:br]
    [:h4 "Resource constraints"]
    [ResourceConstraints nil]

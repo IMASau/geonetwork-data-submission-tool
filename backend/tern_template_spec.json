@@ -255,19 +255,39 @@
                             }
                         }
                     },
+                    "horizontalResolution": {
+                        "xpath": "mri:spatialResolution/mri:MD_Resolution/mri:levelOfDetail",
+                        "valueChild": "gcx:Anchor",
+                        "container": "mri:spatialResolution",
+                        "keep": false,
+                        "many": true,
+                        "attributes": {
+                            "text": {
+                                "function": "sampling_text"
+                            },
+                            "xlink:href": {
+                                "function": "sampling_uri"
+                            }
+                        }
+                        
+                    },
                     "geographicElement": {
-                        "xpath": "mri:extent/gex:EX_Extent/gex:geographicElement",
+                        "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement]",
                         "removeWhen": {
                             "function": "has_geographic_coverage"
                         },
                         "nodes": {
+                            "siteDescription": {
+                                "xpath": "gex:description",
+                                "valueChild": "gco:CharacterString"
+                            },
                             "hasGeographicCoverage": {
-                                "xpath": "count(.)>0",
+                                "xpath": "gex:geographicElement[count(.)>0]",
                                 "export": false
                             },
                             "boxes": {
                                 "many": true,
-                                "xpath": "gex:EX_GeographicBoundingBox",
+                                "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
                                 "required": true,
                                 "keep": false,
                                 "nodes": {

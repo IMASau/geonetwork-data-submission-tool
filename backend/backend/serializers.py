@@ -18,6 +18,11 @@ class SamplingFrequencySerializer(serializers.ModelSerializer):
         model = models.SamplingFrequency
         fields = '__all__'
 
+class HorizontalResolutionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.HorizontalResolution
+        fields = '__all__'
+
 class TopicCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.TopicCategory

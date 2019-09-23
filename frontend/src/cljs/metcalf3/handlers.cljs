@@ -198,7 +198,7 @@
           (update-in dp-term-path assoc-in [:termDefinition :value] termDefinition)))))
 
 (rf/reg-event-db
-  :handlers/update-sampling-frequency
+  :handlers/update-nasa-list-value
   ins/std-ins
   (fn [db [_ path option]]
     (let [option (if (map? option) option (utils/js-lookup option))

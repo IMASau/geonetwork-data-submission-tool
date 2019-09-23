@@ -120,11 +120,13 @@
      :dataQualityInfo     {:methods {:type  nil
                                      :rows  20
                                      :label "Data Quality Methods"
+                                     :placeholder "Provide a summary of the data quality assessment method. Example: The data were compared to xyz reference data."
                                      :value nil
                                      :page  :how}
                            :results {:type  nil
                                      :rows  20
                                      :label "Data Quality Results"
+                                     :placeholder "Provide a statement regarding the data quality assessment results.  Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."
                                      :value nil
                                      :page  :how}}
      :identificationInfo
@@ -215,10 +217,19 @@
                                                                   :page  :when}
                                                            :prefLabel  {:type  nil
                                                                         :page  :when}}
+                           :horizontalResolution          {:label "Horizontal resolution"
+                                                           :uri  {:type  nil
+                                                                  :page  :about}
+                                                           :prefLabel  {:type  nil
+                                                                        :page  :about}}
                            :geographicElement             {:hasGeographicCoverage {:type  nil
                                                                                    :label "Does data have a geographic coverage?"
                                                                                    :page  :where
                                                                                    :value true}
+                                                           :siteDescription       {:type nil
+                                                                                   :label "Site description"
+                                                                                   :placeholder "A descriptive reference for the site locality. May include a project code. Example: Geelong (Site: G145), VIC, Australia"
+                                                                                   :page "where"}
                                                            :boxes                 {:type   nil
                                                                                    :page   :where
                                                                                    :label  "Geographic coverage"

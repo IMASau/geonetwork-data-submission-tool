@@ -1,6 +1,6 @@
 (ns metcalf3.logic
   (:require
-    [metcalf3.content :refer [default-payload]]
+    [metcalf3.content :refer [default-payload contact-groups]]
     [clojure.zip :as zip]
     [metcalf3.utils :as utils]))
 
@@ -386,6 +386,21 @@
                  "completed" {:is-hidden false :disabled true :value "notPlanned" :required false}
                  {:is-hidden true :disabled true :value "" :required false}))))
 
+(defn author-role-logic
+  "
+  At least one of the contacts has to be an author. Generate an error if none are.
+  "
+  [state]
+  (let [rule-path [:form :fields :who-authorRequired]
+        roles (for [[group {:keys [title path]}] (utils/enum contact-groups)]
+                (for [field (get-in state (conj path :value))]
+                  (get-in field [:value :role :value])))
+        roles (apply concat roles)
+        has-author (some #(= "author" %) roles)]
+    (if has-author
+      (assoc-in state (conj rule-path :errors) nil)
+      (assoc-in state (conj rule-path :errors) ["at least one contact must have the author role"]))))
+
 (defn data-service-logic-helper
   [data-service]
   (let [protocol-value (-> data-service :value :protocol :value)]
@@ -431,6 +446,7 @@
       end-position-logic
       maint-freq-logic
       data-service-logic
+      author-role-logic
       (update-in [:form :fields] validate-required-fields)
       disable-form-when-submitted
       (update-in [:form] disabled-form-logic)

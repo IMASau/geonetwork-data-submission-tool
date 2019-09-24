@@ -132,6 +132,7 @@
      :identificationInfo
                           {:title                         {:type     nil
                                                            :label    "Title"
+                                                           :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
                                                            :help     "Clear and concise description of the content of the resource"
                                                            :rows     3
                                                            :required true
@@ -172,6 +173,7 @@
                                                            :page     :data-identification}
                            :abstract                      {:type     nil
                                                            :label    "Abstract"
+                                                           :placeholder "Provide a brief summary of What, Where, When, Why, Who and How for the collected the data.\n          Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected."
                                                            :help     "Describe the content of the resource; e.g. what information was collected,
                                           how was it collected"
                                                            :rows     10
@@ -180,6 +182,7 @@
                            :purpose                       {:type  nil
                                                            :label "Purpose"
                                                            :help  "Brief statement about the purpose of the study"
+                                                           :placeholder "Provide a brief summary of the purpose for collecting the data including the potential use. Example: The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"
                                                            :page  :what}
                            :keywordsTheme                 {:keywords {:type        nil
                                                                       :label       "Research theme keywords, GCMD Science Keywords"
@@ -380,6 +383,7 @@
                            :value false}
      :resourceLineage     {:lineage     {:type  nil
                                          :label "Lineage"
+                                         :placeholder "Provide a brief summary of the source of the data and related collection and/or processing methods. \n               Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017"
                                          :page  :about}
                            :processStep {:type   nil
                                          :many   true

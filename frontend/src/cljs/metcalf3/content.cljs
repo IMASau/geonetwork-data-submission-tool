@@ -29,7 +29,7 @@
                            :page        :who}
    :orcid                 {:type        nil
                            :label       "ORCID ID"
-                           :placeholder "ORCID researcher page URL"
+                           :placeholder "XXXX-XXXX-XXXX-XXXX"
                            :page        :who}
    :role                  {:type        nil
                            :label       "Role"

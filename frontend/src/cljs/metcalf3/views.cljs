@@ -15,6 +15,7 @@
             [metcalf3.handlers :as handlers]
             [metcalf3.logic :as logic]
             [metcalf3.utils :as utils]
+            [interop.masked-input :as masked-input]
             [oops.core :refer [ocall oget gget]]
             [metcalf3.widget.boxmap :as boxmap]
             [metcalf3.widget.modal :refer [Modal]]
@@ -51,6 +52,17 @@
   (when (and show-errors (not (empty? errors)))
     "has-error"))
 
+(defn masked-text-widget
+  [{:keys [mask value placeholder disabled on-change on-blur]}]
+  [masked-input/masked-input
+   {:mask        mask
+    :disabled    disabled
+    :value       value
+    :class       "form-control"
+    :placeholder placeholder
+    :on-change   on-change
+    :on-blur     on-blur}])
+
 (defn InputWidget
   [_]
   (letfn [(init-state [this]
@@ -63,7 +75,7 @@
               (utils/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
 
           (render [this]
-            (let [{:keys [addon-before addon-after help on-change disabled] :as props} (r/props this)
+            (let [{:keys [addon-before addon-after help on-change disabled mask] :as props} (r/props this)
                   {:keys [input-value]} (r/state this)]
               (let [input-props (assoc props
                                   :value (or input-value "")
@@ -75,7 +87,9 @@
                  (label-template props)
                  (if (or addon-after addon-before)
                    [:div.input-group {:key "ig"} addon-before [:input.form-control input-props] addon-after]
-                   [:input.form-control input-props])
+                   (if mask
+                     [masked-text-widget (merge input-props)]
+                     [:input.form-control input-props]))
                  [:p.help-block help]])))]
     (r/create-class
       {:get-initial-state            init-state
@@ -1672,6 +1686,8 @@
        :on-change  (fn [option]
                      (rf/dispatch [:handlers/org-changed (conj party-path :value) option]))}]]))
 
+(def orcid-mask #js [#"\d" #"\d" #"\d" #"\d" "-" #"\d" #"\d" #"\d" #"\d" "-" #"\d" #"\d" #"\d" #"\d" "-" #"\d" #"\d" #"\d" #"[0-9xX]"])
+
 (defn ResponsiblePartyField [party-path]
   (let [party-value-path (conj party-path :value)
         party-value @(rf/subscribe [:subs/get-derived-path party-value-path])
@@ -1709,7 +1725,8 @@
                      :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :electronicMailAddress) %]))]
 
       [InputWidget (assoc orcid
-                     :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :orcid) %]))]
+                     :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :orcid) %])
+                     :mask orcid-mask)]
 
       [:label "Organisation" (when (:required organisationName) " *")]
       [OrganisationInputField party-path]

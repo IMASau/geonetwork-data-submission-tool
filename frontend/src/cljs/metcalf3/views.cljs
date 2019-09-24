@@ -2124,10 +2124,13 @@
 
 (defn progress-bar []
   (when-let [{:keys [can-submit? value]} @(rf/subscribe [:progress/get-props])]
-    [bp3/progress-bar {:animate false
-                       :intent  (if can-submit? "success" "warning")
-                       :stripes false
-                       :value   value}]))
+    [:div
+     [:span {:class "progressPercentage"} (str (int (* value 100)) "%") ]
+     [bp3/progress-bar {:animate false
+                        :style {:height "25px"}
+                        :intent  (if can-submit? "success" "warning")
+                        :stripes false
+                        :value   value}]]))
 
 (defn handle-archive-click
   []

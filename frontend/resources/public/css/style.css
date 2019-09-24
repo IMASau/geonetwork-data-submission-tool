@@ -1069,3 +1069,12 @@ body {
 .has-error .Select-control {
   border-color: #a94442;
 }
+
+.progressPercentage {
+    font-size: 8pt;
+    position: absolute;
+    text-align: center;
+    color: white;
+    width: 150px;
+    z-index: 9999;
+}

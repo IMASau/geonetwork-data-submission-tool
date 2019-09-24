@@ -1981,7 +1981,6 @@
 (defmethod PageTabView ["Edit" :who]
   [page this]
   [:div
-   [PageErrors {:page :who :path [:form]}]
    [Who nil]])
 
 (defn MethodOrOtherForm

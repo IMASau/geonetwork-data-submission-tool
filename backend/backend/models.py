@@ -555,7 +555,7 @@ class AnzsrcKeyword(models.Model):
 class RoleCode(models.Model):
     UUID = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     Identifier = models.CharField(max_length=128)
-    Description = models.CharField(max_length=128)
+    Description = models.CharField(max_length=256)
 
     def as_str(self):
         return ' | '.join(filter(

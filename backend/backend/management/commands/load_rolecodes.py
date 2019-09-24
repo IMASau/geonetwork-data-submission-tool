@@ -33,8 +33,6 @@ class Command(BaseCommand):
         try:
             with transaction.atomic():
                 RoleCode.objects.all().delete()
-
-                print("Getting roles...")
                 
                 new_roles = self._fetch_rolecodes()
                 if not new_roles:
@@ -90,7 +88,6 @@ class Command(BaseCommand):
         # Find correct section
         correct_section = None
         for section in role_code_sections:
-            print(section.attrib["id"])
             if section.attrib["id"] == "CI_RoleCode":
                 correct_section = section
 

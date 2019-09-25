@@ -118,6 +118,7 @@
                     },
                     "protocol": {
                         "xpath": "cit:CI_OnlineResource/cit:protocol",
+                        "valueChild": "gco:CharacterString",
                         "required": true
                     }
                 }

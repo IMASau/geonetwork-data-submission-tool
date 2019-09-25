@@ -48,6 +48,35 @@
                     }
                 }
             },
+            "attachments": {
+                "many": true,
+                "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\"]",
+                "keep": false,
+                "nodes": {
+                    "file": {
+                        "xpath": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
+                        "required": true,
+                        "attributes": {
+                            "text": {
+                                "function": "generate_attachment_url"
+                            }
+                        }
+                    },
+                    "name": {
+                        "xpath": "cit:CI_OnlineResource/cit:name",
+                        "required": false,
+                        "valueChild": "gco:CharacterString",
+                        "exportTo": {
+                            "xpath": "cit:CI_OnlineResource/cit:description/gco:CharacterString",
+                            "attributes": {
+                                "text": {
+                                    "function": "filename"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "distributionInfo": {
                 "xpath": "mdb:distributionInfo/mrd:MD_Distribution",
                 "nodes": {

@@ -62,7 +62,8 @@ class MetadataTemplate(models.Model):
             data = extract_xml_data(tree, spec)
             # FIXME data_to_xml will validate presence of all nodes in the template, but only when data is fully mocked up
             data = json.loads(JSONRenderer().render(data).decode('utf-8'))
-            data_to_xml(data, tree, spec, spec['namespaces'], silent=False)
+            data_to_xml(data=data, xml_node=tree, spec=spec, nsmap=spec['namespaces'],
+                        element_index=0, silent=False, fieldKey=None, doc_uuid='cleanmetadatatemplatetest')
 
         except Exception as e:
             traceback.print_exc()

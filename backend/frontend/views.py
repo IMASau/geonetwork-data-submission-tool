@@ -244,7 +244,9 @@ def export(request, uuid):
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
     spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
-    data_to_xml(data, xml, spec, spec['namespaces'])
+    data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
+                element_index=0, silent=False, fieldKey=None, doc_uuid=uuid)
+
     response = HttpResponse(etree.tostring(xml), content_type="application/xml")
     if "download" in request.GET:
         response['Content-Disposition'] = 'attachment; filename="{}.xml"'.format(uuid)
@@ -280,7 +282,8 @@ def mef(request, uuid):
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
     spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
-    data_to_xml(data, xml, spec, spec['namespaces'])
+    data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
+                element_index=0, silent=False, fieldKey=None, doc_uuid=uuid)
     response = HttpResponse(content_type="application/x-mef")
     response['Content-Disposition'] = 'attachment; filename="{}.mef"'.format(uuid)
     info = etree.fromstring(MEF_TEMPLATE)

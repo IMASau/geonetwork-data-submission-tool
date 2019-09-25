@@ -76,10 +76,13 @@ def massage_version_number(s):
         version_number = re.sub("-", ".", version_chunk)
         return version_number
 
-def generate_attachment_url(env, fname):
+def generate_attachment_url(**kwargs):
     # TODO: figure out how to get env here (was previously inline in the python spec)
-    uuid = KWARGS['uuid']
-    return "file.disclaimer?uuid={0}&fname={1}&access=private".format(uuid, os.path.basename(fname))
+    assert kwargs['data'] != None, "data not provided"
+    assert kwargs['uuid'] != None, "models not provided"
+    data = kwargs['data']
+    uuid = kwargs['uuid']
+    return "file.disclaimer?uuid={0}&fname={1}&access=private".format(uuid, os.path.basename(data))
 
 def all_text(node):
     return ''.join(node.itertext()).strip()

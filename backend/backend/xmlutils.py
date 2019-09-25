@@ -323,7 +323,7 @@ def spec_data_from_batch(batch_spec, key):
     return spec, data
 
 
-def data_to_xml(data, xml_node, spec, nsmap, element_index=0, silent=True, fieldKey = None):
+def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=True, fieldKey = None):
     # indicates that the spec allows more than one value for this node
     if is_many(spec):
         # sets many to false on the spec, because the spec is passed into the subsequent data_to_xml call
@@ -332,7 +332,8 @@ def data_to_xml(data, xml_node, spec, nsmap, element_index=0, silent=True, field
         container_node = xml_node.xpath(container_xpath, namespaces=nsmap)
         if is_fanout(spec):
             for i in range(len(container_node)):
-                data_to_xml(data, xml_node, spec, nsmap, i, silent, fieldKey)
+                data_to_xml(data=data, xml_node=xml_node, spec=spec, nsmap=nsmap,
+                            element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
         else:
             if len(container_node) < 1:
                 msg = "container at xpath %s is not found" % container_xpath
@@ -350,14 +351,18 @@ def data_to_xml(data, xml_node, spec, nsmap, element_index=0, silent=True, field
             # call data_to_xml once for each item in the data
             for i, item in enumerate(data):
                 mount_node.insert(mount_index + i, deepcopy(template))
-                data_to_xml(item, xml_node, spec, nsmap, i, silent, fieldKey)
+                data_to_xml(data=item, xml_node=xml_node, spec=spec, nsmap=nsmap,
+                            element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
+
     #export can be false with an exportTo function, i.e. don't do the default export, do this instead
     elif not is_export(spec):
         if has_exportTo(spec):
-            data_to_xml(data, xml_node, get_exportTo(spec), nsmap, element_index, silent, fieldKey)
+            data_to_xml(data=data, xml_node=xml_node, spec=get_exportTo(spec), nsmap=nsmap,
+                        element_index=element_index, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
     elif is_batch(spec):
         spec, data = spec_data_from_batch(get_batch(spec), data)
-        data_to_xml(data, xml_node, spec, nsmap, 0, silent, fieldKey)
+        data_to_xml(data=data, xml_node=xml_node, spec=spec, nsmap=nsmap,
+                    element_index=0, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
     elif has_nodes(spec):
         xml_node = xml_node.xpath(get_xpath(spec), namespaces=nsmap)[element_index]
         for field_key, node_spec in get_nodes(spec).items():
@@ -376,7 +381,8 @@ def data_to_xml(data, xml_node, spec, nsmap, element_index=0, silent=True, field
                     for element in elements:
                         element.getparent().remove(element)
                 continue
-            data_to_xml(data[field_key], xml_node, node_spec, nsmap, 0, silent, field_key)
+            data_to_xml(data=data[field_key], xml_node=xml_node, spec=node_spec, nsmap=nsmap,
+                        element_index=0, silent=silent, fieldKey=field_key, doc_uuid=doc_uuid)
     #default behaviour; populate the xml elements with the values in the data
     else:
         node_xpath = get_xpath(spec)
@@ -422,7 +428,7 @@ def data_to_xml(data, xml_node, spec, nsmap, element_index=0, silent=True, field
                 is_kwargs = transform_sig[2] is not None
                 arity = len(transform_sig[0])
                 if is_kwargs:
-                    final_value = transform(data=data, models=apps.all_models)
+                    final_value = transform(data=data, models=apps.all_models, uuid=doc_uuid)
                 elif arity == 1:
                     final_value = transform(data)
                 elif arity == 2:
@@ -445,7 +451,9 @@ def data_to_xml(data, xml_node, spec, nsmap, element_index=0, silent=True, field
                 else:
                     element.set(attr, final_value)
             if has_exportTo(spec):
-                data_to_xml(data, xml_node, get_exportTo(spec), nsmap, element_index, silent, fieldKey=fieldKey)
+                data_to_xml(data=data, xml_node=xml_node, spec=get_exportTo(spec), nsmap=nsmap,
+                            element_index=element_index, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
+
 
     if is_postprocess(spec):
         get_postprocess(spec)(data, xml_node, spec, nsmap, element_index, silent)

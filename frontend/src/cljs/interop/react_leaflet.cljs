@@ -3,6 +3,14 @@
   (:require cljsjs.react-leaflet
             [reagent.core :as r]))
 
+(def L ^js/L js/L)
+
+(defn to-geojson [^js/ReactLeaflet leaflet]
+  (js->clj (.toGeoJSON leaflet) :keywordize-keys true))
+
+(defn leaflet-element [^js/ReactLeaflet.FeatureGroup fg]
+  (.-leafletElement fg))
+
 (def leaflet-consumer (r/adapt-react-class js/ReactLeaflet.LeafletConsumer))
 (def leaflet-provider (r/adapt-react-class js/ReactLeaflet.LeafletProvider))
 (def with-leaflet (r/adapt-react-class js/ReactLeaflet.withLeaflet))

@@ -858,8 +858,7 @@
 
 (defn GeographicCoverage
   [_ this]
-  (letfn [(init-state [this])
-          (render [this]
+  (letfn [(render [this]
             (let [{hasGeographicCoverage :value} @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :geographicElement :hasGeographicCoverage]])
                   boxes-path [:form :fields :identificationInfo :geographicElement :boxes]
                   {:keys [disabled] :as boxes} @(rf/subscribe [:subs/get-derived-path boxes-path])]
@@ -898,8 +897,7 @@
                                      :placeholder   [:span "Please input in decimal degrees in coordinate reference system WGS84. A converter is available here: "
                                                      [:a {:href "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp" :target "blank"} "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp"]]}]]]])]))]
     (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
+      {:render            render})))
 
 (defn VerticalCoverage [props this]
   (let [{hasVerticalExtent :value} @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]])]

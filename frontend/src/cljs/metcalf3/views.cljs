@@ -2257,7 +2257,7 @@
                 {:type       :confirm
                  :title      "Clone?"
                  :message    (str "Are you sure you want to clone this record?")
-                 :on-confirm #(rf/dispatch [:handlers/clone-doc url])}])
+                 :on-confirm #(rf/dispatch [:handlers/clone-document url])}])
   (.preventDefault event))
 
 (defn DocumentTeaser [{:keys [url title last_updated status transitions
@@ -2266,7 +2266,7 @@
         on-archive-click #(rf/dispatch [:handlers/archive-doc-click transition_url])
         on-delete-archived-click #(rf/dispatch [:handlers/delete-archived-doc-click transition_url])
         on-restore-click #(rf/dispatch [:handlers/restore-doc-click transition_url])
-        on-clone-click (partial clone-doc url)
+        on-clone-click (partial clone-doc clone_url)
         on-edit-click #(aset js/location "href" url)]
 
     [:div.list-group-item.DocumentTeaser

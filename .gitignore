@@ -15,6 +15,5 @@ frontend/dist
 *.ipr
 *.iml
 *.idea
-*.lock
 backend/mcp2-template_spec_2.json
 backend/mcp2-template.xml

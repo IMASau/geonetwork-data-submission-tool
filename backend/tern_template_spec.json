@@ -50,7 +50,7 @@
             },
             "attachments": {
                 "many": true,
-                "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\"]",
+                "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource[cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\"][cit:description/gco:CharacterString/text()=\"Data file\"]]",
                 "keep": false,
                 "nodes": {
                     "file": {
@@ -65,15 +65,7 @@
                     "name": {
                         "xpath": "cit:CI_OnlineResource/cit:name",
                         "required": false,
-                        "valueChild": "gco:CharacterString",
-                        "exportTo": {
-                            "xpath": "cit:CI_OnlineResource/cit:description/gco:CharacterString",
-                            "attributes": {
-                                "text": {
-                                    "function": "filename"
-                                }
-                            }
-                        }
+                        "valueChild": "gco:CharacterString"
                     }
                 }
             },
@@ -97,7 +89,7 @@
             },
             "dataSources": {
                 "many": true,
-                "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()!=\"WWW:LINK-1.0-http--link\" and cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()!=\"WWW:DOWNLOAD-1.0-http--download\"]",
+                "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()!=\"WWW:LINK-1.0-http--link\" and not(cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\" and cit:CI_OnlineResource/cit:description/gco:CharacterString/text()=\"Data file\")]",
                 "keep": false,
                 "nodes": {
                     "description": {

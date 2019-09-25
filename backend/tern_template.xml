@@ -930,7 +930,27 @@
                <mrd:onLine>
                   <cit:CI_OnlineResource>
                      <cit:description>
-                        <gco:CharacterString>filename</gco:CharacterString>
+                        <gco:CharacterString>Data file</gco:CharacterString>
+                     </cit:description>
+                     <cit:linkage>
+                        <gco:CharacterString></gco:CharacterString>
+                     </cit:linkage>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:DOWNLOAD-1.0-http--download</gco:CharacterString>
+                     </cit:protocol>
+                     <cit:name>
+                        <gco:CharacterString></gco:CharacterString>
+                     </cit:name>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                                   codeListValue="download"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+               </mrd:onLine>
+               <mrd:onLine>
+                  <cit:CI_OnlineResource>
+                     <cit:description>
+                        <gco:CharacterString></gco:CharacterString>
                      </cit:description>
                      <cit:linkage>
                         <gco:CharacterString></gco:CharacterString>

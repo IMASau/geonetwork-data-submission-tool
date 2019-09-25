@@ -321,7 +321,7 @@ def personFromData(data):
                 matchingPerson.givenName = data['givenName']
                 matchingPerson.familyName = data['familyName']
                 matchingPerson.orcid = data['orcid'] or ''
-                matchingPerson.prefLabel = data['givenName'] + ' ' + data['familyName']
+                matchingPerson.prefLabel = data['familyName'] + ', ' + data['givenName']
                 matchingPerson.electronicMailAddress = data['electronicMailAddress']
                 matchingPerson.save()
         except Person.DoesNotExist:
@@ -330,7 +330,7 @@ def personFromData(data):
                                          givenName=data['givenName'],
                                          familyName=data['familyName'],
                                          orcid=data['orcid'] or '',
-                                         prefLabel=data['givenName'] + ' ' + data['familyName'],
+                                         prefLabel=data['familyName'] + ', ' + data['givenName'],
                                          electronicMailAddress=data['electronicMailAddress'],
                                          isUserAdded=True)
             inst.save()

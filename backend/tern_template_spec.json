@@ -137,13 +137,15 @@
                 "nodes": {
                     "results": {
                         "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement",
+                        "keep": false,
                         "valueChild": "gco:CharacterString",
-                        "required": true
+                        "required": false
                     },
                     "methods": {
                         "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:standaloneQualityReportDetails",
+                        "keep": false,
                         "valueChild": "gco:CharacterString",
-                        "required": true
+                        "required": false
                     }
                 }
             },

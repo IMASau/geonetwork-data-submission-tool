@@ -1,3 +1,7 @@
+
+import L from 'leaflet';
+import 'leaflet-draw';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as BlueprintCore from "@blueprintjs/core";
@@ -10,7 +14,6 @@ import * as ReactWindow from "react-window";
 import * as ReactVirtualized from "react-virtualized";
 import AutoSizer from "react-virtualized-auto-sizer";
 import * as ReactLeaflet from "react-leaflet";
-import 'leaflet-draw';
 import { EditControl } from 'react-leaflet-draw';
 import FixedDataTable2 from 'fixed-data-table-2';
 import Select, { components } from "react-select";
@@ -18,6 +21,7 @@ import AsyncSelect from 'react-select/async';
 import Creatable from 'react-select/creatable';
 import AsyncCreatable from 'react-select/async-creatable';
 
+window.L = L;
 window.React = React;
 window.ReactDOM = ReactDOM;
 window.BlueprintCore = BlueprintCore;

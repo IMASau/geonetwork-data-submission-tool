@@ -858,8 +858,7 @@
 
 (defn GeographicCoverage
   [_ this]
-  (letfn [(init-state [this])
-          (render [this]
+  (letfn [(render [this]
             (let [{hasGeographicCoverage :value} @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :geographicElement :hasGeographicCoverage]])
                   boxes-path [:form :fields :identificationInfo :geographicElement :boxes]
                   {:keys [disabled] :as boxes} @(rf/subscribe [:subs/get-derived-path boxes-path])]
@@ -877,6 +876,8 @@
                   [:div.col-sm-7
                    [:div
                     [textarea-field [:form :fields :identificationInfo :geographicElement :siteDescription]]
+                    [:p [:span "Please input in decimal degrees in coordinate reference system WGS84. A converter is available here: "
+                         [:a {:href "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp" :target "blank"} "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp"]]]
                     [TableModalEdit {:ths           ["North limit" "West limit" "South limit" "East limit"]
                                      :tds-fn        (fn [geographicElement]
                                                       (let [{:keys [northBoundLatitude westBoundLongitude
@@ -894,12 +895,9 @@
                                      :form          CoordField
                                      :title         "Geographic Coordinates"
                                      :on-new-click  nil
-                                     :field-path    boxes-path
-                                     :placeholder   [:span "Please input in decimal degrees in coordinate reference system WGS84. A converter is available here: "
-                                                     [:a {:href "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp" :target "blank"} "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp"]]}]]]])]))]
+                                     :field-path    boxes-path}]]]])]))]
     (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
+      {:render            render})))
 
 (defn VerticalCoverage [props this]
   (let [{hasVerticalExtent :value} @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]])]

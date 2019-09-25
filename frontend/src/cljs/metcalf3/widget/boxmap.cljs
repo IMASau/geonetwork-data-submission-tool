@@ -104,8 +104,8 @@
 
 
 (defn fg->data [fg]
-  (let [leaflet-element (.-leafletElement fg)
-        geo-json (.toGeoJSON leaflet-element)
+  (let [leaflet-element (react-leaflet/leaflet-element fg)
+        geo-json (react-leaflet/to-geojson leaflet-element)
         data (js->clj geo-json :keywordize-keys true)
         geometries (mapv :geometry (:features data))]
     (for [{:keys [type coordinates]} geometries]

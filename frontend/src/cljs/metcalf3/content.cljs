@@ -187,7 +187,7 @@
                            :keywordsTheme                 {:keywords {:type        nil
                                                                       :label       "Research theme keywords, GCMD Science Keywords"
                                                                       :help        "Select up to 12 research theme keywords describing your data"
-                                                                      :placeholder "Search for keywords"
+                                                                      :placeholder "Start typing to filter list..."
                                                                       :required    true
                                                                       :page        :what}}
                            :keywordsThemeAnzsrc           {:keywords {:type        nil

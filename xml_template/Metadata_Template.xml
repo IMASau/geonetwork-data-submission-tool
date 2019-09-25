@@ -1031,7 +1031,7 @@
                         <gco:CharacterString>file_a.csv</gco:CharacterString>
                      </cit:name>
                      <cit:description>
-                        <gco:CharacterString>file_a.csv</gco:CharacterString>
+                        <gco:CharacterString>Data file</gco:CharacterString>
                      </cit:description>
 
                      <cit:function>

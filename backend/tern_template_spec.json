@@ -303,7 +303,8 @@
                         "nodes": {
                             "siteDescription": {
                                 "xpath": "gex:description",
-                                "valueChild": "gco:CharacterString"
+                                "valueChild": "gco:CharacterString",
+                                "keep": false
                             },
                             "hasGeographicCoverage": {
                                 "xpath": "gex:geographicElement[count(.)>0]",

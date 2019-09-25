@@ -451,7 +451,7 @@
                                     "xpath": "mri:keyword/gcx:Anchor",
                                     "attributes": {
                                         "text": {
-                                            "function": "science_keyword_name"
+                                            "function": "anzsrc_keyword_name"
                                         }
                                     }
                                 },

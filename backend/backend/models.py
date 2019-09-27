@@ -456,7 +456,7 @@ class Person(models.Model):
     orgUri = models.CharField(max_length=512, default="")
     familyName = models.CharField(max_length=256, verbose_name="family name")
     givenName = models.CharField(max_length=256, verbose_name="given name")
-    honorificPrefix = models.CharField(max_length=256, verbose_name="honorific")
+    honorificPrefix = models.CharField(max_length=256, blank=True, verbose_name="honorific")
     orcid = models.CharField(max_length=50, verbose_name="ORCID ID", default="")
     prefLabel = models.CharField(max_length=512, default="")
     isUserAdded = models.BooleanField(default=False,verbose_name="User Added")

@@ -156,6 +156,7 @@
                         "xpath": "mri:citation/cit:CI_Citation/cit:title",
                         "valueChild": "gco:CharacterString",
                         "label": "Title",
+                        "keep": false,
                         "required": true
                     },
                     "doi": {

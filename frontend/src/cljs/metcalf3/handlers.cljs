@@ -139,16 +139,16 @@
                             template data)]
       (update-in db [:form :fields :attachments :value] conj {:value new-value}))))
 
-(rf/reg-event-db
+(rf/reg-event-fx
   :handlers/archive-current-document
   ins/std-ins
   (fn [{:keys [db]} _]
     (let [transition_url (-> db :context :document :transition_url)
           success_url (-> db :context :urls :Dashboard)]
       {:fx/archive-current-document
-       {:transition_url transition_url
-        :handler        [:handlers/archive-current-document-success success_url]
-        :error-handler  [:handlers/open-modal {:type :alert :message "Unable to delete"}]}})))
+       {:url transition_url
+        :success-v        [:handlers/archive-current-document-success success_url]
+        :error-v  [:handlers/open-modal {:type :alert :message "Unable to delete"}]}})))
 
 (rf/reg-event-fx :handlers/archive-current-document-success ins/std-ins (fn [_ [_ url]] {:fx/set-location-href url}))
 

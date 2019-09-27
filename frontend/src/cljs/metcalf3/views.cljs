@@ -2325,7 +2325,7 @@
                     [:a.list-group-item {:on-click #(rf/dispatch [:handlers/dashboard-create-click])}
                      [:span.glyphicon.glyphicon-star.pull-right]
                      [:p.lead.list-group-item-heading [:b (userDisplay user)] " / My first record "]
-                     [:p.list-group-item-text "Welcome!  Since you're new here, we've created your first record. "
+                     [:p.list-group-item-text "Welcome! Since you’re new here, "
                       [:span {:style {:text-decoration "underline"}} "Click here"] " to get started."]]
                     (if (empty? filtered-docs)
                       (if (= status-filter logic/active-status-filter)

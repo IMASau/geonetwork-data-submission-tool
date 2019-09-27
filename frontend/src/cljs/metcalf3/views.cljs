@@ -662,7 +662,7 @@
        :render            render})))
 
 (defn ThemeInputField
-  [{:keys [value placeholder errors help on-change on-blur on-submit] :as props} this]
+  [{:keys [value placeholder errors extra-help on-change on-blur on-submit] :as props} this]
   [:div.form-group {:class (validation-state props)}
    (label-template props)
    [:div.input-group {:key "ig"}
@@ -677,7 +677,8 @@
     [:span.input-group-btn
      [:button.btn.btn-primary {:disabled (string/blank? value)
                                :on-click on-submit}
-      [:span.glyphicon.glyphicon-plus]]]]])
+      [:span.glyphicon.glyphicon-plus]]]]
+   [:p.help-block extra-help]])
 
 (defn ThemeKeywordsExtra
   [_ this]
@@ -699,7 +700,6 @@
                         (del-value! [x]
                           (rf/dispatch [:handlers/del-keyword-extra keywords-value-path x]))]
                   [:div.ThemeKeywordsExtra {:class (validation-state props)}
-                   [:div [:em "We will contact you to discuss appropriate keyword terms"]]
                    (label-template props)
                    [:p.help-block help]
                    [:table.table.keyword-table {:class (if-not disabled "table-hover")}
@@ -718,6 +718,7 @@
                                        :placeholder placeholder
                                        :errors      errors
                                        :help        help
+                                       :extra-help "We will contact you to discuss appropriate keyword terms"
                                        :on-change   (fn [e]
                                                       (set-value! (.. e -target -value)))
                                        :on-blur     (fn [] (js/setTimeout #(rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path]) 100))}])]))))]

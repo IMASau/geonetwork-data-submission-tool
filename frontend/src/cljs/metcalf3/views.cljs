@@ -1774,9 +1774,9 @@
         {:keys [title tag_line]} @(rf/subscribe [:subs/get-derived-path [:context :site]])]
     [bp3/navbar {:className "bp3-dark"}
      [bp3/navbar-group {:align (:LEFT bp3/alignment)}
-      [bp3/navbar-heading title " " tag_line]]
+      [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading title " " tag_line]]]
      [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
-      [:a.bp3-button.bp3-minimal (userDisplay user)]
+      [:span (userDisplay user)]
       [:a.bp3-button.bp3-minimal {:href Dashboard} "My Records"]
       [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
       [:a.bp3-button.bp3-minimal {:href "/logout"} "Sign Out"]]]))

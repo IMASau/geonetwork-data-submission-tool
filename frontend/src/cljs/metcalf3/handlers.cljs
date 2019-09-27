@@ -106,7 +106,8 @@
   (fn [{:keys [db]} _]
     (let [url (get-in db [:form :url])
           data (-> db :form :fields logic/extract-field-values)]
-      {:fx/save-current-document
+      {:db (assoc-in db [:page ::saving?] true)
+       :fx/save-current-document
        {:url       url
         :data      data
         :success-v [:handlers/save-current-document-success data]
@@ -119,6 +120,7 @@
     (let [doc (get-in resp [:form :document])]
       (-> db
           (assoc-in [:form :data] data)
+          (assoc-in [:page ::saving?] false)
           (update-in [:context :document] merge doc)))))
 
 (rf/reg-event-fx

@@ -38,7 +38,7 @@
                            :page        :who}
    :organisationName      {:type        nil
                            :label       "Organisation"
-                           :placeholder "Organisation"
+                           :placeholder "Start typing to filter list..."
                            :required    true
                            :page        :who}
    :phone                 {:type  nil

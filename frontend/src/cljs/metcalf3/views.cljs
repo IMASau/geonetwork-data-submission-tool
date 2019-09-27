@@ -1556,7 +1556,10 @@
                     orgId (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationIdentifier)]))
                     orgName (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationName)]))
                     js-value #js {:uri (or orgId "")
-                                  :organisationName (or orgName "")}]
+                                  :organisationName (or orgName "")}
+                    js-value (if orgId
+                               js-value
+                               nil)]
                 (ReactSelectAsyncCreatable
                   {:value             js-value
                    :disabled          disabled
@@ -1591,7 +1594,7 @@
                    :tabSelectsValue   false
                    :onInputChange     on-input-change
                    :onBlur            on-blur
-                   :placeholder       "Start typing to search..."}))))]
+                   :placeholder       "Start typing to filter list..."}))))]
     (r/create-class
       {:component-did-mount          component-did-mount
        :render                       render})))
@@ -1611,7 +1614,10 @@
                     uri-value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :uri)])
                     preflabel-value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :individualName)])
                     js-value #js {:prefLabel (or (:value preflabel-value) "")
-                                  :uri (:value uri-value)}]
+                                  :uri (:value uri-value)}
+                    js-value (if (:value preflabel-value)
+                               js-value
+                               nil)]
                 (ReactSelectAsync
                   {:value             js-value
                    :disabled          disabled
@@ -1639,7 +1645,7 @@
                    :tabSelectsValue   false
                    :onInputChange     on-input-change
                    :onBlur            on-blur
-                   :placeholder       "Start typing to search..."}))))]
+                   :placeholder       "Start typing to filter list..."}))))]
     (r/create-class
       {:component-did-mount          component-did-mount
        :component-will-receive-props component-will-receive-props

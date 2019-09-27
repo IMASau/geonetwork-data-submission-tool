@@ -2342,7 +2342,7 @@
                            [:input {:type      "checkbox"
                                     :disabled  (not freq)
                                     :checked   (contains? relevant-status-filter sid)
-                                    :on-change #(rf/dispatch [:handlers/toggle-status-filter sid])}]
+                                    :on-change #(rf/dispatch [:handlers/toggle-status-filter sid status-filter])}]
                            " " sname
                            (if freq [:span.freq " (" freq ")"])]]))))]]]]))
 

@@ -308,11 +308,12 @@
 (rf/reg-event-db
   :handlers/toggle-status-filter
   ins/std-ins
-  (fn [db [_ status]]
-    (let [status-filter (get-in db [:page :status-filter] #{})]
-      (if (contains? status-filter status)
-        (update-in db [:page :status-filter] disj status)
-        (update-in db [:page :status-filter] conj status)))))
+  (fn [db [_ status status-filter]]
+    (let [status-filter (get-in db [:page :status-filter] status-filter)
+          status-filter (if (contains? status-filter status)
+                          (disj status-filter status)
+                          (conj status-filter status))]
+      (assoc-in db [:page :status-filter] status-filter))))
 
 (rf/reg-event-db
   :handlers/show-all-documents

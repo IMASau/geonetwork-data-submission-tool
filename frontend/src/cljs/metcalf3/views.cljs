@@ -1025,11 +1025,13 @@
                   [:p.help-block help]]]
                 [:div.flex-row-button
                  [:button.btn.btn-default
-                  {:on-click #(rf/dispatch [:handlers/open-modal
+                  {:style {:vertical-align "top"}
+                   :on-click #(rf/dispatch [:handlers/open-modal
                                             {:type         param-type
                                              :api-path     api-path
                                              :dp-term-path dp-term-path}])}
-                  [:span.glyphicon.glyphicon-list] " Browse"]]]]))]
+                  [:span.glyphicon.glyphicon-list] " Browse"]
+                 (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]]]))]
     (r/create-class
       {:component-will-mount will-mount
        :render               render})))

@@ -1261,7 +1261,7 @@
 (defn DataParametersTable [path this]
   [:div.DataParametersTable
    [TableModalEdit
-    {:ths        ["Long name" "Units" "Instrument" "Serial No." "Platform"]
+    {:ths        ["Name" "Units" "Instrument" "Serial No." "Platform"]
      :tds-fn     (fn [field]
                    (let [{:keys [longName unit instrument serialNumber platform]} (:value field)]
                      (mapv #(:value (or (:term %) %)) [longName unit instrument serialNumber platform])))

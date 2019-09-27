@@ -121,7 +121,7 @@
                   props (r/props this)]
               (utils/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
           (render [this]
-            (let [{:keys [on-change disabled] :as props} (r/props this)
+            (let [{:keys [on-change disabled maxlength] :as props} (r/props this)
                   {:keys [input-value]} (r/state this)]
               (let [{:keys [is-hidden help]} props]
                 [:div.form-group {:class    (str (validation-state props) " "
@@ -259,7 +259,7 @@
 
 (defn textarea-field
   [path]
-  (let [{:keys [label labelInfo helperText value disabled change-v intent placeholder]} @(rf/subscribe [:textarea-field/get-props path])]
+  (let [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder]} @(rf/subscribe [:textarea-field/get-props path])]
     [bp3/form-group
      {:label      label
       :labelInfo  labelInfo
@@ -270,6 +270,7 @@
        :onValueChange  #(rf/dispatch (conj change-v %))
        :disabled       disabled
        :placeholder    placeholder
+       :maxlength      maxlength
        :value          value
        :fill           true
        :intent         intent}]]))

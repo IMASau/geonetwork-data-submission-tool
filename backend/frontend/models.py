@@ -9,7 +9,7 @@ class SiteContent(models.Model):
     title = models.CharField(max_length=32, default="TERN")
     organisation_url = models.URLField(blank=True, null=True)
     tag_line = models.CharField(max_length=128, default="Data Submission Tool")
-    email = models.EmailField(default="imas.datamanager@utas.edu.au")
+    email = models.EmailField(default="esupport@tern.org.au")
     doiUri = models.CharField(max_length=1024,default='https://doi.tern.uq.edu.au/test/index.php?r=api/create&user_id=tern.data@uq.edu.au',
                               verbose_name="DOI Service URI",
                               help_text="Base create URI for the DOI minting service")

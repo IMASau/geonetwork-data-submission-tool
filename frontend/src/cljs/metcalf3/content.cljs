@@ -288,22 +288,23 @@
                                                            :help  "Acknowledge the contribution of any funding schemes or organisations."
                                                            :label "Other credits"}
 
-                           :dataParameters                {:label  "Data parameters"
-                                                           :type   nil
+                           :dataParameters                {:type nil
+                                                           :value []
+                                                           :label  "Data parameters"
                                                            :many   true
                                                            :page   :about
-                                                           :fields {:longName     {:term              {:type        nil
-                                                                                                       :page        :about
-                                                                                                       :label       "Name"
-                                                                                                       :help        "Name of the measured parameter e.g. Vegetation height"
-                                                                                                       :placeholder "Start typing to filter the list"
-                                                                                                       :required    true}
-                                                                                   :vocabularyTermURL {:type nil
-                                                                                                       :page :about}
-                                                                                   :vocabularyVersion {:type nil
-                                                                                                       :page :about}
-                                                                                   :termDefinition    {:type nil
-                                                                                                       :page :about}}
+                                                           :fields {:longName_term {:type        nil
+                                                                                    :page        :about
+                                                                                    :label       "Name"
+                                                                                    :help        "Name of the measured parameter e.g. Vegetation height"
+                                                                                    :placeholder "Start typing to filter the list"
+                                                                                    :required    true}
+                                                                    :longName_vocabularyTermURL {:type nil
+                                                                                                 :page :about}
+                                                                    :longName_vocabularyVersion {:type nil
+                                                                                                 :page :about}
+                                                                    :longName_termDefinition {:type nil
+                                                                                              :page :about}
                                                                     :name         {:type        nil
                                                                                    :label       ""
                                                                                    :placeholder "Name in dataset (optional)"
@@ -312,37 +313,39 @@
                                                                                    :label       "Serial Number"
                                                                                    :placeholder ""
                                                                                    :page        :about}
-                                                                    :unit         {:term              {:type        nil :label "Unit" :required true
-                                                                                                       :page        :about
-                                                                                                       :placeholder "Start typing to filter the list"
-                                                                                                       :help        "Unit of measurement"}
-                                                                                   :vocabularyTermURL {:type nil
-                                                                                                       :page :about}
-                                                                                   :vocabularyVersion {:type nil
-                                                                                                       :page :about}
-                                                                                   :termDefinition    {:type nil
-                                                                                                       :page :about}}
-                                                                    :instrument   {:term              {:type        nil
-                                                                                                       :label       "Instrument"
-                                                                                                       :placeholder "Start typing to filter the list"
-                                                                                                       :help        "Sensor used to measure the parameter"}
-                                                                                   :vocabularyTermURL {:type nil
-                                                                                                       :page :about}
-                                                                                   :vocabularyVersion {:type nil
-                                                                                                       :page :about}
-                                                                                   :termDefinition    {:type nil
-                                                                                                       :page :about}}
-                                                                    :platform     {:term              {:type        nil
-                                                                                                       :label       "Platform"
-                                                                                                       :placeholder "Start typing to filter the list"
-                                                                                                       :help        "Is the data measured from land, air, satellite or a model?"
-                                                                                                       :page        :about}
-                                                                                   :vocabularyTermURL {:type nil
-                                                                                                       :page :about}
-                                                                                   :vocabularyVersion {:type nil
-                                                                                                       :page :about}
-                                                                                   :termDefinition    {:type nil
-                                                                                                       :page :about}}}}
+                                                                    :unit_term              {:type        nil
+                                                                                        :label "Unit"
+                                                                                        :required true
+                                                                                        :page        :about
+                                                                                        :placeholder "Start typing to filter the list"
+                                                                                        :help        "Unit of measurement"}
+                                                                    :unit_vocabularyTermURL {:type nil
+                                                                                        :page :about}
+                                                                    :unit_vocabularyVersion {:type nil
+                                                                                        :page :about}
+                                                                    :unit_termDefinition    {:type nil
+                                                                                        :page :about}
+                                                                    :instrument_term              {:type        nil
+                                                                                        :label       "Instrument"
+                                                                                        :placeholder "Start typing to filter the list"
+                                                                                        :help        "Sensor used to measure the parameter"}
+                                                                    :instrument_vocabularyTermURL {:type nil
+                                                                                        :page :about}
+                                                                    :instrument_vocabularyVersion {:type nil
+                                                                                        :page :about}
+                                                                    :instrument_termDefinition    {:type nil
+                                                                                        :page :about}
+                                                                    :platform_term              {:type        nil
+                                                                                        :label       "Platform"
+                                                                                        :placeholder "Start typing to filter the list"
+                                                                                        :help        "Is the data measured from land, air, satellite or a model?"
+                                                                                        :page        :about}
+                                                                    :platform_vocabularyTermURL {:type nil
+                                                                                        :page :about}
+                                                                    :platform_vocabularyVersion {:type nil
+                                                                                        :page :about}
+                                                                    :platform_termDefinition    {:type nil
+                                                                                        :page :about}}}
                            :useLimitations                {:type  nil
                                                            :label "Use limitations"
                                                            :many  true

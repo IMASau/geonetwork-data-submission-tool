@@ -489,47 +489,51 @@
                             "serialNumber": {
                                 "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"Instrument_ID\"]"
                             },
-                            "unit": {
+                            "unit_term": {
+                                "xpath": "mri:keyword[gcx:Anchor[@xlink:title=\"UOM\"]]",
+                                "valueChild": "gcx:Anchor"
+                            },
+                            "unit_vocabularyTermURL": {
                                 "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"UOM\"]",
                                 "attributes": {
-                                    "text": {
-                                        "function": "vocab_text"
-                                    },
                                     "xlink:href": {
-                                        "function": "vocab_url"
+                                        "function": "identity"
                                     }
                                 }
                             },
-                            "platform": {
-                                "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"Platform\"]",
-                                "attributes": {
-                                    "text": {
-                                        "function": "vocab_text"
-                                    },
-                                    "xlink:href": {
-                                        "function": "vocab_url"
-                                    }
-                                }
+                            "longName_term": {
+                                "xpath": "mri:keyword[gcx:Anchor[@xlink:title=\"Parameter\"]]",
+                                "valueChild": "gcx:Anchor"
                             },
-                            "longName": {
+                            "longName_vocabularyTermURL": {
                                 "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"Parameter\"]",
                                 "attributes": {
-                                    "text": {
-                                        "function": "vocab_text"
-                                    },
                                     "xlink:href": {
-                                        "function": "vocab_url"
+                                        "function": "identity"
                                     }
                                 }
                             },
-                            "instrument": {
+                            "platform_term": {
+                                "xpath": "mri:keyword[gcx:Anchor[@xlink:title=\"Platform\"]]",
+                                "valueChild": "gcx:Anchor"
+                            },
+                            "platform_vocabularyTermURL": {
+                                "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"Platform\"]",
+                                "attributes": {
+                                    "xlink:href": {
+                                        "function": "identity"
+                                    }
+                                }
+                            },
+                            "instrument_term": {
+                                "xpath": "mri:keyword[gcx:Anchor[@xlink:title=\"Instrument\"]]",
+                                "valueChild": "gcx:Anchor"
+                            },
+                            "instrument_vocabularyTermURL": {
                                 "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"Instrument\"]",
                                 "attributes": {
-                                    "text": {
-                                        "function": "vocab_text"
-                                    },
                                     "xlink:href": {
-                                        "function": "vocab_url"
+                                        "function": "identity"
                                     }
                                 }
                             }

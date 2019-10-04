@@ -457,7 +457,7 @@ class Person(models.Model):
     familyName = models.CharField(max_length=256, verbose_name="family name")
     givenName = models.CharField(max_length=256, verbose_name="given name")
     honorificPrefix = models.CharField(max_length=256, blank=True, verbose_name="honorific")
-    orcid = models.CharField(max_length=50, verbose_name="ORCID ID", default="")
+    orcid = models.CharField(max_length=50, verbose_name="ORCID ID", default="", blank=True)
     prefLabel = models.CharField(max_length=512, default="")
     isUserAdded = models.BooleanField(default=False,verbose_name="User Added")
     electronicMailAddress = models.CharField(max_length=256,default="",verbose_name='email')

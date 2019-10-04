@@ -190,14 +190,14 @@
 (rf/reg-event-db
   :handlers/update-dp-term
   ins/std-ins
-  (fn [db [_ dp-term-path option]]
+  (fn [db [_ dp-term-path sub-paths option]]
     (let [option (if (map? option) option (utils/js-lookup option))
           {:keys [term vocabularyTermURL vocabularyVersion termDefinition]} option]
       (-> db
-          (update-in dp-term-path assoc-in [:term :value] term)
-          (update-in dp-term-path assoc-in [:vocabularyTermURL :value] vocabularyTermURL)
-          (update-in dp-term-path assoc-in [:vocabularyVersion :value] vocabularyVersion)
-          (update-in dp-term-path assoc-in [:termDefinition :value] termDefinition)))))
+          (update-in dp-term-path assoc-in [(:term sub-paths) :value] term)
+          (update-in dp-term-path assoc-in [(:vocabularyTermURL sub-paths) :value] vocabularyTermURL)
+          (update-in dp-term-path assoc-in [(:vocabularyVersion sub-paths) :value] vocabularyVersion)
+          (update-in dp-term-path assoc-in [(:termDefinition sub-paths) :value] termDefinition)))))
 
 (rf/reg-event-db
   :handlers/update-nasa-list-value

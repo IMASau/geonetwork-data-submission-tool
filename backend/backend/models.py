@@ -191,8 +191,7 @@ class Document(models.Model):
             ("workflow_upload", "Can upload record in workflow"),
             ("workflow_discard", "Can discard record in workflow"),
             ("workflow_restart", "Can restart record in workflow"),
-            ("workflow_recover", "Can recover discarded records in workflow"),
-            ("workflow_mint", "Can queue a DOI to be minted in workflow")
+            ("workflow_recover", "Can recover discarded records in workflow")
         )
 
     def short_title(self):
@@ -214,17 +213,6 @@ class Document(models.Model):
                                          data=data)
         else:
             return super(Document, self).save(*args, **kwargs)
-
-    ########################################################
-    # Workflow conditions
-    def can_mint(instance):
-        try:
-            wantsDoi = instance.latest_draft.doiRequested
-            #can mint if they asked for one and don't have one yet
-            canMint = wantsDoi and not bool(instance.doi)
-            return canMint
-        except:
-            return False
 
     ########################################################
     # Workflow (state) Transitions
@@ -279,111 +267,6 @@ class Document(models.Model):
         creator = etree.SubElement(creators, 'creator')
         creatorName = etree.SubElement(creator, 'creatorName')
         creatorName.text = '{last}, {first}'.format(last=person['familyName'], first=person['givenName'])
-
-
-    @transition(field=status, source=SUBMITTED, target=SUBMITTED, on_error=SUBMITTED,
-                conditions=[can_mint], permission='backend.workflow_mint')
-    def mint_doi_for(self):
-        doi_template = '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<resource xsi:schemaLocation="http://datacite.org/schema/kernel-4
-http://schema.datacite.org/meta/kernel-4.2/metadata.xsd"
-xmlns="http://datacite.org/schema/kernel-4"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <identifier identifierType="DOI"/>
-    <creators></creators>
-    <titles><title></title></titles>
-    <publisher></publisher>
-    <publicationYear></publicationYear>
-    <resourceType resourceTypeGeneral="Dataset">dataset</resourceType></resource>'''
-        ns = {'n': 'http://datacite.org/schema/kernel-4'}
-
-        request_xml = etree.fromstring(doi_template.encode('utf-8'))
-        data = self.latest_draft.data
-
-        # all the people involved
-        pocs = data['identificationInfo']['pointOfContact']
-        crps = data['identificationInfo']['citedResponsibleParty']
-
-        # add title
-        request_xml.find('n:titles/n:title', ns).text = data['identificationInfo']['title']
-
-        # more than one publisher could technically be specified, but shouldn't be
-        # just loop through, whichever is encountered last is the final value
-        publisher = request_xml.find('n:publisher', ns)
-        for person in pocs:
-            if person['role'] == 'publisher':
-                publisher.text = person['organisationName']
-        for person in crps:
-            if person['role'] == 'publisher':
-                publisher.text = person['organisationName']
-
-        publicationYear = request_xml.find('n:publicationYear', ns)
-        # might be nicer to convert to a date and explicitly pull the year maybe
-        publicationYear.text = data['identificationInfo']['datePublication'][:4]
-
-        author_uuids = []
-        coauthor_uuids = []
-
-        # <creator><creatorName></creatorName></creator>
-        creators = request_xml.find('n:creators', ns)
-        # we want to add the authors first, easier to just loop through twice
-        # check the uri to make sure we don't add a person twice
-        for person in pocs:
-            if person['role'] == 'author' and person['uri'] not in author_uuids:
-                self.add_creator(creators, person, ns)
-                author_uuids.append(person['uri'])
-
-        for person in crps:
-            if person['role'] == 'author' and person['uri'] not in author_uuids:
-                self.add_creator(creators, person, ns)
-                author_uuids.append(person['uri'])
-
-        for person in pocs:
-            if person['role'] == 'coAuthor' and person['uri'] not in coauthor_uuids:
-                self.add_creator(creators, person, ns)
-                coauthor_uuids.append(person['uri'])
-
-        for person in crps:
-            if person['role'] == 'coAuthor' and person['uri'] not in coauthor_uuids:
-                self.add_creator(creators, person, ns)
-                coauthor_uuids.append(person['uri'])
-
-        uuid = self.uuid
-        response = None
-        try:
-            if self.latest_draft.doiRequested:
-                # they have asked for a DOI to be minted, and it hasn't been done yet
-                if not data.get('doi', None):
-                    sitecontent = SiteContent.objects.all()[0]
-                    baseUri = sitecontent.doiUri
-                    doiUri = 'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=data['fileIdentifier'])
-                    requestUri = '{base}&url={doiUri}'.format(base=baseUri, doiUri=doiUri)
-                    body = {'xml': etree.tostring(request_xml)}
-                    response = requests.post(requestUri, data=body)
-        except Exception as e:
-            return False
-        if response:
-            if response.status_code == 200:
-                response_xml = etree.fromstring(response.content)
-                outcome = response_xml.attrib['type']
-                if outcome == 'success':
-                    message = response_xml.find('message').text
-                    doi = response_xml.find('doi').text
-                    self.doi = doi
-
-                    draft = self.latest_draft
-                    data_doi = draft.data['identificationInfo']['doi']
-                    if data_doi is None:
-                        draft.data['identificationInfo']['doi'] = {}
-
-                    draft.data['identificationInfo']['doi']['code'] = doi
-                    draft.data['identificationInfo']['doi']['codeSpace'] = ''
-                    draft.save()
-                    self.save()
-                else:
-                    verboseMessage = response_xml.find('verboseMessage').text
-            else:
-                messages.add_message(None, messages.ERROR, 'There was an error connecting to the DOI minting service. Please try again later.')
 
     ########################################################
     @property

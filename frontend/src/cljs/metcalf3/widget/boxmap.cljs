@@ -69,39 +69,6 @@
         map-extents {:north north :west west :east east :south south}]
     map-extents))
 
-(defn box-map
-  [{:keys [map-props]}]
-  (let [initial-props map-props
-        map-props @(rf/subscribe [:map/props])
-        map-props (merge initial-props map-props)
-        {:keys [boxes]} map-props
-        extents (boxes->extents boxes)
-        base-layer [react-leaflet/tile-layer
-                    {:url         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                     :attribution "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"}]]
-    [:div.map-wrapper
-     (into
-       [react-leaflet/map (merge
-                            {;:crs                  (gget "L.CRS.EPSG4326")
-                             :id                   "map"
-                             :style                {:height "400px" :width "400px"}
-                             :use-fly-to           true
-                             :center               [-42 147]
-                             :zoom                 5
-                             :keyboard             false    ; handled externally
-                             :close-popup-on-click false    ; We'll handle that ourselves
-                             }
-                            (when (not (some nil? (vals extents))) {:bounds (map->bounds extents)}))
-
-        base-layer]
-       (for [box (:value boxes)]
-         (when (not (some nil? (map :value (vals (:value box)))))
-           (if (geographicElement->point? (:value box))
-             [react-leaflet/marker
-              {:position (geographicElement->point (:value box))}]
-             [react-leaflet/rectangle
-              {:bounds (geographicElement->bounds (:value box))}]))))]))
-
 
 (defn fg->data [fg]
   (let [leaflet-element (react-leaflet/leaflet-element fg)

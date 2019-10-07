@@ -163,12 +163,12 @@
                         "xpath": "mri:citation/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code",
                         "container": "mri:citation/cit:CI_Citation/cit:identifier",
                         "keep": false,
-                                "valueChild": "gco:CharacterString",
-                                "attributes": {
-                                    "text": {
-                                        "function": "write_doi"
-                                    }
-                                }
+                        "valueChild": "gco:CharacterString",
+                        "attributes": {
+                            "text": {
+                                "function": "write_doi"
+                            }
+                        }
                     },
                     "dateCreation": {
                         "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",

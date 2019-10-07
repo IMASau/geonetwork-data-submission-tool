@@ -264,15 +264,6 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
                     message = response_xml.find('message').text
                     doi = response_xml.find('doi').text
                     doc.doi = doi
-
-                    draft = doc.latest_draft
-                    data_doi = draft.data['identificationInfo']['doi']
-                    if data_doi is None:
-                        draft.data['identificationInfo']['doi'] = {}
-
-                    draft.data['identificationInfo']['doi']['code'] = doi
-                    draft.data['identificationInfo']['doi']['codeSpace'] = ''
-                    draft.save()
                     doc.save()
                 else:
                     verboseMessage = response_xml.find('verbosemessage').text

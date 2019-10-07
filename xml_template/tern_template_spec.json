@@ -160,19 +160,13 @@
                         "required": true
                     },
                     "doi": {
-                        "xpath": "mri:citation/cit:CI_Citation/cit:identifier/mcc:MD_Identifier",
+                        "xpath": "mri:citation/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code",
                         "container": "mri:citation/cit:CI_Citation/cit:identifier",
                         "keep": false,
-                        "nodes": {
-                            "code": {
-                                "xpath": "mcc:code",
-                                "valueChild": "gco:CharacterString",
-                                "keep": false
-                            },
-                            "codeSpace": {
-                                "xpath": "mcc:codeSpace",
-                                "valueChild": "gco:CharacterString",
-                                "keep": false
+                        "valueChild": "gco:CharacterString",
+                        "attributes": {
+                            "text": {
+                                "function": "write_doi"
                             }
                         }
                     },
@@ -743,25 +737,29 @@
                 "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor[@xlink:role=\"uri\"]",
                 "keep": false,
                 "required": false,
+                "deleteWhenEmpty": false,
+                "export": false,
                 "parser": {
                     "function": "parse_individual_identifier"
-                },
-                "attributes": {
-                    "xlink:href": {
-                        "function": "identity"
-                    }
                 }
             },
             "orcid": {
                 "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor[@xlink:role=\"orcid\"]",
                 "required": false,
                 "keep": false,
+                "export": false,
                 "parser": {
                     "function": "parse_individual_orcid"
                 },
-                "attributes": {
-                    "xlink:href": {
-                        "function": "write_orcid"
+                "exportTo": {
+                    "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor",
+                    "attributes": {
+                        "xlink:href": {
+                            "function": "write_orcid"
+                        },
+                        "xlink:role": {
+                            "function": "write_orcid_role"
+                        }
                     }
                 }
             },

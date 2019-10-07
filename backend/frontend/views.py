@@ -315,9 +315,13 @@ def home(request):
     sitecontent, _ = SiteContent.objects.get_or_create(site=get_current_site(request))
     return render_to_response("home.html", {'sitecontent': sitecontent})
 
+
 def personFromData(data):
     uri = data['uri']
     if uri:
+        if not data['familyName'] or not data['givenName']:
+            return
+        data['individualName'] = '{0}, {1}'.format(data['familyName'], data['givenName'])
         try:
             matchingPerson = Person.objects.get(uri=uri)
             if matchingPerson.isUserAdded:
@@ -325,19 +329,22 @@ def personFromData(data):
                 matchingPerson.givenName = data['givenName']
                 matchingPerson.familyName = data['familyName']
                 matchingPerson.orcid = data['orcid'] or ''
-                matchingPerson.prefLabel = data['familyName'] + ', ' + data['givenName']
+                matchingPerson.prefLabel = data['individualName']
                 matchingPerson.electronicMailAddress = data['electronicMailAddress']
                 matchingPerson.save()
+                return matchingPerson
         except Person.DoesNotExist:
             inst = Person.objects.create(uri=uri,
                                          orgUri=data['organisationIdentifier'],
                                          givenName=data['givenName'],
                                          familyName=data['familyName'],
                                          orcid=data['orcid'] or '',
-                                         prefLabel=data['familyName'] + ', ' + data['givenName'],
+                                         prefLabel=data['individualName'],
                                          electronicMailAddress=data['electronicMailAddress'],
                                          isUserAdded=True)
             inst.save()
+            return inst
+    return None
 
 def institutionFromData(data):
     orgUri = data['organisationIdentifier']
@@ -368,6 +375,22 @@ def save(request, uuid):
             doc.resubmit()
         doc.save()
 
+        # add any new people or institutions to the database
+        pointOfContacts = data['identificationInfo']['pointOfContact']
+        citedResponsibleParties = data['identificationInfo']['citedResponsibleParty']
+
+        for pointOfContact in pointOfContacts:
+            updatedPerson = personFromData(pointOfContact)
+            if updatedPerson:
+                pointOfContact['individualName'] = updatedPerson.prefLabel
+            institutionFromData(pointOfContact)
+
+        for citedResponsibleParty in citedResponsibleParties:
+            updatedPerson = personFromData(citedResponsibleParty)
+            if updatedPerson:
+                citedResponsibleParty['individualName'] = updatedPerson.prefLabel
+            institutionFromData(citedResponsibleParty)
+
         #update the publication date
         data['identificationInfo']['datePublication'] = today()
 
@@ -376,18 +399,6 @@ def save(request, uuid):
         inst.agreedToTerms = data['agreedToTerms'] or False
         inst.doiRequested = data['doiRequested'] or False
         inst.save()
-
-        # add any new people or institutions to the database
-        pointOfContacts = data['identificationInfo']['pointOfContact']
-        citedResponsibleParties = data['identificationInfo']['citedResponsibleParty']
-
-        for pointOfContact in pointOfContacts:
-            personFromData(pointOfContact)
-            institutionFromData(pointOfContact)
-
-        for citedResponsibleParty in citedResponsibleParties:
-            personFromData(citedResponsibleParty)
-            institutionFromData(citedResponsibleParty)
 
 
         # Remove any attachments which are no longer mentioned in the XML.

@@ -262,76 +262,6 @@
                      </mcc:codeSpace>
                   </mcc:MD_Identifier>
                </cit:identifier>
-  <cit:citedResponsibleParty>
-                  <cit:CI_Responsibility>
-                     <cit:role>
-                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
-                                         codeListValue="author"/>
-                     </cit:role>
-                     <cit:party>
-                        <cit:CI_Organisation>
-
-                           <cit:name>
-                              <gcx:Anchor xlink:title="Organisation" xlink:role="uri" xlink:type="simple"
-                                          xlink:href="http://linkeddata.tern.org.au/def/agent/797307f8-e10b-4c74-8688-d52f9ac8d669"
-                                          xlink:show="new">Geoscience Australia</gcx:Anchor>
-                           </cit:name>
-                           <cit:contactInfo>
-                              <cit:CI_Contact>
-                                 <cit:phone>
-                                    <cit:CI_Telephone>
-                                       <cit:number>
-                                          <gco:CharacterString>02 6249 9182/9781</gco:CharacterString>
-                                       </cit:number>
-                                       <cit:numberType>
-                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode"
-                                                                    codeListValue="voice"/>
-                                       </cit:numberType>
-                                    </cit:CI_Telephone>
-                                 </cit:phone>
-                                 <cit:phone>
-                                    <cit:CI_Telephone>
-                                       <cit:number>
-                                          <gco:CharacterString>02 6249 9920</gco:CharacterString>
-                                       </cit:number>
-                                       <cit:numberType>
-                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode"
-                                                                    codeListValue="facsimile"/>
-                                       </cit:numberType>
-                                    </cit:CI_Telephone>
-                                 </cit:phone>
-
-                                 <cit:address>
-                                    <cit:CI_Address>
-                                       <cit:deliveryPoint>
-                                          <gco:CharacterString>Cnr Jerrabomberra Ave and Hindmarsh Dr</gco:CharacterString>
-                                       </cit:deliveryPoint>
-                                       <cit:deliveryPoint>
-                                          <gco:CharacterString>GPO Box 378</gco:CharacterString>
-                                       </cit:deliveryPoint>
-                                       <cit:city>
-                                          <gco:CharacterString>Canberra</gco:CharacterString>
-                                       </cit:city>
-                                       <cit:administrativeArea>
-                                          <gco:CharacterString>ACT</gco:CharacterString>
-                                       </cit:administrativeArea>
-                                       <cit:postalCode>
-                                          <gco:CharacterString>2601</gco:CharacterString>
-                                       </cit:postalCode>
-                                       <cit:country>
-                                          <gco:CharacterString>Australia</gco:CharacterString>
-                                       </cit:country>
-                                       <cit:electronicMailAddress>
-                                          <gco:CharacterString>ivan.schroder@ga.gov.au</gco:CharacterString>
-                                       </cit:electronicMailAddress>
-                                    </cit:CI_Address>
-                                 </cit:address>
-                              </cit:CI_Contact>
-                           </cit:contactInfo>
-                        </cit:CI_Organisation>
-                     </cit:party>
-                  </cit:CI_Responsibility>
-               </cit:citedResponsibleParty>
                <cit:citedResponsibleParty>
                   <cit:CI_Responsibility>
                      <cit:role>
@@ -386,8 +316,8 @@
                               <cit:CI_Individual>
 
                                  <cit:name>
-                                    <gcx:Anchor xlink:title="Person" xlink:role="uri" xlink:type="simple"
-                                                xlink:href="http://linkeddata.tern.org.au/def/agent/7b838abc-8023-4a2a-ad2e-92a79be93104"
+                                    <gcx:Anchor xlink:title="Person" xlink:role="orcid" xlink:type="simple"
+                                                xlink:href="https://orcid.org/0000-0002-6995-4721"
                                                 xlink:show="new">Mark Kitchen</gcx:Anchor>
                                  </cit:name>
                                  <cit:positionName>
@@ -395,60 +325,6 @@
                                  </cit:positionName>
                               </cit:CI_Individual>
                            </cit:individual>
-                        </cit:CI_Organisation>
-                     </cit:party>
-                  </cit:CI_Responsibility>
-               </cit:citedResponsibleParty>
-               <cit:citedResponsibleParty>
-                  <cit:CI_Responsibility>
-                     <cit:role>
-                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
-                           codeListValue="publisher"/>
-                     </cit:role>
-                     <cit:party>
-                        <cit:CI_Organisation>
-                           <cit:name>
-                              <gcx:Anchor xlink:title="Organisation" xlink:role="uri" xlink:type="simple"
-                                 xlink:href="http://linkeddata.tern.org.au/def/agent/a083902d-d821-41be-b663-1d7cb33eea66"
-                                 xlink:show="new">Terrestrial Ecosystem Research Network (TERN)</gcx:Anchor>
-                           </cit:name>
-                           <cit:contactInfo>
-                              <cit:CI_Contact>
-                                 <cit:phone>
-                                    <cit:CI_Telephone>
-                                       <cit:number>
-                                          <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
-                                       </cit:number>
-                                       <cit:numberType>
-                                          <cit:CI_TelephoneTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_TelephoneTypeCode"
-                                             codeListValue="voice"/>
-                                       </cit:numberType>
-                                    </cit:CI_Telephone>
-                                 </cit:phone>
-                                 <cit:address>
-                                    <cit:CI_Address>
-                                       <cit:deliveryPoint>
-                                          <gco:CharacterString>Building 8, University of Queensland</gco:CharacterString>
-                                       </cit:deliveryPoint>
-                                       <cit:city>
-                                          <gco:CharacterString>St Lucia</gco:CharacterString>
-                                       </cit:city>
-                                       <cit:administrativeArea>
-                                          <gco:CharacterString>QLD</gco:CharacterString>
-                                       </cit:administrativeArea>
-                                       <cit:postalCode>
-                                          <gco:CharacterString>4072</gco:CharacterString>
-                                       </cit:postalCode>
-                                       <cit:country>
-                                          <gco:CharacterString>AU</gco:CharacterString>
-                                       </cit:country>
-                                       <cit:electronicMailAddress>
-                                          <gco:CharacterString>esupport@tern.org.au</gco:CharacterString>
-                                       </cit:electronicMailAddress>
-                                    </cit:CI_Address>
-                                 </cit:address>
-                              </cit:CI_Contact>
-                           </cit:contactInfo>
                         </cit:CI_Organisation>
                      </cit:party>
                   </cit:CI_Responsibility>

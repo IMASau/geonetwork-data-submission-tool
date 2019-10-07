@@ -236,6 +236,9 @@ def sampling_text(x):
 def sampling_uri(x):
     return x['uri']
 
+def write_doi(x):
+    return 'doi: {doi}'.format(doi=x)
+
 def geonetwork_url(x):
     return 'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=x)
 
@@ -271,5 +274,6 @@ SPEC_FUNCTIONS = {
     "sampling_uri": sampling_uri,
     "sampling_text": sampling_text,
     "write_orcid": write_orcid,
+    "write_doi": write_doi,
     "geonetwork_url": geonetwork_url
 }

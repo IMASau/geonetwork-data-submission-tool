@@ -208,10 +208,18 @@ class Document(models.Model):
             data = extract_xml_data(tree, spec)
             data['identificationInfo']['title'] = self.title or data['identificationInfo']['title']
             data['fileIdentifier'] = self.pk
+
             DraftMetadata.objects.create(document=self,
                                          user=self.owner,
                                          data=data)
         else:
+            #update the draft if they've changed the DOI
+            current_doi = self.doi or ''
+            draft = self.latest_draft
+            data_doi = draft.data['identificationInfo'].get('doi', '')
+            if current_doi != data_doi:
+                draft.data['identificationInfo']['doi'] = current_doi
+                draft.save()
             return super(Document, self).save(*args, **kwargs)
 
     ########################################################

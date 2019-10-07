@@ -118,10 +118,10 @@
            [react-leaflet/map (merge
                                 {;:crs                  (gget "L.CRS.EPSG4326")
                                  :id                   "map"
-                                 :style                {:height "400px" :width "400px"}
+                                 :style                {:height 500 :width map-width}
                                  :use-fly-to           true
-                                 :center               [-42 147]
-                                 :zoom                 5
+                                 :center               [-28 134]
+                                 :zoom                 4
                                  :keyboard             false ; handled externally
                                  :close-popup-on-click false ; We'll handle that ourselves
                                  }

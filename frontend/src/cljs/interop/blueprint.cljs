@@ -79,6 +79,7 @@
 (def time-picker (r/adapt-react-class (gget "BlueprintDatetime.TimePicker")))
 (def hotkeys (r/adapt-react-class (gget "BlueprintCore.Hotkeys")))
 (def hotkey (r/adapt-react-class (gget "BlueprintCore.Hotkey")))
+(def resize-sensor (r/adapt-react-class (gget "BlueprintCore.ResizeSensor")))
 
 (defn hotkeys-target
   [view hotkeys-view]

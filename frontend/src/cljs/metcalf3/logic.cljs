@@ -411,11 +411,12 @@
 (defn data-service-logic-helper
   [data-service]
   (let [protocol-value (-> data-service :value :protocol :value)]
-    (if (= protocol-value "WWW:LINK-1.0-http--downloaddata")
+    (if (contains? #{"OGC:WCS-1.1.0-http-get-capabilities"
+                     "OGC:WMS-1.3.0-http-get-map"} protocol-value)
       (update-in data-service [:value :name]
-                 assoc :required false :disabled true :placeholder "" :value "")
+                 assoc :required true)
       (update-in data-service [:value :name]
-                 assoc :required true))))
+                 assoc :required false :disabled true :placeholder "" :value ""))))
 
 (defn data-service-logic
   "

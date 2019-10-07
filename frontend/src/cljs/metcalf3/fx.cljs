@@ -94,3 +94,9 @@
            :response-format :json
            :keywords?       true})))
 
+(rf/reg-fx
+  :window/open
+  (fn [{:keys [url windowName]}]
+    (s/assert string? url)
+    (s/assert (s/nilable string?) windowName)
+    (js/window.open url windowName)))

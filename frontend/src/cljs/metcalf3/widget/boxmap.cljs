@@ -4,7 +4,9 @@
             [re-frame.core :as rf]
             [interop.react-leaflet :as react-leaflet]
             [oops.core :refer [ocall oget gget]]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [interop.blueprint :as bp3]
+            [goog.object :as gobj]))
 
 ;;; http://blog.jayfields.com/2011/01/clojure-select-keys-select-values-and.html
 (defn select-values [map ks]
@@ -95,7 +97,7 @@
 (defn box-map2
   [_]
   (let [*fg (atom nil)]
-    (fn [{:keys [map-props boxes-path]}]
+    (fn [{:keys [map-props boxes-path map-width]}]
       (let [initial-props map-props
             map-props @(rf/subscribe [:map/props])
             map-props (merge initial-props map-props)
@@ -152,5 +154,11 @@
                      :on-created handle-change}]]
                   initial-elements)]])))))
 
-
+(defn box-map2-fill
+  []
+  (let [*width (r/atom nil)]
+    (fn [props]
+      (let [width @*width]
+        [bp3/resize-sensor {:onResize #(reset! *width (-> % (aget 0) (gobj/getValueByKeys "contentRect" "width")))}
+         (r/as-element [:div (when width [box-map2 (assoc props :map-width width)])])]))))
 

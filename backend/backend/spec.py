@@ -49,7 +49,7 @@ def insert_functions(spec):
 def make_spec(**kwargs):
     assert 'mapper' in kwargs, "We couldn't load the mapper for this template. Please make sure the mapper exists"
     assert kwargs['mapper'] != None, "No mapper exists for this template. Please specify one."
-    with open(kwargs['mapper'].file.path) as json_file:
+    with kwargs['mapper'].file.open() as json_file:
         spec_json = json.load(json_file)
         spec = spec_json['spec']
         node_groups = spec_json['node_groups']

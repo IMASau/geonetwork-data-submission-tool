@@ -54,10 +54,10 @@
 
 (defn dp-term-paths [dp-type]
   (js/console.log "DP TERM PATHS" {:dp-type dp-type})
-  {:term (keyword (str (name dp-type) "_term"))
+  {:term              (keyword (str (name dp-type) "_term"))
    :vocabularyTermURL (keyword (str (name dp-type) "_vocabularyTermURL"))
    :vocabularyVersion (keyword (str (name dp-type) "_vocabularyVersion"))
-   :termDefinition (keyword (str (name dp-type) "_termDefinition"))})
+   :termDefinition    (keyword (str (name dp-type) "_termDefinition"))})
 
 (defn masked-text-widget
   [{:keys [mask value placeholder disabled on-change on-blur]}]
@@ -278,7 +278,7 @@
        :onValueChange  #(rf/dispatch (conj change-v %))
        :disabled       disabled
        :placeholder    placeholder
-       :maxlength      maxlength
+       :maxLength      maxlength
        :value          value
        :fill           true
        :intent         intent}]]))
@@ -543,7 +543,7 @@
                            [:p.help-block "Select keyword(s) to add to record"]
                            [KeywordsThemeTable keyword-type]]
             :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-            :on-save   #(rf/dispatch [:handlers/close-modal])}]))
+            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
 
 (defn TopicCategories
   [_ this]
@@ -623,7 +623,7 @@
                                       (handle-highlight-new this uuid)
                                       (set-value! nil)))
                     lookup (fn [uuid] (first (filterv #(= uuid (first %)) theme-table)))
-                    show-modal! #(rf/dispatch [:handlers/open-modal {:type :ThemeKeywords
+                    show-modal! #(rf/dispatch [:handlers/open-modal {:type         :ThemeKeywords
                                                                      :keyword-type keyword-type}])
                     options (into-array (for [[value & path :as rowData] theme-table]
                                           #js {:value   value
@@ -727,7 +727,7 @@
                                        :placeholder placeholder
                                        :errors      errors
                                        :help        help
-                                       :extra-help "We will contact you to discuss appropriate keyword terms"
+                                       :extra-help  "We will contact you to discuss appropriate keyword terms"
                                        :on-change   (fn [e]
                                                       (set-value! (.. e -target -value)))
                                        :on-blur     (fn [] (js/setTimeout #(rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path]) 100))}])]))))]
@@ -877,37 +877,38 @@
                [:h4 "Geographic Coverage"]
                (when hasGeographicCoverage
                  [:div.row
-                  [:div.col-sm-5
-                   [boxmap/box-map2
+                  [:div.col-sm-6
+                   [boxmap/box-map2-fill
                     {:boxes-path boxes-path
-                     :map-props {:boxes boxes}
-                     :ref       (fn [boxmap] (r/set-state this {:boxmap boxmap}))
-                     :disabled  disabled}]]
-                  [:div.col-sm-7
-                   [:div
-                    [textarea-field [:form :fields :identificationInfo :geographicElement :siteDescription]]
-                    [:p [:span "Please input in decimal degrees in coordinate reference system WGS84. A converter is available here: "
-                         [:a {:href "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp" :target "blank"} "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp"]]]
-                    [TableModalEdit {:ths           ["North limit" "West limit" "South limit" "East limit"]
-                                     :tds-fn        (fn [geographicElement]
-                                                      (let [{:keys [northBoundLatitude westBoundLongitude
-                                                                    eastBoundLongitude southBoundLatitude]}
-                                                            (:value geographicElement)]
-                                                        [(print-nice (:value northBoundLatitude))
-                                                         (print-nice (:value westBoundLongitude))
-                                                         (print-nice (:value southBoundLatitude))
-                                                         (print-nice (:value eastBoundLongitude))]))
-                                     :default-field (-> (logic/new-value-field boxes)
-                                                        (update-in [:value :northBoundLatitude] merge (:northBoundLatitude 0))
-                                                        (update-in [:value :southBoundLatitude] merge (:southBoundLatitude 0))
-                                                        (update-in [:value :eastBoundLongitude] merge (:eastBoundLongitude 0))
-                                                        (update-in [:value :westBoundLongitude] merge (:westBoundLongitude 0)))
-                                     :form          CoordField
-                                     :title         "Geographic Coordinates"
-                                     :on-new-click  nil
-                                     :field-path    boxes-path}]]]])]))]
+                     :map-props  {:boxes boxes}
+                     :ref        (fn [boxmap] (r/set-state this {:boxmap boxmap}))
+                     :disabled   disabled}]]
+                  [:div.col-sm-6
+                   [textarea-field [:form :fields :identificationInfo :geographicElement :siteDescription]]
+                   [:p [:span "Please input in decimal degrees in coordinate reference system WGS84. "
+                        "Geoscience Australia provide a "
+                        [:a {:href "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp" :target "blank"}
+                         "Grid to Geographic converter"]]]
+                   [TableModalEdit {:ths           ["North limit" "West limit" "South limit" "East limit"]
+                                    :tds-fn        (fn [geographicElement]
+                                                     (let [{:keys [northBoundLatitude westBoundLongitude
+                                                                   eastBoundLongitude southBoundLatitude]}
+                                                           (:value geographicElement)]
+                                                       [(print-nice (:value northBoundLatitude))
+                                                        (print-nice (:value westBoundLongitude))
+                                                        (print-nice (:value southBoundLatitude))
+                                                        (print-nice (:value eastBoundLongitude))]))
+                                    :default-field (-> (logic/new-value-field boxes)
+                                                       (update-in [:value :northBoundLatitude] merge (:northBoundLatitude 0))
+                                                       (update-in [:value :southBoundLatitude] merge (:southBoundLatitude 0))
+                                                       (update-in [:value :eastBoundLongitude] merge (:eastBoundLongitude 0))
+                                                       (update-in [:value :westBoundLongitude] merge (:westBoundLongitude 0)))
+                                    :form          CoordField
+                                    :title         "Geographic Coordinates"
+                                    :on-new-click  nil
+                                    :field-path    boxes-path}]]])]))]
     (r/create-class
-      {:render            render})))
+      {:render render})))
 
 (defn VerticalCoverage [props this]
   (let [{hasVerticalExtent :value} @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]])]
@@ -961,7 +962,7 @@
                   path (conj path keyword)
                   value-path (conj path :value 0 :value)
                   {:keys [options]} @(rf/subscribe [:subs/get-derived-path [:api keyword]])
-                  {:keys [prefLabel uri ] :as freq} @(rf/subscribe [:subs/get-derived-path value-path])
+                  {:keys [prefLabel uri] :as freq} @(rf/subscribe [:subs/get-derived-path value-path])
                   path-value @(rf/subscribe [:subs/get-derived-path path])
                   {:keys [label help required errors show-errors]} path-value]
               [:div
@@ -1066,11 +1067,11 @@
                       options (into [] (map #(assoc % :is_selectable true) options))
                       option-value (first (filter #(-> % :uri (= value)) options))]
                   [TermList
-                   {:value     option-value
+                   {:value       option-value
                     :display-key :prefLabel
-                    :value-key :uri
-                    :options   options
-                    :on-select on-change}]))))]
+                    :value-key   :uri
+                    :options     options
+                    :on-select   on-change}]))))]
     (r/create-class
       {:component-will-mount will-mount
        :render               render})))
@@ -1178,7 +1179,7 @@
       (assoc term
         :value (if (other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
-                     (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term v
+                     (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
                                                                                         :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}])))]]))
 
 (defn UnitTermOrOtherForm
@@ -1195,7 +1196,7 @@
       (assoc term
         :value (if (other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
-                     (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term v
+                     (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
                                                                                         :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}])))]]))
 
 (defn PersonListField
@@ -1239,7 +1240,7 @@
             :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter units"]
             :modal-body   [:div [UnitTermOrOtherForm (-> props
                                                          (assoc :sort? false)
-                                                         (assoc :dp-type :unit)) ]]
+                                                         (assoc :dp-type :unit))]]
             :on-dismiss   #(rf/dispatch [:handlers/close-modal])
             :on-save      #(rf/dispatch [:handlers/close-modal])}]))
 
@@ -1584,7 +1585,7 @@
               (let [{:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
                     orgId (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationIdentifier)]))
                     orgName (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationName)]))
-                    js-value #js {:uri (or orgId "")
+                    js-value #js {:uri              (or orgId "")
                                   :organisationName (or orgName "")}
                     js-value (if orgId
                                js-value
@@ -1625,8 +1626,8 @@
                    :onBlur            on-blur
                    :placeholder       "Start typing to filter list..."}))))]
     (r/create-class
-      {:component-did-mount          component-did-mount
-       :render                       render})))
+      {:component-did-mount component-did-mount
+       :render              render})))
 
 (defn PersonPickerWidget
   [_]
@@ -1643,7 +1644,7 @@
                     uri-value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :uri)])
                     preflabel-value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :individualName)])
                     js-value #js {:prefLabel (or (:value preflabel-value) "")
-                                  :uri (:value uri-value)}
+                                  :uri       (:value uri-value)}
                     js-value (if (:value preflabel-value)
                                js-value
                                nil)]
@@ -1798,7 +1799,7 @@
        (if (> (count msgs) 1)
          [:div
           [:b "There are multiple fields on this page that require your attention:"]
-          [:ul (for [msg msgs] [:li msg])]]
+          (into [:ul] (for [msg msgs] [:li msg]))]
          (first msgs))])))
 
 (defn navbar
@@ -1811,7 +1812,7 @@
      [bp3/navbar-group {:align (:LEFT bp3/alignment)}
       [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading title " " tag_line]]]
      [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
-      [:span (userDisplay user)]
+      [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)]
       [:a.bp3-button.bp3-minimal {:href Dashboard} "My Records"]
       [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
       [:a.bp3-button.bp3-minimal {:href "/logout"} "Sign Out"]]]))
@@ -1869,7 +1870,7 @@
    [:div.row
     [:div.col-md-4
      [NasaListSelectField {:keyword :samplingFrequency
-                           :path [:form :fields :identificationInfo]}]]]])
+                           :path    [:form :fields :identificationInfo]}]]]])
 
 (defmethod PageTabView ["Edit" :where]
   [page this]
@@ -2125,7 +2126,7 @@
    [:div.row
     [:div.col-md-6
      [NasaListSelectField {:keyword :horizontalResolution
-                           :path [:form :fields :identificationInfo]}]]]
+                           :path    [:form :fields :identificationInfo]}]]]
    [:br]
    [:h4 "Resource constraints"]
    [ResourceConstraints nil]
@@ -2175,9 +2176,9 @@
 (defn progress-bar []
   (when-let [{:keys [can-submit? value]} @(rf/subscribe [:progress/get-props])]
     [:div
-     [:span {:class "progressPercentage"} (str (int (* value 100)) "%") ]
+     [:span {:class "progressPercentage"} (str (int (* value 100)) "%")]
      [bp3/progress-bar {:animate false
-                        :style {:height "25px"}
+                        :style   {:height "25px"}
                         :intent  (if can-submit? "success" "warning")
                         :stripes false
                         :value   value}]]))

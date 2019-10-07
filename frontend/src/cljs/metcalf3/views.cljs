@@ -876,14 +876,14 @@
               [:div.GeographicCoverage
                [:h4 "Geographic Coverage"]
                (when hasGeographicCoverage
-                 [:div {:style {:display "flex"}}
-                  [:div {:style {:width 420}}
-                   [boxmap/box-map2
+                 [:div.row
+                  [:div.col-sm-6
+                   [boxmap/box-map2-fill
                     {:boxes-path boxes-path
                      :map-props  {:boxes boxes}
                      :ref        (fn [boxmap] (r/set-state this {:boxmap boxmap}))
                      :disabled   disabled}]]
-                  [:div {:style {:flex 1}}
+                  [:div.col-sm-6
                    [textarea-field [:form :fields :identificationInfo :geographicElement :siteDescription]]
                    [:p [:span "Please input in decimal degrees in coordinate reference system WGS84. "
                         "Geoscience Australia provide a "

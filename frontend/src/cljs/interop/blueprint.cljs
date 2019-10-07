@@ -41,6 +41,7 @@
      :render                       (partial render view)}))
 
 (def navbar (r/adapt-react-class (gget "BlueprintCore.Navbar")))
+(def popover (r/adapt-react-class (gget "BlueprintCore.Popover")))
 (def collapse (r/adapt-react-class (gget "BlueprintCore.Collapse")))
 (def navbar-group (r/adapt-react-class (gget "BlueprintCore.NavbarGroup")))
 (def navbar-divider (r/adapt-react-class (gget "BlueprintCore.NavbarDivider")))

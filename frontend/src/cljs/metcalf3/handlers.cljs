@@ -593,3 +593,7 @@
                 {:type    :alert
                  :message (str "Unable to lodge: " status " " failure)}]}))
 
+(rf/reg-event-fx
+  :help-menu/open
+  (fn [_ [_ url]]
+    {:window/open {:url url :windowName "_blank"}}))

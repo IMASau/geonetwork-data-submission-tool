@@ -156,3 +156,12 @@
   :subs/get-form-tick
   (fn [db _]
     (get db :form/tick 0)))
+
+(rf/reg-sub
+  :help/get-menuitems
+  (fn [db _]
+    (let [{:keys [guide_pdf roadmap_pdf releasenotes_url]} (get-in db [:context :site])]
+      (seq (cond-> []
+             guide_pdf (conj ["Guide" [:help-menu/open guide_pdf]])
+             roadmap_pdf (conj ["Roadmap" [:help-menu/open roadmap_pdf]])
+             releasenotes_url (conj ["Release Notes" [:help-menu/open releasenotes_url]]))))))

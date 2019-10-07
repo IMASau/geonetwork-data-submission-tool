@@ -78,7 +78,7 @@ def massage_version_number(s):
 def generate_attachment_url(**kwargs):
     # TODO: figure out how to get env here (was previously inline in the python spec)
     assert kwargs['data'] != None, "data not provided"
-    assert kwargs['uuid'] != None, "models not provided"
+    assert kwargs['uuid'] != None, "uuid not provided"
     data = kwargs['data']
     uuid = kwargs['uuid']
     return "file.disclaimer?uuid={0}&fname={1}&access=private".format(uuid, os.path.basename(data))
@@ -221,9 +221,23 @@ def identity(x):
 def vocab_url(x):
     return x['vocabularyTermURL']
 
+def is_orcid(x):
+    #it's not an orcid
+    if x and x[:4] == 'http':
+        return False
+    return True
 
 def write_orcid(x):
-    return 'https://orcid.org/{orcid}'.format(orcid=x)
+    if is_orcid(x):
+        return 'https://orcid.org/{orcid}'.format(orcid=x)
+    else:
+        return x
+
+def write_orcid_role(x):
+    if is_orcid(x):
+        return "orcid"
+    else:
+        return "uri"
 
 
 def vocab_text(x):
@@ -273,6 +287,7 @@ SPEC_FUNCTIONS = {
     "sampling_uri": sampling_uri,
     "sampling_text": sampling_text,
     "write_orcid": write_orcid,
+    "write_orcid_role": write_orcid_role,
     "write_doi": write_doi,
-    "geonetwork_url": geonetwork_url
+    "geonetwork_url": geonetwork_url,
 }

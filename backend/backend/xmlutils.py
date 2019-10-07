@@ -366,6 +366,15 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
     elif has_nodes(spec):
         xml_node = xml_node.xpath(get_xpath(spec), namespaces=nsmap)[element_index]
         for field_key, node_spec in get_nodes(spec).items():
+            # workaround for a problem with identifiers in the final output
+            # we need to write either the orcid or the uri to the XML file
+            # but we can't do that at the node writing point, because we don't have the
+            # sibling data
+            # TODO: there is a better way to structure this, but we can't overhaul the mapper right now
+            if field_key=='orcid':
+                orcid = data[field_key]
+                if not orcid:
+                    data[field_key] = data['uri']
             if item_is_empty(data, field_key, node_spec):
                 if get_required(node_spec):
                     # at the moment, we are always graceful to missing fields, only reporting them w/o raising exception
@@ -443,7 +452,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                         raise Exception(msg)
                 if attr == 'text':
                     gco = '{%s}' % nsmap['gco']
-                    #TODO: this only works if we don't have actual time information
+                    #TODO: this only works if we don't care about actual time information
                     if element.tag == '%sDateTime' % gco:
                         element.text = '%sT00:00:00' % final_value
                     else:

@@ -876,36 +876,37 @@
               [:div.GeographicCoverage
                [:h4 "Geographic Coverage"]
                (when hasGeographicCoverage
-                 [:div.row
-                  [:div.col-sm-5
+                 [:div {:style {:display "flex"}}
+                  [:div {:style {:width 420}}
                    [boxmap/box-map2
                     {:boxes-path boxes-path
                      :map-props  {:boxes boxes}
                      :ref        (fn [boxmap] (r/set-state this {:boxmap boxmap}))
                      :disabled   disabled}]]
-                  [:div.col-sm-7
-                   [:div
-                    [textarea-field [:form :fields :identificationInfo :geographicElement :siteDescription]]
-                    [:p [:span "Please input in decimal degrees in coordinate reference system WGS84. A converter is available here: "
-                         [:a {:href "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp" :target "blank"} "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp"]]]
-                    [TableModalEdit {:ths           ["North limit" "West limit" "South limit" "East limit"]
-                                     :tds-fn        (fn [geographicElement]
-                                                      (let [{:keys [northBoundLatitude westBoundLongitude
-                                                                    eastBoundLongitude southBoundLatitude]}
-                                                            (:value geographicElement)]
-                                                        [(print-nice (:value northBoundLatitude))
-                                                         (print-nice (:value westBoundLongitude))
-                                                         (print-nice (:value southBoundLatitude))
-                                                         (print-nice (:value eastBoundLongitude))]))
-                                     :default-field (-> (logic/new-value-field boxes)
-                                                        (update-in [:value :northBoundLatitude] merge (:northBoundLatitude 0))
-                                                        (update-in [:value :southBoundLatitude] merge (:southBoundLatitude 0))
-                                                        (update-in [:value :eastBoundLongitude] merge (:eastBoundLongitude 0))
-                                                        (update-in [:value :westBoundLongitude] merge (:westBoundLongitude 0)))
-                                     :form          CoordField
-                                     :title         "Geographic Coordinates"
-                                     :on-new-click  nil
-                                     :field-path    boxes-path}]]]])]))]
+                  [:div {:style {:flex 1}}
+                   [textarea-field [:form :fields :identificationInfo :geographicElement :siteDescription]]
+                   [:p [:span "Please input in decimal degrees in coordinate reference system WGS84. "
+                        "Geoscience Australia provide a "
+                        [:a {:href "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp" :target "blank"}
+                         "Grid to Geographic converter"]]]
+                   [TableModalEdit {:ths           ["North limit" "West limit" "South limit" "East limit"]
+                                    :tds-fn        (fn [geographicElement]
+                                                     (let [{:keys [northBoundLatitude westBoundLongitude
+                                                                   eastBoundLongitude southBoundLatitude]}
+                                                           (:value geographicElement)]
+                                                       [(print-nice (:value northBoundLatitude))
+                                                        (print-nice (:value westBoundLongitude))
+                                                        (print-nice (:value southBoundLatitude))
+                                                        (print-nice (:value eastBoundLongitude))]))
+                                    :default-field (-> (logic/new-value-field boxes)
+                                                       (update-in [:value :northBoundLatitude] merge (:northBoundLatitude 0))
+                                                       (update-in [:value :southBoundLatitude] merge (:southBoundLatitude 0))
+                                                       (update-in [:value :eastBoundLongitude] merge (:eastBoundLongitude 0))
+                                                       (update-in [:value :westBoundLongitude] merge (:westBoundLongitude 0)))
+                                    :form          CoordField
+                                    :title         "Geographic Coordinates"
+                                    :on-new-click  nil
+                                    :field-path    boxes-path}]]])]))]
     (r/create-class
       {:render render})))
 

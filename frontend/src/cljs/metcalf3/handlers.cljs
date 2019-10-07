@@ -472,7 +472,8 @@
   :handlers/dashboard-create-save
   ins/std-ins
   (fn [{:keys [db]} _]
-    (let [{:keys [url] :as form} (get-in db [:create_form])]
+    (let [{:keys [url] :as form} (get-in db [:create_form])
+          form (logic/validate-required-fields form)]
       (if (logic/is-valid? form)
         {:fx/create-document {:url       url
                               :form      form

@@ -202,10 +202,6 @@
       (clear-errors form) field-keys)))
 
 (defn is-valid? [{:keys [fields non_field_errors]}]
-  (field-reduce (field-zipper fields)
-                (fn [acc {:keys [errors]}]
-                  (and acc (empty? errors)))
-                true)
   (and (empty? non_field_errors)
        (field-reduce (field-zipper fields)
                      (fn [acc {:keys [errors]}] (and acc (empty? errors)))
@@ -356,13 +352,13 @@
       (-> verticalElement
           (update-in [:minimumValue] assoc :required true)
           (update-in [:maximumValue] assoc :required true)
-          (update-in [:method]  assoc :required true)
-          (update-in [:elevation]  assoc :required true))
+          (update-in [:method] assoc :required true)
+          (update-in [:elevation] assoc :required true))
       (-> verticalElement
           (update-in [:minimumValue] assoc :required false :disabled true)
           (update-in [:maximumValue] assoc :required false :disabled true)
-          (update-in [:method]  assoc :required false :disabled true)
-          (update-in [:elevation]  assoc :required false :disabled true)))))
+          (update-in [:method] assoc :required false :disabled true)
+          (update-in [:elevation] assoc :required false :disabled true)))))
 
 (defn end-position-logic
   "End position is required if the status is ongoing"
@@ -516,14 +512,14 @@
   (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))]
     (-> (deep-merge default-payload payload)
         (assoc :alert [])
-        (assoc :api {:parametername         {:uri (str URL_ROOT "/api/parametername.json") :options nil}
-                     :parameterunit         {:uri (str URL_ROOT "/api/parameterunit.json?ordering=Name") :options nil}
-                     :parameterinstrument   {:uri (str URL_ROOT "/api/parameterinstrument.json") :options nil}
-                     :parameterplatform     {:uri (str URL_ROOT "/api/parameterplatform.json") :options nil}
-                     :rolecode              {:uri (str URL_ROOT "/api/rolecode.json") :options nil}
-                     :samplingFrequency     {:uri (str URL_ROOT "/api/samplingfrequency.json") :options nil}
-                     :horizontalResolution  {:uri (str URL_ROOT "/api/horizontalresolution.json") :options nil}
-                     :person                {:uri (str URL_ROOT "/api/person.json") :options nil}
-                     :institution           {:uri (str URL_ROOT "/api/institution.json") :options nil}
-                     :topiccategory         {:uri (str URL_ROOT "/api/topiccategory.json") :options nil}})
+        (assoc :api {:parametername        {:uri (str URL_ROOT "/api/parametername.json") :options nil}
+                     :parameterunit        {:uri (str URL_ROOT "/api/parameterunit.json?ordering=Name") :options nil}
+                     :parameterinstrument  {:uri (str URL_ROOT "/api/parameterinstrument.json") :options nil}
+                     :parameterplatform    {:uri (str URL_ROOT "/api/parameterplatform.json") :options nil}
+                     :rolecode             {:uri (str URL_ROOT "/api/rolecode.json") :options nil}
+                     :samplingFrequency    {:uri (str URL_ROOT "/api/samplingfrequency.json") :options nil}
+                     :horizontalResolution {:uri (str URL_ROOT "/api/horizontalresolution.json") :options nil}
+                     :person               {:uri (str URL_ROOT "/api/person.json") :options nil}
+                     :institution          {:uri (str URL_ROOT "/api/institution.json") :options nil}
+                     :topiccategory        {:uri (str URL_ROOT "/api/topiccategory.json") :options nil}})
         (update :form initialise-form))))

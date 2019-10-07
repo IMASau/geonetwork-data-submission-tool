@@ -1884,7 +1884,7 @@
   [page this]
   [:div
    [PageErrors {:page :when :path [:form]}]
-   [:h2 "3. When"]
+   [:h2 "3. When was the data acquired?"]
    [date-field [:form :fields :identificationInfo :beginPosition]]
    [date-field [:form :fields :identificationInfo :endPosition]]
    [:div.row

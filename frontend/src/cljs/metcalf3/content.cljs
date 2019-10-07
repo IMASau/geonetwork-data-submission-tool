@@ -349,7 +349,8 @@
                            :useLimitations                {:type  nil
                                                            :label "Use limitations"
                                                            :many  true
-                                                           :page  :about}
+                                                           :page  :about
+                                                           :placeholder "While every care is taken to ensure the accuracy of this information, the author makes no representations or warranties about its accuracy, reliability, completeness or suitability for any particular purpose and disclaims all responsibility and all liability (including without limitation, liability in negligence) for all expenses, losses, damages (including indirect or consequential damage) and costs which might be incurred as a result of the information being inaccurate or incomplete in any way and for any reason."}
                            :supplementalInformation       {:type  nil
                                                            :page  :about
                                                            :label "Publications associated with dataset"

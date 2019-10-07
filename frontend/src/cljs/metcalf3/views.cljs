@@ -267,23 +267,26 @@
       [ExpandingTextareaWidget
        (assoc field :on-change (fn [value] (rf/dispatch [:handlers/value-changed path value])))])))
 
+(defn textarea-widget
+  [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder]}]
+  [bp3/form-group
+   {:label      label
+    :labelInfo  labelInfo
+    :helperText helperText
+    :intent     intent}
+   [bp3/textarea
+    {:growVertically true
+     :onValueChange  #(rf/dispatch (conj change-v %))
+     :disabled       disabled
+     :placeholder    placeholder
+     :maxLength      maxlength
+     :value          value
+     :fill           true
+     :intent         intent}]])
+
 (defn textarea-field
   [path]
-  (let [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder]} @(rf/subscribe [:textarea-field/get-props path])]
-    [bp3/form-group
-     {:label      label
-      :labelInfo  labelInfo
-      :helperText helperText
-      :intent     intent}
-     [bp3/textarea
-      {:growVertically true
-       :onValueChange  #(rf/dispatch (conj change-v %))
-       :disabled       disabled
-       :placeholder    placeholder
-       :maxLength      maxlength
-       :value          value
-       :fill           true
-       :intent         intent}]]))
+  [textarea-widget @(rf/subscribe [:textarea-field/get-props path])])
 
 (defn Checkbox [props this]
   (let [{:keys [label checked on-change disabled help]} props
@@ -2077,8 +2080,8 @@
     [:form :fields :dataQualityInfo :results]]])
 
 
-(defn UseLimitationsFieldEdit [path this]
-  [textarea-field path])
+(defn UseLimitationsFieldEdit [path]
+  [textarea-widget @(rf/subscribe [:textarea-field/get-use-limitation-props path])])
 
 (defn UseLimitations [path this]
   (let [list-field @(rf/subscribe [:subs/get-derived-path path])]
@@ -2087,7 +2090,6 @@
      [TableModalEdit
       {:form        UseLimitationsFieldEdit
        :title       "Use Limitation"
-       :placeholder "While every care is taken to ensure the accuracy of this information, the author makes no representations or warranties about its accuracy, reliability, \n                     completeness or suitability for any particular purpose and disclaims all responsibility and all liability \n                     (including without limitation, liability in negligence) for all expenses, losses, damages (including indirect or consequential damage) \n                     and costs which might be incurred as a result of the information being inaccurate or incomplete in any way and for any reason."
        :add-label   "Add use limitation"
        :field-path  path}]]))
 

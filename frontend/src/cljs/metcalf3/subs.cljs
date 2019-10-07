@@ -152,6 +152,23 @@
        :intent      (when error-help "danger")})))
 
 (rf/reg-sub
+  :textarea-field/get-use-limitation-props
+  :<- [:subs/get-derived-state]
+  (fn [derived-db [_ path]]
+    (let [{:keys [placeholder]} (get-in derived-db [:form :fields :identificationInfo :useLimitations])
+          {:keys [label help required disabled value show-errors errors]} (get-in derived-db path)
+          error-help (when (and show-errors (seq errors))
+                       (string/join ". " errors))]
+      {:label       label
+       :labelInfo   (when required "*")
+       :helperText  (or error-help help)
+       :value       (or value "")
+       :disabled    disabled
+       :placeholder placeholder
+       :change-v    [:textarea-field/value-change path]
+       :intent      (when error-help "danger")})))
+
+(rf/reg-sub
   :map/props
   (fn [db _] (:map db)))
 

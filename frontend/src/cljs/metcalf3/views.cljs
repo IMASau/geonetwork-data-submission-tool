@@ -2344,7 +2344,7 @@
     [:div
      [navbar]
      [:div.container
-      [:span.pull-right [NewDocumentButton nil]]
+      [:span.pull-right {:style {:margin-top 18}} [NewDocumentButton nil]]
       [:h1 "My Records"]
       [:div.row
        [:div.col-sm-9

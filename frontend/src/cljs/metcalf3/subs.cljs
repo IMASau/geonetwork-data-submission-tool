@@ -4,7 +4,8 @@
             [metcalf3.globals :as globals]
             [clojure.set :as set]
             [interop.moment :as moment]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [cljs.spec.alpha :as s]))
 
 (rf/reg-sub
   :subs/get-derived-state
@@ -115,7 +116,7 @@
   :<- [:subs/get-derived-state]
   (fn [derived-db [_ path]]
     (js/console.log ::path path)
-    (let [{:keys [label help required disabled value show-errors errors] :as field} (get-in derived-db path)
+    (let [{:keys [label help required disabled value show-errors errors minDate maxDate] :as field} (get-in derived-db path)
           value (if (= value "") nil value)
           error-help (when (and show-errors (seq errors))
                        (string/join ". " errors))]
@@ -126,6 +127,8 @@
        :value      (when value (moment/to-date (moment/moment value "YYYY-MM-DD")))
        :disabled   disabled
        :change-v   [:date-field/value-change path]
+       :minDate    (s/assert (s/nilable inst?) minDate)
+       :maxDate    (s/assert (s/nilable inst?) maxDate)
        :intent     (when error-help "danger")})))
 
 (rf/reg-sub
@@ -139,14 +142,14 @@
       (js/console.log :textarea-field/get-props.field {:field field
                                                        :path  path
                                                        :db    derived-db})
-      {:label      label
-       :labelInfo  (when required "*")
-       :helperText (or error-help help)
-       :value      (or value "")
-       :disabled   disabled
+      {:label       label
+       :labelInfo   (when required "*")
+       :helperText  (or error-help help)
+       :value       (or value "")
+       :disabled    disabled
        :placeholder placeholder
-       :change-v   [:textarea-field/value-change path]
-       :intent     (when error-help "danger")})))
+       :change-v    [:textarea-field/value-change path]
+       :intent      (when error-help "danger")})))
 
 (rf/reg-sub
   :map/props

@@ -200,7 +200,7 @@
 ; TODO: Show errors after blur
 (defn date-field
   [path]
-  (let [{:keys [label labelInfo helperText value disabled change-v intent]} @(rf/subscribe [:date-field/get-props path])
+  (let [{:keys [label labelInfo helperText value disabled change-v intent minDate maxDate]} @(rf/subscribe [:date-field/get-props path])
         format "DD-MM-YYYY"]
     [bp3/form-group
      {:label      label
@@ -208,14 +208,16 @@
       :helperText helperText
       :intent     intent}
      [bp3/date-input
-      {:formatDate  (fn [date] (moment/format date format))
-       :parseDate   (fn [str] (moment/to-date (moment/moment str format)))
-       :placeholder format
-       :disabled    disabled
-       :value       value
-       :onChange    #(rf/dispatch (conj change-v %))
-       :inputProps  {:leftIcon "calendar"
-                     :intent   intent}}]]))
+      (cond-> {:formatDate  (fn [date] (moment/format date format))
+               :parseDate   (fn [str] (moment/to-date (moment/moment str format)))
+               :placeholder format
+               :disabled    disabled
+               :value       value
+               :onChange    #(rf/dispatch (conj change-v %))
+               :inputProps  {:leftIcon "calendar"
+                             :intent   intent}}
+        minDate (assoc :minDate minDate)
+        maxDate (assoc :maxDate maxDate))]]))
 
 (defn OptionWidget [props this]
   (let [[value display] props]
@@ -1480,8 +1482,8 @@
                  [:div
                   [CheckboxField [:form :fields :doiRequested] [:span "Please mint a DOI for this submission"]]]
                  (when (:value doiRequested) (if (:value currentDoi)
-                                      [:p [:strong "Minted DOI: "] (:value currentDoi)]
-                                      [:p [:strong "DOI not yet minted"]]))
+                                               [:p [:strong "Minted DOI: "] (:value currentDoi)]
+                                               [:p [:strong "DOI not yet minted"]]))
                  [:div
                   [:a
                    {:onClick #(r/set-state this {:is-open (not is-open)})}

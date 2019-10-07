@@ -368,6 +368,17 @@
       (update-in state [:form :fields :identificationInfo :endPosition] assoc :required false :disabled true :value nil)
       (update-in state [:form :fields :identificationInfo :endPosition] assoc :required true :disabled false))))
 
+(defn date-order-logic
+  "End position is required if the status is ongoing"
+  [state]
+  (let [minEndDate (some-> (get-in state [:form :fields :identificationInfo :beginPosition :value])
+                           (js/Date.))
+        maxBeginDate (some-> (get-in state [:form :fields :identificationInfo :endPosition :value])
+                             (js/Date.))]
+    (-> state
+        (assoc-in [:form :fields :identificationInfo :beginPosition :maxDate] maxBeginDate)
+        (assoc-in [:form :fields :identificationInfo :endPosition :minDate] minEndDate))))
+
 (defn maint-freq-logic
   "
   Maintenance resource frequency is a drop dropdown.
@@ -439,6 +450,7 @@
   (-> state
       derive-geography
       derive-vertical-required
+      date-order-logic
       end-position-logic
       maint-freq-logic
       data-service-logic

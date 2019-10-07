@@ -278,7 +278,7 @@
        :onValueChange  #(rf/dispatch (conj change-v %))
        :disabled       disabled
        :placeholder    placeholder
-       :maxlength      maxlength
+       :maxLength      maxlength
        :value          value
        :fill           true
        :intent         intent}]]))

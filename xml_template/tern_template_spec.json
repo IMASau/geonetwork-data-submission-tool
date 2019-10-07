@@ -745,7 +745,7 @@
             },
             "orcid": {
                 "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor[@xlink:role=\"orcid\"]",
-                "required": false,
+                "required": true,
                 "keep": false,
                 "export": false,
                 "parser": {

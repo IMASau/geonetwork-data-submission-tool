@@ -281,7 +281,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
                                          'The following error occurred while trying to mint a DOI "{verboseMessage}". Please try again later.'.format(verboseMessage=verboseMessage))
                     return False
             else:
-                messages.add_message(request, messages.ERROR, 'There was an error connecting to the DOI minting service. Please try again later.')
+                messages.add_message(request, messages.ERROR, 'There was an error connecting to the DOI minting service (status code {status}). Please try again later.'.format(status=response.status_code))
                 return False
         else:
             messages.add_message(request, messages.ERROR, 'There was an error connecting to the DOI minting service. Please try again later.')

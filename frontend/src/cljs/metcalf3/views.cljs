@@ -84,11 +84,12 @@
           (render [this]
             (let [{:keys [addon-before addon-after help on-change disabled mask] :as props} (r/props this)
                   {:keys [input-value]} (r/state this)]
-              (let [input-props (assoc props
-                                  :value (or input-value "")
-                                  :on-change #(r/set-state this {:input-value (.. % -target -value)})
-                                  :on-blur #(on-change input-value)
-                                  :key "ifc")]
+              (let [input-props (-> props
+                                    (dissoc :show-errors)
+                                    (assoc :value (or input-value ""))
+                                    (assoc :on-change #(r/set-state this {:input-value (.. % -target -value)}))
+                                    (assoc :on-blur #(on-change input-value))
+                                    (assoc :key "ifc"))]
                 [:div.form-group {:class    (validation-state props)
                                   :disabled disabled}
                  (label-template props)

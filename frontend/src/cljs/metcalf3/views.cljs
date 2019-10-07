@@ -1452,6 +1452,7 @@
                     noteForDataManager @(rf/subscribe [:subs/get-derived-path [:form :fields :noteForDataManager]])
                     agreedToTerms @(rf/subscribe [:subs/get-derived-path [:form :fields :agreedToTerms]])
                     doiRequested @(rf/subscribe [:subs/get-derived-path [:form :fields :doiRequested]])
+                    currentDoi @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :doi]])
                     is-are (if (> errors 1) "are" "is")
                     plural (if (> errors 1) "s")
                     has-errors? (and errors (> errors 0))
@@ -1478,6 +1479,9 @@
                        [:p (:value noteForDataManager)]]))]
                  [:div
                   [CheckboxField [:form :fields :doiRequested] [:span "Please mint a DOI for this submission"]]]
+                 (when (:value doiRequested) (if (:value currentDoi)
+                                      [:p [:strong "Minted DOI: "] (:value currentDoi)]
+                                      [:p [:strong "DOI not yet minted"]]))
                  [:div
                   [:a
                    {:onClick #(r/set-state this {:is-open (not is-open)})}

@@ -1798,7 +1798,7 @@
        (if (> (count msgs) 1)
          [:div
           [:b "There are multiple fields on this page that require your attention:"]
-          [:ul (for [msg msgs] [:li msg])]]
+          (into [:ul] (for [msg msgs] [:li msg]))]
          (first msgs))])))
 
 (defn navbar

@@ -2254,10 +2254,10 @@
     (if (and show-errors (seq fields-with-errors))
       [:div.alert.alert-danger
        [:p [:b "The following fields need your attention"]]
-       [:ul (for [[k {:keys [label errors]}] fields-with-errors]
-              [:li
-               (or label (name k)) ": "
-               (string/join ". " errors)])]])))
+       (into [:ul] (for [[k {:keys [label errors]}] fields-with-errors]
+                     [:li
+                      (or label (name k)) ": "
+                      (string/join ". " errors)]))])))
 
 (defn NewDocumentForm [props this]
   [:div.NewDocumentForm

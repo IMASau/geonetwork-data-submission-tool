@@ -95,7 +95,7 @@
                  (if (or addon-after addon-before)
                    [:div.input-group {:key "ig"} addon-before [:input.form-control input-props] addon-after]
                    (if mask
-                     [masked-text-widget (merge input-props)]
+                     [masked-text-widget input-props]
                      [:input.form-control input-props]))
                  [:p.help-block help]])))]
     (r/create-class

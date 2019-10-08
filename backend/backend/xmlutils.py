@@ -323,6 +323,28 @@ def spec_data_from_batch(batch_spec, key):
     return spec, data
 
 
+# TODO: this is a workaround for the unusual structure of the geographic extents
+# Basically each one needs to have its own mri:extent
+# but the first one should have the start/end date and description
+# this should be doable through the mapping/frontend but we don't
+# have time.
+# This takes any geographic extents beyond the first and shoves them into
+# a geographicElementSecondary dict, which has a different xpath to the
+# geographicElement, meaning we can write the two different types
+def split_geographic_extents(data):
+    geo = data['identificationInfo']['geographicElement']
+    boxes = geo.get('boxes', None)
+    if boxes:
+        if len(boxes) > 1:
+            data['identificationInfo']['geographicElementSecondary'] = []
+        for box in boxes[1:]:
+            newBox = {}
+            newBox['boxes'] = box
+            data['identificationInfo']['geographicElementSecondary'].append(newBox)
+        data['identificationInfo']['geographicElement']['boxes'] = [boxes[0]]
+    return data
+
+
 def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=True, fieldKey = None):
     # indicates that the spec allows more than one value for this node
     if is_many(spec):

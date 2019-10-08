@@ -291,7 +291,7 @@
                         
                     },
                     "geographicElement": {
-                        "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement]",
+                        "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:description]",
                         "removeWhen": {
                             "function": "has_geographic_coverage"
                         },
@@ -308,6 +308,60 @@
                             "boxes": {
                                 "many": true,
                                 "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
+                                "required": true,
+                                "keep": false,
+                                "nodes": {
+                                    "westBoundLongitude": {
+                                        "valueChild": "gco:Decimal",
+                                        "xpath": "gex:westBoundLongitude",
+                                        "required": true,
+                                        "attributes": {
+                                            "text": {
+                                                "function": "to_string"
+                                            }
+                                        }
+                                    },
+                                    "eastBoundLongitude": {
+                                        "valueChild": "gco:Decimal",
+                                        "xpath": "gex:eastBoundLongitude",
+                                        "required": true,
+                                        "attributes": {
+                                            "text": {
+                                                "function": "to_string"
+                                            }
+                                        }
+                                    },
+                                    "southBoundLatitude": {
+                                        "valueChild": "gco:Decimal",
+                                        "xpath": "gex:southBoundLatitude",
+                                        "required": true,
+                                        "attributes": {
+                                            "text": {
+                                                "function": "to_string"
+                                            }
+                                        }
+                                    },
+                                    "northBoundLatitude": {
+                                        "valueChild": "gco:Decimal",
+                                        "xpath": "gex:northBoundLatitude",
+                                        "required": true,
+                                        "attributes": {
+                                            "text": {
+                                                "function": "to_string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "geographicElementSecondary": {
+                        "xpath": "mri:extent[gex:EX_Extent[gex:geographicElement][not(gex:description)]]",
+                        "many": true,
+                        "keep": false,
+                        "nodes": {
+                            "boxes": {
+                                "xpath": "gex:EX_Extent/gex:geographicElement/gex:EX_GeographicBoundingBox",
                                 "required": true,
                                 "keep": false,
                                 "nodes": {
@@ -745,7 +799,7 @@
             },
             "orcid": {
                 "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor[@xlink:role=\"orcid\"]",
-                "required": true,
+                "required": false,
                 "keep": false,
                 "export": false,
                 "parser": {

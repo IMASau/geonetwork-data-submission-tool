@@ -1530,7 +1530,7 @@
                        [:strong "Note for the data manager:"]
                        [:p (:value noteForDataManager)]]))]
                  [:div
-                  [CheckboxField [:form :fields :doiRequested] [:span "Please mint a DOI for this submission"]]]
+                  [CheckboxField [:form :fields :doiRequested] [:span "Please mint a DOI for this submission (If the DOI already exists, input details in the field above)"]]]
                  (when (:value doiRequested) (if (:value currentDoi)
                                                [:p [:strong "Minted DOI: "] (:value currentDoi)]
                                                [:p [:strong "DOI not yet minted"]]))

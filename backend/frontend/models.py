@@ -26,7 +26,7 @@ class SiteContent(models.Model):
                   "will optimise the size so it's not too heavy.")
     guide_pdf = models.FileField(upload_to='guide', blank=True, null=True)
     roadmap_pdf = models.FileField(upload_to='guide', blank=True, null=True)
-    releasenotes_url = models.URLField(null=True)
+    releasenotes_url = models.URLField(null=True,verbose_name="Release notes URL")
     portal_title = models.CharField(
         max_length=64, default="TERN Data Portal",
         help_text="Used to refer to the place where lodged data can be discovered")

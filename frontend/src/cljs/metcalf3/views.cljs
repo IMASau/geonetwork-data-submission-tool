@@ -106,7 +106,7 @@
 
 (defn filter-name [s]
   (s/assert string? s)
-  (string/replace s #"[^a-zA-Z-, ]" ""))
+  (string/replace s #"[^a-zA-Z-', ]" ""))
 
 (defn NameInputWidget
   [_]

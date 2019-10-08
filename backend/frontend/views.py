@@ -193,7 +193,7 @@ def dashboard(request):
                 },
                 "template": {
                     "label": "Template",
-                    "value": None,
+                    "value": MetadataTemplate.objects.filter(site=get_current_site(request), archived=False).first().pk,
                     "options": [[t.pk, t.__str__()]
                                 for t in MetadataTemplate.objects.filter(site=get_current_site(request), archived=False)],
                     "required": True

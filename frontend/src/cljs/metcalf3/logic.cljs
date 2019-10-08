@@ -3,6 +3,9 @@
     [metcalf3.content :refer [default-payload contact-groups]]
     [clojure.zip :as zip]
     [metcalf3.utils :as utils]
+    [cljs-time.core :as time]
+    [cljs-time.coerce :as c]
+    [cljs-time.format :as f]
     [clojure.string :as string]))
 
 (def active-status-filter #{"Draft" "Submitted"})
@@ -376,11 +379,16 @@
 (defn date-order-logic
   "End position is required if the status is ongoing"
   [state]
-  (let [minEndDate (value->date (get-in state [:form :fields :identificationInfo :beginPosition :value]))
-        maxBeginDate (value->date (get-in state [:form :fields :identificationInfo :endPosition :value]))]
-    (-> state
-        (assoc-in [:form :fields :identificationInfo :beginPosition :maxDate] maxBeginDate)
-        (assoc-in [:form :fields :identificationInfo :endPosition :minDate] minEndDate))))
+  (let [d0 (value->date (get-in state [:form :fields :identificationInfo :beginPosition :value]))
+        d1 (value->date (get-in state [:form :fields :identificationInfo :endPosition :value]))
+        out-of-order? (and d0 d1 (time/before? (c/from-date d1) (c/from-date d0)))]
+    (if-not out-of-order?
+      (-> state
+          (assoc-in [:form :fields :identificationInfo :beginPosition :maxDate] d1)
+          (assoc-in [:form :fields :identificationInfo :endPosition :minDate] d0))
+      (-> state
+          (assoc-in [:form :fields :identificationInfo :endPosition :minDate] d0)
+          (assoc-in [:form :fields :identificationInfo :endPosition :value] nil)))))
 
 (defn maint-freq-logic
   "

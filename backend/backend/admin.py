@@ -185,7 +185,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
         <identifier identifierType="DOI"/>
         <creators></creators>
         <titles><title></title></titles>
-        <publisher></publisher>
+        <publisher>Terrestrial Ecosystem Research Network (TERN)</publisher>
         <publicationYear></publicationYear>
         <resourceType resourceTypeGeneral="Dataset">dataset</resourceType></resource>'''
         ns = {'n': 'http://datacite.org/schema/kernel-4'}
@@ -198,16 +198,6 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
 
         # add title
         request_xml.find('n:titles/n:title', ns).text = data['identificationInfo']['title']
-
-        # more than one publisher could technically be specified, but shouldn't be
-        # just loop through, whichever is encountered last is the final value
-        publisher = request_xml.find('n:publisher', ns)
-        for person in pocs:
-            if person['role'] == 'publisher':
-                publisher.text = person['organisationName']
-        for person in crps:
-            if person['role'] == 'publisher':
-                publisher.text = person['organisationName']
 
         publicationYear = request_xml.find('n:publicationYear', ns)
         # might be nicer to convert to a date and explicitly pull the year maybe

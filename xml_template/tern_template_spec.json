@@ -199,8 +199,8 @@
                     },
                     "citedResponsibleParty": {
                         "many": true,
-                        "xpath": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility",
-                        "container": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty",
+                        "xpath": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode[not(@codeListValue=\"publisher\")]]",
+                        "container": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty[cit:CI_Responsibility/cit:role/cit:CI_RoleCode[not(@codeListValue=\"publisher\")]]",
                         "keep": false,
                         "nodes": "ci_responsible_party_nodes",
                         "notes": "Responsible party/ies for creating dataset"

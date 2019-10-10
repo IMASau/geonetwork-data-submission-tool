@@ -37,7 +37,8 @@ class Command(BaseCommand):
             with transaction.atomic():
                 Person.objects.all().filter(isUserAdded=False).delete()
 
-                tern_persons = self._fetch_tern_data('person')
+
+                tern_persons = self._fetch_sparql()
                 if not tern_persons:
                     raise CommandError('No TERN persons found, assuming error; aborting')
 
@@ -91,6 +92,44 @@ class Command(BaseCommand):
         else:
             return ''
 
+    @staticmethod
+    def _fetch_sparql():
+        _query = urllib.parse.quote('PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
+                                    'PREFIX sdo: <http://schema.org/> '
+                                    'select * '
+                                    'where { '
+                                    '?s a sdo:Person . '
+                                    '?s sdo:givenName ?givenName . '
+                                    '?s sdo:familyName ?familyName . '
+                                    'OPTIONAL { ?s sdo:memberOf ?memberOf } . '
+                                    'OPTIONAL { ?s sdo:honorificPrefix ?honorificPrefix } . '
+                                    'OPTIONAL { ?s sdo:jobTitle ?jobTitle } . '
+                                    'OPTIONAL { ?s sdo:email ?email } . '
+                                    'OPTIONAL { ?s sdo:sameAs ?sameAs } . '
+                                    'OPTIONAL { ?s sdo:telephone ?telephone } .  '
+                                    '}')
+        url = "http://graphdb-dev.tern.org.au/repositories/knowledge-graph?query={query}".format(query=_query)
+        response = requests.get(url, headers={'Accept': 'text/csv'})
+        reader = csv.DictReader(io.StringIO(response.text, newline=""), skipinitialspace=True)
+        for row in reader:
+            orcid = (row['sameAs'] or '').replace('https://orcid.org/','')
+            if re.match(r"0000-000(1-[5-9]|2-[0-9]|3-[0-4])\d\d\d-\d\d\d[\dX]", orcid) is None:
+                orcid = ''
+            yield Person (
+                uri=row['s'],
+                orgUri=row['memberOf'],
+                familyName=row['familyName'],
+                givenName=row['givenName'],
+                honorificPrefix=row['honorificPrefix'],
+                orcid=orcid,
+                prefLabel='{last}, {first}'.format(last=row['familyName'], first=row['givenName']),
+                isUserAdded=False,
+                electronicMailAddress=row['email']
+            )
+        return
+
+    # This is the old code for fetching the RDF. We've switched over the the SPARQL endpoint for now,
+    # but I don't want to delete this, just in case.
     @staticmethod
     def _fetch_tern_data(VocabName):
         _vocabServer = 'http://linkeddata.tern.org.au/viewer/tern/id/http:/linkeddata.tern.org.au/def/'

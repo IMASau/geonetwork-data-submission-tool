@@ -94,20 +94,22 @@ class Command(BaseCommand):
 
     @staticmethod
     def _fetch_sparql():
-        _query = urllib.parse.quote('PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
-                                    'PREFIX sdo: <http://schema.org/> '
-                                    'select * '
-                                    'where { '
-                                    '?s a sdo:Person . '
-                                    '?s sdo:givenName ?givenName . '
-                                    '?s sdo:familyName ?familyName . '
-                                    'OPTIONAL { ?s sdo:memberOf ?memberOf } . '
-                                    'OPTIONAL { ?s sdo:honorificPrefix ?honorificPrefix } . '
-                                    'OPTIONAL { ?s sdo:jobTitle ?jobTitle } . '
-                                    'OPTIONAL { ?s sdo:email ?email } . '
-                                    'OPTIONAL { ?s sdo:sameAs ?sameAs } . '
-                                    'OPTIONAL { ?s sdo:telephone ?telephone } .  '
-                                    '}')
+        _query = urllib.parse.quote( 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
+                                     'PREFIX sdo: <http://schema.org/> '
+                                     'select * '
+                                     'where { '
+                                     '?s a sdo:Person . '
+                                     '?s sdo:givenName ?givenName . '
+                                     '?s sdo:familyName ?familyName . '
+                                     'OPTIONAL { ?s sdo:honorificPrefix ?honorificPrefix } . '
+                                     'OPTIONAL { ?s sdo:jobTitle ?jobTitle } . '
+                                     'OPTIONAL { ?s sdo:email ?email } . '
+                                     'OPTIONAL { '
+                                     '?s sdo:sameAs ?sameAs '
+                                     'filter(regex(str(?sameAs), \'orcid.org\')) '
+                                     '} . '
+                                     'OPTIONAL { ?s sdo:telephone ?telephone } .  '
+                                     '} order by asc(?familyName) ')
         url = "http://graphdb-dev.tern.org.au/repositories/knowledge-graph?query={query}".format(query=_query)
         response = requests.get(url, headers={'Accept': 'text/csv'})
         reader = csv.DictReader(io.StringIO(response.text, newline=""), skipinitialspace=True)
@@ -117,7 +119,9 @@ class Command(BaseCommand):
                 orcid = ''
             yield Person (
                 uri=row['s'],
-                orgUri=row['memberOf'],
+                #Originally person:org was a 1:1 relationship but now it's 1:many
+                #just don't include it until we figure out a new approach
+                #orgUri=row['memberOf'],
                 familyName=row['familyName'],
                 givenName=row['givenName'],
                 honorificPrefix=row['honorificPrefix'],

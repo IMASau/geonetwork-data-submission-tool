@@ -7,6 +7,8 @@ import datetime
 import requests
 from django.contrib import messages
 from lxml import etree
+import urllib
+import urllib.parse
 
 from backend import models
 from frontend.models import SiteContent
@@ -237,7 +239,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
                 if not data.get('doi', None):
                     sitecontent = SiteContent.objects.all()[0]
                     baseUri = sitecontent.doiUri
-                    doiUri = 'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=data['fileIdentifier'])
+                    doiUri = urllib.parse.quote('https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=data['fileIdentifier']))
                     requestUri = '{base}&url={doiUri}'.format(base=baseUri, doiUri=doiUri)
                     body = {'xml': etree.tostring(request_xml)}
                     response = requests.post(requestUri, data=body, verify='cacert.pem')

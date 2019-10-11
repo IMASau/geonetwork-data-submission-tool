@@ -137,6 +137,7 @@
                 "nodes": {
                     "results": {
                         "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement",
+                        "container": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult",
                         "keep": false,
                         "valueChild": "gco:CharacterString",
                         "required": false
@@ -291,7 +292,7 @@
                         
                     },
                     "geographicElement": {
-                        "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:description]",
+                        "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",
                         "removeWhen": {
                             "function": "has_geographic_coverage"
                         },
@@ -356,7 +357,7 @@
                         }
                     },
                     "geographicElementSecondary": {
-                        "xpath": "mri:extent[gex:EX_Extent[gex:geographicElement][not(gex:description)]]",
+                        "xpath": "mri:extent[gex:EX_Extent[gex:geographicElement][not(gex:temporalElement)]]",
                         "many": true,
                         "keep": false,
                         "nodes": {
@@ -411,6 +412,7 @@
                     },
                     "verticalElement": {
                         "xpath": "mri:extent/gex:EX_Extent[@id=\"Vertical\"]",
+                        "container": "mri:extent[gex:EX_Extent[@id=\"Vertical\"]]",
                         "removeWhen": {
                             "function": "has_vertical_extent"
                         },

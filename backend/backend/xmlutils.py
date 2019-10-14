@@ -337,6 +337,8 @@ def split_geographic_extents(data):
     if boxes:
         if len(boxes) > 1:
             data['identificationInfo']['geographicElementSecondary'] = []
+        else:
+            data['identificationInfo'].pop('geographicElementSecondary',None)
         for box in boxes[1:]:
             newBox = {}
             newBox['boxes'] = box

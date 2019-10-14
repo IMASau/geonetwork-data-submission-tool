@@ -1498,7 +1498,6 @@
                     {:keys [document urls site]} @(rf/subscribe [:subs/get-derived-path [:context]])
                     {:keys [portal_title portal_url email]} site
                     {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
-                    db @(rf/subscribe [:subs/get-derived-state])
                     {:keys [terms_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])
                     {:keys [disabled dirty]} @(rf/subscribe [:subs/get-derived-path [:form]])
                     noteForDataManager @(rf/subscribe [:subs/get-derived-path [:form :fields :noteForDataManager]])

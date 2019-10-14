@@ -363,13 +363,13 @@
                         "nodes": {
                             "boxes": {
                                 "xpath": "gex:EX_Extent/gex:geographicElement/gex:EX_GeographicBoundingBox",
-                                "required": true,
+                                "required": false,
                                 "keep": false,
                                 "nodes": {
                                     "westBoundLongitude": {
                                         "valueChild": "gco:Decimal",
                                         "xpath": "gex:westBoundLongitude",
-                                        "required": true,
+                                        "required": false,
                                         "attributes": {
                                             "text": {
                                                 "function": "to_string"
@@ -379,7 +379,7 @@
                                     "eastBoundLongitude": {
                                         "valueChild": "gco:Decimal",
                                         "xpath": "gex:eastBoundLongitude",
-                                        "required": true,
+                                        "required": false,
                                         "attributes": {
                                             "text": {
                                                 "function": "to_string"
@@ -389,7 +389,7 @@
                                     "southBoundLatitude": {
                                         "valueChild": "gco:Decimal",
                                         "xpath": "gex:southBoundLatitude",
-                                        "required": true,
+                                        "required": false,
                                         "attributes": {
                                             "text": {
                                                 "function": "to_string"
@@ -399,7 +399,7 @@
                                     "northBoundLatitude": {
                                         "valueChild": "gco:Decimal",
                                         "xpath": "gex:northBoundLatitude",
-                                        "required": true,
+                                        "required": false,
                                         "attributes": {
                                             "text": {
                                                 "function": "to_string"

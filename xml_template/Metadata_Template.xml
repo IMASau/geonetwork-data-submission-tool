@@ -255,7 +255,7 @@
                         </cit:CI_Citation>
                      </mcc:authority>
                       <mcc:code>
-                        <gco:CharacterString>doi: [DOI number writes here]</gco:CharacterString>
+                        <gco:CharacterString>doi:[DOI number writes here]</gco:CharacterString>
                      </mcc:code>
                      <mcc:codeSpace>
                         <gco:CharacterString>http://dx.doi.org</gco:CharacterString>
@@ -958,10 +958,10 @@
                <mrd:formatSpecificationCitation>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>NetCDF4</gco:CharacterString>
+                        <gco:CharacterString></gco:CharacterString>
                      </cit:title>
                      <cit:edition>
-                        <gco:CharacterString>CF 1.7</gco:CharacterString>
+                        <gco:CharacterString></gco:CharacterString>
                      </cit:edition>
                   </cit:CI_Citation>
                </mrd:formatSpecificationCitation>

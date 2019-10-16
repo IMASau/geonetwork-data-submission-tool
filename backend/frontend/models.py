@@ -9,8 +9,8 @@ class SiteContent(models.Model):
     title = models.CharField(max_length=32, default="TERN")
     organisation_url = models.URLField(blank=True, null=True)
     tag_line = models.CharField(max_length=128, default="Data Submission Tool")
-    email = models.EmailField(default="imas.datamanager@utas.edu.au")
-    doiUri = models.CharField(max_length=1024,default='https://doi.tern.uq.edu.au/test/index.php?r=api/create&user_id=tern.data@uq.edu.au',
+    email = models.EmailField(default="esupport@tern.org.au")
+    doiUri = models.CharField(max_length=1024,default='https://doi.tern.uq.edu.au/test/index.php?r=api/create&user_id=tern.data@uq.edu.au&app_id=aba241a4bad1c4f32f6e0a0266a2f3bf',
                               verbose_name="DOI Service URI",
                               help_text="Base create URI for the DOI minting service")
     homepage_image = ProcessedImageField(
@@ -24,7 +24,9 @@ class SiteContent(models.Model):
                   "be high res so it looks good and it needs to be fairly dark " \
                   "so that the copy has good contrast and can be easily read. We "
                   "will optimise the size so it's not too heavy.")
-    guide_pdf = models.FileField(upload_to='guide', null=True)
+    guide_pdf = models.FileField(upload_to='guide', blank=True, null=True)
+    roadmap_pdf = models.FileField(upload_to='guide', blank=True, null=True)
+    releasenotes_url = models.URLField(null=True,verbose_name="Release notes URL",blank=True)
     portal_title = models.CharField(
         max_length=64, default="TERN Data Portal",
         help_text="Used to refer to the place where lodged data can be discovered")

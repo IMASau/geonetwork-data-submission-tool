@@ -26,6 +26,7 @@ python manage.py load_rolecodes
 python manage.py load_samplingfrequencies
 python manage.py load_topiccategories
 python manage.py load_sciencekeywords
+python manage.py load_horizontalresolutions
 ```
 
 ---

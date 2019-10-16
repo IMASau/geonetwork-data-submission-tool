@@ -2,7 +2,11 @@
   (:require
     [metcalf3.content :refer [default-payload contact-groups]]
     [clojure.zip :as zip]
-    [metcalf3.utils :as utils]))
+    [metcalf3.utils :as utils]
+    [cljs-time.core :as time]
+    [cljs-time.coerce :as c]
+    [cljs-time.format :as f]
+    [clojure.string :as string]))
 
 (def active-status-filter #{"Draft" "Submitted"})
 
@@ -202,10 +206,6 @@
       (clear-errors form) field-keys)))
 
 (defn is-valid? [{:keys [fields non_field_errors]}]
-  (field-reduce (field-zipper fields)
-                (fn [acc {:keys [errors]}]
-                  (and acc (empty? errors)))
-                true)
   (and (empty? non_field_errors)
        (field-reduce (field-zipper fields)
                      (fn [acc {:keys [errors]}] (and acc (empty? errors)))
@@ -356,13 +356,13 @@
       (-> verticalElement
           (update-in [:minimumValue] assoc :required true)
           (update-in [:maximumValue] assoc :required true)
-          (update-in [:method]  assoc :required true)
-          (update-in [:elevation]  assoc :required true))
+          (update-in [:method] assoc :required true)
+          (update-in [:elevation] assoc :required true))
       (-> verticalElement
           (update-in [:minimumValue] assoc :required false :disabled true)
           (update-in [:maximumValue] assoc :required false :disabled true)
-          (update-in [:method]  assoc :required false :disabled true)
-          (update-in [:elevation]  assoc :required false :disabled true)))))
+          (update-in [:method] assoc :required false :disabled true)
+          (update-in [:elevation] assoc :required false :disabled true)))))
 
 (defn end-position-logic
   "End position is required if the status is ongoing"
@@ -371,6 +371,24 @@
     (if on-going?
       (update-in state [:form :fields :identificationInfo :endPosition] assoc :required false :disabled true :value nil)
       (update-in state [:form :fields :identificationInfo :endPosition] assoc :required true :disabled false))))
+
+(defn value->date [x]
+  (when-not (string/blank? x)
+    (js/Date. x)))
+
+(defn date-order-logic
+  "End position is required if the status is ongoing"
+  [state]
+  (let [d0 (value->date (get-in state [:form :fields :identificationInfo :beginPosition :value]))
+        d1 (value->date (get-in state [:form :fields :identificationInfo :endPosition :value]))
+        out-of-order? (and d0 d1 (time/before? (c/from-date d1) (c/from-date d0)))]
+    (if-not out-of-order?
+      (-> state
+          (assoc-in [:form :fields :identificationInfo :beginPosition :maxDate] d1)
+          (assoc-in [:form :fields :identificationInfo :endPosition :minDate] d0))
+      (-> state
+          (assoc-in [:form :fields :identificationInfo :endPosition :minDate] d0)
+          (assoc-in [:form :fields :identificationInfo :endPosition :value] nil)))))
 
 (defn maint-freq-logic
   "
@@ -404,11 +422,12 @@
 (defn data-service-logic-helper
   [data-service]
   (let [protocol-value (-> data-service :value :protocol :value)]
-    (if (= protocol-value "WWW:LINK-1.0-http--downloaddata")
+    (if (contains? #{"OGC:WCS-1.1.0-http-get-capabilities"
+                     "OGC:WMS-1.3.0-http-get-map"} protocol-value)
       (update-in data-service [:value :name]
-                 assoc :required false :disabled true :placeholder "" :value "")
+                 assoc :required true)
       (update-in data-service [:value :name]
-                 assoc :required true))))
+                 assoc :required false :disabled true :placeholder "" :value ""))))
 
 (defn data-service-logic
   "
@@ -443,6 +462,7 @@
   (-> state
       derive-geography
       derive-vertical-required
+      date-order-logic
       end-position-logic
       maint-freq-logic
       data-service-logic
@@ -516,14 +536,14 @@
   (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))]
     (-> (deep-merge default-payload payload)
         (assoc :alert [])
-        (assoc :api {:parametername         {:uri (str URL_ROOT "/api/parametername.json") :options nil}
-                     :parameterunit         {:uri (str URL_ROOT "/api/parameterunit.json?ordering=Name") :options nil}
-                     :parameterinstrument   {:uri (str URL_ROOT "/api/parameterinstrument.json") :options nil}
-                     :parameterplatform     {:uri (str URL_ROOT "/api/parameterplatform.json") :options nil}
-                     :rolecode              {:uri (str URL_ROOT "/api/rolecode.json") :options nil}
-                     :samplingFrequency     {:uri (str URL_ROOT "/api/samplingfrequency.json") :options nil}
-                     :horizontalResolution  {:uri (str URL_ROOT "/api/horizontalresolution.json") :options nil}
-                     :person                {:uri (str URL_ROOT "/api/person.json") :options nil}
-                     :institution           {:uri (str URL_ROOT "/api/institution.json") :options nil}
-                     :topiccategory         {:uri (str URL_ROOT "/api/topiccategory.json") :options nil}})
+        (assoc :api {:parametername        {:uri (str URL_ROOT "/api/parametername.json") :options nil}
+                     :parameterunit        {:uri (str URL_ROOT "/api/parameterunit.json?ordering=Name") :options nil}
+                     :parameterinstrument  {:uri (str URL_ROOT "/api/parameterinstrument.json") :options nil}
+                     :parameterplatform    {:uri (str URL_ROOT "/api/parameterplatform.json") :options nil}
+                     :rolecode             {:uri (str URL_ROOT "/api/rolecode.json") :options nil}
+                     :samplingFrequency    {:uri (str URL_ROOT "/api/samplingfrequency.json") :options nil}
+                     :horizontalResolution {:uri (str URL_ROOT "/api/horizontalresolution.json") :options nil}
+                     :person               {:uri (str URL_ROOT "/api/person.json") :options nil}
+                     :institution          {:uri (str URL_ROOT "/api/institution.json") :options nil}
+                     :topiccategory        {:uri (str URL_ROOT "/api/topiccategory.json") :options nil}})
         (update :form initialise-form))))

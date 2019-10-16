@@ -50,7 +50,7 @@
             },
             "attachments": {
                 "many": true,
-                "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\"]",
+                "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource[cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\"][cit:description/gco:CharacterString/text()=\"Data file\"]]",
                 "keep": false,
                 "nodes": {
                     "file": {
@@ -65,15 +65,7 @@
                     "name": {
                         "xpath": "cit:CI_OnlineResource/cit:name",
                         "required": false,
-                        "valueChild": "gco:CharacterString",
-                        "exportTo": {
-                            "xpath": "cit:CI_OnlineResource/cit:description/gco:CharacterString",
-                            "attributes": {
-                                "text": {
-                                    "function": "filename"
-                                }
-                            }
-                        }
+                        "valueChild": "gco:CharacterString"
                     }
                 }
             },
@@ -97,7 +89,7 @@
             },
             "dataSources": {
                 "many": true,
-                "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()!=\"WWW:LINK-1.0-http--link\" and cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()!=\"WWW:DOWNLOAD-1.0-http--download\"]",
+                "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()!=\"WWW:LINK-1.0-http--link\" and not(cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\" and cit:CI_OnlineResource/cit:description/gco:CharacterString/text()=\"Data file\")]",
                 "keep": false,
                 "nodes": {
                     "description": {
@@ -145,13 +137,16 @@
                 "nodes": {
                     "results": {
                         "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement",
+                        "container": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult",
+                        "keep": false,
                         "valueChild": "gco:CharacterString",
-                        "required": true
+                        "required": false
                     },
                     "methods": {
                         "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:standaloneQualityReportDetails",
+                        "keep": false,
                         "valueChild": "gco:CharacterString",
-                        "required": true
+                        "required": false
                     }
                 }
             },
@@ -162,22 +157,17 @@
                         "xpath": "mri:citation/cit:CI_Citation/cit:title",
                         "valueChild": "gco:CharacterString",
                         "label": "Title",
+                        "keep": false,
                         "required": true
                     },
                     "doi": {
-                        "xpath": "mri:citation/cit:CI_Citation/cit:identifier/mcc:MD_Identifier",
+                        "xpath": "mri:citation/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code",
                         "container": "mri:citation/cit:CI_Citation/cit:identifier",
                         "keep": false,
-                        "nodes": {
-                            "code": {
-                                "xpath": "mcc:code",
-                                "valueChild": "gco:CharacterString",
-                                "keep": false
-                            },
-                            "codeSpace": {
-                                "xpath": "mcc:codeSpace",
-                                "valueChild": "gco:CharacterString",
-                                "keep": false
+                        "valueChild": "gco:CharacterString",
+                        "attributes": {
+                            "text": {
+                                "function": "write_doi"
                             }
                         }
                     },
@@ -210,8 +200,8 @@
                     },
                     "citedResponsibleParty": {
                         "many": true,
-                        "xpath": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility",
-                        "container": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty",
+                        "xpath": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode[not(@codeListValue=\"publisher\")]]",
+                        "container": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty[cit:CI_Responsibility/cit:role/cit:CI_RoleCode[not(@codeListValue=\"publisher\")]]",
                         "keep": false,
                         "nodes": "ci_responsible_party_nodes",
                         "notes": "Responsible party/ies for creating dataset"
@@ -302,14 +292,15 @@
                         
                     },
                     "geographicElement": {
-                        "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement]",
+                        "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",
                         "removeWhen": {
                             "function": "has_geographic_coverage"
                         },
                         "nodes": {
                             "siteDescription": {
                                 "xpath": "gex:description",
-                                "valueChild": "gco:CharacterString"
+                                "valueChild": "gco:CharacterString",
+                                "keep": false
                             },
                             "hasGeographicCoverage": {
                                 "xpath": "gex:geographicElement[count(.)>0]",
@@ -365,8 +356,63 @@
                             }
                         }
                     },
+                    "geographicElementSecondary": {
+                        "xpath": "mri:extent[gex:EX_Extent[gex:geographicElement][not(gex:temporalElement)]]",
+                        "many": true,
+                        "keep": false,
+                        "nodes": {
+                            "boxes": {
+                                "xpath": "gex:EX_Extent/gex:geographicElement/gex:EX_GeographicBoundingBox",
+                                "required": true,
+                                "keep": false,
+                                "nodes": {
+                                    "westBoundLongitude": {
+                                        "valueChild": "gco:Decimal",
+                                        "xpath": "gex:westBoundLongitude",
+                                        "required": true,
+                                        "attributes": {
+                                            "text": {
+                                                "function": "to_string"
+                                            }
+                                        }
+                                    },
+                                    "eastBoundLongitude": {
+                                        "valueChild": "gco:Decimal",
+                                        "xpath": "gex:eastBoundLongitude",
+                                        "required": true,
+                                        "attributes": {
+                                            "text": {
+                                                "function": "to_string"
+                                            }
+                                        }
+                                    },
+                                    "southBoundLatitude": {
+                                        "valueChild": "gco:Decimal",
+                                        "xpath": "gex:southBoundLatitude",
+                                        "required": true,
+                                        "attributes": {
+                                            "text": {
+                                                "function": "to_string"
+                                            }
+                                        }
+                                    },
+                                    "northBoundLatitude": {
+                                        "valueChild": "gco:Decimal",
+                                        "xpath": "gex:northBoundLatitude",
+                                        "required": true,
+                                        "attributes": {
+                                            "text": {
+                                                "function": "to_string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
                     "verticalElement": {
                         "xpath": "mri:extent/gex:EX_Extent[@id=\"Vertical\"]",
+                        "container": "mri:extent[gex:EX_Extent[@id=\"Vertical\"]]",
                         "removeWhen": {
                             "function": "has_vertical_extent"
                         },
@@ -459,7 +505,7 @@
                                     "xpath": "mri:keyword/gcx:Anchor",
                                     "attributes": {
                                         "text": {
-                                            "function": "science_keyword_name"
+                                            "function": "anzsrc_keyword_name"
                                         }
                                     }
                                 },
@@ -493,47 +539,51 @@
                             "serialNumber": {
                                 "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"Instrument_ID\"]"
                             },
-                            "unit": {
+                            "unit_term": {
+                                "xpath": "mri:keyword[gcx:Anchor[@xlink:title=\"UOM\"]]",
+                                "valueChild": "gcx:Anchor"
+                            },
+                            "unit_vocabularyTermURL": {
                                 "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"UOM\"]",
                                 "attributes": {
-                                    "text": {
-                                        "function": "vocab_text"
-                                    },
                                     "xlink:href": {
-                                        "function": "vocab_url"
+                                        "function": "identity"
                                     }
                                 }
                             },
-                            "platform": {
-                                "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"Platform\"]",
-                                "attributes": {
-                                    "text": {
-                                        "function": "vocab_text"
-                                    },
-                                    "xlink:href": {
-                                        "function": "vocab_url"
-                                    }
-                                }
+                            "longName_term": {
+                                "xpath": "mri:keyword[gcx:Anchor[@xlink:title=\"Parameter\"]]",
+                                "valueChild": "gcx:Anchor"
                             },
-                            "longName": {
+                            "longName_vocabularyTermURL": {
                                 "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"Parameter\"]",
                                 "attributes": {
-                                    "text": {
-                                        "function": "vocab_text"
-                                    },
                                     "xlink:href": {
-                                        "function": "vocab_url"
+                                        "function": "identity"
                                     }
                                 }
                             },
-                            "instrument": {
+                            "platform_term": {
+                                "xpath": "mri:keyword[gcx:Anchor[@xlink:title=\"Platform\"]]",
+                                "valueChild": "gcx:Anchor"
+                            },
+                            "platform_vocabularyTermURL": {
+                                "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"Platform\"]",
+                                "attributes": {
+                                    "xlink:href": {
+                                        "function": "identity"
+                                    }
+                                }
+                            },
+                            "instrument_term": {
+                                "xpath": "mri:keyword[gcx:Anchor[@xlink:title=\"Instrument\"]]",
+                                "valueChild": "gcx:Anchor"
+                            },
+                            "instrument_vocabularyTermURL": {
                                 "xpath": "mri:keyword/gcx:Anchor[@xlink:title=\"Instrument\"]",
                                 "attributes": {
-                                    "text": {
-                                        "function": "vocab_text"
-                                    },
                                     "xlink:href": {
-                                        "function": "vocab_url"
+                                        "function": "identity"
                                     }
                                 }
                             }
@@ -743,25 +793,29 @@
                 "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor[@xlink:role=\"uri\"]",
                 "keep": false,
                 "required": false,
+                "deleteWhenEmpty": false,
+                "export": false,
                 "parser": {
                     "function": "parse_individual_identifier"
-                },
-                "attributes": {
-                    "xlink:href": {
-                        "function": "identity"
-                    }
                 }
             },
             "orcid": {
                 "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor[@xlink:role=\"orcid\"]",
                 "required": false,
                 "keep": false,
+                "export": false,
                 "parser": {
                     "function": "parse_individual_orcid"
                 },
-                "attributes": {
-                    "xlink:href": {
-                        "function": "write_orcid"
+                "exportTo": {
+                    "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor",
+                    "attributes": {
+                        "xlink:href": {
+                            "function": "write_orcid"
+                        },
+                        "xlink:role": {
+                            "function": "write_orcid_role"
+                        }
                     }
                 }
             },

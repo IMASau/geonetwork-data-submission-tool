@@ -136,6 +136,11 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'log/debug.log',
+        },
     },
     'loggers': {
         'django.request': {
@@ -151,6 +156,11 @@ LOGGING = {
         'backend.management.commands': {
             'handlers': ['console', 'mail_admins'],
             'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['file'],
+            'level': 'INFO',
             'propagate': True,
         },
     }

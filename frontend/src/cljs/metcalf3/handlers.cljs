@@ -106,7 +106,8 @@
   (fn [{:keys [db]} _]
     (let [url (get-in db [:form :url])
           data (-> db :form :fields logic/extract-field-values)]
-      {:fx/save-current-document
+      {:db (assoc-in db [:page ::saving?] true)
+       :fx/save-current-document
        {:url       url
         :data      data
         :success-v [:handlers/save-current-document-success data]
@@ -119,6 +120,7 @@
     (let [doc (get-in resp [:form :document])]
       (-> db
           (assoc-in [:form :data] data)
+          (assoc-in [:page ::saving?] false)
           (update-in [:context :document] merge doc)))))
 
 (rf/reg-event-fx
@@ -139,16 +141,16 @@
                             template data)]
       (update-in db [:form :fields :attachments :value] conj {:value new-value}))))
 
-(rf/reg-event-db
+(rf/reg-event-fx
   :handlers/archive-current-document
   ins/std-ins
   (fn [{:keys [db]} _]
     (let [transition_url (-> db :context :document :transition_url)
           success_url (-> db :context :urls :Dashboard)]
       {:fx/archive-current-document
-       {:transition_url transition_url
-        :handler        [:handlers/archive-current-document-success success_url]
-        :error-handler  [:handlers/open-modal {:type :alert :message "Unable to delete"}]}})))
+       {:url transition_url
+        :success-v        [:handlers/archive-current-document-success success_url]
+        :error-v  [:handlers/open-modal {:type :alert :message "Unable to delete"}]}})))
 
 (rf/reg-event-fx :handlers/archive-current-document-success ins/std-ins (fn [_ [_ url]] {:fx/set-location-href url}))
 
@@ -188,14 +190,14 @@
 (rf/reg-event-db
   :handlers/update-dp-term
   ins/std-ins
-  (fn [db [_ dp-term-path option]]
+  (fn [db [_ dp-term-path sub-paths option]]
     (let [option (if (map? option) option (utils/js-lookup option))
           {:keys [term vocabularyTermURL vocabularyVersion termDefinition]} option]
       (-> db
-          (update-in dp-term-path assoc-in [:term :value] term)
-          (update-in dp-term-path assoc-in [:vocabularyTermURL :value] vocabularyTermURL)
-          (update-in dp-term-path assoc-in [:vocabularyVersion :value] vocabularyVersion)
-          (update-in dp-term-path assoc-in [:termDefinition :value] termDefinition)))))
+          (update-in dp-term-path assoc-in [(:term sub-paths) :value] term)
+          (update-in dp-term-path assoc-in [(:vocabularyTermURL sub-paths) :value] vocabularyTermURL)
+          (update-in dp-term-path assoc-in [(:vocabularyVersion sub-paths) :value] vocabularyVersion)
+          (update-in dp-term-path assoc-in [(:termDefinition sub-paths) :value] termDefinition)))))
 
 (rf/reg-event-db
   :handlers/update-nasa-list-value
@@ -308,11 +310,12 @@
 (rf/reg-event-db
   :handlers/toggle-status-filter
   ins/std-ins
-  (fn [db [_ status]]
-    (let [status-filter (get-in db [:page :status-filter] #{})]
-      (if (contains? status-filter status)
-        (update-in db [:page :status-filter] disj status)
-        (update-in db [:page :status-filter] conj status)))))
+  (fn [db [_ status status-filter]]
+    (let [status-filter (get-in db [:page :status-filter] status-filter)
+          status-filter (if (contains? status-filter status)
+                          (disj status-filter status)
+                          (conj status-filter status))]
+      (assoc-in db [:page :status-filter] status-filter))))
 
 (rf/reg-event-db
   :handlers/show-all-documents
@@ -469,7 +472,8 @@
   :handlers/dashboard-create-save
   ins/std-ins
   (fn [{:keys [db]} _]
-    (let [{:keys [url] :as form} (get-in db [:create_form])]
+    (let [{:keys [url] :as form} (get-in db [:create_form])
+          form (logic/validate-required-fields form)]
       (if (logic/is-valid? form)
         {:fx/create-document {:url       url
                               :form      form
@@ -589,3 +593,7 @@
                 {:type    :alert
                  :message (str "Unable to lodge: " status " " failure)}]}))
 
+(rf/reg-event-fx
+  :help-menu/open
+  (fn [_ [_ url]]
+    {:window/open {:url url :windowName "_blank"}}))

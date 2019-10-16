@@ -84,8 +84,8 @@
 
 (rf/reg-fx
   :fx/archive-current-document
-  (fn [{:keys [transition_url success-v error-v]}]
-    (POST transition_url
+  (fn [{:keys [url success-v error-v]}]
+    (POST url
           {:params          #js {:transition "archive"}
            :handler         #(rf/dispatch (conj success-v %))
            :error-handler   #(rf/dispatch (conj error-v %))
@@ -93,3 +93,10 @@
            :format          :json
            :response-format :json
            :keywords?       true})))
+
+(rf/reg-fx
+  :window/open
+  (fn [{:keys [url windowName]}]
+    (s/assert string? url)
+    (s/assert (s/nilable string?) windowName)
+    (js/window.open url windowName)))

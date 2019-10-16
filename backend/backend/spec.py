@@ -49,16 +49,15 @@ def insert_functions(spec):
 def make_spec(**kwargs):
     assert 'mapper' in kwargs, "We couldn't load the mapper for this template. Please make sure the mapper exists"
     assert kwargs['mapper'] != None, "No mapper exists for this template. Please specify one."
-    with open(kwargs['mapper'].file.path) as json_file:
-        spec_json = json.load(json_file)
-        spec = spec_json['spec']
-        node_groups = spec_json['node_groups']
-        remove_comments(spec)
-        #replace any node group reference with the actual node_group
-        insert_node_groups(spec, node_groups)
-        #update string references to functions with the actual functions
-        insert_functions(spec)
-        return spec
+    spec_json = json.loads(kwargs['mapper'].file.read().decode('utf-8'))
+    spec = spec_json['spec']
+    node_groups = spec_json['node_groups']
+    remove_comments(spec)
+    #replace any node group reference with the actual node_group
+    insert_node_groups(spec, node_groups)
+    #update string references to functions with the actual functions
+    insert_functions(spec)
+    return spec
 
 
 
@@ -79,7 +78,7 @@ def massage_version_number(s):
 def generate_attachment_url(**kwargs):
     # TODO: figure out how to get env here (was previously inline in the python spec)
     assert kwargs['data'] != None, "data not provided"
-    assert kwargs['uuid'] != None, "models not provided"
+    assert kwargs['uuid'] != None, "uuid not provided"
     data = kwargs['data']
     uuid = kwargs['uuid']
     return "file.disclaimer?uuid={0}&fname={1}&access=private".format(uuid, os.path.basename(data))
@@ -206,6 +205,15 @@ def science_keyword_name(**kwargs):
     keyword = models['backend']['sciencekeyword'].objects.get(pk=data)
     return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
 
+def anzsrc_keyword_name(**kwargs):
+    assert kwargs['data'] != None, "data not provided"
+    assert kwargs['models'] != None, "models not provided"
+    data = kwargs['data']
+    models = kwargs['models']
+    keyword = models['backend']['anzsrckeyword'].objects.get(pk=data)
+    return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
+
+
 def identity(x):
     return x
 
@@ -213,9 +221,23 @@ def identity(x):
 def vocab_url(x):
     return x['vocabularyTermURL']
 
+def is_orcid(x):
+    #it's not an orcid
+    if x and x[:4] == 'http':
+        return False
+    return True
 
 def write_orcid(x):
-    return 'https://orcid.org/{orcid}'.format(orcid=x)
+    if is_orcid(x):
+        return 'https://orcid.org/{orcid}'.format(orcid=x)
+    else:
+        return x
+
+def write_orcid_role(x):
+    if is_orcid(x):
+        return "orcid"
+    else:
+        return "uri"
 
 
 def vocab_text(x):
@@ -226,6 +248,9 @@ def sampling_text(x):
 
 def sampling_uri(x):
     return x['uri']
+
+def write_doi(x):
+    return 'doi: {doi}'.format(doi=x)
 
 def geonetwork_url(x):
     return 'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=x)
@@ -255,11 +280,14 @@ SPEC_FUNCTIONS = {
     "parse_organisation_identifier": parse_organisation_identifier,
     "parse_individual_orcid": parse_individual_orcid,
     "science_keyword_name": science_keyword_name,
+    "anzsrc_keyword_name": anzsrc_keyword_name,
     "parse_codeListValue": parse_codeListValue,
     "vocab_url": vocab_url,
     "vocab_text": vocab_text,
     "sampling_uri": sampling_uri,
     "sampling_text": sampling_text,
     "write_orcid": write_orcid,
-    "geonetwork_url": geonetwork_url
+    "write_orcid_role": write_orcid_role,
+    "write_doi": write_doi,
+    "geonetwork_url": geonetwork_url,
 }

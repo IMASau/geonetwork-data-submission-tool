@@ -153,6 +153,7 @@ class SiteContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = SiteContent
         fields = ('title', 'organisation_url', 'email', 'tag_line', 'guide_pdf', 'terms_pdf',
+                  'roadmap_pdf', 'releasenotes_url',
                   'portal_title', 'portal_url')
 
 
@@ -192,7 +193,7 @@ def dashboard(request):
                 },
                 "template": {
                     "label": "Template",
-                    "value": None,
+                    "value": MetadataTemplate.objects.filter(site=get_current_site(request), archived=False).first().pk,
                     "options": [[t.pk, t.__str__()]
                                 for t in MetadataTemplate.objects.filter(site=get_current_site(request), archived=False)],
                     "required": True
@@ -244,8 +245,9 @@ def export(request, uuid):
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
     spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    data = split_geographic_extents(data)
     data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
-                element_index=0, silent=False, fieldKey=None, doc_uuid=uuid)
+                element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
 
     response = HttpResponse(etree.tostring(xml), content_type="application/xml")
     if "download" in request.GET:
@@ -282,8 +284,9 @@ def mef(request, uuid):
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
     spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    data = split_geographic_extents(data)
     data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
-                element_index=0, silent=False, fieldKey=None, doc_uuid=uuid)
+                element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     response = HttpResponse(content_type="application/x-mef")
     response['Content-Disposition'] = 'attachment; filename="{}.mef"'.format(uuid)
     info = etree.fromstring(MEF_TEMPLATE)
@@ -314,9 +317,13 @@ def home(request):
     sitecontent, _ = SiteContent.objects.get_or_create(site=get_current_site(request))
     return render_to_response("home.html", {'sitecontent': sitecontent})
 
+
 def personFromData(data):
     uri = data['uri']
     if uri:
+        if not data['familyName'] or not data['givenName']:
+            return
+        data['individualName'] = '{0}, {1}'.format(data['familyName'], data['givenName'])
         try:
             matchingPerson = Person.objects.get(uri=uri)
             if matchingPerson.isUserAdded:
@@ -324,19 +331,22 @@ def personFromData(data):
                 matchingPerson.givenName = data['givenName']
                 matchingPerson.familyName = data['familyName']
                 matchingPerson.orcid = data['orcid'] or ''
-                matchingPerson.prefLabel = data['familyName'] + ', ' + data['givenName']
+                matchingPerson.prefLabel = data['individualName']
                 matchingPerson.electronicMailAddress = data['electronicMailAddress']
                 matchingPerson.save()
+                return matchingPerson
         except Person.DoesNotExist:
             inst = Person.objects.create(uri=uri,
                                          orgUri=data['organisationIdentifier'],
                                          givenName=data['givenName'],
                                          familyName=data['familyName'],
                                          orcid=data['orcid'] or '',
-                                         prefLabel=data['familyName'] + ', ' + data['givenName'],
+                                         prefLabel=data['individualName'],
                                          electronicMailAddress=data['electronicMailAddress'],
                                          isUserAdded=True)
             inst.save()
+            return inst
+    return None
 
 def institutionFromData(data):
     orgUri = data['organisationIdentifier']
@@ -367,6 +377,22 @@ def save(request, uuid):
             doc.resubmit()
         doc.save()
 
+        # add any new people or institutions to the database
+        pointOfContacts = data['identificationInfo']['pointOfContact']
+        citedResponsibleParties = data['identificationInfo']['citedResponsibleParty']
+
+        for pointOfContact in pointOfContacts:
+            updatedPerson = personFromData(pointOfContact)
+            if updatedPerson:
+                pointOfContact['individualName'] = updatedPerson.prefLabel
+            institutionFromData(pointOfContact)
+
+        for citedResponsibleParty in citedResponsibleParties:
+            updatedPerson = personFromData(citedResponsibleParty)
+            if updatedPerson:
+                citedResponsibleParty['individualName'] = updatedPerson.prefLabel
+            institutionFromData(citedResponsibleParty)
+
         #update the publication date
         data['identificationInfo']['datePublication'] = today()
 
@@ -375,18 +401,6 @@ def save(request, uuid):
         inst.agreedToTerms = data['agreedToTerms'] or False
         inst.doiRequested = data['doiRequested'] or False
         inst.save()
-
-        # add any new people or institutions to the database
-        pointOfContacts = data['identificationInfo']['pointOfContact']
-        citedResponsibleParties = data['identificationInfo']['citedResponsibleParty']
-
-        for pointOfContact in pointOfContacts:
-            personFromData(pointOfContact)
-            institutionFromData(pointOfContact)
-
-        for citedResponsibleParty in citedResponsibleParties:
-            personFromData(citedResponsibleParty)
-            institutionFromData(citedResponsibleParty)
 
 
         # Remove any attachments which are no longer mentioned in the XML.

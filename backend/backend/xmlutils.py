@@ -323,6 +323,28 @@ def spec_data_from_batch(batch_spec, key):
     return spec, data
 
 
+# TODO: this is a workaround for the unusual structure of the geographic extents
+# Basically each one needs to have its own mri:extent
+# but the first one should have the start/end date and description
+# this should be doable through the mapping/frontend but we don't
+# have time.
+# This takes any geographic extents beyond the first and shoves them into
+# a geographicElementSecondary dict, which has a different xpath to the
+# geographicElement, meaning we can write the two different types
+def split_geographic_extents(data):
+    geo = data['identificationInfo']['geographicElement']
+    boxes = geo.get('boxes', None)
+    if boxes:
+        if len(boxes) > 1:
+            data['identificationInfo']['geographicElementSecondary'] = []
+        for box in boxes[1:]:
+            newBox = {}
+            newBox['boxes'] = box
+            data['identificationInfo']['geographicElementSecondary'].append(newBox)
+        data['identificationInfo']['geographicElement']['boxes'] = [boxes[0]]
+    return data
+
+
 def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=True, fieldKey = None):
     # indicates that the spec allows more than one value for this node
     if is_many(spec):
@@ -366,6 +388,15 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
     elif has_nodes(spec):
         xml_node = xml_node.xpath(get_xpath(spec), namespaces=nsmap)[element_index]
         for field_key, node_spec in get_nodes(spec).items():
+            # workaround for a problem with identifiers in the final output
+            # we need to write either the orcid or the uri to the XML file
+            # but we can't do that at the node writing point, because we don't have the
+            # sibling data
+            # TODO: there is a better way to structure this, but we can't overhaul the mapper right now
+            if field_key=='orcid':
+                orcid = data[field_key]
+                if not orcid:
+                    data[field_key] = data['uri']
             if item_is_empty(data, field_key, node_spec):
                 if get_required(node_spec):
                     # at the moment, we are always graceful to missing fields, only reporting them w/o raising exception
@@ -443,7 +474,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                         raise Exception(msg)
                 if attr == 'text':
                     gco = '{%s}' % nsmap['gco']
-                    #TODO: this only works if we don't have actual time information
+                    #TODO: this only works if we don't care about actual time information
                     if element.tag == '%sDateTime' % gco:
                         element.text = '%sT00:00:00' % final_value
                     else:

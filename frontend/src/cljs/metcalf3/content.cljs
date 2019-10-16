@@ -38,7 +38,7 @@
                            :page        :who}
    :organisationName      {:type        nil
                            :label       "Organisation"
-                           :placeholder "Organisation"
+                           :placeholder "Start typing to filter list..."
                            :required    true
                            :page        :who}
    :phone                 {:type  nil
@@ -193,7 +193,7 @@
                            :keywordsThemeAnzsrc           {:keywords {:type        nil
                                                                       :label       "Research theme keywords, ANZSRC Fields of Research"
                                                                       :help        "Select up to 12 research theme keywords describing your data"
-                                                                      :placeholder "Search for keywords"
+                                                                      :placeholder "Start typing to filter list..."
                                                                       :required    false
                                                                       :page        :what}}
                            :keywordsThemeExtra            {:keywords {:type        nil
@@ -216,6 +216,7 @@
                                                            :required true
                                                            :page     :when}
                            :samplingFrequency             {:label     "Sampling frequency"
+                                                           :help      "How frequently was the data collected?"
                                                            :uri       {:type nil
                                                                        :page :when}
                                                            :prefLabel {:type nil
@@ -288,65 +289,69 @@
                                                            :help  "Acknowledge the contribution of any funding schemes or organisations."
                                                            :label "Other credits"}
 
-                           :dataParameters                {:label  "Data parameters"
-                                                           :type   nil
+                           :dataParameters                {:type   nil
+                                                           :value  []
+                                                           :label  "Data parameters"
                                                            :many   true
                                                            :page   :about
-                                                           :fields {:longName     {:term              {:type        nil
-                                                                                                       :page        :about
-                                                                                                       :label       "Name"
-                                                                                                       :help        "Name of the measured parameter e.g. Vegetation height"
-                                                                                                       :placeholder "Start typing to filter the list"
-                                                                                                       :required    true}
-                                                                                   :vocabularyTermURL {:type nil
-                                                                                                       :page :about}
-                                                                                   :vocabularyVersion {:type nil
-                                                                                                       :page :about}
-                                                                                   :termDefinition    {:type nil
-                                                                                                       :page :about}}
-                                                                    :name         {:type        nil
-                                                                                   :label       ""
-                                                                                   :placeholder "Name in dataset (optional)"
-                                                                                   :page        :about}
-                                                                    :serialNumber {:type        nil
-                                                                                   :label       "Serial Number"
-                                                                                   :placeholder ""
-                                                                                   :page        :about}
-                                                                    :unit         {:term              {:type        nil :label "Unit" :required true
-                                                                                                       :page        :about
-                                                                                                       :placeholder "Start typing to filter the list"
-                                                                                                       :help        "Unit of measurement"}
-                                                                                   :vocabularyTermURL {:type nil
-                                                                                                       :page :about}
-                                                                                   :vocabularyVersion {:type nil
-                                                                                                       :page :about}
-                                                                                   :termDefinition    {:type nil
-                                                                                                       :page :about}}
-                                                                    :instrument   {:term              {:type        nil
-                                                                                                       :label       "Instrument"
-                                                                                                       :placeholder "Start typing to filter the list"
-                                                                                                       :help        "Sensor used to measure the parameter"}
-                                                                                   :vocabularyTermURL {:type nil
-                                                                                                       :page :about}
-                                                                                   :vocabularyVersion {:type nil
-                                                                                                       :page :about}
-                                                                                   :termDefinition    {:type nil
-                                                                                                       :page :about}}
-                                                                    :platform     {:term              {:type        nil
-                                                                                                       :label       "Platform"
-                                                                                                       :placeholder "Start typing to filter the list"
-                                                                                                       :help        "Is the data measured from land, air, satellite or a model?"
-                                                                                                       :page        :about}
-                                                                                   :vocabularyTermURL {:type nil
-                                                                                                       :page :about}
-                                                                                   :vocabularyVersion {:type nil
-                                                                                                       :page :about}
-                                                                                   :termDefinition    {:type nil
-                                                                                                       :page :about}}}}
-                           :useLimitations                {:type  nil
-                                                           :label "Use limitations"
-                                                           :many  true
-                                                           :page  :about}
+                                                           :fields {:longName_term                {:type        nil
+                                                                                                   :page        :about
+                                                                                                   :label       "Name"
+                                                                                                   :help        "Name of the measured parameter e.g. Vegetation height"
+                                                                                                   :placeholder "Start typing to filter the list"
+                                                                                                   :required    true}
+                                                                    :longName_vocabularyTermURL   {:type nil
+                                                                                                   :page :about}
+                                                                    :longName_vocabularyVersion   {:type nil
+                                                                                                   :page :about}
+                                                                    :longName_termDefinition      {:type nil
+                                                                                                   :page :about}
+                                                                    :name                         {:type        nil
+                                                                                                   :label       ""
+                                                                                                   :placeholder "Name in dataset (optional)"
+                                                                                                   :page        :about}
+                                                                    :serialNumber                 {:type        nil
+                                                                                                   :label       "Serial Number"
+                                                                                                   :placeholder ""
+                                                                                                   :page        :about}
+                                                                    :unit_term                    {:type        nil
+                                                                                                   :label       "Unit"
+                                                                                                   :required    true
+                                                                                                   :page        :about
+                                                                                                   :placeholder "Start typing to filter the list"
+                                                                                                   :help        "Unit of measurement"}
+                                                                    :unit_vocabularyTermURL       {:type nil
+                                                                                                   :page :about}
+                                                                    :unit_vocabularyVersion       {:type nil
+                                                                                                   :page :about}
+                                                                    :unit_termDefinition          {:type nil
+                                                                                                   :page :about}
+                                                                    :instrument_term              {:type        nil
+                                                                                                   :label       "Instrument"
+                                                                                                   :placeholder "Start typing to filter the list"
+                                                                                                   :help        "Sensor used to measure the parameter"}
+                                                                    :instrument_vocabularyTermURL {:type nil
+                                                                                                   :page :about}
+                                                                    :instrument_vocabularyVersion {:type nil
+                                                                                                   :page :about}
+                                                                    :instrument_termDefinition    {:type nil
+                                                                                                   :page :about}
+                                                                    :platform_term                {:type        nil
+                                                                                                   :label       "Platform"
+                                                                                                   :placeholder "Start typing to filter the list"
+                                                                                                   :help        "Is the data measured from land, air, satellite or a model?"
+                                                                                                   :page        :about}
+                                                                    :platform_vocabularyTermURL   {:type nil
+                                                                                                   :page :about}
+                                                                    :platform_vocabularyVersion   {:type nil
+                                                                                                   :page :about}
+                                                                    :platform_termDefinition      {:type nil
+                                                                                                   :page :about}}}
+                           :useLimitations                {:type        nil
+                                                           :label       "Use limitations"
+                                                           :many        true
+                                                           :page        :about
+                                                           :placeholder "While every care is taken to ensure the accuracy of this information, the author makes no representations or warranties about its accuracy, reliability, completeness or suitability for any particular purpose and disclaims all responsibility and all liability (including without limitation, liability in negligence) for all expenses, losses, damages (including indirect or consequential damage) and costs which might be incurred as a result of the information being inaccurate or incomplete in any way and for any reason."}
                            :supplementalInformation       {:type  nil
                                                            :page  :about
                                                            :label "Publications associated with dataset"
@@ -373,7 +378,7 @@
                            :label "Include a note for the data manager"
                            :style {:min-height "80px"}
                            :page  :lodge}
-     :who-authorRequired            {:type  nil
+     :who-authorRequired  {:type  nil
                            :label "Author role"
                            :page  :who}
      :agreedToTerms       {:type  nil

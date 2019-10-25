@@ -826,7 +826,7 @@
    
                <mco:useConstraints>
                   <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode"
-                                          codeListValue="otherRestrictions"/>
+                                          codeListValue="license"/>
                 </mco:useConstraints>
 
                <mco:otherConstraints>

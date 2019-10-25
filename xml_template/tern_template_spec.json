@@ -593,7 +593,15 @@
                         "xpath": "mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints",
                         "valueChild": "gco:CharacterString",
                         "many": true,
-                        "keep": false
+                        "keep": false,
+                        "exportTo": {
+                            "xpath": "mri:resourceConstraints/mco:MD_LegalConstraints/mco:useConstraints/mco:MD_RestrictionCode",
+                            "attributes": {
+                                "codeListValue": {
+                                    "function": "write_constraints"
+                                }
+                            }
+                        }
                     }
                 }
             },

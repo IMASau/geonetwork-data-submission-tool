@@ -239,6 +239,8 @@ def write_orcid_role(x):
     else:
         return "uri"
 
+def write_constraints(x):
+    return 'otherRestrictions'
 
 def vocab_text(x):
     return x['term']
@@ -290,4 +292,5 @@ SPEC_FUNCTIONS = {
     "write_orcid_role": write_orcid_role,
     "write_doi": write_doi,
     "geonetwork_url": geonetwork_url,
+    "write_constraints": write_constraints,
 }

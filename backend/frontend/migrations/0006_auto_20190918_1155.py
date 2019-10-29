@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='sitecontent',
-            name='doiUri',
+            name='doi_uri',
             field=models.CharField(default='https://doi.tern.uq.edu.au/test/index.php?r=api/create&user_id=tern.data@uq.edu.au', help_text='Base create URI for the DOI minting service', max_length=1024, verbose_name='DOI Service URI'),
         ),
         migrations.AlterField(

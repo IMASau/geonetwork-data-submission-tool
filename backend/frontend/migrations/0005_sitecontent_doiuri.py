@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='sitecontent',
-            name='doiUri',
+            name='doi_uri',
             field=models.CharField(default='https://doi.tern.uq.edu.au/test/index.php?r=api/create&user_id=tern.data@uq.edu.au', max_length=1024),
         ),
     ]

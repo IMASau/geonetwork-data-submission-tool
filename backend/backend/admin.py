@@ -238,7 +238,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
                 # they have asked for a DOI to be minted, and it hasn't been done yet
                 if not data.get('doi', None):
                     sitecontent = SiteContent.objects.all()[0]
-                    baseUri = sitecontent.doiUri
+                    baseUri = sitecontent.doi_uri
                     doiUri = urllib.parse.quote('https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=data['fileIdentifier']))
                     requestUri = '{base}&url={doiUri}'.format(base=baseUri, doiUri=doiUri)
                     body = {'xml': etree.tostring(request_xml)}

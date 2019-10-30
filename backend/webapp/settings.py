@@ -138,7 +138,7 @@ LOGGING = {
         },
         'file': {
             'level': 'DEBUG',
-            'class': 'logging.FileHandler',
+            'class': 'logging.handlers.SysLogHandler',
             'filename': '/var/log/syslog',
         },
     },

@@ -3,6 +3,7 @@ Django settings for webapp project.
 """
 
 import os
+from logging.handlers import SysLogHandler 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -136,10 +137,10 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        'file': {
-            'level': 'DEBUG',
+        'syslog':{ 
+            'level':'DEBUG',
             'class': 'logging.handlers.SysLogHandler',
-            'filename': '/var/log/syslog',
+            'facility': SysLogHandler.LOG_LOCAL2,
         },
     },
     'loggers': {

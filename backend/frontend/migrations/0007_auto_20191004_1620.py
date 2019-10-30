@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backend', '0026_auto_20190927_1138'),
+        ('frontend', '0006_auto_20190918_1155'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='person',
-            name='orcid',
-            field=models.CharField(blank=True, default='', max_length=50, verbose_name='ORCID ID'),
+            model_name='sitecontent',
+            name='email',
+            field=models.EmailField(default='esupport@tern.org.au', max_length=254),
         ),
     ]

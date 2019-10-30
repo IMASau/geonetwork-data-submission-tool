@@ -139,7 +139,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'log/debug.log',
+            'filename': '/var/log/syslog',
         },
     },
     'loggers': {

@@ -32,7 +32,6 @@ class Migration(migrations.Migration):
                 ('site', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='sites.Site')),
                 ('terms_pdf', models.FileField(null=True, upload_to='terms')),
                 ('doi_uri', models.CharField(default='YOUR-DOI-LINK', max_length=1024)),
-                ('terms_pdf', models.FileField(null=True, upload_to='terms')),
                 ('releasenotes_url', models.URLField(blank=True, null=True, verbose_name='Release notes URL')),
                 ('roadmap_pdf', models.FileField(blank=True, null=True, upload_to='guide')),
             ],

@@ -9,6 +9,10 @@ def custom_exception_handler(exc, context):
     # Move content into 'page' namespace
     # Now add the HTTP status code to the response.
     if response is not None:
+        try:
+            site = context['request'].site
+        except:
+            site = 1
         response.data = {
             'page': {
                 'name': 'Error',
@@ -18,7 +22,7 @@ def custom_exception_handler(exc, context):
             },
             'context': {
                 "urls": master_urls(),
-                "site": site_content(context['request'].site),
+                "site": site_content(site),
                 "user": UserSerializer(context['request'].user).data,
             }
         }

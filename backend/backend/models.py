@@ -344,14 +344,14 @@ class DocumentAttachment(models.Model):
 
 class Person(models.Model):
     uri = models.CharField(max_length=512, default="")
-    orgUri = models.CharField(max_length=512, default="")
-    familyName = models.CharField(max_length=256, verbose_name="family name")
-    givenName = models.CharField(max_length=256, verbose_name="given name")
+    orgUri = models.CharField(max_length=512, default="", blank=True)
+    familyName = models.CharField(max_length=256, verbose_name="family name", blank=True)
+    givenName = models.CharField(max_length=256, verbose_name="given name", blank=True)
     honorificPrefix = models.CharField(max_length=256, blank=True, verbose_name="honorific")
     orcid = models.CharField(max_length=50, verbose_name="ORCID ID", default="", blank=True)
-    prefLabel = models.CharField(max_length=512, default="")
+    prefLabel = models.CharField(max_length=512, default="", blank=True)
     isUserAdded = models.BooleanField(default=False,verbose_name="User Added")
-    electronicMailAddress = models.CharField(max_length=256,default="",verbose_name='email')
+    electronicMailAddress = models.CharField(max_length=256,default="",verbose_name='email', blank=True)
 
     def __str__(self):
         return self.uri

@@ -321,28 +321,35 @@ def home(request):
 def personFromData(data):
     uri = data['uri']
     if uri:
-        if not data['familyName'] or not data['givenName']:
-            return
-        data['individualName'] = '{0}, {1}'.format(data['familyName'], data['givenName'])
+        familyName = data['familyName']
+        givenName = data['givenName']
+        if not familyName and not givenName:
+            data['individualName'] = ''
+        elif not familyName:
+            data['individualName'] = familyName
+        elif not givenName:
+            data['individualName'] = givenName
+        else:
+            data['individualName'] = '{0}, {1}'.format(familyName, givenName)
         try:
             matchingPerson = Person.objects.get(uri=uri)
             if matchingPerson.isUserAdded:
-                matchingPerson.orgUri = data['organisationIdentifier']
-                matchingPerson.givenName = data['givenName']
-                matchingPerson.familyName = data['familyName']
+                matchingPerson.orgUri = data['organisationIdentifier'] or ''
+                matchingPerson.givenName = data['givenName'] or ''
+                matchingPerson.familyName = data['familyName'] or ''
                 matchingPerson.orcid = data['orcid'] or ''
-                matchingPerson.prefLabel = data['individualName']
-                matchingPerson.electronicMailAddress = data['electronicMailAddress']
+                matchingPerson.prefLabel = data['individualName'] or ''
+                matchingPerson.electronicMailAddress = data['electronicMailAddress'] or ''
                 matchingPerson.save()
                 return matchingPerson
         except Person.DoesNotExist:
             inst = Person.objects.create(uri=uri,
-                                         orgUri=data['organisationIdentifier'],
-                                         givenName=data['givenName'],
-                                         familyName=data['familyName'],
+                                         orgUri=data['organisationIdentifier'] or '',
+                                         givenName=data['givenName'] or '',
+                                         familyName=data['familyName'] or '',
                                          orcid=data['orcid'] or '',
-                                         prefLabel=data['individualName'],
-                                         electronicMailAddress=data['electronicMailAddress'],
+                                         prefLabel=data['individualName'] or '',
+                                         electronicMailAddress=data['electronicMailAddress'] or '',
                                          isUserAdded=True)
             inst.save()
             return inst

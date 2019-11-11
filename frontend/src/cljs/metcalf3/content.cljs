@@ -88,7 +88,7 @@
                                                   :label "Protocol"
                                                   :options
                                                          [["WWW:DOWNLOAD-1.0-http--download" "HTTP"]
-                                                          ["OGC:WCS-1.1.0-http-get-capabilities" "WCS"]
+                                                          ["OGC:WCS-1.1.0-http-get-capabilities" "OGC Web Coverage Service (WCS)"]
                                                           ["OGC:WMS-1.3.0-http-get-map" "OGC Web Map Service (WMS)"]
                                                           ["OGC:WFS-1.1.0-http-get-capabilities" "OGC Web Feature Service (WFS)"]
                                                           ["WWW:LINK-1.0-http--opendap" "OPeNDAP"]

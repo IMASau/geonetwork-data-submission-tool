@@ -20,9 +20,52 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='MetadataTemplateMapper',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(help_text='Unique name for template mapper.  Used in menus.', max_length=128)),
+                ('file', models.FileField(help_text='JSON file used to interpret XML files that specify records', upload_to='', verbose_name='metadata_template_mappers')),
+                ('notes', models.TextField(help_text='Internal use notes about this template mapper')),
+                ('archived', models.BooleanField(default=False)),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('modified', models.DateTimeField(auto_now=True)),
+                ('site', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='sites.Site')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='MetadataTemplate',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(help_text='Unique name for template.  Used in menus.', max_length=128)),
+                ('file', models.FileField(help_text='XML file used when creating and exporting records', upload_to='', verbose_name='metadata_templates')),
+                ('notes', models.TextField(help_text='Internal use notes about this template')),
+                ('archived', models.BooleanField(default=False)),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('modified', models.DateTimeField(auto_now=True)),
+                ('site', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='sites.Site')),
+                ('mapper', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='backend.MetadataTemplateMapper')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Document',
+            fields=[
+                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
+                ('title', models.TextField(default='Untitled')),
+                ('status', django_fsm.FSMField(choices=[('Draft', 'Draft'), ('Submitted', 'Submitted'), ('Uploaded', 'Uploaded'), ('Archived', 'Archived'), ('Discarded', 'Discarded')], default='Draft', max_length=50)),
+                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('doi', models.CharField(default='', null=True, max_length=1024)),
+                ('template', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='backend.MetadataTemplate')),
+            ],
+            options={
+                'permissions': (('workflow_reject', 'Can reject record in workflow'), ('workflow_upload', 'Can upload record in workflow'), ('workflow_discard', 'Can discard record in workflow'), ('workflow_restart', 'Can restart record in workflow'), ('workflow_recover', 'Can recover discarded records in workflow')),
+            },
+        ),
+        migrations.CreateModel(
             name='Contributor',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('document', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='backend.Document')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
@@ -39,18 +82,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'permissions': (('datafeed_schedule', 'Can schedule datafeed refresh'), ('datafeed_unschedule', 'Can cancel scheduled datafeed schedule'), ('datafeed_admin', 'Can administer datafeed')),
-            },
-        ),
-        migrations.CreateModel(
-            name='Document',
-            fields=[
-                ('uuid', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('title', models.TextField(default='Untitled')),
-                ('status', django_fsm.FSMField(choices=[('Draft', 'Draft'), ('Submitted', 'Submitted'), ('Uploaded', 'Uploaded'), ('Archived', 'Archived'), ('Discarded', 'Discarded')], default='Draft', max_length=50)),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-            ],
-            options={
-                'permissions': (('workflow_reject', 'Can reject record in workflow'), ('workflow_upload', 'Can upload record in workflow'), ('workflow_discard', 'Can discard record in workflow'), ('workflow_restart', 'Can restart record in workflow'), ('workflow_recover', 'Can recover discarded records in workflow')),
             },
         ),
         migrations.CreateModel(
@@ -73,6 +104,8 @@ class Migration(migrations.Migration):
                 ('noteForDataManager', models.TextField(default='')),
                 ('document', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='backend.Document')),
                 ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                ('doiRequested', models.BooleanField(default=False)),
+                ('agreedToTerms', models.BooleanField(default=False)),
             ],
             options={
                 'verbose_name_plural': 'Draft Metadata',
@@ -94,19 +127,7 @@ class Migration(migrations.Migration):
                 ('administrativeArea', models.CharField(max_length=64, verbose_name='state')),
                 ('postalCode', models.CharField(max_length=64, verbose_name='postcode')),
                 ('country', models.CharField(max_length=64)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='MetadataTemplate',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Unique name for template.  Used in menus.', max_length=128)),
-                ('file', models.FileField(help_text='XML file used when creating and exporting records', upload_to='', verbose_name='metadata_templates')),
-                ('notes', models.TextField(help_text='Internal use notes about this template')),
-                ('archived', models.BooleanField(default=False)),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('modified', models.DateTimeField(auto_now=True)),
-                ('site', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='sites.Site')),
+                ('isUserAdded', models.BooleanField(default=False, verbose_name='User Added')),
             ],
         ),
         migrations.CreateModel(
@@ -186,7 +207,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('UUID', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('Identifier', models.CharField(max_length=128)),
-                ('Description', models.CharField(max_length=128)),
+                ('Description', models.CharField(max_length=256)),
             ],
             options={
                 'ordering': ['Identifier', 'Description'],
@@ -208,19 +229,65 @@ class Migration(migrations.Migration):
                 'ordering': ['Category', 'Topic', 'Term', 'VariableLevel1', 'VariableLevel2', 'VariableLevel3', 'DetailedVariable'],
             },
         ),
-        migrations.AddField(
-            model_name='document',
-            name='template',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='backend.MetadataTemplate'),
+        
+        migrations.CreateModel(
+            name='Person',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('uri', models.CharField(default='', max_length=512)),
+                ('orgUri', models.CharField(default='', max_length=512)),
+                ('familyName', models.CharField(max_length=256, verbose_name='family name')),
+                ('givenName', models.CharField(max_length=256, verbose_name='given name')),
+                ('honorificPrefix', models.CharField(blank=True, max_length=256, verbose_name='honorific')),
+                ('isUserAdded', models.BooleanField(default=False, verbose_name='User Added')),
+                ('prefLabel', models.CharField(default='', max_length=512)),
+                ('electronicMailAddress', models.CharField(default='', max_length=256, verbose_name='email')),
+                ('orcid', models.CharField(blank=True, default='', max_length=50, verbose_name='ORCID ID')),
+            ],
+            options={
+                'ordering': ['familyName', 'givenName'],
+            },
         ),
-        migrations.AddField(
-            model_name='contributor',
-            name='document',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='backend.Document'),
+        migrations.CreateModel(
+            name='SamplingFrequency',
+            fields=[
+                ('uri', models.CharField(default='', max_length=512, primary_key=True, serialize=False)),
+                ('prefLabel', models.CharField(max_length=256)),
+                ('prefLabelSortText', models.CharField(default='', max_length=256)),
+            ],
         ),
-        migrations.AddField(
-            model_name='contributor',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+        migrations.CreateModel(
+            name='TopicCategory',
+            fields=[
+                ('identifier', models.CharField(max_length=256, primary_key=True, serialize=False)),
+                ('name', models.CharField(max_length=256)),
+            ],
+            options={
+                'ordering': ['identifier'],
+            },
+        ),
+        migrations.CreateModel(
+            name='AnzsrcKeyword',
+            fields=[
+                ('UUID', models.CharField(default='', editable=False, max_length=256, primary_key=True, serialize=False, verbose_name='URL')),
+                ('Category', models.CharField(max_length=128)),
+                ('Topic', models.CharField(max_length=128)),
+                ('Term', models.CharField(max_length=128)),
+                ('VariableLevel1', models.CharField(max_length=128)),
+                ('VariableLevel2', models.CharField(max_length=128)),
+                ('VariableLevel3', models.CharField(max_length=128)),
+                ('DetailedVariable', models.CharField(max_length=128)),
+            ],
+            options={
+                'ordering': ['Category', 'Topic', 'Term', 'VariableLevel1', 'VariableLevel2', 'VariableLevel3', 'DetailedVariable'],
+            },
+        ),
+        migrations.CreateModel(
+            name='HorizontalResolution',
+            fields=[
+                ('uri', models.CharField(default='', max_length=512, primary_key=True, serialize=False)),
+                ('prefLabel', models.CharField(max_length=256)),
+                ('prefLabelSortText', models.CharField(default='', max_length=256)),
+            ],
         ),
     ]

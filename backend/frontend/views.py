@@ -289,11 +289,11 @@ def mef(request, uuid):
                 element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     response = HttpResponse(content_type="application/x-mef")
     response['Content-Disposition'] = 'attachment; filename="{}.mef"'.format(uuid)
-    info = etree.fromstring(MEF_TEMPLATE)
+    info = etree.fromstring(MEF_TEMPLATE.encode('utf-8'))
     now = datetime.datetime.now().isoformat()
     info.xpath('/info/general/createDate')[0].text = now
     info.xpath('/info/general/changeDate')[0].text = now
-    info.xpath('/info/general/uuid')[0].text = uuid
+    info.xpath('/info/general/uuid')[0].text = str(uuid)
     private = etree.SubElement(info, "private")
     # NOTE we can't write directly to `response` (i.e. ZipFile(response, 'w'))
     # because it doesn't support `seek`, required by ZipFile.write

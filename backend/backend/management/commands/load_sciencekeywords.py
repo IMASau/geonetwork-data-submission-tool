@@ -71,6 +71,9 @@ class Command(BaseCommand):
             keyword.DetailedVariable = chain[7]
             keywords.append(keyword)
 
+        if not keywords:
+            raise CommandError('No keywords found, assuming error; aborting')
+
         return keywords
 
 

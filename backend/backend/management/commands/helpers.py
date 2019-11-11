@@ -55,10 +55,12 @@ class BaseParameterVocabLoader(object):
 
         self._fetch_data("org", True, 1)
 
+        entry_count = 0
         for vocab,selectable in vocab_list:
             if not vocab:
                 continue
             for uri,parenturi,data in self._fetch_data(vocab, selectable, ''):
+                entry_count = entry_count + 1
                 entry = self._merge_or_create(entries, uri, data)
                 if not parenturi:
                     # If we don't have a parent URI, add to the list of roots:
@@ -69,6 +71,8 @@ class BaseParameterVocabLoader(object):
                     parentEntry['children'].append(entry)
 
         try:
+            if entry_count == 0:
+                raise CommandError('No TERN persons found, assuming error; aborting')
             with transaction.atomic():
 
                 transaction.get_connection().cursor().execute(

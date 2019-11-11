@@ -52,8 +52,8 @@ class Command(BaseCommand):
                             prefLabel = freq.attrib['prefLabel']
                             prefLabelSortText = freq.attrib.get('prefLabelSortText', prefLabel)
                             horizontal_resolutions.append(HorizontalResolution(uri=uri, prefLabel=prefLabel, prefLabelSortText=prefLabelSortText))
-
-
+                if not horizontal_resolutions:
+                    raise CommandError('No horizontal resolution definitions found, assuming error; aborting')
                 HorizontalResolution.objects.bulk_create(horizontal_resolutions)
 
                 LogEntry.objects.log_action(

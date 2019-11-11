@@ -41,8 +41,9 @@ class Command(BaseCommand):
                     raise CommandError('No TERN organisations found, assuming error; aborting')
 
                 new_institutions = []
-
+                institution_count = 0
                 for tern_institution in tern_institutions:
+                    institution_count = institution_count + 1
                     tern_institution.organisationName = tern_institution.altLabel or tern_institution.prefLabel
                     #if a user added institutions with the same uri exists delete them
                     try:
@@ -51,6 +52,9 @@ class Command(BaseCommand):
                     except Institution.DoesNotExist:
                         pass
                     new_institutions.append(tern_institution)
+
+                if institution_count == 0:
+                    raise CommandError('No TERN institutions found, assuming error; aborting')
 
                 Institution.objects.bulk_create(new_institutions)
 

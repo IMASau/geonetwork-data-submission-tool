@@ -47,6 +47,9 @@ class Command(BaseCommand):
                         name = result.findtext('.//cat:name/gco:ScopedName',default='Nope',namespaces=namespaces)
                         topic_categories.append(TopicCategory(identifier=identifier,name=name))
 
+                if not topic_categories:
+                    raise CommandError('No role codes found, assuming error; aborting')
+
                 TopicCategory.objects.all().delete()
 
                 TopicCategory.objects.bulk_create(topic_categories)

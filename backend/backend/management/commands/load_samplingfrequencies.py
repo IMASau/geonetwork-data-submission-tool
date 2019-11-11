@@ -53,7 +53,8 @@ class Command(BaseCommand):
                             prefLabelSortText = freq.attrib.get('prefLabelSortText', prefLabel)
                             sampling_frequencies.append(SamplingFrequency(uri=uri, prefLabel=prefLabel, prefLabelSortText=prefLabelSortText))
 
-
+                if not sampling_frequencies:
+                    raise CommandError('No sampling frequencies found, assuming error; aborting')
                 SamplingFrequency.objects.bulk_create(sampling_frequencies)
 
                 LogEntry.objects.log_action(

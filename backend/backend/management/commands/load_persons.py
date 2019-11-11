@@ -37,14 +37,13 @@ class Command(BaseCommand):
             with transaction.atomic():
                 Person.objects.all().filter(isUserAdded=False).delete()
 
-
                 tern_persons = self._fetch_sparql()
-                if not tern_persons:
-                    raise CommandError('No TERN persons found, assuming error; aborting')
-
                 new_persons = []
 
+
+                new_count = 0
                 for person in tern_persons:
+                    new_count = new_count + 1
                     #if a user added person with the same uri exists delete them
                     try:
                         inst = Person.objects.get(uri=person.uri)
@@ -52,6 +51,9 @@ class Command(BaseCommand):
                     except Person.DoesNotExist:
                         pass
                     new_persons.append(person)
+
+                if not tern_persons or new_count == 0:
+                    raise CommandError('No TERN persons found, assuming error; aborting')
 
                 Person.objects.bulk_create(new_persons)
 
@@ -112,6 +114,8 @@ class Command(BaseCommand):
                                      '} order by asc(?familyName) ')
         url = "http://graphdb-dev.tern.org.au/repositories/knowledge-graph?query={query}".format(query=_query)
         response = requests.get(url, headers={'Accept': 'text/csv'})
+        if not response.ok:
+            raise CommandError('Error loading the persons vocabulary. Aborting. Error was {}'.format(response.content))
         reader = csv.DictReader(io.StringIO(response.text, newline=""), skipinitialspace=True)
         for row in reader:
             orcid = (row['sameAs'] or '').replace('https://orcid.org/','')
@@ -119,7 +123,7 @@ class Command(BaseCommand):
                 orcid = ''
             yield Person (
                 uri=row['s'],
-                #Originally person:org was a 1:1 relationship but now it's 1:many
+                #TODO: Originally person:org was a 1:1 relationship but now it's 1:many
                 #just don't include it until we figure out a new approach
                 #orgUri=row['memberOf'],
                 familyName=row['familyName'],

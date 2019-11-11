@@ -33,11 +33,16 @@ class Command(BaseCommand):
         try:
             with transaction.atomic():
                 RoleCode.objects.all().delete()
-                
+
                 new_roles = self._fetch_rolecodes()
-                if not new_roles:
+                new_roles_list = []
+                role_count = 0
+                for new_role in new_roles:
+                    role_count = role_count + 1
+                    new_roles_list.append(new_role)
+                if not new_roles or role_count == 0:
                     raise CommandError('No role codes found, assuming error; aborting')
-                RoleCode.objects.bulk_create(new_roles)
+                RoleCode.objects.bulk_create(new_roles_list)
 
                 LogEntry.objects.log_action(
                     user_id=adminpk,

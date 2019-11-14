@@ -7,15 +7,29 @@ from logging.handlers import SysLogHandler
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-DEBUG = True
+DEBUG = int(os.environ.get("DJANGO_DEBUG", default=0))
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST_PWD = os.environ.get("EMAIL_HOST_PWD", "SET-YOUR-PASSWORD")
+DEFAULT_FROM_EMAIL = 'no-reply@tern.org.au'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'no-reply@tern.org.au'
+EMAIL_USE_TLS = True
+
+ADMINS=[("Wilma", "w.karsdorp@uq.edu.au")]
+
+INTERNAL_IPS = []
 
 ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
+        'USER': os.environ.get("SQL_USER", "user"),
+        'PASSWORD': os.environ.get("SQL_PASSWORD", "password"),
+        'HOST': os.environ.get("SQL_HOST", "localhost"),
+        'PORT': os.environ.get("SQL_PORT", "5432"),
     }
 }
 
@@ -32,15 +46,11 @@ USE_L10N = True
 USE_TZ = True
 
 MEDIA_URL = '/media/'
+MEDIA_ROOT = '/var/www/metcalf/shared/media/'
 
 STATIC_URL = '/static/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static').replace('\\', '/')
-
-STATICFILES_DIRS = (
-    ("metcalf3", os.path.join(BASE_DIR, '../frontend/resources/public')),
-    # os.path.join(BASE_DIR, 'webapp/static'),
-)
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static').replace('\\', '/')
+STATIC_ROOT = '/var/www/metcalf/shared/staticfiles/'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -62,7 +72,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-SECRET_KEY = '+#*bup0nh&6g775hla27lfeowr#b#prj(801wtsj)+$-=edw+('
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", default='get-a-new-key')
 
 TEMPLATES = [
     {
@@ -164,7 +174,7 @@ LOGGING = {
             'propagate': True,
         },
         'django': {
-            'handlers': ['syslog'],
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': True,
         },
@@ -208,3 +218,19 @@ GMAPS_API_KEY = "AIzaSyCzhDANmUaxnfFuO5xnFjtYDrI284Xy62o"
 FRONTEND_DEV_MODE = False
 
 LOGIN_URL = '/oidc/authenticate'
+
+OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get("OIDC_OP_AUTHORIZATION_ENDPOINT", "https://auth.tern.org.au/auth/realms/mst-dev/protocol/openid-connect/auth")
+OIDC_OP_TOKEN_ENDPOINT = os.environ.get("OIDC_OP_TOKEN_ENDPOINT", "https://auth.tern.org.au/auth/realms/mst/protocol/openid-connect/token")
+OIDC_OP_USER_ENDPOINT = os.environ.get("OIDC_OP_USER_ENDPOINT", "https://auth.tern.org.au/auth/realms/mst/protocol/openid-connect/userinfo")
+OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID", "mst-client")
+LOGIN_REDIRECT_URL = os.environ.get("LOGIN_REDIRECT_URL", "/dashboard")
+LOGOUT_REDIRECT_URL = os.environ.get("LOGOUT_REDIRECT_URL", "/")
+OIDC_OP_JWKS_ENDPOINT = os.environ.get("OIDC_OP_JWKS_ENDPOINT", "https://auth.tern.org.au/auth/realms/mst/protocol/openid-connect/certs")
+OIDC_LOGOUT_ENDPOINT = os.environ.get("OIDC_LOGOUT_ENDPOINT", "https://auth.tern.org.au/auth/realms/mst/protocol/openid-connect/logout")
+OIDC_RP_CLIENT_SECRET = os.environ.get("OIDC_RP_CLIENT_SECRET", "SET-YOUR-SECRET")
+OIDC_RP_SIGN_ALGO = os.environ.get("OIDC_RP_SIGN_ALGO", "RS256")
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+
+GIT_VERSION = '666'

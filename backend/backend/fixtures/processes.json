@@ -1,0 +1,101 @@
+[
+    {
+     "fields": {
+      "name": "load_institutions",
+      "state": "Scheduled",
+      "last_output": ""
+     },
+     "model": "backend.datafeed",
+     "pk": "1"
+    },
+    {
+     "fields": {
+      "name": "load_horizontalresolutions",
+      "state": "Scheduled",
+      "last_output": ""
+     },
+     "model": "backend.datafeed",
+     "pk": "2"
+    },
+    {
+     "fields": {
+      "name": "load_parameterplatforms",
+      "state": "Scheduled",
+      "last_output": ""
+     },
+     "model": "backend.datafeed",
+     "pk": "3"
+    },
+    {
+     "fields": {
+      "name": "load_topiccategories",
+      "state": "Scheduled",
+      "last_output": ""
+     },
+     "model": "backend.datafeed",
+     "pk": "4"
+    },
+    {
+     "fields": {
+      "name": "load_sciencekeywords",
+      "state": "Scheduled",
+      "last_output": ""
+     },
+     "model": "backend.datafeed",
+     "pk": "5"
+    },
+    {
+     "fields": {
+      "name": "load_samplingfrequencies",
+      "state": "Scheduled",
+      "last_output": ""
+     },
+     "model": "backend.datafeed",
+     "pk": "6"
+    },
+    {
+     "fields": {
+      "name": "load_rolecodes",
+      "state": "Scheduled",
+      "last_output": ""
+     },
+     "model": "backend.datafeed",
+     "pk": "7"
+    },
+    {
+     "fields": {
+      "name": "load_persons",
+      "state": "Scheduled",
+      "last_output": ""
+     },
+     "model": "backend.datafeed",
+     "pk": "8"
+    },
+    {
+     "fields": {
+      "name": "load_parameterunits",
+      "state": "Scheduled",
+      "last_output": ""
+     },
+     "model": "backend.datafeed",
+     "pk": "9"
+    },
+    {
+     "fields": {
+      "name": "load_parameternames",
+      "state": "Scheduled",
+      "last_output": ""
+     },
+     "model": "backend.datafeed",
+     "pk": "10"
+    },
+    {
+     "fields": {
+      "name": "load_parameterinstruments",
+      "state": "Scheduled",
+      "last_output": ""
+     },
+     "model": "backend.datafeed",
+     "pk": "11"
+    }
+]

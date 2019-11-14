@@ -39,7 +39,7 @@ class PersonAdmin(admin.ModelAdmin):
 
     def organisation(self, obj):
         org = models.Institution.objects.filter(uri=obj.orgUri).first()
-        if org is None:
+        if org == None:
             return format_html('<a href="{0}" target="_blank">{0}</a>', obj.orgUri)
         else:
             return org.organisationName
@@ -112,13 +112,13 @@ class DataFeedAdmin(FSMTransitionMixin, admin.ModelAdmin):
 
     def feed_quality(self, obj):
         q = obj.feed_quality()
-        if q is "Good":
+        if q == "Good":
             return format_html("<b>{0}</b> - {1}", "Good", "Most recent refresh succeeded")
-        elif q is "Stale":
+        elif q == "Stale":
             return format_html("<b>{0}</b> - {1}", "Stale", "We have data but the most recent refresh failed")
-        elif q is "Bad":
+        elif q == "Bad":
             return format_html("<b>{0}</b> - {1}", "Bad", "We have not successfully refreshed data")
-        elif q is "Uninitialised":
+        elif q == "Uninitialised":
             return format_html("<b>{0}</b> - {1}", "No data", "No refresh has been attempted")
         else:
             return format_html("<b>{0}</b>", q)
@@ -323,7 +323,7 @@ class CommonVocabNodeAdmin(admin.ModelAdmin):
     def children(self, inst):
         # An unfilled node will cause an exception when get_children()
         # is called, so return none when this is the case.
-        if inst.tree_id is None:
+        if inst.tree_id == None:
             return None
 
         list = format_html_join("", "<li><a href='../../{}/'>{}</a></li>",

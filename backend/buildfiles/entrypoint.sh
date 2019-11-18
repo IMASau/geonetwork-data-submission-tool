@@ -29,9 +29,6 @@ cp /var/www/metcalf/backend/buildfiles/TERN_Data_Provider_Deed_v1_9_DST.pdf /var
 cp /var/www/metcalf/backend/buildfiles/Metadata_Template.xml /var/www/metcalf/shared/media/
 cp /var/www/metcalf/backend/buildfiles/tern_template_spec.json /var/www/metcalf/shared/media/
 
-touch /var/log/cron.log
-chmod 744 /var/log/cron.log 
-
 sleep 1
 rm -rf /var/www/metcalf/backend/buildfiles/
 

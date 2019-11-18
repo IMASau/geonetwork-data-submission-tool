@@ -3,7 +3,6 @@ FROM clojure:openjdk-14-lein-alpine
 
 # ADD . /app
 RUN mkdir -p /var/www/metcalf/frontend
-RUN mkdir -p /var/www/metcalf/shared
 
 # Set the working directory to /var/www/metcalf
 WORKDIR /var/www/metcalf/frontend
@@ -39,4 +38,9 @@ COPY . /var/www/metcalf/frontend
 # this is were everything build
 RUN make release
 
-CMD nginx -g 'daemon off;'
+RUN make copy-static
+
+#CMD nginx -g 'daemon off;'
+# run entrypoint.sh
+RUN chmod 0777 /var/www/metcalf/frontend/entrypoint.sh
+ENTRYPOINT ["/var/www/metcalf/frontend/entrypoint.sh"]

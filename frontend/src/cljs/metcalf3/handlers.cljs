@@ -37,6 +37,26 @@
     (let [results (gobj/get json "results")]
       (update-in db api-path assoc :options results))))
 
+(rf/reg-event-fx
+  :handlers/load-es-options
+  ins/std-ins
+  (fn [{:keys [db]} [_ api-path query]]
+    (let [{:keys [uri]} (get-in db api-path)]
+      {:xhrio/get-json {:uri (str uri query) :resp-v [:handlers/load-es-options-resp api-path]}})))
+
+
+(rf/reg-event-db
+  :handlers/load-es-options-resp
+  ins/std-ins
+  (fn [db [_ api-path json]]
+    (let [results (gobj/get json "hits")
+          hits (gobj/get results "hits")
+          reshaped (clj->js (into []
+                                  (map (fn [x] {:is_selectable true
+                                                :vocabularyTermURL (get-in x [:_source :uri])
+                                                :term (get-in x [:_source :label])}) (js->clj hits :keywordize-keys true))))]
+      (update-in db api-path assoc :options reshaped))))
+
 (rf/reg-event-db
   :handlers/close-modal
   ins/std-ins

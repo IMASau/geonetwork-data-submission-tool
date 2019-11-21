@@ -1038,6 +1038,82 @@
       {:component-will-mount will-mount
        :render               render})))
 
+(defn UnitSelectField
+  [_ this]
+  (letfn [(will-mount [this]
+            (let [{:keys [api-path]} (r/props this)]
+              (rf/dispatch [:handlers/load-es-options api-path])))
+          (render [this]
+            (let [{:keys [dp-type dp-term-path api-path param-type] :as state} (r/props this)]
+              (let [sub-paths (dp-term-paths dp-type)
+                    {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])
+                    term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
+                    vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
+                    {:keys [value label help required errors show-errors]} term
+                    selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
+                    new-term? (other-term? term vocabularyTermURL)]
+                [:div
+                 (if new-term? [:span.pull-right.new-term.text-primary
+                                [:span.glyphicon.glyphicon-asterisk]
+                                " New term"])
+                 (if label [:label label (if required " *")])
+                 [:div.flex-row
+                  [:div.flex-row-field
+                   [:div.form-group {:class (if (and show-errors (not (empty? errors))) "has-error")}
+                    (if-not new-term?
+                      (ReactSelect
+                        {:value             (if (blank? (:value vocabularyTermURL))
+                                              nil
+                                              #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)})
+                         :options           selectable-options
+                         :placeholder       (:placeholder term)
+                         :isClearable       true
+                         :is-searchable     true
+                         :onInputChange     (fn [x]
+                                              (rf/dispatch [:handlers/load-es-options api-path x])
+                                              x)
+                         :getOptionValue    (fn [option]
+                                              (gobj/get option "term"))
+                         :formatOptionLabel (fn [props]
+                                              (let [is-created? (gobj/get props "__isNew__")]
+                                                (if is-created?
+                                                  (str "Create \"" (gobj/get props "value") "\"")
+                                                  (r/as-element (api-option-renderer options props)))))
+                         :onChange          (fn [option]
+                                              (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
+                         :noResultsText     "No results found.  Click browse to add a new entry."})
+
+
+                      (ReactSelect
+                        {:value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
+                         :options           selectable-options
+                         :placeholder       (:placeholder term)
+                         :is-searchable     true
+                         :isClearable       true
+                         :getOptionValue    (fn [option]
+                                              (gobj/get option "term"))
+                         :formatOptionLabel (fn [props]
+                                              (let [is-created? (gobj/get props "__isNew__")]
+                                                (if is-created?
+                                                  (str "Create \"" (gobj/get props "value") "\"")
+                                                  (r/as-element (api-option-renderer options props)))))
+                         :onChange          (fn [option]
+                                              (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
+                         :noResultsText     "No results found.  Click browse to add a new entry."}))
+                    [:p.help-block help]]]
+                  [:div.flex-row-button
+                   [:button.btn.btn-default
+                    {:style    {:vertical-align "top"}
+                     :on-click #(rf/dispatch [:handlers/open-modal
+                                              {:type         param-type
+                                               :api-path     api-path
+                                               :dp-term-path dp-term-path}])}
+                    [:span.glyphicon.glyphicon-edit] " Custom"]
+                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]]])))]
+    (r/create-class
+      {:component-will-mount will-mount
+       :render               render})))
+
 (defn ApiTermSelectField
   [_ this]
   (letfn [(will-mount [this]
@@ -1063,7 +1139,7 @@
                     (if-not new-term?
                       (ReactSelect
                         {:value             (if (blank? (:value vocabularyTermURL))
-                                              nil
+                                              ""
                                               #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)})
                          :options           selectable-options
                          :placeholder       (:placeholder term)
@@ -1247,9 +1323,7 @@
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])]
     [:div
-     [:p "Select a term from the vocabulary"]
-     [ApiTermListField props]
-     [:p "Or define your own"]
+     [:p "Define your own unit"]
      [InputWidget
       (assoc term
         :value (if (other-term? term vocabularyTermURL) (:value term) "")
@@ -1296,7 +1370,7 @@
   [_ this]
   (let [props @(rf/subscribe [:subs/get-modal-props])]
     [Modal {:ok-copy      "Done"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter units"]
+            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Add parameter unit"]
             :modal-body   [:div [UnitTermOrOtherForm (-> props
                                                          (assoc :sort? false)
                                                          (assoc :dp-type :unit))]]
@@ -1342,7 +1416,7 @@
       [ApiTermSelectField {:param-type :parametername :api-path [:api :parametername] :dp-term-path base-path :dp-type :longName}]
       [:div.shortName
        [InputField {:path name-path}]]]
-     [ApiTermSelectField {:param-type :parameterunit :api-path [:api :parameterunit] :dp-term-path base-path :dp-type :unit}]
+     [UnitSelectField {:param-type :parameterunit :api-path [:api :parameterunit] :dp-term-path base-path :dp-type :unit}]
      [ApiTermSelectField {:param-type :parameterinstrument :api-path [:api :parameterinstrument] :dp-term-path base-path :dp-type :instrument}]
      [InputField {:path serialNumber-path}]
      [ApiTermSelectField {:param-type :parameterplatform :api-path [:api :parameterplatform] :dp-term-path base-path :dp-type :platform}]]))

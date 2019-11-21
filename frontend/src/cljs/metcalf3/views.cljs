@@ -1051,7 +1051,6 @@
                     vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
                     {:keys [value label help required errors show-errors]} term
                     selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
-                    other-option #js {:vocabularyTermURL "(new term)" :term (str (:value term))}
                     new-term? (other-term? term vocabularyTermURL)]
                 [:div
                  (if new-term? [:span.pull-right.new-term.text-primary
@@ -1062,9 +1061,13 @@
                   [:div.flex-row-field
                    [:div.form-group {:class (if (and show-errors (not (empty? errors))) "has-error")}
                     (if-not new-term?
-                      (ReactSelectCreatable
-                        {:value             #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)}
+                      (ReactSelect
+                        {:value             (if (blank? (:value vocabularyTermURL))
+                                              nil
+                                              #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)})
                          :options           selectable-options
+                         :placeholder       (:placeholder term)
+                         :isClearable       true
                          :is-searchable     true
                          :getOptionValue    (fn [option]
                                               (gobj/get option "term"))
@@ -1078,10 +1081,12 @@
                          :noResultsText     "No results found.  Click browse to add a new entry."})
 
 
-                      (ReactSelectCreatable
+                      (ReactSelect
                         {:value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
                          :options           selectable-options
+                         :placeholder       (:placeholder term)
                          :is-searchable     true
+                         :isClearable       true
                          :getOptionValue    (fn [option]
                                               (gobj/get option "term"))
                          :formatOptionLabel (fn [props]
@@ -1232,7 +1237,8 @@
         :value (if (other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
                      (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
-                                                                                        :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}])))]]))
+                                                                                        :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
+        :placeholder "")]]))
 
 (defn UnitTermOrOtherForm
   "docstring"
@@ -1249,7 +1255,8 @@
         :value (if (other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
                      (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
-                                                                                        :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}])))]]))
+                                                                                        :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
+        :placeholder "")]]))
 
 (defn PersonListField
   [{:keys [api-path person-path sort?]} this]
@@ -1335,7 +1342,7 @@
       [ApiTermSelectField {:param-type :parametername :api-path [:api :parametername] :dp-term-path base-path :dp-type :longName}]
       [:div.shortName
        [InputField {:path name-path}]]]
-     [ApiTermSelectField {:param-type :parameterunit :api-path [:api :parameterunit] :dp-term-path base-path :dp-type :unit}]
+     ;[UnitSelectField {:param-type :parameterunit :api-path [:api :parameterunit] :dp-term-path base-path :dp-type :unit}]
      [ApiTermSelectField {:param-type :parameterinstrument :api-path [:api :parameterinstrument] :dp-term-path base-path :dp-type :instrument}]
      [InputField {:path serialNumber-path}]
      [ApiTermSelectField {:param-type :parameterplatform :api-path [:api :parameterplatform] :dp-term-path base-path :dp-type :platform}]]))
@@ -1783,8 +1790,7 @@
         {:keys [individualName givenName familyName phone facsimile orcid
                 electronicMailAddress organisationName isUserAdded]} party-value
         electronicMailAddress (assoc electronicMailAddress :required (:value isUserAdded))
-        givenName (assoc givenName :required (:value isUserAdded))
-        familyName (assoc familyName :required (:value isUserAdded))]
+        ]
     [:div.ResponsiblePartyField
 
 

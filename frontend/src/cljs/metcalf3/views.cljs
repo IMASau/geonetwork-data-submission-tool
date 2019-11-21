@@ -1342,7 +1342,7 @@
       [ApiTermSelectField {:param-type :parametername :api-path [:api :parametername] :dp-term-path base-path :dp-type :longName}]
       [:div.shortName
        [InputField {:path name-path}]]]
-     ;[UnitSelectField {:param-type :parameterunit :api-path [:api :parameterunit] :dp-term-path base-path :dp-type :unit}]
+     [ApiTermSelectField {:param-type :parameterunit :api-path [:api :parameterunit] :dp-term-path base-path :dp-type :unit}]
      [ApiTermSelectField {:param-type :parameterinstrument :api-path [:api :parameterinstrument] :dp-term-path base-path :dp-type :instrument}]
      [InputField {:path serialNumber-path}]
      [ApiTermSelectField {:param-type :parameterplatform :api-path [:api :parameterplatform] :dp-term-path base-path :dp-type :platform}]]))

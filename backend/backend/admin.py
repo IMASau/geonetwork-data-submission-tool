@@ -151,7 +151,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
 
     def action_links(self, obj):
         htmlString = ("<a href='{0}' target='_blank'>Edit</a> | "
-                     "<a href='{1}' target='_blank'>Export XML</a> | "
+                     "<a href='{1}?download' target='_blank'>Export XML</a> | "
                      "<a href='{2}' target='_blank'>Export MEF</a>")
         replacements = [reverse('Edit', kwargs={'uuid': obj.uuid}),
                         reverse('Export', kwargs={'uuid': obj.uuid}),

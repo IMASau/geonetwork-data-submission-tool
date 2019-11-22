@@ -74,6 +74,7 @@
 (def date-picker (r/adapt-react-class (gget "BlueprintDatetime.DatePicker")))
 (def icon (r/adapt-react-class (gget "BlueprintCore.Icon")))
 (def textarea (build-controlled-value (r/adapt-react-class (gget "BlueprintCore.TextArea"))))
+(def textarea2 (r/adapt-react-class (gget "BlueprintCore.TextArea")))
 (def label (r/adapt-react-class (gget "BlueprintCore.Label")))
 (def form-group (r/adapt-react-class (gget "BlueprintCore.FormGroup")))
 (def control-group (r/adapt-react-class (gget "BlueprintCore.ControlGroup")))

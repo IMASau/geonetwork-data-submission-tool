@@ -115,7 +115,7 @@
               {:input-value value}))
 
           (handle-change [this s]
-            (let [s (filter-name s) ]
+            (let [s (filter-name s)]
               (r/set-state this {:input-value s})))
 
           (handle-blur [this]
@@ -263,8 +263,8 @@
                :onChange    #(rf/dispatch (conj change-v %))
                :inputProps  {:leftIcon "calendar"
                              :intent   intent}}
-        minDate (assoc :minDate minDate)
-        maxDate (assoc :maxDate maxDate))]]))
+              minDate (assoc :minDate minDate)
+              maxDate (assoc :maxDate maxDate))]]))
 
 (defn OptionWidget [props this]
   (let [[value display] props]
@@ -321,13 +321,14 @@
     :labelInfo  labelInfo
     :helperText helperText
     :intent     intent}
-   [bp3/textarea
-    {:growVertically true
-     :onValueChange  #(rf/dispatch (conj change-v %))
+   [bp3/textarea2
+    {:key            @(rf/subscribe [:subs/get-form-tick])
+     :growVertically true
+     :onBlur         #(rf/dispatch (conj change-v (-> % .-target .-value)))
      :disabled       disabled
      :placeholder    placeholder
      :maxLength      maxlength
-     :value          value
+     :defaultValue   value
      :fill           true
      :intent         intent}]])
 

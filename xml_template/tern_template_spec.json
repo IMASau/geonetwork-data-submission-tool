@@ -480,6 +480,9 @@
                                     "attributes": {
                                         "text": {
                                             "function": "science_keyword_name"
+                                        },
+                                        "xlink:href": {
+                                            "function": "science_keyword_uri"
                                         }
                                     }
                                 },
@@ -505,6 +508,9 @@
                                     "attributes": {
                                         "text": {
                                             "function": "anzsrc_keyword_name"
+                                        },
+                                        "xlink:href": {
+                                            "function": "anzsrc_uri"
                                         }
                                     }
                                 },

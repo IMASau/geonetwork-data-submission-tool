@@ -292,7 +292,7 @@ class DocumentAttachmentAdmin(admin.ModelAdmin):
 class ScienceKeywordAdmin(admin.ModelAdmin):
     list_display = ['UUID', 'Category', 'Topic', 'Term',
                     'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
-                    'DetailedVariable']
+                    'DetailedVariable', 'uri']
     list_filter = ['Category', 'Topic']
     search_fields = ['UUID', 'Category', 'Topic', 'Term',
                      'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
@@ -301,7 +301,7 @@ class ScienceKeywordAdmin(admin.ModelAdmin):
 class AnzsrcKeywordAdmin(admin.ModelAdmin):
     list_display = ['UUID', 'Category', 'Topic', 'Term',
                     'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
-                    'DetailedVariable']
+                    'DetailedVariable', 'uri']
     list_filter = ['Category', 'Topic']
     search_fields = ['UUID', 'Category', 'Topic', 'Term',
                      'VariableLevel1', 'VariableLevel2', 'VariableLevel3',

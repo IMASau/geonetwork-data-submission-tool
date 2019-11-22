@@ -205,6 +205,14 @@ def science_keyword_name(**kwargs):
     keyword = models['backend']['sciencekeyword'].objects.get(pk=data)
     return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
 
+def science_keyword_uri(**kwargs):
+    assert kwargs['data'] != None, "data not provided"
+    assert kwargs['models'] != None, "models not provided"
+    data = kwargs['data']
+    models = kwargs['models']
+    keyword = models['backend']['sciencekeyword'].objects.get(pk=data)
+    return keyword.uri
+
 def anzsrc_keyword_name(**kwargs):
     assert kwargs['data'] != None, "data not provided"
     assert kwargs['models'] != None, "models not provided"
@@ -213,6 +221,13 @@ def anzsrc_keyword_name(**kwargs):
     keyword = models['backend']['anzsrckeyword'].objects.get(pk=data)
     return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
 
+def anzsrc_uri(**kwargs):
+    assert kwargs['data'] != None, "data not provided"
+    assert kwargs['models'] != None, "models not provided"
+    data = kwargs['data']
+    models = kwargs['models']
+    keyword = models['backend']['anzsrckeyword'].objects.get(pk=data)
+    return keyword.uri
 
 def identity(x):
     return x
@@ -282,7 +297,9 @@ SPEC_FUNCTIONS = {
     "parse_organisation_identifier": parse_organisation_identifier,
     "parse_individual_orcid": parse_individual_orcid,
     "science_keyword_name": science_keyword_name,
+    "science_keyword_uri": science_keyword_uri,
     "anzsrc_keyword_name": anzsrc_keyword_name,
+    "anzsrc_uri": anzsrc_uri,
     "parse_codeListValue": parse_codeListValue,
     "vocab_url": vocab_url,
     "vocab_text": vocab_text,

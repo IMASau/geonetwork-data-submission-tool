@@ -410,12 +410,13 @@ class ScienceKeyword(models.Model):
     VariableLevel2 = models.CharField(max_length=128)
     VariableLevel3 = models.CharField(max_length=128)
     DetailedVariable = models.CharField(max_length=128)
+    uri = models.CharField(max_length=512, default="", blank=True, null=True)
 
     def as_str(self):
         return ' | '.join(filter(
             lambda x: x,
             [self.Category, self.Topic, self.Term,
-             self.VariableLevel1, self.VariableLevel2, self.VariableLevel3, self.DetailedVariable]))
+             self.VariableLevel1, self.VariableLevel2, self.VariableLevel3, self.DetailedVariable, self.uri]))
 
     class Meta:
         ordering = ['Category', 'Topic', 'Term',
@@ -431,12 +432,14 @@ class AnzsrcKeyword(models.Model):
     VariableLevel2 = models.CharField(max_length=128)
     VariableLevel3 = models.CharField(max_length=128)
     DetailedVariable = models.CharField(max_length=128)
+    #the "UUID" column is already a URL here, but we want to keep the two science keyword tables the same
+    uri = models.CharField(max_length=512, default="", blank=True, null=True)
 
     def as_str(self):
         return ' | '.join(filter(
             lambda x: x,
             [self.Category, self.Topic, self.Term,
-             self.VariableLevel1, self.VariableLevel2, self.VariableLevel3, self.DetailedVariable]))
+             self.VariableLevel1, self.VariableLevel2, self.VariableLevel3, self.DetailedVariable, self.uri]))
 
     class Meta:
         ordering = ['Category', 'Topic', 'Term',

@@ -42,20 +42,24 @@
   ins/std-ins
   (fn [{:keys [db]} [_ api-path query]]
     (let [{:keys [uri]} (get-in db api-path)]
-      {:xhrio/get-json {:uri (str uri query) :resp-v [:handlers/load-es-options-resp api-path]}})))
+      {:xhrio/get-json {:uri (str uri query) :resp-v [:handlers/load-es-options-resp api-path query]}
+       :db (update-in db api-path assoc :most-recent-query query)})))
 
 
 (rf/reg-event-db
   :handlers/load-es-options-resp
   ins/std-ins
-  (fn [db [_ api-path json]]
-    (let [results (gobj/get json "hits")
+  (fn [db [_ api-path query json]]
+    (let [most-recent-query (get-in db (conj api-path :most-recent-query))
+          results (gobj/get json "hits")
           hits (gobj/get results "hits")
           reshaped (clj->js (into []
                                   (map (fn [x] {:is_selectable true
                                                 :vocabularyTermURL (get-in x [:_source :uri])
                                                 :term (get-in x [:_source :label])}) (js->clj hits :keywordize-keys true))))]
-      (update-in db api-path assoc :options reshaped))))
+      (if (or (= most-recent-query query) (and (not most-recent-query) query))
+        (update-in db api-path assoc :options reshaped)
+        db))))
 
 (rf/reg-event-db
   :handlers/close-modal

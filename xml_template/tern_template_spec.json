@@ -77,7 +77,8 @@
                         "nodes": {
                             "name": {
                                 "xpath": "cit:title",
-                                "valueChild": "gco:CharacterString"
+                                "valueChild": "gco:CharacterString",
+                                "deleteWhenEmpty": false
                             },
                             "version": {
                                 "xpath": "cit:edition",

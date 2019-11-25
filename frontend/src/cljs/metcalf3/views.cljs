@@ -82,11 +82,13 @@
               (utils/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
 
           (render [this]
-            (let [{:keys [addon-before addon-after help on-change disabled mask] :as props} (r/props this)
+            (let [{:keys [addon-before addon-after help on-change disabled mask maxlength] :as props} (r/props this)
                   {:keys [input-value]} (r/state this)]
               (let [input-props (-> props
                                     (dissoc :show-errors)
                                     (assoc :value (or input-value ""))
+                                    (dissoc :maxlength)
+                                    (assoc :maxLength maxlength)
                                     (assoc :on-change #(r/set-state this {:input-value (.. % -target -value)}))
                                     (assoc :on-blur #(on-change input-value))
                                     (assoc :key "ifc"))]
@@ -133,6 +135,8 @@
                   {:keys [input-value]} (r/state this)]
               (let [input-props (-> props
                                     (dissoc :show-errors)
+                                    (assoc :maxLength (:maxlength props))
+                                    (dissoc :maxlength)
                                     (assoc :value (or input-value ""))
                                     (assoc :on-change #(handle-change this (.. % -target -value)))
                                     (assoc :on-blur #(handle-blur this))
@@ -315,7 +319,7 @@
        (assoc field :on-change (fn [value] (rf/dispatch [:handlers/value-changed path value])))])))
 
 (defn textarea-widget
-  [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder]}]
+  [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder] :as props}]
   [bp3/form-group
    {:label      label
     :labelInfo  labelInfo
@@ -509,7 +513,7 @@
             :on-save      #(rf/dispatch [:handlers/close-modal])}]))
 
 (defn TableModalEdit
-  [{:keys [ths tds-fn form title field-path placeholder default-field on-new-click add-label]
+  [{:keys [ths tds-fn form title field-path placeholder maxlength default-field on-new-click add-label]
     :or   {tds-fn    #(list (:value %))
            add-label "Add new"}} this]
   (let [{:keys [disabled] :as many-field} @(rf/subscribe [:subs/get-derived-path field-path])]
@@ -724,13 +728,14 @@
        :render            render})))
 
 (defn ThemeInputField
-  [{:keys [value placeholder errors extra-help on-change on-blur on-submit] :as props} this]
+  [{:keys [value placeholder errors extra-help on-change on-blur on-submit maxlength] :as props} this]
   [:div.form-group {:class (validation-state props)}
    (label-template props)
    [:div.input-group {:key "ig"}
     [:input.form-control {:value       (or value "")
                           :placeholder placeholder
                           :errors      errors
+                          :maxLength   maxlength
                           :on-key-down #(when (= (.-key %) "Enter")
                                           (on-submit))
                           :on-change   on-change
@@ -750,7 +755,7 @@
             (let [{:keys [highlight]} (r/state this)]
               (let [keywords-path [:form :fields :identificationInfo :keywordsThemeExtra :keywords]
                     keywords-value-path (conj keywords-path :value)
-                    {:keys [value placeholder disabled errors new-value help] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
+                    {:keys [value placeholder disabled errors new-value help maxlength] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
                 (letfn [(set-value! [v]
                           (rf/dispatch [:handlers/setter keywords-path :new-value v]))
                         (add-value! []
@@ -780,6 +785,7 @@
                                        :placeholder placeholder
                                        :errors      errors
                                        :help        help
+                                       :maxlength   maxlength
                                        :extra-help  "We will contact you to discuss appropriate keyword terms"
                                        :on-change   (fn [e]
                                                       (set-value! (.. e -target -value)))
@@ -796,7 +802,7 @@
             (let [{:keys [highlight]} (r/state this)]
               (let [keywords-path [:form :fields :identificationInfo :keywordsTaxonExtra :keywords]
                     keywords-value-path (conj keywords-path :value)
-                    {:keys [value required help placeholder disabled errors new-value] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
+                    {:keys [value required help placeholder disabled maxlength errors new-value] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
 
                 (letfn [(set-value! [v]
                           (rf/dispatch [:handlers/setter keywords-path :new-value v]))
@@ -830,6 +836,7 @@
                                        :on-submit   add-value!
                                        :placeholder placeholder
                                        :errors      errors
+                                       :maxlength   maxlength
                                        :help        help
                                        :on-change   handle-input-change
                                        :on-blur     handle-input-blur}])]))))]
@@ -1315,7 +1322,8 @@
         :on-change (fn [v]
                      (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
                                                                                         :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
-        :placeholder "")]]))
+        :placeholder ""
+        :maxlength 100)]]))
 
 (defn UnitTermOrOtherForm
   "docstring"
@@ -1854,6 +1862,9 @@
       {:old-value  organisationName
        :party-path party-path
        :disabled   (:disabled organisationName)
+       ;manual maxlength implementation
+       :on-input-change (fn [newvalue]
+                          (subs newvalue 0 100))
        :on-change  (fn [option]
                      (rf/dispatch [:handlers/org-changed (conj party-path :value) option]))}]]))
 
@@ -2028,7 +2039,7 @@
    [VerticalCoverage nil]])
 
 (defn CreditField [path this]
-  [:div.CreditField [textarea-field path]])
+  [:div.CreditField [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :credit])]])
 
 (defn delete-contact! [this group item e]
   (.stopPropagation e)
@@ -2208,7 +2219,7 @@
 
 
 (defn UseLimitationsFieldEdit [path]
-  [textarea-widget @(rf/subscribe [:textarea-field/get-use-limitation-props path])])
+  [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :useLimitations])])
 
 (defn UseLimitations [path this]
   (let [list-field @(rf/subscribe [:subs/get-derived-path path])]
@@ -2221,7 +2232,7 @@
        :field-path path}]]))
 
 (defn SupplementalInformationRowEdit [path this]
-  [textarea-field path])
+  [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :supplementalInformation])])
 
 (defn SupplementalInformation [path this]
   [:div

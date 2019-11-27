@@ -12,3 +12,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^oidc/', include('mozilla_django_oidc.urls')),
 ]
+
+handler404 = 'frontend.views.not_found'
+handler500 = 'frontend.views.server_error'
+handler403 = 'frontend.views.permission_denied'
+handler400 = 'frontend.views.bad_request'

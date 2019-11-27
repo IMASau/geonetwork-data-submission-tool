@@ -8,6 +8,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
+import django.core.exceptions
 from django.shortcuts import get_object_or_404, render_to_response, render
 from django.template.context_processors import csrf
 from django.urls import reverse
@@ -237,6 +238,17 @@ def clone(request, uuid):
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
 
+
+# Error Pages
+def server_error(request):
+    response = render_to_response("errors/500.html")
+    response.status_code = 500
+    return response
+
+def bad_request(request,exception):
+    response = render_to_response("errors/400.html")
+    response.status_code = 400
+    return response
 
 @login_required
 def export(request, uuid):

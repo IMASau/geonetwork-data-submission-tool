@@ -1001,9 +1001,13 @@
        (sort-by #(aget % "lft"))))
 
 (defn api-option-renderer [options option]
-  [:div.topic-cell
-   [:div.topic-path (string/join " > " (map #(aget % "term") (term-option-path options option)))]
-   [:div.topic-value (aget option "term")]])
+  (let [text (string/join " > " (map #(aget % "term") (term-option-path options option)))
+        text (if (> (count text) 80)
+               (str (subs text 0 30) "..." (subs text (- (count text) 30) (count text)))
+               text)]
+    [:div.topic-cell
+     [:div.topic-path text]
+     [:div.topic-value (aget option "term")]]))
 
 (defn nasa-list-renderer [options option]
   (aget option "prefLabel"))
@@ -1130,12 +1134,16 @@
           (render [this]
             (let [{:keys [dp-type dp-term-path api-path param-type] :as state} (r/props this)]
               (let [sub-paths (dp-term-paths dp-type)
-                    {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])
+                    {:keys [options uri]} @(rf/subscribe [:subs/get-derived-path api-path])
+                    {:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
                     term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
                     vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
                     {:keys [value label help required errors show-errors]} term
                     selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
-                    new-term? (other-term? term vocabularyTermURL)]
+                    new-term? (other-term? term vocabularyTermURL)
+                    selected-value (if (blank? (:value vocabularyTermURL))
+                                     ""
+                                     #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)})]
                 [:div
                  (if new-term? [:span.pull-right.new-term.text-primary
                                 [:span.glyphicon.glyphicon-asterisk]
@@ -1145,42 +1153,36 @@
                   [:div.flex-row-field
                    [:div.form-group {:class (if (and show-errors (not (empty? errors))) "has-error")}
                     (if-not new-term?
-                      (ReactSelect
-                        {:value             (if (blank? (:value vocabularyTermURL))
-                                              ""
-                                              #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)})
-                         :options           selectable-options
-                         :placeholder       (:placeholder term)
-                         :isClearable       true
-                         :is-searchable     true
-                         :getOptionValue    (fn [option]
-                                              (gobj/get option "term"))
-                         :formatOptionLabel (fn [props]
-                                              (let [is-created? (gobj/get props "__isNew__")]
-                                                (if is-created?
-                                                  (str "Create \"" (gobj/get props "value") "\"")
-                                                  (r/as-element (api-option-renderer options props)))))
-                         :onChange          (fn [option]
-                                              (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
-                         :noResultsText     "No results found.  Click browse to add a new entry."})
+                      [VirtualizedSelect {:placeholder       (:placeholder term)
+                                          :isClearable       true
+                                          :is-searchable     true
+                                          :options           selectable-options
+                                          :value             selected-value
+                                          :getOptionValue    (fn [option]
+                                                               (gobj/get option "term"))
+                                          :isOptionSelected  (fn [option selected]
+                                                               (= (gobj/get option "vocabularyTermURL") (gobj/get (first selected) "vocabularyTermURL")))
+                                          :noResultsText     "No results found.  Click browse to add a new entry."
+                                          :formatOptionLabel (fn [props]
+                                                               (r/as-element (api-option-renderer options props)))
+                                          :onChange          (fn [option]
+                                                               (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}]
 
 
-                      (ReactSelect
-                        {:value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
-                         :options           selectable-options
-                         :placeholder       (:placeholder term)
-                         :is-searchable     true
-                         :isClearable       true
-                         :getOptionValue    (fn [option]
-                                              (gobj/get option "term"))
-                         :formatOptionLabel (fn [props]
-                                              (let [is-created? (gobj/get props "__isNew__")]
-                                                (if is-created?
-                                                  (str "Create \"" (gobj/get props "value") "\"")
-                                                  (r/as-element (api-option-renderer options props)))))
-                         :onChange          (fn [option]
-                                              (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
-                         :noResultsText     "No results found.  Click browse to add a new entry."}))
+                      [VirtualizedSelect {:placeholder       (:placeholder term)
+                                          :isClearable       true
+                                          :is-searchable     true
+                                          :options           selectable-options
+                                          :value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
+                                          :getOptionValue    (fn [option]
+                                                               (gobj/get option "term"))
+                                          :isOptionSelected  (fn [option selected]
+                                                               (= (gobj/get option "vocabularyTermURL") (gobj/get (first selected) "vocabularyTermURL")))
+                                          :noResultsText     "No results found.  Click browse to add a new entry."
+                                          :formatOptionLabel (fn [props]
+                                                               (r/as-element (api-option-renderer options props)))
+                                          :onChange          (fn [option]
+                                                               (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}])
                     [:p.help-block help]]]
                   [:div.flex-row-button
                    [:button.btn.btn-default
@@ -1246,12 +1248,13 @@
             (let [{:keys [api-path value on-change]} (r/props this)]
               (when-let [{:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
                 ; TODO: review performance
-                (let [options (js->clj options :keywordize-keys true)
+                (let [options (doall (js->clj options :keywordize-keys true))
                       option-value (first (filter #(-> % :URI (= value)) options))]
                   [TermTree
                    {:value     option-value
                     :value-key :URI
                     :options   options
+
                     :on-select on-change}]))))]
     (r/create-class
       {:component-will-mount will-mount

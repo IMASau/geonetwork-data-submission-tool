@@ -42,7 +42,7 @@
   (VirtualScroll* (normalize-props props)))
 
 (defn VirtualizedSelect [props]
-  (let [{:keys [value options getOptionValue onChange placeholder formatOptionLabel]} props]
+  (let [{:keys [value options getOptionValue onChange placeholder formatOptionLabel isOptionSelected]} props]
 
     (s/assert array? options)
     (s/assert ifn? onChange)
@@ -55,34 +55,37 @@
            :clearable        true
            :searchable       true
            :onChange         onChange
+           :isOptionSelected isOptionSelected
            :placeholder      placeholder
            :styles           #js {:menuPortal (fn [base] (doto (gobj/clone base)
                                                            (gobj/set "zIndex" 9999)))}
            :menuPortalTarget js/document.body
-           :components       #js {:Option   (fn [props]
-                                              (let [data (gobj/get props "data")
-                                                    props' (doto (gobj/clone props)
-                                                             (gobj/set "children" #js [(formatOptionLabel data)]))]
-                                                (SelectComponents.Option* props')))
-                                  :MenuList (fn [this]
-                                              (let [children (gobj/get this "children")
-                                                    options (gobj/get this "options")
-                                                    maxHeight (gobj/get this "maxHeight")
-                                                    getValue (gobj/get this "getValue")
-                                                    itemCount (.-length children)
-                                                    value (getValue)
-                                                    height 40
-                                                    initialOffset (* height (.indexOf options value))]
-                                                (ReactWindow*
-                                                  #js {:children            (fn [props]
-                                                                              (let [index (gobj/get props "index")
-                                                                                    style (gobj/get props "style")
-                                                                                    child (aget children index)]
-                                                                                (r/as-element [:div {:style style} child])))
-                                                       :height              maxHeight
-                                                       :itemSize            height
-                                                       :itemCount           itemCount
-                                                       :initialScrollOffset initialOffset})))}})))
+           :components       #js {:Option      (fn [props]
+                                                 (let [data (gobj/get props "data")
+                                                       props' (doto (gobj/clone props)
+                                                                (gobj/set "children" #js [(formatOptionLabel data)]))]
+                                                   (SelectComponents.Option* props')))
+                                  :SingleValue (fn [props]
+                                                 (:term (js->clj (gobj/get props "data") :keywordize-keys true)))
+                                  :MenuList    (fn [this]
+                                                 (let [children (gobj/get this "children")
+                                                       options (gobj/get this "options")
+                                                       maxHeight (gobj/get this "maxHeight")
+                                                       getValue (gobj/get this "getValue")
+                                                       itemCount (.-length children)
+                                                       value (getValue)
+                                                       height 40
+                                                       initialOffset (* height (.indexOf options value))]
+                                                   (ReactWindow*
+                                                     #js {:children            (fn [props]
+                                                                                 (let [index (gobj/get props "index")
+                                                                                       style (gobj/get props "style")
+                                                                                       child (aget children index)]
+                                                                                   (r/as-element [:div {:style style} child])))
+                                                          :height              maxHeight
+                                                          :itemSize            height
+                                                          :itemCount           itemCount
+                                                          :initialScrollOffset initialOffset})))}})))
 
 ;the actual virtualized implementation. Missing select and hover (kind of important)
 (comment (defn VirtualizedSelect [{:keys [props list-props children-renderer] :as args} this]

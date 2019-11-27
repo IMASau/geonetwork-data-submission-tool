@@ -207,7 +207,7 @@
                                                                       :label       "Research theme keywords, ANZSRC Fields of Research"
                                                                       :help        "Select up to 12 research theme keywords describing your data"
                                                                       :placeholder "Start typing to filter list..."
-                                                                      :required    false
+                                                                      :required    true
                                                                       :page        :what}}
                            :keywordsThemeExtra            {:keywords {:type        nil
                                                                       :label       "Additional theme keywords"

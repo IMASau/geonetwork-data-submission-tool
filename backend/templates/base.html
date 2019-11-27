@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="{% static 'metcalf3/css/pikaday.css' %}">
     <link rel="stylesheet" href="{% static 'metcalf3/css/ol.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'metcalf3/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'metcalf3/css/tern.css' %}">
     <link rel="stylesheet" href="{% static 'metcalf3/css/fixed-data-table.css' %}">
     <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint.css' %}">
     <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint-datetime.css' %}">
@@ -26,6 +25,8 @@
     <link rel="stylesheet" href="{% static 'metcalf3/css/table.css' %}">
     <link rel="stylesheet" href="{% static 'metcalf3/css/leaflet.css' %}">
     <link rel="stylesheet" href="{% static 'metcalf3/css/leaflet.draw.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/tern.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/dst.css' %}">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -47,7 +48,19 @@
 
 {% block page %}
 {% block body %}
+<div class="above-header">
+    <div class="container">
+        <div class="above-header-section-wrap d-flex">
+            <div class="above-header-section above-header-section-1">
+                <div class="user-select"><div class="ast-custom-html"><a href="#">TERN Site</a></div></div>
+            </div>
 
+            <div class="above-header-section above-header-section-2">
+            <div class="user-select"><div class="ast-custom-html"><a href="#" target="_blank" class="btn-orange">TERN Data Portal</a></div></div>
+            </div>
+        </div>
+    </div>
+</div>
 <nav class="navbar navbar-inverse" data-reactid=".0.0">
     <div class="container" data-reactid=".0.0.0">
         <div class="navbar-header" data-reactid=".0.0.0.0">

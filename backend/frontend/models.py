@@ -25,7 +25,7 @@ class SiteContent(models.Model):
                   "so that the copy has good contrast and can be easily read. We "
                   "will optimise the size so it's not too heavy.",
         default='images/Hemispherical-Photography.jpg')
-    guide_pdf = models.FileField(upload_to='guide', blank=True, null=True)
+    guide_pdf = models.URLField(null=True,verbose_name="Help",blank=True)
     roadmap_pdf = models.FileField(upload_to='guide', blank=True, null=True)
     releasenotes_url = models.URLField(null=True,verbose_name="Release notes URL",blank=True)
     portal_title = models.CharField(

@@ -1,0 +1,43 @@
+
+/** DATA Submission tool customisations **/
+body {
+    background-color: #fff;
+}
+
+.bp3-navbar.bp3-dark, .bp3-dark .bp3-navbar {
+	background-color: #88BBA7;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+.bp3-navbar-heading {
+	font-weight: bold;
+	font-size: 22px;
+}
+
+.bp3-progress-bar {
+	height: 15px;
+}
+
+:focus{
+	outline: none;
+}
+
+.main-footer-container {
+	margin-top: 35px;
+	padding: 25px 0px 125px 0px;
+}
+
+#Content {
+	padding-bottom: 70px;
+	background-color: #f5f5f5;
+}
+
+.main-footer{
+	background-color: #fff;
+}
+
+.bp3-tab-list > *:not(:last-child) {
+	background-color: #fff;
+	padding: 0 3px;
+}
+

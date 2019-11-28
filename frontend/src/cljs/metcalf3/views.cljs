@@ -1970,13 +1970,14 @@
         {:keys [user urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
         {:keys [title tag_line]} @(rf/subscribe [:subs/get-derived-path [:context :site]])]
     [bp3/navbar {:className "bp3-dark"}
-     [bp3/navbar-group {:align (:LEFT bp3/alignment)}
-      [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading title " " tag_line]]]
-     [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
-      [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)]
-      [:a.bp3-button.bp3-minimal {:href Dashboard} "My Records"]
-      [help-menu]
-      [:a.bp3-button.bp3-minimal {:href "/logout"} "Sign Out"]]]))
+      [bp3/navbar {:className "container"}
+      [bp3/navbar-group {:align (:LEFT bp3/alignment)}
+        [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading title " " tag_line]]]
+      [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
+        [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)]
+        [:a.bp3-button.bp3-minimal {:href Dashboard} "My Records"]
+        [help-menu]
+        [:a.bp3-button.bp3-minimal {:href "/logout"} "Sign Out"]]]]))
 
 (defmulti PageTabView (fn [page this] [(get page :name)
                                        (get page :tab :data-identification)]))
@@ -2381,8 +2382,8 @@
                     {:keys [status title last_updated]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
                 [:div
                  [navbar]
-                 [:div.pagehead
-                  [:div.container
+                 [:div.container
+                  [:div.pagehead
                    [:div.pull-right
                     [:button.btn.btn-default.text-warn {:on-click handle-archive-click
                                                         :disabled disabled}

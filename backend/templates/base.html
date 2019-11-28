@@ -12,7 +12,6 @@
 
     <title>{% block head_title %}{{sitecontent.title}} {{sitecontent.tag_line}}{% endblock %}</title>
     {% bootstrap_css %}
-
     <link rel="stylesheet" href="{% static 'metcalf3/css/tern-bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'metcalf3/css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'metcalf3/css/pikaday.css' %}">
@@ -89,20 +88,20 @@
 {% endblock %}
 {% block footer %}
 <div class="main-footer">
-	<div class="container">
-		<div class="main-footer-row">
+    <div class="container">
+        <div class="main-footer-row">
             <p>Built by
                 <a href="http://www.condense.com.au">Condense</a> for
                 <a href="http://portal.tern.org.au/">TERN</a>. Version: {% GIT_VERSION %}</p>
         <div class="main-footer-container d-flex">
-            <div class="tern-logo">
-                <img src="{% static 'metcalf3/img/tern-logo.png' %}" width="300" alt="" />
-            </div>
-            <div class="ncris-logo">
-                <img src="{% static 'metcalf3/img/ncris-logo.png' %}" width="150" alt="" />
-            </div>
-		</div>
-	</div>
+                <div class="tern-logo">
+                    <img src="{% static 'metcalf3/img/tern-logo.png' %}" width="300" alt="" />
+                </div>
+                <div class="ncris-logo">
+                    <img src="{% static 'metcalf3/img/ncris-logo.png' %}" width="150" alt="" />
+                </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 {% endblock %}

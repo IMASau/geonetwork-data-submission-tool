@@ -36,4 +36,4 @@ class Migration(migrations.Migration):
                 ('roadmap_pdf', models.FileField(blank=True, default='guide/Coming_Soon_Roadmap.pdf', null=True, upload_to='guide')),
             ],
         ),
-    ]
+   ]

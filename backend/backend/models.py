@@ -21,7 +21,7 @@ import requests
 from backend.emails import *
 from backend.spec import make_spec
 from backend.utils import to_json, get_exception_message
-from backend.xmlutils import extract_xml_data, data_to_xml, extract_fields
+from backend.xmlutils import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
 from frontend.models import SiteContent
 
 class MetadataTemplateMapper(models.Model):
@@ -182,6 +182,9 @@ class Document(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     status = FSMField(default=DRAFT, choices=STATUS_CHOICES)
     doi = models.CharField(max_length=1024, default='', blank=True)
+    validation_result = models.TextField(null=True,blank=True,verbose_name="Validation result XML")
+    validation_status = models.CharField(max_length=256,default='Unvalidated',null=True,blank=True,verbose_name='Validity')
+    date_last_validated = models.DateTimeField(blank=True,null=True,verbose_name='Last Validated')
 
     objects = DocumentManager()
 
@@ -222,6 +225,48 @@ class Document(models.Model):
                 draft.save()
             return super(Document, self).save(*args, **kwargs)
 
+    def validate_with_ga(self):
+        response = None
+        try:
+            data = to_json(self.latest_draft.data)
+            xml = etree.parse(self.template.file.path)
+            spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=self.template.mapper)
+            data = split_geographic_extents(data)
+            data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
+                        element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
+            request_xml = etree.tostring(xml)
+            requestUri = 'https://apps.das.ga.gov.au/xmlProcessing/validation/iso19115-3'
+            response = requests.post(requestUri, data=request_xml, verify='cacert.pem',
+                                     headers={'Content-Type':'application/xml'},
+                                     timeout=120)
+        except Exception as e:
+            self.validation_status = 'Service Unavailable'
+        if response:
+            if response.status_code == 200:
+                response_string = response.content
+                self.validation_result = response_string.decode('UTF-8')
+                response_xml = etree.fromstring(response_string)
+                is_valid = True
+                for result in response_xml.findall('validationResult'):
+                    if result.find('type').text == 'ERROR':
+                        language = result.find('language').text
+                        if language == 'W3C_XML_SCHEMA':
+                            is_valid = False
+                            break
+                        schemaInfo = result.find('schemaInfo').text
+                        if schemaInfo.startswith('Schematron validation for ISO 19115-1:2014 standard'):
+                            is_valid = False
+                            break
+                if is_valid:
+                    self.validation_status = 'Invalid'
+                else:
+                    self.validation_status = 'Valid'
+            else:
+                self.validation_status = 'Service Unavailable'
+        else:
+            self.validation_status = 'Service Unavailable'
+        self.date_last_validated = datetime.datetime.now()
+
     ########################################################
     # Workflow (state) Transitions
     @transition(field=status, source=[DRAFT, SUBMITTED], target=ARCHIVED)
@@ -240,6 +285,7 @@ class Document(models.Model):
 
     @transition(field=status, source=DRAFT, target=SUBMITTED)
     def submit(self):
+        self.validate_with_ga()
         email_user_submit_confirmation(self)
         email_manager_submit_alert(self)
 
@@ -247,6 +293,7 @@ class Document(models.Model):
     def resubmit(self):
         self.clear_note()
         self.clear_agreed()
+        self.validate_with_ga()
         email_manager_updated_alert(self)
 
     @transition(field=status, source=SUBMITTED, target=UPLOADED, permission='backend.workflow_upload')
@@ -279,7 +326,11 @@ class Document(models.Model):
     ########################################################
     @property
     def latest_draft(self):
-        return self.draftmetadata_set.all()[0]
+        all_drafts = self.draftmetadata_set.all()
+        if all_drafts:
+            return all_drafts[0]
+        else:
+            return None
 
     def clear_note(self):
         data = self.latest_draft.data

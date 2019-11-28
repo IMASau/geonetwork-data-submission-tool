@@ -151,7 +151,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
 
     def action_links(self, obj):
         htmlString = ("<a href='{0}' target='_blank'>Edit</a> | "
-                     "<a href='{1}' target='_blank'>Export XML</a> | "
+                     "<a href='{1}?download' target='_blank'>Export XML</a> | "
                      "<a href='{2}' target='_blank'>Export MEF</a>")
         replacements = [reverse('Edit', kwargs={'uuid': obj.uuid}),
                         reverse('Export', kwargs={'uuid': obj.uuid}),
@@ -292,7 +292,7 @@ class DocumentAttachmentAdmin(admin.ModelAdmin):
 class ScienceKeywordAdmin(admin.ModelAdmin):
     list_display = ['UUID', 'Category', 'Topic', 'Term',
                     'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
-                    'DetailedVariable']
+                    'DetailedVariable', 'uri']
     list_filter = ['Category', 'Topic']
     search_fields = ['UUID', 'Category', 'Topic', 'Term',
                      'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
@@ -301,7 +301,7 @@ class ScienceKeywordAdmin(admin.ModelAdmin):
 class AnzsrcKeywordAdmin(admin.ModelAdmin):
     list_display = ['UUID', 'Category', 'Topic', 'Term',
                     'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
-                    'DetailedVariable']
+                    'DetailedVariable', 'uri']
     list_filter = ['Category', 'Topic']
     search_fields = ['UUID', 'Category', 'Topic', 'Term',
                      'VariableLevel1', 'VariableLevel2', 'VariableLevel3',

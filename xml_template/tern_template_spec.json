@@ -77,7 +77,8 @@
                         "nodes": {
                             "name": {
                                 "xpath": "cit:title",
-                                "valueChild": "gco:CharacterString"
+                                "valueChild": "gco:CharacterString",
+                                "deleteWhenEmpty": false
                             },
                             "version": {
                                 "xpath": "cit:edition",
@@ -136,10 +137,8 @@
                 "xpath": "mdb:dataQualityInfo",
                 "nodes": {
                     "results": {
-                        "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement",
-                        "container": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult",
+                        "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
                         "keep": false,
-                        "valueChild": "gco:CharacterString",
                         "required": false
                     },
                     "methods": {
@@ -481,6 +480,9 @@
                                     "attributes": {
                                         "text": {
                                             "function": "science_keyword_name"
+                                        },
+                                        "xlink:href": {
+                                            "function": "science_keyword_uri"
                                         }
                                     }
                                 },
@@ -506,6 +508,9 @@
                                     "attributes": {
                                         "text": {
                                             "function": "anzsrc_keyword_name"
+                                        },
+                                        "xlink:href": {
+                                            "function": "anzsrc_uri"
                                         }
                                     }
                                 },
@@ -786,14 +791,12 @@
             "familyName": {
                 "valueChild": "gcx:Anchor",
                 "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name",
-                "required": false,
                 "keep": false,
                 "export": false
             },
             "givenName": {
                 "valueChild": "gcx:Anchor",
                 "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name",
-                "required": false,
                 "keep": false,
                 "export": false
             },

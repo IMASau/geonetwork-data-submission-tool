@@ -136,7 +136,7 @@
   :<- [:subs/get-derived-state]
   (fn [derived-db [_ path]]
     (js/console.log ::path path)
-    (let [{:keys [label help required disabled value show-errors errors placeholder] :as field} (get-in derived-db path)
+    (let [{:keys [label help required disabled value show-errors errors placeholder maxlength] :as field} (get-in derived-db path)
           error-help (when (and show-errors (seq errors))
                        (string/join ". " errors))]
       (js/console.log :textarea-field/get-props.field {:field field
@@ -147,15 +147,16 @@
        :helperText  (or error-help help)
        :value       (or value "")
        :disabled    disabled
+       :maxlength   maxlength
        :placeholder placeholder
        :change-v    [:textarea-field/value-change path]
        :intent      (when error-help "danger")})))
 
 (rf/reg-sub
-  :textarea-field/get-use-limitation-props
+  :textarea-field/get-many-field-props
   :<- [:subs/get-derived-state]
-  (fn [derived-db [_ path]]
-    (let [{:keys [placeholder]} (get-in derived-db [:form :fields :identificationInfo :useLimitations])
+  (fn [derived-db [_ path field]]
+    (let [{:keys [placeholder maxlength]} (get-in derived-db [:form :fields :identificationInfo field])
           {:keys [label help required disabled value show-errors errors]} (get-in derived-db path)
           error-help (when (and show-errors (seq errors))
                        (string/join ". " errors))]
@@ -164,6 +165,7 @@
        :helperText  (or error-help help)
        :value       (or value "")
        :disabled    disabled
+       :maxlength   maxlength
        :placeholder placeholder
        :change-v    [:textarea-field/value-change path]
        :intent      (when error-help "danger")})))

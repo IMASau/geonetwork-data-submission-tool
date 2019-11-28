@@ -20,11 +20,13 @@
    :familyName            {:type        nil
                            :label       "Surname"
                            :placeholder "Surname"
+                           :maxlength   50
                            :required    true
                            :page        :who}
    :givenName             {:type        nil
                            :label       "Given name"
                            :placeholder "Given name"
+                           :maxlength   50
                            :required    true
                            :page        :who}
    :orcid                 {:type        nil
@@ -43,19 +45,21 @@
                            :page        :who}
    :phone                 {:type  nil
                            :label "Phone number"
+                           :maxlength   20
                            :page  :who}
    :facsimile             {:type  nil
                            :label "Fax number"
+                           :maxlength   20
                            :page  :who}
    :electronicMailAddress {:type  nil
                            :label "Email address"
                            :page  :who}
-   :address               {:deliveryPoint      {:type nil}
-                           :deliveryPoint2     {:type nil}
-                           :city               {:type nil :help "City"}
-                           :administrativeArea {:type nil :help "State/territory"}
-                           :postalCode         {:type nil :help "Postal / Zip code"}
-                           :country            {:type nil :help "Country"}}
+   :address               {:deliveryPoint      {:type nil :maxlength 100}
+                           :deliveryPoint2     {:type nil :maxlength 100}
+                           :city               {:type nil :help "City" :maxlength 100}
+                           :administrativeArea {:type nil :help "State/territory" :maxlength 100}
+                           :postalCode         {:type nil :help "Postal / Zip code" :maxlength 100}
+                           :country            {:type nil :help "Country" :maxlength 100}}
    :isUserAdded           {:type     nil
                            :required false
                            :value    false
@@ -74,13 +78,16 @@
                            :fields {:description {:type        nil
                                                   :page        :upload
                                                   :label       "Title"
+                                                  :maxlength   250
                                                   :placeholder "e.g. Map of Argo profiles"}
                                     :url         {:type        nil
                                                   :page        :upload
                                                   :label       "URL"
+                                                  :maxlength   250
                                                   :placeholder "e.g. http://geoserver-123.aodn.org.au/geoserver/wms"}
                                     :name        {:type        nil
                                                   :page        :upload
+                                                  :maxlength   250
                                                   :label       "Layer"
                                                   :placeholder "e.g. imos.argo_profile_map"}
                                     :protocol    {:type  nil
@@ -113,6 +120,7 @@
                            :value  []
                            :fields {:name {:type  nil
                                            :page  :about
+                                           :maxlength 250
                                            :label "Title"}
                                     :url  {:type  nil
                                            :page  :about
@@ -120,12 +128,14 @@
      :dataQualityInfo     {:methods {:type        nil
                                      :rows        20
                                      :label       "Data Quality Methods"
+                                     :maxlength   1000
                                      :placeholder "Provide a summary of the data quality assessment method. Example: The data were compared to xyz reference data."
                                      :value       nil
                                      :page        :how}
                            :results {:type        nil
                                      :rows        20
                                      :label       "Data Quality Results"
+                                     :maxlength   1000
                                      :placeholder "Provide a statement regarding the data quality assessment results.  Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."
                                      :value       nil
                                      :page        :how}}
@@ -135,6 +145,7 @@
                                                            :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
                                                            :help        "Clear and concise description of the content of the resource"
                                                            :rows        3
+                                                           :maxlength 250
                                                            :required    true
                                                            :page        :data-identification}
                            :dateCreation                  {:type     nil
@@ -173,6 +184,7 @@
                                                            :page     :data-identification}
                            :abstract                      {:type        nil
                                                            :label       "Abstract"
+                                                           :maxlength   2500
                                                            :placeholder "Provide a brief summary of What, Where, When, Why, Who and How for the collected the data.\n          Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected."
                                                            :help        "Describe the content of the resource; e.g. what information was collected,
                                           how was it collected"
@@ -181,6 +193,7 @@
                                                            :page        :what}
                            :purpose                       {:type        nil
                                                            :label       "Purpose"
+                                                           :maxlength   1000
                                                            :help        "Brief statement about the purpose of the study"
                                                            :placeholder "Provide a brief summary of the purpose for collecting the data including the potential use. Example: The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"
                                                            :page        :what}
@@ -194,17 +207,19 @@
                                                                       :label       "Research theme keywords, ANZSRC Fields of Research"
                                                                       :help        "Select up to 12 research theme keywords describing your data"
                                                                       :placeholder "Start typing to filter list..."
-                                                                      :required    false
+                                                                      :required    true
                                                                       :page        :what}}
                            :keywordsThemeExtra            {:keywords {:type        nil
                                                                       :label       "Additional theme keywords"
                                                                       :help        "Enter your own additional theme keywords as required and click + to add"
                                                                       :placeholder "Enter a theme keyword"
+                                                                      :maxlength   100
                                                                       :page        :what}}
                            :keywordsTaxonExtra            {:keywords {:type        nil
                                                                       :placeholder "Enter a taxon keyword"
                                                                       :help        "Add any taxon names describing your data and click + to add"
                                                                       :label       "Taxon keywords"
+                                                                      :maxLength   250
                                                                       :page        :what}}
 
                            :beginPosition                 {:type     nil
@@ -233,6 +248,7 @@
                                                            :siteDescription       {:type        nil
                                                                                    :label       "Site description"
                                                                                    :placeholder "A descriptive reference for the site locality. May include a project code. Example: Geelong (Site: G145), VIC, Australia"
+                                                                                   :maxlength   250
                                                                                    :page        "where"}
                                                            :boxes                 {:type   nil
                                                                                    :page   :where
@@ -287,6 +303,7 @@
                                                                                :page     :where}}
                            :credit                        {:type  nil
                                                            :help  "Acknowledge the contribution of any funding schemes or organisations."
+                                                           :maxlength 1000
                                                            :label "Other credits"}
 
                            :dataParameters                {:type   nil
@@ -351,9 +368,11 @@
                                                            :label       "Use limitations"
                                                            :many        true
                                                            :page        :about
+                                                           :maxlength   1000
                                                            :placeholder "While every care is taken to ensure the accuracy of this information, the author makes no representations or warranties about its accuracy, reliability, completeness or suitability for any particular purpose and disclaims all responsibility and all liability (including without limitation, liability in negligence) for all expenses, losses, damages (including indirect or consequential damage) and costs which might be incurred as a result of the information being inaccurate or incomplete in any way and for any reason."}
                            :supplementalInformation       {:type  nil
                                                            :page  :about
+                                                           :maxlength 1000
                                                            :label "Publications associated with dataset"
                                                            :many  true}
                            :citedResponsibleParty         {:type   nil
@@ -370,12 +389,14 @@
      :distributionInfo    {:distributionFormat
                            {:version {:type        nil
                                       :label       "Data file format date/version"
+                                      :maxlength   20
                                       :placeholder "Date format date or version if applicable"}
                             :name    {:type        nil
                                       :label       "Data file format"
                                       :placeholder "e.g. Microsoft Excel, CSV, NetCDF"}}}
      :noteForDataManager  {:type  nil
                            :label "Include a note for the data manager"
+                           :maxlength 1000
                            :style {:min-height "80px"}
                            :page  :lodge}
      :who-authorRequired  {:type  nil
@@ -392,6 +413,7 @@
      :resourceLineage     {:lineage     {:type        nil
                                          :label       "Lineage"
                                          :placeholder "Provide a brief summary of the source of the data and related collection and/or processing methods. \n               Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017"
+                                         :maxlength   1000
                                          :page        :about}
                            :processStep {:type   nil
                                          :many   true

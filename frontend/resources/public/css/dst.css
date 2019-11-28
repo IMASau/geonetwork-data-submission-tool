@@ -1,0 +1,11 @@
+
+/** DATA Submission tool customisations **/
+.bp3-navbar.bp3-dark, .bp3-dark .bp3-navbar {
+	background-color: #88BBA7;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+.bp3-navbar-heading {
+	font-weight: bold;
+	font-size: 22px;
+}

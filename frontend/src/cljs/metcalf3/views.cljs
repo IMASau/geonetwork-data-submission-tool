@@ -82,11 +82,13 @@
               (utils/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
 
           (render [this]
-            (let [{:keys [addon-before addon-after help on-change disabled mask] :as props} (r/props this)
+            (let [{:keys [addon-before addon-after help on-change disabled mask maxlength] :as props} (r/props this)
                   {:keys [input-value]} (r/state this)]
               (let [input-props (-> props
                                     (dissoc :show-errors)
                                     (assoc :value (or input-value ""))
+                                    (dissoc :maxlength)
+                                    (assoc :maxLength maxlength)
                                     (assoc :on-change #(r/set-state this {:input-value (.. % -target -value)}))
                                     (assoc :on-blur #(on-change input-value))
                                     (assoc :key "ifc"))]
@@ -115,7 +117,7 @@
               {:input-value value}))
 
           (handle-change [this s]
-            (let [s (filter-name s) ]
+            (let [s (filter-name s)]
               (r/set-state this {:input-value s})))
 
           (handle-blur [this]
@@ -133,6 +135,8 @@
                   {:keys [input-value]} (r/state this)]
               (let [input-props (-> props
                                     (dissoc :show-errors)
+                                    (assoc :maxLength (:maxlength props))
+                                    (dissoc :maxlength)
                                     (assoc :value (or input-value ""))
                                     (assoc :on-change #(handle-change this (.. % -target -value)))
                                     (assoc :on-blur #(handle-blur this))
@@ -263,8 +267,8 @@
                :onChange    #(rf/dispatch (conj change-v %))
                :inputProps  {:leftIcon "calendar"
                              :intent   intent}}
-        minDate (assoc :minDate minDate)
-        maxDate (assoc :maxDate maxDate))]]))
+              minDate (assoc :minDate minDate)
+              maxDate (assoc :maxDate maxDate))]]))
 
 (defn OptionWidget [props this]
   (let [[value display] props]
@@ -315,19 +319,20 @@
        (assoc field :on-change (fn [value] (rf/dispatch [:handlers/value-changed path value])))])))
 
 (defn textarea-widget
-  [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder]}]
+  [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder] :as props}]
   [bp3/form-group
    {:label      label
     :labelInfo  labelInfo
     :helperText helperText
     :intent     intent}
-   [bp3/textarea
-    {:growVertically true
-     :onValueChange  #(rf/dispatch (conj change-v %))
+   [bp3/textarea2
+    {:key            @(rf/subscribe [:subs/get-form-tick])
+     :growVertically true
+     :onBlur         #(rf/dispatch (conj change-v (-> % .-target .-value)))
      :disabled       disabled
      :placeholder    placeholder
      :maxLength      maxlength
-     :value          value
+     :defaultValue   value
      :fill           true
      :intent         intent}]])
 
@@ -508,7 +513,7 @@
             :on-save      #(rf/dispatch [:handlers/close-modal])}]))
 
 (defn TableModalEdit
-  [{:keys [ths tds-fn form title field-path placeholder default-field on-new-click add-label]
+  [{:keys [ths tds-fn form title field-path placeholder maxlength default-field on-new-click add-label]
     :or   {tds-fn    #(list (:value %))
            add-label "Add new"}} this]
   (let [{:keys [disabled] :as many-field} @(rf/subscribe [:subs/get-derived-path field-path])]
@@ -723,13 +728,14 @@
        :render            render})))
 
 (defn ThemeInputField
-  [{:keys [value placeholder errors extra-help on-change on-blur on-submit] :as props} this]
+  [{:keys [value placeholder errors extra-help on-change on-blur on-submit maxlength] :as props} this]
   [:div.form-group {:class (validation-state props)}
    (label-template props)
    [:div.input-group {:key "ig"}
     [:input.form-control {:value       (or value "")
                           :placeholder placeholder
                           :errors      errors
+                          :maxLength   maxlength
                           :on-key-down #(when (= (.-key %) "Enter")
                                           (on-submit))
                           :on-change   on-change
@@ -749,7 +755,7 @@
             (let [{:keys [highlight]} (r/state this)]
               (let [keywords-path [:form :fields :identificationInfo :keywordsThemeExtra :keywords]
                     keywords-value-path (conj keywords-path :value)
-                    {:keys [value placeholder disabled errors new-value help] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
+                    {:keys [value placeholder disabled errors new-value help maxlength] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
                 (letfn [(set-value! [v]
                           (rf/dispatch [:handlers/setter keywords-path :new-value v]))
                         (add-value! []
@@ -779,6 +785,7 @@
                                        :placeholder placeholder
                                        :errors      errors
                                        :help        help
+                                       :maxlength   maxlength
                                        :extra-help  "We will contact you to discuss appropriate keyword terms"
                                        :on-change   (fn [e]
                                                       (set-value! (.. e -target -value)))
@@ -795,7 +802,7 @@
             (let [{:keys [highlight]} (r/state this)]
               (let [keywords-path [:form :fields :identificationInfo :keywordsTaxonExtra :keywords]
                     keywords-value-path (conj keywords-path :value)
-                    {:keys [value required help placeholder disabled errors new-value] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
+                    {:keys [value required help placeholder disabled maxlength errors new-value] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
 
                 (letfn [(set-value! [v]
                           (rf/dispatch [:handlers/setter keywords-path :new-value v]))
@@ -829,6 +836,7 @@
                                        :on-submit   add-value!
                                        :placeholder placeholder
                                        :errors      errors
+                                       :maxlength   maxlength
                                        :help        help
                                        :on-change   handle-input-change
                                        :on-blur     handle-input-blur}])]))))]
@@ -993,9 +1001,13 @@
        (sort-by #(aget % "lft"))))
 
 (defn api-option-renderer [options option]
-  [:div.topic-cell
-   [:div.topic-path (string/join " > " (map #(aget % "term") (term-option-path options option)))]
-   [:div.topic-value (aget option "term")]])
+  (let [text (string/join " > " (map #(aget % "term") (term-option-path options option)))
+        text (if (> (count text) 80)
+               (str (subs text 0 30) "..." (subs text (- (count text) 30) (count text)))
+               text)]
+    [:div.topic-cell
+     [:div.topic-path text]
+     [:div.topic-value (aget option "term")]]))
 
 (defn nasa-list-renderer [options option]
   (aget option "prefLabel"))
@@ -1038,11 +1050,11 @@
       {:component-will-mount will-mount
        :render               render})))
 
-(defn ApiTermSelectField
+(defn UnitSelectField
   [_ this]
   (letfn [(will-mount [this]
             (let [{:keys [api-path]} (r/props this)]
-              (rf/dispatch [:handlers/load-api-options api-path])))
+              (rf/dispatch [:handlers/load-es-options api-path])))
           (render [this]
             (let [{:keys [dp-type dp-term-path api-path param-type] :as state} (r/props this)]
               (let [sub-paths (dp-term-paths dp-type)
@@ -1051,7 +1063,6 @@
                     vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
                     {:keys [value label help required errors show-errors]} term
                     selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
-                    other-option #js {:vocabularyTermURL "(new term)" :term (str (:value term))}
                     new-term? (other-term? term vocabularyTermURL)]
                 [:div
                  (if new-term? [:span.pull-right.new-term.text-primary
@@ -1062,10 +1073,17 @@
                   [:div.flex-row-field
                    [:div.form-group {:class (if (and show-errors (not (empty? errors))) "has-error")}
                     (if-not new-term?
-                      (ReactSelectCreatable
-                        {:value             #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)}
+                      (ReactSelect
+                        {:value             (if (blank? (:value vocabularyTermURL))
+                                              nil
+                                              #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)})
                          :options           selectable-options
+                         :placeholder       (:placeholder term)
+                         :isClearable       true
                          :is-searchable     true
+                         :onInputChange     (fn [x]
+                                              (rf/dispatch [:handlers/load-es-options api-path x])
+                                              x)
                          :getOptionValue    (fn [option]
                                               (gobj/get option "term"))
                          :formatOptionLabel (fn [props]
@@ -1078,10 +1096,12 @@
                          :noResultsText     "No results found.  Click browse to add a new entry."})
 
 
-                      (ReactSelectCreatable
+                      (ReactSelect
                         {:value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
                          :options           selectable-options
+                         :placeholder       (:placeholder term)
                          :is-searchable     true
+                         :isClearable       true
                          :getOptionValue    (fn [option]
                                               (gobj/get option "term"))
                          :formatOptionLabel (fn [props]
@@ -1092,6 +1112,77 @@
                          :onChange          (fn [option]
                                               (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
                          :noResultsText     "No results found.  Click browse to add a new entry."}))
+                    [:p.help-block help]]]
+                  [:div.flex-row-button
+                   [:button.btn.btn-default
+                    {:style    {:vertical-align "top"}
+                     :on-click #(rf/dispatch [:handlers/open-modal
+                                              {:type         param-type
+                                               :api-path     api-path
+                                               :dp-term-path dp-term-path}])}
+                    [:span.glyphicon.glyphicon-edit] " Custom"]
+                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]]])))]
+    (r/create-class
+      {:component-will-mount will-mount
+       :render               render})))
+
+(defn ApiTermSelectField
+  [_ this]
+  (letfn [(will-mount [this]
+            (let [{:keys [api-path]} (r/props this)]
+              (rf/dispatch [:handlers/load-api-options api-path])))
+          (render [this]
+            (let [{:keys [dp-type dp-term-path api-path param-type] :as state} (r/props this)]
+              (let [sub-paths (dp-term-paths dp-type)
+                    {:keys [options uri]} @(rf/subscribe [:subs/get-derived-path api-path])
+                    {:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
+                    term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
+                    vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
+                    {:keys [value label help required errors show-errors]} term
+                    selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
+                    new-term? (other-term? term vocabularyTermURL)
+                    selected-value (if (blank? (:value vocabularyTermURL))
+                                     ""
+                                     #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)})]
+                [:div
+                 (if new-term? [:span.pull-right.new-term.text-primary
+                                [:span.glyphicon.glyphicon-asterisk]
+                                " New term"])
+                 (if label [:label label (if required " *")])
+                 [:div.flex-row
+                  [:div.flex-row-field
+                   [:div.form-group {:class (if (and show-errors (not (empty? errors))) "has-error")}
+                    (if-not new-term?
+                      [VirtualizedSelect {:placeholder       (:placeholder term)
+                                          :isClearable       true
+                                          :is-searchable     true
+                                          :options           selectable-options
+                                          :value             selected-value
+                                          :getOptionValue    (fn [option]
+                                                               (gobj/get option "term"))
+                                          :isOptionSelected  (fn [option selected]
+                                                               (= (gobj/get option "vocabularyTermURL") (gobj/get (first selected) "vocabularyTermURL")))
+                                          :noResultsText     "No results found.  Click browse to add a new entry."
+                                          :formatOptionLabel (fn [props]
+                                                               (r/as-element (api-option-renderer options props)))
+                                          :onChange          (fn [option]
+                                                               (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}]
+
+
+                      [VirtualizedSelect {:placeholder       (:placeholder term)
+                                          :isClearable       true
+                                          :is-searchable     true
+                                          :options           selectable-options
+                                          :value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
+                                          :getOptionValue    (fn [option]
+                                                               (gobj/get option "term"))
+                                          :isOptionSelected  (fn [option selected]
+                                                               (= (gobj/get option "vocabularyTermURL") (gobj/get (first selected) "vocabularyTermURL")))
+                                          :noResultsText     "No results found.  Click browse to add a new entry."
+                                          :formatOptionLabel (fn [props]
+                                                               (r/as-element (api-option-renderer options props)))
+                                          :onChange          (fn [option]
+                                                               (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}])
                     [:p.help-block help]]]
                   [:div.flex-row-button
                    [:button.btn.btn-default
@@ -1157,12 +1248,13 @@
             (let [{:keys [api-path value on-change]} (r/props this)]
               (when-let [{:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
                 ; TODO: review performance
-                (let [options (js->clj options :keywordize-keys true)
+                (let [options (doall (js->clj options :keywordize-keys true))
                       option-value (first (filter #(-> % :URI (= value)) options))]
                   [TermTree
                    {:value     option-value
                     :value-key :URI
                     :options   options
+
                     :on-select on-change}]))))]
     (r/create-class
       {:component-will-mount will-mount
@@ -1232,7 +1324,9 @@
         :value (if (other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
                      (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
-                                                                                        :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}])))]]))
+                                                                                        :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
+        :placeholder ""
+        :maxlength 100)]]))
 
 (defn UnitTermOrOtherForm
   "docstring"
@@ -1241,15 +1335,14 @@
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])]
     [:div
-     [:p "Select a term from the vocabulary"]
-     [ApiTermListField props]
-     [:p "Or define your own"]
+     [:p "Define your own unit"]
      [InputWidget
       (assoc term
         :value (if (other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
                      (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
-                                                                                        :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}])))]]))
+                                                                                        :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
+        :placeholder "")]]))
 
 (defn PersonListField
   [{:keys [api-path person-path sort?]} this]
@@ -1289,7 +1382,7 @@
   [_ this]
   (let [props @(rf/subscribe [:subs/get-modal-props])]
     [Modal {:ok-copy      "Done"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter units"]
+            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Add parameter unit"]
             :modal-body   [:div [UnitTermOrOtherForm (-> props
                                                          (assoc :sort? false)
                                                          (assoc :dp-type :unit))]]
@@ -1335,7 +1428,7 @@
       [ApiTermSelectField {:param-type :parametername :api-path [:api :parametername] :dp-term-path base-path :dp-type :longName}]
       [:div.shortName
        [InputField {:path name-path}]]]
-     [ApiTermSelectField {:param-type :parameterunit :api-path [:api :parameterunit] :dp-term-path base-path :dp-type :unit}]
+     [UnitSelectField {:param-type :parameterunit :api-path [:api :parameterunit] :dp-term-path base-path :dp-type :unit}]
      [ApiTermSelectField {:param-type :parameterinstrument :api-path [:api :parameterinstrument] :dp-term-path base-path :dp-type :instrument}]
      [InputField {:path serialNumber-path}]
      [ApiTermSelectField {:param-type :parameterplatform :api-path [:api :parameterplatform] :dp-term-path base-path :dp-type :platform}]]))
@@ -1772,6 +1865,9 @@
       {:old-value  organisationName
        :party-path party-path
        :disabled   (:disabled organisationName)
+       ;manual maxlength implementation
+       :on-input-change (fn [newvalue]
+                          (subs newvalue 0 100))
        :on-change  (fn [option]
                      (rf/dispatch [:handlers/org-changed (conj party-path :value) option]))}]]))
 
@@ -1783,8 +1879,7 @@
         {:keys [individualName givenName familyName phone facsimile orcid
                 electronicMailAddress organisationName isUserAdded]} party-value
         electronicMailAddress (assoc electronicMailAddress :required (:value isUserAdded))
-        givenName (assoc givenName :required (:value isUserAdded))
-        familyName (assoc familyName :required (:value isUserAdded))]
+        ]
     [:div.ResponsiblePartyField
 
 
@@ -1875,13 +1970,14 @@
         {:keys [user urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
         {:keys [title tag_line]} @(rf/subscribe [:subs/get-derived-path [:context :site]])]
     [bp3/navbar {:className "bp3-dark"}
-     [bp3/navbar-group {:align (:LEFT bp3/alignment)}
-      [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading title " " tag_line]]]
-     [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
-      [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)]
-      [:a.bp3-button.bp3-minimal {:href Dashboard} "My Records"]
-      [help-menu]
-      [:a.bp3-button.bp3-minimal {:href "/logout"} "Sign Out"]]]))
+      [bp3/navbar {:className "container"}
+      [bp3/navbar-group {:align (:LEFT bp3/alignment)}
+        [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading title " " tag_line]]]
+      [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
+        [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)]
+        [:a.bp3-button.bp3-minimal {:href Dashboard} "My Records"]
+        [help-menu]
+        [:a.bp3-button.bp3-minimal {:href "/logout"} "Sign Out"]]]]))
 
 (defmulti PageTabView (fn [page this] [(get page :name)
                                        (get page :tab :data-identification)]))
@@ -1947,7 +2043,7 @@
    [VerticalCoverage nil]])
 
 (defn CreditField [path this]
-  [:div.CreditField [textarea-field path]])
+  [:div.CreditField [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :credit])]])
 
 (defn delete-contact! [this group item e]
   (.stopPropagation e)
@@ -2127,7 +2223,7 @@
 
 
 (defn UseLimitationsFieldEdit [path]
-  [textarea-widget @(rf/subscribe [:textarea-field/get-use-limitation-props path])])
+  [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :useLimitations])])
 
 (defn UseLimitations [path this]
   (let [list-field @(rf/subscribe [:subs/get-derived-path path])]
@@ -2140,7 +2236,7 @@
        :field-path path}]]))
 
 (defn SupplementalInformationRowEdit [path this]
-  [textarea-field path])
+  [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :supplementalInformation])])
 
 (defn SupplementalInformation [path this]
   [:div

@@ -56,6 +56,7 @@ class Command(BaseCommand):
                 parent = allRows[parent]['Parent']
             while len(chain) < 8:
                 chain.append('')
+            chain.append(allRows[key]['URI'])
             chains.append(chain)
 
         keywords = []
@@ -69,6 +70,7 @@ class Command(BaseCommand):
             keyword.VariableLevel2 = chain[5]
             keyword.VariableLevel3 = chain[6]
             keyword.DetailedVariable = chain[7]
+            keyword.uri = chain[8]
             keywords.append(keyword)
 
         if not keywords:

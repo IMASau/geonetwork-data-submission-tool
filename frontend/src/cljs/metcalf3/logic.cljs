@@ -537,7 +537,7 @@
     (-> (deep-merge default-payload payload)
         (assoc :alert [])
         (assoc :api {:parametername        {:uri (str URL_ROOT "/api/parametername.json") :options nil}
-                     :parameterunit        {:uri "http://es-test.tern.org.au/qudt_units/_doc/_search?q=" :options nil}
+                     :parameterunit        {:uri "https://es-test.tern.org.au/qudt_units/_doc/_search?q=" :options nil}
                      :parameterinstrument  {:uri (str URL_ROOT "/api/parameterinstrument.json") :options nil}
                      :parameterplatform    {:uri (str URL_ROOT "/api/parameterplatform.json") :options nil}
                      :rolecode             {:uri (str URL_ROOT "/api/rolecode.json") :options nil}

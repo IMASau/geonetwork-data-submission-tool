@@ -27,6 +27,7 @@ urlpatterns = [
     path('save/<uuid:uuid>/', save, name="Save"),
     path('transition/<uuid:uuid>/', transition, name="Transition"),
     path('clone/<uuid:uuid>/', clone, name="Clone"),
+    path('validation/<uuid:uuid>/', validation_results, name="Validation"),
     path('upload/<uuid:uuid>/', UploadView.as_view(), name="Upload"),
     path('delete/<uuid:uuid>/<int:id>/', delete_attachment, name="DeleteAttachment"),
     path('create/', create, name="Create"),

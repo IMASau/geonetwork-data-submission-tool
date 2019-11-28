@@ -22,7 +22,7 @@ echo "from django.contrib.auth import get_user_model; User = get_user_model(); U
 mkdir -p /var/www/metcalf/shared/media/images
 cp /var/www/metcalf/backend/buildfiles/Hemispherical-Photography.jpg /var/www/metcalf/shared/media/images/
 mkdir -p /var/www/metcalf/shared/media/guide
-cp /var/www/metcalf/backend/buildfiles/Coming_Soon_Help_KrszZhh.pdf /var/www/metcalf/shared/media/guide/
+#cp /var/www/metcalf/backend/buildfiles/Coming_Soon_Help_KrszZhh.pdf /var/www/metcalf/shared/media/guide/
 cp /var/www/metcalf/backend/buildfiles/Coming_Soon_Roadmap.pdf /var/www/metcalf/shared/media/guide/
 mkdir -p /var/www/metcalf/shared/media/terms
 cp /var/www/metcalf/backend/buildfiles/TERN_Data_Provider_Deed_v1_9_DST.pdf /var/www/metcalf/shared/media/terms/

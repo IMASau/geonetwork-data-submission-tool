@@ -2382,8 +2382,8 @@
                     {:keys [status title last_updated]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
                 [:div
                  [navbar]
-                 [:div.pagehead
-                  [:div.container
+                 [:div.container
+                  [:div.pagehead
                    [:div.pull-right
                     [:button.btn.btn-default.text-warn {:on-click handle-archive-click
                                                         :disabled disabled}

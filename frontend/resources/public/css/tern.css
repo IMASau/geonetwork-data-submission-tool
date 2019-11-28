@@ -3,16 +3,16 @@
 }
 @font-face {
     font-family: 'Uni Neue';
-    src: url('fonts/fontfabric_-_unineueheavy-webfont.woff2')format('woff2'),
-         url('fonts/fontfabric_-_unineueheavy-webfont.woff')format('woff');
+    src: url('../fonts/fontfabric_-_unineueheavy-webfont.woff2')format('woff2'),
+         url('../fonts/fontfabric_-_unineueheavy-webfont.woff')format('woff');
     font-weight: 900;
     font-style: normal;
 
 }
 @font-face {
     font-family: 'Uni Neue';
-    src: url('fontfabric_-_unineuelight-webfont.woff2')format('woff2'),
-         url('fontfabric_-_unineuelight-webfont.woff')format('woff');
+    src: url('../fontfabric_-_unineuelight-webfont.woff2')format('woff2'),
+         url('../fontfabric_-_unineuelight-webfont.woff')format('woff');
     font-weight: 300;
     font-style: normal;
 

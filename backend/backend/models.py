@@ -518,7 +518,7 @@ class ParameterName(ns_tree.NS_Node):
     URI = models.CharField(max_length=128, db_column='URI')
     Name = models.CharField(max_length=128, db_column='Name')
     # Largest definition entry so far seen is 488 characters:
-    Definition = models.CharField(max_length=1024, db_column='Definition')
+    Definition = models.CharField(max_length=4096, db_column='Definition')
 
     is_selectable = models.BooleanField()
     Version = models.CharField(max_length=16, db_column="Version")  # eg "version-1-0"

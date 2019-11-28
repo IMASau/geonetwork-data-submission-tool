@@ -277,7 +277,7 @@
     "@alert-info-border": "@state-info-border",
     "@alert-warning-bg": "#B3D4C9",
     "@alert-warning-text": "#00565D",
-    "@alert-warning-border": "@state-warning-border",
+    "@alert-warning-border": "#00565D",
     "@alert-danger-bg": "@state-danger-bg",
     "@alert-danger-text": "@state-danger-text",
     "@alert-danger-border": "@state-danger-border",
@@ -383,7 +383,6 @@
   },
   "css": [
     "buttons.less",
-    "glyphicons.less",
     "button-groups.less",
     "alerts.less",
     "progress-bars.less"

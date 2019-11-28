@@ -238,6 +238,19 @@ def clone(request, uuid):
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
 
+@login_required
+def validation_results(request, uuid):
+    doc = get_object_or_404(Document, uuid=uuid)
+    is_document_editor(request, doc)
+    response_string = doc.validation_result
+    #try to make it look pretty, but if not, just the raw text is fine
+    try:
+        response_string = etree.tostring(etree.fromstring(doc.validation_result.encode('UTF-8')),pretty_print=True)
+    except:
+        pass
+    response = HttpResponse(response_string, content_type="application/xml")
+    response['Content-Disposition'] = 'attachment; filename="{}-validation-results.xml"'.format(uuid)
+    return response
 
 # Error Pages
 def server_error(request):
@@ -250,18 +263,22 @@ def bad_request(request,exception):
     response.status_code = 400
     return response
 
-@login_required
-def export(request, uuid):
-    doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+
+def create_export_xml_string(doc, uuid):
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
     spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
     data = split_geographic_extents(data)
     data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                 element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
+    return etree.tostring(xml)
 
-    response = HttpResponse(etree.tostring(xml), content_type="application/xml")
+
+@login_required
+def export(request, uuid):
+    doc = get_object_or_404(Document, uuid=uuid)
+    is_document_editor(request, doc)
+    response = HttpResponse(create_export_xml_string(doc, uuid), content_type="application/xml")
     if "download" in request.GET:
         response['Content-Disposition'] = 'attachment; filename="{}.xml"'.format(uuid)
     return response
@@ -443,6 +460,7 @@ def save(request, uuid):
                 attachment.delete()
 
         tree = etree.parse(doc.template.file.path)
+
         return Response({"messages": messages_payload(request),
                          "form": {
                              "url": reverse("Edit", kwargs={'uuid': doc.uuid}),

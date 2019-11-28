@@ -132,18 +132,28 @@ def add_creator(creators, person, nsmap):
 
 
 class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
-    list_display = ['__str__', 'owner', 'template', 'status', 'action_links']
+    list_display = ['admin_name', 'owner_name', 'status', 'validity', 'date_last_validated', 'action_links']
     list_filter = ['status', 'template']
-    search_fields = ['title', 'owner__username', 'uuid']
+    search_fields = ['title', 'owner__username', 'owner__email', 'uuid']
     fsm_field = ['status', ]
-    readonly_fields = ['status', 'action_links', 'submission_note', 'doi_links']
+    readonly_fields = ['status', 'action_links', 'submission_note', 'doi_links', 'validity', 'date_last_validated']
     inlines = [DocumentAttachmentInline]
     fieldsets = [
         (None, {'fields': ('title', 'template', 'owner', 'status', 'submission_note', 'doi')}),
+        ('Validation', {'fields': ('validity', 'date_last_validated')}),
         ('Export', {'fields': ('action_links',)}),
         ('DOI Minting', {'fields': ('doi_links',)}),
     ]
 
+    def validity(self, obj):
+        if obj.validation_status in ['Valid','Invalid']:
+            htmlString = "<a href='{0}' target='_blank'>{1}</a>"
+            replacements = [reverse('Validation', kwargs={'uuid': obj.uuid}),obj.validation_status]
+            return format_html(htmlString, *replacements)
+        else:
+            htmlString = "<span>{0}</span>"
+            replacements = [obj.validation_status]
+            return format_html(htmlString, *replacements)
 
     def submission_note(self, obj):
         if obj.latest_draft:
@@ -158,7 +168,10 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
                         reverse('MEF', kwargs={'uuid': obj.uuid})]
         return format_html(htmlString, *replacements)
 
-
+    def owner_name(self, obj):
+        if obj.owner.email:
+            return obj.owner.email
+        return obj.owner.username
 
     def doi_links(self, obj):
         try:
@@ -280,9 +293,13 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
             return HttpResponseRedirect(".")
         return super().response_change(request, obj)
 
+    def admin_name(self, obj):
+        return "{1} ({0})".format(str(obj.uuid)[:8], obj.short_title())
 
     action_links.short_description = "Actions"
     doi_links.short_description = "DOI Minting"
+    owner_name.admin_order_field = 'owner__email'
+    admin_name.admin_order_field = 'title'
 
 
 class DocumentAttachmentAdmin(admin.ModelAdmin):

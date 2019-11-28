@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('tag_line', models.CharField(default='Data Submission Tool', max_length=128)),
                 ('email', models.EmailField(default='esupport@tern.org.au', max_length=254)),
                 ('homepage_image', imagekit.models.fields.ProcessedImageField(blank=True, help_text="This is the image used on the homepage.  It needs to be high res so it looks good and it needs to be fairly dark so that the copy has good contrast and can be easily read. We will optimise the size so it's not too heavy.", null=True, upload_to='images')),
-                ('guide_pdf', models.URLField(blank=True, default='http://tern.org.au', null=True)),
+                ('guide_pdf', models.URLField(blank=True, default='http://tern.org.au', null=True, max_length=1024)),
                 ('portal_title', models.CharField(default='TERN Data Portal', help_text='Used to refer to the place where lodged data can be discovered', max_length=64)),
                 ('portal_url', models.URLField(blank=True, null=True)),
                 ('portal_record_url', models.CharField(default='{{site.sitecontent.portal_url}}/portal/home?uuid={{document.uuid}}', help_text='Used to generate URLs to the published record on the portal. (Accepts django template formatting with access to `site` and `document`.)', max_length=512)),

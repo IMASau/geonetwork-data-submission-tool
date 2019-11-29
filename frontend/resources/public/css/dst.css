@@ -41,3 +41,8 @@ body {
 	padding: 0 3px;
 }
 
+.bp3-navbar-group {
+	background-image: url(../img/shared-product-name.jpg);
+    background-size: 75%;
+    background-repeat: no-repeat;
+}

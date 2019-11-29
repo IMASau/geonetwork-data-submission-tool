@@ -212,6 +212,19 @@
 {% endif %}
 <![endif]-->
 
+<div class="above-header">
+    <div class="container">
+        <div class="above-header-section-wrap d-flex">
+            <div class="above-header-section above-header-section-1">
+                <div class="user-select"><div class="ast-custom-html"><a href="https://tern.org.au">TERN Site</a></div></div>
+            </div>
+
+            <div class="above-header-section above-header-section-2">
+            <div class="user-select"><div class="ast-custom-html"><a href="https://portal.tern.org.au/" target="_blank" class="btn-orange">TERN Data Portal</a></div></div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="site-wrapper">
 
     <div class="site-wrapper-inner">
@@ -250,26 +263,32 @@
                     and Antarctic Studies, University of Tasmania, and
                     this subsequent work which was co-funded by Research
                     Data Services (RDS).</p>
-
             </div>
-
-            <div class="mastfoot">
-                <div class="inner">
-                    <p>Cover image by
-                        <a href="{{ sitecontent.homepage_image_credit_url }}">
-                            {{ sitecontent.homepage_image_credit_name }}</a>
-                        -
-                        Code on <a href="https://bitbucket.org/terndatateam/data-submission-tool.git">BitBucket</a>
-                    </p>
-                </div>
-            </div>
-
         </div>
-
     </div>
-
 </div>
 
 {% endblock %}
 
-{% block footer %}{% endblock %}
+{% block footer %}
+
+<div class="main-footer">
+    <div class="container">
+        <div class="main-footer-row">
+            <p>Cover image by
+                <a href="{{ sitecontent.homepage_image_credit_url }}">
+                    {{ sitecontent.homepage_image_credit_name }}</a>
+                -
+                Code on <a href="https://bitbucket.org/terndatateam/data-submission-tool.git">BitBucket</a>
+            </p>
+        <div class="main-footer-container d-flex">
+                <div class="tern-logo">
+                    <img src="{% static 'metcalf3/img/tern-logo.png' %}" width="300" alt="" />
+                </div>
+                <div class="ncris-logo">
+                    <img src="{% static 'metcalf3/img/ncris-logo.png' %}" width="150" alt="" />
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

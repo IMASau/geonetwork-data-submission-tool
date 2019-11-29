@@ -10,6 +10,9 @@
 
 {% block body %}
 
+<link rel="stylesheet" href="https://use.typekit.net/pwr4rlr.css">
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://use.fontawesome.com/abac3c7363.js"></script>
 
 <style>
 
@@ -18,16 +21,16 @@
     */
 
     /* Links */
-    a,
-    a:focus,
-    a:hover {
+    .site-wrapper a,
+    .site-wrapper a:focus,
+    .site-wrapper a:hover {
     color: #fff;
     }
 
     /* Custom default button */
-    .btn-default,
-    .btn-default:hover,
-    .btn-default:focus {
+    .site-wrapper .btn-default,
+    .site-wrapper .btn-default:hover,
+    .site-wrapper .btn-default:focus {
     color: #333;
     text-shadow: none; /* Prevent inheritence from `body` */
     background-color: #fff;
@@ -38,9 +41,9 @@
     /*
     * Base structure
     */
-	html,
-    body {
+	.site-wrapper {
     height: 100%;
+    height: 350px;
     color: #fff;
     text-align: center;
 	}
@@ -48,8 +51,7 @@
 	/* Use background-size: cover for anything greater than IE8 (IE8 doesn't support this media query) */
 	@media only screen and (width)
 	{
-	html,
-	body {
+    .site-wrapper {
 	{% if sitecontent.homepage_image %}
 	background: #060 url({{ sitecontent.homepage_image.url }}) no-repeat center fixed;
 	{% endif %}
@@ -61,7 +63,7 @@
 	}
 
 	/* Workaround for background-size: cover in IE8 */
-	.ie8-bg {
+	.site-wrapper .ie8-bg {
 	min-height: 100%;
 	min-width: 1024px;
 	width: 100%;
@@ -72,7 +74,7 @@
 	}
 
     /* Extra markup and styles for table-esque vertical and horizontal centering */
-    .site-wrapper {
+    .site-wrapper .site-wrapper {
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA9JREFUeNpiYGBgSAMIMAAAawBnDb5zPgAAAABJRU5ErkJggg==); /* IE8 proofing dark colour background overlay */
     display: table;
 	position: relative;
@@ -85,6 +87,7 @@
     .site-wrapper-inner {
     display: table-cell;
     vertical-align: top;
+    display: inline-block;
     }
     .cover-container {
     margin-right: auto;
@@ -185,7 +188,7 @@
     top: 0;
     }
     .mastfoot {
-    position: fixed;
+    /*position: fixed;*/
     bottom: 0;
     }
     /* Start the vertical centering */
@@ -200,10 +203,18 @@
     .cover-container {
     width: 700px;
     }
+    .main-footer-container {
+        border: none;
     }
+    .main-footer {
+        padding: 3px 0px 125px 0px !important;
+    }
+}
 
 
 </style>
+
+<link rel="stylesheet" href="{% static 'metcalf3/css/tern-corporate.css' %}">
 
 <!-- Workaround for background-size: cover in IE8 -->
 <!--[if lte IE 8]>
@@ -211,19 +222,38 @@
 <img src="{{ sitecontent.homepage_image.url }}" class="ie8-bg" alt="">
 {% endif %}
 <![endif]-->
-
 <div class="above-header">
-    <div class="container">
-        <div class="above-header-section-wrap d-flex">
-            <div class="above-header-section above-header-section-1">
-                <div class="user-select"><div class="ast-custom-html"><a href="https://tern.org.au">TERN Site</a></div></div>
-            </div>
+	<div class="container">
+		<div class="above-header-section-wrap d-flex">
+			<div class="above-header-section above-header-section-1">
+				<div class="user-select"><div class="ast-custom-html"><a href="#">TERN Site</a></div></div>
+			</div>
 
-            <div class="above-header-section above-header-section-2">
-            <div class="user-select"><div class="ast-custom-html"><a href="https://portal.tern.org.au/" target="_blank" class="btn-orange">TERN Data Portal</a></div></div>
-            </div>
-        </div>
-    </div>
+			<div class="above-header-section above-header-section-2">
+			<div class="user-select"><div class="ast-custom-html"><a href="#" target="_blank" class="btn-orange">TERN Data Portal</a></div></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="main-header">
+	<div class="container">
+		<div class="main-header-container d-flex">
+			<div class="site-branding">
+				<a href="#"><span><img src="{% static 'metcalf3/img/logo@3x.png' %}" alt="" /></span></a>
+			</div>
+			<div class="main-header-bar-navigation">
+				<input class="menu-btn" type="checkbox" id="menu-btn" />
+				<label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+				<ul id="primary-menu" class="main-header-menu d-flex">
+					<li><a href="/dashboard" class="active">Home</a></li>
+					{% if sitecontent.guide_pdf %}
+                        <li><a href="{{ sitecontent.guide_pdf }}">Help</a></li>
+                    {% endif %}
+					<li><a href="{% url 'oidc_authentication_init' %}">Login</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="site-wrapper">
 
@@ -234,21 +264,6 @@
             <!--
             {% bootstrap_messages %}
             -->
-
-            <div class="masthead clearfix">
-                <div class="inner">
-                    <h3 class="masthead-brand">{{ sitecontent.title }} {{ sitecontent.tag_line }}</h3>
-                    <nav>
-                        <ul class="nav masthead-nav">
-                            <li class="active"><a href="/dashboard">Home</a></li>
-                            {% if sitecontent.guide_pdf %}
-                            <li><a href="{{ sitecontent.guide_pdf }}">Help</a></li>
-                            {% endif %}
-                            <li><a href="{% url 'oidc_authentication_init' %}">Login</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
 
             <div class="inner cover">
                 <h1 class="cover-heading">{{ sitecontent.title }} {{ sitecontent.tag_line }}</h1>
@@ -263,32 +278,85 @@
                     and Antarctic Studies, University of Tasmania, and
                     this subsequent work which was co-funded by Research
                     Data Services (RDS).</p>
+
             </div>
+
+            <div class="mastfoot">
+                <div class="inner">
+                    <p>Cover image by
+                        <a href="{{ sitecontent.homepage_image_credit_url }}">
+                            {{ sitecontent.homepage_image_credit_name }}</a>
+                        -
+                        Code on <a href="https://bitbucket.org/terndatateam/data-submission-tool.git">BitBucket</a>
+                    </p>
+                </div>
+            </div>
+
         </div>
+
     </div>
+
 </div>
 
 {% endblock %}
 
 {% block footer %}
-
 <div class="main-footer">
-    <div class="container">
-        <div class="main-footer-row">
-            <p>Cover image by
-                <a href="{{ sitecontent.homepage_image_credit_url }}">
-                    {{ sitecontent.homepage_image_credit_name }}</a>
-                -
-                Code on <a href="https://bitbucket.org/terndatateam/data-submission-tool.git">BitBucket</a>
-            </p>
-        <div class="main-footer-container d-flex">
-                <div class="tern-logo">
-                    <img src="{% static 'metcalf3/img/tern-logo.png' %}" width="300" alt="" />
-                </div>
-                <div class="ncris-logo">
-                    <img src="{% static 'metcalf3/img/ncris-logo.png' %}" width="150" alt="" />
-                </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="main-footer-row">
+			<div class="main-footer-container">
+				<div class="footer-col footer-column-1">
+					<div class="footer-col-inner">
+						<div class="footer-col-inner-border">
+							<h3>Contact us</h3>
+							<p class="mb-20">Physical &amp; Mail Address<br><span style="font-size: 14px;">Room 156, Goddard Building (8)<br>The University of Queensland<br></span><span style="font-size: 14px;">St Lucia 4072</span></p>
+							<p class="fz-15 font-500">P <a class="text-black" href="tel:0733659097">(07) 3365 9097</a><br>E <a href="mailto:esupport@tern.org.au">esupport@tern.org.au</a></p>
+							<ul class="social-icons">
+								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="footer-col footer-column-2">
+					<div class="footer-col-inner">
+						<div class="footer-col-inner-border">
+							<h3>Funding</h3>
+							<p class="mb-46">TERN is supported by the Australian Government through the National Collaborative Research Infrastructure Strategy, <span style="text-decoration: underline;"><a href="#">NCRIS</a></span>.</p>
+							<img width="138" src="{% static 'metcalf3/img/logo-ncris@2x.png' %}" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="footer-col footer-column-3">
+					<div class="footer-col-inner">
+						<div class="footer-col-inner-border">
+							<h3>Hosted by</h3>
+							<img width="151" src="{% static 'metcalf3/img/logo-uq@2x.png' %}" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="footer-col footer-column-4">
+					<div class="footer-col-inner">
+						<div class="footer-col-inner-border">
+							<h3>Newsletter</h3>
+							<p>Subscribe for project updates, data releases, research findings, and users stories direct to your inbox.</p>
+							<div class="subscription-form">
+								<form action="">
+								  <input type="text" name="email" value="" placeholder="Email Address">
+								  <br>
+								  <input type="submit" value="Subscribe to TERN">
+								</form> 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+</body>
+</html>
 {% endblock %}

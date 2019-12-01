@@ -186,7 +186,7 @@
     "@nav-tabs-link-hover-border-color": "@gray-lighter",
     "@nav-tabs-active-link-hover-bg": "@body-bg",
     "@nav-tabs-active-link-hover-color": "@gray",
-    "@nav-tabs-active-link-hover-border-color": "#106ba3",
+    "@nav-tabs-active-link-hover-border-color": "#043E4F",
     "@nav-tabs-justified-link-border-color": "@body-bg",
     "@nav-tabs-justified-active-link-border-color": "@body-bg",
     "@nav-pills-border-radius": "@border-radius-base",

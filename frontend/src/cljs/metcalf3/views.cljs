@@ -2006,7 +2006,8 @@
    [date-field [:form :fields :identificationInfo :dateCreation]]
    [TopicCategories nil]
    [SelectField [:form :fields :identificationInfo :status]]
-   [SelectField [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]]])
+   [SelectField [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]
+   [:a {:href "#"} "Back to top"]]])
 
 (defmethod PageTabView ["Edit" :what]
   [page this]
@@ -2020,7 +2021,8 @@
    [ThemeKeywords :keywordsTheme]
    [ThemeKeywords :keywordsThemeAnzsrc]
    [ThemeKeywordsExtra nil]
-   [TaxonKeywordsExtra nil]])
+   [TaxonKeywordsExtra nil]
+   [:a {:href "#"} "Back to top"]])
 
 (defmethod PageTabView ["Edit" :when]
   [page this]
@@ -2032,7 +2034,8 @@
    [:div.row
     [:div.col-md-4
      [NasaListSelectField {:keyword :samplingFrequency
-                           :path    [:form :fields :identificationInfo]}]]]])
+                           :path    [:form :fields :identificationInfo]}]]]
+   [:a {:href "#"} "Back to top"]])
 
 (defmethod PageTabView ["Edit" :where]
   [page this]
@@ -2040,7 +2043,8 @@
    [PageErrors {:page :where :path [:form]}]
    [:h2 "4. Where"]
    [GeographicCoverage nil]
-   [VerticalCoverage nil]])
+   [VerticalCoverage nil]
+   [:a {:href "#"} "Back to top"]])
 
 (defn CreditField [path this]
   [:div.CreditField [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :credit])]])
@@ -2177,7 +2181,8 @@
 (defmethod PageTabView ["Edit" :who]
   [page this]
   [:div
-   [Who nil]])
+   [Who nil]
+   [:a {:href "#"} "Back to top"]])
 
 (defn MethodOrOtherForm
   "docstring"
@@ -2219,7 +2224,8 @@
    [textarea-field
     [:form :fields :dataQualityInfo :methods]]
    [textarea-field
-    [:form :fields :dataQualityInfo :results]]])
+    [:form :fields :dataQualityInfo :results]]
+   [:a {:href "#"} "Back to top"]])
 
 
 (defn UseLimitationsFieldEdit [path]
@@ -2301,7 +2307,8 @@
    [InputField {:path [:form :fields :distributionInfo :distributionFormat :name]}]
    [InputField {:path [:form :fields :distributionInfo :distributionFormat :version]}]
    [:span.abstract-textarea
-    [textarea-field [:form :fields :resourceLineage :lineage]]]])
+    [textarea-field [:form :fields :resourceLineage :lineage]]]
+   [:a {:href "#"} "Back to top"]])
 
 (defn DataSourceRowEdit [path this]
   [:div
@@ -2325,14 +2332,16 @@
    [:h2 "8: Upload Data"]
    [UploadData nil]
    [:h2 "Data Services"]
-   [DataSources nil]])
+   [DataSources nil]
+   [:a {:href "#"} "Back to top"]])
 
 (defmethod PageTabView ["Edit" :lodge]
   [page this]
   [:div
    [PageErrors {:page :lodge :path [:form]}]
    [:h2 "9: Lodge Metadata Draft"]
-   [Lodge nil]])
+   [Lodge nil]
+   [:a {:href "#"} "Back to top"]])
 
 (defn progress-bar []
   (when-let [{:keys [can-submit? value]} @(rf/subscribe [:progress/get-props])]
@@ -2407,8 +2416,7 @@
                   [edit-tabs]
                   [:div.PageViewBody
                    [PageTabView page]
-                    [:a {:href "#Content"}
-                         "Back to top"]]]])))]
+                    ]]])))]
     (r/create-class
       {:render render})))
 

@@ -367,8 +367,10 @@
 (defn end-position-logic
   "End position is required if the status is ongoing"
   [state]
-  (let [on-going? (= "onGoing" (get-in state [:form :fields :identificationInfo :status :value]))]
-    (if on-going?
+  (let [on-going? (= "onGoing" (get-in state [:form :fields :identificationInfo :status :value]))
+        planned? (= "planned" (get-in state [:form :fields :identificationInfo :status :value]))
+        end-date-required ? (or on-going planned)]
+    (if end-date-required?
       (update-in state [:form :fields :identificationInfo :endPosition] assoc :required false :disabled true :value nil)
       (update-in state [:form :fields :identificationInfo :endPosition] assoc :required true :disabled false))))
 
@@ -401,7 +403,7 @@
     (update-in state [:form :fields :identificationInfo :maintenanceAndUpdateFrequency] merge
                (case status-value
                  "onGoing" {:is-hidden false :disabled false :required true}
-                 "planned" {:is-hidden false :disabled true :value "notPlanned" :required true}
+                 "planned" {:is-hidden false :disabled false :required true}
                  "completed" {:is-hidden false :disabled true :value "notPlanned" :required false}
                  {:is-hidden true :disabled true :value "" :required false}))))
 

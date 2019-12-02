@@ -369,7 +369,7 @@
   [state]
   (let [identificationInfo-value (get-in state [:form :fields :identificationInfo :status :value])]
     (if (contains? #{"onGoing"
-                     "planned"} identificationInfo-value) ?
+                     "planned"} identificationInfo-value)
       (update-in state [:form :fields :identificationInfo :endPosition] assoc :required false :disabled true :value nil)
       (update-in state [:form :fields :identificationInfo :endPosition] assoc :required true :disabled false))))
 

@@ -51,6 +51,10 @@ body {
 	margin-left: 150px;
 }
 
+.link-left-container {
+	height: 20px;
+}
+
 /*** Vendor-prefix.less fixes *****/
 .form-control:focus {
     border-color: #669FBA;

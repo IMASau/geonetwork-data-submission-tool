@@ -367,7 +367,7 @@
 (defn end-position-logic
   "End position is required if the status is ongoing"
   [state]
-  (let [identificationInfo-value (get-in state [:form :fields :identificationInfo :status :value]]
+  (let [identificationInfo-value (get-in state [:form :fields :identificationInfo :status :value])]
     (if (contains? #{"onGoing"
                      "planned"} identificationInfo-value) ?
       (update-in state [:form :fields :identificationInfo :endPosition] assoc :required false :disabled true :value nil)

@@ -46,3 +46,17 @@ body {
     background-size: 85%;
     background-repeat: no-repeat;
 }
+
+.bp3-navbar-group.bp3-align-left .bp3-button.bp3-minimal {
+	margin-left: 150px;
+}
+
+/*** Vendor-prefix.less fixes *****/
+.form-control:focus {
+    border-color: #669FBA;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(151,195,219,.6);
+	box-shadow: inset 0 1px 1px
+	rgba(0,0,0,.075),0 0 8px
+		rgba(151,195,219,.6);
+}

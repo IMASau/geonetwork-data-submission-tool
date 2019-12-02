@@ -2007,7 +2007,7 @@
    [TopicCategories nil]
    [SelectField [:form :fields :identificationInfo :status]]
    [SelectField [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]]
-   [:div.link-left-container [:a {:href "#what" class: "link-left"} "Next"]]])
+   [:div.link-left-container [:a.link-left {:href "#what"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :what]
   [page this]
@@ -2022,7 +2022,7 @@
    [ThemeKeywords :keywordsThemeAnzsrc]
    [ThemeKeywordsExtra nil]
    [TaxonKeywordsExtra nil]
-   [:div.link-left-container [:a {:href "#when" class: "link-left"} "Next"]]])
+   [:div.link-left-container [:a.link-left {:href "#when"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :when]
   [page this]
@@ -2035,7 +2035,7 @@
     [:div.col-md-4
      [NasaListSelectField {:keyword :samplingFrequency
                            :path    [:form :fields :identificationInfo]}]]]
-   [:div.link-left-container [:a {:href "#where" class: "link-left"} "Next"]]])
+   [:div.link-left-container [:a.link-left {:href "#where"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :where]
   [page this]
@@ -2044,7 +2044,7 @@
    [:h2 "4. Where"]
    [GeographicCoverage nil]
    [VerticalCoverage nil]
-   [:div.link-left-container [:a {:href "#how" class: "link-left"} "Next"]]])
+   [:div.link-left-container [:a.link-left {:href "#how"} "Next"]]])
 
 (defn CreditField [path this]
   [:div.CreditField [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :credit])]])
@@ -2182,7 +2182,7 @@
   [page this]
   [:div
    [Who nil]
-   [:div.link-left-container [:a {:href "#about" class: "link-left"} "Next"]]])
+   [:div.link-left-container [:a.link-left {:href "#about"} "Next"]]])
 
 (defn MethodOrOtherForm
   "docstring"
@@ -2225,7 +2225,7 @@
     [:form :fields :dataQualityInfo :methods]]
    [textarea-field
     [:form :fields :dataQualityInfo :results]]
-   [:div.link-left-container [:a {:href "#who" class: "link-left"} "Next"]]])
+   [:div.link-left-container [:a.link-left {:href "#who"} "Next"]]])
 
 
 (defn UseLimitationsFieldEdit [path]
@@ -2308,7 +2308,7 @@
    [InputField {:path [:form :fields :distributionInfo :distributionFormat :version]}]
    [:span.abstract-textarea
     [textarea-field [:form :fields :resourceLineage :lineage]]]
-   [:div.link-left-container [:a {:href "#upload" class: "link-left"} "Next"]]])
+   [:div.link-left-container [:a.link-left {:href "#upload"} "Next"]]])
 
 (defn DataSourceRowEdit [path this]
   [:div
@@ -2333,7 +2333,7 @@
    [UploadData nil]
    [:h2 "Data Services"]
    [DataSources nil]
-   [:div.link-left-container [:a {:href "#lodge" class: "link-left"} "Next"]]])
+   [:div.link-left-container [:a.link-left {:href "#lodge"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :lodge]
   [page this]
@@ -2341,7 +2341,7 @@
    [PageErrors {:page :lodge :path [:form]}]
    [:h2 "9: Lodge Metadata Draft"]
    [Lodge nil]
-   [:div.link-left-container [:a {:href "#" class: "link-left"} "Next"]]])
+   [:div.link-left-container [:a.link-left {:href "#"} "Next"]]])
 
 (defn progress-bar []
   (when-let [{:keys [can-submit? value]} @(rf/subscribe [:progress/get-props])]

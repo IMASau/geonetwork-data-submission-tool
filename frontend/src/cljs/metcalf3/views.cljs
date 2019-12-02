@@ -2403,11 +2403,11 @@
                     [:small [:i {:style {:color     "#aaa"
                                          :font-size "0.7em"}}
                              "Last edited " (-> last_updated js/moment .fromNow)]]]]]
-                 [:div.Home.container#pages
+                 [:div.Home.container
                   [edit-tabs]
                   [:div.PageViewBody
                    [PageTabView page]
-                    [:a {:href "#pages"}
+                    [:a {:href "#Content"}
                          "Back to top"]]]])))]
     (r/create-class
       {:render render})))

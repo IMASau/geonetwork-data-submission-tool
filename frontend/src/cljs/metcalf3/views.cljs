@@ -2406,7 +2406,9 @@
                  [:div.Home.container
                   [edit-tabs]
                   [:div.PageViewBody
-                   [PageTabView page]]]])))]
+                   [PageTabView page]
+                    [:a {:href "#pages"}
+                         "Back to top"]]]])))]
     (r/create-class
       {:render render})))
 

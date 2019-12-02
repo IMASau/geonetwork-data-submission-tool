@@ -51,8 +51,12 @@ body {
 	margin-left: 150px;
 }
 
-.link-left-container {
+.link-right-container {
 	height: 20px;
+}
+
+a.link-right {
+	float: right;
 }
 
 /*** Vendor-prefix.less fixes *****/

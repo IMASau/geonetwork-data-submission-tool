@@ -377,7 +377,7 @@
     (js/Date. x)))
 
 (defn date-order-logic
-  "End position is required if the status is ongoing"
+  "Start date should be fore end date if the status is ongoing"
   [state]
   (let [d0 (value->date (get-in state [:form :fields :identificationInfo :beginPosition :value]))
         d1 (value->date (get-in state [:form :fields :identificationInfo :endPosition :value]))

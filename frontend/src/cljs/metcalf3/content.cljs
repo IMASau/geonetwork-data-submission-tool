@@ -161,7 +161,7 @@
                                                            :label    "Status of data"
                                                            :required true
                                                            :options  [["onGoing" "ongoing"]
-                                                                      ["planned" "planned"]]
+                                                                      ["planned" "planned"]
                                                                       ["completed" "completed"]]
                                                            :page     :data-identification}
                            :maintenanceAndUpdateFrequency {:type     nil

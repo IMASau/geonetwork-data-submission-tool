@@ -401,6 +401,7 @@
     (update-in state [:form :fields :identificationInfo :maintenanceAndUpdateFrequency] merge
                (case status-value
                  "onGoing" {:is-hidden false :disabled false :required true}
+                 "planned" {:is-hidden false :disabled true :value "notPlanned" :required true}
                  "completed" {:is-hidden false :disabled true :value "notPlanned" :required false}
                  {:is-hidden true :disabled true :value "" :required false}))))
 

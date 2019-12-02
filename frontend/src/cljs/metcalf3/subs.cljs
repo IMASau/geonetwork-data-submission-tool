@@ -75,7 +75,7 @@
        :urls                   urls})))
 
 (def edit-tabs
-  [{:id "pages" :data-identification :text "Data identification"}
+  [{:id :data-identification :text "Data identification"}
    {:id :what :text "What"}
    {:id :when :text "When"}
    {:id :where :text "Where"}

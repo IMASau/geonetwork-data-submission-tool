@@ -2403,7 +2403,7 @@
                     [:small [:i {:style {:color     "#aaa"
                                          :font-size "0.7em"}}
                              "Last edited " (-> last_updated js/moment .fromNow)]]]]]
-                 [:div.Home.container
+                 [:div.Home.container#pages
                   [edit-tabs]
                   [:div.PageViewBody
                    [PageTabView page]

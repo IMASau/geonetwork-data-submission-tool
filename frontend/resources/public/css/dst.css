@@ -68,3 +68,10 @@ a.link-right {
 	rgba(0,0,0,.075),0 0 8px
 		rgba(151,195,219,.6);
 }
+
+/*** Do not display the tagline in the header on small screens ***/
+@media screen and (max-width: 767px) {
+	.navbar-heading {
+		visibility: hidden;
+	}
+}

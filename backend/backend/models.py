@@ -25,6 +25,13 @@ from backend.utils import to_json, get_exception_message
 from backend.xmlutils import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
 from frontend.models import SiteContent
 
+def get_user_name(obj):
+    if obj.email:
+        return obj.email
+    return obj.username
+
+User.add_to_class("__str__", get_user_name)
+
 logger = logging.getLogger(__name__)
 
 class MetadataTemplateMapper(models.Model):

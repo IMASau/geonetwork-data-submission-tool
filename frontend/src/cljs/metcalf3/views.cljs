@@ -1769,7 +1769,7 @@
                                                    :params
                                                    {:search input
                                                     :offset 0
-                                                    :limit  100}}))
+                                                    :limit  1000}}))
                    :onChange          #(on-change (js->clj %))
                    :getNewOptionData  (fn [input]
                                         #js {:uri              (str "http://linkeddata.tern.org.au/def/agent/" (random-uuid))

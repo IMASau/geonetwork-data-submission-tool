@@ -1004,10 +1004,11 @@
   (let [text (string/join " > " (map #(aget % "term") (term-option-path options option)))
         text (if (> (count text) 80)
                (str (subs text 0 30) "..." (subs text (- (count text) 30) (count text)))
-               text)]
-    [:div.topic-cell
+               text)
+        term-text (aget option "term")]
+    [:div.topic-cell {:key term-text}
      [:div.topic-path text]
-     [:div.topic-value (aget option "term")]]))
+     [:div.topic-value term-text]]))
 
 (defn nasa-list-renderer [options option]
   (aget option "prefLabel"))

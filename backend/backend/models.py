@@ -262,9 +262,9 @@ class Document(models.Model):
                             is_valid = False
                             break
                 if is_valid:
-                    self.validation_status = 'Invalid'
-                else:
                     self.validation_status = 'Valid'
+                else:
+                    self.validation_status = 'Invalid'
             else:
                 self.validation_status = 'Service Unavailable'
                 logger.error('There was an error while validating {}. The error was: {} - {}'.format(uuid,response.status_code,response.content))

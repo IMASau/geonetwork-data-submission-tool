@@ -5,7 +5,7 @@ body {
 }
 
 .bp3-navbar.bp3-dark, .bp3-dark .bp3-navbar {
-	background-color: #88BBA7;
+	background-color: #6EB3A6;
 	box-shadow: none;
 	-webkit-box-shadow: none;
 }
@@ -42,7 +42,7 @@ body {
 }
 
 .bp3-navbar-group.bp3-align-left {
-	background-image: url(../img/shared-product-name.jpg);
+	background-image: url(../img/shared-product-name.png);
     background-size: 350px;
     background-repeat: no-repeat;
 }
@@ -68,3 +68,10 @@ a.link-right {
 	rgba(0,0,0,.075),0 0 8px
 		rgba(151,195,219,.6);
 }
+
+/*** Do not display the tagline in the header on small screens ***/
+/*@media screen and (max-width: 767px) {
+	.navbar-heading {
+		visibility: hidden;
+	}
+}*/

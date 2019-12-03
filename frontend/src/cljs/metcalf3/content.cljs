@@ -420,9 +420,11 @@
                                          :many   true
                                          :fields {:description {:type  nil
                                                                 :label "Description"
+                                                                :required true
                                                                 :page  :how}
                                                   :name        {:type  nil
                                                                 :label "Name"
+                                                                :required true
                                                                 :page  :how}
                                                   :uri         {:type  nil
                                                                 :label "URI"

@@ -711,7 +711,7 @@
                 },
                 "attributes": {
                     "xlink:href": {
-                        "function": "identity"
+                        "function": "separate_organisation_identifier"
                     }
                 }
             },

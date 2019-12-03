@@ -1157,6 +1157,7 @@
                       [VirtualizedSelect {:placeholder       (:placeholder term)
                                           :isClearable       true
                                           :is-searchable     true
+                                          :height            "40px"
                                           :options           selectable-options
                                           :value             selected-value
                                           :getOptionValue    (fn [option]
@@ -1173,6 +1174,7 @@
                       [VirtualizedSelect {:placeholder       (:placeholder term)
                                           :isClearable       true
                                           :is-searchable     true
+                                          :height            "40px"
                                           :options           selectable-options
                                           :value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
                                           :getOptionValue    (fn [option]
@@ -1734,8 +1736,12 @@
               (let [{:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
                     orgId (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationIdentifier)]))
                     orgName (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationName)]))
+                    orgCity (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :address :city)]))
+                    value @(rf/subscribe [:subs/get-derived-path (conj party-path :value)])
                     js-value #js {:uri              (or orgId "")
-                                  :organisationName (or orgName "")}
+                                  :organisationName (or (if (blank? orgCity)
+                                                          orgName
+                                                          (str orgName " - " orgCity)) "")}
                     js-value (if orgId
                                js-value
                                nil)]
@@ -1744,12 +1750,14 @@
                    :disabled          disabled
                    :defaultOptions    true
                    :getOptionValue    (fn [option]
-                                        (gobj/get option "uri"))
+                                        (str (gobj/get option "uri") "||" (gobj/get option "city")))
                    :formatOptionLabel (fn [props]
                                         (let [is-created? (gobj/get props "__isCreated__")]
                                           (if is-created?
                                             (str "Create new organisation \"" (gobj/get props "organisationName") "\"")
-                                            (gobj/get props "organisationName"))))
+                                            (if (blank? (gobj/get props "city"))
+                                              (gobj/get props "organisationName")
+                                              (str (gobj/get props "organisationName") " - " (gobj/get props "city"))))))
                    :loadOptions       (fn [input callback]
                                         (ajax/GET (str URL_ROOT "/api/institution.json")
                                                   {:handler

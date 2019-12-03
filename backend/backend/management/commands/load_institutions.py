@@ -5,6 +5,7 @@ import datetime
 import logging
 import urllib
 import urllib.parse
+import re
 
 import requests
 from django.contrib.admin.models import CHANGE, LogEntry
@@ -36,7 +37,7 @@ class Command(BaseCommand):
             with transaction.atomic():
                 Institution.objects.all().filter(isUserAdded=False).delete()
 
-                tern_institutions = self._fetch_tern_data('org')
+                tern_institutions = self._fetch_sparql()
                 if not tern_institutions:
                     raise CommandError('No TERN organisations found, assuming error; aborting')
 
@@ -65,6 +66,7 @@ class Command(BaseCommand):
                     object_repr=u'Refreshed institutions list - {:%Y-%m-%d %H:%M}'.format(datetime.datetime.utcnow()),
                     action_flag=CHANGE)
             logger.info("Finished loading {} institutions".format(Institution.objects.count()))
+
         except:
             import traceback
             logger.error(traceback.format_exc())
@@ -86,6 +88,45 @@ class Command(BaseCommand):
                 raise CommandError('No admin user found; create one first')
             adminpk = adminuser.pk
         return adminpk
+
+    @staticmethod
+    def _fetch_sparql():
+        _query = urllib.parse.quote('PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'
+                                    'PREFIX sdo: <http://schema.org/>'
+                                    'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>'
+                                    ' select ?org ?name ?postalAddress ?streetAddress ?addressLocality ?postalCode ?addressCountry'
+                                    ' where { '
+                                    ' ?org a sdo:Organization ; '
+                                    ' sdo:name ?name . '
+                                    ' optional { '
+                                    ' ?org sdo:address ?postalAddress . '
+                                    ' ?postalAddress sdo:streetAddress ?streetAddress ; '
+                                    ' sdo:addressLocality ?addressLocality ; '
+                                    ' sdo:addressRegion ?addressRegion ; '
+                                    ' sdo:postalCode ?postalCode ; '
+                                    ' sdo:addressCountry ?addressCountry . '
+                                    ' } '
+                                    '} order by asc(?name)')
+        url = "http://graphdb-prod.tern.org.au/repositories/knowledge-graph?query={query}".format(query=_query)
+        response = requests.get(url, headers={'Accept': 'text/csv'})
+        if not response.ok:
+            raise CommandError('Error loading the persons vocabulary. Aborting. Error was {}'.format(response.content))
+        reader = csv.DictReader(io.StringIO(response.text, newline=""), skipinitialspace=True)
+        for row in reader:
+            yield Institution (
+                uri=row['org'],
+                prefLabel=row['name'],
+                altLabel=row['name'],
+                deliveryPoint=row['streetAddress'],
+                postalCode=row['postalCode'],
+                country=row['addressCountry'],
+                city=row['addressLocality'],
+                administrativeArea=row.get('addressRegion',''),
+                #not present in TERN data
+                exactMatch='',
+                isUserAdded=False
+            )
+        return
 
     @staticmethod
     def _fetch_tern_data(VocabName):

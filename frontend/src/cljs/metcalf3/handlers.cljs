@@ -403,7 +403,7 @@
   (fn [{:keys [db]} [_ path value]]
     {:db       (-> db
                    (update-in (conj path :organisationName) assoc :value (get value "organisationName") :show-errors true)
-                   (update-in (conj path :organisationIdentifier) assoc :value (get value "uri" value) :show-errors true))
+                   (update-in (conj path :organisationIdentifier) assoc :value (str (get value "uri") "||" (get value "city")) :show-errors true))
      :dispatch [:handlers/update-address path value]}))
 
 (rf/reg-event-db

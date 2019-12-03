@@ -197,6 +197,11 @@ def parse_organisation_identifier(x):
         return x.attrib['{http://www.w3.org/1999/xlink}href']
     return None
 
+def separate_organisation_identifier(x):
+    if '||' in x:
+        return x[:x.index('||')]
+    return x
+
 def science_keyword_name(**kwargs):
     assert kwargs['data'] != None, "data not provided"
     assert kwargs['models'] != None, "models not provided"
@@ -310,4 +315,5 @@ SPEC_FUNCTIONS = {
     "write_doi": write_doi,
     "geonetwork_url": geonetwork_url,
     "write_constraints": write_constraints,
+    "separate_organisation_identifier": separate_organisation_identifier,
 }

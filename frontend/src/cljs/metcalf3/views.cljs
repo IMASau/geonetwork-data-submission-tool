@@ -1876,7 +1876,7 @@
        :disabled   (:disabled organisationName)
        ;manual maxlength implementation
        :on-input-change (fn [newvalue]
-                          (subs newvalue 0 100))
+                          (subs newvalue 0 250))
        :on-change  (fn [option]
                      (rf/dispatch [:handlers/org-changed (conj party-path :value) option]))}]]))
 

@@ -161,6 +161,7 @@ class DocumentManager(models.Manager):
 
         new_data = copy.deepcopy(to_json(orig_doc.latest_draft.data))
         new_data['identificationInfo']['title'] = new_title
+        new_data['identificationInfo']['doi'] = ''
         new_data['fileIdentifier'] = doc.pk
 
         DraftMetadata.objects.create(

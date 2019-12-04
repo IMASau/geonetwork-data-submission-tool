@@ -5,7 +5,7 @@ body {
 }
 
 .bp3-navbar.bp3-dark, .bp3-dark .bp3-navbar {
-	background-color: #88BBA7;
+	background-color: #6EB3A6;
 	box-shadow: none;
 	-webkit-box-shadow: none;
 }
@@ -41,8 +41,37 @@ body {
 	padding: 0 3px;
 }
 
-.bp3-navbar-group {
-	background-image: url(../img/shared-product-name.jpg);
-    background-size: 75%;
+.bp3-navbar-group.bp3-align-left {
+	background-image: url(../img/shared-product-name.png);
+    background-size: 350px;
     background-repeat: no-repeat;
 }
+
+.bp3-navbar-group.bp3-align-left .bp3-button.bp3-minimal {
+	margin-left: 150px;
+}
+
+.link-right-container {
+	height: 20px;
+}
+
+a.link-right {
+	float: right;
+}
+
+/*** Vendor-prefix.less fixes *****/
+.form-control:focus {
+    border-color: #669FBA;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(151,195,219,.6);
+	box-shadow: inset 0 1px 1px
+	rgba(0,0,0,.075),0 0 8px
+		rgba(151,195,219,.6);
+}
+
+/*** Do not display the tagline in the header on small screens ***/
+/*@media screen and (max-width: 767px) {
+	.navbar-heading {
+		visibility: hidden;
+	}
+}*/

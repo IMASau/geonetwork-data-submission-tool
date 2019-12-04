@@ -367,8 +367,9 @@
 (defn end-position-logic
   "End position is required if the status is ongoing"
   [state]
-  (let [on-going? (= "onGoing" (get-in state [:form :fields :identificationInfo :status :value]))]
-    (if on-going?
+  (let [identificationInfo-value (get-in state [:form :fields :identificationInfo :status :value])]
+    (if (contains? #{"onGoing"
+                     "planned"} identificationInfo-value)
       (update-in state [:form :fields :identificationInfo :endPosition] assoc :required false :disabled true :value nil)
       (update-in state [:form :fields :identificationInfo :endPosition] assoc :required true :disabled false))))
 
@@ -377,7 +378,7 @@
     (js/Date. x)))
 
 (defn date-order-logic
-  "End position is required if the status is ongoing"
+  "Start date should be fore end date if the status is ongoing"
   [state]
   (let [d0 (value->date (get-in state [:form :fields :identificationInfo :beginPosition :value]))
         d1 (value->date (get-in state [:form :fields :identificationInfo :endPosition :value]))
@@ -401,6 +402,7 @@
     (update-in state [:form :fields :identificationInfo :maintenanceAndUpdateFrequency] merge
                (case status-value
                  "onGoing" {:is-hidden false :disabled false :required true}
+                 "planned" {:is-hidden false :disabled false :required true}
                  "completed" {:is-hidden false :disabled true :value "notPlanned" :required false}
                  {:is-hidden true :disabled true :value "" :required false}))))
 

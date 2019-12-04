@@ -629,8 +629,7 @@
                             "description": {
                                 "xpath": "mrl:description",
                                 "valueChild": "gco:CharacterString",
-                                "keep": false,
-                                "required": false
+                                "keep": false
                             },
                             "name": {
                                 "xpath": "mrl:reference/cit:CI_Citation/cit:title",
@@ -711,7 +710,7 @@
                 },
                 "attributes": {
                     "xlink:href": {
-                        "function": "identity"
+                        "function": "separate_organisation_identifier"
                     }
                 }
             },

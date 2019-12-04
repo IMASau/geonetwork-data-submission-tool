@@ -55,6 +55,7 @@
            :clearable        true
            :searchable       true
            :onChange         onChange
+           :getOptionValue   getOptionValue
            :isOptionSelected isOptionSelected
            :placeholder      placeholder
            :styles           #js {:menuPortal (fn [base] (doto (gobj/clone base)

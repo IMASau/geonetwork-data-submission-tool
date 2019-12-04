@@ -386,9 +386,17 @@ def personFromData(data):
 
 def institutionFromData(data):
     orgUri = data['organisationIdentifier']
+    city = None
+    if data.get('address',None):
+        city = data['address'].get('city', None)
+    if '||' in orgUri:
+        orgUri = orgUri[:orgUri.index('||')]
     if orgUri:
         try:
-            matchingOrg = Institution.objects.get(uri=orgUri)
+            if city:
+                matchingOrg = Institution.objects.get(uri=orgUri,city=city)
+            else:
+                matchingOrg = Institution.objects.get(uri=orgUri)
             if matchingOrg.isUserAdded:
                 matchingOrg.prefLabel = data['organisationName']
                 matchingOrg.organisationName = data['organisationName']

@@ -1004,10 +1004,11 @@
   (let [text (string/join " > " (map #(aget % "term") (term-option-path options option)))
         text (if (> (count text) 80)
                (str (subs text 0 30) "..." (subs text (- (count text) 30) (count text)))
-               text)]
-    [:div.topic-cell
+               text)
+        term-text (aget option "term")]
+    [:div.topic-cell {:key term-text}
      [:div.topic-path text]
-     [:div.topic-value (aget option "term")]]))
+     [:div.topic-value term-text]]))
 
 (defn nasa-list-renderer [options option]
   (aget option "prefLabel"))
@@ -1156,6 +1157,7 @@
                       [VirtualizedSelect {:placeholder       (:placeholder term)
                                           :isClearable       true
                                           :is-searchable     true
+                                          :height            "40px"
                                           :options           selectable-options
                                           :value             selected-value
                                           :getOptionValue    (fn [option]
@@ -1172,6 +1174,7 @@
                       [VirtualizedSelect {:placeholder       (:placeholder term)
                                           :isClearable       true
                                           :is-searchable     true
+                                          :height            "40px"
                                           :options           selectable-options
                                           :value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
                                           :getOptionValue    (fn [option]
@@ -1733,8 +1736,12 @@
               (let [{:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
                     orgId (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationIdentifier)]))
                     orgName (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationName)]))
+                    orgCity (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :address :city)]))
+                    value @(rf/subscribe [:subs/get-derived-path (conj party-path :value)])
                     js-value #js {:uri              (or orgId "")
-                                  :organisationName (or orgName "")}
+                                  :organisationName (or (if (blank? orgCity)
+                                                          orgName
+                                                          (str orgName " - " orgCity)) "")}
                     js-value (if orgId
                                js-value
                                nil)]
@@ -1743,12 +1750,14 @@
                    :disabled          disabled
                    :defaultOptions    true
                    :getOptionValue    (fn [option]
-                                        (gobj/get option "uri"))
+                                        (str (gobj/get option "uri") "||" (gobj/get option "city")))
                    :formatOptionLabel (fn [props]
                                         (let [is-created? (gobj/get props "__isCreated__")]
                                           (if is-created?
                                             (str "Create new organisation \"" (gobj/get props "organisationName") "\"")
-                                            (gobj/get props "organisationName"))))
+                                            (if (blank? (gobj/get props "city"))
+                                              (gobj/get props "organisationName")
+                                              (str (gobj/get props "organisationName") " - " (gobj/get props "city"))))))
                    :loadOptions       (fn [input callback]
                                         (ajax/GET (str URL_ROOT "/api/institution.json")
                                                   {:handler
@@ -1760,7 +1769,7 @@
                                                    :params
                                                    {:search input
                                                     :offset 0
-                                                    :limit  100}}))
+                                                    :limit  1000}}))
                    :onChange          #(on-change (js->clj %))
                    :getNewOptionData  (fn [input]
                                         #js {:uri              (str "http://linkeddata.tern.org.au/def/agent/" (random-uuid))
@@ -2006,7 +2015,8 @@
    [date-field [:form :fields :identificationInfo :dateCreation]]
    [TopicCategories nil]
    [SelectField [:form :fields :identificationInfo :status]]
-   [SelectField [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]]])
+   [SelectField [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]]
+   [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :what]
   [page this]
@@ -2020,7 +2030,8 @@
    [ThemeKeywords :keywordsTheme]
    [ThemeKeywords :keywordsThemeAnzsrc]
    [ThemeKeywordsExtra nil]
-   [TaxonKeywordsExtra nil]])
+   [TaxonKeywordsExtra nil]
+   [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :when]
   [page this]
@@ -2032,7 +2043,8 @@
    [:div.row
     [:div.col-md-4
      [NasaListSelectField {:keyword :samplingFrequency
-                           :path    [:form :fields :identificationInfo]}]]]])
+                           :path    [:form :fields :identificationInfo]}]]]
+   [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :where]
   [page this]
@@ -2040,7 +2052,8 @@
    [PageErrors {:page :where :path [:form]}]
    [:h2 "4. Where"]
    [GeographicCoverage nil]
-   [VerticalCoverage nil]])
+   [VerticalCoverage nil]
+   [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]])
 
 (defn CreditField [path this]
   [:div.CreditField [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :credit])]])
@@ -2177,7 +2190,8 @@
 (defmethod PageTabView ["Edit" :who]
   [page this]
   [:div
-   [Who nil]])
+   [Who nil]
+   [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]])
 
 (defn MethodOrOtherForm
   "docstring"
@@ -2219,7 +2233,8 @@
    [textarea-field
     [:form :fields :dataQualityInfo :methods]]
    [textarea-field
-    [:form :fields :dataQualityInfo :results]]])
+    [:form :fields :dataQualityInfo :results]]
+   [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]])
 
 
 (defn UseLimitationsFieldEdit [path]
@@ -2301,7 +2316,8 @@
    [InputField {:path [:form :fields :distributionInfo :distributionFormat :name]}]
    [InputField {:path [:form :fields :distributionInfo :distributionFormat :version]}]
    [:span.abstract-textarea
-    [textarea-field [:form :fields :resourceLineage :lineage]]]])
+    [textarea-field [:form :fields :resourceLineage :lineage]]]
+   [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]])
 
 (defn DataSourceRowEdit [path this]
   [:div
@@ -2325,14 +2341,16 @@
    [:h2 "8: Upload Data"]
    [UploadData nil]
    [:h2 "Data Services"]
-   [DataSources nil]])
+   [DataSources nil]
+   [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :lodge]
   [page this]
   [:div
    [PageErrors {:page :lodge :path [:form]}]
    [:h2 "9: Lodge Metadata Draft"]
-   [Lodge nil]])
+   [Lodge nil]
+   [:div.link-right-container [:a.link-right {:href "#"} "Next"]]])
 
 (defn progress-bar []
   (when-let [{:keys [can-submit? value]} @(rf/subscribe [:progress/get-props])]
@@ -2406,7 +2424,8 @@
                  [:div.Home.container
                   [edit-tabs]
                   [:div.PageViewBody
-                   [PageTabView page]]]])))]
+                   [PageTabView page]
+                    ]]])))]
     (r/create-class
       {:render render})))
 

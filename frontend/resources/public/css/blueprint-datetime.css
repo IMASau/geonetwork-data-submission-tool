@@ -124,10 +124,10 @@ Format transition class name with all the bits.
       background: #ced9e0; }
     .bp3-datepicker .DayPicker-Day.DayPicker-Day--selected {
       border-radius: 3px;
-      background-color: #137cbd;
+      background-color: #006381;
       color: #ffffff; }
       .bp3-datepicker .DayPicker-Day.DayPicker-Day--selected:hover {
-        background-color: #106ba3; }
+        background-color: #006381; }
     .bp3-datepicker .DayPicker-Day.DayPicker-Day--disabled {
       background: none;
       cursor: not-allowed;
@@ -193,7 +193,7 @@ Format transition class name with all the bits.
   .bp3-dark .bp3-datepicker .DayPicker-Day:active {
     background: #738694; }
   .bp3-dark .bp3-datepicker .DayPicker-Day.DayPicker-Day--selected {
-    background-color: #137cbd; }
+    background-color: #006381; }
     .bp3-dark .bp3-datepicker .DayPicker-Day.DayPicker-Day--selected:hover {
       background-color: #2b95d6; }
   .bp3-dark .bp3-datepicker .DayPicker-Day.DayPicker-Day--disabled {
@@ -340,7 +340,7 @@ Switches and slider handles both use these variables.
     color: #182026;
     transition: box-shadow 100ms cubic-bezier(0.4, 1, 0.75, 0.9); }
     .bp3-timepicker .bp3-timepicker-input:focus {
-      box-shadow: 0 0 0 1px #137cbd, 0 0 0 3px rgba(19, 124, 189, 0.3); }
+      box-shadow: 0 0 0 1px #006381, 0 0 0 3px rgba(19, 124, 189, 0.3); }
   .bp3-timepicker .bp3-timepicker-ampm-select {
     margin-left: 5px; }
   .bp3-timepicker.bp3-disabled .bp3-timepicker-input-row {

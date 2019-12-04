@@ -1,3 +1,4 @@
+import logging
 import copy
 import json
 import treebeard.ns_tree as ns_tree
@@ -23,6 +24,15 @@ from backend.spec import make_spec
 from backend.utils import to_json, get_exception_message
 from backend.xmlutils import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
 from frontend.models import SiteContent
+
+def get_user_name(obj):
+    if obj.email:
+        return obj.email
+    return obj.username
+
+User.add_to_class("__str__", get_user_name)
+
+logger = logging.getLogger(__name__)
 
 class MetadataTemplateMapper(models.Model):
     name = models.CharField(max_length=128, help_text="Unique name for template mapper.  Used in menus.")
@@ -151,6 +161,7 @@ class DocumentManager(models.Manager):
 
         new_data = copy.deepcopy(to_json(orig_doc.latest_draft.data))
         new_data['identificationInfo']['title'] = new_title
+        new_data['identificationInfo']['doi'] = ''
         new_data['fileIdentifier'] = doc.pk
 
         DraftMetadata.objects.create(
@@ -240,6 +251,7 @@ class Document(models.Model):
                                      headers={'Content-Type':'application/xml'},
                                      timeout=120)
         except Exception as e:
+            logger.error('The following exception occurred while trying to validate document {}: {}'.format(uuid,e))
             self.validation_status = 'Service Unavailable'
         if response:
             if response.status_code == 200:
@@ -258,13 +270,15 @@ class Document(models.Model):
                             is_valid = False
                             break
                 if is_valid:
-                    self.validation_status = 'Invalid'
-                else:
                     self.validation_status = 'Valid'
+                else:
+                    self.validation_status = 'Invalid'
             else:
                 self.validation_status = 'Service Unavailable'
+                logger.error('There was an error while validating {}. The error was: {} - {}'.format(uuid,response.status_code,response.content))
         else:
             self.validation_status = 'Service Unavailable'
+            logger.error('There was an error while validating {}. No response was received. This may be caused by a timeout.'.format(uuid))
         self.date_last_validated = datetime.datetime.now()
 
     ########################################################

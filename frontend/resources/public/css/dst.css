@@ -23,7 +23,7 @@ body {
 }
 
 .main-footer-container {
-	margin-top: 35px;
+	margin-top: 0;
 	padding: 25px 0px 125px 0px;
 }
 
@@ -57,6 +57,27 @@ body {
 
 a.link-right {
 	float: right;
+}
+
+.main-header {
+	line-height: 1;
+}
+
+.label {
+	border-radius: 10em;
+}
+
+.bp3-minimal {
+	font-weight: bold;
+}
+
+.lead {
+	margin-bottom: 0;
+}
+
+.pagehead {
+	margin-bottom: 5px;
+	padding-bottom: 5px;
 }
 
 /*** Vendor-prefix.less fixes *****/

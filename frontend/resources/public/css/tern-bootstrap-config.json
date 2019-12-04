@@ -276,7 +276,7 @@
     "@alert-info-text": "@state-info-text",
     "@alert-info-border": "@state-info-border",
     "@alert-warning-bg": "#FBC9A0",
-    "@alert-warning-text": "#ED694B",
+    "@alert-warning-text": "#000",
     "@alert-warning-border": "#ED694B",
     "@alert-danger-bg": "@state-danger-bg",
     "@alert-danger-text": "@state-danger-text",

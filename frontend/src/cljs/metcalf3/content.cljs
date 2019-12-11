@@ -124,6 +124,7 @@
                                            :label "Title"}
                                     :url  {:type  nil
                                            :page  :about
+                                           :maxlength 250
                                            :label "URL"}}}
      :dataQualityInfo     {:methods {:type        nil
                                      :rows        20
@@ -326,11 +327,13 @@
                                                                                                    :page :about}
                                                                     :name                         {:type        nil
                                                                                                    :label       ""
+                                                                                                   :maxlength   100
                                                                                                    :placeholder "Name in dataset (optional)"
                                                                                                    :page        :about}
                                                                     :serialNumber                 {:type        nil
                                                                                                    :label       "Serial Number"
                                                                                                    :placeholder ""
+                                                                                                   :maxlength   100
                                                                                                    :page        :about}
                                                                     :unit_term                    {:type        nil
                                                                                                    :label       "Unit"
@@ -394,6 +397,7 @@
                                       :placeholder "Date format date or version if applicable"}
                             :name    {:type        nil
                                       :label       "Data file format"
+                                      :maxlength   100
                                       :placeholder "e.g. Microsoft Excel, CSV, NetCDF"}}}
      :noteForDataManager  {:type  nil
                            :label "Include a note for the data manager"
@@ -421,10 +425,12 @@
                                          :fields {:description {:type  nil
                                                                 :label "Description"
                                                                 :required true
+                                                                :maxlength 1000
                                                                 :page  :how}
                                                   :name        {:type  nil
                                                                 :label "Name"
                                                                 :required true
+                                                                :maxlength 250
                                                                 :page  :how}
                                                   :uri         {:type  nil
                                                                 :label "URI"

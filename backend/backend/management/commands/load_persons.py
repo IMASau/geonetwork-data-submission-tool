@@ -96,29 +96,28 @@ class Command(BaseCommand):
 
     @staticmethod
     def _fetch_sparql():
-        _query = urllib.parse.quote( 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
-                                     'PREFIX sdo: <http://schema.org/> '
-                                     'select * '
-                                     'where { '
-                                     '?s a sdo:Person . '
-                                     '?s sdo:givenName ?givenName . '
-                                     '?s sdo:familyName ?familyName . '
-                                     'OPTIONAL { ?s sdo:honorificPrefix ?honorificPrefix } . '
-                                     'OPTIONAL { ?s sdo:jobTitle ?jobTitle } . '
-                                     'OPTIONAL { ?s sdo:email ?email } . '
-                                     'OPTIONAL { '
-                                     '?s sdo:sameAs ?sameAs '
-                                     'filter(regex(str(?sameAs), \'orcid.org\')) '
-                                     '} . '
-                                     'OPTIONAL { ?s sdo:telephone ?telephone } .  '
-                                     '} order by asc(?familyName) ')
-        url = "http://graphdb-dev.tern.org.au/repositories/knowledge-graph?query={query}".format(query=_query)
+        _query = urllib.parse.quote( 'PREFIX schema: <http://schema.org/> '
+                                      'PREFIX tern-org: <https://w3id.org/tern/ontologies/org/> '
+                                      'select * '
+                                      'from <https://w3id.org/tern/resources/> '
+                                      'where { '
+                                      '    ?s a schema:Person ; '
+                                      '       schema:givenName ?givenName ; '
+                                      '       schema:familyName ?familyName . '
+                                      '    OPTIONAL { ?s schema:honorificPrefix ?honorificPrefix } '
+                                      '    OPTIONAL { ?s schema:jobTitle ?jobTitle } '
+                                      '   OPTIONAL { ?s schema:email ?email } '
+                                      '    OPTIONAL { ?s tern-org:orcID ?orcID } '
+                                      '    OPTIONAL { ?s schema:telephone ?telephone } '
+                                      '} '
+                                      'ORDER BY asc(?familyName) ')
+        url = "https://graphdb-850.tern.org.au/repositories/knowledge_graph_core?query={query}".format(query=_query)
         response = requests.get(url, headers={'Accept': 'text/csv'})
         if not response.ok:
             raise CommandError('Error loading the persons vocabulary. Aborting. Error was {}'.format(response.content))
         reader = csv.DictReader(io.StringIO(response.text, newline=""), skipinitialspace=True)
         for row in reader:
-            orcid = (row['sameAs'] or '').replace('https://orcid.org/','')
+            orcid = (row['orcID'] or '').replace('https://orcid.org/','')
             if re.match(r"0000-000(1-[5-9]|2-[0-9]|3-[0-4])\d\d\d-\d\d\d[\dX]", orcid) is None:
                 orcid = ''
             yield Person (

@@ -1739,6 +1739,7 @@
                     orgName (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationName)]))
                     orgCity (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :address :city)]))
                     value @(rf/subscribe [:subs/get-derived-path (conj party-path :value)])
+                    {:keys [base-options]} @(rf/subscribe [:subs/get-derived-path [:api :institution]])
                     js-value #js {:uri              (or orgId "")
                                   :organisationName (or (if (blank? orgCity)
                                                           orgName
@@ -1746,6 +1747,7 @@
                     js-value (if orgId
                                js-value
                                nil)]
+                ; TODO: this really doesn't need to be async
                 (ReactSelectAsyncCreatable
                   {:value             js-value
                    :disabled          disabled
@@ -1779,9 +1781,18 @@
                    :noResultsText     "No results found"
                    :onBlurResetsInput false
                    :isClearable       true
+                   :isSearchable      true
                    :tabSelectsValue   false
                    :onInputChange     on-input-change
                    :onBlur            on-blur
+                   :filterOption      (fn [option value]
+                                        (string/includes? (string/lower-case (string/replace (get-in (js->clj option :keywordize-keys true) [:data :organisationName]) #"\s" ""))
+                                                          (string/lower-case (string/replace value #"\s" ""))))
+
+                   :isValidNewOption  (fn [input _ options]
+                                        (let [input (string/lower-case (string/replace input #"\s" ""))
+                                              match (filter (fn [x] (= input (string/lower-case (string/replace (:organisationName x) #"\s" "")))) (js->clj options :keywordize-keys true))]
+                                          (empty? match)))
                    :placeholder       "Start typing to filter list..."}))))]
     (r/create-class
       {:component-did-mount component-did-mount

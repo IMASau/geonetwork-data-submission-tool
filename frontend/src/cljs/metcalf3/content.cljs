@@ -55,7 +55,7 @@
                            :label "Email address"
                            :page  :who}
    :address               {:deliveryPoint      {:type nil :maxlength 250}
-                           :deliveryPoint2     {:type nil :maxlength 250 :type "hidden"}
+                           :deliveryPoint2     {:type "hidden" :maxlength 250}
                            :city               {:type nil :help "City" :maxlength 100}
                            :administrativeArea {:type nil :help "State/territory" :maxlength 100}
                            :postalCode         {:type nil :help "Postal / Zip code" :maxlength 100}

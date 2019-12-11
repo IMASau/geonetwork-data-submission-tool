@@ -80,7 +80,7 @@ a {
 }
 .above-header-section-1 .user-select a {
     background-color: #FFF;
-    background-image: url(images/logo@2x.png);
+    background-image: url(../img/logo@2x.png);
     background-position: 28px center;
     background-repeat: no-repeat;
     -webkit-background-size: 23px auto;
@@ -89,7 +89,7 @@ a {
 }
 .above-header-section-2 .user-select a {
     background-color: #E36A51;
-    background-image: url(images/search-icon@2x.png);
+    background-image: url(../img/search-icon@2x.png);
     background-position: 28px center;
     background-repeat: no-repeat;
     -webkit-background-size: 23px auto;

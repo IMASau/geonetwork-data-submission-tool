@@ -1345,7 +1345,8 @@
         :on-change (fn [v]
                      (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
                                                                                         :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
-        :placeholder "")]]))
+        :placeholder ""
+        :maxlength 100)]]))
 
 (defn PersonListField
   [{:keys [api-path person-path sort?]} this]

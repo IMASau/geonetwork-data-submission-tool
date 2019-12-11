@@ -220,7 +220,7 @@
                                                                       :placeholder "Enter a taxon keyword"
                                                                       :help        "Add any taxon names describing your data and click + to add"
                                                                       :label       "Taxon keywords"
-                                                                      :maxLength   250
+                                                                      :maxlength   250
                                                                       :page        :what}}
 
                            :beginPosition                 {:type     nil

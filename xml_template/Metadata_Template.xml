@@ -68,7 +68,7 @@
             <cit:CI_Organisation>
                <cit:name>
                   <gcx:Anchor xlink:title="Organisation" xlink:role="uri" xlink:type="simple"
-                              xlink:href="http://linkeddata.tern.org.au/def/agent/a083902d-d821-41be-b663-1d7cb33eea66"
+                              xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66"
                               xlink:show="new">Terrestrial Ecosystem Research Network (TERN)</gcx:Anchor>
                </cit:name>
                <cit:contactInfo>
@@ -272,7 +272,7 @@
                         <cit:CI_Organisation>
                            <cit:name>
                               <gcx:Anchor xlink:title="Organisation" xlink:role="uri" xlink:type="simple"
-                                 xlink:href="http://linkeddata.tern.org.au/def/agent/a083902d-d821-41be-b663-1d7cb33eea66"
+                                 xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66"
                                  xlink:show="new">Terrestrial Ecosystem Research Network (TERN)</gcx:Anchor>
                            </cit:name>
                            <cit:contactInfo>
@@ -326,7 +326,7 @@
                         <cit:CI_Organisation>
                            <cit:name>
                               <gcx:Anchor xlink:title="Organisation" xlink:role="uri" xlink:type="simple"
-                                          xlink:href="http://linkeddata.tern.org.au/def/agent/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                                          xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
                                           xlink:show="new">CSIRO Land and Water</gcx:Anchor>
                            </cit:name>
                            <cit:contactInfo>
@@ -415,7 +415,7 @@
                   <cit:CI_Organisation>
                      <cit:name>
                         <gcx:Anchor xlink:title="Organisation" xlink:role="uri" xlink:type="simple"
-                                    xlink:href="http://linkeddata.tern.org.au/def/agent/797307f8-e10b-4c74-8688-d52f9ac8d669"
+                                    xlink:href="https://w3id.org/tern/resources/797307f8-e10b-4c74-8688-d52f9ac8d669"
                                     xlink:show="new">Geoscience Australia</gcx:Anchor>
                      </cit:name>
                      <cit:contactInfo>
@@ -606,7 +606,7 @@
             <mri:MD_Keywords uuid="Data_Group">
                <mri:keyword>
                   <gcx:Anchor xlink:title="Parameter" xlink:role="uri" xlink:type="simple"
-                              xlink:href="http://linkeddata.tern.org.au/def/agent/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                              xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
                               xlink:show="new">HUMIDITY</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
@@ -616,7 +616,7 @@
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:title="Instrument" xlink:role="uri" xlink:type="simple"
-                              xlink:href="http://linkeddata.tern.org.au/def/agent/55cd8c0b-20a3-4c22-a96f-52237be2b6db"
+                              xlink:href="https://w3id.org/tern/resources/55cd8c0b-20a3-4c22-a96f-52237be2b6db"
                               xlink:show="new">Vaisala VSN1 Probe</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
@@ -626,7 +626,7 @@
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:title="Platform" xlink:role="uri" xlink:type="simple"
-                              xlink:href="http://linkeddata.tern.org.au/def/agent/2afba118-e30f-4cb3-b8f6-403db65fc7e9"
+                              xlink:href="https://w3id.org/tern/resources/2afba118-e30f-4cb3-b8f6-403db65fc7e9"
                               xlink:show="new">Tower</gcx:Anchor>
                </mri:keyword>
             </mri:MD_Keywords>
@@ -635,17 +635,17 @@
             <mri:MD_Keywords uuid="Data_Group">
                <mri:keyword>
                   <gcx:Anchor xlink:title="Parameter" xlink:role="uri" xlink:type="simple"
-                              xlink:href="http://linkeddata.tern.org.au/def/agent/55cd8c0b-20a3-4c22-a96f-52237be2b6db"
+                              xlink:href="https://w3id.org/tern/resources/55cd8c0b-20a3-4c22-a96f-52237be2b6db"
                               xlink:show="new">Temperature</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:title="UOM" xlink:role="uri" xlink:type="simple"
-                              xlink:href="http://linkeddata.tern.org.au/def/agent/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                              xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
                               xlink:show="new">degrees C</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:title="Instrument" xlink:role="uri" xlink:type="simple"
-                              xlink:href="http://linkeddata.tern.org.au/def/agent/94bf9ec6-d4fb-4005-b54c-eca39a30a7e5"
+                              xlink:href="https://w3id.org/tern/resources/94bf9ec6-d4fb-4005-b54c-eca39a30a7e5"
                               xlink:show="new">TERN thermometer</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
@@ -653,7 +653,7 @@
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:title="Platform" xlink:role="uri" xlink:type="simple"
-                              xlink:href="http://linkeddata.tern.org.au/def/agent/2afba118-e30f-4cb3-b8f6-403db65fc7e9"
+                              xlink:href="https://w3id.org/tern/resources/2afba118-e30f-4cb3-b8f6-403db65fc7e9"
                               xlink:show="new">Weather Station</gcx:Anchor>
                </mri:keyword>
             </mri:MD_Keywords>
@@ -663,13 +663,13 @@
             <mri:MD_Keywords>
                <mri:keyword>
                   <gcx:Anchor xlink:title="GCMD_Science" xlink:role="uri" xlink:type="simple"
-                              xlink:href="http://linkeddata.tern.org.au/def/agent/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                              xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
                               xlink:show="new">HUMIDITY</gcx:Anchor>
                </mri:keyword>
   
                <mri:keyword>
                   <gcx:Anchor xlink:title="GCMD_Science" xlink:role="uri" xlink:type="simple"
-                              xlink:href="uri:http://linkeddata.tern.org.au/def/agent/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                              xlink:href="uri:https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
                               xlink:show="other">INCOMING SOLAR RADIATION</gcx:Anchor>
                </mri:keyword>
 
@@ -755,17 +755,17 @@
             <mri:MD_Keywords>
                <mri:keyword>
                   <gcx:Anchor xlink:title="FOR" xlink:role="uri" xlink:type="simple"
-                              xlink:href="http://linkeddata.tern.org.au/def/agent/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                              xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
                               xlink:show="new">Environmental Monitoring</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:title="FOR" xlink:role="uri" xlink:type="simple"
-                     xlink:href="http://linkeddata.tern.org.au/def/agent/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                     xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
                               xlink:show="other">Ecosystem Function</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:title="FOR" xlink:role="uri" xlink:type="simple"
-                     xlink:href="http://linkeddata.tern.org.au/def/agent/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                     xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
                      xlink:show="other">ATMOSPHERIC SCIENCES</gcx:Anchor>
                </mri:keyword>
 
@@ -1049,7 +1049,7 @@
                   <cit:CI_Citation>
                      <cit:title>
                         <gcx:Anchor xlink:title="Method" xlink:role="uri" xlink:type="simple"
-                                    xlink:href="http://linkeddata.tern.org.au/def/agent/14368694-8e1b-40a3-9ed2-50ff789551dd"
+                                    xlink:href="https://w3id.org/tern/resources/14368694-8e1b-40a3-9ed2-50ff789551dd"
                                     xlink:show="new">method A name goes here</gcx:Anchor>
                      </cit:title>
                   </cit:CI_Citation>
@@ -1065,7 +1065,7 @@
                   <cit:CI_Citation>
                      <cit:title>
                         <gcx:Anchor xlink:title="Method" xlink:role="uri" xlink:type="simple"
-                                    xlink:href="http://linkeddata.tern.org.au/def/agent/14368694-8e1b-40a3-9ed2-50ff789551dd"
+                                    xlink:href="https://w3id.org/tern/resources/14368694-8e1b-40a3-9ed2-50ff789551dd"
                                     xlink:show="new">method B name goes here</gcx:Anchor>
                      </cit:title>
                   </cit:CI_Citation>

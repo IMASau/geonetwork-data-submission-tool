@@ -1775,7 +1775,7 @@
                                                     :limit  1000}}))
                    :onChange          #(on-change (js->clj %))
                    :getNewOptionData  (fn [input]
-                                        #js {:uri              (str "http://linkeddata.tern.org.au/def/agent/" (random-uuid))
+                                        #js {:uri              (str "https://w3id.org/tern/resources/" (random-uuid))
                                              :organisationName input
                                              :__isCreated__    true})
                    :noResultsText     "No results found"

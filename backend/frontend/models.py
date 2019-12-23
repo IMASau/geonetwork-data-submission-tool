@@ -26,7 +26,7 @@ class SiteContent(models.Model):
                   "will optimise the size so it's not too heavy.",
         default='images/Hemispherical-Photography.jpg')
     guide_pdf = models.URLField(null=True,verbose_name="Help",blank=True, max_length=1024)
-    roadmap_pdf = models.FileField(upload_to='guide', blank=True, null=True)
+    roadmap_pdf = models.URLField(null=True,verbose_name="Roadmap",blank=True, max_length=1024)
     releasenotes_url = models.URLField(null=True,verbose_name="Release notes URL",blank=True)
     portal_title = models.CharField(
         max_length=64, default="TERN Data Portal",

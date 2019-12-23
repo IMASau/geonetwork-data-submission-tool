@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('terms_pdf', models.FileField(null=True, upload_to='terms')),
                 ('doi_uri', models.CharField(default='YOUR-DOI-LINK', max_length=1024)),
                 ('releasenotes_url', models.URLField(blank=True, null=True, verbose_name='Release notes URL')),
-                ('roadmap_pdf', models.FileField(blank=True, null=True, upload_to='guide')),
+                ('roadmap_pdf', models.URLField(blank=True, default='http://tern.org.au', null=True, max_length=1024)),
             ],
         ),
     ]

@@ -606,7 +606,7 @@
             <mri:MD_Keywords uuid="Data_Group">
                <mri:keyword>
                   <gcx:Anchor xlink:title="Parameter" xlink:role="uri" xlink:type="simple"
-                              xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                              xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/427e5121-a142-41cb-a8e9-a70b7f98eb6a"
                               xlink:show="new">HUMIDITY</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
@@ -626,7 +626,7 @@
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:title="Platform" xlink:role="uri" xlink:type="simple"
-                              xlink:href="https://w3id.org/tern/resources/2afba118-e30f-4cb3-b8f6-403db65fc7e9"
+                              xlink:href="http://linkeddata.tern.org.au/def/platforms/6bc24c32-683c-4b40-a48b-20cf0c526378"
                               xlink:show="new">Tower</gcx:Anchor>
                </mri:keyword>
             </mri:MD_Keywords>
@@ -635,13 +635,13 @@
             <mri:MD_Keywords uuid="Data_Group">
                <mri:keyword>
                   <gcx:Anchor xlink:title="Parameter" xlink:role="uri" xlink:type="simple"
-                              xlink:href="https://w3id.org/tern/resources/55cd8c0b-20a3-4c22-a96f-52237be2b6db"
-                              xlink:show="new">Temperature</gcx:Anchor>
+                              xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/f634ab55-de40-4d0b-93bc-691bf5408ccb"
+                              xlink:show="new">AIR TEMPERATURE</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:title="UOM" xlink:role="uri" xlink:type="simple"
-                              xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
-                              xlink:show="new">degrees C</gcx:Anchor>
+                              xlink:href="http://qudt.org/vocab/unit/DEG_C"
+                              xlink:show="new">degree-celsius</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:title="Instrument" xlink:role="uri" xlink:type="simple"
@@ -653,8 +653,8 @@
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:title="Platform" xlink:role="uri" xlink:type="simple"
-                              xlink:href="https://w3id.org/tern/resources/2afba118-e30f-4cb3-b8f6-403db65fc7e9"
-                              xlink:show="new">Weather Station</gcx:Anchor>
+                              xlink:href="https://w3id.org/tern/resources/5c036cd1-7c0c-4f86-8f9e-88b2114f4362"
+                              xlink:show="new">Automatic Weather Station</gcx:Anchor>
                </mri:keyword>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
@@ -663,13 +663,13 @@
             <mri:MD_Keywords>
                <mri:keyword>
                   <gcx:Anchor xlink:title="GCMD_Science" xlink:role="uri" xlink:type="simple"
-                              xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                              xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/427e5121-a142-41cb-a8e9-a70b7f98eb6a"
                               xlink:show="new">HUMIDITY</gcx:Anchor>
                </mri:keyword>
   
                <mri:keyword>
                   <gcx:Anchor xlink:title="GCMD_Science" xlink:role="uri" xlink:type="simple"
-                              xlink:href="uri:https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                              xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/6b3be650-6625-40b5-9b40-9e7c8a9fd336"
                               xlink:show="other">INCOMING SOLAR RADIATION</gcx:Anchor>
                </mri:keyword>
 
@@ -755,17 +755,17 @@
             <mri:MD_Keywords>
                <mri:keyword>
                   <gcx:Anchor xlink:title="FOR" xlink:role="uri" xlink:type="simple"
-                              xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                              xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050206"
                               xlink:show="new">Environmental Monitoring</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:title="FOR" xlink:role="uri" xlink:type="simple"
-                     xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                     xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050102"
                               xlink:show="other">Ecosystem Function</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:title="FOR" xlink:role="uri" xlink:type="simple"
-                     xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1"
+                     xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/0401"
                      xlink:show="other">ATMOSPHERIC SCIENCES</gcx:Anchor>
                </mri:keyword>
 

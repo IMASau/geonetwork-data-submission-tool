@@ -53,9 +53,10 @@
                            :page  :who}
    :electronicMailAddress {:type  nil
                            :label "Email address"
+                           :maxlength   100
                            :page  :who}
-   :address               {:deliveryPoint      {:type nil :maxlength 100}
-                           :deliveryPoint2     {:type nil :maxlength 100}
+   :address               {:deliveryPoint      {:type nil :maxlength 250}
+                           :deliveryPoint2     {:type :hidden :maxlength 250 :aria-hidden true :class "hidden"}
                            :city               {:type nil :help "City" :maxlength 100}
                            :administrativeArea {:type nil :help "State/territory" :maxlength 100}
                            :postalCode         {:type nil :help "Postal / Zip code" :maxlength 100}
@@ -124,6 +125,7 @@
                                            :label "Title"}
                                     :url  {:type  nil
                                            :page  :about
+                                           :maxlength 250
                                            :label "URL"}}}
      :dataQualityInfo     {:methods {:type        nil
                                      :rows        20
@@ -220,7 +222,7 @@
                                                                       :placeholder "Enter a taxon keyword"
                                                                       :help        "Add any taxon names describing your data and click + to add"
                                                                       :label       "Taxon keywords"
-                                                                      :maxLength   250
+                                                                      :maxlength   250
                                                                       :page        :what}}
 
                            :beginPosition                 {:type     nil
@@ -326,11 +328,13 @@
                                                                                                    :page :about}
                                                                     :name                         {:type        nil
                                                                                                    :label       ""
+                                                                                                   :maxlength   100
                                                                                                    :placeholder "Name in dataset (optional)"
                                                                                                    :page        :about}
                                                                     :serialNumber                 {:type        nil
                                                                                                    :label       "Serial Number"
                                                                                                    :placeholder ""
+                                                                                                   :maxlength   100
                                                                                                    :page        :about}
                                                                     :unit_term                    {:type        nil
                                                                                                    :label       "Unit"
@@ -394,6 +398,7 @@
                                       :placeholder "Date format date or version if applicable"}
                             :name    {:type        nil
                                       :label       "Data file format"
+                                      :maxlength   100
                                       :placeholder "e.g. Microsoft Excel, CSV, NetCDF"}}}
      :noteForDataManager  {:type  nil
                            :label "Include a note for the data manager"
@@ -421,10 +426,12 @@
                                          :fields {:description {:type  nil
                                                                 :label "Description"
                                                                 :required true
+                                                                :maxlength 1000
                                                                 :page  :how}
                                                   :name        {:type  nil
                                                                 :label "Name"
                                                                 :required true
+                                                                :maxlength 250
                                                                 :page  :how}
                                                   :uri         {:type  nil
                                                                 :label "URI"

@@ -32,6 +32,8 @@
                  xmlns:dqc="http://standards.iso.org/iso/19157/-2/dqc/1.0"
                  xsi:schemaLocation="http://standards.iso.org/iso/19157/-2/dqc/1.0 https://standards.iso.org/iso/19157/-2/dqc/1.0/dqc.xsd http://standards.iso.org/iso/19157/-2/mdq/1.0 http://standards.iso.org/iso/19157/-2/mdq/1.0/mdq.xsd http://standards.iso.org/iso/19115/-3/mds/1.0 http://standards.iso.org/iso/19115/-3/mds/1.0/mds.xsd http://standards.iso.org/iso/19115/-3/mdb/1.0 http://standards.iso.org/iso/19115/-3/mdb/1.0/mdb.xsd http://standards.iso.org/iso/19115/-3/mcc/1.0 http://standards.iso.org/iso/19115/-3/mcc/1.0/mcc.xsd http://standards.iso.org/iso/19115/-3/mrs/1.0 http://standards.iso.org/iso/19115/-3/mrs/1.0/mrs.xsd http://standards.iso.org/iso/19115/-3/mmi/1.0 http://standards.iso.org/iso/19115/-3/mmi/1.0/mmi.xsd http://standards.iso.org/iso/19115/-3/mrd/1.0 http://standards.iso.org/iso/19115/-3/mrd/1.0/mrd.xsd http://standards.iso.org/iso/19115/-3/gcx/1.0 http://standards.iso.org/iso/19115/-3/gcx/1.0/gcx.xsd http://standards.iso.org/iso/19115/-3/mco/1.0 http://standards.iso.org/iso/19115/-3/mco/1.0/mco.xsd http://standards.iso.org/iso/19115/-3/mrl/1.0 http://standards.iso.org/iso/19115/-3/mrl/1.0/mrl.xsd">
   <mdb:metadataIdentifier>
+  <!-- 14.01.2020 This template contains examples of content for metadata describing a data set.
+  Some sections are replaced by the values selected by the user during data submission -->
       <mcc:MD_Identifier>
          <mcc:authority>
             <cit:CI_Citation>
@@ -50,6 +52,7 @@
   </mdb:metadataIdentifier>
 
   <mdb:metadataScope xmlns:geonet="http://www.fao.org/geonetwork">
+	<!-- This XML template relates to data set metadata, therefore the scope details are set in the XML. -->
       <mdb:MD_MetadataScope>
          <mdb:resourceScope>
             <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode"
@@ -60,6 +63,7 @@
 
   <mdb:contact xmlns:geonet="http://www.fao.org/geonetwork">
       <cit:CI_Responsibility>
+	  <!-- TERN is defined as one of the contacts for metadata created by TERN -->
          <cit:role>
             <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
                              codeListValue="pointOfContact"/>
@@ -122,7 +126,10 @@
 
 
   <mdb:dateInfo xmlns:geonet="http://www.fao.org/geonetwork">
-      <cit:CI_Date>
+      
+	  <!-- The dates when a metadata record was created 
+	  This is updated by the data submission tool -->
+	  <cit:CI_Date>
          <cit:date>
             
             <gco:DateTime>2008-11-12T00:00:00</gco:DateTime>
@@ -144,6 +151,8 @@
       </cit:CI_Date>
    </mdb:dateInfo>
   <mdb:metadataStandard xmlns:geonet="http://www.fao.org/geonetwork">
+	<!-- Details of the metadata standard applied in this XML file. These details are set in the XML.
+	Credit: These details were adapted from GA metadata -->
       <cit:CI_Citation>
          <cit:title>
             <gco:CharacterString>ISO 19115.1:2015 Geographic information - Metadata - Fundamentals</gco:CharacterString>
@@ -181,6 +190,8 @@
                             xmlns:geonet="http://www.fao.org/geonetwork">
       <mrs:MD_ReferenceSystem>
          <mrs:referenceSystemIdentifier>
+		 	<!-- Details of the CRS for the data set. These details are set in the XML.
+			Note: Currently changes are made manually by the Admin. -->
             <mcc:MD_Identifier>
 
                <mcc:code>
@@ -206,6 +217,8 @@
                   <gco:CharacterString>Placeholder text=Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing</gco:CharacterString>
                </cit:title>
                <cit:date>
+			   <!-- Date the resource was created, revised, or published. 
+			   The creation date is set by the user input during data submission -->
                   <cit:CI_Date>
 
                      <cit:date>
@@ -240,12 +253,18 @@
                   </cit:CI_Date>
                </cit:date>
                <cit:edition>
+			   <!-- The edition of the resource if applicable. 
+			   Note: Currently changes are made manually by the Admin. -->
                   <gco:CharacterString>2.0.0</gco:CharacterString>
                </cit:edition>
 
                <cit:identifier>
 
                   <mcc:MD_Identifier>
+				  
+				  <!-- The DOI for the data set.
+				  These details will be updated by the data submission tool if a DOI is minted from the Admin UI.
+				  -->
 
                      <mcc:authority>
                         <cit:CI_Citation>
@@ -263,6 +282,8 @@
                   </mcc:MD_Identifier>
                </cit:identifier>
                <cit:citedResponsibleParty>
+			   <!--  TERN is defined as publisher for data sets submitted to TERN. 
+			   These details are set in the XML -->
                   <cit:CI_Responsibility>
                      <cit:role>
                         <cit:CI_RoleCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/codelist/ML_gmxCodelists.xml#CI_RoleCode"
@@ -319,8 +340,9 @@
                <cit:citedResponsibleParty>
                   <cit:CI_Responsibility>
                      <cit:role>
+					 <!--  Any parties with the role codes 'author' or 'co-author' are used if a DOI is minted. -->
                         <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
-                                         codeListValue="collaborator"/>
+                                         codeListValue="author"/>
                      </cit:role>
                      <cit:party>
                         <cit:CI_Organisation>
@@ -387,7 +409,7 @@
             </cit:CI_Citation>
          </mri:citation>
          <mri:abstract>
-
+		<!-- The user must input an abstract during data submission. -->
             <gco:CharacterString>
                Placeholder text=Provide a brief summary of What, Where, When, Why, Who and How for the collected the data.
           Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected.</gco:CharacterString>
@@ -400,12 +422,14 @@
             <gco:CharacterString>Thanks to all the lovely sponsors:  xxx, yyy</gco:CharacterString>
          </mri:credit>
 
+	<!--  The user must select from a subset of ISO status codes during data submission. -->
          <mri:status>
             <mcc:MD_ProgressCode codeList="codeListLocation#MD_ProgressCode"
                                  codeListValue="completed"/>
          </mri:status>
 
          <mri:pointOfContact>
+		 <!--  The user must input a point of contact during data submission. -->
             <cit:CI_Responsibility>
                <cit:role>
                   <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
@@ -491,7 +515,8 @@
          </mri:pointOfContact>
 
          <mri:spatialResolution>
-            
+			<!-- The user may select a resolution from a list defined by GCMD -->
+            <!-- The spatial resolution XML element was used because the distance element only accepts real values (not a range of values) -->
             <mri:MD_Resolution>
            
                <mri:levelOfDetail>                              
@@ -504,6 +529,7 @@
          </mri:spatialResolution>
 
          <mri:topicCategory>
+		 	<!-- The user must select a topic category from a list defined by ISO -->
             <mri:MD_TopicCategoryCode>climatologyMeteorologyAtmosphere</mri:MD_TopicCategoryCode>
          </mri:topicCategory>
          <mri:topicCategory/>
@@ -513,7 +539,8 @@
                <gex:description>
                   <gco:CharacterString>Placeholder text=A descriptive reference for the site locality. May include a project code. Example: Geelong (Site: G145), VIC, Australia</gco:CharacterString>
                </gex:description>
-               
+			<!-- The user may input the approximate location where the data was acquired specified as 4 different coordinates. 
+			Data collected at a point has two coordinates entered across the four attributes as illustrated below. -->               
            
                <gex:geographicElement>
                   <gex:EX_GeographicBoundingBox>
@@ -533,6 +560,8 @@
                </gex:geographicElement>
               
                <gex:temporalElement>
+			   <!--  As a minimum the user must specify the start date of data acquisition -->
+			   <!--  For some statuses, such as 'completed', end date must also be input -->
                   <gex:EX_TemporalExtent>
                      <gex:extent>
                         <gml:TimePeriod gml:id="bcf969df-6213-4e5c-86d4-64e3b53de64a">
@@ -544,30 +573,11 @@
                </gex:temporalElement>
             </gex:EX_Extent>
          </mri:extent>
-         <mri:extent>
-            <gex:EX_Extent>
-               <gex:geographicElement>
-                  <gex:EX_GeographicBoundingBox>
-                     <gex:westBoundLongitude>
-                        <gco:Decimal>148.4746</gco:Decimal>
-                     </gex:westBoundLongitude>
-                     <gex:eastBoundLongitude>
-                        <gco:Decimal>148.4746</gco:Decimal>
-                     </gex:eastBoundLongitude>
-                     <gex:southBoundLatitude>
-                        <gco:Decimal>-23.85872</gco:Decimal>
-                     </gex:southBoundLatitude>
-                     <gex:northBoundLatitude>
-                        <gco:Decimal>-23.85872</gco:Decimal>
-                     </gex:northBoundLatitude>
-                  </gex:EX_GeographicBoundingBox>
-               </gex:geographicElement>
-            </gex:EX_Extent>
-         </mri:extent>
+
          <mri:extent>
 
             <gex:EX_Extent id="Vertical">
-
+			<!-- TERN data can be collected in soil pits or in towers.  Heights and depths are normally given relative to ground surface. -->
                <gex:description>
                   
                   <gco:CharacterString>Elevation in metres: [not specified]| Method: [not specified]</gco:CharacterString>
@@ -593,7 +603,7 @@
          </mri:extent>
 
          <mri:resourceMaintenance>
-
+		<!--  The user must select how frequently the data will be updated, from a list defined by ISO -->
             <mmi:MD_MaintenanceInformation>
                <mmi:maintenanceAndUpdateFrequency>
                   <mmi:MD_MaintenanceFrequencyCode codeList="codeListLocation#MD_MaintenanceFrequencyCode"
@@ -601,7 +611,8 @@
                </mmi:maintenanceAndUpdateFrequency>
             </mmi:MD_MaintenanceInformation>
          </mri:resourceMaintenance>
-
+			<!-- A Data_Group is used to group a set of keyword values that are related to the same observed property/variable -->
+			<!-- The user may create one or more sets of values for the data set -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords uuid="Data_Group">
                <mri:keyword>
@@ -660,6 +671,7 @@
          </mri:descriptiveKeywords>
 
          <mri:descriptiveKeywords>
+		 <!--  The user must select at least one GCMD Science keyword in the Data Submission Tool -->
             <mri:MD_Keywords>
                <mri:keyword>
                   <gcx:Anchor xlink:title="GCMD_Science" xlink:role="uri" xlink:type="simple"
@@ -715,7 +727,7 @@
 
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
-                 
+                 <!-- The user may select a value to indicate the sampling frequency for the data, from a list defined by GCMD -->
                   <mri:keyword>
                      <gcx:Anchor xlink:title="GCMDTemporal" xlink:role="uri" xlink:type="simple"
                         xlink:href="https://gcmd.nasa.gov/kms/concept/48ff676f-836c-4cff-bc88-4c4cc06b2e1b.xml"
@@ -752,6 +764,7 @@
          </mri:descriptiveKeywords>
 
          <mri:descriptiveKeywords>
+		 <!--  The user must select at least one ANZ Fields of Research keyword in the Data Submission Tool -->
             <mri:MD_Keywords>
                <mri:keyword>
                   <gcx:Anchor xlink:title="FOR" xlink:role="uri" xlink:type="simple"
@@ -791,7 +804,7 @@
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
          <mri:resourceConstraints>
- 
+			<!-- TERN only accepts data available for distribution CC-BY 4, therefore licence details are set in the XML. -->
             <mco:MD_LegalConstraints>
                <mco:reference>
                   <cit:CI_Citation>
@@ -842,12 +855,14 @@
                      and costs which might be incurred as a result of the information being inaccurate or incomplete in any way and for any reason.</gco:CharacterString>
                </mco:otherConstraints>
                <mco:otherConstraints>
-                  <gco:CharacterString>Not suitable for marine navigation</gco:CharacterString>
+                  <gco:CharacterString>Not suitable for aaa navigation</gco:CharacterString>
                </mco:otherConstraints>
             </mco:MD_LegalConstraints>
          </mri:resourceConstraints>
 
          <mri:resourceConstraints>
+	<!-- TERN accepts open data only, therefore security classification are details are set in the XML. 
+	Credit: The Security Classification details were adapted from GA metadata -->
             <mco:MD_SecurityConstraints>
 
                <mco:reference>
@@ -895,6 +910,7 @@
          </mri:defaultLocale>
 
          <mri:supplementalInformation>
+		 <!-- The user may input additional information -->
             <gco:CharacterString>Supplemental information goes here</gco:CharacterString>
          </mri:supplementalInformation>
       </mri:MD_DataIdentification>
@@ -904,6 +920,7 @@
       <mrd:MD_Distribution>
 
          <mrd:distributionFormat>
+		 <!-- The user may input the format of the data set -->
             <mrd:MD_Format>
                <mrd:formatSpecificationCitation>
                   <cit:CI_Citation>
@@ -918,6 +935,8 @@
             </mrd:MD_Format>
          </mrd:distributionFormat>
          <mrd:transferOptions>
+		 <!-- The user may enter links to the download the data, or related services (WMS etc)  
+		  Any service details will be converted to Service metadata records by Admin -->
             <mrd:MD_DigitalTransferOptions>
 
                <mrd:onLine>
@@ -996,7 +1015,7 @@
   </mdb:distributionInfo>
   <mdb:dataQualityInfo xmlns:geonet="http://www.fao.org/geonetwork">
       <mdq:DQ_DataQuality>
-         
+         <!-- This XML template relates to data set metadata, therefore the scope details are set in the XML. -->
          <mdq:scope>
             <mcc:MD_Scope>
                <mcc:level>
@@ -1006,6 +1025,7 @@
             </mcc:MD_Scope>
          </mdq:scope>
          <mdq:report>
+		 <!-- The user may input data quality information for the data set -->
         
             <mdq:DQ_QuantitativeAttributeAccuracy>
                <mdq:standaloneQualityReportDetails>
@@ -1026,11 +1046,13 @@
   <mdb:resourceLineage xmlns:geonet="http://www.fao.org/geonetwork">
       <mrl:LI_Lineage>
          <mrl:statement>
+		 <!-- The user may provide an overview of the process used to acquire and/or process the data -->
             <gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods. 
                Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017</gco:CharacterString>
          </mrl:statement>
 
          <mrl:scope>
+		 <!-- This XML template relates to data set metadata, therefore the scope details are set in the XML. -->
             <mcc:MD_Scope>
                <mcc:level>
                   <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode"
@@ -1042,7 +1064,7 @@
          <mrl:processStep>
             <mrl:LE_ProcessStep>
                <mrl:description>
-                  
+                <!-- The user may provide additional details regarding methods used to collect or process the data -->  
                   <gco:CharacterString>The description of the method A goes here</gco:CharacterString>
                </mrl:description>
                <mrl:reference>
@@ -1076,6 +1098,8 @@
   </mdb:resourceLineage>
 
   <mdb:metadataConstraints xmlns:geonet="http://www.fao.org/geonetwork">
+	<!-- TERN accepts open data only, therefore security classification details are set in the XML. 
+	Credit: The Security Classification details were adapted from GA metadata -->
      <mco:MD_SecurityConstraints>
         
         <mco:reference>

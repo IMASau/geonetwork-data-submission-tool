@@ -91,7 +91,7 @@ a.link-right {
 }
 
 /*** Do not display the tagline in the header on small screens ***/
-/*@media screen and (max-width: 767px) {
+/*@media screen and (max-width: 635px) {
 	.navbar-heading {
 		visibility: hidden;
 	}

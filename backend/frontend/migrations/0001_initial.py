@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('terms_pdf', models.FileField(null=True, upload_to='terms', default='terms/TERN_Data_Provider_Deed_v1_9_DST.pdf')),
                 ('doi_uri', models.CharField(default='YOUR-DOI-LINK', max_length=1024)),
                 ('releasenotes_url', models.URLField(blank=True, default='https://ternaus.atlassian.net/wiki/spaces/SHaREDReleases/pages/705134733/SHaRED+Release+3.0', null=True, verbose_name='Release notes URL')),
-                ('roadmap_pdf', models.FileField(blank=True, default='guide/Coming_Soon_Roadmap.pdf', null=True, upload_to='guide')),
+                ('roadmap_pdf', models.URLField(blank=True, default='http://tern.org.au', null=True, max_length=1024)),
             ],
         ),
    ]

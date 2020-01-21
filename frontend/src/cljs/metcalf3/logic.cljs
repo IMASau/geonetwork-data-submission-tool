@@ -429,7 +429,7 @@
       (update-in data-service [:value :name]
                  assoc :required true)
       (update-in data-service [:value :name]
-                 assoc :required false :disabled true :placeholder "" :value ""))))
+                 assoc :required false :disabled true :placeholder "" :value nil))))
 
 (defn data-service-logic
   "

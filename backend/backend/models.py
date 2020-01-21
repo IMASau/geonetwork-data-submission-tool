@@ -443,9 +443,9 @@ class Institution(models.Model):
     deliveryPoint = models.CharField(max_length=256, verbose_name="street address")
     deliveryPoint2 = models.CharField(max_length=256, verbose_name="street address 2")
     city = models.CharField(max_length=128)
-    administrativeArea = models.CharField(max_length=64, verbose_name="state")
-    postalCode = models.CharField(max_length=64, verbose_name="postcode")  # Seen one that's 30chars; be conservative!
-    country = models.CharField(max_length=64)
+    administrativeArea = models.CharField(max_length=100, verbose_name="state")
+    postalCode = models.CharField(max_length=100, verbose_name="postcode")  # Seen one that's 30chars; be conservative!
+    country = models.CharField(max_length=100)
 
     def to_dict(self):
         return dict(

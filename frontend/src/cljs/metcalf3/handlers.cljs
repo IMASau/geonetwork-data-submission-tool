@@ -412,7 +412,7 @@
   (fn [db [_ path field value isUserAdded]]
     ; if they change the name and it's not already a custom user, generate a new uuid
     (let [new-uuid (random-uuid)
-          person-uri (str "http://linkeddata.tern.org.au/def/agent/" new-uuid)
+          person-uri (str "https://w3id.org/tern/resources/" new-uuid)
           current-value (get-in db (conj path field :value))
           value-changed (not= current-value value)
           db' (if (:value isUserAdded)

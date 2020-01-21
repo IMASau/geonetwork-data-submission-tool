@@ -1345,7 +1345,8 @@
         :on-change (fn [v]
                      (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
                                                                                         :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
-        :placeholder "")]]))
+        :placeholder ""
+        :maxlength 100)]]))
 
 (defn PersonListField
   [{:keys [api-path person-path sort?]} this]
@@ -1738,6 +1739,7 @@
                     orgName (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationName)]))
                     orgCity (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :address :city)]))
                     value @(rf/subscribe [:subs/get-derived-path (conj party-path :value)])
+                    {:keys [base-options]} @(rf/subscribe [:subs/get-derived-path [:api :institution]])
                     js-value #js {:uri              (or orgId "")
                                   :organisationName (or (if (blank? orgCity)
                                                           orgName
@@ -1745,6 +1747,7 @@
                     js-value (if orgId
                                js-value
                                nil)]
+                ; TODO: this really doesn't need to be async
                 (ReactSelectAsyncCreatable
                   {:value             js-value
                    :disabled          disabled
@@ -1772,15 +1775,24 @@
                                                     :limit  1000}}))
                    :onChange          #(on-change (js->clj %))
                    :getNewOptionData  (fn [input]
-                                        #js {:uri              (str "http://linkeddata.tern.org.au/def/agent/" (random-uuid))
+                                        #js {:uri              (str "https://w3id.org/tern/resources/" (random-uuid))
                                              :organisationName input
                                              :__isCreated__    true})
                    :noResultsText     "No results found"
                    :onBlurResetsInput false
                    :isClearable       true
+                   :isSearchable      true
                    :tabSelectsValue   false
                    :onInputChange     on-input-change
                    :onBlur            on-blur
+                   :filterOption      (fn [option value]
+                                        (string/includes? (string/lower-case (string/replace (get-in (js->clj option :keywordize-keys true) [:data :organisationName]) #"\s" ""))
+                                                          (string/lower-case (string/replace value #"\s" ""))))
+
+                   :isValidNewOption  (fn [input _ options]
+                                        (let [input (string/lower-case (string/replace input #"\s" ""))
+                                              match (filter (fn [x] (= input (string/lower-case (string/replace (:organisationName x) #"\s" "")))) (js->clj options :keywordize-keys true))]
+                                          (empty? match)))
                    :placeholder       "Start typing to filter list..."}))))]
     (r/create-class
       {:component-did-mount component-did-mount
@@ -1876,7 +1888,7 @@
        :disabled   (:disabled organisationName)
        ;manual maxlength implementation
        :on-input-change (fn [newvalue]
-                          (subs newvalue 0 100))
+                          (subs newvalue 0 250))
        :on-change  (fn [option]
                      (rf/dispatch [:handlers/org-changed (conj party-path :value) option]))}]]))
 

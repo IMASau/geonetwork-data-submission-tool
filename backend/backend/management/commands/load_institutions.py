@@ -91,26 +91,35 @@ class Command(BaseCommand):
 
     @staticmethod
     def _fetch_sparql():
-        _query = urllib.parse.quote('PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>'
-                                    'PREFIX sdo: <http://schema.org/>'
-                                    'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>'
-                                    ' select ?org ?name ?postalAddress ?streetAddress ?addressLocality ?postalCode ?addressCountry'
+        _query = urllib.parse.quote('PREFIX schema: <http://schema.org/> '
+                                    'PREFIX tern-org: <https://w3id.org/tern/ontologies/org/> '
+                                    ' PREFIX : <https://w3id.org/tern/resources/> '
+                                    ' PREFIX prov: <http://www.w3.org/ns/prov#> '
+                                    ' PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
+                                    ' PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> '
+                                    ' select * '
+                                    ' from <https://w3id.org/tern/resources/> '
                                     ' where { '
-                                    ' ?org a sdo:Organization ; '
-                                    ' sdo:name ?name . '
-                                    ' optional { '
-                                    ' ?org sdo:address ?postalAddress . '
-                                    ' ?postalAddress sdo:streetAddress ?streetAddress ; '
-                                    ' sdo:addressLocality ?addressLocality ; '
-                                    ' sdo:addressRegion ?addressRegion ; '
-                                    ' sdo:postalCode ?postalCode ; '
-                                    ' sdo:addressCountry ?addressCountry . '
+                                    '     ?org a schema:Organization . '
+                                    '     ?org rdfs:label ?name . '
+                                    '     OPTIONAL { '
+                                    '         ?org schema:address ?postalAddress . '
+                                    '         ?postalAddress tern-org:fullAddressLine ?fullAddressLine ; '
+                                    '                        schema:streetAddress ?streetAddress ; '
+                                    '                        schema:addressLocality ?addressLocality ; '
+                                    '                        schema:addressRegion ?addressRegion ; '
+                                    '                        schema:postalCode ?postalCode ; '
+                                    '                        schema:addressCountry ?addressCountry . '
+                                    '         OPTIONAL { '
+                                    '             ?postalAddress schema:postOfficeBoxNumber ?POBox . '
+                                    '         } '
+                                    '     } '
                                     ' } '
-                                    '} order by asc(?name)')
-        url = "http://graphdb-prod.tern.org.au/repositories/knowledge-graph?query={query}".format(query=_query)
+                                    ' ORDER BY ASC(?name)')
+        url = "https://graphdb-850.tern.org.au/repositories/knowledge_graph_core?query={query}".format(query=_query)
         response = requests.get(url, headers={'Accept': 'text/csv'})
         if not response.ok:
-            raise CommandError('Error loading the persons vocabulary. Aborting. Error was {}'.format(response.content))
+            raise CommandError('Error loading the institutions vocabulary. Aborting. Error was {}'.format(response.content))
         reader = csv.DictReader(io.StringIO(response.text, newline=""), skipinitialspace=True)
         for row in reader:
             yield Institution (
@@ -128,40 +137,43 @@ class Command(BaseCommand):
             )
         return
 
-    @staticmethod
-    def _fetch_tern_data(VocabName):
-        _pred_prefix = 'http://www.w3.org/2004/02/skos/core#'
-        _vocabServer = 'http://linkeddata.tern.org.au/viewer/tern/id/http:/linkeddata.tern.org.au/def/'
-        _query = '_view=skos&_format=application/rdf+xml'
-        url = '{base}{vocabName}?{query}'.format(base=_vocabServer,vocabName=VocabName,query=_query)
-        graph = Graph()
-        graph.parse(url, format='application/rdf+xml')
-        _type_pred = URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
-        _org_object = URIRef('http://schema.org/Organization')
-        _parent_pred = URIRef(_pred_prefix + 'broader')
-        _preflabel_pred = URIRef(_pred_prefix + 'prefLabel')
-        _altlabel_pred = URIRef(_pred_prefix + 'altLabel')
-        orgs = graph.subjects(_type_pred, _org_object)
-        for subject in orgs:
-            uri = subject.toPython()
-            parent = next(graph.objects(subject, _parent_pred), None)
-            if parent is not None:
-                parent = parent.toPython()
-            altLabel = next(graph.objects(subject, _altlabel_pred), None)
-            if altLabel is not None:
-                altLabel = altLabel.toPython()
-            else:
-                altLabel = ''
-            preflabel = next(graph.objects(subject, _preflabel_pred), None)
-            if preflabel is not None:
-                preflabel = preflabel.toPython()
-            else:
-                preflabel = ''
-            yield Institution(
-                uri=uri,
-                prefLabel=preflabel,
-                altLabel=altLabel,
-                #not present in TERN data
-                exactMatch='',
-                isUserAdded=False
-            )
+    # This is the old code for fetching the RDF. We've switched over the the SPARQL endpoint for now,
+    # but I don't want to delete this, just in case.
+    #http://linkeddata.tern.org.au/viewer/tern/id/http:/linkeddata.tern.org.au/def/Person?_view=skos&_format=application/rdf+xml
+    # @staticmethod
+    # def _fetch_tern_data(VocabName):
+    #     _pred_prefix = 'http://www.w3.org/2004/02/skos/core#'
+    #     _vocabServer = 'http://linkeddata.tern.org.au/viewer/tern/id/http:/linkeddata.tern.org.au/def/'
+    #     _query = '_view=skos&_format=application/rdf+xml'
+    #     url = '{base}{vocabName}?{query}'.format(base=_vocabServer,vocabName=VocabName,query=_query)
+    #     graph = Graph()
+    #     graph.parse(url, format='application/rdf+xml')
+    #     _type_pred = URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
+    #     _org_object = URIRef('http://schema.org/Organization')
+    #     _parent_pred = URIRef(_pred_prefix + 'broader')
+    #     _preflabel_pred = URIRef(_pred_prefix + 'prefLabel')
+    #     _altlabel_pred = URIRef(_pred_prefix + 'altLabel')
+    #     orgs = graph.subjects(_type_pred, _org_object)
+    #     for subject in orgs:
+    #         uri = subject.toPython()
+    #         parent = next(graph.objects(subject, _parent_pred), None)
+    #         if parent is not None:
+    #             parent = parent.toPython()
+    #         altLabel = next(graph.objects(subject, _altlabel_pred), None)
+    #         if altLabel is not None:
+    #             altLabel = altLabel.toPython()
+    #         else:
+    #             altLabel = ''
+    #         preflabel = next(graph.objects(subject, _preflabel_pred), None)
+    #         if preflabel is not None:
+    #             preflabel = preflabel.toPython()
+    #         else:
+    #             preflabel = ''
+    #         yield Institution(
+    #             uri=uri,
+    #             prefLabel=preflabel,
+    #             altLabel=altLabel,
+    #             #not present in TERN data
+    #             exactMatch='',
+    #             isUserAdded=False
+    #         )

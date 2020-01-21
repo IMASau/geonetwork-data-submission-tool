@@ -1,10 +1,12 @@
 """
 Django settings for webapp project.
 """
-
+from distutils.util import strtobool
 import os
-from logging.handlers import SysLogHandler
 from django.conf.locale.en import formats as en_formats
+# Django Split Settings
+from split_settings.tools import optional, include
+
 
 en_formats.DATETIME_FORMAT = 'Y-m-d H:i:s'
 
@@ -13,12 +15,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = int(os.environ.get("DJANGO_DEBUG", default=0))
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST_PWD = os.environ.get("EMAIL_HOST_PWD", "SET-YOUR-PASSWORD")
-DEFAULT_FROM_EMAIL = 'no-reply@tern.org.au'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'no-reply@tern.org.au'
-EMAIL_USE_TLS = True
+EMAIL_HOST_PWD = os.environ.get("DJANGO_EMAIL_HOST_PWD", "SET-YOUR-PASSWORD")
+DEFAULT_FROM_EMAIL = os.environ.get('DJANGO_DEFAULT_FROM_EMAIL', 'no-reply@tern.org.au')
+EMAIL_PORT = int(os.environ.get('DJANGO_EMAIL_PORT', 587))
+EMAIL_HOST_USER = os.environ.get('DJANGO_EMAIL_USER', 'no-reply@tern.org.au')
+EMAIL_USE_TLS = strtobool(os.environ.get('DJANGO_EMAIL_USE_TLS', 'True').lower())
 
+# TODO: get from env
 ADMINS=[("Wilma", "w.karsdorp@uq.edu.au")]
 
 INTERNAL_IPS = []
@@ -153,12 +156,6 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        'syslog':{ 
-            'level':'DEBUG',
-            'class': 'logging.handlers.SysLogHandler',
-            'formatter': 'verbose',
-            'facility': SysLogHandler.LOG_LOCAL2,
-        },
     },
     'loggers': {
         'django.request': {
@@ -216,7 +213,7 @@ SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True
 
-GMAPS_API_KEY = "AIzaSyCzhDANmUaxnfFuO5xnFjtYDrI284Xy62o"
+GMAPS_API_KEY = os.environ.get('DJANGO_GMAPS_API_KEY', "AIzaSyCzhDANmUaxnfFuO5xnFjtYDrI284Xy62o")
 
 FRONTEND_DEV_MODE = False
 

@@ -21,7 +21,7 @@
       "homepage_image_credit_name": "TERN Landscapes",
       "homepage_image_credit_url": "http://www.auscover.org.au/dataset_categories/vegetation-structural-properties-biomass/",
       "site": "1",
-      "terms_pdf": "terms/TERN_Data_Provider_Deed_v1_9_DST.pdf",
+      "terms_pdf": "/static/terms/TERN_Data_Provider_Deed_v1_9_DST.pdf",
       "doi_uri": "https://doi.tern.uq.edu.au/test/index.php?r=api/create&user_id=tern.data@uq.edu.au&app_id=aba241a4bad1c4f32f6e0a0266a2f3bf",
       "releasenotes_url": "https://ternaus.atlassian.net/wiki/spaces/SHaREDReleases/pages/705134733/SHaRED+Release+3.0",
       "roadmap_pdf": "guide/Coming_Soon_Roadmap.pdf"

@@ -27,7 +27,7 @@ class SiteContent(models.Model):
         help_text="Used to generate URLs to the published record on the portal. "
                   "(Accepts django template formatting with access to `site` and `document`.)"
     )
-    terms_pdf = models.FileField(upload_to='terms', null=True)
+    terms_pdf = models.URLField(blank=True, null=True,verbose_name='Homepage Image',default='terms/TERN_Data_Provider_Deed_v1_9_DST.pdf')
 
     homepage_image_credit_name = models.CharField(max_length=128, default="XXX")
     homepage_image_credit_url = models.URLField(blank=True, null=True)

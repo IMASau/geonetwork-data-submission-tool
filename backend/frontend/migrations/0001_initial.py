@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
                 ('homepage_image_credit_name', models.CharField(default='TERN Landscapes', max_length=128)),
                 ('homepage_image_credit_url', models.URLField(default='http://www.auscover.org.au/dataset_categories/vegetation-structural-properties-biomass/', blank=True, null=True)),
                 ('site', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='sites.Site')),
-                ('terms_pdf', models.FileField(null=True, upload_to='terms', default='terms/TERN_Data_Provider_Deed_v1_9_DST.pdf')),
+                ('terms_pdf', models.URLField(blank=True, null=True, default='/statc/terms/TERN_Data_Provider_Deed_v1_9_DST.pdf')),
                 ('doi_uri', models.CharField(default='YOUR-DOI-LINK', max_length=1024)),
                 ('releasenotes_url', models.URLField(blank=True, default='https://ternaus.atlassian.net/wiki/spaces/SHaREDReleases/pages/705134733/SHaRED+Release+3.0', null=True, verbose_name='Release notes URL')),
                 ('roadmap_pdf', models.URLField(blank=True, default='http://tern.org.au', null=True, max_length=1024)),

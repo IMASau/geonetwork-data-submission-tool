@@ -210,7 +210,7 @@ SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True
 
-GMAPS_API_KEY = os.environ.get('DJANGO_GMAPS_API_KEY', "")
+GMAPS_API_KEY = os.environ.get('GMAPS_API_KEY', "")
 
 FRONTEND_DEV_MODE = strtobool(os.environ.get('FRONTEND_DEV_MODE', 'False').lower())
 

@@ -17,7 +17,6 @@ services:
       - .env
     environment:
       DJANGO_DEBUG: 'True'
-      DJANGO_FRONTEND_DEV_MODE: 'False'
 
     command: init python3 manage.py runserver 0.0.0.0:8000
     # command: init gunicorn --bind 0.0.0.0:8000 --workers=5 --forwarded-allow-ips='*' webapp.wsgi
@@ -43,7 +42,7 @@ services:
     user: "1000:1000"
     volumes:
       - ./docker-files/crontab:/etc/dst/crontab
-      - ./docker-files/local_settings.py:/etc/dst/settings.py
+      - ./docker-files/local_settings.py:/etc/data-submission-tool/settings.py
       # mount source into container
       - .:/data-submission-tool
     ports:

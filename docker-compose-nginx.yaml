@@ -10,6 +10,7 @@ services:
     environment:
       # first_name, last_name
       DJANGO_DEBUG: 'False'
+      FRONTEND_DEV_MODE: 'False'
 
       LOGIN_REDIRECT_URL: "http://localhost:8001/dashboard"
       LOGOUT_REDIRECT_URL: "http://localhost:8001/"
@@ -75,7 +76,7 @@ services:
     command: /usr/local/bin/supercronic --prometheus-listen-address :9000  /etc/supercronic/crontab
     user: "1000:1000"
     volumes:
-      - ./docker-files/local_settings.py:/etc/dst/settings.py
+      - ./docker-files/local_settings.py:/etc/data-submission-tool/settings.py
     ports:
       - "9000:9000"
     depends_on:

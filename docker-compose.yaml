@@ -11,7 +11,7 @@ services:
 
   web:
     build: .
-    image: data-submission-tool
+    image: ternau/data-submission-tool
 
     env_file:
       - .env
@@ -35,7 +35,7 @@ services:
       - db
 
   cron:
-    image: data-submission-tool
+    image: ternau/data-submission-tool
     env_file:
       - .env
     command: /usr/local/bin/supercronic --prometheus-listen-address :9000  /etc/supercronic/crontab

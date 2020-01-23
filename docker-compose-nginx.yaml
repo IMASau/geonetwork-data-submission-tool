@@ -4,7 +4,7 @@ services:
 
   webapp:
     build: .
-    image: data-submission-tool
+    image: ternau/data-submission-tool
     env_file:
       - .env
     environment:
@@ -70,7 +70,7 @@ services:
       - "9102:9102"
 
   cronapp:
-    image: data-submission-tool
+    image: ternau/data-submission-tool
     env_file:
       - .env
     command: /usr/local/bin/supercronic --prometheus-listen-address :9000  /etc/supercronic/crontab

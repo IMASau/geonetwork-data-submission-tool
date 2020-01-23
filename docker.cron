@@ -1,2 +1,0 @@
-* * * * * docker exec  ubuntu_djangoapp_1 python /var/www/metcalf/backend/manage.py refresh_datafeeds 2>&1 | /usr/bin/logger -t django-cron
-@daily docker exec  ubuntu_djangoapp_1 python /var/www/metcalf/backend/manage.py schedule_datafeeds -a 2>&1 | /usr/bin/logger -t django-cron

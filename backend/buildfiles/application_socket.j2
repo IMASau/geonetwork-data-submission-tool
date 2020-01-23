@@ -1,9 +1,0 @@
-[Unit]
-Description=gunicorn socket for metcalf
-PartOf=gunicorn_metcalf.service
-
-[Socket]
-ListenStream=/run/gunicorn_metcalf/socket
-
-[Install]
-WantedBy=sockets.target

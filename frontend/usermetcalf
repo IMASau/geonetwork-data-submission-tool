@@ -1,1 +1,0 @@
-metcalf ALL = (root) NOPASSWD: /bin/systemctl start gunicorn_metcalf.service, /bin/systemctl stop gunicorn_metcalf.service, /bin/systemctl restart gunicorn_metcalf.service

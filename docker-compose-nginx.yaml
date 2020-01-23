@@ -1,0 +1,82 @@
+version: '3'
+
+services:
+
+  webapp:
+    build: .
+    image: data-submission-tool
+    env_file:
+      - .env
+    environment:
+      # first_name, last_name
+      DJANGO_DEBUG: 'False'
+
+      LOGIN_REDIRECT_URL: "http://localhost:8001/dashboard"
+      LOGOUT_REDIRECT_URL: "http://localhost:8001/"
+
+    command:
+      - init
+      - gunicorn
+      - --bind=0.0.0.0:8002
+      - --workers=2
+      - --threads=4
+      - --forwarded-allow-ips='*'
+      - --statsd-host=statsd:9125
+      - --statsd-prefix=data_submission_tool
+      - webapp.wsgi
+    user: "1000:1000"
+    volumes:
+      - ./docker-files/local_settings.py:/etc/data-submission-tool/settings.py
+      - ./volumes/data-submission-tool/static:/data/static
+      - ./volumes/data-submission-tool/media:/data/media
+    ports:
+      - "8002:8002"
+    depends_on:
+      - db
+
+  # needs to be in same pod to share volume with django
+  # !!!!! can't scale, because it would need a shared file system underneath for media files
+  nginx:
+    image: nginx:1.17-alpine
+    user: 101:101
+    volumes:
+      - ./volumes/data-submission-tool/static:/data/static
+      - ./volumes/data-submission-tool/media:/data/media
+      - ./docker-files/nginx.conf:/etc/nginx/conf.d/default.conf
+      # workaround permission issues when running as non root
+      - ./volumes/nginx/cache:/var/cache/nginx
+      - ./volumes/nginx/run:/var/run
+    ports:
+      - "8001:8001"
+    #depends_on:
+    #  - webapp
+
+  statsd:
+    image: prom/statsd-exporter
+    command:
+      # The UDP address on which to receive statsd metric lines.
+      - --statsd.listen-udp=:9125
+      - --statsd.listen-tcp=:9125
+      # Metric mapping configuration file name.
+      - --statsd.mapping-config=/statsd/statsd.conf
+      # The address on which to expose the web interface and generated Prometheus metrics.
+      - --web.listen-address=:9102
+      # Path under which to expose metrics.
+      - --web.telemetry-path=/metrics
+    volumes:
+      - ./docker-files/statsd.conf:/statsd/statsd.conf
+    ports:
+      - "9102:9102"
+
+  cronapp:
+    image: data-submission-tool
+    env_file:
+      - .env
+    command: /usr/local/bin/supercronic --prometheus-listen-address :9000  /etc/supercronic/crontab
+    user: "1000:1000"
+    volumes:
+      - ./docker-files/local_settings.py:/etc/dst/settings.py
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db

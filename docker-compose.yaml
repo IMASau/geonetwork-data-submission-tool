@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./volumes/db:/var/lib/postgresql/data
+
+  web:
+    build: .
+    image: data-submission-tool
+
+    env_file:
+      - .env
+    environment:
+      DJANGO_DEBUG: 'True'
+      DJANGO_FRONTEND_DEV_MODE: 'False'
+
+    command: init python3 manage.py runserver 0.0.0.0:8000
+    # command: init gunicorn --bind 0.0.0.0:8000 --workers=5 --forwarded-allow-ips='*' webapp.wsgi
+    user: "1000:1000"
+    volumes:
+      - ./docker-files/local_settings.py:/etc/data-submission-tool/settings.py
+      - ./docker-files/docker_entrypoint.sh:/docker_entrypoint.sh
+      - .:/data-submission-tool
+      - ./frontend/resources:/data-submission-tool/frontend/resources
+      # mount storage into container
+      - ./volumes/data-submission-tool/static:/data/static
+      - ./volumes/data-submission-tool/media:/data/media
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  cron:
+    image: data-submission-tool
+    env_file:
+      - .env
+    command: /usr/local/bin/supercronic --prometheus-listen-address :9000  /etc/supercronic/crontab
+    user: "1000:1000"
+    volumes:
+      - ./docker-files/crontab:/etc/dst/crontab
+      - ./docker-files/local_settings.py:/etc/dst/settings.py
+      # mount source into container
+      - .:/data-submission-tool
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db

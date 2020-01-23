@@ -12,17 +12,16 @@ en_formats.DATETIME_FORMAT = 'Y-m-d H:i:s'
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-DEBUG = int(os.environ.get("DJANGO_DEBUG", default=0))
+DEBUG = strtobool(os.environ.get("DJANGO_DEBUG", 'False').lower())
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST_PWD = os.environ.get("DJANGO_EMAIL_HOST_PWD", "SET-YOUR-PASSWORD")
+EMAIL_HOST_PWD = os.environ.get("DJANGO_EMAIL_HOST_PWD")
 DEFAULT_FROM_EMAIL = os.environ.get('DJANGO_DEFAULT_FROM_EMAIL', 'no-reply@tern.org.au')
 EMAIL_PORT = int(os.environ.get('DJANGO_EMAIL_PORT', 587))
 EMAIL_HOST_USER = os.environ.get('DJANGO_EMAIL_USER', 'no-reply@tern.org.au')
 EMAIL_USE_TLS = strtobool(os.environ.get('DJANGO_EMAIL_USE_TLS', 'True').lower())
 
-# TODO: get from env
-ADMINS=[("Wilma", "w.karsdorp@uq.edu.au")]
+ADMINS=[]
 
 INTERNAL_IPS = []
 
@@ -36,6 +35,9 @@ DATABASES = {
         'PASSWORD': os.environ.get("SQL_PASSWORD", "password"),
         'HOST': os.environ.get("SQL_HOST", "localhost"),
         'PORT': os.environ.get("SQL_PORT", "5432"),
+        'OPTIONS': {
+            'application_name': os.environ.get('HOSTNAME', 'data-submission-tool')
+        }
     }
 }
 
@@ -57,11 +59,6 @@ MEDIA_ROOT = '/var/www/metcalf/shared/media/'
 STATIC_URL = '/static/'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static').replace('\\', '/')
 STATIC_ROOT = '/var/www/metcalf/shared/staticfiles/'
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-)
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -213,24 +210,28 @@ SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True
 
-GMAPS_API_KEY = os.environ.get('DJANGO_GMAPS_API_KEY', "AIzaSyCzhDANmUaxnfFuO5xnFjtYDrI284Xy62o")
+GMAPS_API_KEY = os.environ.get('DJANGO_GMAPS_API_KEY', "")
 
-FRONTEND_DEV_MODE = False
+FRONTEND_DEV_MODE = strtobool(os.environ.get('DJANGO_FRONTEND_DEV_MODE', 'False').lower())
 
 LOGIN_URL = '/oidc/authenticate'
 
-OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get("OIDC_OP_AUTHORIZATION_ENDPOINT", "https://auth.tern.org.au/auth/realms/mst-dev/protocol/openid-connect/auth")
-OIDC_OP_TOKEN_ENDPOINT = os.environ.get("OIDC_OP_TOKEN_ENDPOINT", "https://auth.tern.org.au/auth/realms/mst/protocol/openid-connect/token")
-OIDC_OP_USER_ENDPOINT = os.environ.get("OIDC_OP_USER_ENDPOINT", "https://auth.tern.org.au/auth/realms/mst/protocol/openid-connect/userinfo")
-OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID", "mst-client")
+OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get("OIDC_OP_AUTHORIZATION_ENDPOINT")
+OIDC_OP_TOKEN_ENDPOINT = os.environ.get("OIDC_OP_TOKEN_ENDPOINT")
+OIDC_OP_USER_ENDPOINT = os.environ.get("OIDC_OP_USER_ENDPOINT")
+OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID")
 LOGIN_REDIRECT_URL = os.environ.get("LOGIN_REDIRECT_URL", "/dashboard")
 LOGOUT_REDIRECT_URL = os.environ.get("LOGOUT_REDIRECT_URL", "/")
-OIDC_OP_JWKS_ENDPOINT = os.environ.get("OIDC_OP_JWKS_ENDPOINT", "https://auth.tern.org.au/auth/realms/mst/protocol/openid-connect/certs")
-OIDC_LOGOUT_ENDPOINT = os.environ.get("OIDC_LOGOUT_ENDPOINT", "https://auth.tern.org.au/auth/realms/mst/protocol/openid-connect/logout")
-OIDC_RP_CLIENT_SECRET = os.environ.get("OIDC_RP_CLIENT_SECRET", "SET-YOUR-SECRET")
+OIDC_OP_JWKS_ENDPOINT = os.environ.get("OIDC_OP_JWKS_ENDPOINT")
+OIDC_LOGOUT_ENDPOINT = os.environ.get("OIDC_LOGOUT_ENDPOINT")
+OIDC_RP_CLIENT_SECRET = os.environ.get("OIDC_RP_CLIENT_SECRET")
 OIDC_RP_SIGN_ALGO = os.environ.get("OIDC_RP_SIGN_ALGO", "RS256")
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 
 GIT_VERSION = os.environ.get("GIT_VERSION", "undefined")
+
+include(
+    optional(os.environ.get('DJANGO_LOCAL_SETTINGS', '/etc/data-submission-tool/settings.py')),
+)

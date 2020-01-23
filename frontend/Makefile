@@ -2,12 +2,33 @@ clean:
 	rm -fR resources/public/js/*
 
 figwheel:
-	clojure -m figwheel.main -co dev.cljs.edn -r
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-v $(HOME)/.clojure:/root/.clojure \
+		-v $(HOME)/.m2:/root/.m2 \
+		clojure:openjdk-14-tools-deps-buster \
+		clojure -m figwheel.main -co dev.cljs.edn -r
 
 build:
-	yarn
-	yarn webpack --mode development
-	clojure -m cljs.main -co dev.cljs.edn -c
+	# init yarn
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-w /tmp \
+		node:13-alpine \
+		yarn
+	# run webpack
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-w /tmp \
+		node:13-alpine \
+		yarn webpack --mode development
+	# run clojure compiler
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-v $${HOME}/.clojure:/root/.clojure \
+		-v $${HOME}.m2:/root/.m2 \
+		clojure:openjdk-14-tools-deps-buster \
+		clojure -m cljs.main -co dev.cljs.edn -c
 
 copy-static:
 	cp node_modules/normalize.css/normalize.css resources/public/css
@@ -26,55 +47,22 @@ copy-static:
 	cp -vr node_modules/leaflet-draw/dist/* resources/public/css
 
 release:
-	yarn
-	yarn webpack --mode production
-	clojure -m cljs.main -co prod.cljs.edn -O advanced -c
-
-# TODO: make dockerised builds the default some day
-d_build:
+	# init yarn
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
 		node:13-alpine \
 		yarn
-
-	docker run --rm -it \
-		-v $(shell pwd):/tmp \
-		-w /tmp \
-		node:13-alpine \
-		yarn webpack --mode development
-
-	docker run --rm -it \
-		-v $(shell pwd):/tmp \
-		-v $${HOME}/.clojure:/root/.clojure \
-		-v $${HOME}.m2:/root/.m2 \
-		clojure:openjdk-14-tools-deps-buster \
-		clojure -m cljs.main -co dev.cljs.edn -c
-
-d_release:
-	docker run --rm -it \
-		-v $(shell pwd):/tmp \
-		-w /tmp \
-		node:13-alpine \
-		yarn
-
+	# run webpack
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
 		node:13-alpine \
 		yarn webpack --mode production
-
+	# run clojure compiler
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-v $(HOME)/.clojure:/root/.clojure \
 		-v $(HOME)/.m2:/root/.m2 \
 		clojure:openjdk-14-tools-deps-buster \
 		clojure -m cljs.main -co prod.cljs.edn -O advanced -c
-
-d_figwheel:
-	docker run --rm -it \
-		-v $(shell pwd):/tmp \
-		-v $(HOME)/.clojure:/root/.clojure \
-		-v $(HOME)/.m2:/root/.m2 \
-		clojure:openjdk-14-tools-deps-buster \
-		clojure -m figwheel.main -co dev.cljs.edn -r

@@ -70,3 +70,11 @@ d_release:
 		-v $(HOME)/.m2:/root/.m2 \
 		clojure:openjdk-14-tools-deps-buster \
 		clojure -m cljs.main -co prod.cljs.edn -O advanced -c
+
+d_figwheel:
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-v $(HOME)/.clojure:/root/.clojure \
+		-v $(HOME)/.m2:/root/.m2 \
+		clojure:openjdk-14-tools-deps-buster \
+		clojure -m figwheel.main -co dev.cljs.edn -r

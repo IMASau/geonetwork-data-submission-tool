@@ -13,18 +13,7 @@ class SiteContent(models.Model):
     doi_uri = models.CharField(max_length=1024,default='https://doi.tern.uq.edu.au/test/index.php?r=api/create&user_id=tern.data@uq.edu.au&app_id=',
                               verbose_name="DOI Service URI",
                               help_text="Base create URI for the DOI minting service")
-    homepage_image = ProcessedImageField(
-        blank=True,
-        null=True,
-        upload_to='images',
-        processors=[ResizeToFill(2048, 1024)],
-        format='JPEG',
-        options={'quality': 60},
-        help_text="This is the image used on the homepage.  It needs to " \
-                  "be high res so it looks good and it needs to be fairly dark " \
-                  "so that the copy has good contrast and can be easily read. We "
-                  "will optimise the size so it's not too heavy.",
-        default='images/Hemispherical-Photography.jpg')
+    homepage_image = models.URLField(blank=True, null=True,verbose_name='Homepage Image',default='img/Hemispherical-Photography.jpg')
     guide_pdf = models.URLField(null=True,verbose_name="Help",blank=True, max_length=1024)
     roadmap_pdf = models.URLField(null=True,verbose_name="Roadmap",blank=True, max_length=1024)
     releasenotes_url = models.URLField(null=True,verbose_name="Release notes URL",blank=True)

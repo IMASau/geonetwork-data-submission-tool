@@ -53,7 +53,7 @@
 	{
     .site-wrapper {
 	{% if sitecontent.homepage_image %}
-	background: #060 url({{ sitecontent.homepage_image.url }}) no-repeat center fixed;
+	background: #060 url({% static sitecontent.homepage_image %}) no-repeat center fixed;
 	{% endif %}
 	-webkit-background-size: cover;
     -moz-background-size: cover;
@@ -219,7 +219,7 @@
 <!-- Workaround for background-size: cover in IE8 -->
 <!--[if lte IE 8]>
 {% if sitecontent.homepage_image %}
-<img src="{{ sitecontent.homepage_image.url }}" class="ie8-bg" alt="">
+<img src="{% static sitecontent.homepage_image %}" class="ie8-bg" alt="">
 {% endif %}
 <![endif]-->
 <div class="above-header">
@@ -350,7 +350,7 @@
 								  <input type="text" name="email" value="" placeholder="Email Address">
 								  <br>
 								  <input type="submit" value="Subscribe to TERN">
-								</form> 
+								</form>
 							</div>
 						</div>
 					</div>

@@ -7,8 +7,15 @@ venv
 backend/guide
 .DS_Store
 .iml
+.vagrant/
 frontend/node_modules
 frontend/dist
+frontend/hsperfdata_root
+.env
+
+__pycache__/
+v8-compile-cache-0/
+yarn--*/
 
 # windows needs *s to work properly
 *.iws
@@ -17,3 +24,5 @@ frontend/dist
 *.idea
 backend/mcp2-template_spec_2.json
 backend/mcp2-template.xml
+frontend/volumes
+volumes

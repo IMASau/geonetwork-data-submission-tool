@@ -29,3 +29,44 @@ release:
 	yarn
 	yarn webpack --mode production
 	clojure -m cljs.main -co prod.cljs.edn -O advanced -c
+
+# TODO: make dockerised builds the default some day
+d_build:
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-w /tmp \
+		node:13-alpine \
+		yarn
+
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-w /tmp \
+		node:13-alpine \
+		yarn webpack --mode development
+
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-v $${HOME}/.clojure:/root/.clojure \
+		-v $${HOME}.m2:/root/.m2 \
+		clojure:openjdk-14-tools-deps-buster \
+		clojure -m cljs.main -co dev.cljs.edn -c
+
+d_release:
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-w /tmp \
+		node:13-alpine \
+		yarn
+
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-w /tmp \
+		node:13-alpine \
+		yarn webpack --mode production
+
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-v $(HOME)/.clojure:/root/.clojure \
+		-v $(HOME)/.m2:/root/.m2 \
+		clojure:openjdk-14-tools-deps-buster \
+		clojure -m cljs.main -co prod.cljs.edn -O advanced -c

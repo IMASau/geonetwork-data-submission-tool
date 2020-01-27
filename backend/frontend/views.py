@@ -10,6 +10,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
 import django.core.exceptions
 from django.shortcuts import get_object_or_404, render_to_response, render
+from django.template import Context, Template
 from django.template.context_processors import csrf
 from django.urls import reverse
 from django.shortcuts import redirect
@@ -343,9 +344,14 @@ def mef(request, uuid):
     return response
 
 def home(request):
+    site = get_current_site(request)
     sitecontent, _ = SiteContent.objects.get_or_create(site=get_current_site(request))
-    return render_to_response("home.html", {'sitecontent': sitecontent})
-
+    context = {
+        'sitecontent': sitecontent,
+        'site': site
+    }
+    context['homepage_image_url'] = Template(site.sitecontent.homepage_image).render(Context(context)).strip()
+    return render_to_response("home.html", context)
 
 def personFromData(data):
     uri = data['uri']
@@ -597,4 +603,3 @@ def logout_view(request):
     logout(request)
     abs_uri = urllib.parse.quote(request.build_absolute_uri('/'))
     return redirect(settings.OIDC_LOGOUT_ENDPOINT + '?redirect_uri=' + abs_uri)
-

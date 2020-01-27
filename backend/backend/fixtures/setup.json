@@ -13,7 +13,7 @@
       "organisation_url": "https://shared-docker.tern.org.au",
       "tag_line": "SHaRED Data Submission Tool",
       "email": "esupport@tern.org.au",
-      "homepage_image": "img/Hemispherical-Photography.jpg",
+      "homepage_image": "{{site.sitecontent.portal_url}}/static/img/Hemispherical-Photography.jpg",
       "guide_pdf": "https://tern.org.au",
       "portal_title": "TERN Data Portal",
       "portal_url": "https://shared-docker.tern.org.au",

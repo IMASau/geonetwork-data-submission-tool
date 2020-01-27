@@ -71,9 +71,9 @@ RUN mkdir -p /data/media \
  && mkdir /data/static
 
 # add the git commit
-ARG GIT_COMMIT=unspecified
-LABEL git_commit=$GIT_COMMIT
-ENV GIT_VERSION $GIT_COMMIT
+ARG GIT_VERSION=unspecified
+LABEL git_commit=$GIT_VERSION
+ENV GIT_VERSION $GIT_VERSION
 
 WORKDIR /data-submission-tool/backend
 

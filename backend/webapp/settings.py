@@ -15,11 +15,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = strtobool(os.environ.get("DJANGO_DEBUG", 'False').lower())
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST_PWD = os.environ.get("DJANGO_EMAIL_HOST_PWD")
-DEFAULT_FROM_EMAIL = os.environ.get('DJANGO_DEFAULT_FROM_EMAIL', 'no-reply@tern.org.au')
+EMAIL_HOST = os.environ.get("DJANGO_EMAIL_HOST")
+EMAIL_HOST_USER = os.environ.get('DJANGO_EMAIL_HOST_USER', 'no-reply@tern.org.au')
+EMAIL_HOST_PASSWORD = os.environ.get("DJANGO_EMAIL_HOST_PASSWORD")
 EMAIL_PORT = int(os.environ.get('DJANGO_EMAIL_PORT', 587))
-EMAIL_HOST_USER = os.environ.get('DJANGO_EMAIL_USER', 'no-reply@tern.org.au')
 EMAIL_USE_TLS = strtobool(os.environ.get('DJANGO_EMAIL_USE_TLS', 'True').lower())
+DEFAULT_FROM_EMAIL = os.environ.get('DJANGO_DEFAULT_FROM_EMAIL', 'no-reply@tern.org.au')
 
 ADMINS=[]
 

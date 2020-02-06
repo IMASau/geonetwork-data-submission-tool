@@ -78,8 +78,4 @@ ENV GIT_VERSION $GIT_VERSION
 
 WORKDIR /data-submission-tool/backend
 
-# TODO: get rid of this once doi.tern.uq.edu.au properly presents cert chain
-COPY QuoVadis_Global_SSL_ICA_G3.crt /usr/local/share/ca-certificates/QuoVadis_Global_SSL_ICA_G3.crt
-RUN update-ca-certificates
-
 ENTRYPOINT ["/docker_entrypoint.sh"]

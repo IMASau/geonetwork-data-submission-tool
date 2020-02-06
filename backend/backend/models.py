@@ -247,7 +247,7 @@ class Document(models.Model):
                         element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
             request_xml = etree.tostring(xml)
             requestUri = 'https://apps.das.ga.gov.au/xmlProcessing/validation/iso19115-3'
-            response = requests.post(requestUri, data=request_xml, verify='cacert.pem',
+            response = requests.post(requestUri, data=request_xml, verify=True,
                                      headers={'Content-Type':'application/xml'},
                                      timeout=120)
         except Exception as e:

@@ -255,7 +255,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
                     doiUri = urllib.parse.quote('https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=data['fileIdentifier']))
                     requestUri = '{base}&url={doiUri}'.format(base=baseUri, doiUri=doiUri)
                     body = {'xml': etree.tostring(request_xml)}
-                    response = requests.post(requestUri, data=body, verify='cacert.pem')
+                    response = requests.post(requestUri, data=body, verify=True)
         except Exception as e:
             messages.add_message(request,
                                  messages.ERROR,

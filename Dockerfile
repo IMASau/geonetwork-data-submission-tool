@@ -30,6 +30,7 @@ FROM alpine:3.10
 
 # install runtime dependencies
 RUN apk add --no-cache \
+      ca-certificates \
       libjpeg-turbo \
       libpq \
       libxml2 \

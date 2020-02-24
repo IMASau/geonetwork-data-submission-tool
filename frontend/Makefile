@@ -6,6 +6,7 @@ figwheel:
 		-v $(shell pwd):/tmp \
 		-v $(HOME)/.clojure:/root/.clojure \
 		-v $(HOME)/.m2:/root/.m2 \
+		-p 127.0.0.1:9500:9500 \
 		clojure:openjdk-14-tools-deps-buster \
 		clojure -m figwheel.main -co dev.cljs.edn -r
 

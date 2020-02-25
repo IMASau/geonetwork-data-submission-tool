@@ -8,6 +8,7 @@ import urllib.parse
 import re
 
 import requests
+from django.conf import settings
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -112,7 +113,10 @@ class Command(BaseCommand):
                                       '} '
                                       'ORDER BY asc(?familyName) ')
         url = "https://graphdb-850.tern.org.au/repositories/knowledge_graph_core?query={query}".format(query=_query)
-        response = requests.get(url, headers={'Accept': 'text/csv'})
+        response = requests.get(
+            url, headers={'Accept': 'text/csv'},
+            auth=(settings.GRAPHDB_USER, settings.GRAPHDB_PASS)
+        )
         if not response.ok:
             raise CommandError('Error loading the persons vocabulary. Aborting. Error was {}'.format(response.content))
         reader = csv.DictReader(io.StringIO(response.text, newline=""), skipinitialspace=True)

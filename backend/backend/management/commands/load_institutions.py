@@ -8,6 +8,7 @@ import urllib.parse
 import re
 
 import requests
+from django.conf import settings
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -97,31 +98,39 @@ class Command(BaseCommand):
                                     ' PREFIX prov: <http://www.w3.org/ns/prov#> '
                                     ' PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> '
                                     ' PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> '
+                                    ' PREFIX org: <http://www.w3.org/ns/org#> '
                                     ' select * '
                                     ' from <https://w3id.org/tern/resources/> '
                                     ' where { '
                                     '     ?org a schema:Organization . '
                                     '     ?org rdfs:label ?name . '
+                                    '     ?org org:hasSite ?site . '
+                                    '     ?site rdfs:label ?sitename . '
                                     '     OPTIONAL { '
-                                    '         ?org schema:address ?postalAddress . '
-                                    '         ?postalAddress tern-org:fullAddressLine ?fullAddressLine ; '
-                                    '                        schema:streetAddress ?streetAddress ; '
-                                    '                        schema:addressLocality ?addressLocality ; '
-                                    '                        schema:addressRegion ?addressRegion ; '
-                                    '                        schema:postalCode ?postalCode ; '
-                                    '                        schema:addressCountry ?addressCountry . '
+                                    '         ?site org:siteAddress ?siteAddress . '
+                                    '         ?siteAddress tern-org:fullAddressLine ?fullAddressLine ; '
+                                    '                      schema:streetAddress ?streetAddress ; '
+                                    '                      schema:addressLocality ?addressLocality ; '
+                                    '                      schema:addressRegion ?addressRegion ; '
+                                    '                      schema:postalCode ?postalCode ; '
+                                    '                      schema:addressCountry ?addressCountry . '
                                     '         OPTIONAL { '
-                                    '             ?postalAddress schema:postOfficeBoxNumber ?POBox . '
+                                    '             ?siteAddress schema:postOfficeBoxNumber ?POBox . '
                                     '         } '
                                     '     } '
                                     ' } '
                                     ' ORDER BY ASC(?name)')
         url = "https://graphdb-850.tern.org.au/repositories/knowledge_graph_core?query={query}".format(query=_query)
-        response = requests.get(url, headers={'Accept': 'text/csv'})
+        response = requests.get(
+            url, headers={'Accept': 'text/csv'},
+            auth=(settings.GRAPHDB_USER, settings.GRAPHDB_PASS)
+        )
         if not response.ok:
             raise CommandError('Error loading the institutions vocabulary. Aborting. Error was {}'.format(response.content))
         reader = csv.DictReader(io.StringIO(response.text, newline=""), skipinitialspace=True)
         for row in reader:
+            # TODO: we make unique entries for ORG - Site ....
+            #       can't use uri as primary key ... need org and site uri as primary key
             yield Institution (
                 uri=row['org'],
                 prefLabel=row['name'],
@@ -136,44 +145,3 @@ class Command(BaseCommand):
                 isUserAdded=False
             )
         return
-
-    # This is the old code for fetching the RDF. We've switched over the the SPARQL endpoint for now,
-    # but I don't want to delete this, just in case.
-    #http://linkeddata.tern.org.au/viewer/tern/id/http:/linkeddata.tern.org.au/def/Person?_view=skos&_format=application/rdf+xml
-    # @staticmethod
-    # def _fetch_tern_data(VocabName):
-    #     _pred_prefix = 'http://www.w3.org/2004/02/skos/core#'
-    #     _vocabServer = 'http://linkeddata.tern.org.au/viewer/tern/id/http:/linkeddata.tern.org.au/def/'
-    #     _query = '_view=skos&_format=application/rdf+xml'
-    #     url = '{base}{vocabName}?{query}'.format(base=_vocabServer,vocabName=VocabName,query=_query)
-    #     graph = Graph()
-    #     graph.parse(url, format='application/rdf+xml')
-    #     _type_pred = URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
-    #     _org_object = URIRef('http://schema.org/Organization')
-    #     _parent_pred = URIRef(_pred_prefix + 'broader')
-    #     _preflabel_pred = URIRef(_pred_prefix + 'prefLabel')
-    #     _altlabel_pred = URIRef(_pred_prefix + 'altLabel')
-    #     orgs = graph.subjects(_type_pred, _org_object)
-    #     for subject in orgs:
-    #         uri = subject.toPython()
-    #         parent = next(graph.objects(subject, _parent_pred), None)
-    #         if parent is not None:
-    #             parent = parent.toPython()
-    #         altLabel = next(graph.objects(subject, _altlabel_pred), None)
-    #         if altLabel is not None:
-    #             altLabel = altLabel.toPython()
-    #         else:
-    #             altLabel = ''
-    #         preflabel = next(graph.objects(subject, _preflabel_pred), None)
-    #         if preflabel is not None:
-    #             preflabel = preflabel.toPython()
-    #         else:
-    #             preflabel = ''
-    #         yield Institution(
-    #             uri=uri,
-    #             prefLabel=preflabel,
-    #             altLabel=altLabel,
-    #             #not present in TERN data
-    #             exactMatch='',
-    #             isUserAdded=False
-    #         )

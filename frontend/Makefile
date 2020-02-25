@@ -15,13 +15,13 @@ build:
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
-		node:13-alpine \
+		node:12-alpine \
 		yarn
 	# run webpack
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
-		node:13-alpine \
+		node:12-alpine \
 		yarn webpack --mode development
 	# run clojure compiler
 	docker run --rm -it \
@@ -52,13 +52,13 @@ release:
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
-		node:13-alpine \
+		node:12-alpine \
 		yarn
 	# run webpack
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
-		node:13-alpine \
+		node:12-alpine \
 		yarn webpack --mode production
 	# run clojure compiler
 	docker run --rm -it \

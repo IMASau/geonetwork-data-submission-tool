@@ -24,4 +24,5 @@ django-treebeard==4.3
 rdflib==4.2.2
 mozilla-django-oidc==1.2.2
 
-django-split-settings
+dynaconf
+elasticsearch-dsl>=7.0.0,<8.0.0

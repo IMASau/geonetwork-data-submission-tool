@@ -220,6 +220,9 @@ class Document(models.Model):
             tree = etree.parse(self.template.file.path)
             spec = make_spec(science_keyword=ScienceKeyword, uuid=self.uuid,mapper=self.template.mapper)
             data = extract_xml_data(tree, spec)
+            # make sure there is no newline in self.title
+            if self.title:
+                self.title = self.title.replace('\n', ' ').strip()
             data['identificationInfo']['title'] = self.title or data['identificationInfo']['title']
             data['fileIdentifier'] = self.pk
 

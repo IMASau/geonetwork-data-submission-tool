@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.admin import widgets
+from django.db import models as django_models
 from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 from fsm_admin.mixins import FSMTransitionMixin
@@ -144,6 +146,11 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
         ('Export', {'fields': ('action_links',)}),
         ('DOI Minting', {'fields': ('doi_links',)}),
     ]
+
+    # a quick hack to make admin interface a bit nicer to use for title field
+    formfield_overrides = {
+        django_models.TextField: {'widget': widgets.AdminTextInputWidget(attrs={'style': "width:60em;"})}
+    }
 
     def validity(self, obj):
         if obj.validation_status in ['Valid','Invalid']:

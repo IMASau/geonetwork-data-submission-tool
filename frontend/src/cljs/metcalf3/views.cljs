@@ -2023,7 +2023,7 @@
   [:div
    [PageErrors {:page :data-identification :path [:form]}]
    [:h2 "1. Data Identification"]
-   [textarea-field [:form :fields :identificationInfo :title]]
+   [InputField {:path [:form :fields :identificationInfo :title]}]
    [date-field [:form :fields :identificationInfo :dateCreation]]
    [TopicCategories nil]
    [SelectField [:form :fields :identificationInfo :status]]

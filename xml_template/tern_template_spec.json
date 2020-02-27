@@ -521,6 +521,38 @@
                         },
                         "notes": "Theme keywords (selecting from controlled list in thesaurus)"
                     },
+                    "keywordsThemeExtra": {
+                        "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[@uuid=\"local\"]",
+                        "nodes": {
+                            "keywords": {
+                                "xpath": "mri:keyword/gco:CharacterString",
+                                "many": true,
+                                "container": "mri:keyword",
+                                "keep": false,
+                                "export": false,
+                                "exportTo": {
+                                    "xpath": "mri:keyword/gco:CharacterString"
+                                }
+                            }
+                        },
+                        "notes": "Additional theme keywords"
+                    },
+                    "keywordsTaxonExtra": {
+                        "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[@uuid=\"Taxon\"]",
+                        "nodes": {
+                            "keywords": {
+                                "xpath": "mri:keyword/gco:CharacterString",
+                                "many": true,
+                                "container": "mri:keyword",
+                                "keep": false,
+                                "export": false,
+                                "exportTo": {
+                                    "xpath": "mri:keyword/gco:CharacterString"
+                                }
+                            }
+                        },
+                        "notes": "Additional theme keywords"
+                    },
                     "samplingFrequency": {
                         "xpath": "mri:descriptiveKeywords/mri:MD_Keywords/mri:keyword/gcx:Anchor[@xlink:title=\"GCMDTemporal\"]",
                         "keep": false,

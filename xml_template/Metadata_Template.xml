@@ -782,7 +782,7 @@
                      <cit:identifier>
                         <mcc:MD_Identifier>
                            <mcc:code>
-                              <gcx:Anchor xlink:href="https://vocabs.ands.org.au/viewById/20">ANZSRC Fields of Research</gcx:Anchor>
+                               <gcx:Anchor xlink:href="https://vocabs.ands.org.au/viewById/20">ANZSRC Fields of Research</gcx:Anchor>
                            </mcc:code>
                         </mcc:MD_Identifier>
                      </cit:identifier>
@@ -790,6 +790,21 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
+         <mri:descriptiveKeywords >
+             <mri:MD_Keywords uuid="local">
+                 <mri:keyword>
+                     <gco:CharacterString>Some Keyword</gco:CharacterString>
+                 </mri:keyword>
+             </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <mri:descriptiveKeywords >
+             <mri:MD_Keywords uuid="Taxon">
+                 <mri:keyword>
+                     <gco:CharacterString>Some Taxon Keyword</gco:CharacterString>
+                 </mri:keyword>
+             </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+
          <mri:resourceConstraints>
  
             <mco:MD_LegalConstraints>

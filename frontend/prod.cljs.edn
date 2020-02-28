@@ -1,4 +1,4 @@
-{:main           metcalf3.core
+{:main            metcalf3.core
  :output-to       "resources/public/js/prod.js"
  :output-dir      "resources/public/js/prod"
  :source-map      "resources/public/js/prod.js.map"
@@ -19,4 +19,6 @@
                                "cljsjs.auto-sizer"
                                "cljsjs.react-leaflet"
                                "cljsjs.fixed-data-table-2"
-                               "cljsjs.react-select"]}]}
+                               "cljsjs.react-select"
+                               "cljsjs.react-imask"]}]
+ }

@@ -1,13 +1,13 @@
-{:main           metcalf3.core
- :output-to      "resources/public/js/dev.js"
- :output-dir     "resources/public/js/dev"
- :asset-path     "/static/metcalf3/js/dev"
+{:main          metcalf3.core
+ :output-to     "resources/public/js/dev.js"
+ :output-dir    "resources/public/js/dev"
+ :asset-path    "/static/metcalf3/js/dev"
  :npm-deps      false
  :infer-externs true
  :preloads      [metcalf3.preload]
  :foreign-libs  [{:file     "dist/index_bundle.js"
-                  :provides ["cljsjs.react"
-                             "cljsjs.react.dom"
+                  :provides ["cljsjs/react"
+                             "cljsjs/react.dom"
                              "cljsjs.blueprint.core"
                              "cljsjs.blueprint.select"
                              "cljsjs.blueprint.table"
@@ -19,4 +19,6 @@
                              "cljsjs.auto-sizer"
                              "cljsjs.react-leaflet"
                              "cljsjs.fixed-data-table-2"
-                             "cljsjs.react-select"]}]}
+                             "cljsjs.react-select"
+                             "cljsjs.react-imask"]}]
+ }

@@ -61,6 +61,7 @@
 
 (defn masked-text-widget
   [{:keys [mask value placeholder disabled on-change on-blur]}]
+  (js/console.log "Mask" mask)
   [masked-input/masked-input
    {:mask        mask
     :disabled    disabled
@@ -1892,7 +1893,7 @@
        :on-change  (fn [option]
                      (rf/dispatch [:handlers/org-changed (conj party-path :value) option]))}]]))
 
-(def orcid-mask #js [#"\d" #"\d" #"\d" #"\d" "-" #"\d" #"\d" #"\d" #"\d" "-" #"\d" #"\d" #"\d" #"\d" "-" #"\d" #"\d" #"\d" #"[0-9xX]"])
+(def orcid-mask "0000{-}0000{-}0000{-}000*")
 
 (defn ResponsiblePartyField [party-path]
   (let [party-value-path (conj party-path :value)

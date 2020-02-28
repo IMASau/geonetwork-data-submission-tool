@@ -27,7 +27,7 @@ build:
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-v $${HOME}/.clojure:/root/.clojure \
-		-v $${HOME}.m2:/root/.m2 \
+		-v $${HOME}/.m2:/root/.m2 \
 		clojure:openjdk-14-tools-deps-buster \
 		clojure -m cljs.main -co dev.cljs.edn -c
 

@@ -2,7 +2,7 @@
  :output-to       "resources/public/js/prod.js"
  :output-dir      "resources/public/js/prod"
  :source-map      "resources/public/js/prod.js.map"
- :closure-defines {goog.DEBUG true}
+ :closure-defines {goog.DEBUG false}
  :npm-deps        false
  :infer-externs   true
  :foreign-libs    [{:file     "dist/index_bundle.js"

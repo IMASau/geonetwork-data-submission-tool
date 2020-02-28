@@ -23,4 +23,4 @@
                  (rf/assoc-effect ctx :db (update new-db :form/tick inc))
                  ctx)))))
 
-(def std-ins [rf/debug log-effects form-ticker])
+(def std-ins [(when js/goog.DEBUG (rf/debug log-effects)) form-ticker])

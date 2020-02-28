@@ -53,7 +53,7 @@
     "has-error"))
 
 (defn dp-term-paths [dp-type]
-  (js/console.log "DP TERM PATHS" {:dp-type dp-type})
+  (when js/goog.DEBUG (js/console.log "DP TERM PATHS" {:dp-type dp-type}))
   {:term              (keyword (str (name dp-type) "_term"))
    :vocabularyTermURL (keyword (str (name dp-type) "_vocabularyTermURL"))
    :vocabularyVersion (keyword (str (name dp-type) "_vocabularyVersion"))
@@ -61,7 +61,6 @@
 
 (defn masked-text-widget
   [{:keys [mask value placeholder disabled on-change on-blur]}]
-  (js/console.log "Mask" mask)
   [masked-input/masked-input
    {:mask        mask
     :disabled    disabled

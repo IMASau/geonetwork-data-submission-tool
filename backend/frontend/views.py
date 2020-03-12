@@ -1,3 +1,9 @@
+import stat
+import shutil
+from tempfile import TemporaryFile, NamedTemporaryFile
+import urllib.parse
+from zipfile import ZipFile, ZipInfo
+
 # from frontend.router import rest_serialize
 import requests
 from django.conf import settings
@@ -17,17 +23,14 @@ from django.shortcuts import redirect
 from django.utils.encoding import smart_text
 from django_fsm import has_transition_perm
 from lxml import etree
-import urllib.parse
 from rest_framework import serializers
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from tempfile import TemporaryFile
-from zipfile import ZipFile, ZipInfo
 
 from backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution

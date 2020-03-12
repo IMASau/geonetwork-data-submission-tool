@@ -345,8 +345,11 @@ def mef(request, uuid):
         privdir.external_attr |= (stat.S_IRWXU & 0xFFFF) << 16
         z.writestr(privdir, '')
         for attachment in doc.attachments.all():
+            # need a tempfile to fetch files from object store to put into zip - Python Zipfile can only deal with proper files or full data in memory
+            temp = NamedTemporaryFile()
+            shutil.copyfileobj(attachment.file, temp)
             name = os.path.basename(attachment.file.name)
-            z.write(attachment.file.path, 'private/' + name)
+            z.write(temp.name, 'private/' + name)
             etree.SubElement(private, "file", name=name, changeDate=attachment.modified.isoformat())
         z.writestr('info.xml', etree.tostring(info))
         z.close()

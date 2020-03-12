@@ -163,6 +163,7 @@ class DocumentManager(models.Manager):
         new_data['identificationInfo']['title'] = new_title
         new_data['identificationInfo']['doi'] = ''
         new_data['fileIdentifier'] = doc.pk
+        new_data['attachments'] = []
 
         DraftMetadata.objects.create(
             document=doc,

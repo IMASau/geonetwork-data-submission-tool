@@ -329,8 +329,18 @@ def mef(request, uuid):
     tmp = TemporaryFile()
     with ZipFile(tmp, 'w') as z:
         z.writestr('metadata.xml', etree.tostring(xml))
-        z.writestr(ZipInfo('public/'), '')
-        z.writestr(ZipInfo('private/'), '')
+        pubdir = ZipInfo('public/')
+        pubdir.file_size = 0
+        pubdir.external_attr |= 0x10 # MS-DOS directory flag
+        # set execute permission on directories
+        pubdir.external_attr |= (stat.S_IRWXU & 0xFFFF) << 16
+        z.writestr(pubdir, '')
+        privdir = ZipInfo('private/')
+        privdir.file_size = 0
+        privdir.external_attr |= 0x10 # MS-DOS directory flag
+        # set execute permission on directories
+        privdir.external_attr |= (stat.S_IRWXU & 0xFFFF) << 16
+        z.writestr(privdir, '')
         for attachment in doc.attachments.all():
             name = os.path.basename(attachment.file.name)
             z.write(attachment.file.path, 'private/' + name)

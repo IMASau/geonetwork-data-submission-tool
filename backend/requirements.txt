@@ -23,6 +23,7 @@ django-filter==2.1.0
 django-treebeard==4.3
 rdflib==4.2.2
 mozilla-django-oidc==1.2.2
+django-storage-swift==1.2.19
 
 dynaconf
 elasticsearch-dsl>=7.0.0,<8.0.0

@@ -32,10 +32,12 @@ FROM alpine:3.10
 RUN apk add --no-cache \
       ca-certificates \
       libjpeg-turbo \
+      libmagic \
       libpq \
       libxml2 \
       libxslt \
-      python3
+      python3 \
+      py3-netifaces
 
 # Install supercronic
 RUN export SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.9/supercronic-linux-amd64 \

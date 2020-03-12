@@ -145,7 +145,7 @@ class AttachmentSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'file', 'created', 'modified', 'delete_url')
 
     def get_name(self, inst):
-        return inst.file.name
+        return inst.name
 
     def get_delete_url(self, inst):
         return reverse("DeleteAttachment", kwargs={'uuid': inst.document.uuid, 'id': inst.id})

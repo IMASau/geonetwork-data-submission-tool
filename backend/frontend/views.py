@@ -582,6 +582,14 @@ def delete_attachment(request, uuid, id):
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+def download_attachement(request, path):
+    attachment = get_object_or_404(DocumentAttachment, file=path)
+    # TODO: this breaks for previously existing files ... it always creates a swift url
+    return redirect(attachment.file.storage._path(attachment.file.name))
+
+
 @login_required
 @api_view(['POST'])
 def transition(request, uuid):

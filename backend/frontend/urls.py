@@ -33,6 +33,7 @@ urlpatterns = [
     path('create/', create, name="Create"),
     path('theme/', theme, name="Theme"),
     path('export/<uuid:uuid>/', export, name="Export"),
+    path('attachment/<path:path>', download_attachement, name="DownloadAttachment"),
     path('mef/<uuid:uuid>/', mef, name="MEF"),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

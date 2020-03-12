@@ -2,8 +2,13 @@ import datetime
 import os
 import json
 import re
+from urllib.parse import urlsplit
 import io
+
 from backend.xmlutils import *
+
+from django.contrib.sites.models import Site 
+
 
 def insert_node_groups(spec, node_groups):
     if SpecialKeys.nodes in spec:
@@ -81,7 +86,14 @@ def generate_attachment_url(**kwargs):
     assert kwargs['uuid'] != None, "uuid not provided"
     data = kwargs['data']
     uuid = kwargs['uuid']
-    return "file.disclaimer?uuid={0}&fname={1}&access=private".format(uuid, os.path.basename(data))
+    # data should be an absolute path to download the file
+    if urlsplit(data).scheme:
+        return data
+    # generate absolute url using Site domain
+    return 'https://{}{}'.format(
+        Site.objects.get_current().domain,
+        data
+    )
 
 def all_text(node):
     return ''.join(node.itertext()).strip()

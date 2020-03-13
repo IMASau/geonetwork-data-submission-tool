@@ -45,6 +45,19 @@
       {:xhrio/get-json {:uri (str uri query) :resp-v [:handlers/load-es-options-resp api-path query]}
        :db (update-in db api-path assoc :most-recent-query query)})))
 
+(defn build-es-query
+  [query]
+  (.stringify js/JSON (clj->js
+                       {:size 50
+                        :query {:match_phrase_prefix {:label query}}})))
+
+(rf/reg-event-fx
+ :handlers/search-es-options
+ ins/std-ins
+ (fn [{:keys [db]} [_ api-path query]]
+   (let [{:keys [uri]} (get-in db api-path)]
+     {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
+      :db (update-in db api-path assoc :most-recent-query query)})))
 
 (rf/reg-event-db
   :handlers/load-es-options-resp

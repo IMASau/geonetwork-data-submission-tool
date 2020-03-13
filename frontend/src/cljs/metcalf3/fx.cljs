@@ -3,6 +3,7 @@
   (:require [cljs.core.async :refer [put! <! alts! chan pub sub timeout dropping-buffer]]
             [ajax.core :refer [GET POST DELETE]]
             [goog.net.XhrIo :as xhrio]
+            [goog.structs :as structs]
             [re-frame.core :as rf]
             [cljs.spec.alpha :as s]
             [metcalf3.logic :as logic]
@@ -20,6 +21,22 @@
               (let [json (.. e -target getResponseJson)]
                 (rf/dispatch (conj resp-v json))))]
       (xhrio/send uri callback))))
+
+(def post-json-header
+  (structs/Map. (clj->js {:Content-Type "application/json"})))
+
+(rf/reg-fx
+ :xhrio/post-json
+ (fn [{:keys [uri data resp-v]}]
+
+   (s/assert string? uri)
+   (s/assert string? data)
+   (s/assert vector? resp-v)
+
+   (letfn [(callback [e]
+             (let [json (.. e -target getResponseJson)]
+               (rf/dispatch (conj resp-v json))))]
+     (xhrio/send uri callback "POST" data post-json-header))))
 
 (rf/reg-fx
   :fx/set-location-href

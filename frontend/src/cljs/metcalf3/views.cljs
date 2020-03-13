@@ -1083,7 +1083,7 @@
                          :isClearable       true
                          :is-searchable     true
                          :onInputChange     (fn [x]
-                                              (rf/dispatch [:handlers/load-es-options api-path x])
+                                              (rf/dispatch [:handlers/search-es-options api-path x])
                                               x)
                          :getOptionValue    (fn [option]
                                               (gobj/get option "term"))

@@ -37,6 +37,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('logout', logout_view, name="Sign Out"),
+    path('robots.txt', robots_view, name="Robots"),
 ]
 
 if settings.DEBUG:

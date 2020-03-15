@@ -633,3 +633,8 @@ def logout_view(request):
     logout(request)
     abs_uri = urllib.parse.quote(request.build_absolute_uri('/'))
     return redirect(settings.OIDC_LOGOUT_ENDPOINT + '?redirect_uri=' + abs_uri)
+
+
+def robots_view(request):
+    context = {}
+    return render_to_response("robots.txt", context, content_type="text/plain")

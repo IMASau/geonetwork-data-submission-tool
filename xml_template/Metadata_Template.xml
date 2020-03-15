@@ -240,7 +240,7 @@
                   </cit:CI_Date>
                </cit:date>
                <cit:edition>
-                  <gco:CharacterString>2.0.0</gco:CharacterString>
+                  <gco:CharacterString>1.0.0</gco:CharacterString>
                </cit:edition>
 
                <cit:identifier>

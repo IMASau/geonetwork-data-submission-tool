@@ -19,7 +19,7 @@ attachment_store = AttachmentStorage()
 
 # prepend document.uuid to file path
 def document_upload_path(instance, filename):
-    return "/".join(
+    return "/".join((
         str(instance.document.uuid),
         filename.replace(" ", "_"),
-    )
+    ))

@@ -71,8 +71,9 @@ a.link-right {
 	font-weight: bold;
 }
 
-.lead {
+label, table th, .lead {
 	margin-bottom: 0;
+	color: #043E4F;
 }
 
 .pagehead {
@@ -96,3 +97,9 @@ a.link-right {
 		visibility: hidden;
 	}
 }*/
+
+.PageViewBody h2 {
+    margin-top: 0;
+    padding-top: 0.2em;
+    padding-bottom: 0.5em;
+}

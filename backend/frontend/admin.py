@@ -5,7 +5,7 @@ from frontend.forms import SiteContentForm
 
 
 class SiteContentAdmin(admin.ModelAdmin):
-    list_display = ['pk', 'title', 'tag_line', 'email']
+    list_display = ['pk', 'title', 'email']
     form = SiteContentForm
 
 

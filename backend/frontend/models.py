@@ -6,9 +6,9 @@ from pilkit.processors import ResizeToFill
 
 class SiteContent(models.Model):
     site = models.OneToOneField(Site, on_delete=models.SET_NULL, blank=True, null=True)
-    title = models.CharField(max_length=32, default="TERN")
+    title = models.CharField(max_length=32, default="Data Submission Tool")
     organisation_url = models.URLField(blank=True, null=True)
-    tag_line = models.CharField(max_length=128, default="SHaRED Data Submission Tool")
+    tag_line = models.CharField(max_length=128, null=True, default="SHaRED Data Submission Tool")
     email = models.EmailField(default="esupport@tern.org.au")
     doi_uri = models.CharField(max_length=1024,default='https://doi.tern.uq.edu.au/test/index.php?r=api/create&user_id=tern.data@uq.edu.au&app_id=',
                               verbose_name="DOI Service URI",

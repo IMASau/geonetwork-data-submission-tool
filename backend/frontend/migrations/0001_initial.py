@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(default='TERN', max_length=32)),
                 ('organisation_url', models.URLField(blank=True, null=True)),
-                ('tag_line', models.CharField(default='Data Submission Tool', max_length=128)),
+                ('tag_line', models.CharField(default='Data Submission Tool', max_length=128, null=True)),
                 ('email', models.EmailField(default='esupport@tern.org.au', max_length=254)),
                 ('homepage_image', imagekit.models.fields.ProcessedImageField(blank=True, default='images/Hemispherical-Photography.jpg', help_text="This is the image used on the homepage.  It needs to be high res so it looks good and it needs to be fairly dark so that the copy has good contrast and can be easily read. We will optimise the size so it's not too heavy.", null=True, upload_to='images')),
                 ('guide_pdf', models.URLField(blank=True, default='http://tern.org.au', null=True, max_length=1024)),

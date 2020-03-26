@@ -29,6 +29,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='sitecontent',
             name='tag_line',
-            field=models.CharField(default='SHaRED Data Submission Tool', max_length=128),
+            field=models.CharField(default='SHaRED Data Submission Tool', max_length=128, null=True),
         ),
     ]

@@ -72,7 +72,7 @@ a.link-right {
 }
 
 label, table th, .lead {
-	margin-bottom: 0;
+	margin-bottom: 10px;
 	color: #043E4F;
 }
 
@@ -102,4 +102,8 @@ label, table th, .lead {
     margin-top: 0;
     padding-top: 0.2em;
     padding-bottom: 0.5em;
+}
+
+p.lead small {
+	padding-left: 10px
 }

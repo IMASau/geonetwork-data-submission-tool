@@ -1993,7 +1993,7 @@
     [bp3/navbar {:className "bp3-dark"}
       [bp3/navbar {:className "container"}
       [bp3/navbar-group {:align (:LEFT bp3/alignment)}
-        [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading title " " tag_line]]]
+        [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading title]]]
       [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
         [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)]
         [:a.bp3-button.bp3-minimal {:href Dashboard} "My Records"]
@@ -2425,13 +2425,15 @@
                        saving [:img {:src (str (:STATIC_URL urls) "metcalf3/img/saving.gif")}]
                        dirty [:span.glyphicon.glyphicon-floppy-disk]
                        :else [:span.glyphicon.glyphicon-floppy-saved])
-                     " Save"]]
-                   [:p.lead [:b (userDisplay user) " / "] (if (blank? title) "Untitled" title)
-                    " "
+                     (cond
+                        saving " Saving..."
+                        dirty " Save"
+                        :else " Saved")]]
+                   [:p.lead [:b (if (blank? title) "Untitled" title)]
+                    "   "
                     [:span.label.label-info {:style {:font-weight "normal"}} status]
-                    [:br]
                     [:small [:i {:style {:color     "#aaa"
-                                         :font-size "0.7em"}}
+                                         :font-size "1em"}}
                              "Last edited " (-> last_updated js/moment .fromNow)]]]]]
                  [:div.Home.container
                   [edit-tabs]
@@ -2519,7 +2521,7 @@
        [:span.glyphicon.glyphicon-pencil] " edit"]]
      [:p.lead.list-group-item-heading
       [:span.link {:on-click on-edit-click}
-       [:b (userDisplay (:owner doc))] " / " title]
+        title]
       " "
       [:span.label.label-info {:style {:font-weight "normal"}} status]]
      [:p.list-group-item-text
@@ -2547,7 +2549,7 @@
             (conj (if has-documents?
                     [:a.list-group-item {:on-click #(rf/dispatch [:handlers/dashboard-create-click])}
                      [:span.glyphicon.glyphicon-star.pull-right]
-                     [:p.lead.list-group-item-heading [:b (userDisplay user)] " / My first record "]
+                     [:p.lead.list-group-item-heading " My first record "]
                      [:p.list-group-item-text "Welcome! Since you’re new here, "
                       [:span {:style {:text-decoration "underline"}} "Click here"] " to get started."]]
                     (if (empty? filtered-docs)

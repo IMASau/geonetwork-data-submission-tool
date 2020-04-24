@@ -27,7 +27,7 @@ class SiteContent(models.Model):
     portal_url = models.URLField(blank=True, null=True, default='http://tern.org.au')
     portal_record_url = models.CharField(
         max_length=512,
-        default="{{site.sitecontent.portal_url}}/portal/home?uuid={{document.uuid}}",
+        default="{{site.sitecontent.portal_url}}/edit/{{document.uuid}}",
         help_text="Used to generate URLs to the published record on the portal. "
                   "(Accepts django template formatting with access to `site` and `document`.)"
     )

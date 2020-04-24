@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('guide_pdf', models.URLField(blank=True, default='http://tern.org.au', null=True, max_length=1024)),
                 ('portal_title', models.CharField(default='TERN Data Portal', help_text='Used to refer to the place where lodged data can be discovered', max_length=64)),
                 ('portal_url', models.URLField(blank=True, null=True)),
-                ('portal_record_url', models.CharField(default='{{site.sitecontent.portal_url}}/portal/home?uuid={{document.uuid}}', help_text='Used to generate URLs to the published record on the portal. (Accepts django template formatting with access to `site` and `document`.)', max_length=512)),
+                ('portal_record_url', models.CharField(default='{{site.sitecontent.portal_url}}/edit/{{document.uuid}}', help_text='Used to generate URLs to the published record on the portal. (Accepts django template formatting with access to `site` and `document`.)', max_length=512)),
                 ('homepage_image_credit_name', models.CharField(default='TERN Landscapes', max_length=128)),
                 ('homepage_image_credit_url', models.URLField(default='http://www.auscover.org.au/dataset_categories/vegetation-structural-properties-biomass/', blank=True, null=True)),
                 ('site', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='sites.Site')),

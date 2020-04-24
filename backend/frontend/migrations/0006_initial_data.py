@@ -22,7 +22,7 @@ def configure_site_content(apps, schema_editor):
     sc.guide_pdf =  "https://tern.org.au"
     sc.portal_title = "TERN Data Portal"
     sc.portal_url =  "https://shared.tern.org.au"
-    sc.portal_record_url = "{{site.sitecontent.portal_url}}/portal/home?uuid={{document.uuid}}"
+    sc.portal_record_url = "{{site.sitecontent.portal_url}}/edit/{{document.uuid}}"
     sc.homepage_image_credit_name = "TERN Landscapes"
     sc.homepage_image_credit_url = "http://www.auscover.org.au/dataset_categories/vegetation-structural-properties-biomass/"
     sc.site = site

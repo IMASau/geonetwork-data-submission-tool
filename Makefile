@@ -11,7 +11,7 @@ build:
 	docker build --build-arg GIT_VERSION=$(GIT_VERSION) -t $(IMAGE):latest .
 
 up: check_not_dirty build
-	docker-compose -f docker-compose.yaml -f docker-compose-nginx.yaml up webapp cronapp nginx statsd
+	docker-compose -e GIT_VERSION=$(GIT_VERSION) -f docker-compose.yaml -f docker-compose-nginx.yaml up webapp cronapp nginx statsd
 
 push: check_not_dirty build
 	docker tag $(IMAGE):latest $(IMAGE):$(GIT_VERSION)

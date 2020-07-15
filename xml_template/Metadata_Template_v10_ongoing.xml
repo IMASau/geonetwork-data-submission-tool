@@ -1809,11 +1809,12 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      <mcc:linkage>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <!-- I've supplied the uri for the image, but maybe we want to store a local copy the 
-                              same as ARDC https://demo.researchdata.ardc.edu.au/assets/core/images/icons/CC-BY.png?-->
+                              
+                              <!-- or https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by.png -->
                               <gco:CharacterString>
+                                 https://portal.tern.org.au//assets/core/img/licence/CC-BY.png
 
-                                 https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by.png</gco:CharacterString>
+                                 </gco:CharacterString>
                            </cit:linkage>
                         </cit:CI_OnlineResource>
                      </mcc:linkage>
@@ -1872,7 +1873,8 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mco:otherConstraints>
             </mco:MD_LegalConstraints>
          </mri:resourceConstraints>
-
+         <!-- Static section begins 
+         refer https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042481333/Data+Identification+Resource+Language+and+Encoding -->
          <mri:defaultLocale>
             <lan:PT_Locale id="ENG">
                <lan:language>

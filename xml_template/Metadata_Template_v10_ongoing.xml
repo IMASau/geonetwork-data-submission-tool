@@ -1943,8 +1943,8 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      <cit:party>
                         <cit:CI_Organisation>
                            <cit:name>
-                              <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66"
-                                 xlink:show="new">Terrestrial Ecosystem Research Network (TERN)</gcx:Anchor>
+                              <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
@@ -1983,6 +1983,18 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  </cit:address>
                               </cit:CI_Contact>
                            </cit:contactInfo>
+                           <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    <gco:CharacterString>uri:a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                                    
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                                 
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
                            <cit:individual>
                               <cit:CI_Individual>
                                  <cit:positionName>

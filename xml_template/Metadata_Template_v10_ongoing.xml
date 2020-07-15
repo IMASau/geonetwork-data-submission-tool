@@ -1789,9 +1789,36 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          <!-- Static section for all metadata records -->
          <mri:resourceConstraints>
 
-
             <mco:MD_LegalConstraints>
-               
+               <mco:useLimitation><gco:CharacterString>
+                  The CC-By license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties.  
+                  Details are provided at https://creativecommons.org/licenses/by/4.0/legalcode
+                  
+               </gco:CharacterString></mco:useLimitation>
+               <mco:graphic>
+                  <mcc:MD_BrowseGraphic>
+                     <mcc:fileName>
+                        <gco:CharacterString>by.png</gco:CharacterString>
+                     </mcc:fileName>
+                     <mcc:fileDescription>
+                        <gco:CharacterString>CCBy Logo from creativecommons.org </gco:CharacterString>
+                     </mcc:fileDescription>
+                     <mcc:fileType>
+                        <gco:CharacterString>png</gco:CharacterString>
+                     </mcc:fileType>
+                     <mcc:linkage>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <!-- I've supplied the uri for the image, but maybe we want to store a local copy the 
+                              same as ARDC https://demo.researchdata.ardc.edu.au/assets/core/images/icons/CC-BY.png?-->
+                              <gco:CharacterString>
+
+                                 https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by.png</gco:CharacterString>
+                           </cit:linkage>
+                        </cit:CI_OnlineResource>
+                     </mcc:linkage>
+                  </mcc:MD_BrowseGraphic>
+               </mco:graphic>
                <mco:reference>
                   <cit:CI_Citation>
                      <cit:title>

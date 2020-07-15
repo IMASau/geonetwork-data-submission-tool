@@ -1872,42 +1872,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mco:otherConstraints>
             </mco:MD_LegalConstraints>
          </mri:resourceConstraints>
-         <!-- Static section for all metadata records -->
-         
-         <mri:resourceConstraints>
-            <mco:MD_SecurityConstraints>
 
-               <mco:reference>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>Australian Government Security Classification System</gco:CharacterString>
-                     </cit:title>
-                     <cit:editionDate>
-                        <gco:DateTime>2018-11-01T00:00:00</gco:DateTime>
-                     </cit:editionDate>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>https://www.protectivesecurity.gov.au/Pages/default.aspx</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mco:reference>
-
-               <mco:classification>
-
-                  <mco:MD_ClassificationCode codeList="codeListLocation#MD_ClassificationCode" codeListValue="unclassified"/>
-               </mco:classification>
-               <mco:handlingDescription>
-                  <gco:CharacterString>OFFICIAL (Australian Government Security Classification System)</gco:CharacterString>
-               </mco:handlingDescription>
-
-            </mco:MD_SecurityConstraints>
-         </mri:resourceConstraints>
          <mri:defaultLocale>
             <lan:PT_Locale id="ENG">
                <lan:language>

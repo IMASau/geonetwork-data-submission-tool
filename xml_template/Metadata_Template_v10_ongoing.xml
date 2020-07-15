@@ -1347,50 +1347,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-         <!-- add TERN units keywords
-            SG to confirm whether there will be a separate vocabulary for custom units
-            SG to confirm details of url
-         -->
-         <mri:descriptiveKeywords>
-            <mri:MD_Keywords>
-               
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/9371a5f1-184a-4bb4-b650-33a8c4d7f0b8" xlink:show="new">meter cubed per meter cubed</gcx:Anchor>
-               </mri:keyword>
-               <mri:type>
-                  <!-- Which keyword type 
-                  see http://wiki.esipfed.org/index.php/ISO_19115-3_Codelists#MD_KeywordTypeCode -->
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="featureType"/>
-               </mri:type>
-               <mri:thesaurusName>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>TERN Units of Measure Vocabulary</gco:CharacterString>
-                     </cit:title>
-                     
-                     <cit:otherCitationDetails>
-                        <gco:CharacterString>
-                           
-                           TERN Global Vocabularies, 2020. [??? link to be advised by SG ???] 
-                        </gco:CharacterString>
-                        
-                     </cit:otherCitationDetails>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>http://www.qudt.org/2.1/vocab/unit
-                                 [Ask GW to check version details???]
-                                 
-                              </gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
-                        
-                     </cit:onlineResource>
-                     
-                  </cit:CI_Citation>
-               </mri:thesaurusName>
-            </mri:MD_Keywords>
-         </mri:descriptiveKeywords>         
+      
          <!-- add QUDT units keywords
             GW to confirm version
          -->
@@ -1408,12 +1365,12 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>QUDT Units Vocabulary</gco:CharacterString>
+                        <gco:CharacterString>QUDT Units of Measure</gco:CharacterString>
                      </cit:title>
                      
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           QUDT.org 2020. Units Vocabulary, http://www.qudt.org/2.1/catalog/qudt-catalog.html 
+                           QUDT.org 2020. Units of Measure, http://www.qudt.org/2.1/catalog/qudt-catalog.html 
                                                      
                         </gco:CharacterString>
                         
@@ -1422,7 +1379,6 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                         <cit:CI_OnlineResource>
                            <cit:linkage>
                               <gco:CharacterString>http://www.qudt.org/2.1/vocab/unit
-                                 [Ask GW to check version details???]
                                  
                               </gco:CharacterString>
                            </cit:linkage>
@@ -1703,7 +1659,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mri:keyword>
 
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="discipline"/>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
                </mri:type>
                <mri:thesaurusName>
                   <cit:CI_Citation>

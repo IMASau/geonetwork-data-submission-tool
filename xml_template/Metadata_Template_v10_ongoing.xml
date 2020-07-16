@@ -357,6 +357,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <mcc:codeSpace>
                   <gco:CharacterString>EPSG</gco:CharacterString>
                </mcc:codeSpace>
+               <!-- put relevant epoch in version -->
                <mcc:version>
                   <gco:CharacterString>2007.079</gco:CharacterString>
                   </mcc:version>
@@ -380,95 +381,6 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
 
    </mdb:referenceSystemInfo>
    
-   
-   <mdb:referenceSystemInfo>
-      <!-- MDWG recommendation - the coordinate epoch should be recorded 
-      the user may need to enter for dynamic datums  e.g. WGS84 or ATRF
-      for static datums like gda94 TERN could define default values -->
-      <mrs:MD_ReferenceSystem>
-         <mrs:referenceSystemIdentifier>
-            <mcc:MD_Identifier>
-               <mcc:authority>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>
-                           European Petroleum Survey Group (EPSG) Geodetic Parameter Registry
-                        </gco:CharacterString>
-                     </cit:title>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>http://www.epsg-registry.org/</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol gco:nilReason="missing"> </cit:protocol>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mcc:authority>
-               
-               <mcc:code>
-                  <gco:CharacterString>2020.01</gco:CharacterString>
-               </mcc:code>
-               <mcc:description>
-                  <gco:CharacterString>The temporal epoch of the datum</gco:CharacterString>
-               </mcc:description>
-               
-            </mcc:MD_Identifier>
-            
-         </mrs:referenceSystemIdentifier>
-         
-         <mrs:referenceSystemType>
-            <mrs:MD_ReferenceSystemTypeCode codeList="codeListLocation#MD_ReferenceSystemTypeCode" codeListValue="temporal"></mrs:MD_ReferenceSystemTypeCode>
-         </mrs:referenceSystemType>
-         
-      </mrs:MD_ReferenceSystem>  
-      
-   </mdb:referenceSystemInfo>
-   <mdb:referenceSystemInfo>
-      <!-- MDWG recommendation - the calendar should be specified
-      I think this can default as we always use the same one 
-      therefore wouldn't it be assumed and only need to be declared if different? -->
-      <mrs:MD_ReferenceSystem>
-         <mrs:referenceSystemIdentifier>
-            <mcc:MD_Identifier>
-               <mcc:authority>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>
-                           Reference system of temporal extent
-                        </gco:CharacterString>
-                     </cit:title>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>http://linked.data.gov.au</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol gco:nilReason="missing"> </cit:protocol>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mcc:authority>
-               
-               <mcc:code>
-                  <gco:CharacterString>Gregorian Calendar
-                  </gco:CharacterString>
-               </mcc:code>
-               <mcc:codeSpace><gco:CharacterString>AGLDWG</gco:CharacterString></mcc:codeSpace>
-               <mcc:description>
-                  <gco:CharacterString>Reference system of temporal extent</gco:CharacterString>
-               </mcc:description>
-                              
-            </mcc:MD_Identifier>
-            
-         </mrs:referenceSystemIdentifier>
-         
-         <mrs:referenceSystemType>
-            <mrs:MD_ReferenceSystemTypeCode codeList="codeListLocation#MD_ReferenceSystemTypeCode" codeListValue="temporal"></mrs:MD_ReferenceSystemTypeCode>
-         </mrs:referenceSystemType>
-         
-      </mrs:MD_ReferenceSystem>  
-      
-   </mdb:referenceSystemInfo>
    <mdb:identificationInfo>
       
       <mri:MD_DataIdentification>

@@ -428,7 +428,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             <cit:CI_Citation>
 
                <cit:title>
-                  <gco:CharacterString>jira-793-2007/07/15 - all options - Placeholder text=Provide a descriptive title for the data set including the subject of study, the study location and time period. 
+                  <gco:CharacterString>jira-723-2007/07/15 - all options - Placeholder text=Provide a descriptive title for the data set including the subject of study, the study location and time period. 
                         Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing
                         </gco:CharacterString>
                </cit:title>
@@ -1274,7 +1274,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                -->
                <mri:thesaurusName>
                   <cit:CI_Citation>
-                     <cit:title>
+                     <cit:title >
                         <gco:CharacterString>TERN Parameter Vocabulary</gco:CharacterString>
                      </cit:title>
 
@@ -2304,9 +2304,11 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             will the user select from the codelist? -->
          <mdq:scope>
             <mcc:MD_Scope>
+               
                <mcc:level>
                   <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
                </mcc:level>
+               <mcc:levelDescription><mcc:MD_ScopeDescription><mcc:dataset><gco:CharacterString></gco:CharacterString></mcc:dataset></mcc:MD_ScopeDescription></mcc:levelDescription>
             </mcc:MD_Scope>
          </mdq:scope>
          
@@ -2343,99 +2345,6 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mdq:abstract>
             </mdq:DQ_StandaloneQualityReportInformation>
          </mdq:standaloneQualityReport>
-
-         <mdq:report>
-            
-            <!-- accuracy of quantitative attributes -->
-            <mdq:DQ_QuantitativeAttributeAccuracy>
-
-               <mdq:evaluationMethod>   
-                  
-                  
-                  <mdq:DQ_EvaluationMethod>
-                     
-                  <!-- description of the evaluation method -->
-                  <mdq:evaluationMethodDescription>
-                     <gco:CharacterString>Placeholder text=Provide a summary of the method used to evaluate data quality. 
-                        Example: The data were compared to xyz reference data.
-                        Include expected tolerances if applicable</gco:CharacterString>
-                  </mdq:evaluationMethodDescription>
-                  <!-- reference to the procedure information -->
-                  <mdq:evaluationProcedure>
-                     <cit:CI_Citation>
-                        <cit:title>
-                           <gco:CharacterString>European Space Agency 2020, Sentinel 2 L1C Data Quality Report [Title element - evaluation Procedure]</gco:CharacterString>
-                        </cit:title>
-                        
-                        <cit:onlineResource>
-                           <cit:CI_OnlineResource>
-                              <cit:linkage>
-                                 <gco:CharacterString>https://sentinel.esa.int/web/sentinel/missions/sentinel-2/data-quality-report</gco:CharacterString>
-                              </cit:linkage>
-
-                              <cit:function>
-                                 
-                                 <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                    codeListValue="information"/>
-                                 
-                                 
-                              </cit:function>
-                           </cit:CI_OnlineResource>
-                        </cit:onlineResource>
-                     </cit:CI_Citation>
-                  </mdq:evaluationProcedure>
-                     <!-- Information on documents which are referenced in developing and applying a data quality evaluation method
-                     e.g. ISO 9001-->
-                     <mdq:referenceDoc>
-                        
-                        <cit:CI_Citation>
-                           <cit:title>
-                              <gco:CharacterString>International Standards Organisation, ISO 9004:2018
-                                 Quality management, edition 4 [Title element - reference document]</gco:CharacterString>
-                           </cit:title>
-                           <cit:onlineResource>
-                              <cit:CI_OnlineResource>
-                                 <cit:linkage>
-                                    <gco:CharacterString>https://www.iso.org/standard/70397.html</gco:CharacterString>
-                                 </cit:linkage>
-
-                                 <cit:function>
-                                    
-                                    <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                       codeListValue="information"/>
-                                    
-                                    
-                                 </cit:function>
-                              </cit:CI_OnlineResource>
-                           </cit:onlineResource>
-                        </cit:CI_Citation>
-                     </mdq:referenceDoc>
-               </mdq:DQ_EvaluationMethod>
-               </mdq:evaluationMethod>
-               
-               <mdq:result>
-                  
-                  <mdq:DQ_DescriptiveResult>
-                     <!-- textual expression of the descriptive result -->
-                     <!-- optional scope element -->
-                     <mdq:resultScope>
-                        <mcc:MD_Scope>
-                           <mcc:level>
-                              <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
-                           </mcc:level>
-                        </mcc:MD_Scope>
-                        
-                     </mdq:resultScope>
-                     <mdq:statement>
-                        <gco:CharacterString>Placeholder text=Provide a statement regarding the data quality assessment results.  
-                           Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc.</gco:CharacterString>
-                     </mdq:statement>
-                     
-                  </mdq:DQ_DescriptiveResult>
-               </mdq:result>
-            </mdq:DQ_QuantitativeAttributeAccuracy>
-
-         </mdq:report>
          
          <mdq:report>
             

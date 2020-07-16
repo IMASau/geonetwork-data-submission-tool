@@ -65,7 +65,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
    http://standards.iso.org/iso/19115/-3/gco/1.0 https://schemas.isotc211.org/19115/-3/gco/1.0/gco.xsd 
    http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd 
    http://www.w3.org/1999/xlink http://www.w3.org/1999/xlink.xsd">
-  <!-- change from global namespace to local namespace  -->
+   <!-- https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026621510/Metadata+Identifier  -->
    <mdb:metadataIdentifier>
       <mcc:MD_Identifier>
          <mcc:authority>
@@ -90,7 +90,9 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          
       </mcc:MD_Identifier>
    </mdb:metadataIdentifier>
-   <!-- add to template -->
+   <!-- New 
+      static section begins - declaration of the language used in the metadata
+   https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556126/Metadata+language+and+encoding -->
    <mdb:defaultLocale>
       <lan:PT_Locale id="EN">
          <lan:language>
@@ -102,10 +104,15 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          </lan:characterEncoding>
       </lan:PT_Locale>
    </mdb:defaultLocale>
-   <!-- SHaRED should add if user enters a parent UUID -->
+   <!-- Static section ends -->
+   <!-- New section 
+      User should be able to enter a parent UUID in SHaRED - optional 
+   https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556158/Parent+metadata -->
    <mdb:parentMetadata uuidref="uuid goes here"/>
    
-   <!-- SHaRED User selects from the codelist, default should be dataset -->
+   <!-- Change - currently a static section 
+      to-be: User selects from the codelist in SHaRED, mandatory, default should be dataset
+   https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718688/Metadata+Scope -->
    <mdb:metadataScope>
       <mdb:MD_MetadataScope>
          <mdb:resourceScope>
@@ -117,6 +124,9 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
       </mdb:MD_MetadataScope>
    </mdb:metadataScope>
 
+   <!-- Changed - logo details added, cit:partyIdentifier, etc
+      https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028554952/Metadata+Contact
+   This continues to be a static section in the template -->
    <mdb:contact>
       <cit:CI_Responsibility>
          <cit:role>
@@ -179,18 +189,18 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <cit:logo>                  
                   <mcc:MD_BrowseGraphic>
                      <mcc:fileName>
-                        <gco:CharacterString>[GW please write file name here]</gco:CharacterString>
+                        <gco:CharacterString>[Placeholder for file name here]</gco:CharacterString>
                      </mcc:fileName>
                      <mcc:fileDescription>
                         <gco:CharacterString>TERN Logo</gco:CharacterString>
                      </mcc:fileDescription>
                      <mcc:fileType>
-                        <gco:CharacterString>[GW please write filetype here e.g. png]</gco:CharacterString>
+                        <gco:CharacterString>[Placeholder for filetype here e.g. png]</gco:CharacterString>
                      </mcc:fileType>
                      <mcc:linkage>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>[GW please write url to file here]</gco:CharacterString>
+                              <gco:CharacterString>[Placeholder for url to file here]</gco:CharacterString>
                            </cit:linkage>
                         </cit:CI_OnlineResource>
                      </mcc:linkage>
@@ -200,7 +210,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          </cit:party>
       </cit:CI_Responsibility>
    </mdb:contact>
-
+   <!-- Static section ends -->
 
    <mdb:dateInfo>
       <cit:CI_Date>
@@ -2407,138 +2417,6 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mcc:level>
             </mcc:MD_Scope>
          </mrl:scope>
-         
-         
-         
-         <!-- this example for description, reference, metadata reference and scope -->
-         <mrl:source>
-            <mrl:LI_Source>
-
-               <mrl:description>
-                  <!-- detailed description of the level of the source resource -->
-                  <gco:CharacterString>Placeholder text=Description of the source resource
-                  e.g. MODIS Product</gco:CharacterString>
-               </mrl:description>
-               <!-- recommended reference to be used for the source resource -->
-               <mrl:sourceCitation>
-                  
-                  
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>E. Vermote. (2015). MOD09A1 MODIS Surface Reflectance 8-Day L3 Global 500m SIN Grid V006. NASA EOSDIS Land Processes DAAC.
-                           http://doi.org/10.5067/MODIS/MOD09A1.006 (Terra)[Title mrl:sourceCitation]
-
-                        </gco:CharacterString>
-                        
-                     </cit:title>
-
-                     
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>http://doi.org/10.5067/MODIS/MOD09A1.006</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
-
-                           <cit:function>
-                              
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                 codeListValue="information"/>
-                              
-                              
-                           </cit:function>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                     
-                     
-                  </cit:CI_Citation>
-               </mrl:sourceCitation>
-               <!-- identifier and link to source metadata -->
-               <mrl:sourceMetadata>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>Metadata HDF-EOS V2 MODIS L3 Surface Reflectance Product
-                           Revision 6.0.0, 09-FEB-09 [Title mrl:sourceMetadata]
-                        </gco:CharacterString>
-                        
-                     </cit:title>
-                     
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <!-- uri to metadata for the cited resource -->
-                              <gco:CharacterString>
-                                 https://ladsweb.modaps.eosdis.nasa.gov/filespec/MODIS/6/MYD09A1</gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                     
-                     
-                  </cit:CI_Citation>
-               </mrl:sourceMetadata>
-               <mrl:scope>
-                  <mcc:MD_Scope>
-                     <mcc:level>
-                        
-                        <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
-                     </mcc:level>
-                  </mcc:MD_Scope>
-               </mrl:scope>               
-            </mrl:LI_Source>
-            
-         </mrl:source>
- 
-         <!-- this example for just a description and reference -->
-         <mrl:source>
-            <mrl:LI_Source>
-               
-               <mrl:description>
-                  <!-- detailed description of the level of the source resource -->
-                  <gco:CharacterString>Placeholder text=Description of the source resource
-                     e.g. MODIS Product</gco:CharacterString>
-               </mrl:description>
-               <!-- recommended reference to be used for the source resource -->
-               <mrl:sourceCitation>
-                  
-                  
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>second example: E. Vermote. (2015). MOD09A1 MODIS Surface Reflectance 8-Day L3 Global 500m SIN Grid V006. NASA EOSDIS Land Processes DAAC.
-                           http://doi.org/10.5067/MODIS/MOD09A1.006 (Terra)[Title mrl:sourceCitation]
-                           
-                        </gco:CharacterString>
-                        
-                     </cit:title>
-                     
-                     
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>http://doi.org/10.5067/MODIS/MOD09A1.006</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
-                           
-                           <cit:function>
-                              
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                 codeListValue="information"/>
-                              
-                              
-                           </cit:function>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                     
-                     
-                  </cit:CI_Citation>
-               </mrl:sourceCitation>
-               
-            </mrl:LI_Source>
-            
-         </mrl:source>
          
          <!-- This example if the method comes from a vocabulary -->
          <mrl:processStep>

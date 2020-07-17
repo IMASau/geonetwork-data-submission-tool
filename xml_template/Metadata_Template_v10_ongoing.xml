@@ -929,7 +929,9 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                   </gex:temporalElement>
                </gex:EX_Extent>
          </mri:extent>
-         <!-- Current functionality
+         <!-- 
+            https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030750285/Data+Identification+Extent+Vertical+Extent+TBC
+            Current functionality
          The Vertical extent section as a whole is not mandatory, but if the user selects this section all fields are mandatory 
          If not input the section does not write into the XML
          Changed functionality - 
@@ -1017,7 +1019,9 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             </gex:EX_Extent>
          </mri:extent>
  
-         
+         <!-- New functionality and XML
+         https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030324349/Data+Identification+Additional+Documentation
+         -->
          <!-- suggested if intending to use this element for a Journal Article or Report-->
          <mri:additionalDocumentation>
             <!-- other documentation associated with the resource
@@ -1035,12 +1039,17 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      <cit:linkage>
                         <gco:CharacterString>https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013WR015138</gco:CharacterString>
                      </cit:linkage>
-                     <cit:protocol gco:nilReason="missing"/>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
                      
                      <cit:description>
                         <gco:CharacterString>Journal article
                      </gco:CharacterString></cit:description>
-
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>
                      
                   </cit:CI_OnlineResource>
                </cit:onlineResource>
@@ -1056,7 +1065,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <cit:date>
                   <cit:CI_Date>
                      <cit:date>
-                        <gco:Date>2019-12-01</gco:Date>
+                        <gco:Date>2014-12-01</gco:Date>
                      </cit:date>
                      <cit:dateType>
                         <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="publication"/>
@@ -1075,7 +1084,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      <cit:party>
                         <cit:CI_Organisation>
                            <cit:name>
-                              <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1" xlink:show="new">CSIRO Land and Water</gcx:Anchor>
+                              <gco:CharacterString>CSIRO Land and Water</gco:CharacterString>
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
@@ -1107,18 +1116,42 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                           <gco:CharacterString>Australia</gco:CharacterString>
                                        </cit:country>
                                        <cit:electronicMailAddress>
-                                          <gco:CharacterString>Mark.Kitchen@csiro.au</gco:CharacterString>
+                                          <gco:CharacterString>alfred.hitchcock@csiro.au</gco:CharacterString>
                                        </cit:electronicMailAddress>
                                     </cit:CI_Address>
                                  </cit:address>
                               </cit:CI_Contact>
                            </cit:contactInfo>
+                           <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556330/Data+identification+Citation+Related+Parties -->
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    <gco:CharacterString>uri:276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                    
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                                 
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
                            <cit:individual>
                               <cit:CI_Individual>
                                  
                                  <cit:name>
-                                    <gcx:Anchor xlink:role="orcid" xlink:href="https://orcid.org/0000-0002-6995-4721" xlink:show="new">Mark Kitchen</gcx:Anchor>
+                                    <gco:CharacterString>Alfred Hitchcock</gco:CharacterString>
                                  </cit:name>
+                                 <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556330/Data+identification+Citation+Related+Parties -->
+                                 <cit:partyIdentifier>
+                                    <mcc:MD_Identifier>
+                                       <mcc:code>
+                                          <gco:CharacterString>uri:276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                          
+                                       </mcc:code>
+                                       <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                       </mcc:codeSpace>
+
+                                    </mcc:MD_Identifier>
+                                 </cit:partyIdentifier>
                                  <cit:positionName>
                                     <gco:CharacterString>Mr</gco:CharacterString>
                                  </cit:positionName>
@@ -1132,8 +1165,16 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <cit:onlineResource>
                   <cit:CI_OnlineResource>
                      <cit:linkage><gco:CharacterString>https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013WR015138</gco:CharacterString></cit:linkage>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
                      <cit:description><gco:CharacterString>Documentation available from web site</gco:CharacterString>
                      </cit:description>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>
+
                   </cit:CI_OnlineResource>
                </cit:onlineResource>
                
@@ -1141,7 +1182,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             
          </mri:additionalDocumentation>
          
-         <!-- suggested if intending to use this element for a unpublished document link-->
+         <!-- suggested if intending to use this element for a online document that is not a journal -->
          <mri:additionalDocumentation>
             <!-- other documentation associated with the resource
                e.g. for journals, websites or other publications containing information about the resource -->
@@ -1157,13 +1198,16 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      <cit:linkage>
                         <gco:CharacterString>https://eo-data.csiro.au/remotesensing/v310/australia/monthly/cover/README.txt</gco:CharacterString>
                      </cit:linkage>
-                     <cit:protocol gco:nilReason="missing"/>
-                     
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
                      <cit:description>
                         <gco:CharacterString>Online document
                         </gco:CharacterString></cit:description>
-                     
-                     
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>                     
                   </cit:CI_OnlineResource>
                </cit:onlineResource>
             </cit:CI_Citation>
@@ -1186,12 +1230,17 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      <cit:linkage>
                         <gco:CharacterString>https://www.longpaddock.qld.gov.au/qld-future-climate/</gco:CharacterString>
                      </cit:linkage>
-                     <cit:protocol gco:nilReason="missing"/>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
                      
                      <cit:description>
                         <gco:CharacterString>Web site
                         </gco:CharacterString></cit:description>
-                     
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>                      
                      
                   </cit:CI_OnlineResource>
                </cit:onlineResource>

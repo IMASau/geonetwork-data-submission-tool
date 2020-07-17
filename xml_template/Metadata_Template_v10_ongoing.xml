@@ -453,7 +453,8 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                   <gco:CharacterString>1.0.0</gco:CharacterString>
                </cit:edition>
 
-
+               <!-- Bug - SHaRED is writing to a different element but should be writing here
+               see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718892/Data+Identification+Citation+Identifier+DOI -->
                <cit:identifier>
                   <mcc:MD_Identifier>
 

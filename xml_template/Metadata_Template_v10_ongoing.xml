@@ -384,19 +384,21 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
    <mdb:identificationInfo>
       
       <mri:MD_DataIdentification>
-         
 
          <mri:citation>
             <cit:CI_Citation>
 
                <cit:title>
-                  <gco:CharacterString>jira-723-2007/07/15 - all options - Placeholder text=Provide a descriptive title for the data set including the subject of study, the study location and time period. 
-                        Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing
+                  <gco:CharacterString>jira-723-2020/07/17-3 - revised options - ongoing status with publication date inapplicable - v2 namespaces
                         </gco:CharacterString>
                </cit:title>
+               <!-- Functional changes required which will determine fields available to user and syntax of XML statements to write
+                  https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition
+               -->
                <cit:date>
                   <cit:CI_Date>
-                     <!-- UI Data Identification - Date resource was created -->
+                     <!-- UI Data Identification - User selects date resource was created
+                     This should equate to the version date of the resource -->
                      <cit:date>
                         <gco:DateTime>2014-06-27T11:07:36</gco:DateTime>
                      </cit:date>
@@ -407,15 +409,28 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </cit:date>
                <cit:date>
                   <cit:CI_Date>
-                     <!-- See notes under mri:status element - use inapplicable and remove the date for status 'ongoing' 
-                        Reference https://www.ngdc.noaa.gov/wiki/index.php/ISO_Dates
+                     <!-- See notes under mri:status element - 
+                     Use inapplicable if the status is 'ongoing' 
                      <cit:date gco:nilReason="inapplicable"/>
-                       GN gives an error if you use the above
-                        -->
-                       <cit:date>
-                       <gco:DateTime>2014-06-27T11:07:36</gco:DateTime>
-                       </cit:date>
+                     Reference https://www.ngdc.noaa.gov/wiki/index.php/ISO_Dates
                      
+                     If status is not ongoing, but date is not input by user then set as
+                     <cit:date gco:nilReason="unknown"/>
+                     Reference http://wiki.esipfed.org/CI_Date
+                                          
+                      Note: GN gives schema validation errors if you use either of the above
+                      Example: https://geonetwork-test.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/d7d0f36c-eb3c-4ed5-b87c-befca9922519
+                        -->
+                       <cit:date gco:nilReason="inapplicable"/>
+                          
+                          
+                       
+                     <!--  
+                        <cit:date>
+                        <gco:DateTime>2014-06-27T11:07:36</gco:DateTime> 
+                        </cit:date>-->
+ 
+ 
                      <cit:dateType>
                         <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="publication"/>
                      </cit:dateType>
@@ -431,19 +446,12 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      </cit:dateType>
                   </cit:CI_Date>
                </cit:date>
-               <!-- Change - add version elements and expose in UI 
+               <!-- New - add version elements and expose in SHaRED UI for user input
                advised by Matt P 
                Reference: https://ternaus.atlassian.net/browse/TERNDESK-937 -->
                <cit:edition>
                   <gco:CharacterString>1.0.0</gco:CharacterString>
                </cit:edition>
-               <!-- Not essential - should be same as creation date -->
-               <cit:editionDate>
-                  <!-- <gco:Date>2011-07-30</gco:Date>
-                  tested Date, error requires DateTime -->
-                  <gco:DateTime>2011-06-27T11:07:36</gco:DateTime>
-                   
-               </cit:editionDate>
 
 
                <cit:identifier>

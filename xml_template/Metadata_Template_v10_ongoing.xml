@@ -709,7 +709,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          <mri:credit>
             <gco:CharacterString>Placeholder text=Thanks to all the lovely sponsors:  xxx, yyy</gco:CharacterString>
          </mri:credit>
-
+         <!-- https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
          <mri:status>
             <!-- 
             Change 1
@@ -730,9 +730,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             2) and the end date of the resource should be:
             /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:extent[1]/gex:EX_Extent[1]/gex:temporalElement[1]/gex:EX_TemporalExtent[1]/gex:extent[1]/gml:TimePeriod[1]/gml:endPosition[1]
             should be <gml:endPosition indeterminatePosition="now"/>
-            
-            Suggest we should implement 2 above but 1 may cause issues for DOI minting and citation.
-            
+                        
             Note: Other statuses not reviewed
             
             Reference: https://icsm-au.github.io/metadata-working-group/defs/Status.html
@@ -741,6 +739,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             <mcc:MD_ProgressCode codeList="codeListLocation#MD_ProgressCode" codeListValue="ongoing"/>
          </mri:status>
 
+         <!-- https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555197/Data+Identification+Point+of+Contact -->
          <mri:pointOfContact>
             <cit:CI_Responsibility>
                <cit:role>
@@ -848,14 +847,19 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </cit:party>
             </cit:CI_Responsibility>
          </mri:pointOfContact>
-         <!-- are we keeping this or just putting horizontal resolution as a keyword -->
+         <!-- https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718977/Data+Identification+Spatial+Resolution -->
+         <!-- Changed functionality and syntax
+         
+         Removed mri:levelOfDetail
+         GCMD_Horizontal will write into keywords
+         GCMD_Vertical will write into keywords
+         User will be able to specify exact figure here for horizontal distance, must also select the unit
+         
+         -->
          <mri:spatialResolution>
-
             <mri:MD_Resolution>
 
-               <mri:levelOfDetail>
-                  <gcx:Anchor xlink:title="GCMD_Horizontal" xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.nasa.gov/kms/concept/abf43d91-a65d-4b3b-a6dd-593e211b2c7b.xml" xlink:show="new">1 meter - &lt; 30 meters</gcx:Anchor>
-               </mri:levelOfDetail>
+               <mri:distance><gco:Distance uom="degrees">1e-3</gco:Distance></mri:distance>
 
             </mri:MD_Resolution>
          </mri:spatialResolution>

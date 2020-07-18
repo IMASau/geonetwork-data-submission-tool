@@ -1295,50 +1295,30 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mcc:linkage>
             </mcc:MD_BrowseGraphic>
          </mri:graphicOverview>
-
+         
+         <!-- What tab - Themes from GCMD Science Keywords -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
-
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/878ec60a-9d2c-414b-a776-d3380d89342f" xlink:show="new">bare soil cover</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/6c44a08d-0a08-47f5-b819-7e561445e613" xlink:show="new">LANDSCAPE PROCESSES</gcx:Anchor>
                </mri:keyword>
+               
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/83384366-87b2-4579-ba17-b7eac9d0b8b9" xlink:show="new">Hemispherical photography</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/a0eb9268-0333-4442-9bc6-efbe338d9836" xlink:show="new">BIOMASS DYNAMICS</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="featureType"/>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
                </mri:type>
-               <!-- Keyword Class is potentially a replacement for keyword type but is not going to work here because it applies for a single ontology 
-               <mri:keywordClass>
-                  
-                  <mri:MD_KeywordClass>
-                     <mri:className>
-                        <gco:CharacterString>Parameters
-                        </gco:CharacterString>
-                     </mri:className>
-                     <mri:conceptIdentifier>
-                        <mcc:URI uuid="http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396"/>
-                     </mri:conceptIdentifier>
-                     <mri:ontology>
-                        <cit:CI_Citation>
-                        <cit:title>Parameters</cit:title>
-                        
-                     </cit:CI_Citation>
-                        
-                        </mri:ontology>
-                  </mri:MD_KeywordClass>
-    
-               </mri:keywordClass>
-               -->
                <mri:thesaurusName>
                   <cit:CI_Citation>
-                     <cit:title >
-                        <gco:CharacterString>TERN Parameter Vocabulary</gco:CharacterString>
+                     <cit:title>
+                        <gco:CharacterString>GCMD Earth Science and Earth Science Services Keywords</gco:CharacterString>
                      </cit:title>
-
+                     
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. [??? link to be advised by SG ???]
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). 
+                           URL (GCMD Keyword Forum Page): https://wiki.earthdata.nasa.gov/display/gcmdkey                           
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
@@ -1346,9 +1326,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString> 
-
-                                 [??? link to be advised by SG ???]
+                              <gco:CharacterString> https://vocabs.ands.org.au/viewById/238
                                  
                               </gco:CharacterString>
                            </cit:linkage>
@@ -1359,7 +1337,9 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-         <!-- Parameters from GCMD Science Keywords -->
+
+         <!-- About tab Parameters from GCMD Science Keywords 
+         Prefereble to combine with above-->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                
@@ -1374,7 +1354,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      xlink:show="new">HUMIDITY</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="featureType"/>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
                </mri:type>
 
                <mri:thesaurusName>
@@ -1405,7 +1385,182 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-      
+         
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050206" xlink:show="new">Environmental Monitoring</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050102" xlink:show="new">Ecosystem Function</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/0401" xlink:show="new">ATMOSPHERIC SCIENCES</gcx:Anchor>
+               </mri:keyword>
+               
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>ANZSRC Fields of Research</gco:CharacterString>
+                     </cit:title>
+                     
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           Australian Bureau of Statistics, 2008, Australian and New Zealand Standard Research Classification (ANZSRC), https://www.abs.gov.au
+                        </gco:CharacterString>
+                        
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>https://vocabs.ands.org.au/viewById/20
+                                 
+                              </gco:CharacterString>
+                           </cit:linkage>
+                        </cit:CI_OnlineResource>
+                        
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>    
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               
+               <mri:keyword>
+                  
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://linkeddata.tern.org.au/def/platforms/6bc24c32-683c-4b40-a48b-20cf0c526378" xlink:show="new">Tower</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/5c036cd1-7c0c-4f86-8f9e-88b2114f4362" xlink:show="new">Automatic Weather Station</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="platform"/>
+               </mri:type>
+               
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>TERN Platform Vocabulary</gco:CharacterString>
+                     </cit:title>
+                     
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           TERN Global Vocabularies, 2020. [??? link to be advised ???]
+                        </gco:CharacterString>
+                        
+                     </cit:otherCitationDetails>
+                     
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString> [??? link to be advised ???]
+                                 
+                              </gco:CharacterString>
+                           </cit:linkage>
+                        </cit:CI_OnlineResource>
+                        
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <!-- Instruments -->
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/55cd8c0b-20a3-4c22-a96f-52237be2b6db" xlink:show="new">Vaisala VSN1 Probe</gcx:Anchor>
+               </mri:keyword>
+               
+               <!-- If entered by the User, the Instrument Serial Number is written in the metadata with the instrument as instrumentName (serial number)
+              Note: This value is NOT written to, or selected from a Vocabulary -->
+               
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/94bf9ec6-d4fb-4005-b54c-eca39a30a7e5" xlink:show="new">TERN thermometer (22401)</gcx:Anchor>
+               </mri:keyword>
+               
+               
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="instrument"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>TERN Instrument Vocabulary</gco:CharacterString>
+                     </cit:title>
+                     
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           TERN Global Vocabularies, 2020. [??? link to be advised by SG ???]
+                        </gco:CharacterString>
+                        
+                     </cit:otherCitationDetails>
+                     
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString> 
+                                 <!-- waiting for SG to advise uri -->
+                                 https://ternaustralia.github.io/ontology_tern-ssn/
+                                 https://linkeddata.tern.org.au/viewer/tern/vocabulary/
+                                 [??? link to be advised by SG ???]
+                                 
+                              </gco:CharacterString>
+                           </cit:linkage>
+                        </cit:CI_OnlineResource>
+                        
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <!-- parameters -->
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/878ec60a-9d2c-414b-a776-d3380d89342f" xlink:show="new">bare soil cover</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/83384366-87b2-4579-ba17-b7eac9d0b8b9" xlink:show="new">Hemispherical photography</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+               </mri:type>
+               
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title >
+                        <gco:CharacterString>TERN Parameter Vocabulary</gco:CharacterString>
+                     </cit:title>
+                     
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           TERN Global Vocabularies, 2020. [??? link to be advised by SG ???]
+                        </gco:CharacterString>
+                        
+                     </cit:otherCitationDetails>
+                     
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString> 
+                                 
+                                 [??? link to be advised by SG ???]
+                                 
+                              </gco:CharacterString>
+                           </cit:linkage>
+                        </cit:CI_OnlineResource>
+                        
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
          <!-- add QUDT units keywords
             GW to confirm version
          -->
@@ -1448,149 +1603,14 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
+ 
+         <!-- Add horizontal resolution as keywords -->
          
-         <mri:descriptiveKeywords>
-            <mri:MD_Keywords>
-
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/55cd8c0b-20a3-4c22-a96f-52237be2b6db" xlink:show="new">Vaisala VSN1 Probe</gcx:Anchor>
-               </mri:keyword>
-
-                  <!-- If entered by the User, the Instrument Serial Number is written in the metadata with the instrument as instrumentName (serial number)
-              Note: This value is NOT written to, or selected from a Vocabulary -->
-
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/94bf9ec6-d4fb-4005-b54c-eca39a30a7e5" xlink:show="new">TERN thermometer (22401)</gcx:Anchor>
-               </mri:keyword>
-
-
-               <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="instrument"/>
-               </mri:type>
-               <mri:thesaurusName>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>TERN Instrument Vocabulary</gco:CharacterString>
-                     </cit:title>
-
-                     <cit:otherCitationDetails>
-                        <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. [??? link to be advised by SG ???]
-                        </gco:CharacterString>
-
-                     </cit:otherCitationDetails>
-
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString> 
-                                 <!-- waiting for SG to advise uri -->
-                                 https://ternaustralia.github.io/ontology_tern-ssn/
-                                 https://linkeddata.tern.org.au/viewer/tern/vocabulary/
-                                 [??? link to be advised by SG ???]
-                                 
-                              </gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
-
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mri:thesaurusName>
-            </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
-         <mri:descriptiveKeywords>
-            <mri:MD_Keywords>
-
-               <mri:keyword>
-
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://linkeddata.tern.org.au/def/platforms/6bc24c32-683c-4b40-a48b-20cf0c526378" xlink:show="new">Tower</gcx:Anchor>
-               </mri:keyword>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/5c036cd1-7c0c-4f86-8f9e-88b2114f4362" xlink:show="new">Automatic Weather Station</gcx:Anchor>
-               </mri:keyword>
-               <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="platform"/>
-               </mri:type>
-
-               <mri:thesaurusName>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>TERN Platform Vocabulary</gco:CharacterString>
-                     </cit:title>
-
-                     <cit:otherCitationDetails>
-                        <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. [??? link to be advised ???]
-                        </gco:CharacterString>
-
-                     </cit:otherCitationDetails>
-
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString> [??? link to be advised ???]
-                                 
-                              </gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
-
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mri:thesaurusName>
-            </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
-         <!-- Is there a method vocabulary? -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                
                <mri:keyword>
-                  
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/ausplots-cv/e471d9ca-6fc1-43e2-b550-cee7f2480f09" xlink:show="new">Photo panorama method</gcx:Anchor>
-               </mri:keyword>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/ausplots-cv/fe935af0-df09-4365-a57b-316cd75ec7ca" xlink:show="new">Basal area method</gcx:Anchor>
-               </mri:keyword>
-               <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="process"/>
-               </mri:type>
-               
-               <mri:thesaurusName>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>TERN Methods Vocabulary</gco:CharacterString>
-                     </cit:title>
-                     
-                     <cit:otherCitationDetails>
-                        <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. [??? link to be advised ???]
-                        </gco:CharacterString>
-                        
-                     </cit:otherCitationDetails>
-                     
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString> [??? link to be advised ???]
-                                 
-                              </gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
-                        
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mri:thesaurusName>
-            </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
-         
-         <!-- Themes from GCMD Science Keywords -->
-         <mri:descriptiveKeywords>
-            <mri:MD_Keywords>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/6c44a08d-0a08-47f5-b819-7e561445e613" xlink:show="new">LANDSCAPE PROCESSES</gcx:Anchor>
-               </mri:keyword>
-
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/a0eb9268-0333-4442-9bc6-efbe338d9836" xlink:show="new">BIOMASS DYNAMICS</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.nasa.gov/kms/concept/abf43d91-a65d-4b3b-a6dd-593e211b2c7b.xml" xlink:show="new">1 meter - &lt; 30 meters</gcx:Anchor>
                </mri:keyword>
                <mri:type>
                   <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
@@ -1598,9 +1618,9 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>GCMD Earth Science and Earth Science Services Keywords</gco:CharacterString>
+                        <gco:CharacterString>GCMD Horizontal Resolution</gco:CharacterString>
                      </cit:title>
-
+                     
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
                            Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). 
@@ -1608,23 +1628,27 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
-
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString> https://vocabs.ands.org.au/viewById/238
-                                 
-                              </gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
+                           <!-- not sure xml format is still available, implications for dropdown sequence
+                                    https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange?format=xml -->
+                           <gco:CharacterString>https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=json
+                              
+                           </gco:CharacterString>
 
+                           </cit:linkage>
+                           
+                        </cit:CI_OnlineResource>
+                        
                      </cit:onlineResource>
+                     
                   </cit:CI_Citation>
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
 
-
+<!-- Temporal keywords -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
 
@@ -1650,7 +1674,10 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange?format=xml
+                              <gco:CharacterString>https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange/?format=json
+                                 
+                                 <!-- not sure xml format is still available, implications for dropdown sequence
+                                    https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange?format=xml -->
                                  
                               </gco:CharacterString>
                            </cit:linkage>
@@ -1663,14 +1690,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
 
-<!-- Add horizontal resolution as keywords
-         currently in /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:spatialResolution[1]/mri:MD_Resolution[1]/mri:levelOfDetail[1]
-         Reference: SG -->
+<!-- Add vertical resolution as keywords -->
+         
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
 
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.nasa.gov/kms/concept/abf43d91-a65d-4b3b-a6dd-593e211b2c7b.xml" xlink:show="new">1 meter - &lt; 30 meters</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/3f0aa4fc-802c-4804-9f9f-8b666f3a2776?format=json" xlink:show="new">> 1 km</gcx:Anchor>
                </mri:keyword>
                <mri:type>
                   <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
@@ -1678,7 +1704,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>GCMD Horizontal Resolution</gco:CharacterString>
+                        <gco:CharacterString>GCMD Vertical Resolution</gco:CharacterString>
                      </cit:title>
                      
                      <cit:otherCitationDetails>
@@ -1691,7 +1717,9 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange?format=xml
+                              <!-- not sure xml format is still available, implications for dropdown sequence
+                                    https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange?format=xml -->
+                              <gco:CharacterString>https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=json
                                  
                               </gco:CharacterString>
                            </cit:linkage>
@@ -1703,48 +1731,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-
-         <mri:descriptiveKeywords>
-            <mri:MD_Keywords>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050206" xlink:show="new">Environmental Monitoring</gcx:Anchor>
-               </mri:keyword>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050102" xlink:show="new">Ecosystem Function</gcx:Anchor>
-               </mri:keyword>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/0401" xlink:show="new">ATMOSPHERIC SCIENCES</gcx:Anchor>
-               </mri:keyword>
-
-               <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
-               </mri:type>
-               <mri:thesaurusName>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>ANZSRC Fields of Research</gco:CharacterString>
-                     </cit:title>
-
-                     <cit:otherCitationDetails>
-                        <gco:CharacterString>
-                           Australian Bureau of Statistics, 2008, Australian and New Zealand Standard Research Classification (ANZSRC), https://www.abs.gov.au
-                        </gco:CharacterString>
-
-                     </cit:otherCitationDetails>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>https://vocabs.ands.org.au/viewById/20
-                                 
-                              </gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
-
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mri:thesaurusName>
-            </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
+   <!-- Flora -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords id="Taxon">
                <mri:keyword>
@@ -1790,7 +1777,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-<!-- Added per SG -->
+<!-- Fauna -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <!-- Will these have uri? -->
@@ -1834,6 +1821,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
+         <!-- User defined -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords id="local">
                <mri:keyword>
@@ -1842,6 +1830,9 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <mri:keyword>
                   <gco:CharacterString>Another free text keyword</gco:CharacterString>
                </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="discipline"/>
+               </mri:type>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
          <!-- Static section for all metadata records -->
@@ -1911,21 +1902,25 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <!-- There is logic in SHaRED regarding the codelist value output here -->
 
                <mco:useConstraints>
+
                   <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode" codeListValue="license"/>
+
                </mco:useConstraints>
 
                <mco:otherConstraints>
-                  <gco:CharacterString>Placeholder text=Example:Attribution is required as: xxxyyyzz. 
-                     Please send us citations details for publications arising from work that use this data.</gco:CharacterString>
+                  <!-- write the Citation into [[Citation]] - see Wilma for details -->
+                  <gco:CharacterString>This data should be cited as [[Citation]]. Accessed on {Date}. 
+                     </gco:CharacterString>
                </mco:otherConstraints>
+               <!-- static section begins -->
+               <mco:otherConstraints><gco:CharacterString>If any publications result from work that uses this data, please send the citation details to esupport@tern.org.au</gco:CharacterString></mco:otherConstraints>
 
                <mco:otherConstraints>
-                  <gco:CharacterString>Placeholder text=Example:While every care is taken to ensure the accuracy of this information, 
-                     the author makes no representations or warranties about its accuracy, reliability, 
-                     completeness or suitability for any particular purpose and disclaims all responsibility and all liability 
-                     (including without limitation, liability in negligence) for all expenses, losses, damages (including indirect or consequential damage) 
-                     and costs which might be incurred as a result of the information being inaccurate or incomplete in any way and for any reason.</gco:CharacterString>
+                  <gco:CharacterString>TERN services are provided on an “as-is” and “as available” basis. Users use any TERN services at their discretion and risk. They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.
+                     
+                     Web links to and from external, third party websites should not be constructed as implying any relationships with and/or endorsement of the external site or its content by TERN.</gco:CharacterString>
                </mco:otherConstraints>
+               <!-- static section ends -->
                <mco:otherConstraints>
                   <gco:CharacterString>Placeholder text=Example:Not suitable for marine navigation</gco:CharacterString>
                </mco:otherConstraints>

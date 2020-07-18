@@ -389,7 +389,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             <cit:CI_Citation>
 
                <cit:title>
-                  <gco:CharacterString>jira-723-2020/07/17-3 - revised options - ongoing status with publication date inapplicable - v2 namespaces
+                  <gco:CharacterString>jira-723-2020/07/19-1 - revised options - ongoing status with publication date inapplicable - v2 namespaces
                         </gco:CharacterString>
                </cit:title>
                <!-- Functional changes required which will determine fields available to user and syntax of XML statements to write
@@ -1908,17 +1908,21 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mco:useConstraints>
 
                <mco:otherConstraints>
-                  <!-- write the Citation into [[Citation]] - see Wilma for details -->
-                  <gco:CharacterString>This data should be cited as [[Citation]]. Accessed on {Date}. 
+                  <!-- Generate and write the Citation into [[Citation]] - see Wilma for details -->
+                  <gco:CharacterString>Please cite as [[Citation]]. Accessed on {Date}. 
                      </gco:CharacterString>
                </mco:otherConstraints>
                <!-- static section begins -->
                <mco:otherConstraints><gco:CharacterString>If any publications result from work that uses this data, please send the citation details to esupport@tern.org.au</gco:CharacterString></mco:otherConstraints>
 
                <mco:otherConstraints>
-                  <gco:CharacterString>TERN services are provided on an “as-is” and “as available” basis. Users use any TERN services at their discretion and risk. They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.
+                  <!-- Disclaimer text from https://www.tern.org.au/access-policy/ -->
+                  <gco:CharacterString>TERN services are provided on an “as-is” and “as available” basis. Users use any TERN services at their discretion and risk. 
+                     They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN 
+                     and any analysis performed using the TERN infrastructure.
                      
-                     Web links to and from external, third party websites should not be constructed as implying any relationships with and/or endorsement of the external site or its content by TERN.</gco:CharacterString>
+                     Web links to and from external, third party websites should not be constructed as implying any relationships with and/or endorsement 
+                     of the external site or its content by TERN.</gco:CharacterString>
                </mco:otherConstraints>
                <!-- static section ends -->
                <mco:otherConstraints>

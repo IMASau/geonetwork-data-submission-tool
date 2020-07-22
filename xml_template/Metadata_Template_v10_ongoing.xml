@@ -124,7 +124,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
       </mdb:MD_MetadataScope>
    </mdb:metadataScope>
 
-   <!-- Changed - logo details added, cit:partyIdentifier, etc
+   <!-- Changed - uses cit:partyIdentifier, etc
       https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028554952/Metadata+Contact
    This continues to be a static section in the template -->
    <mdb:contact>
@@ -1281,6 +1281,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <mcc:linkage>
                   <cit:CI_OnlineResource>
                      <cit:linkage><gco:CharacterString>url if needed</gco:CharacterString></cit:linkage>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="browseGraphic"/>
+                     </cit:function>
                   </cit:CI_OnlineResource>
                </mcc:linkage>
             </mcc:MD_BrowseGraphic>
@@ -1299,7 +1306,15 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <mcc:linkage>
                   <cit:CI_OnlineResource>
                      <cit:linkage><gco:CharacterString>url if needed</gco:CharacterString></cit:linkage>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="browseGraphic"/>
+                     </cit:function>
                   </cit:CI_OnlineResource>
+                  
                </mcc:linkage>
             </mcc:MD_BrowseGraphic>
          </mri:graphicOverview>
@@ -1896,6 +1911,10 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="browseGraphic">
+                              
+                           </cit:CI_OnLineFunctionCode></cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>

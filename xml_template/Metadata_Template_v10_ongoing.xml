@@ -1756,14 +1756,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          </mri:descriptiveKeywords>
    <!-- Flora -->
          <mri:descriptiveKeywords>
-            <mri:MD_Keywords id="Taxon">
-               <mri:keyword>
-                  <!-- Will these have uri? -->
-                  <gco:CharacterString>Can use enter a taxon name not in APNI?</gco:CharacterString>
-               </mri:keyword>
-             
+            <mri:MD_Keywords id="Flora">
+
                <mri:keyword>
                   <gcx:Anchor xlink:role="uri" xlink:href="https://id.biodiversity.org.au/name/apni/93283" xlink:show="new">Calamus moti F.M.Bailey</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://id.biodiversity.org.au/name/apni/225451" xlink:show="new">Cunninghamiales Doweld</gcx:Anchor>
                </mri:keyword>
                <mri:type>
                   <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="taxon"/>
@@ -1803,12 +1802,12 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
 <!-- Fauna -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
-               <!-- Will these have uri? -->
-               <mri:keyword>
-                  <gco:CharacterString>Is user permitted to enter a fauna not in AFD</gco:CharacterString>
-               </mri:keyword>
+
                <mri:keyword>
                   <gcx:Anchor xlink:role="uri" xlink:href="https://biodiversity.org.au/afd/taxa/Oecophylla_smaragdina" xlink:show="new">Oecophylla smaragdina | Green Tree Ant</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://biodiversity.org.au/afd/taxa/Petaurus_australis" xlink:show="new">Petaurus australis | Yellow-bellied Glider</gcx:Anchor>
                </mri:keyword>
 
                <mri:type>

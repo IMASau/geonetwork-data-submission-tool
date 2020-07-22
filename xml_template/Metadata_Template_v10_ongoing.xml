@@ -189,18 +189,18 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <cit:logo>                  
                   <mcc:MD_BrowseGraphic>
                      <mcc:fileName>
-                        <gco:CharacterString>[Placeholder for file name here]</gco:CharacterString>
+                        <gco:CharacterString>tern-logo.png</gco:CharacterString>
                      </mcc:fileName>
                      <mcc:fileDescription>
                         <gco:CharacterString>TERN Logo</gco:CharacterString>
                      </mcc:fileDescription>
                      <mcc:fileType>
-                        <gco:CharacterString>[Placeholder for filetype here e.g. png]</gco:CharacterString>
+                        <gco:CharacterString>png</gco:CharacterString>
                      </mcc:fileType>
                      <mcc:linkage>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>[Placeholder for url to file here]</gco:CharacterString>
+                              <gco:CharacterString>https://w3id.org/tern/static/tern-web/img/tern-logo.png</gco:CharacterString>
                            </cit:linkage>
                         </cit:CI_OnlineResource>
                      </mcc:linkage>
@@ -1943,6 +1943,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             </lan:PT_Locale>
          </mri:defaultLocale>
          <!-- Static section ends -->
+         <mri:environmentDescription><gco:CharacterString>a paragraph describing the processing environment</gco:CharacterString></mri:environmentDescription>
 
          <mri:supplementalInformation>
             <gco:CharacterString>Supplemental information goes here</gco:CharacterString>

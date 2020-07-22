@@ -288,9 +288,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          <cit:linkage>
             <gco:CharacterString>https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/d366e327-ba9b-42a2-8a96-56565c4b8c71</gco:CharacterString>
          </cit:linkage>
+         <cit:protocol>
+            <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+         </cit:protocol>
          <cit:description>
             <gco:CharacterString>Point of truth URL of this metadata record</gco:CharacterString>
          </cit:description>
+
          <cit:function>
             <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="completeMetadata"/>
          </cit:function>
@@ -1353,6 +1357,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function>                          
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1401,6 +1412,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  https://earthdata.nasa.gov/earth-observation-data/find-data/gcmd/gcmd-keywords                                 
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1443,6 +1461,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1484,6 +1509,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1534,6 +1566,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1577,6 +1616,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1618,6 +1664,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1661,7 +1714,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            </gco:CharacterString>
 
                            </cit:linkage>
-                           
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1704,6 +1763,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
 
                      </cit:onlineResource>
@@ -1746,6 +1812,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1792,6 +1865,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1836,6 +1916,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1942,8 +2029,8 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mco:useConstraints>
 
                <mco:otherConstraints>
-                  <!-- Generate and write the Citation into [[Citation]] - see Wilma for details -->
-                  <gco:CharacterString>Please cite as [[Citation]]. Accessed on {Date}. 
+                  <!-- SG advised Sprint 22/7 that this is just the format of the [[Citation] -->
+                  <gco:CharacterString>Please cite this dataset as {Author}{Year Created}{Title}. Version {Version number}. Terrestrial Ecosystem Research Network (TERN). dataset. Accessed from https://geonetwork.tern.org.au on {Date}. 
                      </gco:CharacterString>
                </mco:otherConstraints>
                <!-- static section begins -->
@@ -1951,12 +2038,9 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
 
                <mco:otherConstraints>
                   <!-- Disclaimer text from https://www.tern.org.au/access-policy/ -->
-                  <gco:CharacterString>TERN services are provided on an “as-is” and “as available” basis. Users use any TERN services at their discretion and risk. 
-                     They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN 
-                     and any analysis performed using the TERN infrastructure.
+                  <gco:CharacterString>TERN services are provided on an “as-is” and “as available” basis. Users use any TERN services at their discretion and risk. They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.
                      
-                     Web links to and from external, third party websites should not be constructed as implying any relationships with and/or endorsement 
-                     of the external site or its content by TERN.</gco:CharacterString>
+ Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.</gco:CharacterString>
                </mco:otherConstraints>
                <!-- static section ends -->
                <mco:otherConstraints>
@@ -2421,6 +2505,9 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            <cit:linkage>
                               <gco:CharacterString>https://sentinel.esa.int/web/sentinel/missions/sentinel-2/data-quality-report</gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
 
                            <cit:function>
                               

@@ -1869,7 +1869,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <mco:graphic>
                   <mcc:MD_BrowseGraphic>
                      <mcc:fileName>
-                        <gco:CharacterString>by.png</gco:CharacterString>
+                        <gco:CharacterString>88x31.png</gco:CharacterString>
                      </mcc:fileName>
                      <mcc:fileDescription>
                         <gco:CharacterString>CCBy Logo from creativecommons.org </gco:CharacterString>
@@ -1883,10 +1883,18 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                               
                               <!-- or https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by.png -->
                               <gco:CharacterString>
-                                 https://portal.tern.org.au//assets/core/img/licence/CC-BY.png
+                                 
+                                 https://w3id.org/tern/static/cc-by/88x31.png
 
                                  </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="browseGraphic">
+                                 
+                              </cit:CI_OnLineFunctionCode></cit:function>
                         </cit:CI_OnlineResource>
                      </mcc:linkage>
                   </mcc:MD_BrowseGraphic>
@@ -1911,7 +1919,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="browseGraphic">
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="information">
                               
                            </cit:CI_OnLineFunctionCode></cit:function>
                         </cit:CI_OnlineResource>

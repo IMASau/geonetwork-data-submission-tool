@@ -374,7 +374,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             <cit:CI_Citation>
 
                <cit:title>
-                  <gco:CharacterString>jira-723-2020/07/19-1 - revised options - ongoing status with publication date inapplicable - v2 namespaces
+                  <gco:CharacterString>jira-723-2020/07/23-2 - ongoing status with publication date inapplicable - v2 namespaces
                         </gco:CharacterString>
                </cit:title>
                <!-- Functional changes required which will determine fields available to user and syntax of XML statements to write
@@ -1323,15 +1323,16 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             </mcc:MD_BrowseGraphic>
          </mri:graphicOverview>
          
-         <!-- What tab - Themes from GCMD Science Keywords -->
+         <!-- What tab - Themes from GCMD Science Keywords 
+         uri domain has been updated for release 9.1.5 and is supplied correctly below -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/6c44a08d-0a08-47f5-b819-7e561445e613" xlink:show="new">LANDSCAPE PROCESSES</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/6c44a08d-0a08-47f5-b819-7e561445e613" xlink:show="new">LANDSCAPE PROCESSES</gcx:Anchor>
                </mri:keyword>
                
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/a0eb9268-0333-4442-9bc6-efbe338d9836" xlink:show="new">BIOMASS DYNAMICS</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/a0eb9268-0333-4442-9bc6-efbe338d9836" xlink:show="new">BIOMASS DYNAMICS</gcx:Anchor>
                </mri:keyword>
                <mri:type>
                   <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
@@ -1344,8 +1345,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). 
-                           URL (GCMD Keyword Forum Page): https://wiki.earthdata.nasa.gov/display/gcmdkey                           
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                          
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
@@ -1373,20 +1373,22 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          </mri:descriptiveKeywords>
 
          <!-- About tab Parameters from GCMD Science Keywords 
-         Prefereble to combine with above-->
+         Prefereble to combine with above
+         uri domain has been updated for release 9.1.5 and is supplied correctly below -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                
                <mri:keyword>
                   <gcx:Anchor xlink:role="uri" 
-                     xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/f634ab55-de40-4d0b-93bc-691bf5408ccb" 
+                     xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/f634ab55-de40-4d0b-93bc-691bf5408ccb" 
                      xlink:show="new">AIR TEMPERATURE</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:role="uri" 
-                     xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/427e5121-a142-41cb-a8e9-a70b7f98eb6a"
+                     xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/427e5121-a142-41cb-a8e9-a70b7f98eb6a"
                      xlink:show="new">HUMIDITY</gcx:Anchor>
                </mri:keyword>
+  
                <mri:type>
                   <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
                </mri:type>
@@ -1399,8 +1401,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). 
-                           URL (GCMD Keyword Forum Page): https://wiki.earthdata.nasa.gov/display/gcmdkey                           
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
@@ -1602,7 +1603,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. [??? link to be advised by SG ???]
+                           TERN Global Vocabularies, 2020. https://linkeddata.tern.org.au
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
@@ -1612,7 +1613,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            <cit:linkage>
                               <gco:CharacterString> 
                                  
-                                 [??? link to be advised by SG ???]
+                                 https://linkeddata.tern.org.au
                                  
                               </gco:CharacterString>
                            </cit:linkage>
@@ -1699,17 +1700,17 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). 
-                           URL (GCMD Keyword Forum Page): https://wiki.earthdata.nasa.gov/display/gcmdkey                           
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                           <!-- not sure xml format is still available, implications for dropdown sequence
-                                    https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange?format=xml -->
-                           <gco:CharacterString>https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=json
+                           <!-- This is the old base uri for the horizontal res
+                                    https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange?format=xml 
+                           below is the new base uri for the horizontal res -->
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml
                               
                            </gco:CharacterString>
 
@@ -1748,18 +1749,19 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
 
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). 
-                           URL (GCMD Keyword Forum Page): https://wiki.earthdata.nasa.gov/display/gcmdkey                           
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange/?format=json
+                              <!-- old base uri was
+                                    https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange?format=xml 
+                              below uses new base uri -->
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange/?format=xml
                                  
-                                 <!-- not sure xml format is still available, implications for dropdown sequence
-                                    https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange?format=xml -->
+
                                  
                               </gco:CharacterString>
                            </cit:linkage>
@@ -1798,17 +1800,17 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). 
-                           URL (GCMD Keyword Forum Page): https://wiki.earthdata.nasa.gov/display/gcmdkey                           
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <!-- not sure xml format is still available, implications for dropdown sequence
-                                    https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange?format=xml -->
-                              <gco:CharacterString>https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=json
+                              <!-- the old base uri was
+                                    https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange?format=xml 
+                              below is updated base uri -->
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml
                                  
                               </gco:CharacterString>
                            </cit:linkage>
@@ -1949,9 +1951,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
 
             <mco:MD_LegalConstraints>
                <mco:useLimitation><gco:CharacterString>
-                  The CC-By license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties.  
-                  Details are provided at https://creativecommons.org/licenses/by/4.0/legalcode
-                  
+                  The CC-By license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties. Details are provided at https://creativecommons.org/licenses/by/4.0/legalcode                  
                </gco:CharacterString></mco:useLimitation>
                <mco:graphic>
                   <mcc:MD_BrowseGraphic>
@@ -2027,22 +2027,23 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                   <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode" codeListValue="license"/>
 
                </mco:useConstraints>
-
+               <!-- static section begins -->
+               <mco:otherConstraints>
+                  <!-- Disclaimer text from https://www.tern.org.au/access-policy/ -->
+                  <gco:CharacterString>TERN services are provided on an “as-is” and “as available” basis. Users use any TERN services at their discretion and risk. They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.
+                     
+                     Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.</gco:CharacterString>
+               </mco:otherConstraints>
                <mco:otherConstraints>
                   <!-- SG advised Sprint 22/7 that this is just the format of the [[Citation] -->
                   <gco:CharacterString>Please cite this dataset as {Author}{Year Created}{Title}. Version {Version number}. Terrestrial Ecosystem Research Network (TERN). dataset. Accessed from https://geonetwork.tern.org.au on {Date}. 
                      </gco:CharacterString>
                </mco:otherConstraints>
-               <!-- static section begins -->
+
                <mco:otherConstraints><gco:CharacterString>If any publications result from work that uses this data, please send the citation details to esupport@tern.org.au</gco:CharacterString></mco:otherConstraints>
 
-               <mco:otherConstraints>
-                  <!-- Disclaimer text from https://www.tern.org.au/access-policy/ -->
-                  <gco:CharacterString>TERN services are provided on an “as-is” and “as available” basis. Users use any TERN services at their discretion and risk. They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.
-                     
- Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.</gco:CharacterString>
-               </mco:otherConstraints>
-               <!-- static section ends -->
+
+               <!-- static section ends - users may add other constraints -->
                <mco:otherConstraints>
                   <gco:CharacterString>Placeholder text=Example:Not suitable for marine navigation</gco:CharacterString>
                </mco:otherConstraints>

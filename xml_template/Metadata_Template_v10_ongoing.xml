@@ -2040,7 +2040,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      </gco:CharacterString>
                </mco:otherConstraints>
 
-               <mco:otherConstraints><gco:CharacterString>If any publications result from work that uses this data, please send the citation details to esupport@tern.org.au</gco:CharacterString></mco:otherConstraints>
+               <mco:otherConstraints><gco:CharacterString>Please also use TERN's report form to let us know about work or publications that use this data, go to https://www.tern.org.au/research-publications/#reporting</gco:CharacterString></mco:otherConstraints>
 
 
                <!-- static section ends - users may add other constraints -->

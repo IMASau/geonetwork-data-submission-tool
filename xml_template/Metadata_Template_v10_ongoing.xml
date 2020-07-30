@@ -374,7 +374,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             <cit:CI_Citation>
 
                <cit:title>
-                  <gco:CharacterString>jira-723-2020/07/23-2 - ongoing status with publication date inapplicable - v2 namespaces
+                  <gco:CharacterString>jira-723-2020/07/30-1 - ongoing status with publication date inapplicable - v2 namespaces
                         </gco:CharacterString>
                </cit:title>
                <!-- Functional changes required which will determine fields available to user and syntax of XML statements to write
@@ -1498,7 +1498,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. [??? link to be advised ???]
+                           TERN Global Vocabularies, 2020. https://w3id.org/tern/assets/platforms/
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
@@ -1506,7 +1506,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString> [??? link to be advised ???]
+                              <gco:CharacterString> https://w3id.org/tern/assets/platforms/
                                  
                               </gco:CharacterString>
                            </cit:linkage>
@@ -1551,7 +1551,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. [??? link to be advised by SG ???]
+                           TERN Global Vocabularies, 2020. https://w3id.org/tern/assets/sensors/
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
@@ -1560,10 +1560,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                         <cit:CI_OnlineResource>
                            <cit:linkage>
                               <gco:CharacterString> 
-                                 <!-- waiting for SG to advise uri -->
-                                 https://ternaustralia.github.io/ontology_tern-ssn/
-                                 https://linkeddata.tern.org.au/viewer/tern/vocabulary/
-                                 [??? link to be advised by SG ???]
+                                 https://w3id.org/tern/assets/sensors/
                                  
                               </gco:CharacterString>
                            </cit:linkage>
@@ -1603,7 +1600,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. https://linkeddata.tern.org.au
+                           TERN Global Vocabularies, 2020. http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
@@ -1613,7 +1610,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            <cit:linkage>
                               <gco:CharacterString> 
                                  
-                                 https://linkeddata.tern.org.au
+                                 http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396
                                  
                               </gco:CharacterString>
                            </cit:linkage>

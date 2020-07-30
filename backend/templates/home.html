@@ -15,7 +15,6 @@
 <script src="https://use.fontawesome.com/abac3c7363.js"></script>
 
 <style>
-
     /*
     * Globals
     */
@@ -24,79 +23,90 @@
     .site-wrapper a,
     .site-wrapper a:focus,
     .site-wrapper a:hover {
-    color: #fff;
+        color: #fff;
     }
 
     /* Custom default button */
     .site-wrapper .btn-default,
     .site-wrapper .btn-default:hover,
     .site-wrapper .btn-default:focus {
-    color: #333;
-    text-shadow: none; /* Prevent inheritence from `body` */
-    background-color: #fff;
-    border: 1px solid #fff;
+        color: #333;
+        text-shadow: none;
+        /* Prevent inheritence from `body` */
+        background-color: #fff;
+        border: 1px solid #fff;
     }
 
 
     /*
     * Base structure
     */
-	.site-wrapper {
-    height: 100%;
-    height: 350px;
-    color: #fff;
-    text-align: center;
-	}
-
-	/* Use background-size: cover for anything greater than IE8 (IE8 doesn't support this media query) */
-	@media only screen and (width)
-	{
     .site-wrapper {
-	{% if homepage_image_url %}
-	background: #060 url({{ homepage_image_url }}) no-repeat center fixed;
-	{% endif %}
-	-webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-	}
-	}
+        height: 100%;
+        height: 350px;
+        color: #fff;
+        text-align: center;
+    }
 
-	/* Workaround for background-size: cover in IE8 */
-	.site-wrapper .ie8-bg {
-	min-height: 100%;
-	min-width: 1024px;
-	width: 100%;
-	height: auto;
-	position: fixed;
-	top: 0;
-	left: 0;
-	}
+    /* Use background-size: cover for anything greater than IE8 (IE8 doesn't support this media query) */
+    @media only screen and (width) {
+        .site-wrapper {
+                {
+                % if homepage_image_url %
+            }
+
+            background: #060 url({{ homepage_image_url }}) no-repeat center fixed;
+
+                {
+                % endif %
+            }
+
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    }
+
+    /* Workaround for background-size: cover in IE8 */
+    .site-wrapper .ie8-bg {
+        min-height: 100%;
+        min-width: 1024px;
+        width: 100%;
+        height: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
 
     /* Extra markup and styles for table-esque vertical and horizontal centering */
     .site-wrapper .site-wrapper {
-	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA9JREFUeNpiYGBgSAMIMAAAawBnDb5zPgAAAABJRU5ErkJggg==); /* IE8 proofing dark colour background overlay */
-    display: table;
-	position: relative;
-    width: 100%;
-    height: 100%; /* For at least Firefox */
-    min-height: 100%;
-    -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
-    box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA9JREFUeNpiYGBgSAMIMAAAawBnDb5zPgAAAABJRU5ErkJggg==);
+        /* IE8 proofing dark colour background overlay */
+        display: table;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        /* For at least Firefox */
+        min-height: 100%;
+        -webkit-box-shadow: inset 0 0 100px rgba(0, 0, 0, .5);
+        box-shadow: inset 0 0 100px rgba(0, 0, 0, .5);
     }
+
     .site-wrapper-inner {
-    display: table-cell;
-    vertical-align: top;
-    display: inline-block;
+        display: table-cell;
+        vertical-align: top;
+        display: inline-block;
     }
+
     .cover-container {
-    margin-right: auto;
-    margin-left: auto;
+        margin-right: auto;
+        margin-left: auto;
     }
 
     /* Padding for spacing */
     .inner {
-    padding: 30px;
+        padding: 30px;
     }
 
 
@@ -104,45 +114,51 @@
     * Header
     */
     .masthead-brand {
-    margin-top: 10px;
-    margin-bottom: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
-    .masthead-nav > li {
-    display: inline-block;
+    .masthead-nav>li {
+        display: inline-block;
     }
-    .masthead-nav > li + li {
-    margin-left: 20px;
+
+    .masthead-nav>li+li {
+        margin-left: 20px;
     }
-    .masthead-nav > li > a {
-    padding-right: 0;
-    padding-left: 0;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff; /* IE8 proofing */
-    color: rgba(255,255,255,.75);
-    border-bottom: 2px solid transparent;
+
+    .masthead-nav>li>a {
+        padding-right: 0;
+        padding-left: 0;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        /* IE8 proofing */
+        color: rgba(255, 255, 255, .75);
+        border-bottom: 2px solid transparent;
     }
-    .masthead-nav > li > a:hover,
-    .masthead-nav > li > a:focus {
-    background-color: transparent;
-    border-bottom-color: #a9a9a9;
-    border-bottom-color: rgba(255,255,255,.25);
+
+    .masthead-nav>li>a:hover,
+    .masthead-nav>li>a:focus {
+        background-color: transparent;
+        border-bottom-color: #a9a9a9;
+        border-bottom-color: rgba(255, 255, 255, .25);
     }
-    .masthead-nav > .active > a,
-    .masthead-nav > .active > a:hover,
-    .masthead-nav > .active > a:focus {
-    color: #fff;
-    border-bottom-color: #fff;
+
+    .masthead-nav>.active>a,
+    .masthead-nav>.active>a:hover,
+    .masthead-nav>.active>a:focus {
+        color: #fff;
+        border-bottom-color: #fff;
     }
 
     @media (min-width: 768px) {
-    .masthead-brand {
-    float: left;
-    }
-    .masthead-nav {
-    float: right;
-    }
+        .masthead-brand {
+            float: left;
+        }
+
+        .masthead-nav {
+            float: right;
+        }
     }
 
 
@@ -151,11 +167,12 @@
     */
 
     .cover {
-    padding: 0 20px;
+        padding: 0 20px;
     }
+
     .cover .btn-lg {
-    padding: 10px 20px;
-    font-weight: bold;
+        padding: 10px 20px;
+        font-weight: bold;
     }
 
 
@@ -164,8 +181,9 @@
     */
 
     .mastfoot {
-    color: #aaa; /* IE8 proofing */
-    color: rgba(255,255,255,.75);
+        color: #aaa;
+        /* IE8 proofing */
+        color: rgba(255, 255, 255, .75);
     }
 
 
@@ -173,45 +191,49 @@
     * Affix and center
     */
 
-	/* Handle the widths */
-	.masthead,
-    .mastfoot,
-    .cover-container {
-		width: 100%;
-		max-width: 700px;
-	}
-
-    @media (min-width: 768px) {
-    /* Pull out the header and footer */
-    .masthead {
-    position: fixed;
-    top: 0;
-    }
-    .mastfoot {
-    /*position: fixed;*/
-    bottom: 0;
-    }
-    /* Start the vertical centering */
-    .site-wrapper-inner {
-    vertical-align: middle;
-    }
-    }
-
-    @media (min-width: 992px) {
+    /* Handle the widths */
     .masthead,
     .mastfoot,
     .cover-container {
-    width: 700px;
+        width: 100%;
+        max-width: 700px;
     }
-    .main-footer-container {
-        border: none;
-    }
-    .main-footer {
-        padding: 3px 0px 125px 0px !important;
-    }
-}
 
+    @media (min-width: 768px) {
 
+        /* Pull out the header and footer */
+        .masthead {
+            position: fixed;
+            top: 0;
+        }
+
+        .mastfoot {
+            /*position: fixed;*/
+            bottom: 0;
+        }
+
+        /* Start the vertical centering */
+        .site-wrapper-inner {
+            vertical-align: middle;
+        }
+    }
+
+    @media (min-width: 992px) {
+
+        .masthead,
+        .mastfoot,
+        .cover-container {
+            width: 700px;
+        }
+
+        .main-footer-container {
+            border: none;
+        }
+
+        .main-footer {
+            padding: 3px 0px 125px 0px !important;
+        }
+    }
 </style>
 
 <link rel="stylesheet" href="{% static 'metcalf3/css/tern-corporate.css' %}">
@@ -223,40 +245,46 @@
 {% endif %}
 <![endif]-->
 <div class="above-header">
-	<div class="container">
-		<div class="above-header-section-wrap d-flex">
-			<div class="above-header-section above-header-section-1">
-				<div class="user-select"><div class="ast-custom-html"><a href="https://www.tern.org.au" target="_blank">TERN Site</a></div></div>
-			</div>
+    <div class="container">
+        <div class="above-header-section-wrap d-flex">
+            <div class="above-header-section above-header-section-1">
+                <div class="user-select">
+                    <div class="ast-custom-html"><a href="https://www.tern.org.au" target="_blank">TERN Site</a></div>
+                </div>
+            </div>
 
-			<div class="above-header-section above-header-section-2">
-			<div class="user-select"><div class="ast-custom-html"><a href="https://portal.tern.org.au" target="_blank" class="btn-orange">TERN Data Portal</a></div></div>
-			</div>
-		</div>
-	</div>
+            <div class="above-header-section above-header-section-2">
+                <div class="user-select">
+                    <div class="ast-custom-html"><a href="https://portal.tern.org.au" target="_blank"
+                            class="btn-orange">TERN Data Portal</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="main-header">
-	<div class="container">
-		<div class="main-header-container d-flex">
-			<div class="site-branding">
-				<a href="https://www.tern.org.au" target="_blank"><span><img src="{% static 'metcalf3/img/logo@3x.png' %}" alt="" /></span></a>
-			</div>
-			<div class="main-header-bar-navigation">
-				<input class="menu-btn" type="checkbox" id="menu-btn" />
-				<label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-				<ul id="primary-menu" class="main-header-menu d-flex">
-					<li><a href="/dashboard" class="active">Home</a></li>
-					{% if sitecontent.guide_pdf %}
-                        <li><a href="{{ sitecontent.guide_pdf }}">Help</a></li>
+    <div class="container">
+        <div class="main-header-container d-flex">
+            <div class="site-branding">
+                <a href="https://www.tern.org.au" target="_blank"><span><img
+                            src="{% static 'metcalf3/img/logo@3x.png' %}" alt="" /></span></a>
+            </div>
+            <div class="main-header-bar-navigation">
+                <input class="menu-btn" type="checkbox" id="menu-btn" />
+                <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+                <ul id="primary-menu" class="main-header-menu d-flex">
+                    <li><a href="/dashboard" class="active">Home</a></li>
+                    {% if sitecontent.guide_pdf %}
+                    <li><a href="{{ sitecontent.guide_pdf }}">Help</a></li>
                     {% endif %}
                     {% if sitecontent.roadmap_pdf %}
-                        <li><a href="{{ sitecontent.guide_pdf }}">Roadmap</a></li>
+                    <li><a href="{{ sitecontent.roadmap_pdf }}">Roadmap</a></li>
                     {% endif %}
-					<li><a href="{% url 'oidc_authentication_init' %}">Login</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+                    <li><a href="{% url 'oidc_authentication_init' %}">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="site-wrapper">
 
@@ -305,61 +333,77 @@
 
 {% block footer %}
 <div class="main-footer">
-	<div class="container">
-		<div class="main-footer-row">
-			<div class="main-footer-container">
-				<div class="footer-col footer-column-1">
-					<div class="footer-col-inner">
-						<div class="footer-col-inner-border">
-							<h3>Contact us</h3>
-							<p class="mb-20">Physical &amp; Mail Address<br><span style="font-size: 14px;">Room 156, Goddard Building (8)<br>The University of Queensland<br></span><span style="font-size: 14px;">St Lucia 4072</span></p>
-							<p class="fz-15 font-500">P <a class="text-black" href="tel:0733659097">(07) 3365 9097</a><br>E <a href="mailto:esupport@tern.org.au">esupport@tern.org.au</a></p>
-							<ul class="social-icons">
-								<li><a href="https://www.facebook.com/TerrestrialEcosystemResearchNetwork/" target="_blank"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="https://twitter.com/TERN_Aus" target="_blank"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="https://www.instagram.com/tern_au/" target="_blank"><i class="fa fa-instagram"></i></a></li>
-								<li><a href="https://www.linkedin.com/groups/3981661/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="footer-col footer-column-2">
-					<div class="footer-col-inner">
-						<div class="footer-col-inner-border">
-							<h3>Funding</h3>
-							<p class="mb-46">TERN is supported by the Australian Government through the National Collaborative Research Infrastructure Strategy, <span style="text-decoration: underline;"><a href="https://www.education.gov.au/national-collaborative-research-infrastructure-strategy-ncris" target="_blank">NCRIS</a></span>.</p>
-							<a href="https://www.education.gov.au/national-collaborative-research-infrastructure-strategy-ncris" target="_blank"><img width="138" src="{% static 'metcalf3/img/logo-ncris@2x.png' %}" alt=""></a>
-						</div>
-					</div>
-				</div>
-				<div class="footer-col footer-column-3">
-					<div class="footer-col-inner">
-						<div class="footer-col-inner-border">
-							<h3>Hosted by</h3>
-							<a href="https://www.uq.edu.au" target="_blank"><img width="151" src="{% static 'metcalf3/img/logo-uq@2x.png' %}" alt=""></a>
-						</div>
-					</div>
-				</div>
-				<div class="footer-col footer-column-4">
-					<div class="footer-col-inner">
-						<div class="footer-col-inner-border">
-							<h3>Newsletter</h3>
-							<p>Subscribe for project updates, data releases, research findings, and users stories direct to your inbox.</p>
-							<div class="subscription-form">
-								<form action="">
-								  <input type="text" name="email" value="" placeholder="Email Address">
-								  <br>
-								  <input type="submit" value="Subscribe to TERN">
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="main-footer-row">
+            <div class="main-footer-container">
+                <div class="footer-col footer-column-1">
+                    <div class="footer-col-inner">
+                        <div class="footer-col-inner-border">
+                            <h3>Contact us</h3>
+                            <p class="mb-20">Physical &amp; Mail Address<br><span style="font-size: 14px;">Room 156,
+                                    Goddard Building (8)<br>The University of Queensland<br></span><span
+                                    style="font-size: 14px;">St Lucia 4072</span></p>
+                            <p class="fz-15 font-500">P <a class="text-black" href="tel:0733659097">(07) 3365
+                                    9097</a><br>E <a href="mailto:esupport@tern.org.au">esupport@tern.org.au</a></p>
+                            <ul class="social-icons">
+                                <li><a href="https://www.facebook.com/TerrestrialEcosystemResearchNetwork/"
+                                        target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://twitter.com/TERN_Aus" target="_blank"><i
+                                            class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com/tern_au/" target="_blank"><i
+                                            class="fa fa-instagram"></i></a></li>
+                                <li><a href="https://www.linkedin.com/groups/3981661/" target="_blank"><i
+                                            class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-col footer-column-2">
+                    <div class="footer-col-inner">
+                        <div class="footer-col-inner-border">
+                            <h3>Funding</h3>
+                            <p class="mb-46">TERN is supported by the Australian Government through the National
+                                Collaborative Research Infrastructure Strategy, <span
+                                    style="text-decoration: underline;"><a
+                                        href="https://www.education.gov.au/national-collaborative-research-infrastructure-strategy-ncris"
+                                        target="_blank">NCRIS</a></span>.</p>
+                            <a href="https://www.education.gov.au/national-collaborative-research-infrastructure-strategy-ncris"
+                                target="_blank"><img width="138" src="{% static 'metcalf3/img/logo-ncris@2x.png' %}"
+                                    alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-col footer-column-3">
+                    <div class="footer-col-inner">
+                        <div class="footer-col-inner-border">
+                            <h3>Hosted by</h3>
+                            <a href="https://www.uq.edu.au" target="_blank"><img width="151"
+                                    src="{% static 'metcalf3/img/logo-uq@2x.png' %}" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-col footer-column-4">
+                    <div class="footer-col-inner">
+                        <div class="footer-col-inner-border">
+                            <h3>Newsletter</h3>
+                            <p>Subscribe for project updates, data releases, research findings, and users stories direct
+                                to your inbox.</p>
+                            <div class="subscription-form">
+                                <form action="">
+                                    <input type="text" name="email" value="" placeholder="Email Address">
+                                    <br>
+                                    <input type="submit" value="Subscribe to TERN">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
+
 </html>
 {% endblock %}

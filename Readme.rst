@@ -20,7 +20,7 @@ List of important variables:
     update required settings. eps. important are `OIDC_RP_CLIENT_ID` and `OIDC_RP_CLIENT_SECRET`.
 
 - GMAPS_API_KEY:
-    googlp maps api key
+    google maps api key
 
 - FRONTEND_DEV_MODE:
     set to `True` to load development css and js files.
@@ -118,7 +118,7 @@ Make targets:
 - up:
     run built images without mounting any source files.
     This allows fora quick test whether the images are working correctly.
-    This setup is accessible at `http://localhest:8001`
+    This setup is accessible at `http://localhost:8001`
 
 - push:
     push :latest and a tag derived from git to docker hub

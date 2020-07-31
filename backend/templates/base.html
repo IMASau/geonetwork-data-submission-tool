@@ -5,12 +5,13 @@
 {% load frontend_tags %}
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="version" content="{% GIT_VERSION %}"/>
-    <link rel="apple-touch-icon" href="metcalf3/img/logo@2x.png"/>
+    <meta name="version" content="{% GIT_VERSION %}" />
+    <link rel="apple-touch-icon" href="{% static 'metcalf3/img/logo@2x.png' %}" />
 
     <title>{% block head_title %}{{sitecontent.title}} {{sitecontent.tag_line}}{% endblock %}</title>
     {% bootstrap_css %}
@@ -36,8 +37,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script src="https://maps.googleapis.com/maps/api/js?key={% GMAPS_API_KEY %}&libraries=drawing"
-            async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={% GMAPS_API_KEY %}&libraries=drawing" async
+        defer></script>
 
     {% bootstrap_javascript jquery=1 %}
 
@@ -46,66 +47,78 @@
     </style>
 
 </head>
+
 <body class="{% block body_class %}{% endblock %}">
 
-{% block page %}
-{% block body %}
-<div class="above-header">
+    {% block page %}
+    {% block body %}
+    <div class="above-header">
+        <div class="container">
+            <div class="above-header-section-wrap d-flex">
+                <div class="above-header-section above-header-section-1">
+                    <div class="user-select">
+                        <div class="ast-custom-html"><a href="https://www.tern.org.au" target="_blank">TERN Site</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="above-header-section above-header-section-2">
+                    <div class="user-select">
+                        <div class="ast-custom-html"><a href="https://portal.tern.org.au/" target="_blank"
+                                class="btn-orange">TERN Data Portal</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-inverse" data-reactid=".0.0">
+        <div class="container" data-reactid=".0.0.0">
+            <div class="navbar-header" data-reactid=".0.0.0.0">
+                <a class="navbar-brand" href="{% url 'LandingPage' %}" data-reactid=".0.0.0.0.0"><img
+                        src="{% static 'metcalf3/img/shared-product-name.png' %}" width="300"
+                        alt="" />{{sitecontent.title}} {{sitecontent.tag_line}}</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                {% block navright %}
+                {% endblock %}
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
-        <div class="above-header-section-wrap d-flex">
-            <div class="above-header-section above-header-section-1">
-                <div class="user-select"><div class="ast-custom-html"><a href="https://www.tern.org.au" target="_blank">TERN Site</a></div></div>
-            </div>
-
-            <div class="above-header-section above-header-section-2">
-            <div class="user-select"><div class="ast-custom-html"><a href="https://portal.tern.org.au/" target="_blank" class="btn-orange">TERN Data Portal</a></div></div>
+        {% bootstrap_messages %}
+        {% block container %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {% block content %}
+                {% endblock %}
             </div>
         </div>
+        {% endblock %}
     </div>
-</div>
-<nav class="navbar navbar-inverse" data-reactid=".0.0">
-    <div class="container" data-reactid=".0.0.0">
-        <div class="navbar-header" data-reactid=".0.0.0.0">
-            <a class="navbar-brand" href="{% url 'LandingPage' %}"
-               data-reactid=".0.0.0.0.0"><img src="{% static 'metcalf3/img/shared-product-name.png' %}" width="300" alt="" />{{sitecontent.title}} {{sitecontent.tag_line}}</a>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-            {% block navright %}
-            {% endblock %}
-        </ul>
-    </div>
-</nav>
-
-<div class="container">
-    {% bootstrap_messages %}
-    {% block container %}
-    <div class="panel panel-default">
-        <div class="panel-body">
-            {% block content %}
-            {% endblock %}
+    {% endblock %}
+    {% block footer %}
+    <div class="main-footer">
+        <div class="container">
+            <div class="main-footer-row">
+                <div class="main-footer-container d-flex">
+                    <div class="tern-logo">
+                        <a href="https://www.tern.org.au" target="_blank"><img
+                                src="{% static 'metcalf3/img/tern-logo.png' %}" width="300" alt="" /></a>
+                    </div>
+                    <div class="ncris-logo">
+                        <a href="https://www.education.gov.au/national-collaborative-research-infrastructure-strategy-ncris"
+                            target="_blank"><img src="{% static 'metcalf3/img/ncris-logo.png' %}" width="150"
+                                alt="" /></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     {% endblock %}
-</div>
-{% endblock %}
-{% block footer %}
-<div class="main-footer">
-    <div class="container">
-        <div class="main-footer-row">
-            <div class="main-footer-container d-flex">
-                <div class="tern-logo">
-                    <a href="https://www.tern.org.au" target="_blank"><img src="{% static 'metcalf3/img/tern-logo.png' %}" width="300" alt="" /></a>
-                </div>
-                <div class="ncris-logo">
-                    <a href="https://www.education.gov.au/national-collaborative-research-infrastructure-strategy-ncris" target="_blank"><img src="{% static 'metcalf3/img/ncris-logo.png' %}" width="150" alt="" /></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-{% endblock %}
+    {% endblock %}
 
 
 </body>
+
 </html>

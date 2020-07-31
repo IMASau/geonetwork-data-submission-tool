@@ -51,15 +51,11 @@
     /* Use background-size: cover for anything greater than IE8 (IE8 doesn't support this media query) */
     @media only screen and (width) {
         .site-wrapper {
-                {
-                % if homepage_image_url %
-            }
+                {% if homepage_image_url %}
 
             background: #060 url({{ homepage_image_url }}) no-repeat center fixed;
 
-                {
-                % endif %
-            }
+                {% endif %}
 
             -webkit-background-size: cover;
             -moz-background-size: cover;
@@ -275,10 +271,10 @@
                 <ul id="primary-menu" class="main-header-menu d-flex">
                     <li><a href="/dashboard" class="active">Home</a></li>
                     {% if sitecontent.guide_pdf %}
-                    <li><a href="{{ sitecontent.guide_pdf }}">Help</a></li>
+                    <li><a href="{{ sitecontent.guide_pdf }}" target="_blank">Help</a></li>
                     {% endif %}
                     {% if sitecontent.roadmap_pdf %}
-                    <li><a href="{{ sitecontent.roadmap_pdf }}">Roadmap</a></li>
+                    <li><a href="{{ sitecontent.roadmap_pdf }}" target="_blank">Roadmap</a></li>
                     {% endif %}
                     <li><a href="{% url 'oidc_authentication_init' %}">Login</a></li>
                 </ul>

@@ -275,10 +275,10 @@
                 <ul id="primary-menu" class="main-header-menu d-flex">
                     <li><a href="/dashboard" class="active">Home</a></li>
                     {% if sitecontent.guide_pdf %}
-                    <li><a href="{{ sitecontent.guide_pdf }}">Help</a></li>
+                    <li><a href="{{ sitecontent.guide_pdf }}" target="_blank">Help</a></li>
                     {% endif %}
                     {% if sitecontent.roadmap_pdf %}
-                    <li><a href="{{ sitecontent.roadmap_pdf }}">Roadmap</a></li>
+                    <li><a href="{{ sitecontent.roadmap_pdf }}" target="_blank">Roadmap</a></li>
                     {% endif %}
                     <li><a href="{% url 'oidc_authentication_init' %}">Login</a></li>
                 </ul>

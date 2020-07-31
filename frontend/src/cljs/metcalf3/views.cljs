@@ -1083,7 +1083,7 @@
                          :isClearable       true
                          :is-searchable     true
                          :onInputChange     (fn [x]
-                                              (rf/dispatch [:handlers/search-es-options api-path x])
+                                              (rf/dispatch [:handlers/search-es-options-units api-path x])
                                               x)
                          :getOptionValue    (fn [option]
                                               (gobj/get option "term"))
@@ -1092,6 +1092,11 @@
                                                 (if is-created?
                                                   (str "Create \"" (gobj/get props "value") "\"")
                                                   (r/as-element (api-option-renderer options props)))))
+                         ;; filter options to dispaly. a quick and dirty lower case string compare filter
+                         :filterOption (fn [option, rawInput]
+                                          (let [input (string/lower-case rawInput)
+                                                candidate (string/lower-case (str option.label " " option.value " " option.data.code))]
+                                                (string/includes? candidate input)))
                          :onChange          (fn [option]
                                               (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
                          :noResultsText     "No results found.  Click browse to add a new entry."})

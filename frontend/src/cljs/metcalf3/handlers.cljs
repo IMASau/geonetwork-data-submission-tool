@@ -59,6 +59,22 @@
      {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
       :db (update-in db api-path assoc :most-recent-query query)})))
 
+
+(defn build-es-query-units
+  [query]
+  (.stringify js/JSON (clj->js
+                       {:size 50
+                        :query {:multi_match {:query query :type "phrase_prefix" :fields ["label", "ucumCode"]}}})))
+
+(rf/reg-event-fx
+ :handlers/search-es-options-units
+ ins/std-ins
+ (fn [{:keys [db]} [_ api-path query]]
+   (let [{:keys [uri]} (get-in db api-path)]
+     {:xhrio/post-json {:uri uri :data (build-es-query-units query) :resp-v [:handlers/load-es-options-resp api-path query]}
+      :db (update-in db api-path assoc :most-recent-query query)})))
+
+
 (rf/reg-event-db
   :handlers/load-es-options-resp
   ins/std-ins
@@ -69,7 +85,8 @@
           reshaped (clj->js (into []
                                   (map (fn [x] {:is_selectable true
                                                 :vocabularyTermURL (get-in x [:_source :uri])
-                                                :term (get-in x [:_source :label])}) (js->clj hits :keywordize-keys true))))]
+                                                :term (get-in x [:_source :label])
+                                                :code (get-in x [:_source :ucumCode])}) (js->clj hits :keywordize-keys true))))]
       (if (or (= most-recent-query query) (and (not most-recent-query) query))
         (update-in db api-path assoc :options reshaped)
         db))))

@@ -250,7 +250,7 @@
 ; TODO: Don't dispatch value changes until blur
 ; TODO: Show errors after blur
 (defn date-field
-  [path]
+  [path defMinDate]
   (let [{:keys [label labelInfo helperText value disabled change-v intent minDate maxDate]} @(rf/subscribe [:date-field/get-props path])
         format "DD-MM-YYYY"]
     [bp3/form-group
@@ -268,6 +268,7 @@
                :inputProps  {:leftIcon "calendar"
                              :intent   intent}}
               minDate (assoc :minDate minDate)
+              (not minDate) (assoc :minDate defMinDate)
               maxDate (assoc :maxDate maxDate))]]))
 
 (defn OptionWidget [props this]
@@ -2055,7 +2056,7 @@
   [:div
    [PageErrors {:page :when :path [:form]}]
    [:h2 "3. When was the data acquired?"]
-   [date-field [:form :fields :identificationInfo :beginPosition]]
+   [date-field [:form :fields :identificationInfo :beginPosition] (js/Date. "1900-01-01")]
    [date-field [:form :fields :identificationInfo :endPosition]]
    [:div.row
     [:div.col-md-4

@@ -38,7 +38,7 @@ def email_manager_submit_alert(doc):
         'document': doc,
         'site': site
     }
-    send_mail(subject="New metadata record submitted: {0}".format(doc.uuid),
+    send_mail(subject="New metadata submitted: {0}".format(doc.title),
               message=render_to_string('email_manager_submit_alert.txt', context),
               from_email=doc.owner.email,
               recipient_list=[site.sitecontent.email],
@@ -73,7 +73,7 @@ def email_manager_updated_alert(doc):
         'document': doc,
         'site': site
     }
-    send_mail(subject="Metadata edited: {0}".format(doc.uuid),
+    send_mail(subject="Metadata edited:{0} {1}".format(site.sitecontent.title, doc.title),
               message=render_to_string('email_manager_updated_alert.txt', context),
               from_email=doc.owner.email,
               recipient_list=[site.sitecontent.email],
@@ -91,7 +91,7 @@ def email_user_upload_alert(doc):
         'site': site
     }
     context['portal_record_url'] = Template(site.sitecontent.portal_record_url).render(Context(context)).strip()
-    send_mail(subject="Your data is now available for discovery in the {0}".format(site.sitecontent.portal_title),
+    send_mail(subject="Your data is now available in the TERN Metadata Catalogue",
               message=render_to_string('email_user_upload_alert.txt', context),
               from_email=site.sitecontent.email,
               recipient_list=[doc.owner.email],

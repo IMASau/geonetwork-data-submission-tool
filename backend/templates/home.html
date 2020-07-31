@@ -48,13 +48,16 @@
         text-align: center;
     }
 
+    .site-wrapper h1,
+    .site-wrapper .lead {
+        color: #fff;
+    }
+
     /* Use background-size: cover for anything greater than IE8 (IE8 doesn't support this media query) */
     @media only screen and (width) {
         .site-wrapper {
                 {% if homepage_image_url %}
-
-            background: #060 url({{ homepage_image_url }}) no-repeat center fixed;
-
+                    background: #060 url({{ homepage_image_url }}) no-repeat center fixed;
                 {% endif %}
 
             -webkit-background-size: cover;

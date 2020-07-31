@@ -16,5 +16,6 @@
          reagent                     {:mvn/version "0.9.1"}
          re-frame                    {:mvn/version "0.11.0"}
          com.bhauman/figwheel-main   {:mvn/version "0.2.3"}
+         com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
          }
  }

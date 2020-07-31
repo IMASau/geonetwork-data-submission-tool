@@ -1,5 +1,14 @@
 
-{{ document.title }} is now available for discovery in the {{ site.sitecontent.portal_title }}.
+{{ document.title }} is now available in the TERN GeoNetwork Metadata Catalogue.
 
-View the complete record at
+View record on GeoNetwork
 {{portal_record_url}}
+
+or copy and paste the following url into your browser:
+{{portal_record_url}}
+
+Your metadata should be available for discovery in the {{ site.sitecontent.portal_url }}{{ site.sitecontent.portal_title }}
+within 24 hours.
+
+Submission record:
+https://{{site.domain}}{{ document.get_absolute_url }}

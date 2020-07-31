@@ -1,8 +1,20 @@
 
-<p>{{ document.title }} is now available for discovery in the {{ site.sitecontent.portal_title }}.</p>
+<p>{{ document.title }} is now available in the TERN GeoNetwork Metadata Catalogue.</p>
 
 <p>
-    View the complete record at
-    <a href="{{ portal_record_url }}">{{portal_record_url}}</a>
+    
+    <a href="{{ portal_record_url }}">View record on GeoNetwork</a>
+
+     or copy and paste the following url into your browser: {{portal_record_url}} 
+   
+
 </p>
+
+<p>Your metadata should be available for discovery in the 
+    <a href="{{ site.sitecontent.portal_url }}">{{ site.sitecontent.portal_title }}</a>" within 24 hours.</p>
+
+
+<p><a href="https://{{site.domain}}{{ document.get_absolute_url }}">
+    Submission record </a></p>
+    
 

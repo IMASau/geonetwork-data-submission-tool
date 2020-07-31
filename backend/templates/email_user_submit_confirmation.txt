@@ -2,7 +2,7 @@
 Thank you for submitting your metadata record.
 
 View record:
-http://{{site.domain}}{{ document.get_absolute_url }}
+https://{{site.domain}}{{ document.get_absolute_url }}
 
 The Data Manager will review your submission and contact you
     if they require further information. Please reply to this

@@ -85,7 +85,7 @@
           reshaped (clj->js (into []
                                   (map (fn [x] {:is_selectable true
                                                 :vocabularyTermURL (get-in x [:_source :uri])
-                                                :term (get-in x [:_source :label])
+                                                :term (let [term (get-in x [:_source :label])] (if (vector? term) (first term) term))
                                                 :code (get-in x [:_source :ucumCode])}) (js->clj hits :keywordize-keys true))))]
       (if (or (= most-recent-query query) (and (not most-recent-query) query))
         (update-in db api-path assoc :options reshaped)

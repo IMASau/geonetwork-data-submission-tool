@@ -2059,7 +2059,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             </lan:PT_Locale>
          </mri:defaultLocale>
          <!-- Static section ends -->
-         <mri:environmentDescription><gco:CharacterString>a paragraph describing the processing environment</gco:CharacterString></mri:environmentDescription>
+         <mri:environmentDescription><gco:CharacterString>a paragraph describing the processing environment for the digital resource</gco:CharacterString></mri:environmentDescription>
 
          <mri:supplementalInformation>
             <gco:CharacterString>Supplemental information goes here</gco:CharacterString>

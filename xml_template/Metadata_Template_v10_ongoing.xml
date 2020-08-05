@@ -947,7 +947,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          The Vertical extent section as a whole is not mandatory, but if the user selects this section all fields are mandatory 
          If not input the section does not write into the XML
          Changed functionality - 
-         Elevation in metres field should be changed to 'Describe what was measured, for example Altitude, Depth, Elevation, Tree Height?'
+         Elevation in metres field should be removed
          Method field remains the same
          a field and drop down list to populate CRS, default values to be defined -->
          <mri:extent>
@@ -956,7 +956,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
 
                <gex:description>
 
-                  <gco:CharacterString>Measured: Elevation | Method: [not specified]</gco:CharacterString>
+                  <gco:CharacterString>Method: [not specified]</gco:CharacterString>
                </gex:description>
                <gex:verticalElement>
 
@@ -969,15 +969,14 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      </gex:maximumValue>
 
                      <!-- user will be able to select from a list of vertical crs 
-                     suitable CRS to be identified 
-                     esip suggest using xlink for crs e.g http://wiki.esipfed.org/EX_VerticalExtent -->
+                     suitable CRS to be identified -->
                      
                      <gex:verticalCRSId>
                         
                         
                         <mrs:MD_ReferenceSystem>
-                           <mrs:referenceSystemIdentifier xlink:role="uri" xlink:href="xbg" xlink:title="name of projection">
-                              <!--
+                           <mrs:referenceSystemIdentifier>
+
                               <mcc:MD_Identifier>
                                  <mcc:authority>
                                     <cit:CI_Citation>
@@ -1014,7 +1013,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  </mcc:description>
                                  
                               </mcc:MD_Identifier>
-                           -->   
+    
                            </mrs:referenceSystemIdentifier>
                            
 

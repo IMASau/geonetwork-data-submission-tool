@@ -374,7 +374,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             <cit:CI_Citation>
 
                <cit:title>
-                  <gco:CharacterString>jira-723-2020/07/30-1 - ongoing status with publication date inapplicable - v2 namespaces
+                  <gco:CharacterString>jira-723-2020/08/07-1 - test publication date as year - v2 namespaces
                         </gco:CharacterString>
                </cit:title>
                <!-- Functional changes required which will determine fields available to user and syntax of XML statements to write
@@ -406,15 +406,19 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                       Note: GN gives schema validation errors if you use either of the above
                       Example: https://geonetwork-test.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/d7d0f36c-eb3c-4ed5-b87c-befca9922519
                         -->
+                     <!-- 
                        <cit:date gco:nilReason="inapplicable"/>
                           
-                          
+                           -->
                        
                      <!--  
                         <cit:date>
                         <gco:DateTime>2014-06-27T11:07:36</gco:DateTime> 
                         </cit:date>-->
- 
+                     <!-- Test year only -->
+                     <cit:date>
+                        <gco:Date>2014</gco:Date> 
+                     </cit:date>
  
                      <cit:dateType>
                         <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="publication"/>
@@ -435,7 +439,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                advised by Matt P 
                Reference: https://ternaus.atlassian.net/browse/TERNDESK-937 -->
                <cit:edition>
-                  <gco:CharacterString>1.0.0</gco:CharacterString>
+                  <gco:CharacterString>1.0</gco:CharacterString>
                </cit:edition>
 
                <!-- Bug - SHaRED is writing to a different element but should be writing here

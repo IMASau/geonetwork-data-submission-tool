@@ -266,7 +266,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          <cit:onlineResource>
             <cit:CI_OnlineResource>
                <cit:linkage>
-                  <gco:CharacterString>[GW - If a url write here e.g. location on github]</gco:CharacterString>
+                  <gco:CharacterString>[GW - location on bitbucket for published version]</gco:CharacterString>
                </cit:linkage>
                <cit:protocol>
                   <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -1262,14 +1262,6 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             </cit:CI_Citation>
             
          </mri:additionalDocumentation>
-         <mri:resourceMaintenance>
-
-            <mmi:MD_MaintenanceInformation>
-               <mmi:maintenanceAndUpdateFrequency>
-                  <mmi:MD_MaintenanceFrequencyCode codeList="codeListLocation#MD_MaintenanceFrequencyCode" codeListValue="annually"/>
-               </mmi:maintenanceAndUpdateFrequency>
-            </mmi:MD_MaintenanceInformation>
-         </mri:resourceMaintenance>
          
          <!-- For thumbnail graphics associated with the resource 
          example from IMOS record, linkage added 
@@ -1946,6 +1938,9 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mri:type>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
+         <mri:resourceSpecificUsage><mri:MD_Usage>
+            <mri:specificUsage><gco:CharacterString>Optional - text about data usage, this will capture usability text about data, this can be an expert comments</gco:CharacterString></mri:specificUsage>
+         </mri:MD_Usage></mri:resourceSpecificUsage>
          <!-- Static section for all metadata records -->
          <mri:resourceConstraints>
 
@@ -2036,7 +2031,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mco:otherConstraints>
                <mco:otherConstraints>
                   <!-- SG advised Sprint 22/7 that this is just the format of the [[Citation] -->
-                  <gco:CharacterString>Please cite this dataset as {Author}{Year Created}{Title}. Version {Version number}. Terrestrial Ecosystem Research Network (TERN). dataset. Accessed from https://geonetwork.tern.org.au on {Date}. 
+                  <gco:CharacterString>Please cite this dataset as {Author}{Year Published}{Title}. Version {Version number}. Terrestrial Ecosystem Research Network (TERN). dataset. Accessed from https://geonetwork.tern.org.au on {Date}. 
                      </gco:CharacterString>
                </mco:otherConstraints>
 
@@ -2294,6 +2289,8 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
 
       <mrd:transferOptions>
          <mrd:MD_DigitalTransferOptions>
+            <!-- Number representing file size in MB to Data services screen -->
+            <mrd:transferSize><gco:Real>0</gco:Real></mrd:transferSize>
             <mrd:onLine>
                <cit:CI_OnlineResource>
                         <cit:linkage>
@@ -2316,7 +2313,10 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="fileAccess"/>
                         </cit:function>
                      </cit:CI_OnlineResource>
-                </mrd:onLine> 
+            
+            
+            </mrd:onLine> 
+           
 
             <!-- one mrd:distributionFormat block for each distribution format selected by the user for this access point -->
             <mrd:distributionFormat>
@@ -2348,8 +2348,11 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mrd:MD_Format>
             </mrd:distributionFormat>
          </mrd:MD_DigitalTransferOptions>
+         
       
       </mrd:transferOptions>
+      
+
       
    </mrd:MD_Distribution>
 </mdb:distributionInfo>
@@ -2484,7 +2487,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             <mcc:MD_Scope>
                
                <mcc:level>
-                  <!-- User selects from the codelist -->
+                  <!-- User selects from the full ISO codelist -->
                   <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
                </mcc:level>
                <mcc:levelDescription>
@@ -2493,43 +2496,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                   </mcc:MD_ScopeDescription></mcc:levelDescription>
             </mcc:MD_Scope>
          </mdq:scope>
-         
-         
-         <mdq:standaloneQualityReport>
-            <mdq:DQ_StandaloneQualityReportInformation>
-               
-               <mdq:reportReference>
-                                    
-                  <cit:CI_Citation>
-                  
-                     <cit:title>
-                        <gco:CharacterString>European Space Agency 2020, Sentinel 2 L1C Data Quality Report [Title element - Standalone]</gco:CharacterString>
-                     </cit:title>
-                     
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>https://sentinel.esa.int/web/sentinel/missions/sentinel-2/data-quality-report</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
 
-                           <cit:function>
-                              
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                 codeListValue="information"/>
-                            
-                           </cit:function>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mdq:reportReference>
-               <mdq:abstract>
-                  <gco:CharacterString>Some abstract for the report</gco:CharacterString>
-               </mdq:abstract>
-            </mdq:DQ_StandaloneQualityReportInformation>
-         </mdq:standaloneQualityReport>
          
          <mdq:report>
             
@@ -2555,18 +2522,17 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
    </mdb:dataQualityInfo>
    <mdb:resourceLineage>
       <!-- Updated 12/08/2020 from https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0
-       -->
+       Statement is mandatory in the UI -->
       <mrl:LI_Lineage>
          <mrl:statement>
             <gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods. 
                Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017</gco:CharacterString>
          </mrl:statement>
-         <!-- This indicates the scope of the statement - defaults to dataset in the current template
-            will the user select from the codelist? -->
+
          <mrl:scope>
             <mcc:MD_Scope>
                <mcc:level>
-                  
+                  <!-- User selects from ISO codelist, default = dataset -->
                   <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
                </mcc:level>
             </mcc:MD_Scope>
@@ -2576,8 +2542,9 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          <mrl:processStep>
             <mrl:LI_ProcessStep>
                <mrl:description>
-                  <gco:CharacterString>Placeholder text=Provide a general description of the events in the development of the resource.
-                     If the resource has a status of 'ongoing', provide a summary of the workflow.  Associated documents can be provided in the Documents section</gco:CharacterString>
+                  <gco:CharacterString>Placeholder text=Provide a detailed description of the events in the development of the resource.
+                     If the resource has a status of 'ongoing', provide a summary of the workflow.  
+                     Associated documents can be provided in the Documents section</gco:CharacterString>
                </mrl:description>
                <mrl:reference>
 

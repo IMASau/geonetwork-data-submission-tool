@@ -2475,17 +2475,22 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
    </mdb:distributionInfo>
 
    <mdb:dataQualityInfo>
+      <!-- Updated 12/08/2020 from https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0
+       -->
       
       <mdq:DQ_DataQuality>
-         <!-- This indicates the scope of the statement - defaults to dataset in the current template
-            will the user select from the codelist? -->
+
          <mdq:scope>
             <mcc:MD_Scope>
                
                <mcc:level>
+                  <!-- User selects from the codelist -->
                   <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
                </mcc:level>
-               <mcc:levelDescription><mcc:MD_ScopeDescription><mcc:dataset><gco:CharacterString></gco:CharacterString></mcc:dataset></mcc:MD_ScopeDescription></mcc:levelDescription>
+               <mcc:levelDescription>
+                  <mcc:MD_ScopeDescription>
+                     <mcc:other><gco:CharacterString>placeholder- Describe the scope of the data quality information - does it apply to the entire data set of specific attributes?</gco:CharacterString></mcc:other>
+                  </mcc:MD_ScopeDescription></mcc:levelDescription>
             </mcc:MD_Scope>
          </mdq:scope>
          
@@ -2530,21 +2535,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             
          <mdq:DQ_QuantitativeAttributeAccuracy>
             
-            <mdq:evaluationMethod>   
-               
-               
-               <mdq:DQ_EvaluationMethod>
-                  
-                  <!-- description of the evaluation method -->
-                  <mdq:evaluationMethodDescription>
-                     <gco:CharacterString>Placeholder text=A summary of the method used to evaluate data quality. 
-                        Example: The data were compared to abc reference data.
-                        Include expected tolerances or evaluation criteria if applicable</gco:CharacterString>
-                  </mdq:evaluationMethodDescription>
-
-               </mdq:DQ_EvaluationMethod>
-            </mdq:evaluationMethod>
-            
+           
             <mdq:result>
                
                <mdq:DQ_DescriptiveResult>
@@ -2563,6 +2554,8 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
       </mdq:DQ_DataQuality>
    </mdb:dataQualityInfo>
    <mdb:resourceLineage>
+      <!-- Updated 12/08/2020 from https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0
+       -->
       <mrl:LI_Lineage>
          <mrl:statement>
             <gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods. 
@@ -2578,61 +2571,16 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </mcc:level>
             </mcc:MD_Scope>
          </mrl:scope>
+
          
-         <!-- This example if the method comes from a vocabulary -->
          <mrl:processStep>
             <mrl:LI_ProcessStep>
                <mrl:description>
-                  
-                  <gco:CharacterString>Method description from method vocabulary goes here</gco:CharacterString>
+                  <gco:CharacterString>Placeholder text=Provide a general description of the events in the development of the resource.
+                     If the resource has a status of 'ongoing', provide a summary of the workflow.  Associated documents can be provided in the Documents section</gco:CharacterString>
                </mrl:description>
                <mrl:reference>
-                  <cit:CI_Citation>
-                     <!-- simplified xlink attributes -->
-                     <cit:title>
-                        <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/14368694-8e1b-40a3-9ed2-50ff789551dd" xlink:show="new">method A name goes here</gcx:Anchor>
-                     </cit:title>
-                  </cit:CI_Citation>
-               </mrl:reference>
-            </mrl:LI_ProcessStep>
-         </mrl:processStep>
-         <!-- This example if the method is not from a vocabulary but has a reference document -->
-         <mrl:processStep>
-            <mrl:LI_ProcessStep>
-               <mrl:description>
-                  <gco:CharacterString>Placeholder text=Description of the process step, including related parameters or tolerances</gco:CharacterString>
-               </mrl:description>
-               <mrl:reference>
-                  <cit:CI_Citation>
 
-                     <cit:title>
-                        <gco:CharacterString>Hawdon, A, McJannet, D, and Wallace, J 2014, Calibration and correction procedures for cosmic-ray neutron soil moisture probes located across Australia. 
-                           Water Resources Research, Vol. 50, pp.5029-5043. doi:10.1002/2013wr015138 [Title element: mrl:process step]</gco:CharacterString>
-                        
-                     </cit:title>
-                     <!-- if a url is supplied -->
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           
-                           <cit:linkage>
-                              <gco:CharacterString>https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013WR015138</gco:CharacterString>
-                           </cit:linkage>
-
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
-
-                           <cit:function>
-                              
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                 codeListValue="information"/>
-                              
-                              
-                           </cit:function>
-                           
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
                </mrl:reference>
             </mrl:LI_ProcessStep>
          </mrl:processStep>        

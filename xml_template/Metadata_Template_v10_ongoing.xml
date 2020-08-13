@@ -355,7 +355,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             
          </mrs:referenceSystemIdentifier>
          <!-- Added Reference System type code
-               SHaRED determines value based on the codelist value selected by the user above at
+               SHaRED should determine value based on the code value selected by the user above at
                /mdb:MD_Metadata/mdb:referenceSystemInfo[1]/mrs:MD_ReferenceSystem[1]/mrs:referenceSystemIdentifier[1]/mcc:MD_Identifier[1]/mcc:code[1]
             -->
          <mrs:referenceSystemType>
@@ -382,10 +382,10 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                -->
                <cit:date>
                   <cit:CI_Date>
-                     <!-- UI Data Identification - User selects date resource was created
+                     <!-- UI Data Identification - User types or selects date resource was created
                      This should equate to the version date of the resource -->
                      <cit:date>
-                        <gco:DateTime>2014-06-27T11:07:36</gco:DateTime>
+                        <gco:Date>2014-06-27</gco:Date>
                      </cit:date>
                      <cit:dateType>
                         <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="creation"/>
@@ -428,7 +428,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <cit:date>
                   <cit:CI_Date>
                      <cit:date>
-                        <gco:DateTime>2014-06-27T11:07:36</gco:DateTime>
+                        <gco:Date>2014-07-14</gco:Date>
                      </cit:date>
                      <cit:dateType>
                         <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="revision"/>
@@ -436,6 +436,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                   </cit:CI_Date>
                </cit:date>
                <!-- New - add version elements and expose in SHaRED UI for user input
+                  Only digits and "." allowed
                advised by Matt P 
                Reference: https://ternaus.atlassian.net/browse/TERNDESK-937 -->
                <cit:edition>
@@ -630,7 +631,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                        <mcc:codeSpace><gco:CharacterString>https://orcid.org</gco:CharacterString>
                                        </mcc:codeSpace>
                                        <!-- if person does not have an orcid then 
-                                             code would be uri:276dd611-5d74-4555-b20f-12f0f0b618a1
+                                             code would be https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1
                                           with codespace https://w3id.org/tern/resources-->
                                  </mcc:MD_Identifier>
                                  </cit:partyIdentifier>
@@ -697,7 +698,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
-                                    <gco:CharacterString>uri:276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
                                     
                                  </mcc:code>
                                  <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -869,11 +870,12 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          Removed mri:levelOfDetail
          GCMD_Horizontal will write into keywords
          GCMD_Vertical will write into keywords
-         User will be able to specify exact figure here for horizontal distance, must also select the unit
+         User will be able to specify exact figure here for horizontal distance, must also select the applicable unit of measure
          
          -->
          <mri:spatialResolution>
             <mri:MD_Resolution>
+               
 
                <mri:distance><gco:Distance uom="degrees">1e-3</gco:Distance></mri:distance>
 
@@ -923,22 +925,14 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            
                            <gml:TimePeriod gml:id="bcf969df-6213-4e5c-86d4-64e3b53de64a">
                               <!-- 
-                                 Change 1 Please extend the date selector box to include dates back to at least 1980 
-                                 .. or even better 1900 (I have other datasets that will need these early start dates).
-                                 Reference: https://ternaus.atlassian.net/browse/TERNDESK-900
-                                 Requestor: Matt P
-                                 
-                                 [Can we make it a widget that allows the user to type the date OR select the date from a calendar?]
-                                 
-                                 Change 2 Do we need to allow users to select a time. Probably set a default value.
-                                 
-                                 Change 3 'ongoing' status - is an Exception to the existing rule which states: End date time should be later than or equal to begin date time 
+                                                                
+                                 'ongoing' status - is an Exception to the existing rule which states: End date time should be later than or equal to begin date time 
                               -->
                               <gml:beginPosition>2011-06-10</gml:beginPosition>
                               <!-- this is the statement for an ongoing record -->
                               <gml:endPosition indeterminatePosition="now"/>
                               <!-- this is the end satement for other statuses -->
-                              <!-- <gml:endPosition>2011-06-10T00:56:01</gml:endPosition> -->
+                              <!-- <gml:endPosition>2011-06-10</gml:endPosition> -->
                            </gml:TimePeriod>
                         </gex:extent>
                      </gex:EX_TemporalExtent>
@@ -960,7 +954,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
 
                <gex:description>
 
-                  <gco:CharacterString>Method: [not specified]</gco:CharacterString>
+                  <gco:CharacterString>Elevation from: [not specified]</gco:CharacterString>
                </gex:description>
                <gex:verticalElement>
 

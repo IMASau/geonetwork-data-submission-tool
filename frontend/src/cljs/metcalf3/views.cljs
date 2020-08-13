@@ -2030,7 +2030,7 @@
    [PageErrors {:page :data-identification :path [:form]}]
    [:h2 "1. Data Identification"]
    [InputField {:path [:form :fields :identificationInfo :title]}]
-   [date-field [:form :fields :identificationInfo :dateCreation]]
+   [date-field [:form :fields :identificationInfo :dateCreation] (js/Date. "1900-01-01")]
    [TopicCategories nil]
    [SelectField [:form :fields :identificationInfo :status]]
    [SelectField [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]]

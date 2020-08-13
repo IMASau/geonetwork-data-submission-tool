@@ -2015,11 +2015,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
 
                </mco:accessConstraints>
                <!-- Static section ends -->
-               <!-- There is logic in SHaRED regarding the codelist value output here -->
+               <!-- There is logic in SHaRED regarding the codelist value output here
+                if there are otherConstraints blocks then codelist value must be "otherRestrictions" 
+               else the value should be "license" -->
 
                <mco:useConstraints>
 
-                  <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode" codeListValue="license"/>
+                  <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode" codeListValue="otherRestrictions"/>
 
                </mco:useConstraints>
                <!-- static section begins -->
@@ -2035,32 +2037,20 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      </gco:CharacterString>
                </mco:otherConstraints>
 
-               <mco:otherConstraints><gco:CharacterString>Please also use TERN's report form to let us know about work or publications that use this data, go to https://www.tern.org.au/research-publications/#reporting</gco:CharacterString></mco:otherConstraints>
+               <mco:otherConstraints><gco:CharacterString>Please advise any work or publications that use this data, go to https://www.tern.org.au/research-publications/#reporting</gco:CharacterString></mco:otherConstraints>
 
 
                <!-- static section ends - users may add other constraints -->
                <mco:otherConstraints>
-                  <gco:CharacterString>Placeholder text=Example:Not suitable for marine navigation</gco:CharacterString>
+                  <gco:CharacterString>Placeholder text=Example:This data set is not suitable for compliance monitoring</gco:CharacterString>
                </mco:otherConstraints>
             </mco:MD_LegalConstraints>
          </mri:resourceConstraints>
-         <!-- Static section begins 
-         refer https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042481333/Data+Identification+Resource+Language+and+Encoding -->
-         <mri:defaultLocale>
-            <lan:PT_Locale id="ENG">
-               <lan:language>
-                  <lan:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="eng"/>
-               </lan:language>
-               <lan:characterEncoding>
-                  <lan:MD_CharacterSetCode codeList="codeListLocation#MD_CharacterSetCode" codeListValue="utf8"/>
-               </lan:characterEncoding>
-            </lan:PT_Locale>
-         </mri:defaultLocale>
-         <!-- Static section ends -->
-         <mri:environmentDescription><gco:CharacterString>a paragraph describing the processing environment for the digital resource</gco:CharacterString></mri:environmentDescription>
+
+         <mri:environmentDescription><gco:CharacterString>Placeholder text=Information about the processing environment or software used</gco:CharacterString></mri:environmentDescription>
 
          <mri:supplementalInformation>
-            <gco:CharacterString>Supplemental information goes here</gco:CharacterString>
+            <gco:CharacterString>Placeholder text=Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01 </gco:CharacterString>
          </mri:supplementalInformation>
 
 
@@ -2069,38 +2059,25 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
    </mdb:identificationInfo>
 <!-- Change - add distributor statement per SG
    TERN as distributor was previously in the SERVICE Metadata xml, and only TERN as publisher was noted in the Data set template 
-   As we are deferring implementation of any Service Metadata records as at June 2020, Distributor is added here -->
-   <!-- Static section for all metadata records -->
+      12/08/2020 User will select the Distributor from TERN Organisation Vocabulary -->
+
    <mdb:distributionInfo>
       <mrd:MD_Distribution>
+         <mrd:description><gco:CharacterString>Placeholder Text=Description of distribution options</gco:CharacterString></mrd:description>
 
          <!-- one mrd:distributionFormat block for each distribution format selected by the user-->
-            <mrd:distributionFormat>
-               <mrd:MD_Format>
-                  <mrd:formatSpecificationCitation>
-                     <cit:CI_Citation>
-                        <cit:title>
-                           <gco:CharacterString>Excel</gco:CharacterString>
-                        </cit:title>
-                        <cit:edition>
-                           <gco:CharacterString>option1</gco:CharacterString>
-                        </cit:edition>
-                     </cit:CI_Citation>
-                  </mrd:formatSpecificationCitation>
-               </mrd:MD_Format>
-            </mrd:distributionFormat>  
+
          <mrd:distributionFormat>
             <mrd:MD_Format>
                <mrd:formatSpecificationCitation>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>TXT</gco:CharacterString>
+                        <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
                      </cit:title>
-                     <cit:edition>
-                        <gco:CharacterString>option1</gco:CharacterString>
-                     </cit:edition>
                   </cit:CI_Citation>
                </mrd:formatSpecificationCitation>
+               <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString></mrd:amendmentNumber>
+               <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString></mrd:fileDecompressionTechnique>
             </mrd:MD_Format>
          </mrd:distributionFormat> 
          
@@ -2113,6 +2090,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            codeListValue="distributor"/>
                      </cit:role>
                      <cit:party>
+                        <!-- user will select from TERN organisations vocabulary -->
                         <cit:CI_Organisation>
                            <cit:name>
                               <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
@@ -2159,7 +2137,8 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
-                                    <gco:CharacterString>uri:a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                                    
+                                    <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
                                     
                                  </mcc:code>
                                  <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -2167,202 +2146,177 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  
                               </mcc:MD_Identifier>
                            </cit:partyIdentifier>
-                           <cit:individual>
-                              <cit:CI_Individual>
-                                 <cit:positionName>
-                                    <gco:CharacterString>Data Manager</gco:CharacterString>
-                                 </cit:positionName>
-                              </cit:CI_Individual>
-                           </cit:individual>
+
                         </cit:CI_Organisation>
                      </cit:party>
                   </cit:CI_Responsibility>
                </mrd:distributorContact>
             </mrd:MD_Distributor>
          </mrd:distributor>
-
+         <!-- A distribution may have multiple transfer options -->
+         <mrd:transferOptions>
+            <mrd:MD_DigitalTransferOptions>
+               <!-- Number representing file size in MB - Data services screen -->
+               <mrd:transferSize><gco:Real>0</gco:Real></mrd:transferSize>
+               <mrd:onLine>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>http://gsky.nci.org.au/ows/geoglam</gco:CharacterString>
+                     </cit:linkage>
+                     
+                     <cit:protocol>
+                        <gco:CharacterString>OGC:WMS-1.3.0-http-get-map</gco:CharacterString>
+                     </cit:protocol>
+                     
+                     
+                     <cit:name>
+                        <gco:CharacterString>modis_tot_cov_monthly</gco:CharacterString>
+                     </cit:name>
+                     <cit:description>
+                        <gco:CharacterString>WMS Service for Total Fractional Cover using OGC:WMS [description element]</gco:CharacterString>
+                     </cit:description>
+                     
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="fileAccess"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+                  
+                  
+               </mrd:onLine> 
+            </mrd:MD_DigitalTransferOptions>
+         </mrd:transferOptions>
+         <mrd:transferOptions>
+            <mrd:MD_DigitalTransferOptions>
+               <!-- Number representing file size in MB - Data services screen -->
+               <mrd:transferSize><gco:Real>200</gco:Real></mrd:transferSize>
+               <mrd:onLine>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>http://gsky.nci.org.au/ows/geoglam</gco:CharacterString>
+                     </cit:linkage>
+                     
+                     <cit:protocol>
+                        <gco:CharacterString>OGC:WFS</gco:CharacterString>
+                     </cit:protocol>
+                     
+                     
+                     <cit:name>
+                        <gco:CharacterString>Name of Feature</gco:CharacterString>
+                     </cit:name>
+                     <cit:description>
+                        <gco:CharacterString>WFS Service OGC:WFS [description element]</gco:CharacterString>
+                     </cit:description>
+                     
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="fileAccess"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+                  
+                  
+               </mrd:onLine> 
+            </mrd:MD_DigitalTransferOptions>
+         </mrd:transferOptions>
       </mrd:MD_Distribution>
    </mdb:distributionInfo>
-   <!-- Static section ends -->
 
-   <mdb:distributionInfo>
-      <mrd:MD_Distribution>
-         
-         <!-- one mrd:distributionFormat block for each distribution format selected by the user -->
-         <mrd:distributionFormat>
-            <mrd:MD_Format>
-               <mrd:formatSpecificationCitation>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>HDF</gco:CharacterString>
-                     </cit:title>
-                     <cit:edition>
-                        <gco:CharacterString>5</gco:CharacterString>
-                     </cit:edition>
-                  </cit:CI_Citation>
-               </mrd:formatSpecificationCitation>
-            </mrd:MD_Format>
-         </mrd:distributionFormat>  
-         <mrd:distributionFormat>
-            <mrd:MD_Format>
-               <mrd:formatSpecificationCitation>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>IMG</gco:CharacterString>
-                     </cit:title>
-                     <cit:edition>
-                        <gco:CharacterString></gco:CharacterString>
-                     </cit:edition>
-                  </cit:CI_Citation>
-               </mrd:formatSpecificationCitation>
-            </mrd:MD_Format>
-         </mrd:distributionFormat> 
-         
-      </mrd:MD_Distribution>
-   </mdb:distributionInfo>
-
-<!-- a block for is written for each distribution of the resource --> 
-<!-- This example is to describe a distribution via web service where the custodian or point of contact 
-      is different from the distributor
-      Custodian or Point of Contact need not be specified if the same as the distributor
-      
-   the contact could be an organisation as custodian 
-   or could be an individual as a point of contact 
-   UI will need ability for user to select custodian or point of contact
-   
-   Organisation vocabulary - Don't think we have input any organisation email addresses
-   e.g. help@nci.org.au -->
-   
-<mdb:distributionInfo>
-   <mrd:MD_Distribution>
-      
-
-      <mrd:distributor>
-         <mrd:MD_Distributor>
-            <mrd:distributorContact>
-               <cit:CI_Responsibility>
-                  <cit:role>
-                     <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="pointOfContact"/>
-                  </cit:role>
-                  <cit:party>
-                     <cit:CI_Organisation>
-                        <cit:name>
-                           <gcx:Anchor xlink:role="uri" 
-                              xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66"
-                              xlink:show="new">Some organisation</gcx:Anchor>
-                          
-                        </cit:name>
-                        <cit:contactInfo>
-                           <cit:CI_Contact>
-                              <cit:address>
-                                 <cit:CI_Address>
-                                    <cit:deliveryPoint>
-                                       <!-- Should this have a uri? -->
-                                       <gco:CharacterString>[Postal address]</gco:CharacterString>
-                                    </cit:deliveryPoint>
-                                    <cit:city>
-                                       <gco:CharacterString>[City]</gco:CharacterString>
-                                    </cit:city>
-                                    <cit:administrativeArea>
-                                       <gco:CharacterString>[STATE]</gco:CharacterString>
-                                    </cit:administrativeArea>
-                                    <cit:postalCode>
-                                       <gco:CharacterString>[Postcode]</gco:CharacterString>
-                                    </cit:postalCode>
-                                    <cit:country>
-                                       <gco:CharacterString>[Country]</gco:CharacterString>
-                                    </cit:country>
-                                    <cit:electronicMailAddress>
-                                       <!-- Allow input of organisation email address? e.g. help@nci.org.au -->
-                                       <gco:CharacterString>[Organisation email address]</gco:CharacterString>
-                                    </cit:electronicMailAddress>
-                                 </cit:CI_Address>
-                              </cit:address>
-                           </cit:CI_Contact>
-                        </cit:contactInfo>
-                     </cit:CI_Organisation>
-                  </cit:party>
-               </cit:CI_Responsibility>
-            </mrd:distributorContact>
-         </mrd:MD_Distributor>
-      </mrd:distributor>
-
-      <mrd:transferOptions>
-         <mrd:MD_DigitalTransferOptions>
-            <!-- Number representing file size in MB to Data services screen -->
-            <mrd:transferSize><gco:Real>0</gco:Real></mrd:transferSize>
-            <mrd:onLine>
-               <cit:CI_OnlineResource>
-                        <cit:linkage>
-                           <gco:CharacterString>http://gsky.nci.org.au/ows/geoglam</gco:CharacterString>
-                        </cit:linkage>
-                        
-                        <cit:protocol>
-                           <gco:CharacterString>OGC:WMS-1.3.0-http-get-map</gco:CharacterString>
-                        </cit:protocol>
-                        
-                        
-                        <cit:name>
-                           <gco:CharacterString>modis_tot_cov_monthly</gco:CharacterString>
-                        </cit:name>
-                        <cit:description>
-                           <gco:CharacterString>WMS Service for Total Fractional Cover using OGC:WMS protocol [description element]</gco:CharacterString>
-                        </cit:description>
-                        
-                        <cit:function>
-                           <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="fileAccess"/>
-                        </cit:function>
-                     </cit:CI_OnlineResource>
+      <mdb:distributionInfo>
+         <mrd:MD_Distribution>
+            <mrd:description><gco:CharacterString>Placeholder Text=Description of distribution options</gco:CharacterString></mrd:description>
             
+            <!-- one mrd:distributionFormat block for each distribution format selected by the user-->
             
-            </mrd:onLine> 
-           
-
-            <!-- one mrd:distributionFormat block for each distribution format selected by the user for this access point -->
             <mrd:distributionFormat>
                <mrd:MD_Format>
                   <mrd:formatSpecificationCitation>
                      <cit:CI_Citation>
                         <cit:title>
-                           <gco:CharacterString>TIF</gco:CharacterString>
+                           <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
                         </cit:title>
-                        <cit:edition>
-                           <gco:CharacterString></gco:CharacterString>
-                        </cit:edition>
                      </cit:CI_Citation>
                   </mrd:formatSpecificationCitation>
+                  <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString></mrd:amendmentNumber>
+                  <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString></mrd:fileDecompressionTechnique>
                </mrd:MD_Format>
-            </mrd:distributionFormat>
-            <mrd:distributionFormat>
-               <mrd:MD_Format>
-                  <mrd:formatSpecificationCitation>
-                     <cit:CI_Citation>
-                        <cit:title>
-                           <gco:CharacterString>NetCDF</gco:CharacterString>
-                        </cit:title>
-                        <cit:edition>
-                           <gco:CharacterString></gco:CharacterString>
-                        </cit:edition>
-                     </cit:CI_Citation>
-                  </mrd:formatSpecificationCitation>
-               </mrd:MD_Format>
-            </mrd:distributionFormat>
-         </mrd:MD_DigitalTransferOptions>
+            </mrd:distributionFormat> 
          
-      
-      </mrd:transferOptions>
-      
-
-      
-   </mrd:MD_Distribution>
-</mdb:distributionInfo>
-
-   <!-- This example is to describe a distribution for a direct download from TERN Object Store -->
-   <mdb:distributionInfo>
-      <mrd:MD_Distribution>
+            <mrd:distributor>
+               <mrd:MD_Distributor>
+                  <mrd:distributorContact>
+                     <cit:CI_Responsibility>
+                        <cit:role>
+                           <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                              codeListValue="distributor"/>
+                        </cit:role>
+                        <cit:party>
+                           <!-- user will select from TERN organisations vocabulary -->
+                           <cit:CI_Organisation>
+                              <cit:name>
+                                 <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+                                 
+                              </cit:name>
+                              <cit:contactInfo>
+                                 <cit:CI_Contact>
+                                    <cit:phone>
+                                       <cit:CI_Telephone>
+                                          <cit:number>
+                                             <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
+                                          </cit:number>
+                                          <cit:numberType>
+                                             <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode"
+                                                codeListValue="voice"/>
+                                          </cit:numberType>
+                                       </cit:CI_Telephone>
+                                    </cit:phone>
+                                    <cit:address>
+                                       <cit:CI_Address>
+                                          <cit:deliveryPoint>
+                                             <gco:CharacterString>Building 8, University of Queensland</gco:CharacterString>
+                                          </cit:deliveryPoint>
+                                          <cit:city>
+                                             <gco:CharacterString>Brisbane</gco:CharacterString>
+                                          </cit:city>
+                                          <cit:administrativeArea>
+                                             <gco:CharacterString>QLD</gco:CharacterString>
+                                          </cit:administrativeArea>
+                                          <cit:postalCode>
+                                             <gco:CharacterString>4072</gco:CharacterString>
+                                          </cit:postalCode>
+                                          <cit:country>
+                                             <gco:CharacterString>Australia</gco:CharacterString>
+                                          </cit:country>
+                                          <cit:electronicMailAddress>
+                                             <gco:CharacterString>esupport@tern.org.au</gco:CharacterString>
+                                          </cit:electronicMailAddress>
+                                       </cit:CI_Address>
+                                    </cit:address>
+                                 </cit:CI_Contact>
+                              </cit:contactInfo>
+                              <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
+                              <cit:partyIdentifier>
+                                 <mcc:MD_Identifier>
+                                    <mcc:code>
+                                       
+                                       <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                                       
+                                    </mcc:code>
+                                    <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                    </mcc:codeSpace>
+                                    
+                                 </mcc:MD_Identifier>
+                              </cit:partyIdentifier>
+                              
+                           </cit:CI_Organisation>
+                        </cit:party>
+                     </cit:CI_Responsibility>
+                  </mrd:distributorContact>
+               </mrd:MD_Distributor>
+            </mrd:distributor>
          
          <mrd:transferOptions>
             <mrd:MD_DigitalTransferOptions>
+               <!-- Number representing file size in MB - Data services screen 
+               GW - Can file size be determined automatically by Data upload function? -->
+               <mrd:transferSize><gco:Real>10</gco:Real></mrd:transferSize>
                <mrd:onLine>
                   <cit:CI_OnlineResource>
                      <cit:linkage>
@@ -2395,9 +2349,101 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
 -->
    <mdb:distributionInfo>
       <mrd:MD_Distribution>
+         <mrd:description><gco:CharacterString>Placeholder Text=Description of distribution options</gco:CharacterString></mrd:description>
+         
+         <!-- one mrd:distributionFormat block for each distribution format selected by the user-->
+         
+         <mrd:distributionFormat>
+            <mrd:MD_Format>
+               <mrd:formatSpecificationCitation>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
+                     </cit:title>
+                  </cit:CI_Citation>
+               </mrd:formatSpecificationCitation>
+               <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString></mrd:amendmentNumber>
+               <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString></mrd:fileDecompressionTechnique>
+            </mrd:MD_Format>
+         </mrd:distributionFormat> 
+         
+         <mrd:distributor>
+            <mrd:MD_Distributor>
+               <mrd:distributorContact>
+                  <cit:CI_Responsibility>
+                     <cit:role>
+                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                           codeListValue="distributor"/>
+                     </cit:role>
+                     <cit:party>
+                        <!-- user will select from TERN organisations vocabulary -->
+                        <cit:CI_Organisation>
+                           <cit:name>
+                              <gco:CharacterString>CSIRO Land and Water</gco:CharacterString>
+                              
+                           </cit:name>
+                           <cit:contactInfo>
+                              <cit:CI_Contact>
+                                 <cit:phone>
+                                    <cit:CI_Telephone>
+                                       <cit:number>
+                                          <gco:CharacterString></gco:CharacterString>
+                                       </cit:number>
+                                       <cit:numberType>
+                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode"
+                                             codeListValue="voice"/>
+                                       </cit:numberType>
+                                    </cit:CI_Telephone>
+                                 </cit:phone>
+                                 <cit:address>
+                                    <cit:CI_Address>
+                                       <cit:deliveryPoint>
+                                          <gco:CharacterString>101 Clunies Ross St</gco:CharacterString>
+                                       </cit:deliveryPoint>
+                                       <cit:city>
+                                          <gco:CharacterString>Canberra</gco:CharacterString>
+                                       </cit:city>
+                                       <cit:administrativeArea>
+                                          <gco:CharacterString>ACT</gco:CharacterString>
+                                       </cit:administrativeArea>
+                                       <cit:postalCode>
+                                          <gco:CharacterString>2600</gco:CharacterString>
+                                       </cit:postalCode>
+                                       <cit:country>
+                                          <gco:CharacterString>Australia</gco:CharacterString>
+                                       </cit:country>
+                                       <cit:electronicMailAddress>
+                                          <gco:CharacterString></gco:CharacterString>
+                                       </cit:electronicMailAddress>
+                                    </cit:CI_Address>
+                                 </cit:address>
+                              </cit:CI_Contact>
+                           </cit:contactInfo>
+                           <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    
+                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                    
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                                 
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
+                           
+                        </cit:CI_Organisation>
+                     </cit:party>
+                  </cit:CI_Responsibility>
+               </mrd:distributorContact>
+            </mrd:MD_Distributor>
+         </mrd:distributor>
          
          <mrd:transferOptions>
             <mrd:MD_DigitalTransferOptions>
+               <!-- Number representing file size in MB - Data services screen -->
+               <mrd:transferSize><gco:Real>32</gco:Real></mrd:transferSize>
                <mrd:onLine>
                   <cit:CI_OnlineResource>
                      
@@ -2410,14 +2456,12 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      <cit:protocol>
                         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                      </cit:protocol>
-                     <cit:applicationProfile>
-                        <gco:CharacterString>Placeholder text=This is the Applicaton Profile is there a codelist?Unidata:THREDDS Data Server</gco:CharacterString>
-                     </cit:applicationProfile>   
+ 
                      <cit:name>
-                        <gco:CharacterString>CSIRO Cosmoz REST Interface [name element]</gco:CharacterString>
+                        <gco:CharacterString>CSIRO Cosmoz REST Interface Documentation[name element]</gco:CharacterString>
                      </cit:name>
                      <cit:description>
-                        <gco:CharacterString>Service Documentation using link protocol [description element]</gco:CharacterString>
+                        <gco:CharacterString>https://esoil.io/cosmoz-data-pipeline/rest/doc [description element]</gco:CharacterString>
                      </cit:description>
                      <cit:function>
                         
@@ -2435,12 +2479,104 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
    </mdb:distributionInfo>
 
    <!-- information about online sources from which the resource can be obtained
-      This example is to illustrate the distribution element used to link to online documents about the source -->
+      This example is for a web site -->
    <mdb:distributionInfo>
       <mrd:MD_Distribution>
+         <mrd:description><gco:CharacterString>Placeholder Text=Description of distribution options</gco:CharacterString></mrd:description>
+         
+         <!-- one mrd:distributionFormat block for each distribution format selected by the user-->
+         
+         <mrd:distributionFormat>
+            <mrd:MD_Format>
+               <mrd:formatSpecificationCitation>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
+                     </cit:title>
+                  </cit:CI_Citation>
+               </mrd:formatSpecificationCitation>
+               <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString></mrd:amendmentNumber>
+               <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString></mrd:fileDecompressionTechnique>
+            </mrd:MD_Format>
+         </mrd:distributionFormat> 
+         
+         <mrd:distributor>
+            <mrd:MD_Distributor>
+               <mrd:distributorContact>
+                  <cit:CI_Responsibility>
+                     <cit:role>
+                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                           codeListValue="distributor"/>
+                     </cit:role>
+                     <cit:party>
+                        <!-- user will select from TERN organisations vocabulary -->
+                        <cit:CI_Organisation>
+                           <cit:name>
+                              <gco:CharacterString>CSIRO Land and Water</gco:CharacterString>
+                              
+                           </cit:name>
+                           <cit:contactInfo>
+                              <cit:CI_Contact>
+                                 <cit:phone>
+                                    <cit:CI_Telephone>
+                                       <cit:number>
+                                          <gco:CharacterString></gco:CharacterString>
+                                       </cit:number>
+                                       <cit:numberType>
+                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode"
+                                             codeListValue="voice"/>
+                                       </cit:numberType>
+                                    </cit:CI_Telephone>
+                                 </cit:phone>
+                                 <cit:address>
+                                    <cit:CI_Address>
+                                       <cit:deliveryPoint>
+                                          <gco:CharacterString>101 Clunies Ross St</gco:CharacterString>
+                                       </cit:deliveryPoint>
+                                       <cit:city>
+                                          <gco:CharacterString>Canberra</gco:CharacterString>
+                                       </cit:city>
+                                       <cit:administrativeArea>
+                                          <gco:CharacterString>ACT</gco:CharacterString>
+                                       </cit:administrativeArea>
+                                       <cit:postalCode>
+                                          <gco:CharacterString>2600</gco:CharacterString>
+                                       </cit:postalCode>
+                                       <cit:country>
+                                          <gco:CharacterString>Australia</gco:CharacterString>
+                                       </cit:country>
+                                       <cit:electronicMailAddress>
+                                          <gco:CharacterString></gco:CharacterString>
+                                       </cit:electronicMailAddress>
+                                    </cit:CI_Address>
+                                 </cit:address>
+                              </cit:CI_Contact>
+                           </cit:contactInfo>
+                           <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    
+                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                    
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                                 
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
+                           
+                        </cit:CI_Organisation>
+                     </cit:party>
+                  </cit:CI_Responsibility>
+               </mrd:distributorContact>
+            </mrd:MD_Distributor>
+         </mrd:distributor>
          
          <mrd:transferOptions>
             <mrd:MD_DigitalTransferOptions>
+               <!-- Number representing file size in MB - Data services screen -->
+               <mrd:transferSize><gco:Real>10</gco:Real></mrd:transferSize>
                <mrd:onLine>
                   <cit:CI_OnlineResource>
                      
@@ -2453,14 +2589,12 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      <cit:protocol>
                         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                      </cit:protocol>
-                     <cit:applicationProfile>
-                        <gco:CharacterString>Placeholder text=This is the Applicaton Profile is there a codelist?Unidata:THREDDS Data Server</gco:CharacterString>
-                     </cit:applicationProfile>   
+  
                      <cit:name>
                         <gco:CharacterString>CosmOz Australian Cosmic-ray Neutron Soil Moisture Monitoring Network, Map of Cosmoz monitoring sites [name element]</gco:CharacterString>
                      </cit:name>
                      <cit:description>
-                        <gco:CharacterString>Web site [description element]</gco:CharacterString>
+                        <gco:CharacterString>https://cosmoz.csiro.au/sites [description element]</gco:CharacterString>
                      </cit:description>
                      <cit:function>
                         
@@ -2487,7 +2621,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             <mcc:MD_Scope>
                
                <mcc:level>
-                  <!-- User selects from the full ISO codelist -->
+                  <!-- User selects from the full ISO codelist, default = dataset -->
                   <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
                </mcc:level>
                <mcc:levelDescription>

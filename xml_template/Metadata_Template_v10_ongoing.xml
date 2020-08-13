@@ -270,7 +270,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             <gco:CharacterString>1.0</gco:CharacterString>
          </cit:edition>
          <cit:identifier><mcc:MD_Identifier>
-            <mcc:code></mcc:code>
+            <mcc:code>[SG - what goes in here]</mcc:code>
          </mcc:MD_Identifier></cit:identifier>
          <cit:onlineResource>
             <cit:CI_OnlineResource>
@@ -962,29 +962,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            <mrs:referenceSystemIdentifier>
 
                               <mcc:MD_Identifier>
-                                 <mcc:authority>
-                                    <cit:CI_Citation>
-                                       <cit:title>
-                                          <gco:CharacterString>
-                                             European Petroleum Survey Group (EPSG) Geodetic Parameter Registry
-                                          </gco:CharacterString>
-                                       </cit:title>
-                                       <cit:onlineResource>
-                                          <cit:CI_OnlineResource>
-                                             <cit:linkage>
-                                                <gco:CharacterString>http://www.epsg-registry.org/</gco:CharacterString>
-                                             </cit:linkage>
-                                             <cit:protocol>
-                                                <gco:CharacterString>WWW:LINK-1.0-http-link</gco:CharacterString>
-                                             </cit:protocol>
-                                             <cit:function>
-                                                <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                                   codeListValue="information"/>
-                                             </cit:function>
-                                          </cit:CI_OnlineResource>
-                                       </cit:onlineResource>
-                                    </cit:CI_Citation>
-                                 </mcc:authority>
+
                                  
                                  <mcc:code>
                                     <gco:CharacterString>EPSG:dddd</gco:CharacterString>

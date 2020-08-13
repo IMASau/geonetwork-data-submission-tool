@@ -5,6 +5,8 @@ The order of elements changes between later versions and earlier versions
 for latest version metadataConstraints comes before resourceLineage
 but causes schema error in GN 3.8 see JIRA 286 
 Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/91471f5a-26f8-47b5-8f61-71bfa6f37b44
+For jira-723:
+SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556330/Data+identification+Related+Parties
 -->
 <mdb:MD_Metadata xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/2.0"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -63,7 +65,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
    http://standards.iso.org/iso/19115/-3/gco/1.0 https://schemas.isotc211.org/19115/-3/gco/1.0/gco.xsd 
    http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd 
    http://www.w3.org/1999/xlink http://www.w3.org/1999/xlink.xsd">
-  <!-- change from global namespace to local namespace  -->
+   <!-- https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026621510/Metadata+Identifier  -->
    <mdb:metadataIdentifier>
       <mcc:MD_Identifier>
          <mcc:authority>
@@ -88,7 +90,9 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
          
       </mcc:MD_Identifier>
    </mdb:metadataIdentifier>
-   <!-- add to template -->
+   <!-- New 
+      static section begins - declaration of the language used in the metadata
+   https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556126/Metadata+language+and+encoding -->
    <mdb:defaultLocale>
       <lan:PT_Locale id="EN">
          <lan:language>
@@ -100,10 +104,16 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
          </lan:characterEncoding>
       </lan:PT_Locale>
    </mdb:defaultLocale>
-   <!-- SHaRED should add if user enters a parent UUID -->
+   <!-- Static section ends -->
+   <!-- New section 
+      User should be able to enter a parent UUID in SHaRED - optional 
+   https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556158/Parent+metadata -->
    <mdb:parentMetadata uuidref="uuid goes here"/>
+
    
-   <!-- How should the scope get set - does the user choose an option from the codelist? TBC -->
+   <!-- Change - currently a static section 
+      to-be: User selects from the codelist in SHaRED, mandatory, default should be dataset
+   https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718688/Metadata+Scope -->
    <mdb:metadataScope>
       <mdb:MD_MetadataScope>
          <mdb:resourceScope>
@@ -115,6 +125,9 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
       </mdb:MD_MetadataScope>
    </mdb:metadataScope>
 
+   <!-- Changed - uses cit:partyIdentifier, etc
+      https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028554952/Metadata+Contact
+   This continues to be a static section in the template -->
    <mdb:contact>
       <cit:CI_Responsibility>
          <cit:role>
@@ -124,10 +137,9 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
          <cit:party>
             <cit:CI_Organisation>
                <cit:name>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66" xlink:show="new">Terrestrial Ecosystem Research Network (TERN)</gcx:Anchor>
+                  <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
                </cit:name>
-
-               
+              
                <cit:contactInfo>
                   <cit:CI_Contact>
                      <cit:phone>
@@ -164,33 +176,28 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                      </cit:address>
                   </cit:CI_Contact>
                </cit:contactInfo>
-               
-               <cit:logo>                  
-                  <mcc:MD_BrowseGraphic>
-                     <mcc:fileName>
-                        <gco:CharacterString>[GW please write file name here]</gco:CharacterString>
-                     </mcc:fileName>
-                     <mcc:fileDescription>
-                        <gco:CharacterString>TERN Logo</gco:CharacterString>
-                     </mcc:fileDescription>
-                     <mcc:fileType>
-                        <gco:CharacterString>[GW please write filetype here e.g. png]</gco:CharacterString>
-                     </mcc:fileType>
-                     <mcc:linkage>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>[GW please write url to file here]</gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
-                     </mcc:linkage>
-                  </mcc:MD_BrowseGraphic>
-               </cit:logo>
+               <cit:partyIdentifier>
+                  <mcc:MD_Identifier>
+                     <mcc:code>
+                        <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                        
+                     </mcc:code>
+                     <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                     </mcc:codeSpace>
+                     
+                  </mcc:MD_Identifier>
+               </cit:partyIdentifier>
+
             </cit:CI_Organisation>
          </cit:party>
       </cit:CI_Responsibility>
    </mdb:contact>
-
-
+   <!-- Static section ends -->
+  <!-- These dates relate to the metadata and should be managed via SHaRED workflow
+  TBC
+  See discussion https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028456560/Metadata+Dates
+       If additional codelist date types are selected by the user, write additional mdb:dateInfo blocks
+  -->
    <mdb:dateInfo>
       <cit:CI_Date>
          <cit:date>
@@ -212,8 +219,9 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
          </cit:dateType>
       </cit:CI_Date>
    </mdb:dateInfo>
-   <!-- See UI requirements at https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028456560/Metadata+Dates
-      If additional codelist date types are selected by the user, write additional mdb:dateInfo blocks -->
+   <!-- Changed 
+      Static section begins
+      https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556211/Metadata+Standards -->
    <mdb:metadataStandard>
       <cit:CI_Citation>
          <cit:title>
@@ -244,197 +252,127 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
          </cit:edition>
       </cit:CI_Citation>
    </mdb:metadataStandard>
+   <!--  Static section ends -->
+   <!-- New
+   Static section begins 
+   https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039630451/Metadata+Profile -->
    <mdb:metadataProfile>
       <cit:CI_Citation>
          <cit:title>
             <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN) Metadata Profile of ISO 19115-3:2016 and ISO 19157-2:2016</gco:CharacterString>
          </cit:title>
+         <cit:date><cit:CI_Date>
+            <!-- date of published version -->
+            <cit:date><gco:Date>2020</gco:Date></cit:date>
+            <cit:dateType><cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="published"></cit:CI_DateTypeCode></cit:dateType>
+         </cit:CI_Date></cit:date>
          <cit:edition>
             <gco:CharacterString>1.0</gco:CharacterString>
          </cit:edition>
-         <!-- Either write the cit:identifier block or the cit:onlineResource block as applicable -->
-         <cit:identifier>
-            <mcc:MD_Identifier>
-               <mcc:code>
-                  <gco:CharacterString>[GW - If a DOI url can be written here]</gco:CharacterString>
-               </mcc:code>
-            </mcc:MD_Identifier>
-         </cit:identifier>
+         <cit:identifier><mcc:MD_Identifier>
+            <mcc:code>[SG - what goes in here]</mcc:code>
+         </mcc:MD_Identifier></cit:identifier>
          <cit:onlineResource>
             <cit:CI_OnlineResource>
                <cit:linkage>
-                  <gco:CharacterString>[GW - If a url write here e.g. location on github]</gco:CharacterString>
+                  <gco:CharacterString>[GW - location on bitbucket for published version]</gco:CharacterString>
                </cit:linkage>
+               <cit:protocol>
+                  <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+               </cit:protocol>
+               <cit:function>
+                  <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                     codeListValue="information"/>
+               </cit:function>
             </cit:CI_OnlineResource>
          </cit:onlineResource>
       </cit:CI_Citation>
    </mdb:metadataProfile>
+   <!-- static section ends -->
+   <!-- Changed description text
+      linkage is generated by SHaRED using the uuid for the record (as-is), other elements will be static
+   https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555013/Metadata+Linkage -->
    <mdb:metadataLinkage>
       <cit:CI_OnlineResource>
          <cit:linkage>
             <gco:CharacterString>https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/d366e327-ba9b-42a2-8a96-56565c4b8c71</gco:CharacterString>
          </cit:linkage>
+         <cit:protocol>
+            <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+         </cit:protocol>
          <cit:description>
             <gco:CharacterString>Point of truth URL of this metadata record</gco:CharacterString>
          </cit:description>
+
          <cit:function>
             <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="completeMetadata"/>
          </cit:function>
       </cit:CI_OnlineResource>
    </mdb:metadataLinkage>
+   <!-- Changed
+   Horizontal reference system 
+   https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555039/Reference+System+Info
+   User will be able to select the coordinate reference system from a list in SHaRED 
+   Type code added -->
    <mdb:referenceSystemInfo>
       <mrs:MD_ReferenceSystem>
          <mrs:referenceSystemIdentifier>
             <mcc:MD_Identifier>
-               <mcc:authority>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>
-                           European Petroleum Survey Group (EPSG) Geodetic Parameter Registry
-                        </gco:CharacterString>
-                     </cit:title>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>http://www.epsg-registry.org/</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol gco:nilReason="missing"> </cit:protocol>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mcc:authority>
+
 
                <mcc:code>
-                  <!-- Change - Provide drop-down list of options -->
+                  <!-- Change - Provide drop-down list of options using description, 
+                     related values for code, codespace and reference system type code will default based on selected value 
+                  Provide field to enter version, mandatory for dynamic datums, can be predefined for static datums -->
                   <gco:CharacterString>EPSG:4326</gco:CharacterString>
                </mcc:code>
                <mcc:codeSpace>
                   <gco:CharacterString>EPSG</gco:CharacterString>
                </mcc:codeSpace>
+               <!-- put relevant epoch in version -->
+               <mcc:version>
+                  <gco:CharacterString>2007.079</gco:CharacterString>
+                  </mcc:version>
                <mcc:description>
                   <gco:CharacterString>WGS-84</gco:CharacterString>
                </mcc:description>
+               
 
             </mcc:MD_Identifier>
             
          </mrs:referenceSystemIdentifier>
-         <!-- Change add type code
-               We can probably calculate the codelist value based on code selected by user at
+         <!-- Added Reference System type code
+               SHaRED should determine value based on the code value selected by the user above at
                /mdb:MD_Metadata/mdb:referenceSystemInfo[1]/mrs:MD_ReferenceSystem[1]/mrs:referenceSystemIdentifier[1]/mcc:MD_Identifier[1]/mcc:code[1]
-               otherwise user will need to select from a list -->
+            -->
          <mrs:referenceSystemType>
-            <mrs:MD_ReferenceSystemTypeCode codeList="codeListLocation#MD_ReferenceSystemTypeCode" codeListValue="projected"></mrs:MD_ReferenceSystemTypeCode>
+            <mrs:MD_ReferenceSystemTypeCode codeList="codeListLocation#MD_ReferenceSystemTypeCode" codeListValue="geodeticGeographic2D"></mrs:MD_ReferenceSystemTypeCode>
          </mrs:referenceSystemType>
 
       </mrs:MD_ReferenceSystem>
 
    </mdb:referenceSystemInfo>
-   <mdb:referenceSystemInfo>
-      <!-- MDWG recommendation - the coordinate epoch should be recorded 
-      the user may need to enter for dynamic datums  e.g. WGS84 or ATRF
-      for static datums like gda94 TERN could define default values -->
-      <mrs:MD_ReferenceSystem>
-         <mrs:referenceSystemIdentifier>
-            <mcc:MD_Identifier>
-               <mcc:authority>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>
-                           European Petroleum Survey Group (EPSG) Geodetic Parameter Registry
-                        </gco:CharacterString>
-                     </cit:title>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>http://www.epsg-registry.org/</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol gco:nilReason="missing"> </cit:protocol>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mcc:authority>
-               
-               <mcc:code>
-                  <gco:CharacterString>2020.01</gco:CharacterString>
-               </mcc:code>
-               <mcc:description>
-                  <gco:CharacterString>The temporal epoch of the datum</gco:CharacterString>
-               </mcc:description>
-               
-            </mcc:MD_Identifier>
-            
-         </mrs:referenceSystemIdentifier>
-         
-         <mrs:referenceSystemType>
-            <mrs:MD_ReferenceSystemTypeCode codeList="codeListLocation#MD_ReferenceSystemTypeCode" codeListValue="temporal"></mrs:MD_ReferenceSystemTypeCode>
-         </mrs:referenceSystemType>
-         
-      </mrs:MD_ReferenceSystem>  
-      
-   </mdb:referenceSystemInfo>
-   <mdb:referenceSystemInfo>
-      <!-- MDWG recommendation - the calendar should be specified
-      I think this can default as we always use the same one 
-      therefore wouldn't it be assumed and only need to be declared if different? -->
-      <mrs:MD_ReferenceSystem>
-         <mrs:referenceSystemIdentifier>
-            <mcc:MD_Identifier>
-               <mcc:authority>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>
-                           Reference system of temporal extent
-                        </gco:CharacterString>
-                     </cit:title>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>http://linked.data.gov.au</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol gco:nilReason="missing"> </cit:protocol>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mcc:authority>
-               
-               <mcc:code>
-                  <gco:CharacterString>Gregorian Calendar
-                  </gco:CharacterString>
-               </mcc:code>
-               <mcc:codeSpace><gco:CharacterString>AGLDWG</gco:CharacterString></mcc:codeSpace>
-               <mcc:description>
-                  <gco:CharacterString>Reference system of temporal extent</gco:CharacterString>
-               </mcc:description>
-                              
-            </mcc:MD_Identifier>
-            
-         </mrs:referenceSystemIdentifier>
-         
-         <mrs:referenceSystemType>
-            <mrs:MD_ReferenceSystemTypeCode codeList="codeListLocation#MD_ReferenceSystemTypeCode" codeListValue="temporal"></mrs:MD_ReferenceSystemTypeCode>
-         </mrs:referenceSystemType>
-         
-      </mrs:MD_ReferenceSystem>  
-      
-   </mdb:referenceSystemInfo>
+   
    <mdb:identificationInfo>
       
       <mri:MD_DataIdentification>
-         
 
          <mri:citation>
             <cit:CI_Citation>
 
                <cit:title>
-                  <gco:CharacterString>TDSAG-486-14 - all options - Placeholder text=Provide a descriptive title for the data set including the subject of study, the study location and time period. 
-                        Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing
+                  <gco:CharacterString>jira-723-2020/08/13-2 - updated per spreadsheet see abstract - v2 namespaces
                         </gco:CharacterString>
                </cit:title>
+               <!-- Functional changes required which will determine fields available to user and syntax of XML statements to write
+                  https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition
+               -->
                <cit:date>
                   <cit:CI_Date>
-                     <!-- UI Data Identification - Date resource was created -->
+                     <!-- UI Data Identification - User types or selects date resource was created
+                     This should equate to the version date of the resource -->
                      <cit:date>
-                        <gco:DateTime>2014-06-27T11:07:36</gco:DateTime>
+                        <gco:Date>2014-06-27</gco:Date>
                      </cit:date>
                      <cit:dateType>
                         <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="creation"/>
@@ -443,15 +381,32 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                </cit:date>
                <cit:date>
                   <cit:CI_Date>
-                     <!-- See notes under mri:status element - use inapplicable and remove the date for status 'ongoing' 
-                        Reference https://www.ngdc.noaa.gov/wiki/index.php/ISO_Dates
+                     <!-- See notes under mri:status element - 
+                     Use inapplicable if the status is 'ongoing' 
                      <cit:date gco:nilReason="inapplicable"/>
-                       GN gives an error if you use the above
-                        -->
-                       <cit:date>
-                       <gco:DateTime>2014-06-27T11:07:36</gco:DateTime>
-                       </cit:date>
+                     Reference https://www.ngdc.noaa.gov/wiki/index.php/ISO_Dates
                      
+                     If status is not ongoing, but date is not input by user then set as
+                     <cit:date gco:nilReason="unknown"/>
+                     Reference http://wiki.esipfed.org/CI_Date
+                                          
+                      Note: GN gives schema validation errors if you use either of the above
+                      Example: https://geonetwork-test.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/d7d0f36c-eb3c-4ed5-b87c-befca9922519
+                        -->
+                     <!-- 
+                       <cit:date gco:nilReason="inapplicable"/>
+                          
+                           -->
+                       
+                     <!--  
+                        <cit:date>
+                        <gco:DateTime>2014-06-27T11:07:36</gco:DateTime> 
+                        </cit:date>-->
+                     <!-- Test year only -->
+                     <cit:date>
+                        <gco:Date>2014</gco:Date> 
+                     </cit:date>
+ 
                      <cit:dateType>
                         <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="publication"/>
                      </cit:dateType>
@@ -460,28 +415,23 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                <cit:date>
                   <cit:CI_Date>
                      <cit:date>
-                        <gco:DateTime>2014-06-27T11:07:36</gco:DateTime>
+                        <gco:Date>2014-07-14</gco:Date>
                      </cit:date>
                      <cit:dateType>
                         <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="revision"/>
                      </cit:dateType>
                   </cit:CI_Date>
                </cit:date>
-               <!-- Change - add version elements and expose in UI 
+               <!-- New - add version elements and expose in SHaRED UI for user input
+                  Only digits and "." allowed
                advised by Matt P 
                Reference: https://ternaus.atlassian.net/browse/TERNDESK-937 -->
                <cit:edition>
-                  <gco:CharacterString>1.0.0</gco:CharacterString>
+                  <gco:CharacterString>1.0</gco:CharacterString>
                </cit:edition>
-               <!-- Not essential - should be same as creation date -->
-               <cit:editionDate>
-                  <!-- <gco:Date>2011-07-30</gco:Date>
-                  tested Date, error requires DateTime -->
-                  <gco:DateTime>2011-06-27T11:07:36</gco:DateTime>
-                   
-               </cit:editionDate>
 
-
+               <!-- Bug - SHaRED is writing to a different element but should be writing here
+               see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718892/Data+Identification+Citation+Identifier+DOI -->
                <cit:identifier>
                   <mcc:MD_Identifier>
 
@@ -500,6 +450,8 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                      </mcc:codeSpace>
                   </mcc:MD_Identifier>
                </cit:identifier>
+               <!-- Functional changes and syntax changes 
+               see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556330/Data+identification+Citation+Related+Parties -->
                <cit:citedResponsibleParty>
                   <cit:CI_Responsibility>
                      <cit:role>
@@ -508,7 +460,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                      <cit:party>
                         <cit:CI_Organisation>
                            <cit:name>
-                              <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66" xlink:show="new">Terrestrial Ecosystem Research Network (TERN)</gcx:Anchor>
+                              <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
@@ -546,12 +498,50 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                                  </cit:address>
                               </cit:CI_Contact>
                            </cit:contactInfo>
+                           <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556330/Data+identification+Citation+Related+Parties -->
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                                    
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                                 
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
+                           <cit:logo>                  
+                              <mcc:MD_BrowseGraphic>
+                                 <mcc:fileName>
+                                    <gco:CharacterString>tern-logo.png</gco:CharacterString>
+                                 </mcc:fileName>
+                                 <mcc:fileDescription>
+                                    <gco:CharacterString>TERN Logo</gco:CharacterString>
+                                 </mcc:fileDescription>
+
+                                 <mcc:linkage>
+                                    <cit:CI_OnlineResource>
+                                       <cit:linkage>
+                                          <gco:CharacterString>https://w3id.org/tern/static/tern-web/img/tern-logo.png</gco:CharacterString>
+                                       </cit:linkage>
+                                       <cit:protocol>
+                                          <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                                       </cit:protocol>
+                                       <cit:function>
+                                          <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                             codeListValue="browseGraphic"/>
+                                       </cit:function>
+                                    </cit:CI_OnlineResource>
+                                 </mcc:linkage>
+                              </mcc:MD_BrowseGraphic>
+                           </cit:logo>
                         </cit:CI_Organisation>
                      </cit:party>
                   </cit:CI_Responsibility>
                </cit:citedResponsibleParty>
                <!-- a least one author is mandatory
-               new - author can be an organisation-->
+               1. author can be an individual at an organisation
+               Syntax changes -->
                <cit:citedResponsibleParty>
                   <cit:CI_Responsibility>
                      <cit:role>
@@ -560,7 +550,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                      <cit:party>
                         <cit:CI_Organisation>
                            <cit:name>
-                              <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1" xlink:show="new">CSIRO Land and Water</gcx:Anchor>
+                              <gco:CharacterString>CSIRO Land and Water</gco:CharacterString>
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
@@ -598,12 +588,38 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                                  </cit:address>
                               </cit:CI_Contact>
                            </cit:contactInfo>
+                           <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556330/Data+identification+Citation+Related+Parties -->
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                    
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                                 
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
                            <cit:individual>
                               <cit:CI_Individual>
 
                                  <cit:name>
-                                    <gcx:Anchor xlink:role="orcid" xlink:href="https://orcid.org/0000-0002-6995-4721" xlink:show="new">Mark Kitchen</gcx:Anchor>
+                                    <gco:CharacterString>Mark Kitchen</gco:CharacterString>
                                  </cit:name>
+                                 <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556330/Data+identification+Citation+Related+Parties -->
+                                 <cit:partyIdentifier>
+                                    <mcc:MD_Identifier>
+                                       <mcc:code>
+                                          <gco:CharacterString>orcid:0000-0002-6995-4721</gco:CharacterString>
+
+                                       </mcc:code>
+                                       <mcc:codeSpace><gco:CharacterString>https://orcid.org</gco:CharacterString>
+                                       </mcc:codeSpace>
+                                       <!-- if person does not have an orcid then 
+                                             code would be https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1
+                                          with codespace https://w3id.org/tern/resources-->
+                                 </mcc:MD_Identifier>
+                                 </cit:partyIdentifier>
                                  <cit:positionName>
                                     <gco:CharacterString>Mr</gco:CharacterString>
                                  </cit:positionName>
@@ -614,7 +630,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                   </cit:CI_Responsibility>
                </cit:citedResponsibleParty>
                <!-- a least one author is mandatory
-               new - author can be an organisation-->
+               2. New functionality - author can be an organisation without an individual -->
                <cit:citedResponsibleParty>
                   <cit:CI_Responsibility>
                      <cit:role>
@@ -623,8 +639,10 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                      <cit:party>
                         <cit:CI_Organisation>
                            <cit:name>
-                              <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1" xlink:show="new">CSIRO Land and Water</gcx:Anchor>
+                              <gco:CharacterString>CSIRO Land and Water</gco:CharacterString>
+                              
                            </cit:name>
+
                            <cit:contactInfo>
                               <cit:CI_Contact>
                                  <cit:phone>
@@ -661,6 +679,18 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                                  </cit:address>
                               </cit:CI_Contact>
                            </cit:contactInfo>
+                           <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556330/Data+identification+Citation+Related+Parties -->
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                    
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                                 
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
 
                         </cit:CI_Organisation>
                      </cit:party>
@@ -671,6 +701,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
          <mri:abstract>
 
             <gco:CharacterString>
+               (See spreadsheet https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0)
                Placeholder text=Provide a brief summary of What, Where, When, Why, Who and How for the collected the data.
           Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected.</gco:CharacterString>
          </mri:abstract>
@@ -681,7 +712,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
          <mri:credit>
             <gco:CharacterString>Placeholder text=Thanks to all the lovely sponsors:  xxx, yyy</gco:CharacterString>
          </mri:credit>
-
+         <!-- https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
          <mri:status>
             <!-- 
             Change 1
@@ -702,9 +733,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
             2) and the end date of the resource should be:
             /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:extent[1]/gex:EX_Extent[1]/gex:temporalElement[1]/gex:EX_TemporalExtent[1]/gex:extent[1]/gml:TimePeriod[1]/gml:endPosition[1]
             should be <gml:endPosition indeterminatePosition="now"/>
-            
-            Suggest we should implement 2 above but 1 may cause issues for DOI minting and citation.
-            
+                        
             Note: Other statuses not reviewed
             
             Reference: https://icsm-au.github.io/metadata-working-group/defs/Status.html
@@ -713,6 +742,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
             <mcc:MD_ProgressCode codeList="codeListLocation#MD_ProgressCode" codeListValue="ongoing"/>
          </mri:status>
 
+         <!-- https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555197/Data+Identification+Point+of+Contact -->
          <mri:pointOfContact>
             <cit:CI_Responsibility>
                <cit:role>
@@ -726,7 +756,8 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                <cit:party>
                   <cit:CI_Organisation>
                      <cit:name>
-                        <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/797307f8-e10b-4c74-8688-d52f9ac8d669" xlink:show="new">Geoscience Australia</gcx:Anchor>
+                        <gco:CharacterString>Geoscience Australia</gco:CharacterString>
+
                      </cit:name>
                      <cit:contactInfo>
                         <cit:CI_Contact>
@@ -780,11 +811,35 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                            </cit:address>
                         </cit:CI_Contact>
                      </cit:contactInfo>
+                     <cit:partyIdentifier>
+                        <mcc:MD_Identifier>
+                           <mcc:code>
+                              <gco:CharacterString>https://w3id.org/tern/resources/797307f8-e10b-4c74-8688-d52f9ac8d669</gco:CharacterString>
+                              
+                           </mcc:code>
+                           <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                           </mcc:codeSpace>
+                           
+                        </mcc:MD_Identifier>
+                     </cit:partyIdentifier>
                      <cit:individual>
                         <cit:CI_Individual>
                            <cit:name>
-                              <gcx:Anchor xlink:role="orcid" xlink:href="https://orcid.org/0000-0002-6995-4721" xlink:show="new">Moore, Ben</gcx:Anchor>
-                           </cit:name>
+                              <gco:CharacterString>Schroder, Ivan</gco:CharacterString>
+                              </cit:name>
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b</gco:CharacterString>
+                                    
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b</gco:CharacterString>
+                                 </mcc:codeSpace>
+                                 <!-- if person does not have an orcid then 
+                                             code would be https://w3id.org/tern/resources/{uuid]
+                                          with codespace https://w3id.org/tern/resources-->
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
                            <cit:positionName>
                               <gco:CharacterString>Mr</gco:CharacterString>
                            </cit:positionName>
@@ -795,14 +850,20 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                </cit:party>
             </cit:CI_Responsibility>
          </mri:pointOfContact>
-         <!-- are we keeping this or just putting horizontal resolution as a keyword -->
+         <!-- https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718977/Data+Identification+Spatial+Resolution -->
+         <!-- Changed functionality and syntax
+         
+         Removed mri:levelOfDetail
+         GCMD_Horizontal will write into keywords
+         GCMD_Vertical will write into keywords
+         User will be able to specify exact figure here for horizontal distance, must also select the applicable unit of measure
+         
+         -->
          <mri:spatialResolution>
-
             <mri:MD_Resolution>
+               
 
-               <mri:levelOfDetail>
-                  <gcx:Anchor xlink:title="GCMD_Horizontal" xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.nasa.gov/kms/concept/abf43d91-a65d-4b3b-a6dd-593e211b2c7b.xml" xlink:show="new">1 meter - &lt; 30 meters</gcx:Anchor>
-               </mri:levelOfDetail>
+               <mri:distance><gco:Distance uom="degrees">1e-3</gco:Distance></mri:distance>
 
             </mri:MD_Resolution>
          </mri:spatialResolution>
@@ -818,10 +879,12 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                   <gco:CharacterString>Placeholder text=A descriptive reference for the site locality. May include a project code. Example: Geelong (Site: G145), VIC, Australia</gco:CharacterString>
                </gex:description>
 
-
+               <!-- https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030619198/Data+Identification+Extent+Geographic+Bounding+Box -->
                <gex:geographicElement>
-                  <!-- MDWG Bounding box coordinates are generally given in WGS84 
-                     and therefore expected to have some small degree of inaccuracy -->
+                  <!-- MDWG https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/973897759/Meeting+Notes+2020+05+01 : 
+                     "Bounding box coordinates are generally given in WGS84 
+                     and therefore expected to have some small degree of inaccuracy" 
+                  Would be useful to restrict upper and lower limits on values -->
                   <gex:EX_GeographicBoundingBox>
                      <gex:westBoundLongitude>
                         <gco:Decimal>148.4746</gco:Decimal>
@@ -838,6 +901,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                   </gex:EX_GeographicBoundingBox>
                </gex:geographicElement>
 
+               <!-- https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140555959/Data+Identification+Extent+Temporal+-+Observation+Date+Range -->
                <gex:temporalElement>
                      <!-- MDWG 
                      Data observation time: time or time period when data was collected or observed. 
@@ -847,37 +911,36 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                            
                            <gml:TimePeriod gml:id="bcf969df-6213-4e5c-86d4-64e3b53de64a">
                               <!-- 
-                                 Change 1 Please extend the date selector box to include dates back to at least 1980 
-                                 .. or even better 1900 (I have other datasets that will need these early start dates).
-                                 Reference: https://ternaus.atlassian.net/browse/TERNDESK-900
-                                 Requestor: Matt P
-                                 
-                                 [Can we make it a type or select date widget?]
-                                 
-                                 Change 2 Need to allow users to select a time. Probably set a default value.
-                                 
-                                 Change 3 'ongoing' status - is an Exception to the existing rule: End date time should be later than or equal to begin date time 
+                                                                
+                                 'ongoing' status - is an Exception to the existing rule which states: End date time should be later than or equal to begin date time 
                               -->
-                              <gml:beginPosition>2011-06-10T00:23:00</gml:beginPosition>
+                              <gml:beginPosition>2011-06-10</gml:beginPosition>
                               <!-- this is the statement for an ongoing record -->
                               <gml:endPosition indeterminatePosition="now"/>
                               <!-- this is the end satement for other statuses -->
-                              <!-- <gml:endPosition>2011-06-10T00:56:01</gml:endPosition> -->
+                              <!-- <gml:endPosition>2011-06-10</gml:endPosition> -->
                            </gml:TimePeriod>
                         </gex:extent>
                      </gex:EX_TemporalExtent>
                   </gex:temporalElement>
                </gex:EX_Extent>
          </mri:extent>
-
+         <!-- 
+            https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030750285/Data+Identification+Extent+Vertical+Extent+TBC
+            Current functionality
+         The Vertical extent section as a whole is not mandatory, but if the user selects this section all fields are mandatory 
+         If not input the section does not write into the XML
+         Changed functionality - 
+         Elevation in metres field should be removed
+         Method field remains the same
+         a field and drop down list to populate CRS, default values to be defined -->
          <mri:extent>
-            <!-- Waiting for feedback from Ross Searle -->
-
+            
             <gex:EX_Extent id="Vertical">
 
                <gex:description>
 
-                  <gco:CharacterString>Elevation in metres: [not specified]| Method: [not specified]</gco:CharacterString>
+                  <gco:CharacterString>Elevation from: [not specified]</gco:CharacterString>
                </gex:description>
                <gex:verticalElement>
 
@@ -889,48 +952,33 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                         <gco:Real>0.0</gco:Real>
                      </gex:maximumValue>
 
-                     <!-- if the user does not specify a vertical crs then write this statement
-                     <gex:verticalCRS gco:nilReason="unknown"> </gex:verticalCRS>
-                     
-                     if the user does select a vertical crs then write the following block of xml -->
+                     <!-- user will be able to select from a list of vertical crs 
+                     suitable CRS to be identified -->
                      
                      <gex:verticalCRSId>
-                        <!-- MDWG recommendation - this is a placeholder for the vertical crs - we may not need this 
-                           Waiting for feedback from Ross Searle -->
+                        
+                        
                         <mrs:MD_ReferenceSystem>
                            <mrs:referenceSystemIdentifier>
+
                               <mcc:MD_Identifier>
-                                 <mcc:authority>
-                                    <cit:CI_Citation>
-                                       <cit:title>
-                                          <gco:CharacterString>
-                                             European Petroleum Survey Group (EPSG) Geodetic Parameter Registry
-                                          </gco:CharacterString>
-                                       </cit:title>
-                                       <cit:onlineResource>
-                                          <cit:CI_OnlineResource>
-                                             <cit:linkage>
-                                                <gco:CharacterString>http://www.epsg-registry.org/</gco:CharacterString>
-                                             </cit:linkage>
-                                             <cit:protocol gco:nilReason="missing"> </cit:protocol>
-                                          </cit:CI_OnlineResource>
-                                       </cit:onlineResource>
-                                    </cit:CI_Citation>
-                                 </mcc:authority>
+
                                  
                                  <mcc:code>
-                                    <gco:CharacterString>EPSG:5711</gco:CharacterString>
+                                    <gco:CharacterString>EPSG:dddd</gco:CharacterString>
                                  </mcc:code>
                                  <mcc:codeSpace>
                                     <gco:CharacterString>EPSG</gco:CharacterString>
                                  </mcc:codeSpace>
                                  <mcc:description>
-                                    <gco:CharacterString>Australian Height Datum height</gco:CharacterString>
+                                    <gco:CharacterString>Description</gco:CharacterString>
                                  </mcc:description>
                                  
                               </mcc:MD_Identifier>
-                              
+    
                            </mrs:referenceSystemIdentifier>
+                           
+
                            
                            <mrs:referenceSystemType>
                               <mrs:MD_ReferenceSystemTypeCode codeList="codeListLocation#MD_ReferenceSystemTypeCode" codeListValue="vertical"></mrs:MD_ReferenceSystemTypeCode>
@@ -943,8 +991,10 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                </gex:verticalElement>
             </gex:EX_Extent>
          </mri:extent>
- 
-         
+
+         <!-- New functionality and XML
+         https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030324349/Data+Identification+Additional+Documentation
+         -->
          <!-- suggested if intending to use this element for a Journal Article or Report-->
          <mri:additionalDocumentation>
             <!-- other documentation associated with the resource
@@ -962,12 +1012,17 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                      <cit:linkage>
                         <gco:CharacterString>https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013WR015138</gco:CharacterString>
                      </cit:linkage>
-                     <cit:protocol gco:nilReason="missing"/>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
                      
                      <cit:description>
                         <gco:CharacterString>Journal article
                      </gco:CharacterString></cit:description>
-
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>
                      
                   </cit:CI_OnlineResource>
                </cit:onlineResource>
@@ -983,7 +1038,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                <cit:date>
                   <cit:CI_Date>
                      <cit:date>
-                        <gco:Date>2019-12-01</gco:Date>
+                        <gco:Date>2014-12-01</gco:Date>
                      </cit:date>
                      <cit:dateType>
                         <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="publication"/>
@@ -1002,7 +1057,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                      <cit:party>
                         <cit:CI_Organisation>
                            <cit:name>
-                              <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1" xlink:show="new">CSIRO Land and Water</gcx:Anchor>
+                              <gco:CharacterString>CSIRO Land and Water</gco:CharacterString>
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
@@ -1034,18 +1089,42 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                                           <gco:CharacterString>Australia</gco:CharacterString>
                                        </cit:country>
                                        <cit:electronicMailAddress>
-                                          <gco:CharacterString>Mark.Kitchen@csiro.au</gco:CharacterString>
+                                          <gco:CharacterString>alfred.hitchcock@csiro.au</gco:CharacterString>
                                        </cit:electronicMailAddress>
                                     </cit:CI_Address>
                                  </cit:address>
                               </cit:CI_Contact>
                            </cit:contactInfo>
+                           <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556330/Data+identification+Citation+Related+Parties -->
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                    
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                                 
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
                            <cit:individual>
                               <cit:CI_Individual>
                                  
                                  <cit:name>
-                                    <gcx:Anchor xlink:role="orcid" xlink:href="https://orcid.org/0000-0002-6995-4721" xlink:show="new">Mark Kitchen</gcx:Anchor>
+                                    <gco:CharacterString>Alfred Hitchcock</gco:CharacterString>
                                  </cit:name>
+                                 <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556330/Data+identification+Citation+Related+Parties -->
+                                 <cit:partyIdentifier>
+                                    <mcc:MD_Identifier>
+                                       <mcc:code>
+                                          <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                          
+                                       </mcc:code>
+                                       <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                       </mcc:codeSpace>
+
+                                    </mcc:MD_Identifier>
+                                 </cit:partyIdentifier>
                                  <cit:positionName>
                                     <gco:CharacterString>Mr</gco:CharacterString>
                                  </cit:positionName>
@@ -1059,8 +1138,16 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                <cit:onlineResource>
                   <cit:CI_OnlineResource>
                      <cit:linkage><gco:CharacterString>https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013WR015138</gco:CharacterString></cit:linkage>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
                      <cit:description><gco:CharacterString>Documentation available from web site</gco:CharacterString>
                      </cit:description>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>
+
                   </cit:CI_OnlineResource>
                </cit:onlineResource>
                
@@ -1068,7 +1155,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
             
          </mri:additionalDocumentation>
          
-         <!-- suggested if intending to use this element for a unpublished document link-->
+         <!-- suggested if intending to use this element for a online document that is not a journal -->
          <mri:additionalDocumentation>
             <!-- other documentation associated with the resource
                e.g. for journals, websites or other publications containing information about the resource -->
@@ -1084,13 +1171,16 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                      <cit:linkage>
                         <gco:CharacterString>https://eo-data.csiro.au/remotesensing/v310/australia/monthly/cover/README.txt</gco:CharacterString>
                      </cit:linkage>
-                     <cit:protocol gco:nilReason="missing"/>
-                     
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
                      <cit:description>
                         <gco:CharacterString>Online document
                         </gco:CharacterString></cit:description>
-                     
-                     
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>                     
                   </cit:CI_OnlineResource>
                </cit:onlineResource>
             </cit:CI_Citation>
@@ -1113,24 +1203,35 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                      <cit:linkage>
                         <gco:CharacterString>https://www.longpaddock.qld.gov.au/qld-future-climate/</gco:CharacterString>
                      </cit:linkage>
-                     <cit:protocol gco:nilReason="missing"/>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
                      
                      <cit:description>
                         <gco:CharacterString>Web site
                         </gco:CharacterString></cit:description>
-                     
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>                      
                      
                   </cit:CI_OnlineResource>
                </cit:onlineResource>
             </cit:CI_Citation>
             
          </mri:additionalDocumentation>
+         <!-- Reinstated per email SG 13/8
+         Maintenance note added
+         The frequency with which data updates are published 
+         -->
          <mri:resourceMaintenance>
-
+            
             <mmi:MD_MaintenanceInformation>
                <mmi:maintenanceAndUpdateFrequency>
-                  <mmi:MD_MaintenanceFrequencyCode codeList="codeListLocation#MD_MaintenanceFrequencyCode" codeListValue="annually"/>
+                  <mmi:MD_MaintenanceFrequencyCode codeList="codeListLocation#MD_MaintenanceFrequencyCode"
+                     codeListValue="annually"/>
                </mmi:maintenanceAndUpdateFrequency>
+               <mmi:maintenanceNote><gco:CharacterString>Placeholder text=Specific requirements for maintaining the resource</gco:CharacterString></mmi:maintenanceNote>
             </mmi:MD_MaintenanceInformation>
          </mri:resourceMaintenance>
          
@@ -1138,19 +1239,25 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
          example from IMOS record, linkage added 
          user will need a way to input graphic url or upload graphics? -->
          <mri:graphicOverview>
+            <!-- thumbnail 5KB and 100x100 pixels. 
+               Provide URL to an image that can be rendered in browsers. -->
             <mcc:MD_BrowseGraphic>
                <mcc:fileName>
-                  <gco:CharacterString>seal_tag_pic_s_s.png</gco:CharacterString>
+                  <gco:CharacterString>test_80x80px.png</gco:CharacterString>
                </mcc:fileName>
                <mcc:fileDescription>
                   <gco:CharacterString>thumbnail</gco:CharacterString>
                </mcc:fileDescription>
-               <mcc:fileType>
-                  <gco:CharacterString>png</gco:CharacterString>
-               </mcc:fileType>
                <mcc:linkage>
                   <cit:CI_OnlineResource>
-                     <cit:linkage><gco:CharacterString>url if needed</gco:CharacterString></cit:linkage>
+                     <cit:linkage><gco:CharacterString>https://w3id.org/tern/static/test/test_80x80px.png</gco:CharacterString></cit:linkage>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="browseGraphic"/>
+                     </cit:function>
                   </cit:CI_OnlineResource>
                </mcc:linkage>
             </mcc:MD_BrowseGraphic>
@@ -1158,65 +1265,51 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
          <mri:graphicOverview>
             <mcc:MD_BrowseGraphic>
                <mcc:fileName>
-                  <gco:CharacterString>seal_tag_pic_s.png</gco:CharacterString>
+                  <gco:CharacterString>test_100x100px.png</gco:CharacterString>
                </mcc:fileName>
                <mcc:fileDescription>
                   <gco:CharacterString>large_thumbnail</gco:CharacterString>
                </mcc:fileDescription>
-               <mcc:fileType>
-                  <gco:CharacterString>png</gco:CharacterString>
-               </mcc:fileType>
+      
                <mcc:linkage>
                   <cit:CI_OnlineResource>
-                     <cit:linkage><gco:CharacterString>url if needed</gco:CharacterString></cit:linkage>
+                     <cit:linkage><gco:CharacterString>https://w3id.org/tern/static/test/test_100x100px.png</gco:CharacterString></cit:linkage>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="browseGraphic"/>
+                     </cit:function>
                   </cit:CI_OnlineResource>
+                  
                </mcc:linkage>
             </mcc:MD_BrowseGraphic>
          </mri:graphicOverview>
-
+         
+         <!-- What tab - Themes from GCMD Science Keywords 
+         uri domain has been updated for release 9.1.5 and is supplied correctly below -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
-
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/878ec60a-9d2c-414b-a776-d3380d89342f" xlink:show="new">bare soil cover</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/6c44a08d-0a08-47f5-b819-7e561445e613" xlink:show="new">LANDSCAPE PROCESSES</gcx:Anchor>
                </mri:keyword>
+               
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/83384366-87b2-4579-ba17-b7eac9d0b8b9" xlink:show="new">Hemispherical photography</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/a0eb9268-0333-4442-9bc6-efbe338d9836" xlink:show="new">BIOMASS DYNAMICS</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="featureType"/>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
                </mri:type>
-               <!-- Keyword Class is potentially a replacement for keyword type but is not going to work here because it applies for a single ontology 
-               <mri:keywordClass>
-                  
-                  <mri:MD_KeywordClass>
-                     <mri:className>
-                        <gco:CharacterString>Parameters
-                        </gco:CharacterString>
-                     </mri:className>
-                     <mri:conceptIdentifier>
-                        <mcc:URI uuid="http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396"/>
-                     </mri:conceptIdentifier>
-                     <mri:ontology>
-                        <cit:CI_Citation>
-                        <cit:title>Parameters</cit:title>
-                        
-                     </cit:CI_Citation>
-                        
-                        </mri:ontology>
-                  </mri:MD_KeywordClass>
-    
-               </mri:keywordClass>
-               -->
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>TERN Parameter Vocabulary</gco:CharacterString>
+                        <gco:CharacterString>GCMD Earth Science and Earth Science Services Keywords</gco:CharacterString>
                      </cit:title>
-
+                     
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. [??? link to be advised by SG ???]
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                          
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
@@ -1224,12 +1317,17 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString> 
-
-                                 [??? link to be advised by SG ???]
+                              <gco:CharacterString> https://vocabs.ands.org.au/viewById/238
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function>                          
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1237,22 +1335,26 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-         <!-- Parameters from GCMD Science Keywords -->
+
+         <!-- About tab Parameters from GCMD Science Keywords 
+         Prefereble to combine with above
+         uri domain has been updated for release 9.1.5 and is supplied correctly below -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                
                <mri:keyword>
                   <gcx:Anchor xlink:role="uri" 
-                     xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/f634ab55-de40-4d0b-93bc-691bf5408ccb" 
+                     xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/f634ab55-de40-4d0b-93bc-691bf5408ccb" 
                      xlink:show="new">AIR TEMPERATURE</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
                   <gcx:Anchor xlink:role="uri" 
-                     xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/427e5121-a142-41cb-a8e9-a70b7f98eb6a"
+                     xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/427e5121-a142-41cb-a8e9-a70b7f98eb6a"
                      xlink:show="new">HUMIDITY</gcx:Anchor>
                </mri:keyword>
+  
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="featureType"/>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
                </mri:type>
 
                <mri:thesaurusName>
@@ -1263,8 +1365,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                      
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). 
-                           URL (GCMD Keyword Forum Page): https://wiki.earthdata.nasa.gov/display/gcmdkey                           
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
@@ -1276,6 +1377,13 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                                  https://earthdata.nasa.gov/earth-observation-data/find-data/gcmd/gcmd-keywords                                 
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1283,50 +1391,207 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-         <!-- add TERN units keywords
-            SG to confirm whether there will be a separate vocabulary for custom units
-            SG to confirm details of url
-         -->
+         
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
-               
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/9371a5f1-184a-4bb4-b650-33a8c4d7f0b8" xlink:show="new">meter cubed per meter cubed</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050206" xlink:show="new">Environmental Monitoring</gcx:Anchor>
                </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050102" xlink:show="new">Ecosystem Function</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/0401" xlink:show="new">ATMOSPHERIC SCIENCES</gcx:Anchor>
+               </mri:keyword>
+               
                <mri:type>
-                  <!-- Which keyword type 
-                  see http://wiki.esipfed.org/index.php/ISO_19115-3_Codelists#MD_KeywordTypeCode -->
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="featureType"/>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
                </mri:type>
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>TERN Units of Measure Vocabulary</gco:CharacterString>
+                        <gco:CharacterString>ANZSRC Fields of Research</gco:CharacterString>
                      </cit:title>
                      
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           
-                           TERN Global Vocabularies, 2020. [??? link to be advised by SG ???] 
+                           Australian Bureau of Statistics, 2008, Australian and New Zealand Standard Research Classification (ANZSRC), https://www.abs.gov.au
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>http://www.qudt.org/2.1/vocab/unit
-                                 [Ask GW to check version details???]
+                              <gco:CharacterString>https://vocabs.ands.org.au/viewById/20
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
-                     
                   </cit:CI_Citation>
                </mri:thesaurusName>
             </mri:MD_Keywords>
-         </mri:descriptiveKeywords>         
+         </mri:descriptiveKeywords>    
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               
+               <mri:keyword>
+                  
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://linkeddata.tern.org.au/def/platforms/6bc24c32-683c-4b40-a48b-20cf0c526378" xlink:show="new">Tower</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/5c036cd1-7c0c-4f86-8f9e-88b2114f4362" xlink:show="new">Automatic Weather Station</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="platform"/>
+               </mri:type>
+               
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>TERN Platform Vocabulary</gco:CharacterString>
+                     </cit:title>
+                     
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           TERN Global Vocabularies, 2020. https://w3id.org/tern/assets/platforms/
+                        </gco:CharacterString>
+                        
+                     </cit:otherCitationDetails>
+                     
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString> https://w3id.org/tern/assets/platforms/
+                                 
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                        
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <!-- Instruments -->
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/55cd8c0b-20a3-4c22-a96f-52237be2b6db" xlink:show="new">Vaisala VSN1 Probe</gcx:Anchor>
+               </mri:keyword>
+               
+               <!-- If entered by the User, the Instrument Serial Number is written in the metadata with the instrument as instrumentName (serial number)
+              Note: This value is NOT written to, or selected from a Vocabulary -->
+               
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/94bf9ec6-d4fb-4005-b54c-eca39a30a7e5" xlink:show="new">TERN thermometer (22401)</gcx:Anchor>
+               </mri:keyword>
+               
+               
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="instrument"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>TERN Instrument Vocabulary</gco:CharacterString>
+                     </cit:title>
+                     
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           TERN Global Vocabularies, 2020. https://w3id.org/tern/assets/sensors/
+                        </gco:CharacterString>
+                        
+                     </cit:otherCitationDetails>
+                     
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString> 
+                                 https://w3id.org/tern/assets/sensors/
+                                 
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                        
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <!-- parameters -->
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/878ec60a-9d2c-414b-a776-d3380d89342f" xlink:show="new">bare soil cover</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/83384366-87b2-4579-ba17-b7eac9d0b8b9" xlink:show="new">Hemispherical photography</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+               </mri:type>
+               
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title >
+                        <gco:CharacterString>TERN Parameter Vocabulary</gco:CharacterString>
+                     </cit:title>
+                     
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           TERN Global Vocabularies, 2020. http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396
+                        </gco:CharacterString>
+                        
+                     </cit:otherCitationDetails>
+                     
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString> 
+                                 
+                                 http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396
+                                 
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                        
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
          <!-- add QUDT units keywords
             GW to confirm version
          -->
@@ -1344,12 +1609,12 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>QUDT Units Vocabulary</gco:CharacterString>
+                        <gco:CharacterString>QUDT Units of Measure</gco:CharacterString>
                      </cit:title>
                      
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           QUDT.org 2020. Units Vocabulary, http://www.qudt.org/2.1/catalog/qudt-catalog.html 
+                           QUDT.org 2020. Units of Measure, http://www.qudt.org/2.1/catalog/qudt-catalog.html 
                                                      
                         </gco:CharacterString>
                         
@@ -1358,10 +1623,16 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                         <cit:CI_OnlineResource>
                            <cit:linkage>
                               <gco:CharacterString>http://www.qudt.org/2.1/vocab/unit
-                                 [Ask GW to check version details???]
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1370,149 +1641,14 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
+ 
+         <!-- Add horizontal resolution as keywords -->
          
-         <mri:descriptiveKeywords>
-            <mri:MD_Keywords>
-
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/55cd8c0b-20a3-4c22-a96f-52237be2b6db" xlink:show="new">Vaisala VSN1 Probe</gcx:Anchor>
-               </mri:keyword>
-
-                  <!-- If entered by the User, the Instrument Serial Number is written in the metadata with the instrument as instrumentName (serial number)
-              Note: This value is NOT written to, or selected from a Vocabulary -->
-
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/94bf9ec6-d4fb-4005-b54c-eca39a30a7e5" xlink:show="new">TERN thermometer (22401)</gcx:Anchor>
-               </mri:keyword>
-
-
-               <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="instrument"/>
-               </mri:type>
-               <mri:thesaurusName>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>TERN Instrument Vocabulary</gco:CharacterString>
-                     </cit:title>
-
-                     <cit:otherCitationDetails>
-                        <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. [??? link to be advised by SG ???]
-                        </gco:CharacterString>
-
-                     </cit:otherCitationDetails>
-
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString> 
-                                 <!-- waiting for SG to advise uri -->
-                                 https://ternaustralia.github.io/ontology_tern-ssn/
-                                 https://linkeddata.tern.org.au/viewer/tern/vocabulary/
-                                 [??? link to be advised by SG ???]
-                                 
-                              </gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
-
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mri:thesaurusName>
-            </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
-         <mri:descriptiveKeywords>
-            <mri:MD_Keywords>
-
-               <mri:keyword>
-
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://linkeddata.tern.org.au/def/platforms/6bc24c32-683c-4b40-a48b-20cf0c526378" xlink:show="new">Tower</gcx:Anchor>
-               </mri:keyword>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/5c036cd1-7c0c-4f86-8f9e-88b2114f4362" xlink:show="new">Automatic Weather Station</gcx:Anchor>
-               </mri:keyword>
-               <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="platform"/>
-               </mri:type>
-
-               <mri:thesaurusName>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>TERN Platform Vocabulary</gco:CharacterString>
-                     </cit:title>
-
-                     <cit:otherCitationDetails>
-                        <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. [??? link to be advised ???]
-                        </gco:CharacterString>
-
-                     </cit:otherCitationDetails>
-
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString> [??? link to be advised ???]
-                                 
-                              </gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
-
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mri:thesaurusName>
-            </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
-         <!-- Is there a method vocabulary? -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                
                <mri:keyword>
-                  
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/ausplots-cv/e471d9ca-6fc1-43e2-b550-cee7f2480f09" xlink:show="new">Photo panorama method</gcx:Anchor>
-               </mri:keyword>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/ausplots-cv/fe935af0-df09-4365-a57b-316cd75ec7ca" xlink:show="new">Basal area method</gcx:Anchor>
-               </mri:keyword>
-               <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="process"/>
-               </mri:type>
-               
-               <mri:thesaurusName>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>TERN Methods Vocabulary</gco:CharacterString>
-                     </cit:title>
-                     
-                     <cit:otherCitationDetails>
-                        <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. [??? link to be advised ???]
-                        </gco:CharacterString>
-                        
-                     </cit:otherCitationDetails>
-                     
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString> [??? link to be advised ???]
-                                 
-                              </gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
-                        
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mri:thesaurusName>
-            </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
-         
-         <!-- Themes from GCMD Science Keywords -->
-         <mri:descriptiveKeywords>
-            <mri:MD_Keywords>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/6c44a08d-0a08-47f5-b819-7e561445e613" xlink:show="new">LANDSCAPE PROCESSES</gcx:Anchor>
-               </mri:keyword>
-
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmdservices.gsfc.nasa.gov/kms/concept/a0eb9268-0333-4442-9bc6-efbe338d9836" xlink:show="new">BIOMASS DYNAMICS</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.nasa.gov/kms/concept/abf43d91-a65d-4b3b-a6dd-593e211b2c7b.xml" xlink:show="new">1 meter - &lt; 30 meters</gcx:Anchor>
                </mri:keyword>
                <mri:type>
                   <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
@@ -1520,33 +1656,43 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>GCMD Earth Science and Earth Science Services Keywords</gco:CharacterString>
+                        <gco:CharacterString>GCMD Horizontal Resolution</gco:CharacterString>
                      </cit:title>
-
+                     
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). 
-                           URL (GCMD Keyword Forum Page): https://wiki.earthdata.nasa.gov/display/gcmdkey                           
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
-
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString> https://vocabs.ands.org.au/viewById/238
-                                 
-                              </gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
+                           <!-- This is the old base uri for the horizontal res
+                                    https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange?format=xml 
+                           below is the new base uri for the horizontal res -->
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml
+                              
+                           </gco:CharacterString>
 
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                        
                      </cit:onlineResource>
+                     
                   </cit:CI_Citation>
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
 
-
+<!-- Temporal keywords -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
 
@@ -1564,18 +1710,29 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
 
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). 
-                           URL (GCMD Keyword Forum Page): https://wiki.earthdata.nasa.gov/display/gcmdkey                           
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange?format=xml
+                              <!-- old base uri was
+                                    https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange?format=xml 
+                              below uses new base uri -->
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange/?format=xml
+                                 
+
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
 
                      </cit:onlineResource>
@@ -1585,14 +1742,13 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
 
-<!-- Add horizontal resolution as keywords
-         currently in /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:spatialResolution[1]/mri:MD_Resolution[1]/mri:levelOfDetail[1]
-         Reference: SG -->
+<!-- Add vertical resolution as keywords -->
+         
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
 
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.nasa.gov/kms/concept/abf43d91-a65d-4b3b-a6dd-593e211b2c7b.xml" xlink:show="new">1 meter - &lt; 30 meters</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/3f0aa4fc-802c-4804-9f9f-8b666f3a2776?format=json" xlink:show="new">> 1 km</gcx:Anchor>
                </mri:keyword>
                <mri:type>
                   <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
@@ -1600,23 +1756,32 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>GCMD Horizontal Resolution</gco:CharacterString>
+                        <gco:CharacterString>GCMD Vertical Resolution</gco:CharacterString>
                      </cit:title>
                      
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). 
-                           URL (GCMD Keyword Forum Page): https://wiki.earthdata.nasa.gov/display/gcmdkey                           
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
                         </gco:CharacterString>
                         
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange?format=xml
+                              <!-- the old base uri was
+                                    https://gcmdservices.gsfc.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange?format=xml 
+                              below is updated base uri -->
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1625,57 +1790,15 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-
+   <!-- Flora -->
          <mri:descriptiveKeywords>
-            <mri:MD_Keywords>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050206" xlink:show="new">Environmental Monitoring</gcx:Anchor>
-               </mri:keyword>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050102" xlink:show="new">Ecosystem Function</gcx:Anchor>
-               </mri:keyword>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/0401" xlink:show="new">ATMOSPHERIC SCIENCES</gcx:Anchor>
-               </mri:keyword>
+            <mri:MD_Keywords id="Flora">
 
-               <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="discipline"/>
-               </mri:type>
-               <mri:thesaurusName>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>ANZSRC Fields of Research</gco:CharacterString>
-                     </cit:title>
-
-                     <cit:otherCitationDetails>
-                        <gco:CharacterString>
-                           Australian Bureau of Statistics, 2008, Australian and New Zealand Standard Research Classification (ANZSRC), https://www.abs.gov.au
-                        </gco:CharacterString>
-
-                     </cit:otherCitationDetails>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>https://vocabs.ands.org.au/viewById/20
-                                 
-                              </gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
-
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mri:thesaurusName>
-            </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
-         <mri:descriptiveKeywords>
-            <mri:MD_Keywords id="Taxon">
-               <mri:keyword>
-                  <!-- Will these have uri? -->
-                  <gco:CharacterString>Can use enter a taxon name not in APNI?</gco:CharacterString>
-               </mri:keyword>
-             
                <mri:keyword>
                   <gcx:Anchor xlink:role="uri" xlink:href="https://id.biodiversity.org.au/name/apni/93283" xlink:show="new">Calamus moti F.M.Bailey</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://id.biodiversity.org.au/name/apni/225451" xlink:show="new">Cunninghamiales Doweld</gcx:Anchor>
                </mri:keyword>
                <mri:type>
                   <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="taxon"/>
@@ -1705,6 +1828,13 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1712,15 +1842,15 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-<!-- Added per SG -->
+<!-- Fauna -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
-               <!-- Will these have uri? -->
-               <mri:keyword>
-                  <gco:CharacterString>Is user permitted to enter a fauna not in AFD</gco:CharacterString>
-               </mri:keyword>
+
                <mri:keyword>
                   <gcx:Anchor xlink:role="uri" xlink:href="https://biodiversity.org.au/afd/taxa/Oecophylla_smaragdina" xlink:show="new">Oecophylla smaragdina | Green Tree Ant</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://biodiversity.org.au/afd/taxa/Petaurus_australis" xlink:show="new">Petaurus australis | Yellow-bellied Glider</gcx:Anchor>
                </mri:keyword>
 
                <mri:type>
@@ -1749,6 +1879,13 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                                  
                               </gco:CharacterString>
                            </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
                         </cit:CI_OnlineResource>
                         
                      </cit:onlineResource>
@@ -1756,6 +1893,7 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
+         <!-- User defined -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords id="local">
                <mri:keyword>
@@ -1764,14 +1902,54 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                <mri:keyword>
                   <gco:CharacterString>Another free text keyword</gco:CharacterString>
                </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="discipline"/>
+               </mri:type>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
+         <mri:resourceSpecificUsage><mri:MD_Usage>
+            <mri:specificUsage><gco:CharacterString>Placeholder text=Information about data usage, this will capture usability text about data, this can be an expert comments</gco:CharacterString></mri:specificUsage>
+         </mri:MD_Usage></mri:resourceSpecificUsage>
          <!-- Static section for all metadata records -->
          <mri:resourceConstraints>
 
-
             <mco:MD_LegalConstraints>
-               
+               <mco:useLimitation><gco:CharacterString>
+                  The CC-By license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties. Details are provided at https://creativecommons.org/licenses/by/4.0/legalcode                  
+               </gco:CharacterString></mco:useLimitation>
+               <mco:graphic>
+                  <mcc:MD_BrowseGraphic>
+                     <mcc:fileName>
+                        <gco:CharacterString>88x31.png</gco:CharacterString>
+                     </mcc:fileName>
+                     <mcc:fileDescription>
+                        <gco:CharacterString>CCBy Logo from creativecommons.org </gco:CharacterString>
+                     </mcc:fileDescription>
+                     <mcc:fileType>
+                        <gco:CharacterString>png</gco:CharacterString>
+                     </mcc:fileType>
+                     <mcc:linkage>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              
+                              <!-- or https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by.png -->
+                              <gco:CharacterString>
+                                 
+                                 https://w3id.org/tern/static/cc-by/88x31.png
+
+                                 </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="browseGraphic">
+                                 
+                              </cit:CI_OnLineFunctionCode></cit:function>
+                        </cit:CI_OnlineResource>
+                     </mcc:linkage>
+                  </mcc:MD_BrowseGraphic>
+               </mco:graphic>
                <mco:reference>
                   <cit:CI_Citation>
                      <cit:title>
@@ -1791,6 +1969,10 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="information">
+                              
+                           </cit:CI_OnLineFunctionCode></cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
@@ -1802,79 +1984,42 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
 
                </mco:accessConstraints>
                <!-- Static section ends -->
-               <!-- There is logic in SHaRED regarding the codelist value output here -->
+               <!-- There is logic in SHaRED regarding the codelist value output here
+                if there are otherConstraints blocks then codelist value must be "otherRestrictions" 
+               else the value should be "license" -->
 
                <mco:useConstraints>
-                  <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode" codeListValue="license"/>
+
+                  <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode" codeListValue="otherRestrictions"/>
+
                </mco:useConstraints>
-
+               <!-- static section begins -->
                <mco:otherConstraints>
-                  <gco:CharacterString>Placeholder text=Example:Attribution is required as: xxxyyyzz. 
-                     Please send us citations details for publications arising from work that use this data.</gco:CharacterString>
-               </mco:otherConstraints>
-
-               <mco:otherConstraints>
-                  <gco:CharacterString>Placeholder text=Example:While every care is taken to ensure the accuracy of this information, 
-                     the author makes no representations or warranties about its accuracy, reliability, 
-                     completeness or suitability for any particular purpose and disclaims all responsibility and all liability 
-                     (including without limitation, liability in negligence) for all expenses, losses, damages (including indirect or consequential damage) 
-                     and costs which might be incurred as a result of the information being inaccurate or incomplete in any way and for any reason.</gco:CharacterString>
+                  <!-- Disclaimer text from https://www.tern.org.au/access-policy/ -->
+                  <gco:CharacterString>TERN services are provided on an “as-is” and “as available” basis. Users use any TERN services at their discretion and risk. They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.
+                     
+                     Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.</gco:CharacterString>
                </mco:otherConstraints>
                <mco:otherConstraints>
-                  <gco:CharacterString>Placeholder text=Example:Not suitable for marine navigation</gco:CharacterString>
+                  <!-- SG advised Sprint 22/7 that this is just the format of the [[Citation] -->
+                  <gco:CharacterString>Please cite this dataset as {Author}{Year Published}{Title}. Version {Version number}. Terrestrial Ecosystem Research Network (TERN). dataset. Accessed from https://geonetwork.tern.org.au on {Date}. 
+                     </gco:CharacterString>
+               </mco:otherConstraints>
+
+               <mco:otherConstraints><gco:CharacterString>Please advise any work or publications that use this data, go to https://www.tern.org.au/research-publications/#reporting</gco:CharacterString></mco:otherConstraints>
+
+
+               <!-- static section ends - users may add other constraints -->
+               <mco:otherConstraints>
+                  <gco:CharacterString>Placeholder text=Example:This data set is not suitable for compliance monitoring</gco:CharacterString>
                </mco:otherConstraints>
             </mco:MD_LegalConstraints>
          </mri:resourceConstraints>
-         <!-- Static section for all metadata records -->
-         
-         <mri:resourceConstraints>
-            <mco:MD_SecurityConstraints>
 
-               <mco:reference>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>Australian Government Security Classification System</gco:CharacterString>
-                     </cit:title>
-                     <cit:editionDate>
-                        <gco:DateTime>2018-11-01T00:00:00</gco:DateTime>
-                     </cit:editionDate>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>https://www.protectivesecurity.gov.au/Pages/default.aspx</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mco:reference>
-
-               <mco:classification>
-
-                  <mco:MD_ClassificationCode codeList="codeListLocation#MD_ClassificationCode" codeListValue="unclassified"/>
-               </mco:classification>
-               <mco:handlingDescription>
-                  <gco:CharacterString>OFFICIAL (Australian Government Security Classification System)</gco:CharacterString>
-               </mco:handlingDescription>
-
-            </mco:MD_SecurityConstraints>
-         </mri:resourceConstraints>
-         <mri:defaultLocale>
-            <lan:PT_Locale id="ENG">
-               <lan:language>
-                  <lan:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="eng"/>
-               </lan:language>
-               <lan:characterEncoding>
-                  <lan:MD_CharacterSetCode codeList="codeListLocation#MD_CharacterSetCode" codeListValue="utf8"/>
-               </lan:characterEncoding>
-            </lan:PT_Locale>
-         </mri:defaultLocale>
-         <!-- Static section ends -->
+         <mri:environmentDescription><gco:CharacterString>Placeholder text=Information about the processing environment or software used</gco:CharacterString></mri:environmentDescription>
 
          <mri:supplementalInformation>
-            <gco:CharacterString>Supplemental information goes here</gco:CharacterString>
+            <gco:CharacterString>Placeholder text=Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01 </gco:CharacterString>
          </mri:supplementalInformation>
 
 
@@ -1883,38 +2028,25 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
    </mdb:identificationInfo>
 <!-- Change - add distributor statement per SG
    TERN as distributor was previously in the SERVICE Metadata xml, and only TERN as publisher was noted in the Data set template 
-   As we are deferring implementation of any Service Metadata records as at June 2020, Distributor is added here -->
-   <!-- Static section for all metadata records -->
+      12/08/2020 User will select the Distributor from TERN Organisation Vocabulary -->
+
    <mdb:distributionInfo>
       <mrd:MD_Distribution>
+         <mrd:description><gco:CharacterString>Placeholder Text=Description of distribution options</gco:CharacterString></mrd:description>
 
          <!-- one mrd:distributionFormat block for each distribution format selected by the user-->
-            <mrd:distributionFormat>
-               <mrd:MD_Format>
-                  <mrd:formatSpecificationCitation>
-                     <cit:CI_Citation>
-                        <cit:title>
-                           <gco:CharacterString>Excel</gco:CharacterString>
-                        </cit:title>
-                        <cit:edition>
-                           <gco:CharacterString>option1</gco:CharacterString>
-                        </cit:edition>
-                     </cit:CI_Citation>
-                  </mrd:formatSpecificationCitation>
-               </mrd:MD_Format>
-            </mrd:distributionFormat>  
+
          <mrd:distributionFormat>
             <mrd:MD_Format>
                <mrd:formatSpecificationCitation>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>TXT</gco:CharacterString>
+                        <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
                      </cit:title>
-                     <cit:edition>
-                        <gco:CharacterString>option1</gco:CharacterString>
-                     </cit:edition>
                   </cit:CI_Citation>
                </mrd:formatSpecificationCitation>
+               <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString></mrd:amendmentNumber>
+               <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString></mrd:fileDecompressionTechnique>
             </mrd:MD_Format>
          </mrd:distributionFormat> 
          
@@ -1927,10 +2059,11 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                            codeListValue="distributor"/>
                      </cit:role>
                      <cit:party>
+                        <!-- user will select from TERN organisations vocabulary -->
                         <cit:CI_Organisation>
                            <cit:name>
-                              <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66"
-                                 xlink:show="new">Terrestrial Ecosystem Research Network (TERN)</gcx:Anchor>
+                              <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
@@ -1969,194 +2102,190 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                                  </cit:address>
                               </cit:CI_Contact>
                            </cit:contactInfo>
-                           <cit:individual>
-                              <cit:CI_Individual>
-                                 <cit:positionName>
-                                    <gco:CharacterString>Data Manager</gco:CharacterString>
-                                 </cit:positionName>
-                              </cit:CI_Individual>
-                           </cit:individual>
+                           <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    
+                                    <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                                    
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                                 
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
+
                         </cit:CI_Organisation>
                      </cit:party>
                   </cit:CI_Responsibility>
                </mrd:distributorContact>
             </mrd:MD_Distributor>
          </mrd:distributor>
-
+         <!-- A distribution may have multiple transfer options -->
+         <mrd:transferOptions>
+            <mrd:MD_DigitalTransferOptions>
+               <!-- Number representing file size in MB - Data services screen -->
+               <mrd:transferSize><gco:Real>0</gco:Real></mrd:transferSize>
+               <mrd:onLine>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>http://gsky.nci.org.au/ows/geoglam</gco:CharacterString>
+                     </cit:linkage>
+                     
+                     <cit:protocol>
+                        <gco:CharacterString>OGC:WMS-1.3.0-http-get-map</gco:CharacterString>
+                     </cit:protocol>
+                     
+                     
+                     <cit:name>
+                        <gco:CharacterString>modis_tot_cov_monthly</gco:CharacterString>
+                     </cit:name>
+                     <cit:description>
+                        <gco:CharacterString>WMS Service for Total Fractional Cover using OGC:WMS [description element]</gco:CharacterString>
+                     </cit:description>
+                     
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="fileAccess"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+                  
+                  
+               </mrd:onLine> 
+            </mrd:MD_DigitalTransferOptions>
+         </mrd:transferOptions>
+         <mrd:transferOptions>
+            <mrd:MD_DigitalTransferOptions>
+               <!-- Number representing file size in MB - Data services screen -->
+               <mrd:transferSize><gco:Real>200</gco:Real></mrd:transferSize>
+               <mrd:onLine>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>http://gsky.nci.org.au/ows/geoglam</gco:CharacterString>
+                     </cit:linkage>
+                     
+                     <cit:protocol>
+                        <gco:CharacterString>OGC:WFS</gco:CharacterString>
+                     </cit:protocol>
+                     
+                     
+                     <cit:name>
+                        <gco:CharacterString>Name of Feature</gco:CharacterString>
+                     </cit:name>
+                     <cit:description>
+                        <gco:CharacterString>WFS Service OGC:WFS [description element]</gco:CharacterString>
+                     </cit:description>
+                     
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="fileAccess"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+                  
+                  
+               </mrd:onLine> 
+            </mrd:MD_DigitalTransferOptions>
+         </mrd:transferOptions>
       </mrd:MD_Distribution>
    </mdb:distributionInfo>
-   <!-- Static section ends -->
 
-   <mdb:distributionInfo>
-      <mrd:MD_Distribution>
-         
-         <!-- one mrd:distributionFormat block for each distribution format selected by the user -->
-         <mrd:distributionFormat>
-            <mrd:MD_Format>
-               <mrd:formatSpecificationCitation>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>HDF</gco:CharacterString>
-                     </cit:title>
-                     <cit:edition>
-                        <gco:CharacterString>5</gco:CharacterString>
-                     </cit:edition>
-                  </cit:CI_Citation>
-               </mrd:formatSpecificationCitation>
-            </mrd:MD_Format>
-         </mrd:distributionFormat>  
-         <mrd:distributionFormat>
-            <mrd:MD_Format>
-               <mrd:formatSpecificationCitation>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>IMG</gco:CharacterString>
-                     </cit:title>
-                     <cit:edition>
-                        <gco:CharacterString></gco:CharacterString>
-                     </cit:edition>
-                  </cit:CI_Citation>
-               </mrd:formatSpecificationCitation>
-            </mrd:MD_Format>
-         </mrd:distributionFormat> 
-         
-      </mrd:MD_Distribution>
-   </mdb:distributionInfo>
-
-<!-- a block for is written for each distribution of the resource --> 
-<!-- This example is to describe a distribution via web service where the custodian or point of contact 
-      is different from the distributor
-      Custodian or Point of Contact need not be specified if the same as the distributor
-      
-   the contact could be an organisation as custodian 
-   or could be an individual as a point of contact 
-   UI will need ability for user to select custodian or point of contact
-   
-   Organisation vocabulary - Don't think we have input any organisation email addresses
-   e.g. help@nci.org.au -->
-   
-<mdb:distributionInfo>
-   <mrd:MD_Distribution>
-      
-
-      <mrd:distributor>
-         <mrd:MD_Distributor>
-            <mrd:distributorContact>
-               <cit:CI_Responsibility>
-                  <cit:role>
-                     <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="pointOfContact"/>
-                  </cit:role>
-                  <cit:party>
-                     <cit:CI_Organisation>
-                        <cit:name>
-                           <gcx:Anchor xlink:role="uri" 
-                              xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66"
-                              xlink:show="new">Some organisation</gcx:Anchor>
-                          
-                        </cit:name>
-                        <cit:contactInfo>
-                           <cit:CI_Contact>
-                              <cit:address>
-                                 <cit:CI_Address>
-                                    <cit:deliveryPoint>
-                                       <!-- Should this have a uri? -->
-                                       <gco:CharacterString>[Postal address]</gco:CharacterString>
-                                    </cit:deliveryPoint>
-                                    <cit:city>
-                                       <gco:CharacterString>[City]</gco:CharacterString>
-                                    </cit:city>
-                                    <cit:administrativeArea>
-                                       <gco:CharacterString>[STATE]</gco:CharacterString>
-                                    </cit:administrativeArea>
-                                    <cit:postalCode>
-                                       <gco:CharacterString>[Postcode]</gco:CharacterString>
-                                    </cit:postalCode>
-                                    <cit:country>
-                                       <gco:CharacterString>[Country]</gco:CharacterString>
-                                    </cit:country>
-                                    <cit:electronicMailAddress>
-                                       <!-- Allow input of organisation email address? e.g. help@nci.org.au -->
-                                       <gco:CharacterString>[Organisation email address]</gco:CharacterString>
-                                    </cit:electronicMailAddress>
-                                 </cit:CI_Address>
-                              </cit:address>
-                           </cit:CI_Contact>
-                        </cit:contactInfo>
-                     </cit:CI_Organisation>
-                  </cit:party>
-               </cit:CI_Responsibility>
-            </mrd:distributorContact>
-         </mrd:MD_Distributor>
-      </mrd:distributor>
-
-      <mrd:transferOptions>
-         <mrd:MD_DigitalTransferOptions>
-            <mrd:onLine>
-               <cit:CI_OnlineResource>
-                        <cit:linkage>
-                           <gco:CharacterString>http://gsky.nci.org.au/ows/geoglam</gco:CharacterString>
-                        </cit:linkage>
-                        
-                        <cit:protocol>
-                           <gco:CharacterString>OGC:WMS-1.3.0-http-get-map</gco:CharacterString>
-                        </cit:protocol>
-                        
-                        
-                        <cit:name>
-                           <gco:CharacterString>modis_tot_cov_monthly</gco:CharacterString>
-                        </cit:name>
-                        <cit:description>
-                           <gco:CharacterString>WMS Service for Total Fractional Cover using OGC:WMS protocol [description element]</gco:CharacterString>
-                        </cit:description>
-                        
-                        <cit:function>
-                           <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="fileAccess"/>
-                        </cit:function>
-                     </cit:CI_OnlineResource>
-                </mrd:onLine> 
-
-            <!-- one mrd:distributionFormat block for each distribution format selected by the user for this access point -->
+      <mdb:distributionInfo>
+         <mrd:MD_Distribution>
+            <mrd:description><gco:CharacterString>Placeholder Text=Description of distribution options</gco:CharacterString></mrd:description>
+            
+            <!-- one mrd:distributionFormat block for each distribution format selected by the user-->
+            
             <mrd:distributionFormat>
                <mrd:MD_Format>
                   <mrd:formatSpecificationCitation>
                      <cit:CI_Citation>
                         <cit:title>
-                           <gco:CharacterString>TIF</gco:CharacterString>
+                           <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
                         </cit:title>
-                        <cit:edition>
-                           <gco:CharacterString></gco:CharacterString>
-                        </cit:edition>
                      </cit:CI_Citation>
                   </mrd:formatSpecificationCitation>
+                  <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString></mrd:amendmentNumber>
+                  <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString></mrd:fileDecompressionTechnique>
                </mrd:MD_Format>
-            </mrd:distributionFormat>
-            <mrd:distributionFormat>
-               <mrd:MD_Format>
-                  <mrd:formatSpecificationCitation>
-                     <cit:CI_Citation>
-                        <cit:title>
-                           <gco:CharacterString>NetCDF</gco:CharacterString>
-                        </cit:title>
-                        <cit:edition>
-                           <gco:CharacterString></gco:CharacterString>
-                        </cit:edition>
-                     </cit:CI_Citation>
-                  </mrd:formatSpecificationCitation>
-               </mrd:MD_Format>
-            </mrd:distributionFormat>
-         </mrd:MD_DigitalTransferOptions>
-      
-      </mrd:transferOptions>
-      
-   </mrd:MD_Distribution>
-</mdb:distributionInfo>
-
-   <!-- This example is to describe a distribution for a direct download from TERN Object Store -->
-   <mdb:distributionInfo>
-      <mrd:MD_Distribution>
+            </mrd:distributionFormat> 
+         
+            <mrd:distributor>
+               <mrd:MD_Distributor>
+                  <mrd:distributorContact>
+                     <cit:CI_Responsibility>
+                        <cit:role>
+                           <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                              codeListValue="distributor"/>
+                        </cit:role>
+                        <cit:party>
+                           <!-- user will select from TERN organisations vocabulary -->
+                           <cit:CI_Organisation>
+                              <cit:name>
+                                 <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+                                 
+                              </cit:name>
+                              <cit:contactInfo>
+                                 <cit:CI_Contact>
+                                    <cit:phone>
+                                       <cit:CI_Telephone>
+                                          <cit:number>
+                                             <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
+                                          </cit:number>
+                                          <cit:numberType>
+                                             <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode"
+                                                codeListValue="voice"/>
+                                          </cit:numberType>
+                                       </cit:CI_Telephone>
+                                    </cit:phone>
+                                    <cit:address>
+                                       <cit:CI_Address>
+                                          <cit:deliveryPoint>
+                                             <gco:CharacterString>Building 8, University of Queensland</gco:CharacterString>
+                                          </cit:deliveryPoint>
+                                          <cit:city>
+                                             <gco:CharacterString>Brisbane</gco:CharacterString>
+                                          </cit:city>
+                                          <cit:administrativeArea>
+                                             <gco:CharacterString>QLD</gco:CharacterString>
+                                          </cit:administrativeArea>
+                                          <cit:postalCode>
+                                             <gco:CharacterString>4072</gco:CharacterString>
+                                          </cit:postalCode>
+                                          <cit:country>
+                                             <gco:CharacterString>Australia</gco:CharacterString>
+                                          </cit:country>
+                                          <cit:electronicMailAddress>
+                                             <gco:CharacterString>esupport@tern.org.au</gco:CharacterString>
+                                          </cit:electronicMailAddress>
+                                       </cit:CI_Address>
+                                    </cit:address>
+                                 </cit:CI_Contact>
+                              </cit:contactInfo>
+                              <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
+                              <cit:partyIdentifier>
+                                 <mcc:MD_Identifier>
+                                    <mcc:code>
+                                       
+                                       <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                                       
+                                    </mcc:code>
+                                    <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                    </mcc:codeSpace>
+                                    
+                                 </mcc:MD_Identifier>
+                              </cit:partyIdentifier>
+                              
+                           </cit:CI_Organisation>
+                        </cit:party>
+                     </cit:CI_Responsibility>
+                  </mrd:distributorContact>
+               </mrd:MD_Distributor>
+            </mrd:distributor>
          
          <mrd:transferOptions>
             <mrd:MD_DigitalTransferOptions>
+               <!-- Number representing file size in MB - Data services screen 
+               GW - Can file size be determined automatically by Data upload function? -->
+               <mrd:transferSize><gco:Real>10</gco:Real></mrd:transferSize>
                <mrd:onLine>
                   <cit:CI_OnlineResource>
                      <cit:linkage>
@@ -2189,9 +2318,101 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
 -->
    <mdb:distributionInfo>
       <mrd:MD_Distribution>
+         <mrd:description><gco:CharacterString>Placeholder Text=Description of distribution options</gco:CharacterString></mrd:description>
+         
+         <!-- one mrd:distributionFormat block for each distribution format selected by the user-->
+         
+         <mrd:distributionFormat>
+            <mrd:MD_Format>
+               <mrd:formatSpecificationCitation>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
+                     </cit:title>
+                  </cit:CI_Citation>
+               </mrd:formatSpecificationCitation>
+               <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString></mrd:amendmentNumber>
+               <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString></mrd:fileDecompressionTechnique>
+            </mrd:MD_Format>
+         </mrd:distributionFormat> 
+         
+         <mrd:distributor>
+            <mrd:MD_Distributor>
+               <mrd:distributorContact>
+                  <cit:CI_Responsibility>
+                     <cit:role>
+                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                           codeListValue="distributor"/>
+                     </cit:role>
+                     <cit:party>
+                        <!-- user will select from TERN organisations vocabulary -->
+                        <cit:CI_Organisation>
+                           <cit:name>
+                              <gco:CharacterString>CSIRO Land and Water</gco:CharacterString>
+                              
+                           </cit:name>
+                           <cit:contactInfo>
+                              <cit:CI_Contact>
+                                 <cit:phone>
+                                    <cit:CI_Telephone>
+                                       <cit:number>
+                                          <gco:CharacterString></gco:CharacterString>
+                                       </cit:number>
+                                       <cit:numberType>
+                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode"
+                                             codeListValue="voice"/>
+                                       </cit:numberType>
+                                    </cit:CI_Telephone>
+                                 </cit:phone>
+                                 <cit:address>
+                                    <cit:CI_Address>
+                                       <cit:deliveryPoint>
+                                          <gco:CharacterString>101 Clunies Ross St</gco:CharacterString>
+                                       </cit:deliveryPoint>
+                                       <cit:city>
+                                          <gco:CharacterString>Canberra</gco:CharacterString>
+                                       </cit:city>
+                                       <cit:administrativeArea>
+                                          <gco:CharacterString>ACT</gco:CharacterString>
+                                       </cit:administrativeArea>
+                                       <cit:postalCode>
+                                          <gco:CharacterString>2600</gco:CharacterString>
+                                       </cit:postalCode>
+                                       <cit:country>
+                                          <gco:CharacterString>Australia</gco:CharacterString>
+                                       </cit:country>
+                                       <cit:electronicMailAddress>
+                                          <gco:CharacterString></gco:CharacterString>
+                                       </cit:electronicMailAddress>
+                                    </cit:CI_Address>
+                                 </cit:address>
+                              </cit:CI_Contact>
+                           </cit:contactInfo>
+                           <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    
+                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                    
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                                 
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
+                           
+                        </cit:CI_Organisation>
+                     </cit:party>
+                  </cit:CI_Responsibility>
+               </mrd:distributorContact>
+            </mrd:MD_Distributor>
+         </mrd:distributor>
          
          <mrd:transferOptions>
             <mrd:MD_DigitalTransferOptions>
+               <!-- Number representing file size in MB - Data services screen -->
+               <mrd:transferSize><gco:Real>32</gco:Real></mrd:transferSize>
                <mrd:onLine>
                   <cit:CI_OnlineResource>
                      
@@ -2204,14 +2425,12 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                      <cit:protocol>
                         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                      </cit:protocol>
-                     <cit:applicationProfile>
-                        <gco:CharacterString>Placeholder text=This is the Applicaton Profile is there a codelist?Unidata:THREDDS Data Server</gco:CharacterString>
-                     </cit:applicationProfile>   
+ 
                      <cit:name>
-                        <gco:CharacterString>CSIRO Cosmoz REST Interface [name element]</gco:CharacterString>
+                        <gco:CharacterString>CSIRO Cosmoz REST Interface Documentation[name element]</gco:CharacterString>
                      </cit:name>
                      <cit:description>
-                        <gco:CharacterString>Service Documentation using link protocol [description element]</gco:CharacterString>
+                        <gco:CharacterString>https://esoil.io/cosmoz-data-pipeline/rest/doc [description element]</gco:CharacterString>
                      </cit:description>
                      <cit:function>
                         
@@ -2229,12 +2448,104 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
    </mdb:distributionInfo>
 
    <!-- information about online sources from which the resource can be obtained
-      This example is to illustrate the distribution element used to link to online documents about the source -->
+      This example is for a web site -->
    <mdb:distributionInfo>
       <mrd:MD_Distribution>
+         <mrd:description><gco:CharacterString>Placeholder Text=Description of distribution options</gco:CharacterString></mrd:description>
+         
+         <!-- one mrd:distributionFormat block for each distribution format selected by the user-->
+         
+         <mrd:distributionFormat>
+            <mrd:MD_Format>
+               <mrd:formatSpecificationCitation>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
+                     </cit:title>
+                  </cit:CI_Citation>
+               </mrd:formatSpecificationCitation>
+               <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString></mrd:amendmentNumber>
+               <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString></mrd:fileDecompressionTechnique>
+            </mrd:MD_Format>
+         </mrd:distributionFormat> 
+         
+         <mrd:distributor>
+            <mrd:MD_Distributor>
+               <mrd:distributorContact>
+                  <cit:CI_Responsibility>
+                     <cit:role>
+                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                           codeListValue="distributor"/>
+                     </cit:role>
+                     <cit:party>
+                        <!-- user will select from TERN organisations vocabulary -->
+                        <cit:CI_Organisation>
+                           <cit:name>
+                              <gco:CharacterString>CSIRO Land and Water</gco:CharacterString>
+                              
+                           </cit:name>
+                           <cit:contactInfo>
+                              <cit:CI_Contact>
+                                 <cit:phone>
+                                    <cit:CI_Telephone>
+                                       <cit:number>
+                                          <gco:CharacterString></gco:CharacterString>
+                                       </cit:number>
+                                       <cit:numberType>
+                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode"
+                                             codeListValue="voice"/>
+                                       </cit:numberType>
+                                    </cit:CI_Telephone>
+                                 </cit:phone>
+                                 <cit:address>
+                                    <cit:CI_Address>
+                                       <cit:deliveryPoint>
+                                          <gco:CharacterString>101 Clunies Ross St</gco:CharacterString>
+                                       </cit:deliveryPoint>
+                                       <cit:city>
+                                          <gco:CharacterString>Canberra</gco:CharacterString>
+                                       </cit:city>
+                                       <cit:administrativeArea>
+                                          <gco:CharacterString>ACT</gco:CharacterString>
+                                       </cit:administrativeArea>
+                                       <cit:postalCode>
+                                          <gco:CharacterString>2600</gco:CharacterString>
+                                       </cit:postalCode>
+                                       <cit:country>
+                                          <gco:CharacterString>Australia</gco:CharacterString>
+                                       </cit:country>
+                                       <cit:electronicMailAddress>
+                                          <gco:CharacterString></gco:CharacterString>
+                                       </cit:electronicMailAddress>
+                                    </cit:CI_Address>
+                                 </cit:address>
+                              </cit:CI_Contact>
+                           </cit:contactInfo>
+                           <!-- see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    
+                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                    
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                                 
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
+                           
+                        </cit:CI_Organisation>
+                     </cit:party>
+                  </cit:CI_Responsibility>
+               </mrd:distributorContact>
+            </mrd:MD_Distributor>
+         </mrd:distributor>
          
          <mrd:transferOptions>
             <mrd:MD_DigitalTransferOptions>
+               <!-- Number representing file size in MB - Data services screen -->
+               <mrd:transferSize><gco:Real>10</gco:Real></mrd:transferSize>
                <mrd:onLine>
                   <cit:CI_OnlineResource>
                      
@@ -2247,14 +2558,12 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
                      <cit:protocol>
                         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                      </cit:protocol>
-                     <cit:applicationProfile>
-                        <gco:CharacterString>Placeholder text=This is the Applicaton Profile is there a codelist?Unidata:THREDDS Data Server</gco:CharacterString>
-                     </cit:applicationProfile>   
+  
                      <cit:name>
                         <gco:CharacterString>CosmOz Australian Cosmic-ray Neutron Soil Moisture Monitoring Network, Map of Cosmoz monitoring sites [name element]</gco:CharacterString>
                      </cit:name>
                      <cit:description>
-                        <gco:CharacterString>Web site [description element]</gco:CharacterString>
+                        <gco:CharacterString>https://cosmoz.csiro.au/sites [description element]</gco:CharacterString>
                      </cit:description>
                      <cit:function>
                         
@@ -2272,164 +2581,31 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
    </mdb:distributionInfo>
 
    <mdb:dataQualityInfo>
+      <!-- Updated 12/08/2020 from https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0
+       -->
       
       <mdq:DQ_DataQuality>
-         <!-- This indicates the scope of the statement - defaults to dataset in the current template
-            will the user select from the codelist? -->
+
          <mdq:scope>
             <mcc:MD_Scope>
+               
                <mcc:level>
+                  <!-- User selects from the full ISO codelist, default = dataset -->
                   <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
                </mcc:level>
+               <mcc:levelDescription>
+                  <mcc:MD_ScopeDescription>
+                     <mcc:other><gco:CharacterString>placeholder- Describe the scope of the data quality information - does it apply to the entire data set of specific attributes?</gco:CharacterString></mcc:other>
+                  </mcc:MD_ScopeDescription></mcc:levelDescription>
             </mcc:MD_Scope>
          </mdq:scope>
-         
-         
-         <mdq:standaloneQualityReport>
-            <mdq:DQ_StandaloneQualityReportInformation>
-               
-               <mdq:reportReference>
-                                    
-                  <cit:CI_Citation>
-                  
-                     <cit:title>
-                        <gco:CharacterString>European Space Agency 2020, Sentinel 2 L1C Data Quality Report [Title element - Standalone]</gco:CharacterString>
-                     </cit:title>
-                     
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>https://sentinel.esa.int/web/sentinel/missions/sentinel-2/data-quality-report</gco:CharacterString>
-                           </cit:linkage>
 
-                           <cit:function>
-                              
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                 codeListValue="information"/>
-                            
-                           </cit:function>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mdq:reportReference>
-               <mdq:abstract>
-                  <gco:CharacterString>Some abstract for the report</gco:CharacterString>
-               </mdq:abstract>
-            </mdq:DQ_StandaloneQualityReportInformation>
-         </mdq:standaloneQualityReport>
-
-         <mdq:report>
-            
-            <!-- accuracy of quantitative attributes -->
-            <mdq:DQ_QuantitativeAttributeAccuracy>
-
-               <mdq:evaluationMethod>   
-                  
-                  
-                  <mdq:DQ_EvaluationMethod>
-                     
-                  <!-- description of the evaluation method -->
-                  <mdq:evaluationMethodDescription>
-                     <gco:CharacterString>Placeholder text=Provide a summary of the method used to evaluate data quality. 
-                        Example: The data were compared to xyz reference data.
-                        Include expected tolerances if applicable</gco:CharacterString>
-                  </mdq:evaluationMethodDescription>
-                  <!-- reference to the procedure information -->
-                  <mdq:evaluationProcedure>
-                     <cit:CI_Citation>
-                        <cit:title>
-                           <gco:CharacterString>European Space Agency 2020, Sentinel 2 L1C Data Quality Report [Title element - evaluation Procedure]</gco:CharacterString>
-                        </cit:title>
-                        
-                        <cit:onlineResource>
-                           <cit:CI_OnlineResource>
-                              <cit:linkage>
-                                 <gco:CharacterString>https://sentinel.esa.int/web/sentinel/missions/sentinel-2/data-quality-report</gco:CharacterString>
-                              </cit:linkage>
-
-                              <cit:function>
-                                 
-                                 <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                    codeListValue="information"/>
-                                 
-                                 
-                              </cit:function>
-                           </cit:CI_OnlineResource>
-                        </cit:onlineResource>
-                     </cit:CI_Citation>
-                  </mdq:evaluationProcedure>
-                     <!-- Information on documents which are referenced in developing and applying a data quality evaluation method
-                     e.g. ISO 9001-->
-                     <mdq:referenceDoc>
-                        
-                        <cit:CI_Citation>
-                           <cit:title>
-                              <gco:CharacterString>International Standards Organisation, ISO 9004:2018
-                                 Quality management, edition 4 [Title element - reference document]</gco:CharacterString>
-                           </cit:title>
-                           <cit:onlineResource>
-                              <cit:CI_OnlineResource>
-                                 <cit:linkage>
-                                    <gco:CharacterString>https://www.iso.org/standard/70397.html</gco:CharacterString>
-                                 </cit:linkage>
-
-                                 <cit:function>
-                                    
-                                    <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                       codeListValue="information"/>
-                                    
-                                    
-                                 </cit:function>
-                              </cit:CI_OnlineResource>
-                           </cit:onlineResource>
-                        </cit:CI_Citation>
-                     </mdq:referenceDoc>
-               </mdq:DQ_EvaluationMethod>
-               </mdq:evaluationMethod>
-               
-               <mdq:result>
-                  
-                  <mdq:DQ_DescriptiveResult>
-                     <!-- textual expression of the descriptive result -->
-                     <!-- optional scope element -->
-                     <mdq:resultScope>
-                        <mcc:MD_Scope>
-                           <mcc:level>
-                              <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
-                           </mcc:level>
-                        </mcc:MD_Scope>
-                        
-                     </mdq:resultScope>
-                     <mdq:statement>
-                        <gco:CharacterString>Placeholder text=Provide a statement regarding the data quality assessment results.  
-                           Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc.</gco:CharacterString>
-                     </mdq:statement>
-                     
-                  </mdq:DQ_DescriptiveResult>
-               </mdq:result>
-            </mdq:DQ_QuantitativeAttributeAccuracy>
-
-         </mdq:report>
          
          <mdq:report>
             
          <mdq:DQ_QuantitativeAttributeAccuracy>
             
-            <mdq:evaluationMethod>   
-               
-               
-               <mdq:DQ_EvaluationMethod>
-                  
-                  <!-- description of the evaluation method -->
-                  <mdq:evaluationMethodDescription>
-                     <gco:CharacterString>Placeholder text=A summary of the method used to evaluate data quality. 
-                        Example: The data were compared to abc reference data.
-                        Include expected tolerances or evaluation criteria if applicable</gco:CharacterString>
-                  </mdq:evaluationMethodDescription>
-
-               </mdq:DQ_EvaluationMethod>
-            </mdq:evaluationMethod>
-            
+           
             <mdq:result>
                
                <mdq:DQ_DescriptiveResult>
@@ -2447,250 +2623,34 @@ Schema error in GN see https://geonetwork-test.tern.org.au/geonetwork/srv/eng/ca
 
       </mdq:DQ_DataQuality>
    </mdb:dataQualityInfo>
-
-   <!-- metadataConstraints moves before lineage 
-   Reference: E Bleys ISO, email 02/5/2020 -->
-   <!-- Static section for all metadata records -->
-   <mdb:metadataConstraints>
-      <mco:MD_SecurityConstraints>
-
-         <mco:reference>
-            <cit:CI_Citation>
-               <cit:title>
-                  <gco:CharacterString>Australian Government Security Classification System</gco:CharacterString>
-               </cit:title>
-               <cit:editionDate>
-                  <gco:DateTime>2018-11-01T00:00:00</gco:DateTime>
-               </cit:editionDate>
-               <cit:onlineResource>
-                  <cit:CI_OnlineResource>
-                     <cit:linkage>
-                        <gco:CharacterString>https://www.protectivesecurity.gov.au/Pages/default.aspx</gco:CharacterString>
-                     </cit:linkage>
-                     <cit:protocol>
-                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                     </cit:protocol>
-                  </cit:CI_OnlineResource>
-               </cit:onlineResource>
-            </cit:CI_Citation>
-         </mco:reference>
-
-         <mco:classification>
-
-            <mco:MD_ClassificationCode codeList="codeListLocation#MD_ClassificationCode" codeListValue="unclassified"/>
-         </mco:classification>
-         <mco:handlingDescription>
-            <gco:CharacterString>OFFICIAL (Australian Government Security Classification System)</gco:CharacterString>
-         </mco:handlingDescription>
-
-      </mco:MD_SecurityConstraints>
-   </mdb:metadataConstraints>
-   <!-- Static section ends -->
-   <!-- resource lineage moves after metadataConstraints 
-   Reference: E Bleys ISO, email 02/5/2020 -->
    <mdb:resourceLineage>
+      <!-- Updated 12/08/2020 from https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0
+       Statement is mandatory in the UI -->
       <mrl:LI_Lineage>
          <mrl:statement>
             <gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods. 
                Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017</gco:CharacterString>
          </mrl:statement>
-         <!-- This indicates the scope of the statement - defaults to dataset in the current template
-            will the user select from the codelist? -->
+
          <mrl:scope>
             <mcc:MD_Scope>
                <mcc:level>
-                  
+                  <!-- User selects from ISO codelist, default = dataset -->
                   <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
                </mcc:level>
             </mcc:MD_Scope>
          </mrl:scope>
-         
-         
-         
-         <!-- this example for description, reference, metadata reference and scope -->
-         <mrl:source>
-            <mrl:LI_Source>
 
-               <mrl:description>
-                  <!-- detailed description of the level of the source resource -->
-                  <gco:CharacterString>Placeholder text=Description of the source resource
-                  e.g. MODIS Product</gco:CharacterString>
-               </mrl:description>
-               <!-- recommended reference to be used for the source resource -->
-               <mrl:sourceCitation>
-                  
-                  
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>E. Vermote. (2015). MOD09A1 MODIS Surface Reflectance 8-Day L3 Global 500m SIN Grid V006. NASA EOSDIS Land Processes DAAC.
-                           http://doi.org/10.5067/MODIS/MOD09A1.006 (Terra)[Title mrl:sourceCitation]
-
-                        </gco:CharacterString>
-                        
-                     </cit:title>
-
-                     
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>http://doi.org/10.5067/MODIS/MOD09A1.006</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
-
-                           <cit:function>
-                              
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                 codeListValue="information"/>
-                              
-                              
-                           </cit:function>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                     
-                     
-                  </cit:CI_Citation>
-               </mrl:sourceCitation>
-               <!-- identifier and link to source metadata -->
-               <mrl:sourceMetadata>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>Metadata HDF-EOS V2 MODIS L3 Surface Reflectance Product
-                           Revision 6.0.0, 09-FEB-09 [Title mrl:sourceMetadata]
-                        </gco:CharacterString>
-                        
-                     </cit:title>
-                     
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <!-- uri to metadata for the cited resource -->
-                              <gco:CharacterString>
-                                 https://ladsweb.modaps.eosdis.nasa.gov/filespec/MODIS/6/MYD09A1</gco:CharacterString>
-                           </cit:linkage>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                     
-                     
-                  </cit:CI_Citation>
-               </mrl:sourceMetadata>
-               <mrl:scope>
-                  <mcc:MD_Scope>
-                     <mcc:level>
-                        
-                        <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
-                     </mcc:level>
-                  </mcc:MD_Scope>
-               </mrl:scope>               
-            </mrl:LI_Source>
-            
-         </mrl:source>
- 
-         <!-- this example for just a description and reference -->
-         <mrl:source>
-            <mrl:LI_Source>
-               
-               <mrl:description>
-                  <!-- detailed description of the level of the source resource -->
-                  <gco:CharacterString>Placeholder text=Description of the source resource
-                     e.g. MODIS Product</gco:CharacterString>
-               </mrl:description>
-               <!-- recommended reference to be used for the source resource -->
-               <mrl:sourceCitation>
-                  
-                  
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>second example: E. Vermote. (2015). MOD09A1 MODIS Surface Reflectance 8-Day L3 Global 500m SIN Grid V006. NASA EOSDIS Land Processes DAAC.
-                           http://doi.org/10.5067/MODIS/MOD09A1.006 (Terra)[Title mrl:sourceCitation]
-                           
-                        </gco:CharacterString>
-                        
-                     </cit:title>
-                     
-                     
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>http://doi.org/10.5067/MODIS/MOD09A1.006</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
-                           
-                           <cit:function>
-                              
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                 codeListValue="information"/>
-                              
-                              
-                           </cit:function>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                     
-                     
-                  </cit:CI_Citation>
-               </mrl:sourceCitation>
-               
-            </mrl:LI_Source>
-            
-         </mrl:source>
          
-         <!-- This example if the method comes from a vocabulary -->
          <mrl:processStep>
             <mrl:LI_ProcessStep>
                <mrl:description>
-                  
-                  <gco:CharacterString>Method description from method vocabulary goes here</gco:CharacterString>
+                  <gco:CharacterString>Placeholder text=Provide a detailed description of the events in the development of the resource.
+                     If the resource has a status of 'ongoing', provide a summary of the workflow.  
+                     Associated documents can be provided in the Documents section</gco:CharacterString>
                </mrl:description>
                <mrl:reference>
-                  <cit:CI_Citation>
-                     <!-- simplified xlink attributes -->
-                     <cit:title>
-                        <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/14368694-8e1b-40a3-9ed2-50ff789551dd" xlink:show="new">method A name goes here</gcx:Anchor>
-                     </cit:title>
-                  </cit:CI_Citation>
-               </mrl:reference>
-            </mrl:LI_ProcessStep>
-         </mrl:processStep>
-         <!-- This example if the method is not from a vocabulary but has a reference document -->
-         <mrl:processStep>
-            <mrl:LI_ProcessStep>
-               <mrl:description>
-                  <gco:CharacterString>Placeholder text=Description of the process step, including related parameters or tolerances</gco:CharacterString>
-               </mrl:description>
-               <mrl:reference>
-                  <cit:CI_Citation>
 
-                     <cit:title>
-                        <gco:CharacterString>Hawdon, A, McJannet, D, and Wallace, J 2014, Calibration and correction procedures for cosmic-ray neutron soil moisture probes located across Australia. 
-                           Water Resources Research, Vol. 50, pp.5029-5043. doi:10.1002/2013wr015138 [Title element: mrl:process step]</gco:CharacterString>
-                        
-                     </cit:title>
-                     <!-- if a url is supplied -->
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           
-                           <cit:linkage>
-                              <gco:CharacterString>https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013WR015138</gco:CharacterString>
-                           </cit:linkage>
-
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
-
-                           <cit:function>
-                              
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                 codeListValue="information"/>
-                              
-                              
-                           </cit:function>
-                           
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
                </mrl:reference>
             </mrl:LI_ProcessStep>
          </mrl:processStep>        

@@ -109,6 +109,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
       User should be able to enter a parent UUID in SHaRED - optional 
    https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556158/Parent+metadata -->
    <mdb:parentMetadata uuidref="uuid goes here"/>
+
    
    <!-- Change - currently a static section 
       to-be: User selects from the codelist in SHaRED, mandatory, default should be dataset
@@ -178,7 +179,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <cit:partyIdentifier>
                   <mcc:MD_Identifier>
                      <mcc:code>
-                        <gco:CharacterString>uri:a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                        <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
                         
                      </mcc:code>
                      <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -260,9 +261,17 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          <cit:title>
             <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN) Metadata Profile of ISO 19115-3:2016 and ISO 19157-2:2016</gco:CharacterString>
          </cit:title>
+         <cit:date><cit:CI_Date>
+            <!-- date of published version -->
+            <cit:date><gco:Date>2020</gco:Date></cit:date>
+            <cit:dateType><cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="published"></cit:CI_DateTypeCode></cit:dateType>
+         </cit:CI_Date></cit:date>
          <cit:edition>
             <gco:CharacterString>1.0</gco:CharacterString>
          </cit:edition>
+         <cit:identifier><mcc:MD_Identifier>
+            <mcc:code></mcc:code>
+         </mcc:MD_Identifier></cit:identifier>
          <cit:onlineResource>
             <cit:CI_OnlineResource>
                <cit:linkage>
@@ -309,29 +318,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
       <mrs:MD_ReferenceSystem>
          <mrs:referenceSystemIdentifier>
             <mcc:MD_Identifier>
-               <mcc:authority>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>
-                           European Petroleum Survey Group (EPSG) Geodetic Parameter Registry
-                        </gco:CharacterString>
-                     </cit:title>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>http://www.epsg-registry.org/</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
-                           <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                 codeListValue="information"/>
-                           </cit:function>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mcc:authority>
+
 
                <mcc:code>
                   <!-- Change - Provide drop-down list of options using description, 
@@ -374,7 +361,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             <cit:CI_Citation>
 
                <cit:title>
-                  <gco:CharacterString>jira-723-2020/08/07-1 - test publication date as year - v2 namespaces
+                  <gco:CharacterString>jira-723-2020/08/13-1 - updated per spreadsheet see abstract - v2 namespaces
                         </gco:CharacterString>
                </cit:title>
                <!-- Functional changes required which will determine fields available to user and syntax of XML statements to write
@@ -515,7 +502,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
-                                    <gco:CharacterString>uri:a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
                                     
                                  </mcc:code>
                                  <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -531,9 +518,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  <mcc:fileDescription>
                                     <gco:CharacterString>TERN Logo</gco:CharacterString>
                                  </mcc:fileDescription>
-                                 <mcc:fileType>
-                                    <gco:CharacterString>png</gco:CharacterString>
-                                 </mcc:fileType>
+
                                  <mcc:linkage>
                                     <cit:CI_OnlineResource>
                                        <cit:linkage>
@@ -607,7 +592,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
-                                    <gco:CharacterString>uri:276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
                                     
                                  </mcc:code>
                                  <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -716,6 +701,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          <mri:abstract>
 
             <gco:CharacterString>
+               (See spreadsheet https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0)
                Placeholder text=Provide a brief summary of What, Where, When, Why, Who and How for the collected the data.
           Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected.</gco:CharacterString>
          </mri:abstract>
@@ -828,7 +814,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      <cit:partyIdentifier>
                         <mcc:MD_Identifier>
                            <mcc:code>
-                              <gco:CharacterString>uri:797307f8-e10b-4c74-8688-d52f9ac8d669</gco:CharacterString>
+                              <gco:CharacterString>https://w3id.org/tern/resources/797307f8-e10b-4c74-8688-d52f9ac8d669</gco:CharacterString>
                               
                            </mcc:code>
                            <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -844,13 +830,13 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
-                                    <gco:CharacterString>uri:71c3eb61-de6b-4184-a7c4-74fed184a10b</gco:CharacterString>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b</gco:CharacterString>
                                     
                                  </mcc:code>
                                  <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b</gco:CharacterString>
                                  </mcc:codeSpace>
                                  <!-- if person does not have an orcid then 
-                                             code would be uri:276dd611-5d74-4555-b20f-12f0f0b618a1
+                                             code would be https://w3id.org/tern/resources/{uuid]
                                           with codespace https://w3id.org/tern/resources-->
                               </mcc:MD_Identifier>
                            </cit:partyIdentifier>
@@ -1135,7 +1121,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
-                                    <gco:CharacterString>uri:276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
                                     
                                  </mcc:code>
                                  <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -1153,7 +1139,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  <cit:partyIdentifier>
                                     <mcc:MD_Identifier>
                                        <mcc:code>
-                                          <gco:CharacterString>uri:276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                          <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
                                           
                                        </mcc:code>
                                        <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -1275,19 +1261,18 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          example from IMOS record, linkage added 
          user will need a way to input graphic url or upload graphics? -->
          <mri:graphicOverview>
+            <!-- thumbnail 5KB and 100x100 pixels. 
+               Provide URL to an image that can be rendered in browsers. -->
             <mcc:MD_BrowseGraphic>
                <mcc:fileName>
-                  <gco:CharacterString>seal_tag_pic_s_s.png</gco:CharacterString>
+                  <gco:CharacterString>test_80x80px.png</gco:CharacterString>
                </mcc:fileName>
                <mcc:fileDescription>
                   <gco:CharacterString>thumbnail</gco:CharacterString>
                </mcc:fileDescription>
-               <mcc:fileType>
-                  <gco:CharacterString>png</gco:CharacterString>
-               </mcc:fileType>
                <mcc:linkage>
                   <cit:CI_OnlineResource>
-                     <cit:linkage><gco:CharacterString>url if needed</gco:CharacterString></cit:linkage>
+                     <cit:linkage><gco:CharacterString>https://w3id.org/tern/static/test/test_80x80px.png</gco:CharacterString></cit:linkage>
                      <cit:protocol>
                         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                      </cit:protocol>
@@ -1302,17 +1287,15 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          <mri:graphicOverview>
             <mcc:MD_BrowseGraphic>
                <mcc:fileName>
-                  <gco:CharacterString>seal_tag_pic_s.png</gco:CharacterString>
+                  <gco:CharacterString>test_100x100px.png</gco:CharacterString>
                </mcc:fileName>
                <mcc:fileDescription>
                   <gco:CharacterString>large_thumbnail</gco:CharacterString>
                </mcc:fileDescription>
-               <mcc:fileType>
-                  <gco:CharacterString>png</gco:CharacterString>
-               </mcc:fileType>
+      
                <mcc:linkage>
                   <cit:CI_OnlineResource>
-                     <cit:linkage><gco:CharacterString>url if needed</gco:CharacterString></cit:linkage>
+                     <cit:linkage><gco:CharacterString>https://w3id.org/tern/static/test/test_100x100px.png</gco:CharacterString></cit:linkage>
                      <cit:protocol>
                         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                      </cit:protocol>

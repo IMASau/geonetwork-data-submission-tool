@@ -934,7 +934,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                                  
                                  Change 3 'ongoing' status - is an Exception to the existing rule which states: End date time should be later than or equal to begin date time 
                               -->
-                              <gml:beginPosition>2011-06-10T00:23:00</gml:beginPosition>
+                              <gml:beginPosition>2011-06-10</gml:beginPosition>
                               <!-- this is the statement for an ongoing record -->
                               <gml:endPosition indeterminatePosition="now"/>
                               <!-- this is the end satement for other statuses -->
@@ -1262,7 +1262,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             </cit:CI_Citation>
             
          </mri:additionalDocumentation>
-         <!-- Reinstated per email 13/8
+         <!-- Reinstated per email SG 13/8
          Maintenance note added
          The frequency with which data updates are published 
          -->
@@ -1273,7 +1273,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                   <mmi:MD_MaintenanceFrequencyCode codeList="codeListLocation#MD_MaintenanceFrequencyCode"
                      codeListValue="annually"/>
                </mmi:maintenanceAndUpdateFrequency>
-               <mmi:maintenanceNote><gco:CharacterString>Placeholder text=Any relevant information about maintenance of the data</gco:CharacterString></mmi:maintenanceNote>
+               <mmi:maintenanceNote><gco:CharacterString>Placeholder text=Specific requirements for maintaining the resource</gco:CharacterString></mmi:maintenanceNote>
             </mmi:MD_MaintenanceInformation>
          </mri:resourceMaintenance>
          
@@ -1953,7 +1953,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
          <mri:resourceSpecificUsage><mri:MD_Usage>
-            <mri:specificUsage><gco:CharacterString>Optional - text about data usage, this will capture usability text about data, this can be an expert comments</gco:CharacterString></mri:specificUsage>
+            <mri:specificUsage><gco:CharacterString>Placeholder text=Information about data usage, this will capture usability text about data, this can be an expert comments</gco:CharacterString></mri:specificUsage>
          </mri:MD_Usage></mri:resourceSpecificUsage>
          <!-- Static section for all metadata records -->
          <mri:resourceConstraints>

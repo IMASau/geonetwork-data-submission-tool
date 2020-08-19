@@ -145,7 +145,7 @@
                           {:title                         {:type        nil
                                                            :label       "Title"
                                                            :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
-                                                           :help        "Clear and concise description of the content of the resource"
+                                                           :help        "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"
                                                            :rows        3
                                                            :maxlength 250
                                                            :required    true
@@ -156,13 +156,13 @@
                                                            :page     :data-identification}
                            :topicCategory                 {:type        nil
                                                            :label       "Topic Categories"
-                                                           :placeholder "Search for topic categories"
+                                                           :placeholder "Select at least one topic category"
                                                            :required    true
                                                            :page        :data-identification}
                            :status                        {:type     nil
                                                            :label    "Status of data"
                                                            :required true
-                                                           :options  [["onGoing" "ongoing"]
+                                                           :options  [["onGoing" "Ongoing"]
                                                                       ["planned" "planned"]
                                                                       ["completed" "completed"]]
                                                            :page     :data-identification}
@@ -196,7 +196,7 @@
                                                            :page        :what}
                            :purpose                       {:type        nil
                                                            :label       "Purpose"
-                                                           :maxlength   1000
+                                                           :maxlength   10
                                                            :help        "Brief statement about the purpose of the study"
                                                            :placeholder "Provide a brief summary of the purpose for collecting the data including the potential use. Example: The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"
                                                            :page        :what}
@@ -213,7 +213,7 @@
                                                                       :required    true
                                                                       :page        :what}}
                            :keywordsThemeExtra            {:keywords {:type        nil
-                                                                      :label       "Additional theme keywords"
+                                                                      :label       "Additional theme keywords for your data"
                                                                       :help        "Enter your own additional theme keywords as required and click + to add"
                                                                       :placeholder "Enter a theme keyword"
                                                                       :maxlength   100

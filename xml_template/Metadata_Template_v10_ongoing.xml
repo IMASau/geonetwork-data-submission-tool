@@ -270,7 +270,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
             <gco:CharacterString>1.0</gco:CharacterString>
          </cit:edition>
          <cit:identifier><mcc:MD_Identifier>
-            <mcc:code>[SG - what goes in here]</mcc:code>
+            <mcc:code><gco:CharacterString>[SG - what goes in here]</gco:CharacterString></mcc:code>
          </mcc:MD_Identifier></cit:identifier>
          <cit:onlineResource>
             <cit:CI_OnlineResource>
@@ -452,6 +452,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </cit:identifier>
                <!-- Functional changes and syntax changes 
                see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556330/Data+identification+Citation+Related+Parties -->
+               <!-- Static section begins - details of TERN as publisher -->
                <cit:citedResponsibleParty>
                   <cit:CI_Responsibility>
                      <cit:role>
@@ -539,7 +540,9 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      </cit:party>
                   </cit:CI_Responsibility>
                </cit:citedResponsibleParty>
+               <!-- Static section ends -->
                <!-- a least one author is mandatory
+                  multiple roles can be defined by the user
                1. author can be an individual at an organisation
                Syntax changes -->
                <cit:citedResponsibleParty>
@@ -696,6 +699,12 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                      </cit:party>
                   </cit:CI_Responsibility>
                </cit:citedResponsibleParty>
+               <!-- static section begins after 1..N parties
+               declaration of tern web site address -->
+               <cit:onlineResource><cit:CI_OnlineResource>
+                  <cit:linkage><gco:CharacterString>https://www.tern.org.au/</gco:CharacterString></cit:linkage>
+               </cit:CI_OnlineResource></cit:onlineResource>
+               <!-- static section ends -->
             </cit:CI_Citation>
          </mri:citation>
          <mri:abstract>
@@ -867,11 +876,14 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
 
             </mri:MD_Resolution>
          </mri:spatialResolution>
-
+         
+         <!-- Shared - Data identification tab -->
          <mri:topicCategory>
             <mri:MD_TopicCategoryCode>climatologyMeteorologyAtmosphere</mri:MD_TopicCategoryCode>
          </mri:topicCategory>
          <mri:topicCategory/>
+         
+         <!-- Shared - Where tab -->
          <mri:extent>
             <gex:EX_Extent>
 
@@ -902,6 +914,7 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                </gex:geographicElement>
 
                <!-- https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140555959/Data+Identification+Extent+Temporal+-+Observation+Date+Range -->
+               <!-- Shared - When tab -->
                <gex:temporalElement>
                      <!-- MDWG 
                      Data observation time: time or time period when data was collected or observed. 
@@ -934,6 +947,8 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
          Elevation in metres field should be removed
          Method field remains the same
          a field and drop down list to populate CRS, default values to be defined -->
+         
+         <!-- Shared - Where tab -->
          <mri:extent>
             
             <gex:EX_Extent id="Vertical">
@@ -1009,15 +1024,17 @@ SG - Use cit party identifier - https://ternaus.atlassian.net/wiki/spaces/TDSAG/
                <!-- for online documentation -->
                <cit:onlineResource>
                   <cit:CI_OnlineResource>
+                     
                      <cit:linkage>
                         <gco:CharacterString>https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013WR015138</gco:CharacterString>
                      </cit:linkage>
                      <cit:protocol>
                         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                      </cit:protocol>
-                     
+                     <cit:name><gco:CharacterString>Donohue, R.J. et al., 2014. 
+                        Evaluation of the remote-sensing-based DIFFUSE model for estimating photosynthesis of vegetation. Remote Sensing of Environment. doi:10.1002/2013WR015138 [Name - add Doco Eg.2]</gco:CharacterString></cit:name>
                      <cit:description>
-                        <gco:CharacterString>Journal article
+                        <gco:CharacterString>Journal article [Description - Add doco]
                      </gco:CharacterString></cit:description>
                      <cit:function>
                         <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"

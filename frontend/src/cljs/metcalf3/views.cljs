@@ -1979,23 +1979,23 @@
           (into [:ul] (for [msg msgs] [:li msg]))]
          (first msgs))])))
 
-(defn help-submenu
-  [menu-items]
-  (into [bp3/menu]
-        (for [[text event-v] menu-items]
-          [bp3/menu-item {:text text :on-click #(rf/dispatch event-v)}])))
+; (defn help-submenu
+;   [menu-items]
+;   (into [bp3/menu]
+;         (for [[text event-v] menu-items]
+;           [bp3/menu-item {:text text :on-click #(rf/dispatch event-v)}])))
 
-(defn help-menu
-  []
-  (when-let [menu-items @(rf/subscribe [:help/get-menuitems])]
-    [bp3/popover {:content (r/as-element [help-submenu menu-items])}
-     [:button.bp3-button.bp3-minimal "Help"]]))
+; (defn help-menu
+;   []
+;   (when-let [menu-items @(rf/subscribe [:help/get-menuitems])]
+;     [bp3/popover {:content (r/as-element [help-submenu menu-items])}
+;      [:button.bp3-button.bp3-minimal "Help"]]))
 
 (defn navbar
   []
   (let [{:keys [Dashboard account_profile account_logout]} @(rf/subscribe [:subs/get-derived-path [:context :urls]])
         {:keys [user urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        {:keys [title tag_line]} @(rf/subscribe [:subs/get-derived-path [:context :site]])]
+        {:keys [title tag_line guide_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])]
     [bp3/navbar {:className "bp3-dark"}
       [bp3/navbar {:className "container"}
       [bp3/navbar-group {:align (:LEFT bp3/alignment)}
@@ -2003,7 +2003,8 @@
       [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
         [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)]
         [:a.bp3-button.bp3-minimal {:href Dashboard} "My Records"]
-        [help-menu]
+        [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
+        ;; [help-menu]
         [:a.bp3-button.bp3-minimal {:href "/logout"} "Sign Out"]]]]))
 
 (defmulti PageTabView (fn [page this] [(get page :name)

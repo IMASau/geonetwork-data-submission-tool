@@ -129,7 +129,26 @@
 	<!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556158/Parent+metadata -->
 	<!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
 	<!-- WriteEmptyBlock ~ yes -->   
-   <mdb:parentMetadata uuidref=""/>
+   <mdb:parentMetadata>
+      <cit:CI_Citation>
+         <cit:title>
+            <gco:CharacterString>[Parent Title goes here]</gco:CharacterString>
+         </cit:title>
+         <cit:identifier>
+            <mcc:MD_Identifier>
+               <mcc:code>
+                  <gco:CharacterString>[Parent UUID goes here]</gco:CharacterString>
+               </mcc:code>
+               <mcc:codeSpace>
+                  <gco:CharacterString>https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/</gco:CharacterString>
+               </mcc:codeSpace>
+               <mcc:description>
+                  <gco:CharacterString>Parent Metadata Record</gco:CharacterString>
+               </mcc:description>
+            </mcc:MD_Identifier>
+         </cit:identifier>
+      </cit:CI_Citation>
+   </mdb:parentMetadata>
 
    <!-- Block Status mdb:metadataScope ~ Current XML with change to show a field in UI -->
 	<!-- Description ~ Scope of the metadata record -->
@@ -1026,22 +1045,41 @@
                </cit:party>
             </cit:CI_Responsibility>
          </mri:pointOfContact>
-		 
-		 <!-- Start HERE -->
-         <!-- https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718977/Data+Identification+Spatial+Resolution -->
-         <!-- Changed functionality and syntax
-         
-         Removed mri:levelOfDetail
-         GCMD_Horizontal will write into keywords
-         GCMD_Vertical will write into keywords
-         User will be able to specify exact figure here for horizontal distance, must also select the applicable unit of measure
-         
-         -->
+
+		<!-- Status mri:spatialResolution ~ Change XML and UI -->
+		<!-- Description ~ The spatial resolution of the dataset if applicable -->
+		<!-- Operation ~ User will be able to specify horizontal distance and unit of measure -->
+		<!-- UI ~ Add fields -->
+		<!-- Tab ~ Spatial -->
+		<!-- Cardinality ~ one -->
+		<!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718977/Data+Identification+Spatial+Resolution -->
+		<!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
+		<!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+		<!-- WriteEmptyBlock ~ no -->		
+        <!-- Change Note ~ Removed mri:levelOfDetail element -->
+        <!-- Change Note ~ GCMD_Horizontal will write into keywords -->
          <mri:spatialResolution>
             <mri:MD_Resolution>
-               
+               		<!-- Display Label ~ Distance -->
+					<!-- Help Text ~ Spatial resolution -->
+					<!-- Placeholder Text ~ 0.00 -->
+					<!-- KeepPlaceholderText ~ no -->
+					<!-- Required ~ no -->
+					<!-- Rule ~ Allow digits, "." -->
+					<!-- Rule ~ Positive numbers only -->
+					<!-- InputLength ~ 6 -->
+					<!-- Size ~ single -->
+					<!-- Cardinality ~ one -->
+					
+					<!-- Display Label ~ Unit of measure -->
+					<!-- Placeholder Text ~ Please select -->
+					<!-- KeepPlaceholderText ~ no -->
+					<!-- Required ~ conditional -->
+					<!-- Rule ~ Must be a value from Codelist if Distance is input -->
+					<!-- Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
+					<!-- Cardinality ~ one -->
 
-               <mri:distance><gco:Distance uom="degrees">1e-3</gco:Distance></mri:distance>
+               <mri:distance><gco:Distance uom="codelistvalue">0.00</gco:Distance></mri:distance>
 
             </mri:MD_Resolution>
          </mri:spatialResolution>

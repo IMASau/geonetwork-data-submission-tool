@@ -80,22 +80,23 @@ a {
 }
 .above-header-section-1 .user-select a {
     background-color: #FFF;
-    background-image: url(../img/logo@2x.png);
-    background-position: 28px center;
-    background-repeat: no-repeat;
-    -webkit-background-size: 23px auto;
-    background-size: 23px auto;
     color: #0F3540 !important;
+    font-size: 20px;
+    padding: 5px 15px 3px 14px;
+}
+.above-header-section-1 .user-select a img {
+    max-width: 65px;
+    width: 100%;
 }
 .above-header-section-2 .user-select a {
     background-color: #E36A51;
     background-image: url(../img/search-icon@2x.png);
-    background-position: 28px center;
+    background-position: 13px center;
     background-repeat: no-repeat;
-    -webkit-background-size: 23px auto;
     background-size: 23px auto;
     color: #FFF !important;
-    padding-left: 60px;
+    padding-left: 46px;
+    padding-right: 15px;
 }
 .above-header .above-header-section-wrap {
     justify-content: flex-end;
@@ -152,10 +153,10 @@ a {
     width: 43px;
 }
 .main-header-menu > li > a.active:before, .main-header-menu > li > a:hover:before {
-	background-color: #6093A4;
+    background-color: #6093A4;
 }
 .main-header-menu > li > a.active, .main-header-menu > li > a:hover {
-	color: #6093A4;
+    color: #6093A4;
 }
 .main-header-menu > li.has-child a {
 	position: relative;

@@ -51,13 +51,14 @@
 <body class="{% block body_class %}{% endblock %}">
 
     {% block page %}
-    {% block body %}
+    {% block pageheader %}
     <div class="above-header">
         <div class="container">
             <div class="above-header-section-wrap d-flex">
                 <div class="above-header-section above-header-section-1">
                     <div class="user-select">
-                        <div class="ast-custom-html"><a href="https://www.tern.org.au" target="_blank">TERN Site</a>
+                        <div class="ast-custom-html"><a href="https://www.tern.org.au" target="_blank"><img
+                                    src="{% static 'metcalf3/img/logo-mini-all.png' %}" /></a>
                         </div>
                     </div>
                 </div>
@@ -65,12 +66,14 @@
                 <div class="above-header-section above-header-section-2">
                     <div class="user-select">
                         <div class="ast-custom-html"><a href="https://portal.tern.org.au/" target="_blank"
-                                class="btn-orange">TERN Data Portal</a></div>
+                                class="btn-orange">Data</a></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% endblock %}
+    {% block body %}
     <nav class="navbar navbar-inverse" data-reactid=".0.0">
         <div class="container" data-reactid=".0.0.0">
             <div class="navbar-header" data-reactid=".0.0.0.0">

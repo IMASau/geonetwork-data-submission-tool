@@ -7,11 +7,13 @@ IMAGE=$(REPO)/$(IMAGE_NAME)
 
 GIT_VERSION=$(shell git show HEAD --no-patch --no-notes --date=short '--pretty=%cd-%h')
 
+.PHONY: build up push check_not_dirty
+
 build:
 	docker build --build-arg GIT_VERSION=$(GIT_VERSION) -t $(IMAGE):latest .
 
-up: check_not_dirty build
-	docker-compose -e GIT_VERSION=$(GIT_VERSION) -f docker-compose.yaml -f docker-compose-nginx.yaml up webapp cronapp nginx statsd
+up: build
+	GIT_VERSION=$(GIT_VERSION) docker-compose -f docker-compose.yaml -f docker-compose-nginx.yaml up webapp cronapp nginx statsd
 
 push: check_not_dirty build
 	docker tag $(IMAGE):latest $(IMAGE):$(GIT_VERSION)

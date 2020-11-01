@@ -1999,7 +1999,8 @@
     [bp3/navbar {:className "bp3-dark"}
       [bp3/navbar {:className "container"}
       [bp3/navbar-group {:align (:LEFT bp3/alignment)}
-        [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading title]]]
+        ; [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading title]]
+        ]
       [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
         [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)]
         [:a.bp3-button.bp3-minimal {:href Dashboard} "My Records"]

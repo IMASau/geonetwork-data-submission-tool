@@ -416,3 +416,17 @@ a {
 .bp3-dark .bp3-button.bp3-minimal:hover {
     background: #4fa69a;
 }
+
+/* dst.css overrides */
+.bp3-navbar-group.bp3-align-left {
+    min-width: 350px;
+}
+
+/* TODO: should probably be part of custom bootstrap css? */
+.btn {
+    border-color: transparent;
+}
+
+.btn:hover {
+    border-color: transparent;
+}

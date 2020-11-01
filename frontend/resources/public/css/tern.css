@@ -80,22 +80,23 @@ a {
 }
 .above-header-section-1 .user-select a {
     background-color: #FFF;
-    background-image: url(../img/logo@2x.png);
-    background-position: 28px center;
-    background-repeat: no-repeat;
-    -webkit-background-size: 23px auto;
-    background-size: 23px auto;
     color: #0F3540 !important;
+    font-size: 20px;
+    padding: 5px 15px 3px 14px;
+}
+.above-header-section-1 .user-select a img {
+    max-width: 65px;
+    width: 100%;
 }
 .above-header-section-2 .user-select a {
     background-color: #E36A51;
     background-image: url(../img/search-icon@2x.png);
-    background-position: 28px center;
+    background-position: 13px center;
     background-repeat: no-repeat;
-    -webkit-background-size: 23px auto;
     background-size: 23px auto;
     color: #FFF !important;
-    padding-left: 60px;
+    padding-left: 46px;
+    padding-right: 15px;
 }
 .above-header .above-header-section-wrap {
     justify-content: flex-end;
@@ -152,10 +153,10 @@ a {
     width: 43px;
 }
 .main-header-menu > li > a.active:before, .main-header-menu > li > a:hover:before {
-	background-color: #6093A4;
+    background-color: #6093A4;
 }
 .main-header-menu > li > a.active, .main-header-menu > li > a:hover {
-	color: #6093A4;
+    color: #6093A4;
 }
 .main-header-menu > li.has-child a {
 	position: relative;
@@ -193,13 +194,6 @@ a {
 }
 .main-header-menu > li.has-child .dropdown a:hover {
 	color: #e36a51;
-}
-.main-footer-container {
-	align-items: flex-end;
-	border-top: 3px solid #e36a51;
-	justify-content: space-between;
-	padding: 50px 0px 125px 0px;
-	margin-top: 100px;
 }
 
 /* menu icon */
@@ -317,15 +311,6 @@ a {
 		display: block;
 	}
 }
-@media(max-width: 575px) {
-	.main-footer-container {
-		display: block;
-	}
-	.main-footer-container > div {
-		padding: 20px 0;
-		text-align: center;
-	}
-}
 @media(max-width: 400px) {
 	.above-header-section .above-header-section-1 {
 	    width: 40% !important;
@@ -340,4 +325,108 @@ a {
 	    padding-left: 40px;
 	    padding-right: 15px;
 	}
+}
+
+/* Footer */
+.main-footer {
+    padding: 110px 0px 125px 0px;
+}
+.main-footer h3 {
+    font-family: 'Uni Neue', Sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+}
+.main-footer .social-icons {
+    margin: 0;
+    margin-top: 46px;
+    padding: 0;
+}
+.main-footer .social-icons li {
+    display: inline-block;
+    margin-right: 20px;
+}
+.main-footer .social-icons li a {
+    color: #0f3540;
+    font-size: 25px;
+}
+.main-footer-container {
+	align-items: flex-end;
+	border-top: 3px solid #e36a51;
+	justify-content: space-between;
+	padding: 50px 0px 125px 0px;
+	margin-top: 100px;
+}
+.footer-col {
+    float: left;
+    width: 25%;
+}
+.footer-col-inner {
+    padding: 0 15px;
+}
+.footer-col-inner-border {
+    border-style: solid;
+    border-width: 7px 0px 0px 0px;
+    border-color: #006381;
+    padding: 45px 0 0px 0;
+}
+.main-footer .footer-column-2 .footer-col-inner-border {
+    border-color: #6093a4;
+}
+.main-footer .footer-column-3 .footer-col-inner-border {
+    border-color: #6093A4;
+}
+.main-footer .footer-column-4 .footer-col-inner-border {
+    border-color: #e36a51;
+}
+@media (min-width: 992px) {
+    .main-footer {
+        padding: 3px 0px 125px 0px;
+    }
+    .main-footer-container {
+        border: none;
+    }
+}
+@media (max-width: 1024px) {
+    .footer-col {
+        width: 50%;
+    }
+}
+@media (max-width: 767px) {
+    .footer-col {
+        float: none;
+        text-align: center;
+        width: 100%;
+    }
+    .footer-column-2, .footer-column-3, .footer-column-4 {
+        display: none;
+    }
+}
+@media(max-width: 575px) {
+	.main-footer-container {
+		display: block;
+	}
+	.main-footer-container > div {
+		padding: 20px 0;
+		text-align: center;
+	}
+}
+
+
+/* Blueprint overrides */
+.bp3-dark .bp3-button.bp3-minimal:hover {
+    background: #4fa69a;
+}
+
+/* dst.css overrides */
+.bp3-navbar-group.bp3-align-left {
+    min-width: 350px;
+}
+
+/* TODO: should probably be part of custom bootstrap css? */
+.btn {
+    border-color: transparent;
+}
+
+.btn:hover {
+    border-color: transparent;
 }

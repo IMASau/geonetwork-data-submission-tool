@@ -42,22 +42,21 @@
 
     {% bootstrap_javascript jquery=1 %}
 
-
-    <style>
-    </style>
+    {% block pagestyles %}{% endblock %}
 
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
 
     {% block page %}
-    {% block body %}
+    {% block pageheader %}
     <div class="above-header">
         <div class="container">
             <div class="above-header-section-wrap d-flex">
                 <div class="above-header-section above-header-section-1">
                     <div class="user-select">
-                        <div class="ast-custom-html"><a href="https://www.tern.org.au" target="_blank">TERN Site</a>
+                        <div class="ast-custom-html"><a href="https://www.tern.org.au" target="_blank"><img
+                                    src="{% static 'metcalf3/img/logo-mini-all.png' %}" /></a>
                         </div>
                     </div>
                 </div>
@@ -65,12 +64,14 @@
                 <div class="above-header-section above-header-section-2">
                     <div class="user-select">
                         <div class="ast-custom-html"><a href="https://portal.tern.org.au/" target="_blank"
-                                class="btn-orange">TERN Data Portal</a></div>
+                                class="btn-orange">Data</a></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {% endblock %}
+    {% block body %}
     <nav class="navbar navbar-inverse" data-reactid=".0.0">
         <div class="container" data-reactid=".0.0.0">
             <div class="navbar-header" data-reactid=".0.0.0.0">
@@ -101,15 +102,69 @@
     <div class="main-footer">
         <div class="container">
             <div class="main-footer-row">
-                <div class="main-footer-container d-flex">
-                    <div class="tern-logo">
-                        <a href="https://www.tern.org.au" target="_blank"><img
-                                src="{% static 'metcalf3/img/tern-logo.png' %}" width="300" alt="" /></a>
+                <div class="main-footer-container">
+                    <div class="footer-col footer-column-1">
+                        <div class="footer-col-inner">
+                            <div class="footer-col-inner-border">
+                                <h3>Contact us</h3>
+                                <p class="mb-20">Physical &amp; Mail Address<br><span style="font-size: 14px;">Room 156,
+                                        Goddard Building (8)<br>The University of Queensland<br></span><span
+                                        style="font-size: 14px;">St Lucia 4072</span></p>
+                                <p class="fz-15 font-500">P <a class="text-black" href="tel:0733659097">(07) 3365
+                                        9097</a><br>E <a href="mailto:esupport@tern.org.au">esupport@tern.org.au</a></p>
+                                <p class="fz-15 font-500"><a
+                                        href="https://www.tern.org.au/access-policy/#acknowledgements" target="_blank"
+                                        rel="noopener">Access Policy</a>
+                                </p>
+                                <p class="fz-15 font-500"><a href="https://www.tern.org.au/datalicence/" target="_blank"
+                                        rel="noopener">Data Licensing</a>
+                                </p>
+                                <ul class="social-icons">
+                                    <li><a href="https://www.facebook.com/TerrestrialEcosystemResearchNetwork/"
+                                            target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="https://twitter.com/TERN_Aus" target="_blank"><i
+                                                class="fa fa-twitter"></i></a></li>
+                                    <li><a href="https://www.instagram.com/tern_au/" target="_blank"><i
+                                                class="fa fa-instagram"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/groups/3981661/" target="_blank"><i
+                                                class="fa fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="ncris-logo">
-                        <a href="https://www.education.gov.au/national-collaborative-research-infrastructure-strategy-ncris"
-                            target="_blank"><img src="{% static 'metcalf3/img/ncris-logo.png' %}" width="150"
-                                alt="" /></a>
+                    <div class="footer-col footer-column-2">
+                        <div class="footer-col-inner">
+                            <div class="footer-col-inner-border">
+                                <h3>Funding</h3>
+                                <p class="mb-46">TERN is supported by the Australian Government through the National
+                                    Collaborative Research Infrastructure Strategy, <span
+                                        style="text-decoration: underline;"><a
+                                            href="https://www.education.gov.au/national-collaborative-research-infrastructure-strategy-ncris"
+                                            target="_blank">NCRIS</a></span>.</p>
+                                <a href="https://www.education.gov.au/national-collaborative-research-infrastructure-strategy-ncris"
+                                    target="_blank"><img width="138" src="{% static 'metcalf3/img/logo-ncris@2x.png' %}"
+                                        alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-col footer-column-3">
+                        <div class="footer-col-inner">
+                            <div class="footer-col-inner-border">
+                                <h3>Hosted by</h3>
+                                <a href="https://www.uq.edu.au" target="_blank"><img width="151"
+                                        src="{% static 'metcalf3/img/logo-uq@2x.png' %}" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-col footer-column-4">
+                        <div class="footer-col-inner">
+                            <div class="footer-col-inner-border">
+                                <h3>Newsletter</h3>
+                                <p><a href="https://www.tern.org.au/" target="_blank">Subscribe</a> for project updates,
+                                    data releases, research findings, and users stories direct
+                                    to your inbox.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

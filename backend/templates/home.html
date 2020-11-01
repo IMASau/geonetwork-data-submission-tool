@@ -7,13 +7,10 @@
 
 {% block head_title %}{{ sitecontent.title }} {{ sitecontent.tag_line }}{% endblock %}
 
-
-{% block body %}
-
+{% block pagestyles %}
 <link rel="stylesheet" href="https://use.typekit.net/pwr4rlr.css">
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://use.fontawesome.com/abac3c7363.js"></script>
-
 <style>
     /*
     * Globals
@@ -225,8 +222,10 @@
         }
     }
 </style>
+{% endblock %}
 
-<link rel="stylesheet" href="{% static 'metcalf3/css/tern-corporate.css' %}">
+
+{% block body %}
 
 <!-- Workaround for background-size: cover in IE8 -->
 <!--[if lte IE 8]>

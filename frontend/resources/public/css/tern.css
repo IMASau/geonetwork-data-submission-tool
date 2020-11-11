@@ -366,17 +366,17 @@ a {
 .footer-col-inner-border {
     border-style: solid;
     border-width: 7px 0px 0px 0px;
-    border-color: #006381;
+    border-color: #043e4f;
     padding: 45px 0 0px 0;
 }
 .main-footer .footer-column-2 .footer-col-inner-border {
-    border-color: #6093a4;
+    border-color: #669fba;
 }
 .main-footer .footer-column-3 .footer-col-inner-border {
-    border-color: #6093A4;
+    border-color: #669fba;
 }
 .main-footer .footer-column-4 .footer-col-inner-border {
-    border-color: #e36a51;
+    border-color: #ed694b;
 }
 @media (min-width: 992px) {
     .main-footer {

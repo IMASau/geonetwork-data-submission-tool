@@ -288,7 +288,7 @@
                                  "has-error")}
        (if label [:label label (if required " *")])
        (vec (concat
-              [:select.form-control (assoc (dissoc props :default-option :show-errors)
+              [:select.form-control (assoc (dissoc props :default-option :show-errors :is-hidden)
                                       :on-change #(on-change (-> % .-target .-value))
                                       :value (or value default-value)
                                       :disabled disabled)
@@ -342,11 +342,12 @@
   [textarea-widget @(rf/subscribe [:textarea-field/get-props path])])
 
 (defn Checkbox [props this]
-  (let [{:keys [label checked on-change disabled help]} props
-        input-control [:input {:type     "checkbox"
-                               :checked  checked
-                               :disabled disabled
-                               :onChange on-change}]]
+  (let [{:keys [label checked on-change disabled help]
+         :or {:checked false}} props
+        input-control [:input (merge {:type     "checkbox"
+                                      :checked  (boolean checked)
+                                      :disabled disabled
+                                      :onChange on-change})]]
     [:div.form-group {:class (validation-state props)}
      [:div.checkbox
       [:label input-control label]]
@@ -2425,7 +2426,7 @@
                   [:div.pull-right
                     [:button.btn.btn-default.text-warn {:on-click handle-archive-click
                                                         :disabled disabled}
-                     [:span.glyphicon.glyphicon-trash]
+                     [:span.fa.fa-archive]
                      " Archive"] " "
                     [:button.btn.btn-primary {:disabled (or disabled (not dirty) saving)
                                               :on-click save!}

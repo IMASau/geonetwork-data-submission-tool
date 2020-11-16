@@ -24,7 +24,7 @@ from django.utils.encoding import smart_text
 from django_fsm import has_transition_perm
 from lxml import etree
 from rest_framework import serializers
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
@@ -629,6 +629,7 @@ def transition(request, uuid):
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
 
+
 def logout_view(request):
     logout(request)
     abs_uri = urllib.parse.quote(request.build_absolute_uri('/'))
@@ -638,3 +639,47 @@ def logout_view(request):
 def robots_view(request):
     context = {}
     return render_to_response("robots.txt", context, content_type="text/plain")
+
+
+# TODO: Determine why this route is returning 403 despite the user has been authenticated.
+#   Check authorization? Why do the routes bound to ViewSets work fine but this doesn't?
+@api_view(['GET', 'POST'])
+@authentication_classes([])
+@permission_classes([])
+def qudt_units(request):
+    """Search QUDT Units Index
+
+    Search QUDT Units Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query". E.g. ?query=kilo
+    - POST supports a post body object. E.g. {"query": "kilo"}.
+
+    If "query" is not supplied or is an empty string, the first 50 hits of the default /_search endpoint is returned.
+    """
+    url = settings.ELASTICSEARCH_ENDPOINT_QUDTUNITS
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == 'GET':
+        query = request.GET.get("query")
+    elif request.method == 'POST':
+        query = request.data.get("query")
+    else:
+        raise
+
+    headers = {"content-type": "application/json"}
+    if query:
+        data = {
+            "size": result_size,
+            "query": {
+                "multi_match": {
+                    "query": query,
+                    "type": "phrase_prefix",
+                    "fields": ["label", "ucumCode"]
+                }
+            }
+        }
+        r = requests.post(url, json=data, headers=headers)
+    else:
+        params = {"size": result_size}
+        r = requests.post(url, params=params, headers=headers)
+    resp = r.json()
+    return Response(resp, status=r.status_code)

@@ -113,6 +113,7 @@ INSTALLED_APPS = [
     "frontend",
     "bootstrap3",
     "mozilla_django_oidc",
+    "frontend.config.FrontendConfig"
 ]
 
 LOGGING = {

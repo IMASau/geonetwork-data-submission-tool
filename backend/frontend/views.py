@@ -651,7 +651,10 @@ def qudt_units(request):
 
     If "query" is not supplied or is an empty string, the first 50 hits of the default /_search endpoint is returned.
     """
-    url = settings.ELASTICSEARCH_ENDPOINT_QUDTUNITS
+    from elasticsearch_dsl import connections
+
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_QUDTUNITS
     result_size = settings.ELASTICSEARCH_RESULT_SIZE
 
     if request.method == 'GET':
@@ -661,9 +664,8 @@ def qudt_units(request):
     else:
         raise
 
-    headers = {"content-type": "application/json"}
     if query:
-        data = {
+        body = {
             "size": result_size,
             "query": {
                 "multi_match": {
@@ -673,9 +675,9 @@ def qudt_units(request):
                 }
             }
         }
-        r = requests.post(url, json=data, headers=headers)
+        data = es.search(index=index_alias, body=body)
+        return Response(data, status=200)
     else:
-        params = {"size": result_size}
-        r = requests.post(url, params=params, headers=headers)
-    resp = r.json()
-    return Response(resp, status=r.status_code)
+        body = {"size": result_size}
+        data = es.search(index=index_alias, body=body)
+        return Response(data, status=200)

@@ -110,10 +110,9 @@ INSTALLED_APPS = [
     "fsm_admin",
     "imagekit",
     "backend",
-    "frontend",
+    "frontend.config.FrontendConfig",
     "bootstrap3",
     "mozilla_django_oidc",
-    "frontend.config.FrontendConfig"
 ]
 
 LOGGING = {

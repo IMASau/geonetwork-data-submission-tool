@@ -24,7 +24,7 @@ from django.utils.encoding import smart_text
 from django_fsm import has_transition_perm
 from lxml import etree
 from rest_framework import serializers
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
@@ -644,8 +644,6 @@ def robots_view(request):
 # TODO: Determine why this route is returning 403 despite the user has been authenticated.
 #   Check authorization? Why do the routes bound to ViewSets work fine but this doesn't?
 @api_view(['GET', 'POST'])
-@authentication_classes([])
-@permission_classes([])
 def qudt_units(request):
     """Search QUDT Units Index
 

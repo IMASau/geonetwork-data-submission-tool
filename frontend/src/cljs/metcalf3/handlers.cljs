@@ -37,19 +37,18 @@
     (let [results (gobj/get json "results")]
       (update-in db api-path assoc :options results))))
 
+(defn build-es-query
+  [query]
+  (.stringify js/JSON (clj->js
+                       {:query query})))
+
 (rf/reg-event-fx
   :handlers/load-es-options
   ins/std-ins
   (fn [{:keys [db]} [_ api-path query]]
     (let [{:keys [uri]} (get-in db api-path)]
-      {:xhrio/get-json {:uri (str uri query) :resp-v [:handlers/load-es-options-resp api-path query]}
+      {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
        :db (update-in db api-path assoc :most-recent-query query)})))
-
-(defn build-es-query
-  [query]
-  (.stringify js/JSON (clj->js
-                       {:size 50
-                        :query {:match_phrase_prefix {:label query}}})))
 
 (rf/reg-event-fx
  :handlers/search-es-options
@@ -59,19 +58,12 @@
      {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
       :db (update-in db api-path assoc :most-recent-query query)})))
 
-
-(defn build-es-query-units
-  [query]
-  (.stringify js/JSON (clj->js
-                       {:size 50
-                        :query {:multi_match {:query query :type "phrase_prefix" :fields ["label", "ucumCode"]}}})))
-
 (rf/reg-event-fx
  :handlers/search-es-options-units
  ins/std-ins
  (fn [{:keys [db]} [_ api-path query]]
    (let [{:keys [uri]} (get-in db api-path)]
-     {:xhrio/post-json {:uri uri :data (build-es-query-units query) :resp-v [:handlers/load-es-options-resp api-path query]}
+     {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
       :db (update-in db api-path assoc :most-recent-query query)})))
 
 

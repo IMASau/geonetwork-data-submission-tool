@@ -23,12 +23,11 @@
       (xhrio/send uri callback))))
 
 (def post-json-header
-  (structs/Map. (clj->js {:Content-Type "application/json"})))
+  (structs/Map. (clj->js {:Content-Type "application/json" :Accept "application/json" :X-CSRFToken (.get (Cookies. js/document) "csrftoken")})))
 
 (rf/reg-fx
  :xhrio/post-json
  (fn [{:keys [uri data resp-v]}]
-
    (s/assert string? uri)
    (s/assert string? data)
    (s/assert vector? resp-v)

@@ -629,6 +629,7 @@ def transition(request, uuid):
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
 
+
 def logout_view(request):
     logout(request)
     abs_uri = urllib.parse.quote(request.build_absolute_uri('/'))
@@ -638,3 +639,45 @@ def logout_view(request):
 def robots_view(request):
     context = {}
     return render_to_response("robots.txt", context, content_type="text/plain")
+
+
+@api_view(['GET', 'POST'])
+def qudt_units(request):
+    """Search QUDT Units Index
+
+    Search QUDT Units Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query". E.g. ?query=kilo
+    - POST supports a post body object. E.g. {"query": "kilo"}.
+
+    If "query" is not supplied or is an empty string, the first 50 hits of the default /_search endpoint is returned.
+    """
+    from elasticsearch_dsl import connections
+
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_QUDTUNITS
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == 'GET':
+        query = request.GET.get("query")
+    elif request.method == 'POST':
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "multi_match": {
+                    "query": query,
+                    "type": "phrase_prefix",
+                    "fields": ["label", "ucumCode"]
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+        return Response(data, status=200)
+    else:
+        body = {"size": result_size}
+        data = es.search(index=index_alias, body=body)
+        return Response(data, status=200)

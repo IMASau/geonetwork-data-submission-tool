@@ -641,8 +641,6 @@ def robots_view(request):
     return render_to_response("robots.txt", context, content_type="text/plain")
 
 
-# TODO: Determine why this route is returning 403 despite the user has been authenticated.
-#   Check authorization? Why do the routes bound to ViewSets work fine but this doesn't?
 @api_view(['GET', 'POST'])
 def qudt_units(request):
     """Search QUDT Units Index

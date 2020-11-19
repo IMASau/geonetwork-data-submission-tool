@@ -115,7 +115,7 @@
   :date-field/get-props
   :<- [:subs/get-derived-state]
   (fn [derived-db [_ path]]
-    (when js/goog.DEBUG (js/console.log ::path path))
+;    (when js/goog.DEBUG (js/console.log ::path path))
     (let [{:keys [label help required disabled value show-errors errors minDate maxDate] :as field} (get-in derived-db path)
           value (if (= value "") nil value)
           error-help (when (and show-errors (seq errors))
@@ -135,13 +135,13 @@
   :textarea-field/get-props
   :<- [:subs/get-derived-state]
   (fn [derived-db [_ path]]
-    (when js/goog.DEBUG (js/console.log ::path path))
+;    (when js/goog.DEBUG (js/console.log ::path path))
     (let [{:keys [label help required disabled value show-errors errors placeholder maxlength] :as field} (get-in derived-db path)
           error-help (when (and show-errors (seq errors))
                        (string/join ". " errors))]
-      (when js/goog.DEBUG (js/console.log :textarea-field/get-props.field {:field field
-                                                                           :path  path
-                                                                           :db    derived-db}))
+;      (when js/goog.DEBUG (js/console.log :textarea-field/get-props.field {:field field
+;                                                                           :path  path
+;                                                                           :db    derived-db}))
       {:label       label
        :labelInfo   (when required "*")
        :helperText  (or error-help help)

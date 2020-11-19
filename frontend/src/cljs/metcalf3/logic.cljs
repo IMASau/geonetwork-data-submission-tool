@@ -538,7 +538,7 @@
   (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))]
     (-> (deep-merge default-payload payload)
         (assoc :alert [])
-        (assoc :api {:parametername        {:uri (str URL_ROOT "/api/parametername.json") :options nil}
+        (assoc :api {:parametername        {:uri (str URL_ROOT "/api/ternparameters") :options nil}
                      :parameterunit        {:uri (str URL_ROOT "/api/qudtunits") :options nil}
                      :parameterinstrument  {:uri (str URL_ROOT "/api/parameterinstrument.json") :options nil}
                      :parameterplatform    {:uri (str URL_ROOT "/api/parameterplatform.json") :options nil}

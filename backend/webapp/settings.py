@@ -191,6 +191,9 @@ GMAPS_API_KEY = ""
 
 FRONTEND_DEV_MODE = False
 
+# Elasticsearch
+ELASTICSEARCH_VERIFY_SSL = bool(os.environ.get('DJANGO_ELASTICSEARCH_VERIFY_SSL', True))
+
 LOGIN_URL = "/oidc/authenticate"
 
 # OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get("OIDC_OP_AUTHORIZATION_ENDPOINT")

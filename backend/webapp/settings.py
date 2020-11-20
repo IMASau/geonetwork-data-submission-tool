@@ -220,8 +220,6 @@ settings = dynaconf.DjangoDynaconf(
     __name__,
     # ENVVAR_PREFIX_FOR_DYNACONF='DST',
     ENVVAR_FOR_DYNACONF="DST_SETTINGS",
-    validators=[
-        dynaconf.Validator('ELASTICSEARCH_VERIFY_SSL', is_type_of=bool)
-    ]
+    validators=[dynaconf.Validator("ELASTICSEARCH_VERIFY_SSL", is_type_of=bool)],
 )  # noqa
 # HERE ENDS DYNACONF EXTENSION LOAD (No more code below this line)

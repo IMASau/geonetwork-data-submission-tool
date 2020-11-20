@@ -1014,10 +1014,14 @@
 
 (defn breadcrumb-renderer [options selected-option]
   (let [text selected-option.breadcrumb
-        term-text (aget selected-option "term")]
+        term-text (aget selected-option "term")
+        alt-label (aget selected-option "altLabel")]
     [:div.topic-cell {:key term-text}
      [:div.topic-path text]
-     [:div.topic-value term-text]]))
+     [:div.topic-value term-text]
+     [:div {:style
+            {:margin-left 10 :color "#a3a3a3"}}
+      (if (clojure.string/blank? alt-label) "" (concat "also known as " alt-label))]]))
 
 (defn nasa-list-renderer [options option]
   (aget option "prefLabel"))

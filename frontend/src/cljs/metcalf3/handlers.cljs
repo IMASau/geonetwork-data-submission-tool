@@ -80,6 +80,7 @@
                                                 :term (let [term (get-in x [:_source :label])] (if (vector? term) (first term) term))
                                                 :code (get-in x [:_source :ucumCode])
                                                 :breadcrumb (get-in x [:_source :breadcrumb])
+                                                :altLabel (clojure.string/join ", " (get-in x [:_source :altLabel]))
                                                 })
                                        (js->clj hits :keywordize-keys true))))]
       (if (or (= most-recent-query query) (and (not most-recent-query) query))

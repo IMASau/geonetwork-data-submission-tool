@@ -192,7 +192,7 @@ GMAPS_API_KEY = ""
 FRONTEND_DEV_MODE = False
 
 # Elasticsearch
-ELASTICSEARCH_VERIFY_SSL = bool(os.environ.get('DJANGO_ELASTICSEARCH_VERIFY_SSL', True))
+ELASTICSEARCH_VERIFY_SSL = True
 
 LOGIN_URL = "/oidc/authenticate"
 
@@ -220,5 +220,8 @@ settings = dynaconf.DjangoDynaconf(
     __name__,
     # ENVVAR_PREFIX_FOR_DYNACONF='DST',
     ENVVAR_FOR_DYNACONF="DST_SETTINGS",
+    validators=[
+        dynaconf.Validator('ELASTICSEARCH_VERIFY_SSL', is_type_of=bool)
+    ]
 )  # noqa
 # HERE ENDS DYNACONF EXTENSION LOAD (No more code below this line)

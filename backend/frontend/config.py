@@ -10,5 +10,5 @@ class FrontendConfig(AppConfig):
     def ready(self):
         connections.create_connection(
             hosts=[settings.ELASTICSEARCH_URL],
-            verify_ssl=settings.ELASTICSEARCH_VERIFY_SSL,
+            verify_certs=settings.ELASTICSEARCH_VERIFY_SSL,
         )

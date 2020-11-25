@@ -53,7 +53,7 @@
     "has-error"))
 
 (defn dp-term-paths [dp-type]
-  (when js/goog.DEBUG (js/console.log "DP TERM PATHS" {:dp-type dp-type}))
+;  (when js/goog.DEBUG (js/console.log "DP TERM PATHS" {:dp-type dp-type}))
   {:term              (keyword (str (name dp-type) "_term"))
    :vocabularyTermURL (keyword (str (name dp-type) "_vocabularyTermURL"))
    :vocabularyVersion (keyword (str (name dp-type) "_vocabularyVersion"))
@@ -1012,6 +1012,17 @@
      [:div.topic-path text]
      [:div.topic-value term-text]]))
 
+(defn breadcrumb-renderer [options selected-option]
+  (let [text selected-option.breadcrumb
+        term-text (aget selected-option "term")
+        alt-label (aget selected-option "altLabel")]
+    [:div.topic-cell {:key term-text}
+     [:div.topic-path text]
+     [:div.topic-value term-text]
+     [:div {:style
+            {:margin-left 10 :color "#a3a3a3"}}
+      (if (clojure.string/blank? alt-label) "" (concat "also known as " alt-label))]]))
+
 (defn nasa-list-renderer [options option]
   (aget option "prefLabel"))
 
@@ -1053,7 +1064,7 @@
       {:component-will-mount will-mount
        :render               render})))
 
-(defn UnitSelectField
+(defn ElasticsearchSelectField
   [_ this]
   (letfn [(will-mount [this]
             (let [{:keys [api-path]} (r/props this)]
@@ -1090,15 +1101,9 @@
                          :getOptionValue    (fn [option]
                                               (gobj/get option "term"))
                          :formatOptionLabel (fn [props]
-                                              (let [is-created? (gobj/get props "__isNew__")]
-                                                (if is-created?
-                                                  (str "Create \"" (gobj/get props "value") "\"")
-                                                  (r/as-element (api-option-renderer options props)))))
-                         ;; filter options to dispaly. a quick and dirty lower case string compare filter
-                         :filterOption (fn [option, rawInput]
-                                          (let [input (string/lower-case rawInput)
-                                                candidate (string/lower-case (str option.label " " option.value " " option.data.code))]
-                                                (string/includes? candidate input)))
+                                              (r/as-element (breadcrumb-renderer options props)))
+                         :filterOption      (fn [option, rawInput]
+                                              (boolean 0))  ; Return true always. This allows for matches on label as well as altLabel (or other fields available in the REST API).
                          :onChange          (fn [option]
                                               (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
                          :noResultsText     "No results found.  Click browse to add a new entry."})
@@ -1113,23 +1118,22 @@
                          :getOptionValue    (fn [option]
                                               (gobj/get option "term"))
                          :formatOptionLabel (fn [props]
-                                              (let [is-created? (gobj/get props "__isNew__")]
-                                                (if is-created?
-                                                  (str "Create \"" (gobj/get props "value") "\"")
-                                                  (r/as-element (api-option-renderer options props)))))
+                                              (r/as-element (breadcrumb-renderer options props)))
                          :onChange          (fn [option]
                                               (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
                          :noResultsText     "No results found.  Click browse to add a new entry."}))
                     [:p.help-block help]]]
-                  [:div.flex-row-button
-                   [:button.btn.btn-default
-                    {:style    {:vertical-align "top"}
-                     :on-click #(rf/dispatch [:handlers/open-modal
-                                              {:type         param-type
-                                               :api-path     api-path
-                                               :dp-term-path dp-term-path}])}
-                    [:span.glyphicon.glyphicon-edit] " Custom"]
-                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]]])))]
+                  ; TODO: Re-enable this in the future to browse/create vocabulary terms.
+;                  [:div.flex-row-button
+;                   [:button.btn.btn-default
+;                    {:style    {:vertical-align "top"}
+;                     :on-click #(rf/dispatch [:handlers/open-modal
+;                                              {:type         param-type
+;                                               :api-path     api-path
+;                                               :dp-term-path dp-term-path}])}
+;                    [:span.glyphicon.glyphicon-edit] " Custom"]
+;                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]
+                  ]])))]
     (r/create-class
       {:component-will-mount will-mount
        :render               render})))
@@ -1194,15 +1198,17 @@
                                           :onChange          (fn [option]
                                                                (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}])
                     [:p.help-block help]]]
-                  [:div.flex-row-button
-                   [:button.btn.btn-default
-                    {:style    {:vertical-align "top"}
-                     :on-click #(rf/dispatch [:handlers/open-modal
-                                              {:type         param-type
-                                               :api-path     api-path
-                                               :dp-term-path dp-term-path}])}
-                    [:span.glyphicon.glyphicon-list] " Browse"]
-                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]]])))]
+                  ; TODO: Re-enable this in the future to browse/create vocabulary terms.
+;                  [:div.flex-row-button
+;                   [:button.btn.btn-default
+;                    {:style    {:vertical-align "top"}
+;                     :on-click #(rf/dispatch [:handlers/open-modal
+;                                              {:type         param-type
+;                                               :api-path     api-path
+;                                               :dp-term-path dp-term-path}])}
+;                    [:span.glyphicon.glyphicon-list] " Browse"]
+;                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]
+                  ]])))]
     (r/create-class
       {:component-will-mount will-mount
        :render               render})))
@@ -1436,10 +1442,10 @@
         serialNumber-path (conj path :value :serialNumber)]
     [:div.DataParameterMaster
      [:div
-      [ApiTermSelectField {:param-type :parametername :api-path [:api :parametername] :dp-term-path base-path :dp-type :longName}]
+      [ElasticsearchSelectField {:param-type :parametername :api-path [:api :parametername] :dp-term-path base-path :dp-type :longName}]
       [:div.shortName
        [InputField {:path name-path}]]]
-     [UnitSelectField {:param-type :parameterunit :api-path [:api :parameterunit] :dp-term-path base-path :dp-type :unit}]
+     [ElasticsearchSelectField {:param-type :parameterunit :api-path [:api :parameterunit] :dp-term-path base-path :dp-type :unit}]
      [ApiTermSelectField {:param-type :parameterinstrument :api-path [:api :parameterinstrument] :dp-term-path base-path :dp-type :instrument}]
      [InputField {:path serialNumber-path}]
      [ApiTermSelectField {:param-type :parameterplatform :api-path [:api :parameterplatform] :dp-term-path base-path :dp-type :platform}]]))

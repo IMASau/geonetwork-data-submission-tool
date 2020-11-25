@@ -5,7 +5,7 @@ import urllib.parse
 from zipfile import ZipFile, ZipInfo
 
 # from frontend.router import rest_serialize
-import requests
+from elasticsearch_dsl import connections
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -641,7 +641,7 @@ def robots_view(request):
     return render_to_response("robots.txt", context, content_type="text/plain")
 
 
-@api_view(['GET', 'POST'])
+@api_view(["GET", "POST"])
 def qudt_units(request):
     """Search QUDT Units Index
 
@@ -651,15 +651,13 @@ def qudt_units(request):
 
     If "query" is not supplied or is an empty string, the first 50 hits of the default /_search endpoint is returned.
     """
-    from elasticsearch_dsl import connections
-
     es = connections.get_connection()
     index_alias = settings.ELASTICSEARCH_INDEX_QUDTUNITS
     result_size = settings.ELASTICSEARCH_RESULT_SIZE
 
-    if request.method == 'GET':
+    if request.method == "GET":
         query = request.GET.get("query")
-    elif request.method == 'POST':
+    elif request.method == "POST":
         query = request.data.get("query")
     else:
         raise
@@ -676,8 +674,67 @@ def qudt_units(request):
             }
         }
         data = es.search(index=index_alias, body=body)
-        return Response(data, status=200)
     else:
         body = {"size": result_size}
         data = es.search(index=index_alias, body=body)
-        return Response(data, status=200)
+
+    return Response(data, status=200)
+
+
+@api_view(["GET", "POST"])
+def tern_parameters(request):
+    """Search TERN Parameters Index
+
+    Search TERN Parameters Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query". E.g. ?query=cover
+    - POST supports a post body object. E.g. {"query": "cover"}.
+
+    If "query" is not supplied or is an empty string, the first 50 hits of the default /_search endpoint is returned.
+
+    Top-level parameters of the Parameters Scheme are filtered out.
+    """
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_TERNPARAMETERS
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["label", "altLabel"]
+                        }
+                    },
+                    "filter": {
+                        "term": {"is_top_concept": False}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort on the empty query search.
+            "query": {
+                "bool": {
+                    "filter": {
+                        "term": {"is_top_concept": False}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(data, status=200)

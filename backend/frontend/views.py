@@ -642,7 +642,7 @@ def robots_view(request):
 
 
 @api_view(["GET", "POST"])
-def qudt_units(request):
+def qudt_units(request) -> Response:
     """Search QUDT Units Index
 
     Search QUDT Units Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
@@ -683,7 +683,7 @@ def qudt_units(request):
 
 
 @api_view(["GET", "POST"])
-def tern_parameters(request):
+def tern_parameters(request) -> Response:
     """Search TERN Parameters Index
 
     Search TERN Parameters Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
@@ -743,7 +743,7 @@ def tern_parameters(request):
 
 
 @api_view(['GET', 'POST'])
-def tern_platforms(request):
+def tern_platforms(request) -> Response:
     """Search TERN Platforms Index
 
     Search TERN Platforms Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
@@ -793,6 +793,78 @@ def tern_platforms(request):
                 "bool": {
                     "filter": {
                         "term": {"selectable": "true"}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(data, status=200)
+
+
+@api_view(['GET', 'POST'])
+def tern_instruments(request) -> Response:
+    """Search TERN Instruments Index
+
+    Search TERN Instruments Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query" and "selected_platform.
+      E.g. ?query=EOS+70D&selected_platform=https://w3id.org/tern/resources/e729eba7-215a-4626-9d13-feece79c41ad
+
+    - POST supports a post body object.
+      E.g. {"query": "EOS 70D", "selected_platform": "https://w3id.org/tern/resources/e729eba7-215a-4626-9d13-feece79c41ad"}
+
+    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
+    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
+
+    If "selected_platform" is not supplied or does not match a platform, no instruments will be returned.
+    """
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_TERNINSTRUMENTS
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+        selected_platform = request.GET.get("selected_platform", "")
+    elif request.method == "POST":
+        query = request.data.get("query")
+        selected_platform = request.data.get("selected_platform", "")
+    else:
+        raise
+
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+
+    logger.error(f'query: {query}')
+    logger.error(f'platform: {selected_platform}')
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["label", "altLabel"]
+                        }
+                    },
+                    "filter": {
+                        "term": {"platform.keyword": selected_platform}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort on the empty query search.
+            "query": {
+                "bool": {
+                    "filter": {
+                        "term": {"platform.keyword": selected_platform}
                     }
                 }
             }

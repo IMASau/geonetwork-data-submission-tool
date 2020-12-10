@@ -361,7 +361,7 @@
                                                                     :platform_term                {:type        nil
                                                                                                    :label       "Platform"
                                                                                                    :placeholder "Start typing to filter the list"
-                                                                                                   :help        "Is the data measured from land, air, satellite or a model?"
+                                                                                                   :help        "Is the data measured from land, air or satellite?"
                                                                                                    :page        :about}
                                                                     :platform_vocabularyTermURL   {:type nil
                                                                                                    :page :about}

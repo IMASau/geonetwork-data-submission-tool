@@ -1020,7 +1020,7 @@
      [:div.topic-path text]
      [:div.topic-value term-text]
      [:div {:style
-            {:margin-left 10 :color "#a3a3a3"}}
+            {:margin-left 10 :color "#929292" :font-size 11}}
       (if (clojure.string/blank? alt-label) "" (concat "also known as " alt-label))]]))
 
 (defn nasa-list-renderer [options option]
@@ -1448,7 +1448,7 @@
      [ElasticsearchSelectField {:param-type :parameterunit :api-path [:api :parameterunit] :dp-term-path base-path :dp-type :unit}]
      [ApiTermSelectField {:param-type :parameterinstrument :api-path [:api :parameterinstrument] :dp-term-path base-path :dp-type :instrument}]
      [InputField {:path serialNumber-path}]
-     [ApiTermSelectField {:param-type :parameterplatform :api-path [:api :parameterplatform] :dp-term-path base-path :dp-type :platform}]]))
+     [ElasticsearchSelectField {:param-type :parameterplatform :api-path [:api :parameterplatform] :dp-term-path base-path :dp-type :platform}]]))
 
 (defn DataParametersTable [path this]
   [:div.DataParametersTable

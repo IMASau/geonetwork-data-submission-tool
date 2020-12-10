@@ -191,8 +191,4 @@
 (rf/reg-sub
   :subs/platform-selected?
  (fn [db [_ form-position]]
-;   (get-in (get (get-in db [:form :fields :identificationInfo :dataParameters :value]) form-position) [:value :platform_vocabularyTermURL :value])))
-;   (print (get-in (get (get-in db [:form :fields :identificationInfo :dataParameters :value]) form-position) [:value :platform_vocabularyTermURL :value]))
-;   form-position))
-;   (concat "form-pos: " form-position)))
    (get-in (get (get-in db [:form :fields :identificationInfo :dataParameters :value]) form-position) [:value :platform_vocabularyTermURL :value])))

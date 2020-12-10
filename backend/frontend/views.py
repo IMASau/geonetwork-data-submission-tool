@@ -838,13 +838,6 @@ def tern_instruments(request) -> Response:
     if selected_platform is None:
         selected_platform = ""
 
-    import logging
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.INFO)
-
-    logger.error(f'query: {query}')
-    logger.error(f'platform: {selected_platform}')
-
     if query:
         body = {
             "size": result_size,

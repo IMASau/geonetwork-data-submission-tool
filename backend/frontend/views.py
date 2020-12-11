@@ -850,9 +850,26 @@ def tern_instruments(request) -> Response:
                             "fields": ["label", "altLabel"]
                         }
                     },
-                    "filter": {
-                        "term": {"platform.keyword": selected_platform}
-                    }
+                    "filter": [
+                        {
+                            "bool": {
+                                "should": [
+                                    {
+                                        "term": {"platform.keyword": selected_platform}
+                                    },
+                                    # Include instruments that have "*" as an element in their platform array.
+                                    # This is used to allow the user to query and select digital cameras regardless
+                                    # of which platform they have selected.
+                                    # The idea is to keep the empty query search to include the direct instruments of a
+                                    # selected platform (i.e. an explicit relationship) while this non-empty query
+                                    # search includes digital cameras for any selected platform.
+                                    {
+                                        "term": {"platform.keyword": "*"}
+                                    }
+                                ]
+                            }
+                        }
+                    ]
                 }
             }
         }

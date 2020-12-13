@@ -353,7 +353,7 @@
                                                                     :instrument_term              {:type        nil
                                                                                                    :label       "Instrument"
                                                                                                    :placeholder "Start typing to filter the list"
-                                                                                                   :help        "Sensor used to measure the parameter."
+                                                                                                   :help        "Instrument used to measure the parameter. This includes digital camera models."
                                                                                                    :tooltip     "Select a platform before selecting an instrument."}
                                                                     :instrument_vocabularyTermURL {:type nil
                                                                                                    :page :about}

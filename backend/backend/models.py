@@ -401,8 +401,8 @@ def no_spaces_in_filename(instance, filename):
     return filename.replace(" ", "_")
 
 
-
 from .storage import attachment_store, document_upload_path
+
 
 class DocumentAttachment(models.Model):
     document = models.ForeignKey("Document", on_delete=models.CASCADE, related_name='attachments')
@@ -413,6 +413,7 @@ class DocumentAttachment(models.Model):
 
     class Meta:
         pass
+
 
 class Person(models.Model):
     uri = models.CharField(max_length=512, default="")
@@ -533,6 +534,7 @@ class RoleCode(models.Model):
         ordering = ['Identifier', 'Description']
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 # https://vocabs.ands.org.au/aodn-discovery-parameter-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-discovery-parameter-vocabulary_version-1-1
 class ParameterName(ns_tree.NS_Node):
@@ -564,6 +566,7 @@ class ParameterName(ns_tree.NS_Node):
         return self.Definition
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 # https://vocabs.ands.org.au/aodn-units-of-measure-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-units-of-measure-vocabulary_version-1-0
 class ParameterUnit(ns_tree.NS_Node):
@@ -594,6 +597,7 @@ class ParameterUnit(ns_tree.NS_Node):
         return self.Definition
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 # https://vocabs.ands.org.au/aodn-instrument-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-instrument-vocabulary_version-1-0
 class ParameterInstrument(ns_tree.NS_Node):
@@ -625,6 +629,7 @@ class ParameterInstrument(ns_tree.NS_Node):
         return self.Definition
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 # https://vocabs.ands.org.au/aodn-platform-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-platform-vocabulary_version-1-2
 class ParameterPlatform(ns_tree.NS_Node):

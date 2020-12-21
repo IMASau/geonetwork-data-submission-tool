@@ -540,7 +540,7 @@
         (assoc :alert [])
         (assoc :api {:parametername        {:uri (str URL_ROOT "/api/ternparameters") :options nil}
                      :parameterunit        {:uri (str URL_ROOT "/api/qudtunits") :options nil}
-                     :parameterinstrument  {:uri (str URL_ROOT "/api/parameterinstrument.json") :options nil}
+                     :parameterinstrument  {:uri (str URL_ROOT "/api/terninstruments") :options nil}
                      :parameterplatform    {:uri (str URL_ROOT "/api/ternplatforms") :options nil}
                      :rolecode             {:uri (str URL_ROOT "/api/rolecode.json") :options nil}
                      :samplingFrequency    {:uri (str URL_ROOT "/api/samplingfrequency.json") :options nil}

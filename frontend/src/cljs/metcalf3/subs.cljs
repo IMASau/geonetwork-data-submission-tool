@@ -187,3 +187,8 @@
              guide_pdf (conj ["Guide" [:help-menu/open guide_pdf]])
              roadmap_pdf (conj ["Roadmap" [:help-menu/open roadmap_pdf]])
              releasenotes_url (conj ["Release Notes" [:help-menu/open releasenotes_url]]))))))
+
+(rf/reg-sub
+  :subs/platform-selected?
+ (fn [db [_ form-position]]
+   (get-in (get (get-in db [:form :fields :identificationInfo :dataParameters :value]) form-position) [:value :platform_vocabularyTermURL :value])))

@@ -135,3 +135,7 @@
 (defn enum [coll]
   (zip (range) coll))
 
+(defn same-keyword-string?
+  "Check if a keyword parameter coerced to a string is the same as the string parameter."
+  [keyword string]
+  (= (str (clojure.core/name keyword)) string))

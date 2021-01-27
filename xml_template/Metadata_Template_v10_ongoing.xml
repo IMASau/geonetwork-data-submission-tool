@@ -455,7 +455,7 @@
                 <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140817975/Data+Identification+Citation+Title -->
                 <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:title>
-                  <gco:CharacterString>jira-1287-2021/01/27-1 - add security classification for data - v2 namespaces </gco:CharacterString>
+                  <gco:CharacterString>jira-1287-2021/01/27-2 - add security classification for METADATA - v2 namespaces </gco:CharacterString>
                </cit:title>
 
                <!-- Status creation cit:date ~ In Current XML and UI -->
@@ -2377,9 +2377,6 @@
             </mco:MD_LegalConstraints>
          </mri:resourceConstraints>
          
-         <mri:resourceConstraints>
-
-         
             <!-- Status ~ In current XML with default values -->
             <!-- Description ~ Security class that applies to the dataset or collection -->
             <!-- Change Note ~ New UI element -->
@@ -2403,8 +2400,8 @@
             <!-- Documentation ~ document 8 on the MDWG Meeting 5 webpage: MDWG Meeting #5 - Presentations and Reports |
                Intergovernmental Committee on Surveying and Mapping (icsm.gov.au) -->
             <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->            
-            <mco:MD_SecurityConstraints>
-               
+         <mri:resourceConstraints>
+         <mco:MD_SecurityConstraints>
                <mco:reference>
                   <cit:CI_Citation>
                      <cit:title>
@@ -2422,29 +2419,21 @@
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              
                               <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
-                              
-                              
                            </cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
                </mco:reference>
-               
                <mco:classification>
-                  
                   <mco:MD_ClassificationCode codeList="codeListLocation#MD_ClassificationCode" codeListValue="unclassified"/>
                </mco:classification>
                <mco:handlingDescription>
                   <gco:CharacterString>OFFICIAL (Australian Government Security Classification System)</gco:CharacterString>
                </mco:handlingDescription>
-               
             </mco:MD_SecurityConstraints>
-             
-         </mri:resourceConstraints>
-         
+            </mri:resourceConstraints>        
             <!-- WriteEmptyBlock ~ no -->
             <!-- Status ~ New XML and UI -->
             <!-- Description ~ Description of the resource in the producer's processing environment -->
@@ -2462,7 +2451,8 @@
             <!-- Cardinality ~ one -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1151238213/Data+Identification+Environment+Description -->
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-         <mri:environmentDescription><gco:CharacterString>Placeholder text=Information about the processing environment or software used</gco:CharacterString></mri:environmentDescription>
+         <mri:environmentDescription><gco:CharacterString>Placeholder text=Information about the processing environment or software used</gco:CharacterString>
+         </mri:environmentDescription>
 
             <!-- WriteEmptyBlock ~ no -->
             <!-- Status ~ Current XML, change UI -->
@@ -2856,6 +2846,67 @@
          </mdq:report>
       </mdq:DQ_DataQuality>
    </mdb:dataQualityInfo>
+   
+   <!-- Status ~ In current XML with default values -->
+   <!-- Description ~ Security class that applies to the metadata record -->
+   <!-- Change Note ~ New UI element -->
+   <!-- Change Note ~ XML cit:function block added per 
+               standard in https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044021623/Discuss+standards+for+CI+OnlineResource 
+            and as discussed with Wilma K -->
+   <!-- Change Note ~ For version ISO 19115 v2.0 namespaces, metadataConstraints moves to before resourceLineage, as advised
+   ISO Representative 2/5/2020 TERNDESK-929 -->
+   <!-- Operation ~ User can select a Security Class from a hard-coded list of values -->
+   <!-- Operation ~ Based on user selection, also write associated ISO codelist value from https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml
+               MD Classification Code
+            as indicated in column I of https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing
+            caution: check capitalisation -->
+   <!-- UI ~ Change -->
+   <!-- Tab ~ See Deva -->
+   <!-- Display Label ~ See Deva  -->
+   <!-- Help Text ~ Select the Australian Government Security Classification to apply to the metadata -->
+   <!-- Placeholder Text ~ The Australian Government Security Classification to apply to the metadata -->
+   <!-- KeepPlaceholderText ~ no -->
+   <!-- Required ~ yes -->
+   <!-- Codelist ~ drop down as per column G in https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing -->
+   <!-- Cardinality ~ one -->
+   <!-- Documentation ~ document 8 on the MDWG Meeting 5 webpage: MDWG Meeting #5 - Presentations and Reports |
+               Intergovernmental Committee on Surveying and Mapping (icsm.gov.au) -->
+   <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->     
+   <mdb:metadataConstraints>
+      <mco:MD_SecurityConstraints>
+         <mco:reference>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Australian Government Security Classification System</gco:CharacterString>
+               </cit:title>
+               <cit:editionDate>
+                  <gco:DateTime>2018-11-01T00:00:00</gco:DateTime>
+               </cit:editionDate>
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>https://www.protectivesecurity.gov.au/Pages/default.aspx</gco:CharacterString>
+                     </cit:linkage>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
+            </cit:CI_Citation>
+         </mco:reference>
+         <mco:classification>
+            <mco:MD_ClassificationCode codeList="codeListLocation#MD_ClassificationCode" codeListValue="restricted"/>
+         </mco:classification>
+         <mco:handlingDescription>
+            <gco:CharacterString>OFFICIAL: Sensitive (Australian Government Security Classification System)</gco:CharacterString>
+         </mco:handlingDescription>
+      </mco:MD_SecurityConstraints>
+   </mdb:metadataConstraints>
+   
     <!-- WriteEmptyBlock ~ no -->
     <!-- Status ~ Current XML and additional elements -->
     <!-- Description ~ Lineage of the data set inputs and methods -->

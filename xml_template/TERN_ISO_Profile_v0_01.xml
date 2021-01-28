@@ -1,0 +1,2758 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdb:MD_Metadata xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/2.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:cat="http://standards.iso.org/iso/19115/-3/cat/1.0"
+   xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1"
+   xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/2.0"
+   xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0"
+   xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
+   xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
+   xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0"
+   xmlns:mas="http://standards.iso.org/iso/19115/-3/mas/1.0"
+   xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0"
+   xmlns:mco="http://standards.iso.org/iso/19115/-3/mco/1.0"
+   xmlns:mda="http://standards.iso.org/iso/19115/-3/mda/2.0"
+   xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/2.0"
+   xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/2.0"
+   xmlns:mex="http://standards.iso.org/iso/19115/-3/mex/1.0"
+   xmlns:mmi="http://standards.iso.org/iso/19115/-3/mmi/1.0"
+   xmlns:mpc="http://standards.iso.org/iso/19115/-3/mpc/1.0"
+   xmlns:mrc="http://standards.iso.org/iso/19115/-3/mrc/1.0"
+   xmlns:mrd="http://standards.iso.org/iso/19115/-3/mrd/1.0"
+   xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
+   xmlns:mrl="http://standards.iso.org/iso/19115/-3/mrl/2.0"
+   xmlns:mrs="http://standards.iso.org/iso/19115/-3/mrs/1.0"
+   xmlns:msr="http://standards.iso.org/iso/19115/-3/msr/2.0"
+   xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
+   xmlns:mac="http://standards.iso.org/iso/19115/-3/mac/2.0"
+   xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
+   xmlns:gml="http://www.opengis.net/gml/3.2"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xsi:schemaLocation="
+   http://standards.iso.org/iso/19115/-3/cat/1.0 https://schemas.isotc211.org/19115/-3/cat/1.0/cat.xsd 
+   http://standards.iso.org/iso/19115/-3/cit/2.0 https://schemas.isotc211.org/19115/-3/cit/2.0/cit.xsd 
+   http://standards.iso.org/iso/19115/-3/gcx/1.0 https://schemas.isotc211.org/19115/-3/gcx/1.0/gcx.xsd 
+   http://standards.iso.org/iso/19115/-3/gex/1.0 https://schemas.isotc211.org/19115/-3/gex/1.0/gex.xsd 
+   http://standards.iso.org/iso/19115/-3/lan/1.0 https://schemas.isotc211.org/19115/-3/lan/1.0/lan.xsd 
+   http://standards.iso.org/iso/19115/-3/srv/2.0 https://schemas.isotc211.org/19115/-3/srv/2.0/srv.xsd 
+   http://standards.iso.org/iso/19115/-3/mas/1.0 https://schemas.isotc211.org/19115/-3/mas/1.0/mas.xsd 
+   http://standards.iso.org/iso/19115/-3/mcc/1.0 https://schemas.isotc211.org/19115/-3/mcc/1.0/mcc.xsd 
+   http://standards.iso.org/iso/19115/-3/mco/1.0 https://schemas.isotc211.org/19115/-3/mco/1.0/mco.xsd 
+   http://standards.iso.org/iso/19115/-3/mda/2.0 https://schemas.isotc211.org/19115/-3/mda/2.0/mda.xsd 
+   http://standards.iso.org/iso/19115/-3/mdb/2.0 https://schemas.isotc211.org/19115/-3/mdb/2.0/mdb.xsd 
+   http://standards.iso.org/iso/19115/-3/mds/2.0 https://schemas.isotc211.org/19115/-3/mds/2.0/mds.xsd 
+   http://standards.iso.org/iso/19115/-3/mdt/1.0 https://schemas.isotc211.org/19115/-3/mdt/1.0/mdt.xsd 
+   http://standards.iso.org/iso/19115/-3/mex/1.0 https://schemas.isotc211.org/19115/-3/mex/1.0/mex.xsd 
+   http://standards.iso.org/iso/19115/-3/mmi/1.0 https://schemas.isotc211.org/19115/-3/mmi/1.0/mmi.xsd 
+   http://standards.iso.org/iso/19115/-3/mpc/1.0 https://schemas.isotc211.org/19115/-3/mpc/1.0/mpc.xsd 
+   http://standards.iso.org/iso/19115/-3/mrc/1.0 https://schemas.isotc211.org/19115/-3/mrc/1.0/mrc.xsd 
+   http://standards.iso.org/iso/19115/-3/mrd/1.0 https://schemas.isotc211.org/19115/-3/mrd/1.0/mrd.xsd 
+   http://standards.iso.org/iso/19115/-3/mri/1.0 https://schemas.isotc211.org/19115/-3/mri/1.0/mri.xsd 
+   http://standards.iso.org/iso/19115/-3/mrl/2.0 https://schemas.isotc211.org/19115/-3/mrl/2.0/mrl.xsd 
+   http://standards.iso.org/iso/19115/-3/mrs/1.0 https://schemas.isotc211.org/19115/-3/mrs/1.0/mrs.xsd 
+   http://standards.iso.org/iso/19115/-3/msr/2.0 https://schemas.isotc211.org/19115/-3/msr/2.0/msr.xsd 
+   http://standards.iso.org/iso/19157/-2/mdq/1.0 https://schemas.isotc211.org/19157/-2/mdq/1.0/mdq.xsd 
+   http://standards.iso.org/iso/19115/-3/mac/2.0 https://schemas.isotc211.org/19115/-3/mac/2.0/mac.xsd 
+   http://standards.iso.org/iso/19115/-3/gco/1.0 https://schemas.isotc211.org/19115/-3/gco/1.0/gco.xsd 
+   http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd 
+   http://www.w3.org/1999/xlink http://www.w3.org/1999/xlink.xsd">
+   <!-- Dependency ~ At 26/8/2020 Schematron and Validator are still in progress by GA for v2 namespaces -->
+    <!-- Block Status mdb:metadataIdentifier ~ Current XML plus mcc:description -->
+    <!-- Description ~ Identifies the UUID for the metadata record --> 
+    <!-- Operation ~ Shared generates the UUID in mcc:code -->
+    <!-- UI ~ N/a -->
+    <!-- Required ~ yes -->
+    <!-- Cardinality ~ one -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026621510/Metadata+Identifier -->
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+   <mdb:metadataIdentifier>
+      <mcc:MD_Identifier>
+         <mcc:authority>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>TERN GeoNetwork UUID</gco:CharacterString>
+               </cit:title>
+            </cit:CI_Citation>
+         </mcc:authority>
+         <mcc:code>
+            <gco:CharacterString>this text is replaced by a generated UUID</gco:CharacterString>
+         </mcc:code>
+         <mcc:codeSpace>
+            <gco:CharacterString>urn:uuid</gco:CharacterString>
+         </mcc:codeSpace>
+         <!-- Status mcc:description ~ New XML -->
+         <!-- Required ~ Conditional -->
+         <!-- Rule ~ Add element and text if generated from Shared -->
+         <!-- Placeholder Text ~ Data was submitted via the TERN SHaRED Data Submission Tool https://shared.tern.org.au -->            
+         <mcc:description>
+            <gco:CharacterString>Data was submitted via the TERN SHaRED Data Submission Tool 
+            https://shared.tern.org.au/
+         </gco:CharacterString>
+         </mcc:description>
+      </mcc:MD_Identifier>
+   </mdb:metadataIdentifier>
+   <!-- Static section ~ retain in XML output -->
+   <!-- Block Status mdb:defaultLocale ~ New XML -->
+   <!-- Description ~ Language used in the metadata -->
+   <mdb:defaultLocale>
+      <lan:PT_Locale id="EN">
+         <lan:language>
+            <lan:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="eng"/>
+         </lan:language>
+         <lan:characterEncoding>
+            <lan:MD_CharacterSetCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat
+               /codelists.xml#MD_CharacterSetCode" codeListValue="utf8"/>
+         </lan:characterEncoding>
+      </lan:PT_Locale>
+   </mdb:defaultLocale>
+   <!-- END Static Section -->
+   <!-- Status mdb:parentMetadata ~ New XML Block -->
+    <!-- Description ~ Records the title and uuid of the parent metadata record if applicable -->
+    <!-- Operation ~ User selects from a list of titles of published metadata records from https://geonetwork.tern.org.au/ -->
+    <!-- Operation ~ GeoNetwork Title comes from /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:citation[1]/cit:CI_Citation[1]/cit:title[1]/gco:CharacterString[1] -->
+    <!-- Operation ~ GeoNetwork UUID comes from mcc:code -->
+    <!-- Operation ~ GeoNetwork Title writes to cit:title. UUID is written into mcc:code -->
+    <!-- UI ~ New field -->
+    <!-- Tab ~ Data ID -->
+    <!-- Display Label ~ Parent metadata -->
+    <!-- Help Text ~ Does this metadata have a parent record? -->
+    <!-- Placeholder Text ~ Start typing to filter list... -->
+    <!-- KeepPlaceholderText ~ no -->
+    <!-- Required ~ conditional -->
+    <!-- Assumption ~ There are only two levels in the record hierarchy: dataset may belong to collection -->
+    <!-- Rule ~ Not permitted if mcc:MD_ScopeCode="collection" -->
+    <!-- Cardinality ~ one -->
+    <!-- Codelist ~ List of titles from records published on GeoNetwork, alphabetic ascending -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-503 -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556158/Parent+metadata -->
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+    <!-- WriteEmptyBlock ~ no -->   
+   <mdb:parentMetadata>
+      <cit:CI_Citation>
+         <cit:title>
+            <gco:CharacterString>[Parent Title goes here]</gco:CharacterString>
+         </cit:title>
+         <cit:identifier>
+            <mcc:MD_Identifier>
+               <mcc:code>
+                  <gco:CharacterString>[Parent UUID goes here]</gco:CharacterString>
+               </mcc:code>
+               <!-- Static section ~ retain in XML output if the user selects a parent record -->
+               <mcc:codeSpace>
+                  <gco:CharacterString>https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/</gco:CharacterString>
+               </mcc:codeSpace>
+               <mcc:description>
+                  <gco:CharacterString>Parent Metadata Record</gco:CharacterString>
+               </mcc:description>
+               <!-- END Static Section -->
+            </mcc:MD_Identifier>
+         </cit:identifier>
+      </cit:CI_Citation>
+   </mdb:parentMetadata>
+   <!-- Block Status mdb:metadataScope ~ Current XML with change to show a field in UI -->
+    <!-- Description ~ Scope of the metadata record -->
+    <!-- UI ~ New field -->
+    <!-- Tab ~ Data ID -->
+    <!-- Display Label ~ Type of record -->
+    <!-- Help Text ~ What is the scope of this metadata record? -->
+    <!-- Placeholder Text ~ dataset -->
+    <!-- Required ~ yes -->
+    <!-- Rule ~ If codeListValue="collection", parent metadata uuid must be empty -->
+    <!-- Codelist ~ "collection","dataset" OR http://registry.it.csiro.au/def/isotc211/MD_ScopeCode?page=0&listView=true-->
+    <!-- KeepPlaceholderText ~ yes -->
+    <!-- Cardinality ~ one -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718688/Metadata+Scope -->
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+   <mdb:metadataScope>
+      <mdb:MD_MetadataScope>
+         <mdb:resourceScope>
+            <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
+         </mdb:resourceScope>
+         <mdb:name gco:nilReason="missing"/>
+      </mdb:MD_MetadataScope>
+   </mdb:metadataScope>
+   <!-- Static section ~ retain in XML output -->
+   <!-- Block Status mdb:contact ~ Current XML with change to use cit:partyIdentifier -->
+   <!-- Description ~ Details for TERN as metadata contact -->
+   <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028554952/Metadata+Contact -->
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+   <mdb:contact>
+      <cit:CI_Responsibility>
+         <cit:role>
+            <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="pointOfContact"/>
+         </cit:role>
+         <cit:party>
+            <cit:CI_Organisation>
+               <cit:name>
+                  <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+               </cit:name>
+               <cit:contactInfo>
+                  <cit:CI_Contact>
+                     <cit:phone>
+                        <cit:CI_Telephone>
+                           <cit:number>
+                              <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
+                           </cit:number>
+                           <cit:numberType>
+                              <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="voice"/>
+                           </cit:numberType>
+                        </cit:CI_Telephone>
+                     </cit:phone>
+                     <cit:address>
+                        <cit:CI_Address>
+                           <cit:deliveryPoint>
+                              <gco:CharacterString>Building 8, University of Queensland</gco:CharacterString>
+                           </cit:deliveryPoint>
+                           <cit:city>
+                              <gco:CharacterString>St Lucia</gco:CharacterString>
+                           </cit:city>
+                           <cit:administrativeArea>
+                              <gco:CharacterString>QLD</gco:CharacterString>
+                           </cit:administrativeArea>
+                           <cit:postalCode>
+                              <gco:CharacterString>4072</gco:CharacterString>
+                           </cit:postalCode>
+                           <cit:country>
+                              <gco:CharacterString>AU</gco:CharacterString>
+                           </cit:country>
+                           <cit:electronicMailAddress>
+                              <gco:CharacterString>esupport@tern.org.au</gco:CharacterString>
+                           </cit:electronicMailAddress>
+                        </cit:CI_Address>
+                     </cit:address>
+                  </cit:CI_Contact>
+               </cit:contactInfo>
+               <cit:partyIdentifier>
+                  <mcc:MD_Identifier>
+                     <mcc:code>
+                        <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                     </mcc:code>
+                     <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                     </mcc:codeSpace>
+                  </mcc:MD_Identifier>
+               </cit:partyIdentifier>
+            </cit:CI_Organisation>
+         </cit:party>
+      </cit:CI_Responsibility>
+   </mdb:contact>
+   <!-- END Static Section -->
+   <!-- Block Status mdb:dateInfo ~ Current XML but should be updated by workflow -->
+    <!-- Description ~ Dates for the metadata (NOT the data) -->
+    <!-- UI ~ N/a -->
+    <!-- Required ~ yes -->
+    <!-- Rule ~ see Process -->
+    <!-- Rule ~ Write as Year Month Day Hours Mins Secs in ISO Format -->
+    <!-- InputLength ~ as shown below -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028456560/Metadata+Dates -->
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+    <!-- Process ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1220182079/User+saves+metadata+record+document -->
+   <mdb:dateInfo>
+      <cit:CI_Date>
+         <cit:date>
+            <gco:DateTime>1999-12-31T00:00:00</gco:DateTime>
+         </cit:date>
+         <cit:dateType>
+            <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="creation"/>
+         </cit:dateType>
+      </cit:CI_Date>
+   </mdb:dateInfo>
+   <mdb:dateInfo>
+      <cit:CI_Date>
+         <cit:date>
+            <gco:DateTime>1999-12-31T00:00:00</gco:DateTime>
+         </cit:date>
+         <cit:dateType>
+            <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="revision"/>
+         </cit:dateType>
+      </cit:CI_Date>
+   </mdb:dateInfo>
+   <!-- Static section ~ retain in XML output -->
+    <!-- Description ~ Describes the metadata standards for the XML -->
+    <!-- Block Status mdb:metadataStandard ~ Current XML with updated content -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556211/Metadata+Standards -->
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->   
+   <mdb:metadataStandard>
+      <cit:CI_Citation>
+         <cit:title>
+            <gco:CharacterString>ISO 19115-1:2014/AMD 1:2018 Geographic information - Metadata - Fundamentals</gco:CharacterString>
+         </cit:title>
+         <cit:edition>
+            <gco:CharacterString>1</gco:CharacterString>
+         </cit:edition>
+      </cit:CI_Citation>
+   </mdb:metadataStandard>
+   <mdb:metadataStandard>
+      <cit:CI_Citation>
+         <cit:title>
+            <gco:CharacterString>ISO/TS 19115-3:2016</gco:CharacterString>
+         </cit:title>
+         <cit:edition>
+            <gco:CharacterString>1.0</gco:CharacterString>
+         </cit:edition>
+      </cit:CI_Citation>
+   </mdb:metadataStandard>
+   <mdb:metadataStandard>
+      <cit:CI_Citation>
+         <cit:title>
+            <gco:CharacterString>ISO/TS 19157-2:2016</gco:CharacterString>
+         </cit:title>
+         <cit:edition>
+            <gco:CharacterString>1.0</gco:CharacterString>
+         </cit:edition>
+      </cit:CI_Citation>
+   </mdb:metadataStandard>
+   <!-- END Static Section -->
+   <!-- Static section ~ retain in XML output -->
+    <!-- Block Status mdb:metadataProfile ~ New XML -->
+    <!-- Description ~ Description of the TERN Metadata Profile -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039630451/Metadata+Profile -->
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+    <!-- Dependency ~ URL and final details for fields below -->
+   <mdb:metadataProfile>
+      <cit:CI_Citation>
+         <cit:title>
+            <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN) Metadata Profile of ISO 19115-3:2016 and ISO 19157-2:2016</gco:CharacterString>
+         </cit:title>
+         <cit:date>
+          <cit:CI_Date>
+          <!-- Description ~ Year of published version -->
+            <cit:date><gco:Date>2020</gco:Date></cit:date>
+            <cit:dateType><cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="published"></cit:CI_DateTypeCode></cit:dateType>
+          </cit:CI_Date>
+         </cit:date>
+         <cit:edition>
+            <gco:CharacterString>1.0</gco:CharacterString>
+         </cit:edition>
+         <cit:identifier>
+         <mcc:MD_Identifier>
+            <mcc:code><gco:CharacterString>[SG - what goes in here]</gco:CharacterString></mcc:code>
+         </mcc:MD_Identifier>
+         </cit:identifier>
+         <cit:onlineResource>
+            <cit:CI_OnlineResource>
+               <cit:linkage>
+                  <gco:CharacterString>[GW - location on bitbucket for published version]</gco:CharacterString>
+               </cit:linkage>
+               <cit:protocol>
+                  <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+               </cit:protocol>
+               <cit:function>
+                  <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                     codeListValue="information"/>
+               </cit:function>
+            </cit:CI_OnlineResource>
+         </cit:onlineResource>
+      </cit:CI_Citation>
+   </mdb:metadataProfile>
+   <!-- END Static Section -->
+   <!-- Block Status mdb:metadataLinkage ~ Current XML and functionality with a text change in cit:description -->
+    <!-- Description ~ Describes the full url to the GeoNetwork record for this metadata -->
+    <!-- Operation ~ Static text plus generated geonetwork uri in cit:linkage -->
+    <!-- UI ~ n/a -->
+    <!-- Required ~ yes -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555013/Metadata+Linkage -->
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+   <mdb:metadataLinkage>
+      <cit:CI_OnlineResource>
+         <cit:linkage>
+            <gco:CharacterString>https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/d366e327-ba9b-42a2-8a96-56565c4b8c71</gco:CharacterString>
+         </cit:linkage>
+         <cit:protocol>
+            <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+         </cit:protocol>
+         <cit:description>
+            <gco:CharacterString>Point of truth URL of this metadata record</gco:CharacterString>
+         </cit:description>
+         <cit:function>
+            <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="completeMetadata"/>
+         </cit:function>
+      </cit:CI_OnlineResource>
+   </mdb:metadataLinkage>
+   <!-- Block Status mdb:referenceSystemInfo ~ Current XML with added element and made available in UI -->
+    <!-- Description ~ Describes the Horizontal Coordinate Reference System of the data -->
+    <!-- Operation ~ Provide drop-down list of options using description and code, related values for code, codespace and reference system type code will default based on selected value -->
+    <!-- UI ~ Change -->
+    <!-- Tab ~ About -->
+    <!-- Display Label ~ Horizontal Coordinate Reference System -->
+    <!-- Help Text ~ What CRS was your data captured in? -->
+    <!-- Placeholder Text ~ Please select -->
+    <!-- Required ~ yes -->
+    <!-- Size ~ single -->
+    <!-- Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1240170497/List+of+values+for+Coordinate+Reference+Systems -->
+    <!-- KeepPlaceholderText ~ no -->
+    <!-- Cardinality ~ one -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555039/Reference+System+Info -->
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+   <mdb:referenceSystemInfo>
+      <mrs:MD_ReferenceSystem>
+         <mrs:referenceSystemIdentifier>
+            <mcc:MD_Identifier>
+               <mcc:code>
+                  <gco:CharacterString>EPSG:4326</gco:CharacterString>
+               </mcc:code>
+               <mcc:codeSpace>
+                  <gco:CharacterString>EPSG</gco:CharacterString>
+               </mcc:codeSpace>
+               <!-- Description mcc:version ~ If collected, put relevant coordinate epoch in version as decimal year to 2 dec pl-->
+               <!-- KeepPlaceholderText ~ no -->
+               <!-- WriteEmptyBlock ~ no -->
+               <mcc:version>
+                  <gco:CharacterString>2007.07</gco:CharacterString>
+               </mcc:version>
+               <mcc:description>
+                  <gco:CharacterString>WGS-84</gco:CharacterString>
+               </mcc:description>
+            </mcc:MD_Identifier>
+         </mrs:referenceSystemIdentifier>
+         <mrs:referenceSystemType>
+          <!-- Status ~ New XML -->
+            <mrs:MD_ReferenceSystemTypeCode codeList="codeListLocation#MD_ReferenceSystemTypeCode" codeListValue="geodeticGeographic2D"></mrs:MD_ReferenceSystemTypeCode>
+         </mrs:referenceSystemType>
+      </mrs:MD_ReferenceSystem>
+   </mdb:referenceSystemInfo>
+    <!-- Block Status mdb:identificationInfo ~ Current XML and changes -->
+    <!-- Description ~ Description of the resource (dataset) -->
+    <!-- Cardinality ~ one -->   
+   <mdb:identificationInfo>
+      <mri:MD_DataIdentification>
+         <mri:citation>
+            <cit:CI_Citation>
+               <!-- Block Status cit:title ~ In Current XML and UI -->
+                <!-- Description ~ Title of the resource, used in the citation -->
+                <!-- Operation ~ User input -->
+                <!-- UI ~ Change texts -->
+                <!-- Tab ~ Data ID -->
+                <!-- Display Label ~ Title -->
+                <!-- Help Text ~ Clear and concise title including What Where (How) When e.g. Fractional Cover for Australia 2014-ongoing -->
+                <!-- Placeholder Text ~ text -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ yes -->
+                <!-- InputLength ~ As-Is -->
+                <!-- Size ~ As-Is -->
+                <!-- Cardinality ~ one -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140817975/Data+Identification+Citation+Title -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <cit:title>
+                  <gco:CharacterString>jira-1287-2021/01/27-2 - add security classification for METADATA - v2 namespaces </gco:CharacterString>
+               </cit:title>
+               <!-- Status creation cit:date ~ In Current XML and UI -->
+                <!-- Description ~ Date the resource was created ready for publication -->
+                <!-- Operation ~ User types or selects date which is stored as YYYY-MM-DD in ISO format -->
+                <!-- UI ~ Change texts -->
+                <!-- Tab ~ Data ID -->
+                <!-- Display Label ~ Date the resource was created -->
+                <!-- Help Text ~ Date the resource was created ready for publication -->
+                <!-- Required ~ yes -->
+                <!-- Rule ~ Write as Year Month Day in ISO format -->
+                <!-- Rule ~ Valid date >= 1900 -->
+                <!-- Cardinality ~ one -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <cit:date>
+                  <cit:CI_Date>
+                     <cit:date>
+                        <gco:Date>1899-12-31</gco:Date>
+                     </cit:date>
+                     <cit:dateType>
+                        <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="creation"/>
+                     </cit:dateType>
+                  </cit:CI_Date>
+               </cit:date>
+               <!-- Status publication cit:date ~ In Current XML, add changes to UI -->
+                <!-- Description ~ Initial publication year of the resource, used in citation -->
+                <!-- Operation ~ If previously published: User types a year; otherwise Shared assigns when status changes to Uploaded -->
+                <!-- UI ~ Change texts -->
+                <!-- Tab ~ Data ID -->
+                <!-- Display Label ~ Date the resource was published -->
+                <!-- Help Text ~ If previously published, input the year -->
+                <!-- Required ~ yes -->
+                <!-- Rule ~ Write as Year in ISO format -->
+                <!-- Rule ~ Valid year >= 1900 -->
+                <!-- Cardinality ~ one -->
+                <!-- KeepPlaceholderText ~ yes -->
+                <!-- InputLength ~ 4 -->
+                <!-- Size ~ single -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <cit:date>
+                  <cit:CI_Date>
+                     <cit:date>
+                        <gco:Date>1899</gco:Date> 
+                     </cit:date>
+                     <cit:dateType>
+                        <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="publication"/>
+                     </cit:dateType>
+                  </cit:CI_Date>
+               </cit:date>
+               <!-- Status revision cit:date ~ In Current XML -->
+                <!-- Description ~ Revision date of the resource -->
+                <!-- Dependency ~ To be confirmed, may be updated by external interfaces when new releases of data are made -->
+                <!-- Operation ~ For metadata creation, default to same date as creation -->
+                <!-- UI ~ n/a -->
+                <!-- Required ~ yes -->
+                <!-- Rule ~ As for creation cit:date -->
+                <!-- Cardinality ~ one -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->               
+               <cit:date>
+                  <cit:CI_Date>
+                     <cit:date>
+                        <gco:Date>2014-07-14</gco:Date>
+                     </cit:date>
+                     <cit:dateType>
+                        <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="revision"/>
+                     </cit:dateType>
+                  </cit:CI_Date>
+               </cit:date>
+               <!-- Status cit:edition ~ Current XML to be added to UI -->
+                <!-- Description ~ The version number of the resource -->
+                <!-- Operation ~ User input -->
+                <!-- UI ~ Add field -->
+                <!-- Tab ~ Data ID -->
+                <!-- Display Label ~ Version -->
+                <!-- Help Text ~ Version number of the resource -->
+                <!-- Placeholder Text ~ 1.0 -->
+                <!-- KeepPlaceholderText ~ yes -->
+                <!-- Required ~ yes -->
+                <!-- Rule ~ Only digits and "." allowed -->
+                <!-- InputLength ~ 12 -->
+                <!-- Size ~ single -->
+                <!-- Cardinality ~ one -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDESK-937 -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+               <cit:edition>
+                  <gco:CharacterString>1.0</gco:CharacterString>
+               </cit:edition>
+                <!-- Status cit:identifier ~ Current XML with text changes -->
+                <!-- Description ~ If a DOI is minted for the dataset, the details are written here -->
+                <!-- Operation ~ Admin clicks 'Mint DOI', returned DOI number writes into mcc:code replacing [If applicable, DOI number writes here] -->
+                <!-- UI ~ add field to capture pre-existing DOI -->
+                <!-- Tab ~ Data ID -->
+                <!-- Display Label ~ Is there an existing DOI to transfer? -->
+                <!-- Placeholder Text ~ doi:[If applicable, DOI number writes here] -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ no -->
+                <!-- Cardinality ~ one -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-446 -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718892/Data+Identification+Citation+Identifier+DOI -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <cit:identifier>
+                  <mcc:MD_Identifier>
+                     <mcc:authority>
+                        <cit:CI_Citation>
+                           <cit:title>
+                              <gco:CharacterString>DataCite</gco:CharacterString>
+                           </cit:title>
+                        </cit:CI_Citation>
+                     </mcc:authority>
+                     <mcc:code>
+                        <gco:CharacterString>doi:[If applicable, DOI number writes here]</gco:CharacterString>
+                     </mcc:code>
+                     <mcc:codeSpace>
+                        <gco:CharacterString>http://dx.doi.org</gco:CharacterString>
+                     </mcc:codeSpace>
+                  </mcc:MD_Identifier>
+               </cit:identifier>
+               <!-- Static section ~ retain in XML output -->
+                <!-- Block Status publisher cit:citedResponsibleParty ~ New XML block -->
+                <!-- Description ~ Details of TERN as publisher including TERN logo -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556330/Data+identification+Citation+Related+Parties -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <cit:citedResponsibleParty>
+                  <cit:CI_Responsibility>
+                     <cit:role>
+                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="publisher"/>
+                     </cit:role>
+                     <cit:party>
+                        <cit:CI_Organisation>
+                           <cit:name>
+                              <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+                           </cit:name>
+                           <cit:contactInfo>
+                              <cit:CI_Contact>
+                                 <cit:phone>
+                                    <cit:CI_Telephone>
+                                       <cit:number>
+                                          <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
+                                       </cit:number>
+                                       <cit:numberType>
+                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="voice"/>
+                                       </cit:numberType>
+                                    </cit:CI_Telephone>
+                                 </cit:phone>
+                                 <cit:address>
+                                    <cit:CI_Address>
+                                       <cit:deliveryPoint>
+                                          <gco:CharacterString>Building 8, University of Queensland</gco:CharacterString>
+                                       </cit:deliveryPoint>
+                                       <cit:city>
+                                          <gco:CharacterString>St Lucia</gco:CharacterString>
+                                       </cit:city>
+                                       <cit:administrativeArea>
+                                          <gco:CharacterString>QLD</gco:CharacterString>
+                                       </cit:administrativeArea>
+                                       <cit:postalCode>
+                                          <gco:CharacterString>4072</gco:CharacterString>
+                                       </cit:postalCode>
+                                       <cit:country>
+                                          <gco:CharacterString>AU</gco:CharacterString>
+                                       </cit:country>
+                                       <cit:electronicMailAddress>
+                                          <gco:CharacterString>esupport@tern.org.au</gco:CharacterString>
+                                       </cit:electronicMailAddress>
+                                    </cit:CI_Address>
+                                 </cit:address>
+                              </cit:CI_Contact>
+                           </cit:contactInfo>
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
+                           <cit:logo>                  
+                              <mcc:MD_BrowseGraphic>
+                                 <mcc:fileName>
+                                    <gco:CharacterString>tern-logo.png</gco:CharacterString>
+                                 </mcc:fileName>
+                                 <mcc:fileDescription>
+                                    <gco:CharacterString>TERN Logo</gco:CharacterString>
+                                 </mcc:fileDescription>
+                                 <mcc:linkage>
+                                    <cit:CI_OnlineResource>
+                                       <cit:linkage>
+                                          <gco:CharacterString>https://w3id.org/tern/static/tern-web/img/tern-logo.png</gco:CharacterString>
+                                       </cit:linkage>
+                                       <cit:protocol>
+                                          <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                                       </cit:protocol>
+                                       <cit:function>
+                                          <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                             codeListValue="browseGraphic"/>
+                                       </cit:function>
+                                    </cit:CI_OnlineResource>
+                                 </mcc:linkage>
+                              </mcc:MD_BrowseGraphic>
+                           </cit:logo>
+                        </cit:CI_Organisation>
+                     </cit:party>
+                  </cit:CI_Responsibility>
+               </cit:citedResponsibleParty>
+               <!-- END Static Section -->
+                <!-- Dependency ~ SG needs to confirm whether TERN will allow the user to choose either an organisation OR an individual for a role -->
+                <!-- Block Status cit:citedResponsibleParty ~ Current XML with changed functional requirements -->
+                <!-- Description ~ Describes parties involved in creation of the resource including authors/co-authors used in the citation -->
+                <!-- Operation ~ User selects from TERN Vocabularies OR creates new people, organisations and/or addresses -->
+                <!-- UI ~ Change function/Change texts -->
+                <!-- Tab ~ Who -->
+                <!-- Display Label ~ Responsible for data creation: -->
+                <!-- Help Text ~ Identify authors/co-authors for the citation - at least one author is mandatory -->
+                <!-- Required ~ yes -->
+                <!-- Rule ~ At least one author block is mandatory -->
+                <!-- Cardinality ~ many -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-863 -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556330/Data+identification+Citation+Related+Parties -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <cit:citedResponsibleParty>
+                  <cit:CI_Responsibility>
+                    <!-- Status cit:role ~ Current XML -->
+                    <!-- Tab ~ Who -->
+                    <!-- Display Label ~ Role -->
+                    <!-- Help Text ~ At least one author must be supplied -->
+                    <!-- Placeholder Text ~ Please select -->
+                    <!-- KeepPlaceholderText ~ no -->
+                    <!-- Required ~ yes -->
+                    <!-- Codelist ~ As-Is -->
+                    <!-- Cardinality ~ one per cit:citedResponsibleParty -->
+                     <cit:role>
+                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="author"/>
+                     </cit:role>
+                        <!-- Dependency ~ Functionality needs to be updated to support the revised data model, see Documentation -->
+                        <!-- Status cit:party ~ Current XML with functional changes -->
+                        <!-- Operation ~ If user selects from TERN Organisations Vocabulary then all fields default from the Vocabulary values -->
+                        <!-- Operation ~ If user clicks Add New, then UUID is generated and appropriate fields are displayed for input -->
+                        <!-- Tab ~ Who -->
+                        <!-- Display Label ~ Organisation -->
+                        <!-- Help Text ~ Select from the list or click the Add New button -->
+                        <!-- Placeholder Text ~ Start typing to filter list... -->
+                        <!-- KeepPlaceholderText ~ no -->
+                        <!-- Required ~ yes -->
+                        <!-- Rule ~ Organisation cit:name and cit:address fields are mandatory -->
+                        <!-- Rule ~ cit:partyIdentifier is mandatory -->
+                        <!-- Codelist ~ TERN Organisations Vocabulary -->
+                        <!-- InputLengths ~ As-Is -->
+                        <!-- Cardinality ~ one per cit:role -->
+                        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-346 -->
+                        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->
+                     <cit:party>
+                        <cit:CI_Organisation>
+                           <cit:name>
+                              <gco:CharacterString>CSIRO Land and Water</gco:CharacterString>
+                           </cit:name>
+                           <cit:contactInfo>
+                              <cit:CI_Contact>
+                                 <cit:phone>
+                                    <cit:CI_Telephone>
+                                       <cit:number>
+                                          <gco:CharacterString>02 6246 5588</gco:CharacterString>
+                                       </cit:number>
+                                       <cit:numberType>
+                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="voice"/>
+                                       </cit:numberType>
+                                    </cit:CI_Telephone>
+                                 </cit:phone>
+                                 <cit:address>
+                                    <cit:CI_Address>
+                                       <cit:deliveryPoint>
+                                          <gco:CharacterString>GPO Box 3023</gco:CharacterString>
+                                       </cit:deliveryPoint>
+                                       <cit:city>
+                                          <gco:CharacterString>Canberra</gco:CharacterString>
+                                       </cit:city>
+                                       <cit:administrativeArea>
+                                          <gco:CharacterString>ACT</gco:CharacterString>
+                                       </cit:administrativeArea>
+                                       <cit:postalCode>
+                                          <gco:CharacterString>2601</gco:CharacterString>
+                                       </cit:postalCode>
+                                       <cit:country>
+                                          <gco:CharacterString>Australia</gco:CharacterString>
+                                       </cit:country>
+                                         <!-- Dependency ~ Content depends on whether TERN allows party to be an organisation without individual -->
+                                       <cit:electronicMailAddress>
+                                          <gco:CharacterString>Mark.Kitchen@csiro.au</gco:CharacterString>
+                                       </cit:electronicMailAddress>
+                                    </cit:CI_Address>
+                                 </cit:address>
+                              </cit:CI_Contact>
+                           </cit:contactInfo>
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
+                            <!-- Status cit:individual ~ Current XML with functional changes -->
+                            <!-- Operation ~ If user selects from TERN Persons Vocabulary then all fields for Person, Organisation and Address default from the Vocabulary values -->
+                            <!-- Operation ~ If user clicks Add New, then UUID is generated and appropriate fields are displayed for input -->
+                            <!-- Tab ~ Who -->
+                            <!-- Display Label ~ Name -->
+                            <!-- Help Text ~ Select from the list or click the Add New button -->
+                            <!-- Placeholder Text ~ Start typing to filter list... -->
+                            <!-- KeepPlaceholderText ~ no -->
+                            <!-- Required ~ To be confirmed -->
+                            <!-- Rule ~ If individual is mandatory then Individual cit:name is mandatory -->
+                            <!-- Rule ~ If individual is mandatory then cit:partyIdentifier is mandatory -->
+                            <!-- Codelist ~ TERN Persons Vocabulary concatenate Name (Organisation Name) -->
+                            <!-- InputLengths ~ As-Is -->
+                            <!-- Cardinality ~ one per cit:party -->    
+                            <!-- Dependency ~ Functionality needs to support a person can belong to more than one organisation -->                            
+                            <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->                           
+                           <cit:individual>
+                              <cit:CI_Individual>
+                                 <cit:name>
+                                    <gco:CharacterString>Mark Kitchen</gco:CharacterString>
+                                 </cit:name>
+                                <!-- Status cit:partyIdentifier ~ New XML with functional changes -->
+                                <!-- Description ~ Contains a unique identifier representing an individual -->
+                                <!-- Operation ~ If an ORCID exists in the Persons Vocabulary OR is input by the user, then the ORCID details write as shown below -->
+                                <!-- Operation ~ If no ORCID, then the fully qualified TERN uri writes into mcc:code and mcc:codespace contains -->
+                                <!-- Tab ~ Who -->
+                                <!-- Display Label ~ ORCID ID -->
+                                <!-- Help Text ~ Input the 16 digit ORCID Identifier -->
+                                <!-- Required ~ no -->
+                                <!-- InputLengths ~ As-Is -->
+                                <!-- Rule ~ digits only -->
+                                <!-- Cardinality ~ one per cit:individual -->
+                                <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->
+                                 <cit:partyIdentifier>
+                                    <mcc:MD_Identifier>
+                                       <mcc:code>
+                                          <gco:CharacterString>orcid:0000-0002-6995-4721</gco:CharacterString>
+                                       </mcc:code>
+                                       <mcc:codeSpace>
+                                                   <gco:CharacterString>https://orcid.org</gco:CharacterString>
+                                       </mcc:codeSpace>
+                                       <!-- Example ~ if person does NOT have an ORCID then: --> 
+                                       <!-- Example ~ code would be like https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1 -->
+                                       <!-- Example ~ with codespace https://w3id.org/tern/resources -->
+                                 </mcc:MD_Identifier>
+                                 </cit:partyIdentifier>
+                                 <cit:positionName>
+                                    <gco:CharacterString>Mr</gco:CharacterString>
+                                 </cit:positionName>
+                              </cit:CI_Individual>
+                           </cit:individual>
+                        </cit:CI_Organisation>
+                     </cit:party>
+                  </cit:CI_Responsibility>
+               </cit:citedResponsibleParty>
+               <!-- Static section ~ retain in XML output -->
+                <!-- Block Status ~ New XML block, begins after last cit:citedResponsibleParty  -->
+                <!-- Description ~ TERN web site -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <cit:onlineResource>
+                   <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>https://www.tern.org.au/</gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function>
+                    </cit:CI_OnlineResource>
+               </cit:onlineResource>
+               <!-- END Static Section -->    
+                <!-- Static section ~ retain in XML output -->
+                <!-- Block Status ~ Current XML  -->
+                <!-- Description ~ Close citation block -->
+            </cit:CI_Citation>
+         </mri:citation>
+            <!-- END Static Section -->
+            <!-- Status mri:abstract ~ Current XML-->
+            <!-- Description ~ The abstract describing the resource -->
+            <!-- Operation ~ User input -->
+            <!-- UI ~ As-Is -->
+            <!-- Tab ~ What -->
+            <!-- Display Label ~ Abstract -->
+            <!-- Help Text ~ As-Is -->
+            <!-- Placeholder Text ~ As-Is -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ yes -->
+            <!-- Size ~ multiline -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556386/Data+identification+Abstract+Purpose+Credit -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:abstract>
+            <gco:CharacterString>
+               Placeholder text=Provide a brief summary of What, Where, When, Why, Who and How for the collected the data.
+          Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected.</gco:CharacterString>
+         </mri:abstract>
+            <!-- Status mri:purpose ~ Current XML with text change -->
+            <!-- Description ~ Summary of the intentions with which the resource was developed -->
+            <!-- Operation ~ User input -->
+            <!-- UI ~ As-Is -->
+            <!-- Tab ~ What -->
+            <!-- Display Label ~ Purpose -->
+            <!-- Help Text ~ Provide a brief summary of the purpose for collecting the data including the potential use for future research. -->
+            <!-- Placeholder Text ~ As-Is -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ no -->
+            <!-- Size ~ multiline -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556386/Data+identification+Abstract+Purpose+Credit -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:purpose>
+            <gco:CharacterString>Placeholder text=Provide a brief summary of the purpose for collecting the data including the potential use. Example: The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future</gco:CharacterString>
+         </mri:purpose>
+            <!-- Status mri:credit ~ Current XML with text change -->
+            <!-- Description ~ Recognition of those who contributed to the resource -->
+            <!-- Operation ~ User input -->
+            <!-- UI ~ As-Is -->
+            <!-- Tab ~ Who -->
+            <!-- Display Label ~ Other credits -->
+            <!-- Help Text ~ Write a sentence acknowledging sponsors or funding organisations -->
+            <!-- Placeholder Text ~ The project was funded by xxx and yyy -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ no -->
+            <!-- Size ~ multiline -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556386/Data+identification+Abstract+Purpose+Credit -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
+         <mri:credit>
+            <gco:CharacterString>Placeholder text=The project was funded by xxx and yyy</gco:CharacterString>
+         </mri:credit>
+            <!-- Status mri:status ~ Current XML -->
+            <!-- Description ~ The current status of the resource -->
+            <!-- Operation ~ User select -->
+            <!-- UI ~ As-Is -->
+            <!-- Tab ~ Data ID -->
+            <!-- Display Label ~ Status of data -->
+            <!-- Placeholder Text ~ Please select -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ yes -->
+            <!-- Size ~ multiline -->
+            <!-- Codelist ~ As-Is -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
+         <mri:status>
+            <mcc:MD_ProgressCode codeList="codeListLocation#MD_ProgressCode" codeListValue="ongoing"/>
+         </mri:status>
+            <!-- Status mri:pointOfContact ~ Current XML -->
+            <!-- Description ~ The contact for enquiries about the resource -->
+            <!-- Operation ~ User select OR create new person, organisation or address - see cit:citedResponsibleParty -->
+            <!-- UI ~ Change functionality -->
+            <!-- Tab ~ Who -->
+            <!-- Display Label ~ Point of contact for dataset -->
+            <!-- Placeholder Text ~ First Name Last Name -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ yes -->
+            <!-- Rule ~ as for cit:citedResponsibleParty -->
+            <!-- Cardinality ~ many -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555197/Data+Identification+Point+of+Contact -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
+         <mri:pointOfContact>
+            <cit:CI_Responsibility>
+            <!-- Status cit:role ~ Current XML -->
+            <!-- Description ~ The role of the contact for enquiries about the resource -->
+            <!-- Operation ~ Default to pointOfContact -->
+            <!-- UI ~ Change functionality -->
+            <!-- Tab ~ Who -->
+            <!-- Display Label ~ Role -->
+            <!-- Cardinality ~ default for each mri:pointOfContact -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-569 -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-863 -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->                
+               <cit:role>
+                  <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="pointOfContact"/>
+               </cit:role>
+               <cit:party>
+                  <cit:CI_Organisation>
+                     <cit:name>
+                        <gco:CharacterString>Geoscience Australia</gco:CharacterString>
+                     </cit:name>
+                     <cit:contactInfo>
+                        <cit:CI_Contact>
+                           <cit:phone>
+                              <cit:CI_Telephone>
+                                 <cit:number>
+                                    <gco:CharacterString>02 6249 9182/9781</gco:CharacterString>
+                                 </cit:number>
+                                 <cit:numberType>
+                                    <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="voice"/>
+                                 </cit:numberType>
+                              </cit:CI_Telephone>
+                           </cit:phone>
+                           <cit:phone>
+                              <cit:CI_Telephone>
+                                 <cit:number>
+                                    <gco:CharacterString>02 6249 9920</gco:CharacterString>
+                                 </cit:number>
+                                 <cit:numberType>
+                                    <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="facsimile"/>
+                                 </cit:numberType>
+                              </cit:CI_Telephone>
+                           </cit:phone>
+                           <cit:address>
+                              <cit:CI_Address>
+                                 <cit:deliveryPoint>
+                                    <gco:CharacterString>Another delivery point field</gco:CharacterString>
+                                 </cit:deliveryPoint>
+                                 <cit:deliveryPoint>
+                                    <gco:CharacterString>Cnr Jerrabomberra Ave and Hindmarsh Dr</gco:CharacterString>
+                                 </cit:deliveryPoint>
+                                 <cit:deliveryPoint>
+                                    <gco:CharacterString>GPO Box 378</gco:CharacterString>
+                                 </cit:deliveryPoint>
+                                 <cit:city>
+                                    <gco:CharacterString>Canberra</gco:CharacterString>
+                                 </cit:city>
+                                 <cit:administrativeArea>
+                                    <gco:CharacterString>ACT</gco:CharacterString>
+                                 </cit:administrativeArea>
+                                 <cit:postalCode>
+                                    <gco:CharacterString>2601</gco:CharacterString>
+                                 </cit:postalCode>
+                                 <cit:country>
+                                    <gco:CharacterString>Australia</gco:CharacterString>
+                                 </cit:country>
+                                 <cit:electronicMailAddress>
+                                    <gco:CharacterString>ivan.schroder@ga.gov.au</gco:CharacterString>
+                                 </cit:electronicMailAddress>
+                              </cit:CI_Address>
+                           </cit:address>
+                        </cit:CI_Contact>
+                     </cit:contactInfo>
+                     <cit:partyIdentifier>
+                        <mcc:MD_Identifier>
+                           <mcc:code>
+                              <gco:CharacterString>https://w3id.org/tern/resources/797307f8-e10b-4c74-8688-d52f9ac8d669</gco:CharacterString>
+                           </mcc:code>
+                           <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                           </mcc:codeSpace>
+                        </mcc:MD_Identifier>
+                     </cit:partyIdentifier>
+                     <cit:individual>
+                        <cit:CI_Individual>
+                           <cit:name>
+                              <gco:CharacterString>Schroder, Ivan</gco:CharacterString>
+                              </cit:name>
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b</gco:CharacterString>
+                                  </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b</gco:CharacterString>
+                                 </mcc:codeSpace>
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
+                           <cit:positionName>
+                              <gco:CharacterString>Mr</gco:CharacterString>
+                           </cit:positionName>
+                        </cit:CI_Individual>
+                     </cit:individual>
+                  </cit:CI_Organisation>
+               </cit:party>
+            </cit:CI_Responsibility>
+         </mri:pointOfContact>
+            <!-- Status mri:spatialResolution ~ Change XML and UI -->
+            <!-- Description ~ The spatial resolution of the dataset if applicable -->
+            <!-- Operation ~ User will be able to specify horizontal distance and unit of measure -->
+            <!-- UI ~ Add fields -->
+            <!-- Tab ~ About -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718977/Data+Identification+Spatial+Resolution -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- WriteEmptyBlock ~ no -->        
+            <!-- Change Note ~ Removed mri:levelOfDetail element -->
+            <!-- Change Note ~ GCMD_Horizontal will write into keywords -->
+         <mri:spatialResolution>
+            <mri:MD_Resolution>
+                <!-- Display Label ~ Distance -->
+                <!-- Help Text ~ Spatial resolution -->
+                <!-- Placeholder Text ~ 0.00 -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ no -->
+                <!-- Rule ~ Allow digits, "." -->
+                <!-- Rule ~ Positive numbers only -->
+                <!-- InputLength ~ 6 -->
+                <!-- Size ~ single -->
+                <!-- Cardinality ~ one -->
+                <!-- Display Label ~ Unit of measure -->
+                <!-- Placeholder Text ~ Please select -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ conditional -->
+                <!-- Rule ~ Must be a value from Codelist if Distance is input -->
+                <!-- Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
+                <!-- Cardinality ~ one -->
+               <mri:distance><gco:Distance uom="codelistvalue">0.00</gco:Distance></mri:distance>
+            </mri:MD_Resolution>
+         </mri:spatialResolution>
+            <!-- Status mri:topicCategory ~ Current XML change text and codelist -->
+            <!-- Description ~ ISO topic category to indicate the main theme of the record -->
+            <!-- Operation ~ User selects from codelist -->
+            <!-- Operation ~ Display skos:prefLabel, write skos:Notation -->
+            <!-- UI ~ Change placeholder text -->
+            <!-- Tab ~ Data ID -->
+            <!-- Placeholder Text ~ Select one or more -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ yes -->
+            <!-- Rule ~ ISO states required if record type is "dataset" -->
+            <!-- Codelist ~ http://registry.it.csiro.au/def/isotc211/_MD_TopicCategoryCode -->
+            <!-- Cardinality ~ many -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140719692/Data+Identification+Topic+Category -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:topicCategory>
+            <mri:MD_TopicCategoryCode>climatologyMeteorologyAtmosphere</mri:MD_TopicCategoryCode>
+         </mri:topicCategory>
+         <!-- Status mri:extent ~ Current XML -->
+         <mri:extent>
+            <!-- Status gex:EX_Extent ~ Current XML change text and UI layout --> 
+            <!-- Description ~ Indicate the approximate geographic coverage of the resource -->
+            <!-- UI ~ Change layout and text -->
+            <!-- Tab ~ Where -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-383 -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030619198/Data+Identification+Extent+Geographic+Bounding+Box -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <gex:EX_Extent>
+            <!-- Status gex:EX_Extent ~ Current XML change text and UI layout --> 
+            <!-- Description ~ Description of the geographic coverage area if appropriate -->
+            <!-- Operation ~ User input -->
+            <!-- UI ~ Change layout move above map -->
+            <!-- Display Label ~ Description of coverage -->
+            <!-- Placeholder Text ~ A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ no -->
+            <!-- Cardinality ~ one -->
+               <gex:description>
+                  <gco:CharacterString>Placeholder text=A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia</gco:CharacterString>
+               </gex:description>
+                <!-- Status gex:geographicElement ~ Current XML change text -->                
+                <!-- Operation ~ User draws polygons on the map -->
+                <!-- Operation ~ User draws points on the map -->
+                <!-- Operation ~ OR User enters coordinates in CRS WGS-84 -->
+                <!-- Operation ~ Store 4 coordinates for each polygon or point -->
+                <!-- Operation ~ If user selects a point, write coordinate values with East=West and North=South -->
+                <!-- Help Text ~ Click [icon] to draw a polygon or [icon] to draw a point -->
+                <!-- Help Text ~ OR input decimal degrees in coordinate reference system WGS84. Geoscience Australia provide Grid to Geographic converter -->
+                <!-- Link ~ 'Grid to Geographic converter' URL https://geodesyapps.ga.gov.au/grid-to-geographic -->
+                <!-- Required ~ yes at least one set of 4 coordinates -->
+                <!-- Cardinality ~ many -->
+               <gex:geographicElement>
+                  <gex:EX_GeographicBoundingBox>
+                     <!-- Rule ~ Allow [-180 to 180] to 3 dec pl -->
+                     <gex:westBoundLongitude>
+                        <gco:Decimal>112.000</gco:Decimal>
+                     </gex:westBoundLongitude>
+                     <!-- Rule ~ Allow [-180 to 180] to 3 dec pl -->
+                     <gex:eastBoundLongitude>
+                        <gco:Decimal>154.000</gco:Decimal>
+                     </gex:eastBoundLongitude>
+                     <!-- Rule ~ Allow [-90 to 90] to 3 dec pl -->
+                     <gex:southBoundLatitude>
+                        <gco:Decimal>-44.000</gco:Decimal>
+                     </gex:southBoundLatitude>
+                     <!-- Rule ~ Allow [-90 to 90] to 3 dec pl -->
+                     <gex:northBoundLatitude>
+                        <gco:Decimal>-10.000</gco:Decimal>
+                     </gex:northBoundLatitude>
+                  </gex:EX_GeographicBoundingBox>
+               </gex:geographicElement>
+                <!-- Status gex:temporalElement ~ Current XML change functionality -->
+                <!-- Description ~ Data observation period - date or date range when data was collected or observed -->
+                <!-- Operation ~ User can type or select dates -->
+                <!-- UI ~ Change function and change texts -->
+                <!-- Tab ~ When -->
+                <!-- Display Label ~ When was the data collected? -->
+                <!-- Help Text ~ The temporal coverage of the data -->
+                <!-- Required ~ yes -->
+                <!-- Rule ~ End date should be later than or equal to begin date -->
+                <!-- Rule ~ Minimum date is 1900-01-01 -->
+                <!-- Rule ~ End date must be less than equal to current date (now) unless mri:status = 'planned' -->
+                <!-- Codelist ~ Date picker -->
+                <!-- Cardinality ~ one -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-861 -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140555959/Data+Identification+Extent+Temporal+-+Observation+Date+Range -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <gex:temporalElement>
+                     <gex:EX_TemporalExtent>
+                        <gex:extent>
+                           <gml:TimePeriod gml:id="bcf969df-6213-4e5c-86d4-64e3b53de64a">
+                            <!-- Display Label ~ Start date* -->
+                            <!-- Help Text ~ The temporal coverage of the data -->                           
+                              <gml:beginPosition>1899-12-31</gml:beginPosition>
+                              <!-- Display Label ~ End date* -->
+                              <!-- Help Text ~ For ongoing datasets, input the last date in the current collection -->    
+                              <gml:endPosition>1899-12-31</gml:endPosition>
+                           </gml:TimePeriod>
+                        </gex:extent>
+                     </gex:EX_TemporalExtent>
+                  </gex:temporalElement>
+               </gex:EX_Extent>
+         </mri:extent>
+            <!-- Block Status vertical mri:extent ~ Current XML, change XML and functionality -->
+            <!-- Description ~ Indicates the lowest and highest vertical extent contained in the resource -->
+            <!-- Operation ~ If user selects vertical component flag to indicate that the data has vertical component, the fields are mandatory -->
+            <!-- Change Note ~ Remove from UI - field and label 'Elevation in metres' -->
+            <!-- Change Note ~ Remove from UI - text 'Specify the vertical extent of the data relative to a ground surface defined as 0m' -->
+            <!-- UI ~ Change function/Change texts -->
+            <!-- Tab ~ Where -->
+            <!-- Display Label ~ Does the data contain a vertical extent? -->
+            <!-- Help Text ~ text -->
+            <!-- Placeholder Text ~ text -->
+            <!-- KeepPlaceholderText ~ yes/no -->
+            <!-- Required ~ no -->
+            <!-- Cardinality ~ one -->
+            <!-- WriteEmptyBlock ~ no -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030750285/Data+Identification+Extent+Vertical+Extent+TBC -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:extent>
+            <gex:EX_Extent id="Vertical">
+                <!-- Description ~ Indicates whether elevation was taken from a GPS, Map or Other -->
+                <!-- Operation ~ User selects from codelist -->
+                <!-- Operation ~ Selected value writes over [source goes here] -->
+                <!-- Display Label ~ Method* -->
+                <!-- Help Text ~ How was the elevation measured -->
+                <!-- Placeholder Text ~ Elevation measured from: -->
+                <!-- KeepPlaceholderText ~ yes -->
+                <!-- Required ~ conditional -->
+                <!-- Rule ~ If vertical component flag is true, a value from codelist is mandatory -->
+                <!-- Codelist ~ As-Is -->
+                <!-- Cardinality ~ one -->
+               <gex:description>
+                  <gco:CharacterString>Elevation measured from: [source goes here]</gco:CharacterString>
+               </gex:description>
+               <gex:verticalElement>
+                  <gex:EX_VerticalExtent>
+                    <!-- Display Label ~ Minimum (in metres)* -->
+                    <!-- Operation ~ User input -->
+                    <!-- InputLength ~ 10 -->
+                    <!-- Size ~ single -->
+                    <!-- Required ~ conditional -->
+                    <!-- Rule ~ If vertical component flag is true, fields are mandatory -->
+                    <!-- Rule ~ Maximum value is greater than minimum value -->
+                    <!-- Rule ~ Accepts valid positive or negative numbers to 2dp -->
+                     <gex:minimumValue>
+                        <gco:Real>-10.0</gco:Real>
+                     </gex:minimumValue>
+                        <!-- Display Label ~ Maximum (in metres)* -->
+                        <!-- Operation ~ User input -->
+                        <!-- InputLength ~ 10 -->
+                        <!-- Size ~ single -->
+                        <!-- Required ~ conditional -->
+                        <!-- Rule ~ If vertical component flag is true, fields are mandatory -->
+                        <!-- Rule ~ Maximum value is greater than minimum value -->
+                        <!-- Rule ~ Accepts valid positive or negative numbers to 2dp -->
+                     <gex:maximumValue>
+                        <gco:Real>40.5</gco:Real>
+                     </gex:maximumValue>
+                        <!-- Block Status vertical mdb:referenceSystemInfo ~ New XML and field made available in UI -->
+                        <!-- Description ~ Describes the Vertical Coordinate Reference System of the data -->
+                        <!-- Operation ~ Provide drop-down list of options using description and code, related values for code, codespace and reference system type code will default based on selected value -->
+                        <!-- UI ~ New -->
+                        <!-- Tab ~ Where -->
+                        <!-- Display Label ~ Vertical Coordinate Reference System* -->
+                        <!-- Help Text ~ What is the CRS of the data? -->
+                        <!-- Placeholder Text ~ Please select -->
+                        <!-- KeepPlaceholderText ~ no -->
+                        <!-- Required ~ conditional -->
+                        <!-- Rule ~ If vertical component flag is true, field is mandatory -->
+                        <!-- Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1240170497/List+of+values+for+Coordinate+Reference+Systems#Vertical-Coordinate-Reference-Systems -->
+                        <!-- Cardinality ~ one -->
+                        <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555039/Reference+System+Info -->
+                        <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+                     <gex:verticalCRSId>
+                       <mrs:MD_ReferenceSystem>
+                         <mrs:referenceSystemIdentifier>
+                            <mcc:MD_Identifier>
+                               <mcc:code>
+                                  <gco:CharacterString>EPSG:4979</gco:CharacterString>
+                               </mcc:code>
+                               <mcc:codeSpace>
+                                  <gco:CharacterString>EPSG</gco:CharacterString>
+                               </mcc:codeSpace>
+                               <mcc:description>
+                                  <gco:CharacterString>WGS-84</gco:CharacterString>
+                               </mcc:description>
+                            </mcc:MD_Identifier>
+                         </mrs:referenceSystemIdentifier>
+                         <mrs:referenceSystemType>
+                                <mrs:MD_ReferenceSystemTypeCode codeList="codeListLocation#MD_ReferenceSystemTypeCode" codeListValue="geodeticGeographic3D"></mrs:MD_ReferenceSystemTypeCode>
+                         </mrs:referenceSystemType>
+                      </mrs:MD_ReferenceSystem> 
+                     </gex:verticalCRSId>
+                  </gex:EX_VerticalExtent>
+               </gex:verticalElement>
+            </gex:EX_Extent>
+         </mri:extent>
+         <!-- Block Status mri:additionalDocumentation ~ New XML and fields -->
+            <!-- WriteEmptyBlock ~ no -->
+            <!-- Description ~ Documentation related to the resource -->
+            <!-- Operation ~ User input -->
+            <!-- UI ~ New -->
+            <!-- Tab ~ What -->
+            <!-- Display Label ~ Related documentation -->
+            <!-- Help Text ~ Journal articles, Technical reports, ReadMe Files, Web sites -->
+            <!-- Required ~ no -->
+            <!-- Cardinality ~ many -->
+            <!-- Documentation ~  https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030324349/Data+Identification+Additional+Documentation -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:additionalDocumentation>
+            <cit:CI_Citation>
+             <!-- Status cit:title ~ New XML and field -->
+                <!-- Description ~ Title or citation of the document -->
+                <!-- Display Label ~ Provide Title or Citation -->
+                <!-- Help Text ~ For publications provide the citation in Harvard or APA format -->
+                <!-- Operation ~ User input -->
+                <!-- Operation ~ Writes into cit:title -->
+                <!-- Operation ~ If cit:linkage is populated, also writes into cit:name -->
+                <!-- Placeholder Text ~ as shown below -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ conditional -->
+                <!-- Rule ~ required if user chooses to add documentation details -->
+                <!-- Rule ~ carriage returns not permitted -->
+                <!-- InputLength ~ 300 -->
+                <!-- Size ~ multi -->
+               <cit:title>
+                  <gco:CharacterString>Placeholder text=Donohue, R.J. et al., 2014. Evaluation of the remote-sensing-based DIFFUSE model for estimating photosynthesis of vegetation. Remote Sensing of Environment. doi:10.1002/2013WR015138 [Title element 1]</gco:CharacterString>
+               </cit:title>
+                <!-- Block Status cit:onlineResource ~ New XML and field -->
+                <!-- Description ~ Link to the documentation -->                
+                <!-- Display Label ~ URL -->
+                <!-- Help Text ~ If the document is available online provide the link here -->
+                <!-- Operation ~ User input -->
+                <!-- Operation ~ Writes into cit:linkage -->
+                <!-- Placeholder Text ~ Link to the document or website e.g. https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013WR015138 -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ no -->
+                <!-- InputLength ~ 250 -->
+                <!-- Size ~ single --> 
+                <!-- WriteEmptyBlock ~ no -->
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>Link to the document or website e.g. https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013WR015138</gco:CharacterString>
+                     </cit:linkage>
+                     <!-- Static section ~ retain in XML output if cit:linkage is populated-->                     
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
+                     <!-- END Static Section -->
+                     <!-- Operation ~ Same as cit:title if cit:linkage is populated -->
+                     <cit:name><gco:CharacterString>Donohue, R.J. et al., 2014. 
+                        Evaluation of the remote-sensing-based DIFFUSE model for estimating photosynthesis of vegetation. Remote Sensing of Environment. doi:10.1002/2013WR015138 [Name element 1]</gco:CharacterString>
+                        </cit:name>
+                     <!-- Static section ~ retain in XML output if cit:linkage is populated-->
+                     <cit:description>
+                        <gco:CharacterString>Related documentation
+                     </gco:CharacterString></cit:description>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
+                   <!-- END Static Section -->
+            </cit:CI_Citation>
+           </mri:additionalDocumentation>
+         <!-- Description ~ This is an example with a valid link for XML testing purposes --> 
+         <mri:additionalDocumentation>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Donohue, R.J. et al., 2014. Evaluation of the remote-sensing-based DIFFUSE model for estimating photosynthesis of vegetation. Remote Sensing of Environment. doi:10.1002/2013WR015138 [Title element e.g. 2]</gco:CharacterString>
+               </cit:title>
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013WR015138</gco:CharacterString>
+                     </cit:linkage>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
+                     <cit:name><gco:CharacterString>Donohue, R.J. et al., 2014. 
+                        Evaluation of the remote-sensing-based DIFFUSE model for estimating photosynthesis of vegetation. Remote Sensing of Environment. doi:10.1002/2013WR015138 [Name element e.g 2]</gco:CharacterString>
+                        </cit:name>
+                     <cit:description>
+                        <gco:CharacterString>Related documentation
+                     </gco:CharacterString></cit:description>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
+            </cit:CI_Citation>
+            </mri:additionalDocumentation>
+            <!-- Block Status mri:resourceMaintenance ~ Current XML with mmi:maintenanceNote added -->
+            <!-- Description ~ The frequency with which data updates are published -->
+            <!-- Operation ~ Field display and values are defined by user input in mri:status -->
+            <!-- UI ~ Change function -->
+            <!-- Tab ~ Data ID -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039466525/Data+Identification+Resource+Maintenance+Frequency -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+         <mri:resourceMaintenance>
+            <mmi:MD_MaintenanceInformation>
+                <!-- Operation ~ Behaviour defined by value selected in mri:status -->
+                <!-- Display Label ~ Maintenance and update frequency * -->
+                <!-- Help Text ~ How frequently is data updated? -->
+                <!-- Required ~ yes -->
+                <!-- Rule ~  see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
+                <!-- Codelist ~ http://registry.it.csiro.au/def/isotc211/MD_MaintenanceFrequencyCode -->
+                <!-- Cardinality ~ one -->
+               <mmi:maintenanceAndUpdateFrequency>
+                  <mmi:MD_MaintenanceFrequencyCode codeList="codeListLocation#MD_MaintenanceFrequencyCode"
+                     codeListValue="annually"/>
+               </mmi:maintenanceAndUpdateFrequency>
+               <!-- Operation ~ Display simultaneously with mmi:maintenanceAndUpdateFrequency -->
+                <!-- Display Label ~ Maintenance requirements -->
+                <!-- Placeholder Text ~ Specific requirements for maintaining the resource -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ no -->
+                <!-- InputLength ~ 250 -->
+                <!-- Size ~ multiline -->
+                <!-- Cardinality ~ one -->
+               <mmi:maintenanceNote><gco:CharacterString>Placeholder text=Specific requirements for maintaining the resource</gco:CharacterString></mmi:maintenanceNote>
+            </mmi:MD_MaintenanceInformation>
+         </mri:resourceMaintenance>
+            <!-- WriteEmptyBlock ~ no -->
+            <!-- Block Status ~ New XML and fields -->
+            <!-- Description ~ Thumbnail graphic for the resource -->
+            <!-- Operation ~ User may upload an image in png format -->
+            <!-- Operation ~ If uploaded file has png format reject if size exceeds pixel limit -->
+            <!-- Operation ~ If uploaded file has png format write details to fields -->
+            <!-- Consult ~ Graphic Designer re appropriate x by y, probably 100 by 100 pixs -->
+            <!-- UI ~ Change -->
+            <!-- Tab ~ Data sources -->
+            <!-- Display Label ~ Upload Data or Thumbnail Images -->
+            <!-- Help Text ~ Thumbnails must be png format, maximum size x by y pixels -->
+            <!-- Placeholder Text ~ Drop file here or click here to upload -->
+            <!-- Placeholder Text ~ After upload click the Confirm upload button -->
+            <!-- Placeholder Text ~ Maximum file size: nn MB. -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ conditional -->
+            <!-- Rule ~ one mrd:transferOptions block required if a png file is uploaded -->        
+            <!-- Rule ~ png files should be maximum x by y pixels -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044152669/Data+Identification+Graphic+Overview -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:graphicOverview>
+           <mcc:MD_BrowseGraphic>
+               <!-- Description ~ Write filename -->
+               <mcc:fileName>
+                  <gco:CharacterString>test_100x100px.png</gco:CharacterString>
+               </mcc:fileName>
+               <!-- Static field content -->
+               <mcc:fileDescription>
+                  <gco:CharacterString>thumbnail</gco:CharacterString>
+               </mcc:fileDescription>
+               <!-- END Static Section -->
+               <mcc:linkage>
+                  <cit:CI_OnlineResource>
+                  <!-- Description ~ Write url to stored image -->
+                     <cit:linkage><gco:CharacterString>https://w3id.org/tern/static/test/test_100x100px.png</gco:CharacterString>
+                     </cit:linkage>
+                     <!-- Static field content -->
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="browseGraphic"/>
+                     </cit:function>
+                    <!-- END Static Section -->
+                     </cit:CI_OnlineResource>
+               </mcc:linkage>
+            </mcc:MD_BrowseGraphic>
+         </mri:graphicOverview>
+            <!-- Status ~ Current and additonal XML on New Tab -->
+            <!-- Description ~ Keywords describing the themes or content of the resource -->
+            <!-- Operation ~ User selects from lists delivered via Elastic Search -->
+            <!-- UI ~ Change -->
+            <!-- Tab ~ Keywords -->
+            <!-- Display Label ~ Research theme keywords, GCMD Science Keywords * -->
+            <!-- Help Text ~ Select up to 12 research theme keywords describing your data -->
+            <!-- Operation ~ User can select values but cannot create new list values -->
+            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- Change Note ~ uri domain has been updated for release 9.1.5 and is supplied correctly below -->
+            <!-- Placeholder Text ~ Start typing to filter list... -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ yes -->
+            <!-- Rule ~ Maximum of 12 keywords -->
+            <!-- Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords -->
+            <!-- Cardinality ~ one block contains many keywords-->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/6c44a08d-0a08-47f5-b819-7e561445e613" xlink:show="new">LANDSCAPE PROCESSES</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/a0eb9268-0333-4442-9bc6-efbe338d9836" xlink:show="new">BIOMASS DYNAMICS</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>GCMD Earth Science and Earth Science Services Keywords</gco:CharacterString>
+                     </cit:title>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                          
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>
+                                 https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function>                          
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+            <!-- Change Note ~ About tab Parameters were selected from GCMD Science Keywords -->
+            <!-- Change Note ~ Check with S Guru whether only using TERN Parameter Vocabulary (i.e. not GCMD Science Keywords) -->        
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" 
+                     xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/f634ab55-de40-4d0b-93bc-691bf5408ccb" 
+                     xlink:show="new">AIR TEMPERATURE</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" 
+                     xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/427e5121-a142-41cb-a8e9-a70b7f98eb6a"
+                     xlink:show="new">HUMIDITY</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>GCMD Earth Science and Earth Science Services Keywords</gco:CharacterString>
+                     </cit:title>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString> https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords                                
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+            <!-- Display Label ~ Research theme keywords, ANZSRC Fields of Research * -->
+            <!-- Help Text ~ Select up to 12 research theme keywords describing your data -->
+            <!-- Operation ~ User can select values but cannot create new list values -->
+            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- Placeholder Text ~ Start typing to filter list... -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ yes -->
+            <!-- Rule ~ Maximum of 12 keywords -->
+            <!-- Codelist ~ https://vocabs.ands.org.au/viewById/20 -->
+            <!-- Cardinality ~ one block contains many keywords-->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050206" xlink:show="new">Environmental Monitoring</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050102" xlink:show="new">Ecosystem Function</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/0401" xlink:show="new">ATMOSPHERIC SCIENCES</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>ANZSRC Fields of Research</gco:CharacterString>
+                     </cit:title>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           Australian Bureau of Statistics, 2008, Australian and New Zealand Standard Research Classification (ANZSRC), https://www.abs.gov.au
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>https://vocabs.ands.org.au/viewById/20
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>    
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://linkeddata.tern.org.au/def/platforms/6bc24c32-683c-4b40-a48b-20cf0c526378" xlink:show="new">Tower</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/5c036cd1-7c0c-4f86-8f9e-88b2114f4362" xlink:show="new">Automatic Weather Station</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="platform"/>
+               </mri:type>
+                <!-- Display Label ~ TERN Platform Vocabulary -->
+                <!-- Help Text ~ Select the Platform or Site or click Add to create a new entry -->
+                <!-- Operation ~ User can select values and create new list values -->
+                <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+                <!-- Change Note ~ Was on the About tab -->
+                <!-- Placeholder Text ~ Start typing to filter list... -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ no -->
+                <!-- Codelist ~ https://vocabs.ands.org.au/viewById/20 -->
+                <!-- Cardinality ~ one block contains many keywords-->
+                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>TERN Platform Vocabulary</gco:CharacterString>
+                     </cit:title>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           TERN Global Vocabularies, 2020. https://w3id.org/tern/assets/platforms/
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString> https://w3id.org/tern/assets/platforms/
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <!-- Instruments -->
+             <!-- Display Label ~ TERN Instrument Vocabulary -->
+            <!-- Help Text ~ Select the Instrument or click Add to create a new entry -->
+            <!-- Operation ~ User can select values and create new list values -->
+            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- Change Note ~ Was on the About tab -->
+            <!-- Change Note ~ Remove field for Serial Number -->
+            <!-- Placeholder Text ~ Start typing to filter list... -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ no -->
+            <!-- Codelist ~ https://w3id.org/tern/assets/sensors/ -->
+            <!-- Cardinality ~ one block contains many keywords-->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/55cd8c0b-20a3-4c22-a96f-52237be2b6db" xlink:show="new">Vaisala VSN1 Probe</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/94bf9ec6-d4fb-4005-b54c-eca39a30a7e5" xlink:show="new">TERN thermometer (22401)</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="instrument"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>TERN Instrument Vocabulary</gco:CharacterString>
+                     </cit:title>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           TERN Global Vocabularies, 2020. https://w3id.org/tern/assets/sensors/
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString> 
+                                 https://w3id.org/tern/assets/sensors/
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+            <!-- Display Label ~ TERN Parameter Vocabulary -->
+            <!-- Help Text ~ Select the Parameter(s) or click Add to create a new entry -->
+            <!-- Operation ~ User can select values and create new list values -->
+            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- Change Note ~ Was on the About tab -->
+            <!-- Placeholder Text ~ Start typing to filter list... -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ yes -->
+            <!-- Codelist ~ https://w3id.org/tern/assets/sensors/ -->
+            <!-- Cardinality ~ block contains at least one keyword -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-471 -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/878ec60a-9d2c-414b-a776-d3380d89342f" xlink:show="new">bare soil cover</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/83384366-87b2-4579-ba17-b7eac9d0b8b9" xlink:show="new">Hemispherical photography</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title >
+                        <gco:CharacterString>TERN Parameter Vocabulary</gco:CharacterString>
+                     </cit:title>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           TERN Global Vocabularies, 2020. http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString> 
+                                 http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+            <!-- Display Label ~ QUDT Units of Measure -->
+            <!-- Help Text ~ Select the Unit of Measure or click Add to create a new entry -->
+            <!-- Operation ~ User can select values and create new list values -->
+            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- Change Note ~ Was on the About tab -->
+            <!-- Placeholder Text ~ Start typing to filter list... -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ yes -->
+            <!-- Codelist ~ Check github location with GW -->
+            <!-- Cardinality ~ block contains at least one keyword -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://qudt.org/vocab/unit/DAY" xlink:show="new">Day</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>QUDT Units of Measure</gco:CharacterString>
+                     </cit:title>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           QUDT.org 2020. Units of Measure, http://www.qudt.org/2.1/catalog/qudt-catalog.html 
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>http://www.qudt.org/2.1/vocab/unit
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+            <!-- Display Label ~ GCMD Horizontal Resolution -->
+            <!-- Help Text ~ Select the pixel size of the data -->
+            <!-- Operation ~ User can select values and create new list values -->
+            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- Implementation ~ display in sequence see As-Is -->
+            <!-- Change Note ~ Was on the About tab -->
+            <!-- Placeholder Text ~ Please select -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ no -->
+            <!-- Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.nasa.gov/kms/concept/abf43d91-a65d-4b3b-a6dd-593e211b2c7b.xml" xlink:show="new">1 meter - &lt; 30 meters</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>GCMD Horizontal Resolution</gco:CharacterString>
+                     </cit:title>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                           <!-- The base uri has changed, below is the new base uri for the horizontal res -->
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml
+                           </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <!-- Display Label ~ GCMD Temporal Resolution -->
+            <!-- Help Text ~ How frequently is the data collected? -->
+            <!-- Operation ~ User can select values and create new list values -->
+            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- Implementation ~ display in sequence see As-Is -->
+            <!-- Change Note ~ Was on the When tab -->
+            <!-- Placeholder Text ~ Please select -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ no -->
+            <!-- Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.nasa.gov/kms/concept/48ff676f-836c-4cff-bc88-4c4cc06b2e1b.xml" xlink:show="new">1 second - &lt; 1 minute</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="temporal"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>GCMD Temporal Resolution</gco:CharacterString>
+                     </cit:title>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                            <!-- The base uri has changed, below is the new base uri -->
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange/?format=xml
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <!-- Display Label ~ GCMD Vertical Resolution -->
+            <!-- Help Text ~   -->
+            <!-- Operation ~ User can select values -->
+            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- Implementation ~ display in sequence -->
+            <!-- Change Note ~ New to UI and XML -->
+            <!-- Placeholder Text ~ Please select -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ no -->
+            <!-- Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/3f0aa4fc-802c-4804-9f9f-8b666f3a2776?format=json" xlink:show="new">> 1 km</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>GCMD Vertical Resolution</gco:CharacterString>
+                     </cit:title>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <!-- Display Label ~ Australian Plant Name Index (APNI) -->
+            <!-- Help Text ~ Species taxa  -->
+            <!-- Operation ~ User can select values -->
+            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- Change Note ~ New to UI and XML -->
+            <!-- Placeholder Text ~ Start typing to filter... -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ no -->
+            <!-- Codelist ~ http://www.cpbr.gov.au/cgi-bin/apni -->
+            <!-- Cardinality ~ one block can contain many keywords -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->   
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords id="Flora">
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://id.biodiversity.org.au/name/apni/93283" xlink:show="new">Calamus moti F.M.Bailey</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://id.biodiversity.org.au/name/apni/225451" xlink:show="new">Cunninghamiales Doweld</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="taxon"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>Australian Plant Name Index</gco:CharacterString>
+                     </cit:title>
+                     <cit:alternateTitle>
+                        <gco:CharacterString>APNI</gco:CharacterString>
+                     </cit:alternateTitle>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           Australian Plant Name Index,
+                           IBIS database,
+                           Centre for Australian National Biodiversity Research,
+                           Australian Government, Canberra, 
+                           http://www.cpbr.gov.au/cgi-bin/apni
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>http://www.cpbr.gov.au/cgi-bin/apni
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <!-- Display Label ~ Australian Faunal Directory -->
+            <!-- Help Text ~ Species taxa  -->
+            <!-- Operation ~ User can select values -->
+            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- Change Note ~ New to UI and XML -->
+            <!-- Placeholder Text ~ Start typing to filter... -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ no -->
+            <!-- Codelist ~ https://biodiversity.org.au/afd/home -->
+            <!-- Cardinality ~ one block can contain many keywords -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://biodiversity.org.au/afd/taxa/Oecophylla_smaragdina" xlink:show="new">Oecophylla smaragdina | Green Tree Ant</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://biodiversity.org.au/afd/taxa/Petaurus_australis" xlink:show="new">Petaurus australis | Yellow-bellied Glider</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="taxon"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>Australian Faunal Directory</gco:CharacterString>
+                     </cit:title>
+                     <cit:alternateTitle>
+                        <gco:CharacterString>AFD</gco:CharacterString>
+                     </cit:alternateTitle>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           Australian Faunal Directory, 
+                           © Commonwealth of Australia 2019, 
+                           https://biodiversity.org.au/afd/home
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>https://biodiversity.org.au/afd/home
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <!-- Display Label ~ Additional theme keywords -->
+            <!-- Help Text ~ Enter your own additional theme keywords as required and click + to add  -->
+            <!-- Operation ~ User input -->
+            <!-- Change Note ~ Was on the What tab -->
+            <!-- Placeholder Text ~ Type a keyword here and click + -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ no -->
+            <!-- InputLength ~ 30 -->
+            <!-- Codelist ~ no-->
+            <!-- Cardinality ~ one block can contain many keywords -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords id="local">
+               <mri:keyword>
+                  <gco:CharacterString>A free text keyword</gco:CharacterString>
+               </mri:keyword>
+               <mri:keyword>
+                  <gco:CharacterString>Another free text keyword</gco:CharacterString>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="discipline"/>
+               </mri:type>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <mri:resourceSpecificUsage><mri:MD_Usage>
+            <mri:specificUsage><gco:CharacterString>Placeholder text=Information about data usage, this will capture usability text about data, this can be an expert comments</gco:CharacterString></mri:specificUsage>
+         </mri:MD_Usage></mri:resourceSpecificUsage>
+         <!-- Static section ~ retain in XML output -->
+         <!-- Description ~ CC By Licence details -->
+         <mri:resourceConstraints>
+            <mco:MD_LegalConstraints>
+               <mco:useLimitation><gco:CharacterString>
+                  The CC-By license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties. Details are provided at https://creativecommons.org/licenses/by/4.0/legalcode                  
+               </gco:CharacterString></mco:useLimitation>
+               <mco:graphic>
+                  <mcc:MD_BrowseGraphic>
+                     <mcc:fileName>
+                        <gco:CharacterString>88x31.png</gco:CharacterString>
+                     </mcc:fileName>
+                     <mcc:fileDescription>
+                        <gco:CharacterString>CCBy Logo from creativecommons.org </gco:CharacterString>
+                     </mcc:fileDescription>
+                     <mcc:fileType>
+                        <gco:CharacterString>png</gco:CharacterString>
+                     </mcc:fileType>
+                     <mcc:linkage>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>
+                                 https://w3id.org/tern/static/cc-by/88x31.png
+                                 </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="browseGraphic">
+                              </cit:CI_OnLineFunctionCode></cit:function>
+                        </cit:CI_OnlineResource>
+                     </mcc:linkage>
+                  </mcc:MD_BrowseGraphic>
+               </mco:graphic>
+               <mco:reference>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>Creative Commons Attribution 4.0 International Licence</gco:CharacterString>
+                     </cit:title>
+                     <cit:alternateTitle>
+                        <gco:CharacterString>CC-BY</gco:CharacterString>
+                     </cit:alternateTitle>
+                     <cit:edition>
+                        <gco:CharacterString>4.0</gco:CharacterString>
+                     </cit:edition>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>https://creativecommons.org/licenses/by/4.0/</gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="information">
+                           </cit:CI_OnLineFunctionCode></cit:function>
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mco:reference>
+               <mco:accessConstraints>
+                  <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode" codeListValue="license"/>
+               </mco:accessConstraints>
+               <!-- END Static Section -->
+                <!-- Display Label ~ n/a -->
+                <!-- Operation ~ Value determined by logic in SHaRED -->
+                <!-- Required ~ yes -->
+                <!-- Rule ~ if there are otherConstraints blocks then codelist value must be "otherRestrictions", else the value should be "license" -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041760257/Data+Identification+Resource+Constraints -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <mco:useConstraints>
+                  <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode" codeListValue="otherRestrictions"/>
+               </mco:useConstraints>
+               <!-- Static section ~ retain in XML output -->
+               <!-- Description ~ Access policy, citation instructions, etc -->
+               <mco:otherConstraints>
+                  <!-- Disclaimer text from https://www.tern.org.au/access-policy/ -->
+                  <gco:CharacterString>TERN services are provided on an “as-is” and “as available” basis. Users use any TERN services at their discretion and risk. They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.
+                     Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.</gco:CharacterString>
+               </mco:otherConstraints>
+               <mco:otherConstraints>
+                  <!-- Format for citation -->
+                  <gco:CharacterString>Please cite this dataset as {Author}{Year Published}{Title}. Version {Version number}. Terrestrial Ecosystem Research Network (TERN). dataset. Accessed from https://geonetwork.tern.org.au on {Date}. 
+                     </gco:CharacterString>
+               </mco:otherConstraints>
+               <mco:otherConstraints><gco:CharacterString>Please advise any work or publications that use this data, go to https://www.tern.org.au/research-publications/#reporting</gco:CharacterString></mco:otherConstraints>
+                <!-- END Static Section - User may add other constraints -->
+                <!-- Status ~ Current XML and UI -->
+                <!-- Description ~ Constraints identified by the User -->
+                <!-- Operation ~ User can input additional constraints or instructions -->
+                <!-- UI ~ As-Is -->
+                <!-- Tab ~ About -->
+                <!-- Display Label ~ Use limitation -->
+                <!-- Help Text ~  -->
+                <!-- Placeholder Text ~ Example:This data set is not suitable for compliance monitoring -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ no -->
+                <!-- InputLength ~ 250 -->
+                <!-- Size ~ single -->
+                <!-- Codelist ~ n/a -->
+                <!-- Cardinality ~ many -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041760257/Data+Identification+Resource+Constraints -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <mco:otherConstraints>
+                  <gco:CharacterString>Placeholder text=Example:This data set is not suitable for compliance monitoring</gco:CharacterString>
+               </mco:otherConstraints>
+            </mco:MD_LegalConstraints>
+         </mri:resourceConstraints>
+            <!-- Status ~ In current XML with default values -->
+            <!-- Description ~ Security class that applies to the dataset or collection -->
+            <!-- Change Note ~ New UI element -->
+            <!-- Change Note ~ XML cit:function block added per 
+               standard in https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044021623/Discuss+standards+for+CI+OnlineResource 
+            and as discussed with Wilma K -->
+            <!-- Operation ~ User can select a Security Class from a hard-coded list of values -->
+            <!-- Operation ~ Based on user selection, also write associated ISO codelist value from https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml
+               MD Classification Code
+            as indicated in column I of https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing
+            caution: check capitalisation -->
+            <!-- UI ~ Change -->
+            <!-- Tab ~ See Deva -->
+            <!-- Display Label ~ See Deva  -->
+            <!-- Help Text ~ Select the Australian Government Security Classification to apply to the dataset or collection -->
+            <!-- Placeholder Text ~ The Australian Government Security Classification to apply to the dataset -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ yes -->
+            <!-- Codelist ~ drop down as per column G in https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ document 8 on the MDWG Meeting 5 webpage: MDWG Meeting #5 - Presentations and Reports |
+               Intergovernmental Committee on Surveying and Mapping (icsm.gov.au) -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->            
+         <mri:resourceConstraints>
+         <mco:MD_SecurityConstraints>
+               <mco:reference>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>Australian Government Security Classification System</gco:CharacterString>
+                     </cit:title>
+                     <cit:editionDate>
+                        <gco:DateTime>2018-11-01T00:00:00</gco:DateTime>
+                     </cit:editionDate>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>https://www.protectivesecurity.gov.au/Pages/default.aspx</gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function>
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mco:reference>
+               <mco:classification>
+                  <mco:MD_ClassificationCode codeList="codeListLocation#MD_ClassificationCode" codeListValue="unclassified"/>
+               </mco:classification>
+            </mco:MD_SecurityConstraints>
+            </mri:resourceConstraints>        
+            <!-- WriteEmptyBlock ~ no -->
+            <!-- Status ~ New XML and UI -->
+            <!-- Description ~ Description of the resource in the producer's processing environment -->
+            <!-- Operation ~ User input -->
+            <!-- UI ~  -->
+            <!-- Tab ~ About -->
+            <!-- Display Label ~ Processing Environment Details -->
+            <!-- Help Text ~ Software, computer operating system, file name, or dataset size -->
+            <!-- Placeholder Text ~ Information to use the resource -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ no -->
+            <!-- InputLength ~ As-Is -->
+            <!-- Size ~ single -->
+            <!-- Codelist ~ n/a -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1151238213/Data+Identification+Environment+Description -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:environmentDescription><gco:CharacterString>Placeholder text=Information about the processing environment or software used</gco:CharacterString>
+         </mri:environmentDescription>
+            <!-- WriteEmptyBlock ~ no -->
+            <!-- Status ~ Current XML, change UI -->
+            <!-- Description ~ Any other descriptive information about the resource -->
+            <!-- Operation ~ User input -->
+            <!-- UI ~ Change tab and change texts -->
+            <!-- Change note ~ Was on About tab -->
+            <!-- Tab ~ What -->
+            <!-- Display Label ~ Supplemental information -->
+            <!-- Help Text ~ Any supplemental information needed to interpret the resource -->
+            <!-- Placeholder Text ~ Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01 -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ no -->
+            <!-- InputLength ~ As-Is -->
+            <!-- Size ~ single -->
+            <!-- Codelist ~ n/a -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042448494/Data+Identification+Supplemental+Information -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:supplementalInformation>
+            <gco:CharacterString>Placeholder text=Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01 </gco:CharacterString>
+         </mri:supplementalInformation>
+      </mri:MD_DataIdentification>
+   </mdb:identificationInfo>
+    <!-- Status ~ Current XML and additional -->
+    <!-- Description ~ Information about the distributor of and options for obtaining the resource -->
+    <!-- Operation ~ User can upload data or provide data access information -->
+    <!-- UI ~ Change -->
+    <!-- Tab ~ Data sources -->
+    <!-- Required ~ yes -->
+    <!-- Cardinality ~ many -->
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+   <mdb:distributionInfo>
+      <mrd:MD_Distribution>
+        <!-- WriteEmptyBlock ~ no -->
+        <!-- Status ~ Change XML and add mrd:fileDecompressionTechnique -->
+        <!-- Description ~ Information related to the file format(s) of the data -->
+        <!-- Operation ~ User input -->
+        <!-- UI ~ Change function/Change texts -->
+        <!-- Change note ~ Fields are currently on About tab -->
+        <!-- Tab ~ Data sources -->
+        <!-- Rule ~ one mrd:distributionFormat block for each distribution format selected by the user -->
+        <!-- Cardinality ~ many -->
+        <!-- Documentation ~ https://bitbucket.org/terndatateam/data-submission-tool/issues/47 -->
+        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-390 -->
+        <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251879/Distribution+Distribution+Format -->
+        <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mrd:distributionFormat>
+            <mrd:MD_Format>
+            <!-- Description ~ File format of the data -->
+            <!-- Display Label ~ File Format Data file format date/version-->
+            <!-- Help Text ~ CSV, NetCDF, etc. -->
+            <!-- Placeholder Text ~ Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ yes -->
+            <!-- InputLength ~ 12 -->
+            <!-- Size ~ single -->
+            <!-- Codelist ~ To be confirmed -->
+               <mrd:formatSpecificationCitation>
+                  <cit:CI_Citation>
+                  <!-- Find or create a codelist for valid values -->
+                     <cit:title>
+                        <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
+                     </cit:title>
+                  </cit:CI_Citation>
+               </mrd:formatSpecificationCitation>
+                <!-- Description ~ Version or date of the file format -->
+                <!-- Display Label ~ File format date/version-->
+                <!-- Help Text ~ CSV, NetCDF, etc. -->
+                <!-- Placeholder Text ~ Version number of the file format -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ no -->
+                <!-- InputLength ~ 12 -->
+                <!-- Size ~ single -->
+                <!-- Codelist ~ n/a -->
+               <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString>
+               </mrd:amendmentNumber>
+                <!-- Description ~ Whether the file is compressed -->
+                <!-- Display Label ~ File compression technique -->
+                <!-- Help Text ~ What type of compression is applied to the file -->
+                <!-- Placeholder Text ~ Examples:Not compressed, ZIP, TAR (Unix) -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ no -->
+                <!-- InputLength ~ 100 -->
+                <!-- Size ~ single -->
+                <!-- Codelist ~ n/a -->
+               <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString>
+               </mrd:fileDecompressionTechnique>
+            </mrd:MD_Format>
+         </mrd:distributionFormat> 
+            <!-- Status ~ New XML and field -->
+            <!-- Description ~ Indicates which organisation hosts and distributes the data -->
+            <!-- Operation ~ User selects a Distributor from TERN Organisations Vocabulary -->
+            <!-- Operation ~ Default value 'Terrestrial Ecosystem Research Network (TERN)' -->
+            <!-- Operation ~ Details from Vocabulary default into cit:party elements -->
+            <!-- Change note ~ Data can have multiple distributors e.g. Maitec, should it be one distributor block per format? -->
+            <!-- UI ~ Change -->
+            <!-- Tab ~ Data sources -->
+            <!-- Display Label ~ Distributor of the data -->
+            <!-- Help Text ~ Which organisation hosts the data example TERN, CSIRO, NCI, etc. -->
+            <!-- Required ~ yes -->
+            <!-- Size ~ single -->
+            <!-- Codelist ~ TERN Organisations Vocabulary -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mrd:distributor>
+            <mrd:MD_Distributor>
+               <mrd:distributorContact>
+                  <cit:CI_Responsibility>
+                     <cit:role>
+                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                           codeListValue="distributor"/>
+                     </cit:role>
+                     <cit:party>
+                        <cit:CI_Organisation>
+                           <cit:name>
+                              <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+                           </cit:name>
+                           <cit:contactInfo>
+                              <cit:CI_Contact>
+                                 <cit:phone>
+                                    <cit:CI_Telephone>
+                                       <cit:number>
+                                          <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
+                                       </cit:number>
+                                       <cit:numberType>
+                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode"
+                                             codeListValue="voice"/>
+                                       </cit:numberType>
+                                    </cit:CI_Telephone>
+                                 </cit:phone>
+                                 <cit:address>
+                                    <cit:CI_Address>
+                                       <cit:deliveryPoint>
+                                          <gco:CharacterString>Building 8, University of Queensland</gco:CharacterString>
+                                       </cit:deliveryPoint>
+                                       <cit:city>
+                                          <gco:CharacterString>Brisbane</gco:CharacterString>
+                                       </cit:city>
+                                       <cit:administrativeArea>
+                                          <gco:CharacterString>QLD</gco:CharacterString>
+                                       </cit:administrativeArea>
+                                       <cit:postalCode>
+                                          <gco:CharacterString>4072</gco:CharacterString>
+                                       </cit:postalCode>
+                                       <cit:country>
+                                          <gco:CharacterString>Australia</gco:CharacterString>
+                                       </cit:country>
+                                       <cit:electronicMailAddress>
+                                          <gco:CharacterString>esupport@tern.org.au</gco:CharacterString>
+                                       </cit:electronicMailAddress>
+                                    </cit:CI_Address>
+                                 </cit:address>
+                              </cit:CI_Contact>
+                           </cit:contactInfo>
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
+                        </cit:CI_Organisation>
+                     </cit:party>
+                  </cit:CI_Responsibility>
+               </mrd:distributorContact>
+            </mrd:MD_Distributor>
+         </mrd:distributor>
+        <!-- Status ~ Current XML with added field -->
+        <!-- Description ~ Provides details for accessing the data -->
+        <!-- Description ~ Could include THREDDS catalog, WMS, WFS, REST API documentation, etc. -->
+        <!-- Operation ~ User input.  See the alternative below: User uploads file -->
+        <!-- Change note ~ There are subtle differences between User input and user uploads file -->
+        <!-- Change note ~ A distribution can have multiple transfer options (access points) -->
+        <!-- UI ~ Change -->
+        <!-- Tab ~ Data sources -->
+        <!-- Display Label ~ Data services -->
+        <!-- Help Text ~ If the data is already available online via a service, API or catalog, provide details here -->        
+        <!-- Cardinality ~ many -->
+        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-456 -->
+        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-367 -->
+        <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251930/Distribution+Digital+Transfer+Options -->
+        <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mrd:transferOptions>
+            <mrd:MD_DigitalTransferOptions>
+              <!-- Display Label ~ Individual (or average) file size in megabytes (MB) -->
+              <!-- Help Text ~ If there are multiple data files, give the average file size -->
+              <!-- Required ~ no -->
+              <!-- Rule ~ digits and "." only -->
+              <!-- InputLength ~ 10 -->
+              <!-- Size ~ single -->
+              <!-- Cardinality ~ one per mrd:transferOptions block -->
+               <mrd:transferSize><gco:Real>200</gco:Real></mrd:transferSize>
+               <mrd:onLine>
+                  <cit:CI_OnlineResource>
+                    <!-- Display Label ~ URL -->
+                    <!-- Required ~ conditional -->
+                    <!-- Rule ~ Required if cit:description is not blank -->
+                    <!-- InputLength ~ As-Is -->
+                    <!-- Size ~ single -->
+                    <!-- Cardinality ~ one per mrd:transferOptions block -->
+                     <cit:linkage>
+                        <gco:CharacterString>http://gsky.nci.org.au/ows/geoglam</gco:CharacterString>
+                     </cit:linkage>
+                         <!-- Display Label ~ Protocol -->
+                          <!-- Required ~ conditional -->
+                          <!-- Rule ~ Required if cit:description is not blank -->
+                          <!-- InputLength ~ As-Is -->
+                          <!-- Size ~ single -->
+                          <!-- Codelist ~ hard-coded - add REST API, Get Capabilities, WPS, esri ArcInfo, SPARQL endpoint -->
+                          <!-- Cardinality ~ one per mrd:transferOptions block -->
+                     <cit:protocol>
+                        <gco:CharacterString>OGC:WFS</gco:CharacterString>
+                     </cit:protocol>
+                         <!-- Display Label ~ Layer or Feature Name -->
+                              <!-- Required ~ conditional -->
+                              <!-- Rule ~ Required if cit:description is not blank AND protocol is (WCS or WMS) -->
+                              <!-- Change note ~ Shouldn't it be required for WFS? -->
+                              <!-- InputLength ~ As-Is -->
+                              <!-- Size ~ single -->
+                              <!-- Cardinality ~ one per mrd:transferOptions block -->
+                     <cit:name>
+                        <gco:CharacterString>Name of Feature</gco:CharacterString>
+                     </cit:name>
+                         <!-- Display Label ~ Description -->
+                          <!-- Required ~ no -->
+                          <!-- InputLength ~ As-Is -->
+                          <!-- Size ~ single -->
+                          <!-- Cardinality ~ one per mrd:transferOptions block -->
+                     <cit:description>
+                        <gco:CharacterString>WFS Service OGC:WFS [description element]</gco:CharacterString>
+                     </cit:description>
+                     <!-- Display Label ~ Function -->
+                     <!-- Help text ~ Select browsing, fileAccess or download -->
+                     <!-- Required ~ conditional -->
+                     <!-- Rule ~ Required if cit:description is not blank -->
+                     <!-- Size ~ single -->
+                     <!-- Cardinality ~ one per mrd:transferOptions block --> 
+                     <!-- Codelist ~ http://registry.it.csiro.au/def/isotc211/_CI_OnLineFunctionCode, only browsing, fileAccess and download are valid -->
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="fileAccess"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+               </mrd:onLine> 
+            </mrd:MD_DigitalTransferOptions>
+         </mrd:transferOptions>
+         <!-- Status ~ Current XML -->
+         <!-- Description ~ Data file details based on an uploaded file -->
+         <!-- Operation ~ User uploads file.  See the alternative above: User input -->
+         <!-- Change note ~ There are subtle differences between User input and User uploads file -->
+         <!-- Change note ~ A distribution can have multiple files -->
+         <!-- UI ~ As-Is -->
+         <!-- Tab ~ Data sources -->
+         <!-- Display Label ~ see comments above under /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:graphicOverview[1] -->
+         <!-- Required ~ conditional -->
+         <!-- Rule ~ one mrd:transferOptions block required for each uploaded file -->        
+         <!-- Cardinality ~ many -->
+         <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251930/Distribution+Digital+Transfer+Options -->
+         <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->        
+         <mrd:transferOptions>
+            <mrd:MD_DigitalTransferOptions>
+               <!-- Display Label ~ n/a --> 
+               <!-- Operation ~ Can file size be determined automatically by Data upload function? -->
+               <mrd:transferSize><gco:Real>10</gco:Real></mrd:transferSize>
+               <mrd:onLine>
+                  <cit:CI_OnlineResource>
+                     <!-- Display Label ~ n/a --> 
+                     <!-- Description ~ URL where file is stored by SHaRED -->
+                     <!-- Required ~ conditional -->
+                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
+                     <!-- InputLength ~ As-Is -->
+                     <cit:linkage>
+                        <gco:CharacterString>https://shared.tern.org.au/attachment/26f41575-b9f1-4e9b-81f4-d4283fa97855/DictionaryParkhurst_etal_2020_C2yqIeI.csv</gco:CharacterString>
+                     </cit:linkage>
+                     <!-- Display Label ~ n/a --> 
+                     <!-- Description ~ Protocol used to access file -->
+                     <!-- Required ~ conditional -->
+                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
+                     <!-- Rule ~ Value is download, formatted as shown below -->
+                     <!-- InputLength ~ As-Is -->                     
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:DOWNLOAD-1.0-http--download</gco:CharacterString>
+                     </cit:protocol>
+                     <!-- Display Label ~ n/a --> 
+                     <!-- Description ~ File name -->
+                     <!-- Required ~ conditional -->
+                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
+                     <!-- InputLength ~ As-Is -->
+                     <cit:name>
+                        <gco:CharacterString>DictionaryParkhurst_etal_2020.csv [name element]</gco:CharacterString>
+                     </cit:name>
+                     <!-- Display Label ~ n/a --> 
+                     <!-- Description ~ Description of file -->
+                     <!-- Required ~ conditional -->
+                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
+                     <!-- Rule ~ File name without file extension, replace ["_","-"] with space -->
+                     <!-- InputLength ~ As-Is -->                     
+                     <cit:description>
+                        <gco:CharacterString>DictionaryParkhurst etal 2020</gco:CharacterString>
+                     </cit:description>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="http://standards.iso.org/iso/19139/resources/gmxCodelists.xml#CI_OnLineFunctionCode"
+                           codeListValue="download"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+               </mrd:onLine>
+            </mrd:MD_DigitalTransferOptions>
+         </mrd:transferOptions>
+      </mrd:MD_Distribution>
+   </mdb:distributionInfo>
+    <!-- WriteEmptyBlock ~ no -->
+    <!-- Status ~ Current XML and additional elements -->
+    <!-- Description ~ The data quality method and result -->
+    <!-- Operation ~ User input -->
+    <!-- UI ~ Change function/Change texts -->
+    <!-- Tab ~ How -->
+    <!-- Display Label ~ Data Quality -->
+    <!-- Cardinality ~ one -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041727493/Data+Quality+Scope -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044480096/Data+Quality+Method+and+Result+Statements -->
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->      
+   <mdb:dataQualityInfo>
+      <mdq:DQ_DataQuality>
+         <mdq:scope>
+            <mcc:MD_Scope>
+            <!-- Display Label ~ Data Quality Scope -->
+            <!-- Help Text ~ Select to indicate the scope -->
+            <!-- Required ~ no -->
+            <!-- Rule ~ Default = 'dataset' -->
+            <!-- Size ~ single -->
+            <!-- Codelist ~http://registry.it.csiro.au/def/isotc211/_MD_ScopeCode  -->
+            <!-- Cardinality ~ one -->
+               <mcc:level>
+                  <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
+               </mcc:level>
+               <mcc:levelDescription>
+                    <!-- Display Label ~ Description of the scope -->
+                    <!-- Help Text ~ Describe the class of information covered by the statement -->
+                    <!-- Placeholder Text ~ as shown below -->
+                    <!-- KeepPlaceholderText ~ no -->        
+                    <!-- Required ~ no -->
+                    <!-- InputLength ~ 250 -->
+                    <!-- Size ~ multiline -->
+                    <!-- Cardinality ~ one -->
+                  <mcc:MD_ScopeDescription>
+                     <mcc:other><gco:CharacterString>Placeholder Text=Does the quality statement apply to the entire data set or specific attributes?</gco:CharacterString></mcc:other>
+                  </mcc:MD_ScopeDescription>
+                  </mcc:levelDescription>
+            </mcc:MD_Scope>
+         </mdq:scope>
+            <!-- Display Label ~ Data Quality Result -->
+            <!-- Help Text ~ As-Is -->
+            <!-- Placeholder Text ~ as shown below -->
+            <!-- KeepPlaceholderText ~ no -->        
+            <!-- Required ~ no -->
+            <!-- InputLength ~ As-Is -->
+            <!-- Size ~ multiline -->
+            <!-- Cardinality ~ one -->
+         <mdq:report>
+         <mdq:DQ_QuantitativeAttributeAccuracy>
+            <mdq:result>
+               <mdq:DQ_DescriptiveResult>
+                  <mdq:statement>
+                     <gco:CharacterString>Placeholder text=A statement regarding the data quality assessment results.  
+                        Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc.</gco:CharacterString>
+                  </mdq:statement>
+               </mdq:DQ_DescriptiveResult>
+            </mdq:result>
+         </mdq:DQ_QuantitativeAttributeAccuracy>
+         </mdq:report>
+      </mdq:DQ_DataQuality>
+   </mdb:dataQualityInfo>
+   <!-- Status ~ In current XML with default values -->
+   <!-- Description ~ Security class that applies to the metadata record -->
+   <!-- Change Note ~ New UI element -->
+   <!-- Change Note ~ XML cit:function block added per 
+               standard in https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044021623/Discuss+standards+for+CI+OnlineResource 
+            and as discussed with Wilma K -->
+   <!-- Change Note ~ For version ISO 19115 v2.0 namespaces, metadataConstraints moves to before resourceLineage, as advised
+   ISO Representative 2/5/2020 TERNDESK-929 -->
+   <!-- Operation ~ User can select a Security Class from a hard-coded list of values -->
+   <!-- Operation ~ Based on user selection, also write associated ISO codelist value from https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml
+               MD Classification Code
+            as indicated in column I of https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing
+            caution: check capitalisation -->
+   <!-- UI ~ Change -->
+   <!-- Tab ~ See Deva -->
+   <!-- Display Label ~ See Deva  -->
+   <!-- Help Text ~ Select the Australian Government Security Classification to apply to the metadata -->
+   <!-- Placeholder Text ~ The Australian Government Security Classification to apply to the metadata -->
+   <!-- KeepPlaceholderText ~ no -->
+   <!-- Required ~ yes -->
+   <!-- Codelist ~ drop down as per column G in https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing -->
+   <!-- Cardinality ~ one -->
+   <!-- Documentation ~ document 8 on the MDWG Meeting 5 webpage: MDWG Meeting #5 - Presentations and Reports |
+               Intergovernmental Committee on Surveying and Mapping (icsm.gov.au) -->
+   <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->     
+   <mdb:metadataConstraints>
+      <mco:MD_SecurityConstraints>
+         <mco:reference>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Australian Government Security Classification System</gco:CharacterString>
+               </cit:title>
+               <cit:editionDate>
+                  <gco:DateTime>2018-11-01T00:00:00</gco:DateTime>
+               </cit:editionDate>
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage>
+                        <gco:CharacterString>https://www.protectivesecurity.gov.au/Pages/default.aspx</gco:CharacterString>
+                     </cit:linkage>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
+            </cit:CI_Citation>
+         </mco:reference>
+         <mco:classification>
+            <mco:MD_ClassificationCode codeList="codeListLocation#MD_ClassificationCode" codeListValue="restricted"/>
+         </mco:classification>
+      </mco:MD_SecurityConstraints>
+   </mdb:metadataConstraints>
+    <!-- WriteEmptyBlock ~ no -->
+    <!-- Status ~ Current XML and additional elements -->
+    <!-- Description ~ Lineage of the data set inputs and methods -->
+    <!-- Operation ~ User input -->
+    <!-- UI ~ Change function/Change texts -->
+    <!-- Tab ~ How -->
+    <!-- Display Label ~ Data Lineage -->
+    <!-- Cardinality ~ one -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041825814/Resource+Lineage+Statement -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044381873/Resource+Lineage+Scope -->
+    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044414700/Resource+Lineage+Process+Step -->
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+   <mdb:resourceLineage>
+      <mrl:LI_Lineage>
+            <!-- Display Label ~ Lineage -->
+            <!-- Change note ~ Field moves from About tab to How tab -->
+            <!-- Help Text ~ Provide a brief summary of inputs and processing -->
+            <!-- Placeholder Text ~ as shown below -->
+            <!-- KeepPlaceholderText ~ no -->        
+            <!-- Required ~ yes -->
+            <!-- InputLength ~ As-Is -->
+            <!-- Size ~ multiline -->
+            <!-- Cardinality ~ one -->
+         <mrl:statement>
+            <gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods. 
+               Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017</gco:CharacterString>
+         </mrl:statement>
+            <!-- Display Label ~ Lineage Scope -->
+            <!-- Help Text ~ Select to indicate the scope -->
+            <!-- Required ~ yes -->
+            <!-- Rule ~ Default = 'dataset' -->
+            <!-- Size ~ single -->
+            <!-- Codelist ~http://registry.it.csiro.au/def/isotc211/_MD_ScopeCode  -->
+            <!-- Cardinality ~ one -->
+         <mrl:scope>
+            <mcc:MD_Scope>
+               <mcc:level>
+                  <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
+               </mcc:level>
+            </mcc:MD_Scope>
+         </mrl:scope>
+            <!-- Display Label ~ Lineage details -->
+            <!-- Help Text ~ Description of the events, including related parameters or tolerances -->
+            <!-- Placeholder Text ~ as shown below -->
+            <!-- KeepPlaceholderText ~ no -->        
+            <!-- Required ~ no -->
+            <!-- InputLength ~ 250 -->
+            <!-- Size ~ multiline -->
+            <!-- Cardinality ~ one -->
+         <mrl:processStep>
+            <mrl:LI_ProcessStep>
+               <mrl:description>
+                  <gco:CharacterString>Placeholder text=Provide a detailed description of the events in the development of the resource.
+                     If the resource has a status of 'ongoing', provide a summary of the workflow.  
+                     Associated documents can be provided in Publications on the What tab</gco:CharacterString>
+               </mrl:description>
+            </mrl:LI_ProcessStep>
+         </mrl:processStep>        
+      </mrl:LI_Lineage>
+   </mdb:resourceLineage>
+</mdb:MD_Metadata>

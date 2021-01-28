@@ -2429,9 +2429,6 @@
                <mco:classification>
                   <mco:MD_ClassificationCode codeList="codeListLocation#MD_ClassificationCode" codeListValue="unclassified"/>
                </mco:classification>
-               <mco:handlingDescription>
-                  <gco:CharacterString>OFFICIAL (Australian Government Security Classification System)</gco:CharacterString>
-               </mco:handlingDescription>
             </mco:MD_SecurityConstraints>
             </mri:resourceConstraints>        
             <!-- WriteEmptyBlock ~ no -->
@@ -2901,9 +2898,6 @@
          <mco:classification>
             <mco:MD_ClassificationCode codeList="codeListLocation#MD_ClassificationCode" codeListValue="restricted"/>
          </mco:classification>
-         <mco:handlingDescription>
-            <gco:CharacterString>OFFICIAL: Sensitive (Australian Government Security Classification System)</gco:CharacterString>
-         </mco:handlingDescription>
       </mco:MD_SecurityConstraints>
    </mdb:metadataConstraints>
    

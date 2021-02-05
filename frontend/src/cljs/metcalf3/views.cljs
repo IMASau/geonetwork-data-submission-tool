@@ -1013,7 +1013,7 @@
      [:div.topic-value term-text]]))
 
 (defn breadcrumb-renderer [options selected-option]
-  (let [text selected-option.breadcrumb
+  (let [text (aget selected-option "breadcrumb")
         term-text (aget selected-option "term")
         alt-label (aget selected-option "altLabel")]
     [:div.topic-cell {:key term-text}

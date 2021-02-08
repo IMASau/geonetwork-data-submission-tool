@@ -1013,9 +1013,9 @@
      [:div.topic-value term-text]]))
 
 (defn breadcrumb-renderer [options selected-option]
-  (let [text (aget selected-option "breadcrumb")
-        term-text (aget selected-option "term")
-        alt-label (aget selected-option "altLabel")]
+  (let [text (goog.object/get selected-option "breadcrumb")
+        term-text (goog.object/get selected-option "term")
+        alt-label (goog.object/get selected-option "altLabel")]
     [:div.topic-cell {:key term-text}
      [:div.topic-path text]
      [:div.topic-value term-text]
@@ -1464,6 +1464,9 @@
         selected-platform @(rf/subscribe [:subs/platform-selected? form-position])]
     [:div.DataParameterMaster
      [:form/fieldset.tern-fieldset
+      [:div
+       {:class "alert alert-success"}
+       "Request new controlled vocabulary terms if they do not exist in the drop-down fields using the feedback button to the right of the screen."]
       [ElasticsearchSelectField {:param-type :parametername
                                  :api-path [:api :parametername]
                                  :dp-term-path base-path

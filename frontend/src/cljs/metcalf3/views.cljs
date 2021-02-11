@@ -53,7 +53,7 @@
     "has-error"))
 
 (defn dp-term-paths [dp-type]
-  (when js/goog.DEBUG (js/console.log "DP TERM PATHS" {:dp-type dp-type}))
+;  (when js/goog.DEBUG (js/console.log "DP TERM PATHS" {:dp-type dp-type}))
   {:term              (keyword (str (name dp-type) "_term"))
    :vocabularyTermURL (keyword (str (name dp-type) "_vocabularyTermURL"))
    :vocabularyVersion (keyword (str (name dp-type) "_vocabularyVersion"))
@@ -1012,6 +1012,17 @@
      [:div.topic-path text]
      [:div.topic-value term-text]]))
 
+(defn breadcrumb-renderer [options selected-option]
+  (let [text (goog.object/get selected-option "breadcrumb")
+        term-text (goog.object/get selected-option "term")
+        alt-label (goog.object/get selected-option "altLabel")]
+    [:div.topic-cell {:key term-text}
+     [:div.topic-path text]
+     [:div.topic-value term-text]
+     [:div {:style
+            {:margin-left 10 :color "#929292" :font-size 11}}
+      (if (clojure.string/blank? alt-label) "" (concat "also known as " alt-label))]]))
+
 (defn nasa-list-renderer [options option]
   (aget option "prefLabel"))
 
@@ -1053,28 +1064,40 @@
       {:component-will-mount will-mount
        :render               render})))
 
-(defn UnitSelectField
+(defn Tooltip
+  [value]
+  [:span " "
+   [:i.icon-info-sign.tern-tooltip
+    [:span.tern-tooltiptext value]]])
+
+(defn ElasticsearchSelectField
   [_ this]
   (letfn [(will-mount [this]
-            (let [{:keys [api-path]} (r/props this)]
-              (rf/dispatch [:handlers/load-es-options api-path])))
+            (let [{:keys [api-path param-type] :as state} (r/props this)
+                  form-position (get (get-in state [:dp-term-path]) 5)]
+              (rf/dispatch [:handlers/search-es-options api-path "" param-type form-position])))
           (render [this]
-            (let [{:keys [dp-type dp-term-path api-path param-type] :as state} (r/props this)]
+            (let [{:keys [dp-type dp-term-path api-path param-type disabled tooltip] :as state} (r/props this)]
               (let [sub-paths (dp-term-paths dp-type)
                     {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])
                     term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
                     vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
-                    {:keys [value label help required errors show-errors]} term
+                    {:keys [value label help required errors show-errors tooltip]} term
                     selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
-                    new-term? (other-term? term vocabularyTermURL)]
+                    new-term? (other-term? term vocabularyTermURL)
+                    form-position (get (get-in state [:dp-term-path]) 5)]
                 [:div
-                 (if new-term? [:span.pull-right.new-term.text-primary
-                                [:span.glyphicon.glyphicon-asterisk]
-                                " New term"])
-                 (if label [:label label (if required " *")])
+                 (if new-term?
+                   [:span.pull-right.new-term.text-primary
+                    [:span.glyphicon.glyphicon-asterisk]
+                    " New term"])
                  [:div.flex-row
                   [:div.flex-row-field
                    [:div.form-group {:class (if (and show-errors (not (empty? errors))) "has-error")}
+                    (if label
+                   [:label label
+                    (if required " *")
+                    (if tooltip [Tooltip tooltip])])
                     (if-not new-term?
                       (ReactSelect
                         {:value             (if (blank? (:value vocabularyTermURL))
@@ -1084,25 +1107,27 @@
                          :placeholder       (:placeholder term)
                          :isClearable       true
                          :is-searchable     true
-                         :onInputChange     (fn [x]
-                                              (rf/dispatch [:handlers/search-es-options-units api-path x])
-                                              x)
+                         :onInputChange     (fn [query]
+                                              (rf/dispatch [:handlers/search-es-options api-path query param-type form-position])
+                                              query)
                          :getOptionValue    (fn [option]
                                               (gobj/get option "term"))
                          :formatOptionLabel (fn [props]
-                                              (let [is-created? (gobj/get props "__isNew__")]
-                                                (if is-created?
-                                                  (str "Create \"" (gobj/get props "value") "\"")
-                                                  (r/as-element (api-option-renderer options props)))))
-                         ;; filter options to dispaly. a quick and dirty lower case string compare filter
-                         :filterOption (fn [option, rawInput]
-                                          (let [input (string/lower-case rawInput)
-                                                candidate (string/lower-case (str option.label " " option.value " " option.data.code))]
-                                                (string/includes? candidate input)))
+                                              (r/as-element (breadcrumb-renderer options props)))
+                         :filterOption      (fn [option, rawInput]
+                                              ; Return true always. This allows for matches on label as well as altLabel (or other fields available in the REST API).
+                                              (boolean 0))
                          :onChange          (fn [option]
-                                              (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
-                         :noResultsText     "No results found.  Click browse to add a new entry."})
-
+                                              (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option])
+                                              ; TODO: Move this platform/instrument logic outside the component and pass it in as a prop?
+                                              (if (utils/same-keyword-string? param-type "parameterplatform")
+                                                (do
+                                                  ; Clear the selected instrument value if the platform value has changed.
+                                                  (rf/dispatch [:handlers/update-dp-term dp-term-path {:term :instrument_term, :vocabularyTermURL :instrument_vocabularyTermURL, :vocabularyVersion :instrument_vocabularyVersion, :termDefinition :instrument_termDefinition} {}])
+                                                  ; Update the set of possible instrument values based on the selected platform.
+                                                  (rf/dispatch [:handlers/search-es-options [:api :parameterinstrument] "" :parameterinstrument form-position]))))
+                         :noResultsText     "No results found.  Click browse to add a new entry."
+                         :isDisabled        disabled})
 
                       (ReactSelect
                         {:value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
@@ -1113,23 +1138,22 @@
                          :getOptionValue    (fn [option]
                                               (gobj/get option "term"))
                          :formatOptionLabel (fn [props]
-                                              (let [is-created? (gobj/get props "__isNew__")]
-                                                (if is-created?
-                                                  (str "Create \"" (gobj/get props "value") "\"")
-                                                  (r/as-element (api-option-renderer options props)))))
+                                              (r/as-element (breadcrumb-renderer options props)))
                          :onChange          (fn [option]
                                               (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
                          :noResultsText     "No results found.  Click browse to add a new entry."}))
                     [:p.help-block help]]]
-                  [:div.flex-row-button
-                   [:button.btn.btn-default
-                    {:style    {:vertical-align "top"}
-                     :on-click #(rf/dispatch [:handlers/open-modal
-                                              {:type         param-type
-                                               :api-path     api-path
-                                               :dp-term-path dp-term-path}])}
-                    [:span.glyphicon.glyphicon-edit] " Custom"]
-                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]]])))]
+                  ; TODO: Re-enable this in the future to browse/create vocabulary terms.
+;                  [:div.flex-row-button
+;                   [:button.btn.btn-default
+;                    {:style    {:vertical-align "top"}
+;                     :on-click #(rf/dispatch [:handlers/open-modal
+;                                              {:type         param-type
+;                                               :api-path     api-path
+;                                               :dp-term-path dp-term-path}])}
+;                    [:span.glyphicon.glyphicon-edit] " Custom"]
+;                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]
+                  ]])))]
     (r/create-class
       {:component-will-mount will-mount
        :render               render})))
@@ -1194,15 +1218,17 @@
                                           :onChange          (fn [option]
                                                                (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}])
                     [:p.help-block help]]]
-                  [:div.flex-row-button
-                   [:button.btn.btn-default
-                    {:style    {:vertical-align "top"}
-                     :on-click #(rf/dispatch [:handlers/open-modal
-                                              {:type         param-type
-                                               :api-path     api-path
-                                               :dp-term-path dp-term-path}])}
-                    [:span.glyphicon.glyphicon-list] " Browse"]
-                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]]])))]
+                  ; TODO: Re-enable this in the future to browse/create vocabulary terms.
+;                  [:div.flex-row-button
+;                   [:button.btn.btn-default
+;                    {:style    {:vertical-align "top"}
+;                     :on-click #(rf/dispatch [:handlers/open-modal
+;                                              {:type         param-type
+;                                               :api-path     api-path
+;                                               :dp-term-path dp-term-path}])}
+;                    [:span.glyphicon.glyphicon-list] " Browse"]
+;                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]
+                  ]])))]
     (r/create-class
       {:component-will-mount will-mount
        :render               render})))
@@ -1433,16 +1459,39 @@
 (defn DataParameterRowEdit [path this]
   (let [base-path (conj path :value)
         name-path (conj path :value :name)
-        serialNumber-path (conj path :value :serialNumber)]
+        serialNumber-path (conj path :value :serialNumber)
+        form-position (get name-path 5)
+        selected-platform @(rf/subscribe [:subs/platform-selected? form-position])]
     [:div.DataParameterMaster
-     [:div
-      [ApiTermSelectField {:param-type :parametername :api-path [:api :parametername] :dp-term-path base-path :dp-type :longName}]
-      [:div.shortName
-       [InputField {:path name-path}]]]
-     [UnitSelectField {:param-type :parameterunit :api-path [:api :parameterunit] :dp-term-path base-path :dp-type :unit}]
-     [ApiTermSelectField {:param-type :parameterinstrument :api-path [:api :parameterinstrument] :dp-term-path base-path :dp-type :instrument}]
-     [InputField {:path serialNumber-path}]
-     [ApiTermSelectField {:param-type :parameterplatform :api-path [:api :parameterplatform] :dp-term-path base-path :dp-type :platform}]]))
+     [:form/fieldset.tern-fieldset
+      [:div
+       {:class "alert alert-success"}
+       "Request new controlled vocabulary terms if they do not exist in the drop-down fields using the feedback button to the right of the screen."]
+      [ElasticsearchSelectField {:param-type :parametername
+                                 :api-path [:api :parametername]
+                                 :dp-term-path base-path
+                                 :dp-type :longName}]
+      [InputField {:path name-path}]]
+     [:form/fieldset.tern-fieldset
+      [ElasticsearchSelectField {:param-type :parameterunit
+                                 :api-path [:api :parameterunit]
+                                 :dp-term-path base-path
+                                 :dp-type :unit}]]
+     [:form/fieldset.tern-fieldset
+      [ElasticsearchSelectField {:param-type :parameterplatform
+                                 :api-path [:api :parameterplatform]
+                                 :dp-term-path base-path
+                                 :dp-type :platform}]
+      [ElasticsearchSelectField {:param-type :parameterinstrument
+                                 :api-path [:api :parameterinstrument]
+                                 :dp-term-path base-path
+                                 :dp-type :instrument
+                                 :disabled (boolean (if selected-platform nil 0))}]
+       ; TODO: This should be enabled only when an instrument is created. Currently, creating vocabulary terms is disabled.
+      [InputField
+       {:path serialNumber-path
+        :disabled (boolean (if selected-platform nil 0))}]]
+     ]))
 
 (defn DataParametersTable [path this]
   [:div.DataParametersTable

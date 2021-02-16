@@ -119,8 +119,8 @@
     <!-- Placeholder Text ~ Start typing to filter list... -->
     <!-- KeepPlaceholderText ~ no -->
     <!-- Required ~ conditional -->
-    <!-- Assumption ~ There are only two levels in the record hierarchy: dataset may belong to collection -->
-    <!-- Rule ~ Not permitted if mcc:MD_ScopeCode="collection" -->
+    <!-- Assumption ~ There may be multiple levels in the record hierarchy: collections and dataset; dataset should only occur at the lowest level -->
+    <!-- Rule ~  -->
     <!-- Cardinality ~ one -->
     <!-- Codelist ~ List of titles from records published on GeoNetwork, alphabetic ascending -->
     <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-503 -->

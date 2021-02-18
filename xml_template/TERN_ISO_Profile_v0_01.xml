@@ -120,7 +120,7 @@
     <!-- KeepPlaceholderText ~ no -->
     <!-- Required ~ conditional -->
     <!-- Assumption ~ There may be multiple levels in the record hierarchy: collections and dataset; dataset should only occur at the lowest level -->
-    <!-- Rule ~ Parent from GeoNetwork is limited to records of type "Collection" -->
+    <!-- Rule ~ Parent from GeoNetwork is limited to records of scope "Collection" -->
     <!-- Cardinality ~ one -->
     <!-- Codelist ~ List of titles from records published on GeoNetwork, alphabetic ascending -->
     <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-503 -->
@@ -372,7 +372,7 @@
     <!-- Description ~ Describes the Horizontal Coordinate Reference System of the data -->
     <!-- Operation ~ Provide drop-down list of options using description and code, related values for code, codespace and reference system type code will default based on selected value -->
     <!-- UI ~ Change -->
-    <!-- Tab ~ About -->
+    <!-- Tab ~ Where -->
     <!-- Display Label ~ Horizontal Coordinate Reference System -->
     <!-- Help Text ~ What CRS was your data captured in? -->
     <!-- Placeholder Text ~ Please select -->
@@ -441,7 +441,7 @@
                 <!-- UI ~ Change texts -->
                 <!-- Tab ~ Data ID -->
                 <!-- Display Label ~ Date the resource was created -->
-                <!-- Help Text ~ Date the resource was created ready for publication -->
+                <!-- Help Text ~ When was the resource created? -->
                 <!-- Required ~ yes -->
                 <!-- Rule ~ Write as Year Month Day in ISO format -->
                 <!-- Rule ~ Valid date >= 1900 -->
@@ -528,7 +528,7 @@
                 <!-- Description ~ If a DOI is minted for the dataset, the details are written here -->
                 <!-- Operation ~ Admin clicks 'Mint DOI', returned DOI number writes into mcc:code replacing [If applicable, DOI number writes here] -->
                 <!-- UI ~ add field to capture pre-existing DOI -->
-                <!-- Tab ~ Data ID -->
+                <!-- Tab ~ Lodge -->
                 <!-- Display Label ~ Is there an existing DOI to transfer? -->
                 <!-- Placeholder Text ~ doi:[If applicable, DOI number writes here] -->
                 <!-- KeepPlaceholderText ~ no -->
@@ -858,8 +858,8 @@
             <!-- Status mri:credit ~ Current XML with text change -->
             <!-- Description ~ Recognition of those who contributed to the resource -->
             <!-- Operation ~ User input -->
-            <!-- UI ~ As-Is -->
-            <!-- Tab ~ Who -->
+            <!-- UI ~ Move tab -->
+            <!-- Tab ~ About -->
             <!-- Display Label ~ Other credits -->
             <!-- Help Text ~ Write a sentence acknowledging sponsors or funding organisations -->
             <!-- Placeholder Text ~ The project was funded by xxx and yyy -->
@@ -1010,7 +1010,7 @@
             <!-- Description ~ The spatial resolution of the dataset if applicable -->
             <!-- Operation ~ User will be able to specify horizontal distance and unit of measure -->
             <!-- UI ~ Add fields -->
-            <!-- Tab ~ About -->
+            <!-- Tab ~ To be confirmed -->
             <!-- Cardinality ~ one -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718977/Data+Identification+Spatial+Resolution -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
@@ -1111,11 +1111,11 @@
                   </gex:EX_GeographicBoundingBox>
                </gex:geographicElement>
                 <!-- Status gex:temporalElement ~ Current XML change functionality -->
-                <!-- Description ~ Data observation period - date or date range when data was collected or observed -->
+                <!-- Description ~ The time period covered by the content of the resource -->
                 <!-- Operation ~ User can type or select dates -->
                 <!-- UI ~ Change function and change texts -->
                 <!-- Tab ~ When -->
-                <!-- Display Label ~ When was the data collected? -->
+               <!-- Display Label ~ What is the time period covered by the content of the dataset/collection? -->
                 <!-- Help Text ~ The temporal coverage of the data -->
                 <!-- Required ~ yes -->
                 <!-- Rule ~ End date should be later than or equal to begin date -->
@@ -1131,7 +1131,7 @@
                         <gex:extent>
                            <gml:TimePeriod gml:id="bcf969df-6213-4e5c-86d4-64e3b53de64a">
                             <!-- Display Label ~ Start date* -->
-                            <!-- Help Text ~ The temporal coverage of the data -->                           
+                              <!-- Help Text ~ The time period covered by the content of the resource -->                           
                               <gml:beginPosition>1899-12-31</gml:beginPosition>
                               <!-- Display Label ~ End date* -->
                               <!-- Help Text ~ For ongoing datasets, input the last date in the current collection -->    
@@ -1242,7 +1242,7 @@
             <!-- Description ~ Documentation related to the resource -->
             <!-- Operation ~ User input -->
             <!-- UI ~ New -->
-            <!-- Tab ~ What -->
+            <!-- Tab ~ About -->
             <!-- Display Label ~ Related documentation -->
             <!-- Help Text ~ Journal articles, Technical reports, ReadMe Files, Web sites -->
             <!-- Required ~ no -->
@@ -1421,7 +1421,7 @@
             <!-- Description ~ Keywords describing the themes or content of the resource -->
             <!-- Operation ~ User selects from lists delivered via Elastic Search -->
             <!-- UI ~ Change -->
-            <!-- Tab ~ Keywords -->
+            <!-- Tab ~ What -->
             <!-- Display Label ~ Research theme keywords, GCMD Science Keywords * -->
             <!-- Help Text ~ Select up to 12 research theme keywords describing your data -->
             <!-- Operation ~ User can select values but cannot create new list values -->
@@ -1788,7 +1788,7 @@
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
             <!-- Display Label ~ GCMD Horizontal Resolution -->
-            <!-- Help Text ~ Select the pixel size of the data -->
+            <!-- Help Text ~ For gridded data, select the pixel size of the data -->
             <!-- Operation ~ User can select values and create new list values -->
             <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
             <!-- Implementation ~ display in sequence see As-Is -->
@@ -2204,8 +2204,8 @@
             as indicated in column I of https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing
             caution: check capitalisation -->
             <!-- UI ~ Change -->
-            <!-- Tab ~ See Deva -->
-            <!-- Display Label ~ See Deva  -->
+            <!-- Tab ~ About -->
+            <!-- Display Label ~ Security Classification for Dataset/Collection  -->
             <!-- Help Text ~ Select the Australian Government Security Classification to apply to the dataset or collection -->
             <!-- Placeholder Text ~ The Australian Government Security Classification to apply to the dataset -->
             <!-- KeepPlaceholderText ~ no -->
@@ -2250,8 +2250,8 @@
             <!-- Status ~ New XML and UI -->
             <!-- Description ~ Description of the resource in the producer's processing environment -->
             <!-- Operation ~ User input -->
-            <!-- UI ~  -->
-            <!-- Tab ~ About -->
+            <!-- UI ~ Change -->
+            <!-- Tab ~ Data Sources -->
             <!-- Display Label ~ Processing Environment Details -->
             <!-- Help Text ~ Software, computer operating system, file name, or dataset size -->
             <!-- Placeholder Text ~ Information to use the resource -->
@@ -2271,7 +2271,7 @@
             <!-- Operation ~ User input -->
             <!-- UI ~ Change tab and change texts -->
             <!-- Change note ~ Was on About tab -->
-            <!-- Tab ~ What -->
+            <!-- Tab ~ About -->
             <!-- Display Label ~ Supplemental information -->
             <!-- Help Text ~ Any supplemental information needed to interpret the resource -->
             <!-- Placeholder Text ~ Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01 -->
@@ -2304,10 +2304,10 @@
         <!-- WriteEmptyBlock ~ no -->
         <!-- Status ~ Change XML and add mrd:fileDecompressionTechnique -->
         <!-- Description ~ Information related to the file format(s) of the data -->
-        <!-- Operation ~ User input -->
+         <!-- Operation ~ Can system identify values for file format fields when file is uploaded? -->
         <!-- UI ~ Change function/Change texts -->
         <!-- Change note ~ Fields are currently on About tab -->
-        <!-- Tab ~ Data sources -->
+        <!-- Tab ~ Data sources - Upload -->
          <!-- Rule ~ one mrd:MD_Distribution block for each DATA file uploaded by the user -->
          <!-- Change note ~ Thumbnails or documentation files write into different XML elements NOT Distribution -->
         <!-- Cardinality ~ many -->
@@ -2436,7 +2436,7 @@
         <!-- Description ~ Provides details for accessing the data -->
         <!-- Operation ~ If user uploads file, the information is populated by SHaRED -->
          <!-- UI ~ As-Is -->
-         <!-- Tab ~ Data sources -->
+         <!-- Tab ~ Data sources - upload  -->
          <!-- Display Label ~ see comments above under /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:graphicOverview[1] -->
          <!-- Required ~ conditional -->
         <!-- Help Text ~ Data files less than 100MB can be uploaded here -->        
@@ -2505,7 +2505,7 @@
         <!-- Operation ~ User input -->
         <!-- UI ~ Change function/Change texts -->
         <!-- Change note ~ Fields are currently on About tab -->
-        <!-- Tab ~ Data sources -->
+        <!-- Tab ~ Data sources - Data services -->
         <!-- Rule ~ one mrd:MD_distribution block for each distribution input by the user -->
         <!-- Cardinality ~ many -->
         <!-- Documentation ~ https://bitbucket.org/terndatateam/data-submission-tool/issues/47 -->
@@ -2786,14 +2786,14 @@
             and as discussed with Wilma K -->
    <!-- Change Note ~ For version ISO 19115 v2.0 namespaces, metadataConstraints moves to before resourceLineage, as advised
    ISO Representative 2/5/2020 TERNDESK-929 -->
-   <!-- Operation ~ User can select a Security Class from a hard-coded list of values -->
+   <!-- Operation ~ Default values in XML template -->
    <!-- Operation ~ Based on user selection, also write associated ISO codelist value from https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml
                MD Classification Code
             as indicated in column I of https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing
             caution: check capitalisation -->
    <!-- UI ~ Change -->
-   <!-- Tab ~ See Deva -->
-   <!-- Display Label ~ See Deva  -->
+   <!-- Tab ~ See N/a -->
+   <!-- Display Label ~ See N/a  -->
    <!-- Help Text ~ Select the Australian Government Security Classification to apply to the metadata -->
    <!-- Placeholder Text ~ The Australian Government Security Classification to apply to the metadata -->
    <!-- KeepPlaceholderText ~ no -->

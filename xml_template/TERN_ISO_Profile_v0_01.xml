@@ -2780,7 +2780,7 @@
    </mdb:dataQualityInfo>
    <!-- Status ~ In current XML with default values -->
    <!-- Description ~ Security class that applies to the metadata record -->
-   <!-- Change Note ~ New UI element -->
+   <!-- Change Note ~ Not displayed in UI -->
    <!-- Change Note ~ XML cit:function block added per 
                standard in https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044021623/Discuss+standards+for+CI+OnlineResource 
             and as discussed with Wilma K -->
@@ -2791,7 +2791,7 @@
                MD Classification Code
             as indicated in column I of https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing
             caution: check capitalisation -->
-   <!-- UI ~ Change -->
+   <!-- UI ~ N/a -->
    <!-- Tab ~ See N/a -->
    <!-- Display Label ~ See N/a  -->
    <!-- Help Text ~ Select the Australian Government Security Classification to apply to the metadata -->
@@ -2840,7 +2840,7 @@
     <!-- Operation ~ User input -->
     <!-- UI ~ Change function/Change texts -->
     <!-- Tab ~ How -->
-    <!-- Display Label ~ Data Lineage -->
+    <!-- Display Label ~ N/a -->
     <!-- Cardinality ~ one -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041825814/Resource+Lineage+Statement -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044381873/Resource+Lineage+Scope -->
@@ -2875,23 +2875,74 @@
                </mcc:level>
             </mcc:MD_Scope>
          </mrl:scope>
-            <!-- Display Label ~ Lineage details -->
-            <!-- Help Text ~ Description of the events, including related parameters or tolerances -->
-            <!-- Placeholder Text ~ as shown below -->
-            <!-- KeepPlaceholderText ~ no -->        
-            <!-- Required ~ no -->
-            <!-- InputLength ~ 250 -->
-            <!-- Size ~ multiline -->
-            <!-- Cardinality ~ one -->
+      </mrl:LI_Lineage>
+   </mdb:resourceLineage>
+   <mdb:resourceLineage>
+      <mrl:LI_Lineage>
+         <!-- Display Label ~ Description -->
+         <!-- Change note ~ Changed XML element -->
+         <!-- Help Text ~ Provide a brief summary of the method -->
+         <!-- Placeholder Text ~ as shown below -->
+         <!-- KeepPlaceholderText ~ no -->        
+         <!-- Required ~ ? -->
+         <!-- InputLength ~ 500 -->
+         <!-- Size ~ multiline -->
+         <!-- Cardinality ~ one per mdb:resourceLineage block -->
+         <mrl:statement>
+            <gco:CharacterString>Placeholder text=Provide a brief summary of the method.</gco:CharacterString>
+         </mrl:statement>
+         <mrl:additionalDocumentation>
+            <cit:CI_Citation>
+               <!-- Display Label ~ Name -->
+               <!-- Help Text ~ Provide a name for the method -->
+               <!-- Placeholder Text ~ as shown below -->
+               <!-- KeepPlaceholderText ~ no -->        
+               <!-- Required ~ ? -->
+               <!-- InputLength ~ 250 -->
+               <!-- Size ~ single -->
+               <!-- Cardinality ~ one per mdb:resourceLineage block -->
+               <cit:title>
+                  <gco:CharacterString>method A name goes here</gco:CharacterString>
+               </cit:title>
+               <!-- Display Label ~ URI -->
+               <!-- Help Text ~ Provide a hyperlink to the method document -->
+               <!-- Placeholder Text ~ see Help Text -->
+               <!-- KeepPlaceholderText ~ no -->        
+               <!-- Required ~ Conditional? -->
+               <!-- InputLength ~ 300 -->
+               <!-- Size ~ single -->
+               <!-- Cardinality ~ one per mdb:resourceLineage block -->               
+               <cit:identifier>
+                  <mcc:MD_Identifier>
+                     <mcc:code>
+                        <gco:CharacterString> a uri goes here</gco:CharacterString> </mcc:code>
+                  </mcc:MD_Identifier>
+               </cit:identifier>
+            </cit:CI_Citation>            
+         </mrl:additionalDocumentation>
+         <!-- Display Label ~ Steps -->
+         <!-- Help Text ~ Description of a step in the process of collecting or preparing the data -->
+         <!-- Placeholder Text ~ Input step details -->
+         <!-- KeepPlaceholderText ~ no -->        
+         <!-- Required ~ Conditional - required if URI is empty -->
+         <!-- InputLength ~ 300 -->
+         <!-- Size ~ single -->
+         <!-- Cardinality ~ 0 to many per mdb:resourceLineage block -->
          <mrl:processStep>
             <mrl:LI_ProcessStep>
                <mrl:description>
-                  <gco:CharacterString>Placeholder text=Provide a detailed description of the events in the development of the resource.
-                     If the resource has a status of 'ongoing', provide a summary of the workflow.  
-                     Associated documents can be provided in Publications on the What tab</gco:CharacterString>
+                  <gco:CharacterString>Provide the details of step 1</gco:CharacterString>
                </mrl:description>
             </mrl:LI_ProcessStep>
-         </mrl:processStep>        
+         </mrl:processStep> 
+         <!-- Example step 2 -->
+         <mrl:processStep>
+            <mrl:LI_ProcessStep>
+               <mrl:description>
+                  <gco:CharacterString>Provide the details of step 2</gco:CharacterString>
+               </mrl:description>
+            </mrl:LI_ProcessStep>
+         </mrl:processStep>  
       </mrl:LI_Lineage>
    </mdb:resourceLineage>
 </mdb:MD_Metadata>

@@ -2911,13 +2911,20 @@
                <!-- Required ~ Conditional? -->
                <!-- InputLength ~ 300 -->
                <!-- Size ~ single -->
-               <!-- Cardinality ~ one per mdb:resourceLineage block -->               
-               <cit:identifier>
-                  <mcc:MD_Identifier>
-                     <mcc:code>
-                        <gco:CharacterString> a uri goes here</gco:CharacterString> </mcc:code>
-                  </mcc:MD_Identifier>
-               </cit:identifier>
+               <!-- Cardinality ~ one per mdb:resourceLineage block -->   
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage><gco:CharacterString>a uri goes here</gco:CharacterString>
+                     </cit:linkage>
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
             </cit:CI_Citation>            
          </mrl:additionalDocumentation>
          <!-- Display Label ~ Steps -->

@@ -2780,60 +2780,8 @@
    </mdb:dataQualityInfo>
    <!-- Status ~ In current XML with default values -->
    <!-- Description ~ Security class that applies to the metadata record -->
-   <!-- Change Note ~ Not displayed in UI -->
-   <!-- Change Note ~ XML cit:function block added per 
-               standard in https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044021623/Discuss+standards+for+CI+OnlineResource 
-            and as discussed with Wilma K -->
-   <!-- Change Note ~ For version ISO 19115 v2.0 namespaces, metadataConstraints moves to before resourceLineage, as advised
-   ISO Representative 2/5/2020 TERNDESK-929 -->
-   <!-- Operation ~ Default values in XML template -->
-   <!-- Operation ~ Based on user selection, also write associated ISO codelist value from https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml
-               MD Classification Code
-            as indicated in column I of https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing
-            caution: check capitalisation -->
-   <!-- UI ~ N/a -->
-   <!-- Tab ~ See N/a -->
-   <!-- Display Label ~ See N/a  -->
-   <!-- Help Text ~ Select the Australian Government Security Classification to apply to the metadata -->
-   <!-- Placeholder Text ~ The Australian Government Security Classification to apply to the metadata -->
-   <!-- KeepPlaceholderText ~ no -->
-   <!-- Required ~ yes -->
-   <!-- Codelist ~ drop down as per column G in https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing -->
-   <!-- Cardinality ~ one -->
-   <!-- Documentation ~ document 8 on the MDWG Meeting 5 webpage: MDWG Meeting #5 - Presentations and Reports |
-               Intergovernmental Committee on Surveying and Mapping (icsm.gov.au) -->
-   <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->     
-   <mdb:metadataConstraints>
-      <mco:MD_SecurityConstraints>
-         <mco:reference>
-            <cit:CI_Citation>
-               <cit:title>
-                  <gco:CharacterString>Australian Government Security Classification System</gco:CharacterString>
-               </cit:title>
-               <cit:editionDate>
-                  <gco:DateTime>2018-11-01T00:00:00</gco:DateTime>
-               </cit:editionDate>
-               <cit:onlineResource>
-                  <cit:CI_OnlineResource>
-                     <cit:linkage>
-                        <gco:CharacterString>https://www.protectivesecurity.gov.au/Pages/default.aspx</gco:CharacterString>
-                     </cit:linkage>
-                     <cit:protocol>
-                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                     </cit:protocol>
-                     <cit:function>
-                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                           codeListValue="information"/>
-                     </cit:function>
-                  </cit:CI_OnlineResource>
-               </cit:onlineResource>
-            </cit:CI_Citation>
-         </mco:reference>
-         <mco:classification>
-            <mco:MD_ClassificationCode codeList="codeListLocation#MD_ClassificationCode" codeListValue="restricted"/>
-         </mco:classification>
-      </mco:MD_SecurityConstraints>
-   </mdb:metadataConstraints>
+   <!-- Change Note ~ Not required SHaRED v4 SG -->
+   <!-- Next Block | Resource Lineage -->
     <!-- WriteEmptyBlock ~ no -->
     <!-- Status ~ Current XML and additional elements -->
     <!-- Description ~ Lineage of the data set inputs and methods -->

@@ -157,8 +157,8 @@
     <!-- Help Text ~ What is the scope of this metadata record? -->
     <!-- Placeholder Text ~ dataset -->
     <!-- Required ~ yes -->
-    <!-- Rule ~ If codeListValue="collection", parent metadata uuid must be empty -->
-    <!-- Codelist ~ "collection","dataset" OR http://registry.it.csiro.au/def/isotc211/MD_ScopeCode?page=0&listView=true-->
+    <!-- Rule ~ Revoked - SG - can have multiple levels If codeListValue="collection", parent metadata uuid must be empty -->
+   <!-- Codelist ~ "collection","dataset" OR updated ISO codelists to https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml MD_ScopeCode -->
     <!-- KeepPlaceholderText ~ yes -->
     <!-- Cardinality ~ one -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718688/Metadata+Scope -->
@@ -666,7 +666,7 @@
                     <!-- Placeholder Text ~ Please select -->
                     <!-- KeepPlaceholderText ~ no -->
                     <!-- Required ~ yes -->
-                    <!-- Codelist ~ As-Is -->
+                     <!-- Codelist ~ https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; CI_RoleCode -->
                     <!-- Cardinality ~ one per cit:citedResponsibleParty -->
                      <cit:role>
                         <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="author"/>
@@ -882,7 +882,7 @@
             <!-- KeepPlaceholderText ~ no -->
             <!-- Required ~ yes -->
             <!-- Size ~ multiline -->
-            <!-- Codelist ~ As-Is -->
+         <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ProgressCode -->
             <!-- Cardinality ~ one -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
@@ -1050,7 +1050,7 @@
             <!-- KeepPlaceholderText ~ no -->
             <!-- Required ~ yes -->
             <!-- Rule ~ ISO states required if record type is "dataset" -->
-            <!-- Codelist ~ http://registry.it.csiro.au/def/isotc211/_MD_TopicCategoryCode -->
+            <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_TopicCategoryCode -->
             <!-- Cardinality ~ many -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140719692/Data+Identification+Topic+Category -->
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
@@ -1350,7 +1350,7 @@
                 <!-- Help Text ~ How frequently is data updated? -->
                 <!-- Required ~ yes -->
                 <!-- Rule ~  see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
-                <!-- Codelist ~ http://registry.it.csiro.au/def/isotc211/MD_MaintenanceFrequencyCode -->
+               <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_MaintenanceFrequencyCode -->
                 <!-- Cardinality ~ one -->
                <mmi:maintenanceAndUpdateFrequency>
                   <mmi:MD_MaintenanceFrequencyCode codeList="codeListLocation#MD_MaintenanceFrequencyCode"
@@ -1746,7 +1746,7 @@
             <!-- Placeholder Text ~ Start typing to filter list... -->
             <!-- KeepPlaceholderText ~ no -->
             <!-- Required ~ yes -->
-            <!-- Codelist ~ Check github location with GW -->
+            <!-- Codelist ~ In Elastic Search - check with GW -->
             <!-- Cardinality ~ block contains at least one keyword -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
@@ -2706,7 +2706,7 @@
                      <!-- Rule ~ Required if cit:description is not blank -->
                      <!-- Size ~ single -->
                      <!-- Cardinality ~ one per mrd:transferOptions block --> 
-                     <!-- Codelist ~ http://registry.it.csiro.au/def/isotc211/_CI_OnLineFunctionCode, only browsing, fileAccess and download are valid -->
+                     <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; CI_OnLineFunctionCode, only browsing, fileAccess and download are valid -->
                      <cit:function>
                         <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="fileAccess"/>
                      </cit:function>
@@ -2736,7 +2736,7 @@
             <!-- Required ~ no -->
             <!-- Rule ~ Default = 'dataset' -->
             <!-- Size ~ single -->
-            <!-- Codelist ~http://registry.it.csiro.au/def/isotc211/_MD_ScopeCode  -->
+               <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ScopeCode  -->
             <!-- Cardinality ~ one -->
                <mcc:level>
                   <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
@@ -2814,7 +2814,7 @@
             <!-- Required ~ yes -->
             <!-- Rule ~ Default = 'dataset' -->
             <!-- Size ~ single -->
-            <!-- Codelist ~http://registry.it.csiro.au/def/isotc211/_MD_ScopeCode  -->
+         <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ScopeCode  -->
             <!-- Cardinality ~ one -->
          <mrl:scope>
             <mcc:MD_Scope>

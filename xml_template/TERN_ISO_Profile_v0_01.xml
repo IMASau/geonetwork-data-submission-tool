@@ -201,7 +201,7 @@
                      <cit:address>
                         <cit:CI_Address>
                            <cit:deliveryPoint>
-                              <gco:CharacterString>Building 1018, 80 Meiers Rd</gco:CharacterString>
+                              <gco:CharacterString>Building 1019, 80 Meiers Rd</gco:CharacterString>
                            </cit:deliveryPoint>
                            <cit:city>
                               <gco:CharacterString>Indooroopilly</gco:CharacterString>
@@ -584,7 +584,7 @@
                                  <cit:address>
                                     <cit:CI_Address>
                                        <cit:deliveryPoint>
-                                          <gco:CharacterString>Building 1018, 80 Meiers Rd</gco:CharacterString>
+                                          <gco:CharacterString>Building 1019, 80 Meiers Rd</gco:CharacterString>
                                        </cit:deliveryPoint>
                                        <cit:city>
                                           <gco:CharacterString>Indooroopilly</gco:CharacterString>
@@ -2395,7 +2395,7 @@
                                  <cit:address>
                                     <cit:CI_Address>
                                        <cit:deliveryPoint>
-                                          <gco:CharacterString>Building 1018, 80 Meiers Rd</gco:CharacterString>
+                                          <gco:CharacterString>Building 1019, 80 Meiers Rd</gco:CharacterString>
                                        </cit:deliveryPoint>
                                        <cit:city>
                                           <gco:CharacterString>Indooroopilly</gco:CharacterString>

@@ -433,7 +433,7 @@
                 <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140817975/Data+Identification+Citation+Title -->
                 <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:title>
-                  <gco:CharacterString>jira-1287-2021/01/27-2 - add security classification for METADATA - v2 namespaces </gco:CharacterString>
+                  <gco:CharacterString>jira-1287-2021/03/01-1 - without security classification for METADATA - v2 namespaces </gco:CharacterString>
                </cit:title>
                <!-- Status creation cit:date ~ In Current XML and UI -->
                 <!-- Description ~ Date the resource was created ready for publication -->
@@ -1160,20 +1160,6 @@
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:extent>
             <gex:EX_Extent id="Vertical">
-                <!-- Description ~ Indicates whether elevation was taken from a GPS, Map or Other -->
-                <!-- Operation ~ User selects from codelist -->
-                <!-- Operation ~ Selected value writes over [source goes here] -->
-                <!-- Display Label ~ Method* -->
-                <!-- Help Text ~ How was the elevation measured -->
-                <!-- Placeholder Text ~ Elevation measured from: -->
-                <!-- KeepPlaceholderText ~ yes -->
-                <!-- Required ~ conditional -->
-                <!-- Rule ~ If vertical component flag is true, a value from codelist is mandatory -->
-                <!-- Codelist ~ As-Is -->
-                <!-- Cardinality ~ one -->
-               <gex:description>
-                  <gco:CharacterString>Elevation measured from: [source goes here]</gco:CharacterString>
-               </gex:description>
                <gex:verticalElement>
                   <gex:EX_VerticalExtent>
                     <!-- Display Label ~ Minimum (in metres)* -->

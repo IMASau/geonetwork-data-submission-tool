@@ -1342,15 +1342,6 @@
                   <mmi:MD_MaintenanceFrequencyCode codeList="codeListLocation#MD_MaintenanceFrequencyCode"
                      codeListValue="annually"/>
                </mmi:maintenanceAndUpdateFrequency>
-               <!-- Operation ~ Display simultaneously with mmi:maintenanceAndUpdateFrequency -->
-                <!-- Display Label ~ Maintenance requirements -->
-                <!-- Placeholder Text ~ Specific requirements for maintaining the resource -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ no -->
-                <!-- InputLength ~ 250 -->
-                <!-- Size ~ multiline -->
-                <!-- Cardinality ~ one -->
-               <mmi:maintenanceNote><gco:CharacterString>Placeholder text=Specific requirements for maintaining the resource</gco:CharacterString></mmi:maintenanceNote>
             </mmi:MD_MaintenanceInformation>
          </mri:resourceMaintenance>
             <!-- WriteEmptyBlock ~ no -->

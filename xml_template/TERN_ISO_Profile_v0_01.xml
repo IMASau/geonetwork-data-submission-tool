@@ -436,7 +436,7 @@
                   <gco:CharacterString>jira-1287-2021/03/01-1 - without security classification for METADATA - v2 namespaces </gco:CharacterString>
                </cit:title>
                <!-- Status creation cit:date ~ In Current XML and UI -->
-                <!-- Description ~ Date the resource was created ready for publication -->
+                <!-- Description ~ Date the resource was created -->
                 <!-- Operation ~ User types or selects date which is stored as YYYY-MM-DD in ISO format -->
                 <!-- UI ~ Change texts -->
                 <!-- Tab ~ Data ID -->
@@ -444,7 +444,7 @@
                 <!-- Help Text ~ When was the resource created? -->
                 <!-- Required ~ yes -->
                 <!-- Rule ~ Write as Year Month Day in ISO format -->
-                <!-- Rule ~ Valid date >= 1900 -->
+                <!-- Rule ~ Valid date >= 19000101 -->
                 <!-- Cardinality ~ one -->
                 <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
                 <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
@@ -533,6 +533,7 @@
                 <!-- Placeholder Text ~ doi:[If applicable, DOI number writes here] -->
                 <!-- KeepPlaceholderText ~ no -->
                 <!-- Required ~ no -->
+               <!-- Rule ~ DOI minting is disabled if a custom citation is present, see otherCitationDetails below -->
                 <!-- Cardinality ~ one -->
                 <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-446 -->
                 <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718892/Data+Identification+Citation+Identifier+DOI -->
@@ -794,6 +795,12 @@
                      </cit:party>
                   </cit:CI_Responsibility>
                </cit:citedResponsibleParty>
+               <!-- Documentation ~ Email 20210301 DV - custom citation is required and will write to othercitationdetails -->
+               <!-- Rule ~ If a custom citation is present this supercedes the standard generated citation -->
+               <!-- Rule ~ If a custom citation is present then DOI minting should be disabled and DOI should be created manually -->
+               <cit:otherCitationDetails><gco:CharacterString>
+                  a custom citation
+               </gco:CharacterString></cit:otherCitationDetails>
                <!-- Static section ~ retain in XML output -->
                 <!-- Block Status ~ New XML block, begins after last cit:citedResponsibleParty  -->
                 <!-- Description ~ TERN web site -->
@@ -1008,9 +1015,9 @@
          </mri:pointOfContact>
             <!-- Status mri:spatialResolution ~ Change XML and UI -->
             <!-- Description ~ The spatial resolution of the dataset if applicable -->
-            <!-- Operation ~ User will be able to specify horizontal distance and unit of measure -->
+            <!-- Operation ~ User will be able to select and unit of measure -->
             <!-- UI ~ Add fields -->
-            <!-- Tab ~ To be confirmed -->
+            <!-- Tab ~ Where -->
             <!-- Cardinality ~ one -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718977/Data+Identification+Spatial+Resolution -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
@@ -1025,19 +1032,24 @@
                 <!-- Placeholder Text ~ 0.00 -->
                 <!-- KeepPlaceholderText ~ no -->
                 <!-- Required ~ no -->
-                <!-- Rule ~ Allow digits, "." -->
-                <!-- Rule ~ Positive numbers only -->
-                <!-- InputLength ~ 6 -->
+               <!-- Rule ~ Conditional if numeric: Allow digits, "." , Positive numbers only-->
+                <!-- InputLength ~ Conditional: 12 for numeric, 250 for text -->
                 <!-- Size ~ single -->
                 <!-- Cardinality ~ one -->
-                <!-- Display Label ~ Unit of measure -->
-                <!-- Placeholder Text ~ Please select -->
                 <!-- KeepPlaceholderText ~ no -->
                 <!-- Required ~ conditional -->
-                <!-- Rule ~ Must be a value from Codelist if Distance is input -->
+               <!-- Operation ~ User selects an option, enters the numeric value or text, UOM defaults  -->
+               <!-- Operation ~ XML varies depending on user selected option  -->
+                <!-- Rule ~ UOM Must be metre for Distance, degree for angle -->
                 <!-- Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
                 <!-- Cardinality ~ one -->
-               <mri:distance><gco:Distance uom="codelistvalue">0.00</gco:Distance></mri:distance>
+               <!-- Each line shows the XML that will apply depending on user selection: 
+               <mri:angularDistance><gco:Angle uom="degree">30</gco:Angle></mri:angularDistance>
+               <mri:equivalentScale><mri:MD_RepresentativeFraction><mri:denominator><gco:Integer>100000</gco:Integer></mri:denominator></mri:MD_RepresentativeFraction></mri:equivalentScale>
+               <mri:levelOfDetail><gco:CharacterString>a text description of the resolution of the resource</gco:CharacterString></mri:levelOfDetail>
+               <mri:vertical><gco:Distance uom="metre">0.25</gco:Distance></mri:vertical>
+                -->             
+               <mri:distance><gco:Distance uom="metre">30</gco:Distance></mri:distance>
             </mri:MD_Resolution>
          </mri:spatialResolution>
             <!-- Status mri:topicCategory ~ Current XML change text and codelist -->
@@ -1606,7 +1618,6 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-         <!-- Instruments -->
              <!-- Display Label ~ TERN Instrument Vocabulary -->
             <!-- Help Text ~ Select the Instrument or click Add to create a new entry -->
             <!-- Operation ~ User can select values and create new list values -->
@@ -1765,8 +1776,8 @@
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
             <!-- Display Label ~ GCMD Horizontal Resolution -->
-            <!-- Help Text ~ For gridded data, select the pixel size of the data -->
-            <!-- Operation ~ User can select values and create new list values -->
+            <!-- Help Text ~ For gridded data, select the pixel size of the data, for field plots, select average width -->
+            <!-- Operation ~ User can select values from codelist -->
             <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
             <!-- Implementation ~ display in sequence see As-Is -->
             <!-- Change Note ~ Was on the About tab -->
@@ -1801,6 +1812,57 @@
                            <!-- The base uri has changed, below is the new base uri for the horizontal res -->
                               <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml
                            </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <!-- Display Label ~ GCMD Vertical Resolution -->
+         <!-- Help Text ~  Select the smallest vertical distance between successive elements of data in a dataset. 
+            This is synonymous with terms such as sample spacing and pixel size -->
+         <!-- Operation ~ User can select values -->
+         <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+         <!-- Implementation ~ display in sequence -->
+         <!-- Change Note ~ New to UI and XML -->
+         <!-- Placeholder Text ~ Please select -->
+         <!-- KeepPlaceholderText ~ no -->
+         <!-- Required ~ no -->
+         <!-- Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml -->
+         <!-- Cardinality ~ one -->
+         <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+         <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/3f0aa4fc-802c-4804-9f9f-8b666f3a2776?format=json" xlink:show="new">> 1 km</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>GCMD Vertical Resolution</gco:CharacterString>
+                     </cit:title>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml
+                              </gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -1865,57 +1927,7 @@
                   </cit:CI_Citation>
                </mri:thesaurusName>
             </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
-         <!-- Display Label ~ GCMD Vertical Resolution -->
-            <!-- Help Text ~   -->
-            <!-- Operation ~ User can select values -->
-            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-            <!-- Implementation ~ display in sequence -->
-            <!-- Change Note ~ New to UI and XML -->
-            <!-- Placeholder Text ~ Please select -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ no -->
-            <!-- Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-         <mri:descriptiveKeywords>
-            <mri:MD_Keywords>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/3f0aa4fc-802c-4804-9f9f-8b666f3a2776?format=json" xlink:show="new">> 1 km</gcx:Anchor>
-               </mri:keyword>
-               <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
-               </mri:type>
-               <mri:thesaurusName>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>GCMD Vertical Resolution</gco:CharacterString>
-                     </cit:title>
-                     <cit:otherCitationDetails>
-                        <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
-                        </gco:CharacterString>
-                     </cit:otherCitationDetails>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml
-                              </gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
-                           <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                 codeListValue="information"/>
-                           </cit:function> 
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mri:thesaurusName>
-            </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
+            </mri:descriptiveKeywords>
          <!-- Display Label ~ Australian Plant Name Index (APNI) -->
             <!-- Help Text ~ Species taxa  -->
             <!-- Operation ~ User can select values -->
@@ -2057,11 +2069,14 @@
                </mri:type>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
+            <!-- Tab ~ About -->            
          <mri:resourceSpecificUsage><mri:MD_Usage>
             <mri:specificUsage><gco:CharacterString>Placeholder text=Information about data usage, this will capture usability text about data, this can be an expert comments</gco:CharacterString></mri:specificUsage>
          </mri:MD_Usage></mri:resourceSpecificUsage>
          <!-- Static section ~ retain in XML output -->
          <!-- Description ~ CC By Licence details -->
+          <!-- Tab ~ About -->
+         <!-- Operation ~ Some content and the icon display on the page -->
          <mri:resourceConstraints>
             <mco:MD_LegalConstraints>
                <mco:useLimitation><gco:CharacterString>
@@ -2172,10 +2187,8 @@
             <!-- Status ~ In current XML with default values -->
             <!-- Description ~ Security class that applies to the dataset or collection -->
             <!-- Change Note ~ New UI element -->
-            <!-- Change Note ~ XML cit:function block added per 
-               standard in https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044021623/Discuss+standards+for+CI+OnlineResource 
-            and as discussed with Wilma K -->
-            <!-- Operation ~ User can select a Security Class from a hard-coded list of values -->
+            <!-- Change Note ~ XML cit:function block added -->
+            <!-- Operation ~ User can select a Security Class from a list of values -->
             <!-- Operation ~ Based on user selection, also write associated ISO codelist value from https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml
                MD Classification Code
             as indicated in column I of https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing
@@ -2189,8 +2202,7 @@
             <!-- Required ~ yes -->
             <!-- Codelist ~ drop down as per column G in https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing -->
             <!-- Cardinality ~ one -->
-            <!-- Documentation ~ document 8 on the MDWG Meeting 5 webpage: MDWG Meeting #5 - Presentations and Reports |
-               Intergovernmental Committee on Surveying and Mapping (icsm.gov.au) -->
+            <!-- Documentation ~ document 8 on the MDWG Meeting 5 webpage: MDWG Meeting #5 - Presentations and Reports | Intergovernmental Committee on Surveying and Mapping (icsm.gov.au) -->
             <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->            
          <mri:resourceConstraints>
          <mco:MD_SecurityConstraints>
@@ -2708,11 +2720,7 @@
       <mdq:DQ_DataQuality>
          <mdq:scope>
             <mcc:MD_Scope>
-            <!-- Display Label ~ Data Quality Scope -->
-            <!-- Help Text ~ Select to indicate the scope -->
-            <!-- Required ~ no -->
             <!-- Rule ~ Default = 'dataset' -->
-            <!-- Size ~ single -->
                <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ScopeCode  -->
             <!-- Cardinality ~ one -->
                <mcc:level>
@@ -2727,22 +2735,104 @@
                     <!-- InputLength ~ 250 -->
                     <!-- Size ~ multiline -->
                     <!-- Cardinality ~ one -->
+                  <!-- As at 05032021 I have advised SG that evaluationMethodDescription is a better element to use -->
                   <mcc:MD_ScopeDescription>
                      <mcc:other><gco:CharacterString>Placeholder Text=Does the quality statement apply to the entire data set or specific attributes?</gco:CharacterString></mcc:other>
                   </mcc:MD_ScopeDescription>
                   </mcc:levelDescription>
             </mcc:MD_Scope>
          </mdq:scope>
+         <mdq:report>
+         <mdq:DQ_QuantitativeAttributeAccuracy>
+            <!-- Display Label ~ Describe the methods used to assess the Data quality -->
+            <!-- Help Text ~ Description of the evaluation method -->
+            <!-- Placeholder Text ~ as shown below -->
+            <!-- KeepPlaceholderText ~ no -->        
+            <!-- Required ~ no -->
+            <!-- InputLength ~ 250 -->
+            <!-- Size ~ multiline -->
+            <!-- Cardinality ~ one -->
+            <mdq:evaluationMethod>
+               <mdq:DQ_EvaluationMethod>
+                  <mdq:evaluationMethodDescription>
+                     <gco:CharacterString>The data quality was assessed by ...</gco:CharacterString>
+                  </mdq:evaluationMethodDescription>
+                  <!-- Cardinality ~ 0 to many referenceDoc blocks -->
+                  <!-- Online documentation Title and URI - example 1 -->
+                  <mdq:referenceDoc><cit:CI_Citation>
+                     <!-- Display Label ~ Title -->
+                     <!-- Help Text ~ Provide the document title -->
+                     <!-- Placeholder Text ~ as shown below -->
+                     <!-- KeepPlaceholderText ~ no -->        
+                     <!-- Required ~ Conditional -->
+                     <!-- InputLength ~ 250 -->
+                     <!-- Size ~ single -->
+                     <cit:title>
+                        <gco:CharacterString>Provide the document title</gco:CharacterString>
+                     </cit:title>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <!-- Display Label ~ URI -->
+                           <!-- Help Text ~ Provide a hyperlink to the method document -->
+                           <!-- Placeholder Text ~ see Help Text -->
+                           <!-- KeepPlaceholderText ~ no -->        
+                           <!-- Required ~ Conditional -->
+                           <!-- InputLength ~ 300 -->
+                           <!-- Size ~ single -->
+                           <!-- Cardinality ~ one per additionalDocumentation block --> 
+                           <cit:linkage>
+                              <gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
+                           </cit:linkage>
+                           <!-- default values apply -->
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:description>
+                              <gco:CharacterString>Data quality documentation</gco:CharacterString>
+                           </cit:description>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function>
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+                  </mdq:referenceDoc>
+                  <!-- Online documentation Title and URI - example 2 -->
+                  <mdq:referenceDoc><cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>Provide the document title</gco:CharacterString>
+                     </cit:title>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
+                           </cit:linkage>
+                           <!-- default values apply -->
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:description>
+                              <gco:CharacterString>Data quality documentation</gco:CharacterString>
+                           </cit:description>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function>
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+                  </mdq:referenceDoc>
+               </mdq:DQ_EvaluationMethod>
+            </mdq:evaluationMethod>
             <!-- Display Label ~ Data Quality Result -->
-            <!-- Help Text ~ As-Is -->
+            <!-- Help Text ~ Description of the data quality assessment results -->
             <!-- Placeholder Text ~ as shown below -->
             <!-- KeepPlaceholderText ~ no -->        
             <!-- Required ~ no -->
             <!-- InputLength ~ As-Is -->
             <!-- Size ~ multiline -->
             <!-- Cardinality ~ one -->
-         <mdq:report>
-         <mdq:DQ_QuantitativeAttributeAccuracy>
             <mdq:result>
                <mdq:DQ_DescriptiveResult>
                   <mdq:statement>
@@ -2755,10 +2845,6 @@
          </mdq:report>
       </mdq:DQ_DataQuality>
    </mdb:dataQualityInfo>
-   <!-- Status ~ In current XML with default values -->
-   <!-- Description ~ Security class that applies to the metadata record -->
-   <!-- Change Note ~ Not required SHaRED v4 SG -->
-   <!-- Next Block | Resource Lineage -->
     <!-- WriteEmptyBlock ~ no -->
     <!-- Status ~ Current XML and additional elements -->
     <!-- Description ~ Lineage of the data set inputs and methods -->
@@ -2773,23 +2859,22 @@
     <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
    <mdb:resourceLineage>
       <mrl:LI_Lineage>
-            <!-- Display Label ~ Lineage -->
-            <!-- Change note ~ Field moves from About tab to How tab -->
+         <!-- Display Label ~ Data creation procedure details (Optional) -->
             <!-- Help Text ~ Provide a brief summary of inputs and processing -->
             <!-- Placeholder Text ~ as shown below -->
             <!-- KeepPlaceholderText ~ no -->        
             <!-- Required ~ yes -->
-            <!-- InputLength ~ As-Is -->
+            <!-- InputLength ~ 1000 -->
             <!-- Size ~ multiline -->
             <!-- Cardinality ~ one -->
          <mrl:statement>
             <gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods. 
-               Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017</gco:CharacterString>
+               </gco:CharacterString>
          </mrl:statement>
-            <!-- Display Label ~ Lineage Scope -->
-            <!-- Help Text ~ Select to indicate the scope -->
+            <!-- Display Label ~ Scope -->
+            <!-- Help Text ~ Select to indicate the scope of the lineage information -->
             <!-- Required ~ yes -->
-            <!-- Rule ~ Default = 'dataset' -->
+            <!-- Rule ~ Default = 'dataset', only dataset or collection are available for user to select -->
             <!-- Size ~ single -->
          <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ScopeCode  -->
             <!-- Cardinality ~ one -->
@@ -2800,50 +2885,40 @@
                </mcc:level>
             </mcc:MD_Scope>
          </mrl:scope>
-      </mrl:LI_Lineage>
-   </mdb:resourceLineage>
-   <mdb:resourceLineage>
-      <mrl:LI_Lineage>
-         <!-- Display Label ~ Description -->
-         <!-- Change note ~ Changed XML element -->
-         <!-- Help Text ~ Provide a brief summary of the method -->
-         <!-- Placeholder Text ~ as shown below -->
-         <!-- KeepPlaceholderText ~ no -->        
-         <!-- Required ~ ? -->
-         <!-- InputLength ~ 500 -->
-         <!-- Size ~ multiline -->
-         <!-- Cardinality ~ one per mdb:resourceLineage block -->
-         <mrl:statement>
-            <gco:CharacterString>Placeholder text=Provide a brief summary of the method.</gco:CharacterString>
-         </mrl:statement>
+         <!-- Cardinality ~ 0 to many within the Data creation procedure details (Optional) block -->
+         <!-- Online documentation Title and URI - example 1 -->
          <mrl:additionalDocumentation>
             <cit:CI_Citation>
-               <!-- Display Label ~ Name -->
-               <!-- Help Text ~ Provide a name for the method -->
+               <!-- Display Label ~ Title -->
+               <!-- Help Text ~ Provide the document title -->
                <!-- Placeholder Text ~ as shown below -->
                <!-- KeepPlaceholderText ~ no -->        
-               <!-- Required ~ ? -->
-               <!-- InputLength ~ 250 -->
+               <!-- Required ~ Conditional block -->
+               <!-- InputLength ~ 500 -->
                <!-- Size ~ single -->
-               <!-- Cardinality ~ one per mdb:resourceLineage block -->
+               <!-- Cardinality ~ one per additionalDocumentation block -->
                <cit:title>
-                  <gco:CharacterString>method A name goes here</gco:CharacterString>
+                  <gco:CharacterString>Provide the document title</gco:CharacterString>
                </cit:title>
-               <!-- Display Label ~ URI -->
-               <!-- Help Text ~ Provide a hyperlink to the method document -->
+               <!-- Display Label ~ Hyperlink -->
+               <!-- Help Text ~ Provide a hyperlink to the documentation -->
                <!-- Placeholder Text ~ see Help Text -->
                <!-- KeepPlaceholderText ~ no -->        
-               <!-- Required ~ Conditional? -->
+               <!-- Required ~ Conditional block -->
                <!-- InputLength ~ 300 -->
                <!-- Size ~ single -->
-               <!-- Cardinality ~ one per mdb:resourceLineage block -->   
+               <!-- Cardinality ~ one per additionalDocumentation block -->   
                <cit:onlineResource>
                   <cit:CI_OnlineResource>
-                     <cit:linkage><gco:CharacterString>a uri goes here</gco:CharacterString>
+                     <cit:linkage><gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
                      </cit:linkage>
+                     <!-- default values apply -->
                      <cit:protocol>
                         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                      </cit:protocol>
+                     <cit:description>
+                        <gco:CharacterString>Method documentation</gco:CharacterString>
+                     </cit:description>
                      <cit:function>
                         <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
                            codeListValue="information"/>
@@ -2852,14 +2927,113 @@
                </cit:onlineResource>
             </cit:CI_Citation>            
          </mrl:additionalDocumentation>
+         <!-- Online documentation Title and URI - example 2 -->
+         <mrl:additionalDocumentation>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Provide the document title</gco:CharacterString>
+               </cit:title>
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage><gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
+                     </cit:linkage>
+                     <!-- default values apply -->
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
+                     <cit:description>
+                        <gco:CharacterString>Method documentation</gco:CharacterString>
+                     </cit:description>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
+            </cit:CI_Citation>            
+         </mrl:additionalDocumentation>
+      </mrl:LI_Lineage>
+   </mdb:resourceLineage>
+   <!-- Description ~ Individual methods used to produce the dataset/collection -->
+   <!-- WriteEmptyBlock ~ no -->
+   <!-- Status ~ Current XML and additional elements -->
+   <!-- Operation ~ User input -->
+   <!-- Operation ~ Block is optional, but if selected then Name and Description are mandatory -->
+   <!-- UI ~ Change function/Change texts -->
+   <!-- Tab ~ How -->
+   <!-- Display Label ~ Process steps optional -->
+   <!-- Cardinality ~ one for each Process steps -->
+   <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041825814/Resource+Lineage+Statement -->
+   <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044414700/Resource+Lineage+Process+Step -->
+   <!-- Process steps - example 1 -->
+   <mdb:resourceLineage>
+      <mrl:LI_Lineage>
+         <!-- Display Label ~ Description -->
+         <!-- Help Text ~ Provide a brief summary of inputs and processing -->
+         <!-- Placeholder Text ~ as shown below -->
+         <!-- KeepPlaceholderText ~ yes -->        
+         <!-- Required ~ Conditional - block is optional but field is required if block is completed -->
+         <!-- InputLength ~ 500 -->
+         <!-- Size ~ multiline -->
+         <!-- Cardinality ~ one per Process steps mdb:resourceLineage block -->
+         <mrl:statement>
+            <gco:CharacterString>Placeholder text=Provide a brief summary of a single method/procedure</gco:CharacterString>
+         </mrl:statement>
+   <mrl:additionalDocumentation>
+      <cit:CI_Citation>
+         <!-- Display Label ~ Name -->
+         <!-- Help Text ~ Provide the name of the procedure -->
+         <!-- Placeholder Text ~ as shown below -->
+         <!-- KeepPlaceholderText ~ no -->        
+         <!-- Required ~ Conditional - block is optional but field is required if block is completed -->
+         <!-- InputLength ~ 500 -->
+         <!-- Size ~ single -->
+         <!-- Cardinality ~ one per Process steps mdb:resourceLineage block -->
+         <cit:title>
+            <gco:CharacterString>Provide the name of the procedure</gco:CharacterString>
+         </cit:title>
+      </cit:CI_Citation>            
+   </mrl:additionalDocumentation>
          <!-- Display Label ~ Steps -->
          <!-- Help Text ~ Description of a step in the process of collecting or preparing the data -->
          <!-- Placeholder Text ~ Input step details -->
          <!-- KeepPlaceholderText ~ no -->        
-         <!-- Required ~ Conditional - required if URI is empty -->
-         <!-- InputLength ~ 300 -->
+         <!-- Required ~ no -->
+         <!-- InputLength ~ 500 -->
          <!-- Size ~ single -->
          <!-- Cardinality ~ 0 to many per mdb:resourceLineage block -->
+         <!-- Example step 1 -->
+         <mrl:processStep>
+            <mrl:LI_ProcessStep>
+               <mrl:description>
+                  <gco:CharacterString>Provide the details of step 1</gco:CharacterString>
+               </mrl:description>
+            </mrl:LI_ProcessStep>
+         </mrl:processStep> 
+         <!-- Example step 2 -->
+         <mrl:processStep>
+            <mrl:LI_ProcessStep>
+               <mrl:description>
+                  <gco:CharacterString>Provide the details of step 2</gco:CharacterString>
+               </mrl:description>
+            </mrl:LI_ProcessStep>
+         </mrl:processStep>  
+      </mrl:LI_Lineage>
+   </mdb:resourceLineage>
+   <!-- Process steps - example 2 -->
+   <mdb:resourceLineage>
+      <mrl:LI_Lineage>
+         <mrl:statement>
+            <gco:CharacterString>Placeholder text=Provide a brief summary of a single method or procedure</gco:CharacterString>
+         </mrl:statement>
+         <mrl:additionalDocumentation>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Provide the name of the procedure</gco:CharacterString>
+               </cit:title>
+            </cit:CI_Citation>            
+         </mrl:additionalDocumentation>
+         <!-- Example step 1 -->
          <mrl:processStep>
             <mrl:LI_ProcessStep>
                <mrl:description>

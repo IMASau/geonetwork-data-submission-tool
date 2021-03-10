@@ -119,8 +119,8 @@
     <!-- Placeholder Text ~ Start typing to filter list... -->
     <!-- KeepPlaceholderText ~ no -->
     <!-- Required ~ conditional -->
-    <!-- Assumption ~ There are only two levels in the record hierarchy: dataset may belong to collection -->
-    <!-- Rule ~ Not permitted if mcc:MD_ScopeCode="collection" -->
+    <!-- Assumption ~ There may be multiple levels in the record hierarchy: collections and dataset; dataset should only occur at the lowest level -->
+    <!-- Rule ~ Parent from GeoNetwork is limited to records of scope "Collection" -->
     <!-- Cardinality ~ one -->
     <!-- Codelist ~ List of titles from records published on GeoNetwork, alphabetic ascending -->
     <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-503 -->
@@ -157,8 +157,8 @@
     <!-- Help Text ~ What is the scope of this metadata record? -->
     <!-- Placeholder Text ~ dataset -->
     <!-- Required ~ yes -->
-    <!-- Rule ~ If codeListValue="collection", parent metadata uuid must be empty -->
-    <!-- Codelist ~ "collection","dataset" OR http://registry.it.csiro.au/def/isotc211/MD_ScopeCode?page=0&listView=true-->
+    <!-- Rule ~ Revoked - SG - can have multiple levels If codeListValue="collection", parent metadata uuid must be empty -->
+   <!-- Codelist ~ "collection","dataset" OR updated ISO codelists to https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml MD_ScopeCode -->
     <!-- KeepPlaceholderText ~ yes -->
     <!-- Cardinality ~ one -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718688/Metadata+Scope -->
@@ -201,19 +201,19 @@
                      <cit:address>
                         <cit:CI_Address>
                            <cit:deliveryPoint>
-                              <gco:CharacterString>Building 8, University of Queensland</gco:CharacterString>
+                              <gco:CharacterString>Building 1019, 80 Meiers Rd</gco:CharacterString>
                            </cit:deliveryPoint>
                            <cit:city>
-                              <gco:CharacterString>St Lucia</gco:CharacterString>
+                              <gco:CharacterString>Indooroopilly</gco:CharacterString>
                            </cit:city>
                            <cit:administrativeArea>
                               <gco:CharacterString>QLD</gco:CharacterString>
                            </cit:administrativeArea>
                            <cit:postalCode>
-                              <gco:CharacterString>4072</gco:CharacterString>
+                              <gco:CharacterString>4068</gco:CharacterString>
                            </cit:postalCode>
                            <cit:country>
-                              <gco:CharacterString>AU</gco:CharacterString>
+                              <gco:CharacterString>Australia</gco:CharacterString>
                            </cit:country>
                            <cit:electronicMailAddress>
                               <gco:CharacterString>esupport@tern.org.au</gco:CharacterString>
@@ -316,7 +316,7 @@
          <cit:date>
           <cit:CI_Date>
           <!-- Description ~ Year of published version -->
-            <cit:date><gco:Date>2020</gco:Date></cit:date>
+            <cit:date><gco:Date>2021</gco:Date></cit:date>
             <cit:dateType><cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="published"></cit:CI_DateTypeCode></cit:dateType>
           </cit:CI_Date>
          </cit:date>
@@ -372,7 +372,7 @@
     <!-- Description ~ Describes the Horizontal Coordinate Reference System of the data -->
     <!-- Operation ~ Provide drop-down list of options using description and code, related values for code, codespace and reference system type code will default based on selected value -->
     <!-- UI ~ Change -->
-    <!-- Tab ~ About -->
+    <!-- Tab ~ Where -->
     <!-- Display Label ~ Horizontal Coordinate Reference System -->
     <!-- Help Text ~ What CRS was your data captured in? -->
     <!-- Placeholder Text ~ Please select -->
@@ -433,18 +433,18 @@
                 <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140817975/Data+Identification+Citation+Title -->
                 <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:title>
-                  <gco:CharacterString>jira-1287-2021/01/27-2 - add security classification for METADATA - v2 namespaces </gco:CharacterString>
+                  <gco:CharacterString>jira-1287-2021/03/01-1 - without security classification for METADATA - v2 namespaces </gco:CharacterString>
                </cit:title>
                <!-- Status creation cit:date ~ In Current XML and UI -->
-                <!-- Description ~ Date the resource was created ready for publication -->
+                <!-- Description ~ Date the resource was created -->
                 <!-- Operation ~ User types or selects date which is stored as YYYY-MM-DD in ISO format -->
                 <!-- UI ~ Change texts -->
                 <!-- Tab ~ Data ID -->
                 <!-- Display Label ~ Date the resource was created -->
-                <!-- Help Text ~ Date the resource was created ready for publication -->
+                <!-- Help Text ~ When was the resource created? -->
                 <!-- Required ~ yes -->
                 <!-- Rule ~ Write as Year Month Day in ISO format -->
-                <!-- Rule ~ Valid date >= 1900 -->
+                <!-- Rule ~ Valid date >= 19000101 -->
                 <!-- Cardinality ~ one -->
                 <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
                 <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
@@ -528,11 +528,12 @@
                 <!-- Description ~ If a DOI is minted for the dataset, the details are written here -->
                 <!-- Operation ~ Admin clicks 'Mint DOI', returned DOI number writes into mcc:code replacing [If applicable, DOI number writes here] -->
                 <!-- UI ~ add field to capture pre-existing DOI -->
-                <!-- Tab ~ Data ID -->
+                <!-- Tab ~ Lodge -->
                 <!-- Display Label ~ Is there an existing DOI to transfer? -->
                 <!-- Placeholder Text ~ doi:[If applicable, DOI number writes here] -->
                 <!-- KeepPlaceholderText ~ no -->
                 <!-- Required ~ no -->
+               <!-- Rule ~ DOI minting is disabled if a custom citation is present, see otherCitationDetails below -->
                 <!-- Cardinality ~ one -->
                 <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-446 -->
                 <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718892/Data+Identification+Citation+Identifier+DOI -->
@@ -584,19 +585,19 @@
                                  <cit:address>
                                     <cit:CI_Address>
                                        <cit:deliveryPoint>
-                                          <gco:CharacterString>Building 8, University of Queensland</gco:CharacterString>
+                                          <gco:CharacterString>Building 1019, 80 Meiers Rd</gco:CharacterString>
                                        </cit:deliveryPoint>
                                        <cit:city>
-                                          <gco:CharacterString>St Lucia</gco:CharacterString>
+                                          <gco:CharacterString>Indooroopilly</gco:CharacterString>
                                        </cit:city>
                                        <cit:administrativeArea>
                                           <gco:CharacterString>QLD</gco:CharacterString>
                                        </cit:administrativeArea>
                                        <cit:postalCode>
-                                          <gco:CharacterString>4072</gco:CharacterString>
+                                          <gco:CharacterString>4068</gco:CharacterString>
                                        </cit:postalCode>
                                        <cit:country>
-                                          <gco:CharacterString>AU</gco:CharacterString>
+                                          <gco:CharacterString>Australia</gco:CharacterString>
                                        </cit:country>
                                        <cit:electronicMailAddress>
                                           <gco:CharacterString>esupport@tern.org.au</gco:CharacterString>
@@ -666,7 +667,7 @@
                     <!-- Placeholder Text ~ Please select -->
                     <!-- KeepPlaceholderText ~ no -->
                     <!-- Required ~ yes -->
-                    <!-- Codelist ~ As-Is -->
+                     <!-- Codelist ~ https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; CI_RoleCode -->
                     <!-- Cardinality ~ one per cit:citedResponsibleParty -->
                      <cit:role>
                         <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="author"/>
@@ -698,7 +699,7 @@
                                  <cit:phone>
                                     <cit:CI_Telephone>
                                        <cit:number>
-                                          <gco:CharacterString>02 6246 5588</gco:CharacterString>
+                                          <gco:CharacterString>+61 2 6246 5588</gco:CharacterString>
                                        </cit:number>
                                        <cit:numberType>
                                           <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="voice"/>
@@ -708,7 +709,7 @@
                                  <cit:address>
                                     <cit:CI_Address>
                                        <cit:deliveryPoint>
-                                          <gco:CharacterString>GPO Box 3023</gco:CharacterString>
+                                          <gco:CharacterString>101 Clunies Ross St</gco:CharacterString>
                                        </cit:deliveryPoint>
                                        <cit:city>
                                           <gco:CharacterString>Canberra</gco:CharacterString>
@@ -717,7 +718,7 @@
                                           <gco:CharacterString>ACT</gco:CharacterString>
                                        </cit:administrativeArea>
                                        <cit:postalCode>
-                                          <gco:CharacterString>2601</gco:CharacterString>
+                                          <gco:CharacterString>2600</gco:CharacterString>
                                        </cit:postalCode>
                                        <cit:country>
                                           <gco:CharacterString>Australia</gco:CharacterString>
@@ -758,7 +759,7 @@
                            <cit:individual>
                               <cit:CI_Individual>
                                  <cit:name>
-                                    <gco:CharacterString>Mark Kitchen</gco:CharacterString>
+                                    <gco:CharacterString>Kitchen, Mark</gco:CharacterString>
                                  </cit:name>
                                 <!-- Status cit:partyIdentifier ~ New XML with functional changes -->
                                 <!-- Description ~ Contains a unique identifier representing an individual -->
@@ -786,7 +787,7 @@
                                  </mcc:MD_Identifier>
                                  </cit:partyIdentifier>
                                  <cit:positionName>
-                                    <gco:CharacterString>Mr</gco:CharacterString>
+                                    <gco:CharacterString>Technical Contact</gco:CharacterString>
                                  </cit:positionName>
                               </cit:CI_Individual>
                            </cit:individual>
@@ -794,6 +795,12 @@
                      </cit:party>
                   </cit:CI_Responsibility>
                </cit:citedResponsibleParty>
+               <!-- Documentation ~ Email 20210301 DV - custom citation is required and will write to othercitationdetails -->
+               <!-- Rule ~ If a custom citation is present this supercedes the standard generated citation -->
+               <!-- Rule ~ If a custom citation is present then DOI minting should be disabled and DOI should be created manually -->
+               <cit:otherCitationDetails><gco:CharacterString>
+                  a custom citation
+               </gco:CharacterString></cit:otherCitationDetails>
                <!-- Static section ~ retain in XML output -->
                 <!-- Block Status ~ New XML block, begins after last cit:citedResponsibleParty  -->
                 <!-- Description ~ TERN web site -->
@@ -858,8 +865,8 @@
             <!-- Status mri:credit ~ Current XML with text change -->
             <!-- Description ~ Recognition of those who contributed to the resource -->
             <!-- Operation ~ User input -->
-            <!-- UI ~ As-Is -->
-            <!-- Tab ~ Who -->
+            <!-- UI ~ Move tab -->
+            <!-- Tab ~ About -->
             <!-- Display Label ~ Other credits -->
             <!-- Help Text ~ Write a sentence acknowledging sponsors or funding organisations -->
             <!-- Placeholder Text ~ The project was funded by xxx and yyy -->
@@ -882,7 +889,7 @@
             <!-- KeepPlaceholderText ~ no -->
             <!-- Required ~ yes -->
             <!-- Size ~ multiline -->
-            <!-- Codelist ~ As-Is -->
+         <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ProgressCode -->
             <!-- Cardinality ~ one -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
@@ -998,7 +1005,7 @@
                               </mcc:MD_Identifier>
                            </cit:partyIdentifier>
                            <cit:positionName>
-                              <gco:CharacterString>Mr</gco:CharacterString>
+                              <gco:CharacterString>Some position...</gco:CharacterString>
                            </cit:positionName>
                         </cit:CI_Individual>
                      </cit:individual>
@@ -1008,9 +1015,9 @@
          </mri:pointOfContact>
             <!-- Status mri:spatialResolution ~ Change XML and UI -->
             <!-- Description ~ The spatial resolution of the dataset if applicable -->
-            <!-- Operation ~ User will be able to specify horizontal distance and unit of measure -->
+            <!-- Operation ~ User will be able to select and unit of measure -->
             <!-- UI ~ Add fields -->
-            <!-- Tab ~ About -->
+            <!-- Tab ~ Where -->
             <!-- Cardinality ~ one -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718977/Data+Identification+Spatial+Resolution -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
@@ -1025,19 +1032,24 @@
                 <!-- Placeholder Text ~ 0.00 -->
                 <!-- KeepPlaceholderText ~ no -->
                 <!-- Required ~ no -->
-                <!-- Rule ~ Allow digits, "." -->
-                <!-- Rule ~ Positive numbers only -->
-                <!-- InputLength ~ 6 -->
+               <!-- Rule ~ Conditional if numeric: Allow digits, "." , Positive numbers only-->
+                <!-- InputLength ~ Conditional: 12 for numeric, 250 for text -->
                 <!-- Size ~ single -->
                 <!-- Cardinality ~ one -->
-                <!-- Display Label ~ Unit of measure -->
-                <!-- Placeholder Text ~ Please select -->
                 <!-- KeepPlaceholderText ~ no -->
                 <!-- Required ~ conditional -->
-                <!-- Rule ~ Must be a value from Codelist if Distance is input -->
+               <!-- Operation ~ User selects an option, enters the numeric value or text, UOM defaults  -->
+               <!-- Operation ~ XML varies depending on user selected option  -->
+                <!-- Rule ~ UOM Must be metre for Distance, degree for angle -->
                 <!-- Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
                 <!-- Cardinality ~ one -->
-               <mri:distance><gco:Distance uom="codelistvalue">0.00</gco:Distance></mri:distance>
+               <!-- Each line shows the XML that will apply depending on user selection: 
+               <mri:angularDistance><gco:Angle uom="degree">30</gco:Angle></mri:angularDistance>
+               <mri:equivalentScale><mri:MD_RepresentativeFraction><mri:denominator><gco:Integer>100000</gco:Integer></mri:denominator></mri:MD_RepresentativeFraction></mri:equivalentScale>
+               <mri:levelOfDetail><gco:CharacterString>a text description of the resolution of the resource</gco:CharacterString></mri:levelOfDetail>
+               <mri:vertical><gco:Distance uom="metre">0.25</gco:Distance></mri:vertical>
+                -->             
+               <mri:distance><gco:Distance uom="metre">30</gco:Distance></mri:distance>
             </mri:MD_Resolution>
          </mri:spatialResolution>
             <!-- Status mri:topicCategory ~ Current XML change text and codelist -->
@@ -1050,7 +1062,7 @@
             <!-- KeepPlaceholderText ~ no -->
             <!-- Required ~ yes -->
             <!-- Rule ~ ISO states required if record type is "dataset" -->
-            <!-- Codelist ~ http://registry.it.csiro.au/def/isotc211/_MD_TopicCategoryCode -->
+            <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_TopicCategoryCode -->
             <!-- Cardinality ~ many -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140719692/Data+Identification+Topic+Category -->
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
@@ -1111,11 +1123,11 @@
                   </gex:EX_GeographicBoundingBox>
                </gex:geographicElement>
                 <!-- Status gex:temporalElement ~ Current XML change functionality -->
-                <!-- Description ~ Data observation period - date or date range when data was collected or observed -->
+                <!-- Description ~ The time period covered by the content of the resource -->
                 <!-- Operation ~ User can type or select dates -->
                 <!-- UI ~ Change function and change texts -->
                 <!-- Tab ~ When -->
-                <!-- Display Label ~ When was the data collected? -->
+               <!-- Display Label ~ What is the time period covered by the content of the dataset/collection? -->
                 <!-- Help Text ~ The temporal coverage of the data -->
                 <!-- Required ~ yes -->
                 <!-- Rule ~ End date should be later than or equal to begin date -->
@@ -1131,7 +1143,7 @@
                         <gex:extent>
                            <gml:TimePeriod gml:id="bcf969df-6213-4e5c-86d4-64e3b53de64a">
                             <!-- Display Label ~ Start date* -->
-                            <!-- Help Text ~ The temporal coverage of the data -->                           
+                              <!-- Help Text ~ The time period covered by the content of the resource -->                           
                               <gml:beginPosition>1899-12-31</gml:beginPosition>
                               <!-- Display Label ~ End date* -->
                               <!-- Help Text ~ For ongoing datasets, input the last date in the current collection -->    
@@ -1160,20 +1172,6 @@
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:extent>
             <gex:EX_Extent id="Vertical">
-                <!-- Description ~ Indicates whether elevation was taken from a GPS, Map or Other -->
-                <!-- Operation ~ User selects from codelist -->
-                <!-- Operation ~ Selected value writes over [source goes here] -->
-                <!-- Display Label ~ Method* -->
-                <!-- Help Text ~ How was the elevation measured -->
-                <!-- Placeholder Text ~ Elevation measured from: -->
-                <!-- KeepPlaceholderText ~ yes -->
-                <!-- Required ~ conditional -->
-                <!-- Rule ~ If vertical component flag is true, a value from codelist is mandatory -->
-                <!-- Codelist ~ As-Is -->
-                <!-- Cardinality ~ one -->
-               <gex:description>
-                  <gco:CharacterString>Elevation measured from: [source goes here]</gco:CharacterString>
-               </gex:description>
                <gex:verticalElement>
                   <gex:EX_VerticalExtent>
                     <!-- Display Label ~ Minimum (in metres)* -->
@@ -1242,7 +1240,7 @@
             <!-- Description ~ Documentation related to the resource -->
             <!-- Operation ~ User input -->
             <!-- UI ~ New -->
-            <!-- Tab ~ What -->
+            <!-- Tab ~ About -->
             <!-- Display Label ~ Related documentation -->
             <!-- Help Text ~ Journal articles, Technical reports, ReadMe Files, Web sites -->
             <!-- Required ~ no -->
@@ -1350,21 +1348,12 @@
                 <!-- Help Text ~ How frequently is data updated? -->
                 <!-- Required ~ yes -->
                 <!-- Rule ~  see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
-                <!-- Codelist ~ http://registry.it.csiro.au/def/isotc211/MD_MaintenanceFrequencyCode -->
+               <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_MaintenanceFrequencyCode -->
                 <!-- Cardinality ~ one -->
                <mmi:maintenanceAndUpdateFrequency>
                   <mmi:MD_MaintenanceFrequencyCode codeList="codeListLocation#MD_MaintenanceFrequencyCode"
                      codeListValue="annually"/>
                </mmi:maintenanceAndUpdateFrequency>
-               <!-- Operation ~ Display simultaneously with mmi:maintenanceAndUpdateFrequency -->
-                <!-- Display Label ~ Maintenance requirements -->
-                <!-- Placeholder Text ~ Specific requirements for maintaining the resource -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ no -->
-                <!-- InputLength ~ 250 -->
-                <!-- Size ~ multiline -->
-                <!-- Cardinality ~ one -->
-               <mmi:maintenanceNote><gco:CharacterString>Placeholder text=Specific requirements for maintaining the resource</gco:CharacterString></mmi:maintenanceNote>
             </mmi:MD_MaintenanceInformation>
          </mri:resourceMaintenance>
             <!-- WriteEmptyBlock ~ no -->
@@ -1421,7 +1410,7 @@
             <!-- Description ~ Keywords describing the themes or content of the resource -->
             <!-- Operation ~ User selects from lists delivered via Elastic Search -->
             <!-- UI ~ Change -->
-            <!-- Tab ~ Keywords -->
+            <!-- Tab ~ What -->
             <!-- Display Label ~ Research theme keywords, GCMD Science Keywords * -->
             <!-- Help Text ~ Select up to 12 research theme keywords describing your data -->
             <!-- Operation ~ User can select values but cannot create new list values -->
@@ -1629,7 +1618,6 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-         <!-- Instruments -->
              <!-- Display Label ~ TERN Instrument Vocabulary -->
             <!-- Help Text ~ Select the Instrument or click Add to create a new entry -->
             <!-- Operation ~ User can select values and create new list values -->
@@ -1746,7 +1734,7 @@
             <!-- Placeholder Text ~ Start typing to filter list... -->
             <!-- KeepPlaceholderText ~ no -->
             <!-- Required ~ yes -->
-            <!-- Codelist ~ Check github location with GW -->
+            <!-- Codelist ~ In Elastic Search - check with GW -->
             <!-- Cardinality ~ block contains at least one keyword -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
@@ -1788,8 +1776,8 @@
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
             <!-- Display Label ~ GCMD Horizontal Resolution -->
-            <!-- Help Text ~ Select the pixel size of the data -->
-            <!-- Operation ~ User can select values and create new list values -->
+            <!-- Help Text ~ For gridded data, select the pixel size of the data, for field plots, select average width -->
+            <!-- Operation ~ User can select values from codelist -->
             <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
             <!-- Implementation ~ display in sequence see As-Is -->
             <!-- Change Note ~ Was on the About tab -->
@@ -1824,6 +1812,57 @@
                            <!-- The base uri has changed, below is the new base uri for the horizontal res -->
                               <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml
                            </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function> 
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+         <!-- Display Label ~ GCMD Vertical Resolution -->
+         <!-- Help Text ~  Select the smallest vertical distance between successive elements of data in a dataset. 
+            This is synonymous with terms such as sample spacing and pixel size -->
+         <!-- Operation ~ User can select values -->
+         <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+         <!-- Implementation ~ display in sequence -->
+         <!-- Change Note ~ New to UI and XML -->
+         <!-- Placeholder Text ~ Please select -->
+         <!-- KeepPlaceholderText ~ no -->
+         <!-- Required ~ no -->
+         <!-- Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml -->
+         <!-- Cardinality ~ one -->
+         <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+         <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/3f0aa4fc-802c-4804-9f9f-8b666f3a2776?format=json" xlink:show="new">> 1 km</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>GCMD Vertical Resolution</gco:CharacterString>
+                     </cit:title>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml
+                              </gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -1888,57 +1927,7 @@
                   </cit:CI_Citation>
                </mri:thesaurusName>
             </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
-         <!-- Display Label ~ GCMD Vertical Resolution -->
-            <!-- Help Text ~   -->
-            <!-- Operation ~ User can select values -->
-            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-            <!-- Implementation ~ display in sequence -->
-            <!-- Change Note ~ New to UI and XML -->
-            <!-- Placeholder Text ~ Please select -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ no -->
-            <!-- Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-         <mri:descriptiveKeywords>
-            <mri:MD_Keywords>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/3f0aa4fc-802c-4804-9f9f-8b666f3a2776?format=json" xlink:show="new">> 1 km</gcx:Anchor>
-               </mri:keyword>
-               <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
-               </mri:type>
-               <mri:thesaurusName>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>GCMD Vertical Resolution</gco:CharacterString>
-                     </cit:title>
-                     <cit:otherCitationDetails>
-                        <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
-                        </gco:CharacterString>
-                     </cit:otherCitationDetails>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml
-                              </gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
-                           <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                 codeListValue="information"/>
-                           </cit:function> 
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mri:thesaurusName>
-            </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
+            </mri:descriptiveKeywords>
          <!-- Display Label ~ Australian Plant Name Index (APNI) -->
             <!-- Help Text ~ Species taxa  -->
             <!-- Operation ~ User can select values -->
@@ -2080,11 +2069,14 @@
                </mri:type>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
+            <!-- Tab ~ About -->            
          <mri:resourceSpecificUsage><mri:MD_Usage>
             <mri:specificUsage><gco:CharacterString>Placeholder text=Information about data usage, this will capture usability text about data, this can be an expert comments</gco:CharacterString></mri:specificUsage>
          </mri:MD_Usage></mri:resourceSpecificUsage>
          <!-- Static section ~ retain in XML output -->
          <!-- Description ~ CC By Licence details -->
+          <!-- Tab ~ About -->
+         <!-- Operation ~ Some content and the icon display on the page -->
          <mri:resourceConstraints>
             <mco:MD_LegalConstraints>
                <mco:useLimitation><gco:CharacterString>
@@ -2195,25 +2187,22 @@
             <!-- Status ~ In current XML with default values -->
             <!-- Description ~ Security class that applies to the dataset or collection -->
             <!-- Change Note ~ New UI element -->
-            <!-- Change Note ~ XML cit:function block added per 
-               standard in https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044021623/Discuss+standards+for+CI+OnlineResource 
-            and as discussed with Wilma K -->
-            <!-- Operation ~ User can select a Security Class from a hard-coded list of values -->
+            <!-- Change Note ~ XML cit:function block added -->
+            <!-- Operation ~ User can select a Security Class from a list of values -->
             <!-- Operation ~ Based on user selection, also write associated ISO codelist value from https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml
                MD Classification Code
             as indicated in column I of https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing
             caution: check capitalisation -->
             <!-- UI ~ Change -->
-            <!-- Tab ~ See Deva -->
-            <!-- Display Label ~ See Deva  -->
+            <!-- Tab ~ About -->
+            <!-- Display Label ~ Security Classification for Dataset/Collection  -->
             <!-- Help Text ~ Select the Australian Government Security Classification to apply to the dataset or collection -->
             <!-- Placeholder Text ~ The Australian Government Security Classification to apply to the dataset -->
             <!-- KeepPlaceholderText ~ no -->
             <!-- Required ~ yes -->
             <!-- Codelist ~ drop down as per column G in https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing -->
             <!-- Cardinality ~ one -->
-            <!-- Documentation ~ document 8 on the MDWG Meeting 5 webpage: MDWG Meeting #5 - Presentations and Reports |
-               Intergovernmental Committee on Surveying and Mapping (icsm.gov.au) -->
+            <!-- Documentation ~ document 8 on the MDWG Meeting 5 webpage: MDWG Meeting #5 - Presentations and Reports | Intergovernmental Committee on Surveying and Mapping (icsm.gov.au) -->
             <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->            
          <mri:resourceConstraints>
          <mco:MD_SecurityConstraints>
@@ -2250,7 +2239,7 @@
             <!-- Status ~ New XML and UI -->
             <!-- Description ~ Description of the resource in the producer's processing environment -->
             <!-- Operation ~ User input -->
-            <!-- UI ~  -->
+            <!-- UI ~ Change -->
             <!-- Tab ~ About -->
             <!-- Display Label ~ Processing Environment Details -->
             <!-- Help Text ~ Software, computer operating system, file name, or dataset size -->
@@ -2271,7 +2260,7 @@
             <!-- Operation ~ User input -->
             <!-- UI ~ Change tab and change texts -->
             <!-- Change note ~ Was on About tab -->
-            <!-- Tab ~ What -->
+            <!-- Tab ~ About -->
             <!-- Display Label ~ Supplemental information -->
             <!-- Help Text ~ Any supplemental information needed to interpret the resource -->
             <!-- Placeholder Text ~ Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01 -->
@@ -2288,15 +2277,216 @@
          </mri:supplementalInformation>
       </mri:MD_DataIdentification>
    </mdb:identificationInfo>
-    <!-- Status ~ Current XML and additional -->
+    <!-- Status ~ Current XML and additional XML -->
     <!-- Description ~ Information about the distributor of and options for obtaining the resource -->
-    <!-- Operation ~ User can upload data or provide data access information -->
+    <!-- Operation ~ A User can upload data OR provide details of the data service to access data -->
+   <!-- Operation ~ A distributionInfo block will write in the XML for each data source or data service -->
+   <!-- Operation ~ Each distributionInfo block will contain information about the Format, Distributor and Digital Transfer Options -->
     <!-- UI ~ Change -->
     <!-- Tab ~ Data sources -->
     <!-- Required ~ yes -->
     <!-- Cardinality ~ many -->
     <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
    <mdb:distributionInfo>
+      <!-- Scenario 1 user uploads data - Tool should populate most values -->
+      <mrd:MD_Distribution>
+        <!-- WriteEmptyBlock ~ no -->
+        <!-- Status ~ Change XML and add mrd:fileDecompressionTechnique -->
+        <!-- Description ~ Information related to the file format(s) of the data -->
+         <!-- Operation ~ Can system identify values for file format fields when file is uploaded? -->
+        <!-- UI ~ Change function/Change texts -->
+        <!-- Change note ~ Fields are currently on About tab -->
+        <!-- Tab ~ Data sources - Upload -->
+         <!-- Rule ~ one mrd:MD_Distribution block for each DATA file uploaded by the user -->
+         <!-- Change note ~ Thumbnails or documentation files write into different XML elements NOT Distribution -->
+        <!-- Cardinality ~ many -->
+        <!-- Documentation ~ https://bitbucket.org/terndatateam/data-submission-tool/issues/47 -->
+        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-390 -->
+        <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251879/Distribution+Distribution+Format -->
+        <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mrd:distributionFormat>
+            <mrd:MD_Format>
+            <!-- Description ~ File format of the data -->
+            <!-- Display Label ~ File format of the data file -->
+            <!-- Help Text ~ CSV, NetCDF, etc. -->
+            <!-- Placeholder Text ~ Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc -->
+            <!-- KeepPlaceholderText ~ no -->
+            <!-- Required ~ yes -->
+            <!-- InputLength ~ codelist? -->
+            <!-- Size ~ single -->
+               <!-- Codelist ~ To be confirmed - possibly https://www.loc.gov/preservation/digital/formats/fdd/browse_list.shtml-->
+               <mrd:formatSpecificationCitation>
+                  <cit:CI_Citation>
+                  <!-- Find or create a codelist for valid values -->
+                     <cit:title>
+                        <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
+                     </cit:title>
+                  </cit:CI_Citation>
+               </mrd:formatSpecificationCitation>
+                <!-- Description ~ Version or date of the file format -->
+                <!-- Display Label ~ File format date/version-->
+                <!-- Help Text ~ CSV, NetCDF, etc. -->
+                <!-- Placeholder Text ~ Version number of the file format -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ no -->
+                <!-- InputLength ~ 12 -->
+                <!-- Size ~ single -->
+                <!-- Codelist ~ n/a -->
+               <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString>
+               </mrd:amendmentNumber>
+                <!-- Description ~ Whether the file is compressed -->
+                <!-- Display Label ~ File compression technique -->
+                <!-- Help Text ~ What type of compression is applied to the file? -->
+                <!-- Placeholder Text ~ Examples:Not compressed, ZIP, TAR (Unix) -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ no -->
+                <!-- InputLength ~ 100 -->
+                <!-- Size ~ single -->
+                <!-- Codelist ~ n/a -->
+               <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString>
+               </mrd:fileDecompressionTechnique>
+            </mrd:MD_Format>
+         </mrd:distributionFormat> 
+            <!-- Status ~ New XML and field -->
+            <!-- Description ~ Indicates which organisation hosts and distributes the data -->
+            <!-- Operation ~ If the user uploads data, then Distributor defaults to 'Terrestrial Ecosystem Research Network (TERN)' -->
+            <!-- Operation ~ Default details for TERN shown below -->
+            <!-- Required ~ yes -->
+            <!-- Cardinality ~ one -->
+            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mrd:distributor>
+            <mrd:MD_Distributor>
+               <mrd:distributorContact>
+                  <cit:CI_Responsibility>
+                     <cit:role>
+                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                           codeListValue="distributor"/>
+                     </cit:role>
+                     <cit:party>
+                        <cit:CI_Organisation>
+                           <cit:name>
+                              <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+                           </cit:name>
+                           <cit:contactInfo>
+                              <cit:CI_Contact>
+                                 <cit:phone>
+                                    <cit:CI_Telephone>
+                                       <cit:number>
+                                          <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
+                                       </cit:number>
+                                       <cit:numberType>
+                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode"
+                                             codeListValue="voice"/>
+                                       </cit:numberType>
+                                    </cit:CI_Telephone>
+                                 </cit:phone>
+                                 <cit:address>
+                                    <cit:CI_Address>
+                                       <cit:deliveryPoint>
+                                          <gco:CharacterString>Building 1019, 80 Meiers Rd</gco:CharacterString>
+                                       </cit:deliveryPoint>
+                                       <cit:city>
+                                          <gco:CharacterString>Indooroopilly</gco:CharacterString>
+                                       </cit:city>
+                                       <cit:administrativeArea>
+                                          <gco:CharacterString>QLD</gco:CharacterString>
+                                       </cit:administrativeArea>
+                                       <cit:postalCode>
+                                          <gco:CharacterString>4068</gco:CharacterString>
+                                       </cit:postalCode>
+                                       <cit:country>
+                                          <gco:CharacterString>Australia</gco:CharacterString>
+                                       </cit:country>
+                                       <cit:electronicMailAddress>
+                                          <gco:CharacterString>esupport@tern.org.au</gco:CharacterString>
+                                       </cit:electronicMailAddress>
+                                    </cit:CI_Address>
+                                 </cit:address>
+                              </cit:CI_Contact>
+                           </cit:contactInfo>
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
+                        </cit:CI_Organisation>
+                     </cit:party>
+                  </cit:CI_Responsibility>
+               </mrd:distributorContact>
+            </mrd:MD_Distributor>
+         </mrd:distributor>
+        <!-- Status ~ Current XML with added field -->
+         <!-- Description ~ Data file details based on an uploaded file -->
+        <!-- Description ~ Provides details for accessing the data -->
+        <!-- Operation ~ If user uploads file, the information is populated by SHaRED -->
+         <!-- UI ~ As-Is -->
+         <!-- Tab ~ Data sources - upload  -->
+         <!-- Display Label ~ see comments above under /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:graphicOverview[1] -->
+         <!-- Required ~ conditional -->
+        <!-- Help Text ~ Data files less than 100MB can be uploaded here -->        
+        <!-- Cardinality ~ many -->
+        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-456 -->
+        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-367 -->
+         <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251930/Distribution+Digital+Transfer+Options -->
+         <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->        
+         <mrd:transferOptions>
+            <mrd:MD_DigitalTransferOptions>
+               <!-- Display Label ~ n/a --> 
+               <!-- Operation ~ Can file size be determined automatically by Data upload function? -->
+               <mrd:transferSize><gco:Real>10</gco:Real></mrd:transferSize>
+               <mrd:onLine>
+                  <cit:CI_OnlineResource>
+                     <!-- Display Label ~ n/a --> 
+                     <!-- Description ~ URL where file is stored by SHaRED -->
+                     <!-- Required ~ conditional -->
+                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
+                     <!-- InputLength ~ As-Is -->
+                     <cit:linkage>
+                        <gco:CharacterString>https://shared.tern.org.au/attachment/26f41575-b9f1-4e9b-81f4-d4283fa97855/DictionaryParkhurst_etal_2020_C2yqIeI.csv</gco:CharacterString>
+                     </cit:linkage>
+                     <!-- Display Label ~ n/a --> 
+                     <!-- Description ~ Protocol used to access file -->
+                     <!-- Required ~ conditional -->
+                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
+                     <!-- Rule ~ Value is download, formatted as shown below -->
+                     <!-- InputLength ~ As-Is -->                     
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:DOWNLOAD-1.0-http--download</gco:CharacterString>
+                     </cit:protocol>
+                     <!-- Display Label ~ n/a --> 
+                     <!-- Description ~ File name -->
+                     <!-- Required ~ conditional -->
+                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
+                     <!-- InputLength ~ As-Is -->
+                     <cit:name>
+                        <gco:CharacterString>DictionaryParkhurst_etal_2020.csv [name element]</gco:CharacterString>
+                     </cit:name>
+                     <!-- Display Label ~ n/a --> 
+                     <!-- Description ~ Description of file -->
+                     <!-- Required ~ conditional -->
+                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
+                     <!-- Rule ~ File name without file extension, replace ["_","-"] with space -->
+                     <!-- InputLength ~ As-Is -->                     
+                     <cit:description>
+                        <gco:CharacterString>DictionaryParkhurst etal 2020</gco:CharacterString>
+                     </cit:description>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="download"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+               </mrd:onLine>
+            </mrd:MD_DigitalTransferOptions>
+         </mrd:transferOptions>
+      </mrd:MD_Distribution>
+   </mdb:distributionInfo>
+   <mdb:distributionInfo>
+      <!-- Scenario 2 user provides details of a data service that can be used to access the data -->
       <mrd:MD_Distribution>
         <!-- WriteEmptyBlock ~ no -->
         <!-- Status ~ Change XML and add mrd:fileDecompressionTechnique -->
@@ -2304,8 +2494,8 @@
         <!-- Operation ~ User input -->
         <!-- UI ~ Change function/Change texts -->
         <!-- Change note ~ Fields are currently on About tab -->
-        <!-- Tab ~ Data sources -->
-        <!-- Rule ~ one mrd:distributionFormat block for each distribution format selected by the user -->
+        <!-- Tab ~ Data sources - Data services -->
+        <!-- Rule ~ one mrd:MD_distribution block for each distribution input by the user -->
         <!-- Cardinality ~ many -->
         <!-- Documentation ~ https://bitbucket.org/terndatateam/data-submission-tool/issues/47 -->
         <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-390 -->
@@ -2319,7 +2509,7 @@
             <!-- Placeholder Text ~ Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc -->
             <!-- KeepPlaceholderText ~ no -->
             <!-- Required ~ yes -->
-            <!-- InputLength ~ 12 -->
+            <!-- InputLength ~ codelist? -->
             <!-- Size ~ single -->
             <!-- Codelist ~ To be confirmed -->
                <mrd:formatSpecificationCitation>
@@ -2357,9 +2547,10 @@
             <!-- Status ~ New XML and field -->
             <!-- Description ~ Indicates which organisation hosts and distributes the data -->
             <!-- Operation ~ User selects a Distributor from TERN Organisations Vocabulary -->
+            <!-- Operation ~ User selects a Site Address from the TERN Site Addresses Vocabulary -->
             <!-- Operation ~ Default value 'Terrestrial Ecosystem Research Network (TERN)' -->
-            <!-- Operation ~ Details from Vocabulary default into cit:party elements -->
-            <!-- Change note ~ Data can have multiple distributors e.g. Maitec, should it be one distributor block per format? -->
+            <!-- Operation ~ Details from Vocabularies default into cit:party elements -->
+            <!-- Change note ~ Data can have one distributor per distribution -->
             <!-- UI ~ Change -->
             <!-- Tab ~ Data sources -->
             <!-- Display Label ~ Distributor of the data -->
@@ -2381,14 +2572,14 @@
                      <cit:party>
                         <cit:CI_Organisation>
                            <cit:name>
-                              <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+                              <gco:CharacterString>CSIRO</gco:CharacterString>
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
                                  <cit:phone>
                                     <cit:CI_Telephone>
                                        <cit:number>
-                                          <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
+                                          <gco:CharacterString>+61 2 3365 9097</gco:CharacterString>
                                        </cit:number>
                                        <cit:numberType>
                                           <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode"
@@ -2399,22 +2590,22 @@
                                  <cit:address>
                                     <cit:CI_Address>
                                        <cit:deliveryPoint>
-                                          <gco:CharacterString>Building 8, University of Queensland</gco:CharacterString>
+                                          <gco:CharacterString>Black Mountain 2 Central Rd</gco:CharacterString>
                                        </cit:deliveryPoint>
                                        <cit:city>
-                                          <gco:CharacterString>Brisbane</gco:CharacterString>
+                                          <gco:CharacterString>Canberra</gco:CharacterString>
                                        </cit:city>
                                        <cit:administrativeArea>
-                                          <gco:CharacterString>QLD</gco:CharacterString>
+                                          <gco:CharacterString>ACT</gco:CharacterString>
                                        </cit:administrativeArea>
                                        <cit:postalCode>
-                                          <gco:CharacterString>4072</gco:CharacterString>
+                                          <gco:CharacterString>1001</gco:CharacterString>
                                        </cit:postalCode>
                                        <cit:country>
                                           <gco:CharacterString>Australia</gco:CharacterString>
                                        </cit:country>
                                        <cit:electronicMailAddress>
-                                          <gco:CharacterString>esupport@tern.org.au</gco:CharacterString>
+                                          <gco:CharacterString>help@csiro.au</gco:CharacterString>
                                        </cit:electronicMailAddress>
                                     </cit:CI_Address>
                                  </cit:address>
@@ -2438,9 +2629,8 @@
         <!-- Status ~ Current XML with added field -->
         <!-- Description ~ Provides details for accessing the data -->
         <!-- Description ~ Could include THREDDS catalog, WMS, WFS, REST API documentation, etc. -->
-        <!-- Operation ~ User input.  See the alternative below: User uploads file -->
+        <!-- Operation ~ User input -->
         <!-- Change note ~ There are subtle differences between User input and user uploads file -->
-        <!-- Change note ~ A distribution can have multiple transfer options (access points) -->
         <!-- UI ~ Change -->
         <!-- Tab ~ Data sources -->
         <!-- Display Label ~ Data services -->
@@ -2505,74 +2695,12 @@
                      <!-- Rule ~ Required if cit:description is not blank -->
                      <!-- Size ~ single -->
                      <!-- Cardinality ~ one per mrd:transferOptions block --> 
-                     <!-- Codelist ~ http://registry.it.csiro.au/def/isotc211/_CI_OnLineFunctionCode, only browsing, fileAccess and download are valid -->
+                     <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; CI_OnLineFunctionCode, only browsing, fileAccess and download are valid -->
                      <cit:function>
                         <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="fileAccess"/>
                      </cit:function>
                   </cit:CI_OnlineResource>
                </mrd:onLine> 
-            </mrd:MD_DigitalTransferOptions>
-         </mrd:transferOptions>
-         <!-- Status ~ Current XML -->
-         <!-- Description ~ Data file details based on an uploaded file -->
-         <!-- Operation ~ User uploads file.  See the alternative above: User input -->
-         <!-- Change note ~ There are subtle differences between User input and User uploads file -->
-         <!-- Change note ~ A distribution can have multiple files -->
-         <!-- UI ~ As-Is -->
-         <!-- Tab ~ Data sources -->
-         <!-- Display Label ~ see comments above under /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:graphicOverview[1] -->
-         <!-- Required ~ conditional -->
-         <!-- Rule ~ one mrd:transferOptions block required for each uploaded file -->        
-         <!-- Cardinality ~ many -->
-         <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251930/Distribution+Digital+Transfer+Options -->
-         <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->        
-         <mrd:transferOptions>
-            <mrd:MD_DigitalTransferOptions>
-               <!-- Display Label ~ n/a --> 
-               <!-- Operation ~ Can file size be determined automatically by Data upload function? -->
-               <mrd:transferSize><gco:Real>10</gco:Real></mrd:transferSize>
-               <mrd:onLine>
-                  <cit:CI_OnlineResource>
-                     <!-- Display Label ~ n/a --> 
-                     <!-- Description ~ URL where file is stored by SHaRED -->
-                     <!-- Required ~ conditional -->
-                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
-                     <!-- InputLength ~ As-Is -->
-                     <cit:linkage>
-                        <gco:CharacterString>https://shared.tern.org.au/attachment/26f41575-b9f1-4e9b-81f4-d4283fa97855/DictionaryParkhurst_etal_2020_C2yqIeI.csv</gco:CharacterString>
-                     </cit:linkage>
-                     <!-- Display Label ~ n/a --> 
-                     <!-- Description ~ Protocol used to access file -->
-                     <!-- Required ~ conditional -->
-                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
-                     <!-- Rule ~ Value is download, formatted as shown below -->
-                     <!-- InputLength ~ As-Is -->                     
-                     <cit:protocol>
-                        <gco:CharacterString>WWW:DOWNLOAD-1.0-http--download</gco:CharacterString>
-                     </cit:protocol>
-                     <!-- Display Label ~ n/a --> 
-                     <!-- Description ~ File name -->
-                     <!-- Required ~ conditional -->
-                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
-                     <!-- InputLength ~ As-Is -->
-                     <cit:name>
-                        <gco:CharacterString>DictionaryParkhurst_etal_2020.csv [name element]</gco:CharacterString>
-                     </cit:name>
-                     <!-- Display Label ~ n/a --> 
-                     <!-- Description ~ Description of file -->
-                     <!-- Required ~ conditional -->
-                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
-                     <!-- Rule ~ File name without file extension, replace ["_","-"] with space -->
-                     <!-- InputLength ~ As-Is -->                     
-                     <cit:description>
-                        <gco:CharacterString>DictionaryParkhurst etal 2020</gco:CharacterString>
-                     </cit:description>
-                     <cit:function>
-                        <cit:CI_OnLineFunctionCode codeList="http://standards.iso.org/iso/19139/resources/gmxCodelists.xml#CI_OnLineFunctionCode"
-                           codeListValue="download"/>
-                     </cit:function>
-                  </cit:CI_OnlineResource>
-               </mrd:onLine>
             </mrd:MD_DigitalTransferOptions>
          </mrd:transferOptions>
       </mrd:MD_Distribution>
@@ -2592,12 +2720,8 @@
       <mdq:DQ_DataQuality>
          <mdq:scope>
             <mcc:MD_Scope>
-            <!-- Display Label ~ Data Quality Scope -->
-            <!-- Help Text ~ Select to indicate the scope -->
-            <!-- Required ~ no -->
             <!-- Rule ~ Default = 'dataset' -->
-            <!-- Size ~ single -->
-            <!-- Codelist ~http://registry.it.csiro.au/def/isotc211/_MD_ScopeCode  -->
+               <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ScopeCode  -->
             <!-- Cardinality ~ one -->
                <mcc:level>
                   <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
@@ -2611,22 +2735,104 @@
                     <!-- InputLength ~ 250 -->
                     <!-- Size ~ multiline -->
                     <!-- Cardinality ~ one -->
+                  <!-- As at 05032021 I have advised SG that evaluationMethodDescription is a better element to use -->
                   <mcc:MD_ScopeDescription>
                      <mcc:other><gco:CharacterString>Placeholder Text=Does the quality statement apply to the entire data set or specific attributes?</gco:CharacterString></mcc:other>
                   </mcc:MD_ScopeDescription>
                   </mcc:levelDescription>
             </mcc:MD_Scope>
          </mdq:scope>
+         <mdq:report>
+         <mdq:DQ_QuantitativeAttributeAccuracy>
+            <!-- Display Label ~ Describe the methods used to assess the Data quality -->
+            <!-- Help Text ~ Description of the evaluation method -->
+            <!-- Placeholder Text ~ as shown below -->
+            <!-- KeepPlaceholderText ~ no -->        
+            <!-- Required ~ no -->
+            <!-- InputLength ~ 250 -->
+            <!-- Size ~ multiline -->
+            <!-- Cardinality ~ one -->
+            <mdq:evaluationMethod>
+               <mdq:DQ_EvaluationMethod>
+                  <mdq:evaluationMethodDescription>
+                     <gco:CharacterString>The data quality was assessed by ...</gco:CharacterString>
+                  </mdq:evaluationMethodDescription>
+                  <!-- Cardinality ~ 0 to many referenceDoc blocks -->
+                  <!-- Online documentation Title and URI - example 1 -->
+                  <mdq:referenceDoc><cit:CI_Citation>
+                     <!-- Display Label ~ Title -->
+                     <!-- Help Text ~ Provide the document title -->
+                     <!-- Placeholder Text ~ as shown below -->
+                     <!-- KeepPlaceholderText ~ no -->        
+                     <!-- Required ~ Conditional -->
+                     <!-- InputLength ~ 250 -->
+                     <!-- Size ~ single -->
+                     <cit:title>
+                        <gco:CharacterString>Provide the document title</gco:CharacterString>
+                     </cit:title>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <!-- Display Label ~ URI -->
+                           <!-- Help Text ~ Provide a hyperlink to the method document -->
+                           <!-- Placeholder Text ~ see Help Text -->
+                           <!-- KeepPlaceholderText ~ no -->        
+                           <!-- Required ~ Conditional -->
+                           <!-- InputLength ~ 300 -->
+                           <!-- Size ~ single -->
+                           <!-- Cardinality ~ one per additionalDocumentation block --> 
+                           <cit:linkage>
+                              <gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
+                           </cit:linkage>
+                           <!-- default values apply -->
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:description>
+                              <gco:CharacterString>Data quality documentation</gco:CharacterString>
+                           </cit:description>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function>
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+                  </mdq:referenceDoc>
+                  <!-- Online documentation Title and URI - example 2 -->
+                  <mdq:referenceDoc><cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>Provide the document title</gco:CharacterString>
+                     </cit:title>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
+                           </cit:linkage>
+                           <!-- default values apply -->
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:description>
+                              <gco:CharacterString>Data quality documentation</gco:CharacterString>
+                           </cit:description>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function>
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+                  </mdq:referenceDoc>
+               </mdq:DQ_EvaluationMethod>
+            </mdq:evaluationMethod>
             <!-- Display Label ~ Data Quality Result -->
-            <!-- Help Text ~ As-Is -->
+            <!-- Help Text ~ Description of the data quality assessment results -->
             <!-- Placeholder Text ~ as shown below -->
             <!-- KeepPlaceholderText ~ no -->        
             <!-- Required ~ no -->
             <!-- InputLength ~ As-Is -->
             <!-- Size ~ multiline -->
             <!-- Cardinality ~ one -->
-         <mdq:report>
-         <mdq:DQ_QuantitativeAttributeAccuracy>
             <mdq:result>
                <mdq:DQ_DescriptiveResult>
                   <mdq:statement>
@@ -2639,69 +2845,13 @@
          </mdq:report>
       </mdq:DQ_DataQuality>
    </mdb:dataQualityInfo>
-   <!-- Status ~ In current XML with default values -->
-   <!-- Description ~ Security class that applies to the metadata record -->
-   <!-- Change Note ~ New UI element -->
-   <!-- Change Note ~ XML cit:function block added per 
-               standard in https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044021623/Discuss+standards+for+CI+OnlineResource 
-            and as discussed with Wilma K -->
-   <!-- Change Note ~ For version ISO 19115 v2.0 namespaces, metadataConstraints moves to before resourceLineage, as advised
-   ISO Representative 2/5/2020 TERNDESK-929 -->
-   <!-- Operation ~ User can select a Security Class from a hard-coded list of values -->
-   <!-- Operation ~ Based on user selection, also write associated ISO codelist value from https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml
-               MD Classification Code
-            as indicated in column I of https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing
-            caution: check capitalisation -->
-   <!-- UI ~ Change -->
-   <!-- Tab ~ See Deva -->
-   <!-- Display Label ~ See Deva  -->
-   <!-- Help Text ~ Select the Australian Government Security Classification to apply to the metadata -->
-   <!-- Placeholder Text ~ The Australian Government Security Classification to apply to the metadata -->
-   <!-- KeepPlaceholderText ~ no -->
-   <!-- Required ~ yes -->
-   <!-- Codelist ~ drop down as per column G in https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing -->
-   <!-- Cardinality ~ one -->
-   <!-- Documentation ~ document 8 on the MDWG Meeting 5 webpage: MDWG Meeting #5 - Presentations and Reports |
-               Intergovernmental Committee on Surveying and Mapping (icsm.gov.au) -->
-   <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->     
-   <mdb:metadataConstraints>
-      <mco:MD_SecurityConstraints>
-         <mco:reference>
-            <cit:CI_Citation>
-               <cit:title>
-                  <gco:CharacterString>Australian Government Security Classification System</gco:CharacterString>
-               </cit:title>
-               <cit:editionDate>
-                  <gco:DateTime>2018-11-01T00:00:00</gco:DateTime>
-               </cit:editionDate>
-               <cit:onlineResource>
-                  <cit:CI_OnlineResource>
-                     <cit:linkage>
-                        <gco:CharacterString>https://www.protectivesecurity.gov.au/Pages/default.aspx</gco:CharacterString>
-                     </cit:linkage>
-                     <cit:protocol>
-                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                     </cit:protocol>
-                     <cit:function>
-                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                           codeListValue="information"/>
-                     </cit:function>
-                  </cit:CI_OnlineResource>
-               </cit:onlineResource>
-            </cit:CI_Citation>
-         </mco:reference>
-         <mco:classification>
-            <mco:MD_ClassificationCode codeList="codeListLocation#MD_ClassificationCode" codeListValue="restricted"/>
-         </mco:classification>
-      </mco:MD_SecurityConstraints>
-   </mdb:metadataConstraints>
     <!-- WriteEmptyBlock ~ no -->
     <!-- Status ~ Current XML and additional elements -->
     <!-- Description ~ Lineage of the data set inputs and methods -->
     <!-- Operation ~ User input -->
     <!-- UI ~ Change function/Change texts -->
     <!-- Tab ~ How -->
-    <!-- Display Label ~ Data Lineage -->
+    <!-- Display Label ~ N/a -->
     <!-- Cardinality ~ one -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041825814/Resource+Lineage+Statement -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044381873/Resource+Lineage+Scope -->
@@ -2709,25 +2859,24 @@
     <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
    <mdb:resourceLineage>
       <mrl:LI_Lineage>
-            <!-- Display Label ~ Lineage -->
-            <!-- Change note ~ Field moves from About tab to How tab -->
+         <!-- Display Label ~ Data creation procedure details (Optional) -->
             <!-- Help Text ~ Provide a brief summary of inputs and processing -->
             <!-- Placeholder Text ~ as shown below -->
             <!-- KeepPlaceholderText ~ no -->        
             <!-- Required ~ yes -->
-            <!-- InputLength ~ As-Is -->
+            <!-- InputLength ~ 1000 -->
             <!-- Size ~ multiline -->
             <!-- Cardinality ~ one -->
          <mrl:statement>
             <gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods. 
-               Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017</gco:CharacterString>
+               </gco:CharacterString>
          </mrl:statement>
-            <!-- Display Label ~ Lineage Scope -->
-            <!-- Help Text ~ Select to indicate the scope -->
+            <!-- Display Label ~ Scope -->
+            <!-- Help Text ~ Select to indicate the scope of the lineage information -->
             <!-- Required ~ yes -->
-            <!-- Rule ~ Default = 'dataset' -->
+            <!-- Rule ~ Default = 'dataset', only dataset or collection are available for user to select -->
             <!-- Size ~ single -->
-            <!-- Codelist ~http://registry.it.csiro.au/def/isotc211/_MD_ScopeCode  -->
+         <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ScopeCode  -->
             <!-- Cardinality ~ one -->
          <mrl:scope>
             <mcc:MD_Scope>
@@ -2736,23 +2885,170 @@
                </mcc:level>
             </mcc:MD_Scope>
          </mrl:scope>
-            <!-- Display Label ~ Lineage details -->
-            <!-- Help Text ~ Description of the events, including related parameters or tolerances -->
-            <!-- Placeholder Text ~ as shown below -->
-            <!-- KeepPlaceholderText ~ no -->        
-            <!-- Required ~ no -->
-            <!-- InputLength ~ 250 -->
-            <!-- Size ~ multiline -->
-            <!-- Cardinality ~ one -->
+         <!-- Cardinality ~ 0 to many within the Data creation procedure details (Optional) block -->
+         <!-- Online documentation Title and URI - example 1 -->
+         <mrl:additionalDocumentation>
+            <cit:CI_Citation>
+               <!-- Display Label ~ Title -->
+               <!-- Help Text ~ Provide the document title -->
+               <!-- Placeholder Text ~ as shown below -->
+               <!-- KeepPlaceholderText ~ no -->        
+               <!-- Required ~ Conditional block -->
+               <!-- InputLength ~ 500 -->
+               <!-- Size ~ single -->
+               <!-- Cardinality ~ one per additionalDocumentation block -->
+               <cit:title>
+                  <gco:CharacterString>Provide the document title</gco:CharacterString>
+               </cit:title>
+               <!-- Display Label ~ Hyperlink -->
+               <!-- Help Text ~ Provide a hyperlink to the documentation -->
+               <!-- Placeholder Text ~ see Help Text -->
+               <!-- KeepPlaceholderText ~ no -->        
+               <!-- Required ~ Conditional block -->
+               <!-- InputLength ~ 300 -->
+               <!-- Size ~ single -->
+               <!-- Cardinality ~ one per additionalDocumentation block -->   
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage><gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
+                     </cit:linkage>
+                     <!-- default values apply -->
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
+                     <cit:description>
+                        <gco:CharacterString>Method documentation</gco:CharacterString>
+                     </cit:description>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
+            </cit:CI_Citation>            
+         </mrl:additionalDocumentation>
+         <!-- Online documentation Title and URI - example 2 -->
+         <mrl:additionalDocumentation>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Provide the document title</gco:CharacterString>
+               </cit:title>
+               <cit:onlineResource>
+                  <cit:CI_OnlineResource>
+                     <cit:linkage><gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
+                     </cit:linkage>
+                     <!-- default values apply -->
+                     <cit:protocol>
+                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                     </cit:protocol>
+                     <cit:description>
+                        <gco:CharacterString>Method documentation</gco:CharacterString>
+                     </cit:description>
+                     <cit:function>
+                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                           codeListValue="information"/>
+                     </cit:function>
+                  </cit:CI_OnlineResource>
+               </cit:onlineResource>
+            </cit:CI_Citation>            
+         </mrl:additionalDocumentation>
+      </mrl:LI_Lineage>
+   </mdb:resourceLineage>
+   <!-- Description ~ Individual methods used to produce the dataset/collection -->
+   <!-- WriteEmptyBlock ~ no -->
+   <!-- Status ~ Current XML and additional elements -->
+   <!-- Operation ~ User input -->
+   <!-- Operation ~ Block is optional, but if selected then Name and Description are mandatory -->
+   <!-- UI ~ Change function/Change texts -->
+   <!-- Tab ~ How -->
+   <!-- Display Label ~ Process steps optional -->
+   <!-- Cardinality ~ one for each Process steps -->
+   <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041825814/Resource+Lineage+Statement -->
+   <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044414700/Resource+Lineage+Process+Step -->
+   <!-- Process steps - example 1 -->
+   <mdb:resourceLineage>
+      <mrl:LI_Lineage>
+         <!-- Display Label ~ Description -->
+         <!-- Help Text ~ Provide a brief summary of inputs and processing -->
+         <!-- Placeholder Text ~ as shown below -->
+         <!-- KeepPlaceholderText ~ yes -->        
+         <!-- Required ~ Conditional - block is optional but field is required if block is completed -->
+         <!-- InputLength ~ 500 -->
+         <!-- Size ~ multiline -->
+         <!-- Cardinality ~ one per Process steps mdb:resourceLineage block -->
+         <mrl:statement>
+            <gco:CharacterString>Placeholder text=Provide a brief summary of a single method/procedure</gco:CharacterString>
+         </mrl:statement>
+   <mrl:additionalDocumentation>
+      <cit:CI_Citation>
+         <!-- Display Label ~ Name -->
+         <!-- Help Text ~ Provide the name of the procedure -->
+         <!-- Placeholder Text ~ as shown below -->
+         <!-- KeepPlaceholderText ~ no -->        
+         <!-- Required ~ Conditional - block is optional but field is required if block is completed -->
+         <!-- InputLength ~ 500 -->
+         <!-- Size ~ single -->
+         <!-- Cardinality ~ one per Process steps mdb:resourceLineage block -->
+         <cit:title>
+            <gco:CharacterString>Provide the name of the procedure</gco:CharacterString>
+         </cit:title>
+      </cit:CI_Citation>            
+   </mrl:additionalDocumentation>
+         <!-- Display Label ~ Steps -->
+         <!-- Help Text ~ Description of a step in the process of collecting or preparing the data -->
+         <!-- Placeholder Text ~ Input step details -->
+         <!-- KeepPlaceholderText ~ no -->        
+         <!-- Required ~ no -->
+         <!-- InputLength ~ 500 -->
+         <!-- Size ~ single -->
+         <!-- Cardinality ~ 0 to many per mdb:resourceLineage block -->
+         <!-- Example step 1 -->
          <mrl:processStep>
             <mrl:LI_ProcessStep>
                <mrl:description>
-                  <gco:CharacterString>Placeholder text=Provide a detailed description of the events in the development of the resource.
-                     If the resource has a status of 'ongoing', provide a summary of the workflow.  
-                     Associated documents can be provided in Publications on the What tab</gco:CharacterString>
+                  <gco:CharacterString>Provide the details of step 1</gco:CharacterString>
                </mrl:description>
             </mrl:LI_ProcessStep>
-         </mrl:processStep>        
+         </mrl:processStep> 
+         <!-- Example step 2 -->
+         <mrl:processStep>
+            <mrl:LI_ProcessStep>
+               <mrl:description>
+                  <gco:CharacterString>Provide the details of step 2</gco:CharacterString>
+               </mrl:description>
+            </mrl:LI_ProcessStep>
+         </mrl:processStep>  
+      </mrl:LI_Lineage>
+   </mdb:resourceLineage>
+   <!-- Process steps - example 2 -->
+   <mdb:resourceLineage>
+      <mrl:LI_Lineage>
+         <mrl:statement>
+            <gco:CharacterString>Placeholder text=Provide a brief summary of a single method or procedure</gco:CharacterString>
+         </mrl:statement>
+         <mrl:additionalDocumentation>
+            <cit:CI_Citation>
+               <cit:title>
+                  <gco:CharacterString>Provide the name of the procedure</gco:CharacterString>
+               </cit:title>
+            </cit:CI_Citation>            
+         </mrl:additionalDocumentation>
+         <!-- Example step 1 -->
+         <mrl:processStep>
+            <mrl:LI_ProcessStep>
+               <mrl:description>
+                  <gco:CharacterString>Provide the details of step 1</gco:CharacterString>
+               </mrl:description>
+            </mrl:LI_ProcessStep>
+         </mrl:processStep> 
+         <!-- Example step 2 -->
+         <mrl:processStep>
+            <mrl:LI_ProcessStep>
+               <mrl:description>
+                  <gco:CharacterString>Provide the details of step 2</gco:CharacterString>
+               </mrl:description>
+            </mrl:LI_ProcessStep>
+         </mrl:processStep>  
       </mrl:LI_Lineage>
    </mdb:resourceLineage>
 </mdb:MD_Metadata>

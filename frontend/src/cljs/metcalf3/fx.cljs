@@ -10,6 +10,12 @@
             [re-frame.db :refer [app-db]])
   (:import [goog.net Cookies]))
 
+(def get-json-header
+  (structs/Map. (clj->js {:Accept "application/json" :X-CSRFToken (.get (Cookies. js/document) "csrftoken")})))
+
+(def post-json-header
+  (structs/Map. (clj->js {:Content-Type "application/json" :Accept "application/json" :X-CSRFToken (.get (Cookies. js/document) "csrftoken")})))
+
 (rf/reg-fx
   :xhrio/get-json
   (fn [{:keys [uri resp-v]}]
@@ -20,10 +26,7 @@
     (letfn [(callback [e]
               (let [json (.. e -target getResponseJson)]
                 (rf/dispatch (conj resp-v json))))]
-      (xhrio/send uri callback))))
-
-(def post-json-header
-  (structs/Map. (clj->js {:Content-Type "application/json" :Accept "application/json" :X-CSRFToken (.get (Cookies. js/document) "csrftoken")})))
+      (xhrio/send uri callback "GET" {} get-json-header))))
 
 (rf/reg-fx
  :xhrio/post-json

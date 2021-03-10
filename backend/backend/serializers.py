@@ -8,35 +8,42 @@ class InstitutionSerializer(serializers.ModelSerializer):
         model = models.Institution
         fields = '__all__'
 
+
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Person
         fields = '__all__'
+
 
 class SamplingFrequencySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.SamplingFrequency
         fields = '__all__'
 
+
 class HorizontalResolutionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.HorizontalResolution
         fields = '__all__'
+
 
 class TopicCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.TopicCategory
         fields = '__all__'
 
+
 class ScienceKeywordSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.ScienceKeyword
         fields = '__all__'
 
+
 class AnzsrcKeywordSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AnzsrcKeyword
         fields = '__all__'
+
 
 class RoleCodeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,6 +51,7 @@ class RoleCodeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class BaseParameterSerializer(serializers.ModelSerializer):
     children_count = serializers.SerializerMethodField()
 
@@ -51,6 +59,7 @@ class BaseParameterSerializer(serializers.ModelSerializer):
         return obj.get_children_count()
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterNameSerializer(BaseParameterSerializer):
     class Meta:
         model = models.ParameterName
@@ -61,6 +70,7 @@ class ParameterNameSerializer(BaseParameterSerializer):
         ]
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterUnitSerializer(BaseParameterSerializer):
     class Meta:
         model = models.ParameterUnit
@@ -71,6 +81,7 @@ class ParameterUnitSerializer(BaseParameterSerializer):
         ]
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterInstrumentSerializer(BaseParameterSerializer):
     class Meta:
         model = models.ParameterInstrument
@@ -81,6 +92,7 @@ class ParameterInstrumentSerializer(BaseParameterSerializer):
         ]
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterPlatformSerializer(BaseParameterSerializer):
     class Meta:
         model = models.ParameterPlatform

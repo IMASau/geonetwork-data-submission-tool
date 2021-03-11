@@ -2655,7 +2655,7 @@
                     <!-- Display Label ~ URL -->
                     <!-- Required ~ conditional -->
                     <!-- Rule ~ Required if cit:description is not blank -->
-                    <!-- InputLength ~ As-Is -->
+                    <!-- InputLength ~ increase to 300 -->
                     <!-- Size ~ single -->
                     <!-- Cardinality ~ one per mrd:transferOptions block -->
                      <cit:linkage>

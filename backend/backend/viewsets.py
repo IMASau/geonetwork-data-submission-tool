@@ -68,6 +68,7 @@ class RoleCodeViewSet(viewsets.ModelViewSet):
     search_fields = ('Identifier', 'Description')
 
 
+# TODO: Remove. Not used anymore since we pull TERN parameters from Elasticsearch.
 class ParameterNameNodeFilter(django_filters.FilterSet):
     min_lft = django_filters.NumberFilter(field_name="lft", lookup_expr='gte')
     max_rgt = django_filters.NumberFilter(field_name="rgt", lookup_expr='lte')
@@ -77,6 +78,7 @@ class ParameterNameNodeFilter(django_filters.FilterSet):
         fields = ['depth', 'tree_id', 'min_lft', 'max_rgt']
 
 
+# TODO: Remove. Not used anymore since we pull TERN parameters from Elasticsearch.
 class ParameterNameViewSet(viewsets.ModelViewSet):
     queryset = models.ParameterName.objects.all().order_by('Name')
     serializer_class = serializers.ParameterNameSerializer
@@ -85,6 +87,7 @@ class ParameterNameViewSet(viewsets.ModelViewSet):
     search_fields = ('Name', 'Definition')
 
 
+# TODO: Remove. Not used anymore since we pull TERN parameters from Elasticsearch.
 class ParameterUnitNodeFilter(django_filters.FilterSet):
     min_lft = django_filters.NumberFilter(field_name="lft", lookup_expr='gte')
     max_rgt = django_filters.NumberFilter(field_name="rgt", lookup_expr='lte')
@@ -96,6 +99,7 @@ class ParameterUnitNodeFilter(django_filters.FilterSet):
         fields = ['depth', 'tree_id', 'min_lft', 'max_rgt', 'min_depth', 'max_depth']
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterUnitViewSet(viewsets.ModelViewSet):
     queryset = models.ParameterUnit.objects.all().order_by('Name')
     serializer_class = serializers.ParameterUnitSerializer
@@ -105,6 +109,7 @@ class ParameterUnitViewSet(viewsets.ModelViewSet):
     ordering_fields = ('tree_id', 'Name')
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterInstrumentNodeFilter(django_filters.FilterSet):
     min_lft = django_filters.NumberFilter(field_name="lft", lookup_expr='gte')
     max_rgt = django_filters.NumberFilter(field_name="rgt", lookup_expr='lte')
@@ -114,6 +119,7 @@ class ParameterInstrumentNodeFilter(django_filters.FilterSet):
         fields = ['depth', 'tree_id', 'min_lft', 'max_rgt']
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterInstrumentViewSet(viewsets.ModelViewSet):
     queryset = models.ParameterInstrument.objects.all().order_by('Name')
     serializer_class = serializers.ParameterInstrumentSerializer
@@ -122,6 +128,7 @@ class ParameterInstrumentViewSet(viewsets.ModelViewSet):
     search_fields = ('Name', 'Definition')
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterPlatformNodeFilter(django_filters.FilterSet):
     min_lft = django_filters.NumberFilter(field_name="lft", lookup_expr='gte')
     max_rgt = django_filters.NumberFilter(field_name="rgt", lookup_expr='lte')
@@ -131,6 +138,7 @@ class ParameterPlatformNodeFilter(django_filters.FilterSet):
         fields = ['depth', 'tree_id', 'min_lft', 'max_rgt']
 
 
+# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterPlatformViewSet(viewsets.ModelViewSet):
     queryset = models.ParameterPlatform.objects.all().order_by('Name')
     serializer_class = serializers.ParameterPlatformSerializer

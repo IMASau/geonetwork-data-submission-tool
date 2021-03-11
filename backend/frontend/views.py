@@ -5,7 +5,7 @@ import urllib.parse
 from zipfile import ZipFile, ZipInfo
 
 # from frontend.router import rest_serialize
-import requests
+from elasticsearch_dsl import connections
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -641,25 +641,24 @@ def robots_view(request):
     return render_to_response("robots.txt", context, content_type="text/plain")
 
 
-@api_view(['GET', 'POST'])
-def qudt_units(request):
+@api_view(["GET", "POST"])
+def qudt_units(request) -> Response:
     """Search QUDT Units Index
 
     Search QUDT Units Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
     - GET supports the query parameter "query". E.g. ?query=kilo
     - POST supports a post body object. E.g. {"query": "kilo"}.
 
-    If "query" is not supplied or is an empty string, the first 50 hits of the default /_search endpoint is returned.
+    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
+    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
     """
-    from elasticsearch_dsl import connections
-
     es = connections.get_connection()
     index_alias = settings.ELASTICSEARCH_INDEX_QUDTUNITS
     result_size = settings.ELASTICSEARCH_RESULT_SIZE
 
-    if request.method == 'GET':
+    if request.method == "GET":
         query = request.GET.get("query")
-    elif request.method == 'POST':
+    elif request.method == "POST":
         query = request.data.get("query")
     else:
         raise
@@ -676,8 +675,217 @@ def qudt_units(request):
             }
         }
         data = es.search(index=index_alias, body=body)
-        return Response(data, status=200)
     else:
         body = {"size": result_size}
         data = es.search(index=index_alias, body=body)
-        return Response(data, status=200)
+
+    return Response(data, status=200)
+
+
+@api_view(["GET", "POST"])
+def tern_parameters(request) -> Response:
+    """Search TERN Parameters Index
+
+    Search TERN Parameters Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query". E.g. ?query=cover
+    - POST supports a post body object. E.g. {"query": "cover"}.
+
+    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
+    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
+
+    Top-level parameters of the Parameters Scheme are filtered out.
+    """
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_TERNPARAMETERS
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["label", "altLabel"]
+                        }
+                    },
+                    "filter": {
+                        "term": {"is_top_concept": False}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort on the empty query search.
+            "query": {
+                "bool": {
+                    "filter": {
+                        "term": {"is_top_concept": False}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(data, status=200)
+
+
+@api_view(['GET', 'POST'])
+def tern_platforms(request) -> Response:
+    """Search TERN Platforms Index
+
+    Search TERN Platforms Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query". E.g. ?query=alos
+    - POST supports a post body object. E.g. {"query": "alos"}
+
+    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
+    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
+
+    OWL classes are filtered out via the selectable value.
+    """
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_TERNPLATFORMS
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["label", "altLabel"]
+                        }
+                    },
+                    "filter": {
+                        "term": {"selectable": "true"}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort on the empty query search.
+            "query": {
+                "bool": {
+                    "filter": {
+                        "term": {"selectable": "true"}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(data, status=200)
+
+
+@api_view(['GET', 'POST'])
+def tern_instruments(request) -> Response:
+    """Search TERN Instruments Index
+
+    Search TERN Instruments Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query" and "selected_platform.
+      E.g. ?query=EOS+70D&selected_platform=https://w3id.org/tern/resources/e729eba7-215a-4626-9d13-feece79c41ad
+
+    - POST supports a post body object.
+      E.g. {"query": "EOS 70D", "selected_platform": "https://w3id.org/tern/resources/e729eba7-215a-4626-9d13-feece79c41ad"}
+
+    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
+    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
+
+    If "selected_platform" is not supplied or does not match a platform, no instruments will be returned.
+    """
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_TERNINSTRUMENTS
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+        selected_platform = request.GET.get("selected_platform", "")
+    elif request.method == "POST":
+        query = request.data.get("query")
+        selected_platform = request.data.get("selected_platform", "")
+    else:
+        raise
+
+    # It's possible that the client sends a JSON "null" which gets converted to None in Python.
+    # Elasticsearch will throw an "illegal_argument_exception, field name is null or empty" if
+    # the filter value is null.
+    # Convert it to an empty string if it is a Python None.
+    if selected_platform is None:
+        selected_platform = ""
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["label", "altLabel"]
+                        }
+                    },
+                    "filter": [
+                        {
+                            "bool": {
+                                "should": [
+                                    {
+                                        "term": {"platform.keyword": selected_platform}
+                                    },
+                                    # Include instruments that have "*" as an element in their platform array.
+                                    # This is used to allow the user to query and select digital cameras regardless
+                                    # of which platform they have selected.
+                                    # The idea is to keep the empty query search to include the direct instruments of a
+                                    # selected platform (i.e. an explicit relationship) while this non-empty query
+                                    # search includes digital cameras for any selected platform.
+                                    {
+                                        "term": {"platform.keyword": "*"}
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort on the empty query search.
+            "query": {
+                "bool": {
+                    "filter": {
+                        "term": {"platform.keyword": selected_platform}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(data, status=200)

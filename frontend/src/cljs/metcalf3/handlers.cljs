@@ -42,6 +42,11 @@
   (.stringify js/JSON (clj->js
                        {:query query})))
 
+(defn build-es-query-for-instruments
+  [query selected-platform]
+  (.stringify js/JSON (clj->js
+                       {:query query :selected_platform selected-platform})))
+
 (rf/reg-event-fx
   :handlers/load-es-options
   ins/std-ins
@@ -53,18 +58,17 @@
 (rf/reg-event-fx
  :handlers/search-es-options
  ins/std-ins
- (fn [{:keys [db]} [_ api-path query]]
-   (let [{:keys [uri]} (get-in db api-path)]
-     {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
-      :db (update-in db api-path assoc :most-recent-query query)})))
-
-(rf/reg-event-fx
- :handlers/search-es-options-units
- ins/std-ins
- (fn [{:keys [db]} [_ api-path query]]
-   (let [{:keys [uri]} (get-in db api-path)]
-     {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
-      :db (update-in db api-path assoc :most-recent-query query)})))
+ (fn [{:keys [db]} [_ api-path query param-type form-position]]
+   (let [selected-platform-uri (get-in (get (get-in db [:form :fields :identificationInfo :dataParameters :value]) form-position) [:value :platform_vocabularyTermURL :value])]
+     (if (utils/same-keyword-string? param-type "parameterinstrument")
+       ; true
+       (let [{:keys [uri]} (get-in db api-path)]
+         {:xhrio/post-json {:uri uri :data (build-es-query-for-instruments query selected-platform-uri) :resp-v [:handlers/load-es-options-resp api-path query]}
+          :db (update-in db api-path assoc :most-recent-query query)})
+       ; false
+       (let [{:keys [uri]} (get-in db api-path)]
+         {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
+          :db (update-in db api-path assoc :most-recent-query query)})))))
 
 
 (rf/reg-event-db
@@ -78,7 +82,11 @@
                                   (map (fn [x] {:is_selectable true
                                                 :vocabularyTermURL (get-in x [:_source :uri])
                                                 :term (let [term (get-in x [:_source :label])] (if (vector? term) (first term) term))
-                                                :code (get-in x [:_source :ucumCode])}) (js->clj hits :keywordize-keys true))))]
+                                                :code (get-in x [:_source :ucumCode])
+                                                :breadcrumb (get-in x [:_source :breadcrumb])
+                                                :altLabel (clojure.string/join ", " (get-in x [:_source :altLabel]))
+                                                })
+                                       (js->clj hits :keywordize-keys true))))]
       (if (or (= most-recent-query query) (and (not most-recent-query) query))
         (update-in db api-path assoc :options reshaped)
         db))))

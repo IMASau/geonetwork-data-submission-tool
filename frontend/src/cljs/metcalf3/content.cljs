@@ -316,8 +316,8 @@
                                                            :page   :about
                                                            :fields {:longName_term                {:type        nil
                                                                                                    :page        :about
-                                                                                                   :label       "Name"
-                                                                                                   :help        "Name of the measured parameter e.g. Vegetation height"
+                                                                                                   :label       "Parameter"
+                                                                                                   :help        "Name of the measured parameter, e.g. vegetation height."
                                                                                                    :placeholder "Start typing to filter the list"
                                                                                                    :required    true}
                                                                     :longName_vocabularyTermURL   {:type nil
@@ -327,21 +327,23 @@
                                                                     :longName_termDefinition      {:type nil
                                                                                                    :page :about}
                                                                     :name                         {:type        nil
-                                                                                                   :label       ""
+                                                                                                   :label       "Parameter name in dataset"
                                                                                                    :maxlength   100
-                                                                                                   :placeholder "Name in dataset (optional)"
-                                                                                                   :page        :about}
+                                                                                                   :placeholder "plant height"
+                                                                                                   :page        :about
+                                                                                                   :help        "Name of the parameter in the dataset (optional)."}
                                                                     :serialNumber                 {:type        nil
                                                                                                    :label       "Serial Number"
                                                                                                    :placeholder ""
                                                                                                    :maxlength   100
-                                                                                                   :page        :about}
+                                                                                                   :page        :about
+                                                                                                   :help "Serial number of instrument."}
                                                                     :unit_term                    {:type        nil
-                                                                                                   :label       "Unit"
+                                                                                                   :label       "Unit type"
                                                                                                    :required    true
                                                                                                    :page        :about
                                                                                                    :placeholder "Start typing to filter the list"
-                                                                                                   :help        "Unit of measurement"}
+                                                                                                   :help        "The unit of measurement."}
                                                                     :unit_vocabularyTermURL       {:type nil
                                                                                                    :page :about}
                                                                     :unit_vocabularyVersion       {:type nil
@@ -351,7 +353,8 @@
                                                                     :instrument_term              {:type        nil
                                                                                                    :label       "Instrument"
                                                                                                    :placeholder "Start typing to filter the list"
-                                                                                                   :help        "Sensor used to measure the parameter"}
+                                                                                                   :help        "Instrument used to measure the parameter. This includes digital camera models."
+                                                                                                   :tooltip     "Select a platform before selecting an instrument."}
                                                                     :instrument_vocabularyTermURL {:type nil
                                                                                                    :page :about}
                                                                     :instrument_vocabularyVersion {:type nil
@@ -361,7 +364,7 @@
                                                                     :platform_term                {:type        nil
                                                                                                    :label       "Platform"
                                                                                                    :placeholder "Start typing to filter the list"
-                                                                                                   :help        "Is the data measured from land, air, satellite or a model?"
+                                                                                                   :help        "Is the data measured from land, air or satellite?"
                                                                                                    :page        :about}
                                                                     :platform_vocabularyTermURL   {:type nil
                                                                                                    :page :about}

@@ -1465,52 +1465,6 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-            <!-- Change Note ~ About tab Parameters were selected from GCMD Science Keywords -->
-            <!-- Change Note ~ Check with S Guru whether only using TERN Parameter Vocabulary (i.e. not GCMD Science Keywords) -->        
-         <mri:descriptiveKeywords>
-            <mri:MD_Keywords>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" 
-                     xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/f634ab55-de40-4d0b-93bc-691bf5408ccb" 
-                     xlink:show="new">AIR TEMPERATURE</gcx:Anchor>
-               </mri:keyword>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" 
-                     xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/427e5121-a142-41cb-a8e9-a70b7f98eb6a"
-                     xlink:show="new">HUMIDITY</gcx:Anchor>
-               </mri:keyword>
-               <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
-               </mri:type>
-               <mri:thesaurusName>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>GCMD Earth Science and Earth Science Services Keywords</gco:CharacterString>
-                     </cit:title>
-                     <cit:otherCitationDetails>
-                        <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
-                        </gco:CharacterString>
-                     </cit:otherCitationDetails>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString> https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords                                
-                              </gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
-                           <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
-                                 codeListValue="information"/>
-                           </cit:function> 
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mri:thesaurusName>
-            </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
             <!-- Display Label ~ Research theme keywords, ANZSRC Fields of Research * -->
             <!-- Help Text ~ Select up to 12 research theme keywords describing your data -->
             <!-- Operation ~ User can select values but cannot create new list values -->

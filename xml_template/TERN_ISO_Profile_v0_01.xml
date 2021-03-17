@@ -547,8 +547,9 @@
                            </cit:title>
                         </cit:CI_Citation>
                      </mcc:authority>
+                     <!-- whether input by the user, or created by the 'Mint DOI' function the doi details should write as shown below -->
                      <mcc:code>
-                        <gco:CharacterString>doi:[If applicable, DOI number writes here]</gco:CharacterString>
+                        <gcx:Anchor xlink:role="uri" xlink:href="http://dx.doi.org/10.10/57R9034T12" xlink:show="new">doi:10.10/57R9034T12</gcx:Anchor>
                      </mcc:code>
                      <mcc:codeSpace>
                         <gco:CharacterString>http://dx.doi.org</gco:CharacterString>

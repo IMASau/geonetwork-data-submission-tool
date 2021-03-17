@@ -111,7 +111,7 @@
     <!-- Operation ~ User selects from a list of titles of published metadata records from https://geonetwork.tern.org.au/ -->
     <!-- Operation ~ GeoNetwork Title comes from /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:citation[1]/cit:CI_Citation[1]/cit:title[1]/gco:CharacterString[1] -->
     <!-- Operation ~ GeoNetwork UUID comes from mcc:code -->
-    <!-- Operation ~ GeoNetwork Title writes to cit:title. UUID is written into mcc:code -->
+    <!-- Operation ~ GeoNetwork Title writes to cit:title. Full uri including UUID is written into mcc:code -->
     <!-- UI ~ New field -->
     <!-- Tab ~ Data ID -->
     <!-- Display Label ~ Parent metadata -->
@@ -135,7 +135,7 @@
          <cit:identifier>
             <mcc:MD_Identifier>
                <mcc:code>
-                  <gco:CharacterString>[Parent UUID goes here]</gco:CharacterString>
+                  <gco:CharacterString>https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/[Parent UUID goes here]</gco:CharacterString>
                </mcc:code>
                <!-- Static section ~ retain in XML output if the user selects a parent record -->
                <mcc:codeSpace>
@@ -457,7 +457,7 @@
                 <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140817975/Data+Identification+Citation+Title -->
                 <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:title>
-                  <gco:CharacterString>jira-1287-2021/03/01-1 - without security classification for METADATA - v2 namespaces </gco:CharacterString>
+                  <gco:CharacterString>jira-1287-2021/03/17-1 - changes as advised during Sprint Planning</gco:CharacterString>
                </cit:title>
                <!-- Status creation cit:date ~ In Current XML and UI -->
                 <!-- Description ~ Date the resource was created -->
@@ -640,7 +640,6 @@
                                  </mcc:codeSpace>
                               </mcc:MD_Identifier>
                            </cit:partyIdentifier>
-
                         </cit:CI_Organisation>
                      </cit:party>
                   </cit:CI_Responsibility>

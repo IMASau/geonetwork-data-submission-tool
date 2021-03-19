@@ -392,21 +392,21 @@
          </cit:function>
       </cit:CI_OnlineResource>
    </mdb:metadataLinkage>
-   <!-- Block Status mdb:referenceSystemInfo ~ Current XML with added element and made available in UI -->
-    <!-- Description ~ Describes the Horizontal Coordinate Reference System of the data -->
-    <!-- Operation ~ Provide drop-down list of options using description and code, related values for code, codespace and reference system type code will default based on selected value -->
-    <!-- UI ~ Change -->
-    <!-- Tab ~ Where -->
-    <!-- Display Label ~ Horizontal Coordinate Reference System -->
-    <!-- Help Text ~ What CRS was your data captured in? -->
-    <!-- Placeholder Text ~ Please select -->
-    <!-- Required ~ yes -->
-    <!-- Size ~ single -->
-    <!-- Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1240170497/List+of+values+for+Coordinate+Reference+Systems -->
-    <!-- KeepPlaceholderText ~ no -->
-    <!-- Cardinality ~ one -->
-    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555039/Reference+System+Info -->
-    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+   <!-- Where1 ~ Block Status mdb:referenceSystemInfo ~ Current XML with added element and made available in UI -->
+    <!-- Where1 ~ Description ~ Describes the Horizontal Coordinate Reference System of the data -->
+    <!-- Where1 ~ Operation ~ Provide drop-down list of options using description and code, related values for code, codespace and reference system type code will default based on selected value -->
+    <!-- Where1 ~ UI ~ Change -->
+    <!-- Where1 ~ Tab ~ Where -->
+    <!-- Where1 ~ Display Label ~ Horizontal Coordinate Reference System -->
+    <!-- Where1 ~ Help Text ~ What CRS was your data captured in? -->
+    <!-- Where1 ~ Placeholder Text ~ Please select -->
+    <!-- Where1 ~ Required ~ yes -->
+    <!-- Where1 ~ Size ~ single -->
+    <!-- Where1 ~ Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1240170497/List+of+values+for+Coordinate+Reference+Systems -->
+    <!-- Where1 ~ KeepPlaceholderText ~ no -->
+    <!-- Where1 ~ Cardinality ~ one -->
+    <!-- Where1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555039/Reference+System+Info -->
+    <!-- Where1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
    <mdb:referenceSystemInfo>
       <mrs:MD_ReferenceSystem>
          <mrs:referenceSystemIdentifier>
@@ -417,7 +417,7 @@
                <mcc:codeSpace>
                   <gco:CharacterString>EPSG</gco:CharacterString>
                </mcc:codeSpace>
-               <!-- Description mcc:version ~ If collected, put relevant coordinate epoch in version as decimal year to 2 dec pl-->
+               <!-- Description mcc:version ~ If collected, put relevant coordinate epoch in version as year and decimal fraction to 3 dec pl-->
                <!-- KeepPlaceholderText ~ no -->
                <!-- WriteEmptyBlock ~ no -->
                <mcc:version>
@@ -1029,23 +1029,23 @@
             <!-- Change Note ~ GCMD_Horizontal will write into keywords -->
          <mri:spatialResolution>
             <mri:MD_Resolution>
-                <!-- Display Label ~ Distance -->
-                <!-- Help Text ~ Spatial resolution -->
-                <!-- Placeholder Text ~ 0.00 -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ no -->
-               <!-- Rule ~ Conditional if numeric: Allow digits, "." , Positive numbers only-->
-                <!-- InputLength ~ Conditional: 12 for numeric, 250 for text -->
-                <!-- Size ~ single -->
-                <!-- Cardinality ~ one -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ conditional -->
-               <!-- Operation ~ User selects an option, enters the numeric value or text, UOM defaults  -->
-               <!-- Operation ~ XML varies depending on user selected option  -->
-                <!-- Rule ~ UOM Must be metre for Distance, degree for angle -->
-                <!-- Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
-                <!-- Cardinality ~ one -->
-               <!-- Each line shows the XML that will apply depending on user selection: 
+                <!-- Where4 ~ Display Label ~ Resolution attribute -->
+                <!-- Where4 ~ Help Text ~ Select the appropriate statistic for the data and input details -->
+                <!-- Where4 ~ Placeholder Text ~ no -->
+                <!-- Where4 ~ KeepPlaceholderText ~ no -->
+                <!-- Where4 ~ Required ~ no -->
+               <!-- Where4 ~ Rule ~ Conditional if numeric: Allow digits, "." , Positive numbers only-->
+                <!-- Where4 ~ InputLength ~ Conditional: 12 for numeric, 250 for text -->
+                <!-- Where4 ~ Size ~ single -->
+                <!-- Where4 ~ Cardinality ~ one -->
+                <!-- Where4 ~ KeepPlaceholderText ~ no -->
+                <!-- Where4 ~ Required ~ conditional -->
+               <!-- Where4 ~ Operation ~ User selects an option, enters the numeric value or text, UOM defaults  -->
+               <!-- Where4 ~ Operation ~ XML varies depending on user selected option  -->
+                <!-- Where4 ~ Rule ~ UOM Must be metre for Distance, degree for angle -->
+                <!-- Where4 ~ Codelist ~ User interface drop down contains the list of values shown below, with "mri:" removed, in lower case, e.g. angular distance, e -->
+                <!-- Where4 ~ Cardinality ~ one -->
+               <!-- Where4 ~ Each line shows the XML that will apply depending on user selection: 
                <mri:angularDistance><gco:Angle uom="degree">30</gco:Angle></mri:angularDistance>
                <mri:equivalentScale><mri:MD_RepresentativeFraction><mri:denominator><gco:Integer>100000</gco:Integer></mri:denominator></mri:MD_RepresentativeFraction></mri:equivalentScale>
                <mri:levelOfDetail><gco:CharacterString>a text description of the resolution of the resource</gco:CharacterString></mri:levelOfDetail>
@@ -1198,21 +1198,21 @@
                      <gex:maximumValue>
                         <gco:Real>40.5</gco:Real>
                      </gex:maximumValue>
-                        <!-- Block Status vertical mdb:referenceSystemInfo ~ New XML and field made available in UI -->
-                        <!-- Description ~ Describes the Vertical Coordinate Reference System of the data -->
-                        <!-- Operation ~ Provide drop-down list of options using description and code, related values for code, codespace and reference system type code will default based on selected value -->
-                        <!-- UI ~ New -->
-                        <!-- Tab ~ Where -->
-                        <!-- Display Label ~ Vertical Coordinate Reference System* -->
-                        <!-- Help Text ~ What is the CRS of the data? -->
-                        <!-- Placeholder Text ~ Please select -->
-                        <!-- KeepPlaceholderText ~ no -->
-                        <!-- Required ~ conditional -->
-                        <!-- Rule ~ If vertical component flag is true, field is mandatory -->
-                        <!-- Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1240170497/List+of+values+for+Coordinate+Reference+Systems#Vertical-Coordinate-Reference-Systems -->
-                        <!-- Cardinality ~ one -->
-                        <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555039/Reference+System+Info -->
-                        <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+                        <!-- Where2 ~ Block Status vertical mdb:referenceSystemInfo ~ New XML and field made available in UI -->
+                        <!-- Where2 ~ Description ~ Describes the Vertical Coordinate Reference System of the data -->
+                        <!-- Where2 ~ Operation ~ Provide drop-down list of options using description and code, related values for code, codespace and reference system type code will default based on selected value -->
+                        <!-- Where2 ~ UI ~ New -->
+                        <!-- Where2 ~ Tab ~ Where -->
+                        <!-- Where2 ~ Display Label ~ Vertical Coordinate Reference System* -->
+                        <!-- Where2 ~ Help Text ~ What is the Coordinate Reference System of the elevation data? -->
+                        <!-- Where2 ~ Placeholder Text ~ Please select -->
+                        <!-- Where2 ~ KeepPlaceholderText ~ no -->
+                        <!-- Where2 ~ Required ~ conditional -->
+                        <!-- Where2 ~ Rule ~ If vertical component flag is true, field is mandatory -->
+                        <!-- Where2 ~ Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1240170497/List+of+values+for+Coordinate+Reference+Systems#Vertical-Coordinate-Reference-Systems -->
+                        <!-- Where2 ~ Cardinality ~ one -->
+                        <!-- Where2 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555039/Reference+System+Info -->
+                        <!-- Where2 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                      <gex:verticalCRSId>
                        <mrs:MD_ReferenceSystem>
                          <mrs:referenceSystemIdentifier>
@@ -2820,13 +2820,13 @@
             <gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods. 
                </gco:CharacterString>
          </mrl:statement>
-            <!-- Display Label ~ Scope -->
-            <!-- Help Text ~ Select to indicate the scope of the lineage information -->
-            <!-- Required ~ yes -->
-            <!-- Rule ~ Default = 'dataset', only dataset or collection are available for user to select -->
-            <!-- Size ~ single -->
-         <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ScopeCode  -->
-            <!-- Cardinality ~ one -->
+            <!-- How1 ~ Display Label ~ Scope -->
+            <!-- How1 ~ Help Text ~ Select to indicate the scope of the lineage information -->
+            <!-- How1 ~ Required ~ yes -->
+            <!-- How1 ~ Rule ~ Default = 'dataset', only dataset or collection are available for user to select -->
+            <!-- How1 ~ Size ~ single -->
+         <!-- How1 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ScopeCode  -->
+            <!-- How1 ~ Cardinality ~ one -->
          <mrl:scope>
             <mcc:MD_Scope>
                <mcc:level>

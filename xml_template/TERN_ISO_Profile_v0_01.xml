@@ -457,7 +457,7 @@
                 <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140817975/Data+Identification+Citation+Title -->
                 <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:title>
-                  <gco:CharacterString>jira-1287-2021/03/17-1 - changes as advised during Sprint Planning</gco:CharacterString>
+                  <gco:CharacterString>jira-1287-2021/03/19-1 - changes as advised during Sprint Planning</gco:CharacterString>
                </cit:title>
                <!-- Status creation cit:date ~ In Current XML and UI -->
                 <!-- Description ~ Date the resource was created -->
@@ -880,20 +880,20 @@
          <mri:credit>
             <gco:CharacterString>Placeholder text=The project was funded by xxx and yyy</gco:CharacterString>
          </mri:credit>
-            <!-- Status mri:status ~ Current XML -->
-            <!-- Description ~ The current status of the resource -->
-            <!-- Operation ~ User select -->
-            <!-- UI ~ As-Is -->
-            <!-- Tab ~ Data ID -->
-            <!-- Display Label ~ Status of data -->
-            <!-- Placeholder Text ~ Please select -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ yes -->
-            <!-- Size ~ multiline -->
-         <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ProgressCode -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
+            <!-- ID2 ~ Status mri:status ~ Current XML -->
+            <!-- ID2 ~ Description ~ The current status of the resource -->
+            <!-- ID2 ~ Operation ~ User select -->
+            <!-- ID2 ~ UI ~ As-Is -->
+            <!-- ID2 ~ Tab ~ Data ID -->
+            <!-- ID2 ~ Display Label ~ Status of data -->
+            <!-- ID2 ~ Placeholder Text ~ Please select -->
+            <!-- ID2 ~ KeepPlaceholderText ~ no -->
+            <!-- ID2 ~ Required ~ yes -->
+            <!-- ID2 ~ Size ~ multiline -->
+            <!-- ID2 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ProgressCode -->
+            <!-- ID2 ~ Cardinality ~ one -->
+            <!-- ID2 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
+            <!-- ID2 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
          <mri:status>
             <mcc:MD_ProgressCode codeList="codeListLocation#MD_ProgressCode" codeListValue="ongoing"/>
          </mri:status>
@@ -1053,20 +1053,20 @@
                <mri:distance><gco:Distance uom="metre">30</gco:Distance></mri:distance>
             </mri:MD_Resolution>
          </mri:spatialResolution>
-            <!-- Status mri:topicCategory ~ Current XML change text and codelist -->
-            <!-- Description ~ ISO topic category to indicate the main theme of the record -->
-            <!-- Operation ~ User selects from codelist -->
-            <!-- Operation ~ Display skos:prefLabel, write skos:Notation -->
-            <!-- UI ~ Change placeholder text -->
-            <!-- Tab ~ Data ID -->
-            <!-- Placeholder Text ~ Select one or more -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ yes -->
-            <!-- Rule ~ ISO states required if record type is "dataset" -->
-            <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_TopicCategoryCode -->
-            <!-- Cardinality ~ many -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140719692/Data+Identification+Topic+Category -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- ID1 ~ Status mri:topicCategory ~ Current XML change text and codelist -->
+            <!-- ID1 ~ Description ~ ISO topic category to indicate the main theme of the record -->
+            <!-- ID1 ~ Operation ~ User selects from codelist -->
+            <!-- ID1 ~ Operation ~ Display skos:prefLabel, write skos:Notation -->
+            <!-- ID1 ~ UI ~ Change placeholder text -->
+            <!-- ID1 ~ Tab ~ Data ID -->
+            <!-- ID1 ~ Placeholder Text ~ Select one or more -->
+            <!-- ID1 ~ KeepPlaceholderText ~ no -->
+            <!-- ID1 ~ Required ~ yes -->
+            <!-- ID1 ~ Rule ~ ISO states required if record type is "dataset" -->
+            <!-- ID1 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_TopicCategoryCode -->
+            <!-- ID1 ~ Cardinality ~ many -->
+            <!-- ID1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140719692/Data+Identification+Topic+Category -->
+            <!-- ID1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:topicCategory>
             <mri:MD_TopicCategoryCode>climatologyMeteorologyAtmosphere</mri:MD_TopicCategoryCode>
          </mri:topicCategory>
@@ -1344,13 +1344,13 @@
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
          <mri:resourceMaintenance>
             <mmi:MD_MaintenanceInformation>
-                <!-- Operation ~ Behaviour defined by value selected in mri:status -->
-                <!-- Display Label ~ Maintenance and update frequency * -->
-                <!-- Help Text ~ How frequently is data updated? -->
-                <!-- Required ~ yes -->
-                <!-- Rule ~  see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
-               <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_MaintenanceFrequencyCode -->
-                <!-- Cardinality ~ one -->
+                <!-- ID3 ~ Operation ~ Behaviour defined by value selected in mri:status -->
+                <!-- ID3 ~ Display Label ~ Maintenance and update frequency * -->
+                <!-- ID3 ~ Help Text ~ How frequently is data updated? -->
+                <!-- ID3 ~ Required ~ yes -->
+                <!-- ID3 ~ Rule ~  see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
+                <!-- ID3 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_MaintenanceFrequencyCode -->
+                <!-- ID3 ~ Cardinality ~ one -->
                <mmi:maintenanceAndUpdateFrequency>
                   <mmi:MD_MaintenanceFrequencyCode codeList="codeListLocation#MD_MaintenanceFrequencyCode"
                      codeListValue="annually"/>
@@ -1407,24 +1407,24 @@
                </mcc:linkage>
             </mcc:MD_BrowseGraphic>
          </mri:graphicOverview>
-            <!-- Status ~ Current and additonal XML on New Tab -->
-            <!-- Description ~ Keywords describing the themes or content of the resource -->
-            <!-- Operation ~ User selects from lists delivered via Elastic Search -->
-            <!-- UI ~ Change -->
-            <!-- Tab ~ What -->
-            <!-- Display Label ~ Research theme keywords, GCMD Science Keywords * -->
-            <!-- Help Text ~ Select up to 12 research theme keywords describing your data -->
-            <!-- Operation ~ User can select values but cannot create new list values -->
-            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-            <!-- Change Note ~ uri domain has been updated for release 9.1.5 and is supplied correctly below -->
-            <!-- Placeholder Text ~ Start typing to filter list... -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ yes -->
-            <!-- Rule ~ Maximum of 12 keywords -->
-            <!-- Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords -->
-            <!-- Cardinality ~ one block contains many keywords-->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- What1 ~ Status ~ Current and additonal XML on New Tab -->
+            <!-- What1 ~ Description ~ Keywords describing the themes or content of the resource -->
+            <!-- What1 ~ Operation ~ User selects from lists delivered via Elastic Search -->
+            <!-- What1 ~ UI ~ Change -->
+            <!-- What1 ~ Tab ~ What -->
+            <!-- What1 ~ Display Label ~ Research theme keywords, GCMD Science Keywords * -->
+            <!-- What1 ~ Help Text ~ Select up to 12 research theme keywords describing your data -->
+            <!-- What1 ~ Operation ~ User can select values but cannot create new list values -->
+            <!-- What1 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- What1 ~ Change Note ~ uri domain has been updated for release 9.1.5 and is supplied correctly below -->
+            <!-- What1 ~ Placeholder Text ~ Start typing to filter list... -->
+            <!-- What1 ~ KeepPlaceholderText ~ no -->
+            <!-- What1 ~ Required ~ yes -->
+            <!-- What1 ~ Rule ~ Maximum of 12 keywords -->
+            <!-- What1 ~ Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords -->
+            <!-- What1 ~ Cardinality ~ one block contains many keywords-->
+            <!-- What1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- What1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
@@ -1466,18 +1466,18 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-            <!-- Display Label ~ Research theme keywords, ANZSRC Fields of Research * -->
-            <!-- Help Text ~ Select up to 12 research theme keywords describing your data -->
-            <!-- Operation ~ User can select values but cannot create new list values -->
-            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-            <!-- Placeholder Text ~ Start typing to filter list... -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ yes -->
-            <!-- Rule ~ Maximum of 12 keywords -->
-            <!-- Codelist ~ https://vocabs.ands.org.au/viewById/20 -->
-            <!-- Cardinality ~ one block contains many keywords-->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- What2 ~ Display Label ~ Research theme keywords, ANZSRC Fields of Research * -->
+            <!-- What2 ~ Help Text ~ Select up to 12 research theme keywords describing your data -->
+            <!-- What2 ~ Operation ~ User can select values but cannot create new list values -->
+            <!-- What2 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- What2 ~ Placeholder Text ~ Start typing to filter list... -->
+            <!-- What2 ~ KeepPlaceholderText ~ no -->
+            <!-- What2 ~ Required ~ yes -->
+            <!-- What2 ~ Rule ~ Maximum of 12 keywords -->
+            <!-- What2 ~ Codelist ~ https://vocabs.ands.org.au/viewById/20 -->
+            <!-- What2 ~ Cardinality ~ one block contains many keywords-->
+            <!-- What2 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- What2 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
@@ -1524,26 +1524,23 @@
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://linkeddata.tern.org.au/def/platforms/6bc24c32-683c-4b40-a48b-20cf0c526378" xlink:show="new">Tower</gcx:Anchor>
-               </mri:keyword>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/5c036cd1-7c0c-4f86-8f9e-88b2114f4362" xlink:show="new">Automatic Weather Station</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/e729eba7-215a-4626-9d13-feece79c41ad" xlink:show="new">Alice Mulga SuperSite</gcx:Anchor>
                </mri:keyword>
                <mri:type>
                   <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="platform"/>
                </mri:type>
-                <!-- Display Label ~ TERN Platform Vocabulary -->
-                <!-- Help Text ~ Select the Platform or Site or click Add to create a new entry -->
-                <!-- Operation ~ User can select values and create new list values -->
-                <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-                <!-- Change Note ~ Was on the About tab -->
-                <!-- Placeholder Text ~ Start typing to filter list... -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ no -->
-                <!-- Codelist ~ https://vocabs.ands.org.au/viewById/20 -->
-                <!-- Cardinality ~ one block contains many keywords-->
-                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+                <!-- What3 ~ Display Label ~ TERN Platform Vocabulary -->
+                <!-- What3 ~ Help Text ~ Select the Platform or Site or click Add to create a new entry -->
+                <!-- What3 ~ Operation ~ User can select values and create new list values -->
+                <!-- What3 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+                <!-- What3 ~ Change Note ~ Was on the About tab -->
+                <!-- What3 ~ Placeholder Text ~ Start typing to filter list... -->
+                <!-- What3 ~ KeepPlaceholderText ~ no -->
+                <!-- What3 ~ Required ~ no -->
+                <!-- What3 ~ Codelist ~ API def tern_platforms(request) from Elastic Search contact Gerhard Weis -->
+                <!-- What3 ~ Cardinality ~ one block may contain many keywords-->
+                <!-- What3 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+                <!-- What3 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
@@ -1573,19 +1570,19 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-             <!-- Display Label ~ TERN Instrument Vocabulary -->
-            <!-- Help Text ~ Select the Instrument or click Add to create a new entry -->
-            <!-- Operation ~ User can select values and create new list values -->
-            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-            <!-- Change Note ~ Was on the About tab -->
-            <!-- Change Note ~ Remove field for Serial Number -->
-            <!-- Placeholder Text ~ Start typing to filter list... -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ no -->
-            <!-- Codelist ~ https://w3id.org/tern/assets/sensors/ -->
-            <!-- Cardinality ~ one block contains many keywords-->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+             <!-- What4 ~ Display Label ~ TERN Instrument Vocabulary -->
+            <!-- What4 ~ Help Text ~ Select the Instrument or click Add to create a new entry -->
+            <!-- What4 ~ Operation ~ User can select values and create new list values -->
+            <!-- What4 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- What4 ~ Change Note ~ Was on the About tab -->
+            <!-- What4 ~ Change Note ~ Remove field for Serial Number -->
+            <!-- What4 ~ Placeholder Text ~ Start typing to filter list... -->
+            <!-- What4 ~ KeepPlaceholderText ~ no -->
+            <!-- What4 ~ Required ~ no -->
+            <!-- What4 ~ Codelist ~ API def tern_instruments(request) from Elastic Search contact Gerhard Weis -->
+            <!-- What4 ~ Cardinality ~ one block contains many keywords-->
+            <!-- What4 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- What4 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
@@ -1627,19 +1624,19 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-            <!-- Display Label ~ TERN Parameter Vocabulary -->
-            <!-- Help Text ~ Select the Parameter(s) or click Add to create a new entry -->
-            <!-- Operation ~ User can select values and create new list values -->
-            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-            <!-- Change Note ~ Was on the About tab -->
-            <!-- Placeholder Text ~ Start typing to filter list... -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ yes -->
-            <!-- Codelist ~ https://w3id.org/tern/assets/sensors/ -->
-            <!-- Cardinality ~ block contains at least one keyword -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-471 -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+            <!-- What5 ~ Display Label ~ TERN Parameter Vocabulary -->
+            <!-- What5 ~ Help Text ~ Select the Parameter(s) or click Add to create a new entry -->
+            <!-- What5 ~ Operation ~ User can select values and create new list values -->
+            <!-- What5 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- What5 ~ Change Note ~ Was on the About tab -->
+            <!-- What5 ~ Placeholder Text ~ Start typing to filter list... -->
+            <!-- What5 ~ KeepPlaceholderText ~ no -->
+            <!-- What5 ~ Required ~ yes -->
+            <!-- What5 ~ Codelist ~ API def tern_parameters(request) from Elastic Search contact Gerhard Weis -->
+            <!-- What5 ~ Cardinality ~ block contains at least one keyword -->
+            <!-- What5 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-471 -->
+            <!-- What5 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- What5 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
@@ -1681,18 +1678,18 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-            <!-- Display Label ~ QUDT Units of Measure -->
-            <!-- Help Text ~ Select the Unit of Measure or click Add to create a new entry -->
-            <!-- Operation ~ User can select values and create new list values -->
-            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-            <!-- Change Note ~ Was on the About tab -->
-            <!-- Placeholder Text ~ Start typing to filter list... -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ yes -->
-            <!-- Codelist ~ In Elastic Search - check with GW -->
-            <!-- Cardinality ~ block contains at least one keyword -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+            <!-- What6 ~ Display Label ~ QUDT Units of Measure -->
+            <!-- What6 ~ Help Text ~ Select the Unit of Measure or click Add to create a new entry -->
+            <!-- What6 ~ Operation ~ User can select values and create new list values -->
+            <!-- What6 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- What6 ~ Change Note ~ Was on the About tab -->
+            <!-- What6 ~ Placeholder Text ~ Start typing to filter list... -->
+            <!-- What6 ~ KeepPlaceholderText ~ no -->
+            <!-- What6 ~ Required ~ yes -->
+            <!-- What6 ~ Codelist ~ API def qudt_units(request) from Elastic Search contact Gerhard Weis -->
+            <!-- What6 ~ Cardinality ~ block contains at least one keyword -->
+            <!-- What6 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- What6 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
@@ -1730,19 +1727,19 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-            <!-- Display Label ~ GCMD Horizontal Resolution -->
-            <!-- Help Text ~ For gridded data, select the pixel size of the data, for field plots, select average width -->
-            <!-- Operation ~ User can select values from codelist -->
-            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-            <!-- Implementation ~ display in sequence see As-Is -->
-            <!-- Change Note ~ Was on the About tab -->
-            <!-- Placeholder Text ~ Please select -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ no -->
-            <!-- Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+            <!-- What8 ~ Display Label ~ GCMD Horizontal Resolution -->
+            <!-- What8 ~ Help Text ~ For gridded data, select the pixel size of the data, for field plots, select average width -->
+            <!-- What8 ~ Operation ~ User can select values from codelist -->
+            <!-- What8 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- What8 ~ Implementation ~ display in sequence see As-Is -->
+            <!-- What8 ~ Change Note ~ Was on the About tab -->
+            <!-- What8 ~ Placeholder Text ~ Please select -->
+            <!-- What8 ~ KeepPlaceholderText ~ no -->
+            <!-- What8 ~ Required ~ no -->
+            <!-- What8 ~ Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml -->
+            <!-- What8 ~ Cardinality ~ one -->
+            <!-- What8 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- What8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
@@ -1781,20 +1778,20 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-         <!-- Display Label ~ GCMD Vertical Resolution -->
-         <!-- Help Text ~  Select the smallest vertical distance between successive elements of data in a dataset. 
+         <!-- What9 ~ Display Label ~ GCMD Vertical Resolution -->
+         <!-- What9 ~ Help Text ~  Select the smallest vertical distance between successive elements of data in a dataset. 
             This is synonymous with terms such as sample spacing and pixel size -->
-         <!-- Operation ~ User can select values -->
-         <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-         <!-- Implementation ~ display in sequence -->
-         <!-- Change Note ~ New to UI and XML -->
-         <!-- Placeholder Text ~ Please select -->
-         <!-- KeepPlaceholderText ~ no -->
-         <!-- Required ~ no -->
-         <!-- Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml -->
-         <!-- Cardinality ~ one -->
-         <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-         <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <!-- What9 ~ Operation ~ User can select values -->
+         <!-- What9 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+         <!-- What9 ~ Implementation ~ display in sequence -->
+         <!-- What9 ~ Change Note ~ New to UI and XML -->
+         <!-- What9 ~ Placeholder Text ~ Please select -->
+         <!-- What9 ~ KeepPlaceholderText ~ no -->
+         <!-- What9 ~ Required ~ no -->
+         <!-- What9 ~ Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml -->
+         <!-- What9 ~ Cardinality ~ one -->
+         <!-- What9 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+         <!-- What9 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
@@ -1832,19 +1829,19 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-         <!-- Display Label ~ GCMD Temporal Resolution -->
-            <!-- Help Text ~ How frequently is the data collected? -->
-            <!-- Operation ~ User can select values and create new list values -->
-            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-            <!-- Implementation ~ display in sequence see As-Is -->
-            <!-- Change Note ~ Was on the When tab -->
-            <!-- Placeholder Text ~ Please select -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ no -->
-            <!-- Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+         <!-- What7 ~ Display Label ~ GCMD Temporal Resolution -->
+            <!-- What7 ~ Help Text ~ How frequently is the data collected? -->
+            <!-- What7 ~ Operation ~ User can select values and create new list values -->
+            <!-- What7 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- What7 ~ Implementation ~ display in sequence see As-Is -->
+            <!-- What7 ~ Change Note ~ Was on the When tab -->
+            <!-- What7 ~ Placeholder Text ~ Please select -->
+            <!-- What7 ~ KeepPlaceholderText ~ no -->
+            <!-- What7 ~ Required ~ no -->
+            <!-- What7 ~ Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml -->
+            <!-- What7 ~ Cardinality ~ one -->
+            <!-- What7 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- What7 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
@@ -1883,18 +1880,18 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
             </mri:descriptiveKeywords>
-         <!-- Display Label ~ Australian Plant Name Index (APNI) -->
-            <!-- Help Text ~ Species taxa  -->
-            <!-- Operation ~ User can select values -->
-            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-            <!-- Change Note ~ New to UI and XML -->
-            <!-- Placeholder Text ~ Start typing to filter... -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ no -->
-            <!-- Codelist ~ http://www.cpbr.gov.au/cgi-bin/apni -->
-            <!-- Cardinality ~ one block can contain many keywords -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->   
+         <!-- What10 ~ Display Label ~ Australian Plant Name Index (APNI) -->
+            <!-- What10 ~ Help Text ~ Species taxa  -->
+            <!-- What10 ~ Operation ~ User can select values -->
+            <!-- What10 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- What10 ~ Change Note ~ New to UI and XML -->
+            <!-- What10 ~ Placeholder Text ~ Start typing to filter... -->
+            <!-- What10 ~ KeepPlaceholderText ~ no -->
+            <!-- What10 ~ Required ~ no -->
+            <!-- What10 ~ Codelist ~ http://www.cpbr.gov.au/cgi-bin/apni -->
+            <!-- What10 ~ Cardinality ~ one block can contain many keywords -->
+            <!-- What10 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- What10 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->   
          <mri:descriptiveKeywords>
             <mri:MD_Keywords id="Flora">
                <mri:keyword>
@@ -1942,18 +1939,18 @@
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-         <!-- Display Label ~ Australian Faunal Directory -->
-            <!-- Help Text ~ Species taxa  -->
-            <!-- Operation ~ User can select values -->
-            <!-- Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-            <!-- Change Note ~ New to UI and XML -->
-            <!-- Placeholder Text ~ Start typing to filter... -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ no -->
-            <!-- Codelist ~ https://biodiversity.org.au/afd/home -->
-            <!-- Cardinality ~ one block can contain many keywords -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <!-- What11 ~ Display Label ~ Australian Faunal Directory -->
+            <!-- What11 ~ Help Text ~ Species taxa  -->
+            <!-- What11 ~ Operation ~ User can select values -->
+            <!-- What11 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+            <!-- What11 ~ Change Note ~ New to UI and XML -->
+            <!-- What11 ~ Placeholder Text ~ Start typing to filter... -->
+            <!-- What11 ~ KeepPlaceholderText ~ no -->
+            <!-- What11 ~ Required ~ no -->
+            <!-- What11 ~ Codelist ~ https://biodiversity.org.au/afd/home -->
+            <!-- What11 ~ Cardinality ~ one block can contain many keywords -->
+            <!-- What11 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+            <!-- What11 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>

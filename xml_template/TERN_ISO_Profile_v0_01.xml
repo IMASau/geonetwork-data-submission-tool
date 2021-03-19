@@ -451,8 +451,8 @@
                 <!-- Placeholder Text ~ text -->
                 <!-- KeepPlaceholderText ~ no -->
                 <!-- Required ~ yes -->
-                <!-- InputLength ~ As-Is -->
-                <!-- Size ~ As-Is -->
+               <!-- InputLength ~ As-Is 250-->
+                <!-- Size ~ As-Is multiline -->
                 <!-- Cardinality ~ one -->
                 <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140817975/Data+Identification+Citation+Title -->
                 <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
@@ -686,7 +686,7 @@
                         <!-- Rule ~ Organisation cit:name and cit:address fields are mandatory -->
                         <!-- Rule ~ cit:partyIdentifier is mandatory -->
                         <!-- Codelist ~ TERN Organisations Vocabulary -->
-                        <!-- InputLengths ~ As-Is -->
+                        <!-- InputLengths ~ 250 -->
                         <!-- Cardinality ~ one per cit:role -->
                         <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-346 -->
                         <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->
@@ -753,7 +753,7 @@
                             <!-- Rule ~ If individual is mandatory then Individual cit:name is mandatory -->
                             <!-- Rule ~ If individual is mandatory then cit:partyIdentifier is mandatory -->
                             <!-- Codelist ~ TERN Persons Vocabulary concatenate Name (Organisation Name) -->
-                            <!-- InputLengths ~ As-Is -->
+                            <!-- InputLengths ~ As-Is 100 -->
                             <!-- Cardinality ~ one per cit:party -->    
                             <!-- Dependency ~ Functionality needs to support a person can belong to more than one organisation -->                            
                             <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->                           
@@ -770,7 +770,7 @@
                                 <!-- Display Label ~ ORCID ID -->
                                 <!-- Help Text ~ Input the 16 digit ORCID Identifier -->
                                 <!-- Required ~ no -->
-                                <!-- InputLengths ~ As-Is -->
+                                <!-- InputLengths ~ has an input mask -->
                                 <!-- Rule ~ digits only -->
                                 <!-- Cardinality ~ one per cit:individual -->
                                 <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->
@@ -833,10 +833,11 @@
             <!-- UI ~ As-Is -->
             <!-- Tab ~ What -->
             <!-- Display Label ~ Abstract -->
-            <!-- Help Text ~ As-Is -->
-            <!-- Placeholder Text ~ As-Is -->
+            <!-- Help Text ~ Provide a brief description of the content of the resource; e.g. what information was collected, how was it collected -->
+            <!-- Placeholder Text ~ As shown below -->
             <!-- KeepPlaceholderText ~ no -->
             <!-- Required ~ yes -->
+            <!-- InputLength ~ As-Is 2500 -->
             <!-- Size ~ multiline -->
             <!-- Cardinality ~ one -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556386/Data+identification+Abstract+Purpose+Credit -->
@@ -844,8 +845,7 @@
          <mri:abstract>
             <gco:CharacterString>
                Placeholder text=Provide a brief summary of What, Where, When, Why, Who and How for the collected the data.
-          Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected.</gco:CharacterString>
-         </mri:abstract>
+               Example: This data set provides the photosynthetic pathways for 2428 species recorded across 541 plots surveyed by Australia’s Terrestrial Ecosystem Research Network (TERN) between 2011 and 2017 (inclusive). TERN survey plots are 1 ha (100 x 100 m) permanently established sites located in a homogeneous area of terrestrial vegetation. At each plot, TERN survey teams record vegetation composition and structural characteristics and collect a range of plant samples using a point-intercept method. Species were assigned a photosynthetic pathway using literature and carbon stable isotope analysis of bulk tissue collected by TERN at the survey plots. </gco:CharacterString></mri:abstract>
             <!-- Status mri:purpose ~ Current XML with text change -->
             <!-- Description ~ Summary of the intentions with which the resource was developed -->
             <!-- Operation ~ User input -->
@@ -853,15 +853,16 @@
             <!-- Tab ~ What -->
             <!-- Display Label ~ Purpose -->
             <!-- Help Text ~ Provide a brief summary of the purpose for collecting the data including the potential use for future research. -->
-            <!-- Placeholder Text ~ As-Is -->
+            <!-- Placeholder Text ~ as shown below -->
             <!-- KeepPlaceholderText ~ no -->
             <!-- Required ~ no -->
+            <!-- InputLength ~ As-Is 1000 -->
             <!-- Size ~ multiline -->
             <!-- Cardinality ~ one -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556386/Data+identification+Abstract+Purpose+Credit -->
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:purpose>
-            <gco:CharacterString>Placeholder text=Provide a brief summary of the purpose for collecting the data including the potential use. Example: The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future</gco:CharacterString>
+            <gco:CharacterString>Placeholder text=Provide a brief summary of the purpose for collecting the data including the potential use. This photosynthetic pathway data set was created by TERN to enable research examining the abundance, richness, and distribution of C4 and C3 vegetation in Australia.</gco:CharacterString>
          </mri:purpose>
             <!-- Status mri:credit ~ Current XML with text change -->
             <!-- Description ~ Recognition of those who contributed to the resource -->
@@ -2195,11 +2196,11 @@
             <!-- Tab ~ About -->
             <!-- Display Label ~ Processing Environment Details -->
             <!-- Help Text ~ Software, computer operating system, file name, or dataset size -->
-            <!-- Placeholder Text ~ Information to use the resource -->
+            <!-- Placeholder Text ~ Information about the source and software to process the resource -->
             <!-- KeepPlaceholderText ~ no -->
             <!-- Required ~ no -->
-            <!-- InputLength ~ As-Is -->
-            <!-- Size ~ single -->
+            <!-- InputLength ~ 1000 -->
+            <!-- Size ~ multiline -->
             <!-- Codelist ~ n/a -->
             <!-- Cardinality ~ one -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1151238213/Data+Identification+Environment+Description -->
@@ -2218,7 +2219,7 @@
             <!-- Placeholder Text ~ Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01 -->
             <!-- KeepPlaceholderText ~ no -->
             <!-- Required ~ no -->
-            <!-- InputLength ~ As-Is -->
+            <!-- InputLength ~ As-Is 1000 -->
             <!-- Size ~ single -->
             <!-- Codelist ~ n/a -->
             <!-- Cardinality ~ one -->
@@ -2389,7 +2390,7 @@
          <mrd:transferOptions>
             <mrd:MD_DigitalTransferOptions>
                <!-- Display Label ~ n/a --> 
-               <!-- Operation ~ Can file size be determined automatically by Data upload function? -->
+               <!-- Operation ~ Can file size in MB be determined automatically by Data upload function? -->
                <mrd:transferSize><gco:Real>10</gco:Real></mrd:transferSize>
                <mrd:onLine>
                   <cit:CI_OnlineResource>
@@ -2397,7 +2398,6 @@
                      <!-- Description ~ URL where file is stored by SHaRED -->
                      <!-- Required ~ conditional -->
                      <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
-                     <!-- InputLength ~ As-Is -->
                      <cit:linkage>
                         <gco:CharacterString>https://shared.tern.org.au/attachment/26f41575-b9f1-4e9b-81f4-d4283fa97855/DictionaryParkhurst_etal_2020_C2yqIeI.csv</gco:CharacterString>
                      </cit:linkage>
@@ -2406,7 +2406,6 @@
                      <!-- Required ~ conditional -->
                      <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
                      <!-- Rule ~ Value is download, formatted as shown below -->
-                     <!-- InputLength ~ As-Is -->                     
                      <cit:protocol>
                         <gco:CharacterString>WWW:DOWNLOAD-1.0-http--download</gco:CharacterString>
                      </cit:protocol>
@@ -2414,7 +2413,6 @@
                      <!-- Description ~ File name -->
                      <!-- Required ~ conditional -->
                      <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
-                     <!-- InputLength ~ As-Is -->
                      <cit:name>
                         <gco:CharacterString>DictionaryParkhurst_etal_2020.csv [name element]</gco:CharacterString>
                      </cit:name>
@@ -2423,7 +2421,6 @@
                      <!-- Required ~ conditional -->
                      <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
                      <!-- Rule ~ File name without file extension, replace ["_","-"] with space -->
-                     <!-- InputLength ~ As-Is -->                     
                      <cit:description>
                         <gco:CharacterString>DictionaryParkhurst etal 2020</gco:CharacterString>
                      </cit:description>
@@ -2616,7 +2613,7 @@
                          <!-- Display Label ~ Protocol -->
                           <!-- Required ~ conditional -->
                           <!-- Rule ~ Required if cit:description is not blank -->
-                          <!-- InputLength ~ As-Is -->
+                          <!-- InputLength ~ codelist -->
                           <!-- Size ~ single -->
                           <!-- Codelist ~ hard-coded - add REST API, Get Capabilities, WPS, esri ArcInfo, SPARQL endpoint -->
                           <!-- Cardinality ~ one per mrd:transferOptions block -->
@@ -2627,7 +2624,7 @@
                               <!-- Required ~ conditional -->
                               <!-- Rule ~ Required if cit:description is not blank AND protocol is (WCS or WMS) -->
                               <!-- Change note ~ Shouldn't it be required for WFS? -->
-                              <!-- InputLength ~ As-Is -->
+                              <!-- InputLength ~ As-Is 250 -->
                               <!-- Size ~ single -->
                               <!-- Cardinality ~ one per mrd:transferOptions block -->
                      <cit:name>
@@ -2635,7 +2632,7 @@
                      </cit:name>
                          <!-- Display Label ~ Description -->
                           <!-- Required ~ no -->
-                          <!-- InputLength ~ As-Is -->
+                          <!-- InputLength ~ As-Is 250 -->
                           <!-- Size ~ single -->
                           <!-- Cardinality ~ one per mrd:transferOptions block -->
                      <cit:description>
@@ -2701,7 +2698,7 @@
             <!-- Placeholder Text ~ as shown below -->
             <!-- KeepPlaceholderText ~ no -->        
             <!-- Required ~ no -->
-            <!-- InputLength ~ 250 -->
+            <!-- InputLength ~ 1000 -->
             <!-- Size ~ multiline -->
             <!-- Cardinality ~ one -->
             <mdq:evaluationMethod>
@@ -2717,7 +2714,7 @@
                      <!-- Placeholder Text ~ as shown below -->
                      <!-- KeepPlaceholderText ~ no -->        
                      <!-- Required ~ Conditional -->
-                     <!-- InputLength ~ 250 -->
+                     <!-- InputLength ~ 300 -->
                      <!-- Size ~ single -->
                      <cit:title>
                         <gco:CharacterString>Provide the document title</gco:CharacterString>
@@ -2729,7 +2726,7 @@
                            <!-- Placeholder Text ~ see Help Text -->
                            <!-- KeepPlaceholderText ~ no -->        
                            <!-- Required ~ Conditional -->
-                           <!-- InputLength ~ 300 -->
+                           <!-- InputLength ~ 250 -->
                            <!-- Size ~ single -->
                            <!-- Cardinality ~ one per additionalDocumentation block --> 
                            <cit:linkage>
@@ -2782,7 +2779,7 @@
             <!-- Placeholder Text ~ as shown below -->
             <!-- KeepPlaceholderText ~ no -->        
             <!-- Required ~ no -->
-            <!-- InputLength ~ As-Is -->
+            <!-- InputLength ~ As-Is 1000 -->
             <!-- Size ~ multiline -->
             <!-- Cardinality ~ one -->
             <mdq:result>

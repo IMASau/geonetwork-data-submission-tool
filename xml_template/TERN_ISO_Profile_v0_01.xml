@@ -848,9 +848,9 @@
                      </cit:party>
                   </cit:CI_Responsibility>
                </cit:citedResponsibleParty>
-               <!-- Documentation ~ Email 20210301 DV - custom citation is required and will write to othercitationdetails -->
-               <!-- Rule ~ If a custom citation is present this supercedes the standard generated citation -->
-               <!-- Rule ~ If a custom citation is present then DOI minting should be disabled and DOI should be created manually -->
+               <!-- About9 ~ Documentation ~ Email 20210301 DV - custom citation is required and will write to othercitationdetails -->
+               <!-- About9 ~ Rule ~ If a custom citation is present this supercedes the standard generated citation -->
+               <!-- About9 ~ Rule ~ If a custom citation is present then DOI minting should be disabled and DOI should be created manually -->
                <cit:otherCitationDetails><gco:CharacterString>
                   a custom citation
                </gco:CharacterString></cit:otherCitationDetails>

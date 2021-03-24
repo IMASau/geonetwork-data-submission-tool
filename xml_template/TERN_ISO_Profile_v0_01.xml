@@ -1129,36 +1129,35 @@
          <!-- Status mri:extent ~ Current XML -->
          <mri:extent>
             <!-- Status gex:EX_Extent ~ Current XML change text and UI layout --> 
-            <!-- Description ~ Indicate the approximate geographic coverage of the resource -->
+            <!-- Description ~ Indicates the approximate geographic coverage of the resource -->
             <!-- UI ~ Change layout and text -->
             <!-- Tab ~ Where -->
             <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-383 -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030619198/Data+Identification+Extent+Geographic+Bounding+Box -->
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
             <gex:EX_Extent>
-            <!-- Status gex:EX_Extent ~ Current XML change text and UI layout --> 
-            <!-- Description ~ Description of the geographic coverage area if appropriate -->
-            <!-- Operation ~ User input -->
-            <!-- UI ~ Change layout move above map -->
-            <!-- Display Label ~ Description of coverage -->
-            <!-- Placeholder Text ~ A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ no -->
-            <!-- Cardinality ~ one -->
+            <!-- Where1 ~ Status gex:EX_Extent ~ Current XML change text and UI layout --> 
+            <!-- Where1 ~ Description ~ Description of the geographic coverage area if appropriate -->
+            <!-- Where1 ~ Operation ~ User input -->
+            <!-- Where1 ~ UI ~ Change layout -->
+            <!-- Where1 ~ Placeholder Text ~ A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia -->
+            <!-- Where1 ~ KeepPlaceholderText ~ no -->
+            <!-- Where1 ~ Required ~ no -->
+            <!-- Where1 ~ Cardinality ~ one -->
                <gex:description>
                   <gco:CharacterString>Placeholder text=A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia</gco:CharacterString>
                </gex:description>
-                <!-- Status gex:geographicElement ~ Current XML change text -->                
-                <!-- Operation ~ User draws polygons on the map -->
-                <!-- Operation ~ User draws points on the map -->
-                <!-- Operation ~ OR User enters coordinates in CRS WGS-84 -->
-                <!-- Operation ~ Store 4 coordinates for each polygon or point -->
-                <!-- Operation ~ If user selects a point, write coordinate values with East=West and North=South -->
-                <!-- Help Text ~ Click [icon] to draw a polygon or [icon] to draw a point -->
-                <!-- Help Text ~ OR input decimal degrees in coordinate reference system WGS84. Geoscience Australia provide Grid to Geographic converter -->
-                <!-- Link ~ 'Grid to Geographic converter' URL https://geodesyapps.ga.gov.au/grid-to-geographic -->
-                <!-- Required ~ yes at least one set of 4 coordinates -->
-                <!-- Cardinality ~ many -->
+                <!-- Where2 ~ Status gex:geographicElement ~ Current XML change text -->                
+                <!-- Where2 ~ Operation ~ User draws polygons on the map -->
+                <!-- Where2 ~ Operation ~ User draws points on the map -->
+                <!-- Where2 ~ Operation ~ OR User enters coordinates in CRS WGS-84 -->
+                <!-- Where2 ~ Operation ~ Store 4 coordinates for each polygon or point -->
+                <!-- Where2 ~ Operation ~ If user selects a point, write coordinate values with East=West and North=South -->
+                <!-- Where2 ~ Help Text ~ Click [icon] to draw a polygon or [icon] to draw a point -->
+                <!-- Where2 ~ Help Text ~ OR input decimal degrees in coordinate reference system WGS84. Geoscience Australia provide Grid to Geographic converter -->
+                <!-- Where2 ~ Link ~ 'Grid to Geographic converter' URL https://geodesyapps.ga.gov.au/grid-to-geographic -->
+                <!-- Where2 ~ Required ~ yes at least one set of 4 coordinates -->
+                <!-- Where2 ~ Cardinality ~ many -->
                <gex:geographicElement>
                   <gex:EX_GeographicBoundingBox>
                      <!-- Rule ~ Allow [-180 to 180] to 3 dec pl -->

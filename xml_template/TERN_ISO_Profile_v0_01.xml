@@ -2796,14 +2796,14 @@
                   </mdq:referenceDoc>
                </mdq:DQ_EvaluationMethod>
             </mdq:evaluationMethod>
-            <!-- Display Label ~ Data Quality Result -->
-            <!-- Help Text ~ Description of the data quality assessment results -->
-            <!-- Placeholder Text ~ as shown below -->
-            <!-- KeepPlaceholderText ~ no -->        
-            <!-- Required ~ no -->
-            <!-- InputLength ~ As-Is 1000 -->
-            <!-- Size ~ multiline -->
-            <!-- Cardinality ~ one -->
+            <!-- How12 ~ Display Label ~ Data Quality Result -->
+            <!-- How12 ~ Help Text ~ Description of the data quality assessment results -->
+            <!-- How12 ~ Placeholder Text ~ as shown below -->
+            <!-- How12 ~ KeepPlaceholderText ~ no -->        
+            <!-- How12 ~ Required ~ no -->
+            <!-- How12 ~ InputLength ~ As-Is 1000 -->
+            <!-- How12 ~ Size ~ multiline -->
+            <!-- How12 ~ Cardinality ~ one -->
             <mdq:result>
                <mdq:DQ_DescriptiveResult>
                   <mdq:statement>
@@ -2821,7 +2821,6 @@
     <!-- Description ~ Lineage of the data set inputs and methods -->
     <!-- Operation ~ User input -->
     <!-- UI ~ Change function/Change texts -->
-    <!-- Tab ~ How -->
     <!-- Display Label ~ N/a -->
     <!-- Cardinality ~ one -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041825814/Resource+Lineage+Statement -->
@@ -2830,22 +2829,21 @@
     <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
    <mdb:resourceLineage>
       <mrl:LI_Lineage>
-         <!-- Display Label ~ Data creation procedure details (Optional) -->
-            <!-- Help Text ~ Provide a brief summary of inputs and processing -->
-            <!-- Placeholder Text ~ as shown below -->
-            <!-- KeepPlaceholderText ~ no -->        
-            <!-- Required ~ yes -->
-            <!-- InputLength ~ 1000 -->
-            <!-- Size ~ multiline -->
-            <!-- Cardinality ~ one -->
+         <!-- How2 ~ Description ~ Data creation procedure -->
+            <!-- How2 ~ Help Text ~ Provide a brief summary of inputs and processing -->
+            <!-- How2 ~ Placeholder Text ~ as shown below -->
+            <!-- How2 ~ KeepPlaceholderText ~ no -->        
+            <!-- How2 ~ Required ~ yes -->
+            <!-- How2 ~ InputLength ~ 1000 -->
+            <!-- How2 ~ Size ~ multiline -->
+            <!-- How2 ~ Cardinality ~ one -->
          <mrl:statement>
             <gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods. 
                </gco:CharacterString>
          </mrl:statement>
-            <!-- How1 ~ Display Label ~ Scope -->
-            <!-- How1 ~ Help Text ~ Select to indicate the scope of the lineage information -->
+            <!-- How1 ~ Description ~ scope of the lineage information -->
             <!-- How1 ~ Required ~ yes -->
-            <!-- How1 ~ Rule ~ Default = 'dataset', only dataset or collection are available for user to select -->
+            <!-- How1 ~ Rule ~ Default = 'dataset' -->
             <!-- How1 ~ Size ~ single -->
          <!-- How1 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ScopeCode  -->
             <!-- How1 ~ Cardinality ~ one -->
@@ -2860,25 +2858,25 @@
          <!-- Online documentation Title and URI - example 1 -->
          <mrl:additionalDocumentation>
             <cit:CI_Citation>
-               <!-- Display Label ~ Title -->
-               <!-- Help Text ~ Provide the document title -->
-               <!-- Placeholder Text ~ as shown below -->
-               <!-- KeepPlaceholderText ~ no -->        
-               <!-- Required ~ Conditional block -->
-               <!-- InputLength ~ 500 -->
-               <!-- Size ~ single -->
-               <!-- Cardinality ~ one per additionalDocumentation block -->
+               <!-- How3 ~ Description ~ Title -->
+               <!-- How3 ~ Help Text ~ Provide the document title -->
+               <!-- How3 ~ Placeholder Text ~ as shown below -->
+               <!-- How3 ~ KeepPlaceholderText ~ no -->        
+               <!-- How3 ~ Required ~ Conditional block -->
+               <!-- How3 ~ InputLength ~ 500 -->
+               <!-- How3 ~ Size ~ single -->
+               <!-- How3 ~ Cardinality ~ one per additionalDocumentation block -->
                <cit:title>
                   <gco:CharacterString>Provide the document title</gco:CharacterString>
                </cit:title>
-               <!-- Display Label ~ Hyperlink -->
-               <!-- Help Text ~ Provide a hyperlink to the documentation -->
-               <!-- Placeholder Text ~ see Help Text -->
-               <!-- KeepPlaceholderText ~ no -->        
-               <!-- Required ~ Conditional block -->
-               <!-- InputLength ~ 300 -->
-               <!-- Size ~ single -->
-               <!-- Cardinality ~ one per additionalDocumentation block -->   
+               <!-- How4 ~ Description ~ Hyperlink -->
+               <!-- How4 ~ Help Text ~ Provide a hyperlink to the documentation -->
+               <!-- How4 ~ Placeholder Text ~ see Help Text -->
+               <!-- How4 ~ KeepPlaceholderText ~ no -->        
+               <!-- How4 ~ Required ~ Conditional block -->
+               <!-- How4 ~ InputLength ~ 300 -->
+               <!-- How4 ~ Size ~ single -->
+               <!-- How4 ~ Cardinality ~ one per additionalDocumentation block -->   
                <cit:onlineResource>
                   <cit:CI_OnlineResource>
                      <cit:linkage><gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
@@ -2939,41 +2937,41 @@
    <!-- Process steps - example 1 -->
    <mdb:resourceLineage>
       <mrl:LI_Lineage>
-         <!-- Display Label ~ Description -->
-         <!-- Help Text ~ Provide a brief summary of inputs and processing -->
-         <!-- Placeholder Text ~ as shown below -->
-         <!-- KeepPlaceholderText ~ yes -->        
-         <!-- Required ~ Conditional - block is optional but field is required if block is completed -->
-         <!-- InputLength ~ 500 -->
-         <!-- Size ~ multiline -->
-         <!-- Cardinality ~ one per Process steps mdb:resourceLineage block -->
+         <!-- How7a ~ Description ~ Summary -->
+         <!-- How7a ~ Help Text ~ Provide a brief summary of inputs and processing -->
+         <!-- How7a ~ Placeholder Text ~ as shown below -->
+         <!-- How7a ~ KeepPlaceholderText ~ yes -->        
+         <!-- How7a ~ Required ~ Conditional - block is optional but field is required if block is completed -->
+         <!-- How7a ~ InputLength ~ 500 -->
+         <!-- How7a ~ Size ~ multiline -->
+         <!-- How7a ~ Cardinality ~ one per Process steps mdb:resourceLineage block -->
          <mrl:statement>
             <gco:CharacterString>Placeholder text=Provide a brief summary of a single method/procedure</gco:CharacterString>
          </mrl:statement>
    <mrl:additionalDocumentation>
       <cit:CI_Citation>
-         <!-- Display Label ~ Name -->
-         <!-- Help Text ~ Provide the name of the procedure -->
-         <!-- Placeholder Text ~ as shown below -->
-         <!-- KeepPlaceholderText ~ no -->        
-         <!-- Required ~ Conditional - block is optional but field is required if block is completed -->
-         <!-- InputLength ~ 500 -->
-         <!-- Size ~ single -->
-         <!-- Cardinality ~ one per Process steps mdb:resourceLineage block -->
+         <!-- How6 ~ Description ~ Name -->
+         <!-- How6 ~ Help Text ~ Provide the name of the procedure -->
+         <!-- How6 ~ Placeholder Text ~ as shown below -->
+         <!-- How6 ~ KeepPlaceholderText ~ no -->        
+         <!-- How6 ~ Required ~ Conditional - block is optional but field is required if block is completed -->
+         <!-- How6 ~ InputLength ~ 500 -->
+         <!-- How6 ~ Size ~ single -->
+         <!-- How6 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -->
          <cit:title>
             <gco:CharacterString>Provide the name of the procedure</gco:CharacterString>
          </cit:title>
       </cit:CI_Citation>            
    </mrl:additionalDocumentation>
-         <!-- Display Label ~ Steps -->
-         <!-- Help Text ~ Description of a step in the process of collecting or preparing the data -->
-         <!-- Placeholder Text ~ Input step details -->
-         <!-- KeepPlaceholderText ~ no -->        
-         <!-- Required ~ no -->
-         <!-- InputLength ~ 500 -->
-         <!-- Size ~ single -->
-         <!-- Cardinality ~ 0 to many per mdb:resourceLineage block -->
-         <!-- Example step 1 -->
+         <!-- How7b ~ Description ~ Steps -->
+         <!-- How7b ~ Help Text ~ Description of a step in the process of collecting or preparing the data -->
+         <!-- How7b ~ Placeholder Text ~ Input step details -->
+         <!-- How7b ~ KeepPlaceholderText ~ no -->        
+         <!-- How7b ~ Required ~ no -->
+         <!-- How7b ~ InputLength ~ 500 -->
+         <!-- How7b ~ Size ~ single -->
+         <!-- How7b ~ Cardinality ~ 0 to many per mdb:resourceLineage block -->
+         <!-- How7b ~ Example step 1 -->
          <mrl:processStep>
             <mrl:LI_ProcessStep>
                <mrl:description>
@@ -2981,7 +2979,7 @@
                </mrl:description>
             </mrl:LI_ProcessStep>
          </mrl:processStep> 
-         <!-- Example step 2 -->
+         <!-- How7b ~ Example step 2 -->
          <mrl:processStep>
             <mrl:LI_ProcessStep>
                <mrl:description>

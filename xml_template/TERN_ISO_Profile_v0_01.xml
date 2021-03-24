@@ -532,20 +532,18 @@
                <cit:edition>
                   <gco:CharacterString>1.0</gco:CharacterString>
                </cit:edition>
-                <!-- Status cit:identifier ~ Current XML with text changes -->
-                <!-- Description ~ If a DOI is minted for the dataset, the details are written here -->
-                <!-- Operation ~ Admin clicks 'Mint DOI', returned DOI number writes into mcc:code replacing [If applicable, DOI number writes here] -->
-                <!-- UI ~ add field to capture pre-existing DOI -->
-                <!-- Tab ~ Lodge -->
-                <!-- Display Label ~ Is there an existing DOI to transfer? -->
-                <!-- Placeholder Text ~ doi:[If applicable, DOI number writes here] -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ no -->
-               <!-- Rule ~ DOI minting is disabled if a custom citation is present, see otherCitationDetails below -->
-                <!-- Cardinality ~ one -->
-                <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-446 -->
-                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718892/Data+Identification+Citation+Identifier+DOI -->
-                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+                <!-- Lodge3 ~ Status cit:identifier ~ Current XML with text changes -->
+                <!-- Lodge3 ~ Description ~ If a DOI is minted for the dataset, the details are written here -->
+                <!-- Lodge3 ~ Operation ~ Admin clicks 'Mint DOI', returned DOI details write into mcc:code as shown below -->
+                <!-- Lodge3 ~ UI ~ add field to capture pre-existing DOI -->
+                <!-- Lodge3 ~ Placeholder Text ~ doi:[If applicable, DOI number writes here] -->
+                <!-- Lodge3 ~ KeepPlaceholderText ~ no -->
+                <!-- Lodge3 ~ Required ~ no -->
+               <!-- Lodge3 ~ Rule ~ DOI minting is disabled if a custom citation is present, see otherCitationDetails below -->
+                <!-- Lodge3 ~ Cardinality ~ one -->
+                <!-- Lodge3 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-446 -->
+                <!-- Lodge3 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718892/Data+Identification+Citation+Identifier+DOI -->
+                <!-- Lodge3 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:identifier>
                   <mcc:MD_Identifier>
                      <mcc:authority>
@@ -555,7 +553,7 @@
                            </cit:title>
                         </cit:CI_Citation>
                      </mcc:authority>
-                     <!-- whether input by the user, or created by the 'Mint DOI' function the doi details should write as shown below -->
+                     <!-- Lodge3 ~ the doi details should write as shown below -->
                      <mcc:code>
                         <gcx:Anchor xlink:role="uri" xlink:href="http://dx.doi.org/10.10/57R9034T12" xlink:show="new">doi:10.10/57R9034T12</gcx:Anchor>
                      </mcc:code>

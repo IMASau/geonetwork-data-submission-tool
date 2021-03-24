@@ -408,9 +408,10 @@
                <mcc:codeSpace>
                   <gco:CharacterString>EPSG</gco:CharacterString>
                </mcc:codeSpace>
-               <!-- Description mcc:version ~ If collected, put relevant coordinate epoch in version as year and decimal fraction to 3 dec pl-->
-               <!-- KeepPlaceholderText ~ no -->
-               <!-- WriteEmptyBlock ~ no -->
+               <!-- Where4 ~ Description mcc:version ~ The date of the dynamic coordinate reference system based on Gregorian Calendar -->
+				<!-- Where4 ~ Operation ~ Calculate coordinate epoch in version as year and decimal fraction to 2 dec pl -->
+               <!-- Where4 ~ KeepPlaceholderText ~ no -->
+               <!-- Where4 ~ WriteEmptyBlock ~ no -->
                <mcc:version>
                   <gco:CharacterString>2007.07</gco:CharacterString>
                </mcc:version>
@@ -436,10 +437,8 @@
                 <!-- Description ~ Title of the resource, used in the citation -->
                 <!-- Operation ~ User input -->
                 <!-- UI ~ Change texts -->
-                <!-- Tab ~ Data ID -->
-                <!-- Display Label ~ Title -->
                 <!-- Help Text ~ Clear and concise title including What Where (How) When e.g. Fractional Cover for Australia 2014-ongoing -->
-                <!-- Placeholder Text ~ text -->
+                <!-- Placeholder Text ~ Help Text -->
                 <!-- KeepPlaceholderText ~ no -->
                 <!-- Required ~ yes -->
                <!-- InputLength ~ As-Is 250-->

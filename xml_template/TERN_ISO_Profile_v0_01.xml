@@ -2222,23 +2222,23 @@
                </mco:classification>
             </mco:MD_SecurityConstraints>
             </mri:resourceConstraints>        
-            <!-- WriteEmptyBlock ~ no -->
-            <!-- Status ~ New XML and UI -->
-            <!-- Description ~ Description of the resource in the producer's processing environment -->
-            <!-- Operation ~ User input -->
-            <!-- UI ~ Change -->
-            <!-- Tab ~ About -->
-            <!-- Display Label ~ Processing Environment Details -->
-            <!-- Help Text ~ Software, computer operating system, file name, or dataset size -->
-            <!-- Placeholder Text ~ Information about the source and software to process the resource -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ no -->
-            <!-- InputLength ~ 1000 -->
-            <!-- Size ~ multiline -->
-            <!-- Codelist ~ n/a -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1151238213/Data+Identification+Environment+Description -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- About3 ~ WriteEmptyBlock ~ no -->
+            <!-- About3 ~ Status ~ New XML and UI -->
+            <!-- About3 ~ Description ~ Description of the resource in the producer's processing environment -->
+            <!-- About3 ~ Operation ~ User input -->
+            <!-- About3 ~ UI ~ Change -->
+            <!-- About3 ~ Tab ~ About -->
+            <!-- About3 ~ Display Label ~ Processing Environment Details -->
+            <!-- About3 ~ Help Text ~ Software, computer operating system, file name, or dataset size -->
+            <!-- About3 ~ Placeholder Text ~ Information about the source and software to process the resource -->
+            <!-- About3 ~ KeepPlaceholderText ~ no -->
+            <!-- About3 ~ Required ~ no -->
+            <!-- About3 ~ InputLength ~ 1000 -->
+            <!-- About3 ~ Size ~ multiline -->
+            <!-- About3 ~ Codelist ~ n/a -->
+            <!-- About3 ~ Cardinality ~ one -->
+            <!-- About3 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1151238213/Data+Identification+Environment+Description -->
+            <!-- About3 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:environmentDescription><gco:CharacterString>Placeholder text=Information about the processing environment or software used</gco:CharacterString>
          </mri:environmentDescription>
             <!-- WriteEmptyBlock ~ no -->

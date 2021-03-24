@@ -1879,7 +1879,7 @@
             <!-- What10 ~ Placeholder Text ~ Please select -->
             <!-- What10 ~ KeepPlaceholderText ~ no -->
             <!-- What10 ~ Required ~ no -->
-            <!-- What10 ~ Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml -->
+            <!-- What10 ~ Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange/?format=xml -->
             <!-- What10 ~ Cardinality ~ one -->
             <!-- What10 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
             <!-- What10 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
@@ -2156,22 +2156,20 @@
                </mco:otherConstraints>
                <mco:otherConstraints><gco:CharacterString>Please advise any work or publications that use this data, go to https://www.tern.org.au/research-publications/#reporting</gco:CharacterString></mco:otherConstraints>
                 <!-- END Static Section - User may add other constraints -->
-                <!-- Status ~ Current XML and UI -->
-                <!-- Description ~ Constraints identified by the User -->
-                <!-- Operation ~ User can input additional constraints or instructions -->
-                <!-- UI ~ As-Is -->
-                <!-- Tab ~ About -->
-                <!-- Display Label ~ Use limitation -->
-                <!-- Help Text ~  -->
-                <!-- Placeholder Text ~ Example:This data set is not suitable for compliance monitoring -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ no -->
-                <!-- InputLength ~ 250 -->
-                <!-- Size ~ single -->
-                <!-- Codelist ~ n/a -->
-                <!-- Cardinality ~ many -->
-                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041760257/Data+Identification+Resource+Constraints -->
-                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+                <!-- About1 ~ Status ~ Current XML and UI -->
+                <!-- About1 ~ Description ~ Constraints identified by the User -->
+                <!-- About1 ~ Operation ~ User can input additional constraints or instructions -->
+                <!-- About1 ~ UI ~ As-Is -->
+                <!-- About1 ~ Help Text ~  -->
+                <!-- About1 ~ Placeholder Text ~ Example:This data set is not suitable for compliance monitoring -->
+                <!-- About1 ~ KeepPlaceholderText ~ no -->
+                <!-- About1 ~ Required ~ no -->
+                <!-- About1 ~ InputLength ~ 250 -->
+                <!-- About1 ~ Size ~ single -->
+                <!-- About1 ~ Codelist ~ n/a -->
+                <!-- About1 ~ Cardinality ~ many -->
+                <!-- About1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041760257/Data+Identification+Resource+Constraints -->
+                <!-- About1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <mco:otherConstraints>
                   <gco:CharacterString>Placeholder text=Example:This data set is not suitable for compliance monitoring</gco:CharacterString>
                </mco:otherConstraints>
@@ -2183,7 +2181,6 @@
             <!-- About2 ~ Change Note ~ XML cit:function block added -->
             <!-- About2 ~ Operation ~ User can select a Security Class from a codelist -->
             <!-- About2 ~ UI ~ Change -->
-            <!-- About2 ~ Tab ~ About -->
             <!-- About2 ~ Display Label ~ Security Classification  -->
             <!-- About2 ~ Help Text ~ The mapping between Australian Government Security Class and ISO Classification (as at 2018) is: -->
             <!-- About2 ~ Help Text ~ (show content from columns G and I of https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing) -->

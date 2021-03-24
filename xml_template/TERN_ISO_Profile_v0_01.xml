@@ -119,8 +119,6 @@
     <!-- Placeholder Text ~ Start typing to filter list... -->
     <!-- KeepPlaceholderText ~ no -->
     <!-- Required ~ conditional -->
-    <!-- Assumption ~ There may be multiple levels in the record hierarchy: collections and dataset; dataset should only occur at the lowest level -->
-    <!-- Rule ~ Parent from GeoNetwork is limited to records of scope "Collection" -->
     <!-- Cardinality ~ one -->
     <!-- Codelist ~ List of titles from records published on GeoNetwork, alphabetic ascending -->
     <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-503 -->

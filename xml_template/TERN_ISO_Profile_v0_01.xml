@@ -651,24 +651,24 @@
                      <cit:role>
                         <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="author"/>
                      </cit:role>
-                        <!-- Dependency ~ Functionality needs to be updated to support the revised data model, see Documentation -->
-                        <!-- Status cit:party ~ Current XML with functional changes -->
-                        <!-- Operation ~ If user selects from TERN Organisations Vocabulary then all fields default from the Vocabulary values -->
-                        <!-- Operation ~ If user clicks Add New, then UUID is generated and appropriate fields are displayed for input -->
-                        <!-- Help Text ~ Select from the list or click the Add New button -->
-                        <!-- Placeholder Text ~ Start typing to filter list... -->
-                        <!-- KeepPlaceholderText ~ no -->
-                        <!-- Required ~ yes -->
-                        <!-- Rule ~ Organisation cit:name and cit:address fields are mandatory -->
-                        <!-- Rule ~ cit:partyIdentifier is mandatory -->
-                        <!-- Codelist ~ TERN Organisations Vocabulary -->
-                        <!-- InputLengths ~ 250 -->
-                        <!-- Cardinality ~ one per cit:role -->
-                        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-346 -->
-                        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->
+                        <!-- Who8 and Who12 ~ Dependency ~ Functionality needs to be updated to support the revised data model, see Documentation -->
+                        <!-- Who8 and Who12 ~ Status cit:party ~ Current XML with functional changes -->
+                        <!-- Who8 and Who12 ~ Operation ~ If user selects from TERN Organisations Vocabulary then all fields default from the Vocabulary values -->
+                        <!-- Who8 and Who12 ~ Operation ~ If user clicks Add New, then UUID is generated and appropriate fields are displayed for input -->
+                        <!-- Who8 and Who12 ~ Help Text ~ Select from the list or click the Add New button -->
+                        <!-- Who8 and Who12 ~ Placeholder Text ~ Start typing to filter list... -->
+                        <!-- Who8 and Who12 ~ KeepPlaceholderText ~ no -->
+                        <!-- Who8 and Who12 ~ Required ~ yes -->
+                        <!-- Who8 and Who12 ~ Rule ~ Organisation cit:name and cit:address fields are mandatory -->
+                        <!-- Who8 and Who12 ~ Rule ~ cit:partyIdentifier is mandatory -->
+                        <!-- Who8 and Who12 ~ Codelist ~ TERN Organisations Vocabulary -->
+                        <!-- Who8 and Who12 ~ InputLengths ~ 250 -->
+                        <!-- Who8 and Who12 ~ Cardinality ~ one per cit:role -->
+                        <!-- Who8 and Who12 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-346 -->
+                        <!-- Who8 and Who12 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->
                      <cit:party>
                         <cit:CI_Organisation>
-						<!-- Who12 -->
+						<!-- Who8 or Who12 -->
                            <cit:name>
                               <gco:CharacterString>CSIRO Land and Water</gco:CharacterString>
                            </cit:name>

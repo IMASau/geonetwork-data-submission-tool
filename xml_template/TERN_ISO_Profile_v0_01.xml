@@ -106,25 +106,23 @@
       </lan:PT_Locale>
    </mdb:defaultLocale>
    <!-- END Static Section -->
-   <!-- Status mdb:parentMetadata ~ New XML Block -->
-    <!-- Description ~ Records the title and uuid of the parent metadata record if applicable -->
-    <!-- Operation ~ User selects from a list of titles of published metadata records from https://geonetwork.tern.org.au/ -->
-    <!-- Operation ~ GeoNetwork Title comes from /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:citation[1]/cit:CI_Citation[1]/cit:title[1]/gco:CharacterString[1] -->
-    <!-- Operation ~ GeoNetwork UUID comes from mcc:code -->
-    <!-- Operation ~ GeoNetwork Title writes to cit:title. Full uri including UUID is written into mcc:code -->
-    <!-- UI ~ New field -->
-    <!-- Tab ~ Data ID -->
-    <!-- Display Label ~ Parent metadata -->
-    <!-- Help Text ~ Does this metadata have a parent record? -->
-    <!-- Placeholder Text ~ Start typing to filter list... -->
-    <!-- KeepPlaceholderText ~ no -->
-    <!-- Required ~ conditional -->
-    <!-- Cardinality ~ one -->
-    <!-- Codelist ~ List of titles from records published on GeoNetwork, alphabetic ascending -->
-    <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-503 -->
-    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556158/Parent+metadata -->
-    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-    <!-- WriteEmptyBlock ~ no -->   
+   <!-- ID3 ~ Status mdb:parentMetadata ~ New XML Block -->
+    <!-- ID3 ~ Description ~ Records the title and uuid of the parent metadata record if applicable -->
+    <!-- ID3 ~ Operation ~ User selects from a list of titles of published metadata records from https://geonetwork.tern.org.au/ -->
+    <!-- ID3 ~ Operation ~ GeoNetwork Title comes from /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:citation[1]/cit:CI_Citation[1]/cit:title[1]/gco:CharacterString[1] -->
+    <!-- ID3 ~ Operation ~ GeoNetwork UUID comes from mcc:code -->
+    <!-- ID3 ~ Operation ~ GeoNetwork Title writes to cit:title. Full uri including UUID is written into mcc:code -->
+    <!-- ID3 ~ Display Label ~ Parent metadata -->
+    <!-- ID3 ~ Help Text ~ Does this metadata have a parent record? -->
+    <!-- ID3 ~ Placeholder Text ~ Start typing to filter list... -->
+    <!-- ID3 ~ KeepPlaceholderText ~ no -->
+    <!-- ID3 ~ Required ~ no -->
+    <!-- ID3 ~ Cardinality ~ one -->
+    <!-- ID3 ~ Codelist ~ List of titles from records published on GeoNetwork, alphabetic ascending -->
+    <!-- ID3 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-503 -->
+    <!-- ID3 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556158/Parent+metadata -->
+    <!-- ID3 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+    <!-- ID3 ~ WriteEmptyBlock ~ no -->   
    <mdb:parentMetadata>
       <cit:CI_Citation>
          <cit:title>

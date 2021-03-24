@@ -456,7 +456,7 @@
                 <!-- ID6 ~ Help Text ~ When was the resource created? -->
                 <!-- ID6 ~ Required ~ yes -->
                 <!-- ID6 ~ Rule ~ Write as Year Month Day in ISO format -->
-                <!-- ID6 ~ Rule ~ Valid date >= 19000101 -->
+                <!-- ID6 ~ Rule ~ Valid date >= 1900-01-01 -->
                 <!-- ID6 ~ Cardinality ~ one -->
                 <!-- ID6 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
                 <!-- ID6 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
@@ -470,22 +470,19 @@
                      </cit:dateType>
                   </cit:CI_Date>
                </cit:date>
-               <!-- Status publication cit:date ~ In Current XML, add changes to UI -->
-                <!-- Description ~ Initial publication year of the resource, used in citation -->
-                <!-- Operation ~ If previously published: User types a year; otherwise Shared assigns when status changes to Uploaded -->
-                <!-- UI ~ Change texts -->
-                <!-- Tab ~ Data ID -->
-                <!-- Display Label ~ Date the resource was published -->
-                <!-- Help Text ~ If previously published, input the year -->
-                <!-- Required ~ yes -->
-                <!-- Rule ~ Write as Year in ISO format -->
-                <!-- Rule ~ Valid year >= 1900 -->
-                <!-- Cardinality ~ one -->
-                <!-- KeepPlaceholderText ~ yes -->
-                <!-- InputLength ~ 4 -->
-                <!-- Size ~ single -->
-                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
-                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <!-- ID8 ~ Status publication cit:date ~ In Current XML, add changes to UI -->
+                <!-- ID8 ~ Description ~ Initial publication year of the resource, used in citation -->
+                <!-- ID8 ~ Operation ~ If previously published: User selects a date; otherwise Shared assigns when status changes to Uploaded -->
+                <!-- ID8 ~ UI ~ Change texts -->
+                <!-- ID8 ~ Help Text ~ If previously published, input the year -->
+                <!-- ID8 ~ Required ~ yes -->
+                <!-- ID8 ~ Rule ~ Write as Year or Year Month Day in ISO format -->
+                <!-- ID8 ~ Rule ~ Valid year >= 1900 -->
+                <!-- ID8 ~ Cardinality ~ one -->
+                <!-- ID8 ~ KeepPlaceholderText ~ yes -->
+                <!-- ID8 ~ Size ~ single -->
+                <!-- ID8 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
+                <!-- ID8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:date>
                   <cit:CI_Date>
                      <cit:date>

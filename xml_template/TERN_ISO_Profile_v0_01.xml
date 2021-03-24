@@ -112,7 +112,6 @@
     <!-- ID3 ~ Operation ~ GeoNetwork Title comes from /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:citation[1]/cit:CI_Citation[1]/cit:title[1]/gco:CharacterString[1] -->
     <!-- ID3 ~ Operation ~ GeoNetwork UUID comes from mcc:code -->
     <!-- ID3 ~ Operation ~ GeoNetwork Title writes to cit:title. Full uri including UUID is written into mcc:code -->
-    <!-- ID3 ~ Display Label ~ Parent metadata -->
     <!-- ID3 ~ Help Text ~ Does this metadata have a parent record? -->
     <!-- ID3 ~ Placeholder Text ~ Start typing to filter list... -->
     <!-- ID3 ~ KeepPlaceholderText ~ no -->
@@ -386,21 +385,19 @@
          </cit:function>
       </cit:CI_OnlineResource>
    </mdb:metadataLinkage>
-   <!-- Where1 ~ Block Status mdb:referenceSystemInfo ~ Current XML with added element and made available in UI -->
-    <!-- Where1 ~ Description ~ Describes the Horizontal Coordinate Reference System of the data -->
-    <!-- Where1 ~ Operation ~ Provide drop-down list of options using description and code, related values for code, codespace and reference system type code will default based on selected value -->
-    <!-- Where1 ~ UI ~ Change -->
-    <!-- Where1 ~ Tab ~ Where -->
-    <!-- Where1 ~ Display Label ~ Horizontal Coordinate Reference System -->
-    <!-- Where1 ~ Help Text ~ What CRS was your data captured in? -->
-    <!-- Where1 ~ Placeholder Text ~ Please select -->
-    <!-- Where1 ~ Required ~ yes -->
-    <!-- Where1 ~ Size ~ single -->
-    <!-- Where1 ~ Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1240170497/List+of+values+for+Coordinate+Reference+Systems -->
-    <!-- Where1 ~ KeepPlaceholderText ~ no -->
-    <!-- Where1 ~ Cardinality ~ one -->
-    <!-- Where1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555039/Reference+System+Info -->
-    <!-- Where1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+   <!-- Where3 ~ Block Status mdb:referenceSystemInfo ~ Current XML with added element and made available in UI -->
+    <!-- Where3 ~ Description ~ Describes the Horizontal Coordinate Reference System of the data -->
+    <!-- Where3 ~ Operation ~ Provide drop-down list of options using description and code, related values for code, codespace and reference system type code will default based on selected value -->
+    <!-- Where3 ~ UI ~ Change -->
+    <!-- Where3 ~ Help Text ~ What is the Coordinate Reference System of the dataset? -->
+    <!-- Where3 ~ Placeholder Text ~ Please select -->
+    <!-- Where3 ~ Required ~ yes -->
+    <!-- Where3 ~ Size ~ single -->
+    <!-- Where3 ~ Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1240170497/List+of+values+for+Coordinate+Reference+Systems -->
+    <!-- Where3 ~ KeepPlaceholderText ~ no -->
+    <!-- Where3 ~ Cardinality ~ one -->
+    <!-- Where3 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555039/Reference+System+Info -->
+    <!-- Where3 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
    <mdb:referenceSystemInfo>
       <mrs:MD_ReferenceSystem>
          <mrs:referenceSystemIdentifier>

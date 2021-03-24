@@ -1332,7 +1332,7 @@
                         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                      </cit:protocol>
                      <!-- END Static Section -->
-                     <!-- Operation ~ Same as cit:title if cit:linkage is populated -->
+                     <!-- Operation ~ Same as cit:title -->
                      <cit:name><gco:CharacterString>Donohue, R.J. et al., 2014. 
                         Evaluation of the remote-sensing-based DIFFUSE model for estimating photosynthesis of vegetation. Remote Sensing of Environment. doi:10.1002/2013WR015138 [Name element 1]</gco:CharacterString>
                         </cit:name>
@@ -1400,27 +1400,26 @@
                </mmi:maintenanceAndUpdateFrequency>
             </mmi:MD_MaintenanceInformation>
          </mri:resourceMaintenance>
-            <!-- WriteEmptyBlock ~ no -->
-            <!-- Block Status ~ New XML and fields -->
-            <!-- Description ~ Thumbnail graphic for the resource -->
-            <!-- Operation ~ User may upload an image in png format -->
-            <!-- Operation ~ If uploaded file has png format reject if size exceeds pixel limit -->
-            <!-- Operation ~ If uploaded file has png format write details to fields -->
-            <!-- Consult ~ Graphic Designer re appropriate x by y, probably 100 by 100 pixs -->
-            <!-- UI ~ Change -->
-            <!-- Tab ~ Data sources -->
-            <!-- Display Label ~ Upload Data or Thumbnail Images -->
-            <!-- Help Text ~ Thumbnails must be png format, maximum size x by y pixels -->
-            <!-- Placeholder Text ~ Drop file here or click here to upload -->
-            <!-- Placeholder Text ~ After upload click the Confirm upload button -->
-            <!-- Placeholder Text ~ Maximum file size: nn MB. -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ conditional -->
-            <!-- Rule ~ one mrd:transferOptions block required if a png file is uploaded -->        
-            <!-- Rule ~ png files should be maximum x by y pixels -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044152669/Data+Identification+Graphic+Overview -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- Datasource3 ~ WriteEmptyBlock ~ no -->
+            <!-- Datasource3 ~ Block Status ~ New XML and fields -->
+            <!-- Datasource3 ~ Description ~ Thumbnail graphic for the resource -->
+            <!-- Datasource3 ~ Operation ~ User may upload an image in png format -->
+            <!-- Datasource3 ~ Operation ~ If uploaded file has png format reject if size exceeds pixel limit -->
+            <!-- Datasource3 ~ Operation ~ If uploaded file has png format write details to fields -->
+            <!-- Datasource3 ~ Consult ~ TERN Graphic Designer re appropriate x by y, probably 100 by 100 pixs -->
+            <!-- Datasource3 ~ UI ~ Change -->
+            <!-- Datasource3 ~ Display Label ~ Upload Data or Thumbnail Images -->
+            <!-- Datasource3 ~ Help Text ~ Thumbnails must be png format, maximum size x by y pixels -->
+            <!-- Datasource3 ~ Placeholder Text ~ Drop file here or click here to upload -->
+            <!-- Datasource3 ~ Placeholder Text ~ After upload click the Confirm upload button -->
+            <!-- Datasource3 ~ Placeholder Text ~ Maximum file size: nn MB. -->
+            <!-- Datasource3 ~ KeepPlaceholderText ~ no -->
+            <!-- Datasource3 ~ Required ~ conditional -->
+            <!-- Datasource3 ~ Rule ~ one mrd:transferOptions block required if a png file is uploaded -->        
+            <!-- Datasource3 ~ Rule ~ png files should be maximum x by y pixels -->
+            <!-- Datasource3 ~ Cardinality ~ one -->
+            <!-- Datasource3 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044152669/Data+Identification+Graphic+Overview -->
+            <!-- Datasource3 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:graphicOverview>
            <mcc:MD_BrowseGraphic>
                <!-- Description ~ Write filename -->
@@ -1434,7 +1433,7 @@
                <!-- END Static Section -->
                <mcc:linkage>
                   <cit:CI_OnlineResource>
-                  <!-- Description ~ Write url to stored image -->
+                  <!-- Datasource2 ~ Description ~ Write url to stored image -->
                      <cit:linkage><gco:CharacterString>https://w3id.org/tern/static/test/test_100x100px.png</gco:CharacterString>
                      </cit:linkage>
                      <!-- Static field content -->

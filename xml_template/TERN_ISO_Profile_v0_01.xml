@@ -654,7 +654,7 @@
                         <!-- Who8 and Who12 ~ Dependency ~ Functionality needs to be updated to support the revised data model, see Documentation -->
                         <!-- Who8 and Who12 ~ Status cit:party ~ Current XML with functional changes -->
                         <!-- Who8 and Who12 ~ Operation ~ If user selects from TERN Organisations Vocabulary then all fields default from the Vocabulary values -->
-                        <!-- Who8 and Who12 ~ Operation ~ If user clicks Add New, then UUID is generated and appropriate fields are displayed for input -->
+                        <!-- Who9 ~ Operation ~ If user clicks Add New, then UUID is generated and appropriate fields are displayed for input -->
                         <!-- Who8 and Who12 ~ Help Text ~ Select from the list or click the Add New button -->
                         <!-- Who8 and Who12 ~ Placeholder Text ~ Start typing to filter list... -->
                         <!-- Who8 and Who12 ~ KeepPlaceholderText ~ no -->
@@ -664,6 +664,7 @@
                         <!-- Who8 and Who12 ~ Codelist ~ TERN Organisations Vocabulary -->
                         <!-- Who8 and Who12 ~ InputLengths ~ 250 -->
                         <!-- Who8 and Who12 ~ Cardinality ~ one per cit:role -->
+                        <!-- Who8 and Who12 ~ Dependency ~ Functionality needs to support an Organisation can have more than one Site (address) -->
                         <!-- Who8 and Who12 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-346 -->
                         <!-- Who8 and Who12 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->
                      <cit:party>
@@ -686,6 +687,7 @@
                                        </cit:numberType>
                                     </cit:CI_Telephone>
                                  </cit:phone>
+								 <!-- Who13, Who14 -->
                                  <cit:address>
                                     <cit:CI_Address>
                                        <cit:deliveryPoint>
@@ -703,14 +705,15 @@
                                        <cit:country>
                                           <gco:CharacterString>Australia</gco:CharacterString>
                                        </cit:country>
-                                         <!-- Dependency ~ Content depends on whether TERN allows party to be an organisation without individual -->
+                                         <!-- Optional ~ If available Organisation email from TERN Organisations Vocabulary -->
                                        <cit:electronicMailAddress>
-                                          <gco:CharacterString>Mark.Kitchen@csiro.au</gco:CharacterString>
+                                          <gco:CharacterString>help@csiro.au</gco:CharacterString>
                                        </cit:electronicMailAddress>
                                     </cit:CI_Address>
                                  </cit:address>
                               </cit:CI_Contact>
                            </cit:contactInfo>
+                           <!-- Who8, Who9 and Who12 ~ Organisation URI from Vocabulary or SHaRED -->
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
@@ -720,37 +723,44 @@
                                  </mcc:codeSpace>
                               </mcc:MD_Identifier>
                            </cit:partyIdentifier>
-                            <!-- Status cit:individual ~ Current XML with functional changes -->
-                            <!-- Operation ~ If user selects from TERN Persons Vocabulary then all fields for Person, Organisation and Address default from the Vocabulary values -->
-                            <!-- Operation ~ If user clicks Add New, then UUID is generated and appropriate fields are displayed for input -->
-                            <!-- Help Text ~ Select from the list or click the Add New button -->
-                            <!-- Placeholder Text ~ Start typing to filter list... -->
-                            <!-- KeepPlaceholderText ~ no -->
-                            <!-- Required ~ Conditional depending on selection at Who -->
-                            <!-- Rule ~ If individual is mandatory then Individual cit:name is mandatory -->
-                            <!-- Rule ~ If individual is mandatory then cit:partyIdentifier is mandatory -->
-                            <!-- Codelist ~ TERN Persons Vocabulary concatenate Name (Organisation Name) -->
-                            <!-- InputLengths ~ As-Is 100 -->
-                            <!-- Cardinality ~ one per cit:party -->    
-                            <!-- Dependency ~ Functionality needs to support a person can belong to more than one organisation -->                            
-                            <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->                           
+                            <!-- Who3 ~ Status cit:individual ~ Current XML with functional changes -->
+                            <!-- Who3 ~ Operation ~ If user clicks Add New, then UUID is generated and appropriate fields are displayed for input -->
+                            <!-- Who3 ~ Help Text ~ Select from the list or click the Add New button -->
+                            <!-- Who3 ~ Placeholder Text ~ Start typing to filter list... -->
+                            <!-- Who3 ~ KeepPlaceholderText ~ no -->
+                            <!-- Who3 ~ Required ~ Conditional on Who1 -->
+                            <!-- Who3 ~ Rule ~ If Who1 then Individual cit:name is mandatory -->
+                           <!-- Who3 ~ Rule ~ If Who1 then Individual cit:partyIdentifier is mandatory -->
+                            <!-- Who3 ~ Codelist ~ TERN Persons Vocabulary -->
+                            <!-- Who3 ~ InputLengths ~ As-Is 100 -->
+                            <!-- Who3 ~ Cardinality ~ one per cit:party -->    
+                            <!-- Who3 ~ Dependency ~ Functionality needs to support a person can belong to more than one organisation -->                            
+                            <!-- Who3 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->                           
                            <cit:individual>
                               <cit:CI_Individual>
+							  <!-- Who5, Who4 -->
                                  <cit:name>
                                     <gco:CharacterString>Kitchen, Mark</gco:CharacterString>
                                  </cit:name>
-                                <!-- Status cit:partyIdentifier ~ New XML with functional changes -->
-                                <!-- Description ~ Contains a unique identifier representing an individual -->
-                                <!-- Operation ~ If an ORCID exists in the Persons Vocabulary OR is input by the user, then the ORCID details write as shown below -->
-                                <!-- Operation ~ If no ORCID, then the fully qualified TERN uri writes into mcc:code and mcc:codespace contains -->
-                                <!-- Tab ~ Who -->
-                                <!-- Display Label ~ ORCID ID -->
-                                <!-- Help Text ~ Input the 16 digit ORCID Identifier -->
-                                <!-- Required ~ no -->
-                                <!-- InputLengths ~ has an input mask -->
-                                <!-- Rule ~ digits only -->
-                                <!-- Cardinality ~ one per cit:individual -->
-                                <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->
+								 <!-- Who6 -->
+                                 <cit:contactInfo>
+                                    <cit:CI_Contact>
+                                       <cit:address>
+                                          <cit:CI_Address>
+                                             <cit:electronicMailAddress><gco:CharacterString>a person email address</gco:CharacterString></cit:electronicMailAddress></cit:CI_Address>
+                                       </cit:address>
+                                    </cit:CI_Contact>
+                                 </cit:contactInfo>
+                                <!-- Who7 ~ Status cit:partyIdentifier ~ New XML with functional changes -->
+                                <!-- Who7 ~ Description ~ Contains a unique identifier representing an individual -->
+                                <!-- Who7 ~ Operation ~ If an ORCID exists in the Persons Vocabulary OR is input by the user, then the ORCID details write as shown below -->
+                                <!-- Who7 ~ Operation ~ If no ORCID, then the fully qualified TERN uri writes into mcc:code and mcc:codespace contains -->
+                                <!-- Who7 ~ Help Text ~ Input the 16 digit ORCID Identifier -->
+                                <!-- Who7 ~ Required ~ no -->
+                                <!-- Who7 ~ InputLengths ~ has an input mask -->
+                                <!-- Who7 ~ Rule ~ digits only -->
+                                <!-- Who7 ~ Cardinality ~ one per cit:individual -->
+                                <!-- Who7 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->
                                  <cit:partyIdentifier>
                                     <mcc:MD_Identifier>
                                        <mcc:code>
@@ -759,17 +769,82 @@
                                        <mcc:codeSpace>
                                                    <gco:CharacterString>https://orcid.org</gco:CharacterString>
                                        </mcc:codeSpace>
-                                       <!-- Example ~ if person does NOT have an ORCID then: --> 
-                                       <!-- Example ~ code would be like https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1 -->
-                                       <!-- Example ~ with codespace https://w3id.org/tern/resources -->
+
                                  </mcc:MD_Identifier>
                                  </cit:partyIdentifier>
+								 <!-- Optional ~ If available Position from TERN Person Vocabulary -->
                                  <cit:positionName>
                                     <gco:CharacterString>Technical Contact</gco:CharacterString>
                                  </cit:positionName>
                               </cit:CI_Individual>
                            </cit:individual>
                         </cit:CI_Organisation>
+                     </cit:party>
+                  </cit:CI_Responsibility>
+               </cit:citedResponsibleParty>
+               <cit:citedResponsibleParty>
+                  <cit:CI_Responsibility>
+                    <!-- Who2 and Who11 ~ Example Organisation without Person -->
+                     <cit:role>
+                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="coAuthor"/>
+                     </cit:role>
+                     <cit:party>
+                        <cit:CI_Organisation>
+						<!-- Who8 or Who12 -->
+                           <cit:name>
+                              <gco:CharacterString>CSIRO Space</gco:CharacterString>
+                           </cit:name>
+                           <cit:contactInfo>
+                              <cit:CI_Contact>
+							  <!-- Who15.  For Who16 codelist type changes to 'fax' -->
+							  <!-- Codelist ~ https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml  CI_TelephoneTypeCode -->
+                                 <cit:phone>
+                                    <cit:CI_Telephone>
+                                       <cit:number>
+                                          <gco:CharacterString>+61 2 6246 5588</gco:CharacterString>
+                                       </cit:number>
+                                       <cit:numberType>
+                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="voice"/>
+                                       </cit:numberType>
+                                    </cit:CI_Telephone>
+                                 </cit:phone>
+								 <!-- Who13, Who14 -->
+                                 <cit:address>
+                                    <cit:CI_Address>
+                                       <cit:deliveryPoint>
+                                          <gco:CharacterString>101 Clunies Ross St</gco:CharacterString>
+                                       </cit:deliveryPoint>
+                                       <cit:city>
+                                          <gco:CharacterString>Canberra</gco:CharacterString>
+                                       </cit:city>
+                                       <cit:administrativeArea>
+                                          <gco:CharacterString>ACT</gco:CharacterString>
+                                       </cit:administrativeArea>
+                                       <cit:postalCode>
+                                          <gco:CharacterString>2600</gco:CharacterString>
+                                       </cit:postalCode>
+                                       <cit:country>
+                                          <gco:CharacterString>Australia</gco:CharacterString>
+                                       </cit:country>
+                                         <!-- Optional ~ If available Organisation email from TERN Organisations Vocabulary -->
+                                       <cit:electronicMailAddress>
+                                          <gco:CharacterString>data.support@csiro.au</gco:CharacterString>
+                                       </cit:electronicMailAddress>
+                                    </cit:CI_Address>
+                                 </cit:address>
+                              </cit:CI_Contact>
+                           </cit:contactInfo>
+                           <!-- Who8, Who9 and Who12 ~ Organisation URI from Vocabulary or SHaRED -->
+                           <cit:partyIdentifier>
+                              <mcc:MD_Identifier>
+                                 <mcc:code>
+                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                 </mcc:code>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                                 </mcc:codeSpace>
+                              </mcc:MD_Identifier>
+                           </cit:partyIdentifier>
+                           </cit:CI_Organisation>
                      </cit:party>
                   </cit:CI_Responsibility>
                </cit:citedResponsibleParty>
@@ -875,27 +950,23 @@
          <mri:status>
             <mcc:MD_ProgressCode codeList="codeListLocation#MD_ProgressCode" codeListValue="ongoing"/>
          </mri:status>
-            <!-- Status mri:pointOfContact ~ Current XML -->
-            <!-- Description ~ The contact for enquiries about the resource -->
-            <!-- Operation ~ User select OR create new person, organisation or address - see cit:citedResponsibleParty -->
-            <!-- UI ~ Change functionality -->
-            <!-- Tab ~ Who -->
-            <!-- Display Label ~ Point of contact for dataset -->
-            <!-- Placeholder Text ~ First Name Last Name -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ yes -->
-            <!-- Rule ~ as for cit:citedResponsibleParty -->
-            <!-- Cardinality ~ many -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555197/Data+Identification+Point+of+Contact -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
+            <!-- Who17 ~ Status mri:pointOfContact ~ Current XML -->
+            <!-- Who17 ~ Description ~ The contact for enquiries about the resource -->
+            <!-- Who17 ~ Operation ~ User select OR create new person, organisation or address - see cit:citedResponsibleParty -->
+            <!-- Who17 ~ UI ~ Change functionality -->
+            <!-- Who17 ~ Placeholder Text ~ n/a -->
+            <!-- Who17 ~ KeepPlaceholderText ~ no -->
+            <!-- Who17 ~ Required ~ yes -->
+            <!-- Who17 ~ Rule ~ as for cit:citedResponsibleParty -->
+            <!-- Who17 ~ Cardinality ~ many -->
+            <!-- Who17 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555197/Data+Identification+Point+of+Contact -->
+            <!-- Who17 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
          <mri:pointOfContact>
             <cit:CI_Responsibility>
             <!-- Status cit:role ~ Current XML -->
             <!-- Description ~ The role of the contact for enquiries about the resource -->
             <!-- Operation ~ Default to pointOfContact -->
             <!-- UI ~ Change functionality -->
-            <!-- Tab ~ Who -->
-            <!-- Display Label ~ Role -->
             <!-- Cardinality ~ default for each mri:pointOfContact -->
             <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-569 -->
             <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-863 -->
@@ -953,13 +1024,15 @@
                                  <cit:country>
                                     <gco:CharacterString>Australia</gco:CharacterString>
                                  </cit:country>
+								 <!-- Optional ~ If available Organisation email from TERN Organisations Vocabulary -->
                                  <cit:electronicMailAddress>
-                                    <gco:CharacterString>ivan.schroder@ga.gov.au</gco:CharacterString>
+                                    <gco:CharacterString>info@ga.gov.au</gco:CharacterString>
                                  </cit:electronicMailAddress>
                               </cit:CI_Address>
                            </cit:address>
                         </cit:CI_Contact>
                      </cit:contactInfo>
+                     <!-- Who8, Who9 and Who12 ~ Organisation URI from Vocabulary or SHaRED -->
                      <cit:partyIdentifier>
                         <mcc:MD_Identifier>
                            <mcc:code>
@@ -969,11 +1042,23 @@
                            </mcc:codeSpace>
                         </mcc:MD_Identifier>
                      </cit:partyIdentifier>
+					 <!-- Who16 -->
                      <cit:individual>
                         <cit:CI_Individual>
+						<!-- Who5, Who4 -->
                            <cit:name>
                               <gco:CharacterString>Schroder, Ivan</gco:CharacterString>
                               </cit:name>
+							  <!-- Who6 -->
+                           <cit:contactInfo>
+                              <cit:CI_Contact>
+                                 <cit:address>
+                                    <cit:CI_Address>
+                                       <cit:electronicMailAddress><gco:CharacterString>a person email address</gco:CharacterString></cit:electronicMailAddress></cit:CI_Address>
+                                 </cit:address>
+                              </cit:CI_Contact>
+                           </cit:contactInfo>
+                           <!-- Who7 ~ Example ~ if person does NOT have an ORCID then write URI as shown below --> 
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
@@ -983,8 +1068,9 @@
                                  </mcc:codeSpace>
                               </mcc:MD_Identifier>
                            </cit:partyIdentifier>
+						   <!-- Optional ~ If available Position from TERN Person Vocabulary -->
                            <cit:positionName>
-                              <gco:CharacterString>Some position...</gco:CharacterString>
+                              <gco:CharacterString>Position from TERN Person Vocabulary</gco:CharacterString>
                            </cit:positionName>
                         </cit:CI_Individual>
                      </cit:individual>
@@ -2534,6 +2620,7 @@
                                  </cit:address>
                               </cit:CI_Contact>
                            </cit:contactInfo>
+                           <!-- Who8, Who9 and Who12 ~ Organisation URI from Vocabulary or SHaRED -->
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>

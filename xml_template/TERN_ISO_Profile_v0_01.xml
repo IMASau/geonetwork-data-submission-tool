@@ -449,19 +449,17 @@
                <cit:title>
                   <gco:CharacterString>jira-1287-2021/03/19-1 - changes as advised during Sprint Planning</gco:CharacterString>
                </cit:title>
-               <!-- Status creation cit:date ~ In Current XML and UI -->
-                <!-- Description ~ Date the resource was created -->
-                <!-- Operation ~ User types or selects date which is stored as YYYY-MM-DD in ISO format -->
-                <!-- UI ~ Change texts -->
-                <!-- Tab ~ Data ID -->
-                <!-- Display Label ~ Date the resource was created -->
-                <!-- Help Text ~ When was the resource created? -->
-                <!-- Required ~ yes -->
-                <!-- Rule ~ Write as Year Month Day in ISO format -->
-                <!-- Rule ~ Valid date >= 19000101 -->
-                <!-- Cardinality ~ one -->
-                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
-                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <!-- ID6 ~ Status creation cit:date ~ In Current XML and UI -->
+                <!-- ID6 ~ Description ~ Date the resource was created -->
+                <!-- ID6 ~ Operation ~ User types or selects date which is stored as YYYY-MM-DD in ISO format -->
+                <!-- ID6 ~ UI ~ Change texts -->
+                <!-- ID6 ~ Help Text ~ When was the resource created? -->
+                <!-- ID6 ~ Required ~ yes -->
+                <!-- ID6 ~ Rule ~ Write as Year Month Day in ISO format -->
+                <!-- ID6 ~ Rule ~ Valid date >= 19000101 -->
+                <!-- ID6 ~ Cardinality ~ one -->
+                <!-- ID6 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
+                <!-- ID6 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:date>
                   <cit:CI_Date>
                      <cit:date>

@@ -2227,8 +2227,6 @@
             <!-- About3 ~ Description ~ Description of the resource in the producer's processing environment -->
             <!-- About3 ~ Operation ~ User input -->
             <!-- About3 ~ UI ~ Change -->
-            <!-- About3 ~ Tab ~ About -->
-            <!-- About3 ~ Display Label ~ Processing Environment Details -->
             <!-- About3 ~ Help Text ~ Software, computer operating system, file name, or dataset size -->
             <!-- About3 ~ Placeholder Text ~ Information about the source and software to process the resource -->
             <!-- About3 ~ KeepPlaceholderText ~ no -->
@@ -2241,24 +2239,22 @@
             <!-- About3 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:environmentDescription><gco:CharacterString>Placeholder text=Information about the processing environment or software used</gco:CharacterString>
          </mri:environmentDescription>
-            <!-- WriteEmptyBlock ~ no -->
-            <!-- Status ~ Current XML, change UI -->
-            <!-- Description ~ Any other descriptive information about the resource -->
-            <!-- Operation ~ User input -->
-            <!-- UI ~ Change tab and change texts -->
-            <!-- Change note ~ Was on About tab -->
-            <!-- Tab ~ About -->
-            <!-- Display Label ~ Supplemental information -->
-            <!-- Help Text ~ Any supplemental information needed to interpret the resource -->
-            <!-- Placeholder Text ~ Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01 -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ no -->
-            <!-- InputLength ~ As-Is 1000 -->
-            <!-- Size ~ single -->
-            <!-- Codelist ~ n/a -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042448494/Data+Identification+Supplemental+Information -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- About4 ~ WriteEmptyBlock ~ no -->
+            <!-- About4 ~ Status ~ Current XML, change UI -->
+            <!-- About4 ~ Description ~ Any other descriptive information about the resource -->
+            <!-- About4 ~ Operation ~ User input -->
+            <!-- About4 ~ UI ~ Change tab and change texts -->
+            <!-- About4 ~ Change note ~ Was on About tab -->
+            <!-- About4 ~ Help Text ~ Any supplemental information needed to interpret the resource -->
+            <!-- About4 ~ Placeholder Text ~ Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01 -->
+            <!-- About4 ~ KeepPlaceholderText ~ no -->
+            <!-- About4 ~ Required ~ no -->
+            <!-- About4 ~ InputLength ~ As-Is 1000 -->
+            <!-- About4 ~ Size ~ single -->
+            <!-- About4 ~ Codelist ~ n/a -->
+            <!-- About4 ~ Cardinality ~ one -->
+            <!-- About4 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042448494/Data+Identification+Supplemental+Information -->
+            <!-- About4 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:supplementalInformation>
             <gco:CharacterString>Placeholder text=Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01 </gco:CharacterString>
          </mri:supplementalInformation>

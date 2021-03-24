@@ -496,10 +496,11 @@
                <!-- Status revision cit:date ~ In Current XML -->
                 <!-- Description ~ Revision date of the resource -->
                 <!-- Dependency ~ To be confirmed, may be updated by external interfaces when new releases of data are made -->
-                <!-- Operation ~ For metadata creation, default to same date as creation -->
+                <!-- Operation ~ To be confirmed, SHaRED will calculate the revision date of the data -->
+				<!-- Operation ~ Revision date of dataset may not be the same as the revision date of the metadata --> 
                 <!-- UI ~ n/a -->
                 <!-- Required ~ yes -->
-                <!-- Rule ~ As for creation cit:date -->
+                <!-- Rule ~ Valid date >= 1900-01-01 -->
                 <!-- Cardinality ~ one -->
                 <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
                 <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->               

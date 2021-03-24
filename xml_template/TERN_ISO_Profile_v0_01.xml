@@ -1072,18 +1072,17 @@
                </cit:party>
             </cit:CI_Responsibility>
          </mri:pointOfContact>
-            <!-- Status mri:spatialResolution ~ Change XML and UI -->
-            <!-- Description ~ The spatial resolution of the dataset if applicable -->
-            <!-- Operation ~ User will be able to select and unit of measure -->
-            <!-- UI ~ Add fields -->
-            <!-- Tab ~ Where -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718977/Data+Identification+Spatial+Resolution -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-            <!-- WriteEmptyBlock ~ no -->        
-            <!-- Change Note ~ Removed mri:levelOfDetail element -->
-            <!-- Change Note ~ GCMD_Horizontal will write into keywords -->
+            <!-- Where4 ~ Status mri:spatialResolution ~ Change XML and UI -->
+            <!-- Where4 ~ Description ~ A statistic describing spatial resolution of the dataset if applicable -->
+            <!-- Where4 ~ Operation ~ User will be able to select and unit of measure -->
+            <!-- Where4 ~ UI ~ Add fields -->
+            <!-- Where4 ~ Cardinality ~ one -->
+            <!-- Where4 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718977/Data+Identification+Spatial+Resolution -->
+            <!-- Where4 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
+            <!-- Where4 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- Where4 ~ WriteEmptyBlock ~ no -->        
+            <!-- Where4 ~ Change Note ~ Removed mri:levelOfDetail element -->
+            <!-- Where4 ~ Similar attributes ~ GCMD_Horizontal will write into keywords -->
          <mri:spatialResolution>
             <mri:MD_Resolution>
                 <!-- Where4 ~ Display Label ~ Resolution attribute -->
@@ -1105,7 +1104,6 @@
                <!-- Where4 ~ Each line shows the XML that will apply depending on user selection: 
                <mri:angularDistance><gco:Angle uom="degree">30</gco:Angle></mri:angularDistance>
                <mri:equivalentScale><mri:MD_RepresentativeFraction><mri:denominator><gco:Integer>100000</gco:Integer></mri:denominator></mri:MD_RepresentativeFraction></mri:equivalentScale>
-               <mri:levelOfDetail><gco:CharacterString>a text description of the resolution of the resource</gco:CharacterString></mri:levelOfDetail>
                <mri:vertical><gco:Distance uom="metre">0.25</gco:Distance></mri:vertical>
                 -->             
                <mri:distance><gco:Distance uom="metre">30</gco:Distance></mri:distance>

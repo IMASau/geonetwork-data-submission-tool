@@ -514,23 +514,21 @@
                      </cit:dateType>
                   </cit:CI_Date>
                </cit:date>
-               <!-- Status cit:edition ~ Current XML to be added to UI -->
-                <!-- Description ~ The version number of the resource -->
-                <!-- Operation ~ User input -->
-                <!-- UI ~ Add field -->
-                <!-- Tab ~ Data ID -->
-                <!-- Display Label ~ Version -->
-                <!-- Help Text ~ Version number of the resource -->
-                <!-- Placeholder Text ~ 1.0 -->
-                <!-- KeepPlaceholderText ~ yes -->
-                <!-- Required ~ yes -->
-                <!-- Rule ~ Only digits and "." allowed -->
-                <!-- InputLength ~ 12 -->
-                <!-- Size ~ single -->
-                <!-- Cardinality ~ one -->
-                <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDESK-937 -->
-                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
-                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+               <!-- ID7 ~ Status cit:edition ~ Current XML to be added to UI -->
+                <!-- ID7 ~ Description ~ The version number of the resource -->
+                <!-- ID7 ~ Operation ~ User input -->
+                <!-- ID7 ~ UI ~ Add field -->
+                <!-- ID7 ~ Help Text ~ Version number of the resource -->
+                <!-- ID7 ~ Placeholder Text ~ n/a -->
+                <!-- ID7 ~ KeepPlaceholderText ~ no -->
+                <!-- ID7 ~ Required ~ yes -->
+                <!-- ID7 ~ Rule ~ Only digits and "." allowed -->
+                <!-- ID7 ~ InputLength ~ 6 -->
+                <!-- ID7 ~ Size ~ single -->
+                <!-- ID7 ~ Cardinality ~ one -->
+                <!-- ID7 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDESK-937 -->
+                <!-- ID7 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
+                <!-- ID7 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
                <cit:edition>
                   <gco:CharacterString>1.0</gco:CharacterString>
                </cit:edition>

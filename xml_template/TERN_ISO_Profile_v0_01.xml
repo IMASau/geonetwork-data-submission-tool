@@ -655,8 +655,6 @@
                         <!-- Status cit:party ~ Current XML with functional changes -->
                         <!-- Operation ~ If user selects from TERN Organisations Vocabulary then all fields default from the Vocabulary values -->
                         <!-- Operation ~ If user clicks Add New, then UUID is generated and appropriate fields are displayed for input -->
-                        <!-- Tab ~ Who -->
-                        <!-- Display Label ~ Organisation -->
                         <!-- Help Text ~ Select from the list or click the Add New button -->
                         <!-- Placeholder Text ~ Start typing to filter list... -->
                         <!-- KeepPlaceholderText ~ no -->
@@ -670,11 +668,14 @@
                         <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->
                      <cit:party>
                         <cit:CI_Organisation>
+						<!-- Who12 -->
                            <cit:name>
                               <gco:CharacterString>CSIRO Land and Water</gco:CharacterString>
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
+							  <!-- Who15.  For Who16 codelist type changes to 'fax' -->
+							  <!-- Codelist ~ https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml  CI_TelephoneTypeCode -->
                                  <cit:phone>
                                     <cit:CI_Telephone>
                                        <cit:number>
@@ -722,12 +723,10 @@
                             <!-- Status cit:individual ~ Current XML with functional changes -->
                             <!-- Operation ~ If user selects from TERN Persons Vocabulary then all fields for Person, Organisation and Address default from the Vocabulary values -->
                             <!-- Operation ~ If user clicks Add New, then UUID is generated and appropriate fields are displayed for input -->
-                            <!-- Tab ~ Who -->
-                            <!-- Display Label ~ Name -->
                             <!-- Help Text ~ Select from the list or click the Add New button -->
                             <!-- Placeholder Text ~ Start typing to filter list... -->
                             <!-- KeepPlaceholderText ~ no -->
-                            <!-- Required ~ To be confirmed -->
+                            <!-- Required ~ Conditional depending on selection at Who -->
                             <!-- Rule ~ If individual is mandatory then Individual cit:name is mandatory -->
                             <!-- Rule ~ If individual is mandatory then cit:partyIdentifier is mandatory -->
                             <!-- Codelist ~ TERN Persons Vocabulary concatenate Name (Organisation Name) -->

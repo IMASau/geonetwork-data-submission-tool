@@ -1295,35 +1295,33 @@
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:additionalDocumentation>
             <cit:CI_Citation>
-             <!-- Status cit:title ~ New XML and field -->
-                <!-- Description ~ Title or citation of the document -->
-                <!-- Display Label ~ Provide Title or Citation -->
-                <!-- Help Text ~ For publications provide the citation in Harvard or APA format -->
-                <!-- Operation ~ User input -->
-                <!-- Operation ~ Writes into cit:title -->
-                <!-- Operation ~ If cit:linkage is populated, also writes into cit:name -->
-                <!-- Placeholder Text ~ as shown below -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ conditional -->
-                <!-- Rule ~ required if user chooses to add documentation details -->
-                <!-- Rule ~ carriage returns not permitted -->
-                <!-- InputLength ~ 300 -->
-                <!-- Size ~ multi -->
+             <!-- About5 ~ Status cit:title ~ New XML and field -->
+                <!-- About5 ~ Description ~ Title or citation of the document -->
+                <!-- About5 ~ Help Text ~ For publications provide the citation in Harvard or APA format -->
+                <!-- About5 ~ Operation ~ User input -->
+                <!-- About5 ~ Operation ~ Writes into cit:title -->
+                <!-- About5 ~ Operation ~ If cit:linkage is populated, also writes into cit:name -->
+                <!-- About5 ~ Placeholder Text ~ as shown below -->
+                <!-- About5 ~ KeepPlaceholderText ~ no -->
+                <!-- About5 ~ Required ~ conditional -->
+                <!-- About5 ~ Rule ~ required if user chooses to add documentation details -->
+                <!-- About5 ~ Rule ~ carriage returns not permitted -->
+                <!-- About5 ~ InputLength ~ 300 -->
+                <!-- About5 ~ Size ~ multi -->
                <cit:title>
-                  <gco:CharacterString>Placeholder text=Donohue, R.J. et al., 2014. Evaluation of the remote-sensing-based DIFFUSE model for estimating photosynthesis of vegetation. Remote Sensing of Environment. doi:10.1002/2013WR015138 [Title element 1]</gco:CharacterString>
+                  <gco:CharacterString>Placeholder text=Donohue, R.J. et al., (2014) Evaluation of the remote-sensing-based DIFFUSE model for estimating photosynthesis of vegetation. Remote Sensing of Environment. doi:10.1002/2013WR015138 [Title element 1]</gco:CharacterString>
                </cit:title>
-                <!-- Block Status cit:onlineResource ~ New XML and field -->
-                <!-- Description ~ Link to the documentation -->                
-                <!-- Display Label ~ URL -->
-                <!-- Help Text ~ If the document is available online provide the link here -->
-                <!-- Operation ~ User input -->
-                <!-- Operation ~ Writes into cit:linkage -->
-                <!-- Placeholder Text ~ Link to the document or website e.g. https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013WR015138 -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ no -->
-                <!-- InputLength ~ 250 -->
-                <!-- Size ~ single --> 
-                <!-- WriteEmptyBlock ~ no -->
+                <!-- About6 ~ Block Status cit:onlineResource ~ New XML and field -->
+                <!-- About6 ~ Description ~ Link to the documentation -->                
+                <!-- About6 ~ Help Text ~ If the document is available online provide the link here -->
+                <!-- About6 ~ Operation ~ User input -->
+                <!-- About6 ~ Operation ~ Writes into cit:linkage -->
+                <!-- About6 ~ Placeholder Text ~ Link to the document or website e.g. https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013WR015138 -->
+                <!-- About6 ~ KeepPlaceholderText ~ no -->
+                <!-- About6 ~ Required ~ no -->
+                <!-- About6 ~ InputLength ~ 250 -->
+                <!-- About6 ~ Size ~ single --> 
+                <!-- About6 ~ WriteEmptyBlock ~ no -->
                <cit:onlineResource>
                   <cit:CI_OnlineResource>
                      <cit:linkage>

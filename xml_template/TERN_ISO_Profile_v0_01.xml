@@ -145,16 +145,12 @@
          </cit:identifier>
       </cit:CI_Citation>
    </mdb:parentMetadata>
-   <!-- Block Status mdb:metadataScope ~ Current XML with change to show a field in UI -->
+   <!-- Block Status mdb:metadataScope ~ Current XML -->
     <!-- Description ~ Scope of the metadata record -->
-    <!-- UI ~ New field -->
-    <!-- Tab ~ Data ID -->
-    <!-- Display Label ~ Type of record -->
-    <!-- Help Text ~ What is the scope of this metadata record? -->
+	<!-- Operation ~ As-Is default value applies -->
     <!-- Placeholder Text ~ dataset -->
     <!-- Required ~ yes -->
-    <!-- Rule ~ Revoked - SG - can have multiple levels If codeListValue="collection", parent metadata uuid must be empty -->
-   <!-- Codelist ~ "collection","dataset" OR updated ISO codelists to https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml MD_ScopeCode -->
+   <!-- Codelist ~ subset of ISO codelist to https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml MD_ScopeCode -->
     <!-- KeepPlaceholderText ~ yes -->
     <!-- Cardinality ~ one -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718688/Metadata+Scope -->
@@ -260,8 +256,10 @@
     <!-- Description ~ Dates for the metadata (NOT the data) -->
     <!-- UI ~ N/a -->
     <!-- Required ~ yes -->
-    <!-- Rule ~ see Process -->
-    <!-- Rule ~ Write as Year Month Day Hours Mins Secs in ISO Format -->
+    <!-- Operation ~ Metadata creation date should be written when record is saved for the first time and should not change thereafter -->
+    <!-- Operation ~ Metadata revision date should be written each time the record is saved -->
+	<!-- Operation ~ see notes https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1159594072/As-Is+-+Date+handling#Outcome -->
+    <!-- Rule ~ Write as Year Month Day in ISO Format -->
     <!-- InputLength ~ as shown below -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028456560/Metadata+Dates -->
     <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
@@ -269,7 +267,7 @@
    <mdb:dateInfo>
       <cit:CI_Date>
          <cit:date>
-            <gco:DateTime>1999-12-31T00:00:00</gco:DateTime>
+            <gco:Date>1999-12-31</gco:Date>
          </cit:date>
          <cit:dateType>
             <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="creation"/>
@@ -279,7 +277,7 @@
    <mdb:dateInfo>
       <cit:CI_Date>
          <cit:date>
-            <gco:DateTime>1999-12-31T00:00:00</gco:DateTime>
+            <gco:Date>2000-01-01</gco:Date>
          </cit:date>
          <cit:dateType>
             <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="revision"/>

@@ -2466,79 +2466,76 @@
    <mdb:distributionInfo>
       <!-- Scenario 2 user provides details of a data service that can be used to access the data -->
       <mrd:MD_Distribution>
-        <!-- WriteEmptyBlock ~ no -->
-        <!-- Status ~ Change XML and add mrd:fileDecompressionTechnique -->
-        <!-- Description ~ Information related to the file format(s) of the data -->
-        <!-- Operation ~ User input -->
-        <!-- UI ~ Change function/Change texts -->
-        <!-- Change note ~ Fields are currently on About tab -->
-        <!-- Tab ~ Data sources - Data services -->
-        <!-- Rule ~ one mrd:MD_distribution block for each distribution input by the user -->
-        <!-- Cardinality ~ many -->
-        <!-- Documentation ~ https://bitbucket.org/terndatateam/data-submission-tool/issues/47 -->
-        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-390 -->
-        <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251879/Distribution+Distribution+Format -->
-        <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+        <!-- Datasource4 ~ WriteEmptyBlock ~ no -->
+        <!-- Datasource4 ~ Status ~ Change XML and add mrd:fileDecompressionTechnique -->
+        <!-- Datasource4 ~ Description ~ Information related to the file format(s) of the data -->
+        <!-- Datasource4 ~ Operation ~ User input -->
+        <!-- Datasource4 ~ UI ~ Change function/Change texts -->
+        <!-- Datasource4 ~ Change note ~ Fields are currently on About tab -->
+        <!-- Datasource4 ~ Rule ~ one mrd:MD_distribution block for each distribution input by the user -->
+        <!-- Datasource4 ~ Cardinality ~ many -->
+        <!-- Datasource4 ~ Documentation ~ https://bitbucket.org/terndatateam/data-submission-tool/issues/47 -->
+        <!-- Datasource4 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-390 -->
+        <!-- Datasource4 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251879/Distribution+Distribution+Format -->
+        <!-- Datasource4 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mrd:distributionFormat>
             <mrd:MD_Format>
-            <!-- Description ~ File format of the data -->
-            <!-- Display Label ~ File Format Data file format date/version-->
-            <!-- Help Text ~ CSV, NetCDF, etc. -->
-            <!-- Placeholder Text ~ Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ yes -->
-            <!-- InputLength ~ codelist? -->
-            <!-- Size ~ single -->
-            <!-- Codelist ~ To be confirmed -->
+            <!-- Datasource7 ~ Description ~ File format of the data -->
+            <!-- Datasource7 ~ Help Text ~ CSV, NetCDF, etc. -->
+            <!-- Datasource7 ~ Placeholder Text ~ Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc -->
+            <!-- Datasource7 ~ KeepPlaceholderText ~ no -->
+            <!-- Datasource7 ~ Required ~ yes -->
+            <!-- Datasource7 ~ InputLength ~ codelist? -->
+            <!-- Datasource7 ~ Size ~ single -->
+            <!-- Datasource7 ~ Codelist ~ To be confirmed -->
                <mrd:formatSpecificationCitation>
                   <cit:CI_Citation>
-                  <!-- Find or create a codelist for valid values -->
+                  <!-- Datasource7 ~ Find or create a codelist for valid values -->
                      <cit:title>
                         <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
                      </cit:title>
                   </cit:CI_Citation>
                </mrd:formatSpecificationCitation>
-                <!-- Description ~ Version or date of the file format -->
-                <!-- Display Label ~ File format date/version-->
-                <!-- Help Text ~ CSV, NetCDF, etc. -->
-                <!-- Placeholder Text ~ Version number of the file format -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ no -->
-                <!-- InputLength ~ 12 -->
-                <!-- Size ~ single -->
-                <!-- Codelist ~ n/a -->
+                <!-- Datasource8 ~ Description ~ Version or date of the file format -->
+                <!-- Datasource8 ~ Help Text ~ CSV, NetCDF, etc. -->
+                <!-- Datasource8 ~ Placeholder Text ~ Version number of the file format -->
+                <!-- Datasource8 ~ KeepPlaceholderText ~ no -->
+                <!-- Datasource8 ~ Required ~ no -->
+                <!-- Datasource8 ~ InputLength ~ 12 -->
+                <!-- Datasource8 ~ Size ~ single -->
+                <!-- Datasource8 ~ Codelist ~ n/a -->
                <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString>
                </mrd:amendmentNumber>
-                <!-- Description ~ Whether the file is compressed -->
-                <!-- Display Label ~ File compression technique -->
-                <!-- Help Text ~ What type of compression is applied to the file -->
-                <!-- Placeholder Text ~ Examples:Not compressed, ZIP, TAR (Unix) -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ no -->
-                <!-- InputLength ~ 100 -->
-                <!-- Size ~ single -->
-                <!-- Codelist ~ n/a -->
+                <!-- Datasource9 ~ Description ~ Whether the file is compressed -->
+                <!-- Datasource9 ~ Display Label ~ File compression technique -->
+                <!-- Datasource9 ~ Help Text ~ What type of compression is applied to the file -->
+                <!-- Datasource9 ~ Placeholder Text ~ Examples:Not compressed, ZIP, TAR (Unix) -->
+                <!-- Datasource9 ~ KeepPlaceholderText ~ no -->
+                <!-- Datasource9 ~ Required ~ no -->
+                <!-- Datasource9 ~ InputLength ~ 100 -->
+                <!-- Datasource9 ~ Size ~ single -->
+                <!-- Datasource9 ~ Codelist ~ n/a -->
                <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString>
                </mrd:fileDecompressionTechnique>
             </mrd:MD_Format>
          </mrd:distributionFormat> 
-            <!-- Status ~ New XML and field -->
-            <!-- Description ~ Indicates which organisation hosts and distributes the data -->
-            <!-- Operation ~ User selects a Distributor from TERN Organisations Vocabulary -->
-            <!-- Operation ~ User selects a Site Address from the TERN Site Addresses Vocabulary -->
-            <!-- Operation ~ Default value 'Terrestrial Ecosystem Research Network (TERN)' -->
-            <!-- Operation ~ Details from Vocabularies default into cit:party elements -->
-            <!-- Change note ~ Data can have one distributor per distribution -->
-            <!-- UI ~ Change -->
-            <!-- Tab ~ Data sources -->
-            <!-- Display Label ~ Distributor of the data -->
-            <!-- Help Text ~ Which organisation hosts the data example TERN, CSIRO, NCI, etc. -->
-            <!-- Required ~ yes -->
-            <!-- Size ~ single -->
-            <!-- Codelist ~ TERN Organisations Vocabulary -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- Datasource12 ~ Status ~ New XML and field -->
+            <!-- Datasource12 ~ Description ~ Indicates which organisation hosts and distributes the data -->
+            <!-- Datasource12 ~ Operation ~ User selects a Distributor from TERN Organisations Vocabulary -->
+            <!-- Datasource12 ~ Operation ~ User selects a Site Address from the TERN Site Addresses Vocabulary -->
+            <!-- Datasource12 ~ Operation ~ Default value 'Terrestrial Ecosystem Research Network (TERN)' -->
+            <!-- Datasource12 ~ Operation ~ Details from Vocabularies default into cit:party elements -->
+            <!-- Datasource12 ~ Change note ~ Data can have one distributor per distribution -->
+            <!-- Datasource12 ~ UI ~ Change -->
+            <!-- Datasource12 ~ Tab ~ Data sources -->
+            <!-- Datasource12 ~ Display Label ~ Distributor of the data -->
+            <!-- Datasource12 ~ Help Text ~ Which organisation hosts the data example TERN, CSIRO, NCI, etc. -->
+            <!-- Datasource12 ~ Required ~ yes -->
+            <!-- Datasource12 ~ Size ~ single -->
+            <!-- Datasource12 ~ Codelist ~ TERN Organisations Vocabulary -->
+            <!-- Datasource12 ~ Cardinality ~ one -->
+            <!-- Datasource12 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
+            <!-- Datasource12 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mrd:distributor>
             <mrd:MD_Distributor>
                <mrd:distributorContact>
@@ -2589,7 +2586,6 @@
                                  </cit:address>
                               </cit:CI_Contact>
                            </cit:contactInfo>
-                           <!-- Who8, Who9 and Who12 ~ Organisation URI from Vocabulary or SHaRED -->
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
@@ -2605,24 +2601,21 @@
                </mrd:distributorContact>
             </mrd:MD_Distributor>
          </mrd:distributor>
-        <!-- Status ~ Current XML with added field -->
-        <!-- Description ~ Provides details for accessing the data -->
-        <!-- Description ~ Could include THREDDS catalog, WMS, WFS, REST API documentation, etc. -->
-        <!-- Operation ~ User input -->
-        <!-- Change note ~ There are subtle differences between User input and user uploads file -->
-        <!-- UI ~ Change -->
-        <!-- Tab ~ Data sources -->
-        <!-- Display Label ~ Data services -->
-        <!-- Help Text ~ If the data is already available online via a service, API or catalog, provide details here -->        
-        <!-- Cardinality ~ many -->
-        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-456 -->
-        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-367 -->
-        <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251930/Distribution+Digital+Transfer+Options -->
-        <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+        <!-- Datasource4 ~ Status ~ Current XML with added field -->
+        <!-- Datasource4 ~ Description ~ Provides details for accessing the data -->
+        <!-- Datasource4 ~ Description ~ Could include THREDDS catalog, WMS, WFS, REST API documentation, etc. -->
+        <!-- Datasource4 ~ Operation ~ User input -->
+        <!-- Datasource4 ~ Change note ~ There are subtle differences between User input and user uploads file -->
+        <!-- Datasource4 ~ UI ~ Change -->
+        <!-- Datasource4 ~ Help Text ~ If the data is already available online via a service, API or catalog, provide details here -->        
+        <!-- Datasource4 ~ Cardinality ~ many -->
+        <!-- Datasource4 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-456 -->
+        <!-- Datasource4 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-367 -->
+        <!-- Datasource4 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251930/Distribution+Digital+Transfer+Options -->
+        <!-- Datasource4 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mrd:transferOptions>
             <mrd:MD_DigitalTransferOptions>
-              <!-- Display Label ~ Individual (or average) file size in megabytes (MB) -->
-              <!-- Help Text ~ If there are multiple data files, give the average file size -->
+              <!-- Help Text ~ Individual (or average) file size in megabytes (MB) -->
               <!-- Required ~ no -->
               <!-- Rule ~ digits and "." only -->
               <!-- InputLength ~ 10 -->
@@ -2631,45 +2624,44 @@
                <mrd:transferSize><gco:Real>200</gco:Real></mrd:transferSize>
                <mrd:onLine>
                   <cit:CI_OnlineResource>
-                    <!-- Display Label ~ URL -->
-                    <!-- Required ~ conditional -->
-                    <!-- Rule ~ Required if cit:description is not blank -->
-                    <!-- InputLength ~ increase to 300 -->
-                    <!-- Size ~ single -->
-                    <!-- Cardinality ~ one per mrd:transferOptions block -->
+                    <!-- Datasource11 ~ Description ~ URL -->
+                    <!-- Datasource11 ~ Required ~ conditional -->
+                    <!-- Datasource11 ~ Rule ~ Required if cit:description is not blank -->
+                    <!-- Datasource11 ~ InputLength ~ increase to 300 -->
+                    <!-- Datasource11 ~ Size ~ single -->
+                    <!-- Datasource11 ~ Cardinality ~ one per mrd:transferOptions block -->
                      <cit:linkage>
                         <gco:CharacterString>http://gsky.nci.org.au/ows/geoglam</gco:CharacterString>
                      </cit:linkage>
-                         <!-- Display Label ~ Protocol -->
-                          <!-- Required ~ conditional -->
-                          <!-- Rule ~ Required if cit:description is not blank -->
-                          <!-- InputLength ~ codelist -->
-                          <!-- Size ~ single -->
-                          <!-- Codelist ~ hard-coded - add REST API, Get Capabilities, WPS, esri ArcInfo, SPARQL endpoint -->
-                          <!-- Cardinality ~ one per mrd:transferOptions block -->
+                         <!-- Datasource10 ~ Description ~ Protocol -->
+                          <!-- Datasource10 ~ Required ~ conditional -->
+                          <!-- Datasource10 ~ Rule ~ Required if cit:description is not blank -->
+                          <!-- Datasource10 ~ InputLength ~ codelist -->
+                          <!-- Datasource10 ~ Size ~ single -->
+						  <!-- Datasource10 ~ Change note ~ change to GA codelist -->
+                          <!-- Datasource10 ~ Codelist ~ GA Service types -->
+                          <!-- Datasource10 ~ Cardinality ~ one per mrd:transferOptions block -->
                      <cit:protocol>
                         <gco:CharacterString>OGC:WFS</gco:CharacterString>
                      </cit:protocol>
-                         <!-- Display Label ~ Layer or Feature Name -->
-                              <!-- Required ~ conditional -->
-                              <!-- Rule ~ Required if cit:description is not blank AND protocol is (WCS or WMS) -->
-                              <!-- Change note ~ Shouldn't it be required for WFS? -->
-                              <!-- InputLength ~ As-Is 250 -->
-                              <!-- Size ~ single -->
-                              <!-- Cardinality ~ one per mrd:transferOptions block -->
+                         <!-- Datasource5 ~ Description ~ Layer or Feature Name -->
+                              <!-- Datasource5 ~ Required ~ conditional -->
+                              <!-- Datasource5 ~ Rule ~ Required if cit:description is not blank AND protocol is (WCS or WMS) -->
+                              <!-- Datasource5 ~ Change note ~ Shouldn't it be required for WFS? -->
+                              <!-- Datasource5 ~ InputLength ~ As-Is 250 -->
+                              <!-- Datasource5 ~ Size ~ single -->
+                              <!-- Datasource5 ~ Cardinality ~ one per mrd:transferOptions block -->
                      <cit:name>
                         <gco:CharacterString>Name of Feature</gco:CharacterString>
                      </cit:name>
-                         <!-- Display Label ~ Description -->
-                          <!-- Required ~ no -->
-                          <!-- InputLength ~ As-Is 250 -->
-                          <!-- Size ~ single -->
-                          <!-- Cardinality ~ one per mrd:transferOptions block -->
+                         <!-- Datasource6 ~ Description ~ Description of layer or dataset -->
+                          <!-- Datasource6 ~ Required ~ no -->
+                          <!-- Datasource6 ~ InputLength ~ As-Is 250 -->
+                          <!-- Datasource6 ~ Size ~ single -->
+                          <!-- Datasource6 ~ Cardinality ~ one per mrd:transferOptions block -->
                      <cit:description>
                         <gco:CharacterString>WFS Service OGC:WFS [description element]</gco:CharacterString>
                      </cit:description>
-                     <!-- Display Label ~ Function -->
-                     <!-- Help text ~ Select browsing, fileAccess or download -->
                      <!-- Required ~ conditional -->
                      <!-- Rule ~ Required if cit:description is not blank -->
                      <!-- Size ~ single -->
@@ -2723,46 +2715,46 @@
          </mdq:scope>
          <mdq:report>
          <mdq:DQ_QuantitativeAttributeAccuracy>
-            <!-- Display Label ~ Describe the methods used to assess the Data quality -->
-            <!-- Help Text ~ Description of the evaluation method -->
-            <!-- Placeholder Text ~ as shown below -->
-            <!-- KeepPlaceholderText ~ no -->        
-            <!-- Required ~ no -->
-            <!-- InputLength ~ 1000 -->
-            <!-- Size ~ multiline -->
-            <!-- Cardinality ~ one -->
+            <!-- How8 ~ Description ~ Describe the methods used to assess the Data quality -->
+            <!-- How8 ~ Help Text ~ Description of the evaluation method -->
+            <!-- How8 ~ Placeholder Text ~ as shown below -->
+            <!-- How8 ~ KeepPlaceholderText ~ no -->        
+            <!-- How8 ~ Required ~ no -->
+            <!-- How8 ~ InputLength ~ 1000 -->
+            <!-- How8 ~ Size ~ multiline -->
+            <!-- How8 ~ Cardinality ~ one -->
             <mdq:evaluationMethod>
                <mdq:DQ_EvaluationMethod>
                   <mdq:evaluationMethodDescription>
                      <gco:CharacterString>The data quality was assessed by ...</gco:CharacterString>
                   </mdq:evaluationMethodDescription>
-                  <!-- Cardinality ~ 0 to many referenceDoc blocks -->
-                  <!-- Online documentation Title and URI - example 1 -->
+                  <!-- How9 ~ Cardinality ~ 0 to many referenceDoc blocks -->
+                  <!-- How9 ~ Online documentation Title and URI - example 1 -->
                   <mdq:referenceDoc><cit:CI_Citation>
-                     <!-- Display Label ~ Title -->
-                     <!-- Help Text ~ Provide the document title -->
-                     <!-- Placeholder Text ~ as shown below -->
-                     <!-- KeepPlaceholderText ~ no -->        
-                     <!-- Required ~ Conditional -->
-                     <!-- InputLength ~ 300 -->
-                     <!-- Size ~ single -->
+                     <!-- How9 ~ Display Label ~ Title -->
+                     <!-- How9 ~ Help Text ~ Provide the document title -->
+                     <!-- How9 ~ Placeholder Text ~ as shown below -->
+                     <!-- How9 ~ KeepPlaceholderText ~ no -->        
+                     <!-- How9 ~ Required ~ Conditional -->
+                     <!-- How9 ~ InputLength ~ 300 -->
+                     <!-- How9 ~ Size ~ single -->
                      <cit:title>
                         <gco:CharacterString>Provide the document title</gco:CharacterString>
                      </cit:title>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
-                           <!-- Display Label ~ URI -->
-                           <!-- Help Text ~ Provide a hyperlink to the method document -->
-                           <!-- Placeholder Text ~ see Help Text -->
-                           <!-- KeepPlaceholderText ~ no -->        
-                           <!-- Required ~ Conditional -->
-                           <!-- InputLength ~ 250 -->
-                           <!-- Size ~ single -->
-                           <!-- Cardinality ~ one per additionalDocumentation block --> 
+                           <!-- How9 ~ Display Label ~ URI -->
+                           <!-- How9 ~ Help Text ~ Provide a hyperlink to the method document -->
+                           <!-- How9 ~ Placeholder Text ~ see Help Text -->
+                           <!-- How9 ~ KeepPlaceholderText ~ no -->        
+                           <!-- How9 ~ Required ~ Conditional -->
+                           <!-- How9 ~ InputLength ~ 250 -->
+                           <!-- How9 ~ Size ~ single -->
+                           <!-- How9 ~ Cardinality ~ one per additionalDocumentation block --> 
                            <cit:linkage>
                               <gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
                            </cit:linkage>
-                           <!-- default values apply -->
+                           <!-- How9 ~ default values apply -->
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>

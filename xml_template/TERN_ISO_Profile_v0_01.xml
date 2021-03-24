@@ -912,18 +912,18 @@
          <mri:purpose>
             <gco:CharacterString>Placeholder text=Provide a brief summary of the purpose for collecting the data including the potential use. This photosynthetic pathway data set was created by TERN to enable research examining the abundance, richness, and distribution of C4 and C3 vegetation in Australia.</gco:CharacterString>
          </mri:purpose>
-            <!-- Status mri:credit ~ Current XML with text change -->
-            <!-- Description ~ Recognition of those who contributed to the resource -->
-            <!-- Operation ~ User input -->
-            <!-- UI ~ Move tab -->
-            <!-- Help Text ~ Write a sentence acknowledging sponsors or funding organisations -->
-            <!-- Placeholder Text ~ The project was funded by xxx and yyy -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ no -->
-            <!-- Size ~ multiline -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556386/Data+identification+Abstract+Purpose+Credit -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
+            <!-- About8 ~ Status mri:credit ~ Current XML with text change -->
+            <!-- About8 ~ Description ~ Recognition of those who contributed to the resource -->
+            <!-- About8 ~ Operation ~ User input -->
+            <!-- About8 ~ UI ~ Move tab -->
+            <!-- About8 ~ Help Text ~ Write a sentence acknowledging sponsors, data providers or funding organisations -->
+            <!-- About8 ~ Placeholder Text ~ The project was funded by xxx and yyy -->
+            <!-- About8 ~ KeepPlaceholderText ~ no -->
+            <!-- About8 ~ Required ~ no -->
+            <!-- About8 ~ Size ~ multiline -->
+            <!-- About8 ~ Cardinality ~ one -->
+            <!-- About8 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556386/Data+identification+Abstract+Purpose+Credit -->
+            <!-- About8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
          <mri:credit>
             <gco:CharacterString>Placeholder text=The project was funded by xxx and yyy</gco:CharacterString>
          </mri:credit>

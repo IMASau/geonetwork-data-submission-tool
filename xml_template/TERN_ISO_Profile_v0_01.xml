@@ -1178,31 +1178,27 @@
                      </gex:northBoundLatitude>
                   </gex:EX_GeographicBoundingBox>
                </gex:geographicElement>
-                <!-- Status gex:temporalElement ~ Current XML change functionality -->
-                <!-- Description ~ The time period covered by the content of the resource -->
-                <!-- Operation ~ User can type or select dates -->
-                <!-- UI ~ Change function and change texts -->
-                <!-- Tab ~ When -->
-               <!-- Display Label ~ What is the time period covered by the content of the dataset/collection? -->
-                <!-- Help Text ~ The temporal coverage of the data -->
-                <!-- Required ~ yes -->
-                <!-- Rule ~ End date should be later than or equal to begin date -->
-                <!-- Rule ~ Minimum date is 1900-01-01 -->
-                <!-- Rule ~ End date must be less than equal to current date (now) unless mri:status = 'planned' -->
-                <!-- Codelist ~ Date picker -->
-                <!-- Cardinality ~ one -->
-                <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-861 -->
-                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140555959/Data+Identification+Extent+Temporal+-+Observation+Date+Range -->
-                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+                <!-- When1 and When2 ~ Status gex:temporalElement ~ Current XML change functionality -->
+                <!-- When1 and When2 ~ Description ~ The time period covered by the content of the resource -->
+                <!-- When1 and When2 ~ Operation ~ User can type or select dates -->
+                <!-- When1 and When2 ~ UI ~ Change function and change texts -->
+                <!-- When1 and When2 ~ Help Text ~ The temporal coverage of the data -->
+                <!-- When1 and When2 ~ Required ~ yes -->
+                <!-- When1 and When2 ~ Rule ~ End date should be later than or equal to begin date -->
+                <!-- When1 and When2 ~ Rule ~ Minimum date is 1900-01-01 -->
+                <!-- When1 and When2 ~ Rule ~ End date must be less than equal to current date (now) unless mri:status = 'planned' -->
+                <!-- When1 and When2 ~ Codelist ~ Date picker -->
+                <!-- When1 and When2 ~ Cardinality ~ one -->
+                <!-- When1 and When2 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-861 -->
+                <!-- When1 and When2 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140555959/Data+Identification+Extent+Temporal+-+Observation+Date+Range -->
+                <!-- When1 and When2 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <gex:temporalElement>
                      <gex:EX_TemporalExtent>
                         <gex:extent>
                            <gml:TimePeriod gml:id="bcf969df-6213-4e5c-86d4-64e3b53de64a">
-                            <!-- Display Label ~ Start date* -->
-                              <!-- Help Text ~ The time period covered by the content of the resource -->                           
+                              <!-- When1 ~ Help Text ~ The first date covered by the content of the resource -->                           
                               <gml:beginPosition>1899-12-31</gml:beginPosition>
-                              <!-- Display Label ~ End date* -->
-                              <!-- Help Text ~ For ongoing datasets, input the last date in the current collection -->    
+                              <!-- When2 ~ Help Text ~ For ongoing datasets, input the last date in the current collection -->    
                               <gml:endPosition>1899-12-31</gml:endPosition>
                            </gml:TimePeriod>
                         </gex:extent>

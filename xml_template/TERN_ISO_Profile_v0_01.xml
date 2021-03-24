@@ -2137,32 +2137,29 @@
                </mco:otherConstraints>
             </mco:MD_LegalConstraints>
          </mri:resourceConstraints>
-            <!-- Status ~ In current XML with default values -->
-            <!-- Description ~ Security class that applies to the dataset or collection -->
-            <!-- Change Note ~ New UI element -->
-            <!-- Change Note ~ XML cit:function block added -->
-            <!-- Operation ~ User can select a Security Class from a list of values -->
-            <!-- Operation ~ Based on user selection, also write associated ISO codelist value from https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml
-               MD Classification Code
-            as indicated in column I of https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing
-            caution: check capitalisation -->
-            <!-- UI ~ Change -->
-            <!-- Tab ~ About -->
-            <!-- Display Label ~ Security Classification for Dataset/Collection  -->
-            <!-- Help Text ~ Select the Australian Government Security Classification to apply to the dataset or collection -->
-            <!-- Placeholder Text ~ The Australian Government Security Classification to apply to the dataset -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ yes -->
-            <!-- Codelist ~ drop down as per column G in https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ document 8 on the MDWG Meeting 5 webpage: MDWG Meeting #5 - Presentations and Reports | Intergovernmental Committee on Surveying and Mapping (icsm.gov.au) -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->            
+            <!-- About2 ~ Status ~ In current XML with default values -->
+            <!-- About2 ~ Description ~ Security class that applies to the dataset or collection -->
+            <!-- About2 ~ Change Note ~ New UI element -->
+            <!-- About2 ~ Change Note ~ XML cit:function block added -->
+            <!-- About2 ~ Operation ~ User can select a Security Class from a codelist -->
+            <!-- About2 ~ UI ~ Change -->
+            <!-- About2 ~ Tab ~ About -->
+            <!-- About2 ~ Display Label ~ Security Classification  -->
+            <!-- About2 ~ Help Text ~ The mapping between Australian Government Security Class and ISO Classification (as at 2018) is: -->
+            <!-- About2 ~ Help Text ~ (show content from columns G and I of https://drive.google.com/file/d/1hZaf8eUOzRu90suaGAl82HVhAfDRRPLn/view?usp=sharing) -->
+            <!-- About2 ~ Placeholder Text ~ unclassified -->
+            <!-- About2 ~ KeepPlaceholderText ~ yes -->
+            <!-- About2 ~ Required ~ yes -->
+            <!-- About2 ~ Codelist ~ https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml; MD_ClassificationCode -->
+            <!-- About2 ~ Cardinality ~ one -->
+            <!-- About2 ~ Documentation ~ document 8 on the MDWG Meeting 5 webpage: MDWG Meeting #5 - Presentations and Reports | Intergovernmental Committee on Surveying and Mapping (icsm.gov.au) -->
+            <!-- About2 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->            
          <mri:resourceConstraints>
          <mco:MD_SecurityConstraints>
                <mco:reference>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>Australian Government Security Classification System</gco:CharacterString>
+                        <gco:CharacterString>Security Classification</gco:CharacterString>
                      </cit:title>
                      <cit:editionDate>
                         <gco:DateTime>2018-11-01T00:00:00</gco:DateTime>

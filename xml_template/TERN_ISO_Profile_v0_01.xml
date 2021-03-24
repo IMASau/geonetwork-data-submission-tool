@@ -433,19 +433,19 @@
       <mri:MD_DataIdentification>
          <mri:citation>
             <cit:CI_Citation>
-               <!-- Block Status cit:title ~ In Current XML and UI -->
-                <!-- Description ~ Title of the resource, used in the citation -->
-                <!-- Operation ~ User input -->
-                <!-- UI ~ Change texts -->
-                <!-- Help Text ~ Clear and concise title including What Where (How) When e.g. Fractional Cover for Australia 2014-ongoing -->
-                <!-- Placeholder Text ~ Help Text -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ yes -->
-               <!-- InputLength ~ As-Is 250-->
-                <!-- Size ~ As-Is multiline -->
-                <!-- Cardinality ~ one -->
-                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140817975/Data+Identification+Citation+Title -->
-                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+               <!-- ID1 ~ Block Status cit:title ~ In Current XML and UI -->
+                <!-- ID1 ~ Description ~ Title of the resource, used in the citation -->
+                <!-- ID1 ~ Operation ~ User input -->
+                <!-- ID1 ~ UI ~ Change texts -->
+                <!-- ID1 ~ Help Text ~ Clear and concise title including What Where (How) When e.g. Fractional Cover for Australia 2014-ongoing -->
+                <!-- ID1 ~ Placeholder Text ~ Help Text -->
+                <!-- ID1 ~ KeepPlaceholderText ~ no -->
+                <!-- ID1 ~ Required ~ yes -->
+               <!-- ID1 ~ InputLength ~ As-Is 250-->
+                <!-- ID1 ~ Size ~ As-Is multiline -->
+                <!-- ID1 ~ Cardinality ~ one -->
+                <!-- ID1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140817975/Data+Identification+Citation+Title -->
+                <!-- ID1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:title>
                   <gco:CharacterString>jira-1287-2021/03/19-1 - changes as advised during Sprint Planning</gco:CharacterString>
                </cit:title>

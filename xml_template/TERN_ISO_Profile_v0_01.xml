@@ -1206,45 +1206,41 @@
                   </gex:temporalElement>
                </gex:EX_Extent>
          </mri:extent>
-            <!-- Block Status vertical mri:extent ~ Current XML, change XML and functionality -->
-            <!-- Description ~ Indicates the lowest and highest vertical extent contained in the resource -->
-            <!-- Operation ~ If user selects vertical component flag to indicate that the data has vertical component, the fields are mandatory -->
-            <!-- Change Note ~ Remove from UI - field and label 'Elevation in metres' -->
-            <!-- Change Note ~ Remove from UI - text 'Specify the vertical extent of the data relative to a ground surface defined as 0m' -->
-            <!-- UI ~ Change function/Change texts -->
-            <!-- Tab ~ Where -->
-            <!-- Display Label ~ Does the data contain a vertical extent? -->
-            <!-- Help Text ~ text -->
-            <!-- Placeholder Text ~ text -->
-            <!-- KeepPlaceholderText ~ yes/no -->
-            <!-- Required ~ no -->
-            <!-- Cardinality ~ one -->
-            <!-- WriteEmptyBlock ~ no -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030750285/Data+Identification+Extent+Vertical+Extent+TBC -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- Where7 and Where8 ~ Block Status vertical mri:extent ~ Current XML, change XML and functionality -->
+            <!-- Where7 and Where8 ~ Description ~ Indicates the lowest and highest vertical elevation at the site dataset was collected -->
+            <!-- Where7 and Where8 ~ Operation ~ If user elects to input vertical component, the fields are mandatory -->
+            <!-- Where7 and Where8 ~ Change Note ~ Remove from UI - field and label 'Elevation in metres' -->
+            <!-- Where7 and Where8 ~ Change Note ~ Remove from UI - text 'Specify the vertical extent of the data relative to a ground surface defined as 0m' -->
+            <!-- Where7 and Where8 ~ UI ~ Change function/Change texts -->
+            <!-- Where7 and Where8 ~ Tab ~ Where -->
+            <!-- Where7 and Where8 ~ Help Text ~ The lowest and highest vertical elevation at the site where the dataset was collected -->
+            <!-- Where7 and Where8 ~ Required ~ no -->
+            <!-- Where7 and Where8 ~ Cardinality ~ one -->
+            <!-- Where7 and Where8 ~ WriteEmptyBlock ~ no -->
+            <!-- Where7 and Where8 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030750285/Data+Identification+Extent+Vertical+Extent+TBC -->
+            <!-- Where7 and Where8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:extent>
             <gex:EX_Extent id="Vertical">
                <gex:verticalElement>
                   <gex:EX_VerticalExtent>
-                    <!-- Display Label ~ Minimum (in metres)* -->
-                    <!-- Operation ~ User input -->
-                    <!-- InputLength ~ 10 -->
-                    <!-- Size ~ single -->
-                    <!-- Required ~ conditional -->
-                    <!-- Rule ~ If vertical component flag is true, fields are mandatory -->
-                    <!-- Rule ~ Maximum value is greater than minimum value -->
-                    <!-- Rule ~ Accepts valid positive or negative numbers to 2dp -->
+                    <!-- Where7 ~ Description ~ Minimum elevation of site in metres -->
+                    <!-- Where7 ~ Operation ~ User input -->
+                    <!-- Where7 ~ InputLength ~ 10 -->
+                    <!-- Where7 ~ Size ~ single -->
+                    <!-- Where7 ~ Required ~ conditional -->
+                    <!-- Where7 ~ Rule ~ If vertical component flag is true, fields are mandatory -->
+                    <!-- Where7 ~ Rule ~ Accepts valid positive numbers to 2dp -->
                      <gex:minimumValue>
                         <gco:Real>-10.0</gco:Real>
                      </gex:minimumValue>
-                        <!-- Display Label ~ Maximum (in metres)* -->
-                        <!-- Operation ~ User input -->
-                        <!-- InputLength ~ 10 -->
-                        <!-- Size ~ single -->
-                        <!-- Required ~ conditional -->
-                        <!-- Rule ~ If vertical component flag is true, fields are mandatory -->
-                        <!-- Rule ~ Maximum value is greater than minimum value -->
-                        <!-- Rule ~ Accepts valid positive or negative numbers to 2dp -->
+                        <!-- Where8 ~ Description ~ Maximum elevation of site in metres -->
+                        <!-- Where8 ~ Operation ~ User input -->
+                        <!-- Where8 ~ InputLength ~ 10 -->
+                        <!-- Where8 ~ Size ~ single -->
+                        <!-- Where8 ~ Required ~ conditional -->
+                        <!-- Where8 ~ Rule ~ If vertical component flag is true, fields are mandatory -->
+                        <!-- Where8 ~ Rule ~ Maximum value is greater than equal to minimum value -->
+                        <!-- Where8 ~ Rule ~ Accepts valid positive numbers to 2dp -->
                      <gex:maximumValue>
                         <gco:Real>40.5</gco:Real>
                      </gex:maximumValue>
@@ -1291,10 +1287,8 @@
             <!-- WriteEmptyBlock ~ no -->
             <!-- Description ~ Documentation related to the resource -->
             <!-- Operation ~ User input -->
-            <!-- UI ~ New -->
-            <!-- Tab ~ About -->
-            <!-- Display Label ~ Related documentation -->
-            <!-- Help Text ~ Journal articles, Technical reports, ReadMe Files, Web sites -->
+            <!-- UI ~ New Fields -->
+            <!-- Help Text ~ Online Journal articles, Technical reports, ReadMe Files, Web sites -->
             <!-- Required ~ no -->
             <!-- Cardinality ~ many -->
             <!-- Documentation ~  https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030324349/Data+Identification+Additional+Documentation -->

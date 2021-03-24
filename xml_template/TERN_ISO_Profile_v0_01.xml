@@ -2273,71 +2273,70 @@
    <mdb:distributionInfo>
       <!-- Scenario 1 user uploads data - Tool should populate most values -->
       <mrd:MD_Distribution>
-        <!-- WriteEmptyBlock ~ no -->
-        <!-- Status ~ Change XML and add mrd:fileDecompressionTechnique -->
-        <!-- Description ~ Information related to the file format(s) of the data -->
-         <!-- Operation ~ Can system identify values for file format fields when file is uploaded? -->
-        <!-- UI ~ Change function/Change texts -->
-        <!-- Change note ~ Fields are currently on About tab -->
-        <!-- Tab ~ Data sources - Upload -->
-         <!-- Rule ~ one mrd:MD_Distribution block for each DATA file uploaded by the user -->
-         <!-- Change note ~ Thumbnails or documentation files write into different XML elements NOT Distribution -->
-        <!-- Cardinality ~ many -->
-        <!-- Documentation ~ https://bitbucket.org/terndatateam/data-submission-tool/issues/47 -->
-        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-390 -->
-        <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251879/Distribution+Distribution+Format -->
-        <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+        <!-- Datasource1 ~ WriteEmptyBlock ~ no -->
+        <!-- Datasource1 ~ Status ~ Change XML and add mrd:fileDecompressionTechnique -->
+        <!-- Datasource1 ~ Description ~ Information related to the file format(s) of the data -->
+         <!-- Datasource1 ~ Operation ~ Can system identify values for file format fields when file is uploaded? -->
+        <!-- Datasource1 ~ UI ~ Change function/Change texts -->
+        <!-- Datasource1 ~ Change note ~ Fields are currently on About tab -->
+         <!-- Datasource1 ~ Rule ~ one mrd:MD_Distribution block for each DATA file uploaded by the user -->
+         <!-- Datasource1 ~ Change note ~ Thumbnails or documentation files write into different XML elements NOT Distribution -->
+        <!-- Datasource1 ~ Cardinality ~ many -->
+        <!-- Datasource1 ~ Documentation ~ https://bitbucket.org/terndatateam/data-submission-tool/issues/47 -->
+        <!-- Datasource1 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-390 -->
+        <!-- Datasource1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251879/Distribution+Distribution+Format -->
+        <!-- Datasource1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mrd:distributionFormat>
             <mrd:MD_Format>
-            <!-- Description ~ File format of the data -->
-            <!-- Display Label ~ File format of the data file -->
-            <!-- Help Text ~ CSV, NetCDF, etc. -->
-            <!-- Placeholder Text ~ Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ yes -->
-            <!-- InputLength ~ codelist? -->
-            <!-- Size ~ single -->
-               <!-- Codelist ~ To be confirmed - possibly https://www.loc.gov/preservation/digital/formats/fdd/browse_list.shtml-->
+            <!-- Datasource1 ~ Description ~ File format of the data -->
+            <!-- Datasource1 ~ Display Label ~ File format of the data file -->
+            <!-- Datasource1 ~ Help Text ~ CSV, NetCDF, etc. -->
+            <!-- Datasource1 ~ Placeholder Text ~ Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc -->
+            <!-- Datasource1 ~ KeepPlaceholderText ~ no -->
+            <!-- Datasource1 ~ Required ~ yes -->
+            <!-- Datasource1 ~ InputLength ~ codelist? -->
+            <!-- Datasource1 ~ Size ~ single -->
+               <!-- Datasource1 ~ Codelist ~ To be confirmed - possibly https://www.loc.gov/preservation/digital/formats/fdd/browse_list.shtml-->
                <mrd:formatSpecificationCitation>
                   <cit:CI_Citation>
-                  <!-- Find or create a codelist for valid values -->
+                  <!-- Datasource1 ~ Find or create a codelist for valid values -->
                      <cit:title>
                         <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
                      </cit:title>
                   </cit:CI_Citation>
                </mrd:formatSpecificationCitation>
-                <!-- Description ~ Version or date of the file format -->
-                <!-- Display Label ~ File format date/version-->
-                <!-- Help Text ~ CSV, NetCDF, etc. -->
-                <!-- Placeholder Text ~ Version number of the file format -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ no -->
-                <!-- InputLength ~ 12 -->
-                <!-- Size ~ single -->
-                <!-- Codelist ~ n/a -->
+                <!-- Datasource1 ~ Description ~ Version or date of the file format -->
+                <!-- Datasource1 ~ Display Label ~ File format date/version-->
+                <!-- Datasource1 ~ Help Text ~ CSV, NetCDF, etc. -->
+                <!-- Datasource1 ~ Placeholder Text ~ Version number of the file format -->
+                <!-- Datasource1 ~ KeepPlaceholderText ~ no -->
+                <!-- Datasource1 ~ Required ~ no -->
+                <!-- Datasource1 ~ InputLength ~ 12 -->
+                <!-- Datasource1 ~ Size ~ single -->
+                <!-- Datasource1 ~ Codelist ~ n/a -->
                <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString>
                </mrd:amendmentNumber>
-                <!-- Description ~ Whether the file is compressed -->
-                <!-- Display Label ~ File compression technique -->
-                <!-- Help Text ~ What type of compression is applied to the file? -->
-                <!-- Placeholder Text ~ Examples:Not compressed, ZIP, TAR (Unix) -->
-                <!-- KeepPlaceholderText ~ no -->
-                <!-- Required ~ no -->
-                <!-- InputLength ~ 100 -->
-                <!-- Size ~ single -->
-                <!-- Codelist ~ n/a -->
+                <!-- Datasource1 ~ Description ~ Whether the file is compressed -->
+                <!-- Datasource1 ~ Display Label ~ File compression technique -->
+                <!-- Datasource1 ~ Help Text ~ What type of compression is applied to the file? -->
+                <!-- Datasource1 ~ Placeholder Text ~ Examples:Not compressed, ZIP, TAR (Unix) -->
+                <!-- Datasource1 ~ KeepPlaceholderText ~ no -->
+                <!-- Datasource1 ~ Required ~ no -->
+                <!-- Datasource1 ~ InputLength ~ 100 -->
+                <!-- Datasource1 ~ Size ~ single -->
+                <!-- Datasource1 ~ Codelist ~ n/a -->
                <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString>
                </mrd:fileDecompressionTechnique>
             </mrd:MD_Format>
          </mrd:distributionFormat> 
-            <!-- Status ~ New XML and field -->
-            <!-- Description ~ Indicates which organisation hosts and distributes the data -->
-            <!-- Operation ~ If the user uploads data, then Distributor defaults to 'Terrestrial Ecosystem Research Network (TERN)' -->
-            <!-- Operation ~ Default details for TERN shown below -->
-            <!-- Required ~ yes -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- Datasource1 ~ Status ~ New XML and field -->
+            <!-- Datasource1 ~ Description ~ Indicates which organisation hosts and distributes the data -->
+            <!-- Datasource1 ~ Operation ~ If the user uploads data, then Distributor defaults to 'Terrestrial Ecosystem Research Network (TERN)' -->
+            <!-- Datasource1 ~ Operation ~ Default details for TERN shown below -->
+            <!-- Datasource1 ~ Required ~ yes -->
+            <!-- Datasource1 ~ Cardinality ~ one -->
+            <!-- Datasource1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042350246/Distribution+Distributor -->
+            <!-- Datasource1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mrd:distributor>
             <mrd:MD_Distributor>
                <mrd:distributorContact>
@@ -2403,54 +2402,54 @@
                </mrd:distributorContact>
             </mrd:MD_Distributor>
          </mrd:distributor>
-        <!-- Status ~ Current XML with added field -->
-         <!-- Description ~ Data file details based on an uploaded file -->
-        <!-- Description ~ Provides details for accessing the data -->
-        <!-- Operation ~ If user uploads file, the information is populated by SHaRED -->
-         <!-- UI ~ As-Is -->
-         <!-- Tab ~ Data sources - upload  -->
-         <!-- Display Label ~ see comments above under /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:graphicOverview[1] -->
-         <!-- Required ~ conditional -->
-        <!-- Help Text ~ Data files less than 100MB can be uploaded here -->        
-        <!-- Cardinality ~ many -->
-        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-456 -->
-        <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-367 -->
-         <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251930/Distribution+Digital+Transfer+Options -->
-         <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->        
+        <!-- Datasource1 ~ Status ~ Current XML with added field -->
+         <!-- Datasource1 ~ Description ~ Data file details based on an uploaded file -->
+        <!-- Datasource1 ~ Description ~ Provides details for accessing the data -->
+        <!-- Datasource1 ~ Operation ~ If user uploads file, the information is populated by SHaRED -->
+         <!-- Datasource1 ~ UI ~ As-Is -->
+         <!-- Datasource1 ~ Tab ~ Data sources - upload  -->
+         <!-- Datasource1 ~ Display Label ~ see comments above under /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:graphicOverview[1] -->
+         <!-- Datasource1 ~ Required ~ conditional -->
+        <!-- Datasource1 ~ Help Text ~ Data files less than 100MB can be uploaded here -->        
+        <!-- Datasource1 ~ Cardinality ~ many -->
+        <!-- Datasource1 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-456 -->
+        <!-- Datasource1 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-367 -->
+         <!-- Datasource1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251930/Distribution+Digital+Transfer+Options -->
+         <!-- Datasource1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->        
          <mrd:transferOptions>
             <mrd:MD_DigitalTransferOptions>
-               <!-- Display Label ~ n/a --> 
-               <!-- Operation ~ Can file size in MB be determined automatically by Data upload function? -->
+               <!-- Datasource1 ~ Display Label ~ n/a --> 
+               <!-- Datasource1 ~ Operation ~ Can file size in MB be determined automatically by Data upload function? -->
                <mrd:transferSize><gco:Real>10</gco:Real></mrd:transferSize>
                <mrd:onLine>
                   <cit:CI_OnlineResource>
-                     <!-- Display Label ~ n/a --> 
-                     <!-- Description ~ URL where file is stored by SHaRED -->
-                     <!-- Required ~ conditional -->
-                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
+                     <!-- Datasource1 ~ Display Label ~ n/a --> 
+                     <!-- Datasource1 ~ Description ~ URL where file is stored by SHaRED -->
+                     <!-- Datasource1 ~ Required ~ conditional -->
+                     <!-- Datasource1 ~ Rule ~ Required if a file is uploaded via Upload Data feature -->
                      <cit:linkage>
                         <gco:CharacterString>https://shared.tern.org.au/attachment/26f41575-b9f1-4e9b-81f4-d4283fa97855/DictionaryParkhurst_etal_2020_C2yqIeI.csv</gco:CharacterString>
                      </cit:linkage>
-                     <!-- Display Label ~ n/a --> 
-                     <!-- Description ~ Protocol used to access file -->
-                     <!-- Required ~ conditional -->
-                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
-                     <!-- Rule ~ Value is download, formatted as shown below -->
+                     <!-- Datasource1 ~ Display Label ~ n/a --> 
+                     <!-- Datasource1 ~ Description ~ Protocol used to access file -->
+                     <!-- Datasource1 ~ Required ~ conditional -->
+                     <!-- Datasource1 ~ Rule ~ Required if a file is uploaded via Upload Data feature -->
+                     <!-- Datasource1 ~ Rule ~ Value is download, formatted as shown below -->
                      <cit:protocol>
                         <gco:CharacterString>WWW:DOWNLOAD-1.0-http--download</gco:CharacterString>
                      </cit:protocol>
-                     <!-- Display Label ~ n/a --> 
-                     <!-- Description ~ File name -->
-                     <!-- Required ~ conditional -->
-                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
+                     <!-- Datasource1 ~ Display Label ~ n/a --> 
+                     <!-- Datasource1 ~ Description ~ File name -->
+                     <!-- Datasource1 ~ Required ~ conditional -->
+                     <!-- Datasource1 ~ Rule ~ Required if a file is uploaded via Upload Data feature -->
                      <cit:name>
                         <gco:CharacterString>DictionaryParkhurst_etal_2020.csv [name element]</gco:CharacterString>
                      </cit:name>
-                     <!-- Display Label ~ n/a --> 
-                     <!-- Description ~ Description of file -->
-                     <!-- Required ~ conditional -->
-                     <!-- Rule ~ Required if a file is uploaded via Upload Data feature -->
-                     <!-- Rule ~ File name without file extension, replace ["_","-"] with space -->
+                     <!-- Datasource1 ~ Display Label ~ n/a --> 
+                     <!-- Datasource1 ~ Description ~ Description of file -->
+                     <!-- Datasource1 ~ Required ~ conditional -->
+                     <!-- Datasource1 ~ Rule ~ Required if a file is uploaded via Upload Data feature -->
+                     <!-- Datasource1 ~ Rule ~ File name without file extension, replace ["_","-"] with space -->
                      <cit:description>
                         <gco:CharacterString>DictionaryParkhurst etal 2020</gco:CharacterString>
                      </cit:description>

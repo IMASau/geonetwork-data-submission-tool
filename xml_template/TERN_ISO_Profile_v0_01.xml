@@ -879,40 +879,36 @@
             </cit:CI_Citation>
          </mri:citation>
             <!-- END Static Section -->
-            <!-- Status mri:abstract ~ Current XML-->
-            <!-- Description ~ The abstract describing the resource -->
-            <!-- Operation ~ User input -->
-            <!-- UI ~ As-Is -->
-            <!-- Tab ~ What -->
-            <!-- Display Label ~ Abstract -->
-            <!-- Help Text ~ Provide a brief description of the content of the resource; e.g. what information was collected, how was it collected -->
-            <!-- Placeholder Text ~ As shown below -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ yes -->
-            <!-- InputLength ~ As-Is 2500 -->
-            <!-- Size ~ multiline -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556386/Data+identification+Abstract+Purpose+Credit -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- What1 ~ Status mri:abstract ~ Current XML-->
+            <!-- What1 ~ Description ~ The abstract describing the resource -->
+            <!-- What1 ~ Operation ~ User input -->
+            <!-- What1 ~ UI ~ As-Is -->
+            <!-- What1 ~ Help Text ~ Provide a brief description of the content of the resource; e.g. what information was collected, how was it collected -->
+            <!-- What1 ~ Placeholder Text ~ As shown below -->
+            <!-- What1 ~ KeepPlaceholderText ~ no -->
+            <!-- What1 ~ Required ~ yes -->
+            <!-- What1 ~ InputLength ~ As-Is 2500 -->
+            <!-- What1 ~ Size ~ multiline -->
+            <!-- What1 ~ Cardinality ~ one -->
+            <!-- What1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556386/Data+identification+Abstract+Purpose+Credit -->
+            <!-- What1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:abstract>
             <gco:CharacterString>
                Placeholder text=Provide a brief summary of What, Where, When, Why, Who and How for the collected the data.
                Example: This data set provides the photosynthetic pathways for 2428 species recorded across 541 plots surveyed by Australia’s Terrestrial Ecosystem Research Network (TERN) between 2011 and 2017 (inclusive). TERN survey plots are 1 ha (100 x 100 m) permanently established sites located in a homogeneous area of terrestrial vegetation. At each plot, TERN survey teams record vegetation composition and structural characteristics and collect a range of plant samples using a point-intercept method. Species were assigned a photosynthetic pathway using literature and carbon stable isotope analysis of bulk tissue collected by TERN at the survey plots. </gco:CharacterString></mri:abstract>
-            <!-- Status mri:purpose ~ Current XML with text change -->
-            <!-- Description ~ Summary of the intentions with which the resource was developed -->
-            <!-- Operation ~ User input -->
-            <!-- UI ~ As-Is -->
-            <!-- Tab ~ What -->
-            <!-- Display Label ~ Purpose -->
-            <!-- Help Text ~ Provide a brief summary of the purpose for collecting the data including the potential use for future research. -->
-            <!-- Placeholder Text ~ as shown below -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ no -->
-            <!-- InputLength ~ As-Is 1000 -->
-            <!-- Size ~ multiline -->
-            <!-- Cardinality ~ one -->
-            <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556386/Data+identification+Abstract+Purpose+Credit -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- What2 ~ Status mri:purpose ~ Current XML with text change -->
+            <!-- What2 ~ Description ~ Summary of the intentions with which the resource was developed -->
+            <!-- What2 ~ Operation ~ User input -->
+            <!-- What2 ~ UI ~ Field exists -->
+            <!-- What2 ~ Help Text ~ Provide a brief summary of the purpose for collecting the data including the potential use for future research. -->
+            <!-- What2 ~ Placeholder Text ~ as shown below -->
+            <!-- What2 ~ KeepPlaceholderText ~ no -->
+            <!-- What2 ~ Required ~ no -->
+            <!-- What2 ~ InputLength ~ As-Is 1000 -->
+            <!-- What2 ~ Size ~ multiline -->
+            <!-- What2 ~ Cardinality ~ one -->
+            <!-- What2 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556386/Data+identification+Abstract+Purpose+Credit -->
+            <!-- What2 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:purpose>
             <gco:CharacterString>Placeholder text=Provide a brief summary of the purpose for collecting the data including the potential use. This photosynthetic pathway data set was created by TERN to enable research examining the abundance, richness, and distribution of C4 and C3 vegetation in Australia.</gco:CharacterString>
          </mri:purpose>

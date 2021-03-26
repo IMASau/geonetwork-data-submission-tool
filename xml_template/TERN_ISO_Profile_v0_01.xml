@@ -2642,7 +2642,7 @@
                           <!-- Datasource10 ~ Codelist ~ GA Service types https://vocabs.ardc.edu.au/viewById/181 -->
                           <!-- Datasource10 ~ Cardinality ~ one per mrd:transferOptions block -->
                      <cit:protocol>
-                        <gco:CharacterString>OGC:WFS</gco:CharacterString>
+                        <gco:CharacterString>Web Feature Service</gco:CharacterString>
                      </cit:protocol>
                          <!-- Datasource5 ~ Description ~ Layer or Feature Name -->
                               <!-- Datasource5 ~ Required ~ conditional -->

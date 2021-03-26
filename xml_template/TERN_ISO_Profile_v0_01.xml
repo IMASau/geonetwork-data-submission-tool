@@ -2639,7 +2639,7 @@
                           <!-- Datasource10 ~ InputLength ~ codelist -->
                           <!-- Datasource10 ~ Size ~ single -->
 						  <!-- Datasource10 ~ Change note ~ change to GA codelist -->
-                          <!-- Datasource10 ~ Codelist ~ GA Service types -->
+                          <!-- Datasource10 ~ Codelist ~ GA Service types https://vocabs.ardc.edu.au/viewById/181 -->
                           <!-- Datasource10 ~ Cardinality ~ one per mrd:transferOptions block -->
                      <cit:protocol>
                         <gco:CharacterString>OGC:WFS</gco:CharacterString>

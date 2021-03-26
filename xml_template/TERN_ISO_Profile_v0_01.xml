@@ -447,7 +447,7 @@
                 <!-- ID1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140817975/Data+Identification+Citation+Title -->
                 <!-- ID1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:title>
-                  <gco:CharacterString>jira-1287-2021/03/19-1 - changes as advised during Sprint Planning</gco:CharacterString>
+                  <gco:CharacterString>jira-1287-2021/03/26-1 - changes (email 2021/03/24) and cross-references to Product Spec indicated in comments</gco:CharacterString>
                </cit:title>
                <!-- ID6 ~ Status creation cit:date ~ In Current XML and UI -->
                 <!-- ID6 ~ Description ~ Date the resource was created -->

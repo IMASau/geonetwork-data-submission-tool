@@ -84,28 +84,28 @@
                            </cit:numberType>
                         </cit:CI_Telephone>
                      </cit:phone>
-                     <cit:address>
-                        <cit:CI_Address>
-                           <cit:deliveryPoint>
-                              <gco:CharacterString>Building 8, University of Queensland</gco:CharacterString>
-                           </cit:deliveryPoint>
-                           <cit:city>
-                              <gco:CharacterString>St Lucia</gco:CharacterString>
-                           </cit:city>
-                           <cit:administrativeArea>
-                              <gco:CharacterString>QLD</gco:CharacterString>
-                           </cit:administrativeArea>
-                           <cit:postalCode>
-                              <gco:CharacterString>4072</gco:CharacterString>
-                           </cit:postalCode>
-                           <cit:country>
-                              <gco:CharacterString>AU</gco:CharacterString>
-                           </cit:country>
-                           <cit:electronicMailAddress>
-                              <gco:CharacterString>esupport@tern.org.au</gco:CharacterString>
-                           </cit:electronicMailAddress>
-                        </cit:CI_Address>
-                     </cit:address>
+                                 <cit:address>
+                                    <cit:CI_Address>
+                                       <cit:deliveryPoint>
+                                          <gco:CharacterString>Building 1019, 80 Meiers Rd</gco:CharacterString>
+                                       </cit:deliveryPoint>
+                                       <cit:city>
+                                          <gco:CharacterString>Indooroopilly</gco:CharacterString>
+                                       </cit:city>
+                                       <cit:administrativeArea>
+                                          <gco:CharacterString>QLD</gco:CharacterString>
+                                       </cit:administrativeArea>
+                                       <cit:postalCode>
+                                          <gco:CharacterString>4068</gco:CharacterString>
+                                       </cit:postalCode>
+                                       <cit:country>
+                                          <gco:CharacterString>AU</gco:CharacterString>
+                                       </cit:country>
+                                       <cit:electronicMailAddress>
+                                          <gco:CharacterString>esupport@tern.org.au</gco:CharacterString>
+                                       </cit:electronicMailAddress>
+                                    </cit:CI_Address>
+                                 </cit:address>
                   </cit:CI_Contact>
                </cit:contactInfo>
                <cit:individual>
@@ -291,16 +291,16 @@
                                  <cit:address>
                                     <cit:CI_Address>
                                        <cit:deliveryPoint>
-                                          <gco:CharacterString>Building 8, University of Queensland</gco:CharacterString>
+                                          <gco:CharacterString>Building 1019, 80 Meiers Rd</gco:CharacterString>
                                        </cit:deliveryPoint>
                                        <cit:city>
-                                          <gco:CharacterString>St Lucia</gco:CharacterString>
+                                          <gco:CharacterString>Indooroopilly</gco:CharacterString>
                                        </cit:city>
                                        <cit:administrativeArea>
                                           <gco:CharacterString>QLD</gco:CharacterString>
                                        </cit:administrativeArea>
                                        <cit:postalCode>
-                                          <gco:CharacterString>4072</gco:CharacterString>
+                                          <gco:CharacterString>4068</gco:CharacterString>
                                        </cit:postalCode>
                                        <cit:country>
                                           <gco:CharacterString>AU</gco:CharacterString>

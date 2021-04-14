@@ -447,7 +447,7 @@
                 <!-- ID1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140817975/Data+Identification+Citation+Title -->
                 <!-- ID1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:title>
-                  <gco:CharacterString>jira-1287-2021/03/26-1 - changes (email 2021/03/24) and cross-references to Product Spec indicated in comments</gco:CharacterString>
+                  <gco:CharacterString>2021/04/14-1 - Updated for changes in Product Spec v0.05</gco:CharacterString>
                </cit:title>
                <!-- ID6 ~ Status creation cit:date ~ In Current XML and UI -->
                 <!-- ID6 ~ Description ~ Date the resource was created -->
@@ -535,11 +535,12 @@
                 <!-- Lodge3 ~ Status cit:identifier ~ Current XML with text changes -->
                 <!-- Lodge3 ~ Description ~ If a DOI is minted for the dataset, the details are written here -->
                 <!-- Lodge3 ~ Operation ~ Admin clicks 'Mint DOI', returned DOI details write into mcc:code as shown below -->
-                <!-- Lodge3 ~ UI ~ add field to capture pre-existing DOI -->
+                <!-- Lodge4 ~ UI ~ User inputs pre-existing DOI -->
                 <!-- Lodge3 ~ Placeholder Text ~ doi:[If applicable, DOI number writes here] -->
                 <!-- Lodge3 ~ KeepPlaceholderText ~ no -->
                 <!-- Lodge3 ~ Required ~ no -->
                <!-- Lodge3 ~ Rule ~ DOI minting is disabled if a custom citation is present, see otherCitationDetails below -->
+               <!-- Lodge3 ~ Rule ~ Request DOI is disabled if a DOI is manually input at Lodge4 -->
                 <!-- Lodge3 ~ Cardinality ~ one -->
                 <!-- Lodge3 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-446 -->
                 <!-- Lodge3 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718892/Data+Identification+Citation+Identifier+DOI -->
@@ -675,7 +676,7 @@
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
-							  <!-- Who15.  For Who16 codelist type changes to 'fax' -->
+							  <!-- Who15.  For Who16 codelist value changes to 'fax' -->
 							  <!-- Codelist ~ https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml  CI_TelephoneTypeCode -->
                                  <cit:phone>
                                     <cit:CI_Telephone>
@@ -796,7 +797,7 @@
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
-							  <!-- Who15.  For Who16 codelist type changes to 'fax' -->
+							  <!-- Who15.  For Who16 codelist value changes to 'fax' -->
 							  <!-- Codelist ~ https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml  CI_TelephoneTypeCode -->
                                  <cit:phone>
                                     <cit:CI_Telephone>
@@ -849,6 +850,9 @@
                   </cit:CI_Responsibility>
                </cit:citedResponsibleParty>
                <!-- About9 ~ Documentation ~ Email 20210301 DV - custom citation is required and will write to othercitationdetails -->
+               <!-- About9 ~ Help Text ~ The format of the standard citation is provided at  -->
+               <!-- About9 ~ Help Text ~ https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  -->
+               <!-- About9 ~ Help Text ~ for a non-standard citation, provide the details below.  -->
                <!-- About9 ~ Rule ~ If a custom citation is present this supercedes the standard generated citation -->
                <!-- About9 ~ Rule ~ If a custom citation is present then DOI minting should be disabled and DOI should be created manually -->
                <cit:otherCitationDetails><gco:CharacterString>
@@ -927,20 +931,20 @@
          <mri:credit>
             <gco:CharacterString>Placeholder text=The project was funded by xxx and yyy</gco:CharacterString>
          </mri:credit>
-            <!-- ID2 ~ Status mri:status ~ Current XML -->
-            <!-- ID2 ~ Description ~ The current status of the resource -->
-            <!-- ID2 ~ Operation ~ User select -->
-            <!-- ID2 ~ UI ~ As-Is -->
-            <!-- ID2 ~ Tab ~ Data ID -->
-            <!-- ID2 ~ Display Label ~ Status of data -->
-            <!-- ID2 ~ Placeholder Text ~ Please select -->
-            <!-- ID2 ~ KeepPlaceholderText ~ no -->
-            <!-- ID2 ~ Required ~ yes -->
-            <!-- ID2 ~ Size ~ multiline -->
-            <!-- ID2 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ProgressCode -->
-            <!-- ID2 ~ Cardinality ~ one -->
-            <!-- ID2 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
-            <!-- ID2 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
+            <!-- ID5 ~ Status mri:status ~ Current XML -->
+            <!-- ID5 ~ Description ~ The current status of the resource -->
+            <!-- ID5 ~ Operation ~ User select -->
+            <!-- ID5 ~ UI ~ As-Is -->
+            <!-- ID5 ~ Tab ~ Data ID -->
+            <!-- ID5 ~ Display Label ~ Status of data -->
+            <!-- ID5 ~ Placeholder Text ~ Please select -->
+            <!-- ID5 ~ KeepPlaceholderText ~ no -->
+            <!-- ID5 ~ Required ~ yes -->
+            <!-- ID5 ~ Size ~ multiline -->
+            <!-- ID5 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ProgressCode -->
+            <!-- ID5 ~ Cardinality ~ one -->
+            <!-- ID5 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
+            <!-- ID5 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
          <mri:status>
             <mcc:MD_ProgressCode codeList="codeListLocation#MD_ProgressCode" codeListValue="ongoing"/>
          </mri:status>
@@ -968,6 +972,7 @@
                <cit:role>
                   <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="pointOfContact"/>
                </cit:role>
+               <!-- Who8 and Who9 -->
                <cit:party>
                   <cit:CI_Organisation>
                      <cit:name>
@@ -1036,7 +1041,7 @@
                            </mcc:codeSpace>
                         </mcc:MD_Identifier>
                      </cit:partyIdentifier>
-					 <!-- Who16 -->
+					 <!-- Who18 -->
                      <cit:individual>
                         <cit:CI_Individual>
 						<!-- Who5, Who4 -->
@@ -1072,36 +1077,36 @@
                </cit:party>
             </cit:CI_Responsibility>
          </mri:pointOfContact>
-            <!-- Where4 ~ Status mri:spatialResolution ~ Change XML and UI -->
-            <!-- Where4 ~ Description ~ A statistic describing spatial resolution of the dataset if applicable -->
-            <!-- Where4 ~ Operation ~ User will be able to select and unit of measure -->
-            <!-- Where4 ~ UI ~ Add fields -->
-            <!-- Where4 ~ Cardinality ~ one -->
-            <!-- Where4 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718977/Data+Identification+Spatial+Resolution -->
-            <!-- Where4 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
-            <!-- Where4 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-            <!-- Where4 ~ WriteEmptyBlock ~ no -->        
-            <!-- Where4 ~ Change Note ~ Removed mri:levelOfDetail element -->
-            <!-- Where4 ~ Similar attributes ~ GCMD_Horizontal will write into keywords -->
+            <!-- Where9 and Where10 ~ Status mri:spatialResolution ~ Change XML and UI -->
+            <!-- Where9 and Where10 ~ Description ~ A statistic describing spatial resolution of the dataset if applicable -->
+            <!-- Where9 and Where10 ~ Operation ~ User will be able to select and unit of measure -->
+            <!-- Where9 and Where10 ~ UI ~ Add fields -->
+            <!-- Where9 and Where10 ~ Cardinality ~ one -->
+            <!-- Where9 and Where10 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718977/Data+Identification+Spatial+Resolution -->
+            <!-- Where9 and Where10 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
+            <!-- Where9 and Where10 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- Where9 and Where10 ~ WriteEmptyBlock ~ no -->        
+            <!-- Where9 and Where10 ~ Change Note ~ Removed mri:levelOfDetail element -->
+            <!-- Where9 and Where10 ~ Similar attributes ~ GCMD_Horizontal will write into keywords -->
          <mri:spatialResolution>
             <mri:MD_Resolution>
-                <!-- Where4 ~ Display Label ~ Resolution attribute -->
-                <!-- Where4 ~ Help Text ~ Select the appropriate statistic for the data and input details -->
-                <!-- Where4 ~ Placeholder Text ~ no -->
-                <!-- Where4 ~ KeepPlaceholderText ~ no -->
-                <!-- Where4 ~ Required ~ no -->
-               <!-- Where4 ~ Rule ~ Conditional if numeric: Allow digits, "." , Positive numbers only-->
-                <!-- Where4 ~ InputLength ~ Conditional: 12 for numeric, 250 for text -->
-                <!-- Where4 ~ Size ~ single -->
-                <!-- Where4 ~ Cardinality ~ one -->
-                <!-- Where4 ~ KeepPlaceholderText ~ no -->
-                <!-- Where4 ~ Required ~ conditional -->
-               <!-- Where4 ~ Operation ~ User selects an option, enters the numeric value or text, UOM defaults  -->
-               <!-- Where4 ~ Operation ~ XML varies depending on user selected option  -->
-                <!-- Where4 ~ Rule ~ UOM Must be metre for Distance, degree for angle -->
-                <!-- Where4 ~ Codelist ~ User interface drop down contains the list of values shown below, with "mri:" removed, in lower case, e.g. angular distance, e -->
-                <!-- Where4 ~ Cardinality ~ one -->
-               <!-- Where4 ~ Each line shows the XML that will apply depending on user selection: 
+                <!-- Where9 and Where10 ~ Display Label ~ Resolution attribute -->
+                <!-- Where9 and Where10 ~ Help Text ~ Select the appropriate statistic for the data and input details -->
+                <!-- Where9 and Where10 ~ Placeholder Text ~ no -->
+                <!-- Where9 and Where10 ~ KeepPlaceholderText ~ no -->
+                <!-- Where9 and Where10 ~ Required ~ no -->
+               <!-- Where9 and Where10 ~ Rule ~ Conditional if numeric: Allow digits, "." , Positive numbers only-->
+                <!-- Where9 and Where10 ~ InputLength ~ Conditional: 12 for numeric, 250 for text -->
+                <!-- Where9 and Where10 ~ Size ~ single -->
+                <!-- Where9 and Where10 ~ Cardinality ~ one -->
+                <!-- Where9 and Where10 ~ KeepPlaceholderText ~ no -->
+                <!-- Where9 and Where10 ~ Required ~ conditional -->
+               <!-- Where9 and Where10 ~ Operation ~ User selects an option, enters the numeric value or text, UOM defaults  -->
+               <!-- Where9 and Where10 ~ Operation ~ XML varies depending on user selected option  -->
+                <!-- Where9 and Where10 ~ Rule ~ UOM Must be metre for Distance, degree for angle -->
+                <!-- Where9 and Where10 ~ Codelist ~ User interface drop down contains the list of values shown below, with "mri:" removed, in lower case, e.g. angular distance, e -->
+                <!-- Where9 and Where10 ~ Cardinality ~ one -->
+               <!-- Where9 and Where10 ~ Each line shows the XML that will apply depending on user selection: 
                <mri:angularDistance><gco:Angle uom="degree">30</gco:Angle></mri:angularDistance>
                <mri:equivalentScale><mri:MD_RepresentativeFraction><mri:denominator><gco:Integer>100000</gco:Integer></mri:denominator></mri:MD_RepresentativeFraction></mri:equivalentScale>
                <mri:vertical><gco:Distance uom="metre">0.25</gco:Distance></mri:vertical>
@@ -1109,20 +1114,20 @@
                <mri:distance><gco:Distance uom="metre">30</gco:Distance></mri:distance>
             </mri:MD_Resolution>
          </mri:spatialResolution>
-            <!-- ID1 ~ Status mri:topicCategory ~ Current XML change text and codelist -->
-            <!-- ID1 ~ Description ~ ISO topic category to indicate the main theme of the record -->
-            <!-- ID1 ~ Operation ~ User selects from codelist -->
-            <!-- ID1 ~ Operation ~ Display skos:prefLabel, write skos:Notation -->
-            <!-- ID1 ~ UI ~ Change placeholder text -->
-            <!-- ID1 ~ Tab ~ Data ID -->
-            <!-- ID1 ~ Placeholder Text ~ Select one or more -->
-            <!-- ID1 ~ KeepPlaceholderText ~ no -->
-            <!-- ID1 ~ Required ~ yes -->
-            <!-- ID1 ~ Rule ~ ISO states required if record type is "dataset" -->
-            <!-- ID1 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_TopicCategoryCode -->
-            <!-- ID1 ~ Cardinality ~ many -->
-            <!-- ID1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140719692/Data+Identification+Topic+Category -->
-            <!-- ID1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+            <!-- ID4 ~ Status mri:topicCategory ~ Current XML change text and codelist -->
+            <!-- ID4 ~ Description ~ ISO topic category to indicate the main theme of the record -->
+            <!-- ID4 ~ Operation ~ User selects from codelist -->
+            <!-- ID4 ~ Operation ~ Display skos:prefLabel, write skos:Notation -->
+            <!-- ID4 ~ UI ~ Change placeholder text -->
+            <!-- ID4 ~ Tab ~ Data ID -->
+            <!-- ID4 ~ Placeholder Text ~ Select one or more -->
+            <!-- ID4 ~ KeepPlaceholderText ~ no -->
+            <!-- ID4 ~ Required ~ yes -->
+            <!-- ID4 ~ Rule ~ ISO states required if record type is "dataset" -->
+            <!-- ID4 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_TopicCategoryCode -->
+            <!-- ID4 ~ Cardinality ~ many -->
+            <!-- ID4 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1140719692/Data+Identification+Topic+Category -->
+            <!-- ID4 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:topicCategory>
             <mri:MD_TopicCategoryCode>climatologyMeteorologyAtmosphere</mri:MD_TopicCategoryCode>
          </mri:topicCategory>
@@ -1244,21 +1249,21 @@
                      <gex:maximumValue>
                         <gco:Real>40.5</gco:Real>
                      </gex:maximumValue>
-                        <!-- Where2 ~ Block Status vertical mdb:referenceSystemInfo ~ New XML and field made available in UI -->
-                        <!-- Where2 ~ Description ~ Describes the Vertical Coordinate Reference System of the data -->
-                        <!-- Where2 ~ Operation ~ Provide drop-down list of options using description and code, related values for code, codespace and reference system type code will default based on selected value -->
-                        <!-- Where2 ~ UI ~ New -->
-                        <!-- Where2 ~ Tab ~ Where -->
-                        <!-- Where2 ~ Display Label ~ Vertical Coordinate Reference System* -->
-                        <!-- Where2 ~ Help Text ~ What is the Coordinate Reference System of the elevation data? -->
-                        <!-- Where2 ~ Placeholder Text ~ Please select -->
-                        <!-- Where2 ~ KeepPlaceholderText ~ no -->
-                        <!-- Where2 ~ Required ~ conditional -->
-                        <!-- Where2 ~ Rule ~ If vertical component flag is true, field is mandatory -->
-                        <!-- Where2 ~ Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1240170497/List+of+values+for+Coordinate+Reference+Systems#Vertical-Coordinate-Reference-Systems -->
-                        <!-- Where2 ~ Cardinality ~ one -->
-                        <!-- Where2 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555039/Reference+System+Info -->
-                        <!-- Where2 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+                        <!-- Where5 ~ Block Status vertical mdb:referenceSystemInfo ~ New XML and field made available in UI -->
+                        <!-- Where5 ~ Description ~ Describes the Vertical Coordinate Reference System of the data -->
+                        <!-- Where5 ~ Operation ~ Provide drop-down list of options using description and code, related values for code, codespace and reference system type code will default based on selected value -->
+                        <!-- Where5 ~ UI ~ New -->
+                        <!-- Where5 ~ Tab ~ Where -->
+                        <!-- Where5 ~ Display Label ~ Vertical Coordinate Reference System* -->
+                        <!-- Where5 ~ Help Text ~ What is the Coordinate Reference System of the elevation data? -->
+                        <!-- Where5 ~ Placeholder Text ~ Please select -->
+                        <!-- Where5 ~ KeepPlaceholderText ~ no -->
+                        <!-- Where5 ~ Required ~ conditional -->
+                        <!-- Where5 ~ Rule ~ If vertical component flag is true, field is mandatory -->
+                        <!-- Where5 ~ Codelist ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1240170497/List+of+values+for+Coordinate+Reference+Systems#Vertical-Coordinate-Reference-Systems -->
+                        <!-- Where5 ~ Cardinality ~ one -->
+                        <!-- Where5 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555039/Reference+System+Info -->
+                        <!-- Where5 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                      <gex:verticalCRSId>
                        <mrs:MD_ReferenceSystem>
                          <mrs:referenceSystemIdentifier>
@@ -1332,7 +1337,7 @@
                         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                      </cit:protocol>
                      <!-- END Static Section -->
-                     <!-- Operation ~ Same as cit:title -->
+                     <!-- About 5 Operation ~ Same as cit:title -->
                      <cit:name><gco:CharacterString>Donohue, R.J. et al., 2014. 
                         Evaluation of the remote-sensing-based DIFFUSE model for estimating photosynthesis of vegetation. Remote Sensing of Environment. doi:10.1002/2013WR015138 [Name element 1]</gco:CharacterString>
                         </cit:name>
@@ -1387,13 +1392,13 @@
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
          <mri:resourceMaintenance>
             <mmi:MD_MaintenanceInformation>
-                <!-- ID3 ~ Operation ~ Behaviour defined by value selected in mri:status -->
-                <!-- ID3 ~ Display Label ~ Maintenance and update frequency * -->
-                <!-- ID3 ~ Help Text ~ How frequently is data updated? -->
-                <!-- ID3 ~ Required ~ yes -->
-                <!-- ID3 ~ Rule ~  see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
-                <!-- ID3 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_MaintenanceFrequencyCode -->
-                <!-- ID3 ~ Cardinality ~ one -->
+                <!-- ID9 ~ Operation ~ Behaviour defined by value selected in mri:status -->
+                <!-- ID9 ~ Display Label ~ Maintenance and update frequency * -->
+                <!-- ID9 ~ Help Text ~ How frequently is data updated? -->
+                <!-- ID9 ~ Required ~ yes -->
+                <!-- ID9 ~ Rule ~  see https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
+                <!-- ID9 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_MaintenanceFrequencyCode -->
+                <!-- ID9 ~ Cardinality ~ one -->
                <mmi:maintenanceAndUpdateFrequency>
                   <mmi:MD_MaintenanceFrequencyCode codeList="codeListLocation#MD_MaintenanceFrequencyCode"
                      codeListValue="annually"/>
@@ -1408,7 +1413,7 @@
             <!-- Datasource3 ~ Operation ~ If uploaded file has png format write details to fields -->
             <!-- Datasource3 ~ Consult ~ TERN Graphic Designer re appropriate x by y, probably 100 by 100 pixs -->
             <!-- Datasource3 ~ UI ~ Change -->
-            <!-- Datasource3 ~ Display Label ~ Upload Data or Thumbnail Images -->
+            <!-- Datasource3 ~ Display Label ~ Upload Thumbnail Images -->
             <!-- Datasource3 ~ Help Text ~ Thumbnails must be png format, maximum size x by y pixels -->
             <!-- Datasource3 ~ Placeholder Text ~ Drop file here or click here to upload -->
             <!-- Datasource3 ~ Placeholder Text ~ After upload click the Confirm upload button -->
@@ -1422,7 +1427,7 @@
             <!-- Datasource3 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:graphicOverview>
            <mcc:MD_BrowseGraphic>
-               <!-- Description ~ Write filename -->
+              <!-- Write fileName of stored image -->
                <mcc:fileName>
                   <gco:CharacterString>test_100x100px.png</gco:CharacterString>
                </mcc:fileName>
@@ -1440,6 +1445,8 @@
                      <cit:protocol>
                         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                      </cit:protocol>
+                     <!-- Datasource2b  ~ Description ~ Title of the stored image -->
+                     <cit:name><gco:CharacterString>the title of the resource</gco:CharacterString></cit:name>
                      <cit:function>
                         <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
                            codeListValue="browseGraphic"/>
@@ -2062,7 +2069,12 @@
                </mri:type>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-            <!-- Tab ~ About -->            
+         <!-- About7 ~ Description ~ Resource use -->
+         <!-- About7 ~ Help Text ~ What can this resource be used for environmental research? -->
+         <!-- About7 ~ Required ~ no -->
+         <!-- About7 ~ InputLength ~ 1000 -->
+         <!-- About7 ~ Size ~ multi -->
+         <!-- About7 ~ Codelist ~ n/a -->
          <mri:resourceSpecificUsage><mri:MD_Usage>
             <mri:specificUsage><gco:CharacterString>Placeholder text=Information about data usage, this will capture usability text about data, this can be an expert comments</gco:CharacterString></mri:specificUsage>
          </mri:MD_Usage></mri:resourceSpecificUsage>
@@ -2157,20 +2169,20 @@
                      </gco:CharacterString>
                </mco:otherConstraints>
                 <!-- END Static Section - User may add other constraints -->
-                <!-- About1 ~ Status ~ Current XML and UI -->
-                <!-- About1 ~ Description ~ Constraints identified by the User -->
-                <!-- About1 ~ Operation ~ User can input additional constraints or instructions -->
-                <!-- About1 ~ UI ~ As-Is -->
-                <!-- About1 ~ Help Text ~  -->
-                <!-- About1 ~ Placeholder Text ~ Example:This data set is not suitable for compliance monitoring -->
-                <!-- About1 ~ KeepPlaceholderText ~ no -->
-                <!-- About1 ~ Required ~ no -->
-                <!-- About1 ~ InputLength ~ 250 -->
-                <!-- About1 ~ Size ~ single -->
-                <!-- About1 ~ Codelist ~ n/a -->
-                <!-- About1 ~ Cardinality ~ many -->
-                <!-- About1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041760257/Data+Identification+Resource+Constraints -->
-                <!-- About1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+                <!-- Status ~ Current XML and UI -->
+                <!-- Description ~ Constraints identified by the User -->
+                <!-- Operation ~ User can input additional constraints or instructions -->
+                <!-- UI ~ As-Is -->
+                <!-- Help Text ~  -->
+                <!-- Placeholder Text ~ Example:This data set is not suitable for compliance monitoring -->
+                <!-- KeepPlaceholderText ~ no -->
+                <!-- Required ~ no -->
+                <!-- InputLength ~ 250 -->
+                <!-- Size ~ single -->
+                <!-- Codelist ~ n/a -->
+                <!-- Cardinality ~ many -->
+                <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041760257/Data+Identification+Resource+Constraints -->
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <mco:otherConstraints>
                   <gco:CharacterString>Placeholder text=Example:This data set is not suitable for compliance monitoring</gco:CharacterString>
                </mco:otherConstraints>
@@ -2465,61 +2477,9 @@
       </mrd:MD_Distribution>
    </mdb:distributionInfo>
    <mdb:distributionInfo>
-      <!-- Scenario 2 user provides details of a data service that can be used to access the data -->
+      <!-- Scenario 2 -->
+      <!-- user provides details of a data service that can be used to access the data -->
       <mrd:MD_Distribution>
-        <!-- Datasource4 ~ WriteEmptyBlock ~ no -->
-        <!-- Datasource4 ~ Status ~ Change XML and add mrd:fileDecompressionTechnique -->
-        <!-- Datasource4 ~ Description ~ Information related to the file format(s) of the data -->
-        <!-- Datasource4 ~ Operation ~ User input -->
-        <!-- Datasource4 ~ UI ~ Change function/Change texts -->
-        <!-- Datasource4 ~ Change note ~ Fields are currently on About tab -->
-        <!-- Datasource4 ~ Rule ~ one mrd:MD_distribution block for each distribution input by the user -->
-        <!-- Datasource4 ~ Cardinality ~ many -->
-        <!-- Datasource4 ~ Documentation ~ https://bitbucket.org/terndatateam/data-submission-tool/issues/47 -->
-        <!-- Datasource4 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-390 -->
-        <!-- Datasource4 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251879/Distribution+Distribution+Format -->
-        <!-- Datasource4 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-         <mrd:distributionFormat>
-            <mrd:MD_Format>
-            <!-- Datasource7 ~ Description ~ File format of the data -->
-            <!-- Datasource7 ~ Help Text ~ CSV, NetCDF, etc. -->
-            <!-- Datasource7 ~ Placeholder Text ~ Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc -->
-            <!-- Datasource7 ~ KeepPlaceholderText ~ no -->
-            <!-- Datasource7 ~ Required ~ yes -->
-            <!-- Datasource7 ~ InputLength ~ codelist? -->
-            <!-- Datasource7 ~ Size ~ single -->
-            <!-- Datasource7 ~ Codelist ~ To be confirmed -->
-               <mrd:formatSpecificationCitation>
-                  <cit:CI_Citation>
-                  <!-- Datasource7 ~ Find or create a codelist for valid values -->
-                     <cit:title>
-                        <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
-                     </cit:title>
-                  </cit:CI_Citation>
-               </mrd:formatSpecificationCitation>
-                <!-- Datasource8 ~ Description ~ Version or date of the file format -->
-                <!-- Datasource8 ~ Help Text ~ CSV, NetCDF, etc. -->
-                <!-- Datasource8 ~ Placeholder Text ~ Version number of the file format -->
-                <!-- Datasource8 ~ KeepPlaceholderText ~ no -->
-                <!-- Datasource8 ~ Required ~ no -->
-                <!-- Datasource8 ~ InputLength ~ 12 -->
-                <!-- Datasource8 ~ Size ~ single -->
-                <!-- Datasource8 ~ Codelist ~ n/a -->
-               <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString>
-               </mrd:amendmentNumber>
-                <!-- Datasource9 ~ Description ~ Whether the file is compressed -->
-                <!-- Datasource9 ~ Display Label ~ File compression technique -->
-                <!-- Datasource9 ~ Help Text ~ What type of compression is applied to the file -->
-                <!-- Datasource9 ~ Placeholder Text ~ Examples:Not compressed, ZIP, TAR (Unix) -->
-                <!-- Datasource9 ~ KeepPlaceholderText ~ no -->
-                <!-- Datasource9 ~ Required ~ no -->
-                <!-- Datasource9 ~ InputLength ~ 100 -->
-                <!-- Datasource9 ~ Size ~ single -->
-                <!-- Datasource9 ~ Codelist ~ n/a -->
-               <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString>
-               </mrd:fileDecompressionTechnique>
-            </mrd:MD_Format>
-         </mrd:distributionFormat> 
             <!-- Datasource12 ~ Status ~ New XML and field -->
             <!-- Datasource12 ~ Description ~ Indicates which organisation hosts and distributes the data -->
             <!-- Datasource12 ~ Operation ~ User selects a Distributor from TERN Organisations Vocabulary -->
@@ -2603,7 +2563,7 @@
             </mrd:MD_Distributor>
          </mrd:distributor>
         <!-- Datasource4 ~ Status ~ Current XML with added field -->
-        <!-- Datasource4 ~ Description ~ Provides details for accessing the data -->
+        <!-- Datasource4 ~ Description ~ Provides details for accessing data that is NOT uploaded (hosted separately) -->
         <!-- Datasource4 ~ Description ~ Could include THREDDS catalog, WMS, WFS, REST API documentation, etc. -->
         <!-- Datasource4 ~ Operation ~ User input -->
         <!-- Datasource4 ~ Change note ~ There are subtle differences between User input and user uploads file -->
@@ -2639,7 +2599,7 @@
                           <!-- Datasource10 ~ Rule ~ Required if cit:description is not blank -->
                           <!-- Datasource10 ~ InputLength ~ codelist -->
                           <!-- Datasource10 ~ Size ~ single -->
-						  <!-- Datasource10 ~ Change note ~ change to GA codelist -->
+						         <!-- Datasource10 ~ Change note ~ change to GA codelist -->
                           <!-- Datasource10 ~ Codelist ~ GA Service types https://vocabs.ardc.edu.au/viewById/181 -->
                           <!-- Datasource10 ~ Cardinality ~ one per mrd:transferOptions block -->
                      <cit:protocol>
@@ -2716,7 +2676,7 @@
          </mdq:scope>
          <mdq:report>
          <mdq:DQ_QuantitativeAttributeAccuracy>
-            <!-- How8 ~ Description ~ Describe the methods used to assess the Data quality -->
+            <!-- How8 ~ Description ~ Describe the methods used to assess the data quality -->
             <!-- How8 ~ Help Text ~ Description of the evaluation method -->
             <!-- How8 ~ Placeholder Text ~ as shown below -->
             <!-- How8 ~ KeepPlaceholderText ~ no -->        
@@ -2732,30 +2692,30 @@
                   <!-- How9 ~ Cardinality ~ 0 to many referenceDoc blocks -->
                   <!-- How9 ~ Online documentation Title and URI - example 1 -->
                   <mdq:referenceDoc><cit:CI_Citation>
-                     <!-- How9 ~ Display Label ~ Title -->
-                     <!-- How9 ~ Help Text ~ Provide the document title -->
-                     <!-- How9 ~ Placeholder Text ~ as shown below -->
-                     <!-- How9 ~ KeepPlaceholderText ~ no -->        
-                     <!-- How9 ~ Required ~ Conditional -->
-                     <!-- How9 ~ InputLength ~ 300 -->
-                     <!-- How9 ~ Size ~ single -->
+                     <!-- How10 ~ Display Label ~ Title -->
+                     <!-- How10 ~ Help Text ~ Provide the document title -->
+                     <!-- How10 ~ Placeholder Text ~ as shown below -->
+                     <!-- How10 ~ KeepPlaceholderText ~ no -->        
+                     <!-- How10 ~ Required ~ Conditional -->
+                     <!-- How10 ~ InputLength ~ 300 -->
+                     <!-- How10 ~ Size ~ single -->
                      <cit:title>
                         <gco:CharacterString>Provide the document title</gco:CharacterString>
                      </cit:title>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
-                           <!-- How9 ~ Display Label ~ URI -->
-                           <!-- How9 ~ Help Text ~ Provide a hyperlink to the method document -->
-                           <!-- How9 ~ Placeholder Text ~ see Help Text -->
-                           <!-- How9 ~ KeepPlaceholderText ~ no -->        
-                           <!-- How9 ~ Required ~ Conditional -->
-                           <!-- How9 ~ InputLength ~ 250 -->
-                           <!-- How9 ~ Size ~ single -->
-                           <!-- How9 ~ Cardinality ~ one per additionalDocumentation block --> 
+                           <!-- How11 ~ Display Label ~ URI -->
+                           <!-- How11 ~ Help Text ~ Provide a hyperlink to the method document -->
+                           <!-- How11 ~ Placeholder Text ~ see Help Text -->
+                           <!-- How11 ~ KeepPlaceholderText ~ no -->        
+                           <!-- How11 ~ Required ~ Conditional -->
+                           <!-- How11 ~ InputLength ~ 250 -->
+                           <!-- How11 ~ Size ~ single -->
+                           <!-- How11 ~ Cardinality ~ one per additionalDocumentation block --> 
                            <cit:linkage>
                               <gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
                            </cit:linkage>
-                           <!-- How9 ~ default values apply -->
+                           <!-- How11 ~ default values apply -->
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
@@ -2842,12 +2802,12 @@
             <gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods. 
                </gco:CharacterString>
          </mrl:statement>
-            <!-- How1 ~ Description ~ scope of the lineage information -->
-            <!-- How1 ~ Required ~ yes -->
-            <!-- How1 ~ Rule ~ Default = 'dataset' -->
-            <!-- How1 ~ Size ~ single -->
-         <!-- How1 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ScopeCode  -->
-            <!-- How1 ~ Cardinality ~ one -->
+            <!-- Description ~ scope of the lineage information -->
+            <!-- Required ~ yes -->
+            <!-- Rule ~ Default = 'dataset' -->
+            <!-- Size ~ single -->
+         <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ScopeCode  -->
+            <!-- Cardinality ~ one -->
          <mrl:scope>
             <mcc:MD_Scope>
                <mcc:level>
@@ -2938,21 +2898,21 @@
    <!-- Process steps - example 1 -->
    <mdb:resourceLineage>
       <mrl:LI_Lineage>
-         <!-- How7a ~ Description ~ Summary -->
-         <!-- How7a ~ Help Text ~ Provide a brief summary of inputs and processing -->
-         <!-- How7a ~ Placeholder Text ~ as shown below -->
-         <!-- How7a ~ KeepPlaceholderText ~ yes -->        
-         <!-- How7a ~ Required ~ Conditional - block is optional but field is required if block is completed -->
-         <!-- How7a ~ InputLength ~ 500 -->
-         <!-- How7a ~ Size ~ multiline -->
-         <!-- How7a ~ Cardinality ~ one per Process steps mdb:resourceLineage block -->
+         <!-- How7 ~ Description ~ Summary -->
+         <!-- How7 ~ Help Text ~ Provide a brief description of the method -->
+         <!-- How7 ~ Placeholder Text ~ as shown below -->
+         <!-- How7 ~ KeepPlaceholderText ~ yes -->        
+         <!-- How7 ~ Required ~ Conditional - block is optional but field is required if block is completed -->
+         <!-- How7 ~ InputLength ~ 500 -->
+         <!-- How7 ~ Size ~ multiline -->
+         <!-- How7 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -->
          <mrl:statement>
-            <gco:CharacterString>Placeholder text=Provide a brief summary of a single method/procedure</gco:CharacterString>
+            <gco:CharacterString>Placeholder text=Provide a brief summary of a single method or procedure</gco:CharacterString>
          </mrl:statement>
    <mrl:additionalDocumentation>
       <cit:CI_Citation>
          <!-- How6 ~ Description ~ Name -->
-         <!-- How6 ~ Help Text ~ Provide the name of the procedure -->
+         <!-- How6 ~ Help Text ~ Provide the name of the method or procedure -->
          <!-- How6 ~ Placeholder Text ~ as shown below -->
          <!-- How6 ~ KeepPlaceholderText ~ no -->        
          <!-- How6 ~ Required ~ Conditional - block is optional but field is required if block is completed -->
@@ -2960,12 +2920,12 @@
          <!-- How6 ~ Size ~ single -->
          <!-- How6 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -->
          <cit:title>
-            <gco:CharacterString>Provide the name of the procedure</gco:CharacterString>
+            <gco:CharacterString>Provide the name of the method or procedure</gco:CharacterString>
          </cit:title>
       </cit:CI_Citation>            
    </mrl:additionalDocumentation>
          <!-- How7b ~ Description ~ Steps -->
-         <!-- How7b ~ Help Text ~ Description of a step in the process of collecting or preparing the data -->
+         <!-- How7b ~ Help Text ~ Provide a description of the step in the method of collecting or preparing the data -->
          <!-- How7b ~ Placeholder Text ~ Input step details -->
          <!-- How7b ~ KeepPlaceholderText ~ no -->        
          <!-- How7b ~ Required ~ no -->
@@ -2980,7 +2940,7 @@
                </mrl:description>
             </mrl:LI_ProcessStep>
          </mrl:processStep> 
-         <!-- How7b ~ Example step 2 -->
+         <!-- How7b ~ Example 1 step 2 -->
          <mrl:processStep>
             <mrl:LI_ProcessStep>
                <mrl:description>
@@ -2993,17 +2953,19 @@
    <!-- Process steps - example 2 -->
    <mdb:resourceLineage>
       <mrl:LI_Lineage>
+         <!-- How7 ~ example 2 -->
          <mrl:statement>
             <gco:CharacterString>Placeholder text=Provide a brief summary of a single method or procedure</gco:CharacterString>
          </mrl:statement>
          <mrl:additionalDocumentation>
             <cit:CI_Citation>
+               <!-- How6 - example 2 -->
                <cit:title>
-                  <gco:CharacterString>Provide the name of the procedure</gco:CharacterString>
+                  <gco:CharacterString>Provide the name of the method or procedure</gco:CharacterString>
                </cit:title>
             </cit:CI_Citation>            
          </mrl:additionalDocumentation>
-         <!-- Example step 1 -->
+         <!-- How7b ~ Example 2 step 1 -->
          <mrl:processStep>
             <mrl:LI_ProcessStep>
                <mrl:description>
@@ -3011,7 +2973,7 @@
                </mrl:description>
             </mrl:LI_ProcessStep>
          </mrl:processStep> 
-         <!-- Example step 2 -->
+         <!-- How7b ~ Example 2 step 2 -->
          <mrl:processStep>
             <mrl:LI_ProcessStep>
                <mrl:description>

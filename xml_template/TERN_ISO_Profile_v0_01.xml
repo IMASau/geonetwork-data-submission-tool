@@ -2146,15 +2146,16 @@
                <!-- Description ~ Access policy, citation instructions, etc -->
                <mco:otherConstraints>
                   <!-- Disclaimer text from https://www.tern.org.au/access-policy/ -->
-                  <gco:CharacterString>TERN services are provided on an “as-is” and “as available” basis. Users use any TERN services at their discretion and risk. They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.
-                     Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.</gco:CharacterString>
+                  <gco:CharacterString>TERN services are provided on an "as-is" and "as available" basis. Users use any TERN services at their discretion and risk. 
+                     They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.
+                     &lt;br /&gt;Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.
+                     &lt;br /&gt;&lt;br /&gt;Please advise any work or publications that use this data via the online form at https://www.tern.org.au/research-publications/#reporting</gco:CharacterString>
                </mco:otherConstraints>
                <mco:otherConstraints>
                   <!-- Format for citation -->
                   <gco:CharacterString>Please cite this dataset as {Author}{Year Published}{Title}. Version {Version number}. Terrestrial Ecosystem Research Network (TERN). dataset. Accessed from https://geonetwork.tern.org.au on {Date}. 
                      </gco:CharacterString>
                </mco:otherConstraints>
-               <mco:otherConstraints><gco:CharacterString>Please advise any work or publications that use this data, go to https://www.tern.org.au/research-publications/#reporting</gco:CharacterString></mco:otherConstraints>
                 <!-- END Static Section - User may add other constraints -->
                 <!-- About1 ~ Status ~ Current XML and UI -->
                 <!-- About1 ~ Description ~ Constraints identified by the User -->

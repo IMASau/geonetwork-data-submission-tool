@@ -31,7 +31,7 @@ class DocumentAttachmentInline(admin.TabularInline):
 
 
 class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
-    list_display = ['__unicode__', 'owner', 'template', 'status', 'action_links']
+    list_display = ['__str__', 'owner', 'template', 'status', 'action_links']
     list_filter = ['status', 'template']
     search_fields = ['title', 'owner__username', 'uuid']
     fsm_field = ['status', ]

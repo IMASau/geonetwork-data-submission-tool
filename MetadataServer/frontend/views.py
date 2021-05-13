@@ -174,7 +174,7 @@ def dashboard(request):
                 "template": {
                     "label": "Template",
                     "value": None,
-                    "options": [[t.pk, t.__unicode__()]
+                    "options": [[t.pk, t.__str__()]
                                 for t in MetadataTemplate.objects.filter(site=request.site, archived=False)],
                     "required": True
                 }

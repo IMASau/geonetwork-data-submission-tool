@@ -40,7 +40,7 @@ class MetadataTemplate(models.Model):
         except Exception as e:
             raise ValidationError({'file': e.message})
 
-    def __unicode__(self):
+    def __str__(self):
         return "{1} (#{0})".format(self.pk, self.name)
 
 
@@ -148,7 +148,7 @@ class Document(models.Model):
     def latest_draft(self):
         return self.draftmetadata_set.all()[0]
 
-    def __unicode__(self):
+    def __str__(self):
         return "{0} - {1} ({2})".format(str(self.uuid)[:8], self.short_title(), self.owner.username)
 
     def is_editor(self, user):

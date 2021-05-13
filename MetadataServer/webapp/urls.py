@@ -29,7 +29,7 @@ urlpatterns = patterns('',
     url(r'^accounts/profile/$', TemplateView.as_view(template_name='account/profile.html'), name="account_profile"),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
 )
 
 if settings.DEBUG:

@@ -23,7 +23,7 @@ class MetadataTemplate(models.Model):
     name = models.CharField(max_length=128, help_text="Unique name for template.  Used in menus.")
     file = models.FileField("metadata_templates", help_text="XML file used when creating and exporting records")
     notes = models.TextField(help_text="Internal use notes about this template")
-    site = models.ForeignKey(Site, blank=True, null=True)
+    site = models.ForeignKey(Site, blank=True, null=True, on_delete=models.PROTECT)
     archived = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -81,9 +81,9 @@ class Document(models.Model):
     )
 
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    template = models.ForeignKey(MetadataTemplate, null=True)
+    template = models.ForeignKey(MetadataTemplate, null=True, on_delete=models.PROTECT)
     title = models.TextField(default="Untitled")
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(User, on_delete=models.PROTECT)
     status = FSMField(default=DRAFT, choices=STATUS_CHOICES)
 
     objects = DocumentManager()
@@ -148,7 +148,7 @@ class Document(models.Model):
     def latest_draft(self):
         return self.draftmetadata_set.all()[0]
 
-    def __str__(self):
+    def ____(self):
         return "{0} - {1} ({2})".format(str(self.uuid)[:8], self.short_title(), self.owner.username)
 
     def is_editor(self, user):
@@ -159,13 +159,13 @@ class Document(models.Model):
 
 
 class Contributor(models.Model):
-    document = models.ForeignKey("Document")
-    user = models.ForeignKey(User)
+    document = models.ForeignKey("Document", on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
 
 class DraftMetadata(models.Model):
-    document = models.ForeignKey("Document")
-    user = models.ForeignKey(User, null=True)
+    document = models.ForeignKey("Document", on_delete=models.PROTECT)
+    user = models.ForeignKey(User, null=True, on_delete=models.PROTECT)
     time = models.DateTimeField(auto_now_add=True)
     data = JSONField()
 
@@ -175,7 +175,7 @@ class DraftMetadata(models.Model):
 
 
 class DocumentAttachment(models.Model):
-    document = models.ForeignKey("Document", related_name='attachments')
+    document = models.ForeignKey("Document", related_name='attachments', on_delete=models.PROTECT)
     name = models.CharField(max_length=256)
     file = models.FileField()
     created = models.DateTimeField(auto_now_add=True)

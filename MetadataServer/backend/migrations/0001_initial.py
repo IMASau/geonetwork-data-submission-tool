@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('uuid', models.UUIDField(default=uuid.uuid4, serialize=False, editable=False, primary_key=True)),
                 ('title', models.TextField(default=b'Untitled')),
                 ('status', django_fsm.FSMField(default=b'Draft', max_length=50, choices=[(b'Draft', b'Draft'), (b'Submitted', b'Submitted'), (b'Uploaded', b'Uploaded'), (b'Archived', b'Archived'), (b'Discarded', b'Discarded')])),
-                ('owner', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('owner', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.PROTECT)),
             ],
             options={
                 'permissions': (('workflow_reject', 'Can reject record in workflow'), ('workflow_upload', 'Can upload record in workflow'), ('workflow_discard', 'Can discard record in workflow'), ('workflow_restart', 'Can restart record in workflow'), ('workflow_recover', 'Can recover discarded records in workflow')),
@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('file', models.FileField(upload_to=b'')),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('document', models.ForeignKey(related_name='attachments', to='backend.Document')),
+                ('document', models.ForeignKey(related_name='attachments', to='backend.Document', on_delete=models.PROTECT)),
             ],
         ),
         migrations.CreateModel(
@@ -51,8 +51,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('time', models.DateTimeField(auto_now_add=True)),
                 ('data', jsonfield.fields.JSONField()),
-                ('document', models.ForeignKey(to='backend.Document')),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True)),
+                ('document', models.ForeignKey(to='backend.Document', on_delete=models.PROTECT)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True, on_delete=models.PROTECT)),
             ],
             options={
                 'ordering': ['-time'],
@@ -82,7 +82,7 @@ class Migration(migrations.Migration):
                 ('archived', models.BooleanField(default=False)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True)),
-                ('site', models.ForeignKey(blank=True, to='sites.Site', null=True)),
+                ('site', models.ForeignKey(blank=True, to='sites.Site', null=True, on_delete=models.PROTECT)),
             ],
         ),
         migrations.CreateModel(
@@ -104,16 +104,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='document',
             name='template',
-            field=models.ForeignKey(to='backend.MetadataTemplate', null=True),
+            field=models.ForeignKey(to='backend.MetadataTemplate', null=True, on_delete=models.PROTECT),
         ),
         migrations.AddField(
             model_name='contributor',
             name='document',
-            field=models.ForeignKey(to='backend.Document'),
+            field=models.ForeignKey(to='backend.Document', on_delete=models.PROTECT),
         ),
         migrations.AddField(
             model_name='contributor',
             name='user',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.PROTECT),
         ),
     ]

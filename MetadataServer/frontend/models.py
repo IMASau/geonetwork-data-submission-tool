@@ -3,7 +3,7 @@ from django.db import models
 
 
 class SiteContent(models.Model):
-    site = models.OneToOneField(Site)
+    site = models.OneToOneField(Site, on_delete=models.PROTECT)
     title = models.CharField(max_length=32, default="IMAS")
     organisation_url = models.URLField(blank=True, null=True)
     tag_line = models.CharField(max_length=128, default="Data Submission Tool")

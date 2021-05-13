@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('portal_record_url', models.CharField(default=b'{{site.sitecontent.portal_url}}/portal/home?uuid={{document.uuid}}', help_text=b'Used to generate URLs to the published record on the portal. (Accepts django template formatting with access to `site` and `document`.)', max_length=512)),
                 ('homepage_image_credit_name', models.CharField(default=b'XXX', max_length=128)),
                 ('homepage_image_credit_url', models.URLField(null=True, blank=True)),
-                ('site', models.OneToOneField(to='sites.Site')),
+                ('site', models.OneToOneField(to='sites.Site', on_delete=models.PROTECT)),
             ],
         ),
     ]

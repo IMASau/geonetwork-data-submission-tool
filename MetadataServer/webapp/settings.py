@@ -15,8 +15,6 @@ ADMINS = (
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = path.join(PROJECT_ROOT, 'media').replace('\\', '/')
 
-TEMPLATE_DEBUG = DEBUG
-
 INTERNAL_IPS = ["127.0.0.1"]
 
 ALLOWED_HOSTS = (
@@ -101,24 +99,30 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'n(bd1f1c%e8=_xad02x5qtfn%wgwpi492e$8_erx+d)!tpeoim'
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.request",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages",
-    "allauth.account.context_processors.account",
-)
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [path.join(PROJECT_ROOT, 'webapp/templates')],
+        'OPTIONS': {
+            'context_processors': (
+                "django.contrib.auth.context_processors.auth",
+                "django.core.context_processors.debug",
+                "django.core.context_processors.i18n",
+                "django.core.context_processors.media",
+                "django.core.context_processors.request",
+                "django.core.context_processors.static",
+                "django.core.context_processors.tz",
+                "django.contrib.messages.context_processors.messages",
+                "allauth.account.context_processors.account",
+            ),
+            'loaders': (
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                #     'django.template.loaders.eggs.Loader',
+            ),
+        }
+    }
+]
 
 MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
@@ -135,8 +139,6 @@ ROOT_URLCONF = 'webapp.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'webapp.wsgi.application'
-
-TEMPLATE_DIRS = (path.join(PROJECT_ROOT, 'webapp/templates'),)
 
 INSTALLED_APPS = (
     'django.contrib.auth',

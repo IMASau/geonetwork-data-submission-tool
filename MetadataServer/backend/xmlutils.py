@@ -43,12 +43,12 @@ def extract_fields(tree, spec, **kwargs):
         field['initial'] = spec.get('initial', [])
         if 'nodes' in spec:
             field['fields'] = {k: extract_fields(eles[0], v, **kwargs)
-                               for k, v in spec['nodes'].iteritems()}
+                               for k, v in spec['nodes'].items()}
         else:
             field['type'] = get_value_type(eles)
 
     elif 'nodes' in spec:
-        for k, v in spec['nodes'].iteritems():
+        for k, v in spec['nodes'].items():
             field[k] = extract_fields(eles[0], v, **kwargs)
 
     else:
@@ -113,7 +113,7 @@ def process_node_child(ele, spec, **kwargs):
         nodes = spec['nodes']
         if isinstance(nodes, dict):
             return {n: extract_xml_data(ele, s, **kwargs)
-                    for n, s in spec['nodes'].iteritems()}
+                    for n, s in spec['nodes'].items()}
         else:
             assert "Expected dict.  Got %s" % type(nodes)
     else:
@@ -176,7 +176,7 @@ def parse_attributes(spec):
     except KeyError:
         return {'text': identity}
     if isinstance(attrs, list):
-        return dict(zip(attrs, [identity] * len(attrs)))
+        return dict(list(zip(attrs, [identity] * len(attrs))))
     return attrs
 
 
@@ -186,7 +186,7 @@ def item_is_empty(data, k, v):
 
 def spec_data_from_batch(batch_spec, key):
     assert isinstance(key, string_types), ("Expected a string key, but got {0}".format(type(key).__name__))
-    data = {name: node['data'] for name, node in batch_spec[key].iteritems()}
+    data = {name: node['data'] for name, node in batch_spec[key].items()}
     spec = {'xpath': '.', 'nodes': batch_spec[key]}
     return spec, data
 
@@ -202,7 +202,7 @@ def data_to_xml(data, parent, spec, nsmap, i=0, silent=True):
         else:
             if len(container) < 1:
                 msg = "container at xpath %s is not found" % xpath
-                print parent
+                print(parent)
                 if silent:
                     logger.warning(msg)
                     return
@@ -224,7 +224,7 @@ def data_to_xml(data, parent, spec, nsmap, i=0, silent=True):
         data_to_xml(data, parent, spec, nsmap, 0, silent)
     elif 'nodes' in spec:
         parent = parent.xpath(spec['xpath'], namespaces=nsmap)[i]
-        for k, v in spec['nodes'].iteritems():
+        for k, v in spec['nodes'].items():
             if item_is_empty(data, k, v):
                 if isinstance(v, list):
                     v = v[0]
@@ -250,7 +250,7 @@ def data_to_xml(data, parent, spec, nsmap, i=0, silent=True):
         elem = elems[i]
         if len(elem.getchildren()) > 0:  # FIXME make explicit declaration in spec
             elem = elem.getchildren()[0]
-        for attr, f in parse_attributes(spec).iteritems():
+        for attr, f in parse_attributes(spec).items():
             arity = len(inspect.getargspec(f)[0])
             if arity == 1:
                 v = f(data)

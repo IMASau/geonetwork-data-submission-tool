@@ -41,7 +41,7 @@ class MetadataTemplate(models.Model):
             raise ValidationError({'file': e.message})
 
     def __unicode__(self):
-        return u"{1} (#{0})".format(self.pk, self.name)
+        return "{1} (#{0})".format(self.pk, self.name)
 
 
 class DocumentManager(models.Manager):
@@ -149,7 +149,7 @@ class Document(models.Model):
         return self.draftmetadata_set.all()[0]
 
     def __unicode__(self):
-        return u"{0} - {1} ({2})".format(str(self.uuid)[:8], self.short_title(), self.owner.username)
+        return "{0} - {1} ({2})".format(str(self.uuid)[:8], self.short_title(), self.owner.username)
 
     def is_editor(self, user):
         return user.is_staff or (user == self.owner)
@@ -217,10 +217,8 @@ class ScienceKeyword(models.Model):
     DetailedVariable = models.CharField(max_length=128)
 
     def as_str(self):
-        return ' | '.join(filter(
-            lambda x: x,
-            [self.Category, self.Topic, self.Term,
-             self.VariableLevel1, self.VariableLevel2, self.VariableLevel3, self.DetailedVariable]))
+        return ' | '.join([x for x in [self.Category, self.Topic, self.Term,
+             self.VariableLevel1, self.VariableLevel2, self.VariableLevel3, self.DetailedVariable] if x])
 
     class Meta:
         ordering = ['Category', 'Topic', 'Term',

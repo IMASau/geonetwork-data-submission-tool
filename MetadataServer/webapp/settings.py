@@ -242,7 +242,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 # Finally, apply any local settings to overwrite defaults & webapp settings
 
 try:
-    from local_settings import *
+    from .local_settings import *
 except ImportError:
     pass
 

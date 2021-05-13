@@ -3,12 +3,11 @@ Definition of urls for webapp.
 """
 
 from datetime import datetime
-from django.conf.urls import patterns, url
-from django.conf.urls.static import static
+from django.urls import include, patterns, url
+from django.urls.static import static
 
 from django.conf import settings
 
-from django.conf.urls import include
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView

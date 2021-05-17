@@ -450,9 +450,6 @@
                                  <cit:deliveryPoint>
                                     <gco:CharacterString>Cnr Jerrabomberra Ave and Hindmarsh Dr</gco:CharacterString>
                                  </cit:deliveryPoint>
-                                 <cit:deliveryPoint>
-                                    <gco:CharacterString>GPO Box 378</gco:CharacterString>
-                                 </cit:deliveryPoint>
                                  <cit:city>
                                     <gco:CharacterString>Canberra</gco:CharacterString>
                                  </cit:city>

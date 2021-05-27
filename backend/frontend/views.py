@@ -180,6 +180,7 @@ def dashboard(request):
                 }
             }
         },
+        "csrftoken": str(csrf(request)['csrf_token']),
         "messages": messages_payload(request),
         "page": {"name": request.resolver_match.url_name}})
 
@@ -297,6 +298,7 @@ def edit(request, uuid):
             },
             "data": {},
         },
+        "csrftoken": str(csrf(request)['csrf_token']),
         "messages": messages_payload(request),
         "data": data,
         "attachments": AttachmentSerializer(doc.attachments.all(), many=True).data,

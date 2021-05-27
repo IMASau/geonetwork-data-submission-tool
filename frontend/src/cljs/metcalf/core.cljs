@@ -946,7 +946,7 @@
                                                (om/transact! attachments-ref #(vec (remove pred %)))))
                         :error-handler   (fn [{:keys [status failure response status-text] :as data}]
                                            (js/alert "Unable to delete file"))
-                        :headers         {"X-CSRFToken" (.get (goog.net.Cookies. js/document) "csrftoken")}
+                        :headers         {"X-CSRFToken" (@app-state :csrftoken)}
                         :format          :json
                         :response-format :json
                         :keywords?       true}))))
@@ -1039,7 +1039,7 @@
            :error-handler   (fn [{:keys [status failure response status-text]}]
                               (put! done true))
 
-           :headers         {"X-CSRFToken" (.get (goog.net.Cookies. js/document) "csrftoken")}})))
+           :headers         {"X-CSRFToken" (@app-state :csrftoken)}})))
 
 (defn submit!
   "Submit a doc"
@@ -1056,7 +1056,7 @@
                   :error-handler   (fn [{:keys [status failure response status-text] :as data}]
                                      (om/set-state! owner :saving false)
                                      (js/alert (str "Unable to submit: " status " " failure)))
-                  :headers         {"X-CSRFToken" (.get (goog.net.Cookies. js/document) "csrftoken")}
+                  :headers         {"X-CSRFToken" (@app-state :csrftoken)}
                   :format          :json
                   :response-format :json
                   :keywords?       true}))))
@@ -1677,7 +1677,7 @@
                                                (aset js/location "href" success_url))
                             :error-handler   (fn [{:keys [status failure response status-text] :as data}]
                                                (js/alert "Unable to delete"))
-                            :headers         {"X-CSRFToken" (.get (goog.net.Cookies. js/document) "csrftoken")}
+                            :headers         {"X-CSRFToken" (@app-state :csrftoken)}
                             :format          :json
                             :response-format :json
                             :keywords?       true}))))
@@ -1753,7 +1753,7 @@
                               (put! result-ch {:success true :data data}))
            :error-handler   (fn [data]
                               (put! result-ch {:success false :data data}))
-           :headers         {"X-CSRFToken" (.get (goog.net.Cookies. js/document) "csrftoken")}})
+           :headers         {"X-CSRFToken" (@app-state :csrftoken)}})
     result-ch))
 
 
@@ -1848,7 +1848,7 @@
                                                      [] docs))))
                  :error-handler   (fn [{:keys [status failure response status-text] :as data}]
                                     (js/alert (str "Unable to " trans-name)))
-                 :headers         {"X-CSRFToken" (.get (goog.net.Cookies. js/document) "csrftoken")}
+                 :headers         {"X-CSRFToken" (@app-state :csrftoken)}
                  :params          #js {:transition transition}
                  :format          :json
                  :response-format :json
@@ -1860,7 +1860,7 @@
     (POST url {:handler         #(aset js/location "href" (get-in % [:document :url]))
                :error-handler   (fn [{:keys [status failure response status-text] :as data}]
                                   (js/alert (str "Unable to clone")))
-               :headers         {"X-CSRFToken" (.get (goog.net.Cookies. js/document) "csrftoken")}
+               :headers         {"X-CSRFToken" (@app-state :csrftoken)}
                :format          :json
                :response-format :json
                :keywords?       true}))
@@ -1874,7 +1874,7 @@
           {:params          #js {:transition transition}
            :handler         #(println [:transition-success %])
            :error-handler   #(println [:transition-failure %])
-           :headers         {"X-CSRFToken" (.get (goog.net.Cookies. js/document) "csrftoken")}
+           :headers         {"X-CSRFToken" (@app-state :csrftoken)}
            :format          :json
            :response-format :json
            :keywords?       true})))

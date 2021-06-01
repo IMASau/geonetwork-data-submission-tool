@@ -2,7 +2,8 @@
   (:require [re-frame.core :as rf]
             [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers]
-            [metcalf3.ins :as ins]))
+            [metcalf3.ins :as ins]
+            [metcalf3.subs :as subs]))
 
 (rf/reg-event-db :handlers/load-api-options-resp ins/std-ins handlers/load-api-options-resp)
 (rf/reg-event-db :handlers/load-es-options-resp ins/std-ins handlers/load-es-options-resp)
@@ -81,3 +82,20 @@
 (rf/reg-fx :fx/save-current-document fx/save-current-document)
 (rf/reg-fx :fx/archive-current-document fx/archive-current-document)
 (rf/reg-fx :window/open fx/window-open)
+(rf/reg-sub :subs/get-derived-state subs/get-derived-state)
+(rf/reg-sub :metcalf3/form-dirty? [:subs/get-derived-state] subs/form-dirty?)
+(rf/reg-sub :subs/is-page-name-nil? subs/is-page-name-nil?)
+(rf/reg-sub :subs/get-derived-path [:subs/get-derived-state] subs/get-derived-path)
+(rf/reg-sub :subs/get-page-props subs/get-page-props)
+(rf/reg-sub :subs/get-page-name subs/get-page-name)
+(rf/reg-sub :subs/get-modal-props subs/get-modal-props)
+(rf/reg-sub :subs/get-dashboard-props subs/get-dashboard-props)
+(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] [:subs/get-derived-state] subs/get-edit-tab-props)
+(rf/reg-sub :progress/get-props [:subs/get-derived-state] subs/get-progress-props)
+(rf/reg-sub :date-field/get-props [:subs/get-derived-state] subs/get-date-field-props)
+(rf/reg-sub :textarea-field/get-props [:subs/get-derived-state] subs/get-textarea-field-props)
+(rf/reg-sub :textarea-field/get-many-field-props [:subs/get-derived-state] subs/get-textarea-field-many-props)
+(rf/reg-sub :map/props subs/map-props)
+(rf/reg-sub :subs/get-form-tick subs/get-form-tick)
+(rf/reg-sub :help/get-menuitems subs/get-menuitems)
+(rf/reg-sub :subs/platform-selected? subs/platform-selected?)

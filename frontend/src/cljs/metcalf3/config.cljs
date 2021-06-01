@@ -1,5 +1,6 @@
 (ns metcalf3.config
   (:require [re-frame.core :as rf]
+            [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers]
             [metcalf3.ins :as ins]))
 
@@ -70,3 +71,13 @@
 (rf/reg-event-fx :handlers/lodge-save-success ins/std-ins handlers/lodge-save-success)
 (rf/reg-event-fx :handlers/lodge-error ins/std-ins handlers/lodge-error)
 (rf/reg-event-fx :help-menu/open handlers/help-menu-open)
+(rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
+(rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
+(rf/reg-fx :fx/set-location-href fx/set-location-href)
+(rf/reg-fx :fx/create-document fx/create-document)
+(rf/reg-fx :fx/clone-document fx/clone-document)
+(rf/reg-fx :fx/transition-current-document fx/transition-current-document)
+(rf/reg-fx :fx/submit-current-document fx/submit-current-document)
+(rf/reg-fx :fx/save-current-document fx/save-current-document)
+(rf/reg-fx :fx/archive-current-document fx/archive-current-document)
+(rf/reg-fx :window/open fx/window-open)

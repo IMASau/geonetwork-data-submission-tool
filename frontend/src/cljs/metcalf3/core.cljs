@@ -2,6 +2,7 @@
   (:require [clojure.string :refer [blank?]]
             [metcalf3.globals :refer [derived-db]]
             [re-frame.db :refer [app-db]]
+            [metcalf3.config]
             [metcalf3.fx]
             [metcalf3.routing :as router]
             [metcalf3.subs]

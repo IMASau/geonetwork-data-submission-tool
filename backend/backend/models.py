@@ -3,6 +3,7 @@ import copy
 import json
 import treebeard.ns_tree as ns_tree
 import uuid
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.exceptions import ValidationError
@@ -401,17 +402,27 @@ def no_spaces_in_filename(instance, filename):
     return filename.replace(" ", "_")
 
 
-from .storage import attachment_store, document_upload_path
-
-
-class DocumentAttachment(models.Model):
+class AbstractDocumentAttachment(models.Model):
     document = models.ForeignKey("Document", on_delete=models.CASCADE, related_name='attachments')
     name = models.CharField(max_length=256)
-    file = models.FileField(upload_to=document_upload_path, storage=attachment_store)
+    file = models.FileField(upload_to=no_spaces_in_filename)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
     class Meta:
+        abstract = True
+
+
+if settings.USE_TERN_STORAGE:
+    from .storage import attachment_store, document_upload_path
+
+
+    class DocumentAttachment(AbstractDocumentAttachment):
+        file = models.FileField(upload_to=document_upload_path, storage=attachment_store)
+
+else:
+
+    class DocumentAttachment(AbstractDocumentAttachment):
         pass
 
 

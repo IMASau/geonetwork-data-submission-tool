@@ -42,11 +42,6 @@
   (.stringify js/JSON (clj->js
                        {:query query})))
 
-(defn build-es-query-for-instruments
-  [query selected-platform]
-  (.stringify js/JSON (clj->js
-                       {:query query :selected_platform selected-platform})))
-
 (rf/reg-event-fx
   :handlers/load-es-options
   ins/std-ins
@@ -58,17 +53,10 @@
 (rf/reg-event-fx
  :handlers/search-es-options
  ins/std-ins
- (fn [{:keys [db]} [_ api-path query param-type form-position]]
-   (let [selected-platform-uri (get-in (get (get-in db [:form :fields :identificationInfo :dataParameters :value]) form-position) [:value :platform_vocabularyTermURL :value])]
-     (if (utils/same-keyword-string? param-type "parameterinstrument")
-       ; true
-       (let [{:keys [uri]} (get-in db api-path)]
-         {:xhrio/post-json {:uri uri :data (build-es-query-for-instruments query selected-platform-uri) :resp-v [:handlers/load-es-options-resp api-path query]}
-          :db (update-in db api-path assoc :most-recent-query query)})
-       ; false
-       (let [{:keys [uri]} (get-in db api-path)]
-         {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
-          :db (update-in db api-path assoc :most-recent-query query)})))))
+ (fn [{:keys [db]} [_ api-path query]]
+   (let [{:keys [uri]} (get-in db api-path)]
+     {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
+      :db              (update-in db api-path assoc :most-recent-query query)})))
 
 
 (rf/reg-event-db

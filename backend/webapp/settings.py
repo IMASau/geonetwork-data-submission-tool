@@ -213,6 +213,7 @@ USE_X_FORWARDED_HOST = True
 GIT_VERSION = os.environ.get("GIT_VERSION", "undefined")
 
 USE_TERN_STORAGE = True
+USE_TERN_AUTH = True
 
 # HERE STARTS DYNACONF EXTENSION LOAD (Keep at the very bottom of settings.py)
 # Read more at https://dynaconf.readthedocs.io/en/latest/guides/django.html

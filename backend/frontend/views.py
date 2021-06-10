@@ -816,7 +816,7 @@ def tern_instruments(request) -> Response:
     If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
     where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
 
-    If "selected_platform" is not supplied or does not match a platform, no instruments will be returned.
+    If "selected_platform" is supplied, the hits are filtered by platform.
     """
     es = connections.get_connection()
     index_alias = settings.ELASTICSEARCH_INDEX_TERNINSTRUMENTS
@@ -824,19 +824,12 @@ def tern_instruments(request) -> Response:
 
     if request.method == "GET":
         query = request.GET.get("query")
-        selected_platform = request.GET.get("selected_platform", "")
+        selected_platform = request.GET.get("selected_platform", None)
     elif request.method == "POST":
         query = request.data.get("query")
-        selected_platform = request.data.get("selected_platform", "")
+        selected_platform = request.data.get("selected_platform", None)
     else:
         raise
-
-    # It's possible that the client sends a JSON "null" which gets converted to None in Python.
-    # Elasticsearch will throw an "illegal_argument_exception, field name is null or empty" if
-    # the filter value is null.
-    # Convert it to an empty string if it is a Python None.
-    if selected_platform is None:
-        selected_platform = ""
 
     if query:
         body = {
@@ -849,43 +842,45 @@ def tern_instruments(request) -> Response:
                             "type": "phrase_prefix",
                             "fields": ["label", "altLabel"]
                         }
-                    },
-                    "filter": [
-                        {
-                            "bool": {
-                                "should": [
-                                    {
-                                        "term": {"platform.keyword": selected_platform}
-                                    },
-                                    # Include instruments that have "*" as an element in their platform array.
-                                    # This is used to allow the user to query and select digital cameras regardless
-                                    # of which platform they have selected.
-                                    # The idea is to keep the empty query search to include the direct instruments of a
-                                    # selected platform (i.e. an explicit relationship) while this non-empty query
-                                    # search includes digital cameras for any selected platform.
-                                    {
-                                        "term": {"platform.keyword": "*"}
-                                    }
-                                ]
-                            }
-                        }
-                    ]
+                    }
                 }
             }
         }
+        if selected_platform:
+            body["filter"] = [
+                {
+                    "bool": {
+                        "should": [
+                            {
+                                "term": {"platform.keyword": selected_platform}
+                            },
+                            # Include instruments that have "*" as an element in their platform array.
+                            # This is used to allow the user to query and select digital cameras regardless
+                            # of which platform they have selected.
+                            # The idea is to keep the empty query search to include the direct instruments of a
+                            # selected platform (i.e. an explicit relationship) while this non-empty query
+                            # search includes digital cameras for any selected platform.
+                            {
+                                "term": {"platform.keyword": "*"}
+                            }
+                        ]
+                    }
+                }
+            ]
         data = es.search(index=index_alias, body=body)
     else:
         body = {
             "size": result_size,
             "sort": [{"label.keyword": "asc"}],  # Sort on the empty query search.
-            "query": {
+        }
+        if selected_platform:
+            body["query"] = {
                 "bool": {
                     "filter": {
                         "term": {"platform.keyword": selected_platform}
                     }
                 }
             }
-        }
         data = es.search(index=index_alias, body=body)
 
     return Response(data, status=200)

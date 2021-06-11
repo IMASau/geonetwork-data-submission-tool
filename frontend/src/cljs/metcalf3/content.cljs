@@ -319,7 +319,7 @@
                                                                                                    :label       "Parameter"
                                                                                                    :help        "Name of the measured parameter, e.g. vegetation height."
                                                                                                    :placeholder "Start typing to filter the list"
-                                                                                                   :required    true}
+                                                                                                   :required    false}
                                                                     :longName_vocabularyTermURL   {:type nil
                                                                                                    :page :about}
                                                                     :longName_vocabularyVersion   {:type nil

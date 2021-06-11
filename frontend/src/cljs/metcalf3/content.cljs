@@ -340,7 +340,7 @@
                                                                                                    :help "Serial number of instrument."}
                                                                     :unit_term                    {:type        nil
                                                                                                    :label       "Unit type"
-                                                                                                   :required    true
+                                                                                                   :required    false
                                                                                                    :page        :about
                                                                                                    :placeholder "Start typing to filter the list"
                                                                                                    :help        "The unit of measurement."}

@@ -69,7 +69,7 @@
                <cit:name>
                   <gcx:Anchor xlink:title="Organisation" xlink:role="uri" xlink:type="simple"
                               xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66"
-                              xlink:show="new">Terrestrial Ecosystem Research Network (TERN)</gcx:Anchor>
+                              xlink:show="new">Terrestrial Ecosystem Research Network</gcx:Anchor>
                </cit:name>
                <cit:contactInfo>
                   <cit:CI_Contact>
@@ -273,7 +273,7 @@
                            <cit:name>
                               <gcx:Anchor xlink:title="Organisation" xlink:role="uri" xlink:type="simple"
                                  xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66"
-                                 xlink:show="new">Terrestrial Ecosystem Research Network (TERN)</gcx:Anchor>
+                                 xlink:show="new">Terrestrial Ecosystem Research Network</gcx:Anchor>
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>

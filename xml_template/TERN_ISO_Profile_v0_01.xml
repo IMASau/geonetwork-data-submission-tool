@@ -175,7 +175,7 @@
          <cit:party>
             <cit:CI_Organisation>
                <cit:name>
-                  <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+                  <gco:CharacterString>Terrestrial Ecosystem Research Network</gco:CharacterString>
                </cit:name>
                <cit:contactInfo>
                   <cit:CI_Contact>
@@ -576,7 +576,7 @@
                      <cit:party>
                         <cit:CI_Organisation>
                            <cit:name>
-                              <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+                              <gco:CharacterString>Terrestrial Ecosystem Research Network</gco:CharacterString>
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
@@ -2165,7 +2165,7 @@
                </mco:otherConstraints>
                <mco:otherConstraints>
                   <!-- Format for citation -->
-                  <gco:CharacterString>Please cite this dataset as {Author}{Year Published}{Title}. Version {Version number}. Terrestrial Ecosystem Research Network (TERN). dataset. Accessed from https://geonetwork.tern.org.au on {Date}. 
+                  <gco:CharacterString>Please cite this dataset as {Author}{Year Published}{Title}. Version {Version number}. Terrestrial Ecosystem Research Network. dataset. Accessed from https://geonetwork.tern.org.au on {Date}. 
                      </gco:CharacterString>
                </mco:otherConstraints>
                 <!-- END Static Section - User may add other constraints -->
@@ -2344,7 +2344,7 @@
          </mrd:distributionFormat> 
             <!-- Datasource1 ~ Status ~ New XML and field -->
             <!-- Datasource1 ~ Description ~ Indicates which organisation hosts and distributes the data -->
-            <!-- Datasource1 ~ Operation ~ If the user uploads data, then Distributor defaults to 'Terrestrial Ecosystem Research Network (TERN)' -->
+            <!-- Datasource1 ~ Operation ~ If the user uploads data, then Distributor defaults to 'Terrestrial Ecosystem Research Network' -->
             <!-- Datasource1 ~ Operation ~ Default details for TERN shown below -->
             <!-- Datasource1 ~ Required ~ yes -->
             <!-- Datasource1 ~ Cardinality ~ one -->
@@ -2361,7 +2361,7 @@
                      <cit:party>
                         <cit:CI_Organisation>
                            <cit:name>
-                              <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+                              <gco:CharacterString>Terrestrial Ecosystem Research Network</gco:CharacterString>
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
@@ -2484,7 +2484,7 @@
             <!-- Datasource12 ~ Description ~ Indicates which organisation hosts and distributes the data -->
             <!-- Datasource12 ~ Operation ~ User selects a Distributor from TERN Organisations Vocabulary -->
             <!-- Datasource12 ~ Operation ~ User selects a Site Address from the TERN Site Addresses Vocabulary -->
-            <!-- Datasource12 ~ Operation ~ Default value 'Terrestrial Ecosystem Research Network (TERN)' -->
+            <!-- Datasource12 ~ Operation ~ Default value 'Terrestrial Ecosystem Research Network' -->
             <!-- Datasource12 ~ Operation ~ Details from Vocabularies default into cit:party elements -->
             <!-- Datasource12 ~ Change note ~ Data can have one distributor per distribution -->
             <!-- Datasource12 ~ UI ~ Change -->

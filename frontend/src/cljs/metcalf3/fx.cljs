@@ -1,13 +1,10 @@
 (ns metcalf3.fx
-  (:require-macros [cljs.core.async.macros :refer [go alt! go-loop]])
-  (:require [cljs.core.async :refer [put! <! alts! chan pub sub timeout dropping-buffer]]
-            [ajax.core :refer [GET POST DELETE]]
+  (:require [ajax.core :refer [GET POST DELETE]]
             [goog.net.XhrIo :as xhrio]
             [goog.structs :as structs]
             [re-frame.core :as rf]
             [cljs.spec.alpha :as s]
-            [metcalf3.logic :as logic]
-            [re-frame.db :refer [app-db]])
+            [metcalf3.logic :as logic])
   (:import [goog.net Cookies]))
 
 (def get-json-header

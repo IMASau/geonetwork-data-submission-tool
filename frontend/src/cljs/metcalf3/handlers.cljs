@@ -1,8 +1,8 @@
 (ns metcalf3.handlers
   (:require [clojure.string :as str]
-            [cljs.core.async :refer [put! <! alts! chan pub sub timeout dropping-buffer]]
+            [cljs.core.async :refer [put!]]
             [re-frame.db :refer [app-db]]
-            [metcalf3.logic :as logic :refer [reset-field field-zipper]]
+            [metcalf3.logic :as logic]
             [goog.object :as gobj]
             [re-frame.core :as rf]
             [metcalf3.utils :as utils]

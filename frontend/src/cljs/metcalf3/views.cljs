@@ -340,7 +340,7 @@
 
 (defn Checkbox [props this]
   (let [{:keys [label checked on-change disabled help]
-         :or   {:checked false}} props
+         :or   {checked false}} props
         input-control [:input (merge {:type     "checkbox"
                                       :checked  (boolean checked)
                                       :disabled disabled

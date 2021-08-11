@@ -307,14 +307,14 @@
   [db [_ field-path value]]
   (update-in db field-path assoc :value value))
 
-(defn value-change
+(defn date-field-value-change
   [db [_ field-path widget-value]]
   (let [field-value (when widget-value (moment/format widget-value "YYYY-MM-DD"))]
     (-> db
         (update-in field-path assoc :value field-value)
         (update-in field-path assoc :show-errors true))))
 
-(defn value-change
+(defn textarea-field-value-change
   [db [_ field-path value]]
   (-> db
       (update-in field-path assoc :value value)

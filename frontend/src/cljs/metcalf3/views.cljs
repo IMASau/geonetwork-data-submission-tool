@@ -24,7 +24,8 @@
             [interop.blueprint :as bp3]
             [interop.moment :as moment]
             [clojure.edn :as edn]
-            [cljs.spec.alpha :as s])
+            [cljs.spec.alpha :as s]
+            [clojure.set :as set])
   (:import [goog.dom ViewportSizeMonitor]
            [goog.events FileDropHandler]
            [goog.events.EventType]
@@ -2173,7 +2174,7 @@
                     all-parties (mapv (comp set
                                             :value)
                                       cursors)
-                    all-parties-set (apply clojure.set/union all-parties)]
+                    all-parties-set (apply set/union all-parties)]
                 [:div
                  [PageErrors {:page :who :path [:form]}]
                  [:h2 "6: Who"]

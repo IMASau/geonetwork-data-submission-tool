@@ -1,13 +1,10 @@
 (ns metcalf3.handlers
-  (:require-macros [cljs.core.async.macros :refer [go alt! go-loop]])
   (:require [clojure.string :as str]
             [cljs.core.async :refer [put! <! alts! chan pub sub timeout dropping-buffer]]
             [re-frame.db :refer [app-db]]
-            [metcalf3.fx :as fx]
             [metcalf3.logic :as logic :refer [reset-field field-zipper]]
             [goog.object :as gobj]
             [re-frame.core :as rf]
-            [metcalf3.ins :as ins]
             [metcalf3.utils :as utils]
             [cljs.spec.alpha :as s]
             [interop.moment :as moment])

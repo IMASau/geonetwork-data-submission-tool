@@ -1,7 +1,7 @@
 (ns metcalf3.widget.boxmap
   (:require [re-frame.core :as rf]
             [interop.react-leaflet :as react-leaflet]
-            [oops.core :refer [ocall oget gget]]
+            [oops.core :refer [ocall oget]]
             [reagent.core :as r]
             [interop.blueprint :as bp3]
             [goog.object :as gobj]))

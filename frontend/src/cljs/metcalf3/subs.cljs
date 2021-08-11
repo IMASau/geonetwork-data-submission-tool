@@ -1,7 +1,5 @@
 (ns metcalf3.subs
-  (:require [re-frame.core :as rf]
-            [metcalf3.logic :as logic]
-            [metcalf3.globals :as globals]
+  (:require [metcalf3.logic :as logic]
             [clojure.set :as set]
             [interop.moment :as moment]
             [clojure.string :as string]

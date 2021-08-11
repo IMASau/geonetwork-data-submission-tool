@@ -8,8 +8,8 @@
 
 (def ReactSelect* (js/React.createFactory js/Select))
 (def ReactWindow* (js/React.createFactory js/ReactWindow.FixedSizeList))
-(def SelectComponents.Option* (js/React.createFactory js/SelectComponents.Option))
-(def SelectComponents.ValueContainer* (js/React.createFactory js/SelectComponents.ValueContainer))
+(def SelectComponentsOption* (js/React.createFactory js/SelectComponents.Option))
+(def SelectComponentsValueContainer* (js/React.createFactory js/SelectComponents.ValueContainer))
 (def ReactSelectAsync* (js/React.createFactory js/AsyncSelect))
 (def ReactSelectCreatable* (js/React.createFactory js/Creatable))
 (def ReactSelectAsyncCreatable* (js/React.createFactory js/AsyncCreatable))
@@ -64,7 +64,7 @@
                                                  (let [data (gobj/get props "data")
                                                        props' (doto (gobj/clone props)
                                                                 (gobj/set "children" #js [(formatOptionLabel data)]))]
-                                                   (SelectComponents.Option* props')))
+                                                   (SelectComponentsOption* props')))
                                   :SingleValue (fn [props]
                                                  (:term (js->clj (gobj/get props "data") :keywordize-keys true)))
                                   :MenuList    (fn [this]

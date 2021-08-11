@@ -52,7 +52,7 @@
           (will-unmount [this]
             (hide-modal this))
 
-          (render [this]
+          (render [_]
             [:div.modal-open
              [:div.modal.in {:style {:display "block"}      ;:tabIndex -1
                              }

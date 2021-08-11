@@ -1,21 +1,24 @@
 {:paths ["src/cljs" "src/spec" "env/dev/cljs" "resources"]
- :deps  {org.clojure/clojure         {:mvn/version "1.10.1"}
-         org.clojure/clojurescript   {:mvn/version "1.10.520"}
-         org.clojure/test.check      {:mvn/version "0.9.0"}
-         org.clojure/core.async      {:mvn/version "0.4.500"}
-         cljsjs/pikaday              {:mvn/version "1.4.0-1"}
-         cljsjs/moment               {:mvn/version "2.24.0-0"}
-         cljsjs/lodash               {:mvn/version "4.11.2-0"}
-         cljsjs/google-maps          {:mvn/version "3.18-1"}
-         funcool/cuerdas             {:mvn/version "2.0.5"}
-         com.taoensso/encore         {:mvn/version "2.52.1"}
-         cljs-ajax                   {:mvn/version "0.8.0"}
-         com.andrewmcveigh/cljs-time {:mvn/version "0.5.2"}
-         binaryage/devtools          {:mvn/version "0.9.10"}
-         binaryage/oops              {:mvn/version "0.7.0"}
-         reagent                     {:mvn/version "0.9.1"}
-         re-frame                    {:mvn/version "0.11.0"}
-         com.bhauman/figwheel-main   {:mvn/version "0.2.3"}
+ :deps  {org.clojure/clojure             {:mvn/version "1.10.1"}
+         org.clojure/clojurescript       {:mvn/version "1.10.520"}
+         org.clojure/test.check          {:mvn/version "0.9.0"}
+         org.clojure/core.async          {:mvn/version "0.4.500"}
+         cljsjs/pikaday                  {:mvn/version "1.4.0-1"}
+         cljsjs/moment                   {:mvn/version "2.24.0-0"}
+         cljsjs/lodash                   {:mvn/version "4.11.2-0"}
+         cljsjs/google-maps              {:mvn/version "3.18-1"}
+         funcool/cuerdas                 {:mvn/version "2.0.5"}
+         com.taoensso/encore             {:mvn/version "2.52.1"}
+         cljs-ajax                       {:mvn/version "0.8.0"}
+         com.andrewmcveigh/cljs-time     {:mvn/version "0.5.2"}
+         binaryage/devtools              {:mvn/version "0.9.10"}
+         binaryage/oops                  {:mvn/version "0.7.0"}
+         reagent                         {:mvn/version "0.9.1"}
+         re-frame                        {:mvn/version "0.11.0"}
+         com.bhauman/figwheel-main       {:mvn/version "0.2.3"}
          com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
          }
+ :aliases
+        {:shadow-cljs
+         {:extra-deps {thheller/shadow-cljs {:mvn/version "2.15.2"}}}}
  }

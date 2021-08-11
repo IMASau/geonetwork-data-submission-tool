@@ -109,6 +109,7 @@
                                         ;off
                                         (r/set-state this {:expanded (disj expanded option)
                                                            :visible  (set (filter (fn [x] (or (<= (:depth x) depth)
+                                                                                              ; TODO: always false, looks like a typo
                                                                                               (not= (= (:tree_id x) tree_id))
                                                                                               (< (:lft x) lft)
                                                                                               (> (:rgt x) rgt))) visible))})

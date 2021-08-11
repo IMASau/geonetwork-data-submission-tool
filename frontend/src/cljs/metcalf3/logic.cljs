@@ -90,9 +90,9 @@
 
 (defn has-value? [{:keys [many value]}]
   (cond
-    many (not (empty? value))
+    many (seq value)
     (nil? value) false
-    (string? value) (not (empty? value))
+    (string? value) (seq value)
     :else value))
 
 

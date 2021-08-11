@@ -68,15 +68,6 @@
     (-lookup [o k] (gobject/get js-obj (name k)))
     (-lookup [o k not-found] (gobject/get js-obj (name k) not-found))))
 
-(defn js-lookup!
-  "Add ILookup protocol to js-obj."
-  [js-obj]
-  (specify! js-obj
-    ILookup
-    (-lookup
-      ([o k] (aget js-obj (name k)))
-      ([o k not-found] (gobject/get js-obj (name k) not-found)))))
-
 (defn fmap [f m]
   (into (empty m) (for [[k v] m] [k (f v)])))
 

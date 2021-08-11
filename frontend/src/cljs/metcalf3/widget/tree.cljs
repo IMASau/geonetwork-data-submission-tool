@@ -192,7 +192,7 @@
       [:span (display-key option)]]
 
      [:div.children_count
-      (when (and is-expandable)
+      (when is-expandable
         [:span.badge (/ (- rgt lft 1) 2)])]]))
 
 (defn render-tree-term-menu

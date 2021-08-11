@@ -1,7 +1,6 @@
 (ns metcalf3.handlers
   (:require [clojure.string :as str]
             [cljs.core.async :refer [put!]]
-            [re-frame.db :refer [app-db]]
             [metcalf3.logic :as logic]
             [goog.object :as gobj]
             [re-frame.core :as rf]
@@ -249,7 +248,7 @@
 
 (defn setter
   [db [_ path k v]]
-  (swap! app-db update-in path assoc k v))
+  (update-in db path assoc k v))
 
 (defn unsaved-input-check-helper [{:keys [new-value errors] :as keywords-data}]
   (assoc keywords-data

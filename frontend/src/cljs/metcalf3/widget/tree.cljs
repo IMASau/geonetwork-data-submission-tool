@@ -1,6 +1,5 @@
 (ns metcalf3.widget.tree
-  (:require [metcalf3.widget.select :refer [AutoSizer VirtualScroll]]
-            [reagent.core :as r]))
+  (:require [reagent.core :as r]))
 
 (defn parent-paths [path]
   (take-while seq (rest (iterate drop-last path))))

@@ -7,7 +7,8 @@
             [re-frame.core :as rf]
             [metcalf3.utils :as utils]
             [cljs.spec.alpha :as s]
-            [interop.moment :as moment])
+            [interop.moment :as moment]
+            [clojure.walk :as walk])
   (:import [goog.net Cookies]))
 
 (defn init-db
@@ -224,7 +225,7 @@
 (defn update-person
   [{:keys [db]} [_ person-path option]]
   (let [option (if (map? option) option (utils/js-lookup option))
-        option (clojure.walk/keywordize-keys option)
+        option (walk/keywordize-keys option)
         {:keys [givenName prefLabel familyName uri orcid
                 orgUri isUserAdded electronicMailAddress]} option
         org (when orgUri

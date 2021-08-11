@@ -497,7 +497,7 @@
   (reduce (fn [m [tpl-path value-path]]
             (try
               (utils/int-assoc-in m value-path (get-in fields tpl-path))
-              (catch js/Error e m)))
+              (catch js/Error _e m)))
           fields (path-fields values)))
 
 (defn path-values

@@ -22,7 +22,7 @@
 
 (defn Tree
   [{:keys [options on-select render-option]
-    :or   {render-option default-render-option}} this]
+    :or   {render-option default-render-option}}]
   (letfn [(init-state [this]
             {:expanded #{}})
           (render [this]
@@ -99,7 +99,7 @@
                   expanded (set expanded-parents)
                   visible (set (concat (filter (fn [x] (= (:depth x) 1)) options) default-visible all-visible))]
               {:expanded expanded
-               :visible visible}))
+               :visible  visible}))
           (render [this]
             (let [{:keys [expanded visible]} (r/state this)
                   {:keys [value options value-key render-menu on-select visible-options]} (r/props this)]

@@ -1,7 +1,5 @@
 (ns metcalf3.widget.boxmap
-  (:require [clojure.data :refer [diff]]
-            [metcalf3.utils :as utils]
-            [re-frame.core :as rf]
+  (:require [re-frame.core :as rf]
             [interop.react-leaflet :as react-leaflet]
             [oops.core :refer [ocall oget gget]]
             [reagent.core :as r]

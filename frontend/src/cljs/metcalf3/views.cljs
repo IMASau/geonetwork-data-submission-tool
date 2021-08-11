@@ -1834,9 +1834,7 @@
 
 (defn PersonPickerWidget
   [_]
-  (letfn [(component-did-mount [this]
-            (set-input-value this))
-          (component-will-receive-props [this new-argv]
+  (letfn [(component-will-receive-props [this new-argv]
             (let [[_ next-props] new-argv
                   props (r/props this)]
               (utils/on-change props next-props [:value] #(set-input-value this))))
@@ -1880,8 +1878,7 @@
                    :onBlur            on-blur
                    :placeholder       "Start typing to filter list..."}))))]
     (r/create-class
-      {:component-did-mount          component-did-mount
-       :component-will-receive-props component-will-receive-props
+      {:component-will-receive-props component-will-receive-props
        :render                       render})))
 
 (defn SelectRoleWidget [role-path]

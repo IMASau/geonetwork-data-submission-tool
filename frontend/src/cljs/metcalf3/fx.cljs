@@ -1,5 +1,5 @@
 (ns metcalf3.fx
-  (:require [ajax.core :refer [GET POST DELETE]]
+  (:require [ajax.core :refer [POST]]
             [goog.net.XhrIo :as xhrio]
             [goog.structs :as structs]
             [re-frame.core :as rf]

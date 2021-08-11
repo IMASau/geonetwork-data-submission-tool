@@ -1,7 +1,7 @@
 (ns metcalf3.views
-  (:require-macros [cljs.core.async.macros :refer [go alt! go-loop]])
+  (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [ajax.core :as ajax]
-            [cljs.core.async :as async :refer [put! <! alts! chan pub sub timeout dropping-buffer]]
+            [cljs.core.async :as async :refer [put! <! chan timeout]]
             [cljsjs.moment]
             [clojure.string :as string]
             [clojure.string :refer [blank?]]
@@ -17,9 +17,9 @@
             [interop.masked-input :as masked-input]
             [metcalf3.widget.boxmap :as boxmap]
             [metcalf3.widget.modal :refer [Modal]]
-            [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectCreatable ReactSelectAsyncCreatable VirtualizedSelect SelectComponents.Option* SelectComponents.ValueContainer*]]
+            [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectAsyncCreatable VirtualizedSelect SelectComponents.Option* SelectComponents.ValueContainer*]]
             [metcalf3.widget.table :refer [Table Column Cell]]
-            [metcalf3.widget.tree :refer [Tree TermTree TermList]]
+            [metcalf3.widget.tree :refer [TermTree TermList]]
             [re-frame.core :as rf]
             [reagent.core :as r]
             [interop.blueprint :as bp3]
@@ -50,7 +50,7 @@
     "has-error"))
 
 (defn dp-term-paths [dp-type]
-;  (when js/goog.DEBUG (js/console.log "DP TERM PATHS" {:dp-type dp-type}))
+  ;  (when js/goog.DEBUG (js/console.log "DP TERM PATHS" {:dp-type dp-type}))
   {:term              (keyword (str (name dp-type) "_term"))
    :vocabularyTermURL (keyword (str (name dp-type) "_vocabularyTermURL"))
    :vocabularyVersion (keyword (str (name dp-type) "_vocabularyVersion"))
@@ -264,9 +264,9 @@
                :onChange    #(rf/dispatch (conj change-v %))
                :inputProps  {:leftIcon "calendar"
                              :intent   intent}}
-              minDate (assoc :minDate minDate)
-              (not minDate) (assoc :minDate defMinDate)
-              maxDate (assoc :maxDate maxDate))]]))
+        minDate (assoc :minDate minDate)
+        (not minDate) (assoc :minDate defMinDate)
+        maxDate (assoc :maxDate maxDate))]]))
 
 (defn OptionWidget [props this]
   (let [[value display] props]
@@ -340,7 +340,7 @@
 
 (defn Checkbox [props this]
   (let [{:keys [label checked on-change disabled help]
-         :or {:checked false}} props
+         :or   {:checked false}} props
         input-control [:input (merge {:type     "checkbox"
                                       :checked  (boolean checked)
                                       :disabled disabled
@@ -1092,9 +1092,9 @@
                   [:div.flex-row-field
                    [:div.form-group {:class (if (and show-errors (not (empty? errors))) "has-error")}
                     (if label
-                   [:label label
-                    (if required " *")
-                    (if tooltip [Tooltip tooltip])])
+                      [:label label
+                       (if required " *")
+                       (if tooltip [Tooltip tooltip])])
                     (if-not new-term?
                       (ReactSelect
                         {:value             (if (blank? (:value vocabularyTermURL))
@@ -1134,15 +1134,15 @@
                          :noResultsText     "No results found.  Click browse to add a new entry."}))
                     [:p.help-block help]]]
                   ; TODO: Re-enable this in the future to browse/create vocabulary terms.
-;                  [:div.flex-row-button
-;                   [:button.btn.btn-default
-;                    {:style    {:vertical-align "top"}
-;                     :on-click #(rf/dispatch [:handlers/open-modal
-;                                              {:type         param-type
-;                                               :api-path     api-path
-;                                               :dp-term-path dp-term-path}])}
-;                    [:span.glyphicon.glyphicon-edit] " Custom"]
-;                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]
+                  ;                  [:div.flex-row-button
+                  ;                   [:button.btn.btn-default
+                  ;                    {:style    {:vertical-align "top"}
+                  ;                     :on-click #(rf/dispatch [:handlers/open-modal
+                  ;                                              {:type         param-type
+                  ;                                               :api-path     api-path
+                  ;                                               :dp-term-path dp-term-path}])}
+                  ;                    [:span.glyphicon.glyphicon-edit] " Custom"]
+                  ;                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]
                   ]])))]
     (r/create-class
       {:component-will-mount will-mount
@@ -1209,15 +1209,15 @@
                                                                (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}])
                     [:p.help-block help]]]
                   ; TODO: Re-enable this in the future to browse/create vocabulary terms.
-;                  [:div.flex-row-button
-;                   [:button.btn.btn-default
-;                    {:style    {:vertical-align "top"}
-;                     :on-click #(rf/dispatch [:handlers/open-modal
-;                                              {:type         param-type
-;                                               :api-path     api-path
-;                                               :dp-term-path dp-term-path}])}
-;                    [:span.glyphicon.glyphicon-list] " Browse"]
-;                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]
+                  ;                  [:div.flex-row-button
+                  ;                   [:button.btn.btn-default
+                  ;                    {:style    {:vertical-align "top"}
+                  ;                     :on-click #(rf/dispatch [:handlers/open-modal
+                  ;                                              {:type         param-type
+                  ;                                               :api-path     api-path
+                  ;                                               :dp-term-path dp-term-path}])}
+                  ;                    [:span.glyphicon.glyphicon-list] " Browse"]
+                  ;                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]
                   ]])))]
     (r/create-class
       {:component-will-mount will-mount
@@ -1457,28 +1457,28 @@
       [:div
        {:class "alert alert-success"}
        "Request new controlled vocabulary terms if they do not exist in the drop-down fields using the feedback button to the right of the screen."]
-      [ElasticsearchSelectField {:param-type :parametername
-                                 :api-path [:api :parametername]
+      [ElasticsearchSelectField {:param-type   :parametername
+                                 :api-path     [:api :parametername]
                                  :dp-term-path base-path
-                                 :dp-type :longName}]
+                                 :dp-type      :longName}]
       [InputField {:path name-path}]]
      [:form/fieldset.tern-fieldset
-      [ElasticsearchSelectField {:param-type :parameterunit
-                                 :api-path [:api :parameterunit]
+      [ElasticsearchSelectField {:param-type   :parameterunit
+                                 :api-path     [:api :parameterunit]
                                  :dp-term-path base-path
-                                 :dp-type :unit}]]
+                                 :dp-type      :unit}]]
      [:form/fieldset.tern-fieldset
-      [ElasticsearchSelectField {:param-type :parameterplatform
-                                 :api-path [:api :parameterplatform]
+      [ElasticsearchSelectField {:param-type   :parameterplatform
+                                 :api-path     [:api :parameterplatform]
                                  :dp-term-path base-path
-                                 :dp-type :platform}]
-      [ElasticsearchSelectField {:param-type :parameterinstrument
-                                 :api-path [:api :parameterinstrument]
+                                 :dp-type      :platform}]
+      [ElasticsearchSelectField {:param-type   :parameterinstrument
+                                 :api-path     [:api :parameterinstrument]
                                  :dp-term-path base-path
-                                 :dp-type :instrument}]
-       ; TODO: This should be enabled only when an instrument is created. Currently, creating vocabulary terms is disabled.
+                                 :dp-type      :instrument}]
+      ; TODO: This should be enabled only when an instrument is created. Currently, creating vocabulary terms is disabled.
       [InputField
-       {:path serialNumber-path
+       {:path     serialNumber-path
         :disabled (boolean (if selected-platform nil 0))}]]
      ]))
 
@@ -1928,14 +1928,14 @@
     [:div.OrganisationInputField
      ; FIXME: replace with autocomplete if we can find one
      [OrganisationPickerWidget
-      {:old-value  organisationName
-       :party-path party-path
-       :disabled   (:disabled organisationName)
+      {:old-value       organisationName
+       :party-path      party-path
+       :disabled        (:disabled organisationName)
        ;manual maxlength implementation
        :on-input-change (fn [newvalue]
                           (subs newvalue 0 250))
-       :on-change  (fn [option]
-                     (rf/dispatch [:handlers/org-changed (conj party-path :value) option]))}]]))
+       :on-change       (fn [option]
+                          (rf/dispatch [:handlers/org-changed (conj party-path :value) option]))}]]))
 
 (def orcid-mask "0000{-}0000{-}0000{-}000*")
 
@@ -2036,16 +2036,16 @@
         {:keys [user urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
         {:keys [title tag_line guide_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])]
     [bp3/navbar {:className "bp3-dark"}
-      [bp3/navbar {:className "container"}
+     [bp3/navbar {:className "container"}
       [bp3/navbar-group {:align (:LEFT bp3/alignment)}
-        ; [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading title]]
-        ]
+       ; [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading title]]
+       ]
       [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
-        [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)]
-        [:a.bp3-button.bp3-minimal {:href Dashboard} "My Records"]
-        [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
-        ;; [help-menu]
-        [:a.bp3-button.bp3-minimal {:href "/logout"} "Sign Out"]]]]))
+       [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)]
+       [:a.bp3-button.bp3-minimal {:href Dashboard} "My Records"]
+       [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
+       ;; [help-menu]
+       [:a.bp3-button.bp3-minimal {:href "/logout"} "Sign Out"]]]]))
 
 (defmulti PageTabView (fn [page this] [(get page :name)
                                        (get page :tab :data-identification)]))
@@ -2461,7 +2461,7 @@
                  [navbar]
                  [:div.container
                   [:div.pagehead
-                  [:div.pull-right
+                   [:div.pull-right
                     [:button.btn.btn-default.text-warn {:on-click handle-archive-click
                                                         :disabled disabled}
                      [:span.fa.fa-archive]
@@ -2473,9 +2473,9 @@
                        dirty [:span.glyphicon.glyphicon-floppy-disk]
                        :else [:span.glyphicon.glyphicon-floppy-saved])
                      (cond
-                        saving " Saving..."
-                        dirty " Save"
-                        :else " Saved")]]
+                       saving " Saving..."
+                       dirty " Save"
+                       :else " Saved")]]
                    [:p.lead [:b (if (blank? title) "Untitled" title)]
                     "   "
                     [:span.label.label-info {:style {:font-weight "normal"}} status]
@@ -2486,7 +2486,7 @@
                   [edit-tabs]
                   [:div.PageViewBody
                    [PageTabView page]
-                    ]]])))]
+                   ]]])))]
     (r/create-class
       {:render render})))
 
@@ -2568,7 +2568,7 @@
        [:span.glyphicon.glyphicon-pencil] " edit"]]
      [:p.lead.list-group-item-heading
       [:span.link {:on-click on-edit-click}
-        title]
+       title]
       " "
       [:span.label.label-info {:style {:font-weight "normal"}} status]]
      [:p.list-group-item-text

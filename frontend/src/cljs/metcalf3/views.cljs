@@ -128,7 +128,7 @@
               (utils/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
 
           (render [this]
-            (let [{:keys [addon-before addon-after help on-change disabled mask] :as props} (r/props this)
+            (let [{:keys [addon-before addon-after help disabled mask] :as props} (r/props this)
                   {:keys [input-value]} (r/state this)]
               (let [input-props (-> props
                                     (dissoc :show-errors)

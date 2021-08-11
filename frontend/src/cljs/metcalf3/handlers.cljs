@@ -8,8 +8,7 @@
             [metcalf3.utils :as utils]
             [cljs.spec.alpha :as s]
             [interop.moment :as moment]
-            [clojure.walk :as walk])
-  (:import [goog.net Cookies]))
+            [clojure.walk :as walk]))
 
 (defn init-db
   [_ _]

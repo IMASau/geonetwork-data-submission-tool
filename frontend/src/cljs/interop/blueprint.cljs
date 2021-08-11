@@ -18,7 +18,7 @@
   (when (not= value (:value (r/props this)))
     (r/set-state this {:value value})))
 
-(defn render [view this]
+(defn render [view]
   (let [{:keys [onValueChange] :as props} (r/props this)
         {:keys [value] :as state} (r/state this)]
 

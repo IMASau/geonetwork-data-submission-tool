@@ -1,6 +1,5 @@
 (ns metcalf3.core
   (:require [clojure.string :refer [blank?]]
-            [metcalf3.globals]
             [re-frame.db :refer [app-db]]
             [metcalf3.config]
             [metcalf3.fx]

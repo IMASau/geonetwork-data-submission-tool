@@ -1,14 +1,13 @@
 """
 Django settings for webapp project.
 """
+from distutils.util import strtobool
 import os
 from django.conf.locale.en import formats as en_formats
 
 en_formats.DATETIME_FORMAT = "Y-m-d H:i:s"
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-DEBUG = True
+DEBUG = False
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # EMAIL_HOST = os.environ.get("DJANGO_EMAIL_HOST")
@@ -25,9 +24,16 @@ INTERNAL_IPS = []
 ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "postgres",
+        "PORT": "5432",
+        "OPTIONS": {
+            "application_name": os.environ.get("HOSTNAME", "data-submission-tool")
+        },
     }
 }
 
@@ -44,8 +50,10 @@ USE_L10N = True
 USE_TZ = True
 
 MEDIA_URL = "/media/"
+MEDIA_ROOT = "/data/media"
 
 STATIC_URL = "/static/"
+STATIC_ROOT = "/data/static"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -104,6 +112,7 @@ INSTALLED_APPS = [
     "backend",
     "frontend.config.FrontendConfig",
     "bootstrap3",
+    "mozilla_django_oidc",
 ]
 
 LOGGING = {
@@ -168,6 +177,7 @@ REST_FRAMEWORK = {
 }
 
 AUTHENTICATION_BACKENDS = (
+    "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
     "django.contrib.auth.backends.ModelBackend",
 )
 
@@ -179,14 +189,40 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 GMAPS_API_KEY = ""
 
-FRONTEND_DEV_MODE = True
+FRONTEND_DEV_MODE = False
 
+# Elasticsearch
+ELASTICSEARCH_VERIFY_SSL = True
 
+LOGIN_URL = "/oidc/authenticate"
+
+# OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get("OIDC_OP_AUTHORIZATION_ENDPOINT")
+# OIDC_OP_TOKEN_ENDPOINT = os.environ.get("OIDC_OP_TOKEN_ENDPOINT")
+# OIDC_OP_USER_ENDPOINT = os.environ.get("OIDC_OP_USER_ENDPOINT")
+# OIDC_RP_CLIENT_ID = os.environ.get("OIDC_RP_CLIENT_ID")
+# OIDC_OP_JWKS_ENDPOINT = os.environ.get("OIDC_OP_JWKS_ENDPOINT")
+# OIDC_LOGOUT_ENDPOINT = os.environ.get("OIDC_LOGOUT_ENDPOINT")
+# OIDC_RP_CLIENT_SECRET = os.environ.get("OIDC_RP_CLIENT_SECRET")
+# OIDC_RP_SIGN_ALGO = os.environ.get("OIDC_RP_SIGN_ALGO", "RS256")
 LOGIN_REDIRECT_URL = "/dashboard"
 LOGOUT_REDIRECT_URL = "/"
 
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = True
+
 GIT_VERSION = os.environ.get("GIT_VERSION", "undefined")
 
-USE_TERN_STORAGE = False
-USE_TERN_AUTH = False
-USE_TERN_ELASTICSEARCH = False
+USE_TERN_STORAGE = True
+USE_TERN_AUTH = True
+
+# HERE STARTS DYNACONF EXTENSION LOAD (Keep at the very bottom of settings.py)
+# Read more at https://dynaconf.readthedocs.io/en/latest/guides/django.html
+import dynaconf  # noqa
+
+settings = dynaconf.DjangoDynaconf(
+    __name__,
+    # ENVVAR_PREFIX_FOR_DYNACONF='DST',
+    ENVVAR_FOR_DYNACONF="DST_SETTINGS",
+    validators=[dynaconf.Validator("ELASTICSEARCH_VERIFY_SSL", is_type_of=bool)],
+)  # noqa
+# HERE ENDS DYNACONF EXTENSION LOAD (No more code below this line)

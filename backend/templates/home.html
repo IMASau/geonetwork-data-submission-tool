@@ -248,7 +248,8 @@
                     {% if sitecontent.guide_pdf %}
                     <li><a href="{{ sitecontent.guide_pdf }}" target="_blank">Help</a></li>
                     {% endif %}
-                    {% if settings.USE_TERN_AUTH %}
+                    {% settings_value "USE_TERN_AUTH" as use_tern_auth %}
+                    {% if use_tern_auth %}
                     <li><a href="{% url 'oidc_authentication_init' %}">Login</a></li>
                     {% else %}
                     <li><a href="{% url 'login' %}">Login</a></li>

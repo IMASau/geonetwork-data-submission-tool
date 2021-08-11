@@ -1075,7 +1075,7 @@
   (letfn [(will-mount [this]
             (let [{:keys [api-path param-type] :as state} (r/props this)
                   form-position (get (get-in state [:dp-term-path]) 5)]
-              (rf/dispatch [:handlers/search-es-options api-path "" param-type form-position])))
+              (rf/dispatch [:handlers/search-es-options api-path ""])))
           (render [this]
             (let [{:keys [dp-type dp-term-path api-path param-type disabled tooltip] :as state} (r/props this)]
               (let [sub-paths (dp-term-paths dp-type)
@@ -1108,7 +1108,7 @@
                          :isClearable       true
                          :is-searchable     true
                          :onInputChange     (fn [query]
-                                              (rf/dispatch [:handlers/search-es-options api-path query param-type form-position])
+                                              (rf/dispatch [:handlers/search-es-options api-path query])
                                               query)
                          :getOptionValue    (fn [option]
                                               (gobj/get option "term"))
@@ -1118,14 +1118,7 @@
                                               ; Return true always. This allows for matches on label as well as altLabel (or other fields available in the REST API).
                                               (boolean 0))
                          :onChange          (fn [option]
-                                              (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option])
-                                              ; TODO: Move this platform/instrument logic outside the component and pass it in as a prop?
-                                              (if (utils/same-keyword-string? param-type "parameterplatform")
-                                                (do
-                                                  ; Clear the selected instrument value if the platform value has changed.
-                                                  (rf/dispatch [:handlers/update-dp-term dp-term-path {:term :instrument_term, :vocabularyTermURL :instrument_vocabularyTermURL, :vocabularyVersion :instrument_vocabularyVersion, :termDefinition :instrument_termDefinition} {}])
-                                                  ; Update the set of possible instrument values based on the selected platform.
-                                                  (rf/dispatch [:handlers/search-es-options [:api :parameterinstrument] "" :parameterinstrument form-position]))))
+                                              (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
                          :noResultsText     "No results found.  Click browse to add a new entry."
                          :isDisabled        disabled})
 
@@ -1485,8 +1478,7 @@
       [ElasticsearchSelectField {:param-type :parameterinstrument
                                  :api-path [:api :parameterinstrument]
                                  :dp-term-path base-path
-                                 :dp-type :instrument
-                                 :disabled (boolean (if selected-platform nil 0))}]
+                                 :dp-type :instrument}]
        ; TODO: This should be enabled only when an instrument is created. Currently, creating vocabulary terms is disabled.
       [InputField
        {:path serialNumber-path

@@ -1,5 +1,3 @@
-import os.path
-
 from django.urls import reverse
 from django.utils.encoding import filepath_to_uri
 from swift.storage import SwiftStorage

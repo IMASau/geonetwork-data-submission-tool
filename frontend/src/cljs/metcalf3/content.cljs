@@ -319,7 +319,7 @@
                                                                                                    :label       "Parameter"
                                                                                                    :help        "Name of the measured parameter, e.g. vegetation height."
                                                                                                    :placeholder "Start typing to filter the list"
-                                                                                                   :required    true}
+                                                                                                   :required    false}
                                                                     :longName_vocabularyTermURL   {:type nil
                                                                                                    :page :about}
                                                                     :longName_vocabularyVersion   {:type nil
@@ -340,7 +340,7 @@
                                                                                                    :help "Serial number of instrument."}
                                                                     :unit_term                    {:type        nil
                                                                                                    :label       "Unit type"
-                                                                                                   :required    true
+                                                                                                   :required    false
                                                                                                    :page        :about
                                                                                                    :placeholder "Start typing to filter the list"
                                                                                                    :help        "The unit of measurement."}
@@ -353,8 +353,7 @@
                                                                     :instrument_term              {:type        nil
                                                                                                    :label       "Instrument"
                                                                                                    :placeholder "Start typing to filter the list"
-                                                                                                   :help        "Instrument used to measure the parameter. This includes digital camera models."
-                                                                                                   :tooltip     "Select a platform before selecting an instrument."}
+                                                                                                   :help        "Instrument used to measure the parameter. This includes digital camera models."}
                                                                     :instrument_vocabularyTermURL {:type nil
                                                                                                    :page :about}
                                                                     :instrument_vocabularyVersion {:type nil

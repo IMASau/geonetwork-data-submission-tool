@@ -3,7 +3,6 @@
             cljsjs.react-virtualized
             [goog.object :as gobj]
             [cljs.spec.alpha :as s]
-            [clojure.string :as string]
             [metcalf3.utils :as utils]
             [reagent.core :as r]))
 

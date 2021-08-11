@@ -23,7 +23,7 @@
 (defn Tree
   [{:keys [options on-select render-option]
     :or   {render-option default-render-option}}]
-  (letfn [(init-state [this]
+  (letfn [(init-state [_]
             {:expanded #{}})
           (render [this]
             (let [{:keys [expanded]} (r/state this)]

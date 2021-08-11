@@ -1834,11 +1834,7 @@
 
 (defn PersonPickerWidget
   [_]
-  (letfn [(component-will-receive-props [this new-argv]
-            (let [[_ next-props] new-argv
-                  props (r/props this)]
-              (utils/on-change props next-props [:value] #(set-input-value this))))
-          (render [this]
+  (letfn [(render [this]
             (let [{:keys [on-input-change on-blur on-change disabled party-path] :as props} (r/props this)
                   {:keys [input-value]} (r/state this)]
               (let [{:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
@@ -1878,8 +1874,7 @@
                    :onBlur            on-blur
                    :placeholder       "Start typing to filter list..."}))))]
     (r/create-class
-      {:component-will-receive-props component-will-receive-props
-       :render                       render})))
+      {:render                       render})))
 
 (defn SelectRoleWidget [role-path]
   (let [role @(rf/subscribe [:subs/get-derived-path role-path])

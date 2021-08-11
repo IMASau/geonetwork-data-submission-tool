@@ -177,7 +177,7 @@
                   props (r/props this)]
               (utils/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
           (render [this]
-            (let [{:keys [on-change disabled maxlength] :as props} (r/props this)
+            (let [{:keys [on-change disabled] :as props} (r/props this)
                   {:keys [input-value]} (r/state this)]
               (let [{:keys [is-hidden help]} props]
                 [:div.form-group {:class    (str (validation-state props) " "

@@ -21,11 +21,11 @@
     "react-imask": "^6.0.3",
     "react-virtualized": "^9.21.2",
     "react-virtualized-auto-sizer": "^1.0.2",
-    "react-window": "^1.8.5",
-    "webpack": "^4.31.0",
-    "webpack-cli": "^3.3.2"
+    "react-window": "^1.8.5"
   },
   "devDependencies": {
-    "shadow-cljs": "^2.15.2"
+    "shadow-cljs": "^2.15.2",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2"
   }
 }

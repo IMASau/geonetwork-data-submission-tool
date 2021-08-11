@@ -85,7 +85,7 @@
             (when-not (= (peek alerts) props)
               (conj alerts props)))))
 
-(defn open-modal
+(defn open-modal-handler
   [db [_ props]]
   (open-modal db props))
 

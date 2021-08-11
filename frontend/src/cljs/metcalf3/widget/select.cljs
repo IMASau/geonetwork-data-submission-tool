@@ -88,7 +88,7 @@
                                                           :initialScrollOffset initialOffset})))}})))
 
 ;the actual virtualized implementation. Missing select and hover (kind of important)
-(comment (defn VirtualizedSelect [{:keys [props list-props children-renderer] :as args} this]
+(comment (defn VirtualizedSelect [{:keys [props list-props children-renderer] :as args}]
            (ReactSelect
              (merge
                {:components #js {:MenuList (fn [this]

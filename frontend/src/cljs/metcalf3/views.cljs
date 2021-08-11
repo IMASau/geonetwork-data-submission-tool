@@ -237,7 +237,7 @@
         (some col-match? (rest row)))
       table)))
 
-(defn InputField [props this]
+(defn InputField [props]
   (let [field @(rf/subscribe [:subs/get-derived-path (:path props)])]
     [InputWidget (-> field
                      (merge (dissoc props :path))
@@ -268,11 +268,11 @@
         (not minDate) (assoc :minDate defMinDate)
         maxDate (assoc :maxDate maxDate))]]))
 
-(defn OptionWidget [props this]
+(defn OptionWidget [props]
   (let [[value display] props]
     [:option {:value value} display]))
 
-(defn SelectWidget [props this]
+(defn SelectWidget [props]
   (let [{:keys [label required value help disabled errors is-hidden on-change
                 options default-option default-value loading
                 show-errors]
@@ -295,7 +295,7 @@
                 [OptionWidget option])))
        (if help [:p.help-block help])])))
 
-(defn SelectField [path this]
+(defn SelectField [path]
   (let [{:keys [options default-option disabled] :as field} @(rf/subscribe [:subs/get-derived-path path])]
     [SelectWidget (assoc field
                     :class "wauto"
@@ -304,14 +304,14 @@
                     :on-blur #(rf/dispatch [:handlers/show-errors path])
                     :on-change #(rf/dispatch [:handlers/value-changed path %]))]))
 
-(defn TextareaFieldProps [props this]
+(defn TextareaFieldProps [props]
   (let [{:keys [path]} props
         field @(rf/subscribe [:subs/get-derived-path path])]
     [ExpandingTextareaWidget (merge field (dissoc props :path)
                                     {:on-change #(rf/dispatch [:handlers/value-changed path %])})]))
 
 (comment
-  (defn TextareaField [path this]
+  (defn TextareaField [path]
     (let [field @(rf/subscribe [:subs/get-derived-path path])]
       [ExpandingTextareaWidget
        (assoc field :on-change (fn [value] (rf/dispatch [:handlers/value-changed path value])))])))
@@ -338,7 +338,7 @@
   [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-props path])])
 
-(defn Checkbox [props this]
+(defn Checkbox [props]
   (let [{:keys [label checked on-change disabled help]
          :or   {checked false}} props
         input-control [:input (merge {:type     "checkbox"
@@ -350,21 +350,21 @@
       [:label input-control label]]
      [:p.help-block help]]))
 
-(defn CheckboxField [path label this]
+(defn CheckboxField [path label]
   (let [field @(rf/subscribe [:subs/get-derived-path path])]
     [Checkbox (assoc field :checked (:value field)
                            :on-blur #(rf/dispatch [:handlers/show-errors path])
                            :on-change #(rf/dispatch [:handlers/set-value path (-> % .-target .-checked)])
                            :label (or label (:label field)))]))
 
-(defn BackButton [props this]
+(defn BackButton [props]
   (let [page @(rf/subscribe [:subs/get-derived-path [:page]])
         back (:back page)]
     (if back [:button.btn.btn-default.BackButton
               {:on-click #(rf/dispatch [:handlers/back])}
               [:span.glyphicon.glyphicon-chevron-left] " Back"])))
 
-(defmulti PageView (fn [page this] (get page :name)) :default "404")
+(defmulti PageView (fn [page] (get page :name)) :default "404")
 
 (defn getter [k row] (get row k))
 
@@ -374,20 +374,20 @@
         width (.-width (gstyle/getSize autowidth))]
     (r/set-state this {:width width})))
 
-(defn KeywordsThemeCell [rowData this]
+(defn KeywordsThemeCell [rowData]
   (let [rowData (take-while (complement empty?) rowData)]
     [:div.topic-cell
      [:div.topic-path (string/join " > " (drop-last (rest rowData)))]
      [:div.topic-value (last rowData)]]))
 
-(defn TopicCategoryCell [rowData this]
+(defn TopicCategoryCell [rowData]
   (let [rowData (take-while (complement empty?) rowData)]
     [:div.topic-cell
      [:div.topic-value (last rowData)]]))
 
 (defn KeywordsThemeTable
-  [keyword-type this]
-  (letfn [(init-state [this]
+  [keyword-type]
+  (letfn [(init-state [_]
             {:columnWidths     [26 (- 900 26)]
              :isColumnResizing false
              :query            ""
@@ -514,7 +514,7 @@
 (defn TableModalEdit
   [{:keys [ths tds-fn form title field-path placeholder maxlength default-field on-new-click add-label]
     :or   {tds-fn    #(list (:value %))
-           add-label "Add new"}} this]
+           add-label "Add new"}}]
   (let [{:keys [disabled] :as many-field} @(rf/subscribe [:subs/get-derived-path field-path])]
 
     (letfn [(edit! [field-path]
@@ -590,7 +590,7 @@
      [KeywordsThemeCell rowData]]))
 
 (defn modal-dialog-theme-keywords
-  [keyword-type this]
+  [keyword-type]
   (let [{:keys [message on-confirm on-cancel]} @(rf/subscribe [:subs/get-modal-props])]
     [Modal {:ok-copy      "Done"
             :dialog-class "modal-lg"
@@ -602,8 +602,8 @@
             :on-save      #(rf/dispatch [:handlers/close-modal])}]))
 
 (defn TopicCategories
-  [_ this]
-  (letfn [(init-state [this]
+  [_]
+  (letfn [(init-state [_]
             {:new-value  nil
              :input      ""
              :show-modal false
@@ -658,8 +658,8 @@
        :render            render})))
 
 (defn ThemeKeywords
-  [keyword-type this]
-  (letfn [(init-state [this]
+  [keyword-type]
+  (letfn [(init-state [_]
             {:new-value  nil
              :input      ""
              :show-modal false
@@ -727,7 +727,7 @@
        :render            render})))
 
 (defn ThemeInputField
-  [{:keys [value placeholder errors extra-help on-change on-blur on-submit maxlength] :as props} this]
+  [{:keys [value placeholder errors extra-help on-change on-blur on-submit maxlength] :as props}]
   [:div.form-group {:class (validation-state props)}
    (label-template props)
    [:div.input-group {:key "ig"}
@@ -747,8 +747,8 @@
    [:p.help-block extra-help]])
 
 (defn ThemeKeywordsExtra
-  [_ this]
-  (letfn [(init-state [this]
+  [_]
+  (letfn [(init-state [_]
             {:highlight #{}})
           (render [this]
             (let [{:keys [highlight]} (r/state this)]
@@ -794,8 +794,8 @@
        :render            render})))
 
 (defn TaxonKeywordsExtra
-  [_ this]
-  (letfn [(init-state [this]
+  [_]
+  (letfn [(init-state [_]
             {:highlight #{}})
           (render [this]
             (let [{:keys [highlight]} (r/state this)]
@@ -889,7 +889,7 @@
        :component-will-receive-props component-will-receive-props
        :render                       render})))
 
-(defn CoordInputField [props this]
+(defn CoordInputField [props]
   (let [field @(rf/subscribe [:subs/get-derived-path (:path props)])]
     [CoordInputWidget
      (-> field
@@ -899,7 +899,7 @@
                         (rf/dispatch [:handlers/value-changed (:path props) value]))))]))
 
 
-(defn CoordField [path this]
+(defn CoordField [path]
   (let [n-field [CoordInputField {:path (conj path :value :northBoundLatitude)}]
         e-field [CoordInputField {:path (conj path :value :eastBoundLongitude)}]
         s-field [CoordInputField {:path (conj path :value :southBoundLatitude)}]
@@ -926,7 +926,7 @@
   (print-nice [x] "--"))
 
 (defn GeographicCoverage
-  [_ this]
+  [_]
   (letfn [(render [this]
             (let [{hasGeographicCoverage :value} @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :geographicElement :hasGeographicCoverage]])
                   boxes-path [:form :fields :identificationInfo :geographicElement :boxes]
@@ -969,7 +969,7 @@
     (r/create-class
       {:render render})))
 
-(defn VerticalCoverage [props this]
+(defn VerticalCoverage [props]
   (let [{hasVerticalExtent :value} @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]])]
     [:div.VerticalCoverage
      [:h4 "Vertical Coverage"]
@@ -1028,7 +1028,7 @@
   (and (:value term) (empty? (:value vocabularyTermURL))))
 
 (defn NasaListSelectField
-  [_ this]
+  [_]
   (letfn [(will-mount [this]
             (let [{:keys [keyword] :as props} (r/props this)]
               (rf/dispatch [:handlers/load-api-options [:api keyword]])))
@@ -1068,7 +1068,7 @@
     [:span.tern-tooltiptext value]]])
 
 (defn ElasticsearchSelectField
-  [_ this]
+  [_]
   (letfn [(will-mount [this]
             (let [{:keys [api-path param-type] :as state} (r/props this)
                   form-position (get (get-in state [:dp-term-path]) 5)]
@@ -1149,7 +1149,7 @@
        :render               render})))
 
 (defn ApiTermSelectField
-  [_ this]
+  [_]
   (letfn [(will-mount [this]
             (let [{:keys [api-path]} (r/props this)]
               (rf/dispatch [:handlers/load-api-options api-path])))
@@ -1287,7 +1287,7 @@
        :render               render})))
 
 (defn ApiTermListField
-  [{:keys [api-path dp-term-path dp-type sort?]} this]
+  [{:keys [api-path dp-term-path dp-type sort?]}]
   (let [sub-paths (dp-term-paths dp-type)
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
@@ -1304,7 +1304,7 @@
      [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
 
 (defn MethodListField
-  [{:keys [api-path method-path sort?]} this]
+  [{:keys [api-path method-path sort?]}]
   (let [{:keys [name uri description] :as method-term} @(rf/subscribe [:subs/get-derived-path method-path])
         {:keys [value label help required errors show-errors]} name
         {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
@@ -1319,7 +1319,7 @@
      [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
 
 (defn ApiTermTreeField
-  [{:keys [api-path dp-term-path dp-type sort?]} this]
+  [{:keys [api-path dp-term-path dp-type sort?]}]
   (let [sub-paths (dp-term-paths dp-type)
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
@@ -1337,7 +1337,7 @@
 
 (defn TermOrOtherForm
   "docstring"
-  [{:keys [api-path dp-term-path dp-type] :as props} this]
+  [{:keys [api-path dp-term-path dp-type] :as props}]
   (let [sub-paths (dp-term-paths dp-type)
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])]
@@ -1356,7 +1356,7 @@
 
 (defn UnitTermOrOtherForm
   "docstring"
-  [{:keys [api-path dp-term-path dp-type] :as props} this]
+  [{:keys [api-path dp-term-path dp-type] :as props}]
   (let [sub-paths (dp-term-paths dp-type)
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])]
@@ -1372,7 +1372,7 @@
         :maxlength 100)]]))
 
 (defn PersonListField
-  [{:keys [api-path person-path sort?]} this]
+  [{:keys [api-path person-path sort?]}]
   (let [{:keys [name uri description] :as person-term} @(rf/subscribe [:subs/get-derived-path person-path])
         {:keys [value label help required errors show-errors]} name
         {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
@@ -1388,7 +1388,7 @@
 
 (defn PersonForm
   "docstring"
-  [props this]
+  [props]
   (let [{:keys [path]} props
         props {:person-path path
                :api-path    [:api :person]}]
@@ -1397,7 +1397,7 @@
      [PersonListField props]]))
 
 (defn modal-dialog-parametername
-  [_ this]
+  [_]
   (let [props @(rf/subscribe [:subs/get-modal-props])]
     [Modal {:ok-copy      "Done"
             :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter names"]
@@ -1406,7 +1406,7 @@
             :on-save      #(rf/dispatch [:handlers/close-modal])}]))
 
 (defn modal-dialog-parameterunit
-  [_ this]
+  [_]
   (let [props @(rf/subscribe [:subs/get-modal-props])]
     [Modal {:ok-copy      "Done"
             :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Add parameter unit"]
@@ -1417,7 +1417,7 @@
             :on-save      #(rf/dispatch [:handlers/close-modal])}]))
 
 (defn modal-dialog-parameterinstrument
-  [_ this]
+  [_]
   (let [props @(rf/subscribe [:subs/get-modal-props])]
     [Modal {:ok-copy      "Done"
             :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter instruments"]
@@ -1427,7 +1427,7 @@
             :on-save      #(rf/dispatch [:handlers/close-modal])}]))
 
 (defn modal-dialog-parameterplatform
-  [_ this]
+  [_]
   (let [props @(rf/subscribe [:subs/get-modal-props])]
     [Modal {:ok-copy      "Done"
             :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter platforms"]
@@ -1437,7 +1437,7 @@
             :on-save      #(rf/dispatch [:handlers/close-modal])}]))
 
 (defn modal-dialog-person
-  [_ this]
+  [_]
   (let [props @(rf/subscribe [:subs/get-modal-props])]
     [Modal {:ok-copy      "Done"
             :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse people"]
@@ -1446,7 +1446,7 @@
             :on-dismiss   #(rf/dispatch [:handlers/close-modal])
             :on-save      #(rf/dispatch [:handlers/close-modal])}]))
 
-(defn DataParameterRowEdit [path this]
+(defn DataParameterRowEdit [path]
   (let [base-path (conj path :value)
         name-path (conj path :value :name)
         serialNumber-path (conj path :value :serialNumber)
@@ -1482,7 +1482,7 @@
         :disabled (boolean (if selected-platform nil 0))}]]
      ]))
 
-(defn DataParametersTable [path this]
+(defn DataParametersTable [path]
   [:div.DataParametersTable
    [TableModalEdit
     {:ths        ["Name" "Units" "Instrument" "Serial No." "Platform"]
@@ -1528,8 +1528,8 @@
         (put! reset-ch true)))))
 
 (defn FileDrop [{:keys [on-change reset-ch placeholder
-                        reset-ch max-filesize]} this]
-  (letfn [(init-state [this]
+                        reset-ch max-filesize]}]
+  (letfn [(init-state [_]
             {:file-id (name (gensym "file"))})
           (did-mount [this]
             (gevents/listen
@@ -1580,8 +1580,8 @@
                  :on-confirm #(rf/dispatch [:handlers/del-value attachments-path attachment-idx])}]))
 
 (defn UploadData
-  [_ this]
-  (letfn [(init-state [this]
+  [_]
+  (letfn [(init-state [_]
             {:reset-file-drop (chan)})
           (render [this]
             (let [{:keys [file reset-file-drop uploading]} (r/state this)]
@@ -1630,7 +1630,7 @@
 
 (defn Lodge
   [_]
-  (letfn [(init-state [this]
+  (letfn [(init-state [_]
             {:is-open        false
              :is-open-inline false})
           (render [this]
@@ -1728,7 +1728,7 @@
       {:get-initial-state init-state
        :render            render})))
 
-(defn AddressField [address-path this]
+(defn AddressField [address-path]
   (let [address @(rf/subscribe [:subs/get-derived-path address-path])
         {:keys [city postalCode administrativeArea country deliveryPoint deliveryPoint2]} address]
     [:div.AddressField
@@ -1895,7 +1895,7 @@
        :component-will-receive-props component-will-receive-props
        :render                       render})))
 
-(defn SelectRoleWidget [role-path this]
+(defn SelectRoleWidget [role-path]
   (let [role @(rf/subscribe [:subs/get-derived-path role-path])
         {:keys [options]} @(rf/subscribe [:subs/get-derived-path [:api :rolecode]])]
     [SelectWidget (assoc role
@@ -1907,7 +1907,7 @@
 (defn PersonInputField
   "Input field for people which offers autocompletion of known
   people."
-  [party-path this]
+  [party-path]
   (let [party-field @(rf/subscribe [:subs/get-derived-path party-path])
         uri (-> party-field :value :uri)]
     [:div.OrganisationInputField
@@ -1922,7 +1922,7 @@
 (defn OrganisationInputField
   "Input field for organisation which offers autocompletion of known
   institutions.  On autocomplete address details are updated."
-  [party-path this]
+  [party-path]
   (let [party-field @(rf/subscribe [:subs/get-derived-path party-path])
         organisationName (-> party-field :value :organisationName)]
     [:div.OrganisationInputField
@@ -1994,13 +1994,13 @@
 
        ]]]))
 
-(defn FieldError [{:keys [errors label]} this]
+(defn FieldError [{:keys [errors label]}]
   [:span.FieldError label ": " (first errors)])
 
-(defn ManyFieldError [{:keys [errors label]} this]
+(defn ManyFieldError [{:keys [errors label]}]
   [:span.FieldError label ": " (or (first errors) "check field errors")])
 
-(defn PageErrors [{:keys [page path]} this]
+(defn PageErrors [{:keys [page path]}]
   (let [{:keys [show-errors] :as form} @(rf/subscribe [:subs/get-derived-path path])
         fields (logic/page-fields form page)
         error-fields (remove #(logic/is-valid? {:fields %}) fields)
@@ -2047,16 +2047,16 @@
        ;; [help-menu]
        [:a.bp3-button.bp3-minimal {:href "/logout"} "Sign Out"]]]]))
 
-(defmulti PageTabView (fn [page this] [(get page :name)
-                                       (get page :tab :data-identification)]))
+(defmulti PageTabView (fn [page] [(get page :name)
+                                  (get page :tab :data-identification)]))
 
 (defn PageView404
-  [_ this]
+  [_]
   (let [{:keys [name]} @(rf/subscribe [:subs/get-page-props])]
     [:h1 "Page not found: " name]))
 
 (defn PageViewError
-  [_ this]
+  [_]
   (let [{:keys [text code detail]} @(rf/subscribe [:subs/get-page-props])]
     [:div
      [navbar]
@@ -2066,7 +2066,7 @@
        [:p "The server responded with a " [:code code " " (pr-str text)] " error."]]]]))
 
 (defmethod PageTabView ["Edit" :data-identification]
-  [page this]
+  [page]
   [:div
    [PageErrors {:page :data-identification :path [:form]}]
    [:h2 "1. Data Identification"]
@@ -2078,7 +2078,7 @@
    [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :what]
-  [page this]
+  [page]
   [:div
    [PageErrors {:page :what :path [:form]}]
    [:h2 "2. What"]
@@ -2093,7 +2093,7 @@
    [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :when]
-  [page this]
+  [page]
   [:div
    [PageErrors {:page :when :path [:form]}]
    [:h2 "3. When was the data acquired?"]
@@ -2106,7 +2106,7 @@
    [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :where]
-  [page this]
+  [page]
   [:div
    [PageErrors {:page :where :path [:form]}]
    [:h2 "4. Where"]
@@ -2114,7 +2114,7 @@
    [VerticalCoverage nil]
    [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]])
 
-(defn CreditField [path this]
+(defn CreditField [path]
   [:div.CreditField [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :credit])]])
 
 (defn delete-contact! [this group item e]
@@ -2159,19 +2159,19 @@
                   {:on-click (partial delete-contact! this group item)}
                   [:i.glyphicon.glyphicon-minus]])]]]))))
 
-(defn default-selected-group [this]
+(defn default-selected-group []
   (ffirst
     (filter
       #(first @(rf/subscribe [:subs/get-derived-path (conj (:path (second %)) :value)]))
       (utils/enum contact-groups))))
 
-(defn Who [_ this]
-  (letfn [(init-state [this]
+(defn Who [_]
+  (letfn [(init-state [_]
             {:selected-item  0
              :selected-group 0})
           (render [this]
             (let [{:keys [selected-group selected-item open hold]} (r/state this)]
-              (let [selected-group (or selected-group (default-selected-group this))
+              (let [selected-group (or selected-group (default-selected-group))
                     cursors (mapv (fn [{:keys [path]}]
                                     @(rf/subscribe [:subs/get-derived-path path]))
                                   contact-groups)
@@ -2247,14 +2247,14 @@
        :render            render})))
 
 (defmethod PageTabView ["Edit" :who]
-  [page this]
+  [page]
   [:div
    [Who nil]
    [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]])
 
 (defn MethodOrOtherForm
   "docstring"
-  [path this]
+  [path]
   (let [method-path (conj path :value)
         {:keys [name description uri] :as dp-term} @(rf/subscribe [:subs/get-derived-path method-path])
         props {:method-path method-path
@@ -2268,7 +2268,7 @@
                                            (rf/dispatch [:handlers/update-method-name method-path option])))]
      [textarea-field (into [] (concat path [:value :description]))]]))
 
-(defn Methods [path this]
+(defn Methods [path]
   (let [list-field @(rf/subscribe [:subs/get-derived-path path])]
     [:div.SupplementalInformation
      (label-template list-field)
@@ -2284,7 +2284,7 @@
        :field-path  path}]]))
 
 (defmethod PageTabView ["Edit" :how]
-  [page this]
+  [page]
   [:div
    [PageErrors {:page :how :path [:form]}]
    [:h2 "5: How"]
@@ -2299,7 +2299,7 @@
 (defn UseLimitationsFieldEdit [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :useLimitations])])
 
-(defn UseLimitations [path this]
+(defn UseLimitations [path]
   (let [list-field @(rf/subscribe [:subs/get-derived-path path])]
     [:div.SupplementalInformation
      (label-template list-field)
@@ -2309,10 +2309,10 @@
        :add-label  "Add use limitation"
        :field-path path}]]))
 
-(defn SupplementalInformationRowEdit [path this]
+(defn SupplementalInformationRowEdit [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :supplementalInformation])])
 
-(defn SupplementalInformation [path this]
+(defn SupplementalInformation [path]
   [:div
    [:label "Any supplemental information such as file naming conventions"]
    [TableModalEdit
@@ -2323,7 +2323,7 @@
      :field-path  path}]])
 
 
-(defn ResourceConstraints [props this]
+(defn ResourceConstraints [props]
   [:div.ResourceConstraints
    [:p.help-block (str "Creative Commons - Attribution 4.0 International. The license allows others to copy,
    distribute, display, and create derivative works provided that they
@@ -2332,12 +2332,12 @@
             :target "_blank"}
         "https://creativecommons.org/licenses/by/4.0/"]]])
 
-(defn SupportingResourceFieldEdit [path this]
+(defn SupportingResourceFieldEdit [path]
   [:div
    [InputField {:path (conj path :value :name)}]
    [InputField {:path (conj path :value :url)}]])
 
-(defn SupportingResource [path this]
+(defn SupportingResource [path]
   [:div
    [:label "Any resources with hyperlinks (including Publications)"]
    [TableModalEdit
@@ -2350,7 +2350,7 @@
      :field-path  path}]])
 
 (defmethod PageTabView ["Edit" :about]
-  [page this]
+  [page]
   [:div
    [PageErrors {:page :about :path [:form]}]
    [:h2 "7: About Dataset"]
@@ -2378,14 +2378,14 @@
     [textarea-field [:form :fields :resourceLineage :lineage]]]
    [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]])
 
-(defn DataSourceRowEdit [path this]
+(defn DataSourceRowEdit [path]
   [:div
    [InputField {:path (conj path :value :description)}]
    [SelectField (conj path :value :protocol)]
    [InputField {:path (conj path :value :url)}]
    [InputField {:path (conj path :value :name)}]])
 
-(defn DataSources [props this]
+(defn DataSources [props]
   [:div
    [TableModalEdit {:ths        ["Title" "URL" "Layer"]
                     :tds-fn     (comp (partial map (comp #(or % "--") :value)) (juxt :description :url :name) :value)
@@ -2394,7 +2394,7 @@
                     :field-path [:form :fields :dataSources]}]])
 
 (defmethod PageTabView ["Edit" :upload]
-  [page this]
+  [page]
   [:div
    [PageErrors {:page :upload :path [:form]}]
    [:h2 "8: Upload Data"]
@@ -2404,7 +2404,7 @@
    [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :lodge]
-  [page this]
+  [page]
   [:div
    [PageErrors {:page :lodge :path [:form]}]
    [:h2 "9: Lodge Metadata Draft"]
@@ -2490,7 +2490,7 @@
     (r/create-class
       {:render render})))
 
-(defn FormErrors [{:keys [path] :as props} this]
+(defn FormErrors [{:keys [path] :as props}]
   (let [{:keys [fields show-errors] :as form} @(rf/subscribe [:subs/get-derived-path path])
         fields-with-errors (filter (comp :errors second) fields)]
     (if (and show-errors (seq fields-with-errors))
@@ -2501,7 +2501,7 @@
                       (or label (name k)) ": "
                       (string/join ". " errors)]))])))
 
-(defn NewDocumentForm [props this]
+(defn NewDocumentForm [props]
   [:div.NewDocumentForm
    [FormErrors {:path [:create_form]}]
    [InputField {:path [:create_form :fields :title]}]
@@ -2539,7 +2539,7 @@
   (.preventDefault event))
 
 (defn DocumentTeaser [{:keys [url title last_updated status transitions
-                              transition_url clone_url] :as doc} this]
+                              transition_url clone_url] :as doc}]
   (let [transitions (set transitions)
         on-archive-click #(rf/dispatch [:handlers/archive-doc-click transition_url])
         on-delete-archived-click #(rf/dispatch [:handlers/delete-archived-doc-click transition_url])
@@ -2581,7 +2581,7 @@
          "Has not been edited yet")]]]))
 
 (defn PageViewDashboard
-  [_ this]
+  [_]
   (let [{:keys [filtered-docs status-filter has-documents? user page status-freq status relevant-status-filter urls]} @(rf/subscribe [:subs/get-dashboard-props])]
     [:div
      [navbar]
@@ -2654,7 +2654,7 @@
       [:br]]]]])
 
 (defn modal-dialog-alert
-  [_ this]
+  [_]
   (let [{:keys [message]} @(rf/subscribe [:subs/get-modal-props])]
     [Modal
      {:modal-header [:span [:span.glyphicon.glyphicon-exclamation-sign]
@@ -2665,7 +2665,7 @@
       :on-save      #(rf/dispatch [:handlers/close-modal])}]))
 
 (defn modal-dialog-confirm
-  [_ this]
+  [_]
   (let [{:keys [message title]} @(rf/subscribe [:subs/get-modal-props])]
     [Modal
      {:modal-header [:span [:span.glyphicon.glyphicon-question-sign] " " title]
@@ -2675,7 +2675,7 @@
       :on-cancel    #(rf/dispatch [:handlers/close-and-cancel])
       :on-save      #(rf/dispatch [:handlers/close-and-confirm])}]))
 
-(defn ModalStack [_ this]
+(defn ModalStack [_]
   (let [modal-props @(rf/subscribe [:subs/get-modal-props])]
     (when modal-props
       (case (:type modal-props)
@@ -2691,7 +2691,7 @@
         :alert [modal-dialog-alert nil]
         :confirm [modal-dialog-confirm nil]))))
 
-(defn AppRoot [_ this]
+(defn AppRoot [_]
   (let [page-name @(rf/subscribe [:subs/get-page-name])]
     [:div [ModalStack nil]
      (if (and guseragent/IE (not (guseragent/isVersionOrHigher 10)))

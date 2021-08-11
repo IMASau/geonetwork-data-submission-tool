@@ -41,7 +41,7 @@
 
 (defmulti ModalDialog :type)
 
-(defn label-template [{:keys [label required] :as props}]
+(defn label-template [{:keys [label required]}]
   (when label
     [:label label (if required " *")]))
 

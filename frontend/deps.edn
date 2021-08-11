@@ -1,6 +1,6 @@
 {:paths ["src/cljs" "src/spec" "env/dev/cljs" "resources"]
- :deps  {org.clojure/clojure             {:mvn/version "1.10.1"}
-         org.clojure/clojurescript       {:mvn/version "1.10.520"}
+ :deps  {org.clojure/clojure             {:mvn/version "1.10.3"}
+         org.clojure/clojurescript       {:mvn/version "1.10.879"}
          org.clojure/test.check          {:mvn/version "0.9.0"}
          org.clojure/core.async          {:mvn/version "0.4.500"}
          cljsjs/pikaday                  {:mvn/version "1.4.0-1"}

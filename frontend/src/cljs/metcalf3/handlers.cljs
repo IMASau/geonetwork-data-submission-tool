@@ -31,19 +31,19 @@
 (defn build-es-query
   [query]
   (.stringify js/JSON (clj->js
-                       {:query query})))
+                        {:query query})))
 
 (defn load-es-options
- [{:keys [db]} [_ api-path query]]
+  [{:keys [db]} [_ api-path query]]
   (let [{:keys [uri]} (get-in db api-path)]
     {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
-     :db (update-in db api-path assoc :most-recent-query query)}))
+     :db              (update-in db api-path assoc :most-recent-query query)}))
 
 (defn search-es-options
- [{:keys [db]} [_ api-path query]]
- (let [{:keys [uri]} (get-in db api-path)]
-   {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
-    :db              (update-in db api-path assoc :most-recent-query query)}))
+  [{:keys [db]} [_ api-path query]]
+  (let [{:keys [uri]} (get-in db api-path)]
+    {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
+     :db              (update-in db api-path assoc :most-recent-query query)}))
 
 (defn load-es-options-resp
   [db [_ api-path query json]]
@@ -168,10 +168,9 @@
 
 (defn update-address
   [{:keys [db]} [_ contact-path data]]
-  (let [{:strs [city organisationName deliveryPoint deliveryPoint2
+  (let [{:strs [city deliveryPoint deliveryPoint2
                 postalCode country administrativeArea]
          :or   {city               ""
-                organisationName   ""
                 deliveryPoint      ""
                 deliveryPoint2     ""
                 postalCode         ""

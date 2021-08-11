@@ -37,8 +37,7 @@
 (defn Modal
   [{:keys [modal-header modal-body modal-footer dialog-class hide-footer
            on-save on-cancel on-dismiss ok-copy loading]
-    :as   props}
-   this]
+    :as   props}]
   (letfn [
 
           (init-state [this]

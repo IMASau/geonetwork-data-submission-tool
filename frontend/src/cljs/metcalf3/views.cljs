@@ -1836,6 +1836,7 @@
   [_]
   (letfn [(render [this]
             (let [{:keys [on-input-change on-blur on-change disabled party-path] :as props} (r/props this)
+                  ; TODO: Looks broken
                   {:keys [input-value]} (r/state this)]
               (let [{:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
                     uri-value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :uri)])

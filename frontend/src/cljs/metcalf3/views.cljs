@@ -317,7 +317,7 @@
        (assoc field :on-change (fn [value] (rf/dispatch [:handlers/value-changed path value])))])))
 
 (defn textarea-widget
-  [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder] :as props}]
+  [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder]}]
   [bp3/form-group
    {:label      label
     :labelInfo  labelInfo

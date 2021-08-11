@@ -78,12 +78,13 @@
   (-> s clojure.string/lower-case
       (clojure.string/replace #"\b." #(.toUpperCase %1))))
 
-(defn keys-in [m]
+(defn keys-in
   "
   Generate a list of paths presented in a nested map
 
   Ref: http://stackoverflow.com/a/21769786/176453
   "
+  [m]
   (cond
     (map? m) (vec
                (mapcat (fn [[k v]]

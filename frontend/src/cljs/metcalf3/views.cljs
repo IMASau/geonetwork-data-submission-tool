@@ -2323,7 +2323,7 @@
      :field-path  path}]])
 
 (defmethod PageTabView ["Edit" :about]
-  [page]
+  [_]
   [:div
    [PageErrors {:page :about :path [:form]}]
    [:h2 "7: About Dataset"]

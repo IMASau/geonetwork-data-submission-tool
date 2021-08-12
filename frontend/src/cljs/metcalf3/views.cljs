@@ -1092,7 +1092,7 @@
                [:div.flex-row
                 [:div.flex-row-field
                  [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
-                  (if label
+                  (when label
                     [:label label
                      (when required " *")
                      (when tooltip [Tooltip tooltip])])

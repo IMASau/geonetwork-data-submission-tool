@@ -1302,9 +1302,9 @@
      [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
 
 (defn MethodListField
-  [{:keys [api-path method-path sort?]}]
-  (let [{:keys [name uri description] :as method-term} @(rf/subscribe [:subs/get-derived-path method-path])
-        {:keys [value label help required errors show-errors]} name
+  [{:keys [api-path method-path]}]
+  (let [{:keys [name uri]} @(rf/subscribe [:subs/get-derived-path method-path])
+        {:keys [label required errors show-errors]} name
         {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
     [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
      (when label [:label label (when required " *")])

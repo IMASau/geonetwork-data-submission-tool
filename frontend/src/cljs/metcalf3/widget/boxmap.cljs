@@ -24,15 +24,15 @@
   [[south west]
    [north east]])
 
-(defn geographicElement->point [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude] :as bounds}]
+(defn geographicElement->point [{:keys [southBoundLatitude westBoundLongitude]}]
   [(:value southBoundLatitude) (:value westBoundLongitude)])
 
 (defn geographicElement->point?
-  [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude] :as bounds}]
+  [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude]}]
   (and (= (:value southBoundLatitude) (:value northBoundLatitude))
        (= (:value westBoundLongitude) (:value eastBoundLongitude))))
 
-(defn geographicElement->bounds [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude] :as bounds}]
+(defn geographicElement->bounds [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude]}]
   [[(:value southBoundLatitude) (:value westBoundLongitude)]
    [(:value northBoundLatitude) (:value eastBoundLongitude)]])
 

@@ -102,33 +102,33 @@
                :visible  visible}))
           (render [this]
             (let [{:keys [expanded visible]} (r/state this)
-                  {:keys [value options value-key render-menu on-select visible-options]} (r/props this)]
-              (let [toggle-option (fn [option]
-                                    (let [{:keys [lft rgt tree_id depth]} option]
-                                      (if (contains? expanded option)
-                                        ;off
-                                        (r/set-state this {:expanded (disj expanded option)
-                                                           :visible  (set (filter (fn [x] (or (<= (:depth x) depth)
-                                                                                              ; TODO: always false, looks like a typo
-                                                                                              (not= (= (:tree_id x) tree_id))
-                                                                                              (< (:lft x) lft)
-                                                                                              (> (:rgt x) rgt))) visible))})
-                                        ;on
-                                        (r/set-state this {:expanded (conj expanded option)
-                                                           :visible  (set (concat visible (apply concat (map (fn [y] (filter (fn [x] (and (= (:tree_id x) (:tree_id y) tree_id)
-                                                                                                                                          (= (:depth x) (+ (:depth y) 1))
-                                                                                                                                          (> (:lft x) (:lft y))
-                                                                                                                                          (< (:rgt x) (:rgt y)))) options)) (conj expanded option)))))}))))
-                    visible-options (doall (->> visible
-                                                (sort-by (juxt :tree_id :lft))))]
-                (render-menu
-                  {:value           value
-                   :value-key       value-key
-                   :options         options
-                   :expanded        expanded
-                   :select-option   on-select
-                   :toggle-option   toggle-option
-                   :visible-options visible-options}))))]
+                  {:keys [value options value-key render-menu on-select visible-options]} (r/props this)
+                  toggle-option (fn [option]
+                                  (let [{:keys [lft rgt tree_id depth]} option]
+                                    (if (contains? expanded option)
+                                      ;off
+                                      (r/set-state this {:expanded (disj expanded option)
+                                                         :visible  (set (filter (fn [x] (or (<= (:depth x) depth)
+                                                                                            ; TODO: always false, looks like a typo
+                                                                                            (not= (= (:tree_id x) tree_id))
+                                                                                            (< (:lft x) lft)
+                                                                                            (> (:rgt x) rgt))) visible))})
+                                      ;on
+                                      (r/set-state this {:expanded (conj expanded option)
+                                                         :visible  (set (concat visible (apply concat (map (fn [y] (filter (fn [x] (and (= (:tree_id x) (:tree_id y) tree_id)
+                                                                                                                                        (= (:depth x) (+ (:depth y) 1))
+                                                                                                                                        (> (:lft x) (:lft y))
+                                                                                                                                        (< (:rgt x) (:rgt y)))) options)) (conj expanded option)))))}))))
+                  visible-options (doall (->> visible
+                                              (sort-by (juxt :tree_id :lft))))]
+              (render-menu
+                {:value           value
+                 :value-key       value-key
+                 :options         options
+                 :expanded        expanded
+                 :select-option   on-select
+                 :toggle-option   toggle-option
+                 :visible-options visible-options})))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))

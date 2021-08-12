@@ -2596,7 +2596,7 @@
                            "show all documents"] "."]
                          [NewDocumentButton nil]])))))]
        [:div.col-sm-3
-        (if-not (empty? status-freq)
+        (when-not (empty? status-freq)
           (into [:div]
                 (for [[sid sname] status]
                   (let [freq (get status-freq sid)]

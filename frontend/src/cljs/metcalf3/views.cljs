@@ -634,7 +634,7 @@
                [:table.table.keyword-table {:class (when-not disabled "table-hover")}
                 (into [:tbody]
                       (for [[i topicCategory] (utils/enum value)]
-                        [:tr {:class (if disabled "active" (if (highlight (:value topicCategory)) "highlight"))}
+                        [:tr {:class (if disabled "active" (when (highlight (:value topicCategory)) "highlight"))}
                          [:td [TopicCategoryCell (lookup (:value topicCategory))]]
                          (when-not disabled
                            [:td [:button.btn.btn-warn.btn-xs.pull-right

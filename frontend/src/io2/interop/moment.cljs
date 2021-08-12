@@ -1,6 +1,8 @@
 (ns interop.moment
   (:require ["moment" :as js-moment]))
 
+(assert js-moment)
+
 (defn moment
   ([x] (js-moment x))
   ([x y] (js-moment x y)))

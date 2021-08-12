@@ -9,6 +9,12 @@
             ["react" :as React]
             [reagent.core :as r]))
 
+(assert BlueprintCore)
+(assert BlueprintDatetime)
+(assert BlueprintSelect)
+(assert BlueprintTable)
+(assert React)
+
 (defn get-initial-state
   [this]
   {:value (:value (r/props this))})

@@ -6,6 +6,9 @@
             ["react-leaflet" :as ReactLeaflet]
             ["react-leaflet-draw" :refer (EditControl)]))
 
+(assert ReactLeaflet)
+(assert EditControl)
+
 (defn to-geojson [leaflet]
   (js->clj (.toGeoJSON leaflet) :keywordize-keys true))
 

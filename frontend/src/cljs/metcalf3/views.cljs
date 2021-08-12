@@ -665,63 +665,63 @@
              :show-modal false
              :highlight  #{}})
           (render [this]
-            (let [{:keys [new-value show-modal highlight options]} (r/state this)]
-              (let [keywords-theme-path [:form :fields :identificationInfo keyword-type]
-                    keywords-path (conj keywords-theme-path :keywords)
-                    {:keys [keywords]} @(rf/subscribe [:subs/get-derived-path keywords-theme-path])
-                    {:keys [value placeholder disabled help] :as props} keywords
-                    theme-table @(rf/subscribe [:subs/get-derived-path [:theme keyword-type :table]])
-                    set-value! #(r/set-state this {:new-value %})
-                    add! (fn [uuid] (when-not (empty? uuid)
-                                      (when (not-any? (comp #{uuid} :value)
-                                                      (:value keywords))
-                                        (rf/dispatch [:handlers/add-value! keywords-path uuid]))
-                                      (handle-highlight-new this uuid)
-                                      (set-value! nil)))
-                    lookup (fn [uuid] (first (filterv #(= uuid (first %)) theme-table)))
-                    show-modal! #(rf/dispatch [:handlers/open-modal {:type         :ThemeKeywords
-                                                                     :keyword-type keyword-type}])
-                    options (into-array (for [[value & path :as rowData] theme-table]
-                                          #js {:value   value
-                                               :rowData rowData
-                                               :label   (string/join " > " path)}))]
-                [:div.ThemeKeywords {:class (validation-state props)}
-                 (label-template props)
-                 [:p.help-block help]
-                 [:table.table.keyword-table {:class (if-not disabled "table-hover")}
-                  (into [:tbody]
-                        (for [[i keyword] (utils/enum value)]
-                          [:tr {:class (if disabled "active" (if (highlight (:value keyword)) "highlight"))}
-                           [:td [KeywordsThemeCell (lookup (:value keyword))]]
-                           (if-not disabled
-                             [:td [:button.btn.btn-warn.btn-xs.pull-right
-                                   {:on-click #(rf/dispatch [:handlers/del-value keywords-path i])}
-                                   [:span.glyphicon.glyphicon-minus]]])]))]
-                 (if-not disabled
-                   [:div.flex-row
-                    [:div.flex-row-field
-                     {;need this to make sure the drop down is rendered above any other input fields
-                      :style {:position "relative"
-                              :z-index  10}}
-                     #_[VirtualizedSelect {:props             {:options     options
-                                                               :onChange    (fn [option]
-                                                                              (add! (gobj/get option "value")))
-                                                               :isClearable true}
-                                           :list-props        {}
-                                           :children-renderer theme-option-renderer}]
-                     [VirtualizedSelect {:placeholder       placeholder
-                                         :options           options
-                                         :value             ""
-                                         :getOptionValue    (fn [option]
-                                                              (gobj/get option "value"))
-                                         :formatOptionLabel (fn [props]
-                                                              (r/as-element (theme-option-renderer props options)))
-                                         :onChange          (fn [option]
-                                                              (add! (gobj/get option "value")))}]]
-                    [:div.flex-row-button
-                     [:button.btn.btn-default
-                      {:on-click #(show-modal!)}
-                      [:span.glyphicon.glyphicon-list] " Browse"]]])])))]
+            (let [{:keys [new-value show-modal highlight options]} (r/state this)
+                  keywords-theme-path [:form :fields :identificationInfo keyword-type]
+                  keywords-path (conj keywords-theme-path :keywords)
+                  {:keys [keywords]} @(rf/subscribe [:subs/get-derived-path keywords-theme-path])
+                  {:keys [value placeholder disabled help] :as props} keywords
+                  theme-table @(rf/subscribe [:subs/get-derived-path [:theme keyword-type :table]])
+                  set-value! #(r/set-state this {:new-value %})
+                  add! (fn [uuid] (when-not (empty? uuid)
+                                    (when (not-any? (comp #{uuid} :value)
+                                                    (:value keywords))
+                                      (rf/dispatch [:handlers/add-value! keywords-path uuid]))
+                                    (handle-highlight-new this uuid)
+                                    (set-value! nil)))
+                  lookup (fn [uuid] (first (filterv #(= uuid (first %)) theme-table)))
+                  show-modal! #(rf/dispatch [:handlers/open-modal {:type         :ThemeKeywords
+                                                                   :keyword-type keyword-type}])
+                  options (into-array (for [[value & path :as rowData] theme-table]
+                                        #js {:value   value
+                                             :rowData rowData
+                                             :label   (string/join " > " path)}))]
+              [:div.ThemeKeywords {:class (validation-state props)}
+               (label-template props)
+               [:p.help-block help]
+               [:table.table.keyword-table {:class (if-not disabled "table-hover")}
+                (into [:tbody]
+                      (for [[i keyword] (utils/enum value)]
+                        [:tr {:class (if disabled "active" (if (highlight (:value keyword)) "highlight"))}
+                         [:td [KeywordsThemeCell (lookup (:value keyword))]]
+                         (if-not disabled
+                           [:td [:button.btn.btn-warn.btn-xs.pull-right
+                                 {:on-click #(rf/dispatch [:handlers/del-value keywords-path i])}
+                                 [:span.glyphicon.glyphicon-minus]]])]))]
+               (if-not disabled
+                 [:div.flex-row
+                  [:div.flex-row-field
+                   {;need this to make sure the drop down is rendered above any other input fields
+                    :style {:position "relative"
+                            :z-index  10}}
+                   #_[VirtualizedSelect {:props             {:options     options
+                                                             :onChange    (fn [option]
+                                                                            (add! (gobj/get option "value")))
+                                                             :isClearable true}
+                                         :list-props        {}
+                                         :children-renderer theme-option-renderer}]
+                   [VirtualizedSelect {:placeholder       placeholder
+                                       :options           options
+                                       :value             ""
+                                       :getOptionValue    (fn [option]
+                                                            (gobj/get option "value"))
+                                       :formatOptionLabel (fn [props]
+                                                            (r/as-element (theme-option-renderer props options)))
+                                       :onChange          (fn [option]
+                                                            (add! (gobj/get option "value")))}]]
+                  [:div.flex-row-button
+                   [:button.btn.btn-default
+                    {:on-click #(show-modal!)}
+                    [:span.glyphicon.glyphicon-list] " Browse"]]])]))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))

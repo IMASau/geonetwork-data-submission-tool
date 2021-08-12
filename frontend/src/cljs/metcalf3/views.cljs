@@ -2492,14 +2492,13 @@
           :on-cancel    #(rf/dispatch [:handlers/close-modal])
           :on-save      #(rf/dispatch [:handlers/dashboard-create-save])}])
 
-(defn NewDocumentButton [props]
+(defn NewDocumentButton []
   (letfn [(init-state [_]
             {:title ""})
           (render [this]
-            (let [{:keys [title ch]} (r/state this)]
-              [:button.btn.btn-primary {:on-click #(rf/dispatch [:handlers/open-modal {:type :DashboardCreateModal}])}
-               [:span.glyphicon.glyphicon-plus]
-               " Create new record"]))]
+            [:button.btn.btn-primary {:on-click #(rf/dispatch [:handlers/open-modal {:type :DashboardCreateModal}])}
+             [:span.glyphicon.glyphicon-plus]
+             " Create new record"])]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))
@@ -2560,7 +2559,7 @@
     [:div
      [navbar]
      [:div.container
-      [:span.pull-right {:style {:margin-top 18}} [NewDocumentButton nil]]
+      [:span.pull-right {:style {:margin-top 18}} [NewDocumentButton]]
       [:h1 "My Records"]
       [:div.row
        [:div.col-sm-9
@@ -2579,12 +2578,12 @@
                          [:p "You don't have any active records: "
                           [:a {:on-click #(rf/dispatch [:handlers/show-all-documents])}
                            "show all documents"] "."]
-                         [NewDocumentButton nil]]
+                         [NewDocumentButton]]
                         [:div
                          [:p "No documents match your filter: "
                           [:a {:on-click #(rf/dispatch [:handlers/show-all-documents])}
                            "show all documents"] "."]
-                         [NewDocumentButton nil]])))))]
+                         [NewDocumentButton]])))))]
        [:div.col-sm-3
         (when-not (empty? status-freq)
           (into [:div]

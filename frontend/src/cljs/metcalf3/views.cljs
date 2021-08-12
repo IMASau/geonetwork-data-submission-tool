@@ -400,63 +400,63 @@
               (gevents/listen vsm goog.events.EventType.RESIZE #(update-table-width this))
               (update-table-width this)))
           (render [this]
-            (let [{:keys [query width columnWidths isColumnResizing scrollToRow autowidth-id]} (r/state this)]
-              (let [keywords-path [:form :fields :identificationInfo keyword-type :keywords]
-                    keywords @(rf/subscribe [:subs/get-derived-path keywords-path])
-                    uuids (zipmap (map :value (:value keywords)) (range))
-                    table @(rf/subscribe [:subs/get-derived-path [:theme keyword-type :table]])
-                    results (if (blank? query)
-                              table
-                              (vec (filter-table false table query)))
-                    rowHeight 50
-                    on-submit #(r/set-state this {:scrollToRow 0 :query %})]
-                [:div.KeywordsThemeTable
-                 [SimpleInputWidget
-                  {:label     "Search"
-                   :value     query
-                   :on-change #(on-submit %)}]
-                 (if (> (count results) 0)
-                   [:div {:id autowidth-id}
-                    [Table
-                     {:width                     width
-                      :maxHeight                 400
-                      :rowHeight                 rowHeight
-                      :rowsCount                 (count results)
-                      :headerHeight              30
-                      :onColumnResizeEndCallback #(do (r/set-state this {[:columnWidths %2] (max %1 5)})
-                                                      (r/set-state this {:isColumnResizing false}))
-                      :overflowX                 "hidden"
-                      :scrollToRow               scrollToRow
-                      :onScrollEnd               #(r/set-state this {:scrollToRow (quot %2 rowHeight)})
-                      :isColumnResizing          isColumnResizing}
-                     [Column
-                      {:label          (r/as-element [Cell ""])
-                       :dataKey        0
-                       :align          "right"
-                       :cellDataGetter getter
-                       :cell           (fn [props]
-                                         (let [rowIndex (gobj/get props "rowIndex")
-                                               uuid (first (get results rowIndex))]
-                                           (r/as-element [Cell [Checkbox {:checked   (contains? uuids uuid)
-                                                                          :on-change (fn [_]
-                                                                                       (if (contains? uuids uuid)
-                                                                                         (rf/dispatch [:handlers/del-value keywords-path (uuids uuid)])
-                                                                                         (rf/dispatch [:handlers/add-value! keywords-path uuid])))}]])))
-                       :width          (get columnWidths 0)
-                       :isResizable    true}]
-                     [Column
-                      {:header         (r/as-element [Cell "Topic"])
-                       :cellDataGetter getter
-                       :dataKey        1
-                       :cell           (fn [props]
-                                         (let [rowIndex (gobj/get props "rowIndex")
-                                               rowData (get results rowIndex)]
-                                           (r/as-element [Cell [KeywordsThemeCell rowData]])))
-                       :flexGrow       1
-                       :width          (get columnWidths 1)
-                       :isResizable    true}]]]
-                   [:div.no-results "No results found."])
-                 [:p "There are " (count table) " keywords in our database"]])))]
+            (let [{:keys [query width columnWidths isColumnResizing scrollToRow autowidth-id]} (r/state this)
+                  keywords-path [:form :fields :identificationInfo keyword-type :keywords]
+                  keywords @(rf/subscribe [:subs/get-derived-path keywords-path])
+                  uuids (zipmap (map :value (:value keywords)) (range))
+                  table @(rf/subscribe [:subs/get-derived-path [:theme keyword-type :table]])
+                  results (if (blank? query)
+                            table
+                            (vec (filter-table false table query)))
+                  rowHeight 50
+                  on-submit #(r/set-state this {:scrollToRow 0 :query %})]
+              [:div.KeywordsThemeTable
+               [SimpleInputWidget
+                {:label     "Search"
+                 :value     query
+                 :on-change #(on-submit %)}]
+               (if (> (count results) 0)
+                 [:div {:id autowidth-id}
+                  [Table
+                   {:width                     width
+                    :maxHeight                 400
+                    :rowHeight                 rowHeight
+                    :rowsCount                 (count results)
+                    :headerHeight              30
+                    :onColumnResizeEndCallback #(do (r/set-state this {[:columnWidths %2] (max %1 5)})
+                                                    (r/set-state this {:isColumnResizing false}))
+                    :overflowX                 "hidden"
+                    :scrollToRow               scrollToRow
+                    :onScrollEnd               #(r/set-state this {:scrollToRow (quot %2 rowHeight)})
+                    :isColumnResizing          isColumnResizing}
+                   [Column
+                    {:label          (r/as-element [Cell ""])
+                     :dataKey        0
+                     :align          "right"
+                     :cellDataGetter getter
+                     :cell           (fn [props]
+                                       (let [rowIndex (gobj/get props "rowIndex")
+                                             uuid (first (get results rowIndex))]
+                                         (r/as-element [Cell [Checkbox {:checked   (contains? uuids uuid)
+                                                                        :on-change (fn [_]
+                                                                                     (if (contains? uuids uuid)
+                                                                                       (rf/dispatch [:handlers/del-value keywords-path (uuids uuid)])
+                                                                                       (rf/dispatch [:handlers/add-value! keywords-path uuid])))}]])))
+                     :width          (get columnWidths 0)
+                     :isResizable    true}]
+                   [Column
+                    {:header         (r/as-element [Cell "Topic"])
+                     :cellDataGetter getter
+                     :dataKey        1
+                     :cell           (fn [props]
+                                       (let [rowIndex (gobj/get props "rowIndex")
+                                             rowData (get results rowIndex)]
+                                         (r/as-element [Cell [KeywordsThemeCell rowData]])))
+                     :flexGrow       1
+                     :width          (get columnWidths 1)
+                     :isResizable    true}]]]
+                 [:div.no-results "No results found."])
+               [:p "There are " (count table) " keywords in our database"]]))]
     (r/create-class
       {:get-initial-state   init-state
        :component-did-mount did-mount

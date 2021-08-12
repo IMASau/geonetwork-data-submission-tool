@@ -1010,9 +1010,9 @@
      [:div.topic-value term-text]]))
 
 (defn breadcrumb-renderer [selected-option]
-  (let [text (goog.object/get selected-option "breadcrumb")
-        term-text (goog.object/get selected-option "term")
-        alt-label (goog.object/get selected-option "altLabel")]
+  (let [text (gobj/get selected-option "breadcrumb")
+        term-text (gobj/get selected-option "term")
+        alt-label (gobj/get selected-option "altLabel")]
     [:div.topic-cell {:key term-text}
      [:div.topic-path text]
      [:div.topic-value term-text]

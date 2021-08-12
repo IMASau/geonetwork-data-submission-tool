@@ -592,15 +592,14 @@
 
 (defn modal-dialog-theme-keywords
   [keyword-type]
-  (let [{:keys [message on-confirm on-cancel]} @(rf/subscribe [:subs/get-modal-props])]
-    [Modal {:ok-copy      "Done"
-            :dialog-class "modal-lg"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Research theme keywords"]
-            :modal-body   [:div
-                           [:p.help-block "Select keyword(s) to add to record"]
-                           [KeywordsThemeTable keyword-type]]
-            :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+  [Modal {:ok-copy      "Done"
+          :dialog-class "modal-lg"
+          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Research theme keywords"]
+          :modal-body   [:div
+                         [:p.help-block "Select keyword(s) to add to record"]
+                         [KeywordsThemeTable keyword-type]]
+          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
+          :on-save      #(rf/dispatch [:handlers/close-modal])}])
 
 (defn TopicCategories
   [_]

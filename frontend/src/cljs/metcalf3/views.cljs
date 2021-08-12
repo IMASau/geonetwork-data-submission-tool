@@ -283,7 +283,7 @@
     (when-not is-hidden
       [:div.form-group {:class (when (and show-errors (seq errors))
                                  "has-error")}
-       (if label [:label label (when required " *")])
+       (when label [:label label (when required " *")])
        (vec (concat
               [:select.form-control (assoc (dissoc props :default-option :show-errors :is-hidden)
                                       :on-change #(on-change (-> % .-target .-value))
@@ -1041,7 +1041,7 @@
                   path-value @(rf/subscribe [:subs/get-derived-path path])
                   {:keys [label help required errors show-errors]} path-value]
               [:div
-               (if label [:label label (when required " *")])
+               (when label [:label label (when required " *")])
                [:div.flex-row
                 [:div.flex-row-field
                  [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
@@ -1170,7 +1170,7 @@
                (if new-term? [:span.pull-right.new-term.text-primary
                               [:span.glyphicon.glyphicon-asterisk]
                               " New term"])
-               (if label [:label label (when required " *")])
+               (when label [:label label (when required " *")])
                [:div.flex-row
                 [:div.flex-row-field
                  [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
@@ -1294,7 +1294,7 @@
         {:keys [value label help required errors show-errors]} term
         {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
     [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
-     (if label [:label label (when required " *")])
+     (when label [:label label (when required " *")])
      [ApiListWidget
       {:api-path  api-path
        :value     (:value vocabularyTermURL)
@@ -1309,7 +1309,7 @@
         {:keys [value label help required errors show-errors]} name
         {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
     [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
-     (if label [:label label (when required " *")])
+     (when label [:label label (when required " *")])
      [ApiListWidget
       {:api-path  api-path
        :value     (:value uri)
@@ -1326,7 +1326,7 @@
         {:keys [value label help required errors show-errors]} term
         {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
     [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
-     (if label [:label label (when required " *")])
+     (when label [:label label (when required " *")])
      [ApiTreeWidget
       {:api-path  api-path
        :value     (:value vocabularyTermURL)
@@ -1377,7 +1377,7 @@
         {:keys [value label help required errors show-errors]} name
         {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
     [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
-     (if label [:label label (when required " *")])
+     (when label [:label label (when required " *")])
      [PersonListWidget
       {:api-path  api-path
        :value     (:value uri)

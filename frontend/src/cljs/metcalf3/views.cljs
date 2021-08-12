@@ -866,24 +866,24 @@
 
           (render [this]
             (let [{:keys [addon-before addon-after help on-change value] :as props} (r/props this)
-                  {:keys [input-value]} (r/state this)]
-              (let [input-props (assoc props
-                                  :value (or value "")
-                                  :key "ifc")]
-                [:div.form-group {:class (validation-state props)}
-                 (label-template props)
-                 (if (or addon-after addon-before)
-                   [:div.input-group {:key "ig"} addon-before [:input.form-control input-props] addon-after]
-                   [:input.form-control
-                    (assoc input-props
-                      :value input-value
-                      :on-change #(r/set-state this {:input-value (.. % -target -value)})
-                      :on-blur (fn [e]
-                                 (let [v (.. e -target -value)
-                                       f (->float v)]
-                                   (r/set-state this {:input-value (str f)})
-                                   (on-change f))))])
-                 [:p.help-block help]])))]
+                  {:keys [input-value]} (r/state this)
+                  input-props (assoc props
+                                :value (or value "")
+                                :key "ifc")]
+              [:div.form-group {:class (validation-state props)}
+               (label-template props)
+               (if (or addon-after addon-before)
+                 [:div.input-group {:key "ig"} addon-before [:input.form-control input-props] addon-after]
+                 [:input.form-control
+                  (assoc input-props
+                    :value input-value
+                    :on-change #(r/set-state this {:input-value (.. % -target -value)})
+                    :on-blur (fn [e]
+                               (let [v (.. e -target -value)
+                                     f (->float v)]
+                                 (r/set-state this {:input-value (str f)})
+                                 (on-change f))))])
+               [:p.help-block help]]))]
     (r/create-class
       {:get-initial-state            init-state
        :component-will-receive-props component-will-receive-props

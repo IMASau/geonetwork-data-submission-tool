@@ -1,34 +1,32 @@
 (ns metcalf3.views
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [interop.cljs-ajax :as ajax]
-            [cljs.core.async :as async :refer [put! <! chan timeout]]
+  (:require [cljs.core.async :as async :refer [<! chan put! timeout]]
+            [cljs.spec.alpha :as s]
+            [clojure.edn :as edn]
+            [clojure.set :as set]
             [clojure.string :as string :refer [blank?]]
             [cuerdas.core :as cuerdas]
             [goog.events :as gevents]
             [goog.object :as gobj]
             [goog.style :as gstyle]
             [goog.userAgent :as guseragent]
+            [interop.blueprint :as bp3]
+            [interop.cljs-ajax :as ajax]
+            [interop.fixed-data-table-2 :refer [Cell Column Table]]
+            [interop.masked-input :as masked-input]
+            [interop.moment :as moment]
             [metcalf3.content :refer [contact-groups]]
             [metcalf3.handlers :as handlers]
             [metcalf3.logic :as logic]
             [metcalf3.utils :as utils]
-            [interop.masked-input :as masked-input]
             [metcalf3.widget.boxmap :as boxmap]
             [metcalf3.widget.modal :refer [Modal]]
             [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectAsyncCreatable VirtualizedSelect]]
-            [interop.fixed-data-table-2 :refer [Table Column Cell]]
-            [metcalf3.widget.tree :refer [TermTree TermList]]
+            [metcalf3.widget.tree :refer [TermList TermTree]]
             [re-frame.core :as rf]
-            [reagent.core :as r]
-            [interop.blueprint :as bp3]
-            [interop.moment :as moment]
-            [clojure.edn :as edn]
-            [cljs.spec.alpha :as s]
-            [clojure.set :as set])
+            [reagent.core :as r])
   (:import [goog.dom ViewportSizeMonitor]
-           [goog.events FileDropHandler]
-           [goog.events.EventType]
-           [goog.events.FileDropHandler.EventType]))
+           [goog.events FileDropHandler]))
 
 (defn userDisplay
   [user]

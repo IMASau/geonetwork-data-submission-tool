@@ -2583,7 +2583,7 @@
                      [:p.lead.list-group-item-heading " My first record "]
                      [:p.list-group-item-text "Welcome! Since you’re new here, "
                       [:span {:style {:text-decoration "underline"}} "Click here"] " to get started."]]
-                    (if (empty? filtered-docs)
+                    (when (empty? filtered-docs)
                       (if (= status-filter logic/active-status-filter)
                         [:div
                          [:p "You don't have any active records: "

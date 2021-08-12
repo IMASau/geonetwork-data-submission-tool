@@ -665,7 +665,7 @@
              :show-modal false
              :highlight  #{}})
           (render [this]
-            (let [{:keys [new-value show-modal highlight options]} (r/state this)
+            (let [{:keys [highlight]} (r/state this)
                   keywords-theme-path [:form :fields :identificationInfo keyword-type]
                   keywords-path (conj keywords-theme-path :keywords)
                   {:keys [keywords]} @(rf/subscribe [:subs/get-derived-path keywords-theme-path])

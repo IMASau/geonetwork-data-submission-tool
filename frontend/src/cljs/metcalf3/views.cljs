@@ -1542,7 +1542,7 @@
               (when (and on-change (not= file (:file prev-state)))
                 (on-change file))))
           (render [this]
-            (let [{:keys [file uploading file-id]} (r/state this)]
+            (let [{:keys [file file-id]} (r/state this)]
               [:div
                {:style {:position "relative"}}
                [:div.text-center.dropzone {:on-click #(.click (js/document.getElementById file-id))}

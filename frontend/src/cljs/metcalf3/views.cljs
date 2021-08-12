@@ -2298,7 +2298,7 @@
      :field-path  path}]])
 
 
-(defn ResourceConstraints [props]
+(defn ResourceConstraints []
   [:div.ResourceConstraints
    [:p.help-block (str "Creative Commons - Attribution 4.0 International. The license allows others to copy,
    distribute, display, and create derivative works provided that they
@@ -2339,7 +2339,7 @@
                            :path    [:form :fields :identificationInfo]}]]]
    [:br]
    [:h4 "Resource constraints"]
-   [ResourceConstraints nil]
+   [ResourceConstraints]
    [UseLimitations [:form :fields :identificationInfo :useLimitations]]
    [:br]
    [:h4 "Supplemental information"]

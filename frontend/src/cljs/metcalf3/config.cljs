@@ -1,9 +1,9 @@
 (ns metcalf3.config
-  (:require [re-frame.core :as rf]
-            [metcalf3.fx :as fx]
+  (:require [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers]
             [metcalf3.ins :as ins]
-            [metcalf3.subs :as subs]))
+            [metcalf3.subs :as subs]
+            [re-frame.core :as rf]))
 
 (rf/reg-event-db :handlers/load-api-options-resp ins/std-ins handlers/load-api-options-resp)
 (rf/reg-event-db :handlers/load-es-options-resp ins/std-ins handlers/load-es-options-resp)

@@ -1080,8 +1080,7 @@
                   vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
                   {:keys [label help required errors show-errors tooltip]} term
                   selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
-                  new-term? (other-term? term vocabularyTermURL)
-                  form-position (get (get-in state [:dp-term-path]) 5)]
+                  new-term? (other-term? term vocabularyTermURL)]
               [:div
                (when new-term?
                  [:span.pull-right.new-term.text-primary

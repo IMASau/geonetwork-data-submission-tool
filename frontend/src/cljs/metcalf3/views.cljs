@@ -1772,8 +1772,6 @@
         orgId (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationIdentifier)]))
         orgName (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationName)]))
         orgCity (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :address :city)]))
-        value @(rf/subscribe [:subs/get-derived-path (conj party-path :value)])
-        {:keys [base-options]} @(rf/subscribe [:subs/get-derived-path [:api :institution]])
         js-value #js {:uri              (or orgId "")
                       :organisationName (or (if (blank? orgCity)
                                               orgName

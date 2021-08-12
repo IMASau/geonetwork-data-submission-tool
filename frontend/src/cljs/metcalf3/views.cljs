@@ -1801,7 +1801,7 @@
                                        (fn [{:strs [results]}]
                                          (callback (clj->js results)))
                                        :error-handler
-                                       (fn [e]
+                                       (fn [_]
                                          (callback "Options loading error."))
                                        :params
                                        {:search input

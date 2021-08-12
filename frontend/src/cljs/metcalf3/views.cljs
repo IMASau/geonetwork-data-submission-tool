@@ -2152,78 +2152,78 @@
             {:selected-item  0
              :selected-group 0})
           (render [this]
-            (let [{:keys [selected-group selected-item open hold]} (r/state this)]
-              (let [selected-group (or selected-group (default-selected-group))
-                    cursors (mapv (fn [{:keys [path]}]
-                                    @(rf/subscribe [:subs/get-derived-path path]))
-                                  contact-groups)
-                    new! (fn [path group & [field]]
-                           (let [many-field (cursors group)]
-                             (if field
-                               (rf/dispatch [:handlers/add-value! path (:value field)])
-                               (rf/dispatch [:handlers/new-field! path]))
-                             (r/set-state this {:selected-group group})
-                             (r/set-state this {:selected-item (-> many-field :value count)})))
-                    all-parties (mapv (comp set
-                                            :value)
-                                      cursors)
-                    all-parties-set (apply set/union all-parties)]
-                [:div
-                 [PageErrors {:page :who :path [:form]}]
-                 [:h2 "6: Who"]
-                 [:div.row
-                  (into [:div.col-sm-4]
-                        (for [[group {:keys [title path]}] (utils/enum contact-groups)]
-                          (let [parties (clojure.set/difference
-                                          all-parties-set (all-parties group))]
-                            [:div
-                             [:h4 title (when (get-in cursors [group :required]) " *")]
-                             (parties-list this group)
-                             (when-not (get-in cursors [group :disabled])
-                               [:div.dropdown
-                                {:class   (if (= open group) "open")
-                                 :on-blur #(let [{:keys [open]} (r/state this)
-                                                 open' (when (or hold (not= open group)) open)]
-                                             (r/set-state this {:open open'}))}
-                                [:button.btn.btn-default.dropdown-toggle
-                                 {:on-click #(if (zero? (count parties))
-                                               (new! path group)
-                                               (let [{:keys [open]} (r/state this)
-                                                     open' (when (not= open group) group)]
-                                                 (r/set-state this {:open open'})))}
-                                 [:span.glyphicon.glyphicon-plus]
-                                 " Add person"]
-                                (-> [:ul.dropdown-menu
-                                     {:on-mouse-enter #(r/set-state this {:hold true})
-                                      :on-mouse-leave #(r/set-state this {:hold false})}
-                                     [:li.dropdown-header "Copy person"]]
-                                    (into (for [x parties]
-                                            [:li [:a {:tab-index -1
-                                                      :href      "#"
-                                                      :on-click  (fn [e]
-                                                                   (.preventDefault e)
-                                                                   (new! path group x)
-                                                                   (r/set-state this {:open false}))}
-                                                  (get-in x [:value :individualName :value])]]))
-                                    (conj [:li.divider]
-                                          [:li [:a {:href     "#"
-                                                    :on-click (fn [e]
-                                                                (.preventDefault e)
-                                                                (new! path group)
-                                                                (r/set-state this {:open false}))}
-                                                "New person"]]))])])))
-                  [:div.col-sm-8
-                   (when (and selected-group selected-item)
-                     [ResponsiblePartyField
-                      (-> contact-groups
-                          (get-in [selected-group :path])
-                          (conj :value selected-item))])]]
+            (let [{:keys [selected-group selected-item open hold]} (r/state this)
+                  selected-group (or selected-group (default-selected-group))
+                  cursors (mapv (fn [{:keys [path]}]
+                                  @(rf/subscribe [:subs/get-derived-path path]))
+                                contact-groups)
+                  new! (fn [path group & [field]]
+                         (let [many-field (cursors group)]
+                           (if field
+                             (rf/dispatch [:handlers/add-value! path (:value field)])
+                             (rf/dispatch [:handlers/new-field! path]))
+                           (r/set-state this {:selected-group group})
+                           (r/set-state this {:selected-item (-> many-field :value count)})))
+                  all-parties (mapv (comp set
+                                          :value)
+                                    cursors)
+                  all-parties-set (apply set/union all-parties)]
+              [:div
+               [PageErrors {:page :who :path [:form]}]
+               [:h2 "6: Who"]
+               [:div.row
+                (into [:div.col-sm-4]
+                      (for [[group {:keys [title path]}] (utils/enum contact-groups)]
+                        (let [parties (clojure.set/difference
+                                        all-parties-set (all-parties group))]
+                          [:div
+                           [:h4 title (when (get-in cursors [group :required]) " *")]
+                           (parties-list this group)
+                           (when-not (get-in cursors [group :disabled])
+                             [:div.dropdown
+                              {:class   (if (= open group) "open")
+                               :on-blur #(let [{:keys [open]} (r/state this)
+                                               open' (when (or hold (not= open group)) open)]
+                                           (r/set-state this {:open open'}))}
+                              [:button.btn.btn-default.dropdown-toggle
+                               {:on-click #(if (zero? (count parties))
+                                             (new! path group)
+                                             (let [{:keys [open]} (r/state this)
+                                                   open' (when (not= open group) group)]
+                                               (r/set-state this {:open open'})))}
+                               [:span.glyphicon.glyphicon-plus]
+                               " Add person"]
+                              (-> [:ul.dropdown-menu
+                                   {:on-mouse-enter #(r/set-state this {:hold true})
+                                    :on-mouse-leave #(r/set-state this {:hold false})}
+                                   [:li.dropdown-header "Copy person"]]
+                                  (into (for [x parties]
+                                          [:li [:a {:tab-index -1
+                                                    :href      "#"
+                                                    :on-click  (fn [e]
+                                                                 (.preventDefault e)
+                                                                 (new! path group x)
+                                                                 (r/set-state this {:open false}))}
+                                                (get-in x [:value :individualName :value])]]))
+                                  (conj [:li.divider]
+                                        [:li [:a {:href     "#"
+                                                  :on-click (fn [e]
+                                                              (.preventDefault e)
+                                                              (new! path group)
+                                                              (r/set-state this {:open false}))}
+                                              "New person"]]))])])))
+                [:div.col-sm-8
+                 (when (and selected-group selected-item)
+                   [ResponsiblePartyField
+                    (-> contact-groups
+                        (get-in [selected-group :path])
+                        (conj :value selected-item))])]]
 
-                 [:h2 "Other credits"]
-                 [TableModalEdit
-                  {:form       CreditField
-                   :title      "Credit"
-                   :field-path [:form :fields :identificationInfo :credit]}]])))]
+               [:h2 "Other credits"]
+               [TableModalEdit
+                {:form       CreditField
+                 :title      "Credit"
+                 :field-path [:form :fields :identificationInfo :credit]}]]))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))

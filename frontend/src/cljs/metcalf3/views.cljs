@@ -1154,71 +1154,71 @@
             (let [{:keys [api-path]} (r/props this)]
               (rf/dispatch [:handlers/load-api-options api-path])))
           (render [this]
-            (let [{:keys [dp-type dp-term-path api-path param-type] :as state} (r/props this)]
-              (let [sub-paths (dp-term-paths dp-type)
-                    {:keys [options uri]} @(rf/subscribe [:subs/get-derived-path api-path])
-                    {:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
-                    term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
-                    vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
-                    {:keys [value label help required errors show-errors]} term
-                    selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
-                    new-term? (other-term? term vocabularyTermURL)
-                    selected-value (if (blank? (:value vocabularyTermURL))
-                                     ""
-                                     #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)})]
-                [:div
-                 (if new-term? [:span.pull-right.new-term.text-primary
-                                [:span.glyphicon.glyphicon-asterisk]
-                                " New term"])
-                 (if label [:label label (if required " *")])
-                 [:div.flex-row
-                  [:div.flex-row-field
-                   [:div.form-group {:class (if (and show-errors (seq errors)) "has-error")}
-                    (if-not new-term?
-                      [VirtualizedSelect {:placeholder       (:placeholder term)
-                                          :isClearable       true
-                                          :is-searchable     true
-                                          :height            "40px"
-                                          :options           selectable-options
-                                          :value             selected-value
-                                          :getOptionValue    (fn [option]
-                                                               (gobj/get option "term"))
-                                          :isOptionSelected  (fn [option selected]
-                                                               (= (gobj/get option "vocabularyTermURL") (gobj/get (first selected) "vocabularyTermURL")))
-                                          :noResultsText     "No results found.  Click browse to add a new entry."
-                                          :formatOptionLabel (fn [props]
-                                                               (r/as-element (api-option-renderer options props)))
-                                          :onChange          (fn [option]
-                                                               (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}]
+            (let [{:keys [dp-type dp-term-path api-path param-type] :as state} (r/props this)
+                  sub-paths (dp-term-paths dp-type)
+                  {:keys [options uri]} @(rf/subscribe [:subs/get-derived-path api-path])
+                  {:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
+                  term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
+                  vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
+                  {:keys [value label help required errors show-errors]} term
+                  selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
+                  new-term? (other-term? term vocabularyTermURL)
+                  selected-value (if (blank? (:value vocabularyTermURL))
+                                   ""
+                                   #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)})]
+              [:div
+               (if new-term? [:span.pull-right.new-term.text-primary
+                              [:span.glyphicon.glyphicon-asterisk]
+                              " New term"])
+               (if label [:label label (if required " *")])
+               [:div.flex-row
+                [:div.flex-row-field
+                 [:div.form-group {:class (if (and show-errors (seq errors)) "has-error")}
+                  (if-not new-term?
+                    [VirtualizedSelect {:placeholder       (:placeholder term)
+                                        :isClearable       true
+                                        :is-searchable     true
+                                        :height            "40px"
+                                        :options           selectable-options
+                                        :value             selected-value
+                                        :getOptionValue    (fn [option]
+                                                             (gobj/get option "term"))
+                                        :isOptionSelected  (fn [option selected]
+                                                             (= (gobj/get option "vocabularyTermURL") (gobj/get (first selected) "vocabularyTermURL")))
+                                        :noResultsText     "No results found.  Click browse to add a new entry."
+                                        :formatOptionLabel (fn [props]
+                                                             (r/as-element (api-option-renderer options props)))
+                                        :onChange          (fn [option]
+                                                             (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}]
 
 
-                      [VirtualizedSelect {:placeholder       (:placeholder term)
-                                          :isClearable       true
-                                          :is-searchable     true
-                                          :height            "40px"
-                                          :options           selectable-options
-                                          :value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
-                                          :getOptionValue    (fn [option]
-                                                               (gobj/get option "term"))
-                                          :isOptionSelected  (fn [option selected]
-                                                               (= (gobj/get option "vocabularyTermURL") (gobj/get (first selected) "vocabularyTermURL")))
-                                          :noResultsText     "No results found.  Click browse to add a new entry."
-                                          :formatOptionLabel (fn [props]
-                                                               (r/as-element (api-option-renderer options props)))
-                                          :onChange          (fn [option]
-                                                               (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}])
-                    [:p.help-block help]]]
-                  ; TODO: Re-enable this in the future to browse/create vocabulary terms.
-                  ;                  [:div.flex-row-button
-                  ;                   [:button.btn.btn-default
-                  ;                    {:style    {:vertical-align "top"}
-                  ;                     :on-click #(rf/dispatch [:handlers/open-modal
-                  ;                                              {:type         param-type
-                  ;                                               :api-path     api-path
-                  ;                                               :dp-term-path dp-term-path}])}
-                  ;                    [:span.glyphicon.glyphicon-list] " Browse"]
-                  ;                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]
-                  ]])))]
+                    [VirtualizedSelect {:placeholder       (:placeholder term)
+                                        :isClearable       true
+                                        :is-searchable     true
+                                        :height            "40px"
+                                        :options           selectable-options
+                                        :value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
+                                        :getOptionValue    (fn [option]
+                                                             (gobj/get option "term"))
+                                        :isOptionSelected  (fn [option selected]
+                                                             (= (gobj/get option "vocabularyTermURL") (gobj/get (first selected) "vocabularyTermURL")))
+                                        :noResultsText     "No results found.  Click browse to add a new entry."
+                                        :formatOptionLabel (fn [props]
+                                                             (r/as-element (api-option-renderer options props)))
+                                        :onChange          (fn [option]
+                                                             (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}])
+                  [:p.help-block help]]]
+                ; TODO: Re-enable this in the future to browse/create vocabulary terms.
+                ;                  [:div.flex-row-button
+                ;                   [:button.btn.btn-default
+                ;                    {:style    {:vertical-align "top"}
+                ;                     :on-click #(rf/dispatch [:handlers/open-modal
+                ;                                              {:type         param-type
+                ;                                               :api-path     api-path
+                ;                                               :dp-term-path dp-term-path}])}
+                ;                    [:span.glyphicon.glyphicon-list] " Browse"]
+                ;                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]
+                ]]))]
     (r/create-class
       {:component-will-mount will-mount
        :render               render})))

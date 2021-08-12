@@ -1525,8 +1525,7 @@
                        :message (str "Please, choose file less than " max-filesize "mb")}])
         (put! reset-ch true)))))
 
-(defn FileDrop [{:keys [on-change reset-ch placeholder
-                        reset-ch max-filesize]}]
+(defn FileDrop [{:keys [on-change placeholder reset-ch]}]
   (letfn [(init-state [_]
             {:file-id (name (gensym "file"))})
           (did-mount [this]

@@ -32,6 +32,7 @@ build:
 		clojure:openjdk-14-tools-deps-buster \
 		shadow-cljs compile metcalf3
 
+# TODO: generate as single css file?
 copy-static:
 	cp node_modules/normalize.css/normalize.css resources/public/css
 	cp node_modules/@blueprintjs/core/lib/css/blueprint.css resources/public/css

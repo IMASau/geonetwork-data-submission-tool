@@ -629,7 +629,7 @@
               [:div.ThemeKeywords {:class (validation-state props)}
                (label-template props)
                [:p.help-block help]
-               [:table.table.keyword-table {:class (if-not disabled "table-hover")}
+               [:table.table.keyword-table {:class (when-not disabled "table-hover")}
                 (into [:tbody]
                       (for [[i topicCategory] (utils/enum value)]
                         [:tr {:class (if disabled "active" (if (highlight (:value topicCategory)) "highlight"))}
@@ -688,7 +688,7 @@
               [:div.ThemeKeywords {:class (validation-state props)}
                (label-template props)
                [:p.help-block help]
-               [:table.table.keyword-table {:class (if-not disabled "table-hover")}
+               [:table.table.keyword-table {:class (when-not disabled "table-hover")}
                 (into [:tbody]
                       (for [[i keyword] (utils/enum value)]
                         [:tr {:class (if disabled "active" (if (highlight (:value keyword)) "highlight"))}
@@ -821,7 +821,7 @@
                 [:div.TaxonKeywordsExtra {:class (validation-state props)}
                  [:label "Taxon keywords" (if required " *")]
                  [:p.help-block help]
-                 [:table.table.keyword-table {:class (if-not disabled "table-hover")}
+                 [:table.table.keyword-table {:class (when-not disabled "table-hover")}
                   (into [:tbody]
                         (for [keyword value]
                           [:tr {:class (if disabled "active" (if (highlight (:value keyword)) "highlight"))}

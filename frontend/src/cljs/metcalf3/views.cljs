@@ -1591,7 +1591,7 @@
                   attachments-path [:form :fields :attachments]
                   {:keys [disabled] :as attachments} @(rf/subscribe [:subs/get-derived-path attachments-path])
                   upload-form @(rf/subscribe [:subs/get-derived-path [:upload_form]])]
-              [:div.UploadData {:class (if disabled "disabled")}
+              [:div.UploadData {:class (when disabled "disabled")}
                (if-not (empty? (:value attachments))
                  [:div
                   [:table.table.table-hover

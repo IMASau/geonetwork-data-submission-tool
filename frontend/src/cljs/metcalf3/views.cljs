@@ -2360,7 +2360,7 @@
    [InputField {:path (conj path :value :url)}]
    [InputField {:path (conj path :value :name)}]])
 
-(defn DataSources [props]
+(defn DataSources []
   [:div
    [TableModalEdit {:ths        ["Title" "URL" "Layer"]
                     :tds-fn     (comp (partial map (comp #(or % "--") :value)) (juxt :description :url :name) :value)
@@ -2375,7 +2375,7 @@
    [:h2 "8: Upload Data"]
    [UploadData nil]
    [:h2 "Data Services"]
-   [DataSources nil]
+   [DataSources]
    [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :lodge]

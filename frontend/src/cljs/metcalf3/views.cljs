@@ -357,7 +357,7 @@
                            :on-change #(rf/dispatch [:handlers/set-value path (-> % .-target .-checked)])
                            :label (or label (:label field)))]))
 
-(defn BackButton [props]
+(defn BackButton []
   (let [page @(rf/subscribe [:subs/get-derived-path [:page]])
         back (:back page)]
     (when back
@@ -2611,7 +2611,7 @@
 (defn PageViewTheme
   [_ _]
   [:div.PageViewTheme.container
-   [BackButton nil]
+   [BackButton]
    [:h1 "Research theme keywords"]
    [:p.help-block "Select keyword(s) to add to record"]
    [KeywordsThemeTable nil]])

@@ -1030,7 +1030,7 @@
 (defn NasaListSelectField
   [_]
   (letfn [(will-mount [this]
-            (let [{:keys [keyword] :as props} (r/props this)]
+            (let [{:keys [keyword]} (r/props this)]
               (rf/dispatch [:handlers/load-api-options [:api keyword]])))
           (render [this]
             (let [{:keys [keyword path on-change]} (r/props this)

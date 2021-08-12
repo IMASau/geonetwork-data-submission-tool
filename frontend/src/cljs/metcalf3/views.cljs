@@ -53,7 +53,7 @@
 
 (defn masked-text-widget
   [{:keys [mask value placeholder disabled on-change on-blur]}]
-  [masked-input/masked-input
+  [react-imask/masked-input
    {:mask        mask
     :disabled    disabled
     :value       value

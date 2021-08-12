@@ -773,7 +773,7 @@
                         (for [keyword value]
                           [:tr {:class (if disabled "active" (if (highlight (:value keyword)) "highlight"))}
                            [:td (:value keyword)]
-                           (if-not disabled
+                           (when-not disabled
                              [:td
                               [:button.btn.btn-warn.btn-xs.pull-right
                                {:on-click #(del-value! (:value keyword))}

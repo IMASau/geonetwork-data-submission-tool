@@ -1837,43 +1837,43 @@
   (letfn [(render [this]
             (let [{:keys [on-input-change on-blur on-change disabled party-path] :as props} (r/props this)
                   ; TODO: Looks broken
-                  {:keys [input-value]} (r/state this)]
-              (let [{:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
-                    uri-value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :uri)])
-                    preflabel-value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :individualName)])
-                    js-value #js {:prefLabel (or (:value preflabel-value) "")
-                                  :uri       (:value uri-value)}
-                    js-value (if (:value preflabel-value)
-                               js-value
-                               nil)]
-                (ReactSelectAsync
-                  {:value             js-value
-                   :disabled          disabled
-                   :defaultOptions    true
-                   :getOptionValue    (fn [option]
-                                        (gobj/get option "uri"))
-                   :formatOptionLabel (fn [props]
-                                        (gobj/get props "prefLabel"))
-                   :loadOptions       (fn [input callback]
-                                        (ajax/GET (str URL_ROOT "/api/person.json")
-                                                  {:handler
-                                                   (fn [{:strs [results] :as data}]
-                                                     (callback (clj->js results)))
-                                                   :error-handler
-                                                   (fn [e]
-                                                     (callback "Options loading error."))
-                                                   :params
-                                                   {:search input
-                                                    :offset 0
-                                                    :limit  100}}))
-                   :onChange          #(on-change (js->clj %))
-                   :noResultsText     "No results found"
-                   :onBlurResetsInput false
-                   :isClearable       true
-                   :tabSelectsValue   false
-                   :onInputChange     on-input-change
-                   :onBlur            on-blur
-                   :placeholder       "Start typing to filter list..."}))))]
+                  {:keys [input-value]} (r/state this)
+                  {:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
+                  uri-value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :uri)])
+                  preflabel-value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :individualName)])
+                  js-value #js {:prefLabel (or (:value preflabel-value) "")
+                                :uri       (:value uri-value)}
+                  js-value (if (:value preflabel-value)
+                             js-value
+                             nil)]
+              (ReactSelectAsync
+                {:value             js-value
+                 :disabled          disabled
+                 :defaultOptions    true
+                 :getOptionValue    (fn [option]
+                                      (gobj/get option "uri"))
+                 :formatOptionLabel (fn [props]
+                                      (gobj/get props "prefLabel"))
+                 :loadOptions       (fn [input callback]
+                                      (ajax/GET (str URL_ROOT "/api/person.json")
+                                                {:handler
+                                                 (fn [{:strs [results] :as data}]
+                                                   (callback (clj->js results)))
+                                                 :error-handler
+                                                 (fn [e]
+                                                   (callback "Options loading error."))
+                                                 :params
+                                                 {:search input
+                                                  :offset 0
+                                                  :limit  100}}))
+                 :onChange          #(on-change (js->clj %))
+                 :noResultsText     "No results found"
+                 :onBlurResetsInput false
+                 :isClearable       true
+                 :tabSelectsValue   false
+                 :onInputChange     on-input-change
+                 :onBlur            on-blur
+                 :placeholder       "Start typing to filter list..."})))]
     (r/create-class
       {:render                       render})))
 

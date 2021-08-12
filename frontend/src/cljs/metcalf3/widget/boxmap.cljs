@@ -1,25 +1,12 @@
 (ns metcalf3.widget.boxmap
   (:require [re-frame.core :as rf]
             [interop.react-leaflet :as react-leaflet]
-            [oops.core :refer [ocall oget]]
+            [oops.core :refer []]
             [reagent.core :as r]
             [interop.blueprint :as bp3]
             [goog.object :as gobj]))
 
 ;;; http://blog.jayfields.com/2011/01/clojure-select-keys-select-values-and.html
-(defn select-values [map ks]
-  (reduce #(conj %1 (map %2)) [] ks))
-
-(defn bounds->map [bounds]
-  {:north (ocall bounds :getNorth)
-   :south (ocall bounds :getSouth)
-   :east  (ocall bounds :getEast)
-   :west  (ocall bounds :getWest)})
-
-(defn bounds->geojson [{:keys [north south east west]}]
-  {:type        "Polygon"
-   :coordinates [[[west south] [west north] [east north] [east south] [west south]]]})
-
 (defn map->bounds [{:keys [west south east north]}]
   [[south west]
    [north east]])
@@ -35,31 +22,6 @@
 (defn geographicElement->bounds [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude]}]
   [[(:value southBoundLatitude) (:value westBoundLongitude)]
    [(:value northBoundLatitude) (:value eastBoundLongitude)]])
-
-(defn point->latlng [[x y]] {:lat y :lng x})
-
-(defn point-distance [[x1 y1] [x2 y2]]
-  (let [xd (- x2 x1) yd (- y2 y1)]
-    (js/Math.sqrt (+ (* xd xd) (* yd yd)))))
-
-(defn latlng->vec [ll]
-  (-> ll
-      js->clj
-      (select-values ["lat" "lng"])))
-
-(defn mouseevent->coords [e]
-  (merge
-    (-> e
-        ;; Note need to round; fractional offsets (eg as in wordpress
-        ;; navbar) cause fractional x/y which causes geoserver to
-        ;; return errors in GetFeatureInfo
-        (ocall "containerPoint.round")
-        (js->clj :keywordize-keys true)
-        (select-keys [:x :y]))
-    (-> e
-        (oget "latlng")
-        (js->clj :keywordize-keys true)
-        (select-keys [:lat :lng]))))
 
 (defn boxes->extents [boxes]
   (let [north (apply max (remove nil? (map (comp :value :northBoundLatitude :value) (:value boxes))))

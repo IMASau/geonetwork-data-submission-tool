@@ -2433,42 +2433,41 @@
 (defn PageViewEdit
   [_]
   (letfn [(render [this]
-            (let [_ (r/state this)]
-              (let [page @(rf/subscribe [:subs/get-page-props])
-                    saving (::handlers/saving? page)
-                    {:keys [user urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
-                    {:keys [dirty disabled] :as form} @(rf/subscribe [:subs/get-derived-path [:form]])
-                    {:keys [status title last_updated]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
-                [:div
-                 [navbar]
-                 [:div.container
-                  [:div.pagehead
-                   [:div.pull-right
-                    [:button.btn.btn-default.text-warn {:on-click handle-archive-click
-                                                        :disabled disabled}
-                     [:span.fa.fa-archive]
-                     " Archive"] " "
-                    [:button.btn.btn-primary {:disabled (or disabled (not dirty) saving)
-                                              :on-click save!}
-                     (cond
-                       saving [:img {:src (str (:STATIC_URL urls) "metcalf3/img/saving.gif")}]
-                       dirty [:span.glyphicon.glyphicon-floppy-disk]
-                       :else [:span.glyphicon.glyphicon-floppy-saved])
-                     (cond
-                       saving " Saving..."
-                       dirty " Save"
-                       :else " Saved")]]
-                   [:p.lead [:b (if (blank? title) "Untitled" title)]
-                    "   "
-                    [:span.label.label-info {:style {:font-weight "normal"}} status]
-                    [:small [:i {:style {:color     "#aaa"
-                                         :font-size "1em"}}
-                             "Last edited " (-> last_updated js/moment .fromNow)]]]]]
-                 [:div.Home.container
-                  [edit-tabs]
-                  [:div.PageViewBody
-                   [PageTabView page]
-                   ]]])))]
+            (let [page @(rf/subscribe [:subs/get-page-props])
+                  saving (::handlers/saving? page)
+                  {:keys [user urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
+                  {:keys [dirty disabled] :as form} @(rf/subscribe [:subs/get-derived-path [:form]])
+                  {:keys [status title last_updated]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
+              [:div
+               [navbar]
+               [:div.container
+                [:div.pagehead
+                 [:div.pull-right
+                  [:button.btn.btn-default.text-warn {:on-click handle-archive-click
+                                                      :disabled disabled}
+                   [:span.fa.fa-archive]
+                   " Archive"] " "
+                  [:button.btn.btn-primary {:disabled (or disabled (not dirty) saving)
+                                            :on-click save!}
+                   (cond
+                     saving [:img {:src (str (:STATIC_URL urls) "metcalf3/img/saving.gif")}]
+                     dirty [:span.glyphicon.glyphicon-floppy-disk]
+                     :else [:span.glyphicon.glyphicon-floppy-saved])
+                   (cond
+                     saving " Saving..."
+                     dirty " Save"
+                     :else " Saved")]]
+                 [:p.lead [:b (if (blank? title) "Untitled" title)]
+                  "   "
+                  [:span.label.label-info {:style {:font-weight "normal"}} status]
+                  [:small [:i {:style {:color     "#aaa"
+                                       :font-size "1em"}}
+                           "Last edited " (-> last_updated js/moment .fromNow)]]]]]
+               [:div.Home.container
+                [edit-tabs]
+                [:div.PageViewBody
+                 [PageTabView page]
+                 ]]]))]
     (r/create-class
       {:render render})))
 

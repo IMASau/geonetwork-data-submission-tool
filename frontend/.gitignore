@@ -12,3 +12,5 @@ pom.xml.asc
 /.repl
 /.idea
 .cpcache
+/.lsp/sqlite.db
+/.shadow-cljs/

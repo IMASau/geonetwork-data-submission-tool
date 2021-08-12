@@ -549,9 +549,10 @@
          [:p.help-block help])
        (if (or (not placeholder) (-> many-field :value count pos?))
          [:table.table {:class (when-not (or disabled (empty? (:value many-field))) "table-hover")}
-          (if ths [:thead (-> [:tr]
-                              (into (for [th ths] [:th th]))
-                              (conj [:th.xcell " "]))])
+          (when ths
+            [:thead (-> [:tr]
+                        (into (for [th ths] [:th th]))
+                        (conj [:th.xcell " "]))])
           (if (not-empty (:value many-field))
             (into [:tbody]
                   (for [[idx field] (map-indexed vector (:value many-field))]

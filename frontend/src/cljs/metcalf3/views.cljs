@@ -2423,7 +2423,7 @@
 
 (defn PageViewEdit
   [_]
-  (letfn [(render [this]
+  (letfn [(render [_]
             (let [page @(rf/subscribe [:subs/get-page-props])
                   saving (::handlers/saving? page)
                   {:keys [urls]} @(rf/subscribe [:subs/get-derived-path [:context]])

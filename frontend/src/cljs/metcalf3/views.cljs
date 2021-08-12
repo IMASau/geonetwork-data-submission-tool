@@ -1852,7 +1852,7 @@
                  :loadOptions       (fn [input callback]
                                       (ajax/GET (str URL_ROOT "/api/person.json")
                                                 {:handler
-                                                 (fn [{:strs [results] :as data}]
+                                                 (fn [{:strs [results]}]
                                                    (callback (clj->js results)))
                                                  :error-handler
                                                  (fn [e]

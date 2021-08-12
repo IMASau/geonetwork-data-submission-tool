@@ -695,7 +695,7 @@
                       (for [[i keyword] (utils/enum value)]
                         [:tr {:class (if disabled "active" (when (highlight (:value keyword)) "highlight"))}
                          [:td [KeywordsThemeCell (lookup (:value keyword))]]
-                         (if-not disabled
+                         (when-not disabled
                            [:td [:button.btn.btn-warn.btn-xs.pull-right
                                  {:on-click #(rf/dispatch [:handlers/del-value keywords-path i])}
                                  [:span.glyphicon.glyphicon-minus]]])]))]

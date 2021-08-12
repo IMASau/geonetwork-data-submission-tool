@@ -1631,7 +1631,7 @@
             {:is-open        false
              :is-open-inline false})
           (render [this]
-            (let [{:keys [is-open is-open-inline]} (r/state this)
+            (let [{:keys [is-open]} (r/state this)
                   page @(rf/subscribe [:subs/get-page-props])
                   saving (::handlers/saving? page)
                   {:keys [document urls site]} @(rf/subscribe [:subs/get-derived-path [:context]])

@@ -29,7 +29,7 @@
           :main-opts   ["-m" "cljs.main" "-co" "prod.cljs.edn" "-O" "advanced" "-c"]}
          :shadow-cljs
          {:extra-paths ["src/io2"]
-          :extra-deps    {thheller/shadow-cljs {:mvn/version "2.15.2"}}}
+          :extra-deps  {thheller/shadow-cljs {:mvn/version "2.15.2"}}}
          :lint-ns
          {:replace-deps {com.github.clojure-lsp/clojure-lsp {:mvn/version "2021.08.03-13.33.03"}}
           :exec-fn      clojure-lsp.api/clean-ns!

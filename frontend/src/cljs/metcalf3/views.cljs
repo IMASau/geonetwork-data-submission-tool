@@ -2464,8 +2464,8 @@
     (r/create-class
       {:render render})))
 
-(defn FormErrors [{:keys [path] :as props}]
-  (let [{:keys [fields show-errors] :as form} @(rf/subscribe [:subs/get-derived-path path])
+(defn FormErrors [{:keys [path]}]
+  (let [{:keys [fields show-errors]} @(rf/subscribe [:subs/get-derived-path path])
         fields-with-errors (filter (comp :errors second) fields)]
     (when (and show-errors (seq fields-with-errors))
       [:div.alert.alert-danger

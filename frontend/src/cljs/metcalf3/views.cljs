@@ -502,7 +502,6 @@
   [_ _]
   (let [{:keys [form path title]} @(rf/subscribe [:subs/get-modal-props])
         many-field-path (drop-last 2 path)
-        many-field @(rf/subscribe [:subs/get-derived-path many-field-path])
         handle-cancel (fn [] (rf/dispatch [:handlers/del-value many-field-path (last path)])
                         (rf/dispatch [:handlers/close-modal]))]
     [Modal {:ok-copy      "Done"

@@ -285,7 +285,7 @@
 
 (defn mask-map-triage-kv [kv a-mask]
   (let [[k v] [(key kv) (val kv)]]
-    (if-let [mask-v (get a-mask k)]
+    (when-let [mask-v (get a-mask k)]
       (cond (fn? mask-v) {k (mask-v v)}
             (and (map? mask-v) (map? v))
             {k (mask-map v mask-v)}

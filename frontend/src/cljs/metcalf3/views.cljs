@@ -2537,7 +2537,7 @@
         [:span.btn.btn-default.noborder.btn-xs
          {:on-click on-archive-click}
          [:span.glyphicon.glyphicon-trash] " archive"])
-      (if (contains? transitions "delete_archived")
+      (when (contains? transitions "delete_archived")
         [:span.btn.btn-default.noborder.btn-xs
          {:on-click on-delete-archived-click}
          [:span.glyphicon.glyphicon-remove] " delete"])

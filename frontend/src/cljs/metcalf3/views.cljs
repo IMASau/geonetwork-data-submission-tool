@@ -1037,7 +1037,7 @@
                   path (conj path keyword)
                   value-path (conj path :value 0 :value)
                   {:keys [options]} @(rf/subscribe [:subs/get-derived-path [:api keyword]])
-                  {:keys [prefLabel uri] :as freq} @(rf/subscribe [:subs/get-derived-path value-path])
+                  {:keys [prefLabel uri]} @(rf/subscribe [:subs/get-derived-path value-path])
                   path-value @(rf/subscribe [:subs/get-derived-path path])
                   {:keys [label help required errors show-errors]} path-value]
               [:div
@@ -1070,7 +1070,7 @@
 (defn ElasticsearchSelectField
   [_]
   (letfn [(will-mount [this]
-            (let [{:keys [api-path param-type] :as state} (r/props this)
+            (let [{:keys [api-path] :as state} (r/props this)
                   form-position (get (get-in state [:dp-term-path]) 5)]
               (rf/dispatch [:handlers/search-es-options api-path ""])))
           (render [this]

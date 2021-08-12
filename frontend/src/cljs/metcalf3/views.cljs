@@ -289,7 +289,7 @@
                                       :on-change #(on-change (-> % .-target .-value))
                                       :value (or value default-value)
                                       :disabled disabled)
-               (if options
+               (when options
                  [:option {:value default-value :disabled true} default-option])]
               (for [option options]
                 [OptionWidget option])))

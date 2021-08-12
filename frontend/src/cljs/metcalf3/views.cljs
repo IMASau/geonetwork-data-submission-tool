@@ -1109,7 +1109,7 @@
                                             (gobj/get option "term"))
                        :formatOptionLabel (fn [props]
                                             (r/as-element (breadcrumb-renderer props)))
-                       :filterOption      (fn [option, rawInput]
+                       :filterOption      (fn [_option _rawInput]
                                             ; Return true always. This allows for matches on label as well as altLabel (or other fields available in the REST API).
                                             (boolean 0))
                        :onChange          (fn [option]

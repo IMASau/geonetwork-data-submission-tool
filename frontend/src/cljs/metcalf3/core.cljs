@@ -1,13 +1,13 @@
 (ns metcalf3.core
   (:require [clojure.string :refer [blank?]]
-            [re-frame.db :refer [app-db]]
             [metcalf3.config]
             [metcalf3.fx]
+            [metcalf3.handlers]
             [metcalf3.routing :as router]
             [metcalf3.subs]
             [metcalf3.views :refer [AppRoot]]
-            [metcalf3.handlers]
             [re-frame.core :as rf]
+            [re-frame.db :refer [app-db]]
             [reagent.core :as r]))
 
 (when-not ^boolean js/goog.DEBUG

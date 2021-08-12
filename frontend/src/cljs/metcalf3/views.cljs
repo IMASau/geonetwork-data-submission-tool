@@ -360,9 +360,10 @@
 (defn BackButton [props]
   (let [page @(rf/subscribe [:subs/get-derived-path [:page]])
         back (:back page)]
-    (if back [:button.btn.btn-default.BackButton
-              {:on-click #(rf/dispatch [:handlers/back])}
-              [:span.glyphicon.glyphicon-chevron-left] " Back"])))
+    (when back
+      [:button.btn.btn-default.BackButton
+       {:on-click #(rf/dispatch [:handlers/back])}
+       [:span.glyphicon.glyphicon-chevron-left] " Back"])))
 
 (defmulti PageView (fn [page] (get page :name)) :default "404")
 
@@ -1875,7 +1876,7 @@
                  :onBlur            on-blur
                  :placeholder       "Start typing to filter list..."})))]
     (r/create-class
-      {:render                       render})))
+      {:render render})))
 
 (defn SelectRoleWidget [role-path]
   (let [role @(rf/subscribe [:subs/get-derived-path role-path])

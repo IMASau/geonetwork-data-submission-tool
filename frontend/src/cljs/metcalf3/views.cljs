@@ -2034,7 +2034,7 @@
 
 (defn PageViewError
   [_]
-  (let [{:keys [text code detail]} @(rf/subscribe [:subs/get-page-props])]
+  (let [{:keys [text code]} @(rf/subscribe [:subs/get-page-props])]
     [:div
      [navbar]
      [:div.container

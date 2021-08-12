@@ -2,13 +2,20 @@ clean:
 	rm -fR resources/public/js/*
 
 figwheel:
+	# init yarn
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-w /tmp \
+		node:12-alpine \
+		yarn
+	# run shadow-cljs watch
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-v $(HOME)/.clojure:/root/.clojure \
 		-v $(HOME)/.m2:/root/.m2 \
 		-p 127.0.0.1:9500:9500 \
 		clojure:openjdk-14-tools-deps-buster \
-		clojure -M:figwheel
+		shadow-cljs watch server metcalf3
 
 build:
 	# init yarn
@@ -17,19 +24,13 @@ build:
 		-w /tmp \
 		node:12-alpine \
 		yarn
-	# run webpack
-	docker run --rm -it \
-		-v $(shell pwd):/tmp \
-		-w /tmp \
-		node:12-alpine \
-		yarn webpack --mode development
-	# run clojure compiler
+	# run shadow-cljs compile
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-v $${HOME}/.clojure:/root/.clojure \
 		-v $${HOME}/.m2:/root/.m2 \
 		clojure:openjdk-14-tools-deps-buster \
-		clojure -M:build
+		shadow-cljs compile metcalf3
 
 copy-static:
 	cp node_modules/normalize.css/normalize.css resources/public/css
@@ -54,16 +55,10 @@ release:
 		-w /tmp \
 		node:12-alpine \
 		yarn
-	# run webpack
-	docker run --rm -it \
-		-v $(shell pwd):/tmp \
-		-w /tmp \
-		node:12-alpine \
-		yarn webpack --mode production
-	# run clojure compiler
+	# run shadow-cljs release
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-v $(HOME)/.clojure:/root/.clojure \
 		-v $(HOME)/.m2:/root/.m2 \
 		clojure:openjdk-14-tools-deps-buster \
-		clojure -M:release
+		shadow-cljs release metcalf3

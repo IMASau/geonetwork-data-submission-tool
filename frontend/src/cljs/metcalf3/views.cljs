@@ -969,7 +969,7 @@
     (r/create-class
       {:render render})))
 
-(defn VerticalCoverage [props]
+(defn VerticalCoverage []
   (let [{hasVerticalExtent :value} @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]])]
     [:div.VerticalCoverage
      [:h4 "Vertical Coverage"]
@@ -2094,7 +2094,7 @@
    [PageErrors {:page :where :path [:form]}]
    [:h2 "4. Where"]
    [GeographicCoverage nil]
-   [VerticalCoverage nil]
+   [VerticalCoverage]
    [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]])
 
 (defn CreditField [path]

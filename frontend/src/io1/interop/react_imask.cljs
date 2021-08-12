@@ -1,4 +1,4 @@
-(ns interop.masked-input
+(ns interop.react-imask
   (:require [cljsjs.react-imask]
             [reagent.core :as r]))
 

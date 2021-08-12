@@ -1,8 +1,8 @@
 (ns metcalf3.widget.select
-  (:require [interop.react-select :refer [ReactSelect* SelectComponentsOption* ReactSelectAsync* ReactSelectAsyncCreatable*]]
-            [interop.react-virtualized :refer [ReactWindow*]]
+  (:require [cljs.spec.alpha :as s]
             [goog.object :as gobj]
-            [cljs.spec.alpha :as s]
+            [interop.react-select :refer [ReactSelect* ReactSelectAsync* ReactSelectAsyncCreatable* SelectComponentsOption*]]
+            [interop.react-virtualized :refer [ReactWindow*]]
             [metcalf3.utils :as utils]
             [reagent.core :as r]))
 

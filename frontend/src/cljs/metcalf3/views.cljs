@@ -1033,7 +1033,7 @@
             (let [{:keys [keyword]} (r/props this)]
               (rf/dispatch [:handlers/load-api-options [:api keyword]])))
           (render [this]
-            (let [{:keys [keyword path on-change]} (r/props this)
+            (let [{:keys [keyword path]} (r/props this)
                   path (conj path keyword)
                   value-path (conj path :value 0 :value)
                   {:keys [options]} @(rf/subscribe [:subs/get-derived-path [:api keyword]])

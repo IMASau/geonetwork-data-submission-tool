@@ -1073,7 +1073,7 @@
             (let [{:keys [api-path]} (r/props this)]
               (rf/dispatch [:handlers/search-es-options api-path ""])))
           (render [this]
-            (let [{:keys [dp-type dp-term-path api-path disabled] :as state} (r/props this)
+            (let [{:keys [dp-type dp-term-path api-path disabled]} (r/props this)
                   sub-paths (dp-term-paths dp-type)
                   {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])
                   term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])

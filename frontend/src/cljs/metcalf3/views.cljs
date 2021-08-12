@@ -178,23 +178,23 @@
               (utils/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
           (render [this]
             (let [{:keys [on-change disabled] :as props} (r/props this)
-                  {:keys [input-value]} (r/state this)]
-              (let [{:keys [is-hidden help]} props]
-                [:div.form-group {:class    (str (validation-state props) " "
-                                                 (when is-hidden "hidden"))
-                                  :disabled disabled}
-                 (label-template props)
-                 [:div.expandingArea.active {:style {:position "relative"}}
-                  [:pre (assoc props
-                          :class "form-control")
-                   [:span input-value] [:br]]
-                  [:textarea (assoc props
-                               :value input-value
-                               :on-change #(r/set-state this {:input-value (.. % -target -value)})
-                               :on-blur #(on-change input-value)
-                               :class "form-control"
-                               :key "textarea")]]
-                 [:p.help-block help]])))]
+                  {:keys [input-value]} (r/state this)
+                  {:keys [is-hidden help]} props]
+              [:div.form-group {:class    (str (validation-state props) " "
+                                               (when is-hidden "hidden"))
+                                :disabled disabled}
+               (label-template props)
+               [:div.expandingArea.active {:style {:position "relative"}}
+                [:pre (assoc props
+                        :class "form-control")
+                 [:span input-value] [:br]]
+                [:textarea (assoc props
+                             :value input-value
+                             :on-change #(r/set-state this {:input-value (.. % -target -value)})
+                             :on-blur #(on-change input-value)
+                             :class "form-control"
+                             :key "textarea")]]
+               [:p.help-block help]]))]
     (r/create-class
       {:get-initial-state            init-state
        :component-will-receive-props component-will-receive-props

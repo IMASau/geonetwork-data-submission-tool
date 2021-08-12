@@ -751,44 +751,44 @@
   (letfn [(init-state [_]
             {:highlight #{}})
           (render [this]
-            (let [{:keys [highlight]} (r/state this)]
-              (let [keywords-path [:form :fields :identificationInfo :keywordsThemeExtra :keywords]
-                    keywords-value-path (conj keywords-path :value)
-                    {:keys [value placeholder disabled errors new-value help maxlength] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
-                (letfn [(set-value! [v]
-                          (rf/dispatch [:handlers/setter keywords-path :new-value v]))
-                        (add-value! []
-                          (when-not (empty? new-value)
-                            (rf/dispatch [:handlers/add-keyword-extra keywords-value-path new-value])
-                            (handle-highlight-new this new-value)
-                            (set-value! "")
-                            (rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path])))
-                        (del-value! [x]
-                          (rf/dispatch [:handlers/del-keyword-extra keywords-value-path x]))]
-                  [:div.ThemeKeywordsExtra {:class (validation-state props)}
-                   (label-template props)
-                   [:p.help-block help]
-                   [:table.table.keyword-table {:class (if-not disabled "table-hover")}
-                    (into [:tbody]
-                          (for [keyword value]
-                            [:tr {:class (if disabled "active" (if (highlight (:value keyword)) "highlight"))}
-                             [:td (:value keyword)]
-                             (if-not disabled
-                               [:td
-                                [:button.btn.btn-warn.btn-xs.pull-right
-                                 {:on-click #(del-value! (:value keyword))}
-                                 [:span.glyphicon.glyphicon-minus]]])]))]
-                   (if-not disabled
-                     [ThemeInputField {:value       new-value
-                                       :on-submit   add-value!
-                                       :placeholder placeholder
-                                       :errors      errors
-                                       :help        help
-                                       :maxlength   maxlength
-                                       :extra-help  "We will contact you to discuss appropriate keyword terms"
-                                       :on-change   (fn [e]
-                                                      (set-value! (.. e -target -value)))
-                                       :on-blur     (fn [] (js/setTimeout #(rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path]) 100))}])]))))]
+            (let [{:keys [highlight]} (r/state this)
+                  keywords-path [:form :fields :identificationInfo :keywordsThemeExtra :keywords]
+                  keywords-value-path (conj keywords-path :value)
+                  {:keys [value placeholder disabled errors new-value help maxlength] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
+              (letfn [(set-value! [v]
+                        (rf/dispatch [:handlers/setter keywords-path :new-value v]))
+                      (add-value! []
+                        (when-not (empty? new-value)
+                          (rf/dispatch [:handlers/add-keyword-extra keywords-value-path new-value])
+                          (handle-highlight-new this new-value)
+                          (set-value! "")
+                          (rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path])))
+                      (del-value! [x]
+                        (rf/dispatch [:handlers/del-keyword-extra keywords-value-path x]))]
+                [:div.ThemeKeywordsExtra {:class (validation-state props)}
+                 (label-template props)
+                 [:p.help-block help]
+                 [:table.table.keyword-table {:class (if-not disabled "table-hover")}
+                  (into [:tbody]
+                        (for [keyword value]
+                          [:tr {:class (if disabled "active" (if (highlight (:value keyword)) "highlight"))}
+                           [:td (:value keyword)]
+                           (if-not disabled
+                             [:td
+                              [:button.btn.btn-warn.btn-xs.pull-right
+                               {:on-click #(del-value! (:value keyword))}
+                               [:span.glyphicon.glyphicon-minus]]])]))]
+                 (if-not disabled
+                   [ThemeInputField {:value       new-value
+                                     :on-submit   add-value!
+                                     :placeholder placeholder
+                                     :errors      errors
+                                     :help        help
+                                     :maxlength   maxlength
+                                     :extra-help  "We will contact you to discuss appropriate keyword terms"
+                                     :on-change   (fn [e]
+                                                    (set-value! (.. e -target -value)))
+                                     :on-blur     (fn [] (js/setTimeout #(rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path]) 100))}])])))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))

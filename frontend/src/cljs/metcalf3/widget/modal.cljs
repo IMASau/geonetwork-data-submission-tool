@@ -26,7 +26,7 @@
      (if modal-footer
        [:div.modal-footer modal-footer]
        [:div.modal-footer
-        (if loading [:span [:span.fa.fa-spinner.fa-spin] " "])
+        (when loading [:span [:span.fa.fa-spinner.fa-spin] " "])
         (when on-cancel
           [:button.btn.btn-default {:disabled loading
                                     :on-click #(on-cancel %)} "Cancel"])

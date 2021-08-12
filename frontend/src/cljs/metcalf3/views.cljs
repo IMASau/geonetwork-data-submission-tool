@@ -1634,96 +1634,96 @@
             {:is-open        false
              :is-open-inline false})
           (render [this]
-            (let [{:keys [is-open is-open-inline]} (r/state this)]
-              (let [page @(rf/subscribe [:subs/get-page-props])
-                    saving (::handlers/saving? page)
-                    {:keys [document urls site]} @(rf/subscribe [:subs/get-derived-path [:context]])
-                    {:keys [portal_title portal_url email]} site
-                    {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
-                    {:keys [terms_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])
-                    {:keys [disabled dirty]} @(rf/subscribe [:subs/get-derived-path [:form]])
-                    noteForDataManager @(rf/subscribe [:subs/get-derived-path [:form :fields :noteForDataManager]])
-                    agreedToTerms @(rf/subscribe [:subs/get-derived-path [:form :fields :agreedToTerms]])
-                    doiRequested @(rf/subscribe [:subs/get-derived-path [:form :fields :doiRequested]])
-                    currentDoi @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :doi]])
-                    is-are (if (> errors 1) "are" "is")
-                    plural (if (> errors 1) "s")
-                    has-errors? (and errors (> errors 0))
-                    submitted? (= (:status document) "Submitted")]
-                [:div.Lodge
-                 [:p "Are you finished? Use this page to lodge your completed metadata record."]
-                 [:p "Any difficulties?  Please contact " [:a {:href (str "mailto:" email)} email]]
-                 [:p "The Data Manager will be notified of your submission and will be in contact
+            (let [{:keys [is-open is-open-inline]} (r/state this)
+                  page @(rf/subscribe [:subs/get-page-props])
+                  saving (::handlers/saving? page)
+                  {:keys [document urls site]} @(rf/subscribe [:subs/get-derived-path [:context]])
+                  {:keys [portal_title portal_url email]} site
+                  {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
+                  {:keys [terms_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])
+                  {:keys [disabled dirty]} @(rf/subscribe [:subs/get-derived-path [:form]])
+                  noteForDataManager @(rf/subscribe [:subs/get-derived-path [:form :fields :noteForDataManager]])
+                  agreedToTerms @(rf/subscribe [:subs/get-derived-path [:form :fields :agreedToTerms]])
+                  doiRequested @(rf/subscribe [:subs/get-derived-path [:form :fields :doiRequested]])
+                  currentDoi @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :doi]])
+                  is-are (if (> errors 1) "are" "is")
+                  plural (if (> errors 1) "s")
+                  has-errors? (and errors (> errors 0))
+                  submitted? (= (:status document) "Submitted")]
+              [:div.Lodge
+               [:p "Are you finished? Use this page to lodge your completed metadata record."]
+               [:p "Any difficulties?  Please contact " [:a {:href (str "mailto:" email)} email]]
+               [:p "The Data Manager will be notified of your submission and will be in contact
                if any further information is required. Once approved, your data will be archived
                for discovery in the "
-                  (if portal_url
-                    [:a {:href portal_url :target "_blank"} [:span.portal_title portal_title]]
-                    [:span.portal_title portal_title])
-                  "."]
-                 [:p "How complete is your data?"]
-                 [:div
-                  {:style {:padding-top    5
-                           :padding-bottom 5}}
-                  (if (= "Draft" (:status document))
-                    [textarea-field [:form :fields :noteForDataManager]]
-                    (when-not (string/blank? (:value noteForDataManager))
-                      [:div
-                       [:strong "Note for the data manager:"]
-                       [:p (:value noteForDataManager)]]))]
-                 [:div
-                  [CheckboxField [:form :fields :doiRequested] [:span "Please mint a DOI for this submission (If the DOI already exists, input details in the field above)"]]]
-                 (when (:value doiRequested) (if (blank? (:value currentDoi))
-                                               [:p [:strong "DOI not yet minted"]]
-                                               [:p [:strong "Minted DOI: "] (:value currentDoi)]))
-                 [:div
-                  [:a
-                   {:onClick #(r/set-state this {:is-open (not is-open)})}
-                   [:div [:b (str (if is-open "Hide" "Show") " Terms & Conditions ") (if is-open [:span.glyphicon.glyphicon-collapse-up]
-                                                                                                 [:span.glyphicon.glyphicon-collapse-down])]]]
-                  [bp3/collapse
-                   {:isOpen is-open}
-                   [:iframe {:width  "100%"
-                             :height "600px"
-                             :src    terms_pdf}]]
-                  [CheckboxField [:form :fields :agreedToTerms] [:span "I have read and agree to the terms and conditions."]]
-                  [:button.btn.btn-primary.btn-lg
-                   {:disabled (or has-errors? saving disabled submitted? (not (:value agreedToTerms)))
-                    :on-click handle-submit-click}
-                   (when saving
-                     [:img
-                      {:src (str (:STATIC_URL urls)
-                                 "metcalf3/img/saving.gif")}])
-                   "Lodge data"]
-                  " "
+                (if portal_url
+                  [:a {:href portal_url :target "_blank"} [:span.portal_title portal_title]]
+                  [:span.portal_title portal_title])
+                "."]
+               [:p "How complete is your data?"]
+               [:div
+                {:style {:padding-top    5
+                         :padding-bottom 5}}
+                (if (= "Draft" (:status document))
+                  [textarea-field [:form :fields :noteForDataManager]]
+                  (when-not (string/blank? (:value noteForDataManager))
+                    [:div
+                     [:strong "Note for the data manager:"]
+                     [:p (:value noteForDataManager)]]))]
+               [:div
+                [CheckboxField [:form :fields :doiRequested] [:span "Please mint a DOI for this submission (If the DOI already exists, input details in the field above)"]]]
+               (when (:value doiRequested) (if (blank? (:value currentDoi))
+                                             [:p [:strong "DOI not yet minted"]]
+                                             [:p [:strong "Minted DOI: "] (:value currentDoi)]))
+               [:div
+                [:a
+                 {:onClick #(r/set-state this {:is-open (not is-open)})}
+                 [:div [:b (str (if is-open "Hide" "Show") " Terms & Conditions ") (if is-open [:span.glyphicon.glyphicon-collapse-up]
+                                                                                               [:span.glyphicon.glyphicon-collapse-down])]]]
+                [bp3/collapse
+                 {:isOpen is-open}
+                 [:iframe {:width  "100%"
+                           :height "600px"
+                           :src    terms_pdf}]]
+                [CheckboxField [:form :fields :agreedToTerms] [:span "I have read and agree to the terms and conditions."]]
+                [:button.btn.btn-primary.btn-lg
+                 {:disabled (or has-errors? saving disabled submitted? (not (:value agreedToTerms)))
+                  :on-click handle-submit-click}
+                 (when saving
+                   [:img
+                    {:src (str (:STATIC_URL urls)
+                               "metcalf3/img/saving.gif")}])
+                 "Lodge data"]
+                " "
 
-                  (if has-errors?
-                    [:span.text-danger [:b "Unable to lodge: "]
-                     "There " is-are " " [:span errors " error" plural
-                                          " which must be corrected first."]]
-                    [:span.text-success
-                     [:b
-                      (cond
-                        saving "Submitting..."
-                        (= (:status document) "Draft") "Ready to lodge"
-                        (= (:status document) "Submitted") "Your record has been submitted."
-                        :else (:status document))]])]
+                (if has-errors?
+                  [:span.text-danger [:b "Unable to lodge: "]
+                   "There " is-are " " [:span errors " error" plural
+                                        " which must be corrected first."]]
+                  [:span.text-success
+                   [:b
+                    (cond
+                      saving "Submitting..."
+                      (= (:status document) "Draft") "Ready to lodge"
+                      (= (:status document) "Submitted") "Your record has been submitted."
+                      :else (:status document))]])]
 
-                 (let [download-props {:href     (str (:export_url document) "?download")
-                                       :on-click #(when dirty
-                                                    (.preventDefault %)
-                                                    (rf/dispatch [:handlers/open-modal
-                                                                  {:type    :alert
-                                                                   :message "Please save changes before exporting."}]))}]
-                   [:div.user-export
-                    [:p [:strong "Want to keep a personal copy of your metadata record?"]]
-                    [:p
-                     [:a download-props "Click here"] " to generate an XML version of your metadata submission. "
-                     "The file generated includes all of the details you have provided under the
-                      tabs, but not files you have uploaded."]
-                    [:p
-                     "Please note: this XML file is not the recommended way to share your metadata.
-                      We want you to submit your data via 'lodging' the information.
-                      This permits multi-user access via the portal in a more friendly format."]])])))]
+               (let [download-props {:href     (str (:export_url document) "?download")
+                                     :on-click #(when dirty
+                                                  (.preventDefault %)
+                                                  (rf/dispatch [:handlers/open-modal
+                                                                {:type    :alert
+                                                                 :message "Please save changes before exporting."}]))}]
+                 [:div.user-export
+                  [:p [:strong "Want to keep a personal copy of your metadata record?"]]
+                  [:p
+                   [:a download-props "Click here"] " to generate an XML version of your metadata submission. "
+                   "The file generated includes all of the details you have provided under the
+                    tabs, but not files you have uploaded."]
+                  [:p
+                   "Please note: this XML file is not the recommended way to share your metadata.
+                    We want you to submit your data via 'lodging' the information.
+                    This permits multi-user access via the portal in a more friendly format."]])]))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))

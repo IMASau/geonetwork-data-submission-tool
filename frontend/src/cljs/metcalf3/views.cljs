@@ -2009,9 +2009,9 @@
 
 (defn navbar
   []
-  (let [{:keys [Dashboard account_profile account_logout]} @(rf/subscribe [:subs/get-derived-path [:context :urls]])
-        {:keys [user urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        {:keys [title tag_line guide_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])]
+  (let [{:keys [Dashboard]} @(rf/subscribe [:subs/get-derived-path [:context :urls]])
+        {:keys [user]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        {:keys [guide_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])]
     [bp3/navbar {:className "bp3-dark"}
      [bp3/navbar {:className "container"}
       [bp3/navbar-group {:align (:LEFT bp3/alignment)}

@@ -1,10 +1,10 @@
 (ns metcalf3.fx
-  (:require [interop.cljs-ajax :refer [POST]]
+  (:require [cljs.spec.alpha :as s]
             [goog.net.XhrIo :as xhrio]
             [goog.structs :as structs]
-            [re-frame.core :as rf]
-            [cljs.spec.alpha :as s]
-            [metcalf3.logic :as logic])
+            [interop.cljs-ajax :refer [POST]]
+            [metcalf3.logic :as logic]
+            [re-frame.core :as rf])
   (:import [goog.net Cookies]))
 
 (def get-json-header

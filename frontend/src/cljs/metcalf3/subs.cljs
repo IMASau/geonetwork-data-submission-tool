@@ -1,9 +1,9 @@
 (ns metcalf3.subs
-  (:require [metcalf3.logic :as logic]
+  (:require [cljs.spec.alpha :as s]
             [clojure.set :as set]
-            [interop.moment :as moment]
             [clojure.string :as string]
-            [cljs.spec.alpha :as s]))
+            [interop.moment :as moment]
+            [metcalf3.logic :as logic]))
 
 (defn get-derived-state
   [db _]

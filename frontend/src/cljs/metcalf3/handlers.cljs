@@ -1,13 +1,13 @@
 (ns metcalf3.handlers
-  (:require [clojure.string :as str]
-            [cljs.core.async :refer [put!]]
-            [metcalf3.logic :as logic]
-            [goog.object :as gobj]
-            [re-frame.core :as rf]
-            [metcalf3.utils :as utils]
+  (:require [cljs.core.async :refer [put!]]
             [cljs.spec.alpha :as s]
+            [clojure.string :as str]
+            [clojure.walk :as walk]
+            [goog.object :as gobj]
             [interop.moment :as moment]
-            [clojure.walk :as walk]))
+            [metcalf3.logic :as logic]
+            [metcalf3.utils :as utils]
+            [re-frame.core :as rf]))
 
 (defn init-db
   [_ _]

@@ -2,7 +2,6 @@
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [ajax.core :as ajax]
             [cljs.core.async :as async :refer [put! <! chan timeout]]
-            [cljsjs.moment]
             [clojure.string :as string :refer [blank?]]
             [cuerdas.core :as cuerdas]
             [goog.events :as gevents]
@@ -2453,7 +2452,7 @@
                   [:span.label.label-info {:style {:font-weight "normal"}} status]
                   [:small [:i {:style {:color     "#aaa"
                                        :font-size "1em"}}
-                           "Last edited " (-> last_updated js/moment .fromNow)]]]]]
+                           "Last edited " (moment/from-now last_updated)]]]]]
                [:div.Home.container
                 [edit-tabs]
                 [:div.PageViewBody
@@ -2541,7 +2540,7 @@
                    :font-size "0.9em"}}
        (if-not (empty? last_updated)
          [:span
-          "Last edited " (.fromNow (js/moment last_updated))
+          "Last edited " (moment/from-now last_updated)
           " by " (:username (:this doc))]
          "Has not been edited yet")]]]))
 

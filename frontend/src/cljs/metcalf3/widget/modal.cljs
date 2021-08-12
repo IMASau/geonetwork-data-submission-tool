@@ -42,7 +42,7 @@
 
           (init-state [this]
             {:key-down-callback
-             (fn [e] (if (= ESCAPE-KEY-CODE (.-keyCode e))
+             (fn [e] (when (= ESCAPE-KEY-CODE (.-keyCode e))
                        (when-let [on-dismiss (:on-dismiss (r/props this))]
                          (on-dismiss e))))})
 

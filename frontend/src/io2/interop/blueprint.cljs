@@ -1,14 +1,13 @@
 (ns interop.blueprint
-  (:require [cljs.spec.alpha :as s]
-            ["@blueprintjs/core" :as BlueprintCore]
+  (:require ["@blueprintjs/core" :as BlueprintCore]
             ["@blueprintjs/datetime" :as BlueprintDatetime]
             ["@blueprintjs/select" :as BlueprintSelect]
             ["@blueprintjs/table" :as BlueprintTable]
+            [cljs.spec.alpha :as s]
             [clojure.string :as string]
             [goog.object :as gobject]
-            [oops.core :refer [gget]]
-            [reagent.core :as r]
-            ["react" :as React]))
+            ["react" :as React]
+            [reagent.core :as r]))
 
 (defn get-initial-state
   [this]

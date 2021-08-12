@@ -1753,7 +1753,7 @@
                       :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :country) %]))]]]]))
 
 (defn organisation-option-renderer
-  [{:keys [focusedOption focusOption option selectValue optionHeight] :as args}]
+  [{:keys [focusedOption focusOption option selectValue optionHeight]}]
   (let [{:keys [organisationName]} option
         className (if (identical? option focusedOption)
                     "VirtualizedSelectOption VirtualizedSelectFocusedOption"

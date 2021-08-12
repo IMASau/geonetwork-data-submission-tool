@@ -2043,7 +2043,7 @@
        [:p "The server responded with a " [:code code " " (pr-str text)] " error."]]]]))
 
 (defmethod PageTabView ["Edit" :data-identification]
-  [page]
+  [_]
   [:div
    [PageErrors {:page :data-identification :path [:form]}]
    [:h2 "1. Data Identification"]
@@ -2055,7 +2055,7 @@
    [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :what]
-  [page]
+  [_]
   [:div
    [PageErrors {:page :what :path [:form]}]
    [:h2 "2. What"]
@@ -2070,7 +2070,7 @@
    [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :when]
-  [page]
+  [_]
   [:div
    [PageErrors {:page :when :path [:form]}]
    [:h2 "3. When was the data acquired?"]
@@ -2083,7 +2083,7 @@
    [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :where]
-  [page]
+  [_]
   [:div
    [PageErrors {:page :where :path [:form]}]
    [:h2 "4. Where"]

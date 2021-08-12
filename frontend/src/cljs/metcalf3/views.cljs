@@ -2477,7 +2477,7 @@
 (defn FormErrors [{:keys [path] :as props}]
   (let [{:keys [fields show-errors] :as form} @(rf/subscribe [:subs/get-derived-path path])
         fields-with-errors (filter (comp :errors second) fields)]
-    (if (and show-errors (seq fields-with-errors))
+    (when (and show-errors (seq fields-with-errors))
       [:div.alert.alert-danger
        [:p [:b "The following fields need your attention"]]
        (into [:ul] (for [[k {:keys [label errors]}] fields-with-errors]

@@ -20,7 +20,7 @@
   {:type        "Polygon"
    :coordinates [[[west south] [west north] [east north] [east south] [west south]]]})
 
-(defn map->bounds [{:keys [west south east north] :as bounds}]
+(defn map->bounds [{:keys [west south east north]}]
   [[south west]
    [north east]])
 

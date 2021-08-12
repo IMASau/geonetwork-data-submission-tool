@@ -1285,11 +1285,11 @@
        :render               render})))
 
 (defn ApiTermListField
-  [{:keys [api-path dp-term-path dp-type sort?]}]
+  [{:keys [api-path dp-term-path dp-type]}]
   (let [sub-paths (dp-term-paths dp-type)
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
-        {:keys [value label help required errors show-errors]} term
+        {:keys [label required errors show-errors]} term
         {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
     [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
      (when label [:label label (when required " *")])

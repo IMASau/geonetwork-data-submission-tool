@@ -1154,11 +1154,10 @@
           (render [this]
             (let [{:keys [dp-type dp-term-path api-path]} (r/props this)
                   sub-paths (dp-term-paths dp-type)
-                  {:keys [options uri]} @(rf/subscribe [:subs/get-derived-path api-path])
-                  {:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
+                  {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])
                   term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
                   vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
-                  {:keys [value label help required errors show-errors]} term
+                  {:keys [label help required errors show-errors]} term
                   selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
                   new-term? (other-term? term vocabularyTermURL)
                   selected-value (if (blank? (:value vocabularyTermURL))

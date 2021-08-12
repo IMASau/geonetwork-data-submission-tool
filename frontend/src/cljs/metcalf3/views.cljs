@@ -2533,7 +2533,7 @@
 
     [:div.list-group-item.DocumentTeaser
      [:div.pull-right
-      (if (contains? transitions "archive")
+      (when (contains? transitions "archive")
         [:span.btn.btn-default.noborder.btn-xs
          {:on-click on-archive-click}
          [:span.glyphicon.glyphicon-trash] " archive"])

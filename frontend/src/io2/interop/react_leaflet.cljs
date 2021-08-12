@@ -1,7 +1,6 @@
 (ns interop.react-leaflet
   (:refer-clojure :exclude [map])
-  (:require cljsjs.react-leaflet
-            [reagent.core :as r]
+  (:require [reagent.core :as r]
             ["leaflet" :default L]
             ["leaflet-draw"]
             ["react-leaflet" :as ReactLeaflet]

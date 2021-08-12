@@ -2224,7 +2224,7 @@
        :render            render})))
 
 (defmethod PageTabView ["Edit" :who]
-  [page]
+  [_]
   [:div
    [Who nil]
    [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]])
@@ -2233,9 +2233,7 @@
   "docstring"
   [path]
   (let [method-path (conj path :value)
-        {:keys [name description uri] :as dp-term} @(rf/subscribe [:subs/get-derived-path method-path])
-        props {:method-path method-path
-               :api-path    [:api :parameterunit]}]
+        {:keys [name]} @(rf/subscribe [:subs/get-derived-path method-path])]
     [:div
      ;TODO: put this back once method vocab exists
      ;[:p "Select a method from the list"]

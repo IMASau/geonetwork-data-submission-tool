@@ -2257,7 +2257,7 @@
        :field-path  path}]]))
 
 (defmethod PageTabView ["Edit" :how]
-  [page]
+  [_]
   [:div
    [PageErrors {:page :how :path [:form]}]
    [:h2 "5: How"]

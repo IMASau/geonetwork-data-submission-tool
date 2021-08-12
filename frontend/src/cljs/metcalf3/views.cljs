@@ -1086,7 +1086,7 @@
                   new-term? (other-term? term vocabularyTermURL)
                   form-position (get (get-in state [:dp-term-path]) 5)]
               [:div
-               (if new-term?
+               (when new-term?
                  [:span.pull-right.new-term.text-primary
                   [:span.glyphicon.glyphicon-asterisk]
                   " New term"])

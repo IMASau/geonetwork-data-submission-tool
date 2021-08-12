@@ -1,11 +1,5 @@
 (ns metcalf3.content)
 
-(def term-defaults
-  {:term              {:type nil}
-   :vocabularyTermURL {:type nil}
-   :vocabularyVersion {:type nil}
-   :termDefinition    {:type nil}})
-
 (def responsible-party-defaults
   {:individualName        {:type        nil
                            :label       "Contact name"

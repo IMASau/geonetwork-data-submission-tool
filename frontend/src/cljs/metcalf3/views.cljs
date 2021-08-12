@@ -293,7 +293,7 @@
                  [:option {:value default-value :disabled true} default-option])]
               (for [option options]
                 [OptionWidget option])))
-       (if help [:p.help-block help])])))
+       (when help [:p.help-block help])])))
 
 (defn SelectField [path]
   (let [{:keys [options default-option disabled] :as field} @(rf/subscribe [:subs/get-derived-path path])]

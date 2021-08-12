@@ -798,47 +798,47 @@
   (letfn [(init-state [_]
             {:highlight #{}})
           (render [this]
-            (let [{:keys [highlight]} (r/state this)]
-              (let [keywords-path [:form :fields :identificationInfo :keywordsTaxonExtra :keywords]
-                    keywords-value-path (conj keywords-path :value)
-                    {:keys [value required help placeholder disabled maxlength errors new-value] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
+            (let [{:keys [highlight]} (r/state this)
+                  keywords-path [:form :fields :identificationInfo :keywordsTaxonExtra :keywords]
+                  keywords-value-path (conj keywords-path :value)
+                  {:keys [value required help placeholder disabled maxlength errors new-value] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
 
-                (letfn [(set-value! [v]
-                          (rf/dispatch [:handlers/setter keywords-path :new-value v]))
-                        (add-value! []
-                          (when-not (empty? new-value)
-                            (rf/dispatch [:handlers/add-keyword-extra keywords-value-path new-value])
-                            (handle-highlight-new this new-value)
-                            (set-value! nil)
-                            (rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path])))
-                        (del-value! [x]
-                          (rf/dispatch [:handlers/del-keyword-extra keywords-value-path x]))
-                        (handle-input-change [e]
-                          (set-value! (.. e -target -value)))
-                        (handle-input-blur []
-                          (js/setTimeout #(rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path]) 100))]
+              (letfn [(set-value! [v]
+                        (rf/dispatch [:handlers/setter keywords-path :new-value v]))
+                      (add-value! []
+                        (when-not (empty? new-value)
+                          (rf/dispatch [:handlers/add-keyword-extra keywords-value-path new-value])
+                          (handle-highlight-new this new-value)
+                          (set-value! nil)
+                          (rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path])))
+                      (del-value! [x]
+                        (rf/dispatch [:handlers/del-keyword-extra keywords-value-path x]))
+                      (handle-input-change [e]
+                        (set-value! (.. e -target -value)))
+                      (handle-input-blur []
+                        (js/setTimeout #(rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path]) 100))]
 
-                  [:div.TaxonKeywordsExtra {:class (validation-state props)}
-                   [:label "Taxon keywords" (if required " *")]
-                   [:p.help-block help]
-                   [:table.table.keyword-table {:class (if-not disabled "table-hover")}
-                    (into [:tbody]
-                          (for [keyword value]
-                            [:tr {:class (if disabled "active" (if (highlight (:value keyword)) "highlight"))}
-                             [:td (:value keyword)]
-                             (if-not disabled
-                               [:td [:button.btn.btn-warn.btn-xs.pull-right
-                                     {:on-click #(del-value! (:value keyword))}
-                                     [:span.glyphicon.glyphicon-minus]]])]))]
-                   (if-not disabled
-                     [ThemeInputField {:value       new-value
-                                       :on-submit   add-value!
-                                       :placeholder placeholder
-                                       :errors      errors
-                                       :maxlength   maxlength
-                                       :help        help
-                                       :on-change   handle-input-change
-                                       :on-blur     handle-input-blur}])]))))]
+                [:div.TaxonKeywordsExtra {:class (validation-state props)}
+                 [:label "Taxon keywords" (if required " *")]
+                 [:p.help-block help]
+                 [:table.table.keyword-table {:class (if-not disabled "table-hover")}
+                  (into [:tbody]
+                        (for [keyword value]
+                          [:tr {:class (if disabled "active" (if (highlight (:value keyword)) "highlight"))}
+                           [:td (:value keyword)]
+                           (if-not disabled
+                             [:td [:button.btn.btn-warn.btn-xs.pull-right
+                                   {:on-click #(del-value! (:value keyword))}
+                                   [:span.glyphicon.glyphicon-minus]]])]))]
+                 (if-not disabled
+                   [ThemeInputField {:value       new-value
+                                     :on-submit   add-value!
+                                     :placeholder placeholder
+                                     :errors      errors
+                                     :maxlength   maxlength
+                                     :help        help
+                                     :on-change   handle-input-change
+                                     :on-blur     handle-input-blur}])])))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))

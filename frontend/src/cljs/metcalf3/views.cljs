@@ -609,7 +609,7 @@
              :show-modal false
              :highlight  #{}})
           (render [this]
-            (let [{:keys [new-value show-modal highlight options]} (r/state this)
+            (let [{:keys [highlight]} (r/state this)
                   topic-categories-path [:form :fields :identificationInfo :topicCategory]
                   topicCategories @(rf/subscribe [:subs/get-derived-path topic-categories-path])
                   {:keys [value placeholder disabled help] :as props} topicCategories

@@ -1,5 +1,5 @@
 (ns interop.fixed-data-table-2
-  (:require ["fixed-data-table-2" :default FixedDataTable2]
+  (:require ["fixed-data-table-2" :as FixedDataTable2]
             [reagent.core :as r]))
 
 (def Table (r/adapt-react-class FixedDataTable2/Table))

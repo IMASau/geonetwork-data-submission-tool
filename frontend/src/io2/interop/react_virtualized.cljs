@@ -1,5 +1,5 @@
 (ns interop.react-virtualized
-  (:require ["react" :default React]
+  (:require ["react" :as React]
             ["react-window" :as ReactWindow]
             ["react-virtualized" :as ReactVirtualized]
             ["react-virtualized-auto-sizer" :default AutoSizer]))

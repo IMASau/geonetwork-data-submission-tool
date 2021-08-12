@@ -1305,7 +1305,7 @@
             (gevents/listen
               (FileDropHandler. js/document)
               goog.events.FileDropHandler.EventType.DROP
-              #(handle-file this (.. % getBrowserEvent -dataTransfer -files (item 0))))
+              (fn [^js e] (handle-file this (.. e getBrowserEvent -dataTransfer -files (item 0)))))
             (go-loop []
                      (when (<! reset-ch)
                        (r/set-state this {:file nil})

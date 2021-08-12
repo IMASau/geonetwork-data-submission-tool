@@ -19,10 +19,10 @@
   (s/assert string? uri)
   (s/assert vector? resp-v)
 
-  (letfn [(callback [e]
+  (letfn [(callback [^js e]
             (let [json (.. e -target getResponseJson)]
               (rf/dispatch (conj resp-v json))))]
-    (xhrio/send uri callback "GET" {} get-json-header)))
+    (xhrio/send uri callback "GET" nil get-json-header)))
 
 (defn xhrio-post-json
   [{:keys [uri data resp-v]}]
@@ -30,7 +30,7 @@
   (s/assert string? data)
   (s/assert vector? resp-v)
 
-  (letfn [(callback [e]
+  (letfn [(callback [^js e]
             (let [json (.. e -target getResponseJson)]
               (rf/dispatch (conj resp-v json))))]
     (xhrio/send uri callback "POST" data post-json-header)))

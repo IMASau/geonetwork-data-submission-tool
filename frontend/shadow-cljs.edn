@@ -2,8 +2,8 @@
  :builds {:metcalf3
           {:target     :browser
            :modules    {:app {:entries [metcalf3.core]}}
-           :output-dir "resources/public/js/dev"
-           :asset-path "/static/metcalf3/js/dev"
+           :output-dir "resources/public/js"
+           :asset-path "/static/metcalf3/js"
            :devtools   {:preloads [metcalf3.preload]}}
           :test
           {:target   :browser-test

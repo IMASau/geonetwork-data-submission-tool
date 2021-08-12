@@ -1,7 +1,7 @@
 {:main            metcalf3.core
- :output-to       "resources/public/js/prod.js"
- :output-dir      "resources/public/js/prod"
- :source-map      "resources/public/js/prod.js.map"
+ :output-to       "resources/public/js/app.js"
+ :output-dir      "resources/public/js/app"
+ :source-map      "resources/public/js/app.js.map"
  :closure-defines {goog.DEBUG false}
  :npm-deps        false
  :infer-externs   true

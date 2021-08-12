@@ -1,5 +1,5 @@
 (ns interop.moment
-  (:require ["moment" :default js-moment]))
+  (:require ["moment" :as js-moment]))
 
 (defn moment
   ([x] (js-moment x))

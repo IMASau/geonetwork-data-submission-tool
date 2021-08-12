@@ -585,7 +585,7 @@
               [KeywordsThemeCell rowData]])))
 
 (defn theme-option-renderer
-  [props options]
+  [props]
   (let [rowData (gobj/get props "rowData")]
     [:div
      [KeywordsThemeCell rowData]]))
@@ -651,7 +651,7 @@
                                        :getOptionValue    (fn [option]
                                                             (gobj/get option "value"))
                                        :formatOptionLabel (fn [props]
-                                                            (r/as-element (theme-option-renderer props options)))
+                                                            (r/as-element (theme-option-renderer props)))
                                        :onChange          (fn [option]
                                                             (add! (gobj/get option "value")))}]]])]))]
     (r/create-class
@@ -716,7 +716,7 @@
                                        :getOptionValue    (fn [option]
                                                             (gobj/get option "value"))
                                        :formatOptionLabel (fn [props]
-                                                            (r/as-element (theme-option-renderer props options)))
+                                                            (r/as-element (theme-option-renderer props)))
                                        :onChange          (fn [option]
                                                             (add! (gobj/get option "value")))}]]
                   [:div.flex-row-button

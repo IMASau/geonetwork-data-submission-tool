@@ -2475,7 +2475,7 @@
                       (or label (name k)) ": "
                       (string/join ". " errors)]))])))
 
-(defn NewDocumentForm [props]
+(defn NewDocumentForm []
   [:div.NewDocumentForm
    [FormErrors {:path [:create_form]}]
    [InputField {:path [:create_form :fields :title]}]
@@ -2487,7 +2487,7 @@
   [_ _]
   [Modal {:ok-copy      "OK"
           :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Create a new record"]
-          :modal-body   [NewDocumentForm nil]
+          :modal-body   [NewDocumentForm]
           :on-dismiss   #(rf/dispatch [:handlers/close-modal])
           :on-cancel    #(rf/dispatch [:handlers/close-modal])
           :on-save      #(rf/dispatch [:handlers/dashboard-create-save])}])

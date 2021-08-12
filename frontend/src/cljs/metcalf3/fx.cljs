@@ -1,5 +1,5 @@
 (ns metcalf3.fx
-  (:require [ajax.core :refer [POST]]
+  (:require [interop.cljs-ajax :refer [POST]]
             [goog.net.XhrIo :as xhrio]
             [goog.structs :as structs]
             [re-frame.core :as rf]

@@ -1152,7 +1152,7 @@
             (let [{:keys [api-path]} (r/props this)]
               (rf/dispatch [:handlers/load-api-options api-path])))
           (render [this]
-            (let [{:keys [dp-type dp-term-path api-path param-type]} (r/props this)
+            (let [{:keys [dp-type dp-term-path api-path]} (r/props this)
                   sub-paths (dp-term-paths dp-type)
                   {:keys [options uri]} @(rf/subscribe [:subs/get-derived-path api-path])
                   {:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])

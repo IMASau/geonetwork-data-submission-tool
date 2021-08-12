@@ -38,7 +38,7 @@
 
 (defn point->latlng [[x y]] {:lat y :lng x})
 
-(defn point-distance [[x1 y1 :as p1] [x2 y2 :as p2]]
+(defn point-distance [[x1 y1] [x2 y2]]
   (let [xd (- x2 x1) yd (- y2 y1)]
     (js/Math.sqrt (+ (* xd xd) (* yd yd)))))
 

@@ -29,7 +29,7 @@ build:
 		-v $${HOME}/.clojure:/root/.clojure \
 		-v $${HOME}/.m2:/root/.m2 \
 		clojure:openjdk-14-tools-deps-buster \
-		clojure -m cljs.main -co dev.cljs.edn -c
+		clojure -M:build
 
 copy-static:
 	cp node_modules/normalize.css/normalize.css resources/public/css
@@ -66,4 +66,4 @@ release:
 		-v $(HOME)/.clojure:/root/.clojure \
 		-v $(HOME)/.m2:/root/.m2 \
 		clojure:openjdk-14-tools-deps-buster \
-		clojure -m cljs.main -co prod.cljs.edn -O advanced -c
+		clojure -M:release

@@ -102,7 +102,7 @@
                :visible  visible}))
           (render [this]
             (let [{:keys [expanded visible]} (r/state this)
-                  {:keys [value options value-key render-menu on-select visible-options]} (r/props this)
+                  {:keys [value options value-key render-menu on-select]} (r/props this)
                   toggle-option (fn [option]
                                   (let [{:keys [lft rgt tree_id depth]} option]
                                     (if (contains? expanded option)

@@ -2126,7 +2126,7 @@
           (for [[item party] (-> parties :value utils/enum)]
             [:div
              [:a.list-group-item
-              {:class    (if (= item selected-item) "active")
+              {:class    (when (= item selected-item) "active")
                :on-click (fn []
                            (r/set-state this {:selected-group group})
                            (r/set-state this {:selected-item item}))}

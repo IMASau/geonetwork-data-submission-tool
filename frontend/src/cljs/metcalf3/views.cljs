@@ -1044,7 +1044,7 @@
                (if label [:label label (when required " *")])
                [:div.flex-row
                 [:div.flex-row-field
-                 [:div.form-group {:class (if (and show-errors (seq errors)) "has-error")}
+                 [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
                   (ReactSelect
                     {:value             #js {:uri (:value uri) :prefLabel (:value prefLabel)}
                      :options           options
@@ -1090,7 +1090,7 @@
                   " New term"])
                [:div.flex-row
                 [:div.flex-row-field
-                 [:div.form-group {:class (if (and show-errors (seq errors)) "has-error")}
+                 [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
                   (if label
                     [:label label
                      (when required " *")
@@ -1173,7 +1173,7 @@
                (if label [:label label (when required " *")])
                [:div.flex-row
                 [:div.flex-row-field
-                 [:div.form-group {:class (if (and show-errors (seq errors)) "has-error")}
+                 [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
                   (if-not new-term?
                     [VirtualizedSelect {:placeholder       (:placeholder term)
                                         :isClearable       true
@@ -1293,7 +1293,7 @@
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
         {:keys [value label help required errors show-errors]} term
         {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
-    [:div.form-group {:class (if (and show-errors (seq errors)) "has-error")}
+    [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
      (if label [:label label (when required " *")])
      [ApiListWidget
       {:api-path  api-path
@@ -1308,7 +1308,7 @@
   (let [{:keys [name uri description] :as method-term} @(rf/subscribe [:subs/get-derived-path method-path])
         {:keys [value label help required errors show-errors]} name
         {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
-    [:div.form-group {:class (if (and show-errors (seq errors)) "has-error")}
+    [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
      (if label [:label label (when required " *")])
      [ApiListWidget
       {:api-path  api-path
@@ -1325,7 +1325,7 @@
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
         {:keys [value label help required errors show-errors]} term
         {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
-    [:div.form-group {:class (if (and show-errors (seq errors)) "has-error")}
+    [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
      (if label [:label label (when required " *")])
      [ApiTreeWidget
       {:api-path  api-path
@@ -1376,7 +1376,7 @@
   (let [{:keys [name uri description] :as person-term} @(rf/subscribe [:subs/get-derived-path person-path])
         {:keys [value label help required errors show-errors]} name
         {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
-    [:div.form-group {:class (if (and show-errors (seq errors)) "has-error")}
+    [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
      (if label [:label label (when required " *")])
      [PersonListWidget
       {:api-path  api-path

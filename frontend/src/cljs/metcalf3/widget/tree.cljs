@@ -1,61 +1,6 @@
 (ns metcalf3.widget.tree
   (:require [reagent.core :as r]))
 
-(defn parent-paths [path]
-  (take-while seq (rest (iterate drop-last path))))
-
-(defn default-render-option
-  [{:keys [option is-expandable is-expanded toggle-option select-option]} _]
-  (let [{:keys [path label]} option]
-    [:div.tree-option
-     {:style {:margin-left (str (count path) "em")}}
-     (if is-expandable
-       [(if is-expanded
-          :span.glyphicon.glyphicon-triangle-bottom
-          :span.glyphicon.glyphicon-triangle-right)
-        {:style    {:cursor "pointer"}
-         :on-click #(toggle-option option)}]
-       [:span.glyphicon.glyphicon-file {:style {:visibility "hidden"}}])
-     [:span.tree-label
-      {:style    {:margin-left "0.2em"}
-       :on-click #(select-option option)}] label]))
-
-(defn Tree
-  [{:keys [options on-select render-option]
-    :or   {render-option default-render-option}}]
-  (letfn [(init-state [_]
-            {:expanded #{}})
-          (render [this]
-            (let [{:keys [expanded]} (r/state this)
-                  toggle-option (fn [{:keys [path]}]
-                                  (if (contains? expanded path)
-                                    (r/set-state this {:expanded (disj expanded path)})
-                                    (r/set-state this {:expanded (conj expanded path)})))
-                  expandable (into #{} (map (comp drop-last :path) options))
-                  visible? #(every? expanded (parent-paths (:path %)))
-                  visible-options (filter visible? options)]
-              [:div
-               [:h2 "Tree"]
-               (for [{:keys [path] :as option} visible-options]
-                 (render-option
-                   {:option        option
-                    :toggle-option toggle-option
-                    :select-option on-select
-                    :is-expandable (contains? expandable path)
-                    :is-expanded   (contains? expanded path)}))]))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
-
-(defn matches
-  ([m1]
-   (partial matches m1))
-  ([m1 m2]
-   (reduce-kv
-     (fn [t k v] (and t (= (get m2 k ::not-found) v)))
-     true
-     m1)))
-
 (defn descendant-count
   [{:keys [lft rgt]}]
   (- rgt lft 1))

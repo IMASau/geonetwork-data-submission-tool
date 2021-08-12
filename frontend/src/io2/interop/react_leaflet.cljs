@@ -1,7 +1,7 @@
 (ns interop.react-leaflet
   (:refer-clojure :exclude [map])
   (:require [reagent.core :as r]
-            ["leaflet" :default L]
+            ["leaflet" :as L]
             ["leaflet-draw"]
             ["react-leaflet" :as ReactLeaflet]
             ["react-leaflet-draw" :refer (EditControl)]))
@@ -20,7 +20,7 @@
 (def circle (r/adapt-react-class ReactLeaflet/Circle))
 (def circle-marker (r/adapt-react-class ReactLeaflet/CircleMarker))
 (def div-overlay (r/adapt-react-class ReactLeaflet/DivOverlay))
-(def edit-control (r/adapt-react-class ReactLeaflet/EditControl))
+(def edit-control (r/adapt-react-class EditControl))
 (def feature-group (r/adapt-react-class ReactLeaflet/FeatureGroup))
 (def geo-json (r/adapt-react-class ReactLeaflet/GeoJSON))
 (def grid-layer (r/adapt-react-class ReactLeaflet/GridLayer))

@@ -88,7 +88,7 @@
 (defn BaseTermTree
   []
   (letfn [(init-state [this]
-            (let [{:keys [value options value-key] :as props} (r/props this)
+            (let [{:keys [value options value-key]} (r/props this)
                   expanded-parents (get-all-parents value-key value options)
                   default-visible (if value (conj expanded-parents value)
                                             expanded-parents)

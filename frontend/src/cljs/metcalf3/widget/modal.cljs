@@ -43,7 +43,7 @@
           (init-state [this]
             {:key-down-callback
              (fn [e] (if (= ESCAPE-KEY-CODE (.-keyCode e))
-                       (if-let [on-dismiss (:on-dismiss (r/props this))]
+                       (when-let [on-dismiss (:on-dismiss (r/props this))]
                          (on-dismiss e))))})
 
           (did-mount [this]

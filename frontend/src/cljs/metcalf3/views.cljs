@@ -2541,7 +2541,7 @@
         [:span.btn.btn-default.noborder.btn-xs
          {:on-click on-delete-archived-click}
          [:span.glyphicon.glyphicon-remove] " delete"])
-      (if (contains? transitions "restore")
+      (when (contains? transitions "restore")
         [:span.btn.btn-default.noborder.btn-xs
          {:on-click on-restore-click}
          [:span.glyphicon.glyphicon-open] " restore"])

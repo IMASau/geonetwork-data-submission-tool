@@ -847,7 +847,7 @@
 
 (defn geographicElement->extent
   "Transform our API specific bbox data into something generic for Openlayers"
-  [{:keys [northBoundLatitude westBoundLongitude eastBoundLongitude southBoundLatitude] :as props}]
+  [{:keys [northBoundLatitude westBoundLongitude eastBoundLongitude southBoundLatitude]}]
   (map :value [westBoundLongitude southBoundLatitude eastBoundLongitude northBoundLatitude]))
 
 (defn ->float [s]

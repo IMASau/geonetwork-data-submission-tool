@@ -1,20 +1,10 @@
 (ns metcalf3.widget.select
-  (:require cljsjs.react-select
-            cljsjs.react-virtualized
+  (:require [interop.react-select :refer [ReactSelect* SelectComponentsOption* SelectComponentsValueContainer* ReactSelectAsync* ReactSelectCreatable* ReactSelectAsyncCreatable*]]
+            [interop.react-virtualized :refer [ReactWindow* AutoSizer* VirtualScroll*]]
             [goog.object :as gobj]
             [cljs.spec.alpha :as s]
             [metcalf3.utils :as utils]
             [reagent.core :as r]))
-
-(def ReactSelect* (js/React.createFactory js/Select))
-(def ReactWindow* (js/React.createFactory js/ReactWindow.FixedSizeList))
-(def SelectComponentsOption* (js/React.createFactory js/SelectComponents.Option))
-(def SelectComponentsValueContainer* (js/React.createFactory js/SelectComponents.ValueContainer))
-(def ReactSelectAsync* (js/React.createFactory js/AsyncSelect))
-(def ReactSelectCreatable* (js/React.createFactory js/Creatable))
-(def ReactSelectAsyncCreatable* (js/React.createFactory js/AsyncCreatable))
-(def AutoSizer* (js/React.createFactory js/ReactVirtualized.AutoSizer))
-(def VirtualScroll* (js/React.createFactory js/ReactVirtualized.VirtualScroll))
 
 (defn normalize-props [props]
   (utils/clj->js* (update props :options utils/clj->js* 1) 1))

@@ -281,7 +281,7 @@
         default-value (or default-value "")
         default-option (or default-option "Please select")]
     (when-not is-hidden
-      [:div.form-group {:class (if (and show-errors (seq errors))
+      [:div.form-group {:class (when (and show-errors (seq errors))
                                  "has-error")}
        (if label [:label label (if required " *")])
        (vec (concat
@@ -638,7 +638,7 @@
                            [:td [:button.btn.btn-warn.btn-xs.pull-right
                                  {:on-click #(rf/dispatch [:handlers/del-value topic-categories-path i])}
                                  [:span.glyphicon.glyphicon-minus]]])]))]
-               (if-not disabled
+               (when-not disabled
                  [:div.flex-row
                   [:div.flex-row-field
                    {;need this to make sure the drop down is rendered above any other input fields

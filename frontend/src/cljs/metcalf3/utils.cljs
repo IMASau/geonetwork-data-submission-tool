@@ -116,7 +116,7 @@
 (defn int-assoc-in
   "Helper based on assoc.  Initialises empty values as arrays if key is an integer"
   [m ks v]
-  (modified-assoc-in m ks v #(if (integer? %) [])))
+  (modified-assoc-in m ks v #(when (integer? %) [])))
 
 (defn vec-remove [v i]
   (reduce conj (vec (subvec v 0 i)) (subvec v (inc i) (count v))))

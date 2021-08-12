@@ -2547,7 +2547,7 @@
 
 (defn PageViewDashboard
   [_]
-  (let [{:keys [filtered-docs status-filter has-documents? user page status-freq status relevant-status-filter urls]} @(rf/subscribe [:subs/get-dashboard-props])]
+  (let [{:keys [filtered-docs status-filter has-documents? status-freq status relevant-status-filter]} @(rf/subscribe [:subs/get-dashboard-props])]
     [:div
      [navbar]
      [:div.container

@@ -1168,9 +1168,10 @@
                                    ""
                                    #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)})]
               [:div
-               (if new-term? [:span.pull-right.new-term.text-primary
-                              [:span.glyphicon.glyphicon-asterisk]
-                              " New term"])
+               (when new-term?
+                 [:span.pull-right.new-term.text-primary
+                  [:span.glyphicon.glyphicon-asterisk]
+                  " New term"])
                (when label [:label label (when required " *")])
                [:div.flex-row
                 [:div.flex-row-field

@@ -1,6 +1,6 @@
 (ns metcalf3.views
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [ajax.core :as ajax]
+  (:require [interop.cljs-ajax :as ajax]
             [cljs.core.async :as async :refer [put! <! chan timeout]]
             [clojure.string :as string :refer [blank?]]
             [cuerdas.core :as cuerdas]

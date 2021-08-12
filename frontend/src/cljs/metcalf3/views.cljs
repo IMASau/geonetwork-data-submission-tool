@@ -2183,7 +2183,7 @@
                            (parties-list this group)
                            (when-not (get-in cursors [group :disabled])
                              [:div.dropdown
-                              {:class   (if (= open group) "open")
+                              {:class   (when (= open group) "open")
                                :on-blur #(let [{:keys [open]} (r/state this)
                                                open' (when (or hold (not= open group)) open)]
                                            (r/set-state this {:open open'}))}

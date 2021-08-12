@@ -768,7 +768,7 @@
                 [:div.ThemeKeywordsExtra {:class (validation-state props)}
                  (label-template props)
                  [:p.help-block help]
-                 [:table.table.keyword-table {:class (if-not disabled "table-hover")}
+                 [:table.table.keyword-table {:class (when-not disabled "table-hover")}
                   (into [:tbody]
                         (for [keyword value]
                           [:tr {:class (if disabled "active" (if (highlight (:value keyword)) "highlight"))}

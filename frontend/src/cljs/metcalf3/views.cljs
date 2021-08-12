@@ -38,8 +38,6 @@
       (:email user))
     (str (:firstName user) " " (:lastName user))))
 
-(defmulti ModalDialog :type)
-
 (defn label-template [{:keys [label required]}]
   (when label
     [:label label (when required " *")]))
@@ -165,66 +163,6 @@
        [:input.form-control input-props])
      [:p.help-block help]]))
 
-(defn ExpandingTextareaWidget
-  "http://alistapart.com/article/expanding-text-areas-made-elegant"
-  [_]
-  (letfn [(init-state [this]
-            (let [{:keys [value]} (r/props this)]
-              {:input-value value}))
-          (component-will-receive-props [this new-argv]
-            (let [[_ next-props] new-argv
-                  props (r/props this)]
-              (utils/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
-          (render [this]
-            (let [{:keys [on-change disabled] :as props} (r/props this)
-                  {:keys [input-value]} (r/state this)
-                  {:keys [is-hidden help]} props]
-              [:div.form-group {:class    (str (validation-state props) " "
-                                               (when is-hidden "hidden"))
-                                :disabled disabled}
-               (label-template props)
-               [:div.expandingArea.active {:style {:position "relative"}}
-                [:pre (assoc props
-                        :class "form-control")
-                 [:span input-value] [:br]]
-                [:textarea (assoc props
-                             :value input-value
-                             :on-change #(r/set-state this {:input-value (.. % -target -value)})
-                             :on-blur #(on-change input-value)
-                             :class "form-control"
-                             :key "textarea")]]
-               [:p.help-block help]]))]
-    (r/create-class
-      {:get-initial-state            init-state
-       :component-will-receive-props component-will-receive-props
-       :render                       render})))
-
-(defn format-columns
-  "Generate row with columns matching given width constraints.
-
-  `flex` is a collection of column flex property values.
-  You can pass any valid flex value string (containing up two three parameters grow/shrink/basis combined),
-  but in the simplest case just put
-
-  * `nil` to keep width fixed when appropriate `fixed` value provided, or to set flex grow to 1 otherwise
-  * 0 to mark column as not growing wider than required to fit content
-  * positive number to tell what part of available space should column take if possible
-
-  `fixed` is a collection of column width property values.
-
-  If both `flex` and `fixed` will have non-nil values for the same column,
-  then both styles will be generated and usually you will get \"flex wins\" behaviour.
-
-  `columns` is a collection of column contents."
-  [flex fixed columns]
-  [:div {:style {:display "flex"}}
-   (map-indexed
-     (fn [i column]
-       (let [width (get fixed i)
-             flex (get flex i (when-not width 1))]
-         [:div {:style {:flex flex :width width}} column]))
-     columns)])
-
 (defn filter-table
   "Default search for local datasource: case-insensitive substring match"
   [simple? table query]
@@ -303,12 +241,6 @@
                     :on-blur #(rf/dispatch [:handlers/show-errors path])
                     :on-change #(rf/dispatch [:handlers/value-changed path %]))]))
 
-(defn TextareaFieldProps [props]
-  (let [{:keys [path]} props
-        field @(rf/subscribe [:subs/get-derived-path path])]
-    [ExpandingTextareaWidget (merge field (dissoc props :path)
-                                    {:on-change #(rf/dispatch [:handlers/value-changed path %])})]))
-
 (comment
   (defn TextareaField [path]
     (let [field @(rf/subscribe [:subs/get-derived-path path])]
@@ -363,8 +295,6 @@
       [:button.btn.btn-default.BackButton
        {:on-click #(rf/dispatch [:handlers/back])}
        [:span.glyphicon.glyphicon-chevron-left] " Back"])))
-
-(defmulti PageView (fn [page] (get page :name)) :default "404")
 
 (defn getter [k row] (get row k))
 
@@ -844,11 +774,6 @@
 
 
 
-(defn geographicElement->extent
-  "Transform our API specific bbox data into something generic for Openlayers"
-  [{:keys [northBoundLatitude westBoundLongitude eastBoundLongitude southBoundLatitude]}]
-  (map :value [westBoundLongitude southBoundLatitude eastBoundLongitude northBoundLatitude]))
-
 (defn ->float [s]
   (let [f (js/parseFloat s)]
     (if (js/isNaN f) nil f)))
@@ -985,28 +910,6 @@
         [InputField
          {:path  [:form :fields :identificationInfo :verticalElement :maximumValue]
           :class "wauto"}]])]))
-
-(defn term-option-parent?
-  [child parent]
-  (and (= (aget parent "tree_id") (aget child "tree_id"))
-       (< (aget parent "lft") (aget child "lft"))
-       (> (aget parent "rgt") (aget child "rgt"))))
-
-(defn term-option-path
-  [options option]
-  (->> options
-       (filter (partial term-option-parent? option))
-       (sort-by #(aget % "lft"))))
-
-(defn api-option-renderer [options option]
-  (let [text (string/join " > " (map #(aget % "term") (term-option-path options option)))
-        text (if (> (count text) 80)
-               (str (subs text 0 30) "..." (subs text (- (count text) 30) (count text)))
-               text)
-        term-text (aget option "term")]
-    [:div.topic-cell {:key term-text}
-     [:div.topic-path text]
-     [:div.topic-value term-text]]))
 
 (defn breadcrumb-renderer [selected-option]
   (let [text (gobj/get selected-option "breadcrumb")
@@ -1145,81 +1048,6 @@
       {:component-will-mount will-mount
        :render               render})))
 
-(defn ApiTermSelectField
-  [_]
-  (letfn [(will-mount [this]
-            (let [{:keys [api-path]} (r/props this)]
-              (rf/dispatch [:handlers/load-api-options api-path])))
-          (render [this]
-            (let [{:keys [dp-type dp-term-path api-path]} (r/props this)
-                  sub-paths (dp-term-paths dp-type)
-                  {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])
-                  term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
-                  vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
-                  {:keys [label help required errors show-errors]} term
-                  selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
-                  new-term? (other-term? term vocabularyTermURL)
-                  selected-value (if (blank? (:value vocabularyTermURL))
-                                   ""
-                                   #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)})]
-              [:div
-               (when new-term?
-                 [:span.pull-right.new-term.text-primary
-                  [:span.glyphicon.glyphicon-asterisk]
-                  " New term"])
-               (when label [:label label (when required " *")])
-               [:div.flex-row
-                [:div.flex-row-field
-                 [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
-                  (if-not new-term?
-                    [VirtualizedSelect {:placeholder       (:placeholder term)
-                                        :isClearable       true
-                                        :is-searchable     true
-                                        :height            "40px"
-                                        :options           selectable-options
-                                        :value             selected-value
-                                        :getOptionValue    (fn [option]
-                                                             (gobj/get option "term"))
-                                        :isOptionSelected  (fn [option selected]
-                                                             (= (gobj/get option "vocabularyTermURL") (gobj/get (first selected) "vocabularyTermURL")))
-                                        :noResultsText     "No results found.  Click browse to add a new entry."
-                                        :formatOptionLabel (fn [props]
-                                                             (r/as-element (api-option-renderer options props)))
-                                        :onChange          (fn [option]
-                                                             (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}]
-
-
-                    [VirtualizedSelect {:placeholder       (:placeholder term)
-                                        :isClearable       true
-                                        :is-searchable     true
-                                        :height            "40px"
-                                        :options           selectable-options
-                                        :value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
-                                        :getOptionValue    (fn [option]
-                                                             (gobj/get option "term"))
-                                        :isOptionSelected  (fn [option selected]
-                                                             (= (gobj/get option "vocabularyTermURL") (gobj/get (first selected) "vocabularyTermURL")))
-                                        :noResultsText     "No results found.  Click browse to add a new entry."
-                                        :formatOptionLabel (fn [props]
-                                                             (r/as-element (api-option-renderer options props)))
-                                        :onChange          (fn [option]
-                                                             (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}])
-                  [:p.help-block help]]]
-                ; TODO: Re-enable this in the future to browse/create vocabulary terms.
-                ;                  [:div.flex-row-button
-                ;                   [:button.btn.btn-default
-                ;                    {:style    {:vertical-align "top"}
-                ;                     :on-click #(rf/dispatch [:handlers/open-modal
-                ;                                              {:type         param-type
-                ;                                               :api-path     api-path
-                ;                                               :dp-term-path dp-term-path}])}
-                ;                    [:span.glyphicon.glyphicon-list] " Browse"]
-                ;                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]
-                ]]))]
-    (r/create-class
-      {:component-will-mount will-mount
-       :render               render})))
-
 (defn PersonListWidget
   [_]
   (letfn [(will-mount [this]
@@ -1238,26 +1066,6 @@
                     :value-key   :uri
                     :options     options
                     :on-select   on-change}]))))]
-    (r/create-class
-      {:component-will-mount will-mount
-       :render               render})))
-
-(defn ApiListWidget
-  [_]
-  (letfn [(will-mount [this]
-            (let [{:keys [api-path]} (r/props this)]
-              (rf/dispatch [:handlers/load-api-options api-path])))
-          (render [this]
-            (let [{:keys [api-path value on-change]} (r/props this)]
-              (when-let [{:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
-                ; TODO: review performance
-                (let [options (js->clj options :keywordize-keys true)
-                      option-value (first (filter #(-> % :URI (= value)) options))]
-                  [TermList
-                   {:value     option-value
-                    :value-key :URI
-                    :options   options
-                    :on-select on-change}]))))]
     (r/create-class
       {:component-will-mount will-mount
        :render               render})))
@@ -1282,38 +1090,6 @@
     (r/create-class
       {:component-will-mount will-mount
        :render               render})))
-
-(defn ApiTermListField
-  [{:keys [api-path dp-term-path dp-type]}]
-  (let [sub-paths (dp-term-paths dp-type)
-        term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
-        vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
-        {:keys [label required errors show-errors]} term
-        {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
-    [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
-     (when label [:label label (when required " *")])
-     [ApiListWidget
-      {:api-path  api-path
-       :value     (:value vocabularyTermURL)
-       :options   options
-       :on-change (fn [option]
-                    (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}]
-     [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
-
-(defn MethodListField
-  [{:keys [api-path method-path]}]
-  (let [{:keys [name uri]} @(rf/subscribe [:subs/get-derived-path method-path])
-        {:keys [label required errors show-errors]} name
-        {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
-    [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
-     (when label [:label label (when required " *")])
-     [ApiListWidget
-      {:api-path  api-path
-       :value     (:value uri)
-       :options   options
-       :on-change (fn [option]
-                    (rf/dispatch [:handlers/update-method-term method-path option]))}]
-     [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
 
 (defn ApiTermTreeField
   [{:keys [api-path dp-term-path dp-type]}]
@@ -1750,19 +1526,6 @@
        [InputWidget (assoc country
                       :help "Country"
                       :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :country) %]))]]]]))
-
-(defn organisation-option-renderer
-  [{:keys [focusedOption focusOption option selectValue optionHeight]}]
-  (let [{:keys [organisationName]} option
-        className (if (identical? option focusedOption)
-                    "VirtualizedSelectOption VirtualizedSelectFocusedOption"
-                    "VirtualizedSelectOption")]
-    [:div
-     {:class         className
-      :on-click      #(selectValue option)
-      :on-mouse-over #(focusOption option)
-      :style         {:height optionHeight}}
-     [:span organisationName]]))
 
 (defn OrganisationPickerWidget
   [props]

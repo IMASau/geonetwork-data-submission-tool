@@ -1649,7 +1649,7 @@
                   doiRequested @(rf/subscribe [:subs/get-derived-path [:form :fields :doiRequested]])
                   currentDoi @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :doi]])
                   is-are (if (> errors 1) "are" "is")
-                  plural (if (> errors 1) "s")
+                  plural (when (> errors 1) "s")
                   has-errors? (and errors (> errors 0))
                   submitted? (= (:status document) "Submitted")]
               [:div.Lodge

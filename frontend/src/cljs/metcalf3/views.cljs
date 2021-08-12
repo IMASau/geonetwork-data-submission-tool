@@ -2493,15 +2493,9 @@
           :on-save      #(rf/dispatch [:handlers/dashboard-create-save])}])
 
 (defn NewDocumentButton []
-  (letfn [(init-state [_]
-            {:title ""})
-          (render [this]
-            [:button.btn.btn-primary {:on-click #(rf/dispatch [:handlers/open-modal {:type :DashboardCreateModal}])}
-             [:span.glyphicon.glyphicon-plus]
-             " Create new record"])]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
+  [:button.btn.btn-primary {:on-click #(rf/dispatch [:handlers/open-modal {:type :DashboardCreateModal}])}
+   [:span.glyphicon.glyphicon-plus]
+   " Create new record"])
 
 (defn clone-doc [url event]
   (rf/dispatch [:handlers/open-modal

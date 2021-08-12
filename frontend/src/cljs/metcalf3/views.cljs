@@ -1490,7 +1490,7 @@
      :form       DataParameterRowEdit
      :title      "Parameter"
      :add-label  "Add data parameter"
-     :field-path [:form :fields :identificationInfo :dataParameters]}]])
+     :field-path path}]])
 
 (defn upload! [this {:keys [url fields]} file reset-file-drop]
   (r/set-state this {:uploading true})

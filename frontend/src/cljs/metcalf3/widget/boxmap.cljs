@@ -1,10 +1,10 @@
 (ns metcalf3.widget.boxmap
-  (:require [re-frame.core :as rf]
-            [interop.react-leaflet :as react-leaflet]
-            [oops.core :refer []]
-            [reagent.core :as r]
+  (:require [goog.object :as gobj]
             [interop.blueprint :as bp3]
-            [goog.object :as gobj]))
+            [interop.react-leaflet :as react-leaflet]
+            [oops.core]
+            [re-frame.core :as rf]
+            [reagent.core :as r]))
 
 ;;; http://blog.jayfields.com/2011/01/clojure-select-keys-select-values-and.html
 (defn map->bounds [{:keys [west south east north]}]

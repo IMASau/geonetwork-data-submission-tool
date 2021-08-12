@@ -2369,7 +2369,7 @@
                     :field-path [:form :fields :dataSources]}]])
 
 (defmethod PageTabView ["Edit" :upload]
-  [page]
+  [_]
   [:div
    [PageErrors {:page :upload :path [:form]}]
    [:h2 "8: Upload Data"]
@@ -2379,7 +2379,7 @@
    [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :lodge]
-  [page]
+  [_]
   [:div
    [PageErrors {:page :lodge :path [:form]}]
    [:h2 "9: Lodge Metadata Draft"]
@@ -2428,8 +2428,8 @@
   (letfn [(render [this]
             (let [page @(rf/subscribe [:subs/get-page-props])
                   saving (::handlers/saving? page)
-                  {:keys [user urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
-                  {:keys [dirty disabled] :as form} @(rf/subscribe [:subs/get-derived-path [:form]])
+                  {:keys [urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
+                  {:keys [dirty disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
                   {:keys [status title last_updated]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
               [:div
                [navbar]

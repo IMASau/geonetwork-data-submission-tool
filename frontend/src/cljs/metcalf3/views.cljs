@@ -1009,7 +1009,7 @@
      [:div.topic-path text]
      [:div.topic-value term-text]]))
 
-(defn breadcrumb-renderer [options selected-option]
+(defn breadcrumb-renderer [selected-option]
   (let [text (goog.object/get selected-option "breadcrumb")
         term-text (goog.object/get selected-option "term")
         alt-label (goog.object/get selected-option "altLabel")]
@@ -1110,7 +1110,7 @@
                        :getOptionValue    (fn [option]
                                             (gobj/get option "term"))
                        :formatOptionLabel (fn [props]
-                                            (r/as-element (breadcrumb-renderer options props)))
+                                            (r/as-element (breadcrumb-renderer props)))
                        :filterOption      (fn [option, rawInput]
                                             ; Return true always. This allows for matches on label as well as altLabel (or other fields available in the REST API).
                                             (boolean 0))
@@ -1128,7 +1128,7 @@
                        :getOptionValue    (fn [option]
                                             (gobj/get option "term"))
                        :formatOptionLabel (fn [props]
-                                            (r/as-element (breadcrumb-renderer options props)))
+                                            (r/as-element (breadcrumb-renderer props)))
                        :onChange          (fn [option]
                                             (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
                        :noResultsText     "No results found.  Click browse to add a new entry."}))

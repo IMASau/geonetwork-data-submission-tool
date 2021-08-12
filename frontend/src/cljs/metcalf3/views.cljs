@@ -634,7 +634,7 @@
                       (for [[i topicCategory] (utils/enum value)]
                         [:tr {:class (if disabled "active" (if (highlight (:value topicCategory)) "highlight"))}
                          [:td [TopicCategoryCell (lookup (:value topicCategory))]]
-                         (if-not disabled
+                         (when-not disabled
                            [:td [:button.btn.btn-warn.btn-xs.pull-right
                                  {:on-click #(rf/dispatch [:handlers/del-value topic-categories-path i])}
                                  [:span.glyphicon.glyphicon-minus]]])]))]

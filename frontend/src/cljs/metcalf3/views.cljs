@@ -1224,7 +1224,7 @@
 (defn PersonListWidget
   [_]
   (letfn [(will-mount [this]
-            (let [{:keys [api-path value on-change]} (r/props this)]
+            (let [{:keys [api-path]} (r/props this)]
               (rf/dispatch [:handlers/load-api-options api-path])))
           (render [this]
             (let [{:keys [api-path value on-change]} (r/props this)]

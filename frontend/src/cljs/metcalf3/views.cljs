@@ -609,50 +609,50 @@
              :show-modal false
              :highlight  #{}})
           (render [this]
-            (let [{:keys [new-value show-modal highlight options]} (r/state this)]
-              (let [topic-categories-path [:form :fields :identificationInfo :topicCategory]
-                    topicCategories @(rf/subscribe [:subs/get-derived-path topic-categories-path])
-                    {:keys [value placeholder disabled help] :as props} topicCategories
-                    table @(rf/subscribe [:subs/get-derived-path [:topicCategories :table]])
-                    set-value! #(r/set-state this {:new-value %})
-                    add! (fn [identifier] (when-not (empty? identifier)
-                                            (when (not-any? (comp #{identifier} :value)
-                                                            (:value topicCategories))
-                                              (rf/dispatch [:handlers/add-value! topic-categories-path identifier]))
-                                            (handle-highlight-new this identifier)
-                                            (set-value! nil)))
-                    lookup (fn [uuid] (first (filterv #(= uuid (first %)) table)))
-                    options (into-array (for [[value & path :as rowData] table]
-                                          #js {:value   value
-                                               :rowData rowData
-                                               :label   (string/join " > " path)}))]
-                [:div.ThemeKeywords {:class (validation-state props)}
-                 (label-template props)
-                 [:p.help-block help]
-                 [:table.table.keyword-table {:class (if-not disabled "table-hover")}
-                  (into [:tbody]
-                        (for [[i topicCategory] (utils/enum value)]
-                          [:tr {:class (if disabled "active" (if (highlight (:value topicCategory)) "highlight"))}
-                           [:td [TopicCategoryCell (lookup (:value topicCategory))]]
-                           (if-not disabled
-                             [:td [:button.btn.btn-warn.btn-xs.pull-right
-                                   {:on-click #(rf/dispatch [:handlers/del-value topic-categories-path i])}
-                                   [:span.glyphicon.glyphicon-minus]]])]))]
-                 (if-not disabled
-                   [:div.flex-row
-                    [:div.flex-row-field
-                     {;need this to make sure the drop down is rendered above any other input fields
-                      :style {:position "relative"
-                              :z-index  10}}
-                     [VirtualizedSelect {:placeholder       placeholder
-                                         :options           options
-                                         :value             ""
-                                         :getOptionValue    (fn [option]
-                                                              (gobj/get option "value"))
-                                         :formatOptionLabel (fn [props]
-                                                              (r/as-element (theme-option-renderer props options)))
-                                         :onChange          (fn [option]
-                                                              (add! (gobj/get option "value")))}]]])])))]
+            (let [{:keys [new-value show-modal highlight options]} (r/state this)
+                  topic-categories-path [:form :fields :identificationInfo :topicCategory]
+                  topicCategories @(rf/subscribe [:subs/get-derived-path topic-categories-path])
+                  {:keys [value placeholder disabled help] :as props} topicCategories
+                  table @(rf/subscribe [:subs/get-derived-path [:topicCategories :table]])
+                  set-value! #(r/set-state this {:new-value %})
+                  add! (fn [identifier] (when-not (empty? identifier)
+                                          (when (not-any? (comp #{identifier} :value)
+                                                          (:value topicCategories))
+                                            (rf/dispatch [:handlers/add-value! topic-categories-path identifier]))
+                                          (handle-highlight-new this identifier)
+                                          (set-value! nil)))
+                  lookup (fn [uuid] (first (filterv #(= uuid (first %)) table)))
+                  options (into-array (for [[value & path :as rowData] table]
+                                        #js {:value   value
+                                             :rowData rowData
+                                             :label   (string/join " > " path)}))]
+              [:div.ThemeKeywords {:class (validation-state props)}
+               (label-template props)
+               [:p.help-block help]
+               [:table.table.keyword-table {:class (if-not disabled "table-hover")}
+                (into [:tbody]
+                      (for [[i topicCategory] (utils/enum value)]
+                        [:tr {:class (if disabled "active" (if (highlight (:value topicCategory)) "highlight"))}
+                         [:td [TopicCategoryCell (lookup (:value topicCategory))]]
+                         (if-not disabled
+                           [:td [:button.btn.btn-warn.btn-xs.pull-right
+                                 {:on-click #(rf/dispatch [:handlers/del-value topic-categories-path i])}
+                                 [:span.glyphicon.glyphicon-minus]]])]))]
+               (if-not disabled
+                 [:div.flex-row
+                  [:div.flex-row-field
+                   {;need this to make sure the drop down is rendered above any other input fields
+                    :style {:position "relative"
+                            :z-index  10}}
+                   [VirtualizedSelect {:placeholder       placeholder
+                                       :options           options
+                                       :value             ""
+                                       :getOptionValue    (fn [option]
+                                                            (gobj/get option "value"))
+                                       :formatOptionLabel (fn [props]
+                                                            (r/as-element (theme-option-renderer props options)))
+                                       :onChange          (fn [option]
+                                                            (add! (gobj/get option "value")))}]]])]))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))

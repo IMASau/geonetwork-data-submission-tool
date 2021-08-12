@@ -512,7 +512,7 @@
             :on-save      #(rf/dispatch [:handlers/close-modal])}]))
 
 (defn TableModalEdit
-  [{:keys [ths tds-fn form title field-path placeholder maxlength default-field on-new-click add-label]
+  [{:keys [ths tds-fn form title field-path placeholder default-field on-new-click add-label]
     :or   {tds-fn    #(list (:value %))
            add-label "Add new"}}]
   (let [{:keys [disabled] :as many-field} @(rf/subscribe [:subs/get-derived-path field-path])]

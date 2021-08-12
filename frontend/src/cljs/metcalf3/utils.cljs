@@ -2,32 +2,6 @@
   (:require clojure.string
             [goog.object :as gobject]))
 
-(defn error [& args]
-  (.apply (.-error js/console) js/console (to-array args))
-  (last args))
-
-(defn warn [& args]
-  (.apply (.-warn js/console) js/console (to-array args))
-  (last args))
-
-(defn info [& args]
-  (.apply (.-info js/console) js/console (to-array args))
-  (last args))
-
-(defn log [& args]
-  (.apply (.-log js/console) js/console (to-array args))
-  (last args))
-
-(defn debug [& args]
-  (.apply (.-debug js/console) js/console (to-array args))
-  (last args))
-
-(defn on-edge [m0 m1 ks on-set on-clr]
-  (let [v0 (get-in m0 ks)
-        v1 (get-in m1 ks)]
-    (when (and v0 (not v1)) (on-clr))
-    (when (and (not v0) v1) (on-set))))
-
 (defn on-change [m0 m1 ks f]
   (let [v0 (get-in m0 ks)
         v1 (get-in m1 ks)]
@@ -73,10 +47,6 @@
 
 (defn map-keys [f m]
   (persistent! (reduce-kv (fn [z k v] (assoc! z (f k) v)) (transient {}) m)))
-
-(defn title-case [s]
-  (-> s clojure.string/lower-case
-      (clojure.string/replace #"\b." #(.toUpperCase %1))))
 
 (defn keys-in
   "
@@ -126,8 +96,3 @@
 
 (defn enum [coll]
   (zip (range) coll))
-
-(defn same-keyword-string?
-  "Check if a keyword parameter coerced to a string is the same as the string parameter."
-  [keyword string]
-  (= (str (clojure.core/name keyword)) string))

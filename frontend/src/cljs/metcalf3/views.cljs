@@ -691,7 +691,7 @@
                [:table.table.keyword-table {:class (when-not disabled "table-hover")}
                 (into [:tbody]
                       (for [[i keyword] (utils/enum value)]
-                        [:tr {:class (if disabled "active" (if (highlight (:value keyword)) "highlight"))}
+                        [:tr {:class (if disabled "active" (when (highlight (:value keyword)) "highlight"))}
                          [:td [KeywordsThemeCell (lookup (:value keyword))]]
                          (if-not disabled
                            [:td [:button.btn.btn-warn.btn-xs.pull-right
@@ -771,7 +771,7 @@
                  [:table.table.keyword-table {:class (when-not disabled "table-hover")}
                   (into [:tbody]
                         (for [keyword value]
-                          [:tr {:class (if disabled "active" (if (highlight (:value keyword)) "highlight"))}
+                          [:tr {:class (if disabled "active" (when (highlight (:value keyword)) "highlight"))}
                            [:td (:value keyword)]
                            (when-not disabled
                              [:td
@@ -824,7 +824,7 @@
                  [:table.table.keyword-table {:class (when-not disabled "table-hover")}
                   (into [:tbody]
                         (for [keyword value]
-                          [:tr {:class (if disabled "active" (if (highlight (:value keyword)) "highlight"))}
+                          [:tr {:class (if disabled "active" (when (highlight (:value keyword)) "highlight"))}
                            [:td (:value keyword)]
                            (if-not disabled
                              [:td [:button.btn.btn-warn.btn-xs.pull-right

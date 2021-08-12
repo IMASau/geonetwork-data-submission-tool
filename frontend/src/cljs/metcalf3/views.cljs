@@ -17,7 +17,7 @@
             [metcalf3.widget.boxmap :as boxmap]
             [metcalf3.widget.modal :refer [Modal]]
             [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectAsyncCreatable VirtualizedSelect]]
-            [metcalf3.widget.table :refer [Table Column Cell]]
+            [interop.fixed-data-table-2 :refer [Table Column Cell]]
             [metcalf3.widget.tree :refer [TermTree TermList]]
             [re-frame.core :as rf]
             [reagent.core :as r]

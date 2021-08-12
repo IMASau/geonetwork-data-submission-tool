@@ -1,4 +1,4 @@
-(ns metcalf3.widget.table
+(ns interop.fixed-data-table-2
   (:require [cljsjs.fixed-data-table-2]
             [reagent.core :as r]))
 

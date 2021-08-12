@@ -1095,7 +1095,7 @@
                   (if label
                     [:label label
                      (when required " *")
-                     (if tooltip [Tooltip tooltip])])
+                     (when tooltip [Tooltip tooltip])])
                   (if-not new-term?
                     (ReactSelect
                       {:value             (if (blank? (:value vocabularyTermURL))

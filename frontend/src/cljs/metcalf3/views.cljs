@@ -1335,7 +1335,7 @@
 
 (defn TermOrOtherForm
   "docstring"
-  [{:keys [api-path dp-term-path dp-type] :as props}]
+  [{:keys [dp-term-path dp-type] :as props}]
   (let [sub-paths (dp-term-paths dp-type)
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])]

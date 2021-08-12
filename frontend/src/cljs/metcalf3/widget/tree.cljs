@@ -140,22 +140,22 @@
               {:expanded (set (get-all-parents value-key value options))}))
           (render [this]
             (let [{:keys [expanded]} (r/state this)
-                  {:keys [value options value-key render-menu on-select display-key]} (r/props this)]
-              (let [toggle-option (fn [option]
-                                    (if (contains? expanded option)
-                                      (r/set-state this {:expanded (disj expanded option)})
-                                      (r/set-state this {:expanded (conj expanded option)})))
-                    visible? #(every? expanded (node-parents options %))
-                    visible-options (filter visible? options)]
-                (render-menu
-                  {:value           value
-                   :value-key       value-key
-                   :display-key     display-key
-                   :options         options
-                   :expanded        expanded
-                   :select-option   on-select
-                   :toggle-option   toggle-option
-                   :visible-options visible-options}))))]
+                  {:keys [value options value-key render-menu on-select display-key]} (r/props this)
+                  toggle-option (fn [option]
+                                  (if (contains? expanded option)
+                                    (r/set-state this {:expanded (disj expanded option)})
+                                    (r/set-state this {:expanded (conj expanded option)})))
+                  visible? #(every? expanded (node-parents options %))
+                  visible-options (filter visible? options)]
+              (render-menu
+                {:value           value
+                 :value-key       value-key
+                 :display-key     display-key
+                 :options         options
+                 :expanded        expanded
+                 :select-option   on-select
+                 :toggle-option   toggle-option
+                 :visible-options visible-options})))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))

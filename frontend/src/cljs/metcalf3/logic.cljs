@@ -154,22 +154,8 @@
                                 (f acc node)
                                 acc))))))
 
-(defn form? [m]
-  (contains? m :fields))
-
-
 (defn reset-form [{:keys [fields] :as form}]
   (assoc form :fields (field-edit (field-zipper fields) reset-field)))
-
-
-(defn load-data
-  ([{:keys [data] :as form}]
-   (load-data form data))
-  ([form data]
-   (reduce
-     (fn [form-acc [k v]]
-       (assoc-in form-acc [:fields k :value] v))
-     form data)))
 
 
 (defn extract-data
@@ -209,16 +195,6 @@
        (field-reduce (field-zipper fields)
                      (fn [acc {:keys [errors]}] (and acc (empty? errors)))
                      true)))
-
-
-(defn extent->geographicElement
-  [[westBoundLongitude southBoundLatitude eastBoundLongitude northBoundLatitude]]
-  (let [northBoundLatitude (+ northBoundLatitude (if (= northBoundLatitude southBoundLatitude) 1e-6 0))
-        eastBoundLongitude (+ eastBoundLongitude (if (= westBoundLongitude eastBoundLongitude) 1e-6 0))]
-    {:westBoundLongitude {:value westBoundLongitude}
-     :southBoundLatitude {:value southBoundLatitude}
-     :eastBoundLongitude {:value eastBoundLongitude}
-     :northBoundLatitude {:value northBoundLatitude}}))
 
 
 (defn field-walk

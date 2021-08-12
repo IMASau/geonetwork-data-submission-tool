@@ -1,4 +1,4 @@
-{:paths ["src/cljs" "src/spec" "env/dev/cljs" "resources"]
+{:paths ["src/cljs" "src/spec" "env/dev/cljs" "resources" "io1"]
  :deps  {org.clojure/clojure             {:mvn/version "1.10.3"}
          org.clojure/clojurescript       {:mvn/version "1.10.879"}
          org.clojure/test.check          {:mvn/version "0.9.0"}

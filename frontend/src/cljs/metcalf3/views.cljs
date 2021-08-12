@@ -699,7 +699,7 @@
                            [:td [:button.btn.btn-warn.btn-xs.pull-right
                                  {:on-click #(rf/dispatch [:handlers/del-value keywords-path i])}
                                  [:span.glyphicon.glyphicon-minus]]])]))]
-               (if-not disabled
+               (when-not disabled
                  [:div.flex-row
                   [:div.flex-row-field
                    {;need this to make sure the drop down is rendered above any other input fields

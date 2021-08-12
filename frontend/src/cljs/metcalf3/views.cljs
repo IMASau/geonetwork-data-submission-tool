@@ -1070,8 +1070,7 @@
 (defn ElasticsearchSelectField
   [_]
   (letfn [(will-mount [this]
-            (let [{:keys [api-path] :as state} (r/props this)
-                  form-position (get (get-in state [:dp-term-path]) 5)]
+            (let [{:keys [api-path]} (r/props this)]
               (rf/dispatch [:handlers/search-es-options api-path ""])))
           (render [this]
             (let [{:keys [dp-type dp-term-path api-path param-type disabled tooltip] :as state} (r/props this)

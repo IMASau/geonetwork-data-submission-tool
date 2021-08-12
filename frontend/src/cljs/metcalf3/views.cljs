@@ -1978,7 +1978,7 @@
   [:span.FieldError label ": " (or (first errors) "check field errors")])
 
 (defn PageErrors [{:keys [page path]}]
-  (let [{:keys [show-errors] :as form} @(rf/subscribe [:subs/get-derived-path path])
+  (let [form @(rf/subscribe [:subs/get-derived-path path])
         fields (logic/page-fields form page)
         error-fields (remove #(logic/is-valid? {:fields %}) fields)
         msgs (for [field error-fields]

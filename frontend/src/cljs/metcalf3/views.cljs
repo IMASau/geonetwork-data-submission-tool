@@ -129,24 +129,24 @@
 
           (render [this]
             (let [{:keys [addon-before addon-after help disabled mask] :as props} (r/props this)
-                  {:keys [input-value]} (r/state this)]
-              (let [input-props (-> props
-                                    (dissoc :show-errors)
-                                    (assoc :maxLength (:maxlength props))
-                                    (dissoc :maxlength)
-                                    (assoc :value (or input-value ""))
-                                    (assoc :on-change #(handle-change this (.. % -target -value)))
-                                    (assoc :on-blur #(handle-blur this))
-                                    (assoc :key "ifc"))]
-                [:div.form-group {:class    (validation-state props)
-                                  :disabled disabled}
-                 (label-template props)
-                 (if (or addon-after addon-before)
-                   [:div.input-group {:key "ig"} addon-before [:input.form-control input-props] addon-after]
-                   (if mask
-                     [masked-text-widget input-props]
-                     [:input.form-control input-props]))
-                 [:p.help-block help]])))]
+                  {:keys [input-value]} (r/state this)
+                  input-props (-> props
+                                  (dissoc :show-errors)
+                                  (assoc :maxLength (:maxlength props))
+                                  (dissoc :maxlength)
+                                  (assoc :value (or input-value ""))
+                                  (assoc :on-change #(handle-change this (.. % -target -value)))
+                                  (assoc :on-blur #(handle-blur this))
+                                  (assoc :key "ifc"))]
+              [:div.form-group {:class    (validation-state props)
+                                :disabled disabled}
+               (label-template props)
+               (if (or addon-after addon-before)
+                 [:div.input-group {:key "ig"} addon-before [:input.form-control input-props] addon-after]
+                 (if mask
+                   [masked-text-widget input-props]
+                   [:input.form-control input-props]))
+               [:p.help-block help]]))]
     (r/create-class
       {:get-initial-state            init-state
        :component-will-receive-props component-will-receive-props

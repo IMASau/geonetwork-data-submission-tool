@@ -1074,76 +1074,76 @@
                   form-position (get (get-in state [:dp-term-path]) 5)]
               (rf/dispatch [:handlers/search-es-options api-path ""])))
           (render [this]
-            (let [{:keys [dp-type dp-term-path api-path param-type disabled tooltip] :as state} (r/props this)]
-              (let [sub-paths (dp-term-paths dp-type)
-                    {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])
-                    term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
-                    vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
-                    {:keys [value label help required errors show-errors tooltip]} term
-                    selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
-                    new-term? (other-term? term vocabularyTermURL)
-                    form-position (get (get-in state [:dp-term-path]) 5)]
-                [:div
-                 (if new-term?
-                   [:span.pull-right.new-term.text-primary
-                    [:span.glyphicon.glyphicon-asterisk]
-                    " New term"])
-                 [:div.flex-row
-                  [:div.flex-row-field
-                   [:div.form-group {:class (if (and show-errors (seq errors)) "has-error")}
-                    (if label
-                      [:label label
-                       (if required " *")
-                       (if tooltip [Tooltip tooltip])])
-                    (if-not new-term?
-                      (ReactSelect
-                        {:value             (if (blank? (:value vocabularyTermURL))
-                                              nil
-                                              #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)})
-                         :options           selectable-options
-                         :placeholder       (:placeholder term)
-                         :isClearable       true
-                         :is-searchable     true
-                         :onInputChange     (fn [query]
-                                              (rf/dispatch [:handlers/search-es-options api-path query])
-                                              query)
-                         :getOptionValue    (fn [option]
-                                              (gobj/get option "term"))
-                         :formatOptionLabel (fn [props]
-                                              (r/as-element (breadcrumb-renderer options props)))
-                         :filterOption      (fn [option, rawInput]
-                                              ; Return true always. This allows for matches on label as well as altLabel (or other fields available in the REST API).
-                                              (boolean 0))
-                         :onChange          (fn [option]
-                                              (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
-                         :noResultsText     "No results found.  Click browse to add a new entry."
-                         :isDisabled        disabled})
+            (let [{:keys [dp-type dp-term-path api-path param-type disabled tooltip] :as state} (r/props this)
+                  sub-paths (dp-term-paths dp-type)
+                  {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])
+                  term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
+                  vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
+                  {:keys [value label help required errors show-errors tooltip]} term
+                  selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
+                  new-term? (other-term? term vocabularyTermURL)
+                  form-position (get (get-in state [:dp-term-path]) 5)]
+              [:div
+               (if new-term?
+                 [:span.pull-right.new-term.text-primary
+                  [:span.glyphicon.glyphicon-asterisk]
+                  " New term"])
+               [:div.flex-row
+                [:div.flex-row-field
+                 [:div.form-group {:class (if (and show-errors (seq errors)) "has-error")}
+                  (if label
+                    [:label label
+                     (if required " *")
+                     (if tooltip [Tooltip tooltip])])
+                  (if-not new-term?
+                    (ReactSelect
+                      {:value             (if (blank? (:value vocabularyTermURL))
+                                            nil
+                                            #js {:vocabularyTermURL (:value vocabularyTermURL) :term (:value term)})
+                       :options           selectable-options
+                       :placeholder       (:placeholder term)
+                       :isClearable       true
+                       :is-searchable     true
+                       :onInputChange     (fn [query]
+                                            (rf/dispatch [:handlers/search-es-options api-path query])
+                                            query)
+                       :getOptionValue    (fn [option]
+                                            (gobj/get option "term"))
+                       :formatOptionLabel (fn [props]
+                                            (r/as-element (breadcrumb-renderer options props)))
+                       :filterOption      (fn [option, rawInput]
+                                            ; Return true always. This allows for matches on label as well as altLabel (or other fields available in the REST API).
+                                            (boolean 0))
+                       :onChange          (fn [option]
+                                            (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
+                       :noResultsText     "No results found.  Click browse to add a new entry."
+                       :isDisabled        disabled})
 
-                      (ReactSelect
-                        {:value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
-                         :options           selectable-options
-                         :placeholder       (:placeholder term)
-                         :is-searchable     true
-                         :isClearable       true
-                         :getOptionValue    (fn [option]
-                                              (gobj/get option "term"))
-                         :formatOptionLabel (fn [props]
-                                              (r/as-element (breadcrumb-renderer options props)))
-                         :onChange          (fn [option]
-                                              (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
-                         :noResultsText     "No results found.  Click browse to add a new entry."}))
-                    [:p.help-block help]]]
-                  ; TODO: Re-enable this in the future to browse/create vocabulary terms.
-                  ;                  [:div.flex-row-button
-                  ;                   [:button.btn.btn-default
-                  ;                    {:style    {:vertical-align "top"}
-                  ;                     :on-click #(rf/dispatch [:handlers/open-modal
-                  ;                                              {:type         param-type
-                  ;                                               :api-path     api-path
-                  ;                                               :dp-term-path dp-term-path}])}
-                  ;                    [:span.glyphicon.glyphicon-edit] " Custom"]
-                  ;                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]
-                  ]])))]
+                    (ReactSelect
+                      {:value             #js {:vocabularyTermURL "(new term)" :term (:value term)}
+                       :options           selectable-options
+                       :placeholder       (:placeholder term)
+                       :is-searchable     true
+                       :isClearable       true
+                       :getOptionValue    (fn [option]
+                                            (gobj/get option "term"))
+                       :formatOptionLabel (fn [props]
+                                            (r/as-element (breadcrumb-renderer options props)))
+                       :onChange          (fn [option]
+                                            (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
+                       :noResultsText     "No results found.  Click browse to add a new entry."}))
+                  [:p.help-block help]]]
+                ; TODO: Re-enable this in the future to browse/create vocabulary terms.
+                ;                  [:div.flex-row-button
+                ;                   [:button.btn.btn-default
+                ;                    {:style    {:vertical-align "top"}
+                ;                     :on-click #(rf/dispatch [:handlers/open-modal
+                ;                                              {:type         param-type
+                ;                                               :api-path     api-path
+                ;                                               :dp-term-path dp-term-path}])}
+                ;                    [:span.glyphicon.glyphicon-edit] " Custom"]
+                ;                   (when help [:p.help-block {:dangerouslySetInnerHTML {:__html "&nbsp;"}}])]
+                ]]))]
     (r/create-class
       {:component-will-mount will-mount
        :render               render})))

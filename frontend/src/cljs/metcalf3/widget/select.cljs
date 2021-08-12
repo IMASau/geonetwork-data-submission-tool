@@ -1,6 +1,6 @@
 (ns metcalf3.widget.select
-  (:require [interop.react-select :refer [ReactSelect* SelectComponentsOption* SelectComponentsValueContainer* ReactSelectAsync* ReactSelectCreatable* ReactSelectAsyncCreatable*]]
-            [interop.react-virtualized :refer [ReactWindow* AutoSizer* VirtualScroll*]]
+  (:require [interop.react-select :refer [ReactSelect* SelectComponentsOption* ReactSelectAsync* ReactSelectAsyncCreatable*]]
+            [interop.react-virtualized :refer [ReactWindow*]]
             [goog.object :as gobj]
             [cljs.spec.alpha :as s]
             [metcalf3.utils :as utils]
@@ -9,26 +9,14 @@
 (defn normalize-props [props]
   (utils/clj->js* (update props :options utils/clj->js* 1) 1))
 
-(defn ReactWindow [props]
-  (ReactWindow* (normalize-props props)))
-
 (defn ReactSelect [props]
   (ReactSelect* (normalize-props props)))
-
-(defn ReactSelectCreatable [props]
-  (ReactSelectCreatable* (normalize-props props)))
 
 (defn ReactSelectAsyncCreatable [props]
   (ReactSelectAsyncCreatable* (normalize-props props)))
 
 (defn ReactSelectAsync [props]
   (ReactSelectAsync* (normalize-props props)))
-
-(defn AutoSizer [props]
-  (AutoSizer* (normalize-props props)))
-
-(defn VirtualScroll [props]
-  (VirtualScroll* (normalize-props props)))
 
 (defn VirtualizedSelect [props]
   (let [{:keys [value options getOptionValue onChange placeholder formatOptionLabel isOptionSelected]} props]

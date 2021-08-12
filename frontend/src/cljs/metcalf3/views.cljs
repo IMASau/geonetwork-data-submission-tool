@@ -13,7 +13,7 @@
             [interop.blueprint :as bp3]
             [interop.cljs-ajax :as ajax]
             [interop.fixed-data-table-2 :refer [Cell Column Table]]
-            [interop.masked-input :as masked-input]
+            [interop.react-imask :as react-imask]
             [interop.moment :as moment]
             [metcalf3.content :refer [contact-groups]]
             [metcalf3.handlers :as handlers]

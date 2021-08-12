@@ -778,7 +778,7 @@
                               [:button.btn.btn-warn.btn-xs.pull-right
                                {:on-click #(del-value! (:value keyword))}
                                [:span.glyphicon.glyphicon-minus]]])]))]
-                 (if-not disabled
+                 (when-not disabled
                    [ThemeInputField {:value       new-value
                                      :on-submit   add-value!
                                      :placeholder placeholder

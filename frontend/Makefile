@@ -1,5 +1,5 @@
 clean:
-	rm -fR resources/public/js/*
+	rm -fR src/gen/* resources/public/js/*
 
 figwheel:
 	# init yarn
@@ -24,6 +24,12 @@ build:
 		-w /tmp \
 		node:12-alpine \
 		yarn
+	# transpile js components
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-w /tmp \
+		node:12-alpine \
+		yarn run build
 	# run shadow-cljs compile
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
@@ -56,6 +62,12 @@ release:
 		-w /tmp \
 		node:12-alpine \
 		yarn
+	# transpile js components
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-w /tmp \
+		node:12-alpine \
+		yarn run build
 	# run shadow-cljs release
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \

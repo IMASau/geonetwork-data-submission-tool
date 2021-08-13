@@ -1,4 +1,7 @@
 (ns interop.ui
-  (:require ["/ui/components/Button" :as Button]))
+  (:require ["/ui/components/Button" :as Button]
+            [reagent.core :as r]))
 
-(def Button Button/Button)
+(assert Button/Button)
+
+(defn Button [props] [:> Button/Button props])

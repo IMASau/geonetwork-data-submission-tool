@@ -36,8 +36,8 @@
     "shadow-cljs": "^2.15.2"
   },
   "scripts": {
-    "build": "babel src/js --out-dir src/gen",
-    "watch": "babel src/js --out-dir src/gen --watch",
+    "build": "babel src/js --out-dir src/gen  --source-maps inline --copy-files",
+    "watch": "babel src/js --out-dir src/gen  --source-maps inline --copy-files --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   }

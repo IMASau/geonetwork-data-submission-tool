@@ -112,13 +112,9 @@
 
 (defn get-textarea-field-props
   [derived-db [_ path]]
-  ;    (when js/goog.DEBUG (js/console.log ::path path))
   (let [{:keys [label help required disabled value show-errors errors placeholder maxlength]} (get-in derived-db path)
         error-help (when (and show-errors (seq errors))
                      (string/join ". " errors))]
-    ;      (when js/goog.DEBUG (js/console.log :textarea-field/get-props.field {:field field
-    ;                                                                           :path  path
-    ;                                                                           :db    derived-db}))
     {:label       label
      :labelInfo   (when required "*")
      :helperText  (or error-help help)

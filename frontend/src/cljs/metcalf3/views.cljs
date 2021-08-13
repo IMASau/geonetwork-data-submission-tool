@@ -46,7 +46,6 @@
     "has-error"))
 
 (defn dp-term-paths [dp-type]
-  ;  (when js/goog.DEBUG (js/console.log "DP TERM PATHS" {:dp-type dp-type}))
   {:term              (keyword (str (name dp-type) "_term"))
    :vocabularyTermURL (keyword (str (name dp-type) "_vocabularyTermURL"))
    :vocabularyVersion (keyword (str (name dp-type) "_vocabularyVersion"))

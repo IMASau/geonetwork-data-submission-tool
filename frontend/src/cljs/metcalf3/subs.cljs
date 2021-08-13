@@ -101,7 +101,6 @@
         value (if (= value "") nil value)
         error-help (when (and show-errors (seq errors))
                      (string/join ". " errors))]
-    (when js/goog.DEBUG (js/console.log :date-field/get-props.field field))
     {:label      label
      :labelInfo  (when required "*")
      :helperText (or error-help help)

@@ -26,7 +26,8 @@
             [re-frame.core :as rf]
             [reagent.core :as r])
   (:import [goog.dom ViewportSizeMonitor]
-           [goog.events FileDropHandler]))
+           [goog.events FileDropHandler]
+           [goog.events EventType]))
 
 (defn userDisplay
   [user]
@@ -297,10 +298,9 @@
 (defn getter [k row] (get row k))
 
 (defn update-table-width [this]
-  (let [{:keys [autowidth-id]} (r/state this)
-        autowidth (js/document.getElementById autowidth-id)
-        width (.-width (gstyle/getSize autowidth))]
-    (r/set-state this {:width width})))
+  (let [{:keys [autowidth-id]} (r/state this)]
+    (when-let [ele (js/document.getElementById autowidth-id)]
+      (r/set-state this {:width (.-width (gstyle/getSize ele))}))))
 
 (defn KeywordsThemeCell [rowData]
   (let [rowData (take-while (complement empty?) rowData)]
@@ -325,7 +325,7 @@
              :autowidth-id     (name (gensym "autowidth"))})
           (did-mount [this]
             (let [vsm (ViewportSizeMonitor.)]
-              (gevents/listen vsm goog.events.EventType.RESIZE #(update-table-width this))
+              (gevents/listen vsm EventType.RESIZE #(update-table-width this))
               (update-table-width this)))
           (render [this]
             (let [{:keys [query width columnWidths isColumnResizing scrollToRow autowidth-id]} (r/state this)

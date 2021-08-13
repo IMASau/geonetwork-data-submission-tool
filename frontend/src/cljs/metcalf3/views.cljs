@@ -5,7 +5,7 @@
             [clojure.edn :as edn]
             [clojure.set :as set]
             [clojure.string :as string :refer [blank?]]
-            [cuerdas.core :as cuerdas]
+            [interop.cuerdas :as cuerdas]
             [goog.events :as gevents]
             [goog.object :as gobj]
             [goog.style :as gstyle]

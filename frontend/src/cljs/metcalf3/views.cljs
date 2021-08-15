@@ -230,7 +230,8 @@
                 [OptionWidget option])))
        (when help [:p.help-block help])])))
 
-(defn SelectField [path]
+(defn SelectField
+  [{:keys [path]}]
   (let [{:keys [options default-option disabled] :as field} @(rf/subscribe [:subs/get-derived-path path])]
     [SelectWidget (assoc field
                     :class "wauto"
@@ -898,7 +899,7 @@
      [CheckboxField [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]]
      (when hasVerticalExtent
        [:div
-        [SelectField [:form :fields :identificationInfo :verticalElement :method]]
+        [SelectField {:path [:form :fields :identificationInfo :verticalElement :method]}]
         [InputField
          {:path  [:form :fields :identificationInfo :verticalElement :elevation]
           :class "wauto"}]
@@ -1809,8 +1810,8 @@
    [date-field {:path       [:form :fields :identificationInfo :dateCreation]
                 :defMinDate (js/Date. "1900-01-01")}]
    [TopicCategories nil]
-   [SelectField [:form :fields :identificationInfo :status]]
-   [SelectField [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]]
+   [SelectField {:path [:form :fields :identificationInfo :status]}]
+   [SelectField {:path [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]}]
    [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :what]
@@ -2116,7 +2117,7 @@
 (defn DataSourceRowEdit [path]
   [:div
    [InputField {:path (conj path :value :description)}]
-   [SelectField (conj path :value :protocol)]
+   [SelectField {:path (conj path :value :protocol)}]
    [InputField {:path (conj path :value :url)}]
    [InputField {:path (conj path :value :name)}]])
 
@@ -2239,7 +2240,7 @@
   [:div.NewDocumentForm
    [FormErrors {:path [:create_form]}]
    [InputField {:path [:create_form :fields :title]}]
-   [SelectField [:create_form :fields :template]]])
+   [SelectField {:path [:create_form :fields :template]}]])
 
 
 

@@ -58,10 +58,7 @@
   [_]
   (let [*fg (atom nil)]
     (fn [{:keys [map-props boxes-path map-width tick-id]}]
-      (let [initial-props map-props
-            map-props @(rf/subscribe [:map/props])
-            map-props (merge initial-props map-props)
-            {:keys [boxes]} map-props
+      (let [{:keys [boxes]} map-props
             extents (boxes->extents boxes)
             base-layer [react-leaflet/tile-layer
                         {:url         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

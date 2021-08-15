@@ -14,8 +14,9 @@
 
 (defn box-map
   [{:keys [elements map-width tick-id on-change]}]
+  (s/assert fn? on-change)
   [:> BoxMap/BoxMap
    {:elements (s/assert ::elements elements)
     :mapWidth (s/assert pos? map-width)
     :tickId   (s/assert number? tick-id)
-    :onChange (s/assert fn? (fn [geojson] (on-change (js->clj geojson :keywordize-keys true))))}])
+    :onChange (fn [geojson] (on-change (js->clj geojson :keywordize-keys true)))}])

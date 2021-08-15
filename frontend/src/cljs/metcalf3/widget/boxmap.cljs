@@ -51,6 +51,16 @@
                      :eastBoundLongitude {:value (apply max lngs)}
                      :westBoundLongitude {:value (apply min lngs)}})))))
 
+(defn boxes->elements
+  [boxes]
+  (for [box (:value boxes)]
+    (when (not (some nil? (map :value (vals (:value box)))))
+      (if (geographicElement->point? (:value box))
+        [react-leaflet/marker
+         {:position (geographicElement->point (:value box))}]
+        [react-leaflet/rectangle
+         {:bounds (geographicElement->bounds (:value box))}]))))
+
 ; TODO: dispatch on change
 
 (defn box-map2
@@ -61,13 +71,7 @@
             base-layer [react-leaflet/tile-layer
                         {:url         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                          :attribution "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"}]
-            initial-elements (for [box (:value boxes)]
-                               (when (not (some nil? (map :value (vals (:value box)))))
-                                 (if (geographicElement->point? (:value box))
-                                   [react-leaflet/marker
-                                    {:position (geographicElement->point (:value box))}]
-                                   [react-leaflet/rectangle
-                                    {:bounds (geographicElement->bounds (:value box))}])))]
+            initial-elements (boxes->elements boxes)]
         (letfn [(handle-change []
                   (on-change (fg->data @*fg)))]
 

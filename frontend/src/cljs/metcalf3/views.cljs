@@ -2074,7 +2074,8 @@
    [InputField {:path (conj path :value :name)}]
    [InputField {:path (conj path :value :url)}]])
 
-(defn SupportingResource [path]
+(defn SupportingResource
+  [{:keys [path]}]
   [:div
    [:label "Any resources with hyperlinks (including Publications)"]
    [TableModalEdit
@@ -2105,7 +2106,7 @@
    [UseLimitations {:path [:form :fields :identificationInfo :useLimitations]}]
    [:br]
    [:h4 "Supplemental information"]
-   [SupportingResource [:form :fields :supportingResources]]
+   [SupportingResource {:path [:form :fields :supportingResources]}]
    [SupplementalInformation [:form :fields :identificationInfo :supplementalInformation]]
    [:br]
    [:h4 "Distribution"]

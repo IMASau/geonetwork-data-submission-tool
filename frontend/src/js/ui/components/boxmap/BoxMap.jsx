@@ -101,7 +101,8 @@ const BaseLayer = () => (
     />
 )
 
-export const BoxMap = ({ boxes, disabled, onChange, tickId }) => {
+// TODO: disabled mode?
+export const BoxMap = ({ boxes, onChange, tickId }) => {
 
     const featureGroupRef = React.useRef(null);
 

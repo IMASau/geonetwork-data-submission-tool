@@ -21,7 +21,7 @@ const Template = (args) => <BoxMap {...args} />;
 
 export const EmptyMap = Template.bind({});
 EmptyMap.args = {
-  elements = []
+  elements: []
 };
 
 export const MapWithValues = Template.bind({});

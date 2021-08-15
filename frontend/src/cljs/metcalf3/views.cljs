@@ -182,7 +182,7 @@
 ; TODO: Don't dispatch value changes until blur
 ; TODO: Show errors after blur
 (defn date-field
-  [path defMinDate]
+  [{:keys [path defMinDate]}]
   (let [{:keys [label labelInfo helperText value disabled change-v intent minDate maxDate]} @(rf/subscribe [:date-field/get-props path])
         format "DD-MM-YYYY"]
     [bp3/form-group
@@ -1806,7 +1806,8 @@
    [PageErrors {:page :data-identification :path [:form]}]
    [:h2 "1. Data Identification"]
    [InputField {:path [:form :fields :identificationInfo :title]}]
-   [date-field [:form :fields :identificationInfo :dateCreation] (js/Date. "1900-01-01")]
+   [date-field {:path       [:form :fields :identificationInfo :dateCreation]
+                :defMinDate (js/Date. "1900-01-01")}]
    [TopicCategories nil]
    [SelectField [:form :fields :identificationInfo :status]]
    [SelectField [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]]
@@ -1832,8 +1833,9 @@
   [:div
    [PageErrors {:page :when :path [:form]}]
    [:h2 "3. When was the data acquired?"]
-   [date-field [:form :fields :identificationInfo :beginPosition] (js/Date. "1900-01-01")]
-   [date-field [:form :fields :identificationInfo :endPosition]]
+   [date-field {:path       [:form :fields :identificationInfo :beginPosition]
+                :defMinDate (js/Date. "1900-01-01")}]
+   [date-field {:path [:form :fields :identificationInfo :endPosition]}]
    [:div.row
     [:div.col-md-4
      [NasaListSelectField {:keyword :samplingFrequency

@@ -264,7 +264,7 @@
      :intent         intent}]])
 
 (defn textarea-field
-  [path]
+  [{:keys [path]}]
   [textarea-widget @(rf/subscribe [:textarea-field/get-props path])])
 
 (defn Checkbox [props]
@@ -865,7 +865,7 @@
                      :tick-id   @(rf/subscribe [:subs/get-form-tick])
                      :on-change #(rf/dispatch [:handlers/update-boxes boxes-path %])}]]
                   [:div.col-sm-6
-                   [textarea-field [:form :fields :identificationInfo :geographicElement :siteDescription]]
+                   [textarea-field {:path [:form :fields :identificationInfo :geographicElement :siteDescription]}]
                    [:p [:span "Please input in decimal degrees in coordinate reference system WGS84. "
                         "Geoscience Australia provide a "
                         [:a {:href "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp" :target "blank"}
@@ -1435,7 +1435,7 @@
                 {:style {:padding-top    5
                          :padding-bottom 5}}
                 (if (= "Draft" (:status document))
-                  [textarea-field [:form :fields :noteForDataManager]]
+                  [textarea-field {:path [:form :fields :noteForDataManager]}]
                   (when-not (string/blank? (:value noteForDataManager))
                     [:div
                      [:strong "Note for the data manager:"]
@@ -1819,9 +1819,9 @@
    [PageErrors {:page :what :path [:form]}]
    [:h2 "2. What"]
    [:span.abstract-textarea
-    [textarea-field [:form :fields :identificationInfo :abstract]]]
+    [textarea-field {:path [:form :fields :identificationInfo :abstract]}]]
    [:span.abstract-textarea
-    [textarea-field [:form :fields :identificationInfo :purpose]]]
+    [textarea-field {:path [:form :fields :identificationInfo :purpose]}]]
    [ThemeKeywords :keywordsTheme]
    [ThemeKeywords :keywordsThemeAnzsrc]
    [ThemeKeywordsExtra nil]
@@ -2001,7 +2001,7 @@
      ;[:p "Or define your own method"]
      [InputWidget (assoc name :on-change (fn [option]
                                            (rf/dispatch [:handlers/update-method-name method-path option])))]
-     [textarea-field (into [] (concat path [:value :description]))]]))
+     [textarea-field {:path (into [] (concat path [:value :description]))}]]))
 
 (defn Methods [path]
   (let [list-field @(rf/subscribe [:subs/get-derived-path path])]
@@ -2024,10 +2024,8 @@
    [PageErrors {:page :how :path [:form]}]
    [:h2 "5: How"]
    [Methods [:form :fields :resourceLineage :processStep]]
-   [textarea-field
-    [:form :fields :dataQualityInfo :methods]]
-   [textarea-field
-    [:form :fields :dataQualityInfo :results]]
+   [textarea-field {:path [:form :fields :dataQualityInfo :methods]}]
+   [textarea-field {:path [:form :fields :dataQualityInfo :results]}]
    [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]])
 
 
@@ -2110,7 +2108,7 @@
    [InputField {:path [:form :fields :distributionInfo :distributionFormat :name]}]
    [InputField {:path [:form :fields :distributionInfo :distributionFormat :version]}]
    [:span.abstract-textarea
-    [textarea-field [:form :fields :resourceLineage :lineage]]]
+    [textarea-field {:path [:form :fields :resourceLineage :lineage]}]]
    [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]])
 
 (defn DataSourceRowEdit [path]

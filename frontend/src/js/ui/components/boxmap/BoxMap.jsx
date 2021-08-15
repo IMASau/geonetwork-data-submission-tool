@@ -163,8 +163,3 @@ export const BoxMap = ({ boxes, onChange, tickId }) => {
 BoxMap.propTypes = {
     boxes: PropTypes.array
 };
-
-BoxMap.defaultProps = {
-    boxes: [],
-    tickId: 1
-};

@@ -11,18 +11,6 @@
   [[south west]
    [north east]])
 
-(defn geographicElement->point [{:keys [southBoundLatitude westBoundLongitude]}]
-  [(:value southBoundLatitude) (:value westBoundLongitude)])
-
-(defn geographicElement->point?
-  [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude]}]
-  (and (= (:value southBoundLatitude) (:value northBoundLatitude))
-       (= (:value westBoundLongitude) (:value eastBoundLongitude))))
-
-(defn geographicElement->bounds [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude]}]
-  [[(:value southBoundLatitude) (:value westBoundLongitude)]
-   [(:value northBoundLatitude) (:value eastBoundLongitude)]])
-
 (defn elements->extents
   [elements]
   (let [north (apply max (remove nil? (map :northBoundLatitude elements)))
@@ -42,7 +30,7 @@
 (defn box-map2
   [_]
   (let [*fg (atom nil)]
-    (fn [{:keys [boxes elements map-width tick-id on-change]}]
+    (fn [{:keys [elements map-width tick-id on-change]}]
       (let [extents (elements->extents elements)
             base-layer [react-leaflet/tile-layer
                         {:url         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -86,13 +74,15 @@
                      :on-edited  handle-change
                      :on-deleted handle-change
                      :on-created handle-change}]]
-                  (for [box (:value boxes)]
-                    (when (not (some nil? (map :value (vals (:value box)))))
-                      (if (geographicElement->point? (:value box))
-                        [react-leaflet/marker
-                         {:position (geographicElement->point (:value box))}]
-                        [react-leaflet/rectangle
-                         {:bounds (geographicElement->bounds (:value box))}]))))]])))))
+                  (for [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude]} elements
+                        :when (and northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude)]
+                    (if (and (= northBoundLatitude southBoundLatitude)
+                             (= eastBoundLongitude westBoundLongitude))
+                      [react-leaflet/marker
+                       {:position [southBoundLatitude westBoundLongitude]}]
+                      [react-leaflet/rectangle
+                       {:bounds [[southBoundLatitude westBoundLongitude]
+                                 [northBoundLatitude eastBoundLongitude]]}])))]])))))
 
 (defn box-map2-fill
   []

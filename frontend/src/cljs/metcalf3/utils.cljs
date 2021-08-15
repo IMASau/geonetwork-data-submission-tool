@@ -96,3 +96,19 @@
 
 (defn enum [coll]
   (zip (range) coll))
+
+(defn geometry->box-value
+  [{:keys [type coordinates]}]
+  (case type
+    "Point" (let [[lng lat] coordinates]
+              {:northBoundLatitude {:value lat}
+               :southBoundLatitude {:value lat}
+               :eastBoundLongitude {:value lng}
+               :westBoundLongitude {:value lng}})
+    "Polygon" (let [[rect] coordinates
+                    lngs (map first rect)
+                    lats (map second rect)]
+                {:northBoundLatitude {:value (apply max lats)}
+                 :southBoundLatitude {:value (apply min lats)}
+                 :eastBoundLongitude {:value (apply max lngs)}
+                 :westBoundLongitude {:value (apply min lngs)}})))

@@ -112,3 +112,11 @@
                  :southBoundLatitude {:value (apply min lats)}
                  :eastBoundLongitude {:value (apply max lngs)}
                  :westBoundLongitude {:value (apply min lngs)}})))
+
+(defn boxes->elements
+  [boxes]
+  (for [box (:value boxes)]
+    {:northBoundLatitude (get-in box [:value :northBoundLatitude :value])
+     :southBoundLatitude (get-in box [:value :southBoundLatitude :value])
+     :eastBoundLongitude (get-in box [:value :eastBoundLongitude :value])
+     :westBoundLongitude (get-in box [:value :westBoundLongitude :value])}))

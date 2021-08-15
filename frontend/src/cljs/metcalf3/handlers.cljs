@@ -211,7 +211,6 @@
         db (assoc-in db boxes-value-path box-values)]
     db))
 
-
 (defn update-method-term
   [db [_ method-path option]]
   (let [option (if (map? option) option (utils/js-lookup option))
@@ -220,7 +219,6 @@
         (update-in method-path assoc-in [:name :value] term)
         (update-in method-path assoc-in [:uri :value] vocabularyTermURL)
         (update-in method-path assoc-in [:description :value] termDefinition))))
-
 
 (defn update-person
   [{:keys [db]} [_ person-path option]]
@@ -331,8 +329,6 @@
                          (update-in [:value :eastBoundLongitude] merge (:eastBoundLongitude value))
                          (update-in [:value :westBoundLongitude] merge (:westBoundLongitude value))))]
     (update-in db many-field-path assoc :value (vec new-fields))))
-
-
 
 (defn org-changed
   [{:keys [db]} [_ path value]]

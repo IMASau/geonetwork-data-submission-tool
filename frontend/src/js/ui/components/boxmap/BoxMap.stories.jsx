@@ -29,11 +29,3 @@ Secondary.args = {
     { "northBoundLatitude": 39, "southBoundLatitude": 39, "eastBoundLongitude": 144.272461, "westBoundLongitude": 144.272461 },
     { "northBoundLatitude": -41.821091, "southBoundLatitude": -45.381173, "eastBoundLongitude": 150.448172, "westBoundLongitude": 146.587417 }]
 };
-
-export const Large = Template.bind({});
-Large.args = {
-};
-
-export const Small = Template.bind({});
-Small.args = {
-};

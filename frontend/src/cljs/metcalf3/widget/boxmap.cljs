@@ -4,7 +4,15 @@
             [interop.react-leaflet :as react-leaflet]
             [oops.core]
             [reagent.core :as r]
-            [metcalf3.utils :as utils]))
+            [metcalf3.utils :as utils]
+            [cljs.spec.alpha :as s]))
+
+(s/def ::northBoundLatitude number?)
+(s/def ::westBoundLongitude number?)
+(s/def ::southBoundLatitude number?)
+(s/def ::eastBoundLongitude number?)
+(s/def ::element (s/keys :req-un [::northBoundLatitude ::westBoundLongitude ::southBoundLatitude ::eastBoundLongitude]))
+(s/def ::elements (s/coll-of ::element))
 
 ;;; http://blog.jayfields.com/2011/01/clojure-select-keys-select-values-and.html
 (defn map->bounds [{:keys [west south east north]}]
@@ -13,6 +21,7 @@
 
 (defn elements->extents
   [elements]
+  (s/assert ::elements elements)
   (let [north (apply max (remove nil? (map :northBoundLatitude elements)))
         west (apply min (remove nil? (map :westBoundLongitude elements)))
         south (apply min (remove nil? (map :southBoundLatitude elements)))
@@ -31,6 +40,10 @@
   [_]
   (let [*fg (atom nil)]
     (fn [{:keys [elements map-width tick-id on-change]}]
+      (s/assert ::elements elements)
+      (s/assert pos? map-width)
+      (s/assert number? tick-id)
+      (s/assert fn? on-change)
       (let [extents (elements->extents elements)
             base-layer [react-leaflet/tile-layer
                         {:url         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

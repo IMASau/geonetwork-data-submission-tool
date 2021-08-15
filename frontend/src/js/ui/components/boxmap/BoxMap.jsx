@@ -64,20 +64,6 @@ function geometryPolygonToData({ coordinates }) {
     }
 }
 
-function featureGroupToData(fg) {
-    console.log({ fg })
-    const features = fg.current.leafletElement.toGeoJSON().features;
-    console.log({ features })
-    return features.map(feature => {
-        console.log({ feature })
-        switch (feature.geometry.type) {
-            case "Point": return geometryPointToData(feature.geometry);
-            case "Polygon": return geometryPolygonToData(feature.geometry);
-            default: return null
-        }
-    })
-}
-
 function ElementMarker({element}) {
     return <Marker position={elementToPoint(element)} />
 }
@@ -114,7 +100,7 @@ export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
     console.log ({bounds, setCenter, setBounds})
 
     const handleChange = () => {
-        onChange(featureGroupToData(featureGroupRef))
+        onChange(featureGroupRef.current.leafletElement.toGeoJSON())
     };
 
     return (

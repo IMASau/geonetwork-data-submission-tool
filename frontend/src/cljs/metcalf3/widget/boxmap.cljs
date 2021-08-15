@@ -31,11 +31,10 @@
         map-extents {:north north :west west :east east :south south}]
     map-extents))
 
-(defn fg->data [fg]
+(defn fg->geometries [fg]
   (let [leaflet-element (react-leaflet/leaflet-element fg)
-        data (react-leaflet/to-geojson leaflet-element)
-        geometries (mapv :geometry (:features data))]
-    (mapv utils/geometry->box-value geometries)))
+        data (react-leaflet/to-geojson leaflet-element)]
+    (mapv :geometry (:features data))))
 
 (defn boxes->elements
   [boxes]
@@ -59,7 +58,7 @@
                          :attribution "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"}]
             initial-elements (boxes->elements boxes)]
         (letfn [(handle-change []
-                  (on-change (fg->data @*fg)))]
+                  (on-change (fg->geometries @*fg)))]
 
           [:div.map-wrapper
            [react-leaflet/map (merge

@@ -859,12 +859,11 @@
                  [:div.row
                   [:div.col-sm-6
                    [boxmap/box-map2-fill
-                    {:map-props  (assoc @(rf/subscribe [:map/props])
-                                   :boxes boxes)
-                     :ref        (fn [boxmap] (r/set-state this {:boxmap boxmap}))
-                     :disabled   disabled
-                     :tick-id    @(rf/subscribe [:subs/get-form-tick])
-                     :on-change  #(rf/dispatch [:handlers/update-boxes boxes-path %])}]]
+                    {:boxes boxes
+                     :ref       (fn [boxmap] (r/set-state this {:boxmap boxmap}))
+                     :disabled  disabled
+                     :tick-id   @(rf/subscribe [:subs/get-form-tick])
+                     :on-change #(rf/dispatch [:handlers/update-boxes boxes-path %])}]]
                   [:div.col-sm-6
                    [textarea-field [:form :fields :identificationInfo :geographicElement :siteDescription]]
                    [:p [:span "Please input in decimal degrees in coordinate reference system WGS84. "

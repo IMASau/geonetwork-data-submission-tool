@@ -95,7 +95,6 @@
 (rf/reg-sub :date-field/get-props :<- [:subs/get-derived-state] subs/get-date-field-props)
 (rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs/get-textarea-field-props)
 (rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs/get-textarea-field-many-props)
-(rf/reg-sub :map/props subs/map-props)
 (rf/reg-sub :subs/get-form-tick subs/get-form-tick)
 (rf/reg-sub :help/get-menuitems subs/get-menuitems)
 (rf/reg-sub :subs/platform-selected? subs/platform-selected?)

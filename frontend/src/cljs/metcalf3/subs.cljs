@@ -141,10 +141,6 @@
      :change-v    [:textarea-field/value-change path]
      :intent      (when error-help "danger")}))
 
-(defn map-props
-  [db _]
-  (:map db))
-
 (defn get-form-tick
   [db _]
   (get db :form/tick 0))

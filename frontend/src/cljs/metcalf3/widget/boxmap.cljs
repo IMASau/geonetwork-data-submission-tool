@@ -56,9 +56,8 @@
 (defn box-map2
   [_]
   (let [*fg (atom nil)]
-    (fn [{:keys [map-props map-width tick-id on-change]}]
-      (let [{:keys [boxes]} map-props
-            extents (boxes->extents boxes)
+    (fn [{:keys [boxes map-width tick-id on-change]}]
+      (let [extents (boxes->extents boxes)
             base-layer [react-leaflet/tile-layer
                         {:url         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                          :attribution "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"}]

@@ -23,13 +23,14 @@
   [[(:value southBoundLatitude) (:value westBoundLongitude)]
    [(:value northBoundLatitude) (:value eastBoundLongitude)]])
 
-(defn boxes->extents [boxes]
-  (let [north (apply max (remove nil? (map (comp :value :northBoundLatitude :value) (:value boxes))))
-        west (apply min (remove nil? (map (comp :value :westBoundLongitude :value) (:value boxes))))
-        south (apply min (remove nil? (map (comp :value :southBoundLatitude :value) (:value boxes))))
-        east (apply max (remove nil? (map (comp :value :eastBoundLongitude :value) (:value boxes))))
-        map-extents {:north north :west west :east east :south south}]
-    map-extents))
+(defn elements->extents
+  [elements]
+  (let [north (apply max (remove nil? (map :northBoundLatitude elements)))
+        west (apply min (remove nil? (map :westBoundLongitude elements)))
+        south (apply min (remove nil? (map :southBoundLatitude elements)))
+        east (apply max (remove nil? (map :eastBoundLongitude elements)))]
+    (when (and north west south east)
+      {:north north :west west :east east :south south})))
 
 (defn fg->geometries [fg]
   (let [leaflet-element (react-leaflet/leaflet-element fg)
@@ -51,8 +52,8 @@
 (defn box-map2
   [_]
   (let [*fg (atom nil)]
-    (fn [{:keys [boxes map-width tick-id on-change]}]
-      (let [extents (boxes->extents boxes)
+    (fn [{:keys [boxes elements map-width tick-id on-change]}]
+      (let [extents (elements->extents elements)
             base-layer [react-leaflet/tile-layer
                         {:url         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                          :attribution "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"}]

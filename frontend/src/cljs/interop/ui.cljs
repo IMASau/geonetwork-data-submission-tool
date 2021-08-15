@@ -1,7 +1,7 @@
 (ns interop.ui
-  (:require ["/ui/components/Button" :as Button]
+  (:require ["/ui/components/boxmap/BoxMap" :as BoxMap]
             [reagent.core :as r]))
 
-(assert Button/Button)
+(assert BoxMap/BoxMap)
 
-(defn Button [props] [:> Button/Button props])
+(def box-map (r/adapt-react-class BoxMap/BoxMap))

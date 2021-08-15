@@ -1,8 +1,10 @@
 (ns metcalf3.config
-  (:require [metcalf3.fx :as fx]
+  (:require [metcalf3.components :as components]
+            [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers]
             [metcalf3.ins :as ins]
             [metcalf3.subs :as subs]
+            [metcalf3.views :as views]
             [re-frame.core :as rf]))
 
 (rf/reg-event-db :handlers/load-api-options-resp handlers/load-api-options-resp)
@@ -100,3 +102,26 @@
 (rf/reg-sub :subs/platform-selected? subs/platform-selected?)
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
+(set! components/component-registry
+      {'metcalf3.view/DataParametersTable     views/DataParametersTable
+       'metcalf3.view/date-field              views/date-field
+       'metcalf3.view/textarea-field          views/textarea-field
+       'metcalf3.view/Methods                 views/Methods
+       'metcalf3.view/UseLimitations          views/UseLimitations
+       'metcalf3.view/SelectField             views/SelectField
+       'metcalf3.view/NasaListSelectField     views/NasaListSelectField
+       'metcalf3.view/GeographicCoverage      views/GeographicCoverage
+       'metcalf3.view/DataSources             views/DataSources
+       'metcalf3.view/PageErrors              views/PageErrors
+       'metcalf3.view/VerticalCoverage        views/VerticalCoverage
+       'metcalf3.view/TopicCategories         views/TopicCategories
+       'metcalf3.view/ResourceConstraints     views/ResourceConstraints
+       'metcalf3.view/InputField              views/InputField
+       'metcalf3.view/Lodge                   views/Lodge
+       'metcalf3.view/SupportingResource      views/SupportingResource
+       'metcalf3.view/SupplementalInformation views/SupplementalInformation
+       'metcalf3.view/ThemeKeywords           views/ThemeKeywords
+       'metcalf3.view/UploadData              views/UploadData
+       'metcalf3.view/TaxonKeywordsExtra      views/TaxonKeywordsExtra
+       'metcalf3.view/Who                     views/Who
+       'metcalf3.view/ThemeKeywordsExtra      views/ThemeKeywordsExtra})

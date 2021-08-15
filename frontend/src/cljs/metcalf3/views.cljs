@@ -862,7 +862,8 @@
                     {:boxes-path boxes-path
                      :map-props  {:boxes boxes}
                      :ref        (fn [boxmap] (r/set-state this {:boxmap boxmap}))
-                     :disabled   disabled}]]
+                     :disabled   disabled
+                     :tick-id    @(rf/subscribe [:subs/get-form-tick])}]]
                   [:div.col-sm-6
                    [textarea-field [:form :fields :identificationInfo :geographicElement :siteDescription]]
                    [:p [:span "Please input in decimal degrees in coordinate reference system WGS84. "

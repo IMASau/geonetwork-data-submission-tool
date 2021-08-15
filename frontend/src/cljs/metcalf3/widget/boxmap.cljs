@@ -57,7 +57,7 @@
 (defn box-map2
   [_]
   (let [*fg (atom nil)]
-    (fn [{:keys [map-props boxes-path map-width]}]
+    (fn [{:keys [map-props boxes-path map-width tick-id]}]
       (let [initial-props map-props
             map-props @(rf/subscribe [:map/props])
             map-props (merge initial-props map-props)
@@ -97,7 +97,7 @@
             base-layer
             (into [react-leaflet/feature-group
                    {:ref #(reset! *fg %)
-                    :key (str "feature-group" @(rf/subscribe [:subs/get-form-tick]))}
+                    :key (str "feature-group" tick-id)}
                    [react-leaflet/edit-control
                     {:position   "topright"
                      :draw       {:polyline     false

@@ -537,15 +537,15 @@
              :highlight  #{}})
           (render [this]
             (let [{:keys [highlight]} (r/state this)
-                  topic-categories-path [:form :fields :identificationInfo :topicCategory]
-                  topicCategories @(rf/subscribe [:subs/get-derived-path topic-categories-path])
+                  {:keys [path]} (r/props this)
+                  topicCategories @(rf/subscribe [:subs/get-derived-path path])
                   {:keys [value placeholder disabled help] :as props} topicCategories
                   table @(rf/subscribe [:subs/get-derived-path [:topicCategories :table]])
                   set-value! #(r/set-state this {:new-value %})
                   add! (fn [identifier] (when-not (empty? identifier)
                                           (when (not-any? (comp #{identifier} :value)
                                                           (:value topicCategories))
-                                            (rf/dispatch [:handlers/add-value! topic-categories-path identifier]))
+                                            (rf/dispatch [:handlers/add-value! path identifier]))
                                           (handle-highlight-new this identifier)
                                           (set-value! nil)))
                   lookup (fn [uuid] (first (filterv #(= uuid (first %)) table)))
@@ -563,7 +563,7 @@
                          [:td [TopicCategoryCell (lookup (:value topicCategory))]]
                          (when-not disabled
                            [:td [:button.btn.btn-warn.btn-xs.pull-right
-                                 {:on-click #(rf/dispatch [:handlers/del-value topic-categories-path i])}
+                                 {:on-click #(rf/dispatch [:handlers/del-value path i])}
                                  [:span.glyphicon.glyphicon-minus]]])]))]
                (when-not disabled
                  [:div.flex-row
@@ -1809,7 +1809,7 @@
    [InputField {:path [:form :fields :identificationInfo :title]}]
    [date-field {:path       [:form :fields :identificationInfo :dateCreation]
                 :defMinDate (js/Date. "1900-01-01")}]
-   [TopicCategories nil]
+   [TopicCategories {:path [:form :fields :identificationInfo :topicCategory]}]
    [SelectField {:path [:form :fields :identificationInfo :status]}]
    [SelectField {:path [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]}]
    [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]])

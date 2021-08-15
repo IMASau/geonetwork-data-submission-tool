@@ -2121,13 +2121,14 @@
    [InputField {:path (conj path :value :url)}]
    [InputField {:path (conj path :value :name)}]])
 
-(defn DataSources []
+(defn DataSources
+  [{:keys [path]}]
   [:div
    [TableModalEdit {:ths        ["Title" "URL" "Layer"]
                     :tds-fn     (comp (partial map (comp #(or % "--") :value)) (juxt :description :url :name) :value)
                     :form       DataSourceRowEdit
                     :title      "Data services"
-                    :field-path [:form :fields :dataSources]}]])
+                    :field-path path}]])
 
 (defmethod PageTabView ["Edit" :upload]
   [_]
@@ -2136,7 +2137,7 @@
    [:h2 "8: Upload Data"]
    [UploadData nil]
    [:h2 "Data Services"]
-   [DataSources]
+   [DataSources {:path [:form :fields :dataSources]}]
    [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]])
 
 (defmethod PageTabView ["Edit" :lodge]

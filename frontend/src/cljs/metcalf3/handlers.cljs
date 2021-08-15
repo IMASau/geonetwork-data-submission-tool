@@ -202,8 +202,9 @@
         (update-in path assoc-in [:uri :value] uri))))
 
 (defn update-boxes
-  [db [_ boxes-path geometries]]
-  (let [boxes (mapv utils/geometry->box-value geometries)
+  [db [_ boxes-path geojson]]
+  (let [geometries (mapv :geometry (:features geojson))
+        boxes (mapv utils/geometry->box-value geometries)
         boxes-value-path (conj boxes-path :value)
         box-values (mapv (fn [box] {:value box}) boxes)
         db (assoc-in db boxes-value-path box-values)]

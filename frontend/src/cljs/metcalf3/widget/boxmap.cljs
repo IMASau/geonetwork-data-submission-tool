@@ -29,10 +29,8 @@
     (when (and north west south east)
       {:north north :west west :east east :south south})))
 
-(defn fg->geometries [fg]
-  (let [leaflet-element (react-leaflet/leaflet-element fg)
-        data (react-leaflet/to-geojson leaflet-element)]
-    (mapv :geometry (:features data))))
+(defn fg->geojson [fg]
+  (react-leaflet/to-geojson (react-leaflet/leaflet-element fg)))
 
 ; TODO: dispatch on change
 
@@ -49,7 +47,7 @@
                         {:url         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                          :attribution "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"}]]
         (letfn [(handle-change []
-                  (on-change (fg->geometries @*fg)))]
+                  (on-change (fg->geojson @*fg)))]
 
           [:div.map-wrapper
            [react-leaflet/map (merge

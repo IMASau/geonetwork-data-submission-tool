@@ -3,7 +3,8 @@
             [interop.blueprint :as bp3]
             [interop.react-leaflet :as react-leaflet]
             [oops.core]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [metcalf3.utils :as utils]))
 
 ;;; http://blog.jayfields.com/2011/01/clojure-select-keys-select-values-and.html
 (defn map->bounds [{:keys [west south east north]}]
@@ -30,25 +31,11 @@
         map-extents {:north north :west west :east east :south south}]
     map-extents))
 
-
 (defn fg->data [fg]
   (let [leaflet-element (react-leaflet/leaflet-element fg)
         data (react-leaflet/to-geojson leaflet-element)
         geometries (mapv :geometry (:features data))]
-    (for [{:keys [type coordinates]} geometries]
-      (case type
-        "Point" (let [[lng lat] coordinates]
-                  {:northBoundLatitude {:value lat}
-                   :southBoundLatitude {:value lat}
-                   :eastBoundLongitude {:value lng}
-                   :westBoundLongitude {:value lng}})
-        "Polygon" (let [[rect] coordinates
-                        lngs (map first rect)
-                        lats (map second rect)]
-                    {:northBoundLatitude {:value (apply max lats)}
-                     :southBoundLatitude {:value (apply min lats)}
-                     :eastBoundLongitude {:value (apply max lngs)}
-                     :westBoundLongitude {:value (apply min lngs)}})))))
+    (mapv utils/geometry->box-value geometries)))
 
 (defn boxes->elements
   [boxes]

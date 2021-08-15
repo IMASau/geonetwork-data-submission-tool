@@ -2003,7 +2003,8 @@
                                            (rf/dispatch [:handlers/update-method-name method-path option])))]
      [textarea-field {:path (into [] (concat path [:value :description]))}]]))
 
-(defn Methods [path]
+(defn Methods
+  [{:keys [path]}]
   (let [list-field @(rf/subscribe [:subs/get-derived-path path])]
     [:div.SupplementalInformation
      (label-template list-field)
@@ -2023,7 +2024,7 @@
   [:div
    [PageErrors {:page :how :path [:form]}]
    [:h2 "5: How"]
-   [Methods [:form :fields :resourceLineage :processStep]]
+   [Methods {:path [:form :fields :resourceLineage :processStep]}]
    [textarea-field {:path [:form :fields :dataQualityInfo :methods]}]
    [textarea-field {:path [:form :fields :dataQualityInfo :results]}]
    [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]])

@@ -104,7 +104,6 @@
 
 (defmethod geometry->box-value "Point"
   [{:keys [coordinates]}]
-  (js/console.log ::POINT)
   (let [[lng lat] coordinates]
     (s/assert number? lng)
     (s/assert number? lat)

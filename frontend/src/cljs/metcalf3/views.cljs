@@ -1253,7 +1253,7 @@
         :disabled (boolean (if selected-platform nil 0))}]]
      ]))
 
-(defn DataParametersTable [path]
+(defn DataParametersTable [{:keys [path]}]
   [:div.DataParametersTable
    [TableModalEdit
     {:ths        ["Name" "Units" "Instrument" "Serial No." "Platform"]
@@ -2088,7 +2088,7 @@
    [PageErrors {:page :about :path [:form]}]
    [:h2 "7: About Dataset"]
    [:h4 "Data parameters"]
-   [DataParametersTable [:form :fields :identificationInfo :dataParameters]]
+   [DataParametersTable {:path [:form :fields :identificationInfo :dataParameters]}]
    [:br]
    [:h4 "Pixel Size"]
    [:div.row

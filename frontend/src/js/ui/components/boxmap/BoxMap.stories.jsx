@@ -19,12 +19,13 @@ export default {
 
 const Template = (args) => <BoxMap {...args} />;
 
-export const Primary = Template.bind({});
-Primary.args = {
+export const EmptyMap = Template.bind({});
+EmptyMap.args = {
+  elements = []
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
+export const MapWithValues = Template.bind({});
+MapWithValues.args = {
   elements: [
     { "northBoundLatitude": 39, "southBoundLatitude": 39, "eastBoundLongitude": 144.272461, "westBoundLongitude": 144.272461 },
     { "northBoundLatitude": -41.821091, "southBoundLatitude": -45.381173, "eastBoundLongitude": 150.448172, "westBoundLongitude": 146.587417 }]

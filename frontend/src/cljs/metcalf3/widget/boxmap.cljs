@@ -3,7 +3,6 @@
             [interop.blueprint :as bp3]
             [interop.react-leaflet :as react-leaflet]
             [oops.core]
-            [re-frame.core :as rf]
             [reagent.core :as r]))
 
 ;;; http://blog.jayfields.com/2011/01/clojure-select-keys-select-values-and.html
@@ -57,7 +56,7 @@
 (defn box-map2
   [_]
   (let [*fg (atom nil)]
-    (fn [{:keys [map-props boxes-path map-width tick-id]}]
+    (fn [{:keys [map-props map-width tick-id on-change]}]
       (let [{:keys [boxes]} map-props
             extents (boxes->extents boxes)
             base-layer [react-leaflet/tile-layer
@@ -71,7 +70,7 @@
                                    [react-leaflet/rectangle
                                     {:bounds (geographicElement->bounds (:value box))}])))]
         (letfn [(handle-change []
-                  (rf/dispatch [:handlers/update-boxes boxes-path (fg->data @*fg)]))]
+                  (on-change (fg->data @*fg)))]
 
           [:div.map-wrapper
            [react-leaflet/map (merge

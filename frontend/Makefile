@@ -15,7 +15,7 @@ figwheel:
 		-v $(HOME)/.m2:/root/.m2 \
 		-p 127.0.0.1:9500:9500 \
 		clojure:openjdk-14-tools-deps-buster \
-		shadow-cljs watch server metcalf3
+		yarn shadow-cljs watch server metcalf3
 
 build:
 	# init yarn
@@ -36,7 +36,7 @@ build:
 		-v $${HOME}/.clojure:/root/.clojure \
 		-v $${HOME}/.m2:/root/.m2 \
 		clojure:openjdk-14-tools-deps-buster \
-		shadow-cljs compile metcalf3
+		yarn shadow-cljs compile metcalf3
 
 # TODO: generate as single css file?
 copy-static:
@@ -74,4 +74,4 @@ release:
 		-v $(HOME)/.clojure:/root/.clojure \
 		-v $(HOME)/.m2:/root/.m2 \
 		clojure:openjdk-14-tools-deps-buster \
-		shadow-cljs release metcalf3
+		yarn shadow-cljs release metcalf3

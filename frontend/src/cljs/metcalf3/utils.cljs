@@ -1,6 +1,7 @@
 (ns metcalf3.utils
   (:require clojure.string
-            [goog.object :as gobject]))
+            [goog.object :as gobject]
+            [cljs.spec.alpha :as s]))
 
 (defn on-change [m0 m1 ks f]
   (let [v0 (get-in m0 ks)
@@ -99,8 +100,11 @@
 
 (defn geometry->box-value
   [{:keys [type coordinates]}]
+  (s/assert #{"Point" "Polygon"} type)
   (case type
     "Point" (let [[lng lat] coordinates]
+              (s/assert number? lng)
+              (s/assert number? lat)
               {:northBoundLatitude {:value lat}
                :southBoundLatitude {:value lat}
                :eastBoundLongitude {:value lng}
@@ -108,10 +112,11 @@
     "Polygon" (let [[rect] coordinates
                     lngs (map first rect)
                     lats (map second rect)]
-                {:northBoundLatitude {:value (apply max lats)}
-                 :southBoundLatitude {:value (apply min lats)}
-                 :eastBoundLongitude {:value (apply max lngs)}
-                 :westBoundLongitude {:value (apply min lngs)}})))
+                (s/assert some? rect)
+                {:northBoundLatitude {:value (s/assert number? (apply max lats))}
+                 :southBoundLatitude {:value (s/assert number? (apply min lats))}
+                 :eastBoundLongitude {:value (s/assert number? (apply max lngs))}
+                 :westBoundLongitude {:value (s/assert number? (apply min lngs))}})))
 
 (defn boxes->elements
   [boxes]

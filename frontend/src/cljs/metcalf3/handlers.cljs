@@ -203,6 +203,7 @@
 
 (defn update-boxes
   [db [_ boxes-path geojson]]
+  (s/assert map? geojson)
   (let [geometries (mapv :geometry (:features geojson))
         boxes (mapv utils/geometry->box-value geometries)
         boxes-value-path (conj boxes-path :value)

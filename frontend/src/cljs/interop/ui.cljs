@@ -1,7 +1,21 @@
 (ns interop.ui
   (:require ["/ui/components/boxmap/BoxMap" :as BoxMap]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [cljs.spec.alpha :as s]))
 
 (assert BoxMap/BoxMap)
 
-(def box-map (r/adapt-react-class BoxMap/BoxMap))
+(s/def ::northBoundLatitude number?)
+(s/def ::westBoundLongitude number?)
+(s/def ::southBoundLatitude number?)
+(s/def ::eastBoundLongitude number?)
+(s/def ::element (s/keys :req-un [::northBoundLatitude ::westBoundLongitude ::southBoundLatitude ::eastBoundLongitude]))
+(s/def ::elements (s/coll-of ::element))
+
+(defn box-map
+  [{:keys [elements map-width tick-id on-change]}]
+  [:> BoxMap/BoxMap
+   {:elements (s/assert ::elements elements)
+    :mapWidth (s/assert pos? map-width)
+    :tickId   (s/assert number? tick-id)
+    :onChange (s/assert fn? (fn [geojson] (on-change (js->clj geojson :keywordize-keys true))))}])

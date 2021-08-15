@@ -49,7 +49,7 @@
                                  :keyboard             false ; handled externally
                                  :close-popup-on-click false ; We'll handle that ourselves
                                  }
-                                (when (not (some nil? (vals extents)))
+                                (when extents
                                   (let [bounds (map->bounds extents)
                                         is-point? (= (first bounds) (second bounds))]
                                     (if (not is-point?)

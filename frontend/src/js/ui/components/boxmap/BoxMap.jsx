@@ -7,38 +7,38 @@ function mapToBounds({ west, east, south, north }) {
     return [[south, west], [north, east]];
 }
 
-function geographicElementToPoint({ southBoundLatitude, westBoundLongitude }) {
+function elementToPoint({ southBoundLatitude, westBoundLongitude }) {
     return [southBoundLatitude, westBoundLongitude];
 }
 
-function geographicElementIsPoint({ northBoundLatitude, southBoundLatitude, eastBoundLongitude, westBoundLongitude }) {
-    return ((northBoundLatitude == southBoundLatitude) &&
-        (eastBoundLongitude == westBoundLongitude));
+function elementIsPoint({ northBoundLatitude, southBoundLatitude, eastBoundLongitude, westBoundLongitude }) {
+    return ((northBoundLatitude == southBoundLatitude) && (eastBoundLongitude == westBoundLongitude));
 }
 
-function geographicElementToBounds({ northBoundLatitude, southBoundLatitude, eastBoundLongitude, westBoundLongitude }) {
-    return [[southBoundLatitude, westBoundLongitude],
-    [northBoundLatitude, eastBoundLongitude]];
+function elementToBounds({ northBoundLatitude, southBoundLatitude, eastBoundLongitude, westBoundLongitude }) {
+    return [[southBoundLatitude, westBoundLongitude], [northBoundLatitude, eastBoundLongitude]];
 }
 
-function getMaxOfArray(numArray) {
-    return Math.max.apply(null, numArray);
+function getMaxOfArray(arr) {
+    return arr.length ? Math.max.apply(null, arr) : null;
 }
 
-function getMinOfArray(numArray) {
-    return Math.min.apply(null, numArray);
+function getMinOfArray(arr) {
+    return arr.length ? Math.min.apply(null, arr) : null;
 }
 
-function boxesToExtents(boxes) {
-    var north = getMaxOfArray(boxes.map((box) => box.northBoundLatitude));
-    var west = getMinOfArray(boxes.map((box) => box.westBoundLongitude));
-    var south = getMinOfArray(boxes.map((box) => box.southBoundLatitude));
-    var east = getMaxOfArray(boxes.map((box) => box.eastBoundLongitude));
-    return {
-        "north": north,
-        "west": west,
-        "east": east,
-        "south": south
+function elementsToExtents(elements) {
+    var north = getMaxOfArray(elements.map((ele) => ele.northBoundLatitude));
+    var west = getMinOfArray(elements.map((ele) => ele.westBoundLongitude));
+    var south = getMinOfArray(elements.map((ele) => ele.southBoundLatitude));
+    var east = getMaxOfArray(elements.map((ele) => ele.eastBoundLongitude));
+    if (north && west && south && east) {
+        return {
+            "north": north,
+            "west": west,
+            "east": east,
+            "south": south
+        }
     }
 }
 
@@ -65,11 +65,11 @@ function geometryPolygonToData({ coordinates }) {
 }
 
 function featureGroupToData(fg) {
-    console.log({fg})
+    console.log({ fg })
     const features = fg.current.leafletElement.toGeoJSON().features;
-    console.log({features})
+    console.log({ features })
     return features.map(feature => {
-        console.log({feature})
+        console.log({ feature })
         switch (feature.geometry.type) {
             case "Point": return geometryPointToData(feature.geometry);
             case "Polygon": return geometryPolygonToData(feature.geometry);
@@ -78,19 +78,19 @@ function featureGroupToData(fg) {
     })
 }
 
-function BoxMarker(box) {
-    return <Marker position={geographicElementToPoint(box)} />
+function ElementMarker({element}) {
+    return <Marker position={elementToPoint(element)} />
 }
 
-function BoxRectangle(box) {
-    return <Rectangle bounds={geographicElementToBounds(box)} />
+function ElementRectangle({element}) {
+    return <Rectangle bounds={elementToBounds(element)} />
 }
 
-function boxToElement(box) {
-    if (geographicElementIsPoint(box)) {
-        return <BoxMarker box={box} />
+function renderElement(element, idx) {
+    if (elementIsPoint(element)) {
+        return <ElementMarker element={element} key={idx} />
     } else {
-        return <BoxRectangle box={box} />
+        return <ElementRectangle element={element} key={idx} />
     }
 }
 
@@ -102,33 +102,34 @@ const BaseLayer = () => (
 )
 
 // TODO: disabled mode?
-export const BoxMap = ({ boxes, onChange, tickId }) => {
+export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
 
     const featureGroupRef = React.useRef(null);
 
     const defaultCenter = [-28, 134];
 
-    const bounds = null;//boxesToExtents(boxes);
+    const bounds = elementsToExtents(elements);
+    const setCenter = bounds && bounds.north==bounds.south && bounds.east == bounds.west;
+    const setBounds = bounds && !setCenter;
+    console.log ({bounds, setCenter, setBounds})
 
     const handleChange = () => {
         onChange(featureGroupToData(featureGroupRef))
     };
-
-    const initialElements = boxes.map(boxToElement);
 
     return (
         <Map
             id="map"
             style={{
                 "height": 500,
-                "width": "map-width"
+                "width": mapWidth
             }}
             useFlyTo={true}
-            center={defaultCenter}
+            center={setCenter ? [bounds.south, bounds.west] : defaultCenter}
             zoom={4}
             keyboard={false}
             closePopupOnClick={false}
-            bounds={bounds}
+            bounds={setBounds ? [[bounds.south, bounds.west], [bounds.north, bounds.east]] : undefined}
         >
             <BaseLayer />
             <FeatureGroup
@@ -154,7 +155,7 @@ export const BoxMap = ({ boxes, onChange, tickId }) => {
                     onDeleted={handleChange}
                     onCreated={handleChange}
                 />
-                {initialElements}
+                {elements.map(renderElement)}
             </FeatureGroup>
         </Map>
     );

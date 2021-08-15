@@ -172,12 +172,13 @@
         (some col-match? (rest row)))
       table)))
 
-(defn InputField [props]
-  (let [field @(rf/subscribe [:subs/get-derived-path (:path props)])]
+(defn InputField
+  [{:keys [path] :as props}]
+  (let [field @(rf/subscribe [:subs/get-derived-path path])]
     [InputWidget (-> field
                      (merge (dissoc props :path))
                      (assoc
-                       :on-change #(rf/dispatch [:handlers/value-changed (:path props) %])))]))
+                       :on-change #(rf/dispatch [:handlers/value-changed path %])))]))
 
 ; TODO: Don't dispatch value changes until blur
 ; TODO: Show errors after blur

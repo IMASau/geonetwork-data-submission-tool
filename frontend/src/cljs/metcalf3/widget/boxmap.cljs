@@ -37,16 +37,6 @@
         data (react-leaflet/to-geojson leaflet-element)]
     (mapv :geometry (:features data))))
 
-(defn boxes->elements
-  [boxes]
-  (for [box (:value boxes)]
-    (when (not (some nil? (map :value (vals (:value box)))))
-      (if (geographicElement->point? (:value box))
-        [react-leaflet/marker
-         {:position (geographicElement->point (:value box))}]
-        [react-leaflet/rectangle
-         {:bounds (geographicElement->bounds (:value box))}]))))
-
 ; TODO: dispatch on change
 
 (defn box-map2
@@ -56,8 +46,7 @@
       (let [extents (elements->extents elements)
             base-layer [react-leaflet/tile-layer
                         {:url         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                         :attribution "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"}]
-            initial-elements (boxes->elements boxes)]
+                         :attribution "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"}]]
         (letfn [(handle-change []
                   (on-change (fg->geometries @*fg)))]
 
@@ -97,7 +86,13 @@
                      :on-edited  handle-change
                      :on-deleted handle-change
                      :on-created handle-change}]]
-                  initial-elements)]])))))
+                  (for [box (:value boxes)]
+                    (when (not (some nil? (map :value (vals (:value box)))))
+                      (if (geographicElement->point? (:value box))
+                        [react-leaflet/marker
+                         {:position (geographicElement->point (:value box))}]
+                        [react-leaflet/rectangle
+                         {:bounds (geographicElement->bounds (:value box))}]))))]])))))
 
 (defn box-map2-fill
   []

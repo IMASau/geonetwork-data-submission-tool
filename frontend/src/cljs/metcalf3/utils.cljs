@@ -98,25 +98,31 @@
 (defn enum [coll]
   (zip (range) coll))
 
-(defn geometry->box-value
-  [{:keys [type coordinates]}]
-  (s/assert #{"Point" "Polygon"} type)
-  (case type
-    "Point" (let [[lng lat] coordinates]
-              (s/assert number? lng)
-              (s/assert number? lat)
-              {:northBoundLatitude {:value lat}
-               :southBoundLatitude {:value lat}
-               :eastBoundLongitude {:value lng}
-               :westBoundLongitude {:value lng}})
-    "Polygon" (let [[rect] coordinates
-                    lngs (map first rect)
-                    lats (map second rect)]
-                (s/assert some? rect)
-                {:northBoundLatitude {:value (s/assert number? (apply max lats))}
-                 :southBoundLatitude {:value (s/assert number? (apply min lats))}
-                 :eastBoundLongitude {:value (s/assert number? (apply max lngs))}
-                 :westBoundLongitude {:value (s/assert number? (apply min lngs))}})))
+(defn geometry-type [{:keys [type]}] type)
+
+(defmulti geometry->box-value geometry-type)
+
+(defmethod geometry->box-value "Point"
+  [{:keys [coordinates]}]
+  (js/console.log ::POINT)
+  (let [[lng lat] coordinates]
+    (s/assert number? lng)
+    (s/assert number? lat)
+    {:northBoundLatitude {:value lat}
+     :southBoundLatitude {:value lat}
+     :eastBoundLongitude {:value lng}
+     :westBoundLongitude {:value lng}}))
+
+(defmethod geometry->box-value "Polygon"
+  [{:keys [coordinates]}]
+  (let [[rect] coordinates
+        lngs (map first rect)
+        lats (map second rect)]
+    (s/assert some? rect)
+    {:northBoundLatitude {:value (s/assert number? (apply max lats))}
+     :southBoundLatitude {:value (s/assert number? (apply min lats))}
+     :eastBoundLongitude {:value (s/assert number? (apply max lngs))}
+     :westBoundLongitude {:value (s/assert number? (apply min lngs))}}))
 
 (defn boxes->elements
   [boxes]

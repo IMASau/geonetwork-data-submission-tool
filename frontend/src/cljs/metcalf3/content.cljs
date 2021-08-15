@@ -37,18 +37,18 @@
                            :placeholder "Start typing to filter list..."
                            :required    true
                            :page        :who}
-   :phone                 {:type  nil
-                           :label "Phone number"
-                           :maxlength   20
-                           :page  :who}
-   :facsimile             {:type  nil
-                           :label "Fax number"
-                           :maxlength   20
-                           :page  :who}
-   :electronicMailAddress {:type  nil
-                           :label "Email address"
-                           :maxlength   100
-                           :page  :who}
+   :phone                 {:type      nil
+                           :label     "Phone number"
+                           :maxlength 20
+                           :page      :who}
+   :facsimile             {:type      nil
+                           :label     "Fax number"
+                           :maxlength 20
+                           :page      :who}
+   :electronicMailAddress {:type      nil
+                           :label     "Email address"
+                           :maxlength 100
+                           :page      :who}
    :address               {:deliveryPoint      {:type nil :maxlength 250}
                            :deliveryPoint2     {:type :hidden :maxlength 250 :aria-hidden true :class "hidden"}
                            :city               {:type nil :help "City" :maxlength 100}
@@ -113,14 +113,14 @@
                            :label  "Supporting resources"
                            :many   true
                            :value  []
-                           :fields {:name {:type  nil
-                                           :page  :about
+                           :fields {:name {:type      nil
+                                           :page      :about
                                            :maxlength 250
-                                           :label "Title"}
-                                    :url  {:type  nil
-                                           :page  :about
+                                           :label     "Title"}
+                                    :url  {:type      nil
+                                           :page      :about
                                            :maxlength 250
-                                           :label "URL"}}}
+                                           :label     "URL"}}}
      :dataQualityInfo     {:methods {:type        nil
                                      :rows        20
                                      :label       "Data Quality Methods"
@@ -141,7 +141,7 @@
                                                            :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
                                                            :help        "Clear and concise description of the content of the resource"
                                                            :rows        3
-                                                           :maxlength 250
+                                                           :maxlength   250
                                                            :required    true
                                                            :page        :data-identification}
                            :dateCreation                  {:type     nil
@@ -298,10 +298,10 @@
                                                                                :label    "Elevation in metres"
                                                                                :required true
                                                                                :page     :where}}
-                           :credit                        {:type  nil
-                                                           :help  "Acknowledge the contribution of any funding schemes or organisations."
+                           :credit                        {:type      nil
+                                                           :help      "Acknowledge the contribution of any funding schemes or organisations."
                                                            :maxlength 1000
-                                                           :label "Other credits"}
+                                                           :label     "Other credits"}
 
                            :dataParameters                {:type   nil
                                                            :value  []
@@ -331,7 +331,7 @@
                                                                                                    :placeholder ""
                                                                                                    :maxlength   100
                                                                                                    :page        :about
-                                                                                                   :help "Serial number of instrument."}
+                                                                                                   :help        "Serial number of instrument."}
                                                                     :unit_term                    {:type        nil
                                                                                                    :label       "Unit type"
                                                                                                    :required    false
@@ -371,11 +371,11 @@
                                                            :page        :about
                                                            :maxlength   1000
                                                            :placeholder "While every care is taken to ensure the accuracy of this information, the author makes no representations or warranties about its accuracy, reliability, completeness or suitability for any particular purpose and disclaims all responsibility and all liability (including without limitation, liability in negligence) for all expenses, losses, damages (including indirect or consequential damage) and costs which might be incurred as a result of the information being inaccurate or incomplete in any way and for any reason."}
-                           :supplementalInformation       {:type  nil
-                                                           :page  :about
+                           :supplementalInformation       {:type      nil
+                                                           :page      :about
                                                            :maxlength 1000
-                                                           :label "Publications associated with dataset"
-                                                           :many  true}
+                                                           :label     "Publications associated with dataset"
+                                                           :many      true}
                            :citedResponsibleParty         {:type   nil
                                                            :many   true
                                                            :fields responsible-party-defaults
@@ -396,11 +396,11 @@
                                       :label       "Data file format"
                                       :maxlength   100
                                       :placeholder "e.g. Microsoft Excel, CSV, NetCDF"}}}
-     :noteForDataManager  {:type  nil
-                           :label "Include a note for the data manager"
+     :noteForDataManager  {:type      nil
+                           :label     "Include a note for the data manager"
                            :maxlength 1000
-                           :style {:min-height "80px"}
-                           :page  :lodge}
+                           :style     {:min-height "80px"}
+                           :page      :lodge}
      :who-authorRequired  {:type  nil
                            :label "Author role"
                            :page  :who}
@@ -419,16 +419,16 @@
                                          :page        :about}
                            :processStep {:type   nil
                                          :many   true
-                                         :fields {:description {:type  nil
-                                                                :label "Description"
-                                                                :required true
+                                         :fields {:description {:type      nil
+                                                                :label     "Description"
+                                                                :required  true
                                                                 :maxlength 1000
-                                                                :page  :how}
-                                                  :name        {:type  nil
-                                                                :label "Name"
-                                                                :required true
+                                                                :page      :how}
+                                                  :name        {:type      nil
+                                                                :label     "Name"
+                                                                :required  true
                                                                 :maxlength 250
-                                                                :page  :how}
+                                                                :page      :how}
                                                   :uri         {:type  nil
                                                                 :label "URI"
                                                                 :page  :how}}}}}}})

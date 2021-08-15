@@ -859,7 +859,7 @@
                  [:div.row
                   [:div.col-sm-6
                    [boxmap/box-map2-fill
-                    {:boxes boxes
+                    {:boxes     boxes
                      :ref       (fn [boxmap] (r/set-state this {:boxmap boxmap}))
                      :disabled  disabled
                      :tick-id   @(rf/subscribe [:subs/get-form-tick])

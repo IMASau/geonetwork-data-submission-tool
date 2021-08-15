@@ -149,9 +149,9 @@
   [db _]
   (let [{:keys [guide_pdf roadmap_pdf releasenotes_url]} (get-in db [:context :site])]
     (seq (cond-> []
-                 guide_pdf (conj ["Guide" [:help-menu/open guide_pdf]])
-                 roadmap_pdf (conj ["Roadmap" [:help-menu/open roadmap_pdf]])
-                 releasenotes_url (conj ["Release Notes" [:help-menu/open releasenotes_url]])))))
+           guide_pdf (conj ["Guide" [:help-menu/open guide_pdf]])
+           roadmap_pdf (conj ["Roadmap" [:help-menu/open roadmap_pdf]])
+           releasenotes_url (conj ["Release Notes" [:help-menu/open releasenotes_url]])))))
 
 (defn platform-selected?
   [db [_ form-position]]

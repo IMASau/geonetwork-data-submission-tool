@@ -17,7 +17,7 @@
 (s/def :anom/message string?)
 
 (s/def :anom/anomaly (s/keys :req [:anom/category]
-                         :opt [:anom/message]))
+                             :opt [:anom/message]))
 
 
 ; Ref https://github.com/fmnoise/anomalies-tools

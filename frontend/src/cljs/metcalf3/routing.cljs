@@ -15,7 +15,7 @@
         f #(swap! iref assoc-in path (<-hash (route)))]
     (e/listen js/window et/HASHCHANGE f)
     (add-watch iref f #(when (not= (get-in %3 path) (get-in %4 path))
-                        (route (->hash (get-in %4 path)))))
+                         (route (->hash (get-in %4 path)))))
     (f)
     f))
 

@@ -2033,7 +2033,8 @@
 (defn UseLimitationsFieldEdit [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :useLimitations])])
 
-(defn UseLimitations [path]
+(defn UseLimitations
+  [{:keys [path]}]
   (let [list-field @(rf/subscribe [:subs/get-derived-path path])]
     [:div.SupplementalInformation
      (label-template list-field)
@@ -2099,7 +2100,7 @@
    [:br]
    [:h4 "Resource constraints"]
    [ResourceConstraints]
-   [UseLimitations [:form :fields :identificationInfo :useLimitations]]
+   [UseLimitations {:path [:form :fields :identificationInfo :useLimitations]}]
    [:br]
    [:h4 "Supplemental information"]
    [SupportingResource [:form :fields :supportingResources]]

@@ -3,9 +3,11 @@
             [clojure.walk :as walk]))
 
 (def ^:dynamic component-registry {})
+(def ^:dynamic hiccup-registry {})
+(def ^:dynamic not-found-hiccup '[:div "not found"])
 
 (defn PageTabView
   [page]
   (let [tab (get page :tab :data-identification)
-        hiccup @(rf/subscribe [:subs/get-template-tab tab])]
+        hiccup (get hiccup-registry tab not-found-hiccup)]
     (walk/postwalk-replace component-registry hiccup)))

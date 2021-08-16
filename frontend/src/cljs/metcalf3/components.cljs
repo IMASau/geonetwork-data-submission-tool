@@ -6,8 +6,7 @@
 (def ^:dynamic hiccup-registry {})
 (def ^:dynamic not-found-hiccup '[:div "not found"])
 
-(defn PageTabView
-  [page]
-  (let [tab (get page :tab :data-identification)
-        hiccup (get hiccup-registry tab not-found-hiccup)]
+(defn render-hiccup
+  [hiccup-id]
+  (let [hiccup (get hiccup-registry hiccup-id not-found-hiccup)]
     (walk/postwalk-replace component-registry hiccup)))

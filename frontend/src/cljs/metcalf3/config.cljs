@@ -1,5 +1,5 @@
 (ns metcalf3.config
-  (:require [metcalf3.components :as components]
+  (:require [metcalf3.low-code :as low-code]
             [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers]
             [metcalf3.ins :as ins]
@@ -102,7 +102,7 @@
 (rf/reg-sub :subs/platform-selected? subs/platform-selected?)
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
-(set! components/component-registry
+(set! low-code/component-registry
       {'metcalf3.view/DataParametersTable     views/DataParametersTable
        'metcalf3.view/date-field              views/date-field
        'metcalf3.view/textarea-field          views/textarea-field
@@ -125,7 +125,7 @@
        'metcalf3.view/TaxonKeywordsExtra      views/TaxonKeywordsExtra
        'metcalf3.view/Who                     views/Who
        'metcalf3.view/ThemeKeywordsExtra      views/ThemeKeywordsExtra})
-(set! components/hiccup-registry
+(set! low-code/template-registry
       '{:data-identification
         [:div
          [metcalf3.view/PageErrors {:page :data-identification :path [:form]}]

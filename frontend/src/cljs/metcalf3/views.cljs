@@ -25,7 +25,7 @@
             [metcalf3.widget.tree :refer [TermList TermTree]]
             [re-frame.core :as rf]
             [reagent.core :as r]
-            [metcalf3.components :as components])
+            [metcalf3.low-code :as low-code])
   (:import [goog.dom ViewportSizeMonitor]
            [goog.events FileDropHandler]
            [goog.events EventType]))
@@ -2104,7 +2104,7 @@
                [:div.Home.container
                 [edit-tabs]
                 [:div.PageViewBody
-                 [components/render-hiccup (get page :tab :data-identification)]]]]))]
+                 [low-code/render-template {:template-id (get page :tab :data-identification)}]]]]))]
     (r/create-class
       {:render render})))
 

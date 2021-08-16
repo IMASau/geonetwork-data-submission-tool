@@ -125,3 +125,108 @@
        'metcalf3.view/TaxonKeywordsExtra      views/TaxonKeywordsExtra
        'metcalf3.view/Who                     views/Who
        'metcalf3.view/ThemeKeywordsExtra      views/ThemeKeywordsExtra})
+(set! components/hiccup-registry
+      '{:data-identification
+        [:div
+         [metcalf3.view/PageErrors {:page :data-identification :path [:form]}]
+         [:h2 "1. Data Identification"]
+         [metcalf3.view/InputField {:path [:form :fields :identificationInfo :title]}]
+         [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :dateCreation]
+                      :defMinDate #inst "1900-01-01"}]
+         [metcalf3.view/TopicCategories {:path [:form :fields :identificationInfo :topicCategory]}]
+         [metcalf3.view/SelectField {:path [:form :fields :identificationInfo :status]}]
+         [metcalf3.view/SelectField {:path [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]}]
+         [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
+
+        :what
+        [:div
+         [metcalf3.view/PageErrors {:page :what :path [:form]}]
+         [:h2 "2. What"]
+         [:span.abstract-textarea
+          [metcalf3.view/textarea-field {:path [:form :fields :identificationInfo :abstract]}]]
+         [:span.abstract-textarea
+          [metcalf3.view/textarea-field {:path [:form :fields :identificationInfo :purpose]}]]
+         [metcalf3.view/ThemeKeywords :keywordsTheme]
+         [metcalf3.view/ThemeKeywords :keywordsThemeAnzsrc]
+         [metcalf3.view/ThemeKeywordsExtra nil]
+         [metcalf3.view/TaxonKeywordsExtra nil]
+         [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
+
+        :when
+        [:div
+         [metcalf3.view/PageErrors {:page :when :path [:form]}]
+         [:h2 "3. When was the data acquired?"]
+         [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :beginPosition]
+                      :defMinDate #inst "1900-01-01"}]
+         [metcalf3.view/date-field {:path [:form :fields :identificationInfo :endPosition]}]
+         [:div.row
+          [:div.col-md-4
+           [metcalf3.view/NasaListSelectField {:keyword :samplingFrequency
+                                 :path    [:form :fields :identificationInfo]}]]]
+         [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
+
+        :where
+        [:div
+         [metcalf3.view/PageErrors {:page :where :path [:form]}]
+         [:h2 "4. Where"]
+         [metcalf3.view/GeographicCoverage nil]
+         [metcalf3.view/VerticalCoverage]
+         [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+
+        :who
+        [:div
+         [metcalf3.view/Who nil]
+         [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+
+        :how
+        [:div
+         [metcalf3.view/PageErrors {:page :how :path [:form]}]
+         [:h2 "5: How"]
+         [metcalf3.view/Methods {:path [:form :fields :resourceLineage :processStep]}]
+         [metcalf3.view/textarea-field {:path [:form :fields :dataQualityInfo :methods]}]
+         [metcalf3.view/textarea-field {:path [:form :fields :dataQualityInfo :results]}]
+         [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
+
+        :about
+        [:div
+         [metcalf3.view/PageErrors {:page :about :path [:form]}]
+         [:h2 "7: About Dataset"]
+         [:h4 "Data parameters"]
+         [metcalf3.view/DataParametersTable {:path [:form :fields :identificationInfo :dataParameters]}]
+         [:br]
+         [:h4 "Pixel Size"]
+         [:div.row
+          [:div.col-md-6
+           [metcalf3.view/NasaListSelectField {:keyword :horizontalResolution
+                                 :path    [:form :fields :identificationInfo]}]]]
+         [:br]
+         [:h4 "Resource constraints"]
+         [metcalf3.view/ResourceConstraints]
+         [metcalf3.view/UseLimitations {:path [:form :fields :identificationInfo :useLimitations]}]
+         [:br]
+         [:h4 "Supplemental information"]
+         [metcalf3.view/SupportingResource {:path [:form :fields :supportingResources]}]
+         [metcalf3.view/SupplementalInformation [:form :fields :identificationInfo :supplementalInformation]]
+         [:br]
+         [:h4 "Distribution"]
+         [metcalf3.view/InputField {:path [:form :fields :distributionInfo :distributionFormat :name]}]
+         [metcalf3.view/InputField {:path [:form :fields :distributionInfo :distributionFormat :version]}]
+         [:span.abstract-textarea
+          [metcalf3.view/textarea-field {:path [:form :fields :resourceLineage :lineage]}]]
+         [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
+
+        :upload
+        [:div
+         [metcalf3.view/PageErrors {:page :upload :path [:form]}]
+         [:h2 "8: Upload Data"]
+         [metcalf3.view/UploadData nil]
+         [:h2 "Data Services"]
+         [metcalf3.view/DataSources {:path [:form :fields :dataSources]}]
+         [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
+
+        :lodge
+        [:div
+         [metcalf3.view/PageErrors {:page :lodge :path [:form]}]
+         [:h2 "9: Lodge Metadata Draft"]
+         [metcalf3.view/Lodge nil]
+         [:div.link-right-container [:a.link-right {:href "#"} "Next"]]]})

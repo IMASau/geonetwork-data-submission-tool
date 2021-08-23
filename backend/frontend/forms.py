@@ -1,6 +1,5 @@
-from django import forms
-
 from backend.models import DocumentAttachment
+from django import forms
 
 
 class SiteContentForm(forms.ModelForm):

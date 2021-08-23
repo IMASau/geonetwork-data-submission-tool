@@ -1,17 +1,19 @@
-import django_filters
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, filters
+# TODO: Suspect this could go into tern.api app
+# TODO: Suspect this could go into metcalf.api app (common stuff)
 
 import backend.models as models
 import backend.serializers as serializers
+import django_filters
+from django_filters.rest_framework import DjangoFilterBackend
 from frontend.filters import ParentFilter
+from rest_framework import viewsets, filters
 
 
 class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = models.Institution.objects.all().order_by('prefLabel')
     serializer_class = serializers.InstitutionSerializer
 
-    #search_fields = ('organisationName', 'deliveryPoint', 'deliveryPoint2',
+    # search_fields = ('organisationName', 'deliveryPoint', 'deliveryPoint2',
     #                 'city', 'administrativeArea', 'postalCode', 'country')
 
 

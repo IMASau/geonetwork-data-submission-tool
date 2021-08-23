@@ -1,5 +1,6 @@
-from rest_framework.views import exception_handler
 from frontend.views import master_urls, site_content, UserSerializer
+from rest_framework.views import exception_handler
+
 
 def custom_exception_handler(exc, context):
     # Call REST framework's default exception handler first,
@@ -28,5 +29,3 @@ def custom_exception_handler(exc, context):
         }
 
     return response
-
-

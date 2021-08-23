@@ -1,13 +1,12 @@
+# TODO: should be common I think.
+
 import datetime
-import os
 import json
+import os
 import re
-from urllib.parse import urlsplit
-import io
-
 from backend.xmlutils import *
-
-from django.contrib.sites.models import Site 
+from django.contrib.sites.models import Site
+from urllib.parse import urlsplit
 
 
 def insert_node_groups(spec, node_groups):
@@ -22,20 +21,24 @@ def insert_node_groups(spec, node_groups):
                 for i in sub_spec:
                     insert_node_groups(i, node_groups)
 
+
 def remove_comments(spec):
     if isinstance(spec, dict):
-        #quickest way to remove the key
+        # quickest way to remove the key
         spec.pop(SpecialKeys.comment, None)
         for key, sub_spec in spec.items():
             remove_comments(sub_spec)
 
+
 def is_function_ref(spec):
-    yes_or_no = isinstance(spec,dict) and SpecialKeys.function in spec
+    yes_or_no = isinstance(spec, dict) and SpecialKeys.function in spec
     return yes_or_no
+
 
 def get_function_ref(x):
     transform = SPEC_FUNCTIONS[x[SpecialKeys.function]]
     return transform
+
 
 def insert_functions(spec):
     if isinstance(spec, list):
@@ -51,6 +54,8 @@ def insert_functions(spec):
                 for i in sub_spec:
                     insert_functions(i)
 
+
+# TODO: pass in app specific registrations?
 def make_spec(**kwargs):
     assert 'mapper' in kwargs, "We couldn't load the mapper for this template. Please make sure the mapper exists"
     assert kwargs['mapper'] != None, "No mapper exists for this template. Please specify one."
@@ -58,16 +63,16 @@ def make_spec(**kwargs):
     spec = spec_json['spec']
     node_groups = spec_json['node_groups']
     remove_comments(spec)
-    #replace any node group reference with the actual node_group
+    # replace any node group reference with the actual node_group
     insert_node_groups(spec, node_groups)
-    #update string references to functions with the actual functions
+    # update string references to functions with the actual functions
     insert_functions(spec)
     return spec
 
 
-
 LINKAGE_UUID = re.compile(r'uuid=\w{8}-\w{4}-\w{4}-\w{4}-\w{12}')
 KWARGS = None
+
 
 def massage_version_number(s):
     """
@@ -79,6 +84,7 @@ def massage_version_number(s):
         version_chunk = re.search(re_version, s).group(1)
         version_number = re.sub("-", ".", version_chunk)
         return version_number
+
 
 def generate_attachment_url(**kwargs):
     # TODO: figure out how to get env here (was previously inline in the python spec)
@@ -95,12 +101,14 @@ def generate_attachment_url(**kwargs):
         data
     )
 
+
 def all_text(node):
     return ''.join(node.itertext()).strip()
 
 
 def is_empty(node):
     return not all_text(node)
+
 
 def prune_if_empty(data, parent, spec, nsmap, i, silent):
     """
@@ -137,38 +145,50 @@ def new_term_vocab_prune(data, parent, spec, nsmap, i, silent):
 def create_linkage_uuid(x, y):
     return re.sub(LINKAGE_UUID, 'uuid=' + x, y)
 
+
 def filename(x):
     return os.path.basename(x)
+
 
 def today():
     return datetime.date.today().strftime('%Y-%m-%d')
 
+
 def parse_keywords(x):
     return x.get('{http://www.w3.org/1999/xlink}href').split('/')[-1]
+
 
 def science_keyword_from_uuid(x):
     return KWARGS['science_keyword'].objects.get(UUID=x).as_str()
 
+
 def date_as_string(x):
     return datetime.datetime.strptime(x[: 10], '%Y-%m-%d').date().isoformat()
+
 
 def has_geographic_coverage(x):
     return not x.get('hasGeographicCoverage', True)
 
+
 def to_string(x):
     return str(x)
+
 
 def has_vertical_extent(x):
     return not x.get('hasVerticalExtent', False)
 
+
 def vertical_crs_identifier(x):
-    return {'EPSG::5715': 'MSL depth','EPSG::5714': 'MSL height'}.get(x)
+    return {'EPSG::5715': 'MSL depth', 'EPSG::5714': 'MSL height'}.get(x)
+
 
 def person_uri(x):
     return x
 
+
 def institution_uri(x):
     return x
+
 
 def parse_vertical_elevation(x):
     for tok in x.text.split('|'):
@@ -181,6 +201,7 @@ def parse_vertical_elevation(x):
                 return ''
     return ''
 
+
 def parse_vertical_method(x):
     for tok in x.text.split('|'):
         tok = tok.strip()
@@ -189,11 +210,14 @@ def parse_vertical_method(x):
             return tok
     return ''
 
+
 def parse_individual_name(x):
     return x
 
+
 def parse_individual_identifier(x):
     return x.attrib['{http://www.w3.org/1999/xlink}href']
+
 
 def parse_individual_orcid(x):
     orcid_uri = x.attrib['{http://www.w3.org/1999/xlink}href']
@@ -201,18 +225,22 @@ def parse_individual_orcid(x):
     orcid = match.group(0)
     return orcid
 
+
 def parse_codeListValue(x):
     return x.attrib['codeListValue']
+
 
 def parse_organisation_identifier(x):
     if x.attrib['{http://www.w3.org/1999/xlink}role'] == 'uri':
         return x.attrib['{http://www.w3.org/1999/xlink}href']
     return None
 
+
 def separate_organisation_identifier(x):
     if '||' in x:
         return x[:x.index('||')]
     return x
+
 
 def science_keyword_name(**kwargs):
     assert kwargs['data'] != None, "data not provided"
@@ -222,6 +250,7 @@ def science_keyword_name(**kwargs):
     keyword = models['backend']['sciencekeyword'].objects.get(pk=data)
     return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
 
+
 def science_keyword_uri(**kwargs):
     assert kwargs['data'] != None, "data not provided"
     assert kwargs['models'] != None, "models not provided"
@@ -229,6 +258,7 @@ def science_keyword_uri(**kwargs):
     models = kwargs['models']
     keyword = models['backend']['sciencekeyword'].objects.get(pk=data)
     return keyword.uri
+
 
 def anzsrc_keyword_name(**kwargs):
     assert kwargs['data'] != None, "data not provided"
@@ -238,6 +268,7 @@ def anzsrc_keyword_name(**kwargs):
     keyword = models['backend']['anzsrckeyword'].objects.get(pk=data)
     return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
 
+
 def anzsrc_uri(**kwargs):
     assert kwargs['data'] != None, "data not provided"
     assert kwargs['models'] != None, "models not provided"
@@ -246,6 +277,7 @@ def anzsrc_uri(**kwargs):
     keyword = models['backend']['anzsrckeyword'].objects.get(pk=data)
     return keyword.uri
 
+
 def identity(x):
     return x
 
@@ -253,11 +285,13 @@ def identity(x):
 def vocab_url(x):
     return x['vocabularyTermURL']
 
+
 def is_orcid(x):
-    #it's not an orcid
+    # it's not an orcid
     if x and x[:4] == 'http':
         return False
     return True
+
 
 def write_orcid(x):
     if is_orcid(x):
@@ -265,29 +299,39 @@ def write_orcid(x):
     else:
         return x
 
+
 def write_orcid_role(x):
     if is_orcid(x):
         return "orcid"
     else:
         return "uri"
 
+
 def write_constraints(x):
     return 'otherRestrictions'
+
 
 def vocab_text(x):
     return x['term']
 
+
 def sampling_text(x):
     return x['prefLabel']
+
 
 def sampling_uri(x):
     return x['uri']
 
+
 def write_doi(x):
     return 'doi: {doi}'.format(doi=x)
 
+
 def geonetwork_url(x):
     return 'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=x)
+
+
+# TODO: should be deployment specific
 
 SPEC_FUNCTIONS = {
     "massage_version_number": massage_version_number,
@@ -301,7 +345,7 @@ SPEC_FUNCTIONS = {
     "science_keyword_from_uuid": science_keyword_from_uuid,
     "date_as_string": date_as_string,
     "has_geographic_coverage": has_geographic_coverage,
-    "to_string" : to_string,
+    "to_string": to_string,
     "has_vertical_extent": has_vertical_extent,
     "vertical_crs_identifier": vertical_crs_identifier,
     "identity": identity,

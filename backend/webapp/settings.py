@@ -194,7 +194,7 @@ FRONTEND_DEV_MODE = False
 # Elasticsearch
 ELASTICSEARCH_VERIFY_SSL = True
 
-LOGIN_URL = "/oidc/authenticate"
+# LOGIN_URL = "/accounts/login/"
 
 # OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get("OIDC_OP_AUTHORIZATION_ENDPOINT")
 # OIDC_OP_TOKEN_ENDPOINT = os.environ.get("OIDC_OP_TOKEN_ENDPOINT")

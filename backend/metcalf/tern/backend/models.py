@@ -2,14 +2,11 @@ import copy
 import datetime
 import json
 import logging
-import requests
 import traceback
-import treebeard.ns_tree as ns_tree
 import uuid
-from metcalf.common.emails import *
-from metcalf.common.spec import make_spec
-from metcalf.common.utils import to_json, get_exception_message
-from metcalf.common.xmlutils import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
+
+import requests
+import treebeard.ns_tree as ns_tree
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -20,6 +17,12 @@ from django_fsm import FSMField, transition
 from jsonfield import JSONField
 from lxml import etree
 from rest_framework.renderers import JSONRenderer
+
+from metcalf.common.emails import *
+from metcalf.common.spec import make_spec
+from metcalf.common.utils import to_json, get_exception_message
+from metcalf.common.xmlutils import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
+from metcalf.common.models import AbstractDocumentAttachment
 
 
 def get_user_name(obj):
@@ -402,21 +405,6 @@ class DraftMetadata(models.Model):
     class Meta:
         verbose_name_plural = "Draft Metadata"
         ordering = ["-time"]
-
-
-def no_spaces_in_filename(instance, filename):
-    return filename.replace(" ", "_")
-
-
-class AbstractDocumentAttachment(models.Model):
-    document = models.ForeignKey("Document", on_delete=models.CASCADE, related_name='attachments')
-    name = models.CharField(max_length=256)
-    file = models.FileField(upload_to=no_spaces_in_filename)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
 
 
 if settings.USE_TERN_STORAGE:

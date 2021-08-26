@@ -6,10 +6,10 @@ import requests
 import traceback
 import treebeard.ns_tree as ns_tree
 import uuid
-from common.emails import *
-from common.spec import make_spec
-from common.utils import to_json, get_exception_message
-from common.xmlutils import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
+from metcalf.common.emails import *
+from metcalf.common.spec import make_spec
+from metcalf.common.utils import to_json, get_exception_message
+from metcalf.common.xmlutils import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError

@@ -3,14 +3,13 @@ import stat
 import urllib.parse
 from backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
-from common.spec import *
-from common.utils import to_json, get_exception_message
-from common.xmlutils import extract_fields, data_to_xml
+from metcalf.common.spec import *
+from metcalf.common.utils import to_json, get_exception_message
+from metcalf.common.xmlutils import extract_fields, data_to_xml
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render_to_response, render

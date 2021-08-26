@@ -1,8 +1,7 @@
-import datetime
 import json
 import os
 import re
-from common.xmlutils import *
+from metcalf.common.xmlutils import *
 from django.contrib.sites.models import Site
 from urllib.parse import urlsplit
 
@@ -80,7 +79,7 @@ def massage_version_number(s):
     re_version = "version-([-\d]+)"
     if re.match(re_version, s):
         version_chunk = re.search(re_version, s).group(1)
-        version_number = re.sub("-", ".", version_chunk)
+        version_number = re.sub("-", "", version_chunk)
         return version_number
 
 

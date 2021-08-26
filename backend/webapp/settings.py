@@ -110,7 +110,6 @@ INSTALLED_APPS = [
     "fsm_admin",
     "imagekit",
     "backend",
-    "common",
     "frontend.config.FrontendConfig",
     "bootstrap3",
     "mozilla_django_oidc",

@@ -1,10 +1,8 @@
-# TODO: should be common I think.
-
 import datetime
 import json
 import os
 import re
-from backend.xmlutils import *
+from common.xmlutils import *
 from django.contrib.sites.models import Site
 from urllib.parse import urlsplit
 

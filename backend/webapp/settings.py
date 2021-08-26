@@ -110,6 +110,7 @@ INSTALLED_APPS = [
     "fsm_admin",
     "imagekit",
     "backend",
+    "common",
     "frontend.config.FrontendConfig",
     "bootstrap3",
     "mozilla_django_oidc",
@@ -143,7 +144,7 @@ LOGGING = {
             "level": "ERROR",
             "propagate": True,
         },
-        "backend.xmlutils": {
+        "common.xmlutils": {
             "handlers": ["console", "mail_admins"],
             "level": "DEBUG",
             "propagate": True,

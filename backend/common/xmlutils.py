@@ -1,5 +1,3 @@
-# TODO: Looks like common code
-
 import datetime
 import inspect
 import logging

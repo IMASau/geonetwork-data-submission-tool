@@ -3,9 +3,9 @@ import stat
 import urllib.parse
 from backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
-from backend.spec import *
-from backend.utils import to_json, get_exception_message
-from backend.xmlutils import extract_fields, data_to_xml
+from common.spec import *
+from common.utils import to_json, get_exception_message
+from common.xmlutils import extract_fields, data_to_xml
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import logout

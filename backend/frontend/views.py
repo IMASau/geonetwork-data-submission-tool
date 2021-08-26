@@ -20,7 +20,6 @@ from django.template.context_processors import csrf
 from django.urls import reverse
 from django.utils.encoding import smart_text
 from django_fsm import has_transition_perm
-# from frontend.router import rest_serialize
 from elasticsearch_dsl import connections
 from frontend.forms import DocumentAttachmentForm
 from frontend.models import SiteContent

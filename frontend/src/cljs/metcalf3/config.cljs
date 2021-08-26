@@ -228,5 +228,4 @@
         [:div
          [metcalf3.view/PageErrors {:page :lodge :path [:form]}]
          [:h2 "9: Lodge Metadata Draft"]
-         [metcalf3.view/Lodge nil]
-         [:div.link-right-container [:a.link-right {:href "#"} "Next"]]]})
+         [metcalf3.view/Lodge nil]]})

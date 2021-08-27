@@ -162,7 +162,7 @@
                            :status                        {:type     nil
                                                            :label    "Status of data"
                                                            :required true
-                                                           :options  [["onGoing" "Ongoing"]
+                                                           :options  [["onGoing" "ongoing"]
                                                                       ["planned" "planned"]
                                                                       ["completed" "completed"]]
                                                            :page     :data-identification}
@@ -196,7 +196,7 @@
                                                            :page        :what}
                            :purpose                       {:type        nil
                                                            :label       "Purpose"
-                                                           :maxlength   10
+                                                           :maxlength   1000
                                                            :help        "Brief statement about the purpose of the study"
                                                            :placeholder "Provide a brief summary of the purpose for collecting the data including the potential use. Example: The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"
                                                            :page        :what}

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% load settings %}
+{% load frontend_tags %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="version" content="{% GIT_VERSION %}" />
+    <link rel="apple-touch-icon" href="{% static 'metcalf3/img/logo@2x.png' %}" />
+
+    <title>{% block head_title %}{{sitecontent.title}} {{sitecontent.tag_line}}{% endblock %}</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'metcalf3/css/tern-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/pikaday.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/ol.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/fixed-data-table.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint-datetime.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint-select.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/table.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/leaflet.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/leaflet.draw.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/tern.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/dst.css' %}">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="https://maps.googleapis.com/maps/api/js?key={% GMAPS_API_KEY %}&libraries=drawing" async
+        defer></script>
+
+    {% bootstrap_javascript jquery=1 %}
+    <script src="https://use.fontawesome.com/abac3c7363.js"></script>
+
+    {% block pagestyles %}{% endblock %}
+
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+
+    {% block page %}
+    {% block pageheader %}
+    <div class="above-header">
+        <div class="container">
+            <div class="above-header-section-wrap d-flex">
+                <div class="above-header-section above-header-section-1">
+                    <div class="user-select">
+                        <div class="ast-custom-html"><a href="https://www.tern.org.au" target="_blank"><img
+                                    src="{% static 'metcalf3/img/logo-mini-all.png' %}" /></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="above-header-section above-header-section-2">
+                    <div class="user-select">
+                        <div class="ast-custom-html"><a href="https://portal.tern.org.au/" target="_blank"
+                                class="btn-orange">Data</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    {% block body %}
+    <nav class="navbar navbar-inverse" data-reactid=".0.0">
+        <div class="container" data-reactid=".0.0.0">
+            <div class="navbar-header" data-reactid=".0.0.0.0">
+                <a class="navbar-brand" href="{% url 'LandingPage' %}" data-reactid=".0.0.0.0.0"><img
+                        src="{% static 'metcalf3/img/shared-product-name.png' %}" width="300"
+                        alt="" />{{sitecontent.title}} {{sitecontent.tag_line}}</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                {% block navright %}
+                {% endblock %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% bootstrap_messages %}
+        {% block container %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+    {% endblock %}
+    {% block footer %}
+    <div class="main-footer">
+        <div class="container">
+            <div class="main-footer-row">
+                <div class="main-footer-container">
+                    <div class="footer-col footer-column-1">
+                        <div class="footer-col-inner">
+                            <div class="footer-col-inner-border">
+                                <h3>Contact us</h3>
+                                <p class="mb-20">
+                                    Physical &amp; Mail Address
+                                    <br/>
+                                    <span style="font-size: 14px;">The University of Queensland</span>
+                                    <br/>
+                                    <span style="font-size: 14px;">Long Pocket Precinct</span>
+                                    <br/>
+                                    <span style="font-size: 14px;">Level 5, Foxtail Building #1019</span>
+                                    <br/>
+                                    <span style="font-size: 14px;">80 Meiers Road</span>
+                                    <br/>
+                                    <span style="font-size: 14px;">Indooroopilly QLD 4068 Australia</span>
+                                </p>
+                                <p class="fz-15 font-500">P <a href="tel:+61733659097">(07) 3365
+                                        9097</a><br>E <a href="mailto:esupport@tern.org.au">esupport@tern.org.au</a></p>
+                                <p class="fz-15 font-500">
+                                    <a href="https://www.tern.org.au/news/" target="_blank" rel="noreferrer">Subscribe</a>
+                                    for project updates, data releases, research findings, and users stories direct to
+                                    your inbox.
+                                </p>
+                                <ul class="social-icons">
+                                    <li><a href="https://www.facebook.com/TerrestrialEcosystemResearchNetwork/"
+                                            target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="https://twitter.com/TERN_Aus" target="_blank"><i
+                                                class="fa fa-twitter"></i></a></li>
+                                    <li><a href="https://www.instagram.com/tern_au/" target="_blank"><i
+                                                class="fa fa-instagram"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/groups/3981661/" target="_blank"><i
+                                                class="fa fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-col footer-column-2">
+                        <div class="footer-col-inner">
+                            <div class="footer-col-inner-border">
+                                <h3>Funding</h3>
+                                <p class="mb-46">TERN is supported by the Australian Government through the National
+                                    Collaborative Research Infrastructure Strategy, <span
+                                        style="text-decoration: underline;"><a
+                                            href="https://www.education.gov.au/national-collaborative-research-infrastructure-strategy-ncris"
+                                            target="_blank">NCRIS</a></span>.</p>
+                                <a href="https://www.education.gov.au/national-collaborative-research-infrastructure-strategy-ncris"
+                                    target="_blank"><img width="138" src="{% static 'metcalf3/img/logo-ncris@2x.png' %}"
+                                        alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-col footer-column-3">
+                        <div class="footer-col-inner">
+                            <div class="footer-col-inner-border">
+                                <h3>Co-investment</h3>
+                                <a href="https://www.uq.edu.au" target="_blank"><img width="151"
+                                        src="{% static 'metcalf3/img/Coinvestment-lockup.010e16ae.jpg' %}" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-col footer-column-4">
+                        <div class="footer-col-inner">
+                            <div class="footer-col-inner-border">
+                                <h3>Resources</h3>
+                                <p>
+                                    <a href="https://www.tern.org.au/terms-of-use" target="_blank"
+                                        rel="noreferrer">Terms Of Use</a>
+                                </p>
+                                <p>
+                                    <a href="https://www.tern.org.au/terms-of-use/#disclaimer" target="_blank" rel="noreferrer">Data
+                                        Disclaimer</a>
+                                </p>
+                                <p>
+                                    <a href="https://www.tern.org.au/terms-of-use/#copyright" target="_blank"
+                                        rel="noreferrer">Copyright</a>
+                                </p>
+                                <p>
+                                    <a href="https://www.tern.org.au/datalicence/" target="_blank"
+                                        rel="noreferrer">Data Licensing</a>
+                                </p>
+                                <p>
+                                    <a href="https://ternaus.atlassian.net/wiki/spaces/TERNSup/overview" target="_blank"
+                                        rel="noreferrer">Help &amp; Support</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    {% endblock %}
+
+    <!--For issue/feedback collection -->
+    <script
+      type="text/javascript"
+      src="https://ternaus.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/-t2cv0b/b/11/a44af77267a987a660377e5c46e0fb64/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&collectorId=8437c3b7"
+    ></script>
+
+</body>
+
+</html>

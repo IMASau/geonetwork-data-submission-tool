@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load frontend_tags %}
+
+{% block body %}
+    <div id="Content"></div>
+
+    <script>
+    var payload = {{ payload|safe }}
+    </script>
+    {% FRONTEND_DEV_MODE as dev_build %}
+    {% if dev_build %}
+    <script type="text/javascript" src="{% static 'metcalf3/js/app/app.js' %}"></script>
+    {% else %}
+    <script type="text/javascript" src="{% static 'metcalf3/js/app/app.js' %}"></script>
+    {% endif %}
+
+{% endblock %}

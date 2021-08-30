@@ -1,0 +1,18 @@
+
+<p>{{ document.owner }} has modified their metadata submission. Make sure you export a current version of the record before uploading it.</p>
+
+<blockquote>{{ document.title }}</blockquote>
+
+<p>{{ document.uuid }}</p>
+
+<ul>
+    <li><a href="http://{{site.domain}}{{ document.get_absolute_url }}">
+    Edit record </a></li>
+    <li><a href="http://{{site.domain}}{% url 'admin:backend_document_change' document.pk %}">
+    Process record</a></li>
+    <li><a href="http://{{site.domain}}{% url 'Export' uuid=document.pk %}">
+    Export record</a></li>
+</ul>
+<p></p>
+
+<p></p>

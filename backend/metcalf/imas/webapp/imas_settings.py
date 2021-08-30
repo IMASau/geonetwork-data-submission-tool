@@ -1,5 +1,5 @@
 """
-Django settings for TERN webapp project.
+Django settings for IMAS webapp project.
 """
 
 from .settings import *
@@ -58,9 +58,9 @@ LOGIN_URL = "/oidc/authenticate"
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 USE_X_FORWARDED_HOST = True
 
-USE_TERN_STORAGE = True
-USE_TERN_AUTH = True
-USE_TERN_ELASTIC_SEARCH = True
+USE_TERN_STORAGE = False
+USE_TERN_AUTH = False
+USE_TERN_ELASTIC_SEARCH = False
 
 # HERE STARTS DYNACONF EXTENSION LOAD (Keep at the very bottom of settings.py)
 # Read more at https://dynaconf.readthedocs.io/en/latest/guides/django.html

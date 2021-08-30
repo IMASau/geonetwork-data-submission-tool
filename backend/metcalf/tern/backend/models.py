@@ -7,28 +7,21 @@ import uuid
 
 import requests
 import treebeard.ns_tree as ns_tree
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.urls import reverse
 from django.utils import timezone
-from django_fsm import FSMField, transition
-from jsonfield import JSONField
+from django_fsm import transition
 from lxml import etree
 from rest_framework.renderers import JSONRenderer
 
 from metcalf.common.emails import *
+from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, AbstractDocument, AbstractContributor, \
+    AbstractMetadataTemplate, AbstractMetadataTemplateMapper, AbstractDraftMetadata
 from metcalf.common.spec import make_spec
-from metcalf.common.utils import to_json, get_exception_message
+from metcalf.common.utils import to_json, get_exception_message, get_user_name
 from metcalf.common.xmlutils import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
-from metcalf.common.models import AbstractDocumentAttachment
-
-
-def get_user_name(obj):
-    if obj.email:
-        return obj.email
-    return obj.username
+from metcalf.tern.backend.storage import attachment_store, document_upload_path
 
 
 User.add_to_class("__str__", get_user_name)
@@ -36,15 +29,7 @@ User.add_to_class("__str__", get_user_name)
 logger = logging.getLogger(__name__)
 
 
-class MetadataTemplateMapper(models.Model):
-    name = models.CharField(max_length=128, help_text="Unique name for template mapper.  Used in menus.")
-    file = models.FileField("metadata_template_mappers",
-                            help_text="JSON file used to interpret XML files that specify records")
-    notes = models.TextField(help_text="Internal use notes about this template mapper")
-    site = models.ForeignKey(Site, on_delete=models.SET_NULL, blank=True, null=True)
-    archived = models.BooleanField(default=False)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+class MetadataTemplateMapper(AbstractMetadataTemplateMapper):
 
     def clean(self):
         try:
@@ -53,19 +38,8 @@ class MetadataTemplateMapper(models.Model):
             traceback.print_exc()
             raise ValidationError({'file': get_exception_message(e)})
 
-    def __str__(self):
-        return "{1} (#{0})".format(self.pk, self.name)
 
-
-class MetadataTemplate(models.Model):
-    name = models.CharField(max_length=128, help_text="Unique name for template.  Used in menus.")
-    file = models.FileField("metadata_templates", help_text="XML file used when creating and exporting records")
-    notes = models.TextField(help_text="Internal use notes about this template")
-    site = models.ForeignKey(Site, on_delete=models.SET_NULL, blank=True, null=True)
-    archived = models.BooleanField(default=False)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-    mapper = models.ForeignKey(MetadataTemplateMapper, on_delete=models.SET_NULL, blank=True, null=True)
+class MetadataTemplate(AbstractMetadataTemplate):
 
     def clean(self):
         try:
@@ -82,33 +56,9 @@ class MetadataTemplate(models.Model):
             traceback.print_exc()
             raise ValidationError({'file': get_exception_message(e)})
 
-    def __str__(self):
-        return "{1} (#{0})".format(self.pk, self.name)
 
-
-# TODO: separate app?
-class DataFeed(models.Model):
-    IDLE = 'Idle'
-    SCHEDULED = 'Scheduled'
-    ACTIVE = 'Active'
-
-    STATUS_CHOICES = (
-        (IDLE, IDLE),
-        (SCHEDULED, SCHEDULED),
-        (ACTIVE, ACTIVE),
-    )
-
-    name = models.SlugField()
-
-    state = FSMField(default=SCHEDULED, choices=STATUS_CHOICES)
-
-    last_refresh = models.DateTimeField(blank=True, null=True)
-    last_success = models.DateTimeField(blank=True, null=True)
-    last_failure = models.DateTimeField(blank=True, null=True)
-    last_duration = models.DurationField(blank=True, null=True)
-
-    last_output = models.TextField(blank=True)
-
+class DataFeed(AbstractDataFeed):
+    # FIXME abstract model has this in Meta. Does it need to be here or there?
     class Meta:
         permissions = (
             ("datafeed_schedule", "Can schedule datafeed refresh"),
@@ -116,38 +66,31 @@ class DataFeed(models.Model):
             ("datafeed_admin", "Can administer datafeed"),
         )
 
-    def feed_quality(self):
-        if not self.last_refresh:
-            return "Uninitialised"
-        elif not self.last_success:
-            return "Bad"
-        elif not self.last_failure:
-            return "Good"
-        elif self.last_success > self.last_failure:
-            return "Good"
-        else:
-            return "Stale"
-
-    @transition(field=state, source=[IDLE], target=SCHEDULED, permission='backend.datafeed_schedule')
+    @transition(field=AbstractDataFeed.state, source=[AbstractDataFeed.IDLE], target=AbstractDataFeed.SCHEDULED,
+                permission='backend.datafeed_schedule')
     def schedule(self):
         pass
 
-    @transition(field=state, source=[SCHEDULED], target=IDLE, permission='backend.datafeed_unschedule')
+    @transition(field=AbstractDataFeed.state, source=[AbstractDataFeed.SCHEDULED], target=AbstractDataFeed.IDLE,
+                permission='backend.datafeed_unschedule')
     def unschedule(self):
         pass
 
-    @transition(field=state, source=[SCHEDULED], target=ACTIVE, permission='backend.datafeed_admin')
+    @transition(field=AbstractDataFeed.state, source=[AbstractDataFeed.SCHEDULED], target=AbstractDataFeed.ACTIVE,
+                permission='backend.datafeed_admin')
     def start(self):
         self.last_refresh = timezone.now()
         self.last_output = ""
 
-    @transition(field=state, source=[ACTIVE], target=IDLE, permission='backend.datafeed_admin')
+    @transition(field=AbstractDataFeed.state, source=[AbstractDataFeed.ACTIVE], target=AbstractDataFeed.IDLE,
+                permission='backend.datafeed_admin')
     def success(self, msg=""):
         self.last_output = msg
         self.last_success = timezone.now()
         self.last_duration = self.last_success - self.last_refresh
 
-    @transition(field=state, source=[ACTIVE], target=IDLE, permission='backend.datafeed_admin')
+    @transition(field=AbstractDataFeed.state, source=[AbstractDataFeed.ACTIVE], target=AbstractDataFeed.IDLE,
+                permission='backend.datafeed_admin')
     def failure(self, msg=""):
         self.last_output = msg
         self.last_failure = timezone.now()
@@ -179,34 +122,10 @@ class DocumentManager(models.Manager):
 
 # TODO: Maybe an abstract document?
 # TODO:
-class Document(models.Model):
-    DRAFT = 'Draft'
-    SUBMITTED = 'Submitted'
-    UPLOADED = 'Uploaded'
-    ARCHIVED = 'Archived'
-    DISCARDED = 'Discarded'
-
-    STATUS_CHOICES = (
-        (DRAFT, DRAFT),
-        (SUBMITTED, SUBMITTED),
-        (UPLOADED, UPLOADED),
-        (ARCHIVED, ARCHIVED),
-        (DISCARDED, DISCARDED),
-    )
-
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    template = models.ForeignKey(MetadataTemplate, on_delete=models.SET_NULL, null=True)
-    title = models.TextField(default="Untitled")
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = FSMField(default=DRAFT, choices=STATUS_CHOICES)
-    doi = models.CharField(max_length=1024, default='', blank=True)
-    validation_result = models.TextField(null=True, blank=True, verbose_name="Validation result XML")
-    validation_status = models.CharField(max_length=256, default='Unvalidated', null=True, blank=True,
-                                         verbose_name='Validity')
-    date_last_validated = models.DateTimeField(blank=True, null=True, verbose_name='Last Validated')
-
+class Document(AbstractDocument):
     objects = DocumentManager()
 
+    # FIXME is this needed
     class Meta:
         permissions = (
             ("workflow_reject", "Can reject record in workflow"),
@@ -215,9 +134,6 @@ class Document(models.Model):
             ("workflow_restart", "Can restart record in workflow"),
             ("workflow_recover", "Can recover discarded records in workflow")
         )
-
-    def short_title(self):
-        return self.title[:32] + (self.title[32:] and '..')
 
     def save(self, *args, **kwargs):
 
@@ -298,50 +214,56 @@ class Document(models.Model):
 
     ########################################################
     # Workflow (state) Transitions
-    @transition(field=status, source=[DRAFT, SUBMITTED], target=ARCHIVED)
+    @transition(field=AbstractDocument.status, source=[AbstractDocument.DRAFT, AbstractDocument.SUBMITTED],
+                target=AbstractDocument.ARCHIVED)
     def archive(self):
         pass
 
-    @transition(field=status, source=[ARCHIVED], target=DRAFT)
+    @transition(field=AbstractDocument.status, source=[AbstractDocument.ARCHIVED], target=AbstractDocument.DRAFT)
     def restore(self):
         self.clear_note()
         self.clear_agreed()
 
-    @transition(field=status, source=SUBMITTED, target=DRAFT, permission='backend.workflow_reject')
+    @transition(field=AbstractDocument.status, source=AbstractDocument.SUBMITTED, target=AbstractDocument.DRAFT,
+                permission='backend.workflow_reject')
     def reject(self):
         self.clear_note()
         self.clear_agreed()
 
-    @transition(field=status, source=DRAFT, target=SUBMITTED)
+    @transition(field=AbstractDocument.status, source=AbstractDocument.DRAFT, target=AbstractDocument.SUBMITTED)
     def submit(self):
         self.validate_with_ga()
         email_user_submit_confirmation(self)
         email_manager_submit_alert(self)
 
-    @transition(field=status, source=SUBMITTED, target=SUBMITTED)
+    @transition(field=AbstractDocument.status, source=AbstractDocument.SUBMITTED, target=AbstractDocument.SUBMITTED)
     def resubmit(self):
         self.clear_note()
         self.clear_agreed()
         self.validate_with_ga()
         email_manager_updated_alert(self)
 
-    @transition(field=status, source=SUBMITTED, target=UPLOADED, permission='backend.workflow_upload')
+    @transition(field=AbstractDocument.status, source=AbstractDocument.SUBMITTED, target=AbstractDocument.UPLOADED,
+                permission='backend.workflow_upload')
     def upload(self):
         email_user_upload_alert(self)
 
-    @transition(field=status, source=[UPLOADED], target=DISCARDED, permission='backend.workflow_discard')
+    @transition(field=AbstractDocument.status, source=AbstractDocument.UPLOADED, target=AbstractDocument.DISCARDED,
+                permission='backend.workflow_discard')
     def discard(self):
         pass
 
-    @transition(field=status, source=[DISCARDED], target=ARCHIVED, permission='backend.workflow_recover')
+    @transition(field=AbstractDocument.status, source=AbstractDocument.DISCARDED, target=AbstractDocument.ARCHIVED,
+                permission='backend.workflow_recover')
     def recover(self):
         pass
 
-    @transition(field=status, source=[ARCHIVED], target=DISCARDED)
+    @transition(field=AbstractDocument.status, source=AbstractDocument.ARCHIVED, target=AbstractDocument.DISCARDED)
     def delete_archived(self):
         pass
 
-    @transition(field=status, source=[UPLOADED], target=DRAFT, permission='backend.workflow_restart')
+    @transition(field=AbstractDocument.status, source=AbstractDocument.UPLOADED, target=AbstractDocument.DRAFT,
+                permission='backend.workflow_restart')
     def restart(self):
         self.clear_note()
         self.clear_agreed()
@@ -352,13 +274,6 @@ class Document(models.Model):
         creatorName.text = '{last}, {first}'.format(last=person['familyName'], first=person['givenName'])
 
     ########################################################
-    @property
-    def latest_draft(self):
-        all_drafts = self.draftmetadata_set.all()
-        if all_drafts:
-            return all_drafts[0]
-        else:
-            return None
 
     def clear_note(self):
         data = self.latest_draft.data
@@ -378,46 +293,21 @@ class Document(models.Model):
                              agreedToTerms=False)
         inst.save()
 
-    def __str__(self):
-        return "{0} - {1} ({2})".format(str(self.uuid)[:8], self.short_title(), self.owner.email or self.owner.username)
 
-    def is_editor(self, user):
-        return user.is_staff or (user == self.owner)
-
-    def get_absolute_url(self):
-        return reverse('Edit', kwargs={'uuid': self.uuid})
+class Contributor(AbstractContributor):
+    pass
 
 
-class Contributor(models.Model):
-    document = models.ForeignKey("Document", on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
-class DraftMetadata(models.Model):
-    document = models.ForeignKey("Document", on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    time = models.DateTimeField(auto_now_add=True)
-    data = JSONField()
-    noteForDataManager = models.TextField(default="")
-    agreedToTerms = models.BooleanField(default=False)
-    doiRequested = models.BooleanField(default=False)
-
+class DraftMetadata(AbstractDraftMetadata):
+    # FIXME
     class Meta:
         verbose_name_plural = "Draft Metadata"
         ordering = ["-time"]
 
 
-if settings.USE_TERN_STORAGE:
-    from .storage import attachment_store, document_upload_path
-
-
-    class DocumentAttachment(AbstractDocumentAttachment):
-        file = models.FileField(upload_to=document_upload_path, storage=attachment_store)
-
-else:
-
-    class DocumentAttachment(AbstractDocumentAttachment):
-        pass
+# TERN-specific storage.
+class DocumentAttachment(AbstractDocumentAttachment):
+    file = models.FileField(upload_to=document_upload_path, storage=attachment_store)
 
 
 # TODO: Should this be a separate app?  Does workflow complicate this?

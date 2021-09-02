@@ -18,6 +18,7 @@ import re
 logger = logging.getLogger(__name__)
 
 
+# FIXME this mentions tern
 class AodnBaseParameterVocabLoader(object):
     """Mixin class to implement the generic parameter-* loaders"""
 

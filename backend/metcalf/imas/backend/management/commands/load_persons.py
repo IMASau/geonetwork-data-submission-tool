@@ -21,6 +21,8 @@ from metcalf.imas.backend.models import Person
 
 logger = logging.getLogger(__name__)
 
+
+# FIXME this mentions tern
 class Command(BaseCommand):
     help = 'Refresh person list from online'
 

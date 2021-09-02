@@ -4,6 +4,7 @@ from .helpers import BaseParameterVocabLoader
 from metcalf.imas.backend.models import ParameterPlatform
 
 
+# FIXME this mentions tern
 class Command(BaseParameterVocabLoader, BaseCommand):
     help = 'Refresh parameter-platform list from online vocab'
 

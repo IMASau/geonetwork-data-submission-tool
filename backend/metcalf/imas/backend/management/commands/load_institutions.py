@@ -20,6 +20,8 @@ from metcalf.imas.backend.models import Institution
 
 logger = logging.getLogger(__name__)
 
+
+# FIXME this mentions tern
 class Command(BaseCommand):
     help = 'Refresh institutions list from online'
 

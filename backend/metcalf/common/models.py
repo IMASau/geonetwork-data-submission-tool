@@ -189,6 +189,7 @@ class AbstractMetadataTemplate(models.Model):
         abstract = True
 
 
+# FIXME remove tern references for default
 class AbstractSiteContent(models.Model):
     site = models.OneToOneField(Site, on_delete=models.SET_NULL, blank=True, null=True)
     title = models.CharField(max_length=32, default="Data Submission Tool")

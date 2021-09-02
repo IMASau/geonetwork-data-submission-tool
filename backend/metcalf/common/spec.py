@@ -324,6 +324,7 @@ def write_doi(x):
     return 'doi: {doi}'.format(doi=x)
 
 
+# FIXME should not be in common
 def geonetwork_url(x):
     return 'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=x)
 

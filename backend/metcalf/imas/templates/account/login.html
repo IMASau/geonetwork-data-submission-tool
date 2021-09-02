@@ -1,4 +1,4 @@
-{% extends "imas/account/base.html" %}
+{% extends "account/base.html" %}
 
 {% load i18n %}
 {% load bootstrap3 %}
@@ -11,7 +11,7 @@
 
 <div style="display: flex; flex-direction: row; align-items: stretch; width: 100%">
     <div style="flex: 3; padding-right: 4em">
-        <form method="POST" action="{% url 'login' %}">
+        <form method="POST" action="{% url 'account_login' %}">
             {% csrf_token %}
             {% bootstrap_form form %}
             {% if redirect_field_value %}
@@ -22,15 +22,15 @@
                 {% trans "Sign In" %} &raquo;
             </button>
             &nbsp;
-            <a class="button secondaryAction" href="{% url 'password_reset' %}">{% trans "Forgot Password?" %}</a>
+            <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
             {% endbuttons %}
         </form>
     </div>
     <div style="flex: 2; ">
         <div><b>New User?</b></div>
         <p>If you have not created an account yet, then please
-            <a href="{{ signup_url }}">register</a> first.</p>
-        <div><a class="btn btn-primary" href="{{ signup_url }}">Register &raquo;</a></div>
+            <a href="{% url 'account_signup' %}">register</a> first.</p>
+        <div><a class="btn btn-primary" href="{% url 'account_signup' %}">Register &raquo;</a></div>
     </div>
 </div>
 {% endblock %}

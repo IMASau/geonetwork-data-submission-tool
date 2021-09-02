@@ -229,7 +229,7 @@
                             {% if sitecontent.guide_pdf %}
                             <li><a href="{{ sitecontent.guide_pdf.url }}">Help</a></li>
                             {% endif %}
-                            <li><a href="{% url 'login' %}">Sign in</a></li>
+                            <li><a href="{% url 'account_login' %}">Sign in</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -245,7 +245,7 @@
                 </p>
 
                 <p class="lead">
-                    <a href="{% url 'login' %}" class="btn btn-lg btn-default">Sign in</a>
+                    <a href="{% url 'account_login' %}" class="btn btn-lg btn-default">Sign in</a>
                 </p>
             </div>
 

@@ -82,6 +82,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
@@ -104,8 +105,9 @@ INSTALLED_APPS = [
     "imagekit",
     "metcalf.imas.backend",
     "metcalf.imas.frontend.config.FrontendConfig",
+    'allauth',
+    'allauth.account',
     "bootstrap3",
-    "mozilla_django_oidc",
 ]
 
 LOGGING = {
@@ -170,8 +172,9 @@ REST_FRAMEWORK = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
+    # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
@@ -186,8 +189,6 @@ FRONTEND_DEV_MODE = False
 
 # Elasticsearch
 ELASTICSEARCH_VERIFY_SSL = True
-
-# LOGIN_URL = "/accounts/login/"
 
 # OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get("OIDC_OP_AUTHORIZATION_ENDPOINT")
 # OIDC_OP_TOKEN_ENDPOINT = os.environ.get("OIDC_OP_TOKEN_ENDPOINT")

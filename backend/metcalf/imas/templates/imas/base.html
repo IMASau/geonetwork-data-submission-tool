@@ -13,7 +13,7 @@
     <meta name="version" content="{% GIT_VERSION %}" />
     <link rel="apple-touch-icon" href="{% static 'metcalf3/img/logo@2x.png' %}" />
 
-    <title>{% block head_title %}{{sitecontent.title}} {{sitecontent.tag_line}}{% endblock %}</title>
+    <title>{% block head_title %}{{request.site.sitecontent.title}} {{request.site.sitecontent.tag_line}}{% endblock %}</title>
     {% bootstrap_css %}
 <!--    <link rel="stylesheet" href="{% static 'metcalf3/css/tern-bootstrap.min.css' %}">-->
     <link rel="stylesheet" href="{% static 'metcalf3/css/normalize.css' %}">
@@ -55,6 +55,9 @@
     {% block body %}
     <nav class="navbar navbar-inverse" data-reactid=".0.0">
         <div class="container" data-reactid=".0.0.0">
+            <div class="navbar-header" data-reactid=".0.0.0.0">
+                <a class="navbar-brand" href="{% url 'LandingPage' %}"
+                   data-reactid=".0.0.0.0.0">{{request.site.sitecontent.title}} {{request.site.sitecontent.tag_line}}</a></div>
             <ul class="nav navbar-nav navbar-right">
                 {% block navright %}
                 {% endblock %}

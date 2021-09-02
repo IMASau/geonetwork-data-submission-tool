@@ -63,25 +63,11 @@ class AbstractContributor(models.Model):
 
 
 class AbstractDocument(models.Model):
-    DRAFT = 'Draft'
-    SUBMITTED = 'Submitted'
-    UPLOADED = 'Uploaded'
-    ARCHIVED = 'Archived'
-    DISCARDED = 'Discarded'
-
-    STATUS_CHOICES = (
-        (DRAFT, DRAFT),
-        (SUBMITTED, SUBMITTED),
-        (UPLOADED, UPLOADED),
-        (ARCHIVED, ARCHIVED),
-        (DISCARDED, DISCARDED),
-    )
 
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     template = models.ForeignKey("MetadataTemplate", on_delete=models.SET_NULL, null=True)
     title = models.TextField(default="Untitled")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = FSMField(default=DRAFT, choices=STATUS_CHOICES)
     doi = models.CharField(max_length=1024, default='', blank=True)
     validation_result = models.TextField(null=True, blank=True, verbose_name="Validation result XML")
     validation_status = models.CharField(max_length=256, default='Unvalidated', null=True, blank=True,

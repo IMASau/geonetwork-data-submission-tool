@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
-from django_fsm import transition
+from django_fsm import transition, FSMField
 from lxml import etree
 from rest_framework.renderers import JSONRenderer
 
@@ -120,6 +120,22 @@ class DocumentManager(models.Manager):
 class Document(AbstractDocument):
     objects = DocumentManager()
 
+    DRAFT = 'Draft'
+    SUBMITTED = 'Submitted'
+    UPLOADED = 'Uploaded'
+    ARCHIVED = 'Archived'
+    DISCARDED = 'Discarded'
+
+    STATUS_CHOICES = (
+        (DRAFT, DRAFT),
+        (SUBMITTED, SUBMITTED),
+        (UPLOADED, UPLOADED),
+        (ARCHIVED, ARCHIVED),
+        (DISCARDED, DISCARDED),
+    )
+
+    status = FSMField(default=DRAFT, choices=STATUS_CHOICES)
+
     # FIXME is this needed
     class Meta:
         permissions = (
@@ -163,53 +179,53 @@ class Document(AbstractDocument):
 
     ########################################################
     # Workflow (state) Transitions
-    @transition(field=AbstractDocument.status, source=[AbstractDocument.DRAFT, AbstractDocument.SUBMITTED],
-                target=AbstractDocument.ARCHIVED)
+    @transition(field=status, source=[DRAFT, SUBMITTED],
+                target=ARCHIVED)
     def archive(self):
         pass
 
-    @transition(field=AbstractDocument.status, source=AbstractDocument.ARCHIVED, target=AbstractDocument.DRAFT)
+    @transition(field=status, source=ARCHIVED, target=DRAFT)
     def restore(self):
         self.clear_note()
         self.clear_agreed()
 
-    @transition(field=AbstractDocument.status, source=AbstractDocument.SUBMITTED, target=AbstractDocument.DRAFT,
+    @transition(field=status, source=SUBMITTED, target=DRAFT,
                 permission='backend.workflow_reject')
     def reject(self):
         self.clear_note()
         self.clear_agreed()
 
-    @transition(field=AbstractDocument.status, source=AbstractDocument.DRAFT, target=AbstractDocument.SUBMITTED)
+    @transition(field=status, source=DRAFT, target=SUBMITTED)
     def submit(self):
         email_user_submit_confirmation(self)
         email_manager_submit_alert(self)
 
-    @transition(field=AbstractDocument.status, source=AbstractDocument.SUBMITTED, target=AbstractDocument.SUBMITTED)
+    @transition(field=status, source=SUBMITTED, target=SUBMITTED)
     def resubmit(self):
         self.clear_note()
         self.clear_agreed()
         email_manager_updated_alert(self)
 
-    @transition(field=AbstractDocument.status, source=AbstractDocument.SUBMITTED, target=AbstractDocument.UPLOADED,
+    @transition(field=status, source=SUBMITTED, target=UPLOADED,
                 permission='backend.workflow_upload')
     def upload(self):
         email_user_upload_alert(self)
 
-    @transition(field=AbstractDocument.status, source=AbstractDocument.UPLOADED, target=AbstractDocument.DISCARDED,
+    @transition(field=status, source=UPLOADED, target=DISCARDED,
                 permission='backend.workflow_discard')
     def discard(self):
         pass
 
-    @transition(field=AbstractDocument.status, source=AbstractDocument.DISCARDED, target=AbstractDocument.ARCHIVED,
+    @transition(field=status, source=DISCARDED, target=ARCHIVED,
                 permission='backend.workflow_recover')
     def recover(self):
         pass
 
-    @transition(field=AbstractDocument.status, source=AbstractDocument.ARCHIVED, target=AbstractDocument.DISCARDED)
+    @transition(field=status, source=ARCHIVED, target=DISCARDED)
     def delete_archived(self):
         pass
 
-    @transition(field=AbstractDocument.status, source=AbstractDocument.UPLOADED, target=AbstractDocument.DRAFT,
+    @transition(field=status, source=UPLOADED, target=DRAFT,
                 permission='backend.workflow_restart')
     def restart(self):
         self.clear_note()

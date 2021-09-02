@@ -113,7 +113,7 @@ def dashboard(request):
         },
         "messages": messages_payload(request),
         "page": {"name": request.resolver_match.url_name}})
-    return render(request, "app.html", {"payload": smart_text(payload)})
+    return render(request, "imas/app.html", {"payload": smart_text(payload)})
 
 
 @login_required
@@ -165,13 +165,15 @@ def validation_results(request, uuid):
 
 # Error Pages
 def server_error(request):
-    response = render_to_response("errors/500.html")
+    # FIXME remove tern references from 500 view
+    response = render_to_response("imas/errors/500.html")
     response.status_code = 500
     return response
 
 
 def bad_request(request, exception):
-    response = render_to_response("errors/400.html")
+    # FIXME remove tern references from 400 view
+    response = render_to_response("imas/errors/400.html")
     response.status_code = 400
     return response
 
@@ -276,7 +278,7 @@ def home(request):
         'site': site
     }
     context['homepage_image_url'] = Template(site.sitecontent.homepage_image).render(Context(context)).strip()
-    return render_to_response("home.html", context)
+    return render_to_response("imas/home.html", context)
 
 
 def personFromData(data):
@@ -478,7 +480,7 @@ def edit(request, uuid):
     }
 
     payload = smart_text(JSONRenderer().render(raw_payload), encoding='utf-8')
-    return render(request, "app.html", {"payload": payload})
+    return render(request, "imas/app.html", {"payload": payload})
 
 
 def theme(request):
@@ -486,7 +488,7 @@ def theme(request):
     payload = JSONRenderer().render({
         "theme": theme_keywords(),
         "page": {"name": request.resolver_match.url_name}})
-    return render(request, "app.html", {"payload": payload})
+    return render(request, "imas/app.html", {"payload": payload})
 
 
 class UploadView(APIView):

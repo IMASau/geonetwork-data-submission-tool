@@ -1,0 +1,5 @@
+
+{{ document.title }} is now available for discovery in the {{ site.sitecontent.portal_title }}.
+
+View the complete record at
+{{portal_record_url}}

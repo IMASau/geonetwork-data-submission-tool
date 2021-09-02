@@ -62,7 +62,7 @@ SECRET_KEY = "get-a-new-key"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["metcalf/imas/templates"],
+        "DIRS": ["metcalf/imas/templates", "metcalf/common/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

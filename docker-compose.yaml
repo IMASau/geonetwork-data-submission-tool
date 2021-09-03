@@ -33,6 +33,40 @@ services:
     depends_on:
       - db
 
+  es:
+    image: elasticsearch:7.5.2
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./volumes/es-data:/usr/share/elasticsearch/data
+
+  web2:
+    build: .
+    image: ternau/data-submission-tool
+
+    env_file:
+      - .env
+    command: init python3 manage.py runserver 0.0.0.0:8000
+    # command: init gunicorn --bind 0.0.0.0:8000 --workers=5 --forwarded-allow-ips='*' webapp.wsgi
+    user: "1000:1000"
+    volumes:
+      - ./docker-files/local_settings.py:/etc/data-submission-tool/settings.py
+      - ./docker-files/docker_entrypoint.sh:/docker_entrypoint.sh
+      - .:/data-submission-tool
+      - ./frontend/resources:/data-submission-tool/frontend/resources
+      # mount storage into container
+      - ./volumes/data-submission-tool/static:/data/static
+      - ./volumes/data-submission-tool/media:/data/media
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - es
+
   cron:
     image: ternau/data-submission-tool
     env_file:

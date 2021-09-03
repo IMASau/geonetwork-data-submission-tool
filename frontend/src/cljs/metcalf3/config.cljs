@@ -132,7 +132,7 @@
          [:h2 "1. Data Identification"]
          [metcalf3.view/InputField {:path [:form :fields :identificationInfo :title]}]
          [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :dateCreation]
-                      :defMinDate #inst "1900-01-01"}]
+                                    :defMinDate #inst "1900-01-01"}]
          [metcalf3.view/TopicCategories {:path [:form :fields :identificationInfo :topicCategory]}]
          [metcalf3.view/SelectField {:path [:form :fields :identificationInfo :status]}]
          [metcalf3.view/SelectField {:path [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]}]
@@ -157,12 +157,13 @@
          [metcalf3.view/PageErrors {:page :when :path [:form]}]
          [:h2 "3. When was the data acquired?"]
          [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :beginPosition]
-                      :defMinDate #inst "1900-01-01"}]
-         [metcalf3.view/date-field {:path [:form :fields :identificationInfo :endPosition]}]
+                                    :defMinDate #inst "1900-01-01"}]
+         [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :endPosition]
+                                    :defMinDate #inst "1900-01-01"}]
          [:div.row
           [:div.col-md-4
            [metcalf3.view/NasaListSelectField {:keyword :samplingFrequency
-                                 :path    [:form :fields :identificationInfo]}]]]
+                                               :path    [:form :fields :identificationInfo]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
@@ -198,7 +199,7 @@
          [:div.row
           [:div.col-md-6
            [metcalf3.view/NasaListSelectField {:keyword :horizontalResolution
-                                 :path    [:form :fields :identificationInfo]}]]]
+                                               :path    [:form :fields :identificationInfo]}]]]
          [:br]
          [:h4 "Resource constraints"]
          [metcalf3.view/ResourceConstraints]

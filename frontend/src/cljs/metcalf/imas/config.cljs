@@ -158,7 +158,8 @@
          [:h2 "3. When was the data acquired?"]
          [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :beginPosition]
                                     :defMinDate #inst "1900-01-01"}]
-         [metcalf3.view/date-field {:path [:form :fields :identificationInfo :endPosition]}]
+         [metcalf3.view/date-field {:path [:form :fields :identificationInfo :endPosition]
+                                    :defMinDate #inst "1900-01-01"}]
          [:div.row
           [:div.col-md-4
            [metcalf3.view/NasaListSelectField {:keyword :samplingFrequency

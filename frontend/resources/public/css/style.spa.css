@@ -1,213 +1,4 @@
 
-.TermTree .VirtualScroll {
-    background: white;
-}
-
-.TermTree .tree-label {
-    flex:1;
-    padding-left:10px;
-    padding-right:20px;
-}
-
-.TermTree .tree-option {
-    display:flex;
-    height:100%;
-}
-
-.TermTree .tree-option * {
-    margin:auto;
-}
-
-.TermTree .selectable {
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.TermTree .selectable:hover {
-  background: #ccc
-}
-
-.TermTree .tree-option.is-selected {
-    background: #ebf5ff;
-}
-
-/* https://github.com/JedWatson/react-select/issues/323#issuecomment-222246251 */
-
-.OrganisationInputField .Select-input {
-    position: absolute;
-    top: 0
-}
-.OrganisationInputField .Select-value-label {
-    display: block;
-}
-.OrganisationInputField .Select-value {
-    position: relative;
-    white-space: normal;
-}
-
-.OrganisationInputField .Select-arrow-zone,
-.OrganisationInputField .Select-clear-zone {
-  background: white;
-}
-
-.DataParameterMaster .Select-arrow-zone,
-.DataParameterMaster .Select-clear-zone {
-  background: white;
-}
-
-/* https://github.com/bvaughn/react-virtualized-select/blob/master/source/styles.css */
-
-.VirtualSelectGrid {
-  z-index: 1;
-}
-
-.VirtualizedSelectOption {
-  display: flex;
-  align-items: center;
-  padding: 0 .5rem;
-}
-.VirtualizedSelectFocusedOption {
-  background-color: rgba(0, 126, 255, 0.1);
-}
-
-/* Collection default theme */
-
-.Collection {
-  position: relative;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-
-  /* Without this property, Chrome repaints the entire Collection any time a new row or column is added.
-     Firefox only repaints the new row or column (regardless of this property).
-     Safari and IE don't support the property at all. */
-  will-change: transform;
-}
-
-.Collection__innerScrollContainer {
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-.Collection__cell {
-  position: absolute;
-}
-
-/* Grid default theme */
-
-.Grid {
-  position: relative;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-
-  /* Without this property, Chrome repaints the entire Grid any time a new row or column is added.
-     Firefox only repaints the new row or column (regardless of this property).
-     Safari and IE don't support the property at all. */
-  will-change: transform;
-}
-
-.Grid__innerScrollContainer {
-  box-sizing: border-box;
-  overflow: hidden;
-  position: relative;
-}
-
-.Grid__cell {
-  position: absolute;
-}
-
-/* FlexTable default theme */
-
-.FlexTable {
-}
-
-.FlexTable__Grid {
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
-
-.FlexTable__headerRow {
-  font-weight: 700;
-  text-transform: uppercase;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-.FlexTable__row {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  overflow: hidden;
-}
-
-.FlexTable__headerTruncatedText {
-  display: inline-block;
-  max-width: 100%;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.FlexTable__headerColumn,
-.FlexTable__rowColumn {
-  margin-right: 10px;
-  min-width: 0px;
-}
-.FlexTable__rowColumn {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.FlexTable__headerColumn:first-of-type,
-.FlexTable__rowColumn:first-of-type {
-  margin-left: 10px;
-}
-.FlexTable__sortableHeaderColumn {
-  cursor: pointer;
-}
-
-.FlexTable__sortableHeaderIconContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-.FlexTable__sortableHeaderIcon {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 24px;
-          flex: 0 0 24px;
-  height: 1em;
-  width: 1em;
-  fill: currentColor;
-}
-
-/* VirtualScroll default theme */
-
-.VirtualScroll {
-  position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-}
-
 .user-export {
   padding-top: 1em;
   border-top: 1px solid #ccc;
@@ -220,7 +11,7 @@ footer {
     color: #737373;
 }
 
-footer>p {
+footer > p {
     margin: 0
 }
 
@@ -268,6 +59,7 @@ footer>p {
   border: none;
 }
 
+/* Main Records listing */
 .DocumentTeaser.list-group-item {
     cursor: auto;
 }
@@ -279,6 +71,7 @@ footer>p {
 .DocumentTeaser .lead .link:hover {
     text-decoration: underline;
 }
+/* End: Main Records listing */
 
 .topic-path {
     font-size: 0.7em;
@@ -316,58 +109,6 @@ tr:hover .hover-only {
     opacity: 1
 }
 
-.abstract-textarea .expandingArea {
-    min-height: 4em
-}
-
-.expandingArea {
-  position: relative;
-}
-
-.expandingArea > textarea,
-.expandingArea > pre {
-  /* Make the text soft-wrap */
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  height: auto;
-}
-
-.expandingArea > textarea {
-  /* The border-box box model is used to allow
-   * padding whilst still keeping the overall width
-   * at exactly that of the containing element.
-   */
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-      -ms-box-sizing: border-box;
-          box-sizing: border-box;
-  width: 100%;
-  /* This height is used when JS is disabled */
-  height: 100px;
-}
-
-.expandingArea.active > textarea {
-  /* Hide any scrollbars */
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  /* Remove WebKit user-resize widget */
-  resize: none;
-}
-
-.expandingArea > pre {
-  display: none;
-  margin: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-.expandingArea.active > pre {
-  display: block;
-  /* Hide the text; just using it for sizing */
-  visibility: hidden;
-}
-
 @-webkit-keyframes info-fade {
    0% {background: #d9edf7;}
    100% {}
@@ -375,16 +116,6 @@ tr:hover .hover-only {
 
 @keyframes info-fade {
    0% {background: #d9edf7;}
-   100% {}
-}
-
-@-webkit-keyframes warning-fade {
-   0% {background: #fcf8e3;}
-   100% {}
-}
-
-@keyframes warning-fade {
-   0% {background: #fcf8e3;}
    100% {}
 }
 
@@ -417,41 +148,6 @@ body {
 
 .StreetField .form-group {
     margin-bottom: 3px
-}
-
-.DateInputs {
-    display: flex;
-}
-
-.DateInputs > .form-group,
-.DateInputs > .form-group input{
-    text-align: center;
-}
-
-.DateInputs > .form-group .help-block {
-    font-size: 0.9em;
-}
-
-.DateInputs > .slash {
-    padding: .2em 0.25em 0;
-    font-size: 1.4em
-
-}
-
-.DateInputs > .btn {
-}
-
-.DateInputs .form-group {
-    display: inline-block;
-    margin-bottom: 0;
-}
-
-.DateInputs .form-group .help-block {
-    margin-bottom: 0;
-}
-
-.Date {
-    padding-bottom: 1em;
 }
 
 .AddressField .help-block,
@@ -1075,4 +771,438 @@ body {
     color: white;
     width: 150px;
     z-index: 9999;
+}
+
+/****************************/
+
+* {
+	box-sizing: border-box;
+}
+@font-face {
+    font-family: 'Uni Neue';
+    src: url('../fonts/fontfabric_-_unineueheavy-webfont.woff2')format('woff2'),
+         url('../fonts/fontfabric_-_unineueheavy-webfont.woff')format('woff');
+    font-weight: 900;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'Uni Neue';
+    src: url('../fontfabric_-_unineuelight-webfont.woff2')format('woff2'),
+         url('../fontfabric_-_unineuelight-webfont.woff')format('woff');
+    font-weight: 300;
+    font-style: normal;
+
+}
+html {
+	font-size: 100% !important;
+}
+body {
+	-webkit-font-smoothing: antialiased;
+	color: #333333;
+	font-family: 'museo-sans', sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.42857143;
+	margin: 0;
+	padding: 0;
+}
+a {
+    color: #ea502d;
+}
+.d-flex {
+    -js-display: flex;
+    display: flex;
+    flex-wrap: wrap;
+}
+.fz-15 {
+	font-size: 15px;
+}
+.font-500 {
+	font-weight: 500;
+}
+.mb-20 {
+	margin-bottom: 20px;
+}
+.mb-46 {
+	margin-bottom: 46px;
+}
+.text-black {
+	color: #0F3540;
+}
+.container {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1235px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.above-header	{
+	background-color: #0f3540;
+	line-height: 40px;
+}
+.above-header .container {
+    max-width: 1185px !important;
+}
+.above-header .ast-container {
+    max-width: 1185px !important;
+}
+.above-header-section .user-select a {
+    display: block;
+    font-family: 'Uni Neue', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    padding: 5px 26px 3px 57px;
+    text-decoration: none;
+}
+.above-header-section-1 .user-select a {
+    background-color: #FFF;
+    color: #0F3540 !important;
+    font-size: 20px;
+    padding: 5px 15px 3px 14px;
+}
+.above-header-section-1 .user-select a img {
+    max-width: 65px;
+    width: 100%;
+}
+.above-header-section-2 .user-select a {
+    background-color: #E36A51;
+    background-image: url(../img/search-icon@2x.png);
+    background-position: 13px center;
+    background-repeat: no-repeat;
+    background-size: 23px auto;
+    color: #FFF !important;
+    padding-left: 46px;
+    padding-right: 15px;
+}
+.above-header .above-header-section-wrap {
+    justify-content: flex-end;
+}
+.site-branding {
+	line-height: 1;
+	align-self: center;
+}
+.site-branding img {
+	max-width: 204px;
+}
+.main-header {
+	line-height: 4;
+}
+.main-header-container {
+	align-items: center;
+}
+.main-header-bar-navigation {
+	margin-left: auto;
+}
+.main-header ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    position: relative;
+}
+.main-header-menu > li  {
+	list-style: none;
+}
+.main-header-menu  li a {
+	color: #0f3540;
+	height: 100%;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-moz-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-js-display: flex;
+	display: flex;
+    font-size: 18px;
+    padding: 45px 22px 34px;
+    position: relative;
+    text-decoration: none;
+}
+.main-header-menu > li > a:before {
+    background-color: transparent;
+    bottom: 0;
+    content: '';
+    height: 5px;
+    left: 0;
+    margin: 0 auto !important;
+    position: absolute;
+    right: 0;
+    width: 43px;
+}
+.main-header-menu > li > a.active:before, .main-header-menu > li > a:hover:before {
+    background-color: #6093A4;
+}
+.main-header-menu > li > a.active, .main-header-menu > li > a:hover {
+    color: #6093A4;
+}
+.main-header-menu > li.has-child a {
+	position: relative;
+	text-decoration: none;
+}
+.main-header-menu > li.has-child > a:after {
+	font-family: 'FontAwesome';
+	content: '\f107';
+	font-size: 14px;
+	margin-left: 10px;
+	position: relative;
+	right: 0;
+}
+.main-header-menu > li.has-child {
+  	position: relative;
+}
+.main-header-menu > li.has-child .dropdown {
+	display: none;
+  	position: absolute;
+  	background: #fff;
+  	min-width: 160px;
+  	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  	padding: 0;
+  	width: 240px;
+  	z-index: 1;
+}
+.main-header-menu > li.has-child:hover .dropdown {
+  	display: block;
+}
+.main-header-menu > li.has-child .dropdown a {
+	display: block;
+	line-height: 1.45;
+	padding: .9em 1em;
+	word-wrap: break-word;
+}
+.main-header-menu > li.has-child .dropdown a:hover {
+	color: #e36a51;
+}
+
+/* menu icon */
+
+.main-header .menu-icon {
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  padding: 28px 20px;
+  position: relative;
+  user-select: none;
+}
+
+.main-header .menu-icon .navicon {
+  background: #333;
+  display: block;
+  height: 2px;
+  position: relative;
+  transition: background .2s ease-out;
+  width: 18px;
+}
+
+.main-header .menu-icon .navicon:before,
+.main-header .menu-icon .navicon:after {
+  background: #333;
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all .2s ease-out;
+  width: 100%;
+}
+
+.main-header .menu-icon .navicon:before {
+  top: 5px;
+}
+
+.main-header .menu-icon .navicon:after {
+  top: -5px;
+}
+
+/* menu btn */
+
+.main-header .menu-btn {
+	display: none;
+}
+
+@media (max-width: 1175px) {
+	.main-header-menu li a {
+	    font-size: 15px;
+	    padding: 30px 15px 29px;
+	}
+}
+@media (min-width: 1056px) {
+	.main-header .menu-icon {
+	    display: none;
+	 }
+}
+@media(max-width: 1055px) {
+	.site-branding {
+		float: left;
+	}
+	.main-header {
+		line-height: 120%;
+		padding: 25px 0;
+	}
+	.main-header-container {
+		justify-content: space-between;
+	}
+	.main-header .main-header-menu  {
+	  clear: both;
+	  display: block;
+	  transition: max-height .2s ease-out;
+	}
+	.main-header .menu-btn ~ .main-header-menu {
+		background-color: #FFF;
+	    display: none;
+	    padding: 30px;
+	}
+	.main-header .menu-btn:checked ~ .main-header-menu {
+	  	display: block;
+	}
+	.main-header .menu-icon {
+		margin-top: 10px;
+	}
+	.main-header .menu-btn:checked ~ .menu-icon .navicon {
+	  background: transparent;
+	}
+
+	.main-header .menu-btn:checked ~ .menu-icon .navicon:before {
+	  transform: rotate(-45deg);
+	}
+
+	.main-header .menu-btn:checked ~ .menu-icon .navicon:after {
+	  transform: rotate(45deg);
+	}
+
+	.main-header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+	.main-header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+	  top: 0;
+	}
+	.above-header .container {
+		padding-right: 0;
+	}
+	.main-header-menu > li {
+		display: block;
+	}
+	.main-header-menu li a {
+		padding: 15px;
+	}
+	.main-header-menu > li > a.active:before, .main-header-menu > li > a:hover:before {
+		display: none;
+	}
+	.main-header-container {
+		display: block;
+	}
+}
+@media(max-width: 400px) {
+	.above-header-section .above-header-section-1 {
+	    width: 40% !important;
+	}
+	.above-header-section .above-header-section-2 {
+	    width: 60% !important;
+	}
+	.above-header-section .user-select a {
+	    padding: 5px 27px 3px 59px;
+	    background-position: 10px center;
+	    font-size: 14px;
+	    padding-left: 40px;
+	    padding-right: 15px;
+	}
+}
+
+/* Footer */
+.main-footer {
+    padding: 110px 0px 125px 0px;
+}
+.main-footer h3 {
+    font-family: 'Uni Neue', Sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+}
+.main-footer .social-icons {
+    margin: 0;
+    margin-top: 46px;
+    padding: 0;
+}
+.main-footer .social-icons li {
+    display: inline-block;
+    margin-right: 20px;
+}
+.main-footer .social-icons li a {
+    color: #0f3540;
+    font-size: 25px;
+}
+.main-footer-container {
+	align-items: flex-end;
+	border-top: 3px solid #e36a51;
+	justify-content: space-between;
+	padding: 50px 0px 125px 0px;
+	margin-top: 100px;
+}
+.footer-col {
+    float: left;
+    width: 25%;
+}
+.footer-col-inner {
+    padding: 0 15px;
+}
+.footer-col-inner-border {
+    border-style: solid;
+    border-width: 7px 0px 0px 0px;
+    border-color: #043e4f;
+    padding: 45px 0 0px 0;
+}
+.main-footer .footer-column-2 .footer-col-inner-border {
+    border-color: #669fba;
+}
+.main-footer .footer-column-3 .footer-col-inner-border {
+    border-color: #669fba;
+}
+.main-footer .footer-column-4 .footer-col-inner-border {
+    border-color: #ed694b;
+}
+@media (min-width: 992px) {
+    .main-footer {
+        padding: 3px 0px 125px 0px;
+    }
+    .main-footer-container {
+        border: none;
+    }
+}
+@media (max-width: 1024px) {
+    .footer-col {
+        width: 50%;
+    }
+}
+@media (max-width: 767px) {
+    .footer-col {
+        float: none;
+        text-align: center;
+        width: 100%;
+    }
+    .footer-column-2, .footer-column-3, .footer-column-4 {
+        display: none;
+    }
+}
+@media(max-width: 575px) {
+	.main-footer-container {
+		display: block;
+	}
+	.main-footer-container > div {
+		padding: 20px 0;
+		text-align: center;
+	}
+}
+
+/* Blueprint overrides */
+.bp3-dark .bp3-button.bp3-minimal:hover {
+    background: #4fa69a;
+}
+
+/* dst.css overrides */
+.bp3-navbar-group.bp3-align-left {
+    min-width: 350px;
+}
+
+/* TODO: should probably be part of custom bootstrap css? */
+.btn {
+    border-color: transparent;
+}
+
+.btn:hover {
+    border-color: transparent;
 }

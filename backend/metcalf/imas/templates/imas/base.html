@@ -15,22 +15,6 @@
 
     <title>{% block head_title %}{{request.site.sitecontent.title}} {{request.site.sitecontent.tag_line}}{% endblock %}</title>
     {% bootstrap_css %}
-<!--    <link rel="stylesheet" href="{% static 'metcalf3/css/tern-bootstrap.min.css' %}">-->
-    <link rel="stylesheet" href="{% static 'metcalf3/css/normalize.css' %}">
-    <link rel="stylesheet" href="{% static 'metcalf3/css/pikaday.css' %}">
-    <link rel="stylesheet" href="{% static 'metcalf3/css/ol.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'metcalf3/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'metcalf3/css/fixed-data-table.css' %}">
-    <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint.css' %}">
-    <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint-datetime.css' %}">
-    <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint-icons.css' %}">
-    <link rel="stylesheet" href="{% static 'metcalf3/css/blueprint-select.css' %}">
-    <link rel="stylesheet" href="{% static 'metcalf3/css/table.css' %}">
-    <link rel="stylesheet" href="{% static 'metcalf3/css/leaflet.css' %}">
-    <link rel="stylesheet" href="{% static 'metcalf3/css/leaflet.draw.css' %}">
-<!--    <link rel="stylesheet" href="{% static 'metcalf3/css/tern.css' %}">-->
-<!--    <link rel="stylesheet" href="{% static 'metcalf3/css/dst.css' %}">-->
-    <link rel="stylesheet" href="{% static 'metcalf3/css/imas.css' %}">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -45,6 +29,7 @@
     {% bootstrap_javascript jquery=1 %}
     <script src="https://use.fontawesome.com/abac3c7363.js"></script>
 
+    <link rel="stylesheet" href="{% static 'metcalf3/css/style.global.css' %}">
     {% block pagestyles %}{% endblock %}
 
 </head>

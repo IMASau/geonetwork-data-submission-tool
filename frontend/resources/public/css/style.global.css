@@ -1,0 +1,4 @@
+/* Global styling. Applies to all pages (Django + SPA app). */
+body {
+	font-family: 'museo-sans', sans-serif;
+}

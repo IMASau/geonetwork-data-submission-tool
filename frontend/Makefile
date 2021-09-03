@@ -38,22 +38,10 @@ build:
 		clojure:openjdk-14-tools-deps-buster \
 		yarn shadow-cljs compile metcalf3
 
-# TODO: generate as single css file?
 copy-static:
-	cp node_modules/normalize.css/normalize.css resources/public/css
-	cp node_modules/@blueprintjs/core/lib/css/blueprint.css resources/public/css
-	cp node_modules/@blueprintjs/core/lib/css/blueprint.css.map resources/public/css
-	cp node_modules/@blueprintjs/datetime/lib/css/blueprint-datetime.css resources/public/css
-	cp node_modules/@blueprintjs/datetime/lib/css/blueprint-datetime.css.map resources/public/css
-	cp node_modules/@blueprintjs/table/lib/css/table.css resources/public/css
-	cp node_modules/@blueprintjs/table/lib/css/table.css.map resources/public/css
-	cp node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css resources/public/css
-	cp node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css.map resources/public/css
-	cp node_modules/@blueprintjs/select/lib/css/blueprint-select.css resources/public/css
-	cp node_modules/@blueprintjs/select/lib/css/blueprint-select.css.map resources/public/css
-	cp node_modules/fixed-data-table-2/dist/fixed-data-table.css resources/public/css
-	cp -v node_modules/leaflet/dist/leaflet.css resources/public/css
-	cp -vr node_modules/leaflet-draw/dist/* resources/public/css
+    sass --load-path=. --style compressed src/js/index.scss resources/public/css/style.npm-packaged.css
+    cp -fR node_modules/@blueprintjs/icons/resources/icons resources/public/resources/icons
+    cp -vr node_modules/leaflet-draw/dist/images/* resources/public/css/images
 
 release:
 	# init yarn

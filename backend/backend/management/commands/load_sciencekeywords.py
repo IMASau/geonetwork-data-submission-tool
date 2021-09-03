@@ -13,14 +13,13 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
-from rdflib import Graph, URIRef
 from lxml import etree
 from urllib.request import urlopen
 
 from backend.models import ScienceKeyword, AnzsrcKeyword
 
-
 logger = logging.getLogger(__name__)
+
 
 class Command(BaseCommand):
     help = 'Refresh topic categories list from online'
@@ -48,11 +47,11 @@ class Command(BaseCommand):
         chains = []
 
         for key in allRows.keys():
-            chain=[pk_fn(allRows[key]['URI'])]
+            chain = [pk_fn(allRows[key]['URI'])]
             chain.insert(1, allRows[key]['Name'])
             parent = allRows[key]['Parent']
             while parent:
-                chain.insert(1,allRows[parent]['Name'])
+                chain.insert(1, allRows[parent]['Name'])
                 parent = allRows[parent]['Parent']
             while len(chain) < 8:
                 chain.append('')
@@ -77,7 +76,6 @@ class Command(BaseCommand):
             raise CommandError('No keywords found, assuming error; aborting')
 
         return keywords
-
 
     def handle(self, *args, **options):
         adminpk = self._admin_pk(**options)
@@ -128,8 +126,6 @@ class Command(BaseCommand):
             logger.error(traceback.format_exc())
             raise
 
-
-
     def _fetch_tern_data(self, VocabName, version, topCategory):
         """Returns a generator of triples of the URI, the parent URI
         (nullable), and the data as a dictionary, created from the
@@ -168,7 +164,6 @@ class Command(BaseCommand):
                 'is_selectable': True,
                 'Version': version
             }
-
 
     def _admin_pk(self, **options):
         "Normalise the admin user id, guessing if not specified"

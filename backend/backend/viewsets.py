@@ -11,7 +11,7 @@ class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = models.Institution.objects.all().order_by('prefLabel')
     serializer_class = serializers.InstitutionSerializer
 
-    #search_fields = ('organisationName', 'deliveryPoint', 'deliveryPoint2',
+    # search_fields = ('organisationName', 'deliveryPoint', 'deliveryPoint2',
     #                 'city', 'administrativeArea', 'postalCode', 'country')
 
 

@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('frontend', '0003_auto_20191129_1050'),
     ]
@@ -13,7 +12,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='sitecontent',
             name='homepage_image',
-            field=models.URLField(blank=True, default='img/Hemispherical-Photography.jpg', null=True, verbose_name='Homepage Image'),
+            field=models.URLField(blank=True, default='img/Hemispherical-Photography.jpg', null=True,
+                                  verbose_name='Homepage Image'),
         ),
         migrations.AlterField(
             model_name='sitecontent',
@@ -38,6 +38,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='sitecontent',
             name='terms_pdf',
-            field=models.URLField(blank=True, default='terms/TERN_Data_Provider_Deed_v1_9_DST.pdf', null=True, verbose_name='Homepage Image'),
+            field=models.URLField(blank=True, default='terms/TERN_Data_Provider_Deed_v1_9_DST.pdf', null=True,
+                                  verbose_name='Homepage Image'),
         ),
     ]

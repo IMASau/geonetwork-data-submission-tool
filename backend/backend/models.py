@@ -1,43 +1,43 @@
-import logging
 import copy
+import datetime
 import json
+import logging
+import requests
+import traceback
 import treebeard.ns_tree as ns_tree
 import uuid
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.encoding import smart_text
 from django_fsm import FSMField, transition
 from jsonfield import JSONField
 from lxml import etree
 from rest_framework.renderers import JSONRenderer
 
-import pdb, traceback, sys
-import datetime
-import requests
-
 from backend.emails import *
 from backend.spec import make_spec
 from backend.utils import to_json, get_exception_message
 from backend.xmlutils import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
-from frontend.models import SiteContent
+
 
 def get_user_name(obj):
     if obj.email:
         return obj.email
     return obj.username
 
+
 User.add_to_class("__str__", get_user_name)
 
 logger = logging.getLogger(__name__)
 
+
 class MetadataTemplateMapper(models.Model):
     name = models.CharField(max_length=128, help_text="Unique name for template mapper.  Used in menus.")
-    file = models.FileField("metadata_template_mappers", help_text="JSON file used to interpret XML files that specify records")
+    file = models.FileField("metadata_template_mappers",
+                            help_text="JSON file used to interpret XML files that specify records")
     notes = models.TextField(help_text="Internal use notes about this template mapper")
     site = models.ForeignKey(Site, on_delete=models.SET_NULL, blank=True, null=True)
     archived = models.BooleanField(default=False)
@@ -46,7 +46,7 @@ class MetadataTemplateMapper(models.Model):
 
     def clean(self):
         try:
-            spec = make_spec(science_keyword=ScienceKeyword,mapper=self)
+            spec = make_spec(science_keyword=ScienceKeyword, mapper=self)
         except Exception as e:
             traceback.print_exc()
             raise ValidationError({'file': get_exception_message(e)})
@@ -68,7 +68,7 @@ class MetadataTemplate(models.Model):
     def clean(self):
         try:
             tree = etree.fromstring(self.file.read())
-            spec = make_spec(science_keyword=ScienceKeyword,mapper=self.mapper)
+            spec = make_spec(science_keyword=ScienceKeyword, mapper=self.mapper)
             fields = extract_fields(tree, spec)
             data = extract_xml_data(tree, spec)
             # FIXME data_to_xml will validate presence of all nodes in the template, but only when data is fully mocked up
@@ -195,9 +195,10 @@ class Document(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     status = FSMField(default=DRAFT, choices=STATUS_CHOICES)
     doi = models.CharField(max_length=1024, default='', blank=True)
-    validation_result = models.TextField(null=True,blank=True,verbose_name="Validation result XML")
-    validation_status = models.CharField(max_length=256,default='Unvalidated',null=True,blank=True,verbose_name='Validity')
-    date_last_validated = models.DateTimeField(blank=True,null=True,verbose_name='Last Validated')
+    validation_result = models.TextField(null=True, blank=True, verbose_name="Validation result XML")
+    validation_status = models.CharField(max_length=256, default='Unvalidated', null=True, blank=True,
+                                         verbose_name='Validity')
+    date_last_validated = models.DateTimeField(blank=True, null=True, verbose_name='Last Validated')
 
     objects = DocumentManager()
 
@@ -220,7 +221,7 @@ class Document(models.Model):
             super(Document, self).save(*args, **kwargs)
 
             tree = etree.parse(self.template.file.path)
-            spec = make_spec(science_keyword=ScienceKeyword, uuid=self.uuid,mapper=self.template.mapper)
+            spec = make_spec(science_keyword=ScienceKeyword, uuid=self.uuid, mapper=self.template.mapper)
             data = extract_xml_data(tree, spec)
             # make sure there is no newline in self.title
             if self.title:
@@ -232,7 +233,7 @@ class Document(models.Model):
                                          user=self.owner,
                                          data=data)
         else:
-            #update the draft if they've changed the DOI
+            # update the draft if they've changed the DOI
             current_doi = self.doi or ''
             draft = self.latest_draft
             data_doi = draft.data['identificationInfo'].get('doi', '')
@@ -253,10 +254,10 @@ class Document(models.Model):
             request_xml = etree.tostring(xml)
             requestUri = 'https://apps.das.ga.gov.au/xmlProcessing/validation/iso19115-3'
             response = requests.post(requestUri, data=request_xml, verify=True,
-                                     headers={'Content-Type':'application/xml'},
+                                     headers={'Content-Type': 'application/xml'},
                                      timeout=120)
         except Exception as e:
-            logger.error('The following exception occurred while trying to validate document {}: {}'.format(uuid,e))
+            logger.error('The following exception occurred while trying to validate document {}: {}'.format(uuid, e))
             self.validation_status = 'Service Unavailable'
         if response:
             if response.status_code == 200:
@@ -280,10 +281,14 @@ class Document(models.Model):
                     self.validation_status = 'Invalid'
             else:
                 self.validation_status = 'Service Unavailable'
-                logger.error('There was an error while validating {}. The error was: {} - {}'.format(uuid,response.status_code,response.content))
+                logger.error(
+                    'There was an error while validating {}. The error was: {} - {}'.format(uuid, response.status_code,
+                                                                                            response.content))
         else:
             self.validation_status = 'Service Unavailable'
-            logger.error('There was an error while validating {}. No response was received. This may be caused by a timeout.'.format(uuid))
+            logger.error(
+                'There was an error while validating {}. No response was received. This may be caused by a timeout.'.format(
+                    uuid))
         self.date_last_validated = datetime.datetime.now()
 
     ########################################################
@@ -335,7 +340,6 @@ class Document(models.Model):
     def restart(self):
         self.clear_note()
         self.clear_agreed()
-
 
     def add_creator(self, creators, person, nsmap):
         creator = etree.SubElement(creators, 'creator')
@@ -434,8 +438,8 @@ class Person(models.Model):
     honorificPrefix = models.CharField(max_length=256, blank=True, verbose_name="honorific")
     orcid = models.CharField(max_length=50, verbose_name="ORCID ID", default="", blank=True)
     prefLabel = models.CharField(max_length=512, default="", blank=True)
-    isUserAdded = models.BooleanField(default=False,verbose_name="User Added")
-    electronicMailAddress = models.CharField(max_length=256,default="",verbose_name='email', blank=True)
+    isUserAdded = models.BooleanField(default=False, verbose_name="User Added")
+    electronicMailAddress = models.CharField(max_length=256, default="", verbose_name='email', blank=True)
 
     def __str__(self):
         return self.uri
@@ -452,7 +456,7 @@ class Institution(models.Model):
     prefLabel = models.CharField(max_length=512, default="")
     altLabel = models.CharField(max_length=512, default="")
     exactMatch = models.CharField(max_length=512, default="")
-    isUserAdded = models.BooleanField(default=False,verbose_name="User Added")
+    isUserAdded = models.BooleanField(default=False, verbose_name="User Added")
 
     # EDMO fields
     # http://seadatanet.maris2.nl/v_edmo/browse_export.asp?order=&step=&count=0
@@ -507,8 +511,9 @@ class ScienceKeyword(models.Model):
                     'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
                     'DetailedVariable']
 
+
 class AnzsrcKeyword(models.Model):
-    UUID = models.CharField(max_length=256,primary_key=True,default='', editable=False,verbose_name="URL")
+    UUID = models.CharField(max_length=256, primary_key=True, default='', editable=False, verbose_name="URL")
     Category = models.CharField(max_length=128)
     Topic = models.CharField(max_length=128)
     Term = models.CharField(max_length=128)
@@ -516,7 +521,7 @@ class AnzsrcKeyword(models.Model):
     VariableLevel2 = models.CharField(max_length=128)
     VariableLevel3 = models.CharField(max_length=128)
     DetailedVariable = models.CharField(max_length=128)
-    #the "UUID" column is already a URL here, but we want to keep the two science keyword tables the same
+    # the "UUID" column is already a URL here, but we want to keep the two science keyword tables the same
     uri = models.CharField(max_length=512, default="", blank=True, null=True)
 
     def as_str(self):
@@ -673,20 +678,20 @@ class ParameterPlatform(ns_tree.NS_Node):
 
 
 class SamplingFrequency(models.Model):
-    uri = models.CharField(primary_key=True,max_length=512, default="")
+    uri = models.CharField(primary_key=True, max_length=512, default="")
     prefLabel = models.CharField(max_length=256)
     prefLabelSortText = models.CharField(max_length=256, default="")
 
 
 class HorizontalResolution(models.Model):
-    uri = models.CharField(primary_key=True,max_length=512, default="")
+    uri = models.CharField(primary_key=True, max_length=512, default="")
     prefLabel = models.CharField(max_length=256)
     prefLabelSortText = models.CharField(max_length=256, default="")
 
 
 class TopicCategory(models.Model):
-    identifier = models.CharField(primary_key=True,max_length=256)
+    identifier = models.CharField(primary_key=True, max_length=256)
     name = models.CharField(max_length=256)
 
     class Meta:
-        ordering=['identifier']
+        ordering = ['identifier']

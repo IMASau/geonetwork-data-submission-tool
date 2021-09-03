@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 from backend.models import DataFeed
 
+
 class Command(BaseCommand):
     help = "Run any scheduled datafeed refresh requests.  Run via a cron job."
 

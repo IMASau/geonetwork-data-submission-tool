@@ -1,23 +1,23 @@
+import requests
+import urllib
+import urllib.parse
 from django.contrib import admin
+from django.contrib import messages
 from django.contrib.admin import widgets
 from django.db import models as django_models
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.html import format_html, format_html_join
 from fsm_admin.mixins import FSMTransitionMixin
-from django.http import HttpResponseRedirect
-import datetime
-import requests
-from django.contrib import messages
 from lxml import etree
-import urllib
-import urllib.parse
 
 from backend import models
 from frontend.models import SiteContent
 
 
 class InstitutionAdmin(admin.ModelAdmin):
-    list_display = ['prefLabel', 'organisationName', 'isUserAdded', 'deliveryPoint', 'city', 'administrativeArea', 'postalCode',
+    list_display = ['prefLabel', 'organisationName', 'isUserAdded', 'deliveryPoint', 'city', 'administrativeArea',
+                    'postalCode',
                     'country']
     search_fields = ['prefLabel', 'altLabel', 'uri',
                      'organisationName', 'deliveryPoint', 'deliveryPoint2', 'city', 'administrativeArea', 'postalCode',
@@ -35,8 +35,10 @@ class InstitutionAdmin(admin.ModelAdmin):
                        'postalCode',
                        'country']
 
+
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ['familyName', 'givenName', 'honorificPrefix', 'prefLabel', 'electronicMailAddress', 'orcid', 'organisation', 'isUserAdded']
+    list_display = ['familyName', 'givenName', 'honorificPrefix', 'prefLabel', 'electronicMailAddress', 'orcid',
+                    'organisation', 'isUserAdded']
     search_fields = ['familyName', 'givenName', 'orcid']
 
     def organisation(self, obj):
@@ -50,6 +52,7 @@ class PersonAdmin(admin.ModelAdmin):
 class SamplingFrequencyAdmin(admin.ModelAdmin):
     list_display = ['prefLabel']
     search_fields = ['prefLabel']
+
 
 class HorizontalResolutionAdmin(admin.ModelAdmin):
     list_display = ['prefLabel']
@@ -72,6 +75,7 @@ class MetadataTemplateAdmin(admin.ModelAdmin):
     list_filter = ['archived', 'site', 'created', 'modified']
     ordering = ['modified']
     readonly_fields = ['created', 'modified']
+
 
 class MetadataTemplateMapperAdmin(admin.ModelAdmin):
     list_display = ['name', 'file', 'site', 'notes']
@@ -127,6 +131,7 @@ class DataFeedAdmin(FSMTransitionMixin, admin.ModelAdmin):
 
     feed_quality.short_description = "Feed quality"
 
+
 def add_creator(creators, person, nsmap):
     creator = etree.SubElement(creators, 'creator')
     creatorName = etree.SubElement(creator, 'creatorName')
@@ -153,9 +158,9 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
     }
 
     def validity(self, obj):
-        if obj.validation_status in ['Valid','Invalid']:
+        if obj.validation_status in ['Valid', 'Invalid']:
             htmlString = "<a href='{0}' target='_blank'>{1}</a>"
-            replacements = [reverse('Validation', kwargs={'uuid': obj.uuid}),obj.validation_status]
+            replacements = [reverse('Validation', kwargs={'uuid': obj.uuid}), obj.validation_status]
             return format_html(htmlString, *replacements)
         else:
             htmlString = "<span>{0}</span>"
@@ -168,8 +173,8 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
 
     def action_links(self, obj):
         htmlString = ("<a href='{0}' target='_blank'>Edit</a> | "
-                     "<a href='{1}?download' target='_blank'>Export XML</a> | "
-                     "<a href='{2}' target='_blank'>Export MEF</a>")
+                      "<a href='{1}?download' target='_blank'>Export XML</a> | "
+                      "<a href='{2}' target='_blank'>Export MEF</a>")
         replacements = [reverse('Edit', kwargs={'uuid': obj.uuid}),
                         reverse('Export', kwargs={'uuid': obj.uuid}),
                         reverse('MEF', kwargs={'uuid': obj.uuid})]
@@ -185,7 +190,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
             wantsDoi = obj.latest_draft.doiRequested
             if not wantsDoi:
                 return "User has not requested a DOI to be minted."
-            #can mint if they asked for one and don't have one yet
+            # can mint if they asked for one and don't have one yet
             if bool(obj.doi):
                 return "This document already has a DOI."
 
@@ -195,7 +200,6 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
             return "Cannot mint a DOI for this document"
         htmlString = "<input type='submit' value='Mint DOI' name='_mintdoi'/>"
         return format_html(htmlString)
-
 
     def mintdoi(self, request, obj):
         doc = obj
@@ -259,14 +263,17 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
                 if not data.get('doi', None):
                     sitecontent = SiteContent.objects.all()[0]
                     baseUri = sitecontent.doi_uri
-                    doiUri = urllib.parse.quote('https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=data['fileIdentifier']))
+                    doiUri = urllib.parse.quote(
+                        'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(
+                            uuid=data['fileIdentifier']))
                     requestUri = '{base}&url={doiUri}'.format(base=baseUri, doiUri=doiUri)
                     body = {'xml': etree.tostring(request_xml)}
                     response = requests.post(requestUri, data=body, verify=True)
         except Exception as e:
             messages.add_message(request,
                                  messages.ERROR,
-                                 'The following error occurred while trying to mint a DOI "{e}". Please try again later.'.format(e=e))
+                                 'The following error occurred while trying to mint a DOI "{e}". Please try again later.'.format(
+                                     e=e))
             return False
         if response:
             if response.status_code == 200:
@@ -281,13 +288,17 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
                     verboseMessage = response_xml.find('verbosemessage').text
                     messages.add_message(request,
                                          messages.ERROR,
-                                         'The following error occurred while trying to mint a DOI "{verboseMessage}". Please try again later.'.format(verboseMessage=verboseMessage))
+                                         'The following error occurred while trying to mint a DOI "{verboseMessage}". Please try again later.'.format(
+                                             verboseMessage=verboseMessage))
                     return False
             else:
-                messages.add_message(request, messages.ERROR, 'There was an error connecting to the DOI minting service (status code {status}). Please try again later.'.format(status=response.status_code))
+                messages.add_message(request, messages.ERROR,
+                                     'There was an error connecting to the DOI minting service (status code {status}). Please try again later.'.format(
+                                         status=response.status_code))
                 return False
         else:
-            messages.add_message(request, messages.ERROR, 'There was an error connecting to the DOI minting service. Please try again later.')
+            messages.add_message(request, messages.ERROR,
+                                 'There was an error connecting to the DOI minting service. Please try again later.')
             return False
         messages.add_message(request, messages.SUCCESS, 'DOI successfully minted.')
 
@@ -296,7 +307,8 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
             try:
                 success = self.mintdoi(request, obj)
             except Exception as e:
-                messages.add_message(request, messages.ERROR, 'There was an unexpected error while attempting to mint the DOI. Please try again later.')
+                messages.add_message(request, messages.ERROR,
+                                     'There was an unexpected error while attempting to mint the DOI. Please try again later.')
             return HttpResponseRedirect(".")
         return super().response_change(request, obj)
 
@@ -321,6 +333,7 @@ class ScienceKeywordAdmin(admin.ModelAdmin):
     search_fields = ['UUID', 'Category', 'Topic', 'Term',
                      'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
                      'DetailedVariable']
+
 
 class AnzsrcKeywordAdmin(admin.ModelAdmin):
     list_display = ['UUID', 'Category', 'Topic', 'Term',

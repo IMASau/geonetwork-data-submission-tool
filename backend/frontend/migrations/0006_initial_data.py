@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 
+
 def configure_site_content(apps, schema_editor):
     # We can't import the models directly as it may be a newer
     # version than this migration expects. We use the historical version.
@@ -17,11 +18,11 @@ def configure_site_content(apps, schema_editor):
     sc.title = "TERN"
     sc.organisation_url = "https://shared.tern.org.au"
     sc.tag_line = "SHaRED Data Submission Tool"
-    sc.email =  "esupport@tern.org.au"
-    sc.homepage_image =  "{{site.sitecontent.portal_url}}/static/img/Hemispherical-Photography.jpg"
-    sc.guide_pdf =  "https://tern.org.au"
+    sc.email = "esupport@tern.org.au"
+    sc.homepage_image = "{{site.sitecontent.portal_url}}/static/img/Hemispherical-Photography.jpg"
+    sc.guide_pdf = "https://tern.org.au"
     sc.portal_title = "TERN Data Portal"
-    sc.portal_url =  "https://shared.tern.org.au"
+    sc.portal_url = "https://shared.tern.org.au"
     sc.portal_record_url = "{{site.sitecontent.portal_url}}/edit/{{document.uuid}}"
     sc.homepage_image_credit_name = "TERN Landscapes"
     sc.homepage_image_credit_url = "http://www.auscover.org.au/dataset_categories/vegetation-structural-properties-biomass/"
@@ -32,8 +33,8 @@ def configure_site_content(apps, schema_editor):
     sc.roadmap_pdf = "https://shared.tern.org.au/media/guide/Coming_Soon_Roadmap.pdf"
     sc.save()
 
-class Migration(migrations.Migration):
 
+class Migration(migrations.Migration):
     dependencies = [
         ('frontend', '0005_auto_20200127_2049'),
     ]
@@ -42,7 +43,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='sitecontent',
             name='terms_pdf',
-            field=models.URLField(blank=True, default='terms/TERN_Data_Provider_Deed_v1_9_DST.pdf', null=True, verbose_name='Terms PDF'),
+            field=models.URLField(blank=True, default='terms/TERN_Data_Provider_Deed_v1_9_DST.pdf', null=True,
+                                  verbose_name='Terms PDF'),
         ),
         migrations.RunPython(configure_site_content),
     ]

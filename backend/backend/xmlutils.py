@@ -1,14 +1,13 @@
 import datetime
-from decimal import Decimal
-import logging
 import inspect
-from lxml import etree
+import logging
 from copy import deepcopy
+from decimal import Decimal
 from django.apps import apps
-
 from django.utils.six import string_types
 
 logger = logging.getLogger(__name__)
+
 
 class SpecialKeys:
     comment = '!docstring'
@@ -146,8 +145,10 @@ def get_value_type(eles):
     except:
         return None
 
+
 def is_deleteWhenEmpty(spec):
     return spec.get(SpecialKeys.deleteWhenEmpty, True)
+
 
 def extract_fields(tree, spec, **kwargs):
     if has_namespaces(spec):
@@ -156,7 +157,9 @@ def extract_fields(tree, spec, **kwargs):
     elements = tree.xpath(xpath, **kwargs)
 
     if is_required(spec) or SpecialKeys.nodes in spec:
-        assert len(elements) > 0, "We require at least one xpath match for required fields and all branches.\n{0}\n{1}".format(get_xpath(spec), elements)
+        assert len(
+            elements) > 0, "We require at least one xpath match for required fields and all branches.\n{0}\n{1}".format(
+            get_xpath(spec), elements)
 
     field = spec.copy()
     for special_key in SpecialKeys.all_keys():
@@ -301,7 +304,7 @@ def parse_attributes(spec, namespaces):
             if len(attrsplit) == 2:
                 try:
                     namespaced_attr = '{%s}%s' % (namespaces[attrsplit[0]]
-                                                  ,attrsplit[1])
+                                                  , attrsplit[1])
                     namespaced_attrs[namespaced_attr] = value
                 except KeyError:
                     raise Exception('No matching namespace for attribute %s' % attr)
@@ -338,7 +341,7 @@ def split_geographic_extents(data):
         if len(boxes) > 1:
             data['identificationInfo']['geographicElementSecondary'] = []
         else:
-            data['identificationInfo'].pop('geographicElementSecondary',None)
+            data['identificationInfo'].pop('geographicElementSecondary', None)
         for box in boxes[1:]:
             newBox = {}
             newBox['boxes'] = box
@@ -347,7 +350,7 @@ def split_geographic_extents(data):
     return data
 
 
-def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=True, fieldKey = None):
+def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=True, fieldKey=None):
     # indicates that the spec allows more than one value for this node
     if is_many(spec):
         # sets many to false on the spec, because the spec is passed into the subsequent data_to_xml call
@@ -378,7 +381,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                 data_to_xml(data=item, xml_node=xml_node, spec=spec, nsmap=nsmap,
                             element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
 
-    #export can be false with an exportTo function, i.e. don't do the default export, do this instead
+    # export can be false with an exportTo function, i.e. don't do the default export, do this instead
     elif not is_export(spec):
         if has_exportTo(spec):
             data_to_xml(data=data, xml_node=xml_node, spec=get_exportTo(spec), nsmap=nsmap,
@@ -395,7 +398,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
             # but we can't do that at the node writing point, because we don't have the
             # sibling data
             # TODO: there is a better way to structure this, but we can't overhaul the mapper right now
-            if field_key=='orcid':
+            if field_key == 'orcid':
                 orcid = data[field_key]
                 if not orcid:
                     data[field_key] = data['uri']
@@ -404,7 +407,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                     # at the moment, we are always graceful to missing fields, only reporting them w/o raising exception
                     logger.warning('%s field is required, but missing' % field_key)
                 container_xpath = get_container(node_spec)
-                #don't delete it, but do have to clear any preset value
+                # don't delete it, but do have to clear any preset value
                 if not is_deleteWhenEmpty(node_spec):
                     elements = xml_node.xpath(container_xpath, namespaces=nsmap)
                     for element in elements:
@@ -416,7 +419,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                 continue
             data_to_xml(data=data[field_key], xml_node=xml_node, spec=node_spec, nsmap=nsmap,
                         element_index=0, silent=silent, fieldKey=field_key, doc_uuid=doc_uuid)
-    #default behaviour; populate the xml elements with the values in the data
+    # default behaviour; populate the xml elements with the values in the data
     else:
         node_xpath = get_xpath(spec)
         is_attr = node_xpath.startswith('@')
@@ -437,18 +440,19 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                 return
             element = elements[element_index]
             if has_valueChild(spec):
-                #xpath returns a list regardless, but we require only one result
+                # xpath returns a list regardless, but we require only one result
                 valueChildren = element.xpath(get_valueChild(spec), namespaces=nsmap)
                 if len(valueChildren) == 1:
                     element = valueChildren[0]
                 else:
-                    msg = 'element %s had an incorrect number of valueChild results (%d)' % (get_xpath(spec), len(valueChildren))
+                    msg = 'element %s had an incorrect number of valueChild results (%d)' % (
+                    get_xpath(spec), len(valueChildren))
                     if silent:
                         logger.warning(msg)
                     else:
                         raise Exception(msg)
                     return
-            #at this point we should have a single node to deal with
+            # at this point we should have a single node to deal with
             if len(element.getchildren()) > 0:
                 msg = 'element %s had children' % (get_xpath(spec))
                 if silent:
@@ -476,7 +480,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                         raise Exception(msg)
                 if attr == 'text':
                     gco = '{%s}' % nsmap['gco']
-                    #TODO: this only works if we don't care about actual time information
+                    # TODO: this only works if we don't care about actual time information
                     if element.tag == '%sDateTime' % gco:
                         element.text = '%sT00:00:00' % final_value
                     else:
@@ -486,7 +490,6 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
             if has_exportTo(spec):
                 data_to_xml(data=data, xml_node=xml_node, spec=get_exportTo(spec), nsmap=nsmap,
                             element_index=element_index, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
-
 
     if is_postprocess(spec):
         get_postprocess(spec)(data, xml_node, spec, nsmap, element_index, silent)

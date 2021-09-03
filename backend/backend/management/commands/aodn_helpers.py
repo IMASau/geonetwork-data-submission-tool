@@ -1,19 +1,16 @@
 import csv
 import datetime
-import logging
-import urllib
 import io
-
+import logging
+import re
 import requests
+import urllib
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import CommandError
 from django.db import transaction
-
-import re
-
 
 logger = logging.getLogger(__name__)
 
@@ -47,18 +44,18 @@ class AodnBaseParameterVocabLoader(object):
     def handle(self, *args, **options):
         adminpk = self._admin_pk(**options)
 
-        entries = {}            # keyed by URI, values in the format expected by load_bulk
-        hierarchy = []          # The root nodes, will be passed to load_bulk
+        entries = {}  # keyed by URI, values in the format expected by load_bulk
+        hierarchy = []  # The root nodes, will be passed to load_bulk
 
         vocab_list = [(self.CategoryVocab, False),
                       (self.ParameterVocab, True)]
 
         entry_count = 0
-        for vocab,selectable in vocab_list:
+        for vocab, selectable in vocab_list:
             if not vocab:
                 continue
             version = self._fetch_version(vocab)
-            for uri,parenturi,data in self._fetch_data(vocab, selectable, version):
+            for uri, parenturi, data in self._fetch_data(vocab, selectable, version):
                 entry_count = entry_count + 1
                 entry = self._merge_or_create(entries, uri, data)
                 if not parenturi:
@@ -159,7 +156,7 @@ class AodnBaseParameterVocabLoader(object):
     def _merge_or_create(entries, uri, data):
         """Look up an entry and return it, ensuring it now exists in at least
         dummy form."""
-        entry = entries.get(uri, {'data':None, 'children': []})
+        entry = entries.get(uri, {'data': None, 'children': []})
         entry['data'] = data or entry['data']
         entries[uri] = entry
         return entry

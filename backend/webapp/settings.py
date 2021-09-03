@@ -1,7 +1,6 @@
 """
 Django settings for webapp project.
 """
-from distutils.util import strtobool
 import os
 from django.conf.locale.en import formats as en_formats
 
@@ -59,9 +58,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
 ]
 
 SECRET_KEY = "get-a-new-key"
@@ -153,7 +152,7 @@ LOGGING = {
             "level": "DEBUG",
             "propagate": True,
         },
-        "django": {"handlers": ["console"], "level": "INFO", "propagate": True,},
+        "django": {"handlers": ["console"], "level": "INFO", "propagate": True, },
     },
 }
 

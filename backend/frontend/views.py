@@ -1,27 +1,22 @@
-import stat
 import shutil
-from tempfile import TemporaryFile, NamedTemporaryFile
+import stat
 import urllib.parse
-from zipfile import ZipFile, ZipInfo
-
-# from frontend.router import rest_serialize
-from elasticsearch_dsl import connections
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
-import django.core.exceptions
 from django.shortcuts import get_object_or_404, render_to_response, render
+from django.shortcuts import redirect
 from django.template import Context, Template
 from django.template.context_processors import csrf
 from django.urls import reverse
-from django.shortcuts import redirect
 from django.utils.encoding import smart_text
 from django_fsm import has_transition_perm
+# from frontend.router import rest_serialize
+from elasticsearch_dsl import connections
 from lxml import etree
 from rest_framework import serializers
 from rest_framework.decorators import api_view, permission_classes
@@ -31,6 +26,8 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from tempfile import TemporaryFile, NamedTemporaryFile
+from zipfile import ZipFile, ZipInfo
 
 from backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
@@ -200,7 +197,8 @@ def dashboard(request):
                     "label": "Template",
                     "value": MetadataTemplate.objects.filter(site=get_current_site(request), archived=False).first().pk,
                     "options": [[t.pk, t.__str__()]
-                                for t in MetadataTemplate.objects.filter(site=get_current_site(request), archived=False)],
+                                for t in
+                                MetadataTemplate.objects.filter(site=get_current_site(request), archived=False)],
                     "required": True
                 }
             }
@@ -241,19 +239,21 @@ def clone(request, uuid):
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
 
+
 @login_required
 def validation_results(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
     is_document_editor(request, doc)
     response_string = doc.validation_result
-    #try to make it look pretty, but if not, just the raw text is fine
+    # try to make it look pretty, but if not, just the raw text is fine
     try:
-        response_string = etree.tostring(etree.fromstring(doc.validation_result.encode('UTF-8')),pretty_print=True)
+        response_string = etree.tostring(etree.fromstring(doc.validation_result.encode('UTF-8')), pretty_print=True)
     except:
         pass
     response = HttpResponse(response_string, content_type="application/xml")
     response['Content-Disposition'] = 'attachment; filename="{}-validation-results.xml"'.format(uuid)
     return response
+
 
 # Error Pages
 def server_error(request):
@@ -261,7 +261,8 @@ def server_error(request):
     response.status_code = 500
     return response
 
-def bad_request(request,exception):
+
+def bad_request(request, exception):
     response = render_to_response("errors/400.html")
     response.status_code = 400
     return response
@@ -334,13 +335,13 @@ def mef(request, uuid):
         z.writestr('metadata.xml', etree.tostring(xml))
         pubdir = ZipInfo('public/')
         pubdir.file_size = 0
-        pubdir.external_attr |= 0x10 # MS-DOS directory flag
+        pubdir.external_attr |= 0x10  # MS-DOS directory flag
         # set execute permission on directories
         pubdir.external_attr |= (stat.S_IRWXU & 0xFFFF) << 16
         z.writestr(pubdir, '')
         privdir = ZipInfo('private/')
         privdir.file_size = 0
-        privdir.external_attr |= 0x10 # MS-DOS directory flag
+        privdir.external_attr |= 0x10  # MS-DOS directory flag
         # set execute permission on directories
         privdir.external_attr |= (stat.S_IRWXU & 0xFFFF) << 16
         z.writestr(privdir, '')
@@ -358,6 +359,7 @@ def mef(request, uuid):
         tmp.close()
     return response
 
+
 def home(request):
     site = get_current_site(request)
     sitecontent, _ = SiteContent.objects.get_or_create(site=get_current_site(request))
@@ -367,6 +369,7 @@ def home(request):
     }
     context['homepage_image_url'] = Template(site.sitecontent.homepage_image).render(Context(context)).strip()
     return render_to_response("home.html", context)
+
 
 def personFromData(data):
     uri = data['uri']
@@ -405,28 +408,29 @@ def personFromData(data):
             return inst
     return None
 
+
 def institutionFromData(data):
     orgUri = data['organisationIdentifier']
     city = None
-    if data.get('address',None):
+    if data.get('address', None):
         city = data['address'].get('city', None)
     if '||' in orgUri:
         orgUri = orgUri[:orgUri.index('||')]
     if orgUri:
         try:
             if city:
-                matchingOrg = Institution.objects.get(uri=orgUri,city=city)
+                matchingOrg = Institution.objects.get(uri=orgUri, city=city)
             else:
                 matchingOrg = Institution.objects.get(uri=orgUri)
             if matchingOrg.isUserAdded:
                 matchingOrg.prefLabel = data['organisationName']
                 matchingOrg.organisationName = data['organisationName']
-                matchingOrg.administrativeArea=data['address']['administrativeArea']
-                matchingOrg.city=data['address']['city']
-                matchingOrg.postalCode=data['address']['postalCode']
-                matchingOrg.country=data['address']['country']
-                matchingOrg.deliveryPoint=data['address']['deliveryPoint']
-                matchingOrg.deliveryPoint2=data['address']['deliveryPoint2']
+                matchingOrg.administrativeArea = data['address']['administrativeArea']
+                matchingOrg.city = data['address']['city']
+                matchingOrg.postalCode = data['address']['postalCode']
+                matchingOrg.country = data['address']['country']
+                matchingOrg.deliveryPoint = data['address']['deliveryPoint']
+                matchingOrg.deliveryPoint2 = data['address']['deliveryPoint2']
                 matchingOrg.save()
         except Institution.DoesNotExist:
             inst = Institution.objects.create(uri=orgUri,
@@ -441,6 +445,7 @@ def institutionFromData(data):
                                               deliveryPoint2=data['address']['deliveryPoint2'],
                                               isUserAdded=True)
             inst.save()
+
 
 @login_required
 @api_view(['POST'])
@@ -471,7 +476,7 @@ def save(request, uuid):
                 citedResponsibleParty['individualName'] = updatedPerson.prefLabel
             institutionFromData(citedResponsibleParty)
 
-        #update the publication date
+        # update the publication date
         data['identificationInfo']['datePublication'] = today()
 
         inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
@@ -479,7 +484,6 @@ def save(request, uuid):
         inst.agreedToTerms = data['agreedToTerms'] or False
         inst.doiRequested = data['doiRequested'] or False
         inst.save()
-
 
         # Remove any attachments which are no longer mentioned in the XML.
         xml_names = tuple(map(lambda x: os.path.basename(x['file']), data['attachments']))

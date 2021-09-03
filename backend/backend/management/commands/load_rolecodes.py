@@ -1,22 +1,18 @@
-import csv
 import datetime
 import logging
-from urllib.request import urlopen
-
-import requests
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
-from django.utils.encoding import smart_text
-
 from lxml import etree
+from urllib.request import urlopen
 
 from backend.models import RoleCode
 
 logger = logging.getLogger(__name__)
+
 
 class Command(BaseCommand):
     help = 'Refresh role codes list from online'
@@ -56,7 +52,6 @@ class Command(BaseCommand):
             logger.error(traceback.format_exc())
             raise
 
-
     def _admin_pk(self, **options):
         "Normalise the admin user id, guessing if not specified"
         adminpk = options.get('admin_id', None)
@@ -73,23 +68,21 @@ class Command(BaseCommand):
             adminpk = adminuser.pk
         return adminpk
 
-    
-        
     def _fetch_rolecodes(self):
         """Returns a generator of RoleCode objects, created from the latest
         xml from isotc211."""
         url = 'https://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml'
-        
+
         # Retrieve file.
         document = urlopen(url)
         tree = etree.parse(document)
-        
+
         # Define namespaces used by various elements
         ns = {'cat': 'http://standards.iso.org/iso/19115/-3/cat/1.0',
               'gco': 'http://standards.iso.org/iso/19115/-3/gco/1.0'}
 
         role_code_sections = tree.findall("//{" + ns['cat'] + "}CT_Codelist", ns)
-        
+
         # Find correct section
         correct_section = None
         for section in role_code_sections:
@@ -106,52 +99,3 @@ class Command(BaseCommand):
                                Description=desc)
         else:
             raise CommandError('Could not read xml file - no CodeListDictionary element with id "CI_RoleCode"')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

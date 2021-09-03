@@ -2,18 +2,14 @@ import csv
 import datetime
 import io
 import logging
-import urllib
-
 import requests
+import urllib
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import CommandError
 from django.db import transaction
-
-import re
-
 
 logger = logging.getLogger(__name__)
 
@@ -47,8 +43,8 @@ class BaseParameterVocabLoader(object):
     def handle(self, *args, **options):
         adminpk = self._admin_pk(**options)
 
-        entries = {}            # keyed by URI, values in the format expected by load_bulk
-        hierarchy = []          # The root nodes, will be passed to load_bulk
+        entries = {}  # keyed by URI, values in the format expected by load_bulk
+        hierarchy = []  # The root nodes, will be passed to load_bulk
 
         vocab_list = [(self.CategoryVocab, False),
                       (self.ParameterVocab, True)]
@@ -56,10 +52,10 @@ class BaseParameterVocabLoader(object):
         self._fetch_data("org", True, 1)
 
         entry_count = 0
-        for vocab,selectable in vocab_list:
+        for vocab, selectable in vocab_list:
             if not vocab:
                 continue
-            for uri,parenturi,data in self._fetch_data(vocab, selectable, ''):
+            for uri, parenturi, data in self._fetch_data(vocab, selectable, ''):
                 entry_count = entry_count + 1
                 entry = self._merge_or_create(entries, uri, data)
                 if not parenturi:
@@ -111,7 +107,6 @@ class BaseParameterVocabLoader(object):
             adminpk = adminuser.pk
         return adminpk
 
-
     def _fetch_data(self, VocabName, selectable, version):
         """Returns a generator of triples of the URI, the parent URI
         (nullable), and the data as a dictionary, created from the
@@ -123,16 +118,16 @@ class BaseParameterVocabLoader(object):
         # (depending on whether the parent entry appears in the same
         # vocab or not):
         _query = urllib.parse.quote('PREFIX skos: <http://www.w3.org/2004/02/skos/core#>'
-                              ' SELECT ?uri ?name ?definition ?parent ?extParent ?top WHERE {'
-                              '?uri skos:prefLabel ?name . '
-                              'OPTIONAL { ?uri skos:definition ?definition } . '
-                              'OPTIONAL { ?uri skos:broader ?parent } . '
-                              'OPTIONAL { ?uri skos:broadMatch ?extParent } . '
-                              'OPTIONAL { ?uri skos:topConceptOf ?top}'
-                              '}')
+                                    ' SELECT ?uri ?name ?definition ?parent ?extParent ?top WHERE {'
+                                    '?uri skos:prefLabel ?name . '
+                                    'OPTIONAL { ?uri skos:definition ?definition } . '
+                                    'OPTIONAL { ?uri skos:broader ?parent } . '
+                                    'OPTIONAL { ?uri skos:broadMatch ?extParent } . '
+                                    'OPTIONAL { ?uri skos:topConceptOf ?top}'
+                                    '}')
         url = '{base}{vocabName}?query={query}'.format(base=_vocabServer,
-                                                               vocabName=VocabName,
-                                                               query=_query)
+                                                       vocabName=VocabName,
+                                                       query=_query)
 
         response = requests.get(url, headers={'Accept': 'text/csv'})
         reader = csv.DictReader(io.StringIO(response.text, newline=""), skipinitialspace=True)
@@ -145,7 +140,6 @@ class BaseParameterVocabLoader(object):
                 'is_selectable': selectable and (row['top'] != self.TopCategory),
                 'Version': version
             }
-
 
     @staticmethod
     def _merge_or_create(entries, uri, data):

@@ -1,0 +1,2 @@
+{:linters {:re-frame/keyword {:level :warning}}
+ :hooks {:analyze-call {re-frame.core/dispatch hooks.re-frame/dispatch}}}

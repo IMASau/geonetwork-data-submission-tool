@@ -8,7 +8,7 @@
             [metcalf3.views :refer [AppRoot]]
             [re-frame.core :as rf]
             [re-frame.db :refer [app-db]]
-            [reagent.core :as r]))
+            [reagent.dom :as rdom]))
 
 (when-not ^boolean js/goog.DEBUG
   (set! (.-onbeforeunload js/window)
@@ -23,4 +23,4 @@
                     :path   [:page :tab]
                     :->hash (fnil name "")
                     :<-hash #(if (blank? %) :data-identification (keyword %))}))
-  (r/render [AppRoot] ele))
+  (rdom/render [AppRoot] ele))

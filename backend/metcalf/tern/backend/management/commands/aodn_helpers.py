@@ -3,8 +3,9 @@ import datetime
 import io
 import logging
 import re
-import requests
 import urllib
+
+import requests
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType

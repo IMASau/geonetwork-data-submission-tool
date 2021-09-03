@@ -3,6 +3,7 @@ import inspect
 import logging
 from copy import deepcopy
 from decimal import Decimal
+
 from django.apps import apps
 from six import string_types
 

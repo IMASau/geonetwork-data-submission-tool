@@ -3,9 +3,10 @@ import datetime
 import io
 import logging
 import re
-import requests
 import urllib
 import urllib.parse
+
+import requests
 from django.conf import settings
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.auth.models import User

@@ -2,6 +2,7 @@
 Django settings for webapp project.
 """
 import os
+
 from django.conf.locale.en import formats as en_formats
 
 en_formats.DATETIME_FORMAT = "Y-m-d H:i:s"

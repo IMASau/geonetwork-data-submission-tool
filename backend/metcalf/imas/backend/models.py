@@ -2,8 +2,9 @@ import copy
 import json
 import logging
 import traceback
-import treebeard.ns_tree as ns_tree
 import uuid
+
+import treebeard.ns_tree as ns_tree
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models

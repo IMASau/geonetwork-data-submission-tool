@@ -1,6 +1,7 @@
+from io import StringIO
+
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
-from io import StringIO
 
 from metcalf.tern.backend.models import DataFeed
 

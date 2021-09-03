@@ -1,6 +1,9 @@
 import shutil
 import stat
 import urllib.parse
+from tempfile import TemporaryFile, NamedTemporaryFile
+from zipfile import ZipFile, ZipInfo
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -23,8 +26,6 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from tempfile import TemporaryFile, NamedTemporaryFile
-from zipfile import ZipFile, ZipInfo
 
 from metcalf.common.spec import *
 from metcalf.common.utils import to_json, get_exception_message

@@ -1,8 +1,9 @@
 import json
 import os
 import re
-from django.contrib.sites.models import Site
 from urllib.parse import urlsplit
+
+from django.contrib.sites.models import Site
 
 from metcalf.common.xmlutils import *
 

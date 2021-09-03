@@ -1,6 +1,7 @@
-import requests
 import urllib
 import urllib.parse
+
+import requests
 from django.contrib import admin
 from django.contrib import messages
 from django.contrib.admin import widgets

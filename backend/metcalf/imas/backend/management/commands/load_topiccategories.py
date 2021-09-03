@@ -1,5 +1,7 @@
 import datetime
 import logging
+from urllib.request import urlopen
+
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -7,7 +9,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from lxml import etree
-from urllib.request import urlopen
 
 from metcalf.imas.backend.models import TopicCategory
 

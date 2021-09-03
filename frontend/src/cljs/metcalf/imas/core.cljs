@@ -1,6 +1,6 @@
 (ns metcalf.imas.core
   (:require [clojure.string :refer [blank?]]
-            [imas.metcalf.config]
+            [metcalf.imas.config]
             [metcalf3.routing :as router]
             [metcalf3.views :refer [AppRoot]]
             [re-frame.core :as rf]

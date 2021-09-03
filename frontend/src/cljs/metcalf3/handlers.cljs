@@ -11,7 +11,8 @@
 
 (defn init-db
   [_ _]
-  (let [db' (logic/initial-state (js->clj (aget js/window "payload") :keywordize-keys true))]
+  (let [payload (js->clj (aget js/window "payload") :keywordize-keys true)
+        db' (logic/initial-state payload)]
     {:db         db'
      :dispatch-n (for [api-key (keys (get db' :api))]
                    [:handlers/load-api-options [:api api-key]])}))

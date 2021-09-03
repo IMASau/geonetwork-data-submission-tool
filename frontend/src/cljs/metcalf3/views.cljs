@@ -2035,7 +2035,6 @@
     [:div
      [:span.progressPercentage (str (int (* value 100)) "%")]
      [bp3/progress-bar {:animate false
-                        :style   {:height "25px"}
                         :intent  (if can-submit? "success" "warning")
                         :stripes false
                         :value   value}]]))
@@ -2063,7 +2062,7 @@
            (conj
              [bp3/tabs-expander]
              (when-not disabled
-               [:div {:style {:width 150 :height 20}}
+               [:div {:style {:width 200 :height 25}}
                 (conj [:div.hidden-xs.hidden-sm
                        [progress-bar]])])))])))
 

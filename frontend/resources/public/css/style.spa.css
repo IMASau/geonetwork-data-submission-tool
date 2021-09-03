@@ -335,15 +335,6 @@ body {
 .PageViewBody {
     border: 1px solid #ccc;
     padding: 1em;
-}
-
-.PageViewBody {
-    margin-top: 0;
-}
-
-.Home .PageViewBody {
-    /*padding-top: 0;*/
-    border-top: 0;
     margin-top: 0;
 }
 
@@ -769,8 +760,12 @@ body {
     position: absolute;
     text-align: center;
     color: white;
-    width: 150px;
+    width: 200px;
     z-index: 9999;
+}
+
+.bp3-progress-bar {
+    height: 15px;
 }
 
 /****************************/

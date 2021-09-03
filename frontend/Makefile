@@ -1,7 +1,9 @@
 clean:
 	rm -fR src/gen/* resources/public/js/*
 
-figwheel:
+figwheel: watch
+
+watch:
 	# init yarn
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \

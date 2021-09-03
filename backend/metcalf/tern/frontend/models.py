@@ -1,3 +1,5 @@
+from django.db import models
+
 from metcalf.common.models import AbstractSiteContent
 
 

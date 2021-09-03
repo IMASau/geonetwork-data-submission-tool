@@ -104,7 +104,7 @@ INSTALLED_APPS = [
     "fsm_admin",
     "imagekit",
     "metcalf.imas.backend",
-    "metcalf.imas.frontend.config.FrontendConfig",
+    "metcalf.imas.frontend",
     'allauth',
     'allauth.account',
     "bootstrap3",

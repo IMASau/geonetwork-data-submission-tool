@@ -446,7 +446,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                     element = valueChildren[0]
                 else:
                     msg = 'element %s had an incorrect number of valueChild results (%d)' % (
-                    get_xpath(spec), len(valueChildren))
+                        get_xpath(spec), len(valueChildren))
                     if silent:
                         logger.warning(msg)
                     else:

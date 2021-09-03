@@ -1,13 +1,11 @@
 import csv
-import io
-
 import datetime
+import io
 import logging
+import re
+import requests
 import urllib
 import urllib.parse
-import re
-
-import requests
 from django.conf import settings
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.auth.models import User
@@ -18,8 +16,8 @@ from django.db import transaction
 
 from metcalf.tern.backend.models import Person
 
-
 logger = logging.getLogger(__name__)
+
 
 class Command(BaseCommand):
     help = 'Refresh person list from online'
@@ -40,11 +38,10 @@ class Command(BaseCommand):
                 tern_persons = self._fetch_sparql()
                 new_persons = []
 
-
                 new_count = 0
                 for person in tern_persons:
                     new_count = new_count + 1
-                    #if a user added person with the same uri exists delete them
+                    # if a user added person with the same uri exists delete them
                     try:
                         inst = Person.objects.get(uri=person.uri)
                         inst.delete()
@@ -68,7 +65,6 @@ class Command(BaseCommand):
             import traceback
             logger.error(traceback.format_exc())
             raise
-
 
     def _admin_pk(self, **options):
         "Normalise the admin user id, guessing if not specified"
@@ -96,21 +92,21 @@ class Command(BaseCommand):
 
     @staticmethod
     def _fetch_sparql():
-        _query = urllib.parse.quote( 'PREFIX schema: <http://schema.org/> '
-                                      'PREFIX tern-org: <https://w3id.org/tern/ontologies/org/> '
-                                      'select * '
-                                      'from <https://w3id.org/tern/resources/> '
-                                      'where { '
-                                      '    ?s a schema:Person ; '
-                                      '       schema:givenName ?givenName ; '
-                                      '       schema:familyName ?familyName . '
-                                      '    OPTIONAL { ?s schema:honorificPrefix ?honorificPrefix } '
-                                      '    OPTIONAL { ?s schema:jobTitle ?jobTitle } '
-                                      '   OPTIONAL { ?s schema:email ?email } '
-                                      '    OPTIONAL { ?s tern-org:orcID ?orcID } '
-                                      '    OPTIONAL { ?s schema:telephone ?telephone } '
-                                      '} '
-                                      'ORDER BY asc(?familyName) ')
+        _query = urllib.parse.quote('PREFIX schema: <http://schema.org/> '
+                                    'PREFIX tern-org: <https://w3id.org/tern/ontologies/org/> '
+                                    'select * '
+                                    'from <https://w3id.org/tern/resources/> '
+                                    'where { '
+                                    '    ?s a schema:Person ; '
+                                    '       schema:givenName ?givenName ; '
+                                    '       schema:familyName ?familyName . '
+                                    '    OPTIONAL { ?s schema:honorificPrefix ?honorificPrefix } '
+                                    '    OPTIONAL { ?s schema:jobTitle ?jobTitle } '
+                                    '   OPTIONAL { ?s schema:email ?email } '
+                                    '    OPTIONAL { ?s tern-org:orcID ?orcID } '
+                                    '    OPTIONAL { ?s schema:telephone ?telephone } '
+                                    '} '
+                                    'ORDER BY asc(?familyName) ')
         url = "https://graphdb-850.tern.org.au/repositories/knowledge_graph_core?query={query}".format(query=_query)
         response = requests.get(
             url, headers={'Accept': 'text/csv'},
@@ -120,14 +116,14 @@ class Command(BaseCommand):
             raise CommandError('Error loading the persons vocabulary. Aborting. Error was {}'.format(response.content))
         reader = csv.DictReader(io.StringIO(response.text, newline=""), skipinitialspace=True)
         for row in reader:
-            orcid = (row['orcID'] or '').replace('https://orcid.org/','')
+            orcid = (row['orcID'] or '').replace('https://orcid.org/', '')
             if re.match(r"0000-000(1-[5-9]|2-[0-9]|3-[0-4])\d\d\d-\d\d\d[\dX]", orcid) is None:
                 orcid = ''
-            yield Person (
+            yield Person(
                 uri=row['s'],
-                #TODO: Originally person:org was a 1:1 relationship but now it's 1:many
-                #just don't include it until we figure out a new approach
-                #orgUri=row['memberOf'],
+                # TODO: Originally person:org was a 1:1 relationship but now it's 1:many
+                # just don't include it until we figure out a new approach
+                # orgUri=row['memberOf'],
                 familyName=row['familyName'],
                 givenName=row['givenName'],
                 honorificPrefix=row['honorificPrefix'],

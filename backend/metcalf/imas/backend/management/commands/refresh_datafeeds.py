@@ -1,8 +1,9 @@
-from django.core.management.base import BaseCommand
 from django.core.management import call_command
+from django.core.management.base import BaseCommand
+from io import StringIO
 
 from metcalf.imas.backend.models import DataFeed
-from io import StringIO
+
 
 class Command(BaseCommand):
     help = "Run any scheduled datafeed refresh requests.  Run via a cron job."
@@ -16,9 +17,9 @@ class Command(BaseCommand):
             try:
                 call_command(datafeed.name, stdout=buf)
                 buf.seek(0)
-                datafeed.success("Success.\n\n"+buf.read())
+                datafeed.success("Success.\n\n" + buf.read())
                 datafeed.save()
             except:
-                datafeed.failure("Failure.\n\n"+buf.read())
+                datafeed.failure("Failure.\n\n" + buf.read())
                 datafeed.save()
                 raise

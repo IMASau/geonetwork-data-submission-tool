@@ -20,11 +20,10 @@ router.register(r'samplingfrequency', viewsets.SamplingFrequencyViewSet)
 router.register(r'horizontalresolution', viewsets.HorizontalResolutionViewSet)
 router.register(r'topiccategory', viewsets.TopicCategoryViewSet)
 
-
 urlpatterns = [
     path('', home, name="LandingPage"),
-    path('wp-login.php', home, name="LandingPage"), # legacy links
-    path('portal/home?uuid=<uuid:uuid>/', edit, name="Edit"), # legacy links
+    path('wp-login.php', home, name="LandingPage"),  # legacy links
+    path('portal/home?uuid=<uuid:uuid>/', edit, name="Edit"),  # legacy links
     path('dashboard/', dashboard, name="Dashboard"),
     path('edit/<uuid:uuid>/', edit, name="Edit"),
     path('save/<uuid:uuid>/', save, name="Save"),

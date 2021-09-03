@@ -20,10 +20,9 @@ router.register(r'samplingfrequency', viewsets.SamplingFrequencyViewSet)
 router.register(r'horizontalresolution', viewsets.HorizontalResolutionViewSet)
 router.register(r'topiccategory', viewsets.TopicCategoryViewSet)
 
-
 urlpatterns = [
     path('', home, name="LandingPage"),
-    path('portal/home?uuid=<uuid:uuid>/', edit, name="Edit"), # legacy link
+    path('portal/home?uuid=<uuid:uuid>/', edit, name="Edit"),  # legacy link
     path('dashboard/', dashboard, name="Dashboard"),
     path('edit/<uuid:uuid>/', edit, name="Edit"),
     path('save/<uuid:uuid>/', save, name="Save"),

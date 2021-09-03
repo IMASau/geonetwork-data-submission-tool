@@ -1,7 +1,6 @@
+import subprocess
 from django import template
 from django.conf import settings
-
-import subprocess
 
 register = template.Library()
 
@@ -14,6 +13,7 @@ def GMAPS_API_KEY():
 @register.simple_tag
 def FRONTEND_DEV_MODE():
     return settings.FRONTEND_DEV_MODE
+
 
 @register.simple_tag
 def GIT_VERSION():

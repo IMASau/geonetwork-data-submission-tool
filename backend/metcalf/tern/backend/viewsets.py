@@ -1,12 +1,13 @@
 # TODO: Suspect this could go into tern.api app
 # TODO: Suspect this could go into metcalf.api app (common stuff)
 
-import metcalf.tern.backend.models as models
-import metcalf.tern.backend.serializers as serializers
 import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
-from metcalf.tern.frontend.filters import ParentFilter
 from rest_framework import viewsets, filters
+
+import metcalf.tern.backend.models as models
+import metcalf.tern.backend.serializers as serializers
+from metcalf.tern.frontend.filters import ParentFilter
 
 
 class InstitutionViewSet(viewsets.ModelViewSet):

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from metcalf.imas.frontend.models import SiteContent
 from metcalf.imas.frontend.forms import SiteContentForm
+from metcalf.imas.frontend.models import SiteContent
 
 
 class SiteContentAdmin(admin.ModelAdmin):

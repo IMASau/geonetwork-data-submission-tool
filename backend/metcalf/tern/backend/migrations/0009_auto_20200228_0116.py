@@ -18,7 +18,6 @@ def add_extra_keywords(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('backend', '0008_initial_data'),
     ]

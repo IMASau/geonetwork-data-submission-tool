@@ -1,9 +1,8 @@
-from django.template.loader import render_to_string
-from django.core.mail import EmailMultiAlternatives
-
-from django.contrib.sites.models import Site
 from django.conf import settings
+from django.contrib.sites.models import Site
+from django.core.mail import EmailMultiAlternatives
 from django.template import Context, Template
+from django.template.loader import render_to_string
 
 
 def get_site(doc):

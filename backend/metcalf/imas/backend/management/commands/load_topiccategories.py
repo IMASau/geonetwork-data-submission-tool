@@ -1,6 +1,5 @@
 import datetime
 import logging
-
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -12,8 +11,8 @@ from urllib.request import urlopen
 
 from metcalf.imas.backend.models import TopicCategory
 
-
 logger = logging.getLogger(__name__)
+
 
 class Command(BaseCommand):
     help = 'Refresh topic categories list from online'
@@ -34,11 +33,14 @@ class Command(BaseCommand):
                     xml = etree.parse(f)
                     namespaces = {'cat': 'http://standards.iso.org/iso/19115/-3/cat/1.0',
                                   'gco': 'http://standards.iso.org/iso/19115/-3/gco/1.0'}
-                    results = xml.findall('.//cat:codelistItem/cat:CT_Codelist[@id="MD_TopicCategoryCode"]/cat:codeEntry/cat:CT_CodelistValue', namespaces)
+                    results = xml.findall(
+                        './/cat:codelistItem/cat:CT_Codelist[@id="MD_TopicCategoryCode"]/cat:codeEntry/cat:CT_CodelistValue',
+                        namespaces)
                     for result in results:
-                        identifier = result.findtext('.//cat:identifier/gco:ScopedName',default='Nope', namespaces=namespaces)
-                        name = result.findtext('.//cat:name/gco:ScopedName',default='Nope',namespaces=namespaces)
-                        topic_categories.append(TopicCategory(identifier=identifier,name=name))
+                        identifier = result.findtext('.//cat:identifier/gco:ScopedName', default='Nope',
+                                                     namespaces=namespaces)
+                        name = result.findtext('.//cat:name/gco:ScopedName', default='Nope', namespaces=namespaces)
+                        topic_categories.append(TopicCategory(identifier=identifier, name=name))
 
                 if not topic_categories:
                     raise CommandError('No role codes found, assuming error; aborting')
@@ -58,7 +60,6 @@ class Command(BaseCommand):
             import traceback
             logger.error(traceback.format_exc())
             raise
-
 
     def _admin_pk(self, **options):
         "Normalise the admin user id, guessing if not specified"

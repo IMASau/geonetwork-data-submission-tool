@@ -1,18 +1,14 @@
 import uuid
-
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-from django_fsm import FSMField
 from jsonfield import JSONField
 from lxml import etree
 
-from metcalf.common.emails import *
 from metcalf.common.utils import no_spaces_in_filename
 
 
 class AbstractDataFeed(models.Model):
-
     name = models.SlugField()
 
     last_refresh = models.DateTimeField(blank=True, null=True)
@@ -52,7 +48,6 @@ class AbstractContributor(models.Model):
 
 
 class AbstractDocument(models.Model):
-
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     template = models.ForeignKey("MetadataTemplate", on_delete=models.SET_NULL, null=True)
     title = models.TextField(default="Untitled")

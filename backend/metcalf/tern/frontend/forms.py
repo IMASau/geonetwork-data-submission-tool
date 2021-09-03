@@ -1,5 +1,6 @@
-from metcalf.tern.backend.models import DocumentAttachment
 from django import forms
+
+from metcalf.tern.backend.models import DocumentAttachment
 
 
 class SiteContentForm(forms.ModelForm):

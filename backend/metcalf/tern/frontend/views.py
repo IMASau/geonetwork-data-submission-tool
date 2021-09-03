@@ -1,11 +1,6 @@
 import shutil
 import stat
 import urllib.parse
-from metcalf.tern.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
-    AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
-from metcalf.common.spec import *
-from metcalf.common.utils import to_json, get_exception_message
-from metcalf.common.xmlutils import extract_fields, data_to_xml
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -20,11 +15,7 @@ from django.urls import reverse
 from django.utils.encoding import smart_text
 from django_fsm import has_transition_perm
 from elasticsearch_dsl import connections
-from metcalf.tern.frontend.forms import DocumentAttachmentForm
-from metcalf.tern.frontend.models import SiteContent
-from metcalf.tern.frontend.permissions import is_document_editor
 from lxml import etree
-from metcalf.tern.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, SiteContentSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -34,6 +25,17 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from tempfile import TemporaryFile, NamedTemporaryFile
 from zipfile import ZipFile, ZipInfo
+
+from metcalf.common.spec import *
+from metcalf.common.utils import to_json, get_exception_message
+from metcalf.common.xmlutils import extract_fields, data_to_xml
+from metcalf.tern.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
+    AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
+from metcalf.tern.frontend.forms import DocumentAttachmentForm
+from metcalf.tern.frontend.models import SiteContent
+from metcalf.tern.frontend.permissions import is_document_editor
+from metcalf.tern.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
+    SiteContentSerializer
 
 
 def theme_keywords():

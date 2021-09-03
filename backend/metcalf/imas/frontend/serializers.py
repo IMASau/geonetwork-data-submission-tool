@@ -1,8 +1,9 @@
-from metcalf.imas.backend.models import Document, DocumentAttachment
 from django.contrib.auth.models import User
 from django.urls import reverse
-from metcalf.imas.frontend.models import SiteContent
 from rest_framework import serializers
+
+from metcalf.imas.backend.models import Document, DocumentAttachment
+from metcalf.imas.frontend.models import SiteContent
 
 
 class UserSerializer(serializers.ModelSerializer):

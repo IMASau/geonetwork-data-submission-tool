@@ -2,8 +2,6 @@
 Django settings for TERN webapp project.
 """
 
-from .settings import *
-
 DEBUG = False
 
 DATABASES = {
@@ -53,7 +51,6 @@ FRONTEND_DEV_MODE = False
 ELASTICSEARCH_VERIFY_SSL = True
 
 LOGIN_URL = "/oidc/authenticate"
-
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 USE_X_FORWARDED_HOST = True

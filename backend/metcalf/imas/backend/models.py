@@ -2,9 +2,8 @@ import copy
 import json
 import logging
 import traceback
-import uuid
-
 import treebeard.ns_tree as ns_tree
+import uuid
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -19,7 +18,6 @@ from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, 
 from metcalf.common.spec import make_spec
 from metcalf.common.utils import to_json, get_exception_message, get_user_name
 from metcalf.common.xmlutils import extract_xml_data, data_to_xml, extract_fields
-
 
 User.add_to_class("__str__", get_user_name)
 
@@ -55,7 +53,6 @@ class MetadataTemplate(AbstractMetadataTemplate):
 
 
 class DataFeed(AbstractDataFeed):
-
     IDLE = 'Idle'
     SCHEDULED = 'Scheduled'
     ACTIVE = 'Active'

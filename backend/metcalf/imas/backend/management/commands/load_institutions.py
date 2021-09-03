@@ -1,12 +1,10 @@
 import csv
-import io
-
 import datetime
+import io
 import logging
+import requests
 import urllib
 import urllib.parse
-
-import requests
 from django.conf import settings
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.auth.models import User
@@ -16,7 +14,6 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
 from metcalf.imas.backend.models import Institution
-
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +44,7 @@ class Command(BaseCommand):
                 for tern_institution in tern_institutions:
                     institution_count = institution_count + 1
                     tern_institution.organisationName = tern_institution.altLabel or tern_institution.prefLabel
-                    #if a user added institutions with the same uri exists delete them
+                    # if a user added institutions with the same uri exists delete them
                     try:
                         inst = Institution.objects.get(uri=tern_institution.uri)
                         inst.delete()
@@ -72,7 +69,6 @@ class Command(BaseCommand):
             import traceback
             logger.error(traceback.format_exc())
             raise
-
 
     def _admin_pk(self, **options):
         "Normalise the admin user id, guessing if not specified"
@@ -126,12 +122,13 @@ class Command(BaseCommand):
             auth=(settings.GRAPHDB_USER, settings.GRAPHDB_PASS)
         )
         if not response.ok:
-            raise CommandError('Error loading the institutions vocabulary. Aborting. Error was {}'.format(response.content))
+            raise CommandError(
+                'Error loading the institutions vocabulary. Aborting. Error was {}'.format(response.content))
         reader = csv.DictReader(io.StringIO(response.text, newline=""), skipinitialspace=True)
         for row in reader:
             # TODO: we make unique entries for ORG - Site ....
             #       can't use uri as primary key ... need org and site uri as primary key
-            yield Institution (
+            yield Institution(
                 uri=row['org'],
                 prefLabel=row['name'],
                 altLabel=row['name'],
@@ -139,8 +136,8 @@ class Command(BaseCommand):
                 postalCode=row['postalCode'],
                 country=row['addressCountry'],
                 city=row['addressLocality'],
-                administrativeArea=row.get('addressRegion',''),
-                #not present in TERN data
+                administrativeArea=row.get('addressRegion', ''),
+                # not present in TERN data
                 exactMatch='',
                 isUserAdded=False
             )

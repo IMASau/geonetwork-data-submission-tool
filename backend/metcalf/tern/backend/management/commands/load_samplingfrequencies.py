@@ -1,20 +1,18 @@
 import datetime
 import logging
-
 from django.contrib.admin.models import CHANGE, LogEntry
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
-from urllib.request import urlopen
-
 from lxml import etree
+from urllib.request import urlopen
 
 from metcalf.tern.backend.models import SamplingFrequency
 
-
 logger = logging.getLogger(__name__)
+
 
 class Command(BaseCommand):
     help = 'Refresh sampling frequencies list from online'
@@ -44,7 +42,8 @@ class Command(BaseCommand):
                             uri = 'https://gcmd.nasa.gov/kms/concept/{uuid}.xml'.format(uuid=uuid)
                             prefLabel = freq.attrib['prefLabel']
                             prefLabelSortText = freq.attrib.get('prefLabelSortText', prefLabel)
-                            sampling_frequencies.append(SamplingFrequency(uri=uri, prefLabel=prefLabel, prefLabelSortText=prefLabelSortText))
+                            sampling_frequencies.append(
+                                SamplingFrequency(uri=uri, prefLabel=prefLabel, prefLabelSortText=prefLabelSortText))
 
                 if not sampling_frequencies:
                     raise CommandError('No sampling frequencies found, assuming error; aborting')
@@ -54,14 +53,14 @@ class Command(BaseCommand):
                     user_id=adminpk,
                     content_type_id=ContentType.objects.get_for_model(SamplingFrequency).pk,
                     object_id='',  # Hack; this disables the link in the admin log
-                    object_repr=u'Refreshed sampling frequency list - {:%Y-%m-%d %H:%M}'.format(datetime.datetime.utcnow()),
+                    object_repr=u'Refreshed sampling frequency list - {:%Y-%m-%d %H:%M}'.format(
+                        datetime.datetime.utcnow()),
                     action_flag=CHANGE)
             logger.info("Finished loading {} sampling frequencies".format(SamplingFrequency.objects.count()))
         except:
             import traceback
             logger.error(traceback.format_exc())
             raise
-
 
     def _admin_pk(self, **options):
         "Normalise the admin user id, guessing if not specified"

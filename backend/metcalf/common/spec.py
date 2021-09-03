@@ -1,9 +1,10 @@
 import json
 import os
 import re
-from metcalf.common.xmlutils import *
 from django.contrib.sites.models import Site
 from urllib.parse import urlsplit
+
+from metcalf.common.xmlutils import *
 
 
 def insert_node_groups(spec, node_groups):

@@ -1,8 +1,9 @@
-from metcalf.tern.backend.models import Document, DocumentAttachment
 from django.contrib.auth.models import User
 from django.urls import reverse
-from metcalf.tern.frontend.models import SiteContent
 from rest_framework import serializers
+
+from metcalf.tern.backend.models import Document, DocumentAttachment
+from metcalf.tern.frontend.models import SiteContent
 
 
 class UserSerializer(serializers.ModelSerializer):

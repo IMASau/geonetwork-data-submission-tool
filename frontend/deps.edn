@@ -9,12 +9,15 @@
          com.andrewmcveigh/cljs-time {:mvn/version "0.5.2"}
          binaryage/devtools          {:mvn/version "1.0.3"}
          binaryage/oops              {:mvn/version "0.7.0"}
-         reagent                     {:mvn/version "0.9.1"}
-         re-frame                    {:mvn/version "1.1.1"}}
+         reagent/reagent             {:mvn/version "0.9.1"}
+         re-frame/re-frame           {:mvn/version "1.1.1"}}
  :aliases
         {:shadow-cljs
          {:extra-deps {thheller/shadow-cljs {:mvn/version "2.15.2"}}}
          :lint-ns
          {:replace-deps {com.github.clojure-lsp/clojure-lsp {:mvn/version "2021.08.03-13.33.03"}}
           :exec-fn      clojure-lsp.api/clean-ns!
-          :exec-args    {:dry? false :verbose true}}}}
+          :exec-args    {:dry? false :verbose true}}
+         :clj-kondo
+         {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.08.06"}}
+          :main-opts  ["-m" "clj-kondo.main"]}}}

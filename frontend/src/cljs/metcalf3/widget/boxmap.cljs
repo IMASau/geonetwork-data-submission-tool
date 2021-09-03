@@ -1,6 +1,5 @@
 (ns metcalf3.widget.boxmap
-  (:require [cljs.spec.alpha :as s]
-            [goog.object :as gobj]
+  (:require [goog.object :as gobj]
             [interop.blueprint :as bp3]
             [interop.ui :as ui]
             [reagent.core :as r]))

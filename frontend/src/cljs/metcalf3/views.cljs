@@ -201,9 +201,9 @@
                :onChange    #(rf/dispatch (conj change-v %))
                :inputProps  {:leftIcon "calendar"
                              :intent   intent}}
-        minDate (assoc :minDate minDate)
-        (not minDate) (assoc :minDate defMinDate)
-        maxDate (assoc :maxDate maxDate))]]))
+              minDate (assoc :minDate minDate)
+              (not minDate) (assoc :minDate defMinDate)
+              maxDate (assoc :maxDate maxDate))]]))
 
 (defn OptionWidget [props]
   (let [[value display] props]
@@ -1769,19 +1769,18 @@
 
 (defn navbar
   []
-  (let [{:keys [Dashboard]} @(rf/subscribe [:subs/get-derived-path [:context :urls]])
+  (let [{:keys [Dashboard account_profile]} @(rf/subscribe [:subs/get-derived-path [:context :urls]])
         {:keys [user]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        {:keys [guide_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])]
+        {:keys [title tag_line guide_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])]
     [bp3/navbar {:className "bp3-dark"}
-     [bp3/navbar {:className "container"}
+     [:div.container
       [bp3/navbar-group {:align (:LEFT bp3/alignment)}
-       ; [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading title]]
-       ]
+       [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading (str title " " tag_line)]]]
       [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
-       [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)]
-       [:a.bp3-button.bp3-minimal {:href Dashboard} "My Records"]
+       (if account_profile
+         [:a.bp3-button.bp3-minimal {:href account_profile} (userDisplay user)]
+         [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)])
        [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
-       ;; [help-menu]
        [:a.bp3-button.bp3-minimal {:href "/logout"} "Sign Out"]]]]))
 
 (defn PageView404
@@ -2034,7 +2033,7 @@
 (defn progress-bar []
   (when-let [{:keys [can-submit? value]} @(rf/subscribe [:progress/get-props])]
     [:div
-     [:span {:class "progressPercentage"} (str (int (* value 100)) "%")]
+     [:span.progressPercentage (str (int (* value 100)) "%")]
      [bp3/progress-bar {:animate false
                         :style   {:height "25px"}
                         :intent  (if can-submit? "success" "warning")
@@ -2073,7 +2072,7 @@
   (letfn [(render [_]
             (let [page @(rf/subscribe [:subs/get-page-props])
                   saving (::handlers/saving? page)
-                  {:keys [urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
+                  {:keys [urls user]} @(rf/subscribe [:subs/get-derived-path [:context]])
                   {:keys [dirty disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
                   {:keys [status title last_updated]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
               [:div
@@ -2095,9 +2094,13 @@
                      saving " Saving..."
                      dirty " Save"
                      :else " Saved")]]
-                 [:p.lead [:b (if (blank? title) "Untitled" title)]
-                  "   "
+                 [:p.lead
+                  [:strong (userDisplay user)]
+                  " / "
+                  (if (blank? title) "Untitled" title)
+                  " "
                   [:span.label.label-info {:style {:font-weight "normal"}} status]
+                  [:br]
                   [:small [:i {:style {:color     "#aaa"
                                        :font-size "1em"}}
                            "Last edited " (moment/from-now last_updated)]]]]]
@@ -2178,8 +2181,9 @@
      [:p.lead.list-group-item-heading
       [:span.link {:on-click on-edit-click}
        title]
-      " "
-      [:span.label.label-info {:style {:font-weight "normal"}} status]]
+      " "
+      [:span.label.label-info {:style {:font-weight "normal"}} status]
+      " "]
      [:p.list-group-item-text
       [:i {:style {:color     "#aaa"
                    :font-size "0.9em"}}

@@ -56,6 +56,7 @@ def master_urls():
         "LandingPage": reverse("LandingPage"),
         "Dashboard": reverse("Dashboard"),
         "Create": reverse("Create"),
+        "account_profile": reverse("account_profile"),
         "STATIC_URL": settings.STATIC_URL,
     }
 
@@ -142,6 +143,7 @@ def clone(request, uuid):
     is_document_editor(request, orig_doc)
     try:
         doc = Document.objects.clone(orig_doc, request.user)
+
         return Response({"message": "Cloned",
                          "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
     except RuntimeError as e:

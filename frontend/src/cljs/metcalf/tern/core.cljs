@@ -1,6 +1,6 @@
-(ns metcalf3.core
+(ns metcalf.tern.core
   (:require [clojure.string :refer [blank?]]
-            [metcalf3.config]
+            [metcalf.tern.config]
             [metcalf3.fx]
             [metcalf3.handlers]
             [metcalf3.routing :as router]

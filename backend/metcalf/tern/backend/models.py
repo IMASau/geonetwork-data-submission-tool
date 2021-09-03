@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
-from django_fsm import transition
+from django_fsm import transition, FSMField
 from lxml import etree
 from rest_framework.renderers import JSONRenderer
 
@@ -58,6 +58,19 @@ class MetadataTemplate(AbstractMetadataTemplate):
 
 
 class DataFeed(AbstractDataFeed):
+
+    IDLE = 'Idle'
+    SCHEDULED = 'Scheduled'
+    ACTIVE = 'Active'
+
+    STATUS_CHOICES = (
+        (IDLE, IDLE),
+        (SCHEDULED, SCHEDULED),
+        (ACTIVE, ACTIVE),
+    )
+
+    state = FSMField(default=SCHEDULED, choices=STATUS_CHOICES)
+
     # FIXME abstract model has this in Meta. Does it need to be here or there?
     class Meta:
         permissions = (
@@ -66,30 +79,30 @@ class DataFeed(AbstractDataFeed):
             ("datafeed_admin", "Can administer datafeed"),
         )
 
-    @transition(field=AbstractDataFeed.state, source=[AbstractDataFeed.IDLE], target=AbstractDataFeed.SCHEDULED,
+    @transition(field=state, source=[IDLE], target=SCHEDULED,
                 permission='backend.datafeed_schedule')
     def schedule(self):
         pass
 
-    @transition(field=AbstractDataFeed.state, source=[AbstractDataFeed.SCHEDULED], target=AbstractDataFeed.IDLE,
+    @transition(field=state, source=[SCHEDULED], target=IDLE,
                 permission='backend.datafeed_unschedule')
     def unschedule(self):
         pass
 
-    @transition(field=AbstractDataFeed.state, source=[AbstractDataFeed.SCHEDULED], target=AbstractDataFeed.ACTIVE,
+    @transition(field=state, source=[SCHEDULED], target=ACTIVE,
                 permission='backend.datafeed_admin')
     def start(self):
         self.last_refresh = timezone.now()
         self.last_output = ""
 
-    @transition(field=AbstractDataFeed.state, source=[AbstractDataFeed.ACTIVE], target=AbstractDataFeed.IDLE,
+    @transition(field=state, source=[ACTIVE], target=IDLE,
                 permission='backend.datafeed_admin')
     def success(self, msg=""):
         self.last_output = msg
         self.last_success = timezone.now()
         self.last_duration = self.last_success - self.last_refresh
 
-    @transition(field=AbstractDataFeed.state, source=[AbstractDataFeed.ACTIVE], target=AbstractDataFeed.IDLE,
+    @transition(field=state, source=[ACTIVE], target=IDLE,
                 permission='backend.datafeed_admin')
     def failure(self, msg=""):
         self.last_output = msg

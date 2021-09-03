@@ -12,19 +12,8 @@ from metcalf.common.utils import no_spaces_in_filename
 
 
 class AbstractDataFeed(models.Model):
-    IDLE = 'Idle'
-    SCHEDULED = 'Scheduled'
-    ACTIVE = 'Active'
-
-    STATUS_CHOICES = (
-        (IDLE, IDLE),
-        (SCHEDULED, SCHEDULED),
-        (ACTIVE, ACTIVE),
-    )
 
     name = models.SlugField()
-
-    state = FSMField(default=SCHEDULED, choices=STATUS_CHOICES)
 
     last_refresh = models.DateTimeField(blank=True, null=True)
     last_success = models.DateTimeField(blank=True, null=True)

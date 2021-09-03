@@ -1,6 +1,5 @@
 (ns metcalf3.low-code
-  (:require [re-frame.core :as rf]
-            [clojure.walk :as walk]))
+  (:require [clojure.walk :as walk]))
 
 (def ^:dynamic component-registry {})
 (def ^:dynamic template-registry {})

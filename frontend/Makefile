@@ -15,7 +15,7 @@ figwheel:
 		-v $(HOME)/.m2:/root/.m2 \
 		-p 127.0.0.1:9500:9500 \
 		clojure:openjdk-14-tools-deps-buster \
-		yarn shadow-cljs watch server metcalf3
+		yarn shadow-cljs watch server tern
 
 build:
 	# init yarn

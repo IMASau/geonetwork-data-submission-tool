@@ -22,20 +22,20 @@ build:
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
-		node:12-alpine \
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn
 	# transpile js components
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
-		node:12-alpine \
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn run build
 	# run shadow-cljs compile
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-v $${HOME}/.clojure:/root/.clojure \
 		-v $${HOME}/.m2:/root/.m2 \
-		clojure:openjdk-14-tools-deps-buster \
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn shadow-cljs compile metcalf3
 
 # TODO: generate as single css file?
@@ -74,4 +74,4 @@ release:
 		-v $(HOME)/.clojure:/root/.clojure \
 		-v $(HOME)/.m2:/root/.m2 \
 		clojure:openjdk-14-tools-deps-buster \
-		yarn shadow-cljs release metcalf3
+		yarn shadow-cljs release tern

@@ -18,6 +18,7 @@
             [metcalf3.content :refer [contact-groups]]
             [metcalf3.handlers :as handlers]
             [metcalf3.logic :as logic]
+            [metcalf3.low-code :as low-code]
             [metcalf3.utils :as utils]
             [metcalf3.widget.boxmap :as boxmap]
             [metcalf3.widget.modal :refer [Modal]]
@@ -1797,9 +1798,6 @@
        ;; [help-menu]
        [:a.bp3-button.bp3-minimal {:href "/logout"} "Sign Out"]]]]))
 
-(defmulti PageTabView (fn [page] [(get page :name)
-                                  (get page :tab :data-identification)]))
-
 (defn PageView404
   [_]
   (let [{:keys [name]} @(rf/subscribe [:subs/get-page-props])]
@@ -1814,58 +1812,6 @@
       [:div.PageViewBody
        [:p.lead "Oops! " (pr-str text)]
        [:p "The server responded with a " [:code code " " (pr-str text)] " error."]]]]))
-
-(defmethod PageTabView ["Edit" :data-identification]
-  [_]
-  [:div
-   [PageErrors {:page :data-identification :path [:form]}]
-   [:h2 "1. Data Identification"]
-   [InputField {:path [:form :fields :identificationInfo :title]}]
-   [date-field {:path       [:form :fields :identificationInfo :dateCreation]
-                :defMinDate #inst "1900-01-01"}]
-   [TopicCategories {:path [:form :fields :identificationInfo :topicCategory]}]
-   [SelectField {:path [:form :fields :identificationInfo :status]}]
-   [SelectField {:path [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]}]
-   [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]])
-
-(defmethod PageTabView ["Edit" :what]
-  [_]
-  [:div
-   [PageErrors {:page :what :path [:form]}]
-   [:h2 "2. What"]
-   [:span.abstract-textarea
-    [textarea-field {:path [:form :fields :identificationInfo :abstract]}]]
-   [:span.abstract-textarea
-    [textarea-field {:path [:form :fields :identificationInfo :purpose]}]]
-   [ThemeKeywords :keywordsTheme]
-   [ThemeKeywords :keywordsThemeAnzsrc]
-   [ThemeKeywordsExtra nil]
-   [TaxonKeywordsExtra nil]
-   [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]])
-
-(defmethod PageTabView ["Edit" :when]
-  [_]
-  [:div
-   [PageErrors {:page :when :path [:form]}]
-   [:h2 "3. When was the data acquired?"]
-   [date-field {:path       [:form :fields :identificationInfo :beginPosition]
-                :defMinDate #inst "1900-01-01"}]
-   [date-field {:path       [:form :fields :identificationInfo :endPosition]
-                :defMinDate #inst "1900-01-01"}]
-   [:div.row
-    [:div.col-md-4
-     [NasaListSelectField {:keyword :samplingFrequency
-                           :path    [:form :fields :identificationInfo]}]]]
-   [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]])
-
-(defmethod PageTabView ["Edit" :where]
-  [_]
-  [:div
-   [PageErrors {:page :where :path [:form]}]
-   [:h2 "4. Where"]
-   [GeographicCoverage]
-   [VerticalCoverage]
-   [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]])
 
 (defn CreditField [path]
   [:div.CreditField [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :credit])]])
@@ -1999,12 +1945,6 @@
       {:get-initial-state init-state
        :render            render})))
 
-(defmethod PageTabView ["Edit" :who]
-  [_]
-  [:div
-   [Who]
-   [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]])
-
 (defn MethodOrOtherForm
   "docstring"
   [path]
@@ -2034,16 +1974,6 @@
        :placeholder ""
        :add-label   "Add method"
        :field-path  path}]]))
-
-(defmethod PageTabView ["Edit" :how]
-  [_]
-  [:div
-   [PageErrors {:page :how :path [:form]}]
-   [:h2 "5: How"]
-   [Methods {:path [:form :fields :resourceLineage :processStep]}]
-   [textarea-field {:path [:form :fields :dataQualityInfo :methods]}]
-   [textarea-field {:path [:form :fields :dataQualityInfo :results]}]
-   [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]])
 
 
 (defn UseLimitationsFieldEdit [path]
@@ -2100,35 +2030,6 @@
      :add-label   "Add publication"
      :field-path  path}]])
 
-(defmethod PageTabView ["Edit" :about]
-  []
-  [:div
-   [PageErrors {:page :about :path [:form]}]
-   [:h2 "7: About Dataset"]
-   [:h4 "Data parameters"]
-   [DataParametersTable {:path [:form :fields :identificationInfo :dataParameters]}]
-   [:br]
-   [:h4 "Pixel Size"]
-   [:div.row
-    [:div.col-md-6
-     [NasaListSelectField {:keyword :horizontalResolution
-                           :path    [:form :fields :identificationInfo]}]]]
-   [:br]
-   [:h4 "Resource constraints"]
-   [ResourceConstraints]
-   [UseLimitations {:path [:form :fields :identificationInfo :useLimitations]}]
-   [:br]
-   [:h4 "Supplemental information"]
-   [SupportingResource {:path [:form :fields :supportingResources]}]
-   [SupplementalInformation [:form :fields :identificationInfo :supplementalInformation]]
-   [:br]
-   [:h4 "Distribution"]
-   [InputField {:path [:form :fields :distributionInfo :distributionFormat :name]}]
-   [InputField {:path [:form :fields :distributionInfo :distributionFormat :version]}]
-   [:span.abstract-textarea
-    [textarea-field {:path [:form :fields :resourceLineage :lineage]}]]
-   [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]])
-
 (defn DataSourceRowEdit [path]
   [:div
    [InputField {:path (conj path :value :description)}]
@@ -2144,23 +2045,6 @@
                     :form       DataSourceRowEdit
                     :title      "Data services"
                     :field-path path}]])
-
-(defmethod PageTabView ["Edit" :upload]
-  []
-  [:div
-   [PageErrors {:page :upload :path [:form]}]
-   [:h2 "8: Upload Data"]
-   [UploadData nil]
-   [:h2 "Data Services"]
-   [DataSources {:path [:form :fields :dataSources]}]
-   [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]])
-
-(defmethod PageTabView ["Edit" :lodge]
-  []
-  [:div
-   [PageErrors {:page :lodge :path [:form]}]
-   [:h2 "9: Lodge Metadata Draft"]
-   [Lodge]])
 
 (defn progress-bar []
   (when-let [{:keys [can-submit? value]} @(rf/subscribe [:progress/get-props])]
@@ -2235,8 +2119,7 @@
                [:div.Home.container
                 [edit-tabs]
                 [:div.PageViewBody
-                 [PageTabView page]
-                 ]]]))]
+                 [low-code/render-template {:template-id (get page :tab :data-identification)}]]]]))]
     (r/create-class
       {:render render})))
 

@@ -38,11 +38,13 @@
       (:email user))
     (str (:firstName user) " " (:lastName user))))
 
-(defn label-template [{:keys [label required]}]
+(defn label-template
+  [{:keys [label required]}]
   (when label
     [:label label (when required " *")]))
 
-(defn validation-state [{:keys [errors show-errors]}]
+(defn validation-state
+  [{:keys [errors show-errors]}]
   (when (and show-errors (seq errors))
     "has-error"))
 

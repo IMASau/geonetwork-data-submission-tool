@@ -1,10 +1,7 @@
 (ns metcalf.tern.core
   (:require [clojure.string :refer [blank?]]
             [metcalf.tern.config]
-            [metcalf3.fx]
-            [metcalf3.handlers]
             [metcalf3.routing :as router]
-            [metcalf3.subs]
             [metcalf3.views :refer [AppRoot]]
             [re-frame.core :as rf]
             [re-frame.db :refer [app-db]]

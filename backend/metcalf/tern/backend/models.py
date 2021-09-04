@@ -21,7 +21,6 @@ from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, 
 from metcalf.common.spec import make_spec
 from metcalf.common.utils import to_json, get_exception_message, get_user_name
 from metcalf.common.xmlutils import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
-from metcalf.tern.backend.storage import attachment_store, document_upload_path
 
 User.add_to_class("__str__", get_user_name)
 
@@ -330,9 +329,17 @@ class DraftMetadata(AbstractDraftMetadata):
         ordering = ["-time"]
 
 
-# TERN-specific storage.
-class DocumentAttachment(AbstractDocumentAttachment):
-    file = models.FileField(upload_to=document_upload_path, storage=attachment_store)
+if settings.USE_TERN_STORAGE:
+    from .storage import attachment_store, document_upload_path
+
+
+    class DocumentAttachment(AbstractDocumentAttachment):
+        file = models.FileField(upload_to=document_upload_path, storage=attachment_store)
+
+else:
+
+    class DocumentAttachment(AbstractDocumentAttachment):
+        pass
 
 
 # TODO: Should this be a separate app?  Does workflow complicate this?

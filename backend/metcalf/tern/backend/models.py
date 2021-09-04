@@ -131,8 +131,6 @@ class DocumentManager(models.Manager):
         return doc
 
 
-# TODO: Maybe an abstract document?
-# TODO:
 class Document(AbstractDocument):
     objects = DocumentManager()
 

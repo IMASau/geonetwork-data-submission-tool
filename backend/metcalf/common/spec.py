@@ -326,13 +326,12 @@ def write_doi(x):
     return 'doi: {doi}'.format(doi=x)
 
 
-# FIXME should not be in common
+# TODO: should not be in common
 def geonetwork_url(x):
     return 'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=x)
 
 
-# TODO: should be deployment specific
-
+# TODO: should not be in common
 SPEC_FUNCTIONS = {
     "massage_version_number": massage_version_number,
     "new_term_vocab_prune": new_term_vocab_prune,

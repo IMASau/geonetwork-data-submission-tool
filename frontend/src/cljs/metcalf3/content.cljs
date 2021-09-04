@@ -207,7 +207,7 @@
                                                                       :required    true
                                                                       :page        :what}}
                            :keywordsThemeExtra            {:keywords {:type        nil
-                                                                      :label       "Additional theme keywords"
+                                                                      :label       "Additional theme keywords for your data"
                                                                       :help        "Enter your own additional theme keywords as required and click + to add"
                                                                       :placeholder "Enter a theme keyword"
                                                                       :maxlength   100

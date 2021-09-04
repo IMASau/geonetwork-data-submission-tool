@@ -8,7 +8,7 @@ watch:
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
-		node:12-alpine \
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn
 	# run shadow-cljs watch
 	docker run --rm -it \
@@ -16,7 +16,7 @@ watch:
 		-v $(HOME)/.clojure:/root/.clojure \
 		-v $(HOME)/.m2:/root/.m2 \
 		-p 127.0.0.1:9500:9500 \
-		clojure:openjdk-14-tools-deps-buster \
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn shadow-cljs watch tern
 
 build:

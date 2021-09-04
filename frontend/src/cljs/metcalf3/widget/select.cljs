@@ -25,6 +25,7 @@
     (s/assert ifn? onChange)
     (s/assert ifn? formatOptionLabel)
     (s/assert string? placeholder)
+    (s/assert not-empty options)                            ; NOTE: not currently supported
 
     (ReactSelect*
       #js {:value            value

@@ -10,7 +10,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render_to_response, render
+from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from django.template import Context, Template
 from django.template.context_processors import csrf
@@ -168,13 +168,13 @@ def validation_results(request, uuid):
 
 # Error Pages
 def server_error(request):
-    response = render_to_response("errors/500.html")
+    response = render(request, "errors/500.html")
     response.status_code = 500
     return response
 
 
 def bad_request(request, exception):
-    response = render_to_response("errors/400.html")
+    response = render(request, "errors/400.html")
     response.status_code = 400
     return response
 
@@ -279,7 +279,7 @@ def home(request):
         'site': site
     }
     context['homepage_image_url'] = Template(site.sitecontent.homepage_image).render(Context(context)).strip()
-    return render_to_response("home.html", context)
+    return render(request, "home.html", context)
 
 
 def personFromData(data):
@@ -553,7 +553,7 @@ def logout_view(request):
 
 def robots_view(request):
     context = {}
-    return render_to_response("robots.txt", context, content_type="text/plain")
+    return render(request, "robots.txt", context, content_type="text/plain")
 
 
 @api_view(["GET", "POST"])

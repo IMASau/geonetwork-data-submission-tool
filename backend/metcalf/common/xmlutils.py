@@ -5,7 +5,7 @@ from copy import deepcopy
 from decimal import Decimal
 
 from django.apps import apps
-from django.utils.six import string_types
+from six import string_types
 
 logger = logging.getLogger(__name__)
 

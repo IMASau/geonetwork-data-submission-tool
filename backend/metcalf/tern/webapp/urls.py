@@ -22,7 +22,7 @@ else:
         path('accounts/', include('django.contrib.auth.urls')),
     ]
 
-handler404 = 'metcalf.tern.frontend.views.not_found'
+handler404 = 'django.views.defaults.page_not_found'
 handler500 = 'metcalf.tern.frontend.views.server_error'
-handler403 = 'metcalf.tern.frontend.views.permission_denied'
+handler403 = 'django.views.defaults.permission_denied'
 handler400 = 'metcalf.tern.frontend.views.bad_request'

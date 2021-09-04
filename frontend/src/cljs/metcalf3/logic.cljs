@@ -386,7 +386,7 @@
   "
   [state]
   (let [rule-path [:form :fields :who-authorRequired]
-        roles (for [[_group {:keys [path]}] (utils/enum contact-groups)]
+        roles (for [[_ {:keys [path]}] (utils/enum contact-groups)]
                 (for [field (get-in state (conj path :value))]
                   (get-in field [:value :role :value])))
         roles (apply concat roles)

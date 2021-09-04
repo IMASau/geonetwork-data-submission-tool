@@ -11,7 +11,7 @@
     "@blueprintjs/select": "^3.18.0",
     "@blueprintjs/table": "^3.9.2",
     "fixed-data-table-2": "1.2.0",
-    "leaflet": "1.6.0",
+    "leaflet": "1.7.1",
     "leaflet-draw": "1.0.4",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",

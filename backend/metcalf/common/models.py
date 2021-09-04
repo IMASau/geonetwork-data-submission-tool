@@ -1,6 +1,7 @@
 import uuid
 
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.db import models
 from django.urls import reverse
 from jsonfield import JSONField

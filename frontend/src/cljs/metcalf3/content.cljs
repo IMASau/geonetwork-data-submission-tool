@@ -139,7 +139,7 @@
                           {:title                         {:type        nil
                                                            :label       "Title"
                                                            :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
-                                                           :help        "Clear and concise description of the content of the resource"
+                                                           :help        "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"
                                                            :rows        3
                                                            :maxlength   250
                                                            :required    true
@@ -150,7 +150,7 @@
                                                            :page     :data-identification}
                            :topicCategory                 {:type        nil
                                                            :label       "Topic Categories"
-                                                           :placeholder "Search for topic categories"
+                                                           :placeholder "Select at least one topic category"
                                                            :required    true
                                                            :page        :data-identification}
                            :status                        {:type     nil

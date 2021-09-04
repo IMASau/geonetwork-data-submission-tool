@@ -5,8 +5,8 @@ import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, filters
 
-import metcalf.tern.backend.models as models
-import metcalf.tern.backend.serializers as serializers
+from metcalf.tern.backend import models
+from metcalf.tern.backend import serializers
 from metcalf.tern.frontend.filters import ParentFilter
 
 

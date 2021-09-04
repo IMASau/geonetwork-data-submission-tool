@@ -18,7 +18,3 @@
                         (route (->hash (get-in %4 path)))))
     (f)
     f))
-
-(defn stop! [a f]
-  (remove-watch a f)
-  (e/unlisten js/window et/HASHCHANGE f))

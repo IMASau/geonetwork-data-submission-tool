@@ -1,32 +1,6 @@
 (ns metcalf3.utils
-  (:require clojure.string
-            [goog.object :as gobject]))
-
-(defn error [& args]
-  (.apply (.-error js/console) js/console (to-array args))
-  (last args))
-
-(defn warn [& args]
-  (.apply (.-warn js/console) js/console (to-array args))
-  (last args))
-
-(defn info [& args]
-  (.apply (.-info js/console) js/console (to-array args))
-  (last args))
-
-(defn log [& args]
-  (.apply (.-log js/console) js/console (to-array args))
-  (last args))
-
-(defn debug [& args]
-  (.apply (.-debug js/console) js/console (to-array args))
-  (last args))
-
-(defn on-edge [m0 m1 ks on-set on-clr]
-  (let [v0 (get-in m0 ks)
-        v1 (get-in m1 ks)]
-    (when (and v0 (not v1)) (on-clr))
-    (when (and (not v0) v1) (on-set))))
+  (:require [goog.object :as gobject]
+            [cljs.spec.alpha :as s]))
 
 (defn on-change [m0 m1 ks f]
   (let [v0 (get-in m0 ks)
@@ -68,31 +42,19 @@
     (-lookup [o k] (gobject/get js-obj (name k)))
     (-lookup [o k not-found] (gobject/get js-obj (name k) not-found))))
 
-(defn js-lookup!
-  "Add ILookup protocol to js-obj."
-  [js-obj]
-  (specify! js-obj
-    ILookup
-    (-lookup
-      ([o k] (aget js-obj (name k)))
-      ([o k not-found] (gobject/get js-obj (name k) not-found)))))
-
 (defn fmap [f m]
   (into (empty m) (for [[k v] m] [k (f v)])))
 
 (defn map-keys [f m]
   (persistent! (reduce-kv (fn [z k v] (assoc! z (f k) v)) (transient {}) m)))
 
-(defn title-case [s]
-  (-> s clojure.string/lower-case
-      (clojure.string/replace #"\b." #(.toUpperCase %1))))
-
-(defn keys-in [m]
+(defn keys-in
   "
   Generate a list of paths presented in a nested map
 
   Ref: http://stackoverflow.com/a/21769786/176453
   "
+  [m]
   (cond
     (map? m) (vec
                (mapcat (fn [[k v]]
@@ -124,7 +86,7 @@
 (defn int-assoc-in
   "Helper based on assoc.  Initialises empty values as arrays if key is an integer"
   [m ks v]
-  (modified-assoc-in m ks v #(if (integer? %) [])))
+  (modified-assoc-in m ks v #(when (integer? %) [])))
 
 (defn vec-remove [v i]
   (reduce conj (vec (subvec v 0 i)) (subvec v (inc i) (count v))))
@@ -135,7 +97,35 @@
 (defn enum [coll]
   (zip (range) coll))
 
-(defn same-keyword-string?
-  "Check if a keyword parameter coerced to a string is the same as the string parameter."
-  [keyword string]
-  (= (str (clojure.core/name keyword)) string))
+(defn geometry-type [{:keys [type]}] type)
+
+(defmulti geometry->box-value geometry-type)
+
+(defmethod geometry->box-value "Point"
+  [{:keys [coordinates]}]
+  (let [[lng lat] coordinates]
+    (s/assert number? lng)
+    (s/assert number? lat)
+    {:northBoundLatitude {:value lat}
+     :southBoundLatitude {:value lat}
+     :eastBoundLongitude {:value lng}
+     :westBoundLongitude {:value lng}}))
+
+(defmethod geometry->box-value "Polygon"
+  [{:keys [coordinates]}]
+  (let [[rect] coordinates
+        lngs (map first rect)
+        lats (map second rect)]
+    (s/assert some? rect)
+    {:northBoundLatitude {:value (s/assert number? (apply max lats))}
+     :southBoundLatitude {:value (s/assert number? (apply min lats))}
+     :eastBoundLongitude {:value (s/assert number? (apply max lngs))}
+     :westBoundLongitude {:value (s/assert number? (apply min lngs))}}))
+
+(defn boxes->elements
+  [boxes]
+  (for [box (:value boxes)]
+    {:northBoundLatitude (get-in box [:value :northBoundLatitude :value])
+     :southBoundLatitude (get-in box [:value :southBoundLatitude :value])
+     :eastBoundLongitude (get-in box [:value :eastBoundLongitude :value])
+     :westBoundLongitude (get-in box [:value :westBoundLongitude :value])}))

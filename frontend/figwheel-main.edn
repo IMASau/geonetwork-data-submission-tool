@@ -1,6 +1,0 @@
-{:watch-dirs ["src/cljs" "src/spec"]
- :css-dirs ["resources/public/css"]
- :open-url false
- :ring-server-options {:host "0.0.0.0" }
- :connect-url "ws://127.0.0.1:[[server-port]]/figwheel-connect"
- }

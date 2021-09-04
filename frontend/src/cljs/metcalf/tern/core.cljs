@@ -1,14 +1,11 @@
-(ns metcalf3.core
+(ns metcalf.tern.core
   (:require [clojure.string :refer [blank?]]
-            [metcalf3.globals :refer [derived-db]]
-            [re-frame.db :refer [app-db]]
-            [metcalf3.fx]
+            [metcalf.tern.config]
             [metcalf3.routing :as router]
-            [metcalf3.subs]
             [metcalf3.views :refer [AppRoot]]
-            [metcalf3.handlers]
             [re-frame.core :as rf]
-            [reagent.core :as r]))
+            [re-frame.db :refer [app-db]]
+            [reagent.dom :as rdom]))
 
 (when-not ^boolean js/goog.DEBUG
   (set! (.-onbeforeunload js/window)
@@ -23,4 +20,4 @@
                     :path   [:page :tab]
                     :->hash (fnil name "")
                     :<-hash #(if (blank? %) :data-identification (keyword %))}))
-  (r/render [AppRoot] ele))
+  (rdom/render [AppRoot] ele))

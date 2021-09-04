@@ -1,61 +1,5 @@
 (ns metcalf3.widget.tree
-  (:require [metcalf3.widget.select :refer [AutoSizer VirtualScroll]]
-            [reagent.core :as r]))
-
-(defn parent-paths [path]
-  (take-while seq (rest (iterate drop-last path))))
-
-(defn default-render-option
-  [{:keys [option is-expandable is-expanded toggle-option select-option]} _]
-  (let [{:keys [path label]} option]
-    [:div.tree-option
-     {:style {:margin-left (str (count path) "em")}}
-     (if is-expandable
-       [(if is-expanded
-          :span.glyphicon.glyphicon-triangle-bottom
-          :span.glyphicon.glyphicon-triangle-right)
-        {:style    {:cursor "pointer"}
-         :on-click #(toggle-option option)}]
-       [:span.glyphicon.glyphicon-file {:style {:visibility "hidden"}}])
-     [:span.tree-label
-      {:style    {:margin-left "0.2em"}
-       :on-click #(select-option option)}] label]))
-
-(defn Tree
-  [{:keys [options on-select render-option]
-    :or   {render-option default-render-option}} this]
-  (letfn [(init-state [this]
-            {:expanded #{}})
-          (render [this]
-            (let [{:keys [expanded]} (r/state this)]
-              (let [toggle-option (fn [{:keys [path]}]
-                                    (if (contains? expanded path)
-                                      (r/set-state this {:expanded (disj expanded path)})
-                                      (r/set-state this {:expanded (conj expanded path)})))
-                    expandable (into #{} (map (comp drop-last :path) options))
-                    visible? #(every? expanded (parent-paths (:path %)))
-                    visible-options (filter visible? options)]
-                [:div
-                 [:h2 "Tree"]
-                 (for [{:keys [path] :as option} visible-options]
-                   (render-option
-                     {:option        option
-                      :toggle-option toggle-option
-                      :select-option on-select
-                      :is-expandable (contains? expandable path)
-                      :is-expanded   (contains? expanded path)}))])))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
-
-(defn matches
-  ([m1]
-   (partial matches m1))
-  ([m1 m2]
-   (reduce-kv
-     (fn [t k v] (and t (= (get m2 k ::not-found) v)))
-     true
-     m1)))
+  (:require [reagent.core :as r]))
 
 (defn descendant-count
   [{:keys [lft rgt]}]
@@ -89,7 +33,7 @@
 (defn BaseTermTree
   []
   (letfn [(init-state [this]
-            (let [{:keys [value options value-key] :as props} (r/props this)
+            (let [{:keys [value options value-key]} (r/props this)
                   expanded-parents (get-all-parents value-key value options)
                   default-visible (if value (conj expanded-parents value)
                                             expanded-parents)
@@ -100,35 +44,36 @@
                   expanded (set expanded-parents)
                   visible (set (concat (filter (fn [x] (= (:depth x) 1)) options) default-visible all-visible))]
               {:expanded expanded
-               :visible visible}))
+               :visible  visible}))
           (render [this]
             (let [{:keys [expanded visible]} (r/state this)
-                  {:keys [value options value-key render-menu on-select visible-options]} (r/props this)]
-              (let [toggle-option (fn [option]
-                                    (let [{:keys [lft rgt tree_id depth]} option]
-                                      (if (contains? expanded option)
-                                        ;off
-                                        (r/set-state this {:expanded (disj expanded option)
-                                                           :visible  (set (filter (fn [x] (or (<= (:depth x) depth)
-                                                                                              (not= (= (:tree_id x) tree_id))
-                                                                                              (< (:lft x) lft)
-                                                                                              (> (:rgt x) rgt))) visible))})
-                                        ;on
-                                        (r/set-state this {:expanded (conj expanded option)
-                                                           :visible  (set (concat visible (apply concat (map (fn [y] (filter (fn [x] (and (= (:tree_id x) (:tree_id y) tree_id)
-                                                                                                                                          (= (:depth x) (+ (:depth y) 1))
-                                                                                                                                          (> (:lft x) (:lft y))
-                                                                                                                                          (< (:rgt x) (:rgt y)))) options)) (conj expanded option)))))}))))
-                    visible-options (doall (->> visible
-                                                (sort-by (juxt :tree_id :lft))))]
-                (render-menu
-                  {:value           value
-                   :value-key       value-key
-                   :options         options
-                   :expanded        expanded
-                   :select-option   on-select
-                   :toggle-option   toggle-option
-                   :visible-options visible-options}))))]
+                  {:keys [value options value-key render-menu on-select]} (r/props this)
+                  toggle-option (fn [option]
+                                  (let [{:keys [lft rgt tree_id depth]} option]
+                                    (if (contains? expanded option)
+                                      ;off
+                                      (r/set-state this {:expanded (disj expanded option)
+                                                         :visible  (set (filter (fn [x] (or (<= (:depth x) depth)
+                                                                                            ; TODO: always false, looks like a typo
+                                                                                            (not= (= (:tree_id x) tree_id))
+                                                                                            (< (:lft x) lft)
+                                                                                            (> (:rgt x) rgt))) visible))})
+                                      ;on
+                                      (r/set-state this {:expanded (conj expanded option)
+                                                         :visible  (set (concat visible (apply concat (map (fn [y] (filter (fn [x] (and (= (:tree_id x) (:tree_id y) tree_id)
+                                                                                                                                        (= (:depth x) (+ (:depth y) 1))
+                                                                                                                                        (> (:lft x) (:lft y))
+                                                                                                                                        (< (:rgt x) (:rgt y)))) options)) (conj expanded option)))))}))))
+                  visible-options (doall (->> visible
+                                              (sort-by (juxt :tree_id :lft))))]
+              (render-menu
+                {:value           value
+                 :value-key       value-key
+                 :options         options
+                 :expanded        expanded
+                 :select-option   on-select
+                 :toggle-option   toggle-option
+                 :visible-options visible-options})))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))
@@ -140,22 +85,22 @@
               {:expanded (set (get-all-parents value-key value options))}))
           (render [this]
             (let [{:keys [expanded]} (r/state this)
-                  {:keys [value options value-key render-menu on-select display-key]} (r/props this)]
-              (let [toggle-option (fn [option]
-                                    (if (contains? expanded option)
-                                      (r/set-state this {:expanded (disj expanded option)})
-                                      (r/set-state this {:expanded (conj expanded option)})))
-                    visible? #(every? expanded (node-parents options %))
-                    visible-options (filter visible? options)]
-                (render-menu
-                  {:value           value
-                   :value-key       value-key
-                   :display-key     display-key
-                   :options         options
-                   :expanded        expanded
-                   :select-option   on-select
-                   :toggle-option   toggle-option
-                   :visible-options visible-options}))))]
+                  {:keys [value options value-key render-menu on-select display-key]} (r/props this)
+                  toggle-option (fn [option]
+                                  (if (contains? expanded option)
+                                    (r/set-state this {:expanded (disj expanded option)})
+                                    (r/set-state this {:expanded (conj expanded option)})))
+                  visible? #(every? expanded (node-parents options %))
+                  visible-options (filter visible? options)]
+              (render-menu
+                {:value           value
+                 :value-key       value-key
+                 :display-key     display-key
+                 :options         options
+                 :expanded        expanded
+                 :select-option   on-select
+                 :toggle-option   toggle-option
+                 :visible-options visible-options})))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))
@@ -193,7 +138,7 @@
       [:span (display-key option)]]
 
      [:div.children_count
-      (when (and is-expandable)
+      (when is-expandable
         [:span.badge (/ (- rgt lft 1) 2)])]]))
 
 (defn render-tree-term-menu

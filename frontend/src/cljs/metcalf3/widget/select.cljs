@@ -1,45 +1,22 @@
 (ns metcalf3.widget.select
-  (:require cljsjs.react-select
-            cljsjs.react-virtualized
+  (:require [cljs.spec.alpha :as s]
             [goog.object :as gobj]
-            [cljs.spec.alpha :as s]
-            [clojure.string :as string]
+            [interop.react-select :refer [ReactSelect* ReactSelectAsync* ReactSelectAsyncCreatable* SelectComponentsOption*]]
+            [interop.react-virtualized :refer [ReactWindow*]]
             [metcalf3.utils :as utils]
             [reagent.core :as r]))
-
-(def ReactSelect* (js/React.createFactory js/Select))
-(def ReactWindow* (js/React.createFactory js/ReactWindow.FixedSizeList))
-(def SelectComponents.Option* (js/React.createFactory js/SelectComponents.Option))
-(def SelectComponents.ValueContainer* (js/React.createFactory js/SelectComponents.ValueContainer))
-(def ReactSelectAsync* (js/React.createFactory js/AsyncSelect))
-(def ReactSelectCreatable* (js/React.createFactory js/Creatable))
-(def ReactSelectAsyncCreatable* (js/React.createFactory js/AsyncCreatable))
-(def AutoSizer* (js/React.createFactory js/ReactVirtualized.AutoSizer))
-(def VirtualScroll* (js/React.createFactory js/ReactVirtualized.VirtualScroll))
 
 (defn normalize-props [props]
   (utils/clj->js* (update props :options utils/clj->js* 1) 1))
 
-(defn ReactWindow [props]
-  (ReactWindow* (normalize-props props)))
-
 (defn ReactSelect [props]
   (ReactSelect* (normalize-props props)))
-
-(defn ReactSelectCreatable [props]
-  (ReactSelectCreatable* (normalize-props props)))
 
 (defn ReactSelectAsyncCreatable [props]
   (ReactSelectAsyncCreatable* (normalize-props props)))
 
 (defn ReactSelectAsync [props]
   (ReactSelectAsync* (normalize-props props)))
-
-(defn AutoSizer [props]
-  (AutoSizer* (normalize-props props)))
-
-(defn VirtualScroll [props]
-  (VirtualScroll* (normalize-props props)))
 
 (defn VirtualizedSelect [props]
   (let [{:keys [value options getOptionValue onChange placeholder formatOptionLabel isOptionSelected]} props]
@@ -48,6 +25,7 @@
     (s/assert ifn? onChange)
     (s/assert ifn? formatOptionLabel)
     (s/assert string? placeholder)
+    (s/assert not-empty options)                            ; NOTE: not currently supported
 
     (ReactSelect*
       #js {:value            value
@@ -65,7 +43,7 @@
                                                  (let [data (gobj/get props "data")
                                                        props' (doto (gobj/clone props)
                                                                 (gobj/set "children" #js [(formatOptionLabel data)]))]
-                                                   (SelectComponents.Option* props')))
+                                                   (SelectComponentsOption* props')))
                                   :SingleValue (fn [props]
                                                  (:term (js->clj (gobj/get props "data") :keywordize-keys true)))
                                   :MenuList    (fn [this]
@@ -89,7 +67,7 @@
                                                           :initialScrollOffset initialOffset})))}})))
 
 ;the actual virtualized implementation. Missing select and hover (kind of important)
-(comment (defn VirtualizedSelect [{:keys [props list-props children-renderer] :as args} this]
+(comment (defn VirtualizedSelect [{:keys [props list-props children-renderer] :as args}]
            (ReactSelect
              (merge
                {:components #js {:MenuList (fn [this]

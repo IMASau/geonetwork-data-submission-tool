@@ -1,35 +1,45 @@
 clean:
 	rm -fR resources/public/js/*
 
-figwheel:
+# for backward compatibility
+figwheel: watch
+
+watch:
+	# init yarn
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-w /tmp \
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
+		yarn
+	# run shadow-cljs watch
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-v $(HOME)/.clojure:/root/.clojure \
 		-v $(HOME)/.m2:/root/.m2 \
 		-p 127.0.0.1:9500:9500 \
-		clojure:openjdk-14-tools-deps-buster \
-		clojure -m figwheel.main -co dev.cljs.edn -r
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
+		yarn shadow-cljs watch tern
 
 build:
 	# init yarn
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
-		node:12-alpine \
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn
-	# run webpack
+	# transpile js components
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
-		node:12-alpine \
-		yarn webpack --mode development
-	# run clojure compiler
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
+		yarn run build
+	# run shadow-cljs compile
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-v $${HOME}/.clojure:/root/.clojure \
 		-v $${HOME}/.m2:/root/.m2 \
-		clojure:openjdk-14-tools-deps-buster \
-		clojure -m cljs.main -co dev.cljs.edn -c
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
+		yarn shadow-cljs compile tern
 
 copy-static:
 	cp node_modules/normalize.css/normalize.css resources/public/css
@@ -52,18 +62,18 @@ release:
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
-		node:12-alpine \
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn
-	# run webpack
+	# transpile js components
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
-		node:12-alpine \
-		yarn webpack --mode production
-	# run clojure compiler
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
+		yarn run build
+	# run shadow-cljs release
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-v $(HOME)/.clojure:/root/.clojure \
 		-v $(HOME)/.m2:/root/.m2 \
-		clojure:openjdk-14-tools-deps-buster \
-		clojure -m cljs.main -co prod.cljs.edn -O advanced -c
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
+		yarn shadow-cljs release tern

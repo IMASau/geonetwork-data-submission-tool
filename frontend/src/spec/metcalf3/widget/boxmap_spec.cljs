@@ -1,8 +1,8 @@
 (ns metcalf3.widget.boxmap-spec
-  (:require [metcalf3.widget.boxmap :as gmap]
+  (:require [cljs.spec.alpha :as s]
+            [clojure.test.check.generators :as gen]
             [metcalf3.core-spec :as core]
-            [cljs.spec.alpha :as s]
-            [clojure.test.check.generators :as gen]))
+            [metcalf3.widget.boxmap :as gmap]))
 
 (s/def ::gmap/lat-lng
   (s/with-gen #(instance? js/google.maps.LatLng %)

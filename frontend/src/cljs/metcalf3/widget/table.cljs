@@ -1,6 +1,5 @@
 (ns metcalf3.widget.table
   (:require [cljsjs.fixed-data-table-2]
-            [metcalf3.utils :as utils]
             [reagent.core :as r]))
 
 (def Table (r/adapt-react-class js/FixedDataTable2.Table))

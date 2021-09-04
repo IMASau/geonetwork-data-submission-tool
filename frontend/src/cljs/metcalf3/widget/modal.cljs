@@ -26,7 +26,7 @@
      (if modal-footer
        [:div.modal-footer modal-footer]
        [:div.modal-footer
-        (if loading [:span [:span.fa.fa-spinner.fa-spin] " "])
+        (when loading [:span [:span.fa.fa-spinner.fa-spin] " "])
         (when on-cancel
           [:button.btn.btn-default {:disabled loading
                                     :on-click #(on-cancel %)} "Cancel"])
@@ -36,15 +36,13 @@
 
 (defn Modal
   [{:keys [modal-header modal-body modal-footer dialog-class hide-footer
-           on-save on-cancel on-dismiss ok-copy loading]
-    :as   props}
-   this]
+           on-save on-cancel on-dismiss ok-copy loading]}]
   (letfn [
 
           (init-state [this]
             {:key-down-callback
-             (fn [e] (if (= ESCAPE-KEY-CODE (.-keyCode e))
-                       (if-let [on-dismiss (:on-dismiss (r/props this))]
+             (fn [e] (when (= ESCAPE-KEY-CODE (.-keyCode e))
+                       (when-let [on-dismiss (:on-dismiss (r/props this))]
                          (on-dismiss e))))})
 
           (did-mount [this]
@@ -53,7 +51,7 @@
           (will-unmount [this]
             (hide-modal this))
 
-          (render [this]
+          (render [_]
             [:div.modal-open
              [:div.modal.in {:style {:display "block"}      ;:tabIndex -1
                              }

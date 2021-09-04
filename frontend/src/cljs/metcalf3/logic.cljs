@@ -1,12 +1,10 @@
 (ns metcalf3.logic
-  (:require
-    [metcalf3.content :refer [default-payload contact-groups]]
-    [clojure.zip :as zip]
-    [metcalf3.utils :as utils]
-    [cljs-time.core :as time]
-    [cljs-time.coerce :as c]
-    [cljs-time.format :as f]
-    [clojure.string :as string]))
+  (:require [cljs-time.coerce :as c]
+            [cljs-time.core :as time]
+            [clojure.string :as string]
+            [clojure.zip :as zip]
+            [metcalf3.content :refer [default-payload contact-groups]]
+            [metcalf3.utils :as utils]))
 
 (def active-status-filter #{"Draft" "Submitted"})
 
@@ -91,9 +89,9 @@
 
 (defn has-value? [{:keys [many value]}]
   (cond
-    many (not (empty? value))
+    many (seq value)
     (nil? value) false
-    (string? value) (not (empty? value))
+    (string? value) (seq value)
     :else value))
 
 
@@ -155,22 +153,8 @@
                                 (f acc node)
                                 acc))))))
 
-(defn form? [m]
-  (contains? m :fields))
-
-
 (defn reset-form [{:keys [fields] :as form}]
   (assoc form :fields (field-edit (field-zipper fields) reset-field)))
-
-
-(defn load-data
-  ([{:keys [data] :as form}]
-   (load-data form data))
-  ([form data]
-   (reduce
-     (fn [form-acc [k v]]
-       (assoc-in form-acc [:fields k :value] v))
-     form data)))
 
 
 (defn extract-data
@@ -210,16 +194,6 @@
        (field-reduce (field-zipper fields)
                      (fn [acc {:keys [errors]}] (and acc (empty? errors)))
                      true)))
-
-
-(defn extent->geographicElement
-  [[westBoundLongitude southBoundLatitude eastBoundLongitude northBoundLatitude]]
-  (let [northBoundLatitude (+ northBoundLatitude (if (= northBoundLatitude southBoundLatitude) 1e-6 0))
-        eastBoundLongitude (+ eastBoundLongitude (if (= westBoundLongitude eastBoundLongitude) 1e-6 0))]
-    {:westBoundLongitude {:value westBoundLongitude}
-     :southBoundLatitude {:value southBoundLatitude}
-     :eastBoundLongitude {:value eastBoundLongitude}
-     :northBoundLatitude {:value northBoundLatitude}}))
 
 
 (defn field-walk
@@ -286,7 +260,7 @@
 
 (defn mask-map-triage-kv [kv a-mask]
   (let [[k v] [(key kv) (val kv)]]
-    (if-let [mask-v (get a-mask k)]
+    (when-let [mask-v (get a-mask k)]
       (cond (fn? mask-v) {k (mask-v v)}
             (and (map? mask-v) (map? v))
             {k (mask-map v mask-v)}
@@ -412,7 +386,7 @@
   "
   [state]
   (let [rule-path [:form :fields :who-authorRequired]
-        roles (for [[group {:keys [title path]}] (utils/enum contact-groups)]
+        roles (for [[_ {:keys [path]}] (utils/enum contact-groups)]
                 (for [field (get-in state (conj path :value))]
                   (get-in field [:value :role :value])))
         roles (apply concat roles)
@@ -498,7 +472,7 @@
   (reduce (fn [m [tpl-path value-path]]
             (try
               (utils/int-assoc-in m value-path (get-in fields tpl-path))
-              (catch js/Error e m)))
+              (catch js/Error _ m)))
           fields (path-fields values)))
 
 (defn path-values

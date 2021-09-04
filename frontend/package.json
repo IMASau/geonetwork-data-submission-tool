@@ -22,7 +22,7 @@
     "react-select": "^3.0.4",
     "react-imask": "^6.1.0",
     "react-virtualized": "^9.22.3",
-    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-virtualized-auto-sizer": "^1.0.6",
     "react-window": "^1.8.5",
     "xregexp": "^5.1.0"
   },

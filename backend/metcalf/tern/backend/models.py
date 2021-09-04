@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
-from django_fsm import transition, FSMField
+from django_fsm import FSMField, transition
 from lxml import etree
 from rest_framework.renderers import JSONRenderer
 

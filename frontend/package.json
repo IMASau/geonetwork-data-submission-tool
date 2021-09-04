@@ -10,7 +10,7 @@
     "@blueprintjs/datetime": "^3.23.8",
     "@blueprintjs/select": "^3.18.0",
     "@blueprintjs/table": "^3.9.2",
-    "fixed-data-table-2": "0.8.26",
+    "fixed-data-table-2": "1.2.0",
     "leaflet": "1.6.0",
     "leaflet-draw": "1.0.4",
     "moment": "^2.24.0",

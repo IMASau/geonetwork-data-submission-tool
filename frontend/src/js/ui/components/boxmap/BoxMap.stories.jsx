@@ -9,11 +9,11 @@ export default {
   title: 'Example/BoxMap',
   component: BoxMap,
   argTypes: {
-    elements: { control: 'object', defaultValue: [] },
+    elements: { control: 'object' },
     disabled: { control: 'boolean' },
     onChange: { action: 'onChange' },
-    tickId: { control: 'number', defaultValue: 0 },
-    mapWidth: { control: 'number', defaultValue: 600 }
+    tickId: { control: 'number' },
+    mapWidth: { control: 'number' }
   },
 };
 

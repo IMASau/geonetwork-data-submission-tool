@@ -5,7 +5,6 @@ import { DateInput, IDateFormatProps } from '@blueprintjs/datetime';
 import moment from 'moment';
 
 function getMomentFormatter(format: string): IDateFormatProps {
-    // note that locale argument comes from locale prop and may be undefined
     return {
         formatDate: (date) => moment(date).format(format),
         parseDate: (str) => moment(str, format).toDate(),
@@ -14,8 +13,8 @@ function getMomentFormatter(format: string): IDateFormatProps {
 };
 
 export const DateField = ({ label, required, helperText, value, disabled, onChange, hasError, minDate, maxDate }) => {
+    console.assert(maxDate>minDate);
     const intent = (hasError && !disabled) ? Intent.DANGER : Intent.NONE;
-    console.log({ label, required, helperText, value, disabled, onChange, hasError, minDate, maxDate })
     return (
         <FormGroup
             label={label}
@@ -34,3 +33,15 @@ export const DateField = ({ label, required, helperText, value, disabled, onChan
         </FormGroup>
     );
 };
+
+DateField.propTypes = {
+  label: PropTypes.string,
+  required: PropTypes.bool,
+  helperText: PropTypes.string,
+  value: PropTypes.instanceOf(Date),
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func,
+  hasError: PropTypes.bool,
+  minDate: PropTypes.instanceOf(Date).isRequired,
+  maxDate: PropTypes.instanceOf(Date).isRequired
+}

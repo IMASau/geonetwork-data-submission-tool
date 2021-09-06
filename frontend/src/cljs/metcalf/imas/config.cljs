@@ -1,5 +1,6 @@
 (ns metcalf.imas.config
-  (:require [metcalf3.low-code :as low-code]
+  (:require [metcalf.imas.handlers :as imas-handlers]
+            [metcalf3.low-code :as low-code]
             [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers]
             [metcalf3.ins :as ins]
@@ -48,7 +49,7 @@
 (rf/reg-event-db :handlers/dashboard-create-click handlers/dashboard-create-click)
 (rf/reg-event-db :handlers/transite-doc-success handlers/transite-doc-success)
 (rf/reg-event-db :handlers/lodge-submit-success handlers/lodge-submit-success)
-(rf/reg-event-fx :handlers/init-db handlers/init-db)
+(rf/reg-event-fx :handlers/init-db imas-handlers/init-db)
 (rf/reg-event-fx :handlers/load-api-options handlers/load-api-options)
 (rf/reg-event-fx :handlers/load-es-options handlers/load-es-options)
 (rf/reg-event-fx :handlers/search-es-options handlers/search-es-options)
@@ -158,7 +159,7 @@
          [:h2 "3. When was the data acquired?"]
          [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :beginPosition]
                                     :defMinDate #inst "1900-01-01"}]
-         [metcalf3.view/date-field {:path [:form :fields :identificationInfo :endPosition]
+         [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :endPosition]
                                     :defMinDate #inst "1900-01-01"}]
          [:div.row
           [:div.col-md-4

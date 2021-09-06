@@ -2191,7 +2191,7 @@
        (if-not (empty? last_updated)
          [:span
           "Last edited " (moment/from-now last_updated)
-          " by " (:username (:this doc))]
+          " by " (:username (:owner doc))]
          "Has not been edited yet")]]]))
 
 (defn PageViewDashboard

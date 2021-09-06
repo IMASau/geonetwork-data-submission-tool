@@ -1257,6 +1257,7 @@
         :disabled (boolean (if selected-platform nil 0))}]]
      ]))
 
+;; FIXME this is tern-specific.
 (defn DataParametersTable [{:keys [path]}]
   [:div.DataParametersTable
    [TableModalEdit

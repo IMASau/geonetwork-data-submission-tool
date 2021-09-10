@@ -1,0 +1,457 @@
+
+# Spec mapper documentation
+
+## spec
+
+Top level property for defining the spec mapping.
+
+```json
+{
+  "spec": {
+    "namespaces": {...},
+    "xpath": "/mdb:MD_Metadata",
+    "postprocess": ...,
+    "nodes": {...}
+  },
+  "node_groups": {...}
+}
+```
+
+## namespaces
+
+Map of namespace mappings used in xpath evaluation in this spec.
+
+```json
+{
+  "spec": {
+    "namespaces": {
+      "mdb": "http://standards.iso.org/iso/19115/-3/mdb/1.0",
+      "xsi": "http://www.w3.org/2001/XMLSchema-instance",
+      "cat": "http://standards.iso.org/iso/19115/-3/cat/1.0",
+      "gfc": "http://standards.iso.org/iso/19110/gfc/1.1",
+      "cit": "http://standards.iso.org/iso/19115/-3/cit/1.0",
+      ...
+    },
+    "xpath": "/mdb:MD_Metadata",
+    ...
+  }
+}
+```
+
+## postprocess
+
+Takes a function name.  Allows for special behaviour at the end of export process.
+
+```json
+    "spec": {
+        "namespaces": {...},
+        "xpath": "/mdb:MD_Metadata",
+        "postprocess": {
+            "function": "prune_if_empty"
+        },
+```
+
+```python
+
+def prune_if_empty(data, parent, spec, nsmap, i, silent):
+    """
+    Catch-all processing to clean up specific nodes that may have been
+    left with no content.
+
+    """
+    # descriptiveKeywords without any content; ie not empty, but don't have a gmd:keyword
+    for elem in parent.findall('.//mri:descriptiveKeywords', nsmap):
+        if elem.find('./mri:MD_Keywords/mri:keyword', nsmap) is None:
+            elem.getparent().remove(elem)
+    # No descendent text() at all:
+    for xpath in ['mri:descriptiveKeywords',
+                  'mri:resourceConstraints',
+                  'mri:resourceMaintenance']:
+        for elem in parent.findall('.//' + xpath, nsmap):
+            if is_empty(elem):
+                elem.getparent().remove(elem)
+```
+
+
+## nodes
+Collection of XML nodes, no additional properties
+
+```json
+"attachments": {
+  "many": true,
+  "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource[cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\"][cit:description/gco:CharacterString/text()=\"Data file\"]]",
+  "keep": false,
+  "nodes": {
+    "file": {
+      "xpath": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
+      "required": true,
+      "attributes": {...}
+    },
+    "name": {...}
+  }
+},
+```
+
+## xpath
+
+The `xpath` function to retrieve the XML fragment for processing the metadata property.
+This can be a node or an attribute.
+
+```json
+"fileIdentifier": {
+  "xpath": "mdb:metadataIdentifier/mcc:MD_Identifier/mcc:code",
+  "valueChild": "gco:CharacterString",
+  "exportTo": {...}
+},
+```
+
+## valueChild
+
+The child node of the xpath that will be used to read/write.
+
+```json
+"name": {
+  "xpath": "cit:CI_OnlineResource/cit:name",
+  "required": false,
+  "valueChild": "gco:CharacterString"
+}
+```
+
+## export
+
+If `true` (default), the property in the metadata document will be exported in the final XML in the location
+xpath/valueChild. 
+
+If `false`, the property will not be include in the export.
+
+```json
+"hasGeographicCoverage": {
+  "xpath": "gex:geographicElement[count(.)>0]",
+  "export": false
+},
+```
+
+## exportTo
+
+Sometimes the location to write the property may be an unusual location, or further down the xpath than the point we
+want to read from.
+
+The `exportTo` definition allows the definition of an explicit write location, defined as an
+`xpath` and `attributes` section.
+
+If `export` is set to `true`, the export process will write to both the default location and the `exportTo` location.
+
+If `export` is `false` but `exportTo` is defined, then the property will be written only to the
+`exportTo` location.
+
+```json
+"orcid": {
+  "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor[@xlink:role=\"orcid\"]",
+  "required": false,
+  "keep": false,
+  "export": false,
+  "parser": {
+    "function": "parse_individual_orcid"
+  },
+  "exportTo": {
+    "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor",
+    "attributes": {
+      "xlink:href": {
+        "function": "write_orcid"
+      },
+      "xlink:role": {
+        "function": "write_orcid_role"
+      }
+    }
+  }
+},
+```
+
+```python
+def parse_individual_orcid(x):
+    orcid_uri = x.attrib['{http://www.w3.org/1999/xlink}href']
+    match = re.search(r"0000-000(1-[5-9]|2-[0-9]|3-[0-4])\d\d\d-\d\d\d[\dX]", orcid_uri)
+    orcid = match.group(0)
+    return orcid
+
+def write_orcid(x):
+    if is_orcid(x):
+        return 'https://orcid.org/{orcid}'.format(orcid=x)
+    else:
+        return x
+
+def write_orcid_role(x):
+    if is_orcid(x):
+        return "orcid"
+    else:
+        return "uri"
+
+SPEC_FUNCTIONS = {
+    "parse_individual_orcid": parse_individual_orcid,
+    "write_orcid": write_orcid,
+    "write_orcid_role": write_orcid_role,
+}
+```
+
+## keep
+
+If `keep` is set to `true` (default), the value in the XML template file will be used as the default value for any new
+document created.
+
+If `keep` is set to `false`, the value will be initiated as null.
+
+```json
+"positionName": {
+  "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:positionName",
+  "keep": false,
+  "valueChild": "gco:CharacterString",
+  "required": false
+},
+```
+
+## default
+
+If `default` is set, this value will be used as the default value for any new document created. This can either be a
+simple value (not intended for arrays or objects) or a function (see `functions`, below).
+
+Note: a default value defined here will override whatever is set in the XML template (i.e. `default` takes precedence over
+`{"keep": true, ...}`)
+
+```json
+"dateCreation": {
+  "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",
+  "valueChild": "gco:DateTime",
+  "required": true,
+  "default": {
+    "function": "today"
+  }
+},
+```
+
+## many
+If `many` is set to `false`, (default) indicates a single value.
+
+If `many` is set to `true`, indicates that there can be multiple entries.
+
+```json
+"attachments": {
+  "many": true,
+  "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource[cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\"][cit:description/gco:CharacterString/text()=\"Data file\"]]",
+  "keep": false,
+  "nodes": {
+    "file": {...},
+    "name": {...}
+  }
+},
+```
+
+## container
+
+This is an xpath that optionally defines the container XML fragment for the property.
+
+```json
+"keywords": {
+  "xpath": "mri:keyword/gco:CharacterString",
+  "many": true,
+  "container": "mri:keyword",
+  "keep": false,
+  "export": false,
+  "exportTo": {
+    "xpath": "mri:keyword/gco:CharacterString"
+  }
+}
+```
+
+
+## Attributes
+Optionally allows the definition of which attributes on the destination node to write to. 
+
+If any `attributes` are defined, you must also define `text` if you want to write to the value of an XML node. 
+
+If no `attributes` are defined, this is the default write location.
+
+```json
+"status": {
+  "xpath": "mri:status",
+  "valueChild": "mcc:MD_ProgressCode",
+  "attributes": {
+    "text": {
+      "function": "identity"
+    },
+    "codeListValue": {
+      "function": "identity"
+    }
+  },
+  ...
+},
+```
+
+## function
+
+The function to call when processing this node's value.   
+
+A full list of functions can be found in `backend.spec.SPEC_FUNCTIONS`. 
+
+NOTE: arity of functions is considered.  multi arity ones take args parameter.  Could be normalised.
+
+NOTE: the `identity` function returns the value as passed in. This is useful when you want to write to the text value 
+and, for example, the codeListValue attribute, but don’t need to modify the value, this can be with.
+
+```json
+{
+  "spec": {
+    "namespaces": {
+      ...
+    },
+    "xpath": "/mdb:MD_Metadata",
+    "postprocess": {
+      "function": "prune_if_empty"
+    },
+    "nodes": {
+      "fileIdentifier": {
+        "xpath": "mdb:metadataIdentifier/mcc:MD_Identifier/mcc:code",
+        "valueChild": "gco:CharacterString",
+        "exportTo": {
+          "xpath": "mdb:metadataLinkage/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
+          "attributes": {
+            "text": {
+              "function": "geonetwork_url"
+            }
+          }
+        }
+      },
+      ...
+    }
+  }
+}
+```
+
+```python
+def geonetwork_url(x):
+    return 'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=x)
+
+SPEC_FUNCTIONS = {
+    ...
+    "geonetwork_url": geonetwork_url,
+    ...
+}
+```
+
+## required 
+
+Indicates field is required.  Also used to check if all data is present before validating.
+
+If `required` is set to `false` (default) indicates that a value is not required.
+
+If `required` is set to `true` indicates that it is required.
+
+```json
+"dataSources": {
+  "many": true,
+  "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()!=\"WWW:LINK-1.0-http--link\" and not(cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\" and cit:CI_OnlineResource/cit:description/gco:CharacterString/text()=\"Data file\")]",
+  "keep": false,
+  "nodes": {
+    "description": {
+      "label": "Description",
+      "xpath": "cit:CI_OnlineResource/cit:description",
+      "valueChild": "gco:CharacterString",
+      "required": true
+    },
+    "url": {
+      "xpath": "cit:CI_OnlineResource/cit:linkage",
+      "valueChild": "gco:CharacterString",
+      "required": true
+    },
+    "name": {
+      "xpath": "cit:CI_OnlineResource/cit:name",
+      "valueChild": "gco:CharacterString",
+      "required": false
+    },
+    "protocol": {
+      "xpath": "cit:CI_OnlineResource/cit:protocol",
+      "valueChild": "gco:CharacterString",
+      "required": true
+    }
+  }
+},
+```
+
+
+## !docstring
+
+Ignored by processing, used for comments.
+
+```json
+  "isUserAdded": {
+    "!docstring": "Fake node so we can track person status",
+    "xpath": "isUserAdded",
+    "default": false,
+    "export": false
+  }
+```
+
+## deleteWhenEmpty
+
+Some things in the ISO standard can't be empty (when present).
+
+If `deleteWhenEmpty` is set to `true` (default), the xpath node should not be included in the final XML unless the value is set. 
+
+If `deleteWhenEmpty` is set to `false`, the node should be included even if no value is set
+
+```json
+  "uri": {
+    "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor[@xlink:role=\"uri\"]",
+    "keep": false,
+    "required": false,
+    "deleteWhenEmpty": false,
+    "export": false,
+    ...
+  },
+```
+
+## removeWhen
+
+Optionally define a function to specify when the node should be deleted from the exported XML.
+
+```json
+"geographicElement": {
+  "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",
+  "removeWhen": {
+    "function": "no_geographic_coverage"
+  },
+  "nodes": {...}
+}
+```
+
+```python
+def no_geographic_coverage(x):
+    return not x.get('hasGeographicCoverage', True)
+
+SPEC_FUNCTIONS = {
+    "no_geographic_coverage": no_geographic_coverage
+}
+```
+
+## node_groups
+
+Top level property.  Lets you define a set of nodes that can be re-used throughout the mapper, rather than defining the same set repeatedly.
+
+For example, citedResponsibleParty and pointOfContact both have their node attributes set to the 
+node group “ci_responsible_party_nodes” which is then defined in the node_groups section
+
+```json
+{
+  "spec": {...},
+  "node_groups": {
+    "ci_responsible_party_nodes": {
+      ...
+    }
+  }
+  "pointOfContact": {
+    "many": true,
+    "xpath": "mri:pointOfContact/cit:CI_Responsibility",
+    "container": "mri:pointOfContact",
+    "nodes": "ci_responsible_party_nodes"
+  }
+}
+```

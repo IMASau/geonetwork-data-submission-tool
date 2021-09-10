@@ -54,7 +54,9 @@ class AbstractDocument(models.Model):
     template = models.ForeignKey("MetadataTemplate", on_delete=models.SET_NULL, null=True)
     title = models.TextField(default="Untitled")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    # TODO: TERN specific?
     doi = models.CharField(max_length=1024, default='', blank=True)
+    # TODO: TERN specific?
     validation_result = models.TextField(null=True, blank=True, verbose_name="Validation result XML")
     validation_status = models.CharField(max_length=256, default='Unvalidated', null=True, blank=True,
                                          verbose_name='Validity')
@@ -64,7 +66,7 @@ class AbstractDocument(models.Model):
 
     class Meta:
         abstract = True
-        # FIXME is this needed
+        # FIXME: is this needed?
         permissions = (
             ("workflow_reject", "Can reject record in workflow"),
             ("workflow_upload", "Can upload record in workflow"),
@@ -117,7 +119,9 @@ class AbstractDraftMetadata(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     data = JSONField()
     noteForDataManager = models.TextField(default="")
+    # TODO: TERN specific?
     agreedToTerms = models.BooleanField(default=False)
+    # TODO: TERN specific?
     doiRequested = models.BooleanField(default=False)
 
     class Meta:

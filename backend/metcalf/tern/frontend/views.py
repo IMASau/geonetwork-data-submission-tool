@@ -527,7 +527,7 @@ def download_attachement(request, path):
     # TODO: this breaks for previously existing files ... it always creates a swift url
     return redirect(attachment.file.storage._path(attachment.file.name))
 
-
+ # TODO: Looks like a bad security practice.  Filter transition values?
 @login_required
 @api_view(['POST'])
 def transition(request, uuid):

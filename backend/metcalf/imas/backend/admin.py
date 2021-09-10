@@ -140,33 +140,21 @@ def add_creator(creators, person, nsmap):
 
 
 class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
-    list_display = ['admin_name', 'owner_name', 'status', 'validity', 'date_last_validated', 'action_links']
+    list_display = ['admin_name', 'owner_name', 'status', 'action_links']
     list_filter = ['status', 'template']
     search_fields = ['title', 'owner__username', 'owner__email', 'uuid']
     fsm_field = ['status', ]
-    readonly_fields = ['status', 'action_links', 'submission_note', 'doi_links', 'validity', 'date_last_validated']
+    readonly_fields = ['status', 'action_links', 'submission_note']
     inlines = [DocumentAttachmentInline]
     fieldsets = [
-        (None, {'fields': ('title', 'template', 'owner', 'status', 'submission_note', 'doi')}),
-        ('Validation', {'fields': ('validity', 'date_last_validated')}),
+        (None, {'fields': ('title', 'template', 'owner', 'status', 'submission_note')}),
         ('Export', {'fields': ('action_links',)}),
-        ('DOI Minting', {'fields': ('doi_links',)}),
     ]
 
     # a quick hack to make admin interface a bit nicer to use for title field
     formfield_overrides = {
         django_models.TextField: {'widget': widgets.AdminTextInputWidget(attrs={'style': "width:60em;"})}
     }
-
-    def validity(self, obj):
-        if obj.validation_status in ['Valid', 'Invalid']:
-            htmlString = "<a href='{0}' target='_blank'>{1}</a>"
-            replacements = [reverse('Validation', kwargs={'uuid': obj.uuid}), obj.validation_status]
-            return format_html(htmlString, *replacements)
-        else:
-            htmlString = "<span>{0}</span>"
-            replacements = [obj.validation_status]
-            return format_html(htmlString, *replacements)
 
     def submission_note(self, obj):
         if obj.latest_draft:
@@ -186,138 +174,10 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
             return obj.owner.email
         return obj.owner.username
 
-    def doi_links(self, obj):
-        try:
-            wantsDoi = obj.latest_draft.doiRequested
-            if not wantsDoi:
-                return "User has not requested a DOI to be minted."
-            # can mint if they asked for one and don't have one yet
-            if bool(obj.doi):
-                return "This document already has a DOI."
-
-            if obj.status != models.Document.SUBMITTED:
-                return "Cannot mint a DOI until the document is lodged."
-        except:
-            return "Cannot mint a DOI for this document"
-        htmlString = "<input type='submit' value='Mint DOI' name='_mintdoi'/>"
-        return format_html(htmlString)
-
-    def mintdoi(self, request, obj):
-        doc = obj
-        doi_template = '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-    <resource xsi:schemaLocation="http://datacite.org/schema/kernel-4
-    http://schema.datacite.org/meta/kernel-4.2/metadata.xsd"
-    xmlns="http://datacite.org/schema/kernel-4"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <identifier identifierType="DOI"/>
-        <creators></creators>
-        <titles><title></title></titles>
-        <publisher>Terrestrial Ecosystem Research Network (TERN)</publisher>
-        <publicationYear></publicationYear>
-        <resourceType resourceTypeGeneral="Dataset">dataset</resourceType></resource>'''
-        ns = {'n': 'http://datacite.org/schema/kernel-4'}
-        request_xml = etree.fromstring(doi_template.encode('utf-8'))
-        data = doc.latest_draft.data
-
-        # all the people involved
-        pocs = data['identificationInfo']['pointOfContact']
-        crps = data['identificationInfo']['citedResponsibleParty']
-
-        # add title
-        request_xml.find('n:titles/n:title', ns).text = data['identificationInfo']['title']
-
-        publicationYear = request_xml.find('n:publicationYear', ns)
-        # might be nicer to convert to a date and explicitly pull the year maybe
-        publicationYear.text = data['identificationInfo']['datePublication'][:4]
-
-        author_uuids = []
-        coauthor_uuids = []
-
-        # <creator><creatorName></creatorName></creator>
-        creators = request_xml.find('n:creators', ns)
-        # we want to add the authors first, easier to just loop through twice
-        # check the uri to make sure we don't add a person twice
-        for person in pocs:
-            if person['role'] == 'author' and person['uri'] not in author_uuids:
-                add_creator(creators, person, ns)
-                author_uuids.append(person['uri'])
-
-        for person in crps:
-            if person['role'] == 'author' and person['uri'] not in author_uuids:
-                add_creator(creators, person, ns)
-                author_uuids.append(person['uri'])
-
-        for person in pocs:
-            if person['role'] == 'coAuthor' and person['uri'] not in coauthor_uuids:
-                add_creator(creators, person, ns)
-                coauthor_uuids.append(person['uri'])
-
-        for person in crps:
-            if person['role'] == 'coAuthor' and person['uri'] not in coauthor_uuids:
-                add_creator(creators, person, ns)
-                coauthor_uuids.append(person['uri'])
-
-        response = None
-        try:
-            if doc.latest_draft.doiRequested:
-                # they have asked for a DOI to be minted, and it hasn't been done yet
-                if not data.get('doi', None):
-                    sitecontent = SiteContent.objects.all()[0]
-                    baseUri = sitecontent.doi_uri
-                    doiUri = urllib.parse.quote(
-                        'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(
-                            uuid=data['fileIdentifier']))
-                    requestUri = '{base}&url={doiUri}'.format(base=baseUri, doiUri=doiUri)
-                    body = {'xml': etree.tostring(request_xml)}
-                    response = requests.post(requestUri, data=body, verify=True)
-        except Exception as e:
-            messages.add_message(request,
-                                 messages.ERROR,
-                                 'The following error occurred while trying to mint a DOI "{e}". Please try again later.'.format(
-                                     e=e))
-            return False
-        if response:
-            if response.status_code == 200:
-                response_xml = etree.fromstring(response.content)
-                outcome = response_xml.attrib['type']
-                if outcome == 'success':
-                    message = response_xml.find('message').text
-                    doi = response_xml.find('doi').text
-                    doc.doi = doi
-                    doc.save()
-                else:
-                    verboseMessage = response_xml.find('verbosemessage').text
-                    messages.add_message(request,
-                                         messages.ERROR,
-                                         'The following error occurred while trying to mint a DOI "{verboseMessage}". Please try again later.'.format(
-                                             verboseMessage=verboseMessage))
-                    return False
-            else:
-                messages.add_message(request, messages.ERROR,
-                                     'There was an error connecting to the DOI minting service (status code {status}). Please try again later.'.format(
-                                         status=response.status_code))
-                return False
-        else:
-            messages.add_message(request, messages.ERROR,
-                                 'There was an error connecting to the DOI minting service. Please try again later.')
-            return False
-        messages.add_message(request, messages.SUCCESS, 'DOI successfully minted.')
-
-    def response_change(self, request, obj):
-        if "_mintdoi" in request.POST:
-            try:
-                success = self.mintdoi(request, obj)
-            except Exception as e:
-                messages.add_message(request, messages.ERROR,
-                                     'There was an unexpected error while attempting to mint the DOI. Please try again later.')
-            return HttpResponseRedirect(".")
-        return super().response_change(request, obj)
-
     def admin_name(self, obj):
         return "{1} ({0})".format(str(obj.uuid)[:8], obj.short_title())
 
     action_links.short_description = "Actions"
-    doi_links.short_description = "DOI Minting"
     owner_name.admin_order_field = 'owner__email'
     admin_name.admin_order_field = 'title'
 

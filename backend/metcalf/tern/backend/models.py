@@ -323,6 +323,9 @@ class Contributor(AbstractContributor):
 
 
 class DraftMetadata(AbstractDraftMetadata):
+    agreedToTerms = models.BooleanField(default=False)
+    doiRequested = models.BooleanField(default=False)
+
     # FIXME
     class Meta:
         verbose_name_plural = "Draft Metadata"
@@ -334,12 +337,25 @@ if settings.USE_TERN_STORAGE:
 
 
     class DocumentAttachment(AbstractDocumentAttachment):
+        objects = DocumentManager()
+
+        doi = models.CharField(max_length=1024, default='', blank=True)
+        validation_result = models.TextField(null=True, blank=True, verbose_name="Validation result XML")
+        validation_status = models.CharField(max_length=256, default='Unvalidated', null=True, blank=True,
+                                             verbose_name='Validity')
+        date_last_validated = models.DateTimeField(blank=True, null=True, verbose_name='Last Validated')
         file = models.FileField(upload_to=document_upload_path, storage=attachment_store)
 
 else:
 
     class DocumentAttachment(AbstractDocumentAttachment):
-        pass
+        objects = DocumentManager()
+
+        doi = models.CharField(max_length=1024, default='', blank=True)
+        validation_result = models.TextField(null=True, blank=True, verbose_name="Validation result XML")
+        validation_status = models.CharField(max_length=256, default='Unvalidated', null=True, blank=True,
+                                             verbose_name='Validity')
+        date_last_validated = models.DateTimeField(blank=True, null=True, verbose_name='Last Validated')
 
 
 # TODO: Should this be a separate app?  Does workflow complicate this?

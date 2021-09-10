@@ -152,21 +152,6 @@ def clone(request, uuid):
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
 
 
-@login_required
-def validation_results(request, uuid):
-    doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
-    response_string = doc.validation_result
-    # try to make it look pretty, but if not, just the raw text is fine
-    try:
-        response_string = etree.tostring(etree.fromstring(doc.validation_result.encode('UTF-8')), pretty_print=True)
-    except:
-        pass
-    response = HttpResponse(response_string, content_type="application/xml")
-    response['Content-Disposition'] = 'attachment; filename="{}-validation-results.xml"'.format(uuid)
-    return response
-
-
 # Error Pages
 def server_error(request):
     # FIXME remove tern references from 500 view
@@ -395,8 +380,6 @@ def save(request, uuid):
 
         inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
         inst.noteForDataManager = data['noteForDataManager'] or ''
-        inst.agreedToTerms = data['agreedToTerms'] or False
-        inst.doiRequested = data['doiRequested'] or False
         inst.save()
 
         # Remove any attachments which are no longer mentioned in the XML.

@@ -116,7 +116,6 @@ class DocumentManager(models.Manager):
 
         new_data = copy.deepcopy(to_json(orig_doc.latest_draft.data))
         new_data['identificationInfo']['title'] = new_title
-        new_data['identificationInfo']['doi'] = ''
         new_data['fileIdentifier'] = doc.pk
         new_data['attachments'] = []
 
@@ -179,13 +178,6 @@ class Document(AbstractDocument):
                                          user=self.owner,
                                          data=data)
         else:
-            # update the draft if they've changed the DOI
-            current_doi = self.doi or ''
-            draft = self.latest_draft
-            data_doi = draft.data['identificationInfo'].get('doi', '')
-            if current_doi != data_doi:
-                draft.data['identificationInfo']['doi'] = current_doi
-                draft.save()
             return super(Document, self).save(*args, **kwargs)
 
     ########################################################
@@ -198,13 +190,11 @@ class Document(AbstractDocument):
     @transition(field=status, source=ARCHIVED, target=DRAFT)
     def restore(self):
         self.clear_note()
-        self.clear_agreed()
 
     @transition(field=status, source=SUBMITTED, target=DRAFT,
                 permission='backend.workflow_reject')
     def reject(self):
         self.clear_note()
-        self.clear_agreed()
 
     @transition(field=status, source=DRAFT, target=SUBMITTED)
     def submit(self):
@@ -214,7 +204,6 @@ class Document(AbstractDocument):
     @transition(field=status, source=SUBMITTED, target=SUBMITTED)
     def resubmit(self):
         self.clear_note()
-        self.clear_agreed()
         email_manager_updated_alert(self)
 
     @transition(field=status, source=SUBMITTED, target=UPLOADED,
@@ -240,7 +229,6 @@ class Document(AbstractDocument):
                 permission='backend.workflow_restart')
     def restart(self):
         self.clear_note()
-        self.clear_agreed()
 
     def add_creator(self, creators, person, nsmap):
         creator = etree.SubElement(creators, 'creator')
@@ -258,15 +246,6 @@ class Document(AbstractDocument):
                              noteForDataManager='')
         inst.save()
 
-    def clear_agreed(self):
-        data = self.latest_draft.data
-        data['agreedToTerms'] = False
-        inst = DraftMetadata(document=self,
-                             user=self.latest_draft.user,
-                             data=data,
-                             agreedToTerms=False)
-        inst.save()
-
 
 class Contributor(AbstractContributor):
     pass
@@ -280,7 +259,7 @@ class DraftMetadata(AbstractDraftMetadata):
 
 
 class DocumentAttachment(AbstractDocumentAttachment):
-    pass
+    objects = DocumentManager()
 
 
 # TODO: Should this be a separate app?  Does workflow complicate this?

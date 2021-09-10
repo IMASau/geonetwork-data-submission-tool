@@ -54,13 +54,6 @@ class AbstractDocument(models.Model):
     template = models.ForeignKey("MetadataTemplate", on_delete=models.SET_NULL, null=True)
     title = models.TextField(default="Untitled")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    doi = models.CharField(max_length=1024, default='', blank=True)
-    validation_result = models.TextField(null=True, blank=True, verbose_name="Validation result XML")
-    validation_status = models.CharField(max_length=256, default='Unvalidated', null=True, blank=True,
-                                         verbose_name='Validity')
-    date_last_validated = models.DateTimeField(blank=True, null=True, verbose_name='Last Validated')
-
-    # objects = DocumentManager()
 
     class Meta:
         abstract = True
@@ -117,8 +110,6 @@ class AbstractDraftMetadata(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     data = JSONField()
     noteForDataManager = models.TextField(default="")
-    agreedToTerms = models.BooleanField(default=False)
-    doiRequested = models.BooleanField(default=False)
 
     class Meta:
         # FIXME
@@ -167,10 +158,6 @@ class AbstractSiteContent(models.Model):
     organisation_url = models.URLField(blank=True, null=True)
     tag_line = models.CharField(max_length=128, null=True)
     email = models.EmailField()
-    doi_uri = models.CharField(
-        max_length=1024,
-        verbose_name="DOI Service URI",
-        help_text="Base create URI for the DOI minting service")
     homepage_image = models.CharField(
         max_length=200,
         blank=True, null=True, verbose_name='Homepage Image',
@@ -188,7 +175,6 @@ class AbstractSiteContent(models.Model):
         help_text="Used to generate URLs to the published record on the portal. "
                   "(Accepts django template formatting with access to `site` and `document`.)"
     )
-    terms_pdf = models.URLField(blank=True, null=True, verbose_name='Terms PDF')
 
     homepage_image_credit_name = models.CharField(max_length=128, default="XXX")
     homepage_image_credit_url = models.URLField(blank=True, null=True)

@@ -15,11 +15,11 @@ This shouldn't happen during data entry unless we have crazy logic adjusting min
 during data entry (e.g. end date after start date... what happens when start date is moved)
 
 Alternative ideas
- # Leave app logic to clear values if logic affects legal date range
+ * Leave app logic to clear values if logic affects legal date range
    (e.g. clear end date if start date is updated to make it invalid).
    That is to say, the problem is not a UI concern and can be avoided.
- # Show any value if input is disabled (uncomplicated case which ensures user can "see" data entered)
- # Switch to a read-only mode when value is invalid.  This allows us to display the value and provide a way to clear
+ * Show any value if input is disabled (uncomplicated case which ensures user can "see" data entered)
+ * Switch to a read-only mode when value is invalid.  This allows us to display the value and provide a way to clear
    it.  The app will be able to show it's an error.
 
 For now I've implemented a read-only mode where clicking pops open a dialog explaining and providing a clear button.

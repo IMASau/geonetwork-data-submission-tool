@@ -10,6 +10,7 @@ export function TextareaField({value, hasError, disabled, placeholder, onChange}
         <div className="TextareaField">
             <BPCore.TextArea
                 growVertically={true}
+                fill={true}
                 intent={intent}
                 disabled={disabled}
                 value={value}

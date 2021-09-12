@@ -9,6 +9,7 @@ import {InputField} from "../InputField/InputField";
 import {DateInput} from "../DateField/DateInput";
 import {YesNoRadioGroup} from "../YesNoRadioGroup/YesNoRadioGroup";
 import NOTES from './NOTES.mdx';
+import {TextareaField} from "../TextareaField/TextareaField";
 
 export default {
     title: 'Example/FormGroup',
@@ -45,6 +46,7 @@ const Template = (args) => (
                        minDate={new Date("2021-01-01")}
                        maxDate={new Date("2021-12-31")}/>
             <YesNoRadioGroup disabled={args.disabled} hasError={args.hasError}/>
+            <TextareaField />
         </FormGroup>
     </div>
 );

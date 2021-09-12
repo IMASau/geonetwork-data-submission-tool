@@ -4,6 +4,7 @@ import {FormGroup} from './FormGroup';
 import './FormGroup.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
+import '@blueprintjs/popover2/lib/css/blueprint-popover2.css';
 import {InputField} from "../InputField/InputField";
 import {DateInput} from "../DateField/DateInput";
 import {YesNoRadioGroup} from "../YesNoRadioGroup/YesNoRadioGroup";
@@ -58,6 +59,7 @@ ErrorHighlighting.args = {
     required: false,
     inline: false,
     helperText: "This is the helper text",
+    toolTip: "This is the helper text",
     disabled: false,
     hasError: true
 };
@@ -68,6 +70,7 @@ InlineLayout.args = {
     required: false,
     inline: true,
     helperText: "This is the helper text",
+    toolTip: "This is the helper text",
     disabled: false,
     hasError: false
 };

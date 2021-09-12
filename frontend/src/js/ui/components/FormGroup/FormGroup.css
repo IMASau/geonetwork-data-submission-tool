@@ -1,3 +1,7 @@
 .FormGroup > .bp3-label {
     font-weight: bold;
 }
+.FormGroupLabel {
+    display: flex;
+    flex-direction: row;
+}

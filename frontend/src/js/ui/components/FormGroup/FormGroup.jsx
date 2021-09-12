@@ -1,17 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as BPCore from '@blueprintjs/core';
-import {hasErrorIntent, requiredLabelInfo} from '../utils';
+import {hasErrorIntent, requiredLabelInfo, TooltipButton} from '../utils';
+import {Classes} from "@blueprintjs/core";
 
-export function FormGroup({label, required, inline, helperText, hasError, disabled, children}) {
+function FormGroupLabel({labelFor, label, labelInfo, toolTip}) {
+    return (
+        <span className="FormGroupLabel">
+            <label className={Classes.LABEL} htmlFor={labelFor}>
+                {label}
+            </label>
+            <span className={Classes.TEXT_MUTED}>{labelInfo}</span>
+            <TooltipButton toolTip={toolTip}/>
+        </span>
+    )
+}
+
+export function FormGroup({label, required, inline, toolTip, helperText, hasError, disabled, children}) {
     const intent = hasErrorIntent({hasError, disabled});
     const labelInfo = requiredLabelInfo({required});
     return (
         <BPCore.FormGroup
             className="FormGroup"
-            label={label}
+            label={<FormGroupLabel label={label} labelInfo={labelInfo} toolTip={toolTip}/>}
             inline={inline}
-            labelInfo={labelInfo}
             helperText={helperText}
             intent={intent}
             disabled={disabled}

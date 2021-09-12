@@ -8,6 +8,7 @@ import '@blueprintjs/popover2/lib/css/blueprint-popover2.css';
 import {InputField} from "../InputField/InputField";
 import {DateInput} from "../DateField/DateInput";
 import {YesNoRadioGroup} from "../YesNoRadioGroup/YesNoRadioGroup";
+import NOTES from './NOTES.mdx';
 
 export default {
     title: 'Example/FormGroup',
@@ -28,7 +29,7 @@ const Template = (args) => (
             <DateInput disabled={args.disabled}
                        hasError={args.hasError}
                        minDate={new Date("2021-01-01")}
-                       maxDate={new Date("2021-12-31")} />
+                       maxDate={new Date("2021-12-31")}/>
         </FormGroup>
         <br/>
         <br/>
@@ -42,15 +43,14 @@ const Template = (args) => (
             <DateInput disabled={args.disabled}
                        hasError={args.hasError}
                        minDate={new Date("2021-01-01")}
-                       maxDate={new Date("2021-12-31")} />
+                       maxDate={new Date("2021-12-31")}/>
             <YesNoRadioGroup disabled={args.disabled} hasError={args.hasError}/>
         </FormGroup>
     </div>
 );
 export const Simple = Template.bind({});
 Simple.args = {
-    label: "Some questions",
-    helperText: "This is the helper text",
+    label: "A label",
 };
 
 export const ErrorHighlighting = Template.bind({});
@@ -75,5 +75,19 @@ InlineLayout.args = {
     hasError: false
 };
 
-import NOTES from './NOTES.mdx';
+export const InlineJagged = (args) => (
+    <div>
+        <FormGroup label="Short label" {...args} >
+            <InputField disabled={args.disabled} hasError={args.hasError}/>
+        </FormGroup>
+        <FormGroup label="A very very long label" {...args}>
+            <InputField disabled={args.disabled} hasError={args.hasError}/>
+        </FormGroup>
+    </div>
+)
+InlineJagged.args = {
+    inline: true,
+    helperText: "This is the helper text",
+};
+
 export const DesignDecisions = NOTES;

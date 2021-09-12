@@ -80,7 +80,7 @@ export const InlineJagged = (args) => (
         <FormGroup label="Short label" {...args} >
             <InputField disabled={args.disabled} hasError={args.hasError}/>
         </FormGroup>
-        <FormGroup label="A very very long label" {...args}>
+        <FormGroup label="A very very very long label" {...args}>
             <InputField disabled={args.disabled} hasError={args.hasError}/>
         </FormGroup>
     </div>

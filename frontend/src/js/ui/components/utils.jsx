@@ -1,5 +1,5 @@
 import * as BPCore from "@blueprintjs/core";
-import {Button} from "@blueprintjs/core";
+import {Button, Icon} from "@blueprintjs/core";
 import {Tooltip2} from "@blueprintjs/popover2";
 
 export function hasErrorIntent({hasError, disabled}) {
@@ -10,7 +10,7 @@ export function TooltipButton({toolTip}) {
     if (toolTip) {
         return (
             <Tooltip2 content={toolTip}>
-                <Button icon="help" minimal={true} small={true}/>
+                <Button small={true} minimal={true} icon={<Icon icon="help" size={10}/>}/>
             </Tooltip2>
         )
     } else {

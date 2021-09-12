@@ -163,8 +163,6 @@ class AbstractSiteContent(models.Model):
         blank=True, null=True, verbose_name='Homepage Image',
         help_text="Url to homepage image. (Accepts django template formatting with access to `site` and `sitecontent`.)")
     guide_pdf = models.URLField(null=True, verbose_name="Help", blank=True, max_length=1024)
-    roadmap_pdf = models.URLField(null=True, verbose_name="Roadmap", blank=True, max_length=1024)
-    releasenotes_url = models.URLField(null=True, verbose_name="Release notes URL", blank=True)
     portal_title = models.CharField(
         max_length=64,
         help_text="Used to refer to the place where lodged data can be discovered")

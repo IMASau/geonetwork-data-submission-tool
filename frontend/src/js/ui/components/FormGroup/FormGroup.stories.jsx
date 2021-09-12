@@ -40,13 +40,16 @@ const Template = (args) => (
         <br/>
         <br/>
         <FormGroup {...args} >
+            <TextareaField />
+        </FormGroup>
+        <br/>
+        <br/>
+        <FormGroup {...args} >
             <YesNoRadioGroup label="Has this been published before?" disabled={args.disabled} hasError={args.hasError}/>
             <DateInput disabled={args.disabled}
                        hasError={args.hasError}
                        minDate={new Date("2021-01-01")}
                        maxDate={new Date("2021-12-31")}/>
-            <YesNoRadioGroup disabled={args.disabled} hasError={args.hasError}/>
-            <TextareaField />
         </FormGroup>
     </div>
 );

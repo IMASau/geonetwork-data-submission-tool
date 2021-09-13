@@ -9,6 +9,8 @@ en_formats.DATETIME_FORMAT = "Y-m-d H:i:s"
 
 DEBUG = False
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # EMAIL_HOST = os.environ.get("DJANGO_EMAIL_HOST")
 # EMAIL_HOST_USER = os.environ.get('DJANGO_EMAIL_HOST_USER', 'no-reply@tern.org.au')

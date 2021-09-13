@@ -19,11 +19,11 @@ RUN pip3 install --upgrade pip \
 
 # install dependencies into /install
 COPY backend/requirements.txt \
-     backend/deploy_requirements.txt \
+     backend/prod_requirements.txt \
      /tmp/
 RUN mkdir /install \
  && export CRYPTOGRAPHY_DONT_BUILD_RUST=1 \
- && pip3 install --root=/install --no-warn-script-location -r /tmp/deploy_requirements.txt
+ && pip3 install --root=/install --no-warn-script-location -r /tmp/prod_requirements.txt
 
 ############################################################
 # Final Image

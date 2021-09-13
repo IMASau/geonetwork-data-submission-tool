@@ -1,0 +1,14 @@
+
+.YesNoRadioGroup-label {
+    display: inline-block;
+    margin-right: 1em;
+}
+.YesNoRadioGroup > div {
+    display: inline-block;
+}
+.YesNoRadioGroup.hasError .YesNoRadioGroup-label,
+.YesNoRadioGroup.hasError .bp3-radio,
+.YesNoRadioGroup.hasError .bp3-radio>input
+{
+    color: #c23030;
+}

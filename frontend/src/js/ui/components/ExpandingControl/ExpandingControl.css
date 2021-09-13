@@ -1,0 +1,11 @@
+.ExpandingControlHeader {
+    background-color: darkseagreen;
+    padding: 0.3em 1em;
+    border-radius: 9px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.ExpandingControlHeader label {
+    flex: 1
+}

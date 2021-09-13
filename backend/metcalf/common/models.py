@@ -57,7 +57,7 @@ class AbstractDocument(models.Model):
 
     class Meta:
         abstract = True
-        # FIXME is this needed
+        # FIXME: is this needed?
         permissions = (
             ("workflow_reject", "Can reject record in workflow"),
             ("workflow_upload", "Can upload record in workflow"),

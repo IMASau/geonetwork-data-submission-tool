@@ -191,6 +191,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 GMAPS_API_KEY = ""
 
+# TODO: Remove me
 FRONTEND_DEV_MODE = False
 
 # Elasticsearch

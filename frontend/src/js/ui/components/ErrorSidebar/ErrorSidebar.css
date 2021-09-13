@@ -1,0 +1,14 @@
+
+.ErrorSidebar {
+    background: lightsteelblue;
+    padding: 1em;
+    margin: 1em;
+    border-radius: 1em;
+}
+
+.ErrorSidebarListItem {
+}
+
+.ErrorSidebarLabel {
+    color: darkred;
+}

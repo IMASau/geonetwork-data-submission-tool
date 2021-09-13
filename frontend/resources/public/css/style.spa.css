@@ -173,14 +173,6 @@ body {
     border-bottom: 1px solid #e5e5e5;
 }
 
-.account-page .container .panel {
-    max-width: 450px;
-    margin: 0 auto;
-}
-
-.head {
-}
-
 .BoxMap {
     display: block;
     height: 300px;

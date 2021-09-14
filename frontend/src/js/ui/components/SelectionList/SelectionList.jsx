@@ -1,17 +1,71 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 
+const grid = 8;
 
-export function SelectionListItem(value) {
-    return <li>{value.label}</li>
-}
+const getItemStyle = (isDragging, draggableStyle) => ({
+    // some basic styles to make the items look a bit nicer
+    userSelect: "none",
+    padding: grid * 2,
+    margin: `0 0 ${grid}px 0`,
 
-export function SelectionList({values}) {
+    // change background colour if dragging
+    background: isDragging ? "lightgreen" : "grey",
+
+    // styles we need to apply on draggables
+    ...draggableStyle
+});
+
+const getListStyle = isDraggingOver => ({
+    background: isDraggingOver ? "lightblue" : "lightgrey",
+    padding: grid,
+    width: 250
+});
+
+export function SelectionList({items, onReorder}) {
+
+    const onDragEnd = (result) => {
+        if (result.destination) {
+            onReorder(
+                result.source.index,
+                result.destination.index
+            )
+        }
+    }
+
     return (
-        <ul>
-            {values.map(SelectionListItem)}
-        </ul>
-    );
+        <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="droppable">
+                {(provided, snapshot) => (
+                    <div
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        style={getListStyle(snapshot.isDraggingOver)}
+                    >
+                        {items.map((item, index) => (
+                            <Draggable key={item.value} draggableId={item.value} index={index}>
+                                {(provided, snapshot) => (
+                                    <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        style={getItemStyle(
+                                            snapshot.isDragging,
+                                            provided.draggableProps.style
+                                        )}
+                                    >
+                                        {item.label}
+                                    </div>
+                                )}
+                            </Draggable>
+                        ))}
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Droppable>
+        </DragDropContext>
+    )
 }
 
 SelectionList.propTypes = {

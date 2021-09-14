@@ -1,9 +1,8 @@
 
 # Design decisions
-
-* No "inline label" mode.  The underlying BlueprintJS FormGroup control provides an inline mode but it
-  doesn't suit the dialog mockup requirements.  Can be dealt with as a separate control.
+* Async select control can use a promise api and avoid coupling to specific endpoints
+* Values will be json data.
+* Values are self contained including id and any descriptive fields needed for display or export
 
 # Unresolved
-
-* Review error highlighting.  Should label highlight?
+* Placeholder might wrap badly if field is not wide enough

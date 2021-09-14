@@ -10,6 +10,7 @@ import {DateInput} from "../DateField/DateInput";
 import {YesNoRadioGroup} from "../YesNoRadioGroup/YesNoRadioGroup";
 import NOTES from './NOTES.mdx';
 import {TextareaField} from "../TextareaField/TextareaField";
+import {AsyncSelectField, SelectField} from "../SelectField/SelectField";
 
 export default {
     title: 'Example/FormGroup',
@@ -41,6 +42,16 @@ const Template = (args) => (
         <br/>
         <FormGroup {...args} >
             <TextareaField />
+        </FormGroup>
+        <br/>
+        <br/>
+        <FormGroup {...args} >
+            <SelectField options={[]}/>
+        </FormGroup>
+        <br/>
+        <br/>
+        <FormGroup {...args} >
+            <AsyncSelectField loadOptions={(s) => ([])}/>
         </FormGroup>
         <br/>
         <br/>

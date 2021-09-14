@@ -41,7 +41,8 @@ build:
 		yarn shadow-cljs compile tern
 
 copy-static:
-	sass --load-path=. --style compressed src/js/index.scss resources/public/css/style.npm-packaged.css
+	npx sass --load-path=. --style compressed src/js/index.scss resources/public/css/style.npm-packaged.css
+	mkdir -p resources/public/resources/icons resources/public/css/images
 	cp -fR node_modules/@blueprintjs/icons/resources/icons resources/public/resources/icons
 	cp -vr node_modules/leaflet-draw/dist/images/* resources/public/css/images
 

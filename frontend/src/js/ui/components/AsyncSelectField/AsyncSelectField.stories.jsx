@@ -16,17 +16,7 @@ export default {
     }
 };
 
-const FieldTemplate = (args) => (
-    <div>
-        <div style={{display: "flex", flexDirection: "row", fill: 1}}>
-            <div style={{width: 200, padding: 5}}><AsyncSelectField disabled={args.disabled} {...args} /></div>
-            <div style={{width: 200, padding: 5}}><InputField disabled={args.disabled} value={"Marzipan"}/></div>
-        </div>
-        <div style={{display: "flex", flexDirection: "row", fill: 1}}>
-            <div style={{width: 200, padding: 5}}><InputField disabled={args.disabled} value={"Marzipan"}/></div>
-        </div>
-    </div>
-)
+const FieldTemplate = (args) => (<AsyncSelectField {...args} />)
 
 const options = [
     {value: 'chocolate', label: 'Chocolate'},
@@ -79,11 +69,25 @@ FieldWithInvalidValue.args = {
     hasError: true,
 };
 
-
 export const EmptyFieldWithPlaceholder = FieldTemplate.bind({});
 EmptyFieldWithPlaceholder.args = {
     loadOptions: promiseOptions,
     placeholder: "This is the placeholder",
+};
+
+export const StylingCheck = (args) => (
+    <div>
+        <div style={{display: "flex", flexDirection: "row", fill: 1}}>
+            <div style={{width: 200, padding: 5}}><AsyncSelectField disabled={args.disabled} {...args} /></div>
+            <div style={{width: 200, padding: 5}}><InputField disabled={args.disabled} value={"Marzipan"}/></div>
+        </div>
+        <div style={{display: "flex", flexDirection: "row", fill: 1}}>
+            <div style={{width: 200, padding: 5}}><InputField disabled={args.disabled} value={"Marzipan"}/></div>
+        </div>
+    </div>
+)
+StylingCheck.args = {
+    loadOptions: promiseOptions,
 };
 
 export const DesignDecisions = NOTES;

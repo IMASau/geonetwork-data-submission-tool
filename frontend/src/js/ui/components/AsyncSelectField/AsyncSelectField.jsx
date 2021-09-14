@@ -162,8 +162,8 @@ export function AsyncSelectField({value, hasError, disabled, placeholder, onChan
             onChange={(value) => onChange(value)}
             isClearable={true}
             isDisabled={disabled}
-            loadOptions={defaultOptions}
-            defaultOptions={true}
+            loadOptions={loadOptions}
+            defaultOptions={defaultOptions}
         >
         </AsyncSelect>
     );

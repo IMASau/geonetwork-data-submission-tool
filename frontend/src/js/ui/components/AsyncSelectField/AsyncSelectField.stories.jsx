@@ -19,11 +19,11 @@ export default {
 const FieldTemplate = (args) => (
     <div>
         <div style={{display: "flex", flexDirection: "row", fill: 1}}>
-            <div style={{width: 200, padding: 5}}><AsyncSelectField {...args} /></div>
-            <div style={{width: 200, padding: 5}}><InputField value={"Marzipan"}/></div>
+            <div style={{width: 200, padding: 5}}><AsyncSelectField disabled={args.disabled} {...args} /></div>
+            <div style={{width: 200, padding: 5}}><InputField disabled={args.disabled} value={"Marzipan"}/></div>
         </div>
         <div style={{display: "flex", flexDirection: "row", fill: 1}}>
-            <div style={{width: 200, padding: 5}}><InputField value={"Marzipan"}/></div>
+            <div style={{width: 200, padding: 5}}><InputField disabled={args.disabled} value={"Marzipan"}/></div>
         </div>
     </div>
 )

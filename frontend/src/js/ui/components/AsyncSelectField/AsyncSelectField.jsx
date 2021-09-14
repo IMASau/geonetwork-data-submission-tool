@@ -24,9 +24,11 @@ const customStyles = {
             "&:hover": null,
             border: "none",
             borderRadius: "3px",
-            boxShadow: state.isFocused ?
-                "0 0 0 1px #137cbd, 0 0 0 3px rgb(19 124 189 / 30%), inset 0 1px 1px rgb(16 22 26 / 20%)":
-                "0 0 0 0 rgb(19 124 189 / 0%), 0 0 0 0 rgb(19 124 189 / 0%), inset 0 0 0 1px rgb(16 22 26 / 15%), inset 0 1px 1px rgb(16 22 26 / 20%)",
+            backgroundColor: state.isDisabled ? "rgba(206, 217, 224, 0.5)" : provided.backgroundColor,
+            boxShadow:
+                state.isFocused ? "0 0 0 1px #137cbd, 0 0 0 3px rgb(19 124 189 / 30%), inset 0 1px 1px rgb(16 22 26 / 20%)" :
+                    state.isDisabled ? "none" :
+                        "0 0 0 0 rgb(19 124 189 / 0%), 0 0 0 0 rgb(19 124 189 / 0%), inset 0 0 0 1px rgb(16 22 26 / 15%), inset 0 1px 1px rgb(16 22 26 / 20%)",
         }
     },
     dropdownIndicator: (provided, state) => {
@@ -136,7 +138,7 @@ const customStyles = {
         console.log("singleValue", {provided, state});
         return {
             ...provided,
-            color: "#182026",
+            color: state.isDisabled ? "rgba(92, 112, 128, 0.6)" : "#182026",
         }
     },
     valueContainer: (provided, state) => {
@@ -149,6 +151,7 @@ const customStyles = {
 }
 
 export function AsyncSelectField({value, hasError, disabled, placeholder, onChange, loadOptions}) {
+    const defaultOptions = !disabled
     return (
         <AsyncSelect
             className="AsyncSelectField"
@@ -159,7 +162,7 @@ export function AsyncSelectField({value, hasError, disabled, placeholder, onChan
             onChange={(value) => onChange(value)}
             isClearable={true}
             isDisabled={disabled}
-            loadOptions={loadOptions}
+            loadOptions={defaultOptions}
             defaultOptions={true}
         >
         </AsyncSelect>

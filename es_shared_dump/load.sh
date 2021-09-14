@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DUMP="docker run --rm -it -v $(pwd):/data elasticdump/elasticsearch-dump:v6.72.0"
+DUMP="docker run --add-host=host.docker.internal:host-gateway --rm -it -v $(pwd):/data elasticdump/elasticsearch-dump:v6.72.0"
 
 # qudt_units-2021-06-07t14-06-1623076799
 # shared_instruments-2021-06-07t14-06-1623076799

@@ -1,5 +1,5 @@
 (ns interop.ui
-  (:require ["/ui/components/boxmap/BoxMap" :as BoxMap]
+  (:require ["/ui/components/BoxMap/BoxMap" :as BoxMap]
             [cljs.spec.alpha :as s]))
 
 (assert BoxMap/BoxMap)

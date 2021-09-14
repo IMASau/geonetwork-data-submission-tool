@@ -1,7 +1,9 @@
 
+# Design decisions
+
+* No "inline label" mode.  The underlying BlueprintJS FormGroup control provides an inline mode but it
+  doesn't suit the dialog mockup requirements.  Can be dealt with as a separate control.
+
 # Unresolved
 
 * Review error highlighting.  Should label highlight?
-* Inline flag is default behaviour at the moment.  Doesn't align perfectly with mockups:
-  * Helper text appears under controls rather than under label as show in some dialog mockups.
-  * Inline labels seems not to guarantee width for neat column of labels.

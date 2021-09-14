@@ -62,37 +62,10 @@ export const ErrorHighlighting = Template.bind({});
 ErrorHighlighting.args = {
     label: "Some questions",
     required: false,
-    inline: false,
     helperText: "This is the helper text",
     toolTip: "This is the helper text",
     disabled: false,
     hasError: true
-};
-
-export const InlineLayout = Template.bind({});
-InlineLayout.args = {
-    label: "Some questions",
-    required: false,
-    inline: true,
-    helperText: "This is the helper text",
-    toolTip: "This is the helper text",
-    disabled: false,
-    hasError: false
-};
-
-export const InlineJagged = (args) => (
-    <div>
-        <FormGroup label="Short label" {...args} >
-            <InputField disabled={args.disabled} hasError={args.hasError}/>
-        </FormGroup>
-        <FormGroup label="A very very very long label" {...args}>
-            <InputField disabled={args.disabled} hasError={args.hasError}/>
-        </FormGroup>
-    </div>
-)
-InlineJagged.args = {
-    inline: true,
-    helperText: "This is the helper text",
 };
 
 export const DesignDecisions = NOTES;

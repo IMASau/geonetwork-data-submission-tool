@@ -49,6 +49,8 @@ services:
     build: .
     image: ternau/data-submission-tool
 
+    environment:
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE:-metcalf.tern.webapp.settings}
     env_file:
       - .env
     command: init python3 manage.py runserver 0.0.0.0:8000

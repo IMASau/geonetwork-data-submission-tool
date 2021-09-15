@@ -10,6 +10,7 @@ import {DateInput} from "../DateField/DateInput";
 import {YesNoRadioGroup} from "../YesNoRadioGroup/YesNoRadioGroup";
 import NOTES from './NOTES.mdx';
 import {TextareaField} from "../TextareaField/TextareaField";
+import {AsyncSelectField, SelectField} from "../SelectField/SelectField";
 
 export default {
     title: 'Example/FormGroup',
@@ -45,6 +46,16 @@ const Template = (args) => (
         <br/>
         <br/>
         <FormGroup {...args} >
+            <SelectField options={[]}/>
+        </FormGroup>
+        <br/>
+        <br/>
+        <FormGroup {...args} >
+            <AsyncSelectField loadOptions={(s) => ([])}/>
+        </FormGroup>
+        <br/>
+        <br/>
+        <FormGroup {...args} >
             <YesNoRadioGroup label="Has this been published before?" disabled={args.disabled} hasError={args.hasError}/>
             <DateInput disabled={args.disabled}
                        hasError={args.hasError}
@@ -62,37 +73,10 @@ export const ErrorHighlighting = Template.bind({});
 ErrorHighlighting.args = {
     label: "Some questions",
     required: false,
-    inline: false,
     helperText: "This is the helper text",
     toolTip: "This is the helper text",
     disabled: false,
     hasError: true
-};
-
-export const InlineLayout = Template.bind({});
-InlineLayout.args = {
-    label: "Some questions",
-    required: false,
-    inline: true,
-    helperText: "This is the helper text",
-    toolTip: "This is the helper text",
-    disabled: false,
-    hasError: false
-};
-
-export const InlineJagged = (args) => (
-    <div>
-        <FormGroup label="Short label" {...args} >
-            <InputField disabled={args.disabled} hasError={args.hasError}/>
-        </FormGroup>
-        <FormGroup label="A very very very long label" {...args}>
-            <InputField disabled={args.disabled} hasError={args.hasError}/>
-        </FormGroup>
-    </div>
-)
-InlineJagged.args = {
-    inline: true,
-    helperText: "This is the helper text",
 };
 
 export const DesignDecisions = NOTES;

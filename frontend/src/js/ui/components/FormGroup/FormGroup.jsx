@@ -8,19 +8,18 @@ function LabelInfo({required, toolTip}) {
     const labelInfo = requiredLabelInfo({required});
     return (
         <span className="FormGroupLabelInfo">
-            <span className={Classes.TEXT_MUTED}>{labelInfo}</span>
+            <span className={Classes.TEXT_MUTED}> {labelInfo}</span>
             <TooltipButton toolTip={toolTip}/>
         </span>
     )
 }
 
-export function FormGroup({label, required, inline, toolTip, helperText, hasError, disabled, children}) {
+export function FormGroup({label, required, toolTip, helperText, hasError, disabled, children}) {
     const intent = hasErrorIntent({hasError, disabled});
     return (
         <BPCore.FormGroup
             className="FormGroup"
             label={label}
-            inline={inline}
             helperText={helperText}
             intent={intent}
             disabled={disabled}
@@ -34,7 +33,6 @@ export function FormGroup({label, required, inline, toolTip, helperText, hasErro
 FormGroup.propTypes = {
     label: PropTypes.string,
     required: PropTypes.bool,
-    inline: PropTypes.bool,
     helperText: PropTypes.string,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,

@@ -140,11 +140,11 @@ def add_creator(creators, person, nsmap):
 
 
 class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
-    list_display = ['admin_name', 'owner_name', 'status', 'validity', 'date_last_validated', 'action_links']
+    list_display = ['admin_name', 'owner_name', 'status', 'validity', 'action_links']
     list_filter = ['status', 'template']
     search_fields = ['title', 'owner__username', 'owner__email', 'uuid']
     fsm_field = ['status', ]
-    readonly_fields = ['status', 'action_links', 'submission_note', 'doi_links', 'validity', 'date_last_validated']
+    readonly_fields = ['status', 'action_links', 'submission_note', 'doi_links', 'validity']
     inlines = [DocumentAttachmentInline]
     fieldsets = [
         (None, {'fields': ('title', 'template', 'owner', 'status', 'submission_note', 'doi')}),

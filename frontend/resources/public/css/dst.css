@@ -1,0 +1,127 @@
+
+/** DATA Submission tool customisations **/
+body {
+    background-color: #fff;
+}
+
+.bp3-navbar.bp3-dark, .bp3-dark .bp3-navbar {
+	background-color: #6EB3A6;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+.bp3-navbar-heading {
+	font-weight: bold;
+	font-size: 22px;
+}
+
+.bp3-progress-bar {
+	height: 15px;
+}
+
+:focus{
+	outline: none;
+}
+
+.main-footer-container {
+	margin-top: 0;
+	padding: 25px 0px 125px 0px;
+}
+
+#Content {
+	padding-bottom: 70px;
+	background-color: #f5f5f5;
+}
+
+.main-footer{
+	background-color: #fff;
+        text-align: start;
+}
+
+.bp3-tab-list > *:not(:last-child) {
+	background-color: #fff;
+	padding: 0 3px;
+}
+
+.bp3-navbar-group.bp3-align-left {
+	background-image: url(../img/shared-product-name.png);
+    background-size: 350px;
+    background-repeat: no-repeat;
+}
+
+.bp3-navbar-group.bp3-align-left .bp3-button.bp3-minimal {
+	margin-left: 150px;
+}
+
+.bp3-tab[aria-selected="true"], .bp3-tab:not([aria-disabled="true"]):hover {
+    color: #006381;
+}
+
+.bp3-tab-indicator-wrapper .bp3-tab-indicator {
+    background-color: #006381;
+}
+
+.bp3-progress-bar.bp3-intent-success .bp3-progress-meter {
+    background-color: #6EB3A6;
+}
+
+.bp3-progress-bar.bp3-intent-warning .bp3-progress-meter {
+	/* background-color: #ed694b; */
+	background-color: #f5a26c;
+}
+
+.link-right-container {
+	height: 20px;
+}
+
+a.link-right {
+	float: right;
+}
+
+.main-header {
+	line-height: 1;
+}
+
+.label {
+	border-radius: 10em;
+}
+
+.bp3-minimal {
+	font-weight: bold;
+}
+
+label, table th, .lead {
+	margin-bottom: 10px;
+	color: #043E4F;
+}
+
+.pagehead {
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+}
+
+/*** Vendor-prefix.less fixes *****/
+.form-control:focus {
+    border-color: #669FBA;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(151,195,219,.6);
+	box-shadow: inset 0 1px 1px
+	rgba(0,0,0,.075),0 0 8px
+		rgba(151,195,219,.6);
+}
+
+/*** Do not display the tagline in the header on small screens ***/
+/*@media screen and (max-width: 635px) {
+	.navbar-heading {
+		visibility: hidden;
+	}
+}*/
+
+.PageViewBody h2 {
+    margin-top: 0;
+    padding-top: 0.2em;
+    padding-bottom: 0.5em;
+}
+
+p.lead small {
+	padding-left: 10px
+}

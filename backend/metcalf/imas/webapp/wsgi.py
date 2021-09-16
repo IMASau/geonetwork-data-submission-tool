@@ -12,6 +12,6 @@ from django.core.wsgi import get_wsgi_application
 
 # load default settings, which then will include other options loaded via
 # django-split-settings
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'webapp.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'metcalf.imas.webapp.settings')
 
 application = get_wsgi_application()

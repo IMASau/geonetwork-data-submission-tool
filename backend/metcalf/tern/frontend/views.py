@@ -59,6 +59,7 @@ def master_urls():
         "LandingPage": reverse("LandingPage"),
         "Dashboard": reverse("Dashboard"),
         "Create": reverse("Create"),
+        "account_logout": reverse("Sign Out"),
         "STATIC_URL": settings.STATIC_URL,
     }
 

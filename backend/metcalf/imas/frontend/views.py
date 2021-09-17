@@ -59,6 +59,7 @@ def master_urls():
         "Dashboard": reverse("Dashboard"),
         "Create": reverse("Create"),
         "account_profile": reverse("account_profile"),
+        "account_logout": reverse("account_logout"),
         "STATIC_URL": settings.STATIC_URL,
     }
 
@@ -529,12 +530,6 @@ def transition(request, uuid):
                          "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
-
-
-def logout_view(request):
-    logout(request)
-    abs_uri = urllib.parse.quote(request.build_absolute_uri('/'))
-    return redirect(settings.OIDC_LOGOUT_ENDPOINT + '?redirect_uri=' + abs_uri)
 
 
 def robots_view(request):

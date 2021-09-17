@@ -37,7 +37,6 @@ urlpatterns = [
     path('mef/<uuid:uuid>/', mef, name="MEF"),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('logout', logout_view, name="Sign Out"),
     path('robots.txt', robots_view, name="Robots"),
     path('api/qudtunits', qudt_units),
     path('api/ternparameters', tern_parameters),

@@ -1772,7 +1772,7 @@
 
 (defn navbar
   []
-  (let [{:keys [Dashboard account_profile]} @(rf/subscribe [:subs/get-derived-path [:context :urls]])
+  (let [{:keys [Dashboard account_profile account_logout]} @(rf/subscribe [:subs/get-derived-path [:context :urls]])
         {:keys [user]} @(rf/subscribe [:subs/get-derived-path [:context]])
         {:keys [title tag_line guide_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])]
     [bp3/navbar {:className "bp3-dark"}
@@ -1784,7 +1784,7 @@
          [:a.bp3-button.bp3-minimal {:href account_profile} (userDisplay user)]
          [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)])
        [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
-       [:a.bp3-button.bp3-minimal {:href "/logout"} "Sign Out"]]]]))
+       [:a.bp3-button.bp3-minimal {:href account_logout} "Sign Out"]]]]))
 
 (defn PageView404
   [_]

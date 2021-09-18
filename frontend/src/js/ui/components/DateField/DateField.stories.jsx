@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {DateInput} from './DateInput';
-import './DateInput.css';
+import {DateField} from './DateField';
+import './DateField.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
 
 export default {
   title: 'Example/DateField',
-    component: DateInput,
+    component: DateField,
     argTypes: {
     // Most are inferred from DateField.propTypes
         value: {control: 'date'},
@@ -23,7 +23,7 @@ const Wrapper = (args) => {
     const maxDate = args.maxDate ? new Date(args.maxDate) : null;
     const value = args.value ? new Date(args.value) : null;
 
-    return <DateInput {...args} value={value} minDate={minDate} maxDate={maxDate}/>;
+    return <DateField {...args} value={value} minDate={minDate} maxDate={maxDate}/>;
 };
 
 const Template = (args) => <Wrapper {...args} />;

@@ -38,7 +38,7 @@ export const OutOfRangeValue = ({formatDate, value, disabled, hasError, rightEle
     )
 }
 
-export const DateInput = ({value, disabled, onChange, hasError, minDate, maxDate}) => {
+export const DateField = ({value, disabled, onChange, hasError, minDate, maxDate}) => {
     console.assert(maxDate > minDate);
     const intent = hasErrorIntent({hasError, disabled});
     const outOfRange = value && (value < minDate || value > maxDate);
@@ -63,7 +63,7 @@ export const DateInput = ({value, disabled, onChange, hasError, minDate, maxDate
     }
 };
 
-DateInput.propTypes = {
+DateField.propTypes = {
     value: PropTypes.instanceOf(Date),
     disabled: PropTypes.bool,
     onChange: PropTypes.func,

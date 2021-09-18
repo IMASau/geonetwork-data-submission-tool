@@ -33,6 +33,7 @@ export function FormGroup({label, required, toolTip, helperText, hasError, disab
 FormGroup.propTypes = {
     label: PropTypes.string,
     required: PropTypes.bool,
+    toolTip: PropTypes.string,
     helperText: PropTypes.string,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,

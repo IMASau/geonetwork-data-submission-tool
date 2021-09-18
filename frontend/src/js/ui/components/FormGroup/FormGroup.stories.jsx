@@ -6,7 +6,7 @@ import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
 import '@blueprintjs/popover2/lib/css/blueprint-popover2.css';
 import {InputField} from "../InputField/InputField";
-import {DateInput} from "../DateField/DateInput";
+import {DateField} from "../DateField/DateField";
 import {YesNoRadioGroup} from "../YesNoRadioGroup/YesNoRadioGroup";
 import NOTES from './NOTES.mdx';
 import {TextareaField} from "../TextareaField/TextareaField";
@@ -28,7 +28,7 @@ const Template = (args) => (
         <br/>
         <br/>
         <FormGroup {...args} >
-            <DateInput disabled={args.disabled}
+            <DateField disabled={args.disabled}
                        hasError={args.hasError}
                        minDate={new Date("2021-01-01")}
                        maxDate={new Date("2021-12-31")}/>
@@ -57,7 +57,7 @@ const Template = (args) => (
         <br/>
         <FormGroup {...args} >
             <YesNoRadioGroup label="Has this been published before?" disabled={args.disabled} hasError={args.hasError}/>
-            <DateInput disabled={args.disabled}
+            <DateField disabled={args.disabled}
                        hasError={args.hasError}
                        minDate={new Date("2021-01-01")}
                        maxDate={new Date("2021-12-31")}/>

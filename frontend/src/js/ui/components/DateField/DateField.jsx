@@ -57,6 +57,9 @@ export const DateField = ({value, disabled, onChange, hasError, minDate, maxDate
                 value={value}
                 onChange={onChange}
                 inputProps={{"leftIcon": "calendar", "intent": intent}}
+                popoverProps={{
+                    shouldReturnFocusOnClose: false
+                }}
                 minDate={minDate}
                 maxDate={maxDate}/>
         );

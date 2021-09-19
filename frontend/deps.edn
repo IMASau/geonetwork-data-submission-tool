@@ -11,7 +11,7 @@
          re-frame/re-frame           {:mvn/version "1.2.0"}}
  :aliases
         {:shadow-cljs
-         {:extra-deps {thheller/shadow-cljs {:mvn/version "2.15.2"}}}
+         {:extra-deps {thheller/shadow-cljs {:mvn/version "2.15.9"}}}
          :clean-ns
          {:replace-deps {com.github.clojure-lsp/clojure-lsp {:mvn/version "2021.08.03-13.33.03"}}
           :exec-fn      clojure-lsp.api/clean-ns!

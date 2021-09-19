@@ -67,10 +67,11 @@
         children))
 
 (defn InputField
-  [{:keys [value placeholder disabled hasError onChange]}]
+  [{:keys [value placeholder maxLength disabled hasError onChange]}]
   [:> InputField/InputField
    {:value       value
     :placeholder placeholder
+    :maxLength   maxLength
     :disabled    disabled
     :hasError    hasError
     :onChange    onChange}])

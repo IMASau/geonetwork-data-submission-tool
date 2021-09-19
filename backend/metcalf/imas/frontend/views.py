@@ -429,7 +429,8 @@ def edit(request, uuid):
             "user": UserSerializer(request.user).data,
             "title": data['identificationInfo']['title'],
             "document": DocumentInfoSerializer(doc, context={'user': request.user}).data,
-            "status": user_status_list()
+            "status": user_status_list(),
+            "csrf": request.COOKIES["csrftoken"]
         },
         "form": {
             "url": reverse("Save", kwargs={'uuid': doc.uuid}),

@@ -12,7 +12,7 @@
   []
   (let [payload (js->clj (aget js/window "payload") :keywordize-keys true)]
     #_(get-csrf)
-    (:csrf payload)))
+    (get-in payload [:context :csrf])))
 
 (defn ^:export get-cookie
   [name]

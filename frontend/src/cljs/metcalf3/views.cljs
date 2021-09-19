@@ -176,7 +176,8 @@
         (some col-match? (rest row)))
       table)))
 
-(defn InputField
+; TODO: Consider InputControlWithLabel
+(defn ^:deprecated InputField
   [{:keys [path] :as props}]
   (let [field @(rf/subscribe [:subs/get-derived-path path])]
     [InputWidget (-> field

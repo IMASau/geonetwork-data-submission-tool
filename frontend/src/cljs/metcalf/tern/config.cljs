@@ -41,6 +41,7 @@
 (rf/reg-event-db :handlers/set-geographic-element handlers/set-geographic-element)
 (rf/reg-event-db :handlers/person-detail-changed handlers/person-detail-changed)
 (rf/reg-event-db :handlers/value-changed handlers/value-changed)
+(rf/reg-event-db ::views/input-field-with-label-value-changed handlers/value-changed)
 (rf/reg-event-db :handlers/set-tab handlers/set-tab)
 (rf/reg-event-db :handlers/load-errors handlers/load-errors)
 (rf/reg-event-db :handlers/add-keyword-extra handlers/add-keyword-extra)
@@ -89,6 +90,7 @@
 (rf/reg-sub :metcalf3/form-dirty? :<- [:subs/get-derived-state] subs/form-dirty?)
 (rf/reg-sub :subs/is-page-name-nil? subs/is-page-name-nil?)
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs/get-derived-path)
+(rf/reg-sub ::views/get-input-field-with-label-props :<- [:subs/get-derived-state] subs/get-input-field-with-label-props)
 (rf/reg-sub :subs/get-page-props subs/get-page-props)
 (rf/reg-sub :subs/get-page-name subs/get-page-name)
 (rf/reg-sub :subs/get-modal-props subs/get-modal-props)
@@ -120,6 +122,7 @@
        'metcalf3.view/TopicCategories         views/TopicCategories
        'metcalf3.view/ResourceConstraints     views/ResourceConstraints
        'metcalf3.view/InputField              views/InputField
+       'metcalf3.view/input-field-with-label  views/input-field-with-label
        'metcalf3.view/Lodge                   views/Lodge
        'metcalf3.view/SupportingResource      views/SupportingResource
        'metcalf3.view/SupplementalInformation views/SupplementalInformation

@@ -176,7 +176,7 @@
         (some col-match? (rest row)))
       table)))
 
-; TODO: Consider InputControlWithLabel
+; TODO: Consider input-field-with-label
 (defn ^:deprecated InputField
   [{:keys [path] :as props}]
   (let [field @(rf/subscribe [:subs/get-derived-path path])]
@@ -185,19 +185,17 @@
                      (assoc
                        :on-change #(rf/dispatch [:handlers/value-changed path %])))]))
 
-(defn InputControlWithLabel
+(defn input-field-with-label
   [{:keys [path label placeholder helperText toolTip maxLength required]}]
-  ; TODO: Use a specific sub/handler
-  (let [{:keys [value disabled errors show-errors]} @(rf/subscribe [:subs/get-derived-path path])
-        onChange #(rf/dispatch [:handlers/value-changed path %])
-        hasError (boolean (and show-errors (seq errors)))]
+  (let [{:keys [value disabled hasError errorText]} @(rf/subscribe [::get-input-field-with-label-props path])
+        onChange #(rf/dispatch [::input-field-with-label-value-changed path %])]
     [ui/FormGroup
      {:label      label
       :required   required
-      :helperText helperText
-      :toolTip    toolTip
       :disabled   disabled
-      :hasError   hasError}
+      :hasError   hasError
+      :helperText (or errorText helperText)
+      :toolTip    toolTip}
      [ui/InputField
       {:value       value
        :placeholder placeholder

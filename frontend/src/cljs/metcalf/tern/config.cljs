@@ -136,6 +136,13 @@
         [:div
          [metcalf3.view/PageErrors {:page :data-identification :path [:form]}]
          [:h2 "1. Data Identification"]
+         [metcalf3.view/input-field-with-label
+          {:path        [:form :fields :identificationInfo :title]
+           :label       "Title"
+           :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
+           :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"
+           :maxLength   250
+           :required    true}]
          [metcalf3.view/InputField {:path [:form :fields :identificationInfo :title]}]
          [metcalf3.view/date-field-with-label
           {:path     [:form :fields :identificationInfo :dateCreation]

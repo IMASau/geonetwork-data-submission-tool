@@ -41,9 +41,16 @@
     :onChange (fn [geojson] (on-change (js->clj geojson :keywordize-keys true)))}])
 
 (defn DateField
-  [{:keys []}]
+  [{:keys [value disabled onChange hasError minDate maxDate]}]
+  (s/assert inst? minDate)
+  (s/assert inst? maxDate)
   [:> DateField/DateField
-   {}])
+   {:value    value
+    :disabled disabled
+    :onChange onChange
+    :hasError hasError
+    :minDate  minDate
+    :maxDate  maxDate}])
 
 (defn ErrorSidebar
   [{:keys []}]

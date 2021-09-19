@@ -25,7 +25,8 @@
             [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectAsyncCreatable VirtualizedSelect]]
             [metcalf3.widget.tree :refer [TermList TermTree]]
             [re-frame.core :as rf]
-            [reagent.core :as r])
+            [reagent.core :as r]
+            [interop.ui :as ui])
   (:import [goog.dom ViewportSizeMonitor]
            [goog.events FileDropHandler]
            [goog.events EventType]))
@@ -182,6 +183,27 @@
                      (merge (dissoc props :path))
                      (assoc
                        :on-change #(rf/dispatch [:handlers/value-changed path %])))]))
+
+(defn InputControlWithLabel
+  [{:keys [path label placeholder helperText toolTip maxLength required]}]
+  ; TODO: Use a specific sub/handler
+  (let [{:keys [value disabled errors show-errors]} @(rf/subscribe [:subs/get-derived-path path])
+        onChange #(rf/dispatch [:handlers/value-changed path %])
+        hasError (boolean (and show-errors (seq errors)))]
+    [ui/FormGroup
+     {:label      label
+      :required   required
+      :helperText helperText
+      :toolTip    toolTip
+      :disabled   disabled
+      :hasError   hasError}
+     [ui/InputField
+      {:value       value
+       :placeholder placeholder
+       :maxLength   maxLength
+       :disabled    disabled
+       :hasError    hasError
+       :onChange    onChange}]]))
 
 ; TODO: Don't dispatch value changes until blur
 ; TODO: Show errors after blur

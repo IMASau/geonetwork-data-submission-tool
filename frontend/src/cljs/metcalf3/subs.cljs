@@ -110,6 +110,17 @@
      :maxDate    (s/assert (s/nilable inst?) maxDate)
      :intent     (when error-help "danger")}))
 
+(defn get-date-field-with-label-props
+  [derived-db [_ path]]
+  (let [{:keys [required disabled value show-errors errors minDate maxDate]} (get-in derived-db path)
+        value (if (= value "") nil value)
+        error-help (when (and show-errors (seq errors))
+                     (string/join ". " errors))]
+    {:value     (when value (moment/to-date (moment/moment value "YYYY-MM-DD")))
+     :disabled  disabled
+     :hasError  (boolean error-help)
+     :errorText error-help}))
+
 (defn get-textarea-field-props
   [derived-db [_ path]]
   (let [{:keys [label help required disabled value show-errors errors placeholder maxlength]} (get-in derived-db path)

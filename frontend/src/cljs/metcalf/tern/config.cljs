@@ -36,6 +36,7 @@
 (rf/reg-event-db :handlers/load-error-page handlers/load-error-page)
 (rf/reg-event-db :handlers/set-value handlers/set-value)
 (rf/reg-event-db :date-field/value-change handlers/date-field-value-change)
+(rf/reg-event-db ::views/date-field-with-label-value-change handlers/date-field-value-change)
 (rf/reg-event-db :textarea-field/value-change handlers/textarea-field-value-change)
 (rf/reg-event-db :handlers/set-geographic-element handlers/set-geographic-element)
 (rf/reg-event-db :handlers/person-detail-changed handlers/person-detail-changed)
@@ -95,6 +96,7 @@
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] subs/get-edit-tab-props)
 (rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs/get-progress-props)
 (rf/reg-sub :date-field/get-props :<- [:subs/get-derived-state] subs/get-date-field-props)
+(rf/reg-sub ::views/get-date-field-with-label-props :<- [:subs/get-derived-state] subs/get-date-field-with-label-props)
 (rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs/get-textarea-field-props)
 (rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs/get-textarea-field-many-props)
 (rf/reg-sub :subs/get-form-tick subs/get-form-tick)
@@ -105,6 +107,7 @@
 (set! low-code/component-registry
       {'metcalf3.view/DataParametersTable     views/DataParametersTable
        'metcalf3.view/date-field              views/date-field
+       'metcalf3.view/date-field-with-label   views/date-field-with-label
        'metcalf3.view/textarea-field          views/textarea-field
        'metcalf3.view/Methods                 views/Methods
        'metcalf3.view/UseLimitations          views/UseLimitations
@@ -131,8 +134,12 @@
          [metcalf3.view/PageErrors {:page :data-identification :path [:form]}]
          [:h2 "1. Data Identification"]
          [metcalf3.view/InputField {:path [:form :fields :identificationInfo :title]}]
-         [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :dateCreation]
-                                    :defMinDate #inst "1900-01-01"}]
+         [metcalf3.view/date-field-with-label
+          {:path     [:form :fields :identificationInfo :dateCreation]
+           :label    "Date the resource was created"
+           :required true
+           :minDate  #inst "1900-01-01"
+           :maxDate  #inst "2100-01-01"}]
          [metcalf3.view/TopicCategories {:path [:form :fields :identificationInfo :topicCategory]}]
          [metcalf3.view/SelectField {:path [:form :fields :identificationInfo :status]}]
          [metcalf3.view/SelectField {:path [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]}]
@@ -156,10 +163,18 @@
         [:div
          [metcalf3.view/PageErrors {:page :when :path [:form]}]
          [:h2 "3. When was the data acquired?"]
-         [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :beginPosition]
-                                    :defMinDate #inst "1900-01-01"}]
-         [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :endPosition]
-                                    :defMinDate #inst "1900-01-01"}]
+         [metcalf3.view/date-field-with-label
+          {:path     [:form :fields :identificationInfo :beginPosition]
+           :label    "Start date"
+           :required true
+           :minDate  #inst "1900-01-01"
+           :maxDate  #inst "2100-01-01"}]
+         [metcalf3.view/date-field-with-label
+          {:path     [:form :fields :identificationInfo :endPosition]
+           :label    "End date"
+           :required true
+           :minDate  #inst "1900-01-01"
+           :maxDate  #inst "2100-01-01"}]
          [:div.row
           [:div.col-md-4
            [metcalf3.view/NasaListSelectField {:keyword :samplingFrequency

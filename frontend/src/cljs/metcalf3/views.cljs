@@ -206,9 +206,26 @@
        :hasError    hasError
        :onChange    onChange}]]))
 
-; TODO: Don't dispatch value changes until blur
-; TODO: Show errors after blur
-(defn date-field
+(defn date-field-with-label
+  [{:keys [path label required helperText toolTip minDate maxDate]}]
+  (let [{:keys [value disabled hasError errorText]} @(rf/subscribe [::get-date-field-with-label-props path])]
+    [ui/FormGroup
+     {:label      label
+      :required   required
+      :disabled   disabled
+      :hasError   hasError
+      :helperText (or errorText helperText)
+      :toolTip    toolTip}
+     [ui/DateField
+      {:value    value
+       :disabled disabled
+       :onChange #(rf/dispatch [::date-field-with-label-value-change path %])
+       :hasError hasError
+       :minDate  minDate
+       :maxDate  maxDate}]]))
+
+; TODO: Consider date-field-with-label
+(defn ^:deprecated date-field
   [{:keys [path defMinDate]}]
   (let [{:keys [label labelInfo helperText value disabled change-v intent minDate maxDate]} @(rf/subscribe [:date-field/get-props path])
         format "DD-MM-YYYY"]

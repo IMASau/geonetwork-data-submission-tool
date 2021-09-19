@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as BPCore from '@blueprintjs/core';
-import {hasErrorIntent} from "../utils";
+import {hasErrorIntent, useCachedState} from "../utils";
 
 
 export function TextareaField({value, hasError, disabled, placeholder, onChange}) {
+    const [stateValue, setStateValue] = useCachedState(value);
     const intent = hasErrorIntent({hasError, disabled});
     return (
         <div className="TextareaField">
@@ -13,9 +14,10 @@ export function TextareaField({value, hasError, disabled, placeholder, onChange}
                 fill={true}
                 intent={intent}
                 disabled={disabled}
-                value={value}
+                value={stateValue}
                 placeholder={placeholder}
-                onChange={(e) => onChange(e.target.value)}
+                onChange={(e) => setStateValue(e.target.value)}
+                onBlur={(e) => onChange(e.target.value)}
             />
         </div>
     );

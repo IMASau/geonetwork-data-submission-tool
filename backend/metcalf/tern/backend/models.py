@@ -154,6 +154,8 @@ class Document(AbstractDocument):
                                          verbose_name='Validity')
     date_last_validated = models.DateTimeField(blank=True, null=True, verbose_name='Last Validated')
 
+    doi = models.CharField(max_length=1024, default='', blank=True)
+
     # FIXME is this needed
     class Meta:
         permissions = (
@@ -344,15 +346,12 @@ if settings.USE_TERN_STORAGE:
     class DocumentAttachment(AbstractDocumentAttachment):
         objects = DocumentManager()
 
-        doi = models.CharField(max_length=1024, default='', blank=True)
         file = models.FileField(upload_to=document_upload_path, storage=attachment_store)
 
 else:
 
     class DocumentAttachment(AbstractDocumentAttachment):
         objects = DocumentManager()
-
-        doi = models.CharField(max_length=1024, default='', blank=True)
 
 
 # TODO: Should this be a separate app?  Does workflow complicate this?

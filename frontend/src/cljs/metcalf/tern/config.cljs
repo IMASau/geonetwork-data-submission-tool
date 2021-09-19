@@ -36,10 +36,12 @@
 (rf/reg-event-db :handlers/load-error-page handlers/load-error-page)
 (rf/reg-event-db :handlers/set-value handlers/set-value)
 (rf/reg-event-db :date-field/value-change handlers/date-field-value-change)
+(rf/reg-event-db ::views/date-field-with-label-value-change handlers/date-field-value-change)
 (rf/reg-event-db :textarea-field/value-change handlers/textarea-field-value-change)
 (rf/reg-event-db :handlers/set-geographic-element handlers/set-geographic-element)
 (rf/reg-event-db :handlers/person-detail-changed handlers/person-detail-changed)
 (rf/reg-event-db :handlers/value-changed handlers/value-changed)
+(rf/reg-event-db ::views/input-field-with-label-value-changed handlers/value-changed)
 (rf/reg-event-db :handlers/set-tab handlers/set-tab)
 (rf/reg-event-db :handlers/load-errors handlers/load-errors)
 (rf/reg-event-db :handlers/add-keyword-extra handlers/add-keyword-extra)
@@ -88,6 +90,7 @@
 (rf/reg-sub :metcalf3/form-dirty? :<- [:subs/get-derived-state] subs/form-dirty?)
 (rf/reg-sub :subs/is-page-name-nil? subs/is-page-name-nil?)
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs/get-derived-path)
+(rf/reg-sub ::views/get-input-field-with-label-props :<- [:subs/get-derived-state] subs/get-input-field-with-label-props)
 (rf/reg-sub :subs/get-page-props subs/get-page-props)
 (rf/reg-sub :subs/get-page-name subs/get-page-name)
 (rf/reg-sub :subs/get-modal-props subs/get-modal-props)
@@ -95,6 +98,7 @@
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] subs/get-edit-tab-props)
 (rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs/get-progress-props)
 (rf/reg-sub :date-field/get-props :<- [:subs/get-derived-state] subs/get-date-field-props)
+(rf/reg-sub ::views/get-date-field-with-label-props :<- [:subs/get-derived-state] subs/get-date-field-with-label-props)
 (rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs/get-textarea-field-props)
 (rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs/get-textarea-field-many-props)
 (rf/reg-sub :subs/get-form-tick subs/get-form-tick)
@@ -105,6 +109,7 @@
 (set! low-code/component-registry
       {'metcalf3.view/DataParametersTable     views/DataParametersTable
        'metcalf3.view/date-field              views/date-field
+       'metcalf3.view/date-field-with-label   views/date-field-with-label
        'metcalf3.view/textarea-field          views/textarea-field
        'metcalf3.view/Methods                 views/Methods
        'metcalf3.view/UseLimitations          views/UseLimitations
@@ -117,6 +122,7 @@
        'metcalf3.view/TopicCategories         views/TopicCategories
        'metcalf3.view/ResourceConstraints     views/ResourceConstraints
        'metcalf3.view/InputField              views/InputField
+       'metcalf3.view/input-field-with-label  views/input-field-with-label
        'metcalf3.view/Lodge                   views/Lodge
        'metcalf3.view/SupportingResource      views/SupportingResource
        'metcalf3.view/SupplementalInformation views/SupplementalInformation
@@ -130,9 +136,20 @@
         [:div
          [metcalf3.view/PageErrors {:page :data-identification :path [:form]}]
          [:h2 "1. Data Identification"]
+         [metcalf3.view/input-field-with-label
+          {:path        [:form :fields :identificationInfo :title]
+           :label       "Title"
+           :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
+           :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"
+           :maxLength   250
+           :required    true}]
          [metcalf3.view/InputField {:path [:form :fields :identificationInfo :title]}]
-         [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :dateCreation]
-                                    :defMinDate #inst "1900-01-01"}]
+         [metcalf3.view/date-field-with-label
+          {:path     [:form :fields :identificationInfo :dateCreation]
+           :label    "Date the resource was created"
+           :required true
+           :minDate  #inst "1900-01-01"
+           :maxDate  #inst "2100-01-01"}]
          [metcalf3.view/TopicCategories {:path [:form :fields :identificationInfo :topicCategory]}]
          [metcalf3.view/SelectField {:path [:form :fields :identificationInfo :status]}]
          [metcalf3.view/SelectField {:path [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]}]
@@ -156,10 +173,18 @@
         [:div
          [metcalf3.view/PageErrors {:page :when :path [:form]}]
          [:h2 "3. When was the data acquired?"]
-         [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :beginPosition]
-                                    :defMinDate #inst "1900-01-01"}]
-         [metcalf3.view/date-field {:path       [:form :fields :identificationInfo :endPosition]
-                                    :defMinDate #inst "1900-01-01"}]
+         [metcalf3.view/date-field-with-label
+          {:path     [:form :fields :identificationInfo :beginPosition]
+           :label    "Start date"
+           :required true
+           :minDate  #inst "1900-01-01"
+           :maxDate  #inst "2100-01-01"}]
+         [metcalf3.view/date-field-with-label
+          {:path     [:form :fields :identificationInfo :endPosition]
+           :label    "End date"
+           :required true
+           :minDate  #inst "1900-01-01"
+           :maxDate  #inst "2100-01-01"}]
          [:div.row
           [:div.col-md-4
            [metcalf3.view/NasaListSelectField {:keyword :samplingFrequency
@@ -210,8 +235,22 @@
          [metcalf3.view/SupplementalInformation [:form :fields :identificationInfo :supplementalInformation]]
          [:br]
          [:h4 "Distribution"]
-         [metcalf3.view/InputField {:path [:form :fields :distributionInfo :distributionFormat :name]}]
-         [metcalf3.view/InputField {:path [:form :fields :distributionInfo :distributionFormat :version]}]
+         [metcalf3.view/input-field-with-label
+          {:path        [:form :fields :distributionInfo :distributionFormat :name]
+           :label       "Data file format"
+           :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
+           :helperText  nil
+           :toolTip     nil
+           :maxLength   100
+           :required    nil}]
+         [metcalf3.view/input-field-with-label
+          {:path        [:form :fields :distributionInfo :distributionFormat :version]
+           :label       "Data file format date/version"
+           :placeholder "Date format date or version if applicable"
+           :helperText  nil
+           :toolTip     nil
+           :maxLength   20
+           :required    nil}]
          [:span.abstract-textarea
           [metcalf3.view/textarea-field {:path [:form :fields :resourceLineage :lineage]}]]
          [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]

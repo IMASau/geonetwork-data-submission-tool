@@ -7,14 +7,22 @@
             [metcalf3.logic :as logic]
             [re-frame.core :as rf]))
 
-(defn ^:export get-cookie [name]
-  (.get goog.net.cookies name))
+;; FIXME: Temporary hack. Should be able to get client cookies instead of asking the server.
+(defn get-csrf
+  []
+  (let [payload (js->clj (aget js/window "payload") :keywordize-keys true)]
+    #_(get-csrf)
+    (:csrf payload)))
+
+(defn ^:export get-cookie
+  [name]
+  #_(.get goog.net.cookies name))
 
 (def get-json-header
-  (structs/Map. (clj->js {:Accept "application/json" :X-CSRFToken (get-cookie "csrftoken")})))
+  (structs/Map. (clj->js {:Accept "application/json" :X-CSRFToken (get-csrf)})))
 
 (def post-json-header
-  (structs/Map. (clj->js {:Content-Type "application/json" :Accept "application/json" :X-CSRFToken (get-cookie "csrftoken")})))
+  (structs/Map. (clj->js {:Content-Type "application/json" :Accept "application/json" :X-CSRFToken (get-csrf)})))
 
 (defn xhrio-get-json
   [{:keys [uri resp-v]}]
@@ -50,13 +58,13 @@
          :keywords?       true
          :handler         #(rf/dispatch (conj success-v %))
          :error-handler   #(rf/dispatch (conj error-v %))
-         :headers         {"X-CSRFToken" (get-cookie "csrftoken")}}))
+         :headers         {"X-CSRFToken" (get-csrf)}}))
 
 (defn clone-document
   [{:keys [url success-v error-v]}]
   (POST url {:handler         #(rf/dispatch (conj success-v %))
              :error-handler   #(rf/dispatch (conj error-v %))
-             :headers         {"X-CSRFToken" (get-cookie "csrftoken")}
+             :headers         {"X-CSRFToken" (get-csrf)}
              :format          :json
              :response-format :json
              :keywords?       true}))
@@ -65,7 +73,7 @@
   [{:keys [url transition success-v error-v]}]
   (POST url {:handler         #(rf/dispatch (conj success-v %))
              :error-handler   #(rf/dispatch (conj error-v %))
-             :headers         {"X-CSRFToken" (get-cookie "csrftoken")}
+             :headers         {"X-CSRFToken" (get-csrf)}
              :params          #js {:transition transition}
              :format          :json
              :response-format :json
@@ -77,7 +85,7 @@
         {:params          #js {:transition "submit"}
          :handler         #(rf/dispatch (conj success-v %))
          :error-handler   #(rf/dispatch (conj error-v %))
-         :headers         {"X-CSRFToken" (get-cookie "csrftoken")}
+         :headers         {"X-CSRFToken" (get-csrf)}
          :format          :json
          :response-format :json
          :keywords?       true}))
@@ -91,7 +99,7 @@
          :keywords?       true
          :handler         #(rf/dispatch (conj success-v %))
          :error-handler   #(rf/dispatch (conj error-v %))
-         :headers         {"X-CSRFToken" (get-cookie "csrftoken")}}))
+         :headers         {"X-CSRFToken" (get-csrf)}}))
 
 (defn archive-current-document
   [{:keys [url success-v error-v]}]
@@ -99,7 +107,7 @@
         {:params          #js {:transition "archive"}
          :handler         #(rf/dispatch (conj success-v %))
          :error-handler   #(rf/dispatch (conj error-v %))
-         :headers         {"X-CSRFToken" (get-cookie "csrftoken")}
+         :headers         {"X-CSRFToken" (get-csrf)}
          :format          :json
          :response-format :json
          :keywords?       true}))

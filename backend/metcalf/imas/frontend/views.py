@@ -94,7 +94,8 @@ def dashboard(request):
             "site": site_content(get_current_site(request)),
             "user": UserSerializer(request.user).data,
             "documents": DocumentInfoSerializer(docs, many=True, context={'user': request.user}).data,
-            "status": user_status_list()
+            "status": user_status_list(),
+            "csrf": request.COOKIES["csrftoken"]
         },
         "create_form": {
             "url": reverse("Create"),

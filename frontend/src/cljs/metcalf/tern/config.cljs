@@ -235,8 +235,22 @@
          [metcalf3.view/SupplementalInformation [:form :fields :identificationInfo :supplementalInformation]]
          [:br]
          [:h4 "Distribution"]
-         [metcalf3.view/InputField {:path [:form :fields :distributionInfo :distributionFormat :name]}]
-         [metcalf3.view/InputField {:path [:form :fields :distributionInfo :distributionFormat :version]}]
+         [metcalf3.view/input-field-with-label
+          {:path        [:form :fields :distributionInfo :distributionFormat :name]
+           :label       "Data file format"
+           :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
+           :helperText  nil
+           :toolTip     nil
+           :maxLength   100
+           :required    nil}]
+         [metcalf3.view/input-field-with-label
+          {:path        [:form :fields :distributionInfo :distributionFormat :version]
+           :label       "Data file format date/version"
+           :placeholder "Date format date or version if applicable"
+           :helperText  nil
+           :toolTip     nil
+           :maxLength   20
+           :required    nil}]
          [:span.abstract-textarea
           [metcalf3.view/textarea-field {:path [:form :fields :resourceLineage :lineage]}]]
          [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]

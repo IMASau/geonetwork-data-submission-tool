@@ -9,8 +9,6 @@
     "@blueprintjs/core": "^3.50.1",
     "@blueprintjs/datetime": "^3.23.11",
     "@blueprintjs/popover2": "^0.12.1",
-    "@blueprintjs/select": "^3.18.0",
-    "@blueprintjs/table": "^3.9.2",
     "fixed-data-table-2": "1.2.0",
     "leaflet": "1.7.1",
     "leaflet-draw": "1.0.4",

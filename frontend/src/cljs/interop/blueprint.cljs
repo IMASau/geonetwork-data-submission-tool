@@ -1,8 +1,6 @@
 (ns interop.blueprint
   (:require ["@blueprintjs/core" :as BlueprintCore]
             ["@blueprintjs/datetime" :as BlueprintDatetime]
-            ["@blueprintjs/select" :as BlueprintSelect]
-            ["@blueprintjs/table" :as BlueprintTable]
             [cljs.spec.alpha :as s]
             [clojure.string :as string]
             [goog.object :as gobject]
@@ -11,8 +9,6 @@
 
 (assert BlueprintCore)
 (assert BlueprintDatetime)
-(assert BlueprintSelect)
-(assert BlueprintTable)
 (assert React)
 
 (defn get-initial-state
@@ -55,7 +51,6 @@
 (def alert (r/adapt-react-class BlueprintCore/Alert))
 (def spinner (r/adapt-react-class BlueprintCore/Spinner))
 (def card (r/adapt-react-class BlueprintCore/Card))
-(def suggest (r/adapt-react-class BlueprintSelect/Suggest))
 (def menu (r/adapt-react-class BlueprintCore/Menu))
 (def menu-item (r/adapt-react-class BlueprintCore/MenuItem))
 (def menu-divider (r/adapt-react-class BlueprintCore/MenuDivider))
@@ -64,9 +59,6 @@
 (def checkbox (r/adapt-react-class BlueprintCore/Checkbox))
 (def button (r/adapt-react-class BlueprintCore/Button))
 (def dialog (r/adapt-react-class BlueprintCore/Dialog))
-(def table (r/adapt-react-class BlueprintTable/Table))
-(def column (r/adapt-react-class BlueprintTable/Column))
-(def cell (r/adapt-react-class BlueprintTable/Cell))
 (def tag (r/adapt-react-class BlueprintCore/Tag))
 (def tab (r/adapt-react-class BlueprintCore/Tab))
 (def tabs (r/adapt-react-class BlueprintCore/Tabs))

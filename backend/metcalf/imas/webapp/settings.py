@@ -9,7 +9,7 @@ en_formats.DATETIME_FORMAT = "Y-m-d H:i:s"
 
 DEBUG = False
 
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
@@ -85,7 +85,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
-    'django.contrib.sites.middleware.CurrentSiteMiddleware',
+    "django.contrib.sites.middleware.CurrentSiteMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
@@ -108,8 +108,8 @@ INSTALLED_APPS = [
     "imagekit",
     "metcalf.imas.backend",
     "metcalf.imas.frontend",
-    'allauth',
-    'allauth.account',
+    "allauth",
+    "allauth.account",
     "bootstrap3",
 ]
 

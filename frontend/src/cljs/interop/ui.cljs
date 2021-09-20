@@ -99,9 +99,15 @@
    {}])
 
 (defn TextareaField
-  [{:keys []}]
+  [{:keys [value placeholder maxLength rows disabled hasError onChange]}]
   [:> TextareaField/TextareaField
-   {}])
+   {:value       value
+    :placeholder placeholder
+    :maxLength   maxLength
+    :rows        rows
+    :disabled    disabled
+    :hasError    hasError
+    :onChange    onChange}])
 
 (defn YesNoRadioGroup
   [{:keys []}]

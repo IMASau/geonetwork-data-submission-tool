@@ -1,5 +1,5 @@
 clean:
-	rm -fR resources/public/js/*
+	rm -fR src/gen/* resources/public/js/*
 
 # for backward compatibility
 figwheel: watch

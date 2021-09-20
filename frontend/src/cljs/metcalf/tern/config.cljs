@@ -146,7 +146,6 @@
            :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"
            :maxLength   250
            :required    true}]
-         [metcalf3.view/InputField {:path [:form :fields :identificationInfo :title]}]
          [metcalf3.view/date-field-with-label
           {:path     [:form :fields :identificationInfo :dateCreation]
            :label    "Date the resource was created"

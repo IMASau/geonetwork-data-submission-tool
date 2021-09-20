@@ -110,7 +110,6 @@
 (ins/reg-global-singleton ins/breadcrumbs)
 (set! low-code/component-registry
       {'metcalf3.view/DataParametersTable       views/DataParametersTable
-       'metcalf3.view/date-field                views/date-field
        'metcalf3.view/date-field-with-label     views/date-field-with-label
        'metcalf3.view/textarea-field            views/textarea-field
        'metcalf3.view/textarea-field-with-label views/textarea-field-with-label

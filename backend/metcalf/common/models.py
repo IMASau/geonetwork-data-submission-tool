@@ -11,6 +11,7 @@ from metcalf.common.utils import no_spaces_in_filename
 
 
 class AbstractDataFeed(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.SlugField()
 
     last_refresh = models.DateTimeField(blank=True, null=True)
@@ -42,6 +43,7 @@ class AbstractDataFeed(models.Model):
 
 
 class AbstractContributor(models.Model):
+    id = models.AutoField(primary_key=True)
     document = models.ForeignKey("Document", on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -94,6 +96,7 @@ class AbstractDocument(models.Model):
 
 
 class AbstractDocumentAttachment(models.Model):
+    id = models.AutoField(primary_key=True)
     document = models.ForeignKey("Document", on_delete=models.CASCADE, related_name='attachments')
     name = models.CharField(max_length=256)
     file = models.FileField(upload_to=no_spaces_in_filename)
@@ -105,6 +108,7 @@ class AbstractDocumentAttachment(models.Model):
 
 
 class AbstractDraftMetadata(models.Model):
+    id = models.AutoField(primary_key=True)
     document = models.ForeignKey("Document", on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     time = models.DateTimeField(auto_now_add=True)
@@ -119,6 +123,7 @@ class AbstractDraftMetadata(models.Model):
 
 
 class AbstractMetadataTemplateMapper(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128, help_text="Unique name for template mapper.  Used in menus.")
     file = models.FileField("metadata_template_mappers",
                             help_text="JSON file used to interpret XML files that specify records")
@@ -136,6 +141,7 @@ class AbstractMetadataTemplateMapper(models.Model):
 
 
 class AbstractMetadataTemplate(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128, help_text="Unique name for template.  Used in menus.")
     file = models.FileField("metadata_templates", help_text="XML file used when creating and exporting records")
     notes = models.TextField(help_text="Internal use notes about this template")
@@ -153,6 +159,7 @@ class AbstractMetadataTemplate(models.Model):
 
 
 class AbstractSiteContent(models.Model):
+    id = models.AutoField(primary_key=True)
     site = models.OneToOneField(Site, on_delete=models.SET_NULL, blank=True, null=True)
     title = models.CharField(max_length=32, default="Data Submission Tool")
     organisation_url = models.URLField(blank=True, null=True)

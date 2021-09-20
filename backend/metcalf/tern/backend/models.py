@@ -356,6 +356,7 @@ else:
 
 # TODO: Should this be a separate app?  Does workflow complicate this?
 class Person(models.Model):
+    id = models.AutoField(primary_key=True)
     uri = models.CharField(max_length=512, default="")
     orgUri = models.CharField(max_length=512, default="", blank=True)
     familyName = models.CharField(max_length=256, verbose_name="family name", blank=True)
@@ -377,6 +378,7 @@ class Institution(models.Model):
     # TERN fields
     # http://linkeddata.tern.org.au/viewer/tern/id/http://linkeddata.tern.org.au/def/org
 
+    id = models.AutoField(primary_key=True)
     uri = models.CharField(max_length=512, default="")
     prefLabel = models.CharField(max_length=512, default="")
     altLabel = models.CharField(max_length=512, default="")
@@ -479,6 +481,7 @@ class RoleCode(models.Model):
 # https://vocabs.ands.org.au/aodn-discovery-parameter-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-discovery-parameter-vocabulary_version-1-1
 class ParameterName(ns_tree.NS_Node):
+    id = models.AutoField(primary_key=True)
     URI = models.CharField(max_length=128, db_column='URI')
     Name = models.CharField(max_length=128, db_column='Name')
     # Largest definition entry so far seen is 488 characters:
@@ -511,6 +514,7 @@ class ParameterName(ns_tree.NS_Node):
 # https://vocabs.ands.org.au/aodn-units-of-measure-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-units-of-measure-vocabulary_version-1-0
 class ParameterUnit(ns_tree.NS_Node):
+    id = models.AutoField(primary_key=True)
     URI = models.CharField(max_length=128, db_column='URI')
     Name = models.CharField(max_length=128, db_column='Name')
     Definition = models.CharField(max_length=256, db_column='Definition')
@@ -542,6 +546,7 @@ class ParameterUnit(ns_tree.NS_Node):
 # https://vocabs.ands.org.au/aodn-instrument-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-instrument-vocabulary_version-1-0
 class ParameterInstrument(ns_tree.NS_Node):
+    id = models.AutoField(primary_key=True)
     URI = models.CharField(max_length=128, db_column='URI')
     Name = models.CharField(max_length=128, db_column='Name')
     # Largest definition entry so far seen is 1252 characters:
@@ -574,6 +579,7 @@ class ParameterInstrument(ns_tree.NS_Node):
 # https://vocabs.ands.org.au/aodn-platform-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-platform-vocabulary_version-1-2
 class ParameterPlatform(ns_tree.NS_Node):
+    id = models.AutoField(primary_key=True)
     URI = models.CharField(max_length=128, db_column='URI')
     Name = models.CharField(max_length=128, db_column='Name')
     # Largest definition entry so far seen is 2154 characters:

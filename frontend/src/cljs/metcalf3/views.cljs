@@ -25,7 +25,8 @@
             [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectAsyncCreatable VirtualizedSelect]]
             [metcalf3.widget.tree :refer [TermList TermTree]]
             [re-frame.core :as rf]
-            [reagent.core :as r])
+            [reagent.core :as r]
+            [interop.ui :as ui])
   (:import [goog.dom ViewportSizeMonitor]
            [goog.events FileDropHandler]
            [goog.events EventType]))
@@ -175,7 +176,8 @@
         (some col-match? (rest row)))
       table)))
 
-(defn InputField
+; TODO: Consider input-field-with-label
+(defn ^:deprecated InputField
   [{:keys [path] :as props}]
   (let [field @(rf/subscribe [:subs/get-derived-path path])]
     [InputWidget (-> field
@@ -183,9 +185,45 @@
                      (assoc
                        :on-change #(rf/dispatch [:handlers/value-changed path %])))]))
 
-; TODO: Don't dispatch value changes until blur
-; TODO: Show errors after blur
-(defn date-field
+(defn input-field-with-label
+  [{:keys [path label placeholder helperText toolTip maxLength required]}]
+  (let [{:keys [value disabled hasError errorText]} @(rf/subscribe [::get-input-field-with-label-props path])
+        onChange #(rf/dispatch [::input-field-with-label-value-changed path %])]
+    [ui/FormGroup
+     {:label      label
+      :required   required
+      :disabled   disabled
+      :hasError   hasError
+      :helperText (or errorText helperText)
+      :toolTip    toolTip}
+     [ui/InputField
+      {:value       value
+       :placeholder placeholder
+       :maxLength   maxLength
+       :disabled    disabled
+       :hasError    hasError
+       :onChange    onChange}]]))
+
+(defn date-field-with-label
+  [{:keys [path label required helperText toolTip minDate maxDate]}]
+  (let [{:keys [value disabled hasError errorText]} @(rf/subscribe [::get-date-field-with-label-props path])]
+    [ui/FormGroup
+     {:label      label
+      :required   required
+      :disabled   disabled
+      :hasError   hasError
+      :helperText (or errorText helperText)
+      :toolTip    toolTip}
+     [ui/DateField
+      {:value    value
+       :disabled disabled
+       :onChange #(rf/dispatch [::date-field-with-label-value-change path %])
+       :hasError hasError
+       :minDate  minDate
+       :maxDate  maxDate}]]))
+
+; TODO: Consider date-field-with-label
+(defn ^:deprecated date-field
   [{:keys [path defMinDate]}]
   (let [{:keys [label labelInfo helperText value disabled change-v intent minDate maxDate]} @(rf/subscribe [:date-field/get-props path])
         format "DD-MM-YYYY"]
@@ -271,6 +309,26 @@
 (defn textarea-field
   [{:keys [path]}]
   [textarea-widget @(rf/subscribe [:textarea-field/get-props path])])
+
+(defn textarea-field-with-label
+  [{:keys [path label placeholder helperText toolTip maxLength rows required]}]
+  (let [{:keys [value disabled hasError errorText]} @(rf/subscribe [::get-textarea-field-with-label-props path])
+        onChange #(rf/dispatch [::textarea-field-with-label-value-changed path %])]
+    [ui/FormGroup
+     {:label      label
+      :required   required
+      :disabled   disabled
+      :hasError   hasError
+      :helperText (or errorText helperText)
+      :toolTip    toolTip}
+     [ui/TextareaField
+      {:value       value
+       :placeholder placeholder
+       :disabled    disabled
+       :hasError    hasError
+       :maxLength   maxLength
+       :rows        rows
+       :onChange    onChange}]]))
 
 (defn Checkbox [props]
   (let [{:keys [label checked on-change disabled help]

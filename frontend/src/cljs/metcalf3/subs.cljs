@@ -21,6 +21,26 @@
   [db [_ path]]
   (get-in db path))
 
+(defn get-input-field-with-label-props
+  [db [_ path]]
+  (let [{:keys [value disabled errors show-errors]} (get-in db path)
+        error-help (when (and show-errors (seq errors))
+                     (string/join ". " errors))]
+    {:value     value
+     :disabled  disabled
+     :hasError  (boolean error-help)
+     :errorText error-help}))
+
+(defn get-textarea-field-with-label-props
+  [db [_ path]]
+  (let [{:keys [value disabled errors show-errors]} (get-in db path)
+        error-help (when (and show-errors (seq errors))
+                     (string/join ". " errors))]
+    {:value     value
+     :disabled  disabled
+     :hasError  (boolean error-help)
+     :errorText error-help}))
+
 (defn get-page-props
   [db _]
   (get-in db [:page]))
@@ -109,6 +129,17 @@
      :minDate    (s/assert (s/nilable inst?) minDate)
      :maxDate    (s/assert (s/nilable inst?) maxDate)
      :intent     (when error-help "danger")}))
+
+(defn get-date-field-with-label-props
+  [derived-db [_ path]]
+  (let [{:keys [required disabled value show-errors errors minDate maxDate]} (get-in derived-db path)
+        value (if (= value "") nil value)
+        error-help (when (and show-errors (seq errors))
+                     (string/join ". " errors))]
+    {:value     (when value (moment/to-date (moment/moment value "YYYY-MM-DD")))
+     :disabled  disabled
+     :hasError  (boolean error-help)
+     :errorText error-help}))
 
 (defn get-textarea-field-props
   [derived-db [_ path]]

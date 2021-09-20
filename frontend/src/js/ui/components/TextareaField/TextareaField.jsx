@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as BPCore from '@blueprintjs/core';
-import {hasErrorIntent} from "../utils";
+import {hasErrorIntent, useCachedState} from "../utils";
 
 
-export function TextareaField({value, hasError, disabled, placeholder, onChange}) {
+export function TextareaField({value, hasError, disabled, placeholder, maxLength, rows, onChange}) {
+    const [stateValue, setStateValue] = useCachedState(value);
     const intent = hasErrorIntent({hasError, disabled});
     return (
         <div className="TextareaField">

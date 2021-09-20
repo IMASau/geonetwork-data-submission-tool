@@ -160,7 +160,7 @@ export function SelectField({value, options, hasError, disabled, placeholder, on
             value={value}
             options={options}
             placeholder={placeholder}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={(value) => onChange(value)}
             isClearable={true}
             isDisabled={disabled}
             isLoading={false}

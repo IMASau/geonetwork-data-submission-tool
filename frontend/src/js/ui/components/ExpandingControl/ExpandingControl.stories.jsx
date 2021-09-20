@@ -21,5 +21,16 @@ Defaults.args = {
     children: "This is the content"
 };
 
+const FieldTemplate2 = (args) => <div>
+    <ExpandingControl {...args} />
+    <ExpandingControl {...args} />
+</div>;
+
+export const Defaults2 = FieldTemplate2.bind({});
+Defaults2.args = {
+    label: "A label",
+    children: "This is the content"
+};
+
 import NOTES from './NOTES.mdx';
 export const DesignDecisions = NOTES;

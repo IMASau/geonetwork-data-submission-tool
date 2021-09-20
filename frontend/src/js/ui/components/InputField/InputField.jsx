@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as BPCore from '@blueprintjs/core';
-import {hasErrorIntent} from "../utils";
+import {hasErrorIntent, useCachedState} from "../utils";
 
 
-export function InputField({value, hasError, disabled, placeholder, onChange}) {
+export function InputField({value, hasError, disabled, placeholder, maxLength, onChange}) {
+    const [stateValue, setStateValue] = useCachedState(value);
     const intent = hasErrorIntent({hasError, disabled});
     return (
         <BPCore.InputGroup
             intent={intent}
             disabled={disabled}
-            value={value}
+            value={stateValue}
             placeholder={placeholder}
-            onChange={(e) => onChange(e.target.value)}
+            maxLength={maxLength}
+            onChange={(e) => setStateValue(e.target.value)}
+            onBlur={(e) => onChange(e.target.value)}
         >
         </BPCore.InputGroup>
     );
@@ -21,6 +24,7 @@ export function InputField({value, hasError, disabled, placeholder, onChange}) {
 InputField.propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,
+    maxLength: PropTypes.number,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
     onChange: PropTypes.func,

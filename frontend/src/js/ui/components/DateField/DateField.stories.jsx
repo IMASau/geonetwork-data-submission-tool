@@ -4,12 +4,13 @@ import {DateField} from './DateField';
 import './DateField.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
+import NOTES from './NOTES.mdx';
 
 export default {
-  title: 'Example/DateField',
+    title: 'Example/DateField',
     component: DateField,
     argTypes: {
-    // Most are inferred from DateField.propTypes
+        // Most are inferred from DateField.propTypes
         value: {control: 'date'},
         minDate: {control: 'date'},
         maxDate: {control: 'date'},
@@ -67,5 +68,5 @@ ChangeDateField.args = {
     maxDate: 1583413200000,
 };
 
-import NOTES from './NOTES.mdx';
+
 export const DesignDecisions = NOTES;

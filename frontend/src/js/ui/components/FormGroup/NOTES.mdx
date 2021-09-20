@@ -1,7 +1,8 @@
 
-# Unresolved
+# Design decisions
+* Async select control can use a promise api and avoid coupling to specific endpoints
+* Values will be json data.
+* Values are self contained including id and any descriptive fields needed for display or export
 
-* Review error highlighting.  Should label highlight?
-* Inline flag is default behaviour at the moment.  Doesn't align perfectly with mockups:
-  * Helper text appears under controls rather than under label as show in some dialog mockups.
-  * Inline labels seems not to guarantee width for neat column of labels.
+# Unresolved
+* Placeholder might wrap badly if field is not wide enough

@@ -268,7 +268,6 @@ def home(request):
         'sitecontent': sitecontent,
         'site': site
     }
-    context['homepage_image_url'] = Template(site.sitecontent.homepage_image).render(Context(context)).strip()
     return render(request, "imas/home.html", context)
 
 

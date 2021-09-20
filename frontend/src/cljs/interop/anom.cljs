@@ -31,32 +31,32 @@
   (s/valid? :anom/category cat))
 
 (defn anomaly?
-      "Checks if given value is anomaly"
-      {:added "0.1.0"}
-      [x]
-      (s/valid? :anom/anomaly x))
+  "Checks if given value is anomaly"
+  {:added "0.1.0"}
+  [x]
+  (s/valid? :anom/anomaly x))
 
 (defn anomaly
-      "Creates new anomaly with given category(defaults to :anom/fault) message(optional) and data(optional)"
-      {:added "0.1.0"}
-      ([] (anomaly *default-category* nil nil))
-      ([cat-msg-data]
-       (cond
-         (valid-category? cat-msg-data) (anomaly cat-msg-data nil nil)
-         (string? cat-msg-data) (anomaly *default-category* cat-msg-data nil)
-         :else (anomaly *default-category* nil cat-msg-data)))
-      ([cat-msg msg-data]
-       (cond
-         (and (valid-category? cat-msg) (string? msg-data)) (anomaly cat-msg msg-data nil)
-         (valid-category? cat-msg) (anomaly cat-msg nil msg-data)
-         (string? cat-msg) (anomaly *default-category* cat-msg msg-data)
-         :else (anomaly *default-category* cat-msg msg-data)))
-      ([cat msg data]
-       {:pre [(valid-category? cat)
-              (or (nil? msg) (string? msg))]}
-       (cond-> {:anom/category cat}
-               (some? msg) (assoc :anom/message msg)
-               (some? data) (assoc :anom/data data))))
+  "Creates new anomaly with given category(defaults to :anom/fault) message(optional) and data(optional)"
+  {:added "0.1.0"}
+  ([] (anomaly *default-category* nil nil))
+  ([cat-msg-data]
+   (cond
+     (valid-category? cat-msg-data) (anomaly cat-msg-data nil nil)
+     (string? cat-msg-data) (anomaly *default-category* cat-msg-data nil)
+     :else (anomaly *default-category* nil cat-msg-data)))
+  ([cat-msg msg-data]
+   (cond
+     (and (valid-category? cat-msg) (string? msg-data)) (anomaly cat-msg msg-data nil)
+     (valid-category? cat-msg) (anomaly cat-msg nil msg-data)
+     (string? cat-msg) (anomaly *default-category* cat-msg msg-data)
+     :else (anomaly *default-category* cat-msg msg-data)))
+  ([cat msg data]
+   {:pre [(valid-category? cat)
+          (or (nil? msg) (string? msg))]}
+   (cond-> {:anom/category cat}
+     (some? msg) (assoc :anom/message msg)
+     (some? data) (assoc :anom/data data))))
 
 (def busy (partial anomaly :anom/busy))
 (def busy? #(= (:anom/category %) :anom/busy))
@@ -91,7 +91,7 @@
    504 :anom/unavailable})
 
 (defn status-code->anomaly [code]
-      (or (get status-codes->anomalies code)
-          (if (<= 400 code 499)
-            :anom/incorrect
-            :anom/fault)))
+  (or (get status-codes->anomalies code)
+      (if (<= 400 code 499)
+        :anom/incorrect
+        :anom/fault)))

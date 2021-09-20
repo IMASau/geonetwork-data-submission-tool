@@ -5,20 +5,17 @@ import AsyncSelect from "react-select/async/dist/react-select.esm";
 
 const customStyles = {
     clearIndicator: (provided, state) => {
-        console.log("clearIndicator", {provided, state});
         return {
             ...provided,
             padding: 4
         }
     },
     container: (provided, state) => {
-        console.log("container", {provided, state});
         return {
             ...provided,
         }
     },
     control: (provided, state) => {
-        console.log("control", {provided, state});
         return {
             ...provided,
             minHeight: 30,
@@ -33,117 +30,98 @@ const customStyles = {
         }
     },
     dropdownIndicator: (provided, state) => {
-        console.log("dropdownIndicator", {provided, state});
         return {
             ...provided,
             padding: 4
         }
     },
     group: (provided, state) => {
-        console.log("group", {provided, state});
         return {
             ...provided,
         }
     },
     groupHeading: (provided, state) => {
-        console.log("groupHeading", {provided, state});
         return {
             ...provided,
         }
     },
     indicatorsContainer: (provided, state) => {
-        console.log("indicatorsContainer", {provided, state});
         return {
             ...provided,
         }
     },
     indicatorSeparator: (provided, state) => {
-        console.log("indicatorSeparator", {provided, state});
         return {
             ...provided,
         }
     },
     input: (provided, state) => {
-        console.log("input", {provided, state});
         return {
             ...provided,
         }
     },
     loadingIndicator: (provided, state) => {
-        console.log("loadingIndicator", {provided, state});
         return {
             ...provided,
         }
     },
     loadingMessage: (provided, state) => {
-        console.log("loadingMessage", {provided, state});
         return {
             ...provided,
         }
     },
     menu: (provided, state) => {
-        console.log("menu", {provided, state});
         return {
             ...provided,
         }
     },
     menuList: (provided, state) => {
-        console.log("menuList", {provided, state});
         return {
             ...provided,
         }
     },
     menuPortal: (provided, state) => {
-        console.log("menuPortal", {provided, state});
         return {
             ...provided,
         }
     },
     multiValue: (provided, state) => {
-        console.log("multiValue", {provided, state});
         return {
             ...provided,
         }
     },
     multiValueLabel: (provided, state) => {
-        console.log("multiValueLabel", {provided, state});
         return {
             ...provided,
         }
     },
     multiValueRemove: (provided, state) => {
-        console.log("multiValueRemove", {provided, state});
         return {
             ...provided,
         }
     },
     noOptionsMessage: (provided, state) => {
-        console.log("noOptionsMessage", {provided, state});
         return {
             ...provided,
         }
     },
     option: (provided, state) => {
-        console.log("option", {provided, state});
         return {
             ...provided,
         }
     },
     placeholder: (provided, state) => {
-        console.log("placeholder", {provided, state});
         return {
             ...provided,
         }
     },
     singleValue: (provided, state) => {
-        console.log("singleValue", {provided, state});
         return {
             ...provided,
             color: state.isDisabled ? "rgba(92, 112, 128, 0.6)" : "#182026",
         }
     },
     valueContainer: (provided, state) => {
-        console.log("valueContainer", {provided, state});
         return {
             ...provided,
             padding: "0 6px"

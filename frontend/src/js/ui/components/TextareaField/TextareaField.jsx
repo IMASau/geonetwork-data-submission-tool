@@ -14,9 +14,12 @@ export function TextareaField({value, hasError, disabled, placeholder, maxLength
                 fill={true}
                 intent={intent}
                 disabled={disabled}
-                value={value}
+                maxLength={maxLength}
+                rows={rows}
+                value={stateValue}
                 placeholder={placeholder}
-                onChange={(e) => onChange(e.target.value)}
+                onChange={(e) => setStateValue(e.target.value)}
+                onBlur={(e) => onChange(e.target.value)}
             />
         </div>
     );
@@ -25,6 +28,8 @@ export function TextareaField({value, hasError, disabled, placeholder, maxLength
 TextareaField.propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,
+    maxLength: PropTypes.number,
+    rows: PropTypes.number,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
     onChange: PropTypes.func,

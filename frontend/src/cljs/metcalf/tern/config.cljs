@@ -123,7 +123,6 @@
        'metcalf3.view/VerticalCoverage          views/VerticalCoverage
        'metcalf3.view/TopicCategories           views/TopicCategories
        'metcalf3.view/ResourceConstraints       views/ResourceConstraints
-       'metcalf3.view/InputField                views/InputField
        'metcalf3.view/input-field-with-label    views/input-field-with-label
        'metcalf3.view/Lodge                     views/Lodge
        'metcalf3.view/SupportingResource        views/SupportingResource

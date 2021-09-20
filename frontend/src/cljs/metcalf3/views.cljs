@@ -1567,7 +1567,7 @@
                   [:p
                    "Please note: this XML file is not the recommended way to share your metadata.
                     We want you to submit your data via 'lodging' the information.
-                  This permits multi-user access via the portal in a more friendly format."]])]))]
+                    This permits multi-user access via the portal in a more friendly format."]])]))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))

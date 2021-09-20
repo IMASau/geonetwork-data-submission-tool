@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from django.template import Context, Template
-from django.template.context_processors import csrf
+from django.middleware import csrf
 from django.urls import reverse
 from django.utils.encoding import smart_text
 from django_fsm import has_transition_perm
@@ -94,7 +94,8 @@ def dashboard(request):
             "site": site_content(get_current_site(request)),
             "user": UserSerializer(request.user).data,
             "documents": DocumentInfoSerializer(docs, many=True, context={'user': request.user}).data,
-            "status": user_status_list()
+            "status": user_status_list(),
+            "csrf": csrf.get_token(request),
         },
         "create_form": {
             "url": reverse("Create"),
@@ -435,6 +436,7 @@ def edit(request, uuid):
 
     raw_payload = {
         "context": {
+            "csrf": csrf.get_token(request),
             "site": site_content(get_current_site(request)),
             "urls": master_urls(),
             "URL_ROOT": settings.FORCE_SCRIPT_NAME or "",
@@ -454,7 +456,7 @@ def edit(request, uuid):
             "fields": {
                 'csrfmiddlewaretoken': {
                     'type': 'hidden',
-                    'initial': str(csrf(request)['csrf_token'])
+                    'initial': csrf.get_token(request),
                 },
                 'document': {
                     'type': 'hidden',

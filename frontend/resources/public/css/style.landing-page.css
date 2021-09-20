@@ -39,10 +39,6 @@
 /* Use background-size: cover for anything greater than IE8 (IE8 doesn't support this media query) */
 @media only screen and (width) {
     .site-wrapper {
-        
-        background: #060 url(https://shared.tern.org.au/static/img/Hemispherical-Photography.jpg) no-repeat center fixed;
-        
-
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;

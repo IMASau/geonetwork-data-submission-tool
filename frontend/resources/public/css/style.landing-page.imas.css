@@ -1,0 +1,16 @@
+html, body {
+    height: 100%;
+    color: #fff;
+    text-align: center;
+    background: #060 no-repeat center fixed;
+}
+
+.site-wrapper-inner {
+    display: table-cell;
+}
+
+@media (min-width: 768px) {
+    .mastfoot {
+        position: fixed;
+    }
+}

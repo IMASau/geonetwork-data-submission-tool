@@ -230,7 +230,7 @@ def extract_jsonschema(tree, spec, **kwargs):
 
 
 def value(element, **kwargs):
-    assert kwargs['namespaces'] != None, "No namespaces were specified."
+    assert kwargs['namespaces'] is not None, "No namespaces were specified."
     """
     Extract value.  Either tagged or text.  Always one value.
 

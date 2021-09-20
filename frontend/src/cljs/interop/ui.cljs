@@ -84,9 +84,14 @@
     :onChange    onChange}])
 
 (defn SelectField
-  [{:keys []}]
+  [{:keys [value options placeholder disabled hasError onChange]}]
   [:> SelectField/SelectField
-   {}])
+   {:value       value
+    :options     options
+    :placeholder placeholder
+    :disabled    disabled
+    :hasError    hasError
+    :onChange    onChange}])
 
 (defn AsyncSelectField
   [{:keys []}]

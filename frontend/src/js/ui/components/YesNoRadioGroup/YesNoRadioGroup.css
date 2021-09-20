@@ -6,7 +6,6 @@
 .YesNoRadioGroup > div {
     display: inline-block;
 }
-.YesNoRadioGroup.hasError .YesNoRadioGroup-label,
 .YesNoRadioGroup.hasError .bp3-radio,
 .YesNoRadioGroup.hasError .bp3-radio>input
 {

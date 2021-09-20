@@ -2033,7 +2033,6 @@
        :add-label   "Add method"
        :field-path  path}]]))
 
-
 (defn UseLimitationsFieldEdit [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :useLimitations])])
 

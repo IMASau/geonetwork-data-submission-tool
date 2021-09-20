@@ -58,7 +58,7 @@
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
-.site-wrapper .site-wrapper {
+.site-wrapper {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA9JREFUeNpiYGBgSAMIMAAAawBnDb5zPgAAAABJRU5ErkJggg==);
     /* IE8 proofing dark colour background overlay */
     display: table;

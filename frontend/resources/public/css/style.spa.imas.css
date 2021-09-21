@@ -7,6 +7,10 @@
     user-select: none;
 }
 
-.progressPercentage {
+.link-right-container {
+	height: 20px;
+}
 
+a.link-right {
+	float: right;
 }

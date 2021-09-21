@@ -1,6 +1,7 @@
 clean:
 	rm -fR src/gen/* resources/public/js/*
 
+# for backward compatibility
 figwheel: watch
 
 watch:

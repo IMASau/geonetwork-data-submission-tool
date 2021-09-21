@@ -4,7 +4,7 @@ import * as BPCore from '@blueprintjs/core';
 import {hasErrorIntent, useCachedState} from "../utils";
 
 
-export function TextareaField({value, hasError, disabled, placeholder, onChange}) {
+export function TextareaField({value, hasError, disabled, placeholder, maxLength, rows, onChange}) {
     const [stateValue, setStateValue] = useCachedState(value);
     const intent = hasErrorIntent({hasError, disabled});
     return (
@@ -14,6 +14,8 @@ export function TextareaField({value, hasError, disabled, placeholder, onChange}
                 fill={true}
                 intent={intent}
                 disabled={disabled}
+                maxLength={maxLength}
+                rows={rows}
                 value={stateValue}
                 placeholder={placeholder}
                 onChange={(e) => setStateValue(e.target.value)}
@@ -26,6 +28,8 @@ export function TextareaField({value, hasError, disabled, placeholder, onChange}
 TextareaField.propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,
+    maxLength: PropTypes.number,
+    rows: PropTypes.number,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
     onChange: PropTypes.func,

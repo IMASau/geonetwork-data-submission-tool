@@ -310,6 +310,26 @@
   [{:keys [path]}]
   [textarea-widget @(rf/subscribe [:textarea-field/get-props path])])
 
+(defn textarea-field-with-label
+  [{:keys [path label placeholder helperText toolTip maxLength rows required]}]
+  (let [{:keys [value disabled hasError errorText]} @(rf/subscribe [::get-textarea-field-with-label-props path])
+        onChange #(rf/dispatch [::textarea-field-with-label-value-changed path %])]
+    [ui/FormGroup
+     {:label      label
+      :required   required
+      :disabled   disabled
+      :hasError   hasError
+      :helperText (or errorText helperText)
+      :toolTip    toolTip}
+     [ui/TextareaField
+      {:value       value
+       :placeholder placeholder
+       :disabled    disabled
+       :hasError    hasError
+       :maxLength   maxLength
+       :rows        rows
+       :onChange    onChange}]]))
+
 (defn Checkbox [props]
   (let [{:keys [label checked on-change disabled help]
          :or   {checked false}} props

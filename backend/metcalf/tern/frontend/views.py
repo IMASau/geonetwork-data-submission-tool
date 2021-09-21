@@ -10,10 +10,10 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
+from django.middleware import csrf
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from django.template import Context, Template
-from django.middleware import csrf
 from django.urls import reverse
 from django.utils.encoding import smart_text
 from django_fsm import has_transition_perm
@@ -29,7 +29,7 @@ from rest_framework.views import APIView
 
 from metcalf.common.spec import *
 from metcalf.common.utils import to_json, get_exception_message
-from metcalf.common.xmlutils import extract_fields, data_to_xml
+from metcalf.common.xmlutils import extract_fields, data_to_xml, extract_jsonschema
 from metcalf.tern.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.tern.frontend.forms import DocumentAttachmentForm
@@ -418,6 +418,7 @@ def save(request, uuid):
                          "form": {
                              "url": reverse("Edit", kwargs={'uuid': doc.uuid}),
                              "fields": extract_fields(tree, spec),
+                             "jsonschema1": extract_jsonschema(tree, spec),
                              "data": data,
                              "document": DocumentInfoSerializer(doc, context={'user': request.user}).data}})
     except RuntimeError as e:
@@ -449,6 +450,7 @@ def edit(request, uuid):
         "form": {
             "url": reverse("Save", kwargs={'uuid': doc.uuid}),
             "fields": extract_fields(tree, spec),
+            "jsonschema1": extract_jsonschema(tree, spec),
             "data": data,
         },
         "upload_form": {
@@ -530,7 +532,8 @@ def download_attachement(request, path):
     # TODO: this breaks for previously existing files ... it always creates a swift url
     return redirect(attachment.file.storage._path(attachment.file.name))
 
- # TODO: Looks like a bad security practice.  Filter transition values?
+
+# TODO: Looks like a bad security practice.  Filter transition values?
 @login_required
 @api_view(['POST'])
 def transition(request, uuid):

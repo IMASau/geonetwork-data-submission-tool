@@ -38,6 +38,7 @@
 (rf/reg-event-db :date-field/value-change handlers/date-field-value-change)
 (rf/reg-event-db ::views/date-field-with-label-value-change handlers/date-field-value-change)
 (rf/reg-event-db :textarea-field/value-change handlers/textarea-field-value-change)
+(rf/reg-event-db ::views/textarea-field-with-label-value-changed handlers/textarea-field-value-change)
 (rf/reg-event-db :handlers/set-geographic-element handlers/set-geographic-element)
 (rf/reg-event-db :handlers/person-detail-changed handlers/person-detail-changed)
 (rf/reg-event-db :handlers/value-changed handlers/value-changed)
@@ -100,6 +101,7 @@
 (rf/reg-sub :date-field/get-props :<- [:subs/get-derived-state] subs/get-date-field-props)
 (rf/reg-sub ::views/get-date-field-with-label-props :<- [:subs/get-derived-state] subs/get-date-field-with-label-props)
 (rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs/get-textarea-field-props)
+(rf/reg-sub ::views/get-textarea-field-with-label-props :<- [:subs/get-derived-state] subs/get-textarea-field-with-label-props)
 (rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs/get-textarea-field-many-props)
 (rf/reg-sub :subs/get-form-tick subs/get-form-tick)
 (rf/reg-sub :help/get-menuitems subs/get-menuitems)
@@ -107,30 +109,29 @@
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
 (set! low-code/component-registry
-      {'metcalf3.view/DataParametersTable     views/DataParametersTable
-       'metcalf3.view/date-field              views/date-field
-       'metcalf3.view/date-field-with-label   views/date-field-with-label
-       'metcalf3.view/textarea-field          views/textarea-field
-       'metcalf3.view/Methods                 views/Methods
-       'metcalf3.view/UseLimitations          views/UseLimitations
-       'metcalf3.view/SelectField             views/SelectField
-       'metcalf3.view/NasaListSelectField     views/NasaListSelectField
-       'metcalf3.view/GeographicCoverage      views/GeographicCoverage
-       'metcalf3.view/DataSources             views/DataSources
-       'metcalf3.view/PageErrors              views/PageErrors
-       'metcalf3.view/VerticalCoverage        views/VerticalCoverage
-       'metcalf3.view/TopicCategories         views/TopicCategories
-       'metcalf3.view/ResourceConstraints     views/ResourceConstraints
-       'metcalf3.view/InputField              views/InputField
-       'metcalf3.view/input-field-with-label  views/input-field-with-label
-       'metcalf3.view/Lodge                   views/Lodge
-       'metcalf3.view/SupportingResource      views/SupportingResource
-       'metcalf3.view/SupplementalInformation views/SupplementalInformation
-       'metcalf3.view/ThemeKeywords           views/ThemeKeywords
-       'metcalf3.view/UploadData              views/UploadData
-       'metcalf3.view/TaxonKeywordsExtra      views/TaxonKeywordsExtra
-       'metcalf3.view/Who                     views/Who
-       'metcalf3.view/ThemeKeywordsExtra      views/ThemeKeywordsExtra})
+      {'metcalf3.view/DataParametersTable       views/DataParametersTable
+       'metcalf3.view/date-field-with-label     views/date-field-with-label
+       'metcalf3.view/textarea-field            views/textarea-field
+       'metcalf3.view/textarea-field-with-label views/textarea-field-with-label
+       'metcalf3.view/Methods                   views/Methods
+       'metcalf3.view/UseLimitations            views/UseLimitations
+       'metcalf3.view/SelectField               views/SelectField
+       'metcalf3.view/NasaListSelectField       views/NasaListSelectField
+       'metcalf3.view/GeographicCoverage        views/GeographicCoverage
+       'metcalf3.view/DataSources               views/DataSources
+       'metcalf3.view/PageErrors                views/PageErrors
+       'metcalf3.view/VerticalCoverage          views/VerticalCoverage
+       'metcalf3.view/TopicCategories           views/TopicCategories
+       'metcalf3.view/ResourceConstraints       views/ResourceConstraints
+       'metcalf3.view/input-field-with-label    views/input-field-with-label
+       'metcalf3.view/Lodge                     views/Lodge
+       'metcalf3.view/SupportingResource        views/SupportingResource
+       'metcalf3.view/SupplementalInformation   views/SupplementalInformation
+       'metcalf3.view/ThemeKeywords             views/ThemeKeywords
+       'metcalf3.view/UploadData                views/UploadData
+       'metcalf3.view/TaxonKeywordsExtra        views/TaxonKeywordsExtra
+       'metcalf3.view/Who                       views/Who
+       'metcalf3.view/ThemeKeywordsExtra        views/ThemeKeywordsExtra})
 (set! low-code/template-registry
       '{:data-identification
         [:div
@@ -143,7 +144,6 @@
            :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"
            :maxLength   250
            :required    true}]
-         [metcalf3.view/InputField {:path [:form :fields :identificationInfo :title]}]
          [metcalf3.view/date-field-with-label
           {:path     [:form :fields :identificationInfo :dateCreation]
            :label    "Date the resource was created"
@@ -159,10 +159,21 @@
         [:div
          [metcalf3.view/PageErrors {:page :what :path [:form]}]
          [:h2 "2. What"]
-         [:span.abstract-textarea
-          [metcalf3.view/textarea-field {:path [:form :fields :identificationInfo :abstract]}]]
-         [:span.abstract-textarea
-          [metcalf3.view/textarea-field {:path [:form :fields :identificationInfo :purpose]}]]
+         [metcalf3.view/textarea-field-with-label
+          {:path        [:form :fields :identificationInfo :abstract]
+           :label       "Abstract"
+           :placeholder "Provide a brief summary of What, Where, When, Why, Who and How for the collected the data."
+           :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"
+           :toolTip     "Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected."
+           :maxLength   2500
+           :required    true}]
+         [metcalf3.view/textarea-field-with-label
+          {:path        [:form :fields :identificationInfo :purpose]
+           :label       "Purpose"
+           :placeholder "Provide a brief summary of the purpose for collecting the data including the potential use."
+           :maxLength   1000
+           :helperText  "Brief statement about the purpose of the study"
+           :toolTip     "The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"}]
          [metcalf3.view/ThemeKeywords :keywordsTheme]
          [metcalf3.view/ThemeKeywords :keywordsThemeAnzsrc]
          [metcalf3.view/ThemeKeywordsExtra nil]
@@ -209,8 +220,16 @@
          [metcalf3.view/PageErrors {:page :how :path [:form]}]
          [:h2 "5: How"]
          [metcalf3.view/Methods {:path [:form :fields :resourceLineage :processStep]}]
-         [metcalf3.view/textarea-field {:path [:form :fields :dataQualityInfo :methods]}]
-         [metcalf3.view/textarea-field {:path [:form :fields :dataQualityInfo :results]}]
+         [metcalf3.view/textarea-field-with-label
+          {:path  [:form :fields :dataQualityInfo :methods]
+           :label "Method"}]
+         [metcalf3.view/textarea-field-with-label
+          {:path        [:form :fields :dataQualityInfo :results]
+           :label       "Data Quality Results"
+           :placeholder "Provide a statement regarding the data quality assessment results."
+           :toolTip     "Example: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."
+           :maxLength   1000
+           :rows        20}]
          [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
 
         :about
@@ -251,8 +270,12 @@
            :toolTip     nil
            :maxLength   20
            :required    nil}]
-         [:span.abstract-textarea
-          [metcalf3.view/textarea-field {:path [:form :fields :resourceLineage :lineage]}]]
+         [metcalf3.view/textarea-field-with-label
+          {:path        [:form :fields :resourceLineage :lineage]
+           :label       "Lineage"
+           :placeholder "Provide a brief summary of the source of the data and related collection and/or processing methods."
+           :toolTip     "Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017"
+           :maxLength   1000}]
          [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
 
         :upload

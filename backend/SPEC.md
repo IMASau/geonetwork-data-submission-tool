@@ -1,6 +1,21 @@
 
 # Spec mapper documentation
 
+*TODO: would be nice to have a sample input for reference as well,
+plus an overview of how this is applied.  What I currently believe:
+processing takes as input the mapping-spec (described here), the xml
+template, and the json document input.  The xml template describes the
+output, including boilerplate structure and default values.
+Processing uses xpaths to find locations in the template to insert
+values, and find nodes to further process / duplicate /etc.  It looks
+like the json spec matches the json-doc data input in hierarchy; for
+each key:subspec in the spec, the key is also used to index the data
+document.*
+
+*Nice-to-have: an overview of the input format and basic processing,
+then summary of the special-cases required, necessitating
+exportTo/container/etc*
+
 ## spec
 
 Top level property for defining the spec mapping.
@@ -109,6 +124,10 @@ This can be a node or an attribute.
 
 The child node of the xpath that will be used to read/write.
 
+*TODO: I think this makes sense in conjunction with keep:false; the
+value is written into valueChild, but if not present then the whole
+node at that xpath location is removed (?)*
+
 ```json
 "name": {
   "xpath": "cit:CI_OnlineResource/cit:name",
@@ -123,6 +142,9 @@ If `true` (default), the property in the metadata document will be exported in t
 xpath/valueChild. 
 
 If `false`, the property will not be include in the export.
+
+*TODO: why would you not include it?  If used as a conditional for eg,
+how is it accessed?*  (Update: see `exportTo`; is that the only case?)
 
 ```json
 "hasGeographicCoverage": {
@@ -247,7 +269,11 @@ If `many` is set to `true`, indicates that there can be multiple entries.
 
 ## container
 
-This is an xpath that optionally defines the container XML fragment for the property.
+This is an xpath that optionally defines the container XML fragment
+for the property.
+
+*TODO: why this, rather than hierarchy (ie, why is the container not
+just the parent of this node?)*
 
 ```json
 "keywords": {
@@ -267,6 +293,10 @@ This is an xpath that optionally defines the container XML fragment for the prop
 Optionally allows the definition of which attributes on the destination node to write to. 
 
 If any `attributes` are defined, you must also define `text` if you want to write to the value of an XML node. 
+
+*TODO: that makes sense, but why text in this example?  I read it as
+there also being a text child, but the particular example doesn't seem
+to have one*
 
 If no `attributes` are defined, this is the default write location.
 

@@ -41,6 +41,7 @@
 (rf/reg-event-db :handlers/set-geographic-element handlers/set-geographic-element)
 (rf/reg-event-db :handlers/person-detail-changed handlers/person-detail-changed)
 (rf/reg-event-db :handlers/value-changed handlers/value-changed)
+(rf/reg-event-db ::views/input-field-with-label-value-changed handlers/value-changed)
 (rf/reg-event-db :handlers/set-tab handlers/set-tab)
 (rf/reg-event-db :handlers/load-errors handlers/load-errors)
 (rf/reg-event-db :handlers/add-keyword-extra handlers/add-keyword-extra)
@@ -89,6 +90,7 @@
 (rf/reg-sub :metcalf3/form-dirty? :<- [:subs/get-derived-state] subs/form-dirty?)
 (rf/reg-sub :subs/is-page-name-nil? subs/is-page-name-nil?)
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs/get-derived-path)
+(rf/reg-sub ::views/get-input-field-with-label-props :<- [:subs/get-derived-state] subs/get-input-field-with-label-props)
 (rf/reg-sub :subs/get-page-props subs/get-page-props)
 (rf/reg-sub :subs/get-page-name subs/get-page-name)
 (rf/reg-sub :subs/get-modal-props subs/get-modal-props)
@@ -117,7 +119,7 @@
        'metcalf3.view/VerticalCoverage        views/VerticalCoverage
        'metcalf3.view/TopicCategories         views/TopicCategories
        'metcalf3.view/ResourceConstraints     views/ResourceConstraints
-       'metcalf3.view/InputField              views/InputField
+       'metcalf3.view/input-field-with-label  views/input-field-with-label
        'metcalf3.view/Lodge                   views/Lodge
        'metcalf3.view/SupportingResource      views/SupportingResource
        'metcalf3.view/SupplementalInformation views/SupplementalInformation
@@ -131,7 +133,13 @@
         [:div
          [metcalf3.view/PageErrors {:page :data-identification :path [:form]}]
          [:h2 "1. Data Identification"]
-         [metcalf3.view/InputField {:path [:form :fields :identificationInfo :title]}]
+         [metcalf3.view/input-field-with-label
+          {:path        [:form :fields :identificationInfo :title]
+           :label       "Title"
+           :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
+           :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"
+           :maxLength   250
+           :required    true}]
          [metcalf3.view/date-field-with-label
           {:path     [:form :fields :identificationInfo :dateCreation]
            :label    "Date the resource was created"
@@ -223,8 +231,22 @@
          [metcalf3.view/SupplementalInformation [:form :fields :identificationInfo :supplementalInformation]]
          [:br]
          [:h4 "Distribution"]
-         [metcalf3.view/InputField {:path [:form :fields :distributionInfo :distributionFormat :name]}]
-         [metcalf3.view/InputField {:path [:form :fields :distributionInfo :distributionFormat :version]}]
+         [metcalf3.view/input-field-with-label
+          {:path        [:form :fields :distributionInfo :distributionFormat :name]
+           :label       "Data file format"
+           :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
+           :helperText  nil
+           :toolTip     nil
+           :maxLength   100
+           :required    nil}]
+         [metcalf3.view/input-field-with-label
+          {:path        [:form :fields :distributionInfo :distributionFormat :version]
+           :label       "Data file format date/version"
+           :placeholder "Date format date or version if applicable"
+           :helperText  nil
+           :toolTip     nil
+           :maxLength   20
+           :required    nil}]
          [:span.abstract-textarea
           [metcalf3.view/textarea-field {:path [:form :fields :resourceLineage :lineage]}]]
          [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]

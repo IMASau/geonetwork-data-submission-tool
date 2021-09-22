@@ -67,10 +67,11 @@
   {:db (update db :alert pop)})
 
 (defn close-and-cancel
-  [db _]
+  [{:keys [db]} _]
   (let [{:keys [on-cancel]} (peek (:alert db))]
+    ; TODO: can we refactor around specific handlers to avoid this?
     (when on-cancel (on-cancel))
-    (update db :alert pop)))
+    {:db (update db :alert pop)}))
 
 (defn close-and-confirm
   [db _]

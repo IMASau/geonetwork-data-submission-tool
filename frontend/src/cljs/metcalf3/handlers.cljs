@@ -74,10 +74,11 @@
     {:db (update db :alert pop)}))
 
 (defn close-and-confirm
-  [db _]
+  [{:keys [db]} _]
   (let [{:keys [on-confirm]} (peek (:alert db))]
+    ; TODO: can we refactor around specific handlers to avoid this?
     (when on-confirm (on-confirm))
-    (update db :alert pop)))
+    {:db (update db :alert pop)}))
 
 (defn open-modal [db props]
   (update db :alert

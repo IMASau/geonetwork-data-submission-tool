@@ -63,8 +63,8 @@
       {:db (update-in db api-path assoc :options reshaped)})))
 
 (defn close-modal
-  [db]
-  (update db :alert pop))
+  [{:keys [db]}]
+  {:db (update db :alert pop)})
 
 (defn close-and-cancel
   [db _]

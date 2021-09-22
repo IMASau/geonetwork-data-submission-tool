@@ -204,7 +204,7 @@ def extract_jsonschema(tree, spec, **kwargs):
     field = {}
     if 'initial' in spec:
         field['default'] = spec['initial']
-    if 'logic' in spec:
+    if 'rules' in spec:
         field['rules'] = spec['rules']
 
     if is_many(spec):

@@ -50,7 +50,7 @@
 (rf/reg-event-db :handlers/dashboard-create-click handlers/dashboard-create-click)
 (rf/reg-event-db :handlers/transite-doc-success handlers/transite-doc-success)
 (rf/reg-event-db :handlers/lodge-submit-success handlers/lodge-submit-success)
-(rf/reg-event-fx :handlers/init-db imas-handlers/init-db)
+(rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
 (rf/reg-event-fx :handlers/load-api-options handlers/load-api-options)
 (rf/reg-event-fx :handlers/load-es-options handlers/load-es-options)
 (rf/reg-event-fx :handlers/search-es-options handlers/search-es-options)

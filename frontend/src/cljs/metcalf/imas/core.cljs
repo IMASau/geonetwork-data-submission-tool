@@ -15,7 +15,7 @@
 
 (when-let [ele (.getElementById js/document "Content")]
   (when (-> @app-db :page :name nil?)
-    (rf/dispatch-sync [:handlers/init-db])
+    (rf/dispatch-sync [::init-db])
     (router/start! {:iref   app-db
                     :path   [:page :tab]
                     :->hash (fnil name "")

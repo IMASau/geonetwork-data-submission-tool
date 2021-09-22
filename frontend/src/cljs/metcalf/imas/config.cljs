@@ -13,7 +13,7 @@
 (rf/reg-event-fx :handlers/close-modal handlers/close-modal)
 (rf/reg-event-fx :handlers/close-and-cancel handlers/close-and-cancel)
 (rf/reg-event-fx :handlers/close-and-confirm handlers/close-and-confirm)
-(rf/reg-event-db :handlers/open-modal handlers/open-modal-handler)
+(rf/reg-event-fx :handlers/open-modal handlers/open-modal-handler)
 (rf/reg-event-db :handlers/del-value handlers/del-value)
 (rf/reg-event-db :handlers/new-field! handlers/new-field!)
 (rf/reg-event-db :handlers/add-field! handlers/add-field!)

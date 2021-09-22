@@ -87,8 +87,8 @@
               (conj alerts props)))))
 
 (defn open-modal-handler
-  [db [_ props]]
-  (open-modal db props))
+  [{:keys [db]} [_ props]]
+  {:db (open-modal db props)})
 
 (defn del-value
   [db [_ many-field-path i]]

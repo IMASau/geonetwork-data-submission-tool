@@ -450,7 +450,6 @@ def edit(request, uuid):
         "form": {
             "url": reverse("Save", kwargs={'uuid': doc.uuid}),
             "fields": extract_fields(tree, spec),
-            "jsonschema1": extract_jsonschema(tree, spec),
             "data": data,
         },
         "upload_form": {
@@ -477,6 +476,7 @@ def edit(request, uuid):
         },
         "messages": messages_payload(request),
         "data": data,
+        "jsonschema": extract_jsonschema(tree, spec),
         "attachments": AttachmentSerializer(doc.attachments.all(), many=True).data,
         "theme": {"keywordsTheme": {"table": theme_keywords()},
                   "keywordsThemeAnzsrc": {"table": anzsrc_keywords()}},

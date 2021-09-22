@@ -91,25 +91,25 @@
   {:db (open-modal db props)})
 
 (defn del-value
-  [db [_ many-field-path i]]
-  (update-in db many-field-path update :value utils/vec-remove i))
+  [{:keys [db]} [_ many-field-path i]]
+  {:db (update-in db many-field-path update :value utils/vec-remove i)})
 
 (defn new-field!
-  [db [_ path]]
-  (let [many-field (get-in db path)
-        new-field (logic/new-value-field many-field)]
-    (update-in db path update :value #(conj % new-field))))
+  [{:keys [db]} [_ path]]
+  {:db (let [many-field (get-in db path)
+             new-field (logic/new-value-field many-field)]
+         (update-in db path update :value #(conj % new-field)))})
 
 (defn add-field!
-  [db [_ path field]]
-  (update-in db path update :value conj field))
+  [{:keys [db]} [_ path field]]
+  {:db (update-in db path update :value conj field)})
 
 (defn add-value!
-  [db [_ path value]]
+  [{:keys [db]} [_ path value]]
   (let [many-field (get-in db path)
         new-field (-> (logic/new-value-field many-field)
                       (assoc :value value))]
-    (update-in db path update :value conj new-field)))
+    {:db (update-in db path update :value conj new-field)}))
 
 (defn save-current-document
   [{:keys [db]} _]
@@ -123,12 +123,12 @@
           :error-v   [:handlers/save-current-document-success]}}))
 
 (defn save-current-document-success
-  [db [_ data resp]]
+  [{:keys [db]} [_ data resp]]
   (let [doc (get-in resp [:form :document])]
-    (-> db
-        (assoc-in [:form :data] data)
-        (assoc-in [:page :metcalf3.handlers/saving?] false)
-        (update-in [:context :document] merge doc))))
+    (-> {:db db}
+        (assoc-in [:db :form :data] data)
+        (assoc-in [:db :page :metcalf3.handlers/saving?] false)
+        (update-in [:db :context :document] merge doc))))
 
 (defn save-current-document-error
   [_ [_ done-ch]]
@@ -136,13 +136,13 @@
   {})
 
 (defn add-attachment
-  [db [_ attachment-data]]
+  [{:keys [db]} [_ attachment-data]]
   (let [data (select-keys attachment-data [:file :name :delete_url])
         template (get-in db [:form :fields :attachments :fields])
         new-value (reduce (fn [form-acc [k v]]
                             (assoc-in form-acc [k :value] v))
                           template data)]
-    (update-in db [:form :fields :attachments :value] conj {:value new-value})))
+    {:db (update-in db [:form :fields :attachments :value] conj {:value new-value})}))
 
 (defn archive-current-document
   [{:keys [db]} _]
@@ -157,10 +157,10 @@
   [_ [_ url]] {:fx/set-location-href url})
 
 (defn back
-  [db _]
+  [{:keys [db]} _]
   (let [back (get-in db [:page :back])
         back (into {} back)]
-    (assoc db :page back)))
+    {:db (assoc db :page back)}))
 
 (defn ror
   "Reverse OR: use it to update source value only if destination value is not falsey."
@@ -186,41 +186,41 @@
              (update-in contact-path update-in [:address :country :value] ror country))}))
 
 (defn update-dp-term
-  [db [_ dp-term-path sub-paths option]]
+  [{:keys [db]} [_ dp-term-path sub-paths option]]
   (let [option (if (map? option) option (utils/js-lookup option))
         {:keys [term vocabularyTermURL vocabularyVersion termDefinition]} option]
-    (-> db
-        (update-in dp-term-path assoc-in [(:term sub-paths) :value] term)
-        (update-in dp-term-path assoc-in [(:vocabularyTermURL sub-paths) :value] vocabularyTermURL)
-        (update-in dp-term-path assoc-in [(:vocabularyVersion sub-paths) :value] vocabularyVersion)
-        (update-in dp-term-path assoc-in [(:termDefinition sub-paths) :value] termDefinition))))
+    {:db (-> db
+             (update-in dp-term-path assoc-in [(:term sub-paths) :value] term)
+             (update-in dp-term-path assoc-in [(:vocabularyTermURL sub-paths) :value] vocabularyTermURL)
+             (update-in dp-term-path assoc-in [(:vocabularyVersion sub-paths) :value] vocabularyVersion)
+             (update-in dp-term-path assoc-in [(:termDefinition sub-paths) :value] termDefinition))}))
 
 (defn update-nasa-list-value
-  [db [_ path option]]
+  [{:keys [db]} [_ path option]]
   (let [option (if (map? option) option (utils/js-lookup option))
         {:keys [prefLabel uri]} option]
-    (-> db
-        (update-in path assoc-in [:prefLabel :value] prefLabel)
-        (update-in path assoc-in [:uri :value] uri))))
+    {:db (-> db
+             (update-in path assoc-in [:prefLabel :value] prefLabel)
+             (update-in path assoc-in [:uri :value] uri))}))
 
 (defn update-boxes
-  [db [_ boxes-path geojson]]
+  [{:keys [db]} [_ boxes-path geojson]]
   (s/assert map? geojson)
   (let [geometries (mapv :geometry (:features geojson))
         boxes (mapv utils/geometry->box-value geometries)
         boxes-value-path (conj boxes-path :value)
         box-values (mapv (fn [box] {:value box}) boxes)
         db (assoc-in db boxes-value-path box-values)]
-    db))
+    {:db db}))
 
 (defn update-method-term
-  [db [_ method-path option]]
+  [{:keys [db]} [_ method-path option]]
   (let [option (if (map? option) option (utils/js-lookup option))
         {:keys [term vocabularyTermURL termDefinition]} option]
-    (-> db
-        (update-in method-path assoc-in [:name :value] term)
-        (update-in method-path assoc-in [:uri :value] vocabularyTermURL)
-        (update-in method-path assoc-in [:description :value] termDefinition))))
+    {:db (-> db
+             (update-in method-path assoc-in [:name :value] term)
+             (update-in method-path assoc-in [:uri :value] vocabularyTermURL)
+             (update-in method-path assoc-in [:description :value] termDefinition))}))
 
 (defn update-person
   [{:keys [db]} [_ person-path option]]
@@ -244,14 +244,14 @@
      :dispatch [:handlers/org-changed person-path org]}))
 
 (defn update-method-name
-  [db [_ method-path name]]
-  (-> db
-      (update-in method-path assoc-in [:name :value] name)
-      (update-in method-path assoc-in [:uri :value] "XXX")))
+  [{:keys [db]} [_ method-path name]]
+  {:db (-> db
+           (update-in method-path assoc-in [:name :value] name)
+           (update-in method-path assoc-in [:uri :value] "XXX"))})
 
 (defn setter
-  [db [_ path k v]]
-  (update-in db path assoc k v))
+  [{:keys [db]} [_ path k v]]
+  {:db (update-in db path assoc k v)})
 
 (defn unsaved-input-check-helper [{:keys [new-value errors] :as keywords-data}]
   (assoc keywords-data
@@ -261,68 +261,68 @@
       (conj (set errors) "Unsaved value in the keyword input field"))))
 
 (defn check-unsaved-keyword-input
-  [db [_ keywords-path]]
-  (update-in db keywords-path unsaved-input-check-helper))
+  [{:keys [db]} [_ keywords-path]]
+  {:db (update-in db keywords-path unsaved-input-check-helper)})
 
 (defn remove-party
-  [db [_ parties-path item]]
-  (update-in db parties-path update :value utils/vec-remove item))
+  [{:keys [db]} [_ parties-path item]]
+  {:db (update-in db parties-path update :value utils/vec-remove item)})
 
 (defn reset-form
-  [db [_ form-path]]
+  [{:keys [db]} [_ form-path]]
   (s/assert vector? form-path)
-  (update-in db form-path logic/reset-form))
+  {:db (update-in db form-path logic/reset-form)})
 
 (defn show-errors
-  [db [_ path]]
+  [{:keys [db]} [_ path]]
   (s/assert vector path)
-  (update-in db path assoc :show-errors true))
+  {:db (update-in db path assoc :show-errors true)})
 
 (defn hide-errors
-  [db [_ path]]
-  (update-in db path assoc :show-errors false))
+  [{:keys [db]} [_ path]]
+  {:db (update-in db path assoc :show-errors false)})
 
 (defn toggle-status-filter
-  [db [_ status status-filter]]
+  [{:keys [db]} [_ status status-filter]]
   (let [status-filter (get-in db [:page :status-filter] status-filter)
         status-filter (if (contains? status-filter status)
                         (disj status-filter status)
                         (conj status-filter status))]
-    (assoc-in db [:page :status-filter] status-filter)))
+    {:db (assoc-in db [:page :status-filter] status-filter)}))
 
 (defn show-all-documents
-  [db _]
+  [{:keys [db]} _]
   (let [documents (get-in db [:context :documents])
         status-freq (frequencies (map :status documents))]
-    (assoc-in db [:page :status-filter] (set (keys status-freq)))))
+    {:db (assoc-in db [:page :status-filter] (set (keys status-freq)))}))
 
 (defn load-error-page
-  [db [_ data]]
-  (-> db
-      (assoc-in [:page :name] "Error")
-      (assoc-in [:page :text] (-> data :response :message))
-      (assoc-in [:page :code] (-> data :status))
-      (assoc-in [:page :detail] (-> data :response))))
+  [{:keys [db]} [_ data]]
+  {:db (-> db
+           (assoc-in [:page :name] "Error")
+           (assoc-in [:page :text] (-> data :response :message))
+           (assoc-in [:page :code] (-> data :status))
+           (assoc-in [:page :detail] (-> data :response)))})
 
 (defn set-value
-  [db [_ field-path value]]
-  (update-in db field-path assoc :value value))
+  [{:keys [db]} [_ field-path value]]
+  {:db (update-in db field-path assoc :value value)})
 
 (defn date-field-value-change
-  [db [_ field-path widget-value]]
+  [{:keys [db]} [_ field-path widget-value]]
   (let [field-value (when widget-value (moment/format widget-value "YYYY-MM-DD"))]
-    (-> db
-        (update-in field-path assoc :value field-value)
-        (update-in field-path assoc :show-errors true))))
+    {:db (-> db
+             (update-in field-path assoc :value field-value)
+             (update-in field-path assoc :show-errors true))}))
 
 (defn textarea-field-value-change
-  [db [_ field-path value]]
-  (-> db
-      (update-in field-path assoc :value value)
-      (update-in field-path assoc :show-errors true)))
+  [{:keys [db]} [_ field-path value]]
+  {:db (-> db
+           (update-in field-path assoc :value value)
+           (update-in field-path assoc :show-errors true))})
 
 (defn set-geographic-element
-  [db [_ many-field-path values]]
+  [{:keys [db]} [_ many-field-path values]]
   (let [many-field (get-in db many-field-path)
         new-fields (for [value values]
                      (-> (logic/new-value-field many-field)
@@ -330,7 +330,7 @@
                          (update-in [:value :southBoundLatitude] merge (:southBoundLatitude value))
                          (update-in [:value :eastBoundLongitude] merge (:eastBoundLongitude value))
                          (update-in [:value :westBoundLongitude] merge (:westBoundLongitude value))))]
-    (update-in db many-field-path assoc :value (vec new-fields))))
+    {:db (update-in db many-field-path assoc :value (vec new-fields))}))
 
 (defn org-changed
   [{:keys [db]} [_ path value]]
@@ -340,7 +340,7 @@
    :dispatch [:handlers/update-address path value]})
 
 (defn person-detail-changed
-  [db [_ path field value isUserAdded]]
+  [{:keys [db]} [_ path field value isUserAdded]]
   ; if they change the name and it's not already a custom user, generate a new uuid
   (let [new-uuid (random-uuid)
         person-uri (str "https://w3id.org/tern/resources/" new-uuid)
@@ -352,44 +352,43 @@
                   (assoc-in (conj path :uri :value) person-uri)
                   (update-in (conj path :isUserAdded) assoc :value true :show-errors true)))]
     (s/assert vector? path)
-    (if value-changed
-      (-> db'
-          (update-in (conj path field) assoc :value value :show-errors true)
-          (update-in (conj path :individualName) assoc :value "" :show-errors true))
-      db)))
+    (when value-changed
+      {:db (-> db'
+               (update-in (conj path field) assoc :value value :show-errors true)
+               (update-in (conj path :individualName) assoc :value "" :show-errors true))})))
 
 (defn value-changed
-  [db [_ path value]]
+  [{:keys [db]} [_ path value]]
   (s/assert vector? path)
-  (update-in db path assoc :value value :show-errors true))
+  {:db (update-in db path assoc :value value :show-errors true)})
 
 (defn set-tab
-  [db [_ id]]
-  (assoc-in db [:page :tab] id))
+  [{:keys [db]} [_ id]]
+  {:db (assoc-in db [:page :tab] id)})
 
 (defn load-errors
-  [db [_ form-path data]]
-  (update-in db form-path logic/load-errors data))
+  [{:keys [db]} [_ form-path data]]
+  {:db (update-in db form-path logic/load-errors data)})
 
 (defn add-keyword-extra
-  [db [_ keywords-path value]]
-  (let [keywords (get-in db keywords-path)]
-    (if-not (empty? value)
-      (assoc-in db keywords-path (vec (conj keywords {:value value})))
-      db)))
+  [{:keys [db]} [_ keywords-path value]]
+  {:db (let [keywords (get-in db keywords-path)]
+         (if-not (empty? value)
+           (assoc-in db keywords-path (vec (conj keywords {:value value})))
+           db))})
 
 (defn del-keyword-extra
-  [db [_ keywords-path value]]
+  [{:keys [db]} [_ keywords-path value]]
   (let [keywords (get-in db keywords-path)]
-    (assoc-in db keywords-path (vec (remove #(= value (:value %)) keywords)))))
+    {:db (assoc-in db keywords-path (vec (remove #(= value (:value %)) keywords)))}))
 
 (defn add-nodes
-  [db [_ api-path nodes]]
-  (update-in db api-path update :options into nodes))
+  [{:keys [db]} [_ api-path nodes]]
+  {:db (update-in db api-path update :options into nodes)})
 
 (defn dashboard-create-click
-  [db _]
-  (open-modal db {:type :DashboardCreateModal}))
+  [{:keys [db]} _]
+  {:db (open-modal db {:type :DashboardCreateModal})})
 
 (defn create-document-success
   [_ [_ data]]
@@ -449,16 +448,16 @@
     :error-v    [:handlers/transite-doc-error]}})
 
 (defn transite-doc-success
-  [db [_ transition data]]
+  [{:keys [db]} [_ transition data]]
   (let [{{:keys [uuid] :as doc} :document} data]
-    (update-in db [:context :documents]
-               (fn [docs]
-                 (reduce #(if (= uuid (:uuid %2))
-                            (if (= transition "delete_archived")
-                              %1
-                              (conj %1 doc))
-                            (conj %1 %2))
-                         [] docs)))))
+    {:db (update-in db [:context :documents]
+                    (fn [docs]
+                      (reduce #(if (= uuid (:uuid %2))
+                                 (if (= transition "delete_archived")
+                                   %1
+                                   (conj %1 doc))
+                                 (conj %1 %2))
+                              [] docs)))}))
 
 (defn transite-doc-error
   [_ [_ transition]]
@@ -490,12 +489,12 @@
           :error-v   [:handlers/lodge-error]}}))
 
 (defn lodge-submit-success
-  [db [_ resp]]
+  [{:keys [db]} [_ resp]]
   (let [document (get-in resp [:document])]
     (s/assert map? document)
-    (-> db
-        (assoc-in [:page :metcalf3.handlers/saving?] false)
-        (assoc-in [:context :document] document))))
+    {:db (-> db
+             (assoc-in [:page :metcalf3.handlers/saving?] false)
+             (assoc-in [:context :document] document))}))
 
 (defn lodge-error
   [{:keys [db]} [_ {:keys [status failure]}]]

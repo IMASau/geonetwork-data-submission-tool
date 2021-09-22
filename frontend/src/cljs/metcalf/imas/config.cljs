@@ -8,8 +8,8 @@
             [metcalf3.views :as views]
             [re-frame.core :as rf]))
 
-(rf/reg-event-db :handlers/load-api-options-resp handlers/load-api-options-resp)
-(rf/reg-event-db :handlers/load-es-options-resp handlers/load-es-options-resp)
+(rf/reg-event-fx :handlers/load-api-options-resp handlers/load-api-options-resp)
+(rf/reg-event-fx :handlers/load-es-options-resp handlers/load-es-options-resp)
 (rf/reg-event-db :handlers/close-modal handlers/close-modal)
 (rf/reg-event-db :handlers/close-and-cancel handlers/close-and-cancel)
 (rf/reg-event-db :handlers/close-and-confirm handlers/close-and-confirm)

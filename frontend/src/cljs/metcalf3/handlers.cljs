@@ -24,9 +24,9 @@
       {:xhrio/get-json {:uri uri :resp-v [:handlers/load-api-options-resp api-path]}})))
 
 (defn load-api-options-resp
-  [db [_ api-path json]]
+  [{:keys [db]} [_ api-path json]]
   (let [results (gobj/get json "results")]
-    (update-in db api-path assoc :options results)))
+    {:db (update-in db api-path assoc :options results)}))
 
 (defn build-es-query
   [query]
@@ -46,7 +46,7 @@
      :db              (update-in db api-path assoc :most-recent-query query)}))
 
 (defn load-es-options-resp
-  [db [_ api-path query json]]
+  [{:keys [db]} [_ api-path query json]]
   (let [most-recent-query (get-in db (conj api-path :most-recent-query))
         results (gobj/get json "hits")
         hits (gobj/get results "hits")
@@ -59,9 +59,8 @@
                                               :altLabel          (clojure.string/join ", " (get-in x [:_source :altLabel]))
                                               })
                                      (js->clj hits :keywordize-keys true))))]
-    (if (or (= most-recent-query query) (and (not most-recent-query) query))
-      (update-in db api-path assoc :options reshaped)
-      db)))
+    (when (or (= most-recent-query query) (and (not most-recent-query) query))
+      {:db (update-in db api-path assoc :options reshaped)})))
 
 (defn close-modal
   [db]

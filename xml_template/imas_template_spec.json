@@ -739,18 +739,6 @@
                 "xpath": "noteForDataManager",
                 "default": "",
                 "export": false
-            },
-            "agreedToTerms": {
-                "!docstring": "Fake node so we can pass some additional metadata as payload",
-                "xpath": "agreedToTerms",
-                "default": false,
-                "export": false
-            },
-            "doiRequested": {
-                "!docstring": "Fake node so we can pass some additional metadata as payload",
-                "xpath": "doiRequested",
-                "default": false,
-                "export": false
             }
         }
     },

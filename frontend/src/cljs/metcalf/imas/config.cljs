@@ -123,8 +123,8 @@
        'metcalf3.view/TopicCategories             views/TopicCategories
        'metcalf3.view/ResourceConstraints         views/ResourceConstraints
        'metcalf3.view/input-field-with-label      views/input-field-with-label
-       'metcalf3.view/Lodge                       views/Lodge
-       'metcalf3.view/IMASSupportingResource          views/IMASSupportingResource
+       'metcalf3.view/IMASLodge                   views/IMASLodge
+       'metcalf3.view/IMASSupportingResource      views/IMASSupportingResource
        'metcalf3.view/IMASSupplementalInformation views/IMASSupplementalInformation
        'metcalf3.view/TaxonKeywordsExtra          views/TaxonKeywordsExtra
        'metcalf3.view/ThemeKeywords               views/ThemeKeywords
@@ -347,4 +347,7 @@
          [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
         :lodge
-        [:div]})
+        [:div
+         [metcalf3.view/PageErrors {:page :lodge :path [:form]}]
+         [:h2 "9: Lodge Metadata Draft"]
+         [metcalf3.view/IMASLodge nil]]})

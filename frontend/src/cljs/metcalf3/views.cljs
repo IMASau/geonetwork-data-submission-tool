@@ -1483,6 +1483,79 @@
   []
   (rf/dispatch [:handlers/lodge-click]))
 
+(defn IMASLodge
+  [_]
+  (let [page @(rf/subscribe [:subs/get-page-props])
+        saving (::handlers/saving? page)
+        {:keys [document urls site]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        {:keys [portal_title portal_url email]} site
+        {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
+        {:keys [disabled dirty]} @(rf/subscribe [:subs/get-derived-path [:form]])
+        noteForDataManager @(rf/subscribe [:subs/get-derived-path [:form :fields :noteForDataManager]])
+        is-are (if (> errors 1) "are" "is")
+        plural (when (> errors 1) "s")
+        has-errors? (and errors (> errors 0))
+        submitted? (= (:status document) "Submitted")]
+    [:div.Lodge
+     [:p "Are you finished? Use this page to lodge your completed metadata record."]
+     [:p "Any difficulties?  Please contact " [:a {:href (str "mailto:" email)} email]]
+     [:p "The Data Manager will be notified of your submission and will be in contact
+               if any further information is required. Once approved, your data will be archived
+               for discovery in the "
+      (if portal_url
+        [:a {:href portal_url :target "_blank"} [:span.portal_title portal_title]]
+        [:span.portal_title portal_title])
+      "."]
+     [:p "How complete is your data?"]
+     [:div
+      {:style {:padding-top    5
+               :padding-bottom 5}}
+      (if (= "Draft" (:status document))
+        [textarea-field {:path [:form :fields :noteForDataManager]}]
+        (when-not (string/blank? (:value noteForDataManager))
+          [:div
+           [:strong "Note for the data manager:"]
+           [:p (:value noteForDataManager)]]))]
+     [:div
+      [:button.btn.btn-primary.btn-lg
+       {:disabled (or has-errors? saving disabled submitted?)
+        :on-click handle-submit-click}
+       (when saving
+         [:img
+          {:src (str (:STATIC_URL urls)
+                     "metcalf3/img/saving.gif")}])
+       "Lodge data"]
+      " "
+
+      (if has-errors?
+        [:span.text-danger [:b "Unable to lodge: "]
+         "There " is-are " " [:span errors " error" plural
+                              " which must be corrected first."]]
+        [:span.text-success
+         [:b
+          (cond
+            saving "Submitting..."
+            (= (:status document) "Draft") "Ready to lodge"
+            (= (:status document) "Submitted") "Your record has been submitted."
+            :else (:status document))]])]
+
+     (let [download-props {:href     (str (:export_url document) "?download")
+                           :on-click #(when dirty
+                                        (.preventDefault %)
+                                        (rf/dispatch [:handlers/open-modal
+                                                      {:type    :alert
+                                                       :message "Please save changes before exporting."}]))}]
+       [:div.user-export
+        [:p [:strong "Want to keep a personal copy of your metadata record?"]]
+        [:p
+         [:a download-props "Click here"] " to generate an XML version of your metadata submission. "
+         "The file generated includes all of the details you have provided under the
+          tabs, but not files you have uploaded."]
+        [:p
+         "Please note: this XML file is not the recommended way to share your metadata.
+          We want you to submit your data via 'lodging' the information.
+          This permits multi-user access via the portal in a more friendly format."]])]))
+
 (defn Lodge
   [_]
   (letfn [(init-state [_]

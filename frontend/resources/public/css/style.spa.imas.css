@@ -30,3 +30,7 @@ textarea {
 .abstract-textarea textarea {
     min-height: 15em;
 }
+
+.lineage-textarea textarea {
+    min-height: 10em;
+}

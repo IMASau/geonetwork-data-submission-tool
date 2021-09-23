@@ -113,7 +113,6 @@
        'metcalf3.view/CheckboxField             views/CheckboxField
        'metcalf3.view/date-field-with-label     views/date-field-with-label
        'metcalf3.view/textarea-field-with-label views/textarea-field-with-label
-       'metcalf3.view/Methods                   views/Methods
        'metcalf3.view/UseLimitations            views/UseLimitations
        'metcalf3.view/select-field-with-label   views/select-field-with-label
        'metcalf3.view/NasaListSelectField       views/NasaListSelectField
@@ -257,10 +256,22 @@
             :required   true}]]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
-        :who
-        [:div]
-
         :how
+        [:div
+         [metcalf3.view/PageErrors {:page :how :path [:form]}]
+         [:h2 "5: How"]
+         [:div.lineage-textarea
+          [metcalf3.view/textarea-field-with-label
+           {:path        [:form :fields :resourceLineage :lineage]
+            :label       "Methodological information"
+            :placeholder nil
+            :helperText  "Provide a brief statement of the methods used for collection of the
+                         data, can include information regarding sampling equipment (collection hardware),
+                         procedures, and precision/resolution of data collected."
+            :required    true}]]
+         [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
+
+        :who
         [:div]
 
         :about

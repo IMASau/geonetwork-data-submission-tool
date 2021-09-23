@@ -110,8 +110,8 @@
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
 (set! rules/rule-registry
-      {"validate-required-field" rules/validate-required-field-rule
-       "max-length"              rules/max-length-rule})
+      {"required-field" rules/required-field
+       "max-length"     rules/max-length-rule})
 (set! low-code/component-registry
       {'metcalf3.view/DataParametersTable       views/DataParametersTable
        'metcalf3.view/date-field-with-label     views/date-field-with-label

@@ -5,7 +5,8 @@
             [metcalf3.ins :as ins]
             [metcalf3.subs :as subs]
             [metcalf3.views :as views]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [metcalf3.rules :as rules]))
 
 (rf/reg-event-fx :handlers/load-api-options-resp handlers/load-api-options-resp)
 (rf/reg-event-fx :handlers/load-es-options-resp handlers/load-es-options-resp)
@@ -108,6 +109,9 @@
 (rf/reg-sub :subs/platform-selected? subs/platform-selected?)
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
+(set! rules/rule-registry
+      {"validate-required-field" rules/validate-required-field-rule
+       "max-length"              rules/max-length-rule})
 (set! low-code/component-registry
       {'metcalf3.view/DataParametersTable       views/DataParametersTable
        'metcalf3.view/date-field-with-label     views/date-field-with-label
@@ -141,9 +145,7 @@
           {:path        [:form :fields :identificationInfo :title]
            :label       "Title"
            :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
-           :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"
-           :maxLength   250
-           :required    true}]
+           :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
          [metcalf3.view/date-field-with-label
           {:path     [:form :fields :identificationInfo :dateCreation]
            :label    "Date the resource was created"

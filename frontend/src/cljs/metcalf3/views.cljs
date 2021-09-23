@@ -2060,6 +2060,16 @@
 (defn SupplementalInformationRowEdit [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :supplementalInformation])])
 
+(defn IMASSupplementalInformation [path]
+  [:div
+   [:label "Publications associated with dataset"]
+   [TableModalEdit
+    {:form        SupplementalInformationRowEdit
+     :title       "Add Publication"
+     :placeholder ""
+     :add-label   "Add publication"
+     :field-path  path}]])
+
 (defn SupplementalInformation [path]
   [:div
    [:label "Any supplemental information such as file naming conventions"]
@@ -2083,6 +2093,19 @@
   [:div
    [InputField {:path (conj path :value :name)}]
    [InputField {:path (conj path :value :url)}]])
+
+(defn IMASSupportingResource
+  [{:keys [path]}]
+  [:div
+   [:label "Any supplemental resources with hyperlinks"]
+   [TableModalEdit
+    {:ths         ["Title" "URL"]
+     :tds-fn      (comp (partial map (comp #(or % "--") :value)) (juxt :name :url) :value)
+     :form        SupportingResourceFieldEdit
+     :title       "Add supporting resource"
+     :placeholder ""
+     :add-label   "Add supporting resource"
+     :field-path  path}]])
 
 (defn SupportingResource
   [{:keys [path]}]

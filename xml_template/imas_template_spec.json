@@ -8,11 +8,13 @@
             "cit": "http://standards.iso.org/iso/19115/-3/cit/1.0",
             "gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
             "gex": "http://standards.iso.org/iso/19115/-3/gex/1.0",
+            "gmd": "http://www.isotc211.org/2005/gmd",
             "lan": "http://standards.iso.org/iso/19115/-3/lan/1.0",
             "srv": "http://standards.iso.org/iso/19115/-3/srv/2.0",
             "mas": "http://standards.iso.org/iso/19115/-3/mas/1.0",
             "mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
             "mco": "http://standards.iso.org/iso/19115/-3/mco/1.0",
+            "mcp": "http://schemas.aodn.org.au/mcp-2.0",
             "mda": "http://standards.iso.org/iso/19115/-3/mda/1.0",
             "mds": "http://standards.iso.org/iso/19115/-3/mds/1.0",
             "mdt": "http://standards.iso.org/iso/19115/-3/mdt/1.0",
@@ -412,6 +414,142 @@
                         "xpath": "mri:pointOfContact/cit:CI_Responsibility",
                         "container": "mri:pointOfContact",
                         "nodes": "ci_responsible_party_nodes"
+                    },
+                    "creativeCommons": {
+                        "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseLink",
+                        "batch": {
+                            "http://creativecommons.org/licenses/by/2.5/au/": {
+                                "licenseLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseLink",
+                                    "data": "http://creativecommons.org/licenses/by/2.5/au/"
+                                },
+                                "jurisdictionLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:jurisdictionLink",
+                                    "data": "http://creativecommons.org/international/au/"
+                                },
+                                "imageLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:imageLink",
+                                    "data": "http://i.creativecommons.org/l/by/2.5/au/88x31.png"
+                                },
+                                "licenseName": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseName",
+                                    "data": "Attribution 2.5 Australia"
+                                }
+                            },
+                            "http://creativecommons.org/licenses/by-nc/2.5/au/": {
+                                "licenseLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseLink",
+                                    "data": "http://creativecommons.org/licenses/by-nc/2.5/au/"
+                                },
+                                "jurisdictionLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:jurisdictionLink",
+                                    "data": "http://creativecommons.org/international/au/"
+                                },
+                                "imageLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:imageLink",
+                                    "data": "http://i.creativecommons.org/l/by-nc/2.5/au/88x31.png"
+                                },
+                                "licenseName": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseName",
+                                    "data": "Attribution-NonCommercial 2.5 Australia"
+                                }
+                            },
+                            "http://creativecommons.org/licenses/by/3.0/au/": {
+                                "licenseLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseLink",
+                                    "data": "http://creativecommons.org/licenses/by/3.0/au/"
+                                },
+                                "jurisdictionLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:jurisdictionLink",
+                                    "data": "http://creativecommons.org/international/au/"
+                                },
+                                "imageLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:imageLink",
+                                    "data": "http://i.creativecommons.org/l/by/3.0/au/88x31.png"
+                                },
+                                "licenseName": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseName",
+                                    "data": "Attribution 3.0 Australia"
+                                }
+                            },
+                            "http://creativecommons.org/licenses/by-nc/3.0/au/": {
+                                "licenseLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseLink",
+                                    "data": "http://creativecommons.org/licenses/by-nc/3.0/au/"
+                                },
+                                "jurisdictionLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:jurisdictionLink",
+                                    "data": "http://creativecommons.org/international/au/"
+                                },
+                                "imageLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:imageLink",
+                                    "data": "http://i.creativecommons.org/l/by-nc/3.0/au/88x31.png"
+                                },
+                                "licenseName": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseName",
+                                    "data": "Attribution-NonCommercial 3.0 Australia"
+                                }
+                            },
+                            "http://creativecommons.org/licenses/by/4.0/": {
+                                "licenseLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseLink",
+                                    "data": "http://creativecommons.org/licenses/by/4.0/"
+                                },
+                                "jurisdictionLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:jurisdictionLink",
+                                    "data": "http://creativecommons.org/international/"
+                                },
+                                "imageLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:imageLink",
+                                    "data": "http://i.creativecommons.org/l/by/4.0/88x31.png"
+                                },
+                                "licenseName": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseName",
+                                    "data": "Attribution 4.0 International"
+                                }
+                            },
+                            "http://creativecommons.org/licenses/by-nc/4.0/": {
+                                "licenseLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseLink",
+                                    "data": "http://creativecommons.org/licenses/by-nc/4.0/"
+                                },
+                                "jurisdictionLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:jurisdictionLink",
+                                    "data": "http://creativecommons.org/international/"
+                                },
+                                "imageLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:imageLink",
+                                    "data": "http://i.creativecommons.org/l/by-nc/4.0/88x31.png"
+                                },
+                                "licenseName": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseName",
+                                    "data": "Attribution-NonCommercial 4.0 International"
+                                }
+                            },
+                            "http://creativecommons.org/licenses/other": {
+                                "licenseLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseLink",
+                                    "data": "http://creativecommons.org/licenses/by/4.0/"
+                                },
+                                "jurisdictionLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:jurisdictionLink",
+                                    "data": "http://creativecommons.org/international/"
+                                },
+                                "imageLink": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:imageLink",
+                                    "data": "http://i.creativecommons.org/l/by/4.0/88x31.png"
+                                },
+                                "licenseName": {
+                                    "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:licenseName",
+                                    "data": "Attribution 4.0 International"
+                                }
+                            }
+                        }
+                    },
+                    "otherConstraints": {
+                        "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:otherConstraints",
+                        "valueChild": "gco:CharacterString",
+                        "keep": false
                     },
                     "supplementalInformation": {
                         "many": true,

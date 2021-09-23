@@ -109,28 +109,28 @@
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
 (set! low-code/component-registry
-      {'metcalf3.view/DataParametersTable       views/DataParametersTable
-       'metcalf3.view/CheckboxField             views/CheckboxField
-       'metcalf3.view/date-field-with-label     views/date-field-with-label
-       'metcalf3.view/textarea-field-with-label views/textarea-field-with-label
-       'metcalf3.view/UseLimitations            views/UseLimitations
-       'metcalf3.view/select-field-with-label   views/select-field-with-label
-       'metcalf3.view/NasaListSelectField       views/NasaListSelectField
-       'metcalf3.view/GeographicCoverage        views/GeographicCoverage
-       'metcalf3.view/DataSources               views/DataSources
-       'metcalf3.view/PageErrors                views/PageErrors
-       'metcalf3.view/VerticalCoverage          views/VerticalCoverage
-       'metcalf3.view/TopicCategories           views/TopicCategories
-       'metcalf3.view/ResourceConstraints       views/ResourceConstraints
-       'metcalf3.view/input-field-with-label    views/input-field-with-label
-       'metcalf3.view/Lodge                     views/Lodge
-       'metcalf3.view/SupportingResource        views/SupportingResource
-       'metcalf3.view/SupplementalInformation   views/SupplementalInformation
-       'metcalf3.view/TaxonKeywordsExtra        views/TaxonKeywordsExtra
-       'metcalf3.view/ThemeKeywords             views/ThemeKeywords
-       'metcalf3.view/ThemeKeywordsExtra        views/ThemeKeywordsExtra
-       'metcalf3.view/UploadData                views/UploadData
-       'metcalf3.view/Who                       views/Who
+      {'metcalf3.view/DataParametersTable         views/DataParametersTable
+       'metcalf3.view/CheckboxField               views/CheckboxField
+       'metcalf3.view/date-field-with-label       views/date-field-with-label
+       'metcalf3.view/textarea-field-with-label   views/textarea-field-with-label
+       'metcalf3.view/UseLimitations              views/UseLimitations
+       'metcalf3.view/select-field-with-label     views/select-field-with-label
+       'metcalf3.view/NasaListSelectField         views/NasaListSelectField
+       'metcalf3.view/GeographicCoverage          views/GeographicCoverage
+       'metcalf3.view/DataSources                 views/DataSources
+       'metcalf3.view/PageErrors                  views/PageErrors
+       'metcalf3.view/VerticalCoverage            views/VerticalCoverage
+       'metcalf3.view/TopicCategories             views/TopicCategories
+       'metcalf3.view/ResourceConstraints         views/ResourceConstraints
+       'metcalf3.view/input-field-with-label      views/input-field-with-label
+       'metcalf3.view/Lodge                       views/Lodge
+       'metcalf3.view/IMASSupportingResource          views/IMASSupportingResource
+       'metcalf3.view/IMASSupplementalInformation views/IMASSupplementalInformation
+       'metcalf3.view/TaxonKeywordsExtra          views/TaxonKeywordsExtra
+       'metcalf3.view/ThemeKeywords               views/ThemeKeywords
+       'metcalf3.view/ThemeKeywordsExtra          views/ThemeKeywordsExtra
+       'metcalf3.view/UploadData                  views/UploadData
+       'metcalf3.view/Who                         views/Who
        })
 (set! low-code/template-registry
       '{:data-identification
@@ -283,7 +283,55 @@
          [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
 
         :about
-        [:div]
+        [:div
+         [metcalf3.view/PageErrors {:page :about :path [:form]}]
+         [:h2 "7: About Dataset"]
+         [:h4 "Data parameters"]
+         [metcalf3.view/DataParametersTable {:path [:form :fields :identificationInfo :dataParameters]}]
+         [:br]
+         [:h4 "Resource constraints"]
+         ;; FIXME license selection isn't being included in XML export.
+         [metcalf3.view/select-field-with-label
+          {:path     [:form :fields :identificationInfo :creativeCommons]
+           :help     [:span "Learn more about which license is right for you at "
+                      [:a {:href   "https://creativecommons.org/choose/"
+                           :target "_blank"}
+                       "Creative Commons"]]
+           :label    "License"
+           :required true
+           :options  [["http://creativecommons.org/licenses/by/4.0/" "Creative Commons by Attribution (recommended​)"]
+                      ["http://creativecommons.org/licenses/by-nc/4.0/" "Creative Commons, Non-commercial Use only"]
+                      ["http://creativecommons.org/licenses/other" "Other constraints"]]}]
+         [metcalf3.view/input-field-with-label
+          {:path        [:form :fields :identificationInfo :otherConstraints]
+           :label       "Additional license requirements"   ;; FIXME
+           :placeholder "Enter additional license requirements"
+           :required    true}]
+
+         [metcalf3.view/UseLimitations {:path [:form :fields :identificationInfo :useLimitations]}]
+         [:br]
+         [:h4 "Supplemental information"]
+         [metcalf3.view/IMASSupplementalInformation [:form :fields :identificationInfo :supplementalInformation]]
+         [metcalf3.view/IMASSupportingResource {:path [:form :fields :supportingResources]}]
+         [:br]
+         [:h4 "Distribution"]
+         [metcalf3.view/input-field-with-label
+          {:path        [:form :fields :distributionInfo :distributionFormat :name]
+           :label       "Data file format"
+           :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
+           :helperText  nil
+           :toolTip     nil
+           :maxLength   100
+           :required    nil}]
+         [metcalf3.view/input-field-with-label
+          {:path        [:form :fields :distributionInfo :distributionFormat :version]
+           :label       "Data file format date/version"
+           :placeholder "Date format date or version if applicable"
+           :helperText  nil
+           :toolTip     nil
+           :maxLength   20
+           :required    nil}]
+         [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
 
         :upload
         [:div]

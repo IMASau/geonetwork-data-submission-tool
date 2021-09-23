@@ -4,6 +4,7 @@
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:cat="http://standards.iso.org/iso/19115/-3/cat/1.0"
                  xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1"
+                 xmlns:gmd="http://www.isotc211.org/2005/gmd"
                  xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
                  xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0"
                  xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
@@ -12,6 +13,7 @@
                  xmlns:mas="http://standards.iso.org/iso/19115/-3/mas/1.0"
                  xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0"
                  xmlns:mco="http://standards.iso.org/iso/19115/-3/mco/1.0"
+                 xmlns:mcp="http://schemas.aodn.org.au/mcp-2.0"
                  xmlns:mda="http://standards.iso.org/iso/19115/-3/mda/1.0"
                  xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/1.0"
                  xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/1.0"
@@ -783,58 +785,78 @@
          <mri:resourceConstraints>
  
             <mco:MD_LegalConstraints>
-               <mco:reference>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>Creative Commons Attribution 4.0 International Licence</gco:CharacterString>
-                     </cit:title>
-                     <cit:alternateTitle>
-                        <gco:CharacterString>CC-BY</gco:CharacterString>
-                     </cit:alternateTitle>
-                     <cit:edition>
-                        <gco:CharacterString>4.0</gco:CharacterString>
-                     </cit:edition>
-                     <cit:onlineResource>
-                        <cit:CI_OnlineResource>
-                           <cit:linkage>
-                              <gco:CharacterString>https://creativecommons.org/licenses/by/4.0/</gco:CharacterString>
-                           </cit:linkage>
-                           <cit:protocol>
-                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                           </cit:protocol>
-                        </cit:CI_OnlineResource>
-                     </cit:onlineResource>
-                  </cit:CI_Citation>
-               </mco:reference>
-
-               <mco:accessConstraints>
-
-                  <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode"
-                                          codeListValue="license"/>
-
-               </mco:accessConstraints>
-   
-               <mco:useConstraints>
-                  <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode"
-                                          codeListValue="license"/>
-                </mco:useConstraints>
-
-               <mco:otherConstraints>
-                  <gco:CharacterString>Attribution is required as: xxxyyyzz. 
-                     Please send us citations details for publications arising from work that use this data.</gco:CharacterString>
-               </mco:otherConstraints>
-
-               <mco:otherConstraints>
-                  <gco:CharacterString>Placeholder text=While every care is taken to ensure the accuracy of this information, 
-                     the author makes no representations or warranties about its accuracy, reliability, 
-                     completeness or suitability for any particular purpose and disclaims all responsibility and all liability 
-                     (including without limitation, liability in negligence) for all expenses, losses, damages (including indirect or consequential damage) 
-                     and costs which might be incurred as a result of the information being inaccurate or incomplete in any way and for any reason.</gco:CharacterString>
-               </mco:otherConstraints>
-               <mco:otherConstraints>
-                  <gco:CharacterString>Not suitable for marine navigation</gco:CharacterString>
-               </mco:otherConstraints>
+                <mco:reference>
+                   <cit:CI_Citation>
+                      <cit:title>
+                         <gco:CharacterString>Creative Commons Attribution 4.0 International Licence</gco:CharacterString>
+                      </cit:title>
+                      <cit:alternateTitle>
+                         <gco:CharacterString>CC-BY</gco:CharacterString>
+                      </cit:alternateTitle>
+                      <cit:edition>
+                         <gco:CharacterString>4.0</gco:CharacterString>
+                      </cit:edition>
+                      <cit:onlineResource>
+                         <cit:CI_OnlineResource>
+                            <cit:linkage>
+                               <gco:CharacterString>https://creativecommons.org/licenses/by/4.0/</gco:CharacterString>
+                            </cit:linkage>
+                            <cit:protocol>
+                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                            </cit:protocol>
+                         </cit:CI_OnlineResource>
+                      </cit:onlineResource>
+                   </cit:CI_Citation>
+                </mco:reference>
+                
+                <mco:accessConstraints>
+                
+                   <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode"
+                                           codeListValue="license"/>
+                
+                </mco:accessConstraints>
+                
+                <mco:useConstraints>
+                   <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode"
+                                           codeListValue="license"/>
+                 </mco:useConstraints>
+                
+                <mco:otherConstraints>
+                   <gco:CharacterString>Attribution is required as: xxxyyyzz. 
+                      Please send us citations details for publications arising from work that use this data.</gco:CharacterString>
+                </mco:otherConstraints>
+                
+                <mco:otherConstraints>
+                   <gco:CharacterString>Placeholder text=While every care is taken to ensure the accuracy of this information, 
+                      the author makes no representations or warranties about its accuracy, reliability, 
+                      completeness or suitability for any particular purpose and disclaims all responsibility and all liability 
+                      (including without limitation, liability in negligence) for all expenses, losses, damages (including indirect or consequential damage) 
+                      and costs which might be incurred as a result of the information being inaccurate or incomplete in any way and for any reason.</gco:CharacterString>
+                </mco:otherConstraints>
+                <mco:otherConstraints>
+                   <gco:CharacterString>Not suitable for marine navigation</gco:CharacterString>
+                </mco:otherConstraints>
             </mco:MD_LegalConstraints>
+            <mcp:MD_Commons mcp:commonsType="Creative Commons" gco:isoType="gmd:MD_Constraints">
+              <mcp:jurisdictionLink>
+                <gmd:URL>http://creativecommons.org/international/</gmd:URL>
+              </mcp:jurisdictionLink>
+              <mcp:licenseLink>
+                <gmd:URL>http://creativecommons.org/licenses/by/4.0/</gmd:URL>
+              </mcp:licenseLink>
+              <mcp:imageLink>
+                <gmd:URL>http://i.creativecommons.org/l/by/4.0/88x31.png</gmd:URL>
+              </mcp:imageLink>
+              <mcp:licenseName>
+                <gco:CharacterString>Attribution 4.0 International</gco:CharacterString>
+              </mcp:licenseName>
+              <mcp:attributionConstraints>
+                <gco:CharacterString>The citation in a list of references is: citation author name/s (year metadata published), metadata title. Citation author organisation/s. File identifier and Data accessed at (add http link).</gco:CharacterString>
+              </mcp:attributionConstraints>
+              <mcp:otherConstraints>
+                <gco:CharacterString></gco:CharacterString>
+              </mcp:otherConstraints>		  
+            </mcp:MD_Commons>
          </mri:resourceConstraints>
 
          <mri:resourceConstraints>

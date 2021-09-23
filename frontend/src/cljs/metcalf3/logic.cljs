@@ -413,6 +413,13 @@
   (update-in state [:form :fields :dataSources :value]
              #(mapv data-service-logic-helper %)))
 
+(defn license-logic [state]
+  (let [license-value (get-in state [:form :fields :identificationInfo :creativeCommons :value])]
+    (update-in state [:form :fields :identificationInfo :otherConstraints] merge
+               (if (= license-value "http://creativecommons.org/licenses/other")
+                 {:is-hidden false :disabled false :required true}
+                 {:is-hidden true :disabled true :required false}))))
+
 (defn derive-vertical-required [state]
   (update-in state [:form :fields :identificationInfo :verticalElement] vertical-required-logic))
 
@@ -438,6 +445,7 @@
   (-> state
       derive-geography
       derive-vertical-required
+      license-logic
       date-order-logic
       end-position-logic
       maint-freq-logic

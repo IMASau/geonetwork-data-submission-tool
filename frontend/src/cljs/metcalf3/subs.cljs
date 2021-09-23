@@ -23,13 +23,11 @@
 
 (defn get-input-field-with-label-props
   [db [_ path]]
-  (let [{:keys [value disabled errors show-errors]} (get-in db path)
+  (let [{:keys [errors show-errors] :as props} (get-in db path)
         error-help (when (and show-errors (seq errors))
                      (string/join ". " errors))]
-    {:value     value
-     :disabled  disabled
-     :hasError  (boolean error-help)
-     :errorText error-help}))
+    (merge (select-keys props [:value :required :disabled :maxLength])
+           (when error-help {:hasError true :helperText error-help}))))
 
 (defn get-textarea-field-with-label-props
   [db [_ path]]

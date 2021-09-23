@@ -241,9 +241,9 @@
                :onChange    #(rf/dispatch (conj change-v %))
                :inputProps  {:leftIcon "calendar"
                              :intent   intent}}
-        minDate (assoc :minDate minDate)
-        (not minDate) (assoc :minDate defMinDate)
-        maxDate (assoc :maxDate maxDate))]]))
+              minDate (assoc :minDate minDate)
+              (not minDate) (assoc :minDate defMinDate)
+              maxDate (assoc :maxDate maxDate))]]))
 
 (defn OptionWidget [props]
   (let [[value display] props]
@@ -281,6 +281,28 @@
                     :default-option (if-not (empty? options) default-option "")
                     :on-blur #(rf/dispatch [:handlers/show-errors path])
                     :on-change #(rf/dispatch [:handlers/value-changed path %]))]))
+
+(defn select-field-with-label
+  [{:keys [path] :as props}]
+  (let [config @(rf/subscribe [::get-select-field-with-label-props path])
+        {:keys [path label options default-option disabled required
+                value help errors is-hidden default-value loading show-errors]} (merge config props)
+        ;on-blur #(rf/dispatch [:handlers/show-errors path])
+        on-change #(rf/dispatch [:handlers/value-changed path %])]
+    [SelectWidget {:class          "wauto"
+                   :label          label
+                   :required       required
+                   :value          value
+                   :help           help
+                   :disabled       (or disabled (empty? options))
+                   :errors         errors
+                   :is-hidden      is-hidden
+                   :on-change      on-change
+                   :options        options
+                   :default-option (if-not (empty? options) default-option "")
+                   :default-value  default-value
+                   :loading        loading
+                   :show-errors    show-errors}]))
 
 (comment
   (defn TextareaField [path]

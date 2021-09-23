@@ -462,7 +462,6 @@ def edit(request, uuid):
         "attachments": AttachmentSerializer(doc.attachments.all(), many=True).data,
         "theme": {"keywordsTheme": {"table": theme_keywords()},
                   "keywordsThemeAnzsrc": {"table": anzsrc_keywords()}},
-        "topicCategories": {"table": topic_categories()},
         # "institutions": [inst.to_dict() for inst in Institution.objects.all()],
         "page": {"name": request.resolver_match.url_name}
     }

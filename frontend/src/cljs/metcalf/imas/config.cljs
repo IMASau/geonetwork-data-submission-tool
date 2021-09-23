@@ -98,6 +98,7 @@
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] subs/get-edit-tab-props)
 (rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs/get-progress-props)
 (rf/reg-sub ::views/get-date-field-with-label-props :<- [:subs/get-derived-state] subs/get-date-field-with-label-props)
+(rf/reg-sub ::views/get-select-field-with-label-props :<- [:subs/get-derived-state] subs/get-select-field-with-label-props)
 (rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs/get-textarea-field-props)
 (rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs/get-textarea-field-many-props)
 (rf/reg-sub :subs/get-form-tick subs/get-form-tick)
@@ -111,7 +112,7 @@
        'metcalf3.view/textarea-field          views/textarea-field
        'metcalf3.view/Methods                 views/Methods
        'metcalf3.view/UseLimitations          views/UseLimitations
-       'metcalf3.view/SelectField             views/SelectField
+       'metcalf3.view/select-field-with-label views/select-field-with-label
        'metcalf3.view/NasaListSelectField     views/NasaListSelectField
        'metcalf3.view/GeographicCoverage      views/GeographicCoverage
        'metcalf3.view/DataSources             views/DataSources
@@ -134,134 +135,73 @@
          [metcalf3.view/PageErrors {:page :data-identification :path [:form]}]
          [:h2 "1. Data Identification"]
          [metcalf3.view/input-field-with-label
-          {:path        [:form :fields :identificationInfo :title]
-           :label       "Title"
-           :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
-           :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"
-           :maxLength   250
-           :required    true}]
+          {:path       [:form :fields :identificationInfo :title]
+           :label      "Title"
+           :helperText "Clear and concise description of the content of the resource"
+           :required   true}]
          [metcalf3.view/date-field-with-label
           {:path     [:form :fields :identificationInfo :dateCreation]
-           :label    "Date the resource was created"
+           :label    "Date of record creation"
            :required true
            :minDate  #inst "1900-01-01"
            :maxDate  #inst "2100-01-01"}]
-         [metcalf3.view/TopicCategories {:path [:form :fields :identificationInfo :topicCategory]}]
-         [metcalf3.view/SelectField {:path [:form :fields :identificationInfo :status]}]
-         [metcalf3.view/SelectField {:path [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]}]
+         [metcalf3.view/select-field-with-label
+          {:path     [:form :fields :identificationInfo :topicCategory]
+           :label    "Topic categories"
+           :required true
+           :options  [["biota" "biota"]
+                      ["climatology/meteorology/atmosphere" "climatology/meteorology/atmosphere"]
+                      ["oceans" "oceans"]
+                      ["geoscientificInformation" "geoscientificInformation"]
+                      ["inlandWater" "inlandWater"]]}]
+         [metcalf3.view/select-field-with-label
+          {:path     [:form :fields :identificationInfo :status]
+           :label    "Status of data"
+           :required true
+           :options  [["onGoing" "ongoing"]
+                      ["planned" "planned"]
+                      ["completed" "completed"]]}]
+         [metcalf3.view/select-field-with-label
+          {:path     [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]
+           :label    "Maintenance and update frequency"
+           :required true
+           :options  [["continually" "Continually"]
+                      ["daily" "Daily"]
+                      ["weekly" "Weekly"]
+                      ["fortnightly" "Fortnightly"]
+                      ["monthly" "Monthly"]
+                      ["quarterly" "Quarterly"]
+                      ["biannually" "Twice each year"]
+                      ["annually" "Annually"]
+                      ["asNeeded" "As required"]
+                      ["irregular" "Irregular"]
+                      ["notPlanned" "None planned"]
+                      ["unknown" "Unknown"]
+                      ["periodic" "Periodic"]
+                      ["semimonthly" "Twice a month"]
+                      ["biennially" "Every 2 years"]]}]
          [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what
-        [:div
-         [metcalf3.view/PageErrors {:page :what :path [:form]}]
-         [:h2 "2. What"]
-         [:span.abstract-textarea
-          [metcalf3.view/textarea-field {:path [:form :fields :identificationInfo :abstract]}]]
-         [:span.abstract-textarea
-          [metcalf3.view/textarea-field {:path [:form :fields :identificationInfo :purpose]}]]
-         [metcalf3.view/ThemeKeywords :keywordsTheme]
-         [metcalf3.view/ThemeKeywords :keywordsThemeAnzsrc]
-         [metcalf3.view/ThemeKeywordsExtra nil]
-         [metcalf3.view/TaxonKeywordsExtra nil]
-         [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
+        [:div]
 
         :when
-        [:div
-         [metcalf3.view/PageErrors {:page :when :path [:form]}]
-         [:h2 "3. When was the data acquired?"]
-         [metcalf3.view/date-field-with-label
-          {:path     [:form :fields :identificationInfo :beginPosition]
-           :label    "Start date"
-           :required true
-           :minDate  #inst "1900-01-01"
-           :maxDate  #inst "2100-01-01"}]
-         [metcalf3.view/date-field-with-label
-          {:path     [:form :fields :identificationInfo :endPosition]
-           :label    "End date"
-           :required true
-           :minDate  #inst "1900-01-01"
-           :maxDate  #inst "2100-01-01"}]
-         [:div.row
-          [:div.col-md-4
-           [metcalf3.view/NasaListSelectField {:keyword :samplingFrequency
-                                               :path    [:form :fields :identificationInfo]}]]]
-         [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
+        [:div]
 
         :where
-        [:div
-         [metcalf3.view/PageErrors {:page :where :path [:form]}]
-         [:h2 "4. Where"]
-         [metcalf3.view/GeographicCoverage nil]
-         [metcalf3.view/VerticalCoverage]
-         [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+        [:div]
 
         :who
-        [:div
-         [metcalf3.view/Who nil]
-         [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+        [:div]
 
         :how
-        [:div
-         [metcalf3.view/PageErrors {:page :how :path [:form]}]
-         [:h2 "5: How"]
-         [metcalf3.view/Methods {:path [:form :fields :resourceLineage :processStep]}]
-         [metcalf3.view/textarea-field {:path [:form :fields :dataQualityInfo :methods]}]
-         [metcalf3.view/textarea-field {:path [:form :fields :dataQualityInfo :results]}]
-         [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
+        [:div]
 
         :about
-        [:div
-         [metcalf3.view/PageErrors {:page :about :path [:form]}]
-         [:h2 "7: About Dataset"]
-         [:h4 "Data parameters"]
-         [metcalf3.view/DataParametersTable {:path [:form :fields :identificationInfo :dataParameters]}]
-         [:br]
-         [:h4 "Pixel Size"]
-         [:div.row
-          [:div.col-md-6
-           [metcalf3.view/NasaListSelectField {:keyword :horizontalResolution
-                                               :path    [:form :fields :identificationInfo]}]]]
-         [:br]
-         [:h4 "Resource constraints"]
-         [metcalf3.view/ResourceConstraints]
-         [metcalf3.view/UseLimitations {:path [:form :fields :identificationInfo :useLimitations]}]
-         [:br]
-         [:h4 "Supplemental information"]
-         [metcalf3.view/SupportingResource {:path [:form :fields :supportingResources]}]
-         [metcalf3.view/SupplementalInformation [:form :fields :identificationInfo :supplementalInformation]]
-         [:br]
-         [:h4 "Distribution"]
-         [metcalf3.view/input-field-with-label
-          {:path        [:form :fields :distributionInfo :distributionFormat :name]
-           :label       "Data file format"
-           :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
-           :helperText  nil
-           :toolTip     nil
-           :maxLength   100
-           :required    nil}]
-         [metcalf3.view/input-field-with-label
-          {:path        [:form :fields :distributionInfo :distributionFormat :version]
-           :label       "Data file format date/version"
-           :placeholder "Date format date or version if applicable"
-           :helperText  nil
-           :toolTip     nil
-           :maxLength   20
-           :required    nil}]
-         [:span.abstract-textarea
-          [metcalf3.view/textarea-field {:path [:form :fields :resourceLineage :lineage]}]]
-         [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
+        [:div]
 
         :upload
-        [:div
-         [metcalf3.view/PageErrors {:page :upload :path [:form]}]
-         [:h2 "8: Upload Data"]
-         [metcalf3.view/UploadData nil]
-         [:h2 "Data Services"]
-         [metcalf3.view/DataSources {:path [:form :fields :dataSources]}]
-         [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
+        [:div]
 
         :lodge
-        [:div
-         [metcalf3.view/PageErrors {:page :lodge :path [:form]}]
-         [:h2 "9: Lodge Metadata Draft"]
-         [metcalf3.view/Lodge nil]]})
+        [:div]})

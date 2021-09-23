@@ -41,6 +41,14 @@
      :hasError  (boolean error-help)
      :errorText error-help}))
 
+(defn get-select-field-with-label-props
+  [db [_ path]]
+  (let [{:keys [value disabled hasError errorText]} (get-in db path)]
+    {:value     value
+     :disabled  disabled
+     :hasError  hasError
+     :errorText errorText}))
+
 (defn get-page-props
   [db _]
   (get-in db [:page]))

@@ -5,7 +5,8 @@
             [clojure.zip :as zip]
             [metcalf3.content :refer [default-payload contact-groups]]
             [metcalf3.utils :as utils]
-            [metcalf3.rules :as rules]))
+            [metcalf3.rules :as rules]
+            [cljs.spec.alpha :as s]))
 
 (def active-status-filter #{"Draft" "Submitted"})
 
@@ -322,6 +323,8 @@
 (defn geography-required-logic
   "Geography fields are required / included based on geographic coverage checkbox"
   [geographicElement]
+  (s/assert :hasGeographicCoverage geographicElement)
+  (s/assert :boxes geographicElement)
   (let [shown? (get-in geographicElement [:hasGeographicCoverage :value])]
     (if shown?
       (update geographicElement :boxes assoc :required true)
@@ -418,12 +421,18 @@
   (update-in state [:form :fields :dataSources :value]
              #(mapv data-service-logic-helper %)))
 
+(defn license-other-rule
+  [identificationInfo]
+  (s/assert :creativeCommons identificationInfo)
+  (s/assert :otherConstraints identificationInfo)
+  (let [license-value (get-in identificationInfo [:creativeCommons :value])
+        other? (= license-value "http://creativecommons.org/licenses/other")]
+    (if other?
+      (update-in identificationInfo [:otherConstraints] merge {:is-hidden false :disabled false :required true})
+      (update-in identificationInfo [:otherConstraints] merge {:is-hidden true :disabled true :required false}))))
+
 (defn license-logic [state]
-  (let [license-value (get-in state [:form :fields :identificationInfo :creativeCommons :value])]
-    (update-in state [:form :fields :identificationInfo :otherConstraints] merge
-               (if (= license-value "http://creativecommons.org/licenses/other")
-                 {:is-hidden false :disabled false :required true}
-                 {:is-hidden true :disabled true :required false}))))
+  (update-in state [:form :fields :identificationInfo] license-other-rule))
 
 (defn derive-vertical-required [state]
   (update-in state [:form :fields :identificationInfo :verticalElement] vertical-required-logic))
@@ -448,7 +457,8 @@
 
 (defn derive-data-state [state]
   (-> state
-      derive-geography
+      ;derive-geography
+      ; => "geographicElement": {"rules": [{"ruleId": "geography-required"}],
       derive-vertical-required
       license-logic
       date-order-logic

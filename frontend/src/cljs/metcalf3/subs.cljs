@@ -43,11 +43,7 @@
 
 (defn get-select-field-with-label-props
   [db [_ path]]
-  (let [{:keys [value disabled hasError errorText]} (get-in db path)]
-    {:value     value
-     :disabled  disabled
-     :hasError  hasError
-     :errorText errorText}))
+  (get-in db path))
 
 (defn get-page-props
   [db _]

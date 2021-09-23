@@ -334,7 +334,17 @@
          [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
 
         :upload
-        [:div]
+        [:div
+         [metcalf3.view/PageErrors {:page :upload :path [:form]}]
+         [:h2 "8: Upload Data"]
+         [metcalf3.view/UploadData nil]
+         [:h2 "Data Services"]
+         ;; FIXME reduce protocol options to the below for IMAS:
+         ;; [["OGC:WMS-1.3.0-http-get-map" "OGC Web Map Service (WMS)"]
+         ;;  ["OGC:WFS-1.0.0-http-get-capabilities" "OGC Web Feature Service (WFS)"]
+         ;;  ["WWW:LINK-1.0-http--downloaddata" "Other/unknown"]]
+         [metcalf3.view/DataSources {:path [:form :fields :dataSources]}]
+         [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
         :lodge
         [:div]})

@@ -330,9 +330,14 @@
       (update geographicElement :boxes assoc :required true)
       (update geographicElement :boxes assoc :required false :disabled true))))
 
-(defn vertical-required-logic
+(defn vertical-required-rule
   "Vertical fields are required / included based on vertical extent checkbox"
   [verticalElement]
+  (s/assert :hasVerticalExtent verticalElement)
+  (s/assert :minimumValue verticalElement)
+  (s/assert :maximumValue verticalElement)
+  (s/assert :method verticalElement)
+  (s/assert :elevation verticalElement)
   (let [shown? (get-in verticalElement [:hasVerticalExtent :value])]
     (if shown?
       (-> verticalElement
@@ -439,9 +444,6 @@
 (defn license-logic [state]
   (update-in state [:form :fields :identificationInfo] license-other-rule))
 
-(defn derive-vertical-required [state]
-  (update-in state [:form :fields :identificationInfo :verticalElement] vertical-required-logic))
-
 (defn derive-geography [state]
   (update-in state [:form :fields :identificationInfo :geographicElement] geography-required-logic))
 
@@ -462,21 +464,31 @@
 
 (defn derive-data-state [state]
   (-> state
+
       ;derive-geography
       ; => "geographicElement": {"rules": [{"ruleId": "geography-required"}],
-      derive-vertical-required
+
+      ;(update-in [:form :fields :identificationInfo :verticalElement] vertical-required-rule)
+      ; => "verticalElement": {"rules": [{"ruleId": "vertical-required"}],
+
       ;license-logic
       ; => "geographicElement": {"rules": [{"ruleId": "license-other"}],
+
       ;(update-in [:form :fields :identificationInfo]
       ;           date-order-rule {:field0 "beginPosition"
       ;                            :field1 "endPosition"})
       ; => "identificationInfo": {"rules": [{"ruleId": "date-order"}],
+
       ;end-position-logic
       ; => "identificationInfo": {"rules": [{"ruleId": "end-position"}],
+
       ;(update-in [:form :fields :identificationInfo] maint-freq-rule)
       ; => "identificationInfo": {"rules": [{"ruleId": "maint-freq"}]
+
       data-service-logic
+
       author-role-logic
+
       (update-in [:form :fields] validate-required-fields)
       (update-in [:form :fields] validate-rules)
       disable-form-when-submitted

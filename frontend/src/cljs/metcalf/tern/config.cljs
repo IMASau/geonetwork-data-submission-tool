@@ -113,7 +113,7 @@
 (set! rules/rule-registry
       {"required-field"     rules/required-field
        "max-length"         rules/max-length
-       "geography-required" logic/geography-required-logic
+       "geography-required" logic/geography-required-rule
        "license-other"      logic/license-other-rule
        "date-order"         logic/date-order-rule
        "end-position"       logic/end-position-rule

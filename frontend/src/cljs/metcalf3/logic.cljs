@@ -320,7 +320,7 @@
   [state]
   (field-postwalk rules/apply-rules state))
 
-(defn geography-required-logic
+(defn geography-required-rule
   "Geography fields are required / included based on geographic coverage checkbox"
   [geographicElement]
   (s/assert :hasGeographicCoverage geographicElement)
@@ -444,9 +444,6 @@
 (defn license-logic [state]
   (update-in state [:form :fields :identificationInfo] license-other-rule))
 
-(defn derive-geography [state]
-  (update-in state [:form :fields :identificationInfo :geographicElement] geography-required-logic))
-
 (defn calculate-progress [state form-path]
   (assoc state :progress (progress-score (get-in state form-path))))
 
@@ -465,7 +462,7 @@
 (defn derive-data-state [state]
   (-> state
 
-      ;derive-geography
+      ;(update-in [:form :fields :identificationInfo :geographicElement] geography-required-rule)
       ; => "geographicElement": {"rules": [{"ruleId": "geography-required"}],
 
       ;(update-in [:form :fields :identificationInfo :verticalElement] vertical-required-rule)

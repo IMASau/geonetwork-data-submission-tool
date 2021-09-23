@@ -460,7 +460,8 @@
       ;derive-geography
       ; => "geographicElement": {"rules": [{"ruleId": "geography-required"}],
       derive-vertical-required
-      license-logic
+      ;license-logic
+      ; => "geographicElement": {"rules": [{"ruleId": "license-other"}],
       date-order-logic
       end-position-logic
       maint-freq-logic

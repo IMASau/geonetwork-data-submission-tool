@@ -113,7 +113,8 @@
 (set! rules/rule-registry
       {"required-field"     rules/required-field
        "max-length"         rules/max-length
-       "geography-required" logic/geography-required-logic})
+       "geography-required" logic/geography-required-logic
+       "license-other"      logic/license-other-rule})
 (set! low-code/component-registry
       {'metcalf3.view/DataParametersTable       views/DataParametersTable
        'metcalf3.view/date-field-with-label     views/date-field-with-label

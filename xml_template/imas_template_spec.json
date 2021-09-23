@@ -257,22 +257,6 @@
                             }
                         }
                     },
-                    "horizontalResolution": {
-                        "xpath": "mri:spatialResolution/mri:MD_Resolution/mri:levelOfDetail",
-                        "valueChild": "gcx:Anchor",
-                        "container": "mri:spatialResolution",
-                        "keep": false,
-                        "many": true,
-                        "attributes": {
-                            "text": {
-                                "function": "sampling_text"
-                            },
-                            "xlink:href": {
-                                "function": "sampling_uri"
-                            }
-                        }
-
-                    },
                     "geographicElement": {
                         "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",
                         "removeWhen": {

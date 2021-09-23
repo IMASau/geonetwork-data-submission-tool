@@ -186,15 +186,17 @@
                        :on-change #(rf/dispatch [:handlers/value-changed path %])))]))
 
 (defn input-field-with-label
-  [{:keys [path label placeholder helperText toolTip maxLength required]}]
-  (let [{:keys [value disabled hasError errorText]} @(rf/subscribe [::get-input-field-with-label-props path])
+  [{:keys [path] :as config}]
+  (let [logic @(rf/subscribe [::get-input-field-with-label-props path])
+        props (merge (select-keys config [:label :placeholder :helperText :toolTip]) logic)
+        {:keys [label placeholder helperText toolTip maxLength required value disabled hasError]} props
         onChange #(rf/dispatch [::input-field-with-label-value-changed path %])]
     [ui/FormGroup
      {:label      label
       :required   required
       :disabled   disabled
       :hasError   hasError
-      :helperText (or errorText helperText)
+      :helperText helperText
       :toolTip    toolTip}
      [ui/InputField
       {:value       value

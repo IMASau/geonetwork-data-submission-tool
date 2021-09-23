@@ -22,3 +22,11 @@ a.link-right {
 .bp3-input {
     height: 34px;
 }
+
+textarea {
+    resize: vertical;
+}
+
+.abstract-textarea textarea {
+    min-height: 15em;
+}

@@ -37,6 +37,7 @@
 (rf/reg-event-fx :handlers/load-error-page handlers/load-error-page)
 (rf/reg-event-fx :handlers/set-value handlers/set-value)
 (rf/reg-event-fx ::views/date-field-with-label-value-change handlers/date-field-value-change)
+(rf/reg-event-fx ::views/textarea-field-with-label-value-changed handlers/textarea-field-value-change)
 (rf/reg-event-fx :textarea-field/value-change handlers/textarea-field-value-change)
 (rf/reg-event-fx :handlers/set-geographic-element handlers/set-geographic-element)
 (rf/reg-event-fx :handlers/person-detail-changed handlers/person-detail-changed)
@@ -99,6 +100,7 @@
 (rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs/get-progress-props)
 (rf/reg-sub ::views/get-date-field-with-label-props :<- [:subs/get-derived-state] subs/get-date-field-with-label-props)
 (rf/reg-sub ::views/get-select-field-with-label-props :<- [:subs/get-derived-state] subs/get-select-field-with-label-props)
+(rf/reg-sub ::views/get-textarea-field-with-label-props :<- [:subs/get-derived-state] subs/get-textarea-field-with-label-props)
 (rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs/get-textarea-field-props)
 (rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs/get-textarea-field-many-props)
 (rf/reg-sub :subs/get-form-tick subs/get-form-tick)
@@ -107,28 +109,29 @@
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
 (set! low-code/component-registry
-      {'metcalf3.view/DataParametersTable     views/DataParametersTable
-       'metcalf3.view/date-field-with-label   views/date-field-with-label
-       'metcalf3.view/textarea-field          views/textarea-field
-       'metcalf3.view/Methods                 views/Methods
-       'metcalf3.view/UseLimitations          views/UseLimitations
-       'metcalf3.view/select-field-with-label views/select-field-with-label
-       'metcalf3.view/NasaListSelectField     views/NasaListSelectField
-       'metcalf3.view/GeographicCoverage      views/GeographicCoverage
-       'metcalf3.view/DataSources             views/DataSources
-       'metcalf3.view/PageErrors              views/PageErrors
-       'metcalf3.view/VerticalCoverage        views/VerticalCoverage
-       'metcalf3.view/TopicCategories         views/TopicCategories
-       'metcalf3.view/ResourceConstraints     views/ResourceConstraints
-       'metcalf3.view/input-field-with-label  views/input-field-with-label
-       'metcalf3.view/Lodge                   views/Lodge
-       'metcalf3.view/SupportingResource      views/SupportingResource
-       'metcalf3.view/SupplementalInformation views/SupplementalInformation
-       'metcalf3.view/ThemeKeywords           views/ThemeKeywords
-       'metcalf3.view/UploadData              views/UploadData
-       'metcalf3.view/TaxonKeywordsExtra      views/TaxonKeywordsExtra
-       'metcalf3.view/Who                     views/Who
-       'metcalf3.view/ThemeKeywordsExtra      views/ThemeKeywordsExtra})
+      {'metcalf3.view/DataParametersTable       views/DataParametersTable
+       'metcalf3.view/date-field-with-label     views/date-field-with-label
+       'metcalf3.view/textarea-field-with-label views/textarea-field-with-label
+       'metcalf3.view/Methods                   views/Methods
+       'metcalf3.view/UseLimitations            views/UseLimitations
+       'metcalf3.view/select-field-with-label   views/select-field-with-label
+       'metcalf3.view/NasaListSelectField       views/NasaListSelectField
+       'metcalf3.view/GeographicCoverage        views/GeographicCoverage
+       'metcalf3.view/DataSources               views/DataSources
+       'metcalf3.view/PageErrors                views/PageErrors
+       'metcalf3.view/VerticalCoverage          views/VerticalCoverage
+       'metcalf3.view/TopicCategories           views/TopicCategories
+       'metcalf3.view/ResourceConstraints       views/ResourceConstraints
+       'metcalf3.view/input-field-with-label    views/input-field-with-label
+       'metcalf3.view/Lodge                     views/Lodge
+       'metcalf3.view/SupportingResource        views/SupportingResource
+       'metcalf3.view/SupplementalInformation   views/SupplementalInformation
+       'metcalf3.view/TaxonKeywordsExtra        views/TaxonKeywordsExtra
+       'metcalf3.view/ThemeKeywords             views/ThemeKeywords
+       'metcalf3.view/ThemeKeywordsExtra        views/ThemeKeywordsExtra
+       'metcalf3.view/UploadData                views/UploadData
+       'metcalf3.view/Who                       views/Who
+       })
 (set! low-code/template-registry
       '{:data-identification
         [:div
@@ -183,7 +186,25 @@
          [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what
-        [:div]
+        [:div
+         [metcalf3.view/PageErrors {:page :what :path [:form]}]
+         [:h2 "2. What"]
+         [:span.abstract-textarea
+          [metcalf3.view/textarea-field-with-label
+           {:path        [:form :fields :identificationInfo :abstract]
+            :label       "Abstract"
+            :placeholder nil
+            :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"
+            ;; FIXME this isn't enforced.
+            :maxLength   2500
+            :required    true}]]
+         [metcalf3.view/ThemeKeywords :keywordsTheme]
+         ;; FIXME Anzsrc should be optional, but this required doesn't hook up to anything.
+         [metcalf3.view/ThemeKeywords :keywordsThemeAnzsrc {:required false}]
+         ;; TODO Add Geographic Extent vocab here.
+         [metcalf3.view/ThemeKeywordsExtra nil]
+         [metcalf3.view/TaxonKeywordsExtra nil]
+         [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
         :when
         [:div]

@@ -272,7 +272,15 @@
          [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
 
         :who
-        [:div]
+        [:div
+         ;; FIXME make this view configurable for IMAS, or create IMAS-specific view.
+         ;; - No name lookup, just Given Name and Surname fields
+         ;; - Move ORCID ID and Email field positions to match AODN
+         ;; - Reduce Role codes
+         ;; - Make Responsible Parties mandatory
+         ;; FIXME Copy Person functionality isn't working.
+         [metcalf3.view/Who nil]
+         [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
 
         :about
         [:div]

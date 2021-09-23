@@ -98,6 +98,7 @@
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] subs/get-edit-tab-props)
 (rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs/get-progress-props)
 (rf/reg-sub ::views/get-date-field-with-label-props :<- [:subs/get-derived-state] subs/get-date-field-with-label-props)
+(rf/reg-sub ::views/get-select-field-with-label-props :<- [:subs/get-derived-state] subs/get-select-field-with-label-props)
 (rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs/get-textarea-field-props)
 (rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs/get-textarea-field-many-props)
 (rf/reg-sub :subs/get-form-tick subs/get-form-tick)
@@ -111,7 +112,7 @@
        'metcalf3.view/textarea-field          views/textarea-field
        'metcalf3.view/Methods                 views/Methods
        'metcalf3.view/UseLimitations          views/UseLimitations
-       'metcalf3.view/SelectField             views/SelectField
+       'metcalf3.view/select-field-with-label views/select-field-with-label
        'metcalf3.view/NasaListSelectField     views/NasaListSelectField
        'metcalf3.view/GeographicCoverage      views/GeographicCoverage
        'metcalf3.view/DataSources             views/DataSources
@@ -130,7 +131,56 @@
        'metcalf3.view/ThemeKeywordsExtra      views/ThemeKeywordsExtra})
 (set! low-code/template-registry
       '{:data-identification
-        [:div]
+        [:div
+         [metcalf3.view/PageErrors {:page :data-identification :path [:form]}]
+         [:h2 "1. Data Identification"]
+         [metcalf3.view/input-field-with-label
+          {:path       [:form :fields :identificationInfo :title]
+           :label      "Title"
+           :helperText "Clear and concise description of the content of the resource"
+           :required   true}]
+         [metcalf3.view/date-field-with-label
+          {:path     [:form :fields :identificationInfo :dateCreation]
+           :label    "Date of record creation"
+           :required true
+           :minDate  #inst "1900-01-01"
+           :maxDate  #inst "2100-01-01"}]
+         [metcalf3.view/select-field-with-label
+          {:path     [:form :fields :identificationInfo :topicCategory]
+           :label    "Topic categories"
+           :required true
+           :options  [["biota" "biota"]
+                      ["climatology/meteorology/atmosphere" "climatology/meteorology/atmosphere"]
+                      ["oceans" "oceans"]
+                      ["geoscientificInformation" "geoscientificInformation"]
+                      ["inlandWater" "inlandWater"]]}]
+         [metcalf3.view/select-field-with-label
+          {:path     [:form :fields :identificationInfo :status]
+           :label    "Status of data"
+           :required true
+           :options  [["onGoing" "ongoing"]
+                      ["planned" "planned"]
+                      ["completed" "completed"]]}]
+         [metcalf3.view/select-field-with-label
+          {:path     [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]
+           :label    "Maintenance and update frequency"
+           :required true
+           :options  [["continually" "Continually"]
+                      ["daily" "Daily"]
+                      ["weekly" "Weekly"]
+                      ["fortnightly" "Fortnightly"]
+                      ["monthly" "Monthly"]
+                      ["quarterly" "Quarterly"]
+                      ["biannually" "Twice each year"]
+                      ["annually" "Annually"]
+                      ["asNeeded" "As required"]
+                      ["irregular" "Irregular"]
+                      ["notPlanned" "None planned"]
+                      ["unknown" "Unknown"]
+                      ["periodic" "Periodic"]
+                      ["semimonthly" "Twice a month"]
+                      ["biennially" "Every 2 years"]]}]
+         [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what
         [:div]
@@ -152,6 +202,6 @@
 
         :upload
         [:div]
-        
+
         :lodge
         [:div]})

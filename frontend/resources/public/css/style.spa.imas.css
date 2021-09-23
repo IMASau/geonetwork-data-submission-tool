@@ -14,3 +14,11 @@
 a.link-right {
 	float: right;
 }
+
+.bp3-input-group>.bp3-input-left-container>.bp3-icon, .bp3-input-group>.bp3-icon, .bp3-input-group .bp3-input-action>.bp3-spinner {
+    margin: 9px;
+}
+
+.bp3-input {
+    height: 34px;
+}

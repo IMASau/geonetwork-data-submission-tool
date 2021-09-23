@@ -413,6 +413,7 @@
       (assoc-in state (conj rule-path :errors) nil)
       (assoc-in state (conj rule-path :errors) ["at least one contact must have the author role"]))))
 
+; NOTE: hard to translate since the schema doesn't separate array from object in many case
 (defn data-service-logic-helper
   [data-service]
   (let [protocol-value (-> data-service :value :protocol :value)]

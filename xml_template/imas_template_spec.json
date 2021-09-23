@@ -236,13 +236,6 @@
                         "keep": false,
                         "required": true
                     },
-                    "purpose": {
-                        "xpath": "mri:purpose",
-                        "valueChild": "gco:CharacterString",
-                        "label": "Purpose",
-                        "keep": false,
-                        "required": false
-                    },
                     "beginPosition": {
                         "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
                         "required": true,
@@ -410,20 +403,6 @@
                                 "xpath": "count(.)>0",
                                 "export": false,
                                 "default": false
-                            },
-                            "elevation": {
-                                "xpath": "gex:description/gco:CharacterString",
-                                "parser": {
-                                    "function": "parse_vertical_elevation"
-                                },
-                                "required": false
-                            },
-                            "method": {
-                                "xpath": "gex:description/gco:CharacterString",
-                                "parser": {
-                                    "function": "parse_vertical_method"
-                                },
-                                "required": false
                             },
                             "minimumValue": {
                                 "valueChild": "gco:Real",

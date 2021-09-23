@@ -392,9 +392,6 @@
                Placeholder text=Provide a brief summary of What, Where, When, Why, Who and How for the collected the data.
           Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected.</gco:CharacterString>
          </mri:abstract>
-         <mri:purpose>
-            <gco:CharacterString>Placeholder text=Provide a brief summary of the purpose for collecting the data including the potential use. Example: The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future</gco:CharacterString>
-         </mri:purpose>
 
          <mri:credit>
             <gco:CharacterString>Thanks to all the lovely sponsors:  xxx, yyy</gco:CharacterString>
@@ -563,11 +560,6 @@
          <mri:extent>
 
             <gex:EX_Extent id="Vertical">
-
-               <gex:description>
-                  
-                  <gco:CharacterString>Elevation in metres: [not specified]| Method: [not specified]</gco:CharacterString>
-               </gex:description>
                <gex:verticalElement>
 
                   <gex:EX_VerticalExtent>

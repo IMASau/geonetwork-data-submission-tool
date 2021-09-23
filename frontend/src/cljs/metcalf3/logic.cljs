@@ -4,7 +4,8 @@
             [clojure.string :as string]
             [clojure.zip :as zip]
             [metcalf3.content :refer [default-payload contact-groups]]
-            [metcalf3.utils :as utils]))
+            [metcalf3.utils :as utils]
+            [metcalf3.rules :as rules]))
 
 (def active-status-filter #{"Draft" "Submitted"})
 
@@ -314,6 +315,10 @@
     #(if (is-required-field? %) (validate-required-field %) %)
     state))
 
+(defn validate-rules
+  [state]
+  (field-postwalk rules/apply-rules state))
+
 (defn geography-required-logic
   "Geography fields are required / included based on geographic coverage checkbox"
   [geographicElement]
@@ -452,6 +457,7 @@
       data-service-logic
       author-role-logic
       (update-in [:form :fields] validate-required-fields)
+      (update-in [:form :fields] validate-rules)
       disable-form-when-submitted
       (update-in [:form] disabled-form-logic)
       (calculate-progress [:form])

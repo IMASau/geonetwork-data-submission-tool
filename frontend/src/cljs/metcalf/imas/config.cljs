@@ -110,6 +110,7 @@
 (ins/reg-global-singleton ins/breadcrumbs)
 (set! low-code/component-registry
       {'metcalf3.view/DataParametersTable       views/DataParametersTable
+       'metcalf3.view/CheckboxField             views/CheckboxField
        'metcalf3.view/date-field-with-label     views/date-field-with-label
        'metcalf3.view/textarea-field-with-label views/textarea-field-with-label
        'metcalf3.view/Methods                   views/Methods
@@ -217,10 +218,10 @@
            :minDate  #inst "1900-01-01"
            :maxDate  #inst "2100-01-01"}]
          [metcalf3.view/date-field-with-label
-          {:path     [:form :fields :identificationInfo :endPosition]
-           :label    "End date"
-           :minDate  #inst "1900-01-01"
-           :maxDate  #inst "2100-01-01"}]
+          {:path    [:form :fields :identificationInfo :endPosition]
+           :label   "End date"
+           :minDate #inst "1900-01-01"
+           :maxDate #inst "2100-01-01"}]
          [:div.row
           [:div.col-md-4
            ;; TODO does IMAS want the old sample frequency (min daily) or this one (min <1 second)?
@@ -229,7 +230,32 @@
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
-        [:div]
+        [:div
+         [metcalf3.view/PageErrors {:page :where :path [:form]}]
+         [:h2 "4. Where"]
+         ;; FIXME add toggle for satellite imagery.
+         ;; FIXME hide the siteDescription textarea.
+         ;; FIXME remove the "Grid to Geographic converter" link text
+         [metcalf3.view/GeographicCoverage nil]
+         [:div.VerticalCoverage
+          ;; FIXME use h3 not h4. Restyle if necessary.
+          [:h4 "Vertical Coverage"]
+          [metcalf3.view/CheckboxField
+           [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]]
+          ;; FIXME hide the below fields when hasVerticalExtent checkbox is unchecked.
+          [metcalf3.view/input-field-with-label
+           {:path       [:form :fields :identificationInfo :verticalElement :minimumValue]
+            :class      "wauto"
+            :label      "Minimum (m)"
+            :helperText "Shallowest depth / lowest altitude"
+            :required   true}]
+          [metcalf3.view/input-field-with-label
+           {:path       [:form :fields :identificationInfo :verticalElement :maximumValue]
+            :class      "wauto"
+            :label      "Maximum (m)"
+            :helperText "Deepest depth / highest altitude"
+            :required   true}]]
+         [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
         :who
         [:div]

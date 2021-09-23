@@ -503,7 +503,6 @@
          <mri:topicCategory>
             <mri:MD_TopicCategoryCode>climatologyMeteorologyAtmosphere</mri:MD_TopicCategoryCode>
          </mri:topicCategory>
-         <mri:topicCategory/>
          <mri:extent>
             <gex:EX_Extent>
             

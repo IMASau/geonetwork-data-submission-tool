@@ -206,10 +206,16 @@
                         "notes": "Responsible party/ies for creating dataset"
                     },
                     "topicCategory": {
-                        "many": true,
                         "xpath": "mri:topicCategory",
-                        "keep": false,
                         "valueChild": "mri:MD_TopicCategoryCode",
+                        "attributes": {
+                            "text": {
+                                "function": "identity"
+                            },
+                            "codeListValue": {
+                                "function": "identity"
+                            }
+                        },
                         "required": true
                     },
                     "status": {

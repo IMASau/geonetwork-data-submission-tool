@@ -363,7 +363,7 @@
     (js/Date. x)))
 
 (defn date-order-rule
-  "Start date should be fore end date if the status is ongoing"
+  "Start date should be fore end date"
   [state {:keys [field0 field1]}]
   (let [k0 (keyword field0)                                 ; TODO: ugly converions to keyword
         k1 (keyword field1)                                 ; TODO: ugly converions to keyword
@@ -377,13 +377,6 @@
       (-> state
           (assoc-in [k1 :minDate] d0)
           (assoc-in [k1 :value] nil)))))
-
-(defn date-order-logic
-  "Start date should be fore end date if the status is ongoing"
-  [state]
-  (update-in state [:form :fields :identificationInfo]
-             date-order-rule {:field0 "beginPosition"
-                              :field1 "endPosition"}))
 
 (defn maint-freq-rule
   "
@@ -474,11 +467,13 @@
       derive-vertical-required
       ;license-logic
       ; => "geographicElement": {"rules": [{"ruleId": "license-other"}],
-      ;date-order-logic
+      ;(update-in [:form :fields :identificationInfo]
+      ;           date-order-rule {:field0 "beginPosition"
+      ;                            :field1 "endPosition"})
       ; => "identificationInfo": {"rules": [{"ruleId": "date-order"}],
       ;end-position-logic
       ; => "identificationInfo": {"rules": [{"ruleId": "end-position"}],
-      ;(update-in state [:form :fields :identificationInfo] maint-freq-rule)
+      ;(update-in [:form :fields :identificationInfo] maint-freq-rule)
       ; => "identificationInfo": {"rules": [{"ruleId": "maint-freq"}]
       data-service-logic
       author-role-logic

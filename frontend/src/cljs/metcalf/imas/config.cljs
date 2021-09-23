@@ -207,7 +207,26 @@
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
         :when
-        [:div]
+        [:div
+         [metcalf3.view/PageErrors {:page :when :path [:form]}]
+         [:h2 "3. When was the data acquired?"]
+         [metcalf3.view/date-field-with-label
+          {:path     [:form :fields :identificationInfo :beginPosition]
+           :label    "Start date"
+           :required true
+           :minDate  #inst "1900-01-01"
+           :maxDate  #inst "2100-01-01"}]
+         [metcalf3.view/date-field-with-label
+          {:path     [:form :fields :identificationInfo :endPosition]
+           :label    "End date"
+           :minDate  #inst "1900-01-01"
+           :maxDate  #inst "2100-01-01"}]
+         [:div.row
+          [:div.col-md-4
+           ;; TODO does IMAS want the old sample frequency (min daily) or this one (min <1 second)?
+           [metcalf3.view/NasaListSelectField {:keyword :samplingFrequency
+                                               :path    [:form :fields :identificationInfo]}]]]
+         [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
         [:div]

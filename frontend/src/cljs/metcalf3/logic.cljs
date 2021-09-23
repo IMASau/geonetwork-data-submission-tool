@@ -385,15 +385,15 @@
              date-order-rule {:field0 "beginPosition"
                               :field1 "endPosition"}))
 
-(defn maint-freq-logic
+(defn maint-freq-rule
   "
   Maintenance resource frequency is a drop dropdown.
 
   If status is complete then it's hardwired to NONE PLANNED and displayed as read only value.
   "
-  [state]
-  (let [status-value (get-in state [:form :fields :identificationInfo :status :value])]
-    (update-in state [:form :fields :identificationInfo :maintenanceAndUpdateFrequency] merge
+  [identificationInfo]
+  (let [status-value (get-in identificationInfo [:status :value])]
+    (update-in identificationInfo [:maintenanceAndUpdateFrequency] merge
                (case status-value
                  "onGoing" {:is-hidden false :disabled false :required true}
                  "planned" {:is-hidden false :disabled false :required true}
@@ -478,7 +478,8 @@
       ; => "identificationInfo": {"rules": [{"ruleId": "date-order"}],
       ;end-position-logic
       ; => "identificationInfo": {"rules": [{"ruleId": "end-position"}],
-      maint-freq-logic
+      ;(update-in state [:form :fields :identificationInfo] maint-freq-rule)
+      ; => "identificationInfo": {"rules": [{"ruleId": "maint-freq"}]
       data-service-logic
       author-role-logic
       (update-in [:form :fields] validate-required-fields)

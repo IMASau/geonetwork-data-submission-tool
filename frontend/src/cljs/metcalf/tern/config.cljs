@@ -116,7 +116,8 @@
        "geography-required" logic/geography-required-logic
        "license-other"      logic/license-other-rule
        "date-order"         logic/date-order-rule
-       "end-position"       logic/end-position-rule})
+       "end-position"       logic/end-position-rule
+       "maint-freq"         logic/maint-freq-rule})
 (set! low-code/component-registry
       {'metcalf3.view/DataParametersTable       views/DataParametersTable
        'metcalf3.view/date-field-with-label     views/date-field-with-label

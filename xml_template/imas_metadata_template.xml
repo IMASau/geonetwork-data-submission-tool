@@ -244,26 +244,6 @@
                <cit:edition>
                   <gco:CharacterString>1.0.0</gco:CharacterString>
                </cit:edition>
-
-               <cit:identifier>
-
-                  <mcc:MD_Identifier>
-
-                     <mcc:authority>
-                        <cit:CI_Citation>
-                           <cit:title>
-                              <gco:CharacterString>Dataset DOI</gco:CharacterString>
-                           </cit:title>
-                        </cit:CI_Citation>
-                     </mcc:authority>
-                      <mcc:code>
-                        <gco:CharacterString>doi:[DOI number writes here]</gco:CharacterString>
-                     </mcc:code>
-                     <mcc:codeSpace>
-                        <gco:CharacterString>http://dx.doi.org</gco:CharacterString>
-                     </mcc:codeSpace>
-                  </mcc:MD_Identifier>
-               </cit:identifier>
                <cit:citedResponsibleParty>
                   <cit:CI_Responsibility>
                      <cit:role>

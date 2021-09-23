@@ -13,3 +13,8 @@
         (assoc :required true)
         (cond-> empty?
                 (update field :errors "This field is required")))))
+
+(defn max-length-rule
+  [field rule]
+  (let [{:keys [maxLength]} rule]
+    (assoc field :maxLength maxLength)))

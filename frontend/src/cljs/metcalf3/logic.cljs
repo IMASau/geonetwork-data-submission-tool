@@ -346,14 +346,17 @@
           (update-in [:method] assoc :required false :disabled true)
           (update-in [:elevation] assoc :required false :disabled true)))))
 
-(defn end-position-logic
+(defn end-position-rule
   "End position is required if the status is ongoing"
+  [identificationInfo]
+  (let [value (get-in identificationInfo [:status :value])]
+    (if (contains? #{"onGoing" "planned"} value)
+      (update-in identificationInfo [:endPosition] assoc :required false :disabled true :value nil)
+      (update-in identificationInfo [:endPosition] assoc :required true :disabled false))))
+
+(defn end-position-logic
   [state]
-  (let [identificationInfo-value (get-in state [:form :fields :identificationInfo :status :value])]
-    (if (contains? #{"onGoing"
-                     "planned"} identificationInfo-value)
-      (update-in state [:form :fields :identificationInfo :endPosition] assoc :required false :disabled true :value nil)
-      (update-in state [:form :fields :identificationInfo :endPosition] assoc :required true :disabled false))))
+  (update-in state [:form :fields :identificationInfo] end-position-rule))
 
 (defn value->date [x]
   (when-not (string/blank? x)
@@ -473,7 +476,8 @@
       ; => "geographicElement": {"rules": [{"ruleId": "license-other"}],
       ;date-order-logic
       ; => "identificationInfo": {"rules": [{"ruleId": "date-order"}],
-      end-position-logic
+      ;end-position-logic
+      ; => "identificationInfo": {"rules": [{"ruleId": "end-position"}],
       maint-freq-logic
       data-service-logic
       author-role-logic

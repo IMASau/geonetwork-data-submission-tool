@@ -5,7 +5,8 @@
             [clojure.zip :as zip]
             [metcalf3.content :refer [default-payload contact-groups]]
             [metcalf3.utils :as utils]
-            [metcalf3.rules :as rules]
+            [metcalf.common.rules :as rules]
+            [metcalf.common.blocks :as blocks]
             [cljs.spec.alpha :as s]))
 
 (def active-status-filter #{"Draft" "Submitted"})
@@ -317,8 +318,8 @@
     state))
 
 (defn validate-rules
-  [state]
-  (field-postwalk rules/apply-rules state))
+  [block]
+  (field-postwalk rules/apply-rules block))
 
 (defn geography-required-rule
   "Geography fields are required / included based on geographic coverage checkbox"
@@ -488,7 +489,7 @@
       author-role-logic
 
       (update-in [:form :fields] validate-required-fields)
-      (update-in [:form :fields] validate-rules)
+      (update-in [:form :block] validate-rules)
       disable-form-when-submitted
       (update-in [:form] disabled-form-logic)
       (calculate-progress [:form])
@@ -554,8 +555,11 @@
 (defn initial-state
   "Massage raw payload for use as app-state"
   [payload]
-  (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))]
+  (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))
+        data (get-in payload [:form :data])
+        schema (get-in payload [:form :schema])]
     (-> (deep-merge default-payload payload)
+        (assoc-in [:form :block] (blocks/as-blocks {:data data :schema schema}))
         (assoc :alert [])
         (assoc :api {:parametername        {:uri (str URL_ROOT "/api/ternparameters") :options nil}
                      :parameterunit        {:uri (str URL_ROOT "/api/qudtunits") :options nil}

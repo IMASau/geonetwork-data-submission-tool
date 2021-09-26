@@ -23,9 +23,9 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from metcalf.common.spec import *
+from metcalf.common.spec3 import *
 from metcalf.common.utils import to_json, get_exception_message
-from metcalf.common.xmlutils import extract_fields, data_to_xml, extract_jsonschema
+from metcalf.common.xmlutils3 import extract_fields, data_to_xml, extract_jsonschema
 from metcalf.imas.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.imas.frontend.forms import DocumentAttachmentForm

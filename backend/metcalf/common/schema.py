@@ -1,6 +1,6 @@
 from functools import partial
 
-from metcalf.common.xmlutils import SpecialKeys
+from metcalf.common.xmlutils3 import SpecialKeys
 
 
 def select_keys(m, ks):

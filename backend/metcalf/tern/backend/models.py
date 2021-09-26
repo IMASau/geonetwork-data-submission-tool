@@ -18,9 +18,9 @@ from rest_framework.renderers import JSONRenderer
 from metcalf.common.emails import *
 from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, AbstractDocument, AbstractContributor, \
     AbstractMetadataTemplate, AbstractMetadataTemplateMapper, AbstractDraftMetadata
-from metcalf.common.spec import make_spec
+from metcalf.common.spec3 import make_spec
 from metcalf.common.utils import to_json, get_exception_message, get_user_name
-from metcalf.common.xmlutils import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
+from metcalf.common.xmlutils3 import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
 
 User.add_to_class("__str__", get_user_name)
 

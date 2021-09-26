@@ -1,21 +1,17 @@
-(ns metcalf.common.subs
-  (:require [metcalf.common.blocks :as blocks]))
+(ns metcalf.common.subs)
 
 
 (defn get-input-field-with-label-props
-  [block-state [_ data-path]]
-  (let [block-path (conj (blocks/block-path data-path) :properties)]
-    (get-in block-state block-path)))
+  [db [_ db-path]]
+  (get-in db db-path))
 
 
 (defn get-textarea-field-with-label-props
-  [block-state [_ data-path]]
-  (let [block-path (conj (blocks/block-path data-path) :properties)]
-    (get-in block-state block-path)))
+  [db [_ db-path]]
+  (get-in db db-path))
 
 
 ; FIXME: leaking empty strings instead of null from payload.forms.data
 (defn get-date-field-with-label-props
-  [block-state [_ data-path]]
-  (let [block-path (conj (blocks/block-path data-path) :properties)]
-    (get-in block-state block-path)))
+  [db [_ db-path]]
+  (get-in db db-path))

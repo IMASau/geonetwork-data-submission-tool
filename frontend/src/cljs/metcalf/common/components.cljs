@@ -2,12 +2,17 @@
   (:require [clojure.string :as string]
             [interop.date :as date]
             [interop.ui :as ui]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [metcalf.common.blocks :as blocks]))
 
+(defn db-path
+  [{:keys [form-id data-path]}]
+  (vec (flatten [form-id (blocks/block-path data-path)])))
 
 (defn input-field-with-label
-  [{:keys [path] :as config}]
-  (let [logic @(rf/subscribe [::get-input-field-with-label-props path])
+  [config]
+  (let [path (db-path config)
+        logic @(rf/subscribe [::get-input-field-with-label-props path])
         props (merge (select-keys config [:label :placeholder :helperText :toolTip]) logic)
         {:keys [label placeholder helperText toolTip maxLength required value disabled show-errors errors]} props
         onChange #(rf/dispatch [::input-field-with-label-value-changed path %])
@@ -29,10 +34,11 @@
 
 
 (defn textarea-field-with-label
-  [{:keys [path] :as config}]
-  (let [config-keys [:label :placeholder :helperText :toolTip :rows]
+  [config]
+  (let [path (db-path config)
         logic @(rf/subscribe [::get-textarea-field-with-label-props path])
         onChange #(rf/dispatch [::textarea-field-with-label-value-changed path %])
+        config-keys [:label :placeholder :helperText :toolTip :rows]
         props (merge (select-keys config config-keys) logic)
         {:keys [label placeholder helperText toolTip rows
                 maxLength required value disabled show-errors errors]} props
@@ -55,9 +61,11 @@
 
 
 (defn date-field-with-label
-  [{:keys [path] :as config}]
-  (let [config-keys [:label :required :helperText :toolTip :minDate :maxDate]
+  [config]
+  (let [path (db-path config)
+        config-keys [:label :required :helperText :toolTip :minDate :maxDate]
         logic @(rf/subscribe [::get-date-field-with-label-props path])
+        onChange #(rf/dispatch [::date-field-with-label-value-change path (date/to-value %)])
         props (merge (select-keys config config-keys) logic)
         {:keys [label required helperText toolTip minDate maxDate
                 value disabled errors show-errors]} props
@@ -72,7 +80,7 @@
      [ui/DateField
       {:value    (date/from-value value)
        :disabled disabled
-       :onChange #(rf/dispatch [::date-field-with-label-value-change path (date/to-value %)])
+       :onChange onChange
        :hasError hasError
        :minDate  (date/from-value minDate)
        :maxDate  (date/from-value maxDate)}]]))

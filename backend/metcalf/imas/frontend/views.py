@@ -25,7 +25,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from metcalf.common import spec3, xmlutils3
+from metcalf.common import spec4, xmlutils4
 from metcalf.common.utils import to_json, get_exception_message
 from metcalf.imas.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
@@ -170,9 +170,9 @@ def bad_request(request, exception):
 def create_export_xml_string(doc, uuid):
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
-    spec = spec3.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
-    data = spec3.split_geographic_extents(data)
-    xmlutils3.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
+    spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    data = spec4.split_geographic_extents(data)
+    xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                           element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     return etree.tostring(xml)
 
@@ -215,9 +215,9 @@ def mef(request, uuid):
     is_document_editor(request, doc)
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
-    spec = spec3.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
-    data = spec3.split_geographic_extents(data)
-    xmlutils3.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
+    spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    data = spec4.split_geographic_extents(data)
+    xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                           element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     response = HttpResponse(content_type="application/x-mef")
     response['Content-Disposition'] = 'attachment; filename="{}.mef"'.format(uuid)
@@ -350,7 +350,7 @@ def institutionFromData(data):
 def save(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
     is_document_editor(request, doc)
-    spec = spec3.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
     try:
         data = request.data
         doc.title = data['identificationInfo']['title'] or "Untitled"
@@ -375,7 +375,7 @@ def save(request, uuid):
             institutionFromData(citedResponsibleParty)
 
         # update the publication date
-        data['identificationInfo']['datePublication'] = spec3.today()
+        data['identificationInfo']['datePublication'] = spec4.today()
 
         inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
         inst.noteForDataManager = data['noteForDataManager'] or ''
@@ -400,8 +400,8 @@ def save(request, uuid):
         return Response({"messages": messages_payload(request),
                          "form": {
                              "url": reverse("Edit", kwargs={'uuid': doc.uuid}),
-                             "fields": xmlutils3.extract_fields(tree, spec),
-                             "jsonschema1": xmlutils3.extract_jsonschema(tree, spec),
+                             "fields": xmlutils4.extract_fields(tree, spec),
+                             "jsonschema1": xmlutils4.extract_jsonschema(tree, spec),
                              "data": data,
                              "document": DocumentInfoSerializer(doc, context={'user': request.user}).data}})
     except RuntimeError as e:
@@ -412,7 +412,7 @@ def save(request, uuid):
 def edit(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
     is_document_editor(request, doc)
-    spec = spec3.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
 
     draft = doc.draftmetadata_set.all()[0]
     data = to_json(draft.data)
@@ -432,8 +432,8 @@ def edit(request, uuid):
         },
         "form": {
             "url": reverse("Save", kwargs={'uuid': doc.uuid}),
-            "fields": xmlutils3.extract_fields(tree, spec),
-            "jsonschema1": xmlutils3.extract_jsonschema(tree, spec),
+            "fields": xmlutils4.extract_fields(tree, spec),
+            "jsonschema1": xmlutils4.extract_jsonschema(tree, spec),
             "data": data,
         },
         "upload_form": {

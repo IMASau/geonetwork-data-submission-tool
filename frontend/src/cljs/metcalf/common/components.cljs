@@ -3,7 +3,12 @@
             [interop.date :as date]
             [interop.ui :as ui]
             [re-frame.core :as rf]
-            [metcalf.common.blocks :as blocks]))
+            [metcalf.common.blocks :as blocks]
+            [cljs.spec.alpha :as s]))
+
+(s/def ::form-id vector?)
+(s/def ::data-path vector?)
+(s/def ::config (s/keys :req-un [::form-id ::data-path]))
 
 (defn db-path
   [{:keys [form-id data-path]}]
@@ -11,6 +16,7 @@
 
 (defn input-field-with-label
   [config]
+  (s/assert ::config config)
   (let [path (db-path config)
         logic @(rf/subscribe [::get-input-field-with-label-props path])
         props (merge (select-keys config [:label :placeholder :helperText :toolTip]) logic)
@@ -35,6 +41,7 @@
 
 (defn textarea-field-with-label
   [config]
+  (s/assert ::config config)
   (let [path (db-path config)
         logic @(rf/subscribe [::get-textarea-field-with-label-props path])
         onChange #(rf/dispatch [::textarea-field-with-label-value-changed path %])
@@ -62,6 +69,7 @@
 
 (defn date-field-with-label
   [config]
+  (s/assert ::config config)
   (let [path (db-path config)
         config-keys [:label :required :helperText :toolTip :minDate :maxDate]
         logic @(rf/subscribe [::get-date-field-with-label-props path])

@@ -18,7 +18,7 @@
             [metcalf3.content :refer [contact-groups]]
             [metcalf3.handlers :as handlers]
             [metcalf3.logic :as logic]
-            [metcalf3.low-code :as low-code]
+            [metcalf.common.low-code :as low-code]
             [metcalf3.utils :as utils]
             [metcalf3.widget.boxmap :as boxmap]
             [metcalf3.widget.modal :refer [Modal]]

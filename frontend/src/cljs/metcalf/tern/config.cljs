@@ -1,5 +1,5 @@
 (ns metcalf.tern.config
-  (:require [metcalf3.low-code :as low-code]
+  (:require [metcalf.common.low-code :as low-code]
             [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers]
             [metcalf3.ins :as ins]

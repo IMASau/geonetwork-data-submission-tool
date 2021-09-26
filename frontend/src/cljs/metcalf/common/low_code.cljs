@@ -1,4 +1,4 @@
-(ns metcalf3.low-code
+(ns metcalf.common.low-code
   (:require [clojure.walk :as walk]))
 
 (def ^:dynamic component-registry {})

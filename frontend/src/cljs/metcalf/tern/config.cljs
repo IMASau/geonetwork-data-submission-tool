@@ -6,7 +6,7 @@
             [metcalf3.subs :as subs]
             [metcalf3.views :as views]
             [re-frame.core :as rf]
-            [metcalf3.rules :as rules]
+            [metcalf.common.rules :as rules]
             [metcalf3.logic :as logic]))
 
 (rf/reg-event-fx :handlers/load-api-options-resp handlers/load-api-options-resp)
@@ -111,14 +111,14 @@
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
 (set! rules/rule-registry
-      {"required-field"     rules/required-field
-       "max-length"         rules/max-length
-       "geography-required" logic/geography-required-rule
-       "license-other"      logic/license-other-rule
-       "date-order"         logic/date-order-rule
-       "end-position"       logic/end-position-rule
-       "maint-freq"         logic/maint-freq-rule
-       "vertical-required"  logic/vertical-required-rule})
+      {"requiredField"     rules/required-field
+       "maxLength"         rules/max-length
+       "geographyRequired" rules/geography-required
+       "licenseOther"      rules/license-other
+       "dateOrder"         rules/date-order
+       "endPosition"       rules/end-position
+       "maintFreq"         rules/maint-freq
+       "verticalRequired"  rules/vertical-required})
 (set! low-code/component-registry
       {'metcalf3.view/DataParametersTable       views/DataParametersTable
        'metcalf3.view/date-field-with-label     views/date-field-with-label

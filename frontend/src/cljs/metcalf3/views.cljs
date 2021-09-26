@@ -243,9 +243,9 @@
                :onChange    #(rf/dispatch (conj change-v %))
                :inputProps  {:leftIcon "calendar"
                              :intent   intent}}
-              minDate (assoc :minDate minDate)
-              (not minDate) (assoc :minDate defMinDate)
-              maxDate (assoc :maxDate maxDate))]]))
+        minDate (assoc :minDate minDate)
+        (not minDate) (assoc :minDate defMinDate)
+        maxDate (assoc :maxDate maxDate))]]))
 
 (defn OptionWidget [props]
   (let [[value display] props]

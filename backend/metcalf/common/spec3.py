@@ -6,13 +6,13 @@ from urllib.parse import urlsplit
 
 from django.contrib.sites.models import Site
 
-from metcalf.common.xmlutils3 import SpecialKeys
+from metcalf.common import xmlutils3
 
 
 def insert_node_groups(spec, node_groups):
-    if SpecialKeys.nodes in spec:
-        if isinstance(spec[SpecialKeys.nodes], str):
-            spec[SpecialKeys.nodes] = node_groups[spec[SpecialKeys.nodes]]
+    if xmlutils3.SpecialKeys.nodes in spec:
+        if isinstance(spec[xmlutils3.SpecialKeys.nodes], str):
+            spec[xmlutils3.SpecialKeys.nodes] = node_groups[spec[xmlutils3.SpecialKeys.nodes]]
     if isinstance(spec, dict):
         for key, sub_spec in spec.items():
             if isinstance(sub_spec, dict):
@@ -25,18 +25,18 @@ def insert_node_groups(spec, node_groups):
 def remove_comments(spec):
     if isinstance(spec, dict):
         # quickest way to remove the key
-        spec.pop(SpecialKeys.comment, None)
+        spec.pop(xmlutils3.SpecialKeys.comment, None)
         for key, sub_spec in spec.items():
             remove_comments(sub_spec)
 
 
 def is_function_ref(spec):
-    yes_or_no = isinstance(spec, dict) and SpecialKeys.function in spec
+    yes_or_no = isinstance(spec, dict) and xmlutils3.SpecialKeys.function in spec
     return yes_or_no
 
 
 def get_function_ref(x):
-    transform = SPEC_FUNCTIONS[x[SpecialKeys.function]]
+    transform = SPEC_FUNCTIONS[x[xmlutils3.SpecialKeys.function]]
     return transform
 
 

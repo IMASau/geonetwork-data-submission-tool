@@ -3,6 +3,14 @@ from functools import partial
 from metcalf.common.xmlutils import SpecialKeys
 
 
+def select_keys(m, ks):
+    return {k: m[k] for k in ks if k in m}
+
+
+def update_vals(m, f):
+    return {k: f(v) for (k, v) in m.items()}
+
+
 def walk(inner, outer, form):
     ret = form.copy()  # shallow copy
     if ret.get('type') == 'array':

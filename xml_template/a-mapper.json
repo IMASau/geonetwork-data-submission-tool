@@ -34,18 +34,25 @@
   "type": "object",
   "properties": {
     "distributionInfo": {
+      "xpath": "mdb:distributionInfo/mrd:MD_Distribution",
       "type": "object",
       "properties": {
         "distributionFormat": {
+          "xpath": "mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation",
           "type": "object",
           "properties": {
             "name": {
+              "xpath": "cit:title",
+              "valueChild": "gco:CharacterString",
+              "deleteWhenEmpty": false,
               "type": "string",
               "rules": {
                 "maxLength": 100
               }
             },
             "version": {
+              "xpath": "cit:edition",
+              "valueChild": "gco:CharacterString",
               "type": "string",
               "rules": {
                 "maxLength": 20
@@ -65,41 +72,70 @@
         }
       },
       "properties": {
+        "title": {
+          "xpath": "mri:citation/cit:CI_Citation/cit:title",
+          "valueChild": "gco:CharacterString",
+          "type": "string",
+          "rules": {
+            "required": true,
+            "maxLength": 250
+          }
+        },
+        "dateCreation": {
+          "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",
+          "valueChild": "gco:DateTime",
+          "default": {
+            "function": "today"
+          },
+          "type": "string",
+          "rules": {
+            "required": true
+          }
+        },
         "abstract": {
+          "xpath": "mri:abstract",
+          "valueChild": "gco:CharacterString",
+          "keep": false,
+          "required": true,
           "type": "string",
           "rules": {
             "required": true,
             "maxLength": 2500
           }
         },
-        "dateCreation": {
-          "type": "string",
-          "rules": {
-            "required": true
-          }
-        },
         "beginPosition": {
+          "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
+          "required": true,
+          "keep": false,
+          "attributes": {
+            "text": {
+              "function": "date_as_string"
+            }
+          },
           "type": "string",
           "rules": {
             "required": true
           }
         },
         "endPosition": {
+          "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:endPosition",
+          "deleteWhenEmpty": false,
+          "keep": false,
+          "attributes": {
+            "text": {
+              "function": "date_as_string"
+            }
+          },
           "type": "string",
           "rules": {
             "required": true
           }
         },
-        "title": {
-          "type": "string",
-          "xpath": "mri:citation/cit:CI_Citation/cit:title",
-          "valueChild": "gco:CharacterString",
-          "rules": {
-            "required": true,
-            "maxLength": 250
-          }
-        },
         "purpose": {
+          "xpath": "mri:purpose",
+          "valueChild": "gco:CharacterString",
+          "keep": false,
+          "required": false,
           "type": "string",
           "rules": {
             "required": true,
@@ -109,13 +145,20 @@
       }
     },
     "dataQualityInfo": {
-      "xpath": "mdb:identificationInfo/mri:MD_DataIdentification",
+      "xpath": "mdb:dataQualityInfo",
       "type": "object",
       "properties": {
         "methods": {
+          "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:standaloneQualityReportDetails",
+          "keep": false,
+          "valueChild": "gco:CharacterString",
+          "required": false,
           "type": "string"
         },
         "results": {
+          "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
+          "keep": false,
+          "required": false,
           "type": "string",
           "rules": {
             "maxLength": 1000
@@ -128,6 +171,9 @@
       "type": "object",
       "properties": {
         "lineage": {
+          "xpath": "mrl:statement",
+          "valueChild": "gco:CharacterString",
+          "keep": false,
           "type": "string",
           "rules": {
             "maxLength": 1000

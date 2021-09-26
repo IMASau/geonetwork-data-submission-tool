@@ -464,24 +464,24 @@
   (-> state
 
       ;(update-in [:form :fields :identificationInfo :geographicElement] geography-required-rule)
-      ; => "geographicElement": {"rules": [{"ruleId": "geography-required"}],
-
+      ; => "geographicElement": {"rules": "geographyRequired"}
+      ;
       ;(update-in [:form :fields :identificationInfo :verticalElement] vertical-required-rule)
-      ; => "verticalElement": {"rules": [{"ruleId": "vertical-required"}],
-
+      ; => "verticalElement": {"rules": "verticalRequired"}
+      ;
       ;license-logic
-      ; => "geographicElement": {"rules": [{"ruleId": "license-other"}],
-
+      ; => "geographicElement": {"rules": "licenseOther"}
+      ;
       ;(update-in [:form :fields :identificationInfo]
       ;           date-order-rule {:field0 "beginPosition"
       ;                            :field1 "endPosition"})
-      ; => "identificationInfo": {"rules": [{"ruleId": "date-order"}],
-
+      ; => "identificationInfo": {"rules": {"dateOrder": {"field0" "beginPosition", "field1" "endPosition"}}}
+      ;
       ;end-position-logic
-      ; => "identificationInfo": {"rules": [{"ruleId": "end-position"}],
-
+      ; => "identificationInfo": {"rules": "endPosition"}}
+      ;
       ;(update-in [:form :fields :identificationInfo] maint-freq-rule)
-      ; => "identificationInfo": {"rules": [{"ruleId": "maint-freq"}]
+      ; => "identificationInfo": {"rules": "maintFreq"}
 
       data-service-logic
 

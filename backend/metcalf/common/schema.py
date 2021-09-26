@@ -1,5 +1,7 @@
 from functools import partial
 
+from metcalf.common.xmlutils import SpecialKeys
+
 
 def walk(inner, outer, form):
     ret = form.copy()  # shallow copy
@@ -42,4 +44,10 @@ def inline_defs(schema):
     if defs:
         schema = prewalk(partial(insert_def, defs), schema)
         del schema['$defs']
+    return schema
+
+
+def remove_comment(schema):
+    if isinstance(schema, dict):
+        schema.pop(SpecialKeys.comment, None)
     return schema

@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import re
@@ -5,7 +6,7 @@ from urllib.parse import urlsplit
 
 from django.contrib.sites.models import Site
 
-from metcalf.common.xmlutils3 import *
+from metcalf.common.xmlutils3 import SpecialKeys
 
 
 def insert_node_groups(spec, node_groups):

@@ -141,6 +141,81 @@
             "required": true,
             "maxLength": 1000
           }
+        },
+        "geographicElement": {
+          "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",
+          "removeWhen": {
+            "function": "has_geographic_coverage"
+          },
+          "type": "object",
+          "properties": {
+            "siteDescription": {
+              "xpath": "gex:description",
+              "valueChild": "gco:CharacterString",
+              "keep": false,
+              "type": "string"
+            },
+            "hasGeographicCoverage": {
+              "xpath": "gex:geographicElement[count(.)>0]",
+              "export": false,
+              "type": "boolean"
+            },
+            "boxes": {
+              "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
+              "required": true,
+              "keep": false,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "westBoundLongitude": {
+                    "valueChild": "gco:Decimal",
+                    "xpath": "gex:westBoundLongitude",
+                    "required": true,
+                    "attributes": {
+                      "text": {
+                        "function": "to_string"
+                      }
+                    },
+                    "type": "number"
+                  },
+                  "eastBoundLongitude": {
+                    "valueChild": "gco:Decimal",
+                    "xpath": "gex:eastBoundLongitude",
+                    "required": true,
+                    "attributes": {
+                      "text": {
+                        "function": "to_string"
+                      }
+                    },
+                    "type": "number"
+                  },
+                  "southBoundLatitude": {
+                    "valueChild": "gco:Decimal",
+                    "xpath": "gex:southBoundLatitude",
+                    "required": true,
+                    "attributes": {
+                      "text": {
+                        "function": "to_string"
+                      }
+                    },
+                    "type": "number"
+                  },
+                  "northBoundLatitude": {
+                    "valueChild": "gco:Decimal",
+                    "xpath": "gex:northBoundLatitude",
+                    "required": true,
+                    "attributes": {
+                      "text": {
+                        "function": "to_string"
+                      }
+                    },
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },

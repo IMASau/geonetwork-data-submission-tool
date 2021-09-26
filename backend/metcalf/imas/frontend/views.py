@@ -25,9 +25,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from metcalf.common import spec3
+from metcalf.common import spec3, xmlutils3
 from metcalf.common.utils import to_json, get_exception_message
-from metcalf.common.xmlutils3 import extract_fields, data_to_xml, extract_jsonschema
 from metcalf.imas.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.imas.frontend.forms import DocumentAttachmentForm
@@ -173,8 +172,8 @@ def create_export_xml_string(doc, uuid):
     xml = etree.parse(doc.template.file.path)
     spec = spec3.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
     data = spec3.split_geographic_extents(data)
-    data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
-                element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
+    xmlutils3.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
+                          element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     return etree.tostring(xml)
 
 
@@ -218,8 +217,8 @@ def mef(request, uuid):
     xml = etree.parse(doc.template.file.path)
     spec = spec3.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
     data = spec3.split_geographic_extents(data)
-    data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
-                element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
+    xmlutils3.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
+                          element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     response = HttpResponse(content_type="application/x-mef")
     response['Content-Disposition'] = 'attachment; filename="{}.mef"'.format(uuid)
     info = etree.fromstring(MEF_TEMPLATE.encode('utf-8'))
@@ -401,8 +400,8 @@ def save(request, uuid):
         return Response({"messages": messages_payload(request),
                          "form": {
                              "url": reverse("Edit", kwargs={'uuid': doc.uuid}),
-                             "fields": extract_fields(tree, spec),
-                             "jsonschema1": extract_jsonschema(tree, spec),
+                             "fields": xmlutils3.extract_fields(tree, spec),
+                             "jsonschema1": xmlutils3.extract_jsonschema(tree, spec),
                              "data": data,
                              "document": DocumentInfoSerializer(doc, context={'user': request.user}).data}})
     except RuntimeError as e:
@@ -433,8 +432,8 @@ def edit(request, uuid):
         },
         "form": {
             "url": reverse("Save", kwargs={'uuid': doc.uuid}),
-            "fields": extract_fields(tree, spec),
-            "jsonschema1": extract_jsonschema(tree, spec),
+            "fields": xmlutils3.extract_fields(tree, spec),
+            "jsonschema1": xmlutils3.extract_jsonschema(tree, spec),
             "data": data,
         },
         "upload_form": {

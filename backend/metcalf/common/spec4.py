@@ -1,32 +1,87 @@
 import json
 import os
 import re
+from functools import partial
 from urllib.parse import urlsplit
 
 from django.contrib.sites.models import Site
 
-from metcalf.common.xmlutils3 import *
+from metcalf.common.xmlutils4 import *
 
 
-def insert_node_groups(spec, node_groups):
-    if SpecialKeys.nodes in spec:
-        if isinstance(spec[SpecialKeys.nodes], str):
-            spec[SpecialKeys.nodes] = node_groups[spec[SpecialKeys.nodes]]
-    if isinstance(spec, dict):
-        for key, sub_spec in spec.items():
-            if isinstance(sub_spec, dict):
-                insert_node_groups(sub_spec, node_groups)
-            elif isinstance(sub_spec, list):
-                for i in sub_spec:
-                    insert_node_groups(i, node_groups)
+def select_keys(m, ks):
+    return {k: m[k] for k in ks if k in m}
 
 
-def remove_comments(spec):
-    if isinstance(spec, dict):
-        # quickest way to remove the key
-        spec.pop(SpecialKeys.comment, None)
-        for key, sub_spec in spec.items():
-            remove_comments(sub_spec)
+def update_vals(m, f):
+    return {k: f(v) for (k, v) in m.items()}
+
+
+def walk(inner, outer, form):
+    ret = form.copy()  # shallow copy
+    if ret.get('type') == 'array':
+        ret['items'] = inner(ret['items'])
+    elif ret.get('type') == 'object':
+        ret['properties'] = update_vals(ret['properties'], inner)
+    return outer(ret)
+
+
+def postwalk(f, form):
+    return walk(partial(postwalk, f), f, form)
+
+
+def prewalk(f, form):
+    return walk(partial(prewalk, f), lambda x: x, f(form))
+
+
+def is_ref(schema):
+    return '$ref' in schema
+
+
+def get_ref_schema(defs, schema):
+    assert '$ref' in schema
+    assert schema['$ref'].startswith('#/$defs/')
+    def_name = schema['$ref'].split('#/$defs/')[1]
+    assert def_name
+    return defs.get(def_name, {})
+
+
+def insert_def(defs, schema):
+    if is_ref(schema):
+        return get_ref_schema(defs, schema)
+    else:
+        return schema
+
+
+def inline_defs(schema):
+    defs = schema.get('$defs')
+    if defs:
+        schema = prewalk(partial(insert_def, defs), schema)
+        del schema['$defs']
+    return schema
+
+
+def extract_field(schema):
+    return select_keys(schema, ['type', 'rules', 'default', 'items', 'properties'])
+
+
+def extract_fields(schema):
+    return postwalk(extract_field, schema)
+
+
+# TODO: Previously this had a side effect of validating the xml template.  Might need replacing.
+def extract_schema(spec):
+    return postwalk(extract_field, spec)
+
+
+def remove_comment(schema):
+    if isinstance(schema, dict):
+        schema.pop(SpecialKeys.comment, None)
+    return schema
+
+
+def remove_comments(schema):
+    return postwalk(remove_comment, schema)
 
 
 def is_function_ref(spec):
@@ -39,6 +94,7 @@ def get_function_ref(x):
     return transform
 
 
+# NOTE: Needs a review
 def insert_functions(spec):
     if isinstance(spec, list):
         for sub_spec in spec:
@@ -57,13 +113,11 @@ def insert_functions(spec):
 # TODO: pass in app specific registrations?
 def make_spec(**kwargs):
     assert 'mapper' in kwargs, "We couldn't load the mapper for this template. Please make sure the mapper exists"
-    assert kwargs['mapper'] != None, "No mapper exists for this template. Please specify one."
-    spec_json = json.loads(kwargs['mapper'].file.read().decode('utf-8'))
-    spec = spec_json['spec']
-    node_groups = spec_json['node_groups']
+    assert kwargs['mapper'] is not None, "No mapper exists for this template. Please specify one."
+    spec = json.loads(kwargs['mapper'].file.read().decode('utf-8'))
     remove_comments(spec)
     # replace any node group reference with the actual node_group
-    insert_node_groups(spec, node_groups)
+    spec = inline_defs(spec)
     # update string references to functions with the actual functions
     insert_functions(spec)
     return spec

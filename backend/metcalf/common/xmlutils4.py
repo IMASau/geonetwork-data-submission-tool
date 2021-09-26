@@ -15,6 +15,9 @@ class SpecialKeys:
     function = 'function'
     namespaces = 'namespaces'
     nodes = 'nodes'
+    type = 'type'
+    items = 'items'
+    properties = 'properties'
     xpath = 'xpath'
     export = 'export'
     attributes = 'attributes'
@@ -72,10 +75,6 @@ def has_namespaces(spec):
     return SpecialKeys.namespaces in spec
 
 
-def is_many(spec):
-    return spec.get('many', False)
-
-
 def set_many(spec, is_many):
     spec['many'] = is_many
 
@@ -84,12 +83,12 @@ def is_required(spec):
     return spec.get('required', False)
 
 
-def has_nodes(spec):
-    return SpecialKeys.nodes in spec
+def get_items(spec):
+    return spec.get(SpecialKeys.items)
 
 
-def get_nodes(spec):
-    return spec.get(SpecialKeys.nodes)
+def get_properties(spec):
+    return spec.get(SpecialKeys.properties)
 
 
 def get_initial(spec):
@@ -151,82 +150,12 @@ def is_deleteWhenEmpty(spec):
     return spec.get(SpecialKeys.deleteWhenEmpty, True)
 
 
-def extract_fields(tree, spec, **kwargs):
-    if has_namespaces(spec):
-        kwargs[SpecialKeys.namespaces] = get_namespaces(spec)
-    xpath = get_xpath(spec)
-    elements = tree.xpath(xpath, **kwargs)
-
-    if is_required(spec) or SpecialKeys.nodes in spec:
-        assert len(
-            elements) > 0, "We require at least one xpath match for required fields and all branches.\n{0}\n{1}".format(
-            get_xpath(spec), elements)
-
-    field = spec.copy()
-    for special_key in SpecialKeys.all_keys():
-        if special_key in field: del field[special_key]
-
-    if is_many(spec):
-        field['many'] = True
-        field['initial'] = spec.get('initial', [])
-        if has_nodes(spec):
-            field['fields'] = {k: extract_fields(elements[0], v, **kwargs)
-                               for k, v in get_nodes(spec).items()}
-        else:
-            field['type'] = get_value_type(elements)
-
-    elif has_nodes(spec):
-        for k, v in get_nodes(spec).items():
-            field[k] = extract_fields(elements[0], v, **kwargs)
-
-    else:
-        field['type'] = get_value_type(elements)
-        field['initial'] = get_initial(spec)
-
-    return field
+def is_array(spec):
+    return spec.get(SpecialKeys.type) == 'array'
 
 
-# NOTE: Experimental
-def extract_jsonschema(tree, spec, **kwargs):
-    """
-    Generates a JSON Schema document to provide
-    * data shape
-    * default values
-    * form logic
-
-    Currently not using JSON Schema annotations to validate data
-    """
-    if has_namespaces(spec):
-        kwargs[SpecialKeys.namespaces] = get_namespaces(spec)
-    xpath = get_xpath(spec)
-    elements = tree.xpath(xpath, **kwargs)
-
-    field = {}
-    if 'initial' in spec:
-        field['default'] = spec['initial']
-    if 'rules' in spec:
-        field['rules'] = spec['rules']
-
-    if is_many(spec):
-        field['type'] = "array"
-        field['items'] = {}
-        if has_nodes(spec):
-            field['items']['type'] = 'object'
-            field['items']['properties'] = {}
-            for k, v in get_nodes(spec).items():
-                field['items']['properties'][k] = extract_jsonschema(elements[0], v, **kwargs)
-        else:
-            field['items']['type'] = 'object'
-
-    elif has_nodes(spec):
-        field['type'] = 'object'
-        field['properties'] = {}
-        for k, v in get_nodes(spec).items():
-            field['properties'][k] = extract_jsonschema(elements[0], v, **kwargs)
-        if 'initial' in spec:
-            field['default'] = spec['initial']
-
-    return field
+def is_object(spec):
+    return spec.get(SpecialKeys.type, None) == 'object'
 
 
 def value(element, **kwargs):
@@ -282,13 +211,19 @@ def get_default(spec):
 
 
 def process_node_child(element, spec, **kwargs):
-    if has_nodes(spec):
-        nodes = get_nodes(spec)
-        if isinstance(nodes, dict):
-            return {n: extract_xml_data(element, s, **kwargs)
-                    for n, s in get_nodes(spec).items()}
+    if is_array(spec):
+        array_items_spec = get_items(spec)
+        if isinstance(array_items_spec, dict):
+            return extract_xml_data(element, array_items_spec, **kwargs)
         else:
-            assert "Expected dict.  Got %s" % type(nodes)
+            assert "Expected dict.  Got %s" % type(array_items_spec)
+    elif is_object(spec):
+        obj_prop_spec = get_properties(spec)
+        if isinstance(obj_prop_spec, dict):
+            return {n: extract_xml_data(element, s, **kwargs)
+                    for n, s in obj_prop_spec.items()}
+        else:
+            assert "Expected dict.  Got %s" % type(obj_prop_spec)
     else:
         if is_keep(spec) and spec.get('default', None) is None:
             if has_parser(spec):
@@ -314,13 +249,13 @@ def extract_xml_data(tree, spec, **kwargs):
         else:
             return get_default(spec)
 
-    if not is_many(spec):
+    if not is_array(spec):
         assert len(elements) < 2, \
             "XPath must resolve to single element:\n" \
             "element: %s\n" \
             "node: %s\n" \
             "elements: %s" % (tree, spec, elements)
-    if is_many(spec):
+    if is_array(spec):
         if is_keep(spec):
             return [process_node_child(element, spec, **kwargs) for element in elements]
         else:
@@ -364,9 +299,13 @@ def item_is_empty(data, k, v):
 
 
 def spec_data_from_batch(batch_spec, key):
+    raise Exception("TODO: still uses 'nodes' refactor for json schema")
     assert isinstance(key, string_types), ("Expected a string key, but got {0}".format(type(key).__name__))
     data = {name: node['data'] for name, node in batch_spec[key].items()}
-    spec = {SpecialKeys.xpath: '.', SpecialKeys.nodes: batch_spec[key]}
+    spec = {
+        SpecialKeys.xpath: '.',
+        SpecialKeys.nodes: batch_spec[key]
+    }
     return spec, data
 
 
@@ -387,23 +326,20 @@ def split_geographic_extents(data):
         else:
             data['identificationInfo'].pop('geographicElementSecondary', None)
         for box in boxes[1:]:
-            newBox = {}
-            newBox['boxes'] = box
-            data['identificationInfo']['geographicElementSecondary'].append(newBox)
+            new_box = {'boxes': box}
+            data['identificationInfo']['geographicElementSecondary'].append(new_box)
         data['identificationInfo']['geographicElement']['boxes'] = [boxes[0]]
     return data
 
 
 def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=True, fieldKey=None):
     # indicates that the spec allows more than one value for this node
-    if is_many(spec):
-        # sets many to false on the spec, because the spec is passed into the subsequent data_to_xml call
-        set_many(spec, False)
+    if is_array(spec):
         container_xpath = get_container(spec)
         container_node = xml_node.xpath(container_xpath, namespaces=nsmap)
         if is_fanout(spec):
             for i in range(len(container_node)):
-                data_to_xml(data=data, xml_node=xml_node, spec=spec, nsmap=nsmap,
+                data_to_xml(data=data, xml_node=xml_node, spec=get_items(spec), nsmap=nsmap,
                             element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
         else:
             if len(container_node) < 1:
@@ -422,7 +358,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
             # call data_to_xml once for each item in the data
             for i, item in enumerate(data):
                 mount_node.insert(mount_index + i, deepcopy(template))
-                data_to_xml(data=item, xml_node=xml_node, spec=spec, nsmap=nsmap,
+                data_to_xml(data=item, xml_node=xml_node, spec=get_items(spec), nsmap=nsmap,
                             element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
 
     # export can be false with an exportTo function, i.e. don't do the default export, do this instead
@@ -434,9 +370,9 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
         spec, data = spec_data_from_batch(get_batch(spec), data)
         data_to_xml(data=data, xml_node=xml_node, spec=spec, nsmap=nsmap,
                     element_index=0, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
-    elif has_nodes(spec):
+    elif is_object(spec):
         xml_node = xml_node.xpath(get_xpath(spec), namespaces=nsmap)[element_index]
-        for field_key, node_spec in get_nodes(spec).items():
+        for field_key, node_spec in get_properties(spec).items():
             # workaround for a problem with identifiers in the final output
             # we need to write either the orcid or the uri to the XML file
             # but we can't do that at the node writing point, because we don't have the

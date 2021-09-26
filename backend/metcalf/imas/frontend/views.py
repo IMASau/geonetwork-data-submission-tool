@@ -1,3 +1,5 @@
+import datetime
+import os
 import shutil
 import stat
 from tempfile import TemporaryFile, NamedTemporaryFile
@@ -23,7 +25,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from metcalf.common.spec3 import *
+from metcalf.common import spec3
 from metcalf.common.utils import to_json, get_exception_message
 from metcalf.common.xmlutils3 import extract_fields, data_to_xml, extract_jsonschema
 from metcalf.imas.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
@@ -169,8 +171,8 @@ def bad_request(request, exception):
 def create_export_xml_string(doc, uuid):
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
-    spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
-    data = split_geographic_extents(data)
+    spec = spec3.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    data = spec3.split_geographic_extents(data)
     data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                 element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     return etree.tostring(xml)
@@ -214,8 +216,8 @@ def mef(request, uuid):
     is_document_editor(request, doc)
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
-    spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
-    data = split_geographic_extents(data)
+    spec = spec3.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    data = spec3.split_geographic_extents(data)
     data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                 element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     response = HttpResponse(content_type="application/x-mef")
@@ -349,7 +351,7 @@ def institutionFromData(data):
 def save(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
     is_document_editor(request, doc)
-    spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    spec = spec3.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
     try:
         data = request.data
         doc.title = data['identificationInfo']['title'] or "Untitled"
@@ -374,7 +376,7 @@ def save(request, uuid):
             institutionFromData(citedResponsibleParty)
 
         # update the publication date
-        data['identificationInfo']['datePublication'] = today()
+        data['identificationInfo']['datePublication'] = spec3.today()
 
         inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
         inst.noteForDataManager = data['noteForDataManager'] or ''
@@ -411,7 +413,7 @@ def save(request, uuid):
 def edit(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
     is_document_editor(request, doc)
-    spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    spec = spec3.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
 
     draft = doc.draftmetadata_set.all()[0]
     data = to_json(draft.data)

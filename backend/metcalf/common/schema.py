@@ -16,7 +16,7 @@ def walk(inner, outer, form):
     if ret.get('type') == 'array':
         ret['items'] = inner(ret['items'])
     elif ret.get('type') == 'object':
-        ret['properties'] = {k: inner(v) for (k, v) in ret['properties'].items()}
+        ret['properties'] = update_vals(ret['properties'], inner)
     return outer(ret)
 
 

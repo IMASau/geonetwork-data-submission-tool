@@ -109,48 +109,48 @@
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
 (set! low-code/component-registry
-      {'metcalf3.view/DataParametersTable         views/DataParametersTable
-       'metcalf3.view/CheckboxField               views/CheckboxField
-       'metcalf3.view/date-field-with-label       views/date-field-with-label
-       'metcalf3.view/textarea-field-with-label   views/textarea-field-with-label
-       'metcalf3.view/UseLimitations              views/UseLimitations
-       'metcalf3.view/select-field-with-label     views/select-field-with-label
-       'metcalf3.view/NasaListSelectField         views/NasaListSelectField
-       'metcalf3.view/GeographicCoverage          views/GeographicCoverage
-       'metcalf3.view/DataSources                 views/DataSources
-       'metcalf3.view/PageErrors                  views/PageErrors
-       'metcalf3.view/VerticalCoverage            views/VerticalCoverage
-       'metcalf3.view/TopicCategories             views/TopicCategories
-       'metcalf3.view/ResourceConstraints         views/ResourceConstraints
-       'metcalf3.view/input-field-with-label      views/input-field-with-label
-       'metcalf3.view/IMASLodge                   views/IMASLodge
-       'metcalf3.view/IMASSupportingResource      views/IMASSupportingResource
-       'metcalf3.view/IMASSupplementalInformation views/IMASSupplementalInformation
-       'metcalf3.view/TaxonKeywordsExtra          views/TaxonKeywordsExtra
-       'metcalf3.view/ThemeKeywords               views/ThemeKeywords
-       'metcalf3.view/ThemeKeywordsExtra          views/ThemeKeywordsExtra
-       'metcalf3.view/UploadData                  views/UploadData
-       'metcalf3.view/Who                         views/Who
+      {'m3/DataParametersTable         views/DataParametersTable
+       'm3/CheckboxField               views/CheckboxField
+       'm3/date-field-with-label       views/date-field-with-label
+       'm3/textarea-field-with-label   views/textarea-field-with-label
+       'm3/UseLimitations              views/UseLimitations
+       'm3/select-field-with-label     views/select-field-with-label
+       'm3/NasaListSelectField         views/NasaListSelectField
+       'm3/GeographicCoverage          views/GeographicCoverage
+       'm3/DataSources                 views/DataSources
+       'm3/PageErrors                  views/PageErrors
+       'm3/VerticalCoverage            views/VerticalCoverage
+       'm3/TopicCategories             views/TopicCategories
+       'm3/ResourceConstraints         views/ResourceConstraints
+       'm3/input-field-with-label      views/input-field-with-label
+       'm3/IMASLodge                   views/IMASLodge
+       'm3/IMASSupportingResource      views/IMASSupportingResource
+       'm3/IMASSupplementalInformation views/IMASSupplementalInformation
+       'm3/TaxonKeywordsExtra          views/TaxonKeywordsExtra
+       'm3/ThemeKeywords               views/ThemeKeywords
+       'm3/ThemeKeywordsExtra          views/ThemeKeywordsExtra
+       'm3/UploadData                  views/UploadData
+       'm3/Who                         views/Who
        })
 (set! low-code/template-registry
       '{:data-identification
         [:div
-         [metcalf3.view/PageErrors {:page :data-identification :path [:form]}]
+         [m3/PageErrors {:page :data-identification :path [:form]}]
          [:h2 "1. Data Identification"]
-         [metcalf3.view/input-field-with-label
+         [m3/input-field-with-label
           {:form-id    [:form :fields]
            :data-path  [:identificationInfo :title]
            :label      "Title"
            :helperText "Clear and concise description of the content of the resource"
            :required   true}]
-         [metcalf3.view/date-field-with-label
+         [m3/date-field-with-label
           {:form-id   [:form :fields]
            :data-path [:identificationInfo :dateCreation]
            :label     "Date of record creation"
            :required  true
            :minDate   #inst "1900-01-01"
            :maxDate   #inst "2100-01-01"}]
-         [metcalf3.view/select-field-with-label
+         [m3/select-field-with-label
           {:form-id   [:form :fields]
            :data-path [:identificationInfo :topicCategory]
            :label     "Topic categories"
@@ -160,7 +160,7 @@
                        ["oceans" "oceans"]
                        ["geoscientificInformation" "geoscientificInformation"]
                        ["inlandWater" "inlandWater"]]}]
-         [metcalf3.view/select-field-with-label
+         [m3/select-field-with-label
           {:form-id   [:form :fields]
            :data-path [:identificationInfo :status]
            :label     "Status of data"
@@ -168,7 +168,7 @@
            :options   [["onGoing" "ongoing"]
                        ["planned" "planned"]
                        ["completed" "completed"]]}]
-         [metcalf3.view/select-field-with-label
+         [m3/select-field-with-label
           {:form-id   [:form :fields]
            :data-path [:identificationInfo :maintenanceAndUpdateFrequency]
            :label     "Maintenance and update frequency"
@@ -192,10 +192,10 @@
 
         :what
         [:div
-         [metcalf3.view/PageErrors {:page :what :path [:form]}]
+         [m3/PageErrors {:page :what :path [:form]}]
          [:h2 "2. What"]
          [:span.abstract-textarea
-          [metcalf3.view/textarea-field-with-label
+          [m3/textarea-field-with-label
            {:form-id     [:form :fields]
             :data-path   [:identificationInfo :abstract]
             :label       "Abstract"
@@ -204,26 +204,26 @@
             ;; FIXME this isn't enforced.
             :maxLength   2500
             :required    true}]]
-         [metcalf3.view/ThemeKeywords :keywordsTheme]
+         [m3/ThemeKeywords :keywordsTheme]
          ;; FIXME Anzsrc should be optional, but this required doesn't hook up to anything.
-         [metcalf3.view/ThemeKeywords :keywordsThemeAnzsrc {:required false}]
+         [m3/ThemeKeywords :keywordsThemeAnzsrc {:required false}]
          ;; TODO Add Geographic Extent vocab here.
-         [metcalf3.view/ThemeKeywordsExtra nil]
-         [metcalf3.view/TaxonKeywordsExtra nil]
+         [m3/ThemeKeywordsExtra nil]
+         [m3/TaxonKeywordsExtra nil]
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
         :when
         [:div
-         [metcalf3.view/PageErrors {:page :when :path [:form]}]
+         [m3/PageErrors {:page :when :path [:form]}]
          [:h2 "3. When was the data acquired?"]
-         [metcalf3.view/date-field-with-label
+         [m3/date-field-with-label
           {:form-id   [:form :fields]
            :data-path [:identificationInfo :beginPosition]
            :label     "Start date"
            :required  true
            :minDate   #inst "1900-01-01"
            :maxDate   #inst "2100-01-01"}]
-         [metcalf3.view/date-field-with-label
+         [m3/date-field-with-label
           {:form-id   [:form :fields]
            :data-path [:identificationInfo :endPosition]
            :label     "End date"
@@ -232,19 +232,19 @@
          [:div.row
           [:div.col-md-4
            ;; TODO does IMAS want the old sample frequency (min daily) or this one (min <1 second)?
-           [metcalf3.view/NasaListSelectField {:keyword   :samplingFrequency
+           [m3/NasaListSelectField {:keyword   :samplingFrequency
                                                :form-id   [:form :fields]
                                                :data-path [:identificationInfo]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
         [:div
-         [metcalf3.view/PageErrors {:page :where :path [:form]}]
+         [m3/PageErrors {:page :where :path [:form]}]
          [:h2 "4. Where"]
          ;; FIXME add toggle for satellite imagery.
          ;; FIXME hide the siteDescription textarea.
          ;; FIXME remove the "Grid to Geographic converter" link text
-         [metcalf3.view/GeographicCoverage nil]
+         [m3/GeographicCoverage nil]
          [:div.VerticalCoverage
           ;; FIXME use h3 not h4. Restyle if necessary.
           [:h4 "Vertical Coverage"]
@@ -252,14 +252,14 @@
            mdata-etcalf3.view/CheckboxField
            [:identificationInfo :verticalElement :hasVerticalExtent]]
           ;; FIXME hide the below fields when hasVerticalExtent checkbox is unchecked.
-          [metcalf3.view/input-field-with-label
+          [m3/input-field-with-label
            {:form-id    [:form :fields]
             :data-path  [:identificationInfo :verticalElement :minimumValue]
             :class      "wauto"
             :label      "Minimum (m)"
             :helperText "Shallowest depth / lowest altitude"
             :required   true}]
-          [metcalf3.view/input-field-with-label
+          [m3/input-field-with-label
            {:form-id    [:form :fields]
             :data-path  [:identificationInfo :verticalElement :maximumValue]
             :class      "wauto"
@@ -270,10 +270,10 @@
 
         :how
         [:div
-         [metcalf3.view/PageErrors {:page :how :path [:form]}]
+         [m3/PageErrors {:page :how :path [:form]}]
          [:h2 "5: How"]
          [:div.lineage-textarea
-          [metcalf3.view/textarea-field-with-label
+          [m3/textarea-field-with-label
            {:form-id     [:form :fields]
             :data-path   [:resourceLineage :lineage]
             :label       "Methodological information"
@@ -292,20 +292,20 @@
          ;; - Reduce Role codes
          ;; - Make Responsible Parties mandatory
          ;; FIXME Copy Person functionality isn't working.
-         [metcalf3.view/Who nil]
+         [m3/Who nil]
          [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
 
         :about
         [:div
-         [metcalf3.view/PageErrors {:page :about :path [:form]}]
+         [m3/PageErrors {:page :about :path [:form]}]
          [:h2 "7: About Dataset"]
          [:h4 "Data parameters"]
-         [metcalf3.view/DataParametersTable {:form-id   [:form :fields]
+         [m3/DataParametersTable {:form-id   [:form :fields]
                                              :data-path [:identificationInfo :dataParameters]}]
          [:br]
          [:h4 "Resource constraints"]
          ;; FIXME license selection isn't being included in XML export.
-         [metcalf3.view/select-field-with-label
+         [m3/select-field-with-label
           {:form-id   [:form :fields]
            :data-path [:identificationInfo :creativeCommons]
            :help      [:span "Learn more about which license is right for you at "
@@ -317,24 +317,24 @@
            :options   [["http://creativecommons.org/licenses/by/4.0/" "Creative Commons by Attribution (recommended​)"]
                        ["http://creativecommons.org/licenses/by-nc/4.0/" "Creative Commons, Non-commercial Use only"]
                        ["http://creativecommons.org/licenses/other" "Other constraints"]]}]
-         [metcalf3.view/input-field-with-label
+         [m3/input-field-with-label
           {:form-id     [:form :fields]
            :data-path   [:identificationInfo :otherConstraints]
            :label       "Additional license requirements"   ;; FIXME
            :placeholder "Enter additional license requirements"
            :required    true}]
 
-         [metcalf3.view/UseLimitations {:form-id   [:form :fields]
+         [m3/UseLimitations {:form-id   [:form :fields]
                                         :data-path [:identificationInfo :useLimitations]}]
          [:br]
          [:h4 "Supplemental information"]
          [:form-id [:form :fields]
           mdata-etcalf3.view/IMASSupplementalInformation [:identificationInfo :supplementalInformation]]
-         [metcalf3.view/IMASSupportingResource {:form-id   [:form :fields]
+         [m3/IMASSupportingResource {:form-id   [:form :fields]
                                                 :data-path [:supportingResources]}]
          [:br]
          [:h4 "Distribution"]
-         [metcalf3.view/input-field-with-label
+         [m3/input-field-with-label
           {:form-id     [:form :fields]
            :data-path   [:distributionInfo :distributionFormat :name]
            :label       "Data file format"
@@ -343,7 +343,7 @@
            :toolTip     nil
            :maxLength   100
            :required    nil}]
-         [metcalf3.view/input-field-with-label
+         [m3/input-field-with-label
           {:form-id     [:form :fields]
            :data-path   [:distributionInfo :distributionFormat :version]
            :label       "Data file format date/version"
@@ -356,20 +356,20 @@
 
         :upload
         [:div
-         [metcalf3.view/PageErrors {:page :upload :path [:form]}]
+         [m3/PageErrors {:page :upload :path [:form]}]
          [:h2 "8: Upload Data"]
-         [metcalf3.view/UploadData nil]
+         [m3/UploadData nil]
          [:h2 "Data Services"]
          ;; FIXME reduce protocol options to the below for IMAS:
          ;; [["OGC:WMS-1.3.0-http-get-map" "OGC Web Map Service (WMS)"]
          ;;  ["OGC:WFS-1.0.0-http-get-capabilities" "OGC Web Feature Service (WFS)"]
          ;;  ["WWW:LINK-1.0-http--downloaddata" "Other/unknown"]]
-         [metcalf3.view/DataSources {:form-id   [:form :fields]
+         [m3/DataSources {:form-id   [:form :fields]
                                      :data-path [:dataSources]}]
          [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
         :lodge
         [:div
-         [metcalf3.view/PageErrors {:page :lodge :path [:form]}]
+         [m3/PageErrors {:page :lodge :path [:form]}]
          [:h2 "9: Lodge Metadata Draft"]
-         [metcalf3.view/IMASLodge nil]]})
+         [m3/IMASLodge nil]]})

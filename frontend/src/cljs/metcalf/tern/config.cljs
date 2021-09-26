@@ -120,60 +120,60 @@
        "maintFreq"         rules/maint-freq
        "verticalRequired"  rules/vertical-required})
 (set! low-code/component-registry
-      {'metcalf3.view/DataParametersTable       views/DataParametersTable
-       'metcalf3.view/date-field-with-label     views/date-field-with-label
-       'metcalf3.view/textarea-field            views/textarea-field
-       'metcalf3.view/textarea-field-with-label views/textarea-field-with-label
-       'metcalf3.view/Methods                   views/Methods
-       'metcalf3.view/UseLimitations            views/UseLimitations
-       'metcalf3.view/SelectField               views/SelectField
-       'metcalf3.view/NasaListSelectField       views/NasaListSelectField
-       'metcalf3.view/GeographicCoverage        views/GeographicCoverage
-       'metcalf3.view/DataSources               views/DataSources
-       'metcalf3.view/PageErrors                views/PageErrors
-       'metcalf3.view/VerticalCoverage          views/VerticalCoverage
-       'metcalf3.view/TopicCategories           views/TopicCategories
-       'metcalf3.view/ResourceConstraints       views/ResourceConstraints
-       'metcalf3.view/input-field-with-label    views/input-field-with-label
-       'metcalf3.view/Lodge                     views/Lodge
-       'metcalf3.view/SupportingResource        views/SupportingResource
-       'metcalf3.view/SupplementalInformation   views/SupplementalInformation
-       'metcalf3.view/ThemeKeywords             views/ThemeKeywords
-       'metcalf3.view/UploadData                views/UploadData
-       'metcalf3.view/TaxonKeywordsExtra        views/TaxonKeywordsExtra
-       'metcalf3.view/Who                       views/Who
-       'metcalf3.view/ThemeKeywordsExtra        views/ThemeKeywordsExtra})
+      {'m3/DataParametersTable       views/DataParametersTable
+       'm3/date-field-with-label     views/date-field-with-label
+       'm3/textarea-field            views/textarea-field
+       'm3/textarea-field-with-label views/textarea-field-with-label
+       'm3/Methods                   views/Methods
+       'm3/UseLimitations            views/UseLimitations
+       'm3/SelectField               views/SelectField
+       'm3/NasaListSelectField       views/NasaListSelectField
+       'm3/GeographicCoverage        views/GeographicCoverage
+       'm3/DataSources               views/DataSources
+       'm3/PageErrors                views/PageErrors
+       'm3/VerticalCoverage          views/VerticalCoverage
+       'm3/TopicCategories           views/TopicCategories
+       'm3/ResourceConstraints       views/ResourceConstraints
+       'm3/input-field-with-label    views/input-field-with-label
+       'm3/Lodge                     views/Lodge
+       'm3/SupportingResource        views/SupportingResource
+       'm3/SupplementalInformation   views/SupplementalInformation
+       'm3/ThemeKeywords             views/ThemeKeywords
+       'm3/UploadData                views/UploadData
+       'm3/TaxonKeywordsExtra        views/TaxonKeywordsExtra
+       'm3/Who                       views/Who
+       'm3/ThemeKeywordsExtra        views/ThemeKeywordsExtra})
 (set! low-code/template-registry
       '{:data-identification
         [:div
-         [metcalf3.view/PageErrors {:page :data-identification :path [:form]}]
+         [m3/PageErrors {:page :data-identification :path [:form]}]
          [:h2 "1. Data Identification"]
-         [metcalf3.view/input-field-with-label
+         [m3/input-field-with-label
           {:form-id     [:form :fields]
            :data-path   [:identificationInfo :title]
            :label       "Title"
            :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
            :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
-         [metcalf3.view/date-field-with-label
+         [m3/date-field-with-label
           {:form-id   [:form :fields]
            :data-path [:identificationInfo :dateCreation]
            :label     "Date the resource was created"
            :required  true
            :minDate   #inst "1900-01-01"
            :maxDate   #inst "2100-01-01"}]
-         [metcalf3.view/TopicCategories {:form-id   [:form :fields]
+         [m3/TopicCategories {:form-id   [:form :fields]
                                          :data-path [:identificationInfo :topicCategory]}]
-         [metcalf3.view/SelectField {:form-id   [:form :fields]
+         [m3/SelectField {:form-id   [:form :fields]
                                      :data-path [:identificationInfo :status]}]
-         [metcalf3.view/SelectField {:form-id   [:form :fields]
+         [m3/SelectField {:form-id   [:form :fields]
                                      :data-path [:identificationInfo :maintenanceAndUpdateFrequency]}]
          [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what
         [:div
-         [metcalf3.view/PageErrors {:page :what :path [:form]}]
+         [m3/PageErrors {:page :what :path [:form]}]
          [:h2 "2. What"]
-         [metcalf3.view/textarea-field-with-label
+         [m3/textarea-field-with-label
           {:form-id     [:form :fields]
            :data-path   [:identificationInfo :abstract]
            :label       "Abstract"
@@ -182,7 +182,7 @@
            :toolTip     "Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected."
            :maxLength   2500
            :required    true}]
-         [metcalf3.view/textarea-field-with-label
+         [m3/textarea-field-with-label
           {:form-id     [:form :fields]
            :data-path   [:identificationInfo :purpose]
            :label       "Purpose"
@@ -190,24 +190,24 @@
            :maxLength   1000
            :helperText  "Brief statement about the purpose of the study"
            :toolTip     "The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"}]
-         [metcalf3.view/ThemeKeywords :keywordsTheme]
-         [metcalf3.view/ThemeKeywords :keywordsThemeAnzsrc]
-         [metcalf3.view/ThemeKeywordsExtra nil]
-         [metcalf3.view/TaxonKeywordsExtra nil]
+         [m3/ThemeKeywords :keywordsTheme]
+         [m3/ThemeKeywords :keywordsThemeAnzsrc]
+         [m3/ThemeKeywordsExtra nil]
+         [m3/TaxonKeywordsExtra nil]
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
         :when
         [:div
-         [metcalf3.view/PageErrors {:page :when :path [:form]}]
+         [m3/PageErrors {:page :when :path [:form]}]
          [:h2 "3. When was the data acquired?"]
-         [metcalf3.view/date-field-with-label
+         [m3/date-field-with-label
           {:form-id   [:form :fields]
            :data-path [:identificationInfo :beginPosition]
            :label     "Start date"
            :required  true
            :minDate   #inst "1900-01-01"
            :maxDate   #inst "2100-01-01"}]
-         [metcalf3.view/date-field-with-label
+         [m3/date-field-with-label
           {:form-id   [:form :fields]
            :data-path [:identificationInfo :endPosition]
            :label     "End date"
@@ -216,35 +216,35 @@
            :maxDate   #inst "2100-01-01"}]
          [:div.row
           [:div.col-md-4
-           [metcalf3.view/NasaListSelectField {:keyword   :samplingFrequency
+           [m3/NasaListSelectField {:keyword   :samplingFrequency
                                                :form-id   [:form :fields]
                                                :data-path [:identificationInfo]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
         [:div
-         [metcalf3.view/PageErrors {:page :where :path [:form]}]
+         [m3/PageErrors {:page :where :path [:form]}]
          [:h2 "4. Where"]
-         [metcalf3.view/GeographicCoverage nil]
-         [metcalf3.view/VerticalCoverage]
+         [m3/GeographicCoverage nil]
+         [m3/VerticalCoverage]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
         :who
         [:div
-         [metcalf3.view/Who nil]
+         [m3/Who nil]
          [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
 
         :how
         [:div
-         [metcalf3.view/PageErrors {:page :how :path [:form]}]
+         [m3/PageErrors {:page :how :path [:form]}]
          [:h2 "5: How"]
-         [metcalf3.view/Methods {:form-id   [:form :fields]
+         [m3/Methods {:form-id   [:form :fields]
                                  :data-path [:resourceLineage :processStep]}]
-         [metcalf3.view/textarea-field-with-label
+         [m3/textarea-field-with-label
           {:form-id   [:form :fields]
            :data-path [:dataQualityInfo :methods]
            :label     "Method"}]
-         [metcalf3.view/textarea-field-with-label
+         [m3/textarea-field-with-label
           {:form-id     [:form :fields]
            :data-path   [:dataQualityInfo :results]
            :label       "Data Quality Results"
@@ -256,32 +256,32 @@
 
         :about
         [:div
-         [metcalf3.view/PageErrors {:page :about :path [:form]}]
+         [m3/PageErrors {:page :about :path [:form]}]
          [:h2 "7: About Dataset"]
          [:h4 "Data parameters"]
-         [metcalf3.view/DataParametersTable {:form-id   [:form :fields]
+         [m3/DataParametersTable {:form-id   [:form :fields]
                                              :data-path [:identificationInfo :dataParameters]}]
          [:br]
          [:h4 "Pixel Size"]
          [:div.row
           [:div.col-md-6
-           [metcalf3.view/NasaListSelectField {:keyword   :horizontalResolution
+           [m3/NasaListSelectField {:keyword   :horizontalResolution
                                                :form-id   [:form :fields]
                                                :data-path [:identificationInfo]}]]]
          [:br]
          [:h4 "Resource constraints"]
-         [metcalf3.view/ResourceConstraints]
-         [metcalf3.view/UseLimitations {:form-id   [:form :fields]
+         [m3/ResourceConstraints]
+         [m3/UseLimitations {:form-id   [:form :fields]
                                         :data-path [:identificationInfo :useLimitations]}]
          [:br]
          [:h4 "Supplemental information"]
-         [metcalf3.view/SupportingResource {:form-id   [:form :fields]
+         [m3/SupportingResource {:form-id   [:form :fields]
                                             :data-path [:supportingResources]}]
          [:form-id [:form :fields]
           mdata-etcalf3.view/SupplementalInformation [:identificationInfo :supplementalInformation]]
          [:br]
          [:h4 "Distribution"]
-         [metcalf3.view/input-field-with-label
+         [m3/input-field-with-label
           {:form-id     [:form :fields]
            :data-path   [:distributionInfo :distributionFormat :name]
            :label       "Data file format"
@@ -290,7 +290,7 @@
            :toolTip     nil
            :maxLength   100
            :required    nil}]
-         [metcalf3.view/input-field-with-label
+         [m3/input-field-with-label
           {:form-id     [:form :fields]
            :data-path   [:distributionInfo :distributionFormat :version]
            :label       "Data file format date/version"
@@ -299,7 +299,7 @@
            :toolTip     nil
            :maxLength   20
            :required    nil}]
-         [metcalf3.view/textarea-field-with-label
+         [m3/textarea-field-with-label
           {:form-id     [:form :fields]
            :data-path   [:resourceLineage :lineage]
            :label       "Lineage"
@@ -310,16 +310,16 @@
 
         :upload
         [:div
-         [metcalf3.view/PageErrors {:page :upload :path [:form]}]
+         [m3/PageErrors {:page :upload :path [:form]}]
          [:h2 "8: Upload Data"]
-         [metcalf3.view/UploadData nil]
+         [m3/UploadData nil]
          [:h2 "Data Services"]
-         [metcalf3.view/DataSources {:form-id   [:form :fields]
+         [m3/DataSources {:form-id   [:form :fields]
                                      :data-path [:dataSources]}]
          [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
         :lodge
         [:div
-         [metcalf3.view/PageErrors {:page :lodge :path [:form]}]
+         [m3/PageErrors {:page :lodge :path [:form]}]
          [:h2 "9: Lodge Metadata Draft"]
-         [metcalf3.view/Lodge nil]]})
+         [m3/Lodge nil]]})

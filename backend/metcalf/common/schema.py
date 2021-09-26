@@ -59,3 +59,11 @@ def remove_comment(schema):
     if isinstance(schema, dict):
         schema.pop(SpecialKeys.comment, None)
     return schema
+
+
+def extract_field(schema):
+    return select_keys(schema, ['type', 'rules', 'default', 'items', 'properties'])
+
+
+def extract_fields(schema):
+    return postwalk(extract_field, schema)

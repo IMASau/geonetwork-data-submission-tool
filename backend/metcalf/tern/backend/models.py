@@ -18,7 +18,7 @@ from rest_framework.renderers import JSONRenderer
 from metcalf.common.emails import *
 from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, AbstractDocument, AbstractContributor, \
     AbstractMetadataTemplate, AbstractMetadataTemplateMapper, AbstractDraftMetadata
-from metcalf.common.spec3 import make_spec
+from metcalf.common import spec3
 from metcalf.common.utils import to_json, get_exception_message, get_user_name
 from metcalf.common.xmlutils3 import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
 
@@ -31,7 +31,7 @@ class MetadataTemplateMapper(AbstractMetadataTemplateMapper):
 
     def clean(self):
         try:
-            spec = make_spec(science_keyword=ScienceKeyword, mapper=self)
+            spec = spec3.make_spec(science_keyword=ScienceKeyword, mapper=self)
         except Exception as e:
             traceback.print_exc()
             raise ValidationError({'file': get_exception_message(e)})
@@ -42,7 +42,7 @@ class MetadataTemplate(AbstractMetadataTemplate):
     def clean(self):
         try:
             tree = etree.fromstring(self.file.read())
-            spec = make_spec(science_keyword=ScienceKeyword, mapper=self.mapper)
+            spec = spec3.make_spec(science_keyword=ScienceKeyword, mapper=self.mapper)
             fields = extract_fields(tree, spec)
             data = extract_xml_data(tree, spec)
             # FIXME data_to_xml will validate presence of all nodes in the template, but only when data is fully mocked up
@@ -173,7 +173,7 @@ class Document(AbstractDocument):
             super(Document, self).save(*args, **kwargs)
 
             tree = etree.parse(self.template.file.path)
-            spec = make_spec(science_keyword=ScienceKeyword, uuid=self.uuid, mapper=self.template.mapper)
+            spec = spec3.make_spec(science_keyword=ScienceKeyword, uuid=self.uuid, mapper=self.template.mapper)
             data = extract_xml_data(tree, spec)
             # make sure there is no newline in self.title
             if self.title:
@@ -199,7 +199,7 @@ class Document(AbstractDocument):
         try:
             data = to_json(self.latest_draft.data)
             xml = etree.parse(self.template.file.path)
-            spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=self.template.mapper)
+            spec = spec3.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=self.template.mapper)
             data = split_geographic_extents(data)
             data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                         element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)

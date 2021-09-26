@@ -16,9 +16,8 @@ from rest_framework.renderers import JSONRenderer
 from metcalf.common.emails import *
 from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, AbstractDocument, AbstractContributor, \
     AbstractMetadataTemplate, AbstractMetadataTemplateMapper, AbstractDraftMetadata
-from metcalf.common import spec3
+from metcalf.common import spec3, xmlutils3
 from metcalf.common.utils import to_json, get_exception_message, get_user_name
-from metcalf.common.xmlutils3 import extract_xml_data, data_to_xml, extract_fields
 
 User.add_to_class("__str__", get_user_name)
 
@@ -41,12 +40,12 @@ class MetadataTemplate(AbstractMetadataTemplate):
         try:
             tree = etree.fromstring(self.file.read())
             spec = spec3.make_spec(science_keyword=ScienceKeyword, mapper=self.mapper)
-            fields = extract_fields(tree, spec)
-            data = extract_xml_data(tree, spec)
+            fields = xmlutils3.extract_fields(tree, spec)
+            data = xmlutils3.extract_xml_data(tree, spec)
             # FIXME data_to_xml will validate presence of all nodes in the template, but only when data is fully mocked up
             data = json.loads(JSONRenderer().render(data).decode('utf-8'))
-            data_to_xml(data=data, xml_node=tree, spec=spec, nsmap=spec['namespaces'],
-                        element_index=0, silent=True, fieldKey=None, doc_uuid='cleanmetadatatemplatetest')
+            xmlutils3.data_to_xml(data=data, xml_node=tree, spec=spec, nsmap=spec['namespaces'],
+                                  element_index=0, silent=True, fieldKey=None, doc_uuid='cleanmetadatatemplatetest')
 
         except Exception as e:
             traceback.print_exc()
@@ -167,7 +166,7 @@ class Document(AbstractDocument):
 
             tree = etree.parse(self.template.file.path)
             spec = spec3.make_spec(science_keyword=ScienceKeyword, uuid=self.uuid, mapper=self.template.mapper)
-            data = extract_xml_data(tree, spec)
+            data = xmlutils3.extract_xml_data(tree, spec)
             # make sure there is no newline in self.title
             if self.title:
                 self.title = self.title.replace('\n', ' ').strip()

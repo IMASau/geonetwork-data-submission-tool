@@ -3,13 +3,26 @@
             [clojure.string :as string]
             [interop.date :as date]))
 
-;NOTE: No rule ordering just now
-
 (def ^:dynamic rule-registry {})
-(defn get-rule-handler [ruleId] (get-in rule-registry [ruleId :handler] identity))
-(defn apply-rule [block ruleId ruleData] ((get-rule-handler ruleId) block ruleData))
-(defn req-rules [rules] (if (map? rules) (seq rules) (mapcat seq rules)))
-(defn apply-rules [block] (reduce-kv apply-rule block (req-rules (:rules block))))
+
+(defn get-rule-handler
+  [rule-id]
+  (get-in rule-registry [(name rule-id) :handler] identity))
+
+(defn apply-rule
+  [block rule-id rule-dta]
+  ((get-rule-handler rule-id) block rule-dta))
+
+(defn seq-rules
+  "Support rules as string, map and collection"
+  [rules]
+  (cond (string? rules) (seq {rules true})
+        (map? rules) (seq rules)
+        (vector? rules) (mapcat seq-rules rules)))
+
+(defn apply-rules
+  [block]
+  (reduce-kv apply-rule block (seq-rules (:rules block))))
 
 (def empty-values #{nil "" [] {} #{}})
 

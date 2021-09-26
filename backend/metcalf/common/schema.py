@@ -61,6 +61,10 @@ def remove_comment(schema):
     return schema
 
 
+def remove_comments(schema):
+    return postwalk(remove_comment, schema)
+
+
 def extract_field(schema):
     return select_keys(schema, ['type', 'rules', 'default', 'items', 'properties'])
 

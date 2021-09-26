@@ -138,51 +138,56 @@
          [metcalf3.view/PageErrors {:page :data-identification :path [:form]}]
          [:h2 "1. Data Identification"]
          [metcalf3.view/input-field-with-label
-          {:path       [:form :fields :identificationInfo :title]
+          {:form-id    [:form :fields]
+           :data-path  [:identificationInfo :title]
            :label      "Title"
            :helperText "Clear and concise description of the content of the resource"
            :required   true}]
          [metcalf3.view/date-field-with-label
-          {:path     [:form :fields :identificationInfo :dateCreation]
-           :label    "Date of record creation"
-           :required true
-           :minDate  #inst "1900-01-01"
-           :maxDate  #inst "2100-01-01"}]
+          {:form-id   [:form :fields]
+           :data-path [:identificationInfo :dateCreation]
+           :label     "Date of record creation"
+           :required  true
+           :minDate   #inst "1900-01-01"
+           :maxDate   #inst "2100-01-01"}]
          [metcalf3.view/select-field-with-label
-          {:path     [:form :fields :identificationInfo :topicCategory]
-           :label    "Topic categories"
-           :required true
-           :options  [["biota" "biota"]
-                      ["climatology/meteorology/atmosphere" "climatology/meteorology/atmosphere"]
-                      ["oceans" "oceans"]
-                      ["geoscientificInformation" "geoscientificInformation"]
-                      ["inlandWater" "inlandWater"]]}]
+          {:form-id   [:form :fields]
+           :data-path [:identificationInfo :topicCategory]
+           :label     "Topic categories"
+           :required  true
+           :options   [["biota" "biota"]
+                       ["climatology/meteorology/atmosphere" "climatology/meteorology/atmosphere"]
+                       ["oceans" "oceans"]
+                       ["geoscientificInformation" "geoscientificInformation"]
+                       ["inlandWater" "inlandWater"]]}]
          [metcalf3.view/select-field-with-label
-          {:path     [:form :fields :identificationInfo :status]
-           :label    "Status of data"
-           :required true
-           :options  [["onGoing" "ongoing"]
-                      ["planned" "planned"]
-                      ["completed" "completed"]]}]
+          {:form-id   [:form :fields]
+           :data-path [:identificationInfo :status]
+           :label     "Status of data"
+           :required  true
+           :options   [["onGoing" "ongoing"]
+                       ["planned" "planned"]
+                       ["completed" "completed"]]}]
          [metcalf3.view/select-field-with-label
-          {:path     [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]
-           :label    "Maintenance and update frequency"
-           :required true
-           :options  [["continually" "Continually"]
-                      ["daily" "Daily"]
-                      ["weekly" "Weekly"]
-                      ["fortnightly" "Fortnightly"]
-                      ["monthly" "Monthly"]
-                      ["quarterly" "Quarterly"]
-                      ["biannually" "Twice each year"]
-                      ["annually" "Annually"]
-                      ["asNeeded" "As required"]
-                      ["irregular" "Irregular"]
-                      ["notPlanned" "None planned"]
-                      ["unknown" "Unknown"]
-                      ["periodic" "Periodic"]
-                      ["semimonthly" "Twice a month"]
-                      ["biennially" "Every 2 years"]]}]
+          {:form-id   [:form :fields]
+           :data-path [:identificationInfo :maintenanceAndUpdateFrequency]
+           :label     "Maintenance and update frequency"
+           :required  true
+           :options   [["continually" "Continually"]
+                       ["daily" "Daily"]
+                       ["weekly" "Weekly"]
+                       ["fortnightly" "Fortnightly"]
+                       ["monthly" "Monthly"]
+                       ["quarterly" "Quarterly"]
+                       ["biannually" "Twice each year"]
+                       ["annually" "Annually"]
+                       ["asNeeded" "As required"]
+                       ["irregular" "Irregular"]
+                       ["notPlanned" "None planned"]
+                       ["unknown" "Unknown"]
+                       ["periodic" "Periodic"]
+                       ["semimonthly" "Twice a month"]
+                       ["biennially" "Every 2 years"]]}]
          [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what
@@ -191,7 +196,8 @@
          [:h2 "2. What"]
          [:span.abstract-textarea
           [metcalf3.view/textarea-field-with-label
-           {:path        [:form :fields :identificationInfo :abstract]
+           {:form-id     [:form :fields]
+            :data-path   [:identificationInfo :abstract]
             :label       "Abstract"
             :placeholder nil
             :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"
@@ -211,21 +217,24 @@
          [metcalf3.view/PageErrors {:page :when :path [:form]}]
          [:h2 "3. When was the data acquired?"]
          [metcalf3.view/date-field-with-label
-          {:path     [:form :fields :identificationInfo :beginPosition]
-           :label    "Start date"
-           :required true
-           :minDate  #inst "1900-01-01"
-           :maxDate  #inst "2100-01-01"}]
+          {:form-id   [:form :fields]
+           :data-path [:identificationInfo :beginPosition]
+           :label     "Start date"
+           :required  true
+           :minDate   #inst "1900-01-01"
+           :maxDate   #inst "2100-01-01"}]
          [metcalf3.view/date-field-with-label
-          {:path    [:form :fields :identificationInfo :endPosition]
-           :label   "End date"
-           :minDate #inst "1900-01-01"
-           :maxDate #inst "2100-01-01"}]
+          {:form-id   [:form :fields]
+           :data-path [:identificationInfo :endPosition]
+           :label     "End date"
+           :minDate   #inst "1900-01-01"
+           :maxDate   #inst "2100-01-01"}]
          [:div.row
           [:div.col-md-4
            ;; TODO does IMAS want the old sample frequency (min daily) or this one (min <1 second)?
-           [metcalf3.view/NasaListSelectField {:keyword :samplingFrequency
-                                               :path    [:form :fields :identificationInfo]}]]]
+           [metcalf3.view/NasaListSelectField {:keyword   :samplingFrequency
+                                               :form-id   [:form :fields]
+                                               :data-path [:identificationInfo]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
@@ -239,17 +248,20 @@
          [:div.VerticalCoverage
           ;; FIXME use h3 not h4. Restyle if necessary.
           [:h4 "Vertical Coverage"]
-          [metcalf3.view/CheckboxField
-           [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]]
+          [:form-id [:form :fields]
+           mdata-etcalf3.view/CheckboxField
+           [:identificationInfo :verticalElement :hasVerticalExtent]]
           ;; FIXME hide the below fields when hasVerticalExtent checkbox is unchecked.
           [metcalf3.view/input-field-with-label
-           {:path       [:form :fields :identificationInfo :verticalElement :minimumValue]
+           {:form-id    [:form :fields]
+            :data-path  [:identificationInfo :verticalElement :minimumValue]
             :class      "wauto"
             :label      "Minimum (m)"
             :helperText "Shallowest depth / lowest altitude"
             :required   true}]
           [metcalf3.view/input-field-with-label
-           {:path       [:form :fields :identificationInfo :verticalElement :maximumValue]
+           {:form-id    [:form :fields]
+            :data-path  [:identificationInfo :verticalElement :maximumValue]
             :class      "wauto"
             :label      "Maximum (m)"
             :helperText "Deepest depth / highest altitude"
@@ -262,7 +274,8 @@
          [:h2 "5: How"]
          [:div.lineage-textarea
           [metcalf3.view/textarea-field-with-label
-           {:path        [:form :fields :resourceLineage :lineage]
+           {:form-id     [:form :fields]
+            :data-path   [:resourceLineage :lineage]
             :label       "Methodological information"
             :placeholder nil
             :helperText  "Provide a brief statement of the methods used for collection of the
@@ -287,36 +300,43 @@
          [metcalf3.view/PageErrors {:page :about :path [:form]}]
          [:h2 "7: About Dataset"]
          [:h4 "Data parameters"]
-         [metcalf3.view/DataParametersTable {:path [:form :fields :identificationInfo :dataParameters]}]
+         [metcalf3.view/DataParametersTable {:form-id   [:form :fields]
+                                             :data-path [:identificationInfo :dataParameters]}]
          [:br]
          [:h4 "Resource constraints"]
          ;; FIXME license selection isn't being included in XML export.
          [metcalf3.view/select-field-with-label
-          {:path     [:form :fields :identificationInfo :creativeCommons]
-           :help     [:span "Learn more about which license is right for you at "
-                      [:a {:href   "https://creativecommons.org/choose/"
-                           :target "_blank"}
-                       "Creative Commons"]]
-           :label    "License"
-           :required true
-           :options  [["http://creativecommons.org/licenses/by/4.0/" "Creative Commons by Attribution (recommended​)"]
-                      ["http://creativecommons.org/licenses/by-nc/4.0/" "Creative Commons, Non-commercial Use only"]
-                      ["http://creativecommons.org/licenses/other" "Other constraints"]]}]
+          {:form-id   [:form :fields]
+           :data-path [:identificationInfo :creativeCommons]
+           :help      [:span "Learn more about which license is right for you at "
+                       [:a {:href   "https://creativecommons.org/choose/"
+                            :target "_blank"}
+                        "Creative Commons"]]
+           :label     "License"
+           :required  true
+           :options   [["http://creativecommons.org/licenses/by/4.0/" "Creative Commons by Attribution (recommended​)"]
+                       ["http://creativecommons.org/licenses/by-nc/4.0/" "Creative Commons, Non-commercial Use only"]
+                       ["http://creativecommons.org/licenses/other" "Other constraints"]]}]
          [metcalf3.view/input-field-with-label
-          {:path        [:form :fields :identificationInfo :otherConstraints]
+          {:form-id     [:form :fields]
+           :data-path   [:identificationInfo :otherConstraints]
            :label       "Additional license requirements"   ;; FIXME
            :placeholder "Enter additional license requirements"
            :required    true}]
 
-         [metcalf3.view/UseLimitations {:path [:form :fields :identificationInfo :useLimitations]}]
+         [metcalf3.view/UseLimitations {:form-id   [:form :fields]
+                                        :data-path [:identificationInfo :useLimitations]}]
          [:br]
          [:h4 "Supplemental information"]
-         [metcalf3.view/IMASSupplementalInformation [:form :fields :identificationInfo :supplementalInformation]]
-         [metcalf3.view/IMASSupportingResource {:path [:form :fields :supportingResources]}]
+         [:form-id [:form :fields]
+          mdata-etcalf3.view/IMASSupplementalInformation [:identificationInfo :supplementalInformation]]
+         [metcalf3.view/IMASSupportingResource {:form-id   [:form :fields]
+                                                :data-path [:supportingResources]}]
          [:br]
          [:h4 "Distribution"]
          [metcalf3.view/input-field-with-label
-          {:path        [:form :fields :distributionInfo :distributionFormat :name]
+          {:form-id     [:form :fields]
+           :data-path   [:distributionInfo :distributionFormat :name]
            :label       "Data file format"
            :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
            :helperText  nil
@@ -324,7 +344,8 @@
            :maxLength   100
            :required    nil}]
          [metcalf3.view/input-field-with-label
-          {:path        [:form :fields :distributionInfo :distributionFormat :version]
+          {:form-id     [:form :fields]
+           :data-path   [:distributionInfo :distributionFormat :version]
            :label       "Data file format date/version"
            :placeholder "Date format date or version if applicable"
            :helperText  nil
@@ -343,7 +364,8 @@
          ;; [["OGC:WMS-1.3.0-http-get-map" "OGC Web Map Service (WMS)"]
          ;;  ["OGC:WFS-1.0.0-http-get-capabilities" "OGC Web Feature Service (WFS)"]
          ;;  ["WWW:LINK-1.0-http--downloaddata" "Other/unknown"]]
-         [metcalf3.view/DataSources {:path [:form :fields :dataSources]}]
+         [metcalf3.view/DataSources {:form-id   [:form :fields]
+                                     :data-path [:dataSources]}]
          [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
         :lodge

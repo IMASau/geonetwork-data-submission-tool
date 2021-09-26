@@ -149,19 +149,24 @@
          [metcalf3.view/PageErrors {:page :data-identification :path [:form]}]
          [:h2 "1. Data Identification"]
          [metcalf3.view/input-field-with-label
-          {:path        [:form :fields :identificationInfo :title]
+          {:form-id     [:form :fields]
+           :data-path   [:identificationInfo :title]
            :label       "Title"
            :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
            :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
          [metcalf3.view/date-field-with-label
-          {:path     [:form :fields :identificationInfo :dateCreation]
-           :label    "Date the resource was created"
-           :required true
-           :minDate  #inst "1900-01-01"
-           :maxDate  #inst "2100-01-01"}]
-         [metcalf3.view/TopicCategories {:path [:form :fields :identificationInfo :topicCategory]}]
-         [metcalf3.view/SelectField {:path [:form :fields :identificationInfo :status]}]
-         [metcalf3.view/SelectField {:path [:form :fields :identificationInfo :maintenanceAndUpdateFrequency]}]
+          {:form-id   [:form :fields]
+           :data-path [:identificationInfo :dateCreation]
+           :label     "Date the resource was created"
+           :required  true
+           :minDate   #inst "1900-01-01"
+           :maxDate   #inst "2100-01-01"}]
+         [metcalf3.view/TopicCategories {:form-id   [:form :fields]
+                                         :data-path [:identificationInfo :topicCategory]}]
+         [metcalf3.view/SelectField {:form-id   [:form :fields]
+                                     :data-path [:identificationInfo :status]}]
+         [metcalf3.view/SelectField {:form-id   [:form :fields]
+                                     :data-path [:identificationInfo :maintenanceAndUpdateFrequency]}]
          [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what
@@ -169,7 +174,8 @@
          [metcalf3.view/PageErrors {:page :what :path [:form]}]
          [:h2 "2. What"]
          [metcalf3.view/textarea-field-with-label
-          {:path        [:form :fields :identificationInfo :abstract]
+          {:form-id     [:form :fields]
+           :data-path   [:identificationInfo :abstract]
            :label       "Abstract"
            :placeholder "Provide a brief summary of What, Where, When, Why, Who and How for the collected the data."
            :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"
@@ -177,7 +183,8 @@
            :maxLength   2500
            :required    true}]
          [metcalf3.view/textarea-field-with-label
-          {:path        [:form :fields :identificationInfo :purpose]
+          {:form-id     [:form :fields]
+           :data-path   [:identificationInfo :purpose]
            :label       "Purpose"
            :placeholder "Provide a brief summary of the purpose for collecting the data including the potential use."
            :maxLength   1000
@@ -194,21 +201,24 @@
          [metcalf3.view/PageErrors {:page :when :path [:form]}]
          [:h2 "3. When was the data acquired?"]
          [metcalf3.view/date-field-with-label
-          {:path     [:form :fields :identificationInfo :beginPosition]
-           :label    "Start date"
-           :required true
-           :minDate  #inst "1900-01-01"
-           :maxDate  #inst "2100-01-01"}]
+          {:form-id   [:form :fields]
+           :data-path [:identificationInfo :beginPosition]
+           :label     "Start date"
+           :required  true
+           :minDate   #inst "1900-01-01"
+           :maxDate   #inst "2100-01-01"}]
          [metcalf3.view/date-field-with-label
-          {:path     [:form :fields :identificationInfo :endPosition]
-           :label    "End date"
-           :required true
-           :minDate  #inst "1900-01-01"
-           :maxDate  #inst "2100-01-01"}]
+          {:form-id   [:form :fields]
+           :data-path [:identificationInfo :endPosition]
+           :label     "End date"
+           :required  true
+           :minDate   #inst "1900-01-01"
+           :maxDate   #inst "2100-01-01"}]
          [:div.row
           [:div.col-md-4
-           [metcalf3.view/NasaListSelectField {:keyword :samplingFrequency
-                                               :path    [:form :fields :identificationInfo]}]]]
+           [metcalf3.view/NasaListSelectField {:keyword   :samplingFrequency
+                                               :form-id   [:form :fields]
+                                               :data-path [:identificationInfo]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
@@ -228,12 +238,15 @@
         [:div
          [metcalf3.view/PageErrors {:page :how :path [:form]}]
          [:h2 "5: How"]
-         [metcalf3.view/Methods {:path [:form :fields :resourceLineage :processStep]}]
+         [metcalf3.view/Methods {:form-id   [:form :fields]
+                                 :data-path [:resourceLineage :processStep]}]
          [metcalf3.view/textarea-field-with-label
-          {:path  [:form :fields :dataQualityInfo :methods]
-           :label "Method"}]
+          {:form-id   [:form :fields]
+           :data-path [:dataQualityInfo :methods]
+           :label     "Method"}]
          [metcalf3.view/textarea-field-with-label
-          {:path        [:form :fields :dataQualityInfo :results]
+          {:form-id     [:form :fields]
+           :data-path   [:dataQualityInfo :results]
            :label       "Data Quality Results"
            :placeholder "Provide a statement regarding the data quality assessment results."
            :toolTip     "Example: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."
@@ -246,25 +259,31 @@
          [metcalf3.view/PageErrors {:page :about :path [:form]}]
          [:h2 "7: About Dataset"]
          [:h4 "Data parameters"]
-         [metcalf3.view/DataParametersTable {:path [:form :fields :identificationInfo :dataParameters]}]
+         [metcalf3.view/DataParametersTable {:form-id   [:form :fields]
+                                             :data-path [:identificationInfo :dataParameters]}]
          [:br]
          [:h4 "Pixel Size"]
          [:div.row
           [:div.col-md-6
-           [metcalf3.view/NasaListSelectField {:keyword :horizontalResolution
-                                               :path    [:form :fields :identificationInfo]}]]]
+           [metcalf3.view/NasaListSelectField {:keyword   :horizontalResolution
+                                               :form-id   [:form :fields]
+                                               :data-path [:identificationInfo]}]]]
          [:br]
          [:h4 "Resource constraints"]
          [metcalf3.view/ResourceConstraints]
-         [metcalf3.view/UseLimitations {:path [:form :fields :identificationInfo :useLimitations]}]
+         [metcalf3.view/UseLimitations {:form-id   [:form :fields]
+                                        :data-path [:identificationInfo :useLimitations]}]
          [:br]
          [:h4 "Supplemental information"]
-         [metcalf3.view/SupportingResource {:path [:form :fields :supportingResources]}]
-         [metcalf3.view/SupplementalInformation [:form :fields :identificationInfo :supplementalInformation]]
+         [metcalf3.view/SupportingResource {:form-id   [:form :fields]
+                                            :data-path [:supportingResources]}]
+         [:form-id [:form :fields]
+          mdata-etcalf3.view/SupplementalInformation [:identificationInfo :supplementalInformation]]
          [:br]
          [:h4 "Distribution"]
          [metcalf3.view/input-field-with-label
-          {:path        [:form :fields :distributionInfo :distributionFormat :name]
+          {:form-id     [:form :fields]
+           :data-path   [:distributionInfo :distributionFormat :name]
            :label       "Data file format"
            :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
            :helperText  nil
@@ -272,7 +291,8 @@
            :maxLength   100
            :required    nil}]
          [metcalf3.view/input-field-with-label
-          {:path        [:form :fields :distributionInfo :distributionFormat :version]
+          {:form-id     [:form :fields]
+           :data-path   [:distributionInfo :distributionFormat :version]
            :label       "Data file format date/version"
            :placeholder "Date format date or version if applicable"
            :helperText  nil
@@ -280,7 +300,8 @@
            :maxLength   20
            :required    nil}]
          [metcalf3.view/textarea-field-with-label
-          {:path        [:form :fields :resourceLineage :lineage]
+          {:form-id     [:form :fields]
+           :data-path   [:resourceLineage :lineage]
            :label       "Lineage"
            :placeholder "Provide a brief summary of the source of the data and related collection and/or processing methods."
            :toolTip     "Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017"
@@ -293,7 +314,8 @@
          [:h2 "8: Upload Data"]
          [metcalf3.view/UploadData nil]
          [:h2 "Data Services"]
-         [metcalf3.view/DataSources {:path [:form :fields :dataSources]}]
+         [metcalf3.view/DataSources {:form-id   [:form :fields]
+                                     :data-path [:dataSources]}]
          [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
         :lodge

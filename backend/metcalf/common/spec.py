@@ -78,7 +78,7 @@ def massage_version_number(s):
     Version number captured is of format "version-1-1"
     Version required is "1.1"
     """
-    re_version = "version-([-\d]+)"
+    re_version = r'version-([-\d]+)'
     if re.match(re_version, s):
         version_chunk = re.search(re_version, s).group(1)
         version_number = re.sub("-", ".", version_chunk)
@@ -87,8 +87,8 @@ def massage_version_number(s):
 
 def generate_attachment_url(**kwargs):
     # TODO: figure out how to get env here (was previously inline in the python spec)
-    assert kwargs['data'] != None, "data not provided"
-    assert kwargs['uuid'] != None, "uuid not provided"
+    assert kwargs['data'] is not None, "data not provided"
+    assert kwargs['uuid'] is not None, "uuid not provided"
     data = kwargs['data']
     uuid = kwargs['uuid']
     # data should be an absolute path to download the file
@@ -111,7 +111,7 @@ def is_empty(node):
 
 def prune_if_empty(data, parent, spec, nsmap, i, silent):
     """
-    Catch-all processing to clean up specific nodes that may have been
+    Catch-all processing to clean up specific elements that may have been
     left with no content.
 
     """

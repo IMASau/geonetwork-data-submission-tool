@@ -16,3 +16,30 @@ def postwalk(f, form):
 
 def prewalk(f, form):
     return walk(partial(prewalk, f), lambda x: x, f(form))
+
+
+def is_ref(schema):
+    return '$ref' in schema
+
+
+def get_ref_schema(defs, schema):
+    assert '$ref' in schema
+    assert schema['$ref'].startswith('#/$defs/')
+    def_name = schema['$ref'].split('#/$defs/')[1]
+    assert def_name
+    return defs.get(def_name, {})
+
+
+def insert_def(defs, schema):
+    if is_ref(schema):
+        return get_ref_schema(defs, schema)
+    else:
+        return schema
+
+
+def inline_defs(schema):
+    defs = schema.get('$defs')
+    if defs:
+        schema = prewalk(partial(insert_def, defs), schema)
+        del schema['$defs']
+    return schema

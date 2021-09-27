@@ -10,7 +10,7 @@
   (get-in rule-registry [(name rule-id) :handler] identity))
 
 (defn apply-rule
-  [block rule-id rule-data]
+  [block [rule-id rule-data]]
   ((get-rule-handler rule-id) block rule-data))
 
 (defn seq-rules
@@ -22,7 +22,7 @@
 
 (defn apply-rules
   [block]
-  (reduce-kv apply-rule block (seq-rules (:rules block))))
+  (reduce apply-rule block (seq-rules (:rules block))))
 
 (def empty-values #{nil "" [] {} #{}})
 

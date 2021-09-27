@@ -10,8 +10,8 @@
   (get-in rule-registry [(name rule-id) :handler] identity))
 
 (defn apply-rule
-  [block rule-id rule-dta]
-  ((get-rule-handler rule-id) block rule-dta))
+  [block rule-id rule-data]
+  ((get-rule-handler rule-id) block rule-data))
 
 (defn seq-rules
   "Support rules as string, map and collection"

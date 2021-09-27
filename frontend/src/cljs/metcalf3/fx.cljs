@@ -15,8 +15,8 @@
     (get-in payload [:context :csrf])))
 
 (defn ^:export get-cookie
-  [name]
-  #_(.get goog.net.cookies name))
+  [_name]
+  #_(.get goog.net.cookies _name))
 
 (def get-json-header
   (structs/Map. (clj->js {:Accept "application/json" :X-CSRFToken (get-csrf)})))

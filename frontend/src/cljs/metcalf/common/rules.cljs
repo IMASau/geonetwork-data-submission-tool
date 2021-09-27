@@ -29,69 +29,69 @@
 (defn required-field
   [block required]
   (s/assert #{true} required)
-  (let [value (get-in block [:properties :value])]
+  (let [value (get-in block [:props :value])]
     (-> block
-        (assoc-in [:properties :required] true)
+        (assoc-in [:props :required] true)
         (cond-> (contains? empty-values value)
-                (update-in [:properties :errors] conj "This field is required")))))
+                (update-in [:props :errors] conj "This field is required")))))
 
 (defn max-length
   [block maxLength]
-  (assoc-in block [:properties :maxLength] maxLength))
+  (assoc-in block [:props :maxLength] maxLength))
 
 (defn date-order
   "Start date should be fore end date"
   [block {:keys [field0 field1]}]
   (let [k0 (keyword field0)                                 ; FIXME: ugly converions to keyword
         k1 (keyword field1)                                 ; FIXME: ugly converions to keyword
-        d0 (get-in block [:content k0 :properties :value])
-        d1 (get-in block [:content k1 :properties :value])
+        d0 (get-in block [:content k0 :props :value])
+        d1 (get-in block [:content k1 :props :value])
         r [d0 d1]
         out-of-order? (and (not (string/blank? d0))         ; FIXME: payload includes "" instead of null
                            (not (string/blank? d1))         ; FIXME: payload includes "" instead of null
                            (not= r (sort r)))]
     (cond-> block
       out-of-order?
-      (update-in [:content k1 :properties :errors] conj
+      (update-in [:content k1 :props :errors] conj
                  (str "Must be after " (date/to-string (date/from-value d0)))))))
 
 (defn geography-required
   "Geography fields are required / included based on geographic coverage checkbox"
   [geographicElement]
-  (let [shown? (get-in geographicElement [:content :hasGeographicCoverage :properties :value])
-        properties (if shown?
+  (let [shown? (get-in geographicElement [:content :hasGeographicCoverage :props :value])
+        props (if shown?
                      {:required true}
                      {:required false :disabled true})]
     (s/assert boolean? shown?)
-    (update-in geographicElement [:content :boxes :properties] merge properties)))
+    (update-in geographicElement [:content :boxes :props] merge props)))
 
 (defn license-other
   [identificationInfo]
-  (let [license-value (get-in identificationInfo [:content :creativeCommons :properties :value])
+  (let [license-value (get-in identificationInfo [:content :creativeCommons :props :value])
         other? (= license-value "http://creativecommons.org/licenses/other")
-        properties (if other?
+        props (if other?
                      {:is-hidden false :disabled false :required true}
                      {:is-hidden true :disabled true :required false})]
-    (update-in identificationInfo [:content :otherConstraints :properties] merge properties)))
+    (update-in identificationInfo [:content :otherConstraints :props] merge props)))
 
 (defn end-position
   "End position is required if the status is ongoing"
   [identificationInfo]
-  (let [value (get-in identificationInfo [:content :status :properties :value])
-        properties (if (contains? #{"onGoing" "planned"} value)
+  (let [value (get-in identificationInfo [:content :status :props :value])
+        props (if (contains? #{"onGoing" "planned"} value)
                      {:required false :disabled true :value nil}
                      {:required true :disabled false})]
-    (update-in identificationInfo [:content :endPosition :properties] merge properties)))
+    (update-in identificationInfo [:content :endPosition :props] merge props)))
 
 (defn maint-freq
   [identificationInfo]
-  (let [status-value (get-in identificationInfo [:content :status :properties :value])
-        properties (case status-value
+  (let [status-value (get-in identificationInfo [:content :status :props :value])
+        props (case status-value
                      "onGoing" {:is-hidden false :disabled false :required true}
                      "planned" {:is-hidden false :disabled false :required true}
                      "completed" {:is-hidden false :disabled true :value "notPlanned" :required false}
                      {:is-hidden true :disabled true :value "" :required false})]
-    (update-in identificationInfo [:content :maintenanceAndUpdateFrequency :properties] merge properties)))
+    (update-in identificationInfo [:content :maintenanceAndUpdateFrequency :props] merge props)))
 
 (defn vertical-required
   "Vertical fields are required / included based on vertical extent checkbox"
@@ -99,17 +99,17 @@
   (let [shown? (get-in verticalElement [:hasVerticalExtent :value])]
     (if shown?
       (-> verticalElement
-          (assoc-in [:content :elevation :properties :required] true)
-          (assoc-in [:content :maximumValue :properties :required] true)
-          (assoc-in [:content :method :properties :required] true)
-          (assoc-in [:content :minimumValue :properties :required] true))
+          (assoc-in [:content :elevation :props :required] true)
+          (assoc-in [:content :maximumValue :props :required] true)
+          (assoc-in [:content :method :props :required] true)
+          (assoc-in [:content :minimumValue :props :required] true))
       (-> verticalElement
           ; TODO: make required false by default
-          (assoc-in [:content :elevation :properties :required] false)
-          (assoc-in [:content :maximumValue :properties :required] false)
-          (assoc-in [:content :method :properties :required] false)
-          (assoc-in [:content :minimumValue :properties :required] false)
-          (assoc-in [:content :elevation :properties :disabled] true)
-          (assoc-in [:content :maximumValue :properties :disabled] true)
-          (assoc-in [:content :method :properties :disabled] true)
-          (assoc-in [:content :minimumValue :properties :disabled] true)))))
+          (assoc-in [:content :elevation :props :required] false)
+          (assoc-in [:content :maximumValue :props :required] false)
+          (assoc-in [:content :method :props :required] false)
+          (assoc-in [:content :minimumValue :props :required] false)
+          (assoc-in [:content :elevation :props :disabled] true)
+          (assoc-in [:content :maximumValue :props :disabled] true)
+          (assoc-in [:content :method :props :disabled] true)
+          (assoc-in [:content :minimumValue :props :disabled] true)))))

@@ -41,7 +41,7 @@
                (case type
                  "array" {:content data}
                  "object" {:content data}
-                 {:properties {:value data}})
+                 {:props {:value data}})
                (when-let [rules (:rules schema)]
                  {:rules rules}))))
     {:data data :schema schema}))
@@ -49,11 +49,11 @@
 
 (defn as-data
   "Return data given blocks"
-  [{:keys [type properties content]}]
+  [{:keys [type props content]}]
   (case type
     "array" (mapv as-data content)
     "object" (zipmap (keys content) (map as-data (vals content)))
-    (:value properties)))
+    (:value props)))
 
 
 (defn block-path [data-path]

@@ -1,6 +1,6 @@
 (ns interop.date
-  (:require [cljs-time.format :as f]
-            [cljs-time.coerce :as c]
+  (:require [cljs-time.coerce :as c]
+            [cljs-time.format :as f]
             [cljs.spec.alpha :as s]
             [clojure.string :as string]))
 

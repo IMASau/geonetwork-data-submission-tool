@@ -1,10 +1,10 @@
 (ns metcalf.common.components
-  (:require [clojure.string :as string]
+  (:require [cljs.spec.alpha :as s]
+            [clojure.string :as string]
             [interop.date :as date]
             [interop.ui :as ui]
-            [re-frame.core :as rf]
             [metcalf.common.blocks :as blocks]
-            [cljs.spec.alpha :as s]))
+            [re-frame.core :as rf]))
 
 (s/def ::form-id vector?)
 (s/def ::data-path vector?)

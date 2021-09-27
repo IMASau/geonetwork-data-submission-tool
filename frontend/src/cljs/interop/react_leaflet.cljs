@@ -1,10 +1,10 @@
 (ns interop.react-leaflet
   (:refer-clojure :exclude [map])
-  (:require [reagent.core :as r]
-            ["leaflet"]
+  (:require ["leaflet"]
             ["leaflet-draw"]
             ["react-leaflet" :as ReactLeaflet]
-            ["react-leaflet-draw" :refer (EditControl)]))
+            ["react-leaflet-draw" :refer (EditControl)]
+            [reagent.core :as r]))
 
 (assert ReactLeaflet)
 (assert EditControl)

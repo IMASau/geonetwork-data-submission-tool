@@ -1,6 +1,6 @@
 (ns metcalf.imas.config
-  (:require [metcalf.imas.handlers :as imas-handlers]
-            [metcalf3.low-code :as low-code]
+  (:require [metcalf.common.low-code :as low-code]
+            [metcalf.imas.handlers :as imas-handlers]
             [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers]
             [metcalf3.ins :as ins]
@@ -138,20 +138,20 @@
          [m3/PageErrors {:page :data-identification :path [:form]}]
          [:h2 "1. Data Identification"]
          [m3/input-field-with-label
-          {:form-id    [:form :fields]
+          {:form-id    [:form :state]
            :data-path  [:identificationInfo :title]
            :label      "Title"
            :helperText "Clear and concise description of the content of the resource"
            :required   true}]
          [m3/date-field-with-label
-          {:form-id   [:form :fields]
+          {:form-id   [:form :state]
            :data-path [:identificationInfo :dateCreation]
            :label     "Date of record creation"
            :required  true
            :minDate   #inst "1900-01-01"
            :maxDate   #inst "2100-01-01"}]
          [m3/select-field-with-label
-          {:form-id   [:form :fields]
+          {:form-id   [:form :state]
            :data-path [:identificationInfo :topicCategory]
            :label     "Topic categories"
            :required  true
@@ -161,7 +161,7 @@
                        ["geoscientificInformation" "geoscientificInformation"]
                        ["inlandWater" "inlandWater"]]}]
          [m3/select-field-with-label
-          {:form-id   [:form :fields]
+          {:form-id   [:form :state]
            :data-path [:identificationInfo :status]
            :label     "Status of data"
            :required  true
@@ -169,7 +169,7 @@
                        ["planned" "planned"]
                        ["completed" "completed"]]}]
          [m3/select-field-with-label
-          {:form-id   [:form :fields]
+          {:form-id   [:form :state]
            :data-path [:identificationInfo :maintenanceAndUpdateFrequency]
            :label     "Maintenance and update frequency"
            :required  true
@@ -196,7 +196,7 @@
          [:h2 "2. What"]
          [:span.abstract-textarea
           [m3/textarea-field-with-label
-           {:form-id     [:form :fields]
+           {:form-id     [:form :state]
             :data-path   [:identificationInfo :abstract]
             :label       "Abstract"
             :placeholder nil
@@ -217,14 +217,14 @@
          [m3/PageErrors {:page :when :path [:form]}]
          [:h2 "3. When was the data acquired?"]
          [m3/date-field-with-label
-          {:form-id   [:form :fields]
+          {:form-id   [:form :state]
            :data-path [:identificationInfo :beginPosition]
            :label     "Start date"
            :required  true
            :minDate   #inst "1900-01-01"
            :maxDate   #inst "2100-01-01"}]
          [m3/date-field-with-label
-          {:form-id   [:form :fields]
+          {:form-id   [:form :state]
            :data-path [:identificationInfo :endPosition]
            :label     "End date"
            :minDate   #inst "1900-01-01"
@@ -233,8 +233,8 @@
           [:div.col-md-4
            ;; TODO does IMAS want the old sample frequency (min daily) or this one (min <1 second)?
            [m3/NasaListSelectField {:keyword   :samplingFrequency
-                                               :form-id   [:form :fields]
-                                               :data-path [:identificationInfo]}]]]
+                                    :form-id   [:form :state]
+                                    :data-path [:identificationInfo]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
@@ -248,19 +248,19 @@
          [:div.VerticalCoverage
           ;; FIXME use h3 not h4. Restyle if necessary.
           [:h4 "Vertical Coverage"]
-          [:form-id [:form :fields]
+          [:form-id [:form :state]
            mdata-etcalf3.view/CheckboxField
            [:identificationInfo :verticalElement :hasVerticalExtent]]
           ;; FIXME hide the below fields when hasVerticalExtent checkbox is unchecked.
           [m3/input-field-with-label
-           {:form-id    [:form :fields]
+           {:form-id    [:form :state]
             :data-path  [:identificationInfo :verticalElement :minimumValue]
             :class      "wauto"
             :label      "Minimum (m)"
             :helperText "Shallowest depth / lowest altitude"
             :required   true}]
           [m3/input-field-with-label
-           {:form-id    [:form :fields]
+           {:form-id    [:form :state]
             :data-path  [:identificationInfo :verticalElement :maximumValue]
             :class      "wauto"
             :label      "Maximum (m)"
@@ -274,7 +274,7 @@
          [:h2 "5: How"]
          [:div.lineage-textarea
           [m3/textarea-field-with-label
-           {:form-id     [:form :fields]
+           {:form-id     [:form :state]
             :data-path   [:resourceLineage :lineage]
             :label       "Methodological information"
             :placeholder nil
@@ -300,13 +300,13 @@
          [m3/PageErrors {:page :about :path [:form]}]
          [:h2 "7: About Dataset"]
          [:h4 "Data parameters"]
-         [m3/DataParametersTable {:form-id   [:form :fields]
-                                             :data-path [:identificationInfo :dataParameters]}]
+         [m3/DataParametersTable {:form-id   [:form :state]
+                                  :data-path [:identificationInfo :dataParameters]}]
          [:br]
          [:h4 "Resource constraints"]
          ;; FIXME license selection isn't being included in XML export.
          [m3/select-field-with-label
-          {:form-id   [:form :fields]
+          {:form-id   [:form :state]
            :data-path [:identificationInfo :creativeCommons]
            :help      [:span "Learn more about which license is right for you at "
                        [:a {:href   "https://creativecommons.org/choose/"
@@ -318,24 +318,24 @@
                        ["http://creativecommons.org/licenses/by-nc/4.0/" "Creative Commons, Non-commercial Use only"]
                        ["http://creativecommons.org/licenses/other" "Other constraints"]]}]
          [m3/input-field-with-label
-          {:form-id     [:form :fields]
+          {:form-id     [:form :state]
            :data-path   [:identificationInfo :otherConstraints]
            :label       "Additional license requirements"   ;; FIXME
            :placeholder "Enter additional license requirements"
            :required    true}]
 
-         [m3/UseLimitations {:form-id   [:form :fields]
-                                        :data-path [:identificationInfo :useLimitations]}]
+         [m3/UseLimitations {:form-id   [:form :state]
+                             :data-path [:identificationInfo :useLimitations]}]
          [:br]
          [:h4 "Supplemental information"]
-         [:form-id [:form :fields]
+         [:form-id [:form :state]
           mdata-etcalf3.view/IMASSupplementalInformation [:identificationInfo :supplementalInformation]]
-         [m3/IMASSupportingResource {:form-id   [:form :fields]
-                                                :data-path [:supportingResources]}]
+         [m3/IMASSupportingResource {:form-id   [:form :state]
+                                     :data-path [:supportingResources]}]
          [:br]
          [:h4 "Distribution"]
          [m3/input-field-with-label
-          {:form-id     [:form :fields]
+          {:form-id     [:form :state]
            :data-path   [:distributionInfo :distributionFormat :name]
            :label       "Data file format"
            :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
@@ -344,7 +344,7 @@
            :maxLength   100
            :required    nil}]
          [m3/input-field-with-label
-          {:form-id     [:form :fields]
+          {:form-id     [:form :state]
            :data-path   [:distributionInfo :distributionFormat :version]
            :label       "Data file format date/version"
            :placeholder "Date format date or version if applicable"
@@ -364,8 +364,8 @@
          ;; [["OGC:WMS-1.3.0-http-get-map" "OGC Web Map Service (WMS)"]
          ;;  ["OGC:WFS-1.0.0-http-get-capabilities" "OGC Web Feature Service (WFS)"]
          ;;  ["WWW:LINK-1.0-http--downloaddata" "Other/unknown"]]
-         [m3/DataSources {:form-id   [:form :fields]
-                                     :data-path [:dataSources]}]
+         [m3/DataSources {:form-id   [:form :state]
+                          :data-path [:dataSources]}]
          [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
         :lodge

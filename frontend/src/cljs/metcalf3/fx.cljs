@@ -1,7 +1,7 @@
 (ns metcalf3.fx
   (:require [cljs.spec.alpha :as s]
-            [goog.net.cookies]
             [goog.net.XhrIo :as xhrio]
+            [goog.net.cookies]
             [goog.structs :as structs]
             [interop.cljs-ajax :refer [POST]]
             [metcalf3.logic :as logic]
@@ -15,8 +15,8 @@
     (get-in payload [:context :csrf])))
 
 (defn ^:export get-cookie
-  [name]
-  #_(.get goog.net.cookies name))
+  [_name]
+  #_(.get goog.net.cookies _name))
 
 (def get-json-header
   (structs/Map. (clj->js {:Accept "application/json" :X-CSRFToken (get-csrf)})))

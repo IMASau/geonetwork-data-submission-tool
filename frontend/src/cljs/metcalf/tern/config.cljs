@@ -1,13 +1,12 @@
 (ns metcalf.tern.config
-  (:require [metcalf3.low-code :as low-code]
+  (:require [metcalf.common.low-code :as low-code]
+            [metcalf.common.rules :as rules]
             [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers]
             [metcalf3.ins :as ins]
             [metcalf3.subs :as subs]
             [metcalf3.views :as views]
-            [re-frame.core :as rf]
-            [metcalf.common.rules :as rules]
-            [metcalf3.logic :as logic]))
+            [re-frame.core :as rf]))
 
 (rf/reg-event-fx :handlers/load-api-options-resp handlers/load-api-options-resp)
 (rf/reg-event-fx :handlers/load-es-options-resp handlers/load-es-options-resp)
@@ -149,24 +148,24 @@
          [m3/PageErrors {:page :data-identification :path [:form]}]
          [:h2 "1. Data Identification"]
          [m3/input-field-with-label
-          {:form-id     [:form :fields]
+          {:form-id     [:form :state]
            :data-path   [:identificationInfo :title]
            :label       "Title"
            :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
            :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
          [m3/date-field-with-label
-          {:form-id   [:form :fields]
+          {:form-id   [:form :state]
            :data-path [:identificationInfo :dateCreation]
            :label     "Date the resource was created"
            :required  true
            :minDate   #inst "1900-01-01"
            :maxDate   #inst "2100-01-01"}]
-         [m3/TopicCategories {:form-id   [:form :fields]
-                                         :data-path [:identificationInfo :topicCategory]}]
-         [m3/SelectField {:form-id   [:form :fields]
-                                     :data-path [:identificationInfo :status]}]
-         [m3/SelectField {:form-id   [:form :fields]
-                                     :data-path [:identificationInfo :maintenanceAndUpdateFrequency]}]
+         [m3/TopicCategories {:form-id   [:form :state]
+                              :data-path [:identificationInfo :topicCategory]}]
+         [m3/SelectField {:form-id   [:form :state]
+                          :data-path [:identificationInfo :status]}]
+         [m3/SelectField {:form-id   [:form :state]
+                          :data-path [:identificationInfo :maintenanceAndUpdateFrequency]}]
          [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what
@@ -174,7 +173,7 @@
          [m3/PageErrors {:page :what :path [:form]}]
          [:h2 "2. What"]
          [m3/textarea-field-with-label
-          {:form-id     [:form :fields]
+          {:form-id     [:form :state]
            :data-path   [:identificationInfo :abstract]
            :label       "Abstract"
            :placeholder "Provide a brief summary of What, Where, When, Why, Who and How for the collected the data."
@@ -183,7 +182,7 @@
            :maxLength   2500
            :required    true}]
          [m3/textarea-field-with-label
-          {:form-id     [:form :fields]
+          {:form-id     [:form :state]
            :data-path   [:identificationInfo :purpose]
            :label       "Purpose"
            :placeholder "Provide a brief summary of the purpose for collecting the data including the potential use."
@@ -201,14 +200,14 @@
          [m3/PageErrors {:page :when :path [:form]}]
          [:h2 "3. When was the data acquired?"]
          [m3/date-field-with-label
-          {:form-id   [:form :fields]
+          {:form-id   [:form :state]
            :data-path [:identificationInfo :beginPosition]
            :label     "Start date"
            :required  true
            :minDate   #inst "1900-01-01"
            :maxDate   #inst "2100-01-01"}]
          [m3/date-field-with-label
-          {:form-id   [:form :fields]
+          {:form-id   [:form :state]
            :data-path [:identificationInfo :endPosition]
            :label     "End date"
            :required  true
@@ -217,8 +216,8 @@
          [:div.row
           [:div.col-md-4
            [m3/NasaListSelectField {:keyword   :samplingFrequency
-                                               :form-id   [:form :fields]
-                                               :data-path [:identificationInfo]}]]]
+                                    :form-id   [:form :state]
+                                    :data-path [:identificationInfo]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
@@ -238,14 +237,14 @@
         [:div
          [m3/PageErrors {:page :how :path [:form]}]
          [:h2 "5: How"]
-         [m3/Methods {:form-id   [:form :fields]
-                                 :data-path [:resourceLineage :processStep]}]
+         [m3/Methods {:form-id   [:form :state]
+                      :data-path [:resourceLineage :processStep]}]
          [m3/textarea-field-with-label
-          {:form-id   [:form :fields]
+          {:form-id   [:form :state]
            :data-path [:dataQualityInfo :methods]
            :label     "Method"}]
          [m3/textarea-field-with-label
-          {:form-id     [:form :fields]
+          {:form-id     [:form :state]
            :data-path   [:dataQualityInfo :results]
            :label       "Data Quality Results"
            :placeholder "Provide a statement regarding the data quality assessment results."
@@ -259,30 +258,30 @@
          [m3/PageErrors {:page :about :path [:form]}]
          [:h2 "7: About Dataset"]
          [:h4 "Data parameters"]
-         [m3/DataParametersTable {:form-id   [:form :fields]
-                                             :data-path [:identificationInfo :dataParameters]}]
+         [m3/DataParametersTable {:form-id   [:form :state]
+                                  :data-path [:identificationInfo :dataParameters]}]
          [:br]
          [:h4 "Pixel Size"]
          [:div.row
           [:div.col-md-6
            [m3/NasaListSelectField {:keyword   :horizontalResolution
-                                               :form-id   [:form :fields]
-                                               :data-path [:identificationInfo]}]]]
+                                    :form-id   [:form :state]
+                                    :data-path [:identificationInfo]}]]]
          [:br]
          [:h4 "Resource constraints"]
          [m3/ResourceConstraints]
-         [m3/UseLimitations {:form-id   [:form :fields]
-                                        :data-path [:identificationInfo :useLimitations]}]
+         [m3/UseLimitations {:form-id   [:form :state]
+                             :data-path [:identificationInfo :useLimitations]}]
          [:br]
          [:h4 "Supplemental information"]
-         [m3/SupportingResource {:form-id   [:form :fields]
-                                            :data-path [:supportingResources]}]
-         [:form-id [:form :fields]
+         [m3/SupportingResource {:form-id   [:form :state]
+                                 :data-path [:supportingResources]}]
+         [:form-id [:form :state]
           mdata-etcalf3.view/SupplementalInformation [:identificationInfo :supplementalInformation]]
          [:br]
          [:h4 "Distribution"]
          [m3/input-field-with-label
-          {:form-id     [:form :fields]
+          {:form-id     [:form :state]
            :data-path   [:distributionInfo :distributionFormat :name]
            :label       "Data file format"
            :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
@@ -291,7 +290,7 @@
            :maxLength   100
            :required    nil}]
          [m3/input-field-with-label
-          {:form-id     [:form :fields]
+          {:form-id     [:form :state]
            :data-path   [:distributionInfo :distributionFormat :version]
            :label       "Data file format date/version"
            :placeholder "Date format date or version if applicable"
@@ -300,7 +299,7 @@
            :maxLength   20
            :required    nil}]
          [m3/textarea-field-with-label
-          {:form-id     [:form :fields]
+          {:form-id     [:form :state]
            :data-path   [:resourceLineage :lineage]
            :label       "Lineage"
            :placeholder "Provide a brief summary of the source of the data and related collection and/or processing methods."
@@ -314,8 +313,8 @@
          [:h2 "8: Upload Data"]
          [m3/UploadData nil]
          [:h2 "Data Services"]
-         [m3/DataSources {:form-id   [:form :fields]
-                                     :data-path [:dataSources]}]
+         [m3/DataSources {:form-id   [:form :state]
+                          :data-path [:dataSources]}]
          [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
         :lodge

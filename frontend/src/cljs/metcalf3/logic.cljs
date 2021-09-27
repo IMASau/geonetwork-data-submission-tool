@@ -1,13 +1,13 @@
 (ns metcalf3.logic
   (:require [cljs-time.coerce :as c]
             [cljs-time.core :as time]
+            [cljs.spec.alpha :as s]
             [clojure.string :as string]
             [clojure.zip :as zip]
-            [metcalf3.content :refer [default-payload contact-groups]]
-            [metcalf3.utils :as utils]
-            [metcalf.common.rules :as rules]
             [metcalf.common.blocks :as blocks]
-            [cljs.spec.alpha :as s]))
+            [metcalf.common.rules :as rules]
+            [metcalf3.content :refer [contact-groups default-payload]]
+            [metcalf3.utils :as utils]))
 
 (def active-status-filter #{"Draft" "Submitted"})
 
@@ -489,7 +489,7 @@
       author-role-logic
 
       (update-in [:form :fields] validate-required-fields)
-      (update-in [:form :block] validate-rules)
+      (update-in [:form :state] validate-rules)
       disable-form-when-submitted
       (update-in [:form] disabled-form-logic)
       (calculate-progress [:form])
@@ -559,7 +559,7 @@
         data (get-in payload [:form :data])
         schema (get-in payload [:form :schema])]
     (-> (deep-merge default-payload payload)
-        (assoc-in [:form :block] (blocks/as-blocks {:data data :schema schema}))
+        (assoc-in [:form :state] (blocks/as-blocks {:data data :schema schema}))
         (assoc :alert [])
         (assoc :api {:parametername        {:uri (str URL_ROOT "/api/ternparameters") :options nil}
                      :parameterunit        {:uri (str URL_ROOT "/api/qudtunits") :options nil}

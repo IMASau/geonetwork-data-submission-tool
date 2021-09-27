@@ -1,6 +1,6 @@
 (ns metcalf3.views
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [cljs.core.async :as async :refer [put! <! chan timeout]]
+  (:require [cljs.core.async :as async :refer [<! chan put! timeout]]
             [cljs.spec.alpha :as s]
             [clojure.edn :as edn]
             [clojure.set :as set]
@@ -15,18 +15,18 @@
             [interop.fixed-data-table-2 :refer [Cell Column Table]]
             [interop.moment :as moment]
             [interop.react-imask :as react-imask]
+            [interop.ui :as ui]
+            [metcalf.common.low-code :as low-code]
             [metcalf3.content :refer [contact-groups]]
             [metcalf3.handlers :as handlers]
             [metcalf3.logic :as logic]
-            [metcalf3.low-code :as low-code]
             [metcalf3.utils :as utils]
             [metcalf3.widget.boxmap :as boxmap]
             [metcalf3.widget.modal :refer [Modal]]
             [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectAsyncCreatable VirtualizedSelect]]
             [metcalf3.widget.tree :refer [TermList TermTree]]
             [re-frame.core :as rf]
-            [reagent.core :as r]
-            [interop.ui :as ui])
+            [reagent.core :as r])
   (:import [goog.dom ViewportSizeMonitor]
            [goog.events FileDropHandler]
            [goog.events EventType]))
@@ -177,7 +177,7 @@
       table)))
 
 ; TODO: Consider input-field-with-label
-(defn ^:deprecated InputField
+(defn InputField
   [{:keys [path] :as props}]
   (let [field @(rf/subscribe [:subs/get-derived-path path])]
     [InputWidget (-> field
@@ -225,7 +225,7 @@
        :maxDate  maxDate}]]))
 
 ; TODO: Consider date-field-with-label
-(defn ^:deprecated date-field
+(defn date-field
   [{:keys [path defMinDate]}]
   (let [{:keys [label labelInfo helperText value disabled change-v intent minDate maxDate]} @(rf/subscribe [:date-field/get-props path])
         format "DD-MM-YYYY"]
@@ -305,12 +305,6 @@
                    :default-value  default-value
                    :loading        loading
                    :show-errors    show-errors}]))
-
-(comment
-  (defn TextareaField [path]
-    (let [field @(rf/subscribe [:subs/get-derived-path path])]
-      [ExpandingTextareaWidget
-       (assoc field :on-change (fn [value] (rf/dispatch [:handlers/value-changed path value])))])))
 
 (defn textarea-widget
   [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder]}]
@@ -587,15 +581,6 @@
          [:button.btn.btn-primary.btn-sm
           {:on-click #(new! default-field)}
           [:span.glyphicon.glyphicon-plus] " " add-label])])))
-
-
-;TODO: for when the VirtualizedSelect gets fixed
-(comment (defn theme-option-renderer
-           [props option]
-           (let [rowData (get option "rowData")]
-             [:div
-              {:style (gobj/get props "style")}
-              [KeywordsThemeCell rowData]])))
 
 (defn theme-option-renderer
   [props]

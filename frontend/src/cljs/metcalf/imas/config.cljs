@@ -113,7 +113,7 @@
 (rf/reg-sub :subs/get-form-tick subs/get-form-tick)
 (rf/reg-sub :help/get-menuitems subs/get-menuitems)
 (rf/reg-sub :subs/platform-selected? subs/platform-selected?)
-(rf/reg-sub ::common-subs/get-form-state common-subs/form-state-with-logic-applied-sub)
+(rf/reg-sub ::common-subs/get-form-state common-subs/get-form-state)
 (rf/reg-sub ::common-components/get-input-field-with-label-props common-subs/form-state-signal common-subs/get-block-props-sub)
 (rf/reg-sub ::common-components/get-textarea-field-with-label-props common-subs/form-state-signal common-subs/get-block-props-sub)
 (rf/reg-sub ::common-components/get-date-field-with-label-props common-subs/form-state-signal common-subs/get-block-props-sub)

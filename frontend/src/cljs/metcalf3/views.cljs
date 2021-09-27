@@ -582,15 +582,6 @@
           {:on-click #(new! default-field)}
           [:span.glyphicon.glyphicon-plus] " " add-label])])))
 
-
-;TODO: for when the VirtualizedSelect gets fixed
-(comment (defn theme-option-renderer
-           [props option]
-           (let [rowData (get option "rowData")]
-             [:div
-              {:style (gobj/get props "style")}
-              [KeywordsThemeCell rowData]])))
-
 (defn theme-option-renderer
   [props]
   (let [rowData (gobj/get props "rowData")]

@@ -318,8 +318,8 @@
     state))
 
 (defn validate-rules
-  [block]
-  (field-postwalk rules/apply-rules block))
+  [state]
+  (field-postwalk rules/apply-rules state))
 
 (defn geography-required-rule
   "Geography fields are required / included based on geographic coverage checkbox"

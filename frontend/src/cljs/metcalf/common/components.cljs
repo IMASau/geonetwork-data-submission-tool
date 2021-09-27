@@ -8,18 +8,19 @@
 
 (s/def ::form-id vector?)
 (s/def ::data-path vector?)
-(s/def ::config (s/keys :req-un [::form-id ::data-path]))
+(s/def ::ctx (s/keys :req-un [::form-id ::data-path]))
 
-(defn db-path
+(defn get-ctx
   [{:keys [form-id data-path]}]
-  (vec (flatten [form-id (blocks/block-path data-path)])))
+  (s/assert ::ctx config)
+  {:form-id form-id :data-path data-path})
 
 (defn input-field-with-label
   [config]
-  (s/assert ::config config)
-  (let [path (db-path config)
-        logic @(rf/subscribe [::get-input-field-with-label-props path])
-        onChange #(rf/dispatch [::input-field-with-label-value-changed path %])
+  (s/assert ::ctx config)
+  (let [ctx (get-ctx config)
+        logic @(rf/subscribe [::get-input-field-with-label-props ctx])
+        onChange #(rf/dispatch [::input-field-with-label-value-changed ctx %])
         props (merge (select-keys config [:label :placeholder :helperText :toolTip]) logic)
         {:keys [label placeholder helperText toolTip maxLength required value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -41,10 +42,10 @@
 
 (defn textarea-field-with-label
   [config]
-  (s/assert ::config config)
-  (let [path (db-path config)
-        logic @(rf/subscribe [::get-textarea-field-with-label-props path])
-        onChange #(rf/dispatch [::textarea-field-with-label-value-changed path %])
+  (s/assert ::ctx config)
+  (let [ctx (get-ctx config)
+        logic @(rf/subscribe [::get-textarea-field-with-label-props ctx])
+        onChange #(rf/dispatch [::textarea-field-with-label-value-changed ctx %])
         config-keys [:label :placeholder :helperText :toolTip :rows]
         props (merge (select-keys config config-keys) logic)
         {:keys [label placeholder helperText toolTip rows
@@ -69,8 +70,8 @@
 
 (defn date-field-with-label
   [config]
-  (s/assert ::config config)
-  (let [path (db-path config)
+  (s/assert ::ctx config)
+  (let [path (get-ctx config)
         config-keys [:label :required :helperText :toolTip :minDate :maxDate]
         logic @(rf/subscribe [::get-date-field-with-label-props path])
         onChange #(rf/dispatch [::date-field-with-label-value-change path (date/to-value %)])

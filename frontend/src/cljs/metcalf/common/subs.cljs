@@ -1,17 +1,21 @@
-(ns metcalf.common.subs)
+(ns metcalf.common.subs
+  (:require [metcalf.common.blocks :as blocks]
+            [metcalf3.logic :as logic]
+            [re-frame.core :as rf]))
 
 
-(defn get-input-field-with-label-props
-  [db [_ db-path]]
-  (get-in db (conj db-path :props)))
+(defn form-state-with-logic-applied-sub
+  [db [_ path]]
+  (update-in db path logic/validate-rules))
 
 
-(defn get-textarea-field-with-label-props
-  [db [_ db-path]]
-  (get-in db (conj db-path :props)))
+(defn form-state-signal
+  [{:keys [form-id]}]
+  (rf/subscribe [::form-state-with-logic-applied form-id]))
 
 
-; FIXME: leaking empty strings instead of null from payload.forms.data
-(defn get-date-field-with-label-props
-  [db [_ db-path]]
-  (get-in db (conj db-path :props)))
+; FIXME: leaking empty strings for date values  from payload.forms.data
+(defn get-block-props-sub
+  [state [_ {:keys [data-path]}]]
+  (let [path (blocks/block-path data-path)]
+    (get-in state (conj path :props))))

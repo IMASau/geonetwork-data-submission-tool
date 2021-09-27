@@ -1,22 +1,16 @@
-(ns metcalf.common.handlers)
+(ns metcalf.common.handlers
+  (:require [metcalf.common.blocks :as blocks]))
 
 
-(defn input-field-with-label-value-changed
-  [{:keys [db]} [_ db-path value]]
-  {:db (-> db
-           (assoc-in (conj db-path :props :value) value)
-           (assoc-in (conj db-path :props :show-errors) true))})
+(defn db-path
+  [{:keys [form-id data-path]}]
+  (vec (flatten [form-id (blocks/block-path data-path)])))
 
 
-(defn textarea-field-with-label-value-changed
-  [{:keys [db]} [_ db-path value]]
-  {:db (-> db
-           (assoc-in (conj db-path :props :value) value)
-           (assoc-in (conj db-path :props :show-errors) true))})
+(defn value-changed-handler
+  [{:keys [db]} [_ ctx value]]
+  (let [path (db-path ctx)]
+    {:db (-> db
+             (assoc-in (conj path :props :value) value)
+             (assoc-in (conj path :props :show-errors) true))}))
 
-
-(defn date-field-with-label-value-changed
-  [{:keys [db]} [_ db-path value]]
-  {:db (-> db
-           (assoc-in (conj db-path :props :value) value)
-           (assoc-in (conj db-path :props :show-errors) true))})

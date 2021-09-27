@@ -12,7 +12,6 @@
 
 (defn get-ctx
   [{:keys [form-id data-path]}]
-  (s/assert ::ctx config)
   {:form-id form-id :data-path data-path})
 
 (defn input-field-with-label

@@ -38,6 +38,7 @@ class SpecialKeys:
 
 
 def get_xpath(spec):
+    assert SpecialKeys.xpath in spec, ("No xpath in %r" % spec)
     return spec[SpecialKeys.xpath]
 
 

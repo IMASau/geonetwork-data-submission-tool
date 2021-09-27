@@ -65,17 +65,3 @@
                                                           :itemSize            height
                                                           :itemCount           itemCount
                                                           :initialScrollOffset initialOffset})))}})))
-
-;the actual virtualized implementation. Missing select and hover (kind of important)
-(comment (defn VirtualizedSelect [{:keys [props list-props children-renderer] :as args}]
-           (ReactSelect
-             (merge
-               {:components #js {:MenuList (fn [this]
-                                             (ReactWindow (merge {:children  (fn [props]
-                                                                               ;TODO this is clearly a bad and ugly way to get the option
-                                                                               (r/as-element (children-renderer props (nth (js->clj (gobj/get this "options")) (gobj/get props "index")))))
-                                                                  :height    400
-                                                                  :itemSize  40
-                                                                  :itemCount (count (:options props))}
-                                                                 list-props)))}}
-               props))))

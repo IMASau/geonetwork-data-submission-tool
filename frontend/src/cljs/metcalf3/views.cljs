@@ -177,7 +177,7 @@
       table)))
 
 ; TODO: Consider input-field-with-label
-(defn ^:deprecated InputField
+(defn InputField
   [{:keys [path] :as props}]
   (let [field @(rf/subscribe [:subs/get-derived-path path])]
     [InputWidget (-> field
@@ -225,7 +225,7 @@
        :maxDate  maxDate}]]))
 
 ; TODO: Consider date-field-with-label
-(defn ^:deprecated date-field
+(defn date-field
   [{:keys [path defMinDate]}]
   (let [{:keys [label labelInfo helperText value disabled change-v intent minDate maxDate]} @(rf/subscribe [:date-field/get-props path])
         format "DD-MM-YYYY"]

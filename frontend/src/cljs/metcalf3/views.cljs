@@ -306,12 +306,6 @@
                    :loading        loading
                    :show-errors    show-errors}]))
 
-(comment
-  (defn TextareaField [path]
-    (let [field @(rf/subscribe [:subs/get-derived-path path])]
-      [ExpandingTextareaWidget
-       (assoc field :on-change (fn [value] (rf/dispatch [:handlers/value-changed path value])))])))
-
 (defn textarea-widget
   [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder]}]
   [bp3/form-group

@@ -1,7 +1,7 @@
 (ns metcalf3.ins
-  (:require [re-frame.core :as rf]
-            [cljs.spec.alpha :as s]
-            [clojure.data :as data]))
+  (:require [cljs.spec.alpha :as s]
+            [clojure.data :as data]
+            [re-frame.core :as rf]))
 
 (defmulti console-config :kind)
 (defmethod console-config :default [_] {})

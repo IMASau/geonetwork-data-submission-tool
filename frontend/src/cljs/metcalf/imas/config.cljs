@@ -1,6 +1,6 @@
 (ns metcalf.imas.config
-  (:require [metcalf.imas.handlers :as imas-handlers]
-            [metcalf.common.low-code :as low-code]
+  (:require [metcalf.common.low-code :as low-code]
+            [metcalf.imas.handlers :as imas-handlers]
             [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers]
             [metcalf3.ins :as ins]

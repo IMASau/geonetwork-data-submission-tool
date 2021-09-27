@@ -9,7 +9,6 @@
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
-
             [cljs.spec.alpha :as s]))
 
 (assert BoxMap/BoxMap)

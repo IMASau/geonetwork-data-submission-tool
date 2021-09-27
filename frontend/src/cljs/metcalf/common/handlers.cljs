@@ -1,5 +1,4 @@
-(ns metcalf.common.handlers
-  (:require [metcalf.common.blocks :as blocks]))
+(ns metcalf.common.handlers)
 
 
 (defn input-field-with-label-value-changed

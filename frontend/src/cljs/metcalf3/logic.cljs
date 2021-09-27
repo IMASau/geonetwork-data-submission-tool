@@ -1,13 +1,13 @@
 (ns metcalf3.logic
   (:require [cljs-time.coerce :as c]
             [cljs-time.core :as time]
+            [cljs.spec.alpha :as s]
             [clojure.string :as string]
             [clojure.zip :as zip]
-            [metcalf3.content :refer [default-payload contact-groups]]
-            [metcalf3.utils :as utils]
-            [metcalf.common.rules :as rules]
             [metcalf.common.blocks :as blocks]
-            [cljs.spec.alpha :as s]))
+            [metcalf.common.rules :as rules]
+            [metcalf3.content :refer [contact-groups default-payload]]
+            [metcalf3.utils :as utils]))
 
 (def active-status-filter #{"Draft" "Submitted"})
 

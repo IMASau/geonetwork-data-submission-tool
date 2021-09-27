@@ -1,7 +1,7 @@
 (ns metcalf3.fx
   (:require [cljs.spec.alpha :as s]
-            [goog.net.cookies]
             [goog.net.XhrIo :as xhrio]
+            [goog.net.cookies]
             [goog.structs :as structs]
             [interop.cljs-ajax :refer [POST]]
             [metcalf3.logic :as logic]

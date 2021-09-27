@@ -1,13 +1,12 @@
 (ns metcalf.tern.config
   (:require [metcalf.common.low-code :as low-code]
+            [metcalf.common.rules :as rules]
             [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers]
             [metcalf3.ins :as ins]
             [metcalf3.subs :as subs]
             [metcalf3.views :as views]
-            [re-frame.core :as rf]
-            [metcalf.common.rules :as rules]
-            [metcalf3.logic :as logic]))
+            [re-frame.core :as rf]))
 
 (rf/reg-event-fx :handlers/load-api-options-resp handlers/load-api-options-resp)
 (rf/reg-event-fx :handlers/load-es-options-resp handlers/load-es-options-resp)

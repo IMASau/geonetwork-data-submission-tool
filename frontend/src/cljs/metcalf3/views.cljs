@@ -1,6 +1,6 @@
 (ns metcalf3.views
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [cljs.core.async :as async :refer [put! <! chan timeout]]
+  (:require [cljs.core.async :as async :refer [<! chan put! timeout]]
             [cljs.spec.alpha :as s]
             [clojure.edn :as edn]
             [clojure.set :as set]
@@ -15,18 +15,18 @@
             [interop.fixed-data-table-2 :refer [Cell Column Table]]
             [interop.moment :as moment]
             [interop.react-imask :as react-imask]
+            [interop.ui :as ui]
+            [metcalf.common.low-code :as low-code]
             [metcalf3.content :refer [contact-groups]]
             [metcalf3.handlers :as handlers]
             [metcalf3.logic :as logic]
-            [metcalf.common.low-code :as low-code]
             [metcalf3.utils :as utils]
             [metcalf3.widget.boxmap :as boxmap]
             [metcalf3.widget.modal :refer [Modal]]
             [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectAsyncCreatable VirtualizedSelect]]
             [metcalf3.widget.tree :refer [TermList TermTree]]
             [re-frame.core :as rf]
-            [reagent.core :as r]
-            [interop.ui :as ui])
+            [reagent.core :as r])
   (:import [goog.dom ViewportSizeMonitor]
            [goog.events FileDropHandler]
            [goog.events EventType]))

@@ -134,7 +134,7 @@
 
 (defn get-date-field-with-label-props
   [derived-db [_ path]]
-  (let [{:keys [required disabled value show-errors errors minDate maxDate]} (get-in derived-db path)
+  (let [{:keys [disabled value show-errors errors]} (get-in derived-db path)
         value (if (= value "") nil value)
         error-help (when (and show-errors (seq errors))
                      (string/join ". " errors))]

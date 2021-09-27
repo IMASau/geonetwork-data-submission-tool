@@ -559,7 +559,7 @@
   (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))
         data (get-in payload [:form :data])
         schema (get-in payload [:form :schema])]
-    (-> (deep-merge default-payload payload)
+    (-> payload
         (assoc-in [:form :state] (blocks/as-blocks {:data data :schema schema}))
         (assoc :alert [])
         (assoc :api {:parametername        {:uri (str URL_ROOT "/api/ternparameters") :options nil}

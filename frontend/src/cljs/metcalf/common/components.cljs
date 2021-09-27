@@ -18,7 +18,7 @@
   [config]
   (s/assert ::config config)
   (let [path (db-path config)
-          logic @(rf/subscribe [::get-input-field-with-label-props path])
+        logic @(rf/subscribe [::get-input-field-with-label-props path])
         onChange #(rf/dispatch [::input-field-with-label-value-changed path %])
         props (merge (select-keys config [:label :placeholder :helperText :toolTip]) logic)
         {:keys [label placeholder helperText toolTip maxLength required value disabled show-errors errors]} props

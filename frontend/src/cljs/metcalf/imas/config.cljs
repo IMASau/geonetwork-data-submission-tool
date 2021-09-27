@@ -6,6 +6,9 @@
             [metcalf3.ins :as ins]
             [metcalf3.subs :as subs]
             [metcalf3.views :as views]
+            [metcalf.common.components :as common-components]
+            [metcalf.common.handlers :as common-handlers]
+            [metcalf.common.subs :as common-subs]
             [re-frame.core :as rf]))
 
 (rf/reg-event-fx :handlers/load-api-options-resp handlers/load-api-options-resp)
@@ -77,6 +80,9 @@
 (rf/reg-event-fx :handlers/lodge-save-success handlers/lodge-save-success)
 (rf/reg-event-fx :handlers/lodge-error handlers/lodge-error)
 (rf/reg-event-fx :help-menu/open handlers/help-menu-open)
+(rf/reg-event-fx ::common-components/input-field-with-label-value-changed common-handlers/input-field-with-label-value-changed)
+(rf/reg-event-fx ::common-components/textarea-field-with-label-value-changed common-handlers/textarea-field-with-label-value-changed)
+(rf/reg-event-fx ::common-components/date-field-with-label-value-changed common-handlers/date-field-with-label-value-changed)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)
@@ -106,8 +112,20 @@
 (rf/reg-sub :subs/get-form-tick subs/get-form-tick)
 (rf/reg-sub :help/get-menuitems subs/get-menuitems)
 (rf/reg-sub :subs/platform-selected? subs/platform-selected?)
+(rf/reg-sub ::common-components/get-input-field-with-label-props :<- [::common-subs/get-derived-state] common-subs/get-input-field-with-label-props)
+(rf/reg-sub ::common-components/get-textarea-field-with-label-props :<- [::common-subs/get-derived-state] common-subs/get-textarea-field-with-label-props)
+(rf/reg-sub ::common-components/get-date-field-with-label-props :<- [::common-subs/get-derived-state] common-subs/get-date-field-with-label-props)
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
+(set! rules/rule-registry
+      {"requiredField"     rules/required-field
+       "maxLength"         rules/max-length
+       "geographyRequired" rules/geography-required
+       "licenseOther"      rules/license-other
+       "dateOrder"         rules/date-order
+       "endPosition"       rules/end-position
+       "maintFreq"         rules/maint-freq
+       "verticalRequired"  rules/vertical-required})
 (set! low-code/component-registry
       {'m3/DataParametersTable         views/DataParametersTable
        'm3/CheckboxField               views/CheckboxField
@@ -131,6 +149,9 @@
        'm3/ThemeKeywordsExtra          views/ThemeKeywordsExtra
        'm3/UploadData                  views/UploadData
        'm3/Who                         views/Who
+       'm4/textarea-field-with-label common-components/textarea-field-with-label
+       'm4/input-field-with-label    common-components/input-field-with-label
+       'm4/date-field-with-label     common-components/date-field-with-label
        })
 (set! low-code/template-registry
       '{:data-identification

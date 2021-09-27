@@ -1,5 +1,6 @@
 (ns metcalf.imas.config
   (:require [metcalf.common.low-code :as low-code]
+            [metcalf.common.rules :as rules]
             [metcalf.imas.handlers :as imas-handlers]
             [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers]
@@ -150,9 +151,9 @@
        'm3/ThemeKeywordsExtra          views/ThemeKeywordsExtra
        'm3/UploadData                  views/UploadData
        'm3/Who                         views/Who
-       'm4/textarea-field-with-label common-components/textarea-field-with-label
-       'm4/input-field-with-label    common-components/input-field-with-label
-       'm4/date-field-with-label     common-components/date-field-with-label
+       'm4/textarea-field-with-label   common-components/textarea-field-with-label
+       'm4/input-field-with-label      common-components/input-field-with-label
+       'm4/date-field-with-label       common-components/date-field-with-label
        })
 (set! low-code/template-registry
       '{:data-identification

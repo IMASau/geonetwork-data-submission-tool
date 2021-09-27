@@ -160,19 +160,19 @@
         [:div
          [m3/PageErrors {:page :data-identification :path [:form]}]
          [:h2 "1. Data Identification"]
-         [m3/input-field-with-label
+         [m4/input-field-with-label
           {:form-id     [:form :state]
            :data-path   [:identificationInfo :title]
            :label       "Title"
            :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
            :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
-         [m3/date-field-with-label
+         [m4/date-field-with-label
           {:form-id   [:form :state]
            :data-path [:identificationInfo :dateCreation]
            :label     "Date the resource was created"
            :required  true
-           :minDate   #inst "1900-01-01"
-           :maxDate   #inst "2100-01-01"}]
+           :minDate   "1900-01-01"
+           :maxDate   "2100-01-01"}]
          [m3/TopicCategories {:form-id   [:form :state]
                               :data-path [:identificationInfo :topicCategory]}]
          [m3/SelectField {:form-id   [:form :state]
@@ -185,7 +185,7 @@
         [:div
          [m3/PageErrors {:page :what :path [:form]}]
          [:h2 "2. What"]
-         [m3/textarea-field-with-label
+         [m4/textarea-field-with-label
           {:form-id     [:form :state]
            :data-path   [:identificationInfo :abstract]
            :label       "Abstract"
@@ -194,7 +194,7 @@
            :toolTip     "Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected."
            :maxLength   2500
            :required    true}]
-         [m3/textarea-field-with-label
+         [m4/textarea-field-with-label
           {:form-id     [:form :state]
            :data-path   [:identificationInfo :purpose]
            :label       "Purpose"
@@ -212,20 +212,20 @@
         [:div
          [m3/PageErrors {:page :when :path [:form]}]
          [:h2 "3. When was the data acquired?"]
-         [m3/date-field-with-label
+         [m4/date-field-with-label
           {:form-id   [:form :state]
            :data-path [:identificationInfo :beginPosition]
            :label     "Start date"
            :required  true
-           :minDate   #inst "1900-01-01"
-           :maxDate   #inst "2100-01-01"}]
-         [m3/date-field-with-label
+           :minDate   "1900-01-01"
+           :maxDate   "2100-01-01"}]
+         [m4/date-field-with-label
           {:form-id   [:form :state]
            :data-path [:identificationInfo :endPosition]
            :label     "End date"
            :required  true
-           :minDate   #inst "1900-01-01"
-           :maxDate   #inst "2100-01-01"}]
+           :minDate   "1900-01-01"
+           :maxDate   "2100-01-01"}]
          [:div.row
           [:div.col-md-4
            [m3/NasaListSelectField {:keyword   :samplingFrequency
@@ -252,11 +252,11 @@
          [:h2 "5: How"]
          [m3/Methods {:form-id   [:form :state]
                       :data-path [:resourceLineage :processStep]}]
-         [m3/textarea-field-with-label
+         [m4/textarea-field-with-label
           {:form-id   [:form :state]
            :data-path [:dataQualityInfo :methods]
            :label     "Method"}]
-         [m3/textarea-field-with-label
+         [m4/textarea-field-with-label
           {:form-id     [:form :state]
            :data-path   [:dataQualityInfo :results]
            :label       "Data Quality Results"
@@ -290,10 +290,10 @@
          [m3/SupportingResource {:form-id   [:form :state]
                                  :data-path [:supportingResources]}]
          [:form-id [:form :state]
-          mdata-etcalf3.view/SupplementalInformation [:identificationInfo :supplementalInformation]]
+          [m3/SupplementalInformation [:identificationInfo :supplementalInformation]]]
          [:br]
          [:h4 "Distribution"]
-         [m3/input-field-with-label
+         [m4/input-field-with-label
           {:form-id     [:form :state]
            :data-path   [:distributionInfo :distributionFormat :name]
            :label       "Data file format"
@@ -302,7 +302,7 @@
            :toolTip     nil
            :maxLength   100
            :required    nil}]
-         [m3/input-field-with-label
+         [m4/input-field-with-label
           {:form-id     [:form :state]
            :data-path   [:distributionInfo :distributionFormat :version]
            :label       "Data file format date/version"
@@ -311,7 +311,7 @@
            :toolTip     nil
            :maxLength   20
            :required    nil}]
-         [m3/textarea-field-with-label
+         [m4/textarea-field-with-label
           {:form-id     [:form :state]
            :data-path   [:resourceLineage :lineage]
            :label       "Lineage"

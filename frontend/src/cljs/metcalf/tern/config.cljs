@@ -129,28 +129,7 @@
        "maintFreq"         rules/maint-freq
        "verticalRequired"  rules/vertical-required})
 (set! low-code/component-registry
-      {'m3/DataParametersTable       views/DataParametersTable
-       'm3/date-field-with-label     views/date-field-with-label
-       'm3/textarea-field            views/textarea-field
-       'm3/textarea-field-with-label views/textarea-field-with-label
-       'm3/Methods                   views/Methods
-       'm3/UseLimitations            views/UseLimitations
-       'm3/SelectField               views/SelectField
-       'm3/NasaListSelectField       views/NasaListSelectField
-       'm3/GeographicCoverage        views/GeographicCoverage
-       'm3/DataSources               views/DataSources
-       'm3/PageErrors                views/PageErrors
-       'm3/VerticalCoverage          views/VerticalCoverage
-       'm3/TopicCategories           views/TopicCategories
-       'm3/ResourceConstraints       views/ResourceConstraints
-       'm3/Lodge                     views/Lodge
-       'm3/SupportingResource        views/SupportingResource
-       'm3/SupplementalInformation   views/SupplementalInformation
-       'm3/ThemeKeywords             views/ThemeKeywords
-       'm3/UploadData                views/UploadData
-       'm3/TaxonKeywordsExtra        views/TaxonKeywordsExtra
-       'm3/Who                       views/Who
-       'm3/ThemeKeywordsExtra        views/ThemeKeywordsExtra
+      {
        'm4/textarea-field-with-label common-components/textarea-field-with-label
        'm4/input-field-with-label    common-components/input-field-with-label
        'm4/date-field-with-label     common-components/date-field-with-label

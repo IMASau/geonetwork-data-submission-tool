@@ -85,12 +85,13 @@
      :urls                   urls}))
 
 (def edit-tabs
-  [{:id :data-identification :text "Data identification"}
+  [{:id :data-identification :text "Identification"}
    {:id :what :text "What"}
    {:id :when :text "When"}
    {:id :where :text "Where"}
-   {:id :how :text "How"}
    {:id :who :text "Who"}
+   {:id :how :text "How"}
+   {:id :quality :text "Data Quality"}
    {:id :about :text "About"}
    {:id :upload :text "Data sources"}
    {:id :lodge :text "Lodge"}])

@@ -5,14 +5,14 @@
             [clojure.walk :as walk]
             [goog.object :as gobj]
             [interop.moment :as moment]
-            [metcalf3.logic :as logic]
+            [metcalf3.logic :as logic3]
             [metcalf3.utils :as utils]
             [re-frame.core :as rf]))
 
 (defn init-db
   [_ _]
   (let [payload (js->clj (aget js/window "payload") :keywordize-keys true)
-        db' (logic/initial-state payload)]
+        db' (logic3/initial-state payload)]
     {:db         db'
      :dispatch-n (for [api-key (keys (get db' :api))]
                    [:handlers/load-api-options [:api api-key]])}))
@@ -97,7 +97,7 @@
 (defn new-field!
   [{:keys [db]} [_ path]]
   {:db (let [many-field (get-in db path)
-             new-field (logic/new-value-field many-field)]
+             new-field (logic3/new-value-field many-field)]
          (update-in db path update :value #(conj % new-field)))})
 
 (defn add-field!
@@ -107,14 +107,14 @@
 (defn add-value!
   [{:keys [db]} [_ path value]]
   (let [many-field (get-in db path)
-        new-field (-> (logic/new-value-field many-field)
+        new-field (-> (logic3/new-value-field many-field)
                       (assoc :value value))]
     {:db (update-in db path update :value conj new-field)}))
 
 (defn save-current-document
   [{:keys [db]} _]
   (let [url (get-in db [:form :url])
-        data (-> db :form :fields logic/extract-field-values)]
+        data (-> db :form :fields logic3/extract-field-values)]
     {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
      :fx/save-current-document
          {:url       url
@@ -271,7 +271,7 @@
 (defn reset-form
   [{:keys [db]} [_ form-path]]
   (s/assert vector? form-path)
-  {:db (update-in db form-path logic/reset-form)})
+  {:db (update-in db form-path logic3/reset-form)})
 
 (defn show-errors
   [{:keys [db]} [_ path]]
@@ -325,7 +325,7 @@
   [{:keys [db]} [_ many-field-path values]]
   (let [many-field (get-in db many-field-path)
         new-fields (for [value values]
-                     (-> (logic/new-value-field many-field)
+                     (-> (logic3/new-value-field many-field)
                          (update-in [:value :northBoundLatitude] merge (:northBoundLatitude value))
                          (update-in [:value :southBoundLatitude] merge (:southBoundLatitude value))
                          (update-in [:value :eastBoundLongitude] merge (:eastBoundLongitude value))
@@ -368,7 +368,7 @@
 
 (defn load-errors
   [{:keys [db]} [_ form-path data]]
-  {:db (update-in db form-path logic/load-errors data)})
+  {:db (update-in db form-path logic3/load-errors data)})
 
 (defn add-keyword-extra
   [{:keys [db]} [_ keywords-path value]]
@@ -407,10 +407,10 @@
 (defn dashboard-create-save
   [{:keys [db]} _]
   (let [{:keys [url] :as form} (get-in db [:create_form])
-        form (logic/validate-required-fields form)]
-    (if (logic/is-valid? form)
+        form (logic3/validate-required-fields form)]
+    (if (logic3/is-valid? form)
       {:fx/create-document {:url       url
-                            :params    (logic/extract-data form)
+                            :params    (logic3/extract-data form)
                             :success-v [:handlers/create-document-success]
                             :error-v   [:handlers/create-document-error]}}
       {:dispatch [:handlers/show-errors [:create_form]]})))
@@ -469,7 +469,7 @@
 (defn lodge-click
   [{:keys [db]} _]
   (let [url (get-in db [:form :url])
-        data (-> db :form :fields logic/extract-field-values)]
+        data (-> db :form :fields logic3/extract-field-values)]
     {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
      :fx/save-current-document
          {:url       url

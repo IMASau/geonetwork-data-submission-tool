@@ -3,7 +3,6 @@
             [clojure.string :as string]
             [interop.date :as date]
             [interop.ui :as ui]
-            [metcalf4.blocks :as blocks]
             [re-frame.core :as rf]))
 
 (s/def ::form-id vector?)

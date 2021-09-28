@@ -1,7 +1,5 @@
 (ns metcalf.imas.config
-  (:require [metcalf4.low-code :as low-code]
-            [metcalf4.rules :as rules]
-            [metcalf.imas.handlers :as imas-handlers]
+  (:require [metcalf.imas.handlers :as imas-handlers]
             [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers3]
             [metcalf3.ins :as ins]
@@ -9,6 +7,8 @@
             [metcalf3.views :as views]
             [metcalf4.components :as components4]
             [metcalf4.handlers :as handlers4]
+            [metcalf4.low-code :as low-code]
+            [metcalf4.rules :as rules]
             [metcalf4.subs :as subs4]
             [re-frame.core :as rf]))
 

@@ -1,15 +1,15 @@
 (ns metcalf.imas.config
-  (:require [metcalf.common.low-code :as low-code]
-            [metcalf.common.rules :as rules]
+  (:require [metcalf4.low-code :as low-code]
+            [metcalf4.rules :as rules]
             [metcalf.imas.handlers :as imas-handlers]
             [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers]
             [metcalf3.ins :as ins]
             [metcalf3.subs :as subs]
             [metcalf3.views :as views]
-            [metcalf.common.components :as common-components]
-            [metcalf.common.handlers :as common-handlers]
-            [metcalf.common.subs :as common-subs]
+            [metcalf4.components :as common-components]
+            [metcalf4.handlers :as common-handlers]
+            [metcalf4.subs :as common-subs]
             [re-frame.core :as rf]))
 
 (rf/reg-event-fx :handlers/load-api-options-resp handlers/load-api-options-resp)

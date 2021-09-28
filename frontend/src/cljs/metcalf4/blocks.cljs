@@ -1,6 +1,6 @@
-(ns metcalf.common.blocks
+(ns metcalf4.blocks
   (:require [cljs.spec.alpha :as s]
-            [metcalf.common.schema :as schema]))
+            [metcalf4.schema :as schema]))
 
 
 (s/def ::type string?)

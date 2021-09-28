@@ -58,3 +58,20 @@
 
 (defn block-path [data-path]
   (vec (interleave (repeat :content) data-path)))
+
+
+; TODO: no support for initial/default values yet
+(defn new-item
+  [schema]
+  (as-blocks {:data nil :schema schema}))
+
+
+(comment
+  (as-blocks {:data "" :schema {:type "string"}})
+  (as-blocks {:data nil :schema {:type "string"}})
+  (as-blocks {:data {} :schema {:type "object" :properties {:a {:type "string"}}}})
+  (as-blocks {:data nil :schema {:type "object" :properties {:a {:type "string"}}}})
+  (as-blocks {:data [] :schema {:type "array"}})
+  (as-blocks {:data nil :schema {:type "array"}})
+  (as-blocks {:data nil :schema {:type "object" :properties {:a {:type "string"}}}})
+  (as-blocks {:data nil :schema {:type "array" :items {:type "object" :properties {:a {} :b {}}}}}))

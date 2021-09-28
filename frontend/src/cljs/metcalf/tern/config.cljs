@@ -40,7 +40,7 @@
 (rf/reg-event-fx :handlers/load-error-page handlers/load-error-page)
 (rf/reg-event-fx :handlers/set-value handlers/set-value)
 (rf/reg-event-fx :date-field/value-change handlers/date-field-value-change)
-(rf/reg-event-fx ::views/date-field-with-label-value-change handlers/date-field-value-change)
+(rf/reg-event-fx ::views/date-field-with-label-value-changed handlers/date-field-value-change)
 (rf/reg-event-fx :textarea-field/value-change handlers/textarea-field-value-change)
 (rf/reg-event-fx ::views/textarea-field-with-label-value-changed handlers/textarea-field-value-change)
 (rf/reg-event-fx :handlers/set-geographic-element handlers/set-geographic-element)

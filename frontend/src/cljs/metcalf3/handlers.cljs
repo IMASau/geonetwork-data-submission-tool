@@ -410,7 +410,7 @@
         form (logic/validate-required-fields form)]
     (if (logic/is-valid? form)
       {:fx/create-document {:url       url
-                            :form      form
+                            :params    (logic/extract-data form)
                             :success-v [:handlers/create-document-success]
                             :error-v   [:handlers/create-document-error]}}
       {:dispatch [:handlers/show-errors [:create_form]]})))

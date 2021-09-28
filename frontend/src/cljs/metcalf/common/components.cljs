@@ -73,7 +73,7 @@
   (let [path (get-ctx config)
         config-keys [:label :required :helperText :toolTip :minDate :maxDate]
         logic @(rf/subscribe [::get-date-field-with-label-props path])
-        onChange #(rf/dispatch [::date-field-with-label-value-change path (date/to-value %)])
+        onChange #(rf/dispatch [::date-field-with-label-value-changed path (date/to-value %)])
         props (merge (select-keys config config-keys) logic)
         {:keys [label required helperText toolTip minDate maxDate
                 value disabled errors show-errors]} props

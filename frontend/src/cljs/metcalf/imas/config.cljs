@@ -40,13 +40,10 @@
 (rf/reg-event-fx :handlers/show-all-documents handlers/show-all-documents)
 (rf/reg-event-fx :handlers/load-error-page handlers/load-error-page)
 (rf/reg-event-fx :handlers/set-value handlers/set-value)
-(rf/reg-event-fx ::views/date-field-with-label-value-change handlers/date-field-value-change)
-(rf/reg-event-fx ::views/textarea-field-with-label-value-changed handlers/textarea-field-value-change)
 (rf/reg-event-fx :textarea-field/value-change handlers/textarea-field-value-change)
 (rf/reg-event-fx :handlers/set-geographic-element handlers/set-geographic-element)
 (rf/reg-event-fx :handlers/person-detail-changed handlers/person-detail-changed)
 (rf/reg-event-fx :handlers/value-changed handlers/value-changed)
-(rf/reg-event-fx ::views/input-field-with-label-value-changed handlers/value-changed)
 (rf/reg-event-fx :handlers/set-tab handlers/set-tab)
 (rf/reg-event-fx :handlers/load-errors handlers/load-errors)
 (rf/reg-event-fx :handlers/add-keyword-extra handlers/add-keyword-extra)
@@ -98,16 +95,13 @@
 (rf/reg-sub :metcalf3/form-dirty? :<- [:subs/get-derived-state] subs/form-dirty?)
 (rf/reg-sub :subs/is-page-name-nil? subs/is-page-name-nil?)
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs/get-derived-path)
-(rf/reg-sub ::views/get-input-field-with-label-props :<- [:subs/get-derived-state] subs/get-input-field-with-label-props)
 (rf/reg-sub :subs/get-page-props subs/get-page-props)
 (rf/reg-sub :subs/get-page-name subs/get-page-name)
 (rf/reg-sub :subs/get-modal-props subs/get-modal-props)
 (rf/reg-sub :subs/get-dashboard-props subs/get-dashboard-props)
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] subs/get-edit-tab-props)
 (rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs/get-progress-props)
-(rf/reg-sub ::views/get-date-field-with-label-props :<- [:subs/get-derived-state] subs/get-date-field-with-label-props)
 (rf/reg-sub ::views/get-select-field-with-label-props :<- [:subs/get-derived-state] subs/get-select-field-with-label-props)
-(rf/reg-sub ::views/get-textarea-field-with-label-props :<- [:subs/get-derived-state] subs/get-textarea-field-with-label-props)
 (rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs/get-textarea-field-props)
 (rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs/get-textarea-field-many-props)
 (rf/reg-sub :subs/get-form-tick subs/get-form-tick)
@@ -160,19 +154,18 @@
         [:div
          [m3/PageErrors {:page :data-identification :path [:form]}]
          [:h2 "1. Data Identification"]
-         [m3/input-field-with-label
+         [m4/input-field-with-label
           {:form-id    [:form :state]
            :data-path  [:identificationInfo :title]
            :label      "Title"
-           :helperText "Clear and concise description of the content of the resource"
-           :required   true}]
-         [m3/date-field-with-label
+           :helperText "Clear and concise description of the content of the resource"}]
+         [m4/date-field-with-label
           {:form-id   [:form :state]
            :data-path [:identificationInfo :dateCreation]
            :label     "Date of record creation"
            :required  true
-           :minDate   #inst "1900-01-01"
-           :maxDate   #inst "2100-01-01"}]
+           :minDate   "1900-01-01"
+           :maxDate   "2100-01-01"}]
          [m3/select-field-with-label
           {:form-id   [:form :state]
            :data-path [:identificationInfo :topicCategory]
@@ -218,7 +211,7 @@
          [m3/PageErrors {:page :what :path [:form]}]
          [:h2 "2. What"]
          [:span.abstract-textarea
-          [m3/textarea-field-with-label
+          [m4/textarea-field-with-label
            {:form-id     [:form :state]
             :data-path   [:identificationInfo :abstract]
             :label       "Abstract"
@@ -239,19 +232,19 @@
         [:div
          [m3/PageErrors {:page :when :path [:form]}]
          [:h2 "3. When was the data acquired?"]
-         [m3/date-field-with-label
+         [m4/date-field-with-label
           {:form-id   [:form :state]
            :data-path [:identificationInfo :beginPosition]
            :label     "Start date"
            :required  true
-           :minDate   #inst "1900-01-01"
-           :maxDate   #inst "2100-01-01"}]
-         [m3/date-field-with-label
+           :minDate   "1900-01-01"
+           :maxDate   "2100-01-01"}]
+         [m4/date-field-with-label
           {:form-id   [:form :state]
            :data-path [:identificationInfo :endPosition]
            :label     "End date"
-           :minDate   #inst "1900-01-01"
-           :maxDate   #inst "2100-01-01"}]
+           :minDate   "1900-01-01"
+           :maxDate   "2100-01-01"}]
          [:div.row
           [:div.col-md-4
            ;; TODO does IMAS want the old sample frequency (min daily) or this one (min <1 second)?
@@ -275,14 +268,14 @@
            mdata-etcalf3.view/CheckboxField
            [:identificationInfo :verticalElement :hasVerticalExtent]]
           ;; FIXME hide the below fields when hasVerticalExtent checkbox is unchecked.
-          [m3/input-field-with-label
+          [m4/input-field-with-label
            {:form-id    [:form :state]
             :data-path  [:identificationInfo :verticalElement :minimumValue]
             :class      "wauto"
             :label      "Minimum (m)"
             :helperText "Shallowest depth / lowest altitude"
             :required   true}]
-          [m3/input-field-with-label
+          [m4/input-field-with-label
            {:form-id    [:form :state]
             :data-path  [:identificationInfo :verticalElement :maximumValue]
             :class      "wauto"
@@ -296,7 +289,7 @@
          [m3/PageErrors {:page :how :path [:form]}]
          [:h2 "5: How"]
          [:div.lineage-textarea
-          [m3/textarea-field-with-label
+          [m4/textarea-field-with-label
            {:form-id     [:form :state]
             :data-path   [:resourceLineage :lineage]
             :label       "Methodological information"
@@ -340,7 +333,7 @@
            :options   [["http://creativecommons.org/licenses/by/4.0/" "Creative Commons by Attribution (recommended​)"]
                        ["http://creativecommons.org/licenses/by-nc/4.0/" "Creative Commons, Non-commercial Use only"]
                        ["http://creativecommons.org/licenses/other" "Other constraints"]]}]
-         [m3/input-field-with-label
+         [m4/input-field-with-label
           {:form-id     [:form :state]
            :data-path   [:identificationInfo :otherConstraints]
            :label       "Additional license requirements"   ;; FIXME
@@ -357,7 +350,7 @@
                                      :data-path [:supportingResources]}]
          [:br]
          [:h4 "Distribution"]
-         [m3/input-field-with-label
+         [m4/input-field-with-label
           {:form-id     [:form :state]
            :data-path   [:distributionInfo :distributionFormat :name]
            :label       "Data file format"
@@ -366,7 +359,7 @@
            :toolTip     nil
            :maxLength   100
            :required    nil}]
-         [m3/input-field-with-label
+         [m4/input-field-with-label
           {:form-id     [:form :state]
            :data-path   [:distributionInfo :distributionFormat :version]
            :label       "Data file format date/version"

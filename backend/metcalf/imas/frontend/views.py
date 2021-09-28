@@ -400,8 +400,7 @@ def save(request, uuid):
         return Response({"messages": messages_payload(request),
                          "form": {
                              "url": reverse("Edit", kwargs={'uuid': doc.uuid}),
-                             "fields": xmlutils4.extract_fields(tree, spec),
-                             "jsonschema1": xmlutils4.extract_jsonschema(tree, spec),
+                             "schema": spec4.extract_fields(spec),
                              "data": data,
                              "document": DocumentInfoSerializer(doc, context={'user': request.user}).data}})
     except RuntimeError as e:
@@ -432,8 +431,7 @@ def edit(request, uuid):
         },
         "form": {
             "url": reverse("Save", kwargs={'uuid': doc.uuid}),
-            "fields": xmlutils4.extract_fields(tree, spec),
-            "jsonschema1": xmlutils4.extract_jsonschema(tree, spec),
+            "schema": spec4.extract_fields(spec),
             "data": data,
         },
         "upload_form": {

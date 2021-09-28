@@ -4,7 +4,6 @@
             [goog.net.cookies]
             [goog.structs :as structs]
             [interop.cljs-ajax :refer [POST]]
-            [metcalf3.logic :as logic]
             [re-frame.core :as rf]))
 
 ;; FIXME: Temporary hack. Should be able to get client cookies instead of asking the server.
@@ -50,9 +49,9 @@
   [url] (aset js/location "href" url))
 
 (defn create-document
-  [{:keys [url form success-v error-v]}]
+  [{:keys [url params success-v error-v]}]
   (POST url
-        {:params          (logic/extract-data form)
+        {:params          params
          :format          :json
          :response-format :json
          :keywords?       true

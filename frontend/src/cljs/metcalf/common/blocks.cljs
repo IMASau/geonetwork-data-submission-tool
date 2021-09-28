@@ -37,7 +37,7 @@
   (schema/postwalk-schema-data
     (fn [{:keys [data schema]}]
       (let [type (:type schema)]
-        (merge {:type type}
+        (merge (select-keys schema [:type])
                (case type
                  "array" {:content data}
                  "object" {:content data}

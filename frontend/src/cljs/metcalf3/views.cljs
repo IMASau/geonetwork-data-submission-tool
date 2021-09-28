@@ -219,7 +219,7 @@
      [ui/DateField
       {:value    value
        :disabled disabled
-       :onChange #(rf/dispatch [::date-field-with-label-value-change path %])
+       :onChange #(rf/dispatch [::date-field-with-label-value-changed path %])
        :hasError hasError
        :minDate  minDate
        :maxDate  maxDate}]]))

@@ -61,3 +61,15 @@
           nil)
         form)
       {:schema schema :data data :path []})))
+
+
+(defn schema-step
+  [k]
+  (if (int? k)
+    [:items]
+    [:properties k]))
+
+
+(defn schema-path
+  [data-path]
+  (vec (mapcat schema-step data-path)))

@@ -1,4 +1,4 @@
-(ns metcalf.common.rules
+(ns metcalf4.rules
   (:require [cljs.spec.alpha :as s]
             [clojure.string :as string]
             [interop.date :as date]))

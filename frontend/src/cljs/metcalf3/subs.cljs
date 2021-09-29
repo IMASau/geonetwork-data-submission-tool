@@ -3,11 +3,11 @@
             [clojure.set :as set]
             [clojure.string :as string]
             [interop.moment :as moment]
-            [metcalf3.logic :as logic]))
+            [metcalf3.logic :as logic3]))
 
 (defn get-derived-state
   [db _]
-  (logic/derived-state db))
+  (logic3/derived-state db))
 
 (defn form-dirty?
   [db _]
@@ -62,7 +62,7 @@
 (defn get-dashboard-props
   [db _]
   (let [{:keys [status-filter]
-         :or   {status-filter logic/active-status-filter}
+         :or   {status-filter logic3/active-status-filter}
          :as   page} (get-in db [:page])
         {:keys [documents status urls user]} (get-in db [:context])
         status-freq (frequencies (map :status documents))
@@ -85,12 +85,13 @@
      :urls                   urls}))
 
 (def edit-tabs
-  [{:id :data-identification :text "Data identification"}
+  [{:id :data-identification :text "Identification"}
    {:id :what :text "What"}
    {:id :when :text "When"}
    {:id :where :text "Where"}
-   {:id :how :text "How"}
    {:id :who :text "Who"}
+   {:id :how :text "How"}
+   {:id :quality :text "Data Quality"}
    {:id :about :text "About"}
    {:id :upload :text "Data sources"}
    {:id :lodge :text "Lodge"}])

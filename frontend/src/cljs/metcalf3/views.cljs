@@ -1971,6 +1971,7 @@
              :selected-group 0})
           (render [this]
             (let [{:keys [selected-group selected-item open hold]} (r/state this)
+                  {:keys [credit-path]} (r/props this)
                   selected-group (or selected-group (default-selected-group))
                   cursors (mapv (fn [{:keys [path]}]
                                   @(rf/subscribe [:subs/get-derived-path path]))
@@ -2041,7 +2042,7 @@
                [TableModalEdit
                 {:form       CreditField
                  :title      "Credit"
-                 :field-path [:form :fields :identificationInfo :credit]}]]))]
+                 :field-path credit-path}]]))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))

@@ -324,7 +324,8 @@
          ;; - Reduce Role codes
          ;; - Make Responsible Parties mandatory
          ;; FIXME Copy Person functionality isn't working.
-         [m3/Who nil]
+         [m3/Who
+          {:credit-path [:form :fields :identificationInfo :credit]}]
          [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
 
         :about

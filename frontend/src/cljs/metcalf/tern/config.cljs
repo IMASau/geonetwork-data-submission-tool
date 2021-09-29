@@ -275,7 +275,8 @@
 
         :who
         [:div
-         [m3/Who nil]
+         [m3/Who
+          {:credit-path [:form :fields :identificationInfo :credit]}]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
         :how

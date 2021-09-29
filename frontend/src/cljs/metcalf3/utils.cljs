@@ -171,3 +171,7 @@
 (defn ->float [s]
   (let [f (js/parseFloat s)]
     (if (js/isNaN f) nil f)))
+
+(defn other-term?
+  [term vocabularyTermURL]
+  (and (:value term) (empty? (:value vocabularyTermURL))))

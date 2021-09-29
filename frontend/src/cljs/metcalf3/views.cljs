@@ -916,10 +916,6 @@
             {:margin-left 10 :color "#929292" :font-size 11}}
       (if (clojure.string/blank? alt-label) "" (concat "also known as " alt-label))]]))
 
-(defn other-term?
-  [term vocabularyTermURL]
-  (and (:value term) (empty? (:value vocabularyTermURL))))
-
 (defn NasaListSelectField
   [_]
   (letfn [(will-mount [this]
@@ -973,7 +969,7 @@
                   vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
                   {:keys [label help required errors show-errors tooltip]} term
                   selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
-                  new-term? (other-term? term vocabularyTermURL)]
+                  new-term? (utils/other-term? term vocabularyTermURL)]
               [:div
                (when new-term?
                  [:span.pull-right.new-term.text-primary
@@ -1111,7 +1107,7 @@
      [:p "Or define your own"]
      [InputWidget
       (assoc term
-        :value (if (other-term? term vocabularyTermURL) (:value term) "")
+        :value (if (utils/other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
                      (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
                                                                                         :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
@@ -1128,7 +1124,7 @@
      [:p "Define your own unit"]
      [InputWidget
       (assoc term
-        :value (if (other-term? term vocabularyTermURL) (:value term) "")
+        :value (if (utils/other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
                      (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
                                                                                         :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))

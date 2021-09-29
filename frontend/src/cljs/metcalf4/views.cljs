@@ -68,10 +68,6 @@
             {:margin-left 10 :color "#929292" :font-size 11}}
       (if (clojure.string/blank? alt-label) "" (concat "also known as " alt-label))]]))
 
-(defn other-term?
-  [term vocabularyTermURL]
-  (and (:value term) (empty? (:value vocabularyTermURL))))
-
 (defn Tooltip
   [value]
   [:span " "

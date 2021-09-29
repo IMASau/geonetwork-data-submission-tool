@@ -12,7 +12,11 @@
       (:email user))
     (str (:firstName user) " " (:lastName user))))
 
-#_metcalf3.views/label-template
+(defn label-template
+  [{:keys [label required]}]
+  (when label
+    [:label label (when required " *")]))
+
 #_metcalf3.views/validation-state
 #_metcalf3.views/dp-term-paths
 #_metcalf3.views/masked-text-widget

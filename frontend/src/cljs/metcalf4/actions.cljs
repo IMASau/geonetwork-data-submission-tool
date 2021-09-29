@@ -1,6 +1,7 @@
 (ns metcalf4.actions
   (:require [metcalf4.blocks :as blocks]
             [goog.object :as gobj]
+            [metcalf3.utils :as utils3]
             [metcalf4.schema :as schema]))
 
 (defn load-form-action
@@ -49,3 +50,7 @@
         new-item (blocks/new-item schema)]
     (update-in s list-path conj new-item)))
 
+(defn del-item-action
+  [s form-id data-path idx]
+  (let [list-path (flatten [:db form-id :state (blocks/block-path data-path) :content])]
+    (update-in s list-path utils3/vec-remove idx)))

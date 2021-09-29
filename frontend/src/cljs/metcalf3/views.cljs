@@ -83,10 +83,6 @@
        :component-will-receive-props component-will-receive-props
        :render                       render})))
 
-(defn filter-name [s]
-  (s/assert string? s)
-  (string/replace s #"[^a-zA-Z-', ]" ""))
-
 (defn NameInputWidget
   [_]
   (letfn [(init-state [this]
@@ -94,7 +90,7 @@
               {:input-value value}))
 
           (handle-change [this s]
-            (let [s (filter-name s)]
+            (let [s (utils/filter-name s)]
               (r/set-state this {:input-value s})))
 
           (handle-blur [this]

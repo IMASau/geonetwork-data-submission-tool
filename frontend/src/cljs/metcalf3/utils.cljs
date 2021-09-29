@@ -151,3 +151,7 @@
    :vocabularyTermURL (keyword (str (name dp-type) "_vocabularyTermURL"))
    :vocabularyVersion (keyword (str (name dp-type) "_vocabularyVersion"))
    :termDefinition    (keyword (str (name dp-type) "_termDefinition"))})
+
+(defn filter-name [s]
+  (s/assert string? s)
+  (string/replace s #"[^a-zA-Z-', ]" ""))

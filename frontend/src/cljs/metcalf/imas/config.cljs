@@ -158,13 +158,13 @@
 
          ; Relies on schema to hold label at right location which is suitable
          [m4/page-errors
-          {:form-id    [:form :state]
+          {:form-id    [:form]
            :data-paths [[:identificationInfo :title]
                         [:identificationInfo :dateCreation]]}]
 
          ; Explicit label allows flexibility at cost of duplication
          [m4/page-errors
-          {:form-id [:form :state]
+          {:form-id [:form]
            :checks  [{:label "Title" :data-path [:identificationInfo :title]}
                      {:label "Date created" :data-path [:identificationInfo :dateCreation]}]}]
 
@@ -172,16 +172,16 @@
 
          [:h2 "1. Data Identification"]
          [m4/input-field-with-label
-          {:form-id    [:form :state]
+          {:form-id    [:form]
            :data-path  [:identificationInfo :title]
            :helperText "Clear and concise description of the content of the resource"}]
          [m4/date-field-with-label
-          {:form-id   [:form :state]
+          {:form-id   [:form]
            :data-path [:identificationInfo :dateCreation]
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
          [m4/select-field-with-label
-          {:form-id   [:form :state]
+          {:form-id   [:form]
            :data-path [:identificationInfo :topicCategory]
            :options   [{:value "biota" :label "biota"}
                        {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
@@ -189,13 +189,13 @@
                        {:value "geoscientificInformation" :label "geoscientificInformation"}
                        {:value "inlandWater" :label "inlandWater"}]}]
          [m4/select-field-with-label
-          {:form-id   [:form :state]
+          {:form-id   [:form]
            :data-path [:identificationInfo :status]
            :options   [{:value "onGoing" :label "ongoing"}
                        {:value "planned" :label "planned"}
                        {:value "completed" :label "completed"}]}]
          [m4/select-field-with-label
-          {:form-id   [:form :state]
+          {:form-id   [:form]
            :data-path [:identificationInfo :maintenanceAndUpdateFrequency]
            :options   [{:value "continually" :label "Continually"}
                        {:value "daily" :label "Daily"}
@@ -220,7 +220,7 @@
          [:h2 "2. What"]
          [:span.abstract-textarea
           [m4/textarea-field-with-label
-           {:form-id     [:form :state]
+           {:form-id     [:form]
             :data-path   [:identificationInfo :abstract]
             :label       "Abstract"
             :placeholder nil
@@ -241,14 +241,14 @@
          [m3/PageErrors {:page :when :path [:form]}]
          [:h2 "3. When was the data acquired?"]
          [m4/date-field-with-label
-          {:form-id   [:form :state]
+          {:form-id   [:form]
            :data-path [:identificationInfo :beginPosition]
            :label     "Start date"
            :required  true
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
          [m4/date-field-with-label
-          {:form-id   [:form :state]
+          {:form-id   [:form]
            :data-path [:identificationInfo :endPosition]
            :label     "End date"
            :minDate   "1900-01-01"
@@ -257,7 +257,7 @@
           [:div.col-md-4
            ;; TODO does IMAS want the old sample frequency (min daily) or this one (min <1 second)?
            [m3/NasaListSelectField {:keyword   :samplingFrequency
-                                    :form-id   [:form :state]
+                                    :form-id   [:form]
                                     :data-path [:identificationInfo]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
@@ -272,19 +272,19 @@
          [:div.VerticalCoverage
           ;; FIXME use h3 not h4. Restyle if necessary.
           [:h4 "Vertical Coverage"]
-          [:form-id [:form :state]
+          [:form-id [:form]
            mdata-etcalf3.view/CheckboxField
            [:identificationInfo :verticalElement :hasVerticalExtent]]
           ;; FIXME hide the below fields when hasVerticalExtent checkbox is unchecked.
           [m4/input-field-with-label
-           {:form-id    [:form :state]
+           {:form-id    [:form]
             :data-path  [:identificationInfo :verticalElement :minimumValue]
             :class      "wauto"
             :label      "Minimum (m)"
             :helperText "Shallowest depth / lowest altitude"
             :required   true}]
           [m4/input-field-with-label
-           {:form-id    [:form :state]
+           {:form-id    [:form]
             :data-path  [:identificationInfo :verticalElement :maximumValue]
             :class      "wauto"
             :label      "Maximum (m)"
@@ -298,7 +298,7 @@
          [:h2 "5: How"]
          [:div.lineage-textarea
           [m4/textarea-field-with-label
-           {:form-id     [:form :state]
+           {:form-id     [:form]
             :data-path   [:resourceLineage :lineage]
             :label       "Methodological information"
             :placeholder nil
@@ -324,13 +324,13 @@
          [m3/PageErrors {:page :about :path [:form]}]
          [:h2 "7: About Dataset"]
          [:h4 "Data parameters"]
-         [m3/DataParametersTable {:form-id   [:form :state]
+         [m3/DataParametersTable {:form-id   [:form]
                                   :data-path [:identificationInfo :dataParameters]}]
          [:br]
          [:h4 "Resource constraints"]
          ;; FIXME license selection isn't being included in XML export.
          [m4/select-field-with-label
-          {:form-id   [:form :state]
+          {:form-id   [:form]
            :data-path [:identificationInfo :creativeCommons]
            :help      [:span "Learn more about which license is right for you at "
                        [:a {:href   "https://creativecommons.org/choose/"
@@ -342,24 +342,24 @@
                        {:value "http://creativecommons.org/licenses/by-nc/4.0/" :label "Creative Commons, Non-commercial Use only"}
                        {:value "http://creativecommons.org/licenses/other" :label "Other constraints"}]}]
          [m4/input-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:identificationInfo :otherConstraints]
            :label       "Additional license requirements"   ;; FIXME
            :placeholder "Enter additional license requirements"
            :required    true}]
 
-         [m3/UseLimitations {:form-id   [:form :state]
+         [m3/UseLimitations {:form-id   [:form]
                              :data-path [:identificationInfo :useLimitations]}]
          [:br]
          [:h4 "Supplemental information"]
-         [:form-id [:form :state]
+         [:form-id [:form]
           mdata-etcalf3.view/IMASSupplementalInformation [:identificationInfo :supplementalInformation]]
-         [m3/IMASSupportingResource {:form-id   [:form :state]
+         [m3/IMASSupportingResource {:form-id   [:form]
                                      :data-path [:supportingResources]}]
          [:br]
          [:h4 "Distribution"]
          [m4/input-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:distributionInfo :distributionFormat :name]
            :label       "Data file format"
            :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
@@ -368,7 +368,7 @@
            :maxLength   100
            :required    nil}]
          [m4/input-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:distributionInfo :distributionFormat :version]
            :label       "Data file format date/version"
            :placeholder "Date format date or version if applicable"
@@ -388,7 +388,7 @@
          ;; [["OGC:WMS-1.3.0-http-get-map" "OGC Web Map Service (WMS)"]
          ;;  ["OGC:WFS-1.0.0-http-get-capabilities" "OGC Web Feature Service (WFS)"]
          ;;  ["WWW:LINK-1.0-http--downloaddata" "Other/unknown"]]
-         [m3/DataSources {:form-id   [:form :state]
+         [m3/DataSources {:form-id   [:form]
                           :data-path [:dataSources]}]
          [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 

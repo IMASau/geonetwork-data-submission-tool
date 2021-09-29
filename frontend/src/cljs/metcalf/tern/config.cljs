@@ -140,7 +140,7 @@
       '{:data-identification
         [:div
          [m4/page-errors
-          {:form-id    [:form :state]
+          {:form-id    [:form]
            :data-paths [[:identificationInfo :title]
                         [:identificationInfo :dateCreation]
                         [:identificationInfo :topicCategory]
@@ -149,26 +149,26 @@
                         [:identificationInfo :version]]}]
          [:h2 "1. Data Identification"]
          [m4/input-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:identificationInfo :title]
            :label       "Title"
            :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
            :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
          [m4/date-field-with-label
-          {:form-id   [:form :state]
+          {:form-id   [:form]
            :data-path [:identificationInfo :dateCreation]
            :label     "Date the resource was created"
            :required  true
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
-         [m3/TopicCategories {:form-id   [:form :state]
+         [m3/TopicCategories {:form-id   [:form]
                               :data-path [:identificationInfo :topicCategory]}]
-         [m3/SelectField {:form-id   [:form :state]
+         [m3/SelectField {:form-id   [:form]
                           :data-path [:identificationInfo :status]}]
-         [m3/SelectField {:form-id   [:form :state]
+         [m3/SelectField {:form-id   [:form]
                           :data-path [:identificationInfo :maintenanceAndUpdateFrequency]}]
          [m4/input-field-with-label
-          {:form-id    [:form :state]
+          {:form-id    [:form]
            :data-path  [:identificationInfo :version]
            :label      "Version"
            :helperText "Version number of the resource"
@@ -178,12 +178,12 @@
         :what
         [:div
          [m4/page-errors
-          {:form-id    [:form :state]
+          {:form-id    [:form]
            :data-paths [[:identificationInfo :abstract]
                         [:identificationInfo :purpose]]}]
          [:h2 "2. What"]
          [m4/textarea-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:identificationInfo :abstract]
            :label       "Abstract"
            :placeholder "Provide a brief summary of What, Where, When, Why, Who and How for the collected the data."
@@ -192,7 +192,7 @@
            :maxLength   2500
            :required    true}]
          [m4/textarea-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:identificationInfo :purpose]
            :label       "Purpose"
            :placeholder "Provide a brief summary of the purpose for collecting the data including the potential use."
@@ -208,19 +208,19 @@
         :when
         [:div
          [m4/page-errors
-          {:form-id    [:form :state]
+          {:form-id    [:form]
            :data-paths [[:identificationInfo :beginPosition]
                         [:identificationInfo :endPosition]]}]
          [:h2 "3. When was the data acquired?"]
          [m4/date-field-with-label
-          {:form-id   [:form :state]
+          {:form-id   [:form]
            :data-path [:identificationInfo :beginPosition]
            :label     "Start date"
            :required  true
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
          [m4/date-field-with-label
-          {:form-id   [:form :state]
+          {:form-id   [:form]
            :data-path [:identificationInfo :endPosition]
            :label     "End date"
            :required  true
@@ -229,20 +229,20 @@
          [:div.row
           [:div.col-md-4
            [m3/NasaListSelectField {:keyword   :samplingFrequency
-                                    :form-id   [:form :state]
+                                    :form-id   [:form]
                                     :data-path [:identificationInfo]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
         [:div
          [m4/page-errors
-          {:form-id    [:form :state]
+          {:form-id    [:form]
            :data-paths [[:identificationInfo :geographicElement :siteDescription]]}]
          [:h2 "4. Where"]
          [m4/textarea-field-with-label
-          {:form-id [:form :state]
-           :data-path [:identificationInfo :geographicElement :siteDescription]
-           :label "Site Description"
+          {:form-id     [:form]
+           :data-path   [:identificationInfo :geographicElement :siteDescription]
+           :label       "Site Description"
            :placeholder "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}]
          [m3/GeographicCoverage nil]
          [m3/VerticalCoverage]
@@ -256,20 +256,20 @@
         :how
         [:div
          [m4/page-errors
-          {:form-id    [:form :state]
+          {:form-id    [:form]
            :data-paths [[:resourceLineage :processStep]
                         [:dataQualityInfo :methods]
                         [:dataQualityInfo :results]]}]
          [:h2 "6: How"]
-         [m3/Methods {:form-id   [:form :state]
+         [m3/Methods {:form-id   [:form]
                       :data-path [:resourceLineage :processStep]}]
          [m4/textarea-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:dataQualityInfo :methods]
            :placeholder "Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods."
            :label       "Method"}]
          [m4/textarea-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:dataQualityInfo :results]
            :label       "Data Quality Results"
            :placeholder "Provide a statement regarding the data quality assessment results."
@@ -281,19 +281,19 @@
         :quality
         [:div
          [m4/page-errors
-          {:form-id    [:form :state]
+          {:form-id    [:form]
            :data-paths [[:dataQualityInfo :methodSummary]
                         [:dataQualityInfo :results]]}]
          [:h2 "7. Data Quality"]
          [:i "This section is optional"]
          [m4/textarea-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:dataQualityInfo :methodSummary]
            :label       "Provide a summary of the scope of the Data Quality Assessment"
            :maxLength   1000
            :placeholder "The data quality was assessed by ..."}]
          [m4/textarea-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:dataQualityInfo :results]
            :label       "Provide a statement regarding the Data Quality Assessment outcome"
            :maxLength   1000
@@ -303,7 +303,7 @@
         :about
         [:div
          [m4/page-errors
-          {:form-id    [:form :state]
+          {:form-id    [:form]
            :data-paths [[:identificationInfo :environment]
                         [:identificationInfo :supplemental]
                         [:identificationInfo :resourceSpecificUsage]
@@ -312,7 +312,7 @@
          [:h2 "8: About Dataset"]
          [:h4 "Environment Description (Optional)"]
          [m4/textarea-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:identificationInfo :environment]
            :label       "Environmental description"
            :placeholder "Information about the source and software to process the resource"
@@ -320,7 +320,7 @@
            :maxLength   1000}]
          [:h4 "Association Documentation (Optional)"]
          [m4/textarea-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:identificationInfo :supplemental]
            :label       "Supplemental Information"
            :placeholder "Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01"
@@ -328,7 +328,7 @@
            :maxLength   1000}]
          [:h4 "Resource specific usage (Optional)"]
          [m4/textarea-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:identificationInfo :resourceSpecificUsage]
            :label       "Resource specific usage"
            :placeholder "Resource specific usage..."
@@ -336,7 +336,7 @@
            :maxLength   1000}]
          [:h4 "Acknowledgment (Optional)"]
          [m4/textarea-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:identificationInfo :credit]
            :label       "Acknowledgment"
            :placeholder "The project was funded by xxx and yyy"
@@ -344,37 +344,37 @@
            :maxLength   1000}]
          [:h4 "Citation (Optional)"]
          [m4/textarea-field-with-label
-          {:form-id     [:form :state]
-           :data-path   [:identificationInfo :customCitation]
-           :label       "Specific citation"
-           :helperText  "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details below."
-           :maxLength   1000}]
+          {:form-id    [:form]
+           :data-path  [:identificationInfo :customCitation]
+           :label      "Specific citation"
+           :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details below."
+           :maxLength  1000}]
 
          [:h4 "Data parameters"]
-         [m3/DataParametersTable {:form-id   [:form :state]
+         [m3/DataParametersTable {:form-id   [:form]
                                   :data-path [:identificationInfo :dataParameters]}]
          [:br]
          [:h4 "Pixel Size"]
          [:div.row
           [:div.col-md-6
            [m3/NasaListSelectField {:keyword   :horizontalResolution
-                                    :form-id   [:form :state]
+                                    :form-id   [:form]
                                     :data-path [:identificationInfo]}]]]
          [:br]
          [:h4 "Resource constraints"]
          [m3/ResourceConstraints]
-         [m3/UseLimitations {:form-id   [:form :state]
+         [m3/UseLimitations {:form-id   [:form]
                              :data-path [:identificationInfo :useLimitations]}]
          [:br]
          [:h4 "Supplemental information"]
-         [m3/SupportingResource {:form-id   [:form :state]
+         [m3/SupportingResource {:form-id   [:form]
                                  :data-path [:supportingResources]}]
-         [:form-id [:form :state]
+         [:form-id [:form]
           [m3/SupplementalInformation [:identificationInfo :supplementalInformation]]]
          [:br]
          [:h4 "Distribution"]
          [m4/input-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:distributionInfo :distributionFormat :name]
            :label       "Data file format"
            :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
@@ -383,7 +383,7 @@
            :maxLength   100
            :required    nil}]
          [m4/input-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:distributionInfo :distributionFormat :version]
            :label       "Data file format date/version"
            :placeholder "Date format date or version if applicable"
@@ -392,7 +392,7 @@
            :maxLength   20
            :required    nil}]
          [m4/textarea-field-with-label
-          {:form-id     [:form :state]
+          {:form-id     [:form]
            :data-path   [:resourceLineage :lineage]
            :label       "Lineage"
            :placeholder "Provide a brief summary of the source of the data and related collection and/or processing methods."
@@ -402,16 +402,16 @@
 
         :upload
         [:div
-         [m4/page-errors {:form-id [:form :state] :data-paths []}]
+         [m4/page-errors {:form-id [:form] :data-paths []}]
          [:h2 "9. Data Sources"]
          [m3/UploadData nil]
          [:h2 "Data Services"]
-         [m3/DataSources {:form-id   [:form :state]
+         [m3/DataSources {:form-id   [:form]
                           :data-path [:dataSources]}]
          [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
         :lodge
         [:div
-         [m4/page-errors {:form-id [:form :state] :data-paths []}]
+         [m4/page-errors {:form-id [:form] :data-paths []}]
          [:h2 "10: Lodge Metadata Draft"]
          [m3/Lodge nil]]})

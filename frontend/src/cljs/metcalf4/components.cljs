@@ -1,9 +1,8 @@
-(ns metcalf.common.components
+(ns metcalf4.components
   (:require [cljs.spec.alpha :as s]
             [clojure.string :as string]
             [interop.date :as date]
             [interop.ui :as ui]
-            [metcalf.common.blocks :as blocks]
             [re-frame.core :as rf]))
 
 (s/def ::form-id vector?)

@@ -1,14 +1,14 @@
-(ns metcalf.common.subs
-  (:require [metcalf.common.blocks :as blocks]
-            [metcalf3.logic :as logic]
-            [re-frame.core :as rf]
-            [cljs.spec.alpha :as s]))
+(ns metcalf4.subs
+  (:require [cljs.spec.alpha :as s]
+            [metcalf3.logic :as logic3]
+            [metcalf4.blocks :as blocks]
+            [re-frame.core :as rf]))
 
 
 (defn get-form-state
   [db [_ path]]
   (s/assert vector? path)
-  (update-in db path logic/validate-rules))
+  (update-in db path logic3/validate-rules))
 
 
 (defn form-state-signal

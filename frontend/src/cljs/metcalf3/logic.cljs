@@ -4,10 +4,10 @@
             [cljs.spec.alpha :as s]
             [clojure.string :as string]
             [clojure.zip :as zip]
-            [metcalf.common.blocks :as blocks]
-            [metcalf.common.rules :as rules]
             [metcalf3.content :refer [contact-groups]]
-            [metcalf3.utils :as utils]))
+            [metcalf3.utils :as utils]
+            [metcalf4.blocks :as blocks]
+            [metcalf4.rules :as rules]))
 
 (def active-status-filter #{"Draft" "Submitted"})
 

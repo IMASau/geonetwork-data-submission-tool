@@ -339,7 +339,8 @@
       [:label input-control label]]
      [:p.help-block help]]))
 
-(defn CheckboxField [path label]
+(defn CheckboxField
+  [{:keys [path label]}]
   (let [field @(rf/subscribe [:subs/get-derived-path path])]
     [Checkbox (assoc field :checked (:value field)
                            :on-blur #(rf/dispatch [:handlers/show-errors path])
@@ -945,7 +946,8 @@
   (let [{hasVerticalExtent :value} @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]])]
     [:div.VerticalCoverage
      [:h4 "Vertical Coverage"]
-     [CheckboxField [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]]
+     [CheckboxField
+      {:path [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]}]
      (when hasVerticalExtent
        [:div
         [SelectField {:path [:form :fields :identificationInfo :verticalElement :method]}]
@@ -1567,7 +1569,9 @@
                      [:strong "Note for the data manager:"]
                      [:p (:value noteForDataManager)]]))]
                [:div
-                [CheckboxField [:form :fields :doiRequested] [:span "Please mint a DOI for this submission (If the DOI already exists, input details in the field above)"]]]
+                [CheckboxField
+                 {:path  [:form :fields :doiRequested]
+                  :label [:span "Please mint a DOI for this submission (If the DOI already exists, input details in the field above)"]}]]
                (when (:value doiRequested) (if (blank? (:value currentDoi))
                                              [:p [:strong "DOI not yet minted"]]
                                              [:p [:strong "Minted DOI: "] (:value currentDoi)]))
@@ -1581,7 +1585,9 @@
                  [:iframe {:width  "100%"
                            :height "600px"
                            :src    terms_pdf}]]
-                [CheckboxField [:form :fields :agreedToTerms] [:span "I have read and agree to the terms and conditions."]]
+                [CheckboxField
+                 {:path  [:form :fields :agreedToTerms]
+                  :label [:span "I have read and agree to the terms and conditions."]}]
                 [:button.btn.btn-primary.btn-lg
                  {:disabled (or has-errors? saving disabled submitted? (not (:value agreedToTerms)))
                   :on-click handle-submit-click}

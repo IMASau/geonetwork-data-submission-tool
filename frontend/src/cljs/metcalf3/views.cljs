@@ -916,9 +916,6 @@
             {:margin-left 10 :color "#929292" :font-size 11}}
       (if (clojure.string/blank? alt-label) "" (concat "also known as " alt-label))]]))
 
-(defn nasa-list-renderer [option]
-  (aget option "prefLabel"))
-
 (defn other-term?
   [term vocabularyTermURL]
   (and (:value term) (empty? (:value vocabularyTermURL))))
@@ -947,8 +944,8 @@
                      :is-searchable     true
                      :getOptionValue    (fn [option]
                                           (gobj/get option "prefLabel"))
-                     :formatOptionLabel (fn [props]
-                                          (r/as-element (nasa-list-renderer props)))
+                     :formatOptionLabel (fn [option]
+                                          (r/as-element (aget option "prefLabel")))
                      :onChange          (fn [option]
                                           (rf/dispatch [:handlers/update-nasa-list-value value-path option]))
                      :noResultsText     "No results found.  Click browse to add a new entry."})

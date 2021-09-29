@@ -43,7 +43,6 @@
 
 (defn input-field-with-label
   [config]
-  (s/assert ::ctx config)
   (let [ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-input-field-with-label-props ctx])
         onChange #(rf/dispatch [::input-field-with-label-value-changed ctx %])
@@ -68,7 +67,6 @@
 
 (defn textarea-field-with-label
   [config]
-  (s/assert ::ctx config)
   (let [ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-textarea-field-with-label-props ctx])
         onChange #(rf/dispatch [::textarea-field-with-label-value-changed ctx %])
@@ -96,7 +94,6 @@
 
 (defn date-field-with-label
   [config]
-  (s/assert ::ctx config)
   (let [ctx (utils4/get-ctx config)
         config-keys [:label :helperText :toolTip :minDate :maxDate]
         logic @(rf/subscribe [::get-date-field-with-label-props ctx])

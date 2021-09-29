@@ -637,7 +637,7 @@
        :render            render})))
 
 (defn ThemeKeywords
-  [keyword-type]
+  [{:keys [keyword-type]}]
   (letfn [(init-state [_]
             {:new-value  nil
              :input      ""

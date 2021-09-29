@@ -228,9 +228,12 @@
             ;; FIXME this isn't enforced.
             :maxLength   2500
             :required    true}]]
-         [m3/ThemeKeywords :keywordsTheme]
+         [m3/ThemeKeywords
+          {:keyword-type :keywordsTheme}]
          ;; FIXME Anzsrc should be optional, but this required doesn't hook up to anything.
-         [m3/ThemeKeywords :keywordsThemeAnzsrc {:required false}]
+         [m3/ThemeKeywords
+          {:keyword-type :keywordsThemeAnzsrc
+           :required     false}]
          ;; TODO Add Geographic Extent vocab here.
          [m3/ThemeKeywordsExtra nil]
          [m3/TaxonKeywordsExtra nil]

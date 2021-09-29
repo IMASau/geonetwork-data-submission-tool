@@ -155,12 +155,13 @@
           "valueChild": "gco:CharacterString",
           "label": "Title",
           "keep": false,
-          "required": true
+          "rules": ["requiredField"]
         },
         "dateCreation": {
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",
           "valueChild": "gco:DateTime",
-          "required": true,
+          "label": "Date of record creation",
+          "rules": ["requiredField"],
           "default": {
             "function": "today"
           }
@@ -168,7 +169,7 @@
         "datePublication": {
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]/cit:date",
           "valueChild": "gco:DateTime",
-          "required": true,
+          "rules": ["requiredField"],
           "default": {
             "function": "today"
           }
@@ -178,7 +179,7 @@
           "valueChild": "gco:DateTime",
           "container": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"revision\"]]]",
           "keep": false,
-          "required": true,
+          "rules": ["requiredField"],
           "deleteWhenEmpty": false,
           "default": {
             "function": "today"

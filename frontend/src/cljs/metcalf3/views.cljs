@@ -730,7 +730,7 @@
             {:highlight #{}})
           (render [this]
             (let [{:keys [highlight]} (r/state this)
-                  keywords-path [:form :fields :identificationInfo :keywordsThemeExtra :keywords]
+                  {:keys [keywords-path]} (r/props this)
                   keywords-value-path (conj keywords-path :value)
                   {:keys [value placeholder disabled errors new-value help maxlength] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
               (letfn [(set-value! [v]
@@ -777,7 +777,7 @@
             {:highlight #{}})
           (render [this]
             (let [{:keys [highlight]} (r/state this)
-                  keywords-path [:form :fields :identificationInfo :keywordsTaxonExtra :keywords]
+                  {:keys [keywords-path]} (r/props this)
                   keywords-value-path (conj keywords-path :value)
                   {:keys [value required help placeholder disabled maxlength errors new-value] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
 

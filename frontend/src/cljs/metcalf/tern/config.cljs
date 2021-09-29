@@ -200,13 +200,15 @@
            :helperText  "Brief statement about the purpose of the study"
            :toolTip     "The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"}]
          [m3/ThemeKeywords
-          {:keyword-type :keywordsTheme
+          {:keyword-type        :keywordsTheme
            :keywords-theme-path [:form :fields :identificationInfo :keywordsTheme]}]
          [m3/ThemeKeywords
-          {:keyword-type :keywordsThemeAnzsrc
+          {:keyword-type        :keywordsThemeAnzsrc
            :keywords-theme-path [:form :fields :identificationInfo :keywordsThemeAnzsrc]}]
-         [m3/ThemeKeywordsExtra nil]
-         [m3/TaxonKeywordsExtra nil]
+         [m3/ThemeKeywordsExtra
+          {}]
+         [m3/TaxonKeywordsExtra
+          {}]
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
         :when

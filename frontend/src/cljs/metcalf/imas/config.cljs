@@ -237,8 +237,10 @@
            :keywords-theme-path [:form :fields :identificationInfo :keywordsThemeAnzsrc]
            :required            false}]
          ;; TODO Add Geographic Extent vocab here.
-         [m3/ThemeKeywordsExtra nil]
-         [m3/TaxonKeywordsExtra nil]
+         [m3/ThemeKeywordsExtra
+          {:keywords-path [:form :fields :identificationInfo :keywordsThemeExtra :keywords]}]
+         [m3/TaxonKeywordsExtra
+          {:keywords-path [:form :fields :identificationInfo :keywordsTaxonExtra :keywords]}]
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
         :when

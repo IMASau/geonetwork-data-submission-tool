@@ -790,11 +790,6 @@
        :render            render})))
 
 
-
-(defn ->float [s]
-  (let [f (js/parseFloat s)]
-    (if (js/isNaN f) nil f)))
-
 (defn CoordInputWidget
   [_]
   (letfn [(init-state [this]
@@ -821,7 +816,7 @@
                     :on-change #(r/set-state this {:input-value (.. % -target -value)})
                     :on-blur (fn [e]
                                (let [v (.. e -target -value)
-                                     f (->float v)]
+                                     f (utils/->float v)]
                                  (r/set-state this {:input-value (str f)})
                                  (on-change f))))])
                [:p.help-block help]]))]

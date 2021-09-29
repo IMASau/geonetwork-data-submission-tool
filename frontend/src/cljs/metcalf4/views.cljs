@@ -57,10 +57,6 @@
     [:div
      [KeywordsThemeCell rowData]]))
 
-(defn ->float [s]
-  (let [f (js/parseFloat s)]
-    (if (js/isNaN f) nil f)))
-
 (defn breadcrumb-renderer [selected-option]
   (let [text (gobj/get selected-option "breadcrumb")
         term-text (gobj/get selected-option "term")

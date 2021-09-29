@@ -167,3 +167,7 @@
       (fn [row]
         (some col-match? (rest row)))
       table)))
+
+(defn ->float [s]
+  (let [f (js/parseFloat s)]
+    (if (js/isNaN f) nil f)))

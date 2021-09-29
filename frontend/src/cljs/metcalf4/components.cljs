@@ -105,7 +105,7 @@
   [config]
   (s/assert ::ctx config)
   (let [ctx (get-ctx config)
-        config-keys [:label :required :helperText :toolTip :minDate :maxDate]
+        config-keys [:label :helperText :toolTip :minDate :maxDate]
         logic @(rf/subscribe [::get-date-field-with-label-props ctx])
         onChange #(rf/dispatch [::date-field-with-label-value-changed ctx (date/to-value %)])
         props (merge logic (select-keys config config-keys))

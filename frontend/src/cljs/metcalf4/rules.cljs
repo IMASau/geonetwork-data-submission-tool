@@ -7,8 +7,8 @@
 
 (defn get-rule-handler
   [rule-id]
-  (get rule-registry (name rule-id)
-       #(when rule-id (js/console.warn "Rule with ID \"" [rule-id] "\" is not registered."))))
+  (assert (get rule-registry (name rule-id)) (str "No rule handler found for " (pr-str rule-id)))
+  (get rule-registry (name rule-id) identity))
 
 (defn apply-rule
   [block [rule-id rule-data]]

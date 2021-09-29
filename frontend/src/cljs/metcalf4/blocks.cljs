@@ -65,13 +65,3 @@
   [schema]
   (as-blocks {:data nil :schema schema}))
 
-
-(comment
-  (as-blocks {:data "" :schema {:type "string"}})
-  (as-blocks {:data nil :schema {:type "string"}})
-  (as-blocks {:data {} :schema {:type "object" :properties {:a {:type "string"}}}})
-  (as-blocks {:data nil :schema {:type "object" :properties {:a {:type "string"}}}})
-  (as-blocks {:data [] :schema {:type "array"}})
-  (as-blocks {:data nil :schema {:type "array"}})
-  (as-blocks {:data nil :schema {:type "object" :properties {:a {:type "string"}}}})
-  (as-blocks {:data nil :schema {:type "array" :items {:type "object" :properties {:a {} :b {}}}}}))

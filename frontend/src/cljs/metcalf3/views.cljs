@@ -1512,7 +1512,11 @@
             {:is-open        false
              :is-open-inline false})
           (render [this]
-            (let [{:keys [is-open]} (r/state this)
+            (let [{:keys [note-for-data-manager-path
+                          agreed-to-terms-path
+                          doi-requested-path
+                          current-doi-path]} (r/props this)
+                  {:keys [is-open]} (r/state this)
                   page @(rf/subscribe [:subs/get-page-props])
                   saving (::handlers/saving? page)
                   {:keys [document urls site]} @(rf/subscribe [:subs/get-derived-path [:context]])
@@ -1521,10 +1525,10 @@
                   {:keys [terms_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])
                   {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
                   dirty @(rf/subscribe [:subs/get-form-dirty])
-                  noteForDataManager @(rf/subscribe [:subs/get-derived-path [:form :fields :noteForDataManager]])
-                  agreedToTerms @(rf/subscribe [:subs/get-derived-path [:form :fields :agreedToTerms]])
-                  doiRequested @(rf/subscribe [:subs/get-derived-path [:form :fields :doiRequested]])
-                  currentDoi @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :doi]])
+                  noteForDataManager @(rf/subscribe [:subs/get-derived-path note-for-data-manager-path])
+                  agreedToTerms @(rf/subscribe [:subs/get-derived-path agreed-to-terms-path])
+                  doiRequested @(rf/subscribe [:subs/get-derived-path doi-requested-path])
+                  currentDoi @(rf/subscribe [:subs/get-derived-path current-doi-path])
                   is-are (if (> errors 1) "are" "is")
                   plural (when (> errors 1) "s")
                   has-errors? (and errors (> errors 0))

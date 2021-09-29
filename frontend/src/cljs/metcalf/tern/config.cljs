@@ -440,4 +440,8 @@
         [:div
          [m4/page-errors {:form-id [:form] :data-paths []}]
          [:h2 "10: Lodge Metadata Draft"]
-         [m3/Lodge nil]]})
+         [m3/Lodge
+          {:note-for-data-manager-path [:form :fields :noteForDataManager]
+           :agreed-to-terms-path       [:form :fields :agreedToTerms]
+           :doi-requested-path         [:form :fields :doiRequested]
+           :current-doi-path           [:form :fields :identificationInfo :doi]}]]})

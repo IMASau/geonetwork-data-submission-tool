@@ -390,7 +390,8 @@
         [:div
          [m3/PageErrors {:page :upload :path [:form]}]
          [:h2 "8: Upload Data"]
-         [m3/UploadData nil]
+         [m3/UploadData
+          {:attachments-path [:form :fields :attachments]}]
          [:h2 "Data Services"]
          ;; FIXME reduce protocol options to the below for IMAS:
          ;; [["OGC:WMS-1.3.0-http-get-map" "OGC Web Map Service (WMS)"]

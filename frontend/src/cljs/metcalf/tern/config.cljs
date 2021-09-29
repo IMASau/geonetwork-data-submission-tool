@@ -429,7 +429,8 @@
         [:div
          [m4/page-errors {:form-id [:form] :data-paths []}]
          [:h2 "9. Data Sources"]
-         [m3/UploadData nil]
+         [m3/UploadData
+          {:attachments-path [:form :fields :attachments]}]
          [:h2 "Data Services"]
          [m3/DataSources {:form-id   [:form]
                           :data-path [:dataSources]}]

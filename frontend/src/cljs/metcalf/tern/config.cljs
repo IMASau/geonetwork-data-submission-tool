@@ -133,11 +133,19 @@
        'm4/textarea-field-with-label components4/textarea-field-with-label
        'm4/input-field-with-label    components4/input-field-with-label
        'm4/date-field-with-label     components4/date-field-with-label
+       'm4/page-errors               components4/page-errors
        })
 (set! low-code/template-registry
       '{:data-identification
         [:div
-         [m3/PageErrors {:page :data-identification :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form :state]
+           :data-paths [[:identificationInfo :title]
+                        [:identificationInfo :dateCreation]
+                        [:identificationInfo :topicCategory]
+                        [:identificationInfo :status]
+                        [:identificationInfo :maintenanceAndUpdateFrequency]
+                        [:identificationInfo :version]]}]
          [:h2 "1. Data Identification"]
          [m4/input-field-with-label
           {:form-id     [:form :state]
@@ -168,7 +176,10 @@
 
         :what
         [:div
-         [m3/PageErrors {:page :what :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form :state]
+           :data-paths [[:identificationInfo :abstract]
+                        [:identificationInfo :purpose]]}]
          [:h2 "2. What"]
          [m4/textarea-field-with-label
           {:form-id     [:form :state]
@@ -195,7 +206,10 @@
 
         :when
         [:div
-         [m3/PageErrors {:page :when :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form :state]
+           :data-paths [[:identificationInfo :beginPosition]
+                        [:identificationInfo :endPosition]]}]
          [:h2 "3. When was the data acquired?"]
          [m4/date-field-with-label
           {:form-id   [:form :state]
@@ -220,7 +234,9 @@
 
         :where
         [:div
-         [m3/PageErrors {:page :where :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form :state]
+           :data-paths [[:identificationInfo :geographicElement :siteDescription]]}]
          [:h2 "4. Where"]
          [m4/textarea-field-with-label
           {:form-id [:form :state]
@@ -238,7 +254,11 @@
 
         :how
         [:div
-         [m3/PageErrors {:page :how :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form :state]
+           :data-paths [[:resourceLineage :processStep]
+                        [:dataQualityInfo :methods]
+                        [:dataQualityInfo :results]]}]
          [:h2 "6: How"]
          [m3/Methods {:form-id   [:form :state]
                       :data-path [:resourceLineage :processStep]}]
@@ -259,7 +279,10 @@
 
         :quality
         [:div
-         [m3/PageErrors {:page :quality :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form :state]
+           :data-paths [[:dataQualityInfo :methodSummary]
+                        [:dataQualityInfo :results]]}]
          [:h2 "7. Data Quality"]
          [:i "This section is optional"]
          [m4/textarea-field-with-label
@@ -278,7 +301,13 @@
 
         :about
         [:div
-         [m3/PageErrors {:page :about :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form :state]
+           :data-paths [[:identificationInfo :environment]
+                        [:identificationInfo :supplemental]
+                        [:identificationInfo :resourceSpecificUsage]
+                        [:identificationInfo :credit]
+                        [:identificationInfo :customCitation]]}]
          [:h2 "8: About Dataset"]
          [:h4 "Environment Description (Optional)"]
          [m4/textarea-field-with-label
@@ -372,7 +401,7 @@
 
         :upload
         [:div
-         [m3/PageErrors {:page :upload :path [:form]}]
+         [m4/page-errors {:form-id [:form :state] :data-paths []}]
          [:h2 "9. Data Sources"]
          [m3/UploadData nil]
          [:h2 "Data Services"]
@@ -382,6 +411,6 @@
 
         :lodge
         [:div
-         [m3/PageErrors {:page :lodge :path [:form]}]
+         [m4/page-errors {:form-id [:form :state] :data-paths []}]
          [:h2 "10: Lodge Metadata Draft"]
          [m3/Lodge nil]]})

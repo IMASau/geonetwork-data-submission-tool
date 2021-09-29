@@ -15,51 +15,38 @@
   [{:keys [form-id data-path]}]
   {:form-id form-id :data-path data-path})
 
-;; Pass in form.
-(defn is-valid?
-  [form field]
-  (let [{:keys [schema state]} form
-        #_#_#_#_initial-data (blocks/as-data (blocks/as-blocks {:data data :schema schema}))
-        current-data (blocks/as-data form)]
-
-
-    true
-    #_(field-reduce (field-zipper fields)
-                  (fn [acc {:keys [errors]}] (and acc (empty? errors)))
-                  true)))
-
-(defn field-error [{:keys [errors label]}]
-  [:span.FieldError label ": " (first errors)])
-
-(defn many-field-error [{:keys [errors label]}]
-  [:span.FieldError label ": " (or (first errors) "check field errors")])
+(defn has-error?
+  "Given the current form state, and a data path, check if
+  the field for that data path has errors."
+  [form-state data-path]
+  (let [path (blocks/block-path data-path)
+        field (get-in form-state path)
+        errors (-> field :props :errors)]
+    (seq errors)))
 
 (defn page-errors
-  [config]
-  (let [db-with-stateful-form @(rf/subscribe [::common-subs/get-form-state (:form-id config)])
-        form (get-in db-with-stateful-form (:form-id config))
-        payload db-with-stateful-form
-        data (get-in payload [:form :data])
-        schema (get-in payload [:form :schema])
-        initial-data (blocks/as-data (blocks/as-blocks {:data data :schema schema}))
-        current-data (blocks/as-data form)
-        error-fields [] #_(remove #(is-valid? form %) fields)
-        {:keys [state]} form
-        msgs (for [field error-fields]
-               (if (:many field)
-                 [many-field-error field]
-                 [field-error field]))]
-
-    (js/console.log "Checking if valid."
-                    {:form form :state state :schema schema 4 4 5 5})
-
-    (when (seq msgs)
-      [:div.alert.alert-warning
-       (if (> (count msgs) 1)
-         [:div
-          [:b "There are multiple fields on this page that require your attention:"]
-          (into [:ul] (for [msg msgs] [:li msg]))]
-         (first msgs))])))
+  [{:keys [form-id data-paths]}]
+  (letfn [(field-error [field]
+            (let [{:keys [errors label]} (:props field)]
+              [:span.FieldError label ": " (first errors)]))
+          (many-field-error [field]
+            (let [{:keys [errors label]} (:props field)]
+              [:span.FieldError label ": " (or (first errors) "check field errors")]))]
+    (let [form-state @(rf/subscribe [::common-subs/get-form-state form-id])
+          paths-to-check-for-errors (remove #(not (has-error? form-state %)) data-paths)
+          msgs (for [data-path paths-to-check-for-errors]
+                 (let [path (blocks/block-path data-path)
+                       field (get-in form-state path)]
+                   (if (-> field :props :many)
+                     [many-field-error field]
+                     [field-error field])))]
+      (when (seq msgs)
+        [:div.alert.alert-warning
+         (if (> (count msgs) 1)
+           [:div
+            [:b "There are multiple fields on this page that require your attention:"]
+            (into [:ul] (for [msg msgs] [:li msg]))]
+           (first msgs))]))))
 
 (defn input-field-with-label
   [config]

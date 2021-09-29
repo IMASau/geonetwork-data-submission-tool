@@ -145,3 +145,9 @@
   [{:keys [errors show-errors]}]
   (when (and show-errors (seq errors))
     "has-error"))
+
+(defn dp-term-paths [dp-type]
+  {:term              (keyword (str (name dp-type) "_term"))
+   :vocabularyTermURL (keyword (str (name dp-type) "_vocabularyTermURL"))
+   :vocabularyVersion (keyword (str (name dp-type) "_vocabularyVersion"))
+   :termDefinition    (keyword (str (name dp-type) "_termDefinition"))})

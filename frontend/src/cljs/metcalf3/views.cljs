@@ -36,12 +36,6 @@
   (when label
     [:label label (when required " *")]))
 
-(defn dp-term-paths [dp-type]
-  {:term              (keyword (str (name dp-type) "_term"))
-   :vocabularyTermURL (keyword (str (name dp-type) "_vocabularyTermURL"))
-   :vocabularyVersion (keyword (str (name dp-type) "_vocabularyVersion"))
-   :termDefinition    (keyword (str (name dp-type) "_termDefinition"))})
-
 (defn masked-text-widget
   [{:keys [mask value placeholder disabled on-change on-blur]}]
   [react-imask/masked-input
@@ -996,7 +990,7 @@
               (rf/dispatch [:handlers/search-es-options api-path ""])))
           (render [this]
             (let [{:keys [dp-type dp-term-path api-path disabled]} (r/props this)
-                  sub-paths (dp-term-paths dp-type)
+                  sub-paths (utils/dp-term-paths dp-type)
                   {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])
                   term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
                   vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
@@ -1113,7 +1107,7 @@
 
 (defn ApiTermTreeField
   [{:keys [api-path dp-term-path dp-type]}]
-  (let [sub-paths (dp-term-paths dp-type)
+  (let [sub-paths (utils/dp-term-paths dp-type)
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
         {:keys [label required errors show-errors]} term
@@ -1131,7 +1125,7 @@
 (defn TermOrOtherForm
   "docstring"
   [{:keys [dp-term-path dp-type] :as props}]
-  (let [sub-paths (dp-term-paths dp-type)
+  (let [sub-paths (utils/dp-term-paths dp-type)
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])]
     [:div
@@ -1150,7 +1144,7 @@
 (defn UnitTermOrOtherForm
   "docstring"
   [{:keys [dp-term-path dp-type]}]
-  (let [sub-paths (dp-term-paths dp-type)
+  (let [sub-paths (utils/dp-term-paths dp-type)
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])]
     [:div

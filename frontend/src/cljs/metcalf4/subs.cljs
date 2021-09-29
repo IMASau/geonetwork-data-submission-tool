@@ -26,3 +26,13 @@
   (s/assert vector? data-path)
   (let [path (blocks/block-path data-path)]
     (get-in state (conj path :props))))
+
+
+; FIXME: hardcoded path
+; FIXME: apply rules?
+(defn get-form-dirty?
+  [db]
+  (let [data0 (get-in db [:form :data])
+        state1 (get-in db [:form :state])
+        data1 (blocks/as-data state1)]
+    (not= data0 data1)))

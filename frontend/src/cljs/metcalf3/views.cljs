@@ -31,14 +31,6 @@
            [goog.events FileDropHandler]
            [goog.events EventType]))
 
-(defn userDisplay
-  [user]
-  (if (and (blank? (:lastName user)) (blank? (:firstName user)))
-    (if (blank? (:email user))
-      (:username user)
-      (:email user))
-    (str (:firstName user) " " (:lastName user))))
-
 (defn label-template
   [{:keys [label required]}]
   (when label
@@ -1896,8 +1888,8 @@
        [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading (str title " " tag_line)]]]
       [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
        (if account_profile
-         [:a.bp3-button.bp3-minimal {:href account_profile} (userDisplay user)]
-         [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)])
+         [:a.bp3-button.bp3-minimal {:href account_profile} (utils/userDisplay user)]
+         [:span {:style {:padding "5px 10px 5px 10px"}} (utils/userDisplay user)])
        [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
        [:a.bp3-button.bp3-minimal {:href account_logout} "Sign Out"]]]]))
 
@@ -2237,7 +2229,7 @@
                      dirty " Save"
                      :else " Saved")]]
                  [:p.lead
-                  [:strong (userDisplay user)]
+                  [:strong (utils/userDisplay user)]
                   " / "
                   (if (blank? title) "Untitled" title)
                   " "

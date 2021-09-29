@@ -1,6 +1,7 @@
 (ns metcalf3.utils
   (:require [cljs.spec.alpha :as s]
-            [goog.object :as gobject]))
+            [goog.object :as gobject]
+            [clojure.string :as string]))
 
 (defn on-change [m0 m1 ks f]
   (let [v0 (get-in m0 ks)
@@ -130,3 +131,12 @@
      :southBoundLatitude (get-in box [:value :southBoundLatitude :value])
      :eastBoundLongitude (get-in box [:value :eastBoundLongitude :value])
      :westBoundLongitude (get-in box [:value :westBoundLongitude :value])}))
+
+(defn userDisplay
+  [user]
+  (if (and (string/blank? (:lastName user))
+           (string/blank? (:firstName user)))
+    (if (string/blank? (:email user))
+      (:username user)
+      (:email user))
+    (str (:firstName user) " " (:lastName user))))

@@ -568,7 +568,7 @@
      [KeywordsThemeCell rowData]]))
 
 (defn modal-dialog-theme-keywords
-  [keyword-type]
+  [{:keys [keyword-type keywords-path]}]
   [Modal {:ok-copy      "Done"
           :dialog-class "modal-lg"
           :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Research theme keywords"]
@@ -576,7 +576,7 @@
                          [:p.help-block "Select keyword(s) to add to record"]
                          [KeywordsThemeTable
                           {:keyword-type  keyword-type
-                           :keywords-path [:form :fields :identificationInfo keyword-type :keywords]}]]
+                           :keywords-path keywords-path}]]
           :on-dismiss   #(rf/dispatch [:handlers/close-modal])
           :on-save      #(rf/dispatch [:handlers/close-modal])}])
 
@@ -657,8 +657,10 @@
                                     (handle-highlight-new this uuid)
                                     (set-value! nil)))
                   lookup (fn [uuid] (first (filterv #(= uuid (first %)) theme-table)))
-                  show-modal! #(rf/dispatch [:handlers/open-modal {:type         :ThemeKeywords
-                                                                   :keyword-type keyword-type}])
+                  show-modal! #(rf/dispatch [:handlers/open-modal
+                                             {:type          :ThemeKeywords
+                                              :keyword-type  keyword-type
+                                              :keywords-path keywords-path}])
                   options (into-array (for [[value & path :as rowData] theme-table]
                                         #js {:value   value
                                              :rowData rowData
@@ -2426,7 +2428,7 @@
       (case (:type modal-props)
         :TableModalEditForm [modal-dialog-table-modal-edit-form nil]
         :TableModalAddForm [modal-dialog-table-modal-add-form nil]
-        :ThemeKeywords [modal-dialog-theme-keywords (:keyword-type modal-props)]
+        :ThemeKeywords [modal-dialog-theme-keywords (select-keys modal-props [:keyword-type :keywords-path])]
         :parametername [modal-dialog-parametername nil]
         :parameterunit [modal-dialog-parameterunit nil]
         :parameterinstrument [modal-dialog-parameterinstrument nil]

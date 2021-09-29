@@ -900,7 +900,7 @@
 (defn GeographicCoverage
   [_]
   (letfn [(render [this]
-            (let [{:keys [has-coverage-path boxes-path]} (r/props this)
+            (let [{:keys [has-coverage-path boxes-path site-description-path]} (r/props this)
                   {hasGeographicCoverage :value} @(rf/subscribe [:subs/get-derived-path has-coverage-path])
                   {:keys [disabled] :as boxes} @(rf/subscribe [:subs/get-derived-path boxes-path])]
 
@@ -916,7 +916,7 @@
                      :tick-id   @(rf/subscribe [:subs/get-form-tick])
                      :on-change #(rf/dispatch [:handlers/update-boxes boxes-path %])}]]
                   [:div.col-sm-6
-                   [textarea-field {:path [:form :fields :identificationInfo :geographicElement :siteDescription]}]
+                   [textarea-field {:path site-description-path}]
                    [:p [:span "Please input in decimal degrees in coordinate reference system WGS84. "
                         "Geoscience Australia provide a "
                         [:a {:href "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp" :target "blank"}

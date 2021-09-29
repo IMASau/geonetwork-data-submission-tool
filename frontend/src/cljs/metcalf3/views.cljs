@@ -637,7 +637,7 @@
        :render            render})))
 
 (defn ThemeKeywords
-  [{:keys [keyword-type]}]
+  [{:keys [keyword-type keywords-theme-path]}]
   (letfn [(init-state [_]
             {:new-value  nil
              :input      ""
@@ -645,7 +645,6 @@
              :highlight  #{}})
           (render [this]
             (let [{:keys [highlight]} (r/state this)
-                  keywords-theme-path [:form :fields :identificationInfo keyword-type]
                   keywords-path (conj keywords-theme-path :keywords)
                   {:keys [keywords]} @(rf/subscribe [:subs/get-derived-path keywords-theme-path])
                   {:keys [value placeholder disabled help] :as props} keywords

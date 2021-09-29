@@ -1456,7 +1456,7 @@
         {:keys [portal_title portal_url email]} site
         {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
         {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
-        dirty @(rf/subscribe [::get-form-dirty])
+        dirty @(rf/subscribe [:subs/get-form-dirty])
         noteForDataManager @(rf/subscribe [:subs/get-derived-path [:form :fields :noteForDataManager]])
         is-are (if (> errors 1) "are" "is")
         plural (when (> errors 1) "s")
@@ -1536,7 +1536,7 @@
                   {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
                   {:keys [terms_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])
                   {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
-                  dirty @(rf/subscribe [::get-form-dirty])
+                  dirty @(rf/subscribe [:subs/get-form-dirty])
                   noteForDataManager @(rf/subscribe [:subs/get-derived-path [:form :fields :noteForDataManager]])
                   agreedToTerms @(rf/subscribe [:subs/get-derived-path [:form :fields :agreedToTerms]])
                   doiRequested @(rf/subscribe [:subs/get-derived-path [:form :fields :doiRequested]])
@@ -2219,7 +2219,7 @@
                   saving (::handlers/saving? page)
                   {:keys [urls user]} @(rf/subscribe [:subs/get-derived-path [:context]])
                   {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
-                  dirty @(rf/subscribe [::get-form-dirty])
+                  dirty @(rf/subscribe [:subs/get-form-dirty])
                   {:keys [status title last_updated]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
               [:div
                [navbar]

@@ -92,7 +92,7 @@
 (rf/reg-fx :fx/save-current-document fx/save-current-document)
 (rf/reg-fx :fx/archive-current-document fx/archive-current-document)
 (rf/reg-fx :window/open fx/window-open)
-(rf/reg-fx ::views/get-form-dirty subs4/get-form-dirty?)
+(rf/reg-fx :subs/get-form-dirty subs4/get-form-dirty?)
 (rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
 (rf/reg-sub :metcalf3/form-dirty? :<- [:subs/get-derived-state] subs3/form-dirty?)
 (rf/reg-sub :subs/is-page-name-nil? subs3/is-page-name-nil?)
@@ -155,10 +155,21 @@
 (set! low-code/template-registry
       '{:data-identification
         [:div
+
+         ; Relies on schema to hold label at right location which is suitable
          [m4/page-errors
           {:form-id    [:form :state]
            :data-paths [[:identificationInfo :title]
                         [:identificationInfo :dateCreation]]}]
+
+         ; Explicit label allows flexibility at cost of duplication
+         [m4/page-errors
+          {:form-id [:form :state]
+           :checks  [{:label "Title" :data-path [:identificationInfo :title]}
+                     {:label "Date created" :data-path [:identificationInfo :dateCreation]}]}]
+
+
+
          [:h2 "1. Data Identification"]
          [m4/input-field-with-label
           {:form-id    [:form :state]

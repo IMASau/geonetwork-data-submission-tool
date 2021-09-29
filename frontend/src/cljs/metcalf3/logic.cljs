@@ -313,13 +313,13 @@
 (defn validate-required-fields
   "Derive errors associated with missing required fields"
   [state]
-  (field-postwalk
+  (blocks/postwalk
     #(if (is-required-field? %) (validate-required-field %) %)
     state))
 
 (defn validate-rules
   [state]
-  (field-postwalk rules/apply-rules state))
+  (blocks/postwalk rules/apply-rules state))
 
 (defn geography-required-rule
   "Geography fields are required / included based on geographic coverage checkbox"

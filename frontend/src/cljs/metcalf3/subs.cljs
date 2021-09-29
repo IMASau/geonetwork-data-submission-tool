@@ -39,10 +39,6 @@
      :hasError  (boolean error-help)
      :errorText error-help}))
 
-(defn get-select-field-with-label-props
-  [db [_ path]]
-  (get-in db path))
-
 (defn get-page-props
   [db _]
   (get-in db [:page]))

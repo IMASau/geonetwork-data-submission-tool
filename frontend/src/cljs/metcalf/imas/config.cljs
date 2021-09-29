@@ -81,6 +81,7 @@
 (rf/reg-event-fx ::components4/input-field-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/textarea-field-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/date-field-with-label-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/select-field-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)
@@ -101,7 +102,6 @@
 (rf/reg-sub :subs/get-dashboard-props subs3/get-dashboard-props)
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] subs3/get-edit-tab-props)
 (rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs3/get-progress-props)
-(rf/reg-sub ::views/get-select-field-with-label-props :<- [:subs/get-derived-state] subs3/get-select-field-with-label-props)
 (rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs3/get-textarea-field-props)
 (rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs3/get-textarea-field-many-props)
 (rf/reg-sub :subs/get-form-tick subs3/get-form-tick)
@@ -111,6 +111,7 @@
 (rf/reg-sub ::components4/get-input-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-textarea-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-date-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub ::components4/get-select-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
 (set! rules/rule-registry
@@ -128,7 +129,6 @@
        'm3/date-field-with-label       views/date-field-with-label
        'm3/textarea-field-with-label   views/textarea-field-with-label
        'm3/UseLimitations              views/UseLimitations
-       'm3/select-field-with-label     views/select-field-with-label
        'm3/NasaListSelectField         views/NasaListSelectField
        'm3/GeographicCoverage          views/GeographicCoverage
        'm3/DataSources                 views/DataSources
@@ -149,6 +149,7 @@
        'm4/textarea-field-with-label   components4/textarea-field-with-label
        'm4/input-field-with-label      components4/input-field-with-label
        'm4/date-field-with-label       components4/date-field-with-label
+       'm4/select-field-with-label     components4/select-field-with-label
        })
 (set! low-code/template-registry
       '{:data-identification
@@ -161,53 +162,45 @@
          [m4/input-field-with-label
           {:form-id    [:form :state]
            :data-path  [:identificationInfo :title]
-           :label      "Title"
            :helperText "Clear and concise description of the content of the resource"}]
          [m4/date-field-with-label
           {:form-id   [:form :state]
            :data-path [:identificationInfo :dateCreation]
-           :label     "Date of record creation"
-           :required  true
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
-         [m3/select-field-with-label
+         [m4/select-field-with-label
           {:form-id   [:form :state]
            :data-path [:identificationInfo :topicCategory]
-           :label     "Topic categories"
-           :required  true
-           :options   [["biota" "biota"]
-                       ["climatology/meteorology/atmosphere" "climatology/meteorology/atmosphere"]
-                       ["oceans" "oceans"]
-                       ["geoscientificInformation" "geoscientificInformation"]
-                       ["inlandWater" "inlandWater"]]}]
-         [m3/select-field-with-label
+           :label     "Test"
+           :options   [{:value "biota" :label "biota"}
+                       {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
+                       {:value "oceans" :label "oceans"}
+                       {:value "geoscientificInformation" :label "geoscientificInformation"}
+                       {:value "inlandWater" :label "inlandWater"}]}]
+         [m4/select-field-with-label
           {:form-id   [:form :state]
            :data-path [:identificationInfo :status]
-           :label     "Status of data"
-           :required  true
-           :options   [["onGoing" "ongoing"]
-                       ["planned" "planned"]
-                       ["completed" "completed"]]}]
-         [m3/select-field-with-label
+           :options   [{:value "onGoing" :label "ongoing"}
+                       {:value "planned" :label "planned"}
+                       {:value "completed" :label "completed"}]}]
+         [m4/select-field-with-label
           {:form-id   [:form :state]
            :data-path [:identificationInfo :maintenanceAndUpdateFrequency]
-           :label     "Maintenance and update frequency"
-           :required  true
-           :options   [["continually" "Continually"]
-                       ["daily" "Daily"]
-                       ["weekly" "Weekly"]
-                       ["fortnightly" "Fortnightly"]
-                       ["monthly" "Monthly"]
-                       ["quarterly" "Quarterly"]
-                       ["biannually" "Twice each year"]
-                       ["annually" "Annually"]
-                       ["asNeeded" "As required"]
-                       ["irregular" "Irregular"]
-                       ["notPlanned" "None planned"]
-                       ["unknown" "Unknown"]
-                       ["periodic" "Periodic"]
-                       ["semimonthly" "Twice a month"]
-                       ["biennially" "Every 2 years"]]}]
+           :options   [{:value "continually" :label "Continually"}
+                       {:value "daily" :label "Daily"}
+                       {:value "weekly" :label "Weekly"}
+                       {:value "fortnightly" :label "Fortnightly"}
+                       {:value "monthly" :label "Monthly"}
+                       {:value "quarterly" :label "Quarterly"}
+                       {:value "biannually" :label "Twice each year"}
+                       {:value "annually" :label "Annually"}
+                       {:value "asNeeded" :label "As required"}
+                       {:value "irregular" :label "Irregular"}
+                       {:value "notPlanned" :label "None planned"}
+                       {:value "unknown" :label "Unknown"}
+                       {:value "periodic" :label "Periodic"}
+                       {:value "semimonthly" :label "Twice a month"}
+                       {:value "biennially" :label "Every 2 years"}]}]
          [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what
@@ -325,7 +318,7 @@
          [:br]
          [:h4 "Resource constraints"]
          ;; FIXME license selection isn't being included in XML export.
-         [m3/select-field-with-label
+         [m4/select-field-with-label
           {:form-id   [:form :state]
            :data-path [:identificationInfo :creativeCommons]
            :help      [:span "Learn more about which license is right for you at "
@@ -334,9 +327,9 @@
                         "Creative Commons"]]
            :label     "License"
            :required  true
-           :options   [["http://creativecommons.org/licenses/by/4.0/" "Creative Commons by Attribution (recommended​)"]
-                       ["http://creativecommons.org/licenses/by-nc/4.0/" "Creative Commons, Non-commercial Use only"]
-                       ["http://creativecommons.org/licenses/other" "Other constraints"]]}]
+           :options   [{:value "http://creativecommons.org/licenses/by/4.0/" :label "Creative Commons by Attribution (recommended​)"}
+                       {:value "http://creativecommons.org/licenses/by-nc/4.0/" :label "Creative Commons, Non-commercial Use only"}
+                       {:value "http://creativecommons.org/licenses/other" :label "Other constraints"}]}]
          [m4/input-field-with-label
           {:form-id     [:form :state]
            :data-path   [:identificationInfo :otherConstraints]

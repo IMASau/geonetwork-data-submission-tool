@@ -126,3 +126,30 @@
        :hasError hasError
        :minDate  (date/from-value minDate)
        :maxDate  (date/from-value maxDate)}]]))
+
+(defn select-field-with-label
+  [config]
+  (let [ctx (get-ctx config)
+        config-keys [:options :label]
+        logic @(rf/subscribe [::get-select-field-with-label-props ctx])
+        onChange #(do
+                    (js/console.log "On change...")
+                    (rf/dispatch [::select-field-with-label-value-changed ctx %]))
+        props (merge logic (select-keys config config-keys))
+        {:keys [label required placeholder helperText toolTip options
+                value disabled errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    [ui/FormGroup
+     {:label      label
+      :required   required
+      :disabled   disabled
+      :hasError   hasError
+      :helperText (if hasError (string/join ". " errors) helperText)
+      :toolTip    toolTip}
+     [ui/SelectField
+      {:value       value
+       :options     options
+       :placeholder placeholder
+       :disabled    (or disabled (empty? options))
+       :hasError    (seq hasError)
+       :onChange    onChange}]]))

@@ -1548,14 +1548,14 @@
                 {:style {:padding-top    5
                          :padding-bottom 5}}
                 (if (= "Draft" (:status document))
-                  [textarea-field {:path [:form :fields :noteForDataManager]}]
+                  [textarea-field {:path note-for-data-manager-path}]
                   (when-not (string/blank? (:value noteForDataManager))
                     [:div
                      [:strong "Note for the data manager:"]
                      [:p (:value noteForDataManager)]]))]
                [:div
                 [CheckboxField
-                 {:path  [:form :fields :doiRequested]
+                 {:path  doi-requested-path
                   :label [:span "Please mint a DOI for this submission (If the DOI already exists, input details in the field above)"]}]]
                (when (:value doiRequested) (if (blank? (:value currentDoi))
                                              [:p [:strong "DOI not yet minted"]]
@@ -1563,15 +1563,16 @@
                [:div
                 [:a
                  {:onClick #(r/set-state this {:is-open (not is-open)})}
-                 [:div [:b (str (if is-open "Hide" "Show") " Terms & Conditions ") (if is-open [:span.glyphicon.glyphicon-collapse-up]
-                                                                                               [:span.glyphicon.glyphicon-collapse-down])]]]
+                 [:div [:b (str (if is-open "Hide" "Show") " Terms & Conditions ")
+                        (if is-open [:span.glyphicon.glyphicon-collapse-up]
+                                    [:span.glyphicon.glyphicon-collapse-down])]]]
                 [bp3/collapse
                  {:isOpen is-open}
                  [:iframe {:width  "100%"
                            :height "600px"
                            :src    terms_pdf}]]
                 [CheckboxField
-                 {:path  [:form :fields :agreedToTerms]
+                 {:path  agreed-to-terms-path
                   :label [:span "I have read and agree to the terms and conditions."]}]
                 [:button.btn.btn-primary.btn-lg
                  {:disabled (or has-errors? saving disabled submitted? (not (:value agreedToTerms)))

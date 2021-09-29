@@ -254,7 +254,23 @@
           {:has-coverage-path     [:form :fields :identificationInfo :geographicElement :hasGeographicCoverage]
            :boxes-path            [:form :fields :identificationInfo :geographicElement :boxes]
            :site-description-path [:form :fields :identificationInfo :geographicElement :siteDescription]}]
-         [m3/VerticalCoverage]
+
+         [:div.VerticalCoverage
+          [:h4 "Vertical Coverage"]
+          [CheckboxField
+           {:path [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]}]
+          [:div
+           [SelectField {:path [:form :fields :identificationInfo :verticalElement :method]}]
+           [InputField
+            {:path  [:form :fields :identificationInfo :verticalElement :elevation]
+             :class "wauto"}]
+           [InputField
+            {:path  [:form :fields :identificationInfo :verticalElement :minimumValue]
+             :class "wauto"}]
+           [InputField
+            {:path  [:form :fields :identificationInfo :verticalElement :maximumValue]
+             :class "wauto"}]]]
+
          [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
 
         :who

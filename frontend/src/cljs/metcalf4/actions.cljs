@@ -1,6 +1,7 @@
 (ns metcalf4.actions
   (:require [metcalf4.blocks :as blocks]
-            [goog.object :as gobj]))
+            [goog.object :as gobj]
+            [metcalf4.schema :as schema]))
 
 (defn load-form-action
   "Massage raw payload for use as app-state"
@@ -39,4 +40,12 @@
   [s payload]
   (let [page-name (get-in payload [:page :name])]
     (assoc-in s [:db :page :name] page-name)))
+
+(defn new-item-action
+  [s form-id data-path]
+  (let [schema-path (flatten [:db form-id :schema (schema/schema-path data-path) :items])
+        list-path (flatten [:db form-id :state (blocks/block-path data-path) :content])
+        schema (get-in s schema-path)
+        new-item (blocks/new-item schema)]
+    (update-in s list-path conj new-item)))
 

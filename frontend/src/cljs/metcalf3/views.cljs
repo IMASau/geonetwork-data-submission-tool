@@ -36,11 +36,6 @@
   (when label
     [:label label (when required " *")]))
 
-(defn validation-state
-  [{:keys [errors show-errors]}]
-  (when (and show-errors (seq errors))
-    "has-error"))
-
 (defn dp-term-paths [dp-type]
   {:term              (keyword (str (name dp-type) "_term"))
    :vocabularyTermURL (keyword (str (name dp-type) "_vocabularyTermURL"))
@@ -80,7 +75,7 @@
                                   (assoc :on-change #(r/set-state this {:input-value (.. % -target -value)}))
                                   (assoc :on-blur #(on-change input-value))
                                   (assoc :key "ifc"))]
-              [:div.form-group {:class    (validation-state props)
+              [:div.form-group {:class    (utils/validation-state props)
                                 :disabled disabled}
                (label-template props)
                (if (or addon-after addon-before)
@@ -129,7 +124,7 @@
                                   (assoc :on-change #(handle-change this (.. % -target -value)))
                                   (assoc :on-blur #(handle-blur this))
                                   (assoc :key "ifc"))]
-              [:div.form-group {:class    (validation-state props)
+              [:div.form-group {:class    (utils/validation-state props)
                                 :disabled disabled}
                (label-template props)
                (if (or addon-after addon-before)
@@ -149,7 +144,7 @@
                       :value (or value "")
                       :on-change #(on-change (.. % -target -value))
                       :key "ifc")]
-    [:div.form-group {:class    (validation-state props)
+    [:div.form-group {:class    (utils/validation-state props)
                       :disabled disabled}
      (label-template props)
      (if (or addon-after addon-before)
@@ -326,7 +321,7 @@
                                       :checked  (boolean checked)
                                       :disabled disabled
                                       :onChange on-change})]]
-    [:div.form-group {:class (validation-state props)}
+    [:div.form-group {:class (utils/validation-state props)}
      [:div.checkbox
       [:label input-control label]]
      [:p.help-block help]]))
@@ -597,7 +592,7 @@
                                         #js {:value   value
                                              :rowData rowData
                                              :label   (string/join " > " path)}))]
-              [:div.ThemeKeywords {:class (validation-state props)}
+              [:div.ThemeKeywords {:class (utils/validation-state props)}
                (label-template props)
                [:p.help-block help]
                [:table.table.keyword-table {:class (when-not disabled "table-hover")}
@@ -657,7 +652,7 @@
                                         #js {:value   value
                                              :rowData rowData
                                              :label   (string/join " > " path)}))]
-              [:div.ThemeKeywords {:class (validation-state props)}
+              [:div.ThemeKeywords {:class (utils/validation-state props)}
                (label-template props)
                [:p.help-block help]
                [:table.table.keyword-table {:class (when-not disabled "table-hover")}
@@ -700,7 +695,7 @@
 
 (defn ThemeInputField
   [{:keys [value placeholder errors extra-help on-change on-blur on-submit maxlength] :as props}]
-  [:div.form-group {:class (validation-state props)}
+  [:div.form-group {:class (utils/validation-state props)}
    (label-template props)
    [:div.input-group {:key "ig"}
     [:input.form-control {:value       (or value "")
@@ -737,7 +732,7 @@
                           (rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path])))
                       (del-value! [x]
                         (rf/dispatch [:handlers/del-keyword-extra keywords-value-path x]))]
-                [:div.ThemeKeywordsExtra {:class (validation-state props)}
+                [:div.ThemeKeywordsExtra {:class (utils/validation-state props)}
                  (label-template props)
                  [:p.help-block help]
                  [:table.table.keyword-table {:class (when-not disabled "table-hover")}
@@ -790,7 +785,7 @@
                       (handle-input-blur []
                         (js/setTimeout #(rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path]) 100))]
 
-                [:div.TaxonKeywordsExtra {:class (validation-state props)}
+                [:div.TaxonKeywordsExtra {:class (utils/validation-state props)}
                  [:label "Taxon keywords" (when required " *")]
                  [:p.help-block help]
                  [:table.table.keyword-table {:class (when-not disabled "table-hover")}
@@ -837,7 +832,7 @@
                   input-props (assoc props
                                 :value (or value "")
                                 :key "ifc")]
-              [:div.form-group {:class (validation-state props)}
+              [:div.form-group {:class (utils/validation-state props)}
                (label-template props)
                (if (or addon-after addon-before)
                  [:div.input-group {:key "ig"} addon-before [:input.form-control input-props] addon-after]

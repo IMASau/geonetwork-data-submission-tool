@@ -3,7 +3,8 @@
             [clojure.string :as string]
             [goog.object :as gobj]
             [interop.react-imask :as react-imask]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [metcalf3.utils :as utils3]))
 
 ; For pure views only, no re-frame subs/handlers
 
@@ -11,11 +12,6 @@
   [{:keys [label required]}]
   (when label
     [:label label (when required " *")]))
-
-(defn validation-state
-  [{:keys [errors show-errors]}]
-  (when (and show-errors (seq errors))
-    "has-error"))
 
 (defn masked-text-widget
   [{:keys [mask value placeholder disabled on-change on-blur]}]
@@ -55,7 +51,7 @@
                                       :checked  (boolean checked)
                                       :disabled disabled
                                       :onChange on-change})]]
-    [:div.form-group {:class (validation-state props)}
+    [:div.form-group {:class (utils3/validation-state props)}
      [:div.checkbox
       [:label input-control label]]
      [:p.help-block help]]))

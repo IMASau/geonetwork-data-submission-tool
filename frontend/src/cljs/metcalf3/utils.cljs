@@ -140,3 +140,8 @@
       (:username user)
       (:email user))
     (str (:firstName user) " " (:lastName user))))
+
+(defn validation-state
+  [{:keys [errors show-errors]}]
+  (when (and show-errors (seq errors))
+    "has-error"))

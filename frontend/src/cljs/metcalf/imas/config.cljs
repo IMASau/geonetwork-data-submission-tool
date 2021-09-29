@@ -154,7 +154,9 @@
       '{:data-identification
         [:div
          [m4/page-errors
-          {:form-id    [:form :state]}]
+          {:form-id    [:form :state]
+           :data-paths [[:identificationInfo :title]
+                        [:identificationInfo :dateCreation]]}]
          [:h2 "1. Data Identification"]
          [m4/input-field-with-label
           {:form-id    [:form :state]

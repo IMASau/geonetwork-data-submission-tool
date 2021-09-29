@@ -8,7 +8,7 @@
 (defn get-form-state
   [db [_ path]]
   (s/assert vector? path)
-  (update-in db path logic3/validate-rules))
+  (get-in (update-in db path logic3/validate-rules) path))
 
 
 (defn form-state-signal

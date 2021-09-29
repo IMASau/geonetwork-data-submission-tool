@@ -94,7 +94,6 @@
 (rf/reg-fx :window/open fx/window-open)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
 (rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
-(rf/reg-sub :metcalf3/form-dirty? :<- [:subs/get-derived-state] subs3/form-dirty?)
 (rf/reg-sub :subs/is-page-name-nil? subs3/is-page-name-nil?)
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
 (rf/reg-sub :subs/get-page-props subs3/get-page-props)

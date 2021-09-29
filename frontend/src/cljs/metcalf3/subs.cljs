@@ -9,10 +9,6 @@
   [db _]
   (logic3/derived-state db))
 
-(defn form-dirty?
-  [db _]
-  (get-in db [:form :dirty]))
-
 (defn is-page-name-nil?
   [db _]
   (-> db :page :name nil?))

@@ -62,7 +62,7 @@ def inline_defs(schema):
 
 
 def extract_field(schema):
-    return select_keys(schema, ['type', 'rules', 'items', 'properties'])
+    return select_keys(schema, ['label', 'type', 'rules', 'items', 'properties'])
 
 
 def extract_fields(schema):

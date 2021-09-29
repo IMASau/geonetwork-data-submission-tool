@@ -41,7 +41,7 @@
                (case type
                  "array" {:content data}
                  "object" {:content data}
-                 {:props {:value data}})
+                 {:props {:value data :label (:label schema)}})
                (when-let [rules (:rules schema)]
                  {:rules rules}))))
     {:data data :schema schema}))

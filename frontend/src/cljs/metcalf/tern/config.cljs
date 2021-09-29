@@ -257,6 +257,25 @@
            :rows        20}]
          [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]
 
+        :quality
+        [:div
+         [m3/PageErrors {:page :quality :path [:form]}]
+         [:h2 "7. Data Quality"]
+         [:i "This section is optional"]
+         [m4/textarea-field-with-label
+          {:form-id     [:form :state]
+           :data-path   [:dataQualityInfo :methodSummary]
+           :label       "Provide a summary of the scope of the Data Quality Assessment"
+           :maxLength   1000
+           :placeholder "The data quality was assessed by ..."}]
+         [m4/textarea-field-with-label
+          {:form-id     [:form :state]
+           :data-path   [:dataQualityInfo :results]
+           :label       "Provide a statement regarding the Data Quality Assessment outcome"
+           :maxLength   1000
+           :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]
+         [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+
         :about
         [:div
          [m3/PageErrors {:page :about :path [:form]}]
@@ -350,25 +369,6 @@
            :toolTip     "Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017"
            :maxLength   1000}]
          [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
-
-        :quality
-        [:div
-         [m3/PageErrors {:page :quality :path [:form]}]
-         [:h2 "7. Data Quality"]
-         [:i "This section is optional"]
-         [m4/textarea-field-with-label
-          {:form-id     [:form :state]
-           :data-path   [:dataQualityInfo :methodSummary]
-           :label       "Provide a summary of the scope of the Data Quality Assessment"
-           :maxLength   1000
-           :placeholder "The data quality was assessed by ..."}]
-         [m4/textarea-field-with-label
-          {:form-id     [:form :state]
-           :data-path   [:dataQualityInfo :results]
-           :label       "Provide a statement regarding the Data Quality Assessment outcome"
-           :maxLength   1000
-           :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]
-         [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
 
         :upload
         [:div

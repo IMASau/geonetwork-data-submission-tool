@@ -282,9 +282,8 @@
          [:div.VerticalCoverage
           ;; FIXME use h3 not h4. Restyle if necessary.
           [:h4 "Vertical Coverage"]
-          [:form-id [:form]
-           mdata-etcalf3.view/CheckboxField
-           [:identificationInfo :verticalElement :hasVerticalExtent]]
+          [metcalf3.view/CheckboxField
+           {:path [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]}]
           ;; FIXME hide the below fields when hasVerticalExtent checkbox is unchecked.
           [m4/input-field-with-label
            {:form-id    [:form]

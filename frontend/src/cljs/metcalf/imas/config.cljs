@@ -92,7 +92,7 @@
 (rf/reg-fx :fx/save-current-document fx/save-current-document)
 (rf/reg-fx :fx/archive-current-document fx/archive-current-document)
 (rf/reg-fx :window/open fx/window-open)
-(rf/reg-fx :subs/get-form-dirty subs4/get-form-dirty?)
+(rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
 (rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
 (rf/reg-sub :metcalf3/form-dirty? :<- [:subs/get-derived-state] subs3/form-dirty?)
 (rf/reg-sub :subs/is-page-name-nil? subs3/is-page-name-nil?)

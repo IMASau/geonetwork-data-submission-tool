@@ -7,7 +7,8 @@
 
 (defn get-rule-handler
   [rule-id]
-  (get-in rule-registry [(name rule-id) :handler] identity))
+  (assert (get rule-registry (name rule-id)) (str "No rule handler found for " (pr-str rule-id)))
+  (get rule-registry (name rule-id) identity))
 
 (defn apply-rule
   [block [rule-id rule-data]]

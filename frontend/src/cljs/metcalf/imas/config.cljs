@@ -145,6 +145,7 @@
        'm3/ThemeKeywordsExtra          views/ThemeKeywordsExtra
        'm3/UploadData                  views/UploadData
        'm3/Who                         views/Who
+       'm4/page-errors                 common-components/page-errors
        'm4/textarea-field-with-label   common-components/textarea-field-with-label
        'm4/input-field-with-label      common-components/input-field-with-label
        'm4/date-field-with-label       common-components/date-field-with-label
@@ -152,7 +153,8 @@
 (set! low-code/template-registry
       '{:data-identification
         [:div
-         [m3/PageErrors {:page :data-identification :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form :state]}]
          [:h2 "1. Data Identification"]
          [m4/input-field-with-label
           {:form-id    [:form :state]

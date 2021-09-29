@@ -17,7 +17,7 @@
   (rf/subscribe [::get-form-state form-id]))
 
 
-; FIXME: leaking empty strings for date values  from payload.forms.data
+; FIXME: leaking empty strings for date values from payload.forms.data
 (defn get-block-props-sub
   [state [_ {:keys [data-path]}]]
   (s/assert vector? data-path)

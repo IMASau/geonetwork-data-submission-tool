@@ -278,7 +278,7 @@
    will be applied to the value in the source location, before being
    carried over to the resulting map.
 
-   If the mask yeilds no values, nil will be returned."
+   If the mask yields no values, nil will be returned."
   [some-map map-mask]
   (apply merge (remove nil? (map #(mask-map-triage-kv % map-mask) some-map))))
 

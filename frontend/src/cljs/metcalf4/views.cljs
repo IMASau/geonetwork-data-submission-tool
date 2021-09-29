@@ -17,7 +17,11 @@
   (when label
     [:label label (when required " *")]))
 
-#_metcalf3.views/validation-state
+(defn validation-state
+  [{:keys [errors show-errors]}]
+  (when (and show-errors (seq errors))
+    "has-error"))
+
 #_metcalf3.views/dp-term-paths
 #_metcalf3.views/masked-text-widget
 #_metcalf3.views/InputWidget

@@ -39,3 +39,14 @@
   [{:keys [db]} [_ api results]]
   (actions/-load-api-action {:db db} api results))
 
+
+(defn save-current-document
+  [{:keys [db]} _]
+  (let [url (get-in db [:form :url])
+        data (-> db :form :state blocks/as-data)]
+    {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
+     :fx/save-current-document
+         {:url       url
+          :data      data
+          :success-v [:handlers/save-current-document-success data]
+          :error-v   [:handlers/save-current-document-success]}}))

@@ -59,7 +59,7 @@
 (rf/reg-event-fx :handlers/load-api-options handlers3/load-api-options)
 (rf/reg-event-fx :handlers/load-es-options handlers3/load-es-options)
 (rf/reg-event-fx :handlers/search-es-options handlers3/search-es-options)
-(rf/reg-event-fx :handlers/save-current-document handlers3/save-current-document)
+(rf/reg-event-fx ::views/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx :handlers/save-current-document-error handlers3/save-current-document-error)
 (rf/reg-event-fx :handlers/archive-current-document handlers3/archive-current-document)
 (rf/reg-event-fx :handlers/archive-current-document-success handlers3/archive-current-document-success)

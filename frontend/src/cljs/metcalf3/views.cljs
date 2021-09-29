@@ -1380,10 +1380,6 @@
       {:get-initial-state init-state
        :render            render})))
 
-(defn save!
-  []
-  (rf/dispatch [:handlers/save-current-document]))
-
 (defn handle-submit-click
   []
   (rf/dispatch [:handlers/lodge-click]))
@@ -2181,7 +2177,7 @@
                    [:span.fa.fa-archive]
                    " Archive"] " "
                   [:button.btn.btn-primary {:disabled (or disabled (not dirty) saving)
-                                            :on-click save!}
+                                            :on-click #(rf/dispatch [::PageViewEdit-save-button-click])}
                    (cond
                      saving [:img {:src (str (:STATIC_URL urls) "metcalf3/img/saving.gif")}]
                      dirty [:span.glyphicon.glyphicon-floppy-disk]

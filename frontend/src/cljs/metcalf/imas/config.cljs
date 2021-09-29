@@ -275,7 +275,9 @@
          ;; FIXME add toggle for satellite imagery.
          ;; FIXME hide the siteDescription textarea.
          ;; FIXME remove the "Grid to Geographic converter" link text
-         [m3/GeographicCoverage nil]
+         [m3/GeographicCoverage
+          {:has-coverage-path [:form :fields :identificationInfo :geographicElement :hasGeographicCoverage]
+           :boxes-path        [:form :fields :identificationInfo :geographicElement :boxes]}]
          [:div.VerticalCoverage
           ;; FIXME use h3 not h4. Restyle if necessary.
           [:h4 "Vertical Coverage"]

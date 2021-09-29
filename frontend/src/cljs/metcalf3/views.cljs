@@ -900,8 +900,8 @@
 (defn GeographicCoverage
   [_]
   (letfn [(render [this]
-            (let [{hasGeographicCoverage :value} @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :geographicElement :hasGeographicCoverage]])
-                  boxes-path [:form :fields :identificationInfo :geographicElement :boxes]
+            (let [{:keys [has-coverage-path boxes-path]} (r/props this)
+                  {hasGeographicCoverage :value} @(rf/subscribe [:subs/get-derived-path has-coverage-path])
                   {:keys [disabled] :as boxes} @(rf/subscribe [:subs/get-derived-path boxes-path])]
 
               [:div.GeographicCoverage

@@ -250,7 +250,9 @@
            :data-path   [:identificationInfo :geographicElement :siteDescription]
            :label       "Site Description"
            :placeholder "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}]
-         [m3/GeographicCoverage nil]
+         [m3/GeographicCoverage
+          {:has-coverage-path [:form :fields :identificationInfo :geographicElement :hasGeographicCoverage]
+           :boxes-path        [:form :fields :identificationInfo :geographicElement :boxes]}]
          [m3/VerticalCoverage]
          [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
 

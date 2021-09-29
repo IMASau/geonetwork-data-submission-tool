@@ -89,7 +89,7 @@
   (modified-assoc-in m ks v #(when (integer? %) [])))
 
 (defn vec-remove [v i]
-  {:pre [(contains? v i)]}
+  {:pre [(vector? v) (nat-int? i) (contains? v i)]}
   (reduce conj (vec (subvec v 0 i)) (subvec v (inc i) (count v))))
 
 (defn zip [& colls]

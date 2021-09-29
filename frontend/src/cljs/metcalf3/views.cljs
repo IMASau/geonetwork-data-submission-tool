@@ -1433,7 +1433,7 @@
   (rf/dispatch [:handlers/lodge-click]))
 
 (defn IMASLodge
-  [_]
+  [{:keys [notes-path]}]
   (let [page @(rf/subscribe [:subs/get-page-props])
         saving (::handlers/saving? page)
         {:keys [document urls site]} @(rf/subscribe [:subs/get-derived-path [:context]])
@@ -1441,7 +1441,7 @@
         {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
         {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
         dirty @(rf/subscribe [:subs/get-form-dirty])
-        noteForDataManager @(rf/subscribe [:subs/get-derived-path [:form :fields :noteForDataManager]])
+        noteForDataManager @(rf/subscribe [:subs/get-derived-path notes-path])
         is-are (if (> errors 1) "are" "is")
         plural (when (> errors 1) "s")
         has-errors? (and errors (> errors 0))

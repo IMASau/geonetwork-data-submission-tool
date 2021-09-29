@@ -405,4 +405,5 @@
         [:div
          [m3/PageErrors {:page :lodge :path [:form]}]
          [:h2 "9: Lodge Metadata Draft"]
-         [m3/IMASLodge nil]]})
+         [m3/IMASLodge
+          {:notes-path [:form :fields :noteForDataManager]}]]})

@@ -1461,7 +1461,7 @@
       {:style {:padding-top    5
                :padding-bottom 5}}
       (if (= "Draft" (:status document))
-        [textarea-field {:path [:form :fields :noteForDataManager]}]
+        [textarea-field {:path notes-path}]
         (when-not (string/blank? (:value noteForDataManager))
           [:div
            [:strong "Note for the data manager:"]

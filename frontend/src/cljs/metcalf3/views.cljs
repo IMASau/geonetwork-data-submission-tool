@@ -374,7 +374,7 @@
      [:div.topic-value (last rowData)]]))
 
 (defn KeywordsThemeTable
-  [keyword-type]
+  [{:keys [keyword-type keywords-path]}]
   (letfn [(init-state [_]
             {:columnWidths     [26 (- 900 26)]
              :isColumnResizing false
@@ -389,7 +389,6 @@
               (update-table-width this)))
           (render [this]
             (let [{:keys [query width columnWidths isColumnResizing scrollToRow autowidth-id]} (r/state this)
-                  keywords-path [:form :fields :identificationInfo keyword-type :keywords]
                   keywords @(rf/subscribe [:subs/get-derived-path keywords-path])
                   uuids (zipmap (map :value (:value keywords)) (range))
                   table @(rf/subscribe [:subs/get-derived-path [:theme keyword-type :table]])
@@ -575,7 +574,9 @@
           :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Research theme keywords"]
           :modal-body   [:div
                          [:p.help-block "Select keyword(s) to add to record"]
-                         [KeywordsThemeTable keyword-type]]
+                         [KeywordsThemeTable
+                          {:keyword-type  keyword-type
+                           :keywords-path [:form :fields :identificationInfo keyword-type :keywords]}]]
           :on-dismiss   #(rf/dispatch [:handlers/close-modal])
           :on-save      #(rf/dispatch [:handlers/close-modal])}])
 

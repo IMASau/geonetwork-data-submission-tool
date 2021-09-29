@@ -942,25 +942,6 @@
     (r/create-class
       {:render render})))
 
-(defn VerticalCoverage []
-  (let [{hasVerticalExtent :value} @(rf/subscribe [:subs/get-derived-path [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]])]
-    [:div.VerticalCoverage
-     [:h4 "Vertical Coverage"]
-     [CheckboxField
-      {:path [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]}]
-     (when hasVerticalExtent
-       [:div
-        [SelectField {:path [:form :fields :identificationInfo :verticalElement :method]}]
-        [InputField
-         {:path  [:form :fields :identificationInfo :verticalElement :elevation]
-          :class "wauto"}]
-        [InputField
-         {:path  [:form :fields :identificationInfo :verticalElement :minimumValue]
-          :class "wauto"}]
-        [InputField
-         {:path  [:form :fields :identificationInfo :verticalElement :maximumValue]
-          :class "wauto"}]])]))
-
 (defn breadcrumb-renderer [selected-option]
   (let [text (gobj/get selected-option "breadcrumb")
         term-text (gobj/get selected-option "term")

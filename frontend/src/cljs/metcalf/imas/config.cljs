@@ -134,7 +134,6 @@
        'm3/GeographicCoverage          views/GeographicCoverage
        'm3/DataSources                 views/DataSources
        'm3/PageErrors                  views/PageErrors
-       'm3/VerticalCoverage            views/VerticalCoverage
        'm3/TopicCategories             views/TopicCategories
        'm3/ResourceConstraints         views/ResourceConstraints
        'm3/input-field-with-label      views/input-field-with-label

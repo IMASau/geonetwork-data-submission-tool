@@ -229,12 +229,12 @@
            :placeholder "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}]
          [m3/GeographicCoverage nil]
          [m3/VerticalCoverage]
-         [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+         [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
 
         :who
         [:div
          [m3/Who nil]
-         [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+         [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
         :how
         [:div
@@ -255,7 +255,7 @@
            :toolTip     "Example: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."
            :maxLength   1000
            :rows        20}]
-         [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
+         [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]
 
         :about
         [:div
@@ -367,7 +367,8 @@
            :data-path   [:dataQualityInfo :results]
            :label       "Provide a statement regarding the Data Quality Assessment outcome"
            :maxLength   1000
-           :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]]
+           :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]
+         [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
 
         :upload
         [:div
@@ -383,5 +384,4 @@
         [:div
          [m3/PageErrors {:page :lodge :path [:form]}]
          [:h2 "10: Lodge Metadata Draft"]
-         
          [m3/Lodge nil]]})

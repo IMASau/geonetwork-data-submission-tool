@@ -51,10 +51,6 @@
     [:div.topic-cell
      [:div.topic-value (last rowData)]]))
 
-(defn handle-highlight-new [this item]
-  (r/set-state this {:highlight (conj (:highlight (r/state this)) item)})
-  (js/setTimeout #(r/set-state this {:highlight (disj (:highlight (r/state this)) item)}) 5000))
-
 (defn theme-option-renderer
   [props]
   (let [rowData (gobj/get props "rowData")]

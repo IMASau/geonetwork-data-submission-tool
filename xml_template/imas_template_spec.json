@@ -189,6 +189,7 @@
           "xpath": "mri:topicCategory",
           "keep": false,
           "valueChild": "mri:MD_TopicCategoryCode",
+          "label": "Topic categories",
           "attributes": {
               "text": {
                   "function": "identity"
@@ -197,11 +198,12 @@
                   "function": "identity"
               }
           },
-          "required": true
+          "rules": ["requiredField"]
         },
         "status": {
           "xpath": "mri:status",
           "valueChild": "mcc:MD_ProgressCode",
+          "label": "Status of data",
           "attributes": {
             "text": {
               "function": "identity"
@@ -210,12 +212,12 @@
               "function": "identity"
             }
           },
-          "notes": "Status of data",
-          "required": true
+          "rules": ["requiredField"]
         },
         "maintenanceAndUpdateFrequency": {
           "xpath": "mri:resourceMaintenance/mmi:MD_MaintenanceInformation/mmi:maintenanceAndUpdateFrequency",
           "valueChild": "mmi:MD_MaintenanceFrequencyCode",
+          "label": "Maintenance and update frequency",
           "attributes": {
             "text": {
               "function": "identity"
@@ -224,6 +226,7 @@
               "function": "identity"
             }
           },
+          "rules": ["requiredFieldWhenStatusOngoing"],
           "!docstring": "\"required\": true,  // FIXME depends on status"
         },
         "abstract": {

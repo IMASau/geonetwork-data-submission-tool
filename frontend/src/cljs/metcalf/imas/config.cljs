@@ -171,7 +171,6 @@
          [m4/select-field-with-label
           {:form-id   [:form :state]
            :data-path [:identificationInfo :topicCategory]
-           :label     "Test"
            :options   [{:value "biota" :label "biota"}
                        {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
                        {:value "oceans" :label "oceans"}

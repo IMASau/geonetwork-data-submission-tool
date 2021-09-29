@@ -7,14 +7,6 @@
 
 ; For pure views only, no re-frame subs/handlers
 
-(defn user-display
-  [user]
-  (if (and (string/blank? (:lastName user)) (string/blank? (:firstName user)))
-    (if (string/blank? (:email user))
-      (:username user)
-      (:email user))
-    (str (:firstName user) " " (:lastName user))))
-
 (defn label-template
   [{:keys [label required]}]
   (when label

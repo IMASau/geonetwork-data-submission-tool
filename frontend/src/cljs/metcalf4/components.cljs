@@ -5,15 +5,8 @@
             [interop.ui :as ui]
             [metcalf4.blocks :as blocks]
             [metcalf4.subs :as common-subs]
+            [metcalf4.utils :as utils4]
             [re-frame.core :as rf]))
-
-(s/def ::form-id vector?)
-(s/def ::data-path vector?)
-(s/def ::ctx (s/keys :req-un [::form-id ::data-path]))
-
-(defn get-ctx
-  [{:keys [form-id data-path]}]
-  {:form-id form-id :data-path data-path})
 
 (defn has-error?
   "Given the current form state, and a data path, check if
@@ -51,7 +44,7 @@
 (defn input-field-with-label
   [config]
   (s/assert ::ctx config)
-  (let [ctx (get-ctx config)
+  (let [ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-input-field-with-label-props ctx])
         onChange #(rf/dispatch [::input-field-with-label-value-changed ctx %])
         props (merge logic (select-keys config [:label :placeholder :helperText :toolTip]))
@@ -76,7 +69,7 @@
 (defn textarea-field-with-label
   [config]
   (s/assert ::ctx config)
-  (let [ctx (get-ctx config)
+  (let [ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-textarea-field-with-label-props ctx])
         onChange #(rf/dispatch [::textarea-field-with-label-value-changed ctx %])
         config-keys [:label :placeholder :helperText :toolTip :rows]
@@ -104,7 +97,7 @@
 (defn date-field-with-label
   [config]
   (s/assert ::ctx config)
-  (let [ctx (get-ctx config)
+  (let [ctx (utils4/get-ctx config)
         config-keys [:label :helperText :toolTip :minDate :maxDate]
         logic @(rf/subscribe [::get-date-field-with-label-props ctx])
         onChange #(rf/dispatch [::date-field-with-label-value-changed ctx (date/to-value %)])
@@ -129,7 +122,7 @@
 
 (defn select-field-with-label
   [config]
-  (let [ctx (get-ctx config)
+  (let [ctx (utils4/get-ctx config)
         config-keys [:options :label]
         logic @(rf/subscribe [::get-select-field-with-label-props ctx])
         onChange #(do

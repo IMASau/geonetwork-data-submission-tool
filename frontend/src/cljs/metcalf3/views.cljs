@@ -179,6 +179,7 @@
 ; TODO: Consider input-field-with-label
 (defn InputField
   [{:keys [path] :as props}]
+
   (let [field @(rf/subscribe [:subs/get-derived-path path])]
     [InputWidget (-> field
                      (merge (dissoc props :path))

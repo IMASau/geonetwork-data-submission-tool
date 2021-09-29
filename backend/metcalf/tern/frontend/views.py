@@ -489,14 +489,6 @@ def edit(request, uuid):
     return render(request, "app.html", {"payload": payload})
 
 
-def theme(request):
-    "Stand alone endpoint for looking at themes.  Not required for production UI."
-    payload = JSONRenderer().render({
-        "theme": theme_keywords(),
-        "page": {"name": request.resolver_match.url_name}})
-    return render(request, "app.html", {"payload": payload})
-
-
 class UploadView(APIView):
     permission_classes = (IsAuthenticated,)
     parser_classes = (MultiPartParser, FormParser,)

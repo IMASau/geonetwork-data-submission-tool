@@ -2383,14 +2383,6 @@
                            " " sname
                            (when freq [:span.freq " (" freq ")"])]]))))]]]]))
 
-(defn PageViewTheme
-  [_ _]
-  [:div.PageViewTheme.container
-   [BackButton]
-   [:h1 "Research theme keywords"]
-   [:p.help-block "Select keyword(s) to add to record"]
-   [KeywordsThemeTable nil]])
-
 (defn LegacyIECompatibility
   [_ _]
   [:div.LegacyIECompatibility
@@ -2460,5 +2452,4 @@
          "Error" [PageViewError nil]
          "Edit" [PageViewEdit nil]
          "Dashboard" [PageViewDashboard nil]
-         "Theme" [PageViewTheme nil]
          nil))]))

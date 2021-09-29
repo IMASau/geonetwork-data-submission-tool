@@ -33,7 +33,6 @@ urlpatterns = [
     path('upload/<uuid:uuid>/', UploadView.as_view(), name="Upload"),
     path('delete/<uuid:uuid>/<int:id>/', delete_attachment, name="DeleteAttachment"),
     path('create/', create, name="Create"),
-    path('theme/', theme, name="Theme"),
     path('export/<uuid:uuid>/', export, name="Export"),
     path('attachment/<path:path>', download_attachement, name="DownloadAttachment"),
     path('mef/<uuid:uuid>/', mef, name="MEF"),

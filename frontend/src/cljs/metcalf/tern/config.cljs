@@ -117,6 +117,7 @@
 (rf/reg-sub ::components4/get-input-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-textarea-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-date-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub ::views/get-props subs4/form-state-signal subs4/get-block-props-sub)
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
 (set! rules/rule-registry

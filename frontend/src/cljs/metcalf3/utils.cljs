@@ -155,3 +155,15 @@
 (defn filter-name [s]
   (s/assert string? s)
   (string/replace s #"[^a-zA-Z-', ]" ""))
+
+(defn filter-table
+  "Default search for local datasource: case-insensitive substring match"
+  [simple? table query]
+  (s/assert string? query)
+  (let [col-match? (if simple?
+                     #(string/starts-with? (-> % str string/lower-case) (string/lower-case query))
+                     #(string/includes? (-> % str string/lower-case) (string/lower-case query)))]
+    (filter
+      (fn [row]
+        (some col-match? (rest row)))
+      table)))

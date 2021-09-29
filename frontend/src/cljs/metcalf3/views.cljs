@@ -142,17 +142,6 @@
        [:input.form-control input-props])
      [:p.help-block help]]))
 
-(defn filter-table
-  "Default search for local datasource: case-insensitive substring match"
-  [simple? table query]
-  (let [col-match? (if simple?
-                     #(cuerdas/starts-with? (-> % str cuerdas/lower) (-> query str cuerdas/lower))
-                     #(cuerdas/includes? (-> % str cuerdas/lower) (-> query str cuerdas/lower)))]
-    (filter
-      (fn [row]
-        (some col-match? (rest row)))
-      table)))
-
 ; TODO: Consider input-field-with-label
 (defn InputField
   [{:keys [path] :as props}]
@@ -371,7 +360,7 @@
                   table @(rf/subscribe [:subs/get-derived-path [:theme keyword-type :table]])
                   results (if (blank? query)
                             table
-                            (vec (filter-table false table query)))
+                            (vec (utils/filter-table false table query)))
                   rowHeight 50
                   on-submit #(r/set-state this {:scrollToRow 0 :query %})]
               [:div.KeywordsThemeTable

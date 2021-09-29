@@ -24,18 +24,6 @@
     :on-change   on-change
     :on-blur     on-blur}])
 
-(defn filter-table
-  "Default search for local datasource: case-insensitive substring match"
-  [simple? table query]
-  (s/assert string? query)
-  (let [col-match? (if simple?
-                     #(string/starts-with? (-> % str string/lower-case) (string/lower-case query))
-                     #(string/includes? (-> % str string/lower-case) (string/lower-case query)))]
-    (filter
-      (fn [row]
-        (some col-match? (rest row)))
-      table)))
-
 (defn OptionWidget [props]
   (let [[value display] props]
     [:option {:value value} display]))

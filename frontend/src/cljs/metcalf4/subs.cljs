@@ -27,6 +27,12 @@
   (let [path (blocks/block-path data-path)]
     (get-in state (conj path :props))))
 
+(defn get-block-data-sub
+  [state [_ {:keys [data-path]}]]
+  (s/assert vector? data-path)
+  (let [path (blocks/block-path data-path)]
+    (blocks/as-data (get-in state path))))
+
 
 ; FIXME: hardcoded path
 ; FIXME: apply rules?

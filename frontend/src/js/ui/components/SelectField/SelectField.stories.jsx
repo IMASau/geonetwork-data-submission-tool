@@ -1,21 +1,21 @@
 import React from 'react';
 
-import {SelectField} from './SelectField';
+import {SelectOptionField} from './SelectOptionField';
 import './SelectField.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
 import {FormGroup} from "../FormGroup/FormGroup";
 
 export default {
-    title: 'Example/SelectField',
-    component: SelectField,
+    title: 'Example/SelectOptionField',
+    component: SelectOptionField,
     argTypes: {
         // Most are inferred from propTypes
         onChange: {action: 'onChange'},
     }
 };
 
-const FieldTemplate = (args) => <SelectField {...args} />;
+const FieldTemplate = (args) => <SelectOptionField {...args} />;
 
 const options = [
     { value: 'chocolate', label: 'Chocolate' },

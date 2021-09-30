@@ -129,7 +129,7 @@ const customStyles = {
     },
 }
 
-export function SelectField({value, options, hasError, disabled, placeholder, onChange}) {
+export function SelectOptionField({value, options, hasError, disabled, placeholder, onChange}) {
     return (
         <Select
             className="SelectField"
@@ -148,9 +148,15 @@ export function SelectField({value, options, hasError, disabled, placeholder, on
     );
 }
 
-SelectField.propTypes = {
-    value: PropTypes.object,
-    options: PropTypes.arrayOf(PropTypes.object),
+SelectOptionField.propTypes = {
+    value: PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string
+    }),
+    options: PropTypes.arrayOf(PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string
+    })),
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,

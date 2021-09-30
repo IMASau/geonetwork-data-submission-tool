@@ -1,6 +1,5 @@
 (ns metcalf4.subs
   (:require [cljs.spec.alpha :as s]
-            [metcalf3.logic :as logic3]
             [metcalf4.blocks :as blocks]
             [re-frame.core :as rf]
             [metcalf4.rules :as rules]))

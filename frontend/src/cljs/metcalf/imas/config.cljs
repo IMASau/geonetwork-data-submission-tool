@@ -84,6 +84,7 @@
 (rf/reg-event-fx ::components4/async-select-option-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/select-option-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/select-value-with-label-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)

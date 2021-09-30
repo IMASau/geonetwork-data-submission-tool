@@ -112,6 +112,7 @@
 
 (defn AsyncSelectOptionField
   [{:keys [value loadOptions placeholder disabled hasError onChange]}]
+  (s/assert fn? loadOptions)
   [:> AsyncSelectOptionField/AsyncSelectOptionField
    {:value       value
     :loadOptions loadOptions

@@ -132,9 +132,10 @@
     :onChange    onChange}])
 
 (defn YesNoRadioGroup
-  [{:keys [value disabled hasError onChange]}]
+  [{:keys [value label disabled hasError onChange]}]
   [:> YesNoRadioGroup/YesNoRadioGroup
    {:value    value
+    :label    label
     :disabled disabled
     :hasError hasError
     :onChange onChange}])

@@ -184,6 +184,7 @@
       :toolTip    toolTip}
      [ui/YesNoRadioGroup
       {:value    value
+       :label    label
        :disabled false
        :hasError (seq hasError)
        :onChange onChange}]]))

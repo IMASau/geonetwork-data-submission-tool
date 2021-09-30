@@ -554,6 +554,17 @@ def robots_view(request):
     return render(request, "robots.txt", context, content_type="text/plain")
 
 
+def es_results(data):
+    """
+    Normalise data returned from ES endpoint.
+
+    Returns a list of source documents as results
+    """
+    # TODO: massage the data to reduce unnecessary complexity (e.g. return the first label, not a list of labels)
+    # TODO: exclude annotations we don’t ever need (e.g. type, is_hosted_by, broader, hierarchy, selectable...)
+    return [hit['_source'] for hit in data['hits']['hits']]
+
+
 @api_view(["GET", "POST"])
 def qudt_units(request) -> Response:
     """Search QUDT Units Index
@@ -592,8 +603,7 @@ def qudt_units(request) -> Response:
         body = {"size": result_size}
         data = es.search(index=index_alias, body=body)
 
-    # TODO: should massage
-    return Response(data, status=200)
+    return Response(es_results(data), status=200)
 
 
 @api_view(["GET", "POST"])
@@ -653,7 +663,7 @@ def tern_parameters(request) -> Response:
         }
         data = es.search(index=index_alias, body=body)
 
-    return Response(data, status=200)
+    return Response(es_results(data), status=200)
 
 
 @api_view(['GET', 'POST'])
@@ -713,7 +723,7 @@ def tern_platforms(request) -> Response:
         }
         data = es.search(index=index_alias, body=body)
 
-    return Response(data, status=200)
+    return Response(es_results(data), status=200)
 
 
 @api_view(['GET', 'POST'])
@@ -797,4 +807,4 @@ def tern_instruments(request) -> Response:
             }
         data = es.search(index=index_alias, body=body)
 
-    return Response(data, status=200)
+    return Response(es_results(data), status=200)

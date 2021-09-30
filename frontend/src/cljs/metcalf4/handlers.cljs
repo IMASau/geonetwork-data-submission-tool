@@ -39,7 +39,6 @@
   [{:keys [db]} [_ api results]]
   (actions/-load-api-action {:db db} api results))
 
-
 (defn save-current-document
   [{:keys [db]} _]
   (let [url (get-in db [:form :url])
@@ -48,5 +47,18 @@
      :fx/save-current-document
          {:url       url
           :data      data
-          :success-v [:handlers/save-current-document-success data]
-          :error-v   [:handlers/save-current-document-success]}}))
+          :success-v [::-save-current-document-success data]
+          :error-v   [::-save-current-document-error]}}))
+
+(defn -save-current-document-success
+  [{:keys [db]} [_ data resp]]
+  (let [doc (get-in resp [:form :document])]
+    (-> {:db db}
+        (assoc-in [:db :form :data] data)
+        (assoc-in [:db :page :metcalf3.handlers/saving?] false)
+        (update-in [:db :context :document] merge doc))))
+
+(defn -save-current-document-error
+  [{:keys [db]} _]
+  (-> {:db db}
+      (assoc-in [:db :page :metcalf3.handlers/saving?] false)))

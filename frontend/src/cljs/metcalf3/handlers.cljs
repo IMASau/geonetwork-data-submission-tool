@@ -119,8 +119,8 @@
      :fx/save-current-document
          {:url       url
           :data      data
-          :success-v [:handlers/save-current-document-success data]
-          :error-v   [:handlers/save-current-document-success]}}))
+          :success-v [:metcalf4.handlers/-save-current-document-success data]
+          :error-v   [:metcalf4.handlers/-save-current-document-success]}}))
 
 (defn save-current-document-success
   [{:keys [db]} [_ data resp]]

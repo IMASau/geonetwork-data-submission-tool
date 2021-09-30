@@ -117,12 +117,12 @@
        :minDate  (date/from-value minDate)
        :maxDate  (date/from-value maxDate)}]]))
 
-(defn select-field-with-label
+(defn select-option-with-label
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :label]
-        logic @(rf/subscribe [::get-select-field-with-label-props ctx])
-        onChange #(rf/dispatch [::select-field-with-label-value-changed ctx %])
+        logic @(rf/subscribe [::get-select-option-with-label-props ctx])
+        onChange #(rf/dispatch [::select-option-with-label-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [label required placeholder helperText toolTip options
                 value disabled errors show-errors]} props

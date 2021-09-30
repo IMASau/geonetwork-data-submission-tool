@@ -82,6 +82,7 @@
 (rf/reg-event-fx ::components4/textarea-field-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/date-field-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/select-field-with-label-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/select-value-with-label-changed handlers4/value-changed-handler)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)
@@ -112,6 +113,7 @@
 (rf/reg-sub ::components4/get-textarea-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-date-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-select-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub ::components4/get-select-value-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::views/get-props subs4/form-state-signal subs4/get-block-props-sub)
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
@@ -150,6 +152,7 @@
        'm4/input-field-with-label      components4/input-field-with-label
        'm4/date-field-with-label       components4/date-field-with-label
        'm4/select-field-with-label     components4/select-field-with-label
+       'm4/select-value-with-label      components4/select-value-with-label
        })
 (set! low-code/template-registry
       '{:data-identification

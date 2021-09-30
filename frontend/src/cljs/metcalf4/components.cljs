@@ -142,6 +142,31 @@
        :hasError    (seq hasError)
        :onChange    onChange}]]))
 
+(defn async-select-option-with-label
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:options :label :uri]
+        logic @(rf/subscribe [::get-async-select-option-with-label-props ctx])
+        onChange #(rf/dispatch [::async-select-option-with-label-value-changed ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [label required placeholder helperText toolTip uri
+                value disabled errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    [ui/FormGroup
+     {:label      label
+      :required   required
+      :disabled   disabled
+      :hasError   hasError
+      :helperText (if hasError (string/join ". " errors) helperText)
+      :toolTip    toolTip}
+     [ui/AsyncSelectOptionField
+      {:value       value
+       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+       :placeholder placeholder
+       :disabled    disabled
+       :hasError    (seq hasError)
+       :onChange    onChange}]]))
+
 (defn select-value-with-label
   [config]
   (let [ctx (utils4/get-ctx config)

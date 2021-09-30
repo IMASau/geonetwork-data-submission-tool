@@ -12,3 +12,18 @@
   (s/assert ::ctx m)
   {:form-id form-id :data-path data-path})
 
+
+(defn get-csrf
+  []
+  (let [payload (js->clj (aget js/window "payload") :keywordize-keys true)]
+    (get-in payload [:context :csrf])))
+
+
+(defn fetch-post
+  [{:keys [uri body]}]
+  (-> (js/fetch uri #js {:method  "POST"
+                         :body    (js/JSON.stringify (clj->js body))
+                         :headers #js {:Content-Type "application/json"
+                                       :Accept       "application/json"
+                                       :X-CSRFToken  (get-csrf)}})
+      (.then (fn [resp] (.json resp)))))

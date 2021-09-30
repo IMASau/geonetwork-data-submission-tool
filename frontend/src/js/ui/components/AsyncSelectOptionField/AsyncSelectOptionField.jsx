@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AsyncSelect from "react-select/async/dist/react-select.esm";
-import {ReactSelectCustomStyles} from "../utils";
+import {getReactSelectCustomStyles} from "../utils";
 
 
 export function AsyncSelectOptionField({value, hasError, disabled, placeholder, onChange, loadOptions}) {
     const defaultOptions = !disabled
     return (
         <AsyncSelect
-            styles={ReactSelectCustomStyles}
+            styles={getReactSelectCustomStyles({hasError})}
             value={value}
             placeholder={placeholder}
             onChange={(value) => onChange(value)}

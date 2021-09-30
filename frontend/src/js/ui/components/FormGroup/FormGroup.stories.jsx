@@ -47,17 +47,17 @@ const Template = (args) => (
         <br/>
         <br/>
         <FormGroup {...args} >
-            <TextareaField />
+            <TextareaField/>
         </FormGroup>
         <br/>
         <br/>
         <FormGroup {...args} >
-            <SelectOptionField options={[]}/>
+            <SelectOptionField options={[]} disabled={args.disabled} hasError={args.hasError}/>
         </FormGroup>
         <br/>
         <br/>
         <FormGroup {...args} >
-            <AsyncSelectField loadOptions={(s) => ([])}/>
+            <AsyncSelectField loadOptions={(s) => ([])} disabled={args.disabled} hasError={args.hasError}/>
         </FormGroup>
         <br/>
         <br/>

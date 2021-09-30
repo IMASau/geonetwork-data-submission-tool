@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import {ReactSelectCustomStyles} from "../utils";
+import {getReactSelectCustomStyles} from "../utils";
 
 
 export function SelectValueField({value, options, hasError, disabled, placeholder, onChange}) {
     const valueOption = options && options.find(option => option.value === value)
     return (
         <Select
-            styles={ReactSelectCustomStyles}
+            styles={getReactSelectCustomStyles({hasError})}
             value={valueOption}
             options={options}
             placeholder={placeholder}

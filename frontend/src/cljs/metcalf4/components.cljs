@@ -44,7 +44,7 @@
 (defn input-field-with-label
   [config]
   (let [ctx (utils4/get-ctx config)
-        logic @(rf/subscribe [::get-input-field-with-label-props ctx])
+        logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::input-field-with-label-value-changed ctx %])
         props (merge logic (select-keys config [:label :placeholder :helperText :toolTip]))
         {:keys [label placeholder helperText toolTip maxLength required value disabled show-errors errors]} props
@@ -68,7 +68,7 @@
 (defn textarea-field-with-label
   [config]
   (let [ctx (utils4/get-ctx config)
-        logic @(rf/subscribe [::get-textarea-field-with-label-props ctx])
+        logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::textarea-field-with-label-value-changed ctx %])
         config-keys [:label :placeholder :helperText :toolTip :rows]
         props (merge logic (select-keys config config-keys))
@@ -96,7 +96,7 @@
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:label :helperText :toolTip :minDate :maxDate]
-        logic @(rf/subscribe [::get-date-field-with-label-props ctx])
+        logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::date-field-with-label-value-changed ctx (date/to-value %)])
         props (merge logic (select-keys config config-keys))
         {:keys [label required helperText toolTip minDate maxDate
@@ -121,7 +121,7 @@
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :label]
-        logic @(rf/subscribe [::get-select-option-with-label-props ctx])
+        logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::select-option-with-label-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [label required placeholder helperText toolTip options
@@ -146,7 +146,7 @@
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :label :uri]
-        logic @(rf/subscribe [::get-async-select-option-with-label-props ctx])
+        logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::async-select-option-with-label-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [label required placeholder helperText toolTip uri
@@ -171,7 +171,7 @@
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :label]
-        logic @(rf/subscribe [::get-select-value-with-label-props ctx])
+        logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::select-value-with-label-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [label required helperText toolTip options value disabled errors show-errors]} props

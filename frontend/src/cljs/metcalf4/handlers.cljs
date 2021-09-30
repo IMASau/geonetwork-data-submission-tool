@@ -34,6 +34,16 @@
              (assoc-in (conj path :props :value) value)
              (assoc-in (conj path :props :show-errors) true))}))
 
+(defn option-change-handler
+  [{:keys [db]} [_ ctx option]]
+  (let [{:keys [form-id data-path]} ctx
+        schema (get-in db (flatten [form-id :schema (schema/schema-path data-path)]))
+        state (blocks/as-blocks {:schema schema :data option})
+        path (db-path ctx)]
+    {:db (-> db
+             (assoc-in path state)
+             (assoc-in (conj path :props :show-errors) true))}))
+
 
 (defn -load-api-handler
   [{:keys [db]} [_ api results]]

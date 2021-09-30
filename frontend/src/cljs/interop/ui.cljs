@@ -111,9 +111,9 @@
     :hasError    hasError
     :onChange    onChange}])
 
-(defn AsyncSelectField
+(defn AsyncSelectOptionField
   [{:keys []}]
-  [:> AsyncSelectField/AsyncSelectField
+  [:> AsyncSelectOptionField/AsyncSelectOptionField
    {}])
 
 (defn SelectionList

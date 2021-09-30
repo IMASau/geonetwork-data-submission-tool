@@ -22,7 +22,7 @@
 (assert SelectValueField/SelectValueField)
 (assert SelectOptionField/SelectOptionField)
 (assert AsyncSelectOptionField/AsyncSelectOptionField)
-(assert SelectField/AsyncSelectField)
+(assert AsyncSelectField/AsyncSelectField)
 (assert SelectionList/SelectionList)
 (assert TextareaField/TextareaField)
 (assert YesNoRadioGroup/YesNoRadioGroup)

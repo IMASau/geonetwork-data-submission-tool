@@ -97,6 +97,8 @@
 
 (defn SelectField
   [{:keys [value options placeholder disabled hasError onChange]}]
+  (s/assert (s/nilable (s/keys :req-un [::label ::value])) value)
+  (s/assert (s/coll-of (s/keys :req-un [::label ::value])) options)
   [:> SelectField/SelectField
    {:value       value
     :options     options

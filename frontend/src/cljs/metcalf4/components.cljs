@@ -122,10 +122,11 @@
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :label]
         logic @(rf/subscribe [::get-block-props ctx])
+        value @(rf/subscribe [::get-block-data ctx])
         onChange #(rf/dispatch [::select-option-with-label-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [label required placeholder helperText toolTip options
-                value disabled errors show-errors]} props
+                disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     [ui/FormGroup
      {:label      label

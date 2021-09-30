@@ -81,6 +81,7 @@
 (rf/reg-event-fx ::components4/input-field-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/textarea-field-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/date-field-with-label-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/async-select-option-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/select-option-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/select-value-with-label-changed handlers4/value-changed-handler)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
@@ -112,6 +113,7 @@
 (rf/reg-sub ::components4/get-input-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-textarea-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-date-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub ::components4/get-async-select-option-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-select-option-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-select-value-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::views/get-props subs4/form-state-signal subs4/get-block-props-sub)
@@ -127,32 +129,33 @@
        "maintFreq"         rules/maint-freq
        "verticalRequired"  rules/vertical-required})
 (set! low-code/component-registry
-      {'m3/DataParametersTable         views/DataParametersTable
-       'm3/CheckboxField               views/CheckboxField
-       'm3/date-field-with-label       views/date-field-with-label
-       'm3/textarea-field-with-label   views/textarea-field-with-label
-       'm3/UseLimitations              views/UseLimitations
-       'm3/NasaListSelectField         views/NasaListSelectField
-       'm3/GeographicCoverage          views/GeographicCoverage
-       'm3/DataSources                 views/DataSources
-       'm3/PageErrors                  views/PageErrors
-       'm3/TopicCategories             views/TopicCategories
-       'm3/ResourceConstraints         views/ResourceConstraints
-       'm3/input-field-with-label      views/input-field-with-label
-       'm3/IMASLodge                   views/IMASLodge
-       'm3/IMASSupportingResource      views/IMASSupportingResource
-       'm3/IMASSupplementalInformation views/IMASSupplementalInformation
-       'm3/TaxonKeywordsExtra          views/TaxonKeywordsExtra
-       'm3/ThemeKeywords               views/ThemeKeywords
-       'm3/ThemeKeywordsExtra          views/ThemeKeywordsExtra
-       'm3/UploadData                  views/UploadData
-       'm3/Who                         views/Who
-       'm4/page-errors                 components4/page-errors
-       'm4/textarea-field-with-label   components4/textarea-field-with-label
-       'm4/input-field-with-label      components4/input-field-with-label
-       'm4/date-field-with-label       components4/date-field-with-label
-       'm4/select-option-with-label     components4/select-option-with-label
-       'm4/select-value-with-label      components4/select-value-with-label
+      {'m3/DataParametersTable            views/DataParametersTable
+       'm3/CheckboxField                  views/CheckboxField
+       'm3/date-field-with-label          views/date-field-with-label
+       'm3/textarea-field-with-label      views/textarea-field-with-label
+       'm3/UseLimitations                 views/UseLimitations
+       'm3/NasaListSelectField            views/NasaListSelectField
+       'm3/GeographicCoverage             views/GeographicCoverage
+       'm3/DataSources                    views/DataSources
+       'm3/PageErrors                     views/PageErrors
+       'm3/TopicCategories                views/TopicCategories
+       'm3/ResourceConstraints            views/ResourceConstraints
+       'm3/input-field-with-label         views/input-field-with-label
+       'm3/IMASLodge                      views/IMASLodge
+       'm3/IMASSupportingResource         views/IMASSupportingResource
+       'm3/IMASSupplementalInformation    views/IMASSupplementalInformation
+       'm3/TaxonKeywordsExtra             views/TaxonKeywordsExtra
+       'm3/ThemeKeywords                  views/ThemeKeywords
+       'm3/ThemeKeywordsExtra             views/ThemeKeywordsExtra
+       'm3/UploadData                     views/UploadData
+       'm3/Who                            views/Who
+       'm4/page-errors                    components4/page-errors
+       'm4/textarea-field-with-label      components4/textarea-field-with-label
+       'm4/input-field-with-label         components4/input-field-with-label
+       'm4/date-field-with-label          components4/date-field-with-label
+       'm4/async-select-option-with-label components4/async-select-option-with-label
+       'm4/select-option-with-label       components4/select-option-with-label
+       'm4/select-value-with-label        components4/select-value-with-label
        })
 (set! low-code/template-registry
       '{:data-identification

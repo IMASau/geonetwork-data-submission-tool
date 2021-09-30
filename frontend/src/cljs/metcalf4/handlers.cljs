@@ -1,6 +1,7 @@
 (ns metcalf4.handlers
   (:require [metcalf4.blocks :as blocks]
-            [metcalf4.actions :as actions]))
+            [metcalf4.actions :as actions]
+            [metcalf4.schema :as schema]))
 
 
 (defn db-path

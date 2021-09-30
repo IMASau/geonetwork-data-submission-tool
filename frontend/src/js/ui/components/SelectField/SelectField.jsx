@@ -157,6 +157,38 @@ SelectField.propTypes = {
     onChange: PropTypes.func,
 }
 
+export function SelectValueField({value, options, hasError, disabled, placeholder, onChange}) {
+    const valueOption = options.find(option => option.value === value)
+    return (
+        <Select
+            className="SelectField"
+            classNamePrefix="SelectFieldPrefix"
+            styles={customStyles}
+            value={valueOption}
+            options={options}
+            placeholder={placeholder}
+            onChange={(option) => onChange(option ? option.value: null)}
+            isClearable={true}
+            isDisabled={disabled}
+            isLoading={false}
+            isSearchable={false}
+        >
+        </Select>
+    );
+}
+
+SelectValueField.propTypes = {
+    value: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string
+    })),
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+    onChange: PropTypes.func,
+}
+
 export function AsyncSelectField({value, hasError, disabled, placeholder, onChange, loadOptions}) {
     const defaultOptions = !disabled
     return (

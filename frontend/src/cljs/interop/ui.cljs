@@ -82,6 +82,19 @@
     :hasError    hasError
     :onChange    onChange}])
 
+(defn SelectValueField
+  "Simple HTML select field to select a string value"
+  [{:keys [value options placeholder disabled hasError onChange]}]
+  (s/assert (s/nilable string?) value)
+  (s/assert (s/coll-of (s/keys :req-un [::label ::value])) options)
+  [:> SelectField/SelectValueField
+   {:value       value
+    :options     options
+    :placeholder placeholder
+    :disabled    disabled
+    :hasError    hasError
+    :onChange    onChange}])
+
 (defn SelectField
   [{:keys [value options placeholder disabled hasError onChange]}]
   [:> SelectField/SelectField

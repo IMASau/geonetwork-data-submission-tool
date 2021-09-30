@@ -111,9 +111,14 @@
     :onChange    onChange}])
 
 (defn AsyncSelectOptionField
-  [{:keys []}]
+  [{:keys [value loadOptions placeholder disabled hasError onChange]}]
   [:> AsyncSelectOptionField/AsyncSelectOptionField
-   {}])
+   {:value       value
+    :loadOptions loadOptions
+    :placeholder placeholder
+    :disabled    disabled
+    :hasError    hasError
+    :onChange    onChange}])
 
 (defn SelectionList
   [{:keys []}]

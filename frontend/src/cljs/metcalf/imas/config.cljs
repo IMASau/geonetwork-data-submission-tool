@@ -182,7 +182,7 @@
            :data-path [:identificationInfo :dateCreation]
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
-         [m4/select-field-with-label
+         [m4/select-value-with-label
           {:form-id   [:form]
            :data-path [:identificationInfo :topicCategory]
            :options   [{:value "biota" :label "biota"}
@@ -190,13 +190,13 @@
                        {:value "oceans" :label "oceans"}
                        {:value "geoscientificInformation" :label "geoscientificInformation"}
                        {:value "inlandWater" :label "inlandWater"}]}]
-         [m4/select-field-with-label
+         [m4/select-value-with-label
           {:form-id   [:form]
            :data-path [:identificationInfo :status]
            :options   [{:value "onGoing" :label "ongoing"}
                        {:value "planned" :label "planned"}
                        {:value "completed" :label "completed"}]}]
-         [m4/select-field-with-label
+         [m4/select-value-with-label
           {:form-id   [:form]
            :data-path [:identificationInfo :maintenanceAndUpdateFrequency]
            :options   [{:value "continually" :label "Continually"}

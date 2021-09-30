@@ -117,14 +117,12 @@
        :minDate  (date/from-value minDate)
        :maxDate  (date/from-value maxDate)}]]))
 
-(defn select-field-with-label
+(defn select-option-with-label
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :label]
-        logic @(rf/subscribe [::get-select-field-with-label-props ctx])
-        onChange #(do
-                    (js/console.log "On change...")
-                    (rf/dispatch [::select-field-with-label-value-changed ctx %]))
+        logic @(rf/subscribe [::get-select-option-with-label-props ctx])
+        onChange #(rf/dispatch [::select-option-with-label-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [label required placeholder helperText toolTip options
                 value disabled errors show-errors]} props
@@ -136,13 +134,37 @@
       :hasError   hasError
       :helperText (if hasError (string/join ". " errors) helperText)
       :toolTip    toolTip}
-     [ui/SelectField
+     [ui/SelectOptionField
       {:value       value
        :options     options
        :placeholder placeholder
-       :disabled    (or disabled (empty? options))
+       :disabled    disabled
        :hasError    (seq hasError)
        :onChange    onChange}]]))
+
+(defn select-value-with-label
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:options :label]
+        logic @(rf/subscribe [::get-select-value-with-label-props ctx])
+        onChange #(rf/dispatch [::select-value-with-label-changed ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [label required helperText toolTip options value disabled errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)
+        value (or value "")]
+    [ui/FormGroup
+     {:label      label
+      :required   required
+      :disabled   disabled
+      :hasError   hasError
+      :helperText (if hasError (string/join ". " errors) helperText)
+      :toolTip    toolTip}
+     [ui/SelectValueField
+      {:value    value
+       :disabled disabled
+       :options  options
+       :hasError hasError
+       :onChange onChange}]]))
 
 (defn yes-no-field-with-label
   [config]

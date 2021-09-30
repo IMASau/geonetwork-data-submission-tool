@@ -5,7 +5,9 @@
             ["/ui/components/ExpandingControl/ExpandingControl" :as ExpandingControl]
             ["/ui/components/FormGroup/FormGroup" :as FormGroup]
             ["/ui/components/InputField/InputField" :as InputField]
-            ["/ui/components/SelectField/SelectField" :as SelectField]
+            ["/ui/components/SelectValueField/SelectValueField" :as SelectValueField]
+            ["/ui/components/SelectOptionField/SelectOptionField" :as SelectOptionField]
+            ["/ui/components/AsyncSelectOptionField/AsyncSelectOptionField" :as AsyncSelectOptionField]
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
@@ -17,8 +19,9 @@
 (assert ExpandingControl/ExpandingControl)
 (assert FormGroup/FormGroup)
 (assert InputField/InputField)
-(assert SelectField/SelectField)
-(assert SelectField/AsyncSelectField)
+(assert SelectValueField/SelectValueField)
+(assert SelectOptionField/SelectOptionField)
+(assert AsyncSelectOptionField/AsyncSelectOptionField)
 (assert SelectionList/SelectionList)
 (assert TextareaField/TextareaField)
 (assert YesNoRadioGroup/YesNoRadioGroup)
@@ -82,9 +85,12 @@
     :hasError    hasError
     :onChange    onChange}])
 
-(defn SelectField
+(defn SelectValueField
+  "Simple HTML select field to select a string value"
   [{:keys [value options placeholder disabled hasError onChange]}]
-  [:> SelectField/SelectField
+  (s/assert (s/nilable string?) value)
+  (s/assert (s/coll-of (s/keys :req-un [::label ::value])) options)
+  [:> SelectValueField/SelectValueField
    {:value       value
     :options     options
     :placeholder placeholder
@@ -92,9 +98,21 @@
     :hasError    hasError
     :onChange    onChange}])
 
-(defn AsyncSelectField
+(defn SelectOptionField
+  [{:keys [value options placeholder disabled hasError onChange]}]
+  (s/assert (s/nilable (s/keys :req-un [::label ::value])) value)
+  (s/assert (s/coll-of (s/keys :req-un [::label ::value])) options)
+  [:> SelectOptionField/SelectOptionField
+   {:value       value
+    :options     options
+    :placeholder placeholder
+    :disabled    disabled
+    :hasError    hasError
+    :onChange    onChange}])
+
+(defn AsyncSelectOptionField
   [{:keys []}]
-  [:> SelectField/AsyncSelectField
+  [:> AsyncSelectOptionField/AsyncSelectOptionField
    {}])
 
 (defn SelectionList

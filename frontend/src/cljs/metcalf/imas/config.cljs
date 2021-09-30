@@ -81,7 +81,8 @@
 (rf/reg-event-fx ::components4/input-field-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/textarea-field-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/date-field-with-label-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/select-field-with-label-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/select-option-with-label-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/select-value-with-label-changed handlers4/value-changed-handler)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)
@@ -111,7 +112,8 @@
 (rf/reg-sub ::components4/get-input-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-textarea-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-date-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
-(rf/reg-sub ::components4/get-select-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub ::components4/get-select-option-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub ::components4/get-select-value-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::views/get-props subs4/form-state-signal subs4/get-block-props-sub)
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
@@ -149,7 +151,8 @@
        'm4/textarea-field-with-label   components4/textarea-field-with-label
        'm4/input-field-with-label      components4/input-field-with-label
        'm4/date-field-with-label       components4/date-field-with-label
-       'm4/select-field-with-label     components4/select-field-with-label
+       'm4/select-option-with-label     components4/select-option-with-label
+       'm4/select-value-with-label      components4/select-value-with-label
        })
 (set! low-code/template-registry
       '{:data-identification
@@ -179,7 +182,7 @@
            :data-path [:identificationInfo :dateCreation]
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
-         [m4/select-field-with-label
+         [m4/select-value-with-label
           {:form-id   [:form]
            :data-path [:identificationInfo :topicCategory]
            :options   [{:value "biota" :label "biota"}
@@ -187,13 +190,13 @@
                        {:value "oceans" :label "oceans"}
                        {:value "geoscientificInformation" :label "geoscientificInformation"}
                        {:value "inlandWater" :label "inlandWater"}]}]
-         [m4/select-field-with-label
+         [m4/select-value-with-label
           {:form-id   [:form]
            :data-path [:identificationInfo :status]
            :options   [{:value "onGoing" :label "ongoing"}
                        {:value "planned" :label "planned"}
                        {:value "completed" :label "completed"}]}]
-         [m4/select-field-with-label
+         [m4/select-value-with-label
           {:form-id   [:form]
            :data-path [:identificationInfo :maintenanceAndUpdateFrequency]
            :options   [{:value "continually" :label "Continually"}
@@ -338,7 +341,7 @@
          [:br]
          [:h4 "Resource constraints"]
          ;; FIXME license selection isn't being included in XML export.
-         [m4/select-field-with-label
+         [m4/select-option-with-label
           {:form-id   [:form]
            :data-path [:identificationInfo :creativeCommons]
            :help      [:span "Learn more about which license is right for you at "

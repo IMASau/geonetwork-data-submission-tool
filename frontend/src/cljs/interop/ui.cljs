@@ -108,7 +108,7 @@
     :placeholder placeholder
     :disabled    disabled
     :hasError    hasError
-    :onChange    onChange}])
+    :onChange    #(onChange (js->clj % :keywordize-keys true))}])
 
 (defn AsyncSelectOptionField
   [{:keys [value loadOptions placeholder disabled hasError onChange]}]

@@ -143,3 +143,25 @@
        :disabled    (or disabled (empty? options))
        :hasError    (seq hasError)
        :onChange    onChange}]]))
+
+(defn yes-no-field-with-label
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:options :label]
+        logic @(rf/subscribe [::get-yes-no-field-with-label-props ctx])
+        onChange #(rf/dispatch [::yes-no-field-with-label-value-changed ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [label required helperText toolTip value disabled errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    [ui/FormGroup
+     {:label      label
+      :required   required
+      :disabled   disabled
+      :hasError   hasError
+      :helperText (if hasError (string/join ". " errors) helperText)
+      :toolTip    toolTip}
+     [ui/YesNoRadioGroup
+      {:value    value
+       :disabled false
+       :hasError (seq hasError)
+       :onChange onChange}]]))

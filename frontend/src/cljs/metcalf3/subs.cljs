@@ -35,6 +35,16 @@
      :hasError  (boolean error-help)
      :errorText error-help}))
 
+(defn get-yes-no-field-with-label-props
+  [db [_ path]]
+  (let [{:keys [value disabled errors show-errors]} (get-in db path)
+        error-help (when (and show-errors (seq errors))
+                     (string/join ". " errors))]
+    {:value     value
+     :disabled  disabled
+     :hasError  (boolean error-help)
+     :errorText error-help}))
+
 (defn get-page-props
   [db _]
   (get-in db [:page]))

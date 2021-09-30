@@ -83,6 +83,7 @@
 (rf/reg-event-fx :help-menu/open handlers3/help-menu-open)
 (rf/reg-event-fx ::components4/input-field-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/textarea-field-with-label-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/yes-no-field-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/date-field-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
@@ -116,6 +117,7 @@
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub ::components4/get-input-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-textarea-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub ::components4/get-yes-no-field-with-label-props :<- [:subs/get-derived-state] subs3/get-yes-no-field-with-label-props)
 (rf/reg-sub ::components4/get-date-field-with-label-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::views/get-props subs4/form-state-signal subs4/get-block-props-sub)
 (ins/reg-global-singleton ins/form-ticker)
@@ -134,6 +136,7 @@
        'm4/textarea-field-with-label components4/textarea-field-with-label
        'm4/input-field-with-label    components4/input-field-with-label
        'm4/date-field-with-label     components4/date-field-with-label
+       'm4/yes-no-field-with-label   components4/yes-no-field-with-label
        'm4/page-errors               components4/page-errors
        })
 (set! low-code/template-registry

@@ -119,7 +119,7 @@
     :placeholder placeholder
     :disabled    disabled
     :hasError    hasError
-    :onChange    onChange}])
+    :onChange    #(onChange (js->clj % :keywordize-keys true))}])
 
 (defn SelectionList
   [{:keys []}]

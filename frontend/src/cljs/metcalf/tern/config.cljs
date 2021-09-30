@@ -176,6 +176,18 @@
            :label      "Version"
            :helperText "Version number of the resource"
            :required   true}]
+         [m4/yes-no-field-with-label
+          {:form-id [:form]
+           :data-path [:identificationInfo :previouslyPublishedFlag]
+           :label "Has the data been published before?"}]
+         ;; FIXME: I think this should be formatted as YYYY or YYYY-MM (according to the commented template)
+         [m4/date-field-with-label
+          {:form-id   [:form]
+           :data-path [:identificationInfo :datePublication]
+           :label     "Previous Publication Date"
+           :required  true
+           :minDate   "1900-01-01"
+           :maxDate   "2100-01-01"}]
          [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what

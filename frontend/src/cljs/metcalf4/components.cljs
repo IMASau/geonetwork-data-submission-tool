@@ -134,7 +134,7 @@
       :hasError   hasError
       :helperText (if hasError (string/join ". " errors) helperText)
       :toolTip    toolTip}
-     [ui/SelectField
+     [ui/SelectOptionField
       {:value       value
        :options     options
        :placeholder placeholder

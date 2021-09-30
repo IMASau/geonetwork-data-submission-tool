@@ -5,7 +5,9 @@
             ["/ui/components/ExpandingControl/ExpandingControl" :as ExpandingControl]
             ["/ui/components/FormGroup/FormGroup" :as FormGroup]
             ["/ui/components/InputField/InputField" :as InputField]
-            ["/ui/components/SelectField/SelectField" :as SelectField]
+            ["/ui/components/SelectField/SelectValueField" :as SelectValueField]
+            ["/ui/components/SelectField/SelectOptionField" :as SelectOptionField]
+            ["/ui/components/SelectField/AsyncSelectOptionField" :as AsyncSelectOptionField]
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
@@ -17,7 +19,9 @@
 (assert ExpandingControl/ExpandingControl)
 (assert FormGroup/FormGroup)
 (assert InputField/InputField)
-(assert SelectField/SelectField)
+(assert SelectValueField/SelectValueField)
+(assert SelectOptionField/SelectOptionField)
+(assert AsyncSelectOptionField/AsyncSelectOptionField)
 (assert SelectField/AsyncSelectField)
 (assert SelectionList/SelectionList)
 (assert TextareaField/TextareaField)
@@ -87,7 +91,7 @@
   [{:keys [value options placeholder disabled hasError onChange]}]
   (s/assert (s/nilable string?) value)
   (s/assert (s/coll-of (s/keys :req-un [::label ::value])) options)
-  [:> SelectField/SelectValueField
+  [:> SelectValueField/SelectValueField
    {:value       value
     :options     options
     :placeholder placeholder
@@ -95,11 +99,11 @@
     :hasError    hasError
     :onChange    onChange}])
 
-(defn SelectField
+(defn SelectOptionField
   [{:keys [value options placeholder disabled hasError onChange]}]
   (s/assert (s/nilable (s/keys :req-un [::label ::value])) value)
   (s/assert (s/coll-of (s/keys :req-un [::label ::value])) options)
-  [:> SelectField/SelectField
+  [:> SelectOptionField/SelectOptionField
    {:value       value
     :options     options
     :placeholder placeholder
@@ -109,7 +113,7 @@
 
 (defn AsyncSelectField
   [{:keys []}]
-  [:> SelectField/AsyncSelectField
+  [:> AsyncSelectField/AsyncSelectField
    {}])
 
 (defn SelectionList

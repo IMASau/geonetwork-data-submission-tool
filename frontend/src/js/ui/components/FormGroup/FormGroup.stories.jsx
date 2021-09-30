@@ -10,7 +10,8 @@ import {DateField} from "../DateField/DateField";
 import {YesNoRadioGroup} from "../YesNoRadioGroup/YesNoRadioGroup";
 import NOTES from './NOTES.mdx';
 import {TextareaField} from "../TextareaField/TextareaField";
-import {AsyncSelectField, SelectOptionField} from "../SelectField/SelectOptionField";
+import {SelectOptionField} from "../SelectOptionField/SelectOptionField";
+import * as PropTypes from "prop-types";
 
 export default {
     title: 'Example/FormGroup',
@@ -20,6 +21,11 @@ export default {
     }
 };
 
+function AsyncSelectField(props) {
+    return null;
+}
+
+AsyncSelectField.propTypes = {loadOptions: PropTypes.func};
 const Template = (args) => (
     <div>
         <FormGroup {...args} >

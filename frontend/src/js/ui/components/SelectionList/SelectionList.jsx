@@ -69,5 +69,10 @@ export function SelectionList({items, onReorder}) {
 }
 
 SelectionList.propTypes = {
-    values: PropTypes.arrayOf(PropTypes.object),
+    items: PropTypes.arrayOf(PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string
+    })),
+    onReorder: PropTypes.func,
+    disabled: PropTypes.bool,
 }

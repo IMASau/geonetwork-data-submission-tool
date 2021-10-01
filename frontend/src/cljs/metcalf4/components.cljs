@@ -83,16 +83,9 @@
         onChange #(rf/dispatch [::textarea-field-with-label-value-changed ctx %])
         config-keys [:label :placeholder :helperText :toolTip :rows]
         props (merge logic (select-keys config config-keys))
-        {:keys [label placeholder helperText toolTip rows
-                maxLength required value disabled show-errors errors]} props
+        {:keys [placeholder rows maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [ui/FormGroup
-     {:label      label
-      :required   required
-      :disabled   disabled
-      :hasError   hasError
-      :helperText (if hasError (string/join ". " errors) helperText)
-      :toolTip    toolTip}
+    [form-group config
      [ui/TextareaField
       {:value       (or value "")                           ; TODO: should be guaranteed by sub
        :placeholder placeholder

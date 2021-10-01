@@ -87,6 +87,7 @@
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/selection-list-picker-change handlers4/selection-list-picker-change)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
+(rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)

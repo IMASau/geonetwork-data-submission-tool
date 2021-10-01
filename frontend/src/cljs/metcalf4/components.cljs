@@ -231,15 +231,16 @@
 (defn selection-list
   [config]
   (let [ctx (utils4/get-ctx config)
-        onClick #(rf/dispatch [::selection-list-remove-click ctx %])
+        ;onRemove #(rf/dispatch [::selection-list-remove-click ctx %])
+        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
+        {:keys [disabled]} @(rf/subscribe [::get-block-props ctx])
         items @(rf/subscribe [::get-block-data ctx])]
-    [:table.bp3-html-table.bp3-interactive
-     {:style {:width "100%"}}
-     (into [:tbody]
-           (map-indexed (fn [idx item]
-                          [:tr {:onClick #(onClick idx)}
-                           [:td (:label item)]])
-                        items))]))
+    [:div
+     [:pre (pr-str items)]
+     [ui/SelectionList
+      {:items     items
+       :disabled  disabled
+       :onReorder onReorder}]]))
 
 (defn selection-list-picker
   [config]

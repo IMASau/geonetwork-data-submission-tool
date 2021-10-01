@@ -167,23 +167,27 @@
   [form-group config
    [async-select-option config]])
 
-(defn select-value-with-label
+(defn select-value
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:options]
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::select-value-with-label-changed ctx %])
+        onChange #(rf/dispatch [::select-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [options value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)
         value (or value "")]
-    [form-group config
-     [ui/SelectValueField
-      {:value    value
-       :disabled disabled
-       :options  options
-       :hasError hasError
-       :onChange onChange}]]))
+    [ui/SelectValueField
+     {:value    value
+      :disabled disabled
+      :options  options
+      :hasError hasError
+      :onChange onChange}]))
+
+(defn select-value-with-label
+  [config]
+  [form-group config
+   [select-value config]])
 
 (defn yes-no-field
   [config]

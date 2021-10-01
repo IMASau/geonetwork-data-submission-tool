@@ -58,22 +58,27 @@
             :toolTip    toolTip}]
           children)))
 
-(defn input-field-with-label
+(defn input-field
   [config]
-  (let [ctx (utils4/get-ctx config)
+  (let [config-keys [:placeholder :maxLength]
+        ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::input-field-with-label-value-changed ctx %])
-        props (merge logic (select-keys config [:label :placeholder :helperText :toolTip]))
+        onChange #(rf/dispatch [::input-field-value-changed ctx %])
+        props (merge logic (select-keys config config-keys))
         {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [form-group config
-     [ui/InputField
-      {:value       (or value "")                           ; TODO: should be guaranteed by sub
-       :placeholder placeholder
-       :maxLength   maxLength
-       :disabled    disabled
-       :hasError    hasError
-       :onChange    onChange}]]))
+    [ui/InputField
+     {:value       (or value "")                            ; TODO: should be guaranteed by sub
+      :placeholder placeholder
+      :maxLength   maxLength
+      :disabled    disabled
+      :hasError    hasError
+      :onChange    onChange}]))
+
+(defn input-field-with-label
+  [config]
+  [form-group config
+   [input-field config]])
 
 (defn textarea-field
   [config]

@@ -78,7 +78,7 @@
 (rf/reg-event-fx :handlers/lodge-save-success handlers3/lodge-save-success)
 (rf/reg-event-fx :handlers/lodge-error handlers3/lodge-error)
 (rf/reg-event-fx :help-menu/open handlers3/help-menu-open)
-(rf/reg-event-fx ::components4/input-field-with-label-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/input-field-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/textarea-field-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/date-field-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/async-select-option-value-changed handlers4/option-change-handler)
@@ -151,6 +151,7 @@
        'm4/page-errors                    components4/page-errors
        'm4/textarea-field-with-label      components4/textarea-field-with-label
        'm4/textarea-field                 components4/textarea-field
+       'm4/input-field                    components4/input-field
        'm4/input-field-with-label         components4/input-field-with-label
        'm4/date-field                     components4/date-field
        'm4/date-field-with-label          components4/date-field-with-label

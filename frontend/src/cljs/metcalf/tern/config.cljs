@@ -175,8 +175,21 @@
            :required  true
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
-         [m3/TopicCategories {:form-id   [:form]
-                              :data-path [:identificationInfo :topicCategory]}]
+         [m4/form-group
+          {:label     "Topic Categories"
+           :form-id   [:form]
+           :data-path [:identificationInfo :topicCategory]}
+          [m4/selection-list
+           {:form-id   [:form]
+            :data-path [:identificationInfo :topicCategory]}]
+          [m4/selection-list-picker
+           {:form-id   [:form]
+            :data-path [:identificationInfo :topicCategory]
+            :options   [{:value "biota" :label "biota"}
+                        {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
+                        {:value "oceans" :label "oceans"}
+                        {:value "geoscientificInformation" :label "geoscientificInformation"}
+                        {:value "inlandWater" :label "inlandWater"}]}]]
          [m3/SelectField {:form-id   [:form]
                           :data-path [:identificationInfo :status]}]
          [m3/SelectField {:form-id   [:form]

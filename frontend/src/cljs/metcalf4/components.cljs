@@ -194,15 +194,9 @@
         logic @(rf/subscribe [::get-yes-no-field-with-label-props ctx])
         onChange #(rf/dispatch [::yes-no-field-with-label-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
-        {:keys [label required helperText toolTip value disabled errors show-errors]} props
+        {:keys [label value errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [ui/FormGroup
-     {:label      label
-      :required   required
-      :disabled   disabled
-      :hasError   hasError
-      :helperText (if hasError (string/join ". " errors) helperText)
-      :toolTip    toolTip}
+    [form-group config
      [ui/YesNoRadioGroup
       {:value    value
        :label    label

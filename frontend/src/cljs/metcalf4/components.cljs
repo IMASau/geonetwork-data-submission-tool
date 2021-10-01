@@ -186,6 +186,7 @@
       :hasError (seq hasError)
       :onChange onChange}]))
 
+; FIXME: Is :label for form group or yes/no field?
 (defn yes-no-field-with-label
   [config]
   (let [ctx (utils4/get-ctx config)

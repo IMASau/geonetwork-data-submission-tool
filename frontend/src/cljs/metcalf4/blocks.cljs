@@ -36,12 +36,14 @@
   [{:keys [data schema]}]
   (schema/postwalk-schema-data
     (fn [{:keys [data schema]}]
-      (let [type (:type schema)]
-        (merge (select-keys schema [:type])
+      (let [type (:type schema)
+            block-map (select-keys schema [:type])
+            props-map (select-keys schema [:label])]
+        (merge block-map
                (case type
                  "array" {:content data}
                  "object" {:content data}
-                 {:props {:value data :label (:label schema)}})
+                 {:props (assoc props-map :value data)})
                (when-let [rules (:rules schema)]
                  {:rules rules}))))
     {:data data :schema schema}))

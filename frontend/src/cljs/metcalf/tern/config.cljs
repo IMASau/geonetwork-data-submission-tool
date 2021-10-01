@@ -144,6 +144,7 @@
        'm4/async-select-option-with-label components4/async-select-option-with-label
        'm4/yes-no-field                   components4/yes-no-field
        'm4/page-errors                    components4/page-errors
+       'm4/form-group                     components4/form-group
        })
 (set! low-code/template-registry
       '{:data-identification

@@ -44,7 +44,10 @@ export function SelectionList({items, onReorder, disabled}) {
                         style={getListStyle(snapshot.isDraggingOver)}
                     >
                         {items.map((item, index) => (
-                            <Draggable key={item.value} draggableId={item.value} index={index} isDragDisabled={disabled}>
+                            <Draggable key={item.value}
+                                       draggableId={item.value}
+                                       index={index}
+                                       isDragDisabled={disabled}>
                                 {(provided, snapshot) => (
                                     <div
                                         ref={provided.innerRef}

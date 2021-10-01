@@ -120,24 +120,28 @@
   [form-group config
    [date-field config]])
 
-(defn select-option-with-label
+(defn select-option
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :placeholder]
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::select-option-with-label-value-changed ctx %])
+        onChange #(rf/dispatch [::select-option-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [form-group config
-     [ui/SelectOptionField
-      {:value       value
-       :options     options
-       :placeholder placeholder
-       :disabled    disabled
-       :hasError    (seq hasError)
-       :onChange    onChange}]]))
+    [ui/SelectOptionField
+     {:value       value
+      :options     options
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    (seq hasError)
+      :onChange    onChange}]))
+
+(defn select-option-with-label
+  [config]
+  [form-group config
+   [select-option config]])
 
 (defn async-select-option-with-label
   [config]

@@ -153,14 +153,13 @@
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder uri disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [form-group config
-     [ui/AsyncSelectOptionField
-      {:value       value
-       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
-       :placeholder placeholder
-       :disabled    disabled
-       :hasError    (seq hasError)
-       :onChange    onChange}]]))
+    [ui/AsyncSelectOptionField
+     {:value       value
+      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    (seq hasError)
+      :onChange    onChange}]))
 
 (defn async-select-option-with-label
   [config]

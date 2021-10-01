@@ -45,6 +45,17 @@
              (assoc-in path state)
              (assoc-in (conj path :props :show-errors) true))}))
 
+(defn selection-list-picker-change
+  [{:keys [db]} [_ ctx option]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/add-item-action form-id data-path option))))
+
+(defn selection-list-remove-click
+  [{:keys [db]} [_ ctx idx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/del-item-action form-id data-path idx))))
 
 (defn -load-api-handler
   [{:keys [db]} [_ api results]]

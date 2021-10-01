@@ -85,6 +85,8 @@
 (rf/reg-event-fx ::components4/select-option-with-label-value-changed handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/select-value-with-label-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
+(rf/reg-event-fx ::components4/selection-list-picker-change handlers4/selection-list-picker-change)
+(rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)
@@ -154,6 +156,8 @@
        'm4/select-option-with-label       components4/select-option-with-label
        'm4/select-value-with-label        components4/select-value-with-label
        'm4/form-group                     components4/form-group
+       'm4/selection-list                 components4/selection-list
+       'm4/selection-list-picker          components4/selection-list-picker
        })
 (set! low-code/template-registry
       '{:data-identification

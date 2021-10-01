@@ -227,7 +227,9 @@
        :hasError (seq hasError)
        :onChange onChange}]]))
 
-; NOTE: Just a proof of concept layout
+; NOTE: Just a proof of concept
+; NOTE: Drag/drop flicker needs fixing
+; NOTE: No way to pick from selection-item types yet
 (defn selection-list
   [config]
   (let [ctx (utils4/get-ctx config)
@@ -235,12 +237,10 @@
         onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
         {:keys [disabled]} @(rf/subscribe [::get-block-props ctx])
         items @(rf/subscribe [::get-block-data ctx])]
-    [:div
-     [:pre (pr-str items)]
-     [ui/SelectionList
-      {:items     items
-       :disabled  disabled
-       :onReorder onReorder}]]))
+    [ui/SelectionList
+     {:items     items
+      :disabled  disabled
+      :onReorder onReorder}]))
 
 (defn selection-list-picker
   [config]

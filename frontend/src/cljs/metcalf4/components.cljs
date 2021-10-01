@@ -103,16 +103,9 @@
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::date-field-with-label-value-changed ctx (date/to-value %)])
         props (merge logic (select-keys config config-keys))
-        {:keys [label required helperText toolTip minDate maxDate
-                value disabled errors show-errors]} props
+        {:keys [minDate maxDate value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [ui/FormGroup
-     {:label      label
-      :required   required
-      :disabled   disabled
-      :hasError   hasError
-      :helperText (if hasError (string/join ". " errors) helperText)
-      :toolTip    toolTip}
+    [form-group config
      [ui/DateField
       {:value    (date/from-value value)
        :disabled disabled

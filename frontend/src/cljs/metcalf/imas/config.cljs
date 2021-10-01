@@ -153,6 +153,7 @@
        'm4/async-select-option-with-label components4/async-select-option-with-label
        'm4/select-option-with-label       components4/select-option-with-label
        'm4/select-value-with-label        components4/select-value-with-label
+       'm4/form-group                     components4/form-group
        })
 (set! low-code/template-registry
       '{:data-identification

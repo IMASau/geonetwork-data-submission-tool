@@ -77,7 +77,7 @@
 
 (defn textarea-field
   [config]
-  (let [config-keys [:placeholder :helperText :toolTip :rows]
+  (let [config-keys [:placeholder :rows :maxLength]
         ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::textarea-field-value-changed ctx %])

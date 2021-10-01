@@ -2,7 +2,8 @@
   (:require [metcalf4.blocks :as blocks]
             [goog.object :as gobj]
             [metcalf3.utils :as utils3]
-            [metcalf4.schema :as schema]))
+            [metcalf4.schema :as schema]
+            [metcalf4.utils :as utils4]))
 
 (defn load-form-action
   "Massage raw payload for use as app-state"
@@ -44,13 +45,13 @@
 
 (defn new-item-action
   [s form-id data-path]
-  (let [schema-path (flatten [:db form-id :schema (schema/schema-path data-path) :items])
-        list-path (flatten [:db form-id :state (blocks/block-path data-path) :content])
+  (let [schema-path (utils4/as-path [:db form-id :schema (schema/schema-path data-path) :items])
+        list-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :content])
         schema (get-in s schema-path)
         new-item (blocks/new-item schema)]
     (update-in s list-path conj new-item)))
 
 (defn del-item-action
   [s form-id data-path idx]
-  (let [list-path (flatten [:db form-id :state (blocks/block-path data-path) :content])]
+  (let [list-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :content])]
     (update-in s list-path utils3/vec-remove idx)))

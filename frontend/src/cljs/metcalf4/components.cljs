@@ -98,23 +98,27 @@
   [form-group config
    [textarea-field config]])
 
-(defn date-field-with-label
+(defn date-field
   [config]
   (let [ctx (utils4/get-ctx config)
-        config-keys [:label :helperText :toolTip :minDate :maxDate]
+        config-keys [:minDate :maxDate]
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::date-field-with-label-value-changed ctx (date/to-value %)])
+        onChange #(rf/dispatch [::date-field-value-changed ctx (date/to-value %)])
         props (merge logic (select-keys config config-keys))
         {:keys [minDate maxDate value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [form-group config
-     [ui/DateField
-      {:value    (date/from-value value)
-       :disabled disabled
-       :onChange onChange
-       :hasError hasError
-       :minDate  (date/from-value minDate)
-       :maxDate  (date/from-value maxDate)}]]))
+    [ui/DateField
+     {:value    (date/from-value value)
+      :disabled disabled
+      :onChange onChange
+      :hasError hasError
+      :minDate  (date/from-value minDate)
+      :maxDate  (date/from-value maxDate)}]))
+
+(defn date-field-with-label
+  [config]
+  [form-group config
+   [date-field config]])
 
 (defn select-option-with-label
   [config]

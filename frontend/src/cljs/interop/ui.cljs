@@ -122,9 +122,12 @@
     :onChange    #(onChange (js->clj % :keywordize-keys true))}])
 
 (defn SelectionList
-  [{:keys []}]
+  [{:keys [items onReorder]}]
+  (s/assert (s/coll-of (s/keys :req-un [::label ::value])) items)
+  (s/assert fn? onReorder)
   [:> SelectionList/SelectionList
-   {}])
+   {:items     items
+    :onReorder onReorder}])
 
 (defn TextareaField
   [{:keys [value placeholder maxLength rows disabled hasError onChange]}]

@@ -117,21 +117,14 @@
 (defn select-option-with-label
   [config]
   (let [ctx (utils4/get-ctx config)
-        config-keys [:options :label]
+        config-keys [:options :placeholder]
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
         onChange #(rf/dispatch [::select-option-with-label-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
-        {:keys [label required placeholder helperText toolTip options
-                disabled errors show-errors]} props
+        {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [ui/FormGroup
-     {:label      label
-      :required   required
-      :disabled   disabled
-      :hasError   hasError
-      :helperText (if hasError (string/join ". " errors) helperText)
-      :toolTip    toolTip}
+    [form-group config
      [ui/SelectOptionField
       {:value       value
        :options     options

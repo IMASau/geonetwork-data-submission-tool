@@ -23,7 +23,7 @@ const getListStyle = isDraggingOver => ({
     width: 250
 });
 
-export function SelectionList({items, onReorder}) {
+export function SelectionList({items, onReorder, disabled}) {
 
     const onDragEnd = (result) => {
         if (result.destination) {
@@ -44,7 +44,7 @@ export function SelectionList({items, onReorder}) {
                         style={getListStyle(snapshot.isDraggingOver)}
                     >
                         {items.map((item, index) => (
-                            <Draggable key={item.value} draggableId={item.value} index={index}>
+                            <Draggable key={item.value} draggableId={item.value} index={index} isDragDisabled={disabled}>
                                 {(provided, snapshot) => (
                                     <div
                                         ref={provided.innerRef}

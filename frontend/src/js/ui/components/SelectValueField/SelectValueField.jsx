@@ -16,7 +16,7 @@ export function SelectValueField({value, options, hasError, disabled, placeholde
             isClearable={true}
             isDisabled={disabled}
             isLoading={false}
-            isSearchable={false}
+            isSearchable={true}
         >
         </Select>
     );

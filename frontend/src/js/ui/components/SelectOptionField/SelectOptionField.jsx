@@ -14,7 +14,7 @@ export function SelectOptionField({value, options, hasError, disabled, placehold
             isClearable={true}
             isDisabled={disabled}
             isLoading={false}
-            isSearchable={false}
+            isSearchable={true}
         />
     );
 }

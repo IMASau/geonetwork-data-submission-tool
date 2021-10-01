@@ -64,15 +64,9 @@
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::input-field-with-label-value-changed ctx %])
         props (merge logic (select-keys config [:label :placeholder :helperText :toolTip]))
-        {:keys [label placeholder helperText toolTip maxLength required value disabled show-errors errors]} props
+        {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [ui/FormGroup
-     {:label      label
-      :required   required
-      :disabled   disabled
-      :hasError   hasError
-      :helperText (if hasError (string/join ". " errors) helperText)
-      :toolTip    toolTip}
+    [form-group config
      [ui/InputField
       {:value       (or value "")                           ; TODO: should be guaranteed by sub
        :placeholder placeholder

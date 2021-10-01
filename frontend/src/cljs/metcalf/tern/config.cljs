@@ -86,7 +86,7 @@
 (rf/reg-event-fx ::components4/yes-no-field-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/date-field-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/select-option-value-changed handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/async-select-option-with-label-value-changed handlers4/option-change-handler)
+(rf/reg-event-fx ::components4/async-select-option-value-changed handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/select-value-with-label-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/selection-list-picker-change handlers4/selection-list-picker-change)
@@ -146,6 +146,7 @@
        'm4/select-value-with-label        components4/select-value-with-label
        'm4/select-option                  components4/select-option
        'm4/select-option-with-label       components4/select-option-with-label
+       'm4/async-select-option            components4/async-select-option
        'm4/async-select-option-with-label components4/async-select-option-with-label
        'm4/yes-no-field                   components4/yes-no-field
        'm4/page-errors                    components4/page-errors

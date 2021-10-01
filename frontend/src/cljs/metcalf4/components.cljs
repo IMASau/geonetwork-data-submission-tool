@@ -143,13 +143,13 @@
   [form-group config
    [select-option config]])
 
-(defn async-select-option-with-label
+(defn async-select-option
   [config]
   (let [ctx (utils4/get-ctx config)
-        config-keys [:options :uri]
+        config-keys [:uri]
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::async-select-option-with-label-value-changed ctx %])
+        onChange #(rf/dispatch [::async-select-option-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder uri disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -161,6 +161,11 @@
        :disabled    disabled
        :hasError    (seq hasError)
        :onChange    onChange}]]))
+
+(defn async-select-option-with-label
+  [config]
+  [form-group config
+   [async-select-option config]])
 
 (defn select-value-with-label
   [config]

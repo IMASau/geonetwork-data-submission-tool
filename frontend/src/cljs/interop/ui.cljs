@@ -11,7 +11,9 @@
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
-            [cljs.spec.alpha :as s]))
+            [cljs.spec.alpha :as s]
+            [goog.object :as gobj]
+            [reagent.core :as r]))
 
 (assert BoxMap/BoxMap)
 (assert DateField/DateField)
@@ -126,8 +128,9 @@
   (s/assert (s/coll-of (s/keys :req-un [::label ::value])) items)
   (s/assert fn? onReorder)
   [:> SelectionList/SelectionList
-   {:items     items
-    :onReorder onReorder}])
+   {:items      items
+    :onReorder  onReorder
+    :renderItem SelectionList/SimpleListItem}])
 
 (defn TextareaField
   [{:keys [value placeholder maxLength rows disabled hasError onChange]}]

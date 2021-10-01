@@ -23,7 +23,7 @@ const getListStyle = isDraggingOver => ({
     width: 250
 });
 
-export function SelectionList({items, onReorder, disabled}) {
+export function SelectionList({items, onReorder, disabled, renderItem}) {
 
     const onDragEnd = (result) => {
         if (result.destination) {
@@ -58,7 +58,7 @@ export function SelectionList({items, onReorder, disabled}) {
                                             provided.draggableProps.style
                                         )}
                                     >
-                                        {item.label}
+                                        {renderItem({item})}
                                     </div>
                                 )}
                             </Draggable>
@@ -77,5 +77,18 @@ SelectionList.propTypes = {
         label: PropTypes.string
     })),
     onReorder: PropTypes.func,
+    renderItem: PropTypes.func,
     disabled: PropTypes.bool,
+}
+
+
+export function SimpleListItem({item}) {
+    return <div>{item.label}</div>
+}
+
+SimpleListItem.propTypes = {
+    item: PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string
+    }),
 }

@@ -185,6 +185,7 @@
           [m4/selection-list-picker
            {:form-id   [:form]
             :data-path [:identificationInfo :topicCategory]
+            :placeholder "Start typing to filter list..."
             :options   [{:value "biota" :label "biota"}
                         {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
                         {:value "oceans" :label "oceans"}

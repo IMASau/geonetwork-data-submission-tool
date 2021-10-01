@@ -57,6 +57,12 @@
     (-> {:db db}
         (actions/del-item-action form-id data-path idx))))
 
+(defn selection-list-reorder
+  [{:keys [db]} [_ ctx src-idx dst-idx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/move-item-action form-id data-path src-idx dst-idx))))
+
 (defn -load-api-handler
   [{:keys [db]} [_ api results]]
   (actions/-load-api-action {:db db} api results))

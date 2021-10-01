@@ -27,3 +27,6 @@
                                        :Accept       "application/json"
                                        :X-CSRFToken  (get-csrf)}})
       (.then (fn [resp] (.json resp)))))
+
+
+(def as-path (comp vec flatten))

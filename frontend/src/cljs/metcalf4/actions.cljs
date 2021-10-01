@@ -64,3 +64,11 @@
     (-> s
         (update-in (conj db-path :content) conj state)
         (assoc-in (conj db-path :props :show-errors) true))))
+
+(defn move-item-action
+  [s form-id data-path src-idx dst-idx]
+  (let [list-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :content])
+        item (get-in s (conj list-path src-idx))]
+    (-> s
+        (update-in list-path utils3/vec-remove src-idx)
+        (update-in list-path utils3/vec-insert dst-idx item))))

@@ -75,7 +75,6 @@
        :hasError    hasError
        :onChange    onChange}]]))
 
-
 (defn textarea-field-with-label
   [config]
   (let [ctx (utils4/get-ctx config)
@@ -94,7 +93,6 @@
        :maxLength   maxLength
        :rows        rows
        :onChange    onChange}]]))
-
 
 (defn date-field-with-label
   [config]

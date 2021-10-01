@@ -82,7 +82,7 @@
 (rf/reg-event-fx :handlers/lodge-error handlers3/lodge-error)
 (rf/reg-event-fx :help-menu/open handlers3/help-menu-open)
 (rf/reg-event-fx ::components4/input-field-with-label-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/textarea-field-with-label-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/textarea-field-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/yes-no-field-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/date-field-with-label-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/select-option-with-label-value-changed handlers4/option-change-handler)
@@ -138,6 +138,7 @@
        "verticalRequired"  rules/vertical-required})
 (set! low-code/component-registry
       {
+       'm4/textarea-field                 components4/textarea-field
        'm4/textarea-field-with-label      components4/textarea-field-with-label
        'm4/input-field-with-label         components4/input-field-with-label
        'm4/date-field-with-label          components4/date-field-with-label
@@ -183,14 +184,14 @@
            {:form-id   [:form]
             :data-path [:identificationInfo :topicCategory]}]
           [m4/selection-list-picker
-           {:form-id   [:form]
-            :data-path [:identificationInfo :topicCategory]
+           {:form-id     [:form]
+            :data-path   [:identificationInfo :topicCategory]
             :placeholder "Start typing to filter list..."
-            :options   [{:value "biota" :label "biota"}
-                        {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
-                        {:value "oceans" :label "oceans"}
-                        {:value "geoscientificInformation" :label "geoscientificInformation"}
-                        {:value "inlandWater" :label "inlandWater"}]}]]
+            :options     [{:value "biota" :label "biota"}
+                          {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
+                          {:value "oceans" :label "oceans"}
+                          {:value "geoscientificInformation" :label "geoscientificInformation"}
+                          {:value "inlandWater" :label "inlandWater"}]}]]
          [m3/SelectField {:form-id   [:form]
                           :data-path [:identificationInfo :status]}]
          [m3/SelectField {:form-id   [:form]

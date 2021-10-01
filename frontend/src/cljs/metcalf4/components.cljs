@@ -75,24 +75,28 @@
        :hasError    hasError
        :onChange    onChange}]]))
 
-(defn textarea-field-with-label
+(defn textarea-field
   [config]
-  (let [ctx (utils4/get-ctx config)
+  (let [config-keys [:placeholder :helperText :toolTip :rows]
+        ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::textarea-field-with-label-value-changed ctx %])
-        config-keys [:label :placeholder :helperText :toolTip :rows]
+        onChange #(rf/dispatch [::textarea-field-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder rows maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [form-group config
-     [ui/TextareaField
-      {:value       (or value "")                           ; TODO: should be guaranteed by sub
-       :placeholder placeholder
-       :disabled    disabled
-       :hasError    hasError
-       :maxLength   maxLength
-       :rows        rows
-       :onChange    onChange}]]))
+    [ui/TextareaField
+     {:value       (or value "")                            ; TODO: should be guaranteed by sub
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    hasError
+      :maxLength   maxLength
+      :rows        rows
+      :onChange    onChange}]))
+
+(defn textarea-field-with-label
+  [config]
+  [form-group config
+   [textarea-field config]])
 
 (defn date-field-with-label
   [config]

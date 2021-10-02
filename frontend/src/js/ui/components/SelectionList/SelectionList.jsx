@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
+import {useCachedState} from "../utils";
 
 const grid = 8;
 
@@ -23,10 +24,28 @@ const getListStyle = isDraggingOver => ({
     width: 250
 });
 
+
+function reorder(list, startIndex, endIndex) {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    return result;
+}
+
+// NOTE: Attempts to workaround glitch on recorder by caching state
+// NOTE: Component should change key to flush invalid state if necessary
 export function SelectionList({items, onReorder, disabled, renderItem}) {
+
+    const [stateValue, setStateValue] = useCachedState(items);
 
     const onDragEnd = (result) => {
         if (result.destination) {
+            // Optimistially reorder to avoid glitch
+            setStateValue(reorder(
+                stateValue,
+                result.source.index,
+                result.destination.index
+            ))
             onReorder(
                 result.source.index,
                 result.destination.index
@@ -43,7 +62,7 @@ export function SelectionList({items, onReorder, disabled, renderItem}) {
                         ref={provided.innerRef}
                         style={getListStyle(snapshot.isDraggingOver)}
                     >
-                        {items.map((item, index) => (
+                        {stateValue.map((item, index) => (
                             <Draggable key={item.value}
                                        draggableId={item.value}
                                        index={index}

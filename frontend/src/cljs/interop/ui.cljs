@@ -123,14 +123,45 @@
     :hasError    hasError
     :onChange    #(onChange (js->clj % :keywordize-keys true))}])
 
-(defn SelectionList
-  [{:keys [items onReorder]}]
-  (s/assert (s/coll-of (s/keys :req-un [::label ::value])) items)
+(defn SimpleSelectionList
+  [{:keys [items onReorder labelKey valueKey]}]
   (s/assert fn? onReorder)
   [:> SelectionList/SelectionList
    {:items      items
     :onReorder  onReorder
+    :itemProps  {:getLabel #(gobj/get % labelKey "No label")
+                 :getValue #(gobj/get % valueKey "No value")}
     :renderItem SelectionList/SimpleListItem}])
+
+(defn BreadcrumbSelectionList
+  [{:keys [items onReorder breadcrumbKey labelKey valueKey]}]
+  (s/assert fn? onReorder)
+  [:> SelectionList/SelectionList
+   {:items      items
+    :onReorder  onReorder
+    :itemProps  {:getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
+                 :getLabel      #(gobj/get % labelKey "No label")
+                 :getValue      #(gobj/get % valueKey "No value")}
+    :renderItem SelectionList/BreadcrumbListItem}])
+
+(defn has-key? [s] #(contains? (set (map name (keys %))) s))
+(defn has-keys? [ss] (apply every-pred (map has-key? ss)))
+
+(defn TableSelectionList
+  [{:keys [items onReorder valueKey columns]}]
+  (s/assert (s/coll-of map?) items)
+  (s/assert fn? onReorder)
+  (s/assert string? valueKey)
+  (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
+  (s/assert (s/coll-of (has-key? valueKey)) items)
+  (s/assert (s/coll-of (has-keys? (map :labelKey columns))) items)
+  [:> SelectionList/SelectionList
+   {:items      items
+    :onReorder  onReorder
+    :itemProps  {:columns (for [{:keys [flex labelKey]} columns]
+                            {:flex     flex
+                             :getLabel #(gobj/get % labelKey "No label")})}
+    :renderItem SelectionList/TableListItem}])
 
 (defn TextareaField
   [{:keys [value placeholder maxLength rows disabled hasError onChange]}]

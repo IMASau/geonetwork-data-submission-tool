@@ -154,7 +154,9 @@
        'm4/yes-no-field                   components4/yes-no-field
        'm4/page-errors                    components4/page-errors
        'm4/form-group                     components4/form-group
-       'm4/selection-list                 components4/selection-list
+       'm4/simple-selection-list          components4/simple-selection-list
+       'm4/breadcrumb-selection-list      components4/breadcrumb-selection-list
+       'm4/table-selection-list           components4/table-selection-list
        'm4/selection-list-picker          components4/selection-list-picker
        })
 (set! low-code/template-registry

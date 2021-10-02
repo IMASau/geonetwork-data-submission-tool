@@ -227,21 +227,57 @@
        :hasError (seq hasError)
        :onChange onChange}]]))
 
-; NOTE: Just a proof of concept
-; NOTE: Drag/drop flicker needs fixing
-; NOTE: No way to pick from selection-item types yet
-(defn selection-list
+(defn simple-selection-list
   [config]
-  (let [ctx (utils4/get-ctx config)
+  (let [config-keys [:labelKey :valueKey]
+        ctx (utils4/get-ctx config)
         ;onRemove #(rf/dispatch [::selection-list-remove-click ctx %])
         onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
-        {:keys [key disabled]} @(rf/subscribe [::get-block-props ctx])
+        logic @(rf/subscribe [::get-block-props ctx])
+        {:keys [key disabled labelKey valueKey]} (merge logic (select-keys config config-keys))
         items @(rf/subscribe [::get-block-data ctx])]
-    [ui/SelectionList
+    [ui/SimpleSelectionList
+     {:key       key
+      :items     items
+      :labelKey  labelKey
+      :valueKey  valueKey
+      :disabled  disabled
+      :onReorder onReorder}]))
+
+(defn breadcrumb-selection-list
+  [config]
+  (let [config-keys [:labelKey :valueKey :breadcrumbKey]
+        ctx (utils4/get-ctx config)
+        ;onRemove #(rf/dispatch [::selection-list-remove-click ctx %])
+        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
+        logic @(rf/subscribe [::get-block-props ctx])
+        {:keys [key disabled labelKey valueKey breadcrumbKey]} (merge logic (select-keys config config-keys))
+        items @(rf/subscribe [::get-block-data ctx])]
+    [ui/BreadcrumbSelectionList
+     {:key           key
+      :items         items
+      :disabled      disabled
+      :onReorder     onReorder
+      :breadcrumbKey breadcrumbKey
+      :labelKey      labelKey
+      :valueKey      valueKey}]))
+
+(defn table-selection-list
+  [config]
+  (let [config-keys [:columns :valueKey]
+        ctx (utils4/get-ctx config)
+        ;onRemove #(rf/dispatch [::selection-list-remove-click ctx %])
+        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
+        logic @(rf/subscribe [::get-block-props ctx])
+        {:keys [key disabled columns valueKey]} (merge logic (select-keys config config-keys))
+        items @(rf/subscribe [::get-block-data ctx])]
+    [ui/TableSelectionList
      {:key       key
       :items     items
       :disabled  disabled
-      :onReorder onReorder}]))
+      :onReorder onReorder
+      :columns   columns
+      :valueKey  valueKey}]))
 
 (defn selection-list-picker
   [config]

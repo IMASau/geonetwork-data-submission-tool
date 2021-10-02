@@ -28,7 +28,7 @@ function reorder(list, startIndex, endIndex) {
 
 // NOTE: Attempts to workaround glitch on recorder by caching state
 // NOTE: Component should change key to flush invalid state if necessary
-export function SelectionList({items, itemProps, onReorder, disabled, renderItem}) {
+export function SelectionList({items, itemProps, getValue, onReorder, disabled, renderItem}) {
 
     const [stateValue, setStateValue] = useCachedState(items);
 
@@ -57,8 +57,8 @@ export function SelectionList({items, itemProps, onReorder, disabled, renderItem
                         style={getListStyle(snapshot.isDraggingOver)}
                     >
                         {stateValue.map((item, index) => (
-                            <Draggable key={item.value}
-                                       draggableId={item.value}
+                            <Draggable key={getValue(item)}
+                                       draggableId={getValue(item)}
                                        index={index}
                                        isDragDisabled={disabled}>
                                 {(provided, snapshot) => (
@@ -90,15 +90,15 @@ SelectionList.propTypes = {
         label: PropTypes.string
     })),
     onReorder: PropTypes.func,
-    renderItem: PropTypes.func,
+    renderItem: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
 }
-
 
 export function SimpleListItem({item, getLabel}) {
     return (
         <div className="SimpleListItem">
-             <div>{getLabel(item)}</div>
+            <div>{getLabel(item)}</div>
         </div>
     )
 }

@@ -279,12 +279,12 @@
       :columns   columns
       :valueKey  valueKey}]))
 
-(defn selection-list-picker
+(defn list-option-picker
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :placeholder]
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::selection-list-picker-change ctx %])
+        onChange #(rf/dispatch [::list-option-picker-change ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]

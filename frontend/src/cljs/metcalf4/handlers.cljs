@@ -45,7 +45,7 @@
              (assoc-in path state)
              (assoc-in (conj path :props :show-errors) true))}))
 
-(defn selection-list-picker-change
+(defn list-option-picker-change
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}

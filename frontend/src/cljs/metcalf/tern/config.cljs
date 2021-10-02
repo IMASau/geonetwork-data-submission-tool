@@ -89,7 +89,7 @@
 (rf/reg-event-fx ::components4/async-select-option-value-changed handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/select-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/selection-list-picker-change handlers4/selection-list-picker-change)
+(rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
@@ -157,7 +157,7 @@
        'm4/simple-selection-list          components4/simple-selection-list
        'm4/breadcrumb-selection-list      components4/breadcrumb-selection-list
        'm4/table-selection-list           components4/table-selection-list
-       'm4/selection-list-picker          components4/selection-list-picker
+       'm4/list-option-picker             components4/list-option-picker
        'm4/expanding-control              components4/expanding-control
        })
 (set! low-code/template-registry
@@ -194,7 +194,7 @@
             :data-path [:identificationInfo :topicCategory]
             :labelKey  "label"
             :valueKey  "value"}]
-          [m4/selection-list-picker
+          [m4/list-option-picker
            {:form-id     [:form]
             :data-path   [:identificationInfo :topicCategory]
             :placeholder "Start typing to filter list..."

@@ -62,9 +62,12 @@
    {}])
 
 (defn ExpandingControl
-  [{:keys []}]
+  [{:keys [label required]}]
+  (s/assert string? label)
+  (s/assert (s/nilable boolean?) required)
   [:> ExpandingControl/ExpandingControl
-   {}])
+   {:label    label
+    :required required}])
 
 (defn FormGroup
   [{:keys [label required disabled hasError helperText toolTip]} & children]

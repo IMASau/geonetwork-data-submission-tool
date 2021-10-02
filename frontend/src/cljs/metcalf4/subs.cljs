@@ -7,11 +7,10 @@
 
 (defn get-form-state
   [db [_ form-id]]
-  (s/assert vector? form-id)
-  (let [path (conj form-id :state)
-        state (get-in db path)]
-    ; NOTE: simplest possible approach
-    (blocks/postwalk rules/apply-rules state)))
+  (when (vector? form-id)
+    (let [path (conj form-id :state)
+          state (get-in db path)]
+      (blocks/postwalk rules/apply-rules state))))
 
 
 (defn form-state-signal

@@ -61,6 +61,7 @@
   [{:keys [db]} [_ ctx src-idx dst-idx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
+        (actions/genkey-action form-id data-path)
         (actions/move-item-action form-id data-path src-idx dst-idx))))
 
 (defn -load-api-handler

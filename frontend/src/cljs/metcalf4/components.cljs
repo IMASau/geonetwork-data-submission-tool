@@ -235,10 +235,11 @@
   (let [ctx (utils4/get-ctx config)
         ;onRemove #(rf/dispatch [::selection-list-remove-click ctx %])
         onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
-        {:keys [disabled]} @(rf/subscribe [::get-block-props ctx])
+        {:keys [key disabled]} @(rf/subscribe [::get-block-props ctx])
         items @(rf/subscribe [::get-block-data ctx])]
     [ui/SelectionList
-     {:items     items
+     {:key       key
+      :items     items
       :disabled  disabled
       :onReorder onReorder}]))
 

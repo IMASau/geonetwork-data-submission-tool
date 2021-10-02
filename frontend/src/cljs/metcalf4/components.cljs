@@ -322,6 +322,6 @@
         {:keys [label required errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (into [ui/ExpandingControl
-           {:label label
+           {:label    label
             :required required}]
           children)))

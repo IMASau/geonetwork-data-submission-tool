@@ -27,5 +27,5 @@ ExpandingControl.propTypes = {
     disabled: PropTypes.bool,
     required: PropTypes.bool,
     hasError: PropTypes.bool,
-    children: PropTypes.element
+    children: PropTypes.arrayOf(PropTypes.element)
 }

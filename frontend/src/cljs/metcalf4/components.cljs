@@ -296,3 +296,15 @@
       :hasError    (seq hasError)
       :onChange    onChange}]))
 
+(defn expanding-control
+  [config & children]
+  (let [config-keys [:label :required]
+        ctx (utils4/get-ctx config)
+        logic @(rf/subscribe [::get-block-props ctx])
+        props (merge logic (select-keys config config-keys))
+        {:keys [label required errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    (into [ui/ExpandingControl
+           {:label label
+            :required required}]
+          children)))

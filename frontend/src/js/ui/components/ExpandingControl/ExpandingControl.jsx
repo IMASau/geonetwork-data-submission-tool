@@ -5,7 +5,6 @@ import {requiredLabelInfo} from "../utils";
 
 
 export function ExpandingControl({label, required, hasError, disabled, children}) {
-    console.log({label, hasError, disabled, children})
     const [isOpen, setOpen] = React.useState(false);
     return (
         <div className="ExpandingControl">

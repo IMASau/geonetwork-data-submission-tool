@@ -3,25 +3,19 @@ import PropTypes from 'prop-types';
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {useCachedState} from "../utils";
 
-const grid = 8;
-
 const getItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: "none",
-    padding: grid * 2,
-    margin: `0 0 ${grid}px 0`,
 
     // change background colour if dragging
-    background: isDragging ? "lightgreen" : "grey",
+    background: isDragging ? "rgba(.6,0.6,0.6,.25)" : null,
 
     // styles we need to apply on draggables
     ...draggableStyle
 });
 
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? "lightblue" : "lightgrey",
-    padding: grid,
-    width: 250
+    background: isDraggingOver ? "lightblue" : null,
 });
 
 

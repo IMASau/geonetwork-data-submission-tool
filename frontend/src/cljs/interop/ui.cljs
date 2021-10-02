@@ -130,6 +130,7 @@
 (defn SimpleSelectionList
   [{:keys [items onReorder labelKey valueKey]}]
   (s/assert fn? onReorder)
+  (s/assert string? labelKey)
   (s/assert string? valueKey)
   [:> SelectionList/SelectionList
    {:items      items
@@ -142,6 +143,9 @@
 (defn BreadcrumbSelectionList
   [{:keys [items onReorder breadcrumbKey labelKey valueKey]}]
   (s/assert fn? onReorder)
+  (s/assert string? breadcrumbKey)
+  (s/assert string? labelKey)
+  (s/assert string? valueKey)
   [:> SelectionList/SelectionList
    {:items      items
     :onReorder  onReorder

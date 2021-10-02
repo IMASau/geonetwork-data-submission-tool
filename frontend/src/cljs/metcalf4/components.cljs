@@ -212,8 +212,8 @@
 ; FIXME: Is :label for form group or yes/no field?
 (defn yes-no-field-with-label
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :label]
+  (let [config-keys [:options :label]
+        ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-yes-no-field-with-label-props ctx])
         onChange #(rf/dispatch [::yes-no-field-with-label-value-changed ctx %])
         props (merge logic (select-keys config config-keys))

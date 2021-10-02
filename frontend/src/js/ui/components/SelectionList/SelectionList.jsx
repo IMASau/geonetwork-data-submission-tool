@@ -95,8 +95,35 @@ SelectionList.propTypes = {
 }
 
 
-export function SimpleListItem({item}) {
-    return <div>{item.label}</div>
+export function SimpleListItem({item, getLabel}) {
+    return (
+        <div className="SimpleListItem">
+             <div>{getLabel(item)}</div>
+        </div>
+    )
+}
+
+export function BreadcrumbListItem({item, getBreadcrumb, getLabel}) {
+    return (
+        <div className="BreadcrumbListItem">
+            <div>
+                <div className="BreadcrumbListItemPath">{getBreadcrumb(item)}</div>
+                <div className="BreadcrumbListItemText">{getLabel(item)}</div>
+            </div>
+        </div>
+    )
+}
+
+export function TableListItem({item, index, columns}) {
+    return (
+        <div className="TableListItemRow">
+            {columns.map(({getLabel, flex}, columnIndex) =>
+                <span className="TableListItemCol" style={{"flex": flex}}>
+                    {getLabel(item)}
+                </span>
+            )}
+        </div>
+    )
 }
 
 SimpleListItem.propTypes = {

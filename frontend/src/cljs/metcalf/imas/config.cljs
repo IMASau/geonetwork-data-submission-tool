@@ -167,6 +167,7 @@
        'm4/breadcrumb-selection-list      components4/breadcrumb-selection-list
        'm4/table-selection-list           components4/table-selection-list
        'm4/list-option-picker             components4/list-option-picker
+       'm4/async-list-option-picker       components4/async-list-option-picker
        })
 (set! low-code/template-registry
       '{:data-identification

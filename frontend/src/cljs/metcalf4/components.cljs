@@ -296,6 +296,23 @@
       :hasError    (seq hasError)
       :onChange    onChange}]))
 
+(defn async-list-option-picker
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:uri :placeholder]
+        logic @(rf/subscribe [::get-block-props ctx])
+        onChange #(rf/dispatch [::list-option-picker-change ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [placeholder uri disabled errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    [ui/AsyncSelectOptionField
+     {:value       nil
+      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    (seq hasError)
+      :onChange    onChange}]))
+
 (defn expanding-control
   [config & children]
   (let [config-keys [:label :required]

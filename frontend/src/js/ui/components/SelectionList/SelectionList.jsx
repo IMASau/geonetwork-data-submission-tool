@@ -28,7 +28,7 @@ function reorder(list, startIndex, endIndex) {
 
 // NOTE: Attempts to workaround glitch on recorder by caching state
 // NOTE: Component should change key to flush invalid state if necessary
-export function SelectionList({items, onReorder, disabled, renderItem}) {
+export function SelectionList({items, itemProps, onReorder, disabled, renderItem}) {
 
     const [stateValue, setStateValue] = useCachedState(items);
 
@@ -71,7 +71,7 @@ export function SelectionList({items, onReorder, disabled, renderItem}) {
                                             provided.draggableProps.style
                                         )}
                                     >
-                                        {renderItem({item})}
+                                        {renderItem({...itemProps, item, index})}
                                     </div>
                                 )}
                             </Draggable>

@@ -130,9 +130,11 @@
 (defn SimpleSelectionList
   [{:keys [items onReorder labelKey valueKey]}]
   (s/assert fn? onReorder)
+  (s/assert string? valueKey)
   [:> SelectionList/SelectionList
    {:items      items
     :onReorder  onReorder
+    :getValue   #(gobj/get % valueKey "No value")
     :itemProps  {:getLabel #(gobj/get % labelKey "No label")
                  :getValue #(gobj/get % valueKey "No value")}
     :renderItem SelectionList/SimpleListItem}])

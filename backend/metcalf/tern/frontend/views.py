@@ -30,8 +30,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from metcalf.common import spec4
-from metcalf.common.utils import to_json, get_exception_message
 from metcalf.common import xmlutils4
+from metcalf.common.utils import to_json, get_exception_message
 from metcalf.tern.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.tern.frontend.forms import DocumentAttachmentForm
@@ -554,15 +554,27 @@ def robots_view(request):
     return render(request, "robots.txt", context, content_type="text/plain")
 
 
+def first_or_value(x):
+    if isinstance(x, list):
+        return x[0] if x else None
+    else:
+        return x
+
+
+# NOTE: assumption is that UI doesn't need any complicated values, just a simple object
+# TODO: exclude annotations we don’t ever need (e.g. type, is_hosted_by, broader, hierarchy, selectable...)
+# TODO: need to check this suits all use cases or needs individual finessing
+def massage_source(source):
+    return {k: first_or_value(v) for k, v in source.items()}
+
+
 def es_results(data):
     """
     Normalise data returned from ES endpoint.
 
     Returns a list of source documents as results
     """
-    # TODO: massage the data to reduce unnecessary complexity (e.g. return the first label, not a list of labels)
-    # TODO: exclude annotations we don’t ever need (e.g. type, is_hosted_by, broader, hierarchy, selectable...)
-    return [hit['_source'] for hit in data['hits']['hits']]
+    return [massage_source(hit['_source']) for hit in data['hits']['hits']]
 
 
 @api_view(["GET", "POST"])

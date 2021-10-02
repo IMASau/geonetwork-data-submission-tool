@@ -21,9 +21,10 @@
 ; FIXME: leaking empty strings for date values from payload.forms.data
 (defn get-block-props-sub
   [state [_ {:keys [data-path]}]]
-  (s/assert vector? data-path)
-  (let [path (blocks/block-path data-path)]
-    (get-in state (conj path :props))))
+  (when (vector? data-path)
+    (s/assert some? state)
+    (let [path (blocks/block-path data-path)]
+      (get-in state (conj path :props)))))
 
 (defn get-block-data-sub
   [state [_ {:keys [data-path]}]]

@@ -15,7 +15,6 @@
 
 (defn form-state-signal
   [[_ {:keys [form-id]}]]
-  (s/assert vector? form-id)
   (rf/subscribe [::get-form-state form-id]))
 
 

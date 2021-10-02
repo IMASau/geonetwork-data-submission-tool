@@ -31,6 +31,7 @@ function reorder(list, startIndex, endIndex) {
 export function SelectionList({items, itemProps, getValue, onReorder, disabled, renderItem}) {
 
     const [stateValue, setStateValue] = useCachedState(items);
+    const isDragDisabled = disabled || !onReorder;
 
     const onDragEnd = (result) => {
         if (result.destination) {
@@ -60,7 +61,7 @@ export function SelectionList({items, itemProps, getValue, onReorder, disabled, 
                             <Draggable key={getValue(item)}
                                        draggableId={getValue(item)}
                                        index={index}
-                                       isDragDisabled={disabled}>
+                                       isDragDisabled={isDragDisabled}>
                                 {(provided, snapshot) => (
                                     <div
                                         ref={provided.innerRef}

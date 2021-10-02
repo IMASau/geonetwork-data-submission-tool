@@ -72,3 +72,13 @@
     (-> s
         (update-in list-path utils3/vec-remove src-idx)
         (update-in list-path utils3/vec-insert dst-idx item))))
+
+(def genkey-counter (atom 10000))
+
+(defn genkey []
+  (str ::genkey (swap! genkey-counter inc)))
+
+(defn genkey-action
+  [s form-id data-path]
+  (let [tick-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :props :key])]
+    (assoc-in s tick-path (genkey))))

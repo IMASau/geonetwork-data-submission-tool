@@ -158,6 +158,7 @@
        'm4/breadcrumb-selection-list      components4/breadcrumb-selection-list
        'm4/table-selection-list           components4/table-selection-list
        'm4/selection-list-picker          components4/selection-list-picker
+       'm4/expanding-control              components4/expanding-control
        })
 (set! low-code/template-registry
       '{:data-identification

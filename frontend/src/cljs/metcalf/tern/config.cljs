@@ -188,9 +188,11 @@
           {:label     "Topic Categories"
            :form-id   [:form]
            :data-path [:identificationInfo :topicCategory]}
-          [m4/selection-list
+          [m4/simple-selection-list
            {:form-id   [:form]
-            :data-path [:identificationInfo :topicCategory]}]
+            :data-path [:identificationInfo :topicCategory]
+            :labelKey  "label"
+            :valueKey  "value"}]
           [m4/selection-list-picker
            {:form-id     [:form]
             :data-path   [:identificationInfo :topicCategory]

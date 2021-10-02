@@ -165,6 +165,7 @@
   [:> SelectionList/SelectionList
    {:items      items
     :onReorder  onReorder
+    :getValue   #(gobj/get % valueKey "No value")
     :itemProps  {:columns (for [{:keys [flex labelKey]} columns]
                             {:flex     flex
                              :getLabel #(gobj/get % labelKey "No label")})}

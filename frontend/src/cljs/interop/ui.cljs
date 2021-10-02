@@ -145,6 +145,7 @@
   [:> SelectionList/SelectionList
    {:items      items
     :onReorder  onReorder
+    :getValue #(gobj/get % valueKey "No value")
     :itemProps  {:getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
                  :getLabel      #(gobj/get % labelKey "No label")
                  :getValue      #(gobj/get % valueKey "No value")}

@@ -9,9 +9,11 @@ export function ExpandingControl({label, required, hasError, disabled, children}
     return (
         <div className="ExpandingControl">
             <div className="ExpandingControlHeader" onClick={() => setOpen(!isOpen)}>
-                <div>{label}{requiredLabelInfo({required})}</div>
-                <BPCore.Button icon={isOpen ? "caret-up" : "caret-down"}
-                               minimal={true}/>
+                <div className="ExpandingControlHeaderLabel">
+                    {label}
+                    {requiredLabelInfo({required})}
+                </div>
+                <BPCore.Icon icon={isOpen ? "caret-up" : "caret-down"}/>
             </div>
             <BPCore.Collapse isOpen={isOpen}>
                 {children}

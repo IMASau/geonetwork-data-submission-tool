@@ -252,16 +252,56 @@
            :maxLength   1000
            :helperText  "Brief statement about the purpose of the study"
            :toolTip     "The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"}]
-         [m3/ThemeKeywords
-          {:keyword-type        :keywordsTheme
-           :keywords-theme-path [:form :fields :identificationInfo :keywordsTheme]}]
-         [m3/ThemeKeywords
-          {:keyword-type        :keywordsThemeAnzsrc
-           :keywords-theme-path [:form :fields :identificationInfo :keywordsThemeAnzsrc]}]
-         [m3/ThemeKeywordsExtra
-          {}]
-         [m3/TaxonKeywordsExtra
-          {}]
+
+
+         [m4/expanding-control {:label "GCMD Science keywords" :required true}
+          "..."
+          [m3/ThemeKeywords
+           {:keyword-type        :keywordsTheme
+            :keywords-theme-path [:form :fields :identificationInfo :keywordsTheme]}]]
+
+         [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
+          "..."
+          [m3/ThemeKeywords
+           {:keyword-type        :keywordsThemeAnzsrc
+            :keywords-theme-path [:form :fields :identificationInfo :keywordsThemeAnzsrc]}]]
+
+         [m4/expanding-control {:label "Platforms" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Instruments" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Paramters" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Temporal Resolution" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Horizontal Resolution" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Vertical Resolution (Optional)" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Australian Plant Name Index (Optional)" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Additional Keywords (Optional)" :required true}
+          "..."
+          [m3/ThemeKeywordsExtra
+           {}]
+          [m3/TaxonKeywordsExtra
+           {}]]
+
+
+
+
+
+
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
         :when

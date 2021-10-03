@@ -1,11 +1,11 @@
 
-.SimpleListItem {
+.SimpleListItem, .BreadcrumbListItem {
     display: flex;
     min-height: 30px;
     align-items: center;
 }
 
-.SimpleListItemLabel {
+.SimpleListItemLabel, .BreadcrumbListItemLabel {
     flex: 1;
 }
 

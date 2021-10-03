@@ -132,7 +132,7 @@ SimpleListItem.propTypes = {
 export function BreadcrumbListItem({item, index, disabled, getBreadcrumb, getLabel, onRemoveClick}) {
     return (
         <div className="BreadcrumbListItem">
-            <div>
+            <div className="BreadcrumbListItemLabel">
                 <div className="BreadcrumbListItemPath">{getBreadcrumb(item)}</div>
                 <div className="BreadcrumbListItemText">{getLabel(item)}</div>
             </div>

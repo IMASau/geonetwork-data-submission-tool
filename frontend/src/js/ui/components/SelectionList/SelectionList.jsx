@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {useCachedState} from "../utils";
 import * as BPCore from "@blueprintjs/core";
+import * as ReactDOM from "react-dom";
 
 const getItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
@@ -25,6 +26,42 @@ function reorder(list, startIndex, endIndex) {
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
     return result;
+}
+
+// NOTE: Workaround for conflict with blueprint expander (transform related?)
+// https://github.com/vtereshyn/react-beautiful-dnd-ru/blob/master/docs/patterns/using-a-portal.md
+const portal = document.createElement('div');
+portal.classList.add('SelectionListPortal');
+
+if (!document.body) {
+    throw new Error('body not ready for portal creation!');
+} else {
+    document.body.appendChild(portal);
+}
+
+function PortalAwareItem({provided, snapshot, children}) {
+
+    const usePortal = snapshot.isDragging;
+
+    const child = (
+        <div
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            style={getItemStyle(
+                snapshot.isDragging,
+                provided.draggableProps.style
+            )}
+        >
+            {children}
+        </div>
+    );
+
+    if (!usePortal) {
+        return child;
+    } else {
+        return ReactDOM.createPortal(child, portal);
+    }
 }
 
 // NOTE: Attempts to workaround glitch on recorder by caching state
@@ -64,17 +101,12 @@ export function SelectionList({items, itemProps, getValue, onReorder, onRemoveCl
                                        index={index}
                                        isDragDisabled={isDragDisabled}>
                                 {(provided, snapshot) => (
-                                    <div
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        style={getItemStyle(
-                                            snapshot.isDragging,
-                                            provided.draggableProps.style
-                                        )}
+                                    <PortalAwareItem
+                                        provided={provided}
+                                        snapshot={snapshot}
                                     >
                                         {renderItem({...itemProps, onRemoveClick, item, index})}
-                                    </div>
+                                    </PortalAwareItem>
                                 )}
                             </Draggable>
                         ))}

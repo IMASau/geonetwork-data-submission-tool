@@ -1,4 +1,12 @@
 
+.SimpleListItem {
+    display: flex;
+}
+
+.SimpleListItemLabel {
+    flex: 1;
+}
+
 .BreadcrumbListItemPath {
     font-size: 0.8em;
     color: darkgrey;
@@ -7,6 +15,7 @@
 .TableListItemRow {
     display: flex;
 }
+
 .TableListItemCol {
     overflow: hidden;
     white-space: nowrap;

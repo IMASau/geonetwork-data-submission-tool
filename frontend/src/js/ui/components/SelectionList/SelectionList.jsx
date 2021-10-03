@@ -99,7 +99,7 @@ SelectionList.propTypes = {
 export function SimpleListItem({item, getLabel}) {
     return (
         <div className="SimpleListItem">
-            <div>{getLabel(item)}</div>
+            <div className="SimpleListItemLabel">{getLabel(item)}</div>
         </div>
     )
 }

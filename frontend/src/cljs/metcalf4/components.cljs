@@ -231,7 +231,7 @@
   [config]
   (let [config-keys [:labelKey :valueKey]
         ctx (utils4/get-ctx config)
-        ;onRemove #(rf/dispatch [::selection-list-remove-click ctx %])
+        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
         onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
         logic @(rf/subscribe [::get-block-props ctx])
         {:keys [key disabled labelKey valueKey]} (merge logic (select-keys config config-keys))
@@ -242,13 +242,14 @@
       :labelKey  labelKey
       :valueKey  valueKey
       :disabled  disabled
-      :onReorder onReorder}]))
+      :onReorder onReorder
+      :onRemoveClick onRemoveClick}]))
 
 (defn breadcrumb-selection-list
   [config]
   (let [config-keys [:labelKey :valueKey :breadcrumbKey]
         ctx (utils4/get-ctx config)
-        ;onRemove #(rf/dispatch [::selection-list-remove-click ctx %])
+        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
         onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
         logic @(rf/subscribe [::get-block-props ctx])
         {:keys [key disabled labelKey valueKey breadcrumbKey]} (merge logic (select-keys config config-keys))
@@ -258,6 +259,7 @@
       :items         items
       :disabled      disabled
       :onReorder     onReorder
+      :onRemoveClick onRemoveClick
       :breadcrumbKey breadcrumbKey
       :labelKey      labelKey
       :valueKey      valueKey}]))
@@ -266,7 +268,7 @@
   [config]
   (let [config-keys [:columns :valueKey]
         ctx (utils4/get-ctx config)
-        ;onRemove #(rf/dispatch [::selection-list-remove-click ctx %])
+        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
         onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
         logic @(rf/subscribe [::get-block-props ctx])
         {:keys [key disabled columns valueKey]} (merge logic (select-keys config config-keys))
@@ -276,6 +278,7 @@
       :items     items
       :disabled  disabled
       :onReorder onReorder
+      :onRemoveClick onRemoveClick
       :columns   columns
       :valueKey  valueKey}]))
 

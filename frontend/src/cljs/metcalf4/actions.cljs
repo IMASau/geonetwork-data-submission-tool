@@ -56,6 +56,7 @@
   (let [list-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :content])]
     (update-in s list-path utils3/vec-remove idx)))
 
+; TODO: don't add a duplicate
 (defn add-item-action
   [s form-id data-path data]
   (let [schema (get-in s (utils4/as-path [:db form-id :schema (schema/schema-path data-path) :items]))

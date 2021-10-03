@@ -269,7 +269,7 @@
             {:form-id       [:form]
              :data-path     [:identificationInfo :keywordsTheme :keywords]
              :labelKey      "label"                         ;TODO: Update to match endpoint
-             :valueKey      "value"                         ;TODO: Update to match endpoint
+             :valueKey      "uri"                           ;TODO: Update to match endpoint
              :breadcrumbKey "breadcrumb"                    ;TODO: Update to match endpoint
              }]]]
 
@@ -286,7 +286,7 @@
             {:form-id       [:form]
              :data-path     [:identificationInfo :keywordsThemeAnzsrc :keywords]
              :labelKey      "label"                         ;TODO: Update to match endpoint
-             :valueKey      "value"                         ;TODO: Update to match endpoint
+             :valueKey      "uri"                           ;TODO: Update to match endpoint
              :breadcrumbKey "breadcrumb"                    ;TODO: Update to match endpoint
              }]]]
 

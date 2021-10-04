@@ -20,6 +20,8 @@ definitions:
           - *setenv
           # build frontend
           - cd frontend
+          - make clean
+          - # init yarn
           - make release
           # build django app
           - cd ..

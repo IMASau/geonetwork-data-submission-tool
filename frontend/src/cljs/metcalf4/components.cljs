@@ -396,7 +396,7 @@
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" {:type "object" :properties {labelKey {} valueKey {}}}}})
+       :schema2 {:type "array" :items {:type "object" :properties {labelKey {} valueKey {}}}}})
 
     [ui/SimpleSelectionList
      {:key           key
@@ -419,7 +419,7 @@
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" {:type "object" :properties {labelKey {} valueKey {} breadcrumbKey {}}}}})
+       :schema2 {:type "array" :items {:type "object" :properties {labelKey {} valueKey {} breadcrumbKey {}}}}})
 
     [ui/BreadcrumbSelectionList
      {:key           key
@@ -443,9 +443,9 @@
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array"
-                 {:type "object"
-                  :properties (reduce (fn [m k] (assoc m k {})) {valueKey {}} (map :labelKey columns))}}})
+       :schema2 {:type  "array"
+                 :items {:type       "object"
+                         :properties (reduce (fn [m k] (assoc m k {})) {valueKey {}} (map :labelKey columns))}}})
 
     [ui/TableSelectionList
      {:key           key
@@ -468,7 +468,7 @@
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" {:type "object" :properties {}}}})
+       :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/SelectOptionField
      {:value       nil
@@ -490,7 +490,7 @@
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" {:type "object" :properties {}}}})
+       :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/AsyncSelectOptionField
      {:value       nil

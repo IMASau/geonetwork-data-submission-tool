@@ -151,7 +151,7 @@
   (s/assert fn? onRemoveClick)
   (s/assert string? labelKey)
   (s/assert string? valueKey)
-  (s/assert (s/coll-of (has-keys? #{labelKey valueKey})) items)
+  (s/assert (s/coll-of (has-keys? #{labelKey valueKey}) :distinct true) items)
   [:> SelectionList/SelectionList
    {:items         items
     :onReorder     onReorder
@@ -168,7 +168,7 @@
   (s/assert string? breadcrumbKey)
   (s/assert string? labelKey)
   (s/assert string? valueKey)
-  (s/assert (s/coll-of (has-keys? #{labelKey valueKey})) items)
+  (s/assert (s/coll-of (has-keys? #{labelKey valueKey}) :distinct true) items)
   [:> SelectionList/SelectionList
    {:items         items
     :onReorder     onReorder
@@ -186,7 +186,7 @@
   (s/assert string? valueKey)
   (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
   (s/assert (s/coll-of (has-key? valueKey)) items)
-  (s/assert (s/coll-of (has-keys? (map :labelKey columns))) items)
+  (s/assert (s/coll-of (has-keys? (map :labelKey columns)) :distinct true) items)
   [:> SelectionList/SelectionList
    {:items         items
     :onReorder     onReorder

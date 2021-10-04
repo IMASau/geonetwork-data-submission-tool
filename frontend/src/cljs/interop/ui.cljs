@@ -175,7 +175,6 @@
 
 (defn TableSelectionList
   [{:keys [items onReorder onRemoveClick valueKey columns]}]
-  (s/assert (s/coll-of map?) items)
   (s/assert fn? onReorder)
   (s/assert fn? onRemoveClick)
   (s/assert string? valueKey)

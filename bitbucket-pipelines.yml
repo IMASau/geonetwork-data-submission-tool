@@ -1,5 +1,5 @@
 image:
-  image: ternau/bb-python:3.8-alpine
+  name: ternau/bb-python:3.8-alpine
 
 # cloning another repo in pipeline
 # https://bitbucket.org/blog/cloning-another-bitbucket-repository-in-bitbucket-pipelines

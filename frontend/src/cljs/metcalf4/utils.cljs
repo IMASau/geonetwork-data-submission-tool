@@ -29,3 +29,11 @@
 
 
 (def as-path (comp vec flatten))
+
+
+(defn spec-error-at-path
+  [spec form path]
+  (let [ed (merge (assoc (s/explain-data* spec [] path [] form)
+                    ::s/failure :assertion-failed))]
+    (str "Spec assertion failed\n" (with-out-str (s/explain-out ed)))))
+

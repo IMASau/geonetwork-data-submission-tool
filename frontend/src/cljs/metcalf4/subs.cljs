@@ -2,7 +2,9 @@
   (:require [cljs.spec.alpha :as s]
             [metcalf4.blocks :as blocks]
             [re-frame.core :as rf]
-            [metcalf4.rules :as rules]))
+            [metcalf4.rules :as rules]
+            [metcalf4.schema :as schema]
+            [metcalf4.utils :as utils4]))
 
 
 (defn get-form-state
@@ -31,6 +33,12 @@
   (s/assert vector? data-path)
   (let [path (blocks/block-path data-path)]
     (blocks/as-data (get-in state path))))
+
+(defn get-data-schema-sub
+  [db [_ {:keys [form-id data-path]}]]
+  (s/assert vector? data-path)
+  (let [path (utils4/as-path [form-id (schema/schema-path data-path)])]
+    (get-in db path)))
 
 
 ; FIXME: hardcoded path

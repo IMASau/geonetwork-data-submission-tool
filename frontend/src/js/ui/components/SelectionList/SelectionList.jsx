@@ -66,7 +66,7 @@ function PortalAwareItem({provided, snapshot, children}) {
 
 // NOTE: Attempts to workaround glitch on recorder by caching state
 // NOTE: Component should change key to flush invalid state if necessary
-export function SelectionList({items, itemProps, getValue, onReorder, onRemoveClick, disabled, renderItem}) {
+export function SelectionList({items, itemProps, getValue, getLabel, onReorder, onRemoveClick, disabled, renderItem}) {
 
     const [stateValue, setStateValue] = useCachedState(items);
     const isDragDisabled = disabled || !onReorder;
@@ -105,7 +105,7 @@ export function SelectionList({items, itemProps, getValue, onReorder, onRemoveCl
                                         provided={provided}
                                         snapshot={snapshot}
                                     >
-                                        {renderItem({...itemProps, onRemoveClick, item, index})}
+                                        {renderItem({...itemProps, getLabel, onRemoveClick, item, index})}
                                     </PortalAwareItem>
                                 )}
                             </Draggable>

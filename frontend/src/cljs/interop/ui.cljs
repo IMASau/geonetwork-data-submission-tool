@@ -37,6 +37,9 @@
 (s/def ::element (s/keys :req-un [::northBoundLatitude ::westBoundLongitude ::southBoundLatitude ::eastBoundLongitude]))
 (s/def ::elements (s/coll-of ::element))
 
+(defn has-key? [s] #(contains? (set (map name (keys %))) s))
+(defn has-keys? [ss] (apply every-pred (map has-key? ss)))
+
 (defn box-map
   [{:keys [elements map-width tick-id on-change]}]
   (s/assert fn? on-change)
@@ -169,9 +172,6 @@
                     :getLabel      #(gobj/get % labelKey "No label")
                     :getValue      #(gobj/get % valueKey "No value")}
     :renderItem    SelectionList/BreadcrumbListItem}])
-
-(defn has-key? [s] #(contains? (set (map name (keys %))) s))
-(defn has-keys? [ss] (apply every-pred (map has-key? ss)))
 
 (defn TableSelectionList
   [{:keys [items onReorder onRemoveClick valueKey columns]}]

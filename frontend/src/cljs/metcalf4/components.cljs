@@ -324,7 +324,7 @@
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "object" :properties {labelKey {} valueKey {}}}})
+       :schema2 {:type "object" :properties (zipmap (constantly {}) [valueKey labelKey])}})
 
     [ui/SelectValueField
      {:value    value
@@ -396,7 +396,7 @@
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items {:type "object" :properties {labelKey {} valueKey {}}}}})
+       :schema2 {:type "array" :items {:type "object" :properties (zipmap (constantly {}) [valueKey labelKey])}}})
 
     [ui/SimpleSelectionList
      {:key           key
@@ -419,7 +419,7 @@
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items {:type "object" :properties {labelKey {} valueKey {} breadcrumbKey {}}}}})
+       :schema2 {:type "array" :items {:type "object" :properties (zipmap (constantly {}) [labelKey valueKey breadcrumbKey])}}})
 
     [ui/BreadcrumbSelectionList
      {:key           key
@@ -444,8 +444,8 @@
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type  "array"
-                 :items {:type       "object"
-                         :properties (reduce (fn [m k] (assoc m k {})) {valueKey {}} (map :labelKey columns))}}})
+                 :items {:type "object"
+                         :properties (zipmap (constantly {}) (into [valueKey] (map :labelKey columns)))}}})
 
     [ui/TableSelectionList
      {:key           key

@@ -1,3 +1,5 @@
+.PHONY: clean figwheel watch build copy-static release storybook
+
 clean:
 	rm -fR src/gen/* resources/public/js/*
 
@@ -73,3 +75,12 @@ release:
 		-v $(HOME)/.m2:/root/.m2 \
 		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn shadow-cljs release tern
+
+storybook:
+	docker run --rm -it \
+		-v $(shell pwd):/tmp \
+		-v $(HOME)/.clojure:/root/.clojure \
+		-v $(HOME)/.m2:/root/.m2 \
+		-p 6006:6006 \
+		theasp/clojurescript-nodejs:shadow-cljs-alpine \
+		yarn storybook

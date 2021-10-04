@@ -81,18 +81,11 @@
       (= (:type schema1) (:type schema2))))
 
 
-(defn assert-schema-compatible-error
-  [form]
-  (let [ed (merge (assoc (s/explain-data* compatible-schema-type? [] (:path form) [] form)
-                    ::s/failure :assertion-failed))]
-    (str "Spec assertion failed\n" (with-out-str (s/explain-out ed)))))
-
-
 (defn assert-compatible-schema
   "Confirm schema2 is a compatible subset of schema1"
   [{:keys [schema1 schema2 path] :as form}]
   (when-not (s/valid? compatible-schema-type? form)
-    (report-schema-error (assert-schema-compatible-error form)))
+    (report-schema-error (utils4/spec-error-at-path compatible-schema-type? form (:path form))))
   (case (:type schema2)
     "object" (dorun (map (fn [k]
                            (assert-compatible-schema

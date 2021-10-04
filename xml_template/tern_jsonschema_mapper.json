@@ -48,6 +48,14 @@
           "keep": false,
           "required": true
         },
+        "topicCategory": {
+          "xpath": "mri:topicCategory",
+          "keep": false,
+          "valueChild": "mri:MD_TopicCategoryCode",
+          "required": true,
+          "type": "array",
+          "items": {}
+        },
         "dateCreation": {
           "!docstring": "ID6",
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",

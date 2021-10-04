@@ -4,7 +4,7 @@ import Select from 'react-select';
 import {getReactSelectCustomStyles} from "../utils";
 
 
-export function SelectValueField({value, options, hasError, disabled, placeholder, onChange}) {
+export function SelectValueField({value, options, hasError, disabled, placeholder, getOptionLabel, getOptionValue, onChange}) {
     const valueOption = options && options.find(option => option.value === value)
     return (
         <Select
@@ -17,6 +17,8 @@ export function SelectValueField({value, options, hasError, disabled, placeholde
             isDisabled={disabled}
             isLoading={false}
             isSearchable={true}
+            getOptionLabel={getOptionLabel}
+            getOptionValue={getOptionValue}
         >
         </Select>
     );
@@ -31,5 +33,7 @@ SelectValueField.propTypes = {
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
+    getOptionLabel: PropTypes.func.isRequired,
+    getOptionValue: PropTypes.func.isRequired,
 }

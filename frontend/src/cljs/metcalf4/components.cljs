@@ -283,17 +283,19 @@
 (defn select-value
   [config]
   (let [ctx (utils4/get-ctx config)
-        config-keys [:options]
+        config-keys [:options :labelKey :valueKey]
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::select-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
-        {:keys [options value disabled errors show-errors]} props
+        {:keys [value options labelKey valueKey disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)
         value (or value "")]
     [ui/SelectValueField
      {:value    value
       :disabled disabled
       :options  options
+      :labelKey labelKey
+      :valueKey valueKey
       :hasError hasError
       :onChange onChange}]))
 

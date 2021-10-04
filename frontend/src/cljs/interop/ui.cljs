@@ -98,16 +98,20 @@
 
 (defn SelectValueField
   "Simple HTML select field to select a string value"
-  [{:keys [value options placeholder disabled hasError onChange]}]
+  [{:keys [value options labelKey valueKey placeholder disabled hasError onChange]}]
   (s/assert (s/nilable string?) value)
-  (s/assert (s/coll-of (s/keys :req-un [::label ::value])) options)
+  (s/assert string? labelKey)
+  (s/assert string? valueKey)
+  (s/assert (s/coll-of (has-keys? [labelKey valueKey])) options)
   [:> SelectValueField/SelectValueField
-   {:value       value
-    :options     options
-    :placeholder placeholder
-    :disabled    disabled
-    :hasError    hasError
-    :onChange    onChange}])
+   {:value          value
+    :options        options
+    :getOptionLabel #(gobj/get % labelKey)
+    :getOptionValue #(gobj/get % valueKey)
+    :placeholder    placeholder
+    :disabled       disabled
+    :hasError       hasError
+    :onChange       onChange}])
 
 (defn SelectOptionField
   [{:keys [value options placeholder disabled hasError onChange]}]

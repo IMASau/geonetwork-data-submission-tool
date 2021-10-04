@@ -194,6 +194,13 @@
 
 (defn TextareaField
   [{:keys [value placeholder maxLength rows disabled hasError onChange]}]
+  (s/assert string? value)
+  (s/assert (s/nilable string?) placeholder)
+  (s/assert (s/nilable nat-int?) maxLength)
+  (s/assert (s/nilable pos-int?) rows)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
   [:> TextareaField/TextareaField
    {:value       value
     :placeholder placeholder

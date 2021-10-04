@@ -65,9 +65,10 @@
 
 (defn report-schema-error
   [msg]
-  (if *assert*
-    (throw (js/Error. msg))
-    (js/console.error msg)))
+  #_(if *assert*
+      (throw (js/Error. msg))
+      (js/console.error msg))
+  (js/console.warn msg))
 
 
 (defn assert-schema-data

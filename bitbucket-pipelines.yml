@@ -24,6 +24,7 @@ definitions:
           # build django app
           - cd ..
           - make build
+          - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
           - make push
           # - CI=true npm test
         services:

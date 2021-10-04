@@ -24,7 +24,9 @@ const FieldTemplate = (args) => <SelectionList {...args} />;
 export const SimpleField = FieldTemplate.bind({});
 SimpleField.args = {
     items: exampleItems,
-    renderItem: SimpleListItem
+    renderItem: SimpleListItem,
+    getValue: (item) => item['value'],
+    getLabel: (item) => item['label'],
 };
 
 const reorder = (list, startIndex, endIndex) => {
@@ -39,6 +41,8 @@ export const ReorderingExample = (args) => {
     const [items, setItems] = React.useState(exampleItems);
     return <FieldTemplate {...args}
                           items={items}
+                          getValue={(item)=>item['value']}
+                          getLabel={(item)=>item['label']}
                           onReorder={
                               (startIndex, endIndex) =>
                                   setItems(reorder(items, startIndex, endIndex))}/>;

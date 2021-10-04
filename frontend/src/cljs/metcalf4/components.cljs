@@ -68,6 +68,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "string"}})
+
     [ui/InputField
      {:value       (or value "")                            ; TODO: should be guaranteed by sub
       :placeholder placeholder
@@ -354,12 +359,12 @@
         {:keys [key disabled labelKey valueKey]} (merge logic (select-keys config config-keys))
         items @(rf/subscribe [::get-block-data ctx])]
     [ui/SimpleSelectionList
-     {:key       key
-      :items     items
-      :labelKey  labelKey
-      :valueKey  valueKey
-      :disabled  disabled
-      :onReorder onReorder
+     {:key           key
+      :items         items
+      :labelKey      labelKey
+      :valueKey      valueKey
+      :disabled      disabled
+      :onReorder     onReorder
       :onRemoveClick onRemoveClick}]))
 
 (defn breadcrumb-selection-list
@@ -391,13 +396,13 @@
         {:keys [key disabled columns valueKey]} (merge logic (select-keys config config-keys))
         items @(rf/subscribe [::get-block-data ctx])]
     [ui/TableSelectionList
-     {:key       key
-      :items     items
-      :disabled  disabled
-      :onReorder onReorder
+     {:key           key
+      :items         items
+      :disabled      disabled
+      :onReorder     onReorder
       :onRemoveClick onRemoveClick
-      :columns   columns
-      :valueKey  valueKey}]))
+      :columns       columns
+      :valueKey      valueKey}]))
 
 (defn list-option-picker
   [config]

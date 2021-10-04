@@ -163,6 +163,7 @@
   (s/assert string? breadcrumbKey)
   (s/assert string? labelKey)
   (s/assert string? valueKey)
+  (s/assert (s/coll-of (has-keys? #{labelKey valueKey})) items)
   [:> SelectionList/SelectionList
    {:items         items
     :onReorder     onReorder

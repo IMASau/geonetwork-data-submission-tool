@@ -28,5 +28,8 @@ ExpandingControl.propTypes = {
     disabled: PropTypes.bool,
     required: PropTypes.bool,
     hasError: PropTypes.bool,
-    children: PropTypes.arrayOf(PropTypes.element)
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]).isRequired
 }

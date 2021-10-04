@@ -440,6 +440,13 @@
         logic @(rf/subscribe [::get-block-props ctx])
         {:keys [key disabled columns valueKey]} (merge logic (select-keys config config-keys))
         items @(rf/subscribe [::get-block-data ctx])]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array"
+                 {:type "object"
+                  :properties (reduce (fn [m k] (assoc m k {})) {valueKey {}} (map :labelKey columns))}}})
+
     [ui/TableSelectionList
      {:key           key
       :items         items

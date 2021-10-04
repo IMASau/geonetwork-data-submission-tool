@@ -169,6 +169,8 @@
        'm4/table-selection-list           components4/table-selection-list
        'm4/list-option-picker             components4/list-option-picker
        'm4/async-list-option-picker       components4/async-list-option-picker
+       'm4/checkbox-field                 components4/checkbox-field
+       'm4/checkbox-field-with-label      components4/checkbox-field-with-label
 
        'm4/mailto-data-manager-link       components4/mailto-data-manager-link
        'm4/xml-export-link                components4/xml-export-link

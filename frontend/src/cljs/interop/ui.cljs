@@ -11,6 +11,7 @@
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
+            ["/ui/components/CheckboxField/CheckboxField" :as CheckboxField]
             [cljs.spec.alpha :as s]
             [goog.object :as gobj]
             [reagent.core :as r]))
@@ -27,6 +28,7 @@
 (assert SelectionList/SelectionList)
 (assert TextareaField/TextareaField)
 (assert YesNoRadioGroup/YesNoRadioGroup)
+(assert CheckboxField/CheckboxField)
 
 (s/def ::northBoundLatitude number?)
 (s/def ::westBoundLongitude number?)
@@ -197,6 +199,14 @@
   [:> YesNoRadioGroup/YesNoRadioGroup
    {:value    value
     :label    label
+    :disabled disabled
+    :hasError hasError
+    :onChange onChange}])
+
+(defn CheckboxField
+  [{:keys [checked disabled hasError onChange]}]
+  [:> CheckboxField/CheckboxField
+   {:checked  checked
     :disabled disabled
     :hasError hasError
     :onChange onChange}])

@@ -98,6 +98,26 @@
       :rows        rows
       :onChange    onChange}]))
 
+(defn checkbox-field
+  [config]
+  (let [config-keys [:placeholder :rows :maxLength]
+        ctx (utils4/get-ctx config)
+        logic @(rf/subscribe [::get-block-props ctx])
+        onChange #(rf/dispatch [::checkbox-field-value-changed ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [value disabled show-errors errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    [ui/CheckboxField
+     {:checked  (or value false)                            ; TODO: should be guaranteed by sub
+      :disabled disabled
+      :hasError hasError
+      :onChange onChange}]))
+
+(defn checkbox-field-with-label
+  [config]
+  [form-group config
+   [checkbox-field config]])
+
 (defn textarea-field-with-label
   [config]
   [form-group config

@@ -205,6 +205,11 @@
 
 (defn YesNoRadioGroup
   [{:keys [value label disabled hasError onChange]}]
+  (s/assert (s/nilable boolean?) value)
+  (s/assert string? label)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
   [:> YesNoRadioGroup/YesNoRadioGroup
    {:value    value
     :label    label

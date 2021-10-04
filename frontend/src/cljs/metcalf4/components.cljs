@@ -112,6 +112,95 @@
        :minDate  (date/from-value minDate)
        :maxDate  (date/from-value maxDate)}]]))
 
+(defn portal-link
+  []
+  (let [{:keys [site]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        {:keys [portal_title portal_url]} site]
+    (if portal_url
+      [:a {:href portal_url :target "_blank"} [:span.portal-title portal_title]]
+      [:span.portal-title portal_title])))
+
+(defn note-for-data-manager
+  [config]
+  (let [{:keys [form-id notes-path]} config
+        {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        notes @(rf/subscribe [:subs/get-derived-path notes-path])]
+    ;; TODO show form, or a readonly paragraph if submitted.
+    [:div
+     {:style {:padding-top    5
+              :padding-bottom 5}}
+     (if (= "Draft" (:status document))
+       [textarea-field-with-label {:form-id   form-id
+                                   :data-path notes-path}]
+       (when-not (string/blank? (:value notes))
+         [:div
+          [:strong "Note for the data manager:"]
+          [:p (:value notes)]]))]))
+
+(defn handle-submit-click
+  []
+  (rf/dispatch [:handlers/lodge-click]))
+
+(defn lodge-button
+  []
+  (let [page @(rf/subscribe [:subs/get-page-props])
+        ;; FIXME need an m4 saving? value.
+        saving (:metcalf3.handlers/saving? page)
+        {:keys [document urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
+        {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
+        has-errors? (and errors (> errors 0))
+        submitted? (= (:status document) "Submitted")]
+    [:button.btn.btn-primary.btn-lg
+     {:disabled (or has-errors? saving disabled submitted?)
+      :on-click handle-submit-click}
+     (when saving
+       [:img
+        {:src (str (:STATIC_URL urls)
+                   "metcalf3/img/saving.gif")}])
+     "Lodge data"]))
+
+(defn lodge-status-info
+  []
+  (let [page @(rf/subscribe [:subs/get-page-props])
+        ;; FIXME need an m4 saving? value.
+        saving (:metcalf3.handlers/saving? page)
+        {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
+        is-are (if (> errors 1) "are" "is")
+        plural (when (> errors 1) "s")
+        has-errors? (and errors (> errors 0))]
+    (if has-errors?
+      [:span.text-danger [:b "Unable to lodge: "]
+       "There " is-are " " [:span errors " error" plural
+                            " which must be corrected first."]]
+      [:span.text-success
+       [:b
+        (cond
+          saving "Submitting..."
+          (= (:status document) "Draft") "Ready to lodge"
+          (= (:status document) "Submitted") "Your record has been submitted."
+          :else (:status document))]])))
+
+(defn xml-export-link
+  [config]
+  (let [{:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        dirty @(rf/subscribe [:subs/get-form-dirty])]
+    (let [download-props {:href     (str (:export_url document) "?download")
+                          :on-click #(when dirty
+                                       (.preventDefault %)
+                                       (rf/dispatch [:handlers/open-modal
+                                                     {:type    :alert
+                                                      :message "Please save changes before exporting."}]))}]
+
+      [:a download-props (:label config)])))
+
+(defn mailto-data-manager-link
+  []
+  (let [{:keys [site]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        {:keys [email]} site]
+    [:a {:href (str "mailto:" email)} email]))
+
 (defn select-option-with-label
   [config]
   (let [ctx (utils4/get-ctx config)

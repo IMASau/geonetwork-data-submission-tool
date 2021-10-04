@@ -34,3 +34,11 @@ textarea {
 .lineage-textarea textarea {
     min-height: 10em;
 }
+
+.lodge-section button {
+    margin-right: 10px;
+}
+
+.user-export {
+    margin-top: 1em;
+}

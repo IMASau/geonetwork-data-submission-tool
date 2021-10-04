@@ -59,7 +59,7 @@
         "properties": {
           "file": {
             "xpath": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
-            "required": true,
+            "rules": ["requiredField"],
             "attributes": {
               "text": {
                 "function": "generate_attachment_url"
@@ -68,7 +68,6 @@
           },
           "name": {
             "xpath": "cit:CI_OnlineResource/cit:name",
-            "required": false,
             "valueChild": "gco:CharacterString"
           }
         }
@@ -106,22 +105,21 @@
             "label": "Description",
             "xpath": "cit:CI_OnlineResource/cit:description",
             "valueChild": "gco:CharacterString",
-            "required": true
+            "rules": ["requiredField"]
           },
           "url": {
             "xpath": "cit:CI_OnlineResource/cit:linkage",
             "valueChild": "gco:CharacterString",
-            "required": true
+            "rules": ["requiredField"]
           },
           "name": {
             "xpath": "cit:CI_OnlineResource/cit:name",
-            "valueChild": "gco:CharacterString",
-            "required": false
+            "valueChild": "gco:CharacterString"
           },
           "protocol": {
             "xpath": "cit:CI_OnlineResource/cit:protocol",
             "valueChild": "gco:CharacterString",
-            "required": true
+            "rules": ["requiredField"]
           }
         }
       }
@@ -136,12 +134,12 @@
           "name": {
             "xpath": "cit:CI_OnlineResource/cit:name",
             "valueChild": "gco:CharacterString",
-            "required": true
+            "rules": ["requiredField"]
           },
           "url": {
             "xpath": "cit:CI_OnlineResource/cit:linkage",
             "valueChild": "gco:CharacterString",
-            "required": true
+            "rules": ["requiredField"]
           }
         }
       }
@@ -149,6 +147,7 @@
     "identificationInfo": {
       "xpath": "mdb:identificationInfo/mri:MD_DataIdentification",
       "type": "object",
+      "rules": [{"maintentanceRequiredWhenStatusOngoing": ["status", "maintenanceAndUpdateFrequency"]}],
       "properties": {
         "title": {
           "xpath": "mri:citation/cit:CI_Citation/cit:title",
@@ -218,15 +217,22 @@
           "xpath": "mri:resourceMaintenance/mmi:MD_MaintenanceInformation/mmi:maintenanceAndUpdateFrequency",
           "valueChild": "mmi:MD_MaintenanceFrequencyCode",
           "label": "Maintenance and update frequency",
-          "attributes": {
+          "type": "object",
+          "properties": {
             "text": {
-              "function": "identity"
+              "type": "string",
+              "xpath": "."
             },
             "codeListValue": {
-              "function": "identity"
+              "type": "string",
+              "xpath": ".",
+              "attributes": {
+                "codeListValue": {
+                  "function": "identity"
+                }
+              }
             }
           },
-          "rules": ["requiredFieldWhenStatusOngoing"],
           "!docstring": "\"required\": true,  // FIXME depends on status"
         },
         "abstract": {
@@ -234,11 +240,11 @@
           "valueChild": "gco:CharacterString",
           "label": "Abstract",
           "keep": false,
-          "required": true
+          "rules": ["requiredField"]
         },
         "beginPosition": {
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
-          "required": true,
+          "rules": ["requiredField"],
           "keep": false,
           "attributes": {
             "text": {
@@ -275,7 +281,7 @@
             },
             "boxes": {
               "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
-              "required": true,
+              "rules": ["requiredField"],
               "keep": false,
               "type": "array",
               "items": {
@@ -284,7 +290,7 @@
                   "westBoundLongitude": {
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:westBoundLongitude",
-                    "required": true,
+                    "rules": ["requiredField"],
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -294,7 +300,7 @@
                   "eastBoundLongitude": {
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:eastBoundLongitude",
-                    "required": true,
+                    "rules": ["requiredField"],
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -304,7 +310,7 @@
                   "southBoundLatitude": {
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:southBoundLatitude",
-                    "required": true,
+                    "rules": ["requiredField"],
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -314,7 +320,7 @@
                   "northBoundLatitude": {
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:northBoundLatitude",
-                    "required": true,
+                    "rules": ["requiredField"],
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -335,14 +341,12 @@
             "properties": {
               "boxes": {
                 "xpath": "gex:EX_Extent/gex:geographicElement/gex:EX_GeographicBoundingBox",
-                "required": false,
                 "keep": false,
                 "type": "object",
                 "properties": {
                   "westBoundLongitude": {
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:westBoundLongitude",
-                    "required": false,
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -352,7 +356,6 @@
                   "eastBoundLongitude": {
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:eastBoundLongitude",
-                    "required": false,
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -362,7 +365,6 @@
                   "southBoundLatitude": {
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:southBoundLatitude",
-                    "required": false,
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -372,7 +374,6 @@
                   "northBoundLatitude": {
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:northBoundLatitude",
-                    "required": false,
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -400,12 +401,12 @@
             "minimumValue": {
               "valueChild": "gco:Real",
               "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:minimumValue",
-              "required": true
+              "rules": ["requiredField"]
             },
             "maximumValue": {
               "valueChild": "gco:Real",
               "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:maximumValue",
-              "required": true
+              "rules": ["requiredField"]
             }
           }
         },
@@ -457,7 +458,7 @@
               "items": {}
             }
           },
-          "required": true,
+          "rules": ["requiredField"],
           "notes": "Theme keywords (selecting from controlled list in thesaurus)"
         },
         "keywordsThemeAnzsrc": {
@@ -627,8 +628,7 @@
           "xpath": "mrl:statement",
           "valueChild": "gco:CharacterString",
           "label": "Lineage",
-          "keep": false,
-          "required": false
+          "keep": false
         }
       }
     },
@@ -647,7 +647,7 @@
         "organisationName": {
           "xpath": "cit:party/cit:CI_Organisation/cit:name",
           "valueChild": "gcx:Anchor",
-          "required": true,
+          "rules": ["requiredField"],
           "keep": false,
           "attributes": {
             "text": {
@@ -657,7 +657,7 @@
         },
         "organisationIdentifier": {
           "xpath": "cit:party/cit:CI_Organisation/cit:name/gcx:Anchor",
-          "required": false,
+          "rules": ["requiredField"],
           "keep": false,
           "parser": {
             "function": "parse_organisation_identifier"
@@ -679,7 +679,7 @@
           "parser": {
             "function": "parse_codeListValue"
           },
-          "required": true
+          "rules": ["requiredField"]
         },
         "address": {
           "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address",
@@ -720,27 +720,23 @@
         "electronicMailAddress": {
           "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
           "valueChild": "gco:CharacterString",
-          "keep": false,
-          "required": false
+          "keep": false
         },
         "phone": {
           "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:phone/cit:CI_Telephone[cit:numberType/cit:CI_TelephoneTypeCode[@codeListValue=\"voice\"]]/cit:number",
           "valueChild": "gco:CharacterString",
-          "keep": false,
-          "required": false
+          "keep": false
         },
         "facsimile": {
           "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:phone/cit:CI_Telephone[cit:numberType/cit:CI_TelephoneTypeCode[@codeListValue=\"facsimile\"]]/cit:number",
           "container": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:phone",
           "keep": false,
-          "valueChild": "gco:CharacterString",
-          "required": false
+          "valueChild": "gco:CharacterString"
         },
         "individualName": {
           "valueChild": "gcx:Anchor",
           "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name",
-          "keep": false,
-          "required": false
+          "keep": false
         },
         "familyName": {
           "valueChild": "gcx:Anchor",
@@ -757,7 +753,6 @@
         "uri": {
           "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor[@xlink:role=\"uri\"]",
           "keep": false,
-          "required": false,
           "deleteWhenEmpty": false,
           "export": false,
           "parser": {
@@ -766,7 +761,6 @@
         },
         "orcid": {
           "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor[@xlink:role=\"orcid\"]",
-          "required": false,
           "keep": false,
           "export": false,
           "parser": {
@@ -787,8 +781,7 @@
         "positionName": {
           "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:positionName",
           "keep": false,
-          "valueChild": "gco:CharacterString",
-          "required": false
+          "valueChild": "gco:CharacterString"
         },
         "isUserAdded": {
           "!docstring": "Fake node so we can track person status",

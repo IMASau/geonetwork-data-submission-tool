@@ -41,8 +41,8 @@
             props-map (select-keys schema [:label])]
         (merge block-map
                (case type
-                 "array" {:content data}
-                 "object" {:content data}
+                 "array" {:content data :props props-map}
+                 "object" {:content data :props props-map}
                  {:props (assoc props-map :value data)})
                (when-let [rules (:rules schema)]
                  {:rules rules}))))

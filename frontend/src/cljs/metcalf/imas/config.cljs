@@ -168,6 +168,13 @@
        'm4/table-selection-list           components4/table-selection-list
        'm4/list-option-picker             components4/list-option-picker
        'm4/async-list-option-picker       components4/async-list-option-picker
+
+       'm4/mailto-data-manager-link       components4/mailto-data-manager-link
+       'm4/xml-export-link                components4/xml-export-link
+       'm4/lodge-status-info              components4/lodge-status-info
+       'm4/lodge-button                   components4/lodge-button
+       'm4/note-for-data-manager          components4/note-for-data-manager
+       'm4/portal-link                    components4/portal-link
        })
 (set! low-code/template-registry
       '{:data-identification
@@ -424,5 +431,26 @@
         [:div
          [m3/PageErrors {:page :lodge :path [:form]}]
          [:h2 "9: Lodge Metadata Draft"]
-         [m3/IMASLodge
-          {:notes-path [:form :fields :noteForDataManager]}]]})
+         [:div.lodge-section
+          [:p "Are you finished? Use this page to lodge your completed metadata record."]
+          [:p "Any difficulties?  Please contact " [m4/mailto-data-manager-link]]
+          [:p "The Data Manager will be notified of your submission and will be in contact
+               if any further information is required. Once approved, your data will be archived
+               for discovery in the " [m4/portal-link] "."]
+          [:p "How complete is your data?"]
+          [m4/note-for-data-manager
+           {:form-id    [:form]
+            :notes-path [:form :fields :noteForDataManager]}]
+          [m4/lodge-button]
+          [m4/lodge-status-info]
+          [:div.user-export
+           [:p [:strong "Want to keep a personal copy of your metadata record?"]]
+           [:p
+            [m4/xml-export-link {:label "Click here"}]
+            " to generate an XML version of your metadata submission. "
+            "The file generated includes all of the details you have provided under the
+             tabs, but not files you have uploaded."]
+           [:p
+            "Please note: this XML file is not the recommended way to share your metadata.
+             We want you to submit your data via 'lodging' the information.
+             This permits multi-user access via the portal in a more friendly format."]]]]})

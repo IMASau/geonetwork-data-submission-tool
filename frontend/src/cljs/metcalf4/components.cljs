@@ -349,6 +349,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [label value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "boolean"}})
+
     [ui/YesNoRadioGroup
      {:value    value
       :label    label
@@ -366,6 +371,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [label value errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "boolean"}})
+
     [form-group config
      [ui/YesNoRadioGroup
       {:value    value
@@ -383,6 +393,11 @@
         logic @(rf/subscribe [::get-block-props ctx])
         {:keys [key disabled labelKey valueKey]} (merge logic (select-keys config config-keys))
         items @(rf/subscribe [::get-block-data ctx])]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" {:type "object" :properties {labelKey {} valueKey {}}}}})
+
     [ui/SimpleSelectionList
      {:key           key
       :items         items
@@ -401,6 +416,11 @@
         logic @(rf/subscribe [::get-block-props ctx])
         {:keys [key disabled labelKey valueKey breadcrumbKey]} (merge logic (select-keys config config-keys))
         items @(rf/subscribe [::get-block-data ctx])]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" {:type "object" :properties {labelKey {} valueKey {} breadcrumbKey {}}}}})
+
     [ui/BreadcrumbSelectionList
      {:key           key
       :items         items

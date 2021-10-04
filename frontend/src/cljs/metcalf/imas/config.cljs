@@ -179,21 +179,10 @@
 (set! low-code/template-registry
       '{:data-identification
         [:div
-
-         ; Relies on schema to hold label at right location which is suitable
          [m4/page-errors
           {:form-id    [:form]
            :data-paths [[:identificationInfo :title]
                         [:identificationInfo :dateCreation]]}]
-
-         ; Explicit label allows flexibility at cost of duplication
-         [m4/page-errors
-          {:form-id [:form]
-           :checks  [{:label "Title" :data-path [:identificationInfo :title]}
-                     {:label "Date created" :data-path [:identificationInfo :dateCreation]}]}]
-
-
-
          [:h2 "1. Data Identification"]
          [m4/input-field-with-label
           {:form-id    [:form]
@@ -269,27 +258,37 @@
 
         :when
         [:div
-         [m3/PageErrors {:page :when :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form]
+           :data-paths [[:identificationInfo :beginPosition]
+                        [:identificationInfo :endPosition]
+                        [:identificationInfo :samplingFrequency]]}]
          [:h2 "3. When was the data acquired?"]
          [m4/date-field-with-label
           {:form-id   [:form]
            :data-path [:identificationInfo :beginPosition]
-           :label     "Start date"
            :required  true
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
          [m4/date-field-with-label
           {:form-id   [:form]
            :data-path [:identificationInfo :endPosition]
-           :label     "End date"
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
          [:div.row
           [:div.col-md-4
-           ;; TODO does IMAS want the old sample frequency (min daily) or this one (min <1 second)?
-           [m3/NasaListSelectField {:keyword   :samplingFrequency
-                                    :form-id   [:form]
-                                    :data-path [:identificationInfo]}]]]
+           [m4/select-value-with-label
+            {:form-id   [:form]
+             :data-path [:identificationInfo :samplingFrequency]
+             :options   [{:value "daily" :label "Daily"}
+                         {:value "weekly" :label "Weekly"}
+                         {:value "monthly" :label "Monthly"}
+                         {:value "quarterly" :label "Quarterly"}
+                         {:value "annually" :label "Annually"}
+                         {:value "ongoing" :label "Ongoing"}
+                         {:value "asNeeded" :label "As required"}
+                         {:value "irregular" :label "Irregular"}
+                         {:value "none-planned" :label "None planned"}]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where

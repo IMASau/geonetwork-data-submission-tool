@@ -465,6 +465,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" {:type "object" :properties {}}}})
+
     [ui/SelectOptionField
      {:value       nil
       :options     options

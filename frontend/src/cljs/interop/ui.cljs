@@ -205,6 +205,10 @@
 
 (defn CheckboxField
   [{:keys [checked disabled hasError onChange]}]
+  (s/assert (s/nilable boolean?) checked)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
   [:> CheckboxField/CheckboxField
    {:checked  checked
     :disabled disabled

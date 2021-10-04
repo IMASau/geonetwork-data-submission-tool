@@ -1,6 +1,7 @@
 (ns metcalf4.schema
   (:require [cljs.spec.alpha :as s]
-            [metcalf4.utils :as utils4]))
+            [metcalf4.utils :as utils4]
+            [clojure.set :as set]))
 
 
 (s/def ::schema (s/keys :opt-un [::type ::items ::properties]))
@@ -81,18 +82,27 @@
       (= (:type schema1) (:type schema2))))
 
 
+(defn object-properties-subset?
+  "Check that schema2 doesn't introduce new properties"
+  [{:keys [schema1 schema2]}]
+  (let [ks1 (keys (:properties schema1))
+        ks2 (keys (:properties schema2))]
+    (set/subset? (set ks2) (set ks1))))
+
+
 (defn assert-compatible-schema
   "Confirm schema2 is a compatible subset of schema1"
-  [{:keys [schema1 schema2 path] :as form}]
+  [{:keys [schema1 schema2 path] :or {path []} :as form}]
   (when-not (s/valid? compatible-schema-type? form)
     (report-schema-error (utils4/spec-error-at-path compatible-schema-type? form (:path form))))
   (case (:type schema2)
-    "object" (dorun (map (fn [k]
-                           (assert-compatible-schema
-                             {:schema1 (get-in schema1 [:properties k])
-                              :schema2 (get-in schema2 [:properties k])
-                              :path    (conj path :properties k)}))
-                         (keys (:properties schema2))))
+    "object" (doseq [k (keys (:properties schema2))]
+               (when-not (s/valid? object-properties-subset? form)
+                 (report-schema-error (utils4/spec-error-at-path object-properties-subset? form (:path form))))
+               (assert-compatible-schema
+                 {:schema1 (get-in schema1 [:properties k])
+                  :schema2 (get-in schema2 [:properties k])
+                  :path    (conj path :properties k)}))
     "array" (assert-compatible-schema
               {:schema1 (:items schema1)
                :schema2 (:items schema2)

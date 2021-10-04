@@ -395,9 +395,9 @@ def save(request, uuid):
         data['identificationInfo']['datePublication'] = spec4.today()
 
         inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
-        inst.noteForDataManager = data['noteForDataManager'] or ''
-        inst.agreedToTerms = data['agreedToTerms'] or False
-        inst.doiRequested = data['doiRequested'] or False
+        inst.noteForDataManager = data.get('noteForDataManager') or ''
+        inst.agreedToTerms = data.get('agreedToTerms') or False
+        inst.doiRequested = data.get('doiRequested') or False
         inst.save()
 
         # Remove any attachments which are no longer mentioned in the XML.

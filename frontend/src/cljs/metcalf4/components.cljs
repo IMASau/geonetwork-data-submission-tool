@@ -433,6 +433,7 @@
         props (merge logic (select-keys config config-keys))
         {:keys [label required errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+    (s/assert string? label)
     (into [ui/ExpandingControl
            {:label    label
             :required required}]

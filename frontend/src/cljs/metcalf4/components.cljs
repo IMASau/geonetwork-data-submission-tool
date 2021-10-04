@@ -95,6 +95,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder rows maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "string"}})
+
     [ui/TextareaField
      {:value       (or value "")                            ; TODO: should be guaranteed by sub
       :placeholder placeholder

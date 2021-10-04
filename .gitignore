@@ -33,3 +33,5 @@ hs_err_pid1.log
 .vscode
 .devcontainer
 *.map
+.m2/
+.clojure/

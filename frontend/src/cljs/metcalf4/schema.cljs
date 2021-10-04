@@ -1,5 +1,6 @@
 (ns metcalf4.schema
-  (:require [cljs.spec.alpha :as s]))
+  (:require [cljs.spec.alpha :as s]
+            [metcalf4.utils :as utils4]))
 
 
 (s/def ::schema (s/keys :opt-un [::type ::items ::properties]))
@@ -56,13 +57,6 @@
     true))
 
 
-(defn assert-schema-data-error
-  [spec form]
-  (let [ed (merge (assoc (s/explain-data* spec [] (:path form) [] form)
-                    ::s/failure :assertion-failed))]
-    (str "Spec assertion failed\n" (with-out-str (s/explain-out ed)))))
-
-
 (defn report-schema-error
   [msg]
   #_(if *assert*
@@ -76,7 +70,7 @@
   (prewalk-schema-data
     (fn [form]
       (when-not (s/valid? schema-data-valid? form)
-        (report-schema-error (assert-schema-data-error schema-data-valid? form)))
+        (report-schema-error (utils4/spec-error-at-path schema-data-valid? form (:path form))))
       form)
     {:schema schema :data data :path []}))
 

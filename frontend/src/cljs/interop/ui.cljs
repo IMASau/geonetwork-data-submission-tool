@@ -11,6 +11,7 @@
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
+            ["/ui/components/CheckboxField/CheckboxField" :as CheckboxField]
             [cljs.spec.alpha :as s]
             [goog.object :as gobj]
             [reagent.core :as r]))
@@ -27,6 +28,7 @@
 (assert SelectionList/SelectionList)
 (assert TextareaField/TextareaField)
 (assert YesNoRadioGroup/YesNoRadioGroup)
+(assert CheckboxField/CheckboxField)
 
 (s/def ::northBoundLatitude number?)
 (s/def ::westBoundLongitude number?)
@@ -34,6 +36,9 @@
 (s/def ::eastBoundLongitude number?)
 (s/def ::element (s/keys :req-un [::northBoundLatitude ::westBoundLongitude ::southBoundLatitude ::eastBoundLongitude]))
 (s/def ::elements (s/coll-of ::element))
+
+(defn has-key? [s] #(contains? (set (map name (keys %))) s))
+(defn has-keys? [ss] (apply every-pred (map has-key? ss)))
 
 (defn box-map
   [{:keys [elements map-width tick-id on-change]}]
@@ -93,21 +98,29 @@
 
 (defn SelectValueField
   "Simple HTML select field to select a string value"
-  [{:keys [value options placeholder disabled hasError onChange]}]
+  [{:keys [value options labelKey valueKey placeholder disabled hasError onChange]}]
   (s/assert (s/nilable string?) value)
-  (s/assert (s/coll-of (s/keys :req-un [::label ::value])) options)
+  (s/assert string? labelKey)
+  (s/assert string? valueKey)
+  (s/assert (s/coll-of (has-keys? [labelKey valueKey])) options)
   [:> SelectValueField/SelectValueField
-   {:value       value
-    :options     options
-    :placeholder placeholder
-    :disabled    disabled
-    :hasError    hasError
-    :onChange    onChange}])
+   {:value          value
+    :options        options
+    :getOptionLabel #(gobj/get % labelKey)
+    :getOptionValue #(gobj/get % valueKey)
+    :placeholder    placeholder
+    :disabled       disabled
+    :hasError       hasError
+    :onChange       onChange}])
 
 (defn SelectOptionField
   [{:keys [value options placeholder disabled hasError onChange]}]
-  (s/assert (s/nilable (s/keys :req-un [::label ::value])) value)
-  (s/assert (s/coll-of (s/keys :req-un [::label ::value])) options)
+  (s/assert (s/nilable map?) value)
+  (s/assert (s/coll-of map?) options)
+  (s/assert (s/nilable string?) placeholder)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
   [:> SelectOptionField/SelectOptionField
    {:value       value
     :options     options
@@ -118,7 +131,12 @@
 
 (defn AsyncSelectOptionField
   [{:keys [value loadOptions placeholder disabled hasError onChange]}]
+  (s/assert (s/nilable map?) value)
   (s/assert fn? loadOptions)
+  (s/assert (s/nilable string?) placeholder)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
   [:> AsyncSelectOptionField/AsyncSelectOptionField
    {:value       value
     :loadOptions loadOptions
@@ -133,6 +151,7 @@
   (s/assert fn? onRemoveClick)
   (s/assert string? labelKey)
   (s/assert string? valueKey)
+  (s/assert (s/coll-of (has-keys? #{labelKey valueKey}) :distinct true) items)
   [:> SelectionList/SelectionList
    {:items         items
     :onReorder     onReorder
@@ -149,6 +168,7 @@
   (s/assert string? breadcrumbKey)
   (s/assert string? labelKey)
   (s/assert string? valueKey)
+  (s/assert (s/coll-of (has-keys? #{labelKey valueKey}) :distinct true) items)
   [:> SelectionList/SelectionList
    {:items         items
     :onReorder     onReorder
@@ -159,18 +179,14 @@
                     :getValue      #(gobj/get % valueKey "No value")}
     :renderItem    SelectionList/BreadcrumbListItem}])
 
-(defn has-key? [s] #(contains? (set (map name (keys %))) s))
-(defn has-keys? [ss] (apply every-pred (map has-key? ss)))
-
 (defn TableSelectionList
   [{:keys [items onReorder onRemoveClick valueKey columns]}]
-  (s/assert (s/coll-of map?) items)
   (s/assert fn? onReorder)
   (s/assert fn? onRemoveClick)
   (s/assert string? valueKey)
   (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
   (s/assert (s/coll-of (has-key? valueKey)) items)
-  (s/assert (s/coll-of (has-keys? (map :labelKey columns))) items)
+  (s/assert (s/coll-of (has-keys? (map :labelKey columns)) :distinct true) items)
   [:> SelectionList/SelectionList
    {:items         items
     :onReorder     onReorder
@@ -183,6 +199,13 @@
 
 (defn TextareaField
   [{:keys [value placeholder maxLength rows disabled hasError onChange]}]
+  (s/assert string? value)
+  (s/assert (s/nilable string?) placeholder)
+  (s/assert (s/nilable nat-int?) maxLength)
+  (s/assert (s/nilable pos-int?) rows)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
   [:> TextareaField/TextareaField
    {:value       value
     :placeholder placeholder
@@ -194,9 +217,26 @@
 
 (defn YesNoRadioGroup
   [{:keys [value label disabled hasError onChange]}]
+  (s/assert (s/nilable boolean?) value)
+  (s/assert string? label)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
   [:> YesNoRadioGroup/YesNoRadioGroup
    {:value    value
     :label    label
+    :disabled disabled
+    :hasError hasError
+    :onChange onChange}])
+
+(defn CheckboxField
+  [{:keys [checked disabled hasError onChange]}]
+  (s/assert (s/nilable boolean?) checked)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
+  [:> CheckboxField/CheckboxField
+   {:checked  checked
     :disabled disabled
     :hasError hasError
     :onChange onChange}])

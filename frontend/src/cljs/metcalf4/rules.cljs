@@ -36,6 +36,20 @@
         (cond-> (contains? empty-values value)
                 (update-in [:props :errors] conj "This field is required")))))
 
+(defn maintenance-required-when-status-ongoing
+  [block [status-field-name maint-field-name]]
+  (let [; FIXME: ugly converions to keyword
+        k0 (keyword status-field-name)
+        k1 (keyword maint-field-name)
+        status-value (get-in block [:content k0 :props :value])
+        maint-value (get-in block [:content k1 :props :value])
+        required? (contains? #{"onGoing" "planned"} status-value)
+        disabled? (not required?)]
+    (-> block
+        (update-in [:content k1 :props] assoc :required required? :disabled disabled?)
+        (cond-> (and required? (contains? empty-values maint-value))
+                (update-in [:content k1 :props :errors] conj "This field is required BECAUSE OF AAAAAA")))))
+
 (defn max-length
   [block maxLength]
   (assoc-in block [:props :maxLength] maxLength))

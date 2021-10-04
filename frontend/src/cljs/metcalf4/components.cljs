@@ -6,7 +6,8 @@
             [metcalf4.blocks :as blocks]
             [metcalf4.subs :as common-subs]
             [metcalf4.utils :as utils4]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [metcalf4.schema :as schema]))
 
 (defn has-error?
   "Given the current form state, and a data path, check if
@@ -67,6 +68,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "string"}})
+
     [ui/InputField
      {:value       (or value "")                            ; TODO: should be guaranteed by sub
       :placeholder placeholder
@@ -89,6 +95,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder rows maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "string"}})
+
     [ui/TextareaField
      {:value       (or value "")                            ; TODO: should be guaranteed by sub
       :placeholder placeholder
@@ -97,6 +108,31 @@
       :maxLength   maxLength
       :rows        rows
       :onChange    onChange}]))
+
+(defn checkbox-field
+  [config]
+  (let [config-keys [:placeholder :rows :maxLength]
+        ctx (utils4/get-ctx config)
+        logic @(rf/subscribe [::get-block-props ctx])
+        onChange #(rf/dispatch [::checkbox-field-value-changed ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [value disabled show-errors errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "boolean"}})
+
+    [ui/CheckboxField
+     {:checked  (or value false)                            ; TODO: should be guaranteed by sub
+      :disabled disabled
+      :hasError hasError
+      :onChange onChange}]))
+
+(defn checkbox-field-with-label
+  [config]
+  [form-group config
+   [checkbox-field config]])
 
 (defn textarea-field-with-label
   [config]
@@ -112,6 +148,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [minDate maxDate value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "string"}})
+
     [ui/DateField
      {:value    (date/from-value value)
       :disabled disabled
@@ -224,6 +265,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "object" :properties {}}})
+
     [ui/SelectOptionField
      {:value       value
       :options     options
@@ -247,6 +293,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder uri disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "object" :properties {}}})
+
     [ui/AsyncSelectOptionField
      {:value       value
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
@@ -263,17 +314,24 @@
 (defn select-value
   [config]
   (let [ctx (utils4/get-ctx config)
-        config-keys [:options]
+        config-keys [:options :labelKey :valueKey]
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::select-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
-        {:keys [options value disabled errors show-errors]} props
+        {:keys [value options labelKey valueKey disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)
         value (or value "")]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "object" :properties (zipmap (constantly {}) [valueKey labelKey])}})
+
     [ui/SelectValueField
      {:value    value
       :disabled disabled
       :options  options
+      :labelKey labelKey
+      :valueKey valueKey
       :hasError hasError
       :onChange onChange}]))
 
@@ -291,6 +349,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [label value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "boolean"}})
+
     [ui/YesNoRadioGroup
      {:value    value
       :label    label
@@ -308,6 +371,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [label value errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "boolean"}})
+
     [form-group config
      [ui/YesNoRadioGroup
       {:value    value
@@ -325,13 +393,18 @@
         logic @(rf/subscribe [::get-block-props ctx])
         {:keys [key disabled labelKey valueKey]} (merge logic (select-keys config config-keys))
         items @(rf/subscribe [::get-block-data ctx])]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" :items {:type "object" :properties (zipmap (constantly {}) [valueKey labelKey])}}})
+
     [ui/SimpleSelectionList
-     {:key       key
-      :items     items
-      :labelKey  labelKey
-      :valueKey  valueKey
-      :disabled  disabled
-      :onReorder onReorder
+     {:key           key
+      :items         items
+      :labelKey      labelKey
+      :valueKey      valueKey
+      :disabled      disabled
+      :onReorder     onReorder
       :onRemoveClick onRemoveClick}]))
 
 (defn breadcrumb-selection-list
@@ -343,6 +416,11 @@
         logic @(rf/subscribe [::get-block-props ctx])
         {:keys [key disabled labelKey valueKey breadcrumbKey]} (merge logic (select-keys config config-keys))
         items @(rf/subscribe [::get-block-data ctx])]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" :items {:type "object" :properties (zipmap (constantly {}) [labelKey valueKey breadcrumbKey])}}})
+
     [ui/BreadcrumbSelectionList
      {:key           key
       :items         items
@@ -362,14 +440,21 @@
         logic @(rf/subscribe [::get-block-props ctx])
         {:keys [key disabled columns valueKey]} (merge logic (select-keys config config-keys))
         items @(rf/subscribe [::get-block-data ctx])]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type  "array"
+                 :items {:type "object"
+                         :properties (zipmap (constantly {}) (into [valueKey] (map :labelKey columns)))}}})
+
     [ui/TableSelectionList
-     {:key       key
-      :items     items
-      :disabled  disabled
-      :onReorder onReorder
+     {:key           key
+      :items         items
+      :disabled      disabled
+      :onReorder     onReorder
       :onRemoveClick onRemoveClick
-      :columns   columns
-      :valueKey  valueKey}]))
+      :columns       columns
+      :valueKey      valueKey}]))
 
 (defn list-option-picker
   [config]
@@ -380,6 +465,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" :items {:type "object" :properties {}}}})
+
     [ui/SelectOptionField
      {:value       nil
       :options     options
@@ -397,6 +487,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder uri disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" :items {:type "object" :properties {}}}})
+
     [ui/AsyncSelectOptionField
      {:value       nil
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
@@ -413,6 +508,7 @@
         props (merge logic (select-keys config config-keys))
         {:keys [label required errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+    (s/assert string? label)
     (into [ui/ExpandingControl
            {:label    label
             :required required}]

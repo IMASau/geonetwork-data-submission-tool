@@ -246,6 +246,7 @@
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
           "rules": ["requiredField"],
           "keep": false,
+          "label": "Start date",
           "attributes": {
             "text": {
               "function": "date_as_string"
@@ -257,6 +258,7 @@
           "!docstring": "'required': true,  // FIXME depends on status",
           "deleteWhenEmpty": false,
           "keep": false,
+          "label": "End date",
           "attributes": {
             "text": {
               "function": "date_as_string"
@@ -530,6 +532,7 @@
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords/mri:keyword/gcx:Anchor[@xlink:title=\"GCMDTemporal\"]",
           "keep": false,
           "container": "mri:descriptiveKeywords[mri:MD_Keywords/mri:keyword/gcx:Anchor[@xlink:title=\"GCMDTemporal\"]]",
+          "label": "Sampling frequency",
           "attributes": {
             "text": {
               "function": "sampling_text"

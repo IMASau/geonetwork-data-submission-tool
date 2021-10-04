@@ -1,5 +1,7 @@
 (ns metcalf4.schema
-  (:require [cljs.spec.alpha :as s]))
+  (:require [cljs.spec.alpha :as s]
+            [metcalf4.utils :as utils4]
+            [clojure.set :as set]))
 
 
 (s/def ::schema (s/keys :opt-un [::type ::items ::properties]))
@@ -46,21 +48,66 @@
   (walk-schema-data (partial postwalk-schema-data f) f form))
 
 
+(defn schema-data-valid?
+  [{:keys [schema data]}]
+  (case (:type schema)
+    "array" (vector? data)
+    "object" (map? data)
+    "string" (string? data)
+    "number" (number? data)
+    true))
+
+
+(defn report-schema-error
+  [msg]
+  #_(if *assert*
+      (throw (js/Error. msg))
+      (js/console.error msg))
+  (js/console.warn msg))
+
+
 (defn assert-schema-data
-  [{:keys [data schema]}]
-  (letfn [(test [data spec x]
-            (when-not (s/valid? spec x)
-              (throw (ex-info (s/explain-str spec x) data))))]
-    (prewalk-schema-data
-      (fn [{:keys [schema data] :as form}]
-        (case (:type schema)
-          "array" (test form (s/nilable vector?) data)
-          "object" (test form (s/nilable map?) data)
-          "string" (test form (s/nilable string?) data)
-          "number" (test form (s/nilable number?) data)
-          nil)
-        form)
-      {:schema schema :data data :path []})))
+  [schema data]
+  (prewalk-schema-data
+    (fn [form]
+      (when-not (s/valid? schema-data-valid? form)
+        (report-schema-error (utils4/spec-error-at-path schema-data-valid? form (:path form))))
+      form)
+    {:schema schema :data data :path []}))
+
+
+(defn compatible-schema-type?
+  [{:keys [schema1 schema2]}]
+  (or (nil? (:type schema1))
+      (= (:type schema1) (:type schema2))))
+
+
+(defn object-properties-subset?
+  "Check that schema2 doesn't introduce new properties"
+  [{:keys [schema1 schema2]}]
+  (let [ks1 (keys (:properties schema1))
+        ks2 (keys (:properties schema2))]
+    (set/subset? (set ks2) (set ks1))))
+
+
+(defn assert-compatible-schema
+  "Confirm schema2 is a compatible subset of schema1"
+  [{:keys [schema1 schema2 path] :or {path []} :as form}]
+  (when-not (s/valid? compatible-schema-type? form)
+    (report-schema-error (utils4/spec-error-at-path compatible-schema-type? form (:path form))))
+  (case (:type schema2)
+    "object" (doseq [k (keys (:properties schema2))]
+               (when-not (s/valid? object-properties-subset? form)
+                 (report-schema-error (utils4/spec-error-at-path object-properties-subset? form (:path form))))
+               (assert-compatible-schema
+                 {:schema1 (get-in schema1 [:properties k])
+                  :schema2 (get-in schema2 [:properties k])
+                  :path    (conj path :properties k)}))
+    "array" (assert-compatible-schema
+              {:schema1 (:items schema1)
+               :schema2 (:items schema2)
+               :path    (conj path :items)})
+    nil))
 
 
 (defn schema-step

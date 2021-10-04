@@ -118,6 +118,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "boolean"}})
+
     [ui/CheckboxField
      {:checked  (or value false)                            ; TODO: should be guaranteed by sub
       :disabled disabled

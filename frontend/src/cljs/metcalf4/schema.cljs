@@ -63,7 +63,7 @@
     (str "Spec assertion failed\n" (with-out-str (s/explain-out ed)))))
 
 
-(defn report-schema-data-error
+(defn report-schema-error
   [msg]
   (if *assert*
     (throw (js/Error. msg))
@@ -75,9 +75,41 @@
   (prewalk-schema-data
     (fn [form]
       (when-not (s/valid? schema-data-valid? form)
-        (report-schema-data-error (assert-schema-data-error schema-data-valid? form)))
+        (report-schema-error (assert-schema-data-error schema-data-valid? form)))
       form)
     {:schema schema :data data :path []}))
+
+
+(defn compatible-schema-type?
+  [{:keys [schema1 schema2]}]
+  (or (nil? (:type schema1))
+      (= (:type schema1) (:type schema2))))
+
+
+(defn assert-schema-compatible-error
+  [form]
+  (let [ed (merge (assoc (s/explain-data* compatible-schema-type? [] (:path form) [] form)
+                    ::s/failure :assertion-failed))]
+    (str "Spec assertion failed\n" (with-out-str (s/explain-out ed)))))
+
+
+(defn assert-compatible-schema
+  "Confirm schema2 is a compatible subset of schema1"
+  [{:keys [schema1 schema2 path] :as form}]
+  (when-not (s/valid? compatible-schema-type? form)
+    (report-schema-error (assert-schema-compatible-error form)))
+  (case (:type schema2)
+    "object" (dorun (map (fn [k]
+                           (assert-compatible-schema
+                             {:schema1 (get-in schema1 [:properties k])
+                              :schema2 (get-in schema2 [:properties k])
+                              :path    (conj path :properties k)}))
+                         (keys (:properties schema2))))
+    "array" (assert-compatible-schema
+              {:schema1 (:items schema1)
+               :schema2 (:items schema2)
+               :path    (conj path :items)})
+    nil))
 
 
 (defn schema-step

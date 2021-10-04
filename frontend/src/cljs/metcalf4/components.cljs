@@ -148,6 +148,11 @@
         props (merge logic (select-keys config config-keys))
         {:keys [minDate maxDate value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "string"}})
+
     [ui/DateField
      {:value    (date/from-value value)
       :disabled disabled

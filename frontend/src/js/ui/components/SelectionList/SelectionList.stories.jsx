@@ -26,7 +26,8 @@ SimpleField.args = {
     items: exampleItems,
     renderItem: SimpleListItem,
     getValue: (item) => item['value'],
-    getLabel: (item) => item['label'],
+    itemProps: {
+        getLabel: (item) => item['label']},
 };
 
 const reorder = (list, startIndex, endIndex) => {
@@ -42,7 +43,9 @@ export const ReorderingExample = (args) => {
     return <FieldTemplate {...args}
                           items={items}
                           getValue={(item)=>item['value']}
-                          getLabel={(item)=>item['label']}
+                          itemProps={{
+                              getLabel: (item)=>item['label'],
+                          }}
                           onReorder={
                               (startIndex, endIndex) =>
                                   setItems(reorder(items, startIndex, endIndex))}/>;

@@ -5,7 +5,8 @@ IMAGE_NAME=data-submission-tool
 
 IMAGE=$(REPO)/$(IMAGE_NAME)
 
-GIT_VERSION=$(shell git show HEAD --no-patch --no-notes --date=short '--pretty=%cd-%h')
+# GIT_VERSION=$(shell git show HEAD --no-patch --no-notes --date=short '--pretty=%cd-%h')
+GIT_VERSION=$(shell git describe)
 
 .PHONY: build up push check_not_dirty
 

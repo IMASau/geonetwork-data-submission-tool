@@ -46,21 +46,38 @@
   (walk-schema-data (partial postwalk-schema-data f) f form))
 
 
+(defn schema-data-valid?
+  [{:keys [schema data]}]
+  (case (:type schema)
+    "array" (vector? data)
+    "object" (map? data)
+    "string" (string? data)
+    "number" (number? data)
+    true))
+
+
+(defn assert-schema-data-error
+  [spec form]
+  (let [ed (merge (assoc (s/explain-data* spec [] (:path form) [] form)
+                    ::s/failure :assertion-failed))]
+    (str "Spec assertion failed\n" (with-out-str (s/explain-out ed)))))
+
+
+(defn report-schema-data-error
+  [msg]
+  (if *assert*
+    (throw (js/Error. msg))
+    (js/console.error msg)))
+
+
 (defn assert-schema-data
-  [{:keys [data schema]}]
-  (letfn [(test [data spec x]
-            (when-not (s/valid? spec x)
-              (throw (ex-info (s/explain-str spec x) data))))]
-    (prewalk-schema-data
-      (fn [{:keys [schema data] :as form}]
-        (case (:type schema)
-          "array" (test form (s/nilable vector?) data)
-          "object" (test form (s/nilable map?) data)
-          "string" (test form (s/nilable string?) data)
-          "number" (test form (s/nilable number?) data)
-          nil)
-        form)
-      {:schema schema :data data :path []})))
+  [schema data]
+  (prewalk-schema-data
+    (fn [form]
+      (when-not (s/valid? schema-data-valid? form)
+        (report-schema-data-error (assert-schema-data-error schema-data-valid? form)))
+      form)
+    {:schema schema :data data :path []}))
 
 
 (defn schema-step

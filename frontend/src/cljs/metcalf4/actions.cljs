@@ -11,6 +11,7 @@
   (let [data (get-in payload [:form :data])
         schema (get-in payload [:form :schema])
         state (blocks/as-blocks {:data data :schema schema})]
+    (schema/assert-schema-data schema data)
     (-> s
         (assoc-in [:db :form :data] data)                   ; initial data used for 'is dirty' checks
         (assoc-in [:db :form :schema] schema)               ; data schema used to generate new array items

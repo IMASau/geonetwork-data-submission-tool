@@ -45,7 +45,7 @@
              (assoc-in path state)
              (assoc-in (conj path :props :show-errors) true))}))
 
-(defn selection-list-picker-change
+(defn list-option-picker-change
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
@@ -56,6 +56,13 @@
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
         (actions/del-item-action form-id data-path idx))))
+
+(defn selection-list-reorder
+  [{:keys [db]} [_ ctx src-idx dst-idx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/genkey-action form-id data-path)
+        (actions/move-item-action form-id data-path src-idx dst-idx))))
 
 (defn -load-api-handler
   [{:keys [db]} [_ api results]]

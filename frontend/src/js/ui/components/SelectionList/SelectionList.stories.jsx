@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {SelectionList} from './SelectionList';
+import {SelectionList, SimpleListItem} from './SelectionList';
 import './SelectionList.css';
 import NOTES from './NOTES.mdx';
 
@@ -24,6 +24,7 @@ const FieldTemplate = (args) => <SelectionList {...args} />;
 export const SimpleField = FieldTemplate.bind({});
 SimpleField.args = {
     items: exampleItems,
+    renderItem: SimpleListItem
 };
 
 const reorder = (list, startIndex, endIndex) => {
@@ -42,7 +43,9 @@ export const ReorderingExample = (args) => {
                               (startIndex, endIndex) =>
                                   setItems(reorder(items, startIndex, endIndex))}/>;
 };
-ReorderingExample.args = {};
+ReorderingExample.args = {
+    renderItem: SimpleListItem
+};
 
 
 export const DesignDecisions = NOTES;

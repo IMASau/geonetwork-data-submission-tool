@@ -11,7 +11,9 @@
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
-            [cljs.spec.alpha :as s]))
+            [cljs.spec.alpha :as s]
+            [goog.object :as gobj]
+            [reagent.core :as r]))
 
 (assert BoxMap/BoxMap)
 (assert DateField/DateField)
@@ -60,9 +62,13 @@
    {}])
 
 (defn ExpandingControl
-  [{:keys []}]
-  [:> ExpandingControl/ExpandingControl
-   {}])
+  [{:keys [label required]} & children]
+  (s/assert string? label)
+  (s/assert (s/nilable boolean?) required)
+  (into [:> ExpandingControl/ExpandingControl
+         {:label    label
+          :required required}]
+        children))
 
 (defn FormGroup
   [{:keys [label required disabled hasError helperText toolTip]} & children]
@@ -121,10 +127,59 @@
     :hasError    hasError
     :onChange    #(onChange (js->clj % :keywordize-keys true))}])
 
-(defn SelectionList
-  [{:keys []}]
+(defn SimpleSelectionList
+  [{:keys [items onReorder onRemoveClick labelKey valueKey]}]
+  (s/assert fn? onReorder)
+  (s/assert fn? onRemoveClick)
+  (s/assert string? labelKey)
+  (s/assert string? valueKey)
   [:> SelectionList/SelectionList
-   {}])
+   {:items         items
+    :onReorder     onReorder
+    :onRemoveClick onRemoveClick
+    :getValue      #(gobj/get % valueKey "No value")
+    :itemProps     {:getLabel #(gobj/get % labelKey "No label")
+                    :getValue #(gobj/get % valueKey "No value")}
+    :renderItem    SelectionList/SimpleListItem}])
+
+(defn BreadcrumbSelectionList
+  [{:keys [items onReorder onRemoveClick breadcrumbKey labelKey valueKey]}]
+  (s/assert fn? onReorder)
+  (s/assert fn? onRemoveClick)
+  (s/assert string? breadcrumbKey)
+  (s/assert string? labelKey)
+  (s/assert string? valueKey)
+  [:> SelectionList/SelectionList
+   {:items         items
+    :onReorder     onReorder
+    :onRemoveClick onRemoveClick
+    :getValue      #(gobj/get % valueKey "No value")
+    :itemProps     {:getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
+                    :getLabel      #(gobj/get % labelKey "No label")
+                    :getValue      #(gobj/get % valueKey "No value")}
+    :renderItem    SelectionList/BreadcrumbListItem}])
+
+(defn has-key? [s] #(contains? (set (map name (keys %))) s))
+(defn has-keys? [ss] (apply every-pred (map has-key? ss)))
+
+(defn TableSelectionList
+  [{:keys [items onReorder onRemoveClick valueKey columns]}]
+  (s/assert (s/coll-of map?) items)
+  (s/assert fn? onReorder)
+  (s/assert fn? onRemoveClick)
+  (s/assert string? valueKey)
+  (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
+  (s/assert (s/coll-of (has-key? valueKey)) items)
+  (s/assert (s/coll-of (has-keys? (map :labelKey columns))) items)
+  [:> SelectionList/SelectionList
+   {:items         items
+    :onReorder     onReorder
+    :onRemoveClick onRemoveClick
+    :getValue      #(gobj/get % valueKey "No value")
+    :itemProps     {:columns (for [{:keys [flex labelKey]} columns]
+                               {:flex     flex
+                                :getLabel #(gobj/get % labelKey "No label")})}
+    :renderItem    SelectionList/TableListItem}])
 
 (defn TextareaField
   [{:keys [value placeholder maxLength rows disabled hasError onChange]}]

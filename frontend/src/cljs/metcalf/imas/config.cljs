@@ -78,15 +78,16 @@
 (rf/reg-event-fx :handlers/lodge-save-success handlers3/lodge-save-success)
 (rf/reg-event-fx :handlers/lodge-error handlers3/lodge-error)
 (rf/reg-event-fx :help-menu/open handlers3/help-menu-open)
-(rf/reg-event-fx ::components4/input-field-with-label-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/textarea-field-with-label-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/date-field-with-label-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/async-select-option-with-label-value-changed handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/select-option-with-label-value-changed handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/select-value-with-label-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/input-field-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/textarea-field-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/date-field-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/async-select-option-value-changed handlers4/option-change-handler)
+(rf/reg-event-fx ::components4/select-option-value-changed handlers4/option-change-handler)
+(rf/reg-event-fx ::components4/select-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/selection-list-picker-change handlers4/selection-list-picker-change)
+(rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
+(rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)
@@ -150,14 +151,23 @@
        'm3/Who                            views/Who
        'm4/page-errors                    components4/page-errors
        'm4/textarea-field-with-label      components4/textarea-field-with-label
+       'm4/textarea-field                 components4/textarea-field
+       'm4/input-field                    components4/input-field
        'm4/input-field-with-label         components4/input-field-with-label
+       'm4/date-field                     components4/date-field
        'm4/date-field-with-label          components4/date-field-with-label
+       'm4/async-select-option            components4/async-select-option
        'm4/async-select-option-with-label components4/async-select-option-with-label
+       'm4/select-option                  components4/select-option
        'm4/select-option-with-label       components4/select-option-with-label
+       'm4/select-value                   components4/select-value
        'm4/select-value-with-label        components4/select-value-with-label
        'm4/form-group                     components4/form-group
-       'm4/selection-list                 components4/selection-list
-       'm4/selection-list-picker          components4/selection-list-picker
+       'm4/simple-selection-list          components4/simple-selection-list
+       'm4/breadcrumb-selection-list      components4/breadcrumb-selection-list
+       'm4/table-selection-list           components4/table-selection-list
+       'm4/list-option-picker             components4/list-option-picker
+       'm4/async-list-option-picker       components4/async-list-option-picker
 
        'm4/mailto-data-manager-link       components4/mailto-data-manager-link
        'm4/xml-export-link                components4/xml-export-link

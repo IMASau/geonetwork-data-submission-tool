@@ -8,8 +8,7 @@
 
 
 (defn get-ctx
-  [{:keys [form-id data-path] :as m}]
-  (s/assert ::ctx m)
+  [{:keys [form-id data-path]}]
   {:form-id form-id :data-path data-path})
 
 

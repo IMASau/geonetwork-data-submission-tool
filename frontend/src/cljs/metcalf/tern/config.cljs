@@ -81,16 +81,17 @@
 (rf/reg-event-fx :handlers/lodge-save-success handlers3/lodge-save-success)
 (rf/reg-event-fx :handlers/lodge-error handlers3/lodge-error)
 (rf/reg-event-fx :help-menu/open handlers3/help-menu-open)
-(rf/reg-event-fx ::components4/input-field-with-label-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/textarea-field-with-label-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/input-field-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/textarea-field-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/yes-no-field-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/date-field-with-label-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/select-option-with-label-value-changed handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/async-select-option-with-label-value-changed handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/select-value-with-label-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/date-field-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/select-option-value-changed handlers4/option-change-handler)
+(rf/reg-event-fx ::components4/async-select-option-value-changed handlers4/option-change-handler)
+(rf/reg-event-fx ::components4/select-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/selection-list-picker-change handlers4/selection-list-picker-change)
+(rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
+(rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)
@@ -138,17 +139,27 @@
        "verticalRequired"  rules/vertical-required})
 (set! low-code/component-registry
       {
+       'm4/textarea-field                 components4/textarea-field
        'm4/textarea-field-with-label      components4/textarea-field-with-label
+       'm4/input-field                    components4/input-field
        'm4/input-field-with-label         components4/input-field-with-label
+       'm4/date-field                     components4/date-field
        'm4/date-field-with-label          components4/date-field-with-label
+       'm4/select-value                   components4/select-value
        'm4/select-value-with-label        components4/select-value-with-label
+       'm4/select-option                  components4/select-option
        'm4/select-option-with-label       components4/select-option-with-label
+       'm4/async-select-option            components4/async-select-option
        'm4/async-select-option-with-label components4/async-select-option-with-label
        'm4/yes-no-field                   components4/yes-no-field
        'm4/page-errors                    components4/page-errors
        'm4/form-group                     components4/form-group
-       'm4/selection-list                 components4/selection-list
-       'm4/selection-list-picker          components4/selection-list-picker
+       'm4/simple-selection-list          components4/simple-selection-list
+       'm4/breadcrumb-selection-list      components4/breadcrumb-selection-list
+       'm4/table-selection-list           components4/table-selection-list
+       'm4/list-option-picker             components4/list-option-picker
+       'm4/async-list-option-picker       components4/async-list-option-picker
+       'm4/expanding-control              components4/expanding-control
        })
 (set! low-code/template-registry
       '{:data-identification
@@ -179,18 +190,20 @@
           {:label     "Topic Categories"
            :form-id   [:form]
            :data-path [:identificationInfo :topicCategory]}
-          [m4/selection-list
-           {:form-id   [:form]
-            :data-path [:identificationInfo :topicCategory]}]
-          [m4/selection-list-picker
+          [m4/simple-selection-list
            {:form-id   [:form]
             :data-path [:identificationInfo :topicCategory]
+            :labelKey  "label"
+            :valueKey  "value"}]
+          [m4/list-option-picker
+           {:form-id     [:form]
+            :data-path   [:identificationInfo :topicCategory]
             :placeholder "Start typing to filter list..."
-            :options   [{:value "biota" :label "biota"}
-                        {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
-                        {:value "oceans" :label "oceans"}
-                        {:value "geoscientificInformation" :label "geoscientificInformation"}
-                        {:value "inlandWater" :label "inlandWater"}]}]]
+            :options     [{:value "biota" :label "biota"}
+                          {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
+                          {:value "oceans" :label "oceans"}
+                          {:value "geoscientificInformation" :label "geoscientificInformation"}
+                          {:value "inlandWater" :label "inlandWater"}]}]]
          [m3/SelectField {:form-id   [:form]
                           :data-path [:identificationInfo :status]}]
          [m3/SelectField {:form-id   [:form]
@@ -239,16 +252,80 @@
            :maxLength   1000
            :helperText  "Brief statement about the purpose of the study"
            :toolTip     "The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"}]
-         [m3/ThemeKeywords
-          {:keyword-type        :keywordsTheme
-           :keywords-theme-path [:form :fields :identificationInfo :keywordsTheme]}]
-         [m3/ThemeKeywords
-          {:keyword-type        :keywordsThemeAnzsrc
-           :keywords-theme-path [:form :fields :identificationInfo :keywordsThemeAnzsrc]}]
-         [m3/ThemeKeywordsExtra
-          {}]
-         [m3/TaxonKeywordsExtra
-          {}]
+
+
+         [m4/expanding-control
+          {:label    "GCMD Science keywords"
+           :required true}
+
+          [m4/form-group
+           {:label "Select research theme keywords - maximum of 12 allowed"}
+           [m4/async-list-option-picker
+            {:form-id   [:form]
+             :data-path [:identificationInfo :keywordsTheme :keywords]
+             :uri       "/api/ternparameters"               ;TODO: Update to real endpoint
+             }]
+           [m4/breadcrumb-selection-list
+            {:form-id       [:form]
+             :data-path     [:identificationInfo :keywordsTheme :keywords]
+             :labelKey      "label"                         ;TODO: Update to match endpoint
+             :valueKey      "uri"                           ;TODO: Update to match endpoint
+             :breadcrumbKey "breadcrumb"                    ;TODO: Update to match endpoint
+             }]]]
+
+         [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
+
+          [m4/form-group
+           {:label "Select research theme keywords - maximum of 12 allowed"}
+           [m4/async-list-option-picker
+            {:form-id   [:form]
+             :data-path [:identificationInfo :keywordsThemeAnzsrc :keywords]
+             :uri       "/api/ternparameters"               ;TODO: Update to real endpoint
+             }]
+           [m4/breadcrumb-selection-list
+            {:form-id       [:form]
+             :data-path     [:identificationInfo :keywordsThemeAnzsrc :keywords]
+             :labelKey      "label"                         ;TODO: Update to match endpoint
+             :valueKey      "uri"                           ;TODO: Update to match endpoint
+             :breadcrumbKey "breadcrumb"                    ;TODO: Update to match endpoint
+             }]]]
+
+         [m4/expanding-control {:label "Platforms" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Instruments" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Paramters" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Temporal Resolution" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Horizontal Resolution" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Vertical Resolution (Optional)" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Australian Plant Name Index (Optional)" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required true}
+          "..."]
+
+         [m4/expanding-control {:label "Additional Keywords (Optional)" :required true}
+          "..."
+          [m3/ThemeKeywordsExtra
+           {}]
+          [m3/TaxonKeywordsExtra
+           {}]]
+
+
+
+
+
+
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
         :when

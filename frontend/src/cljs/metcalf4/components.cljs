@@ -58,59 +58,72 @@
             :toolTip    toolTip}]
           children)))
 
-(defn input-field-with-label
+(defn input-field
   [config]
-  (let [ctx (utils4/get-ctx config)
+  (let [config-keys [:placeholder :maxLength]
+        ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::input-field-with-label-value-changed ctx %])
-        props (merge logic (select-keys config [:label :placeholder :helperText :toolTip]))
+        onChange #(rf/dispatch [::input-field-value-changed ctx %])
+        props (merge logic (select-keys config config-keys))
         {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [form-group config
-     [ui/InputField
-      {:value       (or value "")                           ; TODO: should be guaranteed by sub
-       :placeholder placeholder
-       :maxLength   maxLength
-       :disabled    disabled
-       :hasError    hasError
-       :onChange    onChange}]]))
+    [ui/InputField
+     {:value       (or value "")                            ; TODO: should be guaranteed by sub
+      :placeholder placeholder
+      :maxLength   maxLength
+      :disabled    disabled
+      :hasError    hasError
+      :onChange    onChange}]))
 
-(defn textarea-field-with-label
+(defn input-field-with-label
   [config]
-  (let [ctx (utils4/get-ctx config)
+  [form-group config
+   [input-field config]])
+
+(defn textarea-field
+  [config]
+  (let [config-keys [:placeholder :rows :maxLength]
+        ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::textarea-field-with-label-value-changed ctx %])
-        config-keys [:label :placeholder :helperText :toolTip :rows]
+        onChange #(rf/dispatch [::textarea-field-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder rows maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [form-group config
-     [ui/TextareaField
-      {:value       (or value "")                           ; TODO: should be guaranteed by sub
-       :placeholder placeholder
-       :disabled    disabled
-       :hasError    hasError
-       :maxLength   maxLength
-       :rows        rows
-       :onChange    onChange}]]))
+    [ui/TextareaField
+     {:value       (or value "")                            ; TODO: should be guaranteed by sub
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    hasError
+      :maxLength   maxLength
+      :rows        rows
+      :onChange    onChange}]))
 
-(defn date-field-with-label
+(defn textarea-field-with-label
+  [config]
+  [form-group config
+   [textarea-field config]])
+
+(defn date-field
   [config]
   (let [ctx (utils4/get-ctx config)
-        config-keys [:label :helperText :toolTip :minDate :maxDate]
+        config-keys [:minDate :maxDate]
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::date-field-with-label-value-changed ctx (date/to-value %)])
+        onChange #(rf/dispatch [::date-field-value-changed ctx (date/to-value %)])
         props (merge logic (select-keys config config-keys))
         {:keys [minDate maxDate value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [form-group config
-     [ui/DateField
-      {:value    (date/from-value value)
-       :disabled disabled
-       :onChange onChange
-       :hasError hasError
-       :minDate  (date/from-value minDate)
-       :maxDate  (date/from-value maxDate)}]]))
+    [ui/DateField
+     {:value    (date/from-value value)
+      :disabled disabled
+      :onChange onChange
+      :hasError hasError
+      :minDate  (date/from-value minDate)
+      :maxDate  (date/from-value maxDate)}]))
+
+(defn date-field-with-label
+  [config]
+  [form-group config
+   [date-field config]])
 
 (defn portal-link
   []
@@ -201,61 +214,73 @@
         {:keys [email]} site]
     [:a {:href (str "mailto:" email)} email]))
 
-(defn select-option-with-label
+(defn select-option
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :placeholder]
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::select-option-with-label-value-changed ctx %])
+        onChange #(rf/dispatch [::select-option-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [form-group config
-     [ui/SelectOptionField
-      {:value       value
-       :options     options
-       :placeholder placeholder
-       :disabled    disabled
-       :hasError    (seq hasError)
-       :onChange    onChange}]]))
+    [ui/SelectOptionField
+     {:value       value
+      :options     options
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    (seq hasError)
+      :onChange    onChange}]))
 
-(defn async-select-option-with-label
+(defn select-option-with-label
+  [config]
+  [form-group config
+   [select-option config]])
+
+(defn async-select-option
   [config]
   (let [ctx (utils4/get-ctx config)
-        config-keys [:options :uri]
+        config-keys [:uri]
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::async-select-option-with-label-value-changed ctx %])
+        onChange #(rf/dispatch [::async-select-option-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder uri disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    [form-group config
-     [ui/AsyncSelectOptionField
-      {:value       value
-       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
-       :placeholder placeholder
-       :disabled    disabled
-       :hasError    (seq hasError)
-       :onChange    onChange}]]))
+    [ui/AsyncSelectOptionField
+     {:value       value
+      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    (seq hasError)
+      :onChange    onChange}]))
 
-(defn select-value-with-label
+(defn async-select-option-with-label
+  [config]
+  [form-group config
+   [async-select-option config]])
+
+(defn select-value
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:options]
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::select-value-with-label-changed ctx %])
+        onChange #(rf/dispatch [::select-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [options value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)
         value (or value "")]
-    [form-group config
-     [ui/SelectValueField
-      {:value    value
-       :disabled disabled
-       :options  options
-       :hasError hasError
-       :onChange onChange}]]))
+    [ui/SelectValueField
+     {:value    value
+      :disabled disabled
+      :options  options
+      :hasError hasError
+      :onChange onChange}]))
+
+(defn select-value-with-label
+  [config]
+  [form-group config
+   [select-value config]])
 
 (defn yes-no-field
   [config]
@@ -276,8 +301,8 @@
 ; FIXME: Is :label for form group or yes/no field?
 (defn yes-no-field-with-label
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :label]
+  (let [config-keys [:options :label]
+        ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-yes-no-field-with-label-props ctx])
         onChange #(rf/dispatch [::yes-no-field-with-label-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
@@ -291,26 +316,67 @@
        :hasError (seq hasError)
        :onChange onChange}]]))
 
-; NOTE: Just a proof of concept layout
-(defn selection-list
+(defn simple-selection-list
   [config]
-  (let [ctx (utils4/get-ctx config)
-        onClick #(rf/dispatch [::selection-list-remove-click ctx %])
+  (let [config-keys [:labelKey :valueKey]
+        ctx (utils4/get-ctx config)
+        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
+        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
+        logic @(rf/subscribe [::get-block-props ctx])
+        {:keys [key disabled labelKey valueKey]} (merge logic (select-keys config config-keys))
         items @(rf/subscribe [::get-block-data ctx])]
-    [:table.bp3-html-table.bp3-interactive
-     {:style {:width "100%"}}
-     (into [:tbody]
-           (map-indexed (fn [idx item]
-                          [:tr {:onClick #(onClick idx)}
-                           [:td (:label item)]])
-                        items))]))
+    [ui/SimpleSelectionList
+     {:key       key
+      :items     items
+      :labelKey  labelKey
+      :valueKey  valueKey
+      :disabled  disabled
+      :onReorder onReorder
+      :onRemoveClick onRemoveClick}]))
 
-(defn selection-list-picker
+(defn breadcrumb-selection-list
+  [config]
+  (let [config-keys [:labelKey :valueKey :breadcrumbKey]
+        ctx (utils4/get-ctx config)
+        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
+        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
+        logic @(rf/subscribe [::get-block-props ctx])
+        {:keys [key disabled labelKey valueKey breadcrumbKey]} (merge logic (select-keys config config-keys))
+        items @(rf/subscribe [::get-block-data ctx])]
+    [ui/BreadcrumbSelectionList
+     {:key           key
+      :items         items
+      :disabled      disabled
+      :onReorder     onReorder
+      :onRemoveClick onRemoveClick
+      :breadcrumbKey breadcrumbKey
+      :labelKey      labelKey
+      :valueKey      valueKey}]))
+
+(defn table-selection-list
+  [config]
+  (let [config-keys [:columns :valueKey]
+        ctx (utils4/get-ctx config)
+        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
+        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
+        logic @(rf/subscribe [::get-block-props ctx])
+        {:keys [key disabled columns valueKey]} (merge logic (select-keys config config-keys))
+        items @(rf/subscribe [::get-block-data ctx])]
+    [ui/TableSelectionList
+     {:key       key
+      :items     items
+      :disabled  disabled
+      :onReorder onReorder
+      :onRemoveClick onRemoveClick
+      :columns   columns
+      :valueKey  valueKey}]))
+
+(defn list-option-picker
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :placeholder]
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::selection-list-picker-change ctx %])
+        onChange #(rf/dispatch [::list-option-picker-change ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -322,3 +388,32 @@
       :hasError    (seq hasError)
       :onChange    onChange}]))
 
+(defn async-list-option-picker
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:uri :placeholder]
+        logic @(rf/subscribe [::get-block-props ctx])
+        onChange #(rf/dispatch [::list-option-picker-change ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [placeholder uri disabled errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    [ui/AsyncSelectOptionField
+     {:value       nil
+      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    (seq hasError)
+      :onChange    onChange}]))
+
+(defn expanding-control
+  [config & children]
+  (let [config-keys [:label :required]
+        ctx (utils4/get-ctx config)
+        logic @(rf/subscribe [::get-block-props ctx])
+        props (merge logic (select-keys config config-keys))
+        {:keys [label required errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    (into [ui/ExpandingControl
+           {:label    label
+            :required required}]
+          children)))

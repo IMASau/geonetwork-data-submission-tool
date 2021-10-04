@@ -6,7 +6,8 @@
             [metcalf4.blocks :as blocks]
             [metcalf4.subs :as common-subs]
             [metcalf4.utils :as utils4]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [metcalf4.schema :as schema]))
 
 (defn has-error?
   "Given the current form state, and a data path, check if
@@ -290,6 +291,11 @@
         {:keys [value options labelKey valueKey disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)
         value (or value "")]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "object" :properties {labelKey {} valueKey {}}}})
+
     [ui/SelectValueField
      {:value    value
       :disabled disabled

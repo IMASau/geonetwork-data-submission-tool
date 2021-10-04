@@ -27,3 +27,9 @@ backend/mcp2-template.xml
 frontend/volumes
 volumes
 clojure-*.edn
+frontend/src/gen
+hs_err_pid1.log
+.rebel_readline_history
+.vscode
+.devcontainer
+*.map

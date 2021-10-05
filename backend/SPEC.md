@@ -485,3 +485,49 @@ node group “ci_responsible_party_nodes” which is then defined in the node_gr
   }
 }
 ```
+
+## Examples (add-to and refine this section over time)
+
+We avoid the need for `exportTo` here.  Note that `keywords` is an
+`array`; the `xpath` prop here is exactly the same as `container` (in
+fact, `get_container` looks for a `container` prop and then falls back
+to `xpath`).  This container is cloned and used as the template for
+the `items`.  The spec in the `items` entry is iterated over each
+element in the corresponding data array.  The `items.xpath` is
+searched from the *container's parent*, indexed by the position in the
+data (ie, in this example because it also matches `items.xpath`, the
+most-recently cloned and mounted container).  No mapping functions are
+needed because the values are implicit in the object's property data
+values.
+
+```json
+"keywordsTheme": {
+  "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[not(@uuid=\"Data_Group\")][mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",
+  "type": "object",
+  "properties": {
+    "keywords": {
+      "xpath": "mri:keyword",
+      "keep": false,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "xpath": "mri:keyword",
+        "properties": {
+          "label": {
+            "xpath": "gcx:Anchor"
+          },
+          "uri": {
+            "xpath": "gcx:Anchor",
+            "attributes": {
+              "xlink:href": {
+                "function": "identity"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": true
+}
+```

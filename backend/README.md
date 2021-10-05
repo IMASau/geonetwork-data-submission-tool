@@ -16,17 +16,17 @@ Additional steps when setting up locally:
 
 ### Load external sources
 ```
-python manage.py load_parameterunits
-python manage.py load_parameterplatforms
-python manage.py load_parameternames
-python manage.py load_parameterinstruments
-python manage.py load_institutions
-python manage.py load_persons
-python manage.py load_rolecodes
-python manage.py load_samplingfrequencies
-python manage.py load_topiccategories
-python manage.py load_sciencekeywords
-python manage.py load_horizontalresolutions
+python3 manage.py load_parameterunits
+python3 manage.py load_parameterplatforms
+python3 manage.py load_parameternames
+python3 manage.py load_parameterinstruments
+python3 manage.py load_institutions
+python3 manage.py load_persons
+python3 manage.py load_rolecodes
+python3 manage.py load_samplingfrequencies
+python3 manage.py load_topiccategories
+python3 manage.py load_sciencekeywords
+python3 manage.py load_horizontalresolutions
 ```
 
 ---

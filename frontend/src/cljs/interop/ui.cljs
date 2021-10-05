@@ -5,12 +5,16 @@
             ["/ui/components/ExpandingControl/ExpandingControl" :as ExpandingControl]
             ["/ui/components/FormGroup/FormGroup" :as FormGroup]
             ["/ui/components/InputField/InputField" :as InputField]
-            ["/ui/components/SelectField/SelectField" :as SelectField]
+            ["/ui/components/SelectValueField/SelectValueField" :as SelectValueField]
+            ["/ui/components/SelectOptionField/SelectOptionField" :as SelectOptionField]
+            ["/ui/components/AsyncSelectOptionField/AsyncSelectOptionField" :as AsyncSelectOptionField]
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
-
-            [cljs.spec.alpha :as s]))
+            ["/ui/components/CheckboxField/CheckboxField" :as CheckboxField]
+            [cljs.spec.alpha :as s]
+            [goog.object :as gobj]
+            [reagent.core :as r]))
 
 (assert BoxMap/BoxMap)
 (assert DateField/DateField)
@@ -18,11 +22,13 @@
 (assert ExpandingControl/ExpandingControl)
 (assert FormGroup/FormGroup)
 (assert InputField/InputField)
-(assert SelectField/SelectField)
-(assert SelectField/AsyncSelectField)
+(assert SelectValueField/SelectValueField)
+(assert SelectOptionField/SelectOptionField)
+(assert AsyncSelectOptionField/AsyncSelectOptionField)
 (assert SelectionList/SelectionList)
 (assert TextareaField/TextareaField)
 (assert YesNoRadioGroup/YesNoRadioGroup)
+(assert CheckboxField/CheckboxField)
 
 (s/def ::northBoundLatitude number?)
 (s/def ::westBoundLongitude number?)
@@ -30,6 +36,9 @@
 (s/def ::eastBoundLongitude number?)
 (s/def ::element (s/keys :req-un [::northBoundLatitude ::westBoundLongitude ::southBoundLatitude ::eastBoundLongitude]))
 (s/def ::elements (s/coll-of ::element))
+
+(defn has-named-key? [s] #(contains? (set (map name (keys %))) s))
+(defn has-named-keys? [ss] (apply every-pred (map has-named-key? ss)))
 
 (defn box-map
   [{:keys [elements map-width tick-id on-change]}]
@@ -58,9 +67,13 @@
    {}])
 
 (defn ExpandingControl
-  [{:keys []}]
-  [:> ExpandingControl/ExpandingControl
-   {}])
+  [{:keys [label required]} & children]
+  (s/assert string? label)
+  (s/assert (s/nilable boolean?) required)
+  (into [:> ExpandingControl/ExpandingControl
+         {:label    label
+          :required required}]
+        children))
 
 (defn FormGroup
   [{:keys [label required disabled hasError helperText toolTip]} & children]
@@ -83,28 +96,116 @@
     :hasError    hasError
     :onChange    onChange}])
 
-(defn SelectField
+(defn SelectValueField
+  "Simple HTML select field to select a string value"
+  [{:keys [value options labelKey valueKey placeholder disabled hasError onChange]}]
+  (s/assert (s/nilable string?) value)
+  (s/assert string? labelKey)
+  (s/assert string? valueKey)
+  (s/assert (s/coll-of (has-named-keys? [labelKey valueKey])) options)
+  [:> SelectValueField/SelectValueField
+   {:value          value
+    :options        options
+    :getOptionLabel #(gobj/get % labelKey)
+    :getOptionValue #(gobj/get % valueKey)
+    :placeholder    placeholder
+    :disabled       disabled
+    :hasError       hasError
+    :onChange       onChange}])
+
+(defn SelectOptionField
   [{:keys [value options placeholder disabled hasError onChange]}]
-  [:> SelectField/SelectField
+  (s/assert (s/nilable map?) value)
+  (s/assert (s/coll-of map?) options)
+  (s/assert (s/nilable string?) placeholder)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
+  [:> SelectOptionField/SelectOptionField
    {:value       value
     :options     options
     :placeholder placeholder
     :disabled    disabled
     :hasError    hasError
-    :onChange    onChange}])
+    :onChange    #(onChange (js->clj % :keywordize-keys true))}])
 
-(defn AsyncSelectField
-  [{:keys []}]
-  [:> SelectField/AsyncSelectField
-   {}])
+(defn AsyncSelectOptionField
+  [{:keys [value loadOptions placeholder disabled hasError onChange]}]
+  (s/assert (s/nilable map?) value)
+  (s/assert fn? loadOptions)
+  (s/assert (s/nilable string?) placeholder)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
+  [:> AsyncSelectOptionField/AsyncSelectOptionField
+   {:value       value
+    :loadOptions loadOptions
+    :placeholder placeholder
+    :disabled    disabled
+    :hasError    hasError
+    :onChange    #(onChange (js->clj % :keywordize-keys true))}])
 
-(defn SelectionList
-  [{:keys []}]
+(defn SimpleSelectionList
+  [{:keys [items onReorder onRemoveClick labelKey valueKey]}]
+  (s/assert fn? onReorder)
+  (s/assert fn? onRemoveClick)
+  (s/assert string? labelKey)
+  (s/assert string? valueKey)
+  (s/assert (s/coll-of (has-named-keys? #{labelKey valueKey}) :distinct true) items)
   [:> SelectionList/SelectionList
-   {}])
+   {:items         items
+    :onReorder     onReorder
+    :onRemoveClick onRemoveClick
+    :getValue      #(gobj/get % valueKey "No value")
+    :itemProps     {:getLabel #(gobj/get % labelKey "No label")
+                    :getValue #(gobj/get % valueKey "No value")}
+    :renderItem    SelectionList/SimpleListItem}])
+
+(defn BreadcrumbSelectionList
+  [{:keys [items onReorder onRemoveClick breadcrumbKey labelKey valueKey]}]
+  (s/assert fn? onReorder)
+  (s/assert fn? onRemoveClick)
+  (s/assert string? breadcrumbKey)
+  (s/assert string? labelKey)
+  (s/assert string? valueKey)
+  (s/assert (s/coll-of (has-named-keys? #{labelKey valueKey}) :distinct true) items)
+  [:> SelectionList/SelectionList
+   {:items         items
+    :onReorder     onReorder
+    :onRemoveClick onRemoveClick
+    :getValue      #(gobj/get % valueKey "No value")
+    :itemProps     {:getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
+                    :getLabel      #(gobj/get % labelKey "No label")
+                    :getValue      #(gobj/get % valueKey "No value")}
+    :renderItem    SelectionList/BreadcrumbListItem}])
+
+(defn TableSelectionList
+  [{:keys [items onReorder onRemoveClick valueKey columns]}]
+  (s/assert fn? onReorder)
+  (s/assert fn? onRemoveClick)
+  (s/assert string? valueKey)
+  (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
+  (s/assert (s/coll-of (has-named-key? valueKey)) items)
+  (s/assert (s/coll-of (has-named-keys? (map :labelKey columns)) :distinct true) items)
+  [:> SelectionList/SelectionList
+   {:items         items
+    :onReorder     onReorder
+    :onRemoveClick onRemoveClick
+    :getValue      #(gobj/get % valueKey "No value")
+    :itemProps     {:columns (for [{:keys [flex labelKey]} columns]
+                               {:flex     flex
+                                :getLabel #(gobj/get % labelKey "No label")})}
+    :renderItem    SelectionList/TableListItem}])
 
 (defn TextareaField
   [{:keys [value placeholder maxLength rows disabled hasError onChange]}]
+  (s/assert string? value)
+  (s/assert (s/nilable string?) placeholder)
+  (s/assert (s/nilable nat-int?) maxLength)
+  (s/assert (s/nilable pos-int?) rows)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
   [:> TextareaField/TextareaField
    {:value       value
     :placeholder placeholder
@@ -115,6 +216,27 @@
     :onChange    onChange}])
 
 (defn YesNoRadioGroup
-  [{:keys []}]
+  [{:keys [value label disabled hasError onChange]}]
+  (s/assert (s/nilable boolean?) value)
+  (s/assert string? label)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
   [:> YesNoRadioGroup/YesNoRadioGroup
-   {}])
+   {:value    value
+    :label    label
+    :disabled disabled
+    :hasError hasError
+    :onChange onChange}])
+
+(defn CheckboxField
+  [{:keys [checked disabled hasError onChange]}]
+  (s/assert (s/nilable boolean?) checked)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
+  [:> CheckboxField/CheckboxField
+   {:checked  checked
+    :disabled disabled
+    :hasError hasError
+    :onChange onChange}])

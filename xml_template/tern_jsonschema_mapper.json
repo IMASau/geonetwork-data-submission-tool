@@ -225,7 +225,7 @@
       "properties": {
         "methodSummary": {
           "!docstring": "How8",
-          "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:DQ_EvaluationMethod>/mdq:evaluationMethodDescription",
+          "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:DQ_EvaluationMethod/mdq:evaluationMethodDescription",
           "valueChild": "gco:CharacterString",
           "label": "Provide a summary of the scope of the Data Quality Assessment",
           "keep": false,

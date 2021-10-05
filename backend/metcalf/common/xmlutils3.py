@@ -186,8 +186,51 @@ def extract_fields(tree, spec, **kwargs):
     return field
 
 
+# NOTE: Experimental
+def extract_jsonschema(tree, spec, **kwargs):
+    """
+    Generates a JSON Schema document to provide
+    * data shape
+    * default values
+    * form logic
+
+    Currently not using JSON Schema annotations to validate data
+    """
+    if has_namespaces(spec):
+        kwargs[SpecialKeys.namespaces] = get_namespaces(spec)
+    xpath = get_xpath(spec)
+    elements = tree.xpath(xpath, **kwargs)
+
+    field = {}
+    if 'initial' in spec:
+        field['default'] = spec['initial']
+    if 'rules' in spec:
+        field['rules'] = spec['rules']
+
+    if is_many(spec):
+        field['type'] = "array"
+        field['items'] = {}
+        if has_nodes(spec):
+            field['items']['type'] = 'object'
+            field['items']['properties'] = {}
+            for k, v in get_nodes(spec).items():
+                field['items']['properties'][k] = extract_jsonschema(elements[0], v, **kwargs)
+        else:
+            field['items']['type'] = 'object'
+
+    elif has_nodes(spec):
+        field['type'] = 'object'
+        field['properties'] = {}
+        for k, v in get_nodes(spec).items():
+            field['properties'][k] = extract_jsonschema(elements[0], v, **kwargs)
+        if 'initial' in spec:
+            field['default'] = spec['initial']
+
+    return field
+
+
 def value(element, **kwargs):
-    assert kwargs['namespaces'] != None, "No namespaces were specified."
+    assert kwargs['namespaces'] is not None, "No namespaces were specified."
     """
     Extract value.  Either tagged or text.  Always one value.
 

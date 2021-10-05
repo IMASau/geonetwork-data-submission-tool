@@ -1,3 +1,5 @@
+# TODO: move to tern.api app?
+
 from rest_framework import serializers
 
 from metcalf.tern.backend import models

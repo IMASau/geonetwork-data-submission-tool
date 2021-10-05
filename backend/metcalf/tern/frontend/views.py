@@ -1,3 +1,5 @@
+import datetime
+import os
 import shutil
 import stat
 import urllib.parse
@@ -10,10 +12,10 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
+from django.middleware import csrf
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from django.template import Context, Template
-from django.template.context_processors import csrf
 from django.urls import reverse
 from django.utils.encoding import smart_text
 from django_fsm import has_transition_perm
@@ -27,9 +29,9 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from metcalf.common.spec import *
+from metcalf.common import spec4
+from metcalf.common import xmlutils4
 from metcalf.common.utils import to_json, get_exception_message
-from metcalf.common.xmlutils import extract_fields, data_to_xml
 from metcalf.tern.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.tern.frontend.forms import DocumentAttachmentForm
@@ -59,6 +61,7 @@ def master_urls():
         "LandingPage": reverse("LandingPage"),
         "Dashboard": reverse("Dashboard"),
         "Create": reverse("Create"),
+        "account_logout": reverse("Sign Out"),
         "STATIC_URL": settings.STATIC_URL,
     }
 
@@ -93,7 +96,8 @@ def dashboard(request):
             "site": site_content(get_current_site(request)),
             "user": UserSerializer(request.user).data,
             "documents": DocumentInfoSerializer(docs, many=True, context={'user': request.user}).data,
-            "status": user_status_list()
+            "status": user_status_list(),
+            "csrf": csrf.get_token(request),
         },
         "create_form": {
             "url": reverse("Create"),
@@ -182,10 +186,10 @@ def bad_request(request, exception):
 def create_export_xml_string(doc, uuid):
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
-    spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
-    data = split_geographic_extents(data)
-    data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
-                element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
+    spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    data = spec4.split_geographic_extents(data)
+    xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
+                          element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     return etree.tostring(xml)
 
 
@@ -227,10 +231,10 @@ def mef(request, uuid):
     is_document_editor(request, doc)
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
-    spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
-    data = split_geographic_extents(data)
-    data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
-                element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
+    spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    data = spec4.split_geographic_extents(data)
+    xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
+                          element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     response = HttpResponse(content_type="application/x-mef")
     response['Content-Disposition'] = 'attachment; filename="{}.mef"'.format(uuid)
     info = etree.fromstring(MEF_TEMPLATE.encode('utf-8'))
@@ -363,7 +367,7 @@ def institutionFromData(data):
 def save(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
     is_document_editor(request, doc)
-    spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
     try:
         data = request.data
         doc.title = data['identificationInfo']['title'] or "Untitled"
@@ -388,7 +392,7 @@ def save(request, uuid):
             institutionFromData(citedResponsibleParty)
 
         # update the publication date
-        data['identificationInfo']['datePublication'] = today()
+        data['identificationInfo']['datePublication'] = spec4.today()
 
         inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
         inst.noteForDataManager = data['noteForDataManager'] or ''
@@ -415,7 +419,7 @@ def save(request, uuid):
         return Response({"messages": messages_payload(request),
                          "form": {
                              "url": reverse("Edit", kwargs={'uuid': doc.uuid}),
-                             "fields": extract_fields(tree, spec),
+                             "schema": spec4.extract_fields(spec),
                              "data": data,
                              "document": DocumentInfoSerializer(doc, context={'user': request.user}).data}})
     except RuntimeError as e:
@@ -426,7 +430,7 @@ def save(request, uuid):
 def edit(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
     is_document_editor(request, doc)
-    spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
 
     draft = doc.draftmetadata_set.all()[0]
     data = to_json(draft.data)
@@ -434,6 +438,7 @@ def edit(request, uuid):
 
     raw_payload = {
         "context": {
+            "csrf": csrf.get_token(request),
             "site": site_content(get_current_site(request)),
             "urls": master_urls(),
             "URL_ROOT": settings.FORCE_SCRIPT_NAME or "",
@@ -445,7 +450,7 @@ def edit(request, uuid):
         },
         "form": {
             "url": reverse("Save", kwargs={'uuid': doc.uuid}),
-            "fields": extract_fields(tree, spec),
+            "schema": spec4.extract_fields(spec),
             "data": data,
         },
         "upload_form": {
@@ -453,7 +458,7 @@ def edit(request, uuid):
             "fields": {
                 'csrfmiddlewaretoken': {
                     'type': 'hidden',
-                    'initial': str(csrf(request)['csrf_token'])
+                    'initial': csrf.get_token(request),
                 },
                 'document': {
                     'type': 'hidden',
@@ -481,14 +486,6 @@ def edit(request, uuid):
     }
 
     payload = smart_text(JSONRenderer().render(raw_payload), encoding='utf-8')
-    return render(request, "app.html", {"payload": payload})
-
-
-def theme(request):
-    "Stand alone endpoint for looking at themes.  Not required for production UI."
-    payload = JSONRenderer().render({
-        "theme": theme_keywords(),
-        "page": {"name": request.resolver_match.url_name}})
     return render(request, "app.html", {"payload": payload})
 
 
@@ -528,6 +525,7 @@ def download_attachement(request, path):
     return redirect(attachment.file.storage._path(attachment.file.name))
 
 
+# TODO: Looks like a bad security practice.  Filter transition values?
 @login_required
 @api_view(['POST'])
 def transition(request, uuid):
@@ -554,6 +552,29 @@ def logout_view(request):
 def robots_view(request):
     context = {}
     return render(request, "robots.txt", context, content_type="text/plain")
+
+
+def first_or_value(x):
+    if isinstance(x, list):
+        return x[0] if x else None
+    else:
+        return x
+
+
+# NOTE: assumption is that UI doesn't need any complicated values, just a simple object
+# TODO: exclude annotations we don’t ever need (e.g. type, is_hosted_by, broader, hierarchy, selectable...)
+# TODO: need to check this suits all use cases or needs individual finessing
+def massage_source(source):
+    return {k: first_or_value(v) for k, v in source.items()}
+
+
+def es_results(data):
+    """
+    Normalise data returned from ES endpoint.
+
+    Returns a list of source documents as results
+    """
+    return [massage_source(hit['_source']) for hit in data['hits']['hits']]
 
 
 @api_view(["GET", "POST"])
@@ -594,7 +615,7 @@ def qudt_units(request) -> Response:
         body = {"size": result_size}
         data = es.search(index=index_alias, body=body)
 
-    return Response(data, status=200)
+    return Response(es_results(data), status=200)
 
 
 @api_view(["GET", "POST"])
@@ -654,7 +675,7 @@ def tern_parameters(request) -> Response:
         }
         data = es.search(index=index_alias, body=body)
 
-    return Response(data, status=200)
+    return Response(es_results(data), status=200)
 
 
 @api_view(['GET', 'POST'])
@@ -714,7 +735,7 @@ def tern_platforms(request) -> Response:
         }
         data = es.search(index=index_alias, body=body)
 
-    return Response(data, status=200)
+    return Response(es_results(data), status=200)
 
 
 @api_view(['GET', 'POST'])
@@ -798,4 +819,4 @@ def tern_instruments(request) -> Response:
             }
         data = es.search(index=index_alias, body=body)
 
-    return Response(data, status=200)
+    return Response(es_results(data), status=200)

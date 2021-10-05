@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import re
@@ -5,13 +6,13 @@ from urllib.parse import urlsplit
 
 from django.contrib.sites.models import Site
 
-from metcalf.common.xmlutils import *
+from metcalf.common import xmlutils3
 
 
 def insert_node_groups(spec, node_groups):
-    if SpecialKeys.nodes in spec:
-        if isinstance(spec[SpecialKeys.nodes], str):
-            spec[SpecialKeys.nodes] = node_groups[spec[SpecialKeys.nodes]]
+    if xmlutils3.SpecialKeys.nodes in spec:
+        if isinstance(spec[xmlutils3.SpecialKeys.nodes], str):
+            spec[xmlutils3.SpecialKeys.nodes] = node_groups[spec[xmlutils3.SpecialKeys.nodes]]
     if isinstance(spec, dict):
         for key, sub_spec in spec.items():
             if isinstance(sub_spec, dict):
@@ -24,18 +25,18 @@ def insert_node_groups(spec, node_groups):
 def remove_comments(spec):
     if isinstance(spec, dict):
         # quickest way to remove the key
-        spec.pop(SpecialKeys.comment, None)
+        spec.pop(xmlutils3.SpecialKeys.comment, None)
         for key, sub_spec in spec.items():
             remove_comments(sub_spec)
 
 
 def is_function_ref(spec):
-    yes_or_no = isinstance(spec, dict) and SpecialKeys.function in spec
+    yes_or_no = isinstance(spec, dict) and xmlutils3.SpecialKeys.function in spec
     return yes_or_no
 
 
 def get_function_ref(x):
-    transform = SPEC_FUNCTIONS[x[SpecialKeys.function]]
+    transform = SPEC_FUNCTIONS[x[xmlutils3.SpecialKeys.function]]
     return transform
 
 
@@ -77,7 +78,7 @@ def massage_version_number(s):
     Version number captured is of format "version-1-1"
     Version required is "1.1"
     """
-    re_version = "version-([-\d]+)"
+    re_version = r'version-([-\d]+)'
     if re.match(re_version, s):
         version_chunk = re.search(re_version, s).group(1)
         version_number = re.sub("-", ".", version_chunk)
@@ -86,8 +87,8 @@ def massage_version_number(s):
 
 def generate_attachment_url(**kwargs):
     # TODO: figure out how to get env here (was previously inline in the python spec)
-    assert kwargs['data'] != None, "data not provided"
-    assert kwargs['uuid'] != None, "uuid not provided"
+    assert kwargs['data'] is not None, "data not provided"
+    assert kwargs['uuid'] is not None, "uuid not provided"
     data = kwargs['data']
     uuid = kwargs['uuid']
     # data should be an absolute path to download the file
@@ -110,7 +111,7 @@ def is_empty(node):
 
 def prune_if_empty(data, parent, spec, nsmap, i, silent):
     """
-    Catch-all processing to clean up specific nodes that may have been
+    Catch-all processing to clean up specific elements that may have been
     left with no content.
 
     """

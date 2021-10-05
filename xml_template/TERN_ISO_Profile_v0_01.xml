@@ -1497,9 +1497,7 @@
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>
-                                 https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords
-                              </gco:CharacterString>
+                             <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords</gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -1553,8 +1551,7 @@
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>https://vocabs.ands.org.au/viewById/20
-                              </gco:CharacterString>
+                              <gco:CharacterString>https://vocabs.ands.org.au/viewById/20</gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -1602,8 +1599,7 @@
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString> https://w3id.org/tern/assets/platforms/
-                              </gco:CharacterString>
+                              <gco:CharacterString>https://w3id.org/tern/assets/platforms/</gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -1655,9 +1651,7 @@
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString> 
-                                 https://w3id.org/tern/assets/sensors/
-                              </gco:CharacterString>
+                              <gco:CharacterString>https://w3id.org/tern/assets/sensors/</gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -1709,9 +1703,7 @@
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString> 
-                                 http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396
-                              </gco:CharacterString>
+                              <gco:CharacterString>http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396</gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -1759,8 +1751,7 @@
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>http://www.qudt.org/2.1/vocab/unit
-                              </gco:CharacterString>
+                              <gco:CharacterString>http://www.qudt.org/2.1/vocab/unit</gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -1810,8 +1801,7 @@
                         <cit:CI_OnlineResource>
                            <cit:linkage>
                            <!-- The base uri has changed, below is the new base uri for the horizontal res -->
-                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml
-                           </gco:CharacterString>
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml</gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -1861,8 +1851,7 @@
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml
-                              </gco:CharacterString>
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml</gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -1912,8 +1901,7 @@
                         <cit:CI_OnlineResource>
                            <cit:linkage>
                             <!-- The base uri has changed, below is the new base uri -->
-                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange/?format=xml
-                              </gco:CharacterString>
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange/?format=xml</gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -1971,8 +1959,7 @@
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>http://www.cpbr.gov.au/cgi-bin/apni
-                              </gco:CharacterString>
+                              <gco:CharacterString>http://www.cpbr.gov.au/cgi-bin/apni</gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
@@ -2028,8 +2015,7 @@
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>https://biodiversity.org.au/afd/home
-                              </gco:CharacterString>
+                              <gco:CharacterString>https://biodiversity.org.au/afd/home</gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>

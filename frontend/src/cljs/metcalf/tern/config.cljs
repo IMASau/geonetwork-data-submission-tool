@@ -304,7 +304,19 @@
              :breadcrumbKey "breadcrumb"}]]]
 
          [m4/expanding-control {:label "Instruments" :required true}
-          "..."]
+          ;; TODO: also need a user-added option
+          [m4/form-group
+           {:label "Select the instrument used for the platform"}
+           [m4/async-list-option-picker
+            {:form-id   [:form]
+             :data-path [:identificationInfo :keywordsInstrument :keywords]
+             :uri       "/api/terninstruments"}]
+           [m4/breadcrumb-selection-list
+            {:form-id       [:form]
+             :data-path     [:identificationInfo :keywordsInstrument :keywords]
+             :labelKey      "label"
+             :valueKey      "uri"
+             :breadcrumbKey "breadcrumb"}]]]
 
          [m4/expanding-control {:label "Paramters" :required true}
           "..."]

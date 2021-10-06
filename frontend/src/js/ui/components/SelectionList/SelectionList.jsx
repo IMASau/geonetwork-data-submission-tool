@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {useCachedState} from "../utils";
 import * as ReactDOM from "react-dom";
+import {TableListItem} from "../ListItem/ListItem";
 
 const getItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
@@ -121,10 +122,35 @@ SelectionList.propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({
         value: PropTypes.string,
         label: PropTypes.string
-    })),
+    })).isRequired,
     onReorder: PropTypes.func,
     onRemoveClick: PropTypes.func,
     renderItem: PropTypes.func.isRequired,
     getValue: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
+}
+
+export function TableSelectionList({items, getValue, onReorder, onRemoveClick, disabled, columns}) {
+    return (
+        <SelectionList
+            items={items}
+            onReorder={onReorder}
+            onRemoveClick={onRemoveClick}
+            getValue={getValue}
+            disabled={disabled}
+            renderItem={({item}) => <TableListItem item={item} columns={columns} onRemoveClick={onRemoveClick} disabled={disabled}/>}>
+        </SelectionList>
+    )
+}
+
+TableSelectionList.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    getValue: PropTypes.func.isRequired,
+    onReorder: PropTypes.func,
+    onRemoveClick: PropTypes.func,
+    disabled: PropTypes.bool,
+    columns: PropTypes.arrayOf(PropTypes.shape({
+        flex: PropTypes.number.isRequired,
+        getLabel: PropTypes.func.isRequired,
+    }))
 }

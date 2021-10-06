@@ -193,15 +193,14 @@
   (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
   (s/assert (s/coll-of (has-key? valueKey)) items)
   (s/assert (s/coll-of (has-keys? (map :labelKey columns)) :distinct true) items)
-  [:> SelectionList/SelectionList
+  [:> SelectionList/TableSelectionList
    {:items         items
     :onReorder     onReorder
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
-    :itemProps     {:columns (for [{:keys [flex labelKey]} columns]
-                               {:flex     flex
-                                :getLabel #(gobj/get % labelKey "No label")})}
-    :renderItem    ListItem/TableListItem}])
+    :columns       (for [{:keys [flex labelKey]} columns]
+                     {:flex     flex
+                      :getLabel #(gobj/get % labelKey "No label")})}])
 
 (defn TextareaField
   [{:keys [value placeholder maxLength rows disabled hasError onChange]}]

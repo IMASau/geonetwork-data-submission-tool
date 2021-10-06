@@ -7,7 +7,8 @@
             [metcalf3.content :refer [contact-groups]]
             [metcalf3.utils :as utils]
             [metcalf4.blocks :as blocks]
-            [metcalf4.rules :as rules]))
+            [metcalf4.rules :as rules]
+            [metcalf4.schema :as schema]))
 
 (def active-status-filter #{"Draft" "Submitted"})
 
@@ -557,8 +558,8 @@
   "Massage raw payload for use as app-state"
   [payload]
   (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))
-        data (get-in payload [:form :data])
-        schema (get-in payload [:form :schema])]
+        data (schema/massage-data-payload (get-in payload [:form :data]))
+        schema (schema/massage-schema-payload (get-in payload [:form :schema]))]
     (-> payload
         (assoc-in [:form :state] (blocks/as-blocks {:data data :schema schema}))
         (assoc :alert [])

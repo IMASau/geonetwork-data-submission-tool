@@ -198,23 +198,23 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
-           :data-paths [[:identificationInfo :title]
-                        [:identificationInfo :dateCreation]]}]
+           :data-paths [["identificationInfo" "title"]
+                        ["identificationInfo" "dateCreation"]]}]
          [:h2 "1. Data Identification"]
          ;; FIXME only the visual elements (tooltip, helper text) should be defined here.
          ;; Otherwise, probably put in the json template spec.
          [m4/input-field-with-label
           {:form-id    [:form]
-           :data-path  [:identificationInfo :title]
+           :data-path  ["identificationInfo" "title"]
            :helperText "Clear and concise description of the content of the resource"}]
          [m4/date-field-with-label
           {:form-id   [:form]
-           :data-path [:identificationInfo :dateCreation]
+           :data-path ["identificationInfo" "dateCreation"]
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
          [m4/select-value-with-label
           {:form-id   [:form]
-           :data-path [:identificationInfo :topicCategory]
+           :data-path ["identificationInfo" "topicCategory"]
            :options   [{:value "biota" :label "biota"}
                        {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
                        {:value "oceans" :label "oceans"}
@@ -222,13 +222,13 @@
                        {:value "inlandWater" :label "inlandWater"}]}]
          [m4/select-value-with-label
           {:form-id   [:form]
-           :data-path [:identificationInfo :status]
+           :data-path ["identificationInfo" "status"]
            :options   [{:value "onGoing" :label "ongoing"}
                        {:value "planned" :label "planned"}
                        {:value "completed" :label "completed"}]}]
          [m4/select-value-with-label
           {:form-id   [:form]
-           :data-path [:identificationInfo :maintenanceAndUpdateFrequency]
+           :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
            :options   [{:value "continually" :label "Continually"}
                        {:value "daily" :label "Daily"}
                        {:value "weekly" :label "Weekly"}
@@ -253,7 +253,7 @@
          [:span.abstract-textarea
           [m4/textarea-field-with-label
            {:form-id     [:form]
-            :data-path   [:identificationInfo :abstract]
+            :data-path   ["identificationInfo" "abstract"]
             :label       "Abstract"
             :placeholder nil
             :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"
@@ -279,26 +279,26 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
-           :data-paths [[:identificationInfo :beginPosition]
-                        [:identificationInfo :endPosition]
-                        [:identificationInfo :samplingFrequency]]}]
+           :data-paths [["identificationInfo" "beginPosition"]
+                        ["identificationInfo" "endPosition"]
+                        ["identificationInfo" "samplingFrequency"]]}]
          [:h2 "3. When was the data acquired?"]
          [m4/date-field-with-label
           {:form-id   [:form]
-           :data-path [:identificationInfo :beginPosition]
+           :data-path ["identificationInfo" "beginPosition"]
            :required  true
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
          [m4/date-field-with-label
           {:form-id   [:form]
-           :data-path [:identificationInfo :endPosition]
+           :data-path ["identificationInfo" "endPosition"]
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
          [:div.row
           [:div.col-md-4
            [m4/select-value-with-label
             {:form-id   [:form]
-             :data-path [:identificationInfo :samplingFrequency]
+             :data-path ["identificationInfo" "samplingFrequency"]
              :options   [{:value "daily" :label "Daily"}
                          {:value "weekly" :label "Weekly"}
                          {:value "monthly" :label "Monthly"}
@@ -314,36 +314,36 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
-           :data-paths [[:identificationInfo :geographicElement :boxes]
-                        [:identificationInfo :verticalElement :minimumValue]
-                        [:identificationInfo :verticalElement :maximumValue]]}]
+           :data-paths [["identificationInfo" "geographicElement" "boxes"]
+                        ["identificationInfo" "verticalElement" "minimumValue"]
+                        ["identificationInfo" "verticalElement" "maximumValue"]]}]
          [:h2 "4. Where"]
          [m4/checkbox-field-with-label
           {:form-id   [:form]
-           :data-path [:identificationInfo :geographicElement :hasGeographicCoverage]}]
+           :data-path ["identificationInfo" "geographicElement" "hasGeographicCoverage"]}]
          [:div.row
           [:div.col-sm-6
            ;; FIXME add toggle for satellite imagery.
            [m4/boxmap-field
             {:form-id   [:form]
-             :data-path [:identificationInfo :geographicElement :boxes]}]]
+             :data-path ["identificationInfo" "geographicElement" "boxes"]}]]
           [:div.col-sm-6
            [m4/coordinates-modal-field
             {:form-id   [:form]
-             :data-path [:identificationInfo :geographicElement :boxes]}]]]
+             :data-path ["identificationInfo" "geographicElement" "boxes"]}]]]
          [:h3 "Vertical Coverage"]
          [m4/checkbox-field-with-label
           {:form-id   [:form]
-           :data-path [:identificationInfo :verticalElement :hasVerticalExtent]}]
+           :data-path ["identificationInfo" "verticalElement" "hasVerticalExtent"]}]
          [m4/input-field-with-label
           {:form-id    [:form]
-           :data-path  [:identificationInfo :verticalElement :minimumValue]
+           :data-path  ["identificationInfo" "verticalElement" "minimumValue"]
            :class      "wauto"
            :label      "Minimum (m)"
            :helperText "Shallowest depth / lowest altitude"}]
          [m4/input-field-with-label
           {:form-id    [:form]
-           :data-path  [:identificationInfo :verticalElement :maximumValue]
+           :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
            :class      "wauto"
            :label      "Maximum (m)"
            :helperText "Deepest depth / highest altitude"}]
@@ -356,7 +356,7 @@
          [:div.lineage-textarea
           [m4/textarea-field-with-label
            {:form-id     [:form]
-            :data-path   [:resourceLineage :lineage]
+            :data-path   ["resourceLineage" "lineage"]
             :label       "Methodological information"
             :placeholder nil
             :helperText  "Provide a brief statement of the methods used for collection of the

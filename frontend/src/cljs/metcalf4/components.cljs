@@ -350,7 +350,7 @@
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "object" :properties (zipmap [valueKey labelKey] (repeat {}))}})
+       :schema2 (utils4/schema-object-with-keys [valueKey labelKey])})
 
     [ui/SelectValueField
      {:value    value
@@ -422,7 +422,7 @@
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items {:type "object" :properties (zipmap [valueKey labelKey] (repeat {}))}}})
+       :schema2 {:type "array" :items (utils4/schema-object-with-keys [valueKey labelKey])}})
 
     [ui/SimpleSelectionList
      {:key           key
@@ -445,7 +445,7 @@
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items {:type "object" :properties (zipmap [labelKey valueKey breadcrumbKey] (repeat {}))}}})
+       :schema2 {:type "array" :items (utils4/schema-object-with-keys [labelKey valueKey breadcrumbKey])}})
 
     [ui/BreadcrumbSelectionList
      {:key           key
@@ -470,8 +470,7 @@
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type  "array"
-                 :items {:type       "object"
-                         :properties (zipmap (into [valueKey] (map :labelKey columns)) (repeat {}))}}})
+                 :items (utils4/schema-object-with-keys (into [valueKey] (map :labelKey columns)))}})
 
     [ui/TableSelectionList
      {:key           key

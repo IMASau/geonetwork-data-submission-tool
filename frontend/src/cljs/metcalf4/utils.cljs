@@ -58,3 +58,8 @@
      :southBoundLatitude (s/assert number? (apply min lats))
      :eastBoundLongitude (s/assert number? (apply max lngs))
      :westBoundLongitude (s/assert number? (apply min lngs))}))
+
+
+(defn schema-object-with-keys
+  [ks]
+  {:type "object" :properties (zipmap (map keyword ks) (repeat {}))})

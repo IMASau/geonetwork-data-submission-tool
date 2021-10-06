@@ -10,6 +10,16 @@
 (s/def ::properties (s/map-of string? ::schema))
 
 
+(defn massage-schema-data
+  "Ensures property names are strings"
+  [{:keys [type items properties] :as schema}]
+  (case type
+    "array" (assoc schema :items (massage-schema-data items))
+    "object" (assoc schema :properties (zipmap (map name (keys properties))
+                                               (map massage-schema-data (vals properties))))
+    schema))
+
+
 (defn walk-schema-data
   "Given a schema and some data, walk the data"
   [inner outer form]

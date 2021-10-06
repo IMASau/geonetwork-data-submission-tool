@@ -9,6 +9,7 @@
             ["/ui/components/SelectOptionField/SelectOptionField" :as SelectOptionField]
             ["/ui/components/AsyncSelectOptionField/AsyncSelectOptionField" :as AsyncSelectOptionField]
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
+            ["/ui/components/ListItem/ListItem" :as ListItem]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
             ["/ui/components/CheckboxField/CheckboxField" :as CheckboxField]
@@ -26,6 +27,9 @@
 (assert SelectOptionField/SelectOptionField)
 (assert AsyncSelectOptionField/AsyncSelectOptionField)
 (assert SelectionList/SelectionList)
+(assert ListItem/SimpleListItem)
+(assert ListItem/TableListItem)
+(assert ListItem/BreadcrumbListItem)
 (assert TextareaField/TextareaField)
 (assert YesNoRadioGroup/YesNoRadioGroup)
 (assert CheckboxField/CheckboxField)
@@ -159,7 +163,7 @@
     :getValue      #(gobj/get % valueKey "No value")
     :itemProps     {:getLabel #(gobj/get % labelKey "No label")
                     :getValue #(gobj/get % valueKey "No value")}
-    :renderItem    SelectionList/SimpleListItem}])
+    :renderItem    ListItem/SimpleListItem}])
 
 (defn BreadcrumbSelectionList
   [{:keys [items onReorder onRemoveClick breadcrumbKey labelKey valueKey]}]
@@ -177,7 +181,7 @@
     :itemProps     {:getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
                     :getLabel      #(gobj/get % labelKey "No label")
                     :getValue      #(gobj/get % valueKey "No value")}
-    :renderItem    SelectionList/BreadcrumbListItem}])
+    :renderItem    ListItem/BreadcrumbListItem}])
 
 (defn TableSelectionList
   [{:keys [items onReorder onRemoveClick valueKey columns]}]
@@ -195,7 +199,7 @@
     :itemProps     {:columns (for [{:keys [flex labelKey]} columns]
                                {:flex     flex
                                 :getLabel #(gobj/get % labelKey "No label")})}
-    :renderItem    SelectionList/TableListItem}])
+    :renderItem    ListItem/TableListItem}])
 
 (defn TextareaField
   [{:keys [value placeholder maxLength rows disabled hasError onChange]}]

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {useCachedState} from "../utils";
-import * as BPCore from "@blueprintjs/core";
 import * as ReactDOM from "react-dom";
 
 const getItemStyle = (isDragging, draggableStyle) => ({
@@ -128,88 +127,4 @@ SelectionList.propTypes = {
     renderItem: PropTypes.func.isRequired,
     getValue: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
-}
-
-function RemoveButton({disabled, onClick}) {
-    return (
-        <BPCore.Button icon="cross"
-                       small={true}
-                       minimal={true}
-                       disabled={disabled}
-                       onClick={onClick}/>
-    )
-}
-
-export function SimpleListItem({item, index, disabled, getLabel, onRemoveClick}) {
-    return (
-        <div className="SimpleListItem">
-            <div className="SimpleListItemLabel">{getLabel(item)}</div>
-            <div className="SimpleListItemRemove">
-                <RemoveButton disabled={disabled} onClick={() => onRemoveClick(index)}/>
-            </div>
-        </div>
-    )
-}
-
-SimpleListItem.propTypes = {
-    item: PropTypes.shape({
-        item: PropTypes.object,
-        index: PropTypes.number,
-        disabled: PropTypes.bool,
-        getLabel: PropTypes.func,
-        onRemoveClick: PropTypes.func
-    }),
-}
-
-export function BreadcrumbListItem({item, index, disabled, getBreadcrumb, getLabel, onRemoveClick}) {
-    return (
-        <div className="BreadcrumbListItem">
-            <div className="BreadcrumbListItemLabel">
-                <div className="BreadcrumbListItemPath">{getBreadcrumb(item)}</div>
-                <div className="BreadcrumbListItemText">{getLabel(item)}</div>
-            </div>
-            <div className="BreadcrumbListItemRemove">
-                <RemoveButton disabled={disabled} onClick={() => onRemoveClick(index)}/>
-            </div>
-        </div>
-    )
-}
-
-BreadcrumbListItem.propTypes = {
-    item: PropTypes.shape({
-        item: PropTypes.object,
-        index: PropTypes.number,
-        disabled: PropTypes.bool,
-        getLabel: PropTypes.func,
-        getBreadcrumb: PropTypes.func,
-        onRemoveClick: PropTypes.func
-    }),
-}
-
-export function TableListItem({item, index, disabled, columns, onRemoveClick}) {
-    return (
-        <div className="TableListItemRow">
-            {columns.map(({getLabel, flex}, columnIndex) =>
-                <span className="TableListItemCol" style={{"flex": flex}}>
-                    {getLabel(item)}
-                </span>
-            )}
-            <span className="TableListItemRemove">
-                <RemoveButton disabled={disabled} onClick={() => onRemoveClick(index)}/>
-            </span>
-        </div>
-    )
-}
-
-TableListItem.propTypes = {
-    item: PropTypes.shape({
-        item: PropTypes.object,
-        index: PropTypes.number,
-        disabled: PropTypes.bool,
-        columns: PropTypes.arrayOf(PropTypes.shape({
-            getLabel: PropTypes.func,
-            flex: PropTypes.number
-        })),
-        onRemoveClick: PropTypes.func
-    }),
 }

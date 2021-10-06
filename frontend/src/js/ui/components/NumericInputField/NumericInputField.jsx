@@ -7,6 +7,13 @@ export function NumericInputField({value, hasError, hasButtons, disabled, placeh
     const [stateValue, setStateValue] = useCachedState(value);
     const intent = hasErrorIntent({hasError, disabled});
     const buttonPosition = hasButtons ? BPCore.Position.RIGHT : "none";
+    const stringToNumber = function(s) {
+        let n = Number(s);
+        if((s === "") || isNaN(n)) {
+            return null;
+        }
+        return n;
+    };
 
     return (
         <BPCore.NumericInput
@@ -17,7 +24,7 @@ export function NumericInputField({value, hasError, hasButtons, disabled, placeh
             buttonPosition={buttonPosition}
             onValueChange={(value, strValue) => setStateValue(strValue)}
             onButtonClick={(value, strValue) => onChange(value)}
-            onBlur={(e) => onChange((e.target.value === "") ? null : Number(e.target.value))}
+            onBlur={(e) => onChange(stringToNumber(e.target.value))}
         >
         </BPCore.NumericInput>
     );

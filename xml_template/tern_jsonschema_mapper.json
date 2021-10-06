@@ -176,6 +176,36 @@
           },
           "required": true
         },
+        "keywordsPlatform": {
+          "!docstring": "What5",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"platform\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://w3id.org/tern/assets/platforms/\"]",
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "xpath": "mri:keyword",
+              "keep": false,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "xpath": "mri:keyword",
+                "properties": {
+                  "label": {
+                    "xpath": "gcx:Anchor"
+                  },
+                  "uri": {
+                    "xpath": "gcx:Anchor",
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "identity"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
         "title": {
           "!docstring": "ID1",
           "xpath": "mri:citation/cit:CI_Citation/cit:title",

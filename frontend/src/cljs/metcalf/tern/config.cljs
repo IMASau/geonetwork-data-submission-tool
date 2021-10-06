@@ -254,7 +254,6 @@
            :helperText  "Brief statement about the purpose of the study"
            :toolTip     "The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"}]
 
-
          [m4/expanding-control
           {:label    "GCMD Science keywords"
            :required true}
@@ -271,8 +270,7 @@
              :data-path     [:identificationInfo :keywordsTheme :keywords]
              :labelKey      "label"
              :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"
-             }]]]
+             :breadcrumbKey "breadcrumb"}]]]
 
          [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
 
@@ -288,11 +286,20 @@
              :data-path     [:identificationInfo :keywordsThemeAnzsrc :keywords]
              :labelKey      "label"
              :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"
-             }]]]
+             :breadcrumbKey "breadcrumb"}]]]
 
          [m4/expanding-control {:label "Platforms" :required true}
-          "..."]
+          [m4/form-group
+           {:label "Select a platform for the data measurement"}
+           [m4/async-list-option-picker
+            {:form-id   [:form]
+             :data-path [:identificationInfo :keywordsPlatform :keywords]
+             :uri       "/api/ternplatforms"}]
+           [m4/simple-selection-list
+            {:form-id       [:form]
+             :data-path     [:identificationInfo :keywordsPlatform :keywords]
+             :labelKey      "label"
+             :valueKey      "uri"}]]]
 
          [m4/expanding-control {:label "Instruments" :required true}
           "..."]
@@ -321,11 +328,6 @@
            {}]
           [m3/TaxonKeywordsExtra
            {}]]
-
-
-
-
-
 
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 

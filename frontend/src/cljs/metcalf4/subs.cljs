@@ -37,7 +37,7 @@
 (defn get-data-schema-sub
   [db [_ {:keys [form-id data-path]}]]
   (s/assert vector? data-path)
-  (let [path (utils4/as-path [form-id (schema/schema-path data-path)])]
+  (let [path (utils4/as-path [form-id :schema (schema/schema-path data-path)])]
     (get-in db path)))
 
 

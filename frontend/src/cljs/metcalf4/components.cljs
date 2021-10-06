@@ -69,11 +69,9 @@
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type "string"}})
-
     [ui/InputField
      {:value       (or value "")                            ; TODO: should be guaranteed by sub
       :placeholder placeholder
@@ -472,7 +470,7 @@
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type  "array"
-                 :items {:type "object"
+                 :items {:type       "object"
                          :properties (zipmap (constantly {}) (into [valueKey] (map :labelKey columns)))}}})
 
     [ui/TableSelectionList

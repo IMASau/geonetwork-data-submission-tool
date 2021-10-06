@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {useCachedState} from "../utils";
 import * as ReactDOM from "react-dom";
-import {TableListItem} from "../ListItem/ListItem";
+import {BreadcrumbListItem, TableListItem} from "../ListItem/ListItem";
 
 const getItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
@@ -153,4 +153,35 @@ TableSelectionList.propTypes = {
         flex: PropTypes.number.isRequired,
         getLabel: PropTypes.func.isRequired,
     }))
+}
+
+export function BreadcrumbSelectionList({items, getValue, getLabel, getBreadcrumb, onReorder, onRemoveClick, disabled}) {
+    return (
+        <SelectionList
+            items={items}
+            onReorder={onReorder}
+            onRemoveClick={onRemoveClick}
+            getValue={getValue}
+            disabled={disabled}
+            renderItem={({item, index}) => (
+                <BreadcrumbListItem
+                    item={item}
+                    index={index}
+                    onRemoveClick={onRemoveClick}
+                    disabled={disabled}
+                    getBreadcrumb={getBreadcrumb}
+                    getLabel={getLabel} />
+            )}>
+        </SelectionList>
+    )
+}
+
+BreadcrumbSelectionList.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    getBreadcrumb: PropTypes.func.isRequired,
+    onReorder: PropTypes.func,
+    onRemoveClick: PropTypes.func,
+    disabled: PropTypes.bool,
 }

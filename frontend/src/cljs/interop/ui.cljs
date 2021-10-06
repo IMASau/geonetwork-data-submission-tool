@@ -174,16 +174,14 @@
   (s/assert string? breadcrumbKey)
   (s/assert string? labelKey)
   (s/assert string? valueKey)
-  (s/assert (s/coll-of (has-keys? #{labelKey valueKey}) :distinct true) items)
-  [:> SelectionList/SelectionList
+  (s/assert (s/coll-of (has-keys? #{labelKey valueKey breadcrumbKey}) :distinct true) items)
+  [:> SelectionList/BreadcrumbSelectionList
    {:items         items
     :onReorder     onReorder
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
-    :itemProps     {:getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
-                    :getLabel      #(gobj/get % labelKey "No label")
-                    :getValue      #(gobj/get % valueKey "No value")}
-    :renderItem    ListItem/BreadcrumbListItem}])
+    :getLabel      #(gobj/get % labelKey "No label")
+    :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")}])
 
 (defn TableSelectionList
   [{:keys [items onReorder onRemoveClick valueKey columns]}]

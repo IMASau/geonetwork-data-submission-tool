@@ -1,9 +1,16 @@
 
 .SimpleListItem, .BreadcrumbListItem, .TableListItemRow {
     display: flex;
-    min-height: 30px;
     align-items: center;
     background-color: white;
+}
+
+.SimpleListItem, .TableListItemRow {
+    min-height: 30px;
+}
+
+.BreadcrumbListItem {
+    min-height: 40px;
 }
 
 .SimpleListItemLabel, .BreadcrumbListItemLabel {

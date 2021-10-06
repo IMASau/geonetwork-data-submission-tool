@@ -289,17 +289,19 @@
              :breadcrumbKey "breadcrumb"}]]]
 
          [m4/expanding-control {:label "Platforms" :required true}
+          ;; TODO: also need a user-added option
           [m4/form-group
            {:label "Select a platform for the data measurement"}
            [m4/async-list-option-picker
             {:form-id   [:form]
              :data-path [:identificationInfo :keywordsPlatform :keywords]
              :uri       "/api/ternplatforms"}]
-           [m4/simple-selection-list
+           [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     [:identificationInfo :keywordsPlatform :keywords]
              :labelKey      "label"
-             :valueKey      "uri"}]]]
+             :valueKey      "uri"
+             :breadcrumbKey "breadcrumb"}]]]
 
          [m4/expanding-control {:label "Instruments" :required true}
           "..."]

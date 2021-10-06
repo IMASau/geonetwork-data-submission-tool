@@ -1,0 +1,22 @@
+
+.SimpleListItem, .BreadcrumbListItem, .TableListItemRow {
+    display: flex;
+    min-height: 30px;
+    align-items: center;
+    background-color: white;
+}
+
+.SimpleListItemLabel, .BreadcrumbListItemLabel {
+    flex: 1;
+}
+
+.BreadcrumbListItemPath {
+    font-size: 0.8em;
+    color: darkgrey;
+}
+
+.TableListItemCol {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

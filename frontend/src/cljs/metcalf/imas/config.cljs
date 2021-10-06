@@ -81,6 +81,7 @@
 (rf/reg-event-fx ::components4/input-field-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/textarea-field-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/date-field-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/checkbox-field-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/numeric-input-field-value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/async-select-option-value-changed handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/select-option-value-changed handlers4/option-change-handler)

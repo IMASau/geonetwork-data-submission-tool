@@ -39,6 +39,7 @@
 (defn walk-schema-data
   "Given a schema and some data, walk the data"
   [inner outer form]
+  (s/assert ::form form)
   (let [{:keys [schema data path]} form
         path (or path [])
         data' (case (:type schema)

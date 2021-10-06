@@ -117,34 +117,94 @@
           }
         },
         "keywordsTheme": {
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[not(@uuid=\"Data_Group\")][mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",
+          "!docstring": "What3",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",
           "type": "object",
           "properties": {
             "keywords": {
-              "xpath": "mri:keyword/gcx:Anchor",
-              "container": "mri:keyword",
+              "xpath": "mri:keyword",
               "keep": false,
-              "export": false,
-              "exportTo": {
-                "xpath": "mri:keyword/gcx:Anchor",
-                "attributes": {
-                  "text": {
-                    "function": "science_keyword_name"
+              "type": "array",
+              "items": {
+                "type": "object",
+                "xpath": "mri:keyword",
+                "properties": {
+                  "label": {
+                    "xpath": "gcx:Anchor"
                   },
-                  "xlink:href": {
-                    "function": "science_keyword_uri"
+                  "uri": {
+                    "xpath": "gcx:Anchor",
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "identity"
+                      }
+                    }
                   }
                 }
-              },
-              "parser": {
-                "function": "parse_keywords"
-              },
-              "type": "array",
-              "items": {}
+              }
             }
           },
-          "required": true,
-          "notes": "Theme keywords (selecting from controlled list in thesaurus)"
+          "required": true
+        },
+        "keywordsThemeAnzsrc": {
+          "!docstring": "What4",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://vocabs.ands.org.au/viewById/20\"]",
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "xpath": "mri:keyword",
+              "keep": false,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "xpath": "mri:keyword",
+                "properties": {
+                  "label": {
+                    "xpath": "gcx:Anchor"
+                  },
+                  "uri": {
+                    "xpath": "gcx:Anchor",
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "identity"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "keywordsPlatform": {
+          "!docstring": "What5",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"platform\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://w3id.org/tern/assets/platforms/\"]",
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "xpath": "mri:keyword",
+              "keep": false,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "xpath": "mri:keyword",
+                "properties": {
+                  "label": {
+                    "xpath": "gcx:Anchor"
+                  },
+                  "uri": {
+                    "xpath": "gcx:Anchor",
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "identity"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
         },
         "title": {
           "!docstring": "ID1",
@@ -225,7 +285,7 @@
       "properties": {
         "methodSummary": {
           "!docstring": "How8",
-          "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:DQ_EvaluationMethod>/mdq:evaluationMethodDescription",
+          "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:DQ_EvaluationMethod/mdq:evaluationMethodDescription",
           "valueChild": "gco:CharacterString",
           "label": "Provide a summary of the scope of the Data Quality Assessment",
           "keep": false,

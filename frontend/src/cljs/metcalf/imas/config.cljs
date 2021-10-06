@@ -133,7 +133,7 @@
        "maintentanceRequiredWhenStatusOngoing" rules/maintenance-required-when-status-ongoing
        "maxLength"                             rules/max-length
        "geographyRequired"                     rules/geography-required
-       "imasVerticalRequired"                     rules/imas-vertical-required
+       "imasVerticalRequired"                  rules/imas-vertical-required
        "licenseOther"                          rules/license-other
        "dateOrder"                             rules/date-order
        "endPosition"                           rules/end-position

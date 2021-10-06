@@ -12,14 +12,15 @@
 (s/def ::form (s/keys :opt-un [::schema ::data ::path]))
 
 
-(defn massage-schema-data
+(defn massage-schema-payload
   "Ensures property names are strings"
   [{:keys [type items properties] :as schema}]
   (case type
-    "array" (assoc schema :items (massage-schema-data items))
+    "array" (assoc schema :items (massage-schema-payload items))
     "object" (assoc schema :properties (zipmap (map name (keys properties))
-                                               (map massage-schema-data (vals properties))))
+                                               (map massage-schema-payload (vals properties))))
     schema))
+
 
 (defn massage-data-payload
   "Ensures property names are strings"

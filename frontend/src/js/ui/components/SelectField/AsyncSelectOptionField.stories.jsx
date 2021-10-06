@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {AsyncSelectOptionField} from './AsyncSelectOptionField';
-import './AsyncSelectOptionField.css';
+import {AsyncSelectOptionField} from './SelectField';
+import './SelectField.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
 import NOTES from './NOTES.mdx';

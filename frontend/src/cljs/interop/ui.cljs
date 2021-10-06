@@ -5,9 +5,7 @@
             ["/ui/components/ExpandingControl/ExpandingControl" :as ExpandingControl]
             ["/ui/components/FormGroup/FormGroup" :as FormGroup]
             ["/ui/components/InputField/InputField" :as InputField]
-            ["/ui/components/SelectValueField/SelectValueField" :as SelectValueField]
-            ["/ui/components/SelectOptionField/SelectOptionField" :as SelectOptionField]
-            ["/ui/components/AsyncSelectOptionField/AsyncSelectOptionField" :as AsyncSelectOptionField]
+            ["/ui/components/SelectField/SelectField" :as SelectField]
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
             ["/ui/components/ListItem/ListItem" :as ListItem]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
@@ -24,9 +22,9 @@
 (assert ExpandingControl/ExpandingControl)
 (assert FormGroup/FormGroup)
 (assert InputField/InputField)
-(assert SelectValueField/SelectValueField)
-(assert SelectOptionField/SelectOptionField)
-(assert AsyncSelectOptionField/AsyncSelectOptionField)
+(assert SelectField/SelectValueField)
+(assert SelectField/SelectOptionField)
+(assert SelectField/AsyncSelectOptionField)
 (assert SelectionList/SelectionList)
 (assert ListItem/SimpleListItem)
 (assert ListItem/TableListItem)
@@ -109,7 +107,7 @@
   (s/assert string? labelKey)
   (s/assert string? valueKey)
   (s/assert (s/coll-of (has-keys? [labelKey valueKey])) options)
-  [:> SelectValueField/SelectValueField
+  [:> SelectField/SelectValueField
    {:value          value
     :options        options
     :getOptionLabel #(gobj/get % labelKey)
@@ -127,7 +125,7 @@
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
-  [:> SelectOptionField/SelectOptionField
+  [:> SelectField/SelectOptionField
    {:value       value
     :options     options
     :placeholder placeholder
@@ -143,7 +141,7 @@
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
-  [:> AsyncSelectOptionField/AsyncSelectOptionField
+  [:> SelectField/AsyncSelectOptionField
    {:value       value
     :loadOptions loadOptions
     :placeholder placeholder

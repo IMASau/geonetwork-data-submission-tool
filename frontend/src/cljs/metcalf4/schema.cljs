@@ -8,6 +8,8 @@
 (s/def ::type string?)
 (s/def ::items ::schema)
 (s/def ::properties (s/map-of string? ::schema))
+(s/def ::path (s/coll-of (s/or :s string? :i int?) :kind vector?))
+(s/def ::form (s/keys :opt-un [::schema ::data ::path]))
 
 
 (defn massage-schema-data

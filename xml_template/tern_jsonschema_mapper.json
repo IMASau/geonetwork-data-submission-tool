@@ -118,7 +118,7 @@
         },
         "keywordsTheme": {
           "!docstring": "What3",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[not(@uuid=\"Data_Group\")][mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",
           "type": "object",
           "properties": {
             "keywords": {
@@ -148,7 +148,7 @@
         },
         "keywordsThemeAnzsrc": {
           "!docstring": "What4",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[not(@uuid=\"Data_Group\")][mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://vocabs.ands.org.au/viewById/20\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://vocabs.ands.org.au/viewById/20\"]",
           "type": "object",
           "properties": {
             "keywords": {

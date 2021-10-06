@@ -261,18 +261,18 @@
             :maxLength   2500
             :required    true}]]
          [m3/ThemeKeywords
-            {:keyword-type        :keywordsTheme
-             :keywords-theme-path [:form :fields :identificationInfo :keywordsTheme]}]
+          {:keyword-type        :keywordsTheme
+           :keywords-theme-path [:form :fields :identificationInfo :keywordsTheme]}]
          ;; FIXME Anzsrc should be optional, but this required doesn't hook up to anything.
          [m3/ThemeKeywords
-                {:keyword-type        :keywordsThemeAnzsrc
-                 :keywords-theme-path [:form :fields :identificationInfo :keywordsThemeAnzsrc]
-                 :required            false}]
-             ;; TODO Add Geographic Extent vocab here.
-             [m3/ThemeKeywordsExtra
-              {:keywords-path [:form :fields :identificationInfo :keywordsThemeExtra :keywords]}]
-             [m3/TaxonKeywordsExtra
-              {:keywords-path [:form :fields :identificationInfo :keywordsTaxonExtra :keywords]}]
+          {:keyword-type        :keywordsThemeAnzsrc
+           :keywords-theme-path [:form :fields :identificationInfo :keywordsThemeAnzsrc]
+           :required            false}]
+         ;; TODO Add Geographic Extent vocab here.
+         [m3/ThemeKeywordsExtra
+          {:keywords-path [:form :fields :identificationInfo :keywordsThemeExtra :keywords]}]
+         [m3/TaxonKeywordsExtra
+          {:keywords-path [:form :fields :identificationInfo :keywordsTaxonExtra :keywords]}]
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
         :when

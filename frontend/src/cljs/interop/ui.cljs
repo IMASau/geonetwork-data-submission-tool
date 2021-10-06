@@ -12,6 +12,7 @@
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
             ["/ui/components/CheckboxField/CheckboxField" :as CheckboxField]
+            ["/ui/components/NumericInputField/NumericInputField" :as NumericInputField]
             [cljs.spec.alpha :as s]
             [goog.object :as gobj]
             [reagent.core :as r]))
@@ -29,6 +30,7 @@
 (assert TextareaField/TextareaField)
 (assert YesNoRadioGroup/YesNoRadioGroup)
 (assert CheckboxField/CheckboxField)
+(assert NumericInputField/NumericInputField)
 
 (s/def ::northBoundLatitude number?)
 (s/def ::westBoundLongitude number?)
@@ -240,3 +242,19 @@
     :disabled disabled
     :hasError hasError
     :onChange onChange}])
+
+(defn NumericInputField
+  [{:keys [value placeholder disabled hasError hasButtons onChange]}]
+  (s/assert (s/nilable number?) value)
+  (s/assert (s/nilable string?) placeholder)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert (s/nilable boolean?) hasButtons)
+  (s/assert fn? onChange)
+  [:> NumericInputField/NumericInputField
+   {:value       value
+    :placeholder placeholder
+    :disabled    disabled
+    :hasError    hasError
+    :hasButtons  hasButtons
+    :onChange    onChange}])

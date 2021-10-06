@@ -86,6 +86,32 @@
   [form-group config
    [input-field config]])
 
+(defn numeric-input-field
+  [config]
+  (let [config-keys [:placeholder :hasButtons]
+        ctx (utils4/get-ctx config)
+        logic @(rf/subscribe [::get-block-props ctx])
+        onChange #(rf/dispatch [::numeric-input-field-value-changed ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [placeholder hasButtons value disabled show-errors errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "number"}})
+
+    [ui/NumericInputField
+     {:value       value
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    hasError
+      :hasButtons  hasButtons
+      :onChange    onChange}]))
+
+(defn numeric-input-field-with-label
+  [config]
+  [form-group config
+   [numeric-input-field config]])
+
 (defn textarea-field
   [config]
   (let [config-keys [:placeholder :rows :maxLength]

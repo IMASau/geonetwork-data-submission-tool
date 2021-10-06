@@ -1,0 +1,7 @@
+
+# Design decisions
+* Don't show error higlighting when disabled
+* Hold value in state and change on blur
+* Also emit onChange when buttons are used to update value
+* Convert value to Number in onBlur for consistent onChange calling
+* Clearing a value should set onChange(null), not onChange(0)

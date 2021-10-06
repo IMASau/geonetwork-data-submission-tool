@@ -269,9 +269,9 @@
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     [:identificationInfo :keywordsTheme :keywords]
-             :labelKey      "label"                         ;TODO: Update to match endpoint
-             :valueKey      "uri"                           ;TODO: Update to match endpoint
-             :breadcrumbKey "breadcrumb"                    ;TODO: Update to match endpoint
+             :labelKey      "label"
+             :valueKey      "uri"
+             :breadcrumbKey "breadcrumb"
              }]]]
 
          [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
@@ -286,9 +286,9 @@
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     [:identificationInfo :keywordsThemeAnzsrc :keywords]
-             :labelKey      "label"                         ;TODO: Update to match endpoint
-             :valueKey      "uri"                           ;TODO: Update to match endpoint
-             :breadcrumbKey "breadcrumb"                    ;TODO: Update to match endpoint
+             :labelKey      "label"
+             :valueKey      "uri"
+             :breadcrumbKey "breadcrumb"
              }]]]
 
          [m4/expanding-control {:label "Platforms" :required true}

@@ -129,6 +129,7 @@
                 "type": "object",
                 "xpath": "mri:keyword",
                 "properties": {
+                  "breadcrumb": {},
                   "label": {
                     "xpath": "gcx:Anchor"
                   },
@@ -159,6 +160,7 @@
                 "type": "object",
                 "xpath": "mri:keyword",
                 "properties": {
+                  "breadcrumb": {},
                   "label": {
                     "xpath": "gcx:Anchor"
                   },
@@ -189,6 +191,7 @@
                 "type": "object",
                 "xpath": "mri:keyword",
                 "properties": {
+                  "breadcrumb": {},
                   "label": {
                     "xpath": "gcx:Anchor"
                   },
@@ -219,6 +222,7 @@
                 "type": "object",
                 "xpath": "mri:keyword",
                 "properties": {
+                  "breadcrumb": {},
                   "label": {
                     "xpath": "gcx:Anchor"
                   },

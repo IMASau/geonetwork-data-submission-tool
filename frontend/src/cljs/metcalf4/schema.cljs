@@ -21,6 +21,19 @@
                                                (map massage-schema-data (vals properties))))
     schema))
 
+(defn massage-data-payload
+  "Ensures property names are strings"
+  [data]
+  (cond (vector? data)
+        (mapv massage-data-payload data)
+
+        (map? data)
+        (zipmap (map name (keys data))
+                (map massage-data-payload (vals data)))
+
+        :else
+        data))
+
 
 (defn walk-schema-data
   "Given a schema and some data, walk the data"

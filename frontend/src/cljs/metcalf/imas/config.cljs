@@ -383,13 +383,13 @@
          [:h2 "7: About Dataset"]
          [:h4 "Data parameters"]
          [m3/DataParametersTable {:form-id   [:form]
-                                  :data-path [:identificationInfo :dataParameters]}]
+                                  :data-path ["identificationInfo" "dataParameters"]}]
          [:br]
          [:h4 "Resource constraints"]
          ;; FIXME license selection isn't being included in XML export.
          [m4/select-option-with-label
           {:form-id   [:form]
-           :data-path [:identificationInfo :creativeCommons]
+           :data-path ["identificationInfo" "creativeCommons"]
            :help      [:span "Learn more about which license is right for you at "
                        [:a {:href   "https://creativecommons.org/choose/"
                             :target "_blank"}
@@ -401,24 +401,24 @@
                        {:value "http://creativecommons.org/licenses/other" :label "Other constraints"}]}]
          [m4/input-field-with-label
           {:form-id     [:form]
-           :data-path   [:identificationInfo :otherConstraints]
+           :data-path   ["identificationInfo" "otherConstraints"]
            :label       "Additional license requirements"   ;; FIXME
            :placeholder "Enter additional license requirements"
            :required    true}]
 
          [m3/UseLimitations {:form-id   [:form]
-                             :data-path [:identificationInfo :useLimitations]}]
+                             :data-path ["identificationInfo" "useLimitations"]}]
          [:br]
          [:h4 "Supplemental information"]
          [:form-id [:form]
           mdata-etcalf3.view/IMASSupplementalInformation [:identificationInfo :supplementalInformation]]
          [m3/IMASSupportingResource {:form-id   [:form]
-                                     :data-path [:supportingResources]}]
+                                     :data-path ["supportingResources"]}]
          [:br]
          [:h4 "Distribution"]
          [m4/input-field-with-label
           {:form-id     [:form]
-           :data-path   [:distributionInfo :distributionFormat :name]
+           :data-path   ["distributionInfo" "distributionFormat" "name"]
            :label       "Data file format"
            :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
            :helperText  nil
@@ -427,7 +427,7 @@
            :required    nil}]
          [m4/input-field-with-label
           {:form-id     [:form]
-           :data-path   [:distributionInfo :distributionFormat :version]
+           :data-path   ["distributionInfo" "distributionFormat" "version"]
            :label       "Data file format date/version"
            :placeholder "Date format date or version if applicable"
            :helperText  nil
@@ -448,7 +448,7 @@
          ;;  ["OGC:WFS-1.0.0-http-get-capabilities" "OGC Web Feature Service (WFS)"]
          ;;  ["WWW:LINK-1.0-http--downloaddata" "Other/unknown"]]
          [m3/DataSources {:form-id   [:form]
-                          :data-path [:dataSources]}]
+                          :data-path ["dataSources"]}]
          [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
         :lodge

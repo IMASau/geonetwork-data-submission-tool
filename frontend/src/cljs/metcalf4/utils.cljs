@@ -3,13 +3,22 @@
 
 
 (s/def ::form-id vector?)
-(s/def ::data-path vector?)
+(s/def ::data-path (s/coll-of (s/or :i int? :s string?) :kind vector?))
 (s/def ::ctx (s/keys :req-un [::form-id ::data-path]))
+
+
+(defn massage-data-path-value [x]
+  (cond
+    (simple-keyword? x) (name x)
+    (simple-symbol? x) (name x)
+    x))
 
 
 (defn get-ctx
   [{:keys [form-id data-path]}]
-  {:form-id form-id :data-path data-path})
+  (let [data-path (mapv massage-data-path-value data-path)]
+    (s/assert ::data-path data-path)
+    {:form-id form-id :data-path data-path}))
 
 
 (defn get-csrf

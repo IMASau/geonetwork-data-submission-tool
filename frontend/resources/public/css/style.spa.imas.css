@@ -42,3 +42,14 @@ textarea {
 .user-export {
     margin-top: 1em;
 }
+
+.checkbox-field-with-label {
+    position: relative;
+}
+
+.checkbox-field-with-label .bp3-label {
+    position: absolute;
+    left: 25px;
+    top: 7px;
+    font-weight: normal;
+}

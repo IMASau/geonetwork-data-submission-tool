@@ -85,3 +85,9 @@
   [s form-id data-path]
   (let [tick-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :props :key])]
     (assoc-in s tick-path (genkey))))
+
+(defn open-modal
+  [s modal-props]
+  (update-in s [:db :alert] (fn [alerts]
+                              (when-not (= (peek alerts) modal-props)
+                                (conj alerts modal-props)))))

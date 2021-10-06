@@ -66,27 +66,41 @@
                            (not (string/blank? d1))         ; FIXME: payload includes "" instead of null
                            (not= r (sort r)))]
     (cond-> block
-      out-of-order?
-      (update-in [:content k1 :props :errors] conj
-                 (str "Must be after " (date/to-string (date/from-value d0)))))))
+            out-of-order?
+            (update-in [:content k1 :props :errors] conj
+                       (str "Must be after " (date/to-string (date/from-value d0)))))))
 
 (defn geography-required
   "Geography fields are required / included based on geographic coverage checkbox"
   [geographicElement]
   (let [shown? (get-in geographicElement [:content :hasGeographicCoverage :props :value])
         props (if shown?
-                     {:required true}
-                     {:required false :disabled true})]
+                {:required true :is-hidden false}
+                {:required false :disabled true :is-hidden true})]
     (s/assert boolean? shown?)
     (update-in geographicElement [:content :boxes :props] merge props)))
+
+(defn imas-vertical-required
+  "Vertical fields are required / included based on vertical extent checkbox"
+  [verticalElement]
+  (let [shown? (get-in verticalElement [:content :hasVerticalExtent :props :value])]
+    (if shown?
+      (-> verticalElement
+          (assoc-in [:content :maximumValue :props :required] true)
+          (assoc-in [:content :minimumValue :props :required] true))
+      (-> verticalElement
+          (assoc-in [:content :maximumValue :props :required] false)
+          (assoc-in [:content :minimumValue :props :required] false)
+          (assoc-in [:content :maximumValue :props :disabled] true)
+          (assoc-in [:content :minimumValue :props :disabled] true)))))
 
 (defn license-other
   [identificationInfo]
   (let [license-value (get-in identificationInfo [:content :creativeCommons :props :value])
         other? (= license-value "http://creativecommons.org/licenses/other")
         props (if other?
-                     {:is-hidden false :disabled false :required true}
-                     {:is-hidden true :disabled true :required false})]
+                {:is-hidden false :disabled false :required true}
+                {:is-hidden true :disabled true :required false})]
     (update-in identificationInfo [:content :otherConstraints :props] merge props)))
 
 (defn end-position
@@ -94,18 +108,18 @@
   [identificationInfo]
   (let [value (get-in identificationInfo [:content :status :props :value])
         props (if (contains? #{"onGoing" "planned"} value)
-                     {:required false :disabled true :value nil}
-                     {:required true :disabled false})]
+                {:required false :disabled true :value nil}
+                {:required true :disabled false})]
     (update-in identificationInfo [:content :endPosition :props] merge props)))
 
 (defn maint-freq
   [identificationInfo]
   (let [status-value (get-in identificationInfo [:content :status :props :value])
         props (case status-value
-                     "onGoing" {:is-hidden false :disabled false :required true}
-                     "planned" {:is-hidden false :disabled false :required true}
-                     "completed" {:is-hidden false :disabled true :value "notPlanned" :required false}
-                     {:is-hidden true :disabled true :value "" :required false})]
+                "onGoing" {:is-hidden false :disabled false :required true}
+                "planned" {:is-hidden false :disabled false :required true}
+                "completed" {:is-hidden false :disabled true :value "notPlanned" :required false}
+                {:is-hidden true :disabled true :value "" :required false})]
     (update-in identificationInfo [:content :maintenanceAndUpdateFrequency :props] merge props)))
 
 (defn vertical-required

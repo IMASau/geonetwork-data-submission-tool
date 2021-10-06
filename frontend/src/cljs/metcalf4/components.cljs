@@ -3,6 +3,7 @@
             [clojure.string :as string]
             [interop.date :as date]
             [interop.ui :as ui]
+            [metcalf3.widget.boxmap :as boxmap]
             [metcalf4.blocks :as blocks]
             [metcalf4.subs :as common-subs]
             [metcalf4.utils :as utils4]
@@ -68,11 +69,9 @@
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type "string"}})
-
     [ui/InputField
      {:value       (or value "")                            ; TODO: should be guaranteed by sub
       :placeholder placeholder
@@ -85,6 +84,32 @@
   [config]
   [form-group config
    [input-field config]])
+
+(defn numeric-input-field
+  [config]
+  (let [config-keys [:placeholder :hasButtons]
+        ctx (utils4/get-ctx config)
+        logic @(rf/subscribe [::get-block-props ctx])
+        onChange #(rf/dispatch [::numeric-input-field-value-changed ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [placeholder hasButtons value disabled show-errors errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "number"}})
+
+    [ui/NumericInputField
+     {:value       value
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    hasError
+      :hasButtons  hasButtons
+      :onChange    onChange}]))
+
+(defn numeric-input-field-with-label
+  [config]
+  [form-group config
+   [numeric-input-field config]])
 
 (defn textarea-field
   [config]
@@ -131,8 +156,9 @@
 
 (defn checkbox-field-with-label
   [config]
-  [form-group config
-   [checkbox-field config]])
+  [:div.checkbox-field-with-label
+   [form-group config
+    [checkbox-field config]]])
 
 (defn textarea-field-with-label
   [config]
@@ -513,3 +539,129 @@
            {:label    label
             :required required}]
           children)))
+
+
+(defn coord-field
+  [path]
+  [:div.CoordField
+   [:div.row
+    [:div.col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-2
+     [:div.n-block
+      [numeric-input-field-with-label
+       {:form-id   [:form]
+        :data-path (conj path :northBoundLatitude)
+        :required  true}]]]]
+   [:div.row
+    [:div.col-sm-6.col-lg-4
+     [:div.w-block
+      [numeric-input-field-with-label
+       {:form-id   [:form]
+        :data-path (conj path :westBoundLongitude)
+        :required  true}]]]
+    [:div.col-sm-6.col-lg-4
+     [:div.e-block
+      [numeric-input-field-with-label
+       {:form-id   [:form]
+        :data-path (conj path :eastBoundLongitude)}]]]]
+   [:div.row
+    [:div.col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-2
+     [:div.s-block
+      [numeric-input-field-with-label
+       {:form-id   [:form]
+        :data-path (conj path :southBoundLatitude)}]]]]])
+
+(defn boxmap-field
+  [config]
+  (letfn [(boxes->elements
+            [boxes]
+            (for [box boxes]
+              {:northBoundLatitude (get-in box [:northBoundLatitude])
+               :southBoundLatitude (get-in box [:southBoundLatitude])
+               :eastBoundLongitude (get-in box [:eastBoundLongitude])
+               :westBoundLongitude (get-in box [:westBoundLongitude])}))]
+    (let [ctx (utils4/get-ctx config)
+          config-keys [:options :placeholder]
+          logic @(rf/subscribe [::get-block-props ctx])
+          data @(rf/subscribe [::get-block-data ctx])
+          props (merge logic (select-keys config config-keys))
+          elements (boxes->elements data)
+          {:keys [disabled is-hidden]} props]
+      (when-not is-hidden
+        [boxmap/box-map2-fill
+         {:elements  elements
+          :disabled  (not disabled)
+          :tick-id   @(rf/subscribe [:subs/get-form-tick])
+          :on-change #(rf/dispatch [::boxes-changed ctx %])}]))))
+
+(defn coordinates-modal-field
+  [config]
+  (let [pretty-print (fn [x] (if (nil? x) "--" (if (number? x) (.toFixed x 3) (pr-str x))))
+        ctx (utils4/get-ctx config)
+        config-keys [:options :placeholder]
+        logic @(rf/subscribe [::get-block-props ctx])
+        data @(rf/subscribe [::get-block-data ctx])
+        props (merge logic (select-keys config config-keys))
+        {:keys [is-hidden disabled help]} props
+        data-path (:data-path ctx)
+        ths ["North limit" "West limit" "South limit" "East limit"]
+        tds-fn (fn [geographicElement]
+                 (let [{:keys [northBoundLatitude westBoundLongitude
+                               eastBoundLongitude southBoundLatitude]} geographicElement]
+                   [(pretty-print northBoundLatitude)
+                    (pretty-print westBoundLongitude)
+                    (pretty-print southBoundLatitude)
+                    (pretty-print eastBoundLongitude)]))
+        new-item-with-values {:northBoundLatitude 0
+                              :southBoundLatitude 0
+                              :eastBoundLongitude 0
+                              :westBoundLongitude 0}]
+    (letfn [(new-fn [] (when-not disabled
+                         (rf/dispatch [::boxmap-coordinates-open-add-modal
+                                       {:ctx          ctx
+                                        :coord-field  coord-field
+                                        :initial-data new-item-with-values
+                                        :idx          (count data)
+                                        :on-close     #(rf/dispatch [::boxmap-coordinates-list-delete ctx %])
+                                        :on-save      #(rf/dispatch [:handlers/close-modal])}])))
+            (delete-fn [] (rf/dispatch [::boxmap-coordinates-list-delete ctx (count data)]))
+            (try-delete-fn [] (rf/dispatch [::boxmap-coordinates-click-confirm-delete delete-fn]))
+            (open-edit-fn [indexed-data-path] (when-not disabled
+                                                (rf/dispatch [::boxmap-coordinates-open-edit-modal
+                                                              {:ctx         (assoc ctx :data-path indexed-data-path)
+                                                               :coord-field coord-field
+                                                               :on-delete   try-delete-fn
+                                                               :on-save     #(rf/dispatch [:handlers/close-modal])
+                                                               :on-cancel   #(rf/dispatch [:handlers/close-modal])}])))]
+      (when-not is-hidden
+        [:div.TableInlineEdit
+         (when help [:p.help-block help])
+         (if (pos? (count data))
+           [:table.table {:class (when-not (or disabled (empty? data)) "table-hover")}
+            [:thead
+             (-> [:tr]
+                 (into (for [th ths] [:th th]))
+                 (conj [:th.xcell " "]))]
+            (if (not-empty data)
+              (into [:tbody]
+                    (for [[idx field] (map-indexed vector data)]
+                      (let [data-path (conj data-path idx)
+                            form-state @(rf/subscribe [::common-subs/get-form-state (:form-id ctx)])
+                            has-error? (or (has-error? form-state (conj data-path :northBoundLatitude))
+                                          (has-error? form-state (conj data-path :southBoundLatitude))
+                                          (has-error? form-state (conj data-path :eastBoundLongitude))
+                                          (has-error? form-state (conj data-path :westBoundLongitude)))]
+                        (-> [:tr.clickable-text {:class    (when has-error? "warning")
+                                                 :ref      (str data-path)
+                                                 :on-click #(open-edit-fn data-path)}]
+                            (into (for [td-value (tds-fn field)]
+                                    [:td (if (empty? td-value) [:span {:style {:color "#ccc"}} "--"] td-value)]))
+                            (conj [:td.xcell
+                                   (when has-error?
+                                     [:span.glyphicon.glyphicon-alert.text-danger])])))))
+              [:tbody (-> [:tr.noselect {:on-click #(when-not disabled new-fn)}]
+                          (into (for [_ (or ths [nil])] [:td {:style {:color "#ccc"}} "--"]))
+                          (conj [:td.xcell]))])])
+         [:button.btn.btn-primary.btn-sm
+          {:disabled disabled
+           :on-click new-fn}
+          [:span.glyphicon.glyphicon-plus] " Add new"]]))))

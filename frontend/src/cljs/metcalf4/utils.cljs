@@ -71,4 +71,4 @@
 
 (defn schema-object-with-keys
   [ks]
-  {:type "object" :properties (zipmap (map keyword ks) (repeat {}))})
+  {:type "object" :properties (zipmap (map name ks) (repeat {}))})

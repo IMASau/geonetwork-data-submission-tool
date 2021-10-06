@@ -90,6 +90,12 @@
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
+(rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
+(rf/reg-event-fx ::components4/boxmap-coordinates-open-add-modal handlers4/boxmap-coordinates-open-add-modal)
+(rf/reg-event-fx ::components4/boxmap-coordinates-open-edit-modal handlers4/boxmap-coordinates-open-edit-modal)
+(rf/reg-event-fx ::components4/boxmap-coordinates-click-confirm-delete handlers4/boxmap-coordinates-click-confirm-delete)
+(rf/reg-event-fx ::components4/boxmap-coordinates-list-delete handlers4/boxmap-coordinates-list-delete)
+
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)
@@ -127,6 +133,7 @@
        "maintentanceRequiredWhenStatusOngoing" rules/maintenance-required-when-status-ongoing
        "maxLength"                             rules/max-length
        "geographyRequired"                     rules/geography-required
+       "imasVerticalRequired"                     rules/imas-vertical-required
        "licenseOther"                          rules/license-other
        "dateOrder"                             rules/date-order
        "endPosition"                           rules/end-position
@@ -176,6 +183,8 @@
        'm4/async-list-option-picker       components4/async-list-option-picker
        'm4/checkbox-field                 components4/checkbox-field
        'm4/checkbox-field-with-label      components4/checkbox-field-with-label
+       'm4/boxmap-field                   components4/boxmap-field
+       'm4/coordinates-modal-field        components4/coordinates-modal-field
 
        'm4/mailto-data-manager-link       components4/mailto-data-manager-link
        'm4/xml-export-link                components4/xml-export-link
@@ -192,6 +201,8 @@
            :data-paths [[:identificationInfo :title]
                         [:identificationInfo :dateCreation]]}]
          [:h2 "1. Data Identification"]
+         ;; FIXME only the visual elements (tooltip, helper text) should be defined here.
+         ;; Otherwise, probably put in the json template spec.
          [m4/input-field-with-label
           {:form-id    [:form]
            :data-path  [:identificationInfo :title]
@@ -301,35 +312,41 @@
 
         :where
         [:div
-         [m3/PageErrors {:page :where :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form]
+           :data-paths [[:identificationInfo :geographicElement :boxes]
+                        [:identificationInfo :verticalElement :minimumValue]
+                        [:identificationInfo :verticalElement :maximumValue]]}]
          [:h2 "4. Where"]
-         ;; FIXME add toggle for satellite imagery.
-         ;; FIXME hide the siteDescription textarea.
-         ;; FIXME remove the "Grid to Geographic converter" link text
-         [m3/GeographicCoverage
-          {:has-coverage-path     [:form :fields :identificationInfo :geographicElement :hasGeographicCoverage]
-           :boxes-path            [:form :fields :identificationInfo :geographicElement :boxes]
-           :site-description-path [:form :fields :identificationInfo :geographicElement :siteDescription]}]
-         [:div.VerticalCoverage
-          ;; FIXME use h3 not h4. Restyle if necessary.
-          [:h4 "Vertical Coverage"]
-          [metcalf3.view/CheckboxField
-           {:path [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]}]
-          ;; FIXME hide the below fields when hasVerticalExtent checkbox is unchecked.
-          [m4/input-field-with-label
-           {:form-id    [:form]
-            :data-path  [:identificationInfo :verticalElement :minimumValue]
-            :class      "wauto"
-            :label      "Minimum (m)"
-            :helperText "Shallowest depth / lowest altitude"
-            :required   true}]
-          [m4/input-field-with-label
-           {:form-id    [:form]
-            :data-path  [:identificationInfo :verticalElement :maximumValue]
-            :class      "wauto"
-            :label      "Maximum (m)"
-            :helperText "Deepest depth / highest altitude"
-            :required   true}]]
+         [m4/checkbox-field-with-label
+          {:form-id   [:form]
+           :data-path [:identificationInfo :geographicElement :hasGeographicCoverage]}]
+         [:div.row
+          [:div.col-sm-6
+           ;; FIXME add toggle for satellite imagery.
+           [m4/boxmap-field
+            {:form-id   [:form]
+             :data-path [:identificationInfo :geographicElement :boxes]}]]
+          [:div.col-sm-6
+           [m4/coordinates-modal-field
+            {:form-id   [:form]
+             :data-path [:identificationInfo :geographicElement :boxes]}]]]
+         [:h3 "Vertical Coverage"]
+         [m4/checkbox-field-with-label
+          {:form-id   [:form]
+           :data-path [:identificationInfo :verticalElement :hasVerticalExtent]}]
+         [m4/input-field-with-label
+          {:form-id    [:form]
+           :data-path  [:identificationInfo :verticalElement :minimumValue]
+           :class      "wauto"
+           :label      "Minimum (m)"
+           :helperText "Shallowest depth / lowest altitude"}]
+         [m4/input-field-with-label
+          {:form-id    [:form]
+           :data-path  [:identificationInfo :verticalElement :maximumValue]
+           :class      "wauto"
+           :label      "Maximum (m)"
+           :helperText "Deepest depth / highest altitude"}]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
         :how

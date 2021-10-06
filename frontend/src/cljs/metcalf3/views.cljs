@@ -17,6 +17,7 @@
             [interop.react-imask :as react-imask]
             [interop.ui :as ui]
             [metcalf4.low-code :as low-code]
+            [metcalf4.views :as m4views]
             [metcalf3.content :refer [contact-groups]]
             [metcalf3.handlers :as handlers]
             [metcalf3.logic :as logic]
@@ -2378,6 +2379,8 @@
       (case (:type modal-props)
         :TableModalEditForm [modal-dialog-table-modal-edit-form nil]
         :TableModalAddForm [modal-dialog-table-modal-add-form nil]
+        :m4/table-modal-edit-form [m4views/m4-modal-dialog-table-modal-edit-form modal-props]
+        :m4/table-modal-add-form [m4views/m4-modal-dialog-table-modal-add-form modal-props]
         :ThemeKeywords [modal-dialog-theme-keywords (select-keys modal-props [:keyword-type :keywords-path])]
         :parametername [modal-dialog-parametername nil]
         :parameterunit [modal-dialog-parameterunit nil]

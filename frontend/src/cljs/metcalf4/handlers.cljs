@@ -1,7 +1,8 @@
 (ns metcalf4.handlers
   (:require [metcalf4.blocks :as blocks]
             [metcalf4.actions :as actions]
-            [metcalf4.schema :as schema]))
+            [metcalf4.schema :as schema]
+            [metcalf4.utils :as utils4]))
 
 
 (defn db-path
@@ -45,6 +46,18 @@
              (assoc-in path state)
              (assoc-in (conj path :props :show-errors) true))}))
 
+(defn boxes-changed
+  [{:keys [db]} [_ ctx geojson]]
+  (let [{:keys [form-id data-path]} ctx
+        geometries (mapv :geometry (:features geojson))
+        boxes (mapv utils4/geometry->box-value geometries)
+        schema (get-in db (flatten [form-id :schema (schema/schema-path data-path)]))
+        state (blocks/as-blocks {:schema schema :data boxes})
+        path (db-path ctx)]
+    {:db (-> db
+             (assoc-in path state)
+             (assoc-in (conj path :props :show-errors) true))}))
+
 (defn list-option-picker-change
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path]} ctx]
@@ -63,6 +76,53 @@
     (-> {:db db}
         (actions/genkey-action form-id data-path)
         (actions/move-item-action form-id data-path src-idx dst-idx))))
+
+(defn boxmap-coordinates-open-add-modal
+  [{:keys [db] :as s} [_ {:keys [ctx coord-field initial-data idx on-close on-save]}]]
+  (let [{:keys [form-id data-path]} ctx
+        ;; If this is identical to an existing item, actions/add-item-action will not result in
+        ;; a new item. So, we run an identical check here so we can calculate the correct idx
+        ;; for the modal to use. We can't be sure that the previous record (idx-1) is the correct
+        ;; item to use, but it's the most likely place for an all-0s record to be.
+        db-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
+        items (set (blocks/as-data (get-in s db-path)))
+        idx (if (contains? items initial-data) (dec idx) idx)
+        new-field-path (conj data-path idx)]
+    (-> {:db db}
+        (actions/add-item-action form-id data-path initial-data)
+        (actions/open-modal {:type           :m4/table-modal-add-form
+                             :form           coord-field
+                             :path           new-field-path
+                             :title          "Geographic Coordinates"
+                             :on-close-click #(on-close idx)
+                             :on-save-click  on-save}))))
+
+(defn boxmap-coordinates-open-edit-modal
+  [{:keys [db]} [_ {:keys [ctx coord-field on-delete on-cancel on-save]}]]
+  (let [{:keys [data-path]} ctx]
+    (-> {:db db}
+        (actions/open-modal {:type            :m4/table-modal-edit-form
+                             :form            coord-field
+                             :path            data-path
+                             :title           "Geographic Coordinates"
+                             :on-delete-click on-delete
+                             :on-close-click  on-cancel
+                             :on-save-click   on-save}))))
+
+(defn boxmap-coordinates-click-confirm-delete
+  [{:keys [db]} [_ on-confirm]]
+  (-> {:db db}
+      (actions/open-modal {:type       :confirm
+                           :title      "Delete"
+                           :message    "Are you sure you want to delete?"
+                           :on-confirm on-confirm})))
+
+(defn boxmap-coordinates-list-delete
+  [{:keys [db]} [_ ctx idx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/del-item-action form-id data-path idx)
+        (update-in [:db :alert] pop))))
 
 (defn -load-api-handler
   [{:keys [db]} [_ api results]]

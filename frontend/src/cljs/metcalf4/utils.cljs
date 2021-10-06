@@ -37,3 +37,24 @@
                     ::s/failure :assertion-failed))]
     (str "Spec assertion failed\n" (with-out-str (s/explain-out ed)))))
 
+(defn geometry-type [{:keys [type]}] type)
+(defmulti geometry->box-value geometry-type)
+(defmethod geometry->box-value "Point"
+  [{:keys [coordinates]}]
+  (let [[lng lat] coordinates]
+    (s/assert number? lng)
+    (s/assert number? lat)
+    {:northBoundLatitude lat
+     :southBoundLatitude lat
+     :eastBoundLongitude lng
+     :westBoundLongitude lng}))
+(defmethod geometry->box-value "Polygon"
+  [{:keys [coordinates]}]
+  (let [[rect] coordinates
+        lngs (map first rect)
+        lats (map second rect)]
+    (s/assert some? rect)
+    {:northBoundLatitude (s/assert number? (apply max lats))
+     :southBoundLatitude (s/assert number? (apply min lats))
+     :eastBoundLongitude (s/assert number? (apply max lngs))
+     :westBoundLongitude (s/assert number? (apply min lngs))}))

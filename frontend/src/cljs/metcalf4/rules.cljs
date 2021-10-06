@@ -80,6 +80,20 @@
     (s/assert boolean? shown?)
     (update-in geographicElement [:content :boxes :props] merge props)))
 
+(defn imas-vertical-required
+  "Vertical fields are required / included based on vertical extent checkbox"
+  [verticalElement]
+  (let [shown? (get-in verticalElement [:content :hasVerticalExtent :props :value])]
+    (if shown?
+      (-> verticalElement
+          (assoc-in [:content :maximumValue :props :required] true)
+          (assoc-in [:content :minimumValue :props :required] true))
+      (-> verticalElement
+          (assoc-in [:content :maximumValue :props :required] false)
+          (assoc-in [:content :minimumValue :props :required] false)
+          (assoc-in [:content :maximumValue :props :disabled] true)
+          (assoc-in [:content :minimumValue :props :disabled] true)))))
+
 (defn license-other
   [identificationInfo]
   (let [license-value (get-in identificationInfo [:content :creativeCommons :props :value])

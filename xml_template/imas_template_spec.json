@@ -270,15 +270,12 @@
           "removeWhen": {
             "function": "has_geographic_coverage"
           },
+          "rules": ["geographyRequired"],
           "type": "object",
           "properties": {
-            "siteDescription": {
-              "xpath": "gex:description",
-              "valueChild": "gco:CharacterString",
-              "keep": false
-            },
             "hasGeographicCoverage": {
               "xpath": "gex:geographicElement[count(.)>0]",
+              "label": "Does data have a geographic coverage?",
               "export": false
             },
             "boxes": {
@@ -293,6 +290,7 @@
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:westBoundLongitude",
                     "rules": ["requiredField"],
+                    "label": "West limit",
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -303,6 +301,7 @@
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:eastBoundLongitude",
                     "rules": ["requiredField"],
+                    "label": "East limit",
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -313,6 +312,7 @@
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:southBoundLatitude",
                     "rules": ["requiredField"],
+                    "label": "South limit",
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -323,6 +323,7 @@
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:northBoundLatitude",
                     "rules": ["requiredField"],
+                    "label": "North limit",
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -393,22 +394,22 @@
           "removeWhen": {
             "function": "has_vertical_extent"
           },
+          "rules": ["imasVerticalRequired"],
           "type": "object",
           "properties": {
             "hasVerticalExtent": {
               "xpath": "count(.)>0",
               "export": false,
+              "label": "Does data have a vertical coverage?",
               "default": false
             },
             "minimumValue": {
               "valueChild": "gco:Real",
-              "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:minimumValue",
-              "rules": ["requiredField"]
+              "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:minimumValue"
             },
             "maximumValue": {
               "valueChild": "gco:Real",
-              "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:maximumValue",
-              "rules": ["requiredField"]
+              "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:maximumValue"
             }
           }
         },

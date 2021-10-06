@@ -12,13 +12,13 @@ function RemoveButton({ disabled, onClick }) {
     )
 }
 
-export function SimpleListItem({ item, disabled, getLabel, onRemoveClick }) {
+export function SimpleListItem({ item, index, disabled, getLabel, onRemoveClick }) {
     return (
         <div className="SimpleListItem">
             <div className="SimpleListItemLabel">{getLabel(item)}</div>
             {onRemoveClick ?
                 <div className="SimpleListItemRemove">
-                    <RemoveButton disabled={disabled} onClick={onRemoveClick} />
+                    <RemoveButton disabled={disabled} onClick={()=>onRemoveClick(index)} />
                 </div> :
                 null}
         </div>
@@ -32,7 +32,7 @@ SimpleListItem.propTypes = {
     onRemoveClick: PropTypes.func
 }
 
-export function BreadcrumbListItem({ item, disabled, getBreadcrumb, getLabel, onRemoveClick }) {
+export function BreadcrumbListItem({ item, index, disabled, getBreadcrumb, getLabel, onRemoveClick }) {
     return (
         <div className="BreadcrumbListItem">
             <div className="BreadcrumbListItemLabel">
@@ -41,7 +41,7 @@ export function BreadcrumbListItem({ item, disabled, getBreadcrumb, getLabel, on
             </div>
             {onRemoveClick ?
                 <div className="BreadcrumbListItemRemove">
-                    <RemoveButton disabled={disabled} onClick={onRemoveClick} />
+                    <RemoveButton disabled={disabled} onClick={()=>onRemoveClick(index)} />
                 </div> :
                 null}
         </div>

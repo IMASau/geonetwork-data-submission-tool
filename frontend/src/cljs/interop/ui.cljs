@@ -158,14 +158,12 @@
   (s/assert string? labelKey)
   (s/assert string? valueKey)
   (s/assert (s/coll-of (has-keys? #{labelKey valueKey}) :distinct true) items)
-  [:> SelectionList/SelectionList
+  [:> SelectionList/SimpleSelectionList
    {:items         items
     :onReorder     onReorder
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
-    :itemProps     {:getLabel #(gobj/get % labelKey "No label")
-                    :getValue #(gobj/get % valueKey "No value")}
-    :renderItem    ListItem/SimpleListItem}])
+    :getLabel      #(gobj/get % labelKey "No label")}])
 
 (defn BreadcrumbSelectionList
   [{:keys [items onReorder onRemoveClick breadcrumbKey labelKey valueKey]}]

@@ -117,6 +117,7 @@
           }
         },
         "keywordsTheme": {
+          "!docstring": "What3",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[not(@uuid=\"Data_Group\")][mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",
           "type": "object",
           "properties": {

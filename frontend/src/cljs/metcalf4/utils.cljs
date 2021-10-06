@@ -11,7 +11,7 @@
   (cond
     (simple-keyword? x) (name x)
     (simple-symbol? x) (name x)
-    x))
+    :else x))
 
 
 (defn get-ctx

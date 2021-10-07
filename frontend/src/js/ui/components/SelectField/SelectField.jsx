@@ -134,23 +134,16 @@ function getReactSelectCustomStyles({hasError}) {
     }
 }
 
-export function SelectValueField({value, options, hasError, disabled, placeholder, getOptionLabel, getOptionValue, onChange}) {
+export function SelectValueField({value, options, onChange, ...args}) {
     const valueOption = options && options.find(option => option.value === value)
+    const onValueChange = (option) => onChange(option ? option.value : null)
     return (
-        <Select
-            styles={getReactSelectCustomStyles({hasError})}
+        <SelectOptionField
             value={valueOption}
-            options={options}
-            placeholder={placeholder}
-            onChange={(option) => onChange(option ? option.value : null)}
-            isClearable={true}
-            isDisabled={disabled}
-            isLoading={false}
-            isSearchable={true}
-            getOptionLabel={getOptionLabel}
-            getOptionValue={getOptionValue}
+            onChange={onValueChange}
+            {...args}
         >
-        </Select>
+        </SelectOptionField>
     );
 }
 

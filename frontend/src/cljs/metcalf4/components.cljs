@@ -339,6 +339,68 @@
   [form-group config
    [async-simple-select-option config]])
 
+(defn async-breadcrumb-select-option
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:uri :valueKey :labelKey :breadcrumbKey]
+        logic @(rf/subscribe [::get-block-props ctx])
+        value @(rf/subscribe [::get-block-data ctx])
+        onChange #(rf/dispatch [::async-select-option-value-changed ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [placeholder uri disabled errors show-errors valueKey labelKey breadcrumbKey]} props
+        hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "object" :properties {}}})
+
+    [ui/AsyncBreadcrumbSelectField
+     {:value         value
+      :loadOptions   #(utils4/fetch-post {:uri uri :body {:query %}})
+      :valueKey      valueKey
+      :labelKey      labelKey
+      :breadcrumbKey breadcrumbKey
+      :placeholder   placeholder
+      :disabled      disabled
+      :hasError      (seq hasError)
+      :onChange      onChange}]))
+
+(defn async-breadcrumb-select-option-with-label
+  [config]
+  [form-group config
+   [async-breadcrumb-select-option config]])
+
+(defn async-table-select-option
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:uri :valueKey :labelKey :columns]
+        logic @(rf/subscribe [::get-block-props ctx])
+        value @(rf/subscribe [::get-block-data ctx])
+        onChange #(rf/dispatch [::async-select-option-value-changed ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [placeholder uri disabled errors show-errors valueKey labelKey columns]} props
+        hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "object" :properties {}}})
+
+    [ui/AsyncTableSelectField
+     {:value       value
+      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :valueKey    valueKey
+      :labelKey    labelKey
+      :columns     columns
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    (seq hasError)
+      :onChange    onChange}]))
+
+(defn async-table-select-option-with-label
+  [config]
+  [form-group config
+   [async-table-select-option config]])
+
 (defn select-value
   [config]
   (let [ctx (utils4/get-ctx config)

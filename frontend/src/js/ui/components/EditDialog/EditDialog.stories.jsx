@@ -2,6 +2,7 @@ import React from 'react';
 
 import {EditDialog} from './EditDialog';
 import '@blueprintjs/core/lib/css/blueprint.css';
+import './EditDialog.css';
 
 export default {
     title: 'Example/EditDialog',

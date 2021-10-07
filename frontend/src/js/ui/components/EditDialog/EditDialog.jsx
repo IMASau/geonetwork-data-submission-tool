@@ -27,6 +27,7 @@ export function EditDialog({title, body, onClear, onSave, canSave}) {
                 canOutsideClickClose={false}
                 isOpen={isOpen}
                 usePortal={true}
+                backdropClassName="EditDialogBackdrop"
             >
                 <div className={Classes.DIALOG_BODY}>
                     {body}

@@ -32,6 +32,27 @@ def configure_site_content(apps, schema_editor):
     sc.releasenotes_url = "https://ternaus.atlassian.net/wiki/spaces/SHaREDReleases/pages/705134733/SHaRED+Release+3.0"
     sc.roadmap_pdf = "https://shared.tern.org.au/media/guide/Coming_Soon_Roadmap.pdf"
     sc.save()
+    # Create default MetadataTemplateMapper
+    mtm, _ = MetadataTemplateMapper.objects.get_or_create(pk='1')
+    mtm.name = 'IMAS Mapper'
+    mtm.file = 'imas_template_spec.json'
+    mtm.notes = 'Default template mapper (WIP)'
+    mtm.archived = 'f'
+    mtm.site_id = '1'
+    mtm.created = now
+    mtm.modified = now
+    mtm.save()
+    # Create default MetadataTemplate
+    mt, _ = MetadataTemplate.objects.get_or_create(pk='1')
+    mt.name = "TERN Template"
+    mt.file = "imas_metadata_template.xml"
+    mt.notes = "Default template"
+    mt.archived = "f"
+    mt.site_id = "1"
+    mt.mapper_id = "1"
+    mt.created = now
+    mt.modified = now
+    mt.save()
 
 
 class Migration(migrations.Migration):

@@ -788,6 +788,11 @@
       :valueKey    valueKey
       :columns     columns}]))
 
+(defmulti async-list-picker :kind)
+(defmethod async-list-picker :default [config] (async-simple-list-option-picker config))
+(defmethod async-list-picker :breadcrumb [config] (async-breadcrumb-list-option-picker config))
+(defmethod async-list-picker :table [config] (async-table-list-option-picker config))
+
 (defn expanding-control
   [config & children]
   (let [config-keys [:label :required]

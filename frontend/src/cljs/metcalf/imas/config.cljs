@@ -158,6 +158,7 @@
        'm4/portal-link                    components4/portal-link
        'm4/async-select-option            components4/async-select-option
        'm4/async-select-option-with-label components4/async-select-option-with-label
+       'm4/async-list-picker              components4/async-list-picker
        })
 (set! low-code/template-registry
       '{:data-identification

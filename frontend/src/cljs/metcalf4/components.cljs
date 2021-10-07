@@ -287,7 +287,7 @@
         config-keys [:options :placeholder]
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::select-option-value-changed ctx %])
+        onChange #(rf/dispatch [::option-change ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -315,7 +315,7 @@
         config-keys [:options :placeholder]
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::select-option-value-changed ctx %])
+        onChange #(rf/dispatch [::option-change ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -343,7 +343,7 @@
         config-keys [:uri :valueKey :labelKey]
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::async-select-option-value-changed ctx %])
+        onChange #(rf/dispatch [::option-change ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder uri valueKey labelKey disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -373,7 +373,7 @@
         config-keys [:uri :valueKey :labelKey :breadcrumbKey]
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::async-select-option-value-changed ctx %])
+        onChange #(rf/dispatch [::option-change ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey breadcrumbKey]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -404,7 +404,7 @@
         config-keys [:uri :valueKey :labelKey :columns]
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::async-select-option-value-changed ctx %])
+        onChange #(rf/dispatch [::option-change ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey columns]} props
         hasError (when (and show-errors (seq errors)) true)]

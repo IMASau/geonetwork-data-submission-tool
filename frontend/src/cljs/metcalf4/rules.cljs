@@ -29,12 +29,16 @@
 
 (defn required-field
   [block required]
-  (s/assert #{true} required)
-  (let [value (get-in block [:props :value])]
-    (-> block
-        (assoc-in [:props :required] true)
-        (cond-> (contains? empty-values value)
-                (update-in [:props :errors] conj "This field is required")))))
+  (s/assert boolean? required)
+  (if required
+    (let [value (if (= (:type block) "array")
+                  (get-in block [:content])
+                  (get-in block [:props :value]))]
+      (-> block
+          (assoc-in [:props :required] true)
+          (cond-> (contains? empty-values value)
+                  (update-in [:props :errors] conj "This field is required"))))
+    block))
 
 (defn max-length
   [block maxLength]

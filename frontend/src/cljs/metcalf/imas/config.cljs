@@ -114,7 +114,7 @@
 (rf/reg-sub :subs/get-page-name subs3/get-page-name)
 (rf/reg-sub :subs/get-modal-props subs3/get-modal-props)
 (rf/reg-sub :subs/get-dashboard-props subs3/get-dashboard-props)
-(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] subs3/get-edit-tab-props)
+(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] subs3/get-imas-edit-tab-props)
 (rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs3/get-progress-props)
 (rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs3/get-textarea-field-props)
 (rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs3/get-textarea-field-many-props)
@@ -308,23 +308,6 @@
            :helperText "Deepest depth / highest altitude"}]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
-        :how
-        [:div
-         [m4/page-errors
-          {:form-id    [:form]
-           :data-paths [["resourceLineage" "lineage"]]}]
-         [:h2 "5: How"]
-         [:div.lineage-textarea
-          [m4/textarea-field-with-label
-           {:form-id     [:form]
-            :data-path   ["resourceLineage" "lineage"]
-            :placeholder nil
-            :helperText  "Provide a brief statement of the methods used for collection of the
-                         data, can include information regarding sampling equipment (collection hardware),
-                         procedures, and precision/resolution of data collected."
-            :required    true}]]
-         [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
-
         :who
         [:div
          ;; FIXME make this view configurable for IMAS, or create IMAS-specific view.
@@ -335,6 +318,23 @@
          ;; FIXME Copy Person functionality isn't working.
          [m3/Who
           {:credit-path [:form :fields :identificationInfo :credit]}]
+         [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+
+        :how
+        [:div
+         [m4/page-errors
+          {:form-id    [:form]
+           :data-paths [["resourceLineage" "lineage"]]}]
+         [:h2 "6: How"]
+         [:div.lineage-textarea
+          [m4/textarea-field-with-label
+           {:form-id     [:form]
+            :data-path   ["resourceLineage" "lineage"]
+            :placeholder nil
+            :helperText  "Provide a brief statement of the methods used for collection of the
+                         data, can include information regarding sampling equipment (collection hardware),
+                         procedures, and precision/resolution of data collected."
+            :required    true}]]
          [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
 
         :about

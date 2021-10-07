@@ -43,6 +43,7 @@
 
 (defn has-key? [s] #(contains? (set (map name (keys %))) s))
 (defn has-keys? [ss] (apply every-pred (map has-key? ss)))
+(defn js->map [o ks] (when o (zipmap ks (map #(gobj/get o %) ks))))
 
 (defn box-map
   [{:keys [elements map-width tick-id on-change]}]
@@ -118,7 +119,9 @@
     :onChange       onChange}])
 
 (defn SelectOptionField
-  [{:keys [value options placeholder disabled hasError onChange]}]
+  [{:keys [value options placeholder disabled hasError onChange valueKey labelKey]
+    :or {valueKey "value"
+         labelKey "label"}}]
   (s/assert (s/nilable map?) value)
   (s/assert (s/coll-of map?) options)
   (s/assert (s/nilable string?) placeholder)
@@ -131,10 +134,12 @@
     :placeholder placeholder
     :disabled    disabled
     :hasError    hasError
-    :onChange    #(onChange (js->clj % :keywordize-keys true))}])
+    :onChange    (fn [o] (onChange (js->map o [valueKey labelKey])))}])
 
 (defn AsyncSelectOptionField
-  [{:keys [value loadOptions placeholder disabled hasError onChange]}]
+  [{:keys [value loadOptions placeholder disabled hasError onChange valueKey labelKey]
+    :or {valueKey "value"
+         labelKey "label"}}]
   (s/assert (s/nilable map?) value)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
@@ -147,7 +152,7 @@
     :placeholder placeholder
     :disabled    disabled
     :hasError    hasError
-    :onChange    #(onChange (js->clj % :keywordize-keys true))}])
+    :onChange    (fn [o] (onChange (js->map o [valueKey labelKey])))}])
 
 (defn SimpleSelectionList
   [{:keys [items onReorder onRemoveClick labelKey valueKey]}]

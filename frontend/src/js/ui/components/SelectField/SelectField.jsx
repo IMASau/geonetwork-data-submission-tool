@@ -212,10 +212,7 @@ export function SimpleSelectField({value, options, hasError, disabled, placehold
             options={options}
             placeholder={placeholder}
             onChange={(value) => onChange(value)}
-            isClearable={true}
-            isDisabled={disabled}
-            isLoading={false}
-            isSearchable={true}
+            disabled={disabled}
             hasError={hasError}
         />
     );
@@ -244,10 +241,7 @@ export function BreadcrumbSelectField({value, options, hasError, disabled, place
             options={options}
             placeholder={placeholder}
             onChange={(value) => onChange(value)}
-            isClearable={true}
-            isDisabled={disabled}
-            isLoading={false}
-            isSearchable={true}
+            disabled={disabled}
             hasError={hasError}
         />
     );
@@ -276,10 +270,7 @@ export function TableSelectField({value, options, hasError, disabled, placeholde
             options={options}
             placeholder={placeholder}
             onChange={(value) => onChange(value)}
-            isClearable={true}
-            isDisabled={disabled}
-            isLoading={false}
-            isSearchable={true}
+            disabled={disabled}
             hasError={hasError}
         />
     );

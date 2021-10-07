@@ -324,7 +324,7 @@
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type "object" :properties {}}})
 
-    [ui/AsyncSelectOptionField
+    [ui/AsyncSimpleOptionField
      {:value       value
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
       :placeholder placeholder

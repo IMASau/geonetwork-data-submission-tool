@@ -24,7 +24,7 @@
 (assert InputField/InputField)
 (assert SelectField/SelectValueField)
 (assert SelectField/SimpleSelectField)
-(assert SelectField/AsyncSimpleOptionField)
+(assert SelectField/AsyncSimpleSelectField)
 (assert SelectionList/SelectionList)
 (assert ListItem/SimpleListItem)
 (assert ListItem/TableListItem)
@@ -187,7 +187,7 @@
                       :getLabel #(gobj/get % labelKey "No label")})
     :onChange      (fn [o] (onChange (js->map o [valueKey labelKey])))}])
 
-(defn AsyncSimpleOptionField
+(defn AsyncSimpleSelectField
   [{:keys [value loadOptions placeholder disabled hasError onChange valueKey labelKey]}]
   (s/assert (s/nilable map?) value)
   (s/assert (s/nilable string?) valueKey)
@@ -197,7 +197,7 @@
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
-  [:> SelectField/AsyncSimpleOptionField
+  [:> SelectField/AsyncSimpleSelectField
    {:value       value
     :loadOptions loadOptions
     :placeholder placeholder

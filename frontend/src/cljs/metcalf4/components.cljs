@@ -324,7 +324,7 @@
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type "object" :properties {}}})
 
-    [ui/AsyncSimpleOptionField
+    [ui/AsyncSimpleSelectField
      {:value       value
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
       :placeholder placeholder
@@ -569,7 +569,7 @@
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
-    [ui/AsyncSimpleOptionField
+    [ui/AsyncSimpleSelectField
      {:value       nil
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
       :placeholder placeholder

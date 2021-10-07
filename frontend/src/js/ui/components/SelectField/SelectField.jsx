@@ -206,7 +206,6 @@ SelectField.propTypes = {
     getLabel: PropTypes.func.isRequired,
 }
 
-
 export function SelectValueField({value, options, onChange, ...args}) {
     const valueOption = options && options.find(option => option.value === value)
     const onValueChange = (option) => onChange(option ? option.value : null)
@@ -340,8 +339,7 @@ TableSelectField.propTypes = {
     })),
 }
 
-
-export function AsyncSimpleOptionField({value, hasError, disabled, placeholder, onChange, loadOptions}) {
+export function AsyncSimpleSelectField({value, hasError, disabled, placeholder, onChange, loadOptions}) {
     const defaultOptions = !disabled
     return (
         <AsyncSelect
@@ -358,7 +356,7 @@ export function AsyncSimpleOptionField({value, hasError, disabled, placeholder, 
     );
 }
 
-AsyncSimpleOptionField.propTypes = {
+AsyncSimpleSelectField.propTypes = {
     value: PropTypes.object,
     loadOptions: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
@@ -366,7 +364,6 @@ AsyncSimpleOptionField.propTypes = {
     hasError: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
 }
-
 
 export function AsyncTableSelectField({columns, ...args}) {
     const Option = ({data}) => <TableListItem item={data} columns={columns} disabled={args.disabled}/>

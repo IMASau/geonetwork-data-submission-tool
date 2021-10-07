@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AsyncSelect from "react-select/async/dist/react-select.esm";
 import Select, {components} from "react-select";
-import {BreadcrumbListItem, SimpleListItem} from "../ListItem/ListItem";
+import {BreadcrumbListItem, SimpleListItem, TableListItem} from "../ListItem/ListItem";
 
 function getReactSelectCustomStyles({hasError}) {
     return {
@@ -262,6 +262,41 @@ BreadcrumbSelectField.propTypes = {
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,
     getBreadcrumb: PropTypes.func.isRequired,
+}
+
+export function TableSelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, columns, onChange}) {
+    const Option = ({data}) => <TableListItem item={data} columns={columns} disabled={disabled}/>
+    return (
+        <SelectField
+            Option={Option}
+            getValue={getValue}
+            getLabel={getLabel}
+            value={value}
+            options={options}
+            placeholder={placeholder}
+            onChange={(value) => onChange(value)}
+            isClearable={true}
+            isDisabled={disabled}
+            isLoading={false}
+            isSearchable={true}
+            hasError={hasError}
+        />
+    );
+}
+
+TableSelectField.propTypes = {
+    value: PropTypes.object,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    columns: PropTypes.arrayOf(PropTypes.shape({
+        getLabel: PropTypes.func,
+        flex: PropTypes.number
+    })),
 }
 
 

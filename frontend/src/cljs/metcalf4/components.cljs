@@ -530,6 +530,31 @@
       :valueKey      valueKey
       :breadcrumbKey breadcrumbKey}]))
 
+(defn table-list-option-picker
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:options :placeholder :valueKey :labelKey :columns]
+        logic @(rf/subscribe [::get-block-props ctx])
+        onChange #(rf/dispatch [::list-option-picker-change ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [placeholder options disabled errors show-errors valueKey labelKey columns]} props
+        hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" :items {:type "object" :properties {}}}})
+
+    [ui/TableSelectField
+     {:value       nil
+      :options     options
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    (seq hasError)
+      :onChange    onChange
+      :labelKey    labelKey
+      :valueKey    valueKey
+      :columns     columns}]))
+
 (defn async-list-option-picker
   [config]
   (let [ctx (utils4/get-ctx config)

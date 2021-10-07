@@ -281,7 +281,7 @@
         {:keys [email]} site]
     [:a {:href (str "mailto:" email)} email]))
 
-(defn select-option
+(defn simple-select-option
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :placeholder]
@@ -303,6 +303,9 @@
       :disabled    disabled
       :hasError    (seq hasError)
       :onChange    onChange}]))
+
+(defmulti select-option :kind)
+(defmethod select-option :default simple-select-option)
 
 (defn select-option-with-label
   [config]

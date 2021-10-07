@@ -232,7 +232,7 @@ SimpleSelectField.propTypes = {
 }
 
 
-export function BreadcrumbSelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, getBreadcrumb onChange}) {
+export function BreadcrumbSelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, getBreadcrumb, onChange}) {
     const Option = ({data}) => <BreadcrumbListItem item={data} getLabel={getLabel} getBreadcrumb={getBreadcrumb}/>
     return (
         <SelectField

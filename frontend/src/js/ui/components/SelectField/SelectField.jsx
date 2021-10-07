@@ -143,6 +143,37 @@ export function getReactSelectComponents({Option}) {
     }
 }
 
+export function AsyncSelectField({value, loadOptions, hasError, disabled, placeholder, getLabel, getValue, Option, onChange}) {
+    const defaultOptions = !disabled
+    return (
+        <AsyncSelect
+            styles={getReactSelectCustomStyles({hasError})}
+            components={getReactSelectComponents({Option})}
+            getOptionValue={getValue}
+            getOptionLabel={getLabel}
+            value={value}
+            loadOptions={loadOptions}
+            placeholder={placeholder}
+            onChange={(value) => onChange(value)}
+            isClearable={true}
+            isDisabled={disabled}
+            defaultOptions={defaultOptions}
+        >
+        </AsyncSelect>
+    );
+}
+
+AsyncSelectField.propTypes = {
+    value: PropTypes.object,
+    loadOptions: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    Option: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+}
 
 export function SelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, Option, onChange}) {
     return (

@@ -202,20 +202,18 @@
 
 (defn note-for-data-manager
   [config]
-  (let [{:keys [form-id notes-path]} config
+  (let [ctx (utils4/get-ctx config)
         {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        notes @(rf/subscribe [:subs/get-derived-path notes-path])]
-    ;; TODO show form, or a readonly paragraph if submitted.
+        value @(rf/subscribe [::get-block-data ctx])]
     [:div
      {:style {:padding-top    5
               :padding-bottom 5}}
      (if (= "Draft" (:status document))
-       [textarea-field-with-label {:form-id   form-id
-                                   :data-path notes-path}]
-       (when-not (string/blank? (:value notes))
+       [textarea-field-with-label ctx]
+       (when-not (string/blank? value)
          [:div
           [:strong "Note for the data manager:"]
-          [:p (:value notes)]]))]))
+          [:p value]]))]))
 
 (defn handle-submit-click
   []
@@ -230,15 +228,17 @@
         {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
         {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
         has-errors? (and errors (> errors 0))
+        archived? (= (:status document) "Archived")
         submitted? (= (:status document) "Submitted")]
-    [:button.btn.btn-primary.btn-lg
-     {:disabled (or has-errors? saving disabled submitted?)
-      :on-click handle-submit-click}
-     (when saving
-       [:img
-        {:src (str (:STATIC_URL urls)
-                   "metcalf3/img/saving.gif")}])
-     "Lodge data"]))
+    (when-not (or archived? submitted?)
+      [:button.btn.btn-primary.btn-lg
+       {:disabled (or has-errors? saving disabled)
+        :on-click handle-submit-click}
+       (when saving
+         [:img
+          {:src (str (:STATIC_URL urls)
+                     "metcalf3/img/saving.gif")}])
+       "Lodge data"])))
 
 (defn lodge-status-info
   []

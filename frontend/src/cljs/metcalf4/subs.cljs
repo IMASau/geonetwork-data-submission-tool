@@ -23,7 +23,7 @@
 ; FIXME: leaking empty strings for date values from payload.forms.data
 (defn get-block-props-sub
   [state [_ {:keys [data-path]}]]
-  (s/assert ::utils4/data-path data-path)
+  (s/assert (s/nilable ::utils4/data-path) data-path)
   (when (vector? data-path)
     (s/assert some? state)
     (let [path (blocks/block-path data-path)]

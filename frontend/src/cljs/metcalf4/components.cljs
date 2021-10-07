@@ -674,13 +674,13 @@
                                         :idx          (count data)
                                         :on-close     #(rf/dispatch [::boxmap-coordinates-list-delete ctx %])
                                         :on-save      #(rf/dispatch [:handlers/close-modal])}])))
-            (delete-fn [] (rf/dispatch [::boxmap-coordinates-list-delete ctx (count data)]))
-            (try-delete-fn [] (rf/dispatch [::boxmap-coordinates-click-confirm-delete delete-fn]))
+            (delete-fn [idx] (rf/dispatch [::boxmap-coordinates-list-delete ctx idx]))
+            (try-delete-fn [idx] (rf/dispatch [::boxmap-coordinates-click-confirm-delete #(delete-fn idx)]))
             (open-edit-fn [indexed-data-path] (when-not disabled
                                                 (rf/dispatch [::boxmap-coordinates-open-edit-modal
                                                               {:ctx         (assoc ctx :data-path indexed-data-path)
                                                                :coord-field coord-field
-                                                               :on-delete   try-delete-fn
+                                                               :on-delete   #(try-delete-fn (last indexed-data-path))
                                                                :on-save     #(rf/dispatch [:handlers/close-modal])
                                                                :on-cancel   #(rf/dispatch [:handlers/close-modal])}])))]
       (when-not is-hidden

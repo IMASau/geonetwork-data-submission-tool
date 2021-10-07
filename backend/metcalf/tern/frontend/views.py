@@ -820,3 +820,113 @@ def tern_instruments(request) -> Response:
         data = es.search(index=index_alias, body=body)
 
     return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def tern_people(request) -> Response:
+    """Search TERN People Index
+
+    Search TERN People Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query". E.g. ?query=alos
+    - POST supports a post body object. E.g. {"query": "alos"}
+
+    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
+    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
+
+    OWL classes are filtered out via the selectable value.
+    """
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_TERNPEOPLE
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["name", "email"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"name.keyword": "asc"}],  # Sort by name
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def tern_orgs(request) -> Response:
+    """Search TERN Organisations Index
+
+    Search TERN Organisations Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query". E.g. ?query=alos
+    - POST supports a post body object. E.g. {"query": "alos"}
+
+    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
+    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
+
+    OWL classes are filtered out via the selectable value.
+    """
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_TERNORGS
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["name", "full_address_line"]
+                        }
+                    },
+                    "filter": {
+                        "term": {"is_dissolved": "false"}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"name.keyword": "asc"}],  # Sort by name
+            "query": {
+                "bool": {
+                    "filter": {
+                        "term": {"is_dissolved": "false"}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)

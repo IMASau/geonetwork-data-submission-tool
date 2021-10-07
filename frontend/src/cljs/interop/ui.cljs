@@ -23,7 +23,7 @@
 (assert FormGroup/FormGroup)
 (assert InputField/InputField)
 (assert SelectField/SelectValueField)
-(assert SelectField/SelectOptionField)
+(assert SelectField/SimpleSelectField)
 (assert SelectField/AsyncSelectOptionField)
 (assert SelectionList/SelectionList)
 (assert ListItem/SimpleListItem)
@@ -118,7 +118,7 @@
     :hasError       hasError
     :onChange       onChange}])
 
-(defn SelectOptionField
+(defn SimpleSelectField
   [{:keys [value options placeholder disabled hasError onChange valueKey labelKey]
     :or   {valueKey "value"
            labelKey "label"}}]
@@ -128,7 +128,7 @@
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
-  [:> SelectField/SelectOptionField
+  [:> SelectField/SimpleSelectField
    {:value       value
     :options     options
     :placeholder placeholder

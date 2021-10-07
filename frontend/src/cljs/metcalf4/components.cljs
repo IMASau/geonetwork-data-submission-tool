@@ -296,7 +296,7 @@
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type "object" :properties {}}})
 
-    [ui/SelectOptionField
+    [ui/SimpleSelectField
      {:value       value
       :options     options
       :placeholder placeholder
@@ -495,7 +495,7 @@
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
-    [ui/SelectOptionField
+    [ui/SimpleSelectField
      {:value       nil
       :options     options
       :placeholder placeholder

@@ -312,12 +312,12 @@
 (defn async-simple-select-option
   [config]
   (let [ctx (utils4/get-ctx config)
-        config-keys [:uri]
+        config-keys [:uri :valueKey :labelKey]
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
         onChange #(rf/dispatch [::async-select-option-value-changed ctx %])
         props (merge logic (select-keys config config-keys))
-        {:keys [placeholder uri disabled errors show-errors]} props
+        {:keys [placeholder uri valueKey labelKey disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     (schema/assert-compatible-schema
@@ -327,6 +327,8 @@
     [ui/AsyncSimpleSelectField
      {:value       value
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :valueKey    valueKey
+      :labelKey    labelKey
       :placeholder placeholder
       :disabled    disabled
       :hasError    (seq hasError)

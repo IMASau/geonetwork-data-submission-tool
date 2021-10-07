@@ -138,30 +138,36 @@
        "endPosition"          rules/end-position
        "maintFreq"            rules/maint-freq})
 (set! low-code/component-registry
-      {'m3/DataParametersTable            views/DataParametersTable
-       'm3/UseLimitations                 views/UseLimitations
-       'm3/NasaListSelectField            views/NasaListSelectField
-       'm3/DataSources                    views/DataSources
-       'm3/IMASSupportingResource         views/IMASSupportingResource
-       'm3/IMASSupplementalInformation    views/IMASSupplementalInformation
-       'm3/UploadData                     views/UploadData
-       'm3/Who                            views/Who
-       'm4/page-errors                    components4/page-errors
-       'm4/textarea-field-with-label      components4/textarea-field-with-label
-       'm4/input-field-with-label         components4/input-field-with-label
-       'm4/date-field-with-label          components4/date-field-with-label
-       'm4/select-option-with-label       components4/select-option-with-label
-       'm4/select-value-with-label        components4/select-value-with-label
-       'm4/numeric-input-field-with-label components4/numeric-input-field-with-label
-       'm4/checkbox-field-with-label      components4/checkbox-field-with-label
-       'm4/boxmap-field                   components4/boxmap-field
-       'm4/coordinates-modal-field        components4/coordinates-modal-field
-       'm4/mailto-data-manager-link       components4/mailto-data-manager-link
-       'm4/xml-export-link                components4/xml-export-link
-       'm4/lodge-status-info              components4/lodge-status-info
-       'm4/lodge-button                   components4/lodge-button
-       'm4/note-for-data-manager          components4/note-for-data-manager
-       'm4/portal-link                    components4/portal-link
+      {'m3/DataParametersTable                       views/DataParametersTable
+       'm3/UseLimitations                            views/UseLimitations
+       'm3/NasaListSelectField                       views/NasaListSelectField
+       'm3/DataSources                               views/DataSources
+       'm3/IMASSupportingResource                    views/IMASSupportingResource
+       'm3/IMASSupplementalInformation               views/IMASSupplementalInformation
+       'm3/UploadData                                views/UploadData
+       'm3/Who                                       views/Who
+       'm4/page-errors                               components4/page-errors
+       'm4/textarea-field-with-label                 components4/textarea-field-with-label
+       'm4/input-field-with-label                    components4/input-field-with-label
+       'm4/date-field-with-label                     components4/date-field-with-label
+       'm4/select-option-with-label                  components4/select-option-with-label
+       'm4/select-value-with-label                   components4/select-value-with-label
+       'm4/numeric-input-field-with-label            components4/numeric-input-field-with-label
+       'm4/checkbox-field-with-label                 components4/checkbox-field-with-label
+       'm4/boxmap-field                              components4/boxmap-field
+       'm4/coordinates-modal-field                   components4/coordinates-modal-field
+       'm4/mailto-data-manager-link                  components4/mailto-data-manager-link
+       'm4/xml-export-link                           components4/xml-export-link
+       'm4/lodge-status-info                         components4/lodge-status-info
+       'm4/lodge-button                              components4/lodge-button
+       'm4/note-for-data-manager                     components4/note-for-data-manager
+       'm4/portal-link                               components4/portal-link
+       'm4/async-simple-select-option                components4/async-simple-select-option
+       'm4/async-simple-select-option-with-label     components4/async-simple-select-option-with-label
+       'm4/async-breadcrumb-select-option            components4/async-breadcrumb-select-option
+       'm4/async-breadcrumb-select-option-with-label components4/async-breadcrumb-select-option-with-label
+       'm4/async-table-select-option                 components4/async-table-select-option
+       'm4/async-table-select-option-with-label      components4/async-table-select-option-with-label
        })
 (set! low-code/template-registry
       '{:data-identification

@@ -296,20 +296,10 @@ BreadcrumbSelectField.propTypes = {
     getBreadcrumb: PropTypes.func.isRequired,
 }
 
-export function TableSelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, columns, onChange}) {
-    const Option = ({data}) => <TableListItem item={data} columns={columns} disabled={disabled}/>
+export function TableSelectField({columns, ...args}) {
+    const Option = ({data}) => <TableListItem item={data} columns={columns} disabled={args.disabled}/>
     return (
-        <SelectField
-            Option={Option}
-            getValue={getValue}
-            getLabel={getLabel}
-            value={value}
-            options={options}
-            placeholder={placeholder}
-            onChange={(value) => onChange(value)}
-            disabled={disabled}
-            hasError={hasError}
-        />
+        <SelectField Option={Option} {...args}/>
     );
 }
 

@@ -161,7 +161,9 @@
        'm4/simple-list-option-picker             components4/simple-list-option-picker
        'm4/breadcrumb-list-option-picker         components4/breadcrumb-list-option-picker
        'm4/table-list-option-picker              components4/table-list-option-picker
-       'm4/async-simple-list-option-picker              components4/async-simple-list-option-picker
+       'm4/async-simple-list-option-picker       components4/async-simple-list-option-picker
+       'm4/async-breadcrumb-list-option-picker   components4/async-breadcrumb-list-option-picker
+       'm4/async-table-list-option-picker        components4/async-table-list-option-picker
        'm4/expanding-control                     components4/expanding-control
        })
 (set! low-code/template-registry
@@ -278,18 +280,18 @@
 
          [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
 
-        [m4/form-group
-         {:label "Select research theme keywords - maximum of 12 allowed"}
-         [m4/async-simple-list-option-picker
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-           :uri       "/api/ternparameters"                 ;TODO: Update to real endpoint
-           }]
-         [m4/breadcrumb-selection-list
-          {:form-id       [:form]
-           :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-           :labelKey      "label"
-           :valueKey      "uri"
+          [m4/form-group
+           {:label "Select research theme keywords - maximum of 12 allowed"}
+           [m4/async-simple-list-option-picker
+            {:form-id   [:form]
+             :data-path ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
+             :uri       "/api/ternparameters"               ;TODO: Update to real endpoint
+             }]
+           [m4/breadcrumb-selection-list
+            {:form-id       [:form]
+             :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
+             :labelKey      "label"
+             :valueKey      "uri"
              :breadcrumbKey "breadcrumb"}]]]
 
          [m4/expanding-control {:label "Platforms" :required true}

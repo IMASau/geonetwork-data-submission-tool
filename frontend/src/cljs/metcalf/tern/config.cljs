@@ -140,29 +140,31 @@
        "verticalRequired"  rules/vertical-required})
 (set! low-code/component-registry
       {
-       'm4/textarea-field                 components4/textarea-field
-       'm4/textarea-field-with-label      components4/textarea-field-with-label
-       'm4/input-field                    components4/input-field
-       'm4/input-field-with-label         components4/input-field-with-label
-       'm4/date-field                     components4/date-field
-       'm4/date-field-with-label          components4/date-field-with-label
-       'm4/select-value                   components4/select-value
-       'm4/select-value-with-label        components4/select-value-with-label
-       'm4/select-option                  components4/select-option
-       'm4/select-option-with-label       components4/select-option-with-label
-       'm4/async-select-option            components4/async-select-option
-       'm4/async-select-option-with-label components4/async-select-option-with-label
-       'm4/yes-no-field                   components4/yes-no-field
-       'm4/page-errors                    components4/page-errors
-       'm4/form-group                     components4/form-group
-       'm4/simple-selection-list          components4/simple-selection-list
-       'm4/breadcrumb-selection-list      components4/breadcrumb-selection-list
-       'm4/table-selection-list           components4/table-selection-list
-       'm4/simple-list-option-picker      components4/simple-list-option-picker
-       'm4/breadcrumb-list-option-picker  components4/breadcrumb-list-option-picker
-       'm4/table-list-option-picker       components4/table-list-option-picker
-       'm4/async-list-option-picker       components4/async-list-option-picker
-       'm4/expanding-control              components4/expanding-control
+       'm4/textarea-field                        components4/textarea-field
+       'm4/textarea-field-with-label             components4/textarea-field-with-label
+       'm4/input-field                           components4/input-field
+       'm4/input-field-with-label                components4/input-field-with-label
+       'm4/date-field                            components4/date-field
+       'm4/date-field-with-label                 components4/date-field-with-label
+       'm4/select-value                          components4/select-value
+       'm4/select-value-with-label               components4/select-value-with-label
+       'm4/select-option                         components4/select-option
+       'm4/select-option-with-label              components4/select-option-with-label
+       'm4/async-simple-select-option            components4/async-simple-select-option
+       'm4/async-simple-select-option-with-label components4/async-simple-select-option-with-label
+       'm4/yes-no-field                          components4/yes-no-field
+       'm4/page-errors                           components4/page-errors
+       'm4/form-group                            components4/form-group
+       'm4/simple-selection-list                 components4/simple-selection-list
+       'm4/breadcrumb-selection-list             components4/breadcrumb-selection-list
+       'm4/table-selection-list                  components4/table-selection-list
+       'm4/simple-list-option-picker             components4/simple-list-option-picker
+       'm4/breadcrumb-list-option-picker         components4/breadcrumb-list-option-picker
+       'm4/table-list-option-picker              components4/table-list-option-picker
+       'm4/async-simple-list-option-picker       components4/async-simple-list-option-picker
+       'm4/async-breadcrumb-list-option-picker   components4/async-breadcrumb-list-option-picker
+       'm4/async-table-list-option-picker        components4/async-table-list-option-picker
+       'm4/expanding-control                     components4/expanding-control
        })
 (set! low-code/template-registry
       '{:data-identification
@@ -264,7 +266,7 @@
 
           [m4/form-group
            {:label "Select research theme keywords - maximum of 12 allowed"}
-           [m4/async-list-option-picker
+           [m4/async-simple-list-option-picker
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsTheme" "keywords"]
              :uri       "/api/ternparameters"               ;TODO: Update to real endpoint
@@ -280,7 +282,7 @@
 
           [m4/form-group
            {:label "Select research theme keywords - maximum of 12 allowed"}
-           [m4/async-list-option-picker
+           [m4/async-simple-list-option-picker
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
              :uri       "/api/ternparameters"               ;TODO: Update to real endpoint
@@ -296,7 +298,7 @@
           ;; TODO: also need a user-added option
           [m4/form-group
            {:label "Select a platform for the data measurement"}
-           [m4/async-list-option-picker
+           [m4/async-simple-list-option-picker
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
              :uri       "/api/ternplatforms"}]
@@ -311,7 +313,7 @@
           ;; TODO: also need a user-added option
           [m4/form-group
            {:label "Select the instrument used for the platform"}
-           [m4/async-list-option-picker
+           [m4/async-simple-list-option-picker
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
              :uri       "/api/terninstruments"}]

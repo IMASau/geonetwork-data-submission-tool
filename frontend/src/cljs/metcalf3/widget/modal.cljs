@@ -29,10 +29,10 @@
         (when loading [:span [:span.fa.fa-spinner.fa-spin] " "])
         (when on-cancel
           [:button.btn.btn-default {:disabled loading
-                                    :on-click #(on-cancel %)} "Cancel"])
+                                    :on-click on-cancel} "Cancel"])
         (when on-save
           [:button.btn.btn-primary {:disabled loading
-                                    :on-click #(on-save %)} (or ok-copy "OK")])]))])
+                                    :on-click on-save} (or ok-copy "OK")])]))])
 
 (defn Modal
   [{:keys [modal-header modal-body modal-footer dialog-class hide-footer

@@ -370,7 +370,7 @@
     (js/Date. x)))
 
 (defn date-order-rule
-  "Start date should be fore end date"
+  "Start date should be before end date"
   [state {:keys [field0 field1]}]
   (let [k0 (keyword field0)                                 ; TODO: ugly converions to keyword
         k1 (keyword field1)                                 ; TODO: ugly converions to keyword

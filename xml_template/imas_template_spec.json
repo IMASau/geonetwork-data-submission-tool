@@ -83,11 +83,15 @@
           "properties": {
             "name": {
               "xpath": "cit:title",
+              "label": "Data file format",
+              "rules": [{"maxLength": 100}],
               "valueChild": "gco:CharacterString",
               "deleteWhenEmpty": false
             },
             "version": {
               "xpath": "cit:edition",
+              "label": "Data file format date/version",
+              "rules": [{"maxLength": 20}],
               "valueChild": "gco:CharacterString"
             }
           }
@@ -147,7 +151,12 @@
     "identificationInfo": {
       "xpath": "mdb:identificationInfo/mri:MD_DataIdentification",
       "type": "object",
-      "rules": [{"maintentanceRequiredWhenStatusOngoing": ["status", "maintenanceAndUpdateFrequency"]}],
+      "rules": [
+        "maintFreq",
+        "endPosition",
+        "licenseOther",
+        {"dateOrder": {"field0": "beginPosition", "field1": "endPosition"}}
+      ],
       "properties": {
         "title": {
           "xpath": "mri:citation/cit:CI_Citation/cit:title",
@@ -240,7 +249,7 @@
           "valueChild": "gco:CharacterString",
           "label": "Abstract",
           "keep": false,
-          "rules": ["requiredField"]
+          "rules": ["requiredField", {"maxLength": 2500}]
         },
         "beginPosition": {
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
@@ -281,6 +290,7 @@
             "boxes": {
               "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
               "rules": ["requiredField"],
+              "label": "Geographic coverage",
               "keep": false,
               "type": "array",
               "items": {
@@ -405,10 +415,12 @@
             },
             "minimumValue": {
               "valueChild": "gco:Real",
+              "label": "Minimum (m)",
               "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:minimumValue"
             },
             "maximumValue": {
               "valueChild": "gco:Real",
+              "label": "Maximum (m)",
               "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:maximumValue"
             }
           }
@@ -631,7 +643,7 @@
         "lineage": {
           "xpath": "mrl:statement",
           "valueChild": "gco:CharacterString",
-          "label": "Lineage",
+          "label": "Methodological information",
           "keep": false
         }
       }

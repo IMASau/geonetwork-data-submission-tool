@@ -7,7 +7,7 @@ import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
 import NOTES from './NOTES.mdx';
 
 export default {
-    title: 'Example/SelectValueField',
+    title: 'SelectField/SelectValueField',
     component: SelectValueField,
     argTypes: {
         // Most are inferred from propTypes
@@ -34,8 +34,8 @@ SimpleField.args = {
     getLabel: (option => option.label)
 };
 
-export const FieldDiabledState = FieldTemplate.bind({});
-FieldDiabledState.args = {
+export const FieldDisabledState = FieldTemplate.bind({});
+FieldDisabledState.args = {
     value: options[0].value,
     options: options,
     disabled: true,
@@ -65,6 +65,7 @@ FieldWithInvalidValue.args = {
 export const EmptyFieldWithPlaceholder = FieldTemplate.bind({});
 EmptyFieldWithPlaceholder.args = {
     placeholder: "This is the placeholder",
+    options: options,
     getValue: (option => option.value),
     getLabel: (option => option.label)
 };

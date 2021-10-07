@@ -555,12 +555,13 @@
     (last vals)))
 
 (defn massage-form
-  [{:keys [data schema]}]
+  [{:keys [data schema url]}]
   (let [data (schema/massage-data-payload data)
         schema (schema/massage-schema-payload schema)]
     {:data   data
      :schema schema
-     :state  (blocks/as-blocks {:data data :schema schema})}))
+     :state  (blocks/as-blocks {:data data :schema schema})
+     :url    url}))
 
 (defn initial-state
   "Massage raw payload for use as app-state"

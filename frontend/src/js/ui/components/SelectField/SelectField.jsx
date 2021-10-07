@@ -149,16 +149,11 @@ export function SelectValueField({value, options, onChange, ...args}) {
 
 SelectValueField.propTypes = {
     value: PropTypes.string,
-    options: PropTypes.arrayOf(PropTypes.shape({
-        value: PropTypes.string,
-        label: PropTypes.string
-    })),
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-    getOptionLabel: PropTypes.func.isRequired,
-    getOptionValue: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired
 }
 
 export function SelectOptionField({value, options, hasError, disabled, placeholder, onChange}) {
@@ -178,18 +173,12 @@ export function SelectOptionField({value, options, hasError, disabled, placehold
 }
 
 SelectOptionField.propTypes = {
-    value: PropTypes.shape({
-        value: PropTypes.string,
-        label: PropTypes.string
-    }),
-    options: PropTypes.arrayOf(PropTypes.shape({
-        value: PropTypes.string,
-        label: PropTypes.string
-    })),
+    value: PropTypes.object,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
 }
 
 

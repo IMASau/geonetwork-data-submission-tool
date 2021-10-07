@@ -166,20 +166,72 @@
        })
 (set! low-code/template-registry
       '{:data-identification
-        [m4/table-list-option-picker
-         {:form-id     [:form]
-          :data-path   ["identificationInfo" "topicCategory"]
-          :placeholder "Start typing to filter list..."
-          :labelKey    "label"
-          :valueKey    "value"
-          :columns     [{:flex 1 :labelKey "label"}
-                        {:flex 1 :labelKey "label"}
-                        {:flex 1 :labelKey "label"}]
-          :options     [{:value "biota" :label "biota"}
-                        {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
-                        {:value "oceans" :label "oceans"}
-                        {:value "geoscientificInformation" :label "geoscientificInformation"}
-                        {:value "inlandWater" :label "inlandWater"}]}]
+        [:div
+         [m4/page-errors
+          {:form-id    [:form]
+           :data-paths [["identificationInfo" "title"]
+                        ["identificationInfo" "dateCreation"]
+                        ["identificationInfo" "topicCategory"]
+                        ["identificationInfo" "status"]
+                        ["identificationInfo" "maintenanceAndUpdateFrequency"]
+                        ["identificationInfo" "version"]]}]
+         [:h2 "1. Data Identification"]
+         [m4/input-field-with-label
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "title"]
+           :label       "Title"
+           :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
+           :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
+         [m4/date-field-with-label
+          {:form-id   [:form]
+           :data-path ["identificationInfo" "dateCreation"]
+           :label     "Date the resource was created"
+           :required  true
+           :minDate   "1900-01-01"
+           :maxDate   "2100-01-01"}]
+         [m4/form-group
+          {:label     "Topic Categories"
+           :form-id   [:form]
+           :data-path ["identificationInfo" "topicCategory"]}
+          [m4/simple-selection-list
+           {:form-id   [:form]
+            :data-path ["identificationInfo" "topicCategory"]
+            :labelKey  "label"
+            :valueKey  "value"}]
+          [m4/simple-list-option-picker
+           {:form-id     [:form]
+            :data-path   ["identificationInfo" "topicCategory"]
+            :placeholder "Start typing to filter list..."
+            :labelKey    "label"
+            :valueKey    "value"
+            :options     [{:value "biota" :label "biota"}
+                          {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
+                          {:value "oceans" :label "oceans"}
+                          {:value "geoscientificInformation" :label "geoscientificInformation"}
+                          {:value "inlandWater" :label "inlandWater"}]}]]
+         [m3/SelectField {:form-id   [:form]
+                          :data-path ["identificationInfo" "status"]}]
+         [m3/SelectField {:form-id   [:form]
+                          :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]}]
+         [m4/input-field-with-label
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "version"]
+           :label      "Version"
+           :helperText "Version number of the resource"
+           :required   true}]
+         [m4/yes-no-field
+          {:form-id   [:form]
+           :data-path ["identificationInfo" "previouslyPublishedFlag"]
+           :label     "Has the data been published before?"}]
+         ;; FIXME: I think this should be formatted as YYYY or YYYY-MM (according to the commented template)
+         [m4/date-field-with-label
+          {:form-id   [:form]
+           :data-path ["identificationInfo" "datePublication"]
+           :label     "Previous Publication Date"
+           :required  true
+           :minDate   "1900-01-01"
+           :maxDate   "2100-01-01"}]
+         [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what
         [:div
@@ -290,10 +342,10 @@
 
          [m4/expanding-control {:label "Additional Keywords (Optional)" :required true}
           "..."
-          #_[m3/ThemeKeywordsExtra
-             {}]
-          #_[m3/TaxonKeywordsExtra
-             {}]]
+          [m3/ThemeKeywordsExtra
+           {}]
+          [m3/TaxonKeywordsExtra
+           {}]]
 
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
@@ -320,9 +372,9 @@
            :maxDate   "2100-01-01"}]
          [:div.row
           [:div.col-md-4
-           #_[m3/NasaListSelectField {:keyword   :samplingFrequency
-                                      :form-id   [:form]
-                                      :data-path ["identificationInfo"]}]]]
+           [m3/NasaListSelectField {:keyword   :samplingFrequency
+                                    :form-id   [:form]
+                                    :data-path ["identificationInfo"]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
@@ -336,10 +388,10 @@
            :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
            :label       "Site Description"
            :placeholder "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}]
-         #_[m3/GeographicCoverage
-            {:has-coverage-path     [:form :fields :identificationInfo :geographicElement :hasGeographicCoverage]
-             :boxes-path            [:form :fields :identificationInfo :geographicElement :boxes]
-             :site-description-path [:form :fields :identificationInfo :geographicElement :siteDescription]}]
+         [m3/GeographicCoverage
+          {:has-coverage-path     [:form :fields :identificationInfo :geographicElement :hasGeographicCoverage]
+           :boxes-path            [:form :fields :identificationInfo :geographicElement :boxes]
+           :site-description-path [:form :fields :identificationInfo :geographicElement :siteDescription]}]
 
          [:div.VerticalCoverage
           [:h4 "Vertical Coverage"]
@@ -361,8 +413,8 @@
 
         :who
         [:div
-         #_[m3/Who
-            {:credit-path [:form :fields :identificationInfo :credit]}]
+         [m3/Who
+          {:credit-path [:form :fields :identificationInfo :credit]}]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
         :how
@@ -373,8 +425,8 @@
                         ["dataQualityInfo" "methods"]
                         ["dataQualityInfo" "results"]]}]
          [:h2 "6: How"]
-         #_[m3/Methods {:form-id   [:form]
-                        :data-path ["resourceLineage" "processStep"]}]
+         [m3/Methods {:form-id   [:form]
+                      :data-path ["resourceLineage" "processStep"]}]
          [m4/textarea-field-with-label
           {:form-id     [:form]
            :data-path   ["dataQualityInfo" "methods"]
@@ -463,26 +515,26 @@
            :maxLength  1000}]
 
          [:h4 "Data parameters"]
-         #_[m3/DataParametersTable {:form-id   [:form]
-                                    :data-path ["identificationInfo" "dataParameters"]}]
+         [m3/DataParametersTable {:form-id   [:form]
+                                  :data-path ["identificationInfo" "dataParameters"]}]
          [:br]
          [:h4 "Pixel Size"]
          [:div.row
           [:div.col-md-6
-           #_[m3/NasaListSelectField {:keyword   :horizontalResolution
-                                      :form-id   [:form]
-                                      :data-path ["identificationInfo"]}]]]
+           [m3/NasaListSelectField {:keyword   :horizontalResolution
+                                    :form-id   [:form]
+                                    :data-path ["identificationInfo"]}]]]
          [:br]
          [:h4 "Resource constraints"]
-         #_[m3/ResourceConstraints]
-         #_[m3/UseLimitations {:form-id   [:form]
-                               :data-path ["identificationInfo" "useLimitations"]}]
+         [m3/ResourceConstraints]
+         [m3/UseLimitations {:form-id   [:form]
+                             :data-path ["identificationInfo" "useLimitations"]}]
          [:br]
          [:h4 "Supplemental information"]
-         #_[m3/SupportingResource {:form-id   [:form]
-                                   :data-path ["supportingResources"]}]
+         [m3/SupportingResource {:form-id   [:form]
+                                 :data-path ["supportingResources"]}]
          [:form-id [:form]
-          #_[m3/SupplementalInformation [:identificationInfo :supplementalInformation]]]
+          [m3/SupplementalInformation [:identificationInfo :supplementalInformation]]]
          [:br]
          [:h4 "Distribution"]
          [m4/input-field-with-label
@@ -516,19 +568,19 @@
         [:div
          [m4/page-errors {:form-id [:form] :data-paths []}]
          [:h2 "9. Data Sources"]
-         #_[m3/UploadData
-            {:attachments-path [:form :fields :attachments]}]
+         [m3/UploadData
+          {:attachments-path [:form :fields :attachments]}]
          [:h2 "Data Services"]
-         #_[m3/DataSources {:form-id   [:form]
-                            :data-path ["dataSources"]}]
+         [m3/DataSources {:form-id   [:form]
+                          :data-path ["dataSources"]}]
          [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
         :lodge
         [:div
          [m4/page-errors {:form-id [:form] :data-paths []}]
          [:h2 "10: Lodge Metadata Draft"]
-         #_[m3/Lodge
-            {:note-for-data-manager-path [:form :fields :noteForDataManager]
-             :agreed-to-terms-path       [:form :fields :agreedToTerms]
-             :doi-requested-path         [:form :fields :doiRequested]
-             :current-doi-path           [:form :fields :identificationInfo :doi]}]]})
+         [m3/Lodge
+          {:note-for-data-manager-path [:form :fields :noteForDataManager]
+           :agreed-to-terms-path       [:form :fields :agreedToTerms]
+           :doi-requested-path         [:form :fields :doiRequested]
+           :current-doi-path           [:form :fields :identificationInfo :doi]}]]})

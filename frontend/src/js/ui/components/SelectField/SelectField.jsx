@@ -296,6 +296,28 @@ BreadcrumbSelectField.propTypes = {
     getBreadcrumb: PropTypes.func.isRequired,
 }
 
+export function AsyncBreadcrumbSelectField({getLabel, getBreadcrumb, ...args}) {
+    const Option = ({data}) => <BreadcrumbListItem item={data} getLabel={getLabel} getBreadcrumb={getBreadcrumb}/>
+    return (
+        <AsyncSelectField
+            Option={Option}
+            {...args}
+        />
+    );
+}
+
+AsyncBreadcrumbSelectField.propTypes = {
+    value: PropTypes.object,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    getBreadcrumb: PropTypes.func.isRequired,
+}
+
 export function TableSelectField({columns, ...args}) {
     const Option = ({data}) => <TableListItem item={data} columns={columns} disabled={args.disabled}/>
     return (

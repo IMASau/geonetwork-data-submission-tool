@@ -134,29 +134,29 @@
        "verticalRequired"  rules/vertical-required})
 (set! low-code/component-registry
       {
-       'm4/textarea-field                      components4/textarea-field
-       'm4/textarea-field-with-label           components4/textarea-field-with-label
-       'm4/input-field                         components4/input-field
-       'm4/input-field-with-label              components4/input-field-with-label
-       'm4/date-field                          components4/date-field
-       'm4/date-field-with-label               components4/date-field-with-label
-       'm4/select-value                        components4/select-value
-       'm4/select-value-with-label             components4/select-value-with-label
-       'm4/yes-no-field                        components4/yes-no-field
-       'm4/page-errors                         components4/page-errors
-       'm4/form-group                          components4/form-group
-       'm4/simple-selection-list               components4/simple-selection-list
-       'm4/breadcrumb-selection-list           components4/breadcrumb-selection-list
-       'm4/table-selection-list                components4/table-selection-list
-       'm4/simple-list-option-picker           components4/simple-list-option-picker
-       'm4/breadcrumb-list-option-picker       components4/breadcrumb-list-option-picker
-       'm4/table-list-option-picker            components4/table-list-option-picker
-       'm4/async-list-picker                   components4/async-list-picker
-       'm4/expanding-control                   components4/expanding-control
-       'm4/select-option                       components4/select-option
-       'm4/select-option-with-label            components4/select-option-with-label
-       'm4/async-select-option                 components4/async-select-option
-       'm4/async-select-option-with-label      components4/async-select-option-with-label
+       'm4/async-list-picker              components4/async-list-picker
+       'm4/async-select-option            components4/async-select-option
+       'm4/async-select-option-with-label components4/async-select-option-with-label
+       'm4/breadcrumb-list-option-picker  components4/breadcrumb-list-option-picker
+       'm4/breadcrumb-selection-list      components4/breadcrumb-selection-list
+       'm4/date-field                     components4/date-field
+       'm4/date-field-with-label          components4/date-field-with-label
+       'm4/expanding-control              components4/expanding-control
+       'm4/form-group                     components4/form-group
+       'm4/input-field                    components4/input-field
+       'm4/input-field-with-label         components4/input-field-with-label
+       'm4/page-errors                    components4/page-errors
+       'm4/select-option                  components4/select-option
+       'm4/select-option-with-label       components4/select-option-with-label
+       'm4/select-value                   components4/select-value
+       'm4/select-value-with-label        components4/select-value-with-label
+       'm4/simple-list-option-picker      components4/simple-list-option-picker
+       'm4/simple-selection-list          components4/simple-selection-list
+       'm4/table-list-option-picker       components4/table-list-option-picker
+       'm4/table-selection-list           components4/table-selection-list
+       'm4/textarea-field                 components4/textarea-field
+       'm4/textarea-field-with-label      components4/textarea-field-with-label
+       'm4/yes-no-field                   components4/yes-no-field
        })
 (set! low-code/template-registry
       '{:data-identification

@@ -561,6 +561,8 @@
         data (schema/massage-data-payload (get-in payload [:form :data]))
         schema (schema/massage-schema-payload (get-in payload [:form :schema]))]
     (-> payload
+        (assoc-in [:form :data] data)
+        (assoc-in [:form :schema] schema)
         (assoc-in [:form :state] (blocks/as-blocks {:data data :schema schema}))
         (assoc :alert [])
         (assoc :api {:parametername        {:uri     (str URL_ROOT "/api/ternparameters")

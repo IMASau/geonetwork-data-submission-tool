@@ -253,8 +253,28 @@ SimpleSelectField.propTypes = {
     getLabel: PropTypes.func.isRequired,
 }
 
+export function AsyncSimpleSelectField({getLabel, ...args}) {
+    const Option = ({data}) => <SimpleListItem item={data} getLabel={getLabel}/>
+    return (
+        <AsyncSelectField
+            Option={Option}
+            {...args}
+        />
+    );
+}
 
-export function BreadcrumbSelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, getBreadcrumb, onChange}) {
+AsyncSimpleSelectField.propTypes = {
+    value: PropTypes.object,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+}
+
+export function BreadcrumbSelectField({getLabel, getBreadcrumb, ...args}) {
     const Option = ({data}) => <BreadcrumbListItem item={data} getLabel={getLabel} getBreadcrumb={getBreadcrumb}/>
     return (
         <SelectField

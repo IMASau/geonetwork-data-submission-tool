@@ -309,7 +309,7 @@
   [form-group config
    [select-option config]])
 
-(defn async-select-option
+(defn async-simple-select-option
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:uri]
@@ -332,10 +332,10 @@
       :hasError    (seq hasError)
       :onChange    onChange}]))
 
-(defn async-select-option-with-label
+(defn async-simple-select-option-with-label
   [config]
   [form-group config
-   [async-select-option config]])
+   [async-simple-select-option config]])
 
 (defn select-value
   [config]

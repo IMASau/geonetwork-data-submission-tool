@@ -65,7 +65,7 @@
   (let [config-keys [:placeholder :maxLength]
         ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::input-field-value-changed ctx %])
+        onChange #(rf/dispatch [::value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -90,7 +90,7 @@
   (let [config-keys [:placeholder :hasButtons]
         ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::numeric-input-field-value-changed ctx %])
+        onChange #(rf/dispatch [::value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder hasButtons value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -116,7 +116,7 @@
   (let [config-keys [:placeholder :rows :maxLength]
         ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::textarea-field-value-changed ctx %])
+        onChange #(rf/dispatch [::value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [placeholder rows maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -139,7 +139,7 @@
   (let [config-keys [:placeholder :rows :maxLength]
         ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::checkbox-field-value-changed ctx %])
+        onChange #(rf/dispatch [::value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -170,7 +170,7 @@
   (let [ctx (utils4/get-ctx config)
         config-keys [:minDate :maxDate]
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::date-field-value-changed ctx (date/to-value %)])
+        onChange #(rf/dispatch [::value-changed ctx (date/to-value %)])
         props (merge logic (select-keys config config-keys))
         {:keys [minDate maxDate value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -434,7 +434,7 @@
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :labelKey :valueKey]
         logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::select-value-changed ctx %])
+        onChange #(rf/dispatch [::value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [value options labelKey valueKey disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)
@@ -463,7 +463,7 @@
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :label]
         logic @(rf/subscribe [::get-yes-no-field-props ctx])
-        onChange #(rf/dispatch [::yes-no-field-value-changed ctx %])
+        onChange #(rf/dispatch [::value-changed ctx %])
         props (merge logic (select-keys config config-keys))
         {:keys [label value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]

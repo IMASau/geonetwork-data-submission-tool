@@ -565,8 +565,7 @@
 (defn initial-state
   "Massage raw payload for use as app-state"
   [{:keys [form] :as payload}]
-  (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))
-        ]
+  (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))]
     (-> payload
         (cond-> form (assoc :form (massage-form form)))
         (assoc :alert [])

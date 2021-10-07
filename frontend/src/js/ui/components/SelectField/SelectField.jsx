@@ -341,7 +341,7 @@ TableSelectField.propTypes = {
 }
 
 
-export function AsyncSelectOptionField({value, hasError, disabled, placeholder, onChange, loadOptions}) {
+export function AsyncSimpleOptionField({value, hasError, disabled, placeholder, onChange, loadOptions}) {
     const defaultOptions = !disabled
     return (
         <AsyncSelect
@@ -358,7 +358,7 @@ export function AsyncSelectOptionField({value, hasError, disabled, placeholder, 
     );
 }
 
-AsyncSelectOptionField.propTypes = {
+AsyncSimpleOptionField.propTypes = {
     value: PropTypes.object,
     loadOptions: PropTypes.func.isRequired,
     placeholder: PropTypes.string,

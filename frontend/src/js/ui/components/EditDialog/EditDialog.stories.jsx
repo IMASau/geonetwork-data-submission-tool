@@ -20,6 +20,11 @@ SimpleField.args = {
     body: <div>Do you want to build a snowman?</div>
 };
 
+export const VeryLongDialog = FieldTemplate.bind({});
+VeryLongDialog.args = {
+    body: Array(30).fill().map(x => <div>{x}. roar</div>)
+};
+
 export const DoubleDialog = FieldTemplate.bind({});
 DoubleDialog.args = {
     title: "First dialog",

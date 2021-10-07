@@ -139,51 +139,23 @@
        "maintFreq"            rules/maint-freq})
 (set! low-code/component-registry
       {'m3/DataParametersTable            views/DataParametersTable
-       'm3/CheckboxField                  views/CheckboxField
-       'm3/date-field-with-label          views/date-field-with-label
-       'm3/textarea-field-with-label      views/textarea-field-with-label
        'm3/UseLimitations                 views/UseLimitations
        'm3/NasaListSelectField            views/NasaListSelectField
-       'm3/GeographicCoverage             views/GeographicCoverage
        'm3/DataSources                    views/DataSources
-       'm3/PageErrors                     views/PageErrors
-       'm3/TopicCategories                views/TopicCategories
-       'm3/ResourceConstraints            views/ResourceConstraints
-       'm3/input-field-with-label         views/input-field-with-label
-       'm3/IMASLodge                      views/IMASLodge
        'm3/IMASSupportingResource         views/IMASSupportingResource
        'm3/IMASSupplementalInformation    views/IMASSupplementalInformation
-       'm3/TaxonKeywordsExtra             views/TaxonKeywordsExtra
-       'm3/ThemeKeywords                  views/ThemeKeywords
-       'm3/ThemeKeywordsExtra             views/ThemeKeywordsExtra
        'm3/UploadData                     views/UploadData
        'm3/Who                            views/Who
        'm4/page-errors                    components4/page-errors
        'm4/textarea-field-with-label      components4/textarea-field-with-label
-       'm4/textarea-field                 components4/textarea-field
-       'm4/input-field                    components4/input-field
        'm4/input-field-with-label         components4/input-field-with-label
-       'm4/date-field                     components4/date-field
        'm4/date-field-with-label          components4/date-field-with-label
-       'm4/async-select-option            components4/async-select-option
-       'm4/async-select-option-with-label components4/async-select-option-with-label
-       'm4/select-option                  components4/select-option
        'm4/select-option-with-label       components4/select-option-with-label
-       'm4/select-value                   components4/select-value
        'm4/select-value-with-label        components4/select-value-with-label
-       'm4/numeric-input-field            components4/numeric-input-field
        'm4/numeric-input-field-with-label components4/numeric-input-field-with-label
-       'm4/form-group                     components4/form-group
-       'm4/simple-selection-list          components4/simple-selection-list
-       'm4/breadcrumb-selection-list      components4/breadcrumb-selection-list
-       'm4/table-selection-list           components4/table-selection-list
-       'm4/simple-list-option-picker      components4/simple-list-option-picker
-       'm4/async-list-option-picker       components4/async-list-option-picker
-       'm4/checkbox-field                 components4/checkbox-field
        'm4/checkbox-field-with-label      components4/checkbox-field-with-label
        'm4/boxmap-field                   components4/boxmap-field
        'm4/coordinates-modal-field        components4/coordinates-modal-field
-
        'm4/mailto-data-manager-link       components4/mailto-data-manager-link
        'm4/xml-export-link                components4/xml-export-link
        'm4/lodge-status-info              components4/lodge-status-info
@@ -199,8 +171,6 @@
            :data-paths [["identificationInfo" "title"]
                         ["identificationInfo" "dateCreation"]]}]
          [:h2 "1. Data Identification"]
-         ;; FIXME only the visual elements (tooltip, helper text) should be defined here.
-         ;; Otherwise, probably put in the json template spec.
          [m4/input-field-with-label
           {:form-id    [:form]
            :data-path  ["identificationInfo" "title"]
@@ -252,31 +222,17 @@
 
         :what
         [:div
-         [m3/PageErrors {:page :what :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form]
+           :data-paths [["identificationInfo" "abstract"]]}]
          [:h2 "2. What"]
          [:span.abstract-textarea
           [m4/textarea-field-with-label
            {:form-id     [:form]
             :data-path   ["identificationInfo" "abstract"]
-            :label       "Abstract"
             :placeholder nil
-            :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"
-            ;; FIXME this isn't enforced.
-            :maxLength   2500
-            :required    true}]]
-         [m3/ThemeKeywords
-          {:keyword-type        :keywordsTheme
-           :keywords-theme-path [:form :fields :identificationInfo :keywordsTheme]}]
-         ;; FIXME Anzsrc should be optional, but this required doesn't hook up to anything.
-         [m3/ThemeKeywords
-          {:keyword-type        :keywordsThemeAnzsrc
-           :keywords-theme-path [:form :fields :identificationInfo :keywordsThemeAnzsrc]
-           :required            false}]
-         ;; TODO Add Geographic Extent vocab here.
-         [m3/ThemeKeywordsExtra
-          {:keywords-path [:form :fields :identificationInfo :keywordsThemeExtra :keywords]}]
-         [m3/TaxonKeywordsExtra
-          {:keywords-path [:form :fields :identificationInfo :keywordsTaxonExtra :keywords]}]
+            :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"}]]
+         ;; TODO add theme keywords
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
         :when
@@ -290,7 +246,6 @@
          [m4/date-field-with-label
           {:form-id   [:form]
            :data-path ["identificationInfo" "beginPosition"]
-           :required  true
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
          [m4/date-field-with-label
@@ -303,15 +258,17 @@
            [m4/select-value-with-label
             {:form-id   [:form]
              :data-path ["identificationInfo" "samplingFrequency"]
-             :options   [{:value "daily" :label "Daily"}
-                         {:value "weekly" :label "Weekly"}
-                         {:value "monthly" :label "Monthly"}
-                         {:value "quarterly" :label "Quarterly"}
-                         {:value "annually" :label "Annually"}
-                         {:value "ongoing" :label "Ongoing"}
-                         {:value "asNeeded" :label "As required"}
-                         {:value "irregular" :label "Irregular"}
-                         {:value "none-planned" :label "None planned"}]}]]]
+             :valueKey  "value"
+             :labelKey  "label"
+             :options   [{"value" "daily" "label" "Daily"}
+                         {"value" "weekly" "label" "Weekly"}
+                         {"value" "monthly" "label" "Monthly"}
+                         {"value" "quarterly" "label" "Quarterly"}
+                         {"value" "annually" "label" "Annually"}
+                         {"value" "ongoing" "label" "Ongoing"}
+                         {"value" "asNeeded" "label" "As required"}
+                         {"value" "irregular" "label" "Irregular"}
+                         {"value" "none-planned" "label" "None planned"}]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
@@ -343,25 +300,24 @@
           {:form-id    [:form]
            :data-path  ["identificationInfo" "verticalElement" "minimumValue"]
            :class      "wauto"
-           :label      "Minimum (m)"
            :helperText "Shallowest depth / lowest altitude"}]
          [m4/input-field-with-label
           {:form-id    [:form]
            :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
            :class      "wauto"
-           :label      "Maximum (m)"
            :helperText "Deepest depth / highest altitude"}]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
         :how
         [:div
-         [m3/PageErrors {:page :how :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form]
+           :data-paths [["resourceLineage" "lineage"]]}]
          [:h2 "5: How"]
          [:div.lineage-textarea
           [m4/textarea-field-with-label
            {:form-id     [:form]
             :data-path   ["resourceLineage" "lineage"]
-            :label       "Methodological information"
             :placeholder nil
             :helperText  "Provide a brief statement of the methods used for collection of the
                          data, can include information regarding sampling equipment (collection hardware),
@@ -383,7 +339,16 @@
 
         :about
         [:div
-         [m3/PageErrors {:page :about :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form]
+           :data-paths [["identificationInfo" "dataParameters"]
+                        ["identificationInfo" "creativeCommons"]
+                        ["identificationInfo" "otherConstraints"]
+                        ["identificationInfo" "useLimitations"]
+                        ["identificationInfo" "supplementalInformation"]
+                        ["supportingResources"]
+                        ["distributionInfo" "distributionFormat" "name"]
+                        ["distributionInfo" "distributionFormat" "version"]]}]
          [:h2 "7: About Dataset"]
          [:h4 "Data parameters"]
          [m3/DataParametersTable {:form-id   [:form]
@@ -416,35 +381,29 @@
                              :data-path ["identificationInfo" "useLimitations"]}]
          [:br]
          [:h4 "Supplemental information"]
-         [:form-id [:form]
-          mdata-etcalf3.view/IMASSupplementalInformation [:identificationInfo :supplementalInformation]]
-         [m3/IMASSupportingResource {:form-id   [:form]
-                                     :data-path ["supportingResources"]}]
+         [m3/IMASSupplementalInformation
+          {:form-id   [:form]
+           :data-path ["identificationInfo" "supplementalInformation"]}]
+         [m3/IMASSupportingResource
+          {:form-id   [:form]
+           :data-path ["supportingResources"]}]
          [:br]
          [:h4 "Distribution"]
          [m4/input-field-with-label
           {:form-id     [:form]
            :data-path   ["distributionInfo" "distributionFormat" "name"]
-           :label       "Data file format"
-           :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
-           :helperText  nil
-           :toolTip     nil
-           :maxLength   100
-           :required    nil}]
+           :placeholder "e.g. Microsoft Excel, CSV, NetCDF"}]
          [m4/input-field-with-label
           {:form-id     [:form]
            :data-path   ["distributionInfo" "distributionFormat" "version"]
-           :label       "Data file format date/version"
-           :placeholder "Date format date or version if applicable"
-           :helperText  nil
-           :toolTip     nil
-           :maxLength   20
-           :required    nil}]
+           :placeholder "Date format date or version if applicable"}]
          [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
 
         :upload
         [:div
-         [m3/PageErrors {:page :upload :path [:form]}]
+         [m4/page-errors
+          {:form-id    [:form]
+           :data-paths [["attachments"]]}]
          [:h2 "8: Upload Data"]
          [m3/UploadData
           {:attachments-path [:form :fields :attachments]}]
@@ -459,7 +418,6 @@
 
         :lodge
         [:div
-         [m3/PageErrors {:page :lodge :path [:form]}]
          [:h2 "9: Lodge Metadata Draft"]
          [:div.lodge-section
           [:p "Are you finished? Use this page to lodge your completed metadata record."]
@@ -470,6 +428,7 @@
           [:p "How complete is your data?"]
           [m4/note-for-data-manager
            {:form-id    [:form]
+            :data-path  ["noteForDataManager"]
             :notes-path [:form :fields :noteForDataManager]}]
           [m4/lodge-button]
           [m4/lodge-status-info]

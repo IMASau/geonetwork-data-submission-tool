@@ -42,7 +42,7 @@
 
 (defn date-order
   "Start date should be before end date"
-  [block {:strs [field0 field1]}]
+  [block {:keys [field0 field1]}]
   (let [d0 (get-in block [:content field0 :props :value])
         d1 (get-in block [:content field1 :props :value])
         r [d0 d1]
@@ -62,7 +62,9 @@
                 {:required true :is-hidden false}
                 {:required false :disabled true :is-hidden true})]
     (s/assert boolean? shown?)
-    (update-in geographicElement [:content "boxes" :props] merge props)))
+    (-> geographicElement
+        (update-in [:content "boxes" :props] merge props)
+        (update-in [:content "boxes"] required-field (:required props)))))
 
 (defn imas-vertical-required
   "Vertical fields are required / included based on vertical extent checkbox"
@@ -71,7 +73,9 @@
     (if shown?
       (-> verticalElement
           (assoc-in [:content "maximumValue" :props :required] true)
-          (assoc-in [:content "minimumValue" :props :required] true))
+          (assoc-in [:content "minimumValue" :props :required] true)
+          (update-in [:content "maximumValue"] required-field true)
+          (update-in [:content "minimumValue"] required-field true))
       (-> verticalElement
           (assoc-in [:content "maximumValue" :props :required] false)
           (assoc-in [:content "minimumValue" :props :required] false)
@@ -85,7 +89,9 @@
         props (if other?
                 {:is-hidden false :disabled false :required true}
                 {:is-hidden true :disabled true :required false})]
-    (update-in identificationInfo [:content "otherConstraints" :props] merge props)))
+    (-> identificationInfo
+      (update-in [:content "otherConstraints" :props] merge props)
+      (update-in [:content "otherConstraints"] required-field (:required props)))))
 
 (defn end-position
   "End position is required if the status is ongoing"
@@ -94,7 +100,9 @@
         props (if (contains? #{"onGoing" "planned"} value)
                 {:required false :disabled true :value nil}
                 {:required true :disabled false})]
-    (update-in identificationInfo [:content "endPosition" :props] merge props)))
+    (-> identificationInfo
+        (update-in [:content "endPosition" :props] merge props)
+        (update-in [:content "endPosition"] required-field (:required props)))))
 
 (defn maint-freq
   [identificationInfo]
@@ -104,7 +112,9 @@
                 "planned" {:is-hidden false :disabled false :required true}
                 "completed" {:is-hidden false :disabled true :value "notPlanned" :required false}
                 {:is-hidden true :disabled true :value "" :required false})]
-    (update-in identificationInfo [:content "maintenanceAndUpdateFrequency" :props] merge props)))
+    (-> identificationInfo
+        (update-in [:content "maintenanceAndUpdateFrequency" :props] merge props)
+        (update-in [:content "maintenanceAndUpdateFrequency"] required-field (:required props)))))
 
 (defn vertical-required
   "Vertical fields are required / included based on vertical extent checkbox"

@@ -113,6 +113,7 @@ function getReactSelectCustomStyles({hasError}) {
         option: (provided, state) => {
             return {
                 ...provided,
+                padding: "2px 9px"
             }
         },
         placeholder: (provided, state) => {

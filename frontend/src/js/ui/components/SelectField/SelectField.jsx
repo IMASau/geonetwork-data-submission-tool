@@ -141,6 +141,35 @@ export function getReactSelectComponents({Option}) {
     }
 }
 
+
+export function SelectField({value, options, hasError, disabled, placeholder, Option, onChange}) {
+    return (
+        <Select
+            styles={getReactSelectCustomStyles({hasError})}
+            components={getReactSelectComponents({Option})}
+            value={value}
+            options={options}
+            placeholder={placeholder}
+            onChange={(value) => onChange(value)}
+            isClearable={true}
+            isDisabled={disabled}
+            isLoading={false}
+            isSearchable={true}
+        />
+    );
+}
+
+SelectField.propTypes = {
+    value: PropTypes.object,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    Option: PropTypes.func.isRequired,
+}
+
+
 export function SelectValueField({value, options, onChange, ...args}) {
     const valueOption = options && options.find(option => option.value === value)
     const onValueChange = (option) => onChange(option ? option.value : null)

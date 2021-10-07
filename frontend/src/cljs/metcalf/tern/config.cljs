@@ -142,14 +142,6 @@
        'm4/date-field-with-label                     components4/date-field-with-label
        'm4/select-value                              components4/select-value
        'm4/select-value-with-label                   components4/select-value-with-label
-       'm4/select-option                             components4/select-option
-       'm4/select-option-with-label                  components4/select-option-with-label
-       'm4/async-simple-select-option                components4/async-simple-select-option
-       'm4/async-simple-select-option-with-label     components4/async-simple-select-option-with-label
-       'm4/async-breadcrumb-select-option            components4/async-breadcrumb-select-option
-       'm4/async-breadcrumb-select-option-with-label components4/async-breadcrumb-select-option-with-label
-       'm4/async-table-select-option                 components4/async-table-select-option
-       'm4/async-table-select-option-with-label      components4/async-table-select-option-with-label
        'm4/yes-no-field                              components4/yes-no-field
        'm4/page-errors                               components4/page-errors
        'm4/form-group                                components4/form-group
@@ -163,6 +155,10 @@
        'm4/async-breadcrumb-list-option-picker       components4/async-breadcrumb-list-option-picker
        'm4/async-table-list-option-picker            components4/async-table-list-option-picker
        'm4/expanding-control                         components4/expanding-control
+       'm4/select-option                             components4/select-option
+       'm4/select-option-with-label                  components4/select-option-with-label
+       'm4/async-select-option                       components4/async-select-option
+       'm4/async-select-option-with-label            components4/async-select-option-with-label
        })
 (set! low-code/template-registry
       '{:data-identification

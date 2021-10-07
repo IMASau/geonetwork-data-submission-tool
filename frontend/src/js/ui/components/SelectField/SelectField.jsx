@@ -206,7 +206,6 @@ SelectField.propTypes = {
     getLabel: PropTypes.func.isRequired,
 }
 
-
 export function SelectValueField({value, options, onChange, ...args}) {
     const valueOption = options && options.find(option => option.value === value)
     const onValueChange = (option) => onChange(option ? option.value : null)
@@ -253,20 +252,33 @@ SimpleSelectField.propTypes = {
     getLabel: PropTypes.func.isRequired,
 }
 
+export function AsyncSimpleSelectField({getLabel, ...args}) {
+    const Option = ({data}) => <SimpleListItem item={data} getLabel={getLabel}/>
+    return (
+        <AsyncSelectField
+            Option={Option}
+            {...args}
+        />
+    );
+}
 
-export function BreadcrumbSelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, getBreadcrumb, onChange}) {
+AsyncSimpleSelectField.propTypes = {
+    value: PropTypes.object,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+}
+
+export function BreadcrumbSelectField({getLabel, getBreadcrumb, ...args}) {
     const Option = ({data}) => <BreadcrumbListItem item={data} getLabel={getLabel} getBreadcrumb={getBreadcrumb}/>
     return (
         <SelectField
             Option={Option}
-            getValue={getValue}
-            getLabel={getLabel}
-            value={value}
-            options={options}
-            placeholder={placeholder}
-            onChange={(value) => onChange(value)}
-            disabled={disabled}
-            hasError={hasError}
+            {...args}
         />
     );
 }
@@ -283,20 +295,32 @@ BreadcrumbSelectField.propTypes = {
     getBreadcrumb: PropTypes.func.isRequired,
 }
 
-export function TableSelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, columns, onChange}) {
-    const Option = ({data}) => <TableListItem item={data} columns={columns} disabled={disabled}/>
+export function AsyncBreadcrumbSelectField({getLabel, getBreadcrumb, ...args}) {
+    const Option = ({data}) => <BreadcrumbListItem item={data} getLabel={getLabel} getBreadcrumb={getBreadcrumb}/>
     return (
-        <SelectField
+        <AsyncSelectField
             Option={Option}
-            getValue={getValue}
-            getLabel={getLabel}
-            value={value}
-            options={options}
-            placeholder={placeholder}
-            onChange={(value) => onChange(value)}
-            disabled={disabled}
-            hasError={hasError}
+            {...args}
         />
+    );
+}
+
+AsyncBreadcrumbSelectField.propTypes = {
+    value: PropTypes.object,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    getBreadcrumb: PropTypes.func.isRequired,
+}
+
+export function TableSelectField({columns, ...args}) {
+    const Option = ({data}) => <TableListItem item={data} columns={columns} disabled={args.disabled}/>
+    return (
+        <SelectField Option={Option} {...args}/>
     );
 }
 
@@ -315,8 +339,7 @@ TableSelectField.propTypes = {
     })),
 }
 
-
-export function AsyncSelectOptionField({value, hasError, disabled, placeholder, onChange, loadOptions}) {
+export function AsyncSimpleSelectField({value, hasError, disabled, placeholder, onChange, loadOptions}) {
     const defaultOptions = !disabled
     return (
         <AsyncSelect
@@ -333,7 +356,7 @@ export function AsyncSelectOptionField({value, hasError, disabled, placeholder, 
     );
 }
 
-AsyncSelectOptionField.propTypes = {
+AsyncSimpleSelectField.propTypes = {
     value: PropTypes.object,
     loadOptions: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
@@ -341,3 +364,26 @@ AsyncSelectOptionField.propTypes = {
     hasError: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
 }
+
+export function AsyncTableSelectField({columns, ...args}) {
+    const Option = ({data}) => <TableListItem item={data} columns={columns} disabled={args.disabled}/>
+    return (
+        <AsyncSelectField Option={Option} {...args}/>
+    );
+}
+
+AsyncTableSelectField.propTypes = {
+    value: PropTypes.object,
+    loadOptions: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    columns: PropTypes.arrayOf(PropTypes.shape({
+        getLabel: PropTypes.func,
+        flex: PropTypes.number
+    })),
+}
+

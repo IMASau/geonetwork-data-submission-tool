@@ -309,7 +309,7 @@
   [form-group config
    [select-option config]])
 
-(defn async-select-option
+(defn async-simple-select-option
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:uri]
@@ -324,7 +324,7 @@
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type "object" :properties {}}})
 
-    [ui/AsyncSelectOptionField
+    [ui/AsyncSimpleSelectField
      {:value       value
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
       :placeholder placeholder
@@ -332,10 +332,10 @@
       :hasError    (seq hasError)
       :onChange    onChange}]))
 
-(defn async-select-option-with-label
+(defn async-simple-select-option-with-label
   [config]
   [form-group config
-   [async-select-option config]])
+   [async-simple-select-option config]])
 
 (defn select-value
   [config]
@@ -555,7 +555,7 @@
       :valueKey    valueKey
       :columns     columns}]))
 
-(defn async-list-option-picker
+(defn async-simple-list-option-picker
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:uri :placeholder]
@@ -569,13 +569,63 @@
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
-    [ui/AsyncSelectOptionField
+    [ui/AsyncSimpleSelectField
      {:value       nil
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
       :placeholder placeholder
       :disabled    disabled
       :hasError    (seq hasError)
       :onChange    onChange}]))
+
+(defn async-breadcrumb-list-option-picker
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:uri :placeholder :valueKey :labelKey :breadcrumbKey]
+        logic @(rf/subscribe [::get-block-props ctx])
+        onChange #(rf/dispatch [::list-option-picker-change ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [placeholder uri disabled errors show-errors valueKey labelKey breadcrumbKey]} props
+        hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" :items {:type "object" :properties {}}}})
+
+    [ui/AsyncBreadcrumbSelectField
+     {:value         nil
+      :loadOptions   #(utils4/fetch-post {:uri uri :body {:query %}})
+      :placeholder   placeholder
+      :disabled      disabled
+      :hasError      (seq hasError)
+      :onChange      onChange
+      :labelKey      labelKey
+      :valueKey      valueKey
+      :breadcrumbKey breadcrumbKey}]))
+
+(defn async-table-list-option-picker
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:uri :placeholder :valueKey :labelKey :columns]
+        logic @(rf/subscribe [::get-block-props ctx])
+        onChange #(rf/dispatch [::list-option-picker-change ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [placeholder uri disabled errors show-errors valueKey labelKey columns]} props
+        hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" :items {:type "object" :properties {}}}})
+
+    [ui/AsyncTableSelectField
+     {:value       nil
+      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    (seq hasError)
+      :onChange    onChange
+      :labelKey    labelKey
+      :valueKey    valueKey
+      :columns     columns}]))
 
 (defn expanding-control
   [config & children]

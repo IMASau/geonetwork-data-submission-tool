@@ -7,7 +7,7 @@ import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
 import NOTES from './NOTES.mdx';
 
 export default {
-    title: 'Example/SelectValueField',
+    title: 'SelectField/SelectValueField',
     component: SelectValueField,
     argTypes: {
         // Most are inferred from propTypes

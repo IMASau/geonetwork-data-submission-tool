@@ -4,7 +4,6 @@ import {SelectOptionField} from './SelectField';
 import './SelectField.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
-import {FormGroup} from "../FormGroup/FormGroup";
 
 export default {
     title: 'Example/SelectOptionField',

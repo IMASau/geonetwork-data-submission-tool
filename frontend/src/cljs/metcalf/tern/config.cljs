@@ -322,8 +322,20 @@
              :valueKey      "uri"
              :breadcrumbKey "breadcrumb"}]]]
 
-         [m4/expanding-control {:label "Paramters" :required true}
-          "..."]
+         [m4/expanding-control {:label "Parameters" :required true}
+          ;; TODO: also need a user-added option
+          [m4/form-group
+           {:label "Select the name of the measured parameter, e.g. vegetation height"}
+           [m4/async-list-option-picker
+            {:form-id   [:form]
+             :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
+             :uri       "/api/ternparameters"}]
+           [m4/breadcrumb-selection-list
+            {:form-id       [:form]
+             :data-path     ["identificationInfo" "keywordsInstrument" "keywords"]
+             :labelKey      "label"
+             :valueKey      "uri"
+             :breadcrumbKey "breadcrumb"}]]]
 
          [m4/expanding-control {:label "Temporal Resolution" :required true}
           "..."]

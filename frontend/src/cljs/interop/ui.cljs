@@ -160,6 +160,28 @@
     :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
     :onChange      (fn [o] (onChange (js->map o [valueKey labelKey])))}])
 
+(defn AsyncBreadcrumbSelectField
+  [{:keys [value loadOptions placeholder disabled hasError onChange valueKey labelKey breadcrumbKey]}]
+  (s/assert (s/nilable map?) value)
+  (s/assert fn? loadOptions)
+  (s/assert (s/nilable string?) placeholder)
+  (s/assert (s/nilable string?) valueKey)
+  (s/assert (s/nilable string?) labelKey)
+  (s/assert (s/nilable string?) breadcrumbKey)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
+  [:> SelectField/AsyncBreadcrumbSelectField
+   {:value         value
+    :loadOptions   loadOptions
+    :placeholder   placeholder
+    :disabled      disabled
+    :hasError      hasError
+    :getValue      #(gobj/get % valueKey "No value")
+    :getLabel      #(gobj/get % labelKey "No label")
+    :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
+    :onChange      (fn [o] (onChange (js->map o [valueKey labelKey])))}])
+
 (defn TableSelectField
   [{:keys [value options placeholder disabled hasError onChange labelKey valueKey columns]}]
   (s/assert (s/nilable map?) value)

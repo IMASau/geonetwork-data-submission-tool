@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AsyncSelect from "react-select/async/dist/react-select.esm";
 import Select, {components} from "react-select";
-import {SimpleListItem} from "../ListItem/ListItem";
+import {BreadcrumbListItem, SimpleListItem} from "../ListItem/ListItem";
 
 function getReactSelectCustomStyles({hasError}) {
     return {
@@ -180,12 +180,12 @@ export function SelectValueField({value, options, onChange, ...args}) {
     const valueOption = options && options.find(option => option.value === value)
     const onValueChange = (option) => onChange(option ? option.value : null)
     return (
-        <SelectOptionField
+        <SimpleSelectField
             value={valueOption}
             onChange={onValueChange}
             {...args}
         >
-        </SelectOptionField>
+        </SimpleSelectField>
     );
 }
 
@@ -200,13 +200,13 @@ SelectValueField.propTypes = {
     getLabel: PropTypes.func.isRequired,
 }
 
-export function SelectOptionField({value, options, hasError, disabled, placeholder, getLabel, getValue, onChange}) {
+export function SimpleSelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, onChange}) {
     const Option = ({data}) => <SimpleListItem item={data} getLabel={getLabel}/>
     return (
         <SelectField
             Option={Option}
-            getOptionValue={getValue}
-            getOptionLabel={getLabel}
+            getValue={getValue}
+            getLabel={getLabel}
             value={value}
             options={options}
             placeholder={placeholder}
@@ -215,11 +215,12 @@ export function SelectOptionField({value, options, hasError, disabled, placehold
             isDisabled={disabled}
             isLoading={false}
             isSearchable={true}
+            hasError={hasError}
         />
     );
 }
 
-SelectOptionField.propTypes = {
+SimpleSelectField.propTypes = {
     value: PropTypes.object,
     options: PropTypes.arrayOf(PropTypes.object).isRequired,
     placeholder: PropTypes.string,
@@ -228,6 +229,39 @@ SelectOptionField.propTypes = {
     onChange: PropTypes.func.isRequired,
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,
+}
+
+
+export function BreadcrumbSelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, getBreadcrumb onChange}) {
+    const Option = ({data}) => <BreadcrumbListItem item={data} getLabel={getLabel} getBreadcrumb={getBreadcrumb}/>
+    return (
+        <SelectField
+            Option={Option}
+            getValue={getValue}
+            getLabel={getLabel}
+            value={value}
+            options={options}
+            placeholder={placeholder}
+            onChange={(value) => onChange(value)}
+            isClearable={true}
+            isDisabled={disabled}
+            isLoading={false}
+            isSearchable={true}
+            hasError={hasError}
+        />
+    );
+}
+
+BreadcrumbSelectField.propTypes = {
+    value: PropTypes.object,
+    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    getBreadcrumb: PropTypes.func.isRequired,
 }
 
 

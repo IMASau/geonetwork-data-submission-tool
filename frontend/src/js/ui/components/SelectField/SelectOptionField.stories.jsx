@@ -1,20 +1,20 @@
 import React from 'react';
 
-import {SelectOptionField} from './SelectField';
+import {SimpleSelectField} from './SelectField';
 import './SelectField.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
 
 export default {
-    title: 'Example/SelectOptionField',
-    component: SelectOptionField,
+    title: 'Example/SimpleSelectField',
+    component: SimpleSelectField,
     argTypes: {
         // Most are inferred from propTypes
         onChange: {action: 'onChange'},
     }
 };
 
-const FieldTemplate = (args) => <SelectOptionField {...args} />;
+const FieldTemplate = (args) => <SimpleSelectField {...args} />;
 
 const options = [
     { value: 'chocolate', label: 'Chocolate' },

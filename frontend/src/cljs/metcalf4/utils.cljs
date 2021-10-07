@@ -16,9 +16,10 @@
 
 (defn get-ctx
   [{:keys [form-id data-path]}]
-  (let [data-path (mapv massage-data-path-value data-path)]
-    (s/assert ::data-path data-path)
-    {:form-id form-id :data-path data-path}))
+  (when (and form-id data-path)
+    (let [data-path (mapv massage-data-path-value data-path)]
+      (s/assert ::data-path data-path)
+      {:form-id form-id :data-path data-path})))
 
 
 (defn get-csrf

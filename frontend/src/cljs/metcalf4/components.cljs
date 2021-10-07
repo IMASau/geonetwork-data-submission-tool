@@ -555,7 +555,7 @@
       :valueKey    valueKey
       :columns     columns}]))
 
-(defn async-list-option-picker
+(defn async-simple-list-option-picker
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:uri :placeholder]

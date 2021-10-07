@@ -178,7 +178,7 @@
        'm4/breadcrumb-selection-list             components4/breadcrumb-selection-list
        'm4/table-selection-list                  components4/table-selection-list
        'm4/simple-list-option-picker             components4/simple-list-option-picker
-       'm4/async-list-option-picker              components4/async-list-option-picker
+       'm4/async-simple-list-option-picker       components4/async-simple-list-option-picker
        'm4/checkbox-field                        components4/checkbox-field
        'm4/checkbox-field-with-label             components4/checkbox-field-with-label
        'm4/boxmap-field                          components4/boxmap-field

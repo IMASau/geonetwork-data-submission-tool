@@ -161,7 +161,7 @@
        'm4/simple-list-option-picker             components4/simple-list-option-picker
        'm4/breadcrumb-list-option-picker         components4/breadcrumb-list-option-picker
        'm4/table-list-option-picker              components4/table-list-option-picker
-       'm4/async-list-option-picker              components4/async-list-option-picker
+       'm4/async-simple-list-option-picker              components4/async-simple-list-option-picker
        'm4/expanding-control                     components4/expanding-control
        })
 (set! low-code/template-registry
@@ -264,7 +264,7 @@
 
           [m4/form-group
            {:label "Select research theme keywords - maximum of 12 allowed"}
-           [m4/async-list-option-picker
+           [m4/async-simple-list-option-picker
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsTheme" "keywords"]
              :uri       "/api/ternparameters"               ;TODO: Update to real endpoint
@@ -280,7 +280,7 @@
 
         [m4/form-group
          {:label "Select research theme keywords - maximum of 12 allowed"}
-         [m4/async-list-option-picker
+         [m4/async-simple-list-option-picker
           {:form-id   [:form]
            :data-path ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
            :uri       "/api/ternparameters"                 ;TODO: Update to real endpoint
@@ -296,7 +296,7 @@
           ;; TODO: also need a user-added option
           [m4/form-group
            {:label "Select a platform for the data measurement"}
-           [m4/async-list-option-picker
+           [m4/async-simple-list-option-picker
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
              :uri       "/api/ternplatforms"}]
@@ -311,7 +311,7 @@
           ;; TODO: also need a user-added option
           [m4/form-group
            {:label "Select the instrument used for the platform"}
-           [m4/async-list-option-picker
+           [m4/async-simple-list-option-picker
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
              :uri       "/api/terninstruments"}]

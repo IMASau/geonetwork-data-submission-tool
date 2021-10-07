@@ -215,35 +215,41 @@
          [m4/select-value-with-label
           {:form-id   [:form]
            :data-path ["identificationInfo" "topicCategory"]
-           :options   [{:value "biota" :label "biota"}
-                       {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
-                       {:value "oceans" :label "oceans"}
-                       {:value "geoscientificInformation" :label "geoscientificInformation"}
-                       {:value "inlandWater" :label "inlandWater"}]}]
+           :valueKey  "value"
+           :labelKey  "label"
+           :options   [{"value" "biota" "label" "biota"}
+                       {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
+                       {"value" "oceans" "label" "oceans"}
+                       {"value" "geoscientificInformation" "label" "geoscientificInformation"}
+                       {"value" "inlandWater" "label" "inlandWater"}]}]
          [m4/select-value-with-label
           {:form-id   [:form]
            :data-path ["identificationInfo" "status"]
-           :options   [{:value "onGoing" :label "ongoing"}
-                       {:value "planned" :label "planned"}
-                       {:value "completed" :label "completed"}]}]
+           :valueKey  "value"
+           :labelKey  "label"
+           :options   [{"value" "onGoing" "label" "ongoing"}
+                       {"value" "planned" "label" "planned"}
+                       {"value" "completed" "label" "completed"}]}]
          [m4/select-value-with-label
           {:form-id   [:form]
            :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
-           :options   [{:value "continually" :label "Continually"}
-                       {:value "daily" :label "Daily"}
-                       {:value "weekly" :label "Weekly"}
-                       {:value "fortnightly" :label "Fortnightly"}
-                       {:value "monthly" :label "Monthly"}
-                       {:value "quarterly" :label "Quarterly"}
-                       {:value "biannually" :label "Twice each year"}
-                       {:value "annually" :label "Annually"}
-                       {:value "asNeeded" :label "As required"}
-                       {:value "irregular" :label "Irregular"}
-                       {:value "notPlanned" :label "None planned"}
-                       {:value "unknown" :label "Unknown"}
-                       {:value "periodic" :label "Periodic"}
-                       {:value "semimonthly" :label "Twice a month"}
-                       {:value "biennially" :label "Every 2 years"}]}]
+           :valueKey  "value"
+           :labelKey  "label"
+           :options   [{"value" "continually" "label" "Continually"}
+                       {"value" "daily" "label" "Daily"}
+                       {"value" "weekly" "label" "Weekly"}
+                       {"value" "fortnightly" "label" "Fortnightly"}
+                       {"value" "monthly" "label" "Monthly"}
+                       {"value" "quarterly" "label" "Quarterly"}
+                       {"value" "biannually" "label" "Twice each year"}
+                       {"value" "annually" "label" "Annually"}
+                       {"value" "asNeeded" "label" "As required"}
+                       {"value" "irregular" "label" "Irregular"}
+                       {"value" "notPlanned" "label" "None planned"}
+                       {"value" "unknown" "label" "Unknown"}
+                       {"value" "periodic" "label" "Periodic"}
+                       {"value" "semimonthly" "label" "Twice a month"}
+                       {"value" "biennially" "label" "Every 2 years"}]}]
          [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what
@@ -396,9 +402,11 @@
                         "Creative Commons"]]
            :label     "License"
            :required  true
-           :options   [{:value "http://creativecommons.org/licenses/by/4.0/" :label "Creative Commons by Attribution (recommended​)"}
-                       {:value "http://creativecommons.org/licenses/by-nc/4.0/" :label "Creative Commons, Non-commercial Use only"}
-                       {:value "http://creativecommons.org/licenses/other" :label "Other constraints"}]}]
+           :valueKey  "value"
+           :labelKey  "label"
+           :options   [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}
+                       {"value" "http://creativecommons.org/licenses/by-nc/4.0/" "label" "Creative Commons, Non-commercial Use only"}
+                       {"value" "http://creativecommons.org/licenses/other" "label" "Other constraints"}]}]
          [m4/input-field-with-label
           {:form-id     [:form]
            :data-path   ["identificationInfo" "otherConstraints"]

@@ -600,36 +600,36 @@
      [:div.n-block
       [numeric-input-field-with-label
        {:form-id   [:form]
-        :data-path (conj path :northBoundLatitude)
+        :data-path (conj path "northBoundLatitude")
         :required  true}]]]]
    [:div.row
     [:div.col-sm-6.col-lg-4
      [:div.w-block
       [numeric-input-field-with-label
        {:form-id   [:form]
-        :data-path (conj path :westBoundLongitude)
+        :data-path (conj path "westBoundLongitude")
         :required  true}]]]
     [:div.col-sm-6.col-lg-4
      [:div.e-block
       [numeric-input-field-with-label
        {:form-id   [:form]
-        :data-path (conj path :eastBoundLongitude)}]]]]
+        :data-path (conj path "eastBoundLongitude")}]]]]
    [:div.row
     [:div.col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-2
      [:div.s-block
       [numeric-input-field-with-label
        {:form-id   [:form]
-        :data-path (conj path :southBoundLatitude)}]]]]])
+        :data-path (conj path "southBoundLatitude")}]]]]])
 
 (defn boxmap-field
   [config]
   (letfn [(boxes->elements
             [boxes]
             (for [box boxes]
-              {:northBoundLatitude (get-in box [:northBoundLatitude])
-               :southBoundLatitude (get-in box [:southBoundLatitude])
-               :eastBoundLongitude (get-in box [:eastBoundLongitude])
-               :westBoundLongitude (get-in box [:westBoundLongitude])}))]
+              {:northBoundLatitude (get-in box ["northBoundLatitude"])
+               :southBoundLatitude (get-in box ["southBoundLatitude"])
+               :eastBoundLongitude (get-in box ["eastBoundLongitude"])
+               :westBoundLongitude (get-in box ["westBoundLongitude"])}))]
     (let [ctx (utils4/get-ctx config)
           config-keys [:options :placeholder]
           logic @(rf/subscribe [::get-block-props ctx])
@@ -656,16 +656,16 @@
         data-path (:data-path ctx)
         ths ["North limit" "West limit" "South limit" "East limit"]
         tds-fn (fn [geographicElement]
-                 (let [{:keys [northBoundLatitude westBoundLongitude
+                 (let [{:strs [northBoundLatitude westBoundLongitude
                                eastBoundLongitude southBoundLatitude]} geographicElement]
                    [(pretty-print northBoundLatitude)
                     (pretty-print westBoundLongitude)
                     (pretty-print southBoundLatitude)
                     (pretty-print eastBoundLongitude)]))
-        new-item-with-values {:northBoundLatitude 0
-                              :southBoundLatitude 0
-                              :eastBoundLongitude 0
-                              :westBoundLongitude 0}]
+        new-item-with-values {"northBoundLatitude" 0
+                              "southBoundLatitude" 0
+                              "eastBoundLongitude" 0
+                              "westBoundLongitude" 0}]
     (letfn [(new-fn [] (when-not disabled
                          (rf/dispatch [::boxmap-coordinates-open-add-modal
                                        {:ctx          ctx
@@ -697,10 +697,10 @@
                     (for [[idx field] (map-indexed vector data)]
                       (let [data-path (conj data-path idx)
                             form-state @(rf/subscribe [::common-subs/get-form-state (:form-id ctx)])
-                            has-error? (or (has-error? form-state (conj data-path :northBoundLatitude))
-                                           (has-error? form-state (conj data-path :southBoundLatitude))
-                                           (has-error? form-state (conj data-path :eastBoundLongitude))
-                                           (has-error? form-state (conj data-path :westBoundLongitude)))]
+                            has-error? (or (has-error? form-state (conj data-path "northBoundLatitude"))
+                                           (has-error? form-state (conj data-path "southBoundLatitude"))
+                                           (has-error? form-state (conj data-path "eastBoundLongitude"))
+                                           (has-error? form-state (conj data-path "westBoundLongitude")))]
                         (-> [:tr.clickable-text {:class    (when has-error? "warning")
                                                  :ref      (str data-path)
                                                  :on-click #(open-edit-fn data-path)}]

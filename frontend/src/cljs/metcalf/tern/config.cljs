@@ -158,7 +158,8 @@
        'm4/simple-selection-list          components4/simple-selection-list
        'm4/breadcrumb-selection-list      components4/breadcrumb-selection-list
        'm4/table-selection-list           components4/table-selection-list
-       'm4/list-option-picker             components4/list-option-picker
+       'm4/simple-list-option-picker      components4/simple-list-option-picker
+       'm4/breadcrumb-list-option-picker  components4/breadcrumb-list-option-picker
        'm4/async-list-option-picker       components4/async-list-option-picker
        'm4/expanding-control              components4/expanding-control
        })
@@ -196,7 +197,7 @@
             :data-path ["identificationInfo" "topicCategory"]
             :labelKey  "label"
             :valueKey  "value"}]
-          [m4/list-option-picker
+          [m4/simple-list-option-picker
            {:form-id     [:form]
             :data-path   ["identificationInfo" "topicCategory"]
             :placeholder "Start typing to filter list..."

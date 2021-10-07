@@ -109,21 +109,21 @@
   (s/assert string? valueKey)
   (s/assert (s/coll-of (has-keys? [labelKey valueKey])) options)
   [:> SelectField/SelectValueField
-   {:value          value
-    :options        options
-    :getValue       #(gobj/get % valueKey "No value")
-    :getLabel       #(gobj/get % labelKey "No label")
-    :placeholder    placeholder
-    :disabled       disabled
-    :hasError       hasError
-    :onChange       onChange}])
+   {:value       value
+    :options     options
+    :getValue    #(gobj/get % valueKey "No value")
+    :getLabel    #(gobj/get % labelKey "No label")
+    :placeholder placeholder
+    :disabled    disabled
+    :hasError    hasError
+    :onChange    onChange}])
 
 (defn SimpleSelectField
-  [{:keys [value options placeholder disabled hasError onChange valueKey labelKey]
-    :or   {valueKey "value"
-           labelKey "label"}}]
+  [{:keys [value options placeholder disabled hasError onChange valueKey labelKey]}]
   (s/assert (s/nilable map?) value)
   (s/assert (s/coll-of map?) options)
+  (s/assert (s/nilable string?) valueKey)
+  (s/assert (s/nilable string?) labelKey)
   (s/assert (s/nilable string?) placeholder)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
@@ -138,11 +138,33 @@
     :getLabel    #(gobj/get % labelKey "No label")
     :onChange    (fn [o] (onChange (js->map o [valueKey labelKey])))}])
 
-(defn AsyncSelectOptionField
-  [{:keys [value loadOptions placeholder disabled hasError onChange valueKey labelKey]
-    :or   {valueKey "value"
-           labelKey "label"}}]
+(defn BreadcrumbSelectField
+  [{:keys [value options placeholder disabled hasError onChange valueKey labelKey breadcrumbKey]}]
   (s/assert (s/nilable map?) value)
+  (s/assert (s/coll-of map?) options)
+  (s/assert (s/nilable string?) placeholder)
+  (s/assert (s/nilable string?) valueKey)
+  (s/assert (s/nilable string?) labelKey)
+  (s/assert (s/nilable string?) breadcrumbKey)
+  (s/assert (s/nilable boolean?) disabled)
+  (s/assert (s/nilable boolean?) hasError)
+  (s/assert fn? onChange)
+  [:> SelectField/BreadcrumbSelectField
+   {:value         value
+    :options       options
+    :placeholder   placeholder
+    :disabled      disabled
+    :hasError      hasError
+    :getValue      #(gobj/get % valueKey "No value")
+    :getLabel      #(gobj/get % labelKey "No label")
+    :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
+    :onChange      (fn [o] (onChange (js->map o [valueKey labelKey])))}])
+
+(defn AsyncSelectOptionField
+  [{:keys [value loadOptions placeholder disabled hasError onChange valueKey labelKey]}]
+  (s/assert (s/nilable map?) value)
+  (s/assert (s/nilable string?) valueKey)
+  (s/assert (s/nilable string?) labelKey)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
   (s/assert (s/nilable boolean?) disabled)

@@ -481,7 +481,7 @@
       :columns       columns
       :valueKey      valueKey}]))
 
-(defn list-option-picker
+(defn simple-list-option-picker
   [config]
   (let [ctx (utils4/get-ctx config)
         config-keys [:options :placeholder :valueKey :labelKey]
@@ -504,6 +504,31 @@
       :onChange    onChange
       :labelKey    labelKey
       :valueKey    valueKey}]))
+
+(defn breadcrumb-list-option-picker
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:options :placeholder :valueKey :labelKey :breadcrumbKey]
+        logic @(rf/subscribe [::get-block-props ctx])
+        onChange #(rf/dispatch [::list-option-picker-change ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [placeholder options disabled errors show-errors valueKey labelKey breadcrumbKey]} props
+        hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" :items {:type "object" :properties {}}}})
+
+    [ui/BreadcrumbSelectField
+     {:value         nil
+      :options       options
+      :placeholder   placeholder
+      :disabled      disabled
+      :hasError      (seq hasError)
+      :onChange      onChange
+      :labelKey      labelKey
+      :valueKey      valueKey
+      :breadcrumbKey breadcrumbKey}]))
 
 (defn async-list-option-picker
   [config]

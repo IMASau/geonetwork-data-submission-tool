@@ -29,6 +29,7 @@ SimpleField.args = {
     placeholder: "",
     disabled: false,
     hasError: false,
+    getLabel: (o)=>o.label,
 };
 
 export const FieldDiabledState = FieldTemplate.bind({});

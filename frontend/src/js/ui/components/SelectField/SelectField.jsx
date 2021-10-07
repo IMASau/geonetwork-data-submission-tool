@@ -182,6 +182,7 @@ export function SelectValueField({value, options, onChange, ...args}) {
     return (
         <SimpleSelectField
             value={valueOption}
+            options={options}
             onChange={onValueChange}
             {...args}
         >

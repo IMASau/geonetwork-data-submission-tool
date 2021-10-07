@@ -30,8 +30,8 @@ SimpleField.args = {
     placeholder: "",
     disabled: false,
     hasError: false,
-    getOptionValue: (option => option.value),
-    getOptionLabel: (option => option.label)
+    getValue: (option => option.value),
+    getLabel: (option => option.label)
 };
 
 export const FieldDiabledState = FieldTemplate.bind({});
@@ -39,8 +39,8 @@ FieldDiabledState.args = {
     value: options[0].value,
     options: options,
     disabled: true,
-    getOptionValue: (option => option.value),
-    getOptionLabel: (option => option.label)
+    getValue: (option => option.value),
+    getLabel: (option => option.label)
 };
 
 export const FieldWithError = FieldTemplate.bind({});
@@ -48,8 +48,8 @@ FieldWithError.args = {
     value: options[0].value,
     options: options,
     hasError: true,
-    getOptionValue: (option => option.value),
-    getOptionLabel: (option => option.label)
+    getValue: (option => option.value),
+    getLabel: (option => option.label)
 };
 
 export const FieldWithInvalidValue = FieldTemplate.bind({});
@@ -57,16 +57,16 @@ FieldWithInvalidValue.args = {
     value: 'marzipan',
     options: options,
     hasError: true,
-    getOptionValue: (option => option.value),
-    getOptionLabel: (option => option.label)
+    getValue: (option => option.value),
+    getLabel: (option => option.label)
 };
 
 
 export const EmptyFieldWithPlaceholder = FieldTemplate.bind({});
 EmptyFieldWithPlaceholder.args = {
     placeholder: "This is the placeholder",
-    getOptionValue: (option => option.value),
-    getOptionLabel: (option => option.label)
+    getValue: (option => option.value),
+    getLabel: (option => option.label)
 };
 
 export const DesignDecisions = NOTES;

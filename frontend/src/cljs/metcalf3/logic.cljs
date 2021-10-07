@@ -554,16 +554,21 @@
     (apply merge-with deep-merge vals)
     (last vals)))
 
+(defn massage-form
+  [{:keys [data schema]}]
+  (let [data (schema/massage-data-payload data)
+        schema (schema/massage-schema-payload schema)]
+    {:data   data
+     :schema schema
+     :state  (blocks/as-blocks {:data data :schema schema})}))
+
 (defn initial-state
   "Massage raw payload for use as app-state"
-  [payload]
+  [{:keys [form] :as payload}]
   (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))
-        data (schema/massage-data-payload (get-in payload [:form :data]))
-        schema (schema/massage-schema-payload (get-in payload [:form :schema]))]
+        ]
     (-> payload
-        (assoc-in [:form :data] data)
-        (assoc-in [:form :schema] schema)
-        (assoc-in [:form :state] (blocks/as-blocks {:data data :schema schema}))
+        (cond-> form (assoc :form (massage-form form)))
         (assoc :alert [])
         (assoc :api {:parametername        {:uri     (str URL_ROOT "/api/ternparameters")
                                             :options nil

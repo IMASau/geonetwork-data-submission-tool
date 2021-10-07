@@ -366,3 +366,27 @@ AsyncSelectOptionField.propTypes = {
     hasError: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
 }
+
+
+export function AsyncTableSelectField({columns, ...args}) {
+    const Option = ({data}) => <TableListItem item={data} columns={columns} disabled={args.disabled}/>
+    return (
+        <AsyncSelectField Option={Option} {...args}/>
+    );
+}
+
+AsyncTableSelectField.propTypes = {
+    value: PropTypes.object,
+    loadOptions: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    columns: PropTypes.arrayOf(PropTypes.shape({
+        getLabel: PropTypes.func,
+        flex: PropTypes.number
+    })),
+}
+

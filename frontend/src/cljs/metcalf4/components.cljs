@@ -572,6 +572,8 @@
     [ui/AsyncSimpleSelectField
      {:value       nil
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :valueKey    valueKey
+      :labelKey    labelKey
       :placeholder placeholder
       :disabled    disabled
       :hasError    (seq hasError)

@@ -558,11 +558,11 @@
 (defn async-simple-list-option-picker
   [config]
   (let [ctx (utils4/get-ctx config)
-        config-keys [:uri :placeholder]
+        config-keys [:uri :placeholder :valueKey :labelKey]
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::list-option-picker-change ctx %])
         props (merge logic (select-keys config config-keys))
-        {:keys [placeholder uri disabled errors show-errors]} props
+        {:keys [placeholder uri disabled errors show-errors valueKey labelKey]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     (schema/assert-compatible-schema

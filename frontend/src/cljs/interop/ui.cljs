@@ -216,8 +216,6 @@
   (s/assert (s/nilable string?) valueKey)
   (s/assert (s/nilable string?) labelKey)
   (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
-  (s/assert (s/coll-of (has-key? valueKey)) options)
-  (s/assert (s/coll-of (has-keys? (map :labelKey columns)) :distinct true) options)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)

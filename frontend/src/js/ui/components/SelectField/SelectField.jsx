@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AsyncSelect from "react-select/async/dist/react-select.esm";
-import Select from "react-select";
+import Select, {components} from "react-select";
 
 function getReactSelectCustomStyles({hasError}) {
     return {
@@ -131,6 +131,13 @@ function getReactSelectCustomStyles({hasError}) {
                 padding: "0 6px"
             }
         },
+    }
+}
+
+export function getReactSelectComponents({Option}) {
+    return {
+        Option: (args) =>
+            <components.Option {...args}><Option data={args.data}/></components.Option>
     }
 }
 

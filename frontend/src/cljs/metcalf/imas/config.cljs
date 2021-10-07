@@ -129,16 +129,14 @@
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
 (set! rules/rule-registry
-      {"requiredField"                         rules/required-field
-       "maintentanceRequiredWhenStatusOngoing" rules/maintenance-required-when-status-ongoing
-       "maxLength"                             rules/max-length
-       "geographyRequired"                     rules/geography-required
-       "imasVerticalRequired"                  rules/imas-vertical-required
-       "licenseOther"                          rules/license-other
-       "dateOrder"                             rules/date-order
-       "endPosition"                           rules/end-position
-       "maintFreq"                             rules/maint-freq
-       "verticalRequired"                      rules/vertical-required})
+      {"requiredField"        rules/required-field
+       "maxLength"            rules/max-length
+       "geographyRequired"    rules/geography-required
+       "imasVerticalRequired" rules/imas-vertical-required
+       "licenseOther"         rules/license-other
+       "dateOrder"            rules/date-order
+       "endPosition"          rules/end-position
+       "maintFreq"            rules/maint-freq})
 (set! low-code/component-registry
       {'m3/DataParametersTable            views/DataParametersTable
        'm3/CheckboxField                  views/CheckboxField

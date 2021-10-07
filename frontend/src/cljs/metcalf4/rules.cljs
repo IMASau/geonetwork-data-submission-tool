@@ -36,35 +36,22 @@
         (cond-> (contains? empty-values value)
                 (update-in [:props :errors] conj "This field is required")))))
 
-(defn maintenance-required-when-status-ongoing
-  [block [status-field-name maint-field-name]]
-  (let [status-value (get-in block [:content status-field-name :props :value])
-        maint-value (get-in block [:content maint-field-name :props :value])
-        required? (contains? #{"onGoing" "planned"} status-value)
-        disabled? (not required?)]
-    (-> block
-        (update-in [:content maint-field-name :props] assoc :required required? :disabled disabled?)
-        (cond-> (and required? (contains? empty-values maint-value))
-                (update-in [:content maint-field-name :props :errors] conj "This field is required BECAUSE OF AAAAAA")))))
-
 (defn max-length
   [block maxLength]
   (assoc-in block [:props :maxLength] maxLength))
 
 (defn date-order
-  "Start date should be fore end date"
-  [block {:keys [field0 field1]}]
-  (let [k0 (keyword field0)                                 ; FIXME: ugly converions to keyword
-        k1 (keyword field1)                                 ; FIXME: ugly converions to keyword
-        d0 (get-in block [:content k0 :props :value])
-        d1 (get-in block [:content k1 :props :value])
+  "Start date should be before end date"
+  [block {:strs [field0 field1]}]
+  (let [d0 (get-in block [:content field0 :props :value])
+        d1 (get-in block [:content field1 :props :value])
         r [d0 d1]
         out-of-order? (and (not (string/blank? d0))         ; FIXME: payload includes "" instead of null
                            (not (string/blank? d1))         ; FIXME: payload includes "" instead of null
                            (not= r (sort r)))]
     (cond-> block
             out-of-order?
-            (update-in [:content k1 :props :errors] conj
+            (update-in [:content field1 :props :errors] conj
                        (str "Must be after " (date/to-string (date/from-value d0)))))))
 
 (defn geography-required

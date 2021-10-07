@@ -147,7 +147,12 @@
     "identificationInfo": {
       "xpath": "mdb:identificationInfo/mri:MD_DataIdentification",
       "type": "object",
-      "rules": [{"maintentanceRequiredWhenStatusOngoing": ["status", "maintenanceAndUpdateFrequency"]}],
+      "rules": [
+        "maintFreq",
+        "endPosition",
+        "licenseOther",
+        {"dateOrder": {"field0": "beginPosition", "field1": "endPosition"}}
+      ],
       "properties": {
         "title": {
           "xpath": "mri:citation/cit:CI_Citation/cit:title",

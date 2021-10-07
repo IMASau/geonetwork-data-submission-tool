@@ -232,19 +232,12 @@ SelectValueField.propTypes = {
     getLabel: PropTypes.func.isRequired,
 }
 
-export function SimpleSelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, onChange}) {
+export function SimpleSelectField({getLabel, ...args}) {
     const Option = ({data}) => <SimpleListItem item={data} getLabel={getLabel}/>
     return (
         <SelectField
             Option={Option}
-            getValue={getValue}
-            getLabel={getLabel}
-            value={value}
-            options={options}
-            placeholder={placeholder}
-            onChange={(value) => onChange(value)}
-            disabled={disabled}
-            hasError={hasError}
+            {...args}
         />
     );
 }

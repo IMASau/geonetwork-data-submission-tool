@@ -304,8 +304,62 @@
       :hasError    (seq hasError)
       :onChange    onChange}]))
 
+(defn table-select-option
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:options :placeholder :labelKey :valueKey :columns]
+        logic @(rf/subscribe [::get-block-props ctx])
+        value @(rf/subscribe [::get-block-data ctx])
+        onChange #(rf/dispatch [::option-change ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [placeholder options disabled errors show-errors labelKey valueKey columns]} props
+        hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "object" :properties {}}})
+
+    [ui/TableSelectField
+     {:value       value
+      :options     options
+      :labelKey    labelKey
+      :valueKey    valueKey
+      :columns     columns
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    (seq hasError)
+      :onChange    onChange}]))
+
+(defn breadcrumb-select-option
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:options :placeholder :labelKey :valueKey :breadcrumbKey]
+        logic @(rf/subscribe [::get-block-props ctx])
+        value @(rf/subscribe [::get-block-data ctx])
+        onChange #(rf/dispatch [::option-change ctx %])
+        props (merge logic (select-keys config config-keys))
+        {:keys [placeholder options disabled errors show-errors labelKey valueKey breadcrumbKey]} props
+        hasError (when (and show-errors (seq errors)) true)]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "object" :properties {}}})
+
+    [ui/TableSelectField
+     {:value         value
+      :options       options
+      :labelKey      labelKey
+      :valueKey      valueKey
+      :breadcrumbKey breadcrumbKey
+      :placeholder   placeholder
+      :disabled      disabled
+      :hasError      (seq hasError)
+      :onChange      onChange}]))
+
 (defmulti select-option :kind)
-(defmethod select-option :default simple-select-option)
+(defmethod select-option :default [config] (simple-select-option config))
+(defmethod select-option :breadcrumb [config] (breadcrumb-select-option config))
+(defmethod select-option :table [config] (table-select-option config))
 
 (defn select-option-with-label
   [config]
@@ -431,6 +485,16 @@
   [config]
   [form-group config
    [async-table-select-option config]])
+
+(defmulti async-select-option :kind)
+(defmethod async-select-option :default [config] (async-simple-select-option config))
+(defmethod async-select-option :breadcrumb [config] (async-breadcrumb-select-option config))
+(defmethod async-select-option :table [config] (async-table-select-option config))
+
+(defn async-select-option-with-label
+  [config]
+  [form-group config
+   [async-select-option config]])
 
 (defn select-value
   [config]

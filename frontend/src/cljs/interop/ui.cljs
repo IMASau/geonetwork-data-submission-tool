@@ -111,8 +111,8 @@
   [:> SelectField/SelectValueField
    {:value          value
     :options        options
-    :getOptionLabel #(gobj/get % labelKey)
-    :getOptionValue #(gobj/get % valueKey)
+    :getValue       #(gobj/get % valueKey "No value")
+    :getLabel       #(gobj/get % labelKey "No label")
     :placeholder    placeholder
     :disabled       disabled
     :hasError       hasError
@@ -120,8 +120,8 @@
 
 (defn SelectOptionField
   [{:keys [value options placeholder disabled hasError onChange valueKey labelKey]
-    :or {valueKey "value"
-         labelKey "label"}}]
+    :or   {valueKey "value"
+           labelKey "label"}}]
   (s/assert (s/nilable map?) value)
   (s/assert (s/coll-of map?) options)
   (s/assert (s/nilable string?) placeholder)
@@ -134,12 +134,14 @@
     :placeholder placeholder
     :disabled    disabled
     :hasError    hasError
+    :getValue    #(gobj/get % valueKey "No value")
+    :getLabel    #(gobj/get % labelKey "No label")
     :onChange    (fn [o] (onChange (js->map o [valueKey labelKey])))}])
 
 (defn AsyncSelectOptionField
   [{:keys [value loadOptions placeholder disabled hasError onChange valueKey labelKey]
-    :or {valueKey "value"
-         labelKey "label"}}]
+    :or   {valueKey "value"
+           labelKey "label"}}]
   (s/assert (s/nilable map?) value)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
@@ -152,6 +154,8 @@
     :placeholder placeholder
     :disabled    disabled
     :hasError    hasError
+    :getValue    #(gobj/get % valueKey "No value")
+    :getLabel    #(gobj/get % labelKey "No label")
     :onChange    (fn [o] (onChange (js->map o [valueKey labelKey])))}])
 
 (defn SimpleSelectionList

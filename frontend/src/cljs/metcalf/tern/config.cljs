@@ -200,6 +200,8 @@
            {:form-id     [:form]
             :data-path   ["identificationInfo" "topicCategory"]
             :placeholder "Start typing to filter list..."
+            :labelKey    "label"
+            :valueKey    "value"
             :options     [{:value "biota" :label "biota"}
                           {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
                           {:value "oceans" :label "oceans"}

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AsyncSelect from "react-select/async/dist/react-select.esm";
 import Select, {components} from "react-select";
+import {SimpleListItem} from "../ListItem/ListItem";
 
 function getReactSelectCustomStyles({hasError}) {
     return {
@@ -142,11 +143,13 @@ export function getReactSelectComponents({Option}) {
 }
 
 
-export function SelectField({value, options, hasError, disabled, placeholder, Option, onChange}) {
+export function SelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, Option, onChange}) {
     return (
         <Select
             styles={getReactSelectCustomStyles({hasError})}
             components={getReactSelectComponents({Option})}
+            getOptionValue={getValue}
+            getOptionLabel={getLabel}
             value={value}
             options={options}
             placeholder={placeholder}
@@ -167,6 +170,8 @@ SelectField.propTypes = {
     hasError: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     Option: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
 }
 
 
@@ -189,13 +194,18 @@ SelectValueField.propTypes = {
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
 }
 
-export function SelectOptionField({value, options, hasError, disabled, placeholder, onChange}) {
+export function SelectOptionField({value, options, hasError, disabled, placeholder, getLabel, getValue, onChange}) {
+    const Option = ({data}) => <SimpleListItem item={data} getLabel={getLabel}/>
     return (
-        <Select
-            styles={getReactSelectCustomStyles({hasError})}
+        <SelectField
+            Option={Option}
+            getOptionValue={getValue}
+            getOptionLabel={getLabel}
             value={value}
             options={options}
             placeholder={placeholder}
@@ -215,6 +225,8 @@ SelectOptionField.propTypes = {
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
 }
 
 

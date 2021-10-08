@@ -151,3 +151,21 @@
   [{:keys [db]} _]
   (-> {:db db}
       (assoc-in [:db :page :metcalf3.handlers/saving?] false)))
+
+(defn edit-dialog-close-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/dialog-close-action form-id data-path))))
+
+(defn edit-dialog-cancel-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/dialog-close-action form-id data-path))))
+
+(defn edit-dialog-save-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/dialog-close-action form-id data-path))))

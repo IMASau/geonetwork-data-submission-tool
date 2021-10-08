@@ -358,3 +358,13 @@
     :hasError    hasError
     :hasButtons  hasButtons
     :onChange    onChange}])
+
+(defn EditDialog
+  [{:keys [isOpen title onClear onSave canSave]} & children]
+  [:> EditDialog
+   {:isOpen  isOpen
+    :title   title
+    :onClear onClear
+    :onSave  onSave
+    :canSave canSave}
+   children])

@@ -1,4 +1,4 @@
-{:paths ["src/cljs" "src/spec" "src/gen"]
+{:paths ["src/cljs" "src/spec" "src/gen" "test"]
  :deps  {binaryage/devtools          {:mvn/version "1.0.3"}
          cljs-ajax/cljs-ajax         {:mvn/version "0.8.4"}
          com.andrewmcveigh/cljs-time {:mvn/version "0.5.2"}

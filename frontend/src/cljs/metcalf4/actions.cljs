@@ -44,6 +44,31 @@
   (let [page-name (get-in payload [:page :name])]
     (assoc-in s [:db :page :name] page-name)))
 
+(defn init-snapshots-action
+  [s]
+  (assoc-in s [:db ::snapshots] (list)))
+
+(defn save-snapshot-action
+  [s form-id]
+  (let [snapshot-path (utils4/as-path [:db form-id :state])
+        snapshot-data (get-in s snapshot-path)]
+    (update-in s [:db ::snapshots] conj snapshot-data)))
+
+(defn discard-snapshot-action
+  [s]
+  (cond-> s
+    (seq (get-in s [:db ::snapshots]))
+    (update-in s [:db ::snapshots] pop)))
+
+(defn restore-snapshot-action
+  [s form-id]
+  (let [snapshot-path (utils4/as-path [:db form-id :state])
+        snapshot-data (peek (get-in s [:db ::snapshots]))]
+    (cond-> s
+      (seq (get-in s [:db ::snapshots]))
+      (-> (assoc-in snapshot-path snapshot-data)
+          (discard-snapshot-action)))))
+
 (defn new-item-action
   [s form-id data-path]
   (let [schema-path (utils4/as-path [:db form-id :schema (schema/schema-path data-path) :items])

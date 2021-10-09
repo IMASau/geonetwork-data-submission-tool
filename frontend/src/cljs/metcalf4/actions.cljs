@@ -60,6 +60,27 @@
       (-> (assoc-in state-path state-data)
           (discard-snapshot-action form-id)))))
 
+(defn unselect-list-item-action
+  [s form-id data-path]
+  (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])]
+    (update-in s (conj block-path :props) dissoc :selected)))
+
+(defn select-list-item-action
+  [s form-id data-path idx]
+  (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
+        block-data (get-in s block-path)]
+    (cond-> s
+      (contains? (:content block-data) idx)
+      (assoc-in (conj block-path :props :selected) idx))))
+
+(defn select-last-item-action
+  [s form-id data-path]
+  (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
+        last-idx (dec (count (get-in s (conj block-path :content))))]
+    (cond-> s
+        (not (neg? last-idx))
+        (assoc-in (conj block-path :props :selected) last-idx))))
+
 (defn new-item-action
   [s form-id data-path]
   (let [schema-path (utils4/as-path [:db form-id :schema (schema/schema-path data-path) :items])

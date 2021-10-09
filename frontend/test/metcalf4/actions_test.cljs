@@ -65,3 +65,59 @@
              (actions/restore-snapshot-action [:form])
              (actions/restore-snapshot-action [:form])
              (get-in [:db :form :state])))))
+
+(def s0 (-> {:db {}}
+            (actions/load-form-action
+              {:form {:data   {}
+                      :schema {:type       "object"
+                               :properties {"as" {:type  "array"
+                                                  :items {:type "string"}}}}}})))
+
+(deftest select-list-item-action-test
+  (testing "No action if index is invalid"
+    (is (= {:db {}}
+           (-> {:db {}}
+               (actions/select-list-item-action [:form] [:as] 0)))))
+
+  (testing "Selects if index valid"
+    (is (= 0
+           (-> s0
+               (actions/new-item-action [:form] ["as"])
+               (actions/select-list-item-action [:form] ["as"] 0)
+               (get-in [:db :form :state :content "as" :props :selected]))))
+
+    (is (= 1
+           (-> s0
+               (actions/new-item-action [:form] ["as"])
+               (actions/new-item-action [:form] ["as"])
+               (actions/select-list-item-action [:form] ["as"] 1)
+               (get-in [:db :form :state :content "as" :props :selected]))))))
+
+(deftest unselect-list-item-action-test
+  (testing "No action if not selected"
+    (is (= nil
+           (-> {:db {}}
+               (actions/new-item-action [:form] ["as"])
+               (actions/unselect-list-item-action [:form] [:as])
+               (get-in [:db :form :state :content "as" :props :selected])))))
+  (testing "Unselect if selected"
+    (is (= nil
+           (-> {:db {}}
+               (actions/new-item-action [:form] ["as"])
+               (actions/select-list-item-action [:form] ["as"] 0)
+               (actions/unselect-list-item-action [:form] ["as"])
+               (get-in [:db :form :state :content "as" :props :selected]))))))
+
+(deftest select-last-item-action-test
+  (testing "No action if no items"
+    (is (= nil
+           (-> {:db {}}
+               (actions/select-last-item-action [:form] ["as"])
+               (get-in [:db :form :state :content "as" :props :selected])))))
+  (testing "No action if no items"
+    (is (= 1
+           (-> {:db {}}
+               (actions/new-item-action [:form] ["as"])
+               (actions/new-item-action [:form] ["as"])
+               (actions/select-last-item-action [:form] ["as"])
+               (get-in [:db :form :state :content "as" :props :selected]))))))

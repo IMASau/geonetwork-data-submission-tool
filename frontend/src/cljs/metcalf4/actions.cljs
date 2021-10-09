@@ -5,19 +5,6 @@
             [metcalf4.schema :as schema]
             [metcalf4.utils :as utils4]))
 
-(defn load-form-action
-  "Massage raw payload for use as app-state"
-  [s payload]
-  (let [data (get-in payload [:form :data])
-        schema (get-in payload [:form :schema])
-        state (blocks/as-blocks {:data data :schema schema})]
-    (schema/assert-schema-data schema data)
-    (-> s
-        (assoc-in [:db :form :data] data)                   ; initial data used for 'is dirty' checks
-        (assoc-in [:db :form :schema] schema)               ; data schema used to generate new array items
-        (assoc-in [:db :form :state] state)                 ; form state used to hold props/values
-        )))
-
 (defn load-api-action
   [s api-id api-uri]
   (-> s
@@ -45,29 +32,33 @@
     (assoc-in s [:db :page :name] page-name)))
 
 (defn init-snapshots-action
-  [s]
-  (assoc-in s [:db ::snapshots] (list)))
+  [s form-id]
+  (let [snapshots-path (utils4/as-path [:db form-id :snapshots])]
+    (assoc-in s snapshots-path (list))))
 
 (defn save-snapshot-action
   [s form-id]
-  (let [snapshot-path (utils4/as-path [:db form-id :state])
-        snapshot-data (get-in s snapshot-path)]
-    (update-in s [:db ::snapshots] conj snapshot-data)))
+  (let [snapshots-path (utils4/as-path [:db form-id :snapshots])
+        state-path (utils4/as-path [:db form-id :state])
+        state-data (get-in s state-path)]
+    (update-in s snapshots-path conj state-data)))
 
 (defn discard-snapshot-action
-  [s]
-  (cond-> s
-    (seq (get-in s [:db ::snapshots]))
-    (update-in [:db ::snapshots] pop)))
+  [s form-id]
+  (let [snapshots-path (utils4/as-path [:db form-id :snapshots])]
+    (cond-> s
+      (seq (get-in s snapshots-path))
+      (update-in snapshots-path pop))))
 
 (defn restore-snapshot-action
   [s form-id]
-  (let [snapshot-path (utils4/as-path [:db form-id :state])
-        snapshot-data (peek (get-in s [:db ::snapshots]))]
+  (let [snapshots-path (utils4/as-path [:db form-id :snapshots])
+        state-path (utils4/as-path [:db form-id :state])
+        state-data (peek (get-in s snapshots-path))]
     (cond-> s
-      (seq (get-in s [:db ::snapshots]))
-      (-> (assoc-in snapshot-path snapshot-data)
-          (discard-snapshot-action)))))
+      (seq (get-in s snapshots-path))
+      (-> (assoc-in state-path state-data)
+          (discard-snapshot-action form-id)))))
 
 (defn new-item-action
   [s form-id data-path]
@@ -126,3 +117,16 @@
   (update-in s [:db :alert] (fn [alerts]
                               (when-not (= (peek alerts) modal-props)
                                 (conj alerts modal-props)))))
+
+(defn load-form-action
+  "Massage raw payload for use as app-state"
+  [s payload]
+  (let [data (get-in payload [:form :data])
+        schema (get-in payload [:form :schema])
+        state (blocks/as-blocks {:data data :schema schema})]
+    (schema/assert-schema-data schema data)
+    (-> s
+        (assoc-in [:db :form :data] data)                   ; initial data used for 'is dirty' checks
+        (assoc-in [:db :form :schema] schema)               ; data schema used to generate new array items
+        (assoc-in [:db :form :state] state)                 ; form state used to hold props/values
+        (init-snapshots-action [:form]))))

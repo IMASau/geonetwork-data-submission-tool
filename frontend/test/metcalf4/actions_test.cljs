@@ -3,53 +3,57 @@
   (:require [metcalf4.actions :as actions]))
 
 (deftest init-snapshots-action-test
-  (is (= (actions/init-snapshots-action {:db {}})
-         {:db {::actions/snapshots '()}})))
+  (is (= '()
+         (-> {:db {}}
+             (actions/init-snapshots-action [:form])
+             (get-in [:db :form :snapshots])))))
 
 (deftest save-snapshot-action-test
 
   (is (= '(1)
          (-> {:db {}}
-             (actions/init-snapshots-action)
+             (actions/init-snapshots-action [:form])
              (assoc-in [:db :form :state] 1)
              (actions/save-snapshot-action [:form])
-             (get-in [:db ::actions/snapshots]))))
+             (get-in [:db :form :snapshots]))))
 
   (is (= '(2 1)
          (-> {:db {}}
-             (actions/init-snapshots-action)
+             (actions/init-snapshots-action [:form])
              (assoc-in [:db :form :state] 1)
              (actions/save-snapshot-action [:form])
              (assoc-in [:db :form :state] 2)
              (actions/save-snapshot-action [:form])
-             (get-in [:db ::actions/snapshots])))))
+             (get-in [:db :form :snapshots])))))
 
 (deftest discard-snapshot-action-test
-  (is (= (actions/init-snapshots-action {:db {}})
-         {:db {::actions/snapshots '()}}))
+  (is (= (-> {:db {}}
+             (actions/init-snapshots-action [:form])
+             (get-in [:db :form :snapshots]))
+         '()))
 
   (is (= '()
          (-> {:db {}}
-             (actions/init-snapshots-action)
+             (actions/init-snapshots-action [:form])
              (assoc-in [:db :form :state] 1)
              (actions/save-snapshot-action [:form])
-             (actions/discard-snapshot-action)
-             (get-in [:db ::actions/snapshots]))))
+             (actions/discard-snapshot-action [:form])
+             (get-in [:db :form :snapshots]))))
 
   (is (= '(1)
          (-> {:db {}}
-             (actions/init-snapshots-action)
+             (actions/init-snapshots-action [:form])
              (assoc-in [:db :form :state] 1)
              (actions/save-snapshot-action [:form])
              (assoc-in [:db :form :state] 2)
              (actions/save-snapshot-action [:form])
-             (actions/discard-snapshot-action)
-             (get-in [:db ::actions/snapshots])))))
+             (actions/discard-snapshot-action [:form])
+             (get-in [:db :form :snapshots])))))
 
 (deftest restore-snapshot-action-test
   (is (= 2
          (-> {:db {}}
-             (actions/init-snapshots-action)
+             (actions/init-snapshots-action [:form])
              (assoc-in [:db :form :state] 1)
              (actions/save-snapshot-action [:form])
              (assoc-in [:db :form :state] 2)
@@ -60,7 +64,7 @@
 
   (is (= 1
          (-> {:db {}}
-             (actions/init-snapshots-action)
+             (actions/init-snapshots-action [:form])
              (assoc-in [:db :form :state] 1)
              (actions/save-snapshot-action [:form])
              (assoc-in [:db :form :state] 2)

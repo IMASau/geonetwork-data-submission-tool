@@ -3,23 +3,20 @@
   (:require [metcalf4.actions :as actions]))
 
 (deftest init-snapshots-action-test
-  (is (= '()
+  (is (= nil
          (-> {:db {}}
-             (actions/init-snapshots-action [:form])
              (get-in [:db :form :snapshots])))))
 
 (deftest save-snapshot-action-test
 
   (is (= '(1)
          (-> {:db {}}
-             (actions/init-snapshots-action [:form])
              (assoc-in [:db :form :state] 1)
              (actions/save-snapshot-action [:form])
              (get-in [:db :form :snapshots]))))
 
   (is (= '(2 1)
          (-> {:db {}}
-             (actions/init-snapshots-action [:form])
              (assoc-in [:db :form :state] 1)
              (actions/save-snapshot-action [:form])
              (assoc-in [:db :form :state] 2)
@@ -28,13 +25,11 @@
 
 (deftest discard-snapshot-action-test
   (is (= (-> {:db {}}
-             (actions/init-snapshots-action [:form])
              (get-in [:db :form :snapshots]))
-         '()))
+         nil))
 
   (is (= '()
          (-> {:db {}}
-             (actions/init-snapshots-action [:form])
              (assoc-in [:db :form :state] 1)
              (actions/save-snapshot-action [:form])
              (actions/discard-snapshot-action [:form])
@@ -42,7 +37,6 @@
 
   (is (= '(1)
          (-> {:db {}}
-             (actions/init-snapshots-action [:form])
              (assoc-in [:db :form :state] 1)
              (actions/save-snapshot-action [:form])
              (assoc-in [:db :form :state] 2)
@@ -53,7 +47,6 @@
 (deftest restore-snapshot-action-test
   (is (= 2
          (-> {:db {}}
-             (actions/init-snapshots-action [:form])
              (assoc-in [:db :form :state] 1)
              (actions/save-snapshot-action [:form])
              (assoc-in [:db :form :state] 2)
@@ -64,7 +57,6 @@
 
   (is (= 1
          (-> {:db {}}
-             (actions/init-snapshots-action [:form])
              (assoc-in [:db :form :state] 1)
              (actions/save-snapshot-action [:form])
              (assoc-in [:db :form :state] 2)

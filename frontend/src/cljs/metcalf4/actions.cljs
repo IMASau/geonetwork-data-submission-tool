@@ -58,7 +58,7 @@
   [s]
   (cond-> s
     (seq (get-in s [:db ::snapshots]))
-    (update-in s [:db ::snapshots] pop)))
+    (update-in [:db ::snapshots] pop)))
 
 (defn restore-snapshot-action
   [s form-id]

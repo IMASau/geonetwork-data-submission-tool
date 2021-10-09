@@ -383,6 +383,22 @@
   [form-group config
    [select-option config]])
 
+; WIP
+(defn list-add-button
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        ;config-keys []
+        ;logic @(rf/subscribe [::get-block-props ctx])
+        onClick #(rf/dispatch [::list-add-click ctx])
+        ;props (merge logic (select-keys config config-keys))
+        ;{:keys []} props
+        ]
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" :items {:type "object" :properties {}}}})
+
+    [:button {:onClick onClick} "Add"]))
 
 (defn simple-select-option-with-label
   [config]

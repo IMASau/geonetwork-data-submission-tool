@@ -46,6 +46,14 @@
              (assoc-in path state)
              (assoc-in (conj path :props :show-errors) true))}))
 
+; WIP
+(defn list-add-click-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/save-snapshot-action form-id)
+        (actions/new-item-action form-id data-path))))
+
 (defn boxes-changed
   [{:keys [db]} [_ ctx geojson]]
   (let [{:keys [form-id data-path]} ctx

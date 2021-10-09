@@ -146,4 +146,5 @@
 
 (defn schema-path
   [data-path]
+  (s/assert ::utils4/data-path data-path)
   (vec (mapcat schema-step data-path)))

@@ -383,28 +383,6 @@
   [form-group config
    [select-option config]])
 
-(defn simple-select-option
-  [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :placeholder]
-        logic @(rf/subscribe [::get-block-props ctx])
-        value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::option-change ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [placeholder options disabled errors show-errors]} props
-        hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "object" :properties {}}})
-
-    [ui/SimpleSelectField
-     {:value       value
-      :options     options
-      :placeholder placeholder
-      :disabled    disabled
-      :hasError    (seq hasError)
-      :onChange    onChange}]))
 
 (defn simple-select-option-with-label
   [config]

@@ -286,6 +286,7 @@
            :data-paths [["identificationInfo" "abstract"]
                         ["identificationInfo" "purpose"]]}]
          [:h2 "2. What"]
+         [:p "TODO: Lorem ipsum..."]
          [m4/textarea-field-with-label
           {:form-id     [:form]
            :data-path   ["identificationInfo" "abstract"]

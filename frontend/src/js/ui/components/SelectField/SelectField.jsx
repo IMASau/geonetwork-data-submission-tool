@@ -320,7 +320,7 @@ export function AsyncBreadcrumbSelectField(args) {
 
 AsyncBreadcrumbSelectField.propTypes = {
     value: PropTypes.object,
-    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    loadOptions: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,

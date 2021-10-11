@@ -128,18 +128,14 @@ def dashboard(request):
 def create(request):
     template = get_object_or_404(
         MetadataTemplate, site=get_current_site(request), archived=False, pk=request.data['template'])
-    try:
-        doc = Document(title=request.data['title'],
-                       owner=request.user,
-                       template=template)
-        doc.save()
 
-        return Response({"message": "Created",
-                         "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
-    except AssertionError as e:
-        return Response({"message": get_exception_message(e), "args": e.args}, status=400)
-    except Exception as e:
-        return Response({"message": get_exception_message(e), "args": e.args}, status=400)
+    doc = Document(title=request.data['title'],
+                   owner=request.user,
+                   template=template)
+    doc.save()
+
+    return Response({"message": "Created",
+                     "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
 
 
 @login_required

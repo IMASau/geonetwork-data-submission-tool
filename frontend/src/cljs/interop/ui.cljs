@@ -45,7 +45,10 @@
 
 (defn has-key? [s] #(contains? (set (map name (keys %))) s))
 (defn has-keys? [ss] (apply every-pred (map has-key? ss)))
-(defn js->map [o ks] (when o (zipmap ks (map #(gobj/get o %) ks))))
+(defn js->map [o ks]
+  (assert (every? #(gobj/containsKey o %) ks)
+          (str "Missing expected key" (pr-str {:obj o :ks ks})))
+  (when o (zipmap ks (map #(gobj/get o %) ks))))
 
 (defn box-map
   [{:keys [elements map-width tick-id on-change]}]

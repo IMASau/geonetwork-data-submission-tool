@@ -52,7 +52,8 @@
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
         (actions/save-snapshot-action form-id)
-        (actions/new-item-action form-id data-path))))
+        (actions/new-item-action form-id data-path)
+        (actions/select-last-item-action form-id data-path))))
 
 (defn boxes-changed
   [{:keys [db]} [_ ctx geojson]]

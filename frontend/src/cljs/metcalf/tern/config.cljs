@@ -314,6 +314,8 @@
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsTheme" "keywords"]
              :uri       "/api/ternparameters"               ;TODO: Update to real endpoint
+             :labelKey  "label"
+             :valueKey  "uri"
              }]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]

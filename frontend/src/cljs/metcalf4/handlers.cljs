@@ -178,3 +178,23 @@
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
         (actions/dialog-close-action form-id data-path))))
+
+(defn selection-edit-dialog-close-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/restore-snapshot-action form-id)
+        (actions/unselect-list-item-action form-id data-path))))
+
+(defn selection-edit-dialog-cancel-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/restore-snapshot-action form-id)
+        (actions/unselect-list-item-action form-id data-path))))
+
+(defn selection-edit-dialog-save-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/unselect-list-item-action form-id data-path))))

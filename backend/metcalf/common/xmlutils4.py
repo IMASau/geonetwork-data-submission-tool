@@ -198,7 +198,7 @@ def value(element, **kwargs):
             return datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S")
 
         elif tag == "%sDate" % gco:
-            return datetime.datetime.strptime(value, "%Y-%m-%d").date()
+            return parse_goc_date(value)
 
         elif tag == "%sDecimal" % gco:
             return Decimal(value)

@@ -379,10 +379,14 @@
           ;; TODO: also need a user-added option
           [m4/form-group
            {:label "Select the name of the measured parameter, e.g. vegetation height"}
-           [m4/async-list-option-picker
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
-             :uri       "/api/ternparameters"}]
+           [m4/async-list-picker
+            {:form-id       [:form]
+             :data-path     ["identificationInfo" "keywordsInstrument" "keywords"]
+             :kind          :breadcrumb
+             :uri           "/api/ternparameters"
+             :labelKey      "label"
+             :valueKey      "uri"
+             :breadcrumbKey "breadcrumb"}]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsInstrument" "keywords"]

@@ -372,11 +372,11 @@
   (s/assert fn? onClear)
   (s/assert fn? onSave)
   (s/assert boolean? canSave)
-  [:> EditDialog/EditDialog
-   {:isOpen  isOpen
-    :title   title
-    :onClose onClose
-    :onClear onClear
-    :onSave  onSave
-    :canSave canSave}
-   children])
+  (into [:> EditDialog/EditDialog
+         {:isOpen  isOpen
+          :title   title
+          :onClose onClose
+          :onClear onClear
+          :onSave  onSave
+          :canSave canSave}]
+        children))

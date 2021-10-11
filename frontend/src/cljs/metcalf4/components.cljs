@@ -524,9 +524,7 @@
         hasError (when (and show-errors (seq errors)) true)
         value (or value "")]
 
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 (utils4/schema-object-with-keys [valueKey])})
+    (s/assert schema/schema-value-type? @(rf/subscribe [::get-data-schema ctx]))
 
     [ui/SelectValueField
      {:value    value

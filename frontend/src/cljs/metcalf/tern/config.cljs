@@ -175,20 +175,18 @@
                         ["identificationInfo" "status"]
                         ["identificationInfo" "maintenanceAndUpdateFrequency"]
                         ["identificationInfo" "version"]]}]
+
          [:h2 "1. Data Identification"]
+
          [m4/input-field-with-label
           {:form-id     [:form]
            :data-path   ["identificationInfo" "title"]
            :label       "Title"
            :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
            :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
-         [m4/date-field-with-label
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "dateCreation"]
-           :label     "Date the resource was created"
-           :required  true
-           :minDate   "1900-01-01"
-           :maxDate   "2100-01-01"}]
+
+         [:label "TODO: parent metadata"]
+
          [m4/form-group
           {:label     "Topic Categories"
            :form-id   [:form]
@@ -209,20 +207,70 @@
                           {:value "oceans" :label "oceans"}
                           {:value "geoscientificInformation" :label "geoscientificInformation"}
                           {:value "inlandWater" :label "inlandWater"}]}]]
-         [m3/SelectField {:form-id   [:form]
-                          :data-path ["identificationInfo" "status"]}]
-         [m3/SelectField {:form-id   [:form]
-                          :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]}]
-         [m4/input-field-with-label
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "version"]
-           :label      "Version"
-           :helperText "Version number of the resource"
-           :required   true}]
+
+         [:div {:style {:display               "grid"
+                        :grid-column-gap       "1em"
+                        :grid-template-columns "1fr 1fr 1fr"}}
+
+          [:div
+
+           ;; FIXME: Should this be use api for options?
+           [m4/select-value-with-label
+            {:form-id   [:form]
+             :data-path ["identificationInfo" "status"]
+             :label     "Status of Data"
+             :valueKey  "value"
+             :labelKey  "label"
+             :options   [{"value" "onGoing" "label" "ongoing"}
+                         {"value" "planned" "label" "planned"}
+                         {"value" "completed" "label" "completed"}]}]]
+          [:div
+           [m4/input-field-with-label
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "version"]
+             :label      "Version"
+             :helperText "Version number of the resource"
+             :required   true}]]
+
+          [:div
+
+           ;; FIXME: Should this be use api for options?
+           [m4/select-value-with-label
+            {:form-id   [:form]
+             :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
+             :label     "Maintenance/Update Freq"
+             :valueKey  "value"
+             :labelKey  "label"
+             :options   [{"value" "continually" "label" "Continually"}
+                         {"value" "daily" "label" "Daily"}
+                         {"value" "weekly" "label" "Weekly"}
+                         {"value" "fortnightly" "label" "Fortnightly"}
+                         {"value" "monthly" "label" "Monthly"}
+                         {"value" "quarterly" "label" "Quarterly"}
+                         {"value" "biannually" "label" "Twice each year"}
+                         {"value" "annually" "label" "Annually"}
+                         {"value" "asNeeded" "label" "As required"}
+                         {"value" "irregular" "label" "Irregular"}
+                         {"value" "notPlanned" "label" "None planned"}
+                         {"value" "unknown" "label" "Unknown"}
+                         {"value" "periodic" "label" "Periodic"}
+                         {"value" "semimonthly" "label" "Twice a month"}
+                         {"value" "biennially" "label" "Every 2 years"}]}]]]
+
+
+         [m4/date-field-with-label
+          {:form-id   [:form]
+           :data-path ["identificationInfo" "dateCreation"]
+           :label     "Date the resource was created"
+           :required  true
+           :minDate   "1900-01-01"
+           :maxDate   "2100-01-01"}]
+
          [m4/yes-no-field
           {:form-id   [:form]
            :data-path ["identificationInfo" "previouslyPublishedFlag"]
            :label     "Has the data been published before?"}]
+
          ;; FIXME: I think this should be formatted as YYYY or YYYY-MM (according to the commented template)
          [m4/date-field-with-label
           {:form-id   [:form]
@@ -231,6 +279,9 @@
            :required  true
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
+
+         [:label "TODO: revision date?"]
+
          [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what

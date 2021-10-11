@@ -106,6 +106,7 @@
 (defn compatible-schema-type?
   [{:keys [schema1 schema2]}]
   (or (nil? (:type schema1))
+      (nil? (:type schema2))
       (= (:type schema1) (:type schema2))))
 
 

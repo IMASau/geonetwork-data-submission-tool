@@ -185,7 +185,7 @@
     :getValue      #(gobj/get % valueKey "No value")
     :getLabel      #(gobj/get % labelKey "No label")
     :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
-    :onChange      (fn [o] (onChange (js->map o [valueKey labelKey])))}])
+    :onChange      (fn [o] (onChange (js->map o [valueKey labelKey breadcrumbKey])))}])
 
 (defn TableSelectField
   [{:keys [value options placeholder disabled hasError onChange labelKey valueKey columns]}]

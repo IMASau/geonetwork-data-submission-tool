@@ -6,6 +6,7 @@
 (def ^:dynamic not-found-hiccup '[:div "not found"])
 
 (defn render-template
-  [{:keys [template-id]}]
-  (let [hiccup (get template-registry template-id not-found-hiccup)]
-    (walk/postwalk-replace component-registry hiccup)))
+  [{:keys [template-id variables]}]
+  (let [form (get template-registry template-id not-found-hiccup)
+        smap (merge component-registry variables)]
+    (walk/postwalk-replace smap form)))

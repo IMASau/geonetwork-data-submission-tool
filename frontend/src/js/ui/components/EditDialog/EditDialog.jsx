@@ -40,7 +40,7 @@ export function EditDialog({title, children, isOpen, onClose, onClear, onSave, c
 
 
 EditOverlay.propTypes = {
-    isOpen: PropTypes.boolean.isRequired,
+    isOpen: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
     body: PropTypes.elementType.isRequired,
     onClose: PropTypes.func.isRequired,

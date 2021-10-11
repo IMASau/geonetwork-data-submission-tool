@@ -351,9 +351,13 @@
           [m4/form-group
            {:label "Select a platform for the data measurement"}
            [m4/async-list-picker
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
-             :uri       "/api/ternplatforms"}]
+            {:form-id       [:form]
+             :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
+             :kind          :breadcrumb
+             :uri           "/api/ternplatforms"
+             :labelKey      "label"
+             :valueKey      "uri"
+             :breadcrumbKey "breadcrumb"}]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]

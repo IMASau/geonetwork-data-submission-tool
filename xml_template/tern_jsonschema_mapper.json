@@ -69,6 +69,26 @@
           },
           "rules": ["requiredField"]
         },
+        "status": {
+          "xpath": "mri:status",
+          "valueChild": "mcc:MD_ProgressCode",
+          "label": "Status of data",
+          "type": "object",
+          "properties": {
+            "value": {
+              "xpath": ".",
+              "attributes": {
+                "text": {
+                  "function": "identity"
+                },
+                "codeListValue": {
+                  "function": "identity"
+                }
+              }
+            }
+          },
+          "rules": ["requiredField"]
+        },
         "dateCreation": {
           "!docstring": "ID6",
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",

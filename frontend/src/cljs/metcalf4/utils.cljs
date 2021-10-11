@@ -7,6 +7,9 @@
 (s/def ::ctx (s/keys :req-un [::form-id ::data-path]))
 
 
+(def as-path (comp vec flatten))
+
+
 (defn massage-data-path-value [x]
   (cond
     (simple-keyword? x) (name x)
@@ -17,7 +20,8 @@
 (defn get-ctx
   [{:keys [form-id data-path]}]
   (when (and form-id data-path)
-    (let [data-path (mapv massage-data-path-value data-path)]
+    (let [data-path (as-path data-path)
+          data-path (mapv massage-data-path-value data-path)]
       (s/assert ::data-path data-path)
       {:form-id form-id :data-path data-path})))
 
@@ -36,9 +40,6 @@
                                        :Accept       "application/json"
                                        :X-CSRFToken  (get-csrf)}})
       (.then (fn [resp] (.json resp)))))
-
-
-(def as-path (comp vec flatten))
 
 
 (defn spec-error-at-path

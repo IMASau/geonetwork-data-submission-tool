@@ -8,7 +8,8 @@
             [metcalf4.subs :as common-subs]
             [metcalf4.utils :as utils4]
             [re-frame.core :as rf]
-            [metcalf4.schema :as schema]))
+            [metcalf4.schema :as schema]
+            [metcalf4.low-code :as low-code]))
 
 (defn has-error?
   "Given the current form state, and a data path, check if
@@ -76,6 +77,28 @@
             :onSave   #(rf/dispatch [::edit-dialog-save ctx])
             :canSave  (not hasError)}]
           children)))
+
+(defn selection-edit-dialog
+  "Popup dialog if item is selected"
+  [config]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:title :template-id]
+        logic @(rf/subscribe [::get-block-props ctx])
+        props (merge logic (select-keys config config-keys))
+        {:keys [selected title template-id show-errors errors]} props
+        hasError (when (and show-errors (seq errors)) true)
+        item-data-path (conj (:data-path ctx) selected)]
+    [ui/EditDialog
+     {:isOpen  (boolean selected)
+      :title   title
+      :onClose #(rf/dispatch [::selection-edit-dialog-close ctx])
+      :onClear #(rf/dispatch [::selection-edit-dialog-cancel ctx])
+      :onSave  #(rf/dispatch [::selection-edit-dialog-save ctx])
+      :canSave (not hasError)}
+     (low-code/render-template
+       {:template-id template-id
+        :variables   {'?form-id   (:form-id ctx)
+                      '?data-path item-data-path}})]))
 
 (defn input-field
   [config]

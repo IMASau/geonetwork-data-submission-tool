@@ -61,23 +61,6 @@
             :toolTip    toolTip}]
           children)))
 
-(defn edit-dialog
-  [config & children]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:title]
-        logic @(rf/subscribe [::get-block-props ctx])
-        props (merge logic (select-keys config config-keys))
-        {:keys [isOpen title show-errors errors]} props
-        hasError (when (and show-errors (seq errors)) true)]
-    (into [ui/EditDialog
-           {:isOpen   isOpen
-            :title    title
-            :onClose  #(rf/dispatch [::edit-dialog-close ctx])
-            :onCancel #(rf/dispatch [::edit-dialog-cancel ctx])
-            :onSave   #(rf/dispatch [::edit-dialog-save ctx])
-            :canSave  (not hasError)}]
-          children)))
-
 (defn list-edit-dialog
   "Popup dialog if item is selected"
   [config]

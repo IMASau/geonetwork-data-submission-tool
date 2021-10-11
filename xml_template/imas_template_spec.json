@@ -199,12 +199,12 @@
           "valueChild": "mri:MD_TopicCategoryCode",
           "label": "Topic categories",
           "attributes": {
-              "text": {
-                  "function": "identity"
-              },
-              "codeListValue": {
-                  "function": "identity"
-              }
+            "text": {
+              "function": "identity"
+            },
+            "codeListValue": {
+              "function": "identity"
+            }
           },
           "rules": ["requiredField"]
         },

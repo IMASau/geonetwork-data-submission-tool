@@ -12,6 +12,7 @@
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
             ["/ui/components/CheckboxField/CheckboxField" :as CheckboxField]
             ["/ui/components/NumericInputField/NumericInputField" :as NumericInputField]
+            ["/ui/components/EditDialog/EditDialog" :as EditDialog]
             [cljs.spec.alpha :as s]
             [goog.object :as gobj]
             [reagent.core :as r]))
@@ -33,6 +34,7 @@
 (assert YesNoRadioGroup/YesNoRadioGroup)
 (assert CheckboxField/CheckboxField)
 (assert NumericInputField/NumericInputField)
+(assert EditDialog/EditDialog)
 
 (s/def ::northBoundLatitude number?)
 (s/def ::westBoundLongitude number?)
@@ -360,10 +362,17 @@
     :onChange    onChange}])
 
 (defn EditDialog
-  [{:keys [isOpen title onClear onSave canSave]} & children]
-  [:> EditDialog
+  [{:keys [isOpen title onClose onClear onSave canSave]} & children]
+  (s/assert boolean? isOpen)
+  (s/assert string? title)
+  (s/assert fn? onClose)
+  (s/assert fn? onClear)
+  (s/assert fn? onSave)
+  (s/assert boolean? canSave)
+  [:> EditDialog/EditDialog
    {:isOpen  isOpen
     :title   title
+    :onClose onClose
     :onClear onClear
     :onSave  onSave
     :canSave canSave}

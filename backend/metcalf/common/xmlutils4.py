@@ -159,6 +159,20 @@ def is_object(spec):
     return spec.get(SpecialKeys.type, None) == 'object'
 
 
+def parse_goc_date(text):
+    """
+    <xs:union memberTypes="xs:date xs:gYearMonth xs:gYear"/>
+    :param text:
+    :return:
+    """
+    for fmt in ('%Y-%m-%d', '%Y-%m', '%Y'):
+        try:
+            return datetime.datetime.strptime(text, fmt).date()
+        except ValueError:
+            pass
+    raise ValueError('no valid date format found')
+
+
 def value(element, **kwargs):
     assert kwargs['namespaces'] is not None, "No namespaces were specified."
     """

@@ -88,6 +88,7 @@ function getReactSelectCustomStyles({hasError}) {
         menuPortal: (provided, state) => {
             return {
                 ...provided,
+                zIndex: 9999
             }
         },
         multiValue: (provided, state) => {
@@ -158,6 +159,7 @@ export function AsyncSelectField({value, loadOptions, hasError, disabled, placeh
             isClearable={true}
             isDisabled={disabled}
             defaultOptions={defaultOptions}
+            menuPortalTarget={document.body}
         >
         </AsyncSelect>
     );
@@ -190,6 +192,7 @@ export function SelectField({value, options, hasError, disabled, placeholder, ge
             isDisabled={disabled}
             isLoading={false}
             isSearchable={true}
+            menuPortalTarget={document.body}
         />
     );
 }

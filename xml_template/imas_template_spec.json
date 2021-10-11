@@ -425,11 +425,10 @@
           "type": "array",
           "items": {}
         },
-        
         "otherConstraints": {
-            "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:otherConstraints",
-            "valueChild": "gco:CharacterString",
-            "keep": false
+          "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:otherConstraints",
+          "valueChild": "gco:CharacterString",
+          "keep": false
         },
         "supplementalInformation": {
           "valueChild": "gco:CharacterString",

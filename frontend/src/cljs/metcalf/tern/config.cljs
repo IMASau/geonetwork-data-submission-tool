@@ -90,9 +90,9 @@
 (rf/reg-event-fx ::components4/edit-dialog-close handlers4/edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/edit-dialog-cancel handlers4/edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/edit-dialog-save handlers4/edit-dialog-save-handler)
-(rf/reg-event-fx ::components4/selection-edit-dialog-close handlers4/selection-edit-dialog-close-handler)
-(rf/reg-event-fx ::components4/selection-edit-dialog-cancel handlers4/selection-edit-dialog-cancel-handler)
-(rf/reg-event-fx ::components4/selection-edit-dialog-save handlers4/selection-edit-dialog-save-handler)
+(rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-close-handler)
+(rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
+(rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)
@@ -164,6 +164,8 @@
        'm4/textarea-field                 components4/textarea-field
        'm4/textarea-field-with-label      components4/textarea-field-with-label
        'm4/yes-no-field                   components4/yes-no-field
+       'm4/list-add-button                components4/list-add-button
+       'm4/list-edit-dialog               components4/list-edit-dialog
        })
 (set! low-code/template-registry
       '{:data-identification

@@ -78,7 +78,7 @@
             :canSave  (not hasError)}]
           children)))
 
-(defn selection-edit-dialog
+(defn list-edit-dialog
   "Popup dialog if item is selected"
   [config]
   (let [ctx (utils4/get-ctx config)
@@ -91,9 +91,9 @@
     [ui/EditDialog
      {:isOpen  (boolean selected)
       :title   title
-      :onClose #(rf/dispatch [::selection-edit-dialog-close ctx])
-      :onClear #(rf/dispatch [::selection-edit-dialog-cancel ctx])
-      :onSave  #(rf/dispatch [::selection-edit-dialog-save ctx])
+      :onClose #(rf/dispatch [::list-edit-dialog-close ctx])
+      :onClear #(rf/dispatch [::list-edit-dialog-cancel ctx])
+      :onSave  #(rf/dispatch [::list-edit-dialog-save ctx])
       :canSave (not hasError)}
      (low-code/render-template
        {:template-id template-id

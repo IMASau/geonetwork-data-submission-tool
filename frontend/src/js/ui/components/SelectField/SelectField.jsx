@@ -207,14 +207,15 @@ SelectField.propTypes = {
 }
 
 export function SelectValueField(args) {
-    const {value, options, onChange} = args
+  const {value, options, onChange} = args
+  // Should use value-key
     const valueOption = options && options.find(option => option.value === value)
     const onValueChange = (option) => onChange(option ? option.value : null)
     return (
         <SimpleSelectField
+            {...args}
             value={valueOption}
             onChange={onValueChange}
-            {...args}
         >
         </SimpleSelectField>
     );
@@ -236,8 +237,8 @@ export function SimpleSelectField(args) {
     const Option = ({data}) => <SimpleListItem item={data} getLabel={getLabel}/>
     return (
         <SelectField
-            Option={Option}
             {...args}
+            Option={Option}
         />
     );
 }
@@ -258,8 +259,8 @@ export function AsyncSimpleSelectField(args) {
     const Option = ({data}) => <SimpleListItem item={data} getLabel={getLabel}/>
     return (
         <AsyncSelectField
-            Option={Option}
             {...args}
+            Option={Option}
         />
     );
 }
@@ -285,8 +286,8 @@ export function BreadcrumbSelectField(args) {
     )
     return (
         <SelectField
-            Option={Option}
             {...args}
+            Option={Option}
         />
     );
 }
@@ -308,8 +309,8 @@ export function AsyncBreadcrumbSelectField(args) {
     const Option = ({data}) => <BreadcrumbListItem item={data} getLabel={getLabel} getBreadcrumb={getBreadcrumb}/>
     return (
         <AsyncSelectField
-            Option={Option}
             {...args}
+            Option={Option}
         />
     );
 }

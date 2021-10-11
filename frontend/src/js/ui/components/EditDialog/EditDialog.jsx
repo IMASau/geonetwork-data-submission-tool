@@ -5,6 +5,7 @@ import {Button, Classes, Dialog, Overlay, Intent} from "@blueprintjs/core";
 EditDialog.propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.elementType.isRequired,
+    onClose: PropTypes.func.isRequired,
     onClear: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     canSave: PropTypes.bool,

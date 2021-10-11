@@ -526,7 +526,7 @@
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 (utils4/schema-object-with-keys [valueKey labelKey])})
+       :schema2 (utils4/schema-object-with-keys [valueKey])})
 
     [ui/SelectValueField
      {:value    value

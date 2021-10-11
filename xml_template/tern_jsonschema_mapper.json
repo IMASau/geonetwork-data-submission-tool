@@ -53,18 +53,12 @@
           "keep": false,
           "valueChild": "mri:MD_TopicCategoryCode",
           "label": "Topic categories",
-          "type": "object",
-          "properties": {
-            "value": {
-              "xpath": ".",
-              "attributes": {
-                "text": {
-                  "function": "identity"
-                },
-                "codeListValue": {
-                  "function": "identity"
-                }
-              }
+          "attributes": {
+            "text": {
+              "function": "identity"
+            },
+            "codeListValue": {
+              "function": "identity"
             }
           },
           "rules": ["requiredField"]
@@ -73,18 +67,12 @@
           "xpath": "mri:status",
           "valueChild": "mcc:MD_ProgressCode",
           "label": "Status of data",
-          "type": "object",
-          "properties": {
-            "value": {
-              "xpath": ".",
-              "attributes": {
-                "text": {
-                  "function": "identity"
-                },
-                "codeListValue": {
-                  "function": "identity"
-                }
-              }
+          "attributes": {
+            "text": {
+              "function": "identity"
+            },
+            "codeListValue": {
+              "function": "identity"
             }
           },
           "rules": ["requiredField"]
@@ -93,19 +81,12 @@
           "xpath": "mri:resourceMaintenance/mmi:MD_MaintenanceInformation/mmi:maintenanceAndUpdateFrequency",
           "valueChild": "mmi:MD_MaintenanceFrequencyCode",
           "label": "Maintenance and update frequency",
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "string",
-              "xpath": ".",
-              "attributes": {
-                "text": {
-                  "function": "identity"
-                },
-                "codeListValue": {
-                  "function": "identity"
-                }
-              }
+          "attributes": {
+            "text": {
+              "function": "identity"
+            },
+            "codeListValue": {
+              "function": "identity"
             }
           },
           "!docstring": "\"required\": true,  // FIXME depends on status"

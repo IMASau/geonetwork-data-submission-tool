@@ -89,6 +89,27 @@
           },
           "rules": ["requiredField"]
         },
+        "maintenanceAndUpdateFrequency": {
+          "xpath": "mri:resourceMaintenance/mmi:MD_MaintenanceInformation/mmi:maintenanceAndUpdateFrequency",
+          "valueChild": "mmi:MD_MaintenanceFrequencyCode",
+          "label": "Maintenance and update frequency",
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string",
+              "xpath": ".",
+              "attributes": {
+                "text": {
+                  "function": "identity"
+                },
+                "codeListValue": {
+                  "function": "identity"
+                }
+              }
+            }
+          },
+          "!docstring": "\"required\": true,  // FIXME depends on status"
+        },
         "dateCreation": {
           "!docstring": "ID6",
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",

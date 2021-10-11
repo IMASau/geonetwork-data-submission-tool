@@ -312,11 +312,13 @@
           [m4/form-group
            {:label "Select research theme keywords - maximum of 12 allowed"}
            [m4/async-list-picker
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "keywordsTheme" "keywords"]
-             :uri       "/api/ternparameters"               ;TODO: Update to real endpoint
-             :labelKey  "label"
-             :valueKey  "uri"
+            {:form-id       [:form]
+             :data-path     ["identificationInfo" "keywordsTheme" "keywords"]
+             :kind          :breadcrumb
+             :uri           "/api/ternparameters"           ;TODO: Update to real endpoint
+             :labelKey      "label"
+             :valueKey      "uri"
+             :breadcrumbKey "breadcrumb"
              }]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]

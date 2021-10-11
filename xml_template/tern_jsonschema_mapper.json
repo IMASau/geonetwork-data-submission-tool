@@ -278,14 +278,6 @@
           },
           "required": true
         },
-        "title": {
-          "!docstring": "ID1",
-          "xpath": "mri:citation/cit:CI_Citation/cit:title",
-          "valueChild": "gco:CharacterString",
-          "label": "Title",
-          "keep": false,
-          "required": true
-        },
         "beginPosition": {
           "!docstring": "When1",
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",

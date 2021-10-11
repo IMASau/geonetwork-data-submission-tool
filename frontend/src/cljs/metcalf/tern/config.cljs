@@ -365,7 +365,9 @@
            [m4/async-list-picker
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
-             :uri       "/api/terninstruments"}]
+             :uri       "/api/terninstruments"
+             :labelKey  "label"
+             :valueKey  "uri"}]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsInstrument" "keywords"]

@@ -240,8 +240,8 @@
 (defn AsyncSimpleSelectField
   [{:keys [value loadOptions placeholder disabled hasError onChange valueKey labelKey]}]
   (s/assert (s/nilable map?) value)
-  (s/assert (s/nilable string?) valueKey)
-  (s/assert (s/nilable string?) labelKey)
+  (s/assert string? valueKey)
+  (s/assert string? labelKey)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
   (s/assert (s/nilable boolean?) disabled)

@@ -31,11 +31,6 @@
   (let [page-name (get-in payload [:page :name])]
     (assoc-in s [:db :page :name] page-name)))
 
-(defn init-snapshots-action
-  [s form-id]
-  (let [snapshots-path (utils4/as-path [:db form-id :snapshots])]
-    (assoc-in s snapshots-path (list))))
-
 (defn save-snapshot-action
   [s form-id]
   (let [snapshots-path (utils4/as-path [:db form-id :snapshots])

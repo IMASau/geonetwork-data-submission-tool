@@ -52,9 +52,16 @@
           "xpath": "mri:topicCategory",
           "keep": false,
           "valueChild": "mri:MD_TopicCategoryCode",
-          "required": true,
-          "type": "array",
-          "items": {}
+          "label": "Topic categories",
+          "attributes": {
+            "text": {
+              "function": "identity"
+            },
+            "codeListValue": {
+              "function": "identity"
+            }
+          },
+          "rules": ["requiredField"]
         },
         "dateCreation": {
           "!docstring": "ID6",

@@ -188,15 +188,10 @@
          [:label "TODO: parent metadata"]
 
          [m4/form-group
-          {:label     "Topic Categories"
+          {:label     "Topic Category"
            :form-id   [:form]
            :data-path ["identificationInfo" "topicCategory"]}
-          [m4/simple-selection-list
-           {:form-id   [:form]
-            :data-path ["identificationInfo" "topicCategory"]
-            :labelKey  "label"
-            :valueKey  "value"}]
-          [m4/simple-list-option-picker
+          [m4/select-value
            {:form-id     [:form]
             :data-path   ["identificationInfo" "topicCategory"]
             :placeholder "Start typing to filter list..."

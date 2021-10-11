@@ -31,7 +31,7 @@ export function EditDialog({title, children, isOpen, onClose, onClear, onSave, c
             <div className={Classes.DIALOG_FOOTER}>
                 <div className={Classes.DIALOG_FOOTER_ACTIONS}>
                     <Button onClick={onClear}>Clear</Button>
-                    <Button onClick={onSave} disabled={canSave} intent={Intent.PRIMARY}>Save</Button>
+                    <Button onClick={onSave} disabled={!canSave} intent={Intent.PRIMARY}>Save</Button>
                 </div>
             </div>
         </Dialog>

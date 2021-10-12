@@ -96,6 +96,17 @@
           :toolTip    toolTip}]
         children))
 
+(defn InlineFormGroup
+  [{:keys [label required disabled hasError helperText toolTip]} & children]
+  (into [:> FormGroup/FormGroup
+         {:label      label
+          :required   required
+          :disabled   disabled
+          :hasError   hasError
+          :helperText helperText
+          :toolTip    toolTip}]
+        children))
+
 (defn InputField
   [{:keys [value placeholder maxLength disabled hasError onChange]}]
   [:> InputField/InputField

@@ -38,3 +38,29 @@ FormGroup.propTypes = {
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
 }
+
+export function InlineFormGroup({label, required, toolTip, helperText, hasError, disabled, children}) {
+    const intent = hasErrorIntent({hasError, disabled});
+    return (
+        <BPCore.FormGroup
+            className="InlineFormGroup"
+            label={<span className="InlineFormGroupLabelText">{label}</span>}
+            inline={true}
+            intent={intent}
+            disabled={disabled}
+            labelInfo={<LabelInfo required={required} toolTip={toolTip}/>}
+        >
+            {children}
+            <div class="bp3-form-helper-text">{helperText}</div>
+        </BPCore.FormGroup>
+    );
+}
+
+InlineFormGroup.propTypes = {
+    label: PropTypes.string.isRequired,
+    required: PropTypes.bool,
+    toolTip: PropTypes.string,
+    helperText: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+}

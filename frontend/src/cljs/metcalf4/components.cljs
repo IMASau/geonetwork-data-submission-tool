@@ -316,17 +316,14 @@
 
 (defn simple-select-option
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :placeholder]
-        logic @(rf/subscribe [::get-block-props ctx])
-        value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::option-change ctx %])
-        props (merge ctx logic (select-keys config config-keys))
+  (let [config (massage-config config {:req-ks [:options] :opt-ks [:placeholder]})
+        props @(rf/subscribe [::get-block-props config])
+        value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+      {:schema1 @(rf/subscribe [::get-data-schema config])
        :schema2 {:type "object" :properties {}}})
 
     [ui/SimpleSelectField
@@ -335,7 +332,7 @@
       :placeholder placeholder
       :disabled    disabled
       :hasError    (seq hasError)
-      :onChange    onChange}]))
+      :onChange    #(rf/dispatch [::option-change config %])}]))
 
 (defn table-select-option
   [config]

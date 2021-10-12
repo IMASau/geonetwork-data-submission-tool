@@ -5,11 +5,15 @@ import {Button, Classes, Icon} from '@blueprintjs/core';
 import {Tooltip2} from "@blueprintjs/popover2";
 import {hasErrorIntent, requiredLabelInfo} from '../utils';
 
+function TooltipPopoverContent({toolTip}) {
+    return <div className="FormGroupTooltipPopoverContent">{toolTip}</div>
+}
 
-export function TooltipButton({toolTip}) {
+function TooltipButton({toolTip}) {
     if (toolTip) {
         return (
-            <Tooltip2 content={toolTip}>
+            <Tooltip2 className="FormGroupTooltipButton"
+                      content={TooltipPopoverContent({toolTip})}>
                 <Button small={true} minimal={true} icon={<Icon icon="help" size={10}/>}/>
             </Tooltip2>
         )

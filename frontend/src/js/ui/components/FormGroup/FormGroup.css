@@ -35,3 +35,6 @@ label.bp3-label .FormGroupLabelInfo .bp3-popover2-target {
 .InlineFormGroup > .bp3-form-content {
     flex: 3;
 }
+.FormGroupTooltipPopoverContent {
+    max-width: 40vw
+}

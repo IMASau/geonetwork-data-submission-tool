@@ -344,7 +344,8 @@
          [m4/expanding-control {:label "Platforms" :required true}
           ;; TODO: also need a user-added option
           [m4/form-group
-           {:label "Select a platform for the data measurement"}
+           {:label   "Select a platform for the data measurement"
+            :toolTip "Select a platform from the predefined list.  If the required platform is not found within the list you can use the add button to define your own"}
            [m4/async-list-picker
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
@@ -358,7 +359,15 @@
              :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
              :labelKey      "label"
              :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"}]]]
+             :breadcrumbKey "breadcrumb"}]
+           [m4/list-add-button
+            {:form-id   [:form]
+             :data-path ["identificationInfo" "keywordsPlatform" "keywords"]}]
+           [m4/list-edit-dialog
+            {:form-id     [:form]
+             :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
+             :title       "Edit user defined keyword"
+             :template-id :platform/user-defined-entry-form}]]]
 
          [m4/expanding-control {:label "Instruments" :required true}
           ;; TODO: also need a user-added option

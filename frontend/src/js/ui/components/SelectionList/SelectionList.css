@@ -17,11 +17,15 @@
     
 }
 
-.PickedItem {
+.SelectionListItem {
+    margin: .2em 0;
+}
+
+.SelectionListPickedItem {
     background-color: #99ffcc;
 }
 
-.AddedItem {
+.SelectionListAddedItem {
     background-color: #ffd9b3;
     cursor: pointer;
 }

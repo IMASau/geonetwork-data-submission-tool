@@ -142,7 +142,7 @@ export function SelectionList({ items, itemProps, getValue, getAdded, onReorder,
                                     <PortalAwareItem
                                         provided={provided}
                                         snapshot={snapshot}
-                                        className={getAdded(item)?"AddedItem":"PickedItem"}
+                                        className={["SelectionListItem",(getAdded(item)?"SelectionListAddedItem":"SelectionListPickedItem")].join(" ")}
                                         itemLabel={ItemLabel({ itemProps, item, index, onItemClick, renderItem })}
                                         removeButton={RemoveButton({ disabled, onRemoveClick, index })}
                                     />

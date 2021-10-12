@@ -49,6 +49,7 @@
           "required": true
         },
         "topicCategory": {
+          "!docstring": "ID4",
           "xpath": "mri:topicCategory",
           "keep": false,
           "valueChild": "mri:MD_TopicCategoryCode",
@@ -64,6 +65,7 @@
           "rules": ["requiredField"]
         },
         "status": {
+          "!docstring": "ID5",
           "xpath": "mri:status",
           "valueChild": "mcc:MD_ProgressCode",
           "label": "Status of data",

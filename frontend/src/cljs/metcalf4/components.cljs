@@ -654,8 +654,8 @@
     (s/assert (s/nilable string?) addedKey)
 
     (schema/assert-compatible-schema
-     {:schema1 @(rf/subscribe [::get-data-schema ctx])
-      :schema2 {:type "array" :items (utils4/schema-object-with-keys (remove nil? [labelKey valueKey breadcrumbKey addedKey]))}})
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" :items (utils4/schema-object-with-keys (remove nil? [labelKey valueKey breadcrumbKey addedKey]))}})
 
     [ui/BreadcrumbSelectionList
      {:key           key

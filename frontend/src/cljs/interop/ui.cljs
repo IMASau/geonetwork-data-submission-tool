@@ -96,6 +96,17 @@
           :toolTip    toolTip}]
         children))
 
+(defn InlineFormGroup
+  [{:keys [label required disabled hasError helperText toolTip]} & children]
+  (into [:> FormGroup/InlineFormGroup
+         {:label      label
+          :required   required
+          :disabled   disabled
+          :hasError   hasError
+          :helperText helperText
+          :toolTip    toolTip}]
+        children))
+
 (defn InputField
   [{:keys [value placeholder maxLength disabled hasError onChange]}]
   [:> InputField/InputField
@@ -372,11 +383,11 @@
   (s/assert fn? onClear)
   (s/assert fn? onSave)
   (s/assert boolean? canSave)
-  [:> EditDialog/EditDialog
-   {:isOpen  isOpen
-    :title   title
-    :onClose onClose
-    :onClear onClear
-    :onSave  onSave
-    :canSave canSave}
-   children])
+  (into [:> EditDialog/EditDialog
+         {:isOpen  isOpen
+          :title   title
+          :onClose onClose
+          :onClear onClear
+          :onSave  onSave
+          :canSave canSave}]
+        children))

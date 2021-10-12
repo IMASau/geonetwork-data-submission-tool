@@ -61,6 +61,23 @@
             :toolTip    toolTip}]
           children)))
 
+(defn inline-form-group
+  [config & children]
+  (let [ctx (utils4/get-ctx config)
+        config-keys [:label :placeholder :helperText :toolTip]
+        logic @(rf/subscribe [::get-block-props ctx])
+        props (merge logic (select-keys config config-keys))
+        {:keys [label helperText toolTip required disabled show-errors errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    (into [ui/InlineFormGroup
+           {:label      label
+            :required   required
+            :disabled   disabled
+            :hasError   hasError
+            :helperText (if hasError (string/join ". " errors) helperText)
+            :toolTip    toolTip}]
+          children)))
+
 (defn list-edit-dialog
   "Popup dialog if item is selected"
   [config]

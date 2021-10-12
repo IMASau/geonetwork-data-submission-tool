@@ -1,5 +1,6 @@
-.FormGroup > .bp3-label {
-    font-weight: bold;
+.FormGroup > .bp3-label,
+.InlineFormGroup > .bp3-label {
+        font-weight: bold;
 }
 
 label.bp3-label .FormGroupLabelInfo .bp3-button {
@@ -11,4 +12,26 @@ label.bp3-label .FormGroupLabelInfo .bp3-button {
 label.bp3-label .FormGroupLabelInfo .bp3-popover2-target {
     display: inline-block;
     margin-top: 0;
+}
+
+.InlineFormGroup {
+    display: flex;
+    flex-direction: row;
+}
+.InlineFormGroup > .bp3-label {
+    text-align: right;
+    flex: 1;
+    line-height: auto;
+    display: flex;
+}
+.InlineFormGroup > .bp3-label > .InlineFormGroupLabelText {
+    flex: 1;
+    line-height: normal;
+    padding-top: 5px;
+}
+.InlineFormGroup > .bp3-label > .bp3-text-muted {
+    white-space: nowrap;
+}
+.InlineFormGroup > .bp3-form-content {
+    flex: 3;
 }

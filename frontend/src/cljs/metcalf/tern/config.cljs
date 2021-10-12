@@ -147,6 +147,7 @@
        'm4/date-field-with-label          components4/date-field-with-label
        'm4/expanding-control              components4/expanding-control
        'm4/form-group                     components4/form-group
+       'm4/inline-form-group              components4/inline-form-group
        'm4/input-field                    components4/input-field
        'm4/input-field-with-label         components4/input-field-with-label
        'm4/page-errors                    components4/page-errors
@@ -345,9 +346,13 @@
           [m4/form-group
            {:label "Select a platform for the data measurement"}
            [m4/async-list-picker
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
-             :uri       "/api/ternplatforms"}]
+            {:form-id       [:form]
+             :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
+             :kind          :breadcrumb
+             :uri           "/api/ternplatforms"
+             :labelKey      "label"
+             :valueKey      "uri"
+             :breadcrumbKey "breadcrumb"}]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]

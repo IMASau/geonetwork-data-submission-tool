@@ -193,11 +193,11 @@
            :placeholder "Start typing to filter list..."
            :labelKey    "label"
            :valueKey    "value"
-           :options     [{"value" "biota" "label" "biota"}
+           :options     [{"value" "biota"                              "label" "biota"}
                          {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
-                         {"value" "oceans" "label" "oceans"}
-                         {"value" "geoscientificInformation" "label" "geoscientificInformation"}
-                         {"value" "inlandWater" "label" "inlandWater"}]}]
+                         {"value" "oceans"                             "label" "oceans"}
+                         {"value" "geoscientificInformation"           "label" "geoscientificInformation"}
+                         {"value" "inlandWater"                        "label" "inlandWater"}]}]
 
          [:div {:style {:display               "grid"
                         :grid-column-gap       "1em"
@@ -212,8 +212,8 @@
              :label     "Status of Data"
              :valueKey  "value"
              :labelKey  "label"
-             :options   [{"value" "onGoing" "label" "ongoing"}
-                         {"value" "planned" "label" "planned"}
+             :options   [{"value" "onGoing"   "label" "ongoing"}
+                         {"value" "planned"   "label" "planned"}
                          {"value" "completed" "label" "completed"}]}]]
           [:div
            [m4/input-field-with-label
@@ -233,21 +233,20 @@
              :valueKey  "value"
              :labelKey  "label"
              :options   [{"value" "continually" "label" "Continually"}
-                         {"value" "daily" "label" "Daily"}
-                         {"value" "weekly" "label" "Weekly"}
+                         {"value" "daily"       "label" "Daily"}
+                         {"value" "weekly"      "label" "Weekly"}
                          {"value" "fortnightly" "label" "Fortnightly"}
-                         {"value" "monthly" "label" "Monthly"}
-                         {"value" "quarterly" "label" "Quarterly"}
-                         {"value" "biannually" "label" "Twice each year"}
-                         {"value" "annually" "label" "Annually"}
-                         {"value" "asNeeded" "label" "As required"}
-                         {"value" "irregular" "label" "Irregular"}
-                         {"value" "notPlanned" "label" "None planned"}
-                         {"value" "unknown" "label" "Unknown"}
-                         {"value" "periodic" "label" "Periodic"}
+                         {"value" "monthly"     "label" "Monthly"}
+                         {"value" "quarterly"   "label" "Quarterly"}
+                         {"value" "biannually"  "label" "Twice each year"}
+                         {"value" "annually"    "label" "Annually"}
+                         {"value" "asNeeded"    "label" "As required"}
+                         {"value" "irregular"   "label" "Irregular"}
+                         {"value" "notPlanned"  "label" "None planned"}
+                         {"value" "unknown"     "label" "Unknown"}
+                         {"value" "periodic"    "label" "Periodic"}
                          {"value" "semimonthly" "label" "Twice a month"}
-                         {"value" "biennially" "label" "Every 2 years"}]}]]]
-
+                         {"value" "biennially"  "label" "Every 2 years"}]}]]]
 
          [m4/date-field-with-label
           {:form-id   [:form]
@@ -314,8 +313,7 @@
              :uri           "/api/ternparameters"           ;TODO: Update to real endpoint
              :labelKey      "label"
              :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"
-             }]
+             :breadcrumbKey "breadcrumb"}]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsTheme" "keywords"]

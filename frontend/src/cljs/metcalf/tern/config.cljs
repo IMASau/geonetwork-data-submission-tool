@@ -361,23 +361,21 @@
             :breadcrumbKey "breadcrumb"}]]
 
          [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
-          [:p "TODO: Update to real endpoint"]
-          [m4/form-group
-           {:label "Select ANZSRC Fields keywords - maximum of 12 allowed"}
-           [m4/async-list-picker
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-             :kind          :breadcrumb
-             :uri           "/api/ternparameters"           ;TODO: Update to real endpoint
-             :labelKey      "label"
-             :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"}]
-           [m4/breadcrumb-selection-list
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-             :labelKey      "label"
-             :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"}]]]
+          [:p "Select research theme keywords - maximum of 12 allowed"]
+          [m4/async-list-picker
+           {:form-id       [:form]
+            :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
+            :kind          :breadcrumb
+            :uri           "/api/ternparameters"            ;TODO: Update to real endpoint
+            :labelKey      "label"
+            :valueKey      "uri"
+            :breadcrumbKey "breadcrumb"}]
+          [m4/breadcrumb-selection-list
+           {:form-id       [:form]
+            :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
+            :labelKey      "label"
+            :valueKey      "uri"
+            :breadcrumbKey "breadcrumb"}]]
 
          [m4/expanding-control {:label "Platforms" :required true}
           ;; TODO: also need a user-added option

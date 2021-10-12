@@ -629,6 +629,7 @@
       :items         items
       :labelKey      labelKey
       :valueKey      valueKey
+      :addedKey      addedKey
       :disabled      disabled
       :onReorder     onReorder
       :onItemClick   onItemClick
@@ -665,7 +666,8 @@
       :onRemoveClick onRemoveClick
       :breadcrumbKey breadcrumbKey
       :labelKey      labelKey
-      :valueKey      valueKey}]))
+      :valueKey      valueKey
+      :addedKey      addedKey}]))
 
 (defn table-selection-list
   [config]
@@ -696,7 +698,8 @@
       :onItemClick   onItemClick
       :onRemoveClick onRemoveClick
       :columns       columns
-      :valueKey      valueKey}]))
+      :valueKey      valueKey
+      :addedKey      addedKey}]))
 
 (defn simple-list-option-picker
   [config]

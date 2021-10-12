@@ -415,7 +415,7 @@
         logic @(rf/subscribe [::get-block-props ctx])
         props (merge logic (select-keys config config-keys))
         {:keys [valueKey]} props
-        onClick #(rf/dispatch [::list-add-with-defaults-click-handler ctx {valueKey (random-uuid)}])]
+        onClick #(rf/dispatch [::list-add-with-defaults-click-handler ctx {valueKey (str (random-uuid))}])]
     
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
@@ -605,6 +605,7 @@
   [config]
   (let [config-keys [:labelKey :valueKey]
         ctx (utils4/get-ctx config)
+        onLabelClick (fn [idx] (rf/dispatch [::selection-list-label-click ctx idx]))
         onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
         onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
         logic @(rf/subscribe [::get-block-props ctx])
@@ -612,8 +613,8 @@
         items @(rf/subscribe [::get-block-data ctx])]
 
     (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items (utils4/schema-object-with-keys [valueKey labelKey])}})
+     {:schema1 @(rf/subscribe [::get-data-schema ctx])
+      :schema2 {:type "array" :items (utils4/schema-object-with-keys [valueKey labelKey])}})
 
     [ui/SimpleSelectionList
      {:key           key
@@ -622,6 +623,7 @@
       :valueKey      valueKey
       :disabled      disabled
       :onReorder     onReorder
+      :onLabelClick  onLabelClick
       :onRemoveClick onRemoveClick}]))
 
 (defn breadcrumb-selection-list
@@ -635,8 +637,8 @@
         items @(rf/subscribe [::get-block-data ctx])]
 
     (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items (utils4/schema-object-with-keys [labelKey valueKey breadcrumbKey])}})
+     {:schema1 @(rf/subscribe [::get-data-schema ctx])
+      :schema2 {:type "array" :items (utils4/schema-object-with-keys [labelKey valueKey breadcrumbKey])}})
 
     [ui/BreadcrumbSelectionList
      {:key           key

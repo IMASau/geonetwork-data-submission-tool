@@ -390,25 +390,23 @@
   [form-group config
    [select-option config]])
 
-; WIP
 (defn list-add-button
   "Add user defined item to list"
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:valueKey :addedKey]
-        logic @(rf/subscribe [::get-block-props ctx])
-        props (merge ctx logic (select-keys config config-keys))
-        {:keys [valueKey addedKey]} props
-        onClick #(rf/dispatch [::list-add-with-defaults-click-handler props])]
+  (let [config (massage-config config {:req-ks [:valueKey :addedKey] :opt-ks []})
+        props @(rf/subscribe [::get-block-props config])
+        {:keys [valueKey addedKey]} props]
 
     (s/assert string? valueKey)
     (s/assert string? addedKey)
 
     (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+      {:schema1 @(rf/subscribe [::get-data-schema config])
        :schema2 {:type "array" :items (utils4/schema-object-with-keys [valueKey addedKey])}})
 
-    [:button.bp3-button.bp3-intent-primary {:onClick onClick} "Add"]))
+    [:button.bp3-button.bp3-intent-primary
+     {:onClick #(rf/dispatch [::list-add-with-defaults-click-handler config])}
+     "Add"]))
 
 (defn simple-select-option-with-label
   [config]

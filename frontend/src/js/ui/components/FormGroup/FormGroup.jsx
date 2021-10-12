@@ -51,7 +51,7 @@ export function InlineFormGroup({label, required, toolTip, helperText, hasError,
             labelInfo={<LabelInfo required={required} toolTip={toolTip}/>}
         >
             {children}
-            <div class="bp3-form-helper-text">{helperText}</div>
+            <div className="bp3-form-helper-text">{helperText}</div>
         </BPCore.FormGroup>
     );
 }

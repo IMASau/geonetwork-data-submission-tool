@@ -84,6 +84,7 @@
 (rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/list-add-click handlers4/list-add-click-handler)
+(rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
@@ -164,10 +165,41 @@
        'm4/textarea-field-with-label      components4/textarea-field-with-label
        'm4/yes-no-field                   components4/yes-no-field
        'm4/list-add-button                components4/list-add-button
-       'm4/list-edit-dialog               components4/list-edit-dialog
-       })
+       'm4/list-edit-dialog               components4/list-edit-dialog})
+       
 (set! low-code/template-registry
-      '{:data-identification
+      '{ 
+
+        :platform/user-defined-entry-form
+        [:div 
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "label"]
+           :label     "Name/Label"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "label"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "description"]
+           :label     "Description / Definition"}
+          [m4/textarea-field
+           {:form-id   ?form-id
+            :data-path [?data-path "description"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "source"]
+           :label     "Source"
+           :tooltip "TODO"}
+          [m4/textarea-field
+           {:form-id   ?form-id
+            :data-path [?data-path "source"]}]]]
+
+
+        :data-identification
         [:div
          [m4/page-errors
           {:form-id    [:form]
@@ -345,21 +377,29 @@
          [m4/expanding-control {:label "Platforms" :required true}
           ;; TODO: also need a user-added option
           [m4/form-group
-           {:label "Select a platform for the data measurement"}
+           {:label   "Select a platform for the data measurement"
+            :toolTip "Select a platform from the predefined list.  If the required platform is not found within the list you can use the add button to define your own"}
            [m4/async-list-picker
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
-             :kind          :breadcrumb
              :uri           "/api/ternplatforms"
              :labelKey      "label"
-             :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"}]
-           [m4/breadcrumb-selection-list
+             :valueKey      "uri"}]
+           [m4/list-add-button
+            {:form-id   [:form]
+             :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
+             :valueKey  "uri"}]
+           
+           [m4/simple-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
              :labelKey      "label"
-             :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"}]]]
+             :valueKey      "uri"}]
+           [m4/list-edit-dialog
+            {:form-id     [:form]
+             :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
+             :title       "Edit user defined keyword"
+             :template-id :platform/user-defined-entry-form}]]]
 
          [m4/expanding-control {:label "Instruments" :required true}
           ;; TODO: also need a user-added option

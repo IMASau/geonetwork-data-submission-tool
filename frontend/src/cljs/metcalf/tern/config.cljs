@@ -197,11 +197,11 @@
             :placeholder "Start typing to filter list..."
             :labelKey    "label"
             :valueKey    "value"
-            :options     [{:value "biota" :label "biota"}
-                          {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
-                          {:value "oceans" :label "oceans"}
-                          {:value "geoscientificInformation" :label "geoscientificInformation"}
-                          {:value "inlandWater" :label "inlandWater"}]}]]
+            :options     [{"value" "biota" "label" "biota"}
+                          {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
+                          {"value" "oceans" "label" "oceans"}
+                          {"value" "geoscientificInformation" "label" "geoscientificInformation"}
+                          {"value" "inlandWater" "label" "inlandWater"}]}]]
 
          [:div {:style {:display               "grid"
                         :grid-column-gap       "1em"

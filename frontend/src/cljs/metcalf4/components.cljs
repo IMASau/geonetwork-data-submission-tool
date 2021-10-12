@@ -201,25 +201,22 @@
 
 (defn date-field
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:minDate :maxDate]
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::value-changed ctx (date/to-value %)])
-        props (merge ctx logic (select-keys config config-keys))
+  (let [config (massage-config config {:req-ks [] :opt-ks [:minDate :maxDate]})
+        props @(rf/subscribe [::get-block-props config])
         {:keys [minDate maxDate value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+      {:schema1 @(rf/subscribe [::get-data-schema config])
        :schema2 {:type "string"}})
 
     [ui/DateField
      {:value    (date/from-value value)
       :disabled disabled
-      :onChange onChange
       :hasError hasError
       :minDate  (date/from-value minDate)
-      :maxDate  (date/from-value maxDate)}]))
+      :maxDate  (date/from-value maxDate)
+      :onChange #(rf/dispatch [::value-changed config (date/to-value %)])}]))
 
 (defn date-field-with-label
   [config]

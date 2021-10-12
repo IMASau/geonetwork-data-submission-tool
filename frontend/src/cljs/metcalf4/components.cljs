@@ -173,23 +173,20 @@
 
 (defn checkbox-field
   [config]
-  (let [config-keys [:placeholder :rows :maxLength]
-        ctx (utils4/get-ctx config)
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge ctx logic (select-keys config config-keys))
+  (let [config (massage-config config {:req-ks [] :opt-ks []})
+        props @(rf/subscribe [::get-block-props config])
         {:keys [value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+      {:schema1 @(rf/subscribe [::get-data-schema config])
        :schema2 {:type "boolean"}})
 
     [ui/CheckboxField
      {:checked  (or value false)                            ; TODO: should be guaranteed by sub
       :disabled disabled
       :hasError hasError
-      :onChange onChange}]))
+      :onChange #(rf/dispatch [::value-changed config %])}]))
 
 (defn checkbox-field-with-label
   [config]

@@ -295,7 +295,9 @@
 
 (defn xml-export-link
   [config]
-  (let [{:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+  (let [config (massage-config config {:req-ks [:label] :opt-ks []})
+        {:keys [label]} @(rf/subscribe [::get-block-props config])
+        {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
         dirty @(rf/subscribe [:subs/get-form-dirty])]
     (let [download-props {:href     (str (:export_url document) "?download")
                           :on-click #(when dirty
@@ -304,7 +306,7 @@
                                                      {:type    :alert
                                                       :message "Please save changes before exporting."}]))}]
 
-      [:a download-props (:label config)])))
+      [:a download-props label])))
 
 (defn mailto-data-manager-link
   []

@@ -335,26 +335,30 @@
            :helperText  "Brief statement about the purpose of the study"
            :toolTip     "The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"}]
 
+         [m4/form-group
+          {:label      "Descriptive keywords"
+           :toolTip    "TODO"
+           :helperText "Vocabulary terms that describe the general science categories, general location, organizations, projects, platforms, instruments associated with the resource."}]
+
          [m4/expanding-control
           {:label    "GCMD Science keywords"
            :required true}
 
-          [m4/form-group
-           {:label "Select research theme keywords - maximum of 12 allowed"}
-           [m4/async-list-picker
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsTheme" "keywords"]
-             :kind          :breadcrumb
-             :uri           "/api/ternparameters"           ;TODO: Update to real endpoint
-             :labelKey      "label"
-             :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"}]
-           [m4/breadcrumb-selection-list
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsTheme" "keywords"]
-             :labelKey      "label"
-             :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"}]]]
+          [:p "Select research theme keywords - maximum of 12 allowed"]
+          [m4/async-list-picker
+           {:form-id       [:form]
+            :data-path     ["identificationInfo" "keywordsTheme" "keywords"]
+            :kind          :breadcrumb
+            :uri           "/api/ternparameters"            ;TODO: Update to real endpoint
+            :labelKey      "label"
+            :valueKey      "uri"
+            :breadcrumbKey "breadcrumb"}]
+          [m4/breadcrumb-selection-list
+           {:form-id       [:form]
+            :data-path     ["identificationInfo" "keywordsTheme" "keywords"]
+            :labelKey      "label"
+            :valueKey      "uri"
+            :breadcrumbKey "breadcrumb"}]]
 
          [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
           [:p "TODO: Update to real endpoint"]

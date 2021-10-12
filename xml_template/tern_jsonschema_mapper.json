@@ -93,13 +93,13 @@
         "dateCreation": {
           "!docstring": "ID6",
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",
-          "valueChild": "gco:DateTime",
+          "valueChild": "gco:Date",
           "required": true
         },
         "datePublication": {
           "!docstring": "ID8",
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]/cit:date",
-          "valueChild": "gco:DateTime",
+          "valueChild": "gco:Date",
           "required": true
         },
         "version": {

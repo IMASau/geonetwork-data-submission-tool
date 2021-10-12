@@ -167,12 +167,12 @@
        'm4/yes-no-field                   components4/yes-no-field
        'm4/list-add-button                components4/list-add-button
        'm4/list-edit-dialog               components4/list-edit-dialog})
-       
+
 (set! low-code/template-registry
-      '{ 
+      '{
 
         :platform/user-defined-entry-form
-        [:div 
+        [:div
 
          [m4/inline-form-group
           {:form-id   ?form-id

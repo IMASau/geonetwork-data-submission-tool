@@ -269,12 +269,13 @@
     :onChange    (fn [o] (onChange (js->map o [valueKey labelKey])))}])
 
 (defn SimpleSelectionList
-  [{:keys [items onReorder onItemClick onRemoveClick labelKey valueKey]}]
+  [{:keys [items onReorder onItemClick onRemoveClick labelKey valueKey addedKey]}]
   (s/assert fn? onReorder)
   (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
   (s/assert string? labelKey)
   (s/assert string? valueKey)
+  (s/assert (s/nilable string?) addedKey)
   (s/assert (s/coll-of (has-keys? #{labelKey valueKey}) :distinct true) items)
   [:> SelectionList/SimpleSelectionList
    {:items         items
@@ -282,16 +283,18 @@
     :onItemClick   onItemClick
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
-    :getLabel      #(gobj/get % labelKey "No label")}])
+    :getLabel      #(gobj/get % labelKey "No label")
+    :getAdded      (if addedKey #(gobj/get % addedKey) (constantly false))}])
 
 (defn BreadcrumbSelectionList
-  [{:keys [items onReorder onItemClick onRemoveClick breadcrumbKey labelKey valueKey]}]
+  [{:keys [items onReorder onItemClick onRemoveClick breadcrumbKey labelKey valueKey addedKey]}]
   (s/assert fn? onReorder)
   (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
   (s/assert string? breadcrumbKey)
   (s/assert string? labelKey)
   (s/assert string? valueKey)
+  (s/assert (s/nilable string?) addedKey)
   (s/assert (s/coll-of (has-keys? #{labelKey valueKey breadcrumbKey}) :distinct true) items)
   [:> SelectionList/BreadcrumbSelectionList
    {:items         items
@@ -300,14 +303,16 @@
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
     :getLabel      #(gobj/get % labelKey "No label")
-    :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")}])
+    :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
+    :getAdded      (if addedKey #(gobj/get % addedKey) (constantly false))}])
 
 (defn TableSelectionList
-  [{:keys [items onReorder onItemClick onRemoveClick valueKey columns]}]
+  [{:keys [items onReorder onItemClick onRemoveClick valueKey addedKey columns]}]
   (s/assert fn? onReorder)
   (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
   (s/assert string? valueKey)
+  (s/assert (s/nilable string?) addedKey)
   (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
   (s/assert (s/coll-of (has-key? valueKey)) items)
   (s/assert (s/coll-of (has-keys? (map :labelKey columns)) :distinct true) items)
@@ -317,6 +322,7 @@
     :onItemClick   onItemClick
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
+    :getAdded      (if addedKey #(gobj/get % addedKey) (constantly false))
     :columns       (for [{:keys [flex labelKey]} columns]
                      {:flex     flex
                       :getLabel #(gobj/get % labelKey "No label")})}])

@@ -10,7 +10,8 @@
             [metcalf4.low-code :as low-code]
             [metcalf4.rules :as rules]
             [metcalf4.subs :as subs4]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [interop.ui :as ui]))
 
 (rf/reg-event-fx :handlers/load-api-options-resp handlers3/load-api-options-resp)
 (rf/reg-event-fx :handlers/load-es-options-resp handlers3/load-es-options-resp)
@@ -93,6 +94,7 @@
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
+(rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)

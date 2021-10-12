@@ -13,6 +13,7 @@
             ["/ui/components/CheckboxField/CheckboxField" :as CheckboxField]
             ["/ui/components/NumericInputField/NumericInputField" :as NumericInputField]
             ["/ui/components/EditDialog/EditDialog" :as EditDialog]
+            ["/ui/components/utils" :as ui-utils]
             [cljs.spec.alpha :as s]
             [goog.object :as gobj]
             [reagent.core :as r]))
@@ -49,6 +50,9 @@
   (assert (every? #(gobj/containsKey o %) ks)
           (str "Missing expected key" (pr-str {:obj o :ks ks})))
   (when o (zipmap ks (map #(gobj/get o %) ks))))
+
+(defn setup-blueprint []
+  (ui-utils/setupBlueprint))
 
 (defn box-map
   [{:keys [elements map-width tick-id on-change]}]

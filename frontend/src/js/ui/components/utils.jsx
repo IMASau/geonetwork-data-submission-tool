@@ -1,5 +1,10 @@
 import React from 'react';
 import {Intent} from "@blueprintjs/core";
+import { FocusStyleManager } from "@blueprintjs/core";
+
+export function setupBlueprint() {
+    FocusStyleManager.onlyShowFocusOnTabs();
+}
 
 export function useCachedState(value) {
     const [stateValue, setStateValue] = React.useState(value);

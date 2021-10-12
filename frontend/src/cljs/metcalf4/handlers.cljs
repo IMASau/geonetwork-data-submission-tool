@@ -12,7 +12,7 @@
 
 (defn init-db
   [_ [_ payload]]
-  (-> {:db {}}
+  (-> {:db {} :fx [[:ui/setup-blueprint]]}
       (actions/load-page-action payload)
       (actions/load-form-action payload)
       (actions/load-apis-action

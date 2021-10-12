@@ -267,21 +267,21 @@
              :label     "Maintenance/Update Freq"
              :valueKey  "value"
              :labelKey  "label"
-             :options   [{"value" "continual"   "label" "Continually"}
-                         {"value" "daily"       "label" "Daily"}
-                         {"value" "weekly"      "label" "Weekly"}
+             :options   [{"value" "continual" "label" "Continually"}
+                         {"value" "daily" "label" "Daily"}
+                         {"value" "weekly" "label" "Weekly"}
                          {"value" "fortnightly" "label" "Fortnightly"}
-                         {"value" "monthly"     "label" "Monthly"}
-                         {"value" "quarterly"   "label" "Quarterly"}
-                         {"value" "biannually"  "label" "Twice each year"}
-                         {"value" "annually"    "label" "Annually"}
-                         {"value" "asNeeded"    "label" "As required"}
-                         {"value" "irregular"   "label" "Irregular"}
-                         {"value" "notPlanned"  "label" "None planned"}
-                         {"value" "unknown"     "label" "Unknown"}
-                         {"value" "periodic"    "label" "Periodic"}
+                         {"value" "monthly" "label" "Monthly"}
+                         {"value" "quarterly" "label" "Quarterly"}
+                         {"value" "biannually" "label" "Twice each year"}
+                         {"value" "annually" "label" "Annually"}
+                         {"value" "asNeeded" "label" "As required"}
+                         {"value" "irregular" "label" "Irregular"}
+                         {"value" "notPlanned" "label" "None planned"}
+                         {"value" "unknown" "label" "Unknown"}
+                         {"value" "periodic" "label" "Periodic"}
                          {"value" "semimonthly" "label" "Twice a month"}
-                         {"value" "biennially"  "label" "Every 2 years"}]}]]]
+                         {"value" "biennially" "label" "Every 2 years"}]}]]]
 
          [m4/date-field-with-label
           {:form-id   [:form]

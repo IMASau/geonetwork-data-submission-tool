@@ -57,10 +57,8 @@
 
 (defn form-group
   [config & children]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:label :placeholder :helperText :toolTip]
-        logic @(rf/subscribe [::get-block-props ctx])
-        props (merge ctx logic (select-keys config config-keys))
+  (let [config (massage-config config {:req-ks [:label] :opt-ks [:placeholder :helperText :toolTip]})
+        props @(rf/subscribe [::get-block-props config])
         {:keys [label helperText toolTip required disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (into [ui/FormGroup

@@ -93,7 +93,7 @@
           :disabled   disabled
           :hasError   hasError
           :helperText helperText
-          :toolTip    toolTip}]
+          :toolTip    (r/as-element toolTip)}]
         children))
 
 (defn InlineFormGroup
@@ -104,7 +104,7 @@
           :disabled   disabled
           :hasError   hasError
           :helperText helperText
-          :toolTip    toolTip}]
+          :toolTip    (r/as-element toolTip)}]
         children))
 
 (defn InputField

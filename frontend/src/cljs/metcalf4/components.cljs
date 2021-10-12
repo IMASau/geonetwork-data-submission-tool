@@ -11,6 +11,17 @@
             [metcalf4.schema :as schema]
             [metcalf4.low-code :as low-code]))
 
+(defn massage-config
+  [{:keys [opt-ks req-ks]} config]
+  (let [all-ks (distinct (concat opt-ks req-ks))
+        config1 (utils4/get-ctx config)
+        config2 (select-keys config all-ks)
+        extra-ks (remove (set all-ks) (keys config))
+        missing-ks (remove (set (keys config)) req-ks)]
+    (s/assert empty? missing-ks)
+    (s/assert empty? extra-ks)
+    (merge config1 config2)))
+
 (defn has-error?
   "Given the current form state, and a data path, check if
   the field for that data path has errors."

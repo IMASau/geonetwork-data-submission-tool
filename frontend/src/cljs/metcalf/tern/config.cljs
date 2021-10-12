@@ -383,7 +383,11 @@
           ;; TODO: also need a user-added option
           [m4/form-group
            {:label   "Select a platform for the data measurement"
-            :toolTip "Select a platform from the predefined list.  If the required platform is not found within the list you can use the add button to define your own"}
+            :toolTip [:div
+                      "Select a platform from the predefined list.  "
+                      "If the required platform is not found within the list you can use the "
+                      [:code "Add"]
+                      " button to define your own"]}
 
            [:div.bp3-control-group
             [:div.bp3-fill

@@ -381,23 +381,23 @@
            {:label   "Select a platform for the data measurement"
             :toolTip "Select a platform from the predefined list.  If the required platform is not found within the list you can use the add button to define your own"}
            [m4/async-list-picker
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
-             :uri           "/api/ternplatforms"
-             :labelKey      "label"
-             :valueKey      "uri"}]
+            {:form-id   [:form]
+             :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
+             :uri       "/api/ternplatforms"
+             :labelKey  "label"
+             :valueKey  "uri"}]
            [m4/list-add-button
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
              :valueKey  "uri"
              :addedKey  "isUserDefined"}]
-           
+
            [m4/simple-selection-list
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
-             :labelKey      "label"
-             :valueKey      "uri"
-             :addedKey      "isUserDefined"}]
+            {:form-id   [:form]
+             :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
+             :labelKey  "label"
+             :valueKey  "uri"
+             :addedKey  "isUserDefined"}]
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]

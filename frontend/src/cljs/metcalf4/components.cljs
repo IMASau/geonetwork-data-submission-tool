@@ -411,15 +411,18 @@
   "Add user defined item to list"
   [config]
   (let [ctx (utils4/get-ctx config)
-        config-keys [:valueKey]
+        config-keys [:valueKey :addedKey]
         logic @(rf/subscribe [::get-block-props ctx])
-        props (merge logic (select-keys config config-keys))
-        {:keys [valueKey]} props
-        onClick #(rf/dispatch [::list-add-with-defaults-click-handler ctx {valueKey (str (random-uuid))}])]
-    
+        props (merge ctx logic (select-keys config config-keys))
+        {:keys [valueKey addedKey]} props
+        onClick #(rf/dispatch [::list-add-with-defaults-click-handler props])]
+
+    (s/assert string? valueKey)
+    (s/assert string? addedKey)
+
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
+       :schema2 {:type "array" :items (utils4/schema-object-with-keys [valueKey addedKey])}})
 
     [:button {:onClick onClick} "Add"]))
 

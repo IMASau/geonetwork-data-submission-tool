@@ -56,8 +56,9 @@
         (actions/select-last-item-action form-id data-path))))
 
 (defn list-add-with-defaults-click-handler
-  [{:keys [db]} [_ ctx defaults]]
-  (let [{:keys [form-id data-path]} ctx]
+  [{:keys [db]} [_ props]]
+  (let [{:keys [form-id data-path valueKey addedKey]} props
+        defaults {valueKey (str (random-uuid)) addedKey true}]
     (-> {:db db}
         (actions/save-snapshot-action form-id)
         (actions/add-item-action form-id data-path defaults)

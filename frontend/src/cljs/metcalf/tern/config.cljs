@@ -380,20 +380,18 @@
            [m4/async-list-picker
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
-             :kind          :breadcrumb
              :uri           "/api/ternplatforms"
              :labelKey      "label"
-             :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"}]
-           [m4/breadcrumb-selection-list
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
-             :labelKey      "label"
-             :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"}]
+             :valueKey      "uri"}]
            [m4/list-add-button
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsPlatform" "keywords"]}]
+           
+           [m4/simple-selection-list
+            {:form-id       [:form]
+             :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
+             :labelKey      "label"
+             :valueKey      "uri"}]
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]

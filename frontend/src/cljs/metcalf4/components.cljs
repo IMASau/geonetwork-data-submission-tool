@@ -108,15 +108,12 @@
 
 (defn input-field
   [config]
-  (let [config-keys [:placeholder :maxLength]
-        ctx (utils4/get-ctx config)
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge ctx logic (select-keys config config-keys))
+  (let [config (massage-config config {:req-ks [] :opt-ks [:placeholder :maxLength]})
+        props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+      {:schema1 @(rf/subscribe [::get-data-schema config])
        :schema2 {:type "string"}})
     [ui/InputField
      {:value       (or value "")                            ; TODO: should be guaranteed by sub
@@ -124,7 +121,7 @@
       :maxLength   maxLength
       :disabled    disabled
       :hasError    hasError
-      :onChange    onChange}]))
+      :onChange    #(rf/dispatch [::value-changed config %])}]))
 
 (defn input-field-with-label
   [config]

@@ -389,13 +389,15 @@
            [m4/list-add-button
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
-             :valueKey  "uri"}]
+             :valueKey  "uri"
+             :addedKey  "isUserDefined"}]
            
            [m4/simple-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
              :labelKey      "label"
-             :valueKey      "uri"}]
+             :valueKey      "uri"
+             :addedKey      "isUserDefined"}]
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]

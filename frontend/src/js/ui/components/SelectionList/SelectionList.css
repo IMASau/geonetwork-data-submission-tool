@@ -1,0 +1,14 @@
+
+.DragHandleWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.DragHandleWrapperHandle {
+    padding-right: 0.5em;
+}
+
+.DragHandleWrapperChildren {
+    flex: 1;
+}

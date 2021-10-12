@@ -4,6 +4,7 @@ import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import {useCachedState} from "../utils";
 import * as ReactDOM from "react-dom";
 import {BreadcrumbListItem, SimpleListItem, TableListItem} from "../ListItem/ListItem";
+import * as BPCore from "@blueprintjs/core"
 
 const getItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
@@ -47,13 +48,19 @@ function PortalAwareItem({provided, snapshot, children}) {
         <div
             ref={provided.innerRef}
             {...provided.draggableProps}
-            {...provided.dragHandleProps}
             style={getItemStyle(
                 snapshot.isDragging,
                 provided.draggableProps.style
             )}
+            className="DragHandleWrapper"
         >
+            <div className="DragHandleWrapperHandle"
+                {...provided.dragHandleProps}>
+                <BPCore.Icon icon="drag-handle-vertical" />
+            </div>
+            <div className="DragHandleWrapperChildren">
             {children}
+        </div>
         </div>
     );
 

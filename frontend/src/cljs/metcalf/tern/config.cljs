@@ -187,21 +187,17 @@
 
          [:label "TODO: parent metadata"]
 
-         [m4/form-group
-          {:label     "Topic Category"
-           :form-id   [:form]
-           :data-path ["identificationInfo" "topicCategory"]}
-          [m4/select-value
-           {:form-id     [:form]
-            :data-path   ["identificationInfo" "topicCategory"]
-            :placeholder "Start typing to filter list..."
-            :labelKey    "label"
-            :valueKey    "value"
-            :options     [{"value" "biota" "label" "biota"}
-                          {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
-                          {"value" "oceans" "label" "oceans"}
-                          {"value" "geoscientificInformation" "label" "geoscientificInformation"}
-                          {"value" "inlandWater" "label" "inlandWater"}]}]]
+         [m4/select-value-with-label
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "topicCategory"]
+           :placeholder "Start typing to filter list..."
+           :labelKey    "label"
+           :valueKey    "value"
+           :options     [{"value" "biota" "label" "biota"}
+                         {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
+                         {"value" "oceans" "label" "oceans"}
+                         {"value" "geoscientificInformation" "label" "geoscientificInformation"}
+                         {"value" "inlandWater" "label" "inlandWater"}]}]
 
          [:div {:style {:display               "grid"
                         :grid-column-gap       "1em"

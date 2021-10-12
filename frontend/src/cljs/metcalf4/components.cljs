@@ -233,14 +233,14 @@
 
 (defn note-for-data-manager
   [config]
-  (let [ctx (utils4/get-ctx config)
+  (let [config (massage-config config {:req-ks [] :opt-ks []})
         {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        value @(rf/subscribe [::get-block-data ctx])]
+        value @(rf/subscribe [::get-block-data config])]
     [:div
      {:style {:padding-top    5
               :padding-bottom 5}}
      (if (= "Draft" (:status document))
-       [textarea-field-with-label ctx]
+       [textarea-field-with-label config]
        (when-not (string/blank? value)
          [:div
           [:strong "Note for the data manager:"]

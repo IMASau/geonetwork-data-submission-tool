@@ -76,7 +76,7 @@
         props @(rf/subscribe [::get-block-props config])
         {:keys [label helperText toolTip required disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    
+
     (into [ui/InlineFormGroup
            {:label      label
             :required   required

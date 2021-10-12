@@ -147,6 +147,7 @@
        'm4/date-field-with-label          components4/date-field-with-label
        'm4/expanding-control              components4/expanding-control
        'm4/form-group                     components4/form-group
+       'm4/inline-form-group              components4/inline-form-group
        'm4/input-field                    components4/input-field
        'm4/input-field-with-label         components4/input-field-with-label
        'm4/page-errors                    components4/page-errors

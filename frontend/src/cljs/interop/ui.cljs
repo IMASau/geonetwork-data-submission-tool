@@ -98,7 +98,7 @@
 
 (defn InlineFormGroup
   [{:keys [label required disabled hasError helperText toolTip]} & children]
-  (into [:> FormGroup/FormGroup
+  (into [:> FormGroup/InlineFormGroup
          {:label      label
           :required   required
           :disabled   disabled

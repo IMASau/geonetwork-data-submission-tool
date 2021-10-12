@@ -130,6 +130,7 @@
 (ins/reg-global-singleton ins/breadcrumbs)
 (set! rules/rule-registry
       {"requiredField"     rules/required-field
+       "requiredWhenYes"   rules/required-when-yes
        "maxLength"         rules/max-length
        "geographyRequired" rules/geography-required
        "licenseOther"      rules/license-other

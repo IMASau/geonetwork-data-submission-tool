@@ -40,6 +40,15 @@
                   (update-in [:props :errors] conj "This field is required"))))
     block))
 
+(defn required-when-yes
+  [block {:keys [bool-field opt-field]}]
+  (let [required? (get-in block [:content bool-field :props :value])
+        props (if required?
+                {:required true :is-hidden false}
+                {:required false :is-hidden true :disabled true})]
+    (-> block
+        (update-in [:content opt-field :props] merge props))))
+
 (defn max-length
   [block maxLength]
   (assoc-in block [:props :maxLength] maxLength))

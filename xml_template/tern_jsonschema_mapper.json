@@ -38,6 +38,13 @@
   "properties": {
     "identificationInfo": {
       "xpath": "mdb:identificationInfo/mri:MD_DataIdentification",
+      "rules": [
+        "maintFreq",
+        "endPosition",
+        "licenseOther",
+        {"dateOrder": {"field0": "beginPosition", "field1": "endPosition"}},
+        {"requiredWhenYes": {"bool-field": "previouslyPublishedFlag", "opt-field": "datePublication"}}
+      ],
       "type": "object",
       "properties": {
         "title": {
@@ -93,13 +100,16 @@
         "dateCreation": {
           "!docstring": "ID6",
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",
-          "valueChild": "gco:DateTime",
+          "valueChild": "gco:Date",
           "required": true
+        },
+        "datePublicationFlag": {
+          "export": false, "xpath": null
         },
         "datePublication": {
           "!docstring": "ID8",
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]/cit:date",
-          "valueChild": "gco:DateTime",
+          "valueChild": "gco:Date",
           "required": true
         },
         "version": {

@@ -82,6 +82,7 @@
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/list-add-click handlers4/list-add-click-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
+(rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)

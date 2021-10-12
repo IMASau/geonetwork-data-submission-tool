@@ -55,6 +55,14 @@
         (actions/new-item-action form-id data-path)
         (actions/select-last-item-action form-id data-path))))
 
+(defn list-add-with-defaults-click-handler
+  [{:keys [db]} [_ ctx defaults]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/save-snapshot-action form-id)
+        (actions/add-item-action form-id data-path defaults)
+        (actions/select-last-item-action form-id data-path))))
+
 (defn boxes-changed
   [{:keys [db]} [_ ctx geojson]]
   (let [{:keys [form-id data-path]} ctx

@@ -408,15 +408,15 @@
 
 ; WIP
 (defn list-add-button
+  "Add user defined item to list"
   [config]
   (let [ctx (utils4/get-ctx config)
-        ;config-keys []
-        ;logic @(rf/subscribe [::get-block-props ctx])
-        onClick #(rf/dispatch [::list-add-click ctx])
-        ;props (merge logic (select-keys config config-keys))
-        ;{:keys []} props
-        ]
-
+        config-keys [:valueKey]
+        logic @(rf/subscribe [::get-block-props ctx])
+        props (merge logic (select-keys config config-keys))
+        {:keys [valueKey]} props
+        onClick #(rf/dispatch [::list-add-with-defaults-click-handler ctx {valueKey (random-uuid)}])]
+    
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type "array" :items {:type "object" :properties {}}}})

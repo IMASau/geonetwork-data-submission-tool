@@ -84,6 +84,7 @@
 (rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/list-add-click handlers4/list-add-click-handler)
+(rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
@@ -385,7 +386,8 @@
              :valueKey      "uri"}]
            [m4/list-add-button
             {:form-id   [:form]
-             :data-path ["identificationInfo" "keywordsPlatform" "keywords"]}]
+             :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
+             :valueKey  "uri"}]
            
            [m4/simple-selection-list
             {:form-id       [:form]

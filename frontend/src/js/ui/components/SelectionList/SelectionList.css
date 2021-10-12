@@ -18,10 +18,10 @@
 }
 
 .PickedItem {
-
+    background-color: #99ffcc;
 }
 
 .AddedItem {
-    background-color: lightsalmon;
+    background-color: #ffd9b3;
     cursor: pointer;
 }

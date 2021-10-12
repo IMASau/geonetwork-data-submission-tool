@@ -247,8 +247,8 @@
              :label     "Status of Data"
              :valueKey  "value"
              :labelKey  "label"
-             :options   [{"value" "onGoing"   "label" "ongoing"}
-                         {"value" "planned"   "label" "planned"}
+             :options   [{"value" "onGoing" "label" "ongoing"}
+                         {"value" "planned" "label" "planned"}
                          {"value" "completed" "label" "completed"}]}]]
           [:div
            [m4/input-field-with-label

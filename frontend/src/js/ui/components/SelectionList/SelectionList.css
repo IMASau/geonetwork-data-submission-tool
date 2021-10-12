@@ -16,3 +16,12 @@
 .DragHandleWrapperRemoveButton {
     
 }
+
+.PickedItem {
+
+}
+
+.AddedItem {
+    background-color: lightsalmon;
+    cursor: pointer;
+}

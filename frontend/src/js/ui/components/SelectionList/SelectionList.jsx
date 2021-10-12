@@ -169,11 +169,12 @@ SelectionList.propTypes = {
     disabled: PropTypes.bool,
 }
 
-export function TableSelectionList({ items, getValue, onReorder, onRemoveClick, disabled, columns }) {
+export function TableSelectionList({ items, getValue, onReorder, onItemClick, onRemoveClick, disabled, columns }) {
     return (
         <SelectionList
             items={items}
             onReorder={onReorder}
+            onItemClick={onItemClick}
             onRemoveClick={onRemoveClick}
             getValue={getValue}
             disabled={disabled}
@@ -195,7 +196,7 @@ TableSelectionList.propTypes = {
     }))
 }
 
-export function BreadcrumbSelectionList({ items, getValue, getLabel, getBreadcrumb, onReorder, onRemoveClick, disabled }) {
+export function BreadcrumbSelectionList({ items, getValue, getLabel, getBreadcrumb, onReorder, onItemClick, onRemoveClick, disabled }) {
     return (
         <SelectionList
             items={items}
@@ -207,6 +208,7 @@ export function BreadcrumbSelectionList({ items, getValue, getLabel, getBreadcru
                 <BreadcrumbListItem
                     item={item}
                     index={index}
+                    onItemClick={onItemClick}
                     onRemoveClick={onRemoveClick}
                     disabled={disabled}
                     getBreadcrumb={getBreadcrumb}
@@ -227,7 +229,7 @@ BreadcrumbSelectionList.propTypes = {
     disabled: PropTypes.bool,
 }
 
-export function SimpleSelectionList({ items, getValue, getLabel, onReorder, onRemoveClick, disabled }) {
+export function SimpleSelectionList({ items, getValue, getLabel, onReorder, onItemClick, onRemoveClick, disabled }) {
     return (
         <SelectionList
             items={items}
@@ -239,6 +241,7 @@ export function SimpleSelectionList({ items, getValue, getLabel, onReorder, onRe
                 <SimpleListItem
                     item={item}
                     index={index}
+                    onItemClick={onItemClick}
                     onRemoveClick={onRemoveClick}
                     disabled={disabled}
                     getLabel={getLabel} />

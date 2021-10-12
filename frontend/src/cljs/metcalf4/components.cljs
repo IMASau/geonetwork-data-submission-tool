@@ -424,7 +424,7 @@
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type "array" :items (utils4/schema-object-with-keys [valueKey addedKey])}})
 
-    [:button {:onClick onClick} "Add"]))
+    [:button.bp3-button.bp3-intent-primary {:onClick onClick} "Add"]))
 
 (defn simple-select-option-with-label
   [config]

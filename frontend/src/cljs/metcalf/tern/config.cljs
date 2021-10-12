@@ -163,10 +163,41 @@
        'm4/textarea-field-with-label      components4/textarea-field-with-label
        'm4/yes-no-field                   components4/yes-no-field
        'm4/list-add-button                components4/list-add-button
-       'm4/list-edit-dialog               components4/list-edit-dialog
-       })
+       'm4/list-edit-dialog               components4/list-edit-dialog})
+       
 (set! low-code/template-registry
-      '{:data-identification
+      '{ 
+
+        :platform/user-defined-entry-form
+        [:div 
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "label"]
+           :label     "Name/Label"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "label"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "description"]
+           :label     "Description / Definition"}
+          [m4/textarea-field
+           {:form-id   ?form-id
+            :data-path [?data-path "description"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "source"]
+           :label     "Source"
+           :tooltip "TODO"}
+          [m4/textarea-field
+           {:form-id   ?form-id
+            :data-path [?data-path "source"]}]]]
+
+
+        :data-identification
         [:div
          [m4/page-errors
           {:form-id    [:form]

@@ -6,6 +6,7 @@
 
 .EditDialogDialog {
     background-color: white;
+    width: 70vw;
 }
 
 .EditOverlayDialog {
@@ -20,7 +21,7 @@
     flex: 1;
     max-height: 70vh;
     overflow:scroll;
-    padding: 5px
+    padding: 5px;
 }
 
 .EditOverlayFooter {

@@ -269,8 +269,9 @@
     :onChange    (fn [o] (onChange (js->map o [valueKey labelKey])))}])
 
 (defn SimpleSelectionList
-  [{:keys [items onReorder onRemoveClick labelKey valueKey]}]
+  [{:keys [items onReorder onItemClick onRemoveClick labelKey valueKey]}]
   (s/assert fn? onReorder)
+  (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
   (s/assert string? labelKey)
   (s/assert string? valueKey)
@@ -278,13 +279,15 @@
   [:> SelectionList/SimpleSelectionList
    {:items         items
     :onReorder     onReorder
+    :onItemClick   onItemClick
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
     :getLabel      #(gobj/get % labelKey "No label")}])
 
 (defn BreadcrumbSelectionList
-  [{:keys [items onReorder onRemoveClick breadcrumbKey labelKey valueKey]}]
+  [{:keys [items onReorder onItemClick onRemoveClick breadcrumbKey labelKey valueKey]}]
   (s/assert fn? onReorder)
+  (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
   (s/assert string? breadcrumbKey)
   (s/assert string? labelKey)
@@ -293,14 +296,16 @@
   [:> SelectionList/BreadcrumbSelectionList
    {:items         items
     :onReorder     onReorder
+    :onItemClick   onItemClick
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
     :getLabel      #(gobj/get % labelKey "No label")
     :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")}])
 
 (defn TableSelectionList
-  [{:keys [items onReorder onRemoveClick valueKey columns]}]
+  [{:keys [items onReorder onItemClick onRemoveClick valueKey columns]}]
   (s/assert fn? onReorder)
+  (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
   (s/assert string? valueKey)
   (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
@@ -309,6 +314,7 @@
   [:> SelectionList/TableSelectionList
    {:items         items
     :onReorder     onReorder
+    :onItemClick   onItemClick
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
     :columns       (for [{:keys [flex labelKey]} columns]

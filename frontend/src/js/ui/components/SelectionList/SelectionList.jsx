@@ -33,7 +33,7 @@ function DragHandle() {
     return <BPCore.Icon icon="drag-handle-vertical" />
 }
 
-function RemoveButton({index, onRemoveClick, disabled}) {
+function RemoveButton({ index, onRemoveClick, disabled }) {
     if (!onRemoveClick) {
         return null
     } else {
@@ -47,6 +47,16 @@ function RemoveButton({index, onRemoveClick, disabled}) {
     }
 }
 
+function ItemLabel({ itemProps, item, index, onItemClick, renderItem }) {
+    const body = renderItem({ ...itemProps, item, index });
+    const onClick = onItemClick ? (_ => onItemClick(index)) : null;
+    return (
+        <div onClick={onClick}>
+            {body}
+        </div>
+    )
+}
+
 // NOTE: Workaround for conflict with blueprint expander (transform related?)
 // https://github.com/vtereshyn/react-beautiful-dnd-ru/blob/master/docs/patterns/using-a-portal.md
 const portal = document.createElement('div');
@@ -58,7 +68,7 @@ if (!document.body) {
     document.body.appendChild(portal);
 }
 
-function PortalAwareItem({ provided, snapshot, label, removeButton }) {
+function PortalAwareItem({ provided, snapshot, itemLabel, removeButton }) {
 
     const usePortal = snapshot.isDragging;
 
@@ -77,7 +87,7 @@ function PortalAwareItem({ provided, snapshot, label, removeButton }) {
                 <DragHandle />
             </div>
             <div className="DragHandleWrapperLabel">
-                {label}
+                {itemLabel}
             </div>
             <div className="DragHandleWrapperRemoveButton">
                 {removeButton}
@@ -94,7 +104,7 @@ function PortalAwareItem({ provided, snapshot, label, removeButton }) {
 
 // NOTE: Attempts to workaround glitch on recorder by caching state
 // NOTE: Component should change key to flush invalid state if necessary
-export function SelectionList({ items, itemProps, getValue, onReorder, onRemoveClick, disabled, renderItem }) {
+export function SelectionList({ items, itemProps, getValue, onReorder, onItemClick, onRemoveClick, disabled, renderItem }) {
 
     const [stateValue, setStateValue] = useCachedState(items);
     const isDragDisabled = disabled || !onReorder;
@@ -132,8 +142,8 @@ export function SelectionList({ items, itemProps, getValue, onReorder, onRemoveC
                                     <PortalAwareItem
                                         provided={provided}
                                         snapshot={snapshot}
-                                        label={renderItem({ ...itemProps, item, index })}
-                                        removeButton={<RemoveButton disabled={disabled} onRemoveClick={onRemoveClick} index={index} />}
+                                        itemLabel={ItemLabel({ itemProps, item, index, onItemClick, renderItem })}
+                                        removeButton={RemoveButton({ disabled, onRemoveClick, index })}
                                     />
                                 )}
                             </Draggable>
@@ -152,6 +162,7 @@ SelectionList.propTypes = {
         label: PropTypes.string
     })).isRequired,
     onReorder: PropTypes.func,
+    onItemClick: PropTypes.func,
     onRemoveClick: PropTypes.func,
     renderItem: PropTypes.func.isRequired,
     getValue: PropTypes.func.isRequired,
@@ -175,6 +186,7 @@ TableSelectionList.propTypes = {
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
     getValue: PropTypes.func.isRequired,
     onReorder: PropTypes.func,
+    onItemClick: PropTypes.func,
     onRemoveClick: PropTypes.func,
     disabled: PropTypes.bool,
     columns: PropTypes.arrayOf(PropTypes.shape({
@@ -210,6 +222,7 @@ BreadcrumbSelectionList.propTypes = {
     getLabel: PropTypes.func.isRequired,
     getBreadcrumb: PropTypes.func.isRequired,
     onReorder: PropTypes.func,
+    onItemClick: PropTypes.func,
     onRemoveClick: PropTypes.func,
     disabled: PropTypes.bool,
 }
@@ -239,6 +252,7 @@ SimpleSelectionList.propTypes = {
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,
     onReorder: PropTypes.func,
+    onItemClick: PropTypes.func,
     onRemoveClick: PropTypes.func,
     disabled: PropTypes.bool,
 }

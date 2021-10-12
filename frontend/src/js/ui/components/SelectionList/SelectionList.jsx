@@ -68,7 +68,7 @@ if (!document.body) {
     document.body.appendChild(portal);
 }
 
-function PortalAwareItem({ provided, snapshot, itemLabel, removeButton }) {
+function PortalAwareItem({ provided, snapshot, itemLabel, removeButton, className }) {
 
     const usePortal = snapshot.isDragging;
 
@@ -80,7 +80,7 @@ function PortalAwareItem({ provided, snapshot, itemLabel, removeButton }) {
                 snapshot.isDragging,
                 provided.draggableProps.style
             )}
-            className="DragHandleWrapper"
+            className={"DragHandleWrapper "+className}
         >
             <div className="DragHandleWrapperHandle"
                 {...provided.dragHandleProps}>
@@ -104,7 +104,7 @@ function PortalAwareItem({ provided, snapshot, itemLabel, removeButton }) {
 
 // NOTE: Attempts to workaround glitch on recorder by caching state
 // NOTE: Component should change key to flush invalid state if necessary
-export function SelectionList({ items, itemProps, getValue, onReorder, onItemClick, onRemoveClick, disabled, renderItem }) {
+export function SelectionList({ items, itemProps, getValue, getAdded, onReorder, onItemClick, onRemoveClick, disabled, renderItem }) {
 
     const [stateValue, setStateValue] = useCachedState(items);
     const isDragDisabled = disabled || !onReorder;
@@ -142,6 +142,7 @@ export function SelectionList({ items, itemProps, getValue, onReorder, onItemCli
                                     <PortalAwareItem
                                         provided={provided}
                                         snapshot={snapshot}
+                                        className={getAdded(item)?"AddedItem":"PickedItem"}
                                         itemLabel={ItemLabel({ itemProps, item, index, onItemClick, renderItem })}
                                         removeButton={RemoveButton({ disabled, onRemoveClick, index })}
                                     />
@@ -166,10 +167,11 @@ SelectionList.propTypes = {
     onRemoveClick: PropTypes.func,
     renderItem: PropTypes.func.isRequired,
     getValue: PropTypes.func.isRequired,
+    getAdded: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
 }
 
-export function TableSelectionList({ items, getValue, onReorder, onItemClick, onRemoveClick, disabled, columns }) {
+export function TableSelectionList({ items, getValue, getAdded, onReorder, onItemClick, onRemoveClick, disabled, columns }) {
     return (
         <SelectionList
             items={items}
@@ -177,11 +179,12 @@ export function TableSelectionList({ items, getValue, onReorder, onItemClick, on
             onItemClick={onItemClick}
             onRemoveClick={onRemoveClick}
             getValue={getValue}
+            getAdded={getAdded}
             disabled={disabled}
-            renderItem={({ item }) => 
-                <TableListItem 
-                    item={item} 
-                    columns={columns}  
+            renderItem={({ item }) =>
+                <TableListItem
+                    item={item}
+                    columns={columns}
                     disabled={disabled} />}>
         </SelectionList>
     )
@@ -190,6 +193,7 @@ export function TableSelectionList({ items, getValue, onReorder, onItemClick, on
 TableSelectionList.propTypes = {
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
     getValue: PropTypes.func.isRequired,
+    getAdded: PropTypes.func.isRequired,
     onReorder: PropTypes.func,
     onItemClick: PropTypes.func,
     onRemoveClick: PropTypes.func,
@@ -200,7 +204,7 @@ TableSelectionList.propTypes = {
     }))
 }
 
-export function BreadcrumbSelectionList({ items, getValue, getLabel, getBreadcrumb, onReorder, onItemClick, onRemoveClick, disabled }) {
+export function BreadcrumbSelectionList({ items, getValue, getLabel, getBreadcrumb, getAdded, onReorder, onItemClick, onRemoveClick, disabled }) {
     return (
         <SelectionList
             items={items}
@@ -208,6 +212,7 @@ export function BreadcrumbSelectionList({ items, getValue, getLabel, getBreadcru
             onItemClick={onItemClick}
             onRemoveClick={onRemoveClick}
             getValue={getValue}
+            getAdded={getAdded}
             disabled={disabled}
             renderItem={({ item }) => (
                 <BreadcrumbListItem
@@ -225,13 +230,14 @@ BreadcrumbSelectionList.propTypes = {
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,
     getBreadcrumb: PropTypes.func.isRequired,
+    getAdded: PropTypes.func.isRequired,
     onReorder: PropTypes.func,
     onItemClick: PropTypes.func,
     onRemoveClick: PropTypes.func,
     disabled: PropTypes.bool,
 }
 
-export function SimpleSelectionList({ items, getValue, getLabel, onReorder, onItemClick, onRemoveClick, disabled }) {
+export function SimpleSelectionList({ items, getValue, getLabel, getAdded, onReorder, onItemClick, onRemoveClick, disabled }) {
     return (
         <SelectionList
             items={items}
@@ -239,6 +245,7 @@ export function SimpleSelectionList({ items, getValue, getLabel, onReorder, onIt
             onItemClick={onItemClick}
             onRemoveClick={onRemoveClick}
             getValue={getValue}
+            getAdded={getAdded}
             disabled={disabled}
             renderItem={({ item }) => (
                 <SimpleListItem
@@ -254,6 +261,7 @@ SimpleSelectionList.propTypes = {
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,
+    getAdded: PropTypes.func.isRequired,
     onReorder: PropTypes.func,
     onItemClick: PropTypes.func,
     onRemoveClick: PropTypes.func,

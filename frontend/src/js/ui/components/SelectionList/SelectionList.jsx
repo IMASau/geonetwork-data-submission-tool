@@ -178,7 +178,11 @@ export function TableSelectionList({ items, getValue, onReorder, onItemClick, on
             onRemoveClick={onRemoveClick}
             getValue={getValue}
             disabled={disabled}
-            renderItem={({ item }) => <TableListItem item={item} columns={columns} onRemoveClick={onRemoveClick} disabled={disabled} />}>
+            renderItem={({ item }) => 
+                <TableListItem 
+                    item={item} 
+                    columns={columns}  
+                    disabled={disabled} />}>
         </SelectionList>
     )
 }
@@ -201,15 +205,13 @@ export function BreadcrumbSelectionList({ items, getValue, getLabel, getBreadcru
         <SelectionList
             items={items}
             onReorder={onReorder}
+            onItemClick={onItemClick}
             onRemoveClick={onRemoveClick}
             getValue={getValue}
             disabled={disabled}
-            renderItem={({ item, index }) => (
+            renderItem={({ item }) => (
                 <BreadcrumbListItem
                     item={item}
-                    index={index}
-                    onItemClick={onItemClick}
-                    onRemoveClick={onRemoveClick}
                     disabled={disabled}
                     getBreadcrumb={getBreadcrumb}
                     getLabel={getLabel} />
@@ -234,15 +236,13 @@ export function SimpleSelectionList({ items, getValue, getLabel, onReorder, onIt
         <SelectionList
             items={items}
             onReorder={onReorder}
+            onItemClick={onItemClick}
             onRemoveClick={onRemoveClick}
             getValue={getValue}
             disabled={disabled}
-            renderItem={({ item, index }) => (
+            renderItem={({ item }) => (
                 <SimpleListItem
                     item={item}
-                    index={index}
-                    onItemClick={onItemClick}
-                    onRemoveClick={onRemoveClick}
                     disabled={disabled}
                     getLabel={getLabel} />
             )}>

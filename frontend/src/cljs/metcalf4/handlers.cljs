@@ -187,4 +187,5 @@
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
+        (actions/discard-snapshot-action form-id)
         (actions/unselect-list-item-action form-id data-path))))

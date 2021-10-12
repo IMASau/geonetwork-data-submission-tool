@@ -636,24 +636,32 @@
 
 (defn breadcrumb-selection-list
   [config]
-  (let [config-keys [:labelKey :valueKey :breadcrumbKey]
+  (let [config-keys [:labelKey :valueKey :breadcrumbKey :addedKey]
         ctx (utils4/get-ctx config)
-        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
-        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
         logic @(rf/subscribe [::get-block-props ctx])
         props (merge ctx logic (select-keys config config-keys))
-        {:keys [key disabled labelKey valueKey breadcrumbKey]} props
+        onItemClick (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))
+        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+        {:keys [key disabled labelKey valueKey addedKey breadcrumbKey]} props
         items @(rf/subscribe [::get-block-data ctx])]
+
+
+    (s/assert string? valueKey)
+    (s/assert string? labelKey)
+    (s/assert string? breadcrumbKey)
+    (s/assert (s/nilable string?) addedKey)
 
     (schema/assert-compatible-schema
      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-      :schema2 {:type "array" :items (utils4/schema-object-with-keys [labelKey valueKey breadcrumbKey])}})
+      :schema2 {:type "array" :items (utils4/schema-object-with-keys (remove nil? [labelKey valueKey breadcrumbKey addedKey]))}})
 
     [ui/BreadcrumbSelectionList
      {:key           key
       :items         items
       :disabled      disabled
       :onReorder     onReorder
+      :onItemClick   onItemClick
       :onRemoveClick onRemoveClick
       :breadcrumbKey breadcrumbKey
       :labelKey      labelKey

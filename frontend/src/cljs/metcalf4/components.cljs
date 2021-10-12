@@ -669,25 +669,31 @@
 
 (defn table-selection-list
   [config]
-  (let [config-keys [:columns :valueKey]
+  (let [config-keys [:columns :valueKey :addedKey]
         ctx (utils4/get-ctx config)
-        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
-        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
         logic @(rf/subscribe [::get-block-props ctx])
         props (merge ctx logic (select-keys config config-keys))
-        {:keys [key disabled columns valueKey]} props
+        onItemClick (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))
+        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+        {:keys [key disabled columns valueKey addedKey]} props
         items @(rf/subscribe [::get-block-data ctx])]
+
+    (s/assert string? valueKey)
+    (s/assert (s/nilable string?) addedKey)
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema ctx])
        :schema2 {:type  "array"
-                 :items (utils4/schema-object-with-keys (into [valueKey] (map :labelKey columns)))}})
+                 :items (utils4/schema-object-with-keys
+                          (into (remove nil? [valueKey addedKey]) (map :labelKey columns)))}})
 
     [ui/TableSelectionList
      {:key           key
       :items         items
       :disabled      disabled
       :onReorder     onReorder
+      :onItemClick   onItemClick
       :onRemoveClick onRemoveClick
       :columns       columns
       :valueKey      valueKey}]))

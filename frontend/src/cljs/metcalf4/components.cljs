@@ -49,7 +49,7 @@
   (let [ctx (utils4/get-ctx config)
         config-keys [:label :placeholder :helperText :toolTip]
         logic @(rf/subscribe [::get-block-props ctx])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [label helperText toolTip required disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (into [ui/FormGroup
@@ -66,7 +66,7 @@
   (let [ctx (utils4/get-ctx config)
         config-keys [:label :placeholder :helperText :toolTip]
         logic @(rf/subscribe [::get-block-props ctx])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [label helperText toolTip required disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (into [ui/InlineFormGroup
@@ -84,7 +84,7 @@
   (let [ctx (utils4/get-ctx config)
         config-keys [:title :template-id]
         logic @(rf/subscribe [::get-block-props ctx])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [selected title template-id show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)
         item-data-path (conj (:data-path ctx) selected)]
@@ -106,7 +106,7 @@
         ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (schema/assert-compatible-schema
@@ -131,7 +131,7 @@
         ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder hasButtons value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (schema/assert-compatible-schema
@@ -157,7 +157,7 @@
         ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder rows maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -180,7 +180,7 @@
         ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -211,7 +211,7 @@
         config-keys [:minDate :maxDate]
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::value-changed ctx (date/to-value %)])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [minDate maxDate value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -328,7 +328,7 @@
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
         onChange #(rf/dispatch [::option-change ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -351,7 +351,7 @@
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
         onChange #(rf/dispatch [::option-change ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors labelKey valueKey columns]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -377,7 +377,7 @@
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
         onChange #(rf/dispatch [::option-change ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors labelKey valueKey breadcrumbKey]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -435,7 +435,7 @@
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
         onChange #(rf/dispatch [::option-change ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder uri valueKey labelKey disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -465,7 +465,7 @@
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
         onChange #(rf/dispatch [::option-change ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey breadcrumbKey]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -496,7 +496,7 @@
         logic @(rf/subscribe [::get-block-props ctx])
         value @(rf/subscribe [::get-block-data ctx])
         onChange #(rf/dispatch [::option-change ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey columns]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -536,7 +536,7 @@
         config-keys [:options :labelKey :valueKey]
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [value options labelKey valueKey disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)
         value (or value "")]
@@ -563,7 +563,7 @@
         config-keys [:options :label]
         logic @(rf/subscribe [::get-yes-no-field-props ctx])
         onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [label value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -585,7 +585,7 @@
         ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-yes-no-field-with-label-props ctx])
         onChange #(rf/dispatch [::yes-no-field-with-label-value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [label value errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -633,7 +633,8 @@
         onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
         onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
         logic @(rf/subscribe [::get-block-props ctx])
-        {:keys [key disabled labelKey valueKey breadcrumbKey]} (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
+        {:keys [key disabled labelKey valueKey breadcrumbKey]} props
         items @(rf/subscribe [::get-block-data ctx])]
 
     (schema/assert-compatible-schema
@@ -657,7 +658,8 @@
         onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
         onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
         logic @(rf/subscribe [::get-block-props ctx])
-        {:keys [key disabled columns valueKey]} (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
+        {:keys [key disabled columns valueKey]} props
         items @(rf/subscribe [::get-block-data ctx])]
 
     (schema/assert-compatible-schema
@@ -680,7 +682,7 @@
         config-keys [:options :placeholder :valueKey :labelKey]
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors valueKey labelKey]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -704,7 +706,7 @@
         config-keys [:options :placeholder :valueKey :labelKey :breadcrumbKey]
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors valueKey labelKey breadcrumbKey]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -729,7 +731,7 @@
         config-keys [:options :placeholder :valueKey :labelKey :columns]
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder options disabled errors show-errors valueKey labelKey columns]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -754,7 +756,7 @@
         config-keys [:uri :placeholder :valueKey :labelKey]
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -778,7 +780,7 @@
         config-keys [:uri :placeholder :valueKey :labelKey :breadcrumbKey]
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey breadcrumbKey]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -803,7 +805,7 @@
         config-keys [:uri :placeholder :valueKey :labelKey :columns]
         logic @(rf/subscribe [::get-block-props ctx])
         onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey columns]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -832,7 +834,7 @@
   (let [config-keys [:label :required]
         ctx (utils4/get-ctx config)
         logic @(rf/subscribe [::get-block-props ctx])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [label required errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (s/assert string? label)
@@ -884,7 +886,7 @@
           config-keys [:options :placeholder]
           logic @(rf/subscribe [::get-block-props ctx])
           data @(rf/subscribe [::get-block-data ctx])
-          props (merge logic (select-keys config config-keys))
+          props (merge ctx logic (select-keys config config-keys))
           elements (boxes->elements data)
           {:keys [disabled is-hidden]} props]
       (when-not is-hidden
@@ -901,7 +903,7 @@
         config-keys [:options :placeholder]
         logic @(rf/subscribe [::get-block-props ctx])
         data @(rf/subscribe [::get-block-data ctx])
-        props (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
         {:keys [is-hidden disabled help]} props
         data-path (:data-path ctx)
         ths ["North limit" "West limit" "South limit" "East limit"]

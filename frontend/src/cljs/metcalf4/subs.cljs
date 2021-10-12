@@ -22,12 +22,13 @@
 
 ; FIXME: leaking empty strings for date values from payload.forms.data
 (defn get-block-props-sub
-  [state [_ {:keys [data-path]}]]
+  "take config and merge with block props"
+  [state [_ {:keys [data-path] :as config}]]
   (s/assert (s/nilable ::utils4/data-path) data-path)
   (when (vector? data-path)
     (s/assert some? state)
     (let [path (blocks/block-path data-path)]
-      (get-in state (conj path :props)))))
+      (merge config (get-in state (conj path :props))))))
 
 (defn get-block-data-sub
   [state [_ {:keys [data-path]}]]

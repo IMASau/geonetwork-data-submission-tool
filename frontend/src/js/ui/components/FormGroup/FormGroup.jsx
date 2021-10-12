@@ -1,8 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as BPCore from '@blueprintjs/core';
-import {Classes} from '@blueprintjs/core';
-import {hasErrorIntent, requiredLabelInfo, TooltipButton} from '../utils';
+import {Button, Classes, Icon} from '@blueprintjs/core';
+import {Tooltip2} from "@blueprintjs/popover2";
+import {hasErrorIntent, requiredLabelInfo} from '../utils';
+
+
+export function TooltipButton({toolTip}) {
+    if (toolTip) {
+        return (
+            <Tooltip2 content={toolTip}>
+                <Button small={true} minimal={true} icon={<Icon icon="help" size={10}/>}/>
+            </Tooltip2>
+        )
+    } else {
+        return <span/>
+    }
+}
 
 function LabelInfo({required, toolTip}) {
     const labelInfo = requiredLabelInfo({required});

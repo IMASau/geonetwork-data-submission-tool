@@ -232,7 +232,7 @@
              :label     "Maintenance/Update Freq"
              :valueKey  "value"
              :labelKey  "label"
-             :options   [{"value" "continually" "label" "Continually"}
+             :options   [{"value" "continual"   "label" "Continually"}
                          {"value" "daily"       "label" "Daily"}
                          {"value" "weekly"      "label" "Weekly"}
                          {"value" "fortnightly" "label" "Fortnightly"}

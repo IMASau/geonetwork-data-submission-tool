@@ -89,23 +89,21 @@
 (defn list-edit-dialog
   "Popup dialog if item is selected"
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:title :template-id]
-        logic @(rf/subscribe [::get-block-props ctx])
-        props (merge ctx logic (select-keys config config-keys))
-        {:keys [selected title template-id show-errors errors]} props
+  (let [config (massage-config config {:req-ks [:title :template-id] :opt-ks []})
+        props @(rf/subscribe [::get-block-props config])
+        {:keys [form-id data-path selected title template-id show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)
-        item-data-path (conj (:data-path ctx) selected)]
+        item-data-path (conj data-path selected)]
     [ui/EditDialog
      {:isOpen  (boolean selected)
       :title   title
-      :onClose #(rf/dispatch [::list-edit-dialog-close ctx])
-      :onClear #(rf/dispatch [::list-edit-dialog-cancel ctx])
-      :onSave  #(rf/dispatch [::list-edit-dialog-save ctx])
+      :onClose #(rf/dispatch [::list-edit-dialog-close config])
+      :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
+      :onSave  #(rf/dispatch [::list-edit-dialog-save config])
       :canSave (not hasError)}
      (low-code/render-template
        {:template-id template-id
-        :variables   {'?form-id   (:form-id ctx)
+        :variables   {'?form-id   form-id
                       '?data-path item-data-path}})]))
 
 (defn input-field

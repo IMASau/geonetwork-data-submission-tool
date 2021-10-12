@@ -80,18 +80,15 @@
           "rules": ["requiredField"]
         },
         "maintenanceAndUpdateFrequency": {
+          "!docstring": "ID9; FIXME: depends on status",
           "xpath": "mri:resourceMaintenance/mmi:MD_MaintenanceInformation/mmi:maintenanceAndUpdateFrequency",
           "valueChild": "mmi:MD_MaintenanceFrequencyCode",
           "label": "Maintenance and update frequency",
           "attributes": {
-            "text": {
-              "function": "identity"
-            },
             "codeListValue": {
               "function": "identity"
             }
-          },
-          "!docstring": "\"required\": true,  // FIXME depends on status"
+          }
         },
         "dateCreation": {
           "!docstring": "ID6",

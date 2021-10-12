@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
-import {useCachedState} from "../utils";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useCachedState } from "../utils";
 import * as ReactDOM from "react-dom";
-import {BreadcrumbListItem, SimpleListItem, TableListItem} from "../ListItem/ListItem";
+import { BreadcrumbListItem, SimpleListItem, TableListItem } from "../ListItem/ListItem";
 import * as BPCore from "@blueprintjs/core"
 
 const getItemStyle = (isDragging, draggableStyle) => ({
@@ -29,6 +29,24 @@ function reorder(list, startIndex, endIndex) {
     return result;
 }
 
+function DragHandle() {
+    return <BPCore.Icon icon="drag-handle-vertical" />
+}
+
+function RemoveButton({index, onRemoveClick, disabled}) {
+    if (!onRemoveClick) {
+        return null
+    } else {
+        return (
+            <BPCore.Button icon="cross"
+                small={true}
+                minimal={true}
+                disabled={disabled}
+                onClick={_ => onRemoveClick(index)} />
+        )
+    }
+}
+
 // NOTE: Workaround for conflict with blueprint expander (transform related?)
 // https://github.com/vtereshyn/react-beautiful-dnd-ru/blob/master/docs/patterns/using-a-portal.md
 const portal = document.createElement('div');
@@ -40,7 +58,7 @@ if (!document.body) {
     document.body.appendChild(portal);
 }
 
-function PortalAwareItem({provided, snapshot, children}) {
+function PortalAwareItem({ provided, snapshot, label, removeButton }) {
 
     const usePortal = snapshot.isDragging;
 
@@ -56,11 +74,14 @@ function PortalAwareItem({provided, snapshot, children}) {
         >
             <div className="DragHandleWrapperHandle"
                 {...provided.dragHandleProps}>
-                <BPCore.Icon icon="drag-handle-vertical" />
+                <DragHandle />
             </div>
-            <div className="DragHandleWrapperChildren">
-            {children}
-        </div>
+            <div className="DragHandleWrapperLabel">
+                {label}
+            </div>
+            <div className="DragHandleWrapperRemoveButton">
+                {removeButton}
+            </div>
         </div>
     );
 
@@ -73,7 +94,7 @@ function PortalAwareItem({provided, snapshot, children}) {
 
 // NOTE: Attempts to workaround glitch on recorder by caching state
 // NOTE: Component should change key to flush invalid state if necessary
-export function SelectionList({items, itemProps, getValue, onReorder, onRemoveClick, disabled, renderItem}) {
+export function SelectionList({ items, itemProps, getValue, onReorder, onRemoveClick, disabled, renderItem }) {
 
     const [stateValue, setStateValue] = useCachedState(items);
     const isDragDisabled = disabled || !onReorder;
@@ -104,16 +125,16 @@ export function SelectionList({items, itemProps, getValue, onReorder, onRemoveCl
                     >
                         {stateValue.map((item, index) => (
                             <Draggable key={getValue(item)}
-                                       draggableId={getValue(item)}
-                                       index={index}
-                                       isDragDisabled={isDragDisabled}>
+                                draggableId={getValue(item)}
+                                index={index}
+                                isDragDisabled={isDragDisabled}>
                                 {(provided, snapshot) => (
                                     <PortalAwareItem
                                         provided={provided}
                                         snapshot={snapshot}
-                                    >
-                                        {renderItem({...itemProps, onRemoveClick, item, index})}
-                                    </PortalAwareItem>
+                                        label={renderItem({ ...itemProps, item, index })}
+                                        removeButton={<RemoveButton disabled={disabled} onRemoveClick={onRemoveClick} index={index} />}
+                                    />
                                 )}
                             </Draggable>
                         ))}
@@ -137,7 +158,7 @@ SelectionList.propTypes = {
     disabled: PropTypes.bool,
 }
 
-export function TableSelectionList({items, getValue, onReorder, onRemoveClick, disabled, columns}) {
+export function TableSelectionList({ items, getValue, onReorder, onRemoveClick, disabled, columns }) {
     return (
         <SelectionList
             items={items}
@@ -145,7 +166,7 @@ export function TableSelectionList({items, getValue, onReorder, onRemoveClick, d
             onRemoveClick={onRemoveClick}
             getValue={getValue}
             disabled={disabled}
-            renderItem={({item}) => <TableListItem item={item} columns={columns} onRemoveClick={onRemoveClick} disabled={disabled}/>}>
+            renderItem={({ item }) => <TableListItem item={item} columns={columns} onRemoveClick={onRemoveClick} disabled={disabled} />}>
         </SelectionList>
     )
 }
@@ -162,7 +183,7 @@ TableSelectionList.propTypes = {
     }))
 }
 
-export function BreadcrumbSelectionList({items, getValue, getLabel, getBreadcrumb, onReorder, onRemoveClick, disabled}) {
+export function BreadcrumbSelectionList({ items, getValue, getLabel, getBreadcrumb, onReorder, onRemoveClick, disabled }) {
     return (
         <SelectionList
             items={items}
@@ -170,7 +191,7 @@ export function BreadcrumbSelectionList({items, getValue, getLabel, getBreadcrum
             onRemoveClick={onRemoveClick}
             getValue={getValue}
             disabled={disabled}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
                 <BreadcrumbListItem
                     item={item}
                     index={index}
@@ -193,7 +214,7 @@ BreadcrumbSelectionList.propTypes = {
     disabled: PropTypes.bool,
 }
 
-export function SimpleSelectionList({items, getValue, getLabel, onReorder, onRemoveClick, disabled}) {
+export function SimpleSelectionList({ items, getValue, getLabel, onReorder, onRemoveClick, disabled }) {
     return (
         <SelectionList
             items={items}
@@ -201,7 +222,7 @@ export function SimpleSelectionList({items, getValue, getLabel, onReorder, onRem
             onRemoveClick={onRemoveClick}
             getValue={getValue}
             disabled={disabled}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
                 <SimpleListItem
                     item={item}
                     index={index}

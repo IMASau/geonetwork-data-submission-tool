@@ -9,6 +9,10 @@
     padding-right: 0.5em;
 }
 
-.DragHandleWrapperChildren {
+.DragHandleWrapperLabel {
     flex: 1;
+}
+
+.DragHandleWrapperRemoveButton {
+    
 }

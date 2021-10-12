@@ -606,18 +606,23 @@
 
 (defn simple-selection-list
   [config]
-  (let [config-keys [:labelKey :valueKey]
+  (let [config-keys [:labelKey :valueKey :addedKey]
         ctx (utils4/get-ctx config)
-        onLabelClick (fn [idx] (rf/dispatch [::selection-list-label-click ctx idx]))
-        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
-        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
         logic @(rf/subscribe [::get-block-props ctx])
-        {:keys [key disabled labelKey valueKey]} (merge logic (select-keys config config-keys))
+        props (merge ctx logic (select-keys config config-keys))
+        {:keys [key disabled labelKey valueKey addedKey]} props
+        onItemClick (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))
+        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
         items @(rf/subscribe [::get-block-data ctx])]
 
+    (s/assert string? valueKey)
+    (s/assert string? labelKey)
+    (s/assert (s/nilable string?) addedKey)
+
     (schema/assert-compatible-schema
-     {:schema1 @(rf/subscribe [::get-data-schema ctx])
-      :schema2 {:type "array" :items (utils4/schema-object-with-keys [valueKey labelKey])}})
+      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+       :schema2 {:type "array" :items (utils4/schema-object-with-keys (remove nil? [valueKey labelKey addedKey]))}})
 
     [ui/SimpleSelectionList
      {:key           key
@@ -626,7 +631,7 @@
       :valueKey      valueKey
       :disabled      disabled
       :onReorder     onReorder
-      :onLabelClick  onLabelClick
+      :onItemClick   onItemClick
       :onRemoveClick onRemoveClick}]))
 
 (defn breadcrumb-selection-list

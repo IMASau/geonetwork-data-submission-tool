@@ -638,10 +638,10 @@
 
          [m4/expanding-control {:label "Additional Keywords (Optional)" :required true}
           "..."
-          [m3/ThemeKeywordsExtra
-           {}]
-          [m3/TaxonKeywordsExtra
-           {}]]
+          #_[m3/ThemeKeywordsExtra
+             {}]
+          #_[m3/TaxonKeywordsExtra
+             {}]]
 
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 

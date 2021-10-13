@@ -101,12 +101,12 @@
 
 (defn dialog-open-action
   [s form-id data-path]
-  (let [is-open-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :properties :isOpen])]
+  (let [is-open-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :props :isOpen])]
     (assoc-in s is-open-path true)))
 
 (defn dialog-close-action
   [s form-id data-path]
-  (let [is-open-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :properties :isOpen])]
+  (let [is-open-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :props :isOpen])]
     (assoc-in s is-open-path false)))
 
 (defn add-item-action

@@ -849,14 +849,12 @@
 
 (defn coordinates-modal-field
   [config]
-  (let [pretty-print (fn [x] (if (nil? x) "--" (if (number? x) (.toFixed x 3) (pr-str x))))
-        ctx (utils4/get-ctx config)
-        config-keys [:options :placeholder]
-        logic @(rf/subscribe [::get-block-props ctx])
-        data @(rf/subscribe [::get-block-data ctx])
-        props (merge ctx logic (select-keys config config-keys))
-        {:keys [is-hidden disabled help]} props
-        data-path (:data-path ctx)
+  (let [config (massage-config config {:req-ks [] :opt-ks [:help]})
+        props @(rf/subscribe [::get-block-props config])
+        data @(rf/subscribe [::get-block-data config])
+        {:keys [data-path is-hidden disabled help]} props
+
+        pretty-print (fn [x] (if (nil? x) "--" (if (number? x) (.toFixed x 3) (pr-str x))))
         ths ["North limit" "West limit" "South limit" "East limit"]
         tds-fn (fn [geographicElement]
                  (let [{:strs [northBoundLatitude westBoundLongitude
@@ -871,17 +869,17 @@
                               "westBoundLongitude" 0}]
     (letfn [(new-fn [] (when-not disabled
                          (rf/dispatch [::boxmap-coordinates-open-add-modal
-                                       {:ctx          ctx
+                                       {:ctx          config
                                         :coord-field  coord-field
                                         :initial-data new-item-with-values
                                         :idx          (count data)
-                                        :on-close     #(rf/dispatch [::boxmap-coordinates-list-delete ctx %])
+                                        :on-close     #(rf/dispatch [::boxmap-coordinates-list-delete config %])
                                         :on-save      #(rf/dispatch [:handlers/close-modal])}])))
-            (delete-fn [idx] (rf/dispatch [::boxmap-coordinates-list-delete ctx idx]))
+            (delete-fn [idx] (rf/dispatch [::boxmap-coordinates-list-delete config idx]))
             (try-delete-fn [idx] (rf/dispatch [::boxmap-coordinates-click-confirm-delete #(delete-fn idx)]))
             (open-edit-fn [indexed-data-path] (when-not disabled
                                                 (rf/dispatch [::boxmap-coordinates-open-edit-modal
-                                                              {:ctx         (assoc ctx :data-path indexed-data-path)
+                                                              {:ctx         (assoc config :data-path indexed-data-path)
                                                                :coord-field coord-field
                                                                :on-delete   #(try-delete-fn (last indexed-data-path))
                                                                :on-save     #(rf/dispatch [:handlers/close-modal])
@@ -899,7 +897,7 @@
               (into [:tbody]
                     (for [[idx field] (map-indexed vector data)]
                       (let [data-path (conj data-path idx)
-                            form-state @(rf/subscribe [::common-subs/get-form-state (:form-id ctx)])
+                            form-state @(rf/subscribe [::common-subs/get-form-state (:form-id config)])
                             has-error? (or (has-error? form-state (conj data-path "northBoundLatitude"))
                                            (has-error? form-state (conj data-path "southBoundLatitude"))
                                            (has-error? form-state (conj data-path "eastBoundLongitude"))

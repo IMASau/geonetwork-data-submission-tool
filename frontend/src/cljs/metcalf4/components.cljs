@@ -11,9 +11,6 @@
             [metcalf4.schema :as schema]
             [metcalf4.low-code :as low-code]))
 
-(defn config-for-settings [settings config]
-  (select-keys config (concat (:req-ks settings) (:opt-ks settings))))
-
 (defn str-value
   [data]
   (binding [*print-level* 3

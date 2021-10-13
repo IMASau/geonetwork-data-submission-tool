@@ -343,15 +343,15 @@
 
         :data-identification
         [:div
-         [m4/page-errors
-          {:form-id    [:form]
-           :data-path  []
-           :data-paths [["identificationInfo" "title"]
-                        ["identificationInfo" "dateCreation"]
-                        ["identificationInfo" "topicCategory"]
-                        ["identificationInfo" "status"]
-                        ["identificationInfo" "maintenanceAndUpdateFrequency"]
-                        ["identificationInfo" "version"]]}]
+         #_[m4/page-errors
+            {:form-id    [:form]
+             :data-path  []
+             :data-paths [["identificationInfo" "title"]
+                          ["identificationInfo" "dateCreation"]
+                          ["identificationInfo" "topicCategory"]
+                          ["identificationInfo" "status"]
+                          ["identificationInfo" "maintenanceAndUpdateFrequency"]
+                          ["identificationInfo" "version"]]}]
 
          [:h2 "1. Data Identification"]
 
@@ -453,11 +453,11 @@
 
         :what
         [:div
-         [m4/page-errors
-          {:form-id    [:form]
-           :data-path  []
-           :data-paths [["identificationInfo" "abstract"]
-                        ["identificationInfo" "purpose"]]}]
+         #_[m4/page-errors
+            {:form-id    [:form]
+             :data-path  []
+             :data-paths [["identificationInfo" "abstract"]
+                          ["identificationInfo" "purpose"]]}]
          [:h2 "2. What"]
          [:p "TODO: Lorem ipsum..."]
          [m4/textarea-field-with-label
@@ -656,7 +656,7 @@
 
          [m4/expanding-control {:label "Australian Plant Name Index (Optional)" :required true}
           [m4/form-group
-           {:label "Select Plant Name Indexes keywords"
+           {:label   "Select Plant Name Indexes keywords"
             :toolTip "TODO"}
            [m4/async-list-picker
             {:form-id         [:form]
@@ -675,7 +675,7 @@
 
          [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required true}
           [m4/form-group
-           {:label "Select Australian Faunal Directory keywords"
+           {:label   "Select Australian Faunal Directory keywords"
             :toolTip "TODO"}
            [m4/async-list-picker
             {:form-id         [:form]
@@ -693,49 +693,55 @@
              :breadcrumb-path ["breadcrumb"]}]]]
 
          [m4/expanding-control {:label "Additional Keywords (Optional)" :required true}
-          "..."
-          #_[m3/ThemeKeywordsExtra
-             {}]
-          #_[m3/TaxonKeywordsExtra
-             {}]]
+          [m4/form-group
+           {:label   "Additional theme keywords can be added for review and approval"
+            :toolTip "TODO"}
+
+           [:p "TODO: Keyword input field"]
+           [:p "TODO: Keyword list"]
+
+           ]]
 
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
         :when
         [:div
-         [m4/page-errors
-          {:form-id    [:form]
-           :data-path  []
-           :data-paths [["identificationInfo" "beginPosition"]
-                        ["identificationInfo" "endPosition"]]}]
-         [:h2 "3. When was the data acquired?"]
-         [m4/date-field-with-label
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "beginPosition"]
-           :label     "Start date"
-           :required  true
-           :minDate   "1900-01-01"
-           :maxDate   "2100-01-01"}]
-         [m4/date-field-with-label
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "endPosition"]
-           :label     "End date"
-           :required  true
-           :minDate   "1900-01-01"
-           :maxDate   "2100-01-01"}]
-         [:div.row
-          [:div.col-md-4
-           [m3/NasaListSelectField {:keyword   :samplingFrequency
-                                    :form-id   [:form]
-                                    :data-path ["identificationInfo"]}]]]
+         #_[m4/page-errors
+            {:form-id    [:form]
+             :data-path  []
+             :data-paths [["identificationInfo" "beginPosition"]
+                          ["identificationInfo" "endPosition"]]}]
+
+         [:h2 "4. When"]
+         [:p "Lorem ipsum..."]
+
+         [:div
+          {:style {:display               "grid"
+                   :grid-column-gap       "1em"
+                   :grid-template-columns "1fr 1fr 1fr"}}
+          [m4/date-field-with-label
+           {:form-id   [:form]
+            :data-path ["identificationInfo" "beginPosition"]
+            :label     "Start date"
+            :required  true
+            :minDate   "1900-01-01"
+            :maxDate   "2100-01-01"}]
+          [m4/date-field-with-label
+           {:form-id   [:form]
+            :data-path ["identificationInfo" "endPosition"]
+            :label     "End date"
+            :required  true
+            :minDate   "1900-01-01"
+            :maxDate   "2100-01-01"}]]
+
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
         [:div
-         [m4/page-errors
-          {:form-id    [:form]
-           :data-path  []
-           :data-paths [["identificationInfo" "geographicElement" "siteDescription"]]}]
+         #_[m4/page-errors
+            {:form-id    [:form]
+             :data-path  []
+             :data-paths [["identificationInfo" "geographicElement" "siteDescription"]]}]
          [:h2 "4. Where"]
          [m4/textarea-field-with-label
           {:form-id     [:form]
@@ -773,12 +779,12 @@
 
         :how
         [:div
-         [m4/page-errors
-          {:form-id    [:form]
-           :data-path  []
-           :data-paths [["resourceLineage" "processStep"]
-                        ["dataQualityInfo" "methods"]
-                        ["dataQualityInfo" "results"]]}]
+         #_[m4/page-errors
+            {:form-id    [:form]
+             :data-path  []
+             :data-paths [["resourceLineage" "processStep"]
+                          ["dataQualityInfo" "methods"]
+                          ["dataQualityInfo" "results"]]}]
          [:h2 "6: How"]
          [m3/Methods {:form-id   [:form]
                       :data-path ["resourceLineage" "processStep"]}]
@@ -799,11 +805,11 @@
 
         :quality
         [:div
-         [m4/page-errors
-          {:form-id    [:form]
-           :data-path  []
-           :data-paths [["dataQualityInfo" "methodSummary"]
-                        ["dataQualityInfo" "results"]]}]
+         #_[m4/page-errors
+            {:form-id    [:form]
+             :data-path  []
+             :data-paths [["dataQualityInfo" "methodSummary"]
+                          ["dataQualityInfo" "results"]]}]
          [:h2 "7. Data Quality"]
          [:i "This section is optional"]
          [m4/textarea-field-with-label
@@ -822,14 +828,14 @@
 
         :about
         [:div
-         [m4/page-errors
-          {:form-id    [:form]
-           :data-path  []
-           :data-paths [["identificationInfo" "environment"]
-                        ["identificationInfo" "supplemental"]
-                        ["identificationInfo" "resourceSpecificUsage"]
-                        ["identificationInfo" "credit"]
-                        ["identificationInfo" "customCitation"]]}]
+         #_[m4/page-errors
+            {:form-id    [:form]
+             :data-path  []
+             :data-paths [["identificationInfo" "environment"]
+                          ["identificationInfo" "supplemental"]
+                          ["identificationInfo" "resourceSpecificUsage"]
+                          ["identificationInfo" "credit"]
+                          ["identificationInfo" "customCitation"]]}]
          [:h2 "8: About Dataset"]
          [:h4 "Environment Description (Optional)"]
          [m4/textarea-field-with-label
@@ -923,7 +929,7 @@
 
         :upload
         [:div
-         [m4/page-errors {:form-id [:form] :data-paths []}]
+         #_[m4/page-errors {:form-id [:form] :data-paths []}]
          [:h2 "9. Data Sources"]
          [m3/UploadData
           {:attachments-path [:form :fields :attachments]}]
@@ -934,7 +940,7 @@
 
         :lodge
         [:div
-         [m4/page-errors {:form-id [:form] :data-paths []}]
+         #_[m4/page-errors {:form-id [:form] :data-paths []}]
          [:h2 "10: Lodge Metadata Draft"]
          [m3/Lodge
           {:note-for-data-manager-path [:form :fields :noteForDataManager]

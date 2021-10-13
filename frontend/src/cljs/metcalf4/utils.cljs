@@ -17,13 +17,15 @@
     :else x))
 
 
+(defn massage-data-path
+  [data-path]
+  (mapv massage-data-path-value (as-path data-path)))
+
+
 (defn get-ctx
   [{:keys [form-id data-path]}]
   (when (and form-id data-path)
-    (let [data-path (as-path data-path)
-          data-path (mapv massage-data-path-value data-path)]
-      (s/assert ::data-path data-path)
-      {:form-id form-id :data-path data-path})))
+    {:form-id form-id :data-path (massage-data-path data-path)}))
 
 
 (defn get-csrf

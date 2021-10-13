@@ -759,28 +759,25 @@
 
 (defn async-table-list-option-picker
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:uri :placeholder :valueKey :labelKey :columns]
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge ctx logic (select-keys config config-keys))
+  (let [config (massage-config config {:req-ks [:uri :valueKey :labelKey :columns] :opt-ks [:placeholder]})
+        props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey columns]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+      {:schema1 @(rf/subscribe [::get-data-schema config])
        :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/AsyncTableSelectField
      {:value       nil
-      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
       :placeholder placeholder
       :disabled    disabled
-      :hasError    (seq hasError)
-      :onChange    onChange
+      :hasError    hasError
       :labelKey    labelKey
       :valueKey    valueKey
-      :columns     columns}]))
+      :columns     columns
+      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
 
 (defmulti async-list-picker :kind)
 (defmethod async-list-picker :default [config] (async-simple-list-option-picker config))

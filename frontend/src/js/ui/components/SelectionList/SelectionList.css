@@ -9,6 +9,13 @@
     padding-right: 0.5em;
 }
 
+.TableSelectionListColumnHeaderRow {
+    /* To allow for drag handle */
+    padding-left: 25px;
+    /* To allow for optional remove button */
+    padding-right: 24px;  
+}
+
 .DragHandleWrapperLabel {
     flex: 1;
 }

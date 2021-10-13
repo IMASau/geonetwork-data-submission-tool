@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useCachedState } from "../utils";
 import * as ReactDOM from "react-dom";
-import { BreadcrumbListItem, SimpleListItem, TableListItem } from "../ListItem/ListItem";
+import { BreadcrumbListItem, SimpleListItem, TableListColumnHeaderRow, TableListItem } from "../ListItem/ListItem";
 import * as BPCore from "@blueprintjs/core"
 
 const getItemStyle = (isDragging, draggableStyle) => ({
@@ -172,21 +172,30 @@ SelectionList.propTypes = {
 }
 
 export function TableSelectionList({ items, getValue, getAdded, onReorder, onItemClick, onRemoveClick, disabled, columns }) {
+    if (items.length==0) {
+        return <div/>
+    }
     return (
-        <SelectionList
-            items={items}
-            onReorder={onReorder}
-            onItemClick={onItemClick}
-            onRemoveClick={onRemoveClick}
-            getValue={getValue}
-            getAdded={getAdded}
-            disabled={disabled}
-            renderItem={({ item }) =>
-                <TableListItem
-                    item={item}
-                    columns={columns}
-                    disabled={disabled} />}>
-        </SelectionList>
+        <div>
+            <div className="TableSelectionListColumnHeaderRow">
+                <TableListColumnHeaderRow columns={columns} />
+            </div>
+            <SelectionList
+                items={items}
+                onReorder={onReorder}
+                onItemClick={onItemClick}
+                onRemoveClick={onRemoveClick}
+                getValue={getValue}
+                getAdded={getAdded}
+                disabled={disabled}
+                renderItem={({ item }) =>
+                    <TableListItem
+                        item={item}
+                        columns={columns}
+                        disabled={disabled} />}>
+            </SelectionList>
+        </div>
+
     )
 }
 

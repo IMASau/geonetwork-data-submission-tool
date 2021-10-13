@@ -40,10 +40,9 @@
         all-ks (distinct (concat opt-ks req-ks))
         config1 (utils4/get-ctx config)
         config2 (select-keys config all-ks)
-        extra-ks (remove (set all-ks) (keys config))
         missing-ks (remove (set (keys config)) req-ks)]
-    (doseq [k missing-ks] (report-config-error (str "Missing required key (" (pr-str k) ") in config") {:config config :settings settings}))
-    (doseq [k extra-ks] (report-config-warn (str "Unexpected key (" (pr-str k) ") found in config") {:config config :settings settings}))
+    (doseq [k missing-ks]
+      (report-config-error (str "Missing required key (" (pr-str k) ") in config") {:config config :settings settings}))
     (merge config1 config2)))
 
 (defn has-error?

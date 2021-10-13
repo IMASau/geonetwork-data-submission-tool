@@ -139,9 +139,13 @@
   [form-group config
    [input-field config]])
 
+(def numeric-input-field-settings
+  {:req-ks []
+   :opt-ks [:placeholder :hasButtons]})
+
 (defn numeric-input-field
   [config]
-  (let [config (massage-config {:req-ks [] :opt-ks [:placeholder :hasButtons]} config)
+  (let [config (massage-config numeric-input-field-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder hasButtons value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]

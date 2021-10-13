@@ -460,18 +460,32 @@
           ;; TODO: also need a user-added option
           [m4/form-group
            {:label "Select the instrument used for the platform"}
-           [m4/async-list-picker
+
+           [:div.bp3-control-group
+            [:div.bp3-fill
+             [m4/async-list-picker
+              {:form-id   [:form]
+               :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
+               :uri       "/api/terninstruments"
+               :labelKey  "label"
+               :valueKey  "uri"}]]
+            [m4/list-add-button
+             {:form-id   [:form]
+              :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
+              :valueKey  "uri"
+              :addedKey  "isUserDefined"}]]
+           [m4/table-selection-list
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
-             :uri       "/api/terninstruments"
-             :labelKey  "label"
-             :valueKey  "uri"}]
-           [m4/breadcrumb-selection-list
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsInstrument" "keywords"]
-             :labelKey      "label"
-             :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"}]]]
+             :valueKey  "uri"
+             :addedKey  "isUserDefined"
+             :columns   [{:columnHeader "Instrument" :labelKey "label" :flex 2}
+                         {:columnHeader "Serial no." :labelKey "uri" :flex 3}]}]
+           [m4/list-edit-dialog
+            {:form-id     [:form]
+             :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
+             :title       "Edit user defined keyword"
+             :template-id :instrument/user-defined-entry-form}]]]
 
          [m4/expanding-control {:label "Parameters" :required true}
           ;; TODO: also need a user-added option

@@ -32,9 +32,9 @@
   (doseq [path (get-in settings [::schema-paths])]
     (if (= "array" (get-in schema [:type]))
       (when-not (schema/contains-path? {:schema (:items schema) :path path})
-        (utils4/console-error "Path not present in schema" {:ctx ctx :path path}))
+        (utils4/console-error (str "Path not present in schema: " (pr-str path)) {:ctx ctx :path path}))
       (when-not (schema/contains-path? {:schema schema :path path})
-        (utils4/console-error "Path not present in schema" {:ctx ctx :path path})))))
+        (utils4/console-error (str "Path not present in schema: " (pr-str path)) {:ctx ctx :path path})))))
 
 (defn build-component
   [sym reg-data]

@@ -954,9 +954,13 @@
           :tick-id   @(rf/subscribe [:subs/get-form-tick])
           :on-change #(rf/dispatch [::boxes-changed config %])}]))))
 
+(def coordinates-modal-field-settings
+  {:req-ks []
+   :opt-ks [:help]})
+
 (defn coordinates-modal-field
   [config]
-  (let [config (massage-config {:req-ks [] :opt-ks [:help]} config)
+  (let [config (massage-config coordinates-modal-field-settings config)
         props @(rf/subscribe [::get-block-props config])
         data @(rf/subscribe [::get-block-data config])
         {:keys [data-path is-hidden disabled help]} props

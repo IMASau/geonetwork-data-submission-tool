@@ -639,9 +639,13 @@
        :hasError (seq hasError)
        :onChange #(rf/dispatch [::yes-no-field-with-label-value-changed config %])}]]))
 
+(def simple-selection-list-settings
+  {:req-ks [:labelKey :valueKey]
+   :opt-ks [:addedKey]})
+
 (defn simple-selection-list
   [config]
-  (let [config (massage-config {:req-ks [:labelKey :valueKey] :opt-ks [:addedKey]} config)
+  (let [config (massage-config simple-selection-list-settings config)
         props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
         {:keys [key disabled labelKey valueKey addedKey]} props]

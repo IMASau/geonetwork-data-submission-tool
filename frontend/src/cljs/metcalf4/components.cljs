@@ -491,9 +491,13 @@
   [form-group config
    [async-simple-select-option config]])
 
+(def async-breadcrumb-select-option-settings
+  {:req-ks [:uri :valueKey :labelKey :breadcrumbKey]
+   :opt-ks []})
+
 (defn async-breadcrumb-select-option
   [config]
-  (let [config (massage-config {:req-ks [:uri :valueKey :labelKey :breadcrumbKey] :opt-ks []} config)
+  (let [config (massage-config async-breadcrumb-select-option-settings config)
         props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey breadcrumbKey]} props

@@ -487,37 +487,37 @@
           [m4/form-group
            {:label "Select research theme keywords - maximum of 12 allowed"}
            [m4/async-list-picker
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsTheme" "keywords"]
-             :kind          :breadcrumb
-             :uri           "/api/ternparameters"           ;TODO: Update to real endpoint
-             :label-path    "label"
-             :value-path    "uri"
-             :breadcrumbKey "breadcrumb"}]
+            {:form-id         [:form]
+             :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
+             :kind            :breadcrumb
+             :uri             "/api/ternparameters"           ;TODO: Update to real endpoint
+             :label-path      "label"
+             :value-path      "uri"
+             :breadcrumb-path "breadcrumb"}]
            [m4/breadcrumb-selection-list
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsTheme" "keywords"]
-             :label-path    "label"
-             :value-path    "uri"
-             :breadcrumbKey "breadcrumb"}]]]
+            {:form-id         [:form]
+             :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
+             :label-path      "label"
+             :value-path      "uri"
+             :breadcrumb-path "breadcrumb"}]]]
 
          [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
           [m4/form-group
            {:label "Select research theme keywords - maximum of 12 allowed"}
            [m4/async-list-picker
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-             :kind          :breadcrumb
-             :uri           "/api/ternparameters"           ;TODO: Update to real endpoint
-             :label-path    "label"
-             :value-path    "uri"
-             :breadcrumbKey "breadcrumb"}]
+            {:form-id         [:form]
+             :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
+             :kind            :breadcrumb
+             :uri             "/api/ternparameters"           ;TODO: Update to real endpoint
+             :label-path      "label"
+             :value-path      "uri"
+             :breadcrumb-path "breadcrumb"}]
            [m4/breadcrumb-selection-list
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-             :label-path    "label"
-             :value-path    "uri"
-             :breadcrumbKey "breadcrumb"}]]]
+            {:form-id         [:form]
+             :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
+             :label-path      "label"
+             :value-path      "uri"
+             :breadcrumb-path "breadcrumb"}]]]
 
          [m4/expanding-control {:label "Platforms" :required true}
           ;; TODO: also need a user-added option

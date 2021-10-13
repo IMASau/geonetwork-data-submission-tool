@@ -159,13 +159,13 @@
     :onChange    (fn [o] (onChange (js->map o [value-path label-path])))}])
 
 (defn BreadcrumbSelectField
-  [{:keys [value options placeholder disabled hasError onChange value-path label-path breadcrumbKey]}]
+  [{:keys [value options placeholder disabled hasError onChange value-path label-path breadcrumb-path]}]
   (s/assert (s/nilable map?) value)
   (s/assert (s/coll-of map?) options)
   (s/assert (s/nilable string?) placeholder)
   (s/assert string? value-path)
   (s/assert string? label-path)
-  (s/assert string? breadcrumbKey)
+  (s/assert string? breadcrumb-path)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
@@ -177,17 +177,17 @@
     :hasError      hasError
     :getValue      #(gobj/get % value-path "No value")
     :getLabel      #(gobj/get % label-path "No label")
-    :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
+    :getBreadcrumb #(gobj/get % breadcrumb-path "No breadcrumb")
     :onChange      (fn [o] (onChange (js->map o [value-path label-path])))}])
 
 (defn AsyncBreadcrumbSelectField
-  [{:keys [value loadOptions placeholder disabled hasError onChange value-path label-path breadcrumbKey]}]
+  [{:keys [value loadOptions placeholder disabled hasError onChange value-path label-path breadcrumb-path]}]
   (s/assert (s/nilable map?) value)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
   (s/assert string? value-path)
   (s/assert string? label-path)
-  (s/assert string? breadcrumbKey)
+  (s/assert string? breadcrumb-path)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
@@ -199,8 +199,8 @@
     :hasError      hasError
     :getValue      #(gobj/get % value-path "No value")
     :getLabel      #(gobj/get % label-path "No label")
-    :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
-    :onChange      (fn [o] (onChange (js->map o [value-path label-path breadcrumbKey])))}])
+    :getBreadcrumb #(gobj/get % breadcrumb-path "No breadcrumb")
+    :onChange      (fn [o] (onChange (js->map o [value-path label-path breadcrumb-path])))}])
 
 (defn TableSelectField
   [{:keys [value options placeholder disabled hasError onChange label-path value-path columns]}]
@@ -291,15 +291,15 @@
     :getAdded      (if added-path #(gobj/get % added-path) (constantly false))}])
 
 (defn BreadcrumbSelectionList
-  [{:keys [items onReorder onItemClick onRemoveClick breadcrumbKey label-path value-path added-path]}]
+  [{:keys [items onReorder onItemClick onRemoveClick breadcrumb-path label-path value-path added-path]}]
   (s/assert fn? onReorder)
   (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
-  (s/assert string? breadcrumbKey)
+  (s/assert string? breadcrumb-path)
   (s/assert string? label-path)
   (s/assert string? value-path)
   (s/assert (s/nilable string?) added-path)
-  (s/assert (s/coll-of (has-keys? #{#_labelPath value-path breadcrumbKey}) :distinct true) items)
+  (s/assert (s/coll-of (has-keys? #{#_labelPath value-path breadcrumb-path}) :distinct true) items)
   [:> SelectionList/BreadcrumbSelectionList
    {:items         items
     :onReorder     onReorder
@@ -307,7 +307,7 @@
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % value-path "No value")
     :getLabel      #(gobj/get % label-path "No label")
-    :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
+    :getBreadcrumb #(gobj/get % breadcrumb-path "No breadcrumb")
     :getAdded      (if added-path #(gobj/get % added-path) (constantly false))}])
 
 (defn TableSelectionList

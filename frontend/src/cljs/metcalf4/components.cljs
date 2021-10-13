@@ -669,9 +669,13 @@
       :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
       :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
 
+(def breadcrumb-selection-list-settings
+  {:req-ks [:labelKey :valueKey :breadcrumbKey]
+   :opt-ks [:addedKey]})
+
 (defn breadcrumb-selection-list
   [config]
-  (let [config (massage-config {:req-ks [:labelKey :valueKey :breadcrumbKey] :opt-ks [:addedKey]} config)
+  (let [config (massage-config breadcrumb-selection-list-settings config)
         props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
         {:keys [key disabled labelKey valueKey addedKey breadcrumbKey]} props]

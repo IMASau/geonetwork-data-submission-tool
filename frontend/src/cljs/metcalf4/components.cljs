@@ -258,9 +258,13 @@
       [:a {:href portal_url :target "_blank"} [:span.portal-title portal_title]]
       [:span.portal-title portal_title])))
 
+(def note-for-data-manager-settings
+  {:req-ks []
+   :opt-ks []})
+
 (defn note-for-data-manager
   [config]
-  (let [config (massage-config {:req-ks [] :opt-ks []} config)
+  (let [config (massage-config note-for-data-manager-settings config)
         {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
         value @(rf/subscribe [::get-block-data config])]
     [:div

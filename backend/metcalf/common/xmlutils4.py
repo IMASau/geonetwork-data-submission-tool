@@ -261,7 +261,11 @@ def extract_xml_data(tree, spec, **kwargs):
     if has_namespaces(spec):
         kwargs['namespaces'] = get_namespaces(spec)
 
-    elements = tree.xpath(get_xpath(spec), **kwargs)
+    xpath = get_xpath2(spec)
+    if xpath:
+        elements = tree.xpath(xpath, **kwargs)
+    else:
+        elements = None
 
     if not isinstance(elements, list):
         if is_keep(spec) and spec.get('default', None) is None:

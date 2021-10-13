@@ -30,7 +30,7 @@ export function EditDialog({title, children, isOpen, onClose, onClear, onSave, c
             </div>
             <div className={Classes.DIALOG_FOOTER}>
                 <div className={Classes.DIALOG_FOOTER_ACTIONS}>
-                    <Button onClick={onClear}>Clear</Button>
+                    <Button onClick={onClear}>Cancel</Button>
                     <Button onClick={onSave} disabled={!canSave} intent={Intent.PRIMARY}>Save</Button>
                 </div>
             </div>
@@ -89,7 +89,7 @@ export function EditOverlay({title, body, onClear, onSave, canSave}) {
                     </div>
                     <div className={"EditOverlayFooter " +Classes.DIALOG_FOOTER}>
                         <div className={Classes.DIALOG_FOOTER_ACTIONS}>
-                            <Button onClick={clear}>Clear</Button>
+                            <Button onClick={clear}>Cancel</Button>
                             <Button onClick={save} disabled={canSave} intent={Intent.PRIMARY}>Save</Button>
                         </div>
                     </div>

@@ -11,6 +11,9 @@
             [metcalf4.schema :as schema]
             [metcalf4.low-code :as low-code]))
 
+(defn config-for-settings [settings config]
+  (select-keys config (concat (:req-ks settings) (:opt-ks settings))))
+
 (defn massage-config
   [{:keys [opt-ks req-ks]} config]
   (let [all-ks (distinct (concat opt-ks req-ks))
@@ -55,9 +58,13 @@
             (into [:ul] (for [msg msgs] [:li msg]))]
            (first msgs))]))))
 
+(def form-group-settings
+  {:req-ks [:label]
+   :opt-ks [:placeholder :helperText :toolTip]})
+
 (defn form-group
   [config & children]
-  (let [config (massage-config {:req-ks [:label] :opt-ks [:placeholder :helperText :toolTip]} config)
+  (let [config (massage-config form-group-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [label helperText toolTip required disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]

@@ -645,11 +645,11 @@
        :onChange #(rf/dispatch [::yes-no-field-with-label-value-changed config %])}]]))
 
 (defn simple-selection-list-settings
-  [{:keys [label-path value-path]}]
+  [{:keys [label-path value-path added-path]}]
   {::low-code/req-ks       [:form-id :data-path :label-path :value-path]
    ::low-code/opt-ks       [:added-path]
    ::low-code/schema       {:type "array" :items {:type "object"}}
-   ::low-code/schema-paths [label-path value-path]})
+   ::low-code/schema-paths [label-path value-path added-path]})
 
 (defn simple-selection-list
   [config]
@@ -673,11 +673,11 @@
       :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
 
 (defn breadcrumb-selection-list-settings
-  [{:keys [label-path value-path breadcrumb-path]}]
+  [{:keys [label-path value-path breadcrumb-path added-path]}]
   {::low-code/req-ks       [:form-id :data-path :label-path :value-path :breadcrumb-path]
    ::low-code/opt-ks       [:added-path]
    ::low-code/schema       {:type "array" :items {:type "object"}}
-   ::low-code/schema-paths [label-path value-path breadcrumb-path]})
+   ::low-code/schema-paths [label-path value-path breadcrumb-path added-path]})
 
 (defn breadcrumb-selection-list
   [config]
@@ -703,11 +703,11 @@
       :onRemoveClick   (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
 
 (defn table-selection-list-settings
-  [{:keys [value-path columns]}]
-  {::low-code/req-ks [:form-id :data-path :columns :value-path]
-   ::low-code/opt-ks [:added-path]
-   ::low-code/schema {:type "array" :items {:type "object"}}
-   ::low-code/schema-paths (into [value-path] (map :label-path columns))})
+  [{:keys [value-path columns added-path]}]
+  {::low-code/req-ks       [:form-id :data-path :columns :value-path]
+   ::low-code/opt-ks       [:added-path]
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths (into [value-path added-path] (map :label-path columns))})
 
 (defn table-selection-list
   [config]

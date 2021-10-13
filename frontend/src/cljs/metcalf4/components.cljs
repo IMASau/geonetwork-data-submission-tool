@@ -532,24 +532,21 @@
 
 (defn yes-no-field
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :label]
-        logic @(rf/subscribe [::get-yes-no-field-props ctx])
-        onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge ctx logic (select-keys config config-keys))
+  (let [config (massage-config config {:req-ks [:label] :opt-ks []})
+        props @(rf/subscribe [::get-yes-no-field-props config])
         {:keys [label value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+      {:schema1 @(rf/subscribe [::get-data-schema config])
        :schema2 {:type "boolean"}})
 
     [ui/YesNoRadioGroup
      {:value    value
       :label    label
       :disabled disabled
-      :hasError (seq hasError)
-      :onChange onChange}]))
+      :hasError hasError
+      :onChange #(rf/dispatch [::value-changed config %])}]))
 
 ; FIXME: Is :label for form group or yes/no field?
 (defn yes-no-field-with-label

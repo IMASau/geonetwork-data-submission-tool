@@ -593,9 +593,13 @@
   [form-group config
    [select-value config]])
 
+(def yes-no-field-settings
+  {:req-ks [:label]
+   :opt-ks []})
+
 (defn yes-no-field
   [config]
-  (let [config (massage-config {:req-ks [:label] :opt-ks []} config)
+  (let [config (massage-config yes-no-field-settings config)
         props @(rf/subscribe [::get-yes-no-field-props config])
         {:keys [label value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]

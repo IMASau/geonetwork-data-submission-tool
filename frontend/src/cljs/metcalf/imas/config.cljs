@@ -190,43 +190,43 @@
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
          [m4/select-value-with-label
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "topicCategory"]
-           :valueKey  "value"
-           :labelPath "label"
-           :options   [{"value" "biota" "label" "biota"}
-                       {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
-                       {"value" "oceans" "label" "oceans"}
-                       {"value" "geoscientificInformation" "label" "geoscientificInformation"}
-                       {"value" "inlandWater" "label" "inlandWater"}]}]
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "topicCategory"]
+           :valueKey   "value"
+           :label-path "label"
+           :options    [{"value" "biota" "label" "biota"}
+                        {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
+                        {"value" "oceans" "label" "oceans"}
+                        {"value" "geoscientificInformation" "label" "geoscientificInformation"}
+                        {"value" "inlandWater" "label" "inlandWater"}]}]
          [m4/select-value-with-label
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "status"]
-           :valueKey  "value"
-           :labelPath "label"
-           :options   [{"value" "onGoing" "label" "ongoing"}
-                       {"value" "planned" "label" "planned"}
-                       {"value" "completed" "label" "completed"}]}]
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "status"]
+           :valueKey   "value"
+           :label-path "label"
+           :options    [{"value" "onGoing" "label" "ongoing"}
+                        {"value" "planned" "label" "planned"}
+                        {"value" "completed" "label" "completed"}]}]
          [m4/select-value-with-label
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
-           :valueKey  "value"
-           :labelPath "label"
-           :options   [{"value" "continually" "label" "Continually"}
-                       {"value" "daily" "label" "Daily"}
-                       {"value" "weekly" "label" "Weekly"}
-                       {"value" "fortnightly" "label" "Fortnightly"}
-                       {"value" "monthly" "label" "Monthly"}
-                       {"value" "quarterly" "label" "Quarterly"}
-                       {"value" "biannually" "label" "Twice each year"}
-                       {"value" "annually" "label" "Annually"}
-                       {"value" "asNeeded" "label" "As required"}
-                       {"value" "irregular" "label" "Irregular"}
-                       {"value" "notPlanned" "label" "None planned"}
-                       {"value" "unknown" "label" "Unknown"}
-                       {"value" "periodic" "label" "Periodic"}
-                       {"value" "semimonthly" "label" "Twice a month"}
-                       {"value" "biennially" "label" "Every 2 years"}]}]
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
+           :valueKey   "value"
+           :label-path "label"
+           :options    [{"value" "continually" "label" "Continually"}
+                        {"value" "daily" "label" "Daily"}
+                        {"value" "weekly" "label" "Weekly"}
+                        {"value" "fortnightly" "label" "Fortnightly"}
+                        {"value" "monthly" "label" "Monthly"}
+                        {"value" "quarterly" "label" "Quarterly"}
+                        {"value" "biannually" "label" "Twice each year"}
+                        {"value" "annually" "label" "Annually"}
+                        {"value" "asNeeded" "label" "As required"}
+                        {"value" "irregular" "label" "Irregular"}
+                        {"value" "notPlanned" "label" "None planned"}
+                        {"value" "unknown" "label" "Unknown"}
+                        {"value" "periodic" "label" "Periodic"}
+                        {"value" "semimonthly" "label" "Twice a month"}
+                        {"value" "biennially" "label" "Every 2 years"}]}]
          [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what
@@ -265,19 +265,19 @@
          [:div.row
           [:div.col-md-4
            [m4/select-value-with-label
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "samplingFrequency"]
-             :valueKey  "value"
-             :labelPath "label"
-             :options   [{"value" "daily" "label" "Daily"}
-                         {"value" "weekly" "label" "Weekly"}
-                         {"value" "monthly" "label" "Monthly"}
-                         {"value" "quarterly" "label" "Quarterly"}
-                         {"value" "annually" "label" "Annually"}
-                         {"value" "ongoing" "label" "Ongoing"}
-                         {"value" "asNeeded" "label" "As required"}
-                         {"value" "irregular" "label" "Irregular"}
-                         {"value" "none-planned" "label" "None planned"}]}]]]
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "samplingFrequency"]
+             :valueKey   "value"
+             :label-path "label"
+             :options    [{"value" "daily" "label" "Daily"}
+                          {"value" "weekly" "label" "Weekly"}
+                          {"value" "monthly" "label" "Monthly"}
+                          {"value" "quarterly" "label" "Quarterly"}
+                          {"value" "annually" "label" "Annually"}
+                          {"value" "ongoing" "label" "Ongoing"}
+                          {"value" "asNeeded" "label" "As required"}
+                          {"value" "irregular" "label" "Irregular"}
+                          {"value" "none-planned" "label" "None planned"}]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
@@ -366,20 +366,20 @@
          [:h4 "Resource constraints"]
          ;; FIXME license selection isn't being included in XML export.
          [m4/select-option-with-label
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "creativeCommons"]
-           :help      [:span "Learn more about which license is right for you at "
-                       [:a {:href   "https://creativecommons.org/choose/"
-                            :target "_blank"}
-                        "Creative Commons"]]
-           :label     "License"
-           :required  true
-           :kind      "simple"
-           :valueKey  "value"
-           :labelPath "label"
-           :options   [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}
-                       {"value" "http://creativecommons.org/licenses/by-nc/4.0/" "label" "Creative Commons, Non-commercial Use only"}
-                       {"value" "http://creativecommons.org/licenses/other" "label" "Other constraints"}]}]
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "creativeCommons"]
+           :help       [:span "Learn more about which license is right for you at "
+                        [:a {:href   "https://creativecommons.org/choose/"
+                             :target "_blank"}
+                         "Creative Commons"]]
+           :label      "License"
+           :required   true
+           :kind       "simple"
+           :valueKey   "value"
+           :label-path "label"
+           :options    [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}
+                        {"value" "http://creativecommons.org/licenses/by-nc/4.0/" "label" "Creative Commons, Non-commercial Use only"}
+                        {"value" "http://creativecommons.org/licenses/other" "label" "Other constraints"}]}]
          [m4/input-field-with-label
           {:form-id     [:form]
            :data-path   ["identificationInfo" "otherConstraints"]

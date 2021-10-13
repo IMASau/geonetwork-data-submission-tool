@@ -322,11 +322,11 @@
           [:div.bp3-control-group
            [:div.bp3-fill
             [m4/async-select-option
-             {:form-id   ?form-id
-              :data-path [?data-path "unit"]
-              :uri       "/api/ternplatforms"
-              :labelPath "label"
-              :valueKey  "uri"}]]
+             {:form-id    ?form-id
+              :data-path  [?data-path "unit"]
+              :uri        "/api/ternplatforms"
+              :label-path "label"
+              :valueKey   "uri"}]]
            [m4/item-add-button
             {:form-id   ?form-id
              :data-path [?data-path "unit"]
@@ -366,7 +366,7 @@
           {:form-id     [:form]
            :data-path   ["identificationInfo" "topicCategory"]
            :placeholder "Start typing to filter list..."
-           :labelPath   "label"
+           :label-path  "label"
            :valueKey    "value"
            :options     [{"value" "biota" "label" "biota"}
                          {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
@@ -382,14 +382,14 @@
 
            ;; FIXME: Should this be use api for options?
            [m4/select-value-with-label
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "status"]
-             :label     "Status of Data"
-             :valueKey  "value"
-             :labelPath "label"
-             :options   [{"value" "onGoing" "label" "ongoing"}
-                         {"value" "planned" "label" "planned"}
-                         {"value" "completed" "label" "completed"}]}]]
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "status"]
+             :label      "Status of Data"
+             :valueKey   "value"
+             :label-path "label"
+             :options    [{"value" "onGoing" "label" "ongoing"}
+                          {"value" "planned" "label" "planned"}
+                          {"value" "completed" "label" "completed"}]}]]
           [:div
            [m4/input-field-with-label
             {:form-id    [:form]
@@ -402,26 +402,26 @@
 
            ;; FIXME: Should this be use api for options?
            [m4/select-value-with-label
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
-             :label     "Maintenance/Update Freq"
-             :valueKey  "value"
-             :labelPath "label"
-             :options   [{"value" "continual" "label" "Continually"}
-                         {"value" "daily" "label" "Daily"}
-                         {"value" "weekly" "label" "Weekly"}
-                         {"value" "fortnightly" "label" "Fortnightly"}
-                         {"value" "monthly" "label" "Monthly"}
-                         {"value" "quarterly" "label" "Quarterly"}
-                         {"value" "biannually" "label" "Twice each year"}
-                         {"value" "annually" "label" "Annually"}
-                         {"value" "asNeeded" "label" "As required"}
-                         {"value" "irregular" "label" "Irregular"}
-                         {"value" "notPlanned" "label" "None planned"}
-                         {"value" "unknown" "label" "Unknown"}
-                         {"value" "periodic" "label" "Periodic"}
-                         {"value" "semimonthly" "label" "Twice a month"}
-                         {"value" "biennially" "label" "Every 2 years"}]}]]]
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
+             :label      "Maintenance/Update Freq"
+             :valueKey   "value"
+             :label-path "label"
+             :options    [{"value" "continual" "label" "Continually"}
+                          {"value" "daily" "label" "Daily"}
+                          {"value" "weekly" "label" "Weekly"}
+                          {"value" "fortnightly" "label" "Fortnightly"}
+                          {"value" "monthly" "label" "Monthly"}
+                          {"value" "quarterly" "label" "Quarterly"}
+                          {"value" "biannually" "label" "Twice each year"}
+                          {"value" "annually" "label" "Annually"}
+                          {"value" "asNeeded" "label" "As required"}
+                          {"value" "irregular" "label" "Irregular"}
+                          {"value" "notPlanned" "label" "None planned"}
+                          {"value" "unknown" "label" "Unknown"}
+                          {"value" "periodic" "label" "Periodic"}
+                          {"value" "semimonthly" "label" "Twice a month"}
+                          {"value" "biennially" "label" "Every 2 years"}]}]]]
 
          [m4/date-field-with-label
           {:form-id   [:form]
@@ -491,13 +491,13 @@
              :data-path     ["identificationInfo" "keywordsTheme" "keywords"]
              :kind          :breadcrumb
              :uri           "/api/ternparameters"           ;TODO: Update to real endpoint
-             :labelPath     "label"
+             :label-path    "label"
              :valueKey      "uri"
              :breadcrumbKey "breadcrumb"}]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsTheme" "keywords"]
-             :labelPath     "label"
+             :label-path    "label"
              :valueKey      "uri"
              :breadcrumbKey "breadcrumb"}]]]
 
@@ -509,13 +509,13 @@
              :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
              :kind          :breadcrumb
              :uri           "/api/ternparameters"           ;TODO: Update to real endpoint
-             :labelPath     "label"
+             :label-path    "label"
              :valueKey      "uri"
              :breadcrumbKey "breadcrumb"}]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-             :labelPath     "label"
+             :label-path    "label"
              :valueKey      "uri"
              :breadcrumbKey "breadcrumb"}]]]
 
@@ -532,11 +532,11 @@
            [:div.bp3-control-group
             [:div.bp3-fill
              [m4/async-list-picker
-              {:form-id   [:form]
-               :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
-               :uri       "/api/ternplatforms"
-               :labelPath "label"
-               :valueKey  "uri"}]]
+              {:form-id    [:form]
+               :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
+               :uri        "/api/ternplatforms"
+               :label-path "label"
+               :valueKey   "uri"}]]
             [m4/list-add-button
              {:form-id   [:form]
               :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
@@ -544,11 +544,11 @@
               :addedKey  "isUserDefined"}]]
 
            [m4/simple-selection-list
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
-             :labelPath "label"
-             :valueKey  "uri"
-             :addedKey  "isUserDefined"}]
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
+             :label-path "label"
+             :valueKey   "uri"
+             :addedKey   "isUserDefined"}]
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
@@ -563,11 +563,11 @@
            [:div.bp3-control-group
             [:div.bp3-fill
              [m4/async-list-picker
-              {:form-id   [:form]
-               :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
-               :uri       "/api/terninstruments"
-               :labelPath "label"
-               :valueKey  "uri"}]]
+              {:form-id    [:form]
+               :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
+               :uri        "/api/terninstruments"
+               :label-path "label"
+               :valueKey   "uri"}]]
             [m4/list-add-button
              {:form-id   [:form]
               :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
@@ -578,8 +578,8 @@
              :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
              :valueKey  "uri"
              :addedKey  "isUserDefined"
-             :columns   [{:columnHeader "Instrument" :labelPath "label" :flex 2}
-                         {:columnHeader "Serial no." :labelPath "uri" :flex 3}]}]
+             :columns   [{:columnHeader "Instrument" :label-path "label" :flex 2}
+                         {:columnHeader "Serial no." :label-path "uri" :flex 3}]}]
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
@@ -595,11 +595,11 @@
            [:div.bp3-control-group
             [:div.bp3-fill
              [m4/async-list-picker
-              {:form-id   [:form]
-               :data-path ["identificationInfo" "keywordsParameters" "keywords"]
-               :uri       "/api/terninstruments"
-               :labelPath "label"
-               :valueKey  "uri"}]]
+              {:form-id    [:form]
+               :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
+               :uri        "/api/terninstruments"
+               :label-path "label"
+               :valueKey   "uri"}]]
             [m4/list-add-button
              {:form-id   [:form]
               :data-path ["identificationInfo" "keywordsParameters" "keywords"]
@@ -610,8 +610,8 @@
              :data-path ["identificationInfo" "keywordsParameters" "keywords"]
              :valueKey  "uri"
              :addedKey  "isUserDefined"
-             :columns   [{:columnHeader "Name" :labelPath "label" :flex 2}
-                         {:columnHeader "Units" :labelPath ["unit" "label"] :flex 3}]}]
+             :columns   [{:columnHeader "Name" :label-path "label" :flex 2}
+                         {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsParameters" "keywords"]

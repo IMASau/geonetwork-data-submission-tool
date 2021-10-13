@@ -115,6 +115,13 @@
         (actions/add-item-action form-id data-path option))))
 
 ; NOTE: assumes we only ever select user added items.  Might need to grow.
+(defn selection-list-item-click2
+  [{:keys [db]} [_ props idx]]
+  (let [{:keys [form-id data-path added-path]} props]
+    (cond-> {:db db}
+      added-path
+      (actions/select-user-defined-list-item-action2 form-id data-path idx added-path))))
+
 (defn selection-list-item-click
   [{:keys [db]} [_ props idx]]
   (let [{:keys [form-id data-path added-path]} props]

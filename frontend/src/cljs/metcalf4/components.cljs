@@ -11,38 +11,8 @@
             [metcalf4.schema :as schema]
             [metcalf4.low-code :as low-code]))
 
+(s/def ::obj-path (s/coll-of string? :min-count 1))
 (s/def ::value-path string?)
-
-(defn str-value
-  [data]
-  (binding [*print-level* 3
-            *print-length* 5]
-    (pr-str data)))
-
-(defn console-value
-  [data]
-  (if goog/DEBUG
-    data
-    (str-value data)))
-
-(defn report-config-error
-  [msg data]
-  (js/console.error msg (console-value data)))
-
-(defn report-config-warn
-  [msg data]
-  (js/console.warn msg (console-value data)))
-
-(defn massage-config
-  [settings config]
-  (let [{:keys [opt-ks req-ks]} settings
-        all-ks (distinct (concat opt-ks req-ks))
-        missing-ks (remove (set (keys config)) req-ks)]
-    (doseq [k missing-ks]
-      (report-config-error (str "Missing required key (" (pr-str k) ") in config") {:config config :settings settings}))
-    (-> config
-        (utils4/if-contains-update :data-path utils4/massage-data-path)
-        (select-keys all-ks))))
 
 (defn has-error?
   "Given the current form state, and a data path, check if
@@ -52,6 +22,12 @@
         field (get-in form-state path)
         errors (-> field :props :errors)]
     (seq errors)))
+
+(defn page-errors-settings
+  [config]
+  {::low-code/req-ks       [:form-id :data-paths :data-paths]
+   ::low-code/opt-ks       []
+   ::low-code/schema-paths (:data-paths config)})
 
 (defn page-errors
   [{:keys [form-id data-paths]}]
@@ -77,14 +53,13 @@
             (into [:ul] (for [msg msgs] [:li msg]))]
            (first msgs))]))))
 
-(def form-group-settings
-  {:req-ks [:label]
-   :opt-ks [:form-id :data-path :placeholder :helperText :toolTip]})
+(defn form-group-settings [_]
+  {::low-code/req-ks [:label]
+   ::low-code/opt-ks [:form-id :data-path :placeholder :helperText :toolTip]})
 
 (defn form-group
   [config & children]
-  (let [config (massage-config form-group-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [label helperText toolTip required disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (into [ui/FormGroup
@@ -96,14 +71,13 @@
             :toolTip    toolTip}]
           children)))
 
-(def inline-form-group-settings
-  {:req-ks [:form-id :data-path :label]
-   :opt-ks [:placeholder :helperText :toolTip]})
+(defn inline-form-group-settings [_]
+  {::low-code/req-ks [:form-id :data-path :label]
+   ::low-code/opt-ks [:placeholder :helperText :toolTip]})
 
 (defn inline-form-group
   [config & children]
-  (let [config (massage-config inline-form-group-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [label helperText toolTip required disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
@@ -116,15 +90,14 @@
             :toolTip    toolTip}]
           children)))
 
-(def list-edit-dialog-settings
-  {:req-ks [:form-id :data-path :title :template-id]
-   :opt-ks []})
+(defn list-edit-dialog-settings [_]
+  {::low-code/req-ks [:form-id :data-path :title :template-id]
+   ::low-code/opt-ks []})
 
 (defn list-edit-dialog
   "Popup dialog if item is selected"
   [config]
-  (let [config (massage-config list-edit-dialog-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [form-id data-path selected title template-id show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)
         item-data-path (conj data-path selected)]
@@ -140,15 +113,14 @@
         :variables   {'?form-id   form-id
                       '?data-path item-data-path}})]))
 
-(def item-edit-dialog-settings
-  {:req-ks [:form-id :data-path :title :template-id]
-   :opt-ks []})
+(defn item-edit-dialog-settings [_]
+  {::low-code/req-ks [:form-id :data-path :title :template-id]
+   ::low-code/opt-ks []})
 
 (defn item-edit-dialog
   "Popup dialog if item is selected"
   [config]
-  (let [config (massage-config item-edit-dialog-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [form-id data-path isOpen title template-id show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     [ui/EditDialog
@@ -163,19 +135,17 @@
         :variables   {'?form-id   form-id
                       '?data-path data-path}})]))
 
-(def input-field-settings
-  {:req-ks [:form-id :data-path]
-   :opt-ks [:placeholder :maxLength]})
+(defn input-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks [:placeholder :maxLength]
+   ::low-code/schema {:type "string"}})
 
 (defn input-field
   [config]
-  (let [config (massage-config input-field-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "string"}})
+
     [ui/InputField
      {:value       (or value "")                            ; TODO: should be guaranteed by sub
       :placeholder placeholder
@@ -189,19 +159,16 @@
   [form-group config
    [input-field config]])
 
-(def numeric-input-field-settings
-  {:req-ks [:form-id :data-path]
-   :opt-ks [:placeholder :hasButtons]})
+(defn numeric-input-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks [:placeholder :hasButtons]
+   ::low-code/schema {:type "number"}})
 
 (defn numeric-input-field
   [config]
-  (let [config (massage-config numeric-input-field-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder hasButtons value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "number"}})
 
     [ui/NumericInputField
      {:value       value
@@ -216,20 +183,16 @@
   [form-group config
    [numeric-input-field config]])
 
-(def textarea-field-settings
-  {:req-ks [:form-id :data-path]
-   :opt-ks [:placeholder :rows :maxLength]})
+(defn textarea-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks [:placeholder :rows :maxLength]
+   ::low-code/schema {:type "string"}})
 
 (defn textarea-field
   [config]
-  (let [config (massage-config textarea-field-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder rows maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "string"}})
 
     [ui/TextareaField
      {:value       (or value "")                            ; TODO: should be guaranteed by sub
@@ -240,20 +203,16 @@
       :rows        rows
       :onChange    #(rf/dispatch [::value-changed config %])}]))
 
-(def checkbox-field-settings
-  {:req-ks [:form-id :data-path]
-   :opt-ks []})
+(defn checkbox-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks []
+   ::low-code/schema {:type "boolean"}})
 
 (defn checkbox-field
   [config]
-  (let [config (massage-config checkbox-field-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "boolean"}})
 
     [ui/CheckboxField
      {:checked  (or value false)                            ; TODO: should be guaranteed by sub
@@ -272,20 +231,16 @@
   [form-group config
    [textarea-field config]])
 
-(def date-field-settings
-  {:req-ks [:form-id :data-path]
-   :opt-ks [:minDate :maxDate]})
+(defn date-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks [:minDate :maxDate]
+   ::low-code/schema {:type "string"}})
 
 (defn date-field
   [config]
-  (let [config (massage-config date-field-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [minDate maxDate value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "string"}})
 
     [ui/DateField
      {:value    (date/from-value value)
@@ -308,14 +263,13 @@
       [:a {:href portal_url :target "_blank"} [:span.portal-title portal_title]]
       [:span.portal-title portal_title])))
 
-(def note-for-data-manager-settings
-  {:req-ks [:form-id :data-path]
-   :opt-ks []})
+(defn note-for-data-manager-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks []})
 
 (defn note-for-data-manager
   [config]
-  (let [config (massage-config note-for-data-manager-settings config)
-        {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+  (let [{:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
         value @(rf/subscribe [::get-block-data config])]
     [:div
      {:style {:padding-top    5
@@ -374,14 +328,13 @@
           (= (:status document) "Submitted") "Your record has been submitted."
           :else (:status document))]])))
 
-(def xml-export-link-settings
-  {:req-ks [:form-id :data-path :label]
-   :opt-ks []})
+(defn xml-export-link-settings [_]
+  {::low-code/req-ks [:form-id :data-path :label]
+   ::low-code/opt-ks []})
 
 (defn xml-export-link
   [config]
-  (let [config (massage-config xml-export-link-settings config)
-        {:keys [label]} @(rf/subscribe [::get-block-props config])
+  (let [{:keys [label]} @(rf/subscribe [::get-block-props config])
         {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
         dirty @(rf/subscribe [:subs/get-form-dirty])]
     (let [download-props {:href     (str (:export_url document) "?download")
@@ -399,21 +352,17 @@
         {:keys [email]} site]
     [:a {:href (str "mailto:" email)} email]))
 
-(def simple-select-option-settings
-  {:req-ks [:form-id :data-path :options]
-   :opt-ks [:placeholder]})
+(defn simple-select-option-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "object" :properties {}}})
 
 (defn simple-select-option
   [config]
-  (let [config (massage-config simple-select-option-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "object" :properties {}}})
 
     [ui/SimpleSelectField
      {:value       value
@@ -423,21 +372,17 @@
       :hasError    (seq hasError)
       :onChange    #(rf/dispatch [::option-change config %])}]))
 
-(def table-select-option-settings
-  {:req-ks [:form-id :data-path :options :label-path :value-path :columns]
-   :opt-ks [:placeholder]})
+(defn table-select-option-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options :label-path :value-path :columns]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "object" :properties {}}})
 
 (defn table-select-option
   [config]
-  (let [config (massage-config table-select-option-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder options disabled errors show-errors label-path value-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "object" :properties {}}})
 
     [ui/TableSelectField
      {:value       value
@@ -450,21 +395,17 @@
       :hasError    (seq hasError)
       :onChange    #(rf/dispatch [::option-change config %])}]))
 
-(def breadcrumb-select-option-settings
-  {:req-ks [:form-id :data-path :options :label-path :value-path :breadcrumb-path]
-   :opt-ks [:placeholder]})
+(defn breadcrumb-select-option-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options :label-path :value-path :breadcrumb-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "object" :properties {}}})
 
 (defn breadcrumb-select-option
   [config]
-  (let [config (massage-config breadcrumb-select-option-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder options disabled errors show-errors label-path value-path breadcrumb-path]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "object" :properties {}}})
 
     [ui/TableSelectField
      {:value           value
@@ -477,6 +418,11 @@
       :hasError        (seq hasError)
       :onChange        #(rf/dispatch [::option-change config %])}]))
 
+(defmulti select-option-settings :kind)
+(defmethod select-option-settings :default [config] (simple-select-option-settings config))
+(defmethod select-option-settings :breadcrumb [config] (breadcrumb-select-option-settings config))
+(defmethod select-option-settings :table [config] (table-select-option-settings config))
+
 (defmulti select-option :kind)
 (defmethod select-option :default [config] (simple-select-option config))
 (defmethod select-option :breadcrumb [config] (breadcrumb-select-option config))
@@ -487,42 +433,37 @@
   [form-group config
    [select-option config]])
 
-(def list-add-button-settings
-  {:req-ks [:form-id :data-path :value-path :added-path]
-   :opt-ks []})
+(defn item-add-button-settings [_]
+  {::low-code/req-ks [:form-id :data-path :value-path :added-path]
+   ::low-code/opt-ks []
+   ::low-code/schema {:type "object"}})
 
-; NOTE: Experimental
 (defn item-add-button
   "Add user defined item as value"
   [config]
-  (let [config (massage-config list-add-button-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [value-path added-path]} props]
 
-    (s/assert ::value-path value-path)
-    (s/assert string? added-path)
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 (utils4/schema-object-with-keys [value-path added-path])})
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path added-path)
 
     [:button.bp3-button.bp3-intent-primary
      {:onClick #(rf/dispatch [::item-add-with-defaults-click-handler config])}
      "Add"]))
 
+(defn list-add-button-settings [_]
+  {::low-code/req-ks [:form-id :data-path :value-path :added-path]
+   ::low-code/opt-ks []
+   ::low-code/schema {:type "array"}})
+
 (defn list-add-button
   "Add user defined item to list"
   [config]
-  (let [config (massage-config list-add-button-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [value-path added-path]} props]
 
-    (s/assert ::value-path value-path)
-    (s/assert string? added-path)
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "array" :items (utils4/schema-object-with-keys [value-path added-path])}})
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path added-path)
 
     [:button.bp3-button.bp3-intent-primary
      {:onClick #(rf/dispatch [::list-add-with-defaults-click-handler config])}
@@ -533,21 +474,22 @@
   [form-group config
    [simple-select-option config]])
 
-(def async-simple-select-option-settings
-  {:req-ks [:form-id :data-path :uri :value-path :label-path]
-   :opt-ks []})
+(defn async-simple-select-option-settings
+  [{:keys [value-path label-path]}]
+  {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path]
+   ::low-code/opt-ks       []
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths [value-path label-path]})
 
 (defn async-simple-select-option
   [config]
-  (let [config (massage-config async-simple-select-option-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder uri value-path label-path disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "object" :properties {}}})
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path label-path)
 
     [ui/AsyncSimpleSelectField
      {:value       value
@@ -564,21 +506,19 @@
   [form-group config
    [async-simple-select-option config]])
 
-(def async-breadcrumb-select-option-settings
-  {:req-ks [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
-   :opt-ks []})
+(defn async-breadcrumb-select-option-settings
+  [{:keys [value-path label-path breadcrumb-path]}]
+  {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
+   ::low-code/opt-ks       []
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths [value-path label-path breadcrumb-path]})
 
 (defn async-breadcrumb-select-option
   [config]
-  (let [config (massage-config async-breadcrumb-select-option-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder uri disabled errors show-errors value-path label-path breadcrumb-path]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "object" :properties {}}})
 
     [ui/AsyncBreadcrumbSelectField
      {:value           value
@@ -596,21 +536,17 @@
   [form-group config
    [async-breadcrumb-select-option config]])
 
-(def async-table-select-option-settings
-  {:req-ks [:form-id :data-path :uri :value-path :label-path :columns]
-   :opt-ks []})
+(defn async-table-select-option-settings [_]
+  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
+   ::low-code/opt-ks []
+   ::low-code/schema {:type "object" :properties {}}})
 
 (defn async-table-select-option
   [config]
-  (let [config (massage-config async-table-select-option-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder uri disabled errors show-errors value-path label-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "object" :properties {}}})
 
     [ui/AsyncTableSelectField
      {:value       value
@@ -628,6 +564,11 @@
   [form-group config
    [async-table-select-option config]])
 
+(defmulti async-select-option-settings :kind)
+(defmethod async-select-option-settings :default [config] (async-simple-select-option-settings config))
+(defmethod async-select-option-settings :breadcrumb [config] (async-breadcrumb-select-option-settings config))
+(defmethod async-select-option-settings :table [config] (async-table-select-option-settings config))
+
 (defmulti async-select-option :kind)
 (defmethod async-select-option :default [config] (async-simple-select-option config))
 (defmethod async-select-option :breadcrumb [config] (async-breadcrumb-select-option config))
@@ -638,14 +579,13 @@
   [form-group config
    [async-select-option config]])
 
-(def select-value-settings
-  {:req-ks [:form-id :data-path :options :label-path :value-path]
-   :opt-ks []})
+(defn select-value-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options :label-path :value-path]
+   ::low-code/opt-ks []})
 
 (defn select-value
   [config]
-  (let [config (massage-config select-value-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [value options label-path value-path disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)
         value (or value "")]
@@ -666,20 +606,16 @@
   [form-group config
    [select-value config]])
 
-(def yes-no-field-settings
-  {:req-ks [:form-id :data-path :label]
-   :opt-ks []})
+(defn yes-no-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path :label]
+   ::low-code/opt-ks []
+   ::low-code/schema {:type "boolean"}})
 
 (defn yes-no-field
   [config]
-  (let [config (massage-config yes-no-field-settings config)
-        props @(rf/subscribe [::get-yes-no-field-props config])
+  (let [props @(rf/subscribe [::get-yes-no-field-props config])
         {:keys [label value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "boolean"}})
 
     [ui/YesNoRadioGroup
      {:value    value
@@ -689,20 +625,16 @@
       :onChange #(rf/dispatch [::value-changed config %])}]))
 
 ; FIXME: Is :label for form group or yes/no field?
-(def yes-no-field-with-label-settings
-  {:req-ks [:form-id :data-path :label]
-   :opt-ks []})
+(defn yes-no-field-with-label-settings [_]
+  {::low-code/req-ks [:form-id :data-path :label]
+   ::low-code/opt-ks []
+   ::low-code/schema {:type "boolean"}})
 
 (defn yes-no-field-with-label
   [config]
-  (let [config (massage-config yes-no-field-with-label-settings config)
-        props @(rf/subscribe [::get-yes-no-field-with-label-props config])
+  (let [props @(rf/subscribe [::get-yes-no-field-with-label-props config])
         {:keys [label value errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "boolean"}})
 
     [form-group config
      [ui/YesNoRadioGroup
@@ -712,24 +644,22 @@
        :hasError (seq hasError)
        :onChange #(rf/dispatch [::yes-no-field-with-label-value-changed config %])}]]))
 
-(def simple-selection-list-settings
-  {:req-ks [:form-id :data-path :label-path :value-path]
-   :opt-ks [:added-path]})
+(defn simple-selection-list-settings
+  [{:keys [label-path value-path]}]
+  {::low-code/req-ks       [:form-id :data-path :label-path :value-path]
+   ::low-code/opt-ks       [:added-path]
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths [label-path value-path]})
 
 (defn simple-selection-list
   [config]
-  (let [config (massage-config simple-selection-list-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
         {:keys [key disabled label-path value-path added-path]} props]
 
-    (s/assert ::value-path value-path)
-    (s/assert string? label-path)
-    (s/assert (s/nilable string?) added-path)
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "array" :items (utils4/schema-object-with-keys (remove nil? [value-path label-path added-path]))}})
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path label-path)
+    (s/assert (s/nilable ::obj-path) added-path)
 
     [ui/SimpleSelectionList
      {:key           key
@@ -742,25 +672,23 @@
       :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
       :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
 
-(def breadcrumb-selection-list-settings
-  {:req-ks [:form-id :data-path :label-path :value-path :breadcrumb-path]
-   :opt-ks [:added-path]})
+(defn breadcrumb-selection-list-settings
+  [{:keys [label-path value-path breadcrumb-path]}]
+  {::low-code/req-ks       [:form-id :data-path :label-path :value-path :breadcrumb-path]
+   ::low-code/opt-ks       [:added-path]
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths [label-path value-path breadcrumb-path]})
 
 (defn breadcrumb-selection-list
   [config]
-  (let [config (massage-config breadcrumb-selection-list-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
         {:keys [key disabled label-path value-path added-path breadcrumb-path]} props]
 
-    (s/assert ::value-path value-path)
-    (s/assert string? label-path)
-    (s/assert string? breadcrumb-path)
-    (s/assert (s/nilable string?) added-path)
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "array" :items (utils4/schema-object-with-keys (remove nil? [#_labelPath value-path breadcrumb-path added-path]))}})
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path label-path)
+    (s/assert ::obj-path breadcrumb-path)
+    (s/assert (s/nilable ::obj-path) added-path)
 
     [ui/BreadcrumbSelectionList
      {:key             key
@@ -774,26 +702,21 @@
       :onItemClick     (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
       :onRemoveClick   (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
 
-(def table-selection-list-settings
-  {:req-ks [:form-id :data-path :columns :value-path]
-   :opt-ks [:added-path]})
+(defn table-selection-list-settings
+  [{:keys [value-path columns]}]
+  {::low-code/req-ks [:form-id :data-path :columns :value-path]
+   ::low-code/opt-ks [:added-path]
+   ::low-code/schema {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths (into [value-path] (map :label-path columns))})
 
 (defn table-selection-list
   [config]
-  (let [config (massage-config table-selection-list-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [key disabled columns value-path added-path]} props
         items @(rf/subscribe [::get-block-data config])]
 
-    (s/assert ::value-path value-path)
-    (s/assert (s/nilable string?) added-path)
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type  "array"
-                 :items (utils4/schema-object-with-keys
-                          ;(into (remove nil? [valueKey addedKey]) (map :labelKey columns))
-                          (remove nil? [value-path added-path]))}})
+    (s/assert ::obj-path value-path)
+    (s/assert (s/nilable ::obj-path) added-path)
 
     [ui/TableSelectionList
      {:key           key
@@ -806,20 +729,16 @@
       :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
       :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}]))
 
-(def simple-list-option-picker-settings
-  {:req-ks [:form-id :data-path :options :value-path :label-path]
-   :opt-ks [:placeholder]})
+(defn simple-list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options :value-path :label-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
 
 (defn simple-list-option-picker
   [config]
-  (let [config (massage-config simple-list-option-picker-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder options disabled errors show-errors value-path label-path]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/SimpleSelectField
      {:value       nil
@@ -831,20 +750,16 @@
       :value-path  value-path
       :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
 
-(def breadcrumb-list-option-picker-settings
-  {:req-ks [:form-id :data-path :options :value-path :label-path :breadcrumb-path]
-   :opt-ks [:placeholder]})
+(defn breadcrumb-list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options :value-path :label-path :breadcrumb-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
 
 (defn breadcrumb-list-option-picker
   [config]
-  (let [config (massage-config breadcrumb-list-option-picker-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder options disabled errors show-errors value-path label-path breadcrumb-path]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/BreadcrumbSelectField
      {:value           nil
@@ -857,20 +772,16 @@
       :breadcrumb-path breadcrumb-path
       :onChange        #(rf/dispatch [::list-option-picker-change config %])}]))
 
-(def table-list-option-picker-settings
-  {:req-ks [:form-id :data-path :options :value-path :label-path :columns]
-   :opt-ks [:placeholder]})
+(defn table-list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options :value-path :label-path :columns]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
 
 (defn table-list-option-picker
   [config]
-  (let [config (massage-config table-list-option-picker-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder options disabled errors show-errors value-path label-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/TableSelectField
      {:value       nil
@@ -883,20 +794,22 @@
       :columns     columns
       :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
 
-(def async-simple-list-option-picker-settings
-  {:req-ks [:form-id :data-path :uri :value-path :label-path]
-   :opt-ks [:placeholder]})
+(defn list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
+
+
+(defn async-simple-list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
 
 (defn async-simple-list-option-picker
   [config]
-  (let [config (massage-config async-simple-list-option-picker-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder uri disabled errors show-errors value-path label-path]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/AsyncSimpleSelectField
      {:value       nil
@@ -908,20 +821,16 @@
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
       :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
 
-(def async-breadcrumb-list-option-picker-settings
-  {:req-ks [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
-   :opt-ks [:placeholder]})
+(defn async-breadcrumb-list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
 
 (defn async-breadcrumb-list-option-picker
   [config]
-  (let [config (massage-config async-breadcrumb-list-option-picker-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder uri disabled errors show-errors value-path label-path breadcrumb-path]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/AsyncBreadcrumbSelectField
      {:value           nil
@@ -934,20 +843,16 @@
       :loadOptions     #(utils4/fetch-post {:uri uri :body {:query %}})
       :onChange        #(rf/dispatch [::list-option-picker-change config %])}]))
 
-(def async-table-list-option-picker-settings
-  {:req-ks [:form-id :data-path :uri :value-path :label-path :columns]
-   :opt-ks [:placeholder]})
+(defn async-table-list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
 
 (defn async-table-list-option-picker
   [config]
-  (let [config (massage-config async-table-list-option-picker-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder uri disabled errors show-errors value-path label-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/AsyncTableSelectField
      {:value       nil
@@ -960,22 +865,28 @@
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
       :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
 
+(defmulti async-list-picker-settings :kind)
+(defmethod async-list-picker-settings :default [config] (async-simple-list-option-picker-settings config))
+(defmethod async-list-picker-settings :breadcrumb [config] (async-breadcrumb-list-option-picker-settings config))
+(defmethod async-list-picker-settings :table [config] (async-table-list-option-picker-settings config))
+
 (defmulti async-list-picker :kind)
 (defmethod async-list-picker :default [config] (async-simple-list-option-picker config))
 (defmethod async-list-picker :breadcrumb [config] (async-breadcrumb-list-option-picker config))
 (defmethod async-list-picker :table [config] (async-table-list-option-picker config))
 
-(def expanding-control-settings
-  {:req-ks [:label]
-   :opt-ks [:form-id :data-path :required]})
+(defn expanding-control-settings [_]
+  {::low-code/req-ks [:label]
+   ::low-code/opt-ks [:form-id :data-path :required]})
 
 (defn expanding-control
   [config & children]
-  (let [config (massage-config expanding-control-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [label required errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
     (s/assert string? label)
+
     (into [ui/ExpandingControl
            {:label    label
             :required required}]
@@ -1011,9 +922,9 @@
        {:form-id   [:form]
         :data-path (conj path "southBoundLatitude")}]]]]])
 
-(def boxmap-field-settings
-  {:req-ks [:form-id :data-path]
-   :opt-ks []})
+(defn boxmap-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks []})
 
 (defn boxmap-field
   [config]
@@ -1024,8 +935,7 @@
                :southBoundLatitude (get-in box ["southBoundLatitude"])
                :eastBoundLongitude (get-in box ["eastBoundLongitude"])
                :westBoundLongitude (get-in box ["westBoundLongitude"])}))]
-    (let [config (massage-config boxmap-field-settings config)
-          props @(rf/subscribe [::get-block-props config])
+    (let [props @(rf/subscribe [::get-block-props config])
           data @(rf/subscribe [::get-block-data config])
           elements (boxes->elements data)
           {:keys [disabled is-hidden]} props]
@@ -1036,14 +946,13 @@
           :tick-id   @(rf/subscribe [:subs/get-form-tick])
           :on-change #(rf/dispatch [::boxes-changed config %])}]))))
 
-(def coordinates-modal-field-settings
-  {:req-ks [:form-id :data-path]
-   :opt-ks [:help]})
+(defn coordinates-modal-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks [:help]})
 
 (defn coordinates-modal-field
   [config]
-  (let [config (massage-config coordinates-modal-field-settings config)
-        props @(rf/subscribe [::get-block-props config])
+  (let [props @(rf/subscribe [::get-block-props config])
         data @(rf/subscribe [::get-block-data config])
         {:keys [data-path is-hidden disabled help]} props
 

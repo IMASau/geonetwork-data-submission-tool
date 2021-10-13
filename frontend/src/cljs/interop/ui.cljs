@@ -47,8 +47,6 @@
 (s/def ::elements (s/coll-of ::element))
 (s/def ::obj-path (s/coll-of string? :min-count 1))
 
-(defn has-key? [s] #(contains? (set (map name (keys %))) s))
-(defn has-keys? [ss] (apply every-pred (map has-key? ss)))
 (defn has-path? [path] (fn [m] (utils4/contains-path? (walk/stringify-keys m) (map name path))))
 (defn has-paths? [paths] (fn [m] (utils4/contains-every? (walk/stringify-keys m) (map #(map name %) paths))))
 (defn js->map [o ks]
@@ -142,14 +140,14 @@
   "Simple HTML select field to select a string value"
   [{:keys [value options label-path value-path placeholder disabled hasError onChange]}]
   (s/assert (s/nilable string?) value)
-  (s/assert string? label-path)
-  (s/assert string? value-path)
-  (s/assert (s/coll-of (has-keys? [label-path value-path])) options)
+  (s/assert ::obj-path label-path)
+  (s/assert ::obj-path value-path)
+  (s/assert (s/coll-of (has-paths? [label-path value-path])) options)
   [:> SelectField/SelectValueField
    {:value       value
     :options     options
-    :getValue    #(gobj/get % value-path "No value")
-    :getLabel    #(gobj/get % label-path "No label")
+    :getValue    (get-obj-path value-path)
+    :getLabel    (get-obj-path label-path)
     :placeholder placeholder
     :disabled    disabled
     :hasError    hasError
@@ -159,194 +157,200 @@
   [{:keys [value options placeholder disabled hasError onChange value-path label-path]}]
   (s/assert (s/nilable map?) value)
   (s/assert (s/coll-of map?) options)
-  (s/assert string? value-path)
-  (s/assert string? label-path)
+  (s/assert ::obj-path value-path)
+  (s/assert ::obj-path label-path)
   (s/assert (s/nilable string?) placeholder)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
-  [:> SelectField/SimpleSelectField
-   {:value       value
-    :options     options
-    :placeholder placeholder
-    :disabled    disabled
-    :hasError    hasError
-    :getValue    #(gobj/get % value-path "No value")
-    :getLabel    #(gobj/get % label-path "No label")
-    :onChange    (fn [o] (onChange (js->map o [value-path label-path])))}])
+  (let [all-paths [value-path label-path]]
+    [:> SelectField/SimpleSelectField
+     {:value       value
+      :options     options
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    hasError
+      :getValue    (get-obj-path value-path)
+      :getLabel    (get-obj-path label-path)
+      :onChange    (comp onChange (get-obj-paths all-paths))}]))
 
 (defn BreadcrumbSelectField
   [{:keys [value options placeholder disabled hasError onChange value-path label-path breadcrumb-path]}]
   (s/assert (s/nilable map?) value)
   (s/assert (s/coll-of map?) options)
   (s/assert (s/nilable string?) placeholder)
-  (s/assert string? value-path)
-  (s/assert string? label-path)
-  (s/assert string? breadcrumb-path)
+  (s/assert ::obj-path value-path)
+  (s/assert ::obj-path label-path)
+  (s/assert ::obj-path breadcrumb-path)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
-  [:> SelectField/BreadcrumbSelectField
-   {:value         value
-    :options       options
-    :placeholder   placeholder
-    :disabled      disabled
-    :hasError      hasError
-    :getValue      #(gobj/get % value-path "No value")
-    :getLabel      #(gobj/get % label-path "No label")
-    :getBreadcrumb #(gobj/get % breadcrumb-path "No breadcrumb")
-    :onChange      (fn [o] (onChange (js->map o [value-path label-path])))}])
+  (let [all-paths [value-path label-path breadcrumb-path]]
+    [:> SelectField/BreadcrumbSelectField
+     {:value         value
+      :options       options
+      :placeholder   placeholder
+      :disabled      disabled
+      :hasError      hasError
+      :getValue      (get-obj-path value-path)
+      :getLabel      (get-obj-path label-path)
+      :getBreadcrumb (get-obj-path breadcrumb-path)
+      :onChange      (comp onChange (get-obj-paths all-paths))}]))
 
 (defn AsyncBreadcrumbSelectField
   [{:keys [value loadOptions placeholder disabled hasError onChange value-path label-path breadcrumb-path]}]
   (s/assert (s/nilable map?) value)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
-  (s/assert string? value-path)
-  (s/assert string? label-path)
-  (s/assert string? breadcrumb-path)
+  (s/assert ::obj-path value-path)
+  (s/assert ::obj-path label-path)
+  (s/assert ::obj-path breadcrumb-path)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
-  [:> SelectField/AsyncBreadcrumbSelectField
-   {:value         value
-    :loadOptions   loadOptions
-    :placeholder   placeholder
-    :disabled      disabled
-    :hasError      hasError
-    :getValue      #(gobj/get % value-path "No value")
-    :getLabel      #(gobj/get % label-path "No label")
-    :getBreadcrumb #(gobj/get % breadcrumb-path "No breadcrumb")
-    :onChange      (fn [o] (onChange (js->map o [value-path label-path breadcrumb-path])))}])
+  (let [all-paths [value-path label-path breadcrumb-path]]
+    [:> SelectField/AsyncBreadcrumbSelectField
+     {:value         value
+      :loadOptions   loadOptions
+      :placeholder   placeholder
+      :disabled      disabled
+      :hasError      hasError
+      :getValue      (get-obj-path value-path)
+      :getLabel      (get-obj-path label-path)
+      :getBreadcrumb (get-obj-path breadcrumb-path)
+      :onChange      (comp onChange (get-obj-paths all-paths))}]))
 
 (defn TableSelectField
   [{:keys [value options placeholder disabled hasError onChange label-path value-path columns]}]
   (s/assert (s/nilable map?) value)
   (s/assert (s/coll-of map?) options)
   (s/assert (s/nilable string?) placeholder)
-  (s/assert string? value-path)
-  (s/assert string? label-path)
-  (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
-  (s/assert (s/coll-of (has-key? value-path)) options)
-  (s/assert (s/coll-of (has-keys? (map :label-path columns)) :distinct true) options)
+  (s/assert ::obj-path value-path)
+  (s/assert ::obj-path label-path)
+  (s/assert (s/coll-of (s/keys :req-un [::label-path ::flex])) columns)
+  (s/assert (s/coll-of (has-path? value-path)) options)
+  (s/assert (s/coll-of (has-paths? (map :label-path columns)) :distinct true) options)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
-  [:> SelectField/TableSelectField
-   {:value       value
-    :options     options
-    :placeholder placeholder
-    :disabled    disabled
-    :hasError    hasError
-    :getValue    #(gobj/get % value-path "No value")
-    :getLabel    #(gobj/get % label-path "No label")
-    :columns     (for [{:keys [flex label-path]} columns]
-                   {:flex     flex
-                    :getLabel #(gobj/get % label-path "No label")})
-    :onChange    (fn [o] (onChange (js->map o [value-path label-path])))}])
+  (let [all-paths (into [value-path label-path] (map :label-path columns))]
+    [:> SelectField/TableSelectField
+     {:value       value
+      :options     options
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    hasError
+      :getValue    (get-obj-path value-path)
+      :getLabel    (get-obj-path label-path)
+      :columns     (for [{:keys [flex label-path]} columns]
+                     {:flex     flex
+                      :getLabel (get-obj-path label-path)})
+      :onChange    (comp onChange (get-obj-paths all-paths))}]))
 
 (defn AsyncTableSelectField
   [{:keys [value loadOptions placeholder disabled hasError onChange label-path value-path columns]}]
   (s/assert (s/nilable map?) value)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
-  (s/assert string? value-path)
-  (s/assert string? label-path)
-  (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
+  (s/assert ::obj-path value-path)
+  (s/assert ::obj-path label-path)
+  (s/assert (s/coll-of (s/keys :req-un [::label-path ::flex])) columns)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
-  [:> SelectField/AsyncTableSelectField
-   {:value       value
-    :loadOptions loadOptions
-    :placeholder placeholder
-    :disabled    disabled
-    :hasError    hasError
-    :getValue    #(gobj/get % value-path "No value")
-    :getLabel    #(gobj/get % label-path "No label")
-    :columns     (for [{:keys [flex label-path]} columns]
-                   {:flex     flex
-                    :getLabel #(gobj/get % label-path "No label")})
-    :onChange    (fn [o] (onChange (js->map o [value-path label-path])))}])
+  (let [all-paths [value-path label-path]]
+    [:> SelectField/AsyncTableSelectField
+     {:value       value
+      :loadOptions loadOptions
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    hasError
+      :getValue    (get-obj-path value-path)
+      :getLabel    (get-obj-path label-path)
+      :columns     (for [{:keys [flex label-path]} columns]
+                     {:flex     flex
+                      :getLabel (get-obj-path label-path)})
+      :onChange    (comp onChange (get-obj-paths all-paths))}]))
 
 (defn AsyncSimpleSelectField
   [{:keys [value loadOptions placeholder disabled hasError onChange value-path label-path]}]
   (s/assert (s/nilable map?) value)
-  (s/assert string? value-path)
-  (s/assert string? label-path)
+  (s/assert ::obj-path value-path)
+  (s/assert ::obj-path label-path)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
-  [:> SelectField/AsyncSimpleSelectField
-   {:value       value
-    :loadOptions loadOptions
-    :placeholder placeholder
-    :disabled    disabled
-    :hasError    hasError
-    :getValue    #(gobj/get % value-path "No value")
-    :getLabel    #(gobj/get % label-path "No label")
-    :onChange    (fn [o] (onChange (js->map o [value-path label-path])))}])
+  (let [all-paths [value-path label-path]]
+    [:> SelectField/AsyncSimpleSelectField
+     {:value       value
+      :loadOptions loadOptions
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    hasError
+      :getValue    (get-obj-path value-path)
+      :getLabel    (get-obj-path label-path)
+      :onChange    (comp onChange (get-obj-paths all-paths))}]))
 
 (defn SimpleSelectionList
   [{:keys [items onReorder onItemClick onRemoveClick label-path value-path added-path]}]
   (s/assert fn? onReorder)
   (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
-  (s/assert string? label-path)
-  (s/assert string? value-path)
-  (s/assert (s/nilable string?) added-path)
-  (s/assert (s/coll-of (has-keys? #{#_labelPath value-path}) :distinct true) items)
+  (s/assert ::obj-path label-path)
+  (s/assert ::obj-path value-path)
+  (s/assert (s/nilable ::obj-path) added-path)
+  (s/assert (s/coll-of (has-paths? #{label-path value-path}) :distinct true) items)
   [:> SelectionList/SimpleSelectionList
    {:items         items
     :onReorder     onReorder
     :onItemClick   onItemClick
     :onRemoveClick onRemoveClick
-    :getValue      #(gobj/get % value-path "No value")
-    :getLabel      #(gobj/get % label-path "No label")
-    :getAdded      (if added-path #(gobj/get % added-path) (constantly false))}])
+    :getValue      (get-obj-path value-path)
+    :getLabel      (get-obj-path label-path)
+    :getAdded      (if added-path (get-obj-path added-path) (constantly false))}])
 
 (defn BreadcrumbSelectionList
   [{:keys [items onReorder onItemClick onRemoveClick breadcrumb-path label-path value-path added-path]}]
   (s/assert fn? onReorder)
   (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
-  (s/assert string? breadcrumb-path)
-  (s/assert string? label-path)
-  (s/assert string? value-path)
-  (s/assert (s/nilable string?) added-path)
-  (s/assert (s/coll-of (has-keys? #{#_labelPath value-path breadcrumb-path}) :distinct true) items)
+  (s/assert ::obj-path breadcrumb-path)
+  (s/assert ::obj-path label-path)
+  (s/assert ::obj-path value-path)
+  (s/assert (s/nilable ::obj-path) added-path)
+  (s/assert (s/coll-of (has-paths? #{label-path value-path breadcrumb-path}) :distinct true) items)
   [:> SelectionList/BreadcrumbSelectionList
    {:items         items
     :onReorder     onReorder
     :onItemClick   onItemClick
     :onRemoveClick onRemoveClick
-    :getValue      #(gobj/get % value-path "No value")
-    :getLabel      #(gobj/get % label-path "No label")
-    :getBreadcrumb #(gobj/get % breadcrumb-path "No breadcrumb")
-    :getAdded      (if added-path #(gobj/get % added-path) (constantly false))}])
+    :getValue      (get-obj-path value-path)
+    :getLabel      (get-obj-path label-path)
+    :getBreadcrumb (get-obj-path breadcrumb-path)
+    :getAdded      (if added-path (get-obj-path added-path) (constantly false))}])
 
 (defn TableSelectionList
   [{:keys [items onReorder onItemClick onRemoveClick value-path added-path columns]}]
   (s/assert fn? onReorder)
   (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
-  (s/assert string? value-path)
-  (s/assert (s/nilable string?) added-path)
-  (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex] :opt-un [::columnHeader])) columns)
-  (s/assert (s/coll-of (has-key? value-path)) items)
-  #_(s/assert (s/coll-of (has-keys? (map :label-path columns)) :distinct true) items)
+  (s/assert ::obj-path value-path)
+  (s/assert (s/nilable ::obj-path) added-path)
+  (s/assert (s/coll-of (s/keys :req-un [::label-path ::flex] :opt-un [::columnHeader])) columns)
+  (s/assert (s/coll-of (has-path? value-path)) items)
+  (s/assert (s/coll-of (has-paths? (map :label-path columns)) :distinct true) items)
   [:> SelectionList/TableSelectionList
    {:items         items
     :onReorder     onReorder
     :onItemClick   onItemClick
     :onRemoveClick onRemoveClick
-    :getValue      #(gobj/get % value-path "No value")
-    :getAdded      (if added-path #(gobj/get % added-path) (constantly false))
+    :getValue      (get-obj-path value-path)
+    :getAdded      (if added-path (get-obj-path added-path) (constantly false))
     :columns       (for [{:keys [flex label-path columnHeader]} columns]
                      {:flex         flex
-                      :getLabel     #(gobj/get % label-path "No label")
+                      :getLabel     (get-obj-path label-path)
                       :columnHeader (or columnHeader "None")})}])
 
 (defn TextareaField

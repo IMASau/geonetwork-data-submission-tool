@@ -236,6 +236,7 @@
                 "xpath": "mri:keyword",
                 "properties": {
                   "breadcrumb": {},
+                  "isUserDefined": {},
                   "label": {
                     "xpath": "gcx:Anchor"
                   },

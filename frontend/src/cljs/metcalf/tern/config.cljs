@@ -85,10 +85,10 @@
 (rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/list-add-click handlers4/list-add-click-handler)
-(rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler)
-(rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler)
+(rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
-(rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click)
+(rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click2)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-close-handler)
@@ -131,6 +131,7 @@
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
+(rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::components4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::views/get-props subs4/form-state-signal subs4/get-block-props-sub)
 (ins/reg-global-singleton ins/form-ticker)
@@ -147,33 +148,33 @@
        "verticalRequired"  rules/vertical-required})
 (set! low-code/component-registry
       {
-       'm4/async-list-picker             components4/async-list-picker
-       'm4/async-select-option           components4/async-select-option
-       'm4/breadcrumb-list-option-picker components4/breadcrumb-list-option-picker
-       'm4/breadcrumb-selection-list     components4/breadcrumb-selection-list
-       'm4/date-field                    components4/date-field
-       'm4/date-field-with-label         components4/date-field-with-label
-       'm4/expanding-control             components4/expanding-control
-       'm4/form-group                    components4/form-group
-       'm4/inline-form-group             components4/inline-form-group
-       'm4/input-field                   components4/input-field
-       'm4/input-field-with-label        components4/input-field-with-label
-       'm4/page-errors                   components4/page-errors
-       'm4/select-option                 components4/select-option
-       'm4/select-option-with-label      components4/select-option-with-label
-       'm4/select-value                  components4/select-value
-       'm4/select-value-with-label       components4/select-value-with-label
-       'm4/simple-list-option-picker     components4/simple-list-option-picker
-       'm4/simple-selection-list         components4/simple-selection-list
-       'm4/table-list-option-picker      components4/table-list-option-picker
-       'm4/table-selection-list          components4/table-selection-list
-       'm4/textarea-field                components4/textarea-field
-       'm4/textarea-field-with-label     components4/textarea-field-with-label
-       'm4/yes-no-field                  components4/yes-no-field
-       'm4/list-add-button               components4/list-add-button
-       'm4/item-add-button               components4/item-add-button
-       'm4/list-edit-dialog              components4/list-edit-dialog
-       'm4/item-edit-dialog              components4/item-edit-dialog})
+       'm4/async-list-picker             {:view components4/async-list-picker :init components4/async-list-picker-settings}
+       'm4/async-select-option           {:view components4/async-select-option :init components4/async-select-option-settings}
+       'm4/breadcrumb-list-option-picker {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
+       'm4/breadcrumb-selection-list     {:view components4/breadcrumb-selection-list :init components4/breadcrumb-selection-list-settings}
+       'm4/date-field                    {:view components4/date-field :init components4/date-field-settings}
+       'm4/date-field-with-label         {:view components4/date-field-with-label :init components4/date-field-settings}
+       'm4/expanding-control             {:view components4/expanding-control :init components4/expanding-control-settings}
+       'm4/form-group                    {:view components4/form-group :init components4/form-group-settings}
+       'm4/inline-form-group             {:view components4/inline-form-group :init components4/inline-form-group-settings}
+       'm4/input-field                   {:view components4/input-field :init components4/input-field-settings}
+       'm4/input-field-with-label        {:view components4/input-field-with-label :init components4/input-field-settings}
+       'm4/item-add-button               {:view components4/item-add-button :init components4/item-add-button-settings}
+       'm4/item-edit-dialog              {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
+       'm4/list-add-button               {:view components4/list-add-button :init components4/list-add-button-settings}
+       'm4/list-edit-dialog              {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
+       'm4/page-errors                   {:view components4/page-errors :init components4/page-errors-settings}
+       'm4/select-option                 {:view components4/select-option :init components4/select-option-settings}
+       'm4/select-option-with-label      {:view components4/select-option-with-label :init components4/select-option-settings}
+       'm4/select-value                  {:view components4/select-value :init components4/select-value-settings}
+       'm4/select-value-with-label       {:view components4/select-value-with-label :init components4/select-value-settings}
+       'm4/simple-list-option-picker     {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
+       'm4/simple-selection-list         {:view components4/simple-selection-list :init components4/simple-selection-list-settings}
+       'm4/table-list-option-picker      {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
+       'm4/table-selection-list          {:view components4/table-selection-list :init components4/table-selection-list-settings}
+       'm4/textarea-field                {:view components4/textarea-field :init components4/textarea-field-settings}
+       'm4/textarea-field-with-label     {:view components4/textarea-field-with-label :init components4/textarea-field-settings}
+       'm4/yes-no-field                  {:view components4/yes-no-field :init components4/yes-no-field-settings}})
 
 (set! low-code/template-registry
       '{
@@ -325,13 +326,13 @@
              {:form-id    ?form-id
               :data-path  [?data-path "unit"]
               :uri        "/api/ternplatforms"
-              :label-path "label"
-              :value-path "uri"}]]
+              :label-path ["label"]
+              :value-path ["uri"]}]]
            [m4/item-add-button
             {:form-id    ?form-id
              :data-path  [?data-path "unit"]
-             :value-path "uri"
-             :added-path "isUserDefined"}]]
+             :value-path ["uri"]
+             :added-path ["isUserDefined"]}]]
 
           [m4/item-edit-dialog
            {:form-id     ?form-id
@@ -344,6 +345,7 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["identificationInfo" "title"]
                         ["identificationInfo" "dateCreation"]
                         ["identificationInfo" "topicCategory"]
@@ -366,8 +368,8 @@
           {:form-id     [:form]
            :data-path   ["identificationInfo" "topicCategory"]
            :placeholder "Start typing to filter list..."
-           :label-path  "label"
-           :value-path  "value"
+           :label-path  ["label"]
+           :value-path  ["value"]
            :options     [{"value" "biota" "label" "biota"}
                          {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
                          {"value" "oceans" "label" "oceans"}
@@ -385,8 +387,8 @@
             {:form-id    [:form]
              :data-path  ["identificationInfo" "status"]
              :label      "Status of Data"
-             :value-path "value"
-             :label-path "label"
+             :value-path ["value"]
+             :label-path ["label"]
              :options    [{"value" "onGoing" "label" "ongoing"}
                           {"value" "planned" "label" "planned"}
                           {"value" "completed" "label" "completed"}]}]]
@@ -405,8 +407,8 @@
             {:form-id    [:form]
              :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
              :label      "Maintenance/Update Freq"
-             :value-path "value"
-             :label-path "label"
+             :value-path ["value"]
+             :label-path ["label"]
              :options    [{"value" "continual" "label" "Continually"}
                           {"value" "daily" "label" "Daily"}
                           {"value" "weekly" "label" "Weekly"}
@@ -453,6 +455,7 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["identificationInfo" "abstract"]
                         ["identificationInfo" "purpose"]]}]
          [:h2 "2. What"]
@@ -490,16 +493,16 @@
             {:form-id         [:form]
              :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
              :kind            :breadcrumb
-             :uri             "/api/ternparameters"           ;TODO: Update to real endpoint
-             :label-path      "label"
-             :value-path      "uri"
-             :breadcrumb-path "breadcrumb"}]
+             :uri             "/api/ternparameters"         ;TODO: Update to real endpoint
+             :label-path      ["label"]
+             :value-path      ["uri"]
+             :breadcrumb-path ["breadcrumb"]}]
            [m4/breadcrumb-selection-list
             {:form-id         [:form]
              :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
-             :label-path      "label"
-             :value-path      "uri"
-             :breadcrumb-path "breadcrumb"}]]]
+             :label-path      ["label"]
+             :value-path      ["uri"]
+             :breadcrumb-path ["breadcrumb"]}]]]
 
          [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
           [m4/form-group
@@ -508,16 +511,16 @@
             {:form-id         [:form]
              :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
              :kind            :breadcrumb
-             :uri             "/api/ternparameters"           ;TODO: Update to real endpoint
-             :label-path      "label"
-             :value-path      "uri"
-             :breadcrumb-path "breadcrumb"}]
+             :uri             "/api/ternparameters"         ;TODO: Update to real endpoint
+             :label-path      ["label"]
+             :value-path      ["uri"]
+             :breadcrumb-path ["breadcrumb"]}]
            [m4/breadcrumb-selection-list
             {:form-id         [:form]
              :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-             :label-path      "label"
-             :value-path      "uri"
-             :breadcrumb-path "breadcrumb"}]]]
+             :label-path      ["label"]
+             :value-path      ["uri"]
+             :breadcrumb-path ["breadcrumb"]}]]]
 
          [m4/expanding-control {:label "Platforms" :required true}
           ;; TODO: also need a user-added option
@@ -535,20 +538,20 @@
               {:form-id    [:form]
                :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
                :uri        "/api/ternplatforms"
-               :label-path "label"
-               :value-path "uri"}]]
+               :label-path ["label"]
+               :value-path ["uri"]}]]
             [m4/list-add-button
              {:form-id    [:form]
               :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
-              :value-path "uri"
-              :added-path "isUserDefined"}]]
+              :value-path ["uri"]
+              :added-path ["isUserDefined"]}]]
 
            [m4/simple-selection-list
             {:form-id    [:form]
              :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
-             :label-path "label"
-             :value-path "uri"
-             :added-path "isUserDefined"}]
+             :label-path ["label"]
+             :value-path ["uri"]
+             :added-path ["isUserDefined"]}]
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
@@ -566,20 +569,20 @@
               {:form-id    [:form]
                :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
                :uri        "/api/terninstruments"
-               :label-path "label"
-               :value-path "uri"}]]
+               :label-path ["label"]
+               :value-path ["uri"]}]]
             [m4/list-add-button
              {:form-id    [:form]
               :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
-              :value-path "uri"
-              :added-path "isUserDefined"}]]
+              :value-path ["uri"]
+              :added-path ["isUserDefined"]}]]
            [m4/table-selection-list
             {:form-id    [:form]
              :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
-             :value-path "uri"
-             :added-path "isUserDefined"
-             :columns    [{:columnHeader "Instrument" :label-path "label" :flex 2}
-                          {:columnHeader "Serial no." :label-path "uri" :flex 3}]}]
+             :value-path ["uri"]
+             :added-path ["isUserDefined"]
+             :columns    [{:columnHeader "Instrument" :label-path ["label"] :flex 2}
+                          {:columnHeader "Serial no." :label-path ["serial"] :flex 3}]}]
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
@@ -598,19 +601,19 @@
               {:form-id    [:form]
                :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
                :uri        "/api/terninstruments"
-               :label-path "label"
-               :value-path "uri"}]]
+               :label-path ["label"]
+               :value-path ["uri"]}]]
             [m4/list-add-button
              {:form-id    [:form]
               :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
-              :value-path "uri"
-              :added-path "isUserDefined"}]]
+              :value-path ["uri"]
+              :added-path ["isUserDefined"]}]]
            [m4/table-selection-list
             {:form-id    [:form]
              :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
-             :value-path "uri"
-             :added-path "isUserDefined"
-             :columns    [{:columnHeader "Name" :label-path "label" :flex 2}
+             :value-path ["uri"]
+             :added-path ["isUserDefined"]
+             :columns    [{:columnHeader "Name" :label-path ["label"] :flex 2}
                           {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]
            [m4/list-edit-dialog
             {:form-id     [:form]
@@ -646,6 +649,7 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["identificationInfo" "beginPosition"]
                         ["identificationInfo" "endPosition"]]}]
          [:h2 "3. When was the data acquired?"]
@@ -674,6 +678,7 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["identificationInfo" "geographicElement" "siteDescription"]]}]
          [:h2 "4. Where"]
          [m4/textarea-field-with-label
@@ -714,6 +719,7 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["resourceLineage" "processStep"]
                         ["dataQualityInfo" "methods"]
                         ["dataQualityInfo" "results"]]}]
@@ -739,6 +745,7 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["dataQualityInfo" "methodSummary"]
                         ["dataQualityInfo" "results"]]}]
          [:h2 "7. Data Quality"]
@@ -761,6 +768,7 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["identificationInfo" "environment"]
                         ["identificationInfo" "supplemental"]
                         ["identificationInfo" "resourceSpecificUsage"]

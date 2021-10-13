@@ -22,6 +22,13 @@
   (mapv massage-data-path-value (as-path data-path)))
 
 
+(defn if-contains-update
+  [m k xform]
+  (if (contains? m k)
+    (update m k xform)
+    m))
+
+
 (defn get-ctx
   [{:keys [form-id data-path]}]
   (when (and form-id data-path)

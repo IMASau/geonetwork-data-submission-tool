@@ -790,7 +790,8 @@
       {:schema1 @(rf/subscribe [::get-data-schema config])
        :schema2 {:type  "array"
                  :items (utils4/schema-object-with-keys
-                          (into (remove nil? [valueKey addedKey]) (map :labelKey columns)))}})
+                          ;(into (remove nil? [valueKey addedKey]) (map :labelKey columns))
+                          (remove nil? [valueKey addedKey]))}})
 
     [ui/TableSelectionList
      {:key           key

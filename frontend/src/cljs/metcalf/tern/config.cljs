@@ -197,8 +197,9 @@
            :label     "Source"
            :toolTip   "TODO"}
           [m4/textarea-field
-           {:form-id   ?form-id
-            :data-path [?data-path "source"]}]]]
+           {:form-id     ?form-id
+            :data-path   [?data-path "source"]
+            :placeholder "E.g. Creator (Publication year).  Title.  Version.  Publisher.  Resource type.  Identifier.  "}]]]
 
 
         :data-identification

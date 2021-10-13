@@ -168,8 +168,9 @@
        'm4/select-value-with-label        components4/select-value-with-label
        'm4/textarea-field-with-label      components4/textarea-field-with-label
        'm4/xml-export-link                components4/xml-export-link
-       'm4/list-add-button                components4/list-add-button
-       'm4/list-edit-dialog               components4/list-edit-dialog
+       'm4/item-add-button               components4/item-add-button
+       'm4/list-edit-dialog              components4/list-edit-dialog
+       'm4/item-edit-dialog              components4/item-edit-dialog
        })
 (set! low-code/template-registry
       '{:data-identification

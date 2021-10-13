@@ -460,9 +460,13 @@
   [form-group config
    [simple-select-option config]])
 
+(def async-simple-select-option-settings
+  {:req-ks [:uri :valueKey :labelKey]
+   :opt-ks []})
+
 (defn async-simple-select-option
   [config]
-  (let [config (massage-config {:req-ks [:uri :valueKey :labelKey] :opt-ks []} config)
+  (let [config (massage-config async-simple-select-option-settings config)
         props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder uri valueKey labelKey disabled errors show-errors]} props

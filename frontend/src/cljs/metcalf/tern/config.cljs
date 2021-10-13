@@ -1,4 +1,4 @@
-(ns metcalf.tern.config
+(ns ^:dev/always metcalf.tern.config
   (:require [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers3]
             [metcalf3.ins :as ins]
@@ -633,7 +633,15 @@
              :value-path ["uri"]}]]]
 
          [m4/expanding-control {:label "Horizontal Resolution" :required true}
-          "..."]
+          [m4/form-group
+           {:label   "Select a Horizontal Resolution range"
+            :toolTip "TODO"}
+           [m4/async-select-option
+            {:form-id    [:form]
+             :data-path  ["What11"]
+             :uri        "/api/What11"
+             :label-path ["label"]
+             :value-path ["uri"]}]]]
 
          [m4/expanding-control {:label "Vertical Resolution (Optional)" :required true}
           "..."]

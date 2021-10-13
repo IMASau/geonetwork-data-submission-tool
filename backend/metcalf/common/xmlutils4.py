@@ -42,6 +42,11 @@ def get_xpath(spec):
     return spec[SpecialKeys.xpath]
 
 
+def get_xpath2(spec):
+    if SpecialKeys.xpath in spec:
+        return spec[SpecialKeys.xpath]
+
+
 def get_container(spec):
     return spec.get(SpecialKeys.container, get_xpath(spec))
 

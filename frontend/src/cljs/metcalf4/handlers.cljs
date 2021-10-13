@@ -55,6 +55,17 @@
         (actions/new-item-action form-id data-path)
         (actions/select-last-item-action form-id data-path))))
 
+(defn list-add-with-defaults-click-handler2
+  [{:keys [db]} [_ config]]
+  (let [{:keys [form-id data-path value-path added-path]} config
+        defaults (-> {}
+                     (assoc-in value-path (str (random-uuid)))
+                     (assoc-in added-path true))]
+    (-> {:db db}
+        (actions/save-snapshot-action form-id)
+        (actions/add-item-action form-id data-path defaults)
+        (actions/select-last-item-action form-id data-path))))
+
 (defn list-add-with-defaults-click-handler
   [{:keys [db]} [_ props]]
   (let [{:keys [form-id data-path value-path added-path]} props

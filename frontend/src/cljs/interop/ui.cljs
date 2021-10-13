@@ -394,14 +394,14 @@
 
 (defn EditDialog
   [{:keys [isOpen title onClose onClear onSave canSave]} & children]
-  (s/assert boolean? isOpen)
+  (s/assert (s/nilable boolean?) isOpen)
   (s/assert string? title)
   (s/assert fn? onClose)
   (s/assert fn? onClear)
   (s/assert fn? onSave)
   (s/assert boolean? canSave)
   (into [:> EditDialog/EditDialog
-         {:isOpen  isOpen
+         {:isOpen  (boolean isOpen)
           :title   title
           :onClose onClose
           :onClear onClear

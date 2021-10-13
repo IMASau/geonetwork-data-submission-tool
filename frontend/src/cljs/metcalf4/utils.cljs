@@ -7,6 +7,21 @@
 (s/def ::ctx (s/keys :req-un [::form-id ::data-path]))
 
 
+(defn update-keys
+  [m f]
+  (zipmap (map f (keys m)) (vals m)))
+
+
+(defn contains-path?
+  [m ks]
+  (not= #{::not-found} (get-in m ks ::not-found)))
+
+
+(defn contains-every?
+  [m keyseqs]
+  (not-any? #{::not-found} (for [ks keyseqs] (get-in m ks ::not-found))))
+
+
 (def as-path (comp vec flatten))
 
 

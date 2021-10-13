@@ -834,9 +834,13 @@
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
       :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
 
+(def async-breadcrumb-list-option-picker-settings
+  {:req-ks [:uri :valueKey :labelKey :breadcrumbKey]
+   :opt-ks [:placeholder]})
+
 (defn async-breadcrumb-list-option-picker
   [config]
-  (let [config (massage-config {:req-ks [:uri :valueKey :labelKey :breadcrumbKey] :opt-ks [:placeholder]} config)
+  (let [config (massage-config async-breadcrumb-list-option-picker-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey breadcrumbKey]} props
         hasError (when (and show-errors (seq errors)) true)]

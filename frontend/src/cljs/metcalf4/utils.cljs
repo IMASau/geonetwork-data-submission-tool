@@ -14,7 +14,7 @@
 
 (defn contains-path?
   [m ks]
-  (not= #{::not-found} (get-in m ks ::not-found)))
+  (not= ::not-found (get-in m ks ::not-found)))
 
 
 (defn contains-every?

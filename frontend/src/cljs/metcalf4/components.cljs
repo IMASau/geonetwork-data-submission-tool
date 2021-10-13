@@ -786,10 +786,8 @@
 
 (defn expanding-control
   [config & children]
-  (let [config-keys [:label :required]
-        ctx (utils4/get-ctx config)
-        logic @(rf/subscribe [::get-block-props ctx])
-        props (merge ctx logic (select-keys config config-keys))
+  (let [config (massage-config config {:req-ks [:label] :opt-ks [:required]})
+        props @(rf/subscribe [::get-block-props config])
         {:keys [label required errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (s/assert string? label)

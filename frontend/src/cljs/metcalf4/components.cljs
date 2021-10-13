@@ -551,16 +551,13 @@
 ; FIXME: Is :label for form group or yes/no field?
 (defn yes-no-field-with-label
   [config]
-  (let [config-keys [:options :label]
-        ctx (utils4/get-ctx config)
-        logic @(rf/subscribe [::get-yes-no-field-with-label-props ctx])
-        onChange #(rf/dispatch [::yes-no-field-with-label-value-changed ctx %])
-        props (merge ctx logic (select-keys config config-keys))
+  (let [config (massage-config config {:req-ks [:label] :opt-ks []})
+        props @(rf/subscribe [::get-yes-no-field-with-label-props config])
         {:keys [label value errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+      {:schema1 @(rf/subscribe [::get-data-schema config])
        :schema2 {:type "boolean"}})
 
     [form-group config
@@ -569,7 +566,7 @@
        :label    label
        :disabled false
        :hasError (seq hasError)
-       :onChange onChange}]]))
+       :onChange #(rf/dispatch [::yes-no-field-with-label-value-changed config %])}]]))
 
 (defn simple-selection-list
   [config]

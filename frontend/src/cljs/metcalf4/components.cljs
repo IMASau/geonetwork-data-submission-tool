@@ -114,10 +114,14 @@
             :toolTip    toolTip}]
           children)))
 
+(def list-edit-dialog-settings
+  {:req-ks [:form-id :data-path :title :template-id]
+   :opt-ks []})
+
 (defn list-edit-dialog
   "Popup dialog if item is selected"
   [config]
-  (let [config (massage-config {:req-ks [:form-id :data-path :title :template-id] :opt-ks []} config)
+  (let [config (massage-config list-edit-dialog-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [form-id data-path selected title template-id show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)

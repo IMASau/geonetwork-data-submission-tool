@@ -587,23 +587,36 @@
              :template-id :instrument/user-defined-entry-form}]]]
 
          [m4/expanding-control {:label "Parameters" :required true}
+
           ;; TODO: also need a user-added option
           [m4/form-group
            {:label "Select the name of the measured parameter, e.g. vegetation height"}
-           [m4/async-list-picker
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsInstrument" "keywords"]
-             :kind          :breadcrumb
-             :uri           "/api/ternparameters"
-             :labelKey      "label"
-             :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"}]
-           [m4/breadcrumb-selection-list
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsInstrument" "keywords"]
-             :labelKey      "label"
-             :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"}]]]
+
+           [:div.bp3-control-group
+            [:div.bp3-fill
+             [m4/async-list-picker
+              {:form-id   [:form]
+               :data-path ["identificationInfo" "keywordsParameters" "keywords"]
+               :uri       "/api/terninstruments"
+               :labelKey  "label"
+               :valueKey  "uri"}]]
+            [m4/list-add-button
+             {:form-id   [:form]
+              :data-path ["identificationInfo" "keywordsParameters" "keywords"]
+              :valueKey  "uri"
+              :addedKey  "isUserDefined"}]]
+           [m4/table-selection-list
+            {:form-id   [:form]
+             :data-path ["identificationInfo" "keywordsParameters" "keywords"]
+             :valueKey  "uri"
+             :addedKey  "isUserDefined"
+             :columns   [{:columnHeader "Name" :labelKey "label" :flex 2}
+                         {:columnHeader "Units" :labelKey "uri" :flex 3}]}]
+           [m4/list-edit-dialog
+            {:form-id     [:form]
+             :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
+             :title       "Parameter"
+             :template-id :parameter/user-defined-entry-form}]]]
 
          [m4/expanding-control {:label "Temporal Resolution" :required true}
           "..."]

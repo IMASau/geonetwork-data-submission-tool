@@ -244,7 +244,7 @@
            :data-path  [?data-path "serial"]
            :label      "Serial Number"
            :helperText "Optional"
-           :toolTip   "TODO"}
+           :toolTip    "TODO"}
           [m4/input-field
            {:form-id   ?form-id
             :data-path [?data-path "serial"]}]]]

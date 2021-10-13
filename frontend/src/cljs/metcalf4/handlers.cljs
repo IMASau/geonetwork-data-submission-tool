@@ -64,6 +64,16 @@
         (actions/add-item-action form-id data-path defaults)
         (actions/select-last-item-action form-id data-path))))
 
+; NOTE: Experiemental
+(defn item-add-with-defaults-click-handler
+  [{:keys [db]} [_ props]]
+  (let [{:keys [form-id data-path valueKey addedKey]} props
+        defaults {valueKey (str (random-uuid)) addedKey true}]
+    (-> {:db db}
+        (actions/save-snapshot-action form-id)
+        (actions/set-value-action form-id data-path defaults)
+        (actions/dialog-open-action form-id data-path))))
+
 (defn boxes-changed
   [{:keys [db]} [_ ctx geojson]]
   (let [{:keys [form-id data-path]} ctx

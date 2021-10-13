@@ -96,9 +96,9 @@
 (defn selection-list-item-click
   [{:keys [db]} [_ props idx]]
   (let [{:keys [form-id data-path addedKey]} props]
-    (-> {:db db}
-        (cond-> addedKey
-          (actions/select-user-defined-list-item-action form-id data-path idx addedKey)))))
+    (cond-> {:db db}
+      addedKey
+      (actions/select-user-defined-list-item-action form-id data-path idx addedKey))))
 
 (defn selection-list-remove-click
   [{:keys [db]} [_ ctx idx]]

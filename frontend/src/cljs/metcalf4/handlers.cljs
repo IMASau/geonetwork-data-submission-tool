@@ -7,7 +7,7 @@
 
 (defn db-path
   [{:keys [form-id data-path]}]
-  (vec (flatten [form-id :state (blocks/block-path data-path)])))
+  (utils4/as-path [form-id :state (blocks/block-path data-path)]))
 
 
 (defn init-db

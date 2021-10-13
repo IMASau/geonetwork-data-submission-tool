@@ -544,9 +544,7 @@
             "xlink:href": {
               "function": "sampling_uri"
             }
-          },
-          "type": "array",
-          "items": {}
+          }
         },
         "dataParameters": {
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[@uuid=\"Data_Group\"]",

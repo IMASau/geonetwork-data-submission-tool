@@ -86,18 +86,6 @@
         (not (neg? last-idx))
         (assoc-in (conj block-path :props :selected) last-idx))))
 
-; NOTE: Experimental
-(defn dialog-open-action
-  [s form-id data-path]
-  (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])]
-    (assoc-in s (conj block-path :props :dialog-open) true)))
-
-; NOTE: Experimental
-(defn dialog-close-action
-  [s form-id data-path]
-  (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])]
-    (update-in s (conj block-path :props) dissoc :dialog-open)))
-
 (defn new-item-action
   [s form-id data-path]
   (let [schema-path (utils4/as-path [:db form-id :schema (schema/schema-path data-path) :items])

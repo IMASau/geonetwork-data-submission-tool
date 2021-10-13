@@ -317,7 +317,7 @@
   (s/assert fn? onRemoveClick)
   (s/assert string? valueKey)
   (s/assert (s/nilable string?) addedKey)
-  (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
+  (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex] :opt-un [::columnHeader])) columns)
   (s/assert (s/coll-of (has-key? valueKey)) items)
   (s/assert (s/coll-of (has-keys? (map :labelKey columns)) :distinct true) items)
   [:> SelectionList/TableSelectionList
@@ -327,9 +327,10 @@
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
     :getAdded      (if addedKey #(gobj/get % addedKey) (constantly false))
-    :columns       (for [{:keys [flex labelKey]} columns]
-                     {:flex     flex
-                      :getLabel #(gobj/get % labelKey "No label")})}])
+    :columns       (for [{:keys [flex labelKey columnHeader]} columns]
+                     {:flex         flex
+                      :getLabel     #(gobj/get % labelKey "No label")
+                      :columnHeader (or columnHeader "None")})}])
 
 (defn TextareaField
   [{:keys [value placeholder maxLength rows disabled hasError onChange]}]

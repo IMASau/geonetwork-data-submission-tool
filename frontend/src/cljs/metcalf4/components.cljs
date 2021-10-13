@@ -190,9 +190,13 @@
       :rows        rows
       :onChange    #(rf/dispatch [::value-changed config %])}]))
 
+(def checkbox-field-settings
+  {:req-ks []
+   :opt-ks []})
+
 (defn checkbox-field
   [config]
-  (let [config (massage-config {:req-ks [] :opt-ks []} config)
+  (let [config (massage-config checkbox-field-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]

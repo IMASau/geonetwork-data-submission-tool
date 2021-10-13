@@ -732,9 +732,13 @@
       :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
       :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}]))
 
+(def simple-list-option-picker-settings
+  {:req-ks [:options :valueKey :labelKey]
+   :opt-ks [:placeholder]})
+
 (defn simple-list-option-picker
   [config]
-  (let [config (massage-config {:req-ks [:options :valueKey :labelKey] :opt-ks [:placeholder]} config)
+  (let [config (massage-config simple-list-option-picker-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder options disabled errors show-errors valueKey labelKey]} props
         hasError (when (and show-errors (seq errors)) true)]

@@ -651,16 +651,13 @@
 
 (defn simple-list-option-picker
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :placeholder :valueKey :labelKey]
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge ctx logic (select-keys config config-keys))
+  (let [config (massage-config config {:req-ks [:options :valueKey :labelKey] :opt-ks [:placeholder]})
+        props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder options disabled errors show-errors valueKey labelKey]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+      {:schema1 @(rf/subscribe [::get-data-schema config])
        :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/SimpleSelectField
@@ -669,9 +666,9 @@
       :placeholder placeholder
       :disabled    disabled
       :hasError    (seq hasError)
-      :onChange    onChange
       :labelKey    labelKey
-      :valueKey    valueKey}]))
+      :valueKey    valueKey
+      :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
 
 (defn breadcrumb-list-option-picker
   [config]

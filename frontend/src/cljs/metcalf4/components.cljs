@@ -701,9 +701,13 @@
       :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
       :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
 
+(def table-selection-list-settings
+  {:req-ks [:columns :valueKey]
+   :opt-ks [:addedKey]})
+
 (defn table-selection-list
   [config]
-  (let [config (massage-config {:req-ks [:columns :valueKey] :opt-ks [:addedKey]} config)
+  (let [config (massage-config table-selection-list-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [key disabled columns valueKey addedKey]} props
         items @(rf/subscribe [::get-block-data config])]

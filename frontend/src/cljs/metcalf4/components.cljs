@@ -57,7 +57,7 @@
 
 (defn form-group
   [config & children]
-  (let [config (massage-config config {:req-ks [:label] :opt-ks [:placeholder :helperText :toolTip]})
+  (let [config (massage-config {:req-ks [:label] :opt-ks [:placeholder :helperText :toolTip]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [label helperText toolTip required disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -72,7 +72,7 @@
 
 (defn inline-form-group
   [config & children]
-  (let [config (massage-config config {:req-ks [:label] :opt-ks [:placeholder :helperText :toolTip]})
+  (let [config (massage-config {:req-ks [:label] :opt-ks [:placeholder :helperText :toolTip]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [label helperText toolTip required disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -89,7 +89,7 @@
 (defn list-edit-dialog
   "Popup dialog if item is selected"
   [config]
-  (let [config (massage-config config {:req-ks [:title :template-id] :opt-ks []})
+  (let [config (massage-config {:req-ks [:title :template-id] :opt-ks []} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [form-id data-path selected title template-id show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)
@@ -108,7 +108,7 @@
 
 (defn input-field
   [config]
-  (let [config (massage-config config {:req-ks [] :opt-ks [:placeholder :maxLength]})
+  (let [config (massage-config {:req-ks [] :opt-ks [:placeholder :maxLength]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -130,7 +130,7 @@
 
 (defn numeric-input-field
   [config]
-  (let [config (massage-config config {:req-ks [] :opt-ks [:placeholder :hasButtons]})
+  (let [config (massage-config {:req-ks [] :opt-ks [:placeholder :hasButtons]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder hasButtons value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -153,7 +153,7 @@
 
 (defn textarea-field
   [config]
-  (let [config (massage-config config {:req-ks [] :opt-ks [:placeholder :rows :maxLength]})
+  (let [config (massage-config {:req-ks [] :opt-ks [:placeholder :rows :maxLength]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder rows maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -173,7 +173,7 @@
 
 (defn checkbox-field
   [config]
-  (let [config (massage-config config {:req-ks [] :opt-ks []})
+  (let [config (massage-config {:req-ks [] :opt-ks []} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -201,7 +201,7 @@
 
 (defn date-field
   [config]
-  (let [config (massage-config config {:req-ks [] :opt-ks [:minDate :maxDate]})
+  (let [config (massage-config {:req-ks [] :opt-ks [:minDate :maxDate]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [minDate maxDate value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -233,7 +233,7 @@
 
 (defn note-for-data-manager
   [config]
-  (let [config (massage-config config {:req-ks [] :opt-ks []})
+  (let [config (massage-config {:req-ks [] :opt-ks []} config)
         {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
         value @(rf/subscribe [::get-block-data config])]
     [:div
@@ -295,7 +295,7 @@
 
 (defn xml-export-link
   [config]
-  (let [config (massage-config config {:req-ks [:label] :opt-ks []})
+  (let [config (massage-config {:req-ks [:label] :opt-ks []} config)
         {:keys [label]} @(rf/subscribe [::get-block-props config])
         {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
         dirty @(rf/subscribe [:subs/get-form-dirty])]
@@ -316,7 +316,7 @@
 
 (defn simple-select-option
   [config]
-  (let [config (massage-config config {:req-ks [:options] :opt-ks [:placeholder]})
+  (let [config (massage-config {:req-ks [:options] :opt-ks [:placeholder]} config)
         props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder options disabled errors show-errors]} props
@@ -336,7 +336,7 @@
 
 (defn table-select-option
   [config]
-  (let [config (massage-config config {:req-ks [:options :labelKey :valueKey :columns] :opt-ks [:placeholder]})
+  (let [config (massage-config {:req-ks [:options :labelKey :valueKey :columns] :opt-ks [:placeholder]} config)
         props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder options disabled errors show-errors labelKey valueKey columns]} props
@@ -359,7 +359,7 @@
 
 (defn breadcrumb-select-option
   [config]
-  (let [config (massage-config config {:req-ks [:options :labelKey :valueKey :breadcrumbKey] :opt-ks [:placeholder]})
+  (let [config (massage-config {:req-ks [:options :labelKey :valueKey :breadcrumbKey] :opt-ks [:placeholder]} config)
         props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder options disabled errors show-errors labelKey valueKey breadcrumbKey]} props
@@ -393,7 +393,7 @@
 (defn list-add-button
   "Add user defined item to list"
   [config]
-  (let [config (massage-config config {:req-ks [:valueKey :addedKey] :opt-ks []})
+  (let [config (massage-config {:req-ks [:valueKey :addedKey] :opt-ks []} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [valueKey addedKey]} props]
 
@@ -415,7 +415,7 @@
 
 (defn async-simple-select-option
   [config]
-  (let [config (massage-config config {:req-ks [:uri :valueKey :labelKey] :opt-ks []})
+  (let [config (massage-config {:req-ks [:uri :valueKey :labelKey] :opt-ks []} config)
         props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder uri valueKey labelKey disabled errors show-errors]} props
@@ -442,7 +442,7 @@
 
 (defn async-breadcrumb-select-option
   [config]
-  (let [config (massage-config config {:req-ks [:uri :valueKey :labelKey :breadcrumbKey] :opt-ks []})
+  (let [config (massage-config {:req-ks [:uri :valueKey :labelKey :breadcrumbKey] :opt-ks []} config)
         props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey breadcrumbKey]} props
@@ -470,7 +470,7 @@
 
 (defn async-table-select-option
   [config]
-  (let [config (massage-config config {:req-ks [:uri :valueKey :labelKey :columns] :opt-ks []})
+  (let [config (massage-config {:req-ks [:uri :valueKey :labelKey :columns] :opt-ks []} config)
         props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey columns]} props
@@ -508,7 +508,7 @@
 
 (defn select-value
   [config]
-  (let [config (massage-config config {:req-ks [:options :labelKey :valueKey] :opt-ks []})
+  (let [config (massage-config {:req-ks [:options :labelKey :valueKey] :opt-ks []} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [value options labelKey valueKey disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)
@@ -532,7 +532,7 @@
 
 (defn yes-no-field
   [config]
-  (let [config (massage-config config {:req-ks [:label] :opt-ks []})
+  (let [config (massage-config {:req-ks [:label] :opt-ks []} config)
         props @(rf/subscribe [::get-yes-no-field-props config])
         {:keys [label value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -551,7 +551,7 @@
 ; FIXME: Is :label for form group or yes/no field?
 (defn yes-no-field-with-label
   [config]
-  (let [config (massage-config config {:req-ks [:label] :opt-ks []})
+  (let [config (massage-config {:req-ks [:label] :opt-ks []} config)
         props @(rf/subscribe [::get-yes-no-field-with-label-props config])
         {:keys [label value errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -570,7 +570,7 @@
 
 (defn simple-selection-list
   [config]
-  (let [config (massage-config config {:req-ks [:labelKey :valueKey] :opt-ks [:addedKey]})
+  (let [config (massage-config {:req-ks [:labelKey :valueKey] :opt-ks [:addedKey]} config)
         props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
         {:keys [key disabled labelKey valueKey addedKey]} props]
@@ -596,7 +596,7 @@
 
 (defn breadcrumb-selection-list
   [config]
-  (let [config (massage-config config {:req-ks [:labelKey :valueKey :breadcrumbKey] :opt-ks [:addedKey]})
+  (let [config (massage-config {:req-ks [:labelKey :valueKey :breadcrumbKey] :opt-ks [:addedKey]} config)
         props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
         {:keys [key disabled labelKey valueKey addedKey breadcrumbKey]} props]
@@ -624,7 +624,7 @@
 
 (defn table-selection-list
   [config]
-  (let [config (massage-config config {:req-ks [:columns :valueKey] :opt-ks [:addedKey]})
+  (let [config (massage-config {:req-ks [:columns :valueKey] :opt-ks [:addedKey]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [key disabled columns valueKey addedKey]} props
         items @(rf/subscribe [::get-block-data config])]
@@ -651,7 +651,7 @@
 
 (defn simple-list-option-picker
   [config]
-  (let [config (massage-config config {:req-ks [:options :valueKey :labelKey] :opt-ks [:placeholder]})
+  (let [config (massage-config {:req-ks [:options :valueKey :labelKey] :opt-ks [:placeholder]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder options disabled errors show-errors valueKey labelKey]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -672,7 +672,7 @@
 
 (defn breadcrumb-list-option-picker
   [config]
-  (let [config (massage-config config {:req-ks [:options :valueKey :labelKey :breadcrumbKey] :opt-ks [:placeholder]})
+  (let [config (massage-config {:req-ks [:options :valueKey :labelKey :breadcrumbKey] :opt-ks [:placeholder]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder options disabled errors show-errors valueKey labelKey breadcrumbKey]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -694,7 +694,7 @@
 
 (defn table-list-option-picker
   [config]
-  (let [config (massage-config config {:req-ks [:options :valueKey :labelKey :columns] :opt-ks [:placeholder]})
+  (let [config (massage-config {:req-ks [:options :valueKey :labelKey :columns] :opt-ks [:placeholder]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder options disabled errors show-errors valueKey labelKey columns]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -716,7 +716,7 @@
 
 (defn async-simple-list-option-picker
   [config]
-  (let [config (massage-config config {:req-ks [:uri :valueKey :labelKey] :opt-ks [:placeholder]})
+  (let [config (massage-config {:req-ks [:uri :valueKey :labelKey] :opt-ks [:placeholder]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -737,7 +737,7 @@
 
 (defn async-breadcrumb-list-option-picker
   [config]
-  (let [config (massage-config config {:req-ks [:uri :valueKey :labelKey :breadcrumbKey] :opt-ks [:placeholder]})
+  (let [config (massage-config {:req-ks [:uri :valueKey :labelKey :breadcrumbKey] :opt-ks [:placeholder]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey breadcrumbKey]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -759,7 +759,7 @@
 
 (defn async-table-list-option-picker
   [config]
-  (let [config (massage-config config {:req-ks [:uri :valueKey :labelKey :columns] :opt-ks [:placeholder]})
+  (let [config (massage-config {:req-ks [:uri :valueKey :labelKey :columns] :opt-ks [:placeholder]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey columns]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -786,7 +786,7 @@
 
 (defn expanding-control
   [config & children]
-  (let [config (massage-config config {:req-ks [:label] :opt-ks [:required]})
+  (let [config (massage-config {:req-ks [:label] :opt-ks [:required]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [label required errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -835,7 +835,7 @@
                :southBoundLatitude (get-in box ["southBoundLatitude"])
                :eastBoundLongitude (get-in box ["eastBoundLongitude"])
                :westBoundLongitude (get-in box ["westBoundLongitude"])}))]
-    (let [config (massage-config config {:req-ks [] :opt-ks []})
+    (let [config (massage-config {:req-ks [] :opt-ks []} config)
           props @(rf/subscribe [::get-block-props config])
           data @(rf/subscribe [::get-block-data config])
           elements (boxes->elements data)
@@ -849,7 +849,7 @@
 
 (defn coordinates-modal-field
   [config]
-  (let [config (massage-config config {:req-ks [] :opt-ks [:help]})
+  (let [config (massage-config {:req-ks [] :opt-ks [:help]} config)
         props @(rf/subscribe [::get-block-props config])
         data @(rf/subscribe [::get-block-data config])
         {:keys [data-path is-hidden disabled help]} props

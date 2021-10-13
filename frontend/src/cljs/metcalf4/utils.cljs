@@ -7,6 +7,30 @@
 (s/def ::ctx (s/keys :req-un [::form-id ::data-path]))
 
 
+(defn str-value
+  [data]
+  (binding [*print-level* 3
+            *print-length* 5]
+    (pr-str data)))
+
+
+(defn console-value
+  [data]
+  (if goog/DEBUG
+    data
+    (str-value data)))
+
+
+(defn console-error
+  [msg data]
+  (js/console.error msg (console-value data)))
+
+
+(defn console-warning
+  [msg data]
+  (js/console.warn msg (console-value data)))
+
+
 (defn update-keys
   [m f]
   (zipmap (map f (keys m)) (vals m)))

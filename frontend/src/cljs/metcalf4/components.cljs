@@ -663,7 +663,7 @@
 
     [ui/SimpleSelectionList
      {:key           key
-      :items         items
+      :items         (or items [])
       :label-path    label-path
       :value-path    value-path
       :added-path    added-path
@@ -692,7 +692,7 @@
 
     [ui/BreadcrumbSelectionList
      {:key             key
-      :items           items
+      :items           (or items [])
       :disabled        disabled
       :breadcrumb-path breadcrumb-path
       :label-path      label-path
@@ -720,7 +720,7 @@
 
     [ui/TableSelectionList
      {:key           key
-      :items         items
+      :items         (or items [])
       :disabled      disabled
       :columns       columns
       :value-path    value-path

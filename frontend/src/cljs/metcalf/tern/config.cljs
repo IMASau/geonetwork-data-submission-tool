@@ -250,6 +250,96 @@
             :data-path [?data-path "serial"]}]]]
 
 
+        :unit/user-defined-entry-form
+        [:div
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "label"]
+           :label     "Name/Label"
+           :toolTip   "TODO"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "label"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "description"]
+           :label     "Description /Definition"
+           :toolTip   "TODO"}
+          [m4/textarea-field
+           {:form-id   ?form-id
+            :data-path [?data-path "description"]}]]]
+
+
+        :parameter/user-defined-entry-form
+        [:div
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "label"]
+           :label     "Name/Label"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "label"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "description"]
+           :label     "Description /Definition"}
+          [m4/textarea-field
+           {:form-id   ?form-id
+            :data-path [?data-path "description"]}]]
+
+         [m4/inline-form-group
+          {:form-id    ?form-id
+           :data-path  [?data-path "symbol"]
+           :label      "Symbol"
+           :helperText "Optional"}
+          [m4/textarea-field
+           {:form-id   ?form-id
+            :data-path [?data-path "symbol"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "source"]
+           :label     "Source"}
+          [m4/textarea-field
+           {:form-id     ?form-id
+            :data-path   [?data-path "source"]
+            :placeholder "E.g. Creator (Publication year).  Title.  Version.  Publisher.  Resource type.  Identifier.  "}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "unit"]
+           :label     "Unit of measure"
+           :toolTip   [:div
+                       "Select a from the predefined list.  "
+                       "If the required unit is not found within the list you can use the "
+                       [:code "Add"]
+                       " button to define your own"]}
+
+          [:div.bp3-control-group
+           [:div.bp3-fill
+            [m4/async-select-option
+             {:form-id   ?form-id
+              :data-path [?data-path "unit"]
+              :uri       "/api/ternplatforms"
+              :labelKey  "label"
+              :valueKey  "uri"}]]
+           [m4/item-add-button
+            {:form-id   ?form-id
+             :data-path [?data-path "unit"]
+             :valueKey  "uri"
+             :addedKey  "isUserDefined"}]]
+
+          [m4/item-edit-dialog
+           {:form-id     ?form-id
+            :data-path   [?data-path "unit"]
+            :title       "Unit"
+            :template-id :unit/user-defined-entry-form}]]]
+
+
         :data-identification
         [:div
          [m4/page-errors

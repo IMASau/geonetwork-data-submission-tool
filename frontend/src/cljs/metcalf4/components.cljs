@@ -166,9 +166,13 @@
   [form-group config
    [numeric-input-field config]])
 
+(def textarea-field-settings
+  {:req-ks []
+   :opt-ks [:placeholder :rows :maxLength]})
+
 (defn textarea-field
   [config]
-  (let [config (massage-config {:req-ks [] :opt-ks [:placeholder :rows :maxLength]} config)
+  (let [config (massage-config textarea-field-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder rows maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]

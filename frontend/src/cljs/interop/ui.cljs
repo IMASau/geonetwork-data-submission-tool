@@ -55,6 +55,18 @@
           (str "Missing expected key" (pr-str {:obj o :ks ks})))
   (when o (zipmap ks (map #(gobj/get o %) ks))))
 
+(defn get-obj-path
+  ([path] #(get-obj-path % path))
+  ([o path]
+   (let [path (if (string? path) [path] path)]
+     (apply gobj/getValueByKeys o path))))
+
+(defn get-obj-paths
+  ([paths] #(get-obj-paths % paths))
+  ([o paths]
+   (reduce (fn [m path] (assoc-in m path (get-obj-path o path)))
+           {} paths)))
+
 (defn setup-blueprint []
   (ui-utils/setupBlueprint))
 

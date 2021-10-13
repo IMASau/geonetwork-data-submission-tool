@@ -35,12 +35,12 @@
   [settings config]
   (let [{:keys [opt-ks req-ks]} settings
         all-ks (distinct (concat opt-ks req-ks))
-        config1 (utils4/get-ctx config)
-        config2 (select-keys config all-ks)
         missing-ks (remove (set (keys config)) req-ks)]
     (doseq [k missing-ks]
       (report-config-error (str "Missing required key (" (pr-str k) ") in config") {:config config :settings settings}))
-    (merge config1 config2)))
+    (-> config
+        (utils4/if-contains-update :data-path utils4/massage-data-path)
+        (select-keys all-ks))))
 
 (defn has-error?
   "Given the current form state, and a data path, check if

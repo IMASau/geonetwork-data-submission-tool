@@ -493,7 +493,7 @@
             {:form-id         [:form]
              :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
              :kind            :breadcrumb
-             :uri             "/api/ternparameters"         ;TODO: Update to real endpoint
+             :uri             "/api/What3"
              :label-path      ["label"]
              :value-path      ["uri"]
              :breadcrumb-path ["breadcrumb"]}]
@@ -511,7 +511,7 @@
             {:form-id         [:form]
              :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
              :kind            :breadcrumb
-             :uri             "/api/ternparameters"         ;TODO: Update to real endpoint
+             :uri             "/api/What4"
              :label-path      ["label"]
              :value-path      ["uri"]
              :breadcrumb-path ["breadcrumb"]}]

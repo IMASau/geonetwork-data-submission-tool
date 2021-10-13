@@ -138,6 +138,29 @@
         :variables   {'?form-id   form-id
                       '?data-path item-data-path}})]))
 
+(def item-edit-dialog-settings
+  {:req-ks [:form-id :data-path :title :template-id]
+   :opt-ks []})
+
+(defn item-edit-dialog
+  "Popup dialog if item is selected"
+  [config]
+  (let [config (massage-config item-edit-dialog-settings config)
+        props @(rf/subscribe [::get-block-props config])
+        {:keys [form-id data-path isOpen title template-id show-errors errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    [ui/EditDialog
+     {:isOpen  isOpen
+      :title   title
+      :onClose #(rf/dispatch [::item-edit-dialog-close config])
+      :onClear #(rf/dispatch [::item-edit-dialog-cancel config])
+      :onSave  #(rf/dispatch [::item-edit-dialog-save config])
+      :canSave (not hasError)}
+     (low-code/render-template
+       {:template-id template-id
+        :variables   {'?form-id   form-id
+                      '?data-path data-path}})]))
+
 (def input-field-settings
   {:req-ks [:form-id :data-path]
    :opt-ks [:placeholder :maxLength]})

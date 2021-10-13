@@ -466,6 +466,25 @@
   {:req-ks [:form-id :data-path :valueKey :addedKey]
    :opt-ks []})
 
+; NOTE: Experimental
+(defn item-add-button
+  "Add user defined item as value"
+  [config]
+  (let [config (massage-config list-add-button-settings config)
+        props @(rf/subscribe [::get-block-props config])
+        {:keys [valueKey addedKey]} props]
+
+    (s/assert string? valueKey)
+    (s/assert string? addedKey)
+
+    (schema/assert-compatible-schema
+      {:schema1 @(rf/subscribe [::get-data-schema config])
+       :schema2 (utils4/schema-object-with-keys [valueKey addedKey])})
+
+    [:button.bp3-button.bp3-intent-primary
+     {:onClick #(rf/dispatch [::item-add-with-defaults-click-handler config])}
+     "Add"]))
+
 (defn list-add-button
   "Add user defined item to list"
   [config]

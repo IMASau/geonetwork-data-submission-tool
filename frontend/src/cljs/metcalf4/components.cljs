@@ -324,9 +324,13 @@
           (= (:status document) "Submitted") "Your record has been submitted."
           :else (:status document))]])))
 
+(def xml-export-link-settings
+  {:req-ks [:label]
+   :opt-ks []})
+
 (defn xml-export-link
   [config]
-  (let [config (massage-config {:req-ks [:label] :opt-ks []} config)
+  (let [config (massage-config xml-export-link-settings config)
         {:keys [label]} @(rf/subscribe [::get-block-props config])
         {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
         dirty @(rf/subscribe [:subs/get-form-dirty])]

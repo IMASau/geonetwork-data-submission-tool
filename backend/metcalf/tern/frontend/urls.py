@@ -49,6 +49,7 @@ urlpatterns = [
     path('api/ternorgs', tern_orgs),
 
     # Dummy endpoints to be implemented
+    path('api/What9', tern_instruments),
     path('api/What10', tern_instruments),
     path('api/What11', tern_instruments),
     path('api/What12', tern_instruments),

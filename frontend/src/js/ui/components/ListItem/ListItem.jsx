@@ -66,7 +66,7 @@ export function TableListColumnHeaderRow({ columns }) {
     return (
         <div className="TableListColumnHeaderRow">
             {columns.map((columnProps, columnIndex) =>
-                <span className="TableListColumnHeaderCell" style={{ "flex": columnProps.flex }}>
+                <span key={columnIndex} className="TableListColumnHeaderCell" style={{ "flex": columnProps.flex }}>
                     {columnProps.columnHeader}
                 </span>
             )}

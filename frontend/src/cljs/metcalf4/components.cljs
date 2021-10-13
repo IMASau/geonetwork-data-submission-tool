@@ -81,7 +81,7 @@
 
 (def form-group-settings
   {:req-ks [:label]
-   :opt-ks [:placeholder :helperText :toolTip]})
+   :opt-ks [:form-id :data-path :placeholder :helperText :toolTip]})
 
 (defn form-group
   [config & children]
@@ -100,7 +100,7 @@
 
 (defn inline-form-group
   [config & children]
-  (let [config (massage-config {:req-ks [:label] :opt-ks [:placeholder :helperText :toolTip]} config)
+  (let [config (massage-config {:req-ks [:form-id :data-path :label] :opt-ks [:placeholder :helperText :toolTip]} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [label helperText toolTip required disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -117,7 +117,7 @@
 (defn list-edit-dialog
   "Popup dialog if item is selected"
   [config]
-  (let [config (massage-config {:req-ks [:title :template-id] :opt-ks []} config)
+  (let [config (massage-config {:req-ks [:form-id :data-path :title :template-id] :opt-ks []} config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [form-id data-path selected title template-id show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)
@@ -135,7 +135,7 @@
                       '?data-path item-data-path}})]))
 
 (def input-field-settings
-  {:req-ks []
+  {:req-ks [:form-id :data-path]
    :opt-ks [:placeholder :maxLength]})
 
 (defn input-field
@@ -161,7 +161,7 @@
    [input-field config]])
 
 (def numeric-input-field-settings
-  {:req-ks []
+  {:req-ks [:form-id :data-path]
    :opt-ks [:placeholder :hasButtons]})
 
 (defn numeric-input-field
@@ -188,7 +188,7 @@
    [numeric-input-field config]])
 
 (def textarea-field-settings
-  {:req-ks []
+  {:req-ks [:form-id :data-path]
    :opt-ks [:placeholder :rows :maxLength]})
 
 (defn textarea-field
@@ -212,7 +212,7 @@
       :onChange    #(rf/dispatch [::value-changed config %])}]))
 
 (def checkbox-field-settings
-  {:req-ks []
+  {:req-ks [:form-id :data-path]
    :opt-ks []})
 
 (defn checkbox-field
@@ -244,7 +244,7 @@
    [textarea-field config]])
 
 (def date-field-settings
-  {:req-ks []
+  {:req-ks [:form-id :data-path]
    :opt-ks [:minDate :maxDate]})
 
 (defn date-field
@@ -280,7 +280,7 @@
       [:span.portal-title portal_title])))
 
 (def note-for-data-manager-settings
-  {:req-ks []
+  {:req-ks [:form-id :data-path]
    :opt-ks []})
 
 (defn note-for-data-manager
@@ -346,7 +346,7 @@
           :else (:status document))]])))
 
 (def xml-export-link-settings
-  {:req-ks [:label]
+  {:req-ks [:form-id :data-path :label]
    :opt-ks []})
 
 (defn xml-export-link
@@ -371,7 +371,7 @@
     [:a {:href (str "mailto:" email)} email]))
 
 (def simple-select-option-settings
-  {:req-ks [:options]
+  {:req-ks [:form-id :data-path :options]
    :opt-ks [:placeholder]})
 
 (defn simple-select-option
@@ -395,7 +395,7 @@
       :onChange    #(rf/dispatch [::option-change config %])}]))
 
 (def table-select-option-settings
-  {:req-ks [:options :labelKey :valueKey :columns]
+  {:req-ks [:form-id :data-path :options :labelKey :valueKey :columns]
    :opt-ks [:placeholder]})
 
 (defn table-select-option
@@ -422,7 +422,7 @@
       :onChange    #(rf/dispatch [::option-change config %])}]))
 
 (def breadcrumb-select-option-settings
-  {:req-ks [:options :labelKey :valueKey :breadcrumbKey]
+  {:req-ks [:form-id :data-path :options :labelKey :valueKey :breadcrumbKey]
    :opt-ks [:placeholder]})
 
 (defn breadcrumb-select-option
@@ -458,10 +458,14 @@
   [form-group config
    [select-option config]])
 
+(def list-add-button-settings
+  {:req-ks [:form-id :data-path :valueKey :addedKey]
+   :opt-ks []})
+
 (defn list-add-button
   "Add user defined item to list"
   [config]
-  (let [config (massage-config {:req-ks [:valueKey :addedKey] :opt-ks []} config)
+  (let [config (massage-config list-add-button-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [valueKey addedKey]} props]
 
@@ -482,7 +486,7 @@
    [simple-select-option config]])
 
 (def async-simple-select-option-settings
-  {:req-ks [:uri :valueKey :labelKey]
+  {:req-ks [:form-id :data-path :uri :valueKey :labelKey]
    :opt-ks []})
 
 (defn async-simple-select-option
@@ -513,7 +517,7 @@
    [async-simple-select-option config]])
 
 (def async-breadcrumb-select-option-settings
-  {:req-ks [:uri :valueKey :labelKey :breadcrumbKey]
+  {:req-ks [:form-id :data-path :uri :valueKey :labelKey :breadcrumbKey]
    :opt-ks []})
 
 (defn async-breadcrumb-select-option
@@ -545,7 +549,7 @@
    [async-breadcrumb-select-option config]])
 
 (def async-table-select-option-settings
-  {:req-ks [:uri :valueKey :labelKey :columns]
+  {:req-ks [:form-id :data-path :uri :valueKey :labelKey :columns]
    :opt-ks []})
 
 (defn async-table-select-option
@@ -587,7 +591,7 @@
    [async-select-option config]])
 
 (def select-value-settings
-  {:req-ks [:options :labelKey :valueKey]
+  {:req-ks [:form-id :data-path :options :labelKey :valueKey]
    :opt-ks []})
 
 (defn select-value
@@ -615,7 +619,7 @@
    [select-value config]])
 
 (def yes-no-field-settings
-  {:req-ks [:label]
+  {:req-ks [:form-id :data-path :label]
    :opt-ks []})
 
 (defn yes-no-field
@@ -638,7 +642,7 @@
 
 ; FIXME: Is :label for form group or yes/no field?
 (def yes-no-field-with-label-settings
-  {:req-ks [:label]
+  {:req-ks [:form-id :data-path :label]
    :opt-ks []})
 
 (defn yes-no-field-with-label
@@ -661,7 +665,7 @@
        :onChange #(rf/dispatch [::yes-no-field-with-label-value-changed config %])}]]))
 
 (def simple-selection-list-settings
-  {:req-ks [:labelKey :valueKey]
+  {:req-ks [:form-id :data-path :labelKey :valueKey]
    :opt-ks [:addedKey]})
 
 (defn simple-selection-list
@@ -691,7 +695,7 @@
       :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
 
 (def breadcrumb-selection-list-settings
-  {:req-ks [:labelKey :valueKey :breadcrumbKey]
+  {:req-ks [:form-id :data-path :labelKey :valueKey :breadcrumbKey]
    :opt-ks [:addedKey]})
 
 (defn breadcrumb-selection-list
@@ -723,7 +727,7 @@
       :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
 
 (def table-selection-list-settings
-  {:req-ks [:columns :valueKey]
+  {:req-ks [:form-id :data-path :columns :valueKey]
    :opt-ks [:addedKey]})
 
 (defn table-selection-list
@@ -754,7 +758,7 @@
       :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}]))
 
 (def simple-list-option-picker-settings
-  {:req-ks [:options :valueKey :labelKey]
+  {:req-ks [:form-id :data-path :options :valueKey :labelKey]
    :opt-ks [:placeholder]})
 
 (defn simple-list-option-picker
@@ -779,7 +783,7 @@
       :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
 
 (def breadcrumb-list-option-picker-settings
-  {:req-ks [:options :valueKey :labelKey :breadcrumbKey]
+  {:req-ks [:form-id :data-path :options :valueKey :labelKey :breadcrumbKey]
    :opt-ks [:placeholder]})
 
 (defn breadcrumb-list-option-picker
@@ -805,7 +809,7 @@
       :onChange      #(rf/dispatch [::list-option-picker-change config %])}]))
 
 (def table-list-option-picker-settings
-  {:req-ks [:options :valueKey :labelKey :columns]
+  {:req-ks [:form-id :data-path :options :valueKey :labelKey :columns]
    :opt-ks [:placeholder]})
 
 (defn table-list-option-picker
@@ -831,7 +835,7 @@
       :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
 
 (def async-simple-list-option-picker-settings
-  {:req-ks [:uri :valueKey :labelKey]
+  {:req-ks [:form-id :data-path :uri :valueKey :labelKey]
    :opt-ks [:placeholder]})
 
 (defn async-simple-list-option-picker
@@ -856,7 +860,7 @@
       :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
 
 (def async-breadcrumb-list-option-picker-settings
-  {:req-ks [:uri :valueKey :labelKey :breadcrumbKey]
+  {:req-ks [:form-id :data-path :uri :valueKey :labelKey :breadcrumbKey]
    :opt-ks [:placeholder]})
 
 (defn async-breadcrumb-list-option-picker
@@ -882,7 +886,7 @@
       :onChange      #(rf/dispatch [::list-option-picker-change config %])}]))
 
 (def async-table-list-option-picker-settings
-  {:req-ks [:uri :valueKey :labelKey :columns]
+  {:req-ks [:form-id :data-path :uri :valueKey :labelKey :columns]
    :opt-ks [:placeholder]})
 
 (defn async-table-list-option-picker
@@ -912,9 +916,13 @@
 (defmethod async-list-picker :breadcrumb [config] (async-breadcrumb-list-option-picker config))
 (defmethod async-list-picker :table [config] (async-table-list-option-picker config))
 
+(def expanding-control-settings
+  {:req-ks [:form-id :data-path :label]
+   :opt-ks [:required]})
+
 (defn expanding-control
   [config & children]
-  (let [config (massage-config {:req-ks [:label] :opt-ks [:required]} config)
+  (let [config (massage-config expanding-control-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [label required errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
@@ -954,6 +962,10 @@
        {:form-id   [:form]
         :data-path (conj path "southBoundLatitude")}]]]]])
 
+(def boxmap-field-settings
+  {:req-ks [:form-id :data-path]
+   :opt-ks []})
+
 (defn boxmap-field
   [config]
   (letfn [(boxes->elements
@@ -963,7 +975,7 @@
                :southBoundLatitude (get-in box ["southBoundLatitude"])
                :eastBoundLongitude (get-in box ["eastBoundLongitude"])
                :westBoundLongitude (get-in box ["westBoundLongitude"])}))]
-    (let [config (massage-config {:req-ks [] :opt-ks []} config)
+    (let [config (massage-config boxmap-field-settings config)
           props @(rf/subscribe [::get-block-props config])
           data @(rf/subscribe [::get-block-data config])
           elements (boxes->elements data)
@@ -976,7 +988,7 @@
           :on-change #(rf/dispatch [::boxes-changed config %])}]))))
 
 (def coordinates-modal-field-settings
-  {:req-ks []
+  {:req-ks [:form-id :data-path]
    :opt-ks [:help]})
 
 (defn coordinates-modal-field

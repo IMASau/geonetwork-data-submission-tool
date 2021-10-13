@@ -373,9 +373,13 @@
       :hasError    (seq hasError)
       :onChange    #(rf/dispatch [::option-change config %])}]))
 
+(def table-select-option-settings
+  {:req-ks [:options :labelKey :valueKey :columns]
+   :opt-ks [:placeholder]})
+
 (defn table-select-option
   [config]
-  (let [config (massage-config {:req-ks [:options :labelKey :valueKey :columns] :opt-ks [:placeholder]} config)
+  (let [config (massage-config table-select-option-settings config)
         props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder options disabled errors show-errors labelKey valueKey columns]} props

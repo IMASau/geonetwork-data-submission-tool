@@ -93,8 +93,8 @@
   (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
         last-idx (dec (count (get-in s (conj block-path :content))))]
     (cond-> s
-        (not (neg? last-idx))
-        (assoc-in (conj block-path :props :selected) last-idx))))
+      (not (neg? last-idx))
+      (assoc-in (conj block-path :props :selected) last-idx))))
 
 (defn new-item-action
   [s form-id data-path]

@@ -269,6 +269,7 @@
                 "properties": {
                   "breadcrumb": {},
                   "serial": {},
+                  "isUserDefined": {},
                   "label": {
                     "xpath": "gcx:Anchor"
                   },

@@ -552,7 +552,7 @@
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
-             :title       "Edit user defined keyword"
+             :title       "Platform"
              :template-id :platform/user-defined-entry-form}]]]
 
          [m4/expanding-control {:label "Instruments" :required true}

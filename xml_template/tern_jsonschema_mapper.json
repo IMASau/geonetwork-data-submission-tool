@@ -297,7 +297,18 @@
                 "type": "object",
                 "xpath": "mri:keyword",
                 "properties": {
-                  "breadcrumb": {},
+                  "description": {},
+                  "isUserDefined": {},
+                  "symbol": {},
+                  "source": {},
+                  "unit": {
+                    "type": "object",
+                    "properties": {
+                      "label": {},
+                      "uri": {},
+                      "isUserDefined": {}
+                    }
+                  },
                   "label": {
                     "xpath": "gcx:Anchor"
                   },

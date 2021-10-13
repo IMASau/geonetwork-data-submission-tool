@@ -570,22 +570,17 @@
 
 (defn simple-selection-list
   [config]
-  (let [config-keys [:labelKey :valueKey :addedKey]
-        ctx (utils4/get-ctx config)
-        logic @(rf/subscribe [::get-block-props ctx])
-        props (merge ctx logic (select-keys config config-keys))
-        {:keys [key disabled labelKey valueKey addedKey]} props
-        onItemClick (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
-        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))
-        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
-        items @(rf/subscribe [::get-block-data ctx])]
+  (let [config (massage-config config {:req-ks [:labelKey :valueKey] :opt-ks [:addedKey]})
+        props @(rf/subscribe [::get-block-props config])
+        items @(rf/subscribe [::get-block-data config])
+        {:keys [key disabled labelKey valueKey addedKey]} props]
 
     (s/assert string? valueKey)
     (s/assert string? labelKey)
     (s/assert (s/nilable string?) addedKey)
 
     (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
+      {:schema1 @(rf/subscribe [::get-data-schema config])
        :schema2 {:type "array" :items (utils4/schema-object-with-keys (remove nil? [valueKey labelKey addedKey]))}})
 
     [ui/SimpleSelectionList
@@ -595,9 +590,9 @@
       :valueKey      valueKey
       :addedKey      addedKey
       :disabled      disabled
-      :onReorder     onReorder
-      :onItemClick   onItemClick
-      :onRemoveClick onRemoveClick}]))
+      :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+      :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+      :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
 
 (defn breadcrumb-selection-list
   [config]

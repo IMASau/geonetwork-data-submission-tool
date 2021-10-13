@@ -783,9 +783,13 @@
       :breadcrumbKey breadcrumbKey
       :onChange      #(rf/dispatch [::list-option-picker-change config %])}]))
 
+(def table-list-option-picker-settings
+  {:req-ks [:options :valueKey :labelKey :columns]
+   :opt-ks [:placeholder]})
+
 (defn table-list-option-picker
   [config]
-  (let [config (massage-config {:req-ks [:options :valueKey :labelKey :columns] :opt-ks [:placeholder]} config)
+  (let [config (massage-config table-list-option-picker-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder options disabled errors show-errors valueKey labelKey columns]} props
         hasError (when (and show-errors (seq errors)) true)]

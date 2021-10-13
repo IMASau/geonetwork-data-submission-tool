@@ -199,12 +199,12 @@
           "valueChild": "mri:MD_TopicCategoryCode",
           "label": "Topic categories",
           "attributes": {
-              "text": {
-                  "function": "identity"
-              },
-              "codeListValue": {
-                  "function": "identity"
-              }
+            "text": {
+              "function": "identity"
+            },
+            "codeListValue": {
+              "function": "identity"
+            }
           },
           "rules": ["requiredField"]
         },
@@ -226,20 +226,12 @@
           "xpath": "mri:resourceMaintenance/mmi:MD_MaintenanceInformation/mmi:maintenanceAndUpdateFrequency",
           "valueChild": "mmi:MD_MaintenanceFrequencyCode",
           "label": "Maintenance and update frequency",
-          "type": "object",
-          "properties": {
+          "attributes": {
             "text": {
-              "type": "string",
-              "xpath": "."
+              "function": "identity"
             },
             "codeListValue": {
-              "type": "string",
-              "xpath": ".",
-              "attributes": {
-                "codeListValue": {
-                  "function": "identity"
-                }
-              }
+              "function": "identity"
             }
           },
           "!docstring": "\"required\": true,  // FIXME depends on status"
@@ -433,11 +425,10 @@
           "type": "array",
           "items": {}
         },
-        
         "otherConstraints": {
-            "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:otherConstraints",
-            "valueChild": "gco:CharacterString",
-            "keep": false
+          "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:otherConstraints",
+          "valueChild": "gco:CharacterString",
+          "keep": false
         },
         "supplementalInformation": {
           "valueChild": "gco:CharacterString",

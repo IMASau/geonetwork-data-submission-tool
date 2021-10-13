@@ -12,6 +12,8 @@
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
             ["/ui/components/CheckboxField/CheckboxField" :as CheckboxField]
             ["/ui/components/NumericInputField/NumericInputField" :as NumericInputField]
+            ["/ui/components/EditDialog/EditDialog" :as EditDialog]
+            ["/ui/components/utils" :as ui-utils]
             [cljs.spec.alpha :as s]
             [goog.object :as gobj]
             [reagent.core :as r]))
@@ -33,6 +35,7 @@
 (assert YesNoRadioGroup/YesNoRadioGroup)
 (assert CheckboxField/CheckboxField)
 (assert NumericInputField/NumericInputField)
+(assert EditDialog/EditDialog)
 
 (s/def ::northBoundLatitude number?)
 (s/def ::westBoundLongitude number?)
@@ -43,7 +46,13 @@
 
 (defn has-key? [s] #(contains? (set (map name (keys %))) s))
 (defn has-keys? [ss] (apply every-pred (map has-key? ss)))
-(defn js->map [o ks] (when o (zipmap ks (map #(gobj/get o %) ks))))
+(defn js->map [o ks]
+  (assert (every? #(gobj/containsKey o %) ks)
+          (str "Missing expected key" (pr-str {:obj o :ks ks})))
+  (when o (zipmap ks (map #(gobj/get o %) ks))))
+
+(defn setup-blueprint []
+  (ui-utils/setupBlueprint))
 
 (defn box-map
   [{:keys [elements map-width tick-id on-change]}]
@@ -88,7 +97,18 @@
           :disabled   disabled
           :hasError   hasError
           :helperText helperText
-          :toolTip    toolTip}]
+          :toolTip    (r/as-element toolTip)}]
+        children))
+
+(defn InlineFormGroup
+  [{:keys [label required disabled hasError helperText toolTip]} & children]
+  (into [:> FormGroup/InlineFormGroup
+         {:label      label
+          :required   required
+          :disabled   disabled
+          :hasError   hasError
+          :helperText helperText
+          :toolTip    (r/as-element toolTip)}]
         children))
 
 (defn InputField
@@ -122,8 +142,8 @@
   [{:keys [value options placeholder disabled hasError onChange valueKey labelKey]}]
   (s/assert (s/nilable map?) value)
   (s/assert (s/coll-of map?) options)
-  (s/assert (s/nilable string?) valueKey)
-  (s/assert (s/nilable string?) labelKey)
+  (s/assert string? valueKey)
+  (s/assert string? labelKey)
   (s/assert (s/nilable string?) placeholder)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
@@ -143,9 +163,9 @@
   (s/assert (s/nilable map?) value)
   (s/assert (s/coll-of map?) options)
   (s/assert (s/nilable string?) placeholder)
-  (s/assert (s/nilable string?) valueKey)
-  (s/assert (s/nilable string?) labelKey)
-  (s/assert (s/nilable string?) breadcrumbKey)
+  (s/assert string? valueKey)
+  (s/assert string? labelKey)
+  (s/assert string? breadcrumbKey)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
@@ -165,9 +185,9 @@
   (s/assert (s/nilable map?) value)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
-  (s/assert (s/nilable string?) valueKey)
-  (s/assert (s/nilable string?) labelKey)
-  (s/assert (s/nilable string?) breadcrumbKey)
+  (s/assert string? valueKey)
+  (s/assert string? labelKey)
+  (s/assert string? breadcrumbKey)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
@@ -180,15 +200,15 @@
     :getValue      #(gobj/get % valueKey "No value")
     :getLabel      #(gobj/get % labelKey "No label")
     :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
-    :onChange      (fn [o] (onChange (js->map o [valueKey labelKey])))}])
+    :onChange      (fn [o] (onChange (js->map o [valueKey labelKey breadcrumbKey])))}])
 
 (defn TableSelectField
   [{:keys [value options placeholder disabled hasError onChange labelKey valueKey columns]}]
   (s/assert (s/nilable map?) value)
   (s/assert (s/coll-of map?) options)
   (s/assert (s/nilable string?) placeholder)
-  (s/assert (s/nilable string?) valueKey)
-  (s/assert (s/nilable string?) labelKey)
+  (s/assert string? valueKey)
+  (s/assert string? labelKey)
   (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
   (s/assert (s/coll-of (has-key? valueKey)) options)
   (s/assert (s/coll-of (has-keys? (map :labelKey columns)) :distinct true) options)
@@ -213,11 +233,9 @@
   (s/assert (s/nilable map?) value)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
-  (s/assert (s/nilable string?) valueKey)
-  (s/assert (s/nilable string?) labelKey)
+  (s/assert string? valueKey)
+  (s/assert string? labelKey)
   (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
-  (s/assert (s/coll-of (has-key? valueKey)) options)
-  (s/assert (s/coll-of (has-keys? (map :labelKey columns)) :distinct true) options)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
@@ -237,8 +255,8 @@
 (defn AsyncSimpleSelectField
   [{:keys [value loadOptions placeholder disabled hasError onChange valueKey labelKey]}]
   (s/assert (s/nilable map?) value)
-  (s/assert (s/nilable string?) valueKey)
-  (s/assert (s/nilable string?) labelKey)
+  (s/assert string? valueKey)
+  (s/assert string? labelKey)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
   (s/assert (s/nilable boolean?) disabled)
@@ -255,51 +273,64 @@
     :onChange    (fn [o] (onChange (js->map o [valueKey labelKey])))}])
 
 (defn SimpleSelectionList
-  [{:keys [items onReorder onRemoveClick labelKey valueKey]}]
+  [{:keys [items onReorder onItemClick onRemoveClick labelKey valueKey addedKey]}]
   (s/assert fn? onReorder)
+  (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
   (s/assert string? labelKey)
   (s/assert string? valueKey)
+  (s/assert (s/nilable string?) addedKey)
   (s/assert (s/coll-of (has-keys? #{labelKey valueKey}) :distinct true) items)
   [:> SelectionList/SimpleSelectionList
    {:items         items
     :onReorder     onReorder
+    :onItemClick   onItemClick
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
-    :getLabel      #(gobj/get % labelKey "No label")}])
+    :getLabel      #(gobj/get % labelKey "No label")
+    :getAdded      (if addedKey #(gobj/get % addedKey) (constantly false))}])
 
 (defn BreadcrumbSelectionList
-  [{:keys [items onReorder onRemoveClick breadcrumbKey labelKey valueKey]}]
+  [{:keys [items onReorder onItemClick onRemoveClick breadcrumbKey labelKey valueKey addedKey]}]
   (s/assert fn? onReorder)
+  (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
   (s/assert string? breadcrumbKey)
   (s/assert string? labelKey)
   (s/assert string? valueKey)
+  (s/assert (s/nilable string?) addedKey)
   (s/assert (s/coll-of (has-keys? #{labelKey valueKey breadcrumbKey}) :distinct true) items)
   [:> SelectionList/BreadcrumbSelectionList
    {:items         items
     :onReorder     onReorder
+    :onItemClick   onItemClick
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
     :getLabel      #(gobj/get % labelKey "No label")
-    :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")}])
+    :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
+    :getAdded      (if addedKey #(gobj/get % addedKey) (constantly false))}])
 
 (defn TableSelectionList
-  [{:keys [items onReorder onRemoveClick valueKey columns]}]
+  [{:keys [items onReorder onItemClick onRemoveClick valueKey addedKey columns]}]
   (s/assert fn? onReorder)
+  (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
   (s/assert string? valueKey)
-  (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex])) columns)
+  (s/assert (s/nilable string?) addedKey)
+  (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex] :opt-un [::columnHeader])) columns)
   (s/assert (s/coll-of (has-key? valueKey)) items)
   (s/assert (s/coll-of (has-keys? (map :labelKey columns)) :distinct true) items)
   [:> SelectionList/TableSelectionList
    {:items         items
     :onReorder     onReorder
+    :onItemClick   onItemClick
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
-    :columns       (for [{:keys [flex labelKey]} columns]
-                     {:flex     flex
-                      :getLabel #(gobj/get % labelKey "No label")})}])
+    :getAdded      (if addedKey #(gobj/get % addedKey) (constantly false))
+    :columns       (for [{:keys [flex labelKey columnHeader]} columns]
+                     {:flex         flex
+                      :getLabel     #(gobj/get % labelKey "No label")
+                      :columnHeader (or columnHeader "None")})}])
 
 (defn TextareaField
   [{:keys [value placeholder maxLength rows disabled hasError onChange]}]
@@ -360,3 +391,20 @@
     :hasError    hasError
     :hasButtons  hasButtons
     :onChange    onChange}])
+
+(defn EditDialog
+  [{:keys [isOpen title onClose onClear onSave canSave]} & children]
+  (s/assert boolean? isOpen)
+  (s/assert string? title)
+  (s/assert fn? onClose)
+  (s/assert fn? onClear)
+  (s/assert fn? onSave)
+  (s/assert boolean? canSave)
+  (into [:> EditDialog/EditDialog
+         {:isOpen  isOpen
+          :title   title
+          :onClose onClose
+          :onClear onClear
+          :onSave  onSave
+          :canSave canSave}]
+        children))

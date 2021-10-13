@@ -44,6 +44,9 @@ urlpatterns = [
     path('api/ternparameters', tern_parameters),
     path('api/ternplatforms', tern_platforms),
     path('api/terninstruments', tern_instruments),
+    path('api/terninstrumenttypes', tern_instrument_types),
+    path('api/ternpeople', tern_people),
+    path('api/ternorgs', tern_orgs),
 ]
 
 if settings.DEBUG:

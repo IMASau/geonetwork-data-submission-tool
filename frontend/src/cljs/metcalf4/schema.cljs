@@ -103,9 +103,14 @@
     {:schema schema :data data :path []}))
 
 
+(defn schema-value-type?
+  [schema]
+  ((complement #{"array" "object"}) (:type schema)))
+
 (defn compatible-schema-type?
   [{:keys [schema1 schema2]}]
   (or (nil? (:type schema1))
+      (nil? (:type schema2))
       (= (:type schema1) (:type schema2))))
 
 
@@ -146,4 +151,5 @@
 
 (defn schema-path
   [data-path]
+  (s/assert ::utils4/data-path data-path)
   (vec (mapcat schema-step data-path)))

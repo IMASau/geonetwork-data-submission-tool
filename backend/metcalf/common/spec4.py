@@ -175,8 +175,7 @@ def prune_if_empty(data, parent, spec, nsmap, i, silent):
             elem.getparent().remove(elem)
     # No descendent text() at all:
     for xpath in ['mri:descriptiveKeywords',
-                  'mri:resourceConstraints',
-                  'mri:resourceMaintenance']:
+                  'mri:resourceConstraints']:
         for elem in parent.findall('.//' + xpath, nsmap):
             if is_empty(elem):
                 elem.getparent().remove(elem)

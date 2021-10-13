@@ -128,18 +128,14 @@ def dashboard(request):
 def create(request):
     template = get_object_or_404(
         MetadataTemplate, site=get_current_site(request), archived=False, pk=request.data['template'])
-    try:
-        doc = Document(title=request.data['title'],
-                       owner=request.user,
-                       template=template)
-        doc.save()
 
-        return Response({"message": "Created",
-                         "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
-    except AssertionError as e:
-        return Response({"message": get_exception_message(e), "args": e.args}, status=400)
-    except Exception as e:
-        return Response({"message": get_exception_message(e), "args": e.args}, status=400)
+    doc = Document(title=request.data['title'],
+                   owner=request.user,
+                   template=template)
+    doc.save()
+
+    return Response({"message": "Created",
+                     "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
 
 
 @login_required
@@ -375,21 +371,22 @@ def save(request, uuid):
             doc.resubmit()
         doc.save()
 
-        # add any new people or institutions to the database
-        pointOfContacts = data['identificationInfo']['pointOfContact']
-        citedResponsibleParties = data['identificationInfo']['citedResponsibleParty']
+        # FIXME: these should be handled by DUMA now
+        # # add any new people or institutions to the database
+        # pointOfContacts = data['identificationInfo']['pointOfContact']
+        # citedResponsibleParties = data['identificationInfo']['citedResponsibleParty']
 
-        for pointOfContact in pointOfContacts:
-            updatedPerson = personFromData(pointOfContact)
-            if updatedPerson:
-                pointOfContact['individualName'] = updatedPerson.prefLabel
-            institutionFromData(pointOfContact)
+        # for pointOfContact in pointOfContacts:
+        #     updatedPerson = personFromData(pointOfContact)
+        #     if updatedPerson:
+        #         pointOfContact['individualName'] = updatedPerson.prefLabel
+        #     institutionFromData(pointOfContact)
 
-        for citedResponsibleParty in citedResponsibleParties:
-            updatedPerson = personFromData(citedResponsibleParty)
-            if updatedPerson:
-                citedResponsibleParty['individualName'] = updatedPerson.prefLabel
-            institutionFromData(citedResponsibleParty)
+        # for citedResponsibleParty in citedResponsibleParties:
+        #     updatedPerson = personFromData(citedResponsibleParty)
+        #     if updatedPerson:
+        #         citedResponsibleParty['individualName'] = updatedPerson.prefLabel
+        #     institutionFromData(citedResponsibleParty)
 
         # update the publication date
         data['identificationInfo']['datePublication'] = spec4.today()
@@ -400,19 +397,20 @@ def save(request, uuid):
         inst.doiRequested = data.get('doiRequested') or False
         inst.save()
 
-        # Remove any attachments which are no longer mentioned in the XML.
-        xml_names = tuple(map(lambda x: os.path.basename(x['file']), data['attachments']))
-        # TODO: the logic to find files based an os.path.basename seems te be flawed.
-        #       it works as long as the assumption that all files are stored are stored at the same path holds.
-        #       otherwise, we will run into problems
-        for attachment in doc.attachments.all():
-            name = os.path.basename(attachment.file.url)
-            if name not in xml_names:
-                # TODO: sholud we delete the actual file as well?
-                #       deleting the model does not remove files from storage backend
-                # TODO: if we leave files around we may want to think about some cleanup process
-                # attachement.file.delete()
-                attachment.delete()
+        # FIXME: Is this still  necessary?  (currently blocks saving; disabling for now)
+        # # Remove any attachments which are no longer mentioned in the XML.
+        # xml_names = tuple(map(lambda x: os.path.basename(x['file']), data['attachments']))
+        # # TODO: the logic to find files based an os.path.basename seems te be flawed.
+        # #       it works as long as the assumption that all files are stored are stored at the same path holds.
+        # #       otherwise, we will run into problems
+        # for attachment in doc.attachments.all():
+        #     name = os.path.basename(attachment.file.url)
+        #     if name not in xml_names:
+        #         # TODO: sholud we delete the actual file as well?
+        #         #       deleting the model does not remove files from storage backend
+        #         # TODO: if we leave files around we may want to think about some cleanup process
+        #         # attachement.file.delete()
+        #         attachment.delete()
 
         tree = etree.parse(doc.template.file.path)
 
@@ -817,6 +815,166 @@ def tern_instruments(request) -> Response:
                     }
                 }
             }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def tern_instrument_types(request) -> Response:
+    """Search TERN Instrument-types Index
+
+    Search TERN People Instrument-types index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query". E.g. ?query=alos
+    - POST supports a post body object. E.g. {"query": "alos"}
+
+    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
+    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
+
+    OWL classes are filtered out via the selectable value.
+    """
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_TERNINSTRUMENTTYPES
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["label", "altLabel"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by label
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def tern_people(request) -> Response:
+    """Search TERN People Index
+
+    Search TERN People Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query". E.g. ?query=alos
+    - POST supports a post body object. E.g. {"query": "alos"}
+
+    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
+    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
+
+    OWL classes are filtered out via the selectable value.
+    """
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_TERNPEOPLE
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["name", "email"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"name.keyword": "asc"}],  # Sort by name
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def tern_orgs(request) -> Response:
+    """Search TERN Organisations Index
+
+    Search TERN Organisations Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query". E.g. ?query=alos
+    - POST supports a post body object. E.g. {"query": "alos"}
+
+    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
+    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
+
+    OWL classes are filtered out via the selectable value.
+    """
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_TERNORGS
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["name", "full_address_line"]
+                        }
+                    },
+                    "filter": {
+                        "term": {"is_dissolved": "false"}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"name.keyword": "asc"}],  # Sort by name
+            "query": {
+                "bool": {
+                    "filter": {
+                        "term": {"is_dissolved": "false"}
+                    }
+                }
+            }
+        }
         data = es.search(index=index_alias, body=body)
 
     return Response(es_results(data), status=200)

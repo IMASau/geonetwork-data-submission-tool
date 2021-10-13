@@ -12,7 +12,7 @@
 
 (defn init-db
   [_ [_ payload]]
-  (-> {:db {}}
+  (-> {:db {} :fx [[:ui/setup-blueprint]]}
       (actions/load-page-action payload)
       (actions/load-form-action payload)
       (actions/load-apis-action
@@ -46,6 +46,24 @@
              (assoc-in path state)
              (assoc-in (conj path :props :show-errors) true))}))
 
+; WIP
+(defn list-add-click-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/save-snapshot-action form-id)
+        (actions/new-item-action form-id data-path)
+        (actions/select-last-item-action form-id data-path))))
+
+(defn list-add-with-defaults-click-handler
+  [{:keys [db]} [_ props]]
+  (let [{:keys [form-id data-path valueKey addedKey]} props
+        defaults {valueKey (str (random-uuid)) addedKey true}]
+    (-> {:db db}
+        (actions/save-snapshot-action form-id)
+        (actions/add-item-action form-id data-path defaults)
+        (actions/select-last-item-action form-id data-path))))
+
 (defn boxes-changed
   [{:keys [db]} [_ ctx geojson]]
   (let [{:keys [form-id data-path]} ctx
@@ -63,6 +81,14 @@
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
         (actions/add-item-action form-id data-path option))))
+
+; NOTE: assumes we only ever select user added items.  Might need to grow.
+(defn selection-list-item-click
+  [{:keys [db]} [_ props idx]]
+  (let [{:keys [form-id data-path addedKey]} props]
+    (-> {:db db}
+        (cond-> addedKey
+          (actions/select-user-defined-list-item-action form-id data-path idx addedKey)))))
 
 (defn selection-list-remove-click
   [{:keys [db]} [_ ctx idx]]
@@ -151,3 +177,24 @@
   [{:keys [db]} _]
   (-> {:db db}
       (assoc-in [:db :page :metcalf3.handlers/saving?] false)))
+
+(defn list-edit-dialog-close-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/restore-snapshot-action form-id)
+        (actions/unselect-list-item-action form-id data-path))))
+
+(defn list-edit-dialog-cancel-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/restore-snapshot-action form-id)
+        (actions/unselect-list-item-action form-id data-path))))
+
+(defn list-edit-dialog-save-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/discard-snapshot-action form-id)
+        (actions/unselect-list-item-action form-id data-path))))

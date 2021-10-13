@@ -10,7 +10,8 @@
             [metcalf4.low-code :as low-code]
             [metcalf4.rules :as rules]
             [metcalf4.subs :as subs4]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [interop.ui :as ui]))
 
 (rf/reg-event-fx :handlers/load-api-options-resp handlers3/load-api-options-resp)
 (rf/reg-event-fx :handlers/load-es-options-resp handlers3/load-es-options-resp)
@@ -78,16 +79,11 @@
 (rf/reg-event-fx :handlers/lodge-save-success handlers3/lodge-save-success)
 (rf/reg-event-fx :handlers/lodge-error handlers3/lodge-error)
 (rf/reg-event-fx :help-menu/open handlers3/help-menu-open)
-(rf/reg-event-fx ::components4/input-field-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/textarea-field-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/date-field-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/checkbox-field-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/numeric-input-field-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/async-select-option-value-changed handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/select-option-value-changed handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/select-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
+(rf/reg-event-fx ::components4/list-add-click handlers4/list-add-click-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
+(rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
@@ -95,7 +91,10 @@
 (rf/reg-event-fx ::components4/boxmap-coordinates-open-edit-modal handlers4/boxmap-coordinates-open-edit-modal)
 (rf/reg-event-fx ::components4/boxmap-coordinates-click-confirm-delete handlers4/boxmap-coordinates-click-confirm-delete)
 (rf/reg-event-fx ::components4/boxmap-coordinates-list-delete handlers4/boxmap-coordinates-list-delete)
-
+(rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-close-handler)
+(rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
+(rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
+(rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)
@@ -138,30 +137,36 @@
        "endPosition"          rules/end-position
        "maintFreq"            rules/maint-freq})
 (set! low-code/component-registry
-      {'m3/DataParametersTable            views/DataParametersTable
-       'm3/UseLimitations                 views/UseLimitations
-       'm3/NasaListSelectField            views/NasaListSelectField
+      {
+       'm3/DataParametersTable            views/DataParametersTable
        'm3/DataSources                    views/DataSources
-       'm3/IMASSupportingResource         views/IMASSupportingResource
        'm3/IMASSupplementalInformation    views/IMASSupplementalInformation
+       'm3/IMASSupportingResource         views/IMASSupportingResource
+       'm3/NasaListSelectField            views/NasaListSelectField
        'm3/UploadData                     views/UploadData
+       'm3/UseLimitations                 views/UseLimitations
        'm3/Who                            views/Who
-       'm4/page-errors                    components4/page-errors
-       'm4/textarea-field-with-label      components4/textarea-field-with-label
-       'm4/input-field-with-label         components4/input-field-with-label
+       'm4/async-list-picker              components4/async-list-picker
+       'm4/async-select-option            components4/async-select-option
+       'm4/boxmap-field                   components4/boxmap-field
+       'm4/checkbox-field-with-label      components4/checkbox-field-with-label
+       'm4/coordinates-modal-field        components4/coordinates-modal-field
        'm4/date-field-with-label          components4/date-field-with-label
+       'm4/input-field-with-label         components4/input-field-with-label
+       'm4/lodge-button                   components4/lodge-button
+       'm4/lodge-status-info              components4/lodge-status-info
+       'm4/mailto-data-manager-link       components4/mailto-data-manager-link
+       'm4/note-for-data-manager          components4/note-for-data-manager
+       'm4/numeric-input-field-with-label components4/numeric-input-field-with-label
+       'm4/page-errors                    components4/page-errors
+       'm4/portal-link                    components4/portal-link
+       'm4/select-option                  components4/select-option
        'm4/select-option-with-label       components4/select-option-with-label
        'm4/select-value-with-label        components4/select-value-with-label
-       'm4/numeric-input-field-with-label components4/numeric-input-field-with-label
-       'm4/checkbox-field-with-label      components4/checkbox-field-with-label
-       'm4/boxmap-field                   components4/boxmap-field
-       'm4/coordinates-modal-field        components4/coordinates-modal-field
-       'm4/mailto-data-manager-link       components4/mailto-data-manager-link
+       'm4/textarea-field-with-label      components4/textarea-field-with-label
        'm4/xml-export-link                components4/xml-export-link
-       'm4/lodge-status-info              components4/lodge-status-info
-       'm4/lodge-button                   components4/lodge-button
-       'm4/note-for-data-manager          components4/note-for-data-manager
-       'm4/portal-link                    components4/portal-link
+       'm4/list-add-button                components4/list-add-button
+       'm4/list-edit-dialog               components4/list-edit-dialog
        })
 (set! low-code/template-registry
       '{:data-identification
@@ -365,6 +370,7 @@
                         "Creative Commons"]]
            :label     "License"
            :required  true
+           :kind      "simple"
            :valueKey  "value"
            :labelKey  "label"
            :options   [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}

@@ -1,26 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as BPCore from '@blueprintjs/core'
-
-function RemoveButton({ disabled, onClick }) {
-    return (
-        <BPCore.Button icon="cross"
-            small={true}
-            minimal={true}
-            disabled={disabled}
-            onClick={onClick} />
-    )
-}
 
 export function SimpleListItem({ item, index, disabled, getLabel, onRemoveClick }) {
     return (
         <div className="SimpleListItem">
             <div className="SimpleListItemLabel">{getLabel(item)}</div>
-            {onRemoveClick ?
-                <div className="SimpleListItemRemove">
-                    <RemoveButton disabled={disabled} onClick={()=>onRemoveClick(index)} />
-                </div> :
-                null}
         </div>
     )
 }
@@ -28,22 +12,16 @@ export function SimpleListItem({ item, index, disabled, getLabel, onRemoveClick 
 SimpleListItem.propTypes = {
     item: PropTypes.object,
     disabled: PropTypes.bool,
-    getLabel: PropTypes.func,
-    onRemoveClick: PropTypes.func
+    getLabel: PropTypes.func
 }
 
-export function BreadcrumbListItem({ item, index, disabled, getBreadcrumb, getLabel, onRemoveClick }) {
+export function BreadcrumbListItem({ item, getBreadcrumb, getLabel }) {
     return (
         <div className="BreadcrumbListItem">
             <div className="BreadcrumbListItemLabel">
                 <div className="BreadcrumbListItemPath">{getBreadcrumb(item)}</div>
                 <div className="BreadcrumbListItemText">{getLabel(item)}</div>
             </div>
-            {onRemoveClick ?
-                <div className="BreadcrumbListItemRemove">
-                    <RemoveButton disabled={disabled} onClick={()=>onRemoveClick(index)} />
-                </div> :
-                null}
         </div>
     )
 }
@@ -53,8 +31,7 @@ BreadcrumbListItem.propTypes = {
         item: PropTypes.object,
         disabled: PropTypes.bool,
         getLabel: PropTypes.func,
-        getBreadcrumb: PropTypes.func,
-        onRemoveClick: PropTypes.func
+        getBreadcrumb: PropTypes.func
     }),
 }
 
@@ -66,17 +43,12 @@ function TableListItemCol({ item, flex, getLabel }) {
     )
 }
 
-export function TableListItem({ item, disabled, columns, onRemoveClick }) {
+export function TableListItem({ item, columns }) {
     return (
         <div className="TableListItemRow">
             {columns.map((columnProps, columnIndex) =>
                 <TableListItemCol key={"col"+columnIndex} item={item} {...columnProps} />
             )}
-            {onRemoveClick ?
-                <span className="TableListItemRemove">
-                    <RemoveButton onClick={() => onRemoveClick()} />
-                </span> :
-                null}
         </div>
     )
 }
@@ -88,5 +60,23 @@ TableListItem.propTypes = {
         getLabel: PropTypes.func,
         flex: PropTypes.number
     })),
-    onRemoveClick: PropTypes.func
 }
+
+export function TableListColumnHeaderRow({ columns }) {
+    return (
+        <div className="TableListColumnHeaderRow">
+            {columns.map((columnProps, columnIndex) =>
+                <span className="TableListColumnHeaderCell" style={{ "flex": columnProps.flex }}>
+                    {columnProps.columnHeader}
+                </span>
+            )}
+        </div>
+    )
+}
+
+TableListColumnHeaderRow.propTypes = {
+    columns: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.node,
+    })),
+}
+

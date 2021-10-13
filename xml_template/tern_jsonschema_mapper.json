@@ -38,6 +38,13 @@
   "properties": {
     "identificationInfo": {
       "xpath": "mdb:identificationInfo/mri:MD_DataIdentification",
+      "rules": [
+        "maintFreq",
+        "endPosition",
+        "licenseOther",
+        {"dateOrder": {"field0": "beginPosition", "field1": "endPosition"}},
+        {"requiredWhenYes": {"bool-field": "previouslyPublishedFlag", "opt-field": "datePublication"}}
+      ],
       "type": "object",
       "properties": {
         "title": {
@@ -49,23 +56,60 @@
           "required": true
         },
         "topicCategory": {
+          "!docstring": "ID4",
           "xpath": "mri:topicCategory",
           "keep": false,
           "valueChild": "mri:MD_TopicCategoryCode",
-          "required": true,
-          "type": "array",
-          "items": {}
+          "label": "Topic categories",
+          "attributes": {
+            "text": {
+              "function": "identity"
+            },
+            "codeListValue": {
+              "function": "identity"
+            }
+          },
+          "rules": ["requiredField"]
+        },
+        "status": {
+          "!docstring": "ID5",
+          "xpath": "mri:status",
+          "valueChild": "mcc:MD_ProgressCode",
+          "label": "Status of data",
+          "attributes": {
+            "text": {
+              "function": "identity"
+            },
+            "codeListValue": {
+              "function": "identity"
+            }
+          },
+          "rules": ["requiredField"]
+        },
+        "maintenanceAndUpdateFrequency": {
+          "!docstring": "ID9; FIXME: depends on status",
+          "xpath": "mri:resourceMaintenance/mmi:MD_MaintenanceInformation/mmi:maintenanceAndUpdateFrequency",
+          "valueChild": "mmi:MD_MaintenanceFrequencyCode",
+          "label": "Maintenance and update frequency",
+          "attributes": {
+            "codeListValue": {
+              "function": "identity"
+            }
+          }
         },
         "dateCreation": {
           "!docstring": "ID6",
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",
-          "valueChild": "gco:DateTime",
+          "valueChild": "gco:Date",
           "required": true
+        },
+        "datePublicationFlag": {
+          "export": false, "xpath": null
         },
         "datePublication": {
           "!docstring": "ID8",
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]/cit:date",
-          "valueChild": "gco:DateTime",
+          "valueChild": "gco:Date",
           "required": true
         },
         "version": {
@@ -240,12 +284,35 @@
           },
           "required": true
         },
-        "title": {
-          "!docstring": "ID1",
-          "xpath": "mri:citation/cit:CI_Citation/cit:title",
-          "valueChild": "gco:CharacterString",
-          "label": "Title",
-          "keep": false,
+        "keywordsParameters": {
+          "!docstring": "What8",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396\"]",
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "xpath": "mri:keyword",
+              "keep": false,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "xpath": "mri:keyword",
+                "properties": {
+                  "breadcrumb": {},
+                  "label": {
+                    "xpath": "gcx:Anchor"
+                  },
+                  "uri": {
+                    "xpath": "gcx:Anchor",
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "identity"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "required": true
         },
         "beginPosition": {

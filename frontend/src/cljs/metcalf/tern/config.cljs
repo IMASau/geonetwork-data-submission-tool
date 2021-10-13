@@ -9,7 +9,8 @@
             [metcalf4.low-code :as low-code]
             [metcalf4.rules :as rules]
             [metcalf4.subs :as subs4]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [interop.ui :as ui]))
 
 (rf/reg-event-fx :handlers/load-api-options-resp handlers3/load-api-options-resp)
 (rf/reg-event-fx :handlers/load-es-options-resp handlers3/load-es-options-resp)
@@ -81,17 +82,18 @@
 (rf/reg-event-fx :handlers/lodge-save-success handlers3/lodge-save-success)
 (rf/reg-event-fx :handlers/lodge-error handlers3/lodge-error)
 (rf/reg-event-fx :help-menu/open handlers3/help-menu-open)
-(rf/reg-event-fx ::components4/input-field-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/textarea-field-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/yes-no-field-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/date-field-value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/select-option-value-changed handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/async-select-option-value-changed handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/select-value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
+(rf/reg-event-fx ::components4/list-add-click handlers4/list-add-click-handler)
+(rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
+(rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
+(rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-close-handler)
+(rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
+(rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
+(rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)
@@ -131,6 +133,7 @@
 (ins/reg-global-singleton ins/breadcrumbs)
 (set! rules/rule-registry
       {"requiredField"     rules/required-field
+       "requiredWhenYes"   rules/required-when-yes
        "maxLength"         rules/max-length
        "geographyRequired" rules/geography-required
        "licenseOther"      rules/license-other
@@ -140,34 +143,105 @@
        "verticalRequired"  rules/vertical-required})
 (set! low-code/component-registry
       {
-       'm4/textarea-field                        components4/textarea-field
-       'm4/textarea-field-with-label             components4/textarea-field-with-label
-       'm4/input-field                           components4/input-field
-       'm4/input-field-with-label                components4/input-field-with-label
-       'm4/date-field                            components4/date-field
-       'm4/date-field-with-label                 components4/date-field-with-label
-       'm4/select-value                          components4/select-value
-       'm4/select-value-with-label               components4/select-value-with-label
-       'm4/select-option                         components4/select-option
-       'm4/select-option-with-label              components4/select-option-with-label
-       'm4/async-simple-select-option            components4/async-simple-select-option
-       'm4/async-simple-select-option-with-label components4/async-simple-select-option-with-label
-       'm4/yes-no-field                          components4/yes-no-field
-       'm4/page-errors                           components4/page-errors
-       'm4/form-group                            components4/form-group
-       'm4/simple-selection-list                 components4/simple-selection-list
-       'm4/breadcrumb-selection-list             components4/breadcrumb-selection-list
-       'm4/table-selection-list                  components4/table-selection-list
-       'm4/simple-list-option-picker             components4/simple-list-option-picker
-       'm4/breadcrumb-list-option-picker         components4/breadcrumb-list-option-picker
-       'm4/table-list-option-picker              components4/table-list-option-picker
-       'm4/async-simple-list-option-picker       components4/async-simple-list-option-picker
-       'm4/async-breadcrumb-list-option-picker   components4/async-breadcrumb-list-option-picker
-       'm4/async-table-list-option-picker        components4/async-table-list-option-picker
-       'm4/expanding-control                     components4/expanding-control
-       })
+       'm4/async-list-picker             components4/async-list-picker
+       'm4/async-select-option           components4/async-select-option
+       'm4/breadcrumb-list-option-picker components4/breadcrumb-list-option-picker
+       'm4/breadcrumb-selection-list     components4/breadcrumb-selection-list
+       'm4/date-field                    components4/date-field
+       'm4/date-field-with-label         components4/date-field-with-label
+       'm4/expanding-control             components4/expanding-control
+       'm4/form-group                    components4/form-group
+       'm4/inline-form-group             components4/inline-form-group
+       'm4/input-field                   components4/input-field
+       'm4/input-field-with-label        components4/input-field-with-label
+       'm4/page-errors                   components4/page-errors
+       'm4/select-option                 components4/select-option
+       'm4/select-option-with-label      components4/select-option-with-label
+       'm4/select-value                  components4/select-value
+       'm4/select-value-with-label       components4/select-value-with-label
+       'm4/simple-list-option-picker     components4/simple-list-option-picker
+       'm4/simple-selection-list         components4/simple-selection-list
+       'm4/table-list-option-picker      components4/table-list-option-picker
+       'm4/table-selection-list          components4/table-selection-list
+       'm4/textarea-field                components4/textarea-field
+       'm4/textarea-field-with-label     components4/textarea-field-with-label
+       'm4/yes-no-field                  components4/yes-no-field
+       'm4/list-add-button               components4/list-add-button
+       'm4/list-edit-dialog              components4/list-edit-dialog})
+
 (set! low-code/template-registry
-      '{:data-identification
+      '{
+
+        :platform/user-defined-entry-form
+        [:div
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "label"]
+           :label     "Name/Label"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "label"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "description"]
+           :label     "Description / Definition"}
+          [m4/textarea-field
+           {:form-id   ?form-id
+            :data-path [?data-path "description"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "source"]
+           :label     "Source"
+           :toolTip   "TODO"}
+          [m4/textarea-field
+           {:form-id     ?form-id
+            :data-path   [?data-path "source"]
+            :placeholder "E.g. Creator (Publication year).  Title.  Version.  Publisher.  Resource type.  Identifier.  "}]]]
+
+
+        :instrument/user-defined-entry-form
+        [:div
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "label"]
+           :label     "Name/Label"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "label"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "description"]
+           :label     "Description / Definition"}
+          [m4/textarea-field
+           {:form-id   ?form-id
+            :data-path [?data-path "description"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "source"]
+           :label     "Source"
+           :toolTip   "TODO"}
+          [m4/textarea-field
+           {:form-id     ?form-id
+            :data-path   [?data-path "source"]
+            :placeholder "E.g. Creator (Publication year).  Title.  Version.  Publisher.  Resource type.  Identifier.  "}]]
+
+         [m4/inline-form-group
+          {:form-id    ?form-id
+           :data-path  [?data-path "serial"]
+           :label      "Serial Number"
+           :helperText "Optional"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "serial"]}]]]
+
+
+        :data-identification
         [:div
          [m4/page-errors
           {:form-id    [:form]
@@ -177,13 +251,79 @@
                         ["identificationInfo" "status"]
                         ["identificationInfo" "maintenanceAndUpdateFrequency"]
                         ["identificationInfo" "version"]]}]
+
          [:h2 "1. Data Identification"]
+
          [m4/input-field-with-label
           {:form-id     [:form]
            :data-path   ["identificationInfo" "title"]
            :label       "Title"
            :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
            :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
+
+         [:label "TODO: parent metadata"]
+
+         [m4/select-value-with-label
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "topicCategory"]
+           :placeholder "Start typing to filter list..."
+           :labelKey    "label"
+           :valueKey    "value"
+           :options     [{"value" "biota" "label" "biota"}
+                         {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
+                         {"value" "oceans" "label" "oceans"}
+                         {"value" "geoscientificInformation" "label" "geoscientificInformation"}
+                         {"value" "inlandWater" "label" "inlandWater"}]}]
+
+         [:div {:style {:display               "grid"
+                        :grid-column-gap       "1em"
+                        :grid-template-columns "1fr 1fr 1fr"}}
+
+          [:div
+
+           ;; FIXME: Should this be use api for options?
+           [m4/select-value-with-label
+            {:form-id   [:form]
+             :data-path ["identificationInfo" "status"]
+             :label     "Status of Data"
+             :valueKey  "value"
+             :labelKey  "label"
+             :options   [{"value" "onGoing" "label" "ongoing"}
+                         {"value" "planned" "label" "planned"}
+                         {"value" "completed" "label" "completed"}]}]]
+          [:div
+           [m4/input-field-with-label
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "version"]
+             :label      "Version"
+             :helperText "Version number of the resource"
+             :required   true}]]
+
+          [:div
+
+           ;; FIXME: Should this be use api for options?
+           [m4/select-value-with-label
+            {:form-id   [:form]
+             :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
+             :label     "Maintenance/Update Freq"
+             :valueKey  "value"
+             :labelKey  "label"
+             :options   [{"value" "continual" "label" "Continually"}
+                         {"value" "daily" "label" "Daily"}
+                         {"value" "weekly" "label" "Weekly"}
+                         {"value" "fortnightly" "label" "Fortnightly"}
+                         {"value" "monthly" "label" "Monthly"}
+                         {"value" "quarterly" "label" "Quarterly"}
+                         {"value" "biannually" "label" "Twice each year"}
+                         {"value" "annually" "label" "Annually"}
+                         {"value" "asNeeded" "label" "As required"}
+                         {"value" "irregular" "label" "Irregular"}
+                         {"value" "notPlanned" "label" "None planned"}
+                         {"value" "unknown" "label" "Unknown"}
+                         {"value" "periodic" "label" "Periodic"}
+                         {"value" "semimonthly" "label" "Twice a month"}
+                         {"value" "biennially" "label" "Every 2 years"}]}]]]
+
          [m4/date-field-with-label
           {:form-id   [:form]
            :data-path ["identificationInfo" "dateCreation"]
@@ -191,40 +331,12 @@
            :required  true
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
-         [m4/form-group
-          {:label     "Topic Categories"
-           :form-id   [:form]
-           :data-path ["identificationInfo" "topicCategory"]}
-          [m4/simple-selection-list
-           {:form-id   [:form]
-            :data-path ["identificationInfo" "topicCategory"]
-            :labelKey  "label"
-            :valueKey  "value"}]
-          [m4/simple-list-option-picker
-           {:form-id     [:form]
-            :data-path   ["identificationInfo" "topicCategory"]
-            :placeholder "Start typing to filter list..."
-            :labelKey    "label"
-            :valueKey    "value"
-            :options     [{:value "biota" :label "biota"}
-                          {:value "climatology/meteorology/atmosphere" :label "climatology/meteorology/atmosphere"}
-                          {:value "oceans" :label "oceans"}
-                          {:value "geoscientificInformation" :label "geoscientificInformation"}
-                          {:value "inlandWater" :label "inlandWater"}]}]]
-         [m3/SelectField {:form-id   [:form]
-                          :data-path ["identificationInfo" "status"]}]
-         [m3/SelectField {:form-id   [:form]
-                          :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]}]
-         [m4/input-field-with-label
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "version"]
-           :label      "Version"
-           :helperText "Version number of the resource"
-           :required   true}]
+
          [m4/yes-no-field
           {:form-id   [:form]
            :data-path ["identificationInfo" "previouslyPublishedFlag"]
            :label     "Has the data been published before?"}]
+
          ;; FIXME: I think this should be formatted as YYYY or YYYY-MM (according to the commented template)
          [m4/date-field-with-label
           {:form-id   [:form]
@@ -233,6 +345,9 @@
            :required  true
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
+
+         [:label "TODO: revision date?"]
+
          [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what
@@ -242,6 +357,7 @@
            :data-paths [["identificationInfo" "abstract"]
                         ["identificationInfo" "purpose"]]}]
          [:h2 "2. What"]
+         [:p "TODO: Lorem ipsum..."]
          [m4/textarea-field-with-label
           {:form-id     [:form]
            :data-path   ["identificationInfo" "abstract"]
@@ -260,17 +376,25 @@
            :helperText  "Brief statement about the purpose of the study"
            :toolTip     "The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"}]
 
+         [m4/form-group
+          {:label      "Descriptive keywords"
+           :toolTip    "TODO"
+           :helperText "Vocabulary terms that describe the general science categories, general location, organizations, projects, platforms, instruments associated with the resource."}]
+
          [m4/expanding-control
           {:label    "GCMD Science keywords"
            :required true}
 
           [m4/form-group
            {:label "Select research theme keywords - maximum of 12 allowed"}
-           [m4/async-simple-list-option-picker
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "keywordsTheme" "keywords"]
-             :uri       "/api/ternparameters"               ;TODO: Update to real endpoint
-             }]
+           [m4/async-list-picker
+            {:form-id       [:form]
+             :data-path     ["identificationInfo" "keywordsTheme" "keywords"]
+             :kind          :breadcrumb
+             :uri           "/api/ternparameters"           ;TODO: Update to real endpoint
+             :labelKey      "label"
+             :valueKey      "uri"
+             :breadcrumbKey "breadcrumb"}]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsTheme" "keywords"]
@@ -279,14 +403,16 @@
              :breadcrumbKey "breadcrumb"}]]]
 
          [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
-
           [m4/form-group
            {:label "Select research theme keywords - maximum of 12 allowed"}
-           [m4/async-simple-list-option-picker
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-             :uri       "/api/ternparameters"               ;TODO: Update to real endpoint
-             }]
+           [m4/async-list-picker
+            {:form-id       [:form]
+             :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
+             :kind          :breadcrumb
+             :uri           "/api/ternparameters"           ;TODO: Update to real endpoint
+             :labelKey      "label"
+             :valueKey      "uri"
+             :breadcrumbKey "breadcrumb"}]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
@@ -297,35 +423,88 @@
          [m4/expanding-control {:label "Platforms" :required true}
           ;; TODO: also need a user-added option
           [m4/form-group
-           {:label "Select a platform for the data measurement"}
-           [m4/async-simple-list-option-picker
+           {:label   "Select a platform for the data measurement"
+            :toolTip [:div
+                      "Select a platform from the predefined list.  "
+                      "If the required platform is not found within the list you can use the "
+                      [:code "Add"]
+                      " button to define your own"]}
+
+           [:div.bp3-control-group
+            [:div.bp3-fill
+             [m4/async-list-picker
+              {:form-id   [:form]
+               :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
+               :uri       "/api/ternplatforms"
+               :labelKey  "label"
+               :valueKey  "uri"}]]
+            [m4/list-add-button
+             {:form-id   [:form]
+              :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
+              :valueKey  "uri"
+              :addedKey  "isUserDefined"}]]
+
+           [m4/simple-selection-list
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
-             :uri       "/api/ternplatforms"}]
-           [m4/breadcrumb-selection-list
-            {:form-id       [:form]
-             :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
-             :labelKey      "label"
-             :valueKey      "uri"
-             :breadcrumbKey "breadcrumb"}]]]
+             :labelKey  "label"
+             :valueKey  "uri"
+             :addedKey  "isUserDefined"}]
+           [m4/list-edit-dialog
+            {:form-id     [:form]
+             :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
+             :title       "Edit user defined keyword"
+             :template-id :platform/user-defined-entry-form}]]]
 
          [m4/expanding-control {:label "Instruments" :required true}
           ;; TODO: also need a user-added option
           [m4/form-group
            {:label "Select the instrument used for the platform"}
-           [m4/async-simple-list-option-picker
+
+           [:div.bp3-control-group
+            [:div.bp3-fill
+             [m4/async-list-picker
+              {:form-id   [:form]
+               :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
+               :uri       "/api/terninstruments"
+               :labelKey  "label"
+               :valueKey  "uri"}]]
+            [m4/list-add-button
+             {:form-id   [:form]
+              :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
+              :valueKey  "uri"
+              :addedKey  "isUserDefined"}]]
+           [m4/table-selection-list
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
-             :uri       "/api/terninstruments"}]
+             :valueKey  "uri"
+             :addedKey  "isUserDefined"
+             :columns   [{:columnHeader "Instrument" :labelKey "label" :flex 2}
+                         {:columnHeader "Serial no." :labelKey "uri" :flex 3}]}]
+           [m4/list-edit-dialog
+            {:form-id     [:form]
+             :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
+             :title       "Edit user defined keyword"
+             :template-id :instrument/user-defined-entry-form}]]]
+
+         [m4/expanding-control {:label "Parameters" :required true}
+          ;; TODO: also need a user-added option
+          [m4/form-group
+           {:label "Select the name of the measured parameter, e.g. vegetation height"}
+           [m4/async-list-picker
+            {:form-id       [:form]
+             :data-path     ["identificationInfo" "keywordsInstrument" "keywords"]
+             :kind          :breadcrumb
+             :uri           "/api/ternparameters"
+             :labelKey      "label"
+             :valueKey      "uri"
+             :breadcrumbKey "breadcrumb"}]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsInstrument" "keywords"]
              :labelKey      "label"
              :valueKey      "uri"
              :breadcrumbKey "breadcrumb"}]]]
-
-         [m4/expanding-control {:label "Paramters" :required true}
-          "..."]
 
          [m4/expanding-control {:label "Temporal Resolution" :required true}
           "..."]

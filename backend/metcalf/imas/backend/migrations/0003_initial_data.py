@@ -10,12 +10,11 @@ def configure_backend_data(apps, schema_editor):
     # version than this migration expects. We use the historical version.
     MetadataTemplateMapper = apps.get_model('backend', 'MetadataTemplateMapper')
     MetadataTemplate = apps.get_model('backend', 'MetadataTemplate')
-    DataFeed = apps.get_model('backend', 'DataFeed')
     now = datetime.utcnow().replace(tzinfo=pytz.UTC)
     # Create default MetadataTemplateMapper
     mtm, _ = MetadataTemplateMapper.objects.get_or_create(pk='1')
-    mtm.name = 'Tern Mapper'
-    mtm.file = 'tern_jsonschema_mapper.json'
+    mtm.name = 'IMAS Mapper'
+    mtm.file = 'imas_template_spec.json'
     mtm.notes = 'Default template mapper (WIP)'
     mtm.archived = 'f'
     mtm.site_id = '1'
@@ -25,7 +24,7 @@ def configure_backend_data(apps, schema_editor):
     # Create default MetadataTemplate
     mt, _ = MetadataTemplate.objects.get_or_create(pk='1')
     mt.name = "TERN Template"
-    mt.file = "TERN_ISO_Profile_v0_01.xml"
+    mt.file = "imas_metadata_template.xml"
     mt.notes = "Default template"
     mt.archived = "f"
     mt.site_id = "1"
@@ -33,24 +32,11 @@ def configure_backend_data(apps, schema_editor):
     mt.created = now
     mt.modified = now
     mt.save()
-    # Create data feeds
-    datafeeds = [
-        "load_institutions", "load_horizontalresolutions", "load_parameterplatforms",
-        "load_topiccategories", "load_sciencekeywords", "load_samplingfrequencies",
-        "load_rolecodes", "load_persons", "load_parameterunits", "load_parameternames",
-        "load_parameterinstruments"
-    ]
-    for idx, name in enumerate(datafeeds):
-        df, _ = DataFeed.objects.get_or_create(pk=str(idx + 1))
-        df.name = name
-        df.state = "Scheduled"
-        df.last_output = ""
-        df.save()
 
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('backend', '0007_auto_20200123_0123'),
+        ('backend', '0002_auto_20210910_0700.py'),
         ('frontend', '0006_initial_data'),
     ]
 

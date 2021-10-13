@@ -1,6 +1,7 @@
 (ns metcalf4.blocks
   (:require [cljs.spec.alpha :as s]
-            [metcalf4.schema :as schema]))
+            [metcalf4.schema :as schema]
+            [metcalf4.utils :as utils4]))
 
 
 (s/def ::type string?)
@@ -59,6 +60,7 @@
 
 
 (defn block-path [data-path]
+  (s/assert ::utils4/data-path data-path)
   (vec (interleave (repeat :content) data-path)))
 
 

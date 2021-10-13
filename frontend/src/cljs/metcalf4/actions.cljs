@@ -124,7 +124,7 @@
   [s form-id data-path option]
   (let [schema (get-in s (flatten [:db form-id :schema (schema/schema-path data-path)]))
         state (blocks/as-blocks {:schema schema :data option})
-        db-path (utils4/as-path [form-id :state (blocks/block-path data-path)])]
+        db-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])]
     (-> s
         (assoc-in db-path state)
         (assoc-in (conj db-path :props :show-errors) true))))

@@ -523,9 +523,13 @@
   [form-group config
    [async-breadcrumb-select-option config]])
 
+(def async-table-select-option-settings
+  {:req-ks [:uri :valueKey :labelKey :columns]
+   :opt-ks []})
+
 (defn async-table-select-option
   [config]
-  (let [config (massage-config {:req-ks [:uri :valueKey :labelKey :columns] :opt-ks []} config)
+  (let [config (massage-config async-table-select-option-settings config)
         props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey columns]} props

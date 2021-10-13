@@ -16,7 +16,9 @@
             ["/ui/components/utils" :as ui-utils]
             [cljs.spec.alpha :as s]
             [goog.object :as gobj]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [clojure.walk :as walk]
+            [metcalf4.utils :as utils4]))
 
 (assert BoxMap/BoxMap)
 (assert DateField/DateField)
@@ -46,6 +48,8 @@
 
 (defn has-key? [s] #(contains? (set (map name (keys %))) s))
 (defn has-keys? [ss] (apply every-pred (map has-key? ss)))
+(defn has-path? [path] (fn [m] (utils4/contains-path? (walk/stringify-keys m) (map name path))))
+(defn has-paths? [paths] (fn [m] (utils4/contains-every? (walk/stringify-keys m) (map #(map name %) paths))))
 (defn js->map [o ks]
   (assert (every? #(gobj/containsKey o %) ks)
           (str "Missing expected key" (pr-str {:obj o :ks ks})))

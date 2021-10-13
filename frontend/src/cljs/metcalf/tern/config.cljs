@@ -655,7 +655,23 @@
              :value-path ["uri"]}]]]
 
          [m4/expanding-control {:label "Australian Plant Name Index (Optional)" :required true}
-          "..."]
+          [m4/form-group
+           {:label "Select Plant Name Indexes keywords"
+            :toolTip "TODO"}
+           [m4/async-list-picker
+            {:form-id         [:form]
+             :data-path       ["What13"]
+             :kind            :breadcrumb
+             :uri             "/api/What13"
+             :label-path      ["label"]
+             :value-path      ["uri"]
+             :breadcrumb-path ["breadcrumb"]}]
+           [m4/breadcrumb-selection-list
+            {:form-id         [:form]
+             :data-path       ["What13"]
+             :label-path      ["label"]
+             :value-path      ["uri"]
+             :breadcrumb-path ["breadcrumb"]}]]]
 
          [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required true}
           "..."]

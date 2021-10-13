@@ -565,9 +565,13 @@
   [form-group config
    [async-select-option config]])
 
+(def select-value-settings
+  {:req-ks [:options :labelKey :valueKey]
+   :opt-ks []})
+
 (defn select-value
   [config]
-  (let [config (massage-config {:req-ks [:options :labelKey :valueKey] :opt-ks []} config)
+  (let [config (massage-config select-value-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [value options labelKey valueKey disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)

@@ -202,6 +202,45 @@
             :placeholder "E.g. Creator (Publication year).  Title.  Version.  Publisher.  Resource type.  Identifier.  "}]]]
 
 
+        :instrument/user-defined-entry-form
+        [:div
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "label"]
+           :label     "Name/Label"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "label"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "description"]
+           :label     "Description / Definition"}
+          [m4/textarea-field
+           {:form-id   ?form-id
+            :data-path [?data-path "description"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "source"]
+           :label     "Source"
+           :toolTip   "TODO"}
+          [m4/textarea-field
+           {:form-id     ?form-id
+            :data-path   [?data-path "source"]
+            :placeholder "E.g. Creator (Publication year).  Title.  Version.  Publisher.  Resource type.  Identifier.  "}]]
+
+         [m4/inline-form-group
+          {:form-id    ?form-id
+           :data-path  [?data-path "serial"]
+           :label      "Serial Number"
+           :helperText "Optional"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "serial"]}]]]
+
+
         :data-identification
         [:div
          [m4/page-errors

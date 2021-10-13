@@ -616,9 +616,13 @@
       :onChange #(rf/dispatch [::value-changed config %])}]))
 
 ; FIXME: Is :label for form group or yes/no field?
+(def yes-no-field-with-label-settings
+  {:req-ks [:label]
+   :opt-ks []})
+
 (defn yes-no-field-with-label
   [config]
-  (let [config (massage-config {:req-ks [:label] :opt-ks []} config)
+  (let [config (massage-config yes-no-field-with-label-settings config)
         props @(rf/subscribe [::get-yes-no-field-with-label-props config])
         {:keys [label value errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]

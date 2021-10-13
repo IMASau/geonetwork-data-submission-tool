@@ -39,9 +39,9 @@
 
 (defn get-data-schema-sub
   [db [_ {:keys [form-id data-path]}]]
-  (s/assert ::utils4/data-path data-path)
-  (let [path (utils4/as-path [form-id :schema (schema/schema-path data-path)])]
-    (get-in db path)))
+  (s/assert (s/nilable ::utils4/data-path) data-path)
+  (when (and form-id data-path)
+    (get-in db (utils4/as-path [form-id :schema (schema/schema-path data-path)]))))
 
 
 ; FIXME: hardcoded path

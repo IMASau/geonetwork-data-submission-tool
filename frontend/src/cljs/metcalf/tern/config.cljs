@@ -644,7 +644,15 @@
              :value-path ["uri"]}]]]
 
          [m4/expanding-control {:label "Vertical Resolution (Optional)" :required true}
-          "..."]
+          [m4/form-group
+           {:label   "Select a Vertical Resolution range"
+            :toolTip "TODO"}
+           [m4/async-select-option
+            {:form-id    [:form]
+             :data-path  ["What12"]
+             :uri        "/api/What12"
+             :label-path ["label"]
+             :value-path ["uri"]}]]]
 
          [m4/expanding-control {:label "Australian Plant Name Index (Optional)" :required true}
           "..."]

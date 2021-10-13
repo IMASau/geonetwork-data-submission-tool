@@ -61,3 +61,22 @@ TableListItem.propTypes = {
         flex: PropTypes.number
     })),
 }
+
+export function TableListColumnHeaderRow({ columns }) {
+    return (
+        <div className="TableListColumnHeaderRow">
+            {columns.map((columnProps, columnIndex) =>
+                <span className="TableListColumnHeaderCell" style={{ "flex": columnProps.flex }}>
+                    {columnProps.columnHeader}
+                </span>
+            )}
+        </div>
+    )
+}
+
+TableListColumnHeaderRow.propTypes = {
+    columns: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.node,
+    })),
+}
+

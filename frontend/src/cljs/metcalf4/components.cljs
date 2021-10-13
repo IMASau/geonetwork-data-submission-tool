@@ -757,9 +757,13 @@
       :valueKey    valueKey
       :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
 
+(def breadcrumb-list-option-picker-settings
+  {:req-ks [:options :valueKey :labelKey :breadcrumbKey]
+   :opt-ks [:placeholder]})
+
 (defn breadcrumb-list-option-picker
   [config]
-  (let [config (massage-config {:req-ks [:options :valueKey :labelKey :breadcrumbKey] :opt-ks [:placeholder]} config)
+  (let [config (massage-config breadcrumb-list-option-picker-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder options disabled errors show-errors valueKey labelKey breadcrumbKey]} props
         hasError (when (and show-errors (seq errors)) true)]

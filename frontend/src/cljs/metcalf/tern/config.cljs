@@ -208,7 +208,8 @@
          [m4/inline-form-group
           {:form-id   ?form-id
            :data-path [?data-path "label"]
-           :label     "Name/Label"}
+           :label     "Name/Label"
+           :toolTip   "TODO"}
           [m4/input-field
            {:form-id   ?form-id
             :data-path [?data-path "label"]}]]
@@ -216,7 +217,8 @@
          [m4/inline-form-group
           {:form-id   ?form-id
            :data-path [?data-path "description"]
-           :label     "Description / Definition"}
+           :label     "Description /Definition"
+           :toolTip   "TODO"}
           [m4/textarea-field
            {:form-id   ?form-id
             :data-path [?data-path "description"]}]]
@@ -235,7 +237,8 @@
           {:form-id    ?form-id
            :data-path  [?data-path "serial"]
            :label      "Serial Number"
-           :helperText "Optional"}
+           :helperText "Optional"
+           :toolTip   "TODO"}
           [m4/input-field
            {:form-id   ?form-id
             :data-path [?data-path "serial"]}]]]

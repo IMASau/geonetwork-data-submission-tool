@@ -11,6 +11,8 @@
             [metcalf4.schema :as schema]
             [metcalf4.low-code :as low-code]))
 
+(s/def ::value-path string?)
+
 (defn str-value
   [data]
   (binding [*print-level* 3
@@ -497,7 +499,7 @@
         props @(rf/subscribe [::get-block-props config])
         {:keys [value-path added-path]} props]
 
-    (s/assert string? value-path)
+    (s/assert ::value-path value-path)
     (s/assert string? added-path)
 
     (schema/assert-compatible-schema
@@ -515,7 +517,7 @@
         props @(rf/subscribe [::get-block-props config])
         {:keys [value-path added-path]} props]
 
-    (s/assert string? value-path)
+    (s/assert ::value-path value-path)
     (s/assert string? added-path)
 
     (schema/assert-compatible-schema
@@ -721,7 +723,7 @@
         items @(rf/subscribe [::get-block-data config])
         {:keys [key disabled label-path value-path added-path]} props]
 
-    (s/assert string? value-path)
+    (s/assert ::value-path value-path)
     (s/assert string? label-path)
     (s/assert (s/nilable string?) added-path)
 
@@ -751,7 +753,7 @@
         items @(rf/subscribe [::get-block-data config])
         {:keys [key disabled label-path value-path added-path breadcrumb-path]} props]
 
-    (s/assert string? value-path)
+    (s/assert ::value-path value-path)
     (s/assert string? label-path)
     (s/assert string? breadcrumb-path)
     (s/assert (s/nilable string?) added-path)
@@ -783,7 +785,7 @@
         {:keys [key disabled columns value-path added-path]} props
         items @(rf/subscribe [::get-block-data config])]
 
-    (s/assert string? value-path)
+    (s/assert ::value-path value-path)
     (s/assert (s/nilable string?) added-path)
 
     (schema/assert-compatible-schema

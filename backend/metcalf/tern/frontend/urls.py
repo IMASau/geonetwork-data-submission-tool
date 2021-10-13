@@ -47,6 +47,9 @@ urlpatterns = [
     path('api/terninstrumenttypes', tern_instrument_types),
     path('api/ternpeople', tern_people),
     path('api/ternorgs', tern_orgs),
+
+    # Dummy endpoints to be implemented
+    path('api/What10', tern_instruments),
 ]
 
 if settings.DEBUG:

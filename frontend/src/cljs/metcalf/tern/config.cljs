@@ -622,7 +622,15 @@
              :template-id :parameter/user-defined-entry-form}]]]
 
          [m4/expanding-control {:label "Temporal Resolution" :required true}
-          "..."]
+          [m4/form-group
+           {:label   "Select a Temporal resolution range"
+            :toolTip "TODO"}
+           [m4/async-select-option
+            {:form-id    [:form]
+             :data-path  ["What10"]
+             :uri        "/api/terninstruments"
+             :label-path ["label"]
+             :value-path ["uri"]}]]]
 
          [m4/expanding-control {:label "Horizontal Resolution" :required true}
           "..."]

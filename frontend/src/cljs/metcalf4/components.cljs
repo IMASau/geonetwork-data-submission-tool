@@ -508,16 +508,13 @@
 
 (defn select-value
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :labelKey :valueKey]
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge ctx logic (select-keys config config-keys))
+  (let [config (massage-config config {:req-ks [:options :labelKey :valueKey] :opt-ks []})
+        props @(rf/subscribe [::get-block-props config])
         {:keys [value options labelKey valueKey disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)
         value (or value "")]
 
-    (s/assert schema/schema-value-type? @(rf/subscribe [::get-data-schema ctx]))
+    (s/assert schema/schema-value-type? @(rf/subscribe [::get-data-schema config]))
 
     [ui/SelectValueField
      {:value    value
@@ -526,7 +523,7 @@
       :labelKey labelKey
       :valueKey valueKey
       :hasError hasError
-      :onChange onChange}]))
+      :onChange #(rf/dispatch [::value-changed config %])}]))
 
 (defn select-value-with-label
   [config]

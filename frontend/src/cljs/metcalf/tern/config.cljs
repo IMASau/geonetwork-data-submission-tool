@@ -145,7 +145,6 @@
       {
        'm4/async-list-picker              components4/async-list-picker
        'm4/async-select-option            components4/async-select-option
-       'm4/async-select-option-with-label components4/async-select-option-with-label
        'm4/breadcrumb-list-option-picker  components4/breadcrumb-list-option-picker
        'm4/breadcrumb-selection-list      components4/breadcrumb-selection-list
        'm4/date-field                     components4/date-field

@@ -148,7 +148,6 @@
        'm3/Who                            views/Who
        'm4/async-list-picker              components4/async-list-picker
        'm4/async-select-option            components4/async-select-option
-       'm4/async-select-option-with-label components4/async-select-option-with-label
        'm4/boxmap-field                   components4/boxmap-field
        'm4/checkbox-field-with-label      components4/checkbox-field-with-label
        'm4/coordinates-modal-field        components4/coordinates-modal-field

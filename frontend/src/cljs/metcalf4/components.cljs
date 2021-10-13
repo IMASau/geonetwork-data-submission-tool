@@ -24,10 +24,10 @@
     (seq errors)))
 
 (defn page-errors-settings
-  [config]
-  {::low-code/req-ks       [:form-id :data-paths :data-paths]
+  [{:keys [data-paths]}]
+  {::low-code/req-ks       [:form-id :data-path :data-paths]
    ::low-code/opt-ks       []
-   ::low-code/schema-paths (:data-paths config)})
+   ::low-code/schema-paths data-paths})
 
 (defn page-errors
   [{:keys [form-id data-paths]}]

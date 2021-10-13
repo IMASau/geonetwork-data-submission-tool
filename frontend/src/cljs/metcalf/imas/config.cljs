@@ -192,7 +192,7 @@
          [m4/select-value-with-label
           {:form-id    [:form]
            :data-path  ["identificationInfo" "topicCategory"]
-           :valueKey   "value"
+           :value-path "value"
            :label-path "label"
            :options    [{"value" "biota" "label" "biota"}
                         {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
@@ -202,7 +202,7 @@
          [m4/select-value-with-label
           {:form-id    [:form]
            :data-path  ["identificationInfo" "status"]
-           :valueKey   "value"
+           :value-path "value"
            :label-path "label"
            :options    [{"value" "onGoing" "label" "ongoing"}
                         {"value" "planned" "label" "planned"}
@@ -210,7 +210,7 @@
          [m4/select-value-with-label
           {:form-id    [:form]
            :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
-           :valueKey   "value"
+           :value-path "value"
            :label-path "label"
            :options    [{"value" "continually" "label" "Continually"}
                         {"value" "daily" "label" "Daily"}
@@ -267,7 +267,7 @@
            [m4/select-value-with-label
             {:form-id    [:form]
              :data-path  ["identificationInfo" "samplingFrequency"]
-             :valueKey   "value"
+             :value-path "value"
              :label-path "label"
              :options    [{"value" "daily" "label" "Daily"}
                           {"value" "weekly" "label" "Weekly"}
@@ -375,7 +375,7 @@
            :label      "License"
            :required   true
            :kind       "simple"
-           :valueKey   "value"
+           :value-path "value"
            :label-path "label"
            :options    [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}
                         {"value" "http://creativecommons.org/licenses/by-nc/4.0/" "label" "Creative Commons, Non-commercial Use only"}

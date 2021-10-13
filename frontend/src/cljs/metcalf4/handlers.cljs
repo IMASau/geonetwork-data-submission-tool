@@ -57,8 +57,8 @@
 
 (defn list-add-with-defaults-click-handler
   [{:keys [db]} [_ props]]
-  (let [{:keys [form-id data-path valueKey added-path]} props
-        defaults {valueKey (str (random-uuid)) added-path true}]
+  (let [{:keys [form-id data-path value-path added-path]} props
+        defaults {value-path (str (random-uuid)) added-path true}]
     (-> {:db db}
         (actions/save-snapshot-action form-id)
         (actions/add-item-action form-id data-path defaults)
@@ -67,8 +67,8 @@
 ; NOTE: Experiemental
 (defn item-add-with-defaults-click-handler
   [{:keys [db]} [_ props]]
-  (let [{:keys [form-id data-path valueKey added-path]} props
-        defaults {valueKey (str (random-uuid)) added-path true}]
+  (let [{:keys [form-id data-path value-path added-path]} props
+        defaults {value-path (str (random-uuid)) added-path true}]
     (-> {:db db}
         (actions/save-snapshot-action form-id)
         (actions/set-value-action form-id data-path defaults)

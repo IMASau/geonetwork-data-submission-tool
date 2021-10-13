@@ -325,7 +325,7 @@
              {:form-id   ?form-id
               :data-path [?data-path "unit"]
               :uri       "/api/ternplatforms"
-              :labelKey  "label"
+              :labelPath "label"
               :valueKey  "uri"}]]
            [m4/item-add-button
             {:form-id   ?form-id
@@ -366,7 +366,7 @@
           {:form-id     [:form]
            :data-path   ["identificationInfo" "topicCategory"]
            :placeholder "Start typing to filter list..."
-           :labelKey    "label"
+           :labelPath   "label"
            :valueKey    "value"
            :options     [{"value" "biota" "label" "biota"}
                          {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
@@ -386,7 +386,7 @@
              :data-path ["identificationInfo" "status"]
              :label     "Status of Data"
              :valueKey  "value"
-             :labelKey  "label"
+             :labelPath "label"
              :options   [{"value" "onGoing" "label" "ongoing"}
                          {"value" "planned" "label" "planned"}
                          {"value" "completed" "label" "completed"}]}]]
@@ -406,7 +406,7 @@
              :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
              :label     "Maintenance/Update Freq"
              :valueKey  "value"
-             :labelKey  "label"
+             :labelPath "label"
              :options   [{"value" "continual" "label" "Continually"}
                          {"value" "daily" "label" "Daily"}
                          {"value" "weekly" "label" "Weekly"}
@@ -491,13 +491,13 @@
              :data-path     ["identificationInfo" "keywordsTheme" "keywords"]
              :kind          :breadcrumb
              :uri           "/api/ternparameters"           ;TODO: Update to real endpoint
-             :labelKey      "label"
+             :labelPath     "label"
              :valueKey      "uri"
              :breadcrumbKey "breadcrumb"}]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsTheme" "keywords"]
-             :labelKey      "label"
+             :labelPath     "label"
              :valueKey      "uri"
              :breadcrumbKey "breadcrumb"}]]]
 
@@ -509,13 +509,13 @@
              :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
              :kind          :breadcrumb
              :uri           "/api/ternparameters"           ;TODO: Update to real endpoint
-             :labelKey      "label"
+             :labelPath     "label"
              :valueKey      "uri"
              :breadcrumbKey "breadcrumb"}]
            [m4/breadcrumb-selection-list
             {:form-id       [:form]
              :data-path     ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-             :labelKey      "label"
+             :labelPath     "label"
              :valueKey      "uri"
              :breadcrumbKey "breadcrumb"}]]]
 
@@ -535,7 +535,7 @@
               {:form-id   [:form]
                :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
                :uri       "/api/ternplatforms"
-               :labelKey  "label"
+               :labelPath "label"
                :valueKey  "uri"}]]
             [m4/list-add-button
              {:form-id   [:form]
@@ -546,7 +546,7 @@
            [m4/simple-selection-list
             {:form-id   [:form]
              :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
-             :labelKey  "label"
+             :labelPath "label"
              :valueKey  "uri"
              :addedKey  "isUserDefined"}]
            [m4/list-edit-dialog
@@ -566,7 +566,7 @@
               {:form-id   [:form]
                :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
                :uri       "/api/terninstruments"
-               :labelKey  "label"
+               :labelPath "label"
                :valueKey  "uri"}]]
             [m4/list-add-button
              {:form-id   [:form]
@@ -578,8 +578,8 @@
              :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
              :valueKey  "uri"
              :addedKey  "isUserDefined"
-             :columns   [{:columnHeader "Instrument" :labelKey "label" :flex 2}
-                         {:columnHeader "Serial no." :labelKey "uri" :flex 3}]}]
+             :columns   [{:columnHeader "Instrument" :labelPath "label" :flex 2}
+                         {:columnHeader "Serial no." :labelPath "uri" :flex 3}]}]
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
@@ -598,7 +598,7 @@
               {:form-id   [:form]
                :data-path ["identificationInfo" "keywordsParameters" "keywords"]
                :uri       "/api/terninstruments"
-               :labelKey  "label"
+               :labelPath "label"
                :valueKey  "uri"}]]
             [m4/list-add-button
              {:form-id   [:form]
@@ -610,8 +610,8 @@
              :data-path ["identificationInfo" "keywordsParameters" "keywords"]
              :valueKey  "uri"
              :addedKey  "isUserDefined"
-             :columns   [{:columnHeader "Name" :labelKey "label" :flex 2}
-                         {:columnHeader "Units" :labelKey "uri" :flex 3}]}]
+             :columns   [{:columnHeader "Name" :labelPath "label" :flex 2}
+                         {:columnHeader "Units" :labelPath ["unit" "label"] :flex 3}]}]
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsParameters" "keywords"]

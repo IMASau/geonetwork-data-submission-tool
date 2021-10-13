@@ -193,7 +193,7 @@
           {:form-id   [:form]
            :data-path ["identificationInfo" "topicCategory"]
            :valueKey  "value"
-           :labelKey  "label"
+           :labelPath "label"
            :options   [{"value" "biota" "label" "biota"}
                        {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
                        {"value" "oceans" "label" "oceans"}
@@ -203,7 +203,7 @@
           {:form-id   [:form]
            :data-path ["identificationInfo" "status"]
            :valueKey  "value"
-           :labelKey  "label"
+           :labelPath "label"
            :options   [{"value" "onGoing" "label" "ongoing"}
                        {"value" "planned" "label" "planned"}
                        {"value" "completed" "label" "completed"}]}]
@@ -211,7 +211,7 @@
           {:form-id   [:form]
            :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
            :valueKey  "value"
-           :labelKey  "label"
+           :labelPath "label"
            :options   [{"value" "continually" "label" "Continually"}
                        {"value" "daily" "label" "Daily"}
                        {"value" "weekly" "label" "Weekly"}
@@ -268,7 +268,7 @@
             {:form-id   [:form]
              :data-path ["identificationInfo" "samplingFrequency"]
              :valueKey  "value"
-             :labelKey  "label"
+             :labelPath "label"
              :options   [{"value" "daily" "label" "Daily"}
                          {"value" "weekly" "label" "Weekly"}
                          {"value" "monthly" "label" "Monthly"}
@@ -376,7 +376,7 @@
            :required  true
            :kind      "simple"
            :valueKey  "value"
-           :labelKey  "label"
+           :labelPath "label"
            :options   [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}
                        {"value" "http://creativecommons.org/licenses/by-nc/4.0/" "label" "Creative Commons, Non-commercial Use only"}
                        {"value" "http://creativecommons.org/licenses/other" "label" "Other constraints"}]}]

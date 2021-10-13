@@ -45,6 +45,7 @@
 (s/def ::eastBoundLongitude number?)
 (s/def ::element (s/keys :req-un [::northBoundLatitude ::westBoundLongitude ::southBoundLatitude ::eastBoundLongitude]))
 (s/def ::elements (s/coll-of ::element))
+(s/def ::obj-path (s/coll-of string? :min-count 1))
 
 (defn has-key? [s] #(contains? (set (map name (keys %))) s))
 (defn has-keys? [ss] (apply every-pred (map has-key? ss)))

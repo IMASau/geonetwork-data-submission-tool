@@ -913,8 +913,8 @@
 (defmethod async-list-picker :table [config] (async-table-list-option-picker config))
 
 (def expanding-control-settings
-  {:req-ks [:form-id :data-path :label]
-   :opt-ks [:required]})
+  {:req-ks [:label]
+   :opt-ks [:form-id :data-path :required]})
 
 (defn expanding-control
   [config & children]

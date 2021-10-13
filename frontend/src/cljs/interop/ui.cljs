@@ -273,13 +273,13 @@
     :onChange    (fn [o] (onChange (js->map o [valueKey label-path])))}])
 
 (defn SimpleSelectionList
-  [{:keys [items onReorder onItemClick onRemoveClick label-path valueKey addedKey]}]
+  [{:keys [items onReorder onItemClick onRemoveClick label-path valueKey added-path]}]
   (s/assert fn? onReorder)
   (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
   (s/assert string? label-path)
   (s/assert string? valueKey)
-  (s/assert (s/nilable string?) addedKey)
+  (s/assert (s/nilable string?) added-path)
   (s/assert (s/coll-of (has-keys? #{#_labelPath valueKey}) :distinct true) items)
   [:> SelectionList/SimpleSelectionList
    {:items         items
@@ -288,17 +288,17 @@
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
     :getLabel      #(gobj/get % label-path "No label")
-    :getAdded      (if addedKey #(gobj/get % addedKey) (constantly false))}])
+    :getAdded      (if added-path #(gobj/get % added-path) (constantly false))}])
 
 (defn BreadcrumbSelectionList
-  [{:keys [items onReorder onItemClick onRemoveClick breadcrumbKey label-path valueKey addedKey]}]
+  [{:keys [items onReorder onItemClick onRemoveClick breadcrumbKey label-path valueKey added-path]}]
   (s/assert fn? onReorder)
   (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
   (s/assert string? breadcrumbKey)
   (s/assert string? label-path)
   (s/assert string? valueKey)
-  (s/assert (s/nilable string?) addedKey)
+  (s/assert (s/nilable string?) added-path)
   (s/assert (s/coll-of (has-keys? #{#_labelPath valueKey breadcrumbKey}) :distinct true) items)
   [:> SelectionList/BreadcrumbSelectionList
    {:items         items
@@ -308,15 +308,15 @@
     :getValue      #(gobj/get % valueKey "No value")
     :getLabel      #(gobj/get % label-path "No label")
     :getBreadcrumb #(gobj/get % breadcrumbKey "No breadcrumb")
-    :getAdded      (if addedKey #(gobj/get % addedKey) (constantly false))}])
+    :getAdded      (if added-path #(gobj/get % added-path) (constantly false))}])
 
 (defn TableSelectionList
-  [{:keys [items onReorder onItemClick onRemoveClick valueKey addedKey columns]}]
+  [{:keys [items onReorder onItemClick onRemoveClick valueKey added-path columns]}]
   (s/assert fn? onReorder)
   (s/assert (s/nilable fn?) onItemClick)
   (s/assert fn? onRemoveClick)
   (s/assert string? valueKey)
-  (s/assert (s/nilable string?) addedKey)
+  (s/assert (s/nilable string?) added-path)
   (s/assert (s/coll-of (s/keys :req-un [::labelKey ::flex] :opt-un [::columnHeader])) columns)
   (s/assert (s/coll-of (has-key? valueKey)) items)
   #_(s/assert (s/coll-of (has-keys? (map :label-path columns)) :distinct true) items)
@@ -326,7 +326,7 @@
     :onItemClick   onItemClick
     :onRemoveClick onRemoveClick
     :getValue      #(gobj/get % valueKey "No value")
-    :getAdded      (if addedKey #(gobj/get % addedKey) (constantly false))
+    :getAdded      (if added-path #(gobj/get % added-path) (constantly false))
     :columns       (for [{:keys [flex label-path columnHeader]} columns]
                      {:flex         flex
                       :getLabel     #(gobj/get % label-path "No label")

@@ -486,7 +486,7 @@
    [select-option config]])
 
 (def list-add-button-settings
-  {:req-ks [:form-id :data-path :valueKey :addedKey]
+  {:req-ks [:form-id :data-path :valueKey :added-path]
    :opt-ks []})
 
 ; NOTE: Experimental
@@ -495,14 +495,14 @@
   [config]
   (let [config (massage-config list-add-button-settings config)
         props @(rf/subscribe [::get-block-props config])
-        {:keys [valueKey addedKey]} props]
+        {:keys [valueKey added-path]} props]
 
     (s/assert string? valueKey)
-    (s/assert string? addedKey)
+    (s/assert string? added-path)
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 (utils4/schema-object-with-keys [valueKey addedKey])})
+       :schema2 (utils4/schema-object-with-keys [valueKey added-path])})
 
     [:button.bp3-button.bp3-intent-primary
      {:onClick #(rf/dispatch [::item-add-with-defaults-click-handler config])}
@@ -513,14 +513,14 @@
   [config]
   (let [config (massage-config list-add-button-settings config)
         props @(rf/subscribe [::get-block-props config])
-        {:keys [valueKey addedKey]} props]
+        {:keys [valueKey added-path]} props]
 
     (s/assert string? valueKey)
-    (s/assert string? addedKey)
+    (s/assert string? added-path)
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "array" :items (utils4/schema-object-with-keys [valueKey addedKey])}})
+       :schema2 {:type "array" :items (utils4/schema-object-with-keys [valueKey added-path])}})
 
     [:button.bp3-button.bp3-intent-primary
      {:onClick #(rf/dispatch [::list-add-with-defaults-click-handler config])}
@@ -712,29 +712,29 @@
 
 (def simple-selection-list-settings
   {:req-ks [:form-id :data-path :label-path :valueKey]
-   :opt-ks [:addedKey]})
+   :opt-ks [:added-path]})
 
 (defn simple-selection-list
   [config]
   (let [config (massage-config simple-selection-list-settings config)
         props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
-        {:keys [key disabled label-path valueKey addedKey]} props]
+        {:keys [key disabled label-path valueKey added-path]} props]
 
     (s/assert string? valueKey)
     (s/assert string? label-path)
-    (s/assert (s/nilable string?) addedKey)
+    (s/assert (s/nilable string?) added-path)
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "array" :items (utils4/schema-object-with-keys (remove nil? [valueKey label-path addedKey]))}})
+       :schema2 {:type "array" :items (utils4/schema-object-with-keys (remove nil? [valueKey label-path added-path]))}})
 
     [ui/SimpleSelectionList
      {:key           key
       :items         items
       :label-path    label-path
       :valueKey      valueKey
-      :addedKey      addedKey
+      :added-path    added-path
       :disabled      disabled
       :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
       :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
@@ -742,23 +742,23 @@
 
 (def breadcrumb-selection-list-settings
   {:req-ks [:form-id :data-path :label-path :valueKey :breadcrumbKey]
-   :opt-ks [:addedKey]})
+   :opt-ks [:added-path]})
 
 (defn breadcrumb-selection-list
   [config]
   (let [config (massage-config breadcrumb-selection-list-settings config)
         props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
-        {:keys [key disabled label-path valueKey addedKey breadcrumbKey]} props]
+        {:keys [key disabled label-path valueKey added-path breadcrumbKey]} props]
 
     (s/assert string? valueKey)
     (s/assert string? label-path)
     (s/assert string? breadcrumbKey)
-    (s/assert (s/nilable string?) addedKey)
+    (s/assert (s/nilable string?) added-path)
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema config])
-       :schema2 {:type "array" :items (utils4/schema-object-with-keys (remove nil? [#_labelPath valueKey breadcrumbKey addedKey]))}})
+       :schema2 {:type "array" :items (utils4/schema-object-with-keys (remove nil? [#_labelPath valueKey breadcrumbKey added-path]))}})
 
     [ui/BreadcrumbSelectionList
      {:key           key
@@ -767,31 +767,31 @@
       :breadcrumbKey breadcrumbKey
       :label-path    label-path
       :valueKey      valueKey
-      :addedKey      addedKey
+      :added-path    added-path
       :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
       :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
       :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
 
 (def table-selection-list-settings
   {:req-ks [:form-id :data-path :columns :valueKey]
-   :opt-ks [:addedKey]})
+   :opt-ks [:added-path]})
 
 (defn table-selection-list
   [config]
   (let [config (massage-config table-selection-list-settings config)
         props @(rf/subscribe [::get-block-props config])
-        {:keys [key disabled columns valueKey addedKey]} props
+        {:keys [key disabled columns valueKey added-path]} props
         items @(rf/subscribe [::get-block-data config])]
 
     (s/assert string? valueKey)
-    (s/assert (s/nilable string?) addedKey)
+    (s/assert (s/nilable string?) added-path)
 
     (schema/assert-compatible-schema
       {:schema1 @(rf/subscribe [::get-data-schema config])
        :schema2 {:type  "array"
                  :items (utils4/schema-object-with-keys
                           ;(into (remove nil? [valueKey addedKey]) (map :labelKey columns))
-                          (remove nil? [valueKey addedKey]))}})
+                          (remove nil? [valueKey added-path]))}})
 
     [ui/TableSelectionList
      {:key           key
@@ -799,7 +799,7 @@
       :disabled      disabled
       :columns       columns
       :valueKey      valueKey
-      :addedKey      addedKey
+      :added-path    added-path
       :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
       :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
       :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}]))

@@ -57,8 +57,8 @@
 
 (defn list-add-with-defaults-click-handler
   [{:keys [db]} [_ props]]
-  (let [{:keys [form-id data-path valueKey addedKey]} props
-        defaults {valueKey (str (random-uuid)) addedKey true}]
+  (let [{:keys [form-id data-path valueKey added-path]} props
+        defaults {valueKey (str (random-uuid)) added-path true}]
     (-> {:db db}
         (actions/save-snapshot-action form-id)
         (actions/add-item-action form-id data-path defaults)
@@ -67,8 +67,8 @@
 ; NOTE: Experiemental
 (defn item-add-with-defaults-click-handler
   [{:keys [db]} [_ props]]
-  (let [{:keys [form-id data-path valueKey addedKey]} props
-        defaults {valueKey (str (random-uuid)) addedKey true}]
+  (let [{:keys [form-id data-path valueKey added-path]} props
+        defaults {valueKey (str (random-uuid)) added-path true}]
     (-> {:db db}
         (actions/save-snapshot-action form-id)
         (actions/set-value-action form-id data-path defaults)
@@ -95,10 +95,10 @@
 ; NOTE: assumes we only ever select user added items.  Might need to grow.
 (defn selection-list-item-click
   [{:keys [db]} [_ props idx]]
-  (let [{:keys [form-id data-path addedKey]} props]
+  (let [{:keys [form-id data-path added-path]} props]
     (cond-> {:db db}
-      addedKey
-      (actions/select-user-defined-list-item-action form-id data-path idx addedKey))))
+      added-path
+      (actions/select-user-defined-list-item-action form-id data-path idx added-path))))
 
 (defn selection-list-remove-click
   [{:keys [db]} [_ ctx idx]]

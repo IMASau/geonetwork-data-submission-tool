@@ -328,10 +328,10 @@
               :label-path "label"
               :valueKey   "uri"}]]
            [m4/item-add-button
-            {:form-id   ?form-id
-             :data-path [?data-path "unit"]
-             :valueKey  "uri"
-             :addedKey  "isUserDefined"}]]
+            {:form-id    ?form-id
+             :data-path  [?data-path "unit"]
+             :valueKey   "uri"
+             :added-path "isUserDefined"}]]
 
           [m4/item-edit-dialog
            {:form-id     ?form-id
@@ -538,17 +538,17 @@
                :label-path "label"
                :valueKey   "uri"}]]
             [m4/list-add-button
-             {:form-id   [:form]
-              :data-path ["identificationInfo" "keywordsPlatform" "keywords"]
-              :valueKey  "uri"
-              :addedKey  "isUserDefined"}]]
+             {:form-id    [:form]
+              :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
+              :valueKey   "uri"
+              :added-path "isUserDefined"}]]
 
            [m4/simple-selection-list
             {:form-id    [:form]
              :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
              :label-path "label"
              :valueKey   "uri"
-             :addedKey   "isUserDefined"}]
+             :added-path "isUserDefined"}]
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
@@ -569,17 +569,17 @@
                :label-path "label"
                :valueKey   "uri"}]]
             [m4/list-add-button
-             {:form-id   [:form]
-              :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
-              :valueKey  "uri"
-              :addedKey  "isUserDefined"}]]
+             {:form-id    [:form]
+              :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
+              :valueKey   "uri"
+              :added-path "isUserDefined"}]]
            [m4/table-selection-list
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "keywordsInstrument" "keywords"]
-             :valueKey  "uri"
-             :addedKey  "isUserDefined"
-             :columns   [{:columnHeader "Instrument" :label-path "label" :flex 2}
-                         {:columnHeader "Serial no." :label-path "uri" :flex 3}]}]
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
+             :valueKey   "uri"
+             :added-path "isUserDefined"
+             :columns    [{:columnHeader "Instrument" :label-path "label" :flex 2}
+                          {:columnHeader "Serial no." :label-path "uri" :flex 3}]}]
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
@@ -601,17 +601,17 @@
                :label-path "label"
                :valueKey   "uri"}]]
             [m4/list-add-button
-             {:form-id   [:form]
-              :data-path ["identificationInfo" "keywordsParameters" "keywords"]
-              :valueKey  "uri"
-              :addedKey  "isUserDefined"}]]
+             {:form-id    [:form]
+              :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
+              :valueKey   "uri"
+              :added-path "isUserDefined"}]]
            [m4/table-selection-list
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "keywordsParameters" "keywords"]
-             :valueKey  "uri"
-             :addedKey  "isUserDefined"
-             :columns   [{:columnHeader "Name" :label-path "label" :flex 2}
-                         {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
+             :valueKey   "uri"
+             :added-path "isUserDefined"
+             :columns    [{:columnHeader "Name" :label-path "label" :flex 2}
+                          {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsParameters" "keywords"]

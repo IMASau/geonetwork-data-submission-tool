@@ -113,9 +113,13 @@
         :variables   {'?form-id   form-id
                       '?data-path item-data-path}})]))
 
+(def input-field-settings
+  {:req-ks []
+   :opt-ks [:placeholder :maxLength]})
+
 (defn input-field
   [config]
-  (let [config (massage-config {:req-ks [] :opt-ks [:placeholder :maxLength]} config)
+  (let [config (massage-config input-field-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]

@@ -349,9 +349,13 @@
         {:keys [email]} site]
     [:a {:href (str "mailto:" email)} email]))
 
+(def simple-select-option-settings
+  {:req-ks [:options]
+   :opt-ks [:placeholder]})
+
 (defn simple-select-option
   [config]
-  (let [config (massage-config {:req-ks [:options] :opt-ks [:placeholder]} config)
+  (let [config (massage-config simple-select-option-settings config)
         props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder options disabled errors show-errors]} props

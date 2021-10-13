@@ -195,7 +195,7 @@
           {:form-id   ?form-id
            :data-path [?data-path "source"]
            :label     "Source"
-           :tooltip   "TODO"}
+           :toolTip   "TODO"}
           [m4/textarea-field
            {:form-id   ?form-id
             :data-path [?data-path "source"]}]]]

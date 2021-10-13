@@ -68,6 +68,16 @@
       (contains? (:content block-data) idx)
       (assoc-in (conj block-path :props :selected) idx))))
 
+(defn select-user-defined-list-item-action2
+  "Select item, but only if it's user defined"
+  [s form-id data-path idx added-path]
+  (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
+        block-data (get-in s block-path)
+        added? (get-in block-data (utils4/as-path [:content idx (blocks/block-path added-path) :props :value]))]
+    (cond-> s
+      added?
+      (assoc-in (conj block-path :props :selected) idx))))
+
 (defn select-user-defined-list-item-action
   "Select item, but only if it's user defined"
   [s form-id data-path idx addedKey]

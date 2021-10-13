@@ -809,9 +809,13 @@
       :columns     columns
       :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
 
+(def async-simple-list-option-picker-settings
+  {:req-ks [:uri :valueKey :labelKey]
+   :opt-ks [:placeholder]})
+
 (defn async-simple-list-option-picker
   [config]
-  (let [config (massage-config {:req-ks [:uri :valueKey :labelKey] :opt-ks [:placeholder]} config)
+  (let [config (massage-config async-simple-list-option-picker-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder uri disabled errors show-errors valueKey labelKey]} props
         hasError (when (and show-errors (seq errors)) true)]

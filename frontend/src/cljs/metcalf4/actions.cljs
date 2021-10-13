@@ -132,6 +132,15 @@
                 (update-in (conj db-path :content) conj state))
         (assoc-in (conj db-path :props :show-errors) true))))
 
+(defn set-value-action
+  [s form-id data-path option]
+  (let [schema (get-in s (flatten [:db form-id :schema (schema/schema-path data-path)]))
+        state (blocks/as-blocks {:schema schema :data option})
+        db-path (utils4/as-path [form-id :state (blocks/block-path data-path)])]
+    (-> s
+        (assoc-in db-path state)
+        (assoc-in (conj db-path :props :show-errors) true))))
+
 (defn move-item-action
   [s form-id data-path src-idx dst-idx]
   (let [list-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :content])

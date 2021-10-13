@@ -835,11 +835,9 @@
                :southBoundLatitude (get-in box ["southBoundLatitude"])
                :eastBoundLongitude (get-in box ["eastBoundLongitude"])
                :westBoundLongitude (get-in box ["westBoundLongitude"])}))]
-    (let [ctx (utils4/get-ctx config)
-          config-keys [:options :placeholder]
-          logic @(rf/subscribe [::get-block-props ctx])
-          data @(rf/subscribe [::get-block-data ctx])
-          props (merge ctx logic (select-keys config config-keys))
+    (let [config (massage-config config {:req-ks [] :opt-ks []})
+          props @(rf/subscribe [::get-block-props config])
+          data @(rf/subscribe [::get-block-data config])
           elements (boxes->elements data)
           {:keys [disabled is-hidden]} props]
       (when-not is-hidden
@@ -847,7 +845,7 @@
          {:elements  elements
           :disabled  (not disabled)
           :tick-id   @(rf/subscribe [:subs/get-form-tick])
-          :on-change #(rf/dispatch [::boxes-changed ctx %])}]))))
+          :on-change #(rf/dispatch [::boxes-changed config %])}]))))
 
 (defn coordinates-modal-field
   [config]

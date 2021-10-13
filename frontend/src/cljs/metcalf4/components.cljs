@@ -14,15 +14,36 @@
 (defn config-for-settings [settings config]
   (select-keys config (concat (:req-ks settings) (:opt-ks settings))))
 
+(defn str-value
+  [data]
+  (binding [*print-level* 3
+            *print-length* 5]
+    (pr-str data)))
+
+(defn console-value
+  [data]
+  (if goog/DEBUG
+    data
+    (str-value data)))
+
+(defn report-config-error
+  [msg data]
+  (js/console.error msg (console-value data)))
+
+(defn report-config-warn
+  [msg data]
+  (js/console.warn msg (console-value data)))
+
 (defn massage-config
-  [{:keys [opt-ks req-ks]} config]
-  (let [all-ks (distinct (concat opt-ks req-ks))
+  [settings config]
+  (let [{:keys [opt-ks req-ks]} settings
+        all-ks (distinct (concat opt-ks req-ks))
         config1 (utils4/get-ctx config)
         config2 (select-keys config all-ks)
         extra-ks (remove (set all-ks) (keys config))
         missing-ks (remove (set (keys config)) req-ks)]
-    (s/assert empty? missing-ks)
-    (s/assert empty? extra-ks)
+    (doseq [k missing-ks] (report-config-error (str "Missing required key (" (pr-str k) ") in config") {:config config :settings settings}))
+    (doseq [k extra-ks] (report-config-warn (str "Unexpected key (" (pr-str k) ") found in config") {:config config :settings settings}))
     (merge config1 config2)))
 
 (defn has-error?

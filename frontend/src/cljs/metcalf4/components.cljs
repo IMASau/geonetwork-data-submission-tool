@@ -94,9 +94,13 @@
             :toolTip    toolTip}]
           children)))
 
+(def inline-form-group-settings
+  {:req-ks [:form-id :data-path :label]
+   :opt-ks [:placeholder :helperText :toolTip]})
+
 (defn inline-form-group
   [config & children]
-  (let [config (massage-config {:req-ks [:form-id :data-path :label] :opt-ks [:placeholder :helperText :toolTip]} config)
+  (let [config (massage-config inline-form-group-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [label helperText toolTip required disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]

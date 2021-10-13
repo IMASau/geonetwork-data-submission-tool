@@ -29,7 +29,7 @@
 
 (defn check-compatible-paths
   [{:keys [settings schema] :as ctx}]
-  (doseq [path (get-in settings [::schema-paths])]
+  (doseq [path (remove nil? (get-in settings [::schema-paths]))]
     (if (= "array" (get-in schema [:type]))
       (when-not (schema/contains-path? {:schema (:items schema) :path path})
         (utils4/console-error (str "Path not present in schema: " (pr-str path)) {:ctx ctx :path path}))

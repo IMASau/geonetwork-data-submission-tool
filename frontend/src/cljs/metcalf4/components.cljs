@@ -400,9 +400,13 @@
       :hasError    (seq hasError)
       :onChange    #(rf/dispatch [::option-change config %])}]))
 
+(def breadcrumb-select-option-settings
+  {:req-ks [:options :labelKey :valueKey :breadcrumbKey]
+   :opt-ks [:placeholder]})
+
 (defn breadcrumb-select-option
   [config]
-  (let [config (massage-config {:req-ks [:options :labelKey :valueKey :breadcrumbKey] :opt-ks [:placeholder]} config)
+  (let [config (massage-config breadcrumb-select-option-settings config)
         props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder options disabled errors show-errors labelKey valueKey breadcrumbKey]} props

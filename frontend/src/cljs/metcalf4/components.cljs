@@ -222,9 +222,13 @@
   [form-group config
    [textarea-field config]])
 
+(def date-field-settings
+  {:req-ks []
+   :opt-ks [:minDate :maxDate]})
+
 (defn date-field
   [config]
-  (let [config (massage-config {:req-ks [] :opt-ks [:minDate :maxDate]} config)
+  (let [config (massage-config date-field-settings config)
         props @(rf/subscribe [::get-block-props config])
         {:keys [minDate maxDate value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]

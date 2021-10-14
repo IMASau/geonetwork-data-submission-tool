@@ -159,6 +159,7 @@
        'm4/form-group                    {:view components4/form-group :init components4/form-group-settings}
        'm4/inline-form-group             {:view components4/inline-form-group :init components4/inline-form-group-settings}
        'm4/input-field                   {:view components4/input-field :init components4/input-field-settings}
+       'm4/numeric-input-field           {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
        'm4/input-field-with-label        {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button               {:view components4/item-add-button :init components4/item-add-button-settings}
        'm4/item-edit-dialog              {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
@@ -744,50 +745,92 @@
          #_[m4/page-errors
             {:form-id    [:form]
              :data-path  []
-             :data-paths [["identificationInfo" "geographicElement" "siteDescription"]]}]
+             :data-paths [["identificationInfo" "geographicElement" "boxes"]
+                          ["identificationInfo" "verticalElement" "minimumValue"]
+                          ["identificationInfo" "verticalElement" "maximumValue"]]}]
          [:h2 "4. Where"]
+         [:div.row
+          [:div.col-sm-6
+           ;; FIXME add toggle for satellite imagery.
+           [m4/boxmap-field
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "geographicElement" "boxes"]
+             :value-path ["uri"]
+             :added-path ["isUserDefined"]}]]
+          [:div.col-sm-6
+           [m4/table-selection-list
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "geographicElement" "boxes"]
+             :value-path ["uri"]
+             :added-path ["isUserDefined"]
+             :columns    [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
+                          {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
+                          {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
+                          {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
 
-         #_[:div
-            {:style {:display               "grid"
-                     :grid-column-gap       "1em"
-                     :grid-template-columns "1fr 2fr"}}
+           [m4/list-add-button
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "geographicElement" "boxes"]
+             :value-path ["uri"]
+             :added-path ["isUserDefined"]}]
 
-            [:div
-             [:p "TODO: map"]]
+           [m4/list-edit-dialog
+            {:form-id     [:form]
+             :data-path   ["identificationInfo" "geographicElement" "boxes"]
+             :value-path  ["uri"]
+             :added-path  ["isUserDefined"]
+             :title       "Bounding box"
+             :template-id :box/user-defined-entry-form}]]]
+         [:h3 "Vertical Coverage"]
+         #_[m4/input-field-with-label
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "verticalElement" "minimumValue"]
+             :class      "wauto"
+             :helperText "Shallowest depth / lowest altitude"}]
+         #_[m4/input-field-with-label
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
+             :class      "wauto"
+             :helperText "Deepest depth / highest altitude"}]
+         [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
-            [:div
+        :box/user-defined-entry-form
+        [:div
 
 
-             [m4/textarea-field-with-label
-              {:form-id     [:form]
-               :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
-               :label       "Provide a site description (optional)"
-               :placeholder [:div
-                             "Please input decimal degrees in coordinate reference system WGS84."
-                             "Geoscience Australia see "
-                             [:a {:href "https://google.com/?q=geoscience+wsg84"}]]}]
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "northBoundLatitude"]
+           :label     "North"}
+          [m4/numeric-input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "northBoundLatitude"]}]]
 
-             ]]
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "southBoundLatitude"]
+           :label     "East"}
+          [m4/numeric-input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "southBoundLatitude"]}]]
 
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "eastBoundLongitude"]
+           :label     "South"}
+          [m4/numeric-input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "eastBoundLongitude"]}]]
 
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "westBoundLongitude"]
+           :label     "West"}
+          [m4/numeric-input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "westBoundLongitude"]}]]
 
-         [:div.VerticalCoverage
-          [:h4 "Vertical Coverage"]
-          [CheckboxField
-           {:path [:form :fields :identificationInfo :verticalElement :hasVerticalExtent]}]
-          [:div
-           [SelectField {:path [:form :fields :identificationInfo :verticalElement :method]}]
-           [InputField
-            {:path  [:form :fields :identificationInfo :verticalElement :elevation]
-             :class "wauto"}]
-           [InputField
-            {:path  [:form :fields :identificationInfo :verticalElement :minimumValue]
-             :class "wauto"}]
-           [InputField
-            {:path  [:form :fields :identificationInfo :verticalElement :maximumValue]
-             :class "wauto"}]]]
-
-         [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
+         ]
 
         :who
         [:div

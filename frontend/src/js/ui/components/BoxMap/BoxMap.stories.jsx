@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {BoxMap} from './BoxMap';
+import {EditDialog} from '../EditDialog/EditDialog';
 import './boxmap.css';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
@@ -39,4 +40,22 @@ MapWithValues.args = {
             "eastBoundLongitude": 150.448172,
             "westBoundLongitude": 146.587417
         }]
+};
+
+
+export const BoxMapDialogInteraction = (args) => (
+    <div>
+        <BoxMap elements={[]} />
+        <EditDialog
+            isOpen={true}
+            title="Dialog should fully cover map"
+            onClose={() => null}
+            onClear={() => null}
+            onSave={() => null}
+            canSave={false}
+         />
+    </div>
+);
+EmptyMap.args = {
+    elements: []
 };

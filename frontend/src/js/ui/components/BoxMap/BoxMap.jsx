@@ -108,7 +108,8 @@ export const BoxMap = ({mapWidth, elements, onChange, tickId}) => {
             id="map"
             style={{
                 "height": 500,
-                "width": mapWidth
+                "width": mapWidth,
+                "zIndex": 10,
             }}
             useFlyTo={true}
             center={setCenter ? [bounds.south, bounds.west] : defaultCenter}

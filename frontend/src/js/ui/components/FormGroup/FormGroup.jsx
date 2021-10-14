@@ -22,17 +22,22 @@ function TooltipButton({toolTip}) {
     }
 }
 
-function LabelInfo({required, toolTip}) {
+function NewTerm () {
+    return (<span><Icon icon="star"/> New term</span>)
+}
+
+function LabelInfo({required, toolTip, isAdded}) {
     const labelInfo = requiredLabelInfo({required});
     return (
         <span className="FormGroupLabelInfo">
             <span className={Classes.TEXT_MUTED}> {labelInfo}</span>
             <TooltipButton toolTip={toolTip}/>
+            {isAdded ? <span style={{float: "right"}}><NewTerm /></span>:<span/>}
         </span>
     )
 }
 
-export function FormGroup({label, required, toolTip, helperText, hasError, disabled, children}) {
+export function FormGroup({label, required, toolTip, helperText, hasError, isAdded, disabled, children}) {
     const intent = hasErrorIntent({hasError, disabled});
     return (
         <BPCore.FormGroup
@@ -41,7 +46,7 @@ export function FormGroup({label, required, toolTip, helperText, hasError, disab
             helperText={helperText}
             intent={intent}
             disabled={disabled}
-            labelInfo={<LabelInfo required={required} toolTip={toolTip}/>}
+            labelInfo={<LabelInfo required={required} toolTip={toolTip} isAdded={isAdded}/>}
         >
             {children}
         </BPCore.FormGroup>
@@ -55,6 +60,7 @@ FormGroup.propTypes = {
     helperText: PropTypes.string,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
+    isAdded: PropTypes.bool,
 }
 
 export function InlineFormGroup({label, required, toolTip, helperText, hasError, disabled, children}) {

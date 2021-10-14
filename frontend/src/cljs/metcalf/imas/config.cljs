@@ -164,6 +164,7 @@
        'm4/lodge-status-info              {:view components4/lodge-status-info}
        'm4/mailto-data-manager-link       {:view components4/mailto-data-manager-link}
        'm4/note-for-data-manager          {:view components4/note-for-data-manager :init components4/note-for-data-manager-settings}
+       'm4/numeric-input-field            {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
        'm4/numeric-input-field-with-label {:view components4/numeric-input-field-with-label :init components4/numeric-input-field-settings}
        'm4/page-errors                    {:view components4/page-errors :init components4/page-errors-settings}
        'm4/portal-link                    {:view components4/portal-link}

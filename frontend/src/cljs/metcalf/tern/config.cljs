@@ -552,6 +552,7 @@
              :label-path ["label"]
              :value-path ["uri"]
              :added-path ["isUserDefined"]}]
+
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
@@ -743,15 +744,30 @@
              :data-path  []
              :data-paths [["identificationInfo" "geographicElement" "siteDescription"]]}]
          [:h2 "4. Where"]
-         [m4/textarea-field-with-label
-          {:form-id     [:form]
-           :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
-           :label       "Site Description"
-           :placeholder "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}]
-         [m3/GeographicCoverage
-          {:has-coverage-path     [:form :fields :identificationInfo :geographicElement :hasGeographicCoverage]
-           :boxes-path            [:form :fields :identificationInfo :geographicElement :boxes]
-           :site-description-path [:form :fields :identificationInfo :geographicElement :siteDescription]}]
+
+         #_[:div
+            {:style {:display               "grid"
+                     :grid-column-gap       "1em"
+                     :grid-template-columns "1fr 2fr"}}
+
+            [:div
+             [:p "TODO: map"]]
+
+            [:div
+
+
+             [m4/textarea-field-with-label
+              {:form-id     [:form]
+               :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
+               :label       "Provide a site description (optional)"
+               :placeholder [:div
+                             "Please input decimal degrees in coordinate reference system WGS84."
+                             "Geoscience Australia see "
+                             [:a {:href "https://google.com/?q=geoscience+wsg84"}]]}]
+
+             ]]
+
+
 
          [:div.VerticalCoverage
           [:h4 "Vertical Coverage"]
@@ -773,9 +789,95 @@
 
         :who
         [:div
-         [m3/Who
-          {:credit-path [:form :fields :identificationInfo :credit]}]
+
+         [m4/list-add-button
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "Who"]
+           :value-path ["uri"]
+           :added-path ["isUserDefined"]}]
+
+         [m4/table-selection-list
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "Who"]
+           :label-path ["contact" "label"]
+           :value-path ["uri"]
+           :columns    [{:columnHeader "contact" :label-path ["contact" "label"] :flex 2}
+                        {:columnHeader "role" :label-path ["role" "label"] :flex 3}]
+           :added-path ["isUserDefined"]}]
+
+         [m4/list-edit-dialog
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "Who"]
+           :title       "Responsible for creating the data"
+           :template-id :credit/user-defined-entry-form}]
+
+         #_[m3/Who
+            {:credit-path [:form :fields :identificationInfo :credit]}]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+
+        :credit/user-defined-entry-form
+        [:div
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "role"]
+           :label     "Role"}
+          [m4/async-select-option
+           {:form-id    ?form-id
+            :data-path  [?data-path "role"]
+            :uri        "/api/What9"
+            :label-path ["label"]
+            :value-path ["uri"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "contact"]
+           :label     "Contact"}
+          [m4/async-select-option
+           {:form-id    ?form-id
+            :data-path  [?data-path "contact"]
+            :uri        "/api/What9"
+            :label-path ["label"]
+            :value-path ["uri"]}]]
+
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "contact" "label"]}
+
+          [:div {:style {:display               "grid"
+                         :grid-column-gap       "1em"
+                         :grid-template-columns "1fr 1fr"}}
+
+           [m4/form-group
+            {:form-id   ?form-id
+             :data-path [?data-path "contact" "label"]
+             :label     "Given name"}
+            [m4/input-field
+             {:form-id   ?form-id
+              :data-path [?data-path "contact" "label"]}]]
+
+
+           [m4/form-group
+            {:form-id   ?form-id
+             :data-path [?data-path "contact" "label"]
+             :label     "Surname"}
+            [m4/input-field
+             {:form-id   ?form-id
+              :data-path [?data-path "contact" "label"]}]]]]
+
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "organisation"]
+           :label     "Organisation"}
+          [m4/async-select-option
+           {:form-id    ?form-id
+            :data-path  [?data-path "organisation"]
+            :uri        "/api/What9"
+            :label-path ["label"]
+            :value-path ["uri"]}]]
+         ]
 
         :how
         [:div

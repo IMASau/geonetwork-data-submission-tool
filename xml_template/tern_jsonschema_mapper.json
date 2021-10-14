@@ -42,11 +42,56 @@
         "maintFreq",
         "endPosition",
         "licenseOther",
-        {"dateOrder": {"field0": "beginPosition", "field1": "endPosition"}},
-        {"requiredWhenYes": {"bool-field": "previouslyPublishedFlag", "opt-field": "datePublication"}}
+        {
+          "dateOrder": {
+            "field0": "beginPosition",
+            "field1": "endPosition"
+          }
+        },
+        {
+          "requiredWhenYes": {
+            "bool-field": "previouslyPublishedFlag",
+            "opt-field": "datePublication"
+          }
+        }
       ],
       "type": "object",
       "properties": {
+        "Who": {
+          "xpath": "mri:who",
+          "keep": false,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "uri": {},
+              "role": {
+                "type": "object",
+                "properties": {
+                  "uri": {},
+                  "label": {}
+                }
+              },
+              "contact": {
+                "type": "object",
+                "properties": {
+                  "uri": {},
+                  "label": {},
+                  "isUserDefined": {}
+                }
+              },
+              "organisation": {
+                "type": "object",
+                "properties": {
+                  "uri": {},
+                  "label": {},
+                  "isUserDefined": {}
+                }
+              },
+              "isUserDefined": {}
+            }
+          }
+        },
         "title": {
           "!docstring": "ID1",
           "xpath": "mri:citation/cit:CI_Citation/cit:title",
@@ -69,7 +114,9 @@
               "function": "identity"
             }
           },
-          "rules": ["requiredField"]
+          "rules": [
+            "requiredField"
+          ]
         },
         "status": {
           "!docstring": "ID5",
@@ -84,7 +131,9 @@
               "function": "identity"
             }
           },
-          "rules": ["requiredField"]
+          "rules": [
+            "requiredField"
+          ]
         },
         "maintenanceAndUpdateFrequency": {
           "!docstring": "ID9; FIXME: depends on status",
@@ -104,7 +153,8 @@
           "required": true
         },
         "datePublicationFlag": {
-          "export": false, "xpath": null
+          "export": false,
+          "xpath": null
         },
         "datePublication": {
           "!docstring": "ID8",

@@ -207,6 +207,64 @@
               "label": "Site Description",
               "keep": false,
               "required": false
+            },
+            "boxes": {
+              "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
+              "rules": ["requiredField"],
+              "label": "Geographic coverage",
+              "keep": false,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "uri": {},
+                  "isUserDefined": {},
+                  "westBoundLongitude": {
+                    "valueChild": "gco:Decimal",
+                    "xpath": "gex:westBoundLongitude",
+                    "rules": ["requiredField"],
+                    "label": "West limit",
+                    "attributes": {
+                      "text": {
+                        "function": "to_string"
+                      }
+                    }
+                  },
+                  "eastBoundLongitude": {
+                    "valueChild": "gco:Decimal",
+                    "xpath": "gex:eastBoundLongitude",
+                    "rules": ["requiredField"],
+                    "label": "East limit",
+                    "attributes": {
+                      "text": {
+                        "function": "to_string"
+                      }
+                    }
+                  },
+                  "southBoundLatitude": {
+                    "valueChild": "gco:Decimal",
+                    "xpath": "gex:southBoundLatitude",
+                    "rules": ["requiredField"],
+                    "label": "South limit",
+                    "attributes": {
+                      "text": {
+                        "function": "to_string"
+                      }
+                    }
+                  },
+                  "northBoundLatitude": {
+                    "valueChild": "gco:Decimal",
+                    "xpath": "gex:northBoundLatitude",
+                    "rules": ["requiredField"],
+                    "label": "North limit",
+                    "attributes": {
+                      "text": {
+                        "function": "to_string"
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         },

@@ -302,8 +302,8 @@
           [:div.col-sm-6
            ;; FIXME add toggle for satellite imagery.
            [m4/boxmap-field
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "geographicElement" "boxes"]
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "geographicElement" "boxes"]
              :value-path ["uri"]
              :added-path ["isUserDefined"]}]]
           [:div.col-sm-6

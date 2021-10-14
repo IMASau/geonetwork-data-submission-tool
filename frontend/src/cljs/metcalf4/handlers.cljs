@@ -97,13 +97,15 @@
         (actions/dialog-open-action form-id data-path))))
 
 (defn boxes-changed
-  [{:keys [db]} [_ ctx geojson]]
-  (let [{:keys [form-id data-path]} ctx
+  [{:keys [db]} [_ config geojson]]
+  (let [{:keys [form-id data-path value-path added-path]} config
         geometries (mapv :geometry (:features geojson))
         boxes (mapv utils4/geometry->box-value geometries)
+        boxes (map-indexed (fn [idx m] (assoc-in m value-path idx)) boxes)
+        boxes (map (fn [m] (assoc-in m added-path true)) boxes)
         schema (get-in db (flatten [form-id :schema (schema/schema-path data-path)]))
         state (blocks/as-blocks {:schema schema :data boxes})
-        path (db-path ctx)]
+        path (db-path config)]
     {:db (-> db
              (assoc-in path state)
              (assoc-in (conj path :props :show-errors) true))}))

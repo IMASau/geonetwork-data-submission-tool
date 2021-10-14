@@ -923,7 +923,7 @@
         :data-path (conj path "southBoundLatitude")}]]]]])
 
 (defn boxmap-field-settings [_]
-  {::low-code/req-ks [:form-id :data-path]
+  {::low-code/req-ks [:form-id :data-path :added-path :value-path]
    ::low-code/opt-ks []})
 
 (defn boxmap-field

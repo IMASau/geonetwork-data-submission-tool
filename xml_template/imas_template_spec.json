@@ -289,6 +289,8 @@
               "items": {
                 "type": "object",
                 "properties": {
+                  "uri": {},
+                  "isUserDefined": {},
                   "westBoundLongitude": {
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:westBoundLongitude",

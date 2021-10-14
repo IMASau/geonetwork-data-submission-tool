@@ -758,40 +758,106 @@
              :value-path ["uri"]
              :added-path ["isUserDefined"]}]]
           [:div.col-sm-6
-           [m4/table-selection-list
-            {:form-id    [:form]
-             :data-path  ["identificationInfo" "geographicElement" "boxes"]
-             :value-path ["uri"]
-             :added-path ["isUserDefined"]
-             :columns    [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
-                          {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
-                          {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
-                          {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
 
-           [m4/list-add-button
-            {:form-id    [:form]
-             :data-path  ["identificationInfo" "geographicElement" "boxes"]
-             :value-path ["uri"]
-             :added-path ["isUserDefined"]}]
+           [m4/textarea-field-with-label
+            {:form-id   [:form]
+             :data-path ["identificationInfo" "geographicElement" "siteDescription"]
+             :label     "Provide a site description (optional)"
+             :toolTip   "TODO"}]
 
-           [m4/list-edit-dialog
-            {:form-id     [:form]
-             :data-path   ["identificationInfo" "geographicElement" "boxes"]
-             :value-path  ["uri"]
-             :added-path  ["isUserDefined"]
-             :title       "Bounding box"
-             :template-id :box/user-defined-entry-form}]]]
-         [:h3 "Vertical Coverage"]
-         #_[m4/input-field-with-label
-            {:form-id    [:form]
-             :data-path  ["identificationInfo" "verticalElement" "minimumValue"]
-             :class      "wauto"
-             :helperText "Shallowest depth / lowest altitude"}]
-         #_[m4/input-field-with-label
-            {:form-id    [:form]
-             :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
-             :class      "wauto"
-             :helperText "Deepest depth / highest altitude"}]
+           [:p
+            "Please input in decimal degrees in coordinate reference system WGS84."
+            "Geoscience Australia see "
+            [:a {:href   "https://geodesyapps.ga.gov.au/grid-to-geographic"
+                 :target "_blank"}
+             "Grid to Geographic converter"]]
+
+           [m4/form-group
+            {:label    "Limits"
+             :required true}
+            [m4/table-selection-list
+             {:form-id    [:form]
+              :data-path  ["identificationInfo" "geographicElement" "boxes"]
+              :value-path ["uri"]
+              :added-path ["isUserDefined"]
+              :columns    [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
+                           {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
+                           {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
+                           {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
+
+            [m4/list-add-button
+             {:form-id    [:form]
+              :data-path  ["identificationInfo" "geographicElement" "boxes"]
+              :value-path ["uri"]
+              :added-path ["isUserDefined"]}]
+
+            [m4/list-edit-dialog
+             {:form-id     [:form]
+              :data-path   ["identificationInfo" "geographicElement" "boxes"]
+              :value-path  ["uri"]
+              :added-path  ["isUserDefined"]
+              :title       "Bounding box"
+              :template-id :box/user-defined-entry-form}]]
+
+           [:div {:style {:display               "grid"
+                          :grid-column-gap       "1em"
+                          :grid-template-columns "1fr 1fr"}}
+            [m4/form-group
+             {:label    "Coordinate Reference System"
+              :required true
+              :toolTip  "TODO"}
+             [m4/async-select-option
+              {:form-id     [:form]
+               :data-path   ["identificationInfo" "CoordinateReferenceSystem"]
+               :uri         "/api/What9"
+               :label-path  ["label"]
+               :value-path  ["uri"]
+               :placeholder "Select from list"}]]
+
+            [m4/form-group
+             {:form-id   [:form]
+              :data-path ["identificationInfo" "DateOfDynamicDatum"]
+              :label     "Date of dynamic datum"
+              :toolTip   "TODO"}
+             [m4/date-field-with-label
+              {:form-id   [:form]
+               :data-path ["identificationInfo" "DateOfDynamicDatum"]
+               :minDate   "1900-01-01"
+               :maxDate   "2100-01-01"}]]]
+
+           [:h3 "Vertical extent (optional)"]
+           [:p "The vertial extent is optional.  If you choose to enter details then the following fields are mandatory"]
+
+           [m4/inline-form-group
+            {:label    "Vertical Coordinte Reference System"
+             :required true
+             :toolTip  "TODO"}
+            [m4/async-select-option
+             {:form-id     [:form]
+              :data-path   ["identificationInfo" "verticalElement" "CoordinteReferenceSystem"]
+              :uri         "/api/What9"
+              :label-path  ["label"]
+              :value-path  ["uri"]
+              :placeholder "Select from list"}]]
+
+           [m4/inline-form-group
+            {:label    "Minimum"
+             :required true
+             :toolTip  "TODO"}
+            [m4/numeric-input-field
+             {:form-id   [:form]
+              :data-path ["identificationInfo" "verticalElement" "minimumValue"]
+              :unit      "meters"}]]
+
+           [m4/inline-form-group
+            {:label    "Maximum"
+             :required true
+             :toolTip  "TODO"}
+            [m4/numeric-input-field
+             {:form-id   [:form]
+              :data-path ["identificationInfo" "verticalElement" "maximumValue"]
+              :unit      "meters"}]]]]
+
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
         :box/user-defined-entry-form

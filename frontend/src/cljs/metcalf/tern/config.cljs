@@ -856,7 +856,37 @@
             [m4/numeric-input-field
              {:form-id   [:form]
               :data-path ["identificationInfo" "verticalElement" "maximumValue"]
-              :unit      "meters"}]]]]
+              :unit      "meters"}]]
+
+           [m4/expanding-control {:label "Spatial resolution (optional)"}
+            [:div {:style {:display               "grid"
+                           :grid-column-gap       "1em"
+                           :grid-template-columns "auto auto"}}
+
+             [m4/form-group
+              {:label    "Resolution attribute"
+               :required true
+               :toolTip  "TODO"}
+              [m4/select-value
+               {:form-id     [:form]
+                :data-path   ["identificationInfo" "topicCategory"]
+                :placeholder "Start typing to filter list..."
+                :label-path  ["label"]
+                :value-path  ["value"]
+                :options     [{"value" "None" "label" "None"}
+                              {"value" "Denominator scale" "label" "Denominator scale"}
+                              {"value" "Vertical" "label" "Vertical"}
+                              {"value" "Horizontal" "label" "Horizontal"}
+                              {"value" "Angular distance" "label" "Angular distance"}]}]]
+
+             [m4/form-group
+              {:label    "Value"
+               :required true}
+              [m4/numeric-input-field
+               {:form-id   [:form]
+                :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeValue"]
+                :unit      ""                               ; Driven by logic
+                }]]]]]]
 
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 

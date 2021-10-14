@@ -88,6 +88,7 @@
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
+(rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
 (rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click2)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
@@ -150,6 +151,7 @@
 (set! low-code/component-registry
       {
        'm4/async-list-picker             {:view components4/async-list-picker :init components4/async-list-picker-settings}
+       'm4/async-item-picker             {:view components4/async-item-picker :init components4/async-item-picker-settings}
        'm4/async-select-option           {:view components4/async-select-option :init components4/async-select-option-settings}
        'm4/breadcrumb-list-option-picker {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
        'm4/breadcrumb-selection-list     {:view components4/breadcrumb-selection-list :init components4/breadcrumb-selection-list-settings}
@@ -931,35 +933,61 @@
         :who
         [:div
 
+
+         ;[m4/expanding-control {:label "Responsible for the creation of dataset" :required true}]
+
          [m4/list-add-button
           {:form-id    [:form]
-           :data-path  ["identificationInfo" "Who"]
+           :data-path  ["identificationInfo" "citedResponsibleParty"]
            :value-path ["uri"]
            :added-path ["isUserDefined"]}]
 
-         [m4/table-selection-list
+         [m4/simple-selection-list
           {:form-id    [:form]
-           :data-path  ["identificationInfo" "Who"]
-           :label-path ["contact" "label"]
+           :data-path  ["identificationInfo" "citedResponsibleParty"]
+           :label-path ["contact" "familyName"]
            :value-path ["uri"]
-           :columns    [{:columnHeader "contact" :label-path ["contact" "label"] :flex 2}
-                        {:columnHeader "role" :label-path ["role" "label"] :flex 3}]
            :added-path ["isUserDefined"]}]
 
          [m4/list-edit-dialog
           {:form-id     [:form]
-           :data-path   ["identificationInfo" "Who"]
+           :data-path   ["identificationInfo" "citedResponsibleParty"]
            :title       "Responsible for creating the data"
-           :template-id :credit/user-defined-entry-form}]
+           :template-id :person/user-defined-entry-form}]
+
+         ;[m4/expanding-control {:label "Point of contact for dataset" :required true}]
+         ;[m4/list-add-button
+         ; {:form-id    [:form]
+         ;  :data-path  ["identificationInfo" "PointOfContactForDataset"]
+         ;  :value-path ["uri"]
+         ;  :added-path ["isUserDefined"]}]
+         ;
+         ;[m4/table-selection-list
+         ; {:form-id    [:form]
+         ;  :data-path  ["identificationInfo" "PointOfContactForDataset"]
+         ;  :label-path ["contact" "label"]
+         ;  :value-path ["uri"]
+         ;  :columns    [{:columnHeader "contact" :label-path ["contact" "label"] :flex 2}
+         ;               {:columnHeader "role" :label-path ["role" "label"] :flex 3}]
+         ;  :added-path ["isUserDefined"]}]
+         ;
+         ;[m4/list-edit-dialog
+         ; {:form-id     [:form]
+         ;  :data-path   ["identificationInfo" "PointOfContactForDataset"]
+         ;  :title       "Responsible for creating the data"
+         ;  :template-id :person/user-defined-entry-form}]
+
+
+
 
          #_[m3/Who
             {:credit-path [:form :fields :identificationInfo :credit]}]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
-        :credit/user-defined-entry-form
+        :person/user-defined-entry-form
         [:div
 
-         [m4/inline-form-group
+         [m4/form-group
           {:form-id   ?form-id
            :data-path [?data-path "role"]
            :label     "Role"}
@@ -968,57 +996,99 @@
             :data-path  [?data-path "role"]
             :uri        "/api/What9"
             :label-path ["label"]
-            :value-path ["uri"]}]]
+            :value-path ["value"]}]]
 
-         [m4/inline-form-group
+         [m4/form-group
           {:form-id   ?form-id
            :data-path [?data-path "contact"]
            :label     "Contact"}
-          [m4/async-select-option
-           {:form-id    ?form-id
-            :data-path  [?data-path "contact"]
-            :uri        "/api/What9"
-            :label-path ["label"]
-            :value-path ["uri"]}]]
+          [m4/async-item-picker
+           {:form-id     ?form-id
+            :data-path   [?data-path "contact"]
+            :uri         "/api/What9"
+            :label-path  ["label"]
+            :value-path  ["uri"]
+            :placeholder "Search for contact details"}]]
+
+         [:p "If contact is not available, please enter the contact details below."]
 
 
-         [m4/inline-form-group
+         [:div {:style {:display               "grid"
+                        :grid-column-gap       "1em"
+                        :grid-template-columns "1fr 1fr"}}
+
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "contact" "givenName"]
+            :label     "Given name"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "contact" "givenName"]}]]
+
+
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "contact" "familyName"]
+            :label     "Surname"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "contact" "familyName"]}]]]
+
+         [m4/form-group
           {:form-id   ?form-id
-           :data-path [?data-path "contact" "label"]}
+           :data-path [?data-path "contact" "electronicMailAddress"]
+           :label     "Email address"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "contact" "electronicMailAddress"]}]]
 
-          [:div {:style {:display               "grid"
-                         :grid-column-gap       "1em"
-                         :grid-template-columns "1fr 1fr"}}
-
-           [m4/form-group
-            {:form-id   ?form-id
-             :data-path [?data-path "contact" "label"]
-             :label     "Given name"}
-            [m4/input-field
-             {:form-id   ?form-id
-              :data-path [?data-path "contact" "label"]}]]
-
-
-           [m4/form-group
-            {:form-id   ?form-id
-             :data-path [?data-path "contact" "label"]
-             :label     "Surname"}
-            [m4/input-field
-             {:form-id   ?form-id
-              :data-path [?data-path "contact" "label"]}]]]]
+         [m4/form-group
+          {:form-id     ?form-id
+           :data-path   [?data-path "contact" "orcid"]
+           :label       "ORCID ID"
+           :placeholder "XXXX-XXXX-XXXX-XXXX"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "contact" "orcid"]}]]
 
 
-         [m4/inline-form-group
+
+         [m4/form-group
           {:form-id   ?form-id
            :data-path [?data-path "organisation"]
-           :label     "Organisation"}
-          [m4/async-select-option
-           {:form-id    ?form-id
-            :data-path  [?data-path "organisation"]
-            :uri        "/api/What9"
-            :label-path ["label"]
-            :value-path ["uri"]}]]
+           :label     "Select associated Organisation"}
+
+          [:div.bp3-control-group
+           [:div.bp3-fill
+            [m4/async-select-option
+             {:form-id    ?form-id
+              :data-path  [?data-path "organisation"]
+              :uri        "/api/What9"
+              :label-path ["organisationName"]
+              :value-path ["organisationIdentifier"]}]]
+           [m4/item-add-button
+            {:form-id    ?form-id
+             :data-path  [?data-path "organisation"]
+             :value-path ["organisationIdentifier"]
+             :added-path ["isUserDefined"]}]]
+
+          [m4/item-edit-dialog
+           {:form-id     ?form-id
+            :data-path   [?data-path "organisation"]
+            :title       "Organisation"
+            :template-id :organisation/user-defined-entry-form}]]
          ]
+
+        :organisation/user-defined-entry-form
+        [:div
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "organisationName"]
+           :label     "Organisation Name"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "organisationName"]}]]]
 
         :how
         [:div

@@ -116,6 +116,12 @@
     (-> {:db db}
         (actions/add-item-action form-id data-path option))))
 
+(defn item-option-picker-change
+  [{:keys [db]} [_ ctx option]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/set-value-action form-id data-path option))))
+
 ; NOTE: assumes we only ever select user added items.  Might need to grow.
 (defn selection-list-item-click2
   [{:keys [db]} [_ props idx]]

@@ -824,6 +824,27 @@
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
       :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
 
+(defn async-simple-item-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
+
+(defn async-simple-item-option-picker
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [placeholder uri disabled errors show-errors value-path label-path]} props
+        hasError (when (and show-errors (seq errors)) true)]
+
+    [ui/AsyncSimpleSelectField
+     {:value       nil
+      :value-path  value-path
+      :label-path  label-path
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    hasError
+      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :onChange    #(rf/dispatch [::item-option-picker-change config %])}]))
+
 (defn async-breadcrumb-list-option-picker-settings [_]
   {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
    ::low-code/opt-ks [:placeholder]
@@ -877,6 +898,17 @@
 (defmethod async-list-picker :default [config] (async-simple-list-option-picker config))
 (defmethod async-list-picker :breadcrumb [config] (async-breadcrumb-list-option-picker config))
 (defmethod async-list-picker :table [config] (async-table-list-option-picker config))
+
+
+(defmulti async-item-picker-settings :kind)
+(defmethod async-item-picker-settings :default [config] (async-simple-item-option-picker-settings config))
+;(defmethod async-item-picker-settings :breadcrumb [config] (async-breadcrumb-item-option-picker-settings config))
+;(defmethod async-item-picker-settings :table [config] (async-table-item-option-picker-settings config))
+
+(defmulti async-item-picker :kind)
+(defmethod async-item-picker :default [config] (async-simple-item-option-picker config))
+;(defmethod async-item-picker :breadcrumb [config] (async-breadcrumb-item-option-picker config))
+;(defmethod async-item-picker :table [config] (async-table-item-option-picker config))
 
 (defn expanding-control-settings [_]
   {::low-code/req-ks [:label]

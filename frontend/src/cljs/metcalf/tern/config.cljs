@@ -97,6 +97,7 @@
 (rf/reg-event-fx ::components4/item-edit-dialog-close handlers4/item-edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
+(rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
@@ -161,6 +162,7 @@
        'm4/input-field-with-label        {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button               {:view components4/item-add-button :init components4/item-add-button-settings}
        'm4/item-edit-dialog              {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
+       'm4/boxmap-field                  {:view components4/boxmap-field :init components4/boxmap-field-settings}
        'm4/list-add-button               {:view components4/list-add-button :init components4/list-add-button-settings}
        'm4/list-edit-dialog              {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
        'm4/page-errors                   {:view components4/page-errors :init components4/page-errors-settings}

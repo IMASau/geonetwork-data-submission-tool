@@ -1,4 +1,4 @@
-(ns metcalf.imas.config
+(ns ^:dev/always metcalf.imas.config
   (:require [metcalf.imas.handlers :as imas-handlers]
             [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers3]

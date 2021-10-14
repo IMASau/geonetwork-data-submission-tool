@@ -1,4 +1,4 @@
-(ns metcalf.tern.config
+(ns ^:dev/always metcalf.tern.config
   (:require [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers3]
             [metcalf3.ins :as ins]

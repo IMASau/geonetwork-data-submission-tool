@@ -68,13 +68,33 @@
       (contains? (:content block-data) idx)
       (assoc-in (conj block-path :props :selected) idx))))
 
+(defn select-user-defined-list-item-action2
+  "Select item, but only if it's user defined"
+  [s form-id data-path idx added-path]
+  (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
+        block-data (get-in s block-path)
+        added? (get-in block-data (utils4/as-path [:content idx (blocks/block-path added-path) :props :value]))]
+    (cond-> s
+      added?
+      (assoc-in (conj block-path :props :selected) idx))))
+
+(defn select-user-defined-list-item-action
+  "Select item, but only if it's user defined"
+  [s form-id data-path idx addedKey]
+  (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
+        block-data (get-in s block-path)
+        added? (get-in block-data [:content idx :content addedKey :props :value])]
+    (cond-> s
+      added?
+      (assoc-in (conj block-path :props :selected) idx))))
+
 (defn select-last-item-action
   [s form-id data-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
         last-idx (dec (count (get-in s (conj block-path :content))))]
     (cond-> s
-        (not (neg? last-idx))
-        (assoc-in (conj block-path :props :selected) last-idx))))
+      (not (neg? last-idx))
+      (assoc-in (conj block-path :props :selected) last-idx))))
 
 (defn new-item-action
   [s form-id data-path]
@@ -91,12 +111,12 @@
 
 (defn dialog-open-action
   [s form-id data-path]
-  (let [is-open-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :properties :isOpen])]
+  (let [is-open-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :props :isOpen])]
     (assoc-in s is-open-path true)))
 
 (defn dialog-close-action
   [s form-id data-path]
-  (let [is-open-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :properties :isOpen])]
+  (let [is-open-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :props :isOpen])]
     (assoc-in s is-open-path false)))
 
 (defn add-item-action
@@ -108,6 +128,15 @@
     (-> s
         (cond-> (not (contains? items data))
                 (update-in (conj db-path :content) conj state))
+        (assoc-in (conj db-path :props :show-errors) true))))
+
+(defn set-value-action
+  [s form-id data-path option]
+  (let [schema (get-in s (flatten [:db form-id :schema (schema/schema-path data-path)]))
+        state (blocks/as-blocks {:schema schema :data option})
+        db-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])]
+    (-> s
+        (assoc-in db-path state)
         (assoc-in (conj db-path :props :show-errors) true))))
 
 (defn move-item-action

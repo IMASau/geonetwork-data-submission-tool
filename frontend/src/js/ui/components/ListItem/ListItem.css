@@ -1,5 +1,5 @@
 
-.SimpleListItem, .BreadcrumbListItem, .TableListItemRow {
+.SimpleListItem, .BreadcrumbListItem, .TableListItemRow, .TableListColumnHeaderRow {
     display: flex;
     align-items: center;
 }

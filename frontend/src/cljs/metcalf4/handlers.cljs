@@ -7,12 +7,12 @@
 
 (defn db-path
   [{:keys [form-id data-path]}]
-  (vec (flatten [form-id :state (blocks/block-path data-path)])))
+  (utils4/as-path [form-id :state (blocks/block-path data-path)]))
 
 
 (defn init-db
   [_ [_ payload]]
-  (-> {:db {}}
+  (-> {:db {} :fx [[:ui/setup-blueprint]]}
       (actions/load-page-action payload)
       (actions/load-form-action payload)
       (actions/load-apis-action
@@ -55,22 +55,57 @@
         (actions/new-item-action form-id data-path)
         (actions/select-last-item-action form-id data-path))))
 
-(defn list-add-with-defaults-click-handler
-  [{:keys [db]} [_ ctx defaults]]
-  (let [{:keys [form-id data-path]} ctx]
+(defn list-add-with-defaults-click-handler2
+  [{:keys [db]} [_ config]]
+  (let [{:keys [form-id data-path value-path added-path]} config
+        defaults (-> {}
+                     (assoc-in value-path (str (random-uuid)))
+                     (assoc-in added-path true))]
     (-> {:db db}
         (actions/save-snapshot-action form-id)
         (actions/add-item-action form-id data-path defaults)
         (actions/select-last-item-action form-id data-path))))
 
+(defn list-add-with-defaults-click-handler
+  [{:keys [db]} [_ props]]
+  (let [{:keys [form-id data-path value-path added-path]} props
+        defaults {value-path (str (random-uuid)) added-path true}]
+    (-> {:db db}
+        (actions/save-snapshot-action form-id)
+        (actions/add-item-action form-id data-path defaults)
+        (actions/select-last-item-action form-id data-path))))
+
+; NOTE: Experiemental
+(defn item-add-with-defaults-click-handler
+  [{:keys [db]} [_ props]]
+  (let [{:keys [form-id data-path value-path added-path]} props
+        defaults {value-path (str (random-uuid)) added-path true}]
+    (-> {:db db}
+        (actions/save-snapshot-action form-id)
+        (actions/set-value-action form-id data-path defaults)
+        (actions/dialog-open-action form-id data-path))))
+
+(defn item-add-with-defaults-click-handler2
+  [{:keys [db]} [_ props]]
+  (let [{:keys [form-id data-path value-path added-path]} props
+        defaults (-> {}
+                     (assoc-in value-path (str (random-uuid)))
+                     (assoc-in added-path true))]
+    (-> {:db db}
+        (actions/save-snapshot-action form-id)
+        (actions/set-value-action form-id data-path defaults)
+        (actions/dialog-open-action form-id data-path))))
+
 (defn boxes-changed
-  [{:keys [db]} [_ ctx geojson]]
-  (let [{:keys [form-id data-path]} ctx
+  [{:keys [db]} [_ config geojson]]
+  (let [{:keys [form-id data-path value-path added-path]} config
         geometries (mapv :geometry (:features geojson))
         boxes (mapv utils4/geometry->box-value geometries)
+        boxes (map-indexed (fn [idx m] (assoc-in m value-path idx)) boxes)
+        boxes (map (fn [m] (assoc-in m added-path true)) boxes)
         schema (get-in db (flatten [form-id :schema (schema/schema-path data-path)]))
         state (blocks/as-blocks {:schema schema :data boxes})
-        path (db-path ctx)]
+        path (db-path config)]
     {:db (-> db
              (assoc-in path state)
              (assoc-in (conj path :props :show-errors) true))}))
@@ -80,6 +115,27 @@
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
         (actions/add-item-action form-id data-path option))))
+
+(defn item-option-picker-change
+  [{:keys [db]} [_ ctx option]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/set-value-action form-id data-path option))))
+
+; NOTE: assumes we only ever select user added items.  Might need to grow.
+(defn selection-list-item-click2
+  [{:keys [db]} [_ props idx]]
+  (let [{:keys [form-id data-path added-path]} props]
+    (cond-> {:db db}
+      added-path
+      (actions/select-user-defined-list-item-action2 form-id data-path idx added-path))))
+
+(defn selection-list-item-click
+  [{:keys [db]} [_ props idx]]
+  (let [{:keys [form-id data-path added-path]} props]
+    (cond-> {:db db}
+      added-path
+      (actions/select-user-defined-list-item-action form-id data-path idx added-path))))
 
 (defn selection-list-remove-click
   [{:keys [db]} [_ ctx idx]]
@@ -189,3 +245,24 @@
     (-> {:db db}
         (actions/discard-snapshot-action form-id)
         (actions/unselect-list-item-action form-id data-path))))
+
+(defn item-edit-dialog-close-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/restore-snapshot-action form-id)
+        (actions/dialog-close-action form-id data-path))))
+
+(defn item-edit-dialog-cancel-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/restore-snapshot-action form-id)
+        (actions/dialog-close-action form-id data-path))))
+
+(defn item-edit-dialog-save-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions/discard-snapshot-action form-id)
+        (actions/dialog-close-action form-id data-path))))

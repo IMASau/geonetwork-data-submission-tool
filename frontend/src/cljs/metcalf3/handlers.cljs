@@ -13,6 +13,7 @@
   [_ [_ payload]]
   (let [db' (logic3/initial-state payload)]
     {:db         db'
+     :fx         [[:ui/setup-blueprint]]
      :dispatch-n (for [api-key (keys (get db' :api))]
                    [:handlers/load-api-options [:api api-key]])}))
 

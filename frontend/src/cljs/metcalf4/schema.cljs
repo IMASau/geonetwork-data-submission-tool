@@ -153,3 +153,8 @@
   [data-path]
   (s/assert ::utils4/data-path data-path)
   (vec (mapcat schema-step data-path)))
+
+
+(defn contains-path?
+  [{:keys [schema path]}]
+  (utils4/contains-path? schema (schema-path path)))

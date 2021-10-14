@@ -1,4 +1,4 @@
-(ns metcalf.imas.config
+(ns ^:dev/always metcalf.imas.config
   (:require [metcalf.imas.handlers :as imas-handlers]
             [metcalf3.fx :as fx]
             [metcalf3.handlers :as handlers3]
@@ -10,7 +10,8 @@
             [metcalf4.low-code :as low-code]
             [metcalf4.rules :as rules]
             [metcalf4.subs :as subs4]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [interop.ui :as ui]))
 
 (rf/reg-event-fx :handlers/load-api-options-resp handlers3/load-api-options-resp)
 (rf/reg-event-fx :handlers/load-es-options-resp handlers3/load-es-options-resp)
@@ -82,6 +83,7 @@
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/list-add-click handlers4/list-add-click-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
+(rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click2)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
@@ -92,6 +94,10 @@
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
+(rf/reg-event-fx ::components4/item-edit-dialog-close handlers4/item-edit-dialog-close-handler)
+(rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
+(rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
+(rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
 (rf/reg-fx :fx/set-location-href fx/set-location-href)
@@ -121,6 +127,7 @@
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-data-schema subs4/get-data-schema-sub)
+(rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::views/get-props subs4/form-state-signal subs4/get-block-props-sub)
 (ins/reg-global-singleton ins/form-ticker)
 (ins/reg-global-singleton ins/breadcrumbs)
@@ -135,42 +142,44 @@
        "maintFreq"            rules/maint-freq})
 (set! low-code/component-registry
       {
-       'm3/DataParametersTable            views/DataParametersTable
-       'm3/DataSources                    views/DataSources
-       'm3/IMASSupplementalInformation    views/IMASSupplementalInformation
-       'm3/IMASSupportingResource         views/IMASSupportingResource
-       'm3/NasaListSelectField            views/NasaListSelectField
-       'm3/UploadData                     views/UploadData
-       'm3/UseLimitations                 views/UseLimitations
-       'm3/Who                            views/Who
-       'm4/async-list-picker              components4/async-list-picker
-       'm4/async-select-option            components4/async-select-option
-       'm4/async-select-option-with-label components4/async-select-option-with-label
-       'm4/boxmap-field                   components4/boxmap-field
-       'm4/checkbox-field-with-label      components4/checkbox-field-with-label
-       'm4/coordinates-modal-field        components4/coordinates-modal-field
-       'm4/date-field-with-label          components4/date-field-with-label
-       'm4/input-field-with-label         components4/input-field-with-label
-       'm4/lodge-button                   components4/lodge-button
-       'm4/lodge-status-info              components4/lodge-status-info
-       'm4/mailto-data-manager-link       components4/mailto-data-manager-link
-       'm4/note-for-data-manager          components4/note-for-data-manager
-       'm4/numeric-input-field-with-label components4/numeric-input-field-with-label
-       'm4/page-errors                    components4/page-errors
-       'm4/portal-link                    components4/portal-link
-       'm4/select-option                  components4/select-option
-       'm4/select-option-with-label       components4/select-option-with-label
-       'm4/select-value-with-label        components4/select-value-with-label
-       'm4/textarea-field-with-label      components4/textarea-field-with-label
-       'm4/xml-export-link                components4/xml-export-link
-       'm4/list-add-button                components4/list-add-button
-       'm4/list-edit-dialog               components4/list-edit-dialog
+       'm3/DataParametersTable            {:view views/DataParametersTable}
+       'm3/DataSources                    {:view views/DataSources}
+       'm3/IMASSupplementalInformation    {:view views/IMASSupplementalInformation}
+       'm3/IMASSupportingResource         {:view views/IMASSupportingResource}
+       'm3/NasaListSelectField            {:view views/NasaListSelectField}
+       'm3/UploadData                     {:view views/UploadData}
+       'm3/UseLimitations                 {:view views/UseLimitations}
+       'm3/Who                            {:view views/Who}
+       'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
+       'm4/async-select-option            {:view components4/async-select-option :init components4/async-select-option-settings}
+       'm4/boxmap-field                   {:view components4/boxmap-field :init components4/boxmap-field-settings}
+       'm4/checkbox-field-with-label      {:view components4/checkbox-field-with-label :init components4/checkbox-field-settings}
+       'm4/coordinates-modal-field        {:view components4/coordinates-modal-field :init components4/coordinates-modal-field-settings}
+       'm4/date-field-with-label          {:view components4/date-field-with-label :init components4/date-field-settings}
+       'm4/input-field-with-label         {:view components4/input-field-with-label :init components4/input-field-settings}
+       'm4/item-add-button                {:view components4/item-add-button :init components4/item-add-button-settings}
+       'm4/item-edit-dialog               {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
+       'm4/list-edit-dialog               {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
+       'm4/lodge-button                   {:view components4/lodge-button}
+       'm4/lodge-status-info              {:view components4/lodge-status-info}
+       'm4/mailto-data-manager-link       {:view components4/mailto-data-manager-link}
+       'm4/note-for-data-manager          {:view components4/note-for-data-manager :init components4/note-for-data-manager-settings}
+       'm4/numeric-input-field            {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
+       'm4/numeric-input-field-with-label {:view components4/numeric-input-field-with-label :init components4/numeric-input-field-settings}
+       'm4/page-errors                    {:view components4/page-errors :init components4/page-errors-settings}
+       'm4/portal-link                    {:view components4/portal-link}
+       'm4/select-option                  {:view components4/select-option :init components4/select-option-settings}
+       'm4/select-option-with-label       {:view components4/select-option-with-label :init components4/select-option-settings}
+       'm4/select-value-with-label        {:view components4/select-value-with-label :init components4/select-value-settings}
+       'm4/textarea-field-with-label      {:view components4/textarea-field-with-label :init components4/textarea-field-settings}
+       'm4/xml-export-link                {:view components4/xml-export-link :init components4/xml-export-link-settings}
        })
 (set! low-code/template-registry
       '{:data-identification
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["identificationInfo" "title"]
                         ["identificationInfo" "dateCreation"]]}]
          [:h2 "1. Data Identification"]
@@ -184,49 +193,51 @@
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
          [m4/select-value-with-label
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "topicCategory"]
-           :valueKey  "value"
-           :labelKey  "label"
-           :options   [{"value" "biota" "label" "biota"}
-                       {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
-                       {"value" "oceans" "label" "oceans"}
-                       {"value" "geoscientificInformation" "label" "geoscientificInformation"}
-                       {"value" "inlandWater" "label" "inlandWater"}]}]
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "topicCategory"]
+           :label      "Topic categories"
+           :value-path ["value"]
+           :label-path ["label"]
+           :options    [{"value" "biota" "label" "biota"}
+                        {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
+                        {"value" "oceans" "label" "oceans"}
+                        {"value" "geoscientificInformation" "label" "geoscientificInformation"}
+                        {"value" "inlandWater" "label" "inlandWater"}]}]
          [m4/select-value-with-label
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "status"]
-           :valueKey  "value"
-           :labelKey  "label"
-           :options   [{"value" "onGoing" "label" "ongoing"}
-                       {"value" "planned" "label" "planned"}
-                       {"value" "completed" "label" "completed"}]}]
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "status"]
+           :value-path ["value"]
+           :label-path ["label"]
+           :options    [{"value" "onGoing" "label" "ongoing"}
+                        {"value" "planned" "label" "planned"}
+                        {"value" "completed" "label" "completed"}]}]
          [m4/select-value-with-label
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
-           :valueKey  "value"
-           :labelKey  "label"
-           :options   [{"value" "continually" "label" "Continually"}
-                       {"value" "daily" "label" "Daily"}
-                       {"value" "weekly" "label" "Weekly"}
-                       {"value" "fortnightly" "label" "Fortnightly"}
-                       {"value" "monthly" "label" "Monthly"}
-                       {"value" "quarterly" "label" "Quarterly"}
-                       {"value" "biannually" "label" "Twice each year"}
-                       {"value" "annually" "label" "Annually"}
-                       {"value" "asNeeded" "label" "As required"}
-                       {"value" "irregular" "label" "Irregular"}
-                       {"value" "notPlanned" "label" "None planned"}
-                       {"value" "unknown" "label" "Unknown"}
-                       {"value" "periodic" "label" "Periodic"}
-                       {"value" "semimonthly" "label" "Twice a month"}
-                       {"value" "biennially" "label" "Every 2 years"}]}]
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
+           :value-path ["value"]
+           :label-path ["label"]
+           :options    [{"value" "continually" "label" "Continually"}
+                        {"value" "daily" "label" "Daily"}
+                        {"value" "weekly" "label" "Weekly"}
+                        {"value" "fortnightly" "label" "Fortnightly"}
+                        {"value" "monthly" "label" "Monthly"}
+                        {"value" "quarterly" "label" "Quarterly"}
+                        {"value" "biannually" "label" "Twice each year"}
+                        {"value" "annually" "label" "Annually"}
+                        {"value" "asNeeded" "label" "As required"}
+                        {"value" "irregular" "label" "Irregular"}
+                        {"value" "notPlanned" "label" "None planned"}
+                        {"value" "unknown" "label" "Unknown"}
+                        {"value" "periodic" "label" "Periodic"}
+                        {"value" "semimonthly" "label" "Twice a month"}
+                        {"value" "biennially" "label" "Every 2 years"}]}]
          [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
         :what
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["identificationInfo" "abstract"]]}]
          [:h2 "2. What"]
          [:span.abstract-textarea
@@ -242,6 +253,7 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["identificationInfo" "beginPosition"]
                         ["identificationInfo" "endPosition"]
                         ["identificationInfo" "samplingFrequency"]]}]
@@ -259,25 +271,26 @@
          [:div.row
           [:div.col-md-4
            [m4/select-value-with-label
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "samplingFrequency"]
-             :valueKey  "value"
-             :labelKey  "label"
-             :options   [{"value" "daily" "label" "Daily"}
-                         {"value" "weekly" "label" "Weekly"}
-                         {"value" "monthly" "label" "Monthly"}
-                         {"value" "quarterly" "label" "Quarterly"}
-                         {"value" "annually" "label" "Annually"}
-                         {"value" "ongoing" "label" "Ongoing"}
-                         {"value" "asNeeded" "label" "As required"}
-                         {"value" "irregular" "label" "Irregular"}
-                         {"value" "none-planned" "label" "None planned"}]}]]]
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "samplingFrequency"]
+             :value-path ["value"]
+             :label-path ["label"]
+             :options    [{"value" "daily" "label" "Daily"}
+                          {"value" "weekly" "label" "Weekly"}
+                          {"value" "monthly" "label" "Monthly"}
+                          {"value" "quarterly" "label" "Quarterly"}
+                          {"value" "annually" "label" "Annually"}
+                          {"value" "ongoing" "label" "Ongoing"}
+                          {"value" "asNeeded" "label" "As required"}
+                          {"value" "irregular" "label" "Irregular"}
+                          {"value" "none-planned" "label" "None planned"}]}]]]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["identificationInfo" "geographicElement" "boxes"]
                         ["identificationInfo" "verticalElement" "minimumValue"]
                         ["identificationInfo" "verticalElement" "maximumValue"]]}]
@@ -289,8 +302,10 @@
           [:div.col-sm-6
            ;; FIXME add toggle for satellite imagery.
            [m4/boxmap-field
-            {:form-id   [:form]
-             :data-path ["identificationInfo" "geographicElement" "boxes"]}]]
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "geographicElement" "boxes"]
+             :value-path ["uri"]
+             :added-path ["isUserDefined"]}]]
           [:div.col-sm-6
            [m4/coordinates-modal-field
             {:form-id   [:form]
@@ -327,6 +342,7 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["resourceLineage" "lineage"]]}]
          [:h2 "6: How"]
          [:div.lineage-textarea
@@ -344,6 +360,7 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["identificationInfo" "dataParameters"]
                         ["identificationInfo" "creativeCommons"]
                         ["identificationInfo" "otherConstraints"]
@@ -360,20 +377,20 @@
          [:h4 "Resource constraints"]
          ;; FIXME license selection isn't being included in XML export.
          [m4/select-option-with-label
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "creativeCommons"]
-           :help      [:span "Learn more about which license is right for you at "
-                       [:a {:href   "https://creativecommons.org/choose/"
-                            :target "_blank"}
-                        "Creative Commons"]]
-           :label     "License"
-           :required  true
-           :kind      "simple"
-           :valueKey  "value"
-           :labelKey  "label"
-           :options   [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}
-                       {"value" "http://creativecommons.org/licenses/by-nc/4.0/" "label" "Creative Commons, Non-commercial Use only"}
-                       {"value" "http://creativecommons.org/licenses/other" "label" "Other constraints"}]}]
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "creativeCommons"]
+           :help       [:span "Learn more about which license is right for you at "
+                        [:a {:href   "https://creativecommons.org/choose/"
+                             :target "_blank"}
+                         "Creative Commons"]]
+           :label      "License"
+           :required   true
+           :kind       "simple"
+           :value-path ["value"]
+           :label-path ["label"]
+           :options    [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}
+                        {"value" "http://creativecommons.org/licenses/by-nc/4.0/" "label" "Creative Commons, Non-commercial Use only"}
+                        {"value" "http://creativecommons.org/licenses/other" "label" "Other constraints"}]}]
          [m4/input-field-with-label
           {:form-id     [:form]
            :data-path   ["identificationInfo" "otherConstraints"]
@@ -407,6 +424,7 @@
         [:div
          [m4/page-errors
           {:form-id    [:form]
+           :data-path  []
            :data-paths [["attachments"]]}]
          [:h2 "8: Upload Data"]
          [m3/UploadData

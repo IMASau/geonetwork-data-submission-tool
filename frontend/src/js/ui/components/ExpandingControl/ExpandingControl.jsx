@@ -15,7 +15,7 @@ export function ExpandingControl({label, required, hasError, disabled, children}
                 </div>
                 <BPCore.Icon icon={isOpen ? "caret-up" : "caret-down"}/>
             </div>
-            <BPCore.Collapse isOpen={isOpen}>
+            <BPCore.Collapse isOpen={isOpen} keepChildrenMounted={true}>
                 {children}
             </BPCore.Collapse>
         </div>

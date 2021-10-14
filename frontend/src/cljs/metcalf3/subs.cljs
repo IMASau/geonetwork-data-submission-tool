@@ -103,8 +103,8 @@
    {:id :what :text "What"}
    {:id :when :text "When"}
    {:id :where :text "Where"}
-   {:id :who :text "Who"}
    {:id :how :text "How"}
+   {:id :who :text "Who"}
    {:id :about :text "About"}
    {:id :upload :text "Data sources"}
    {:id :lodge :text "Lodge"}])

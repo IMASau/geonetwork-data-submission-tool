@@ -11,6 +11,9 @@
             [metcalf4.schema :as schema]
             [metcalf4.low-code :as low-code]))
 
+(s/def ::obj-path (s/coll-of string? :min-count 1))
+(s/def ::value-path string?)
+
 (defn has-error?
   "Given the current form state, and a data path, check if
   the field for that data path has errors."
@@ -19,6 +22,12 @@
         field (get-in form-state path)
         errors (-> field :props :errors)]
     (seq errors)))
+
+(defn page-errors-settings
+  [{:keys [data-paths]}]
+  {::low-code/req-ks       [:form-id :data-path :data-paths]
+   ::low-code/opt-ks       []
+   ::low-code/schema-paths data-paths})
 
 (defn page-errors
   [{:keys [form-id data-paths]}]
@@ -44,12 +53,13 @@
             (into [:ul] (for [msg msgs] [:li msg]))]
            (first msgs))]))))
 
+(defn form-group-settings [_]
+  {::low-code/req-ks []
+   ::low-code/opt-ks [:label :form-id :data-path :placeholder :helperText :toolTip]})
+
 (defn form-group
   [config & children]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:label :placeholder :helperText :toolTip]
-        logic @(rf/subscribe [::get-block-props ctx])
-        props (merge logic (select-keys config config-keys))
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [label helperText toolTip required disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (into [ui/FormGroup
@@ -61,14 +71,16 @@
             :toolTip    toolTip}]
           children)))
 
+(defn inline-form-group-settings [_]
+  {::low-code/req-ks [:form-id :data-path :label]
+   ::low-code/opt-ks [:placeholder :helperText :toolTip]})
+
 (defn inline-form-group
   [config & children]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:label :placeholder :helperText :toolTip]
-        logic @(rf/subscribe [::get-block-props ctx])
-        props (merge logic (select-keys config config-keys))
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [label helperText toolTip required disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
     (into [ui/InlineFormGroup
            {:label      label
             :required   required
@@ -78,92 +90,112 @@
             :toolTip    toolTip}]
           children)))
 
+(defn list-edit-dialog-settings [_]
+  {::low-code/req-ks [:form-id :data-path :title :template-id]
+   ::low-code/opt-ks []})
+
 (defn list-edit-dialog
   "Popup dialog if item is selected"
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:title :template-id]
-        logic @(rf/subscribe [::get-block-props ctx])
-        props (merge logic (select-keys config config-keys))
-        {:keys [selected title template-id show-errors errors]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [form-id data-path selected title template-id show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)
-        item-data-path (conj (:data-path ctx) selected)]
+        item-data-path (conj data-path selected)]
     [ui/EditDialog
      {:isOpen  (boolean selected)
       :title   title
-      :onClose #(rf/dispatch [::list-edit-dialog-close ctx])
-      :onClear #(rf/dispatch [::list-edit-dialog-cancel ctx])
-      :onSave  #(rf/dispatch [::list-edit-dialog-save ctx])
+      :onClose #(rf/dispatch [::list-edit-dialog-close config])
+      :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
+      :onSave  #(rf/dispatch [::list-edit-dialog-save config])
       :canSave (not hasError)}
      (low-code/render-template
        {:template-id template-id
-        :variables   {'?form-id   (:form-id ctx)
+        :variables   {'?form-id   form-id
                       '?data-path item-data-path}})]))
+
+(defn item-edit-dialog-settings [_]
+  {::low-code/req-ks [:form-id :data-path :title :template-id]
+   ::low-code/opt-ks []})
+
+(defn item-edit-dialog
+  "Popup dialog if item is selected"
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [form-id data-path isOpen title template-id show-errors errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    [ui/EditDialog
+     {:isOpen  isOpen
+      :title   title
+      :onClose #(rf/dispatch [::item-edit-dialog-close config])
+      :onClear #(rf/dispatch [::item-edit-dialog-cancel config])
+      :onSave  #(rf/dispatch [::item-edit-dialog-save config])
+      :canSave (not hasError)}
+     (low-code/render-template
+       {:template-id template-id
+        :variables   {'?form-id   form-id
+                      '?data-path data-path}})]))
+
+(defn input-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks [:placeholder :maxLength]
+   ::low-code/schema {:type "string"}})
 
 (defn input-field
   [config]
-  (let [config-keys [:placeholder :maxLength]
-        ctx (utils4/get-ctx config)
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "string"}})
+
     [ui/InputField
      {:value       (or value "")                            ; TODO: should be guaranteed by sub
       :placeholder placeholder
       :maxLength   maxLength
       :disabled    disabled
       :hasError    hasError
-      :onChange    onChange}]))
+      :onChange    #(rf/dispatch [::value-changed config %])}]))
 
 (defn input-field-with-label
   [config]
   [form-group config
    [input-field config]])
 
+(defn numeric-input-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks [:placeholder :hasButtons :unit]
+   ::low-code/schema {:type "number"}})
+
 (defn numeric-input-field
   [config]
-  (let [config-keys [:placeholder :hasButtons]
-        ctx (utils4/get-ctx config)
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [placeholder hasButtons value disabled show-errors errors]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [placeholder hasButtons value disabled show-errors errors unit]} props
         hasError (when (and show-errors (seq errors)) true)]
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "number"}})
 
-    [ui/NumericInputField
-     {:value       value
-      :placeholder placeholder
-      :disabled    disabled
-      :hasError    hasError
-      :hasButtons  hasButtons
-      :onChange    onChange}]))
+    ; TODO: move styling to css
+    [:div {:style {:display "flex" :flex-direction "row" :align-items "center"}}
+     [ui/NumericInputField
+      {:value       value
+       :placeholder placeholder
+       :disabled    disabled
+       :hasError    hasError
+       :hasButtons  hasButtons
+       :onChange    #(rf/dispatch [::value-changed config %])}]
+     [:div {:style {:padding-left "0.5em"}} unit]]))
 
 (defn numeric-input-field-with-label
   [config]
   [form-group config
    [numeric-input-field config]])
 
+(defn textarea-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks [:placeholder :rows :maxLength]
+   ::low-code/schema {:type "string"}})
+
 (defn textarea-field
   [config]
-  (let [config-keys [:placeholder :rows :maxLength]
-        ctx (utils4/get-ctx config)
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder rows maxLength value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "string"}})
 
     [ui/TextareaField
      {:value       (or value "")                            ; TODO: should be guaranteed by sub
@@ -172,27 +204,24 @@
       :hasError    hasError
       :maxLength   maxLength
       :rows        rows
-      :onChange    onChange}]))
+      :onChange    #(rf/dispatch [::value-changed config %])}]))
+
+(defn checkbox-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks []
+   ::low-code/schema {:type "boolean"}})
 
 (defn checkbox-field
   [config]
-  (let [config-keys [:placeholder :rows :maxLength]
-        ctx (utils4/get-ctx config)
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [value disabled show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "boolean"}})
 
     [ui/CheckboxField
      {:checked  (or value false)                            ; TODO: should be guaranteed by sub
       :disabled disabled
       :hasError hasError
-      :onChange onChange}]))
+      :onChange #(rf/dispatch [::value-changed config %])}]))
 
 (defn checkbox-field-with-label
   [config]
@@ -205,27 +234,24 @@
   [form-group config
    [textarea-field config]])
 
+(defn date-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks [:minDate :maxDate]
+   ::low-code/schema {:type "string"}})
+
 (defn date-field
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:minDate :maxDate]
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::value-changed ctx (date/to-value %)])
-        props (merge logic (select-keys config config-keys))
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [minDate maxDate value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "string"}})
 
     [ui/DateField
      {:value    (date/from-value value)
       :disabled disabled
-      :onChange onChange
       :hasError hasError
       :minDate  (date/from-value minDate)
-      :maxDate  (date/from-value maxDate)}]))
+      :maxDate  (date/from-value maxDate)
+      :onChange #(rf/dispatch [::value-changed config (date/to-value %)])}]))
 
 (defn date-field-with-label
   [config]
@@ -240,16 +266,19 @@
       [:a {:href portal_url :target "_blank"} [:span.portal-title portal_title]]
       [:span.portal-title portal_title])))
 
+(defn note-for-data-manager-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks []})
+
 (defn note-for-data-manager
   [config]
-  (let [ctx (utils4/get-ctx config)
-        {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        value @(rf/subscribe [::get-block-data ctx])]
+  (let [{:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        value @(rf/subscribe [::get-block-data config])]
     [:div
      {:style {:padding-top    5
               :padding-bottom 5}}
      (if (= "Draft" (:status document))
-       [textarea-field-with-label ctx]
+       [textarea-field-with-label config]
        (when-not (string/blank? value)
          [:div
           [:strong "Note for the data manager:"]
@@ -302,9 +331,14 @@
           (= (:status document) "Submitted") "Your record has been submitted."
           :else (:status document))]])))
 
+(defn xml-export-link-settings [_]
+  {::low-code/req-ks [:form-id :data-path :label]
+   ::low-code/opt-ks []})
+
 (defn xml-export-link
   [config]
-  (let [{:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+  (let [{:keys [label]} @(rf/subscribe [::get-block-props config])
+        {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
         dirty @(rf/subscribe [:subs/get-form-dirty])]
     (let [download-props {:href     (str (:export_url document) "?download")
                           :on-click #(when dirty
@@ -313,7 +347,7 @@
                                                      {:type    :alert
                                                       :message "Please save changes before exporting."}]))}]
 
-      [:a download-props (:label config)])))
+      [:a download-props label])))
 
 (defn mailto-data-manager-link
   []
@@ -321,20 +355,17 @@
         {:keys [email]} site]
     [:a {:href (str "mailto:" email)} email]))
 
+(defn simple-select-option-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "object" :properties {}}})
+
 (defn simple-select-option
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :placeholder]
-        logic @(rf/subscribe [::get-block-props ctx])
-        value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::option-change ctx %])
-        props (merge logic (select-keys config config-keys))
+  (let [props @(rf/subscribe [::get-block-props config])
+        value @(rf/subscribe [::get-block-data config])
         {:keys [placeholder options disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "object" :properties {}}})
 
     [ui/SimpleSelectField
      {:value       value
@@ -342,59 +373,58 @@
       :placeholder placeholder
       :disabled    disabled
       :hasError    (seq hasError)
-      :onChange    onChange}]))
+      :onChange    #(rf/dispatch [::option-change config %])}]))
+
+(defn table-select-option-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options :label-path :value-path :columns]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "object" :properties {}}})
 
 (defn table-select-option
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :placeholder :labelKey :valueKey :columns]
-        logic @(rf/subscribe [::get-block-props ctx])
-        value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::option-change ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [placeholder options disabled errors show-errors labelKey valueKey columns]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        value @(rf/subscribe [::get-block-data config])
+        {:keys [placeholder options disabled errors show-errors label-path value-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "object" :properties {}}})
 
     [ui/TableSelectField
      {:value       value
       :options     options
-      :labelKey    labelKey
-      :valueKey    valueKey
+      :label-path  label-path
+      :value-path  value-path
       :columns     columns
       :placeholder placeholder
       :disabled    disabled
       :hasError    (seq hasError)
-      :onChange    onChange}]))
+      :onChange    #(rf/dispatch [::option-change config %])}]))
+
+(defn breadcrumb-select-option-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options :label-path :value-path :breadcrumb-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "object" :properties {}}})
 
 (defn breadcrumb-select-option
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :placeholder :labelKey :valueKey :breadcrumbKey]
-        logic @(rf/subscribe [::get-block-props ctx])
-        value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::option-change ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [placeholder options disabled errors show-errors labelKey valueKey breadcrumbKey]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        value @(rf/subscribe [::get-block-data config])
+        {:keys [placeholder options disabled errors show-errors label-path value-path breadcrumb-path]} props
         hasError (when (and show-errors (seq errors)) true)]
 
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "object" :properties {}}})
-
     [ui/TableSelectField
-     {:value         value
-      :options       options
-      :labelKey      labelKey
-      :valueKey      valueKey
-      :breadcrumbKey breadcrumbKey
-      :placeholder   placeholder
-      :disabled      disabled
-      :hasError      (seq hasError)
-      :onChange      onChange}]))
+     {:value           value
+      :options         options
+      :label-path      label-path
+      :value-path      value-path
+      :breadcrumb-path breadcrumb-path
+      :placeholder     placeholder
+      :disabled        disabled
+      :hasError        (seq hasError)
+      :onChange        #(rf/dispatch [::option-change config %])}]))
+
+(defmulti select-option-settings :kind)
+(defmethod select-option-settings :default [config] (simple-select-option-settings config))
+(defmethod select-option-settings :breadcrumb [config] (breadcrumb-select-option-settings config))
+(defmethod select-option-settings :table [config] (table-select-option-settings config))
 
 (defmulti select-option :kind)
 (defmethod select-option :default [config] (simple-select-option config))
@@ -406,119 +436,141 @@
   [form-group config
    [select-option config]])
 
-; WIP
+(defn item-add-button-settings [_]
+  {::low-code/req-ks [:form-id :data-path :value-path :added-path]
+   ::low-code/opt-ks []
+   ::low-code/schema {:type "object"}})
+
+(defn item-add-button
+  "Add user defined item as value"
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [value-path added-path]} props]
+
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path added-path)
+
+    [:button.bp3-button.bp3-intent-primary
+     {:onClick #(rf/dispatch [::item-add-with-defaults-click-handler config])}
+     "Add"]))
+
+(defn list-add-button-settings [_]
+  {::low-code/req-ks [:form-id :data-path :value-path :added-path]
+   ::low-code/opt-ks []
+   ::low-code/schema {:type "array"}})
+
 (defn list-add-button
   "Add user defined item to list"
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:valueKey]
-        logic @(rf/subscribe [::get-block-props ctx])
-        props (merge logic (select-keys config config-keys))
-        {:keys [valueKey]} props
-        onClick #(rf/dispatch [::list-add-with-defaults-click-handler ctx {valueKey (str (random-uuid))}])]
-    
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [value-path added-path]} props]
 
-    [:button {:onClick onClick} "Add"]))
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path added-path)
+
+    [:button.bp3-button.bp3-intent-primary
+     {:onClick #(rf/dispatch [::list-add-with-defaults-click-handler config])}
+     "Add"]))
 
 (defn simple-select-option-with-label
   [config]
   [form-group config
    [simple-select-option config]])
 
+(defn async-simple-select-option-settings
+  [{:keys [value-path label-path]}]
+  {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path]
+   ::low-code/opt-ks       []
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths [value-path label-path]})
+
 (defn async-simple-select-option
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:uri :valueKey :labelKey]
-        logic @(rf/subscribe [::get-block-props ctx])
-        value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::option-change ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [placeholder uri valueKey labelKey disabled errors show-errors]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        value @(rf/subscribe [::get-block-data config])
+        {:keys [placeholder uri value-path label-path disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
 
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "object" :properties {}}})
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path label-path)
 
     [ui/AsyncSimpleSelectField
      {:value       value
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
-      :valueKey    valueKey
-      :labelKey    labelKey
+      :value-path  value-path
+      :label-path  label-path
       :placeholder placeholder
       :disabled    disabled
       :hasError    (seq hasError)
-      :onChange    onChange}]))
+      :onChange    #(rf/dispatch [::option-change config %])}]))
 
 (defn async-simple-select-option-with-label
   [config]
   [form-group config
    [async-simple-select-option config]])
 
+(defn async-breadcrumb-select-option-settings
+  [{:keys [value-path label-path breadcrumb-path]}]
+  {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
+   ::low-code/opt-ks       []
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths [value-path label-path breadcrumb-path]})
+
 (defn async-breadcrumb-select-option
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:uri :valueKey :labelKey :breadcrumbKey]
-        logic @(rf/subscribe [::get-block-props ctx])
-        value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::option-change ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [placeholder uri disabled errors show-errors valueKey labelKey breadcrumbKey]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        value @(rf/subscribe [::get-block-data config])
+        {:keys [placeholder uri disabled errors show-errors value-path label-path breadcrumb-path]} props
         hasError (when (and show-errors (seq errors)) true)]
 
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "object" :properties {}}})
-
     [ui/AsyncBreadcrumbSelectField
-     {:value         value
-      :loadOptions   #(utils4/fetch-post {:uri uri :body {:query %}})
-      :valueKey      valueKey
-      :labelKey      labelKey
-      :breadcrumbKey breadcrumbKey
-      :placeholder   placeholder
-      :disabled      disabled
-      :hasError      (seq hasError)
-      :onChange      onChange}]))
+     {:value           value
+      :loadOptions     #(utils4/fetch-post {:uri uri :body {:query %}})
+      :value-path      value-path
+      :label-path      label-path
+      :breadcrumb-path breadcrumb-path
+      :placeholder     placeholder
+      :disabled        disabled
+      :hasError        (seq hasError)
+      :onChange        #(rf/dispatch [::option-change config %])}]))
 
 (defn async-breadcrumb-select-option-with-label
   [config]
   [form-group config
    [async-breadcrumb-select-option config]])
 
+(defn async-table-select-option-settings [_]
+  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
+   ::low-code/opt-ks []
+   ::low-code/schema {:type "object" :properties {}}})
+
 (defn async-table-select-option
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:uri :valueKey :labelKey :columns]
-        logic @(rf/subscribe [::get-block-props ctx])
-        value @(rf/subscribe [::get-block-data ctx])
-        onChange #(rf/dispatch [::option-change ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [placeholder uri disabled errors show-errors valueKey labelKey columns]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        value @(rf/subscribe [::get-block-data config])
+        {:keys [placeholder uri disabled errors show-errors value-path label-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "object" :properties {}}})
 
     [ui/AsyncTableSelectField
      {:value       value
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
-      :valueKey    valueKey
-      :labelKey    labelKey
+      :value-path  value-path
+      :label-path  label-path
       :columns     columns
       :placeholder placeholder
       :disabled    disabled
       :hasError    (seq hasError)
-      :onChange    onChange}]))
+      :onChange    #(rf/dispatch [::option-change config %])}]))
 
 (defn async-table-select-option-with-label
   [config]
   [form-group config
    [async-table-select-option config]])
+
+(defmulti async-select-option-settings :kind)
+(defmethod async-select-option-settings :default [config] (async-simple-select-option-settings config))
+(defmethod async-select-option-settings :breadcrumb [config] (async-breadcrumb-select-option-settings config))
+(defmethod async-select-option-settings :table [config] (async-table-select-option-settings config))
 
 (defmulti async-select-option :kind)
 (defmethod async-select-option :default [config] (async-simple-select-option config))
@@ -530,68 +582,62 @@
   [form-group config
    [async-select-option config]])
 
+(defn select-value-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options :label-path :value-path]
+   ::low-code/opt-ks []})
+
 (defn select-value
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :labelKey :valueKey]
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [value options labelKey valueKey disabled errors show-errors]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [value options label-path value-path disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)
         value (or value "")]
 
-    (s/assert schema/schema-value-type? @(rf/subscribe [::get-data-schema ctx]))
+    (s/assert schema/schema-value-type? @(rf/subscribe [::get-data-schema config]))
 
     [ui/SelectValueField
-     {:value    value
-      :disabled disabled
-      :options  options
-      :labelKey labelKey
-      :valueKey valueKey
-      :hasError hasError
-      :onChange onChange}]))
+     {:value      value
+      :disabled   disabled
+      :options    options
+      :label-path label-path
+      :value-path value-path
+      :hasError   hasError
+      :onChange   #(rf/dispatch [::value-changed config %])}]))
 
 (defn select-value-with-label
   [config]
   [form-group config
    [select-value config]])
 
+(defn yes-no-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path :label]
+   ::low-code/opt-ks []
+   ::low-code/schema {:type "boolean"}})
+
 (defn yes-no-field
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :label]
-        logic @(rf/subscribe [::get-yes-no-field-props ctx])
-        onChange #(rf/dispatch [::value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
+  (let [props @(rf/subscribe [::get-yes-no-field-props config])
         {:keys [label value disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "boolean"}})
 
     [ui/YesNoRadioGroup
      {:value    value
       :label    label
       :disabled disabled
-      :hasError (seq hasError)
-      :onChange onChange}]))
+      :hasError hasError
+      :onChange #(rf/dispatch [::value-changed config %])}]))
 
 ; FIXME: Is :label for form group or yes/no field?
+(defn yes-no-field-with-label-settings [_]
+  {::low-code/req-ks [:form-id :data-path :label]
+   ::low-code/opt-ks []
+   ::low-code/schema {:type "boolean"}})
+
 (defn yes-no-field-with-label
   [config]
-  (let [config-keys [:options :label]
-        ctx (utils4/get-ctx config)
-        logic @(rf/subscribe [::get-yes-no-field-with-label-props ctx])
-        onChange #(rf/dispatch [::yes-no-field-with-label-value-changed ctx %])
-        props (merge logic (select-keys config config-keys))
+  (let [props @(rf/subscribe [::get-yes-no-field-with-label-props config])
         {:keys [label value errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "boolean"}})
 
     [form-group config
      [ui/YesNoRadioGroup
@@ -599,94 +645,103 @@
        :label    label
        :disabled false
        :hasError (seq hasError)
-       :onChange onChange}]]))
+       :onChange #(rf/dispatch [::yes-no-field-with-label-value-changed config %])}]]))
+
+(defn simple-selection-list-settings
+  [{:keys [label-path value-path added-path]}]
+  {::low-code/req-ks       [:form-id :data-path :label-path :value-path]
+   ::low-code/opt-ks       [:added-path]
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths [label-path value-path added-path]})
 
 (defn simple-selection-list
   [config]
-  (let [config-keys [:labelKey :valueKey]
-        ctx (utils4/get-ctx config)
-        onLabelClick (fn [idx] (rf/dispatch [::selection-list-label-click ctx idx]))
-        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
-        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
-        logic @(rf/subscribe [::get-block-props ctx])
-        {:keys [key disabled labelKey valueKey]} (merge logic (select-keys config config-keys))
-        items @(rf/subscribe [::get-block-data ctx])]
+  (let [props @(rf/subscribe [::get-block-props config])
+        items @(rf/subscribe [::get-block-data config])
+        {:keys [key disabled label-path value-path added-path]} props]
 
-    (schema/assert-compatible-schema
-     {:schema1 @(rf/subscribe [::get-data-schema ctx])
-      :schema2 {:type "array" :items (utils4/schema-object-with-keys [valueKey labelKey])}})
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path label-path)
+    (s/assert (s/nilable ::obj-path) added-path)
 
     [ui/SimpleSelectionList
      {:key           key
-      :items         items
-      :labelKey      labelKey
-      :valueKey      valueKey
+      :items         (or items [])
+      :label-path    label-path
+      :value-path    value-path
+      :added-path    added-path
       :disabled      disabled
-      :onReorder     onReorder
-      :onLabelClick  onLabelClick
-      :onRemoveClick onRemoveClick}]))
+      :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+      :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+      :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
+
+(defn breadcrumb-selection-list-settings
+  [{:keys [label-path value-path breadcrumb-path added-path]}]
+  {::low-code/req-ks       [:form-id :data-path :label-path :value-path :breadcrumb-path]
+   ::low-code/opt-ks       [:added-path]
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths [label-path value-path breadcrumb-path added-path]})
 
 (defn breadcrumb-selection-list
   [config]
-  (let [config-keys [:labelKey :valueKey :breadcrumbKey]
-        ctx (utils4/get-ctx config)
-        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
-        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
-        logic @(rf/subscribe [::get-block-props ctx])
-        {:keys [key disabled labelKey valueKey breadcrumbKey]} (merge logic (select-keys config config-keys))
-        items @(rf/subscribe [::get-block-data ctx])]
+  (let [props @(rf/subscribe [::get-block-props config])
+        items @(rf/subscribe [::get-block-data config])
+        {:keys [key disabled label-path value-path added-path breadcrumb-path]} props]
 
-    (schema/assert-compatible-schema
-     {:schema1 @(rf/subscribe [::get-data-schema ctx])
-      :schema2 {:type "array" :items (utils4/schema-object-with-keys [labelKey valueKey breadcrumbKey])}})
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path label-path)
+    (s/assert ::obj-path breadcrumb-path)
+    (s/assert (s/nilable ::obj-path) added-path)
 
     [ui/BreadcrumbSelectionList
-     {:key           key
-      :items         items
-      :disabled      disabled
-      :onReorder     onReorder
-      :onRemoveClick onRemoveClick
-      :breadcrumbKey breadcrumbKey
-      :labelKey      labelKey
-      :valueKey      valueKey}]))
+     {:key             key
+      :items           (or items [])
+      :disabled        disabled
+      :breadcrumb-path breadcrumb-path
+      :label-path      label-path
+      :value-path      value-path
+      :added-path      added-path
+      :onReorder       (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+      :onItemClick     (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+      :onRemoveClick   (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
+
+(defn table-selection-list-settings
+  [{:keys [value-path columns added-path]}]
+  {::low-code/req-ks       [:form-id :data-path :columns :value-path]
+   ::low-code/opt-ks       [:added-path]
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths (into [value-path added-path] (map :label-path columns))})
 
 (defn table-selection-list
   [config]
-  (let [config-keys [:columns :valueKey]
-        ctx (utils4/get-ctx config)
-        onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click ctx idx]))
-        onReorder (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder ctx src-idx dst-idx]))
-        logic @(rf/subscribe [::get-block-props ctx])
-        {:keys [key disabled columns valueKey]} (merge logic (select-keys config config-keys))
-        items @(rf/subscribe [::get-block-data ctx])]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [key disabled columns value-path added-path]} props
+        items @(rf/subscribe [::get-block-data config])]
 
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type  "array"
-                 :items (utils4/schema-object-with-keys (into [valueKey] (map :labelKey columns)))}})
+    (s/assert ::obj-path value-path)
+    (s/assert (s/nilable ::obj-path) added-path)
 
     [ui/TableSelectionList
      {:key           key
-      :items         items
+      :items         (or items [])
       :disabled      disabled
-      :onReorder     onReorder
-      :onRemoveClick onRemoveClick
       :columns       columns
-      :valueKey      valueKey}]))
+      :value-path    value-path
+      :added-path    added-path
+      :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
+      :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
+      :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}]))
+
+(defn simple-list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options :value-path :label-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
 
 (defn simple-list-option-picker
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :placeholder :valueKey :labelKey]
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [placeholder options disabled errors show-errors valueKey labelKey]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [placeholder options disabled errors show-errors value-path label-path]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/SimpleSelectField
      {:value       nil
@@ -694,148 +749,179 @@
       :placeholder placeholder
       :disabled    disabled
       :hasError    (seq hasError)
-      :onChange    onChange
-      :labelKey    labelKey
-      :valueKey    valueKey}]))
+      :label-path  label-path
+      :value-path  value-path
+      :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
+
+(defn breadcrumb-list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options :value-path :label-path :breadcrumb-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
 
 (defn breadcrumb-list-option-picker
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :placeholder :valueKey :labelKey :breadcrumbKey]
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [placeholder options disabled errors show-errors valueKey labelKey breadcrumbKey]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [placeholder options disabled errors show-errors value-path label-path breadcrumb-path]} props
         hasError (when (and show-errors (seq errors)) true)]
 
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
-
     [ui/BreadcrumbSelectField
-     {:value         nil
-      :options       options
-      :placeholder   placeholder
-      :disabled      disabled
-      :hasError      (seq hasError)
-      :onChange      onChange
-      :labelKey      labelKey
-      :valueKey      valueKey
-      :breadcrumbKey breadcrumbKey}]))
+     {:value           nil
+      :options         options
+      :placeholder     placeholder
+      :disabled        disabled
+      :hasError        hasError
+      :label-path      label-path
+      :value-path      value-path
+      :breadcrumb-path breadcrumb-path
+      :onChange        #(rf/dispatch [::list-option-picker-change config %])}]))
+
+(defn table-list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :options :value-path :label-path :columns]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
 
 (defn table-list-option-picker
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:options :placeholder :valueKey :labelKey :columns]
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [placeholder options disabled errors show-errors valueKey labelKey columns]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [placeholder options disabled errors show-errors value-path label-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/TableSelectField
      {:value       nil
       :options     options
       :placeholder placeholder
       :disabled    disabled
-      :hasError    (seq hasError)
-      :onChange    onChange
-      :labelKey    labelKey
-      :valueKey    valueKey
-      :columns     columns}]))
+      :hasError    hasError
+      :label-path  label-path
+      :value-path  value-path
+      :columns     columns
+      :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
+
+(defn list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
+
+
+(defn async-simple-list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
 
 (defn async-simple-list-option-picker
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:uri :placeholder :valueKey :labelKey]
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [placeholder uri disabled errors show-errors valueKey labelKey]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [placeholder uri disabled errors show-errors value-path label-path]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/AsyncSimpleSelectField
      {:value       nil
-      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
-      :valueKey    valueKey
-      :labelKey    labelKey
+      :value-path  value-path
+      :label-path  label-path
       :placeholder placeholder
       :disabled    disabled
-      :hasError    (seq hasError)
-      :onChange    onChange}]))
+      :hasError    hasError
+      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
+
+(defn async-simple-item-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
+
+(defn async-simple-item-option-picker
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [placeholder uri disabled errors show-errors value-path label-path]} props
+        hasError (when (and show-errors (seq errors)) true)]
+
+    [ui/AsyncSimpleSelectField
+     {:value       nil
+      :value-path  value-path
+      :label-path  label-path
+      :placeholder placeholder
+      :disabled    disabled
+      :hasError    hasError
+      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :onChange    #(rf/dispatch [::item-option-picker-change config %])}]))
+
+(defn async-breadcrumb-list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
 
 (defn async-breadcrumb-list-option-picker
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:uri :placeholder :valueKey :labelKey :breadcrumbKey]
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [placeholder uri disabled errors show-errors valueKey labelKey breadcrumbKey]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [placeholder uri disabled errors show-errors value-path label-path breadcrumb-path]} props
         hasError (when (and show-errors (seq errors)) true)]
 
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
-
     [ui/AsyncBreadcrumbSelectField
-     {:value         nil
-      :loadOptions   #(utils4/fetch-post {:uri uri :body {:query %}})
-      :placeholder   placeholder
-      :disabled      disabled
-      :hasError      (seq hasError)
-      :onChange      onChange
-      :labelKey      labelKey
-      :valueKey      valueKey
-      :breadcrumbKey breadcrumbKey}]))
+     {:value           nil
+      :placeholder     placeholder
+      :disabled        disabled
+      :hasError        hasError
+      :label-path      label-path
+      :value-path      value-path
+      :breadcrumb-path breadcrumb-path
+      :loadOptions     #(utils4/fetch-post {:uri uri :body {:query %}})
+      :onChange        #(rf/dispatch [::list-option-picker-change config %])}]))
+
+(defn async-table-list-option-picker-settings [_]
+  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
+   ::low-code/opt-ks [:placeholder]
+   ::low-code/schema {:type "array" :items {:type "object"}}})
 
 (defn async-table-list-option-picker
   [config]
-  (let [ctx (utils4/get-ctx config)
-        config-keys [:uri :placeholder :valueKey :labelKey :columns]
-        logic @(rf/subscribe [::get-block-props ctx])
-        onChange #(rf/dispatch [::list-option-picker-change ctx %])
-        props (merge logic (select-keys config config-keys))
-        {:keys [placeholder uri disabled errors show-errors valueKey labelKey columns]} props
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [placeholder uri disabled errors show-errors value-path label-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (schema/assert-compatible-schema
-      {:schema1 @(rf/subscribe [::get-data-schema ctx])
-       :schema2 {:type "array" :items {:type "object" :properties {}}}})
 
     [ui/AsyncTableSelectField
      {:value       nil
-      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
       :placeholder placeholder
       :disabled    disabled
-      :hasError    (seq hasError)
-      :onChange    onChange
-      :labelKey    labelKey
-      :valueKey    valueKey
-      :columns     columns}]))
+      :hasError    hasError
+      :label-path  label-path
+      :value-path  value-path
+      :columns     columns
+      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
+
+(defmulti async-list-picker-settings :kind)
+(defmethod async-list-picker-settings :default [config] (async-simple-list-option-picker-settings config))
+(defmethod async-list-picker-settings :breadcrumb [config] (async-breadcrumb-list-option-picker-settings config))
+(defmethod async-list-picker-settings :table [config] (async-table-list-option-picker-settings config))
 
 (defmulti async-list-picker :kind)
 (defmethod async-list-picker :default [config] (async-simple-list-option-picker config))
 (defmethod async-list-picker :breadcrumb [config] (async-breadcrumb-list-option-picker config))
 (defmethod async-list-picker :table [config] (async-table-list-option-picker config))
 
+
+(defmulti async-item-picker-settings :kind)
+(defmethod async-item-picker-settings :default [config] (async-simple-item-option-picker-settings config))
+;(defmethod async-item-picker-settings :breadcrumb [config] (async-breadcrumb-item-option-picker-settings config))
+;(defmethod async-item-picker-settings :table [config] (async-table-item-option-picker-settings config))
+
+(defmulti async-item-picker :kind)
+(defmethod async-item-picker :default [config] (async-simple-item-option-picker config))
+;(defmethod async-item-picker :breadcrumb [config] (async-breadcrumb-item-option-picker config))
+;(defmethod async-item-picker :table [config] (async-table-item-option-picker config))
+
+(defn expanding-control-settings [_]
+  {::low-code/req-ks [:label]
+   ::low-code/opt-ks [:form-id :data-path :required]})
+
 (defn expanding-control
   [config & children]
-  (let [config-keys [:label :required]
-        ctx (utils4/get-ctx config)
-        logic @(rf/subscribe [::get-block-props ctx])
-        props (merge logic (select-keys config config-keys))
+  (let [props @(rf/subscribe [::get-block-props config])
         {:keys [label required errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
+
     (s/assert string? label)
+
     (into [ui/ExpandingControl
            {:label    label
             :required required}]
@@ -871,6 +957,10 @@
        {:form-id   [:form]
         :data-path (conj path "southBoundLatitude")}]]]]])
 
+(defn boxmap-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path :added-path :value-path]
+   ::low-code/opt-ks []})
+
 (defn boxmap-field
   [config]
   (letfn [(boxes->elements
@@ -880,11 +970,8 @@
                :southBoundLatitude (get-in box ["southBoundLatitude"])
                :eastBoundLongitude (get-in box ["eastBoundLongitude"])
                :westBoundLongitude (get-in box ["westBoundLongitude"])}))]
-    (let [ctx (utils4/get-ctx config)
-          config-keys [:options :placeholder]
-          logic @(rf/subscribe [::get-block-props ctx])
-          data @(rf/subscribe [::get-block-data ctx])
-          props (merge logic (select-keys config config-keys))
+    (let [props @(rf/subscribe [::get-block-props config])
+          data @(rf/subscribe [::get-block-data config])
           elements (boxes->elements data)
           {:keys [disabled is-hidden]} props]
       (when-not is-hidden
@@ -892,18 +979,19 @@
          {:elements  elements
           :disabled  (not disabled)
           :tick-id   @(rf/subscribe [:subs/get-form-tick])
-          :on-change #(rf/dispatch [::boxes-changed ctx %])}]))))
+          :on-change #(rf/dispatch [::boxes-changed config %])}]))))
+
+(defn coordinates-modal-field-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks [:help]})
 
 (defn coordinates-modal-field
   [config]
-  (let [pretty-print (fn [x] (if (nil? x) "--" (if (number? x) (.toFixed x 3) (pr-str x))))
-        ctx (utils4/get-ctx config)
-        config-keys [:options :placeholder]
-        logic @(rf/subscribe [::get-block-props ctx])
-        data @(rf/subscribe [::get-block-data ctx])
-        props (merge logic (select-keys config config-keys))
-        {:keys [is-hidden disabled help]} props
-        data-path (:data-path ctx)
+  (let [props @(rf/subscribe [::get-block-props config])
+        data @(rf/subscribe [::get-block-data config])
+        {:keys [data-path is-hidden disabled help]} props
+
+        pretty-print (fn [x] (if (nil? x) "--" (if (number? x) (.toFixed x 3) (pr-str x))))
         ths ["North limit" "West limit" "South limit" "East limit"]
         tds-fn (fn [geographicElement]
                  (let [{:strs [northBoundLatitude westBoundLongitude
@@ -918,17 +1006,17 @@
                               "westBoundLongitude" 0}]
     (letfn [(new-fn [] (when-not disabled
                          (rf/dispatch [::boxmap-coordinates-open-add-modal
-                                       {:ctx          ctx
+                                       {:ctx          config
                                         :coord-field  coord-field
                                         :initial-data new-item-with-values
                                         :idx          (count data)
-                                        :on-close     #(rf/dispatch [::boxmap-coordinates-list-delete ctx %])
+                                        :on-close     #(rf/dispatch [::boxmap-coordinates-list-delete config %])
                                         :on-save      #(rf/dispatch [:handlers/close-modal])}])))
-            (delete-fn [idx] (rf/dispatch [::boxmap-coordinates-list-delete ctx idx]))
+            (delete-fn [idx] (rf/dispatch [::boxmap-coordinates-list-delete config idx]))
             (try-delete-fn [idx] (rf/dispatch [::boxmap-coordinates-click-confirm-delete #(delete-fn idx)]))
             (open-edit-fn [indexed-data-path] (when-not disabled
                                                 (rf/dispatch [::boxmap-coordinates-open-edit-modal
-                                                              {:ctx         (assoc ctx :data-path indexed-data-path)
+                                                              {:ctx         (assoc config :data-path indexed-data-path)
                                                                :coord-field coord-field
                                                                :on-delete   #(try-delete-fn (last indexed-data-path))
                                                                :on-save     #(rf/dispatch [:handlers/close-modal])
@@ -946,7 +1034,7 @@
               (into [:tbody]
                     (for [[idx field] (map-indexed vector data)]
                       (let [data-path (conj data-path idx)
-                            form-state @(rf/subscribe [::common-subs/get-form-state (:form-id ctx)])
+                            form-state @(rf/subscribe [::common-subs/get-form-state (:form-id config)])
                             has-error? (or (has-error? form-state (conj data-path "northBoundLatitude"))
                                            (has-error? form-state (conj data-path "southBoundLatitude"))
                                            (has-error? form-state (conj data-path "eastBoundLongitude"))

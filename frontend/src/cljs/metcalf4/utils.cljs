@@ -7,6 +7,45 @@
 (s/def ::ctx (s/keys :req-un [::form-id ::data-path]))
 
 
+(defn str-value
+  [data]
+  (binding [*print-level* 3
+            *print-length* 5]
+    (pr-str data)))
+
+
+(defn console-value
+  [data]
+  (if goog/DEBUG
+    data
+    (str-value data)))
+
+
+(defn console-error
+  [msg data]
+  (js/console.error msg (console-value data)))
+
+
+(defn console-warning
+  [msg data]
+  (js/console.warn msg (console-value data)))
+
+
+(defn update-keys
+  [m f]
+  (zipmap (map f (keys m)) (vals m)))
+
+
+(defn contains-path?
+  [m ks]
+  (not= ::not-found (get-in m ks ::not-found)))
+
+
+(defn contains-every?
+  [m keyseqs]
+  (not-any? #{::not-found} (for [ks keyseqs] (get-in m ks ::not-found))))
+
+
 (def as-path (comp vec flatten))
 
 
@@ -17,13 +56,22 @@
     :else x))
 
 
+(defn massage-data-path
+  [data-path]
+  (mapv massage-data-path-value (as-path data-path)))
+
+
+(defn if-contains-update
+  [m k xform]
+  (if (contains? m k)
+    (update m k xform)
+    m))
+
+
 (defn get-ctx
   [{:keys [form-id data-path]}]
   (when (and form-id data-path)
-    (let [data-path (as-path data-path)
-          data-path (mapv massage-data-path-value data-path)]
-      (s/assert ::data-path data-path)
-      {:form-id form-id :data-path data-path})))
+    {:form-id form-id :data-path (massage-data-path data-path)}))
 
 
 (defn get-csrf

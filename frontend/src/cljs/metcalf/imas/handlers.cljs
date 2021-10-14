@@ -7,5 +7,6 @@
         db' (update db' :api #(dissoc % :parametername :parameterunit :parameterinstrument
                                       :horizontalResolution :parameterplatform :topiccategory))]
     {:db         db'
+     :fx         [[:ui/setup-blueprint]]
      :dispatch-n (for [api-key (keys (get db' :api))]
                    [:handlers/load-api-options [:api api-key]])}))

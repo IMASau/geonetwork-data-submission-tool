@@ -292,7 +292,7 @@
 
          [m4/yes-no-field
           {:form-id   [:form]
-           :data-path ["identificationInfo" "previouslyPublishedFlag"]
+           :data-path ["identificationInfo" "datePublicationFlag"]
            :label     "Has the data been published before?"}]
 
          ;; FIXME: I think this should be formatted as YYYY or YYYY-MM (according to the commented template)

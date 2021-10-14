@@ -54,8 +54,8 @@
            (first msgs))]))))
 
 (defn form-group-settings [_]
-  {::low-code/req-ks [:label]
-   ::low-code/opt-ks [:form-id :data-path :placeholder :helperText :toolTip]})
+  {::low-code/req-ks []
+   ::low-code/opt-ks [:label :form-id :data-path :placeholder :helperText :toolTip]})
 
 (defn form-group
   [config & children]

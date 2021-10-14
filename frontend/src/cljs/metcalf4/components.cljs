@@ -161,22 +161,25 @@
 
 (defn numeric-input-field-settings [_]
   {::low-code/req-ks [:form-id :data-path]
-   ::low-code/opt-ks [:placeholder :hasButtons]
+   ::low-code/opt-ks [:placeholder :hasButtons :unit]
    ::low-code/schema {:type "number"}})
 
 (defn numeric-input-field
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder hasButtons value disabled show-errors errors]} props
+        {:keys [placeholder hasButtons value disabled show-errors errors unit]} props
         hasError (when (and show-errors (seq errors)) true)]
 
-    [ui/NumericInputField
-     {:value       value
-      :placeholder placeholder
-      :disabled    disabled
-      :hasError    hasError
-      :hasButtons  hasButtons
-      :onChange    #(rf/dispatch [::value-changed config %])}]))
+    ; TODO: move styling to css
+    [:div {:style {:display "flex" :flex-direction "row" :align-items "center"}}
+     [ui/NumericInputField
+      {:value       value
+       :placeholder placeholder
+       :disabled    disabled
+       :hasError    hasError
+       :hasButtons  hasButtons
+       :onChange    #(rf/dispatch [::value-changed config %])}]
+     [:div {:style {:padding-left "0.5em"}} unit]]))
 
 (defn numeric-input-field-with-label
   [config]

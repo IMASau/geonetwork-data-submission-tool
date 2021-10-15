@@ -356,15 +356,15 @@
     [:a {:href (str "mailto:" email)} email]))
 
 (defn simple-select-option-settings [_]
-  {::low-code/req-ks [:form-id :data-path :options]
-   ::low-code/opt-ks [:placeholder]
+  {::low-code/req-ks [:form-id :data-path :options :value-path :label-path]
+   ::low-code/opt-ks [:placeholder :added-path]
    ::low-code/schema {:type "object" :properties {}}})
 
 (defn simple-select-option
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder options disabled errors show-errors]} props
+        {:keys [placeholder options disabled errors show-errors value-path label-path added-path]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     [ui/SimpleSelectField
@@ -372,19 +372,22 @@
       :options     options
       :placeholder placeholder
       :disabled    disabled
+      :value-path  value-path
+      :label-path  label-path
+      :added-path  added-path
       :hasError    (seq hasError)
       :onChange    #(rf/dispatch [::option-change config %])}]))
 
 (defn table-select-option-settings [_]
   {::low-code/req-ks [:form-id :data-path :options :label-path :value-path :columns]
-   ::low-code/opt-ks [:placeholder]
+   ::low-code/opt-ks [:placeholder :added-path]
    ::low-code/schema {:type "object" :properties {}}})
 
 (defn table-select-option
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder options disabled errors show-errors label-path value-path columns]} props
+        {:keys [placeholder options disabled errors show-errors label-path value-path added-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     [ui/TableSelectField
@@ -392,6 +395,7 @@
       :options     options
       :label-path  label-path
       :value-path  value-path
+      :added-path  added-path
       :columns     columns
       :placeholder placeholder
       :disabled    disabled
@@ -400,14 +404,14 @@
 
 (defn breadcrumb-select-option-settings [_]
   {::low-code/req-ks [:form-id :data-path :options :label-path :value-path :breadcrumb-path]
-   ::low-code/opt-ks [:placeholder]
+   ::low-code/opt-ks [:placeholder :added-path]
    ::low-code/schema {:type "object" :properties {}}})
 
 (defn breadcrumb-select-option
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder options disabled errors show-errors label-path value-path breadcrumb-path]} props
+        {:keys [placeholder options disabled errors show-errors label-path value-path breadcrumb-path added-path]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     [ui/TableSelectField
@@ -415,6 +419,7 @@
       :options         options
       :label-path      label-path
       :value-path      value-path
+      :added-path      added-path
       :breadcrumb-path breadcrumb-path
       :placeholder     placeholder
       :disabled        disabled
@@ -480,7 +485,7 @@
 (defn async-simple-select-option-settings
   [{:keys [value-path label-path]}]
   {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path]
-   ::low-code/opt-ks       []
+   ::low-code/opt-ks       [:added-path]
    ::low-code/schema       {:type "array" :items {:type "object"}}
    ::low-code/schema-paths [value-path label-path]})
 
@@ -488,17 +493,15 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder uri value-path label-path disabled errors show-errors]} props
+        {:keys [placeholder uri value-path label-path added-path disabled errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
-
-    (s/assert ::obj-path value-path)
-    (s/assert ::obj-path label-path)
 
     [ui/AsyncSimpleSelectField
      {:value       value
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
       :value-path  value-path
       :label-path  label-path
+      :added-path  added-path
       :placeholder placeholder
       :disabled    disabled
       :hasError    (seq hasError)
@@ -512,7 +515,7 @@
 (defn async-breadcrumb-select-option-settings
   [{:keys [value-path label-path breadcrumb-path]}]
   {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
-   ::low-code/opt-ks       []
+   ::low-code/opt-ks       [:added-path]
    ::low-code/schema       {:type "array" :items {:type "object"}}
    ::low-code/schema-paths [value-path label-path breadcrumb-path]})
 
@@ -520,7 +523,7 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder uri disabled errors show-errors value-path label-path breadcrumb-path]} props
+        {:keys [placeholder uri disabled errors show-errors value-path label-path breadcrumb-path added-path]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     [ui/AsyncBreadcrumbSelectField
@@ -528,6 +531,7 @@
       :loadOptions     #(utils4/fetch-post {:uri uri :body {:query %}})
       :value-path      value-path
       :label-path      label-path
+      :added-path      added-path
       :breadcrumb-path breadcrumb-path
       :placeholder     placeholder
       :disabled        disabled
@@ -541,14 +545,14 @@
 
 (defn async-table-select-option-settings [_]
   {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
-   ::low-code/opt-ks []
+   ::low-code/opt-ks [:added-path]
    ::low-code/schema {:type "object" :properties {}}})
 
 (defn async-table-select-option
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder uri disabled errors show-errors value-path label-path columns]} props
+        {:keys [placeholder uri disabled errors show-errors value-path label-path added-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
 
     [ui/AsyncTableSelectField
@@ -556,6 +560,7 @@
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
       :value-path  value-path
       :label-path  label-path
+      :added-path  added-path
       :columns     columns
       :placeholder placeholder
       :disabled    disabled

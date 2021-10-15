@@ -332,7 +332,8 @@
               :data-path  [?data-path "unit"]
               :uri        "/api/What9"
               :label-path ["label"]
-              :value-path ["uri"]}]]
+              :value-path ["uri"]
+              :added-path ["isUserDefined"]}]]
            [m4/item-add-button
             {:form-id    ?form-id
              :data-path  [?data-path "unit"]

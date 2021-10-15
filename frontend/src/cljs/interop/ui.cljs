@@ -237,20 +237,19 @@
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
-  (let [all-paths (into [value-path label-path] (map :label-path columns))]
-    [:> SelectField/TableSelectField
-     {:value       value
-      :options     options
-      :placeholder placeholder
-      :disabled    disabled
-      :hasError    hasError
-      :getValue    (get-obj-path value-path)
-      :getLabel    (get-obj-path label-path)
-      :getAdded    (if added-path (get-obj-path added-path) (constantly false))
-      :columns     (for [{:keys [flex label-path]} columns]
-                     {:flex     flex
-                      :getLabel (get-obj-path label-path)})
-      :onChange    (comp onChange js->clj)}]))
+  [:> SelectField/TableSelectField
+   {:value       value
+    :options     options
+    :placeholder placeholder
+    :disabled    disabled
+    :hasError    hasError
+    :getValue    (get-obj-path value-path)
+    :getLabel    (get-obj-path label-path)
+    :getAdded    (if added-path (get-obj-path added-path) (constantly false))
+    :columns     (for [{:keys [flex label-path]} columns]
+                   {:flex     flex
+                    :getLabel (get-obj-path label-path)})
+    :onChange    (comp onChange js->clj)}])
 
 (defn AsyncTableSelectField
   [{:keys [value loadOptions placeholder disabled hasError onChange label-path added-path value-path columns]}]
@@ -264,20 +263,19 @@
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
-  (let [all-paths [value-path label-path]]
-    [:> SelectField/AsyncTableSelectField
-     {:value       value
-      :loadOptions loadOptions
-      :placeholder placeholder
-      :disabled    disabled
-      :hasError    hasError
-      :getValue    (get-obj-path value-path)
-      :getLabel    (get-obj-path label-path)
-      :getAdded    (if added-path (get-obj-path added-path) (constantly false))
-      :columns     (for [{:keys [flex label-path]} columns]
-                     {:flex     flex
-                      :getLabel (get-obj-path label-path)})
-      :onChange    (comp onChange js->clj)}]))
+  [:> SelectField/AsyncTableSelectField
+   {:value       value
+    :loadOptions loadOptions
+    :placeholder placeholder
+    :disabled    disabled
+    :hasError    hasError
+    :getValue    (get-obj-path value-path)
+    :getLabel    (get-obj-path label-path)
+    :getAdded    (if added-path (get-obj-path added-path) (constantly false))
+    :columns     (for [{:keys [flex label-path]} columns]
+                   {:flex     flex
+                    :getLabel (get-obj-path label-path)})
+    :onChange    (comp onChange js->clj)}])
 
 (defn AsyncSimpleSelectField
   [{:keys [value loadOptions placeholder disabled hasError onChange value-path label-path added-path]}]

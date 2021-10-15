@@ -533,14 +533,14 @@
     [ui/AsyncBreadcrumbSelectField
      {:value           value
       :loadOptions     #(utils4/fetch-post {:uri uri :body {:query %}})
-      :value-path      value-path
-      :label-path      label-path
-      :added-path      added-path
-      :breadcrumb-path breadcrumb-path
+      :getValue        (ui/get-obj-path value-path)
+      :getLabel        (ui/get-obj-path label-path)
+      :getAdded        (when added-path (ui/get-obj-path added-path))
+      :getBreadcrumb   (ui/get-obj-path breadcrumb-path)
       :placeholder     placeholder
       :disabled        disabled
       :hasError        hasError
-      :onChange        #(rf/dispatch [::option-change config %])}]))
+      :onChange        #(rf/dispatch [::option-change config (ui/get-option-data %)])}]))
 
 (defn async-breadcrumb-select-option-with-label
   [config]
@@ -869,11 +869,11 @@
       :placeholder     placeholder
       :disabled        disabled
       :hasError        hasError
-      :label-path      label-path
-      :value-path      value-path
-      :breadcrumb-path breadcrumb-path
+      :getValue        (ui/get-obj-path value-path)
+      :getLabel        (ui/get-obj-path label-path)
+      :getBreadcrumb   (ui/get-obj-path breadcrumb-path)
       :loadOptions     #(utils4/fetch-post {:uri uri :body {:query %}})
-      :onChange        #(rf/dispatch [::list-option-picker-change config %])}]))
+      :onChange        #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}]))
 
 (defn async-table-list-option-picker-settings [_]
   {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :columns]

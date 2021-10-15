@@ -180,7 +180,7 @@ AsyncSelectField.propTypes = {
     getLabel: PropTypes.func.isRequired,
 }
 
-export function SelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, Option, onChange}) {
+export function SelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange}) {
     const isAdded = getAdded ? getAdded(value): false;
     return (
         <Select

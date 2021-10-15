@@ -74,13 +74,8 @@
 (defn get-geojson-data [o] (js->clj o :keywordize-keys true))
 
 (def BoxMap (r/adapt-react-class BoxMap/BoxMap))
-
 (def DateField (r/adapt-react-class DateField/DateField))
-
-(defn ErrorSidebar
-  [{:keys []}]
-  [:> ErrorSidebar/ErrorSidebar
-   {}])
+(def ErrorSidebar (r/adapt-react-class ErrorSidebar/ErrorSidebar))
 
 (defn ExpandingControl
   [{:keys [label required]} & children]

@@ -79,16 +79,7 @@
 (def ExpandingControl (r/adapt-react-class ExpandingControl/ExpandingControl))
 (def FormGroup (r/adapt-react-class FormGroup/FormGroup))
 (def InlineFormGroup (r/adapt-react-class FormGroup/InlineFormGroup))
-
-(defn InputField
-  [{:keys [value placeholder maxLength disabled hasError onChange]}]
-  [:> InputField/InputField
-   {:value       value
-    :placeholder placeholder
-    :maxLength   maxLength
-    :disabled    disabled
-    :hasError    hasError
-    :onChange    onChange}])
+(def InputField (r/adapt-react-class InputField/InputField))
 
 (defn SelectValueField
   "Simple HTML select field to select a string value"

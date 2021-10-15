@@ -85,32 +85,7 @@
 (def BreadcrumbSelectField (r/adapt-react-class SelectField/BreadcrumbSelectField))
 (def AsyncBreadcrumbSelectField (r/adapt-react-class SelectField/AsyncBreadcrumbSelectField))
 (def TableSelectField (r/adapt-react-class SelectField/TableSelectField))
-
-(defn AsyncTableSelectField
-  [{:keys [value loadOptions placeholder disabled hasError onChange label-path added-path value-path columns]}]
-  (s/assert (s/nilable map?) value)
-  (s/assert fn? loadOptions)
-  (s/assert (s/nilable string?) placeholder)
-  (s/assert ::obj-path value-path)
-  (s/assert ::obj-path label-path)
-  (s/assert (s/nilable ::obj-path) added-path)
-  (s/assert (s/coll-of (s/keys :req-un [::label-path ::flex])) columns)
-  (s/assert (s/nilable boolean?) disabled)
-  (s/assert (s/nilable boolean?) hasError)
-  (s/assert fn? onChange)
-  [:> SelectField/AsyncTableSelectField
-   {:value       value
-    :loadOptions loadOptions
-    :placeholder placeholder
-    :disabled    disabled
-    :hasError    hasError
-    :getValue    (get-obj-path value-path)
-    :getLabel    (get-obj-path label-path)
-    :getAdded    (if added-path (get-obj-path added-path) (constantly false))
-    :columns     (for [{:keys [flex label-path]} columns]
-                   {:flex     flex
-                    :getLabel (get-obj-path label-path)})
-    :onChange    (comp onChange js->clj)}])
+(def AsyncTableSelectField (r/adapt-react-class SelectField/AsyncTableSelectField))
 
 (defn AsyncSimpleSelectField
   [{:keys [value loadOptions placeholder disabled hasError onChange value-path label-path added-path]}]

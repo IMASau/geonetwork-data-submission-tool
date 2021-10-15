@@ -563,15 +563,17 @@
 
     [ui/AsyncTableSelectField
      {:value       value
-      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
-      :value-path  value-path
-      :label-path  label-path
-      :added-path  added-path
-      :columns     columns
       :placeholder placeholder
       :disabled    disabled
       :hasError    hasError
-      :onChange    #(rf/dispatch [::option-change config %])}]))
+      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :getValue    (ui/get-obj-path value-path)
+      :getLabel    (ui/get-obj-path label-path)
+      :getAdded    (when added-path (ui/get-obj-path added-path))
+      :columns     (for [{:keys [flex label-path]} columns]
+                     {:flex     flex
+                      :getLabel (ui/get-obj-path label-path)})
+      :onChange    #(rf/dispatch [::option-change config (ui/get-option-data %)])}]))
 
 (defn async-table-select-option-with-label
   [config]
@@ -895,11 +897,13 @@
       :placeholder placeholder
       :disabled    disabled
       :hasError    hasError
-      :label-path  label-path
-      :value-path  value-path
-      :columns     columns
+      :getLabel    (ui/get-obj-path label-path)
+      :getValue    (ui/get-obj-path value-path)
+      :columns     (for [{:keys [flex label-path]} columns]
+                     {:flex     flex
+                      :getLabel (ui/get-obj-path label-path)})
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
-      :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
+      :onChange    #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}]))
 
 (defmulti async-list-picker-settings :kind)
 (defmethod async-list-picker-settings :default [config] (async-simple-list-option-picker-settings config))

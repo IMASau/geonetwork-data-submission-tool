@@ -982,7 +982,7 @@
           elements (boxes->elements data)
           {:keys [disabled is-hidden]} props]
       (when-not is-hidden
-        [ui/box-map
+        [ui/BoxMap
          {:elements elements
           :disabled (not disabled)
           :tickId   @(rf/subscribe [:subs/get-form-tick])

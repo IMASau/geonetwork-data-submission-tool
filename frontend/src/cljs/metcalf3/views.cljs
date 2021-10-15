@@ -872,7 +872,7 @@
                (when hasGeographicCoverage
                  [:div.row
                   [:div.col-sm-6
-                   [ui/box-map
+                   [ui/BoxMap
                     {:elements (utils/boxes->elements boxes)
                      :ref      (fn [boxmap] (r/set-state this {:boxmap boxmap}))
                      :disabled disabled

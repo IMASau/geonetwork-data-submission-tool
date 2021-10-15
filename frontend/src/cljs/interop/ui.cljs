@@ -73,7 +73,7 @@
 
 (defn get-geojson-data [o] (js->clj o :keywordize-keys true))
 
-(def box-map (r/adapt-react-class BoxMap/BoxMap))
+(def BoxMap (r/adapt-react-class BoxMap/BoxMap))
 
 (defn DateField
   [{:keys [value disabled onChange hasError minDate maxDate]}]

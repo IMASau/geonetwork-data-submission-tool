@@ -376,11 +376,11 @@
       :options     options
       :placeholder placeholder
       :disabled    disabled
-      :value-path  value-path
-      :label-path  label-path
-      :added-path  added-path
+      :getValue    (ui/get-obj-path value-path)
+      :getLabel    (ui/get-obj-path label-path)
+      :getAdded    (when added-path (ui/get-obj-path added-path))
       :hasError    hasError
-      :onChange    #(rf/dispatch [::option-change config %])}]))
+      :onChange    #(rf/dispatch [::option-change config (ui/get-option-data %)])}]))
 
 (defn table-select-option-settings [_]
   {::low-code/req-ks [:form-id :data-path :options :label-path :value-path :columns]
@@ -758,9 +758,9 @@
       :placeholder placeholder
       :disabled    disabled
       :hasError    hasError
-      :label-path  label-path
-      :value-path  value-path
-      :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
+      :getLabel    (ui/get-obj-path label-path)
+      :getValue    (ui/get-obj-path value-path)
+      :onChange    #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}]))
 
 (defn breadcrumb-list-option-picker-settings [_]
   {::low-code/req-ks [:form-id :data-path :options :value-path :label-path :breadcrumb-path]

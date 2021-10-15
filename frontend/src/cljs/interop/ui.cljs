@@ -81,28 +81,7 @@
 (def InlineFormGroup (r/adapt-react-class FormGroup/InlineFormGroup))
 (def InputField (r/adapt-react-class InputField/InputField))
 (def SelectValueField (r/adapt-react-class SelectField/SelectValueField))
-
-(defn SimpleSelectField
-  [{:keys [value options placeholder disabled hasError onChange value-path label-path added-path]}]
-  (s/assert (s/nilable map?) value)
-  (s/assert (s/coll-of map?) options)
-  (s/assert ::obj-path value-path)
-  (s/assert ::obj-path label-path)
-  (s/assert (s/nilable ::obj-path) added-path)
-  (s/assert (s/nilable string?) placeholder)
-  (s/assert (s/nilable boolean?) disabled)
-  (s/assert (s/nilable boolean?) hasError)
-  (s/assert fn? onChange)
-  [:> SelectField/SimpleSelectField
-   {:value       value
-    :options     options
-    :placeholder placeholder
-    :disabled    disabled
-    :hasError    hasError
-    :getValue    (get-obj-path value-path)
-    :getLabel    (get-obj-path label-path)
-    :getAdded    (if added-path (get-obj-path added-path) (constantly false))
-    :onChange    (comp onChange js->clj)}])
+(def SimpleSelectField (r/adapt-react-class SelectField/SimpleSelectField))
 
 (defn BreadcrumbSelectField
   [props]

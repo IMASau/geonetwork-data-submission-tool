@@ -82,10 +82,7 @@
 (def InputField (r/adapt-react-class InputField/InputField))
 (def SelectValueField (r/adapt-react-class SelectField/SelectValueField))
 (def SimpleSelectField (r/adapt-react-class SelectField/SimpleSelectField))
-
-(defn BreadcrumbSelectField
-  [props]
-  [:> SelectField/BreadcrumbSelectField props])
+(def BreadcrumbSelectField (r/adapt-react-class SelectField/BreadcrumbSelectField))
 
 (defn AsyncBreadcrumbSelectField
   [{:keys [value loadOptions placeholder disabled hasError onChange value-path label-path breadcrumb-path added-path]}]

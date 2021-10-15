@@ -148,5 +148,13 @@ export const BoxMap = ({mapWidth, elements, onChange, tickId}) => {
 };
 
 BoxMap.propTypes = {
-    boxes: PropTypes.array
+    mapWidth: PropTypes.number,
+    elements: PropTypes.arrayOf(PropTypes.shape({
+        northBoundLatitude: PropTypes.number.isRequired,
+        westBoundLongitude: PropTypes.number.isRequired,
+        southBoundLatitude: PropTypes.number.isRequired,
+        eastBoundLongitude: PropTypes.number.isRequired,
+    })),
+    onChange: PropTypes.func.isRequired,
+    tickId: PropTypes.number,
 };

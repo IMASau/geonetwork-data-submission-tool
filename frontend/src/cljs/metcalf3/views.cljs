@@ -22,7 +22,6 @@
             [metcalf3.handlers :as handlers]
             [metcalf3.logic :as logic]
             [metcalf3.utils :as utils]
-            [metcalf3.widget.boxmap :as boxmap]
             [metcalf3.widget.modal :refer [Modal]]
             [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectAsyncCreatable VirtualizedSelect]]
             [metcalf3.widget.tree :refer [TermList TermTree]]

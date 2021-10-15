@@ -3,7 +3,6 @@
             [clojure.string :as string]
             [interop.date :as date]
             [interop.ui :as ui]
-            [metcalf3.widget.boxmap :as boxmap]
             [metcalf4.blocks :as blocks]
             [metcalf4.subs :as common-subs]
             [metcalf4.utils :as utils4]

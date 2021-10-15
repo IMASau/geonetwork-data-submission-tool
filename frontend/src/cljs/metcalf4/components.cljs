@@ -379,7 +379,7 @@
       :value-path  value-path
       :label-path  label-path
       :added-path  added-path
-      :hasError    (seq hasError)
+      :hasError    hasError
       :onChange    #(rf/dispatch [::option-change config %])}]))
 
 (defn table-select-option-settings [_]
@@ -403,7 +403,7 @@
       :columns     columns
       :placeholder placeholder
       :disabled    disabled
-      :hasError    (seq hasError)
+      :hasError    hasError
       :onChange    #(rf/dispatch [::option-change config %])}]))
 
 (defn breadcrumb-select-option-settings [_]
@@ -427,7 +427,7 @@
       :breadcrumb-path breadcrumb-path
       :placeholder     placeholder
       :disabled        disabled
-      :hasError        (seq hasError)
+      :hasError        hasError
       :onChange        #(rf/dispatch [::option-change config %])}]))
 
 (defmulti select-option-settings :kind)
@@ -508,7 +508,7 @@
       :added-path  added-path
       :placeholder placeholder
       :disabled    disabled
-      :hasError    (seq hasError)
+      :hasError    hasError
       :onChange    #(rf/dispatch [::option-change config %])}]))
 
 (defn async-simple-select-option-with-label
@@ -539,7 +539,7 @@
       :breadcrumb-path breadcrumb-path
       :placeholder     placeholder
       :disabled        disabled
-      :hasError        (seq hasError)
+      :hasError        hasError
       :onChange        #(rf/dispatch [::option-change config %])}]))
 
 (defn async-breadcrumb-select-option-with-label
@@ -568,7 +568,7 @@
       :columns     columns
       :placeholder placeholder
       :disabled    disabled
-      :hasError    (seq hasError)
+      :hasError    hasError
       :onChange    #(rf/dispatch [::option-change config %])}]))
 
 (defn async-table-select-option-with-label
@@ -653,7 +653,7 @@
       {:value    value
        :label    label
        :disabled false
-       :hasError (seq hasError)
+       :hasError hasError
        :onChange #(rf/dispatch [::yes-no-field-with-label-value-changed config %])}]]))
 
 (defn simple-selection-list-settings
@@ -757,7 +757,7 @@
       :options     options
       :placeholder placeholder
       :disabled    disabled
-      :hasError    (seq hasError)
+      :hasError    hasError
       :label-path  label-path
       :value-path  value-path
       :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))

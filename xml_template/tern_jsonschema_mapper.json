@@ -573,7 +573,8 @@
                   "function": "separate_organisation_identifier"
                 }
               }
-            }
+            },
+            "isUserDefined": {}
           }
         },
         "contact" : {
@@ -687,7 +688,8 @@
               "keep": false,
               "valueChild": "gco:CharacterString",
               "required": false
-            }
+            },
+            "isUserDefined": {}
           }
         },
         "uri": {},

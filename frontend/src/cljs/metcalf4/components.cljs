@@ -81,6 +81,8 @@
   [config & children]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [label helperText toolTip required disabled show-errors errors]} props
+        ; NOTE: treating label is a special case, if defined in config it overrides logic
+        label (get config :label label)
         hasError (when (and show-errors (seq errors)) true)]
 
     (into [ui/InlineFormGroup

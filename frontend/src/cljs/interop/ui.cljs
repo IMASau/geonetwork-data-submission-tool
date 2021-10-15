@@ -79,7 +79,6 @@
 (def AsyncBreadcrumbSelectField (r/adapt-react-class SelectField/AsyncBreadcrumbSelectField))
 (def TableSelectField (r/adapt-react-class SelectField/TableSelectField))
 (def AsyncTableSelectField (r/adapt-react-class SelectField/AsyncTableSelectField))
-(def AsyncTableSelectField (r/adapt-react-class SelectField/AsyncTableSelectField))
 (def AsyncSimpleSelectField (r/adapt-react-class SelectField/AsyncSimpleSelectField))
 (def SimpleSelectionList (r/adapt-react-class SelectionList/SimpleSelectionList))
 (def BreadcrumbSelectionList (r/adapt-react-class SelectionList/BreadcrumbSelectionList))

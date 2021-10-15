@@ -97,7 +97,6 @@ export const BoxMap = ({mapWidth, elements, onChange, tickId}) => {
     const bounds = elementsToExtents(elements);
     const setCenter = bounds && bounds.north == bounds.south && bounds.east == bounds.west;
     const setBounds = bounds && !setCenter;
-    console.log({bounds, setCenter, setBounds})
 
     const handleChange = () => {
         onChange(featureGroupRef.current.leafletElement.toGeoJSON())

@@ -76,15 +76,7 @@
 (def BoxMap (r/adapt-react-class BoxMap/BoxMap))
 (def DateField (r/adapt-react-class DateField/DateField))
 (def ErrorSidebar (r/adapt-react-class ErrorSidebar/ErrorSidebar))
-
-(defn ExpandingControl
-  [{:keys [label required]} & children]
-  (s/assert string? label)
-  (s/assert (s/nilable boolean?) required)
-  (into [:> ExpandingControl/ExpandingControl
-         {:label    label
-          :required required}]
-        children))
+(def ExpandingControl (r/adapt-react-class ExpandingControl/ExpandingControl))
 
 (defn FormGroup
   [{:keys [label required disabled hasError helperText toolTip]} & children]

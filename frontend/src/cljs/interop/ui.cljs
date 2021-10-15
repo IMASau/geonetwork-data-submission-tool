@@ -47,13 +47,6 @@
 (s/def ::elements (s/coll-of ::element))
 (s/def ::obj-path (s/coll-of string? :min-count 1))
 
-(defn has-path? [path] (fn [m] (utils4/contains-path? (walk/stringify-keys m) (map name path))))
-(defn has-paths? [paths] (fn [m] (utils4/contains-every? (walk/stringify-keys m) (map #(map name %) paths))))
-(defn js->map [o ks]
-  (assert (every? #(gobj/containsKey o %) ks)
-          (str "Missing expected key" (pr-str {:obj o :ks ks})))
-  (when o (zipmap ks (map #(gobj/get o %) ks))))
-
 (defn get-obj-path
   ([path] #(get-obj-path % path))
   ([o path]
@@ -86,162 +79,13 @@
 (def AsyncBreadcrumbSelectField (r/adapt-react-class SelectField/AsyncBreadcrumbSelectField))
 (def TableSelectField (r/adapt-react-class SelectField/TableSelectField))
 (def AsyncTableSelectField (r/adapt-react-class SelectField/AsyncTableSelectField))
-
-(defn AsyncSimpleSelectField
-  [{:keys [value loadOptions placeholder disabled hasError onChange value-path label-path added-path]}]
-  (s/assert (s/nilable map?) value)
-  (s/assert ::obj-path value-path)
-  (s/assert ::obj-path label-path)
-  (s/assert (s/nilable ::obj-path) added-path)
-  (s/assert fn? loadOptions)
-  (s/assert (s/nilable string?) placeholder)
-  (s/assert (s/nilable boolean?) disabled)
-  (s/assert (s/nilable boolean?) hasError)
-  (s/assert fn? onChange)
-  [:> SelectField/AsyncSimpleSelectField
-   {:value       value
-    :loadOptions loadOptions
-    :placeholder placeholder
-    :disabled    disabled
-    :hasError    hasError
-    :getValue    (get-obj-path value-path)
-    :getLabel    (get-obj-path label-path)
-    :getAdded    (if added-path (get-obj-path added-path) (constantly false))
-    :onChange    (comp onChange js->clj)}])
-
-(defn SimpleSelectionList
-  [{:keys [items onReorder onItemClick onRemoveClick label-path value-path added-path]}]
-  (s/assert fn? onReorder)
-  (s/assert (s/nilable fn?) onItemClick)
-  (s/assert fn? onRemoveClick)
-  (s/assert ::obj-path label-path)
-  (s/assert ::obj-path value-path)
-  (s/assert (s/nilable ::obj-path) added-path)
-  (s/assert (s/coll-of (has-paths? #{label-path value-path}) :distinct true) items)
-  [:> SelectionList/SimpleSelectionList
-   {:items         items
-    :onReorder     onReorder
-    :onItemClick   onItemClick
-    :onRemoveClick onRemoveClick
-    :getValue      (get-obj-path value-path)
-    :getLabel      (get-obj-path label-path)
-    :getAdded      (if added-path (get-obj-path added-path) (constantly false))}])
-
-(defn BreadcrumbSelectionList
-  [{:keys [items onReorder onItemClick onRemoveClick breadcrumb-path label-path value-path added-path]}]
-  (s/assert fn? onReorder)
-  (s/assert (s/nilable fn?) onItemClick)
-  (s/assert fn? onRemoveClick)
-  (s/assert ::obj-path breadcrumb-path)
-  (s/assert ::obj-path label-path)
-  (s/assert ::obj-path value-path)
-  (s/assert (s/nilable ::obj-path) added-path)
-  (s/assert (s/coll-of (has-paths? #{label-path value-path breadcrumb-path}) :distinct true) items)
-  [:> SelectionList/BreadcrumbSelectionList
-   {:items         items
-    :onReorder     onReorder
-    :onItemClick   onItemClick
-    :onRemoveClick onRemoveClick
-    :getValue      (get-obj-path value-path)
-    :getLabel      (get-obj-path label-path)
-    :getBreadcrumb (get-obj-path breadcrumb-path)
-    :getAdded      (if added-path (get-obj-path added-path) (constantly false))}])
-
-(defn TableSelectionList
-  [{:keys [items onReorder onItemClick onRemoveClick value-path added-path columns]}]
-  (s/assert fn? onReorder)
-  (s/assert (s/nilable fn?) onItemClick)
-  (s/assert fn? onRemoveClick)
-  (s/assert ::obj-path value-path)
-  (s/assert (s/nilable ::obj-path) added-path)
-  (s/assert (s/coll-of (s/keys :req-un [::label-path ::flex] :opt-un [::columnHeader])) columns)
-  (s/assert (s/coll-of (has-path? value-path)) items)
-  (s/assert (s/coll-of (has-paths? (map :label-path columns)) :distinct true) items)
-  [:> SelectionList/TableSelectionList
-   {:items         items
-    :onReorder     onReorder
-    :onItemClick   onItemClick
-    :onRemoveClick onRemoveClick
-    :getValue      (get-obj-path value-path)
-    :getAdded      (if added-path (get-obj-path added-path) (constantly false))
-    :columns       (for [{:keys [flex label-path columnHeader]} columns]
-                     {:flex         flex
-                      :getLabel     (get-obj-path label-path)
-                      :columnHeader (or columnHeader "None")})}])
-
-(defn TextareaField
-  [{:keys [value placeholder maxLength rows disabled hasError onChange]}]
-  (s/assert string? value)
-  (s/assert (s/nilable string?) placeholder)
-  (s/assert (s/nilable nat-int?) maxLength)
-  (s/assert (s/nilable pos-int?) rows)
-  (s/assert (s/nilable boolean?) disabled)
-  (s/assert (s/nilable boolean?) hasError)
-  (s/assert fn? onChange)
-  [:> TextareaField/TextareaField
-   {:value       value
-    :placeholder placeholder
-    :maxLength   maxLength
-    :rows        rows
-    :disabled    disabled
-    :hasError    hasError
-    :onChange    onChange}])
-
-(defn YesNoRadioGroup
-  [{:keys [value label disabled hasError onChange]}]
-  (s/assert (s/nilable boolean?) value)
-  (s/assert string? label)
-  (s/assert (s/nilable boolean?) disabled)
-  (s/assert (s/nilable boolean?) hasError)
-  (s/assert fn? onChange)
-  [:> YesNoRadioGroup/YesNoRadioGroup
-   {:value    value
-    :label    label
-    :disabled disabled
-    :hasError hasError
-    :onChange onChange}])
-
-(defn CheckboxField
-  [{:keys [checked disabled hasError onChange]}]
-  (s/assert (s/nilable boolean?) checked)
-  (s/assert (s/nilable boolean?) disabled)
-  (s/assert (s/nilable boolean?) hasError)
-  (s/assert fn? onChange)
-  [:> CheckboxField/CheckboxField
-   {:checked  checked
-    :disabled disabled
-    :hasError hasError
-    :onChange onChange}])
-
-(defn NumericInputField
-  [{:keys [value placeholder disabled hasError hasButtons onChange]}]
-  (s/assert (s/nilable number?) value)
-  (s/assert (s/nilable string?) placeholder)
-  (s/assert (s/nilable boolean?) disabled)
-  (s/assert (s/nilable boolean?) hasError)
-  (s/assert (s/nilable boolean?) hasButtons)
-  (s/assert fn? onChange)
-  [:> NumericInputField/NumericInputField
-   {:value       value
-    :placeholder placeholder
-    :disabled    disabled
-    :hasError    hasError
-    :hasButtons  hasButtons
-    :onChange    onChange}])
-
-(defn EditDialog
-  [{:keys [isOpen title onClose onClear onSave canSave]} & children]
-  (s/assert (s/nilable boolean?) isOpen)
-  (s/assert string? title)
-  (s/assert fn? onClose)
-  (s/assert fn? onClear)
-  (s/assert fn? onSave)
-  (s/assert boolean? canSave)
-  (into [:> EditDialog/EditDialog
-         {:isOpen  (boolean isOpen)
-          :title   title
-          :onClose onClose
-          :onClear onClear
-          :onSave  onSave
-          :canSave canSave}]
-        children))
+(def AsyncTableSelectField (r/adapt-react-class SelectField/AsyncTableSelectField))
+(def AsyncSimpleSelectField (r/adapt-react-class SelectField/AsyncSimpleSelectField))
+(def SimpleSelectionList (r/adapt-react-class SelectionList/SimpleSelectionList))
+(def BreadcrumbSelectionList (r/adapt-react-class SelectionList/BreadcrumbSelectionList))
+(def TableSelectionList (r/adapt-react-class SelectionList/TableSelectionList))
+(def TextareaField (r/adapt-react-class TextareaField/TextareaField))
+(def YesNoRadioGroup (r/adapt-react-class YesNoRadioGroup/YesNoRadioGroup))
+(def CheckboxField (r/adapt-react-class CheckboxField/CheckboxField))
+(def NumericInputField (r/adapt-react-class NumericInputField/NumericInputField))
+(def EditDialog (r/adapt-react-class EditDialog/EditDialog))

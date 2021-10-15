@@ -504,14 +504,14 @@
 
     [ui/AsyncSimpleSelectField
      {:value       value
-      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
-      :value-path  value-path
-      :label-path  label-path
-      :added-path  added-path
       :placeholder placeholder
       :disabled    disabled
       :hasError    hasError
-      :onChange    #(rf/dispatch [::option-change config %])}]))
+      :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+      :getValue    (ui/get-obj-path value-path)
+      :getLabel    (ui/get-obj-path label-path)
+      :getAdded    (when added-path (ui/get-obj-path added-path))
+      :onChange    #(rf/dispatch [::option-change config (ui/get-option-data %)])}]))
 
 (defn async-simple-select-option-with-label
   [config]
@@ -680,10 +680,10 @@
     [ui/SimpleSelectionList
      {:key           key
       :items         (or items [])
-      :label-path    label-path
-      :value-path    value-path
-      :added-path    added-path
       :disabled      disabled
+      :getLabel      (ui/get-obj-path label-path)
+      :getValue      (ui/get-obj-path value-path)
+      :getAdded      (when added-path (ui/get-obj-path added-path))
       :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
       :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
       :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
@@ -707,16 +707,16 @@
     (s/assert (s/nilable ::obj-path) added-path)
 
     [ui/BreadcrumbSelectionList
-     {:key             key
-      :items           (or items [])
-      :disabled        disabled
-      :breadcrumb-path breadcrumb-path
-      :label-path      label-path
-      :value-path      value-path
-      :added-path      added-path
-      :onReorder       (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
-      :onItemClick     (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
-      :onRemoveClick   (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
+     {:key           key
+      :items         (or items [])
+      :disabled      disabled
+      :getBreadcrumb (ui/get-obj-path breadcrumb-path)
+      :getLabel      (ui/get-obj-path label-path)
+      :getValue      (ui/get-obj-path value-path)
+      :getAdded      (when added-path (ui/get-obj-path added-path))
+      :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+      :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+      :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]))
 
 (defn table-selection-list-settings
   [{:keys [value-path columns added-path]}]
@@ -738,9 +738,12 @@
      {:key           key
       :items         (or items [])
       :disabled      disabled
-      :columns       columns
-      :value-path    value-path
-      :added-path    added-path
+      :columns       (for [{:keys [flex label-path columnHeader]} columns]
+                       {:flex         flex
+                        :getLabel     (ui/get-obj-path label-path)
+                        :columnHeader (or columnHeader "None")})
+      :getValue      (ui/get-obj-path value-path)
+      :getAdded      (when added-path (ui/get-obj-path added-path))
       :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
       :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
       :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}]))
@@ -830,13 +833,13 @@
 
     [ui/AsyncSimpleSelectField
      {:value       nil
-      :value-path  value-path
-      :label-path  label-path
       :placeholder placeholder
       :disabled    disabled
       :hasError    hasError
+      :getValue    (ui/get-obj-path value-path)
+      :getLabel    (ui/get-obj-path label-path)
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
-      :onChange    #(rf/dispatch [::list-option-picker-change config %])}]))
+      :onChange    #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}]))
 
 (defn async-simple-item-option-picker-settings [_]
   {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path]
@@ -851,13 +854,13 @@
 
     [ui/AsyncSimpleSelectField
      {:value       nil
-      :value-path  value-path
-      :label-path  label-path
       :placeholder placeholder
       :disabled    disabled
       :hasError    hasError
+      :getValue    (ui/get-obj-path value-path)
+      :getLabel    (ui/get-obj-path label-path)
       :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
-      :onChange    #(rf/dispatch [::item-option-picker-change config %])}]))
+      :onChange    #(rf/dispatch [::item-option-picker-change config (ui/get-option-data %)])}]))
 
 (defn async-breadcrumb-list-option-picker-settings [_]
   {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
@@ -974,7 +977,7 @@
         :data-path (conj path "southBoundLatitude")}]]]]])
 
 (defn boxmap-field-settings [_]
-  {::low-code/req-ks [:form-id :data-path :added-path :value-path]
+  {::low-code/req-ks [:form-id :data-path]
    ::low-code/opt-ks []})
 
 (defn boxmap-field

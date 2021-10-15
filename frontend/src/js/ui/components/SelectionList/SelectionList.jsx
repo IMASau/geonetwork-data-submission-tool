@@ -80,7 +80,7 @@ function PortalAwareItem({ provided, snapshot, itemLabel, removeButton, classNam
                 snapshot.isDragging,
                 provided.draggableProps.style
             )}
-            className={"DragHandleWrapper "+className}
+            className={"DragHandleWrapper " + className}
         >
             <div className="DragHandleWrapperHandle"
                 {...provided.dragHandleProps}>
@@ -100,6 +100,11 @@ function PortalAwareItem({ provided, snapshot, itemLabel, removeButton, classNam
     } else {
         return ReactDOM.createPortal(child, portal);
     }
+}
+
+function getSelectionListItemClass({ item, getAdded }) {
+    const isAdded = getAdded & getAdded(item);
+    return isAdded ? "SelectionListAddedItem" : "SelectionListPickedItem"
 }
 
 // NOTE: Attempts to workaround glitch on recorder by caching state
@@ -142,7 +147,7 @@ export function SelectionList({ items, itemProps, getValue, getAdded, onReorder,
                                     <PortalAwareItem
                                         provided={provided}
                                         snapshot={snapshot}
-                                        className={["SelectionListItem",(getAdded(item)?"SelectionListAddedItem":"SelectionListPickedItem")].join(" ")}
+                                        className={["SelectionListItem", getSelectionListItemClass({ item, getAdded })].join(" ")}
                                         itemLabel={ItemLabel({ itemProps, item, index, onItemClick, renderItem })}
                                         removeButton={RemoveButton({ disabled, onRemoveClick, index })}
                                     />
@@ -167,13 +172,13 @@ SelectionList.propTypes = {
     onRemoveClick: PropTypes.func,
     renderItem: PropTypes.func.isRequired,
     getValue: PropTypes.func.isRequired,
-    getAdded: PropTypes.func.isRequired,
+    getAdded: PropTypes.func,
     disabled: PropTypes.bool,
 }
 
 export function TableSelectionList({ items, getValue, getAdded, onReorder, onItemClick, onRemoveClick, disabled, columns }) {
-    if (items.length==0) {
-        return <div/>
+    if (items.length == 0) {
+        return <div />
     }
     return (
         <div>
@@ -202,7 +207,7 @@ export function TableSelectionList({ items, getValue, getAdded, onReorder, onIte
 TableSelectionList.propTypes = {
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
     getValue: PropTypes.func.isRequired,
-    getAdded: PropTypes.func.isRequired,
+    getAdded: PropTypes.func,
     onReorder: PropTypes.func,
     onItemClick: PropTypes.func,
     onRemoveClick: PropTypes.func,
@@ -239,7 +244,7 @@ BreadcrumbSelectionList.propTypes = {
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,
     getBreadcrumb: PropTypes.func.isRequired,
-    getAdded: PropTypes.func.isRequired,
+    getAdded: PropTypes.func,
     onReorder: PropTypes.func,
     onItemClick: PropTypes.func,
     onRemoveClick: PropTypes.func,
@@ -270,7 +275,7 @@ SimpleSelectionList.propTypes = {
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,
-    getAdded: PropTypes.func.isRequired,
+    getAdded: PropTypes.func,
     onReorder: PropTypes.func,
     onItemClick: PropTypes.func,
     onRemoveClick: PropTypes.func,

@@ -873,12 +873,12 @@
                (when hasGeographicCoverage
                  [:div.row
                   [:div.col-sm-6
-                   [boxmap/box-map2-fill
-                    {:elements  (utils/boxes->elements boxes)
-                     :ref       (fn [boxmap] (r/set-state this {:boxmap boxmap}))
-                     :disabled  disabled
-                     :tick-id   @(rf/subscribe [:subs/get-form-tick])
-                     :on-change #(rf/dispatch [:handlers/update-boxes boxes-path %])}]]
+                   [ui/box-map
+                    {:elements (utils/boxes->elements boxes)
+                     :ref      (fn [boxmap] (r/set-state this {:boxmap boxmap}))
+                     :disabled disabled
+                     :tickId   @(rf/subscribe [:subs/get-form-tick])
+                     :onChange #(rf/dispatch [:handlers/update-boxes boxes-path (ui/get-geojson-data %)])}]]
                   [:div.col-sm-6
                    [textarea-field {:path site-description-path}]
                    [:p [:span "Please input in decimal degrees in coordinate reference system WGS84. "

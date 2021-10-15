@@ -983,11 +983,11 @@
           elements (boxes->elements data)
           {:keys [disabled is-hidden]} props]
       (when-not is-hidden
-        [boxmap/box-map2-fill
-         {:elements  elements
-          :disabled  (not disabled)
-          :tick-id   @(rf/subscribe [:subs/get-form-tick])
-          :on-change #(rf/dispatch [::boxes-changed config %])}]))))
+        [ui/box-map
+         {:elements elements
+          :disabled (not disabled)
+          :tickId   @(rf/subscribe [:subs/get-form-tick])
+          :onChange #(rf/dispatch [::boxes-changed config (ui/get-geojson-data %)])}]))))
 
 (defn coordinates-modal-field-settings [_]
   {::low-code/req-ks [:form-id :data-path]

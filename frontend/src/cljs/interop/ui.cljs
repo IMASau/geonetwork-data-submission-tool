@@ -71,14 +71,9 @@
 (defn setup-blueprint []
   (ui-utils/setupBlueprint))
 
-(defn box-map
-  [{:keys [elements map-width tick-id on-change]}]
-  (s/assert fn? on-change)
-  [:> BoxMap/BoxMap
-   {:elements (filter #(s/valid? ::element %) elements)
-    :mapWidth (s/assert pos? map-width)
-    :tickId   (s/assert number? tick-id)
-    :onChange (fn [geojson] (on-change (js->clj geojson :keywordize-keys true)))}])
+(defn get-geojson-data [o] (js->clj o :keywordize-keys true))
+
+(def box-map (r/adapt-react-class BoxMap/BoxMap))
 
 (defn DateField
   [{:keys [value disabled onChange hasError minDate maxDate]}]

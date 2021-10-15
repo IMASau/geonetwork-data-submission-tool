@@ -78,17 +78,7 @@
 (def ErrorSidebar (r/adapt-react-class ErrorSidebar/ErrorSidebar))
 (def ExpandingControl (r/adapt-react-class ExpandingControl/ExpandingControl))
 (def FormGroup (r/adapt-react-class FormGroup/FormGroup))
-
-(defn InlineFormGroup
-  [{:keys [label required disabled hasError helperText toolTip]} & children]
-  (into [:> FormGroup/InlineFormGroup
-         {:label      label
-          :required   required
-          :disabled   disabled
-          :hasError   hasError
-          :helperText helperText
-          :toolTip    (r/as-element toolTip)}]
-        children))
+(def InlineFormGroup (r/adapt-react-class FormGroup/InlineFormGroup))
 
 (defn InputField
   [{:keys [value placeholder maxLength disabled hasError onChange]}]

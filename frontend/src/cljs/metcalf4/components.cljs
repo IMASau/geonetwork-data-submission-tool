@@ -91,7 +91,7 @@
             :disabled   disabled
             :hasError   hasError
             :helperText (if hasError (string/join ". " errors) helperText)
-            :toolTip    toolTip}]
+            :toolTip    (r/as-element toolTip)}]
           children)))
 
 (defn list-edit-dialog-settings [_]
@@ -773,15 +773,15 @@
         {:keys [placeholder options disabled errors show-errors value-path label-path breadcrumb-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     [ui/BreadcrumbSelectField
-     {:value           nil
-      :options         options
-      :placeholder     placeholder
-      :disabled        disabled
-      :hasError        hasError
-      :getValue        (ui/get-obj-path value-path)
-      :getLabel        (ui/get-obj-path label-path)
-      :getBreadcrumb   (ui/get-obj-path breadcrumb-path)
-      :onChange        #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}]))
+     {:value         nil
+      :options       options
+      :placeholder   placeholder
+      :disabled      disabled
+      :hasError      hasError
+      :getValue      (ui/get-obj-path value-path)
+      :getLabel      (ui/get-obj-path label-path)
+      :getBreadcrumb (ui/get-obj-path breadcrumb-path)
+      :onChange      #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}]))
 
 (defn table-list-option-picker-settings [_]
   {::low-code/req-ks [:form-id :data-path :options :value-path :label-path :columns]

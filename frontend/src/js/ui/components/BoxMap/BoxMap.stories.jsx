@@ -45,7 +45,7 @@ MapWithValues.args = {
 
 export const BoxMapDialogInteraction = (args) => (
     <div>
-        <BoxMap elements={[]} />
+        <BoxMap elements={[]} onChange={e=>null} />
         <EditDialog
             isOpen={true}
             title="Dialog should fully cover map"
@@ -53,7 +53,9 @@ export const BoxMapDialogInteraction = (args) => (
             onClear={() => null}
             onSave={() => null}
             canSave={false}
-         />
+         >
+             Do I cover the map?
+        </EditDialog>
     </div>
 );
 EmptyMap.args = {

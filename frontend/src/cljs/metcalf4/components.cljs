@@ -8,7 +8,8 @@
             [metcalf4.utils :as utils4]
             [re-frame.core :as rf]
             [metcalf4.schema :as schema]
-            [metcalf4.low-code :as low-code]))
+            [metcalf4.low-code :as low-code]
+            [reagent.core :as r]))
 
 (s/def ::obj-path (s/coll-of string? :min-count 1))
 (s/def ::value-path string?)
@@ -69,7 +70,7 @@
             :disabled   disabled
             :hasError   hasError
             :helperText (if hasError (string/join ". " errors) helperText)
-            :toolTip    toolTip}]
+            :toolTip    (r/as-element toolTip)}]
           children)))
 
 (defn inline-form-group-settings [_]

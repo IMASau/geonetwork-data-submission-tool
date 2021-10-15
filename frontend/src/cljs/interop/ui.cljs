@@ -77,17 +77,7 @@
 (def DateField (r/adapt-react-class DateField/DateField))
 (def ErrorSidebar (r/adapt-react-class ErrorSidebar/ErrorSidebar))
 (def ExpandingControl (r/adapt-react-class ExpandingControl/ExpandingControl))
-
-(defn FormGroup
-  [{:keys [label required disabled hasError helperText toolTip]} & children]
-  (into [:> FormGroup/FormGroup
-         {:label      label
-          :required   required
-          :disabled   disabled
-          :hasError   hasError
-          :helperText helperText
-          :toolTip    (r/as-element toolTip)}]
-        children))
+(def FormGroup (r/adapt-react-class FormGroup/FormGroup))
 
 (defn InlineFormGroup
   [{:keys [label required disabled hasError helperText toolTip]} & children]

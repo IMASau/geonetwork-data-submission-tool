@@ -154,11 +154,12 @@
     :onChange    onChange}])
 
 (defn SimpleSelectField
-  [{:keys [value options placeholder disabled hasError onChange value-path label-path]}]
+  [{:keys [value options placeholder disabled hasError onChange value-path label-path added-path]}]
   (s/assert (s/nilable map?) value)
   (s/assert (s/coll-of map?) options)
   (s/assert ::obj-path value-path)
   (s/assert ::obj-path label-path)
+  (s/assert (s/nilable ::obj-path) added-path)
   (s/assert (s/nilable string?) placeholder)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
@@ -172,16 +173,18 @@
       :hasError    hasError
       :getValue    (get-obj-path value-path)
       :getLabel    (get-obj-path label-path)
+      :getAdded    (if added-path (get-obj-path added-path) (constantly false))
       :onChange    (comp onChange (get-obj-paths all-paths))}]))
 
 (defn BreadcrumbSelectField
-  [{:keys [value options placeholder disabled hasError onChange value-path label-path breadcrumb-path]}]
+  [{:keys [value options placeholder disabled hasError onChange value-path label-path breadcrumb-path added-path]}]
   (s/assert (s/nilable map?) value)
   (s/assert (s/coll-of map?) options)
   (s/assert (s/nilable string?) placeholder)
   (s/assert ::obj-path value-path)
   (s/assert ::obj-path label-path)
   (s/assert ::obj-path breadcrumb-path)
+  (s/assert (s/nilable ::obj-path) added-path)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
@@ -195,16 +198,18 @@
       :getValue      (get-obj-path value-path)
       :getLabel      (get-obj-path label-path)
       :getBreadcrumb (get-obj-path breadcrumb-path)
+      :getAdded      (if added-path (get-obj-path added-path) (constantly false))
       :onChange      (comp onChange (get-obj-paths all-paths))}]))
 
 (defn AsyncBreadcrumbSelectField
-  [{:keys [value loadOptions placeholder disabled hasError onChange value-path label-path breadcrumb-path]}]
+  [{:keys [value loadOptions placeholder disabled hasError onChange value-path label-path breadcrumb-path added-path]}]
   (s/assert (s/nilable map?) value)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
   (s/assert ::obj-path value-path)
   (s/assert ::obj-path label-path)
   (s/assert ::obj-path breadcrumb-path)
+  (s/assert (s/nilable ::obj-path) added-path)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
   (s/assert fn? onChange)
@@ -218,15 +223,17 @@
       :getValue      (get-obj-path value-path)
       :getLabel      (get-obj-path label-path)
       :getBreadcrumb (get-obj-path breadcrumb-path)
+      :getAdded      (if added-path (get-obj-path added-path) (constantly false))
       :onChange      (comp onChange (get-obj-paths all-paths))}]))
 
 (defn TableSelectField
-  [{:keys [value options placeholder disabled hasError onChange label-path value-path columns]}]
+  [{:keys [value options placeholder disabled hasError onChange label-path value-path added-path columns]}]
   (s/assert (s/nilable map?) value)
   (s/assert (s/coll-of map?) options)
   (s/assert (s/nilable string?) placeholder)
   (s/assert ::obj-path value-path)
   (s/assert ::obj-path label-path)
+  (s/assert (s/nilable ::obj-path) added-path)
   (s/assert (s/coll-of (s/keys :req-un [::label-path ::flex])) columns)
   (s/assert (s/coll-of (has-path? value-path)) options)
   (s/assert (s/coll-of (has-paths? (map :label-path columns)) :distinct true) options)
@@ -242,18 +249,20 @@
       :hasError    hasError
       :getValue    (get-obj-path value-path)
       :getLabel    (get-obj-path label-path)
+      :getAdded    (if added-path (get-obj-path added-path) (constantly false))
       :columns     (for [{:keys [flex label-path]} columns]
                      {:flex     flex
                       :getLabel (get-obj-path label-path)})
       :onChange    (comp onChange (get-obj-paths all-paths))}]))
 
 (defn AsyncTableSelectField
-  [{:keys [value loadOptions placeholder disabled hasError onChange label-path value-path columns]}]
+  [{:keys [value loadOptions placeholder disabled hasError onChange label-path added-path value-path columns]}]
   (s/assert (s/nilable map?) value)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
   (s/assert ::obj-path value-path)
   (s/assert ::obj-path label-path)
+  (s/assert (s/nilable ::obj-path) added-path)
   (s/assert (s/coll-of (s/keys :req-un [::label-path ::flex])) columns)
   (s/assert (s/nilable boolean?) disabled)
   (s/assert (s/nilable boolean?) hasError)
@@ -267,16 +276,18 @@
       :hasError    hasError
       :getValue    (get-obj-path value-path)
       :getLabel    (get-obj-path label-path)
+      :getAdded    (if added-path (get-obj-path added-path) (constantly false))
       :columns     (for [{:keys [flex label-path]} columns]
                      {:flex     flex
                       :getLabel (get-obj-path label-path)})
       :onChange    (comp onChange (get-obj-paths all-paths))}]))
 
 (defn AsyncSimpleSelectField
-  [{:keys [value loadOptions placeholder disabled hasError onChange value-path label-path]}]
+  [{:keys [value loadOptions placeholder disabled hasError onChange value-path label-path added-path]}]
   (s/assert (s/nilable map?) value)
   (s/assert ::obj-path value-path)
   (s/assert ::obj-path label-path)
+  (s/assert (s/nilable ::obj-path) added-path)
   (s/assert fn? loadOptions)
   (s/assert (s/nilable string?) placeholder)
   (s/assert (s/nilable boolean?) disabled)
@@ -291,6 +302,7 @@
       :hasError    hasError
       :getValue    (get-obj-path value-path)
       :getLabel    (get-obj-path label-path)
+      :getAdded    (if added-path (get-obj-path added-path) (constantly false))
       :onChange    (comp onChange (get-obj-paths all-paths))}]))
 
 (defn SimpleSelectionList

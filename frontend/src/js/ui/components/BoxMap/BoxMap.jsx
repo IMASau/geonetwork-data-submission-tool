@@ -165,7 +165,7 @@ export function BoxMapFill(args) {
     const [width, setWidth] = React.useState(null);
 
     function handleResize(entries) {
-        console.log(entries.map(e => `${e.contentRect.width} x ${e.contentRect.height}`));
+        setWidth(entries[0].contentRect.width);
     }
 
     return (

@@ -80,23 +80,7 @@
 (def FormGroup (r/adapt-react-class FormGroup/FormGroup))
 (def InlineFormGroup (r/adapt-react-class FormGroup/InlineFormGroup))
 (def InputField (r/adapt-react-class InputField/InputField))
-
-(defn SelectValueField
-  "Simple HTML select field to select a string value"
-  [{:keys [value options label-path value-path placeholder disabled hasError onChange]}]
-  (s/assert (s/nilable string?) value)
-  (s/assert ::obj-path label-path)
-  (s/assert ::obj-path value-path)
-  (s/assert (s/coll-of (has-paths? [label-path value-path])) options)
-  [:> SelectField/SelectValueField
-   {:value       value
-    :options     options
-    :getValue    (get-obj-path value-path)
-    :getLabel    (get-obj-path label-path)
-    :placeholder placeholder
-    :disabled    disabled
-    :hasError    hasError
-    :onChange    onChange}])
+(def SelectValueField (r/adapt-react-class SelectField/SelectValueField))
 
 (defn SimpleSelectField
   [{:keys [value options placeholder disabled hasError onChange value-path label-path added-path]}]

@@ -605,13 +605,13 @@
     (s/assert schema/schema-value-type? @(rf/subscribe [::get-data-schema config]))
 
     [ui/SelectValueField
-     {:value      value
-      :disabled   disabled
-      :options    options
-      :label-path label-path
-      :value-path value-path
-      :hasError   hasError
-      :onChange   #(rf/dispatch [::value-changed config %])}]))
+     {:value    value
+      :disabled disabled
+      :options  options
+      :getLabel (ui/get-obj-path label-path)
+      :getValue (ui/get-obj-path value-path)
+      :hasError hasError
+      :onChange #(rf/dispatch [::value-changed config %])}]))
 
 (defn select-value-with-label
   [config]

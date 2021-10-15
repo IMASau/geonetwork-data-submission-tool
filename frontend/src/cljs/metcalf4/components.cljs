@@ -485,7 +485,7 @@
 (defn async-simple-select-option-settings
   [{:keys [value-path label-path]}]
   {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path]
-   ::low-code/opt-ks       [:added-path]
+   ::low-code/opt-ks       [:placeholder :added-path]
    ::low-code/schema       {:type "array" :items {:type "object"}}
    ::low-code/schema-paths [value-path label-path]})
 
@@ -515,7 +515,7 @@
 (defn async-breadcrumb-select-option-settings
   [{:keys [value-path label-path breadcrumb-path]}]
   {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
-   ::low-code/opt-ks       [:added-path]
+   ::low-code/opt-ks       [:placeholder :added-path]
    ::low-code/schema       {:type "array" :items {:type "object"}}
    ::low-code/schema-paths [value-path label-path breadcrumb-path]})
 
@@ -545,7 +545,7 @@
 
 (defn async-table-select-option-settings [_]
   {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
-   ::low-code/opt-ks [:added-path]
+   ::low-code/opt-ks [:placeholder :added-path]
    ::low-code/schema {:type "object" :properties {}}})
 
 (defn async-table-select-option

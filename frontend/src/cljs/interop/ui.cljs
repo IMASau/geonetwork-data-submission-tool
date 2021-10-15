@@ -75,17 +75,7 @@
 
 (def BoxMap (r/adapt-react-class BoxMap/BoxMap))
 
-(defn DateField
-  [{:keys [value disabled onChange hasError minDate maxDate]}]
-  (s/assert inst? minDate)
-  (s/assert inst? maxDate)
-  [:> DateField/DateField
-   {:value    value
-    :disabled disabled
-    :onChange onChange
-    :hasError hasError
-    :minDate  minDate
-    :maxDate  maxDate}])
+(def DateField (r/adapt-react-class DateField/DateField))
 
 (defn ErrorSidebar
   [{:keys []}]

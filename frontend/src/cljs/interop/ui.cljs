@@ -66,6 +66,8 @@
    (reduce (fn [m path] (assoc-in m path (get-obj-path o path)))
            {} paths)))
 
+(defn get-option-data [o] (js->clj o))
+
 (defn setup-blueprint []
   (ui-utils/setupBlueprint))
 
@@ -176,28 +178,8 @@
     :onChange    (comp onChange js->clj)}])
 
 (defn BreadcrumbSelectField
-  [{:keys [value options placeholder disabled hasError onChange value-path label-path breadcrumb-path added-path]}]
-  (s/assert (s/nilable map?) value)
-  (s/assert (s/coll-of map?) options)
-  (s/assert (s/nilable string?) placeholder)
-  (s/assert ::obj-path value-path)
-  (s/assert ::obj-path label-path)
-  (s/assert ::obj-path breadcrumb-path)
-  (s/assert (s/nilable ::obj-path) added-path)
-  (s/assert (s/nilable boolean?) disabled)
-  (s/assert (s/nilable boolean?) hasError)
-  (s/assert fn? onChange)
-  [:> SelectField/BreadcrumbSelectField
-   {:value         value
-    :options       options
-    :placeholder   placeholder
-    :disabled      disabled
-    :hasError      hasError
-    :getValue      (get-obj-path value-path)
-    :getLabel      (get-obj-path label-path)
-    :getBreadcrumb (get-obj-path breadcrumb-path)
-    :getAdded      (if added-path (get-obj-path added-path) (constantly false))
-    :onChange      (comp onChange js->clj)}])
+  [props]
+  [:> SelectField/BreadcrumbSelectField props])
 
 (defn AsyncBreadcrumbSelectField
   [{:keys [value loadOptions placeholder disabled hasError onChange value-path label-path breadcrumb-path added-path]}]

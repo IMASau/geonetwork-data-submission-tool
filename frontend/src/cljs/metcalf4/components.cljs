@@ -772,17 +772,16 @@
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder options disabled errors show-errors value-path label-path breadcrumb-path]} props
         hasError (when (and show-errors (seq errors)) true)]
-
     [ui/BreadcrumbSelectField
      {:value           nil
       :options         options
       :placeholder     placeholder
       :disabled        disabled
       :hasError        hasError
-      :label-path      label-path
-      :value-path      value-path
-      :breadcrumb-path breadcrumb-path
-      :onChange        #(rf/dispatch [::list-option-picker-change config %])}]))
+      :getValue        (ui/get-obj-path value-path)
+      :getLabel        (ui/get-obj-path label-path)
+      :getBreadcrumb   (ui/get-obj-path breadcrumb-path)
+      :onChange        #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}]))
 
 (defn table-list-option-picker-settings [_]
   {::low-code/req-ks [:form-id :data-path :options :value-path :label-path :columns]

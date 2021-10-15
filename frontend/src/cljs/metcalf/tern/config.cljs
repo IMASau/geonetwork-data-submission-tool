@@ -725,7 +725,7 @@
          [:div
           {:style {:display               "grid"
                    :grid-column-gap       "1em"
-                   :grid-template-columns "1fr 1fr 1fr"}}
+                   :grid-template-columns "repeat(auto-fill, minmax(10em, 1fr))"}}
           [m4/date-field-with-label
            {:form-id   [:form]
             :data-path ["identificationInfo" "beginPosition"]

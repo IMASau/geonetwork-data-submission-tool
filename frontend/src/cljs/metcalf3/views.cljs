@@ -1649,20 +1649,7 @@
     :on-save      #(rf/dispatch [:handlers/close-and-confirm])}])
 
 (defmulti modal :type)
-(defmethod modal :default [])
-(defmethod modal :TableModalEditForm [modal-props] [modal-dialog-table-modal-edit-form modal-props])
-(defmethod modal :TableModalAddForm [modal-props] [modal-dialog-table-modal-add-form modal-props])
-(defmethod modal :m4/table-modal-edit-form [modal-props] [m4views/m4-modal-dialog-table-modal-edit-form modal-props])
-(defmethod modal :m4/table-modal-add-form [modal-props] [m4views/m4-modal-dialog-table-modal-add-form modal-props])
-(defmethod modal :ThemeKeywords [modal-props] [modal-dialog-theme-keywords (select-keys modal-props [:keyword-type :keywords-path])])
-(defmethod modal :parametername [modal-props] [modal-dialog-parametername modal-props])
-(defmethod modal :parameterunit [modal-props] [modal-dialog-parameterunit modal-props])
-(defmethod modal :parameterinstrument [modal-props] [modal-dialog-parameterinstrument modal-props])
-(defmethod modal :parameterplatform [modal-props] [modal-dialog-parameterplatform modal-props])
-(defmethod modal :person [modal-props] [modal-dialog-person modal-props])
-(defmethod modal :DashboardCreateModal [modal-props] [modal-dialog-dashboard-create-modal modal-props])
-(defmethod modal :alert [modal-props] [modal-dialog-alert modal-props])
-(defmethod modal :confirm [modal-props] [modal-dialog-confirm modal-props])
+(defmethod modal :default [_])
 
 (defn app-root [_]
   (let [page-name @(rf/subscribe [:subs/get-page-name])

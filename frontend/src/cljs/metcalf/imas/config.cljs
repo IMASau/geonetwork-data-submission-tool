@@ -11,6 +11,7 @@
             [metcalf4.low-code :as low-code]
             [metcalf4.rules :as rules]
             [metcalf4.subs :as subs4]
+            [metcalf4.views :as views4]
             [re-frame.core :as rf]
             [interop.ui :as ui]
             [metcalf.common-config]))
@@ -48,6 +49,19 @@
 (rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::views3/get-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] imas-subs/get-edit-tab-props)
+(defmethod views3/modal :TableModalEditForm [modal-props] [views3/modal-dialog-table-modal-edit-form modal-props])
+(defmethod views3/modal :TableModalAddForm [modal-props] [views3/modal-dialog-table-modal-add-form modal-props])
+(defmethod views3/modal :m4/table-modal-edit-form [modal-props] [views4/m4-modal-dialog-table-modal-edit-form modal-props])
+(defmethod views3/modal :m4/table-modal-add-form [modal-props] [views4/m4-modal-dialog-table-modal-add-form modal-props])
+(defmethod views3/modal :ThemeKeywords [modal-props] [views3/modal-dialog-theme-keywords (select-keys modal-props [:keyword-type :keywords-path])])
+(defmethod views3/modal :parametername [modal-props] [views3/modal-dialog-parametername modal-props])
+(defmethod views3/modal :parameterunit [modal-props] [views3/modal-dialog-parameterunit modal-props])
+(defmethod views3/modal :parameterinstrument [modal-props] [views3/modal-dialog-parameterinstrument modal-props])
+(defmethod views3/modal :parameterplatform [modal-props] [views3/modal-dialog-parameterplatform modal-props])
+(defmethod views3/modal :person [modal-props] [views3/modal-dialog-person modal-props])
+(defmethod views3/modal :DashboardCreateModal [modal-props] [views3/modal-dialog-dashboard-create-modal modal-props])
+(defmethod views3/modal :alert [modal-props] [views3/modal-dialog-alert modal-props])
+(defmethod views3/modal :confirm [modal-props] [views3/modal-dialog-confirm modal-props])
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
 (set! rules/rule-registry

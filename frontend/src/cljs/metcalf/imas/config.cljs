@@ -1,5 +1,6 @@
 (ns ^:dev/always metcalf.imas.config
   (:require [metcalf.imas.handlers :as imas-handlers]
+            [metcalf.imas.subs :as imas-subs]
             [metcalf3.fx :as fx3]
             [metcalf3.handlers :as handlers3]
             [metcalf4.ins :as ins4]
@@ -40,26 +41,13 @@
 (rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
-(rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
-(rf/reg-sub :subs/is-page-name-nil? subs3/is-page-name-nil?)
-(rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
-(rf/reg-sub :subs/get-page-props subs3/get-page-props)
-(rf/reg-sub :subs/get-page-name subs3/get-page-name)
-(rf/reg-sub :subs/get-modal-props subs3/get-modal-props)
-(rf/reg-sub :subs/get-dashboard-props subs3/get-dashboard-props)
-(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] subs3/get-imas-edit-tab-props)
-(rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs3/get-progress-props)
-(rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs3/get-textarea-field-props)
-(rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs3/get-textarea-field-many-props)
-(rf/reg-sub :subs/get-form-tick subs3/get-form-tick)
-(rf/reg-sub :help/get-menuitems subs3/get-menuitems)
-(rf/reg-sub :subs/platform-selected? subs3/platform-selected?)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::views3/get-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] imas-subs/get-edit-tab-props)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
 (set! rules/rule-registry

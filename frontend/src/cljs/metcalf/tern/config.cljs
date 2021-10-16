@@ -1,16 +1,16 @@
 (ns ^:dev/always metcalf.tern.config
-  (:require [metcalf3.handlers :as handlers3]
-            [metcalf4.ins :as ins4]
-            [metcalf3.subs :as subs3]
+  (:require [interop.ui :as ui]
+            [metcalf.common-config]
+            [metcalf.tern.subs :as tern-subs]
+            [metcalf3.handlers :as handlers3]
             [metcalf3.views :as views3]
             [metcalf4.components :as components4]
             [metcalf4.handlers :as handlers4]
+            [metcalf4.ins :as ins4]
             [metcalf4.low-code :as low-code]
             [metcalf4.rules :as rules]
             [metcalf4.subs :as subs4]
-            [re-frame.core :as rf]
-            [interop.ui :as ui]
-            [metcalf.common-config]))
+            [re-frame.core :as rf]))
 
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
@@ -48,6 +48,7 @@
 (rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::components4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::views3/get-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] tern-subs/get-edit-tab-props)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
 (set! rules/rule-registry

@@ -921,6 +921,7 @@
   {::low-code/req-ks [:form-id :data-path]
    ::low-code/opt-ks [:help]})
 
+; TODO: replace or refactor to use edit dialog component
 (defn coordinates-modal-field
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
@@ -947,7 +948,7 @@
                                         :initial-data new-item-with-values
                                         :idx          (count data)
                                         :on-close     #(rf/dispatch [::boxmap-coordinates-list-delete config %])
-                                        :on-save      #(rf/dispatch [:handlers/close-modal])}])))
+                                        :on-save      #(rf/dispatch [::coordinates-modal-field-close-modal])}])))
             (delete-fn [idx] (rf/dispatch [::boxmap-coordinates-list-delete config idx]))
             (try-delete-fn [idx] (rf/dispatch [::boxmap-coordinates-click-confirm-delete #(delete-fn idx)]))
             (open-edit-fn [indexed-data-path] (when-not disabled
@@ -955,8 +956,8 @@
                                                               {:ctx         (assoc config :data-path indexed-data-path)
                                                                :coord-field coord-field
                                                                :on-delete   #(try-delete-fn (last indexed-data-path))
-                                                               :on-save     #(rf/dispatch [:handlers/close-modal])
-                                                               :on-cancel   #(rf/dispatch [:handlers/close-modal])}])))]
+                                                               :on-save     #(rf/dispatch [::coordinates-modal-field-close-modal])
+                                                               :on-cancel   #(rf/dispatch [::coordinates-modal-field-close-modal])}])))]
       (when-not is-hidden
         [:div.TableInlineEdit
          (when help [:p.help-block help])

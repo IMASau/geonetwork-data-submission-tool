@@ -24,7 +24,7 @@
 (rf/reg-event-fx :handlers/close-and-confirm handlers3/close-and-confirm)
 (rf/reg-event-fx :handlers/close-modal handlers3/close-modal)
 (rf/reg-event-fx :handlers/create-document-error handlers3/create-document-error)
-(rf/reg-event-fx :handlers/create-document-success handlers3/create-document-success)
+(rf/reg-event-fx ::handlers3/-dashboard-create-save-success handlers3/-dashboard-create-save-success)
 (rf/reg-event-fx :handlers/dashboard-create-click handlers3/dashboard-create-click)
 (rf/reg-event-fx :handlers/dashboard-create-save handlers3/dashboard-create-save)
 (rf/reg-event-fx :handlers/del-keyword-extra handlers3/del-keyword-extra)

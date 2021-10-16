@@ -345,7 +345,7 @@
   [{:keys [db]} _]
   {:db (open-modal db {:type :DashboardCreateModal})})
 
-(defn create-document-success
+(defn -dashboard-create-save-success
   [{:keys [db]} [_ data]]
   (-> {:db db}
       (update-in [:db :create_form] logic3/reset-form)
@@ -368,7 +368,7 @@
     (if (logic3/is-valid? form)
       {:fx/create-document {:url       url
                             :params    (logic3/extract-data form)
-                            :success-v [:handlers/create-document-success]
+                            :success-v [::-dashboard-create-save-success]
                             :error-v   [:handlers/create-document-error]}}
       {:db (update-in db [:create_form] assoc :show-errors true)})))
 

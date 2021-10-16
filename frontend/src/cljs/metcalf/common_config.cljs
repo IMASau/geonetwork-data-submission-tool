@@ -53,7 +53,6 @@
 (rf/reg-event-fx ::views3/elasticsearch-select-field-input-change handlers3/load-es-options)
 (rf/reg-event-fx :handlers/set-geographic-element handlers3/set-geographic-element)
 (rf/reg-event-fx :handlers/set-tab handlers3/set-tab)
-(rf/reg-event-fx :handlers/set-value handlers3/set-value)
 (rf/reg-event-fx ::views3/dashboard-show-all-click handlers3/show-all-documents)
 (rf/reg-event-fx ::views3/select-field-blur handlers3/show-errors)
 (rf/reg-event-fx ::views3/dashboard-toggle-status-filter handlers3/toggle-status-filter)

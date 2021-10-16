@@ -1,9 +1,9 @@
 (ns ^:dev/always metcalf.tern.config
-  (:require [metcalf3.fx :as fx]
+  (:require [metcalf3.fx :as fx3]
             [metcalf3.handlers :as handlers3]
-            [metcalf3.ins :as ins]
+            [metcalf3.ins :as ins3]
             [metcalf3.subs :as subs3]
-            [metcalf3.views :as views]
+            [metcalf3.views :as views3]
             [metcalf4.components :as components4]
             [metcalf4.handlers :as handlers4]
             [metcalf4.low-code :as low-code]
@@ -42,13 +42,13 @@
 (rf/reg-event-fx :handlers/load-error-page handlers3/load-error-page)
 (rf/reg-event-fx :handlers/set-value handlers3/set-value)
 (rf/reg-event-fx :date-field/value-change handlers3/date-field-value-change)
-(rf/reg-event-fx ::views/date-field-with-label-value-changed handlers3/date-field-value-change)
+(rf/reg-event-fx ::views3/date-field-with-label-value-changed handlers3/date-field-value-change)
 (rf/reg-event-fx :textarea-field/value-change handlers3/textarea-field-value-change)
-(rf/reg-event-fx ::views/textarea-field-with-label-value-changed handlers3/textarea-field-value-change)
+(rf/reg-event-fx ::views3/textarea-field-with-label-value-changed handlers3/textarea-field-value-change)
 (rf/reg-event-fx :handlers/set-geographic-element handlers3/set-geographic-element)
 (rf/reg-event-fx :handlers/person-detail-changed handlers3/person-detail-changed)
 (rf/reg-event-fx :handlers/value-changed handlers3/value-changed)
-(rf/reg-event-fx ::views/input-field-with-label-value-changed handlers3/value-changed)
+(rf/reg-event-fx ::views3/input-field-with-label-value-changed handlers3/value-changed)
 (rf/reg-event-fx :handlers/set-tab handlers3/set-tab)
 (rf/reg-event-fx :handlers/load-errors handlers3/load-errors)
 (rf/reg-event-fx :handlers/add-keyword-extra handlers3/add-keyword-extra)
@@ -61,7 +61,7 @@
 (rf/reg-event-fx :handlers/load-api-options handlers3/load-api-options)
 (rf/reg-event-fx :handlers/load-es-options handlers3/load-es-options)
 (rf/reg-event-fx :handlers/search-es-options handlers3/search-es-options)
-(rf/reg-event-fx ::views/PageViewEdit-save-button-click handlers4/save-current-document)
+(rf/reg-event-fx ::views3/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx :handlers/archive-current-document handlers3/archive-current-document)
 (rf/reg-event-fx :handlers/archive-current-document-success handlers3/archive-current-document-success)
 (rf/reg-event-fx :handlers/update-address handlers3/update-address)
@@ -100,21 +100,21 @@
 (rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
-(rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
-(rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
-(rf/reg-fx :fx/set-location-href fx/set-location-href)
-(rf/reg-fx :fx/create-document fx/create-document)
-(rf/reg-fx :fx/clone-document fx/clone-document)
-(rf/reg-fx :fx/transition-current-document fx/transition-current-document)
-(rf/reg-fx :fx/submit-current-document fx/submit-current-document)
-(rf/reg-fx :fx/save-current-document fx/save-current-document)
-(rf/reg-fx :fx/archive-current-document fx/archive-current-document)
-(rf/reg-fx :window/open fx/window-open)
+(rf/reg-fx :xhrio/get-json fx3/xhrio-get-json)
+(rf/reg-fx :xhrio/post-json fx3/xhrio-post-json)
+(rf/reg-fx :fx/set-location-href fx3/set-location-href)
+(rf/reg-fx :fx/create-document fx3/create-document)
+(rf/reg-fx :fx/clone-document fx3/clone-document)
+(rf/reg-fx :fx/transition-current-document fx3/transition-current-document)
+(rf/reg-fx :fx/submit-current-document fx3/submit-current-document)
+(rf/reg-fx :fx/save-current-document fx3/save-current-document)
+(rf/reg-fx :fx/archive-current-document fx3/archive-current-document)
+(rf/reg-fx :window/open fx3/window-open)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
 (rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
 (rf/reg-sub :subs/is-page-name-nil? subs3/is-page-name-nil?)
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
-(rf/reg-sub ::views/get-input-field-with-label-props :<- [:subs/get-derived-state] subs3/get-input-field-with-label-props)
+(rf/reg-sub ::views3/get-input-field-with-label-props :<- [:subs/get-derived-state] subs3/get-input-field-with-label-props)
 (rf/reg-sub :subs/get-page-props subs3/get-page-props)
 (rf/reg-sub :subs/get-page-name subs3/get-page-name)
 (rf/reg-sub :subs/get-modal-props subs3/get-modal-props)
@@ -122,9 +122,9 @@
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] subs3/get-edit-tab-props)
 (rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs3/get-progress-props)
 (rf/reg-sub :date-field/get-props :<- [:subs/get-derived-state] subs3/get-date-field-props)
-(rf/reg-sub ::views/get-date-field-with-label-props :<- [:subs/get-derived-state] subs3/get-date-field-with-label-props)
+(rf/reg-sub ::views3/get-date-field-with-label-props :<- [:subs/get-derived-state] subs3/get-date-field-with-label-props)
 (rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs3/get-textarea-field-props)
-(rf/reg-sub ::views/get-textarea-field-with-label-props :<- [:subs/get-derived-state] subs3/get-textarea-field-with-label-props)
+(rf/reg-sub ::views3/get-textarea-field-with-label-props :<- [:subs/get-derived-state] subs3/get-textarea-field-with-label-props)
 (rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs3/get-textarea-field-many-props)
 (rf/reg-sub :subs/get-form-tick subs3/get-form-tick)
 (rf/reg-sub :help/get-menuitems subs3/get-menuitems)
@@ -135,9 +135,9 @@
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::components4/get-data-schema subs4/get-data-schema-sub)
-(rf/reg-sub ::views/get-props subs4/form-state-signal subs4/get-block-props-sub)
-(ins/reg-global-singleton ins/form-ticker)
-(ins/reg-global-singleton ins/breadcrumbs)
+(rf/reg-sub ::views3/get-props subs4/form-state-signal subs4/get-block-props-sub)
+(ins3/reg-global-singleton ins3/form-ticker)
+(ins3/reg-global-singleton ins3/breadcrumbs)
 (set! rules/rule-registry
       {"requiredField"     rules/required-field
        "requiredWhenYes"   rules/required-when-yes

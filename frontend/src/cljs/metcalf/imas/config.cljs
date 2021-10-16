@@ -1,10 +1,10 @@
 (ns ^:dev/always metcalf.imas.config
   (:require [metcalf.imas.handlers :as imas-handlers]
-            [metcalf3.fx :as fx]
+            [metcalf3.fx :as fx3]
             [metcalf3.handlers :as handlers3]
-            [metcalf3.ins :as ins]
+            [metcalf3.ins :as ins3]
             [metcalf3.subs :as subs3]
-            [metcalf3.views :as views]
+            [metcalf3.views :as views3]
             [metcalf4.components :as components4]
             [metcalf4.handlers :as handlers4]
             [metcalf4.low-code :as low-code]
@@ -58,7 +58,7 @@
 (rf/reg-event-fx :handlers/load-api-options handlers3/load-api-options)
 (rf/reg-event-fx :handlers/load-es-options handlers3/load-es-options)
 (rf/reg-event-fx :handlers/search-es-options handlers3/search-es-options)
-(rf/reg-event-fx ::views/PageViewEdit-save-button-click handlers4/save-current-document)
+(rf/reg-event-fx ::views3/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx :handlers/archive-current-document handlers3/archive-current-document)
 (rf/reg-event-fx :handlers/archive-current-document-success handlers3/archive-current-document-success)
 (rf/reg-event-fx :handlers/update-address handlers3/update-address)
@@ -98,16 +98,16 @@
 (rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
-(rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
-(rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
-(rf/reg-fx :fx/set-location-href fx/set-location-href)
-(rf/reg-fx :fx/create-document fx/create-document)
-(rf/reg-fx :fx/clone-document fx/clone-document)
-(rf/reg-fx :fx/transition-current-document fx/transition-current-document)
-(rf/reg-fx :fx/submit-current-document fx/submit-current-document)
-(rf/reg-fx :fx/save-current-document fx/save-current-document)
-(rf/reg-fx :fx/archive-current-document fx/archive-current-document)
-(rf/reg-fx :window/open fx/window-open)
+(rf/reg-fx :xhrio/get-json fx3/xhrio-get-json)
+(rf/reg-fx :xhrio/post-json fx3/xhrio-post-json)
+(rf/reg-fx :fx/set-location-href fx3/set-location-href)
+(rf/reg-fx :fx/create-document fx3/create-document)
+(rf/reg-fx :fx/clone-document fx3/clone-document)
+(rf/reg-fx :fx/transition-current-document fx3/transition-current-document)
+(rf/reg-fx :fx/submit-current-document fx3/submit-current-document)
+(rf/reg-fx :fx/save-current-document fx3/save-current-document)
+(rf/reg-fx :fx/archive-current-document fx3/archive-current-document)
+(rf/reg-fx :window/open fx3/window-open)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
 (rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
 (rf/reg-sub :subs/is-page-name-nil? subs3/is-page-name-nil?)
@@ -128,9 +128,9 @@
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
-(rf/reg-sub ::views/get-props subs4/form-state-signal subs4/get-block-props-sub)
-(ins/reg-global-singleton ins/form-ticker)
-(ins/reg-global-singleton ins/breadcrumbs)
+(rf/reg-sub ::views3/get-props subs4/form-state-signal subs4/get-block-props-sub)
+(ins3/reg-global-singleton ins3/form-ticker)
+(ins3/reg-global-singleton ins3/breadcrumbs)
 (set! rules/rule-registry
       {"requiredField"        rules/required-field
        "maxLength"            rules/max-length
@@ -142,14 +142,14 @@
        "maintFreq"            rules/maint-freq})
 (set! low-code/component-registry
       {
-       'm3/DataParametersTable            {:view views/DataParametersTable}
-       'm3/DataSources                    {:view views/DataSources}
-       'm3/IMASSupplementalInformation    {:view views/IMASSupplementalInformation}
-       'm3/IMASSupportingResource         {:view views/IMASSupportingResource}
-       'm3/NasaListSelectField            {:view views/NasaListSelectField}
-       'm3/UploadData                     {:view views/UploadData}
-       'm3/UseLimitations                 {:view views/UseLimitations}
-       'm3/Who                            {:view views/Who}
+       'm3/DataParametersTable            {:view views3/DataParametersTable}
+       'm3/DataSources                    {:view views3/DataSources}
+       'm3/IMASSupplementalInformation    {:view views3/IMASSupplementalInformation}
+       'm3/IMASSupportingResource         {:view views3/IMASSupportingResource}
+       'm3/NasaListSelectField            {:view views3/NasaListSelectField}
+       'm3/UploadData                     {:view views3/UploadData}
+       'm3/UseLimitations                 {:view views3/UseLimitations}
+       'm3/Who                            {:view views3/Who}
        'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-select-option            {:view components4/async-select-option :init components4/async-select-option-settings}
        'm4/boxmap-field                   {:view components4/boxmap-field :init components4/boxmap-field-settings}

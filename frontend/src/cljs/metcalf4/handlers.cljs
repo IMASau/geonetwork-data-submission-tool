@@ -2,7 +2,8 @@
   (:require [metcalf4.blocks :as blocks]
             [metcalf4.actions :as actions]
             [metcalf4.schema :as schema]
-            [metcalf4.utils :as utils4]))
+            [metcalf4.utils :as utils4]
+            [metcalf4.rules :as rules]))
 
 
 (defn db-path
@@ -204,7 +205,9 @@
 (defn save-current-document
   [{:keys [db]} _]
   (let [url (get-in db [:form :url])
-        data (-> db :form :state blocks/as-data)]
+        state0 (get-in db [:form :state])
+        state1 (blocks/postwalk rules/apply-rules state0)
+        data (blocks/as-data state1)]
     {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
      :fx/save-current-document
          {:url       url

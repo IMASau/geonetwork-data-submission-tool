@@ -307,7 +307,7 @@
   {:db       (-> db
                  (update-in (conj path :organisationName) assoc :value (get value "organisationName") :show-errors true)
                  (update-in (conj path :organisationIdentifier) assoc :value (str (get value "uri") "||" (get value "city")) :show-errors true))
-   :dispatch [:handlers/update-address path value]})
+   :dispatch [::-org-changed path value]})
 
 (defn person-detail-changed
   [{:keys [db]} [_ path field value isUserAdded]]

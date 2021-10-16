@@ -61,6 +61,7 @@
 (rf/reg-event-fx :handlers/clone-document-success handlers3/clone-document-success)
 (rf/reg-event-fx :handlers/close-and-cancel handlers3/close-and-cancel)
 (rf/reg-event-fx :handlers/close-and-confirm handlers3/close-and-confirm)
+(rf/reg-event-fx ::views3/close-modal handlers3/close-modal)
 (rf/reg-event-fx :handlers/close-modal handlers3/close-modal)
 (rf/reg-event-fx ::views3/dashboard-create-click handlers3/dashboard-create-click)
 (rf/reg-event-fx ::views3/modal-dialog-dashboard-create-modal-save-click handlers3/dashboard-create-save)

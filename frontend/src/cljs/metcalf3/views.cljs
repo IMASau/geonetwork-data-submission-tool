@@ -315,7 +315,7 @@
 
     (letfn [(handle-delete-confirm []
               (rf/dispatch [::del-value many-field-path (last path)])
-              (rf/dispatch [:handlers/close-modal]))
+              (rf/dispatch [::close-modal]))
 
             (handle-delete-click [e]
               (.preventDefault e)
@@ -325,7 +325,7 @@
                                                   :on-confirm handle-delete-confirm}]))
 
             (handle-close-click []
-              (rf/dispatch [:handlers/close-modal]))]
+              (rf/dispatch [::close-modal]))]
 
       [Modal {:ok-copy      "Done"
               :modal-header [:span [:span.glyphicon.glyphicon-list] " Edit " title]
@@ -342,13 +342,13 @@
   [{:keys [form path title]}]
   (let [many-field-path (drop-last 2 path)
         handle-cancel (fn [] (rf/dispatch [::del-value many-field-path (last path)])
-                        (rf/dispatch [:handlers/close-modal]))]
+                        (rf/dispatch [::close-modal]))]
     [Modal {:ok-copy      "Done"
             :modal-header [:span [:span.glyphicon.glyphicon-list] " Add " title]
             :modal-body   [form path]
             :on-dismiss   handle-cancel
             :on-cancel    handle-cancel
-            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+            :on-save      #(rf/dispatch [::close-modal])}]))
 
 (defn TableModalEdit
   [{:keys [ths tds-fn form title field-path placeholder default-field on-new-click add-label]
@@ -424,8 +424,8 @@
                          [KeywordsThemeTable
                           {:keyword-type  keyword-type
                            :keywords-path keywords-path}]]
-          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-          :on-save      #(rf/dispatch [:handlers/close-modal])}])
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defprotocol IPrintNice
   (print-nice [x]))
@@ -694,8 +694,8 @@
   [Modal {:ok-copy      "Done"
           :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter names"]
           :modal-body   [TermOrOtherForm (assoc props :dp-type :longName)]
-          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-          :on-save      #(rf/dispatch [:handlers/close-modal])}])
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-parameterunit
   [props]
@@ -704,8 +704,8 @@
           :modal-body   [:div [UnitTermOrOtherForm (-> props
                                                        (assoc :sort? false)
                                                        (assoc :dp-type :unit))]]
-          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-          :on-save      #(rf/dispatch [:handlers/close-modal])}])
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-parameterinstrument
   [props]
@@ -713,8 +713,8 @@
           :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter instruments"]
           :modal-body   [:div
                          [TermOrOtherForm (assoc props :dp-type :instrument)]]
-          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-          :on-save      #(rf/dispatch [:handlers/close-modal])}])
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-parameterplatform
   [props]
@@ -722,8 +722,8 @@
           :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter platforms"]
           :modal-body   [:div
                          [TermOrOtherForm (assoc props :dp-type :platform)]]
-          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-          :on-save      #(rf/dispatch [:handlers/close-modal])}])
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-person
   [props]
@@ -731,8 +731,8 @@
           :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse people"]
           :modal-body   [:div
                          [PersonForm props]]
-          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-          :on-save      #(rf/dispatch [:handlers/close-modal])}])
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn DataParameterRowEdit [path]
   (let [base-path (conj path :value)
@@ -1501,8 +1501,8 @@
   [Modal {:ok-copy      "OK"
           :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Create a new record"]
           :modal-body   [NewDocumentForm]
-          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-          :on-cancel    #(rf/dispatch [:handlers/close-modal])
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-cancel    #(rf/dispatch [::close-modal])
           :on-save      #(rf/dispatch [::modal-dialog-dashboard-create-modal-save-click])}])
 
 (defn NewDocumentButton []
@@ -1633,8 +1633,8 @@
                    " " "Alert"]
     :dialog-class "modal-sm"
     :modal-body   message
-    :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-    :on-save      #(rf/dispatch [:handlers/close-modal])}])
+    :on-dismiss   #(rf/dispatch [::close-modal])
+    :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-confirm
   [{:keys [message title]}]

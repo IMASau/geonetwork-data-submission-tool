@@ -1652,7 +1652,7 @@
 (defmethod modal :default [_])
 
 (defn app-root [_]
-  (let [page-name @(rf/subscribe [:subs/get-page-name])
+  (let [page-name @(rf/subscribe [::get-app-root-page-name])
         modal-props @(rf/subscribe [::get-app-root-modal-props])]
     [:div [modal modal-props]
      (if (and guseragent/IE (not (guseragent/isVersionOrHigher 10)))

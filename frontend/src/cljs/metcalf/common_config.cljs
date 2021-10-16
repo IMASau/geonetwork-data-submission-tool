@@ -1,7 +1,8 @@
 (ns metcalf.common-config
   (:require [re-frame.core :as rf]
             [metcalf3.handlers :as handlers3]
-            [metcalf3.fx :as fx3]))
+            [metcalf3.fx :as fx3]
+            [metcalf3.subs :as subs3]))
 
 ;Temporary namespace to ease refactoring
 
@@ -76,3 +77,21 @@
 (rf/reg-fx :window/open fx3/window-open)
 (rf/reg-fx :xhrio/get-json fx3/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx3/xhrio-post-json)
+
+(rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
+(rf/reg-sub :subs/is-page-name-nil? subs3/is-page-name-nil?)
+(rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
+(rf/reg-sub ::views3/get-input-field-with-label-props :<- [:subs/get-derived-state] subs3/get-input-field-with-label-props)
+(rf/reg-sub :subs/get-page-props subs3/get-page-props)
+(rf/reg-sub :subs/get-page-name subs3/get-page-name)
+(rf/reg-sub :subs/get-modal-props subs3/get-modal-props)
+(rf/reg-sub :subs/get-dashboard-props subs3/get-dashboard-props)
+(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] subs3/get-edit-tab-props)
+(rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs3/get-progress-props)
+(rf/reg-sub ::views3/get-date-field-with-label-props :<- [:subs/get-derived-state] subs3/get-date-field-with-label-props)
+(rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs3/get-textarea-field-props)
+(rf/reg-sub ::views3/get-textarea-field-with-label-props :<- [:subs/get-derived-state] subs3/get-textarea-field-with-label-props)
+(rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs3/get-textarea-field-many-props)
+(rf/reg-sub :subs/get-form-tick subs3/get-form-tick)
+(rf/reg-sub :help/get-menuitems subs3/get-menuitems)
+(rf/reg-sub :subs/platform-selected? subs3/platform-selected?)

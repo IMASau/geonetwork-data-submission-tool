@@ -1408,7 +1408,7 @@
                     :field-path path}]])
 
 (defn progress-bar []
-  (when-let [{:keys [can-submit? value]} @(rf/subscribe [:progress/get-props])]
+  (when-let [{:keys [can-submit? value]} @(rf/subscribe [::get-progress-bar-props])]
     [:div
      [:span.progressPercentage (str (int (* value 100)) "%")]
      [bp3/progress-bar {:animate false

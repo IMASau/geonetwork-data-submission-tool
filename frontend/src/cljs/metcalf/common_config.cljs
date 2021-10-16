@@ -2,7 +2,8 @@
   (:require [re-frame.core :as rf]
             [metcalf3.handlers :as handlers3]
             [metcalf3.fx :as fx3]
-            [metcalf3.subs :as subs3]))
+            [metcalf3.subs :as subs3]
+            [metcalf3.views :as views3]))
 
 ;Temporary namespace to ease refactoring
 
@@ -78,7 +79,7 @@
 (rf/reg-fx :xhrio/get-json fx3/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx3/xhrio-post-json)
 
-(rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs3/get-progress-props)
+(rf/reg-sub ::views3/get-progress-bar-props :<- [:subs/get-derived-state] subs3/get-progress-props)
 (rf/reg-sub :subs/get-dashboard-props subs3/get-dashboard-props)
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
 (rf/reg-sub :subs/get-derived-state subs3/get-derived-state)

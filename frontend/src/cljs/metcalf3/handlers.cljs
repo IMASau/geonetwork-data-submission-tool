@@ -350,11 +350,12 @@
   {:db (open-modal db {:type :DashboardCreateModal})})
 
 (defn create-document-success
-  [_ [_ data]]
-  {:dispatch-n           [[:handlers/reset-form [:create_form]]
-                          [:handlers/hide-errors [:create_form]]
-                          [:handlers/close-modal]]
-   :fx/set-location-href (-> data :document :url)})
+  [{:keys [db]} [_ data]]
+  (-> {:db db}
+      (update-in [:db :create_form] logic3/reset-form)
+      (update-in [:db :create_form] assoc :show-errors false)
+      (update-in [:db :alert] pop)
+      (update :fx conj [:fx/set-location-href (-> data :document :url)])))
 
 (defn create-document-error
   [{:keys [db]} [_ data]]

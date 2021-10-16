@@ -32,7 +32,7 @@
 (rf/reg-event-fx :handlers/delete-archived-doc-click (handlers3/transite-doc-click "delete_archived"))
 (rf/reg-event-fx :handlers/hide-errors handlers3/hide-errors)
 (rf/reg-event-fx :handlers/load-api-options handlers3/load-api-options)
-(rf/reg-event-fx :handlers/load-api-options-resp handlers3/load-api-options-resp)
+(rf/reg-event-fx ::handlers3/-load-api-options handlers3/-load-api-options)
 (rf/reg-event-fx :handlers/load-error-page handlers3/load-error-page)
 (rf/reg-event-fx :handlers/load-errors handlers3/load-errors)
 (rf/reg-event-fx :handlers/load-es-options handlers3/load-es-options)

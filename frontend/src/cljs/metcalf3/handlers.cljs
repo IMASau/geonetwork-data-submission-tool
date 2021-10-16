@@ -21,9 +21,9 @@
   [{:keys [db]} [_ api-path]]
   (let [{:keys [uri options]} (get-in db api-path)]
     (when (nil? options)
-      {:xhrio/get-json {:uri uri :resp-v [:handlers/load-api-options-resp api-path]}})))
+      {:xhrio/get-json {:uri uri :resp-v [::-load-api-options api-path]}})))
 
-(defn load-api-options-resp
+(defn -load-api-options
   [{:keys [db]} [_ api-path json]]
   (let [results (gobj/get json "results")]
     {:db (update-in db api-path assoc :options results)}))

@@ -125,7 +125,7 @@
                 "onGoing" {:is-hidden false :disabled false :required true}
                 "planned" {:is-hidden false :disabled false :required true}
                 "completed" {:is-hidden false :disabled true :value "notPlanned" :required false}
-                {:is-hidden true :disabled true :value "" :required false})]
+                {:is-hidden true :disabled true :value nil :required false})]
     (-> identificationInfo
         (update-in [:content "maintenanceAndUpdateFrequency" :props] merge props)
         (update-in [:content "maintenanceAndUpdateFrequency"] required-field (:required props)))))

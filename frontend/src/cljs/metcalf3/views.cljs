@@ -664,7 +664,7 @@
         :placeholder ""
         :maxlength 100)]]))
 
-(defn PersonListField
+(defn person-list-field
   [{:keys [api-path person-path]}]
   (let [{:keys [name uri]} @(rf/subscribe [:subs/get-derived-path person-path])
         {:keys [label required errors show-errors]} name
@@ -676,7 +676,7 @@
        :value     (:value uri)
        :options   options
        :on-change (fn [option]
-                    (rf/dispatch [:handlers/update-person person-path option]))}]
+                    (rf/dispatch [::person-list-field-change person-path option]))}]
      [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
 
 (defn PersonForm
@@ -687,7 +687,7 @@
                :api-path    [:api :person]}]
     [:div
      [:p "Select a person"]
-     [PersonListField props]]))
+     [person-list-field props]]))
 
 (defn modal-dialog-parametername
   [props]
@@ -1049,7 +1049,7 @@
                                [Identifier (cuerdas/human Identifier)])
                     :on-change #(rf/dispatch [::value-changed role-path %]))]))
 
-(defn PersonInputField
+(defn person-input-field
   "Input field for people which offers autocompletion of known
   people."
   [party-path]
@@ -1062,7 +1062,7 @@
        :party-path party-path
        :disabled   (:disabled uri)
        :on-change  (fn [option]
-                     (rf/dispatch [:handlers/update-person (conj party-path :value) option]))}]]))
+                     (rf/dispatch [::person-input-field-picker-change (conj party-path :value) option]))}]]))
 
 (defn OrganisationInputField
   "Input field for organisation which offers autocompletion of known
@@ -1103,7 +1103,7 @@
         :style {:position "relative"
                 :z-index  10}}
        [:label "Contact name" (when (:required individualName) " *")]
-       [PersonInputField party-path]
+       [person-input-field party-path]
        [:p.help-block "If you cannot find the person in the list above, please enter details below"]]]
      [:div
 

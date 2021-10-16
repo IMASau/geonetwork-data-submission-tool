@@ -66,7 +66,8 @@
 (rf/reg-event-fx :handlers/update-method-name handlers3/update-method-name)
 (rf/reg-event-fx :handlers/update-method-term handlers3/update-method-term)
 (rf/reg-event-fx :handlers/update-nasa-list-value handlers3/update-nasa-list-value)
-(rf/reg-event-fx :handlers/update-person handlers3/update-person)
+(rf/reg-event-fx ::views3/person-input-field-picker-change handlers3/update-person)
+(rf/reg-event-fx ::views3/person-list-field-change handlers3/update-person)
 (rf/reg-event-fx ::views3/value-changed handlers3/value-changed)
 
 (rf/reg-fx :fx/archive-current-document fx3/archive-current-document)

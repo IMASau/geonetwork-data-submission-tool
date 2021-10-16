@@ -322,37 +322,6 @@
   [state]
   (blocks/postwalk rules/apply-rules state))
 
-(defn geography-required-rule
-  "Geography fields are required / included based on geographic coverage checkbox"
-  [geographicElement]
-  (s/assert :hasGeographicCoverage geographicElement)
-  (s/assert :boxes geographicElement)
-  (let [shown? (get-in geographicElement [:hasGeographicCoverage :value])]
-    (if shown?
-      (update geographicElement :boxes assoc :required true)
-      (update geographicElement :boxes assoc :required false :disabled true))))
-
-(defn vertical-required-rule
-  "Vertical fields are required / included based on vertical extent checkbox"
-  [verticalElement]
-  (s/assert :hasVerticalExtent verticalElement)
-  (s/assert :minimumValue verticalElement)
-  (s/assert :maximumValue verticalElement)
-  (s/assert :method verticalElement)
-  (s/assert :elevation verticalElement)
-  (let [shown? (get-in verticalElement [:hasVerticalExtent :value])]
-    (if shown?
-      (-> verticalElement
-          (update-in [:minimumValue] assoc :required true)
-          (update-in [:maximumValue] assoc :required true)
-          (update-in [:method] assoc :required true)
-          (update-in [:elevation] assoc :required true))
-      (-> verticalElement
-          (update-in [:minimumValue] assoc :required false :disabled true)
-          (update-in [:maximumValue] assoc :required false :disabled true)
-          (update-in [:method] assoc :required false :disabled true)
-          (update-in [:elevation] assoc :required false :disabled true)))))
-
 (defn end-position-rule
   "End position is required if the status is ongoing"
   [identificationInfo]
@@ -361,44 +330,9 @@
       (update-in identificationInfo [:endPosition] assoc :required false :disabled true :value nil)
       (update-in identificationInfo [:endPosition] assoc :required true :disabled false))))
 
-(defn end-position-logic
-  [state]
-  (update-in state [:form :fields :identificationInfo] end-position-rule))
-
 (defn value->date [x]
   (when-not (string/blank? x)
     (js/Date. x)))
-
-(defn date-order-rule
-  "Start date should be before end date"
-  [state {:keys [field0 field1]}]
-  (let [k0 (keyword field0)                                 ; TODO: ugly converions to keyword
-        k1 (keyword field1)                                 ; TODO: ugly converions to keyword
-        d0 (value->date (get-in state [k0 :value]))
-        d1 (value->date (get-in state [k1 :value]))
-        out-of-order? (and d0 d1 (time/before? (c/from-date d1) (c/from-date d0)))]
-    (if-not out-of-order?
-      (-> state
-          (assoc-in [k0 :maxDate] d1)
-          (assoc-in [k1 :minDate] d0))
-      (-> state
-          (assoc-in [k1 :minDate] d0)
-          (assoc-in [k1 :value] nil)))))
-
-(defn maint-freq-rule
-  "
-  Maintenance resource frequency is a drop dropdown.
-
-  If status is complete then it's hardwired to NONE PLANNED and displayed as read only value.
-  "
-  [identificationInfo]
-  (let [status-value (get-in identificationInfo [:status :value])]
-    (update-in identificationInfo [:maintenanceAndUpdateFrequency] merge
-               (case status-value
-                 "onGoing" {:is-hidden false :disabled false :required true}
-                 "planned" {:is-hidden false :disabled false :required true}
-                 "completed" {:is-hidden false :disabled true :value "notPlanned" :required false}
-                 {:is-hidden true :disabled true :value "" :required false}))))
 
 (defn author-role-logic
   "
@@ -443,9 +377,6 @@
     (if other?
       (update-in identificationInfo [:otherConstraints] merge {:is-hidden false :disabled false :required true})
       (update-in identificationInfo [:otherConstraints] merge {:is-hidden true :disabled true :required false}))))
-
-(defn license-logic [state]
-  (update-in state [:form :fields :identificationInfo] license-other-rule))
 
 (defn calculate-progress [state form-path]
   (assoc state :progress (progress-score (get-in state form-path))))
@@ -546,13 +477,6 @@
        (assoc :data data)
        (update :fields reduce-many-field-templates data)
        (update :fields reduce-field-values data))))
-
-(defn deep-merge
-  "Recursively merges maps. If keys are not maps, the last value wins."
-  [& vals]
-  (if (every? map? vals)
-    (apply merge-with deep-merge vals)
-    (last vals)))
 
 (defn massage-form
   [{:keys [data schema url]}]

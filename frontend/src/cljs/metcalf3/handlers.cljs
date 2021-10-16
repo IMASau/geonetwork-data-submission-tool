@@ -121,11 +121,12 @@
         success_url (-> db :context :urls :Dashboard)]
     {:fx/archive-current-document
      {:url       transition_url
-      :success-v [:handlers/archive-current-document-success success_url]
+      :success-v [::-archive-current-document-success success_url]
       :error-v   [::open-modal {:type :alert :message "Unable to delete"}]}}))
 
-(defn archive-current-document-success
-  [_ [_ url]] {:fx/set-location-href url})
+(defn -archive-current-document-success
+  [_ [_ url]]
+  {:fx/set-location-href url})
 
 (defn ror
   "Reverse OR: use it to update source value only if destination value is not falsey."

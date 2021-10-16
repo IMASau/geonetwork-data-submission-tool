@@ -89,4 +89,3 @@
 (rf/reg-sub :subs/get-page-props subs3/get-page-props)
 (rf/reg-sub :subs/platform-selected? subs3/platform-selected?)
 (rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs3/get-textarea-field-many-props)
-(rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs3/get-textarea-field-props)

@@ -483,11 +483,6 @@
         :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler config])}
        "Add"])))
 
-(defn simple-select-option-with-label
-  [config]
-  [form-group config
-   [simple-select-option config]])
-
 (defn async-simple-select-option-settings
   [{:keys [value-path label-path]}]
   {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path]

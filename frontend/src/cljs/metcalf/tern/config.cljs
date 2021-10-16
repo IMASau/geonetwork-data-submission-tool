@@ -10,7 +10,8 @@
             [metcalf4.rules :as rules]
             [metcalf4.subs :as subs4]
             [re-frame.core :as rf]
-            [interop.ui :as ui]))
+            [interop.ui :as ui]
+            [metcalf.common-config]))
 
 (rf/reg-event-fx :handlers/load-api-options-resp handlers3/load-api-options-resp)
 (rf/reg-event-fx :handlers/load-es-options-resp handlers3/load-es-options-resp)

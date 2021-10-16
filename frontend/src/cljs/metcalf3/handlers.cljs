@@ -111,30 +111,6 @@
                       (assoc :value value))]
     {:db (update-in db path update :value conj new-field)}))
 
-(defn save-current-document
-  [{:keys [db]} _]
-  (let [url (get-in db [:form :url])
-        data (-> db :form :fields logic3/extract-field-values)]
-    {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
-     :fx/save-current-document
-         {:url       url
-          :data      data
-          :success-v [:metcalf4.handlers/-save-current-document-success data]
-          :error-v   [:metcalf4.handlers/-save-current-document-success]}}))
-
-(defn save-current-document-success
-  [{:keys [db]} [_ data resp]]
-  (let [doc (get-in resp [:form :document])]
-    (-> {:db db}
-        (assoc-in [:db :form :data] data)
-        (assoc-in [:db :page :metcalf3.handlers/saving?] false)
-        (update-in [:db :context :document] merge doc))))
-
-(defn save-current-document-error
-  [_ [_ done-ch]]
-  (put! done-ch true)
-  {})
-
 (defn add-attachment
   [{:keys [db]} [_ attachment-data]]
   (let [data (select-keys attachment-data [:file :name :delete_url])

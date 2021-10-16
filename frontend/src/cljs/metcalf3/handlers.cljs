@@ -231,10 +231,6 @@
       (disj (set errors) "Unsaved value in the keyword input field")
       (conj (set errors) "Unsaved value in the keyword input field"))))
 
-(defn check-unsaved-keyword-input
-  [{:keys [db]} [_ keywords-path]]
-  {:db (update-in db keywords-path unsaved-input-check-helper)})
-
 (defn remove-party
   [{:keys [db]} [_ parties-path item]]
   {:db (update-in db parties-path update :value utils/vec-remove item)})

@@ -1,6 +1,5 @@
 (ns ^:dev/always metcalf.tern.config
-  (:require [metcalf3.fx :as fx3]
-            [metcalf3.handlers :as handlers3]
+  (:require [metcalf3.handlers :as handlers3]
             [metcalf4.ins :as ins4]
             [metcalf3.subs :as subs3]
             [metcalf3.views :as views3]
@@ -52,7 +51,6 @@
 (rf/reg-sub :subs/get-dashboard-props subs3/get-dashboard-props)
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] subs3/get-edit-tab-props)
 (rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs3/get-progress-props)
-(rf/reg-sub :date-field/get-props :<- [:subs/get-derived-state] subs3/get-date-field-props)
 (rf/reg-sub ::views3/get-date-field-with-label-props :<- [:subs/get-derived-state] subs3/get-date-field-with-label-props)
 (rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs3/get-textarea-field-props)
 (rf/reg-sub ::views3/get-textarea-field-with-label-props :<- [:subs/get-derived-state] subs3/get-textarea-field-with-label-props)

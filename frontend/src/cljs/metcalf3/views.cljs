@@ -1515,7 +1515,7 @@
                 {:type       :confirm
                  :title      "Clone?"
                  :message    (str "Are you sure you want to clone this record?")
-                 :on-confirm #(rf/dispatch [:handlers/clone-document url])}])
+                 :on-confirm #(rf/dispatch [::clone-doc-confirm url])}])
   (.preventDefault event))
 
 (defn DocumentTeaser [{:keys [url title last_updated status transitions

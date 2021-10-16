@@ -56,7 +56,7 @@
 (rf/reg-event-fx :handlers/archive-current-document-success handlers3/archive-current-document-success)
 (rf/reg-event-fx :handlers/back handlers3/back)
 (rf/reg-event-fx :handlers/check-unsaved-keyword-input handlers3/check-unsaved-keyword-input)
-(rf/reg-event-fx :handlers/clone-document handlers3/clone-document)
+(rf/reg-event-fx ::views3/clone-doc-confirm handlers3/clone-document)
 (rf/reg-event-fx ::handlers3/-clone-document-error handlers3/-clone-document-error)
 (rf/reg-event-fx ::handlers3/-clone-document-success handlers3/-clone-document-success)
 (rf/reg-event-fx ::views3/modal-dialog-confirm-cancel handlers3/close-and-cancel)

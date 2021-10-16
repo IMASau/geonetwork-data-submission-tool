@@ -407,9 +407,9 @@
                   {:type       :confirm
                    :title      trans-name
                    :message    (str "Are you sure you want to " trans-name " this record?")
-                   :on-confirm #(rf/dispatch [:handlers/transite-doc-confirm url transition])}]})))
+                   :on-confirm #(rf/dispatch [::-transite-doc-click-confirm url transition])}]})))
 
-(defn transite-doc-confirm
+(defn -transite-doc-click-confirm
   [_ [_ url transition]]
   {:fx/transition-current-document
    {:url        url

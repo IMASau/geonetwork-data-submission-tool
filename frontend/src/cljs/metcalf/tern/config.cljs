@@ -1,7 +1,7 @@
 (ns ^:dev/always metcalf.tern.config
   (:require [metcalf3.fx :as fx3]
             [metcalf3.handlers :as handlers3]
-            [metcalf3.ins :as ins3]
+            [metcalf4.ins :as ins4]
             [metcalf3.subs :as subs3]
             [metcalf3.views :as views3]
             [metcalf4.components :as components4]
@@ -136,8 +136,8 @@
 (rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::components4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::views3/get-props subs4/form-state-signal subs4/get-block-props-sub)
-(ins3/reg-global-singleton ins3/form-ticker)
-(ins3/reg-global-singleton ins3/breadcrumbs)
+(ins4/reg-global-singleton ins4/form-ticker)
+(ins4/reg-global-singleton ins4/breadcrumbs)
 (set! rules/rule-registry
       {"requiredField"     rules/required-field
        "requiredWhenYes"   rules/required-when-yes

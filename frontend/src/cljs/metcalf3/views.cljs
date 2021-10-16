@@ -1080,7 +1080,7 @@
        :on-input-change (fn [newvalue]
                           (subs newvalue 0 250))
        :on-change       (fn [option]
-                          (rf/dispatch [:handlers/org-changed (conj party-path :value) option]))}]]))
+                          (rf/dispatch [::organisation-input-field-change (conj party-path :value) option]))}]]))
 
 (def orcid-mask "0000{-}0000{-}0000{-}000*")
 

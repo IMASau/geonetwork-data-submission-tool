@@ -211,7 +211,7 @@
                (update-in person-path assoc-in [:electronicMailAddress :value] electronicMailAddress)
                (update-in person-path assoc-in [:isUserAdded :value] isUserAdded))]
     {:db       db
-     :dispatch [:handlers/org-changed person-path org]}))
+     :dispatch [::-update-person person-path org]}))
 
 (defn update-method-name
   [{:keys [db]} [_ method-path name]]

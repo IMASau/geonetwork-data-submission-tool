@@ -48,7 +48,7 @@
 (rf/reg-event-fx :handlers/remove-party handlers3/remove-party)
 (rf/reg-event-fx :handlers/reset-form handlers3/reset-form)
 (rf/reg-event-fx :handlers/restore-doc-click (handlers3/transite-doc-click "restore"))
-(rf/reg-event-fx :handlers/search-es-options handlers3/search-es-options)
+(rf/reg-event-fx :handlers/search-es-options handlers3/load-es-options)
 (rf/reg-event-fx :handlers/set-geographic-element handlers3/set-geographic-element)
 (rf/reg-event-fx :handlers/set-tab handlers3/set-tab)
 (rf/reg-event-fx :handlers/set-value handlers3/set-value)

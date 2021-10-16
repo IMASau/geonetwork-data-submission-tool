@@ -55,7 +55,7 @@
 (rf/reg-event-fx :handlers/set-tab handlers3/set-tab)
 (rf/reg-event-fx :handlers/set-value handlers3/set-value)
 (rf/reg-event-fx :handlers/setter handlers3/setter)
-(rf/reg-event-fx :handlers/show-all-documents handlers3/show-all-documents)
+(rf/reg-event-fx ::views3/dashboard-show-all-click handlers3/show-all-documents)
 (rf/reg-event-fx ::views3/select-field-blur handlers3/show-errors)
 (rf/reg-event-fx ::views3/dashboard-toggle-status-filter handlers3/toggle-status-filter)
 (rf/reg-event-fx ::handlers3/-transite-doc-click-confirm handlers3/-transite-doc-click-confirm)

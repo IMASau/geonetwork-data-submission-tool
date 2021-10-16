@@ -1586,12 +1586,12 @@
                       (if (= status-filter logic/active-status-filter)
                         [:div
                          [:p "You don't have any active records: "
-                          [:a {:on-click #(rf/dispatch [:handlers/show-all-documents])}
+                          [:a {:on-click #(rf/dispatch [::dashboard-show-all-click])}
                            "show all documents"] "."]
                          [NewDocumentButton]]
                         [:div
                          [:p "No documents match your filter: "
-                          [:a {:on-click #(rf/dispatch [:handlers/show-all-documents])}
+                          [:a {:on-click #(rf/dispatch [::dashboard-show-all-click])}
                            "show all documents"] "."]
                          [NewDocumentButton]])))))]
        [:div.col-sm-3

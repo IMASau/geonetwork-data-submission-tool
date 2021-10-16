@@ -353,7 +353,7 @@
       (update-in [:db :alert] pop)
       (update :fx conj [:fx/set-location-href (-> data :document :url)])))
 
-(defn create-document-error
+(defn -dashboard-create-save-error
   [{:keys [db]} [_ data]]
   (if (= (:status data) 400)
     {:dispatch [:handlers/load-error-page data]}
@@ -369,7 +369,7 @@
       {:fx/create-document {:url       url
                             :params    (logic3/extract-data form)
                             :success-v [::-dashboard-create-save-success]
-                            :error-v   [:handlers/create-document-error]}}
+                            :error-v   [::-dashboard-create-save-error]}}
       {:db (update-in db [:create_form] assoc :show-errors true)})))
 
 (defn clone-document

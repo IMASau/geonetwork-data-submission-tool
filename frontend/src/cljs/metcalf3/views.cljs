@@ -288,7 +288,7 @@
                                                                         :on-change (fn [_]
                                                                                      (if (contains? uuids uuid)
                                                                                        (rf/dispatch [::del-value keywords-path (uuids uuid)])
-                                                                                       (rf/dispatch [:handlers/add-value! keywords-path uuid])))}]])))
+                                                                                       (rf/dispatch [::keywords-theme-table-add-value keywords-path uuid])))}]])))
                      :width          (get columnWidths 0)
                      :isResizable    true}]
                    [Column
@@ -1269,7 +1269,7 @@
                   new! (fn [path group & [field]]
                          (let [many-field (cursors group)]
                            (if field
-                             (rf/dispatch [:handlers/add-value! path (:value field)])
+                             (rf/dispatch [::who-new-add-value path (:value field)])
                              (rf/dispatch [::who-new-field path]))
                            (r/set-state this {:selected-group group})
                            (r/set-state this {:selected-item (-> many-field :value count)})))

@@ -187,7 +187,7 @@
                     :class "wauto"
                     :disabled (or disabled (empty? options))
                     :default-option (if-not (empty? options) default-option "")
-                    :on-blur #(rf/dispatch [:handlers/show-errors path])
+                    :on-blur #(rf/dispatch [::select-field-blur path])
                     :on-change #(rf/dispatch [::value-changed path %]))]))
 
 (defn textarea-widget

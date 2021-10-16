@@ -63,7 +63,6 @@
 (rf/reg-event-fx :handlers/update-address handlers3/update-address)
 (rf/reg-event-fx :handlers/update-boxes handlers3/update-boxes)
 (rf/reg-event-fx :handlers/update-dp-term handlers3/update-dp-term)
-(rf/reg-event-fx :handlers/update-method-name handlers3/update-method-name)
 (rf/reg-event-fx ::views3/nasa-list-select-field-change handlers3/update-nasa-list-value)
 (rf/reg-event-fx ::views3/person-input-field-picker-change handlers3/update-person)
 (rf/reg-event-fx ::views3/person-list-field-change handlers3/update-person)

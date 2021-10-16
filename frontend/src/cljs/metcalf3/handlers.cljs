@@ -127,12 +127,6 @@
 (defn archive-current-document-success
   [_ [_ url]] {:fx/set-location-href url})
 
-(defn back
-  [{:keys [db]} _]
-  (let [back (get-in db [:page :back])
-        back (into {} back)]
-    {:db (assoc db :page back)}))
-
 (defn ror
   "Reverse OR: use it to update source value only if destination value is not falsey."
   [a b]

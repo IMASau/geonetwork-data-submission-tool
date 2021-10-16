@@ -30,7 +30,7 @@
 (rf/reg-event-fx :handlers/del-keyword-extra handlers3/del-keyword-extra)
 (rf/reg-event-fx :handlers/del-value handlers3/del-value)
 (rf/reg-event-fx :handlers/delete-archived-doc-click (handlers3/transite-doc-click "delete_archived"))
-(rf/reg-event-fx :handlers/hide-errors handlers3/hide-errors)
+(rf/reg-event-fx ::views3/page-errors-hide-click handlers3/hide-errors)
 (rf/reg-event-fx :metcalf.imas.handlers/-init-db-load-api-options handlers3/load-api-options)
 (rf/reg-event-fx ::handlers3/-init-db-load-api-options handlers3/load-api-options)
 (rf/reg-event-fx ::views3/load-api-options3 handlers3/load-api-options)

@@ -1156,7 +1156,7 @@
     (when (seq msgs)
       [:div.alert.alert-warning.alert-dismissable
        [:button {:type     "button" :class "close"
-                 :on-click #(rf/dispatch [:handlers/hide-errors path])} "×"]
+                 :on-click #(rf/dispatch [::page-errors-hide-click path])} "×"]
        (if (> (count msgs) 1)
          [:div
           [:b "There are multiple fields on this page that require your attention:"]

@@ -348,6 +348,8 @@
     (let [download-props {:href     (str (:export_url document) "?download")
                           :on-click #(when dirty
                                        (.preventDefault %)
+                                       ; FIXME: view with logic
+                                       ; FIXME: using v3 modal
                                        (rf/dispatch [:handlers/open-modal
                                                      {:type    :alert
                                                       :message "Please save changes before exporting."}]))}]

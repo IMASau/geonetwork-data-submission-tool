@@ -445,10 +445,10 @@
              (assoc-in [:page :metcalf3.handlers/saving?] true))
      :fx/submit-current-document
          {:url       url
-          :success-v [:handlers/lodge-submit-success]
+          :success-v [::-lodge-save-success]
           :error-v   [:handlers/lodge-error]}}))
 
-(defn lodge-submit-success
+(defn -lodge-save-success
   [{:keys [db]} [_ resp]]
   (let [document (get-in resp [:document])]
     (s/assert map? document)

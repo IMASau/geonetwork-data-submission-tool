@@ -40,7 +40,7 @@
 (rf/reg-event-fx :handlers/lodge-click handlers3/lodge-click)
 (rf/reg-event-fx :handlers/lodge-error handlers3/lodge-error)
 (rf/reg-event-fx :handlers/lodge-save-success handlers3/lodge-save-success)
-(rf/reg-event-fx :handlers/lodge-submit-success handlers3/lodge-submit-success)
+(rf/reg-event-fx ::handlers3/-lodge-save-success handlers3/-lodge-save-success)
 (rf/reg-event-fx ::views3/table-modal-edit-new-field handlers3/new-field!)
 (rf/reg-event-fx ::views3/who-new-field handlers3/new-field!)
 (rf/reg-event-fx ::views3/open-modal handlers3/open-modal-handler)

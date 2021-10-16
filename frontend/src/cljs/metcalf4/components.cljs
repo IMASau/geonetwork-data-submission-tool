@@ -289,10 +289,6 @@
           [:strong "Note for the data manager:"]
           [:p value]]))]))
 
-(defn handle-submit-click
-  []
-  (rf/dispatch [:handlers/lodge-click]))
-
 (defn lodge-button
   []
   (let [page @(rf/subscribe [:subs/get-page-props])
@@ -307,7 +303,7 @@
     (when-not (or archived? submitted?)
       [:button.btn.btn-primary.btn-lg
        {:disabled (or has-errors? saving disabled)
-        :on-click handle-submit-click}
+        :on-click #(rf/dispatch [:handlers/lodge-click])}
        (when saving
          [:img
           {:src (str (:STATIC_URL urls)

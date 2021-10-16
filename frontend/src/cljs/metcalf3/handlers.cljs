@@ -435,7 +435,7 @@
          {:url       url
           :data      data
           :success-v [::-lodge-click-success data]
-          :error-v   [:handlers/lodge-error]}}))
+          :error-v   [::-lodge-click-error]}}))
 
 (defn lodge-save-success
   [{:keys [db]} [_ data]]
@@ -446,7 +446,7 @@
      :fx/submit-current-document
          {:url       url
           :success-v [::-lodge-save-success]
-          :error-v   [:handlers/lodge-error]}}))
+          :error-v   [::-lodge-save-error]}}))
 
 (defn -lodge-save-success
   [{:keys [db]} [_ resp]]

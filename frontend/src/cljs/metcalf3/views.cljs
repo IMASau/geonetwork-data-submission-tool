@@ -1642,9 +1642,9 @@
    {:modal-header [:span [:span.glyphicon.glyphicon-question-sign] " " title]
     :dialog-class "modal-sm"
     :modal-body   message
-    :on-dismiss   #(rf/dispatch [:handlers/close-and-cancel])
-    :on-cancel    #(rf/dispatch [:handlers/close-and-cancel])
-    :on-save      #(rf/dispatch [:handlers/close-and-confirm])}])
+    :on-dismiss   #(rf/dispatch [::modal-dialog-confirm-dismiss])
+    :on-cancel    #(rf/dispatch [::modal-dialog-confirm-cancel])
+    :on-save      #(rf/dispatch [::modal-dialog-confirm-save])}])
 
 (defmulti modal :type)
 (defmethod modal :default [_])

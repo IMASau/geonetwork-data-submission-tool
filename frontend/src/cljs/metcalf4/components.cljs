@@ -513,11 +513,6 @@
         :getAdded    (when added-path (ui/get-obj-path added-path))
         :onChange    #(rf/dispatch [::option-change config (ui/get-option-data %)])}])))
 
-(defn async-simple-select-option-with-label
-  [config]
-  [form-group config
-   [async-simple-select-option config]])
-
 (defn async-breadcrumb-select-option-settings
   [{:keys [value-path label-path breadcrumb-path]}]
   {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
@@ -543,11 +538,6 @@
         :disabled      disabled
         :hasError      hasError
         :onChange      #(rf/dispatch [::option-change config (ui/get-option-data %)])}])))
-
-(defn async-breadcrumb-select-option-with-label
-  [config]
-  [form-group config
-   [async-breadcrumb-select-option config]])
 
 (defn async-table-select-option-settings [_]
   {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
@@ -575,11 +565,6 @@
                         :getLabel (ui/get-obj-path label-path)})
         :onChange    #(rf/dispatch [::option-change config (ui/get-option-data %)])}])))
 
-(defn async-table-select-option-with-label
-  [config]
-  [form-group config
-   [async-table-select-option config]])
-
 (defmulti async-select-option-settings :kind)
 (defmethod async-select-option-settings :default [config] (async-simple-select-option-settings config))
 (defmethod async-select-option-settings :breadcrumb [config] (async-breadcrumb-select-option-settings config))
@@ -589,11 +574,6 @@
 (defmethod async-select-option :default [config] (async-simple-select-option config))
 (defmethod async-select-option :breadcrumb [config] (async-breadcrumb-select-option config))
 (defmethod async-select-option :table [config] (async-table-select-option config))
-
-(defn async-select-option-with-label
-  [config]
-  [form-group config
-   [async-select-option config]])
 
 (defn select-value-settings [_]
   {::low-code/req-ks [:form-id :data-path :options :label-path :value-path]
@@ -637,26 +617,6 @@
         :disabled disabled
         :hasError hasError
         :onChange #(rf/dispatch [::value-changed config %])}])))
-
-; FIXME: Is :label for form group or yes/no field?
-(defn yes-no-field-with-label-settings [_]
-  {::low-code/req-ks [:form-id :data-path :label]
-   ::low-code/opt-ks []
-   ::low-code/schema {:type "boolean"}})
-
-(defn yes-no-field-with-label
-  [config]
-  (let [props @(rf/subscribe [::get-yes-no-field-with-label-props config])
-        {:keys [label value errors show-errors]} props
-        hasError (when (and show-errors (seq errors)) true)]
-
-    [form-group config
-     [ui/YesNoRadioGroup
-      {:value    value
-       :label    label
-       :disabled false
-       :hasError hasError
-       :onChange #(rf/dispatch [::yes-no-field-with-label-value-changed config %])}]]))
 
 (defn simple-selection-list-settings
   [{:keys [label-path value-path added-path]}]
@@ -800,12 +760,6 @@
                        {:flex     flex
                         :getLabel (ui/get-obj-path label-path)})
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
-
-(defn list-option-picker-settings [_]
-  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path]
-   ::low-code/opt-ks [:placeholder]
-   ::low-code/schema {:type "array" :items {:type "object"}}})
-
 
 (defn async-simple-list-option-picker-settings [_]
   {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path]

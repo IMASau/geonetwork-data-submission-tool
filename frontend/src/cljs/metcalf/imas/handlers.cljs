@@ -8,5 +8,6 @@
                                       :horizontalResolution :parameterplatform :topiccategory))]
     {:db         db'
      :fx         [[:ui/setup-blueprint]]
+     ; TODO: use action
      :dispatch-n (for [api-key (keys (get db' :api))]
-                   [:handlers/load-api-options [:api api-key]])}))
+                   [::-init-db-load-api-options [:api api-key]])}))

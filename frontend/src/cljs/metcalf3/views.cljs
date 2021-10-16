@@ -453,7 +453,7 @@
   [_]
   (letfn [(will-mount [this]
             (let [{:keys [keyword]} (r/props this)]
-              (rf/dispatch [:handlers/load-api-options [:api keyword]])))
+              (rf/dispatch [::load-api-options3 [:api keyword]])))
           (render [this]
             (let [{:keys [keyword path]} (r/props this)
                   path (conj path keyword)
@@ -572,7 +572,7 @@
   [_]
   (letfn [(will-mount [this]
             (let [{:keys [api-path]} (r/props this)]
-              (rf/dispatch [:handlers/load-api-options api-path])))
+              (rf/dispatch [::load-api-options3 api-path])))
           (render [this]
             (let [{:keys [api-path value on-change]} (r/props this)]
               (when-let [{:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
@@ -594,7 +594,7 @@
   [_]
   (letfn [(will-mount [this]
             (let [{:keys [api-path]} (r/props this)]
-              (rf/dispatch [:handlers/load-api-options api-path])))
+              (rf/dispatch [::load-api-options3 api-path])))
           (render [this]
             (let [{:keys [api-path value on-change]} (r/props this)]
               (when-let [{:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]

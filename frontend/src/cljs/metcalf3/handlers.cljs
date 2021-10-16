@@ -14,8 +14,9 @@
   (let [db' (logic3/initial-state payload)]
     {:db         db'
      :fx         [[:ui/setup-blueprint]]
+     ; TODO: use action
      :dispatch-n (for [api-key (keys (get db' :api))]
-                   [:handlers/load-api-options [:api api-key]])}))
+                   [::-init-db-load-api-options [:api api-key]])}))
 
 (defn load-api-options
   [{:keys [db]} [_ api-path]]

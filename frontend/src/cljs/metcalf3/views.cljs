@@ -1,6 +1,6 @@
 (ns metcalf3.views
-  (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [cljs.core.async :as async :refer [<! chan put! timeout]]
+  (:require-macros [cljs.core.async.macros :refer [go-loop]])
+  (:require [cljs.core.async :as async :refer [<! chan put!]]
             [cljs.spec.alpha :as s]
             [clojure.edn :as edn]
             [clojure.set :as set]
@@ -207,10 +207,6 @@
      :defaultValue   value
      :fill           true
      :intent         intent}]])
-
-(defn textarea-field
-  [{:keys [path]}]
-  [textarea-widget @(rf/subscribe [:textarea-field/get-props path])])
 
 (defn Checkbox [props]
   (let [{:keys [label checked on-change disabled help]
@@ -467,15 +463,6 @@
       {:get-initial-state            init-state
        :component-will-receive-props component-will-receive-props
        :render                       render})))
-
-(defn CoordInputField [props]
-  (let [field @(rf/subscribe [:subs/get-derived-path (:path props)])]
-    [CoordInputWidget
-     (-> field
-         (merge (dissoc props :path))
-         (assoc
-           :on-change (fn [value]
-                        (rf/dispatch [:handlers/value-changed (:path props) value]))))]))
 
 (defprotocol IPrintNice
   (print-nice [x]))

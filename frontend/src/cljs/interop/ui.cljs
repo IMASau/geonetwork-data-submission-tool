@@ -53,12 +53,6 @@
    (let [path (if (string? path) [path] path)]
      (apply gobj/getValueByKeys o path))))
 
-(defn get-obj-paths
-  ([paths] #(get-obj-paths % paths))
-  ([o paths]
-   (reduce (fn [m path] (assoc-in m path (get-obj-path o path)))
-           {} paths)))
-
 (defn get-option-data [o] (js->clj o))
 
 (defn setup-blueprint []

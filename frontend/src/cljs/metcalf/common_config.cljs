@@ -33,7 +33,6 @@
 (rf/reg-event-fx :handlers/hide-errors handlers3/hide-errors)
 (rf/reg-event-fx :handlers/load-api-options handlers3/load-api-options)
 (rf/reg-event-fx ::handlers3/-load-api-options handlers3/-load-api-options)
-(rf/reg-event-fx :handlers/load-error-page handlers3/load-error-page)
 (rf/reg-event-fx ::handlers3/-load-es-options handlers3/-load-es-options)
 (rf/reg-event-fx :metcalf4.components/lodge-button-click handlers3/lodge-click)
 (rf/reg-event-fx ::handlers3/-lodge-save-error handlers3/lodge-error)

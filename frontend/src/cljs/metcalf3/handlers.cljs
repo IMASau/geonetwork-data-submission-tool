@@ -266,14 +266,6 @@
         status-freq (frequencies (map :status documents))]
     {:db (assoc-in db [:page :status-filter] (set (keys status-freq)))}))
 
-(defn load-error-page
-  [{:keys [db]} [_ data]]
-  {:db (-> db
-           (assoc-in [:page :name] "Error")
-           (assoc-in [:page :text] (-> data :response :message))
-           (assoc-in [:page :code] (-> data :status))
-           (assoc-in [:page :detail] (-> data :response)))})
-
 (defn set-value
   [{:keys [db]} [_ field-path value]]
   {:db (update-in db field-path assoc :value value)})

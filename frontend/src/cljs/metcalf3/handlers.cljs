@@ -356,7 +356,11 @@
 (defn -dashboard-create-save-error
   [{:keys [db]} [_ data]]
   (if (= (:status data) 400)
-    {:dispatch [:handlers/load-error-page data]}
+    (-> {:db db}
+        (assoc-in [:db :page :name] "Error")
+        (assoc-in [:db :page :text] (-> data :response :message))
+        (assoc-in [:db :page :code] (-> data :status))
+        (assoc-in [:db :page :detail] (-> data :response)))
     (-> {:db db}
         (update-in [:db :create_form] assoc :show-errors true)
         (update-in [:db :create_form] logic3/load-errors (:response data)))))

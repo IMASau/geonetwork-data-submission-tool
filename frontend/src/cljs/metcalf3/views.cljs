@@ -535,7 +535,7 @@
                                             ; Return true always. This allows for matches on label as well as altLabel (or other fields available in the REST API).
                                             (boolean 0))
                        :onChange          (fn [option]
-                                            (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
+                                            (rf/dispatch [::update-dp-term dp-term-path sub-paths option]))
                        :noResultsText     "No results found.  Click browse to add a new entry."
                        :isDisabled        disabled})
 
@@ -550,7 +550,7 @@
                        :formatOptionLabel (fn [props]
                                             (r/as-element (breadcrumb-renderer props)))
                        :onChange          (fn [option]
-                                            (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
+                                            (rf/dispatch [::update-dp-term dp-term-path sub-paths option]))
                        :noResultsText     "No results found.  Click browse to add a new entry."}))
                   [:p.help-block help]]]
                 ; TODO: Re-enable this in the future to browse/create vocabulary terms.
@@ -625,7 +625,7 @@
        :value     (:value vocabularyTermURL)
        :options   options
        :on-change (fn [option]
-                    (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}]
+                    (rf/dispatch [::update-dp-term dp-term-path sub-paths option]))}]
      [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
 
 (defn TermOrOtherForm
@@ -642,7 +642,7 @@
       (assoc term
         :value (if (utils/other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
-                     (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
+                     (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term                      v
                                                                                         :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
         :placeholder ""
         :maxlength 100)]]))
@@ -659,7 +659,7 @@
       (assoc term
         :value (if (utils/other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
-                     (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
+                     (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term                      v
                                                                                         :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
         :placeholder ""
         :maxlength 100)]]))

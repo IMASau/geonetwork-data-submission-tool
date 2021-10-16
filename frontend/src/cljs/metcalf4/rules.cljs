@@ -45,7 +45,7 @@
   (let [required? (get-in block [:content bool-field :props :value])
         props (if required?
                 {:required true :is-hidden false}
-                {:required false :is-hidden true :disabled true})]
+                {:required false :is-hidden true :disabled true :value nil})]
     (-> block
         (update-in [:content opt-field :props] merge props))))
 

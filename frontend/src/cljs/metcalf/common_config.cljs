@@ -36,7 +36,7 @@
 (rf/reg-event-fx :handlers/load-error-page handlers3/load-error-page)
 (rf/reg-event-fx :handlers/load-errors handlers3/load-errors)
 (rf/reg-event-fx :handlers/load-es-options handlers3/load-es-options)
-(rf/reg-event-fx :handlers/load-es-options-resp handlers3/load-es-options-resp)
+(rf/reg-event-fx ::handlers3/-load-es-options handlers3/-load-es-options)
 (rf/reg-event-fx :handlers/lodge-click handlers3/lodge-click)
 (rf/reg-event-fx :handlers/lodge-error handlers3/lodge-error)
 (rf/reg-event-fx :handlers/lodge-save-success handlers3/lodge-save-success)

@@ -36,10 +36,10 @@
 (defn load-es-options
   [{:keys [db]} [_ api-path query]]
   (let [{:keys [uri]} (get-in db api-path)]
-    {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [:handlers/load-es-options-resp api-path query]}
+    {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [::-load-es-options api-path query]}
      :db              (update-in db api-path assoc :most-recent-query query)}))
 
-(defn load-es-options-resp
+(defn -load-es-options
   [{:keys [db]} [_ api-path query json]]
   (let [most-recent-query (get-in db (conj api-path :most-recent-query))
         results (gobj/get json "hits")

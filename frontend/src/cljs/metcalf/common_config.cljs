@@ -48,7 +48,7 @@
 (rf/reg-event-fx ::views3/value-changed handlers3/value-changed)
 (rf/reg-event-fx ::views3/who-new-add-value handlers3/add-value!)
 (rf/reg-event-fx ::views3/who-new-field handlers3/new-field!)
-(rf/reg-event-fx :handlers/add-attachment handlers3/add-attachment)
+(rf/reg-event-fx ::views3/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx ::views3/table-modal-edit-add-field handlers3/add-field!)
 (rf/reg-event-fx ::views3/page-view-edit-archive-click-confirm handlers3/archive-current-document)
 (rf/reg-event-fx ::handlers3/-archive-current-document-success handlers3/-archive-current-document-success)

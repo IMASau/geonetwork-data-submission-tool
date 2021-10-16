@@ -783,28 +783,6 @@
      :add-label  "Add data parameter"
      :field-path path}]])
 
-(defn upload! [this {:keys [url fields]} file reset-file-drop]
-  (r/set-state this {:uploading true})
-  (let [fd (js/FormData.)
-        xhr (js/XMLHttpRequest.)]
-    (.open xhr "POST" url true)
-    (set! (.-onreadystatechange xhr)
-          (fn []
-            (when (= (.-readyState xhr) 4)
-              (if (#{200 201} (.-status xhr))
-                (rf/dispatch [:handlers/add-attachment (utils/map-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
-                (rf/dispatch [::open-modal
-                              {:type    :alert
-                               :message "File upload failed. Please try again or contact administrator."}]))
-              (r/set-state this {:uploading false})
-              (put! reset-file-drop true))))
-    (doto fd
-      (.append "csrfmiddlewaretoken" (get-in fields [:csrfmiddlewaretoken :initial]))
-      (.append "document" (get-in fields [:document :initial]))
-      (.append "name" (.-name file))
-      (.append "file" file))
-    (.send xhr fd)))
-
 (defn handle-file [this file]
   (let [{:keys [reset-ch max-filesize]} (r/props this)]
     (if (or (not max-filesize)
@@ -869,7 +847,29 @@
 
 (defn UploadData
   [_]
-  (letfn [(init-state [_]
+  (letfn [(confirm-upload-click
+            [this {:keys [url fields]} file reset-file-drop]
+            (r/set-state this {:uploading true})
+            (let [fd (js/FormData.)
+                  xhr (js/XMLHttpRequest.)]
+              (.open xhr "POST" url true)
+              (set! (.-onreadystatechange xhr)
+                    (fn []
+                      (when (= (.-readyState xhr) 4)
+                        (if (#{200 201} (.-status xhr))
+                          (rf/dispatch [::upload-data-confirm-upload-click-add-attachment (utils/map-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
+                          (rf/dispatch [::open-modal
+                                        {:type    :alert
+                                         :message "File upload failed. Please try again or contact administrator."}]))
+                        (r/set-state this {:uploading false})
+                        (put! reset-file-drop true))))
+              (doto fd
+                (.append "csrfmiddlewaretoken" (get-in fields [:csrfmiddlewaretoken :initial]))
+                (.append "document" (get-in fields [:document :initial]))
+                (.append "name" (.-name file))
+                (.append "file" file))
+              (.send xhr fd)))
+          (init-state [_]
             {:reset-file-drop (chan)})
           (render [this]
             (let [{:keys [attachments-path]} (r/props this)
@@ -901,7 +901,7 @@
                     :reset-ch     reset-file-drop
                     :on-change    #(r/set-state this {:file %})}]
                   [:button.btn.btn-primary
-                   {:on-click #(upload! this upload-form file reset-file-drop)
+                   {:on-click #(confirm-upload-click this upload-form file reset-file-drop)
                     :disabled (or uploading (not file))}
                    "Confirm Upload"]])]))]
     (r/create-class

@@ -14,7 +14,7 @@
 (rf/reg-event-fx :handlers/add-value! handlers3/add-value!)
 (rf/reg-event-fx :handlers/archive-current-document handlers3/archive-current-document)
 (rf/reg-event-fx :handlers/archive-current-document-success handlers3/archive-current-document-success)
-(rf/reg-event-fx :handlers/archive-doc-click (handlers3/transite-doc-click "archive"))
+(rf/reg-event-fx ::views3/document-teaser-archive-click (handlers3/transite-doc-click "archive"))
 (rf/reg-event-fx :handlers/back handlers3/back)
 (rf/reg-event-fx :handlers/check-unsaved-keyword-input handlers3/check-unsaved-keyword-input)
 (rf/reg-event-fx :handlers/clone-document handlers3/clone-document)

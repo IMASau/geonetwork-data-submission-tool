@@ -1521,7 +1521,7 @@
 (defn DocumentTeaser [{:keys [url title last_updated status transitions
                               transition_url clone_url] :as doc}]
   (let [transitions (set transitions)
-        on-archive-click #(rf/dispatch [:handlers/archive-doc-click transition_url])
+        on-archive-click #(rf/dispatch [::document-teaser-archive-click transition_url])
         on-delete-archived-click #(rf/dispatch [::document-teaser-delete-archived-click transition_url])
         on-restore-click #(rf/dispatch [::document-teaser-restore-click transition_url])
         on-clone-click (partial clone-doc clone_url)

@@ -372,14 +372,14 @@
 (defn clone-document
   [_ [_ url]]
   {:fx/clone-document {:url       url
-                       :success-v [:handlers/clone-document-success]
-                       :error-v   [:handlers/clone-document-error]}})
+                       :success-v [::-clone-document-success]
+                       :error-v   [::-clone-document-error]}})
 
-(defn clone-document-success
+(defn -clone-document-success
   [_ [_ data]]
   {:fx/set-location-href (get-in data [:document :url])})
 
-(defn clone-document-error
+(defn -clone-document-error
   [_ _]
   {:dispatch [::open-modal {:type :alert :message "Unable to clone"}]})
 

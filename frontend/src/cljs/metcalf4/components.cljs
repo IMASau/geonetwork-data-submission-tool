@@ -303,7 +303,7 @@
     (when-not (or archived? submitted?)
       [:button.btn.btn-primary.btn-lg
        {:disabled (or has-errors? saving disabled)
-        :on-click #(rf/dispatch [:handlers/lodge-click])}
+        :on-click #(rf/dispatch [::lodge-button-click])}
        (when saving
          [:img
           {:src (str (:STATIC_URL urls)

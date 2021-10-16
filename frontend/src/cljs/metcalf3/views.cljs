@@ -1575,7 +1575,7 @@
             (into (for [filtered-doc filtered-docs]
                     ^{:key (:url filtered-doc)} [DocumentTeaser filtered-doc]))
             (conj (if has-documents?
-                    [:a.list-group-item {:on-click #(rf/dispatch [:handlers/dashboard-create-click])}
+                    [:a.list-group-item {:on-click #(rf/dispatch [::dashboard-create-click])}
                      [:span.glyphicon.glyphicon-star.pull-right]
                      [:p.lead.list-group-item-heading " My first record "]
                      [:p.list-group-item-text "Welcome! Since you’re new here, "

@@ -291,17 +291,6 @@
            (update-in field-path assoc :value value)
            (update-in field-path assoc :show-errors true))})
 
-(defn set-geographic-element
-  [{:keys [db]} [_ many-field-path values]]
-  (let [many-field (get-in db many-field-path)
-        new-fields (for [value values]
-                     (-> (logic3/new-value-field many-field)
-                         (update-in [:value :northBoundLatitude] merge (:northBoundLatitude value))
-                         (update-in [:value :southBoundLatitude] merge (:southBoundLatitude value))
-                         (update-in [:value :eastBoundLongitude] merge (:eastBoundLongitude value))
-                         (update-in [:value :westBoundLongitude] merge (:westBoundLongitude value))))]
-    {:db (update-in db many-field-path assoc :value (vec new-fields))}))
-
 (defn org-changed
   [{:keys [db]} [_ path value]]
   {:db       (-> db

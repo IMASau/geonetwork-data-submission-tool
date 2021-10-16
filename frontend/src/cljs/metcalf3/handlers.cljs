@@ -434,7 +434,7 @@
      :fx/save-current-document
          {:url       url
           :data      data
-          :success-v [:handlers/lodge-save-success data]
+          :success-v [::-lodge-click-success data]
           :error-v   [:handlers/lodge-error]}}))
 
 (defn lodge-save-success

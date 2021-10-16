@@ -39,7 +39,7 @@
 (rf/reg-event-fx ::handlers3/-load-es-options handlers3/-load-es-options)
 (rf/reg-event-fx :handlers/lodge-click handlers3/lodge-click)
 (rf/reg-event-fx :handlers/lodge-error handlers3/lodge-error)
-(rf/reg-event-fx :handlers/lodge-save-success handlers3/lodge-save-success)
+(rf/reg-event-fx ::handlers3/-lodge-click-success handlers3/lodge-save-success)
 (rf/reg-event-fx ::handlers3/-lodge-save-success handlers3/-lodge-save-success)
 (rf/reg-event-fx ::views3/table-modal-edit-new-field handlers3/new-field!)
 (rf/reg-event-fx ::views3/who-new-field handlers3/new-field!)

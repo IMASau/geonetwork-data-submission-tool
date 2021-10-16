@@ -309,13 +309,6 @@
   [{:keys [db]} [_ id]]
   {:db (assoc-in db [:page :tab] id)})
 
-(defn add-keyword-extra
-  [{:keys [db]} [_ keywords-path value]]
-  {:db (let [keywords (get-in db keywords-path)]
-         (if-not (empty? value)
-           (assoc-in db keywords-path (vec (conj keywords {:value value})))
-           db))})
-
 (defn del-keyword-extra
   [{:keys [db]} [_ keywords-path value]]
   (let [keywords (get-in db keywords-path)]

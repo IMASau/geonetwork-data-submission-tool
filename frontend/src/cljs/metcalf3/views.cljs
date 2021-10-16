@@ -1525,7 +1525,7 @@
   (let [transitions (set transitions)
         on-archive-click #(rf/dispatch [:handlers/archive-doc-click transition_url])
         on-delete-archived-click #(rf/dispatch [:handlers/delete-archived-doc-click transition_url])
-        on-restore-click #(rf/dispatch [:handlers/restore-doc-click transition_url])
+        on-restore-click #(rf/dispatch [::document-teaser-restore-click transition_url])
         on-clone-click (partial clone-doc clone_url)
         on-edit-click #(aset js/location "href" url)]
 

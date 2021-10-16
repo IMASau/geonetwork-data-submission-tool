@@ -414,10 +414,10 @@
   {:fx/transition-current-document
    {:url        url
     :transition transition
-    :success-v  [:handlers/transite-doc-success transition]
+    :success-v  [::-transite-doc-confirm-success transition]
     :error-v    [:handlers/transite-doc-error]}})
 
-(defn transite-doc-success
+(defn -transite-doc-confirm-success
   [{:keys [db]} [_ transition data]]
   (let [{{:keys [uuid] :as doc} :document} data]
     {:db (update-in db [:context :documents]

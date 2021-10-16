@@ -489,11 +489,11 @@
    [:i.icon-info-sign.tern-tooltip
     [:span.tern-tooltiptext value]]])
 
-(defn ElasticsearchSelectField
+(defn elasticsearch-select-field
   [_]
   (letfn [(will-mount [this]
             (let [{:keys [api-path]} (r/props this)]
-              (rf/dispatch [:handlers/search-es-options api-path ""])))
+              (rf/dispatch [::elasticsearch-select-field-mount api-path ""])))
           (render [this]
             (let [{:keys [dp-type dp-term-path api-path disabled]} (r/props this)
                   sub-paths (utils/dp-term-paths dp-type)
@@ -525,7 +525,7 @@
                        :isClearable       true
                        :is-searchable     true
                        :onInputChange     (fn [query]
-                                            (rf/dispatch [:handlers/search-es-options api-path query])
+                                            (rf/dispatch [::elasticsearch-select-field-input-change api-path query])
                                             query)
                        :getOptionValue    (fn [option]
                                             (gobj/get option "term"))
@@ -745,22 +745,22 @@
       [:div
        {:class "alert alert-success"}
        "Request new controlled vocabulary terms if they do not exist in the drop-down fields using the feedback button to the right of the screen."]
-      [ElasticsearchSelectField {:param-type   :parametername
+      [elasticsearch-select-field {:param-type :parametername
                                  :api-path     [:api :parametername]
                                  :dp-term-path base-path
                                  :dp-type      :longName}]
       [InputField {:path name-path}]]
      [:form/fieldset.tern-fieldset
-      [ElasticsearchSelectField {:param-type   :parameterunit
+      [elasticsearch-select-field {:param-type :parameterunit
                                  :api-path     [:api :parameterunit]
                                  :dp-term-path base-path
                                  :dp-type      :unit}]]
      [:form/fieldset.tern-fieldset
-      [ElasticsearchSelectField {:param-type   :parameterplatform
+      [elasticsearch-select-field {:param-type :parameterplatform
                                  :api-path     [:api :parameterplatform]
                                  :dp-term-path base-path
                                  :dp-type      :platform}]
-      [ElasticsearchSelectField {:param-type   :parameterinstrument
+      [elasticsearch-select-field {:param-type :parameterinstrument
                                  :api-path     [:api :parameterinstrument]
                                  :dp-term-path base-path
                                  :dp-type      :instrument}]

@@ -1210,25 +1210,24 @@
   [:div.CreditField [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :credit])]])
 
 (defn parties-list [this group]
-  (letfn [(delete-contact! [e item]
-            (.stopPropagation e)
-            (let [parties-path (:path (contact-groups group))
-                  parties @(rf/subscribe [:subs/get-derived-path parties-path])
-                  {:keys [selected-group selected-item]} (r/state this)]
-              (rf/dispatch [:handlers/open-modal
-                            {:type       :confirm
-                             :title      "Delete?"
-                             :message    "Are you sure you want to delete this person?"
-                             :on-confirm (fn []
-                                           (when (and (= group selected-group) (<= item selected-item))
-                                             (r/set-state this {:selected-item
-                                                                (when (> (count (:value parties)) 1)
-                                                                  (-> selected-item dec (max 0)))}))
-                                           (rf/dispatch [:handlers/remove-party parties-path item]))}])))]
-    (let [{:keys [disabled] :as parties} @(rf/subscribe [:subs/get-derived-path (:path (contact-groups group))])
-          {:keys [selected-group selected-item]} (r/state this)
-          selected-item (when (= group selected-group) selected-item)
-          ]
+  (let [{:keys [disabled] :as parties} @(rf/subscribe [:subs/get-derived-path (:path (contact-groups group))])
+        {:keys [selected-group selected-item]} (r/state this)
+        selected-item (when (= group selected-group) selected-item)]
+    (letfn [(delete-contact! [e item]
+              (.stopPropagation e)
+              (let [parties-path (:path (contact-groups group))
+                    {:keys [selected-group selected-item]} (r/state this)]
+                (rf/dispatch [:handlers/open-modal
+                              {:type       :confirm
+                               :title      "Delete?"
+                               :message    "Are you sure you want to delete this person?"
+                               :on-confirm (fn []
+                                             (when (and (= group selected-group) (<= item selected-item))
+                                               (r/set-state this {:selected-item
+                                                                  (when (> (count (:value parties)) 1)
+                                                                    (-> selected-item dec (max 0)))}))
+                                             (rf/dispatch [::parties-list-remove-party-confirm parties-path item]))}])))]
+
       (into [:div.list-group]
             (for [[item party] (-> parties :value utils/enum)]
               [:div

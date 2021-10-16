@@ -46,7 +46,7 @@
 (rf/reg-event-fx ::views3/organisation-input-field-change handlers3/org-changed)
 (rf/reg-event-fx ::handlers3/-update-person handlers3/org-changed)
 (rf/reg-event-fx :handlers/person-detail-changed handlers3/person-detail-changed)
-(rf/reg-event-fx :handlers/remove-party handlers3/remove-party)
+(rf/reg-event-fx ::views3/parties-list-remove-party-confirm handlers3/remove-party)
 (rf/reg-event-fx ::views3/document-teaser-restore-click (handlers3/transite-doc-click "restore"))
 (rf/reg-event-fx ::views3/elasticsearch-select-field-mount handlers3/load-es-options)
 (rf/reg-event-fx ::views3/elasticsearch-select-field-input-change handlers3/load-es-options)

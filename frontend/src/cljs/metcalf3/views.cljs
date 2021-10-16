@@ -375,7 +375,7 @@
                                  :form          form
                                  :path          new-field-path})
                   (do (if default-field
-                        (rf/dispatch [:handlers/add-field! field-path default-field])
+                        (rf/dispatch [::table-modal-edit-add-field field-path default-field])
                         (rf/dispatch [::table-modal-edit-new-field field-path]))
                       (rf/dispatch [::open-modal {:type  :TableModalAddForm
                                                   :title title

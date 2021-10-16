@@ -195,11 +195,6 @@
   [{:keys [db]} [_ parties-path item]]
   {:db (update-in db parties-path update :value utils/vec-remove item)})
 
-(defn reset-form
-  [{:keys [db]} [_ form-path]]
-  (s/assert vector? form-path)
-  {:db (update-in db form-path logic3/reset-form)})
-
 (defn show-errors
   [{:keys [db]} [_ path]]
   (s/assert vector path)

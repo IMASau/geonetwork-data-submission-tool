@@ -198,7 +198,7 @@
     :helperText helperText
     :intent     intent}
    [bp3/textarea2
-    {:key            @(rf/subscribe [:subs/get-form-tick])
+    {:key            @(rf/subscribe [::get-textarea-widget-key])
      :growVertically true
      :onBlur         #(rf/dispatch (conj change-v (-> % .-target .-value)))
      :disabled       disabled

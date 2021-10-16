@@ -62,48 +62,6 @@
       {:can-submit? can-submit?
        :value       (/ (- fields empty) fields)})))
 
-(defn get-date-field-props
-  [derived-db [_ path]]
-  (let [{:keys [label help required disabled value show-errors errors minDate maxDate]} (get-in derived-db path)
-        value (if (= value "") nil value)
-        error-help (when (and show-errors (seq errors))
-                     (string/join ". " errors))]
-    {:label      label
-     :labelInfo  (when required "*")
-     :helperText (or error-help help)
-     :value      (when value (moment/to-date (moment/moment value "YYYY-MM-DD")))
-     :disabled   disabled
-     :change-v   [:date-field/value-change path]
-     :minDate    (s/assert (s/nilable inst?) minDate)
-     :maxDate    (s/assert (s/nilable inst?) maxDate)
-     :intent     (when error-help "danger")}))
-
-(defn get-date-field-with-label-props
-  [derived-db [_ path]]
-  (let [{:keys [disabled value show-errors errors]} (get-in derived-db path)
-        value (if (= value "") nil value)
-        error-help (when (and show-errors (seq errors))
-                     (string/join ". " errors))]
-    {:value     (when value (moment/to-date (moment/moment value "YYYY-MM-DD")))
-     :disabled  disabled
-     :hasError  (boolean error-help)
-     :errorText error-help}))
-
-(defn get-textarea-field-props
-  [derived-db [_ path]]
-  (let [{:keys [label help required disabled value show-errors errors placeholder maxlength]} (get-in derived-db path)
-        error-help (when (and show-errors (seq errors))
-                     (string/join ". " errors))]
-    {:label       label
-     :labelInfo   (when required "*")
-     :helperText  (or error-help help)
-     :value       (or value "")
-     :disabled    disabled
-     :maxlength   maxlength
-     :placeholder placeholder
-     :change-v    [:textarea-field/value-change path]
-     :intent      (when error-help "danger")}))
-
 (defn get-textarea-field-many-props
   [derived-db [_ path field]]
   (let [{:keys [placeholder maxlength]} (get-in derived-db [:form :fields :identificationInfo field])

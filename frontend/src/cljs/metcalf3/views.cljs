@@ -319,7 +319,7 @@
 
             (handle-delete-click [e]
               (.preventDefault e)
-              (rf/dispatch [:handlers/open-modal {:type       :confirm
+              (rf/dispatch [::open-modal {:type               :confirm
                                                   :title      "Delete " title "?"
                                                   :message    "Are you sure you want to delete?"
                                                   :on-confirm handle-delete-confirm}]))
@@ -357,7 +357,7 @@
   (let [{:keys [disabled] :as many-field} @(rf/subscribe [:subs/get-derived-path field-path])]
 
     (letfn [(edit! [field-path]
-              (rf/dispatch [:handlers/open-modal {:type  :TableModalEditForm
+              (rf/dispatch [::open-modal {:type          :TableModalEditForm
                                                   :title title
                                                   :form  form
                                                   :path  field-path}]))
@@ -377,7 +377,7 @@
                   (do (if default-field
                         (rf/dispatch [:handlers/add-field! field-path default-field])
                         (rf/dispatch [:handlers/new-field! field-path]))
-                      (rf/dispatch [:handlers/open-modal {:type  :TableModalAddForm
+                      (rf/dispatch [::open-modal {:type          :TableModalAddForm
                                                           :title title
                                                           :form  form
                                                           :path  new-field-path}])))))]
@@ -557,7 +557,7 @@
                 ;                  [:div.flex-row-button
                 ;                   [:button.btn.btn-default
                 ;                    {:style    {:vertical-align "top"}
-                ;                     :on-click #(rf/dispatch [:handlers/open-modal
+                ;                     :on-click #(rf/dispatch [:handlers/open-modalv
                 ;                                              {:type         param-type
                 ;                                               :api-path     api-path
                 ;                                               :dp-term-path dp-term-path}])}
@@ -793,7 +793,7 @@
             (when (= (.-readyState xhr) 4)
               (if (#{200 201} (.-status xhr))
                 (rf/dispatch [:handlers/add-attachment (utils/map-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
-                (rf/dispatch [:handlers/open-modal
+                (rf/dispatch [::open-modal
                               {:type    :alert
                                :message "File upload failed. Please try again or contact administrator."}]))
               (r/set-state this {:uploading false})
@@ -811,7 +811,7 @@
             (<= (.-size file) (* 1024 1024 max-filesize)))
       (r/set-state this {:file file})
       (when max-filesize
-        (rf/dispatch [:handlers/open-modal
+        (rf/dispatch [::open-modal
                       {:type    :alert
                        :message (str "Please, choose file less than " max-filesize "mb")}])
         (put! reset-ch true)))))
@@ -861,7 +861,7 @@
 (defn delete-attachment!
   "Quick and dirty delete function"
   [attachments-path attachment-idx]
-  (rf/dispatch [:handlers/open-modal
+  (rf/dispatch [::open-modal
                 {:type       :confirm
                  :title      "Delete?"
                  :message    "Are you sure you want to delete this file?"
@@ -1217,7 +1217,7 @@
               (.stopPropagation e)
               (let [parties-path (:path (contact-groups group))
                     {:keys [selected-group selected-item]} (r/state this)]
-                (rf/dispatch [:handlers/open-modal
+                (rf/dispatch [::open-modal
                               {:type       :confirm
                                :title      "Delete?"
                                :message    "Are you sure you want to delete this person?"
@@ -1409,7 +1409,7 @@
 
 (defn handle-archive-click
   []
-  (rf/dispatch [:handlers/open-modal
+  (rf/dispatch [::open-modal
                 {:type       :confirm
                  :title      "Archive?"
                  :message    "Are you sure you want to archive this record?"
@@ -1506,12 +1506,12 @@
           :on-save      #(rf/dispatch [:handlers/dashboard-create-save])}])
 
 (defn NewDocumentButton []
-  [:button.btn.btn-primary {:on-click #(rf/dispatch [:handlers/open-modal {:type :DashboardCreateModal}])}
+  [:button.btn.btn-primary {:on-click #(rf/dispatch [::open-modal {:type :DashboardCreateModal}])}
    [:span.glyphicon.glyphicon-plus]
    " Create new record"])
 
 (defn clone-doc [url event]
-  (rf/dispatch [:handlers/open-modal
+  (rf/dispatch [::open-modal
                 {:type       :confirm
                  :title      "Clone?"
                  :message    (str "Are you sure you want to clone this record?")

@@ -347,13 +347,7 @@
         dirty @(rf/subscribe [:subs/get-form-dirty])]
     (let [download-props {:href     (str (:export_url document) "?download")
                           :on-click #(when dirty
-                                       (.preventDefault %)
-                                       ; FIXME: view with logic
-                                       ; FIXME: using v3 modal
-                                       (rf/dispatch [:handlers/open-modal
-                                                     {:type    :alert
-                                                      :message "Please save changes before exporting."}]))}]
-
+                                       (js/alert "Please save changes before exporting."))}]
       [:a download-props label])))
 
 (defn mailto-data-manager-link

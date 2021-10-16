@@ -121,7 +121,7 @@
     {:fx/archive-current-document
      {:url       transition_url
       :success-v [:handlers/archive-current-document-success success_url]
-      :error-v   [:handlers/open-modal {:type :alert :message "Unable to delete"}]}}))
+      :error-v   [::open-modal {:type :alert :message "Unable to delete"}]}}))
 
 (defn archive-current-document-success
   [_ [_ url]] {:fx/set-location-href url})
@@ -387,13 +387,13 @@
 
 (defn clone-document-error
   [_ _]
-  {:dispatch [:handlers/open-modal {:type :alert :message "Unable to clone"}]})
+  {:dispatch [::open-modal {:type :alert :message "Unable to clone"}]})
 
 (defn transite-doc-click
   [transition]
   (fn [_ [_ url]]
     (let [trans-name (first (clojure.string/split transition "_"))]
-      {:dispatch [:handlers/open-modal
+      {:dispatch [::open-modal
                   {:type       :confirm
                    :title      trans-name
                    :message    (str "Are you sure you want to " trans-name " this record?")
@@ -422,7 +422,7 @@
 (defn -transite-doc-confirm-error
   [_ [_ transition]]
   (let [trans-name (first (clojure.string/split transition "_"))]
-    {:dispatch [:handlers/open-modal
+    {:dispatch [::open-modal
                 {:type    :alert
                  :message (str "Unable to " trans-name)}]}))
 
@@ -459,7 +459,7 @@
 (defn lodge-error
   [{:keys [db]} [_ {:keys [status failure]}]]
   {:db       (assoc-in db [:page :metcalf3.handlers/saving?] false)
-   :dispatch [:handlers/open-modal
+   :dispatch [::open-modal
               {:type    :alert
                :message (str "Unable to lodge: " status " " failure)}]})
 

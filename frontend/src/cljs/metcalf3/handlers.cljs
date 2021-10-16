@@ -415,7 +415,7 @@
    {:url        url
     :transition transition
     :success-v  [::-transite-doc-confirm-success transition]
-    :error-v    [:handlers/transite-doc-error]}})
+    :error-v    [::-transite-doc-confirm-error]}})
 
 (defn -transite-doc-confirm-success
   [{:keys [db]} [_ transition data]]
@@ -429,7 +429,7 @@
                                  (conj %1 %2))
                               [] docs)))}))
 
-(defn transite-doc-error
+(defn -transite-doc-confirm-error
   [_ [_ transition]]
   (let [trans-name (first (clojure.string/split transition "_"))]
     {:dispatch [:handlers/open-modal

@@ -59,7 +59,7 @@
 (rf/reg-event-fx :handlers/show-errors handlers3/show-errors)
 (rf/reg-event-fx :handlers/toggle-status-filter handlers3/toggle-status-filter)
 (rf/reg-event-fx :handlers/transite-doc-confirm handlers3/transite-doc-confirm)
-(rf/reg-event-fx :handlers/transite-doc-error handlers3/transite-doc-error)
+(rf/reg-event-fx ::handlers3/-transite-doc-confirm-error handlers3/-transite-doc-confirm-error)
 (rf/reg-event-fx ::handlers3/-transite-doc-confirm-success handlers3/-transite-doc-confirm-success)
 (rf/reg-event-fx ::handlers3/-org-changed handlers3/update-address)
 (rf/reg-event-fx ::views3/update-dp-term handlers3/update-dp-term)

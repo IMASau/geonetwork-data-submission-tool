@@ -191,23 +191,6 @@
     {:db       db
      :dispatch [::-update-person person-path org]}))
 
-(defn update-method-name
-  [{:keys [db]} [_ method-path name]]
-  {:db (-> db
-           (update-in method-path assoc-in [:name :value] name)
-           (update-in method-path assoc-in [:uri :value] "XXX"))})
-
-(defn setter
-  [{:keys [db]} [_ path k v]]
-  {:db (update-in db path assoc k v)})
-
-(defn unsaved-input-check-helper [{:keys [new-value errors] :as keywords-data}]
-  (assoc keywords-data
-    :errors
-    (if (str/blank? new-value)
-      (disj (set errors) "Unsaved value in the keyword input field")
-      (conj (set errors) "Unsaved value in the keyword input field"))))
-
 (defn remove-party
   [{:keys [db]} [_ parties-path item]]
   {:db (update-in db parties-path update :value utils/vec-remove item)})

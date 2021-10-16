@@ -38,33 +38,10 @@
                  (js/console.log "   FX" (console-value {:kind :effect :value (vec effect)}))))
              context)))
 
-(defn valid-db
-  [a-spec]
-  (rf/->interceptor
-    :id ::valid-db
-    :after
-    (fn valid-db-after
-      [context]
-      (when-let [db (rf/get-effect context :db)]
-        (when-not (s/valid? a-spec db)
-          (let [event (rf/get-coeffect context :event)]
-            (js/console.error "EVENT" (console-value {:kind :event :value event}))
-            (js/console.error " SPEC" (s/explain-str a-spec db)))))
-      context)))
-
 (defn reg-global-singleton
   [{:keys [id] :as ins}]
   (rf/clear-global-interceptor id)
   (rf/reg-global-interceptor ins))
-
-(def log-effects
-  (rf/->interceptor
-    :id ::log-effects
-    :after (fn [ctx]
-             (doseq [[k v] (rf/get-effect ctx)
-                     :when (not= k :db)]
-               (js/console.log "Effect: " k v))
-             ctx)))
 
 (def form-ticker
   (rf/->interceptor

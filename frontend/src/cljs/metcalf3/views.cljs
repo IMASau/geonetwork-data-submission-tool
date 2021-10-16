@@ -1421,7 +1421,7 @@
   []
   (let [{:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
         {:keys [selected-tab tab-props]} @(rf/subscribe [:subs/get-edit-tab-props])]
-    (letfn [(pick-tab [id _ _] (rf/dispatch [:handlers/set-tab (edn/read-string id)]))]
+    (letfn [(pick-tab [id _ _] (rf/dispatch [::edit-tabs-pick-click (edn/read-string id)]))]
       [:div {:style {:min-width "60em"}}
        (-> [bp3/tabs {:selectedTabId            (pr-str selected-tab)
                       :onChange                 pick-tab

@@ -9,10 +9,6 @@
   [db _]
   (logic3/derived-state db))
 
-(defn is-page-name-nil?
-  [db _]
-  (-> db :page :name nil?))
-
 (defn get-derived-path
   [db [_ path]]
   (get-in db path))

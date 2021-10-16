@@ -642,8 +642,8 @@
       (assoc term
         :value (if (utils/other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
-                     (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term                      v
-                                                                                        :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
+                     (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term              v
+                                                                                :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
         :placeholder ""
         :maxlength 100)]]))
 
@@ -659,8 +659,8 @@
       (assoc term
         :value (if (utils/other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
-                     (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term                      v
-                                                                                        :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
+                     (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term              v
+                                                                                :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
         :placeholder ""
         :maxlength 100)]]))
 
@@ -745,25 +745,25 @@
       [:div
        {:class "alert alert-success"}
        "Request new controlled vocabulary terms if they do not exist in the drop-down fields using the feedback button to the right of the screen."]
-      [elasticsearch-select-field {:param-type :parametername
-                                 :api-path     [:api :parametername]
-                                 :dp-term-path base-path
-                                 :dp-type      :longName}]
+      [elasticsearch-select-field {:param-type   :parametername
+                                   :api-path     [:api :parametername]
+                                   :dp-term-path base-path
+                                   :dp-type      :longName}]
       [InputField {:path name-path}]]
      [:form/fieldset.tern-fieldset
-      [elasticsearch-select-field {:param-type :parameterunit
-                                 :api-path     [:api :parameterunit]
-                                 :dp-term-path base-path
-                                 :dp-type      :unit}]]
+      [elasticsearch-select-field {:param-type   :parameterunit
+                                   :api-path     [:api :parameterunit]
+                                   :dp-term-path base-path
+                                   :dp-type      :unit}]]
      [:form/fieldset.tern-fieldset
-      [elasticsearch-select-field {:param-type :parameterplatform
-                                 :api-path     [:api :parameterplatform]
-                                 :dp-term-path base-path
-                                 :dp-type      :platform}]
-      [elasticsearch-select-field {:param-type :parameterinstrument
-                                 :api-path     [:api :parameterinstrument]
-                                 :dp-term-path base-path
-                                 :dp-type      :instrument}]
+      [elasticsearch-select-field {:param-type   :parameterplatform
+                                   :api-path     [:api :parameterplatform]
+                                   :dp-term-path base-path
+                                   :dp-type      :platform}]
+      [elasticsearch-select-field {:param-type   :parameterinstrument
+                                   :api-path     [:api :parameterinstrument]
+                                   :dp-term-path base-path
+                                   :dp-type      :instrument}]
       ; TODO: This should be enabled only when an instrument is created. Currently, creating vocabulary terms is disabled.
       [InputField
        {:path     serialNumber-path
@@ -1209,47 +1209,46 @@
 (defn CreditField [path]
   [:div.CreditField [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :credit])]])
 
-(defn delete-contact! [this group item e]
-  (.stopPropagation e)
-  (let [parties-path (:path (contact-groups group))
-        parties @(rf/subscribe [:subs/get-derived-path parties-path])
-        {:keys [selected-group selected-item]} (r/state this)]
-    (rf/dispatch [:handlers/open-modal
-                  {:type       :confirm
-                   :title      "Delete?"
-                   :message    "Are you sure you want to delete this person?"
-                   :on-confirm (fn []
-                                 (when (and (= group selected-group) (<= item selected-item))
-                                   (r/set-state this {:selected-item
-                                                      (when (> (count (:value parties)) 1)
-                                                        (-> selected-item dec (max 0)))}))
-                                 (rf/dispatch [:handlers/remove-party parties-path item]))}])))
-
 (defn parties-list [this group]
-  (let [{:keys [disabled] :as parties} @(rf/subscribe [:subs/get-derived-path (:path (contact-groups group))])
-        {:keys [selected-group selected-item]} (r/state this)
-        selected-item (when (= group selected-group) selected-item)
-        ]
-    (into [:div.list-group]
-          (for [[item party] (-> parties :value utils/enum)]
-            [:div
-             [:a.list-group-item
-              {:class    (when (= item selected-item) "active")
-               :on-click (fn []
-                           (r/set-state this {:selected-group group})
-                           (r/set-state this {:selected-item item}))}
-              [:span
-               (let [name (get-in party [:value :individualName :value])
-                     givenName (get-in party [:value :givenName :value])
-                     familyName (get-in party [:value :familyName :value])
-                     name (if (blank? name)
-                            (str givenName " " familyName)
-                            name)]
-                 (if (blank? name) [:em "First name Last name"] name))
-               (when-not disabled
-                 [:button.btn.btn-warn.btn-xs.pull-right
-                  {:on-click (partial delete-contact! this group item)}
-                  [:i.glyphicon.glyphicon-minus]])]]]))))
+  (letfn [(delete-contact! [e item]
+            (.stopPropagation e)
+            (let [parties-path (:path (contact-groups group))
+                  parties @(rf/subscribe [:subs/get-derived-path parties-path])
+                  {:keys [selected-group selected-item]} (r/state this)]
+              (rf/dispatch [:handlers/open-modal
+                            {:type       :confirm
+                             :title      "Delete?"
+                             :message    "Are you sure you want to delete this person?"
+                             :on-confirm (fn []
+                                           (when (and (= group selected-group) (<= item selected-item))
+                                             (r/set-state this {:selected-item
+                                                                (when (> (count (:value parties)) 1)
+                                                                  (-> selected-item dec (max 0)))}))
+                                           (rf/dispatch [:handlers/remove-party parties-path item]))}])))]
+    (let [{:keys [disabled] :as parties} @(rf/subscribe [:subs/get-derived-path (:path (contact-groups group))])
+          {:keys [selected-group selected-item]} (r/state this)
+          selected-item (when (= group selected-group) selected-item)
+          ]
+      (into [:div.list-group]
+            (for [[item party] (-> parties :value utils/enum)]
+              [:div
+               [:a.list-group-item
+                {:class    (when (= item selected-item) "active")
+                 :on-click (fn []
+                             (r/set-state this {:selected-group group})
+                             (r/set-state this {:selected-item item}))}
+                [:span
+                 (let [name (get-in party [:value :individualName :value])
+                       givenName (get-in party [:value :givenName :value])
+                       familyName (get-in party [:value :familyName :value])
+                       name (if (blank? name)
+                              (str givenName " " familyName)
+                              name)]
+                   (if (blank? name) [:em "First name Last name"] name))
+                 (when-not disabled
+                   [:button.btn.btn-warn.btn-xs.pull-right
+                    {:on-click #(delete-contact! % item)}
+                    [:i.glyphicon.glyphicon-minus]])]]])))))
 
 (defn default-selected-group []
   (ffirst

@@ -84,7 +84,7 @@
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
 (rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
 (rf/reg-sub ::views3/get-textarea-widget-key subs3/get-form-tick)
-(rf/reg-sub :subs/get-modal-props subs3/get-modal-props)
+(rf/reg-sub ::views3/get-modal-props subs3/get-modal-props)
 (rf/reg-sub :subs/get-page-name subs3/get-page-name)
 (rf/reg-sub :subs/get-page-props subs3/get-page-props)
 (rf/reg-sub :subs/is-page-name-nil? subs3/is-page-name-nil?)

@@ -310,9 +310,8 @@
        :render              render})))
 
 (defn modal-dialog-table-modal-edit-form
-  [_ _]
-  (let [{:keys [form path title]} @(rf/subscribe [:subs/get-modal-props])
-        many-field-path (drop-last 2 path)]
+  [{:keys [form path title]}]
+  (let [many-field-path (drop-last 2 path)]
 
     (letfn [(handle-delete-confirm []
               (rf/dispatch [:handlers/del-value many-field-path (last path)])
@@ -340,9 +339,8 @@
               :on-save      handle-close-click}])))
 
 (defn modal-dialog-table-modal-add-form
-  [_ _]
-  (let [{:keys [form path title]} @(rf/subscribe [:subs/get-modal-props])
-        many-field-path (drop-last 2 path)
+  [{:keys [form path title]}]
+  (let [many-field-path (drop-last 2 path)
         handle-cancel (fn [] (rf/dispatch [:handlers/del-value many-field-path (last path)])
                         (rf/dispatch [:handlers/close-modal]))]
     [Modal {:ok-copy      "Done"
@@ -692,54 +690,49 @@
      [PersonListField props]]))
 
 (defn modal-dialog-parametername
-  [_]
-  (let [props @(rf/subscribe [:subs/get-modal-props])]
-    [Modal {:ok-copy      "Done"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter names"]
-            :modal-body   [TermOrOtherForm (assoc props :dp-type :longName)]
-            :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+  [props]
+  [Modal {:ok-copy      "Done"
+          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter names"]
+          :modal-body   [TermOrOtherForm (assoc props :dp-type :longName)]
+          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
+          :on-save      #(rf/dispatch [:handlers/close-modal])}])
 
 (defn modal-dialog-parameterunit
-  [_]
-  (let [props @(rf/subscribe [:subs/get-modal-props])]
-    [Modal {:ok-copy      "Done"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Add parameter unit"]
-            :modal-body   [:div [UnitTermOrOtherForm (-> props
-                                                         (assoc :sort? false)
-                                                         (assoc :dp-type :unit))]]
-            :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+  [props]
+  [Modal {:ok-copy      "Done"
+          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Add parameter unit"]
+          :modal-body   [:div [UnitTermOrOtherForm (-> props
+                                                       (assoc :sort? false)
+                                                       (assoc :dp-type :unit))]]
+          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
+          :on-save      #(rf/dispatch [:handlers/close-modal])}])
 
 (defn modal-dialog-parameterinstrument
-  [_]
-  (let [props @(rf/subscribe [:subs/get-modal-props])]
-    [Modal {:ok-copy      "Done"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter instruments"]
-            :modal-body   [:div
-                           [TermOrOtherForm (assoc props :dp-type :instrument)]]
-            :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+  [props]
+  [Modal {:ok-copy      "Done"
+          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter instruments"]
+          :modal-body   [:div
+                         [TermOrOtherForm (assoc props :dp-type :instrument)]]
+          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
+          :on-save      #(rf/dispatch [:handlers/close-modal])}])
 
 (defn modal-dialog-parameterplatform
-  [_]
-  (let [props @(rf/subscribe [:subs/get-modal-props])]
-    [Modal {:ok-copy      "Done"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter platforms"]
-            :modal-body   [:div
-                           [TermOrOtherForm (assoc props :dp-type :platform)]]
-            :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+  [props]
+  [Modal {:ok-copy      "Done"
+          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter platforms"]
+          :modal-body   [:div
+                         [TermOrOtherForm (assoc props :dp-type :platform)]]
+          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
+          :on-save      #(rf/dispatch [:handlers/close-modal])}])
 
 (defn modal-dialog-person
-  [_]
-  (let [props @(rf/subscribe [:subs/get-modal-props])]
-    [Modal {:ok-copy      "Done"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse people"]
-            :modal-body   [:div
-                           [PersonForm props]]
-            :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+  [props]
+  [Modal {:ok-copy      "Done"
+          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse people"]
+          :modal-body   [:div
+                         [PersonForm props]]
+          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
+          :on-save      #(rf/dispatch [:handlers/close-modal])}])
 
 (defn DataParameterRowEdit [path]
   (let [base-path (conj path :value)
@@ -1636,48 +1629,46 @@
       [:br]]]]])
 
 (defn modal-dialog-alert
-  [_]
-  (let [{:keys [message]} @(rf/subscribe [:subs/get-modal-props])]
-    [Modal
-     {:modal-header [:span [:span.glyphicon.glyphicon-exclamation-sign]
-                     " " "Alert"]
-      :dialog-class "modal-sm"
-      :modal-body   message
-      :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-      :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+  [{:keys [message]}]
+  [Modal
+   {:modal-header [:span [:span.glyphicon.glyphicon-exclamation-sign]
+                   " " "Alert"]
+    :dialog-class "modal-sm"
+    :modal-body   message
+    :on-dismiss   #(rf/dispatch [:handlers/close-modal])
+    :on-save      #(rf/dispatch [:handlers/close-modal])}])
 
 (defn modal-dialog-confirm
-  [_]
-  (let [{:keys [message title]} @(rf/subscribe [:subs/get-modal-props])]
-    [Modal
-     {:modal-header [:span [:span.glyphicon.glyphicon-question-sign] " " title]
-      :dialog-class "modal-sm"
-      :modal-body   message
-      :on-dismiss   #(rf/dispatch [:handlers/close-and-cancel])
-      :on-cancel    #(rf/dispatch [:handlers/close-and-cancel])
-      :on-save      #(rf/dispatch [:handlers/close-and-confirm])}]))
+  [{:keys [message title]}]
+  [Modal
+   {:modal-header [:span [:span.glyphicon.glyphicon-question-sign] " " title]
+    :dialog-class "modal-sm"
+    :modal-body   message
+    :on-dismiss   #(rf/dispatch [:handlers/close-and-cancel])
+    :on-cancel    #(rf/dispatch [:handlers/close-and-cancel])
+    :on-save      #(rf/dispatch [:handlers/close-and-confirm])}])
 
-(defn ModalStack [_]
-  (let [modal-props @(rf/subscribe [:subs/get-modal-props])]
+(defn modal [_]
+  (let [modal-props @(rf/subscribe [::get-modal-props])]
     (when modal-props
       (case (:type modal-props)
-        :TableModalEditForm [modal-dialog-table-modal-edit-form nil]
-        :TableModalAddForm [modal-dialog-table-modal-add-form nil]
+        :TableModalEditForm [modal-dialog-table-modal-edit-form modal-props]
+        :TableModalAddForm [modal-dialog-table-modal-add-form modal-props]
         :m4/table-modal-edit-form [m4views/m4-modal-dialog-table-modal-edit-form modal-props]
         :m4/table-modal-add-form [m4views/m4-modal-dialog-table-modal-add-form modal-props]
         :ThemeKeywords [modal-dialog-theme-keywords (select-keys modal-props [:keyword-type :keywords-path])]
-        :parametername [modal-dialog-parametername nil]
-        :parameterunit [modal-dialog-parameterunit nil]
-        :parameterinstrument [modal-dialog-parameterinstrument nil]
-        :parameterplatform [modal-dialog-parameterplatform nil]
-        :person [modal-dialog-person nil]
-        :DashboardCreateModal [modal-dialog-dashboard-create-modal nil]
-        :alert [modal-dialog-alert nil]
-        :confirm [modal-dialog-confirm nil]))))
+        :parametername [modal-dialog-parametername modal-props]
+        :parameterunit [modal-dialog-parameterunit modal-props]
+        :parameterinstrument [modal-dialog-parameterinstrument modal-props]
+        :parameterplatform [modal-dialog-parameterplatform modal-props]
+        :person [modal-dialog-person modal-props]
+        :DashboardCreateModal [modal-dialog-dashboard-create-modal modal-props]
+        :alert [modal-dialog-alert modal-props]
+        :confirm [modal-dialog-confirm modal-props]))))
 
 (defn AppRoot [_]
   (let [page-name @(rf/subscribe [:subs/get-page-name])]
-    [:div [ModalStack nil]
+    [:div [modal nil]
      (if (and guseragent/IE (not (guseragent/isVersionOrHigher 10)))
        [LegacyIECompatibility nil]
        (case page-name

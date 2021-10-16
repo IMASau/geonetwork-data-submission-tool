@@ -319,10 +319,10 @@
 
             (handle-delete-click [e]
               (.preventDefault e)
-              (rf/dispatch [::open-modal {:type               :confirm
-                                                  :title      "Delete " title "?"
-                                                  :message    "Are you sure you want to delete?"
-                                                  :on-confirm handle-delete-confirm}]))
+              (rf/dispatch [::open-modal {:type       :confirm
+                                          :title      "Delete " title "?"
+                                          :message    "Are you sure you want to delete?"
+                                          :on-confirm handle-delete-confirm}]))
 
             (handle-close-click []
               (rf/dispatch [::close-modal]))]
@@ -357,10 +357,10 @@
   (let [{:keys [disabled] :as many-field} @(rf/subscribe [:subs/get-derived-path field-path])]
 
     (letfn [(edit! [field-path]
-              (rf/dispatch [::open-modal {:type          :TableModalEditForm
-                                                  :title title
-                                                  :form  form
-                                                  :path  field-path}]))
+              (rf/dispatch [::open-modal {:type  :TableModalEditForm
+                                          :title title
+                                          :form  form
+                                          :path  field-path}]))
 
             (new! [default-field]
               (let [values-ref (:value many-field)
@@ -377,10 +377,10 @@
                   (do (if default-field
                         (rf/dispatch [:handlers/add-field! field-path default-field])
                         (rf/dispatch [::table-modal-edit-new-field field-path]))
-                      (rf/dispatch [::open-modal {:type          :TableModalAddForm
-                                                          :title title
-                                                          :form  form
-                                                          :path  new-field-path}])))))]
+                      (rf/dispatch [::open-modal {:type  :TableModalAddForm
+                                                  :title title
+                                                  :form  form
+                                                  :path  new-field-path}])))))]
 
       [:div.TableInlineEdit
        (when-let [help (:help many-field)]
@@ -1407,14 +1407,6 @@
                         :stripes false
                         :value   value}]]))
 
-(defn handle-archive-click
-  []
-  (rf/dispatch [::open-modal
-                {:type       :confirm
-                 :title      "Archive?"
-                 :message    "Are you sure you want to archive this record?"
-                 :on-confirm #(rf/dispatch [:handlers/archive-current-document])}]))
-
 (defn edit-tabs
   []
   (let [{:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
@@ -1436,7 +1428,14 @@
 
 (defn PageViewEdit
   [_]
-  (letfn [(render [_]
+  (letfn [(handle-archive-click
+            []
+            (rf/dispatch [::open-modal
+                          {:type       :confirm
+                           :title      "Archive?"
+                           :message    "Are you sure you want to archive this record?"
+                           :on-confirm #(rf/dispatch [::page-view-edit-archive-click-confirm])}]))
+          (render [_]
             (let [page @(rf/subscribe [:subs/get-page-props])
                   saving (::handlers/saving? page)
                   {:keys [urls user]} @(rf/subscribe [:subs/get-derived-path [:context]])

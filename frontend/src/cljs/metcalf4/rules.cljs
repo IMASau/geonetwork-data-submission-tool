@@ -102,7 +102,7 @@
         other? (= license-value "http://creativecommons.org/licenses/other")
         props (if other?
                 {:is-hidden false :disabled false :required true}
-                {:is-hidden true :disabled true :required false})]
+                {:is-hidden true :disabled true :required false :value nil})]
     (-> identificationInfo
       (update-in [:content "otherConstraints" :props] merge props)
       (update-in [:content "otherConstraints"] required-field (:required props)))))

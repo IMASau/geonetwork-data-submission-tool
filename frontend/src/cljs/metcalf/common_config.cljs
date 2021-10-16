@@ -61,7 +61,6 @@
 (rf/reg-event-fx :handlers/transite-doc-error handlers3/transite-doc-error)
 (rf/reg-event-fx :handlers/transite-doc-success handlers3/transite-doc-success)
 (rf/reg-event-fx :handlers/update-address handlers3/update-address)
-(rf/reg-event-fx :handlers/update-boxes handlers3/update-boxes)
 (rf/reg-event-fx ::views3/update-dp-term handlers3/update-dp-term)
 (rf/reg-event-fx ::views3/nasa-list-select-field-change handlers3/update-nasa-list-value)
 (rf/reg-event-fx ::views3/person-input-field-picker-change handlers3/update-person)

@@ -35,17 +35,9 @@
          (assoc :onChange (fn [e] (r/set-state this {:value (-> e .-target .-value)})))
          (assoc :onBlur #(onValueChange value)))]))
 
-(defn build-controlled-value
-  [view]
-  (r/create-class
-    {:get-initial-state            get-initial-state
-     :component-will-receive-props component-will-receive-props
-     :render                       (partial render view)}))
-
 (def navbar (r/adapt-react-class BlueprintCore/Navbar))
 (def navbar-group (r/adapt-react-class BlueprintCore/NavbarGroup))
 (def navbar-heading (r/adapt-react-class BlueprintCore/NavbarHeading))
-(def button (r/adapt-react-class BlueprintCore/Button))
 (def tab (r/adapt-react-class BlueprintCore/Tab))
 (def tabs (r/adapt-react-class BlueprintCore/Tabs))
 (def tabs-expander (r/adapt-react-class BlueprintCore/Tabs.Expander))
@@ -55,4 +47,3 @@
 (def form-group (r/adapt-react-class BlueprintCore/FormGroup))
 (def alignment (js->clj BlueprintCore/Alignment :keywordize-keys true))
 (def classes (js->clj BlueprintCore/Classes :keywordize-keys true))
-(defn html-input [props] [:input.bp3-input (merge {:class (:INPUT classes)} props)])

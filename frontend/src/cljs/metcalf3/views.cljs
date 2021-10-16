@@ -1648,27 +1648,26 @@
     :on-cancel    #(rf/dispatch [:handlers/close-and-cancel])
     :on-save      #(rf/dispatch [:handlers/close-and-confirm])}])
 
-(defn modal [_]
-  (let [modal-props @(rf/subscribe [::get-modal-props])]
-    (when modal-props
-      (case (:type modal-props)
-        :TableModalEditForm [modal-dialog-table-modal-edit-form modal-props]
-        :TableModalAddForm [modal-dialog-table-modal-add-form modal-props]
-        :m4/table-modal-edit-form [m4views/m4-modal-dialog-table-modal-edit-form modal-props]
-        :m4/table-modal-add-form [m4views/m4-modal-dialog-table-modal-add-form modal-props]
-        :ThemeKeywords [modal-dialog-theme-keywords (select-keys modal-props [:keyword-type :keywords-path])]
-        :parametername [modal-dialog-parametername modal-props]
-        :parameterunit [modal-dialog-parameterunit modal-props]
-        :parameterinstrument [modal-dialog-parameterinstrument modal-props]
-        :parameterplatform [modal-dialog-parameterplatform modal-props]
-        :person [modal-dialog-person modal-props]
-        :DashboardCreateModal [modal-dialog-dashboard-create-modal modal-props]
-        :alert [modal-dialog-alert modal-props]
-        :confirm [modal-dialog-confirm modal-props]))))
+(defmulti modal :type)
+(defmethod modal :default [])
+(defmethod modal :TableModalEditForm [modal-props] [modal-dialog-table-modal-edit-form modal-props])
+(defmethod modal :TableModalAddForm [modal-props] [modal-dialog-table-modal-add-form modal-props])
+(defmethod modal :m4/table-modal-edit-form [modal-props] [m4views/m4-modal-dialog-table-modal-edit-form modal-props])
+(defmethod modal :m4/table-modal-add-form [modal-props] [m4views/m4-modal-dialog-table-modal-add-form modal-props])
+(defmethod modal :ThemeKeywords [modal-props] [modal-dialog-theme-keywords (select-keys modal-props [:keyword-type :keywords-path])])
+(defmethod modal :parametername [modal-props] [modal-dialog-parametername modal-props])
+(defmethod modal :parameterunit [modal-props] [modal-dialog-parameterunit modal-props])
+(defmethod modal :parameterinstrument [modal-props] [modal-dialog-parameterinstrument modal-props])
+(defmethod modal :parameterplatform [modal-props] [modal-dialog-parameterplatform modal-props])
+(defmethod modal :person [modal-props] [modal-dialog-person modal-props])
+(defmethod modal :DashboardCreateModal [modal-props] [modal-dialog-dashboard-create-modal modal-props])
+(defmethod modal :alert [modal-props] [modal-dialog-alert modal-props])
+(defmethod modal :confirm [modal-props] [modal-dialog-confirm modal-props])
 
-(defn AppRoot [_]
-  (let [page-name @(rf/subscribe [:subs/get-page-name])]
-    [:div [modal nil]
+(defn app-root [_]
+  (let [page-name @(rf/subscribe [:subs/get-page-name])
+        modal-props @(rf/subscribe [::get-app-root-modal-props])]
+    [:div [modal modal-props]
      (if (and guseragent/IE (not (guseragent/isVersionOrHigher 10)))
        [LegacyIECompatibility nil]
        (case page-name

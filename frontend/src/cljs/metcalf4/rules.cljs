@@ -40,6 +40,7 @@
                   (update-in [:props :errors] conj "This field is required"))))
     block))
 
+; TODO: consider renaming - doing more than required flag (disable/hide/clear)
 (defn required-when-yes
   [block {:keys [bool-field opt-field]}]
   (let [required? (get-in block [:content bool-field :props :value])

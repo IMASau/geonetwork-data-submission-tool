@@ -476,7 +476,7 @@
                      :formatOptionLabel (fn [option]
                                           (r/as-element (aget option "prefLabel")))
                      :onChange          (fn [option]
-                                          (rf/dispatch [:handlers/update-nasa-list-value value-path option]))
+                                          (rf/dispatch [::nasa-list-select-field-change value-path option]))
                      :noResultsText     "No results found.  Click browse to add a new entry."})
                   [:p.help-block help]]]]]))]
     (r/create-class

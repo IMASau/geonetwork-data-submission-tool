@@ -218,10 +218,6 @@
         status-freq (frequencies (map :status documents))]
     {:db (assoc-in db [:page :status-filter] (set (keys status-freq)))}))
 
-(defn set-value
-  [{:keys [db]} [_ field-path value]]
-  {:db (update-in db field-path assoc :value value)})
-
 (defn date-field-value-change
   [{:keys [db]} [_ field-path widget-value]]
   (let [field-value (when widget-value (moment/format widget-value "YYYY-MM-DD"))]

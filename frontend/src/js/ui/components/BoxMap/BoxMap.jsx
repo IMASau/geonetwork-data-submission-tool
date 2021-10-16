@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FeatureGroup, Map, Marker, Rectangle, TileLayer } from 'react-leaflet';
 import { EditControl } from 'react-leaflet-draw';
-import { ResizeSensor } from "@blueprintjs/core";
 
 
 function mapToBounds({ west, east, south, north }) {
@@ -157,31 +156,6 @@ BoxMap.propTypes = {
         southBoundLatitude: PropTypes.number.isRequired,
         eastBoundLongitude: PropTypes.number.isRequired,
     })),
-    onChange: PropTypes.func.isRequired,
-    tickId: PropTypes.number,
-};
-
-export function BoxMapFill(args) {
-    const [width, setWidth] = React.useState(null);
-
-    function handleResize(entries) {
-        setWidth(entries[0].contentRect.width);
-    }
-
-    return (
-        <ResizeSensor onResize={handleResize}>
-            <BoxMap {...args} mapWidth={width} />
-        </ResizeSensor>
-    )
-}
-
-BoxMapFill.propTypes = {
-    elements: PropTypes.arrayOf(PropTypes.shape({
-        northBoundLatitude: PropTypes.number.isRequired,
-        westBoundLongitude: PropTypes.number.isRequired,
-        southBoundLatitude: PropTypes.number.isRequired,
-        eastBoundLongitude: PropTypes.number.isRequired,
-    })).isRequired,
     onChange: PropTypes.func.isRequired,
     tickId: PropTypes.number,
 };

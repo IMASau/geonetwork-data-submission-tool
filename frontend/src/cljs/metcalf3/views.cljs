@@ -152,68 +152,7 @@
                      (assoc
                        :on-change #(rf/dispatch [:handlers/value-changed path %])))]))
 
-(defn input-field-with-label
-  [{:keys [path] :as config}]
-  (let [logic @(rf/subscribe [::get-input-field-with-label-props path])
-        props (merge (select-keys config [:label :placeholder :helperText :toolTip]) logic)
-        {:keys [label placeholder helperText toolTip maxLength required value disabled hasError]} props
-        onChange #(rf/dispatch [::input-field-with-label-value-changed path %])]
-    [ui/FormGroup
-     {:label      label
-      :required   required
-      :disabled   disabled
-      :hasError   hasError
-      :helperText helperText
-      :toolTip    toolTip}
-     [ui/InputField
-      {:value       value
-       :placeholder placeholder
-       :maxLength   maxLength
-       :disabled    disabled
-       :hasError    hasError
-       :onChange    onChange}]]))
-
-(defn date-field-with-label
-  [{:keys [path label required helperText toolTip minDate maxDate]}]
-  (let [{:keys [value disabled hasError errorText]} @(rf/subscribe [::get-date-field-with-label-props path])]
-    [ui/FormGroup
-     {:label      label
-      :required   required
-      :disabled   disabled
-      :hasError   hasError
-      :helperText (or errorText helperText)
-      :toolTip    toolTip}
-     [ui/DateField
-      {:value    value
-       :disabled disabled
-       :onChange #(rf/dispatch [::date-field-with-label-value-changed path %])
-       :hasError hasError
-       :minDate  minDate
-       :maxDate  maxDate}]]))
-
 ; TODO: Consider date-field-with-label
-(defn date-field
-  [{:keys [path defMinDate]}]
-  (let [{:keys [label labelInfo helperText value disabled change-v intent minDate maxDate]} @(rf/subscribe [:date-field/get-props path])
-        format "DD-MM-YYYY"]
-    [bp3/form-group
-     {:label      label
-      :labelInfo  labelInfo
-      :helperText helperText
-      :intent     intent}
-     [bp3/date-input
-      (cond-> {:formatDate  (fn [date] (moment/format date format))
-               :parseDate   (fn [str] (moment/to-date (moment/moment str format)))
-               :placeholder format
-               :disabled    disabled
-               :value       value
-               :onChange    #(rf/dispatch (conj change-v %))
-               :inputProps  {:leftIcon "calendar"
-                             :intent   intent}}
-        minDate (assoc :minDate minDate)
-        (not minDate) (assoc :minDate defMinDate)
-        maxDate (assoc :maxDate maxDate))]]))
-
 (defn OptionWidget [props]
   (let [[value display] props]
     [:option {:value value} display]))
@@ -273,26 +212,6 @@
   [{:keys [path]}]
   [textarea-widget @(rf/subscribe [:textarea-field/get-props path])])
 
-(defn textarea-field-with-label
-  [{:keys [path label placeholder helperText toolTip maxLength rows required]}]
-  (let [{:keys [value disabled hasError errorText]} @(rf/subscribe [::get-textarea-field-with-label-props path])
-        onChange #(rf/dispatch [::textarea-field-with-label-value-changed path %])]
-    [ui/FormGroup
-     {:label      label
-      :required   required
-      :disabled   disabled
-      :hasError   hasError
-      :helperText (or errorText helperText)
-      :toolTip    toolTip}
-     [ui/TextareaField
-      {:value       value
-       :placeholder placeholder
-       :disabled    disabled
-       :hasError    hasError
-       :maxLength   maxLength
-       :rows        rows
-       :onChange    onChange}]]))
-
 (defn Checkbox [props]
   (let [{:keys [label checked on-change disabled help]
          :or   {checked false}} props
@@ -312,14 +231,6 @@
                            :on-blur #(rf/dispatch [:handlers/show-errors path])
                            :on-change #(rf/dispatch [:handlers/set-value path (-> % .-target .-checked)])
                            :label (or label (:label field)))]))
-
-(defn BackButton []
-  (let [page @(rf/subscribe [:subs/get-derived-path [:page]])
-        back (:back page)]
-    (when back
-      [:button.btn.btn-default.BackButton
-       {:on-click #(rf/dispatch [:handlers/back])}
-       [:span.glyphicon.glyphicon-chevron-left] " Back"])))
 
 (defn getter [k row] (get row k))
 
@@ -546,132 +457,6 @@
           :on-dismiss   #(rf/dispatch [:handlers/close-modal])
           :on-save      #(rf/dispatch [:handlers/close-modal])}])
 
-(defn TopicCategories
-  [_]
-  (letfn [(init-state [_]
-            {:new-value  nil
-             :input      ""
-             :show-modal false
-             :highlight  #{}})
-          (render [this]
-            (let [{:keys [highlight]} (r/state this)
-                  {:keys [path]} (r/props this)
-                  topicCategories @(rf/subscribe [:subs/get-derived-path path])
-                  {:keys [value placeholder disabled help] :as props} topicCategories
-                  table @(rf/subscribe [:subs/get-derived-path [:topicCategories :table]])
-                  set-value! #(r/set-state this {:new-value %})
-                  add! (fn [identifier] (when-not (empty? identifier)
-                                          (when (not-any? (comp #{identifier} :value)
-                                                          (:value topicCategories))
-                                            (rf/dispatch [:handlers/add-value! path identifier]))
-                                          (handle-highlight-new this identifier)
-                                          (set-value! nil)))
-                  lookup (fn [uuid] (first (filterv #(= uuid (first %)) table)))
-                  options (into-array (for [[value & path :as rowData] table]
-                                        #js {:value   value
-                                             :rowData rowData
-                                             :label   (string/join " > " path)}))]
-              [:div.ThemeKeywords {:class (utils/validation-state props)}
-               (label-template props)
-               [:p.help-block help]
-               [:table.table.keyword-table {:class (when-not disabled "table-hover")}
-                (into [:tbody]
-                      (for [[i topicCategory] (utils/enum value)]
-                        [:tr {:class (if disabled "active" (when (highlight (:value topicCategory)) "highlight"))}
-                         [:td [TopicCategoryCell (lookup (:value topicCategory))]]
-                         (when-not disabled
-                           [:td [:button.btn.btn-warn.btn-xs.pull-right
-                                 {:on-click #(rf/dispatch [:handlers/del-value path i])}
-                                 [:span.glyphicon.glyphicon-minus]]])]))]
-               (when-not disabled
-                 [:div.flex-row
-                  [:div.flex-row-field
-                   {;need this to make sure the drop down is rendered above any other input fields
-                    :style {:position "relative"
-                            :z-index  10}}
-                   [VirtualizedSelect {:placeholder       placeholder
-                                       :options           options
-                                       :value             ""
-                                       :getOptionValue    (fn [option]
-                                                            (gobj/get option "value"))
-                                       :formatOptionLabel (fn [props]
-                                                            (r/as-element (theme-option-renderer props)))
-                                       :onChange          (fn [option]
-                                                            (add! (gobj/get option "value")))}]]])]))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
-
-(defn ThemeKeywords
-  [{:keys [keyword-type keywords-theme-path]}]
-  (letfn [(init-state [_]
-            {:new-value  nil
-             :input      ""
-             :show-modal false
-             :highlight  #{}})
-          (render [this]
-            (let [{:keys [highlight]} (r/state this)
-                  keywords-path (conj keywords-theme-path :keywords)
-                  {:keys [keywords]} @(rf/subscribe [:subs/get-derived-path keywords-theme-path])
-                  {:keys [value placeholder disabled help] :as props} keywords
-                  theme-table @(rf/subscribe [:subs/get-derived-path [:theme keyword-type :table]])
-                  set-value! #(r/set-state this {:new-value %})
-                  add! (fn [uuid] (when-not (empty? uuid)
-                                    (when (not-any? (comp #{uuid} :value)
-                                                    (:value keywords))
-                                      (rf/dispatch [:handlers/add-value! keywords-path uuid]))
-                                    (handle-highlight-new this uuid)
-                                    (set-value! nil)))
-                  lookup (fn [uuid] (first (filterv #(= uuid (first %)) theme-table)))
-                  show-modal! #(rf/dispatch [:handlers/open-modal
-                                             {:type          :ThemeKeywords
-                                              :keyword-type  keyword-type
-                                              :keywords-path keywords-path}])
-                  options (into-array (for [[value & path :as rowData] theme-table]
-                                        #js {:value   value
-                                             :rowData rowData
-                                             :label   (string/join " > " path)}))]
-              [:div.ThemeKeywords {:class (utils/validation-state props)}
-               (label-template props)
-               [:p.help-block help]
-               [:table.table.keyword-table {:class (when-not disabled "table-hover")}
-                (into [:tbody]
-                      (for [[i keyword] (utils/enum value)]
-                        [:tr {:class (if disabled "active" (when (highlight (:value keyword)) "highlight"))}
-                         [:td [KeywordsThemeCell (lookup (:value keyword))]]
-                         (when-not disabled
-                           [:td [:button.btn.btn-warn.btn-xs.pull-right
-                                 {:on-click #(rf/dispatch [:handlers/del-value keywords-path i])}
-                                 [:span.glyphicon.glyphicon-minus]]])]))]
-               (when-not disabled
-                 [:div.flex-row
-                  [:div.flex-row-field
-                   {;need this to make sure the drop down is rendered above any other input fields
-                    :style {:position "relative"
-                            :z-index  10}}
-                   #_[VirtualizedSelect {:props             {:options     options
-                                                             :onChange    (fn [option]
-                                                                            (add! (gobj/get option "value")))
-                                                             :isClearable true}
-                                         :list-props        {}
-                                         :children-renderer theme-option-renderer}]
-                   [VirtualizedSelect {:placeholder       placeholder
-                                       :options           options
-                                       :value             ""
-                                       :getOptionValue    (fn [option]
-                                                            (gobj/get option "value"))
-                                       :formatOptionLabel (fn [props]
-                                                            (r/as-element (theme-option-renderer props)))
-                                       :onChange          (fn [option]
-                                                            (add! (gobj/get option "value")))}]]
-                  [:div.flex-row-button
-                   [:button.btn.btn-default
-                    {:on-click #(show-modal!)}
-                    [:span.glyphicon.glyphicon-list] " Browse"]]])]))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
-
 (defn ThemeInputField
   [{:keys [value placeholder errors extra-help on-change on-blur on-submit maxlength] :as props}]
   [:div.form-group {:class (utils/validation-state props)}
@@ -691,104 +476,6 @@
                                :on-click on-submit}
       [:span.glyphicon.glyphicon-plus]]]]
    [:p.help-block extra-help]])
-
-(defn ThemeKeywordsExtra
-  [_]
-  (letfn [(init-state [_]
-            {:highlight #{}})
-          (render [this]
-            (let [{:keys [highlight]} (r/state this)
-                  {:keys [keywords-path]} (r/props this)
-                  keywords-value-path (conj keywords-path :value)
-                  {:keys [value placeholder disabled errors new-value help maxlength] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
-              (letfn [(set-value! [v]
-                        (rf/dispatch [:handlers/setter keywords-path :new-value v]))
-                      (add-value! []
-                        (when-not (empty? new-value)
-                          (rf/dispatch [:handlers/add-keyword-extra keywords-value-path new-value])
-                          (handle-highlight-new this new-value)
-                          (set-value! "")
-                          (rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path])))
-                      (del-value! [x]
-                        (rf/dispatch [:handlers/del-keyword-extra keywords-value-path x]))]
-                [:div.ThemeKeywordsExtra {:class (utils/validation-state props)}
-                 (label-template props)
-                 [:p.help-block help]
-                 [:table.table.keyword-table {:class (when-not disabled "table-hover")}
-                  (into [:tbody]
-                        (for [keyword value]
-                          [:tr {:class (if disabled "active" (when (highlight (:value keyword)) "highlight"))}
-                           [:td (:value keyword)]
-                           (when-not disabled
-                             [:td
-                              [:button.btn.btn-warn.btn-xs.pull-right
-                               {:on-click #(del-value! (:value keyword))}
-                               [:span.glyphicon.glyphicon-minus]]])]))]
-                 (when-not disabled
-                   [ThemeInputField {:value       new-value
-                                     :on-submit   add-value!
-                                     :placeholder placeholder
-                                     :errors      errors
-                                     :help        help
-                                     :maxlength   maxlength
-                                     :extra-help  "We will contact you to discuss appropriate keyword terms"
-                                     :on-change   (fn [e]
-                                                    (set-value! (.. e -target -value)))
-                                     :on-blur     (fn [] (js/setTimeout #(rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path]) 100))}])])))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
-
-(defn TaxonKeywordsExtra
-  [_]
-  (letfn [(init-state [_]
-            {:highlight #{}})
-          (render [this]
-            (let [{:keys [highlight]} (r/state this)
-                  {:keys [keywords-path]} (r/props this)
-                  keywords-value-path (conj keywords-path :value)
-                  {:keys [value required help placeholder disabled maxlength errors new-value] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
-
-              (letfn [(set-value! [v]
-                        (rf/dispatch [:handlers/setter keywords-path :new-value v]))
-                      (add-value! []
-                        (when-not (empty? new-value)
-                          (rf/dispatch [:handlers/add-keyword-extra keywords-value-path new-value])
-                          (handle-highlight-new this new-value)
-                          (set-value! nil)
-                          (rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path])))
-                      (del-value! [x]
-                        (rf/dispatch [:handlers/del-keyword-extra keywords-value-path x]))
-                      (handle-input-change [e]
-                        (set-value! (.. e -target -value)))
-                      (handle-input-blur []
-                        (js/setTimeout #(rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path]) 100))]
-
-                [:div.TaxonKeywordsExtra {:class (utils/validation-state props)}
-                 [:label "Taxon keywords" (when required " *")]
-                 [:p.help-block help]
-                 [:table.table.keyword-table {:class (when-not disabled "table-hover")}
-                  (into [:tbody]
-                        (for [keyword value]
-                          [:tr {:class (if disabled "active" (when (highlight (:value keyword)) "highlight"))}
-                           [:td (:value keyword)]
-                           (when-not disabled
-                             [:td [:button.btn.btn-warn.btn-xs.pull-right
-                                   {:on-click #(del-value! (:value keyword))}
-                                   [:span.glyphicon.glyphicon-minus]]])]))]
-                 (when-not disabled
-                   [ThemeInputField {:value       new-value
-                                     :on-submit   add-value!
-                                     :placeholder placeholder
-                                     :errors      errors
-                                     :maxlength   maxlength
-                                     :help        help
-                                     :on-change   handle-input-change
-                                     :on-blur     handle-input-blur}])])))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
-
 
 (defn CoordInputWidget
   [_]
@@ -859,51 +546,6 @@
   (print-nice [x] (pr-str x))
   nil
   (print-nice [x] "--"))
-
-(defn GeographicCoverage
-  [_]
-  (letfn [(render [this]
-            (let [{:keys [has-coverage-path boxes-path site-description-path]} (r/props this)
-                  {hasGeographicCoverage :value} @(rf/subscribe [:subs/get-derived-path has-coverage-path])
-                  {:keys [disabled] :as boxes} @(rf/subscribe [:subs/get-derived-path boxes-path])]
-
-              [:div.GeographicCoverage
-               [:h4 "Geographic Coverage"]
-               (when hasGeographicCoverage
-                 [:div.row
-                  [:div.col-sm-6
-                   [ui/BoxMap
-                    {:elements (utils/boxes->elements boxes)
-                     :ref      (fn [boxmap] (r/set-state this {:boxmap boxmap}))
-                     :disabled disabled
-                     :tickId   @(rf/subscribe [:subs/get-form-tick])
-                     :onChange #(rf/dispatch [:handlers/update-boxes boxes-path (ui/get-geojson-data %)])}]]
-                  [:div.col-sm-6
-                   [textarea-field {:path site-description-path}]
-                   [:p [:span "Please input in decimal degrees in coordinate reference system WGS84. "
-                        "Geoscience Australia provide a "
-                        [:a {:href "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp" :target "blank"}
-                         "Grid to Geographic converter"]]]
-                   [TableModalEdit {:ths           ["North limit" "West limit" "South limit" "East limit"]
-                                    :tds-fn        (fn [geographicElement]
-                                                     (let [{:keys [northBoundLatitude westBoundLongitude
-                                                                   eastBoundLongitude southBoundLatitude]}
-                                                           (:value geographicElement)]
-                                                       [(print-nice (:value northBoundLatitude))
-                                                        (print-nice (:value westBoundLongitude))
-                                                        (print-nice (:value southBoundLatitude))
-                                                        (print-nice (:value eastBoundLongitude))]))
-                                    :default-field (-> (logic/new-value-field boxes)
-                                                       (update-in [:value :northBoundLatitude] merge (:northBoundLatitude 0))
-                                                       (update-in [:value :southBoundLatitude] merge (:southBoundLatitude 0))
-                                                       (update-in [:value :eastBoundLongitude] merge (:eastBoundLongitude 0))
-                                                       (update-in [:value :westBoundLongitude] merge (:westBoundLongitude 0)))
-                                    :form          CoordField
-                                    :title         "Geographic Coordinates"
-                                    :on-new-click  nil
-                                    :field-path    boxes-path}]]])]))]
-    (r/create-class
-      {:render render})))
 
 (defn breadcrumb-renderer [selected-option]
   (let [text (gobj/get selected-option "breadcrumb")
@@ -1384,190 +1026,6 @@
   []
   (rf/dispatch [:handlers/lodge-click]))
 
-(defn IMASLodge
-  [{:keys [notes-path]}]
-  (let [page @(rf/subscribe [:subs/get-page-props])
-        saving (::handlers/saving? page)
-        {:keys [document urls site]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        {:keys [portal_title portal_url email]} site
-        {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
-        {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
-        dirty @(rf/subscribe [:subs/get-form-dirty])
-        noteForDataManager @(rf/subscribe [:subs/get-derived-path notes-path])
-        is-are (if (> errors 1) "are" "is")
-        plural (when (> errors 1) "s")
-        has-errors? (and errors (> errors 0))
-        submitted? (= (:status document) "Submitted")]
-    [:div.Lodge
-     [:p "Are you finished? Use this page to lodge your completed metadata record."]
-     [:p "Any difficulties?  Please contact " [:a {:href (str "mailto:" email)} email]]
-     [:p "The Data Manager will be notified of your submission and will be in contact
-               if any further information is required. Once approved, your data will be archived
-               for discovery in the "
-      (if portal_url
-        [:a {:href portal_url :target "_blank"} [:span.portal_title portal_title]]
-        [:span.portal_title portal_title])
-      "."]
-     [:p "How complete is your data?"]
-     [:div
-      {:style {:padding-top    5
-               :padding-bottom 5}}
-      (if (= "Draft" (:status document))
-        [textarea-field {:path notes-path}]
-        (when-not (string/blank? (:value noteForDataManager))
-          [:div
-           [:strong "Note for the data manager:"]
-           [:p (:value noteForDataManager)]]))]
-     [:div
-      [:button.btn.btn-primary.btn-lg
-       {:disabled (or has-errors? saving disabled submitted?)
-        :on-click handle-submit-click}
-       (when saving
-         [:img
-          {:src (str (:STATIC_URL urls)
-                     "metcalf3/img/saving.gif")}])
-       "Lodge data"]
-      " "
-
-      (if has-errors?
-        [:span.text-danger [:b "Unable to lodge: "]
-         "There " is-are " " [:span errors " error" plural
-                              " which must be corrected first."]]
-        [:span.text-success
-         [:b
-          (cond
-            saving "Submitting..."
-            (= (:status document) "Draft") "Ready to lodge"
-            (= (:status document) "Submitted") "Your record has been submitted."
-            :else (:status document))]])]
-
-     (let [download-props {:href     (str (:export_url document) "?download")
-                           :on-click #(when dirty
-                                        (.preventDefault %)
-                                        (rf/dispatch [:handlers/open-modal
-                                                      {:type    :alert
-                                                       :message "Please save changes before exporting."}]))}]
-       [:div.user-export
-        [:p [:strong "Want to keep a personal copy of your metadata record?"]]
-        [:p
-         [:a download-props "Click here"] " to generate an XML version of your metadata submission. "
-         "The file generated includes all of the details you have provided under the
-          tabs, but not files you have uploaded."]
-        [:p
-         "Please note: this XML file is not the recommended way to share your metadata.
-          We want you to submit your data via 'lodging' the information.
-          This permits multi-user access via the portal in a more friendly format."]])]))
-
-(defn Lodge
-  [_]
-  (letfn [(init-state [_]
-            {:is-open        false
-             :is-open-inline false})
-          (render [this]
-            (let [{:keys [note-for-data-manager-path
-                          agreed-to-terms-path
-                          doi-requested-path
-                          current-doi-path]} (r/props this)
-                  {:keys [is-open]} (r/state this)
-                  page @(rf/subscribe [:subs/get-page-props])
-                  saving (::handlers/saving? page)
-                  {:keys [document urls site]} @(rf/subscribe [:subs/get-derived-path [:context]])
-                  {:keys [portal_title portal_url email]} site
-                  {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
-                  {:keys [terms_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])
-                  {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
-                  dirty @(rf/subscribe [:subs/get-form-dirty])
-                  noteForDataManager @(rf/subscribe [:subs/get-derived-path note-for-data-manager-path])
-                  agreedToTerms @(rf/subscribe [:subs/get-derived-path agreed-to-terms-path])
-                  doiRequested @(rf/subscribe [:subs/get-derived-path doi-requested-path])
-                  currentDoi @(rf/subscribe [:subs/get-derived-path current-doi-path])
-                  is-are (if (> errors 1) "are" "is")
-                  plural (when (> errors 1) "s")
-                  has-errors? (and errors (> errors 0))
-                  submitted? (= (:status document) "Submitted")]
-              [:div.Lodge
-               [:p "Are you finished? Use this page to lodge your completed metadata record."]
-               [:p "Any difficulties?  Please contact " [:a {:href (str "mailto:" email)} email]]
-               [:p "The Data Manager will be notified of your submission and will be in contact
-               if any further information is required. Once approved, your data will be archived
-               for discovery in the "
-                (if portal_url
-                  [:a {:href portal_url :target "_blank"} [:span.portal_title portal_title]]
-                  [:span.portal_title portal_title])
-                "."]
-               [:p "How complete is your data?"]
-               [:div
-                {:style {:padding-top    5
-                         :padding-bottom 5}}
-                (if (= "Draft" (:status document))
-                  [textarea-field {:path note-for-data-manager-path}]
-                  (when-not (string/blank? (:value noteForDataManager))
-                    [:div
-                     [:strong "Note for the data manager:"]
-                     [:p (:value noteForDataManager)]]))]
-               [:div
-                [CheckboxField
-                 {:path  doi-requested-path
-                  :label [:span "Please mint a DOI for this submission (If the DOI already exists, input details in the field above)"]}]]
-               (when (:value doiRequested) (if (blank? (:value currentDoi))
-                                             [:p [:strong "DOI not yet minted"]]
-                                             [:p [:strong "Minted DOI: "] (:value currentDoi)]))
-               [:div
-                [:a
-                 {:onClick #(r/set-state this {:is-open (not is-open)})}
-                 [:div [:b (str (if is-open "Hide" "Show") " Terms & Conditions ")
-                        (if is-open [:span.glyphicon.glyphicon-collapse-up]
-                                    [:span.glyphicon.glyphicon-collapse-down])]]]
-                [bp3/collapse
-                 {:isOpen is-open}
-                 [:iframe {:width  "100%"
-                           :height "600px"
-                           :src    terms_pdf}]]
-                [CheckboxField
-                 {:path  agreed-to-terms-path
-                  :label [:span "I have read and agree to the terms and conditions."]}]
-                [:button.btn.btn-primary.btn-lg
-                 {:disabled (or has-errors? saving disabled submitted? (not (:value agreedToTerms)))
-                  :on-click handle-submit-click}
-                 (when saving
-                   [:img
-                    {:src (str (:STATIC_URL urls)
-                               "metcalf3/img/saving.gif")}])
-                 "Lodge data"]
-                " "
-
-                (if has-errors?
-                  [:span.text-danger [:b "Unable to lodge: "]
-                   "There " is-are " " [:span errors " error" plural
-                                        " which must be corrected first."]]
-                  [:span.text-success
-                   [:b
-                    (cond
-                      saving "Submitting..."
-                      (= (:status document) "Draft") "Ready to lodge"
-                      (= (:status document) "Submitted") "Your record has been submitted."
-                      :else (:status document))]])]
-
-               (let [download-props {:href     (str (:export_url document) "?download")
-                                     :on-click #(when dirty
-                                                  (.preventDefault %)
-                                                  (rf/dispatch [:handlers/open-modal
-                                                                {:type    :alert
-                                                                 :message "Please save changes before exporting."}]))}]
-                 [:div.user-export
-                  [:p [:strong "Want to keep a personal copy of your metadata record?"]]
-                  [:p
-                   [:a download-props "Click here"] " to generate an XML version of your metadata submission. "
-                   "The file generated includes all of the details you have provided under the
-                    tabs, but not files you have uploaded."]
-                  [:p
-                   "Please note: this XML file is not the recommended way to share your metadata.
-                    We want you to submit your data via 'lodging' the information.
-                    This permits multi-user access via the portal in a more friendly format."]])]))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
-
 (defn AddressField [address-path]
   (let [address @(rf/subscribe [:subs/get-derived-path address-path])
         {:keys [city postalCode administrativeArea country deliveryPoint deliveryPoint2]} address]
@@ -2013,22 +1471,6 @@
                                            (rf/dispatch [:handlers/update-method-name method-path option])))]
      [textarea-field {:path (into [] (concat path [:value :description]))}]]))
 
-(defn Methods
-  [{:keys [path]}]
-  (let [list-field @(rf/subscribe [:subs/get-derived-path path])]
-    [:div.SupplementalInformation
-     (label-template list-field)
-     [TableModalEdit
-      {:ths         ["Name" "Description"]
-       :tds-fn      (fn [field]
-                      (let [{:keys [name description]} (:value field)]
-                        (mapv (comp #(or % "--") :value) [name description])))
-       :form        MethodOrOtherForm
-       :title       "Method"
-       :placeholder ""
-       :add-label   "Add method"
-       :field-path  path}]]))
-
 (defn UseLimitationsFieldEdit [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :useLimitations])])
 
@@ -2056,25 +1498,6 @@
      :add-label   "Add publication"
      :field-path  path}]])
 
-(defn SupplementalInformation [path]
-  [:div
-   [:label "Any supplemental information such as file naming conventions"]
-   [TableModalEdit
-    {:form        SupplementalInformationRowEdit
-     :title       "Additional Detail"
-     :placeholder ""
-     :add-label   "Additional detail"
-     :field-path  path}]])
-
-(defn ResourceConstraints []
-  [:div.ResourceConstraints
-   [:p.help-block (str "Creative Commons - Attribution 4.0 International. The license allows others to copy,
-   distribute, display, and create derivative works provided that they
-   credit the original source and any other nominated parties.")]
-   [:p [:a {:href   "https://creativecommons.org/licenses/by/4.0/"
-            :target "_blank"}
-        "https://creativecommons.org/licenses/by/4.0/"]]])
-
 (defn SupportingResourceFieldEdit [path]
   [:div
    [InputField {:path (conj path :value :name)}]
@@ -2091,19 +1514,6 @@
      :title       "Add supporting resource"
      :placeholder ""
      :add-label   "Add supporting resource"
-     :field-path  path}]])
-
-(defn SupportingResource
-  [{:keys [path]}]
-  [:div
-   [:label "Any resources with hyperlinks (including Publications)"]
-   [TableModalEdit
-    {:ths         ["Title" "URL"]
-     :tds-fn      (comp (partial map (comp #(or % "--") :value)) (juxt :name :url) :value)
-     :form        SupportingResourceFieldEdit
-     :title       "Publication"
-     :placeholder ""
-     :add-label   "Add publication"
      :field-path  path}]])
 
 (defn DataSourceRowEdit [path]

@@ -78,7 +78,6 @@
 (rf/reg-fx :xhrio/get-json fx3/xhrio-get-json)
 (rf/reg-fx :xhrio/post-json fx3/xhrio-post-json)
 
-(rf/reg-sub :help/get-menuitems subs3/get-menuitems)
 (rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs3/get-progress-props)
 (rf/reg-sub :subs/get-dashboard-props subs3/get-dashboard-props)
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)

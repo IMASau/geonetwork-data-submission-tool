@@ -65,6 +65,13 @@
   (ui-utils/setupBlueprint))
 
 (defn get-geojson-data [o] (js->clj o :keywordize-keys true))
+(defn boxes->elements
+  [boxes]
+  (for [box boxes]
+    {:northBoundLatitude (get-in box ["northBoundLatitude"])
+     :southBoundLatitude (get-in box ["southBoundLatitude"])
+     :eastBoundLongitude (get-in box ["eastBoundLongitude"])
+     :westBoundLongitude (get-in box ["westBoundLongitude"])}))
 
 (def BoxMap (r/adapt-react-class BoxMap/BoxMap))
 (def DateField (r/adapt-react-class DateField/DateField))

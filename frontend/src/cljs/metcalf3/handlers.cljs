@@ -325,10 +325,6 @@
   [{:keys [db]} [_ id]]
   {:db (assoc-in db [:page :tab] id)})
 
-(defn load-errors
-  [{:keys [db]} [_ form-path data]]
-  {:db (update-in db form-path logic3/load-errors data)})
-
 (defn add-keyword-extra
   [{:keys [db]} [_ keywords-path value]]
   {:db (let [keywords (get-in db keywords-path)]
@@ -361,8 +357,9 @@
   [{:keys [db]} [_ data]]
   (if (= (:status data) 400)
     {:dispatch [:handlers/load-error-page data]}
-    {:db       (update-in db [:create_form] assoc :show-errors true)
-     :dispatch [:handlers/load-errors [:create_form] (:response data)]}))
+    (-> {:db db}
+        (update-in [:db :create_form] assoc :show-errors true)
+        (update-in [:db :create_form] logic3/load-errors (:response data)))))
 
 (defn dashboard-create-save
   [{:keys [db]} _]

@@ -51,7 +51,6 @@
 (rf/reg-event-fx :handlers/add-attachment handlers3/add-attachment)
 (rf/reg-event-fx :handlers/add-field! handlers3/add-field!)
 (rf/reg-event-fx :handlers/add-keyword-extra handlers3/add-keyword-extra)
-(rf/reg-event-fx :handlers/add-nodes handlers3/add-nodes)
 (rf/reg-event-fx ::views3/page-view-edit-archive-click-confirm handlers3/archive-current-document)
 (rf/reg-event-fx ::handlers3/-archive-current-document-success handlers3/-archive-current-document-success)
 (rf/reg-event-fx ::views3/clone-doc-confirm handlers3/clone-document)

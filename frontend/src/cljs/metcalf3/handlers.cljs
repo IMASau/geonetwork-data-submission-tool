@@ -321,10 +321,6 @@
   (let [keywords (get-in db keywords-path)]
     {:db (assoc-in db keywords-path (vec (remove #(= value (:value %)) keywords)))}))
 
-(defn add-nodes
-  [{:keys [db]} [_ api-path nodes]]
-  {:db (update-in db api-path update :options into nodes)})
-
 (defn dashboard-create-click
   [{:keys [db]} _]
   {:db (open-modal db {:type :DashboardCreateModal})})

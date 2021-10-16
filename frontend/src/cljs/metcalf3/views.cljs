@@ -1503,7 +1503,7 @@
           :modal-body   [NewDocumentForm]
           :on-dismiss   #(rf/dispatch [:handlers/close-modal])
           :on-cancel    #(rf/dispatch [:handlers/close-modal])
-          :on-save      #(rf/dispatch [:handlers/dashboard-create-save])}])
+          :on-save      #(rf/dispatch [::modal-dialog-dashboard-create-modal-save-click])}])
 
 (defn NewDocumentButton []
   [:button.btn.btn-primary {:on-click #(rf/dispatch [::open-modal {:type :DashboardCreateModal}])}

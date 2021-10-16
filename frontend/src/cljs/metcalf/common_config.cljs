@@ -63,7 +63,7 @@
 (rf/reg-event-fx :handlers/close-and-confirm handlers3/close-and-confirm)
 (rf/reg-event-fx :handlers/close-modal handlers3/close-modal)
 (rf/reg-event-fx :handlers/dashboard-create-click handlers3/dashboard-create-click)
-(rf/reg-event-fx :handlers/dashboard-create-save handlers3/dashboard-create-save)
+(rf/reg-event-fx ::views3/modal-dialog-dashboard-create-modal-save-click handlers3/dashboard-create-save)
 (rf/reg-event-fx :metcalf.imas.handlers/-init-db-load-api-options handlers3/load-api-options)
 (rf/reg-event-fx :metcalf4.components/lodge-button-click handlers3/lodge-click)
 

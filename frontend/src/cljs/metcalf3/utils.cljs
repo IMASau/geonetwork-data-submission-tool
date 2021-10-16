@@ -128,14 +128,6 @@
      :eastBoundLongitude {:value (s/assert number? (apply max lngs))}
      :westBoundLongitude {:value (s/assert number? (apply min lngs))}}))
 
-(defn boxes->elements
-  [boxes]
-  (for [box (:value boxes)]
-    {:northBoundLatitude (get-in box [:value :northBoundLatitude :value])
-     :southBoundLatitude (get-in box [:value :southBoundLatitude :value])
-     :eastBoundLongitude (get-in box [:value :eastBoundLongitude :value])
-     :westBoundLongitude (get-in box [:value :westBoundLongitude :value])}))
-
 (defn userDisplay
   [user]
   (if (and (string/blank? (:lastName user))

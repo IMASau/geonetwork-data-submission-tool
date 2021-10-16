@@ -23,7 +23,7 @@
             [metcalf3.logic :as logic]
             [metcalf3.utils :as utils]
             [metcalf3.widget.modal :refer [Modal]]
-            [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectAsyncCreatable VirtualizedSelect]]
+            [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectAsyncCreatable]]
             [metcalf3.widget.tree :refer [TermList TermTree]]
             [re-frame.core :as rf]
             [reagent.core :as r])
@@ -224,14 +224,6 @@
       [:label input-control label]]
      [:p.help-block help]]))
 
-(defn CheckboxField
-  [{:keys [path label]}]
-  (let [field @(rf/subscribe [:subs/get-derived-path path])]
-    [Checkbox (assoc field :checked (:value field)
-                           :on-blur #(rf/dispatch [:handlers/show-errors path])
-                           :on-change #(rf/dispatch [:handlers/set-value path (-> % .-target .-checked)])
-                           :label (or label (:label field)))]))
-
 (defn getter [k row] (get row k))
 
 (defn update-table-width [this]
@@ -243,11 +235,6 @@
   (let [rowData (take-while (complement empty?) rowData)]
     [:div.topic-cell
      [:div.topic-path (string/join " > " (drop-last (rest rowData)))]
-     [:div.topic-value (last rowData)]]))
-
-(defn TopicCategoryCell [rowData]
-  (let [rowData (take-while (complement empty?) rowData)]
-    [:div.topic-cell
      [:div.topic-value (last rowData)]]))
 
 (defn KeywordsThemeTable
@@ -325,11 +312,6 @@
       {:get-initial-state   init-state
        :component-did-mount did-mount
        :render              render})))
-
-(defn handle-highlight-new [this item]
-  (r/set-state this {:highlight (conj (:highlight (r/state this)) item)})
-  (go (<! (timeout 5000))
-      (r/set-state this {:highlight (disj (:highlight (r/state this)) item)})))
 
 (defn modal-dialog-table-modal-edit-form
   [_ _]
@@ -438,12 +420,6 @@
           {:on-click #(new! default-field)}
           [:span.glyphicon.glyphicon-plus] " " add-label])])))
 
-(defn theme-option-renderer
-  [props]
-  (let [rowData (gobj/get props "rowData")]
-    [:div
-     [KeywordsThemeCell rowData]]))
-
 (defn modal-dialog-theme-keywords
   [{:keys [keyword-type keywords-path]}]
   [Modal {:ok-copy      "Done"
@@ -456,26 +432,6 @@
                            :keywords-path keywords-path}]]
           :on-dismiss   #(rf/dispatch [:handlers/close-modal])
           :on-save      #(rf/dispatch [:handlers/close-modal])}])
-
-(defn ThemeInputField
-  [{:keys [value placeholder errors extra-help on-change on-blur on-submit maxlength] :as props}]
-  [:div.form-group {:class (utils/validation-state props)}
-   (label-template props)
-   [:div.input-group {:key "ig"}
-    [:input.form-control {:value       (or value "")
-                          :placeholder placeholder
-                          :errors      errors
-                          :maxLength   maxlength
-                          :on-key-down #(when (= (.-key %) "Enter")
-                                          (on-submit))
-                          :on-change   on-change
-                          :on-blur     on-blur
-                          :key         "ifc"}]
-    [:span.input-group-btn
-     [:button.btn.btn-primary {:disabled (string/blank? value)
-                               :on-click on-submit}
-      [:span.glyphicon.glyphicon-plus]]]]
-   [:p.help-block extra-help]])
 
 (defn CoordInputWidget
   [_]
@@ -520,21 +476,6 @@
          (assoc
            :on-change (fn [value]
                         (rf/dispatch [:handlers/value-changed (:path props) value]))))]))
-
-(defn CoordField [path]
-  (let [n-field [CoordInputField {:path (conj path :value :northBoundLatitude)}]
-        e-field [CoordInputField {:path (conj path :value :eastBoundLongitude)}]
-        s-field [CoordInputField {:path (conj path :value :southBoundLatitude)}]
-        w-field [CoordInputField {:path (conj path :value :westBoundLongitude)}]]
-    [:div.CoordField
-     [:div.row [:div.col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-2
-                [:div.n-block n-field]]]
-     [:div.row
-      [:div.col-sm-6.col-lg-4 [:div.w-block w-field]]
-      [:div.col-sm-6.col-lg-4 [:div.e-block e-field]]]
-     [:div.row
-      [:div.col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-2
-       [:div.s-block s-field]]]]))
 
 (defprotocol IPrintNice
   (print-nice [x]))
@@ -1022,10 +963,6 @@
       {:get-initial-state init-state
        :render            render})))
 
-(defn handle-submit-click
-  []
-  (rf/dispatch [:handlers/lodge-click]))
-
 (defn AddressField [address-path]
   (let [address @(rf/subscribe [:subs/get-derived-path address-path])
         {:keys [city postalCode administrativeArea country deliveryPoint deliveryPoint2]} address]
@@ -1456,20 +1393,6 @@
     (r/create-class
       {:get-initial-state init-state
        :render            render})))
-
-(defn MethodOrOtherForm
-  "docstring"
-  [path]
-  (let [method-path (conj path :value)
-        {:keys [name]} @(rf/subscribe [:subs/get-derived-path method-path])]
-    [:div
-     ;TODO: put this back once method vocab exists
-     ;[:p "Select a method from the list"]
-     ;[MethodListField props]
-     ;[:p "Or define your own method"]
-     [InputWidget (assoc name :on-change (fn [option]
-                                           (rf/dispatch [:handlers/update-method-name method-path option])))]
-     [textarea-field {:path (into [] (concat path [:value :description]))}]]))
 
 (defn UseLimitationsFieldEdit [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :useLimitations])])

@@ -1,5 +1,5 @@
 (ns metcalf3.handlers
-  (:require [cljs.core.async :refer [put!]]
+  (:require [cljs.core.async :refer []]
             [cljs.spec.alpha :as s]
             [clojure.string :as str]
             [clojure.walk :as walk]

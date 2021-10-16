@@ -322,18 +322,6 @@
   [state]
   (blocks/postwalk rules/apply-rules state))
 
-(defn end-position-rule
-  "End position is required if the status is ongoing"
-  [identificationInfo]
-  (let [value (get-in identificationInfo [:status :value])]
-    (if (contains? #{"onGoing" "planned"} value)
-      (update-in identificationInfo [:endPosition] assoc :required false :disabled true :value nil)
-      (update-in identificationInfo [:endPosition] assoc :required true :disabled false))))
-
-(defn value->date [x]
-  (when-not (string/blank? x)
-    (js/Date. x)))
-
 (defn author-role-logic
   "
   At least one of the contacts has to be an author. Generate an error if none are.
@@ -367,16 +355,6 @@
   [state]
   (update-in state [:form :fields :dataSources :value]
              #(mapv data-service-logic-helper %)))
-
-(defn license-other-rule
-  [identificationInfo]
-  (s/assert :creativeCommons identificationInfo)
-  (s/assert :otherConstraints identificationInfo)
-  (let [license-value (get-in identificationInfo [:creativeCommons :value])
-        other? (= license-value "http://creativecommons.org/licenses/other")]
-    (if other?
-      (update-in identificationInfo [:otherConstraints] merge {:is-hidden false :disabled false :required true})
-      (update-in identificationInfo [:otherConstraints] merge {:is-hidden true :disabled true :required false}))))
 
 (defn calculate-progress [state form-path]
   (assoc state :progress (progress-score (get-in state form-path))))

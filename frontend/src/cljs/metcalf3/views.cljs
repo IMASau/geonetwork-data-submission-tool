@@ -1603,7 +1603,7 @@
                            [:input {:type      "checkbox"
                                     :disabled  (not freq)
                                     :checked   (contains? relevant-status-filter sid)
-                                    :on-change #(rf/dispatch [:handlers/toggle-status-filter sid status-filter])}]
+                                    :on-change #(rf/dispatch [::dashboard-toggle-status-filter sid status-filter])}]
                            " " sname
                            (when freq [:span.freq " (" freq ")"])]]))))]]]]))
 

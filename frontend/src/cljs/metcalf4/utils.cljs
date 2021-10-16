@@ -41,11 +41,6 @@
   (not= ::not-found (get-in m ks ::not-found)))
 
 
-(defn contains-every?
-  [m keyseqs]
-  (not-any? #{::not-found} (for [ks keyseqs] (get-in m ks ::not-found))))
-
-
 (def as-path (comp vec flatten))
 
 
@@ -66,12 +61,6 @@
   (if (contains? m k)
     (update m k xform)
     m))
-
-
-(defn get-ctx
-  [{:keys [form-id data-path]}]
-  (when (and form-id data-path)
-    {:form-id form-id :data-path (massage-data-path data-path)}))
 
 
 (defn get-csrf
@@ -117,8 +106,3 @@
      "southBoundLatitude" (s/assert number? (apply min lats))
      "eastBoundLongitude" (s/assert number? (apply max lngs))
      "westBoundLongitude" (s/assert number? (apply min lngs))}))
-
-
-(defn schema-object-with-keys
-  [ks]
-  {:type "object" :properties (zipmap (map name ks) (repeat {}))})

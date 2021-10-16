@@ -170,25 +170,6 @@
              (update-in path assoc-in [:prefLabel :value] prefLabel)
              (update-in path assoc-in [:uri :value] uri))}))
 
-(defn update-boxes
-  [{:keys [db]} [_ boxes-path geojson]]
-  (s/assert map? geojson)
-  (let [geometries (mapv :geometry (:features geojson))
-        boxes (mapv utils/geometry->box-value geometries)
-        boxes-value-path (conj boxes-path :value)
-        box-values (mapv (fn [box] {:value box}) boxes)
-        db (assoc-in db boxes-value-path box-values)]
-    {:db db}))
-
-(defn update-method-term
-  [{:keys [db]} [_ method-path option]]
-  (let [option (if (map? option) option (utils/js-lookup option))
-        {:keys [term vocabularyTermURL termDefinition]} option]
-    {:db (-> db
-             (update-in method-path assoc-in [:name :value] term)
-             (update-in method-path assoc-in [:uri :value] vocabularyTermURL)
-             (update-in method-path assoc-in [:description :value] termDefinition))}))
-
 (defn update-person
   [{:keys [db]} [_ person-path option]]
   (let [option (if (map? option) option (utils/js-lookup option))

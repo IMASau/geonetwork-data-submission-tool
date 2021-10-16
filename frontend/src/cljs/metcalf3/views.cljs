@@ -1570,9 +1570,9 @@
           " by " (:username (:owner doc))]
          "Has not been edited yet")]]]))
 
-(defn PageViewDashboard
+(defn dashboard
   [_]
-  (let [{:keys [filtered-docs status-filter has-documents? status-freq status relevant-status-filter]} @(rf/subscribe [:subs/get-dashboard-props])]
+  (let [{:keys [filtered-docs status-filter has-documents? status-freq status relevant-status-filter]} @(rf/subscribe [::get-dashboard-props])]
     [:div
      [navbar]
      [:div.container
@@ -1684,5 +1684,5 @@
          "404" [PageView404 nil]
          "Error" [PageViewError nil]
          "Edit" [PageViewEdit nil]
-         "Dashboard" [PageViewDashboard nil]
+         "Dashboard" [dashboard nil]
          nil))]))

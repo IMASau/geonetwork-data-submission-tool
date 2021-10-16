@@ -80,7 +80,7 @@
 (rf/reg-fx :xhrio/post-json fx3/xhrio-post-json)
 
 (rf/reg-sub ::views3/get-progress-bar-props :<- [:subs/get-derived-state] subs3/get-progress-props)
-(rf/reg-sub :subs/get-dashboard-props subs3/get-dashboard-props)
+(rf/reg-sub ::views3/get-dashboard-props subs3/get-dashboard-props)
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
 (rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
 (rf/reg-sub :subs/get-form-tick subs3/get-form-tick)

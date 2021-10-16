@@ -82,14 +82,6 @@
   [db _]
   (get db :form/tick 0))
 
-(defn get-menuitems
-  [db _]
-  (let [{:keys [guide_pdf roadmap_pdf releasenotes_url]} (get-in db [:context :site])]
-    (seq (cond-> []
-           guide_pdf (conj ["Guide" [:help-menu/open guide_pdf]])
-           roadmap_pdf (conj ["Roadmap" [:help-menu/open roadmap_pdf]])
-           releasenotes_url (conj ["Release Notes" [:help-menu/open releasenotes_url]])))))
-
 (defn platform-selected?
   [db [_ form-position]]
   (get-in (get (get-in db [:form :fields :identificationInfo :dataParameters :value]) form-position) [:value :platform_vocabularyTermURL :value]))

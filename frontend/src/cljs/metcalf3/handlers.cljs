@@ -265,11 +265,6 @@
   [{:keys [db]} [_ id]]
   {:db (assoc-in db [:page :tab] id)})
 
-(defn del-keyword-extra
-  [{:keys [db]} [_ keywords-path value]]
-  (let [keywords (get-in db keywords-path)]
-    {:db (assoc-in db keywords-path (vec (remove #(= value (:value %)) keywords)))}))
-
 (defn dashboard-create-click
   [{:keys [db]} _]
   {:db (open-modal db {:type :DashboardCreateModal})})

@@ -67,7 +67,7 @@
 (rf/reg-event-fx :handlers/update-method-term handlers3/update-method-term)
 (rf/reg-event-fx :handlers/update-nasa-list-value handlers3/update-nasa-list-value)
 (rf/reg-event-fx :handlers/update-person handlers3/update-person)
-(rf/reg-event-fx :handlers/value-changed handlers3/value-changed)
+(rf/reg-event-fx ::views3/value-changed handlers3/value-changed)
 
 (rf/reg-fx :fx/archive-current-document fx3/archive-current-document)
 (rf/reg-fx :fx/clone-document fx3/clone-document)

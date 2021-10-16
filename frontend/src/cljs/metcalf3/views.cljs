@@ -150,7 +150,7 @@
     [InputWidget (-> field
                      (merge (dissoc props :path))
                      (assoc
-                       :on-change #(rf/dispatch [:handlers/value-changed path %])))]))
+                       :on-change #(rf/dispatch [::value-changed path %])))]))
 
 ; TODO: Consider date-field-with-label
 (defn OptionWidget [props]
@@ -188,7 +188,7 @@
                     :disabled (or disabled (empty? options))
                     :default-option (if-not (empty? options) default-option "")
                     :on-blur #(rf/dispatch [:handlers/show-errors path])
-                    :on-change #(rf/dispatch [:handlers/value-changed path %]))]))
+                    :on-change #(rf/dispatch [::value-changed path %]))]))
 
 (defn textarea-widget
   [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder]}]
@@ -913,27 +913,27 @@
         {:keys [city postalCode administrativeArea country deliveryPoint deliveryPoint2]} address]
     [:div.AddressField
      [InputWidget (assoc deliveryPoint
-                    :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :deliveryPoint) %]))]
+                    :on-change #(rf/dispatch [::value-changed (conj address-path :deliveryPoint) %]))]
      [InputWidget (assoc deliveryPoint2
-                    :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :deliveryPoint2) %]))]
+                    :on-change #(rf/dispatch [::value-changed (conj address-path :deliveryPoint2) %]))]
      [:div.row
       [:div.col-xs-6
        [InputWidget (assoc city
                       :help "City"
-                      :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :city) %]))]]
+                      :on-change #(rf/dispatch [::value-changed (conj address-path :city) %]))]]
       [:div.col-xs-6
        [InputWidget (assoc administrativeArea
                       :help "State/territory"
-                      :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :administrativeArea) %]))]]]
+                      :on-change #(rf/dispatch [::value-changed (conj address-path :administrativeArea) %]))]]]
      [:div.row
       [:div.col-xs-6
        [InputWidget (assoc postalCode
                       :help "Postal / Zip code"
-                      :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :postalCode) %]))]]
+                      :on-change #(rf/dispatch [::value-changed (conj address-path :postalCode) %]))]]
       [:div.col-xs-6
        [InputWidget (assoc country
                       :help "Country"
-                      :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :country) %]))]]]]))
+                      :on-change #(rf/dispatch [::value-changed (conj address-path :country) %]))]]]]))
 
 (defn OrganisationPickerWidget
   [props]
@@ -1047,7 +1047,7 @@
                     :options (for [option options
                                    :let [Identifier (gobj/get option "Identifier")]]
                                [Identifier (cuerdas/human Identifier)])
-                    :on-change #(rf/dispatch [:handlers/value-changed role-path %]))]))
+                    :on-change #(rf/dispatch [::value-changed role-path %]))]))
 
 (defn PersonInputField
   "Input field for people which offers autocompletion of known
@@ -1117,10 +1117,10 @@
                            :on-change #(rf/dispatch [:handlers/person-detail-changed party-value-path :familyName % isUserAdded]))]]]
 
       [InputWidget (assoc electronicMailAddress
-                     :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :electronicMailAddress) %]))]
+                     :on-change #(rf/dispatch [::value-changed (conj party-value-path :electronicMailAddress) %]))]
 
       [InputWidget (assoc orcid
-                     :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :orcid) %])
+                     :on-change #(rf/dispatch [::value-changed (conj party-value-path :orcid) %])
                      :mask orcid-mask)]
 
       [:label "Organisation" (when (:required organisationName) " *")]
@@ -1132,10 +1132,10 @@
       [:div.ContactDetails
 
        [InputWidget (assoc phone
-                      :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :phone) %]))]
+                      :on-change #(rf/dispatch [::value-changed (conj party-value-path :phone) %]))]
 
        [InputWidget (assoc facsimile
-                      :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :facsimile) %]))]
+                      :on-change #(rf/dispatch [::value-changed (conj party-value-path :facsimile) %]))]
 
        ]]]))
 

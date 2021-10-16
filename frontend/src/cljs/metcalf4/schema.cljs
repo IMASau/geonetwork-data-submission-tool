@@ -103,10 +103,6 @@
     {:schema schema :data data :path []}))
 
 
-(defn schema-value-type?
-  [schema]
-  ((complement #{"array" "object"}) (:type schema)))
-
 (defn compatible-schema-type?
   [{:keys [schema1 schema2]}]
   (or (nil? (:type schema1))

@@ -26,16 +26,6 @@
   (js/console.error msg (console-value data)))
 
 
-(defn console-warning
-  [msg data]
-  (js/console.warn msg (console-value data)))
-
-
-(defn update-keys
-  [m f]
-  (zipmap (map f (keys m)) (vals m)))
-
-
 (defn contains-path?
   [m ks]
   (not= ::not-found (get-in m ks ::not-found)))

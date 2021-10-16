@@ -3,7 +3,8 @@
             [metcalf4.actions :as actions]
             [metcalf4.schema :as schema]
             [metcalf4.utils :as utils4]
-            [metcalf4.rules :as rules]))
+            [metcalf4.rules :as rules]
+            [metcalf3.fx :as fx3]))
 
 
 (defn db-path
@@ -210,7 +211,8 @@
         state1 (blocks/postwalk rules/apply-rules state0)
         data (blocks/as-data state1)]
     {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
-     :fx/save-current-document
+     ; TODO: put logic in handler, use generic js/fetch fx
+     ::fx3/save-current-document
          {:url       url
           :data      data
           :success-v [::-save-current-document-success data]

@@ -3,15 +3,17 @@
             [goog.object :as gobj]
             [metcalf3.utils :as utils3]
             [metcalf4.schema :as schema]
-            [metcalf4.utils :as utils4]))
+            [metcalf4.utils :as utils4]
+            [metcalf3.fx :as fx3]))
 
 (defn load-api-action
   [s api-id api-uri]
   (-> s
       (assoc-in [:db :api api-id :uri] api-uri)
       (assoc-in [:db :api api-id :options] nil)
+      ; TODO: use js/fetch
       (update :fx conj
-              [:xhrio/get-json {:uri api-uri :resp-v [::-load-api api-id]}])))
+              [::fx3/xhrio-get-json {:uri api-uri :resp-v [::-load-api api-id]}])))
 
 (defn -load-api-action
   [s api-id json]

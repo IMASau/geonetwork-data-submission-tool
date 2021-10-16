@@ -4,6 +4,7 @@
             [clojure.string :as str]
             [clojure.walk :as walk]
             [goog.object :as gobj]
+            [metcalf3.fx :as fx3]
             [interop.moment :as moment]
             [metcalf3.logic :as logic3]
             [metcalf3.utils :as utils]
@@ -22,7 +23,7 @@
   [{:keys [db]} [_ api-path]]
   (let [{:keys [uri options]} (get-in db api-path)]
     (when (nil? options)
-      {:xhrio/get-json {:uri uri :resp-v [::-load-api-options api-path]}})))
+      {::fx3/xhrio-get-json {:uri uri :resp-v [::-load-api-options api-path]}})))
 
 (defn -load-api-options
   [{:keys [db]} [_ api-path json]]
@@ -37,8 +38,8 @@
 (defn load-es-options
   [{:keys [db]} [_ api-path query]]
   (let [{:keys [uri]} (get-in db api-path)]
-    {:xhrio/post-json {:uri uri :data (build-es-query query) :resp-v [::-load-es-options api-path query]}
-     :db              (update-in db api-path assoc :most-recent-query query)}))
+    {:fx [[::fx3/xhrio-post-json {:uri uri :data (build-es-query query) :resp-v [::-load-es-options api-path query]}]]
+     :db (update-in db api-path assoc :most-recent-query query)}))
 
 (defn -load-es-options
   [{:keys [db]} [_ api-path query json]]
@@ -119,14 +120,14 @@
   [{:keys [db]} _]
   (let [transition_url (-> db :context :document :transition_url)
         success_url (-> db :context :urls :Dashboard)]
-    {:fx/archive-current-document
+    {::fx3/archive-current-document
      {:url       transition_url
       :success-v [::-archive-current-document-success success_url]
       :error-v   [::open-modal {:type :alert :message "Unable to delete"}]}}))
 
 (defn -archive-current-document-success
   [_ [_ url]]
-  {:fx/set-location-href url})
+  {::fx3/set-location-href url})
 
 (defn ror
   "Reverse OR: use it to update source value only if destination value is not falsey."
@@ -324,7 +325,7 @@
       (update-in [:db :create_form] logic3/reset-form)
       (update-in [:db :create_form] assoc :show-errors false)
       (update-in [:db :alert] pop)
-      (update :fx conj [:fx/set-location-href (-> data :document :url)])))
+      (update :fx conj [::fx3/set-location-href (-> data :document :url)])))
 
 (defn -dashboard-create-save-error
   [{:keys [db]} [_ data]]
@@ -343,21 +344,23 @@
   (let [{:keys [url] :as form} (get-in db [:create_form])
         form (logic3/validate-required-fields form)]
     (if (logic3/is-valid? form)
-      {:fx/create-document {:url       url
-                            :params    (logic3/extract-data form)
-                            :success-v [::-dashboard-create-save-success]
-                            :error-v   [::-dashboard-create-save-error]}}
+      {::fx3/create-document
+       {:url       url
+        :params    (logic3/extract-data form)
+        :success-v [::-dashboard-create-save-success]
+        :error-v   [::-dashboard-create-save-error]}}
       {:db (update-in db [:create_form] assoc :show-errors true)})))
 
 (defn clone-document
   [_ [_ url]]
-  {:fx/clone-document {:url       url
-                       :success-v [::-clone-document-success]
-                       :error-v   [::-clone-document-error]}})
+  {::fx3/clone-document
+   {:url       url
+    :success-v [::-clone-document-success]
+    :error-v   [::-clone-document-error]}})
 
 (defn -clone-document-success
   [_ [_ data]]
-  {:fx/set-location-href (get-in data [:document :url])})
+  {::fx3/set-location-href (get-in data [:document :url])})
 
 (defn -clone-document-error
   [_ _]
@@ -375,7 +378,7 @@
 
 (defn -transite-doc-click-confirm
   [_ [_ url transition]]
-  {:fx/transition-current-document
+  {::fx3/transition-current-document
    {:url        url
     :transition transition
     :success-v  [::-transite-doc-confirm-success transition]
@@ -405,7 +408,7 @@
   (let [url (get-in db [:form :url])
         data (-> db :form :fields logic3/extract-field-values)]
     {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
-     :fx/save-current-document
+     ::fx3/save-current-document
          {:url       url
           :data      data
           :success-v [::-lodge-click-success data]
@@ -417,7 +420,7 @@
     {:db (-> db
              (assoc-in [:form :data] data)
              (assoc-in [:page :metcalf3.handlers/saving?] true))
-     :fx/submit-current-document
+     ::fx3/submit-current-document
          {:url       url
           :success-v [::-lodge-save-success]
           :error-v   [::-lodge-save-error]}}))
@@ -439,4 +442,4 @@
 
 (defn help-menu-open
   [_ [_ url]]
-  {:window/open {:url url :windowName "_blank"}})
+  {::fx3/window-open {:url url :windowName "_blank"}})

@@ -368,11 +368,11 @@
    :fx/set-location-href (-> data :document :url)})
 
 (defn create-document-error
-  [_ [_ data]]
+  [{:keys [db]} [_ data]]
   (if (= (:status data) 400)
     {:dispatch [:handlers/load-error-page data]}
-    {:dispatch-n [[:handlers/load-errors [:create_form] (:response data)]
-                  [:handlers/show-errors [:create_form]]]}))
+    {:db       (update-in db [:create_form] assoc :show-errors true)
+     :dispatch [:handlers/load-errors [:create_form] (:response data)]}))
 
 (defn dashboard-create-save
   [{:keys [db]} _]
@@ -383,7 +383,7 @@
                             :params    (logic3/extract-data form)
                             :success-v [:handlers/create-document-success]
                             :error-v   [:handlers/create-document-error]}}
-      {:dispatch [:handlers/show-errors [:create_form]]})))
+      {:db (update-in db [:create_form] assoc :show-errors true)})))
 
 (defn clone-document
   [_ [_ url]]

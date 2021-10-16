@@ -1111,10 +1111,10 @@
       [:div.row
        [:div.col-md-6
         [NameInputWidget (assoc givenName
-                           :on-change #(rf/dispatch [:handlers/person-detail-changed party-value-path :givenName % isUserAdded]))]]
+                           :on-change #(rf/dispatch [::responsible-party-field-given-name-changed party-value-path :givenName % isUserAdded]))]]
        [:div.col-md-6
         [NameInputWidget (assoc familyName
-                           :on-change #(rf/dispatch [:handlers/person-detail-changed party-value-path :familyName % isUserAdded]))]]]
+                           :on-change #(rf/dispatch [::responsible-party-field-family-name-changed party-value-path :familyName % isUserAdded]))]]]
 
       [InputWidget (assoc electronicMailAddress
                      :on-change #(rf/dispatch [::value-changed (conj party-value-path :electronicMailAddress) %]))]

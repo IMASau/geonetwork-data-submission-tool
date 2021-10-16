@@ -1,6 +1,7 @@
 (ns metcalf.common-config
   (:require [re-frame.core :as rf]
-            [metcalf3.handlers :as handlers3]))
+            [metcalf3.handlers :as handlers3]
+            [metcalf3.fx :as fx3]))
 
 ;Temporary namespace to ease refactoring
 
@@ -64,3 +65,14 @@
 (rf/reg-event-fx :handlers/update-nasa-list-value handlers3/update-nasa-list-value)
 (rf/reg-event-fx :handlers/update-person handlers3/update-person)
 (rf/reg-event-fx :handlers/value-changed handlers3/value-changed)
+
+(rf/reg-fx :fx/archive-current-document fx3/archive-current-document)
+(rf/reg-fx :fx/clone-document fx3/clone-document)
+(rf/reg-fx :fx/create-document fx3/create-document)
+(rf/reg-fx :fx/save-current-document fx3/save-current-document)
+(rf/reg-fx :fx/set-location-href fx3/set-location-href)
+(rf/reg-fx :fx/submit-current-document fx3/submit-current-document)
+(rf/reg-fx :fx/transition-current-document fx3/transition-current-document)
+(rf/reg-fx :window/open fx3/window-open)
+(rf/reg-fx :xhrio/get-json fx3/xhrio-get-json)
+(rf/reg-fx :xhrio/post-json fx3/xhrio-post-json)

@@ -28,7 +28,7 @@
 (rf/reg-event-fx :handlers/dashboard-create-click handlers3/dashboard-create-click)
 (rf/reg-event-fx :handlers/dashboard-create-save handlers3/dashboard-create-save)
 (rf/reg-event-fx :handlers/del-keyword-extra handlers3/del-keyword-extra)
-(rf/reg-event-fx :handlers/del-value handlers3/del-value)
+(rf/reg-event-fx ::views3/del-value handlers3/del-value)
 (rf/reg-event-fx ::views3/document-teaser-delete-archived-click (handlers3/transite-doc-click "delete_archived"))
 (rf/reg-event-fx ::views3/page-errors-hide-click handlers3/hide-errors)
 (rf/reg-event-fx :metcalf.imas.handlers/-init-db-load-api-options handlers3/load-api-options)

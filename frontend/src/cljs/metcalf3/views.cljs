@@ -287,7 +287,7 @@
                                          (r/as-element [Cell [Checkbox {:checked   (contains? uuids uuid)
                                                                         :on-change (fn [_]
                                                                                      (if (contains? uuids uuid)
-                                                                                       (rf/dispatch [:handlers/del-value keywords-path (uuids uuid)])
+                                                                                       (rf/dispatch [::del-value keywords-path (uuids uuid)])
                                                                                        (rf/dispatch [:handlers/add-value! keywords-path uuid])))}]])))
                      :width          (get columnWidths 0)
                      :isResizable    true}]
@@ -314,7 +314,7 @@
   (let [many-field-path (drop-last 2 path)]
 
     (letfn [(handle-delete-confirm []
-              (rf/dispatch [:handlers/del-value many-field-path (last path)])
+              (rf/dispatch [::del-value many-field-path (last path)])
               (rf/dispatch [:handlers/close-modal]))
 
             (handle-delete-click [e]
@@ -341,7 +341,7 @@
 (defn modal-dialog-table-modal-add-form
   [{:keys [form path title]}]
   (let [many-field-path (drop-last 2 path)
-        handle-cancel (fn [] (rf/dispatch [:handlers/del-value many-field-path (last path)])
+        handle-cancel (fn [] (rf/dispatch [::del-value many-field-path (last path)])
                         (rf/dispatch [:handlers/close-modal]))]
     [Modal {:ok-copy      "Done"
             :modal-header [:span [:span.glyphicon.glyphicon-list] " Add " title]
@@ -865,7 +865,7 @@
                 {:type       :confirm
                  :title      "Delete?"
                  :message    "Are you sure you want to delete this file?"
-                 :on-confirm #(rf/dispatch [:handlers/del-value attachments-path attachment-idx])}]))
+                 :on-confirm #(rf/dispatch [::del-value attachments-path attachment-idx])}]))
 
 (defn UploadData
   [_]

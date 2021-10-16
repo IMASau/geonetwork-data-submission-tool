@@ -106,10 +106,11 @@
         boxes (map (fn [m] (assoc-in m added-path true)) boxes)
         schema (get-in db (flatten [form-id :schema (schema/schema-path data-path)]))
         state (blocks/as-blocks {:schema schema :data boxes})
-        path (db-path config)]
-    {:db (-> db
-             (assoc-in path state)
-             (assoc-in (conj path :props :show-errors) true))}))
+        db-path (utils4/as-path [:form-id :state (blocks/block-path data-path)])]
+    (-> {:db db}
+        (assoc-in db-path state)
+        (assoc-in (conj db-path :props :show-errors) true)
+        (actions/genkey-action form-id data-path))))
 
 (defn list-option-picker-change
   [{:keys [db]} [_ ctx option]]

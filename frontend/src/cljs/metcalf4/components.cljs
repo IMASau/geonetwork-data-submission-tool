@@ -917,12 +917,12 @@
   (let [props @(rf/subscribe [::get-block-props config])
         data @(rf/subscribe [::get-block-data config])
         elements (ui/boxes->elements data)
-        {:keys [disabled is-hidden]} props]
+        {:keys [disabled is-hidden key]} props]
     (when-not is-hidden
       [ui/BoxMap
        {:elements elements
         :disabled (not disabled)
-        :tickId   @(rf/subscribe [:subs/get-form-tick])
+        :tickId   key
         :onChange #(rf/dispatch [::boxes-changed config (ui/get-geojson-data %)])}])))
 
 (defn coordinates-modal-field-settings [_]

@@ -369,10 +369,12 @@
         {:keys [email]} site]
     [:a {:href (str "mailto:" email)} email]))
 
-(defn simple-select-option-settings [_]
-  {::low-code/req-ks [:form-id :data-path :options :value-path :label-path]
-   ::low-code/opt-ks [:placeholder :added-path]
-   ::low-code/schema {:type "object" :properties {}}})
+(defn simple-select-option-settings
+  [{:keys [value-path label-path added-path]}]
+  {::low-code/req-ks       [:form-id :data-path :options :value-path :label-path]
+   ::low-code/opt-ks       [:placeholder :added-path]
+   ::low-code/schema       {:type "object" :properties {}}
+   ::low-code/schema-paths [value-path label-path added-path]})
 
 (defn simple-select-option
   [config]
@@ -392,10 +394,13 @@
         :hasError    hasError
         :onChange    #(rf/dispatch [::option-change config (ui/get-option-data %)])}])))
 
-(defn table-select-option-settings [_]
-  {::low-code/req-ks [:form-id :data-path :options :label-path :value-path :columns]
-   ::low-code/opt-ks [:placeholder :added-path]
-   ::low-code/schema {:type "object" :properties {}}})
+(defn table-select-option-settings
+  [{:keys [label-path value-path added-path columns]}]
+  {::low-code/req-ks       [:form-id :data-path :options :label-path :value-path :columns]
+   ::low-code/opt-ks       [:placeholder :added-path]
+   ::low-code/schema       {:type "object" :properties {}}
+   ::low-code/schema-paths (into [label-path value-path added-path]
+                                 (map :label-path columns))})
 
 (defn table-select-option
   [config]
@@ -418,10 +423,12 @@
                         :getLabel (ui/get-obj-path label-path)})
         :onChange    #(rf/dispatch [::option-change config (ui/get-option-data %)])}])))
 
-(defn breadcrumb-select-option-settings [_]
-  {::low-code/req-ks [:form-id :data-path :options :label-path :value-path :breadcrumb-path]
-   ::low-code/opt-ks [:placeholder :added-path]
-   ::low-code/schema {:type "object" :properties {}}})
+(defn breadcrumb-select-option-settings
+  [{:keys [label-path value-path breadcrumb-path added-path]}]
+  {::low-code/req-ks       [:form-id :data-path :options :label-path :value-path :breadcrumb-path]
+   ::low-code/opt-ks       [:placeholder :added-path]
+   ::low-code/schema       {:type "object" :properties {}}
+   ::low-code/schema-paths [label-path value-path added-path breadcrumb-path]})
 
 (defn breadcrumb-select-option
   [config]

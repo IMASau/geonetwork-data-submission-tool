@@ -170,7 +170,6 @@
   [config & children]
   (let [{:keys [pred is-hidden]} @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])]
-    (assert (contains? (s/registry) pred) (str "No spec defined for " (pr-str pred)))
     (when-not is-hidden
       (when (s/valid? pred value)
         (into [:div] children)))))

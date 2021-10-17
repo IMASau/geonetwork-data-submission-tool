@@ -692,6 +692,36 @@
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
 
+(defn selection-list-settings
+  [{:keys [value-path added-path]}]
+  {::low-code/req-ks       [:form-id :data-path :value-path :template-id]
+   ::low-code/opt-ks       [:added-path]
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths [value-path added-path]})
+
+(defn selection-list
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        items @(rf/subscribe [::get-block-data config])
+        {:keys [form-id data-path key disabled is-hidden template-id value-path added-path]} props]
+    (when-not is-hidden
+      [ui/SelectionList
+       {:key           key
+        :items         (or items [])
+        :disabled      disabled
+        :renderItem    (fn [args]
+                         (let [index (ui/get-obj-path args ["index"])]
+                           (r/as-element
+                             (low-code/render-template
+                               {:template-id template-id
+                                :variables   {'?form-id   form-id
+                                              '?data-path (conj data-path index)}}))))
+        :getValue      (ui/get-obj-path value-path)
+        :getAdded      (when added-path (ui/get-obj-path added-path))
+        :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+        :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+        :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
+
 (defn party-selection-list-settings
   [{:keys [label-path value-path added-path]}]
   {::low-code/req-ks       [:form-id :data-path :label-path :value-path]

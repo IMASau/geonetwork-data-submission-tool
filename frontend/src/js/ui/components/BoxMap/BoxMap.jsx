@@ -157,5 +157,5 @@ BoxMap.propTypes = {
         eastBoundLongitude: PropTypes.number.isRequired,
     })),
     onChange: PropTypes.func.isRequired,
-    tickId: PropTypes.number,
+    tickId: PropTypes.string,
 };

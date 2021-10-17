@@ -80,6 +80,7 @@
        'm4/item-edit-dialog              {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
        'm4/list-add-button               {:view components4/list-add-button :init components4/list-add-button-settings}
        'm4/list-edit-dialog              {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
+       'm4/typed-list-edit-dialog        {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
        'm4/numeric-input-field           {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
        'm4/page-errors                   {:view components4/page-errors :init components4/page-errors-settings}
        'm4/select-option                 {:view components4/select-option :init components4/select-option-settings}

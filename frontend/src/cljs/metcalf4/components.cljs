@@ -118,9 +118,12 @@
         :variables   {'?form-id   form-id
                       '?data-path item-data-path}})]))
 
-(defn typed-list-edit-dialog-settings [_]
-  {::low-code/req-ks [:form-id :data-path :type-path :templates]
-   ::low-code/opt-ks []})
+(defn typed-list-edit-dialog-settings
+  [{:keys [data-path type-path]}]
+  {::low-code/req-ks       [:form-id :data-path :type-path :templates]
+   ::low-code/opt-ks       []
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths [data-path type-path]})
 
 (defn typed-list-edit-dialog
   "Popup dialog if item is selected.  Use type to decide which template to use."

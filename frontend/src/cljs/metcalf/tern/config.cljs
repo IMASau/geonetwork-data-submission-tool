@@ -90,7 +90,6 @@
        'm4/simple-list-option-picker     {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
        'm4/selection-list                {:view components4/selection-list :init components4/selection-list-settings}
        'm4/simple-selection-list         {:view components4/simple-selection-list :init components4/simple-selection-list-settings}
-       'm4/party-selection-list          {:view components4/party-selection-list :init components4/party-selection-list-settings}
        'm4/table-list-option-picker      {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
        'm4/table-selection-list          {:view components4/table-selection-list :init components4/table-selection-list-settings}
        'm4/textarea-field                {:view components4/textarea-field :init components4/textarea-field-settings}

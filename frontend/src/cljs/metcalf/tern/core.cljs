@@ -10,7 +10,7 @@
 (when-not ^boolean js/goog.DEBUG
   (set! (.-onbeforeunload js/window)
         (fn []
-          (when @(rf/subscribe [:subs/get-form-dirty [:form]])
+          (when @(rf/subscribe [:subs/get-form-dirty])
             "This will navigate away from the Data Submission Tool and all unsaved work will be lost. Are you sure you want to do this?"))))
 
 (when-let [ele (.getElementById js/document "Content")]

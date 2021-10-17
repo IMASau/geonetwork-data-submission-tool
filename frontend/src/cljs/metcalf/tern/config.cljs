@@ -856,27 +856,45 @@
         [:div
 
 
-         ;[m4/expanding-control {:label "Responsible for the creation of dataset" :required true}]
+         [m4/expanding-control {:label "Responsible for the creation of dataset" :required true}
 
-         [m4/list-add-button
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "citedResponsibleParty"]
-           :text       "Add"
-           :value-path ["uri"]
-           :added-path ["isUserDefined"]}]
+          [:p
+           "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
+           "More than one person or an organisation can be included as well."]
 
-         [m4/simple-selection-list
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "citedResponsibleParty"]
-           :label-path ["contact" "familyName"]
-           :value-path ["uri"]
-           :added-path ["isUserDefined"]}]
+          [m4/selection-list
+           {:form-id     [:form]
+            :data-path   ["identificationInfo" "citedResponsibleParty"]
+            :template-id :party/list-item
+            :value-path  ["uri"]
+            :added-path  ["isUserDefined"]}]
 
-         [m4/list-edit-dialog
-          {:form-id     [:form]
-           :data-path   ["identificationInfo" "citedResponsibleParty"]
-           :title       "Responsible for creating the data"
-           :template-id :person/user-defined-entry-form}]
+          [m4/list-add-button
+           {:form-id       [:form]
+            :data-path     ["identificationInfo" "citedResponsibleParty"]
+            :text          "Add person"
+            :value-path    ["uri"]
+            :added-path    ["isUserDefined"]
+            :item-defaults {"partyType" "person"}}]
+
+          [m4/list-add-button
+           {:form-id       [:form]
+            :data-path     ["identificationInfo" "citedResponsibleParty"]
+            :text          "Add organisation"
+            :value-path    ["uri"]
+            :added-path    ["isUserDefined"]
+            :item-defaults {"partyType" "organisation"}}]
+
+          [m4/typed-list-edit-dialog
+           {:form-id   [:form]
+            :data-path ["identificationInfo" "citedResponsibleParty"]
+            :type-path ["partyType"]
+            :templates {"person"
+                        {:title       "Person"
+                         :template-id :person/user-defined-entry-form}
+                        "organisation"
+                        {:title       "Organisation"
+                         :template-id :organisation/user-defined-entry-form}}}]]
 
          ;[m4/expanding-control {:label "Point of contact for dataset" :required true}]
          ;[m4/list-add-button
@@ -907,6 +925,13 @@
          #_[m3/Who
             {:credit-path [:form :fields :identificationInfo :credit]}]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+
+        :party/list-item
+        [:div
+         [m4/get-data {:form-id ?form-id :data-path [?data-path "partyType"]}] ": "
+         [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "givenName"]}] " "
+         [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "familyName"]}] " / "
+         [m4/get-data {:form-id ?form-id :data-path [?data-path "organisation" "organisationName"]}]]
 
         :person/user-defined-entry-form
         [:div
@@ -1008,11 +1033,22 @@
 
          [m4/form-group
           {:form-id   ?form-id
-           :data-path [?data-path "organisationName"]
+           :data-path [?data-path "role"]
+           :label     "Role"}
+          [m4/async-select-option
+           {:form-id    ?form-id
+            :data-path  [?data-path "role"]
+            :uri        "/api/What9"
+            :label-path ["label"]
+            :value-path ["value"]}]]
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "organisation" "organisationName"]
            :label     "Organisation Name"}
           [m4/input-field
            {:form-id   ?form-id
-            :data-path [?data-path "organisationName"]}]]]
+            :data-path [?data-path "organisation" "organisationName"]}]]]
 
         :how
         [:div

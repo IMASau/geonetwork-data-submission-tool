@@ -129,13 +129,13 @@ def create(request):
     template = get_object_or_404(
         MetadataTemplate, site=get_current_site(request), archived=False, pk=request.data['template'])
 
-        doc = Document(title=request.data['title'],
-                       owner=request.user,
-                       template=template)
-        doc.save()
+    doc = Document(title=request.data['title'],
+                   owner=request.user,
+                   template=template)
+    doc.save()
 
-        return Response({"message": "Created",
-                         "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
+    return Response({"message": "Created",
+                     "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
 
 
 @login_required

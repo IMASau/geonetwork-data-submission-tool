@@ -855,45 +855,45 @@
         [:div
 
 
-         ;[m4/expanding-control {:label "Responsible for the creation of dataset" :required true}]
+         [m4/expanding-control {:label "Responsible for the creation of dataset" :required true}
 
-         [:p
-          "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
-          "More than one person or an organisation can be included as well."]
+          [:p
+           "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
+           "More than one person or an organisation can be included as well."]
 
-         [m4/list-add-button
-          {:form-id       [:form]
-           :data-path     ["identificationInfo" "citedResponsibleParty"]
-           :text          "Add person"
-           :value-path    ["uri"]
-           :added-path    ["isUserDefined"]
-           :item-defaults {"partyType" "person"}}]
+          [m4/party-selection-list
+           {:form-id    [:form]
+            :data-path  ["identificationInfo" "citedResponsibleParty"]
+            :label-path ["contact" "familyName"]
+            :value-path ["uri"]
+            :added-path ["isUserDefined"]}]
 
-         [m4/list-add-button
-          {:form-id       [:form]
-           :data-path     ["identificationInfo" "citedResponsibleParty"]
-           :text          "Add organisation"
-           :value-path    ["uri"]
-           :added-path    ["isUserDefined"]
-           :item-defaults {"partyType" "organisation"}}]
+          [m4/list-add-button
+           {:form-id       [:form]
+            :data-path     ["identificationInfo" "citedResponsibleParty"]
+            :text          "Add person"
+            :value-path    ["uri"]
+            :added-path    ["isUserDefined"]
+            :item-defaults {"partyType" "person"}}]
 
-         [m4/party-selection-list
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "citedResponsibleParty"]
-           :label-path ["contact" "familyName"]
-           :value-path ["uri"]
-           :added-path ["isUserDefined"]}]
+          [m4/list-add-button
+           {:form-id       [:form]
+            :data-path     ["identificationInfo" "citedResponsibleParty"]
+            :text          "Add organisation"
+            :value-path    ["uri"]
+            :added-path    ["isUserDefined"]
+            :item-defaults {"partyType" "organisation"}}]
 
-         [m4/typed-list-edit-dialog
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "citedResponsibleParty"]
-           :type-path ["partyType"]
-           :templates {"person"
-                       {:title       "Person responsible for creating the data"
-                        :template-id :person/user-defined-entry-form}
-                       "organisation"
-                       {:title       "Organisation responsible for creating the data"
-                        :template-id :organisation/user-defined-entry-form}}}]
+          [m4/typed-list-edit-dialog
+           {:form-id   [:form]
+            :data-path ["identificationInfo" "citedResponsibleParty"]
+            :type-path ["partyType"]
+            :templates {"person"
+                        {:title       "Person"
+                         :template-id :person/user-defined-entry-form}
+                        "organisation"
+                        {:title       "Organisation"
+                         :template-id :organisation/user-defined-entry-form}}}]]
 
          ;[m4/expanding-control {:label "Point of contact for dataset" :required true}]
          ;[m4/list-add-button

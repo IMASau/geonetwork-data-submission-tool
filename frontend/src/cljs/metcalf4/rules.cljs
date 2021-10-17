@@ -88,15 +88,20 @@
       (-> verticalElement
           (assoc-in [:content "maximumValue" :props :required] true)
           (assoc-in [:content "minimumValue" :props :required] true)
+          (assoc-in [:content "verticalCRS" :props :required] true)
           (update-in [:content "maximumValue"] required-field true)
-          (update-in [:content "minimumValue"] required-field true))
+          (update-in [:content "minimumValue"] required-field true)
+          (update-in [:content "verticalCRS"] required-field true))
       (-> verticalElement
           (assoc-in [:content "maximumValue" :props :required] false)
           (assoc-in [:content "minimumValue" :props :required] false)
+          (assoc-in [:content "verticalCRS" :props :required] false)
           (assoc-in [:content "maximumValue" :props :disabled] true)
           (assoc-in [:content "minimumValue" :props :disabled] true)
+          (assoc-in [:content "verticalCRS" :props :disabled] true)
           (assoc-in [:content "maximumValue" :props :is-hidden] true)
-          (assoc-in [:content "minimumValue" :props :is-hidden] true)))))
+          (assoc-in [:content "minimumValue" :props :is-hidden] true)
+          (assoc-in [:content "verticalCRS" :props :is-hidden] true)))))
 
 (defn license-other
   [identificationInfo]

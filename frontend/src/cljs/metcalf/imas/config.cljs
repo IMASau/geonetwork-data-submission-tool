@@ -298,6 +298,17 @@
           {:form-id   [:form]
            :data-path ["identificationInfo" "verticalElement" "hasVerticalExtent"]
            :label     "Does data have a vertical coverage?"}]
+         [m4/form-group
+          {:form-id   [:form]
+           :data-path ["identificationInfo" "verticalElement" "verticalCRS"]}
+          [m4/select-option
+           {:form-id   [:form]
+            :data-path ["identificationInfo" "verticalElement" "verticalCRS"]
+            :value-path ["value"]
+            :label-path ["label"]
+            :placeholder "Please select"
+            :options   [{"label" "Depth (distance below mean sea level)" "value" "EPSG::5715"}
+                        {"label" "Altitude (height above mean sea level)" "value" "EPSG::5714"}]}]]
          [m4/input-field-with-label
           {:form-id    [:form]
            :data-path  ["identificationInfo" "verticalElement" "minimumValue"]

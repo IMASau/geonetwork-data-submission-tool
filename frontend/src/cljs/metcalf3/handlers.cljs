@@ -1,6 +1,5 @@
 (ns metcalf3.handlers
-  (:require [cljs.core.async]
-            [cljs.spec.alpha :as s]
+  (:require [cljs.spec.alpha :as s]
             [clojure.string :as str]
             [clojure.walk :as walk]
             [goog.object :as gobj]

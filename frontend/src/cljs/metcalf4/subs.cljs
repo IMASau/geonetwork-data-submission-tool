@@ -1,10 +1,10 @@
 (ns metcalf4.subs
   (:require [cljs.spec.alpha :as s]
             [metcalf4.blocks :as blocks]
-            [re-frame.core :as rf]
             [metcalf4.rules :as rules]
             [metcalf4.schema :as schema]
-            [metcalf4.utils :as utils4]))
+            [metcalf4.utils :as utils4]
+            [re-frame.core :as rf]))
 
 
 (defn get-form-state

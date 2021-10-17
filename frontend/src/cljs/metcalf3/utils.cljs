@@ -1,7 +1,7 @@
 (ns metcalf3.utils
   (:require [cljs.spec.alpha :as s]
-            [goog.object :as gobject]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [goog.object :as gobject]))
 
 (defn on-change [m0 m1 ks f]
   (let [v0 (get-in m0 ks)

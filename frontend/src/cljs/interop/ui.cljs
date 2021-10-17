@@ -1,24 +1,22 @@
 (ns interop.ui
   (:require ["/ui/components/BoxMap/BoxMap" :as BoxMap]
+            ["/ui/components/CheckboxField/CheckboxField" :as CheckboxField]
             ["/ui/components/DateField/DateField" :as DateField]
+            ["/ui/components/EditDialog/EditDialog" :as EditDialog]
             ["/ui/components/ErrorSidebar/ErrorSidebar" :as ErrorSidebar]
             ["/ui/components/ExpandingControl/ExpandingControl" :as ExpandingControl]
             ["/ui/components/FormGroup/FormGroup" :as FormGroup]
             ["/ui/components/InputField/InputField" :as InputField]
+            ["/ui/components/ListItem/ListItem" :as ListItem]
+            ["/ui/components/NumericInputField/NumericInputField" :as NumericInputField]
             ["/ui/components/SelectField/SelectField" :as SelectField]
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
-            ["/ui/components/ListItem/ListItem" :as ListItem]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
-            ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
-            ["/ui/components/CheckboxField/CheckboxField" :as CheckboxField]
-            ["/ui/components/NumericInputField/NumericInputField" :as NumericInputField]
-            ["/ui/components/EditDialog/EditDialog" :as EditDialog]
             ["/ui/components/utils" :as ui-utils]
+            ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
             [cljs.spec.alpha :as s]
             [goog.object :as gobj]
-            [reagent.core :as r]
-            [clojure.walk :as walk]
-            [metcalf4.utils :as utils4]))
+            [reagent.core :as r]))
 
 (assert BoxMap/BoxMap)
 (assert DateField/DateField)

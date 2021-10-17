@@ -1,10 +1,10 @@
 (ns metcalf4.actions
-  (:require [metcalf4.blocks :as blocks]
-            [goog.object :as gobj]
+  (:require [goog.object :as gobj]
+            [metcalf3.fx :as fx3]
             [metcalf3.utils :as utils3]
+            [metcalf4.blocks :as blocks]
             [metcalf4.schema :as schema]
-            [metcalf4.utils :as utils4]
-            [metcalf3.fx :as fx3]))
+            [metcalf4.utils :as utils4]))
 
 (defn load-api-action
   [s api-id api-uri]

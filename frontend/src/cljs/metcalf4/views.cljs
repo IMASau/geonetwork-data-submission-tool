@@ -1,11 +1,9 @@
 (ns metcalf4.views
-  (:require [cljs.spec.alpha :as s]
-            [clojure.string :as string]
+  (:require [clojure.string :as string]
             [goog.object :as gobj]
             [interop.react-imask :as react-imask]
-            [reagent.core :as r]
-            [metcalf3.widget.modal :as modal]
-            [metcalf3.utils :as utils3]))
+            [metcalf3.utils :as utils3]
+            [metcalf3.widget.modal :as modal]))
 
 ; For pure views only, no re-frame subs/handlers
 

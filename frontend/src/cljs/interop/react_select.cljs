@@ -2,8 +2,7 @@
   (:require ["react" :as React]
             ["react-select" :default Select :as ReactSelect]
             ["react-select/async" :default AsyncSelect]
-            ["react-select/async-creatable" :default AsyncCreatable]
-            ["react-select/creatable" :default Creatable]))
+            ["react-select/async-creatable" :default AsyncCreatable]))
 
 (def ReactSelect* (React/createFactory Select))
 (def ReactSelectAsync* (React/createFactory AsyncSelect))

@@ -1,9 +1,9 @@
 (ns metcalf.common-config
-  (:require [re-frame.core :as rf]
+  (:require [metcalf3.fx :as fx3]
             [metcalf3.handlers :as handlers3]
-            [metcalf3.fx :as fx3]
             [metcalf3.subs :as subs3]
-            [metcalf3.views :as views3]))
+            [metcalf3.views :as views3]
+            [re-frame.core :as rf]))
 
 ;Temporary namespace to ease refactoring
 

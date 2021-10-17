@@ -1,9 +1,5 @@
 (ns metcalf3.logic
-  (:require [cljs-time.coerce :as c]
-            [cljs-time.core :as time]
-            [cljs.spec.alpha :as s]
-            [clojure.string :as string]
-            [clojure.zip :as zip]
+  (:require [clojure.zip :as zip]
             [metcalf3.content :refer [contact-groups]]
             [metcalf3.utils :as utils]
             [metcalf4.blocks :as blocks]

@@ -1,9 +1,6 @@
 (ns interop.blueprint
   (:require ["@blueprintjs/core" :as BlueprintCore]
             ["@blueprintjs/datetime" :as BlueprintDatetime]
-            [cljs.spec.alpha :as s]
-            [clojure.string :as string]
-            [goog.object :as gobject]
             ["react" :as React]
             [reagent.core :as r]))
 

@@ -1,10 +1,7 @@
 (ns metcalf3.widget.select
-  (:require [cljs.spec.alpha :as s]
-            [goog.object :as gobj]
-            [interop.react-select :refer [ReactSelect* ReactSelectAsync* ReactSelectAsyncCreatable*]]
-            [interop.react-virtualized :refer []]
-            [metcalf3.utils :as utils]
-            [reagent.core :as r]))
+  (:require [interop.react-select :refer [ReactSelect* ReactSelectAsync*
+                                          ReactSelectAsyncCreatable*]]
+            [metcalf3.utils :as utils]))
 
 (defn normalize-props [props]
   (utils/clj->js* (update props :options utils/clj->js* 1) 1))

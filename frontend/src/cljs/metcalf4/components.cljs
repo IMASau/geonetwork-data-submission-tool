@@ -205,6 +205,14 @@
       (when (s/valid? pred value)
         (into [:div] children)))))
 
+(defn get-data-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks []})
+
+(defn get-data
+  [config]
+  (str @(rf/subscribe [::get-block-data config])))
+
 (defn input-field-with-label
   [config]
   [form-group config

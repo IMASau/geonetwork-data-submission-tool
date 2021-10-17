@@ -1,6 +1,7 @@
 (ns metcalf3.utils
-  (:require [goog.object :as gobject]
-            [cljs.spec.alpha :as s]))
+  (:require [cljs.spec.alpha :as s]
+            [clojure.string :as string]
+            [goog.object :as gobject]))
 
 (defn on-change [m0 m1 ks f]
   (let [v0 (get-in m0 ks)
@@ -127,10 +128,42 @@
      :eastBoundLongitude {:value (s/assert number? (apply max lngs))}
      :westBoundLongitude {:value (s/assert number? (apply min lngs))}}))
 
-(defn boxes->elements
-  [boxes]
-  (for [box (:value boxes)]
-    {:northBoundLatitude (get-in box [:value :northBoundLatitude :value])
-     :southBoundLatitude (get-in box [:value :southBoundLatitude :value])
-     :eastBoundLongitude (get-in box [:value :eastBoundLongitude :value])
-     :westBoundLongitude (get-in box [:value :westBoundLongitude :value])}))
+(defn userDisplay
+  [user]
+  (if (and (string/blank? (:lastName user))
+           (string/blank? (:firstName user)))
+    (if (string/blank? (:email user))
+      (:username user)
+      (:email user))
+    (str (:firstName user) " " (:lastName user))))
+
+(defn validation-state
+  [{:keys [errors show-errors]}]
+  (when (and show-errors (seq errors))
+    "has-error"))
+
+(defn dp-term-paths [dp-type]
+  {:term              (keyword (str (name dp-type) "_term"))
+   :vocabularyTermURL (keyword (str (name dp-type) "_vocabularyTermURL"))
+   :vocabularyVersion (keyword (str (name dp-type) "_vocabularyVersion"))
+   :termDefinition    (keyword (str (name dp-type) "_termDefinition"))})
+
+(defn filter-name [s]
+  (s/assert string? s)
+  (string/replace s #"[^a-zA-Z-', ]" ""))
+
+(defn filter-table
+  "Default search for local datasource: case-insensitive substring match"
+  [simple? table query]
+  (s/assert string? query)
+  (let [col-match? (if simple?
+                     #(string/starts-with? (-> % str string/lower-case) (string/lower-case query))
+                     #(string/includes? (-> % str string/lower-case) (string/lower-case query)))]
+    (filter
+      (fn [row]
+        (some col-match? (rest row)))
+      table)))
+
+(defn other-term?
+  [term vocabularyTermURL]
+  (and (:value term) (empty? (:value vocabularyTermURL))))

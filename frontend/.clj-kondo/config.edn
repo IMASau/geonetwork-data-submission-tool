@@ -1,0 +1,7 @@
+{:linters {:re-frame/keyword {:level :warning}}
+ :hooks   {:analyze-call {re-frame.core/dispatch     hooks.re-frame/use-qualified-keyword
+                          re-frame.core/subscribe    hooks.re-frame/use-qualified-keyword
+                          re-frame.core/reg-event-db hooks.re-frame/reg-qualified-keyword
+                          re-frame.core/reg-event-fx hooks.re-frame/reg-qualified-keyword
+                          re-frame.core/reg-fx       hooks.re-frame/reg-qualified-keyword
+                          re-frame.core/reg-sub      hooks.re-frame/reg-qualified-keyword}}}

@@ -474,7 +474,7 @@
     (when-not is-hidden
       [:button.bp3-button.bp3-intent-primary
        {:disabled disabled
-        :onClick #(rf/dispatch [::item-add-with-defaults-click-handler config])}
+        :onClick  #(rf/dispatch [::item-add-with-defaults-click-handler config])}
        "Add"])))
 
 (defn list-add-button-settings [_]

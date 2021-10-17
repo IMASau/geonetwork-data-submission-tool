@@ -94,7 +94,9 @@
           (assoc-in [:content "maximumValue" :props :required] false)
           (assoc-in [:content "minimumValue" :props :required] false)
           (assoc-in [:content "maximumValue" :props :disabled] true)
-          (assoc-in [:content "minimumValue" :props :disabled] true)))))
+          (assoc-in [:content "minimumValue" :props :disabled] true)
+          (assoc-in [:content "maximumValue" :props :is-hidden] true)
+          (assoc-in [:content "minimumValue" :props :is-hidden] true)))))
 
 (defn license-other
   [identificationInfo]

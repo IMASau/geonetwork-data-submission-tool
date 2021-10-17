@@ -159,14 +159,14 @@
         :hasError    hasError
         :onChange    #(rf/dispatch [::value-changed config %])}])))
 
-(defn when-settings [_]
+(defn when-data-settings [_]
   {::low-code/req-ks [:form-id :data-path :pred]
    ::low-code/opt-ks []})
 
 (s/def ::empty-list? empty?)
 (s/def ::not-set? (s/or :n nil? :s (s/and string? string/blank?)))
 
-(defn when-view
+(defn when-data
   [config & children]
   (let [{:keys [pred is-hidden]} @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])]

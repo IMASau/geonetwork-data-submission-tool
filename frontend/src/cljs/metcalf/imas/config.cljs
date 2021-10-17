@@ -123,7 +123,7 @@
        'm4/table-selection-list           {:view components4/table-selection-list :init components4/table-selection-list-settings}
        'm4/textarea-field                 {:view components4/textarea-field :init components4/textarea-field-settings}
        'm4/textarea-field-with-label      {:view components4/textarea-field-with-label :init components4/textarea-field-settings}
-       'm4/when                           {:view components4/when-view :init components4/when-settings}
+       'm4/when-data                      {:view components4/when-data :init components4/when-data-settings}
        'm4/yes-no-field                   {:view components4/yes-no-field :init components4/yes-no-field-settings}
        'm4/xml-export-link                {:view components4/xml-export-link :init components4/xml-export-link-settings}
        })
@@ -263,7 +263,7 @@
              :added-path ["isUserDefined"]}]]
           [:div.col-sm-6
 
-           [m4/when
+           [m4/when-data
             {:form-id   [:form]
              :data-path ["identificationInfo" "geographicElement" "boxes"]
              :pred      ::components4/empty-list?}

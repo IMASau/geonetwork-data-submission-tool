@@ -14,10 +14,10 @@
          {:extra-deps {thheller/shadow-cljs {:mvn/version "2.15.9"}
                        cider/cider-nrepl    {:mvn/version "0.26.0"}}}
          :clean-ns
-         {:replace-deps {com.github.clojure-lsp/clojure-lsp {:mvn/version "2021.08.03-13.33.03"}}
+         {:replace-deps {com.github.clojure-lsp/clojure-lsp {:mvn/version "2021.09.30-15.28.01"}}
           :exec-fn      clojure-lsp.api/clean-ns!
           :exec-args    {:dry? false :verbose true}}
          ; clj -M:clj-kondo
          :clj-kondo
-         {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.08.06"}}
+         {:extra-deps {clj-kondo/clj-kondo {:mvn/version "2021.09.25"}}
           :main-opts  ["-m" "clj-kondo.main" "--lint" "src/cljs"]}}}

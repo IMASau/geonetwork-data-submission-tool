@@ -404,6 +404,35 @@
          [:h4 "Data parameters"]
          [m3/DataParametersTable {:form-id   [:form]
                                   :data-path ["identificationInfo" "dataParameters"]}]
+
+         ; WIP to replace m3/DataParametersTable
+         [m4/table-selection-list
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "dataParameters"]
+           :value-path ["uri"]
+           :added-path ["isUserDefined"]
+           :columns    [{:columnHeader "Name" :flex 1 :label-path ["longName" "term"]}
+                        {:columnHeader "Units" :flex 1 :label-path ["unit" "term"]}
+                        {:columnHeader "Instrument" :flex 1 :label-path ["instrument" "term"]}
+                        {:columnHeader "Serial No." :flex 1 :label-path ["serialNumber"]}
+                        {:columnHeader "Platform" :flex 1 :label-path ["platform" "term"]}]}]
+
+         [m4/list-add-button
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "dataParameters"]
+           :text       "Add data parameter"
+           :value-path ["uri"]
+           :added-path ["isUserDefined"]}]
+
+         [m4/list-edit-dialog
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "dataParameters"]
+           :value-path  ["uri"]
+           :added-path  ["isUserDefined"]
+           :title       "Add parameter"
+           :template-id :data-parameter/user-defined-entry-form}]
+
+
          [:br]
          [:h4 "Resource constraints"]
          ;; FIXME license selection isn't being included in XML export.
@@ -450,6 +479,72 @@
            :data-path   ["distributionInfo" "distributionFormat" "version"]
            :placeholder "Date format date or version if applicable"}]
          [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
+
+
+        :data-parameter/user-defined-entry-form
+        [:div
+
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "longName"]
+           :label     "Name"}
+
+          [m4/async-select-option
+           {:form-id    ?form-id
+            :data-path  [?data-path "longName"]
+            :uri        "/api/parametername"
+            :label-path ["label"]
+            :value-path ["uri"]
+            :added-path ["isUserDefined"]
+            :placeholder "Select..."}]
+
+          [m4/input-field
+           {:form-id    [:form]
+            :data-path  [?data-path "name"]
+            :placeholder "Name in dataset (optional)"}]]
+
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "unit"]
+           :label     "Unit"}
+
+          [m4/async-select-option
+           {:form-id    ?form-id
+            :data-path  [?data-path "unit"]
+            :uri        "/api/parameterunit"
+            :label-path ["label"]
+            :value-path ["uri"]
+            :added-path ["isUserDefined"]
+            :placeholder "Select..."}]]
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "instrument"]
+           :label     "Instrument"}
+          [m4/async-select-option
+           {:form-id    ?form-id
+            :data-path  [?data-path "instrument"]
+            :uri        "/api/parameterinstrument"
+            :label-path ["label"]
+            :value-path ["uri"]
+            :added-path ["isUserDefined"]
+            :placeholder "Select..."}]]
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "platform"]
+           :label     "Platform"}
+          [m4/async-select-option
+           {:form-id    ?form-id
+            :data-path  [?data-path "platform"]
+            :uri        "/api/parameterplatform"
+            :label-path ["label"]
+            :value-path ["uri"]
+            :added-path ["isUserDefined"]
+            :placeholder "Select..."}]]]
+
 
         :upload
         [:div

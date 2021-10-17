@@ -1644,7 +1644,6 @@
     :on-save      #(rf/dispatch [::modal-dialog-confirm-save])}])
 
 (defmulti modal :type)
-(defmethod modal :default [_])
 
 (defn app-root [_]
   (let [page-name @(rf/subscribe [::get-app-root-page-name])

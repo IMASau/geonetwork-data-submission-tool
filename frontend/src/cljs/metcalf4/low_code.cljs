@@ -1,9 +1,9 @@
 (ns metcalf4.low-code
-  (:require [clojure.walk :as walk]
-            [metcalf4.utils :as utils4]
+  (:require [cljs.spec.alpha :as s]
+            [clojure.walk :as walk]
             [metcalf4.schema :as schema]
-            [re-frame.core :as rf]
-            [cljs.spec.alpha :as s]))
+            [metcalf4.utils :as utils4]
+            [re-frame.core :as rf]))
 
 (def ^:dynamic component-registry {})
 (def ^:dynamic template-registry {})

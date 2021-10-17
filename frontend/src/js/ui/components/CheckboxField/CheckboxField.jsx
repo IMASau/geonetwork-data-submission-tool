@@ -4,7 +4,7 @@ import * as BPCore from '@blueprintjs/core';
 import {hasErrorIntent, useCachedState} from "../utils";
 
 
-export function CheckboxField({checked, hasError, disabled, onChange}) {
+export function CheckboxField({label, checked, hasError, disabled, onChange}) {
     const intent = hasErrorIntent({hasError, disabled});
     return (
         <BPCore.Checkbox
@@ -13,11 +13,13 @@ export function CheckboxField({checked, hasError, disabled, onChange}) {
             checked={checked}
             onChange={(e) => onChange(e.target.checked)}
         >
+        {label}
         </BPCore.Checkbox>
     );
 }
 
 CheckboxField.propTypes = {
+    label : PropTypes.string.isRequired,
     checked : PropTypes.bool,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,

@@ -1,7 +1,6 @@
 (ns metcalf3.views
-  (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [cljs.core.async :as async :refer [<! chan put! timeout]]
-            [cljs.spec.alpha :as s]
+  (:require-macros [cljs.core.async.macros :refer [go-loop]])
+  (:require [cljs.core.async :as async :refer [<! chan put!]]
             [clojure.edn :as edn]
             [clojure.set :as set]
             [clojure.string :as string :refer [blank?]]
@@ -15,17 +14,15 @@
             [interop.fixed-data-table-2 :refer [Cell Column Table]]
             [interop.moment :as moment]
             [interop.react-imask :as react-imask]
-            [interop.ui :as ui]
-            [metcalf4.low-code :as low-code]
-            [metcalf4.views :as m4views]
             [metcalf3.content :refer [contact-groups]]
             [metcalf3.handlers :as handlers]
             [metcalf3.logic :as logic]
             [metcalf3.utils :as utils]
-            [metcalf3.widget.boxmap :as boxmap]
             [metcalf3.widget.modal :refer [Modal]]
-            [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectAsyncCreatable VirtualizedSelect]]
+            [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync
+                                            ReactSelectAsyncCreatable]]
             [metcalf3.widget.tree :refer [TermList TermTree]]
+            [metcalf4.low-code :as low-code]
             [re-frame.core :as rf]
             [reagent.core :as r])
   (:import [goog.dom ViewportSizeMonitor]
@@ -151,70 +148,9 @@
     [InputWidget (-> field
                      (merge (dissoc props :path))
                      (assoc
-                       :on-change #(rf/dispatch [:handlers/value-changed path %])))]))
-
-(defn input-field-with-label
-  [{:keys [path] :as config}]
-  (let [logic @(rf/subscribe [::get-input-field-with-label-props path])
-        props (merge (select-keys config [:label :placeholder :helperText :toolTip]) logic)
-        {:keys [label placeholder helperText toolTip maxLength required value disabled hasError]} props
-        onChange #(rf/dispatch [::input-field-with-label-value-changed path %])]
-    [ui/FormGroup
-     {:label      label
-      :required   required
-      :disabled   disabled
-      :hasError   hasError
-      :helperText helperText
-      :toolTip    toolTip}
-     [ui/InputField
-      {:value       value
-       :placeholder placeholder
-       :maxLength   maxLength
-       :disabled    disabled
-       :hasError    hasError
-       :onChange    onChange}]]))
-
-(defn date-field-with-label
-  [{:keys [path label required helperText toolTip minDate maxDate]}]
-  (let [{:keys [value disabled hasError errorText]} @(rf/subscribe [::get-date-field-with-label-props path])]
-    [ui/FormGroup
-     {:label      label
-      :required   required
-      :disabled   disabled
-      :hasError   hasError
-      :helperText (or errorText helperText)
-      :toolTip    toolTip}
-     [ui/DateField
-      {:value    value
-       :disabled disabled
-       :onChange #(rf/dispatch [::date-field-with-label-value-changed path %])
-       :hasError hasError
-       :minDate  minDate
-       :maxDate  maxDate}]]))
+                       :on-change #(rf/dispatch [::value-changed path %])))]))
 
 ; TODO: Consider date-field-with-label
-(defn date-field
-  [{:keys [path defMinDate]}]
-  (let [{:keys [label labelInfo helperText value disabled change-v intent minDate maxDate]} @(rf/subscribe [:date-field/get-props path])
-        format "DD-MM-YYYY"]
-    [bp3/form-group
-     {:label      label
-      :labelInfo  labelInfo
-      :helperText helperText
-      :intent     intent}
-     [bp3/date-input
-      (cond-> {:formatDate  (fn [date] (moment/format date format))
-               :parseDate   (fn [str] (moment/to-date (moment/moment str format)))
-               :placeholder format
-               :disabled    disabled
-               :value       value
-               :onChange    #(rf/dispatch (conj change-v %))
-               :inputProps  {:leftIcon "calendar"
-                             :intent   intent}}
-        minDate (assoc :minDate minDate)
-        (not minDate) (assoc :minDate defMinDate)
-        maxDate (assoc :maxDate maxDate))]]))
-
 (defn OptionWidget [props]
   (let [[value display] props]
     [:option {:value value} display]))
@@ -249,8 +185,8 @@
                     :class "wauto"
                     :disabled (or disabled (empty? options))
                     :default-option (if-not (empty? options) default-option "")
-                    :on-blur #(rf/dispatch [:handlers/show-errors path])
-                    :on-change #(rf/dispatch [:handlers/value-changed path %]))]))
+                    :on-blur #(rf/dispatch [::select-field-blur path])
+                    :on-change #(rf/dispatch [::value-changed path %]))]))
 
 (defn textarea-widget
   [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder]}]
@@ -260,7 +196,7 @@
     :helperText helperText
     :intent     intent}
    [bp3/textarea2
-    {:key            @(rf/subscribe [:subs/get-form-tick])
+    {:key            @(rf/subscribe [::get-textarea-widget-key])
      :growVertically true
      :onBlur         #(rf/dispatch (conj change-v (-> % .-target .-value)))
      :disabled       disabled
@@ -269,30 +205,6 @@
      :defaultValue   value
      :fill           true
      :intent         intent}]])
-
-(defn textarea-field
-  [{:keys [path]}]
-  [textarea-widget @(rf/subscribe [:textarea-field/get-props path])])
-
-(defn textarea-field-with-label
-  [{:keys [path label placeholder helperText toolTip maxLength rows required]}]
-  (let [{:keys [value disabled hasError errorText]} @(rf/subscribe [::get-textarea-field-with-label-props path])
-        onChange #(rf/dispatch [::textarea-field-with-label-value-changed path %])]
-    [ui/FormGroup
-     {:label      label
-      :required   required
-      :disabled   disabled
-      :hasError   hasError
-      :helperText (or errorText helperText)
-      :toolTip    toolTip}
-     [ui/TextareaField
-      {:value       value
-       :placeholder placeholder
-       :disabled    disabled
-       :hasError    hasError
-       :maxLength   maxLength
-       :rows        rows
-       :onChange    onChange}]]))
 
 (defn Checkbox [props]
   (let [{:keys [label checked on-change disabled help]
@@ -306,22 +218,6 @@
       [:label input-control label]]
      [:p.help-block help]]))
 
-(defn CheckboxField
-  [{:keys [path label]}]
-  (let [field @(rf/subscribe [:subs/get-derived-path path])]
-    [Checkbox (assoc field :checked (:value field)
-                           :on-blur #(rf/dispatch [:handlers/show-errors path])
-                           :on-change #(rf/dispatch [:handlers/set-value path (-> % .-target .-checked)])
-                           :label (or label (:label field)))]))
-
-(defn BackButton []
-  (let [page @(rf/subscribe [:subs/get-derived-path [:page]])
-        back (:back page)]
-    (when back
-      [:button.btn.btn-default.BackButton
-       {:on-click #(rf/dispatch [:handlers/back])}
-       [:span.glyphicon.glyphicon-chevron-left] " Back"])))
-
 (defn getter [k row] (get row k))
 
 (defn update-table-width [this]
@@ -333,11 +229,6 @@
   (let [rowData (take-while (complement empty?) rowData)]
     [:div.topic-cell
      [:div.topic-path (string/join " > " (drop-last (rest rowData)))]
-     [:div.topic-value (last rowData)]]))
-
-(defn TopicCategoryCell [rowData]
-  (let [rowData (take-while (complement empty?) rowData)]
-    [:div.topic-cell
      [:div.topic-value (last rowData)]]))
 
 (defn KeywordsThemeTable
@@ -394,8 +285,8 @@
                                          (r/as-element [Cell [Checkbox {:checked   (contains? uuids uuid)
                                                                         :on-change (fn [_]
                                                                                      (if (contains? uuids uuid)
-                                                                                       (rf/dispatch [:handlers/del-value keywords-path (uuids uuid)])
-                                                                                       (rf/dispatch [:handlers/add-value! keywords-path uuid])))}]])))
+                                                                                       (rf/dispatch [::del-value keywords-path (uuids uuid)])
+                                                                                       (rf/dispatch [::keywords-theme-table-add-value keywords-path uuid])))}]])))
                      :width          (get columnWidths 0)
                      :isResizable    true}]
                    [Column
@@ -416,29 +307,23 @@
        :component-did-mount did-mount
        :render              render})))
 
-(defn handle-highlight-new [this item]
-  (r/set-state this {:highlight (conj (:highlight (r/state this)) item)})
-  (go (<! (timeout 5000))
-      (r/set-state this {:highlight (disj (:highlight (r/state this)) item)})))
-
 (defn modal-dialog-table-modal-edit-form
-  [_ _]
-  (let [{:keys [form path title]} @(rf/subscribe [:subs/get-modal-props])
-        many-field-path (drop-last 2 path)]
+  [{:keys [form path title]}]
+  (let [many-field-path (drop-last 2 path)]
 
     (letfn [(handle-delete-confirm []
-              (rf/dispatch [:handlers/del-value many-field-path (last path)])
-              (rf/dispatch [:handlers/close-modal]))
+              (rf/dispatch [::del-value many-field-path (last path)])
+              (rf/dispatch [::close-modal]))
 
             (handle-delete-click [e]
               (.preventDefault e)
-              (rf/dispatch [:handlers/open-modal {:type       :confirm
-                                                  :title      "Delete " title "?"
-                                                  :message    "Are you sure you want to delete?"
-                                                  :on-confirm handle-delete-confirm}]))
+              (rf/dispatch [::open-modal {:type       :confirm
+                                          :title      "Delete " title "?"
+                                          :message    "Are you sure you want to delete?"
+                                          :on-confirm handle-delete-confirm}]))
 
             (handle-close-click []
-              (rf/dispatch [:handlers/close-modal]))]
+              (rf/dispatch [::close-modal]))]
 
       [Modal {:ok-copy      "Done"
               :modal-header [:span [:span.glyphicon.glyphicon-list] " Edit " title]
@@ -452,17 +337,16 @@
               :on-save      handle-close-click}])))
 
 (defn modal-dialog-table-modal-add-form
-  [_ _]
-  (let [{:keys [form path title]} @(rf/subscribe [:subs/get-modal-props])
-        many-field-path (drop-last 2 path)
-        handle-cancel (fn [] (rf/dispatch [:handlers/del-value many-field-path (last path)])
-                        (rf/dispatch [:handlers/close-modal]))]
+  [{:keys [form path title]}]
+  (let [many-field-path (drop-last 2 path)
+        handle-cancel (fn [] (rf/dispatch [::del-value many-field-path (last path)])
+                        (rf/dispatch [::close-modal]))]
     [Modal {:ok-copy      "Done"
             :modal-header [:span [:span.glyphicon.glyphicon-list] " Add " title]
             :modal-body   [form path]
             :on-dismiss   handle-cancel
             :on-cancel    handle-cancel
-            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+            :on-save      #(rf/dispatch [::close-modal])}]))
 
 (defn TableModalEdit
   [{:keys [ths tds-fn form title field-path placeholder default-field on-new-click add-label]
@@ -471,10 +355,10 @@
   (let [{:keys [disabled] :as many-field} @(rf/subscribe [:subs/get-derived-path field-path])]
 
     (letfn [(edit! [field-path]
-              (rf/dispatch [:handlers/open-modal {:type  :TableModalEditForm
-                                                  :title title
-                                                  :form  form
-                                                  :path  field-path}]))
+              (rf/dispatch [::open-modal {:type  :TableModalEditForm
+                                          :title title
+                                          :form  form
+                                          :path  field-path}]))
 
             (new! [default-field]
               (let [values-ref (:value many-field)
@@ -489,12 +373,12 @@
                                  :form          form
                                  :path          new-field-path})
                   (do (if default-field
-                        (rf/dispatch [:handlers/add-field! field-path default-field])
-                        (rf/dispatch [:handlers/new-field! field-path]))
-                      (rf/dispatch [:handlers/open-modal {:type  :TableModalAddForm
-                                                          :title title
-                                                          :form  form
-                                                          :path  new-field-path}])))))]
+                        (rf/dispatch [::table-modal-edit-add-field field-path default-field])
+                        (rf/dispatch [::table-modal-edit-new-field field-path]))
+                      (rf/dispatch [::open-modal {:type  :TableModalAddForm
+                                                  :title title
+                                                  :form  form
+                                                  :path  new-field-path}])))))]
 
       [:div.TableInlineEdit
        (when-let [help (:help many-field)]
@@ -528,12 +412,6 @@
           {:on-click #(new! default-field)}
           [:span.glyphicon.glyphicon-plus] " " add-label])])))
 
-(defn theme-option-renderer
-  [props]
-  (let [rowData (gobj/get props "rowData")]
-    [:div
-     [KeywordsThemeCell rowData]]))
-
 (defn modal-dialog-theme-keywords
   [{:keys [keyword-type keywords-path]}]
   [Modal {:ok-copy      "Done"
@@ -544,311 +422,8 @@
                          [KeywordsThemeTable
                           {:keyword-type  keyword-type
                            :keywords-path keywords-path}]]
-          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-          :on-save      #(rf/dispatch [:handlers/close-modal])}])
-
-(defn TopicCategories
-  [_]
-  (letfn [(init-state [_]
-            {:new-value  nil
-             :input      ""
-             :show-modal false
-             :highlight  #{}})
-          (render [this]
-            (let [{:keys [highlight]} (r/state this)
-                  {:keys [path]} (r/props this)
-                  topicCategories @(rf/subscribe [:subs/get-derived-path path])
-                  {:keys [value placeholder disabled help] :as props} topicCategories
-                  table @(rf/subscribe [:subs/get-derived-path [:topicCategories :table]])
-                  set-value! #(r/set-state this {:new-value %})
-                  add! (fn [identifier] (when-not (empty? identifier)
-                                          (when (not-any? (comp #{identifier} :value)
-                                                          (:value topicCategories))
-                                            (rf/dispatch [:handlers/add-value! path identifier]))
-                                          (handle-highlight-new this identifier)
-                                          (set-value! nil)))
-                  lookup (fn [uuid] (first (filterv #(= uuid (first %)) table)))
-                  options (into-array (for [[value & path :as rowData] table]
-                                        #js {:value   value
-                                             :rowData rowData
-                                             :label   (string/join " > " path)}))]
-              [:div.ThemeKeywords {:class (utils/validation-state props)}
-               (label-template props)
-               [:p.help-block help]
-               [:table.table.keyword-table {:class (when-not disabled "table-hover")}
-                (into [:tbody]
-                      (for [[i topicCategory] (utils/enum value)]
-                        [:tr {:class (if disabled "active" (when (highlight (:value topicCategory)) "highlight"))}
-                         [:td [TopicCategoryCell (lookup (:value topicCategory))]]
-                         (when-not disabled
-                           [:td [:button.btn.btn-warn.btn-xs.pull-right
-                                 {:on-click #(rf/dispatch [:handlers/del-value path i])}
-                                 [:span.glyphicon.glyphicon-minus]]])]))]
-               (when-not disabled
-                 [:div.flex-row
-                  [:div.flex-row-field
-                   {;need this to make sure the drop down is rendered above any other input fields
-                    :style {:position "relative"
-                            :z-index  10}}
-                   [VirtualizedSelect {:placeholder       placeholder
-                                       :options           options
-                                       :value             ""
-                                       :getOptionValue    (fn [option]
-                                                            (gobj/get option "value"))
-                                       :formatOptionLabel (fn [props]
-                                                            (r/as-element (theme-option-renderer props)))
-                                       :onChange          (fn [option]
-                                                            (add! (gobj/get option "value")))}]]])]))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
-
-(defn ThemeKeywords
-  [{:keys [keyword-type keywords-theme-path]}]
-  (letfn [(init-state [_]
-            {:new-value  nil
-             :input      ""
-             :show-modal false
-             :highlight  #{}})
-          (render [this]
-            (let [{:keys [highlight]} (r/state this)
-                  keywords-path (conj keywords-theme-path :keywords)
-                  {:keys [keywords]} @(rf/subscribe [:subs/get-derived-path keywords-theme-path])
-                  {:keys [value placeholder disabled help] :as props} keywords
-                  theme-table @(rf/subscribe [:subs/get-derived-path [:theme keyword-type :table]])
-                  set-value! #(r/set-state this {:new-value %})
-                  add! (fn [uuid] (when-not (empty? uuid)
-                                    (when (not-any? (comp #{uuid} :value)
-                                                    (:value keywords))
-                                      (rf/dispatch [:handlers/add-value! keywords-path uuid]))
-                                    (handle-highlight-new this uuid)
-                                    (set-value! nil)))
-                  lookup (fn [uuid] (first (filterv #(= uuid (first %)) theme-table)))
-                  show-modal! #(rf/dispatch [:handlers/open-modal
-                                             {:type          :ThemeKeywords
-                                              :keyword-type  keyword-type
-                                              :keywords-path keywords-path}])
-                  options (into-array (for [[value & path :as rowData] theme-table]
-                                        #js {:value   value
-                                             :rowData rowData
-                                             :label   (string/join " > " path)}))]
-              [:div.ThemeKeywords {:class (utils/validation-state props)}
-               (label-template props)
-               [:p.help-block help]
-               [:table.table.keyword-table {:class (when-not disabled "table-hover")}
-                (into [:tbody]
-                      (for [[i keyword] (utils/enum value)]
-                        [:tr {:class (if disabled "active" (when (highlight (:value keyword)) "highlight"))}
-                         [:td [KeywordsThemeCell (lookup (:value keyword))]]
-                         (when-not disabled
-                           [:td [:button.btn.btn-warn.btn-xs.pull-right
-                                 {:on-click #(rf/dispatch [:handlers/del-value keywords-path i])}
-                                 [:span.glyphicon.glyphicon-minus]]])]))]
-               (when-not disabled
-                 [:div.flex-row
-                  [:div.flex-row-field
-                   {;need this to make sure the drop down is rendered above any other input fields
-                    :style {:position "relative"
-                            :z-index  10}}
-                   #_[VirtualizedSelect {:props             {:options     options
-                                                             :onChange    (fn [option]
-                                                                            (add! (gobj/get option "value")))
-                                                             :isClearable true}
-                                         :list-props        {}
-                                         :children-renderer theme-option-renderer}]
-                   [VirtualizedSelect {:placeholder       placeholder
-                                       :options           options
-                                       :value             ""
-                                       :getOptionValue    (fn [option]
-                                                            (gobj/get option "value"))
-                                       :formatOptionLabel (fn [props]
-                                                            (r/as-element (theme-option-renderer props)))
-                                       :onChange          (fn [option]
-                                                            (add! (gobj/get option "value")))}]]
-                  [:div.flex-row-button
-                   [:button.btn.btn-default
-                    {:on-click #(show-modal!)}
-                    [:span.glyphicon.glyphicon-list] " Browse"]]])]))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
-
-(defn ThemeInputField
-  [{:keys [value placeholder errors extra-help on-change on-blur on-submit maxlength] :as props}]
-  [:div.form-group {:class (utils/validation-state props)}
-   (label-template props)
-   [:div.input-group {:key "ig"}
-    [:input.form-control {:value       (or value "")
-                          :placeholder placeholder
-                          :errors      errors
-                          :maxLength   maxlength
-                          :on-key-down #(when (= (.-key %) "Enter")
-                                          (on-submit))
-                          :on-change   on-change
-                          :on-blur     on-blur
-                          :key         "ifc"}]
-    [:span.input-group-btn
-     [:button.btn.btn-primary {:disabled (string/blank? value)
-                               :on-click on-submit}
-      [:span.glyphicon.glyphicon-plus]]]]
-   [:p.help-block extra-help]])
-
-(defn ThemeKeywordsExtra
-  [_]
-  (letfn [(init-state [_]
-            {:highlight #{}})
-          (render [this]
-            (let [{:keys [highlight]} (r/state this)
-                  {:keys [keywords-path]} (r/props this)
-                  keywords-value-path (conj keywords-path :value)
-                  {:keys [value placeholder disabled errors new-value help maxlength] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
-              (letfn [(set-value! [v]
-                        (rf/dispatch [:handlers/setter keywords-path :new-value v]))
-                      (add-value! []
-                        (when-not (empty? new-value)
-                          (rf/dispatch [:handlers/add-keyword-extra keywords-value-path new-value])
-                          (handle-highlight-new this new-value)
-                          (set-value! "")
-                          (rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path])))
-                      (del-value! [x]
-                        (rf/dispatch [:handlers/del-keyword-extra keywords-value-path x]))]
-                [:div.ThemeKeywordsExtra {:class (utils/validation-state props)}
-                 (label-template props)
-                 [:p.help-block help]
-                 [:table.table.keyword-table {:class (when-not disabled "table-hover")}
-                  (into [:tbody]
-                        (for [keyword value]
-                          [:tr {:class (if disabled "active" (when (highlight (:value keyword)) "highlight"))}
-                           [:td (:value keyword)]
-                           (when-not disabled
-                             [:td
-                              [:button.btn.btn-warn.btn-xs.pull-right
-                               {:on-click #(del-value! (:value keyword))}
-                               [:span.glyphicon.glyphicon-minus]]])]))]
-                 (when-not disabled
-                   [ThemeInputField {:value       new-value
-                                     :on-submit   add-value!
-                                     :placeholder placeholder
-                                     :errors      errors
-                                     :help        help
-                                     :maxlength   maxlength
-                                     :extra-help  "We will contact you to discuss appropriate keyword terms"
-                                     :on-change   (fn [e]
-                                                    (set-value! (.. e -target -value)))
-                                     :on-blur     (fn [] (js/setTimeout #(rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path]) 100))}])])))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
-
-(defn TaxonKeywordsExtra
-  [_]
-  (letfn [(init-state [_]
-            {:highlight #{}})
-          (render [this]
-            (let [{:keys [highlight]} (r/state this)
-                  {:keys [keywords-path]} (r/props this)
-                  keywords-value-path (conj keywords-path :value)
-                  {:keys [value required help placeholder disabled maxlength errors new-value] :as props} @(rf/subscribe [:subs/get-derived-path keywords-path])]
-
-              (letfn [(set-value! [v]
-                        (rf/dispatch [:handlers/setter keywords-path :new-value v]))
-                      (add-value! []
-                        (when-not (empty? new-value)
-                          (rf/dispatch [:handlers/add-keyword-extra keywords-value-path new-value])
-                          (handle-highlight-new this new-value)
-                          (set-value! nil)
-                          (rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path])))
-                      (del-value! [x]
-                        (rf/dispatch [:handlers/del-keyword-extra keywords-value-path x]))
-                      (handle-input-change [e]
-                        (set-value! (.. e -target -value)))
-                      (handle-input-blur []
-                        (js/setTimeout #(rf/dispatch [:handlers/check-unsaved-keyword-input keywords-path]) 100))]
-
-                [:div.TaxonKeywordsExtra {:class (utils/validation-state props)}
-                 [:label "Taxon keywords" (when required " *")]
-                 [:p.help-block help]
-                 [:table.table.keyword-table {:class (when-not disabled "table-hover")}
-                  (into [:tbody]
-                        (for [keyword value]
-                          [:tr {:class (if disabled "active" (when (highlight (:value keyword)) "highlight"))}
-                           [:td (:value keyword)]
-                           (when-not disabled
-                             [:td [:button.btn.btn-warn.btn-xs.pull-right
-                                   {:on-click #(del-value! (:value keyword))}
-                                   [:span.glyphicon.glyphicon-minus]]])]))]
-                 (when-not disabled
-                   [ThemeInputField {:value       new-value
-                                     :on-submit   add-value!
-                                     :placeholder placeholder
-                                     :errors      errors
-                                     :maxlength   maxlength
-                                     :help        help
-                                     :on-change   handle-input-change
-                                     :on-blur     handle-input-blur}])])))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
-
-
-(defn CoordInputWidget
-  [_]
-  (letfn [(init-state [this]
-            (let [{:keys [value]} (r/props this)]
-              {:input-value value}))
-          (component-will-receive-props [this new-argv]
-            (let [[_ next-props] new-argv
-                  props (r/props this)]
-              (utils/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
-
-          (render [this]
-            (let [{:keys [addon-before addon-after help on-change value] :as props} (r/props this)
-                  {:keys [input-value]} (r/state this)
-                  input-props (assoc props
-                                :value (or value "")
-                                :key "ifc")]
-              [:div.form-group {:class (utils/validation-state props)}
-               (label-template props)
-               (if (or addon-after addon-before)
-                 [:div.input-group {:key "ig"} addon-before [:input.form-control input-props] addon-after]
-                 [:input.form-control
-                  (assoc input-props
-                    :value input-value
-                    :on-change #(r/set-state this {:input-value (.. % -target -value)})
-                    :on-blur (fn [e]
-                               (let [v (.. e -target -value)
-                                     f (utils/->float v)]
-                                 (r/set-state this {:input-value (str f)})
-                                 (on-change f))))])
-               [:p.help-block help]]))]
-    (r/create-class
-      {:get-initial-state            init-state
-       :component-will-receive-props component-will-receive-props
-       :render                       render})))
-
-(defn CoordInputField [props]
-  (let [field @(rf/subscribe [:subs/get-derived-path (:path props)])]
-    [CoordInputWidget
-     (-> field
-         (merge (dissoc props :path))
-         (assoc
-           :on-change (fn [value]
-                        (rf/dispatch [:handlers/value-changed (:path props) value]))))]))
-
-(defn CoordField [path]
-  (let [n-field [CoordInputField {:path (conj path :value :northBoundLatitude)}]
-        e-field [CoordInputField {:path (conj path :value :eastBoundLongitude)}]
-        s-field [CoordInputField {:path (conj path :value :southBoundLatitude)}]
-        w-field [CoordInputField {:path (conj path :value :westBoundLongitude)}]]
-    [:div.CoordField
-     [:div.row [:div.col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-2
-                [:div.n-block n-field]]]
-     [:div.row
-      [:div.col-sm-6.col-lg-4 [:div.w-block w-field]]
-      [:div.col-sm-6.col-lg-4 [:div.e-block e-field]]]
-     [:div.row
-      [:div.col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-2
-       [:div.s-block s-field]]]]))
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defprotocol IPrintNice
   (print-nice [x]))
@@ -860,51 +435,6 @@
   (print-nice [x] (pr-str x))
   nil
   (print-nice [x] "--"))
-
-(defn GeographicCoverage
-  [_]
-  (letfn [(render [this]
-            (let [{:keys [has-coverage-path boxes-path site-description-path]} (r/props this)
-                  {hasGeographicCoverage :value} @(rf/subscribe [:subs/get-derived-path has-coverage-path])
-                  {:keys [disabled] :as boxes} @(rf/subscribe [:subs/get-derived-path boxes-path])]
-
-              [:div.GeographicCoverage
-               [:h4 "Geographic Coverage"]
-               (when hasGeographicCoverage
-                 [:div.row
-                  [:div.col-sm-6
-                   [boxmap/box-map2-fill
-                    {:elements  (utils/boxes->elements boxes)
-                     :ref       (fn [boxmap] (r/set-state this {:boxmap boxmap}))
-                     :disabled  disabled
-                     :tick-id   @(rf/subscribe [:subs/get-form-tick])
-                     :on-change #(rf/dispatch [:handlers/update-boxes boxes-path %])}]]
-                  [:div.col-sm-6
-                   [textarea-field {:path site-description-path}]
-                   [:p [:span "Please input in decimal degrees in coordinate reference system WGS84. "
-                        "Geoscience Australia provide a "
-                        [:a {:href "http://www.ga.gov.au/geodesy/datums/redfearn_grid_to_geo.jsp" :target "blank"}
-                         "Grid to Geographic converter"]]]
-                   [TableModalEdit {:ths           ["North limit" "West limit" "South limit" "East limit"]
-                                    :tds-fn        (fn [geographicElement]
-                                                     (let [{:keys [northBoundLatitude westBoundLongitude
-                                                                   eastBoundLongitude southBoundLatitude]}
-                                                           (:value geographicElement)]
-                                                       [(print-nice (:value northBoundLatitude))
-                                                        (print-nice (:value westBoundLongitude))
-                                                        (print-nice (:value southBoundLatitude))
-                                                        (print-nice (:value eastBoundLongitude))]))
-                                    :default-field (-> (logic/new-value-field boxes)
-                                                       (update-in [:value :northBoundLatitude] merge (:northBoundLatitude 0))
-                                                       (update-in [:value :southBoundLatitude] merge (:southBoundLatitude 0))
-                                                       (update-in [:value :eastBoundLongitude] merge (:eastBoundLongitude 0))
-                                                       (update-in [:value :westBoundLongitude] merge (:westBoundLongitude 0)))
-                                    :form          CoordField
-                                    :title         "Geographic Coordinates"
-                                    :on-new-click  nil
-                                    :field-path    boxes-path}]]])]))]
-    (r/create-class
-      {:render render})))
 
 (defn breadcrumb-renderer [selected-option]
   (let [text (gobj/get selected-option "breadcrumb")
@@ -921,7 +451,7 @@
   [_]
   (letfn [(will-mount [this]
             (let [{:keys [keyword]} (r/props this)]
-              (rf/dispatch [:handlers/load-api-options [:api keyword]])))
+              (rf/dispatch [::load-api-options3 [:api keyword]])))
           (render [this]
             (let [{:keys [keyword path]} (r/props this)
                   path (conj path keyword)
@@ -944,7 +474,7 @@
                      :formatOptionLabel (fn [option]
                                           (r/as-element (aget option "prefLabel")))
                      :onChange          (fn [option]
-                                          (rf/dispatch [:handlers/update-nasa-list-value value-path option]))
+                                          (rf/dispatch [::nasa-list-select-field-change value-path option]))
                      :noResultsText     "No results found.  Click browse to add a new entry."})
                   [:p.help-block help]]]]]))]
     (r/create-class
@@ -957,11 +487,11 @@
    [:i.icon-info-sign.tern-tooltip
     [:span.tern-tooltiptext value]]])
 
-(defn ElasticsearchSelectField
+(defn elasticsearch-select-field
   [_]
   (letfn [(will-mount [this]
             (let [{:keys [api-path]} (r/props this)]
-              (rf/dispatch [:handlers/search-es-options api-path ""])))
+              (rf/dispatch [::elasticsearch-select-field-mount api-path ""])))
           (render [this]
             (let [{:keys [dp-type dp-term-path api-path disabled]} (r/props this)
                   sub-paths (utils/dp-term-paths dp-type)
@@ -993,7 +523,7 @@
                        :isClearable       true
                        :is-searchable     true
                        :onInputChange     (fn [query]
-                                            (rf/dispatch [:handlers/search-es-options api-path query])
+                                            (rf/dispatch [::elasticsearch-select-field-input-change api-path query])
                                             query)
                        :getOptionValue    (fn [option]
                                             (gobj/get option "term"))
@@ -1003,7 +533,7 @@
                                             ; Return true always. This allows for matches on label as well as altLabel (or other fields available in the REST API).
                                             (boolean 0))
                        :onChange          (fn [option]
-                                            (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
+                                            (rf/dispatch [::update-dp-term dp-term-path sub-paths option]))
                        :noResultsText     "No results found.  Click browse to add a new entry."
                        :isDisabled        disabled})
 
@@ -1018,14 +548,14 @@
                        :formatOptionLabel (fn [props]
                                             (r/as-element (breadcrumb-renderer props)))
                        :onChange          (fn [option]
-                                            (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))
+                                            (rf/dispatch [::update-dp-term dp-term-path sub-paths option]))
                        :noResultsText     "No results found.  Click browse to add a new entry."}))
                   [:p.help-block help]]]
                 ; TODO: Re-enable this in the future to browse/create vocabulary terms.
                 ;                  [:div.flex-row-button
                 ;                   [:button.btn.btn-default
                 ;                    {:style    {:vertical-align "top"}
-                ;                     :on-click #(rf/dispatch [:handlers/open-modal
+                ;                     :on-click #(rf/dispatch [:handlers/open-modalv
                 ;                                              {:type         param-type
                 ;                                               :api-path     api-path
                 ;                                               :dp-term-path dp-term-path}])}
@@ -1040,7 +570,7 @@
   [_]
   (letfn [(will-mount [this]
             (let [{:keys [api-path]} (r/props this)]
-              (rf/dispatch [:handlers/load-api-options api-path])))
+              (rf/dispatch [::load-api-options3 api-path])))
           (render [this]
             (let [{:keys [api-path value on-change]} (r/props this)]
               (when-let [{:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
@@ -1062,7 +592,7 @@
   [_]
   (letfn [(will-mount [this]
             (let [{:keys [api-path]} (r/props this)]
-              (rf/dispatch [:handlers/load-api-options api-path])))
+              (rf/dispatch [::load-api-options3 api-path])))
           (render [this]
             (let [{:keys [api-path value on-change]} (r/props this)]
               (when-let [{:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
@@ -1093,7 +623,7 @@
        :value     (:value vocabularyTermURL)
        :options   options
        :on-change (fn [option]
-                    (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths option]))}]
+                    (rf/dispatch [::update-dp-term dp-term-path sub-paths option]))}]
      [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
 
 (defn TermOrOtherForm
@@ -1110,8 +640,8 @@
       (assoc term
         :value (if (utils/other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
-                     (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
-                                                                                        :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
+                     (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term              v
+                                                                                :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
         :placeholder ""
         :maxlength 100)]]))
 
@@ -1127,12 +657,12 @@
       (assoc term
         :value (if (utils/other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
-                     (rf/dispatch [:handlers/update-dp-term dp-term-path sub-paths #js {:term              v
-                                                                                        :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
+                     (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term              v
+                                                                                :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
         :placeholder ""
         :maxlength 100)]]))
 
-(defn PersonListField
+(defn person-list-field
   [{:keys [api-path person-path]}]
   (let [{:keys [name uri]} @(rf/subscribe [:subs/get-derived-path person-path])
         {:keys [label required errors show-errors]} name
@@ -1144,7 +674,7 @@
        :value     (:value uri)
        :options   options
        :on-change (fn [option]
-                    (rf/dispatch [:handlers/update-person person-path option]))}]
+                    (rf/dispatch [::person-list-field-change person-path option]))}]
      [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
 
 (defn PersonForm
@@ -1155,57 +685,52 @@
                :api-path    [:api :person]}]
     [:div
      [:p "Select a person"]
-     [PersonListField props]]))
+     [person-list-field props]]))
 
 (defn modal-dialog-parametername
-  [_]
-  (let [props @(rf/subscribe [:subs/get-modal-props])]
-    [Modal {:ok-copy      "Done"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter names"]
-            :modal-body   [TermOrOtherForm (assoc props :dp-type :longName)]
-            :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+  [props]
+  [Modal {:ok-copy      "Done"
+          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter names"]
+          :modal-body   [TermOrOtherForm (assoc props :dp-type :longName)]
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-parameterunit
-  [_]
-  (let [props @(rf/subscribe [:subs/get-modal-props])]
-    [Modal {:ok-copy      "Done"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Add parameter unit"]
-            :modal-body   [:div [UnitTermOrOtherForm (-> props
-                                                         (assoc :sort? false)
-                                                         (assoc :dp-type :unit))]]
-            :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+  [props]
+  [Modal {:ok-copy      "Done"
+          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Add parameter unit"]
+          :modal-body   [:div [UnitTermOrOtherForm (-> props
+                                                       (assoc :sort? false)
+                                                       (assoc :dp-type :unit))]]
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-parameterinstrument
-  [_]
-  (let [props @(rf/subscribe [:subs/get-modal-props])]
-    [Modal {:ok-copy      "Done"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter instruments"]
-            :modal-body   [:div
-                           [TermOrOtherForm (assoc props :dp-type :instrument)]]
-            :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+  [props]
+  [Modal {:ok-copy      "Done"
+          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter instruments"]
+          :modal-body   [:div
+                         [TermOrOtherForm (assoc props :dp-type :instrument)]]
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-parameterplatform
-  [_]
-  (let [props @(rf/subscribe [:subs/get-modal-props])]
-    [Modal {:ok-copy      "Done"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter platforms"]
-            :modal-body   [:div
-                           [TermOrOtherForm (assoc props :dp-type :platform)]]
-            :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+  [props]
+  [Modal {:ok-copy      "Done"
+          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter platforms"]
+          :modal-body   [:div
+                         [TermOrOtherForm (assoc props :dp-type :platform)]]
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-person
-  [_]
-  (let [props @(rf/subscribe [:subs/get-modal-props])]
-    [Modal {:ok-copy      "Done"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse people"]
-            :modal-body   [:div
-                           [PersonForm props]]
-            :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-            :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+  [props]
+  [Modal {:ok-copy      "Done"
+          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse people"]
+          :modal-body   [:div
+                         [PersonForm props]]
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn DataParameterRowEdit [path]
   (let [base-path (conj path :value)
@@ -1218,25 +743,25 @@
       [:div
        {:class "alert alert-success"}
        "Request new controlled vocabulary terms if they do not exist in the drop-down fields using the feedback button to the right of the screen."]
-      [ElasticsearchSelectField {:param-type   :parametername
-                                 :api-path     [:api :parametername]
-                                 :dp-term-path base-path
-                                 :dp-type      :longName}]
+      [elasticsearch-select-field {:param-type   :parametername
+                                   :api-path     [:api :parametername]
+                                   :dp-term-path base-path
+                                   :dp-type      :longName}]
       [InputField {:path name-path}]]
      [:form/fieldset.tern-fieldset
-      [ElasticsearchSelectField {:param-type   :parameterunit
-                                 :api-path     [:api :parameterunit]
-                                 :dp-term-path base-path
-                                 :dp-type      :unit}]]
+      [elasticsearch-select-field {:param-type   :parameterunit
+                                   :api-path     [:api :parameterunit]
+                                   :dp-term-path base-path
+                                   :dp-type      :unit}]]
      [:form/fieldset.tern-fieldset
-      [ElasticsearchSelectField {:param-type   :parameterplatform
-                                 :api-path     [:api :parameterplatform]
-                                 :dp-term-path base-path
-                                 :dp-type      :platform}]
-      [ElasticsearchSelectField {:param-type   :parameterinstrument
-                                 :api-path     [:api :parameterinstrument]
-                                 :dp-term-path base-path
-                                 :dp-type      :instrument}]
+      [elasticsearch-select-field {:param-type   :parameterplatform
+                                   :api-path     [:api :parameterplatform]
+                                   :dp-term-path base-path
+                                   :dp-type      :platform}]
+      [elasticsearch-select-field {:param-type   :parameterinstrument
+                                   :api-path     [:api :parameterinstrument]
+                                   :dp-term-path base-path
+                                   :dp-type      :instrument}]
       ; TODO: This should be enabled only when an instrument is created. Currently, creating vocabulary terms is disabled.
       [InputField
        {:path     serialNumber-path
@@ -1256,35 +781,13 @@
      :add-label  "Add data parameter"
      :field-path path}]])
 
-(defn upload! [this {:keys [url fields]} file reset-file-drop]
-  (r/set-state this {:uploading true})
-  (let [fd (js/FormData.)
-        xhr (js/XMLHttpRequest.)]
-    (.open xhr "POST" url true)
-    (set! (.-onreadystatechange xhr)
-          (fn []
-            (when (= (.-readyState xhr) 4)
-              (if (#{200 201} (.-status xhr))
-                (rf/dispatch [:handlers/add-attachment (utils/map-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
-                (rf/dispatch [:handlers/open-modal
-                              {:type    :alert
-                               :message "File upload failed. Please try again or contact administrator."}]))
-              (r/set-state this {:uploading false})
-              (put! reset-file-drop true))))
-    (doto fd
-      (.append "csrfmiddlewaretoken" (get-in fields [:csrfmiddlewaretoken :initial]))
-      (.append "document" (get-in fields [:document :initial]))
-      (.append "name" (.-name file))
-      (.append "file" file))
-    (.send xhr fd)))
-
 (defn handle-file [this file]
   (let [{:keys [reset-ch max-filesize]} (r/props this)]
     (if (or (not max-filesize)
             (<= (.-size file) (* 1024 1024 max-filesize)))
       (r/set-state this {:file file})
       (when max-filesize
-        (rf/dispatch [:handlers/open-modal
+        (rf/dispatch [::open-modal
                       {:type    :alert
                        :message (str "Please, choose file less than " max-filesize "mb")}])
         (put! reset-ch true)))))
@@ -1334,15 +837,37 @@
 (defn delete-attachment!
   "Quick and dirty delete function"
   [attachments-path attachment-idx]
-  (rf/dispatch [:handlers/open-modal
+  (rf/dispatch [::open-modal
                 {:type       :confirm
                  :title      "Delete?"
                  :message    "Are you sure you want to delete this file?"
-                 :on-confirm #(rf/dispatch [:handlers/del-value attachments-path attachment-idx])}]))
+                 :on-confirm #(rf/dispatch [::del-value attachments-path attachment-idx])}]))
 
 (defn UploadData
   [_]
-  (letfn [(init-state [_]
+  (letfn [(confirm-upload-click
+            [this {:keys [url fields]} file reset-file-drop]
+            (r/set-state this {:uploading true})
+            (let [fd (js/FormData.)
+                  xhr (js/XMLHttpRequest.)]
+              (.open xhr "POST" url true)
+              (set! (.-onreadystatechange xhr)
+                    (fn []
+                      (when (= (.-readyState xhr) 4)
+                        (if (#{200 201} (.-status xhr))
+                          (rf/dispatch [::upload-data-confirm-upload-click-add-attachment (utils/map-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
+                          (rf/dispatch [::open-modal
+                                        {:type    :alert
+                                         :message "File upload failed. Please try again or contact administrator."}]))
+                        (r/set-state this {:uploading false})
+                        (put! reset-file-drop true))))
+              (doto fd
+                (.append "csrfmiddlewaretoken" (get-in fields [:csrfmiddlewaretoken :initial]))
+                (.append "document" (get-in fields [:document :initial]))
+                (.append "name" (.-name file))
+                (.append "file" file))
+              (.send xhr fd)))
+          (init-state [_]
             {:reset-file-drop (chan)})
           (render [this]
             (let [{:keys [attachments-path]} (r/props this)
@@ -1374,197 +899,9 @@
                     :reset-ch     reset-file-drop
                     :on-change    #(r/set-state this {:file %})}]
                   [:button.btn.btn-primary
-                   {:on-click #(upload! this upload-form file reset-file-drop)
+                   {:on-click #(confirm-upload-click this upload-form file reset-file-drop)
                     :disabled (or uploading (not file))}
                    "Confirm Upload"]])]))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
-
-(defn handle-submit-click
-  []
-  (rf/dispatch [:handlers/lodge-click]))
-
-(defn IMASLodge
-  [{:keys [notes-path]}]
-  (let [page @(rf/subscribe [:subs/get-page-props])
-        saving (::handlers/saving? page)
-        {:keys [document urls site]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        {:keys [portal_title portal_url email]} site
-        {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
-        {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
-        dirty @(rf/subscribe [:subs/get-form-dirty])
-        noteForDataManager @(rf/subscribe [:subs/get-derived-path notes-path])
-        is-are (if (> errors 1) "are" "is")
-        plural (when (> errors 1) "s")
-        has-errors? (and errors (> errors 0))
-        submitted? (= (:status document) "Submitted")]
-    [:div.Lodge
-     [:p "Are you finished? Use this page to lodge your completed metadata record."]
-     [:p "Any difficulties?  Please contact " [:a {:href (str "mailto:" email)} email]]
-     [:p "The Data Manager will be notified of your submission and will be in contact
-               if any further information is required. Once approved, your data will be archived
-               for discovery in the "
-      (if portal_url
-        [:a {:href portal_url :target "_blank"} [:span.portal_title portal_title]]
-        [:span.portal_title portal_title])
-      "."]
-     [:p "How complete is your data?"]
-     [:div
-      {:style {:padding-top    5
-               :padding-bottom 5}}
-      (if (= "Draft" (:status document))
-        [textarea-field {:path notes-path}]
-        (when-not (string/blank? (:value noteForDataManager))
-          [:div
-           [:strong "Note for the data manager:"]
-           [:p (:value noteForDataManager)]]))]
-     [:div
-      [:button.btn.btn-primary.btn-lg
-       {:disabled (or has-errors? saving disabled submitted?)
-        :on-click handle-submit-click}
-       (when saving
-         [:img
-          {:src (str (:STATIC_URL urls)
-                     "metcalf3/img/saving.gif")}])
-       "Lodge data"]
-      " "
-
-      (if has-errors?
-        [:span.text-danger [:b "Unable to lodge: "]
-         "There " is-are " " [:span errors " error" plural
-                              " which must be corrected first."]]
-        [:span.text-success
-         [:b
-          (cond
-            saving "Submitting..."
-            (= (:status document) "Draft") "Ready to lodge"
-            (= (:status document) "Submitted") "Your record has been submitted."
-            :else (:status document))]])]
-
-     (let [download-props {:href     (str (:export_url document) "?download")
-                           :on-click #(when dirty
-                                        (.preventDefault %)
-                                        (rf/dispatch [:handlers/open-modal
-                                                      {:type    :alert
-                                                       :message "Please save changes before exporting."}]))}]
-       [:div.user-export
-        [:p [:strong "Want to keep a personal copy of your metadata record?"]]
-        [:p
-         [:a download-props "Click here"] " to generate an XML version of your metadata submission. "
-         "The file generated includes all of the details you have provided under the
-          tabs, but not files you have uploaded."]
-        [:p
-         "Please note: this XML file is not the recommended way to share your metadata.
-          We want you to submit your data via 'lodging' the information.
-          This permits multi-user access via the portal in a more friendly format."]])]))
-
-(defn Lodge
-  [_]
-  (letfn [(init-state [_]
-            {:is-open        false
-             :is-open-inline false})
-          (render [this]
-            (let [{:keys [note-for-data-manager-path
-                          agreed-to-terms-path
-                          doi-requested-path
-                          current-doi-path]} (r/props this)
-                  {:keys [is-open]} (r/state this)
-                  page @(rf/subscribe [:subs/get-page-props])
-                  saving (::handlers/saving? page)
-                  {:keys [document urls site]} @(rf/subscribe [:subs/get-derived-path [:context]])
-                  {:keys [portal_title portal_url email]} site
-                  {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
-                  {:keys [terms_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])
-                  {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
-                  dirty @(rf/subscribe [:subs/get-form-dirty])
-                  noteForDataManager @(rf/subscribe [:subs/get-derived-path note-for-data-manager-path])
-                  agreedToTerms @(rf/subscribe [:subs/get-derived-path agreed-to-terms-path])
-                  doiRequested @(rf/subscribe [:subs/get-derived-path doi-requested-path])
-                  currentDoi @(rf/subscribe [:subs/get-derived-path current-doi-path])
-                  is-are (if (> errors 1) "are" "is")
-                  plural (when (> errors 1) "s")
-                  has-errors? (and errors (> errors 0))
-                  submitted? (= (:status document) "Submitted")]
-              [:div.Lodge
-               [:p "Are you finished? Use this page to lodge your completed metadata record."]
-               [:p "Any difficulties?  Please contact " [:a {:href (str "mailto:" email)} email]]
-               [:p "The Data Manager will be notified of your submission and will be in contact
-               if any further information is required. Once approved, your data will be archived
-               for discovery in the "
-                (if portal_url
-                  [:a {:href portal_url :target "_blank"} [:span.portal_title portal_title]]
-                  [:span.portal_title portal_title])
-                "."]
-               [:p "How complete is your data?"]
-               [:div
-                {:style {:padding-top    5
-                         :padding-bottom 5}}
-                (if (= "Draft" (:status document))
-                  [textarea-field {:path note-for-data-manager-path}]
-                  (when-not (string/blank? (:value noteForDataManager))
-                    [:div
-                     [:strong "Note for the data manager:"]
-                     [:p (:value noteForDataManager)]]))]
-               [:div
-                [CheckboxField
-                 {:path  doi-requested-path
-                  :label [:span "Please mint a DOI for this submission (If the DOI already exists, input details in the field above)"]}]]
-               (when (:value doiRequested) (if (blank? (:value currentDoi))
-                                             [:p [:strong "DOI not yet minted"]]
-                                             [:p [:strong "Minted DOI: "] (:value currentDoi)]))
-               [:div
-                [:a
-                 {:onClick #(r/set-state this {:is-open (not is-open)})}
-                 [:div [:b (str (if is-open "Hide" "Show") " Terms & Conditions ")
-                        (if is-open [:span.glyphicon.glyphicon-collapse-up]
-                                    [:span.glyphicon.glyphicon-collapse-down])]]]
-                [bp3/collapse
-                 {:isOpen is-open}
-                 [:iframe {:width  "100%"
-                           :height "600px"
-                           :src    terms_pdf}]]
-                [CheckboxField
-                 {:path  agreed-to-terms-path
-                  :label [:span "I have read and agree to the terms and conditions."]}]
-                [:button.btn.btn-primary.btn-lg
-                 {:disabled (or has-errors? saving disabled submitted? (not (:value agreedToTerms)))
-                  :on-click handle-submit-click}
-                 (when saving
-                   [:img
-                    {:src (str (:STATIC_URL urls)
-                               "metcalf3/img/saving.gif")}])
-                 "Lodge data"]
-                " "
-
-                (if has-errors?
-                  [:span.text-danger [:b "Unable to lodge: "]
-                   "There " is-are " " [:span errors " error" plural
-                                        " which must be corrected first."]]
-                  [:span.text-success
-                   [:b
-                    (cond
-                      saving "Submitting..."
-                      (= (:status document) "Draft") "Ready to lodge"
-                      (= (:status document) "Submitted") "Your record has been submitted."
-                      :else (:status document))]])]
-
-               (let [download-props {:href     (str (:export_url document) "?download")
-                                     :on-click #(when dirty
-                                                  (.preventDefault %)
-                                                  (rf/dispatch [:handlers/open-modal
-                                                                {:type    :alert
-                                                                 :message "Please save changes before exporting."}]))}]
-                 [:div.user-export
-                  [:p [:strong "Want to keep a personal copy of your metadata record?"]]
-                  [:p
-                   [:a download-props "Click here"] " to generate an XML version of your metadata submission. "
-                   "The file generated includes all of the details you have provided under the
-                    tabs, but not files you have uploaded."]
-                  [:p
-                   "Please note: this XML file is not the recommended way to share your metadata.
-                    We want you to submit your data via 'lodging' the information.
-                    This permits multi-user access via the portal in a more friendly format."]])]))]
     (r/create-class
       {:get-initial-state init-state
        :render            render})))
@@ -1574,27 +911,27 @@
         {:keys [city postalCode administrativeArea country deliveryPoint deliveryPoint2]} address]
     [:div.AddressField
      [InputWidget (assoc deliveryPoint
-                    :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :deliveryPoint) %]))]
+                    :on-change #(rf/dispatch [::value-changed (conj address-path :deliveryPoint) %]))]
      [InputWidget (assoc deliveryPoint2
-                    :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :deliveryPoint2) %]))]
+                    :on-change #(rf/dispatch [::value-changed (conj address-path :deliveryPoint2) %]))]
      [:div.row
       [:div.col-xs-6
        [InputWidget (assoc city
                       :help "City"
-                      :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :city) %]))]]
+                      :on-change #(rf/dispatch [::value-changed (conj address-path :city) %]))]]
       [:div.col-xs-6
        [InputWidget (assoc administrativeArea
                       :help "State/territory"
-                      :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :administrativeArea) %]))]]]
+                      :on-change #(rf/dispatch [::value-changed (conj address-path :administrativeArea) %]))]]]
      [:div.row
       [:div.col-xs-6
        [InputWidget (assoc postalCode
                       :help "Postal / Zip code"
-                      :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :postalCode) %]))]]
+                      :on-change #(rf/dispatch [::value-changed (conj address-path :postalCode) %]))]]
       [:div.col-xs-6
        [InputWidget (assoc country
                       :help "Country"
-                      :on-change #(rf/dispatch [:handlers/value-changed (conj address-path :country) %]))]]]]))
+                      :on-change #(rf/dispatch [::value-changed (conj address-path :country) %]))]]]]))
 
 (defn OrganisationPickerWidget
   [props]
@@ -1708,9 +1045,9 @@
                     :options (for [option options
                                    :let [Identifier (gobj/get option "Identifier")]]
                                [Identifier (cuerdas/human Identifier)])
-                    :on-change #(rf/dispatch [:handlers/value-changed role-path %]))]))
+                    :on-change #(rf/dispatch [::value-changed role-path %]))]))
 
-(defn PersonInputField
+(defn person-input-field
   "Input field for people which offers autocompletion of known
   people."
   [party-path]
@@ -1723,7 +1060,7 @@
        :party-path party-path
        :disabled   (:disabled uri)
        :on-change  (fn [option]
-                     (rf/dispatch [:handlers/update-person (conj party-path :value) option]))}]]))
+                     (rf/dispatch [::person-input-field-picker-change (conj party-path :value) option]))}]]))
 
 (defn OrganisationInputField
   "Input field for organisation which offers autocompletion of known
@@ -1741,7 +1078,7 @@
        :on-input-change (fn [newvalue]
                           (subs newvalue 0 250))
        :on-change       (fn [option]
-                          (rf/dispatch [:handlers/org-changed (conj party-path :value) option]))}]]))
+                          (rf/dispatch [::organisation-input-field-change (conj party-path :value) option]))}]]))
 
 (def orcid-mask "0000{-}0000{-}0000{-}000*")
 
@@ -1764,7 +1101,7 @@
         :style {:position "relative"
                 :z-index  10}}
        [:label "Contact name" (when (:required individualName) " *")]
-       [PersonInputField party-path]
+       [person-input-field party-path]
        [:p.help-block "If you cannot find the person in the list above, please enter details below"]]]
      [:div
 
@@ -1772,16 +1109,16 @@
       [:div.row
        [:div.col-md-6
         [NameInputWidget (assoc givenName
-                           :on-change #(rf/dispatch [:handlers/person-detail-changed party-value-path :givenName % isUserAdded]))]]
+                           :on-change #(rf/dispatch [::responsible-party-field-given-name-changed party-value-path :givenName % isUserAdded]))]]
        [:div.col-md-6
         [NameInputWidget (assoc familyName
-                           :on-change #(rf/dispatch [:handlers/person-detail-changed party-value-path :familyName % isUserAdded]))]]]
+                           :on-change #(rf/dispatch [::responsible-party-field-family-name-changed party-value-path :familyName % isUserAdded]))]]]
 
       [InputWidget (assoc electronicMailAddress
-                     :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :electronicMailAddress) %]))]
+                     :on-change #(rf/dispatch [::value-changed (conj party-value-path :electronicMailAddress) %]))]
 
       [InputWidget (assoc orcid
-                     :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :orcid) %])
+                     :on-change #(rf/dispatch [::value-changed (conj party-value-path :orcid) %])
                      :mask orcid-mask)]
 
       [:label "Organisation" (when (:required organisationName) " *")]
@@ -1793,10 +1130,10 @@
       [:div.ContactDetails
 
        [InputWidget (assoc phone
-                      :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :phone) %]))]
+                      :on-change #(rf/dispatch [::value-changed (conj party-value-path :phone) %]))]
 
        [InputWidget (assoc facsimile
-                      :on-change #(rf/dispatch [:handlers/value-changed (conj party-value-path :facsimile) %]))]
+                      :on-change #(rf/dispatch [::value-changed (conj party-value-path :facsimile) %]))]
 
        ]]]))
 
@@ -1817,7 +1154,7 @@
     (when (seq msgs)
       [:div.alert.alert-warning.alert-dismissable
        [:button {:type     "button" :class "close"
-                 :on-click #(rf/dispatch [:handlers/hide-errors path])} "×"]
+                 :on-click #(rf/dispatch [::page-errors-hide-click path])} "×"]
        (if (> (count msgs) 1)
          [:div
           [:b "There are multiple fields on this page that require your attention:"]
@@ -1870,47 +1207,45 @@
 (defn CreditField [path]
   [:div.CreditField [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :credit])]])
 
-(defn delete-contact! [this group item e]
-  (.stopPropagation e)
-  (let [parties-path (:path (contact-groups group))
-        parties @(rf/subscribe [:subs/get-derived-path parties-path])
-        {:keys [selected-group selected-item]} (r/state this)]
-    (rf/dispatch [:handlers/open-modal
-                  {:type       :confirm
-                   :title      "Delete?"
-                   :message    "Are you sure you want to delete this person?"
-                   :on-confirm (fn []
-                                 (when (and (= group selected-group) (<= item selected-item))
-                                   (r/set-state this {:selected-item
-                                                      (when (> (count (:value parties)) 1)
-                                                        (-> selected-item dec (max 0)))}))
-                                 (rf/dispatch [:handlers/remove-party parties-path item]))}])))
-
 (defn parties-list [this group]
   (let [{:keys [disabled] :as parties} @(rf/subscribe [:subs/get-derived-path (:path (contact-groups group))])
         {:keys [selected-group selected-item]} (r/state this)
-        selected-item (when (= group selected-group) selected-item)
-        ]
-    (into [:div.list-group]
-          (for [[item party] (-> parties :value utils/enum)]
-            [:div
-             [:a.list-group-item
-              {:class    (when (= item selected-item) "active")
-               :on-click (fn []
-                           (r/set-state this {:selected-group group})
-                           (r/set-state this {:selected-item item}))}
-              [:span
-               (let [name (get-in party [:value :individualName :value])
-                     givenName (get-in party [:value :givenName :value])
-                     familyName (get-in party [:value :familyName :value])
-                     name (if (blank? name)
-                            (str givenName " " familyName)
-                            name)]
-                 (if (blank? name) [:em "First name Last name"] name))
-               (when-not disabled
-                 [:button.btn.btn-warn.btn-xs.pull-right
-                  {:on-click (partial delete-contact! this group item)}
-                  [:i.glyphicon.glyphicon-minus]])]]]))))
+        selected-item (when (= group selected-group) selected-item)]
+    (letfn [(delete-contact! [e item]
+              (.stopPropagation e)
+              (let [parties-path (:path (contact-groups group))
+                    {:keys [selected-group selected-item]} (r/state this)]
+                (rf/dispatch [::open-modal
+                              {:type       :confirm
+                               :title      "Delete?"
+                               :message    "Are you sure you want to delete this person?"
+                               :on-confirm (fn []
+                                             (when (and (= group selected-group) (<= item selected-item))
+                                               (r/set-state this {:selected-item
+                                                                  (when (> (count (:value parties)) 1)
+                                                                    (-> selected-item dec (max 0)))}))
+                                             (rf/dispatch [::parties-list-remove-party-confirm parties-path item]))}])))]
+
+      (into [:div.list-group]
+            (for [[item party] (-> parties :value utils/enum)]
+              [:div
+               [:a.list-group-item
+                {:class    (when (= item selected-item) "active")
+                 :on-click (fn []
+                             (r/set-state this {:selected-group group})
+                             (r/set-state this {:selected-item item}))}
+                [:span
+                 (let [name (get-in party [:value :individualName :value])
+                       givenName (get-in party [:value :givenName :value])
+                       familyName (get-in party [:value :familyName :value])
+                       name (if (blank? name)
+                              (str givenName " " familyName)
+                              name)]
+                   (if (blank? name) [:em "First name Last name"] name))
+                 (when-not disabled
+                   [:button.btn.btn-warn.btn-xs.pull-right
+                    {:on-click #(delete-contact! % item)}
+                    [:i.glyphicon.glyphicon-minus]])]]])))))
 
 (defn default-selected-group []
   (ffirst
@@ -1932,8 +1267,8 @@
                   new! (fn [path group & [field]]
                          (let [many-field (cursors group)]
                            (if field
-                             (rf/dispatch [:handlers/add-value! path (:value field)])
-                             (rf/dispatch [:handlers/new-field! path]))
+                             (rf/dispatch [::who-new-add-value path (:value field)])
+                             (rf/dispatch [::who-new-field path]))
                            (r/set-state this {:selected-group group})
                            (r/set-state this {:selected-item (-> many-field :value count)})))
                   all-parties (mapv (comp set
@@ -2000,36 +1335,6 @@
       {:get-initial-state init-state
        :render            render})))
 
-(defn MethodOrOtherForm
-  "docstring"
-  [path]
-  (let [method-path (conj path :value)
-        {:keys [name]} @(rf/subscribe [:subs/get-derived-path method-path])]
-    [:div
-     ;TODO: put this back once method vocab exists
-     ;[:p "Select a method from the list"]
-     ;[MethodListField props]
-     ;[:p "Or define your own method"]
-     [InputWidget (assoc name :on-change (fn [option]
-                                           (rf/dispatch [:handlers/update-method-name method-path option])))]
-     [textarea-field {:path (into [] (concat path [:value :description]))}]]))
-
-(defn Methods
-  [{:keys [path]}]
-  (let [list-field @(rf/subscribe [:subs/get-derived-path path])]
-    [:div.SupplementalInformation
-     (label-template list-field)
-     [TableModalEdit
-      {:ths         ["Name" "Description"]
-       :tds-fn      (fn [field]
-                      (let [{:keys [name description]} (:value field)]
-                        (mapv (comp #(or % "--") :value) [name description])))
-       :form        MethodOrOtherForm
-       :title       "Method"
-       :placeholder ""
-       :add-label   "Add method"
-       :field-path  path}]]))
-
 (defn UseLimitationsFieldEdit [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :useLimitations])])
 
@@ -2057,25 +1362,6 @@
      :add-label   "Add publication"
      :field-path  path}]])
 
-(defn SupplementalInformation [path]
-  [:div
-   [:label "Any supplemental information such as file naming conventions"]
-   [TableModalEdit
-    {:form        SupplementalInformationRowEdit
-     :title       "Additional Detail"
-     :placeholder ""
-     :add-label   "Additional detail"
-     :field-path  path}]])
-
-(defn ResourceConstraints []
-  [:div.ResourceConstraints
-   [:p.help-block (str "Creative Commons - Attribution 4.0 International. The license allows others to copy,
-   distribute, display, and create derivative works provided that they
-   credit the original source and any other nominated parties.")]
-   [:p [:a {:href   "https://creativecommons.org/licenses/by/4.0/"
-            :target "_blank"}
-        "https://creativecommons.org/licenses/by/4.0/"]]])
-
 (defn SupportingResourceFieldEdit [path]
   [:div
    [InputField {:path (conj path :value :name)}]
@@ -2092,19 +1378,6 @@
      :title       "Add supporting resource"
      :placeholder ""
      :add-label   "Add supporting resource"
-     :field-path  path}]])
-
-(defn SupportingResource
-  [{:keys [path]}]
-  [:div
-   [:label "Any resources with hyperlinks (including Publications)"]
-   [TableModalEdit
-    {:ths         ["Title" "URL"]
-     :tds-fn      (comp (partial map (comp #(or % "--") :value)) (juxt :name :url) :value)
-     :form        SupportingResourceFieldEdit
-     :title       "Publication"
-     :placeholder ""
-     :add-label   "Add publication"
      :field-path  path}]])
 
 (defn DataSourceRowEdit [path]
@@ -2124,7 +1397,7 @@
                     :field-path path}]])
 
 (defn progress-bar []
-  (when-let [{:keys [can-submit? value]} @(rf/subscribe [:progress/get-props])]
+  (when-let [{:keys [can-submit? value]} @(rf/subscribe [::get-progress-bar-props])]
     [:div
      [:span.progressPercentage (str (int (* value 100)) "%")]
      [bp3/progress-bar {:animate false
@@ -2132,19 +1405,11 @@
                         :stripes false
                         :value   value}]]))
 
-(defn handle-archive-click
-  []
-  (rf/dispatch [:handlers/open-modal
-                {:type       :confirm
-                 :title      "Archive?"
-                 :message    "Are you sure you want to archive this record?"
-                 :on-confirm #(rf/dispatch [:handlers/archive-current-document])}]))
-
 (defn edit-tabs
   []
   (let [{:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
         {:keys [selected-tab tab-props]} @(rf/subscribe [:subs/get-edit-tab-props])]
-    (letfn [(pick-tab [id _ _] (rf/dispatch [:handlers/set-tab (edn/read-string id)]))]
+    (letfn [(pick-tab [id _ _] (rf/dispatch [::edit-tabs-pick-click (edn/read-string id)]))]
       [:div {:style {:min-width "60em"}}
        (-> [bp3/tabs {:selectedTabId            (pr-str selected-tab)
                       :onChange                 pick-tab
@@ -2161,7 +1426,14 @@
 
 (defn PageViewEdit
   [_]
-  (letfn [(render [_]
+  (letfn [(handle-archive-click
+            []
+            (rf/dispatch [::open-modal
+                          {:type       :confirm
+                           :title      "Archive?"
+                           :message    "Are you sure you want to archive this record?"
+                           :on-confirm #(rf/dispatch [::page-view-edit-archive-click-confirm])}]))
+          (render [_]
             (let [page @(rf/subscribe [:subs/get-page-props])
                   saving (::handlers/saving? page)
                   {:keys [urls user]} @(rf/subscribe [:subs/get-derived-path [:context]])
@@ -2226,29 +1498,29 @@
   [Modal {:ok-copy      "OK"
           :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Create a new record"]
           :modal-body   [NewDocumentForm]
-          :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-          :on-cancel    #(rf/dispatch [:handlers/close-modal])
-          :on-save      #(rf/dispatch [:handlers/dashboard-create-save])}])
+          :on-dismiss   #(rf/dispatch [::close-modal])
+          :on-cancel    #(rf/dispatch [::close-modal])
+          :on-save      #(rf/dispatch [::modal-dialog-dashboard-create-modal-save-click])}])
 
 (defn NewDocumentButton []
-  [:button.btn.btn-primary {:on-click #(rf/dispatch [:handlers/open-modal {:type :DashboardCreateModal}])}
+  [:button.btn.btn-primary {:on-click #(rf/dispatch [::open-modal {:type :DashboardCreateModal}])}
    [:span.glyphicon.glyphicon-plus]
    " Create new record"])
 
 (defn clone-doc [url event]
-  (rf/dispatch [:handlers/open-modal
+  (rf/dispatch [::open-modal
                 {:type       :confirm
                  :title      "Clone?"
                  :message    (str "Are you sure you want to clone this record?")
-                 :on-confirm #(rf/dispatch [:handlers/clone-document url])}])
+                 :on-confirm #(rf/dispatch [::clone-doc-confirm url])}])
   (.preventDefault event))
 
 (defn DocumentTeaser [{:keys [url title last_updated status transitions
                               transition_url clone_url] :as doc}]
   (let [transitions (set transitions)
-        on-archive-click #(rf/dispatch [:handlers/archive-doc-click transition_url])
-        on-delete-archived-click #(rf/dispatch [:handlers/delete-archived-doc-click transition_url])
-        on-restore-click #(rf/dispatch [:handlers/restore-doc-click transition_url])
+        on-archive-click #(rf/dispatch [::document-teaser-archive-click transition_url])
+        on-delete-archived-click #(rf/dispatch [::document-teaser-delete-archived-click transition_url])
+        on-restore-click #(rf/dispatch [::document-teaser-restore-click transition_url])
         on-clone-click (partial clone-doc clone_url)
         on-edit-click #(aset js/location "href" url)]
 
@@ -2286,9 +1558,9 @@
           " by " (:username (:owner doc))]
          "Has not been edited yet")]]]))
 
-(defn PageViewDashboard
+(defn dashboard
   [_]
-  (let [{:keys [filtered-docs status-filter has-documents? status-freq status relevant-status-filter]} @(rf/subscribe [:subs/get-dashboard-props])]
+  (let [{:keys [filtered-docs status-filter has-documents? status-freq status relevant-status-filter]} @(rf/subscribe [::get-dashboard-props])]
     [:div
      [navbar]
      [:div.container
@@ -2300,7 +1572,7 @@
             (into (for [filtered-doc filtered-docs]
                     ^{:key (:url filtered-doc)} [DocumentTeaser filtered-doc]))
             (conj (if has-documents?
-                    [:a.list-group-item {:on-click #(rf/dispatch [:handlers/dashboard-create-click])}
+                    [:a.list-group-item {:on-click #(rf/dispatch [::dashboard-create-click])}
                      [:span.glyphicon.glyphicon-star.pull-right]
                      [:p.lead.list-group-item-heading " My first record "]
                      [:p.list-group-item-text "Welcome! Since you’re new here, "
@@ -2309,12 +1581,12 @@
                       (if (= status-filter logic/active-status-filter)
                         [:div
                          [:p "You don't have any active records: "
-                          [:a {:on-click #(rf/dispatch [:handlers/show-all-documents])}
+                          [:a {:on-click #(rf/dispatch [::dashboard-show-all-click])}
                            "show all documents"] "."]
                          [NewDocumentButton]]
                         [:div
                          [:p "No documents match your filter: "
-                          [:a {:on-click #(rf/dispatch [:handlers/show-all-documents])}
+                          [:a {:on-click #(rf/dispatch [::dashboard-show-all-click])}
                            "show all documents"] "."]
                          [NewDocumentButton]])))))]
        [:div.col-sm-3
@@ -2326,7 +1598,7 @@
                            [:input {:type      "checkbox"
                                     :disabled  (not freq)
                                     :checked   (contains? relevant-status-filter sid)
-                                    :on-change #(rf/dispatch [:handlers/toggle-status-filter sid status-filter])}]
+                                    :on-change #(rf/dispatch [::dashboard-toggle-status-filter sid status-filter])}]
                            " " sname
                            (when freq [:span.freq " (" freq ")"])]]))))]]]]))
 
@@ -2352,53 +1624,37 @@
       [:br]]]]])
 
 (defn modal-dialog-alert
-  [_]
-  (let [{:keys [message]} @(rf/subscribe [:subs/get-modal-props])]
-    [Modal
-     {:modal-header [:span [:span.glyphicon.glyphicon-exclamation-sign]
-                     " " "Alert"]
-      :dialog-class "modal-sm"
-      :modal-body   message
-      :on-dismiss   #(rf/dispatch [:handlers/close-modal])
-      :on-save      #(rf/dispatch [:handlers/close-modal])}]))
+  [{:keys [message]}]
+  [Modal
+   {:modal-header [:span [:span.glyphicon.glyphicon-exclamation-sign]
+                   " " "Alert"]
+    :dialog-class "modal-sm"
+    :modal-body   message
+    :on-dismiss   #(rf/dispatch [::close-modal])
+    :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-confirm
-  [_]
-  (let [{:keys [message title]} @(rf/subscribe [:subs/get-modal-props])]
-    [Modal
-     {:modal-header [:span [:span.glyphicon.glyphicon-question-sign] " " title]
-      :dialog-class "modal-sm"
-      :modal-body   message
-      :on-dismiss   #(rf/dispatch [:handlers/close-and-cancel])
-      :on-cancel    #(rf/dispatch [:handlers/close-and-cancel])
-      :on-save      #(rf/dispatch [:handlers/close-and-confirm])}]))
+  [{:keys [message title]}]
+  [Modal
+   {:modal-header [:span [:span.glyphicon.glyphicon-question-sign] " " title]
+    :dialog-class "modal-sm"
+    :modal-body   message
+    :on-dismiss   #(rf/dispatch [::modal-dialog-confirm-dismiss])
+    :on-cancel    #(rf/dispatch [::modal-dialog-confirm-cancel])
+    :on-save      #(rf/dispatch [::modal-dialog-confirm-save])}])
 
-(defn ModalStack [_]
-  (let [modal-props @(rf/subscribe [:subs/get-modal-props])]
-    (when modal-props
-      (case (:type modal-props)
-        :TableModalEditForm [modal-dialog-table-modal-edit-form nil]
-        :TableModalAddForm [modal-dialog-table-modal-add-form nil]
-        :m4/table-modal-edit-form [m4views/m4-modal-dialog-table-modal-edit-form modal-props]
-        :m4/table-modal-add-form [m4views/m4-modal-dialog-table-modal-add-form modal-props]
-        :ThemeKeywords [modal-dialog-theme-keywords (select-keys modal-props [:keyword-type :keywords-path])]
-        :parametername [modal-dialog-parametername nil]
-        :parameterunit [modal-dialog-parameterunit nil]
-        :parameterinstrument [modal-dialog-parameterinstrument nil]
-        :parameterplatform [modal-dialog-parameterplatform nil]
-        :person [modal-dialog-person nil]
-        :DashboardCreateModal [modal-dialog-dashboard-create-modal nil]
-        :alert [modal-dialog-alert nil]
-        :confirm [modal-dialog-confirm nil]))))
+(defmulti modal :type)
+(defmethod modal :default [_])
 
-(defn AppRoot [_]
-  (let [page-name @(rf/subscribe [:subs/get-page-name])]
-    [:div [ModalStack nil]
+(defn app-root [_]
+  (let [page-name @(rf/subscribe [::get-app-root-page-name])
+        modal-props @(rf/subscribe [::get-app-root-modal-props])]
+    [:div [modal modal-props]
      (if (and guseragent/IE (not (guseragent/isVersionOrHigher 10)))
        [LegacyIECompatibility nil]
        (case page-name
          "404" [PageView404 nil]
          "Error" [PageViewError nil]
          "Edit" [PageViewEdit nil]
-         "Dashboard" [PageViewDashboard nil]
+         "Dashboard" [dashboard nil]
          nil))]))

@@ -40,12 +40,13 @@
                   (update-in [:props :errors] conj "This field is required"))))
     block))
 
+; TODO: consider renaming - doing more than required flag (disable/hide/clear)
 (defn required-when-yes
   [block {:keys [bool-field opt-field]}]
   (let [required? (get-in block [:content bool-field :props :value])
         props (if required?
                 {:required true :is-hidden false}
-                {:required false :is-hidden true :disabled true})]
+                {:required false :is-hidden true :disabled true :value nil})]
     (-> block
         (update-in [:content opt-field :props] merge props))))
 
@@ -87,13 +88,20 @@
       (-> verticalElement
           (assoc-in [:content "maximumValue" :props :required] true)
           (assoc-in [:content "minimumValue" :props :required] true)
+          (assoc-in [:content "verticalCRS" :props :required] true)
           (update-in [:content "maximumValue"] required-field true)
-          (update-in [:content "minimumValue"] required-field true))
+          (update-in [:content "minimumValue"] required-field true)
+          (update-in [:content "verticalCRS"] required-field true))
       (-> verticalElement
           (assoc-in [:content "maximumValue" :props :required] false)
           (assoc-in [:content "minimumValue" :props :required] false)
+          (assoc-in [:content "verticalCRS" :props :required] false)
           (assoc-in [:content "maximumValue" :props :disabled] true)
-          (assoc-in [:content "minimumValue" :props :disabled] true)))))
+          (assoc-in [:content "minimumValue" :props :disabled] true)
+          (assoc-in [:content "verticalCRS" :props :disabled] true)
+          (assoc-in [:content "maximumValue" :props :is-hidden] true)
+          (assoc-in [:content "minimumValue" :props :is-hidden] true)
+          (assoc-in [:content "verticalCRS" :props :is-hidden] true)))))
 
 (defn license-other
   [identificationInfo]
@@ -101,7 +109,7 @@
         other? (= license-value "http://creativecommons.org/licenses/other")
         props (if other?
                 {:is-hidden false :disabled false :required true}
-                {:is-hidden true :disabled true :required false})]
+                {:is-hidden true :disabled true :required false :value nil})]
     (-> identificationInfo
       (update-in [:content "otherConstraints" :props] merge props)
       (update-in [:content "otherConstraints"] required-field (:required props)))))
@@ -124,7 +132,7 @@
                 "onGoing" {:is-hidden false :disabled false :required true}
                 "planned" {:is-hidden false :disabled false :required true}
                 "completed" {:is-hidden false :disabled true :value "notPlanned" :required false}
-                {:is-hidden true :disabled true :value "" :required false})]
+                {:is-hidden true :disabled true :value nil :required false})]
     (-> identificationInfo
         (update-in [:content "maintenanceAndUpdateFrequency" :props] merge props)
         (update-in [:content "maintenanceAndUpdateFrequency"] required-field (:required props)))))

@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FeatureGroup, Map, Marker, Rectangle, TileLayer} from 'react-leaflet';
-import {EditControl} from 'react-leaflet-draw';
+import { FeatureGroup, Map, Marker, Rectangle, TileLayer } from 'react-leaflet';
+import { EditControl } from 'react-leaflet-draw';
 
-function mapToBounds({west, east, south, north}) {
+
+function mapToBounds({ west, east, south, north }) {
     return [[south, west], [north, east]];
 }
 
-function elementToPoint({southBoundLatitude, westBoundLongitude}) {
+function elementToPoint({ southBoundLatitude, westBoundLongitude }) {
     return [southBoundLatitude, westBoundLongitude];
 }
 
-function elementIsPoint({northBoundLatitude, southBoundLatitude, eastBoundLongitude, westBoundLongitude}) {
+function elementIsPoint({ northBoundLatitude, southBoundLatitude, eastBoundLongitude, westBoundLongitude }) {
     return ((northBoundLatitude === southBoundLatitude) && (eastBoundLongitude === westBoundLongitude));
 }
 
-function elementToBounds({northBoundLatitude, southBoundLatitude, eastBoundLongitude, westBoundLongitude}) {
+function elementToBounds({ northBoundLatitude, southBoundLatitude, eastBoundLongitude, westBoundLongitude }) {
     return [[southBoundLatitude, westBoundLongitude], [northBoundLatitude, eastBoundLongitude]];
 }
 
@@ -42,7 +43,7 @@ function elementsToExtents(elements) {
     }
 }
 
-function geometryPointToData({coordinates}) {
+function geometryPointToData({ coordinates }) {
     const [lng, lat] = coordinates;
     return {
         northBoundLatitude: lat,
@@ -52,7 +53,7 @@ function geometryPointToData({coordinates}) {
     }
 }
 
-function geometryPolygonToData({coordinates}) {
+function geometryPolygonToData({ coordinates }) {
     const [points] = coordinates;
     const lngs = points.map(([a, _]) => a);
     const lats = points.map(([_, b]) => b);
@@ -64,19 +65,19 @@ function geometryPolygonToData({coordinates}) {
     }
 }
 
-function ElementMarker({element}) {
-    return <Marker position={elementToPoint(element)}/>
+function ElementMarker({ element }) {
+    return <Marker position={elementToPoint(element)} />
 }
 
-function ElementRectangle({element}) {
-    return <Rectangle bounds={elementToBounds(element)}/>
+function ElementRectangle({ element }) {
+    return <Rectangle bounds={elementToBounds(element)} />
 }
 
 function renderElement(element, idx) {
     if (elementIsPoint(element)) {
-        return <ElementMarker element={element} key={idx}/>
+        return <ElementMarker element={element} key={idx} />
     } else {
-        return <ElementRectangle element={element} key={idx}/>
+        return <ElementRectangle element={element} key={idx} />
     }
 }
 
@@ -88,7 +89,7 @@ const BaseLayer = () => (
 )
 
 // TODO: disabled mode?
-export const BoxMap = ({mapWidth, elements, onChange, tickId}) => {
+export const BoxMap = ({ mapWidth, elements, onChange, tickId }) => {
 
     const featureGroupRef = React.useRef(null);
 
@@ -97,7 +98,6 @@ export const BoxMap = ({mapWidth, elements, onChange, tickId}) => {
     const bounds = elementsToExtents(elements);
     const setCenter = bounds && bounds.north == bounds.south && bounds.east == bounds.west;
     const setBounds = bounds && !setCenter;
-    console.log({bounds, setCenter, setBounds})
 
     const handleChange = () => {
         onChange(featureGroupRef.current.leafletElement.toGeoJSON())
@@ -118,7 +118,7 @@ export const BoxMap = ({mapWidth, elements, onChange, tickId}) => {
             closePopupOnClick={false}
             bounds={setBounds ? [[bounds.south, bounds.west], [bounds.north, bounds.east]] : undefined}
         >
-            <BaseLayer/>
+            <BaseLayer />
             <FeatureGroup
                 ref={featureGroupRef}
                 key={"featureGroup" + tickId}
@@ -149,5 +149,13 @@ export const BoxMap = ({mapWidth, elements, onChange, tickId}) => {
 };
 
 BoxMap.propTypes = {
-    boxes: PropTypes.array
+    mapWidth: PropTypes.number,
+    elements: PropTypes.arrayOf(PropTypes.shape({
+        northBoundLatitude: PropTypes.number.isRequired,
+        westBoundLongitude: PropTypes.number.isRequired,
+        southBoundLatitude: PropTypes.number.isRequired,
+        eastBoundLongitude: PropTypes.number.isRequired,
+    })),
+    onChange: PropTypes.func.isRequired,
+    tickId: PropTypes.string,
 };

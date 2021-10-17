@@ -4,7 +4,7 @@ import AsyncSelect from "react-select/async/dist/react-select.esm";
 import Select, {components} from "react-select";
 import {BreadcrumbListItem, SimpleListItem, TableListItem} from "../ListItem/ListItem";
 
-function getReactSelectCustomStyles({hasError}) {
+function getReactSelectCustomStyles({hasError, isAdded}) {
     return {
         clearIndicator: (provided, state) => {
             return {
@@ -24,14 +24,16 @@ function getReactSelectCustomStyles({hasError}) {
                 "&:hover": null,
                 border: "none",
                 borderRadius: "3px",
-                backgroundColor: state.isDisabled ? "rgba(206, 217, 224, 0.5)" :
+                backgroundColor: 
+                    state.isDisabled ? "rgba(206, 217, 224, 0.5)" :
+                    isAdded ? "#d9822b24" :
                     provided.backgroundColor,
                 boxShadow:
                     state.isFocused && hasError ? "0 0 0 1px #db3737, 0 0 0 3px rgb(219 55 55 / 30%), inset 0 1px 1px rgb(16 22 26 / 20%)" :
-                        hasError ? "0 0 0 0 rgb(219 55 55 / 0%), 0 0 0 0 rgb(219 55 55 / 0%), inset 0 0 0 1px #db3737, inset 0 0 0 1px rgb(16 22 26 / 15%), inset 0 1px 1px rgb(16 22 26 / 20%)" :
-                            state.isFocused ? "0 0 0 1px #137cbd, 0 0 0 3px rgb(19 124 189 / 30%), inset 0 1px 1px rgb(16 22 26 / 20%)" :
-                                state.isDisabled ? "none" :
-                                    "0 0 0 0 rgb(19 124 189 / 0%), 0 0 0 0 rgb(19 124 189 / 0%), inset 0 0 0 1px rgb(16 22 26 / 15%), inset 0 1px 1px rgb(16 22 26 / 20%)",
+                    hasError ? "0 0 0 0 rgb(219 55 55 / 0%), 0 0 0 0 rgb(219 55 55 / 0%), inset 0 0 0 1px #db3737, inset 0 0 0 1px rgb(16 22 26 / 15%), inset 0 1px 1px rgb(16 22 26 / 20%)" :
+                    state.isFocused ? "0 0 0 1px #137cbd, 0 0 0 3px rgb(19 124 189 / 30%), inset 0 1px 1px rgb(16 22 26 / 20%)" :
+                    state.isDisabled ? "none" :
+                    "0 0 0 0 rgb(19 124 189 / 0%), 0 0 0 0 rgb(19 124 189 / 0%), inset 0 0 0 1px rgb(16 22 26 / 15%), inset 0 1px 1px rgb(16 22 26 / 20%)",
             }
         },
         dropdownIndicator: (provided, state) => {
@@ -144,11 +146,12 @@ export function getReactSelectComponents({Option}) {
     }
 }
 
-export function AsyncSelectField({value, loadOptions, hasError, disabled, placeholder, getLabel, getValue, Option, onChange}) {
+export function AsyncSelectField({value, loadOptions, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange}) {
     const defaultOptions = !disabled
+    const isAdded = getAdded ? getAdded(value): false;
     return (
         <AsyncSelect
-            styles={getReactSelectCustomStyles({hasError})}
+            styles={getReactSelectCustomStyles({hasError, isAdded})}
             components={getReactSelectComponents({Option})}
             getOptionValue={getValue}
             getOptionLabel={getLabel}
@@ -177,10 +180,11 @@ AsyncSelectField.propTypes = {
     getLabel: PropTypes.func.isRequired,
 }
 
-export function SelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, Option, onChange}) {
+export function SelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange}) {
+    const isAdded = getAdded ? getAdded(value): false;
     return (
         <Select
-            styles={getReactSelectCustomStyles({hasError})}
+            styles={getReactSelectCustomStyles({hasError, isAdded})}
             components={getReactSelectComponents({Option})}
             getOptionValue={getValue}
             getOptionLabel={getLabel}
@@ -277,6 +281,7 @@ AsyncSimpleSelectField.propTypes = {
     onChange: PropTypes.func.isRequired,
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,
+    getAdded: PropTypes.func,
 }
 
 export function BreadcrumbSelectField(args) {

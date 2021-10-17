@@ -1,7 +1,7 @@
 (ns metcalf3.utils
   (:require [cljs.spec.alpha :as s]
-            [goog.object :as gobject]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [goog.object :as gobject]))
 
 (defn on-change [m0 m1 ks f]
   (let [v0 (get-in m0 ks)
@@ -128,14 +128,6 @@
      :eastBoundLongitude {:value (s/assert number? (apply max lngs))}
      :westBoundLongitude {:value (s/assert number? (apply min lngs))}}))
 
-(defn boxes->elements
-  [boxes]
-  (for [box (:value boxes)]
-    {:northBoundLatitude (get-in box [:value :northBoundLatitude :value])
-     :southBoundLatitude (get-in box [:value :southBoundLatitude :value])
-     :eastBoundLongitude (get-in box [:value :eastBoundLongitude :value])
-     :westBoundLongitude (get-in box [:value :westBoundLongitude :value])}))
-
 (defn userDisplay
   [user]
   (if (and (string/blank? (:lastName user))
@@ -171,10 +163,6 @@
       (fn [row]
         (some col-match? (rest row)))
       table)))
-
-(defn ->float [s]
-  (let [f (js/parseFloat s)]
-    (if (js/isNaN f) nil f)))
 
 (defn other-term?
   [term vocabularyTermURL]

@@ -573,7 +573,8 @@
                   "function": "separate_organisation_identifier"
                 }
               }
-            }
+            },
+            "isUserDefined": {}
           }
         },
         "contact" : {
@@ -687,10 +688,12 @@
               "keep": false,
               "valueChild": "gco:CharacterString",
               "required": false
-            }
+            },
+            "isUserDefined": {}
           }
         },
         "uri": {},
+        "partyType": {},
         "isUserDefined": {
           "!docstring": "Fake node so we can track person status",
           "xpath": "isUserAdded",

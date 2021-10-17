@@ -1,6 +1,8 @@
 (ns metcalf4.handlers
-  (:require [metcalf4.blocks :as blocks]
+  (:require [metcalf3.fx :as fx3]
             [metcalf4.actions :as actions]
+            [metcalf4.blocks :as blocks]
+            [metcalf4.rules :as rules]
             [metcalf4.schema :as schema]
             [metcalf4.utils :as utils4]))
 
@@ -57,13 +59,13 @@
 
 (defn list-add-with-defaults-click-handler2
   [{:keys [db]} [_ config]]
-  (let [{:keys [form-id data-path value-path added-path]} config
-        defaults (-> {}
-                     (assoc-in value-path (str (random-uuid)))
-                     (assoc-in added-path true))]
+  (let [{:keys [form-id data-path value-path added-path item-defaults]} config
+        item-data (-> item-defaults
+                      (assoc-in value-path (str (random-uuid)))
+                      (assoc-in added-path true))]
     (-> {:db db}
         (actions/save-snapshot-action form-id)
-        (actions/add-item-action form-id data-path defaults)
+        (actions/add-item-action form-id data-path item-data)
         (actions/select-last-item-action form-id data-path))))
 
 (defn list-add-with-defaults-click-handler
@@ -105,10 +107,11 @@
         boxes (map (fn [m] (assoc-in m added-path true)) boxes)
         schema (get-in db (flatten [form-id :schema (schema/schema-path data-path)]))
         state (blocks/as-blocks {:schema schema :data boxes})
-        path (db-path config)]
-    {:db (-> db
-             (assoc-in path state)
-             (assoc-in (conj path :props :show-errors) true))}))
+        db-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])]
+    (-> {:db db}
+        (assoc-in db-path state)
+        (assoc-in (conj db-path :props :show-errors) true)
+        (actions/genkey-action form-id data-path))))
 
 (defn list-option-picker-change
   [{:keys [db]} [_ ctx option]]
@@ -204,9 +207,12 @@
 (defn save-current-document
   [{:keys [db]} _]
   (let [url (get-in db [:form :url])
-        data (-> db :form :state blocks/as-data)]
+        state0 (get-in db [:form :state])
+        state1 (blocks/postwalk rules/apply-rules state0)
+        data (blocks/as-data state1)]
     {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
-     :fx/save-current-document
+     ; TODO: put logic in handler, use generic js/fetch fx
+     ::fx3/save-current-document
          {:url       url
           :data      data
           :success-v [::-save-current-document-success data]

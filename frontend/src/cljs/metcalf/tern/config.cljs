@@ -1,143 +1,55 @@
 (ns ^:dev/always metcalf.tern.config
-  (:require [metcalf3.fx :as fx]
+  (:require [interop.ui :as ui]
+            [metcalf.common-config]
+            [metcalf.tern.subs :as tern-subs]
             [metcalf3.handlers :as handlers3]
-            [metcalf3.ins :as ins]
-            [metcalf3.subs :as subs3]
-            [metcalf3.views :as views]
+            [metcalf3.views :as views3]
             [metcalf4.components :as components4]
             [metcalf4.handlers :as handlers4]
+            [metcalf4.ins :as ins4]
             [metcalf4.low-code :as low-code]
             [metcalf4.rules :as rules]
             [metcalf4.subs :as subs4]
-            [re-frame.core :as rf]
-            [interop.ui :as ui]))
+            [re-frame.core :as rf]))
 
-(rf/reg-event-fx :handlers/load-api-options-resp handlers3/load-api-options-resp)
-(rf/reg-event-fx :handlers/load-es-options-resp handlers3/load-es-options-resp)
-(rf/reg-event-fx :handlers/close-modal handlers3/close-modal)
-(rf/reg-event-fx :handlers/close-and-cancel handlers3/close-and-cancel)
-(rf/reg-event-fx :handlers/close-and-confirm handlers3/close-and-confirm)
-(rf/reg-event-fx :handlers/open-modal handlers3/open-modal-handler)
-(rf/reg-event-fx :handlers/del-value handlers3/del-value)
-(rf/reg-event-fx :handlers/new-field! handlers3/new-field!)
-(rf/reg-event-fx :handlers/add-field! handlers3/add-field!)
-(rf/reg-event-fx :handlers/add-value! handlers3/add-value!)
-(rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
-(rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
-(rf/reg-event-fx :handlers/add-attachment handlers3/add-attachment)
-(rf/reg-event-fx :handlers/back handlers3/back)
-(rf/reg-event-fx :handlers/update-dp-term handlers3/update-dp-term)
-(rf/reg-event-fx :handlers/update-nasa-list-value handlers3/update-nasa-list-value)
-(rf/reg-event-fx :handlers/update-boxes handlers3/update-boxes)
-(rf/reg-event-fx :handlers/update-method-term handlers3/update-method-term)
-(rf/reg-event-fx :handlers/update-method-name handlers3/update-method-name)
-(rf/reg-event-fx :handlers/setter handlers3/setter)
-(rf/reg-event-fx :handlers/check-unsaved-keyword-input handlers3/check-unsaved-keyword-input)
-(rf/reg-event-fx :handlers/remove-party handlers3/remove-party)
-(rf/reg-event-fx :handlers/reset-form handlers3/reset-form)
-(rf/reg-event-fx :handlers/show-errors handlers3/show-errors)
-(rf/reg-event-fx :handlers/hide-errors handlers3/hide-errors)
-(rf/reg-event-fx :handlers/toggle-status-filter handlers3/toggle-status-filter)
-(rf/reg-event-fx :handlers/show-all-documents handlers3/show-all-documents)
-(rf/reg-event-fx :handlers/load-error-page handlers3/load-error-page)
-(rf/reg-event-fx :handlers/set-value handlers3/set-value)
-(rf/reg-event-fx :date-field/value-change handlers3/date-field-value-change)
-(rf/reg-event-fx ::views/date-field-with-label-value-changed handlers3/date-field-value-change)
-(rf/reg-event-fx :textarea-field/value-change handlers3/textarea-field-value-change)
-(rf/reg-event-fx ::views/textarea-field-with-label-value-changed handlers3/textarea-field-value-change)
-(rf/reg-event-fx :handlers/set-geographic-element handlers3/set-geographic-element)
-(rf/reg-event-fx :handlers/person-detail-changed handlers3/person-detail-changed)
-(rf/reg-event-fx :handlers/value-changed handlers3/value-changed)
-(rf/reg-event-fx ::views/input-field-with-label-value-changed handlers3/value-changed)
-(rf/reg-event-fx :handlers/set-tab handlers3/set-tab)
-(rf/reg-event-fx :handlers/load-errors handlers3/load-errors)
-(rf/reg-event-fx :handlers/add-keyword-extra handlers3/add-keyword-extra)
-(rf/reg-event-fx :handlers/del-keyword-extra handlers3/del-keyword-extra)
-(rf/reg-event-fx :handlers/add-nodes handlers3/add-nodes)
-(rf/reg-event-fx :handlers/dashboard-create-click handlers3/dashboard-create-click)
-(rf/reg-event-fx :handlers/transite-doc-success handlers3/transite-doc-success)
-(rf/reg-event-fx :handlers/lodge-submit-success handlers3/lodge-submit-success)
-(rf/reg-event-fx :metcalf.tern.core/init-db handlers3/init-db)
-(rf/reg-event-fx :handlers/load-api-options handlers3/load-api-options)
-(rf/reg-event-fx :handlers/load-es-options handlers3/load-es-options)
-(rf/reg-event-fx :handlers/search-es-options handlers3/search-es-options)
-(rf/reg-event-fx ::views/PageViewEdit-save-button-click handlers4/save-current-document)
-(rf/reg-event-fx :handlers/archive-current-document handlers3/archive-current-document)
-(rf/reg-event-fx :handlers/archive-current-document-success handlers3/archive-current-document-success)
-(rf/reg-event-fx :handlers/update-address handlers3/update-address)
-(rf/reg-event-fx :handlers/update-person handlers3/update-person)
-(rf/reg-event-fx :handlers/org-changed handlers3/org-changed)
-(rf/reg-event-fx :handlers/create-document-success handlers3/create-document-success)
-(rf/reg-event-fx :handlers/create-document-error handlers3/create-document-error)
-(rf/reg-event-fx :handlers/dashboard-create-save handlers3/dashboard-create-save)
-(rf/reg-event-fx :handlers/clone-document handlers3/clone-document)
-(rf/reg-event-fx :handlers/clone-document-success handlers3/clone-document-success)
-(rf/reg-event-fx :handlers/clone-document-error handlers3/clone-document-error)
-(rf/reg-event-fx :handlers/archive-doc-click (handlers3/transite-doc-click "archive"))
-(rf/reg-event-fx :handlers/delete-archived-doc-click (handlers3/transite-doc-click "delete_archived"))
-(rf/reg-event-fx :handlers/restore-doc-click (handlers3/transite-doc-click "restore"))
-(rf/reg-event-fx :handlers/transite-doc-confirm handlers3/transite-doc-confirm)
-(rf/reg-event-fx :handlers/transite-doc-error handlers3/transite-doc-error)
-(rf/reg-event-fx :handlers/lodge-click handlers3/lodge-click)
-(rf/reg-event-fx :handlers/lodge-save-success handlers3/lodge-save-success)
-(rf/reg-event-fx :handlers/lodge-error handlers3/lodge-error)
-(rf/reg-event-fx :help-menu/open handlers3/help-menu-open)
-(rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
+(rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
+(rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
+(rf/reg-event-fx ::components4/item-edit-dialog-close handlers4/item-edit-dialog-close-handler)
+(rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
+(rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
 (rf/reg-event-fx ::components4/list-add-click handlers4/list-add-click-handler)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
-(rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
+(rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-close-handler)
+(rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
-(rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
+(rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click2)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
-(rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-close-handler)
-(rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
-(rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
-(rf/reg-event-fx ::components4/item-edit-dialog-close handlers4/item-edit-dialog-close-handler)
-(rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
-(rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
-(rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
+(rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
+(rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
+(rf/reg-event-fx ::views3/PageViewEdit-save-button-click handlers4/save-current-document)
+(rf/reg-event-fx ::views3/date-field-with-label-value-changed handlers3/date-field-value-change)
+(rf/reg-event-fx ::views3/input-field-with-label-value-changed handlers3/value-changed)
+(rf/reg-event-fx ::views3/textarea-field-with-label-value-changed handlers3/textarea-field-value-change)
+(rf/reg-event-fx :metcalf.tern.core/init-db handlers3/init-db)
+(rf/reg-event-fx :textarea-field/value-change handlers3/textarea-field-value-change)
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
-(rf/reg-fx :xhrio/get-json fx/xhrio-get-json)
-(rf/reg-fx :xhrio/post-json fx/xhrio-post-json)
-(rf/reg-fx :fx/set-location-href fx/set-location-href)
-(rf/reg-fx :fx/create-document fx/create-document)
-(rf/reg-fx :fx/clone-document fx/clone-document)
-(rf/reg-fx :fx/transition-current-document fx/transition-current-document)
-(rf/reg-fx :fx/submit-current-document fx/submit-current-document)
-(rf/reg-fx :fx/save-current-document fx/save-current-document)
-(rf/reg-fx :fx/archive-current-document fx/archive-current-document)
-(rf/reg-fx :window/open fx/window-open)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
-(rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
-(rf/reg-sub :subs/is-page-name-nil? subs3/is-page-name-nil?)
-(rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
-(rf/reg-sub ::views/get-input-field-with-label-props :<- [:subs/get-derived-state] subs3/get-input-field-with-label-props)
-(rf/reg-sub :subs/get-page-props subs3/get-page-props)
-(rf/reg-sub :subs/get-page-name subs3/get-page-name)
-(rf/reg-sub :subs/get-modal-props subs3/get-modal-props)
-(rf/reg-sub :subs/get-dashboard-props subs3/get-dashboard-props)
-(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] subs3/get-edit-tab-props)
-(rf/reg-sub :progress/get-props :<- [:subs/get-derived-state] subs3/get-progress-props)
-(rf/reg-sub :date-field/get-props :<- [:subs/get-derived-state] subs3/get-date-field-props)
-(rf/reg-sub ::views/get-date-field-with-label-props :<- [:subs/get-derived-state] subs3/get-date-field-with-label-props)
-(rf/reg-sub :textarea-field/get-props :<- [:subs/get-derived-state] subs3/get-textarea-field-props)
-(rf/reg-sub ::views/get-textarea-field-with-label-props :<- [:subs/get-derived-state] subs3/get-textarea-field-with-label-props)
-(rf/reg-sub :textarea-field/get-many-field-props :<- [:subs/get-derived-state] subs3/get-textarea-field-many-props)
-(rf/reg-sub :subs/get-form-tick subs3/get-form-tick)
-(rf/reg-sub :help/get-menuitems subs3/get-menuitems)
-(rf/reg-sub :subs/platform-selected? subs3/platform-selected?)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::components4/get-data-schema subs4/get-data-schema-sub)
-(rf/reg-sub ::views/get-props subs4/form-state-signal subs4/get-block-props-sub)
-(ins/reg-global-singleton ins/form-ticker)
-(ins/reg-global-singleton ins/breadcrumbs)
+(rf/reg-sub ::views3/get-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] tern-subs/get-edit-tab-props)
+(defmethod views3/modal :DashboardCreateModal [modal-props] [views3/modal-dialog-dashboard-create-modal modal-props])
+(ins4/reg-global-singleton ins4/form-ticker)
+(ins4/reg-global-singleton ins4/breadcrumbs)
 (set! rules/rule-registry
       {"requiredField"     rules/required-field
        "requiredWhenYes"   rules/required-when-yes
@@ -150,36 +62,42 @@
        "verticalRequired"  rules/vertical-required})
 (set! low-code/component-registry
       {
-       'm4/async-list-picker             {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-item-picker             {:view components4/async-item-picker :init components4/async-item-picker-settings}
+       'm4/async-list-picker             {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-select-option           {:view components4/async-select-option :init components4/async-select-option-settings}
+       'm4/boxmap-field                  {:view components4/boxmap-field :init components4/boxmap-field-settings}
        'm4/breadcrumb-list-option-picker {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
        'm4/breadcrumb-selection-list     {:view components4/breadcrumb-selection-list :init components4/breadcrumb-selection-list-settings}
+       'm4/checkbox-field                {:view components4/checkbox-field :init components4/checkbox-field-settings}
        'm4/date-field                    {:view components4/date-field :init components4/date-field-settings}
        'm4/date-field-with-label         {:view components4/date-field-with-label :init components4/date-field-settings}
        'm4/expanding-control             {:view components4/expanding-control :init components4/expanding-control-settings}
        'm4/form-group                    {:view components4/form-group :init components4/form-group-settings}
        'm4/inline-form-group             {:view components4/inline-form-group :init components4/inline-form-group-settings}
        'm4/input-field                   {:view components4/input-field :init components4/input-field-settings}
-       'm4/numeric-input-field           {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
        'm4/input-field-with-label        {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button               {:view components4/item-add-button :init components4/item-add-button-settings}
        'm4/item-edit-dialog              {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
-       'm4/boxmap-field                  {:view components4/boxmap-field :init components4/boxmap-field-settings}
        'm4/list-add-button               {:view components4/list-add-button :init components4/list-add-button-settings}
        'm4/list-edit-dialog              {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
+       'm4/typed-list-edit-dialog        {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
+       'm4/numeric-input-field           {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
        'm4/page-errors                   {:view components4/page-errors :init components4/page-errors-settings}
        'm4/select-option                 {:view components4/select-option :init components4/select-option-settings}
        'm4/select-option-with-label      {:view components4/select-option-with-label :init components4/select-option-settings}
        'm4/select-value                  {:view components4/select-value :init components4/select-value-settings}
        'm4/select-value-with-label       {:view components4/select-value-with-label :init components4/select-value-settings}
        'm4/simple-list-option-picker     {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
+       'm4/selection-list                {:view components4/selection-list :init components4/selection-list-settings}
        'm4/simple-selection-list         {:view components4/simple-selection-list :init components4/simple-selection-list-settings}
        'm4/table-list-option-picker      {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
        'm4/table-selection-list          {:view components4/table-selection-list :init components4/table-selection-list-settings}
        'm4/textarea-field                {:view components4/textarea-field :init components4/textarea-field-settings}
        'm4/textarea-field-with-label     {:view components4/textarea-field-with-label :init components4/textarea-field-settings}
-       'm4/yes-no-field                  {:view components4/yes-no-field :init components4/yes-no-field-settings}})
+       'm4/when-data                     {:view components4/when-data :init components4/when-data-settings}
+       'm4/get-data                      {:view components4/get-data :init components4/get-data-settings}
+       'm4/yes-no-field                  {:view components4/yes-no-field :init components4/yes-no-field-settings}
+       })
 
 (set! low-code/template-registry
       '{
@@ -332,7 +250,8 @@
               :data-path  [?data-path "unit"]
               :uri        "/api/What9"
               :label-path ["label"]
-              :value-path ["uri"]}]]
+              :value-path ["uri"]
+              :added-path ["isUserDefined"]}]]
            [m4/item-add-button
             {:form-id    ?form-id
              :data-path  [?data-path "unit"]
@@ -548,6 +467,7 @@
             [m4/list-add-button
              {:form-id    [:form]
               :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
+              :text       "Add"
               :value-path ["uri"]
               :added-path ["isUserDefined"]}]]
 
@@ -580,6 +500,7 @@
             [m4/list-add-button
              {:form-id    [:form]
               :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
+              :text       "Add"
               :value-path ["uri"]
               :added-path ["isUserDefined"]}]]
            [m4/table-selection-list
@@ -724,7 +645,7 @@
          [:div
           {:style {:display               "grid"
                    :grid-column-gap       "1em"
-                   :grid-template-columns "1fr 1fr 1fr"}}
+                   :grid-template-columns "repeat(auto-fill, minmax(10em, 1fr))"}}
           [m4/date-field-with-label
            {:form-id   [:form]
             :data-path ["identificationInfo" "beginPosition"]
@@ -790,6 +711,7 @@
             [m4/list-add-button
              {:form-id    [:form]
               :data-path  ["identificationInfo" "geographicElement" "boxes"]
+              :text       "Add"
               :value-path ["uri"]
               :added-path ["isUserDefined"]}]
 
@@ -934,31 +856,51 @@
         [:div
 
 
-         ;[m4/expanding-control {:label "Responsible for the creation of dataset" :required true}]
+         [m4/expanding-control {:label "Responsible for the creation of dataset" :required true}
 
-         [m4/list-add-button
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "citedResponsibleParty"]
-           :value-path ["uri"]
-           :added-path ["isUserDefined"]}]
+          [:p
+           "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
+           "More than one person or an organisation can be included as well."]
 
-         [m4/simple-selection-list
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "citedResponsibleParty"]
-           :label-path ["contact" "familyName"]
-           :value-path ["uri"]
-           :added-path ["isUserDefined"]}]
+          [m4/selection-list
+           {:form-id     [:form]
+            :data-path   ["identificationInfo" "citedResponsibleParty"]
+            :template-id :party/list-item
+            :value-path  ["uri"]
+            :added-path  ["isUserDefined"]}]
 
-         [m4/list-edit-dialog
-          {:form-id     [:form]
-           :data-path   ["identificationInfo" "citedResponsibleParty"]
-           :title       "Responsible for creating the data"
-           :template-id :person/user-defined-entry-form}]
+          [m4/list-add-button
+           {:form-id       [:form]
+            :data-path     ["identificationInfo" "citedResponsibleParty"]
+            :text          "Add person"
+            :value-path    ["uri"]
+            :added-path    ["isUserDefined"]
+            :item-defaults {"partyType" "person"}}]
+
+          [m4/list-add-button
+           {:form-id       [:form]
+            :data-path     ["identificationInfo" "citedResponsibleParty"]
+            :text          "Add organisation"
+            :value-path    ["uri"]
+            :added-path    ["isUserDefined"]
+            :item-defaults {"partyType" "organisation"}}]
+
+          [m4/typed-list-edit-dialog
+           {:form-id   [:form]
+            :data-path ["identificationInfo" "citedResponsibleParty"]
+            :type-path ["partyType"]
+            :templates {"person"
+                        {:title       "Person"
+                         :template-id :person/user-defined-entry-form}
+                        "organisation"
+                        {:title       "Organisation"
+                         :template-id :organisation/user-defined-entry-form}}}]]
 
          ;[m4/expanding-control {:label "Point of contact for dataset" :required true}]
          ;[m4/list-add-button
          ; {:form-id    [:form]
          ;  :data-path  ["identificationInfo" "PointOfContactForDataset"]
+         ;  :text       "Add"
          ;  :value-path ["uri"]
          ;  :added-path ["isUserDefined"]}]
          ;
@@ -983,6 +925,13 @@
          #_[m3/Who
             {:credit-path [:form :fields :identificationInfo :credit]}]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+
+        :party/list-item
+        [:div
+         [m4/get-data {:form-id ?form-id :data-path [?data-path "partyType"]}] ": "
+         [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "givenName"]}] " "
+         [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "familyName"]}] " / "
+         [m4/get-data {:form-id ?form-id :data-path [?data-path "organisation" "organisationName"]}]]
 
         :person/user-defined-entry-form
         [:div
@@ -1084,11 +1033,22 @@
 
          [m4/form-group
           {:form-id   ?form-id
-           :data-path [?data-path "organisationName"]
+           :data-path [?data-path "role"]
+           :label     "Role"}
+          [m4/async-select-option
+           {:form-id    ?form-id
+            :data-path  [?data-path "role"]
+            :uri        "/api/What9"
+            :label-path ["label"]
+            :value-path ["value"]}]]
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "organisation" "organisationName"]
            :label     "Organisation Name"}
           [m4/input-field
            {:form-id   ?form-id
-            :data-path [?data-path "organisationName"]}]]]
+            :data-path [?data-path "organisation" "organisationName"]}]]]
 
         :how
         [:div

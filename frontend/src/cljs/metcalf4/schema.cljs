@@ -1,7 +1,7 @@
 (ns metcalf4.schema
   (:require [cljs.spec.alpha :as s]
-            [metcalf4.utils :as utils4]
-            [clojure.set :as set]))
+            [clojure.set :as set]
+            [metcalf4.utils :as utils4]))
 
 
 (s/def ::schema (s/keys :opt-un [::type ::items ::properties]))
@@ -102,10 +102,6 @@
       form)
     {:schema schema :data data :path []}))
 
-
-(defn schema-value-type?
-  [schema]
-  ((complement #{"array" "object"}) (:type schema)))
 
 (defn compatible-schema-type?
   [{:keys [schema1 schema2]}]

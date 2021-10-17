@@ -914,7 +914,7 @@
         {:keys [disabled is-hidden key]} props]
     (when-not is-hidden
       [ui/BoxMap
-       {:elements elements
+       {:elements (filter ui/valid-element? elements)
         :disabled (not disabled)
         :tickId   key
         :onChange #(rf/dispatch [::boxes-changed config (ui/get-geojson-data %)])}])))

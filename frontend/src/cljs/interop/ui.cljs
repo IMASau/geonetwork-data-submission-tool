@@ -67,6 +67,10 @@
      :eastBoundLongitude (get-in box ["eastBoundLongitude"])
      :westBoundLongitude (get-in box ["westBoundLongitude"])}))
 
+(defn valid-element?
+  [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude]}]
+  (and northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude))
+
 (def BoxMap (r/adapt-react-class BoxMap/BoxMap))
 (def DateField (r/adapt-react-class DateField/DateField))
 (def ErrorSidebar (r/adapt-react-class ErrorSidebar/ErrorSidebar))

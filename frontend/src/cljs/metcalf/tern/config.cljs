@@ -1024,6 +1024,17 @@
 
          [m4/form-group
           {:form-id   ?form-id
+           :data-path [?data-path "role"]
+           :label     "Role"}
+          [m4/async-select-option
+           {:form-id    ?form-id
+            :data-path  [?data-path "role"]
+            :uri        "/api/What9"
+            :label-path ["label"]
+            :value-path ["value"]}]]
+
+         [m4/form-group
+          {:form-id   ?form-id
            :data-path [?data-path "organisationName"]
            :label     "Organisation Name"}
           [m4/input-field

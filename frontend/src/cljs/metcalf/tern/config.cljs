@@ -88,6 +88,7 @@
        'm4/select-value                  {:view components4/select-value :init components4/select-value-settings}
        'm4/select-value-with-label       {:view components4/select-value-with-label :init components4/select-value-settings}
        'm4/simple-list-option-picker     {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
+       'm4/selection-list                {:view components4/selection-list :init components4/selection-list-settings}
        'm4/simple-selection-list         {:view components4/simple-selection-list :init components4/simple-selection-list-settings}
        'm4/table-list-option-picker      {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
        'm4/table-selection-list          {:view components4/table-selection-list :init components4/table-selection-list-settings}

@@ -68,6 +68,7 @@
        'm4/async-select-option           {:view components4/async-select-option :init components4/async-select-option-settings}
        'm4/breadcrumb-list-option-picker {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
        'm4/breadcrumb-selection-list     {:view components4/breadcrumb-selection-list :init components4/breadcrumb-selection-list-settings}
+       'm4/checkbox-field                {:view components4/checkbox-field :init components4/checkbox-field-settings}
        'm4/date-field                    {:view components4/date-field :init components4/date-field-settings}
        'm4/date-field-with-label         {:view components4/date-field-with-label :init components4/date-field-settings}
        'm4/expanding-control             {:view components4/expanding-control :init components4/expanding-control-settings}

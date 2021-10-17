@@ -91,7 +91,7 @@
        'm4/table-selection-list          {:view components4/table-selection-list :init components4/table-selection-list-settings}
        'm4/textarea-field                {:view components4/textarea-field :init components4/textarea-field-settings}
        'm4/textarea-field-with-label     {:view components4/textarea-field-with-label :init components4/textarea-field-settings}
-       'm4/when-data                    {:view components4/when-data :init components4/when-data-settings}
+       'm4/when-data                     {:view components4/when-data :init components4/when-data-settings}
        'm4/yes-no-field                  {:view components4/yes-no-field :init components4/yes-no-field-settings}
        })
 

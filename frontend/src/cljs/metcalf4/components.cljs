@@ -213,17 +213,19 @@
 
 (defn checkbox-field-settings [_]
   {::low-code/req-ks [:form-id :data-path]
-   ::low-code/opt-ks []
+   ::low-code/opt-ks [:label]
    ::low-code/schema {:type "boolean"}})
 
 (defn checkbox-field
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [value disabled show-errors errors]} props
-        hasError (when (and show-errors (seq errors)) true)]
-
+        {:keys [label value disabled show-errors errors]} props
+        hasError (when (and show-errors (seq errors)) true)
+        ; NOTE: treating label is a special case, if defined in config it overrides logic
+        label (get config :label label)]
     [ui/CheckboxField
-     {:checked  (or value false)                            ; TODO: should be guaranteed by sub
+     {:label    label
+      :checked  (or value false)                            ; TODO: should be guaranteed by sub?
       :disabled disabled
       :hasError hasError
       :onChange #(rf/dispatch [::value-changed config %])}]))

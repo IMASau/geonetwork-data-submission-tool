@@ -47,7 +47,8 @@
 
 (defn get-form-dirty?
   [db [_ form-id]]
-  (let [data0 (get-in db (conj form-id :data))
+  (let [form-id (or form-id [:form])
+        data0 (get-in db (conj form-id :data))
         state1 (get-in db (conj form-id :state))
         data1 (blocks/as-data (blocks/postwalk rules/apply-rules state1))]
     (not= data0 data1)))

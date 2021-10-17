@@ -854,10 +854,21 @@
 
          ;[m4/expanding-control {:label "Responsible for the creation of dataset" :required true}]
 
+         [:p
+          "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
+          "More than one person or an organisation can be included as well."]
+
          [m4/list-add-button
           {:form-id    [:form]
            :data-path  ["identificationInfo" "citedResponsibleParty"]
-           :text       "Add"
+           :text       "Add person"
+           :value-path ["uri"]
+           :added-path ["isUserDefined"]}]
+
+         [m4/list-add-button
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "citedResponsibleParty"]
+           :text       "Add organisation"
            :value-path ["uri"]
            :added-path ["isUserDefined"]}]
 

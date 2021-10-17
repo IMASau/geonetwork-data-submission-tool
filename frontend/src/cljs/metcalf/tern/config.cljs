@@ -63,9 +63,10 @@
        "verticalRequired"  rules/vertical-required})
 (set! low-code/component-registry
       {
-       'm4/async-list-picker             {:view components4/async-list-picker :init components4/async-list-picker-settings}
-       'm4/async-item-picker             {:view components4/async-item-picker :init components4/async-item-picker-settings}
+              'm4/async-item-picker             {:view components4/async-item-picker :init components4/async-item-picker-settings}
+'m4/async-list-picker             {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-select-option           {:view components4/async-select-option :init components4/async-select-option-settings}
+       'm4/boxmap-field                  {:view components4/boxmap-field :init components4/boxmap-field-settings}
        'm4/breadcrumb-list-option-picker {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
        'm4/breadcrumb-selection-list     {:view components4/breadcrumb-selection-list :init components4/breadcrumb-selection-list-settings}
        'm4/checkbox-field                {:view components4/checkbox-field :init components4/checkbox-field-settings}
@@ -75,13 +76,12 @@
        'm4/form-group                    {:view components4/form-group :init components4/form-group-settings}
        'm4/inline-form-group             {:view components4/inline-form-group :init components4/inline-form-group-settings}
        'm4/input-field                   {:view components4/input-field :init components4/input-field-settings}
-       'm4/numeric-input-field           {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
        'm4/input-field-with-label        {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button               {:view components4/item-add-button :init components4/item-add-button-settings}
        'm4/item-edit-dialog              {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
-       'm4/boxmap-field                  {:view components4/boxmap-field :init components4/boxmap-field-settings}
        'm4/list-add-button               {:view components4/list-add-button :init components4/list-add-button-settings}
        'm4/list-edit-dialog              {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
+       'm4/numeric-input-field           {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
        'm4/page-errors                   {:view components4/page-errors :init components4/page-errors-settings}
        'm4/select-option                 {:view components4/select-option :init components4/select-option-settings}
        'm4/select-option-with-label      {:view components4/select-option-with-label :init components4/select-option-settings}
@@ -93,7 +93,8 @@
        'm4/table-selection-list          {:view components4/table-selection-list :init components4/table-selection-list-settings}
        'm4/textarea-field                {:view components4/textarea-field :init components4/textarea-field-settings}
        'm4/textarea-field-with-label     {:view components4/textarea-field-with-label :init components4/textarea-field-settings}
-       'm4/yes-no-field                  {:view components4/yes-no-field :init components4/yes-no-field-settings}})
+       'm4/yes-no-field                  {:view components4/yes-no-field :init components4/yes-no-field-settings}
+       })
 
 (set! low-code/template-registry
       '{

@@ -860,18 +860,20 @@
           "More than one person or an organisation can be included as well."]
 
          [m4/list-add-button
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "citedResponsibleParty"]
-           :text       "Add person"
-           :value-path ["uri"]
-           :added-path ["isUserDefined"]}]
+          {:form-id       [:form]
+           :data-path     ["identificationInfo" "citedResponsibleParty"]
+           :text          "Add person"
+           :value-path    ["uri"]
+           :added-path    ["isUserDefined"]
+           :item-defaults {"partyType" "person"}}]
 
          [m4/list-add-button
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "citedResponsibleParty"]
-           :text       "Add organisation"
-           :value-path ["uri"]
-           :added-path ["isUserDefined"]}]
+          {:form-id       [:form]
+           :data-path     ["identificationInfo" "citedResponsibleParty"]
+           :text          "Add organisation"
+           :value-path    ["uri"]
+           :added-path    ["isUserDefined"]
+           :item-defaults {"partyType" "organisation"}}]
 
          [m4/simple-selection-list
           {:form-id    [:form]
@@ -880,11 +882,16 @@
            :value-path ["uri"]
            :added-path ["isUserDefined"]}]
 
-         [m4/list-edit-dialog
-          {:form-id     [:form]
-           :data-path   ["identificationInfo" "citedResponsibleParty"]
-           :title       "Responsible for creating the data"
-           :template-id :person/user-defined-entry-form}]
+         [m4/typed-list-edit-dialog
+          {:form-id   [:form]
+           :data-path ["identificationInfo" "citedResponsibleParty"]
+           :type-path ["partyType"]
+           :templates {"person"
+                       {:title       "Person responsible for creating the data"
+                        :template-id :person/user-defined-entry-form}
+                       "organisation"
+                       {:title       "Organisation responsible for creating the data"
+                        :template-id :organisation/user-defined-entry-form}}}]
 
          ;[m4/expanding-control {:label "Point of contact for dataset" :required true}]
          ;[m4/list-add-button

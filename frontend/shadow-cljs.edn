@@ -4,7 +4,7 @@
            :modules    {:app {:entries [metcalf.tern.core]}}
            :output-dir "resources/public/js/app"
            :asset-path "/static/metcalf3/js/app"
-           :devtools   {:preloads [metcalf3.preload]}}
+           :devtools   {:preloads [devtools.preload metcalf3.preload]}}
           :test
           {:target   :browser-test
            :test-dir "resources/public/js/test"

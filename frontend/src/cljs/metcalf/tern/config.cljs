@@ -863,12 +863,12 @@
            "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
            "More than one person or an organisation can be included as well."]
 
-          [m4/party-selection-list
-           {:form-id    [:form]
-            :data-path  ["identificationInfo" "citedResponsibleParty"]
-            :label-path ["contact" "familyName"]
-            :value-path ["uri"]
-            :added-path ["isUserDefined"]}]
+          [m4/selection-list
+           {:form-id     [:form]
+            :data-path   ["identificationInfo" "citedResponsibleParty"]
+            :template-id :party/list-item
+            :value-path  ["uri"]
+            :added-path  ["isUserDefined"]}]
 
           [m4/list-add-button
            {:form-id       [:form]
@@ -926,6 +926,13 @@
          #_[m3/Who
             {:credit-path [:form :fields :identificationInfo :credit]}]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+
+        :party/list-item
+        [:div
+         [m4/get-data {:form-id ?form-id :data-path [?data-path "partyType"]}] ": "
+         [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "givenName"]}] " "
+         [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "familyName"]}] " / "
+         [m4/get-data {:form-id ?form-id :data-path [?data-path "organisation" "organisationName"]}]]
 
         :person/user-defined-entry-form
         [:div

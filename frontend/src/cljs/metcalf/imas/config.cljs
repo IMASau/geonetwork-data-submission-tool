@@ -229,9 +229,11 @@
                         ["identificationInfo" "verticalElement" "minimumValue"]
                         ["identificationInfo" "verticalElement" "maximumValue"]]}]
          [:h2 "4. Where"]
-         [m4/checkbox-field-with-label
+         [:h3 "Geographic Coverage"]
+         [m4/checkbox-field
           {:form-id   [:form]
-           :data-path ["identificationInfo" "geographicElement" "hasGeographicCoverage"]}]
+           :data-path ["identificationInfo" "geographicElement" "hasGeographicCoverage"]
+           :label     "Does data have a geographic coverage?"}]
          [:div.row
           [:div.col-sm-6
            ;; FIXME add toggle for satellite imagery.
@@ -245,9 +247,10 @@
             {:form-id   [:form]
              :data-path ["identificationInfo" "geographicElement" "boxes"]}]]]
          [:h3 "Vertical Coverage"]
-         [m4/checkbox-field-with-label
+         [m4/checkbox-field
           {:form-id   [:form]
-           :data-path ["identificationInfo" "verticalElement" "hasVerticalExtent"]}]
+           :data-path ["identificationInfo" "verticalElement" "hasVerticalExtent"]
+           :label     "Does data have a vertical coverage?"}]
          [m4/input-field-with-label
           {:form-id    [:form]
            :data-path  ["identificationInfo" "verticalElement" "minimumValue"]

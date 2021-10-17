@@ -204,6 +204,14 @@
       (when (s/valid? pred value)
         (into [:div] children)))))
 
+(defn get-data-settings [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks []})
+
+(defn get-data
+  [config]
+  (str @(rf/subscribe [::get-block-data config])))
+
 (defn input-field-with-label
   [config]
   [form-group config
@@ -385,9 +393,9 @@
 
 (defn xml-export-link
   [config]
-  (let [{:keys [form-id label]} @(rf/subscribe [::get-block-props config])
-        {:keys [document]} @(rf/subscribe [:subs/get-derived-path form-id])
-        dirty @(rf/subscribe [:subs/get-form-dirty [:form]])]
+  (let [{:keys [label]} @(rf/subscribe [::get-block-props config])
+        {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        dirty @(rf/subscribe [:subs/get-form-dirty])]
     (let [download-props {:href     (str (:export_url document) "?download")
                           :on-click #(when dirty
                                        (js/alert "Please save changes before exporting."))}]
@@ -515,7 +523,7 @@
 
 (defn list-add-button-settings [_]
   {::low-code/req-ks [:form-id :data-path :value-path :added-path :text]
-   ::low-code/opt-ks []
+   ::low-code/opt-ks [:item-defaults]
    ::low-code/schema {:type "array"}})
 
 (defn list-add-button
@@ -677,6 +685,36 @@
         :items         (or items [])
         :disabled      disabled
         :getLabel      (ui/get-obj-path label-path)
+        :getValue      (ui/get-obj-path value-path)
+        :getAdded      (when added-path (ui/get-obj-path added-path))
+        :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+        :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+        :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
+
+(defn selection-list-settings
+  [{:keys [value-path added-path]}]
+  {::low-code/req-ks       [:form-id :data-path :value-path :template-id]
+   ::low-code/opt-ks       [:added-path]
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths [value-path added-path]})
+
+(defn selection-list
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        items @(rf/subscribe [::get-block-data config])
+        {:keys [form-id data-path key disabled is-hidden template-id value-path added-path]} props]
+    (when-not is-hidden
+      [ui/SelectionList
+       {:key           key
+        :items         (or items [])
+        :disabled      disabled
+        :renderItem    (fn [args]
+                         (let [index (ui/get-obj-path args ["index"])]
+                           (r/as-element
+                             (low-code/render-template
+                               {:template-id template-id
+                                :variables   {'?form-id   form-id
+                                              '?data-path (conj data-path index)}}))))
         :getValue      (ui/get-obj-path value-path)
         :getAdded      (when added-path (ui/get-obj-path added-path))
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))

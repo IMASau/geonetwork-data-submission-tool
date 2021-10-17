@@ -57,3 +57,20 @@
                         (not= form1 form2))
                  (rf/assoc-effect ctx :db (update new-db :form/tick inc))
                  ctx)))))
+
+(def what-changed
+  (rf/->interceptor
+    :id ::what-changed
+    :after (fn [ctx]
+             (let [db0 (rf/get-coeffect ctx :db)
+                   db1 (rf/get-effect ctx :db ::not-found)]
+               (when (and (not= db1 ::not-found)
+                          (not= db0 db1))
+                 (let [data0 (get-in db0 [:form :data])
+                       state1 (get-in db1 [:form :state])
+                       data1 (blocks/as-data (blocks/postwalk rules/apply-rules state1))
+                       [only0 only1] (clojure.data/diff data0 data1)]
+                   (pprint/pprint {::what-changed.only0 only0
+                                   ::what-changed.only1 only1})))
+               ctx))))
+

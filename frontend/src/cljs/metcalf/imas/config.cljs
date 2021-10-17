@@ -86,13 +86,19 @@
        'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-select-option            {:view components4/async-select-option :init components4/async-select-option-settings}
        'm4/boxmap-field                   {:view components4/boxmap-field :init components4/boxmap-field-settings}
+       'm4/breadcrumb-list-option-picker  {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
+       'm4/breadcrumb-selection-list      {:view components4/breadcrumb-selection-list :init components4/breadcrumb-selection-list-settings}
        'm4/checkbox-field                 {:view components4/checkbox-field :init components4/checkbox-field-settings}
        'm4/checkbox-field-with-label      {:view components4/checkbox-field-with-label :init components4/checkbox-field-settings}
        'm4/coordinates-modal-field        {:view components4/coordinates-modal-field :init components4/coordinates-modal-field-settings}
        'm4/date-field-with-label          {:view components4/date-field-with-label :init components4/date-field-settings}
+       'm4/form-group                     {:view components4/form-group :init components4/form-group-settings}
+       'm4/inline-form-group              {:view components4/inline-form-group :init components4/inline-form-group-settings}
+       'm4/input-field                    {:view components4/input-field :init components4/input-field-settings}
        'm4/input-field-with-label         {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button                {:view components4/item-add-button :init components4/item-add-button-settings}
        'm4/item-edit-dialog               {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
+       'm4/list-add-button                {:view components4/list-add-button :init components4/list-add-button-settings}
        'm4/list-edit-dialog               {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
        'm4/lodge-button                   {:view components4/lodge-button}
        'm4/lodge-status-info              {:view components4/lodge-status-info}
@@ -104,8 +110,15 @@
        'm4/portal-link                    {:view components4/portal-link}
        'm4/select-option                  {:view components4/select-option :init components4/select-option-settings}
        'm4/select-option-with-label       {:view components4/select-option-with-label :init components4/select-option-settings}
+       'm4/select-value                   {:view components4/select-value :init components4/select-value-settings}
        'm4/select-value-with-label        {:view components4/select-value-with-label :init components4/select-value-settings}
+       'm4/simple-list-option-picker      {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
+       'm4/simple-selection-list          {:view components4/simple-selection-list :init components4/simple-selection-list-settings}
+       'm4/table-list-option-picker       {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
+       'm4/table-selection-list           {:view components4/table-selection-list :init components4/table-selection-list-settings}
+       'm4/textarea-field                 {:view components4/textarea-field :init components4/textarea-field-settings}
        'm4/textarea-field-with-label      {:view components4/textarea-field-with-label :init components4/textarea-field-settings}
+       'm4/yes-no-field                   {:view components4/yes-no-field :init components4/yes-no-field-settings}
        'm4/xml-export-link                {:view components4/xml-export-link :init components4/xml-export-link-settings}
        })
 (set! low-code/template-registry

@@ -140,7 +140,7 @@ export function SelectionList({ items, itemProps, getValue, getAdded, onReorder,
                     >
                         {stateValue.map((item, index) => (
                             <Draggable key={getValue(item)}
-                                draggableId={getValue(item)}
+                                draggableId={""+getValue(item)}
                                 index={index}
                                 isDragDisabled={isDragDisabled}>
                                 {(provided, snapshot) => (

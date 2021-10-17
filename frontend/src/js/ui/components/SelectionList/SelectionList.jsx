@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
-import {useCachedState} from "../utils";
-import * as BPCore from "@blueprintjs/core";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useCachedState } from "../utils";
 import * as ReactDOM from "react-dom";
+import { BreadcrumbListItem, SimpleListItem, TableListColumnHeaderRow, TableListItem } from "../ListItem/ListItem";
+import * as BPCore from "@blueprintjs/core"
 
 const getItemStyle = (isDragging, draggableStyle) => ({
     // some basic styles to make the items look a bit nicer
@@ -28,6 +29,34 @@ function reorder(list, startIndex, endIndex) {
     return result;
 }
 
+function DragHandle() {
+    return <BPCore.Icon icon="drag-handle-vertical" />
+}
+
+function RemoveButton({ index, onRemoveClick, disabled }) {
+    if (!onRemoveClick) {
+        return null
+    } else {
+        return (
+            <BPCore.Button icon="cross"
+                small={true}
+                minimal={true}
+                disabled={disabled}
+                onClick={_ => onRemoveClick(index)} />
+        )
+    }
+}
+
+function ItemLabel({ itemProps, item, index, onItemClick, renderItem }) {
+    const body = renderItem({ ...itemProps, item, index });
+    const onClick = onItemClick ? (_ => onItemClick(index)) : null;
+    return (
+        <div onClick={onClick}>
+            {body}
+        </div>
+    )
+}
+
 // NOTE: Workaround for conflict with blueprint expander (transform related?)
 // https://github.com/vtereshyn/react-beautiful-dnd-ru/blob/master/docs/patterns/using-a-portal.md
 const portal = document.createElement('div');
@@ -39,7 +68,7 @@ if (!document.body) {
     document.body.appendChild(portal);
 }
 
-function PortalAwareItem({provided, snapshot, children}) {
+function PortalAwareItem({ provided, snapshot, itemLabel, removeButton, className }) {
 
     const usePortal = snapshot.isDragging;
 
@@ -47,13 +76,22 @@ function PortalAwareItem({provided, snapshot, children}) {
         <div
             ref={provided.innerRef}
             {...provided.draggableProps}
-            {...provided.dragHandleProps}
             style={getItemStyle(
                 snapshot.isDragging,
                 provided.draggableProps.style
             )}
+            className={"DragHandleWrapper " + className}
         >
-            {children}
+            <div className="DragHandleWrapperHandle"
+                {...provided.dragHandleProps}>
+                <DragHandle />
+            </div>
+            <div className="DragHandleWrapperLabel">
+                {itemLabel}
+            </div>
+            <div className="DragHandleWrapperRemoveButton">
+                {removeButton}
+            </div>
         </div>
     );
 
@@ -64,9 +102,14 @@ function PortalAwareItem({provided, snapshot, children}) {
     }
 }
 
+function getSelectionListItemClass({ item, getAdded }) {
+    const isAdded = getAdded & getAdded(item);
+    return isAdded ? "SelectionListAddedItem" : "SelectionListPickedItem"
+}
+
 // NOTE: Attempts to workaround glitch on recorder by caching state
 // NOTE: Component should change key to flush invalid state if necessary
-export function SelectionList({items, itemProps, getValue, onReorder, onRemoveClick, disabled, renderItem}) {
+export function SelectionList({ items, itemProps, getValue, getAdded, onReorder, onItemClick, onRemoveClick, disabled, renderItem }) {
 
     const [stateValue, setStateValue] = useCachedState(items);
     const isDragDisabled = disabled || !onReorder;
@@ -97,16 +140,17 @@ export function SelectionList({items, itemProps, getValue, onReorder, onRemoveCl
                     >
                         {stateValue.map((item, index) => (
                             <Draggable key={getValue(item)}
-                                       draggableId={getValue(item)}
-                                       index={index}
-                                       isDragDisabled={isDragDisabled}>
+                                draggableId={""+getValue(item)}
+                                index={index}
+                                isDragDisabled={isDragDisabled}>
                                 {(provided, snapshot) => (
                                     <PortalAwareItem
                                         provided={provided}
                                         snapshot={snapshot}
-                                    >
-                                        {renderItem({...itemProps, onRemoveClick, item, index})}
-                                    </PortalAwareItem>
+                                        className={["SelectionListItem", getSelectionListItemClass({ item, getAdded })].join(" ")}
+                                        itemLabel={ItemLabel({ itemProps, item, index, onItemClick, renderItem })}
+                                        removeButton={RemoveButton({ disabled, onRemoveClick, index })}
+                                    />
                                 )}
                             </Draggable>
                         ))}
@@ -122,94 +166,118 @@ SelectionList.propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({
         value: PropTypes.string,
         label: PropTypes.string
-    })),
+    })).isRequired,
     onReorder: PropTypes.func,
+    onItemClick: PropTypes.func,
     onRemoveClick: PropTypes.func,
     renderItem: PropTypes.func.isRequired,
     getValue: PropTypes.func.isRequired,
+    getAdded: PropTypes.func,
     disabled: PropTypes.bool,
 }
 
-function RemoveButton({disabled, onClick}) {
+export function TableSelectionList({ items, getValue, getAdded, onReorder, onItemClick, onRemoveClick, disabled, columns }) {
+    if (items.length == 0) {
+        return <div />
+    }
     return (
-        <BPCore.Button icon="cross"
-                       small={true}
-                       minimal={true}
-                       disabled={disabled}
-                       onClick={onClick}/>
-    )
-}
-
-export function SimpleListItem({item, index, disabled, getLabel, onRemoveClick}) {
-    return (
-        <div className="SimpleListItem">
-            <div className="SimpleListItemLabel">{getLabel(item)}</div>
-            <div className="SimpleListItemRemove">
-                <RemoveButton disabled={disabled} onClick={() => onRemoveClick(index)}/>
+        <div>
+            <div className="TableSelectionListColumnHeaderRow">
+                <TableListColumnHeaderRow columns={columns} />
             </div>
+            <SelectionList
+                items={items}
+                onReorder={onReorder}
+                onItemClick={onItemClick}
+                onRemoveClick={onRemoveClick}
+                getValue={getValue}
+                getAdded={getAdded}
+                disabled={disabled}
+                renderItem={({ item }) =>
+                    <TableListItem
+                        item={item}
+                        columns={columns}
+                        disabled={disabled} />}>
+            </SelectionList>
         </div>
+
     )
 }
 
-SimpleListItem.propTypes = {
-    item: PropTypes.shape({
-        item: PropTypes.object,
-        index: PropTypes.number,
-        disabled: PropTypes.bool,
-        getLabel: PropTypes.func,
-        onRemoveClick: PropTypes.func
-    }),
+TableSelectionList.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    getValue: PropTypes.func.isRequired,
+    getAdded: PropTypes.func,
+    onReorder: PropTypes.func,
+    onItemClick: PropTypes.func,
+    onRemoveClick: PropTypes.func,
+    disabled: PropTypes.bool,
+    columns: PropTypes.arrayOf(PropTypes.shape({
+        flex: PropTypes.number.isRequired,
+        getLabel: PropTypes.func.isRequired,
+    }))
 }
 
-export function BreadcrumbListItem({item, index, disabled, getBreadcrumb, getLabel, onRemoveClick}) {
+export function BreadcrumbSelectionList({ items, getValue, getLabel, getBreadcrumb, getAdded, onReorder, onItemClick, onRemoveClick, disabled }) {
     return (
-        <div className="BreadcrumbListItem">
-            <div className="BreadcrumbListItemLabel">
-                <div className="BreadcrumbListItemPath">{getBreadcrumb(item)}</div>
-                <div className="BreadcrumbListItemText">{getLabel(item)}</div>
-            </div>
-            <div className="BreadcrumbListItemRemove">
-                <RemoveButton disabled={disabled} onClick={() => onRemoveClick(index)}/>
-            </div>
-        </div>
+        <SelectionList
+            items={items}
+            onReorder={onReorder}
+            onItemClick={onItemClick}
+            onRemoveClick={onRemoveClick}
+            getValue={getValue}
+            getAdded={getAdded}
+            disabled={disabled}
+            renderItem={({ item }) => (
+                <BreadcrumbListItem
+                    item={item}
+                    disabled={disabled}
+                    getBreadcrumb={getBreadcrumb}
+                    getLabel={getLabel} />
+            )}>
+        </SelectionList>
     )
 }
 
-BreadcrumbListItem.propTypes = {
-    item: PropTypes.shape({
-        item: PropTypes.object,
-        index: PropTypes.number,
-        disabled: PropTypes.bool,
-        getLabel: PropTypes.func,
-        getBreadcrumb: PropTypes.func,
-        onRemoveClick: PropTypes.func
-    }),
+BreadcrumbSelectionList.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    getBreadcrumb: PropTypes.func.isRequired,
+    getAdded: PropTypes.func,
+    onReorder: PropTypes.func,
+    onItemClick: PropTypes.func,
+    onRemoveClick: PropTypes.func,
+    disabled: PropTypes.bool,
 }
 
-export function TableListItem({item, index, disabled, columns, onRemoveClick}) {
+export function SimpleSelectionList({ items, getValue, getLabel, getAdded, onReorder, onItemClick, onRemoveClick, disabled }) {
     return (
-        <div className="TableListItemRow">
-            {columns.map(({getLabel, flex}, columnIndex) =>
-                <span className="TableListItemCol" style={{"flex": flex}}>
-                    {getLabel(item)}
-                </span>
-            )}
-            <span className="TableListItemRemove">
-                <RemoveButton disabled={disabled} onClick={() => onRemoveClick(index)}/>
-            </span>
-        </div>
+        <SelectionList
+            items={items}
+            onReorder={onReorder}
+            onItemClick={onItemClick}
+            onRemoveClick={onRemoveClick}
+            getValue={getValue}
+            getAdded={getAdded}
+            disabled={disabled}
+            renderItem={({ item }) => (
+                <SimpleListItem
+                    item={item}
+                    disabled={disabled}
+                    getLabel={getLabel} />
+            )}>
+        </SelectionList>
     )
 }
 
-TableListItem.propTypes = {
-    item: PropTypes.shape({
-        item: PropTypes.object,
-        index: PropTypes.number,
-        disabled: PropTypes.bool,
-        columns: PropTypes.arrayOf(PropTypes.shape({
-            getLabel: PropTypes.func,
-            flex: PropTypes.number
-        })),
-        onRemoveClick: PropTypes.func
-    }),
+SimpleSelectionList.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    getAdded: PropTypes.func,
+    onReorder: PropTypes.func,
+    onItemClick: PropTypes.func,
+    onRemoveClick: PropTypes.func,
+    disabled: PropTypes.bool,
 }

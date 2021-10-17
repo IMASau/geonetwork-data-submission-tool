@@ -1,25 +1,38 @@
 
-.SimpleListItem, .BreadcrumbListItem {
+.DragHandleWrapper {
     display: flex;
-    min-height: 30px;
+    flex-direction: row;
     align-items: center;
 }
 
-.SimpleListItemLabel, .BreadcrumbListItemLabel {
+.DragHandleWrapperHandle {
+    padding-right: 0.5em;
+}
+
+.TableSelectionListColumnHeaderRow {
+    /* To allow for drag handle */
+    padding-left: 25px;
+    /* To allow for optional remove button */
+    padding-right: 24px;  
+}
+
+.DragHandleWrapperLabel {
     flex: 1;
 }
 
-.BreadcrumbListItemPath {
-    font-size: 0.8em;
-    color: darkgrey;
+.DragHandleWrapperRemoveButton {
+    
 }
 
-.TableListItemRow {
-    display: flex;
+.SelectionListItem {
+    margin: .2em 0;
 }
 
-.TableListItemCol {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+.SelectionListPickedItem {
+    background-color: #99ffcc24;
+}
+
+.SelectionListAddedItem {
+    background-color: #d9822b24;
+    cursor: pointer;
 }

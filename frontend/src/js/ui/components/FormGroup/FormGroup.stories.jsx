@@ -10,7 +10,7 @@ import {DateField} from "../DateField/DateField";
 import {YesNoRadioGroup} from "../YesNoRadioGroup/YesNoRadioGroup";
 import NOTES from './NOTES.mdx';
 import {TextareaField} from "../TextareaField/TextareaField";
-import {SelectOptionField} from "../SelectOptionField/SelectOptionField";
+import {SimpleSelectField} from "../SelectField/SelectField";
 import * as PropTypes from "prop-types";
 
 export default {
@@ -52,7 +52,7 @@ const Template = (args) => (
         <br/>
         <br/>
         <FormGroup {...args} >
-            <SelectOptionField options={[]} disabled={args.disabled} hasError={args.hasError}/>
+            <SimpleSelectField options={[]} disabled={args.disabled} hasError={args.hasError}/>
         </FormGroup>
         <br/>
         <br/>

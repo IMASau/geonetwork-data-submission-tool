@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {requiredLabelInfo} from "../utils";
 
 
-export function ExpandingControl({label, required, hasError, disabled, children}) {
+export function ExpandingControl({label, required, children}) {
     const [isOpen, setOpen] = React.useState(false);
     return (
         <div className="ExpandingControl">
@@ -15,7 +15,7 @@ export function ExpandingControl({label, required, hasError, disabled, children}
                 </div>
                 <BPCore.Icon icon={isOpen ? "caret-up" : "caret-down"}/>
             </div>
-            <BPCore.Collapse isOpen={isOpen}>
+            <BPCore.Collapse isOpen={isOpen} keepChildrenMounted={true}>
                 {children}
             </BPCore.Collapse>
         </div>
@@ -24,12 +24,6 @@ export function ExpandingControl({label, required, hasError, disabled, children}
 
 ExpandingControl.propTypes = {
     label: PropTypes.string.isRequired,
-    value: PropTypes.bool,
-    disabled: PropTypes.bool,
     required: PropTypes.bool,
-    hasError: PropTypes.bool,
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node
-    ]).isRequired
+    children: PropTypes.node.isRequired
 }

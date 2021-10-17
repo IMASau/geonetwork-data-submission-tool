@@ -19,7 +19,8 @@
             [metcalf3.logic :as logic3]
             [metcalf3.utils :as utils3]
             [metcalf3.widget.modal :refer [Modal]]
-            [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync ReactSelectAsyncCreatable]]
+            [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync
+                                            ReactSelectAsyncCreatable]]
             [metcalf3.widget.tree :refer [TermList TermTree]]
             [metcalf4.low-code :as low-code]
             [re-frame.core :as rf]

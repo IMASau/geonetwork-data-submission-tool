@@ -1,5 +1,6 @@
 (ns metcalf3.widget.select
-  (:require [interop.react-select :refer [ReactSelect* ReactSelectAsync* ReactSelectAsyncCreatable*]]
+  (:require [interop.react-select :refer [ReactSelect* ReactSelectAsync*
+                                          ReactSelectAsyncCreatable*]]
             [metcalf3.utils :as utils]))
 
 (defn normalize-props [props]

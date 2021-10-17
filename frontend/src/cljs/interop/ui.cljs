@@ -12,8 +12,8 @@
             ["/ui/components/SelectField/SelectField" :as SelectField]
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
-            ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
             ["/ui/components/utils" :as ui-utils]
+            ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
             [cljs.spec.alpha :as s]
             [goog.object :as gobj]
             [reagent.core :as r]))

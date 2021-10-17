@@ -684,6 +684,39 @@
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
 
+(defn party-selection-list-settings
+  [{:keys [label-path value-path added-path]}]
+  {::low-code/req-ks       [:form-id :data-path :label-path :value-path]
+   ::low-code/opt-ks       [:added-path]
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths [label-path value-path added-path]})
+
+(defn party-selection-list
+  "Simple list but renders differently based on type"
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        items @(rf/subscribe [::get-block-data config])
+        {:keys [key disabled is-hidden value-path added-path]} props]
+    (when-not is-hidden
+      [ui/SimpleSelectionList
+       {:key           key
+        :items         (or items [])
+        :disabled      disabled
+        :getLabel      (fn [o]
+                         (let [m (ui/get-option-data o)]
+                           (case (get-in m ["partyType"])
+                             "person"
+                             (str (get-in m ["contact" "givenName"]) " "
+                                  (get-in m ["contact" "familyName"]))
+                             "organisation"
+                             (get-in m ["organisation" "organisationName"])
+                             "--")))
+        :getValue      (ui/get-obj-path value-path)
+        :getAdded      (when added-path (ui/get-obj-path added-path))
+        :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+        :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+        :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
+
 (defn breadcrumb-selection-list-settings
   [{:keys [label-path value-path breadcrumb-path added-path]}]
   {::low-code/req-ks       [:form-id :data-path :label-path :value-path :breadcrumb-path]

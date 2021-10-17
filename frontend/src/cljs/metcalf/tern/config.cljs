@@ -89,6 +89,7 @@
        'm4/select-value-with-label       {:view components4/select-value-with-label :init components4/select-value-settings}
        'm4/simple-list-option-picker     {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
        'm4/simple-selection-list         {:view components4/simple-selection-list :init components4/simple-selection-list-settings}
+       'm4/party-selection-list          {:view components4/party-selection-list :init components4/party-selection-list-settings}
        'm4/table-list-option-picker      {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
        'm4/table-selection-list          {:view components4/table-selection-list :init components4/table-selection-list-settings}
        'm4/textarea-field                {:view components4/textarea-field :init components4/textarea-field-settings}
@@ -876,7 +877,7 @@
            :added-path    ["isUserDefined"]
            :item-defaults {"partyType" "organisation"}}]
 
-         [m4/simple-selection-list
+         [m4/party-selection-list
           {:form-id    [:form]
            :data-path  ["identificationInfo" "citedResponsibleParty"]
            :label-path ["contact" "familyName"]

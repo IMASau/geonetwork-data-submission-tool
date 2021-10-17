@@ -133,11 +133,11 @@
         hasError (when (and show-errors (seq errors)) true)
         item-data-path (conj data-path selected)
         value @(rf/subscribe [::get-block-data config])
-        item-type (get-in value type-path)
+        item-type (get-in value (into [selected] type-path))
         {:keys [title template-id]} (get templates item-type)]
     [ui/EditDialog
      {:isOpen  (boolean selected)
-      :title   title
+      :title   (or title "")
       :onClose #(rf/dispatch [::list-edit-dialog-close config])
       :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
       :onSave  #(rf/dispatch [::list-edit-dialog-save config])

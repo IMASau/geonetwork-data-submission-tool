@@ -105,6 +105,7 @@
        'm4/item-edit-dialog               {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
        'm4/list-add-button                {:view components4/list-add-button :init components4/list-add-button-settings}
        'm4/list-edit-dialog               {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
+       'm4/typed-list-edit-dialog         {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
        'm4/lodge-button                   {:view components4/lodge-button}
        'm4/lodge-status-info              {:view components4/lodge-status-info}
        'm4/mailto-data-manager-link       {:view components4/mailto-data-manager-link}
@@ -491,17 +492,17 @@
            :label     "Name"}
 
           [m4/async-select-option
-           {:form-id    ?form-id
-            :data-path  [?data-path "longName"]
-            :uri        "/api/parametername"
-            :label-path ["label"]
-            :value-path ["uri"]
-            :added-path ["isUserDefined"]
+           {:form-id     ?form-id
+            :data-path   [?data-path "longName"]
+            :uri         "/api/parametername"
+            :label-path  ["label"]
+            :value-path  ["uri"]
+            :added-path  ["isUserDefined"]
             :placeholder "Select..."}]
 
           [m4/input-field
-           {:form-id    [:form]
-            :data-path  [?data-path "name"]
+           {:form-id     [:form]
+            :data-path   [?data-path "name"]
             :placeholder "Name in dataset (optional)"}]]
 
 
@@ -511,12 +512,12 @@
            :label     "Unit"}
 
           [m4/async-select-option
-           {:form-id    ?form-id
-            :data-path  [?data-path "unit"]
-            :uri        "/api/parameterunit"
-            :label-path ["label"]
-            :value-path ["uri"]
-            :added-path ["isUserDefined"]
+           {:form-id     ?form-id
+            :data-path   [?data-path "unit"]
+            :uri         "/api/parameterunit"
+            :label-path  ["label"]
+            :value-path  ["uri"]
+            :added-path  ["isUserDefined"]
             :placeholder "Select..."}]]
 
          [m4/form-group
@@ -524,12 +525,12 @@
            :data-path [?data-path "instrument"]
            :label     "Instrument"}
           [m4/async-select-option
-           {:form-id    ?form-id
-            :data-path  [?data-path "instrument"]
-            :uri        "/api/parameterinstrument"
-            :label-path ["label"]
-            :value-path ["uri"]
-            :added-path ["isUserDefined"]
+           {:form-id     ?form-id
+            :data-path   [?data-path "instrument"]
+            :uri         "/api/parameterinstrument"
+            :label-path  ["label"]
+            :value-path  ["uri"]
+            :added-path  ["isUserDefined"]
             :placeholder "Select..."}]]
 
          [m4/form-group
@@ -537,12 +538,12 @@
            :data-path [?data-path "platform"]
            :label     "Platform"}
           [m4/async-select-option
-           {:form-id    ?form-id
-            :data-path  [?data-path "platform"]
-            :uri        "/api/parameterplatform"
-            :label-path ["label"]
-            :value-path ["uri"]
-            :added-path ["isUserDefined"]
+           {:form-id     ?form-id
+            :data-path   [?data-path "platform"]
+            :uri         "/api/parameterplatform"
+            :label-path  ["label"]
+            :value-path  ["uri"]
+            :added-path  ["isUserDefined"]
             :placeholder "Select..."}]]]
 
 

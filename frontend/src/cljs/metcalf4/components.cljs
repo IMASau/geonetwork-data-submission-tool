@@ -118,6 +118,34 @@
         :variables   {'?form-id   form-id
                       '?data-path item-data-path}})]))
 
+(defn typed-list-edit-dialog-settings [_]
+  {::low-code/req-ks [:form-id :data-path :type-path :templates]
+   ::low-code/opt-ks []})
+
+(defn typed-list-edit-dialog
+  "Popup dialog if item is selected.  Use type to decide which template to use."
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [form-id data-path type-path selected templates show-errors errors]} props
+        hasError (when (and show-errors (seq errors)) true)
+        item-data-path (conj data-path selected)
+        value @(rf/subscribe [::get-block-data config])
+        item-type (get-in value type-path)
+        {:keys [title template-id]} (get templates item-type)]
+    [ui/EditDialog
+     {:isOpen  (boolean selected)
+      :title   title
+      :onClose #(rf/dispatch [::list-edit-dialog-close config])
+      :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
+      :onSave  #(rf/dispatch [::list-edit-dialog-save config])
+      :canSave (not hasError)}
+
+     (low-code/render-template
+       {:template-id template-id
+        :variables   {'?form-id   form-id
+                      '?data-path item-data-path
+                      '?item-type item-type}})]))
+
 (defn item-edit-dialog-settings [_]
   {::low-code/req-ks [:form-id :data-path :title :template-id]
    ::low-code/opt-ks []})

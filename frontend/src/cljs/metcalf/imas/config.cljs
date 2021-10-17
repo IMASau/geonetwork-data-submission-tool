@@ -262,9 +262,37 @@
              :value-path ["uri"]
              :added-path ["isUserDefined"]}]]
           [:div.col-sm-6
-           [m4/coordinates-modal-field
+
+           [m4/when
             {:form-id   [:form]
-             :data-path ["identificationInfo" "geographicElement" "boxes"]}]]]
+             :data-path ["identificationInfo" "geographicElement" "boxes"]
+             :pred      ::components4/empty-list?}
+            [:p "Specify the location(s) of this study."]]
+
+           [m4/table-selection-list
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "geographicElement" "boxes"]
+             :value-path ["uri"]
+             :added-path ["isUserDefined"]
+             :columns    [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
+                          {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
+                          {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
+                          {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
+
+           [m4/list-add-button
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "geographicElement" "boxes"]
+             :text       "Add new"
+             :value-path ["uri"]
+             :added-path ["isUserDefined"]}]
+
+           [m4/list-edit-dialog
+            {:form-id     [:form]
+             :data-path   ["identificationInfo" "geographicElement" "boxes"]
+             :value-path  ["uri"]
+             :added-path  ["isUserDefined"]
+             :title       "Bounding box"
+             :template-id :box/user-defined-entry-form}]]]
          [:h3 "Vertical Coverage"]
          [m4/checkbox-field
           {:form-id   [:form]
@@ -281,6 +309,42 @@
            :class      "wauto"
            :helperText "Deepest depth / highest altitude"}]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+
+        :box/user-defined-entry-form
+        [:div
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "northBoundLatitude"]
+           :label     "North"}
+          [m4/numeric-input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "northBoundLatitude"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "southBoundLatitude"]
+           :label     "East"}
+          [m4/numeric-input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "southBoundLatitude"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "eastBoundLongitude"]
+           :label     "South"}
+          [m4/numeric-input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "eastBoundLongitude"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "westBoundLongitude"]
+           :label     "West"}
+          [m4/numeric-input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "westBoundLongitude"]}]]
+
+         ]
 
         :who
         [:div

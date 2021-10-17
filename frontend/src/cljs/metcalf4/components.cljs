@@ -513,7 +513,7 @@
 
 (defn list-add-button-settings [_]
   {::low-code/req-ks [:form-id :data-path :value-path :added-path :text]
-   ::low-code/opt-ks []
+   ::low-code/opt-ks [:item-defaults]
    ::low-code/schema {:type "array"}})
 
 (defn list-add-button

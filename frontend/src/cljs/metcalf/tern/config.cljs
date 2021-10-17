@@ -1036,11 +1036,11 @@
 
          [m4/form-group
           {:form-id   ?form-id
-           :data-path [?data-path "organisationName"]
+           :data-path [?data-path "organisation" "organisationName"]
            :label     "Organisation Name"}
           [m4/input-field
            {:form-id   ?form-id
-            :data-path [?data-path "organisationName"]}]]]
+            :data-path [?data-path "organisation" "organisationName"]}]]]
 
         :how
         [:div

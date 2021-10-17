@@ -55,6 +55,7 @@ def insert_functions(spec):
                     insert_functions(i)
 
 
+# TODO: pass in app specific registrations?
 def make_spec(**kwargs):
     assert 'mapper' in kwargs, "We couldn't load the mapper for this template. Please make sure the mapper exists"
     assert kwargs['mapper'] != None, "No mapper exists for this template. Please specify one."

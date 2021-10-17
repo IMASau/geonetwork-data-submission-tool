@@ -11,40 +11,7 @@
 (assert BlueprintDatetime)
 (assert React)
 
-(defn get-initial-state
-  [this]
-  {:value (:value (r/props this))})
-
-(defn component-will-receive-props
-  [this [_ {:keys [value]}]]
-  (when (not= value (:value (r/props this)))
-    (r/set-state this {:value value})))
-
-(defn render [view this]
-  (let [{:keys [onValueChange] :as props} (r/props this)
-        {:keys [value] :as state} (r/state this)]
-
-    (s/assert (s/keys :req-un [::value ::onValueChange]) props)
-    (s/assert (s/keys :req-un [::value]) state)
-    (s/assert nil? (:onChange props))
-    (s/assert nil? (:onBlur props))
-
-    [view
-     (-> (dissoc props :onValueChange)
-         (assoc :value value)
-         (assoc :onChange (fn [e] (r/set-state this {:value (-> e .-target .-value)})))
-         (assoc :onBlur #(onValueChange value)))]))
-
-(defn build-controlled-value
-  [view]
-  (r/create-class
-    {:get-initial-state            get-initial-state
-     :component-will-receive-props component-will-receive-props
-     :render                       (partial render view)}))
-
 (def navbar (r/adapt-react-class BlueprintCore/Navbar))
-(def popover (r/adapt-react-class BlueprintCore/Popover))
-(def collapse (r/adapt-react-class BlueprintCore/Collapse))
 (def navbar-group (r/adapt-react-class BlueprintCore/NavbarGroup))
 (def navbar-divider (r/adapt-react-class BlueprintCore/NavbarDivider))
 (def navbar-heading (r/adapt-react-class BlueprintCore/NavbarHeading))

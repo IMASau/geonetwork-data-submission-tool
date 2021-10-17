@@ -144,12 +144,7 @@ LOGGING = {
             "level": "ERROR",
             "propagate": True,
         },
-        "metcalf.common.xmlutils": {
-            "handlers": ["console", "mail_admins"],
-            "level": "DEBUG",
-            "propagate": True,
-        },
-        "metcalf.tern.backend.management.commands": {
+        "metcalf": {
             "handlers": ["console", "mail_admins"],
             "level": "DEBUG",
             "propagate": True,

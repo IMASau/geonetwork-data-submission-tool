@@ -464,6 +464,7 @@
             [m4/list-add-button
              {:form-id    [:form]
               :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
+              :text       "Add"
               :value-path ["uri"]
               :added-path ["isUserDefined"]}]]
 
@@ -496,6 +497,7 @@
             [m4/list-add-button
              {:form-id    [:form]
               :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
+              :text       "Add"
               :value-path ["uri"]
               :added-path ["isUserDefined"]}]]
            [m4/table-selection-list
@@ -706,6 +708,7 @@
             [m4/list-add-button
              {:form-id    [:form]
               :data-path  ["identificationInfo" "geographicElement" "boxes"]
+              :text       "Add"
               :value-path ["uri"]
               :added-path ["isUserDefined"]}]
 
@@ -855,6 +858,7 @@
          [m4/list-add-button
           {:form-id    [:form]
            :data-path  ["identificationInfo" "citedResponsibleParty"]
+           :text       "Add"
            :value-path ["uri"]
            :added-path ["isUserDefined"]}]
 
@@ -875,6 +879,7 @@
          ;[m4/list-add-button
          ; {:form-id    [:form]
          ;  :data-path  ["identificationInfo" "PointOfContactForDataset"]
+         ;  :text       "Add"
          ;  :value-path ["uri"]
          ;  :added-path ["isUserDefined"]}]
          ;

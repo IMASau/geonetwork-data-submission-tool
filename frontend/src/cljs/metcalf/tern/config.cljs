@@ -563,10 +563,10 @@
          [m4/expanding-control {:label "Horizontal Resolution" :required true}
           [m4/form-group
            {:label   "Select a Horizontal Resolution range"
-            :toolTip "TODO"}
+            :toolTip "For gridded data, select the pixel size of the data, for field plots, select average width"}
            [m4/async-select-option
             {:form-id    [:form]
-             :data-path  ["What11"]
+             :data-path  ["identificationInfo" "keywordsHorizontal" "keywords"]
              :uri        "/api/What11"
              :label-path ["label"]
              :value-path ["uri"]}]]]

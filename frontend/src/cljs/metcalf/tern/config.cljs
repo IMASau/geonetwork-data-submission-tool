@@ -533,6 +533,7 @@
             [m4/list-add-button
              {:form-id    [:form]
               :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
+              :text       "Add"
               :value-path ["uri"]
               :added-path ["isUserDefined"]}]]
            [m4/table-selection-list

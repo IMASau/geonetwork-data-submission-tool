@@ -20,7 +20,6 @@
   (rf/subscribe [::get-form-state form-id]))
 
 
-; FIXME: leaking empty strings for date values from payload.forms.data
 (defn get-block-props-sub
   "take config and merge with block props"
   [state [_ {:keys [data-path] :as config}]]

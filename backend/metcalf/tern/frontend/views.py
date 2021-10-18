@@ -508,7 +508,7 @@ class UploadView(APIView):
 @api_view(['DELETE'])
 def delete_attachment(request, uuid, id):
     attachment = get_object_or_404(DocumentAttachment, id=id, document__uuid=uuid)
-    is_document_editor(request, attachment.document)
+    is_document_contributor(request, attachment.document)
     try:
         attachment.delete()
         return Response({"message": "Deleted"})

@@ -143,7 +143,7 @@ def create(request):
 @api_view(['POST'])
 def clone(request, uuid):
     orig_doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, orig_doc)
+    is_document_contributor(request, orig_doc)
     try:
         doc = Document.objects.clone(orig_doc, request.user)
         return Response({"message": "Cloned",

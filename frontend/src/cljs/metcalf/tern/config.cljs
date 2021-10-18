@@ -630,20 +630,18 @@
             [:div.bp3-fill
              [m4/input-field
               {:form-id    [:form]
-               :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
-               :label-path ["label"]
-               :value-path ["label"]}]]
+               :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]}]]
             [m4/list-add-button
              {:form-id    [:form]
               :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
               :text       "Add"
-              :value-path ["label"]
+              :value-path ["value"]
               :added-path ["isUserDefined"]}]]
            [m4/simple-selection-list
             {:form-id    [:form]
              :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
-             :label-path ["label"]
-             :value-path ["label"]
+             :label-path ["value"]
+             :value-path ["value"]
              :added-path ["isUserDefined"]}]]]
 
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]

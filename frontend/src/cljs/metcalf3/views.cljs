@@ -1439,16 +1439,17 @@
                   {:keys [urls user]} @(rf/subscribe [:subs/get-derived-path [:context]])
                   {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
                   dirty @(rf/subscribe [:subs/get-form-dirty [:form]])
-                  {:keys [status title last_updated last_updated_by]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
+                  {:keys [status title last_updated last_updated_by is_editor owner]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
               [:div
                [navbar]
                [:div.container
                 [:div.pagehead
                  [:div.pull-right
-                  [:button.btn.btn-default.text-warn {:on-click handle-archive-click
-                                                      :disabled disabled}
-                   [:span.fa.fa-archive]
-                   " Archive"] " "
+                  (when is_editor
+                    [:button.btn.btn-default.text-warn {:on-click handle-archive-click
+                                                        :disabled disabled}
+                     [:span.fa.fa-archive]
+                     " Archive"]) " "
                   [:button.btn.btn-primary {:disabled (or disabled (not dirty) saving)
                                             :on-click #(rf/dispatch [::PageViewEdit-save-button-click])}
                    (cond

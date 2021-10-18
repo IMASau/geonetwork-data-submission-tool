@@ -89,6 +89,10 @@ class DocumentAttachmentInline(admin.TabularInline):
     model = models.DocumentAttachment
 
 
+class ContributorInline(admin.TabularInline):
+    model = models.Contributor
+
+
 def bulk_scheduled(modeladmin, request, queryset):
     for datafeed in queryset.filter(state=models.DataFeed.IDLE):
         datafeed.schedule()
@@ -145,7 +149,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
     search_fields = ['title', 'owner__username', 'owner__email', 'uuid']
     fsm_field = ['status', ]
     readonly_fields = ['status', 'action_links', 'submission_note', 'doi_links', 'validity', 'date_last_validated']
-    inlines = [DocumentAttachmentInline]
+    inlines = [DocumentAttachmentInline, ContributorInline]
     fieldsets = [
         (None, {'fields': ('title', 'template', 'owner', 'status', 'submission_note', 'doi')}),
         ('Validation', {'fields': ('validity', 'date_last_validated')}),

@@ -225,7 +225,7 @@ MEF_TEMPLATE = '''<?xml version="1.0" encoding="UTF-8"?>
 @login_required
 def mef(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+    is_document_contributor(request, doc)
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)

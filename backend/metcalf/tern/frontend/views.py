@@ -37,7 +37,7 @@ from metcalf.tern.backend.models import DraftMetadata, Document, DocumentAttachm
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.tern.frontend.forms import DocumentAttachmentForm
 from metcalf.tern.frontend.models import SiteContent
-from metcalf.tern.frontend.permissions import is_document_editor
+from metcalf.tern.frontend.permissions import is_document_editor, is_document_contributor
 from metcalf.tern.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
     SiteContentSerializer
 
@@ -428,7 +428,7 @@ def save(request, uuid):
 @login_required
 def edit(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+    is_document_contributor(request, doc)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
 
     draft = doc.draftmetadata_set.all()[0]

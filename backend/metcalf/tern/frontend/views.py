@@ -155,7 +155,7 @@ def clone(request, uuid):
 @login_required
 def validation_results(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+    is_document_contributor(request, doc)
     response_string = doc.validation_result
     # try to make it look pretty, but if not, just the raw text is fine
     try:

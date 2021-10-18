@@ -1546,9 +1546,11 @@
          [:span.glyphicon.glyphicon-duplicate] " clone"]
         [:span.btn.btn-default.noborder.btn-xs {:on-click on-edit-click}
          [:span.glyphicon.glyphicon-pencil] " edit"]])
-     [:p.lead.list-group-item-heading
+     [:h4
       [:span.link {:on-click on-edit-click}
-       title]
+       [:span (:username owner)]
+       " / "
+       [:strong title]]
       " "
       [:span.label.label-info {:style {:font-weight "normal"}} status]
       " "]

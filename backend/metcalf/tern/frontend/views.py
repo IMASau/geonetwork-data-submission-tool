@@ -495,7 +495,7 @@ class UploadView(APIView):
 
     def post(self, request, uuid):
         doc = get_object_or_404(Document, uuid=uuid)
-        is_document_editor(request, doc)
+        is_document_contributor(request, doc)
         form = DocumentAttachmentForm(request.POST, request.FILES)
         if form.is_valid():
             inst = form.save()

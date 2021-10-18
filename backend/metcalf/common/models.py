@@ -143,6 +143,24 @@ class AbstractMetadataTemplateMapper(models.Model):
         abstract = True
 
 
+class AbstractUserInterfaceTemplate(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=128, help_text="Unique name for UI template.  Used in menus.")
+    file = models.FileField("ui_template",
+                            help_text="EDN file used to define the UI needed for data capture")
+    notes = models.TextField(help_text="Internal use notes about this template mapper", blank=True, null=True)
+    site = models.ForeignKey(Site, on_delete=models.SET_NULL, blank=True, null=True)
+    archived = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "{1} (#{0})".format(self.pk, self.name)
+
+    class Meta:
+        abstract = True
+
+
 class AbstractMetadataTemplate(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128, help_text="Unique name for template.  Used in menus.")

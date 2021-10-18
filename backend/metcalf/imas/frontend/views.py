@@ -705,7 +705,7 @@ def tern_platforms(request) -> Response:
         }
         data = es.search(index=index_alias, body=body)
 
-    return Response(data, status=200)
+    return Response(es_results(data), status=200)
 
 
 @api_view(['GET', 'POST'])

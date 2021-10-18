@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
+from django.db.models import Q
 from django.http import HttpResponse
 from django.middleware import csrf
 from django.shortcuts import get_object_or_404, render
@@ -87,7 +88,7 @@ def user_status_list():
 @login_required
 def dashboard(request):
     docs = (Document.objects
-            .filter(owner=request.user)
+            .filter(Q(owner=request.user) | Q(contributors__user=request.user))
             .exclude(status=Document.DISCARDED))
     payload = JSONRenderer().render({
         "context": {

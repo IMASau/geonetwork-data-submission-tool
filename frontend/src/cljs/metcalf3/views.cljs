@@ -15,9 +15,9 @@
             [interop.moment :as moment]
             [interop.react-imask :as react-imask]
             [metcalf3.content :refer [contact-groups]]
-            [metcalf3.handlers :as handlers]
-            [metcalf3.logic :as logic]
-            [metcalf3.utils :as utils]
+            [metcalf3.handlers :as handlers3]
+            [metcalf3.logic :as logic3]
+            [metcalf3.utils :as utils3]
             [metcalf3.widget.modal :refer [Modal]]
             [metcalf3.widget.select :refer [ReactSelect ReactSelectAsync
                                             ReactSelectAsyncCreatable]]
@@ -54,7 +54,7 @@
           (component-will-receive-props [this new-argv]
             (let [[_ next-props] new-argv
                   props (r/props this)]
-              (utils/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
+              (utils3/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
 
           (render [this]
             (let [{:keys [addon-before addon-after help on-change disabled mask maxlength] :as props} (r/props this)
@@ -67,7 +67,7 @@
                                   (assoc :on-change #(r/set-state this {:input-value (.. % -target -value)}))
                                   (assoc :on-blur #(on-change input-value))
                                   (assoc :key "ifc"))]
-              [:div.form-group {:class    (utils/validation-state props)
+              [:div.form-group {:class    (utils3/validation-state props)
                                 :disabled disabled}
                (label-template props)
                (if (or addon-after addon-before)
@@ -88,7 +88,7 @@
               {:input-value value}))
 
           (handle-change [this s]
-            (let [s (utils/filter-name s)]
+            (let [s (utils3/filter-name s)]
               (r/set-state this {:input-value s})))
 
           (handle-blur [this]
@@ -99,7 +99,7 @@
           (component-will-receive-props [this new-argv]
             (let [[_ next-props] new-argv
                   props (r/props this)]
-              (utils/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
+              (utils3/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
 
           (render [this]
             (let [{:keys [addon-before addon-after help disabled mask] :as props} (r/props this)
@@ -112,7 +112,7 @@
                                   (assoc :on-change #(handle-change this (.. % -target -value)))
                                   (assoc :on-blur #(handle-blur this))
                                   (assoc :key "ifc"))]
-              [:div.form-group {:class    (utils/validation-state props)
+              [:div.form-group {:class    (utils3/validation-state props)
                                 :disabled disabled}
                (label-template props)
                (if (or addon-after addon-before)
@@ -132,7 +132,7 @@
                       :value (or value "")
                       :on-change #(on-change (.. % -target -value))
                       :key "ifc")]
-    [:div.form-group {:class    (utils/validation-state props)
+    [:div.form-group {:class    (utils3/validation-state props)
                       :disabled disabled}
      (label-template props)
      (if (or addon-after addon-before)
@@ -213,7 +213,7 @@
                                       :checked  (boolean checked)
                                       :disabled disabled
                                       :onChange on-change})]]
-    [:div.form-group {:class (utils/validation-state props)}
+    [:div.form-group {:class (utils3/validation-state props)}
      [:div.checkbox
       [:label input-control label]]
      [:p.help-block help]]))
@@ -252,7 +252,7 @@
                   table @(rf/subscribe [:subs/get-derived-path [:theme keyword-type :table]])
                   results (if (blank? query)
                             table
-                            (vec (utils/filter-table false table query)))
+                            (vec (utils3/filter-table false table query)))
                   rowHeight 50
                   on-submit #(r/set-state this {:scrollToRow 0 :query %})]
               [:div.KeywordsThemeTable
@@ -393,7 +393,7 @@
             (into [:tbody]
                   (for [[idx field] (map-indexed vector (:value many-field))]
                     (let [field-path (conj field-path :value idx)
-                          has-error (not (logic/is-valid? {:fields (:value field)}))]
+                          has-error (not (logic3/is-valid? {:fields (:value field)}))]
                       (-> [:tr.clickable-text {:class    (when has-error "warning")
                                                :ref      (str field-path)
                                                :on-click (when-not disabled
@@ -494,13 +494,13 @@
               (rf/dispatch [::elasticsearch-select-field-mount api-path ""])))
           (render [this]
             (let [{:keys [dp-type dp-term-path api-path disabled]} (r/props this)
-                  sub-paths (utils/dp-term-paths dp-type)
+                  sub-paths (utils3/dp-term-paths dp-type)
                   {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])
                   term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
                   vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
                   {:keys [label help required errors show-errors tooltip]} term
                   selectable-options (into-array (filterv #(gobj/get % "is_selectable") options))
-                  new-term? (utils/other-term? term vocabularyTermURL)]
+                  new-term? (utils3/other-term? term vocabularyTermURL)]
               [:div
                (when new-term?
                  [:span.pull-right.new-term.text-primary
@@ -611,7 +611,7 @@
 
 (defn ApiTermTreeField
   [{:keys [api-path dp-term-path dp-type]}]
-  (let [sub-paths (utils/dp-term-paths dp-type)
+  (let [sub-paths (utils3/dp-term-paths dp-type)
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
         {:keys [label required errors show-errors]} term
@@ -629,7 +629,7 @@
 (defn TermOrOtherForm
   "docstring"
   [{:keys [dp-term-path dp-type] :as props}]
-  (let [sub-paths (utils/dp-term-paths dp-type)
+  (let [sub-paths (utils3/dp-term-paths dp-type)
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])]
     [:div
@@ -638,7 +638,7 @@
      [:p "Or define your own"]
      [InputWidget
       (assoc term
-        :value (if (utils/other-term? term vocabularyTermURL) (:value term) "")
+        :value (if (utils3/other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
                      (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term              v
                                                                                 :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
@@ -648,14 +648,14 @@
 (defn UnitTermOrOtherForm
   "docstring"
   [{:keys [dp-term-path dp-type]}]
-  (let [sub-paths (utils/dp-term-paths dp-type)
+  (let [sub-paths (utils3/dp-term-paths dp-type)
         term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
         vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])]
     [:div
      [:p "Define your own unit"]
      [InputWidget
       (assoc term
-        :value (if (utils/other-term? term vocabularyTermURL) (:value term) "")
+        :value (if (utils3/other-term? term vocabularyTermURL) (:value term) "")
         :on-change (fn [v]
                      (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term              v
                                                                                 :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
@@ -855,7 +855,7 @@
                     (fn []
                       (when (= (.-readyState xhr) 4)
                         (if (#{200 201} (.-status xhr))
-                          (rf/dispatch [::upload-data-confirm-upload-click-add-attachment (utils/map-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
+                          (rf/dispatch [::upload-data-confirm-upload-click-add-attachment (utils3/map-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
                           (rf/dispatch [::open-modal
                                         {:type    :alert
                                          :message "File upload failed. Please try again or contact administrator."}]))
@@ -1145,10 +1145,10 @@
 
 (defn PageErrors [{:keys [page path]}]
   (let [form @(rf/subscribe [:subs/get-derived-path path])
-        fields (logic/page-fields form page)
-        error-fields (remove #(logic/is-valid? {:fields %}) fields)
+        fields (logic3/page-fields form page)
+        error-fields (remove #(logic3/is-valid? {:fields %}) fields)
         msgs (for [field error-fields]
-               (if (and (:many field) (not (logic/is-valid? {:fields field})))
+               (if (and (:many field) (not (logic3/is-valid? {:fields field})))
                  [ManyFieldError field]
                  [FieldError field]))]
     (when (seq msgs)
@@ -1184,8 +1184,8 @@
        [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading (str title " " tag_line)]]]
       [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
        (if account_profile
-         [:a.bp3-button.bp3-minimal {:href account_profile} (utils/userDisplay user)]
-         [:span {:style {:padding "5px 10px 5px 10px"}} (utils/userDisplay user)])
+         [:a.bp3-button.bp3-minimal {:href account_profile} (utils3/userDisplay user)]
+         [:span {:style {:padding "5px 10px 5px 10px"}} (utils3/userDisplay user)])
        [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
        [:a.bp3-button.bp3-minimal {:href account_logout} "Sign Out"]]]]))
 
@@ -1227,7 +1227,7 @@
                                              (rf/dispatch [::parties-list-remove-party-confirm parties-path item]))}])))]
 
       (into [:div.list-group]
-            (for [[item party] (-> parties :value utils/enum)]
+            (for [[item party] (-> parties :value utils3/enum)]
               [:div
                [:a.list-group-item
                 {:class    (when (= item selected-item) "active")
@@ -1251,7 +1251,7 @@
   (ffirst
     (filter
       #(first @(rf/subscribe [:subs/get-derived-path (conj (:path (second %)) :value)]))
-      (utils/enum contact-groups))))
+      (utils3/enum contact-groups))))
 
 (defn Who [_]
   (letfn [(init-state [_]
@@ -1280,7 +1280,7 @@
                [:h2 "6: Who"]
                [:div.row
                 (into [:div.col-sm-4]
-                      (for [[group {:keys [title path]}] (utils/enum contact-groups)]
+                      (for [[group {:keys [title path]}] (utils3/enum contact-groups)]
                         (let [parties (clojure.set/difference
                                         all-parties-set (all-parties group))]
                           [:div
@@ -1435,20 +1435,21 @@
                            :on-confirm #(rf/dispatch [::page-view-edit-archive-click-confirm])}]))
           (render [_]
             (let [page @(rf/subscribe [:subs/get-page-props])
-                  saving (::handlers/saving? page)
+                  saving (::handlers3/saving? page)
                   {:keys [urls user]} @(rf/subscribe [:subs/get-derived-path [:context]])
                   {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
-                  dirty @(rf/subscribe [:subs/get-form-dirty])
-                  {:keys [status title last_updated]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
+                  dirty @(rf/subscribe [:subs/get-form-dirty [:form]])
+                  {:keys [status title last_updated last_updated_by is_editor owner]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
               [:div
                [navbar]
                [:div.container
                 [:div.pagehead
                  [:div.pull-right
-                  [:button.btn.btn-default.text-warn {:on-click handle-archive-click
-                                                      :disabled disabled}
-                   [:span.fa.fa-archive]
-                   " Archive"] " "
+                  (when is_editor
+                    [:button.btn.btn-default.text-warn {:on-click handle-archive-click
+                                                        :disabled disabled}
+                     [:span.fa.fa-archive]
+                     " Archive"]) " "
                   [:button.btn.btn-primary {:disabled (or disabled (not dirty) saving)
                                             :on-click #(rf/dispatch [::PageViewEdit-save-button-click])}
                    (cond
@@ -1459,16 +1460,17 @@
                      saving " Saving..."
                      dirty " Save"
                      :else " Saved")]]
-                 [:p.lead
-                  [:strong (utils/userDisplay user)]
+                 [:h4
+                  [:span (:username owner)]
                   " / "
-                  (if (blank? title) "Untitled" title)
+                  [:strong (if (blank? title) "Untitled" title)]
                   " "
                   [:span.label.label-info {:style {:font-weight "normal"}} status]
                   [:br]
                   [:small [:i {:style {:color     "#aaa"
                                        :font-size "1em"}}
-                           "Last edited " (moment/from-now last_updated)]]]]]
+                           "Last edited " (moment/from-now last_updated)
+                           " by " (:username last_updated_by)]]]]]
                [:div.Home.container
                 [edit-tabs]
                 [:div.PageViewBody
@@ -1513,39 +1515,43 @@
                  :title      "Clone?"
                  :message    (str "Are you sure you want to clone this record?")
                  :on-confirm #(rf/dispatch [::clone-doc-confirm url])}])
-  (.preventDefault event))
+  (.stopPropagation event))
 
-(defn DocumentTeaser [{:keys [url title last_updated status transitions
-                              transition_url clone_url] :as doc}]
+(defn DocumentTeaser [{:keys [url title last_updated last_updated_by status transitions
+                              transition_url clone_url is_editor owner] :as doc}]
   (let [transitions (set transitions)
-        on-archive-click #(rf/dispatch [::document-teaser-archive-click transition_url])
-        on-delete-archived-click #(rf/dispatch [::document-teaser-delete-archived-click transition_url])
-        on-restore-click #(rf/dispatch [::document-teaser-restore-click transition_url])
-        on-clone-click (partial clone-doc clone_url)
-        on-edit-click #(aset js/location "href" url)]
+        on-archive-click (fn [e] (.stopPropagation e) (rf/dispatch [::document-teaser-archive-click transition_url]))
+        on-delete-archived-click (fn [e] (.stopPropagation e) (rf/dispatch [::document-teaser-delete-archived-click transition_url]))
+        on-restore-click (fn [e] (.stopPropagation e) (rf/dispatch [::document-teaser-restore-click transition_url]))
+        on-clone-click (fn [e] (clone-doc clone_url e))
+        on-edit-click (fn [e] (.stopPropagation e) (aset js/location "href" url))]
 
-    [:div.list-group-item.DocumentTeaser
-     [:div.pull-right
-      (when (contains? transitions "archive")
+    [:div.bp3-card.bp3-interactive.DocumentTeaser
+     {:on-click on-edit-click}
+     (when is_editor
+       [:div.pull-right
+        (when (contains? transitions "archive")
+          [:span.btn.btn-default.noborder.btn-xs
+           {:on-click on-archive-click}
+           [:span.glyphicon.glyphicon-trash] " archive"])
+        (when (contains? transitions "delete_archived")
+          [:span.btn.btn-default.noborder.btn-xs
+           {:on-click on-delete-archived-click}
+           [:span.glyphicon.glyphicon-remove] " delete"])
+        (when (contains? transitions "restore")
+          [:span.btn.btn-default.noborder.btn-xs
+           {:on-click on-restore-click}
+           [:span.glyphicon.glyphicon-open] " restore"])
         [:span.btn.btn-default.noborder.btn-xs
-         {:on-click on-archive-click}
-         [:span.glyphicon.glyphicon-trash] " archive"])
-      (when (contains? transitions "delete_archived")
-        [:span.btn.btn-default.noborder.btn-xs
-         {:on-click on-delete-archived-click}
-         [:span.glyphicon.glyphicon-remove] " delete"])
-      (when (contains? transitions "restore")
-        [:span.btn.btn-default.noborder.btn-xs
-         {:on-click on-restore-click}
-         [:span.glyphicon.glyphicon-open] " restore"])
-      [:span.btn.btn-default.noborder.btn-xs
-       {:on-click on-clone-click}
-       [:span.glyphicon.glyphicon-duplicate] " clone"]
-      [:span.btn.btn-default.noborder.btn-xs {:on-click on-edit-click}
-       [:span.glyphicon.glyphicon-pencil] " edit"]]
-     [:p.lead.list-group-item-heading
-      [:span.link {:on-click on-edit-click}
-       title]
+         {:on-click on-clone-click}
+         [:span.glyphicon.glyphicon-duplicate] " clone"]
+        [:span.btn.btn-default.noborder.btn-xs {:on-click on-edit-click}
+         [:span.glyphicon.glyphicon-pencil] " edit"]])
+     [:h4
+      [:span.link
+       [:span (:username owner)]
+       " / "
+       [:strong title]]
       " "
       [:span.label.label-info {:style {:font-weight "normal"}} status]
       " "]
@@ -1555,7 +1561,7 @@
        (if-not (empty? last_updated)
          [:span
           "Last edited " (moment/from-now last_updated)
-          " by " (:username (:owner doc))]
+          " by " (:username last_updated_by)]
          "Has not been edited yet")]]]))
 
 (defn dashboard
@@ -1578,7 +1584,7 @@
                      [:p.list-group-item-text "Welcome! Since you’re new here, "
                       [:span {:style {:text-decoration "underline"}} "Click here"] " to get started."]]
                     (when (empty? filtered-docs)
-                      (if (= status-filter logic/active-status-filter)
+                      (if (= status-filter logic3/active-status-filter)
                         [:div
                          [:p "You don't have any active records: "
                           [:a {:on-click #(rf/dispatch [::dashboard-show-all-click])}
@@ -1644,12 +1650,12 @@
     :on-save      #(rf/dispatch [::modal-dialog-confirm-save])}])
 
 (defmulti modal :type)
-(defmethod modal :default [_])
 
 (defn app-root [_]
-  (let [page-name @(rf/subscribe [::get-app-root-page-name])
-        modal-props @(rf/subscribe [::get-app-root-modal-props])]
-    [:div [modal modal-props]
+  (let [page-name @(rf/subscribe [::get-app-root-page-name])]
+    [:div
+     (when-let [modal-props @(rf/subscribe [::get-app-root-modal-props])]
+       [modal modal-props])
      (if (and guseragent/IE (not (guseragent/isVersionOrHigher 10)))
        [LegacyIECompatibility nil]
        (case page-name

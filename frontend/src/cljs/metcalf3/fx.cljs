@@ -6,7 +6,7 @@
             [interop.cljs-ajax :refer [POST]]
             [re-frame.core :as rf]))
 
-;; FIXME: Temporary hack. Should be able to get client cookies instead of asking the server.
+;; FIXME: Temporary work around. Should be able to get client cookies instead of asking the server.
 (defn get-csrf
   []
   (let [payload (js->clj (aget js/window "payload") :keywordize-keys true)]

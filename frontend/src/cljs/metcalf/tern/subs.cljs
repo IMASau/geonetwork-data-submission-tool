@@ -1,5 +1,6 @@
 (ns metcalf.tern.subs)
 
+; TODO: should be passed from server #low-code
 (def edit-tabs
   [{:id :data-identification :text "Identification"}
    {:id :what :text "What"}

@@ -369,31 +369,8 @@
 
 (defn derive-data-state [state]
   (-> state
-
-      ;(update-in [:form :fields :identificationInfo :geographicElement] geography-required-rule)
-      ; => "geographicElement": {"rules": "geographyRequired"}
-      ;
-      ;(update-in [:form :fields :identificationInfo :verticalElement] vertical-required-rule)
-      ; => "verticalElement": {"rules": "verticalRequired"}
-      ;
-      ;license-logic
-      ; => "geographicElement": {"rules": "licenseOther"}
-      ;
-      ;(update-in [:form :fields :identificationInfo]
-      ;           date-order-rule {:field0 "beginPosition"
-      ;                            :field1 "endPosition"})
-      ; => "identificationInfo": {"rules": {"dateOrder": {"field0" "beginPosition", "field1" "endPosition"}}}
-      ;
-      ;end-position-logic
-      ; => "identificationInfo": {"rules": "endPosition"}}
-      ;
-      ;(update-in [:form :fields :identificationInfo] maint-freq-rule)
-      ; => "identificationInfo": {"rules": "maintFreq"}
-
       data-service-logic
-
       author-role-logic
-
       (update-in [:form :fields] validate-required-fields)
       (update-in [:form :state] validate-rules)
       disable-form-when-submitted
@@ -456,10 +433,10 @@
   [{:keys [data schema url]}]
   (let [data (schema/massage-data-payload data)
         schema (schema/massage-schema-payload schema)]
-    {:data      data
-     :schema    schema
-     :state     (blocks/as-blocks {:data data :schema schema})
-     :url       url}))
+    {:data   data
+     :schema schema
+     :state  (blocks/as-blocks {:data data :schema schema})
+     :url    url}))
 
 (defn initial-state
   "Massage raw payload for use as app-state"
@@ -468,6 +445,7 @@
     (-> payload
         (cond-> form (assoc :form (massage-form form)))
         (assoc :alert [])
+        ; TODO: make deployment specific (put in init-db handler)
         (assoc :api {:parametername        {:uri     (str URL_ROOT "/api/ternparameters")
                                             :options nil
                                             :schema  {:type       "object",

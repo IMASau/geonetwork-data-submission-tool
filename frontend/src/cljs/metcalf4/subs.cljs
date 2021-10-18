@@ -20,7 +20,6 @@
   (rf/subscribe [::get-form-state form-id]))
 
 
-; FIXME: leaking empty strings for date values from payload.forms.data
 (defn get-block-props-sub
   "take config and merge with block props"
   [state [_ {:keys [data-path] :as config}]]
@@ -44,11 +43,10 @@
     (get-in db (utils4/as-path [form-id :schema (schema/schema-path data-path)]))))
 
 
-; FIXME: hardcoded path
-; FIXME: apply rules?
 (defn get-form-dirty?
-  [db]
-  (let [data0 (get-in db [:form :data])
-        state1 (get-in db [:form :state])
-        data1 (blocks/as-data state1)]
+  [db [_ form-id]]
+  (let [form-id (or form-id [:form])
+        data0 (get-in db (conj form-id :data))
+        state1 (get-in db (conj form-id :state))
+        data1 (blocks/as-data (blocks/postwalk rules/apply-rules state1))]
     (not= data0 data1)))

@@ -9,6 +9,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
+from django.db.models import Q
 from django.http import HttpResponse
 from django.middleware import csrf
 from django.shortcuts import get_object_or_404, render, redirect
@@ -31,7 +32,7 @@ from metcalf.imas.backend.models import DraftMetadata, Document, DocumentAttachm
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.imas.frontend.forms import DocumentAttachmentForm
 from metcalf.imas.frontend.models import SiteContent
-from metcalf.imas.frontend.permissions import is_document_editor
+from metcalf.imas.frontend.permissions import is_document_editor, is_document_contributor
 from metcalf.imas.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
     SiteContentSerializer
 
@@ -83,7 +84,7 @@ def user_status_list():
 @login_required
 def dashboard(request):
     docs = (Document.objects
-            .filter(owner=request.user)
+            .filter(Q(owner=request.user) | Q(contributors__user=request.user))
             .exclude(status=Document.DISCARDED))
     payload = JSONRenderer().render({
         "context": {
@@ -124,25 +125,21 @@ def dashboard(request):
 def create(request):
     template = get_object_or_404(
         MetadataTemplate, site=get_current_site(request), archived=False, pk=request.data['template'])
-    try:
-        doc = Document(title=request.data['title'],
-                       owner=request.user,
-                       template=template)
-        doc.save()
 
-        return Response({"message": "Created",
-                         "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
-    except AssertionError as e:
-        return Response({"message": get_exception_message(e), "args": e.args}, status=400)
-    except Exception as e:
-        return Response({"message": get_exception_message(e), "args": e.args}, status=400)
+    doc = Document(title=request.data['title'],
+                   owner=request.user,
+                   template=template)
+    doc.save()
+
+    return Response({"message": "Created",
+                     "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
 
 
 @login_required
 @api_view(['POST'])
 def clone(request, uuid):
     orig_doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, orig_doc)
+    is_document_contributor(request, orig_doc)
     try:
         doc = Document.objects.clone(orig_doc, request.user)
 
@@ -180,7 +177,7 @@ def create_export_xml_string(doc, uuid):
 @login_required
 def export(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+    is_document_contributor(request, doc)
     response = HttpResponse(create_export_xml_string(doc, uuid), content_type="application/xml")
     if "download" in request.GET:
         response['Content-Disposition'] = 'attachment; filename="{}.xml"'.format(uuid)
@@ -212,7 +209,7 @@ MEF_TEMPLATE = '''<?xml version="1.0" encoding="UTF-8"?>
 @login_required
 def mef(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+    is_document_contributor(request, doc)
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
@@ -349,7 +346,7 @@ def institutionFromData(data):
 @api_view(['POST'])
 def save(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+    is_document_contributor(request, doc)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
     try:
         data = request.data
@@ -410,7 +407,7 @@ def save(request, uuid):
 @login_required
 def edit(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+    is_document_contributor(request, doc)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
 
     draft = doc.draftmetadata_set.all()[0]
@@ -476,7 +473,7 @@ class UploadView(APIView):
 
     def post(self, request, uuid):
         doc = get_object_or_404(Document, uuid=uuid)
-        is_document_editor(request, doc)
+        is_document_contributor(request, doc)
         form = DocumentAttachmentForm(request.POST, request.FILES)
         if form.is_valid():
             inst = form.save()
@@ -489,7 +486,7 @@ class UploadView(APIView):
 @api_view(['DELETE'])
 def delete_attachment(request, uuid, id):
     attachment = get_object_or_404(DocumentAttachment, id=id, document__uuid=uuid)
-    is_document_editor(request, attachment.document)
+    is_document_contributor(request, attachment.document)
     try:
         attachment.delete()
         return Response({"message": "Deleted"})
@@ -525,6 +522,29 @@ def transition(request, uuid):
 def robots_view(request):
     context = {}
     return render(request, "robots.txt", context, content_type="text/plain")
+
+
+def first_or_value(x):
+    if isinstance(x, list):
+        return x[0] if x else None
+    else:
+        return x
+
+
+# NOTE: assumption is that UI doesn't need any complicated values, just a simple object
+# TODO: exclude annotations we don’t ever need (e.g. type, is_hosted_by, broader, hierarchy, selectable...)
+# TODO: need to check this suits all use cases or needs individual finessing
+def massage_source(source):
+    return {k: first_or_value(v) for k, v in source.items()}
+
+
+def es_results(data):
+    """
+    Normalise data returned from ES endpoint.
+
+    Returns a list of source documents as results
+    """
+    return [massage_source(hit['_source']) for hit in data['hits']['hits']]
 
 
 @api_view(["GET", "POST"])
@@ -565,8 +585,7 @@ def qudt_units(request) -> Response:
         body = {"size": result_size}
         data = es.search(index=index_alias, body=body)
 
-    # TODO: should massage
-    return Response(data, status=200)
+    return Response(es_results(data), status=200)
 
 
 @api_view(["GET", "POST"])
@@ -686,7 +705,7 @@ def tern_platforms(request) -> Response:
         }
         data = es.search(index=index_alias, body=body)
 
-    return Response(data, status=200)
+    return Response(es_results(data), status=200)
 
 
 @api_view(['GET', 'POST'])

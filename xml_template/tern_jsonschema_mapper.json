@@ -609,6 +609,29 @@
           },
           "required": true
         },
+        "keywordsAdditional": {
+          "!docstring": "What15",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"discipline\"]]",
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "xpath": "mri:keyword",
+              "keep": false,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "xpath": "mri:keyword",
+                "properties": {
+                  "isUserDefined": {},
+                  "label": {
+                    "xpath": "gcx:Anchor"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
         "beginPosition": {
           "!docstring": "When1",
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",

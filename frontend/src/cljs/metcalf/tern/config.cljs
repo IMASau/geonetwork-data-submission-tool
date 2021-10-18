@@ -620,15 +620,29 @@
              :value-path      ["uri"]
              :breadcrumb-path ["breadcrumb"]}]]]
 
-         [m4/expanding-control {:label "Additional Keywords (Optional)" :required true}
+         [m4/expanding-control {:label "Additional Keywords (Optional)" :required false}
           [m4/form-group
-           {:label   "Additional theme keywords can be added for review and approval"
-            :toolTip "TODO"}
-
-           [:p "TODO: Keyword input field"]
-           [:p "TODO: Keyword list"]
-
-           ]]
+           {:label   "Additional theme keywords can be added for review and approval process"
+            :toolTip "Enter your own additional theme keywords as required and click to add"}
+           [:div.bp3-control-group
+            [:div.bp3-fill
+             [m4/input-field
+              {:form-id    [:form]
+               :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
+               :label-path ["label"]
+               :value-path ["label"]}]]
+            [m4/list-add-button
+             {:form-id    [:form]
+              :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
+              :text       "Add"
+              :value-path ["label"]
+              :added-path ["isUserDefined"]}]]
+           [m4/simple-selection-list
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
+             :label-path ["label"]
+             :value-path ["label"]
+             :added-path ["isUserDefined"]}]]]
 
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 

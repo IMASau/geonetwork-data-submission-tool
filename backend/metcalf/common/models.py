@@ -171,6 +171,7 @@ class AbstractMetadataTemplate(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     mapper = models.ForeignKey("MetadataTemplateMapper", on_delete=models.SET_NULL, blank=True, null=True)
+    ui_template = models.ForeignKey("UserInterfaceTemplate", on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return "{1} (#{0})".format(self.pk, self.name)

@@ -1645,12 +1645,12 @@
     :on-save      #(rf/dispatch [::modal-dialog-confirm-save])}])
 
 (defmulti modal :type)
-(defmethod modal :default [_])
 
 (defn app-root [_]
-  (let [page-name @(rf/subscribe [::get-app-root-page-name])
-        modal-props @(rf/subscribe [::get-app-root-modal-props])]
-    [:div [modal modal-props]
+  (let [page-name @(rf/subscribe [::get-app-root-page-name])]
+    [:div
+     (when-let [modal-props @(rf/subscribe [::get-app-root-modal-props])]
+       [modal modal-props])
      (if (and guseragent/IE (not (guseragent/isVersionOrHigher 10)))
        [LegacyIECompatibility nil]
        (case page-name

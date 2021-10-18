@@ -91,6 +91,9 @@ class AbstractDocument(models.Model):
     def is_editor(self, user):
         return user.is_staff or (user == self.owner)
 
+    def is_contributor(self, user):
+        return user.is_staff or self.contributors.filter(user=user).exists()
+
     def get_absolute_url(self):
         return reverse('Edit', kwargs={'uuid': self.uuid})
 

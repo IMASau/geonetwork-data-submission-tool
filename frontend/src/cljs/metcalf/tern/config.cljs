@@ -571,13 +571,13 @@
              :label-path ["label"]
              :value-path ["uri"]}]]]
 
-         [m4/expanding-control {:label "Vertical Resolution (Optional)" :required true}
+         [m4/expanding-control {:label "Vertical Resolution (Optional)" :required false}
           [m4/form-group
            {:label   "Select a Vertical Resolution range"
-            :toolTip "TODO"}
+            :toolTip "Select the smallest vertical distance between successive elements of data in a dataset. This is synonymous with terms such as sample spacing and pixel size"}
            [m4/async-select-option
             {:form-id    [:form]
-             :data-path  ["What12"]
+             :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
              :uri        "/api/What12"
              :label-path ["label"]
              :value-path ["uri"]}]]]

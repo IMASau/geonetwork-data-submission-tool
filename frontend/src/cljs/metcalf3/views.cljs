@@ -1515,18 +1515,19 @@
                  :title      "Clone?"
                  :message    (str "Are you sure you want to clone this record?")
                  :on-confirm #(rf/dispatch [::clone-doc-confirm url])}])
-  (.preventDefault event))
+  (.stopPropagation event))
 
 (defn DocumentTeaser [{:keys [url title last_updated last_updated_by status transitions
                               transition_url clone_url is_editor owner] :as doc}]
   (let [transitions (set transitions)
-        on-archive-click #(rf/dispatch [::document-teaser-archive-click transition_url])
-        on-delete-archived-click #(rf/dispatch [::document-teaser-delete-archived-click transition_url])
-        on-restore-click #(rf/dispatch [::document-teaser-restore-click transition_url])
-        on-clone-click (partial clone-doc clone_url)
-        on-edit-click #(aset js/location "href" url)]
+        on-archive-click (fn [e] (.stopPropagation e) (rf/dispatch [::document-teaser-archive-click transition_url]))
+        on-delete-archived-click (fn [e] (.stopPropagation e) (rf/dispatch [::document-teaser-delete-archived-click transition_url]))
+        on-restore-click (fn [e] (.stopPropagation e) (rf/dispatch [::document-teaser-restore-click transition_url]))
+        on-clone-click (fn [e] (clone-doc clone_url e))
+        on-edit-click (fn [e] (.stopPropagation e) (aset js/location "href" url))]
 
-    [:div.list-group-item.DocumentTeaser
+    [:div.bp3-card.bp3-interactive.DocumentTeaser
+     {:on-click on-edit-click}
      (when is_editor
        [:div.pull-right
         (when (contains? transitions "archive")
@@ -1547,7 +1548,7 @@
         [:span.btn.btn-default.noborder.btn-xs {:on-click on-edit-click}
          [:span.glyphicon.glyphicon-pencil] " edit"]])
      [:h4
-      [:span.link {:on-click on-edit-click}
+      [:span.link
        [:span (:username owner)]
        " / "
        [:strong title]]

@@ -1518,7 +1518,7 @@
   (.preventDefault event))
 
 (defn DocumentTeaser [{:keys [url title last_updated last_updated_by status transitions
-                              transition_url clone_url] :as doc}]
+                              transition_url clone_url is_editor owner] :as doc}]
   (let [transitions (set transitions)
         on-archive-click #(rf/dispatch [::document-teaser-archive-click transition_url])
         on-delete-archived-click #(rf/dispatch [::document-teaser-delete-archived-click transition_url])
@@ -1527,24 +1527,25 @@
         on-edit-click #(aset js/location "href" url)]
 
     [:div.list-group-item.DocumentTeaser
-     [:div.pull-right
-      (when (contains? transitions "archive")
+     (when is_editor
+       [:div.pull-right
+        (when (contains? transitions "archive")
+          [:span.btn.btn-default.noborder.btn-xs
+           {:on-click on-archive-click}
+           [:span.glyphicon.glyphicon-trash] " archive"])
+        (when (contains? transitions "delete_archived")
+          [:span.btn.btn-default.noborder.btn-xs
+           {:on-click on-delete-archived-click}
+           [:span.glyphicon.glyphicon-remove] " delete"])
+        (when (contains? transitions "restore")
+          [:span.btn.btn-default.noborder.btn-xs
+           {:on-click on-restore-click}
+           [:span.glyphicon.glyphicon-open] " restore"])
         [:span.btn.btn-default.noborder.btn-xs
-         {:on-click on-archive-click}
-         [:span.glyphicon.glyphicon-trash] " archive"])
-      (when (contains? transitions "delete_archived")
-        [:span.btn.btn-default.noborder.btn-xs
-         {:on-click on-delete-archived-click}
-         [:span.glyphicon.glyphicon-remove] " delete"])
-      (when (contains? transitions "restore")
-        [:span.btn.btn-default.noborder.btn-xs
-         {:on-click on-restore-click}
-         [:span.glyphicon.glyphicon-open] " restore"])
-      [:span.btn.btn-default.noborder.btn-xs
-       {:on-click on-clone-click}
-       [:span.glyphicon.glyphicon-duplicate] " clone"]
-      [:span.btn.btn-default.noborder.btn-xs {:on-click on-edit-click}
-       [:span.glyphicon.glyphicon-pencil] " edit"]]
+         {:on-click on-clone-click}
+         [:span.glyphicon.glyphicon-duplicate] " clone"]
+        [:span.btn.btn-default.noborder.btn-xs {:on-click on-edit-click}
+         [:span.glyphicon.glyphicon-pencil] " edit"]])
      [:p.lead.list-group-item-heading
       [:span.link {:on-click on-edit-click}
        title]

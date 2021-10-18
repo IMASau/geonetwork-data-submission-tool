@@ -437,6 +437,38 @@
           },
           "required": true
         },
+        "keywordsUoM": {
+          "!docstring": "What9",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"http://www.qudt.org/2.1/vocab/unit\"]",
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "xpath": "mri:keyword",
+              "keep": false,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "xpath": "mri:keyword",
+                "properties": {
+                  "isUserDefined": {},
+                  "source": {},
+                  "label": {
+                    "xpath": "gcx:Anchor"
+                  },
+                  "uri": {
+                    "xpath": "gcx:Anchor",
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "identity"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
         "beginPosition": {
           "!docstring": "When1",
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",

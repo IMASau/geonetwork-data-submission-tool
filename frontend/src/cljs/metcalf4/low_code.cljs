@@ -9,6 +9,11 @@
 (def ^:dynamic template-registry {})
 (def ^:dynamic not-found-hiccup '[:div "not found"])
 
+(defn init!
+  [{:keys [low-code/templates]}]
+  (when (map? templates)
+    (set! template-registry templates)))
+
 (defn report-unregistered-syms
   [x]
   (when (symbol? x)

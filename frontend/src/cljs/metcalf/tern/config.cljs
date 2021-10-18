@@ -2,6 +2,7 @@
   (:require [interop.ui :as ui]
             [metcalf.common-config]
             [metcalf.tern.subs :as tern-subs]
+            [metcalf.tern.handlers :as tern-handlers]
             [metcalf3.handlers :as handlers3]
             [metcalf3.views :as views3]
             [metcalf4.components :as components4]
@@ -35,9 +36,10 @@
 (rf/reg-event-fx ::views3/date-field-with-label-value-changed handlers3/date-field-value-change)
 (rf/reg-event-fx ::views3/input-field-with-label-value-changed handlers3/value-changed)
 (rf/reg-event-fx ::views3/textarea-field-with-label-value-changed handlers3/textarea-field-value-change)
-(rf/reg-event-fx :metcalf.tern.core/init-db handlers3/init-db)
+(rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
 (rf/reg-event-fx :textarea-field/value-change handlers3/textarea-field-value-change)
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
+(rf/reg-fx ::low-code/init! low-code/init!)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
@@ -46,7 +48,8 @@
 (rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::components4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::views3/get-props subs4/form-state-signal subs4/get-block-props-sub)
-(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] tern-subs/get-edit-tab-props)
+(rf/reg-sub ::tern-subs/get-edit-tabs tern-subs/get-edit-tabs)
+(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] :<- [::tern-subs/get-edit-tabs] tern-subs/get-edit-tab-props)
 (defmethod views3/modal :DashboardCreateModal [modal-props] [views3/modal-dialog-dashboard-create-modal modal-props])
 (defmethod views3/modal :confirm [modal-props] [views3/modal-dialog-confirm modal-props])
 (defmethod views3/modal :alert [modal-props] [views3/modal-dialog-alert modal-props])

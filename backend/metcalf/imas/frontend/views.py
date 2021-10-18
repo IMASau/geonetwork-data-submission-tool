@@ -181,7 +181,7 @@ def create_export_xml_string(doc, uuid):
 @login_required
 def export(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+    is_document_contributor(request, doc)
     response = HttpResponse(create_export_xml_string(doc, uuid), content_type="application/xml")
     if "download" in request.GET:
         response['Content-Disposition'] = 'attachment; filename="{}.xml"'.format(uuid)

@@ -601,13 +601,13 @@
              :value-path      ["uri"]
              :breadcrumb-path ["breadcrumb"]}]]]
 
-         [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required true}
+         [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required false}
           [m4/form-group
            {:label   "Select Australian Faunal Directory keywords"
-            :toolTip "TODO"}
+            :toolTip "Species Taxa"}
            [m4/async-list-picker
             {:form-id         [:form]
-             :data-path       ["What14"]
+             :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
              :kind            :breadcrumb
              :uri             "/api/What14"
              :label-path      ["label"]
@@ -615,7 +615,7 @@
              :breadcrumb-path ["breadcrumb"]}]
            [m4/breadcrumb-selection-list
             {:form-id         [:form]
-             :data-path       ["What14"]
+             :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
              :label-path      ["label"]
              :value-path      ["uri"]
              :breadcrumb-path ["breadcrumb"]}]]]

@@ -1439,7 +1439,7 @@
                   {:keys [urls user]} @(rf/subscribe [:subs/get-derived-path [:context]])
                   {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
                   dirty @(rf/subscribe [:subs/get-form-dirty])
-                  {:keys [status title last_updated]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
+                  {:keys [status title last_updated last_updated_by]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
               [:div
                [navbar]
                [:div.container
@@ -1468,7 +1468,8 @@
                   [:br]
                   [:small [:i {:style {:color     "#aaa"
                                        :font-size "1em"}}
-                           "Last edited " (moment/from-now last_updated)]]]]]
+                           "Last edited " (moment/from-now last_updated)
+                           " by " (:username last_updated_by)]]]]]
                [:div.Home.container
                 [edit-tabs]
                 [:div.PageViewBody
@@ -1515,7 +1516,7 @@
                  :on-confirm #(rf/dispatch [::clone-doc-confirm url])}])
   (.preventDefault event))
 
-(defn DocumentTeaser [{:keys [url title last_updated status transitions
+(defn DocumentTeaser [{:keys [url title last_updated last_updated_by status transitions
                               transition_url clone_url] :as doc}]
   (let [transitions (set transitions)
         on-archive-click #(rf/dispatch [::document-teaser-archive-click transition_url])
@@ -1555,7 +1556,7 @@
        (if-not (empty? last_updated)
          [:span
           "Last edited " (moment/from-now last_updated)
-          " by " (:username (:owner doc))]
+          " by " (:username last_updated_by)]
          "Has not been edited yet")]]]))
 
 (defn dashboard

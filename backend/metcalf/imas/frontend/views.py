@@ -524,6 +524,29 @@ def robots_view(request):
     return render(request, "robots.txt", context, content_type="text/plain")
 
 
+def first_or_value(x):
+    if isinstance(x, list):
+        return x[0] if x else None
+    else:
+        return x
+
+
+# NOTE: assumption is that UI doesn't need any complicated values, just a simple object
+# TODO: exclude annotations we don’t ever need (e.g. type, is_hosted_by, broader, hierarchy, selectable...)
+# TODO: need to check this suits all use cases or needs individual finessing
+def massage_source(source):
+    return {k: first_or_value(v) for k, v in source.items()}
+
+
+def es_results(data):
+    """
+    Normalise data returned from ES endpoint.
+
+    Returns a list of source documents as results
+    """
+    return [massage_source(hit['_source']) for hit in data['hits']['hits']]
+
+
 @api_view(["GET", "POST"])
 def qudt_units(request) -> Response:
     """Search QUDT Units Index
@@ -562,8 +585,7 @@ def qudt_units(request) -> Response:
         body = {"size": result_size}
         data = es.search(index=index_alias, body=body)
 
-    # TODO: should massage
-    return Response(data, status=200)
+    return Response(es_results(data), status=200)
 
 
 @api_view(["GET", "POST"])

@@ -32,7 +32,7 @@ from metcalf.imas.backend.models import DraftMetadata, Document, DocumentAttachm
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.imas.frontend.forms import DocumentAttachmentForm
 from metcalf.imas.frontend.models import SiteContent
-from metcalf.imas.frontend.permissions import is_document_editor
+from metcalf.imas.frontend.permissions import is_document_editor, is_document_contributor
 from metcalf.imas.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
     SiteContentSerializer
 
@@ -143,7 +143,7 @@ def create(request):
 @api_view(['POST'])
 def clone(request, uuid):
     orig_doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, orig_doc)
+    is_document_contributor(request, orig_doc)
     try:
         doc = Document.objects.clone(orig_doc, request.user)
 

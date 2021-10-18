@@ -38,6 +38,7 @@ class DocumentInfoSerializer(serializers.ModelSerializer):
     transition_url = serializers.SerializerMethodField()
     export_url = serializers.SerializerMethodField()
     last_updated = serializers.SerializerMethodField()
+    last_updated_by = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
     transitions = serializers.SerializerMethodField()
     is_editor = serializers.SerializerMethodField()
@@ -45,7 +46,7 @@ class DocumentInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ('uuid', 'title', 'owner', 'last_updated',
+        fields = ('uuid', 'title', 'owner', 'last_updated', 'last_updated_by',
                   'url', 'clone_url', 'transition_url', 'export_url',
                   'status', 'transitions', 'is_editor', 'is_contributor')
 
@@ -65,6 +66,11 @@ class DocumentInfoSerializer(serializers.ModelSerializer):
         drafts = doc.draftmetadata_set
         if drafts.exists():
             return drafts.all()[0].time
+
+    def get_last_updated_by(self, doc):
+        drafts = doc.draftmetadata_set
+        if drafts.exists():
+            return UserInfoSerializer(instance=drafts.all()[0].user).data
 
     def get_status(self, doc):
         return doc.get_status_display()

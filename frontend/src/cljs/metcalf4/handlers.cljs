@@ -6,11 +6,9 @@
             [metcalf4.schema :as schema]
             [metcalf4.utils :as utils4]))
 
-
 (defn db-path
   [{:keys [form-id data-path]}]
   (utils4/as-path [form-id :state (blocks/block-path data-path)]))
-
 
 (defn init-db
   [_ [_ payload]]
@@ -30,7 +28,6 @@
          :institution          "/api/institution.json"
          :topiccategory        "/api/topiccategory.json"})))
 
-
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]
   (let [path (db-path ctx)]
@@ -48,7 +45,6 @@
              (assoc-in path state)
              (assoc-in (conj path :props :show-errors) true))}))
 
-; WIP
 (defn list-add-click-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
@@ -77,7 +73,6 @@
         (actions/add-item-action form-id data-path defaults)
         (actions/select-last-item-action form-id data-path))))
 
-; NOTE: Experiemental
 (defn item-add-with-defaults-click-handler
   [{:keys [db]} [_ props]]
   (let [{:keys [form-id data-path value-path added-path]} props
@@ -125,7 +120,6 @@
     (-> {:db db}
         (actions/set-value-action form-id data-path option))))
 
-; NOTE: assumes we only ever select user added items.  Might need to grow.
 (defn selection-list-item-click2
   [{:keys [db]} [_ props idx]]
   (let [{:keys [form-id data-path added-path]} props]

@@ -1460,10 +1460,10 @@
                      saving " Saving..."
                      dirty " Save"
                      :else " Saved")]]
-                 [:p.lead
-                  [:strong (utils3/userDisplay user)]
+                 [:h4
+                  [:span (:username owner)]
                   " / "
-                  (if (blank? title) "Untitled" title)
+                  [:strong (if (blank? title) "Untitled" title)]
                   " "
                   [:span.label.label-info {:style {:font-weight "normal"}} status]
                   [:br]

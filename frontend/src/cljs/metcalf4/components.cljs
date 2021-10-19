@@ -691,6 +691,31 @@
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
 
+(defn value-selection-list-settings
+  [_]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks []
+   ::low-code/schema {:type "array" :items {:type "string"}}})
+
+(defn value-selection-list
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        labels @(rf/subscribe [::get-block-data config])
+        {:keys [key disabled is-hidden]} props
+        items (map (fn [label] {:value (gensym) :label label}) labels)]
+    (when-not is-hidden
+      [ui/SimpleSelectionList
+       {:key           key
+        :items         items
+        :disabled      disabled
+        :getLabel      (ui/get-obj-path [:label])
+        :getValue      (ui/get-obj-path [:value])
+        :getAdded      (constantly true)
+        :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+        :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+        :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
+
+
 (defn selection-list-settings
   [{:keys [value-path added-path]}]
   {::low-code/req-ks       [:form-id :data-path :value-path :template-id]

@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
+from django.db.models import Q
 from django.http import HttpResponse
 from django.middleware import csrf
 from django.shortcuts import get_object_or_404, render
@@ -36,7 +37,7 @@ from metcalf.tern.backend.models import DraftMetadata, Document, DocumentAttachm
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.tern.frontend.forms import DocumentAttachmentForm
 from metcalf.tern.frontend.models import SiteContent
-from metcalf.tern.frontend.permissions import is_document_editor
+from metcalf.tern.frontend.permissions import is_document_editor, is_document_contributor
 from metcalf.tern.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
     SiteContentSerializer
 
@@ -87,7 +88,7 @@ def user_status_list():
 @login_required
 def dashboard(request):
     docs = (Document.objects
-            .filter(owner=request.user)
+            .filter(Q(owner=request.user) | Q(contributors__user=request.user))
             .exclude(status=Document.DISCARDED))
     payload = JSONRenderer().render({
         "context": {
@@ -142,7 +143,7 @@ def create(request):
 @api_view(['POST'])
 def clone(request, uuid):
     orig_doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, orig_doc)
+    is_document_contributor(request, orig_doc)
     try:
         doc = Document.objects.clone(orig_doc, request.user)
         return Response({"message": "Cloned",
@@ -154,7 +155,7 @@ def clone(request, uuid):
 @login_required
 def validation_results(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+    is_document_contributor(request, doc)
     response_string = doc.validation_result
     # try to make it look pretty, but if not, just the raw text is fine
     try:
@@ -192,7 +193,7 @@ def create_export_xml_string(doc, uuid):
 @login_required
 def export(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+    is_document_contributor(request, doc)
     response = HttpResponse(create_export_xml_string(doc, uuid), content_type="application/xml")
     if "download" in request.GET:
         response['Content-Disposition'] = 'attachment; filename="{}.xml"'.format(uuid)
@@ -224,7 +225,7 @@ MEF_TEMPLATE = '''<?xml version="1.0" encoding="UTF-8"?>
 @login_required
 def mef(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+    is_document_contributor(request, doc)
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
@@ -362,7 +363,7 @@ def institutionFromData(data):
 @api_view(['POST'])
 def save(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+    is_document_contributor(request, doc)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
     try:
         data = request.data
@@ -425,7 +426,7 @@ def save(request, uuid):
 @login_required
 def edit(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
-    is_document_editor(request, doc)
+    is_document_contributor(request, doc)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
 
     draft = doc.draftmetadata_set.all()[0]
@@ -492,7 +493,7 @@ class UploadView(APIView):
 
     def post(self, request, uuid):
         doc = get_object_or_404(Document, uuid=uuid)
-        is_document_editor(request, doc)
+        is_document_contributor(request, doc)
         form = DocumentAttachmentForm(request.POST, request.FILES)
         if form.is_valid():
             inst = form.save()
@@ -505,7 +506,7 @@ class UploadView(APIView):
 @api_view(['DELETE'])
 def delete_attachment(request, uuid, id):
     attachment = get_object_or_404(DocumentAttachment, id=id, document__uuid=uuid)
-    is_document_editor(request, attachment.document)
+    is_document_contributor(request, attachment.document)
     try:
         attachment.delete()
         return Response({"message": "Deleted"})

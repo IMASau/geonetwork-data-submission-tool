@@ -53,3 +53,7 @@ textarea {
     top: 7px;
     font-weight: normal;
 }
+
+.EditDialogDialog {
+    width: 600px;
+}

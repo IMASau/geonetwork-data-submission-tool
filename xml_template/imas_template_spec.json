@@ -144,7 +144,8 @@
             "xpath": "cit:CI_OnlineResource/cit:linkage",
             "valueChild": "gco:CharacterString",
             "rules": ["requiredField"]
-          }
+          },
+          "isUserDefined": {}
         }
       }
     },

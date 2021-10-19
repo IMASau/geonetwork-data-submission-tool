@@ -597,15 +597,34 @@
 
          [m3/UseLimitations {:form-id   [:form]
                              :data-path ["identificationInfo" "useLimitations"]}]
-         [:br]
          [:h4 "Supplemental information"]
+         [:label "Publications associated with dataset"]
          [m3/IMASSupplementalInformation
           {:form-id   [:form]
            :data-path ["identificationInfo" "supplementalInformation"]}]
-         [m3/IMASSupportingResource
-          {:form-id   [:form]
-           :data-path ["supportingResources"]}]
-         [:br]
+         [:label "Supporting resources"]
+         [m4/table-selection-list
+          {:form-id    [:form]
+           :data-path  ["supportingResources"]
+           :value-path ["????"]
+           :added-path ["isUserDefined"]
+           :columns    [{:columnHeader "Title" :label-path ["name"] :flex 1}
+                        {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+
+         [m4/list-add-button
+          {:form-id    [:form]
+           :data-path  ["supportingResources"]
+           :text       "Add supporting resource"
+           :value-path ["????"]
+           :added-path ["isUserDefined"]}]
+
+         [m4/list-edit-dialog
+          {:form-id     [:form]
+           :data-path   ["supportingResources"]
+           :value-path  ["????"]
+           :added-path  ["isUserDefined"]
+           :title       "Add supporting resource"
+           :template-id :resource/user-defined-entry-form}]
          [:h4 "Distribution"]
          [m4/input-field-with-label
           {:form-id     [:form]
@@ -617,6 +636,23 @@
            :placeholder "Date format date or version if applicable"}]
          [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
 
+        :resource/user-defined-entry-form
+        [:div
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "name"]
+           :label     "Title"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "name"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "url"]
+           :label     "URL"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "url"]}]]]
 
         :data-parameter/user-defined-entry-form
         [:div

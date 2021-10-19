@@ -1439,16 +1439,17 @@
                   {:keys [urls user]} @(rf/subscribe [:subs/get-derived-path [:context]])
                   {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
                   dirty @(rf/subscribe [:subs/get-form-dirty [:form]])
-                  {:keys [status title last_updated]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
+                  {:keys [status title last_updated last_updated_by is_editor owner]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
               [:div
                [navbar]
                [:div.container
                 [:div.pagehead
                  [:div.pull-right
-                  [:button.btn.btn-default.text-warn {:on-click handle-archive-click
-                                                      :disabled disabled}
-                   [:span.fa.fa-archive]
-                   " Archive"] " "
+                  (when is_editor
+                    [:button.btn.btn-default.text-warn {:on-click handle-archive-click
+                                                        :disabled disabled}
+                     [:span.fa.fa-archive]
+                     " Archive"]) " "
                   [:button.btn.btn-primary {:disabled (or disabled (not dirty) saving)
                                             :on-click #(rf/dispatch [::PageViewEdit-save-button-click])}
                    (cond
@@ -1459,16 +1460,17 @@
                      saving " Saving..."
                      dirty " Save"
                      :else " Saved")]]
-                 [:p.lead
-                  [:strong (utils3/userDisplay user)]
+                 [:h4
+                  [:span (:username owner)]
                   " / "
-                  (if (blank? title) "Untitled" title)
+                  [:strong (if (blank? title) "Untitled" title)]
                   " "
                   [:span.label.label-info {:style {:font-weight "normal"}} status]
                   [:br]
                   [:small [:i {:style {:color     "#aaa"
                                        :font-size "1em"}}
-                           "Last edited " (moment/from-now last_updated)]]]]]
+                           "Last edited " (moment/from-now last_updated)
+                           " by " (:username last_updated_by)]]]]]
                [:div.Home.container
                 [edit-tabs]
                 [:div.PageViewBody
@@ -1513,39 +1515,43 @@
                  :title      "Clone?"
                  :message    (str "Are you sure you want to clone this record?")
                  :on-confirm #(rf/dispatch [::clone-doc-confirm url])}])
-  (.preventDefault event))
+  (.stopPropagation event))
 
-(defn DocumentTeaser [{:keys [url title last_updated status transitions
-                              transition_url clone_url] :as doc}]
+(defn DocumentTeaser [{:keys [url title last_updated last_updated_by status transitions
+                              transition_url clone_url is_editor owner] :as doc}]
   (let [transitions (set transitions)
-        on-archive-click #(rf/dispatch [::document-teaser-archive-click transition_url])
-        on-delete-archived-click #(rf/dispatch [::document-teaser-delete-archived-click transition_url])
-        on-restore-click #(rf/dispatch [::document-teaser-restore-click transition_url])
-        on-clone-click (partial clone-doc clone_url)
-        on-edit-click #(aset js/location "href" url)]
+        on-archive-click (fn [e] (.stopPropagation e) (rf/dispatch [::document-teaser-archive-click transition_url]))
+        on-delete-archived-click (fn [e] (.stopPropagation e) (rf/dispatch [::document-teaser-delete-archived-click transition_url]))
+        on-restore-click (fn [e] (.stopPropagation e) (rf/dispatch [::document-teaser-restore-click transition_url]))
+        on-clone-click (fn [e] (clone-doc clone_url e))
+        on-edit-click (fn [e] (.stopPropagation e) (aset js/location "href" url))]
 
-    [:div.list-group-item.DocumentTeaser
-     [:div.pull-right
-      (when (contains? transitions "archive")
+    [:div.bp3-card.bp3-interactive.DocumentTeaser
+     {:on-click on-edit-click}
+     (when is_editor
+       [:div.pull-right
+        (when (contains? transitions "archive")
+          [:span.btn.btn-default.noborder.btn-xs
+           {:on-click on-archive-click}
+           [:span.glyphicon.glyphicon-trash] " archive"])
+        (when (contains? transitions "delete_archived")
+          [:span.btn.btn-default.noborder.btn-xs
+           {:on-click on-delete-archived-click}
+           [:span.glyphicon.glyphicon-remove] " delete"])
+        (when (contains? transitions "restore")
+          [:span.btn.btn-default.noborder.btn-xs
+           {:on-click on-restore-click}
+           [:span.glyphicon.glyphicon-open] " restore"])
         [:span.btn.btn-default.noborder.btn-xs
-         {:on-click on-archive-click}
-         [:span.glyphicon.glyphicon-trash] " archive"])
-      (when (contains? transitions "delete_archived")
-        [:span.btn.btn-default.noborder.btn-xs
-         {:on-click on-delete-archived-click}
-         [:span.glyphicon.glyphicon-remove] " delete"])
-      (when (contains? transitions "restore")
-        [:span.btn.btn-default.noborder.btn-xs
-         {:on-click on-restore-click}
-         [:span.glyphicon.glyphicon-open] " restore"])
-      [:span.btn.btn-default.noborder.btn-xs
-       {:on-click on-clone-click}
-       [:span.glyphicon.glyphicon-duplicate] " clone"]
-      [:span.btn.btn-default.noborder.btn-xs {:on-click on-edit-click}
-       [:span.glyphicon.glyphicon-pencil] " edit"]]
-     [:p.lead.list-group-item-heading
-      [:span.link {:on-click on-edit-click}
-       title]
+         {:on-click on-clone-click}
+         [:span.glyphicon.glyphicon-duplicate] " clone"]
+        [:span.btn.btn-default.noborder.btn-xs {:on-click on-edit-click}
+         [:span.glyphicon.glyphicon-pencil] " edit"]])
+     [:h4
+      [:span.link
+       [:span (:username owner)]
+       " / "
+       [:strong title]]
       " "
       [:span.label.label-info {:style {:font-weight "normal"}} status]
       " "]
@@ -1555,7 +1561,7 @@
        (if-not (empty? last_updated)
          [:span
           "Last edited " (moment/from-now last_updated)
-          " by " (:username (:owner doc))]
+          " by " (:username last_updated_by)]
          "Has not been edited yet")]]]))
 
 (defn dashboard

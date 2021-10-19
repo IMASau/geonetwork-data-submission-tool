@@ -30,13 +30,11 @@
                   (get-in state (conj path :props))))]
     (merge config logic)))
 
-
 (defn get-block-data-sub
   [state [_ {:keys [data-path]}]]
   (s/assert ::utils4/data-path data-path)
   (let [path (blocks/block-path data-path)]
     (blocks/as-data (get-in state path))))
-
 
 (defn get-data-schema-sub
   [db [_ {:keys [form-id data-path]}]]

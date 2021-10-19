@@ -43,7 +43,7 @@ class AbstractDataFeed(models.Model):
 
 class AbstractContributor(models.Model):
     id = models.AutoField(primary_key=True)
-    document = models.ForeignKey("Document", on_delete=models.CASCADE)
+    document = models.ForeignKey("Document", on_delete=models.CASCADE, related_name="contributors")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -89,6 +89,9 @@ class AbstractDocument(models.Model):
 
     def is_editor(self, user):
         return user.is_staff or (user == self.owner)
+
+    def is_contributor(self, user):
+        return user.is_staff or self.contributors.filter(user=user).exists()
 
     def get_absolute_url(self):
         return reverse('Edit', kwargs={'uuid': self.uuid})
@@ -139,6 +142,24 @@ class AbstractMetadataTemplateMapper(models.Model):
         abstract = True
 
 
+class AbstractUserInterfaceTemplate(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=128, help_text="Unique name for UI template.  Used in menus.")
+    file = models.FileField("ui_template",
+                            help_text="EDN file used to define the UI needed for data capture")
+    notes = models.TextField(help_text="Internal use notes about this template mapper", blank=True, null=True)
+    site = models.ForeignKey(Site, on_delete=models.SET_NULL, blank=True, null=True)
+    archived = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "{1} (#{0})".format(self.pk, self.name)
+
+    class Meta:
+        abstract = True
+
+
 class AbstractMetadataTemplate(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128, help_text="Unique name for template.  Used in menus.")
@@ -149,6 +170,7 @@ class AbstractMetadataTemplate(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     mapper = models.ForeignKey("MetadataTemplateMapper", on_delete=models.SET_NULL, blank=True, null=True)
+    ui_template = models.ForeignKey("UserInterfaceTemplate", on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return "{1} (#{0})".format(self.pk, self.name)

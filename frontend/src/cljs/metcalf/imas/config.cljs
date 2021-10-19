@@ -549,11 +549,10 @@
            :data-path  ["identificationInfo" "dataParameters"]
            :value-path ["uri"]
            :added-path ["isUserDefined"]
-           :columns    [{:columnHeader "Name" :flex 1 :label-path ["longName" "term"]}
-                        {:columnHeader "Units" :flex 1 :label-path ["unit" "term"]}
-                        {:columnHeader "Instrument" :flex 1 :label-path ["instrument" "term"]}
-                        {:columnHeader "Serial No." :flex 1 :label-path ["serialNumber"]}
-                        {:columnHeader "Platform" :flex 1 :label-path ["platform" "term"]}]}]
+           :columns    [{:columnHeader "Name" :flex 1 :label-path ["longName_term"]}
+                        {:columnHeader "Units" :flex 1 :label-path ["unit_term"]}
+                        {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term"]}
+                        {:columnHeader "Platform" :flex 1 :label-path ["platform_term"]}]}]
 
          [m4/list-add-button
           {:form-id    [:form]
@@ -625,7 +624,7 @@
 
          [m4/form-group
           {:form-id   ?form-id
-           :data-path [?data-path "longName"]
+           :data-path [?data-path "longName_term"]
            :label     "Name"}
 
           [m4/async-select-option
@@ -638,19 +637,18 @@
             :placeholder "Select..."}]
 
           [m4/input-field
-           {:form-id     [:form]
+           {:form-id     ?form-id
             :data-path   [?data-path "name"]
             :placeholder "Name in dataset (optional)"}]]
 
 
          [m4/form-group
           {:form-id   ?form-id
-           :data-path [?data-path "unit"]
+           :data-path [?data-path "unit_term"]
            :label     "Unit"}
-
           [m4/async-select-option
            {:form-id     ?form-id
-            :data-path   [?data-path "unit"]
+            :data-path   [?data-path "unit_term"]
             :uri         "/api/parameterunit"
             :label-path  ["label"]
             :value-path  ["uri"]
@@ -659,11 +657,11 @@
 
          [m4/form-group
           {:form-id   ?form-id
-           :data-path [?data-path "instrument"]
+           :data-path [?data-path "instrument_term"]
            :label     "Instrument"}
           [m4/async-select-option
            {:form-id     ?form-id
-            :data-path   [?data-path "instrument"]
+            :data-path   [?data-path "instrument_term"]
             :uri         "/api/parameterinstrument"
             :label-path  ["label"]
             :value-path  ["uri"]
@@ -672,11 +670,11 @@
 
          [m4/form-group
           {:form-id   ?form-id
-           :data-path [?data-path "platform"]
+           :data-path [?data-path "platform_term"]
            :label     "Platform"}
           [m4/async-select-option
            {:form-id     ?form-id
-            :data-path   [?data-path "platform"]
+            :data-path   [?data-path "platform_term"]
             :uri         "/api/parameterplatform"
             :label-path  ["label"]
             :value-path  ["uri"]

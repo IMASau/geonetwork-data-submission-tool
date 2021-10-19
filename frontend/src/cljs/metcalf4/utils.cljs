@@ -75,7 +75,6 @@
                     ::s/failure :assertion-failed))]
     (str "Spec assertion failed\n" (with-out-str (s/explain-out ed)))))
 
-
 (defn geometry-type [{:keys [type]}] type)
 (defmulti geometry->box-value geometry-type)
 (defmethod geometry->box-value "Point"

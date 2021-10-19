@@ -364,7 +364,7 @@
 
          [m4/yes-no-field
           {:form-id   [:form]
-           :data-path ["identificationInfo" "previouslyPublishedFlag"]
+           :data-path ["identificationInfo" "datePublicationFlag"]
            :label     "Has the data been published before?"}]
 
          ;; FIXME: I think this should be formatted as YYYY or YYYY-MM (according to the commented template)
@@ -538,6 +538,7 @@
             [m4/list-add-button
              {:form-id    [:form]
               :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
+              :text       "Add"
               :value-path ["uri"]
               :added-path ["isUserDefined"]}]]
            [m4/table-selection-list
@@ -556,10 +557,10 @@
          [m4/expanding-control {:label "Temporal Resolution" :required true}
           [m4/form-group
            {:label   "Select a Temporal Resolution range"
-            :toolTip "TODO"}
+            :toolTip "How frequently is the data collected?"}
            [m4/async-select-option
             {:form-id    [:form]
-             :data-path  ["What10"]
+             :data-path  ["identificationInfo" "keywordsTemporal" "keywords"]
              :uri        "/api/What10"
              :label-path ["label"]
              :value-path ["uri"]}]]]
@@ -567,32 +568,32 @@
          [m4/expanding-control {:label "Horizontal Resolution" :required true}
           [m4/form-group
            {:label   "Select a Horizontal Resolution range"
-            :toolTip "TODO"}
+            :toolTip "For gridded data, select the pixel size of the data, for field plots, select average width"}
            [m4/async-select-option
             {:form-id    [:form]
-             :data-path  ["What11"]
+             :data-path  ["identificationInfo" "keywordsHorizontal" "keywords"]
              :uri        "/api/What11"
              :label-path ["label"]
              :value-path ["uri"]}]]]
 
-         [m4/expanding-control {:label "Vertical Resolution (Optional)" :required true}
+         [m4/expanding-control {:label "Vertical Resolution (Optional)" :required false}
           [m4/form-group
            {:label   "Select a Vertical Resolution range"
-            :toolTip "TODO"}
+            :toolTip "Select the smallest vertical distance between successive elements of data in a dataset. This is synonymous with terms such as sample spacing and pixel size"}
            [m4/async-select-option
             {:form-id    [:form]
-             :data-path  ["What12"]
+             :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
              :uri        "/api/What12"
              :label-path ["label"]
              :value-path ["uri"]}]]]
 
-         [m4/expanding-control {:label "Australian Plant Name Index (Optional)" :required true}
+         [m4/expanding-control {:label "Australian Plant Name Index (Optional)" :required false}
           [m4/form-group
            {:label   "Select Plant Name Indexes keywords"
-            :toolTip "TODO"}
+            :toolTip "Species Taxa"}
            [m4/async-list-picker
             {:form-id         [:form]
-             :data-path       ["What13"]
+             :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
              :kind            :breadcrumb
              :uri             "/api/What13"
              :label-path      ["label"]
@@ -600,18 +601,18 @@
              :breadcrumb-path ["breadcrumb"]}]
            [m4/breadcrumb-selection-list
             {:form-id         [:form]
-             :data-path       ["What13"]
+             :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
              :label-path      ["label"]
              :value-path      ["uri"]
              :breadcrumb-path ["breadcrumb"]}]]]
 
-         [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required true}
+         [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required false}
           [m4/form-group
            {:label   "Select Australian Faunal Directory keywords"
-            :toolTip "TODO"}
+            :toolTip "Species Taxa"}
            [m4/async-list-picker
             {:form-id         [:form]
-             :data-path       ["What14"]
+             :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
              :kind            :breadcrumb
              :uri             "/api/What14"
              :label-path      ["label"]
@@ -619,20 +620,32 @@
              :breadcrumb-path ["breadcrumb"]}]
            [m4/breadcrumb-selection-list
             {:form-id         [:form]
-             :data-path       ["What14"]
+             :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
              :label-path      ["label"]
              :value-path      ["uri"]
              :breadcrumb-path ["breadcrumb"]}]]]
 
-         [m4/expanding-control {:label "Additional Keywords (Optional)" :required true}
+         [m4/expanding-control {:label "Additional Keywords (Optional)" :required false}
           [m4/form-group
-           {:label   "Additional theme keywords can be added for review and approval"
-            :toolTip "TODO"}
-
-           [:p "TODO: Keyword input field"]
-           [:p "TODO: Keyword list"]
-
-           ]]
+           {:label   "Additional theme keywords can be added for review and approval process"
+            :toolTip "Enter your own additional theme keywords as required and click to add"}
+           [:div.bp3-control-group
+            [:div.bp3-fill
+             [m4/input-field
+              {:form-id    [:form]
+               :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]}]]
+            [m4/list-add-button
+             {:form-id    [:form]
+              :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
+              :text       "Add"
+              :value-path ["value"]
+              :added-path ["isUserDefined"]}]]
+           [m4/simple-selection-list
+            {:form-id    [:form]
+             :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
+             :label-path ["value"]
+             :value-path ["value"]
+             :added-path ["isUserDefined"]}]]]
 
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 

@@ -39,6 +39,7 @@
 (rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
 (rf/reg-event-fx :textarea-field/value-change handlers3/textarea-field-value-change)
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
+(rf/reg-fx ::low-code/init! low-code/init!)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)

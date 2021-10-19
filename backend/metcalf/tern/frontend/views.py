@@ -995,9 +995,22 @@ def geonetwork_entries(request: HttpRequest) -> Response:
     elif request.method == "POST":
         query = request.data.get("query")
 
+    # Working around an inconvenience: by default we only match on
+    # exact term-matches in a field (ie, "rain" matches "rain" but not
+    # "rainforest").  Additionally though, if someone matches on the
+    # UUID then the wildcard /won't/ match (ie, it isn't treated as a
+    # regular text term), so to accomodate both UUID searches and
+    # partial matches, we construct an "or" query using both
+    # wildcarded and as-input terms.  Since it is likely people will
+    # just paste in a known UUID this seems like a use-case we should
+    # support.
+    query = query or ''
+    query_terms = query.split(None)
+    query_wildcards = ['*' + w + '*' for w in query.split(None)]
+
     # https://geonetwork-opensource.org/manuals/trunk/en/api/q-search.html
     response = requests.get(f"{gn_base}/srv/eng/q", params={
-        "any": query,
+        "or": ' '.join(query_terms + query_wildcards),
         "fast": "index",
         "buildSummary": "false",  # summary is just facets, we only want the raw data
         "_content_type": "json",

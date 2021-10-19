@@ -47,6 +47,7 @@ urlpatterns = [
     path('api/terninstrumenttypes', tern_instrument_types),
     path('api/ternpeople', tern_people),
     path('api/ternorgs', tern_orgs),
+    path('api/terngeonetwork', geonetwork_entries),
 
     # Dummy endpoints to be implemented
     path('api/What3', tern_instruments),

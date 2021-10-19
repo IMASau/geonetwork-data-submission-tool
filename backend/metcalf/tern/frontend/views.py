@@ -12,7 +12,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from django.middleware import csrf
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
@@ -29,6 +29,8 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+import requests
 
 from metcalf.common import spec4
 from metcalf.common import xmlutils4
@@ -982,3 +984,22 @@ def tern_orgs(request) -> Response:
         data = es.search(index=index_alias, body=body)
 
     return Response(es_results(data), status=200)
+
+
+@api_view(['GET'])
+def geonetwork_entries(request: HttpRequest) -> Response:
+    gn_base = settings.GEONETWORK_BASE
+
+    query = request.data.get("query")
+
+    # https://geonetwork-opensource.org/manuals/trunk/en/api/q-search.html
+    response = requests.get(f"{gn_base}/srv/eng/q", params={
+        "any": query,
+        "fast": "index",
+        "buildSummary": "false",  # summary is just facets, we only want the raw data
+        "_content_type": "json",
+    })
+    rjson = response.json()
+    title_ids = [{"label": rec["title"], "value": rec["geonet:info"]["uuid"]} for rec in rjson.get("metadata", [])]
+
+    return Response(title_ids, status=200)

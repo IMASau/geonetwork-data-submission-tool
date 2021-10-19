@@ -38,14 +38,17 @@ class DocumentInfoSerializer(serializers.ModelSerializer):
     transition_url = serializers.SerializerMethodField()
     export_url = serializers.SerializerMethodField()
     last_updated = serializers.SerializerMethodField()
+    last_updated_by = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
     transitions = serializers.SerializerMethodField()
+    is_editor = serializers.SerializerMethodField()
+    is_contributor = serializers.SerializerMethodField()
 
     class Meta:
         model = Document
-        fields = ('uuid', 'title', 'owner', 'last_updated',
+        fields = ('uuid', 'title', 'owner', 'last_updated', 'last_updated_by',
                   'url', 'clone_url', 'transition_url', 'export_url',
-                  'status', 'transitions')
+                  'status', 'transitions', 'is_editor', 'is_contributor')
 
     def get_url(self, doc):
         return reverse("Edit", kwargs={'uuid': doc.uuid})
@@ -64,12 +67,23 @@ class DocumentInfoSerializer(serializers.ModelSerializer):
         if drafts.exists():
             return drafts.all()[0].time
 
+    def get_last_updated_by(self, doc):
+        drafts = doc.draftmetadata_set
+        if drafts.exists():
+            return UserInfoSerializer(instance=drafts.all()[0].user).data
+
     def get_status(self, doc):
         return doc.get_status_display()
 
     def get_transitions(self, doc):
         return [t.method.__name__
                 for t in doc.get_available_user_status_transitions(self.context['user'])]
+
+    def get_is_editor(self, doc):
+        return doc.is_editor(self.context['user'])
+
+    def get_is_contributor(self, doc):
+        return doc.is_contributor(self.context['user'])
 
 
 class AttachmentSerializer(serializers.ModelSerializer):

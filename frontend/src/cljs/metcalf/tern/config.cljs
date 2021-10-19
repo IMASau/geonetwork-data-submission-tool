@@ -294,6 +294,10 @@
          [m4/form-group
           {:form-id [:form]
            :label   "Parent Metadata"}
+          [m4/yes-no-field
+           {:form-id   [:form]
+            :data-path ["parentMetadataFlag"]
+            :label     "Does this record have a parent dataset?"}]
           [m4/async-select-option
            {:form-id         [:form]
             :data-path       ["parentMetadata"]

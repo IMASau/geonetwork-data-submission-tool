@@ -34,8 +34,19 @@
   "postprocess": {
     "function": "prune_if_empty"
   },
+  "rules": [
+    {
+      "requiredWhenYes": {
+        "bool-field": "parentMetadataFlag",
+        "opt-field": "parentMetadata"
+      }
+    }
+  ],
   "type": "object",
   "properties": {
+    "parentMetadataFlag": {
+      "export": false
+    },
     "parentMetadata": {
       "!docstring": "ID3",
       "xpath": "mdb:parentMetadata/cit:CI_Citation",

@@ -1,6 +1,5 @@
 (ns metcalf.tern.subs)
 
-; TODO: should be passed from server #low-code
 (def edit-tabs
   [{:id :data-identification :text "Identification"}
    {:id :what :text "What"}
@@ -12,6 +11,10 @@
    {:id :about :text "About"}
    {:id :upload :text "Data sources"}
    {:id :lodge :text "Lodge"}])
+
+(defn get-edit-tabs
+  [db]
+  (or (get db :low-code/edit-tabs) edit-tabs))
 
 (defn get-edit-tab-props
   [[page derived-db]]

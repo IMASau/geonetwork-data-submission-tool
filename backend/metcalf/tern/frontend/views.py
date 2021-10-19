@@ -1003,6 +1003,12 @@ def geonetwork_entries(request: HttpRequest) -> Response:
         "_content_type": "json",
     })
     rjson = response.json()
-    title_ids = [{"label": rec["title"], "value": rec["geonet:info"]["uuid"]} for rec in rjson.get("metadata", [])]
+    metadata_response = rjson.get("metadata", [])
+
+    # Annoyingly, if there's exactly one match then GN doesn't wrap it
+    # in a list (or possibly that's a special-case for UUID matches?)
+    if isinstance(metadata_response, dict):
+        metadata_response = [metadata_response]
+    title_ids = [{"label": rec["title"], "value": rec["geonet:info"]["uuid"]} for rec in metadata_response]
 
     return Response(title_ids, status=200)

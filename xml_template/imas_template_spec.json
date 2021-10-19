@@ -193,6 +193,16 @@
             "function": "today"
           }
         },
+        "citedResponsibleParty": {
+          "xpath": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode[not(@codeListValue=\"publisher\")]]",
+          "container": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty[cit:CI_Responsibility/cit:role/cit:CI_RoleCode[not(@codeListValue=\"publisher\")]]",
+          "keep": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ci_responsible_party_nodes"
+          },
+          "notes": "Responsible party/ies for creating dataset"
+        },
         "topicCategory": {
           "xpath": "mri:topicCategory",
           "keep": false,
@@ -652,6 +662,7 @@
       "type": "object",
       "xpath": ".",
       "properties": {
+        "isUserDefined": {},
         "organisationName": {
           "xpath": "cit:party/cit:CI_Organisation/cit:name",
           "valueChild": "gcx:Anchor",

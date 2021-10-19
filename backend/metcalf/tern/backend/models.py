@@ -17,7 +17,7 @@ from rest_framework.renderers import JSONRenderer
 
 from metcalf.common.emails import *
 from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, AbstractDocument, AbstractContributor, \
-    AbstractMetadataTemplate, AbstractMetadataTemplateMapper, AbstractDraftMetadata
+    AbstractMetadataTemplate, AbstractMetadataTemplateMapper, AbstractDraftMetadata, AbstractUserInterfaceTemplate
 from metcalf.common import spec4
 from metcalf.common.utils import to_json, get_exception_message, get_user_name
 from metcalf.common import xmlutils4
@@ -25,6 +25,10 @@ from metcalf.common import xmlutils4
 User.add_to_class("__str__", get_user_name)
 
 logger = logging.getLogger(__name__)
+
+
+class UserInterfaceTemplate(AbstractUserInterfaceTemplate):
+    pass
 
 
 class MetadataTemplateMapper(AbstractMetadataTemplateMapper):

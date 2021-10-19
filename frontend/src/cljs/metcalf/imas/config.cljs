@@ -137,7 +137,10 @@
           {:form-id    [:form]
            :data-path  []
            :data-paths [["identificationInfo" "title"]
-                        ["identificationInfo" "dateCreation"]]}]
+                        ["identificationInfo" "dateCreation"]
+                        ["identificationInfo" "topicCategory"]
+                        ["identificationInfo" "status"]
+                        ["identificationInfo" "maintenanceAndUpdateFrequency"]]}]
          [:h2 "1. Data Identification"]
          [m4/input-field-with-label
           {:form-id    [:form]
@@ -381,7 +384,7 @@
          [m4/page-errors
           {:form-id    [:form]
            :data-path  []
-           :data-paths [["resourceLineage" "lineage"]]}]
+           :data-paths [["identificationInfo" "citedResponsibleParty"]]}]
          [:h2 "6. Who"]
          [m4/table-selection-list
           {:form-id    [:form]

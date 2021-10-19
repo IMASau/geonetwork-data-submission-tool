@@ -482,6 +482,9 @@ def edit(request, uuid):
         "page": {"name": request.resolver_match.url_name}
     }
 
+    if doc.template.ui_template:
+        raw_payload["ui_payload"] = doc.template.ui_template.file.open().read()
+
     payload = smart_text(JSONRenderer().render(raw_payload), encoding='utf-8')
     return render(request, "app.html", {"payload": payload})
 

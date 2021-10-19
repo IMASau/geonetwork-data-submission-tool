@@ -2,6 +2,7 @@
   (:require [interop.ui :as ui]
             [metcalf.common-config]
             [metcalf.tern.subs :as tern-subs]
+            [metcalf.tern.handlers :as tern-handlers]
             [metcalf3.handlers :as handlers3]
             [metcalf3.views :as views3]
             [metcalf4.components :as components4]
@@ -35,7 +36,7 @@
 (rf/reg-event-fx ::views3/date-field-with-label-value-changed handlers3/date-field-value-change)
 (rf/reg-event-fx ::views3/input-field-with-label-value-changed handlers3/value-changed)
 (rf/reg-event-fx ::views3/textarea-field-with-label-value-changed handlers3/textarea-field-value-change)
-(rf/reg-event-fx :metcalf.tern.core/init-db handlers3/init-db)
+(rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
 (rf/reg-event-fx :textarea-field/value-change handlers3/textarea-field-value-change)
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)

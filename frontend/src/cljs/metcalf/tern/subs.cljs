@@ -17,7 +17,7 @@
   (or (get db :low-code/edit-tabs) edit-tabs))
 
 (defn get-edit-tab-props
-  [[page derived-db]]
+  [[page derived-db edit-tabs]]
   (let [selected-tab (get page :tab :data-identification)]
     {:selected-tab selected-tab
      :tab-props    (mapv

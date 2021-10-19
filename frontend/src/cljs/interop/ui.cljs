@@ -12,6 +12,7 @@
             ["/ui/components/SelectField/SelectField" :as SelectField]
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
+            ["/ui/components/TextAddField/TextAddField" :as TextAddField]
             ["/ui/components/utils" :as ui-utils]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
             [cljs.spec.alpha :as s]
@@ -92,3 +93,4 @@
 (def CheckboxField (r/adapt-react-class CheckboxField/CheckboxField))
 (def NumericInputField (r/adapt-react-class NumericInputField/NumericInputField))
 (def EditDialog (r/adapt-react-class EditDialog/EditDialog))
+(def TextAddField (r/adapt-react-class TextAddField/TextAddField))

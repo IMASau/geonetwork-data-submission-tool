@@ -986,11 +986,14 @@ def tern_orgs(request) -> Response:
     return Response(es_results(data), status=200)
 
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 def geonetwork_entries(request: HttpRequest) -> Response:
     gn_base = settings.GEONETWORK_BASE
 
-    query = request.data.get("query")
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
 
     # https://geonetwork-opensource.org/manuals/trunk/en/api/q-search.html
     response = requests.get(f"{gn_base}/srv/eng/q", params={

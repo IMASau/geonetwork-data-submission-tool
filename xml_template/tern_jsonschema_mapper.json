@@ -36,6 +36,25 @@
   },
   "type": "object",
   "properties": {
+    "parentMetadata": {
+      "!docstring": "ID3",
+      "xpath": "mdb:parentMetadata/cit:CI_Citation",
+      "keep": false,
+      "type": "object",
+      "properties": {
+        "label": {
+          "xpath": "cit:title/gco:CharacterString"
+        },
+        "value": {
+          "xpath": "cit:identifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
+          "attributes": {
+            "text": {
+              "function": "geonetwork_url"
+            }
+          }
+        }
+      }
+    },
     "identificationInfo": {
       "xpath": "mdb:identificationInfo/mri:MD_DataIdentification",
       "rules": [

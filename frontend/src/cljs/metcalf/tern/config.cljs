@@ -291,7 +291,17 @@
            :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
            :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
 
-         [:label "TODO: parent metadata"]
+         [m4/form-group
+          {:form-id [:form]
+           :label   "Parent Metadata"}
+          [m4/async-select-option
+           {:form-id         [:form]
+            :data-path       ["parentMetadata"]
+            :kind            :breadcrumb
+            :uri             "/api/terngeonetwork"
+            :label-path      ["label"]
+            :value-path      ["value"]
+            :breadcrumb-path ["value"]}]]
 
          [m4/select-value-with-label
           {:form-id     [:form]

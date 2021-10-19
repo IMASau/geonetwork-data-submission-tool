@@ -69,7 +69,7 @@
         },
         {
           "requiredWhenYes": {
-            "bool-field": "previouslyPublishedFlag",
+            "bool-field": "datePublicationFlag",
             "opt-field": "datePublication"
           }
         }

@@ -36,8 +36,8 @@ def configure_backend_data(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('backend', '0002_auto_20210910_0700.py'),
-        ('frontend', '0006_initial_data'),
+        ('backend', '0002_auto_20210910_0700'),
+        ('frontend', '0001_initial'),
     ]
 
     operations = [

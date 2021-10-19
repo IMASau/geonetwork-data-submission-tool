@@ -80,6 +80,12 @@
       added?
       (assoc-in (conj block-path :props :selected) idx))))
 
+(defn select-list-item-action
+  "Select item"
+  [s form-id data-path idx ]
+  (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])]
+    (assoc-in s (conj block-path :props :selected) idx)))
+
 (defn select-user-defined-list-item-action
   "Select item, but only if it's user defined"
   [s form-id data-path idx addedKey]

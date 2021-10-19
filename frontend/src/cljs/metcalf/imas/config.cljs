@@ -25,7 +25,6 @@
 (rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
 (rf/reg-event-fx ::components4/list-add-click handlers4/list-add-click-handler)
-(rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
@@ -43,6 +42,8 @@
 (rf/reg-event-fx ::views3/textarea-field-with-label-value-changed handlers3/textarea-field-value-change)
 (rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
 (rf/reg-event-fx :textarea-field/value-change handlers3/textarea-field-value-change)
+(rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler2)
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
@@ -85,7 +86,6 @@
        'm3/NasaListSelectField            {:view views3/NasaListSelectField}
        'm3/UploadData                     {:view views3/UploadData}
        'm3/UseLimitations                 {:view views3/UseLimitations}
-       'm3/Who                            {:view views3/Who}
        'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-select-option            {:view components4/async-select-option :init components4/async-select-option-settings}
        'm4/boxmap-field                   {:view components4/boxmap-field :init components4/boxmap-field-settings}
@@ -127,6 +127,8 @@
        'm4/get-data                       {:view components4/get-data :init components4/get-data-settings}
        'm4/yes-no-field                   {:view components4/yes-no-field :init components4/yes-no-field-settings}
        'm4/xml-export-link                {:view components4/xml-export-link :init components4/xml-export-link-settings}
+
+       'm4/async-item-picker              {:view components4/async-item-picker :init components4/async-item-picker-settings}
        })
 (set! low-code/template-registry
       '{:data-identification
@@ -135,7 +137,10 @@
           {:form-id    [:form]
            :data-path  []
            :data-paths [["identificationInfo" "title"]
-                        ["identificationInfo" "dateCreation"]]}]
+                        ["identificationInfo" "dateCreation"]
+                        ["identificationInfo" "topicCategory"]
+                        ["identificationInfo" "status"]
+                        ["identificationInfo" "maintenanceAndUpdateFrequency"]]}]
          [:h2 "1. Data Identification"]
          [m4/input-field-with-label
           {:form-id    [:form]
@@ -354,21 +359,7 @@
            :label     "West"}
           [m4/numeric-input-field
            {:form-id   ?form-id
-            :data-path [?data-path "westBoundLongitude"]}]]
-
-         ]
-
-        :who
-        [:div
-         ;; FIXME make this view configurable for IMAS, or create IMAS-specific view.
-         ;; - No name lookup, just Given Name and Surname fields
-         ;; - Move ORCID ID and Email field positions to match AODN
-         ;; - Reduce Role codes
-         ;; - Make Responsible Parties mandatory
-         ;; FIXME Copy Person functionality isn't working.
-         [m3/Who
-          {:credit-path [:form :fields :identificationInfo :credit]}]
-         [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+            :data-path [?data-path "westBoundLongitude"]}]]]
 
         :how
         [:div
@@ -376,7 +367,7 @@
           {:form-id    [:form]
            :data-path  []
            :data-paths [["resourceLineage" "lineage"]]}]
-         [:h2 "6: How"]
+         [:h2 "5: How"]
          [:div.lineage-textarea
           [m4/textarea-field-with-label
            {:form-id     [:form]
@@ -386,7 +377,153 @@
                          data, can include information regarding sampling equipment (collection hardware),
                          procedures, and precision/resolution of data collected."
             :required    true}]]
+         [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
+
+        :who
+        [:div
+         [m4/page-errors
+          {:form-id    [:form]
+           :data-path  []
+           :data-paths [["identificationInfo" "citedResponsibleParty"]]}]
+         [:h2 "6. Who"]
+         [m4/table-selection-list
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "citedResponsibleParty"]
+           :value-path ["uri"]
+           :added-path ["isUserDefined"]
+           :columns    [{:columnHeader "Given name" :label-path ["givenName"] :flex 1}
+                        {:columnHeader "Family name" :label-path ["familyName"] :flex 1}]}]
+         [:div.bp3-control-group
+          [m4/list-add-button
+           {:form-id    [:form]
+            :data-path  ["identificationInfo" "citedResponsibleParty"]
+            :text       "Add person"
+            :value-path ["uri"]
+            :added-path ["isUserDefined"]}]]
+         [m4/list-edit-dialog
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "citedResponsibleParty"]
+           :title       "Responsible for creating the data"
+           :template-id :person/user-defined-entry-form}]
          [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+
+        :person/user-defined-entry-form
+        [:div
+         [:div {:style {:display               "grid"
+                        :grid-column-gap       "1em"
+                        :grid-template-columns "1fr 1fr"}}
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "givenName"]
+            :label     "Given name"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "givenName"]}]]
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "familyName"]
+            :label     "Surname"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "familyName"]}]]]
+
+         [m4/form-group
+          {:form-id     ?form-id
+           :data-path   [?data-path "orcid"]
+           :label       "ORCID ID"
+           :placeholder "XXXX-XXXX-XXXX-XXXX"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "orcid"]}]]
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "role"]
+           :label     "Role"}
+          [m4/async-select-option
+           {:form-id    ?form-id
+            :data-path  [?data-path "role"]
+            :uri        "/api/rolecode.json"
+            :label-path ["label"]
+            :value-path ["value"]}]]
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path]
+           :label     "Organisation"}
+          [m4/async-item-picker
+           {:form-id     ?form-id
+            :data-path   [?data-path]
+            :uri         "/api/institution.json"
+            :label-path  ["label"]
+            :value-path  ["uri"]
+            :placeholder "Search for contact details"}]]
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "address" "deliveryPoint"]
+           :label     "Postal address"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "address" "deliveryPoint"]}]]
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "address" "deliveryPoint2"]
+           :label     "Postal address 2"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "address" "deliveryPoint2"]}]]
+
+         [:div {:style {:display               "grid"
+                        :grid-column-gap       "1em"
+                        :grid-template-columns "1fr 1fr"}}
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "address" "city"]
+            :label     "City"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "address" "city"]}]]
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "address" "administrativeArea"]
+            :label     "State / territory"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "address" "administrativeArea"]}]]
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "address" "postalCode"]
+            :label     "Postal / Zip code"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "address" "postalCode"]}]]
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "address" "country"]
+            :label     "Country"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "address" "country"]}]]]
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "phone"]
+           :label     "Phone number"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "phone"]}]]
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "facsimile"]
+           :label     "Fax number"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "facsimile"]}]]
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "electronicMailAddress"]
+           :label     "Email address"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "electronicMailAddress"]}]]]
 
         :about
         [:div
@@ -412,11 +549,10 @@
            :data-path  ["identificationInfo" "dataParameters"]
            :value-path ["uri"]
            :added-path ["isUserDefined"]
-           :columns    [{:columnHeader "Name" :flex 1 :label-path ["longName" "term"]}
-                        {:columnHeader "Units" :flex 1 :label-path ["unit" "term"]}
-                        {:columnHeader "Instrument" :flex 1 :label-path ["instrument" "term"]}
-                        {:columnHeader "Serial No." :flex 1 :label-path ["serialNumber"]}
-                        {:columnHeader "Platform" :flex 1 :label-path ["platform" "term"]}]}]
+           :columns    [{:columnHeader "Name" :flex 1 :label-path ["longName_term"]}
+                        {:columnHeader "Units" :flex 1 :label-path ["unit_term"]}
+                        {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term"]}
+                        {:columnHeader "Platform" :flex 1 :label-path ["platform_term"]}]}]
 
          [m4/list-add-button
           {:form-id    [:form]
@@ -461,15 +597,34 @@
 
          [m3/UseLimitations {:form-id   [:form]
                              :data-path ["identificationInfo" "useLimitations"]}]
-         [:br]
          [:h4 "Supplemental information"]
+         [:label "Publications associated with dataset"]
          [m3/IMASSupplementalInformation
           {:form-id   [:form]
            :data-path ["identificationInfo" "supplementalInformation"]}]
-         [m3/IMASSupportingResource
-          {:form-id   [:form]
-           :data-path ["supportingResources"]}]
-         [:br]
+         [:label "Supporting resources"]
+         [m4/table-selection-list
+          {:form-id    [:form]
+           :data-path  ["supportingResources"]
+           :value-path ["????"]
+           :added-path ["isUserDefined"]
+           :columns    [{:columnHeader "Title" :label-path ["name"] :flex 1}
+                        {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+
+         [m4/list-add-button
+          {:form-id    [:form]
+           :data-path  ["supportingResources"]
+           :text       "Add supporting resource"
+           :value-path ["????"]
+           :added-path ["isUserDefined"]}]
+
+         [m4/list-edit-dialog
+          {:form-id     [:form]
+           :data-path   ["supportingResources"]
+           :value-path  ["????"]
+           :added-path  ["isUserDefined"]
+           :title       "Add supporting resource"
+           :template-id :resource/user-defined-entry-form}]
          [:h4 "Distribution"]
          [m4/input-field-with-label
           {:form-id     [:form]
@@ -481,6 +636,23 @@
            :placeholder "Date format date or version if applicable"}]
          [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
 
+        :resource/user-defined-entry-form
+        [:div
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "name"]
+           :label     "Title"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "name"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "url"]
+           :label     "URL"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "url"]}]]]
 
         :data-parameter/user-defined-entry-form
         [:div
@@ -488,7 +660,7 @@
 
          [m4/form-group
           {:form-id   ?form-id
-           :data-path [?data-path "longName"]
+           :data-path [?data-path "longName_term"]
            :label     "Name"}
 
           [m4/async-select-option
@@ -501,19 +673,18 @@
             :placeholder "Select..."}]
 
           [m4/input-field
-           {:form-id     [:form]
+           {:form-id     ?form-id
             :data-path   [?data-path "name"]
             :placeholder "Name in dataset (optional)"}]]
 
 
          [m4/form-group
           {:form-id   ?form-id
-           :data-path [?data-path "unit"]
+           :data-path [?data-path "unit_term"]
            :label     "Unit"}
-
           [m4/async-select-option
            {:form-id     ?form-id
-            :data-path   [?data-path "unit"]
+            :data-path   [?data-path "unit_term"]
             :uri         "/api/parameterunit"
             :label-path  ["label"]
             :value-path  ["uri"]
@@ -522,11 +693,11 @@
 
          [m4/form-group
           {:form-id   ?form-id
-           :data-path [?data-path "instrument"]
+           :data-path [?data-path "instrument_term"]
            :label     "Instrument"}
           [m4/async-select-option
            {:form-id     ?form-id
-            :data-path   [?data-path "instrument"]
+            :data-path   [?data-path "instrument_term"]
             :uri         "/api/parameterinstrument"
             :label-path  ["label"]
             :value-path  ["uri"]
@@ -535,11 +706,11 @@
 
          [m4/form-group
           {:form-id   ?form-id
-           :data-path [?data-path "platform"]
+           :data-path [?data-path "platform_term"]
            :label     "Platform"}
           [m4/async-select-option
            {:form-id     ?form-id
-            :data-path   [?data-path "platform"]
+            :data-path   [?data-path "platform_term"]
             :uri         "/api/parameterplatform"
             :label-path  ["label"]
             :value-path  ["uri"]

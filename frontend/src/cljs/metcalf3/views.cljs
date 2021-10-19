@@ -1352,15 +1352,14 @@
 (defn SupplementalInformationRowEdit [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :supplementalInformation])])
 
-(defn IMASSupplementalInformation [path]
-  [:div
-   [:label "Publications associated with dataset"]
-   [TableModalEdit
-    {:form        SupplementalInformationRowEdit
-     :title       "Add Publication"
-     :placeholder ""
-     :add-label   "Add publication"
-     :field-path  path}]])
+(defn IMASSupplementalInformation
+  [path]
+  [TableModalEdit
+   {:form        SupplementalInformationRowEdit
+    :title       "Add Publication"
+    :placeholder ""
+    :add-label   "Add publication"
+    :field-path  path}])
 
 (defn SupportingResourceFieldEdit [path]
   [:div
@@ -1370,7 +1369,7 @@
 (defn IMASSupportingResource
   [{:keys [path]}]
   [:div
-   [:label "Any supplemental resources with hyperlinks"]
+   [:label "Supporting resources"]
    [TableModalEdit
     {:ths         ["Title" "URL"]
      :tds-fn      (comp (partial map (comp #(or % "--") :value)) (juxt :name :url) :value)

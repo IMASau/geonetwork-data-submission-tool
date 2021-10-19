@@ -103,7 +103,7 @@ function PortalAwareItem({ provided, snapshot, itemLabel, removeButton, classNam
 }
 
 function getSelectionListItemClass({ item, getAdded }) {
-    const isAdded = getAdded & getAdded(item);
+    const isAdded = getAdded && getAdded(item);
     return isAdded ? "SelectionListAddedItem" : "SelectionListPickedItem"
 }
 

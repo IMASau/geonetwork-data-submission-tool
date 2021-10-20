@@ -130,7 +130,7 @@
 (defn value-selection-list-item-click
   [{:keys [db]} [_ props idx]]
   (let [{:keys [form-id data-path]} props]
-    (actions/select-list-item-action {:db db} form-id data-path idx)))
+    (actions/value-select-list-item-action {:db db} form-id data-path idx)))
 
 (defn selection-list-item-click
   [{:keys [db]} [_ props idx]]

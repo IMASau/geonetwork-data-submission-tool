@@ -1098,8 +1098,8 @@
 
          [:p "This section is optional.  You can add meethod/s used for the collection of the data and provide the Data Quality description and the associated results"]
 
-         [m4/expanding-control
-          {:label "Data creation procedure details (Optional)"}
+         ; NOTE: Expanding control doesn't play nicely with textarea fields dynamic height feature
+         ;[m4/expanding-control {:label "Data creation procedure details (Optional)"}]
 
           [m4/textarea-field-with-label
            {:form-id    [:form]

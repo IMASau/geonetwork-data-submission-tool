@@ -1098,18 +1098,17 @@
 
          [:p "This section is optional.  You can add meethod/s used for the collection of the data and provide the Data Quality description and the associated results"]
 
-         ; NOTE: Expanding control doesn't play nicely with textarea fields dynamic height feature
-         [m4/expanding-control {:label "Data creation procedure details (Optional)"}]
+         [m4/expanding-control {:label "Data creation procedure details (Optional)"}
 
-         [m4/textarea-field-with-label
-          {:form-id    [:form]
-           :data-path  ["dataQualityInfo" "methods"]
-           :label      "Provide a brief summary of the source of the data and related collection and/or processing methods."
-           :required   true
-           :toolTip    "TODO"
-           :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}]]
+          [m4/textarea-field-with-label
+           {:form-id    [:form]
+            :data-path  ["dataQualityInfo" "methods"]
+            :label      "Provide a brief summary of the source of the data and related collection and/or processing methods."
+            :required   true
+            :toolTip    "TODO"
+            :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}]
 
-        [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]
+          [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]]
 
         :quality
         [:div

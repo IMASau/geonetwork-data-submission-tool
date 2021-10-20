@@ -538,8 +538,8 @@
        text])))
 
 (defn text-add-button-settings [_]
-  {::low-code/req-ks [:form-id :data-path :value-path :text]
-   ::low-code/opt-ks [:item-defaults]
+  {::low-code/req-ks [:form-id :data-path]
+   ::low-code/opt-ks []
    ::low-code/schema {:type "array"}})
 
 (defn text-add-button
@@ -551,7 +551,7 @@
       [ui/TextAddField
        {:text       text
         :disabled   disabled
-        :onAddClick #()}])))
+        :onAddClick #(rf/dispatch [::text-value-add-click-handler config %])}])))
 
 (defn async-simple-select-option-settings
   [{:keys [value-path label-path]}]

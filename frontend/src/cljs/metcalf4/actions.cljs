@@ -112,6 +112,11 @@
         new-item (blocks/new-item schema)]
     (update-in s list-path conj new-item)))
 
+(defn new-text-value-action
+  [s form-id data-path value]
+  (let [list-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :content])]
+    (update-in s list-path conj value)))
+
 (defn del-item-action
   [s form-id data-path idx]
   (let [list-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :content])]

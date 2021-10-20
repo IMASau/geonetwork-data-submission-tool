@@ -30,6 +30,7 @@
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
+(rf/reg-event-fx ::components4/text-value-add-click-handler handlers4/text-value-add-click-handler)
 (rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click2)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
@@ -82,10 +83,7 @@
        "maintFreq"            rules/maint-freq})
 (set! low-code/component-registry
       {
-       'm3/DataParametersTable            {:view views3/DataParametersTable}
        'm3/DataSources                    {:view views3/DataSources}
-       'm3/IMASSupplementalInformation    {:view views3/IMASSupplementalInformation}
-       'm3/IMASSupportingResource         {:view views3/IMASSupportingResource}
        'm3/NasaListSelectField            {:view views3/NasaListSelectField}
        'm3/UploadData                     {:view views3/UploadData}
        'm3/UseLimitations                 {:view views3/UseLimitations}
@@ -131,8 +129,8 @@
        'm4/get-data                       {:view components4/get-data :init components4/get-data-settings}
        'm4/yes-no-field                   {:view components4/yes-no-field :init components4/yes-no-field-settings}
        'm4/xml-export-link                {:view components4/xml-export-link :init components4/xml-export-link-settings}
-
        'm4/async-item-picker              {:view components4/async-item-picker :init components4/async-item-picker-settings}
+       'm4/text-add-button                {:view components4/text-add-button :init components4/text-add-button-settings}
        })
 (set! low-code/template-registry
       '{:data-identification
@@ -544,9 +542,6 @@
                         ["distributionInfo" "distributionFormat" "version"]]}]
          [:h2 "7: About Dataset"]
          [:h4 "Data parameters"]
-         [m3/DataParametersTable {:form-id   [:form]
-                                  :data-path ["identificationInfo" "dataParameters"]}]
-
          ; WIP to replace m3/DataParametersTable
          [m4/table-selection-list
           {:form-id    [:form]
@@ -557,14 +552,12 @@
                         {:columnHeader "Units" :flex 1 :label-path ["unit_term"]}
                         {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term"]}
                         {:columnHeader "Platform" :flex 1 :label-path ["platform_term"]}]}]
-
          [m4/list-add-button
           {:form-id    [:form]
            :data-path  ["identificationInfo" "dataParameters"]
            :text       "Add data parameter"
            :value-path ["uri"]
            :added-path ["isUserDefined"]}]
-
          [m4/list-edit-dialog
           {:form-id     [:form]
            :data-path   ["identificationInfo" "dataParameters"]
@@ -572,9 +565,6 @@
            :added-path  ["isUserDefined"]
            :title       "Add parameter"
            :template-id :data-parameter/user-defined-entry-form}]
-
-
-         [:br]
          [:h4 "Resource constraints"]
          ;; FIXME license selection isn't being included in XML export.
          [m4/select-option-with-label
@@ -598,34 +588,35 @@
            :label       "Additional license requirements"   ;; FIXME
            :placeholder "Enter additional license requirements"
            :required    true}]
-
          [m3/UseLimitations {:form-id   [:form]
                              :data-path ["identificationInfo" "useLimitations"]}]
          [:h4 "Supplemental information"]
          [:label "Publications associated with dataset"]
-         [m3/IMASSupplementalInformation
+         [m4/value-selection-list
           {:form-id   [:form]
            :data-path ["identificationInfo" "supplementalInformation"]}]
+         [m4/text-add-button
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "supplementalInformation"]
+           :value-path []}]
          [:label "Supporting resources"]
          [m4/table-selection-list
           {:form-id    [:form]
            :data-path  ["supportingResources"]
-           :value-path ["????"]
+           :value-path ["url"]
            :added-path ["isUserDefined"]
            :columns    [{:columnHeader "Title" :label-path ["name"] :flex 1}
                         {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
-
          [m4/list-add-button
           {:form-id    [:form]
            :data-path  ["supportingResources"]
-           :text       "Add supporting resource"
-           :value-path ["????"]
+           :text       [:span [:span.bp3-icon-plus] " Add supporting resource"]
+           :value-path ["url"]
            :added-path ["isUserDefined"]}]
-
          [m4/list-edit-dialog
           {:form-id     [:form]
            :data-path   ["supportingResources"]
-           :value-path  ["????"]
+           :value-path  ["url"]
            :added-path  ["isUserDefined"]
            :title       "Add supporting resource"
            :template-id :resource/user-defined-entry-form}]

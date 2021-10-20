@@ -86,6 +86,58 @@
 
     (outer (assoc form :data data'))))
 
+(defn infer-schema
+  [data]
+  (cond (vector? data) {:type "array" :items {}}
+        (map? data) {:type "object" :properties {}}
+        (string? data) {:type "string"}
+        (int? data) {:type "integer"}
+        (number? data) {:type "number"}
+        (boolean? data) {:type "boolean"}
+        (nil? data) {:type "null"}
+        :else {}))
+
+(defn massage-form
+  [{:keys [schema data path] :as form}]
+  (let [path (or path [])
+        schema (or schema (infer-schema data))
+        form' (assoc form :schema schema :path path)]
+    (validate-data form')
+    form'))
+
+; NOTE: Experimental.  Not sure we need/want it.
+(defn walk-schema-data2
+  "Given a schema and some data, walk the data.  Infer when schema not-defined."
+  [inner outer raw-form]
+  (let [{:keys [schema data path] :as form} (massage-form raw-form)
+        data' (case (:type schema)
+
+                "array"
+                (letfn [(inner-item-data [idx item-data]
+                          (let [data-schema (infer-schema (get data idx))
+                                item-schema (get schema :items data-schema)]
+                            (inner {:schema item-schema
+                                    :data   item-data
+                                    :path   (conj path idx)})))]
+                  (vec (map-indexed inner-item-data data)))
+
+                "object"
+                (letfn [(inner-prop [acc prop-name]
+                          (let [data-schema (infer-schema (get data prop-name))
+                                prop-schema (get-in schema [:properties prop-name] data-schema)
+                                prop-data (get data prop-name)
+                                prop-val (inner {:schema prop-schema
+                                                 :data   prop-data
+                                                 :path   (conj path prop-name)})]
+                            (assoc acc prop-name prop-val)))]
+                  (let [prop-ks (set (keys (:properties schema)))
+                        data-ks (set (keys data))]
+                    (reduce inner-prop {} (set/union prop-ks data-ks))))
+
+                ;other
+                data)]
+
+    (outer (assoc form :data data'))))
 
 (defn prewalk-schema-data
   [f form]

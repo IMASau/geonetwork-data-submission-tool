@@ -537,6 +537,22 @@
         :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler config])}
        text])))
 
+(defn text-add-button-settings [_]
+  {::low-code/req-ks [:form-id :data-path :value-path :text]
+   ::low-code/opt-ks [:item-defaults]
+   ::low-code/schema {:type "array"}})
+
+(defn text-add-button
+  "Add user defined item to list"
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [disabled is-hidden text]} props]
+    (when-not is-hidden
+      [ui/TextAddField
+       {:text       text
+        :disabled   disabled
+        :onAddClick #()}])))
+
 (defn async-simple-select-option-settings
   [{:keys [value-path label-path]}]
   {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path]
@@ -714,7 +730,6 @@
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::value-selection-list-reorder props src-idx dst-idx]))
         :onItemClick   (fn [idx] (rf/dispatch [::value-selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::value-selection-list-remove-click props idx]))}])))
-
 
 (defn selection-list-settings
   [{:keys [value-path added-path]}]

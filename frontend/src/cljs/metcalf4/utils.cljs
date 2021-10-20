@@ -73,6 +73,15 @@
   (uri/appendParamsFromMap uri (js-params params)))
 
 
+(defn fetch-get
+  [{:keys [uri]}]
+  (-> (js/fetch uri #js {:method  "GET"
+                         :headers #js {:Content-Type "application/json"
+                                       :Accept       "application/json"
+                                       :X-CSRFToken  (get-csrf)}})
+      (.then (fn [resp] (.json resp)))))
+
+
 (defn fetch-post
   [{:keys [uri body]}]
   (-> (js/fetch uri #js {:method  "POST"

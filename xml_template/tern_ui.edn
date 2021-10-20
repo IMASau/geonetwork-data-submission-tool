@@ -1145,4 +1145,230 @@
     {:note-for-data-manager-path [:form :fields :noteForDataManager]
      :agreed-to-terms-path       [:form :fields :agreedToTerms]
      :doi-requested-path         [:form :fields :doiRequested]
-     :current-doi-path           [:form :fields :identificationInfo :doi]}]]}}
+     :current-doi-path           [:form :fields :identificationInfo :doi]}]]}
+
+ :low-code/schema
+ {:type "object",
+  :properties
+        {"parentMetadataFlag"
+         {},
+         "parentMetadata"
+         {:type "object",
+          :properties
+                {"label" {}, "value" {}}},
+         "identificationInfo"
+         {:type "object",
+          :properties
+                {"abstract"            {},
+                 "keywordsHorizontal"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "object",
+                                                :properties
+                                                      {"label" {},
+                                                       "uri"   {}}}}},
+                 "resourceSpecificUsage"
+                                       {},
+                 "keywordsTheme"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"breadcrumb" {},
+                                                              "label"      {},
+                                                              "uri"        {}}}}}},
+                 "keywordsAdditional"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"isUserDefined" {},
+                                                              "value"         {},
+                                                              "label"         {}}}}}},
+                 "keywordsFlora"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"breadcrumb" {},
+                                                              "label"      {},
+                                                              "uri"        {}}}}}},
+                 "keywordsPlatform"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"breadcrumb"    {},
+                                                              "isUserDefined" {},
+                                                              "label"         {},
+                                                              "uri"           {}}}}}},
+                 "supplemental"        {},
+                 "customCitation"      {},
+                 "endPosition"         {},
+                 "credit"              {},
+                 "beginPosition"       {},
+                 "maintenanceAndUpdateFrequency"
+                                       {},
+                 "doi"                 {},
+                 "citedResponsibleParty"
+                                       {:type  "array",
+                                        :items {}},
+                 "geographicElement"
+                                       {:type "object",
+                                        :properties
+                                              {"siteDescription" {},
+                                               "boxes"
+                                                                 {:type "array",
+                                                                  :items
+                                                                        {:type "object",
+                                                                         :properties
+                                                                               {"uri"           {},
+                                                                                "isUserDefined" {},
+                                                                                "westBoundLongitude"
+                                                                                                {},
+                                                                                "eastBoundLongitude"
+                                                                                                {},
+                                                                                "southBoundLatitude"
+                                                                                                {},
+                                                                                "northBoundLatitude"
+                                                                                                {}}}}}},
+                 "keywordsInstrument"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"breadcrumb"    {},
+                                                              "serial"        {},
+                                                              "isUserDefined" {},
+                                                              "label"         {},
+                                                              "uri"           {}}}}}},
+                 "keywordsFauna"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"breadcrumb" {},
+                                                              "label"      {},
+                                                              "uri"        {}}}}}},
+                 "datePublication"     {},
+                 "Who"
+                                       {:type "array",
+                                        :items
+                                              {:type "object",
+                                               :properties
+                                                     {"uri"           {},
+                                                      "role"
+                                                                      {:type "object",
+                                                                       :properties
+                                                                             {"uri"   {},
+                                                                              "label" {}}},
+                                                      "contact"
+                                                                      {:type "object",
+                                                                       :properties
+                                                                             {"uri"   {},
+                                                                              "label" {},
+                                                                              "isUserDefined"
+                                                                                      {}}},
+                                                      "organisation"
+                                                                      {:type "object",
+                                                                       :properties
+                                                                             {"uri"   {},
+                                                                              "label" {},
+                                                                              "isUserDefined"
+                                                                                      {}}},
+                                                      "isUserDefined" {}}}},
+                 "datePublicationFlag" {},
+                 "status"              {},
+                 "keywordsTemporal"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "object",
+                                                :properties
+                                                      {"label" {},
+                                                       "uri"   {}}}}},
+                 "title"               {},
+                 "environment"         {},
+                 "version"             {},
+                 "keywordsThemeAnzsrc"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"breadcrumb" {},
+                                                              "label"      {},
+                                                              "uri"        {}}}}}},
+                 "topicCategory"       {},
+                 "keywordsParameters"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"description"   {},
+                                                              "isUserDefined" {},
+                                                              "symbol"        {},
+                                                              "source"        {},
+                                                              "unit"
+                                                                              {:type "object",
+                                                                               :properties
+                                                                                     {"label" {},
+                                                                                      "uri"   {},
+                                                                                      "isUserDefined"
+                                                                                              {}}},
+                                                              "label"         {},
+                                                              "uri"           {}}}}}},
+                 "keywordsVertical"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "object",
+                                                :properties
+                                                      {"label" {},
+                                                       "uri"   {}}}}},
+                 "keywordsUoM"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"isUserDefined" {},
+                                                              "source"        {},
+                                                              "label"         {},
+                                                              "uri"           {}}}}}},
+                 "purpose"             {},
+                 "dateCreation"        {}}},
+         "dataQualityInfo"
+         {:type "object",
+          :properties
+                {"methodSummary" {},
+                 "results"       {},
+                 "methods"       {}}}}}
+
+ }

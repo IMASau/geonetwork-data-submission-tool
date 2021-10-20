@@ -522,7 +522,7 @@
        "Add"])))
 
 (defn list-add-button-settings [_]
-  {::low-code/req-ks [:form-id :data-path :value-path :added-path :text]
+  {::low-code/req-ks [:form-id :data-path :value-path :added-path :button-text]
    ::low-code/opt-ks [:item-defaults]
    ::low-code/schema {:type "array"}})
 
@@ -530,12 +530,12 @@
   "Add user defined item to list"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [disabled is-hidden text]} props]
+        {:keys [disabled is-hidden button-text]} props]
     (when-not is-hidden
       [:button.bp3-button.bp3-intent-primary
        {:disabled disabled
         :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler config])}
-       text])))
+       button-text])))
 
 (defn text-add-button-settings [_]
   {::low-code/req-ks [:form-id :data-path :button-text]

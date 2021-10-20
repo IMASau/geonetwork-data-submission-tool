@@ -288,11 +288,11 @@
                           {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
 
            [m4/list-add-button
-            {:form-id    [:form]
-             :data-path  ["identificationInfo" "geographicElement" "boxes"]
-             :text       "Add new"
-             :value-path ["uri"]
-             :added-path ["isUserDefined"]}]
+            {:form-id     [:form]
+             :data-path   ["identificationInfo" "geographicElement" "boxes"]
+             :button-text "Add new"
+             :value-path  ["uri"]
+             :added-path  ["isUserDefined"]}]
 
            [m4/list-edit-dialog
             {:form-id     [:form]
@@ -397,11 +397,11 @@
                         {:columnHeader "Family name" :label-path ["familyName"] :flex 1}]}]
          [:div.bp3-control-group
           [m4/list-add-button
-           {:form-id    [:form]
-            :data-path  ["identificationInfo" "citedResponsibleParty"]
-            :text       "Add person"
-            :value-path ["uri"]
-            :added-path ["isUserDefined"]}]]
+           {:form-id     [:form]
+            :data-path   ["identificationInfo" "citedResponsibleParty"]
+            :button-text "Add person"
+            :value-path  ["uri"]
+            :added-path  ["isUserDefined"]}]]
          [m4/list-edit-dialog
           {:form-id     [:form]
            :data-path   ["identificationInfo" "citedResponsibleParty"]
@@ -553,11 +553,11 @@
                         {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term"]}
                         {:columnHeader "Platform" :flex 1 :label-path ["platform_term"]}]}]
          [m4/list-add-button
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "dataParameters"]
-           :text       "Add data parameter"
-           :value-path ["uri"]
-           :added-path ["isUserDefined"]}]
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "dataParameters"]
+           :button-text "Add data parameter"
+           :value-path  ["uri"]
+           :added-path  ["isUserDefined"]}]
          [m4/list-edit-dialog
           {:form-id     [:form]
            :data-path   ["identificationInfo" "dataParameters"]
@@ -608,11 +608,11 @@
            :columns    [{:columnHeader "Title" :label-path ["name"] :flex 1}
                         {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
          [m4/list-add-button
-          {:form-id    [:form]
-           :data-path  ["supportingResources"]
-           :text       [:span [:span.bp3-icon-plus] " Add supporting resource"]
-           :value-path ["url"]
-           :added-path ["isUserDefined"]}]
+          {:form-id     [:form]
+           :data-path   ["supportingResources"]
+           :button-text [:span [:span.bp3-icon-plus] " Add supporting resource"]
+           :value-path  ["url"]
+           :added-path  ["isUserDefined"]}]
          [m4/list-edit-dialog
           {:form-id     [:form]
            :data-path   ["supportingResources"]

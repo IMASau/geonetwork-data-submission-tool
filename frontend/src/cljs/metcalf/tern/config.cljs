@@ -488,11 +488,11 @@
                :label-path ["label"]
                :value-path ["uri"]}]]
             [m4/list-add-button
-             {:form-id    [:form]
-              :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
-              :text       "Add"
-              :value-path ["uri"]
-              :added-path ["isUserDefined"]}]]
+             {:form-id     [:form]
+              :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
+              :button-text "Add"
+              :value-path  ["uri"]
+              :added-path  ["isUserDefined"]}]]
 
            [m4/simple-selection-list
             {:form-id    [:form]
@@ -521,11 +521,11 @@
                :label-path ["label"]
                :value-path ["uri"]}]]
             [m4/list-add-button
-             {:form-id    [:form]
-              :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
-              :text       "Add"
-              :value-path ["uri"]
-              :added-path ["isUserDefined"]}]]
+             {:form-id     [:form]
+              :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
+              :button-text "Add"
+              :value-path  ["uri"]
+              :added-path  ["isUserDefined"]}]]
            [m4/table-selection-list
             {:form-id    [:form]
              :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
@@ -554,11 +554,11 @@
                :label-path ["label"]
                :value-path ["uri"]}]]
             [m4/list-add-button
-             {:form-id    [:form]
-              :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
-              :text       "Add"
-              :value-path ["uri"]
-              :added-path ["isUserDefined"]}]]
+             {:form-id     [:form]
+              :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
+              :button-text "Add"
+              :value-path  ["uri"]
+              :added-path  ["isUserDefined"]}]]
            [m4/table-selection-list
             {:form-id    [:form]
              :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
@@ -653,11 +653,11 @@
               {:form-id   [:form]
                :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]
             [m4/list-add-button
-             {:form-id    [:form]
-              :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
-              :text       "Add"
-              :value-path ["value"]
-              :added-path ["isUserDefined"]}]]
+             {:form-id     [:form]
+              :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]
+              :button-text "Add"
+              :value-path  ["value"]
+              :added-path  ["isUserDefined"]}]]
            [m4/simple-selection-list
             {:form-id    [:form]
              :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
@@ -745,11 +745,11 @@
                            {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
 
             [m4/list-add-button
-             {:form-id    [:form]
-              :data-path  ["identificationInfo" "geographicElement" "boxes"]
-              :text       "Add"
-              :value-path ["uri"]
-              :added-path ["isUserDefined"]}]
+             {:form-id     [:form]
+              :data-path   ["identificationInfo" "geographicElement" "boxes"]
+              :button-text "Add"
+              :value-path  ["uri"]
+              :added-path  ["isUserDefined"]}]
 
             [m4/list-edit-dialog
              {:form-id     [:form]
@@ -908,7 +908,7 @@
           [m4/list-add-button
            {:form-id       [:form]
             :data-path     ["identificationInfo" "citedResponsibleParty"]
-            :text          "Add person"
+            :button-text   "Add person"
             :value-path    ["uri"]
             :added-path    ["isUserDefined"]
             :item-defaults {"partyType" "person"}}]
@@ -916,7 +916,7 @@
           [m4/list-add-button
            {:form-id       [:form]
             :data-path     ["identificationInfo" "citedResponsibleParty"]
-            :text          "Add organisation"
+            :button-text   "Add organisation"
             :value-path    ["uri"]
             :added-path    ["isUserDefined"]
             :item-defaults {"partyType" "organisation"}}]

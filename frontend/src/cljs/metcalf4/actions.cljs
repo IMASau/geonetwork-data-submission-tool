@@ -135,6 +135,7 @@
     (-> s
         (cond-> (not (contains? items data))
                 (update-in (conj db-path :content) conj state))
+        ;; TODO: split out?
         (assoc-in (conj db-path :props :show-errors) true))))
 
 (defn set-value-action

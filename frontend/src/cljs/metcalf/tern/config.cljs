@@ -1106,9 +1106,9 @@
             :label      "Provide a brief summary of the source of the data and related collection and/or processing methods."
             :required   true
             :toolTip    "TODO"
-            :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}]
+            :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}]]
 
-          [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]]
+         [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]
 
         :quality
         [:div

@@ -1,5 +1,8 @@
 (ns metcalf4.utils
-  (:require [cljs.spec.alpha :as s]))
+  (:require [cljs.spec.alpha :as s]
+            [goog.object :as gobject]
+            [goog.string :as gstring]
+            [goog.uri.utils :as uri]))
 
 
 (s/def ::form-id vector?)
@@ -57,6 +60,17 @@
   []
   (let [payload (js->clj (aget js/window "payload") :keywordize-keys true)]
     (get-in payload [:context :csrf])))
+
+
+(defn js-params [m]
+  (let [o (js-obj)]
+    (doseq [[k v] m]
+      (gobject/set o (gstring/urlEncode k) (gstring/urlEncode v)))
+    o))
+
+(defn append-params-from-map
+  [uri params]
+  (uri/appendParamsFromMap uri (js-params params)))
 
 
 (defn fetch-post

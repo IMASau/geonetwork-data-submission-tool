@@ -726,9 +726,7 @@
         :disabled      disabled
         :getLabel      (ui/get-obj-path ["label"])
         :getValue      (ui/get-obj-path ["value"])
-        :getAdded      (constantly true)
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::value-selection-list-reorder props src-idx dst-idx]))
-        :onItemClick   (fn [idx] (rf/dispatch [::value-selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::value-selection-list-remove-click props idx]))}])))
 
 (defn selection-list-settings

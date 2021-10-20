@@ -49,6 +49,14 @@
     (utils4/console-error (str "Invalid " (:type schema) " value: " (pr-str data))
                           {:data data :schema schema :path path})))
 
+(defn validate-object-properties
+  [{:keys [schema data path]}]
+  (let [prop-ks (set (keys (:properties schema)))
+        data-ks (set (keys data))]
+    (when-some [extra-ks (set/difference data-ks prop-ks)]
+      (utils4/console-error (str "Unexpected keys" (pr-str extra-ks))
+                            {:extra-ks extra-ks :data data :schema schema :path path}))))
+
 (defn walk-schema-data
   "Given a schema and some data, walk the data.  Warn about unexpected data."
   [inner outer form]
@@ -70,6 +78,7 @@
                                                  :data   prop-data
                                                  :path   (conj path prop-name)})]
                             (assoc acc prop-name prop-val)))]
+                  (validate-object-properties form)
                   (reduce-kv inner-prop {} (:properties schema)))
 
                 ;other

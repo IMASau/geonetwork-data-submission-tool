@@ -50,14 +50,13 @@
     {:data data :schema schema}))
 
 
-;; FIXME (if (string? value) value (:value props))
 (defn as-data
   "Return data given blocks"
   [{:keys [type props content] :as value}]
   (case type
     "array" (mapv as-data content)
     "object" (zipmap (keys content) (map as-data (vals content)))
-    (if (string? value) value (:value props))))
+    (:value props)))
 
 
 (defn block-path [data-path]

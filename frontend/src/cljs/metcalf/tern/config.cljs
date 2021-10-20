@@ -1095,21 +1095,20 @@
                           ["dataQualityInfo" "methods"]
                           ["dataQualityInfo" "results"]]}]
          [:h2 "6: How"]
-         [m3/Methods {:form-id   [:form]
-                      :data-path ["resourceLineage" "processStep"]}]
-         [m4/textarea-field-with-label
-          {:form-id     [:form]
-           :data-path   ["dataQualityInfo" "methods"]
-           :placeholder "Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods."
-           :label       "Method"}]
-         [m4/textarea-field-with-label
-          {:form-id     [:form]
-           :data-path   ["dataQualityInfo" "results"]
-           :label       "Data Quality Results"
-           :placeholder "Provide a statement regarding the data quality assessment results."
-           :toolTip     "Example: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."
-           :maxLength   1000
-           :rows        20}]
+
+         [:p "This section is optional.  You can add meethod/s used for the collection of the data and provide the Data Quality description and the associated results"]
+
+         [m4/expanding-control
+          {:label "Data creation procedure details (Optional)"}
+
+          [m4/textarea-field-with-label
+           {:form-id    [:form]
+            :data-path  ["dataQualityInfo" "methods"]
+            :label      "Provide a brief summary of the source of the data and related collection and/or processing methods."
+            :required   true
+            :toolTip    "TODO"
+            :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}]]
+
          [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]
 
         :quality

@@ -58,12 +58,17 @@
       (utils4/console-error (str "Unexpected object properties: " (string/join "," (map pr-str extra-ks)))
                             {:extra-ks extra-ks :data data :schema schema :path path}))))
 
+(defn massage-form
+  [{:keys [path] :as form}]
+  (let [path (or path [])
+        form' (assoc form :path path)]
+    (validate-data form')
+    form'))
+
 (defn walk-schema-data
   "Given a schema and some data, walk the data.  Warn about unexpected data."
-  [inner outer form]
-  (validate-data form)
-  (let [{:keys [schema data path]} form
-        path (or path [])
+  [inner outer raw-form]
+  (let [{:keys [schema data path] :as form} (massage-form raw-form)
         data' (case (:type schema)
                 "array"
                 (letfn [(inner-item-data [idx item-data]
@@ -98,7 +103,7 @@
         (nil? data) {:type "null"}
         :else {}))
 
-(defn massage-form
+(defn massage-form2
   [{:keys [schema data path] :as form}]
   (let [path (or path [])
         schema (or schema (infer-schema data))
@@ -110,7 +115,7 @@
 (defn walk-schema-data2
   "Given a schema and some data, walk the data.  Infer when schema not-defined."
   [inner outer raw-form]
-  (let [{:keys [schema data path] :as form} (massage-form raw-form)
+  (let [{:keys [schema data path] :as form} (massage-form2 raw-form)
         data' (case (:type schema)
 
                 "array"

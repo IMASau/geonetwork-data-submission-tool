@@ -15,23 +15,30 @@ import {hasErrorIntent, useCachedState} from "../utils";
 //       :value-path ["value"]
 //       :added-path ["isUserDefined"]}]]
 
-export function TextAddField({hasError, disabled, placeholder, maxLength, onAddClick}) {
-    const [stateValue, setStateValue] = useState("");
+export function TextAddField({value, hasError, disabled, placeholder, maxLength, onAddClick}) {
+    const [stateValue, setStateValue] = useCachedState(value);
     const intent = hasErrorIntent({hasError, disabled});
+
+    let hasValue = stateValue !== null && stateValue !== "";
+    let buttonDisabled = disabled || !hasValue;
+
     function onClick() {
-        onAddClick(stateValue);
-        setStateValue("")
+        if (hasValue) {
+            onAddClick(stateValue);
+            setStateValue("");
+        }
     }
     return (
+    <BPCore.ControlGroup fill={true}>
         <BPCore.InputGroup
             intent={intent}
             disabled={disabled}
             value={stateValue}
             placeholder={placeholder}
             maxLength={maxLength}
-            onChange={(e) => setStateValue(e.target.value)}
-        >
-        </BPCore.InputGroup>
+            onChange={(e) => setStateValue(e.target.value)} />
+        <BPCore.Button className={BPCore.Classes.FIXED} onClick={onClick} disabled={buttonDisabled} intent={BPCore.Intent.PRIMARY}>Add</BPCore.Button>
+    </BPCore.ControlGroup>
     );
 }
 

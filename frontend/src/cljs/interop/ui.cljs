@@ -37,6 +37,7 @@
 (assert CheckboxField/CheckboxField)
 (assert NumericInputField/NumericInputField)
 (assert EditDialog/EditDialog)
+(assert TextAddField/TextAddField)
 
 (s/def ::northBoundLatitude number?)
 (s/def ::westBoundLongitude number?)

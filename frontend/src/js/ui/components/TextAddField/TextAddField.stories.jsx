@@ -1,32 +1,32 @@
 import React from 'react';
 
-import {InputField} from './InputField';
-import './InputField.css';
+import {TextAddField} from './TextAddField';
+import './TextAddField.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
 import {FormGroup} from "../FormGroup/FormGroup";
 
 export default {
-    title: 'Example/InputField',
-    component: InputField,
+    title: 'Example/TextAddField',
+    component: TextAddField,
     argTypes: {
         // Most are inferred from propTypes
         onChange: {action: 'onChange'},
     }
 };
 
-const FieldTemplate = (args) => <InputField {...args} />;
+const FieldTemplate = (args) => <TextAddField {...args} />;
 
 export const SimpleField = FieldTemplate.bind({});
 SimpleField.args = {
-    value: "Hello",
+    value: null,
     placeholder: "",
     disabled: false,
     hasError: false,
 };
 
-export const FieldDiabledState = FieldTemplate.bind({});
-FieldDiabledState.args = {
+export const FieldDisabledState = FieldTemplate.bind({});
+FieldDisabledState.args = {
     value: "Hello",
     placeholder: "",
     disabled: true,

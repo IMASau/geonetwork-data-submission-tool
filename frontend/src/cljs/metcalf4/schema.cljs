@@ -1,7 +1,8 @@
 (ns metcalf4.schema
   (:require [cljs.spec.alpha :as s]
             [clojure.set :as set]
-            [metcalf4.utils :as utils4]))
+            [metcalf4.utils :as utils4]
+            [clojure.string :as string]))
 
 
 (s/def ::schema (s/keys :opt-un [::type ::items ::properties]))
@@ -53,8 +54,8 @@
   [{:keys [schema data path]}]
   (let [prop-ks (set (keys (:properties schema)))
         data-ks (set (keys data))]
-    (when-some [extra-ks (set/difference data-ks prop-ks)]
-      (utils4/console-error (str "Unexpected keys" (pr-str extra-ks))
+    (when-let [extra-ks (seq (set/difference data-ks prop-ks))]
+      (utils4/console-error (str "Unexpected keys: " (string/join "," (map pr-str extra-ks)))
                             {:extra-ks extra-ks :data data :schema schema :path path}))))
 
 (defn walk-schema-data

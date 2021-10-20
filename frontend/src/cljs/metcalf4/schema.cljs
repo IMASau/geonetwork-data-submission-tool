@@ -50,9 +50,9 @@
                           {:data data :schema schema :path path})))
 
 (defn walk-schema-data
-  "Given a schema and some data, walk the data"
+  "Given a schema and some data, walk the data.  Warn about unexpected data."
   [inner outer form]
-  (s/assert ::form form)
+  (validate-data form)
   (let [{:keys [schema data path]} form
         path (or path [])
         data' (case (:type schema)

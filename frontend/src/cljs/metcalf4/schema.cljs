@@ -38,15 +38,16 @@
 
 (defn validate-data
   [{:keys [schema data path]}]
-  (when-not (case (:type schema)
-              "array" (vector? data)
-              "object" (map? data)
-              "string" (string? data)
-              "integer" (int? data)
-              "number" (number? data)
-              "boolean" (boolean? data)
-              "null" (nil? data)
-              true)
+  (when-not (or (nil? data)
+                (case (:type schema)
+                  "array" (vector? data)
+                  "object" (map? data)
+                  "string" (string? data)
+                  "integer" (int? data)
+                  "number" (number? data)
+                  "boolean" (boolean? data)
+                  "null" (nil? data)
+                  true))
     (utils4/console-error (str "Invalid " (:type schema) " value: " (pr-str data))
                           {:data data :schema schema :path path})))
 

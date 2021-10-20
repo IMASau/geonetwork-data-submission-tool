@@ -596,9 +596,9 @@
           {:form-id   [:form]
            :data-path ["identificationInfo" "supplementalInformation"]}]
          [m4/text-add-button
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "supplementalInformation"]
-           :value-path []}]
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "supplementalInformation"]
+           :button-text "Add"}]
          [:label "Supporting resources"]
          [m4/table-selection-list
           {:form-id    [:form]

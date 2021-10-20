@@ -538,7 +538,7 @@
        text])))
 
 (defn text-add-button-settings [_]
-  {::low-code/req-ks [:form-id :data-path]
+  {::low-code/req-ks [:form-id :data-path :button-text]
    ::low-code/opt-ks []
    ::low-code/schema {:type "array"}})
 
@@ -546,10 +546,10 @@
   "Add user defined item to list"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [disabled is-hidden text]} props]
+        {:keys [disabled is-hidden button-text]} props]
     (when-not is-hidden
       [ui/TextAddField
-       {:text       text
+       {:buttonText (r/as-element button-text)
         :disabled   disabled
         :onAddClick #(rf/dispatch [::text-value-add-click-handler config %])}])))
 

@@ -56,7 +56,7 @@
 (defn text-value-add-click-handler
   [{:keys [db]} [_ ctx value]]
   (let [{:keys [form-id data-path]} ctx]
-    (actions/new-text-value-action {:db db} form-id data-path value)))
+    (actions/add-item-action {:db db} form-id data-path value)))
 
 (defn list-add-with-defaults-click-handler2
   [{:keys [db]} [_ config]]

@@ -572,7 +572,7 @@
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+        :loadOptions #(utils4/fetch-get {:uri (utils4/append-params-from-map uri {:query %})})
         :getValue    (ui/get-obj-path value-path)
         :getLabel    (ui/get-obj-path label-path)
         :getAdded    (when added-path (ui/get-obj-path added-path))
@@ -594,7 +594,7 @@
     (when-not is-hidden
       [ui/AsyncBreadcrumbSelectField
        {:value         value
-        :loadOptions   #(utils4/fetch-post {:uri uri :body {:query %}})
+        :loadOptions   #(utils4/fetch-get {:uri (utils4/append-params-from-map uri {:query %})})
         :getValue      (ui/get-obj-path value-path)
         :getLabel      (ui/get-obj-path label-path)
         :getAdded      (when added-path (ui/get-obj-path added-path))
@@ -621,7 +621,7 @@
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+        :loadOptions #(utils4/fetch-get {:uri (utils4/append-params-from-map uri {:query %})})
         :getValue    (ui/get-obj-path value-path)
         :getLabel    (ui/get-obj-path label-path)
         :getAdded    (when added-path (ui/get-obj-path added-path))
@@ -896,7 +896,7 @@
         :hasError    hasError
         :getValue    (ui/get-obj-path value-path)
         :getLabel    (ui/get-obj-path label-path)
-        :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+        :loadOptions #(utils4/fetch-get {:uri (utils4/append-params-from-map uri {:query %})})
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
 
 (defn async-simple-item-option-picker-settings [_]
@@ -917,7 +917,7 @@
         :hasError    hasError
         :getValue    (ui/get-obj-path value-path)
         :getLabel    (ui/get-obj-path label-path)
-        :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+        :loadOptions #(utils4/fetch-get {:uri (utils4/append-params-from-map uri {:query %})})
         :onChange    #(rf/dispatch [::item-option-picker-change config (ui/get-option-data %)])}])))
 
 (defn async-breadcrumb-list-option-picker-settings [_]
@@ -939,7 +939,7 @@
         :getValue      (ui/get-obj-path value-path)
         :getLabel      (ui/get-obj-path label-path)
         :getBreadcrumb (ui/get-obj-path breadcrumb-path)
-        :loadOptions   #(utils4/fetch-post {:uri uri :body {:query %}})
+        :loadOptions   #(utils4/fetch-get {:uri (utils4/append-params-from-map uri {:query %})})
         :onChange      #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
 
 (defn async-table-list-option-picker-settings [_]
@@ -963,7 +963,7 @@
         :columns     (for [{:keys [flex label-path]} columns]
                        {:flex     flex
                         :getLabel (ui/get-obj-path label-path)})
-        :loadOptions #(utils4/fetch-post {:uri uri :body {:query %}})
+        :loadOptions #(utils4/fetch-get {:uri (utils4/append-params-from-map uri {:query %})})
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
 
 (defmulti async-list-picker-settings :kind)

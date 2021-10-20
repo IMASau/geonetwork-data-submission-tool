@@ -1108,7 +1108,52 @@
             :toolTip    "TODO"
             :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}]]
 
+         [m4/form-group
+          {:label    "Method documentation"
+           :required true}
+          [m4/table-selection-list
+           {:form-id    [:form]
+            :data-path  ["dataQualityInfo" "methodDocs"]
+            :value-path ["uri"]
+            :added-path ["isUserDefined"]
+            :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                         {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+
+          [m4/list-add-button
+           {:form-id     [:form]
+            :data-path   ["dataQualityInfo" "methodDocs"]
+            :button-text "Add"
+            :value-path  ["uri"]
+            :added-path  ["isUserDefined"]}]
+
+          [m4/list-edit-dialog
+           {:form-id     [:form]
+            :data-path   ["dataQualityInfo" "methodDocs"]
+            :value-path  ["uri"]
+            :added-path  ["isUserDefined"]
+            :title       "Method Document"
+            :template-id :method-doc/user-defined-entry-form}]]
+
          [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]
+
+        :method-doc/user-defined-entry-form
+        [:div
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "title"]
+           :label     "Title"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "title"]}]]
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "url"]
+           :label     "URL"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "url"]}]]]
 
         :quality
         [:div

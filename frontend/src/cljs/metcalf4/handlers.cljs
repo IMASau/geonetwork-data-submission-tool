@@ -56,7 +56,7 @@
 (defn text-value-add-click-handler
   [{:keys [db]} [_ ctx value]]
   (let [{:keys [form-id data-path]} ctx]
-    (actions/add-item-action {:db db} form-id data-path value)))
+    (actions/add-value-action {:db db} form-id data-path value)))
 
 (defn list-add-with-defaults-click-handler2
   [{:keys [db]} [_ config]]
@@ -66,7 +66,7 @@
                       (assoc-in added-path true))]
     (-> {:db db}
         (actions/save-snapshot-action form-id)
-        (actions/add-item-action form-id data-path item-data)
+        (actions/add-item-action form-id data-path value-path item-data)
         (actions/select-last-item-action form-id data-path))))
 
 (defn list-add-with-defaults-click-handler
@@ -75,7 +75,7 @@
         defaults {value-path (str (random-uuid)) added-path true}]
     (-> {:db db}
         (actions/save-snapshot-action form-id)
-        (actions/add-item-action form-id data-path defaults)
+        (actions/add-item-action form-id data-path value-path defaults)
         (actions/select-last-item-action form-id data-path))))
 
 (defn item-add-with-defaults-click-handler
@@ -115,9 +115,9 @@
 
 (defn list-option-picker-change
   [{:keys [db]} [_ ctx option]]
-  (let [{:keys [form-id data-path]} ctx]
+  (let [{:keys [form-id data-path value-path]} ctx]
     (-> {:db db}
-        (actions/add-item-action form-id data-path option))))
+        (actions/add-item-action form-id data-path value-path option))))
 
 (defn item-option-picker-change
   [{:keys [db]} [_ ctx option]]
@@ -169,7 +169,7 @@
         idx (if (contains? items initial-data) (dec idx) idx)
         new-field-path (conj data-path idx)]
     (-> {:db db}
-        (actions/add-item-action form-id data-path initial-data)
+        (actions/add-value-action form-id data-path initial-data)
         (actions/open-modal {:type           :m4/table-modal-add-form
                              :form           coord-field
                              :path           new-field-path

@@ -121,14 +121,26 @@
   (let [is-open-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :props :isOpen])]
     (assoc-in s is-open-path false)))
 
-(defn add-item-action
-  [s form-id data-path data]
+(defn add-value-action
+  [s form-id data-path value]
   (let [schema (get-in s (utils4/as-path [:db form-id :schema (schema/schema-path data-path) :items]))
-        state (blocks/as-blocks {:schema schema :data data})
+        state (blocks/as-blocks {:schema schema :data value})
         db-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
         items (set (blocks/as-data (get-in s db-path)))]
     (-> s
-        (cond-> (not (contains? items data))
+        (cond-> (not (contains? items value))
+                (update-in (conj db-path :content) conj state))
+        ;; TODO: split out?
+        (assoc-in (conj db-path :props :show-errors) true))))
+
+(defn add-item-action
+  [s form-id data-path value-path data]
+  (let [schema (get-in s (utils4/as-path [:db form-id :schema (schema/schema-path data-path) :items]))
+        state (blocks/as-blocks {:schema schema :data data})
+        db-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
+        ids (set (map #(get-in % value-path) (blocks/as-data (get-in s db-path))))]
+    (-> s
+        (cond-> (not (contains? ids (get-in data value-path)))
                 (update-in (conj db-path :content) conj state))
         ;; TODO: split out?
         (assoc-in (conj db-path :props :show-errors) true))))

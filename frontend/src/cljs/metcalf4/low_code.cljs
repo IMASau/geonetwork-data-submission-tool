@@ -92,31 +92,31 @@
       form)))
 
 (defn eval-or-val [ctx]
-  (fn [x] (if (fn? x) (x ctx) x)))
+  (fn [x] (if-let [f (::eval x)] (f ctx) x)))
 
 (defn compile-form
   [env x]
   (cond (vector? x)
         (let [fx (map (partial compile-form env) x)]
-          (if (not-any? fn? fx)
+          (if (not-any? ::eval fx)
             x
-            (fn [ctx]
-              (mapv (eval-or-val ctx) fx))))
+            {::eval (fn [ctx]
+                      (mapv (eval-or-val ctx) fx))}))
 
         (map? x)
         (let [ks (map (partial compile-form env) (keys x))
               vs (map (partial compile-form env) (vals x))
-              data-ks (when (not-any? fn? ks) ks)
-              data-vs (when (not-any? fn? vs) vs)]
+              data-ks (when (not-any? ::eval ks) ks)
+              data-vs (when (not-any? ::eval vs) vs)]
           (if (and data-ks data-vs)
             x
-            (fn [ctx]
-              (zipmap (or data-ks (map (eval-or-val ctx) ks))
-                      (or data-vs (map (eval-or-val ctx) vs))))))
+            {::eval (fn [ctx]
+                      (zipmap (or data-ks (map (eval-or-val ctx) ks))
+                              (or data-vs (map (eval-or-val ctx) vs))))}))
 
         (variable? x)
-        (fn [ctx]
-          (get ctx x))
+        {::eval (fn [ctx]
+                  (get ctx x))}
 
         :default
         x))

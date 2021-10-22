@@ -119,3 +119,14 @@
      "southBoundLatitude" (s/assert number? (apply min lats))
      "eastBoundLongitude" (s/assert number? (apply max lngs))
      "westBoundLongitude" (s/assert number? (apply min lngs))}))
+
+(defn memoize-to-atom
+  "clojure.core/memoize but backed by explicit atom"
+  [f mem]
+  (fn [& args]
+    (let [v (get @mem args lookup-sentinel)]
+      (if (identical? v lookup-sentinel)
+        (let [ret (apply f args)]
+          (swap! mem assoc args ret)
+          ret)
+        v))))

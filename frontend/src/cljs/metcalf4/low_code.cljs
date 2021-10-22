@@ -71,18 +71,6 @@
         (check-compatible-paths ctx)
         (into [view config] args)))))
 
-(defn replace-variable-syms
-  [smap x]
-  (if (contains? smap x)
-    (get smap x)
-    x))
-
-(defn replace-component-syms
-  [smap x]
-  (if (contains? smap x)
-    (build-component x (get smap x))
-    x))
-
 (defn eval-or-val [ctx]
   (fn [x] (if-let [f (::eval x)] (f ctx) x)))
 
@@ -124,21 +112,7 @@
         template (compile-form {:component-registry component-registry} hiccup)]
     template))
 
-(defn compile-template
-  [x]
-  (let [template (compile-form {} x)]
-    (fn [ctx] ((eval-or-val ctx) template))))
-
-(comment ((compile-template [:A]) {})
-         ((compile-template [1]) {})
-         ((compile-template ["A"]) {})
-         ((compile-template '[:p {:x ?a} "A"]) {:variables '{?a "roar"}}))
-
 (def prepare-template-once (utils4/memoize-to-atom prepare-template *build-template-cache))
-
-(defn apply-template
-  [template variables]
-  (walk/postwalk (fn [x] (report-unregistered-var (get variables x x))) template))
 
 (defn render-template
   [{:keys [template-id variables]}]

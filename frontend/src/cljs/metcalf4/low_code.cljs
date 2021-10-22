@@ -77,11 +77,21 @@
     (build-component x (get smap x))
     x))
 
-(defn render-template
-  [{:keys [template-id variables]}]
+(defn prepare-template
+  [template-id]
   (let [form (get template-registry template-id not-found-hiccup)]
     (walk/postwalk
       (comp (partial report-unregistered-syms)
-            (partial replace-component-syms component-registry)
-            (partial replace-variable-syms variables))
+            (partial replace-component-syms component-registry))
       form)))
+
+(def build-template-once (utils4/memoize-to-atom prepare-template *build-template-cache))
+
+(defn apply-template
+  [template variables]
+  (walk/postwalk (fn [x] (report-unregistered-var (get variables x x))) template))
+
+(defn render-template
+  [{:keys [template-id variables]}]
+  (let [template (build-template-once template-id)]
+    (apply-template template variables)))

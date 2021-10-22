@@ -84,7 +84,7 @@
     x))
 
 (defn prepare-template
-  [template-id]
+  [{:keys [template-id template-registry component-registry]}]
   (let [form (get template-registry template-id not-found-hiccup)]
     (walk/postwalk
       (comp (partial report-unregistered-syms)
@@ -131,7 +131,7 @@
          ((compile-template ["A"]) {})
          ((compile-template '[:p {:x ?a} "A"]) '{?a "roar"}))
 
-(def build-template-once (utils4/memoize-to-atom prepare-template *build-template-cache))
+(def prepare-template-once (utils4/memoize-to-atom prepare-template *build-template-cache))
 
 (defn apply-template
   [template variables]
@@ -139,5 +139,8 @@
 
 (defn render-template
   [{:keys [template-id variables]}]
-  (let [template (build-template-once template-id)]
+  (let [template (prepare-template-once
+                   {:template-id        template-id
+                    :template-registry  template-registry
+                    :component-registry component-registry})]
     (apply-template template variables)))

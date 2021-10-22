@@ -95,17 +95,17 @@
   (fn [x] (if (fn? x) (x ctx) x)))
 
 (defn compile-form
-  [x]
+  [env x]
   (cond (vector? x)
-        (let [fx (map compile-form x)]
+        (let [fx (map (partial compile-form env) x)]
           (if (not-any? fn? fx)
             x
             (fn [ctx]
               (mapv (eval-or-val ctx) fx))))
 
         (map? x)
-        (let [ks (map compile-form (keys x))
-              vs (map compile-form (vals x))
+        (let [ks (map (partial compile-form env) (keys x))
+              vs (map (partial compile-form env) (vals x))
               data-ks (when (not-any? fn? ks) ks)
               data-vs (when (not-any? fn? vs) vs)]
           (if (and data-ks data-vs)
@@ -123,7 +123,7 @@
 
 (defn compile-template
   [x]
-  (let [template (compile-form x)]
+  (let [template (compile-form {} x)]
     (fn [ctx] ((eval-or-val ctx) template))))
 
 (comment ((compile-template [:A]) {})

@@ -6,9 +6,9 @@
             [re-frame.core :as rf]
             [clojure.string :as string]))
 
-(def ^:dynamic component-registry {})
-(def ^:dynamic template-registry {})
-(def ^:dynamic not-found-hiccup '[:div "not found"])
+(defonce ^:dynamic component-registry {})
+(defonce ^:dynamic template-registry {})
+(defonce ^:dynamic not-found-hiccup '[:div "not found"])
 
 ; Private use template cache
 (def *build-template-cache (atom {}))

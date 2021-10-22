@@ -97,9 +97,9 @@
 (defn compile-form
   [env x]
   (cond (vector? x)
-        (let [fx (map (partial compile-form env) x)]
+        (let [fx (mapv (partial compile-form env) x)]
           (if (not-any? ::eval fx)
-            x
+            fx
             {::eval (fn [ctx]
                       (mapv (eval-or-val ctx) fx))}))
 
@@ -109,7 +109,7 @@
               data-ks (when (not-any? ::eval ks) ks)
               data-vs (when (not-any? ::eval vs) vs)]
           (if (and data-ks data-vs)
-            x
+            (zipmap ks vs)
             {::eval (fn [ctx]
                       (zipmap (or data-ks (map (eval-or-val ctx) ks))
                               (or data-vs (map (eval-or-val ctx) vs))))}))

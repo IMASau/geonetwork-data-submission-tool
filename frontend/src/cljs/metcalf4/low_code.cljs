@@ -91,28 +91,45 @@
             (partial replace-component-syms component-registry))
       form)))
 
-; Experimental
-(defn compile-template
+(defn eval-or-val [ctx]
+  (fn [x] (if (fn? x) (x ctx) x)))
+
+(defn compile-form
   [x]
   (cond (vector? x)
-        (let [fs (doall (map compile-template x))]
-          (fn [ctx]
-            (mapv (fn [f] (f ctx)) fs)))
+        (let [fx (map compile-form x)]
+          (if (not-any? fn? fx)
+            x
+            (fn [ctx]
+              (mapv (eval-or-val ctx) fx))))
 
         (map? x)
-        (let [ks (doall (map compile-template (keys x)))
-              vs (doall (map compile-template (vals x)))]
-          (fn [ctx]
-            (zipmap
-              (map (fn [f] (f ctx)) ks)
-              (map (fn [f] (f ctx)) vs))))
+        (let [ks (map compile-form (keys x))
+              vs (map compile-form (vals x))
+              data-ks (when (not-any? fn? ks) ks)
+              data-vs (when (not-any? fn? vs) vs)]
+          (if (and data-ks data-vs)
+            x
+            (fn [ctx]
+              (zipmap (or data-ks (map (eval-or-val ctx) ks))
+                      (or data-vs (map (eval-or-val ctx) vs))))))
 
         (variable? x)
         (fn [ctx]
           (get ctx x))
 
         :default
-        (constantly x)))
+        x))
+
+(defn compile-template
+  [x]
+  (let [template (compile-form x)]
+    (fn [ctx] ((eval-or-val ctx) template))))
+
+(comment ((compile-template [:A]) {})
+         ((compile-template [1]) {})
+         ((compile-template ["A"]) {})
+         ((compile-template '[:p {:x ?a} "A"]) '{?a "roar"}))
 
 (def build-template-once (utils4/memoize-to-atom prepare-template *build-template-cache))
 

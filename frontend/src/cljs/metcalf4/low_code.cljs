@@ -116,7 +116,7 @@
 
         (variable? x)
         {::eval (fn [ctx]
-                  (get ctx x))}
+                  (get-in ctx [:variables x]))}
 
         :default
         x))
@@ -129,7 +129,7 @@
 (comment ((compile-template [:A]) {})
          ((compile-template [1]) {})
          ((compile-template ["A"]) {})
-         ((compile-template '[:p {:x ?a} "A"]) '{?a "roar"}))
+         ((compile-template '[:p {:x ?a} "A"]) {:variables '{?a "roar"}}))
 
 (def prepare-template-once (utils4/memoize-to-atom prepare-template *build-template-cache))
 

@@ -91,6 +91,29 @@
             (partial replace-component-syms component-registry))
       form)))
 
+; Experimental
+(defn compile-template
+  [x]
+  (cond (vector? x)
+        (let [fs (doall (map compile-template x))]
+          (fn [ctx]
+            (mapv (fn [f] (f ctx)) fs)))
+
+        (map? x)
+        (let [ks (doall (map compile-template (keys x)))
+              vs (doall (map compile-template (vals x)))]
+          (fn [ctx]
+            (zipmap
+              (map (fn [f] (f ctx)) ks)
+              (map (fn [f] (f ctx)) vs))))
+
+        (variable? x)
+        (fn [ctx]
+          (get ctx x))
+
+        :default
+        (constantly x)))
+
 (def build-template-once (utils4/memoize-to-atom prepare-template *build-template-cache))
 
 (defn apply-template

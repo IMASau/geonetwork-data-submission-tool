@@ -3,7 +3,8 @@
             [clojure.walk :as walk]
             [metcalf4.schema :as schema]
             [metcalf4.utils :as utils4]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [clojure.string :as string]))
 
 (def ^:dynamic component-registry {})
 (def ^:dynamic template-registry {})
@@ -18,9 +19,14 @@
     (reset! *build-template-cache ({}))
     (set! template-registry templates)))
 
+(defn variable?
+  "A variable is a simple symbol which starts with ?"
+  [x]
+  (and (simple-symbol? x) (string/starts-with? (name x) "?")))
+
 (defn report-unregistered-syms
   [x]
-  (when (symbol? x)
+  (when (and (symbol? x) (not (variable? x)))
     (utils4/console-error (str "Symbol not resolved: " (pr-str x)) {:sym x}))
   x)
 

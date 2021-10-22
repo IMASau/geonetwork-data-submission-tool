@@ -118,6 +118,11 @@
         {::eval (fn [ctx]
                   (get-in ctx [:variables x]))}
 
+        (symbol? x)
+        (if-let [reg-data (get-in env [:component-registry x])]
+          (build-component x reg-data)
+          x)
+
         :default
         x))
 

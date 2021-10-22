@@ -83,14 +83,6 @@
     (build-component x (get smap x))
     x))
 
-(defn prepare-template
-  [{:keys [template-id template-registry component-registry]}]
-  (let [form (get template-registry template-id not-found-hiccup)]
-    (walk/postwalk
-      (comp (partial report-unregistered-syms)
-            (partial replace-component-syms component-registry))
-      form)))
-
 (defn eval-or-val [ctx]
   (fn [x] (if-let [f (::eval x)] (f ctx) x)))
 
@@ -126,6 +118,12 @@
         :default
         x))
 
+(defn prepare-template
+  [{:keys [template-id template-registry component-registry]}]
+  (let [hiccup (get template-registry template-id not-found-hiccup)
+        template (compile-form {:component-registry component-registry} hiccup)]
+    template))
+
 (defn compile-template
   [x]
   (let [template (compile-form {} x)]
@@ -148,4 +146,4 @@
                    {:template-id        template-id
                     :template-registry  template-registry
                     :component-registry component-registry})]
-    (apply-template template variables)))
+    ((eval-or-val {:variables variables}) template)))

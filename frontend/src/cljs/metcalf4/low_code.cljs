@@ -27,13 +27,13 @@
 (defn report-unregistered-syms
   [x]
   (when (and (symbol? x) (not (variable? x)))
-    (utils4/console-error (str "Symbol not resolved: " (pr-str x)) {:sym x}))
+    (utils4/console-error (str "Symbol not registered: " (pr-str x)) {:sym x}))
   x)
 
 (defn report-unregistered-var
   [x]
   (when (variable? x)
-    (utils4/console-error (str "Variable not resolved: " (pr-str x)) {:sym x}))
+    (utils4/console-error (str "Variable not bound: " (pr-str x)) {:var x}))
   x)
 
 (defn check-missing-keys
@@ -96,12 +96,14 @@
 
         (variable? x)
         {::eval (fn [ctx]
-                  (get-in ctx [:variables x]))}
+                  (if (contains? (:variables ctx) x)
+                    (get-in ctx [:variables x])
+                    (report-unregistered-var x)))}
 
         (symbol? x)
         (if-let [reg-data (get-in env [:component-registry x])]
           (build-component x reg-data)
-          x)
+          (report-unregistered-syms x))
 
         :default
         x))

@@ -9,9 +9,13 @@
 (def ^:dynamic template-registry {})
 (def ^:dynamic not-found-hiccup '[:div "not found"])
 
+; Private use template cache
+(def *build-template-cache (atom {}))
+
 (defn init!
   [{:keys [low-code/templates]}]
   (when (map? templates)
+    (reset! *build-template-cache ({}))
     (set! template-registry templates)))
 
 (defn report-unregistered-syms

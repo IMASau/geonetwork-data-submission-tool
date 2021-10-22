@@ -30,6 +30,12 @@
     (utils4/console-error (str "Symbol not resolved: " (pr-str x)) {:sym x}))
   x)
 
+(defn report-unregistered-var
+  [x]
+  (when (variable? x)
+    (utils4/console-error (str "Variable not resolved: " (pr-str x)) {:sym x}))
+  x)
+
 (defn check-missing-keys
   [{:keys [config settings]}]
   (when-let [req-ks (get-in settings [::req-ks])]

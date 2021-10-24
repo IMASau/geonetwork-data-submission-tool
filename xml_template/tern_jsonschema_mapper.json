@@ -44,6 +44,42 @@
   ],
   "type": "object",
   "properties": {
+    "fileIdentifier": {
+      "xpath": "mdb:metadataIdentifier/mcc:MD_Identifier/mcc:code",
+      "valueChild": "gco:CharacterString",
+      "exportTo": {
+        "xpath": "mdb:metadataLinkage/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
+        "attributes": {
+          "text": {
+            "function": "geonetwork_url"
+          }
+        }
+      }
+    },
+    "attachments": {
+      "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource[cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\"][cit:description/gco:CharacterString/text()=\"Data file\"]]",
+      "keep": false,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "xpath": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
+            "required": true,
+            "attributes": {
+              "text": {
+                "function": "generate_attachment_url"
+              }
+            }
+          },
+          "name": {
+            "xpath": "cit:CI_OnlineResource/cit:name",
+            "required": false,
+            "valueChild": "gco:CharacterString"
+          }
+        }
+      }
+    },
     "parentMetadataFlag": {
       "export": false
     },

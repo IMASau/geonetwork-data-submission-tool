@@ -34,14 +34,6 @@
   "postprocess": {
     "function": "prune_if_empty"
   },
-  "rules": [
-    {
-      "requiredWhenYes": {
-        "bool-field": "parentMetadataFlag",
-        "opt-field": "parentMetadata"
-      }
-    }
-  ],
   "type": "object",
   "properties": {
     "fileIdentifier": {
@@ -80,24 +72,39 @@
         }
       }
     },
-    "parentMetadataFlag": {
-      "export": false,
-      "xpath": "dummy"
-    },
     "parentMetadata": {
       "!docstring": "ID3",
-      "xpath": "mdb:parentMetadata/cit:CI_Citation",
+      "xpath": "mdb:parentMetadata",
       "keep": false,
       "type": "object",
+      "rules": [
+        {
+          "requiredWhenYes": {
+            "bool-field": "parentMetadataFlag",
+            "opt-field": "record"
+          }
+        }
+      ],
       "properties": {
-        "label": {
-          "xpath": "cit:title/gco:CharacterString"
+        "parentMetadataFlag": {
+          "xpath": "dummy"
         },
-        "value": {
-          "xpath": "cit:identifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
-          "attributes": {
-            "text": {
-              "function": "geonetwork_url"
+        "record": {
+          "type": "object",
+          "xpath": "cit:CI_Citation",
+          "properties": {
+            "label": {
+              "keep": false,
+              "xpath": "cit:title/gco:CharacterString"
+            },
+            "value": {
+              "xpath": "cit:identifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
+              "keep": false,
+              "attributes": {
+                "text": {
+                  "function": "geonetwork_url"
+                }
+              }
             }
           }
         }

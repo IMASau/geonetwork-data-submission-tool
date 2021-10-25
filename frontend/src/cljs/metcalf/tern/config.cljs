@@ -300,11 +300,11 @@
            :label   "Parent Metadata"}
           [m4/yes-no-field
            {:form-id   [:form]
-            :data-path ["parentMetadataFlag"]
+            :data-path ["parentMetadata" "parentMetadataFlag"]
             :label     "Does this record have a parent dataset?"}]
           [m4/async-select-option
            {:form-id         [:form]
-            :data-path       ["parentMetadata"]
+            :data-path       ["parentMetadata" "record"]
             :kind            :breadcrumb
             :uri             "/api/terngeonetwork"
             :label-path      ["label"]

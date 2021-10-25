@@ -81,7 +81,8 @@
       }
     },
     "parentMetadataFlag": {
-      "export": false
+      "export": false,
+      "xpath": "dummy"
     },
     "parentMetadata": {
       "!docstring": "ID3",
@@ -220,7 +221,7 @@
         },
         "datePublicationFlag": {
           "export": false,
-          "xpath": "."
+          "xpath": "dummy"
         },
         "datePublication": {
           "!docstring": "ID8",

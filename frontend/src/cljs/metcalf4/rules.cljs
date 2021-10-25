@@ -44,11 +44,16 @@
 (defn required-when-yes
   [block {:keys [bool-field opt-field]}]
   (let [required? (get-in block [:content bool-field :props :value])
+        opt-type (get-in block [:content opt-field :type])
         props (if required?
                 {:required true :is-hidden false}
                 {:required false :is-hidden true :disabled true :value nil})]
     (-> block
-        (update-in [:content opt-field :props] merge props))))
+        (update-in [:content opt-field :props] merge props)
+        (cond->
+            (and (not required?)
+                 (= "object" opt-type))
+            (assoc-in [:content opt-field :content] {})))))
 
 (defn max-length
   [block maxLength]

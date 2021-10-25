@@ -1219,54 +1219,6 @@
             :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details below."
             :maxLength  1000}]]
 
-         [:h4 "Data parameters"]
-         [m3/DataParametersTable {:form-id   [:form]
-                                  :data-path ["identificationInfo" "dataParameters"]}]
-         [:br]
-         [:h4 "Pixel Size"]
-         [:div.row
-          [:div.col-md-6
-           [m3/NasaListSelectField {:keyword   :horizontalResolution
-                                    :form-id   [:form]
-                                    :data-path ["identificationInfo"]}]]]
-         [:br]
-         [:h4 "Resource constraints"]
-         [m3/ResourceConstraints]
-         [m3/UseLimitations {:form-id   [:form]
-                             :data-path ["identificationInfo" "useLimitations"]}]
-         [:br]
-         [:h4 "Supplemental information"]
-         [m3/SupportingResource {:form-id   [:form]
-                                 :data-path ["supportingResources"]}]
-         [:form-id [:form]
-          [m3/SupplementalInformation [:identificationInfo :supplementalInformation]]]
-         [:br]
-         [:h4 "Distribution"]
-         [m4/input-field-with-label
-          {:form-id     [:form]
-           :data-path   ["distributionInfo" "distributionFormat" "name"]
-           :label       "Data file format"
-           :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
-           :helperText  nil
-           :toolTip     nil
-           :maxLength   100
-           :required    nil}]
-         [m4/input-field-with-label
-          {:form-id     [:form]
-           :data-path   ["distributionInfo" "distributionFormat" "version"]
-           :label       "Data file format date/version"
-           :placeholder "Date format date or version if applicable"
-           :helperText  nil
-           :toolTip     nil
-           :maxLength   20
-           :required    nil}]
-         [m4/textarea-field-with-label
-          {:form-id     [:form]
-           :data-path   ["resourceLineage" "lineage"]
-           :label       "Lineage"
-           :placeholder "Provide a brief summary of the source of the data and related collection and/or processing methods."
-           :toolTip     "Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017"
-           :maxLength   1000}]
          [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
 
         :upload

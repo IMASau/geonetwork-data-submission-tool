@@ -508,6 +508,9 @@
                       "label": {
                         "type": "string"
                       },
+                      "description": {
+                        "type": "string"
+                      },
                       "uri": {
                         "type": "string"
                       },

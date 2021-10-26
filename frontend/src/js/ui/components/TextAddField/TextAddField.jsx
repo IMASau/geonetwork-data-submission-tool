@@ -28,6 +28,15 @@ export function TextAddField({hasError, disabled, placeholder, maxLength, onAddC
             setStateValue("");
         }
     }
+    function handleKeyPress (event) {
+      if(event.key === 'Enter'){
+        if (hasValue) {
+            onAddClick(stateValue);
+            setStateValue("");
+        }
+      }
+    }
+
     return (
     <BPCore.ControlGroup fill={true}>
         <BPCore.InputGroup
@@ -36,6 +45,7 @@ export function TextAddField({hasError, disabled, placeholder, maxLength, onAddC
             value={stateValue}
             placeholder={placeholder}
             maxLength={maxLength}
+            onKeyPress={handleKeyPress}
             onChange={(e) => setStateValue(e.target.value)} />
         <BPCore.Button className={BPCore.Classes.FIXED} onClick={onClick} disabled={buttonDisabled} intent={BPCore.Intent.PRIMARY}>{buttonText}</BPCore.Button>
     </BPCore.ControlGroup>

@@ -223,6 +223,7 @@
           }
         },
         "dateCreation": {
+          "type": "string",
           "!docstring": "ID6",
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",
           "valueChild": "gco:Date",

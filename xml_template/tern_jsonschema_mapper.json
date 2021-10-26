@@ -264,6 +264,7 @@
           "xpath": "mri:purpose",
           "valueChild": "gco:CharacterString",
           "label": "Purpose",
+          "type": "string",
           "keep": false,
           "required": false
         },

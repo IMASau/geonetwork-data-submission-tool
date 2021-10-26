@@ -51,14 +51,6 @@
     (utils4/console-error (str "Invalid " (:type schema) " value: " (pr-str data))
                           {:data data :schema schema :path path})))
 
-(defn expected-object-properties?
-  "Check for unexpected object properties"
-  [{:keys [schema data]}]
-  (or (not= "object" (:type schema))
-      (let [prop-ks (set (keys (:properties schema)))
-            data-ks (set (keys data))]
-        (empty? (set/difference data-ks prop-ks)))))
-
 (defn validate-object-properties
   [{:keys [schema data path]}]
   (when (= "object" (:type schema))

@@ -490,22 +490,38 @@
                 "type": "object",
                 "xpath": "mri:keyword",
                 "properties": {
-                  "description": {},
-                  "isUserDefined": {},
-                  "symbol": {},
-                  "source": {},
+                  "description": {
+                    "type": "string"
+                  },
+                  "isUserDefined": {
+                    "type": "boolean"
+                  },
+                  "symbol": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
                   "unit": {
                     "type": "object",
                     "properties": {
-                      "label": {},
-                      "uri": {},
-                      "isUserDefined": {}
+                      "label": {
+                        "type": "string"
+                      },
+                      "uri": {
+                        "type": "string"
+                      },
+                      "isUserDefined": {
+                        "type": "boolean"
+                      }
                     }
                   },
                   "label": {
+                    "type": "string",
                     "xpath": "gcx:Anchor"
                   },
                   "uri": {
+                    "type": "string",
                     "xpath": "gcx:Anchor",
                     "attributes": {
                       "xlink:href": {

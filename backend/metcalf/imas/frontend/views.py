@@ -523,3 +523,14 @@ def robots_view(request):
     context = {}
     return render(request, "robots.txt", context, content_type="text/plain")
 
+
+# FIXME actual implementation
+@api_view(['GET'])
+def keywords_with_breadcrumb_info(request) -> Response:
+
+    # FIXME
+    title_ids = [{"label": "Label Test" + str(idx),
+                  "uri": "URI" + str(idx),
+                  "breadcrumb": str(idx) + "Breadcrumb > Test > Testing"} for idx in range(20)]
+
+    return Response(title_ids, status=200)

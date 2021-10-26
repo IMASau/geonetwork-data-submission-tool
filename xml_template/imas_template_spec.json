@@ -456,26 +456,27 @@
           "type": "object",
           "properties": {
             "keywords": {
-              "xpath": "mri:keyword/gcx:Anchor",
-              "container": "mri:keyword",
+              "xpath": "mri:keyword",
               "keep": false,
-              "export": false,
-              "exportTo": {
-                "xpath": "mri:keyword/gcx:Anchor",
-                "attributes": {
-                  "text": {
-                    "function": "science_keyword_name"
+              "type": "array",
+              "items": {
+                "type": "object",
+                "xpath": "mri:keyword",
+                "properties": {
+                  "breadcrumb": {},
+                  "label": {
+                    "xpath": "gcx:Anchor"
                   },
-                  "xlink:href": {
-                    "function": "science_keyword_uri"
+                  "uri": {
+                    "xpath": "gcx:Anchor",
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "identity"
+                      }
+                    }
                   }
                 }
-              },
-              "parser": {
-                "function": "parse_keywords"
-              },
-              "type": "array",
-              "items": {}
+              }
             }
           },
           "rules": ["requiredField"],

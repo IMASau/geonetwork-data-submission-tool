@@ -207,17 +207,22 @@
             :placeholder nil
             :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"}]]
 
-         ;; FIXME this should get a GET async select, not a value selection list.
          [:h3 "Research theme keywords"]
          [:div "Select up to 12 research theme keywords describing your data"]
-         [m4/value-selection-list
-          {:form-id   [:form]
-           :data-path ["identificationInfo" "keywordsTheme" "keywords"]}]
-         [m4/text-add-button
-          {:form-id     [:form]
-           :data-path   ["identificationInfo" "keywordsTheme" "keywords"]
-           :button-text "Add"}]
-
+         [m4/async-list-picker
+          {:form-id         [:form]
+           :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
+           :kind            :breadcrumb
+           :uri             "/api/keywords_with_breadcrumb_info"
+           :label-path      ["label"]
+           :value-path      ["uri"]
+           :breadcrumb-path ["breadcrumb"]}]
+         [m4/breadcrumb-selection-list
+          {:form-id         [:form]
+           :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
+           :label-path      ["label"]
+           :value-path      ["uri"]
+           :breadcrumb-path ["breadcrumb"]}]
 
          [:h3 "Additional theme keywords"]
          [:div "Enter your own additional theme keywords as required and click + to add"]

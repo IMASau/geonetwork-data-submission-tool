@@ -196,7 +196,7 @@
       (when-not (s/valid? ::valid-data form)
         (report-schema-error (utils4/spec-error-at-path ::valid-data form (:path form))))
       form)
-    {:schema schema :data data :path []}))
+    {:schema schema :data data :path path}))
 
 
 (defn compatible-schema-type?

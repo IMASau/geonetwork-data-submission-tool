@@ -187,7 +187,7 @@
 
 
 (defn assert-schema-data
-  [schema data]
+  [{:keys [schema data path] :or {path []}}]
   (prewalk-schema-data
     (fn [form]
       (when-not (s/valid? schema-data-valid? form)

@@ -850,6 +850,7 @@
           "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:DQ_EvaluationMethod/mdq:evaluationMethodDescription",
           "valueChild": "gco:CharacterString",
           "label": "Provide a summary of the scope of the Data Quality Assessment",
+          "type": "string",
           "keep": false,
           "required": false
         },
@@ -857,7 +858,8 @@
           "!docstring": "How12",
           "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
           "keep": false,
-          "required": false
+          "required": false,
+          "type": "string"
         },
         "methods": {
           "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:standaloneQualityReportDetails",

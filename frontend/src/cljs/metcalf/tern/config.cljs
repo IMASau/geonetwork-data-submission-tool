@@ -41,6 +41,7 @@
 (rf/reg-event-fx ::views3/textarea-field-with-label-value-changed handlers3/textarea-field-value-change)
 (rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
 (rf/reg-event-fx :textarea-field/value-change handlers3/textarea-field-value-change)
+(rf/reg-event-fx ::components4/text-value-add-click-handler handlers4/text-value-add-click-handler)
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-fx ::low-code/init! low-code/init!)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
@@ -106,7 +107,8 @@
        'm4/when-data                     {:view components4/when-data :init components4/when-data-settings}
        'm4/get-data                      {:view components4/get-data :init components4/get-data-settings}
        'm4/yes-no-field                  {:view components4/yes-no-field :init components4/yes-no-field-settings}
-       'm4/simple-list                    {:view components4/simple-list :init components4/simple-list-settings}
+       'm4/simple-list                   {:view components4/simple-list :init components4/simple-list-settings}
+       'm4/text-add-button               {:view components4/text-add-button :init components4/text-add-button-settings}
        })
 
 (set! low-code/template-registry

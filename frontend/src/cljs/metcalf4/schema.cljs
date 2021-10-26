@@ -167,9 +167,6 @@
         "boolean" (boolean? data)
         true)))
 
-; NOTE: Non-recursive data check
-(s/def ::valid-data
-  (s/and schema-data-valid? expected-object-properties?))
 
 (defn report-schema-error
   [msg]
@@ -186,7 +183,7 @@
     (fn [form]
       (validate-object-properties form)
       (when-not (s/valid? schema-data-valid? form)
-        (report-schema-error (utils4/spec-error-at-path schema-data-valid? form (:path form)) form))
+        (utils4/console-error (utils4/spec-error-at-path schema-data-valid? form (:path form)) form))
       form)
     {:schema schema :data data :path path}))
 

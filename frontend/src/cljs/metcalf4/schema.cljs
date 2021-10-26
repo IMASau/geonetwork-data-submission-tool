@@ -192,8 +192,9 @@
   [{:keys [schema data path] :or {path []}}]
   (prewalk-schema-data
     (fn [form]
-      (when-not (s/valid? ::valid-data form)
-        (report-schema-error (utils4/spec-error-at-path ::valid-data form (:path form))))
+      (validate-object-properties form)
+      (when-not (s/valid? schema-data-valid? form)
+        (report-schema-error (utils4/spec-error-at-path schema-data-valid? form (:path form)) form))
       form)
     {:schema schema :data data :path path}))
 

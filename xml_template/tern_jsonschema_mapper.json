@@ -233,6 +233,7 @@
           "xpath": "dummy"
         },
         "datePublication": {
+          "type": "string",
           "!docstring": "ID8",
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]/cit:date",
           "valueChild": "gco:Date",

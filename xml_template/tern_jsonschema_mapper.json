@@ -863,7 +863,28 @@
           "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:standaloneQualityReportDetails",
           "keep": false,
           "valueChild": "gco:CharacterString",
-          "required": false
+          "required": false,
+          "type": "string"
+        },
+        "methodDocs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "uri": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "isUserDefined": {
+                "type": "boolean"
+              }
+            }
+          }
         }
       }
     }

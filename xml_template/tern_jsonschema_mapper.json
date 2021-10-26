@@ -716,7 +716,8 @@
           "!docstring": "When2",
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:endPosition",
           "deleteWhenEmpty": false,
-          "keep": false
+          "keep": false,
+          "type": "string"
         },
         "environment": {
           "!docstring": "About3",

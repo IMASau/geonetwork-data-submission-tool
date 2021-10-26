@@ -124,16 +124,33 @@ This can be a node or an attribute.
 
 The child node of the xpath that will be used to read/write.
 
-*TODO: I think this makes sense in conjunction with keep:false; the
-value is written into valueChild, but if not present then the whole
-node at that xpath location is removed (?)*
-
+This is slightly redundant when used stand-alone, but has a nice
+synergy with `keep: false` for optional elements.  In the example
+below, the value is nested in some structure (starting at `cit:date`), but if there is no value
+we want to remove the entire structure:
 ```json
-"name": {
-  "xpath": "cit:CI_OnlineResource/cit:name",
-  "required": false,
-  "valueChild": "gco:CharacterString"
+"datePublication": {
+  "type": "string",
+  "!docstring": "ID8",
+  "xpath": "cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]",
+  "valueChild": "cit:CI_Date/cit:date/gco:Date",
+  "keep": false
 }
+```
+
+To populate or remove (note how `xpath` selects the root, while
+`valueChild` selects the location to insert the value under that root):
+```xml
+<cit:date>
+  <cit:CI_Date>
+    <cit:date>
+      <gco:Date>2021-10-03</gco:Date>
+    </cit:date>
+    <cit:dateType>
+      <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="publication"/>
+    </cit:dateType>
+  </cit:CI_Date>
+</cit:date>
 ```
 
 ## export

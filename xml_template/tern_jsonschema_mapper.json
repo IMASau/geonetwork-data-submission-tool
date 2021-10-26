@@ -237,10 +237,9 @@
         "datePublication": {
           "type": "string",
           "!docstring": "ID8",
-          "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]/cit:date",
-          "valueChild": "gco:Date",
-          "keep": false,
-          "required": true
+          "xpath": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]",
+          "valueChild": "cit:CI_Date/cit:date/gco:Date",
+          "keep": false
         },
         "version": {
           "type": "string",
@@ -776,9 +775,12 @@
           "properties": {
             "keywords": {
               "keep": false,
+              "xpath": "mri:keyword",
               "type": "array",
               "items": {
-                "type": "string"
+                "type": "string",
+                "keep": "false",
+                "xpath": "mri:keyword/gco:CharacterString"
               }
             }
           },

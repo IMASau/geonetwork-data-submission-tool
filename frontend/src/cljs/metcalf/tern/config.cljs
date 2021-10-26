@@ -781,7 +781,7 @@
              :toolTip  "TODO"}
             [m4/async-select-option
              {:form-id     [:form]
-              :data-path   ["identificationInfo" "verticalElement" "CoordinteReferenceSystem"]
+              :data-path   ["identificationInfo" "verticalCoordinateReferenceSystem"]
               :uri         "/api/What9"
               :label-path  ["label"]
               :value-path  ["uri"]

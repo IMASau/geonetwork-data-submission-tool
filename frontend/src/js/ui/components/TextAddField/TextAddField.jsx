@@ -15,8 +15,8 @@ import {hasErrorIntent, useCachedState} from "../utils";
 //       :value-path ["value"]
 //       :added-path ["isUserDefined"]}]]
 
-export function TextAddField({value, hasError, disabled, placeholder, maxLength, onAddClick, buttonText}) {
-    const [stateValue, setStateValue] = useCachedState(value);
+export function TextAddField({hasError, disabled, placeholder, maxLength, onAddClick, buttonText}) {
+    const [stateValue, setStateValue] = useCachedState("");
     const intent = hasErrorIntent({hasError, disabled});
 
     let hasValue = stateValue !== null && stateValue !== "";

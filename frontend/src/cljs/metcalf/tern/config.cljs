@@ -301,7 +301,7 @@
            :label   "Parent Metadata"}
           [m4/yes-no-field
            {:form-id   [:form]
-            :data-path ["parentMetadata" "parentMetadataFlag"]
+            :data-path ["parentMetadataFlag"]
             :label     "Does this record have a parent dataset?"}]
           [m4/async-select-option
            {:form-id         [:form]

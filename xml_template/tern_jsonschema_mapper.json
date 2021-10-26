@@ -351,6 +351,42 @@
             }
           }
         },
+        "CoordinateReferenceSystem": {
+          "type": "object",
+          "properties": {
+            "uri": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            }
+          }
+        },
+        "verticalCoordinateReferenceSystem": {
+          "type": "object",
+          "properties": {
+            "uri": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            }
+          }
+        },
+        "verticalElement": {
+          "type": "object",
+          "properties": {
+            "minimumValue": {
+              "type": "number"
+            },
+            "maximumValue": {
+              "type": "number"
+            }
+          }
+        },
+        "DateOfDynamicDatum": {
+          "type": "string"
+        },
         "keywordsTheme": {
           "!docstring": "What3",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",

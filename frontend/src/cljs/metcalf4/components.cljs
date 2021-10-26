@@ -582,7 +582,7 @@
   [{:keys [value-path label-path breadcrumb-path]}]
   {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
    ::low-code/opt-ks       [:placeholder :added-path]
-   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema       {:type "object" :properties {}}
    ::low-code/schema-paths [value-path label-path breadcrumb-path]})
 
 (defn async-breadcrumb-select-option

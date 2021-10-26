@@ -191,6 +191,16 @@
       (= (:type schema1) (:type schema2))))
 
 
+(defn can-compare-schema?
+  [{:keys [schema1 schema2]}]
+  (and (:type schema1)
+       (:type schema2)))
+
+
+(s/def ::compatible-schema-type?
+  (s/and can-compare-schema? compatible-schema-type?))
+
+
 (defn object-properties-subset?
   "Check that schema2 doesn't introduce new properties"
   [{:keys [schema1 schema2]}]
@@ -202,8 +212,8 @@
 (defn assert-compatible-schema
   "Confirm schema2 is a compatible subset of schema1"
   [{:keys [schema1 schema2 path] :or {path []} :as form}]
-  (when-not (s/valid? compatible-schema-type? form)
-    (report-schema-error (utils4/spec-error-at-path compatible-schema-type? form (:path form))))
+  (when-not (s/valid? ::compatible-schema-type? form)
+    (report-schema-error (utils4/spec-error-at-path ::compatible-schema-type? form (:path form))))
   (case (:type schema2)
     "object" (doseq [k (keys (:properties schema2))]
                (when-not (s/valid? object-properties-subset? form)

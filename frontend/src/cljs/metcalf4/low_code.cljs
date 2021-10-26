@@ -46,7 +46,7 @@
 (defn check-compatible-schema
   [{:keys [settings schema config]}]
   (when-let [schema2 (get-in settings [::schema])]
-    (schema/assert-compatible-schema {:schema1 schema :schema2 schema2 :path (:data-path config)})))
+    (schema/assert-compatible-schema {:schema1 schema :schema2 schema2 :path (schema/schema-path (:data-path config))})))
 
 (defn check-compatible-paths
   [{:keys [settings schema] :as ctx}]

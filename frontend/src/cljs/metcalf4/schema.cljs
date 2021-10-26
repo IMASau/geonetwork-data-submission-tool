@@ -170,12 +170,13 @@
 
 (defn schema-data-valid?
   [{:keys [schema data]}]
-  (case (:type schema)
-    "array" (vector? data)
-    "object" (map? data)
-    "string" (string? data)
-    "number" (number? data)
-    true))
+  (or (nil? data)
+      (case (:type schema)
+        "array" (vector? data)
+        "object" (map? data)
+        "string" (string? data)
+        "number" (number? data)
+        true)))
 
 ; NOTE: Non-recursive data check
 (s/def ::valid-data

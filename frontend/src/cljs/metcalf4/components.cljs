@@ -759,6 +759,26 @@
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
 
+(defn simple-list-settings
+  [_]
+  {::low-code/req-ks       [:form-id :data-path :template-id]
+   ::low-code/opt-ks       []
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths []})
+
+(defn simple-list
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        items @(rf/subscribe [::get-block-data config])
+        {:keys [form-id data-path is-hidden template-id]} props]
+    (when-not is-hidden
+      [:<>
+       (for [index (range (count items))]
+         (low-code/render-template
+           {:template-id template-id
+            :variables   {'?form-id   form-id
+                          '?data-path (conj data-path index)}}))])))
+
 (defn breadcrumb-selection-list-settings
   [{:keys [label-path value-path breadcrumb-path added-path]}]
   {::low-code/req-ks       [:form-id :data-path :label-path :value-path :breadcrumb-path]

@@ -176,6 +176,7 @@
         "object" (map? data)
         "string" (string? data)
         "number" (number? data)
+        "boolean" (boolean? data)
         true)))
 
 ; NOTE: Non-recursive data check

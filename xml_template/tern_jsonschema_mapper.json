@@ -255,6 +255,7 @@
           "xpath": "mri:abstract",
           "valueChild": "gco:CharacterString",
           "label": "Abstract",
+          "type": "string",
           "keep": false,
           "required": true
         },

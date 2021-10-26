@@ -192,9 +192,11 @@
 
 
 (defn can-compare-schema?
+  "Check we have enough data to compare schemas.
+  If schema2 is nil everything is okay, else we need a type for schema1 to check against."
   [{:keys [schema1 schema2]}]
-  (and (:type schema1)
-       (:type schema2)))
+  (or (nil? (:type schema2))
+      (and (:type schema1) (:type schema2))))
 
 
 (s/def ::compatible-schema-type?

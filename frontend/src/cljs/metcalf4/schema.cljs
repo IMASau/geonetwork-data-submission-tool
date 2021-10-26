@@ -85,7 +85,6 @@
                                                  :data   prop-data
                                                  :path   (conj path prop-name)})]
                             (assoc acc prop-name prop-val)))]
-                  (validate-object-properties form)
                   (reduce-kv inner-prop {} (:properties schema)))
 
                 ;other

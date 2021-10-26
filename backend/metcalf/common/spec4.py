@@ -173,6 +173,10 @@ def prune_if_empty(data, parent, spec, nsmap, i, silent):
     for elem in parent.findall('.//mri:descriptiveKeywords', nsmap):
         if elem.find('./mri:MD_Keywords/mri:keyword', nsmap) is None:
             elem.getparent().remove(elem)
+    for elem in parent.findall('.//mdb:parentMetadata', nsmap):
+        # Use title as proxy for a value:
+        if is_empty(elem.find('./cit:CI_Citation/cit:title', nsmap)):
+            elem.getparent().remove(elem)
     # No descendent text() at all:
     for xpath in ['mri:descriptiveKeywords',
                   'mri:resourceConstraints']:

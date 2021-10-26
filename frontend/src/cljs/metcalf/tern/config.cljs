@@ -112,9 +112,7 @@
        })
 
 (set! low-code/template-registry
-      '{
-
-        :platform/user-defined-entry-form
+      '{:platform/user-defined-entry-form
         [:div
 
          [m4/inline-form-group
@@ -142,7 +140,6 @@
            {:form-id     ?form-id
             :data-path   [?data-path "source"]
             :placeholder "E.g. Creator (Publication year).  Title.  Version.  Publisher.  Resource type.  Identifier.  "}]]]
-
 
         :instrument/user-defined-entry-form
         [:div
@@ -185,7 +182,6 @@
            {:form-id   ?form-id
             :data-path [?data-path "serial"]}]]]
 
-
         :unit/user-defined-entry-form
         [:div
 
@@ -206,7 +202,6 @@
           [m4/textarea-field
            {:form-id   ?form-id
             :data-path [?data-path "description"]}]]]
-
 
         :parameter/user-defined-entry-form
         [:div
@@ -275,7 +270,6 @@
             :data-path   [?data-path "unit"]
             :title       "Unit"
             :template-id :unit/user-defined-entry-form}]]]
-
 
         :data-identification
         [:div
@@ -846,7 +840,6 @@
         :box/user-defined-entry-form
         [:div
 
-
          [m4/inline-form-group
           {:form-id   ?form-id
            :data-path [?data-path "northBoundLatitude"]
@@ -877,13 +870,10 @@
            :label     "West"}
           [m4/numeric-input-field
            {:form-id   ?form-id
-            :data-path [?data-path "westBoundLongitude"]}]]
-
-         ]
+            :data-path [?data-path "westBoundLongitude"]}]]]
 
         :who
         [:div
-
 
          [m4/expanding-control {:label "Responsible for the creation of dataset" :required true}
 
@@ -948,9 +938,6 @@
          ;  :title       "Responsible for creating the data"
          ;  :template-id :person/user-defined-entry-form}]
 
-
-
-
          #_[m3/Who
             {:credit-path [:form :fields :identificationInfo :credit]}]
          [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
@@ -990,7 +977,6 @@
 
          [:p "If contact is not available, please enter the contact details below."]
 
-
          [:div {:style {:display               "grid"
                         :grid-column-gap       "1em"
                         :grid-template-columns "1fr 1fr"}}
@@ -1002,7 +988,6 @@
            [m4/input-field
             {:form-id   ?form-id
              :data-path [?data-path "contact" "givenName"]}]]
-
 
           [m4/form-group
            {:form-id   ?form-id
@@ -1029,8 +1014,6 @@
            {:form-id   ?form-id
             :data-path [?data-path "contact" "orcid"]}]]
 
-
-
          [m4/form-group
           {:form-id   ?form-id
            :data-path [?data-path "organisation"]
@@ -1054,8 +1037,7 @@
            {:form-id     ?form-id
             :data-path   [?data-path "organisation"]
             :title       "Organisation"
-            :template-id :organisation/user-defined-entry-form}]]
-         ]
+            :template-id :organisation/user-defined-entry-form}]]]
 
         :organisation/user-defined-entry-form
         [:div
@@ -1163,6 +1145,8 @@
            :label       "Provide a summary of the scope of the Data Quality Assessment"
            :maxLength   1000
            :placeholder "The data quality was assessed by ..."}]
+         [:h4 "Online data quality report"
+          [:p "TODO"]]
          [m4/textarea-field-with-label
           {:form-id     [:form]
            :data-path   ["dataQualityInfo" "results"]
@@ -1182,94 +1166,52 @@
                           ["identificationInfo" "credit"]
                           ["identificationInfo" "customCitation"]]}]
          [:h2 "8: About Dataset"]
-         [:h4 "Environment Description (Optional)"]
-         [m4/textarea-field-with-label
-          {:form-id     [:form]
-           :data-path   ["identificationInfo" "environment"]
-           :label       "Environmental description"
-           :placeholder "Information about the source and software to process the resource"
-           :helperText  "Software, computer operating system, file name, or dataset size"
-           :maxLength   1000}]
-         [:h4 "Association Documentation (Optional)"]
-         [m4/textarea-field-with-label
-          {:form-id     [:form]
-           :data-path   ["identificationInfo" "supplemental"]
-           :label       "Supplemental Information"
-           :placeholder "Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01"
-           :helperText  "Any supplemental information needed to interpret the resource"
-           :maxLength   1000}]
-         [:h4 "Resource specific usage (Optional)"]
-         [m4/textarea-field-with-label
-          {:form-id     [:form]
-           :data-path   ["identificationInfo" "resourceSpecificUsage"]
-           :label       "Resource specific usage"
-           :placeholder "Resource specific usage..."
-           :helperText  "What can this resource be used for environmental research?"
-           :maxLength   1000}]
-         [:h4 "Acknowledgment (Optional)"]
-         [m4/textarea-field-with-label
-          {:form-id     [:form]
-           :data-path   ["identificationInfo" "credit"]
-           :label       "Acknowledgment"
-           :placeholder "The project was funded by xxx and yyy"
-           :helperText  "Write a sentence acknowledging sponsors, data providers or funding organisations"
-           :maxLength   1000}]
-         [:h4 "Citation (Optional)"]
-         [m4/textarea-field-with-label
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "customCitation"]
-           :label      "Specific citation"
-           :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details below."
-           :maxLength  1000}]
+         [:i "This section allows you to provide information of the dataset collection, and will inform the consumer with the legal obligations, limitations of use and any other relevant details such as resources and publications."]
+         [:h4 "Limitation/Constraints"
+          [:p TODO]]
+         [m4/form-group
+          {:label "Security Classification"}
+          [:p "TODO"]]
+         [m4/expanding-control {:label "Environment Description (Optional)"}
+          [m4/textarea-field-with-label
+           {:form-id     [:form]
+            :data-path   ["identificationInfo" "environment"]
+            :label       "Environmental description"
+            :placeholder "Information about the source and software to process the resource"
+            :helperText  "Software, computer operating system, file name, or dataset size"
+            :maxLength   1000}]]
+         [m4/expanding-control {:label "Associated Documentation (Optional)"}
+          [m4/textarea-field-with-label
+           {:form-id     [:form]
+            :data-path   ["identificationInfo" "supplemental"]
+            :label       "Supplemental Information"
+            :placeholder "Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01"
+            :helperText  "Any supplemental information needed to interpret the resource"
+            :maxLength   1000}]]
+         [m4/expanding-control {:label "Resource specific usage (Optional)"}
+          [m4/textarea-field-with-label
+           {:form-id     [:form]
+            :data-path   ["identificationInfo" "resourceSpecificUsage"]
+            :label       "Resource specific usage"
+            :placeholder "Resource specific usage..."
+            :helperText  "What can this resource be used for environmental research?"
+            :maxLength   1000}]]
+         [m4/expanding-control {:label "Acknowledgment (Optional)"}
+          [m4/textarea-field-with-label
+           {:form-id     [:form]
+            :data-path   ["identificationInfo" "credit"]
+            :label       "Acknowledgment"
+            :placeholder "The project was funded by xxx and yyy"
+            :helperText  "Write a sentence acknowledging sponsors, data providers or funding organisations"
+            :maxLength   1000}]]
+         [m4/expanding-control {:label "Citation (Optional)"}
+          [m4/textarea-field-with-label
+           {:form-id    [:form]
+            :data-path  ["identificationInfo" "customCitation"]
+            :label      "Specific citation"
+            :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details below."
+            :maxLength  1000}]]
 
-         [:h4 "Data parameters"]
-         [m3/DataParametersTable {:form-id   [:form]
-                                  :data-path ["identificationInfo" "dataParameters"]}]
-         [:br]
-         [:h4 "Pixel Size"]
-         [:div.row
-          [:div.col-md-6
-           [m3/NasaListSelectField {:keyword   :horizontalResolution
-                                    :form-id   [:form]
-                                    :data-path ["identificationInfo"]}]]]
-         [:br]
-         [:h4 "Resource constraints"]
-         [m3/ResourceConstraints]
-         [m3/UseLimitations {:form-id   [:form]
-                             :data-path ["identificationInfo" "useLimitations"]}]
-         [:br]
-         [:h4 "Supplemental information"]
-         [m3/SupportingResource {:form-id   [:form]
-                                 :data-path ["supportingResources"]}]
-         [:form-id [:form]
-          [m3/SupplementalInformation [:identificationInfo :supplementalInformation]]]
-         [:br]
-         [:h4 "Distribution"]
-         [m4/input-field-with-label
-          {:form-id     [:form]
-           :data-path   ["distributionInfo" "distributionFormat" "name"]
-           :label       "Data file format"
-           :placeholder "e.g. Microsoft Excel, CSV, NetCDF"
-           :helperText  nil
-           :toolTip     nil
-           :maxLength   100
-           :required    nil}]
-         [m4/input-field-with-label
-          {:form-id     [:form]
-           :data-path   ["distributionInfo" "distributionFormat" "version"]
-           :label       "Data file format date/version"
-           :placeholder "Date format date or version if applicable"
-           :helperText  nil
-           :toolTip     nil
-           :maxLength   20
-           :required    nil}]
-         [m4/textarea-field-with-label
-          {:form-id     [:form]
-           :data-path   ["resourceLineage" "lineage"]
-           :label       "Lineage"
-           :placeholder "Provide a brief summary of the source of the data and related collection and/or processing methods."
-           :toolTip     "Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017"
-           :maxLength   1000}]
          [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
 
         :upload

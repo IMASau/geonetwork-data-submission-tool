@@ -391,9 +391,6 @@ def save(request, uuid):
         #         citedResponsibleParty['individualName'] = updatedPerson.prefLabel
         #     institutionFromData(citedResponsibleParty)
 
-        # update the publication date
-        data['identificationInfo']['datePublication'] = spec4.today()
-
         inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
         inst.noteForDataManager = data.get('noteForDataManager') or ''
         inst.agreedToTerms = data.get('agreedToTerms') or False

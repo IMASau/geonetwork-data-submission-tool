@@ -190,6 +190,7 @@
 
 
 (defn assert-schema-data
+  "Check data against schema reporting any incompatibilities like bad data types or extra props"
   [{:keys [schema data path] :or {path []}}]
   (prewalk-schema-data
     (fn [form]

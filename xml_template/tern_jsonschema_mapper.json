@@ -710,7 +710,8 @@
           "!docstring": "When1",
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
           "required": true,
-          "keep": false
+          "keep": false,
+          "type": "string"
         },
         "endPosition": {
           "!docstring": "When2",

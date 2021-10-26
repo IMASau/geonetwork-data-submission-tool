@@ -697,19 +697,10 @@
           "type": "object",
           "properties": {
             "keywords": {
-              "xpath": "mri:keyword",
               "keep": false,
               "type": "array",
               "items": {
-                "type": "object",
-                "xpath": "mri:keyword",
-                "properties": {
-                  "isUserDefined": {},
-                  "value": {},
-                  "label": {
-                    "xpath": "gcx:Anchor"
-                  }
-                }
+                "type": "string"
               }
             }
           },

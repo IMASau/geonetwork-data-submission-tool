@@ -557,7 +557,7 @@
   [{:keys [value-path label-path]}]
   {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path]
    ::low-code/opt-ks       [:placeholder :added-path]
-   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema       {:type "object" :properties {}}
    ::low-code/schema-paths [value-path label-path]})
 
 (defn async-simple-select-option
@@ -582,7 +582,7 @@
   [{:keys [value-path label-path breadcrumb-path]}]
   {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
    ::low-code/opt-ks       [:placeholder :added-path]
-   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema       {:type "object" :properties {}}
    ::low-code/schema-paths [value-path label-path breadcrumb-path]})
 
 (defn async-breadcrumb-select-option
@@ -758,6 +758,26 @@
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
+
+(defn simple-list-settings
+  [_]
+  {::low-code/req-ks       [:form-id :data-path :template-id]
+   ::low-code/opt-ks       []
+   ::low-code/schema       {:type "array" :items {:type "object"}}
+   ::low-code/schema-paths []})
+
+(defn simple-list
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        items @(rf/subscribe [::get-block-data config])
+        {:keys [form-id data-path is-hidden template-id]} props]
+    (when-not is-hidden
+      [:<>
+       (for [index (range (count items))]
+         (low-code/render-template
+           {:template-id template-id
+            :variables   {'?form-id   form-id
+                          '?data-path (conj data-path index)}}))])))
 
 (defn breadcrumb-selection-list-settings
   [{:keys [label-path value-path breadcrumb-path added-path]}]

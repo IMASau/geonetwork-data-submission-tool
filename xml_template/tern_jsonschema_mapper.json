@@ -699,9 +699,12 @@
           "properties": {
             "keywords": {
               "keep": false,
+              "xpath": "mri:keyword",
               "type": "array",
               "items": {
-                "type": "string"
+                "type": "string",
+                "keep": "false",
+                "xpath": "mri:keyword/gco:CharacterString"
               }
             }
           },

@@ -288,6 +288,7 @@
               "xpath": "gex:description",
               "valueChild": "gco:CharacterString",
               "label": "Site Description",
+              "type": "string",
               "keep": false,
               "required": false
             },
@@ -380,6 +381,17 @@
               "type": "number"
             },
             "maximumValue": {
+              "type": "number"
+            }
+          }
+        },
+        "SpatialResolution": {
+          "type": "object",
+          "properties": {
+            "ResolutionAttribute": {
+              "type": "string"
+            },
+            "ResolutionAttributeValue": {
               "type": "number"
             }
           }

@@ -816,7 +816,7 @@
                :toolTip  "TODO"}
               [m4/select-value
                {:form-id     [:form]
-                :data-path   ["identificationInfo" "topicCategory"]
+                :data-path   ["identificationInfo" "SpatialResolution" "ResolutionAttribute"]
                 :placeholder "Start typing to filter list..."
                 :label-path  ["label"]
                 :value-path  ["value"]

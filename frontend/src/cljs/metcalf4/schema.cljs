@@ -61,11 +61,12 @@
 
 (defn validate-object-properties
   [{:keys [schema data path]}]
-  (let [prop-ks (set (keys (:properties schema)))
-        data-ks (set (keys data))]
-    (when-let [extra-ks (seq (set/difference data-ks prop-ks))]
-      (utils4/console-error (str "Unexpected object properties: " (string/join ", " (map pr-str extra-ks)))
-                            {:extra-ks extra-ks :data data :schema schema :path path}))))
+  (when (= "object" (:type schema))
+    (let [prop-ks (set (keys (:properties schema)))
+          data-ks (set (keys data))]
+      (when-let [extra-ks (seq (set/difference data-ks prop-ks))]
+        (utils4/console-error (str "Unexpected object properties: " (string/join ", " (map pr-str extra-ks)))
+                              {:extra-ks extra-ks :data data :schema schema :path path})))))
 
 (defn massage-form
   [{:keys [path] :as form}]

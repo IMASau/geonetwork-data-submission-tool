@@ -229,6 +229,7 @@
           "required": true
         },
         "datePublicationFlag": {
+          "type": "boolean",
           "export": false,
           "xpath": "dummy"
         },

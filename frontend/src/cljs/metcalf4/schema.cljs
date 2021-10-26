@@ -163,11 +163,6 @@
   [f form]
   (walk-schema-data (partial postwalk-schema-data f) f form))
 
-(defn walk-validate-object-properties
-  "Looks for data properties which aren't present in the schema and won't be traversed"
-  [form]
-  (postwalk-schema-data (fn [x] (validate-object-properties x)) form))
-
 
 (defn schema-data-valid?
   [{:keys [schema data]}]

@@ -294,7 +294,9 @@
             },
             "boxes": {
               "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
-              "rules": ["requiredField"],
+              "rules": [
+                "requiredField"
+              ],
               "label": "Geographic coverage",
               "keep": false,
               "type": "array",
@@ -306,7 +308,9 @@
                   "westBoundLongitude": {
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:westBoundLongitude",
-                    "rules": ["requiredField"],
+                    "rules": [
+                      "requiredField"
+                    ],
                     "label": "West limit",
                     "attributes": {
                       "text": {
@@ -317,7 +321,9 @@
                   "eastBoundLongitude": {
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:eastBoundLongitude",
-                    "rules": ["requiredField"],
+                    "rules": [
+                      "requiredField"
+                    ],
                     "label": "East limit",
                     "attributes": {
                       "text": {
@@ -328,7 +334,9 @@
                   "southBoundLatitude": {
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:southBoundLatitude",
-                    "rules": ["requiredField"],
+                    "rules": [
+                      "requiredField"
+                    ],
                     "label": "South limit",
                     "attributes": {
                       "text": {
@@ -339,7 +347,9 @@
                   "northBoundLatitude": {
                     "valueChild": "gco:Decimal",
                     "xpath": "gex:northBoundLatitude",
-                    "rules": ["requiredField"],
+                    "rules": [
+                      "requiredField"
+                    ],
                     "label": "North limit",
                     "attributes": {
                       "text": {
@@ -794,7 +804,8 @@
           "valueChild": "gco:CharacterString",
           "label": "Environmental description",
           "keep": false,
-          "required": false
+          "required": false,
+          "type": "string"
         },
         "supplemental": {
           "!docstring": "About4",
@@ -802,7 +813,8 @@
           "valueChild": "gco:CharacterString",
           "label": "Supplemental Information",
           "keep": false,
-          "required": false
+          "required": false,
+          "type": "string"
         },
         "resourceSpecificUsage": {
           "!docstring": "About7",
@@ -810,14 +822,16 @@
           "valueChild": "mri:MD_Usage/mri:specificUsage/gco:CharacterString",
           "label": "Resource specific usage",
           "keep": false,
-          "required": false
+          "required": false,
+          "type": "string"
         },
         "credit": {
           "!docstring": "About8",
           "xpath": "mri:credit",
           "valueChild": "gco:CharacterString",
           "keep": false,
-          "required": false
+          "required": false,
+          "type": "string"
         },
         "customCitation": {
           "!docstring": "About9",
@@ -825,7 +839,8 @@
           "valueChild": "gco:CharacterString",
           "label": "Specific citation",
           "keep": false,
-          "required": false
+          "required": false,
+          "type": "string"
         },
         "doi": {
           "!docstring": "Lodge4",
@@ -939,7 +954,7 @@
             "isUserDefined": {}
           }
         },
-        "contact" : {
+        "contact": {
           "type": "object",
           "properties": {
             "address": {

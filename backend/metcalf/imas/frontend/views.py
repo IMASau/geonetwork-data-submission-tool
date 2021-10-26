@@ -524,13 +524,47 @@ def robots_view(request):
     return render(request, "robots.txt", context, content_type="text/plain")
 
 
+def keyword_to_label(keyword):
+
+    keyword_values_in_array = [keyword.DetailedVariable,
+                               keyword.VariableLevel3,
+                               keyword.VariableLevel2,
+                               keyword.VariableLevel1,
+                               keyword.Term,
+                               keyword.Topic,
+                               keyword.Category]
+
+    return next((x for x in keyword_values_in_array if x is not None and x != ""), "")
+
+
+def keyword_to_breadcrumbs(keyword):
+
+    keyword_values_in_array = [keyword.DetailedVariable,
+                               keyword.VariableLevel3,
+                               keyword.VariableLevel2,
+                               keyword.VariableLevel1,
+                               keyword.Term,
+                               keyword.Topic,
+                               keyword.Category]
+
+    # Remove empty values.
+    keyword_values_in_array = [x for x in keyword_values_in_array if x is not None and x != ""]
+
+    # Remove first matching item (this will be the label)
+    keyword_values_in_array = keyword_values_in_array[1:]
+
+    return [" > ".join(keyword_values_in_array)]
+
+
 # FIXME actual implementation
 @api_view(['GET'])
 def keywords_with_breadcrumb_info(request) -> Response:
 
-    # FIXME
-    title_ids = [{"label": "Label Test" + str(idx),
-                  "uri": "URI" + str(idx),
-                  "breadcrumb": str(idx) + "Breadcrumb > Test > Testing"} for idx in range(20)]
+    query = request.GET.get("query")
+    keywords = ScienceKeyword.objects.all().exclude(Topic="")
 
-    return Response(title_ids, status=200)
+    breadcrumbs = [{"label": keyword_to_label(k),
+                    "uri": k.uri,
+                    "breadcrumb": keyword_to_breadcrumbs(k)} for k in keywords]
+
+    return Response(breadcrumbs, status=200)

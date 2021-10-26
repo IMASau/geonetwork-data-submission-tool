@@ -650,23 +650,13 @@
           [m4/form-group
            {:label   "Additional theme keywords can be added for review and approval process"
             :toolTip "Enter your own additional theme keywords as required and click to add"}
-           [:div.bp3-control-group
-            [:div.bp3-fill
-             [m4/input-field
-              {:form-id   [:form]
-               :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]
-            [m4/list-add-button
-             {:form-id     [:form]
-              :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]
-              :button-text "Add"
-              :value-path  ["value"]
-              :added-path  ["isUserDefined"]}]]
-           [m4/simple-selection-list
-            {:form-id    [:form]
-             :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
-             :label-path ["value"]
-             :value-path ["value"]
-             :added-path ["isUserDefined"]}]]]
+           [m4/value-selection-list
+            {:form-id   [:form]
+             :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]
+           [m4/text-add-button
+            {:form-id     [:form]
+             :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]
+             :button-text "Add"}]]]
 
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 

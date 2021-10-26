@@ -200,6 +200,12 @@
     {:schema schema :data data :path path}))
 
 
+(comment
+  (assert-schema-data {:schema {:type "string"} :data "roar" :path []})
+  (assert-schema-data {:schema {:type "string"} :data 1 :path []})
+  (assert-schema-data {:schema {:type "object" :properties {"a" {:type "number"}}} :data {"a" 1 "b" 2} :path []}))
+
+
 (defn compatible-schema-type?
   [{:keys [schema1 schema2]}]
   (or (nil? (:type schema1))

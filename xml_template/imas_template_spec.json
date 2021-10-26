@@ -618,7 +618,8 @@
                     "function": "identity"
                   }
                 }
-              }
+              },
+              "isUserDefined": {}
             }
           }
         },

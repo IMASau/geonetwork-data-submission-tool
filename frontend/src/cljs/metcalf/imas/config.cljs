@@ -84,9 +84,7 @@
 (set! low-code/component-registry
       {
        'm3/DataSources                    {:view views3/DataSources}
-       'm3/NasaListSelectField            {:view views3/NasaListSelectField}
        'm3/UploadData                     {:view views3/UploadData}
-       'm3/UseLimitations                 {:view views3/UseLimitations}
        'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-select-option            {:view components4/async-select-option :init components4/async-select-option-settings}
        'm4/boxmap-field                   {:view components4/boxmap-field :init components4/boxmap-field-settings}
@@ -208,6 +206,39 @@
             :data-path   ["identificationInfo" "abstract"]
             :placeholder nil
             :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"}]]
+
+         ;; FIXME this should get a GET async select, not a value selection list.
+         [:h3 "Research theme keywords"]
+         [:div "Select up to 12 research theme keywords describing your data"]
+         [m4/value-selection-list
+          {:form-id   [:form]
+           :data-path ["identificationInfo" "keywordsTheme" "keywords"]}]
+         [m4/text-add-button
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "keywordsTheme" "keywords"]
+           :button-text "Add"}]
+
+
+         [:h3 "Additional theme keywords"]
+         [:div "Enter your own additional theme keywords as required and click + to add"]
+         [m4/value-selection-list
+          {:form-id   [:form]
+           :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]}]
+         [m4/text-add-button
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "keywordsThemeExtra" "keywords"]
+           :button-text "Add"}]
+
+         [:h3 "Taxon keywords"]
+         [:div "Add any taxon names describing your data and click + to add"]
+         [m4/value-selection-list
+          {:form-id   [:form]
+           :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]}]
+         [m4/text-add-button
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "keywordsTaxonExtra" "keywords"]
+           :button-text "Add"}]
+
          ;; TODO add theme keywords
          [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
@@ -298,8 +329,6 @@
            [m4/list-edit-dialog
             {:form-id     [:form]
              :data-path   ["identificationInfo" "geographicElement" "boxes"]
-             :value-path  ["uri"]
-             :added-path  ["isUserDefined"]
              :title       "Bounding box"
              :template-id :box/user-defined-entry-form}]]]
          [:h3 "Vertical Coverage"]
@@ -562,8 +591,6 @@
          [m4/list-edit-dialog
           {:form-id     [:form]
            :data-path   ["identificationInfo" "dataParameters"]
-           :value-path  ["uri"]
-           :added-path  ["isUserDefined"]
            :title       "Add parameter"
            :template-id :data-parameter/user-defined-entry-form}]
          [:h4 "Resource constraints"]
@@ -589,8 +616,18 @@
            :label       "Additional license requirements"   ;; FIXME
            :placeholder "Enter additional license requirements"
            :required    true}]
-         [m3/UseLimitations {:form-id   [:form]
-                             :data-path ["identificationInfo" "useLimitations"]}]
+
+         [:label "Use limitations"]
+         [m4/value-selection-list
+          {:form-id   [:form]
+           :data-path ["identificationInfo" "otherConstraints"]}]
+         [m4/text-add-button
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "otherConstraints"]
+           :button-text "Add"}]
+
+         [:hr]
+
          [:h4 "Supplemental information"]
          [:label "Publications associated with dataset"]
          [m4/value-selection-list
@@ -600,6 +637,13 @@
           {:form-id     [:form]
            :data-path   ["identificationInfo" "supplementalInformation"]
            :button-text "Add"}]
+
+         [m4/list-edit-dialog
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "supplementalInformation"]
+           :title       "Add supporting resource"
+           :template-id :supplemental-information/user-defined-entry-form}]
+
          [:label "Supporting resources"]
          [m4/table-selection-list
           {:form-id    [:form]
@@ -617,8 +661,6 @@
          [m4/list-edit-dialog
           {:form-id     [:form]
            :data-path   ["supportingResources"]
-           :value-path  ["url"]
-           :added-path  ["isUserDefined"]
            :title       "Add supporting resource"
            :template-id :resource/user-defined-entry-form}]
          [:h4 "Distribution"]
@@ -650,23 +692,47 @@
            {:form-id   ?form-id
             :data-path [?data-path "url"]}]]]
 
+        :test/long-name
+        [:div "Setting longName."]
+
+        :supplemental-information/user-defined-entry-form
+        [:div
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path ?data-path
+           :label     "Value"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path ?data-path}]]]
+
         :data-parameter/user-defined-entry-form
         [:div
-
 
          [m4/form-group
           {:form-id   ?form-id
            :data-path [?data-path "longName_term"]
            :label     "Name"}
+          #_[m4/async-select-option
+             {:form-id     ?form-id
+              :data-path   [?data-path "longName_term"]
+              :uri         "/api/parametername"
+              :label-path  ["label"]
+              :value-path  ["uri"]
+              :added-path  ["isUserDefined"]
+              :placeholder "Select..."}]
 
-          [m4/async-select-option
+          [m4/item-add-button
+           {:form-id    ?form-id
+            :data-path  [?data-path "longName_term"]
+            :text       "Browse"
+            :value-path ["longName_term"]
+            :added-path ["isUserDefined"]}]
+
+          [m4/item-edit-dialog
            {:form-id     ?form-id
-            :data-path   [?data-path "longName"]
-            :uri         "/api/parametername"
-            :label-path  ["label"]
-            :value-path  ["uri"]
-            :added-path  ["isUserDefined"]
-            :placeholder "Select..."}]
+            :data-path   [?data-path "longName_term"]
+            :title       "LONG NAME"
+            :template-id :test/long-name}]
 
           [m4/input-field
            {:form-id     ?form-id
@@ -683,9 +749,13 @@
             :data-path   [?data-path "unit_term"]
             :uri         "/api/parameterunit"
             :label-path  ["label"]
-            :value-path  ["uri"]
-            :added-path  ["isUserDefined"]
-            :placeholder "Select..."}]]
+            :value-path  ["value"]
+            :placeholder "Select..."}]
+          [m4/list-add-button
+           {:form-id    ?form-id
+            :data-path  [?data-path "unit_term"]
+            :text       "Browse"
+            :value-path ["value"]}]]
 
          [m4/form-group
           {:form-id   ?form-id
@@ -698,7 +768,13 @@
             :label-path  ["label"]
             :value-path  ["uri"]
             :added-path  ["isUserDefined"]
-            :placeholder "Select..."}]]
+            :placeholder "Select..."}]
+          [m4/list-add-button
+           {:form-id    ?form-id
+            :data-path  [?data-path "instrument_term"]
+            :text       "Browse"
+            :value-path ["uri"]
+            :added-path ["isUserDefined"]}]]
 
          [m4/form-group
           {:form-id   ?form-id
@@ -711,7 +787,13 @@
             :label-path  ["label"]
             :value-path  ["uri"]
             :added-path  ["isUserDefined"]
-            :placeholder "Select..."}]]]
+            :placeholder "Select..."}]
+          [m4/list-add-button
+           {:form-id    ?form-id
+            :data-path  [?data-path "platform_term"]
+            :text       "Browse"
+            :value-path ["uri"]
+            :added-path ["isUserDefined"]}]]]
 
 
         :upload

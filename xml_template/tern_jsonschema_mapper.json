@@ -242,6 +242,7 @@
           "required": true
         },
         "version": {
+          "type": "string",
           "!docstring": "ID7",
           "xpath": "mri:citation[1]/cit:CI_Citation[1]/cit:edition",
           "valueChild": "gco:CharacterString",

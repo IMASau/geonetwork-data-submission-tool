@@ -37,10 +37,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('robots.txt', robots_view, name="Robots"),
-    path('api/qudtunits', qudt_units),
-    path('api/ternparameters', tern_parameters),
-    path('api/ternplatforms', tern_platforms),
-    path('api/terninstruments', tern_instruments),
 ]
 
 if settings.DEBUG:

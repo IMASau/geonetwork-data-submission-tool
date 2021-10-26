@@ -177,6 +177,9 @@
     "number" (number? data)
     true))
 
+; NOTE: Non-recursive data check
+(s/def ::valid-data
+  (s/and schema-data-valid? expected-object-properties?))
 
 (defn report-schema-error
   [msg]

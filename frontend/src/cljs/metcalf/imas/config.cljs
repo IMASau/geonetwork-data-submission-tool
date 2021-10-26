@@ -131,6 +131,7 @@
        'm4/xml-export-link                {:view components4/xml-export-link :init components4/xml-export-link-settings}
        'm4/async-item-picker              {:view components4/async-item-picker :init components4/async-item-picker-settings}
        'm4/text-add-button                {:view components4/text-add-button :init components4/text-add-button-settings}
+       'm4/simple-list                    {:view components4/simple-list :init components4/simple-list-settings}
        })
 (set! low-code/template-registry
       '{:data-identification

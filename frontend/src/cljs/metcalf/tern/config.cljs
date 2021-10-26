@@ -106,6 +106,7 @@
        'm4/when-data                     {:view components4/when-data :init components4/when-data-settings}
        'm4/get-data                      {:view components4/get-data :init components4/get-data-settings}
        'm4/yes-no-field                  {:view components4/yes-no-field :init components4/yes-no-field-settings}
+       'm4/simple-list                    {:view components4/simple-list :init components4/simple-list-settings}
        })
 
 (set! low-code/template-registry

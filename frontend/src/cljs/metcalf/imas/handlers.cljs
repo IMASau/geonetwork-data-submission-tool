@@ -1,13 +1,15 @@
 (ns metcalf.imas.handlers
-  (:require [metcalf3.logic :as logic3]))
+  (:require [metcalf3.logic :as logic3]
+            [metcalf4.schema :as schema]))
 
 (defn init-db
   [_ [_ payload]]
   (let [db' (logic3/initial-state payload)
-        db' (update db' :api #(dissoc % :parametername :parameterunit :parameterinstrument
+        db (update db' :api #(dissoc % :parametername :parameterunit :parameterinstrument
                                       :horizontalResolution :parameterplatform :topiccategory))]
-    {:db         db'
+    (schema/assert-schema-data (:form db))
+    {:db         db
      :fx         [[:ui/setup-blueprint]]
      ; TODO: use action
-     :dispatch-n (for [api-key (keys (get db' :api))]
+     :dispatch-n (for [api-key (keys (get db :api))]
                    [::-init-db-load-api-options [:api api-key]])}))

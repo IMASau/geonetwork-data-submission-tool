@@ -74,8 +74,8 @@
             children))))
 
 (defn inline-form-group-settings [_]
-  {::low-code/req-ks [:form-id :data-path :label]
-   ::low-code/opt-ks [:placeholder :helperText :toolTip]})
+  {::low-code/req-ks [:label]
+   ::low-code/opt-ks [:form-id :data-path :placeholder :helperText :toolTip]})
 
 (defn inline-form-group
   [config & children]

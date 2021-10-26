@@ -782,7 +782,7 @@
              :toolTip  "TODO"}
             [m4/async-select-option
              {:form-id     [:form]
-              :data-path   ["identificationInfo" "verticalElement" "CoordinteReferenceSystem"]
+              :data-path   ["identificationInfo" "verticalCoordinateReferenceSystem"]
               :uri         "/api/What9"
               :label-path  ["label"]
               :value-path  ["uri"]
@@ -817,7 +817,7 @@
                :toolTip  "TODO"}
               [m4/select-value
                {:form-id     [:form]
-                :data-path   ["identificationInfo" "topicCategory"]
+                :data-path   ["identificationInfo" "SpatialResolution" "ResolutionAttribute"]
                 :placeholder "Start typing to filter list..."
                 :label-path  ["label"]
                 :value-path  ["value"]

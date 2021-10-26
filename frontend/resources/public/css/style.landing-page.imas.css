@@ -2,7 +2,7 @@ html, body {
     height: 100%;
     color: #fff;
     text-align: center;
-    background: #060 no-repeat center fixed;
+    background: #060 no-repeat center / cover fixed;
 }
 
 .site-wrapper-inner {

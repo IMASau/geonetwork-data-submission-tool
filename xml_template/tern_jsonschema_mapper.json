@@ -88,8 +88,7 @@
       ],
       "properties": {
         "parentMetadataFlag": {
-          "type": "boolean",
-          "xpath": "dummy"
+          "type": "boolean"
         },
         "record": {
           "type": "object",

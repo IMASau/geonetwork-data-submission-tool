@@ -187,19 +187,6 @@
   [f form]
   (walk-schema-data (partial postwalk-schema-data f) f form))
 
-
-(defn schema-data-valid?
-  [{:keys [schema data]}]
-  (or (nil? data)
-      (case (:type schema)
-        "array" (vector? data)
-        "object" (map? data)
-        "string" (string? data)
-        "number" (number? data)
-        "boolean" (boolean? data)
-        true)))
-
-
 (defn report-schema-error
   [msg]
   #_(if *assert*

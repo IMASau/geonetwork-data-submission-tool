@@ -598,7 +598,6 @@
               }
             }
           },
-          "required": true,
           "xpath_required": true
         },
         "keywordsUoM": {

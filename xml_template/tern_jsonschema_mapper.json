@@ -537,7 +537,6 @@
               }
             }
           },
-          "required": true,
           "xpath_required": true
         },
         "keywordsParameters": {

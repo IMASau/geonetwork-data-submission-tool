@@ -147,7 +147,8 @@
 
 ; NOTE: Experimental.  Not sure we need/want it.
 (defn walk-schema-data2
-  "Given a schema and some data, walk the data.  Infer when schema not-defined."
+  "Walk schema and data.  :data key only passed to inner when present.
+   Covers all data by inferring schema when not present."
   [inner outer raw-form]
   (let [{:keys [schema data path] :as form} (massage-form2 raw-form)
         data' (case (:type schema)
@@ -163,12 +164,14 @@
 
                 "object"
                 (letfn [(inner-prop [acc prop-name]
-                          (let [data-schema (infer-schema (get data prop-name))
-                                prop-schema (get-in schema [:properties prop-name] data-schema)
+                          (let [has-data? (contains? data prop-name)
                                 prop-data (get data prop-name)
-                                prop-val (inner {:schema prop-schema
-                                                 :data   prop-data
-                                                 :path   (conj path prop-name)})]
+                                prop-path (conj path prop-name)
+                                data-schema (infer-schema (get data prop-name))
+                                prop-schema (get-in schema [:properties prop-name] data-schema)
+                                prop-val (inner (if has-data?
+                                                  {:schema prop-schema :path prop-path :data prop-data}
+                                                  {:schema prop-schema :path prop-path}))]
                             (assoc acc prop-name prop-val)))]
                   (let [prop-ks (set (keys (:properties schema)))
                         data-ks (set (keys data))]

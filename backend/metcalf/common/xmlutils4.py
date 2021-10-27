@@ -227,7 +227,7 @@ def value(element, **kwargs):
 
 
 def get_default(spec):
-    default = spec.get('default', '')
+    default = spec.get('default', None)
     if hasattr(default, '__call__'):
         return default()
     else:

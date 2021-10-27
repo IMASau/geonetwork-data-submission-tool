@@ -296,7 +296,10 @@ def extract_xml_data(tree, spec, **kwargs):
     elif len(elements) == 0 and not xpath_required:
         return initial
     elif len(elements) == 1:
-        return process_node_child(elements[0], spec, **kwargs)
+        if is_keep(spec):
+            return process_node_child(elements[0], spec, **kwargs)
+        else:
+            return get_default(spec)
     else:
         assert len(elements) > 0, ["No xml element matches for required", get_xpath(spec), tree]
 

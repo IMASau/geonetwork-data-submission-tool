@@ -60,6 +60,35 @@
         (utils4/console-error (str "Unexpected object properties: " (string/join ", " (map pr-str extra-ks)))
                               {:extra-ks extra-ks :data data :schema schema :path path})))))
 
+(defn check-required-properties
+  [{:keys [schema data path]}]
+  (let [{:keys [type required]} schema]
+    (when (and (= "object" type) required)
+
+      (if-not (s/valid? (s/coll-of string?) (:required schema))
+        (utils4/console-error (str "Invalid required annotation on object: " (pr-str (:required schema)))
+                              {:required (:required schema) :data data :schema schema :path path})
+
+        (let [missing (apply disj (set required) (keys data))]
+          (when (seq missing)
+            (utils4/console-error (str "Required property missing: " (string/join ", " (map pr-str missing)))
+                                  {:missing missing :data data :schema schema :path path})))))))
+
+(defn schema-data-valid?
+  [{:keys [schema data]}]
+  (case (:type schema)
+    "array" (vector? data)
+    "object" (map? data)
+    "string" (string? data)
+    "number" (number? data)
+    "boolean" (boolean? data)
+    true))
+
+(defn check-data-type
+  [form]
+  (when-not (s/valid? schema-data-valid? form)
+    (utils4/console-error (utils4/spec-error-at-path schema-data-valid? form (:path form)) form)))
+
 (defn massage-form
   [{:keys [path] :as form}]
   (let [path (or path [])

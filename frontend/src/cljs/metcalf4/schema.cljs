@@ -191,6 +191,10 @@
   [f form]
   (walk-schema-data (partial postwalk-schema-data f) f form))
 
+(defn postwalk-schema-data2
+  [f form]
+  (walk-schema-data2 (partial postwalk-schema-data2 f) f form))
+
 (defn report-schema-error
   [msg]
   #_(if *assert*

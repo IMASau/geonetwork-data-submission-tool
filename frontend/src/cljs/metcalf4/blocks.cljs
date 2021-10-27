@@ -19,7 +19,7 @@
 (defn walk
   [inner outer block]
   (case (:type block)
-    "array" (update block :content #(mapv inner %))
+    "array" (outer (update block :content #(mapv inner %)))
     "object" (outer (update block :content update-vals inner))
     (outer block)))
 

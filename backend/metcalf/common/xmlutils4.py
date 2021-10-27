@@ -292,7 +292,7 @@ def extract_xml_data(tree, spec, **kwargs):
         if is_keep(spec):
             return [process_node_child(element, spec, **kwargs) for element in elements]
         else:
-            return []
+            return None
     elif len(elements) == 0 and not xpath_required:
         return initial
     elif len(elements) == 1:

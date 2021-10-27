@@ -199,7 +199,8 @@
   [{:keys [schema data path] :or {path []}}]
   (prewalk-schema-data
     (fn [form]
-      (check-data-type form)
+      (when (contains? form :data)
+        (check-data-type form))
       (check-required-properties form)
       (check-additional-properties form)
       form)

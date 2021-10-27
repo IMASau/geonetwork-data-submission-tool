@@ -259,7 +259,6 @@ def process_node_child(element, spec, **kwargs):
 
 
 def extract_xml_data(tree, spec, **kwargs):
-    required = is_required(spec)
     xpath_required = get_xpath_required(spec)
     initial = get_initial(spec)
 

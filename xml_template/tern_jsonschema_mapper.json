@@ -739,7 +739,6 @@
               }
             }
           },
-          "required": true,
           "xpath_required": true
         },
         "keywordsFauna": {

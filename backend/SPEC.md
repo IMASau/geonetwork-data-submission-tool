@@ -424,6 +424,33 @@ If `required` is set to `true` indicates that it is required.
 ```
 
 
+## xpath_required 
+
+Indicates that the xpath expression must match something for the XML Template to be valid.
+
+Useful for ensuring a xml elements are present for reuse generating records in a lst.
+
+If `xpath_required` is set to `false` (default) indicates that a xpath expression doesn't need to find matching elements.
+
+If `xpath_required` is set to `true` indicates that xpath expression must find at least one result.
+
+```json
+"dataSources": {
+  "many": true,
+  "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()!=\"WWW:LINK-1.0-http--link\" and not(cit:CI_OnlineResource/cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\" and cit:CI_OnlineResource/cit:description/gco:CharacterString/text()=\"Data file\")]",
+  "keep": false,
+  "nodes": {
+    "description": {
+      "label": "Description",
+      "xpath": "cit:CI_OnlineResource/cit:description",
+      "valueChild": "gco:CharacterString",
+      "xpath_required": true
+    }
+  }
+},
+```
+
+
 ## !docstring
 
 Ignored by processing, used for comments.

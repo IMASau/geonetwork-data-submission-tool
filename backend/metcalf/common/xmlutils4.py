@@ -59,6 +59,10 @@ def get_required(spec):
     return spec.get('required', False)
 
 
+def get_xpath_required(spec):
+    return spec.get('xpath_required', False)
+
+
 def has_valueChild(spec):
     """
     Indicates that the value for a specific field is stored within a child element.
@@ -256,6 +260,7 @@ def process_node_child(element, spec, **kwargs):
 
 def extract_xml_data(tree, spec, **kwargs):
     required = is_required(spec)
+    xpath_required = get_xpath_required(spec)
     initial = get_initial(spec)
 
     if has_namespaces(spec):
@@ -284,12 +289,12 @@ def extract_xml_data(tree, spec, **kwargs):
             return [process_node_child(element, spec, **kwargs) for element in elements]
         else:
             return []
-    elif len(elements) == 0 and not required:
+    elif len(elements) == 0 and not xpath_required:
         return initial
     elif len(elements) == 1:
         return process_node_child(elements[0], spec, **kwargs)
     else:
-        assert len(elements) > 0, ["No matches for required", get_xpath(spec), tree]
+        assert len(elements) > 0, ["No xml element matches for required", get_xpath(spec), tree]
 
 
 def parse_attributes(spec, namespaces):

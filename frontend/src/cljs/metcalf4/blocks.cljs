@@ -50,13 +50,22 @@
     {:data data :schema schema}))
 
 
-(defn as-data
-  "Return data given blocks"
-  [{:keys [type props content] :as value}]
+(defn roll-up-data
+  "Roll up data pruning empty arrays, objects and nil value blocks."
+  [{:keys [type props content]}]
   (case type
-    "array" (mapv as-data content)
-    "object" (zipmap (keys content) (map as-data (vals content)))
-    (:value props)))
+    "array" (when (seq content)
+              {::data (mapv ::data content)})
+    "object" (let [data (for [[k b] content :when (contains? b ::data)]
+                          [k (::data b)])]
+               (when (seq data)
+                 {::data (into {} data)}))
+    (when-not (nil? (:value props))
+      {::data (:value props)})))
+
+(defn as-data
+  [block]
+  (::data (postwalk roll-up-data block)))
 
 
 (defn block-path [data-path]

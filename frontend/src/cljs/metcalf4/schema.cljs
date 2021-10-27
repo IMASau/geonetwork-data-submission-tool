@@ -97,7 +97,7 @@
     form'))
 
 (defn walk-schema-data
-  "Given a schema and some data, walk the data.  Warn about unexpected data."
+  "Walk schema and data.  :data key only passed to inner when present."
   [inner outer raw-form]
   (let [{:keys [schema data path] :as form} (massage-form raw-form)
         data' (case (:type schema)

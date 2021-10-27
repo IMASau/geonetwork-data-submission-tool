@@ -244,8 +244,13 @@ def process_node_child(element, spec, **kwargs):
     elif is_object(spec):
         obj_prop_spec = get_properties(spec)
         if isinstance(obj_prop_spec, dict):
-            return {n: extract_xml_data(element, s, **kwargs)
-                    for n, s in obj_prop_spec.items()}
+            ret = {}
+            for n, s in obj_prop_spec.items():
+                data = extract_xml_data(element, s, **kwargs)
+                if data is not None or spec.get("type", None) == "null":
+                    ret[n] = data
+            if ret != {}:
+                return ret
         else:
             assert "Expected dict.  Got %s" % type(obj_prop_spec)
     else:

@@ -788,7 +788,6 @@
               }
             }
           },
-          "required": true,
           "xpath_required": true
         },
         "beginPosition": {

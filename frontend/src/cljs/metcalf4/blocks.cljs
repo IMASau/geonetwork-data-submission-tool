@@ -35,7 +35,7 @@
 (defn as-blocks
   "Return blocks given data and a schema."
   [{:keys [data schema]}]
-  (schema/postwalk-schema-data
+  (schema/postwalk-schema-data2
     (fn [{:keys [data schema]}]
       (let [type (:type schema)
             block-map (select-keys schema [:type])

@@ -58,6 +58,7 @@
           "file": {
             "xpath": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
             "required": true,
+            "xpath_required": true,
             "attributes": {
               "text": {
                 "function": "generate_attachment_url"
@@ -174,7 +175,8 @@
           "label": "Title",
           "type": "string",
           "keep": false,
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "topicCategory": {
           "!docstring": "ID4",
@@ -227,7 +229,8 @@
           "!docstring": "ID6",
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",
           "valueChild": "gco:Date",
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "datePublicationFlag": {
           "type": "boolean",
@@ -248,7 +251,8 @@
           "valueChild": "gco:CharacterString",
           "label": "Version",
           "keep": false,
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "abstract": {
           "!docstring": "What1",
@@ -257,7 +261,8 @@
           "label": "Abstract",
           "type": "string",
           "keep": false,
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "purpose": {
           "!docstring": "What2",
@@ -437,7 +442,8 @@
               }
             }
           },
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "keywordsThemeAnzsrc": {
           "!docstring": "What4",
@@ -468,7 +474,8 @@
               }
             }
           },
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "keywordsPlatform": {
           "!docstring": "What5",
@@ -500,7 +507,8 @@
               }
             }
           },
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "keywordsInstrument": {
           "!docstring": "What6",
@@ -533,7 +541,8 @@
               }
             }
           },
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "keywordsParameters": {
           "!docstring": "What8",
@@ -594,7 +603,8 @@
               }
             }
           },
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "keywordsUoM": {
           "!docstring": "What9",
@@ -626,7 +636,8 @@
               }
             }
           },
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "keywordsTemporal": {
           "!docstring": "What10",
@@ -652,7 +663,8 @@
               }
             }
           },
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "keywordsHorizontal": {
           "!docstring": "What11",
@@ -678,7 +690,8 @@
               }
             }
           },
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "keywordsVertical": {
           "!docstring": "What12",
@@ -735,7 +748,8 @@
               }
             }
           },
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "keywordsFauna": {
           "!docstring": "What14",
@@ -766,7 +780,8 @@
               }
             }
           },
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "keywordsAdditional": {
           "!docstring": "What15",
@@ -784,12 +799,14 @@
               }
             }
           },
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "beginPosition": {
           "!docstring": "When1",
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
           "required": true,
+          "xpath_required": true,
           "keep": false,
           "type": "string"
         },
@@ -924,7 +941,8 @@
           "parser": {
             "function": "parse_codeListValue"
           },
-          "required": true
+          "required": true,
+          "xpath_required": true
         },
         "organisation": {
           "type": "object",
@@ -933,6 +951,7 @@
               "xpath": "cit:party/cit:CI_Organisation/cit:name",
               "valueChild": "gcx:Anchor",
               "required": true,
+              "xpath_required": true,
               "keep": false,
               "attributes": {
                 "text": {

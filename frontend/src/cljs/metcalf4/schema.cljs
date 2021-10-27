@@ -51,13 +51,13 @@
     (utils4/console-error (str "Invalid " (:type schema) " value: " (pr-str data))
                           {:data data :schema schema :path path})))
 
-(defn validate-object-properties
+(defn check-additional-properties
   [{:keys [schema data path]}]
   (when (= "object" (:type schema))
     (let [prop-ks (set (keys (:properties schema)))
           data-ks (set (keys data))]
       (when-let [extra-ks (seq (set/difference data-ks prop-ks))]
-        (utils4/console-error (str "Unexpected object properties: " (string/join ", " (map pr-str extra-ks)))
+        (utils4/console-error (str "Unexpected additional properties: " (string/join ", " (map pr-str extra-ks)))
                               {:extra-ks extra-ks :data data :schema schema :path path})))))
 
 (defn check-required-properties
@@ -213,9 +213,9 @@
   [{:keys [schema data path] :or {path []}}]
   (prewalk-schema-data
     (fn [form]
-      (validate-object-properties form)
-      (when-not (s/valid? schema-data-valid? form)
-        (utils4/console-error (utils4/spec-error-at-path schema-data-valid? form (:path form)) form))
+      (check-data-type form)
+      (check-required-properties form)
+      (check-additional-properties form)
       form)
     {:schema schema :data data :path path}))
 

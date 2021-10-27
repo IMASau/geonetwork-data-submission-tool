@@ -109,13 +109,16 @@
                   (vec (map-indexed inner-item-data data)))
 
                 "object"
-                (letfn [(inner-prop [acc prop-name prop-schema]
-                          (let [prop-data (get data prop-name)
+                (letfn [(inner-prop [acc prop-name]
+                          (let [prop-schema (get-in schema [:properties prop-name])
+                                prop-data (get data prop-name)
                                 prop-val (inner {:schema prop-schema
                                                  :data   prop-data
                                                  :path   (conj path prop-name)})]
                             (assoc acc prop-name prop-val)))]
-                  (reduce-kv inner-prop {} (:properties schema)))
+                  (let [data-ks (keys data)
+                        prop-ks (keys (:properties schema))]
+                    (reduce inner-prop {} (set/intersection (set data-ks) (set prop-ks)))))
 
                 ;other
                 data)]

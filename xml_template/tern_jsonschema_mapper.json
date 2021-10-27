@@ -472,7 +472,6 @@
               }
             }
           },
-          "required": true,
           "xpath_required": true
         },
         "keywordsPlatform": {

@@ -142,6 +142,17 @@ def create(request):
 
 
 @login_required
+@api_view(['GET'])
+def extract_xml_data(request, template_id):
+    template = get_object_or_404(
+        MetadataTemplate, site=get_current_site(request), archived=False, pk=template_id)
+    tree = etree.parse(template.file.path)
+    spec = spec4.make_spec(mapper=template.mapper)
+    data = xmlutils4.extract_xml_data(tree, spec)
+    return Response({"data": data})
+
+
+@login_required
 @api_view(['POST'])
 def clone(request, uuid):
     orig_doc = get_object_or_404(Document, uuid=uuid)

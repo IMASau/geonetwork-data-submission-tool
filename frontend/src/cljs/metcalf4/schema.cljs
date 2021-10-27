@@ -103,21 +103,23 @@
         data' (case (:type schema)
                 "array"
                 (letfn [(inner-item-data [idx item-data]
-                          (inner {:schema (:items schema)
-                                  :data   item-data
-                                  :path   (conj path idx)}))]
+                          (let [item-schema (get schema :items)]
+                            (inner {:schema item-schema
+                                    :data   item-data
+                                    :path   (conj path idx)})))]
                   (vec (map-indexed inner-item-data data)))
 
                 "object"
-                (letfn [(inner-prop [acc prop-name prop-schema]
+                (letfn [(inner-prop [acc prop-name]
                           (let [has-data? (contains? data prop-name)
                                 prop-data (get data prop-name)
                                 prop-path (conj path prop-name)
+                                prop-schema (get-in schema [:properties prop-name])
                                 prop-val (inner (if has-data?
                                                   {:schema prop-schema :path prop-path :data prop-data}
                                                   {:schema prop-schema :path prop-path}))]
                             (assoc acc prop-name prop-val)))]
-                  (reduce-kv inner-prop {} (:properties schema)))
+                  (reduce inner-prop {} (keys (:properties schema))))
 
                 ;other
                 data)]

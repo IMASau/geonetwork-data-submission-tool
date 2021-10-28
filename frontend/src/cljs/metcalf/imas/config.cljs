@@ -87,6 +87,7 @@
        'm3/UploadData                     {:view views3/UploadData}
        'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-select-option            {:view components4/async-select-option :init components4/async-select-option-settings}
+       'm4/async-select-value             {:view components4/async-select-value :init components4/async-select-value-settings}
        'm4/boxmap-field                   {:view components4/boxmap-field :init components4/boxmap-field-settings}
        'm4/breadcrumb-list-option-picker  {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
        'm4/breadcrumb-selection-list      {:view components4/breadcrumb-selection-list :init components4/breadcrumb-selection-list-settings}
@@ -476,17 +477,18 @@
           {:form-id   ?form-id
            :data-path [?data-path "role"]
            :label     "Role"}
-          [m4/async-select-option
+          [m4/async-select-value
            {:form-id    ?form-id
             :data-path  [?data-path "role"]
             :uri        "/api/rolecode.json"
-            :label-path ["label"]
-            :value-path ["value"]}]]
+            :results-path ["results"]
+            :label-path ["Identifier"]
+            :value-path ["UUID"]}]]
          [m4/form-group
           {:form-id   ?form-id
            :data-path [?data-path]
            :label     "Organisation"}
-          [m4/async-item-picker
+          [m4/async-select-value
            {:form-id     ?form-id
             :data-path   [?data-path]
             :uri         "/api/institution.json"

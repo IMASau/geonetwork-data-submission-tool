@@ -81,6 +81,23 @@
                                        :X-CSRFToken  (get-csrf)}})
       (.then (fn [resp] (.json resp)))))
 
+(defn fetch-get-with-results-path
+  [{:keys [uri results-path]}]
+  (letfn [(get-obj-path
+            ([path] #(get-obj-path % path))
+            ([o path]
+             (let [path (if (string? path) [path] path)]
+               (apply gobject/getValueByKeys o path))))]
+    (-> (js/fetch uri #js {:method  "GET"
+                           :headers #js {:Content-Type "application/json"
+                                         :Accept       "application/json"
+                                         :X-CSRFToken  (get-csrf)}})
+        (.then (fn [resp] (.json resp)))
+        (.then (fn [json]
+                 (js/console.log "Te"
+                                 {:json json :result (get-obj-path json results-path)})
+                 (get-obj-path json results-path))))))
+
 
 (defn fetch-post
   [{:keys [uri body]}]

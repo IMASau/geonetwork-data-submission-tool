@@ -553,6 +553,29 @@
         :disabled   disabled
         :onAddClick #(rf/dispatch [::text-value-add-click-handler config %])}])))
 
+(defn async-select-value-settings
+  [{:keys [value-path label-path]}]
+  {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path :results-path]
+   ::low-code/opt-ks       [:placeholder]
+   ::low-code/schema       {:type "object" :properties {}}
+   ::low-code/schema-paths [value-path label-path]})
+
+(defn async-select-value
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [placeholder uri value value-path label-path disabled is-hidden errors show-errors results-path]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    (when-not is-hidden
+      [ui/AsyncSimpleSelectField
+       {:value       value
+        :placeholder placeholder
+        :disabled    disabled
+        :hasError    hasError
+        :loadOptions #(utils4/fetch-get-with-results-path {:uri (utils4/append-params-from-map uri {:query %}) :results-path results-path})
+        :getValue    (ui/get-obj-path value-path)
+        :getLabel    (ui/get-obj-path label-path)
+        :onChange    #(rf/dispatch [::value-changed config %])}])))
+
 (defn async-simple-select-option-settings
   [{:keys [value-path label-path]}]
   {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path]

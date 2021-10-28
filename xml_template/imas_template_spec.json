@@ -299,6 +299,7 @@
               "type": "array",
               "items": {
                 "type": "object",
+                "xpath": ".",
                 "properties": {
                   "uri": {},
                   "isUserDefined": {},

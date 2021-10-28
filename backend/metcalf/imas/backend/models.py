@@ -44,7 +44,7 @@ class MetadataTemplate(AbstractMetadataTemplate):
         try:
             tree = etree.fromstring(self.file.read())
             spec = spec4.make_spec(science_keyword=ScienceKeyword, mapper=self.mapper)
-            fields = xmlutils4.extract_fields(tree, spec)
+            spec4.extract_fields(tree)
             data = xmlutils4.extract_xml_data(tree, spec)
             # FIXME data_to_xml will validate presence of all nodes in the template, but only when data is fully mocked up
             data = json.loads(JSONRenderer().render(data).decode('utf-8'))

@@ -560,10 +560,10 @@
           "label": "Sampling frequency",
           "attributes": {
             "text": {
-              "function": "sampling_text"
+              "function": "identity"
             },
-            "xlink:href": {
-              "function": "sampling_uri"
+            "codeListValue": {
+              "function": "identity"
             }
           }
         },

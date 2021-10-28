@@ -524,7 +524,10 @@
                 "xpath": "mri:keyword/gco:CharacterString"
               },
               "type": "array",
-              "items": {}
+              "items": {
+                "xpath":"mri:keyword/gco:CharacterString",
+                "container": "mri:keyword"
+              }
             }
           },
           "notes": "Additional theme keywords"
@@ -542,7 +545,10 @@
                 "xpath": "mri:keyword/gco:CharacterString"
               },
               "type": "array",
-              "items": {}
+              "items": {
+                "xpath":"mri:keyword/gco:CharacterString",
+                "container": "mri:keyword"
+              }
             }
           },
           "notes": "Additional theme keywords"
@@ -637,7 +643,10 @@
             }
           },
           "type": "array",
-          "items": {}
+          "items": {
+            "xpath":"mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints",
+            "valueChild": "gco:CharacterString"
+          }
         }
       }
     },

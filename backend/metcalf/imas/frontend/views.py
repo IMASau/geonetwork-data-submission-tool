@@ -356,41 +356,44 @@ def save(request, uuid):
         doc.save()
 
         # add any new people or institutions to the database
-        pointOfContacts = data['identificationInfo']['pointOfContact']
-        citedResponsibleParties = data['identificationInfo']['citedResponsibleParty']
+        pointOfContacts = data['identificationInfo'].get('pointOfContact')
+        citedResponsibleParties = data['identificationInfo'].get('citedResponsibleParty')
 
-        for pointOfContact in pointOfContacts:
-            updatedPerson = personFromData(pointOfContact)
-            if updatedPerson:
-                pointOfContact['individualName'] = updatedPerson.prefLabel
-            institutionFromData(pointOfContact)
+        if pointOfContacts:
+            for pointOfContact in pointOfContacts:
+                updatedPerson = personFromData(pointOfContact)
+                if updatedPerson:
+                    pointOfContact['individualName'] = updatedPerson.prefLabel
+                institutionFromData(pointOfContact)
 
-        for citedResponsibleParty in citedResponsibleParties:
-            updatedPerson = personFromData(citedResponsibleParty)
-            if updatedPerson:
-                citedResponsibleParty['individualName'] = updatedPerson.prefLabel
-            institutionFromData(citedResponsibleParty)
+        if citedResponsibleParties:
+            for citedResponsibleParty in citedResponsibleParties:
+                updatedPerson = personFromData(citedResponsibleParty)
+                if updatedPerson:
+                    citedResponsibleParty['individualName'] = updatedPerson.prefLabel
+                institutionFromData(citedResponsibleParty)
 
         # update the publication date
         data['identificationInfo']['datePublication'] = spec4.today()
 
         inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
-        inst.noteForDataManager = data['noteForDataManager'] or ''
+        inst.noteForDataManager = data.get('attachments') or ''
         inst.save()
 
         # Remove any attachments which are no longer mentioned in the XML.
-        xml_names = tuple(map(lambda x: os.path.basename(x['file']), data['attachments']))
-        # TODO: the logic to find files based an os.path.basename seems te be flawed.
-        #       it works as long as the assumption that all files are stored are stored at the same path holds.
-        #       otherwise, we will run into problems
-        for attachment in doc.attachments.all():
-            name = os.path.basename(attachment.file.url)
-            if name not in xml_names:
-                # TODO: sholud we delete the actual file as well?
-                #       deleting the model does not remove files from storage backend
-                # TODO: if we leave files around we may want to think about some cleanup process
-                # attachement.file.delete()
-                attachment.delete()
+        if data.get('attachments') is not None:
+            xml_names = tuple(map(lambda x: os.path.basename(x['file']), data['attachments']))
+            # TODO: the logic to find files based an os.path.basename seems te be flawed.
+            #       it works as long as the assumption that all files are stored are stored at the same path holds.
+            #       otherwise, we will run into problems
+            for attachment in doc.attachments.all():
+                name = os.path.basename(attachment.file.url)
+                if name not in xml_names:
+                    # TODO: sholud we delete the actual file as well?
+                    #       deleting the model does not remove files from storage backend
+                    # TODO: if we leave files around we may want to think about some cleanup process
+                    # attachement.file.delete()
+                    attachment.delete()
 
         tree = etree.parse(doc.template.file.path)
 

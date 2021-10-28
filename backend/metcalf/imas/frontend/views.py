@@ -556,12 +556,16 @@ def keyword_to_breadcrumbs(keyword):
     return [" > ".join(keyword_values_in_array)]
 
 
-# FIXME actual implementation
 @api_view(['GET'])
 def keywords_with_breadcrumb_info(request) -> Response:
 
     query = request.GET.get("query")
-    keywords = ScienceKeyword.objects.all().exclude(Topic="")
+    keywords = (ScienceKeyword.objects
+                .filter(Q(Category__icontains=query) | Q(Topic__icontains=query)
+                        | Q(Term__icontains=query) | Q(VariableLevel1__icontains=query)
+                        | Q(VariableLevel2__icontains=query) | Q(VariableLevel3__icontains=query)
+                        | Q(DetailedVariable__icontains=query))
+                .exclude(Topic=""))
 
     breadcrumbs = [{"label": keyword_to_label(k),
                     "uri": k.uri,

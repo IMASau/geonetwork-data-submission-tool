@@ -38,6 +38,7 @@ class SpecialKeys:
 
 
 def get_xpath(spec):
+    return spec.get(SpecialKeys.xpath)
     assert SpecialKeys.xpath in spec, ("No xpath in %r" % spec)
     return spec[SpecialKeys.xpath]
 
@@ -407,6 +408,8 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
         data_to_xml(data=data, xml_node=xml_node, spec=spec, nsmap=nsmap,
                     element_index=0, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
     elif is_object(spec):
+        if not get_xpath(spec):
+            return
         xml_node = xml_node.xpath(get_xpath(spec), namespaces=nsmap)[element_index]
         for field_key, node_spec in get_properties(spec).items():
             # workaround for a problem with identifiers in the final output
@@ -438,6 +441,8 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
     # default behaviour; populate the xml elements with the values in the data
     else:
         node_xpath = get_xpath(spec)
+        if not node_xpath:
+            return
         is_attr = node_xpath.startswith('@')
         if is_attr:
             attr_split = node_xpath[1:].split(':')

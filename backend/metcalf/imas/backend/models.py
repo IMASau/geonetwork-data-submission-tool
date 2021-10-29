@@ -267,6 +267,7 @@ class DocumentAttachment(AbstractDocumentAttachment):
 
 # TODO: Should this be a separate app?  Does workflow complicate this?
 class Person(models.Model):
+    id = models.AutoField(primary_key=True)
     uri = models.CharField(max_length=512, default="")
     orgUri = models.CharField(max_length=512, default="", blank=True)
     familyName = models.CharField(max_length=256, verbose_name="family name", blank=True)

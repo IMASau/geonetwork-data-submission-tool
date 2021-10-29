@@ -114,19 +114,19 @@
    :empty    0
    :errors   0
    :required 0}
-  #_
-  (let [zipper (field-zipper state)]
-    (loop [loc zipper
-           counter {:fields   0
-                    :empty    0
-                    :errors   0
-                    :required 0}]
-      (if (zip/end? loc)
-        counter
-        (let [node (zip/node loc)]
-          (recur (zip/next loc) (if (field? node)
-                                  (process-node node counter)
-                                  counter)))))))
+  ;(let [zipper (field-zipper state)]
+  ;  (loop [loc zipper
+  ;         counter {:fields   0
+  ;                  :empty    0
+  ;                  :errors   0
+  ;                  :required 0}]
+  ;    (if (zip/end? loc)
+  ;      counter
+  ;      (let [node (zip/node loc)]
+  ;        (recur (zip/next loc) (if (field? node)
+  ;                                (process-node node counter)
+  ;                                counter))))))
+  )
 
 (defn reset-field [field]
   (assoc field

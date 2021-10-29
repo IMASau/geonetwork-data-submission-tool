@@ -422,7 +422,8 @@
          [m4/page-errors
           {:form-id    [:form]
            :data-path  []
-           :data-paths [["identificationInfo" "citedResponsibleParty"]]}]
+           :data-paths [["identificationInfo" "citedResponsibleParty"]
+                        ["identificationInfo" "pointOfContact"]]}]
          [:h2 "6. Who"]
          [m4/table-selection-list
           {:form-id    [:form]
@@ -435,12 +436,32 @@
           [m4/list-add-button
            {:form-id     [:form]
             :data-path   ["identificationInfo" "citedResponsibleParty"]
-            :button-text "Add person"
+            :button-text "Add cited responsible party"
             :value-path  ["uri"]
             :added-path  ["isUserDefined"]}]]
          [m4/list-edit-dialog
           {:form-id     [:form]
            :data-path   ["identificationInfo" "citedResponsibleParty"]
+           :title       "Responsible for creating the data"
+           :template-id :person/user-defined-entry-form}]
+         [:hr]
+         [m4/table-selection-list
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "pointOfContact"]
+           :value-path ["uri"]
+           :added-path ["isUserDefined"]
+           :columns    [{:columnHeader "Given name" :label-path ["givenName"] :flex 1}
+                        {:columnHeader "Family name" :label-path ["familyName"] :flex 1}]}]
+         [:div.bp3-control-group
+          [m4/list-add-button
+           {:form-id     [:form]
+            :data-path   ["identificationInfo" "pointOfContact"]
+            :button-text "Add point of contact"
+            :value-path  ["uri"]
+            :added-path  ["isUserDefined"]}]]
+         [m4/list-edit-dialog
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "pointOfContact"]
            :title       "Responsible for creating the data"
            :template-id :person/user-defined-entry-form}]
          [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]

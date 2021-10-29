@@ -392,6 +392,7 @@ class RoleCode(models.Model):
 # https://vocabs.ands.org.au/aodn-discovery-parameter-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-discovery-parameter-vocabulary_version-1-1
 class ParameterName(ns_tree.NS_Node):
+    id = models.AutoField(primary_key=True)
     URI = models.CharField(max_length=128, db_column='URI')
     Name = models.CharField(max_length=128, db_column='Name')
     # Largest definition entry so far seen is 488 characters:

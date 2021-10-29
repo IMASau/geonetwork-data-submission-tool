@@ -111,7 +111,7 @@
 
 (defn progress-score
   [state]
-  (js/console.log ::progress-score.TODO "rebuild me as walker")
+  (js/console.warn ::progress-score.TODO "rebuild me as walker")
   {:fields   0
    :empty    0
    :errors   0

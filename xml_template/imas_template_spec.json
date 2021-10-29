@@ -372,7 +372,8 @@
               "xpath": "count(.)>0",
               "export": false,
               "label": "Does data have a vertical coverage?",
-              "default": false
+              "default": false,
+              "type": "boolean"
             },
             "minimumValue": {
               "valueChild": "gco:Real",

@@ -382,10 +382,12 @@
         "credit": {
           "xpath": "mri:credit",
           "valueChild": "gco:CharacterString",
-          "notes": "Other credits ",
+          "notes": "Other credits",
           "keep": false,
           "type": "array",
-          "items": {}
+          "items": {
+            "xpath":"mri:credit/gco:CharacterString"
+          }
         },
         "otherConstraints": {
           "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:otherConstraints",

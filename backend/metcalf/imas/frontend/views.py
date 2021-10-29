@@ -16,7 +16,6 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils.encoding import smart_text
 from django_fsm import has_transition_perm
-from elasticsearch_dsl import connections
 from lxml import etree
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import PermissionDenied
@@ -133,6 +132,17 @@ def create(request):
 
     return Response({"message": "Created",
                      "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
+
+
+@login_required
+@api_view(['GET'])
+def extract_xml_data(request, template_id):
+    template = get_object_or_404(
+        MetadataTemplate, site=get_current_site(request), archived=False, pk=template_id)
+    tree = etree.parse(template.file.path)
+    spec = spec4.make_spec(mapper=template.mapper)
+    data = xmlutils4.extract_xml_data(tree, spec)
+    return Response({"data": data})
 
 
 @login_required
@@ -527,7 +537,6 @@ def robots_view(request):
 
 
 def keyword_to_label(keyword):
-
     keyword_values_in_array = [keyword.DetailedVariable,
                                keyword.VariableLevel3,
                                keyword.VariableLevel2,
@@ -540,7 +549,6 @@ def keyword_to_label(keyword):
 
 
 def keyword_to_breadcrumbs(keyword):
-
     keyword_values_in_array = [keyword.DetailedVariable,
                                keyword.VariableLevel3,
                                keyword.VariableLevel2,
@@ -560,7 +568,6 @@ def keyword_to_breadcrumbs(keyword):
 
 @api_view(['GET'])
 def keywords_with_breadcrumb_info(request) -> Response:
-
     query = request.GET.get("query")
     keywords = (ScienceKeyword.objects
                 .filter(Q(Category__icontains=query) | Q(Topic__icontains=query)

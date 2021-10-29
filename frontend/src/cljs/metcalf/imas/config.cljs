@@ -657,10 +657,10 @@
          [:label "Use limitations"]
          [m4/value-selection-list
           {:form-id   [:form]
-           :data-path ["identificationInfo" "otherConstraints"]}]
+           :data-path ["identificationInfo" "useLimitations"]}]
          [m4/text-add-button
           {:form-id     [:form]
-           :data-path   ["identificationInfo" "otherConstraints"]
+           :data-path   ["identificationInfo" "useLimitations"]
            :button-text "Add"}]
 
          [:hr]

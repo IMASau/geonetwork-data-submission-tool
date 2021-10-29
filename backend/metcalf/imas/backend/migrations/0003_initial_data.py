@@ -10,6 +10,8 @@ def configure_backend_data(apps, schema_editor):
     # version than this migration expects. We use the historical version.
     MetadataTemplateMapper = apps.get_model('backend', 'MetadataTemplateMapper')
     MetadataTemplate = apps.get_model('backend', 'MetadataTemplate')
+    Site = apps.get_model('sites', 'Site')
+    s, _ = Site.objects.get_or_create(pk='1')
     now = datetime.utcnow().replace(tzinfo=pytz.UTC)
     # Create default MetadataTemplateMapper
     mtm, _ = MetadataTemplateMapper.objects.get_or_create(pk='1')

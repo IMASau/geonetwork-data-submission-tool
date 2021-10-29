@@ -290,13 +290,11 @@
   [{:keys [db]} _]
   (let [{:keys [url] :as form} (get-in db [:create_form])
         form (logic3/validate-required-fields form)]
-    (if (logic3/is-valid? form)
-      {::fx3/create-document
-       {:url       url
-        :params    (logic3/extract-data form)
-        :success-v [::-dashboard-create-save-success]
-        :error-v   [::-dashboard-create-save-error]}}
-      {:db (update-in db [:create_form] assoc :show-errors true)})))
+    {::fx3/create-document
+     {:url       url
+      :params    (logic3/extract-data form)
+      :success-v [::-dashboard-create-save-success]
+      :error-v   [::-dashboard-create-save-error]}}))
 
 (defn clone-document
   [_ [_ url]]

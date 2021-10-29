@@ -645,12 +645,6 @@
            :data-path   ["identificationInfo" "supplementalInformation"]
            :button-text "Add"}]
 
-         [m4/list-edit-dialog
-          {:form-id     [:form]
-           :data-path   ["identificationInfo" "supplementalInformation"]
-           :title       "Add supporting resource"
-           :template-id :supplemental-information/user-defined-entry-form}]
-
          [:label "Supporting resources"]
          [m4/table-selection-list
           {:form-id    [:form]
@@ -701,16 +695,6 @@
 
         :test/long-name
         [:div "Setting longName."]
-
-        :supplemental-information/user-defined-entry-form
-        [:div
-         [m4/inline-form-group
-          {:form-id   ?form-id
-           :data-path ?data-path
-           :label     "Value"}
-          [m4/input-field
-           {:form-id   ?form-id
-            :data-path ?data-path}]]]
 
         :data-parameter/user-defined-entry-form
         [:div

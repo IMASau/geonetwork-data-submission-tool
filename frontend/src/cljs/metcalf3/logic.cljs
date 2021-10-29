@@ -366,12 +366,12 @@
 (defn disable-form-when-submitted [state]
   (assoc-in state [:form :disabled] (contains? disabled-statuses (get-in state [:context :document :status]))))
 
-(defn disabled-form-logic [{:keys [disabled] :as form}]
-  (if disabled
-    (update form :fields
-            (fn [fs]
-              (field-postwalk #(if (field? %) (assoc % :disabled true) %) fs)))
-    form))
+;(defn disabled-form-logic [{:keys [disabled] :as form}]
+;  (if disabled
+;    (update form :fields
+;            (fn [fs]
+;              (field-postwalk #(if (field? %) (assoc % :disabled true) %) fs)))
+;    form))
 
 (defn derive-data-state [state]
   (-> state
@@ -380,7 +380,7 @@
       (update-in [:form :fields] validate-required-fields)
       (update-in [:form :state] validate-rules)
       disable-form-when-submitted
-      (update-in [:form] disabled-form-logic)
+      ;(update-in [:form] disabled-form-logic)
       (calculate-progress [:form])
       ))
 

@@ -159,10 +159,6 @@
                                 (f acc node)
                                 acc))))))
 
-(defn reset-form [{:keys [fields] :as form}]
-  (assoc form :fields (field-edit (field-zipper fields) reset-field)))
-
-
 (defn extract-data
   "Extract current values from form as a map"
   [{:keys [fields]}]

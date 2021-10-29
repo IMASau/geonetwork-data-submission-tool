@@ -6,8 +6,5 @@
 (defn normalize-props [props]
   (utils/clj->js* (update props :options utils/clj->js* 1) 1))
 
-(defn ReactSelect [props]
-  (ReactSelect* (normalize-props props)))
-
 (defn ReactSelectAsyncCreatable [props]
   (ReactSelectAsyncCreatable* (normalize-props props)))

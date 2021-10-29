@@ -164,6 +164,7 @@
           "xpath": "mri:citation/cit:CI_Citation/cit:title",
           "valueChild": "gco:CharacterString",
           "label": "Title",
+          "type": "string",
           "keep": false,
           "rules": ["requiredField"]
         },

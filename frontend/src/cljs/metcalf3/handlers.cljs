@@ -272,11 +272,7 @@
 
 (defn -dashboard-create-save-success
   [{:keys [db]} [_ data]]
-  (-> {:db db}
-      (update-in [:db :create_form] logic3/reset-form)
-      (update-in [:db :create_form] assoc :show-errors false)
-      (update-in [:db :alert] pop)
-      (update :fx conj [::fx3/set-location-href (-> data :document :url)])))
+  {::fx3/set-location-href (-> data :document :url)})
 
 (defn -dashboard-create-save-error
   [{:keys [db]} [_ data]]

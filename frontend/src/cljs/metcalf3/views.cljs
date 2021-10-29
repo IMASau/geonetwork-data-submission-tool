@@ -1350,14 +1350,14 @@
 (defn SupplementalInformationRowEdit [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :supplementalInformation])])
 
-(defn IMASSupplementalInformation
-  [path]
-  [TableModalEdit
-   {:form        SupplementalInformationRowEdit
-    :title       "Add Publication"
-    :placeholder ""
-    :add-label   "Add publication"
-    :field-path  path}])
+;(defn IMASSupplementalInformation
+;  [path]
+;  [TableModalEdit
+;   {:form        SupplementalInformationRowEdit
+;    :title       "Add Publication"
+;    :placeholder ""
+;    :add-label   "Add publication"
+;    :field-path  path}])
 
 (defn SupportingResourceFieldEdit [path]
   [:div

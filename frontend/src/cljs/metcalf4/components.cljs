@@ -388,8 +388,8 @@
           :else (:status document))]])))
 
 (defn xml-export-link-settings [_]
-  {::low-code/req-ks [:form-id :data-path :label]
-   ::low-code/opt-ks []})
+  {::low-code/req-ks [:label]
+   ::low-code/opt-ks [:form-id :data-path]})
 
 (defn xml-export-link
   [config]

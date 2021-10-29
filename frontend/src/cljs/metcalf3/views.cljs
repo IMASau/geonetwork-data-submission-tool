@@ -1364,18 +1364,18 @@
    [InputField {:path (conj path :value :name)}]
    [InputField {:path (conj path :value :url)}]])
 
-(defn IMASSupportingResource
-  [{:keys [path]}]
-  [:div
-   [:label "Supporting resources"]
-   [TableModalEdit
-    {:ths         ["Title" "URL"]
-     :tds-fn      (comp (partial map (comp #(or % "--") :value)) (juxt :name :url) :value)
-     :form        SupportingResourceFieldEdit
-     :title       "Add supporting resource"
-     :placeholder ""
-     :add-label   "Add supporting resource"
-     :field-path  path}]])
+;(defn IMASSupportingResource
+;  [{:keys [path]}]
+;  [:div
+;   [:label "Supporting resources"]
+;   [TableModalEdit
+;    {:ths         ["Title" "URL"]
+;     :tds-fn      (comp (partial map (comp #(or % "--") :value)) (juxt :name :url) :value)
+;     :form        SupportingResourceFieldEdit
+;     :title       "Add supporting resource"
+;     :placeholder ""
+;     :add-label   "Add supporting resource"
+;     :field-path  path}]])
 
 (defn DataSourceRowEdit [path]
   [:div

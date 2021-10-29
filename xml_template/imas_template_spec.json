@@ -263,6 +263,7 @@
           "rules": ["requiredField"],
           "keep": false,
           "label": "Start date",
+          "type": "string",
           "attributes": {
             "text": {
               "function": "date_as_string"
@@ -275,6 +276,7 @@
           "deleteWhenEmpty": false,
           "keep": false,
           "label": "End date",
+          "type": "string",
           "attributes": {
             "text": {
               "function": "date_as_string"

@@ -822,7 +822,7 @@
                  :type      "file"
                  :on-change #(handle-file this (.. % -target -files (item 0)))
                  :style     {:position "absolute"
-                             :z-index  999
+                             :z-index  1
                              :opacity  0
                              :left     0
                              :top      0

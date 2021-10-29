@@ -200,12 +200,12 @@
            :data-path  []
            :data-paths [["identificationInfo" "abstract"]]}]
          [:h2 "2. What"]
-         [:span.abstract-textarea
-          [m4/textarea-field-with-label
-           {:form-id     [:form]
-            :data-path   ["identificationInfo" "abstract"]
-            :placeholder nil
-            :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"}]]
+         [m4/textarea-field-with-label
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "abstract"]
+           :placeholder nil
+           :rows        10
+           :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"}]
 
          [:h3 "Research theme keywords"]
          [:div "Select up to 12 research theme keywords describing your data"]

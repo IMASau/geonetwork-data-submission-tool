@@ -86,13 +86,15 @@
               "label": "Data file format",
               "rules": [{"maxLength": 100}],
               "valueChild": "gco:CharacterString",
+              "type": "string",
               "deleteWhenEmpty": false
             },
             "version": {
               "xpath": "cit:edition",
               "label": "Data file format date/version",
               "rules": [{"maxLength": 20}],
-              "valueChild": "gco:CharacterString"
+              "valueChild": "gco:CharacterString",
+              "type": "string"
             }
           }
         }
@@ -416,6 +418,7 @@
         "otherConstraints": {
           "xpath": "mri:resourceConstraints/mcp:MD_Commons/mcp:otherConstraints",
           "valueChild": "gco:CharacterString",
+          "type": "string",
           "keep": false
         },
         "supplementalInformation": {
@@ -423,7 +426,7 @@
           "xpath": "mri:supplementalInformation",
           "keep": false,
           "type": "array",
-          "items": {}
+          "items": {"type": "string"}
         },
         "keywordsTheme": {
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[not(@uuid=\"Data_Group\")][mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor[@xlink:href=\"https://vocabs.ands.org.au/viewById/238\"]]",
@@ -592,7 +595,8 @@
           "type": "array",
           "items": {
             "xpath":"mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints",
-            "valueChild": "gco:CharacterString"
+            "valueChild": "gco:CharacterString",
+            "type": "string"
           }
         }
       }

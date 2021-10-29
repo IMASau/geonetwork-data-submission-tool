@@ -254,6 +254,7 @@
           "xpath": "mri:abstract",
           "valueChild": "gco:CharacterString",
           "label": "Abstract",
+          "type": "string",
           "keep": false,
           "rules": ["requiredField", {"maxLength": 2500}]
         },
@@ -462,6 +463,7 @@
               "type": "array",
               "items": {
                 "xpath":"mri:keyword/gco:CharacterString",
+                "type": "string",
                 "container": "mri:keyword"
               }
             }
@@ -483,6 +485,7 @@
               "type": "array",
               "items": {
                 "xpath":"mri:keyword/gco:CharacterString",
+                "type": "string",
                 "container": "mri:keyword"
               }
             }

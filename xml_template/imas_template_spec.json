@@ -430,35 +430,6 @@
           "rules": ["requiredField"],
           "notes": "Theme keywords (selecting from controlled list in thesaurus)"
         },
-        "keywordsThemeAnzsrc": {
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[not(@uuid=\"Data_Group\")][mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor[@xlink:href=\"https://vocabs.ands.org.au/viewById/20\"]]",
-          "type": "object",
-          "properties": {
-            "keywords": {
-              "xpath": "mri:keyword/gcx:Anchor",
-              "container": "mri:keyword",
-              "keep": false,
-              "export": false,
-              "exportTo": {
-                "xpath": "mri:keyword/gcx:Anchor",
-                "attributes": {
-                  "text": {
-                    "function": "anzsrc_keyword_name"
-                  },
-                  "xlink:href": {
-                    "function": "anzsrc_uri"
-                  }
-                }
-              },
-              "parser": {
-                "function": "parse_keywords"
-              },
-              "type": "array",
-              "items": {}
-            }
-          },
-          "notes": "Theme keywords (selecting from controlled list in thesaurus)"
-        },
         "keywordsThemeExtra": {
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[@uuid=\"local\"]",
           "type": "object",

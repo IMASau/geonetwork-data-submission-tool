@@ -378,12 +378,16 @@
             "minimumValue": {
               "valueChild": "gco:Real",
               "label": "Minimum (m)",
-              "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:minimumValue"
+              "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:minimumValue",
+              "type": "number",
+              "keep": false
             },
             "maximumValue": {
               "valueChild": "gco:Real",
               "label": "Maximum (m)",
-              "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:maximumValue"
+              "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:maximumValue",
+              "type": "number",
+              "keep": false
             },
             "verticalCRS": {
               "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:verticalCRS/gex:identifier",

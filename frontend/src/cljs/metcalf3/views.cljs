@@ -19,7 +19,6 @@
             [metcalf3.logic :as logic3]
             [metcalf3.utils :as utils3]
             [metcalf3.widget.modal :refer [Modal]]
-            [metcalf3.widget.select :refer [ReactSelectAsyncCreatable]]
             [metcalf3.widget.tree :refer [TermList TermTree]]
             [metcalf4.low-code :as low-code]
             [re-frame.core :as rf]
@@ -932,67 +931,67 @@
                       :help "Country"
                       :on-change #(rf/dispatch [::value-changed (conj address-path :country) %]))]]]]))
 
-(defn OrganisationPickerWidget
-  [props]
-  (let [{:keys [on-input-change on-blur on-change disabled party-path]} props
-        {:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        orgId (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationIdentifier)]))
-        orgName (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationName)]))
-        orgCity (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :address :city)]))
-        js-value #js {:uri              (or orgId "")
-                      :organisationName (or (if (blank? orgCity)
-                                              orgName
-                                              (str orgName " - " orgCity)) "")}
-        js-value (if orgId
-                   js-value
-                   nil)]
-    ; TODO: this really doesn't need to be async
-    (ReactSelectAsyncCreatable
-      {:value             js-value
-       :disabled          disabled
-       :defaultOptions    true
-       :getOptionValue    (fn [option]
-                            (str (gobj/get option "uri") "||" (gobj/get option "city")))
-       :formatOptionLabel (fn [props]
-                            (let [is-created? (gobj/get props "__isCreated__")]
-                              (if is-created?
-                                (str "Create new organisation \"" (gobj/get props "organisationName") "\"")
-                                (if (blank? (gobj/get props "city"))
-                                  (gobj/get props "organisationName")
-                                  (str (gobj/get props "organisationName") " - " (gobj/get props "city"))))))
-       :loadOptions       (fn [input callback]
-                            (ajax/GET (str URL_ROOT "/api/institution.json")
-                                      {:handler
-                                       (fn [{:strs [results]}]
-                                         (callback (clj->js results)))
-                                       :error-handler
-                                       (fn [_]
-                                         (callback "Options loading error."))
-                                       :params
-                                       {:search input
-                                        :offset 0
-                                        :limit  1000}}))
-       :onChange          #(on-change (js->clj %))
-       :getNewOptionData  (fn [input]
-                            #js {:uri              (str "https://w3id.org/tern/resources/" (random-uuid))
-                                 :organisationName input
-                                 :__isCreated__    true})
-       :noResultsText     "No results found"
-       :onBlurResetsInput false
-       :isClearable       true
-       :isSearchable      true
-       :tabSelectsValue   false
-       :onInputChange     on-input-change
-       :onBlur            on-blur
-       :filterOption      (fn [option value]
-                            (string/includes? (string/lower-case (string/replace (get-in (js->clj option :keywordize-keys true) [:data :organisationName]) #"\s" ""))
-                                              (string/lower-case (string/replace value #"\s" ""))))
-
-       :isValidNewOption  (fn [input _ options]
-                            (let [input (string/lower-case (string/replace input #"\s" ""))
-                                  match (filter (fn [x] (= input (string/lower-case (string/replace (:organisationName x) #"\s" "")))) (js->clj options :keywordize-keys true))]
-                              (empty? match)))
-       :placeholder       "Start typing to filter list..."})))
+;(defn OrganisationPickerWidget
+;  [props]
+;  (let [{:keys [on-input-change on-blur on-change disabled party-path]} props
+;        {:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
+;        orgId (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationIdentifier)]))
+;        orgName (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :organisationName)]))
+;        orgCity (:value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :address :city)]))
+;        js-value #js {:uri              (or orgId "")
+;                      :organisationName (or (if (blank? orgCity)
+;                                              orgName
+;                                              (str orgName " - " orgCity)) "")}
+;        js-value (if orgId
+;                   js-value
+;                   nil)]
+;    ; TODO: this really doesn't need to be async
+;    (ReactSelectAsyncCreatable
+;      {:value             js-value
+;       :disabled          disabled
+;       :defaultOptions    true
+;       :getOptionValue    (fn [option]
+;                            (str (gobj/get option "uri") "||" (gobj/get option "city")))
+;       :formatOptionLabel (fn [props]
+;                            (let [is-created? (gobj/get props "__isCreated__")]
+;                              (if is-created?
+;                                (str "Create new organisation \"" (gobj/get props "organisationName") "\"")
+;                                (if (blank? (gobj/get props "city"))
+;                                  (gobj/get props "organisationName")
+;                                  (str (gobj/get props "organisationName") " - " (gobj/get props "city"))))))
+;       :loadOptions       (fn [input callback]
+;                            (ajax/GET (str URL_ROOT "/api/institution.json")
+;                                      {:handler
+;                                       (fn [{:strs [results]}]
+;                                         (callback (clj->js results)))
+;                                       :error-handler
+;                                       (fn [_]
+;                                         (callback "Options loading error."))
+;                                       :params
+;                                       {:search input
+;                                        :offset 0
+;                                        :limit  1000}}))
+;       :onChange          #(on-change (js->clj %))
+;       :getNewOptionData  (fn [input]
+;                            #js {:uri              (str "https://w3id.org/tern/resources/" (random-uuid))
+;                                 :organisationName input
+;                                 :__isCreated__    true})
+;       :noResultsText     "No results found"
+;       :onBlurResetsInput false
+;       :isClearable       true
+;       :isSearchable      true
+;       :tabSelectsValue   false
+;       :onInputChange     on-input-change
+;       :onBlur            on-blur
+;       :filterOption      (fn [option value]
+;                            (string/includes? (string/lower-case (string/replace (get-in (js->clj option :keywordize-keys true) [:data :organisationName]) #"\s" ""))
+;                                              (string/lower-case (string/replace value #"\s" ""))))
+;
+;       :isValidNewOption  (fn [input _ options]
+;                            (let [input (string/lower-case (string/replace input #"\s" ""))
+;                                  match (filter (fn [x] (= input (string/lower-case (string/replace (:organisationName x) #"\s" "")))) (js->clj options :keywordize-keys true))]
+;                              (empty? match)))
+;       :placeholder       "Start typing to filter list..."})))
 
 ;(defn PersonPickerWidget
 ;  [_]
@@ -1061,23 +1060,23 @@
 ;       :on-change  (fn [option]
 ;                     (rf/dispatch [::person-input-field-picker-change (conj party-path :value) option]))}]]))
 
-(defn OrganisationInputField
-  "Input field for organisation which offers autocompletion of known
-  institutions.  On autocomplete address details are updated."
-  [party-path]
-  (let [party-field @(rf/subscribe [:subs/get-derived-path party-path])
-        organisationName (-> party-field :value :organisationName)]
-    [:div.OrganisationInputField
-     ; FIXME: replace with autocomplete if we can find one
-     [OrganisationPickerWidget
-      {:old-value       organisationName
-       :party-path      party-path
-       :disabled        (:disabled organisationName)
-       ;manual maxlength implementation
-       :on-input-change (fn [newvalue]
-                          (subs newvalue 0 250))
-       :on-change       (fn [option]
-                          (rf/dispatch [::organisation-input-field-change (conj party-path :value) option]))}]]))
+;(defn OrganisationInputField
+;  "Input field for organisation which offers autocompletion of known
+;  institutions.  On autocomplete address details are updated."
+;  [party-path]
+;  (let [party-field @(rf/subscribe [:subs/get-derived-path party-path])
+;        organisationName (-> party-field :value :organisationName)]
+;    [:div.OrganisationInputField
+;     ; FIXME: replace with autocomplete if we can find one
+;     [OrganisationPickerWidget
+;      {:old-value       organisationName
+;       :party-path      party-path
+;       :disabled        (:disabled organisationName)
+;       ;manual maxlength implementation
+;       :on-input-change (fn [newvalue]
+;                          (subs newvalue 0 250))
+;       :on-change       (fn [option]
+;                          (rf/dispatch [::organisation-input-field-change (conj party-path :value) option]))}]]))
 
 (def orcid-mask "0000{-}0000{-}0000{-}000*")
 

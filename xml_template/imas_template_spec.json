@@ -352,59 +352,6 @@
             }
           }
         },
-        "geographicElementSecondary": {
-          "xpath": "mri:extent[gex:EX_Extent[gex:geographicElement][not(gex:temporalElement)]]",
-          "keep": false,
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "boxes": {
-                "xpath": "gex:EX_Extent/gex:geographicElement/gex:EX_GeographicBoundingBox",
-                "keep": false,
-                "type": "object",
-                "properties": {
-                  "westBoundLongitude": {
-                    "valueChild": "gco:Decimal",
-                    "xpath": "gex:westBoundLongitude",
-                    "attributes": {
-                      "text": {
-                        "function": "to_string"
-                      }
-                    }
-                  },
-                  "eastBoundLongitude": {
-                    "valueChild": "gco:Decimal",
-                    "xpath": "gex:eastBoundLongitude",
-                    "attributes": {
-                      "text": {
-                        "function": "to_string"
-                      }
-                    }
-                  },
-                  "southBoundLatitude": {
-                    "valueChild": "gco:Decimal",
-                    "xpath": "gex:southBoundLatitude",
-                    "attributes": {
-                      "text": {
-                        "function": "to_string"
-                      }
-                    }
-                  },
-                  "northBoundLatitude": {
-                    "valueChild": "gco:Decimal",
-                    "xpath": "gex:northBoundLatitude",
-                    "attributes": {
-                      "text": {
-                        "function": "to_string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
         "verticalElement": {
           "xpath": "mri:extent/gex:EX_Extent[@id=\"Vertical\"]",
           "container": "mri:extent[gex:EX_Extent[@id=\"Vertical\"]]",

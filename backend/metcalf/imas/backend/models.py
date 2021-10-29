@@ -457,6 +457,7 @@ class ParameterUnit(ns_tree.NS_Node):
 # https://vocabs.ands.org.au/aodn-instrument-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-instrument-vocabulary_version-1-0
 class ParameterInstrument(ns_tree.NS_Node):
+    id = models.AutoField(primary_key=True)
     URI = models.CharField(max_length=128, db_column='URI')
     Name = models.CharField(max_length=128, db_column='Name')
     # Largest definition entry so far seen is 1252 characters:

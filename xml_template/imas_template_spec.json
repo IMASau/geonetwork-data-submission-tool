@@ -377,6 +377,18 @@
               "valueChild": "gco:Real",
               "label": "Maximum (m)",
               "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:maximumValue"
+            },
+            "verticalCRS": {
+              "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:verticalCRS/gex:identifier",
+              "required": true,
+              "exportTo": {
+                "xpath": "gex:verticalElement/gex:EX_VerticalExtent/gex:verticalCRS/gex:name",
+                "attributes": {
+                  "text": {
+                    "function": "anzsrc_keyword_name"
+                  }
+                }
+              }
             }
           }
         },

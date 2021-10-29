@@ -289,6 +289,7 @@ class Institution(models.Model):
     # TERN fields
     # http://linkeddata.tern.org.au/viewer/tern/id/http://linkeddata.tern.org.au/def/org
 
+    id = models.AutoField(primary_key=True)
     uri = models.CharField(max_length=512, default="")
     prefLabel = models.CharField(max_length=512, default="")
     altLabel = models.CharField(max_length=512, default="")

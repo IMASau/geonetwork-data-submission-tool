@@ -9,38 +9,40 @@
 (def active-status-filter #{"Draft" "Submitted"})
 
 (defn field-zipper [node]
-  (zip/zipper
-
-    (fn branch? [x]
-      (cond
-        (map? x) (cond (contains? x :value) (or (:many x) (:fields x))
-                       :else true)
-        (coll? x) true
-        :else false))
-
-    (fn children [x]
-      (cond
-        (map? x) (cond
-
-                   (and (contains? x :value) (:many x))
-                   (map :value (:value x))
-
-                   (and (contains? x :value) (:fields x))
-                   (:value x)
-
-                   :else (map (juxt key val) x))
-        (coll? x) (seq x)
-        :else nil))
-
-    (fn make-node [node children]
-      (cond
-        (map? node) (if (contains? node :value)
-                      (assoc node :value children)
-                      (into (empty node) children))
-        (coll? node) (into (empty node) children)
-        :else (into (empty node) children)))
-
-    node))
+  (throw (ex-info "Should never get here" node))
+  ;(zip/zipper
+  ;
+  ;  (fn branch? [x]
+  ;    (cond
+  ;      (map? x) (cond (contains? x :value) (or (:many x) (:fields x))
+  ;                     :else true)
+  ;      (coll? x) true
+  ;      :else false))
+  ;
+  ;  (fn children [x]
+  ;    (cond
+  ;      (map? x) (cond
+  ;
+  ;                 (and (contains? x :value) (:many x))
+  ;                 (map :value (:value x))
+  ;
+  ;                 (and (contains? x :value) (:fields x))
+  ;                 (:value x)
+  ;
+  ;                 :else (map (juxt key val) x))
+  ;      (coll? x) (seq x)
+  ;      :else nil))
+  ;
+  ;  (fn make-node [node children]
+  ;    (cond
+  ;      (map? node) (if (contains? node :value)
+  ;                    (assoc node :value children)
+  ;                    (into (empty node) children))
+  ;      (coll? node) (into (empty node) children)
+  ;      :else (into (empty node) children)))
+  ;
+  ;  node)
+  )
 
 (defn page-field-zipper
   "page field zipper doesn't descend into many fields"

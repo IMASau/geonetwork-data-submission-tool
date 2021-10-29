@@ -34,9 +34,8 @@ SimpleFieldWithLocalState.args = {
 
 export const FieldDisabledState = FieldTemplate.bind({});
 FieldDisabledState.args = {
-    checked: false,
-    disabled: true,
-    hasError: false,
+    label: "Agree?",
+    disabled: true
 };
 
 export const FieldWithError = FieldTemplate.bind({});

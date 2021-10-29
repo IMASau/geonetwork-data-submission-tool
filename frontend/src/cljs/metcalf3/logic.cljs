@@ -109,6 +109,12 @@
 
 (defn progress-score
   [state]
+  (js/console.log ::progress-score.TODO "rebuild me as walker")
+  {:fields   0
+   :empty    0
+   :errors   0
+   :required 0}
+  #_
   (let [zipper (field-zipper state)]
     (loop [loc zipper
            counter {:fields   0

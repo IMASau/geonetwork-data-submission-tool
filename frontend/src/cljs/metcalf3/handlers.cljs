@@ -7,7 +7,9 @@
             [metcalf3.fx :as fx3]
             [metcalf3.logic :as logic3]
             [metcalf3.utils :as utils]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [metcalf4.blocks :as blocks]
+            [metcalf4.rules :as rules]))
 
 (defn init-db
   [_ [_ payload]]
@@ -355,7 +357,9 @@
 (defn lodge-click
   [{:keys [db]} _]
   (let [url (get-in db [:form :url])
-        data (-> db :form :fields logic3/extract-field-values)]
+        state0 (get-in db [:form :state])
+        state1 (blocks/postwalk rules/apply-rules state0)
+        data (blocks/as-data state1)]
     {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
      ::fx3/save-current-document
          {:url       url

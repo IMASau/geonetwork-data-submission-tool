@@ -430,7 +430,8 @@
   ([{:keys [data] :as form}]
    (initialise-form form data))
   ([form data]
-   (-> (reset-form form)
+   (-> form
+       ;(reset-form)
        (assoc :data data)
        (update :fields reduce-many-field-templates data)
        (update :fields reduce-field-values data))))

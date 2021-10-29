@@ -172,6 +172,7 @@
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",
           "valueChild": "gco:DateTime",
           "label": "Date of record creation",
+          "type": "string",
           "rules": ["requiredField"],
           "default": {
             "function": "today"

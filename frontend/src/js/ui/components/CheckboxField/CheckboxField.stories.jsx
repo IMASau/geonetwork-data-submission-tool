@@ -40,9 +40,8 @@ FieldDisabledState.args = {
 
 export const FieldWithError = FieldTemplate.bind({});
 FieldWithError.args = {
-    checked: false,
-    disabled: false,
-    hasError: true,
+    label: "Agree?",
+    hasError: true
 };
 
 export const FieldWithValueAndError = FieldTemplate.bind({});

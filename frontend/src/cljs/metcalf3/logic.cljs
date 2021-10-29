@@ -226,14 +226,14 @@
   (field-walk (partial field-postwalk f) f form))
 
 
-(defn tree-edit
-  [zipper matcher editor]
-  (loop [loc zipper]
-    (if (zip/end? loc)
-      (zip/root loc)
-      (if (matcher (zip/node loc))
-        (recur (zip/next (zip/edit loc editor)))
-        (recur (zip/next loc))))))
+;(defn tree-edit
+;  [zipper matcher editor]
+;  (loop [loc zipper]
+;    (if (zip/end? loc)
+;      (zip/root loc)
+;      (if (matcher (zip/node loc))
+;        (recur (zip/next (zip/edit loc editor)))
+;        (recur (zip/next loc))))))
 
 
 ;(defn extract-field-values

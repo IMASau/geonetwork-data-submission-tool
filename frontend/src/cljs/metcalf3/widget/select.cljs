@@ -11,6 +11,3 @@
 
 (defn ReactSelectAsyncCreatable [props]
   (ReactSelectAsyncCreatable* (normalize-props props)))
-
-(defn ReactSelectAsync [props]
-  (ReactSelectAsync* (normalize-props props)))

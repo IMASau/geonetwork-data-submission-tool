@@ -19,7 +19,7 @@
             [metcalf3.logic :as logic3]
             [metcalf3.utils :as utils3]
             [metcalf3.widget.modal :refer [Modal]]
-            [metcalf3.widget.select :refer [ReactSelectAsync ReactSelectAsyncCreatable]]
+            [metcalf3.widget.select :refer [ReactSelectAsyncCreatable]]
             [metcalf3.widget.tree :refer [TermList TermTree]]
             [metcalf4.low-code :as low-code]
             [re-frame.core :as rf]
@@ -994,48 +994,48 @@
                               (empty? match)))
        :placeholder       "Start typing to filter list..."})))
 
-(defn PersonPickerWidget
-  [_]
-  (letfn [(render [this]
-            (let [{:keys [on-input-change on-blur on-change disabled party-path]} (r/props this)
-                  {:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
-                  uri-value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :uri)])
-                  preflabel-value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :individualName)])
-                  js-value #js {:prefLabel (or (:value preflabel-value) "")
-                                :uri       (:value uri-value)}
-                  js-value (if (:value preflabel-value)
-                             js-value
-                             nil)]
-              (ReactSelectAsync
-                {:value             js-value
-                 :disabled          disabled
-                 :defaultOptions    true
-                 :getOptionValue    (fn [option]
-                                      (gobj/get option "uri"))
-                 :formatOptionLabel (fn [props]
-                                      (gobj/get props "prefLabel"))
-                 :loadOptions       (fn [input callback]
-                                      (ajax/GET (str URL_ROOT "/api/person.json")
-                                                {:handler
-                                                 (fn [{:strs [results]}]
-                                                   (callback (clj->js results)))
-                                                 :error-handler
-                                                 (fn [_]
-                                                   (callback "Options loading error."))
-                                                 :params
-                                                 {:search input
-                                                  :offset 0
-                                                  :limit  100}}))
-                 :onChange          #(on-change (js->clj %))
-                 :noResultsText     "No results found"
-                 :onBlurResetsInput false
-                 :isClearable       true
-                 :tabSelectsValue   false
-                 :onInputChange     on-input-change
-                 :onBlur            on-blur
-                 :placeholder       "Start typing to filter list..."})))]
-    (r/create-class
-      {:render render})))
+;(defn PersonPickerWidget
+;  [_]
+;  (letfn [(render [this]
+;            (let [{:keys [on-input-change on-blur on-change disabled party-path]} (r/props this)
+;                  {:keys [URL_ROOT]} @(rf/subscribe [:subs/get-derived-path [:context]])
+;                  uri-value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :uri)])
+;                  preflabel-value @(rf/subscribe [:subs/get-derived-path (conj party-path :value :individualName)])
+;                  js-value #js {:prefLabel (or (:value preflabel-value) "")
+;                                :uri       (:value uri-value)}
+;                  js-value (if (:value preflabel-value)
+;                             js-value
+;                             nil)]
+;              (ReactSelectAsync
+;                {:value             js-value
+;                 :disabled          disabled
+;                 :defaultOptions    true
+;                 :getOptionValue    (fn [option]
+;                                      (gobj/get option "uri"))
+;                 :formatOptionLabel (fn [props]
+;                                      (gobj/get props "prefLabel"))
+;                 :loadOptions       (fn [input callback]
+;                                      (ajax/GET (str URL_ROOT "/api/person.json")
+;                                                {:handler
+;                                                 (fn [{:strs [results]}]
+;                                                   (callback (clj->js results)))
+;                                                 :error-handler
+;                                                 (fn [_]
+;                                                   (callback "Options loading error."))
+;                                                 :params
+;                                                 {:search input
+;                                                  :offset 0
+;                                                  :limit  100}}))
+;                 :onChange          #(on-change (js->clj %))
+;                 :noResultsText     "No results found"
+;                 :onBlurResetsInput false
+;                 :isClearable       true
+;                 :tabSelectsValue   false
+;                 :onInputChange     on-input-change
+;                 :onBlur            on-blur
+;                 :placeholder       "Start typing to filter list..."})))]
+;    (r/create-class
+;      {:render render})))
 
 (defn SelectRoleWidget [role-path]
   (let [role @(rf/subscribe [:subs/get-derived-path role-path])
@@ -1046,20 +1046,20 @@
                                [Identifier (cuerdas/human Identifier)])
                     :on-change #(rf/dispatch [::value-changed role-path %]))]))
 
-(defn person-input-field
-  "Input field for people which offers autocompletion of known
-  people."
-  [party-path]
-  (let [party-field @(rf/subscribe [:subs/get-derived-path party-path])
-        uri (-> party-field :value :uri)]
-    [:div.OrganisationInputField
-     ; FIXME: replace with autocomplete if we can find one
-     [PersonPickerWidget
-      {:old-value  uri
-       :party-path party-path
-       :disabled   (:disabled uri)
-       :on-change  (fn [option]
-                     (rf/dispatch [::person-input-field-picker-change (conj party-path :value) option]))}]]))
+;(defn person-input-field
+;  "Input field for people which offers autocompletion of known
+;  people."
+;  [party-path]
+;  (let [party-field @(rf/subscribe [:subs/get-derived-path party-path])
+;        uri (-> party-field :value :uri)]
+;    [:div.OrganisationInputField
+;     ; FIXME: replace with autocomplete if we can find one
+;     [PersonPickerWidget
+;      {:old-value  uri
+;       :party-path party-path
+;       :disabled   (:disabled uri)
+;       :on-change  (fn [option]
+;                     (rf/dispatch [::person-input-field-picker-change (conj party-path :value) option]))}]]))
 
 (defn OrganisationInputField
   "Input field for organisation which offers autocompletion of known
@@ -1081,60 +1081,60 @@
 
 (def orcid-mask "0000{-}0000{-}0000{-}000*")
 
-(defn ResponsiblePartyField [party-path]
-  (let [party-value-path (conj party-path :value)
-        party-value @(rf/subscribe [:subs/get-derived-path party-value-path])
-        {:keys [individualName givenName familyName phone facsimile orcid
-                electronicMailAddress organisationName isUserAdded]} party-value
-        electronicMailAddress (assoc electronicMailAddress :required (:value isUserAdded))
-        ]
-    [:div.ResponsiblePartyField
-
-
-     [SelectRoleWidget (conj party-value-path :role)]
-
-
-     [:div.flex-row
-      [:div.flex-row-field
-       {;need this to make sure the drop down is rendered above any other input fields
-        :style {:position "relative"
-                :z-index  10}}
-       [:label "Contact name" (when (:required individualName) " *")]
-       [person-input-field party-path]
-       [:p.help-block "If you cannot find the person in the list above, please enter details below"]]]
-     [:div
-
-
-      [:div.row
-       [:div.col-md-6
-        [NameInputWidget (assoc givenName
-                           :on-change #(rf/dispatch [::responsible-party-field-given-name-changed party-value-path :givenName % isUserAdded]))]]
-       [:div.col-md-6
-        [NameInputWidget (assoc familyName
-                           :on-change #(rf/dispatch [::responsible-party-field-family-name-changed party-value-path :familyName % isUserAdded]))]]]
-
-      [InputWidget (assoc electronicMailAddress
-                     :on-change #(rf/dispatch [::value-changed (conj party-value-path :electronicMailAddress) %]))]
-
-      [InputWidget (assoc orcid
-                     :on-change #(rf/dispatch [::value-changed (conj party-value-path :orcid) %])
-                     :mask orcid-mask)]
-
-      [:label "Organisation" (when (:required organisationName) " *")]
-      [OrganisationInputField party-path]
-
-      [:label "Postal address"]
-      [AddressField (conj party-value-path :address)]
-
-      [:div.ContactDetails
-
-       [InputWidget (assoc phone
-                      :on-change #(rf/dispatch [::value-changed (conj party-value-path :phone) %]))]
-
-       [InputWidget (assoc facsimile
-                      :on-change #(rf/dispatch [::value-changed (conj party-value-path :facsimile) %]))]
-
-       ]]]))
+;(defn ResponsiblePartyField [party-path]
+;  (let [party-value-path (conj party-path :value)
+;        party-value @(rf/subscribe [:subs/get-derived-path party-value-path])
+;        {:keys [individualName givenName familyName phone facsimile orcid
+;                electronicMailAddress organisationName isUserAdded]} party-value
+;        electronicMailAddress (assoc electronicMailAddress :required (:value isUserAdded))
+;        ]
+;    [:div.ResponsiblePartyField
+;
+;
+;     [SelectRoleWidget (conj party-value-path :role)]
+;
+;
+;     [:div.flex-row
+;      [:div.flex-row-field
+;       {;need this to make sure the drop down is rendered above any other input fields
+;        :style {:position "relative"
+;                :z-index  10}}
+;       [:label "Contact name" (when (:required individualName) " *")]
+;       [person-input-field party-path]
+;       [:p.help-block "If you cannot find the person in the list above, please enter details below"]]]
+;     [:div
+;
+;
+;      [:div.row
+;       [:div.col-md-6
+;        [NameInputWidget (assoc givenName
+;                           :on-change #(rf/dispatch [::responsible-party-field-given-name-changed party-value-path :givenName % isUserAdded]))]]
+;       [:div.col-md-6
+;        [NameInputWidget (assoc familyName
+;                           :on-change #(rf/dispatch [::responsible-party-field-family-name-changed party-value-path :familyName % isUserAdded]))]]]
+;
+;      [InputWidget (assoc electronicMailAddress
+;                     :on-change #(rf/dispatch [::value-changed (conj party-value-path :electronicMailAddress) %]))]
+;
+;      [InputWidget (assoc orcid
+;                     :on-change #(rf/dispatch [::value-changed (conj party-value-path :orcid) %])
+;                     :mask orcid-mask)]
+;
+;      [:label "Organisation" (when (:required organisationName) " *")]
+;      [OrganisationInputField party-path]
+;
+;      [:label "Postal address"]
+;      [AddressField (conj party-value-path :address)]
+;
+;      [:div.ContactDetails
+;
+;       [InputWidget (assoc phone
+;                      :on-change #(rf/dispatch [::value-changed (conj party-value-path :phone) %]))]
+;
+;       [InputWidget (assoc facsimile
+;                      :on-change #(rf/dispatch [::value-changed (conj party-value-path :facsimile) %]))]
+;
+;       ]]]))
 
 (defn FieldError [{:keys [errors label]}]
   [:span.FieldError label ": " (first errors)])
@@ -1252,87 +1252,87 @@
       #(first @(rf/subscribe [:subs/get-derived-path (conj (:path (second %)) :value)]))
       (utils3/enum contact-groups))))
 
-(defn Who [_]
-  (letfn [(init-state [_]
-            {:selected-item  0
-             :selected-group 0})
-          (render [this]
-            (let [{:keys [selected-group selected-item open hold]} (r/state this)
-                  {:keys [credit-path]} (r/props this)
-                  selected-group (or selected-group (default-selected-group))
-                  cursors (mapv (fn [{:keys [path]}]
-                                  @(rf/subscribe [:subs/get-derived-path path]))
-                                contact-groups)
-                  new! (fn [path group & [field]]
-                         (let [many-field (cursors group)]
-                           (if field
-                             (rf/dispatch [::who-new-add-value path (:value field)])
-                             (rf/dispatch [::who-new-field path]))
-                           (r/set-state this {:selected-group group})
-                           (r/set-state this {:selected-item (-> many-field :value count)})))
-                  all-parties (mapv (comp set
-                                          :value)
-                                    cursors)
-                  all-parties-set (apply set/union all-parties)]
-              [:div
-               [PageErrors {:page :who :path [:form]}]
-               [:h2 "6: Who"]
-               [:div.row
-                (into [:div.col-sm-4]
-                      (for [[group {:keys [title path]}] (utils3/enum contact-groups)]
-                        (let [parties (clojure.set/difference
-                                        all-parties-set (all-parties group))]
-                          [:div
-                           [:h4 title (when (get-in cursors [group :required]) " *")]
-                           (parties-list this group)
-                           (when-not (get-in cursors [group :disabled])
-                             [:div.dropdown
-                              {:class   (when (= open group) "open")
-                               :on-blur #(let [{:keys [open]} (r/state this)
-                                               open' (when (or hold (not= open group)) open)]
-                                           (r/set-state this {:open open'}))}
-                              [:button.btn.btn-default.dropdown-toggle
-                               {:on-click #(if (zero? (count parties))
-                                             (new! path group)
-                                             (let [{:keys [open]} (r/state this)
-                                                   open' (when (not= open group) group)]
-                                               (r/set-state this {:open open'})))}
-                               [:span.glyphicon.glyphicon-plus]
-                               " Add person"]
-                              (-> [:ul.dropdown-menu
-                                   {:on-mouse-enter #(r/set-state this {:hold true})
-                                    :on-mouse-leave #(r/set-state this {:hold false})}
-                                   [:li.dropdown-header "Copy person"]]
-                                  (into (for [x parties]
-                                          [:li [:a {:tab-index -1
-                                                    :href      "#"
-                                                    :on-click  (fn [e]
-                                                                 (.preventDefault e)
-                                                                 (new! path group x)
-                                                                 (r/set-state this {:open false}))}
-                                                (get-in x [:value :individualName :value])]]))
-                                  (conj [:li.divider]
-                                        [:li [:a {:href     "#"
-                                                  :on-click (fn [e]
-                                                              (.preventDefault e)
-                                                              (new! path group)
-                                                              (r/set-state this {:open false}))}
-                                              "New person"]]))])])))
-                [:div.col-sm-8
-                 (when (and selected-group selected-item)
-                   [ResponsiblePartyField
-                    (-> contact-groups
-                        (get-in [selected-group :path])
-                        (conj :value selected-item))])]]
-
-               [:h2 "Other credits"]
-               [TableModalEdit
-                {:form       CreditField
-                 :title      "Credit"
-                 :field-path credit-path}]]))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
+;(defn Who [_]
+;  (letfn [(init-state [_]
+;            {:selected-item  0
+;             :selected-group 0})
+;          (render [this]
+;            (let [{:keys [selected-group selected-item open hold]} (r/state this)
+;                  {:keys [credit-path]} (r/props this)
+;                  selected-group (or selected-group (default-selected-group))
+;                  cursors (mapv (fn [{:keys [path]}]
+;                                  @(rf/subscribe [:subs/get-derived-path path]))
+;                                contact-groups)
+;                  new! (fn [path group & [field]]
+;                         (let [many-field (cursors group)]
+;                           (if field
+;                             (rf/dispatch [::who-new-add-value path (:value field)])
+;                             (rf/dispatch [::who-new-field path]))
+;                           (r/set-state this {:selected-group group})
+;                           (r/set-state this {:selected-item (-> many-field :value count)})))
+;                  all-parties (mapv (comp set
+;                                          :value)
+;                                    cursors)
+;                  all-parties-set (apply set/union all-parties)]
+;              [:div
+;               [PageErrors {:page :who :path [:form]}]
+;               [:h2 "6: Who"]
+;               [:div.row
+;                (into [:div.col-sm-4]
+;                      (for [[group {:keys [title path]}] (utils3/enum contact-groups)]
+;                        (let [parties (clojure.set/difference
+;                                        all-parties-set (all-parties group))]
+;                          [:div
+;                           [:h4 title (when (get-in cursors [group :required]) " *")]
+;                           (parties-list this group)
+;                           (when-not (get-in cursors [group :disabled])
+;                             [:div.dropdown
+;                              {:class   (when (= open group) "open")
+;                               :on-blur #(let [{:keys [open]} (r/state this)
+;                                               open' (when (or hold (not= open group)) open)]
+;                                           (r/set-state this {:open open'}))}
+;                              [:button.btn.btn-default.dropdown-toggle
+;                               {:on-click #(if (zero? (count parties))
+;                                             (new! path group)
+;                                             (let [{:keys [open]} (r/state this)
+;                                                   open' (when (not= open group) group)]
+;                                               (r/set-state this {:open open'})))}
+;                               [:span.glyphicon.glyphicon-plus]
+;                               " Add person"]
+;                              (-> [:ul.dropdown-menu
+;                                   {:on-mouse-enter #(r/set-state this {:hold true})
+;                                    :on-mouse-leave #(r/set-state this {:hold false})}
+;                                   [:li.dropdown-header "Copy person"]]
+;                                  (into (for [x parties]
+;                                          [:li [:a {:tab-index -1
+;                                                    :href      "#"
+;                                                    :on-click  (fn [e]
+;                                                                 (.preventDefault e)
+;                                                                 (new! path group x)
+;                                                                 (r/set-state this {:open false}))}
+;                                                (get-in x [:value :individualName :value])]]))
+;                                  (conj [:li.divider]
+;                                        [:li [:a {:href     "#"
+;                                                  :on-click (fn [e]
+;                                                              (.preventDefault e)
+;                                                              (new! path group)
+;                                                              (r/set-state this {:open false}))}
+;                                              "New person"]]))])])))
+;                [:div.col-sm-8
+;                 (when (and selected-group selected-item)
+;                   [ResponsiblePartyField
+;                    (-> contact-groups
+;                        (get-in [selected-group :path])
+;                        (conj :value selected-item))])]]
+;
+;               [:h2 "Other credits"]
+;               [TableModalEdit
+;                {:form       CreditField
+;                 :title      "Credit"
+;                 :field-path credit-path}]]))]
+;    (r/create-class
+;      {:get-initial-state init-state
+;       :render            render})))
 
 (defn UseLimitationsFieldEdit [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :useLimitations])])

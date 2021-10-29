@@ -425,6 +425,7 @@ class ParameterName(ns_tree.NS_Node):
 # https://vocabs.ands.org.au/aodn-units-of-measure-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-units-of-measure-vocabulary_version-1-0
 class ParameterUnit(ns_tree.NS_Node):
+    id = models.AutoField(primary_key=True)
     URI = models.CharField(max_length=128, db_column='URI')
     Name = models.CharField(max_length=128, db_column='Name')
     Definition = models.CharField(max_length=256, db_column='Definition')

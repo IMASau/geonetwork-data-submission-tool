@@ -24,6 +24,14 @@
     (outer block)))
 
 
+(defn reset-block
+  [block]
+  (case (:type block)
+    "array" (assoc block :content [])
+    "object" (assoc block :content {})
+    (update block :props dissoc :value)))
+
+
 (defn prewalk [f form]
   (walk (partial prewalk f) identity (f form)))
 

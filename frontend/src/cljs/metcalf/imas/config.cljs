@@ -464,6 +464,16 @@
            :data-path   ["identificationInfo" "pointOfContact"]
            :title       "Responsible for creating the data"
            :template-id :person/user-defined-entry-form}]
+         [:h3 "Other credits"]
+         [:div "Acknowledge the contribution of any funding schemes or organisations."]
+         [m4/value-selection-list
+          {:form-id   [:form]
+           :data-path ["identificationInfo" "credit"]}]
+         [m4/text-add-button
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "credit"]
+           :button-text "Add"}]
+         [:hr]
          [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
 
         :person/user-defined-entry-form
@@ -499,12 +509,12 @@
            :data-path [?data-path "role"]
            :label     "Role"}
           [m4/async-select-value
-           {:form-id    ?form-id
-            :data-path  [?data-path "role"]
-            :uri        "/api/rolecode.json"
+           {:form-id      ?form-id
+            :data-path    [?data-path "role"]
+            :uri          "/api/rolecode.json"
             :results-path ["results"]
-            :label-path ["Identifier"]
-            :value-path ["UUID"]}]]
+            :label-path   ["Identifier"]
+            :value-path   ["UUID"]}]]
          [m4/form-group
           {:form-id   ?form-id
            :data-path [?data-path]
@@ -818,13 +828,71 @@
          [m3/UploadData
           {:attachments-path [:form :fields :attachments]}]
          [:h2 "Data Services"]
-         ;; FIXME reduce protocol options to the below for IMAS:
-         ;; [["OGC:WMS-1.3.0-http-get-map" "OGC Web Map Service (WMS)"]
-         ;;  ["OGC:WFS-1.0.0-http-get-capabilities" "OGC Web Feature Service (WFS)"]
-         ;;  ["WWW:LINK-1.0-http--downloaddata" "Other/unknown"]]
-         [m3/DataSources {:form-id   [:form]
-                          :data-path ["dataSources"]}]
+         [m4/table-selection-list
+          {:form-id    [:form]
+           :data-path  ["dataSources"]
+           :value-path ["url"]
+           :added-path ["isUserDefined"]
+           :columns    [{:columnHeader "Description" :label-path ["description"] :flex 1}
+                        {:columnHeader "URL" :label-path ["url"] :flex 1}
+                        {:columnHeader "Layer" :label-path ["name"] :flex 1}]}]
+         [:div.bp3-control-group
+          [m4/list-add-button
+           {:form-id     [:form]
+            :data-path   ["dataSources"]
+            :button-text "Add data service"
+            :value-path  ["url"]
+            :added-path  ["isUserDefined"]}]]
+         [m4/list-edit-dialog
+          {:form-id     [:form]
+           :data-path   ["dataSources"]
+           :title       "Data Service"
+           :template-id :data-source/user-defined-entry-form}]
          [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
+
+        :data-source/user-defined-entry-form
+        [:div
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "description"]
+           :label     "Title"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "description"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "protocol"]
+           :label     "Protocol"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "protocol"]}]]
+
+         [m4/select-value-with-label
+          {:form-id    [:form]
+           :data-path  [?data-path "protocol"]
+           :label      "Protocol"
+           :value-path ["value"]
+           :label-path ["label"]
+           :options    [{"value" "OGC:WMS-1.3.0-http-get-map" "label" "OGC Web Map Service (WMS)"}
+                        {"value" "OGC:WFS-1.0.0-http-get-capabilities" "label" "OGC Web Feature Service (WFS)"}
+                        {"value" "WWW:LINK-1.0-http--downloaddata" "label" "Other/unknown"}]}]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "url"]
+           :label     "URL"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "url"]}]]
+
+         [m4/inline-form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "name"]
+           :label     "Layer"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "name"]}]]]
 
         :lodge
         [:div

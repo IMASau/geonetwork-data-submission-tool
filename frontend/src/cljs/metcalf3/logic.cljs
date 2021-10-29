@@ -247,16 +247,16 @@
         (:value m)
         (into {} (filter (comp map? second) m))))))
 
-(defn extract-field-mask
-  "Extract the values out of the form fields state"
-  [fields]
-  (tree-edit
-    (field-zipper fields)
-    map?
-    (fn [m]
-      (if (field? m)
-        (not (:disabled m))
-        (into {} (filter (comp map? second) m))))))
+;(defn extract-field-mask
+;  "Extract the values out of the form fields state"
+;  [fields]
+;  (tree-edit
+;    (field-zipper fields)
+;    map?
+;    (fn [m]
+;      (if (field? m)
+;        (not (:disabled m))
+;        (into {} (filter (comp map? second) m))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

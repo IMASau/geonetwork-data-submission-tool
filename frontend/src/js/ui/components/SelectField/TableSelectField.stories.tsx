@@ -22,6 +22,7 @@ Simple.args = {
     options: options,
     placeholder: "Pick...",
     getValue: getValue,
+    getLabel: getLabel,
     columns: [
         {flex: 1, getLabel: getLabel},
         {flex: 2, getLabel: getLabel},

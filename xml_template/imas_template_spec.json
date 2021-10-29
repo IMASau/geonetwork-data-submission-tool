@@ -295,7 +295,8 @@
               "xpath": "gex:geographicElement[count(.)>0]",
               "label": "Does data have a geographic coverage?",
               "export": false,
-              "default": false
+              "default": false,
+              "type": "boolean"
             },
             "boxes": {
               "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",

@@ -29,9 +29,7 @@ export const SimpleFieldWithLocalState = (args) => {
     return <CheckboxField {...args} checked={value} onChange={(v, t) => setValue(v)}/>;
 };
 SimpleFieldWithLocalState.args = {
-    checked: false,
-    disabled: false,
-    hasError: false,
+    label: "Agree?",
 };
 
 export const FieldDisabledState = FieldTemplate.bind({});

@@ -37,11 +37,11 @@
   x)
 
 (defn check-missing-keys
-  [{:keys [config settings]}]
+  [{:keys [config settings] :as ctx}]
   (when-let [req-ks (get-in settings [::req-ks])]
     (let [missing-ks (remove (set (keys config)) req-ks)]
       (doseq [k missing-ks]
-        (utils4/console-error (str "Missing required key (" (pr-str k) ") in config") {:config config :settings settings})))))
+        (utils4/console-error (str "Missing required key (" (pr-str k) ") in config") {:k k :ctx ctx})))))
 
 (defn check-compatible-schema
   [{:keys [settings schema config]}]

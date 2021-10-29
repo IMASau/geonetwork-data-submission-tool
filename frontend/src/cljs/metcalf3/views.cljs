@@ -1336,16 +1336,16 @@
 (defn UseLimitationsFieldEdit [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :useLimitations])])
 
-(defn UseLimitations
-  [{:keys [path]}]
-  (let [list-field @(rf/subscribe [:subs/get-derived-path path])]
-    [:div.SupplementalInformation
-     (label-template list-field)
-     [TableModalEdit
-      {:form       UseLimitationsFieldEdit
-       :title      "Use Limitation"
-       :add-label  "Add use limitation"
-       :field-path path}]]))
+;(defn UseLimitations
+;  [{:keys [path]}]
+;  (let [list-field @(rf/subscribe [:subs/get-derived-path path])]
+;    [:div.SupplementalInformation
+;     (label-template list-field)
+;     [TableModalEdit
+;      {:form       UseLimitationsFieldEdit
+;       :title      "Use Limitation"
+;       :add-label  "Add use limitation"
+;       :field-path path}]]))
 
 (defn SupplementalInformationRowEdit [path]
   [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :supplementalInformation])])

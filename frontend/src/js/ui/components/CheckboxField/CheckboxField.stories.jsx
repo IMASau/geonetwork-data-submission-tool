@@ -46,9 +46,9 @@ FieldWithError.args = {
 
 export const FieldWithValueAndError = FieldTemplate.bind({});
 FieldWithValueAndError.args = {
+    label: "Agree?",
     checked: true,
-    disabled: false,
-    hasError: true,
+    hasError: true
 };
 
 import NOTES from './NOTES.mdx';

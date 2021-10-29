@@ -605,7 +605,8 @@
           "xpath": "mrl:statement",
           "valueChild": "gco:CharacterString",
           "label": "Methodological information",
-          "keep": false
+          "keep": false,
+          "type": "string"
         }
       }
     },

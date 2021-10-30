@@ -24,7 +24,7 @@
          :api/rolecode             "/api/rolecode.json"
          :api/samplingfrequency    "/api/samplingfrequency.json"
          :api/horizontalresolution "/api/horizontalresolution.json"
-         :person                   "/api/person.json"
+         :api/person               "/api/person.json"
          :institution              "/api/institution.json"
          :topiccategory            "/api/topiccategory.json"})))
 

@@ -172,6 +172,7 @@ REST_FRAMEWORK = {
         "rest_framework_xml.renderers.XMLRenderer",
     ),
     "EXCEPTION_HANDLER": "metcalf.imas.frontend.utils.custom_exception_handler",
+    "SEARCH_PARAM": "query"
 }
 
 AUTHENTICATION_BACKENDS = (

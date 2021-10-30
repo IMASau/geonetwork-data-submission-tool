@@ -580,4 +580,4 @@ def keywords_with_breadcrumb_info(request) -> Response:
                     "uri": k.uri,
                     "breadcrumb": keyword_to_breadcrumbs(k)} for k in keywords]
 
-    return Response(breadcrumbs, status=200)
+    return Response({"results": breadcrumbs}, status=200)

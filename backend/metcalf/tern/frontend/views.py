@@ -586,7 +586,7 @@ def es_results(data):
 
     Returns a list of source documents as results
     """
-    return [massage_source(hit['_source']) for hit in data['hits']['hits']]
+    return {"results": [massage_source(hit['_source']) for hit in data['hits']['hits']]}
 
 
 @api_view(["GET", "POST"])
@@ -1032,4 +1032,4 @@ def geonetwork_entries(request: HttpRequest) -> Response:
         metadata_response = [metadata_response]
     title_ids = [{"label": rec["title"], "value": rec["geonet:info"]["uuid"]} for rec in metadata_response]
 
-    return Response(title_ids, status=200)
+    return Response({"results": title_ids}, status=200)

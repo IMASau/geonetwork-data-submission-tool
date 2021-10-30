@@ -505,7 +505,7 @@
                                                                    :termDefinition    {:type "string"},
                                                                    :Version           {:type "string"},
                                                                    :rgt               {:type "integer"}}}}
-                     :parameterplatform    {:uri     (str URL_ROOT "/api/ternplatforms")
+                     :api/ternplatforms    {:uri     (str URL_ROOT "/api/ternplatforms")
                                             :options nil
                                             :schema  {:type       "object",
                                                       :properties {:tree_id           {:type "integer"},

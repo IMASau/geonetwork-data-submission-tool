@@ -20,7 +20,7 @@
         {:api/ternparameters   "/api/ternparameters"
          :api/qudtunits        "/api/qudtunits"
          :api/terninstruments  "/api/terninstruments"
-         :parameterplatform    "/api/ternplatforms"
+         :api/ternplatforms    "/api/ternplatforms"
          :api/rolecode         "/api/rolecode.json"
          :samplingFrequency    "/api/samplingfrequency.json"
          :horizontalResolution "/api/horizontalresolution.json"

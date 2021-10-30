@@ -523,7 +523,7 @@
                                                                    :termDefinition    {:type "string"},
                                                                    :Version           {:type "string"},
                                                                    :rgt               {:type "integer"}}}}
-                     :rolecode             {:uri     (str URL_ROOT "/api/rolecode.json")
+                     :api/rolecode         {:uri     (str URL_ROOT "/api/rolecode.json")
                                             :options nil
                                             :schema  {:type       "object",
                                                       :properties {:UUID        {:type "string"},

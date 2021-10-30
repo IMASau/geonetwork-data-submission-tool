@@ -1038,7 +1038,7 @@
 
 (defn SelectRoleWidget [role-path]
   (let [role @(rf/subscribe [:subs/get-derived-path role-path])
-        {:keys [options]} @(rf/subscribe [:subs/get-derived-path [:api :rolecode]])]
+        {:keys [options]} @(rf/subscribe [:subs/get-derived-path [:api :api/rolecode]])]
     [SelectWidget (assoc role
                     :options (for [option options
                                    :let [Identifier (gobj/get option "Identifier")]]

@@ -21,7 +21,7 @@
          :api/qudtunits        "/api/qudtunits"
          :api/terninstruments  "/api/terninstruments"
          :parameterplatform    "/api/ternplatforms"
-         :rolecode             "/api/rolecode.json"
+         :api/rolecode         "/api/rolecode.json"
          :samplingFrequency    "/api/samplingfrequency.json"
          :horizontalResolution "/api/horizontalresolution.json"
          :person               "/api/person.json"

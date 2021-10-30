@@ -555,7 +555,7 @@
                                                                        :givenName             {:type "string"},
                                                                        :orgUri                {:type "string"},
                                                                        :uri                   {:type "string"}},}}
-                     :institution              {:uri     (str URL_ROOT "/api/institution.json")
+                     :api/institution          {:uri     (str URL_ROOT "/api/institution.json")
                                                 :options nil
                                                 :schema  {:type       "object",
                                                           :properties {:exactMatch         {:type "string"},

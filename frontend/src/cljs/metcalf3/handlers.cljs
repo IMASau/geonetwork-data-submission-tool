@@ -179,7 +179,7 @@
                 orgUri isUserAdded electronicMailAddress]} option
         org (when orgUri
               (first (filter (fn [x]
-                               (= orgUri (gobj/get x "uri"))) (:options (get-in db [:api :institution])))))
+                               (= orgUri (gobj/get x "uri"))) (:options (get-in db [:api :api/institution])))))
         org (js->clj org)
         db (-> db
                (update-in person-path assoc-in [:givenName :value] givenName)

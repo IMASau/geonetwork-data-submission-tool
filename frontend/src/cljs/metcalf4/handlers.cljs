@@ -25,7 +25,7 @@
          :api/samplingfrequency    "/api/samplingfrequency.json"
          :api/horizontalresolution "/api/horizontalresolution.json"
          :api/person               "/api/person.json"
-         :institution              "/api/institution.json"
+         :api/institution          "/api/institution.json"
          :topiccategory            "/api/topiccategory.json"})))
 
 (defn value-changed-handler

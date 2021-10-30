@@ -680,7 +680,7 @@
   [props]
   (let [{:keys [path]} props
         props {:person-path path
-               :api-path    [:api :person]}]
+               :api-path    [:api :api/person]}]
     [:div
      [:p "Select a person"]
      [person-list-field props]]))

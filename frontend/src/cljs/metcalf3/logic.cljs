@@ -542,7 +542,7 @@
                                                                    :prefLabel         {:type "string"},
                                                                    :prefLabelSortText {:type "string"}},}
                                             }
-                     :person               {:uri     (str URL_ROOT "/api/person.json")
+                     :api/person           {:uri     (str URL_ROOT "/api/person.json")
                                             :options nil
                                             :schema  {:type       "object",
                                                       :properties {:prefLabel             {:type "string"},

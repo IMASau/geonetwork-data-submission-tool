@@ -18,7 +18,7 @@
       (actions/load-apis-action
         payload
         {:api/ternparameters   "/api/ternparameters"
-         :parameterunit        "/api/qudtunits"
+         :api/qudtunits        "/api/qudtunits"
          :parameterinstrument  "/api/terninstruments"
          :parameterplatform    "/api/ternplatforms"
          :rolecode             "/api/rolecode.json"

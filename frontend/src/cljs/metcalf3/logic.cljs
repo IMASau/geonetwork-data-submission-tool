@@ -469,7 +469,7 @@
                                                                    :termDefinition    {:type "string"},
                                                                    :Version           {:type "string"},
                                                                    :rgt               {:type "integer"}}}}
-                     :parameterunit        {:uri     (str URL_ROOT "/api/qudtunits")
+                     :api/qudtunits        {:uri     (str URL_ROOT "/api/qudtunits")
                                             :options nil
                                             :schema  {:type       "object",
                                                       :properties {:tree_id           {:type "integer"},

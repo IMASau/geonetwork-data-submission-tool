@@ -62,7 +62,7 @@
 (defmethod views3/modal :m4/table-modal-add-form [modal-props] [views4/m4-modal-dialog-table-modal-add-form modal-props])
 (defmethod views3/modal :ThemeKeywords [modal-props] [views3/modal-dialog-theme-keywords (select-keys modal-props [:keyword-type :keywords-path])])
 ;(defmethod views3/modal :parametername [modal-props] [views3/modal-dialog-parametername modal-props])
-(defmethod views3/modal :parameterunit [modal-props] [views3/modal-dialog-parameterunit modal-props])
+;(defmethod views3/modal :parameterunit [modal-props] [views3/modal-dialog-parameterunit modal-props])
 (defmethod views3/modal :parameterinstrument [modal-props] [views3/modal-dialog-parameterinstrument modal-props])
 (defmethod views3/modal :parameterplatform [modal-props] [views3/modal-dialog-parameterplatform modal-props])
 (defmethod views3/modal :person [modal-props] [views3/modal-dialog-person modal-props])

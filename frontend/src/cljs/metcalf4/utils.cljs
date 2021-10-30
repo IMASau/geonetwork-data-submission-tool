@@ -87,22 +87,17 @@
   (gobject/getValueByKeys o (into-array (map name path))))
 
 
-(defn fetch-get-with-results-path
-  [{:keys [uri results-path]}]
-  (letfn [(get-obj-path
-            ([path] #(get-obj-path % path))
-            ([o path]
-             (let [path (if (string? path) [path] path)]
-               (apply gobject/getValueByKeys o path))))]
-    (-> (js/fetch uri #js {:method  "GET"
-                           :headers #js {:Content-Type "application/json"
-                                         :Accept       "application/json"
-                                         :X-CSRFToken  (get-csrf)}})
-        (.then (fn [resp] (.json resp)))
-        (.then (fn [json]
-                 (js/console.log "Te"
-                                 {:json json :result (get-obj-path json results-path)})
-                 (get-obj-path json results-path))))))
+(defn load-options
+  "Helper for common load options pattern"
+  [{:keys [uri results-path search-param]
+    :or   {results-path []
+           search-param "query"}}
+   query]
+  (s/assert string? uri)
+  (s/assert string? search-param)
+  (s/assert (s/coll-of string?) results-path)
+  (.then (fetch-get {:uri (append-params-from-map uri {search-param query})})
+         (fn [json] (get-value-by-keys json results-path))))
 
 
 (defn fetch-post

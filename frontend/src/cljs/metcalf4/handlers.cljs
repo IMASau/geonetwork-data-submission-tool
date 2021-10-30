@@ -26,7 +26,7 @@
          :api/horizontalresolution "/api/horizontalresolution.json"
          :api/person               "/api/person.json"
          :api/institution          "/api/institution.json"
-         :topiccategory            "/api/topiccategory.json"})))
+         :api/topiccategory        "/api/topiccategory.json"})))
 
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]

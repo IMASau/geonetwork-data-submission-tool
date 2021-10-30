@@ -571,7 +571,7 @@
                                                                        :uri                {:type "string"},
                                                                        :organisationName   {:type "string"},
                                                                        :country            {:type "string"}}}}
-                     :topiccategory            {:uri     (str URL_ROOT "/api/topiccategory.json")
+                     :api/topiccategory        {:uri     (str URL_ROOT "/api/topiccategory.json")
                                                 :options nil
                                                 :schema  {:type       "object",
                                                           :properties {:identifier {:type "string"},

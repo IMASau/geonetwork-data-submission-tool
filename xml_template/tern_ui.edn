@@ -1083,7 +1083,7 @@
    [:h4 "Pixel Size"]
    [:div.row
     [:div.col-md-6
-     [m3/NasaListSelectField {:keyword   :horizontalResolution
+     [m3/NasaListSelectField {:keyword   :api/horizontalresolution
                               :form-id   [:form]
                               :data-path ["identificationInfo"]}]]]
    [:br]

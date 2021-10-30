@@ -17,16 +17,16 @@
       (actions/load-form-action payload)
       (actions/load-apis-action
         payload
-        {:api/ternparameters   "/api/ternparameters"
-         :api/qudtunits        "/api/qudtunits"
-         :api/terninstruments  "/api/terninstruments"
-         :api/ternplatforms    "/api/ternplatforms"
-         :api/rolecode         "/api/rolecode.json"
-         :samplingFrequency    "/api/samplingfrequency.json"
-         :horizontalResolution "/api/horizontalresolution.json"
-         :person               "/api/person.json"
-         :institution          "/api/institution.json"
-         :topiccategory        "/api/topiccategory.json"})))
+        {:api/ternparameters       "/api/ternparameters"
+         :api/qudtunits            "/api/qudtunits"
+         :api/terninstruments      "/api/terninstruments"
+         :api/ternplatforms        "/api/ternplatforms"
+         :api/rolecode             "/api/rolecode.json"
+         :samplingFrequency        "/api/samplingfrequency.json"
+         :api/horizontalresolution "/api/horizontalresolution.json"
+         :person                   "/api/person.json"
+         :institution              "/api/institution.json"
+         :topiccategory            "/api/topiccategory.json"})))
 
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]

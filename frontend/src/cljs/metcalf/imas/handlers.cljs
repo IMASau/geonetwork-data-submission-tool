@@ -6,7 +6,7 @@
   [_ [_ payload]]
   (let [db' (logic3/initial-state payload)
         db (update db' :api #(dissoc % :api/ternparameters :api/qudtunits :api/terninstruments
-                                     :horizontalResolution :api/ternplatforms :topiccategory))]
+                                     :api/horizontalresolution :api/ternplatforms :topiccategory))]
     (schema/assert-schema-data (:form db))
     {:db         db
      :fx         [[:ui/setup-blueprint]]

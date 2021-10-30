@@ -19,7 +19,7 @@
         payload
         {:api/ternparameters   "/api/ternparameters"
          :api/qudtunits        "/api/qudtunits"
-         :parameterinstrument  "/api/terninstruments"
+         :api/terninstruments  "/api/terninstruments"
          :parameterplatform    "/api/ternplatforms"
          :rolecode             "/api/rolecode.json"
          :samplingFrequency    "/api/samplingfrequency.json"

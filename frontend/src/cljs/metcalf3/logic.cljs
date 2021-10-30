@@ -487,7 +487,7 @@
                                                                    :termDefinition    {:type "string"},
                                                                    :Version           {:type "string"},
                                                                    :rgt               {:type "integer"}}}}
-                     :parameterinstrument  {:uri     (str URL_ROOT "/api/terninstruments")
+                     :api/terninstruments  {:uri     (str URL_ROOT "/api/terninstruments")
                                             :options nil
                                             :schema  {:type       "object",
                                                       :properties {:tree_id           {:type "integer"},

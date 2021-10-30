@@ -571,7 +571,7 @@
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :loadOptions #(utils4/fetch-get-with-results-path {:uri (utils4/append-params-from-map uri {:query %}) :results-path results-path})
+        :loadOptions #(utils4/fetch-get {:uri (utils4/append-params-from-map uri {:query %})})
         :getValue    (ui/get-obj-path value-path)
         :getLabel    (ui/get-obj-path label-path)
         :onChange    #(rf/dispatch [::value-changed config %])}])))

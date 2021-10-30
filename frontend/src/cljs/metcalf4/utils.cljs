@@ -81,6 +81,12 @@
                                        :X-CSRFToken  (get-csrf)}})
       (.then (fn [resp] (.json resp)))))
 
+
+(defn get-value-by-keys [o path]
+  (s/assert (s/coll-of string?) path)
+  (gobject/getValueByKeys o (into-array (map name path))))
+
+
 (defn fetch-get-with-results-path
   [{:keys [uri results-path]}]
   (letfn [(get-obj-path

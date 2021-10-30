@@ -22,7 +22,7 @@
          :api/terninstruments      "/api/terninstruments"
          :api/ternplatforms        "/api/ternplatforms"
          :api/rolecode             "/api/rolecode.json"
-         :samplingFrequency        "/api/samplingfrequency.json"
+         :api/samplingfrequency    "/api/samplingfrequency.json"
          :api/horizontalresolution "/api/horizontalresolution.json"
          :person                   "/api/person.json"
          :institution              "/api/institution.json"

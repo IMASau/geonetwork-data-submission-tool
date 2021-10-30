@@ -529,7 +529,7 @@
                                                           :properties {:UUID        {:type "string"},
                                                                        :Identifier  {:type "string"},
                                                                        :Description {:type "string"}}}}
-                     :samplingFrequency        {:uri     (str URL_ROOT "/api/samplingfrequency.json")
+                     :api/samplingfrequency    {:uri     (str URL_ROOT "/api/samplingfrequency.json")
                                                 :options nil
                                                 :schema  {:type       "object",
                                                           :properties {:uri               {:type "string"},

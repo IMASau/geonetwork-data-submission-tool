@@ -451,7 +451,7 @@
         (cond-> form (assoc :form (massage-form form)))
         (assoc :alert [])
         ; TODO: make deployment specific (put in init-db handler)
-        (assoc :api {:parametername        {:uri     (str URL_ROOT "/api/ternparameters")
+        (assoc :api {:api/ternparameters   {:uri     (str URL_ROOT "/api/ternparameters")
                                             :options nil
                                             :schema  {:type       "object",
                                                       :properties {:tree_id           {:type "integer"},

@@ -17,7 +17,7 @@
       (actions/load-form-action payload)
       (actions/load-apis-action
         payload
-        {:parametername        "/api/ternparameters"
+        {:api/ternparameters   "/api/ternparameters"
          :parameterunit        "/api/qudtunits"
          :parameterinstrument  "/api/terninstruments"
          :parameterplatform    "/api/ternplatforms"

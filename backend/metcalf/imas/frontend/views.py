@@ -593,12 +593,13 @@ def keyword_to_breadcrumbs(keyword):
 @api_view(['GET'])
 def keywords_with_breadcrumb_info(request) -> Response:
     query = request.GET.get("query")
-    keywords = (ScienceKeyword.objects
-                .filter(Q(Category__icontains=query) | Q(Topic__icontains=query)
-                        | Q(Term__icontains=query) | Q(VariableLevel1__icontains=query)
-                        | Q(VariableLevel2__icontains=query) | Q(VariableLevel3__icontains=query)
-                        | Q(DetailedVariable__icontains=query))
-                .exclude(Topic=""))
+    keywords = ScienceKeyword.objects.exclude(Topic="")
+    if query is not None:
+        keywords = (keywords
+                    .filter(Q(Category__icontains=query) | Q(Topic__icontains=query)
+                            | Q(Term__icontains=query) | Q(VariableLevel1__icontains=query)
+                            | Q(VariableLevel2__icontains=query) | Q(VariableLevel3__icontains=query)
+                            | Q(DetailedVariable__icontains=query)))
 
     breadcrumbs = [{"label": keyword_to_label(k),
                     "uri": k.uri,

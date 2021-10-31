@@ -205,7 +205,7 @@
           {:form-id     [:form]
            :data-path   ["identificationInfo" "abstract"]
            :placeholder nil
-           :rows        10
+           :rows        3
            :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"}]
 
          [:h3 "Research theme keywords"]

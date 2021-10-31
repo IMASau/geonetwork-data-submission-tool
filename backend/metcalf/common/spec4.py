@@ -54,6 +54,9 @@ def insert_def(defs, schema):
 
 
 def inline_defs(schema):
+    """
+    replace any node group reference with the actual node_group
+    """
     defs = schema.get('$defs')
     if defs:
         schema = prewalk(partial(insert_def, defs), schema)
@@ -136,6 +139,9 @@ def get_function_ref(x):
 
 # NOTE: Needs a review
 def insert_functions(spec):
+    """
+    update string references to functions with the actual functions
+    """
     if isinstance(spec, list):
         for sub_spec in spec:
             insert_functions(sub_spec)
@@ -156,9 +162,7 @@ def make_spec(**kwargs):
     assert kwargs['mapper'] is not None, "No mapper exists for this template. Please specify one."
     spec = json.loads(kwargs['mapper'].file.read().decode('utf-8'))
     remove_comments(spec)
-    # replace any node group reference with the actual node_group
     spec = inline_defs(spec)
-    # update string references to functions with the actual functions
     insert_functions(spec)
     return spec
 

@@ -150,6 +150,7 @@
          [m4/date-field-with-label
           {:form-id   [:form]
            :data-path ["identificationInfo" "dateCreation"]
+           :label     "Date of record creation"
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
          [m4/select-value-with-label

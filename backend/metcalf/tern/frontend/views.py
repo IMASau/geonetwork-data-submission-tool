@@ -153,6 +153,25 @@ def extract_xml_data(request, template_id):
 
 
 @login_required
+@api_view(['GET'])
+def analyse_metadata_template(request, template_id):
+    template = get_object_or_404(
+        MetadataTemplate, site=get_current_site(request), archived=False, pk=template_id)
+    tree = etree.parse(template.file.path)
+    payload = template.mapper.file.read().decode('utf-8')
+    full_schema = spec4.analyse_schema(payload=payload)
+    spec = spec4.compile_spec(payload=payload)
+    data = xmlutils4.extract_xml_data(tree, spec)
+
+    schema_with_analysis = xmlutils4.xpath_analysis(tree, full_schema)
+
+    return Response({
+        "data": data,
+        "schema": schema_with_analysis
+    })
+
+
+@login_required
 @api_view(['POST'])
 def clone(request, uuid):
     orig_doc = get_object_or_404(Document, uuid=uuid)
@@ -994,7 +1013,7 @@ def tern_orgs(request) -> Response:
     return Response(es_results(data), status=200)
 
 
-@api_view(['GET','POST'])
+@api_view(['GET', 'POST'])
 def geonetwork_entries(request: HttpRequest) -> Response:
     gn_base = settings.GEONETWORK_BASE
 

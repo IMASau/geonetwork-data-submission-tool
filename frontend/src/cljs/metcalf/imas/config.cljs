@@ -208,23 +208,28 @@
            :rows        3
            :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"}]
 
-         [:h3 "Research theme keywords"]
-         [:div "Select up to 12 research theme keywords describing your data"]
-         [m4/async-list-picker
-          {:form-id         [:form]
-           :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
-           :kind            :breadcrumb
-           :uri             "/api/keywords_with_breadcrumb_info"
-           :placeholder     "Search for keywords"
-           :label-path      ["label"]
-           :value-path      ["uri"]
-           :breadcrumb-path ["breadcrumb"]}]
-         [m4/breadcrumb-selection-list
-          {:form-id         [:form]
-           :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
-           :label-path      ["label"]
-           :value-path      ["uri"]
-           :breadcrumb-path ["breadcrumb"]}]
+         [m4/form-group
+          {:form-id   [:form]
+           :data-path ["identificationInfo" "keywordsTheme" "keywords"]
+           :label     "Research theme keywords!"}
+
+          [:div "Select up to 12 research theme keywords describing your data"]
+
+          [m4/async-list-picker
+           {:form-id         [:form]
+            :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
+            :kind            :breadcrumb
+            :uri             "/api/keywords_with_breadcrumb_info"
+            :placeholder     "Search for keywords"
+            :label-path      ["label"]
+            :value-path      ["uri"]
+            :breadcrumb-path ["breadcrumb"]}]
+          [m4/breadcrumb-selection-list
+           {:form-id         [:form]
+            :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
+            :label-path      ["label"]
+            :value-path      ["uri"]
+            :breadcrumb-path ["breadcrumb"]}]]
 
          [:h3 "Additional theme keywords"]
          [:div "Enter your own additional theme keywords as required and click + to add"]

@@ -268,22 +268,20 @@
            :data-path ["identificationInfo" "endPosition"]
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]
-         [:div.row
-          [:div.col-md-4
-           [m4/select-value-with-label
-            {:form-id    [:form]
-             :data-path  ["identificationInfo" "samplingFrequency"]
-             :value-path ["value"]
-             :label-path ["label"]
-             :options    [{"value" "daily" "label" "Daily"}
-                          {"value" "weekly" "label" "Weekly"}
-                          {"value" "monthly" "label" "Monthly"}
-                          {"value" "quarterly" "label" "Quarterly"}
-                          {"value" "annually" "label" "Annually"}
-                          {"value" "ongoing" "label" "Ongoing"}
-                          {"value" "asNeeded" "label" "As required"}
-                          {"value" "irregular" "label" "Irregular"}
-                          {"value" "none-planned" "label" "None planned"}]}]]]
+         [m4/select-value-with-label
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "samplingFrequency"]
+           :value-path ["value"]
+           :label-path ["label"]
+           :options    [{"value" "daily" "label" "Daily"}
+                        {"value" "weekly" "label" "Weekly"}
+                        {"value" "monthly" "label" "Monthly"}
+                        {"value" "quarterly" "label" "Quarterly"}
+                        {"value" "annually" "label" "Annually"}
+                        {"value" "ongoing" "label" "Ongoing"}
+                        {"value" "asNeeded" "label" "As required"}
+                        {"value" "irregular" "label" "Irregular"}
+                        {"value" "none-planned" "label" "None planned"}]}]
          [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
         :where

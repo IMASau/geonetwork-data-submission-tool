@@ -31,8 +31,9 @@
   [block required]
   (s/assert boolean? required)
   (if required
-    (let [value (if (= (:type block) "array")
-                  (get-in block [:content])
+    (let [value (case (:type block)
+                  "array" (get-in block [:content])
+                  "object" (get-in block [:content])
                   (get-in block [:props :value]))]
       (-> block
           (assoc-in [:props :required] true)

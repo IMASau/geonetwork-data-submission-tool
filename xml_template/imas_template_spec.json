@@ -436,6 +436,7 @@
               "xpath": "mri:keyword",
               "keep": false,
               "type": "array",
+              "rules": ["requiredField"],
               "items": {
                 "type": "object",
                 "xpath": "mri:keyword",
@@ -456,7 +457,6 @@
               }
             }
           },
-          "rules": ["requiredField"],
           "notes": "Theme keywords (selecting from controlled list in thesaurus)"
         },
         "keywordsThemeExtra": {

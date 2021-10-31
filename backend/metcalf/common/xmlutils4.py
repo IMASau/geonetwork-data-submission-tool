@@ -187,7 +187,7 @@ def parse_goc_date(text):
     raise ValueError('no valid date format found')
 
 
-def value(element, **kwargs):
+def extract_value_from_element(element, **kwargs):
     assert kwargs['namespaces'] is not None, "No namespaces were specified."
     """
     Extract value.  Either tagged or text.  Always one value.
@@ -263,7 +263,7 @@ def process_node_child(element, spec, **kwargs):
             if has_parser(spec):
                 return get_parser(spec)(element)
             else:
-                return value(element, **kwargs)
+                return extract_value_from_element(element, **kwargs)
         else:
             return get_default(spec)
 
@@ -276,6 +276,7 @@ def extract_xml_data(tree, spec, **kwargs):
         kwargs['namespaces'] = get_namespaces(spec)
 
     xpath = get_xpath2(spec)
+
     if xpath:
         elements = tree.xpath(xpath, **kwargs)
     else:
@@ -496,7 +497,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                 elif arity == 1:
                     final_value = transform(data)
                 elif arity == 2:
-                    source_value = value(element, namespaces=nsmap)
+                    source_value = extract_value_from_element(element, namespaces=nsmap)
                     final_value = transform(data, source_value)
                 else:
                     msg = 'attr %s in spec %s has unsupported arity %d' % (attr, str(spec), arity)

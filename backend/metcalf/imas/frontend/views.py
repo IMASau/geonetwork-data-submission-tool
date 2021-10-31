@@ -159,22 +159,7 @@ def analyse_metadata_template(request, template_id):
     spec = spec4.compile_spec(payload=payload)
     data = xmlutils4.extract_xml_data(tree, spec)
 
-    namespaces = full_schema['namespaces']
-
-    def step(schema):
-        full_xpath = schema.get('full_xpath')
-
-        if full_xpath:
-            try:
-                eles = tree.xpath(full_xpath, namespaces=namespaces)
-                schema['xpath_analysis'] = "Found {} elements".format(len(eles))
-            except etree.XPathEvalError as e:
-                schema['xpath_analysis'] = "Full path invalid"
-        else:
-            schema['xpath_analysis'] = "Nothing to analyse"
-        return schema
-
-    schema_with_analysis = spec4.postwalk(step, full_schema)
+    schema_with_analysis = xmlutils4.xpath_analysis(tree, full_schema)
 
     return Response({
         "data": data,

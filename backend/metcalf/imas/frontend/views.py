@@ -1,4 +1,5 @@
 import datetime
+import logging
 import os
 import shutil
 import stat
@@ -34,6 +35,8 @@ from metcalf.imas.frontend.models import SiteContent
 from metcalf.imas.frontend.permissions import is_document_editor, is_document_contributor
 from metcalf.imas.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
     SiteContentSerializer
+
+logger = logging.getLogger(__name__)
 
 
 def theme_keywords():

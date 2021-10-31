@@ -231,15 +231,18 @@
             :value-path      ["uri"]
             :breadcrumb-path ["breadcrumb"]}]]
 
-         [:h3 "Additional theme keywords"]
-         [:div "Enter your own additional theme keywords as required and click + to add"]
-         [m4/value-selection-list
+         [m4/form-group
           {:form-id   [:form]
-           :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]}]
-         [m4/text-add-button
-          {:form-id     [:form]
-           :data-path   ["identificationInfo" "keywordsThemeExtra" "keywords"]
-           :button-text "Add"}]
+           :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]
+           :label     "Additional theme keywords"}
+          [:div "Enter your own additional theme keywords as required and click + to add"]
+          [m4/value-selection-list
+           {:form-id   [:form]
+            :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]}]
+          [m4/text-add-button
+           {:form-id     [:form]
+            :data-path   ["identificationInfo" "keywordsThemeExtra" "keywords"]
+            :button-text "Add"}]]
 
          [:h3 "Taxon keywords"]
          [:div "Add any taxon names describing your data and click + to add"]

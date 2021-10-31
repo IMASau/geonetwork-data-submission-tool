@@ -370,8 +370,11 @@
   (update-in state [:form :fields :dataSources :value]
              #(mapv data-service-logic-helper %)))
 
-(defn calculate-progress [state form-path]
-  (assoc state :progress (progress-score (get-in state form-path))))
+(defn calculate-progress [db form-path]
+  (let [form (get-in db form-path)
+        state (:state form)
+        state' (blocks/postwalk score-block state)]
+    (assoc db :progress (::score state'))))
 
 (def disabled-statuses #{"Archived" "Deleted" "Uploaded"})
 

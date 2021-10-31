@@ -97,7 +97,8 @@
   (s/assert string? search-param)
   (s/assert (s/coll-of string?) results-path)
   (.then (fetch-get {:uri (append-params-from-map uri {search-param query})})
-         (fn [json] (get-value-by-keys json results-path))))
+         (fn [json]
+           (or (get-value-by-keys json results-path) #js []))))
 
 
 (defn fetch-post

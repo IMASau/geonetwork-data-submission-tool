@@ -90,7 +90,7 @@
 (defn load-options
   "Helper for common load options pattern"
   [{:keys [uri results-path search-param]
-    :or   {results-path []
+    :or   {results-path ["results"]
            search-param "query"}}
    query]
   (s/assert string? uri)

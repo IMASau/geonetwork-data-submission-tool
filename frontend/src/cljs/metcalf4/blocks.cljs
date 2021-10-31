@@ -5,12 +5,12 @@
 
 
 (s/def ::type string?)
-(s/def ::properties map?)
+(s/def ::props map?)
 (s/def ::content
   (s/or :arr (s/coll-of ::block)
         :obj (s/map-of string? ::block)))
 (s/def ::block
-  (s/keys :opt-un [::type ::properties ::content]))
+  (s/keys :opt-un [::type ::props ::content]))
 
 
 (defn update-vals [m f] (zipmap (keys m) (map f (vals m))))

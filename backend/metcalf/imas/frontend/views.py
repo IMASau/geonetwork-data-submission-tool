@@ -601,6 +601,8 @@ def keywords_with_breadcrumb_info(request) -> Response:
                             | Q(VariableLevel2__icontains=query) | Q(VariableLevel3__icontains=query)
                             | Q(DetailedVariable__icontains=query)))
 
+    keywords = keywords[:100]
+
     breadcrumbs = [{"label": keyword_to_label(k),
                     "uri": k.uri,
                     "breadcrumb": keyword_to_breadcrumbs(k)} for k in keywords]

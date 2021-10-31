@@ -221,7 +221,7 @@ def extract_value_from_element(spec, element, **kwargs):
             return Decimal(value)
 
         elif tag == "%sCharacterString" % gco:
-            pass
+            return value
 
         return value
 

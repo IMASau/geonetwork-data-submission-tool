@@ -61,6 +61,46 @@ def inline_defs(schema):
     return schema
 
 
+def full_xpaths_step(schema):
+    """
+    Push down xpaths and generate full_xpath annotations.
+
+    :param schema:
+    :return:
+    """
+
+    # Set full_xpath if needed and possible
+    full_xpath = schema.get("full_xpath")
+    xpath = schema.get("xpath")
+    parent_xpath = schema.get("parent_xpath")
+    if not full_xpath and xpath and parent_xpath:
+        full_xpath = parent_xpath + "/" + xpath
+        schema['full_xpath'] = full_xpath
+
+    # Set parent_xpath if possible
+    if full_xpath:
+        schema_type = schema.get('type')
+        if schema_type == 'object':
+            for prop_name in schema['properties'].keys():
+                schema['properties'][prop_name]['parent_xpath'] = full_xpath
+        elif schema_type == 'array':
+            schema['items']['parent_xpath'] = full_xpath
+
+    # Clear parent_xpath if present (clean up)
+    if parent_xpath:
+        del schema['parent_xpath']
+
+    return schema
+
+
+def full_xpaths(schema):
+    """
+    Experimental analysis to resolve full_xpath based on schema tree and xpath annotations.
+    """
+    schema['full_xpath'] = schema['xpath']
+    return prewalk(full_xpaths_step, schema)
+
+
 def extract_field(schema):
     return select_keys(schema, ['label', 'type', 'rules', 'items', 'properties', 'required'])
 

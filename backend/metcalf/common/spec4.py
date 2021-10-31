@@ -167,6 +167,23 @@ def make_spec(**kwargs):
     return spec
 
 
+def analyse_schema(**kwargs):
+    assert kwargs['payload'] is not None, "No schema data exists for this template. Please specify one."
+    schema = json.loads(kwargs['payload'])
+    schema = inline_defs(schema)
+    schema = full_xpaths(schema)
+    return schema
+
+
+def compile_spec(**kwargs):
+    assert kwargs['payload'] is not None, "No schema data exists for this template. Please specify one."
+    schema = json.loads(kwargs['payload'])
+    remove_comments(schema)
+    schema = inline_defs(schema)
+    insert_functions(schema)
+    return schema
+
+
 LINKAGE_UUID = re.compile(r'uuid=\w{8}-\w{4}-\w{4}-\w{4}-\w{12}')
 KWARGS = None
 

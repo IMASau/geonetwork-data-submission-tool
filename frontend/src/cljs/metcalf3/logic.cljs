@@ -4,7 +4,8 @@
             [metcalf3.utils :as utils]
             [metcalf4.blocks :as blocks]
             [metcalf4.rules :as rules]
-            [metcalf4.schema :as schema]))
+            [metcalf4.schema :as schema]
+            [clojure.string :as string]))
 
 (def active-status-filter #{"Draft" "Submitted"})
 
@@ -109,26 +110,39 @@
         (and errors? page) (update-in [:page-errors page] inc)))
     counter))
 
-(defn progress-score
-  [state]
-  (js/console.warn ::progress-score.TODO "rebuild me as walker")
-  {:fields   0
-   :empty    0
-   :errors   0
-   :required 0}
-  ;(let [zipper (field-zipper state)]
-  ;  (loop [loc zipper
-  ;         counter {:fields   0
-  ;                  :empty    0
-  ;                  :errors   0
-  ;                  :required 0}]
-  ;    (if (zip/end? loc)
-  ;      counter
-  ;      (let [node (zip/node loc)]
-  ;        (recur (zip/next loc) (if (field? node)
-  ;                                (process-node node counter)
-  ;                                counter))))))
-  )
+(defn score-object [block]
+  (let [{:keys [content]} block]
+    (apply merge-with + (map ::score (vals content)))))
+
+(defn score-array [block]
+  (let [{:keys [content]} block]
+    (apply merge-with + (map ::score content))))
+
+(defn score-value [block]
+  (let [{:keys [props]} block
+        {:keys [value]} props]
+    (when (string/blank? value)
+      {:empty 1})))
+
+(defn score-props [block]
+  (let [{:keys [props]} block
+        {:keys [required errors]} props]
+    (-> {:fields 1}
+        (cond-> required (assoc :required 1))
+        (cond-> (seq errors) (assoc :errors 1))
+        (cond-> (and required (seq errors)) (assoc :required-errors 1)))))
+
+(defn score-block
+  "Score block considering props and content"
+  [block]
+  (let [{:keys [type props]} block
+        {:keys [disabled]} props
+        score (when-not disabled
+                (case type
+                  "array" (merge-with + (score-array block) (score-props block))
+                  "object" (merge-with + (score-object block) (score-props block))
+                  (merge-with + (score-value block) (score-props block))))]
+    (assoc block ::score score)))
 
 (defn reset-field [field]
   (assoc field

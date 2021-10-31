@@ -359,6 +359,8 @@ def spec_data_from_batch(batch_spec, key):
 # a geographicElementSecondary dict, which has a different xpath to the
 # geographicElement, meaning we can write the two different types
 def split_geographic_extents(data):
+    if 'identificationInfo' not in data: return data
+    if 'geographicElement' not in data['identificationInfo']: return data
     geo = data['identificationInfo']['geographicElement']
     boxes = geo.get('boxes', None)
     if boxes:

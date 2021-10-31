@@ -174,7 +174,10 @@ class Document(AbstractDocument):
             # make sure there is no newline in self.title
             if self.title:
                 self.title = self.title.replace('\n', ' ').strip()
-            data['identificationInfo']['title'] = self.title or data['identificationInfo']['title']
+            data = data or {}
+            identificationInfo = data.get('identificationInfo', {})
+            identificationInfo['title'] = self.title or identificationInfo.get('title')
+            data['identificationInfo'] = identificationInfo
             data['fileIdentifier'] = self.pk
 
             DraftMetadata.objects.create(document=self,

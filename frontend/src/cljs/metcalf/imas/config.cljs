@@ -215,6 +215,7 @@
            :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
            :kind            :breadcrumb
            :uri             "/api/keywords_with_breadcrumb_info"
+           :placeholder     "Search for keywords"
            :label-path      ["label"]
            :value-path      ["uri"]
            :breadcrumb-path ["breadcrumb"]}]

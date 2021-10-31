@@ -3,9 +3,13 @@ import inspect
 import logging
 from copy import deepcopy
 from decimal import Decimal
+from functools import partial
 
 from django.apps import apps
 from six import string_types
+from lxml import etree
+
+from metcalf.common import spec4
 
 logger = logging.getLogger(__name__)
 
@@ -514,3 +518,22 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
 
     if is_postprocess(spec):
         get_postprocess(spec)(data, xml_node, spec, nsmap, element_index, silent)
+
+
+def xpath_analysis_step(namespaces, tree, schema):
+    full_xpath = schema.get('full_xpath')
+
+    if full_xpath:
+        try:
+            eles = tree.xpath(full_xpath, namespaces=namespaces)
+            schema['xpath_analysis'] = "Found {} elements".format(len(eles))
+        except etree.XPathEvalError as e:
+            schema['xpath_analysis'] = "XPathEvalError: {}".format(e)
+    else:
+        schema['xpath_analysis'] = "Nothing to analyse"
+    return schema
+
+
+def xpath_analysis(tree, schema):
+    namespaces = schema['namespaces']
+    return spec4.postwalk(partial(xpath_analysis_step, namespaces, tree), schema)

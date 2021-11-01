@@ -221,7 +221,7 @@ def all_text(node):
 
 
 def is_empty(node):
-    return not all_text(node)
+    return not (node and all_text(node))
 
 
 def prune_if_empty(data, parent, spec, nsmap, i, silent):

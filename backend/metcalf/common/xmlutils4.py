@@ -146,8 +146,24 @@ def is_postprocess(spec):
     return SpecialKeys.postprocess in spec
 
 
+def _make_list_fn(fns):
+    def inner(*args, **kwargs):
+        for f in fns:
+            f(*args, **kwargs)
+    return inner
+
+
 def get_postprocess(spec):
-    return spec.get(SpecialKeys.postprocess)
+    """Return a single post-processing function from the spec.  This
+    can either be a single function, or a list of {"function":<func>}
+    dicts, in which it returns a function that applies each in turn.
+    Note the functions have no return value, but mutate their args
+    in-place."""
+    pp = spec.get(SpecialKeys.postprocess)
+    if isinstance(pp, list):
+        return _make_list_fn([p[SpecialKeys.function] for p in pp])
+    else:
+        return pp
 
 
 def is_export(spec):

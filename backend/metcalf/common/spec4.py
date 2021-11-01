@@ -142,6 +142,8 @@ def insert_functions(spec):
     """
     update string references to functions with the actual functions
     """
+    if is_function_ref(spec):
+        spec[SpecialKeys.function] = get_function_ref(spec)
     if isinstance(spec, list):
         for sub_spec in spec:
             insert_functions(sub_spec)

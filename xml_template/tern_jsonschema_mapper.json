@@ -317,6 +317,7 @@
                       "requiredField"
                     ],
                     "label": "West limit",
+                    "type": "number",
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -330,6 +331,7 @@
                       "requiredField"
                     ],
                     "label": "East limit",
+                    "type": "number",
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -343,6 +345,7 @@
                       "requiredField"
                     ],
                     "label": "South limit",
+                    "type": "number",
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -356,6 +359,7 @@
                       "requiredField"
                     ],
                     "label": "North limit",
+                    "type": "number",
                     "attributes": {
                       "text": {
                         "function": "to_string"

@@ -1,0 +1,1 @@
+{"shared_gcmd_temporal_resolution-2021-11-01t00-24-56":{"mappings":{"properties":{"breadcrumb":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"label":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"uri":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}}}}}}

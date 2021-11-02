@@ -15,7 +15,6 @@ router.register(r'parameterinstrument', viewsets.ParameterInstrumentViewSet)
 router.register(r'parameterplatform', viewsets.ParameterPlatformViewSet)
 router.register(r'person', viewsets.PersonViewSet)
 router.register(r'samplingfrequency', viewsets.SamplingFrequencyViewSet)
-router.register(r'horizontalresolution', viewsets.HorizontalResolutionViewSet)
 router.register(r'topiccategory', viewsets.TopicCategoryViewSet)
 
 urlpatterns = [
@@ -42,7 +41,7 @@ urlpatterns = [
     path('robots.txt', robots_view, name="Robots"),
     path('api/anzsrckeyword', anzsrc_keywords),
     path('api/ausplantnames', aus_plantnames),
-    path('api/gcmdhorizontal', gcmd_horizontal),
+    path('api/horizontalresolution', gcmd_horizontal),
     path('api/sciencekeyword', gcmd_sciencekeywords),
     path('api/qudtunits', qudt_units),
     path('api/ternparameters', tern_parameters),

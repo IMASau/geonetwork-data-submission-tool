@@ -43,6 +43,7 @@ urlpatterns = [
     path('api/horizontalresolution', gcmd_horizontal),
     path('api/sciencekeyword', gcmd_sciencekeywords),
     path('api/samplingfrequency', gcmd_temporal),
+    path('api/verticalresolution', gcmd_vertical),
     path('api/qudtunits', qudt_units),
     path('api/ternparameters', tern_parameters),
     path('api/ternplatforms', tern_platforms),

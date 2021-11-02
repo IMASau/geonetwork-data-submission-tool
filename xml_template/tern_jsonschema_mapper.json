@@ -111,6 +111,17 @@
         }
       }
     },
+    "referenceSystemInfo": {
+      "xpath": "mdb:referenceSystemInfo/mrs:MD_ReferenceSystem/mrs:referenceSystemIdentifier/mcc:MD_Identifier",
+      "type": "object",
+      "properties": {
+        "crsCode": {
+          "!docstring": "Where3",
+          "xpath": "mcc:code/gco:CharacterString",
+          "type": "string"
+        }
+      }
+    },
     "identificationInfo": {
       "xpath": "mdb:identificationInfo/mri:MD_DataIdentification",
       "rules": [

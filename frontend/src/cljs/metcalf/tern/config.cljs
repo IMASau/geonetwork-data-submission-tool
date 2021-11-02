@@ -755,13 +755,16 @@
              {:label    "Coordinate Reference System"
               :required true
               :toolTip  "TODO"}
-             [m4/async-select-option
+             [m4/select-value
               {:form-id     [:form]
-               :data-path   ["identificationInfo" "CoordinateReferenceSystem"]
-               :uri         "/api/What9"
+               :data-path   ["referenceSystemInfo" "crsCode"]
                :label-path  ["label"]
-               :value-path  ["uri"]
-               :placeholder "Select from list"}]]
+               :value-path  ["value"]
+               :placeholder "Select from list"
+               ;; FIXME: Placeholders for now:
+               :options     [{"label" "WGS 84 - EPSG:4326" "value" "EPSG:4326"}
+                             {"label" "WGS 84 / World Mercator - EPSG:3395" "value" "EPSG:3395"}
+                             {"label" "GDA94 - EPSG:4283" "value" "EPSG:4283"}]}]]
 
             [m4/form-group
              {:form-id   [:form]

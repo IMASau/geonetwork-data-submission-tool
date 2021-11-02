@@ -1132,3 +1132,42 @@ def aus_plantnames(request: HttpRequest) -> Response:
 
     return Response(es_results(data), status=200)
 
+
+@api_view(['GET', 'POST'])
+def gcmd_horizontal(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_GCMDHORIZONTAL
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["breadcrumb", "label", "uri"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+

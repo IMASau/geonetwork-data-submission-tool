@@ -8,7 +8,6 @@ from metcalf.tern.frontend.views import *
 
 router = routers.DefaultRouter()
 router.register(r'institution', viewsets.InstitutionViewSet)
-router.register(r'sciencekeyword', viewsets.ScienceKeywordViewSet)
 router.register(r'rolecode', viewsets.RoleCodeViewSet)
 router.register(r'parametername', viewsets.ParameterNameViewSet)
 router.register(r'parameterunit', viewsets.ParameterUnitViewSet)
@@ -44,6 +43,7 @@ urlpatterns = [
     path('api/anzsrckeyword', anzsrc_keywords),
     path('api/ausplantnames', aus_plantnames),
     path('api/gcmdhorizontal', gcmd_horizontal),
+    path('api/sciencekeyword', gcmd_sciencekeywords),
     path('api/qudtunits', qudt_units),
     path('api/ternparameters', tern_parameters),
     path('api/ternplatforms', tern_platforms),

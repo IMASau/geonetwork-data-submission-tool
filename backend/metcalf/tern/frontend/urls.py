@@ -14,7 +14,6 @@ router.register(r'parameterunit', viewsets.ParameterUnitViewSet)
 router.register(r'parameterinstrument', viewsets.ParameterInstrumentViewSet)
 router.register(r'parameterplatform', viewsets.ParameterPlatformViewSet)
 router.register(r'person', viewsets.PersonViewSet)
-router.register(r'samplingfrequency', viewsets.SamplingFrequencyViewSet)
 router.register(r'topiccategory', viewsets.TopicCategoryViewSet)
 
 urlpatterns = [
@@ -43,6 +42,7 @@ urlpatterns = [
     path('api/ausplantnames', aus_plantnames),
     path('api/horizontalresolution', gcmd_horizontal),
     path('api/sciencekeyword', gcmd_sciencekeywords),
+    path('api/samplingfrequency', gcmd_temporal),
     path('api/qudtunits', qudt_units),
     path('api/ternparameters', tern_parameters),
     path('api/ternplatforms', tern_platforms),

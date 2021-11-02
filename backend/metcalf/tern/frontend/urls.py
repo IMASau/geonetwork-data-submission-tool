@@ -42,6 +42,7 @@ urlpatterns = [
     path('logout', logout_view, name="Sign Out"),
     path('robots.txt', robots_view, name="Robots"),
     path('api/anzsrckeyword', anzsrc_keywords),
+    path('api/ausplantnames', aus_plantnames),
     path('api/qudtunits', qudt_units),
     path('api/ternparameters', tern_parameters),
     path('api/ternplatforms', tern_platforms),

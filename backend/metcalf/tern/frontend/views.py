@@ -1092,3 +1092,43 @@ def anzsrc_keywords(request: HttpRequest) -> Response:
 
     return Response(es_results(data), status=200)
 
+
+# FIXME: no data / schema in the dumped index so far
+@api_view(['GET', 'POST'])
+def aus_plantnames(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_PLANTNAMES
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["uuid", "label", "uri", "abstract"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+

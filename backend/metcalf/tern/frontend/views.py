@@ -1017,40 +1017,273 @@ def tern_orgs(request) -> Response:
 
 @api_view(['GET', 'POST'])
 def geonetwork_entries(request: HttpRequest) -> Response:
-    gn_base = settings.GEONETWORK_BASE
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_GEONETWORK
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
 
     if request.method == "GET":
         query = request.GET.get("query")
     elif request.method == "POST":
         query = request.data.get("query")
+    else:
+        raise
 
-    # Working around an inconvenience: by default we only match on
-    # exact term-matches in a field (ie, "rain" matches "rain" but not
-    # "rainforest").  Additionally though, if someone matches on the
-    # UUID then the wildcard /won't/ match (ie, it isn't treated as a
-    # regular text term), so to accomodate both UUID searches and
-    # partial matches, we construct an "or" query using both
-    # wildcarded and as-input terms.  Since it is likely people will
-    # just paste in a known UUID this seems like a use-case we should
-    # support.
-    query = query or ''
-    query_terms = query.split(None)
-    query_wildcards = ['*' + w + '*' for w in query.split(None)]
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["uuid", "label", "uri", "abstract"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
 
-    # https://geonetwork-opensource.org/manuals/trunk/en/api/q-search.html
-    response = requests.get(f"{gn_base}/srv/eng/q", params={
-        "or": ' '.join(query_terms + query_wildcards),
-        "fast": "index",
-        "buildSummary": "false",  # summary is just facets, we only want the raw data
-        "_content_type": "json",
-    })
-    rjson = response.json()
-    metadata_response = rjson.get("metadata", [])
+    return Response(es_results(data), status=200)
 
-    # Annoyingly, if there's exactly one match then GN doesn't wrap it
-    # in a list (or possibly that's a special-case for UUID matches?)
-    if isinstance(metadata_response, dict):
-        metadata_response = [metadata_response]
-    title_ids = [{"label": rec["title"], "value": rec["geonet:info"]["uuid"]} for rec in metadata_response]
 
-    return Response({"results": title_ids}, status=200)
+@api_view(['GET', 'POST'])
+def anzsrc_keywords(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_ANZSRC
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["breadcrumb", "label"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+# FIXME: no data / schema in the dumped index so far
+@api_view(['GET', 'POST'])
+def aus_plantnames(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_PLANTNAMES
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["uuid", "label", "uri", "abstract"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def gcmd_horizontal(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_GCMDHORIZONTAL
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["breadcrumb", "label", "uri"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def gcmd_sciencekeywords(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_GCMDSCIENCE
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["breadcrumb", "label", "uri"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def gcmd_temporal(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_GCMDTEMPORAL
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["breadcrumb", "label", "uri"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def gcmd_vertical(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_GCMDVERTICAL
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["breadcrumb", "label", "uri"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)

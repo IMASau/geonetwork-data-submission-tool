@@ -111,6 +111,17 @@
         }
       }
     },
+    "referenceSystemInfo": {
+      "xpath": "mdb:referenceSystemInfo/mrs:MD_ReferenceSystem/mrs:referenceSystemIdentifier/mcc:MD_Identifier",
+      "type": "object",
+      "properties": {
+        "crsCode": {
+          "!docstring": "Where3",
+          "xpath": "mcc:code/gco:CharacterString",
+          "type": "string"
+        }
+      }
+    },
     "identificationInfo": {
       "xpath": "mdb:identificationInfo/mri:MD_DataIdentification",
       "rules": [
@@ -296,7 +307,8 @@
               "required": false
             },
             "boxes": {
-              "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
+              "!docstring": "Where2",
+              "xpath": "gex:geographicElement",
               "rules": [
                 "requiredField"
               ],
@@ -304,17 +316,19 @@
               "keep": false,
               "type": "array",
               "items": {
+                "xpath": "gex:geographicElement",
                 "type": "object",
                 "properties": {
                   "uri": {},
                   "isUserDefined": {},
                   "westBoundLongitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:westBoundLongitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:westBoundLongitude",
                     "rules": [
                       "requiredField"
                     ],
                     "label": "West limit",
+                    "type": "number",
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -323,11 +337,12 @@
                   },
                   "eastBoundLongitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:eastBoundLongitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:eastBoundLongitude",
                     "rules": [
                       "requiredField"
                     ],
                     "label": "East limit",
+                    "type": "number",
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -336,11 +351,12 @@
                   },
                   "southBoundLatitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:southBoundLatitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:southBoundLatitude",
                     "rules": [
                       "requiredField"
                     ],
                     "label": "South limit",
+                    "type": "number",
                     "attributes": {
                       "text": {
                         "function": "to_string"
@@ -349,11 +365,12 @@
                   },
                   "northBoundLatitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:northBoundLatitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:northBoundLatitude",
                     "rules": [
                       "requiredField"
                     ],
                     "label": "North limit",
+                    "type": "number",
                     "attributes": {
                       "text": {
                         "function": "to_string"

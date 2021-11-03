@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DUMP="docker run --rm -it -v $(pwd):/data elasticdump/elasticsearch-dump:v6.72.0"
+DUMP="docker run --rm -it -v $(pwd):/data elasticdump/elasticsearch-dump:v6.74.0"
 
 # qudt_units-2021-06-07t14-06-1623076799
 # shared_instruments-2021-06-07t14-06-1623076799
@@ -53,9 +53,17 @@ function dump_index () {
 
 dump_index $AUTH_QUDT qudt_units
 
-dump_index $AUTH_SHARED shared_instruments
 dump_index $AUTH_SHARED shared_org
-dump_index $AUTH_SHARED shared_parameters
-dump_index $AUTH_SHARED shared_people
 dump_index $AUTH_SHARED shared_platforms
+dump_index $AUTH_SHARED shared_parameters
 dump_index $AUTH_SHARED shared_instrument_types
+dump_index $AUTH_SHARED shared_instruments
+dump_index $AUTH_SHARED shared_people
+dump_index $AUTH_SHARED shared_anzsrc_keywords
+dump_index $AUTH_SHARED shared_aus_plant_name
+dump_index $AUTH_SHARED shared_gcmd_horizontal_resolution
+dump_index $AUTH_SHARED shared_gcmd_science_keywords
+dump_index $AUTH_SHARED shared_gcmd_temporal_resolution
+dump_index $AUTH_SHARED shared_gcmd_vertical_resolution
+dump_index $AUTH_SHARED shared_geonetwork_sources
+

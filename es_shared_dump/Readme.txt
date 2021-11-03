@@ -20,7 +20,7 @@ LOAD indices:
 
 1. start up ES
 
-    docker run --rm -it -p 9200:9200 -v $(pwd)/es-data:/usr/share/elasticsearch/data -e "discovery.type=single-node" elasticsearch:7.5.2
+    docker run --rm -it -p 9200:9200 -v $(pwd)/es-data:/usr/share/elasticsearch/data -e "discovery.type=single-node" elasticsearch:7.14.0
 
 2. load data dump into local ES
 

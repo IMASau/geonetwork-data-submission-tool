@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DUMP="docker run --add-host=host.docker.internal:host-gateway --rm -it -v $(pwd):/data elasticdump/elasticsearch-dump:v6.72.0"
+DUMP="docker run --add-host=host.docker.internal:host-gateway --rm -it -v $(pwd):/data elasticdump/elasticsearch-dump:v6.74.0"
 
 # qudt_units-2021-06-07t14-06-1623076799
 # shared_instruments-2021-06-07t14-06-1623076799
@@ -61,3 +61,10 @@ load_index shared_parameters
 load_index shared_people
 load_index shared_platforms
 load_index shared_instrument_types
+load_index shared_anzsrc_keywords
+load_index shared_aus_plant_name
+load_index shared_gcmd_horizontal_resolution
+load_index shared_gcmd_science_keywords
+load_index shared_gcmd_temporal_resolution
+load_index shared_gcmd_vertical_resolution
+load_index shared_geonetwork_sources

@@ -283,7 +283,7 @@
         form (logic3/validate-required-fields form)]
     {::fx3/create-document
      {:url       url
-      :params    (logic3/extract-data form)
+      :params    (blocks/as-data (:state form))
       :success-v [::-dashboard-create-save-success]
       :error-v   [::-dashboard-create-save-error]}}))
 

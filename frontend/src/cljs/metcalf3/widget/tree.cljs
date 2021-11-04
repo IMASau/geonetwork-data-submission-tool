@@ -1,10 +1,6 @@
 (ns metcalf3.widget.tree
   (:require [reagent.core :as r]))
 
-(defn descendant-count
-  [{:keys [lft rgt]}]
-  (- rgt lft 1))
-
 (defn node-parent?
   ([{:keys [lft rgt tree_id]} parent]
    (and (= (:tree_id parent) tree_id)

@@ -108,10 +108,3 @@
            :select-option select-option
            :is-expandable (> (descendant-count option) 0)
            :is-expanded   (contains? expanded option)})))]])
-
-(defn TermList
-  [props _]
-  [BaseTermList (assoc props
-                  :render-menu render-tree-term-menu
-                  :render-option render-tree-term-option)])
-

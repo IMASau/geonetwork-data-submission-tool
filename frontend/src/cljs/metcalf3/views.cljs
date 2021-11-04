@@ -624,24 +624,24 @@
                     (rf/dispatch [::update-dp-term dp-term-path sub-paths option]))}]
      [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
 
-(defn TermOrOtherForm
-  "docstring"
-  [{:keys [dp-term-path dp-type] :as props}]
-  (let [sub-paths (utils3/dp-term-paths dp-type)
-        term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
-        vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])]
-    [:div
-     [:p "Select a term from the vocabulary"]
-     [ApiTermTreeField props]
-     [:p "Or define your own"]
-     [InputWidget
-      (assoc term
-        :value (if (utils3/other-term? term vocabularyTermURL) (:value term) "")
-        :on-change (fn [v]
-                     (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term              v
-                                                                                :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
-        :placeholder ""
-        :maxlength 100)]]))
+;(defn TermOrOtherForm
+;  "docstring"
+;  [{:keys [dp-term-path dp-type] :as props}]
+;  (let [sub-paths (utils3/dp-term-paths dp-type)
+;        term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
+;        vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])]
+;    [:div
+;     [:p "Select a term from the vocabulary"]
+;     [ApiTermTreeField props]
+;     [:p "Or define your own"]
+;     [InputWidget
+;      (assoc term
+;        :value (if (utils3/other-term? term vocabularyTermURL) (:value term) "")
+;        :on-change (fn [v]
+;                     (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term              v
+;                                                                                :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
+;        :placeholder ""
+;        :maxlength 100)]]))
 
 (defn UnitTermOrOtherForm
   "docstring"

@@ -127,7 +127,3 @@
       (fn [row]
         (some col-match? (rest row)))
       table)))
-
-(defn other-term?
-  [term vocabularyTermURL]
-  (and (:value term) (empty? (:value vocabularyTermURL))))

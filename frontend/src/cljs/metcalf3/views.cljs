@@ -564,27 +564,27 @@
 ;      {:component-will-mount will-mount
 ;       :render               render})))
 
-(defn PersonListWidget
-  [_]
-  (letfn [(will-mount [this]
-            (let [{:keys [api-path]} (r/props this)]
-              (rf/dispatch [::load-api-options3 api-path])))
-          (render [this]
-            (let [{:keys [api-path value on-change]} (r/props this)]
-              (when-let [{:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
-                ; TODO: review performance
-                (let [options (js->clj options :keywordize-keys true)
-                      options (into [] (map #(assoc % :is_selectable true) options))
-                      option-value (first (filter #(-> % :uri (= value)) options))]
-                  [TermList
-                   {:value       option-value
-                    :display-key :prefLabel
-                    :value-key   :uri
-                    :options     options
-                    :on-select   on-change}]))))]
-    (r/create-class
-      {:component-will-mount will-mount
-       :render               render})))
+;(defn PersonListWidget
+;  [_]
+;  (letfn [(will-mount [this]
+;            (let [{:keys [api-path]} (r/props this)]
+;              (rf/dispatch [::load-api-options3 api-path])))
+;          (render [this]
+;            (let [{:keys [api-path value on-change]} (r/props this)]
+;              (when-let [{:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
+;                ; TODO: review performance
+;                (let [options (js->clj options :keywordize-keys true)
+;                      options (into [] (map #(assoc % :is_selectable true) options))
+;                      option-value (first (filter #(-> % :uri (= value)) options))]
+;                  [TermList
+;                   {:value       option-value
+;                    :display-key :prefLabel
+;                    :value-key   :uri
+;                    :options     options
+;                    :on-select   on-change}]))))]
+;    (r/create-class
+;      {:component-will-mount will-mount
+;       :render               render})))
 
 ;(defn ApiTreeWidget
 ;  [_]

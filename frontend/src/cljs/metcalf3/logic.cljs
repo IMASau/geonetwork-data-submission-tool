@@ -98,18 +98,6 @@
     :else value))
 
 
-(defn process-node [{:keys [errors page required disabled] :as field} counter]
-  (if-not disabled
-    (let [errors? (not-empty errors)]
-      (cond-> counter
-        true (update :fields inc)
-        (not (has-value? field)) (update :empty inc)
-        errors? (update :errors inc)
-        required (update :required inc)
-        (and errors? required) (update :required-errors inc)
-        (and errors? page) (update-in [:page-errors page] inc)))
-    counter))
-
 (defn score-object [block]
   (let [{:keys [content]} block]
     (apply merge-with + (map ::score (vals content)))))

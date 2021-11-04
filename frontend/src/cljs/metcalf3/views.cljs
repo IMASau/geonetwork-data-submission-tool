@@ -660,20 +660,20 @@
 ;        :placeholder ""
 ;        :maxlength 100)]]))
 
-(defn person-list-field
-  [{:keys [api-path person-path]}]
-  (let [{:keys [name uri]} @(rf/subscribe [:subs/get-derived-path person-path])
-        {:keys [label required errors show-errors]} name
-        {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
-    [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
-     (when label [:label label (when required " *")])
-     [PersonListWidget
-      {:api-path  api-path
-       :value     (:value uri)
-       :options   options
-       :on-change (fn [option]
-                    (rf/dispatch [::person-list-field-change person-path option]))}]
-     [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
+;(defn person-list-field
+;  [{:keys [api-path person-path]}]
+;  (let [{:keys [name uri]} @(rf/subscribe [:subs/get-derived-path person-path])
+;        {:keys [label required errors show-errors]} name
+;        {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
+;    [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
+;     (when label [:label label (when required " *")])
+;     [PersonListWidget
+;      {:api-path  api-path
+;       :value     (:value uri)
+;       :options   options
+;       :on-change (fn [option]
+;                    (rf/dispatch [::person-list-field-change person-path option]))}]
+;     [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
 
 ;(defn PersonForm
 ;  "docstring"

@@ -1078,7 +1078,7 @@
 ;       :on-change       (fn [option]
 ;                          (rf/dispatch [::organisation-input-field-change (conj party-path :value) option]))}]]))
 
-(def orcid-mask "0000{-}0000{-}0000{-}000*")
+;(def orcid-mask "0000{-}0000{-}0000{-}000*")
 
 ;(defn ResponsiblePartyField [party-path]
 ;  (let [party-value-path (conj party-path :value)

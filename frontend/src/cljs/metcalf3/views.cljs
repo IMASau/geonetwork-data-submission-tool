@@ -1135,8 +1135,8 @@
 ;
 ;       ]]]))
 
-(defn FieldError [{:keys [errors label]}]
-  [:span.FieldError label ": " (first errors)])
+;(defn FieldError [{:keys [errors label]}]
+;  [:span.FieldError label ": " (first errors)])
 
 (defn ManyFieldError [{:keys [errors label]}]
   [:span.FieldError label ": " (or (first errors) "check field errors")])

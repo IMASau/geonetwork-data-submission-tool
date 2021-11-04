@@ -1205,45 +1205,45 @@
 ;(defn CreditField [path]
 ;  [:div.CreditField [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :credit])]])
 
-(defn parties-list [this group]
-  (let [{:keys [disabled] :as parties} @(rf/subscribe [:subs/get-derived-path (:path (contact-groups group))])
-        {:keys [selected-group selected-item]} (r/state this)
-        selected-item (when (= group selected-group) selected-item)]
-    (letfn [(delete-contact! [e item]
-              (.stopPropagation e)
-              (let [parties-path (:path (contact-groups group))
-                    {:keys [selected-group selected-item]} (r/state this)]
-                (rf/dispatch [::open-modal
-                              {:type       :confirm
-                               :title      "Delete?"
-                               :message    "Are you sure you want to delete this person?"
-                               :on-confirm (fn []
-                                             (when (and (= group selected-group) (<= item selected-item))
-                                               (r/set-state this {:selected-item
-                                                                  (when (> (count (:value parties)) 1)
-                                                                    (-> selected-item dec (max 0)))}))
-                                             (rf/dispatch [::parties-list-remove-party-confirm parties-path item]))}])))]
-
-      (into [:div.list-group]
-            (for [[item party] (-> parties :value utils3/enum)]
-              [:div
-               [:a.list-group-item
-                {:class    (when (= item selected-item) "active")
-                 :on-click (fn []
-                             (r/set-state this {:selected-group group})
-                             (r/set-state this {:selected-item item}))}
-                [:span
-                 (let [name (get-in party [:value :individualName :value])
-                       givenName (get-in party [:value :givenName :value])
-                       familyName (get-in party [:value :familyName :value])
-                       name (if (blank? name)
-                              (str givenName " " familyName)
-                              name)]
-                   (if (blank? name) [:em "First name Last name"] name))
-                 (when-not disabled
-                   [:button.btn.btn-warn.btn-xs.pull-right
-                    {:on-click #(delete-contact! % item)}
-                    [:i.glyphicon.glyphicon-minus]])]]])))))
+;(defn parties-list [this group]
+;  (let [{:keys [disabled] :as parties} @(rf/subscribe [:subs/get-derived-path (:path (contact-groups group))])
+;        {:keys [selected-group selected-item]} (r/state this)
+;        selected-item (when (= group selected-group) selected-item)]
+;    (letfn [(delete-contact! [e item]
+;              (.stopPropagation e)
+;              (let [parties-path (:path (contact-groups group))
+;                    {:keys [selected-group selected-item]} (r/state this)]
+;                (rf/dispatch [::open-modal
+;                              {:type       :confirm
+;                               :title      "Delete?"
+;                               :message    "Are you sure you want to delete this person?"
+;                               :on-confirm (fn []
+;                                             (when (and (= group selected-group) (<= item selected-item))
+;                                               (r/set-state this {:selected-item
+;                                                                  (when (> (count (:value parties)) 1)
+;                                                                    (-> selected-item dec (max 0)))}))
+;                                             (rf/dispatch [::parties-list-remove-party-confirm parties-path item]))}])))]
+;
+;      (into [:div.list-group]
+;            (for [[item party] (-> parties :value utils3/enum)]
+;              [:div
+;               [:a.list-group-item
+;                {:class    (when (= item selected-item) "active")
+;                 :on-click (fn []
+;                             (r/set-state this {:selected-group group})
+;                             (r/set-state this {:selected-item item}))}
+;                [:span
+;                 (let [name (get-in party [:value :individualName :value])
+;                       givenName (get-in party [:value :givenName :value])
+;                       familyName (get-in party [:value :familyName :value])
+;                       name (if (blank? name)
+;                              (str givenName " " familyName)
+;                              name)]
+;                   (if (blank? name) [:em "First name Last name"] name))
+;                 (when-not disabled
+;                   [:button.btn.btn-warn.btn-xs.pull-right
+;                    {:on-click #(delete-contact! % item)}
+;                    [:i.glyphicon.glyphicon-minus]])]]])))))
 
 (defn default-selected-group []
   (ffirst

@@ -1202,8 +1202,8 @@
        [:p.lead "Oops! " (pr-str text)]
        [:p "The server responded with a " [:code code " " (pr-str text)] " error."]]]]))
 
-(defn CreditField [path]
-  [:div.CreditField [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :credit])]])
+;(defn CreditField [path]
+;  [:div.CreditField [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :credit])]])
 
 (defn parties-list [this group]
   (let [{:keys [disabled] :as parties} @(rf/subscribe [:subs/get-derived-path (:path (contact-groups group))])

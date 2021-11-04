@@ -157,12 +157,6 @@
            :is-expandable (> (descendant-count option) 0)
            :is-expanded   (contains? expanded option)})))]])
 
-(defn TermTree
-  [props _]
-  [BaseTermTree (assoc props
-                  :render-menu render-tree-term-menu
-                  :render-option render-tree-term-option)])
-
 (defn TermList
   [props _]
   [BaseTermList (assoc props

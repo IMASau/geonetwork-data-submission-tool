@@ -78,18 +78,6 @@
        (or (contains? m :value)
            (contains? m :type))))
 
-(defn page-fields
-  [state page]
-  (let [zipper (page-field-zipper state)]
-    (loop [loc zipper
-           acc []]
-      (if (zip/end? loc)
-        acc
-        (let [node (zip/node loc)]
-          (recur (zip/next loc) (if (and (field? node) (= page (:page node)))
-                                  (conj acc node)
-                                  acc)))))))
-
 (defn has-value? [{:keys [many value]}]
   (cond
     many (seq value)

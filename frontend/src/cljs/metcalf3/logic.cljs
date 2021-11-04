@@ -78,13 +78,6 @@
        (or (contains? m :value)
            (contains? m :type))))
 
-(defn has-value? [{:keys [many value]}]
-  (cond
-    many (seq value)
-    (nil? value) false
-    (string? value) (seq value)
-    :else value))
-
 
 (defn score-object [block]
   (let [{:keys [content]} block]

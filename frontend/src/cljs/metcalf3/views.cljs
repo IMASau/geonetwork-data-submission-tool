@@ -693,15 +693,15 @@
 ;          :on-dismiss   #(rf/dispatch [::close-modal])
 ;          :on-save      #(rf/dispatch [::close-modal])}])
 
-(defn modal-dialog-parameterunit
-  [props]
-  [Modal {:ok-copy      "Done"
-          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Add parameter unit"]
-          :modal-body   [:div [UnitTermOrOtherForm (-> props
-                                                       (assoc :sort? false)
-                                                       (assoc :dp-type :unit))]]
-          :on-dismiss   #(rf/dispatch [::close-modal])
-          :on-save      #(rf/dispatch [::close-modal])}])
+;(defn modal-dialog-parameterunit
+;  [props]
+;  [Modal {:ok-copy      "Done"
+;          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Add parameter unit"]
+;          :modal-body   [:div [UnitTermOrOtherForm (-> props
+;                                                       (assoc :sort? false)
+;                                                       (assoc :dp-type :unit))]]
+;          :on-dismiss   #(rf/dispatch [::close-modal])
+;          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-parameterinstrument
   [props]

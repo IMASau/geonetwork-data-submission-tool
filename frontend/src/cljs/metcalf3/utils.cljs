@@ -9,32 +9,6 @@
     (when-not (= v0 v1)
       (f v1))))
 
-(defn clj->js*
-  "Recursively transforms ClojureScript values to JavaScript, but not deeper than `depth`.
-  Sets/Vectors/Lists become Arrays, Keywords and Symbols become Strings,
-  Maps become Objects. Arbitrary keys are encoded to by `key->js`."
-  [x depth]
-  (when-not (nil? x)
-    (if (satisfies? IEncodeJS x)
-      (-clj->js x)
-      (cond
-        (keyword? x) (name x)
-        (symbol? x) (str x)
-
-        (and (pos? depth) (map? x))
-        (let [m (js-obj)]
-          (doseq [[k v] x]
-            (aset m (key->js k) (clj->js* v (dec depth))))
-          m)
-
-        (and (pos? depth) (coll? x))
-        (let [arr (array)]
-          (doseq [x x]
-            (.push arr (clj->js* x (dec depth))))
-          arr)
-
-        :else x))))
-
 (defn js-lookup
   "Helper for destructuring.  Returns an ILookup for fetching values out of a js-obj by keyword."
   [js-obj]

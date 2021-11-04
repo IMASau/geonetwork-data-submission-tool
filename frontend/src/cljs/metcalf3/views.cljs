@@ -479,11 +479,11 @@
 ;      {:component-will-mount will-mount
 ;       :render               render})))
 
-(defn Tooltip
-  [value]
-  [:span " "
-   [:i.icon-info-sign.tern-tooltip
-    [:span.tern-tooltiptext value]]])
+;(defn Tooltip
+;  [value]
+;  [:span " "
+;   [:i.icon-info-sign.tern-tooltip
+;    [:span.tern-tooltiptext value]]])
 
 ;(defn elasticsearch-select-field
 ;  [_]

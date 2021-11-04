@@ -19,6 +19,7 @@ router.register(r'person', viewsets.PersonViewSet)
 router.register(r'samplingfrequency', viewsets.SamplingFrequencyViewSet)
 router.register(r'horizontalresolution', viewsets.HorizontalResolutionViewSet)
 router.register(r'topiccategory', viewsets.TopicCategoryViewSet)
+router.register(r'metadata-template', viewsets.MetadataTemplateViewSet)
 
 urlpatterns = [
     path('', home, name="LandingPage"),

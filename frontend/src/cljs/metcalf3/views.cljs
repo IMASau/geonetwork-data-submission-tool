@@ -703,14 +703,14 @@
 ;          :on-dismiss   #(rf/dispatch [::close-modal])
 ;          :on-save      #(rf/dispatch [::close-modal])}])
 
-(defn modal-dialog-parameterinstrument
-  [props]
-  [Modal {:ok-copy      "Done"
-          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter instruments"]
-          :modal-body   [:div
-                         [TermOrOtherForm (assoc props :dp-type :instrument)]]
-          :on-dismiss   #(rf/dispatch [::close-modal])
-          :on-save      #(rf/dispatch [::close-modal])}])
+;(defn modal-dialog-parameterinstrument
+;  [props]
+;  [Modal {:ok-copy      "Done"
+;          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter instruments"]
+;          :modal-body   [:div
+;                         [TermOrOtherForm (assoc props :dp-type :instrument)]]
+;          :on-dismiss   #(rf/dispatch [::close-modal])
+;          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-parameterplatform
   [props]

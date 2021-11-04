@@ -1359,10 +1359,10 @@
 ;    :add-label   "Add publication"
 ;    :field-path  path}])
 
-(defn SupportingResourceFieldEdit [path]
-  [:div
-   [InputField {:path (conj path :value :name)}]
-   [InputField {:path (conj path :value :url)}]])
+;(defn SupportingResourceFieldEdit [path]
+;  [:div
+;   [InputField {:path (conj path :value :name)}]
+;   [InputField {:path (conj path :value :url)}]])
 
 ;(defn IMASSupportingResource
 ;  [{:keys [path]}]

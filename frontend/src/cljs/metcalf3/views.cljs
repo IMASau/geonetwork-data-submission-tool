@@ -14,7 +14,7 @@
             [interop.fixed-data-table-2 :refer [Cell Column Table]]
             [interop.moment :as moment]
             [interop.react-imask :as react-imask]
-            [metcalf3.content :refer [contact-groups]]
+            [metcalf3.content :refer []]
             [metcalf3.handlers :as handlers3]
             [metcalf3.logic :as logic3]
             [metcalf3.utils :as utils3]

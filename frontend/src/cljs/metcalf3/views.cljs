@@ -186,23 +186,23 @@
                     :on-blur #(rf/dispatch [::select-field-blur path])
                     :on-change #(rf/dispatch [::value-changed path %]))]))
 
-(defn textarea-widget
-  [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder]}]
-  [bp3/form-group
-   {:label      label
-    :labelInfo  labelInfo
-    :helperText helperText
-    :intent     intent}
-   [bp3/textarea2
-    {:key            @(rf/subscribe [::get-textarea-widget-key])
-     :growVertically true
-     :onBlur         #(rf/dispatch (conj change-v (-> % .-target .-value)))
-     :disabled       disabled
-     :placeholder    placeholder
-     :maxLength      maxlength
-     :defaultValue   value
-     :fill           true
-     :intent         intent}]])
+;(defn textarea-widget
+;  [{:keys [label labelInfo helperText maxlength value disabled change-v intent placeholder]}]
+;  [bp3/form-group
+;   {:label      label
+;    :labelInfo  labelInfo
+;    :helperText helperText
+;    :intent     intent}
+;   [bp3/textarea2
+;    {:key            @(rf/subscribe [::get-textarea-widget-key])
+;     :growVertically true
+;     :onBlur         #(rf/dispatch (conj change-v (-> % .-target .-value)))
+;     :disabled       disabled
+;     :placeholder    placeholder
+;     :maxLength      maxlength
+;     :defaultValue   value
+;     :fill           true
+;     :intent         intent}]])
 
 (defn Checkbox [props]
   (let [{:keys [label checked on-change disabled help]

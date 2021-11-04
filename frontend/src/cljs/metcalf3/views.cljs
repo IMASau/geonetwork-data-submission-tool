@@ -712,14 +712,14 @@
 ;          :on-dismiss   #(rf/dispatch [::close-modal])
 ;          :on-save      #(rf/dispatch [::close-modal])}])
 
-(defn modal-dialog-parameterplatform
-  [props]
-  [Modal {:ok-copy      "Done"
-          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter platforms"]
-          :modal-body   [:div
-                         [TermOrOtherForm (assoc props :dp-type :platform)]]
-          :on-dismiss   #(rf/dispatch [::close-modal])
-          :on-save      #(rf/dispatch [::close-modal])}])
+;(defn modal-dialog-parameterplatform
+;  [props]
+;  [Modal {:ok-copy      "Done"
+;          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter platforms"]
+;          :modal-body   [:div
+;                         [TermOrOtherForm (assoc props :dp-type :platform)]]
+;          :on-dismiss   #(rf/dispatch [::close-modal])
+;          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-person
   [props]

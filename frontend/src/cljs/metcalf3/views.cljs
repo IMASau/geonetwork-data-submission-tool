@@ -586,26 +586,26 @@
       {:component-will-mount will-mount
        :render               render})))
 
-(defn ApiTreeWidget
-  [_]
-  (letfn [(will-mount [this]
-            (let [{:keys [api-path]} (r/props this)]
-              (rf/dispatch [::load-api-options3 api-path])))
-          (render [this]
-            (let [{:keys [api-path value on-change]} (r/props this)]
-              (when-let [{:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
-                ; TODO: review performance
-                (let [options (doall (js->clj options :keywordize-keys true))
-                      option-value (first (filter #(-> % :URI (= value)) options))]
-                  [TermTree
-                   {:value     option-value
-                    :value-key :URI
-                    :options   options
-
-                    :on-select on-change}]))))]
-    (r/create-class
-      {:component-will-mount will-mount
-       :render               render})))
+;(defn ApiTreeWidget
+;  [_]
+;  (letfn [(will-mount [this]
+;            (let [{:keys [api-path]} (r/props this)]
+;              (rf/dispatch [::load-api-options3 api-path])))
+;          (render [this]
+;            (let [{:keys [api-path value on-change]} (r/props this)]
+;              (when-let [{:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
+;                ; TODO: review performance
+;                (let [options (doall (js->clj options :keywordize-keys true))
+;                      option-value (first (filter #(-> % :URI (= value)) options))]
+;                  [TermTree
+;                   {:value     option-value
+;                    :value-key :URI
+;                    :options   options
+;
+;                    :on-select on-change}]))))]
+;    (r/create-class
+;      {:component-will-mount will-mount
+;       :render               render})))
 
 ;(defn ApiTermTreeField
 ;  [{:keys [api-path dp-term-path dp-type]}]

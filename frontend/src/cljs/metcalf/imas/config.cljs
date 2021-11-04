@@ -66,7 +66,7 @@
 ;(defmethod views3/modal :parameterinstrument [modal-props] [views3/modal-dialog-parameterinstrument modal-props])
 ;(defmethod views3/modal :parameterplatform [modal-props] [views3/modal-dialog-parameterplatform modal-props])
 ;(defmethod views3/modal :person [modal-props] [views3/modal-dialog-person modal-props])
-(defmethod views3/modal :DashboardCreateModal [modal-props] [views3/modal-dialog-dashboard-create-modal modal-props])
+(defmethod views3/modal :DashboardCreateModal [modal-props] [views3/modal-dialog-dashboard-create-modal2 modal-props])
 (defmethod views3/modal :alert [modal-props] [views3/modal-dialog-alert modal-props])
 (defmethod views3/modal :confirm [modal-props] [views3/modal-dialog-confirm modal-props])
 (ins4/reg-global-singleton ins4/form-ticker)
@@ -932,7 +932,7 @@
              We want you to submit your data via 'lodging' the information.
              This permits multi-user access via the portal in a more friendly format."]]]]
 
-        :NewDocumentForm
+        :NewDocumentForm2
         [:div.NewDocumentForm
 
          ;[m4/FormErrors {:path [:create_form]}]

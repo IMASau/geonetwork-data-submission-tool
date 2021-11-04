@@ -34,7 +34,7 @@ from metcalf.imas.frontend.forms import DocumentAttachmentForm
 from metcalf.imas.frontend.models import SiteContent
 from metcalf.imas.frontend.permissions import is_document_editor, is_document_contributor
 from metcalf.imas.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
-    SiteContentSerializer
+    SiteContentSerializer, CreateDocumentSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -125,6 +125,11 @@ def dashboard(request):
 @login_required
 @api_view(['POST'])
 def create(request):
+    serializer = CreateDocumentSerializer(data=request.data)
+
+    if not serializer.is_valid():
+        return Response(data=serializer.errors, status=400)
+
     template = get_object_or_404(
         MetadataTemplate, site=get_current_site(request), archived=False, pk=request.data['template']['id'])
 

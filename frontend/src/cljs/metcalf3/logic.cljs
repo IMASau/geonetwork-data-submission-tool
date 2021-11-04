@@ -45,34 +45,6 @@
   ;  node)
   )
 
-(defn page-field-zipper
-  "page field zipper doesn't descend into many fields"
-  [node]
-  (zip/zipper
-
-    (fn branch? [x]
-      (cond
-        (map? x) (cond (contains? x :value) false
-                       :else true)
-        (coll? x) true
-        :else false))
-
-    (fn children [x]
-      (cond
-        (map? x) (seq x)
-        (coll? x) (seq x)
-        :else nil))
-
-    (fn make-node [node children]
-      (cond
-        (map? node) (if (contains? node :value)
-                      (assoc node :value children)
-                      (into (empty node) children))
-        (coll? node) (into (empty node) children)
-        :else (into (empty node) children)))
-
-    node))
-
 (defn field? [m]
   (and (map? m)
        (or (contains? m :value)

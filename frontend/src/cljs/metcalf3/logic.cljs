@@ -183,25 +183,6 @@
                      true)))
 
 
-(defn field-walk
-  "Tweaked walker which treats fields/branches in a specific way"
-  [inner outer form]
-  (cond
-    ; Field
-    (field? form) (outer (if (:many form)
-                           (into form
-                                 {:value
-                                  (mapv (comp (fn [x] {:value x}) inner :value)
-                                        (:value form))})
-                           form))
-    ; Branch
-    (map? form) (outer (utils/fmap inner form))
-    (seq? form) (outer (doall (map inner form)))
-    ; Lists (e.g. many value list)
-    (coll? form) (outer (into (empty form) (map inner form)))
-    :else (outer form)))
-
-
 ;(defn tree-edit
 ;  [zipper matcher editor]
 ;  (loop [loc zipper]

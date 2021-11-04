@@ -607,22 +607,22 @@
       {:component-will-mount will-mount
        :render               render})))
 
-(defn ApiTermTreeField
-  [{:keys [api-path dp-term-path dp-type]}]
-  (let [sub-paths (utils3/dp-term-paths dp-type)
-        term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
-        vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
-        {:keys [label required errors show-errors]} term
-        {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
-    [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
-     (when label [:label label (when required " *")])
-     [ApiTreeWidget
-      {:api-path  api-path
-       :value     (:value vocabularyTermURL)
-       :options   options
-       :on-change (fn [option]
-                    (rf/dispatch [::update-dp-term dp-term-path sub-paths option]))}]
-     [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
+;(defn ApiTermTreeField
+;  [{:keys [api-path dp-term-path dp-type]}]
+;  (let [sub-paths (utils3/dp-term-paths dp-type)
+;        term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
+;        vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])
+;        {:keys [label required errors show-errors]} term
+;        {:keys [options]} @(rf/subscribe [:subs/get-derived-path api-path])]
+;    [:div.form-group {:class (when (and show-errors (seq errors)) "has-error")}
+;     (when label [:label label (when required " *")])
+;     [ApiTreeWidget
+;      {:api-path  api-path
+;       :value     (:value vocabularyTermURL)
+;       :options   options
+;       :on-change (fn [option]
+;                    (rf/dispatch [::update-dp-term dp-term-path sub-paths option]))}]
+;     [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
 
 ;(defn TermOrOtherForm
 ;  "docstring"

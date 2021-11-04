@@ -1563,7 +1563,8 @@
 
 (defn dashboard
   [_]
-  (let [{:keys [filtered-docs status-filter has-documents? status-freq status relevant-status-filter]} @(rf/subscribe [::get-dashboard-props])]
+  (let [dashboard-props @(rf/subscribe [::get-dashboard-props])
+        {:keys [filtered-docs status-filter has-documents? status-freq status relevant-status-filter]} dashboard-props]
     [:div
      [navbar]
      [:div.container

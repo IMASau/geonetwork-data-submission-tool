@@ -721,14 +721,14 @@
 ;          :on-dismiss   #(rf/dispatch [::close-modal])
 ;          :on-save      #(rf/dispatch [::close-modal])}])
 
-(defn modal-dialog-person
-  [props]
-  [Modal {:ok-copy      "Done"
-          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse people"]
-          :modal-body   [:div
-                         [PersonForm props]]
-          :on-dismiss   #(rf/dispatch [::close-modal])
-          :on-save      #(rf/dispatch [::close-modal])}])
+;(defn modal-dialog-person
+;  [props]
+;  [Modal {:ok-copy      "Done"
+;          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse people"]
+;          :modal-body   [:div
+;                         [PersonForm props]]
+;          :on-dismiss   #(rf/dispatch [::close-modal])
+;          :on-save      #(rf/dispatch [::close-modal])}])
 
 ;(defn DataParameterRowEdit [path]
 ;  (let [base-path (conj path :value)

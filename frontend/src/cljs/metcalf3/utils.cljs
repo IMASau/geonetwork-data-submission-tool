@@ -122,10 +122,6 @@
    :vocabularyVersion (keyword (str (name dp-type) "_vocabularyVersion"))
    :termDefinition    (keyword (str (name dp-type) "_termDefinition"))})
 
-(defn filter-name [s]
-  (s/assert string? s)
-  (string/replace s #"[^a-zA-Z-', ]" ""))
-
 (defn filter-table
   "Default search for local datasource: case-insensitive substring match"
   [simple? table query]

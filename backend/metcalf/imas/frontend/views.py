@@ -126,7 +126,7 @@ def dashboard(request):
 @api_view(['POST'])
 def create(request):
     template = get_object_or_404(
-        MetadataTemplate, site=get_current_site(request), archived=False, pk=request.data['template'])
+        MetadataTemplate, site=get_current_site(request), archived=False, pk=request.data['template']['id'])
 
     doc = Document(title=request.data['title'],
                    owner=request.user,

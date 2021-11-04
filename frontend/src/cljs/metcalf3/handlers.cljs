@@ -377,7 +377,3 @@
    :dispatch [::open-modal
               {:type    :alert
                :message (str "Unable to lodge: " status " " failure)}]})
-
-(defn help-menu-open
-  [_ [_ url]]
-  {::fx3/window-open {:url url :windowName "_blank"}})

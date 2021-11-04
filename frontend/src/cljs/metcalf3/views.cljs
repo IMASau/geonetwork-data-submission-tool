@@ -675,15 +675,15 @@
                     (rf/dispatch [::person-list-field-change person-path option]))}]
      [:p.help-block "There are " (count options) " terms in this vocabulary"]]))
 
-(defn PersonForm
-  "docstring"
-  [props]
-  (let [{:keys [path]} props
-        props {:person-path path
-               :api-path    [:api :api/person]}]
-    [:div
-     [:p "Select a person"]
-     [person-list-field props]]))
+;(defn PersonForm
+;  "docstring"
+;  [props]
+;  (let [{:keys [path]} props
+;        props {:person-path path
+;               :api-path    [:api :api/person]}]
+;    [:div
+;     [:p "Select a person"]
+;     [person-list-field props]]))
 
 ;(defn modal-dialog-parametername
 ;  [props]

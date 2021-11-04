@@ -30,54 +30,6 @@
        (filter #(is-selected? value-key value %))
        (mapcat #(node-parents options %))))
 
-(defn BaseTermTree
-  []
-  (letfn [(init-state [this]
-            (let [{:keys [value options value-key]} (r/props this)
-                  expanded-parents (get-all-parents value-key value options)
-                  default-visible (if value (conj expanded-parents value)
-                                            expanded-parents)
-                  all-visible (set (apply concat (map (fn [y] (filter (fn [x] (and (= (:tree_id x) (:tree_id y))
-                                                                                   (= (:depth x) (+ 1 (:depth y)))
-                                                                                   (> (:lft x) (:lft y))
-                                                                                   (< (:rgt x) (:rgt y)))) options)) expanded-parents)))
-                  expanded (set expanded-parents)
-                  visible (set (concat (filter (fn [x] (= (:depth x) 1)) options) default-visible all-visible))]
-              {:expanded expanded
-               :visible  visible}))
-          (render [this]
-            (let [{:keys [expanded visible]} (r/state this)
-                  {:keys [value options value-key render-menu on-select]} (r/props this)
-                  toggle-option (fn [option]
-                                  (let [{:keys [lft rgt tree_id depth]} option]
-                                    (if (contains? expanded option)
-                                      ;off
-                                      (r/set-state this {:expanded (disj expanded option)
-                                                         :visible  (set (filter (fn [x] (or (<= (:depth x) depth)
-                                                                                            ; TODO: always false, looks like a typo
-                                                                                            (not= (= (:tree_id x) tree_id))
-                                                                                            (< (:lft x) lft)
-                                                                                            (> (:rgt x) rgt))) visible))})
-                                      ;on
-                                      (r/set-state this {:expanded (conj expanded option)
-                                                         :visible  (set (concat visible (apply concat (map (fn [y] (filter (fn [x] (and (= (:tree_id x) (:tree_id y) tree_id)
-                                                                                                                                        (= (:depth x) (+ (:depth y) 1))
-                                                                                                                                        (> (:lft x) (:lft y))
-                                                                                                                                        (< (:rgt x) (:rgt y)))) options)) (conj expanded option)))))}))))
-                  visible-options (doall (->> visible
-                                              (sort-by (juxt :tree_id :lft))))]
-              (render-menu
-                {:value           value
-                 :value-key       value-key
-                 :options         options
-                 :expanded        expanded
-                 :select-option   on-select
-                 :toggle-option   toggle-option
-                 :visible-options visible-options})))]
-    (r/create-class
-      {:get-initial-state init-state
-       :render            render})))
-
 (defn BaseTermList
   []
   (letfn [(init-state [this]

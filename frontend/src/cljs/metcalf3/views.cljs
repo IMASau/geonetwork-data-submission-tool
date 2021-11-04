@@ -904,32 +904,32 @@
       {:get-initial-state init-state
        :render            render})))
 
-(defn AddressField [address-path]
-  (let [address @(rf/subscribe [:subs/get-derived-path address-path])
-        {:keys [city postalCode administrativeArea country deliveryPoint deliveryPoint2]} address]
-    [:div.AddressField
-     [InputWidget (assoc deliveryPoint
-                    :on-change #(rf/dispatch [::value-changed (conj address-path :deliveryPoint) %]))]
-     [InputWidget (assoc deliveryPoint2
-                    :on-change #(rf/dispatch [::value-changed (conj address-path :deliveryPoint2) %]))]
-     [:div.row
-      [:div.col-xs-6
-       [InputWidget (assoc city
-                      :help "City"
-                      :on-change #(rf/dispatch [::value-changed (conj address-path :city) %]))]]
-      [:div.col-xs-6
-       [InputWidget (assoc administrativeArea
-                      :help "State/territory"
-                      :on-change #(rf/dispatch [::value-changed (conj address-path :administrativeArea) %]))]]]
-     [:div.row
-      [:div.col-xs-6
-       [InputWidget (assoc postalCode
-                      :help "Postal / Zip code"
-                      :on-change #(rf/dispatch [::value-changed (conj address-path :postalCode) %]))]]
-      [:div.col-xs-6
-       [InputWidget (assoc country
-                      :help "Country"
-                      :on-change #(rf/dispatch [::value-changed (conj address-path :country) %]))]]]]))
+;(defn AddressField [address-path]
+;  (let [address @(rf/subscribe [:subs/get-derived-path address-path])
+;        {:keys [city postalCode administrativeArea country deliveryPoint deliveryPoint2]} address]
+;    [:div.AddressField
+;     [InputWidget (assoc deliveryPoint
+;                    :on-change #(rf/dispatch [::value-changed (conj address-path :deliveryPoint) %]))]
+;     [InputWidget (assoc deliveryPoint2
+;                    :on-change #(rf/dispatch [::value-changed (conj address-path :deliveryPoint2) %]))]
+;     [:div.row
+;      [:div.col-xs-6
+;       [InputWidget (assoc city
+;                      :help "City"
+;                      :on-change #(rf/dispatch [::value-changed (conj address-path :city) %]))]]
+;      [:div.col-xs-6
+;       [InputWidget (assoc administrativeArea
+;                      :help "State/territory"
+;                      :on-change #(rf/dispatch [::value-changed (conj address-path :administrativeArea) %]))]]]
+;     [:div.row
+;      [:div.col-xs-6
+;       [InputWidget (assoc postalCode
+;                      :help "Postal / Zip code"
+;                      :on-change #(rf/dispatch [::value-changed (conj address-path :postalCode) %]))]]
+;      [:div.col-xs-6
+;       [InputWidget (assoc country
+;                      :help "Country"
+;                      :on-change #(rf/dispatch [::value-changed (conj address-path :country) %]))]]]]))
 
 ;(defn OrganisationPickerWidget
 ;  [props]

@@ -1138,8 +1138,8 @@
 ;(defn FieldError [{:keys [errors label]}]
 ;  [:span.FieldError label ": " (first errors)])
 
-(defn ManyFieldError [{:keys [errors label]}]
-  [:span.FieldError label ": " (or (first errors) "check field errors")])
+;(defn ManyFieldError [{:keys [errors label]}]
+;  [:span.FieldError label ": " (or (first errors) "check field errors")])
 
 ;(defn PageErrors [{:keys [page path]}]
 ;  (let [form @(rf/subscribe [:subs/get-derived-path path])

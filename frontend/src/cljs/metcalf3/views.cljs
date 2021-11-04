@@ -1333,8 +1333,8 @@
 ;      {:get-initial-state init-state
 ;       :render            render})))
 
-(defn UseLimitationsFieldEdit [path]
-  [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :useLimitations])])
+;(defn UseLimitationsFieldEdit [path]
+;  [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :useLimitations])])
 
 ;(defn UseLimitations
 ;  [{:keys [path]}]

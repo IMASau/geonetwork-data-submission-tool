@@ -685,13 +685,13 @@
      [:p "Select a person"]
      [person-list-field props]]))
 
-(defn modal-dialog-parametername
-  [props]
-  [Modal {:ok-copy      "Done"
-          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter names"]
-          :modal-body   [TermOrOtherForm (assoc props :dp-type :longName)]
-          :on-dismiss   #(rf/dispatch [::close-modal])
-          :on-save      #(rf/dispatch [::close-modal])}])
+;(defn modal-dialog-parametername
+;  [props]
+;  [Modal {:ok-copy      "Done"
+;          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Browse parameter names"]
+;          :modal-body   [TermOrOtherForm (assoc props :dp-type :longName)]
+;          :on-dismiss   #(rf/dispatch [::close-modal])
+;          :on-save      #(rf/dispatch [::close-modal])}])
 
 (defn modal-dialog-parameterunit
   [props]

@@ -79,50 +79,50 @@
        :component-will-receive-props component-will-receive-props
        :render                       render})))
 
-(defn NameInputWidget
-  [_]
-  (letfn [(init-state [this]
-            (let [{:keys [value]} (r/props this)]
-              {:input-value value}))
-
-          (handle-change [this s]
-            (let [s (utils3/filter-name s)]
-              (r/set-state this {:input-value s})))
-
-          (handle-blur [this]
-            (let [{:keys [on-change]} (r/props this)
-                  {:keys [input-value]} (r/state this)]
-              (on-change input-value)))
-
-          (component-will-receive-props [this new-argv]
-            (let [[_ next-props] new-argv
-                  props (r/props this)]
-              (utils3/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
-
-          (render [this]
-            (let [{:keys [addon-before addon-after help disabled mask] :as props} (r/props this)
-                  {:keys [input-value]} (r/state this)
-                  input-props (-> props
-                                  (dissoc :show-errors)
-                                  (assoc :maxLength (:maxlength props))
-                                  (dissoc :maxlength)
-                                  (assoc :value (or input-value ""))
-                                  (assoc :on-change #(handle-change this (.. % -target -value)))
-                                  (assoc :on-blur #(handle-blur this))
-                                  (assoc :key "ifc"))]
-              [:div.form-group {:class    (utils3/validation-state props)
-                                :disabled disabled}
-               (label-template props)
-               (if (or addon-after addon-before)
-                 [:div.input-group {:key "ig"} addon-before [:input.form-control input-props] addon-after]
-                 (if mask
-                   [masked-text-widget input-props]
-                   [:input.form-control input-props]))
-               [:p.help-block help]]))]
-    (r/create-class
-      {:get-initial-state            init-state
-       :component-will-receive-props component-will-receive-props
-       :render                       render})))
+;(defn NameInputWidget
+;  [_]
+;  (letfn [(init-state [this]
+;            (let [{:keys [value]} (r/props this)]
+;              {:input-value value}))
+;
+;          (handle-change [this s]
+;            (let [s (utils3/filter-name s)]
+;              (r/set-state this {:input-value s})))
+;
+;          (handle-blur [this]
+;            (let [{:keys [on-change]} (r/props this)
+;                  {:keys [input-value]} (r/state this)]
+;              (on-change input-value)))
+;
+;          (component-will-receive-props [this new-argv]
+;            (let [[_ next-props] new-argv
+;                  props (r/props this)]
+;              (utils3/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
+;
+;          (render [this]
+;            (let [{:keys [addon-before addon-after help disabled mask] :as props} (r/props this)
+;                  {:keys [input-value]} (r/state this)
+;                  input-props (-> props
+;                                  (dissoc :show-errors)
+;                                  (assoc :maxLength (:maxlength props))
+;                                  (dissoc :maxlength)
+;                                  (assoc :value (or input-value ""))
+;                                  (assoc :on-change #(handle-change this (.. % -target -value)))
+;                                  (assoc :on-blur #(handle-blur this))
+;                                  (assoc :key "ifc"))]
+;              [:div.form-group {:class    (utils3/validation-state props)
+;                                :disabled disabled}
+;               (label-template props)
+;               (if (or addon-after addon-before)
+;                 [:div.input-group {:key "ig"} addon-before [:input.form-control input-props] addon-after]
+;                 (if mask
+;                   [masked-text-widget input-props]
+;                   [:input.form-control input-props]))
+;               [:p.help-block help]]))]
+;    (r/create-class
+;      {:get-initial-state            init-state
+;       :component-will-receive-props component-will-receive-props
+;       :render                       render})))
 
 (defn SimpleInputWidget
   [{:keys [value addon-before addon-after help on-change disabled] :as props} _]

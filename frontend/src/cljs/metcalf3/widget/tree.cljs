@@ -65,19 +65,3 @@
      [:div.children_count
       (when is-expandable
         [:span.badge (/ (- rgt lft 1) 2)])]]))
-
-(defn render-tree-term-menu
-  [{:keys [value value-key expanded select-option toggle-option visible-options display-key]}]
-  [:div.pre-scrollable
-   [:div
-    (into
-      [:div.tree-term]
-      (for [option visible-options]
-        (render-tree-term-option
-          {:option        option
-           :display-key   (or display-key :Name)
-           :is-selected   (is-selected? value-key value option)
-           :toggle-option toggle-option
-           :select-option select-option
-           :is-expandable (> (descendant-count option) 0)
-           :is-expanded   (contains? expanded option)})))]])

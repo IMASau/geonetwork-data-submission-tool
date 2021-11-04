@@ -221,11 +221,6 @@
     :else (outer form)))
 
 
-(defn field-postwalk
-  [f form]
-  (field-walk (partial field-postwalk f) f form))
-
-
 ;(defn tree-edit
 ;  [zipper matcher editor]
 ;  (loop [loc zipper]

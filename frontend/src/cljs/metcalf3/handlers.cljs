@@ -11,15 +11,6 @@
             [metcalf4.blocks :as blocks]
             [metcalf4.rules :as rules]))
 
-(defn init-db
-  [_ [_ payload]]
-  (let [db' (logic3/initial-state payload)]
-    {:db         db'
-     :fx         [[:ui/setup-blueprint]]
-     ; TODO: use action
-     :dispatch-n (for [api-key (keys (get db' :api))]
-                   [::-init-db-load-api-options [:api api-key]])}))
-
 (defn load-api-options
   [{:keys [db]} [_ api-path]]
   (let [{:keys [uri options]} (get-in db api-path)]

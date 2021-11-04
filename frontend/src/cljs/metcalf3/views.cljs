@@ -1347,8 +1347,8 @@
 ;       :add-label  "Add use limitation"
 ;       :field-path path}]]))
 
-(defn SupplementalInformationRowEdit [path]
-  [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :supplementalInformation])])
+;(defn SupplementalInformationRowEdit [path]
+;  [textarea-widget @(rf/subscribe [:textarea-field/get-many-field-props path :supplementalInformation])])
 
 ;(defn IMASSupplementalInformation
 ;  [path]

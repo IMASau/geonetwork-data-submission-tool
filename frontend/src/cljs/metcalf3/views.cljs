@@ -1141,23 +1141,23 @@
 (defn ManyFieldError [{:keys [errors label]}]
   [:span.FieldError label ": " (or (first errors) "check field errors")])
 
-(defn PageErrors [{:keys [page path]}]
-  (let [form @(rf/subscribe [:subs/get-derived-path path])
-        fields (logic3/page-fields form page)
-        error-fields (remove #(logic3/is-valid? {:fields %}) fields)
-        msgs (for [field error-fields]
-               (if (and (:many field) (not (logic3/is-valid? {:fields field})))
-                 [ManyFieldError field]
-                 [FieldError field]))]
-    (when (seq msgs)
-      [:div.alert.alert-warning.alert-dismissable
-       [:button {:type     "button" :class "close"
-                 :on-click #(rf/dispatch [::page-errors-hide-click path])} "×"]
-       (if (> (count msgs) 1)
-         [:div
-          [:b "There are multiple fields on this page that require your attention:"]
-          (into [:ul] (for [msg msgs] [:li msg]))]
-         (first msgs))])))
+;(defn PageErrors [{:keys [page path]}]
+;  (let [form @(rf/subscribe [:subs/get-derived-path path])
+;        fields (logic3/page-fields form page)
+;        error-fields (remove #(logic3/is-valid? {:fields %}) fields)
+;        msgs (for [field error-fields]
+;               (if (and (:many field) (not (logic3/is-valid? {:fields field})))
+;                 [ManyFieldError field]
+;                 [FieldError field]))]
+;    (when (seq msgs)
+;      [:div.alert.alert-warning.alert-dismissable
+;       [:button {:type     "button" :class "close"
+;                 :on-click #(rf/dispatch [::page-errors-hide-click path])} "×"]
+;       (if (> (count msgs) 1)
+;         [:div
+;          [:b "There are multiple fields on this page that require your attention:"]
+;          (into [:ul] (for [msg msgs] [:li msg]))]
+;         (first msgs))])))
 
 ; (defn help-submenu
 ;   [menu-items]

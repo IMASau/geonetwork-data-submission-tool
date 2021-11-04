@@ -1245,11 +1245,11 @@
 ;                    {:on-click #(delete-contact! % item)}
 ;                    [:i.glyphicon.glyphicon-minus]])]]])))))
 
-(defn default-selected-group []
-  (ffirst
-    (filter
-      #(first @(rf/subscribe [:subs/get-derived-path (conj (:path (second %)) :value)]))
-      (utils3/enum contact-groups))))
+;(defn default-selected-group []
+;  (ffirst
+;    (filter
+;      #(first @(rf/subscribe [:subs/get-derived-path (conj (:path (second %)) :value)]))
+;      (utils3/enum contact-groups))))
 
 ;(defn Who [_]
 ;  (letfn [(init-state [_]

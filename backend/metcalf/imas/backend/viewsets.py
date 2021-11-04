@@ -34,19 +34,19 @@ class PersonViewSet(viewsets.ModelViewSet):
 class SamplingFrequencyViewSet(viewsets.ModelViewSet):
     queryset = models.SamplingFrequency.objects.all().order_by('prefLabelSortText')
     serializer_class = serializers.SamplingFrequencySerializer
-    search_fields = ('prefLabel')
+    search_fields = ('prefLabel',)
 
 
 class HorizontalResolutionViewSet(viewsets.ModelViewSet):
     queryset = models.HorizontalResolution.objects.all().order_by('prefLabelSortText')
     serializer_class = serializers.HorizontalResolutionSerializer
-    search_fields = ('prefLabel')
+    search_fields = ('prefLabel',)
 
 
 class TopicCategoryViewSet(viewsets.ModelViewSet):
     queryset = models.TopicCategory.objects.all()
     serializer_class = serializers.TopicCategorySerializer
-    search_fields = ('identifier')
+    search_fields = ('identifier',)
 
 
 class MetadataTemplateViewSet(viewsets.ModelViewSet):

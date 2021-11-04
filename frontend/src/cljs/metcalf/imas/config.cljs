@@ -930,4 +930,28 @@
            [:p
             "Please note: this XML file is not the recommended way to share your metadata.
              We want you to submit your data via 'lodging' the information.
-             This permits multi-user access via the portal in a more friendly format."]]]]})
+             This permits multi-user access via the portal in a more friendly format."]]]]
+
+        :NewDocumentForm
+        [:div.NewDocumentForm
+
+         ;[m4/FormErrors {:path [:create_form]}]
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [:title]
+           :label     "Title"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [:title]}]]
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [:template]
+           :label     "Title"}
+          [m4/async-select-option
+           {:form-id    ?form-id
+            :data-path  [:template]
+            :value-path ["id"]
+            :label-path ["name"]
+            :uri        "/api/metadata-template"}]]]})

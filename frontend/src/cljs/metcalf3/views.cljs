@@ -643,22 +643,22 @@
 ;        :placeholder ""
 ;        :maxlength 100)]]))
 
-(defn UnitTermOrOtherForm
-  "docstring"
-  [{:keys [dp-term-path dp-type]}]
-  (let [sub-paths (utils3/dp-term-paths dp-type)
-        term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
-        vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])]
-    [:div
-     [:p "Define your own unit"]
-     [InputWidget
-      (assoc term
-        :value (if (utils3/other-term? term vocabularyTermURL) (:value term) "")
-        :on-change (fn [v]
-                     (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term              v
-                                                                                :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
-        :placeholder ""
-        :maxlength 100)]]))
+;(defn UnitTermOrOtherForm
+;  "docstring"
+;  [{:keys [dp-term-path dp-type]}]
+;  (let [sub-paths (utils3/dp-term-paths dp-type)
+;        term @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:term sub-paths))])
+;        vocabularyTermURL @(rf/subscribe [:subs/get-derived-path (conj dp-term-path (:vocabularyTermURL sub-paths))])]
+;    [:div
+;     [:p "Define your own unit"]
+;     [InputWidget
+;      (assoc term
+;        :value (if (utils3/other-term? term vocabularyTermURL) (:value term) "")
+;        :on-change (fn [v]
+;                     (rf/dispatch [::update-dp-term dp-term-path sub-paths #js {:term              v
+;                                                                                :vocabularyTermURL "http://linkeddata.tern.org.au/XXX"}]))
+;        :placeholder ""
+;        :maxlength 100)]]))
 
 (defn person-list-field
   [{:keys [api-path person-path]}]

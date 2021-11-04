@@ -434,16 +434,16 @@
   nil
   (print-nice [x] "--"))
 
-(defn breadcrumb-renderer [selected-option]
-  (let [text (gobj/get selected-option "breadcrumb")
-        term-text (gobj/get selected-option "term")
-        alt-label (gobj/get selected-option "altLabel")]
-    [:div.topic-cell {:key term-text}
-     [:div.topic-path text]
-     [:div.topic-value term-text]
-     [:div {:style
-            {:margin-left 10 :color "#929292" :font-size 11}}
-      (if (clojure.string/blank? alt-label) "" (concat "also known as " alt-label))]]))
+;(defn breadcrumb-renderer [selected-option]
+;  (let [text (gobj/get selected-option "breadcrumb")
+;        term-text (gobj/get selected-option "term")
+;        alt-label (gobj/get selected-option "altLabel")]
+;    [:div.topic-cell {:key term-text}
+;     [:div.topic-path text]
+;     [:div.topic-value term-text]
+;     [:div {:style
+;            {:margin-left 10 :color "#929292" :font-size 11}}
+;      (if (clojure.string/blank? alt-label) "" (concat "also known as " alt-label))]]))
 
 ;(defn NasaListSelectField
 ;  [_]

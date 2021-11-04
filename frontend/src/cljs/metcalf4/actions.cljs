@@ -190,3 +190,20 @@
         (assoc-in [:db :form :schema] schema)               ; data schema used to generate new array items
         (assoc-in [:db :form :state] state)                 ; form state used to hold props/values
         )))
+
+(defn init-create-form-action
+  [s]
+  (let [data {}
+        schema {:type "object"
+                :properties
+                      {"title"    {:type "string"}
+                       "template" {:type "object"
+                                   :properties
+                                         {"id"   {:type "number"}
+                                          "name" {:type "string"}}}}}
+        state (blocks/as-blocks {:data data :schema schema})]
+    (schema/assert-schema-data {:data data :schema schema})
+    (-> s
+        (assoc-in [:db :create_form :data] data)
+        (assoc-in [:db :create_form :schema] schema)
+        (assoc-in [:db :create_form :state] state))))

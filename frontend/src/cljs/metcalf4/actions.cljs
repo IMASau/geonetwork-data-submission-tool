@@ -196,8 +196,12 @@
   (let [data {}
         schema {:type "object"
                 :properties
-                      {"title"    {:type "string"}
+                      {"title"    {:type "string"
+                                   :label "Title"
+                                   :rules ["requiredField"]}
                        "template" {:type "object"
+                                   :label "Template"
+                                   :rules ["requiredField"]
                                    :properties
                                          {"id"   {:type "number"}
                                           "name" {:type "string"}}}}}

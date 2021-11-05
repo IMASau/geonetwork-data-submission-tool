@@ -66,9 +66,15 @@
 ;(defmethod views3/modal :parameterinstrument [modal-props] [views3/modal-dialog-parameterinstrument modal-props])
 ;(defmethod views3/modal :parameterplatform [modal-props] [views3/modal-dialog-parameterplatform modal-props])
 ;(defmethod views3/modal :person [modal-props] [views3/modal-dialog-person modal-props])
-(defmethod views3/modal :DashboardCreateModal [modal-props] [views3/modal-dialog-dashboard-create-modal2 modal-props])
+(defmethod views3/modal :DashboardCreateModal [_] [components4/create-document-modal])
 (defmethod views3/modal :alert [modal-props] [views3/modal-dialog-alert modal-props])
 (defmethod views3/modal :confirm [modal-props] [views3/modal-dialog-confirm modal-props])
+(rf/reg-event-fx ::components4/create-document-modal-close-click handlers3/close-modal)
+(rf/reg-event-fx ::components4/create-document-modal-clear-click handlers3/close-modal)
+(rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
+(rf/reg-event-fx :metcalf4.handlers/-create-document-modal-save-click handlers4/-create-document-modal-save-click)
+(rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
+
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
 (set! rules/rule-registry
@@ -932,7 +938,7 @@
              We want you to submit your data via 'lodging' the information.
              This permits multi-user access via the portal in a more friendly format."]]]]
 
-        :NewDocumentForm2
+        ::components4/create-document-modal-form
         [:div.NewDocumentForm
 
          [m4/form-group

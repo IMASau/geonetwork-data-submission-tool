@@ -50,3 +50,10 @@
         state1 (get-in db (conj form-id :state))
         data1 (blocks/as-data (blocks/postwalk rules/apply-rules state1))]
     (not= data0 data1)))
+
+(defn create-document-modal-can-save?
+  [db _]
+  (let [state0 (get-in db [:create_form :state])
+        state1 (blocks/postwalk (comp utils4/score-block rules/apply-rules) state0)
+        {:keys [errors]} (::utils4/score state1)]
+    (not (pos? errors))))

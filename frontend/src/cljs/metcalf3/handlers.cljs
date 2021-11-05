@@ -78,6 +78,10 @@
   [{:keys [db]} [_ props]]
   {:db (open-modal db props)})
 
+(defn create-record-button-click
+  [{:keys [db]} _]
+  {:db (open-modal db {:type :DashboardCreateModal})})
+
 (defn del-value
   [{:keys [db]} [_ many-field-path i]]
   {:db (update-in db many-field-path update :value utils/vec-remove i)})

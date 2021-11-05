@@ -3,7 +3,8 @@
             [goog.object :as gobject]
             [goog.string :as gstring]
             [goog.uri.utils :as uri]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [lambdaisland.fetch :as fetch]))
 
 
 (s/def ::form-id vector?)
@@ -81,6 +82,12 @@
                                        :Accept       "application/json"
                                        :X-CSRFToken  (get-csrf)}})
       (.then (fn [resp] (.json resp)))))
+
+(defn post-data
+  [{:keys [url data]}]
+  (s/assert string? url)
+  (fetch/post url {:headers {:X-CSRFToken (get-csrf)}
+                   :body    data}))
 
 
 (defn get-value-by-keys [o path]

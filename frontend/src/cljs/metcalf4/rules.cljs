@@ -1,7 +1,8 @@
 (ns metcalf4.rules
   (:require [cljs.spec.alpha :as s]
             [clojure.string :as string]
-            [interop.date :as date]))
+            [interop.date :as date]
+            [metcalf4.blocks :as blocks]))
 
 (def ^:dynamic rule-registry {})
 
@@ -27,14 +28,12 @@
 
 (def empty-values #{nil "" [] {} #{}})
 
+;NOTE: It's possible that require-field is poor fit for objects/arrays
 (defn required-field
   [block required]
   (s/assert boolean? required)
   (if required
-    (let [value (case (:type block)
-                  "array" (get-in block [:content])
-                  "object" (get-in block [:content])
-                  (get-in block [:props :value]))]
+    (let [value (blocks/as-data block)]
       (-> block
           (assoc-in [:props :required] true)
           (cond-> (contains? empty-values value)
@@ -52,9 +51,9 @@
     (-> block
         (update-in [:content opt-field :props] merge props)
         (cond->
-            (and (not required?)
-                 (= "object" opt-type))
-            (assoc-in [:content opt-field :content] {})))))
+          (and (not required?)
+               (= "object" opt-type))
+          (assoc-in [:content opt-field :content] {})))))
 
 (defn max-length
   [block maxLength]
@@ -70,9 +69,9 @@
                            (not (string/blank? d1))         ; FIXME: payload includes "" instead of null
                            (not= r (sort r)))]
     (cond-> block
-            out-of-order?
-            (update-in [:content field1 :props :errors] conj
-                       (str "Must be after " (date/to-string (date/from-value d0)))))))
+      out-of-order?
+      (update-in [:content field1 :props :errors] conj
+                 (str "Must be after " (date/to-string (date/from-value d0)))))))
 
 (defn geography-required
   "Geography fields are required / included based on geographic coverage checkbox"
@@ -117,8 +116,8 @@
                 {:is-hidden false :disabled false :required true}
                 {:is-hidden true :disabled true :required false :value nil})]
     (-> identificationInfo
-      (update-in [:content "otherConstraints" :props] merge props)
-      (update-in [:content "otherConstraints"] required-field (:required props)))))
+        (update-in [:content "otherConstraints" :props] merge props)
+        (update-in [:content "otherConstraints"] required-field (:required props)))))
 
 (defn end-position
   "End position is required if the status is ongoing"

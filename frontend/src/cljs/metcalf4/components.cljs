@@ -1164,3 +1164,17 @@
           {:disabled disabled
            :on-click new-fn}
           [:span.glyphicon.glyphicon-plus] " Add new"]]))))
+
+(defn create-document-modal
+  "Modal form for creating new documents"
+  [_]
+  [ui/EditDialog
+   {:isOpen  true
+    :title   "Create a new record"
+    :onClose #(rf/dispatch [::create-document-modal-close-click])
+    :onClear #(rf/dispatch [::create-document-modal-clear-click])
+    :onSave  #(rf/dispatch [::create-document-modal-save-click])
+    :canSave @(rf/subscribe [::create-document-modal-can-save?])}
+   [low-code/render-template
+    {:template-id ::create-document-modal-form
+     :variables   '{?form-id [:create_form]}}]])

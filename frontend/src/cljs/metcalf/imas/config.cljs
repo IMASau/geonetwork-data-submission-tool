@@ -935,23 +935,27 @@
         :NewDocumentForm2
         [:div.NewDocumentForm
 
-         ;[m4/FormErrors {:path [:create_form]}]
+         [m4/page-errors
+          {:form-id    [:create_form]
+           :data-path  []
+           :data-paths [["title"]
+                        ["template"]]}]
 
          [m4/form-group
           {:form-id   ?form-id
-           :data-path [:title]
+           :data-path ["title"]
            :label     "Title"}
           [m4/input-field
            {:form-id   ?form-id
-            :data-path [:title]}]]
+            :data-path ["title"]}]]
 
          [m4/form-group
           {:form-id   ?form-id
-           :data-path [:template]
-           :label     "Title"}
+           :data-path ["template"]
+           :label     "Template"}
           [m4/async-select-option
            {:form-id    ?form-id
-            :data-path  [:template]
+            :data-path  ["template"]
             :value-path ["id"]
             :label-path ["name"]
             :uri        "/api/metadata-template"}]]]})

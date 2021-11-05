@@ -1516,7 +1516,7 @@
           :on-save      #(rf/dispatch [::modal-dialog-dashboard-create-modal-save-click])}])
 
 (defn NewDocumentButton []
-  [:button.btn.btn-primary {:on-click #(rf/dispatch [::open-modal {:type :DashboardCreateModal}])}
+  [:button.btn.btn-primary {:on-click #(rf/dispatch [::create-record-button-click])}
    [:span.glyphicon.glyphicon-plus]
    " Create new record"])
 

@@ -935,12 +935,6 @@
         :NewDocumentForm2
         [:div.NewDocumentForm
 
-         [m4/page-errors
-          {:form-id    [:create_form]
-           :data-path  []
-           :data-paths [["title"]
-                        ["template"]]}]
-
          [m4/form-group
           {:form-id   ?form-id
            :data-path ["title"]

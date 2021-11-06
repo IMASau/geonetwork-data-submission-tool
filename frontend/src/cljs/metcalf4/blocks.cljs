@@ -85,3 +85,9 @@
   (cond-> block
     (contains? block :props)
     (update :props dissoc :errors :show-errors)))
+
+
+(defn set-error-prop
+  [block data-path error]
+  (let [path (utils4/as-path [(block-path data-path) :props :errors])]
+    (assoc-in block path error)))

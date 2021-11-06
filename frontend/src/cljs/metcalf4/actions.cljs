@@ -211,3 +211,12 @@
         (assoc-in [:db :create_form :data] data)
         (assoc-in [:db :create_form :schema] schema)
         (assoc-in [:db :create_form :state] state))))
+
+(defn create-document-action
+  [s url data]
+  (update s :fx conj [::fx4/post-data {:url url :data data :resolve [::-create-document-action]}]))
+
+(defn -create-document-action
+  [s resp]
+  s)
+

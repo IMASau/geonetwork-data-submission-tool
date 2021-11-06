@@ -105,7 +105,7 @@
       block)))
 
 (defn add-scores [scores]
-  (s/assert (s/map-of keyword? number?) scores)
+  (s/assert (s/coll-of (s/nilable (s/map-of keyword? number?))) scores)
   (apply merge-with + scores))
 
 (defn score-props

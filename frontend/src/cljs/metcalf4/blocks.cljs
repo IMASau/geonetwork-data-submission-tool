@@ -1,7 +1,8 @@
 (ns metcalf4.blocks
   (:require [cljs.spec.alpha :as s]
             [metcalf4.schema :as schema]
-            [metcalf4.utils :as utils4]))
+            [metcalf4.utils :as utils4]
+            [clojure.string :as string]))
 
 
 (s/def ::type string?)
@@ -102,3 +103,42 @@
         "object" (assoc block :content (zipmap (keys content) (map set-disabled (vals content))))
         block)
       block)))
+
+(defn add-scores [scores]
+  (s/assert (s/map-of keyword? number?))
+  (apply merge-with + scores))
+
+(defn score-props
+  [{:keys [props]}]
+  (let [{:keys [required errors]} props]
+    (-> {:fields 1}
+        (cond-> required (assoc :required 1))
+        (cond-> (seq errors) (assoc :errors 1))
+        (cond-> (and required (seq errors)) (assoc :required-errors 1)))))
+
+(defn score-object
+  [{:keys [content]}]
+  (add-scores (map :progress-score (vals content))))
+
+(defn score-array
+  [{:keys [content]}]
+  (add-scores (map :progress-score content)))
+
+(defn score-value
+  [block]
+  (when (string/blank? (get-in block [:props :value]))
+    {:empty 1}))
+
+(defn score-block
+  [{:keys [type] :as block}]
+  (case type
+    "array" (add-scores [(score-array block) (score-props block)])
+    "object" (add-scores [(score-object block) (score-props block)])
+    (add-scores [(score-value block) (score-props block)])))
+
+(defn progess-score-analysis
+  "Postwalk analysis.  Score block considering props and content"
+  [{:keys [props] :as block}]
+  (if-not (:disabled props)
+    (assoc block :progress-score (score-block block))
+    block))

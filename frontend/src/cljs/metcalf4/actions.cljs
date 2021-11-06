@@ -225,3 +225,12 @@
   (let [form-state-path (utils4/as-path [:db form-path :state])]
     (update-in s form-state-path #(blocks/postwalk blocks/clear-error-props %))))
 
+(defn set-errors
+  [s form-path error-map]
+  (let [path-errors (utils4/path-vals error-map)
+        path (utils4/as-path [:db form-path :state])]
+    (update-in s path (fn [state] (reduce (fn [state [path error]]
+                                            (blocks/set-error-prop state path error))
+                                          state
+                                          path-errors)))))
+

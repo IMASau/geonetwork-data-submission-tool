@@ -6,14 +6,21 @@
             [metcalf4.utils :as utils4]
             [re-frame.core :as rf]))
 
+(def prewalk-xform
+  (comp blocks/propagate-disabled))
+
+(def postwalk-xform
+  (comp blocks/progess-score-analysis
+        rules/apply-rules))
 
 (defn get-form-state
   [db [_ form-id]]
   (when (vector? form-id)
     (let [path (conj form-id :state)
           state (get-in db path)]
-      (blocks/postwalk rules/apply-rules state))))
-
+      (->> state
+           (blocks/prewalk prewalk-xform)
+           (blocks/postwalk postwalk-xform)))))
 
 (defn form-state-signal
   [[_ {:keys [form-id]}]]

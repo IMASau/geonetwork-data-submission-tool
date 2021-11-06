@@ -4,6 +4,7 @@
             [goog.string :as gstring]
             [goog.uri.utils :as uri]
             [clojure.string :as string]
+            [re-frame.core :as rf]
             [lambdaisland.fetch :as fetch]))
 
 
@@ -197,6 +198,16 @@
                   "object" (merge-with + (score-object block) (score-props block))
                   (merge-with + (score-value block) (score-props block))))]
     (assoc block ::score score)))
+
+(defn dispatchify
+  "Helper for promise-fx.  Massages re-frame fx props to rf/dispatch when :resolve, :reject or :finally is a vector.
+   * Supports data oriented :fx calls
+   * Avoids promise based fx being cluttered with re-frame plumbing"
+  [{:keys [resolve reject finally] :as m}]
+  (cond-> m
+    (vector? resolve) (assoc :resolve #(rf/dispatch (conj resolve %)))
+    (vector? reject) (assoc :reject #(rf/dispatch (conj reject %)))
+    (vector? finally) (assoc :finally #(rf/dispatch (conj finally %)))))
 
 (defn promise-fx
   "

@@ -113,7 +113,7 @@
   (let [license-value (get-in identificationInfo [:content "creativeCommons" :props :value])
         other? (= license-value "http://creativecommons.org/licenses/other")
         props (if other?
-                {:is-hidden false :disabled false :required true}
+                {:is-hidden false :required true}
                 {:is-hidden true :disabled true :required false :value nil})]
     (-> identificationInfo
         (update-in [:content "otherConstraints" :props] merge props)
@@ -125,7 +125,7 @@
   (let [value (get-in identificationInfo [:content "status" :props :value])
         props (if (contains? #{"onGoing" "planned"} value)
                 {:required false :disabled true :value nil}
-                {:required true :disabled false})]
+                {:required true})]
     (-> identificationInfo
         (update-in [:content "endPosition" :props] merge props)
         (update-in [:content "endPosition"] required-field (:required props)))))
@@ -134,8 +134,8 @@
   [identificationInfo]
   (let [status-value (get-in identificationInfo [:content "status" :props :value])
         props (case status-value
-                "onGoing" {:is-hidden false :disabled false :required true}
-                "planned" {:is-hidden false :disabled false :required true}
+                "onGoing" {:is-hidden false :required true}
+                "planned" {:is-hidden false :required true}
                 "completed" {:is-hidden false :disabled true :value "notPlanned" :required false}
                 {:is-hidden true :disabled true :value nil :required false})]
     (-> identificationInfo

@@ -12,7 +12,8 @@
             [metcalf4.rules :as rules]
             [metcalf4.subs :as subs4]
             [metcalf4.views :as views4]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [metcalf4.utils :as utils4]))
 
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-event-fx ::components4/boxmap-coordinates-click-confirm-delete handlers4/boxmap-coordinates-click-confirm-delete)
@@ -74,7 +75,7 @@
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
 (rf/reg-event-fx :metcalf4.handlers/-create-document-modal-save-click handlers4/-create-document-modal-save-click)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
-
+(rf/reg-fx ::fx4/post-data (utils4/promise-fx utils4/post-data))
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
 (set! rules/rule-registry

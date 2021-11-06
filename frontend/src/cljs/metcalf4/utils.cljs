@@ -161,44 +161,6 @@
           ret)
         v))))
 
-(defn score-object
-  [block]
-  (let [{:keys [content]} block]
-    (apply merge-with + (map ::score (vals content)))))
-
-(defn score-array
-  [block]
-  (let [{:keys [content]} block]
-    (apply merge-with + (map ::score content))))
-
-(defn score-value
-  [block]
-  (let [{:keys [props]} block
-        {:keys [value]} props]
-    (when (string/blank? value)
-      {:empty 1})))
-
-(defn score-props
-  [block]
-  (let [{:keys [props]} block
-        {:keys [required errors]} props]
-    (-> {:fields 1}
-        (cond-> required (assoc :required 1))
-        (cond-> (seq errors) (assoc :errors 1))
-        (cond-> (and required (seq errors)) (assoc :required-errors 1)))))
-
-(defn score-block
-  "Score block considering props and content"
-  [block]
-  (let [{:keys [type props]} block
-        {:keys [disabled]} props
-        score (when-not disabled
-                (case type
-                  "array" (merge-with + (score-array block) (score-props block))
-                  "object" (merge-with + (score-object block) (score-props block))
-                  (merge-with + (score-value block) (score-props block))))]
-    (assoc block ::score score)))
-
 (defn dispatchify
   "Helper for promise-fx.  Massages re-frame fx props to rf/dispatch when :resolve, :reject or :finally is a vector.
    * Supports data oriented :fx calls

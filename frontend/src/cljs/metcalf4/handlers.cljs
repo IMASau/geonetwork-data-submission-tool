@@ -4,7 +4,8 @@
             [metcalf4.blocks :as blocks]
             [metcalf4.rules :as rules]
             [metcalf4.schema :as schema]
-            [metcalf4.utils :as utils4]))
+            [metcalf4.utils :as utils4]
+            [goog.object :as gobject]))
 
 (defn db-path
   [{:keys [form-id data-path]}]
@@ -289,8 +290,13 @@
   [{:keys [db]}]
   (let [{:keys [url state]} (get-in db [:create_form])
         data (blocks/as-data state)]
-    (actions/create-document-action {:db db} url data)))
+    (-> {:db db}
+        (actions/clear-errors [:create_form])
+        (actions/create-document-action url data))))
 
-(defn -create-document-modal-save-click
-  [{:keys [db]} [_ resp]]
-  (actions/-create-document-action {:db db} resp))
+(defn -create-document-handler
+  [{:keys [db]} [_ {:keys [status body]}]]
+  (case status
+    200 {::fx3/set-location-href (gobject/getValueByKeys body ["document" "url"])}
+    400 (actions/set-errors {:db db} [:create_form] (js->clj body))
+    :else nil))

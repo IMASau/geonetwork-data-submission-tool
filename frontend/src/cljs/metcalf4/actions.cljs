@@ -214,7 +214,7 @@
 
 (defn create-document-action
   [s url data]
-  (update s :fx conj [::fx4/post-data {:url url :data data :resolve [::-create-document-action]}]))
+  (update s :fx conj [::utils4/post-data {:url url :data data :resolve [::-create-document]}]))
 
 (defn -create-document-action
   [s resp]

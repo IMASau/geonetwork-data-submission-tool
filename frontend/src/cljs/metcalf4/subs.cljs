@@ -61,6 +61,6 @@
 (defn create-document-modal-can-save?
   [db _]
   (let [state0 (get-in db [:create_form :state])
-        state1 (blocks/postwalk (comp utils4/score-block rules/apply-rules) state0)
-        {:keys [errors]} (::utils4/score state1)]
+        state1 (blocks/postwalk postwalk-xform state0)
+        {:keys [errors]} (:progress-score state1)]
     (not (pos? errors))))

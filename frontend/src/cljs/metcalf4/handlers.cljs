@@ -1,5 +1,6 @@
 (ns metcalf4.handlers
   (:require [metcalf3.fx :as fx3]
+            [metcalf4.fx :as fx4]
             [metcalf4.actions :as actions]
             [metcalf4.blocks :as blocks]
             [metcalf4.rules :as rules]
@@ -288,9 +289,9 @@
 (defn create-document-modal-save-click
   [{:keys [db]}]
   (let [{:keys [url state]} (get-in db [:create_form])
-        params (blocks/as-data state)]
-    ))
+        data (blocks/as-data state)]
+    (actions/create-document-action {:db db} url data)))
 
 (defn -create-document-modal-save-click
   [{:keys [db]} [_ resp]]
-  )
+  (actions/-create-document-action {:db db} resp))

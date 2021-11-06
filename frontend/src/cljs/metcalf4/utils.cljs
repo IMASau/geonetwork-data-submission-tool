@@ -197,3 +197,17 @@
                   "object" (merge-with + (score-object block) (score-props block))
                   (merge-with + (score-value block) (score-props block))))]
     (assoc block ::score score)))
+
+(defn promise-fx
+  "
+  Wrap a promise for use as a re-frame fx.
+  Looks for :resolve :reject & :finally callback props.
+  "
+  [f]
+  (fn [fx-args]
+    (let [{:keys [resolve reject finally]} (dispatchify fx-args)
+          args (dissoc fx-args :resolve :reject :finally)]
+      (cond-> (f args)
+        resolve (.then resolve)
+        reject (.catch reject)
+        finally (.finally finally)))))

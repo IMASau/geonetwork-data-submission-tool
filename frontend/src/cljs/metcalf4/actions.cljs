@@ -220,3 +220,8 @@
   [s resp]
   s)
 
+(defn clear-errors
+  [s form-path]
+  (let [form-state-path (utils4/as-path [:db form-path :state])]
+    (update-in s form-state-path #(blocks/postwalk blocks/clear-error-props %))))
+

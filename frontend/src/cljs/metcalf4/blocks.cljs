@@ -78,3 +78,10 @@
   [schema]
   (as-blocks {:data nil :schema schema}))
 
+
+(defn clear-error-props
+  "clear out state related to errors on a block"
+  [block]
+  (cond-> block
+    (contains? block :props)
+    (update :props dissoc :errors :show-errors)))

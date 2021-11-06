@@ -196,15 +196,15 @@
   (let [data {}
         schema {:type "object"
                 :properties
-                      {"title"    {:type "string"
+                      {"title"    {:type  "string"
                                    :label "Title"
                                    :rules ["requiredField"]}
-                       "template" {:type "object"
+                       "template" {:type  "object"
                                    :label "Template"
                                    :rules ["requiredField"]
                                    :properties
-                                         {"id"   {:type "number"}
-                                          "name" {:type "string"}}}}}
+                                          {"id"   {:type "number"}
+                                           "name" {:type "string"}}}}}
         state (blocks/as-blocks {:data data :schema schema})]
     (schema/assert-schema-data {:data data :schema schema})
     (-> s

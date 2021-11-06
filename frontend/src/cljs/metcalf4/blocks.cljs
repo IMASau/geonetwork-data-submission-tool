@@ -91,3 +91,14 @@
   [block data-path error]
   (let [path (utils4/as-path [(block-path data-path) :props :errors])]
     (assoc-in block path error)))
+
+(defn propagate-disabled
+  "Prewalk analysis.  Marks contents disabled if block disabled"
+  [{:keys [type content props] :as block}]
+  (letfn [(set-disabled [b] (assoc-in b [:props :disabled] true))]
+    (if (:disabled props)
+      (case type
+        "array" (assoc block :content (mapv set-disabled content))
+        "object" (assoc block :content (zipmap (keys content) (map set-disabled (vals content))))
+        block)
+      block)))

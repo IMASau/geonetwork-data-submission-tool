@@ -86,8 +86,10 @@
 (defn post-data
   [{:keys [url data]}]
   (s/assert string? url)
-  (fetch/post url {:headers {:X-CSRFToken (get-csrf)}
-                   :body    data}))
+  (fetch/post url {:accept       :json
+                   :content-type :json
+                   :headers      {:X-CSRFToken (get-csrf)}
+                   :body         data}))
 
 
 (defn get-value-by-keys [o path]

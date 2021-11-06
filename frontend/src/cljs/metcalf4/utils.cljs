@@ -222,3 +222,17 @@
         resolve (.then resolve)
         reject (.catch reject)
         finally (.finally finally)))))
+
+(defn path-vals
+  "Returns vector of tuples containing path vector to the value and the value."
+  {:from [:metosin/potpuri "0.5.3"]}
+  [m]
+  (letfn
+    [(pvals [l p m]
+       (reduce
+         (fn [l [k v]]
+           (if (map? v)
+             (pvals l (conj p k) v)
+             (cons [(conj p k) v] l)))
+         l m))]
+    (pvals [] [] m)))

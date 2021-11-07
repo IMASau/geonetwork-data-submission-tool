@@ -105,6 +105,12 @@
           " by " (:username last_updated_by)]
          "Has not been edited yet")]]]))
 
+(defn new-document-button
+  [{:keys [on-click]}]
+  [:button.btn.btn-primary {:on-click on-click}
+   [:span.glyphicon.glyphicon-plus]
+   " Create new record"])
+
 (defn dashboard
   [{:keys [dashboard-props
            dashboard-create-click
@@ -119,7 +125,9 @@
     [:div
      [views3/navbar]
      [:div.container
-      [:span.pull-right {:style {:margin-top 18}} [views3/NewDocumentButton]]
+      [:span.pull-right {:style {:margin-top 18}}
+       [new-document-button
+        {:on-click dashboard-create-click}]]
       [:h1 "My Records"]
       [:div.row
        [:div.col-sm-9
@@ -145,12 +153,14 @@
                          [:p "You don't have any active records: "
                           [:a {:on-click dashboard-show-all-click}
                            "show all documents"] "."]
-                         [views3/NewDocumentButton]]
+                         [new-document-button
+                          {:on-click dashboard-create-click}]]
                         [:div
                          [:p "No documents match your filter: "
                           [:a {:on-click dashboard-show-all-click}
                            "show all documents"] "."]
-                         [views3/NewDocumentButton]])))))]
+                         [new-document-button
+                          {:on-click dashboard-create-click}]])))))]
        [:div.col-sm-3
         (when-not (empty? status-freq)
           (into [:div]

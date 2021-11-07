@@ -49,7 +49,7 @@
 (rf/reg-event-fx ::views3/modal-dialog-dashboard-create-modal-save-click handlers3/dashboard-create-save)
 (rf/reg-event-fx ::views3/nasa-list-select-field-change handlers3/update-nasa-list-value)
 (rf/reg-event-fx ::views3/open-modal handlers3/open-modal-handler)
-(rf/reg-event-fx ::views3/create-record-button-click handlers3/create-record-button-click)
+(rf/reg-event-fx :app/create-record-button-click handlers3/create-record-button-click)
 (rf/reg-event-fx ::views3/organisation-input-field-change handlers3/org-changed)
 (rf/reg-event-fx ::views3/page-errors-hide-click handlers3/hide-errors)
 (rf/reg-event-fx ::views3/page-view-edit-archive-click-confirm handlers3/archive-current-document)

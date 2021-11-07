@@ -1650,13 +1650,3 @@
     :modal-body   message
     :on-dismiss   #(rf/dispatch [::close-modal])
     :on-save      #(rf/dispatch [::close-modal])}])
-
-(defn modal-dialog-confirm
-  [{:keys [message title]}]
-  [Modal
-   {:modal-header [:span [:span.glyphicon.glyphicon-question-sign] " " title]
-    :dialog-class "modal-sm"
-    :modal-body   message
-    :on-dismiss   #(rf/dispatch [::modal-dialog-confirm-dismiss])
-    :on-cancel    #(rf/dispatch [::modal-dialog-confirm-cancel])
-    :on-save      #(rf/dispatch [::modal-dialog-confirm-save])}])

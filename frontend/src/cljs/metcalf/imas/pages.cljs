@@ -26,7 +26,12 @@
          :alert
          [views3/modal-dialog-alert modal-props]
          :confirm
-         [views3/modal-dialog-confirm modal-props]
+         [views4/modal-dialog-confirm
+          {:title      (:title modal-props)
+           :message    (:message modal-props)
+           :on-dismiss #(rf/dispatch [:app/modal-dialog-confirm-dismiss])
+           :on-cancel  #(rf/dispatch [:app/modal-dialog-confirm-cancel])
+           :on-save    #(rf/dispatch [:app/modal-dialog-confirm-save])}]
          nil))
      (case page-name
        "404" [views3/PageView404 nil]

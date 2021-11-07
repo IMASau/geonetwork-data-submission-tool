@@ -16,24 +16,24 @@
 (defn m4-modal-dialog-table-modal-edit-form
   [{:keys [form path title on-delete-click on-close-click on-save-click]}]
   [modal/Modal {:ok-copy      "Done"
-                 :modal-header [:span [:span.glyphicon.glyphicon-list] " Edit " title]
-                 :modal-body   [form path]
-                 :modal-footer [:div
-                                [:a.btn.text-danger.pull-left
-                                 {:on-click #(do (.preventDefault %) (on-delete-click))}
-                                 [:span.glyphicon.glyphicon-remove] " Delete"]
-                                [:button.btn.btn-primary {:on-click on-close-click} "Done"]]
-                 :on-dismiss   on-close-click
-                 :on-save      on-save-click}])
+                :modal-header [:span [:span.glyphicon.glyphicon-list] " Edit " title]
+                :modal-body   [form path]
+                :modal-footer [:div
+                               [:a.btn.text-danger.pull-left
+                                {:on-click #(do (.preventDefault %) (on-delete-click))}
+                                [:span.glyphicon.glyphicon-remove] " Delete"]
+                               [:button.btn.btn-primary {:on-click on-close-click} "Done"]]
+                :on-dismiss   on-close-click
+                :on-save      on-save-click}])
 
 (defn m4-modal-dialog-table-modal-add-form
   [{:keys [form path title on-close-click on-save-click]}]
   [modal/Modal {:ok-copy      "Done"
-                 :modal-header [:span [:span.glyphicon.glyphicon-list] " Add " title]
-                 :modal-body   [form path]
-                 :on-dismiss   on-close-click
-                 :on-cancel    on-close-click
-                 :on-save      on-save-click}])
+                :modal-header [:span [:span.glyphicon.glyphicon-list] " Add " title]
+                :modal-body   [form path]
+                :on-dismiss   on-close-click
+                :on-cancel    on-close-click
+                :on-save      on-save-click}])
 
 (defn modal-dialog-confirm
   [{:keys [message title on-dismiss on-cancel on-save]}]
@@ -43,4 +43,14 @@
     :modal-body   message
     :on-dismiss   on-dismiss
     :on-cancel    on-cancel
+    :on-save      on-save}])
+
+(defn modal-dialog-alert
+  [{:keys [message on-dismiss on-save]}]
+  [modal/Modal
+   {:modal-header [:span [:span.glyphicon.glyphicon-exclamation-sign]
+                   " " "Alert"]
+    :dialog-class "modal-sm"
+    :modal-body   message
+    :on-dismiss   on-dismiss
     :on-save      on-save}])

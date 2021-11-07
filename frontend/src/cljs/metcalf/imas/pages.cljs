@@ -17,6 +17,16 @@
     :document-clone-click           #(rf/dispatch [:app/document-teaser-clone-click (:clone_url %)])
     :document-edit-click            #(aset js/location "href" (:url %))}])
 
+(defn page-edit
+  []
+  [views4/PageViewEdit
+   {:page             @(rf/subscribe [:subs/get-page-props])
+    :context          @(rf/subscribe [:subs/get-derived-path [:context]])
+    :form             @(rf/subscribe [:subs/get-derived-path [:form]])
+    :dirty            @(rf/subscribe [:subs/get-form-dirty [:form]])
+    :on-save-click    #(rf/dispatch [:app/PageViewEdit-save-button-click])
+    :on-archive-click #(rf/dispatch [:app/handle-page-view-edit-archive-click])}])
+
 (defn app-root
   []
   (let [page-name @(rf/subscribe [:subs/get-app-root-page-name])
@@ -55,7 +65,7 @@
        "Error"
        [views3/PageViewError nil]
        "Edit"
-       [views3/PageViewEdit nil]
+       [page-edit]
        "Dashboard"
        [dashboard]
        nil)]))

@@ -640,11 +640,6 @@
    [InputField {:path [:create_form :fields :title]}]
    [SelectField {:path [:create_form :fields :template]}]])
 
-(defn NewDocumentForm2 []
-  [low-code/render-template
-   {:template-id :NewDocumentForm2
-    :variables   '{?form-id [:create_form]}}])
-
 (defn modal-dialog-dashboard-create-modal
   [_ _]
   [Modal {:ok-copy      "OK"

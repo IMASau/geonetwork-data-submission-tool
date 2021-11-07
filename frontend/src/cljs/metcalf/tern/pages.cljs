@@ -1,7 +1,8 @@
 (ns metcalf.tern.pages
   (:require [metcalf3.views :as views3]
             [re-frame.core :as rf]
-            [metcalf4.views :as views4]))
+            [metcalf4.views :as views4]
+            [metcalf4.components :as components4]))
 
 (defn dashboard
   []
@@ -23,7 +24,7 @@
     [:div
      (case (:type modal-props)
        :DashboardCreateModal
-       [views3/modal-dialog-dashboard-create-modal modal-props]
+       [components4/create-document-modal]
        :confirm
        [views4/modal-dialog-confirm
         {:title      (:title modal-props)

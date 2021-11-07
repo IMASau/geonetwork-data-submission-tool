@@ -11,8 +11,15 @@
             [metcalf4.low-code :as low-code]
             [metcalf4.rules :as rules]
             [metcalf4.subs :as subs4]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [metcalf4.utils :as utils4]))
 
+(rf/reg-event-fx ::components4/create-document-modal-close-click handlers3/close-modal)
+(rf/reg-event-fx ::components4/create-document-modal-clear-click handlers3/close-modal)
+(rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
+(rf/reg-event-fx :metcalf4.actions/-create-document handlers4/-create-document-handler)
+(rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
+(rf/reg-fx ::utils4/post-data (utils4/promise-fx utils4/post-data))
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
@@ -1237,4 +1244,7 @@
           {:note-for-data-manager-path [:form :fields :noteForDataManager]
            :agreed-to-terms-path       [:form :fields :agreedToTerms]
            :doi-requested-path         [:form :fields :doiRequested]
-           :current-doi-path           [:form :fields :identificationInfo :doi]}]]})
+           :current-doi-path           [:form :fields :identificationInfo :doi]}]]
+
+        ::components4/create-document-modal-form
+        components4/create-document-modal-template})

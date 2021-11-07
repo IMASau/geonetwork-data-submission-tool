@@ -1511,8 +1511,8 @@
   [Modal {:ok-copy      "OK"
           :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Create a new record"]
           :modal-body   [NewDocumentForm2]
-          :on-dismiss   #(rf/dispatch [::close-modal])
-          :on-cancel    #(rf/dispatch [::close-modal])
+          :on-dismiss   #(rf/dispatch [:app/close-modal])
+          :on-cancel    #(rf/dispatch [:app/close-modal])
           :on-save      #(rf/dispatch [::modal-dialog-dashboard-create-modal-save-click])}])
 
 (defn NewDocumentButton []
@@ -1619,24 +1619,3 @@
                                     :on-change #(rf/dispatch [::dashboard-toggle-status-filter sid status-filter])}]
                            " " sname
                            (when freq [:span.freq " (" freq ")"])]]))))]]]]))
-
-(defn LegacyIECompatibility
-  [_ _]
-  [:div.LegacyIECompatibility
-   [:div.row
-    [:div.col-md-6.col-md-offset-3
-     [:div.container.box
-      [:h1 "Browser not supported"]
-      [:p.lead "The work request system doesn't support early versions of Internet Explorer."]
-      [:p.lead "Please use Google Chrome to access this system or upgrade your browser."]
-      [:hr]
-      [:p "Related links:"]
-      [:ul
-       [:li [:a {:href "http://www.techtimes.com/articles/12659/20140811/dingdong-internet-explorer-8-is-dead-microsoft-will-end-its-life-in-january-2016.htm"}
-             "Dingdong, Internet Explorer 8 is dead: Microsoft will end its life in January 2016 (TechTimes)"]
-        " and IE 9 will follow a year later."]
-       [:li [:a {:href "http://www.computerworld.com/article/2492571/web-apps/google-to-drop-support-for-ie8-on-nov--15.html"}
-             "Google to drop support for IE8 on Nov 15 [2012]"]]
-       [:li [:a {:href "http://www.w3counter.com/globalstats.php"}
-             "Market share of IE8 and IE9 is around 2% each world wide."]]]
-      [:br]]]]])

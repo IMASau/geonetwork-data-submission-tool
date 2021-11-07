@@ -549,22 +549,3 @@
                         :intent  (if can-submit? "success" "warning")
                         :stripes false
                         :value   value}]]))
-
-(defn edit-tabs
-  []
-  (let [{:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
-        {:keys [selected-tab tab-props]} @(rf/subscribe [:subs/get-edit-tab-props])]
-    (letfn [(pick-tab [id _ _] (rf/dispatch [::edit-tabs-pick-click (edn/read-string id)]))]
-      [:div {:style {:min-width "60em"}}
-       (-> [bp3/tabs {:selectedTabId            (pr-str selected-tab)
-                      :onChange                 pick-tab
-                      :renderActiveTabPanelOnly true}]
-           (into (for [{:keys [id title has-errors?]} tab-props]
-                   (let [title (if has-errors? (str title " *") title)]
-                     [bp3/tab {:title title :id (pr-str id)}])))
-           (conj
-             [bp3/tabs-expander]
-             (when-not disabled
-               [:div {:style {:width 200 :height 25}}
-                (conj [:div.hidden-xs.hidden-sm
-                       [progress-bar]])])))])))

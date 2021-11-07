@@ -622,14 +622,3 @@
                  [low-code/render-template {:template-id (get page :tab :data-identification)}]]]]))]
     (r/create-class
       {:render render})))
-
-(defn FormErrors [{:keys [path]}]
-  (let [{:keys [fields show-errors]} @(rf/subscribe [:subs/get-derived-path path])
-        fields-with-errors (filter (comp :errors second) fields)]
-    (when (and show-errors (seq fields-with-errors))
-      [:div.alert.alert-danger
-       [:p [:b "The following fields need your attention"]]
-       (into [:ul] (for [[k {:keys [label errors]}] fields-with-errors]
-                     [:li
-                      (or label (name k)) ": "
-                      (string/join ". " errors)]))])))

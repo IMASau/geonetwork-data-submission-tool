@@ -1640,13 +1640,3 @@
        [:li [:a {:href "http://www.w3counter.com/globalstats.php"}
              "Market share of IE8 and IE9 is around 2% each world wide."]]]
       [:br]]]]])
-
-(defn modal-dialog-alert
-  [{:keys [message]}]
-  [Modal
-   {:modal-header [:span [:span.glyphicon.glyphicon-exclamation-sign]
-                   " " "Alert"]
-    :dialog-class "modal-sm"
-    :modal-body   message
-    :on-dismiss   #(rf/dispatch [::close-modal])
-    :on-save      #(rf/dispatch [::close-modal])}])

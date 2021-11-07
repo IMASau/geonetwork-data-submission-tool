@@ -24,7 +24,10 @@
          :DashboardCreateModal
          [components4/create-document-modal]
          :alert
-         [views3/modal-dialog-alert modal-props]
+         [views4/modal-dialog-alert
+          {:message    (:message modal-props)
+           :on-dismiss #(rf/dispatch [:app/modal-dialog-alert-dismiss])
+           :on-save    #(rf/dispatch [:app/modal-dialog-alert-save])}]
          :confirm
          [views4/modal-dialog-confirm
           {:title      (:title modal-props)

@@ -1660,19 +1660,3 @@
     :on-dismiss   #(rf/dispatch [::modal-dialog-confirm-dismiss])
     :on-cancel    #(rf/dispatch [::modal-dialog-confirm-cancel])
     :on-save      #(rf/dispatch [::modal-dialog-confirm-save])}])
-
-(defmulti modal :type)
-
-(defn app-root [_]
-  (let [page-name @(rf/subscribe [::get-app-root-page-name])]
-    [:div
-     (when-let [modal-props @(rf/subscribe [::get-app-root-modal-props])]
-       [modal modal-props])
-     (if (and guseragent/IE (not (guseragent/isVersionOrHigher 10)))
-       [LegacyIECompatibility nil]
-       (case page-name
-         "404" [PageView404 nil]
-         "Error" [PageViewError nil]
-         "Edit" [PageViewEdit nil]
-         "Dashboard" [dashboard nil]
-         nil))]))

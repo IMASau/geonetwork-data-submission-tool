@@ -1165,6 +1165,28 @@
            :on-click new-fn}
           [:span.glyphicon.glyphicon-plus] " Add new"]]))))
 
+(def create-document-modal-template
+  '[:div.NewDocumentForm
+
+    [m4/form-group
+     {:form-id   ?form-id
+      :data-path ["title"]
+      :label     "Title"}
+     [m4/input-field
+      {:form-id   ?form-id
+       :data-path ["title"]}]]
+
+    [m4/form-group
+     {:form-id   ?form-id
+      :data-path ["template"]
+      :label     "Template"}
+     [m4/async-select-option
+      {:form-id    ?form-id
+       :data-path  ["template"]
+       :value-path ["id"]
+       :label-path ["name"]
+       :uri        "/api/metadata-template"}]]])
+
 (defn create-document-modal
   "Modal form for creating new documents"
   [_]

@@ -929,23 +929,4 @@
              This permits multi-user access via the portal in a more friendly format."]]]]
 
         ::components4/create-document-modal-form
-        [:div.NewDocumentForm
-
-         [m4/form-group
-          {:form-id   ?form-id
-           :data-path ["title"]
-           :label     "Title"}
-          [m4/input-field
-           {:form-id   ?form-id
-            :data-path ["title"]}]]
-
-         [m4/form-group
-          {:form-id   ?form-id
-           :data-path ["template"]
-           :label     "Template"}
-          [m4/async-select-option
-           {:form-id    ?form-id
-            :data-path  ["template"]
-            :value-path ["id"]
-            :label-path ["name"]
-            :uri        "/api/metadata-template"}]]]})
+        components4/create-document-modal-template})

@@ -653,12 +653,3 @@
           :on-dismiss   #(rf/dispatch [::close-modal])
           :on-cancel    #(rf/dispatch [::close-modal])
           :on-save      #(rf/dispatch [::modal-dialog-dashboard-create-modal-save-click])}])
-
-(defn modal-dialog-dashboard-create-modal2
-  [_ _]
-  [Modal {:ok-copy      "OK"
-          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Create a new record"]
-          :modal-body   [NewDocumentForm2]
-          :on-dismiss   #(rf/dispatch [:app/close-modal])
-          :on-cancel    #(rf/dispatch [:app/close-modal])
-          :on-save      #(rf/dispatch [::modal-dialog-dashboard-create-modal-save-click])}])

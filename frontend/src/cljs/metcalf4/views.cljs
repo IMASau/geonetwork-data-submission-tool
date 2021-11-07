@@ -34,3 +34,13 @@
                  :on-dismiss   on-close-click
                  :on-cancel    on-close-click
                  :on-save      on-save-click}])
+
+(defn modal-dialog-confirm
+  [{:keys [message title on-dismiss on-cancel on-save]}]
+  [modal/Modal
+   {:modal-header [:span [:span.glyphicon.glyphicon-question-sign] " " title]
+    :dialog-class "modal-sm"
+    :modal-body   message
+    :on-dismiss   on-dismiss
+    :on-cancel    on-cancel
+    :on-save      on-save}])

@@ -54,6 +54,8 @@
 (rf/reg-sub ::views3/get-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::tern-subs/get-edit-tabs tern-subs/get-edit-tabs)
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] :<- [::tern-subs/get-edit-tabs] tern-subs/get-edit-tab-props)
+(rf/reg-sub :subs/get-app-root-modal-props subs4/get-modal-props)
+(rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
 (defmethod views3/modal :DashboardCreateModal [modal-props] [views3/modal-dialog-dashboard-create-modal modal-props])
 (defmethod views3/modal :confirm [modal-props] [views3/modal-dialog-confirm modal-props])
 (defmethod views3/modal :alert [modal-props] [views3/modal-dialog-alert modal-props])

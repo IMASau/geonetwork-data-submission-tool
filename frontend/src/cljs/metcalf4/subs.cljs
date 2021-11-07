@@ -80,3 +80,15 @@
          :title       text
          :has-errors? (and error-count (> error-count 0))}))
     edit-tabs))
+
+(defn get-page-name
+  [db _]
+  (get-in db [:page :name]))
+
+(defn get-modal-props
+  [db _]
+  (let [modal-stack (:alert db)
+        modal-props (peek modal-stack)]
+    (when modal-props
+      (let [breadcrumbs (mapv :title modal-stack)]
+        (assoc modal-props :breadcrumbs breadcrumbs)))))

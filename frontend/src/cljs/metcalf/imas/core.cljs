@@ -2,7 +2,7 @@
   (:require [clojure.string :refer [blank?]]
             [metcalf.imas.config]
             [metcalf3.routing :as router]
-            [metcalf3.views :refer [app-root]]
+            [metcalf.imas.pages :refer [app-root]]
             [re-frame.core :as rf]
             [re-frame.db :refer [app-db]]
             [reagent.dom :as rdom]))

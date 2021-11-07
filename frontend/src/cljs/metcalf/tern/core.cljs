@@ -2,7 +2,7 @@
   (:require [clojure.string :refer [blank?]]
             [metcalf.tern.config]
             [metcalf3.routing :as router]
-            [metcalf3.views :refer [app-root]]
+            [metcalf.tern.pages :refer [app-root]]
             [re-frame.core :as rf]
             [re-frame.db :refer [app-db]]
             [reagent.dom :as rdom]))

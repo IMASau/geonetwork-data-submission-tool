@@ -297,6 +297,6 @@
 (defn -create-document-handler
   [{:keys [db]} [_ {:keys [status body]}]]
   (case status
-    200 {::fx3/set-location-href (gobject/getValueByKeys body ["document" "url"])}
+    200 {::fx3/set-location-href (gobject/getValueByKeys body "document" "url")}
     400 (actions/set-errors {:db db} [:create_form] (js->clj body))
     :else nil))

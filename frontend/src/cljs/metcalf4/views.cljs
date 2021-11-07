@@ -5,7 +5,8 @@
             [metcalf3.utils :as utils3]
             [metcalf3.widget.modal :as modal]
             [metcalf3.views :as views3]
-            [interop.moment :as moment]))
+            [interop.moment :as moment]
+            [metcalf4.low-code :as low-code]))
 
 ; For pure views only, no re-frame subs/handlers
 
@@ -173,3 +174,45 @@
                                     :on-change #(dashboard-toggle-status-filter {:status-id status-id :status-filter status-filter})}]
                            " " sname
                            (when freq [:span.freq " (" freq ")"])]]))))]]]]))
+
+(defn PageViewEdit
+  [{:keys [page context form dirty on-save-click on-archive-click]}]
+  (let [{:keys [urls user]} context
+        {:keys [disabled]} form
+        {:keys [status title last_updated last_updated_by is_editor owner]} (:document context)
+        saving (::handlers3/saving? page)]
+    [:div
+     [views3/navbar]
+     [:div.container
+      [:div.pagehead
+       [:div.pull-right
+        (when is_editor
+          [:button.btn.btn-default.text-warn {:on-click on-archive-click
+                                              :disabled disabled}
+           [:span.fa.fa-archive]
+           " Archive"]) " "
+        [:button.btn.btn-primary {:disabled (or disabled (not dirty) saving)
+                                  :on-click on-save-click}
+         (cond
+           saving [:img {:src (str (:STATIC_URL urls) "metcalf3/img/saving.gif")}]
+           dirty [:span.glyphicon.glyphicon-floppy-disk]
+           :else [:span.glyphicon.glyphicon-floppy-saved])
+         (cond
+           saving " Saving..."
+           dirty " Save"
+           :else " Saved")]]
+       [:h4
+        [:span (:username owner)]
+        " / "
+        [:strong (if (string/blank? title) "Untitled" title)]
+        " "
+        [:span.label.label-info {:style {:font-weight "normal"}} status]
+        [:br]
+        [:small [:i {:style {:color     "#aaa"
+                             :font-size "1em"}}
+                 "Last edited " (moment/from-now last_updated)
+                 " by " (:username last_updated_by)]]]]]
+     [:div.Home.container
+      [views3/edit-tabs]
+      [:div.PageViewBody
+       [low-code/render-template {:template-id (get page :tab :data-identification)}]]]]))

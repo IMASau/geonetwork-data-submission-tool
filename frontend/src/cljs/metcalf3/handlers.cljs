@@ -68,7 +68,8 @@
     (when on-confirm (on-confirm))
     {:db (update db :alert pop)}))
 
-(defn open-modal [db props]
+(defn open-modal
+  [db props]
   (update db :alert
           (fn [alerts]
             (when-not (= (peek alerts) props)
@@ -77,6 +78,13 @@
 (defn open-modal-handler
   [{:keys [db]} [_ props]]
   {:db (open-modal db props)})
+
+(defn document-teaser-clone-click
+  [{:keys [db]} [_ clone_url]]
+  {:db (open-modal db {:type       :confirm
+                       :title      "Clone?"
+                       :message    "Are you sure you want to clone this record?"
+                       :on-confirm (fn [] (rf/dispatch [:app/clone-doc-confirm clone_url]))})})
 
 (defn create-record-button-click
   [{:keys [db]} _]

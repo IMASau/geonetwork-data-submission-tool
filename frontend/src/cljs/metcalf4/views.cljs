@@ -109,7 +109,12 @@
   [{:keys [dashboard-props
            dashboard-create-click
            dashboard-show-all-click
-           dashboard-toggle-status-filter]}]
+           dashboard-toggle-status-filter
+           document-archive-click
+           document-delete-archived-click
+           document-restore-click
+           document-clone-click
+           document-edit-click]}]
   (let [{:keys [filtered-docs status-filter has-documents? status-freq status relevant-status-filter]} dashboard-props]
     [:div
      [views3/navbar]
@@ -120,7 +125,14 @@
        [:div.col-sm-9
         (-> [:div.list-group]
             (into (for [filtered-doc filtered-docs]
-                    ^{:key (:url filtered-doc)} [views3/DocumentTeaser filtered-doc]))
+                    ^{:key (:url filtered-doc)}
+                    [document-teaser
+                     {:doc                      filtered-doc
+                      :on-archive-click         #(document-archive-click filtered-doc)
+                      :on-delete-archived-click #(document-delete-archived-click filtered-doc)
+                      :on-restore-click         #(document-restore-click filtered-doc)
+                      :on-clone-click           #(document-clone-click filtered-doc)
+                      :on-edit-click            #(document-edit-click filtered-doc)}]))
             (conj (if has-documents?
                     [:a.list-group-item {:on-click dashboard-create-click}
                      [:span.glyphicon.glyphicon-star.pull-right]

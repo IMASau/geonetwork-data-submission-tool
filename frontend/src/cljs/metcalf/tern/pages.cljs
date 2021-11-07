@@ -33,8 +33,13 @@
        [views3/PageViewEdit nil]
        "Dashboard"
        [views4/dashboard
-        {:dashboard-props @(rf/subscribe [::get-dashboard-props])
-         :dashboard-create-click #(rf/dispatch [::dashboard-create-click])
-         :dashboard-show-all-click #(rf/dispatch [::dashboard-show-all-click])
-         :dashboard-toggle-status-filter #(rf/dispatch [::dashboard-toggle-status-filter %])}]
+        {:dashboard-props                @(rf/subscribe [:app/get-dashboard-props])
+         :dashboard-create-click         #(rf/dispatch [:app/dashboard-create-click])
+         :dashboard-show-all-click       #(rf/dispatch [:app/dashboard-show-all-click])
+         :dashboard-toggle-status-filter #(rf/dispatch [:app/dashboard-toggle-status-filter %])
+         :document-archive-click         #(rf/dispatch [:app/document-teaser-archive-click (:transition_url %)])
+         :document-delete-archived-click #(rf/dispatch [:app/document-teaser-delete-archived-click (:transition_url %)])
+         :document-restore-click         #(rf/dispatch [:app/document-teaser-restore-click (:transition_url %)])
+         :document-clone-click           #(rf/dispatch [:app/document-teaser-clone-click (:clone_url %)])
+         :document-edit-click            #(aset js/location "href" (:url %))}]
        nil)]))

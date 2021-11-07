@@ -104,30 +104,37 @@
         block)
       block)))
 
+(s/def :progress/score (s/keys :opt [:progress/required :progress/errors :progress/fields :progress/required-errors]))
+(s/def :progress/required nat-int?)
+(s/def :progress/errors nat-int?)
+(s/def :progress/fields nat-int?)
+(s/def :progress/required-errors nat-int?)
+(s/def :progress/scores (s/coll-of (s/nilable :progress/score)))
+
 (defn add-scores [scores]
-  (s/assert (s/coll-of (s/nilable (s/map-of keyword? number?))) scores)
+  (s/assert :progress/scores scores)
   (apply merge-with + scores))
 
 (defn score-props
   [{:keys [props]}]
   (let [{:keys [required errors]} props]
-    (-> {:fields 1}
-        (cond-> required (assoc :required 1))
-        (cond-> (seq errors) (assoc :errors 1))
-        (cond-> (and required (seq errors)) (assoc :required-errors 1)))))
+    (-> {:progress/fields 1}
+        (cond-> required (assoc :progress/required 1))
+        (cond-> (seq errors) (assoc :progress/errors 1))
+        (cond-> (and required (seq errors)) (assoc :progress/required-errors 1)))))
 
 (defn score-object
   [{:keys [content]}]
-  (add-scores (map :progress-score (vals content))))
+  (add-scores (map :progress/score (vals content))))
 
 (defn score-array
   [{:keys [content]}]
-  (add-scores (map :progress-score content)))
+  (add-scores (map :progress/score content)))
 
 (defn score-value
   [block]
   (when (string/blank? (get-in block [:props :value]))
-    {:empty 1}))
+    {:progress/empty 1}))
 
 (defn score-block
   [{:keys [type] :as block}]
@@ -136,9 +143,9 @@
     "object" (add-scores [(score-object block) (score-props block)])
     (add-scores [(score-value block) (score-props block)])))
 
-(defn progess-score-analysis
+(defn progress-score-analysis
   "Postwalk analysis.  Score block considering props and content"
   [{:keys [props] :as block}]
   (if-not (:disabled props)
-    (assoc block :progress-score (score-block block))
+    (assoc block :progress/score (score-block block))
     block))

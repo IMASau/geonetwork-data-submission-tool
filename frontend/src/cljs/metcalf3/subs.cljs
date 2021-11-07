@@ -54,7 +54,7 @@
 
 (defn get-progress-props
   [derived-db _]
-  (let [{:keys [fields empty errors]} (:progress derived-db)
+  (let [{:progress/keys [fields empty errors]} (:progress derived-db)
         can-submit? (= errors 0)]
     (when (pos-int? fields)
       {:can-submit? can-submit?

@@ -10,7 +10,7 @@
   (comp blocks/propagate-disabled))
 
 (def postwalk-xform
-  (comp blocks/progess-score-analysis
+  (comp blocks/progress-score-analysis
         rules/apply-rules))
 
 (defn get-form-state
@@ -62,5 +62,5 @@
   [db _]
   (let [state0 (get-in db [:create_form :state])
         state1 (blocks/postwalk postwalk-xform state0)
-        {:keys [errors]} (:progress-score state1)]
+        {:keys [progress/errors]} (:progress/score state1)]
     (not (pos? errors))))

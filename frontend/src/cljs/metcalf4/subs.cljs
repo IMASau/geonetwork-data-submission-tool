@@ -68,3 +68,15 @@
 (defn get-selected-tab
   [page]
   (get page :tab :data-identification))
+
+; NOTE: taken from old code - may benefit from refactor
+(defn get-edit-tab-props
+  [[derived-db edit-tabs]]
+  (mapv
+    (fn [{:keys [id text]}]
+      (let [progress (get-in derived-db [:progress])
+            error-count (get-in progress [:page-errors id])]
+        {:id          id
+         :title       text
+         :has-errors? (and error-count (> error-count 0))}))
+    edit-tabs))

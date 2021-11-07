@@ -201,11 +201,11 @@
   {:db (update-in db path assoc :show-errors false)})
 
 (defn toggle-status-filter
-  [{:keys [db]} [_ status status-filter]]
+  [{:keys [db]} [_ {:keys [status-id status-filter]}]]
   (let [status-filter (get-in db [:page :status-filter] status-filter)
-        status-filter (if (contains? status-filter status)
-                        (disj status-filter status)
-                        (conj status-filter status))]
+        status-filter (if (contains? status-filter status-id)
+                        (disj status-filter status-id)
+                        (conj status-filter status-id))]
     {:db (assoc-in db [:page :status-filter] status-filter)}))
 
 (defn show-all-documents

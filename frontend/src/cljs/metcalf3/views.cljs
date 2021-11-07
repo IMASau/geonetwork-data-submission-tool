@@ -1578,6 +1578,9 @@
 (defn dashboard
   [_]
   (let [dashboard-props @(rf/subscribe [::get-dashboard-props])
+        dashboard-create-click #(rf/dispatch [::dashboard-create-click])
+        dashboard-show-all-click #(rf/dispatch [::dashboard-show-all-click])
+        dashboard-toggle-status-filter #(rf/dispatch [::dashboard-toggle-status-filter %])
         {:keys [filtered-docs status-filter has-documents? status-freq status relevant-status-filter]} dashboard-props]
     [:div
      [navbar]
@@ -1590,7 +1593,7 @@
             (into (for [filtered-doc filtered-docs]
                     ^{:key (:url filtered-doc)} [DocumentTeaser filtered-doc]))
             (conj (if has-documents?
-                    [:a.list-group-item {:on-click #(rf/dispatch [::dashboard-create-click])}
+                    [:a.list-group-item {:on-click dashboard-create-click}
                      [:span.glyphicon.glyphicon-star.pull-right]
                      [:p.lead.list-group-item-heading " My first record "]
                      [:p.list-group-item-text "Welcome! Since you’re new here, "
@@ -1599,23 +1602,23 @@
                       (if (= status-filter logic3/active-status-filter)
                         [:div
                          [:p "You don't have any active records: "
-                          [:a {:on-click #(rf/dispatch [::dashboard-show-all-click])}
+                          [:a {:on-click dashboard-show-all-click}
                            "show all documents"] "."]
                          [NewDocumentButton]]
                         [:div
                          [:p "No documents match your filter: "
-                          [:a {:on-click #(rf/dispatch [::dashboard-show-all-click])}
+                          [:a {:on-click dashboard-show-all-click}
                            "show all documents"] "."]
                          [NewDocumentButton]])))))]
        [:div.col-sm-3
         (when-not (empty? status-freq)
           (into [:div]
-                (for [[sid sname] status]
-                  (let [freq (get status-freq sid)]
+                (for [[status-id sname] status]
+                  (let [freq (get status-freq status-id)]
                     [:div [:label
                            [:input {:type      "checkbox"
                                     :disabled  (not freq)
-                                    :checked   (contains? relevant-status-filter sid)
-                                    :on-change #(rf/dispatch [::dashboard-toggle-status-filter sid status-filter])}]
+                                    :checked   (contains? relevant-status-filter status-id)
+                                    :on-change #(dashboard-toggle-status-filter {:status-id status-id :status-filter status-filter})}]
                            " " sname
                            (when freq [:span.freq " (" freq ")"])]]))))]]]]))

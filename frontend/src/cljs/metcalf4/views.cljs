@@ -4,7 +4,8 @@
             [interop.react-imask :as react-imask]
             [metcalf3.utils :as utils3]
             [metcalf3.widget.modal :as modal]
-            [metcalf3.views :as views3]))
+            [metcalf3.views :as views3]
+            [interop.moment :as moment]))
 
 ; For pure views only, no re-frame subs/handlers
 
@@ -55,6 +56,54 @@
     :modal-body   message
     :on-dismiss   on-dismiss
     :on-save      on-save}])
+
+(defn document-teaser
+  [{:keys [doc on-archive-click on-delete-archived-click on-restore-click on-clone-click on-edit-click]}]
+  (let [{:keys [title last_updated last_updated_by status transitions is_editor owner]} doc
+        handle-archive-click (fn [e] (.stopPropagation e) (on-archive-click doc))
+        handle-delete-archived-click (fn [e] (.stopPropagation e) (on-delete-archived-click doc))
+        handle-restore-click (fn [e] (.stopPropagation e) (on-restore-click doc))
+        handle-clone-click (fn [e] (.stopPropagation e) (on-clone-click doc))
+        handle-edit-click (fn [e] (.stopPropagation e) (on-edit-click doc))
+        transitions (set transitions)]
+
+    [:div.bp3-card.bp3-interactive.DocumentTeaser
+     {:on-click handle-edit-click}
+     (when is_editor
+       [:div.pull-right
+        (when (contains? transitions "archive")
+          [:span.btn.btn-default.noborder.btn-xs
+           {:on-click handle-archive-click}
+           [:span.glyphicon.glyphicon-trash] " archive"])
+        (when (contains? transitions "delete_archived")
+          [:span.btn.btn-default.noborder.btn-xs
+           {:on-click handle-delete-archived-click}
+           [:span.glyphicon.glyphicon-remove] " delete"])
+        (when (contains? transitions "restore")
+          [:span.btn.btn-default.noborder.btn-xs
+           {:on-click handle-restore-click}
+           [:span.glyphicon.glyphicon-open] " restore"])
+        [:span.btn.btn-default.noborder.btn-xs
+         {:on-click handle-clone-click}
+         [:span.glyphicon.glyphicon-duplicate] " clone"]
+        [:span.btn.btn-default.noborder.btn-xs {:on-click handle-edit-click}
+         [:span.glyphicon.glyphicon-pencil] " edit"]])
+     [:h4
+      [:span.link
+       [:span (:username owner)]
+       " / "
+       [:strong title]]
+      " "
+      [:span.label.label-info {:style {:font-weight "normal"}} status]
+      " "]
+     [:p.list-group-item-text
+      [:i {:style {:color     "#aaa"
+                   :font-size "0.9em"}}
+       (if-not (empty? last_updated)
+         [:span
+          "Last edited " (moment/from-now last_updated)
+          " by " (:username last_updated_by)]
+         "Has not been edited yet")]]]))
 
 (defn dashboard
   [{:keys [dashboard-props

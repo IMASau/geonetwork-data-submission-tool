@@ -197,7 +197,8 @@
                        [views3/progress-bar]])])))])))
 
 (defn PageViewEdit
-  [{:keys [page context form dirty on-save-click on-archive-click]}]
+  [{:keys [page context form dirty on-save-click on-archive-click
+           tab-props on-pick-tab]}]
   (let [{:keys [urls user]} context
         {:keys [disabled]} form
         {:keys [status title last_updated last_updated_by is_editor owner]} (:document context)
@@ -234,6 +235,9 @@
                  "Last edited " (moment/from-now last_updated)
                  " by " (:username last_updated_by)]]]]]
      [:div.Home.container
-      [views3/edit-tabs]
+      [edit-tabs
+       {:form        form
+        :tab-props   tab-props
+        :on-pick-tab on-pick-tab}]
       [:div.PageViewBody
        [low-code/render-template {:template-id (get page :tab :data-identification)}]]]]))

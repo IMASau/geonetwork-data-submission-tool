@@ -39,6 +39,7 @@
 (rf/reg-event-fx :app/document-teaser-restore-click (handlers3/transite-doc-click "restore"))
 (rf/reg-event-fx :app/document-teaser-clone-click handlers3/document-teaser-clone-click)
 (rf/reg-event-fx ::views3/edit-tabs-pick-click handlers3/set-tab)
+(rf/reg-event-fx :app/edit-tabs-pick-click handlers3/set-tab)
 (rf/reg-event-fx ::views3/elasticsearch-select-field-input-change handlers3/load-es-options)
 (rf/reg-event-fx ::views3/elasticsearch-select-field-mount handlers3/load-es-options)
 (rf/reg-event-fx ::views3/keywords-theme-table-add-value handlers3/add-value!)

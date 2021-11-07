@@ -6,7 +6,9 @@
             [metcalf3.widget.modal :as modal]
             [metcalf3.views :as views3]
             [interop.moment :as moment]
-            [metcalf4.low-code :as low-code]))
+            [metcalf4.low-code :as low-code]
+            [clojure.edn :as edn]
+            [interop.blueprint :as bp3]))
 
 ; For pure views only, no re-frame subs/handlers
 
@@ -174,6 +176,25 @@
                                     :on-change #(dashboard-toggle-status-filter {:status-id status-id :status-filter status-filter})}]
                            " " sname
                            (when freq [:span.freq " (" freq ")"])]]))))]]]]))
+
+(defn edit-tabs
+  [{:keys [form tab-props on-pick-tab]}]
+  (let [{:keys [disabled]} form
+        {:keys [selected-tab tab-props]} tab-props]
+    (letfn [(pick-tab [id _ _] (on-pick-tab (edn/read-string id)))]
+      [:div {:style {:min-width "60em"}}
+       (-> [bp3/tabs {:selectedTabId            (pr-str selected-tab)
+                      :onChange                 pick-tab
+                      :renderActiveTabPanelOnly true}]
+           (into (for [{:keys [id title has-errors?]} tab-props]
+                   (let [title (if has-errors? (str title " *") title)]
+                     [bp3/tab {:title title :id (pr-str id)}])))
+           (conj
+             [bp3/tabs-expander]
+             (when-not disabled
+               [:div {:style {:width 200 :height 25}}
+                (conj [:div.hidden-xs.hidden-sm
+                       [views3/progress-bar]])])))])))
 
 (defn PageViewEdit
   [{:keys [page context form dirty on-save-click on-archive-click]}]

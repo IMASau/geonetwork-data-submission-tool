@@ -1495,7 +1495,7 @@
 (defn NewDocumentForm2 []
   [low-code/render-template
    {:template-id :NewDocumentForm2
-    :variables '{?form-id [:create_form]}}])
+    :variables   '{?form-id [:create_form]}}])
 
 (defn modal-dialog-dashboard-create-modal
   [_ _]

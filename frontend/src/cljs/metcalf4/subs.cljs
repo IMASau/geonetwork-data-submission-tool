@@ -64,3 +64,7 @@
         state1 (blocks/postwalk postwalk-xform state0)
         {:keys [progress/errors]} (:progress/score state1)]
     (not (pos? errors))))
+
+(defn get-selected-tab
+  [page]
+  (get page :tab :data-identification))

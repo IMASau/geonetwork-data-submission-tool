@@ -571,54 +571,49 @@
 
 (defn PageViewEdit
   [_]
-  (letfn [(handle-archive-click
-            []
-            (rf/dispatch [::open-modal
-                          {:type       :confirm
-                           :title      "Archive?"
-                           :message    "Are you sure you want to archive this record?"
-                           :on-confirm #(rf/dispatch [::page-view-edit-archive-click-confirm])}]))
-          (render [_]
-            (let [page @(rf/subscribe [:subs/get-page-props])
-                  saving (::handlers3/saving? page)
-                  {:keys [urls user]} @(rf/subscribe [:subs/get-derived-path [:context]])
-                  {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
-                  dirty @(rf/subscribe [:subs/get-form-dirty [:form]])
-                  {:keys [status title last_updated last_updated_by is_editor owner]} @(rf/subscribe [:subs/get-derived-path [:context :document]])]
-              [:div
-               [navbar]
-               [:div.container
-                [:div.pagehead
-                 [:div.pull-right
-                  (when is_editor
-                    [:button.btn.btn-default.text-warn {:on-click handle-archive-click
-                                                        :disabled disabled}
-                     [:span.fa.fa-archive]
-                     " Archive"]) " "
-                  [:button.btn.btn-primary {:disabled (or disabled (not dirty) saving)
-                                            :on-click #(rf/dispatch [::PageViewEdit-save-button-click])}
-                   (cond
-                     saving [:img {:src (str (:STATIC_URL urls) "metcalf3/img/saving.gif")}]
-                     dirty [:span.glyphicon.glyphicon-floppy-disk]
-                     :else [:span.glyphicon.glyphicon-floppy-saved])
-                   (cond
-                     saving " Saving..."
-                     dirty " Save"
-                     :else " Saved")]]
-                 [:h4
-                  [:span (:username owner)]
-                  " / "
-                  [:strong (if (blank? title) "Untitled" title)]
-                  " "
-                  [:span.label.label-info {:style {:font-weight "normal"}} status]
-                  [:br]
-                  [:small [:i {:style {:color     "#aaa"
-                                       :font-size "1em"}}
-                           "Last edited " (moment/from-now last_updated)
-                           " by " (:username last_updated_by)]]]]]
-               [:div.Home.container
-                [edit-tabs]
-                [:div.PageViewBody
-                 [low-code/render-template {:template-id (get page :tab :data-identification)}]]]]))]
-    (r/create-class
-      {:render render})))
+  (let [handle-page-view-edit-archive-click #(rf/dispatch [::handle-page-view-edit-archive-click])]
+
+    (letfn [(render [_]
+              (let [page @(rf/subscribe [:subs/get-page-props])
+                    {:keys [urls user]} @(rf/subscribe [:subs/get-derived-path [:context]])
+                    {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
+                    dirty @(rf/subscribe [:subs/get-form-dirty [:form]])
+                    {:keys [status title last_updated last_updated_by is_editor owner]} @(rf/subscribe [:subs/get-derived-path [:context :document]])
+                    saving (::handlers3/saving? page)]
+                [:div
+                 [navbar]
+                 [:div.container
+                  [:div.pagehead
+                   [:div.pull-right
+                    (when is_editor
+                      [:button.btn.btn-default.text-warn {:on-click handle-page-view-edit-archive-click
+                                                          :disabled disabled}
+                       [:span.fa.fa-archive]
+                       " Archive"]) " "
+                    [:button.btn.btn-primary {:disabled (or disabled (not dirty) saving)
+                                              :on-click #(rf/dispatch [::PageViewEdit-save-button-click])}
+                     (cond
+                       saving [:img {:src (str (:STATIC_URL urls) "metcalf3/img/saving.gif")}]
+                       dirty [:span.glyphicon.glyphicon-floppy-disk]
+                       :else [:span.glyphicon.glyphicon-floppy-saved])
+                     (cond
+                       saving " Saving..."
+                       dirty " Save"
+                       :else " Saved")]]
+                   [:h4
+                    [:span (:username owner)]
+                    " / "
+                    [:strong (if (blank? title) "Untitled" title)]
+                    " "
+                    [:span.label.label-info {:style {:font-weight "normal"}} status]
+                    [:br]
+                    [:small [:i {:style {:color     "#aaa"
+                                         :font-size "1em"}}
+                             "Last edited " (moment/from-now last_updated)
+                             " by " (:username last_updated_by)]]]]]
+                 [:div.Home.container
+                  [edit-tabs]
+                  [:div.PageViewBody
+                   [low-code/render-template {:template-id (get page :tab :data-identification)}]]]]))]
+      (r/create-class
+        {:render render}))))

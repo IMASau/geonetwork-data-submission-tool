@@ -53,6 +53,8 @@
 (rf/reg-event-fx ::views3/organisation-input-field-change handlers3/org-changed)
 (rf/reg-event-fx ::views3/page-errors-hide-click handlers3/hide-errors)
 (rf/reg-event-fx ::views3/page-view-edit-archive-click-confirm handlers3/archive-current-document)
+(rf/reg-event-fx :app/page-view-edit-archive-click-confirm handlers3/archive-current-document)
+(rf/reg-event-fx ::views3/handle-page-view-edit-archive-click handlers3/handle-page-view-edit-archive-click)
 (rf/reg-event-fx ::views3/parties-list-remove-party-confirm handlers3/remove-party)
 (rf/reg-event-fx ::views3/person-input-field-picker-change handlers3/update-person)
 (rf/reg-event-fx ::views3/person-list-field-change handlers3/update-person)

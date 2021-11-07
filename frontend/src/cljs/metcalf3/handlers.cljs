@@ -79,6 +79,13 @@
   [{:keys [db]} [_ props]]
   {:db (open-modal db props)})
 
+(defn handle-page-view-edit-archive-click
+  [{:keys [db]} _]
+  {:db (open-modal db {:type       :confirm
+                       :title      "Archive?"
+                       :message    "Are you sure you want to archive this record?"
+                       :on-confirm #(rf/dispatch [:app/page-view-edit-archive-click-confirm])})})
+
 (defn document-teaser-clone-click
   [{:keys [db]} [_ clone_url]]
   {:db (open-modal db {:type       :confirm

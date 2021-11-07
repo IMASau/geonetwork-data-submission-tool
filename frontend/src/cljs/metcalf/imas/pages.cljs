@@ -4,6 +4,19 @@
             [metcalf4.views :as views4]
             [metcalf4.components :as components4]))
 
+(defn dashboard
+  []
+  [views4/dashboard
+   {:dashboard-props                @(rf/subscribe [:app/get-dashboard-props])
+    :dashboard-create-click         #(rf/dispatch [:app/dashboard-create-click])
+    :dashboard-show-all-click       #(rf/dispatch [:app/dashboard-show-all-click])
+    :dashboard-toggle-status-filter #(rf/dispatch [:app/dashboard-toggle-status-filter %])
+    :document-archive-click         #(rf/dispatch [:app/document-teaser-archive-click (:transition_url %)])
+    :document-delete-archived-click #(rf/dispatch [:app/document-teaser-delete-archived-click (:transition_url %)])
+    :document-restore-click         #(rf/dispatch [:app/document-teaser-restore-click (:transition_url %)])
+    :document-clone-click           #(rf/dispatch [:app/document-teaser-clone-click (:clone_url %)])
+    :document-edit-click            #(aset js/location "href" (:url %))}])
+
 (defn app-root
   []
   (let [page-name @(rf/subscribe [:subs/get-app-root-page-name])
@@ -44,14 +57,5 @@
        "Edit"
        [views3/PageViewEdit nil]
        "Dashboard"
-       [views4/dashboard
-        {:dashboard-props                @(rf/subscribe [:app/get-dashboard-props])
-         :dashboard-create-click         #(rf/dispatch [:app/dashboard-create-click])
-         :dashboard-show-all-click       #(rf/dispatch [:app/dashboard-show-all-click])
-         :dashboard-toggle-status-filter #(rf/dispatch [:app/dashboard-toggle-status-filter %])
-         :document-archive-click         #(rf/dispatch [:app/document-teaser-archive-click (:transition_url %)])
-         :document-delete-archived-click #(rf/dispatch [:app/document-teaser-delete-archived-click (:transition_url %)])
-         :document-restore-click         #(rf/dispatch [:app/document-teaser-restore-click (:transition_url %)])
-         :document-clone-click           #(rf/dispatch [:app/document-teaser-clone-click (:clone_url %)])
-         :document-edit-click            #(aset js/location "href" (:url %))}]
+       [dashboard]
        nil)]))

@@ -633,18 +633,3 @@
                      [:li
                       (or label (name k)) ": "
                       (string/join ". " errors)]))])))
-
-(defn NewDocumentForm []
-  [:div.NewDocumentForm
-   [FormErrors {:path [:create_form]}]
-   [InputField {:path [:create_form :fields :title]}]
-   [SelectField {:path [:create_form :fields :template]}]])
-
-(defn modal-dialog-dashboard-create-modal
-  [_ _]
-  [Modal {:ok-copy      "OK"
-          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Create a new record"]
-          :modal-body   [NewDocumentForm]
-          :on-dismiss   #(rf/dispatch [::close-modal])
-          :on-cancel    #(rf/dispatch [::close-modal])
-          :on-save      #(rf/dispatch [::modal-dialog-dashboard-create-modal-save-click])}])

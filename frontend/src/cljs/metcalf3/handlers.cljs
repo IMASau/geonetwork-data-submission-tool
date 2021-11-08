@@ -281,7 +281,7 @@
   {:db (open-modal db {:type :DashboardCreateModal})})
 
 (defn -dashboard-create-save-success
-  [{:keys [db]} [_ data]]
+  [_ [_ data]]
   {::fx3/set-location-href (-> data :document :url)})
 
 (defn -dashboard-create-save-error

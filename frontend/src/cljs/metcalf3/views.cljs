@@ -15,7 +15,7 @@
             (<= (.-size file) (* 1024 1024 max-filesize)))
       (r/set-state this {:file file})
       (when max-filesize
-        (rf/dispatch [::open-modal
+        (rf/dispatch [:app/upload-max-filesize-exceeded
                       {:type    :alert
                        :message (str "Please, choose file less than " max-filesize "mb")}])
         (put! reset-ch true)))))
@@ -66,7 +66,7 @@
 (defn delete-attachment!
   "Quick and dirty delete function"
   [attachments-path attachment-idx]
-  (rf/dispatch [::open-modal
+  (rf/dispatch [:app/delete-attachment-click
                 {:type       :confirm
                  :title      "Delete?"
                  :message    "Are you sure you want to delete this file?"
@@ -86,7 +86,7 @@
                       (when (= (.-readyState xhr) 4)
                         (if (#{200 201} (.-status xhr))
                           (rf/dispatch [::upload-data-confirm-upload-click-add-attachment (utils3/map-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
-                          (rf/dispatch [::open-modal
+                          (rf/dispatch [:app/upload-data-file-upload-failed
                                         {:type    :alert
                                          :message "File upload failed. Please try again or contact administrator."}]))
                         (r/set-state this {:uploading false})

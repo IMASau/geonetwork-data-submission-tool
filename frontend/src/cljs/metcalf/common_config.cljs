@@ -29,7 +29,6 @@
 (rf/reg-event-fx ::views3/open-modal handlers3/open-modal-handler)
 (rf/reg-event-fx ::views3/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)
-(rf/reg-event-fx :app/close-modal handlers3/close-modal)
 (rf/reg-event-fx :app/create-record-button-click handlers3/create-record-button-click)
 (rf/reg-event-fx :app/dashboard-create-click handlers3/dashboard-create-click)
 (rf/reg-event-fx :app/dashboard-show-all-click handlers3/show-all-documents)

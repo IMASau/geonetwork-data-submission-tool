@@ -4,6 +4,11 @@
             [metcalf4.views :as views4]
             [metcalf4.components :as components4]))
 
+(defn navbar
+  []
+  [views4/navbar
+   {:context @(rf/subscribe [:subs/get-derived-path [:context]])}])
+
 (defn dashboard
   []
   [views4/dashboard
@@ -79,9 +84,9 @@
        "404"
        [page-404]
        "Error"
-       [page-error]
+       [:div [navbar] [page-error]]
        "Edit"
-       [page-edit]
+       [:div [navbar] [page-edit]]
        "Dashboard"
-       [dashboard]
+       [:div [navbar] [dashboard]]
        nil)]))

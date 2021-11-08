@@ -125,57 +125,55 @@
            document-clone-click
            document-edit-click]}]
   (let [{:keys [filtered-docs status-filter has-documents? status-freq status relevant-status-filter]} dashboard-props]
-    [:div
-     [views3/navbar]
-     [:div.container
-      [:span.pull-right {:style {:margin-top 18}}
-       [new-document-button
-        {:on-click dashboard-create-click}]]
-      [:h1 "My Records"]
-      [:div.row
-       [:div.col-sm-9
-        (-> [:div.list-group]
-            (into (for [filtered-doc filtered-docs]
-                    ^{:key (:url filtered-doc)}
-                    [document-teaser
-                     {:doc                      filtered-doc
-                      :on-archive-click         #(document-archive-click filtered-doc)
-                      :on-delete-archived-click #(document-delete-archived-click filtered-doc)
-                      :on-restore-click         #(document-restore-click filtered-doc)
-                      :on-clone-click           #(document-clone-click filtered-doc)
-                      :on-edit-click            #(document-edit-click filtered-doc)}]))
-            (conj (if has-documents?
-                    [:a.list-group-item {:on-click dashboard-create-click}
-                     [:span.glyphicon.glyphicon-star.pull-right]
-                     [:p.lead.list-group-item-heading " My first record "]
-                     [:p.list-group-item-text "Welcome! Since you’re new here, "
-                      [:span {:style {:text-decoration "underline"}} "Click here"] " to get started."]]
-                    (when (empty? filtered-docs)
-                      (if (= status-filter #{"Draft" "Submitted"})
-                        [:div
-                         [:p "You don't have any active records: "
-                          [:a {:on-click dashboard-show-all-click}
-                           "show all documents"] "."]
-                         [new-document-button
-                          {:on-click dashboard-create-click}]]
-                        [:div
-                         [:p "No documents match your filter: "
-                          [:a {:on-click dashboard-show-all-click}
-                           "show all documents"] "."]
-                         [new-document-button
-                          {:on-click dashboard-create-click}]])))))]
-       [:div.col-sm-3
-        (when-not (empty? status-freq)
-          (into [:div]
-                (for [[status-id sname] status]
-                  (let [freq (get status-freq status-id)]
-                    [:div [:label
-                           [:input {:type      "checkbox"
-                                    :disabled  (not freq)
-                                    :checked   (contains? relevant-status-filter status-id)
-                                    :on-change #(dashboard-toggle-status-filter {:status-id status-id :status-filter status-filter})}]
-                           " " sname
-                           (when freq [:span.freq " (" freq ")"])]]))))]]]]))
+    [:div.container
+     [:span.pull-right {:style {:margin-top 18}}
+      [new-document-button
+       {:on-click dashboard-create-click}]]
+     [:h1 "My Records"]
+     [:div.row
+      [:div.col-sm-9
+       (-> [:div.list-group]
+           (into (for [filtered-doc filtered-docs]
+                   ^{:key (:url filtered-doc)}
+                   [document-teaser
+                    {:doc                      filtered-doc
+                     :on-archive-click         #(document-archive-click filtered-doc)
+                     :on-delete-archived-click #(document-delete-archived-click filtered-doc)
+                     :on-restore-click         #(document-restore-click filtered-doc)
+                     :on-clone-click           #(document-clone-click filtered-doc)
+                     :on-edit-click            #(document-edit-click filtered-doc)}]))
+           (conj (if has-documents?
+                   [:a.list-group-item {:on-click dashboard-create-click}
+                    [:span.glyphicon.glyphicon-star.pull-right]
+                    [:p.lead.list-group-item-heading " My first record "]
+                    [:p.list-group-item-text "Welcome! Since you’re new here, "
+                     [:span {:style {:text-decoration "underline"}} "Click here"] " to get started."]]
+                   (when (empty? filtered-docs)
+                     (if (= status-filter #{"Draft" "Submitted"})
+                       [:div
+                        [:p "You don't have any active records: "
+                         [:a {:on-click dashboard-show-all-click}
+                          "show all documents"] "."]
+                        [new-document-button
+                         {:on-click dashboard-create-click}]]
+                       [:div
+                        [:p "No documents match your filter: "
+                         [:a {:on-click dashboard-show-all-click}
+                          "show all documents"] "."]
+                        [new-document-button
+                         {:on-click dashboard-create-click}]])))))]
+      [:div.col-sm-3
+       (when-not (empty? status-freq)
+         (into [:div]
+               (for [[status-id sname] status]
+                 (let [freq (get status-freq status-id)]
+                   [:div [:label
+                          [:input {:type      "checkbox"
+                                   :disabled  (not freq)
+                                   :checked   (contains? relevant-status-filter status-id)
+                                   :on-change #(dashboard-toggle-status-filter {:status-id status-id :status-filter status-filter})}]
+                          " " sname
+                          (when freq [:span.freq " (" freq ")"])]]))))]]]))
 
 (defn progress-bar
   [{:keys [can-submit? value]}]
@@ -215,7 +213,6 @@
         {:keys [status title last_updated last_updated_by is_editor owner]} (:document context)
         saving (::handlers3/saving? page)]
     [:div
-     [views3/navbar]
      [:div.container
       [:div.pagehead
        [:div.pull-right
@@ -256,12 +253,10 @@
 
 (defn page-error
   [{:keys [text code]}]
-  [:div
-   [views3/navbar]
-   [:div.container
-    [:div.PageViewBody
-     [:p.lead "Oops! " (pr-str text)]
-     [:p "The server responded with a " [:code code " " (pr-str text)] " error."]]]])
+  [:div.container
+   [:div.PageViewBody
+    [:p.lead "Oops! " (pr-str text)]
+    [:p "The server responded with a " [:code code " " (pr-str text)] " error."]]])
 
 (defn page-404
   [{:keys [name]}]

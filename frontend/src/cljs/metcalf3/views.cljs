@@ -493,19 +493,3 @@
     (r/create-class
       {:get-initial-state init-state
        :render            render})))
-
-(defn navbar
-  []
-  (let [{:keys [Dashboard account_profile account_logout]} @(rf/subscribe [:subs/get-derived-path [:context :urls]])
-        {:keys [user]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        {:keys [title tag_line guide_pdf]} @(rf/subscribe [:subs/get-derived-path [:context :site]])]
-    [bp3/navbar {:className "bp3-dark"}
-     [:div.container
-      [bp3/navbar-group {:align (:LEFT bp3/alignment)}
-       [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading (str title " " tag_line)]]]
-      [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
-       (if account_profile
-         [:a.bp3-button.bp3-minimal {:href account_profile} (utils3/userDisplay user)]
-         [:span {:style {:padding "5px 10px 5px 10px"}} (utils3/userDisplay user)])
-       [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
-       [:a.bp3-button.bp3-minimal {:href account_logout} "Sign Out"]]]]))

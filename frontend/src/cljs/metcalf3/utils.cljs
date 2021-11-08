@@ -11,9 +11,6 @@
     (-lookup [o k] (gobject/get js-obj (name k)))
     (-lookup [o k not-found] (gobject/get js-obj (name k) not-found))))
 
-(defn fmap [f m]
-  (into (empty m) (for [[k v] m] [k (f v)])))
-
 (defn map-keys [f m]
   (persistent! (reduce-kv (fn [z k v] (assoc! z (f k) v)) (transient {}) m)))
 

@@ -253,3 +253,12 @@
         :on-pick-tab    on-pick-tab}]
       [:div.PageViewBody
        [low-code/render-template {:template-id (get page :tab :data-identification)}]]]]))
+
+(defn page-error
+  [{:keys [text code]}]
+  [:div
+   [views3/navbar]
+   [:div.container
+    [:div.PageViewBody
+     [:p.lead "Oops! " (pr-str text)]
+     [:p "The server responded with a " [:code code " " (pr-str text)] " error."]]]])

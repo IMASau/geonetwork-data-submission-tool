@@ -59,7 +59,6 @@
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
-(rf/reg-sub ::views3/get-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub :subs/get-app-root-modal-props subs4/get-modal-props)
 (rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] imas-subs/get-edit-tab-props)

@@ -46,14 +46,6 @@
              (assoc-in path state)
              (assoc-in (conj path :props :show-errors) true))}))
 
-(defn list-add-click-handler
-  [{:keys [db]} [_ ctx]]
-  (let [{:keys [form-id data-path]} ctx]
-    (-> {:db db}
-        (actions/save-snapshot-action form-id)
-        (actions/new-item-action form-id data-path)
-        (actions/select-last-item-action form-id data-path))))
-
 (defn text-value-add-click-handler
   [{:keys [db]} [_ ctx value]]
   (let [{:keys [form-id data-path]} ctx]

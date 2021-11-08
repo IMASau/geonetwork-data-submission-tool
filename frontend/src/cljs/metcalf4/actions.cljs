@@ -4,7 +4,8 @@
             [metcalf3.utils :as utils3]
             [metcalf4.blocks :as blocks]
             [metcalf4.schema :as schema]
-            [metcalf4.utils :as utils4]))
+            [metcalf4.utils :as utils4]
+            [metcalf4.logic :as logic4]))
 
 (defn load-api-action
   [s api-id api-uri]
@@ -192,25 +193,11 @@
         )))
 
 (defn init-create-form-action
-  [s]
-  (let [data {}
-        schema {:type "object"
-                :properties
-                      {"title"    {:type  "string"
-                                   :label "Title"
-                                   :rules ["requiredField"]}
-                       "template" {:type  "object"
-                                   :label "Template"
-                                   :rules ["requiredField"]
-                                   :properties
-                                          {"id"   {:type "number"}
-                                           "name" {:type "string"}}}}}
-        state (blocks/as-blocks {:data data :schema schema})]
-    (schema/assert-schema-data {:data data :schema schema})
-    (-> s
-        (assoc-in [:db :create_form :data] data)
-        (assoc-in [:db :create_form :schema] schema)
-        (assoc-in [:db :create_form :state] state))))
+  [s payload]
+  (let [{:keys [create_form]} payload]
+    (cond-> s
+      create_form
+      (assoc-in [:db :create_form] (logic4/massage-form create_form)))))
 
 (defn create-document-action
   [s url data]

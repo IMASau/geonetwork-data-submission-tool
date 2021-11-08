@@ -22,28 +22,6 @@
   (let [results (gobj/get json "results")]
     {:db (update-in db api-path assoc :options results)}))
 
-(defn build-es-query
-  [query]
-  (.stringify js/JSON (clj->js
-                        {:query query})))
-
-(defn -load-es-options
-  [{:keys [db]} [_ api-path query json]]
-  (let [most-recent-query (get-in db (conj api-path :most-recent-query))
-        results (gobj/get json "hits")
-        hits (gobj/get results "hits")
-        reshaped (clj->js (into []
-                                (map (fn [x] {:is_selectable     true
-                                              :vocabularyTermURL (get-in x [:_source :uri])
-                                              :term              (let [term (get-in x [:_source :label])] (if (vector? term) (first term) term))
-                                              :code              (get-in x [:_source :ucumCode])
-                                              :breadcrumb        (get-in x [:_source :breadcrumb])
-                                              :altLabel          (clojure.string/join ", " (get-in x [:_source :altLabel]))
-                                              })
-                                     (js->clj hits :keywordize-keys true))))]
-    (when (or (= most-recent-query query) (and (not most-recent-query) query))
-      {:db (update-in db api-path assoc :options reshaped)})))
-
 (defn close-modal
   [{:keys [db]}]
   {:db (update db :alert pop)})
@@ -150,13 +128,6 @@
         status-freq (frequencies (map :status documents))]
     {:db (assoc-in db [:page :status-filter] (set (keys status-freq)))}))
 
-(defn org-changed
-  [{:keys [db]} [_ path value]]
-  {:db       (-> db
-                 (update-in (conj path :organisationName) assoc :value (get value "organisationName") :show-errors true)
-                 (update-in (conj path :organisationIdentifier) assoc :value (str (get value "uri") "||" (get value "city")) :show-errors true))
-   :dispatch [::-org-changed path value]})
-
 (defn set-tab
   [{:keys [db]} [_ id]]
   {:db (assoc-in db [:page :tab] id)})
@@ -164,22 +135,6 @@
 (defn dashboard-create-click
   [{:keys [db]} _]
   {:db (open-modal db {:type :DashboardCreateModal})})
-
-(defn -dashboard-create-save-success
-  [_ [_ data]]
-  {::fx3/set-location-href (-> data :document :url)})
-
-(defn -dashboard-create-save-error
-  [{:keys [db]} [_ data]]
-  (if (= (:status data) 400)
-    (-> {:db db}
-        (assoc-in [:db :page :name] "Error")
-        (assoc-in [:db :page :text] (-> data :response :message))
-        (assoc-in [:db :page :code] (-> data :status))
-        (assoc-in [:db :page :detail] (-> data :response)))
-    (-> {:db db}
-        (update-in [:db :create_form] assoc :show-errors true)
-        (update-in [:db :create_form] logic3/load-errors (:response data)))))
 
 (defn clone-document
   [_ [_ url]]

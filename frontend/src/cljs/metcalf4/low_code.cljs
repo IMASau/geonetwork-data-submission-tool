@@ -16,7 +16,7 @@
   "Merge templates into template-registry."
   [{:keys [low-code/templates]}]
   (when (map? templates)
-    (reset! *build-template-cache ({}))
+    (reset! *build-template-cache {})
     (set! template-registry (merge template-registry templates))))
 
 (defn variable?

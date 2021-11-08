@@ -106,29 +106,6 @@
   (let [[value display] props]
     [:option {:value value} display]))
 
-(defn SelectWidget [props]
-  (let [{:keys [label required value help disabled errors is-hidden on-change
-                options default-option default-value loading
-                show-errors]
-         :or   {is-hidden false}} props
-        disabled (or disabled loading)
-        default-value (or default-value "")
-        default-option (or default-option "Please select")]
-    (when-not is-hidden
-      [:div.form-group {:class (when (and show-errors (seq errors))
-                                 "has-error")}
-       (when label [:label label (when required " *")])
-       (vec (concat
-              [:select.form-control (assoc (dissoc props :default-option :show-errors :is-hidden)
-                                      :on-change #(on-change (-> % .-target .-value))
-                                      :value (or value default-value)
-                                      :disabled disabled)
-               (when options
-                 [:option {:value default-value :disabled true} default-option])]
-              (for [option options]
-                [OptionWidget option])))
-       (when help [:p.help-block help])])))
-
 
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]

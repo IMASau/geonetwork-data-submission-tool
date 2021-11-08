@@ -1,6 +1,5 @@
 (ns metcalf3.logic
-  (:require [clojure.zip :as zip]
-            [metcalf3.utils :as utils]
+  (:require [metcalf3.utils :as utils]
             [metcalf4.blocks :as blocks]
             [metcalf4.rules :as rules]
             [metcalf4.logic :as logic4]

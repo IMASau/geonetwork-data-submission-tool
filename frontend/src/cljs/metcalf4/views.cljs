@@ -1,10 +1,7 @@
 (ns metcalf4.views
   (:require [clojure.string :as string]
-            [goog.object :as gobj]
-            [interop.react-imask :as react-imask]
             [metcalf3.utils :as utils3]
             [metcalf3.widget.modal :as modal]
-            [metcalf3.views :as views3]
             [interop.moment :as moment]
             [metcalf4.low-code :as low-code]
             [clojure.edn :as edn]

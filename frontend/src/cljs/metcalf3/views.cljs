@@ -129,15 +129,6 @@
                 [OptionWidget option])))
        (when help [:p.help-block help])])))
 
-(defn SelectField
-  [{:keys [path]}]
-  (let [{:keys [options default-option disabled] :as field} @(rf/subscribe [:subs/get-derived-path path])]
-    [SelectWidget (assoc field
-                    :class "wauto"
-                    :disabled (or disabled (empty? options))
-                    :default-option (if-not (empty? options) default-option "")
-                    :on-blur #(rf/dispatch [::select-field-blur path])
-                    :on-change #(rf/dispatch [::value-changed path %]))]))
 
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]

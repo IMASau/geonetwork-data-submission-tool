@@ -240,14 +240,6 @@
         (actions/discard-snapshot-action form-id)
         (actions/dialog-close-action form-id data-path))))
 
-(defn create-document-modal-close-click
-  []
-  )
-
-(defn create-document-modal-clear-click
-  []
-  )
-
 (defn create-document-modal-save-click
   [{:keys [db]}]
   (let [{:keys [url state]} (get-in db [:create_form])

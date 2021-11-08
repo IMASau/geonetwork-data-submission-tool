@@ -110,9 +110,3 @@
          :format          :json
          :response-format :json
          :keywords?       true}))
-
-(defn window-open
-  [{:keys [url windowName]}]
-  (s/assert string? url)
-  (s/assert (s/nilable string?) windowName)
-  (js/window.open url windowName))

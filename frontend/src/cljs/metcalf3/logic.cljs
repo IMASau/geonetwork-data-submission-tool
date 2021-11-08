@@ -143,13 +143,6 @@
                   (get field-errors field-key [])))
       (clear-errors form) field-keys)))
 
-(defn is-valid? [{:keys [fields non_field_errors]}]
-  (and (empty? non_field_errors)
-       (field-reduce (field-zipper fields)
-                     (fn [acc {:keys [errors]}] (and acc (empty? errors)))
-                     true)))
-
-
 ;(defn tree-edit
 ;  [zipper matcher editor]
 ;  (loop [loc zipper]

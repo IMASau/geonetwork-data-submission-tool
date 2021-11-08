@@ -9,42 +9,6 @@
 
 (def active-status-filter #{"Draft" "Submitted"})
 
-(defn field-zipper [node]
-  (throw (ex-info "Should never get here" node))
-  ;(zip/zipper
-  ;
-  ;  (fn branch? [x]
-  ;    (cond
-  ;      (map? x) (cond (contains? x :value) (or (:many x) (:fields x))
-  ;                     :else true)
-  ;      (coll? x) true
-  ;      :else false))
-  ;
-  ;  (fn children [x]
-  ;    (cond
-  ;      (map? x) (cond
-  ;
-  ;                 (and (contains? x :value) (:many x))
-  ;                 (map :value (:value x))
-  ;
-  ;                 (and (contains? x :value) (:fields x))
-  ;                 (:value x)
-  ;
-  ;                 :else (map (juxt key val) x))
-  ;      (coll? x) (seq x)
-  ;      :else nil))
-  ;
-  ;  (fn make-node [node children]
-  ;    (cond
-  ;      (map? node) (if (contains? node :value)
-  ;                    (assoc node :value children)
-  ;                    (into (empty node) children))
-  ;      (coll? node) (into (empty node) children)
-  ;      :else (into (empty node) children)))
-  ;
-  ;  node)
-  )
-
 (defn field? [m]
   (and (map? m)
        (or (contains? m :value)
@@ -85,26 +49,6 @@
                   (merge-with + (score-value block) (score-props block))))]
     (assoc block ::score score)))
 
-(defn reset-field [field]
-  (assoc field
-    :value (cond
-             (contains? field :initial) (:initial field)
-             (:many field) []
-             :else nil)))
-
-(defn field-edit
-  ([zipper editor]
-   (field-edit zipper (constantly true) editor))
-  ([zipper matcher editor]
-   (loop [loc zipper]
-     (if (zip/end? loc)
-       (zip/root loc)
-       (if (field? (zip/node loc))
-         (if (matcher (zip/node loc))
-           (recur (zip/next (zip/edit loc editor)))
-           (recur (zip/next loc)))
-         (recur (zip/next loc)))))))
-
 ; TODO: Use field-zipper.
 (defn clear-errors
   "Clear errors stored against field (from server etc)"
@@ -118,14 +62,6 @@
 
 
 ; TODO: Store non-field errors (:non_field_errors form)
-(defn load-errors [form field-errors]
-  (let [field-keys (keys field-errors)]
-    (reduce
-      (fn [s field-key]
-        (assoc-in s [:fields field-key :errors]
-                  (get field-errors field-key [])))
-      (clear-errors form) field-keys)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; https://github.com/Roxxi/clojure-common-utils
 

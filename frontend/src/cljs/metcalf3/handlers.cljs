@@ -88,11 +88,6 @@
   [_ [_ url]]
   {::fx3/set-location-href url})
 
-(defn ror
-  "Reverse OR: use it to update source value only if destination value is not falsey."
-  [a b]
-  (or b a))
-
 (defn toggle-status-filter
   [{:keys [db]} [_ {:keys [status-id status-filter]}]]
   (let [status-filter (get-in db [:page :status-filter] status-filter)

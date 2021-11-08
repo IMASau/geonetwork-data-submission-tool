@@ -177,6 +177,16 @@
                            " " sname
                            (when freq [:span.freq " (" freq ")"])]]))))]]]]))
 
+(defn progress-bar
+  [{:keys [can-submit? value]}]
+  [:div
+   [:span.progressPercentage (str (int (* value 100)) "%")]
+   [bp3/progress-bar {:animate false
+                      :intent  (if can-submit? "success" "warning")
+                      :stripes false
+                      :value   value}]])
+
+
 (defn edit-tabs
   [{:keys [form tab-props on-pick-tab]}]
   (let [{:keys [disabled]} form

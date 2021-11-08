@@ -116,11 +116,6 @@
                                 (f acc node)
                                 acc))))))
 
-(defn extract-data
-  "Extract current values from form as a map"
-  [{:keys [fields]}]
-  (into {} (->> fields (utils/fmap :value))))
-
 (defn new-value-field
   [many-field]
   ; TODO: use field-postwalk to avoid inefficiencies with long options lists

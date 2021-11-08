@@ -514,13 +514,3 @@
   [_]
   (let [{:keys [name]} @(rf/subscribe [:subs/get-page-props])]
     [:h1 "Page not found: " name]))
-
-(defn PageViewError
-  [_]
-  (let [{:keys [text code]} @(rf/subscribe [:subs/get-page-props])]
-    [:div
-     [navbar]
-     [:div.container
-      [:div.PageViewBody
-       [:p.lead "Oops! " (pr-str text)]
-       [:p "The server responded with a " [:code code " " (pr-str text)] " error."]]]]))

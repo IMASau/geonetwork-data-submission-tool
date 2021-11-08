@@ -158,12 +158,6 @@
     (when-let [ele (js/document.getElementById autowidth-id)]
       (r/set-state this {:width (.-width (gstyle/getSize ele))}))))
 
-(defn KeywordsThemeCell [rowData]
-  (let [rowData (take-while (complement empty?) rowData)]
-    [:div.topic-cell
-     [:div.topic-path (string/join " > " (drop-last (rest rowData)))]
-     [:div.topic-value (last rowData)]]))
-
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]
   (let [{:keys [reset-ch max-filesize]} (r/props this)]

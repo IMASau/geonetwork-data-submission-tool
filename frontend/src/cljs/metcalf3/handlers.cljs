@@ -81,6 +81,7 @@
   (let [transition_url (-> db :context :document :transition_url)]
     {::fx3/archive-current-document
      {:url       transition_url
+      :params    {:transition "archive"}
       :success-v [:app/-archive-current-document-success]
       :error-v   [:app/open-modal {:type :alert :message "Unable to delete"}]}}))
 

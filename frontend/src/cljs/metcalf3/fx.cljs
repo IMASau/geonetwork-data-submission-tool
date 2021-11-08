@@ -101,9 +101,9 @@
          :headers         {"X-CSRFToken" (get-csrf)}}))
 
 (defn archive-current-document
-  [{:keys [url success-v error-v]}]
+  [{:keys [url params success-v error-v]}]
   (POST url
-        {:params          #js {:transition "archive"}
+        {:params          (clj->js params)
          :handler         #(rf/dispatch (conj success-v %))
          :error-handler   #(rf/dispatch (conj error-v %))
          :headers         {"X-CSRFToken" (get-csrf)}

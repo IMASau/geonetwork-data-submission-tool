@@ -524,10 +524,3 @@
       [:div.PageViewBody
        [:p.lead "Oops! " (pr-str text)]
        [:p "The server responded with a " [:code code " " (pr-str text)] " error."]]]]))
-
-(defn DataSourceRowEdit [path]
-  [:div
-   [InputField {:path (conj path :value :description)}]
-   [SelectField {:path (conj path :value :protocol)}]
-   [InputField {:path (conj path :value :url)}]
-   [InputField {:path (conj path :value :name)}]])

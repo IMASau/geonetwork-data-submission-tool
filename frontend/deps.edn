@@ -2,7 +2,6 @@
  :deps  {binaryage/devtools          {:mvn/version "1.0.3"}
          cljs-ajax/cljs-ajax         {:mvn/version "0.8.4"}
          com.andrewmcveigh/cljs-time {:mvn/version "0.5.2"}
-         funcool/cuerdas             {:mvn/version "2021.05.29-0"}
          lambdaisland/fetch          {:mvn/version "1.0.41"}
          org.clojure/clojure         {:mvn/version "1.10.3"}
          org.clojure/clojurescript   {:mvn/version "1.10.879"}

@@ -12,12 +12,6 @@
 
 ; For pure views only, no re-frame subs/handlers
 
-(defn KeywordsThemeCell [rowData]
-  (let [rowData (take-while (complement empty?) rowData)]
-    [:div.topic-cell
-     [:div.topic-path (string/join " > " (drop-last (rest rowData)))]
-     [:div.topic-value (last rowData)]]))
-
 (defn m4-modal-dialog-table-modal-edit-form
   [{:keys [form path title on-delete-click on-close-click on-save-click]}]
   [modal/Modal {:ok-copy      "Done"

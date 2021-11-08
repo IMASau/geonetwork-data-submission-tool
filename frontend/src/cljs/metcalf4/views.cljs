@@ -262,3 +262,7 @@
     [:div.PageViewBody
      [:p.lead "Oops! " (pr-str text)]
      [:p "The server responded with a " [:code code " " (pr-str text)] " error."]]]])
+
+(defn page-404
+  [{:keys [name]}]
+  [:h1 "Page not found: " name])

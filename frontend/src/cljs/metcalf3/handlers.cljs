@@ -91,23 +91,6 @@
   [{:keys [db]} [_ many-field-path i]]
   {:db (update-in db many-field-path update :value utils/vec-remove i)})
 
-(defn new-field!
-  [{:keys [db]} [_ path]]
-  {:db (let [many-field (get-in db path)
-             new-field (logic3/new-value-field many-field)]
-         (update-in db path update :value #(conj % new-field)))})
-
-(defn add-field!
-  [{:keys [db]} [_ path field]]
-  {:db (update-in db path update :value conj field)})
-
-(defn add-value!
-  [{:keys [db]} [_ path value]]
-  (let [many-field (get-in db path)
-        new-field (-> (logic3/new-value-field many-field)
-                      (assoc :value value))]
-    {:db (update-in db path update :value conj new-field)}))
-
 (defn add-attachment
   [{:keys [db]} [_ attachment-data]]
   (let [data (select-keys attachment-data [:file :name :delete_url])
@@ -153,58 +136,6 @@
              (update-in contact-path update-in [:address :postalCode :value] ror postalCode)
              (update-in contact-path update-in [:address :country :value] ror country))}))
 
-(defn update-dp-term
-  [{:keys [db]} [_ dp-term-path sub-paths option]]
-  (let [option (if (map? option) option (utils/js-lookup option))
-        {:keys [term vocabularyTermURL vocabularyVersion termDefinition]} option]
-    {:db (-> db
-             (update-in dp-term-path assoc-in [(:term sub-paths) :value] term)
-             (update-in dp-term-path assoc-in [(:vocabularyTermURL sub-paths) :value] vocabularyTermURL)
-             (update-in dp-term-path assoc-in [(:vocabularyVersion sub-paths) :value] vocabularyVersion)
-             (update-in dp-term-path assoc-in [(:termDefinition sub-paths) :value] termDefinition))}))
-
-(defn update-nasa-list-value
-  [{:keys [db]} [_ path option]]
-  (let [option (if (map? option) option (utils/js-lookup option))
-        {:keys [prefLabel uri]} option]
-    {:db (-> db
-             (update-in path assoc-in [:prefLabel :value] prefLabel)
-             (update-in path assoc-in [:uri :value] uri))}))
-
-(defn update-person
-  [{:keys [db]} [_ person-path option]]
-  (let [option (if (map? option) option (utils/js-lookup option))
-        option (walk/keywordize-keys option)
-        {:keys [givenName prefLabel familyName uri orcid
-                orgUri isUserAdded electronicMailAddress]} option
-        org (when orgUri
-              (first (filter (fn [x]
-                               (= orgUri (gobj/get x "uri"))) (:options (get-in db [:api :api/institution])))))
-        org (js->clj org)
-        db (-> db
-               (update-in person-path assoc-in [:givenName :value] givenName)
-               (update-in person-path assoc-in [:uri :value] uri)
-               (update-in person-path assoc-in [:orcid :value] orcid)
-               (update-in person-path assoc-in [:individualName :value] prefLabel)
-               (update-in person-path assoc-in [:familyName :value] familyName)
-               (update-in person-path assoc-in [:electronicMailAddress :value] electronicMailAddress)
-               (update-in person-path assoc-in [:isUserAdded :value] isUserAdded))]
-    {:db       db
-     :dispatch [::-update-person person-path org]}))
-
-(defn remove-party
-  [{:keys [db]} [_ parties-path item]]
-  {:db (update-in db parties-path update :value utils/vec-remove item)})
-
-(defn show-errors
-  [{:keys [db]} [_ path]]
-  (s/assert vector path)
-  {:db (update-in db path assoc :show-errors true)})
-
-(defn hide-errors
-  [{:keys [db]} [_ path]]
-  {:db (update-in db path assoc :show-errors false)})
-
 (defn toggle-status-filter
   [{:keys [db]} [_ {:keys [status-id status-filter]}]]
   (let [status-filter (get-in db [:page :status-filter] status-filter)
@@ -219,48 +150,12 @@
         status-freq (frequencies (map :status documents))]
     {:db (assoc-in db [:page :status-filter] (set (keys status-freq)))}))
 
-(defn date-field-value-change
-  [{:keys [db]} [_ field-path widget-value]]
-  (let [field-value (when widget-value (moment/format widget-value "YYYY-MM-DD"))]
-    {:db (-> db
-             (update-in field-path assoc :value field-value)
-             (update-in field-path assoc :show-errors true))}))
-
-(defn textarea-field-value-change
-  [{:keys [db]} [_ field-path value]]
-  {:db (-> db
-           (update-in field-path assoc :value value)
-           (update-in field-path assoc :show-errors true))})
-
 (defn org-changed
   [{:keys [db]} [_ path value]]
   {:db       (-> db
                  (update-in (conj path :organisationName) assoc :value (get value "organisationName") :show-errors true)
                  (update-in (conj path :organisationIdentifier) assoc :value (str (get value "uri") "||" (get value "city")) :show-errors true))
    :dispatch [::-org-changed path value]})
-
-(defn person-detail-changed
-  [{:keys [db]} [_ path field value isUserAdded]]
-  ; if they change the name and it's not already a custom user, generate a new uuid
-  (let [new-uuid (random-uuid)
-        person-uri (str "https://w3id.org/tern/resources/" new-uuid)
-        current-value (get-in db (conj path field :value))
-        value-changed (not= current-value value)
-        db' (if (:value isUserAdded)
-              db
-              (-> db
-                  (assoc-in (conj path :uri :value) person-uri)
-                  (update-in (conj path :isUserAdded) assoc :value true :show-errors true)))]
-    (s/assert vector? path)
-    (when value-changed
-      {:db (-> db'
-               (update-in (conj path field) assoc :value value :show-errors true)
-               (update-in (conj path :individualName) assoc :value "" :show-errors true))})))
-
-(defn value-changed
-  [{:keys [db]} [_ path value]]
-  (s/assert vector? path)
-  {:db (update-in db path assoc :value value :show-errors true)})
 
 (defn set-tab
   [{:keys [db]} [_ id]]
@@ -285,16 +180,6 @@
     (-> {:db db}
         (update-in [:db :create_form] assoc :show-errors true)
         (update-in [:db :create_form] logic3/load-errors (:response data)))))
-
-(defn dashboard-create-save
-  [{:keys [db]} _]
-  (let [{:keys [url] :as form} (get-in db [:create_form])
-        form (logic3/validate-required-fields form)]
-    {::fx3/create-document
-     {:url       url
-      :params    (blocks/as-data (:state form))
-      :success-v [::-dashboard-create-save-success]
-      :error-v   [::-dashboard-create-save-error]}}))
 
 (defn clone-document
   [_ [_ url]]

@@ -1,8 +1,8 @@
 (ns metcalf.tern.handlers
   (:require [metcalf.common.logic3 :as logic3]
-            [metcalf4.actions :as actions]
+            [metcalf4.actions4 :as actions]
             [clojure.edn :as edn]
-            [metcalf4.schema :as schema]))
+            [metcalf4.schema4 :as schema]))
 
 (defn init-db
   [_ [_ payload]]

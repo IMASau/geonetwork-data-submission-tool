@@ -1,6 +1,6 @@
-(ns metcalf4.logic
-  (:require [metcalf4.schema :as schema]
-            [metcalf4.blocks :as blocks]))
+(ns metcalf4.logic4
+  (:require [metcalf4.schema4 :as schema]
+            [metcalf4.blocks4 :as blocks]))
 
 (defn massage-form
   [{:keys [data schema url]}]

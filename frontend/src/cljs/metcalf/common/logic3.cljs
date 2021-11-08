@@ -1,8 +1,8 @@
 (ns metcalf.common.logic3
   (:require [metcalf.common.utils3 :as utils]
-            [metcalf4.blocks :as blocks]
-            [metcalf4.rules :as rules]
-            [metcalf4.logic :as logic4]
+            [metcalf4.blocks4 :as blocks]
+            [metcalf4.rules4 :as rules]
+            [metcalf4.logic4 :as logic4]
             [clojure.string :as string]))
 
 (def active-status-filter #{"Draft" "Submitted"})

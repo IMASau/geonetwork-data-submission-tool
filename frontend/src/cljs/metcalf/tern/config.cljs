@@ -789,7 +789,7 @@
        [:p "The vertial extent is optional.  If you choose to enter details then the following fields are mandatory"]
 
        [m4/inline-form-group
-        {:label    "Vertical Coordinte Reference System"
+        {:label    "Vertical Coordinate Reference System"
          :required true
          :toolTip  "TODO"}
         [m4/async-select-option

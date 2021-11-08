@@ -5,7 +5,6 @@
             [metcalf4.blocks :as blocks]
             [metcalf4.rules :as rules]
             [metcalf4.logic :as logic4]
-            [metcalf4.schema :as schema]
             [clojure.string :as string]))
 
 (def active-status-filter #{"Draft" "Submitted"})

@@ -186,6 +186,7 @@
              (assoc-in [:page :metcalf3.handlers/saving?] true))
      ::fx3/submit-current-document
          {:url       url
+          :data      {:transition "submit"}
           :success-v [:app/-lodge-save-success]
           :error-v   [:app/-lodge-save-error]}}))
 

@@ -78,14 +78,14 @@
              :response-format :json}))
 
 (defn submit-current-document
-  [{:keys [url success-v error-v]}]
+  [{:keys [url data success-v error-v]}]
   (POST url
         {:error-handler   #(rf/dispatch (conj error-v %))
          :format          :json
          :handler         #(rf/dispatch (conj success-v %))
          :headers         {"X-CSRFToken" (get-csrf)}
          :keywords?       true
-         :params          #js {:transition "submit"}
+         :params          (clj->js data)
          :response-format :json}))
 
 (defn post-json-data

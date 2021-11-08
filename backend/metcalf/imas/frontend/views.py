@@ -100,20 +100,24 @@ def dashboard(request):
         },
         "create_form": {
             "url": reverse("Create"),
-            "fields": {
-                "title": {
-                    "label": "Document title",
-                    "initial": "Untitled",
-                    "value": "",
-                    "required": False
-                },
-                "template": {
-                    "label": "Template",
-                    "value": MetadataTemplate.objects.filter(site=get_current_site(request), archived=False).first().pk,
-                    "options": [[t.pk, t.__str__()]
-                                for t in
-                                MetadataTemplate.objects.filter(site=get_current_site(request), archived=False)],
-                    "required": True
+            "data": {},
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "label": "Title",
+                        "rules": ["requiredField"]
+                    },
+                    "template": {
+                        "type": "object",
+                        "label": "Template",
+                        "rules": ["requiredField"],
+                        "properties": {
+                            "id": {"type": "number"},
+                            "name": {"type": "string"}
+                        }
+                    }
                 }
             }
         },

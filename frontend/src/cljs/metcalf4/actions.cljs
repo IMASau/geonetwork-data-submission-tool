@@ -216,10 +216,6 @@
   [s url data]
   (update s :fx conj [::utils4/post-data {:url url :data data :resolve [::-create-document]}]))
 
-(defn -create-document-action
-  [s resp]
-  s)
-
 (defn clear-errors
   [s form-path]
   (let [form-state-path (utils4/as-path [:db form-path :state])]

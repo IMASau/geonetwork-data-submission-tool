@@ -76,6 +76,7 @@
     {:db (update-in db [:form :fields :attachments :value] conj {:value new-value})}))
 
 (defn archive-current-document
+  "User wants to archive doc.  Send request."
   [{:keys [db]} _]
   (let [transition_url (-> db :context :document :transition_url)]
     {::fx3/archive-current-document

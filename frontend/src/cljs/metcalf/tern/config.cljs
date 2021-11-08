@@ -313,8 +313,8 @@
             :kind            :breadcrumb
             :uri             "/api/terngeonetwork"
             :label-path      ["label"]
-            :value-path      ["value"]
-            :breadcrumb-path ["value"]}]]
+            :value-path      ["uri"]
+            :breadcrumb-path ["uuid"]}]]
 
          [m4/select-value-with-label
           {:form-id     [:form]
@@ -584,7 +584,7 @@
            [m4/async-select-option
             {:form-id    [:form]
              :data-path  ["identificationInfo" "keywordsTemporal" "keywords"]
-             :uri        "/api/What10"
+             :uri        "/api/samplingfrequency"
              :label-path ["label"]
              :value-path ["uri"]}]]]
 
@@ -595,7 +595,7 @@
            [m4/async-select-option
             {:form-id    [:form]
              :data-path  ["identificationInfo" "keywordsHorizontal" "keywords"]
-             :uri        "/api/What11"
+             :uri        "/api/horizontalresolution"
              :label-path ["label"]
              :value-path ["uri"]}]]]
 
@@ -606,7 +606,7 @@
            [m4/async-select-option
             {:form-id    [:form]
              :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
-             :uri        "/api/What12"
+             :uri        "/api/verticalresolution"
              :label-path ["label"]
              :value-path ["uri"]}]]]
 
@@ -618,7 +618,7 @@
             {:form-id         [:form]
              :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
              :kind            :breadcrumb
-             :uri             "/api/What13"
+             :uri             "/api/ausplantnames" ; TODO: testing required; currently nothing in index
              :label-path      ["label"]
              :value-path      ["uri"]
              :breadcrumb-path ["breadcrumb"]}]

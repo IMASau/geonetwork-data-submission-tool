@@ -98,14 +98,11 @@
               "keep": false,
               "xpath": "cit:title/gco:CharacterString"
             },
-            "value": {
+            "uuid": {},
+            "abstract": {},
+            "uri": {
               "xpath": "cit:identifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
-              "keep": false,
-              "attributes": {
-                "text": {
-                  "function": "geonetwork_url"
-                }
-              }
+              "keep": false
             }
           }
         }
@@ -659,6 +656,7 @@
               "keep": false,
               "type": "object",
               "properties": {
+                "breadcrumb": {},
                 "label": {
                   "xpath": "gcx:Anchor"
                 },
@@ -685,6 +683,7 @@
               "keep": false,
               "type": "object",
               "properties": {
+                "breadcrumb": {},
                 "label": {
                   "xpath": "gcx:Anchor"
                 },

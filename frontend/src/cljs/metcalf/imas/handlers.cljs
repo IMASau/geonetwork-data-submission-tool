@@ -14,4 +14,4 @@
          ; TODO: use action
          :dispatch-n (for [api-key (keys (get db :api))]
                        [::-init-db-load-api-options [:api api-key]])}
-        (actions/init-create-form-action))))
+        (actions/init-create-form-action payload))))

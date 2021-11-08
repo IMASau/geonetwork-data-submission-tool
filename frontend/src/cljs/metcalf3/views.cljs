@@ -79,15 +79,6 @@
        :component-will-receive-props component-will-receive-props
        :render                       render})))
 
-(defn InputField
-  [{:keys [path] :as props}]
-
-  (let [field @(rf/subscribe [:subs/get-derived-path path])]
-    [InputWidget (-> field
-                     (merge (dissoc props :path))
-                     (assoc
-                       :on-change #(rf/dispatch [::value-changed path %])))]))
-
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]
   (let [{:keys [reset-ch max-filesize]} (r/props this)]

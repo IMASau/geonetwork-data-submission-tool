@@ -141,10 +141,10 @@
 (defn -transite-doc-click-confirm
   [_ [_ url transition]]
   {::fx3/transition-current-document
-   {:url        url
-    :transition transition
-    :success-v  [:app/-transite-doc-confirm-success transition]
-    :error-v    [:app/-transite-doc-confirm-error]}})
+   {:url       url
+    :data      {:transition transition}
+    :success-v [:app/-transite-doc-confirm-success transition]
+    :error-v   [:app/-transite-doc-confirm-error]}})
 
 (defn -transite-doc-confirm-success
   [{:keys [db]} [_ transition data]]

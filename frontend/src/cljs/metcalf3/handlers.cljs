@@ -1,11 +1,8 @@
 (ns metcalf3.handlers
   (:require [cljs.spec.alpha :as s]
             [clojure.string :as str]
-            [clojure.walk :as walk]
             [goog.object :as gobj]
-            [interop.moment :as moment]
             [metcalf3.fx :as fx3]
-            [metcalf3.logic :as logic3]
             [metcalf3.utils :as utils]
             [re-frame.core :as rf]
             [metcalf4.blocks :as blocks]

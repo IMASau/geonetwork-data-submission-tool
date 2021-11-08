@@ -79,7 +79,6 @@
        "maintFreq"            rules/maint-freq})
 (set! low-code/component-registry
       {
-       'm3/DataSources                    {:view views3/DataSources}
        'm3/UploadData                     {:view views3/UploadData}
        'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-select-option            {:view components4/async-select-option :init components4/async-select-option-settings}

@@ -55,10 +55,6 @@
     [:div
      (when modal-props
        (case (:type modal-props)
-         :TableModalEditForm
-         [views3/modal-dialog-table-modal-edit-form modal-props]
-         :TableModalAddForm
-         [views3/modal-dialog-table-modal-add-form modal-props]
          :m4/table-modal-edit-form
          [views4/m4-modal-dialog-table-modal-edit-form modal-props]
          :m4/table-modal-add-form

@@ -240,47 +240,6 @@
        :component-did-mount did-mount
        :render              render})))
 
-(defn modal-dialog-table-modal-edit-form
-  [{:keys [form path title]}]
-  (let [many-field-path (drop-last 2 path)]
-
-    (letfn [(handle-delete-confirm []
-              (rf/dispatch [::del-value many-field-path (last path)])
-              (rf/dispatch [::close-modal]))
-
-            (handle-delete-click [e]
-              (.preventDefault e)
-              (rf/dispatch [::open-modal {:type       :confirm
-                                          :title      "Delete " title "?"
-                                          :message    "Are you sure you want to delete?"
-                                          :on-confirm handle-delete-confirm}]))
-
-            (handle-close-click []
-              (rf/dispatch [::close-modal]))]
-
-      [Modal {:ok-copy      "Done"
-              :modal-header [:span [:span.glyphicon.glyphicon-list] " Edit " title]
-              :modal-body   [form path]
-              :modal-footer [:div
-                             [:a.btn.text-danger.pull-left
-                              {:on-click handle-delete-click}
-                              [:span.glyphicon.glyphicon-remove] " Delete"]
-                             [:button.btn.btn-primary {:on-click handle-close-click} "Done"]]
-              :on-dismiss   handle-close-click
-              :on-save      handle-close-click}])))
-
-(defn modal-dialog-table-modal-add-form
-  [{:keys [form path title]}]
-  (let [many-field-path (drop-last 2 path)
-        handle-cancel (fn [] (rf/dispatch [::del-value many-field-path (last path)])
-                        (rf/dispatch [::close-modal]))]
-    [Modal {:ok-copy      "Done"
-            :modal-header [:span [:span.glyphicon.glyphicon-list] " Add " title]
-            :modal-body   [form path]
-            :on-dismiss   handle-cancel
-            :on-cancel    handle-cancel
-            :on-save      #(rf/dispatch [::close-modal])}]))
-
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]
   (let [{:keys [reset-ch max-filesize]} (r/props this)]

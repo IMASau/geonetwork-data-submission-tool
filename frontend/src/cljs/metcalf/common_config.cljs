@@ -12,7 +12,6 @@
 (rf/reg-event-fx ::handlers3/-clone-document-success handlers3/-clone-document-success)
 (rf/reg-event-fx ::handlers3/-dashboard-create-save-error handlers3/-dashboard-create-save-error)
 (rf/reg-event-fx ::handlers3/-dashboard-create-save-success handlers3/-dashboard-create-save-success)
-(rf/reg-event-fx ::handlers3/-init-db-load-api-options handlers3/load-api-options)
 (rf/reg-event-fx ::handlers3/-load-api-options handlers3/-load-api-options)
 (rf/reg-event-fx ::handlers3/-load-es-options handlers3/-load-es-options)
 (rf/reg-event-fx ::handlers3/-lodge-click-error handlers3/lodge-error)

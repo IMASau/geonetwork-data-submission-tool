@@ -531,12 +531,3 @@
    [SelectField {:path (conj path :value :protocol)}]
    [InputField {:path (conj path :value :url)}]
    [InputField {:path (conj path :value :name)}]])
-
-(defn DataSources
-  [{:keys [path]}]
-  [:div
-   [TableModalEdit {:ths        ["Title" "URL" "Layer"]
-                    :tds-fn     (comp (partial map (comp #(or % "--") :value)) (juxt :description :url :name) :value)
-                    :form       DataSourceRowEdit
-                    :title      "Data services"
-                    :field-path path}]])

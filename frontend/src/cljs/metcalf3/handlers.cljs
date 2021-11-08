@@ -93,24 +93,6 @@
   [a b]
   (or b a))
 
-(defn update-address
-  [{:keys [db]} [_ contact-path data]]
-  (let [{:strs [city deliveryPoint deliveryPoint2
-                postalCode country administrativeArea]
-         :or   {city               ""
-                deliveryPoint      ""
-                deliveryPoint2     ""
-                postalCode         ""
-                country            ""
-                administrativeArea ""}} data]
-    {:db (-> db
-             (update-in contact-path update-in [:address :deliveryPoint :value] ror deliveryPoint)
-             (update-in contact-path update-in [:address :deliveryPoint2 :value] ror deliveryPoint2)
-             (update-in contact-path update-in [:address :city :value] ror city)
-             (update-in contact-path update-in [:address :administrativeArea :value] ror administrativeArea)
-             (update-in contact-path update-in [:address :postalCode :value] ror postalCode)
-             (update-in contact-path update-in [:address :country :value] ror country))}))
-
 (defn toggle-status-filter
   [{:keys [db]} [_ {:keys [status-id status-filter]}]]
   (let [status-filter (get-in db [:page :status-filter] status-filter)

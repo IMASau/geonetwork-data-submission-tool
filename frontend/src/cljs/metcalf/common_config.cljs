@@ -15,7 +15,6 @@
 (rf/reg-event-fx ::handlers3/-lodge-click-success handlers3/lodge-save-success)
 (rf/reg-event-fx ::handlers3/-lodge-save-error handlers3/lodge-error)
 (rf/reg-event-fx ::handlers3/-lodge-save-success handlers3/-lodge-save-success)
-(rf/reg-event-fx ::handlers3/-org-changed handlers3/update-address)
 (rf/reg-event-fx ::handlers3/-transite-doc-click-confirm handlers3/-transite-doc-click-confirm)
 (rf/reg-event-fx ::handlers3/-transite-doc-confirm-error handlers3/-transite-doc-confirm-error)
 (rf/reg-event-fx ::handlers3/-transite-doc-confirm-success handlers3/-transite-doc-confirm-success)

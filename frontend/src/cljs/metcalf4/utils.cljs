@@ -3,7 +3,6 @@
             [goog.object :as gobject]
             [goog.string :as gstring]
             [goog.uri.utils :as uri]
-            [clojure.string :as string]
             [re-frame.core :as rf]
             [lambdaisland.fetch :as fetch]))
 

@@ -45,7 +45,6 @@
 (rf/reg-event-fx :app/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
 (rf/reg-event-fx :metcalf4.actions/-create-document handlers4/-create-document-handler)
-(rf/reg-event-fx :textarea-field/value-change handlers3/textarea-field-value-change)
 (rf/reg-fx ::utils4/post-data (utils4/promise-fx utils4/post-data))
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)

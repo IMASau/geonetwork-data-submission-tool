@@ -153,11 +153,6 @@
 
 (defn getter [k row] (get row k))
 
-(defn update-table-width [this]
-  (let [{:keys [autowidth-id]} (r/state this)]
-    (when-let [ele (js/document.getElementById autowidth-id)]
-      (r/set-state this {:width (.-width (gstyle/getSize ele))}))))
-
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]
   (let [{:keys [reset-ch max-filesize]} (r/props this)]

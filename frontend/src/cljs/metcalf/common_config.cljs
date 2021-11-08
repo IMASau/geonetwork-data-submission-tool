@@ -86,7 +86,6 @@
 (rf/reg-fx ::fx3/xhrio-post-json fx3/xhrio-post-json)
 (rf/reg-sub :app/get-dashboard-props subs3/get-dashboard-props)
 (rf/reg-sub :app/get-progress-bar-props :<- [:subs/get-derived-state] subs3/get-progress-props)
-(rf/reg-sub ::views3/get-textarea-widget-key subs3/get-form-tick)
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
 (rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
 (rf/reg-sub :subs/get-page-props subs3/get-page-props)

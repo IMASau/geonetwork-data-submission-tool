@@ -59,6 +59,19 @@
   [block maxLength]
   (assoc-in block [:props :maxLength] maxLength))
 
+(defn numeric-order
+  "Two numeric fields (eg a min and a max) should appear in order."
+  [block {:keys [field-min field-max]}]
+  (let [fmin (get-in block [:content field-min :props :value])
+        fmax (get-in block [:content field-max :props :value])
+        out-of-order? (and (not (string/blank? fmin))         ; FIXME: payload includes "" instead of null
+                           (not (string/blank? fmax))         ; FIXME: payload includes "" instead of null
+                           (< fmax fmin))]
+    (cond-> block
+      out-of-order?
+      (update-in [:content field-max :props :errors]
+                 conj (str "Must be greater than " fmin)))))
+
 (defn date-order
   "Start date should be before end date"
   [block {:keys [field0 field1]}]

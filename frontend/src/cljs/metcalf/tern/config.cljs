@@ -72,6 +72,7 @@
        "maxLength"         rules/max-length
        "geographyRequired" rules/geography-required
        "licenseOther"      rules/license-other
+       "numericOrder"      rules/numeric-order
        "dateOrder"         rules/date-order
        "endPosition"       rules/end-position
        "maintFreq"         rules/maint-freq

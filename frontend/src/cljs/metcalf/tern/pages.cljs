@@ -37,6 +37,12 @@
      {:text text
       :code code}]))
 
+(defn page-404
+  [_]
+  (let [{:keys [name]} @(rf/subscribe [:subs/get-page-props])]
+    [views4/page-404
+     {:name name}]))
+
 (defn app-root
   []
   (let [page-name @(rf/subscribe [:subs/get-app-root-page-name])
@@ -60,7 +66,7 @@
        nil)
      (case page-name
        "404"
-       [views3/PageView404 nil]
+       [page-404]
        "Error"
        [page-error]
        "Edit"

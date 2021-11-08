@@ -509,8 +509,3 @@
          [:span {:style {:padding "5px 10px 5px 10px"}} (utils3/userDisplay user)])
        [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
        [:a.bp3-button.bp3-minimal {:href account_logout} "Sign Out"]]]]))
-
-(defn PageView404
-  [_]
-  (let [{:keys [name]} @(rf/subscribe [:subs/get-page-props])]
-    [:h1 "Page not found: " name]))

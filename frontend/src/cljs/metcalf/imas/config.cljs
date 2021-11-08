@@ -38,7 +38,6 @@
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::components4/text-value-add-click-handler handlers4/text-value-add-click-handler)
 (rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/value-selection-list-item-click handlers4/value-selection-list-item-click)
 (rf/reg-event-fx ::components4/value-selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/value-selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)

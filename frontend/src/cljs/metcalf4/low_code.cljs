@@ -105,7 +105,7 @@
           (build-component x reg-data)
           (report-unregistered-syms x))
 
-        :default
+        :else
         x))
 
 (defn prepare-template

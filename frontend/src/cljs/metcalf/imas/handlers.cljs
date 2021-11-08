@@ -1,5 +1,5 @@
 (ns metcalf.imas.handlers
-  (:require [metcalf3.logic :as logic3]
+  (:require [metcalf3.logic3 :as logic3]
             [metcalf4.schema :as schema]
             [metcalf4.actions :as actions]))
 

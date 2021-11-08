@@ -1,6 +1,6 @@
 (ns metcalf3.utils-spec
   (:require [cljs.spec.alpha :as s]
-            [metcalf3.utils :as utils]))
+            [metcalf3.utils3 :as utils]))
 
 (s/fdef utils/clj->js*
   :args (s/cat :x ::s/any

@@ -2,8 +2,8 @@
   (:require [interop.ui :as ui]
             [metcalf.imas.handlers :as imas-handlers]
             [metcalf.imas.subs :as imas-subs]
-            [metcalf3.handlers :as handlers3]
-            [metcalf3.views :as views3]
+            [metcalf3.handlers3 :as handlers3]
+            [metcalf3.views3 :as views3]
             [metcalf4.components :as components4]
             [metcalf4.handlers :as handlers4]
             [metcalf4.ins :as ins4]
@@ -12,8 +12,8 @@
             [metcalf4.subs :as subs4]
             [re-frame.core :as rf]
             [metcalf4.utils :as utils4]
-            [metcalf3.fx :as fx3]
-            [metcalf3.subs :as subs3]))
+            [metcalf3.fx3 :as fx3]
+            [metcalf3.subs3 :as subs3]))
 
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-event-fx ::components4/boxmap-coordinates-click-confirm-delete handlers4/boxmap-coordinates-click-confirm-delete)

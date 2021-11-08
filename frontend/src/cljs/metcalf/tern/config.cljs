@@ -2,7 +2,7 @@
   (:require [interop.ui :as ui]
             [metcalf.tern.subs :as tern-subs]
             [metcalf.tern.handlers :as tern-handlers]
-            [metcalf3.handlers :as handlers3]
+            [metcalf3.handlers3 :as handlers3]
             [metcalf4.components :as components4]
             [metcalf4.handlers :as handlers4]
             [metcalf4.ins :as ins4]
@@ -11,8 +11,8 @@
             [metcalf4.subs :as subs4]
             [re-frame.core :as rf]
             [metcalf4.utils :as utils4]
-            [metcalf3.subs :as subs3]
-            [metcalf3.fx :as fx3]))
+            [metcalf3.subs3 :as subs3]
+            [metcalf3.fx3 :as fx3]))
 
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-event-fx ::components4/create-document-modal-clear-click handlers3/close-modal)

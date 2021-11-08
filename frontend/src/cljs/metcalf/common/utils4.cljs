@@ -1,4 +1,4 @@
-(ns metcalf4.utils4
+(ns metcalf.common.utils4
   (:require [cljs.spec.alpha :as s]
             [goog.object :as gobject]
             [goog.string :as gstring]

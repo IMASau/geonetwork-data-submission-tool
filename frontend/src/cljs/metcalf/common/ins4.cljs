@@ -1,8 +1,8 @@
-(ns metcalf4.ins4
+(ns metcalf.common.ins4
   (:require [cljs.pprint :as pprint]
             [clojure.data :as data]
-            [metcalf4.blocks4 :as blocks]
-            [metcalf4.rules4 :as rules]
+            [metcalf.common.blocks4 :as blocks]
+            [metcalf.common.rules4 :as rules]
             [re-frame.core :as rf]))
 
 (defmulti console-config :kind)

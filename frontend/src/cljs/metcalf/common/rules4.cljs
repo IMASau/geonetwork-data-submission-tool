@@ -1,8 +1,8 @@
-(ns metcalf4.rules4
+(ns metcalf.common.rules4
   (:require [cljs.spec.alpha :as s]
             [clojure.string :as string]
             [interop.date :as date]
-            [metcalf4.blocks4 :as blocks]))
+            [metcalf.common.blocks4 :as blocks]))
 
 (def ^:dynamic rule-registry {})
 

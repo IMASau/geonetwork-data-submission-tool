@@ -1,6 +1,6 @@
-(ns metcalf4.actions-test
+(ns metcalf.common.actions-test
   (:require [clojure.test :refer [deftest is testing]])
-  (:require [metcalf4.actions4 :as actions]))
+  (:require [metcalf.common.actions4 :as actions]))
 
 (deftest init-snapshots-action-test
   (is (= nil

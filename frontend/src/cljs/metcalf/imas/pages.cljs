@@ -1,7 +1,7 @@
 (ns metcalf.imas.pages
   (:require [re-frame.core :as rf]
-            [metcalf4.views4 :as views4]
-            [metcalf4.components4 :as components4]))
+            [metcalf.common.views4 :as views4]
+            [metcalf.common.components4 :as components4]))
 
 (defn navbar
   []

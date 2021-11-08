@@ -1,10 +1,10 @@
-(ns metcalf4.handlers4
+(ns metcalf.common.handlers4
   (:require [metcalf.common.fx3 :as fx3]
-            [metcalf4.actions4 :as actions]
-            [metcalf4.blocks4 :as blocks]
-            [metcalf4.rules4 :as rules]
-            [metcalf4.schema4 :as schema]
-            [metcalf4.utils4 :as utils4]
+            [metcalf.common.actions4 :as actions]
+            [metcalf.common.blocks4 :as blocks]
+            [metcalf.common.rules4 :as rules]
+            [metcalf.common.schema4 :as schema]
+            [metcalf.common.utils4 :as utils4]
             [goog.object :as gobject]))
 
 (defn db-path

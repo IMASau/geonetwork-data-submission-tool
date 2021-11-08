@@ -1,7 +1,7 @@
-(ns metcalf4.blocks4
+(ns metcalf.common.blocks4
   (:require [cljs.spec.alpha :as s]
-            [metcalf4.schema4 :as schema]
-            [metcalf4.utils4 :as utils4]
+            [metcalf.common.schema4 :as schema]
+            [metcalf.common.utils4 :as utils4]
             [clojure.string :as string]))
 
 

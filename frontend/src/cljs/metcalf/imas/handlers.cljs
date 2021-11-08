@@ -1,7 +1,7 @@
 (ns metcalf.imas.handlers
   (:require [metcalf.common.logic3 :as logic3]
-            [metcalf4.schema4 :as schema]
-            [metcalf4.actions4 :as actions]))
+            [metcalf.common.schema4 :as schema]
+            [metcalf.common.actions4 :as actions]))
 
 (defn init-db
   [_ [_ payload]]

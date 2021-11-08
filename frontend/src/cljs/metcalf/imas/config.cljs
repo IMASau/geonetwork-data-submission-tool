@@ -4,14 +4,14 @@
             [metcalf.imas.subs :as imas-subs]
             [metcalf.common.handlers3 :as handlers3]
             [metcalf.common.views3 :as views3]
-            [metcalf4.components4 :as components4]
-            [metcalf4.handlers4 :as handlers4]
-            [metcalf4.ins4 :as ins4]
-            [metcalf4.low-code4 :as low-code]
-            [metcalf4.rules4 :as rules]
-            [metcalf4.subs4 :as subs4]
+            [metcalf.common.components4 :as components4]
+            [metcalf.common.handlers4 :as handlers4]
+            [metcalf.common.ins4 :as ins4]
+            [metcalf.common.low-code4 :as low-code]
+            [metcalf.common.rules4 :as rules]
+            [metcalf.common.subs4 :as subs4]
             [re-frame.core :as rf]
-            [metcalf4.utils4 :as utils4]
+            [metcalf.common.utils4 :as utils4]
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.subs3 :as subs3]))
 
@@ -79,9 +79,9 @@
 (rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/open-modal-handler)
 (rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
 (rf/reg-event-fx :metcalf.imas.handlers/-init-db-load-api-options handlers3/load-api-options)
-(rf/reg-event-fx :metcalf4.actions/-create-document handlers4/-create-document-handler)
-(rf/reg-event-fx :metcalf4.components/coordinates-modal-field-close-modal handlers3/close-modal)
-(rf/reg-event-fx :metcalf4.components/lodge-button-click handlers3/lodge-click)
+(rf/reg-event-fx :metcalf.common.actions/-create-document handlers4/-create-document-handler)
+(rf/reg-event-fx :metcalf.common.components/coordinates-modal-field-close-modal handlers3/close-modal)
+(rf/reg-event-fx :metcalf.common.components/lodge-button-click handlers3/lodge-click)
 (rf/reg-fx ::fx3/post fx3/post)
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
 (rf/reg-fx ::fx3/set-location-href fx3/set-location-href)

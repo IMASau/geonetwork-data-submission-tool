@@ -98,14 +98,10 @@
               "keep": false,
               "xpath": "cit:title/gco:CharacterString"
             },
-            "value": {
+            "uuid": {},
+            "uri": {
               "xpath": "cit:identifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
-              "keep": false,
-              "attributes": {
-                "text": {
-                  "function": "geonetwork_url"
-                }
-              }
+              "keep": false
             }
           }
         }

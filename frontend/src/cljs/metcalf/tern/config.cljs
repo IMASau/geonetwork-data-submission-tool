@@ -313,8 +313,8 @@
             :kind            :breadcrumb
             :uri             "/api/terngeonetwork"
             :label-path      ["label"]
-            :value-path      ["value"]
-            :breadcrumb-path ["value"]}]]
+            :value-path      ["uri"]
+            :breadcrumb-path ["uuid"]}]]
 
          [m4/select-value-with-label
           {:form-id     [:form]

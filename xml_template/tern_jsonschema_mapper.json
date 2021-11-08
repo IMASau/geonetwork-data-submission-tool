@@ -99,6 +99,7 @@
               "xpath": "cit:title/gco:CharacterString"
             },
             "uuid": {},
+            "abstract": {},
             "uri": {
               "xpath": "cit:identifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
               "keep": false

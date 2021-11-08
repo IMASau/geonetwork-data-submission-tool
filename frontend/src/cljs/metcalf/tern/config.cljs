@@ -4,7 +4,6 @@
             [metcalf.tern.subs :as tern-subs]
             [metcalf.tern.handlers :as tern-handlers]
             [metcalf3.handlers :as handlers3]
-            [metcalf3.views :as views3]
             [metcalf4.components :as components4]
             [metcalf4.handlers :as handlers4]
             [metcalf4.ins :as ins4]

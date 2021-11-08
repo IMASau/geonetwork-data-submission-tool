@@ -1,6 +1,6 @@
 (ns metcalf.common.blocks4
   (:require [cljs.spec.alpha :as s]
-            [metcalf.common.schema4 :as schema]
+            [metcalf.common.schema4 :as schema4]
             [metcalf.common.utils4 :as utils4]
             [clojure.string :as string]))
 
@@ -36,7 +36,7 @@
 (defn as-blocks
   "Return blocks given data and a schema."
   [{:keys [data schema]}]
-  (schema/postwalk-schema-data2
+  (schema4/postwalk-schema-data2
     (fn [{:keys [data schema]}]
       (let [type (:type schema)
             block-map (select-keys schema [:type])

@@ -2,8 +2,8 @@
   (:require [goog.object :as gobj]
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.utils3 :as utils3]
-            [metcalf.common.blocks4 :as blocks]
-            [metcalf.common.schema4 :as schema]
+            [metcalf.common.blocks4 :as blocks4]
+            [metcalf.common.schema4 :as schema4]
             [metcalf.common.utils4 :as utils4]
             [metcalf.common.logic4 :as logic4]))
 
@@ -60,15 +60,15 @@
 
 (defn unselect-list-item-action
   [s form-id data-path]
-  (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])]
+  (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (update-in s (conj block-path :props) dissoc :selected)))
 
 (defn select-user-defined-list-item-action2
   "Select item, but only if it's user defined"
   [s form-id data-path idx added-path]
-  (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
+  (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
         block-data (get-in s block-path)
-        added? (get-in block-data (utils4/as-path [:content idx (blocks/block-path added-path) :props :value]))]
+        added? (get-in block-data (utils4/as-path [:content idx (blocks4/block-path added-path) :props :value]))]
     (cond-> s
       added?
       (assoc-in (conj block-path :props :selected) idx))))
@@ -76,7 +76,7 @@
 (defn select-user-defined-list-item-action
   "Select item, but only if it's user defined"
   [s form-id data-path idx addedKey]
-  (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
+  (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
         block-data (get-in s block-path)
         added? (get-in block-data [:content idx :content addedKey :props :value])]
     (cond-> s
@@ -85,7 +85,7 @@
 
 (defn select-last-item-action
   [s form-id data-path]
-  (let [block-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
+  (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
         last-idx (dec (count (get-in s (conj block-path :content))))]
     (cond-> s
       (not (neg? last-idx))
@@ -93,33 +93,33 @@
 
 (defn new-item-action
   [s form-id data-path]
-  (let [schema-path (utils4/as-path [:db form-id :schema (schema/schema-path data-path) :items])
-        list-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :content])
+  (let [schema-path (utils4/as-path [:db form-id :schema (schema4/schema-path data-path) :items])
+        list-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :content])
         schema (get-in s schema-path)
-        new-item (blocks/new-item schema)]
+        new-item (blocks4/new-item schema)]
     (update-in s list-path conj new-item)))
 
 (defn del-item-action
   [s form-id data-path idx]
-  (let [list-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :content])]
+  (let [list-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :content])]
     (update-in s list-path utils3/vec-remove idx)))
 
 (defn dialog-open-action
   [s form-id data-path]
-  (let [is-open-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :props :isOpen])]
+  (let [is-open-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props :isOpen])]
     (assoc-in s is-open-path true)))
 
 (defn dialog-close-action
   [s form-id data-path]
-  (let [is-open-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :props :isOpen])]
+  (let [is-open-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props :isOpen])]
     (assoc-in s is-open-path false)))
 
 (defn add-value-action
   [s form-id data-path value]
-  (let [schema (get-in s (utils4/as-path [:db form-id :schema (schema/schema-path data-path) :items]))
-        state (blocks/as-blocks {:schema schema :data value})
-        db-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
-        items (set (blocks/as-data (get-in s db-path)))]
+  (let [schema (get-in s (utils4/as-path [:db form-id :schema (schema4/schema-path data-path) :items]))
+        state (blocks4/as-blocks {:schema schema :data value})
+        db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
+        items (set (blocks4/as-data (get-in s db-path)))]
     (-> s
         (cond-> (not (contains? items value))
                 (update-in (conj db-path :content) conj state))
@@ -128,10 +128,10 @@
 
 (defn add-item-action
   [s form-id data-path value-path data]
-  (let [schema (get-in s (utils4/as-path [:db form-id :schema (schema/schema-path data-path) :items]))
-        state (blocks/as-blocks {:schema schema :data data})
-        db-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
-        ids (set (map #(get-in % value-path) (blocks/as-data (get-in s db-path))))]
+  (let [schema (get-in s (utils4/as-path [:db form-id :schema (schema4/schema-path data-path) :items]))
+        state (blocks4/as-blocks {:schema schema :data data})
+        db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
+        ids (set (map #(get-in % value-path) (blocks4/as-data (get-in s db-path))))]
     (-> s
         (cond-> (not (contains? ids (get-in data value-path)))
                 (update-in (conj db-path :content) conj state))
@@ -140,16 +140,16 @@
 
 (defn set-value-action
   [s form-id data-path option]
-  (let [schema (get-in s (flatten [:db form-id :schema (schema/schema-path data-path)]))
-        state (blocks/as-blocks {:schema schema :data option})
-        db-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])]
+  (let [schema (get-in s (flatten [:db form-id :schema (schema4/schema-path data-path)]))
+        state (blocks4/as-blocks {:schema schema :data option})
+        db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (-> s
         (assoc-in db-path state)
         (assoc-in (conj db-path :props :show-errors) true))))
 
 (defn move-item-action
   [s form-id data-path src-idx dst-idx]
-  (let [list-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :content])
+  (let [list-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :content])
         item (get-in s (conj list-path src-idx))]
     (-> s
         (update-in list-path utils3/vec-remove src-idx)
@@ -162,7 +162,7 @@
 
 (defn genkey-action
   [s form-id data-path]
-  (let [tick-path (utils4/as-path [:db form-id :state (blocks/block-path data-path) :props :key])]
+  (let [tick-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props :key])]
     (assoc-in s tick-path (genkey))))
 
 (defn open-modal
@@ -176,8 +176,8 @@
   [s payload]
   (let [data (get-in payload [:form :data])
         schema (get-in payload [:form :schema])
-        state (blocks/as-blocks {:data data :schema schema})]
-    (schema/assert-schema-data {:data data :schema schema})
+        state (blocks4/as-blocks {:data data :schema schema})]
+    (schema4/assert-schema-data {:data data :schema schema})
     (-> s
         (assoc-in [:db :form :data] data)                   ; initial data used for 'is dirty' checks
         (assoc-in [:db :form :schema] schema)               ; data schema used to generate new array items
@@ -198,14 +198,14 @@
 (defn clear-errors
   [s form-path]
   (let [form-state-path (utils4/as-path [:db form-path :state])]
-    (update-in s form-state-path #(blocks/postwalk blocks/clear-error-props %))))
+    (update-in s form-state-path #(blocks4/postwalk blocks4/clear-error-props %))))
 
 (defn set-errors
   [s form-path error-map]
   (let [path-errors (utils4/path-vals error-map)
         path (utils4/as-path [:db form-path :state])]
     (update-in s path (fn [state] (reduce (fn [state [path error]]
-                                            (blocks/set-error-prop state path error))
+                                            (blocks4/set-error-prop state path error))
                                           state
                                           path-errors)))))
 

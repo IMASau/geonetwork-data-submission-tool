@@ -1,8 +1,8 @@
 (ns metcalf.common.ins4
   (:require [cljs.pprint :as pprint]
             [clojure.data :as data]
-            [metcalf.common.blocks4 :as blocks]
-            [metcalf.common.rules4 :as rules]
+            [metcalf.common.blocks4 :as blocks4]
+            [metcalf.common.rules4 :as rules4]
             [re-frame.core :as rf]))
 
 (defmulti console-config :kind)
@@ -68,7 +68,7 @@
                           (not= db0 db1))
                  (let [data0 (get-in db0 [:form :data])
                        state1 (get-in db1 [:form :state])
-                       data1 (blocks/as-data (blocks/postwalk rules/apply-rules state1))
+                       data1 (blocks4/as-data (blocks4/postwalk rules4/apply-rules state1))
                        [only0 only1] (clojure.data/diff data0 data1)]
                    (pprint/pprint {::what-changed.only0 only0
                                    ::what-changed.only1 only1})))

@@ -1,7 +1,7 @@
 (ns metcalf.common.logic3
-  (:require [metcalf.common.utils3 :as utils]
-            [metcalf.common.blocks4 :as blocks]
-            [metcalf.common.rules4 :as rules]
+  (:require [metcalf.common.utils3 :as utils3]
+            [metcalf.common.blocks4 :as blocks4]
+            [metcalf.common.rules4 :as rules4]
             [metcalf.common.logic4 :as logic4]
             [clojure.string :as string]))
 
@@ -89,13 +89,13 @@
 (defn validate-required-fields
   "Derive errors associated with missing required fields"
   [state]
-  (blocks/postwalk
+  (blocks4/postwalk
     #(if (is-required-field? %) (validate-required-field %) %)
     state))
 
 (defn validate-rules
   [state]
-  (blocks/postwalk rules/apply-rules state))
+  (blocks4/postwalk rules4/apply-rules state))
 
 (def contact-groups
   [{:path  [:form :fields :identificationInfo :pointOfContact]
@@ -109,7 +109,7 @@
   "
   [state]
   (let [rule-path [:form :fields :who-authorRequired]
-        roles (for [[_ {:keys [path]}] (utils/enum contact-groups)]
+        roles (for [[_ {:keys [path]}] (utils3/enum contact-groups)]
                 (for [field (get-in state (conj path :value))]
                   (get-in field [:value :role :value])))
         roles (apply concat roles)
@@ -140,7 +140,7 @@
 (defn calculate-progress [db form-path]
   (let [form (get-in db form-path)
         state (:state form)
-        state' (blocks/postwalk score-block state)]
+        state' (blocks4/postwalk score-block state)]
     (assoc db :progress (::score state'))))
 
 (def disabled-statuses #{"Archived" "Deleted" "Uploaded"})
@@ -174,14 +174,14 @@
                     (let [parent (vec parent)]
                       [(conj parent :fields k)
                        (conj parent :value i :value k)]))))
-              (utils/keys-in data))))
+              (utils3/keys-in data))))
 
 (defn reduce-many-field-templates
   "For each many field value "
   [fields values]
   (reduce (fn [m [tpl-path value-path]]
             (try
-              (utils/int-assoc-in m value-path (get-in fields tpl-path))
+              (utils3/int-assoc-in m value-path (get-in fields tpl-path))
               (catch js/Error _ m)))
           fields (path-fields values)))
 
@@ -190,11 +190,11 @@
   (let [get-value #(get-in data %)
         get-path #(mapcat concat (partition-by number? %) (repeat [:value]))]
     (map (juxt get-path get-value)
-         (utils/keys-in data))))
+         (utils3/keys-in data))))
 
 (defn reduce-field-values [fields values]
   (reduce (fn [m [p v]]
-            (try (utils/int-assoc-in m p v)
+            (try (utils3/int-assoc-in m p v)
                  (catch :default e
                    (js/console.error (clj->js [m p v]) e)
                    m)))

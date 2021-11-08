@@ -3,9 +3,9 @@
             [clojure.string :as string]
             [interop.date :as date]
             [interop.ui :as ui]
-            [metcalf.common.blocks4 :as blocks]
-            [metcalf.common.low-code4 :as low-code]
-            [metcalf.common.subs4 :as common-subs]
+            [metcalf.common.blocks4 :as blocks4]
+            [metcalf.common.low-code4 :as low-code4]
+            [metcalf.common.subs4 :as subs4]
             [metcalf.common.utils4 :as utils4]
             [re-frame.core :as rf]
             [reagent.core :as r]))
@@ -17,16 +17,16 @@
   "Given the current form state, and a data path, check if
   the field for that data path has errors."
   [form-state data-path]
-  (let [path (blocks/block-path data-path)
+  (let [path (blocks4/block-path data-path)
         field (get-in form-state path)
         errors (-> field :props :errors)]
     (seq errors)))
 
 (defn page-errors-settings
   [{:keys [data-paths]}]
-  {::low-code/req-ks       [:form-id :data-path :data-paths]
-   ::low-code/opt-ks       []
-   ::low-code/schema-paths data-paths})
+  {::low-code4/req-ks       [:form-id :data-path :data-paths]
+   ::low-code4/opt-ks       []
+   ::low-code4/schema-paths data-paths})
 
 (defn page-errors
   [{:keys [form-id data-paths]}]
@@ -36,10 +36,10 @@
           (many-field-error [field]
             (let [{:keys [errors label]} (:props field)]
               [:span.FieldError label ": " (or (first errors) "check field errors")]))]
-    (let [form-state @(rf/subscribe [::common-subs/get-form-state form-id])
+    (let [form-state @(rf/subscribe [::subs4/get-form-state form-id])
           paths-to-check-for-errors (remove #(not (has-error? form-state %)) data-paths)
           msgs (for [data-path paths-to-check-for-errors]
-                 (let [path (blocks/block-path data-path)
+                 (let [path (blocks4/block-path data-path)
                        field (get-in form-state path)]
                    (if (-> field :props :many)
                      [many-field-error field]
@@ -53,8 +53,8 @@
            (first msgs))]))))
 
 (defn form-group-settings [_]
-  {::low-code/req-ks []
-   ::low-code/opt-ks [:label :form-id :data-path :placeholder :helperText :toolTip]})
+  {::low-code4/req-ks []
+   ::low-code4/opt-ks [:label :form-id :data-path :placeholder :helperText :toolTip]})
 
 (defn form-group
   [config & children]
@@ -74,8 +74,8 @@
             children))))
 
 (defn inline-form-group-settings [_]
-  {::low-code/req-ks [:label]
-   ::low-code/opt-ks [:form-id :data-path :placeholder :helperText :toolTip]})
+  {::low-code4/req-ks [:label]
+   ::low-code4/opt-ks [:form-id :data-path :placeholder :helperText :toolTip]})
 
 (defn inline-form-group
   [config & children]
@@ -95,8 +95,8 @@
             children))))
 
 (defn list-edit-dialog-settings [_]
-  {::low-code/req-ks [:form-id :data-path :title :template-id]
-   ::low-code/opt-ks []})
+  {::low-code4/req-ks [:form-id :data-path :title :template-id]
+   ::low-code4/opt-ks []})
 
 (defn list-edit-dialog
   "Popup dialog if item is selected"
@@ -112,17 +112,17 @@
       :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
       :onSave  #(rf/dispatch [::list-edit-dialog-save config])
       :canSave (not hasError)}
-     (low-code/render-template
+     (low-code4/render-template
        {:template-id template-id
         :variables   {'?form-id   form-id
                       '?data-path item-data-path}})]))
 
 (defn typed-list-edit-dialog-settings
   [{:keys [data-path type-path]}]
-  {::low-code/req-ks       [:form-id :data-path :type-path :templates]
-   ::low-code/opt-ks       []
-   ::low-code/schema       {:type "array" :items {:type "object"}}
-   ::low-code/schema-paths [data-path type-path]})
+  {::low-code4/req-ks       [:form-id :data-path :type-path :templates]
+   ::low-code4/opt-ks       []
+   ::low-code4/schema       {:type "array" :items {:type "object"}}
+   ::low-code4/schema-paths [data-path type-path]})
 
 (defn typed-list-edit-dialog
   "Popup dialog if item is selected.  Use type to decide which template to use."
@@ -142,15 +142,15 @@
       :onSave  #(rf/dispatch [::list-edit-dialog-save config])
       :canSave (not hasError)}
 
-     (low-code/render-template
+     (low-code4/render-template
        {:template-id template-id
         :variables   {'?form-id   form-id
                       '?data-path item-data-path
                       '?item-type item-type}})]))
 
 (defn item-edit-dialog-settings [_]
-  {::low-code/req-ks [:form-id :data-path :title :template-id]
-   ::low-code/opt-ks []})
+  {::low-code4/req-ks [:form-id :data-path :title :template-id]
+   ::low-code4/opt-ks []})
 
 (defn item-edit-dialog
   "Popup dialog if item is selected"
@@ -165,15 +165,15 @@
       :onClear #(rf/dispatch [::item-edit-dialog-cancel config])
       :onSave  #(rf/dispatch [::item-edit-dialog-save config])
       :canSave (not hasError)}
-     (low-code/render-template
+     (low-code4/render-template
        {:template-id template-id
         :variables   {'?form-id   form-id
                       '?data-path data-path}})]))
 
 (defn input-field-settings [_]
-  {::low-code/req-ks [:form-id :data-path]
-   ::low-code/opt-ks [:placeholder :maxLength]
-   ::low-code/schema {:type "string"}})
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks [:placeholder :maxLength]
+   ::low-code4/schema {:type "string"}})
 
 (defn input-field
   [config]
@@ -190,8 +190,8 @@
         :onChange    #(rf/dispatch [::value-changed config %])}])))
 
 (defn when-data-settings [_]
-  {::low-code/req-ks [:form-id :data-path :pred]
-   ::low-code/opt-ks []})
+  {::low-code4/req-ks [:form-id :data-path :pred]
+   ::low-code4/opt-ks []})
 
 (s/def ::empty-list? empty?)
 (s/def ::not-set? (s/or :n nil? :s (s/and string? string/blank?)))
@@ -205,8 +205,8 @@
         (into [:div] children)))))
 
 (defn get-data-settings [_]
-  {::low-code/req-ks [:form-id :data-path]
-   ::low-code/opt-ks []})
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks []})
 
 (defn get-data
   [config]
@@ -218,9 +218,9 @@
    [input-field config]])
 
 (defn numeric-input-field-settings [_]
-  {::low-code/req-ks [:form-id :data-path]
-   ::low-code/opt-ks [:placeholder :hasButtons :unit]
-   ::low-code/schema {:type "number"}})
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks [:placeholder :hasButtons :unit]
+   ::low-code4/schema {:type "number"}})
 
 (defn numeric-input-field
   [config]
@@ -245,9 +245,9 @@
    [numeric-input-field config]])
 
 (defn textarea-field-settings [_]
-  {::low-code/req-ks [:form-id :data-path]
-   ::low-code/opt-ks [:placeholder :rows :maxLength]
-   ::low-code/schema {:type "string"}})
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks [:placeholder :rows :maxLength]
+   ::low-code4/schema {:type "string"}})
 
 (defn textarea-field
   [config]
@@ -265,9 +265,9 @@
         :onChange    #(rf/dispatch [::value-changed config %])}])))
 
 (defn checkbox-field-settings [_]
-  {::low-code/req-ks [:form-id :data-path]
-   ::low-code/opt-ks [:label]
-   ::low-code/schema {:type "boolean"}})
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks [:label]
+   ::low-code4/schema {:type "boolean"}})
 
 (defn checkbox-field
   [config]
@@ -295,9 +295,9 @@
    [textarea-field config]])
 
 (defn date-field-settings [_]
-  {::low-code/req-ks [:form-id :data-path]
-   ::low-code/opt-ks [:minDate :maxDate]
-   ::low-code/schema {:type "string"}})
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks [:minDate :maxDate]
+   ::low-code4/schema {:type "string"}})
 
 (defn date-field
   [config]
@@ -327,8 +327,8 @@
       [:span.portal-title portal_title])))
 
 (defn note-for-data-manager-settings [_]
-  {::low-code/req-ks [:form-id :data-path]
-   ::low-code/opt-ks []})
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks []})
 
 (defn note-for-data-manager
   [config]
@@ -388,8 +388,8 @@
           :else (:status document))]])))
 
 (defn xml-export-link-settings [_]
-  {::low-code/req-ks [:label]
-   ::low-code/opt-ks [:form-id :data-path]})
+  {::low-code4/req-ks [:label]
+   ::low-code4/opt-ks [:form-id :data-path]})
 
 (defn xml-export-link
   [config]
@@ -409,10 +409,10 @@
 
 (defn simple-select-option-settings
   [{:keys [value-path label-path added-path]}]
-  {::low-code/req-ks       [:form-id :data-path :options :value-path :label-path]
-   ::low-code/opt-ks       [:placeholder :added-path]
-   ::low-code/schema       {:type "object" :properties {}}
-   ::low-code/schema-paths [value-path label-path added-path]})
+  {::low-code4/req-ks       [:form-id :data-path :options :value-path :label-path]
+   ::low-code4/opt-ks       [:placeholder :added-path]
+   ::low-code4/schema       {:type "object" :properties {}}
+   ::low-code4/schema-paths [value-path label-path added-path]})
 
 (defn simple-select-option
   [config]
@@ -434,11 +434,11 @@
 
 (defn table-select-option-settings
   [{:keys [label-path value-path added-path columns]}]
-  {::low-code/req-ks       [:form-id :data-path :options :label-path :value-path :columns]
-   ::low-code/opt-ks       [:placeholder :added-path]
-   ::low-code/schema       {:type "object" :properties {}}
-   ::low-code/schema-paths (into [label-path value-path added-path]
-                                 (map :label-path columns))})
+  {::low-code4/req-ks       [:form-id :data-path :options :label-path :value-path :columns]
+   ::low-code4/opt-ks       [:placeholder :added-path]
+   ::low-code4/schema       {:type "object" :properties {}}
+   ::low-code4/schema-paths (into [label-path value-path added-path]
+                                  (map :label-path columns))})
 
 (defn table-select-option
   [config]
@@ -463,10 +463,10 @@
 
 (defn breadcrumb-select-option-settings
   [{:keys [label-path value-path breadcrumb-path added-path]}]
-  {::low-code/req-ks       [:form-id :data-path :options :label-path :value-path :breadcrumb-path]
-   ::low-code/opt-ks       [:placeholder :added-path]
-   ::low-code/schema       {:type "object" :properties {}}
-   ::low-code/schema-paths [label-path value-path added-path breadcrumb-path]})
+  {::low-code4/req-ks       [:form-id :data-path :options :label-path :value-path :breadcrumb-path]
+   ::low-code4/opt-ks       [:placeholder :added-path]
+   ::low-code4/schema       {:type "object" :properties {}}
+   ::low-code4/schema-paths [label-path value-path added-path breadcrumb-path]})
 
 (defn breadcrumb-select-option
   [config]
@@ -503,9 +503,9 @@
    [select-option config]])
 
 (defn item-add-button-settings [_]
-  {::low-code/req-ks [:form-id :data-path :value-path :added-path]
-   ::low-code/opt-ks []
-   ::low-code/schema {:type "object"}})
+  {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "object"}})
 
 (defn item-add-button
   "Add user defined item as value"
@@ -522,9 +522,9 @@
        "Add"])))
 
 (defn list-add-button-settings [_]
-  {::low-code/req-ks [:form-id :data-path :value-path :added-path :button-text]
-   ::low-code/opt-ks [:item-defaults]
-   ::low-code/schema {:type "array"}})
+  {::low-code4/req-ks [:form-id :data-path :value-path :added-path :button-text]
+   ::low-code4/opt-ks [:item-defaults]
+   ::low-code4/schema {:type "array"}})
 
 (defn list-add-button
   "Add user defined item to list"
@@ -538,9 +538,9 @@
        button-text])))
 
 (defn text-add-button-settings [_]
-  {::low-code/req-ks [:form-id :data-path :button-text]
-   ::low-code/opt-ks []
-   ::low-code/schema {:type "array"}})
+  {::low-code4/req-ks [:form-id :data-path :button-text]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "array"}})
 
 (defn text-add-button
   "Add user defined item to list"
@@ -555,10 +555,10 @@
 
 (defn async-select-value-settings
   [{:keys [value-path label-path]}]
-  {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path :results-path]
-   ::low-code/opt-ks       [:placeholder]
-   ::low-code/schema       {:type "object" :properties {}}
-   ::low-code/schema-paths [value-path label-path]})
+  {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path :results-path]
+   ::low-code4/opt-ks       [:placeholder]
+   ::low-code4/schema       {:type "object" :properties {}}
+   ::low-code4/schema-paths [value-path label-path]})
 
 (defn async-select-value
   [config]
@@ -578,10 +578,10 @@
 
 (defn async-simple-select-option-settings
   [{:keys [value-path label-path]}]
-  {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path]
-   ::low-code/opt-ks       [:placeholder :added-path]
-   ::low-code/schema       {:type "object" :properties {}}
-   ::low-code/schema-paths [value-path label-path]})
+  {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path]
+   ::low-code4/opt-ks       [:placeholder :added-path]
+   ::low-code4/schema       {:type "object" :properties {}}
+   ::low-code4/schema-paths [value-path label-path]})
 
 (defn async-simple-select-option
   [config]
@@ -603,10 +603,10 @@
 
 (defn async-breadcrumb-select-option-settings
   [{:keys [value-path label-path breadcrumb-path]}]
-  {::low-code/req-ks       [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
-   ::low-code/opt-ks       [:placeholder :added-path]
-   ::low-code/schema       {:type "object" :properties {}}
-   ::low-code/schema-paths [value-path label-path breadcrumb-path]})
+  {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
+   ::low-code4/opt-ks       [:placeholder :added-path]
+   ::low-code4/schema       {:type "object" :properties {}}
+   ::low-code4/schema-paths [value-path label-path breadcrumb-path]})
 
 (defn async-breadcrumb-select-option
   [config]
@@ -628,9 +628,9 @@
         :onChange      #(rf/dispatch [::option-change config (ui/get-option-data %)])}])))
 
 (defn async-table-select-option-settings [_]
-  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
-   ::low-code/opt-ks [:placeholder :added-path]
-   ::low-code/schema {:type "object" :properties {}}})
+  {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
+   ::low-code4/opt-ks [:placeholder :added-path]
+   ::low-code4/schema {:type "object" :properties {}}})
 
 (defn async-table-select-option
   [config]
@@ -664,8 +664,8 @@
 (defmethod async-select-option :table [config] (async-table-select-option config))
 
 (defn select-value-settings [_]
-  {::low-code/req-ks [:form-id :data-path :options :label-path :value-path]
-   ::low-code/opt-ks []})
+  {::low-code4/req-ks [:form-id :data-path :options :label-path :value-path]
+   ::low-code4/opt-ks []})
 
 (defn select-value
   [config]
@@ -689,9 +689,9 @@
    [select-value config]])
 
 (defn yes-no-field-settings [_]
-  {::low-code/req-ks [:form-id :data-path :label]
-   ::low-code/opt-ks []
-   ::low-code/schema {:type "boolean"}})
+  {::low-code4/req-ks [:form-id :data-path :label]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "boolean"}})
 
 (defn yes-no-field
   [config]
@@ -708,10 +708,10 @@
 
 (defn simple-selection-list-settings
   [{:keys [label-path value-path added-path]}]
-  {::low-code/req-ks       [:form-id :data-path :label-path :value-path]
-   ::low-code/opt-ks       [:added-path]
-   ::low-code/schema       {:type "array" :items {:type "object"}}
-   ::low-code/schema-paths [label-path value-path added-path]})
+  {::low-code4/req-ks       [:form-id :data-path :label-path :value-path]
+   ::low-code4/opt-ks       [:added-path]
+   ::low-code4/schema       {:type "array" :items {:type "object"}}
+   ::low-code4/schema-paths [label-path value-path added-path]})
 
 (defn simple-selection-list
   [config]
@@ -732,9 +732,9 @@
 
 (defn value-selection-list-settings
   [_]
-  {::low-code/req-ks [:form-id :data-path]
-   ::low-code/opt-ks []
-   ::low-code/schema {:type "array" :items {:type "string"}}})
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "array" :items {:type "string"}}})
 
 (defn value-selection-list
   [config]
@@ -754,10 +754,10 @@
 
 (defn selection-list-settings
   [{:keys [value-path added-path]}]
-  {::low-code/req-ks       [:form-id :data-path :value-path :template-id]
-   ::low-code/opt-ks       [:added-path]
-   ::low-code/schema       {:type "array" :items {:type "object"}}
-   ::low-code/schema-paths [value-path added-path]})
+  {::low-code4/req-ks       [:form-id :data-path :value-path :template-id]
+   ::low-code4/opt-ks       [:added-path]
+   ::low-code4/schema       {:type "array" :items {:type "object"}}
+   ::low-code4/schema-paths [value-path added-path]})
 
 (defn selection-list
   [config]
@@ -772,7 +772,7 @@
         :renderItem    (fn [args]
                          (let [index (ui/get-obj-path args ["index"])]
                            (r/as-element
-                             (low-code/render-template
+                             (low-code4/render-template
                                {:template-id template-id
                                 :variables   {'?form-id   form-id
                                               '?data-path (conj data-path index)}}))))
@@ -784,10 +784,10 @@
 
 (defn simple-list-settings
   [_]
-  {::low-code/req-ks       [:form-id :data-path :template-id]
-   ::low-code/opt-ks       []
-   ::low-code/schema       {:type "array" :items {:type "object"}}
-   ::low-code/schema-paths []})
+  {::low-code4/req-ks       [:form-id :data-path :template-id]
+   ::low-code4/opt-ks       []
+   ::low-code4/schema       {:type "array" :items {:type "object"}}
+   ::low-code4/schema-paths []})
 
 (defn simple-list
   [config]
@@ -797,17 +797,17 @@
     (when-not is-hidden
       [:<>
        (for [index (range (count items))]
-         (low-code/render-template
+         (low-code4/render-template
            {:template-id template-id
             :variables   {'?form-id   form-id
                           '?data-path (conj data-path index)}}))])))
 
 (defn breadcrumb-selection-list-settings
   [{:keys [label-path value-path breadcrumb-path added-path]}]
-  {::low-code/req-ks       [:form-id :data-path :label-path :value-path :breadcrumb-path]
-   ::low-code/opt-ks       [:added-path]
-   ::low-code/schema       {:type "array" :items {:type "object"}}
-   ::low-code/schema-paths [label-path value-path breadcrumb-path added-path]})
+  {::low-code4/req-ks       [:form-id :data-path :label-path :value-path :breadcrumb-path]
+   ::low-code4/opt-ks       [:added-path]
+   ::low-code4/schema       {:type "array" :items {:type "object"}}
+   ::low-code4/schema-paths [label-path value-path breadcrumb-path added-path]})
 
 (defn breadcrumb-selection-list
   [config]
@@ -829,10 +829,10 @@
 
 (defn table-selection-list-settings
   [{:keys [value-path columns added-path]}]
-  {::low-code/req-ks       [:form-id :data-path :columns :value-path]
-   ::low-code/opt-ks       [:added-path]
-   ::low-code/schema       {:type "array" :items {:type "object"}}
-   ::low-code/schema-paths (into [value-path added-path] (map :label-path columns))})
+  {::low-code4/req-ks       [:form-id :data-path :columns :value-path]
+   ::low-code4/opt-ks       [:added-path]
+   ::low-code4/schema       {:type "array" :items {:type "object"}}
+   ::low-code4/schema-paths (into [value-path added-path] (map :label-path columns))})
 
 (defn table-selection-list
   [config]
@@ -855,9 +855,9 @@
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}])))
 
 (defn simple-list-option-picker-settings [_]
-  {::low-code/req-ks [:form-id :data-path :options :value-path :label-path]
-   ::low-code/opt-ks [:placeholder]
-   ::low-code/schema {:type "array" :items {:type "object"}}})
+  {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path]
+   ::low-code4/opt-ks [:placeholder]
+   ::low-code4/schema {:type "array" :items {:type "object"}}})
 
 (defn simple-list-option-picker
   [config]
@@ -876,9 +876,9 @@
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
 
 (defn breadcrumb-list-option-picker-settings [_]
-  {::low-code/req-ks [:form-id :data-path :options :value-path :label-path :breadcrumb-path]
-   ::low-code/opt-ks [:placeholder]
-   ::low-code/schema {:type "array" :items {:type "object"}}})
+  {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path :breadcrumb-path]
+   ::low-code4/opt-ks [:placeholder]
+   ::low-code4/schema {:type "array" :items {:type "object"}}})
 
 (defn breadcrumb-list-option-picker
   [config]
@@ -898,9 +898,9 @@
         :onChange      #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
 
 (defn table-list-option-picker-settings [_]
-  {::low-code/req-ks [:form-id :data-path :options :value-path :label-path :columns]
-   ::low-code/opt-ks [:placeholder]
-   ::low-code/schema {:type "array" :items {:type "object"}}})
+  {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path :columns]
+   ::low-code4/opt-ks [:placeholder]
+   ::low-code4/schema {:type "array" :items {:type "object"}}})
 
 (defn table-list-option-picker
   [config]
@@ -922,9 +922,9 @@
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
 
 (defn async-simple-list-option-picker-settings [_]
-  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path]
-   ::low-code/opt-ks [:placeholder]
-   ::low-code/schema {:type "array" :items {:type "object"}}})
+  {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path]
+   ::low-code4/opt-ks [:placeholder]
+   ::low-code4/schema {:type "array" :items {:type "object"}}})
 
 (defn async-simple-list-option-picker
   [config]
@@ -943,9 +943,9 @@
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
 
 (defn async-simple-item-option-picker-settings [_]
-  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path]
-   ::low-code/opt-ks [:placeholder]
-   ::low-code/schema {:type "array" :items {:type "object"}}})
+  {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path]
+   ::low-code4/opt-ks [:placeholder]
+   ::low-code4/schema {:type "array" :items {:type "object"}}})
 
 (defn async-simple-item-option-picker
   [config]
@@ -964,9 +964,9 @@
         :onChange    #(rf/dispatch [::item-option-picker-change config (ui/get-option-data %)])}])))
 
 (defn async-breadcrumb-list-option-picker-settings [_]
-  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
-   ::low-code/opt-ks [:placeholder]
-   ::low-code/schema {:type "array" :items {:type "object"}}})
+  {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
+   ::low-code4/opt-ks [:placeholder]
+   ::low-code4/schema {:type "array" :items {:type "object"}}})
 
 (defn async-breadcrumb-list-option-picker
   [config]
@@ -986,9 +986,9 @@
         :onChange      #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
 
 (defn async-table-list-option-picker-settings [_]
-  {::low-code/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
-   ::low-code/opt-ks [:placeholder]
-   ::low-code/schema {:type "array" :items {:type "object"}}})
+  {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
+   ::low-code4/opt-ks [:placeholder]
+   ::low-code4/schema {:type "array" :items {:type "object"}}})
 
 (defn async-table-list-option-picker
   [config]
@@ -1031,8 +1031,8 @@
 ;(defmethod async-item-picker :table [config] (async-table-item-option-picker config))
 
 (defn expanding-control-settings [_]
-  {::low-code/req-ks [:label]
-   ::low-code/opt-ks [:form-id :data-path :required]})
+  {::low-code4/req-ks [:label]
+   ::low-code4/opt-ks [:form-id :data-path :required]})
 
 (defn expanding-control
   [config & children]
@@ -1074,8 +1074,8 @@
         :data-path (conj path "southBoundLatitude")}]]]]])
 
 (defn boxmap-field-settings [_]
-  {::low-code/req-ks [:form-id :data-path]
-   ::low-code/opt-ks []})
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks []})
 
 (defn boxmap-field
   [config]
@@ -1091,8 +1091,8 @@
         :onChange #(rf/dispatch [::boxes-changed config (ui/get-geojson-data %)])}])))
 
 (defn coordinates-modal-field-settings [_]
-  {::low-code/req-ks [:form-id :data-path]
-   ::low-code/opt-ks [:help]})
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks [:help]})
 
 ; TODO: replace or refactor to use edit dialog component
 (defn coordinates-modal-field
@@ -1144,7 +1144,7 @@
               (into [:tbody]
                     (for [[idx field] (map-indexed vector data)]
                       (let [data-path (conj data-path idx)
-                            form-state @(rf/subscribe [::common-subs/get-form-state (:form-id config)])
+                            form-state @(rf/subscribe [::subs4/get-form-state (:form-id config)])
                             has-error? (or (has-error? form-state (conj data-path "northBoundLatitude"))
                                            (has-error? form-state (conj data-path "southBoundLatitude"))
                                            (has-error? form-state (conj data-path "eastBoundLongitude"))
@@ -1197,6 +1197,6 @@
     :onClear #(rf/dispatch [::create-document-modal-clear-click])
     :onSave  #(rf/dispatch [::create-document-modal-save-click])
     :canSave @(rf/subscribe [::create-document-modal-can-save?])}
-   [low-code/render-template
+   [low-code4/render-template
     {:template-id ::create-document-modal-form
      :variables   '{?form-id [:create_form]}}]])

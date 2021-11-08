@@ -2,10 +2,10 @@
   (:require [cljs.spec.alpha :as s]
             [goog.object :as gobj]
             [metcalf.common.fx3 :as fx3]
-            [metcalf.common.utils3 :as utils]
+            [metcalf.common.utils3 :as utils3]
             [re-frame.core :as rf]
-            [metcalf.common.blocks4 :as blocks]
-            [metcalf.common.rules4 :as rules]))
+            [metcalf.common.blocks4 :as blocks4]
+            [metcalf.common.rules4 :as rules4]))
 
 (defn load-api-options
   [{:keys [db]} [_ api-path]]
@@ -63,7 +63,7 @@
 
 (defn del-value
   [{:keys [db]} [_ many-field-path i]]
-  {:db (update-in db many-field-path update :value utils/vec-remove i)})
+  {:db (update-in db many-field-path update :value utils3/vec-remove i)})
 
 (defn add-attachment
   [{:keys [db]} [_ attachment-data]]
@@ -168,8 +168,8 @@
   [{:keys [db]} _]
   (let [url (get-in db [:form :url])
         state0 (get-in db [:form :state])
-        state1 (blocks/postwalk rules/apply-rules state0)
-        data (blocks/as-data state1)]
+        state1 (blocks4/postwalk rules4/apply-rules state0)
+        data (blocks4/as-data state1)]
     {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
      ::fx3/post-json-data
          {:url       url

@@ -71,8 +71,6 @@
 (defn enum [coll]
   (zip (range) coll))
 
-(defn geometry-type [{:keys [type]}] type)
-
 (defn userDisplay
   [user]
   (if (and (string/blank? (:lastName user))

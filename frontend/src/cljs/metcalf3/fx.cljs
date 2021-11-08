@@ -48,16 +48,6 @@
 (defn set-location-href
   [url] (aset js/location "href" url))
 
-(defn create-document
-  [{:keys [url params success-v error-v]}]
-  (POST url {:error-handler   #(rf/dispatch (conj error-v %))
-             :format          :json
-             :handler         #(rf/dispatch (conj success-v %))
-             :headers         {"X-CSRFToken" (get-csrf)}
-             :keywords?       true
-             :params          params
-             :response-format :json}))
-
 (defn post
   [{:keys [url success-v error-v]}]
   (POST url {:error-handler   #(rf/dispatch (conj error-v %))

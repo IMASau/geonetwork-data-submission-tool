@@ -410,6 +410,14 @@
                 "field-min": "minimumValue",
                 "field-max": "maximumValue"
               }
+            },
+            {
+              "requiredAllNone": {
+                "fields-list": [
+                  "minimumValue",
+                  "maximumValue"
+                ]
+              }
             }
           ],
           "properties": {

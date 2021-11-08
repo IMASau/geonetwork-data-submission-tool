@@ -84,7 +84,6 @@
 (rf/reg-fx ::fx3/window-open fx3/window-open)
 (rf/reg-fx ::fx3/xhrio-get-json fx3/xhrio-get-json)
 (rf/reg-fx ::fx3/xhrio-post-json fx3/xhrio-post-json)
-(rf/reg-sub ::views3/get-app-root-modal-props subs3/get-modal-props)
 (rf/reg-sub ::views3/get-app-root-page-name subs3/get-page-name)
 (rf/reg-sub :app/get-dashboard-props subs3/get-dashboard-props)
 (rf/reg-sub ::views3/get-progress-bar-props :<- [:subs/get-derived-state] subs3/get-progress-props)

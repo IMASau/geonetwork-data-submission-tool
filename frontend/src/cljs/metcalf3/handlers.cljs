@@ -115,7 +115,7 @@
 
 (defn clone-document
   [_ [_ url]]
-  {::fx3/clone-document
+  {::fx3/post
    {:url       url
     :success-v [:app/-clone-document-success]
     :error-v   [:app/-clone-document-error]}})

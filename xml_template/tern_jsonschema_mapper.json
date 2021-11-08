@@ -402,13 +402,36 @@
           }
         },
         "verticalElement": {
+          "xpath": "mri:extent/gex:EX_Extent/gex:verticalElement/gex:EX_VerticalExtent",
           "type": "object",
+          "rules": [
+            {
+              "numericOrder": {
+                "field-min": "minimumValue",
+                "field-max": "maximumValue"
+              }
+            }
+          ],
           "properties": {
             "minimumValue": {
-              "type": "number"
+              "!docstring": "Where7",
+              "type": "number",
+              "xpath": "gex:minimumValue/gco:Real",
+              "attributes": {
+                "text": {
+                  "function": "to_string"
+                }
+              }
             },
             "maximumValue": {
-              "type": "number"
+              "!docstring": "Where8",
+              "type": "number",
+              "xpath": "gex:maximumValue/gco:Real",
+              "attributes": {
+                "text": {
+                  "function": "to_string"
+                }
+              }
             }
           }
         },

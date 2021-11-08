@@ -69,11 +69,10 @@
 
 (defn post-json-data
   [{:keys [url data success-v error-v]}]
-  (POST url
-        {:error-handler   #(rf/dispatch (conj error-v %))
-         :format          :json
-         :handler         #(rf/dispatch (conj success-v %))
-         :headers         {"X-CSRFToken" (get-csrf)}
-         :keywords?       true
-         :params          (clj->js data)
-         :response-format :json}))
+  (POST url {:error-handler   #(rf/dispatch (conj error-v %))
+             :format          :json
+             :handler         #(rf/dispatch (conj success-v %))
+             :headers         {"X-CSRFToken" (get-csrf)}
+             :keywords?       true
+             :params          (clj->js data)
+             :response-format :json}))

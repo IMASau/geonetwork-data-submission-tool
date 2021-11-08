@@ -73,7 +73,6 @@
 
 (def BoxMap (r/adapt-react-class BoxMap/BoxMap))
 (def DateField (r/adapt-react-class DateField/DateField))
-(def ErrorSidebar (r/adapt-react-class ErrorSidebar/ErrorSidebar))
 (def ExpandingControl (r/adapt-react-class ExpandingControl/ExpandingControl))
 (def FormGroup (r/adapt-react-class FormGroup/FormGroup))
 (def InlineFormGroup (r/adapt-react-class FormGroup/InlineFormGroup))

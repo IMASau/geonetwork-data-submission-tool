@@ -211,7 +211,7 @@
   (let [{:keys [urls user]} context
         {:keys [disabled]} form
         {:keys [status title last_updated last_updated_by is_editor owner]} (:document context)
-        saving (::handlers3/saving? page)]
+        saving (:metcalf3.handlers/saving? page)]
     [:div
      [:div.container
       [:div.pagehead

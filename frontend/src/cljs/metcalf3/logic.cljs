@@ -1,6 +1,5 @@
 (ns metcalf3.logic
   (:require [clojure.zip :as zip]
-            [metcalf3.content :refer [contact-groups]]
             [metcalf3.utils :as utils]
             [metcalf4.blocks :as blocks]
             [metcalf4.rules :as rules]
@@ -98,6 +97,12 @@
 (defn validate-rules
   [state]
   (blocks/postwalk rules/apply-rules state))
+
+(def contact-groups
+  [{:path  [:form :fields :identificationInfo :pointOfContact]
+    :title "Point of contact for dataset"}
+   {:path  [:form :fields :identificationInfo :citedResponsibleParty]
+    :title "Responsible parties for creating dataset"}])
 
 (defn author-role-logic
   "

@@ -43,42 +43,6 @@
     :on-change   on-change
     :on-blur     on-blur}])
 
-(defn InputWidget
-  [_]
-  (letfn [(init-state [this]
-            (let [{:keys [value]} (r/props this)]
-              {:input-value value}))
-
-          (component-will-receive-props [this new-argv]
-            (let [[_ next-props] new-argv
-                  props (r/props this)]
-              (utils3/on-change props next-props [:value] #(r/set-state this {:input-value %}))))
-
-          (render [this]
-            (let [{:keys [addon-before addon-after help on-change disabled mask maxlength] :as props} (r/props this)
-                  {:keys [input-value]} (r/state this)
-                  input-props (-> props
-                                  (dissoc :show-errors)
-                                  (assoc :value (or input-value ""))
-                                  (dissoc :maxlength)
-                                  (assoc :maxLength maxlength)
-                                  (assoc :on-change #(r/set-state this {:input-value (.. % -target -value)}))
-                                  (assoc :on-blur #(on-change input-value))
-                                  (assoc :key "ifc"))]
-              [:div.form-group {:class    (utils3/validation-state props)
-                                :disabled disabled}
-               (label-template props)
-               (if (or addon-after addon-before)
-                 [:div.input-group {:key "ig"} addon-before [:input.form-control input-props] addon-after]
-                 (if mask
-                   [masked-text-widget input-props]
-                   [:input.form-control input-props]))
-               [:p.help-block help]]))]
-    (r/create-class
-      {:get-initial-state            init-state
-       :component-will-receive-props component-will-receive-props
-       :render                       render})))
-
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]
   (let [{:keys [reset-ch max-filesize]} (r/props this)]

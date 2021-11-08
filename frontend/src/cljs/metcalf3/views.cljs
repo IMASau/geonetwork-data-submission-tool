@@ -151,8 +151,6 @@
       [:label input-control label]]
      [:p.help-block help]]))
 
-(defn getter [k row] (get row k))
-
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]
   (let [{:keys [reset-ch max-filesize]} (r/props this)]

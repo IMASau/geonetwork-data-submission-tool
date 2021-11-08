@@ -50,14 +50,13 @@
 
 (defn create-document
   [{:keys [url params success-v error-v]}]
-  (POST url
-        {:params          params
-         :format          :json
-         :response-format :json
-         :keywords?       true
-         :handler         #(rf/dispatch (conj success-v %))
-         :error-handler   #(rf/dispatch (conj error-v %))
-         :headers         {"X-CSRFToken" (get-csrf)}}))
+  (POST url {:error-handler   #(rf/dispatch (conj error-v %))
+             :format          :json
+             :handler         #(rf/dispatch (conj success-v %))
+             :headers         {"X-CSRFToken" (get-csrf)}
+             :keywords?       true
+             :params          params
+             :response-format :json}))
 
 (defn clone-document
   [{:keys [url success-v error-v]}]

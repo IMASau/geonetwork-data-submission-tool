@@ -27,10 +27,7 @@
            [goog.events FileDropHandler]
            [goog.events EventType]))
 
-(defn label-template
-  [{:keys [label required]}]
-  (when label
-    [:label label (when required " *")]))
+
 
 
 

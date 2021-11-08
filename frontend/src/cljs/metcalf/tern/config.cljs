@@ -1248,7 +1248,6 @@
        :current-doi-path           [:form :fields :identificationInfo :doi]}]]})
 
 (set! low-code/template-registry
-      (set! low-code/template-registry
-            (merge edit-templates
-                   {::components4/create-document-modal-form
-                    components4/create-document-modal-template})))
+      (merge edit-templates
+             {::components4/create-document-modal-form
+              components4/create-document-modal-template}))

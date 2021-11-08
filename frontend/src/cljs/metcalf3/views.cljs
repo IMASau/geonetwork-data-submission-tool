@@ -102,11 +102,6 @@
                      (assoc
                        :on-change #(rf/dispatch [::value-changed path %])))]))
 
-(defn OptionWidget [props]
-  (let [[value display] props]
-    [:option {:value value} display]))
-
-
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]
   (let [{:keys [reset-ch max-filesize]} (r/props this)]

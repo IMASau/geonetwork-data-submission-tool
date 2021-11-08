@@ -1,6 +1,5 @@
 (ns metcalf.common.handlers3
   (:require [cljs.spec.alpha :as s]
-            [clojure.string :as str]
             [goog.object :as gobj]
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.utils3 :as utils]

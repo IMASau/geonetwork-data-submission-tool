@@ -3,12 +3,6 @@
             [clojure.string :as string]
             [goog.object :as gobject]))
 
-(defn on-change [m0 m1 ks f]
-  (let [v0 (get-in m0 ks)
-        v1 (get-in m1 ks)]
-    (when-not (= v0 v1)
-      (f v1))))
-
 (defn js-lookup
   "Helper for destructuring.  Returns an ILookup for fetching values out of a js-obj by keyword."
   [js-obj]

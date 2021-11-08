@@ -9,12 +9,6 @@
 
 (def active-status-filter #{"Draft" "Submitted"})
 
-(defn field? [m]
-  (and (map? m)
-       (or (contains? m :value)
-           (contains? m :type))))
-
-
 (defn score-object [block]
   (let [{:keys [content]} block]
     (apply merge-with + (map ::score (vals content)))))
@@ -50,17 +44,6 @@
     (assoc block ::score score)))
 
 ; TODO: Use field-zipper.
-(defn clear-errors
-  "Clear errors stored against field (from server etc)"
-  [form]
-  (let [field-keys (-> form :fields keys)]
-    (reduce
-      (fn [s field-key]
-        (assoc-in s [:fields field-key :errors] []))
-      (assoc form :non_field_errors [])
-      field-keys)))
-
-
 ; TODO: Store non-field errors (:non_field_errors form)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; https://github.com/Roxxi/clojure-common-utils

@@ -517,9 +517,10 @@ def edit(request, uuid):
         "messages": messages_payload(request),
         "data": data,
         "attachments": AttachmentSerializer(doc.attachments.all(), many=True).data,
-        "theme": {"keywordsTheme": {"table": theme_keywords()},
-                  "keywordsThemeAnzsrc": {"table": anzsrc_keywords()}},
-        "topicCategories": {"table": topic_categories()},
+        # FIXME: tidy up (remove this, but probably also associated code)
+        # "theme": {"keywordsTheme": {"table": theme_keywords()},
+        #           "keywordsThemeAnzsrc": {"table": anzsrc_keywords()}},
+        # "topicCategories": {"table": topic_categories()},
         # "institutions": [inst.to_dict() for inst in Institution.objects.all()],
         "page": {"name": request.resolver_match.url_name}
     }

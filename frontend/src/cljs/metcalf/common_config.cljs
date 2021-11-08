@@ -19,7 +19,7 @@
 (rf/reg-event-fx :app/-transite-doc-confirm-error handlers3/-transite-doc-confirm-error)
 (rf/reg-event-fx :app/-transite-doc-confirm-success handlers3/-transite-doc-confirm-success)
 (rf/reg-event-fx :app/open-modal handlers3/open-modal-handler)
-(rf/reg-event-fx ::views3/del-value handlers3/del-value)
+(rf/reg-event-fx :app/delete-attachment-confirm handlers3/del-value)
 (rf/reg-event-fx ::views3/open-modal handlers3/open-modal-handler)
 (rf/reg-event-fx ::views3/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)

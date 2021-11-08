@@ -70,7 +70,7 @@
                 {:type       :confirm
                  :title      "Delete?"
                  :message    "Are you sure you want to delete this file?"
-                 :on-confirm #(rf/dispatch [::del-value attachments-path attachment-idx])}]))
+                 :on-confirm #(rf/dispatch [:app/delete-attachment-confirm attachments-path attachment-idx])}]))
 
 ; TODO: Build a react component for uploading
 (defn UploadData

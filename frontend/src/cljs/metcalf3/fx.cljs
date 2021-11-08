@@ -70,13 +70,13 @@
 
 (defn transition-current-document
   [{:keys [url transition success-v error-v]}]
-  (POST url {:handler         #(rf/dispatch (conj success-v %))
-             :error-handler   #(rf/dispatch (conj error-v %))
-             :headers         {"X-CSRFToken" (get-csrf)}
-             :params          #js {:transition transition}
+  (POST url {:error-handler   #(rf/dispatch (conj error-v %))
              :format          :json
-             :response-format :json
-             :keywords?       true}))
+             :handler         #(rf/dispatch (conj success-v %))
+             :headers         {"X-CSRFToken" (get-csrf)}
+             :keywords?       true
+             :params          #js {:transition transition}
+             :response-format :json}))
 
 (defn submit-current-document
   [{:keys [url success-v error-v]}]

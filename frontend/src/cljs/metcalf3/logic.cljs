@@ -116,11 +116,6 @@
                                 (f acc node)
                                 acc))))))
 
-(defn extract-data
-  "Extract current values from form as a map"
-  [{:keys [fields]}]
-  (into {} (->> fields (utils/fmap :value))))
-
 (defn new-value-field
   [many-field]
   ; TODO: use field-postwalk to avoid inefficiencies with long options lists
@@ -148,46 +143,6 @@
                   (get field-errors field-key [])))
       (clear-errors form) field-keys)))
 
-(defn is-valid? [{:keys [fields non_field_errors]}]
-  (and (empty? non_field_errors)
-       (field-reduce (field-zipper fields)
-                     (fn [acc {:keys [errors]}] (and acc (empty? errors)))
-                     true)))
-
-
-;(defn tree-edit
-;  [zipper matcher editor]
-;  (loop [loc zipper]
-;    (if (zip/end? loc)
-;      (zip/root loc)
-;      (if (matcher (zip/node loc))
-;        (recur (zip/next (zip/edit loc editor)))
-;        (recur (zip/next loc))))))
-
-
-;(defn extract-field-values
-;  "Extract the values out of the form fields state"
-;  [fields]
-;  (tree-edit
-;    (field-zipper fields)
-;    map?
-;    (fn [m]
-;      (if (field? m)
-;        (:value m)
-;        (into {} (filter (comp map? second) m))))))
-
-;(defn extract-field-mask
-;  "Extract the values out of the form fields state"
-;  [fields]
-;  (tree-edit
-;    (field-zipper fields)
-;    map?
-;    (fn [m]
-;      (if (field? m)
-;        (not (:disabled m))
-;        (into {} (filter (comp map? second) m))))))
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; https://github.com/Roxxi/clojure-common-utils
 
@@ -213,17 +168,6 @@
    If the mask yields no values, nil will be returned."
   [some-map map-mask]
   (apply merge (remove nil? (map #(mask-map-triage-kv % map-mask) some-map))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;
-
-;(defn dirty-form-check
-;  "Check if the form contains unsaved data by comparing :data with field :values"
-;  [{:keys [data fields] :as form}]
-;  (let [values (extract-field-values fields)
-;        mask (extract-field-mask fields)
-;        masked-data (mask-map data mask)
-;        masked-values (mask-map values mask)]
-;    (assoc form :dirty (not= masked-data masked-values))))
 
 (defn is-required-field?
   "Identifies walker nodes which are fields relevant to require logic"
@@ -297,13 +241,6 @@
 
 (defn disable-form-when-submitted [state]
   (assoc-in state [:form :disabled] (contains? disabled-statuses (get-in state [:context :document :status]))))
-
-;(defn disabled-form-logic [{:keys [disabled] :as form}]
-;  (if disabled
-;    (update form :fields
-;            (fn [fs]
-;              (field-postwalk #(if (field? %) (assoc % :disabled true) %) fs)))
-;    form))
 
 (defn derive-data-state [state]
   (-> state

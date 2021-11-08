@@ -55,16 +55,10 @@
     [:div
      (when modal-props
        (case (:type modal-props)
-         :TableModalEditForm
-         [views3/modal-dialog-table-modal-edit-form modal-props]
-         :TableModalAddForm
-         [views3/modal-dialog-table-modal-add-form modal-props]
          :m4/table-modal-edit-form
          [views4/m4-modal-dialog-table-modal-edit-form modal-props]
          :m4/table-modal-add-form
          [views4/m4-modal-dialog-table-modal-add-form modal-props]
-         :ThemeKeywords
-         [views3/modal-dialog-theme-keywords (select-keys modal-props [:keyword-type :keywords-path])]
          :DashboardCreateModal
          [components4/create-document-modal]
          :alert

@@ -3,12 +3,6 @@
             [clojure.string :as string]
             [goog.object :as gobject]))
 
-(defn on-change [m0 m1 ks f]
-  (let [v0 (get-in m0 ks)
-        v1 (get-in m1 ks)]
-    (when-not (= v0 v1)
-      (f v1))))
-
 (defn js-lookup
   "Helper for destructuring.  Returns an ILookup for fetching values out of a js-obj by keyword."
   [js-obj]
@@ -77,8 +71,6 @@
 (defn enum [coll]
   (zip (range) coll))
 
-(defn geometry-type [{:keys [type]}] type)
-
 (defn userDisplay
   [user]
   (if (and (string/blank? (:lastName user))
@@ -87,20 +79,3 @@
       (:username user)
       (:email user))
     (str (:firstName user) " " (:lastName user))))
-
-(defn validation-state
-  [{:keys [errors show-errors]}]
-  (when (and show-errors (seq errors))
-    "has-error"))
-
-(defn filter-table
-  "Default search for local datasource: case-insensitive substring match"
-  [simple? table query]
-  (s/assert string? query)
-  (let [col-match? (if simple?
-                     #(string/starts-with? (-> % str string/lower-case) (string/lower-case query))
-                     #(string/includes? (-> % str string/lower-case) (string/lower-case query)))]
-    (filter
-      (fn [row]
-        (some col-match? (rest row)))
-      table)))

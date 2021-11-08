@@ -143,39 +143,6 @@
                   (get field-errors field-key [])))
       (clear-errors form) field-keys)))
 
-;(defn tree-edit
-;  [zipper matcher editor]
-;  (loop [loc zipper]
-;    (if (zip/end? loc)
-;      (zip/root loc)
-;      (if (matcher (zip/node loc))
-;        (recur (zip/next (zip/edit loc editor)))
-;        (recur (zip/next loc))))))
-
-
-;(defn extract-field-values
-;  "Extract the values out of the form fields state"
-;  [fields]
-;  (tree-edit
-;    (field-zipper fields)
-;    map?
-;    (fn [m]
-;      (if (field? m)
-;        (:value m)
-;        (into {} (filter (comp map? second) m))))))
-
-;(defn extract-field-mask
-;  "Extract the values out of the form fields state"
-;  [fields]
-;  (tree-edit
-;    (field-zipper fields)
-;    map?
-;    (fn [m]
-;      (if (field? m)
-;        (not (:disabled m))
-;        (into {} (filter (comp map? second) m))))))
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; https://github.com/Roxxi/clojure-common-utils
 

@@ -563,7 +563,7 @@
 (defn async-select-value
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder uri value value-path label-path disabled is-hidden errors show-errors results-path]} props
+        {:keys [placeholder value value-path label-path disabled is-hidden errors show-errors results-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
       [ui/AsyncSimpleSelectField

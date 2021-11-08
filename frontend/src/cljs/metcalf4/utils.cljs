@@ -111,16 +111,6 @@
            (or (get-value-by-keys json results-path) #js []))))
 
 
-(defn fetch-post
-  [{:keys [uri body]}]
-  (-> (js/fetch uri #js {:method  "POST"
-                         :body    (js/JSON.stringify (clj->js body))
-                         :headers #js {:Content-Type "application/json"
-                                       :Accept       "application/json"
-                                       :X-CSRFToken  (get-csrf)}})
-      (.then (fn [resp] (.json resp)))))
-
-
 (defn spec-error-at-path
   [spec form path]
   (let [ed (merge (assoc (s/explain-data* spec path [] [] form)

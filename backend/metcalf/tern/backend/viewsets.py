@@ -49,6 +49,12 @@ class TopicCategoryViewSet(viewsets.ModelViewSet):
     search_fields = ('identifier')
 
 
+class MetadataTemplateViewSet(viewsets.ModelViewSet):
+    queryset = models.MetadataTemplate.objects.all()
+    serializer_class = serializers.MetadataTemplateSerializer
+    search_fields = ('name',)
+
+
 class ScienceKeywordViewSet(viewsets.ModelViewSet):
     queryset = models.ScienceKeyword.objects.all()
     serializer_class = serializers.ScienceKeywordSerializer

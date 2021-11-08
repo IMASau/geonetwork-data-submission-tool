@@ -35,6 +35,12 @@ class TopicCategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class MetadataTemplateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.MetadataTemplate
+        fields = ('id', 'name',)
+
+
 class ScienceKeywordSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.ScienceKeyword

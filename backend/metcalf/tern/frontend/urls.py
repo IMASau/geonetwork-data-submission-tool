@@ -15,6 +15,7 @@ router.register(r'parameterinstrument', viewsets.ParameterInstrumentViewSet)
 router.register(r'parameterplatform', viewsets.ParameterPlatformViewSet)
 router.register(r'person', viewsets.PersonViewSet)
 router.register(r'topiccategory', viewsets.TopicCategoryViewSet)
+router.register(r'metadata-template', viewsets.MetadataTemplateViewSet)
 
 urlpatterns = [
     path('', home, name="LandingPage"),

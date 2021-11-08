@@ -38,7 +38,6 @@
 (rf/reg-event-fx ::components4/value-selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
-(rf/reg-event-fx ::views3/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx :app/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx ::views3/date-field-with-label-value-changed handlers3/date-field-value-change)
 (rf/reg-event-fx ::views3/input-field-with-label-value-changed handlers3/value-changed)

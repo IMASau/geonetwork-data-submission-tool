@@ -31,7 +31,6 @@
 (rf/reg-event-fx :app/modal-dialog-alert-save handlers3/close-modal)
 (rf/reg-event-fx :app/dashboard-create-click handlers3/dashboard-create-click)
 (rf/reg-event-fx :app/dashboard-show-all-click handlers3/show-all-documents)
-(rf/reg-event-fx ::views3/dashboard-toggle-status-filter handlers3/toggle-status-filter)
 (rf/reg-event-fx :app/dashboard-toggle-status-filter handlers3/toggle-status-filter)
 (rf/reg-event-fx ::views3/del-value handlers3/del-value)
 (rf/reg-event-fx :app/document-teaser-archive-click (handlers3/transite-doc-click "archive"))

@@ -23,7 +23,7 @@
 (rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/open-modal-handler)
 (rf/reg-event-fx :app/delete-attachment-click handlers3/open-modal-handler)
 (rf/reg-event-fx :app/upload-data-file-upload-failed handlers3/open-modal-handler)
-(rf/reg-event-fx ::views3/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
+(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)
 (rf/reg-event-fx :app/dashboard-create-click handlers3/dashboard-create-click)
 (rf/reg-event-fx :app/dashboard-show-all-click handlers3/show-all-documents)

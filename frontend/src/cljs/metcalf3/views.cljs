@@ -85,7 +85,7 @@
                     (fn []
                       (when (= (.-readyState xhr) 4)
                         (if (#{200 201} (.-status xhr))
-                          (rf/dispatch [::upload-data-confirm-upload-click-add-attachment (utils3/map-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
+                          (rf/dispatch [:app/upload-data-confirm-upload-click-add-attachment (utils3/map-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
                           (rf/dispatch [:app/upload-data-file-upload-failed
                                         {:type    :alert
                                          :message "File upload failed. Please try again or contact administrator."}]))

@@ -285,6 +285,10 @@ def date_as_string(x):
     return datetime.datetime.strptime(x[: 10], '%Y-%m-%d').date().isoformat()
 
 
+def date_as_version(x):
+    return datetime.datetime.strptime(x[: 10], '%Y-%m-%d').date().strftime("%Y.%m")
+
+
 def has_geographic_coverage(x):
     return not x.get('hasGeographicCoverage', True)
 
@@ -463,6 +467,7 @@ SPEC_FUNCTIONS = {
     "parse_keywords": parse_keywords,
     "science_keyword_from_uuid": science_keyword_from_uuid,
     "date_as_string": date_as_string,
+    "date_as_version": date_as_version,
     "has_geographic_coverage": has_geographic_coverage,
     "to_string": to_string,
     "has_vertical_extent": has_vertical_extent,

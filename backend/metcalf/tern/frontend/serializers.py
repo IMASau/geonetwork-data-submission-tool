@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework import serializers
 
-from metcalf.tern.backend.models import Document, DocumentAttachment
+from metcalf.tern.backend.models import Document, DocumentAttachment, MetadataTemplate
 from metcalf.tern.frontend.models import SiteContent
 
 
@@ -106,3 +106,17 @@ class SiteContentSerializer(serializers.ModelSerializer):
         model = SiteContent
         fields = ('title', 'organisation_url', 'email', 'tag_line', 'guide_pdf', 'terms_pdf',
                   'roadmap_pdf', 'releasenotes_url', 'portal_title', 'portal_url')
+
+
+class CreateDocumentTemplateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MetadataTemplate
+        fields = ['id', 'name']
+
+
+class CreateDocumentSerializer(serializers.ModelSerializer):
+    template = CreateDocumentTemplateSerializer()
+
+    class Meta:
+        model = Document
+        fields = ['title', 'template']

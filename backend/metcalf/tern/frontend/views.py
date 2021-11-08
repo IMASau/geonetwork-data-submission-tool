@@ -129,6 +129,11 @@ def dashboard(request):
 @login_required
 @api_view(['POST'])
 def create(request):
+    serializer = CreateDocumentSerializer(data=request.data)
+
+    if not serializer.is_valid():
+        return Response(data=serializer.errors, status=400)
+
     template = get_object_or_404(
         MetadataTemplate, site=get_current_site(request), archived=False, pk=request.data['template'])
 

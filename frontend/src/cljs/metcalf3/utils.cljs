@@ -1,6 +1,5 @@
 (ns metcalf3.utils
-  (:require [clojure.string :as string]
-            [goog.object :as gobject]))
+  (:require [clojure.string :as string]))
 
 (defn map-keys [f m]
   (persistent! (reduce-kv (fn [z k v] (assoc! z (f k) v)) (transient {}) m)))

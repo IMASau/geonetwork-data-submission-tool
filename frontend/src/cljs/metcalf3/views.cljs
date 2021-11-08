@@ -358,17 +358,6 @@
           :on-dismiss   #(rf/dispatch [::close-modal])
           :on-save      #(rf/dispatch [::close-modal])}])
 
-(defprotocol IPrintNice
-  (print-nice [x]))
-
-(extend-protocol IPrintNice
-  number
-  (print-nice [x] (.toFixed x 3))
-  object
-  (print-nice [x] (pr-str x))
-  nil
-  (print-nice [x] "--"))
-
 (defn handle-file [this file]
   (let [{:keys [reset-ch max-filesize]} (r/props this)]
     (if (or (not max-filesize)
@@ -431,6 +420,7 @@
                  :message    "Are you sure you want to delete this file?"
                  :on-confirm #(rf/dispatch [::del-value attachments-path attachment-idx])}]))
 
+; TODO: Build a react component for uploading
 (defn UploadData
   [_]
   (letfn [(confirm-upload-click

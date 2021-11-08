@@ -587,7 +587,7 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder uri value-path label-path added-path disabled is-hidden errors show-errors]} props
+        {:keys [placeholder value-path label-path added-path disabled is-hidden errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
       [ui/AsyncSimpleSelectField
@@ -612,7 +612,7 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder uri disabled is-hidden errors show-errors value-path label-path breadcrumb-path added-path]} props
+        {:keys [placeholder disabled is-hidden errors show-errors value-path label-path breadcrumb-path added-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
       [ui/AsyncBreadcrumbSelectField
@@ -636,7 +636,7 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder uri disabled is-hidden errors show-errors value-path label-path added-path columns]} props
+        {:keys [placeholder disabled is-hidden errors show-errors value-path label-path added-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
       [ui/AsyncTableSelectField
@@ -929,7 +929,7 @@
 (defn async-simple-list-option-picker
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder uri is-hidden disabled errors show-errors value-path label-path]} props
+        {:keys [placeholder is-hidden disabled errors show-errors value-path label-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
       [ui/AsyncSimpleSelectField
@@ -950,7 +950,7 @@
 (defn async-simple-item-option-picker
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder uri disabled is-hidden errors show-errors value-path label-path]} props
+        {:keys [placeholder disabled is-hidden errors show-errors value-path label-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
       [ui/AsyncSimpleSelectField
@@ -971,7 +971,7 @@
 (defn async-breadcrumb-list-option-picker
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder uri disabled is-hidden errors show-errors value-path label-path breadcrumb-path]} props
+        {:keys [placeholder disabled is-hidden errors show-errors value-path label-path breadcrumb-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
       [ui/AsyncBreadcrumbSelectField
@@ -993,7 +993,7 @@
 (defn async-table-list-option-picker
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder uri disabled is-hidden errors show-errors value-path label-path columns]} props
+        {:keys [placeholder disabled is-hidden errors show-errors value-path label-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
       [ui/AsyncTableSelectField

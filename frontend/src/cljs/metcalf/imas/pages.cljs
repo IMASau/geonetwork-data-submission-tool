@@ -25,6 +25,7 @@
     :form             @(rf/subscribe [:subs/get-derived-path [:form]])
     :dirty            @(rf/subscribe [:subs/get-form-dirty [:form]])
     :tab-props        @(rf/subscribe [:subs/get-edit-tab-props])
+    :progress-props   @(rf/subscribe [:app/get-progress-bar-props])
     :on-pick-tab      #(rf/dispatch [:app/edit-tabs-pick-click %])
     :on-save-click    #(rf/dispatch [:app/PageViewEdit-save-button-click])
     :on-archive-click #(rf/dispatch [:app/handle-page-view-edit-archive-click])}])

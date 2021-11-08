@@ -188,7 +188,7 @@
 
 
 (defn edit-tabs
-  [{:keys [form tab-props on-pick-tab]}]
+  [{:keys [form tab-props progress-props on-pick-tab]}]
   (let [{:keys [disabled]} form
         {:keys [selected-tab tab-props]} tab-props]
     (letfn [(pick-tab [id _ _] (on-pick-tab (edn/read-string id)))]
@@ -204,11 +204,12 @@
              (when-not disabled
                [:div {:style {:width 200 :height 25}}
                 (conj [:div.hidden-xs.hidden-sm
-                       [views3/progress-bar]])])))])))
+                       [progress-bar progress-props]])])))])))
 
 (defn PageViewEdit
   [{:keys [page context form dirty on-save-click on-archive-click
-           tab-props on-pick-tab]}]
+           tab-props on-pick-tab
+           progress-props]}]
   (let [{:keys [urls user]} context
         {:keys [disabled]} form
         {:keys [status title last_updated last_updated_by is_editor owner]} (:document context)
@@ -246,8 +247,9 @@
                  " by " (:username last_updated_by)]]]]]
      [:div.Home.container
       [edit-tabs
-       {:form        form
-        :tab-props   tab-props
-        :on-pick-tab on-pick-tab}]
+       {:form           form
+        :tab-props      tab-props
+        :progress-props progress-props
+        :on-pick-tab    on-pick-tab}]
       [:div.PageViewBody
        [low-code/render-template {:template-id (get page :tab :data-identification)}]]]]))

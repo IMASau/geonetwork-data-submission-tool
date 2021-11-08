@@ -1134,7 +1134,7 @@
       (when-not is-hidden
         [:div.TableInlineEdit
          (when help [:p.help-block help])
-         (if (pos? (count data))
+         (when (pos? (count data))
            [:table.table {:class (when-not (or disabled (empty? data)) "table-hover")}
             [:thead
              (-> [:tr]

@@ -1,6 +1,5 @@
 (ns metcalf.imas.pages
-  (:require [metcalf3.views :as views3]
-            [re-frame.core :as rf]
+  (:require [re-frame.core :as rf]
             [metcalf4.views :as views4]
             [metcalf4.components :as components4]))
 

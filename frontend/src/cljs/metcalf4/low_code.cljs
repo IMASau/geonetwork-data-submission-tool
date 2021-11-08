@@ -14,6 +14,7 @@
 (def *build-template-cache (atom {}))
 
 (defn init!
+  "Merge templates into template-registry."
   [{:keys [low-code/templates]}]
   (when (map? templates)
     (reset! *build-template-cache ({}))

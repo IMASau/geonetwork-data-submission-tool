@@ -26,7 +26,6 @@
 (rf/reg-event-fx ::handlers3/-update-person handlers3/org-changed)
 (rf/reg-event-fx ::handlers3/open-modal handlers3/open-modal-handler)
 (rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)
-(rf/reg-event-fx ::views3/close-modal handlers3/close-modal)
 (rf/reg-event-fx :app/close-modal handlers3/close-modal)
 (rf/reg-event-fx :app/modal-dialog-alert-dismiss handlers3/close-modal)
 (rf/reg-event-fx :app/modal-dialog-alert-save handlers3/close-modal)

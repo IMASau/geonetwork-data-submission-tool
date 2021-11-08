@@ -27,12 +27,6 @@
   (.stringify js/JSON (clj->js
                         {:query query})))
 
-(defn load-es-options
-  [{:keys [db]} [_ api-path query]]
-  (let [{:keys [uri]} (get-in db api-path)]
-    {:fx [[::fx3/xhrio-post-json {:uri uri :data (build-es-query query) :resp-v [::-load-es-options api-path query]}]]
-     :db (update-in db api-path assoc :most-recent-query query)}))
-
 (defn -load-es-options
   [{:keys [db]} [_ api-path query json]]
   (let [most-recent-query (get-in db (conj api-path :most-recent-query))

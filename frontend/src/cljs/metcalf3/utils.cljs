@@ -79,20 +79,3 @@
       (:username user)
       (:email user))
     (str (:firstName user) " " (:lastName user))))
-
-(defn validation-state
-  [{:keys [errors show-errors]}]
-  (when (and show-errors (seq errors))
-    "has-error"))
-
-(defn filter-table
-  "Default search for local datasource: case-insensitive substring match"
-  [simple? table query]
-  (s/assert string? query)
-  (let [col-match? (if simple?
-                     #(string/starts-with? (-> % str string/lower-case) (string/lower-case query))
-                     #(string/includes? (-> % str string/lower-case) (string/lower-case query)))]
-    (filter
-      (fn [row]
-        (some col-match? (rest row)))
-      table)))

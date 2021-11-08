@@ -43,7 +43,6 @@
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
 (rf/reg-event-fx :app/PageViewEdit-save-button-click handlers4/save-current-document)
-(rf/reg-event-fx ::views3/textarea-field-with-label-value-changed handlers3/textarea-field-value-change)
 (rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
 (rf/reg-event-fx :metcalf4.actions/-create-document handlers4/-create-document-handler)
 (rf/reg-event-fx :textarea-field/value-change handlers3/textarea-field-value-change)

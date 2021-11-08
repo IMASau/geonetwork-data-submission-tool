@@ -60,22 +60,6 @@
       {:can-submit? can-submit?
        :value       (/ (- fields empty) fields)})))
 
-(defn get-textarea-field-many-props
-  [derived-db [_ path field]]
-  (let [{:keys [placeholder maxlength]} (get-in derived-db [:form :fields :identificationInfo field])
-        {:keys [label help required disabled value show-errors errors]} (get-in derived-db path)
-        error-help (when (and show-errors (seq errors))
-                     (string/join ". " errors))]
-    {:label       label
-     :labelInfo   (when required "*")
-     :helperText  (or error-help help)
-     :value       (or value "")
-     :disabled    disabled
-     :maxlength   maxlength
-     :placeholder placeholder
-     :change-v    [:textarea-field/value-change path]
-     :intent      (when error-help "danger")}))
-
 (defn get-form-tick
   [db _]
   (get db :form/tick 0))

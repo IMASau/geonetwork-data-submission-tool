@@ -358,6 +358,7 @@
           :on-dismiss   #(rf/dispatch [::close-modal])
           :on-save      #(rf/dispatch [::close-modal])}])
 
+; TODO: Build a react component for uploading
 (defn handle-file [this file]
   (let [{:keys [reset-ch max-filesize]} (r/props this)]
     (if (or (not max-filesize)
@@ -369,6 +370,7 @@
                        :message (str "Please, choose file less than " max-filesize "mb")}])
         (put! reset-ch true)))))
 
+; TODO: Build a react component for uploading
 (defn FileDrop [{:keys [on-change placeholder reset-ch]}]
   (letfn [(init-state [_]
             {:file-id (name (gensym "file"))})

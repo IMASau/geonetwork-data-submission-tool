@@ -16,6 +16,4 @@
 (def tabs-expander (r/adapt-react-class BlueprintCore/Tabs.Expander))
 (def progress-bar (r/adapt-react-class BlueprintCore/ProgressBar))
 
-(def textarea2 (r/adapt-react-class BlueprintCore/TextArea))
-(def form-group (r/adapt-react-class BlueprintCore/FormGroup))
 (def alignment (js->clj BlueprintCore/Alignment :keywordize-keys true))

@@ -345,19 +345,6 @@
           {:on-click #(new! default-field)}
           [:span.glyphicon.glyphicon-plus] " " add-label])])))
 
-(defn modal-dialog-theme-keywords
-  [{:keys [keyword-type keywords-path]}]
-  [Modal {:ok-copy      "Done"
-          :dialog-class "modal-lg"
-          :modal-header [:span [:span.glyphicon.glyphicon-list] " " "Research theme keywords"]
-          :modal-body   [:div
-                         [:p.help-block "Select keyword(s) to add to record"]
-                         [KeywordsThemeTable
-                          {:keyword-type  keyword-type
-                           :keywords-path keywords-path}]]
-          :on-dismiss   #(rf/dispatch [::close-modal])
-          :on-save      #(rf/dispatch [::close-modal])}])
-
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]
   (let [{:keys [reset-ch max-filesize]} (r/props this)]

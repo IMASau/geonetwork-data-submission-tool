@@ -540,12 +540,3 @@
                     :form       DataSourceRowEdit
                     :title      "Data services"
                     :field-path path}]])
-
-(defn progress-bar []
-  (when-let [{:keys [can-submit? value]} @(rf/subscribe [::get-progress-bar-props])]
-    [:div
-     [:span.progressPercentage (str (int (* value 100)) "%")]
-     [bp3/progress-bar {:animate false
-                        :intent  (if can-submit? "success" "warning")
-                        :stripes false
-                        :value   value}]]))

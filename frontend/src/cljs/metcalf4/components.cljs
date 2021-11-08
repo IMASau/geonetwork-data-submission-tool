@@ -395,11 +395,11 @@
   [config]
   (let [{:keys [label]} @(rf/subscribe [::get-block-props config])
         {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        dirty @(rf/subscribe [:subs/get-form-dirty])]
-    (let [download-props {:href     (str (:export_url document) "?download")
-                          :on-click #(when dirty
-                                       (js/alert "Please save changes before exporting."))}]
-      [:a download-props label])))
+        dirty @(rf/subscribe [:subs/get-form-dirty])
+        download-props {:href     (str (:export_url document) "?download")
+                        :on-click #(when dirty
+                                     (js/alert "Please save changes before exporting."))}]
+    [:a download-props label]))
 
 (defn mailto-data-manager-link
   []

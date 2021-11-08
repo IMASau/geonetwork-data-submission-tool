@@ -193,7 +193,7 @@
 
 (defn create-document-action
   [s url data]
-  (update s :fx conj [::utils4/post-data {:url url :data data :resolve [::-create-document]}]))
+  (update s :fx conj [:app/post-data-fx {:url url :data data :resolve [::-create-document]}]))
 
 (defn clear-errors
   [s form-path]

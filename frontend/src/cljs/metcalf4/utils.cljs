@@ -83,7 +83,7 @@
                                        :X-CSRFToken  (get-csrf)}})
       (.then (fn [resp] (.json resp)))))
 
-(defn post-data
+(defn post-json
   [{:keys [url data]}]
   (s/assert string? url)
   (fetch/post url {:accept       :json
@@ -91,7 +91,7 @@
                    :headers      {:X-CSRFToken (get-csrf)}
                    :body         data}))
 
-(defn get-data
+(defn get-json
   [{:keys [url]}]
   (s/assert string? url)
   (fetch/get url {:accept       :json

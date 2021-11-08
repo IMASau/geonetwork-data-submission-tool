@@ -12,7 +12,7 @@
   [{:keys [db]} [_ api-path]]
   (let [{:keys [uri options]} (get-in db api-path)]
     (when (nil? options)
-      {::fx3/xhrio-get-json {:uri uri :resp-v [::-load-api-options api-path]}})))
+      {::fx3/xhrio-get-json {:uri uri :resp-v [:app/-load-api-options api-path]}})))
 
 (defn -load-api-options
   [{:keys [db]} [_ api-path json]]
@@ -81,8 +81,8 @@
         success_url (-> db :context :urls :Dashboard)]
     {::fx3/archive-current-document
      {:url       transition_url
-      :success-v [::-archive-current-document-success success_url]
-      :error-v   [::open-modal {:type :alert :message "Unable to delete"}]}}))
+      :success-v [:app/-archive-current-document-success success_url]
+      :error-v   [:app/open-modal {:type :alert :message "Unable to delete"}]}}))
 
 (defn -archive-current-document-success
   [_ [_ url]]
@@ -114,8 +114,8 @@
   [_ [_ url]]
   {::fx3/clone-document
    {:url       url
-    :success-v [::-clone-document-success]
-    :error-v   [::-clone-document-error]}})
+    :success-v [:app/-clone-document-success]
+    :error-v   [:app/-clone-document-error]}})
 
 (defn -clone-document-success
   [_ [_ data]]
@@ -123,25 +123,25 @@
 
 (defn -clone-document-error
   [_ _]
-  {:dispatch [::open-modal {:type :alert :message "Unable to clone"}]})
+  {:dispatch [:app/open-modal {:type :alert :message "Unable to clone"}]})
 
 (defn transite-doc-click
   [transition]
   (fn [_ [_ url]]
     (let [trans-name (first (clojure.string/split transition "_"))]
-      {:dispatch [::open-modal
+      {:dispatch [:app/open-modal
                   {:type       :confirm
                    :title      trans-name
                    :message    (str "Are you sure you want to " trans-name " this record?")
-                   :on-confirm #(rf/dispatch [::-transite-doc-click-confirm url transition])}]})))
+                   :on-confirm #(rf/dispatch [:app/-transite-doc-click-confirm url transition])}]})))
 
 (defn -transite-doc-click-confirm
   [_ [_ url transition]]
   {::fx3/transition-current-document
    {:url        url
     :transition transition
-    :success-v  [::-transite-doc-confirm-success transition]
-    :error-v    [::-transite-doc-confirm-error]}})
+    :success-v  [:app/-transite-doc-confirm-success transition]
+    :error-v    [:app/-transite-doc-confirm-error]}})
 
 (defn -transite-doc-confirm-success
   [{:keys [db]} [_ transition data]]
@@ -158,7 +158,7 @@
 (defn -transite-doc-confirm-error
   [_ [_ transition]]
   (let [trans-name (first (clojure.string/split transition "_"))]
-    {:dispatch [::open-modal
+    {:dispatch [:app/open-modal
                 {:type    :alert
                  :message (str "Unable to " trans-name)}]}))
 
@@ -172,8 +172,8 @@
      ::fx3/save-current-document
          {:url       url
           :data      data
-          :success-v [::-lodge-click-success data]
-          :error-v   [::-lodge-click-error]}}))
+          :success-v [:app/-lodge-click-success data]
+          :error-v   [:app/-lodge-click-error]}}))
 
 (defn lodge-save-success
   [{:keys [db]} [_ data]]
@@ -183,8 +183,8 @@
              (assoc-in [:page :metcalf3.handlers/saving?] true))
      ::fx3/submit-current-document
          {:url       url
-          :success-v [::-lodge-save-success]
-          :error-v   [::-lodge-save-error]}}))
+          :success-v [:app/-lodge-save-success]
+          :error-v   [:app/-lodge-save-error]}}))
 
 (defn -lodge-save-success
   [{:keys [db]} [_ resp]]
@@ -197,6 +197,6 @@
 (defn lodge-error
   [{:keys [db]} [_ {:keys [status failure]}]]
   {:db       (assoc-in db [:page :metcalf3.handlers/saving?] false)
-   :dispatch [::open-modal
+   :dispatch [:app/open-modal
               {:type    :alert
                :message (str "Unable to lodge: " status " " failure)}]})

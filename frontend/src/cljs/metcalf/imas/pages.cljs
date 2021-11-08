@@ -30,6 +30,13 @@
     :on-save-click    #(rf/dispatch [:app/PageViewEdit-save-button-click])
     :on-archive-click #(rf/dispatch [:app/handle-page-view-edit-archive-click])}])
 
+(defn page-error
+  []
+  (let [{:keys [text code]} @(rf/subscribe [:subs/get-page-props])]
+    [views4/page-error
+     {:text text
+      :code code}]))
+
 (defn app-root
   []
   (let [page-name @(rf/subscribe [:subs/get-app-root-page-name])
@@ -66,7 +73,7 @@
        "404"
        [views3/PageView404 nil]
        "Error"
-       [views3/PageViewError nil]
+       [page-error]
        "Edit"
        [page-edit]
        "Dashboard"

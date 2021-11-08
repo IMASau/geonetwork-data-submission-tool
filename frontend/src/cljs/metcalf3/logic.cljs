@@ -105,12 +105,6 @@
            (recur (zip/next loc)))
          (recur (zip/next loc)))))))
 
-(defn new-value-field
-  [many-field]
-  ; TODO: use field-postwalk to avoid inefficiencies with long options lists
-  (let [fields (:fields many-field)]
-    {:value (field-edit (field-zipper fields) reset-field)}))
-
 ; TODO: Use field-zipper.
 (defn clear-errors
   "Clear errors stored against field (from server etc)"

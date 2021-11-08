@@ -139,18 +139,6 @@
                     :on-blur #(rf/dispatch [::select-field-blur path])
                     :on-change #(rf/dispatch [::value-changed path %]))]))
 
-(defn Checkbox [props]
-  (let [{:keys [label checked on-change disabled help]
-         :or   {checked false}} props
-        input-control [:input (merge {:type     "checkbox"
-                                      :checked  (boolean checked)
-                                      :disabled disabled
-                                      :onChange on-change})]]
-    [:div.form-group {:class (utils3/validation-state props)}
-     [:div.checkbox
-      [:label input-control label]]
-     [:p.help-block help]]))
-
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]
   (let [{:keys [reset-ch max-filesize]} (r/props this)]

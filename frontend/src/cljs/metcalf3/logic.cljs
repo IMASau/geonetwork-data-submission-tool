@@ -220,129 +220,14 @@
         (cond-> form (assoc :form (logic4/massage-form form)))
         (assoc :alert [])
         ; TODO: make deployment specific (put in init-db handler)
-        (assoc :api {:api/ternparameters       {:uri     (str URL_ROOT "/api/ternparameters")
-                                                :options nil
-                                                :schema  {:type       "object",
-                                                          :properties {:tree_id           {:type "integer"},
-                                                                       :children_count    {:type "integer"},
-                                                                       :vocabularyVersion {:type "string"},
-                                                                       :Definition        {:type "string"},
-                                                                       :is_selectable     {:type "boolean"},
-                                                                       :lft               {:type "integer"},
-                                                                       :term              {:type "string"},
-                                                                       :URI               {:type "string"},
-                                                                       :vocabularyTermURL {:type "string"},
-                                                                       :id                {:type "integer"},
-                                                                       :Name              {:type "string"},
-                                                                       :depth             {:type "integer"},
-                                                                       :termDefinition    {:type "string"},
-                                                                       :Version           {:type "string"},
-                                                                       :rgt               {:type "integer"}}}}
-                     :api/qudtunits            {:uri     (str URL_ROOT "/api/qudtunits")
-                                                :options nil
-                                                :schema  {:type       "object",
-                                                          :properties {:tree_id           {:type "integer"},
-                                                                       :children_count    {:type "integer"},
-                                                                       :vocabularyVersion {:type "string"},
-                                                                       :Definition        {:type "string"},
-                                                                       :is_selectable     {:type "boolean"},
-                                                                       :lft               {:type "integer"},
-                                                                       :term              {:type "string"},
-                                                                       :URI               {:type "string"},
-                                                                       :vocabularyTermURL {:type "string"},
-                                                                       :id                {:type "integer"},
-                                                                       :Name              {:type "string"},
-                                                                       :depth             {:type "integer"},
-                                                                       :termDefinition    {:type "string"},
-                                                                       :Version           {:type "string"},
-                                                                       :rgt               {:type "integer"}}}}
-                     :api/terninstruments      {:uri     (str URL_ROOT "/api/terninstruments")
-                                                :options nil
-                                                :schema  {:type       "object",
-                                                          :properties {:tree_id           {:type "integer"},
-                                                                       :children_count    {:type "integer"},
-                                                                       :vocabularyVersion {:type "string"},
-                                                                       :Definition        {:type "string"},
-                                                                       :is_selectable     {:type "boolean"},
-                                                                       :lft               {:type "integer"},
-                                                                       :term              {:type "string"},
-                                                                       :URI               {:type "string"},
-                                                                       :vocabularyTermURL {:type "string"},
-                                                                       :id                {:type "integer"},
-                                                                       :Name              {:type "string"},
-                                                                       :depth             {:type "integer"},
-                                                                       :termDefinition    {:type "string"},
-                                                                       :Version           {:type "string"},
-                                                                       :rgt               {:type "integer"}}}}
-                     :api/ternplatforms        {:uri     (str URL_ROOT "/api/ternplatforms")
-                                                :options nil
-                                                :schema  {:type       "object",
-                                                          :properties {:tree_id           {:type "integer"},
-                                                                       :children_count    {:type "integer"},
-                                                                       :vocabularyVersion {:type "string"},
-                                                                       :Definition        {:type "string"},
-                                                                       :is_selectable     {:type "boolean"},
-                                                                       :lft               {:type "integer"},
-                                                                       :term              {:type "string"},
-                                                                       :URI               {:type "string"},
-                                                                       :vocabularyTermURL {:type "string"},
-                                                                       :id                {:type "integer"},
-                                                                       :Name              {:type "string"},
-                                                                       :depth             {:type "integer"},
-                                                                       :termDefinition    {:type "string"},
-                                                                       :Version           {:type "string"},
-                                                                       :rgt               {:type "integer"}}}}
-                     :api/rolecode             {:uri     (str URL_ROOT "/api/rolecode.json")
-                                                :options nil
-                                                :schema  {:type       "object",
-                                                          :properties {:UUID        {:type "string"},
-                                                                       :Identifier  {:type "string"},
-                                                                       :Description {:type "string"}}}}
-                     :api/samplingfrequency    {:uri     (str URL_ROOT "/api/samplingfrequency.json")
-                                                :options nil
-                                                :schema  {:type       "object",
-                                                          :properties {:uri               {:type "string"},
-                                                                       :prefLabel         {:type "string"},
-                                                                       :prefLabelSortText {:type "string"}}}}
-                     :api/horizontalresolution {:uri     (str URL_ROOT "/api/horizontalresolution.json")
-                                                :options nil
-                                                :schema  {:type       "object",
-                                                          :properties {:uri               {:type "string"},
-                                                                       :prefLabel         {:type "string"},
-                                                                       :prefLabelSortText {:type "string"}},}
-                                                }
-                     :api/person               {:uri     (str URL_ROOT "/api/person.json")
-                                                :options nil
-                                                :schema  {:type       "object",
-                                                          :properties {:prefLabel             {:type "string"},
-                                                                       :isUserAdded           {:type "boolean"},
-                                                                       :honorificPrefix       {:type "string"},
-                                                                       :orcid                 {:type "string"},
-                                                                       :familyName            {:type "string"},
-                                                                       :electronicMailAddress {:type "string"},
-                                                                       :id                    {:type "integer"},
-                                                                       :givenName             {:type "string"},
-                                                                       :orgUri                {:type "string"},
-                                                                       :uri                   {:type "string"}},}}
-                     :api/institution          {:uri     (str URL_ROOT "/api/institution.json")
-                                                :options nil
-                                                :schema  {:type       "object",
-                                                          :properties {:exactMatch         {:type "string"},
-                                                                       :prefLabel          {:type "string"},
-                                                                       :deliveryPoint2     {:type "string"},
-                                                                       :isUserAdded        {:type "boolean"},
-                                                                       :altLabel           {:type "string"},
-                                                                       :city               {:type "string"},
-                                                                       :administrativeArea {:type "string"},
-                                                                       :deliveryPoint      {:type "string"},
-                                                                       :id                 {:type "integer"},
-                                                                       :postalCode         {:type "string"},
-                                                                       :uri                {:type "string"},
-                                                                       :organisationName   {:type "string"},
-                                                                       :country            {:type "string"}}}}
-                     :api/topiccategory        {:uri     (str URL_ROOT "/api/topiccategory.json")
-                                                :options nil
-                                                :schema  {:type       "object",
-                                                          :properties {:identifier {:type "string"},
-                                                                       :name       {:type "string"}},}}})
+        (assoc :api {:api/ternparameters       {:uri (str URL_ROOT "/api/ternparameters")}
+                     :api/qudtunits            {:uri (str URL_ROOT "/api/qudtunits")}
+                     :api/terninstruments      {:uri (str URL_ROOT "/api/terninstruments")}
+                     :api/ternplatforms        {:uri (str URL_ROOT "/api/ternplatforms")}
+                     :api/rolecode             {:uri (str URL_ROOT "/api/rolecode.json")}
+                     :api/samplingfrequency    {:uri (str URL_ROOT "/api/samplingfrequency.json")}
+                     :api/horizontalresolution {:uri (str URL_ROOT "/api/horizontalresolution.json")}
+                     :api/person               {:uri (str URL_ROOT "/api/person.json")}
+                     :api/institution          {:uri (str URL_ROOT "/api/institution.json")}
+                     :api/topiccategory        {:uri (str URL_ROOT "/api/topiccategory.json")}})
         (update :form initialise-form))))

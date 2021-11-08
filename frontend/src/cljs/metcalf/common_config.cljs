@@ -49,7 +49,7 @@
 (rf/reg-fx ::fx3/save-current-document fx3/post-json-data)
 (rf/reg-fx ::fx3/set-location-href fx3/set-location-href)
 (rf/reg-fx ::fx3/submit-current-document fx3/post-json-data)
-(rf/reg-fx ::fx3/transition-current-document fx3/transition-current-document)
+(rf/reg-fx ::fx3/transition-current-document fx3/post-json-data)
 (rf/reg-fx ::fx3/xhrio-get-json fx3/xhrio-get-json)
 (rf/reg-fx ::fx3/xhrio-post-json fx3/xhrio-post-json)
 (rf/reg-sub :app/get-dashboard-props subs3/get-dashboard-props)

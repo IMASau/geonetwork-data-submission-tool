@@ -81,13 +81,13 @@
 (defn submit-current-document
   [{:keys [url success-v error-v]}]
   (POST url
-        {:params          #js {:transition "submit"}
-         :handler         #(rf/dispatch (conj success-v %))
-         :error-handler   #(rf/dispatch (conj error-v %))
-         :headers         {"X-CSRFToken" (get-csrf)}
+        {:error-handler   #(rf/dispatch (conj error-v %))
          :format          :json
-         :response-format :json
-         :keywords?       true}))
+         :handler         #(rf/dispatch (conj success-v %))
+         :headers         {"X-CSRFToken" (get-csrf)}
+         :keywords?       true
+         :params          #js {:transition "submit"}
+         :response-format :json}))
 
 (defn save-current-document
   [{:keys [url data success-v error-v]}]

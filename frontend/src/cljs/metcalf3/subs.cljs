@@ -15,18 +15,6 @@
   [db _]
   (get-in db [:page]))
 
-(defn get-page-name
-  [db _]
-  (get-in db [:page :name]))
-
-(defn get-modal-props
-  [db _]
-  (let [modal-stack (:alert db)
-        modal-props (peek modal-stack)]
-    (when modal-props
-      (let [breadcrumbs (mapv :title modal-stack)]
-        (assoc modal-props :breadcrumbs breadcrumbs)))))
-
 (defn get-dashboard-props
   [db _]
   (let [{:keys [status-filter]
@@ -59,11 +47,3 @@
     (when (pos-int? fields)
       {:can-submit? can-submit?
        :value       (/ (- fields empty) fields)})))
-
-(defn get-form-tick
-  [db _]
-  (get db :form/tick 0))
-
-(defn platform-selected?
-  [db [_ form-position]]
-  (get-in (get (get-in db [:form :fields :identificationInfo :dataParameters :value]) form-position) [:value :platform_vocabularyTermURL :value]))

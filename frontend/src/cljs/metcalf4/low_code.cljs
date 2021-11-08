@@ -17,7 +17,7 @@
   [{:keys [low-code/templates]}]
   (when (map? templates)
     (reset! *build-template-cache ({}))
-    (set! template-registry templates)))
+    (set! template-registry (merge template-registry templates))))
 
 (defn variable?
   "A variable is a simple symbol which starts with ?"

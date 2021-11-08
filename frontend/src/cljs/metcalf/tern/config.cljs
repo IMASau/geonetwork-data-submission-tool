@@ -69,6 +69,7 @@
 (set! rules/rule-registry
       {"requiredField"     rules/required-field
        "requiredWhenYes"   rules/required-when-yes
+       "requiredAllNone"   rules/required-all-or-nothing
        "maxLength"         rules/max-length
        "geographyRequired" rules/geography-required
        "licenseOther"      rules/license-other

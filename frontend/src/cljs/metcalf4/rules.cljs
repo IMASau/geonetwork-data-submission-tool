@@ -40,6 +40,23 @@
                   (update-in [:props :errors] conj "This field is required"))))
     block))
 
+(defn required-all-or-nothing
+  "Handles cases where a group of fields are mandatory if set; ie if you
+  set one, they should all be set"
+  [block {:keys [fields-list]}]
+  (let [vals (map #(get-in block [:content % :props :value]) fields-list)
+        required? (some (complement nil?) vals)
+        kvs (zipmap fields-list vals)]
+    (reduce
+     (fn [blk [fld val]]
+       (cond-> blk
+         true
+         (assoc-in [:content fld :props :required] required?)
+         (and (not val) required?)
+         (update-in [:content fld :props :errors] conj "This field is required")))
+     block
+     kvs)))
+
 ; TODO: consider renaming - doing more than required flag (disable/hide/clear)
 (defn required-when-yes
   [block {:keys [bool-field opt-field]}]

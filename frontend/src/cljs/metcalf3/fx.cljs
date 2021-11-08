@@ -92,21 +92,21 @@
 (defn save-current-document
   [{:keys [url data success-v error-v]}]
   (POST url
-        {:params          (clj->js data)
+        {:error-handler   #(rf/dispatch (conj error-v %))
          :format          :json
-         :response-format :json
-         :keywords?       true
          :handler         #(rf/dispatch (conj success-v %))
-         :error-handler   #(rf/dispatch (conj error-v %))
-         :headers         {"X-CSRFToken" (get-csrf)}}))
+         :headers         {"X-CSRFToken" (get-csrf)}
+         :keywords?       true
+         :params          (clj->js data)
+         :response-format :json}))
 
 (defn archive-current-document
-  [{:keys [url params success-v error-v]}]
+  [{:keys [url data success-v error-v]}]
   (POST url
-        {:params          (clj->js params)
-         :handler         #(rf/dispatch (conj success-v %))
-         :error-handler   #(rf/dispatch (conj error-v %))
-         :headers         {"X-CSRFToken" (get-csrf)}
+        {:error-handler   #(rf/dispatch (conj error-v %))
          :format          :json
-         :response-format :json
-         :keywords?       true}))
+         :handler         #(rf/dispatch (conj success-v %))
+         :headers         {"X-CSRFToken" (get-csrf)}
+         :keywords?       true
+         :params          (clj->js data)
+         :response-format :json}))

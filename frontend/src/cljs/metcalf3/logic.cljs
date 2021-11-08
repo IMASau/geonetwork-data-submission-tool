@@ -242,13 +242,6 @@
 (defn disable-form-when-submitted [state]
   (assoc-in state [:form :disabled] (contains? disabled-statuses (get-in state [:context :document :status]))))
 
-;(defn disabled-form-logic [{:keys [disabled] :as form}]
-;  (if disabled
-;    (update form :fields
-;            (fn [fs]
-;              (field-postwalk #(if (field? %) (assoc % :disabled true) %) fs)))
-;    form))
-
 (defn derive-data-state [state]
   (-> state
       data-service-logic

@@ -266,3 +266,19 @@
 (defn page-404
   [{:keys [name]}]
   [:h1 "Page not found: " name])
+
+(defn navbar
+  [{:keys [context]}]
+  (let [{:keys [user urls site]} context
+        {:keys [Dashboard account_profile account_logout]} urls
+        {:keys [title tag_line guide_pdf]} site]
+    [bp3/navbar {:className "bp3-dark"}
+     [:div.container
+      [bp3/navbar-group {:align (:LEFT bp3/alignment)}
+       [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading (str title " " tag_line)]]]
+      [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
+       (if account_profile
+         [:a.bp3-button.bp3-minimal {:href account_profile} (utils3/userDisplay user)]
+         [:span {:style {:padding "5px 10px 5px 10px"}} (utils3/userDisplay user)])
+       [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
+       [:a.bp3-button.bp3-minimal {:href account_logout} "Sign Out"]]]]))

@@ -41,7 +41,7 @@ from metcalf.tern.frontend.forms import DocumentAttachmentForm
 from metcalf.tern.frontend.models import SiteContent
 from metcalf.tern.frontend.permissions import is_document_editor, is_document_contributor
 from metcalf.tern.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
-    SiteContentSerializer
+    SiteContentSerializer, CreateDocumentSerializer
 
 
 def theme_keywords():

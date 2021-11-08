@@ -1,6 +1,5 @@
 (ns metcalf3.subs
   (:require [clojure.set :as set]
-            [clojure.string :as string]
             [metcalf3.logic :as logic3]))
 
 (defn get-derived-state

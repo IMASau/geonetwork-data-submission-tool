@@ -153,8 +153,8 @@
   "clojure.core/memoize but backed by explicit atom"
   [f mem]
   (fn [& args]
-    (let [v (get @mem args lookup-sentinel)]
-      (if (identical? v lookup-sentinel)
+    (let [v (get @mem args ::not-found)]
+      (if (= v ::not-found)
         (let [ret (apply f args)]
           (swap! mem assoc args ret)
           ret)

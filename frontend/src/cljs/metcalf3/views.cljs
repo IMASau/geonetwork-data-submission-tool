@@ -79,20 +79,6 @@
        :component-will-receive-props component-will-receive-props
        :render                       render})))
 
-(defn SimpleInputWidget
-  [{:keys [value addon-before addon-after help on-change disabled] :as props} _]
-  (let [input-props (assoc props
-                      :value (or value "")
-                      :on-change #(on-change (.. % -target -value))
-                      :key "ifc")]
-    [:div.form-group {:class    (utils3/validation-state props)
-                      :disabled disabled}
-     (label-template props)
-     (if (or addon-after addon-before)
-       [:div.input-group {:key "ig"} addon-before [:input.form-control input-props] addon-after]
-       [:input.form-control input-props])
-     [:p.help-block help]]))
-
 (defn InputField
   [{:keys [path] :as props}]
 

@@ -1,35 +1,12 @@
 (ns metcalf3.views
   (:require-macros [cljs.core.async.macros :refer [go-loop]])
-  (:require [cljs.core.async :as async :refer [<! chan put!]]
-            [clojure.edn :as edn]
-            [clojure.set :as set]
-            [clojure.string :as string :refer [blank?]]
+  (:require [cljs.core.async :refer [<! chan put!]]
             [goog.events :as gevents]
-            [goog.object :as gobj]
-            [goog.style :as gstyle]
-            [goog.userAgent :as guseragent]
-            [interop.blueprint :as bp3]
-            [interop.cljs-ajax :as ajax]
-            [interop.cuerdas :as cuerdas]
-            [interop.fixed-data-table-2 :refer [Cell Column Table]]
-            [interop.moment :as moment]
-            [interop.react-imask :as react-imask]
-            [metcalf3.content :refer []]
-            [metcalf3.handlers :as handlers3]
-            [metcalf3.logic :as logic3]
             [metcalf3.utils :as utils3]
-            [metcalf3.widget.modal :refer [Modal]]
-            [metcalf3.widget.tree :refer []]
-            [metcalf4.low-code :as low-code]
             [re-frame.core :as rf]
             [reagent.core :as r])
-  (:import [goog.dom ViewportSizeMonitor]
-           [goog.events FileDropHandler]
+  (:import [goog.events FileDropHandler]
            [goog.events EventType]))
-
-
-
-
 
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]

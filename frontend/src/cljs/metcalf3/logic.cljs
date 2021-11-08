@@ -4,6 +4,7 @@
             [metcalf3.utils :as utils]
             [metcalf4.blocks :as blocks]
             [metcalf4.rules :as rules]
+            [metcalf4.logic :as logic4]
             [metcalf4.schema :as schema]
             [clojure.string :as string]))
 
@@ -294,21 +295,12 @@
        (update :fields reduce-many-field-templates data)
        (update :fields reduce-field-values data))))
 
-(defn massage-form
-  [{:keys [data schema url]}]
-  (let [data (schema/massage-data-payload data)
-        schema (schema/massage-schema-payload schema)]
-    {:data   data
-     :schema schema
-     :state  (blocks/as-blocks {:data data :schema schema})
-     :url    url}))
-
 (defn initial-state
   "Massage raw payload for use as app-state"
   [{:keys [form] :as payload}]
   (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))]
     (-> payload
-        (cond-> form (assoc :form (massage-form form)))
+        (cond-> form (assoc :form (logic4/massage-form form)))
         (assoc :alert [])
         ; TODO: make deployment specific (put in init-db handler)
         (assoc :api {:api/ternparameters       {:uri     (str URL_ROOT "/api/ternparameters")

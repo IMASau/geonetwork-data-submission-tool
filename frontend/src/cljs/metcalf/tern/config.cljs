@@ -1,6 +1,5 @@
 (ns ^:dev/always metcalf.tern.config
   (:require [interop.ui :as ui]
-            [metcalf.common-config]
             [metcalf.tern.subs :as tern-subs]
             [metcalf.tern.handlers :as tern-handlers]
             [metcalf3.handlers :as handlers3]
@@ -11,7 +10,9 @@
             [metcalf4.rules :as rules]
             [metcalf4.subs :as subs4]
             [re-frame.core :as rf]
-            [metcalf4.utils :as utils4]))
+            [metcalf4.utils :as utils4]
+            [metcalf3.subs :as subs3]
+            [metcalf3.fx :as fx3]))
 
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-event-fx ::components4/create-document-modal-clear-click handlers3/close-modal)
@@ -37,9 +38,49 @@
 (rf/reg-event-fx ::components4/value-selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
+(rf/reg-event-fx :app/-archive-current-document-success handlers3/-archive-current-document-success)
+(rf/reg-event-fx :app/-clone-document-error handlers3/-clone-document-error)
+(rf/reg-event-fx :app/-clone-document-success handlers3/-clone-document-success)
+(rf/reg-event-fx :app/-load-api-options handlers3/-load-api-options)
+(rf/reg-event-fx :app/-lodge-click-error handlers3/lodge-error)
+(rf/reg-event-fx :app/-lodge-click-success handlers3/lodge-save-success)
+(rf/reg-event-fx :app/-lodge-save-error handlers3/lodge-error)
+(rf/reg-event-fx :app/-lodge-save-success handlers3/-lodge-save-success)
+(rf/reg-event-fx :app/-transite-doc-click-confirm handlers3/-transite-doc-click-confirm)
+(rf/reg-event-fx :app/-transite-doc-confirm-error handlers3/-transite-doc-confirm-error)
+(rf/reg-event-fx :app/-transite-doc-confirm-success handlers3/-transite-doc-confirm-success)
 (rf/reg-event-fx :app/PageViewEdit-save-button-click handlers4/save-current-document)
+(rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)
+(rf/reg-event-fx :app/dashboard-create-click handlers3/dashboard-create-click)
+(rf/reg-event-fx :app/dashboard-show-all-click handlers3/show-all-documents)
+(rf/reg-event-fx :app/dashboard-toggle-status-filter handlers3/toggle-status-filter)
+(rf/reg-event-fx :app/delete-attachment-click handlers3/open-modal-handler)
+(rf/reg-event-fx :app/delete-attachment-confirm handlers3/del-value)
+(rf/reg-event-fx :app/document-teaser-archive-click (handlers3/transite-doc-click "archive"))
+(rf/reg-event-fx :app/document-teaser-clone-click handlers3/document-teaser-clone-click)
+(rf/reg-event-fx :app/document-teaser-delete-archived-click (handlers3/transite-doc-click "delete_archived"))
+(rf/reg-event-fx :app/document-teaser-restore-click (handlers3/transite-doc-click "restore"))
+(rf/reg-event-fx :app/edit-tabs-pick-click handlers3/set-tab)
+(rf/reg-event-fx :app/handle-page-view-edit-archive-click handlers3/handle-page-view-edit-archive-click)
+(rf/reg-event-fx :app/modal-dialog-alert-dismiss handlers3/close-modal)
+(rf/reg-event-fx :app/modal-dialog-alert-save handlers3/close-modal)
+(rf/reg-event-fx :app/modal-dialog-confirm-cancel handlers3/close-and-cancel)
+(rf/reg-event-fx :app/modal-dialog-confirm-dismiss handlers3/close-and-cancel)
+(rf/reg-event-fx :app/modal-dialog-confirm-save handlers3/close-and-confirm)
+(rf/reg-event-fx :app/open-modal handlers3/open-modal-handler)
+(rf/reg-event-fx :app/page-view-edit-archive-click-confirm handlers3/archive-current-document)
+(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
+(rf/reg-event-fx :app/upload-data-file-upload-failed handlers3/open-modal-handler)
+(rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/open-modal-handler)
+(rf/reg-event-fx :metcalf.imas.handlers/-init-db-load-api-options handlers3/load-api-options)
 (rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
 (rf/reg-event-fx :metcalf4.actions/-create-document handlers4/-create-document-handler)
+(rf/reg-event-fx :metcalf4.components/coordinates-modal-field-close-modal handlers3/close-modal)
+(rf/reg-event-fx :metcalf4.components/lodge-button-click handlers3/lodge-click)
+(rf/reg-fx ::fx3/post fx3/post)
+(rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
+(rf/reg-fx ::fx3/set-location-href fx3/set-location-href)
+(rf/reg-fx ::fx3/xhrio-get-json fx3/xhrio-get-json)
 (rf/reg-fx ::low-code/init! low-code/init!)
 (rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
@@ -50,10 +91,15 @@
 (rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub ::tern-subs/get-edit-tabs tern-subs/get-edit-tabs)
+(rf/reg-sub :app/get-dashboard-props subs3/get-dashboard-props)
+(rf/reg-sub :app/get-progress-bar-props :<- [:subs/get-derived-state] subs3/get-progress-props)
 (rf/reg-sub :subs/get-app-root-modal-props subs4/get-modal-props)
 (rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
+(rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
+(rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] :<- [::tern-subs/get-edit-tabs] tern-subs/get-edit-tab-props)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
+(rf/reg-sub :subs/get-page-props subs3/get-page-props)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
 (set! rules/rule-registry

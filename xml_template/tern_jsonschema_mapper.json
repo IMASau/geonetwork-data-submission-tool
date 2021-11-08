@@ -659,6 +659,7 @@
               "keep": false,
               "type": "object",
               "properties": {
+                "breadcrumb": {},
                 "label": {
                   "xpath": "gcx:Anchor"
                 },
@@ -685,6 +686,7 @@
               "keep": false,
               "type": "object",
               "properties": {
+                "breadcrumb": {},
                 "label": {
                   "xpath": "gcx:Anchor"
                 },

@@ -32,16 +32,7 @@
   (when label
     [:label label (when required " *")]))
 
-(defn masked-text-widget
-  [{:keys [mask value placeholder disabled on-change on-blur]}]
-  [react-imask/masked-input
-   {:mask        mask
-    :disabled    disabled
-    :value       value
-    :class       "form-control"
-    :placeholder placeholder
-    :on-change   on-change
-    :on-blur     on-blur}])
+
 
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]

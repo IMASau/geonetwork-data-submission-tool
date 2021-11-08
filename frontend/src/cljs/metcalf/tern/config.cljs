@@ -777,12 +777,12 @@
 
         [m4/form-group
          {:form-id   [:form]
-          :data-path ["identificationInfo" "DateOfDynamicDatum"]
+          :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]
           :label     "Date of dynamic datum"
           :toolTip   "TODO"}
          [m4/date-field-with-label
           {:form-id   [:form]
-           :data-path ["identificationInfo" "DateOfDynamicDatum"]
+           :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]]]
 

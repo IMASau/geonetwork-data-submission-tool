@@ -116,6 +116,18 @@
           "!docstring": "Where3",
           "xpath": "mcc:code/gco:CharacterString",
           "type": "string"
+        },
+        "DateOfDynamicDatum": {
+          "!docstring": "Where4",
+          "type": "string",
+          "xpath": "mcc:version",
+          "valueChild": "gco:CharacterString",
+          "keep": false,
+          "attributes": {
+            "text": {
+              "function": "date_as_version"
+            }
+          }
         }
       }
     },
@@ -453,9 +465,6 @@
               "type": "number"
             }
           }
-        },
-        "DateOfDynamicDatum": {
-          "type": "string"
         },
         "keywordsTheme": {
           "!docstring": "What3",

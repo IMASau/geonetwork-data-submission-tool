@@ -1,6 +1,5 @@
 (ns metcalf3.utils
-  (:require [cljs.spec.alpha :as s]
-            [clojure.string :as string]
+  (:require [clojure.string :as string]
             [goog.object :as gobject]))
 
 (defn js-lookup

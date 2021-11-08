@@ -1,7 +1,7 @@
 (ns metcalf4.actions
   (:require [goog.object :as gobj]
-            [metcalf3.fx3 :as fx3]
-            [metcalf3.utils3 :as utils3]
+            [metcalf.common.fx3 :as fx3]
+            [metcalf.common.utils3 :as utils3]
             [metcalf4.blocks :as blocks]
             [metcalf4.schema :as schema]
             [metcalf4.utils :as utils4]

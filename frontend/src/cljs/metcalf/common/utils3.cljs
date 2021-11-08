@@ -1,4 +1,4 @@
-(ns metcalf3.utils3
+(ns metcalf.common.utils3
   (:require [clojure.string :as string]))
 
 (defn map-keys [f m]

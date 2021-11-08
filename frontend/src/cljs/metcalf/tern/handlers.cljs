@@ -1,5 +1,5 @@
 (ns metcalf.tern.handlers
-  (:require [metcalf3.logic3 :as logic3]
+  (:require [metcalf.common.logic3 :as logic3]
             [metcalf4.actions :as actions]
             [clojure.edn :as edn]
             [metcalf4.schema :as schema]))

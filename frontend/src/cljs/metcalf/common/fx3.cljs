@@ -1,4 +1,4 @@
-(ns metcalf3.fx3
+(ns metcalf.common.fx3
   (:require [cljs.spec.alpha :as s]
             [goog.net.cookies]
             [goog.net.XhrIo :as xhrio]

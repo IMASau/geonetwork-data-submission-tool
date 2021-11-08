@@ -46,6 +46,7 @@
 (rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
 (rf/reg-event-fx :metcalf4.actions/-create-document handlers4/-create-document-handler)
 (rf/reg-fx ::utils4/post-data (utils4/promise-fx utils4/post-data))
+(rf/reg-fx ::utils4/get-data (utils4/promise-fx utils4/get-data))
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)

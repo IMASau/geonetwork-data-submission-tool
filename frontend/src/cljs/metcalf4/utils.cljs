@@ -91,6 +91,13 @@
                    :headers      {:X-CSRFToken (get-csrf)}
                    :body         data}))
 
+(defn get-data
+  [{:keys [url]}]
+  (s/assert string? url)
+  (fetch/get url {:accept       :json
+                  :content-type :json
+                  :headers      {:X-CSRFToken (get-csrf)}}))
+
 
 (defn get-value-by-keys [o path]
   (s/assert (s/coll-of string?) path)

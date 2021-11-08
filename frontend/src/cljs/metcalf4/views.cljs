@@ -202,7 +202,7 @@
   [{:keys [page context form dirty on-save-click on-archive-click
            tab-props on-pick-tab
            progress-props]}]
-  (let [{:keys [urls user]} context
+  (let [{:keys [urls]} context
         {:keys [disabled]} form
         {:keys [status title last_updated last_updated_by is_editor owner]} (:document context)
         saving (:metcalf3.handlers/saving? page)]

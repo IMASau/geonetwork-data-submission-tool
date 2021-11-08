@@ -105,17 +105,6 @@
            (recur (zip/next loc)))
          (recur (zip/next loc)))))))
 
-(defn field-reduce
-  [zipper f val]
-  (loop [loc zipper
-         acc val]
-    (if (zip/end? loc)
-      acc
-      (let [node (zip/node loc)]
-        (recur (zip/next loc) (if (field? node)
-                                (f acc node)
-                                acc))))))
-
 (defn new-value-field
   [many-field]
   ; TODO: use field-postwalk to avoid inefficiencies with long options lists

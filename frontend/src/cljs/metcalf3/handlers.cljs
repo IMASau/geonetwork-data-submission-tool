@@ -79,7 +79,7 @@
   "User wants to archive doc.  Send request."
   [{:keys [db]} _]
   (let [transition_url (-> db :context :document :transition_url)]
-    {::fx3/archive-current-document
+    {::fx3/post-json-data
      {:url       transition_url
       :data      {:transition "archive"}
       :success-v [:app/-archive-current-document-success]
@@ -140,7 +140,7 @@
 
 (defn -transite-doc-click-confirm
   [_ [_ url transition]]
-  {::fx3/transition-current-document
+  {::fx3/post-json-data
    {:url       url
     :data      {:transition transition}
     :success-v [:app/-transite-doc-confirm-success transition]
@@ -172,7 +172,7 @@
         state1 (blocks/postwalk rules/apply-rules state0)
         data (blocks/as-data state1)]
     {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
-     ::fx3/save-current-document
+     ::fx3/post-json-data
          {:url       url
           :data      data
           :success-v [:app/-lodge-click-success data]
@@ -184,7 +184,7 @@
     {:db (-> db
              (assoc-in [:form :data] data)
              (assoc-in [:page :metcalf3.handlers/saving?] true))
-     ::fx3/submit-current-document
+     ::fx3/post-json-data
          {:url       url
           :data      {:transition "submit"}
           :success-v [:app/-lodge-save-success]

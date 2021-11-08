@@ -179,7 +179,7 @@
         data (blocks/as-data state1)]
     {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
      ; TODO: put logic in handler, use generic js/fetch fx
-     ::fx3/save-current-document
+     ::fx3/post-json-data
          {:url       url
           :data      data
           :success-v [::-save-current-document-success data]

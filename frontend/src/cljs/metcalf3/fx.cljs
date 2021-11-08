@@ -58,7 +58,7 @@
              :params          params
              :response-format :json}))
 
-(defn clone-document
+(defn post
   [{:keys [url success-v error-v]}]
   (POST url {:error-handler   #(rf/dispatch (conj error-v %))
              :format          :json

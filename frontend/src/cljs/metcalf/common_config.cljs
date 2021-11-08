@@ -44,7 +44,7 @@
 (rf/reg-event-fx :metcalf4.components/coordinates-modal-field-close-modal handlers3/close-modal)
 (rf/reg-event-fx :metcalf4.components/lodge-button-click handlers3/lodge-click)
 (rf/reg-fx ::fx3/archive-current-document fx3/post-json-data)
-(rf/reg-fx ::fx3/clone-document fx3/clone-document)
+(rf/reg-fx ::fx3/clone-document fx3/post)
 (rf/reg-fx ::fx3/create-document fx3/create-document)
 (rf/reg-fx ::fx3/save-current-document fx3/post-json-data)
 (rf/reg-fx ::fx3/set-location-href fx3/set-location-href)

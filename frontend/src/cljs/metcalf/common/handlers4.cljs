@@ -168,8 +168,9 @@
         (update-in [:db :alert] pop))))
 
 (defn -load-api-handler
-  [{:keys [db]} [_ api results]]
-  (actions4/-load-api-action {:db db} api results))
+  [{:keys [db]} [_ api {:keys [status body]}]]
+  (when (= 200 status)
+    (actions4/-load-api-action {:db db} api body)))
 
 (defn save-current-document
   [{:keys [db]} _]

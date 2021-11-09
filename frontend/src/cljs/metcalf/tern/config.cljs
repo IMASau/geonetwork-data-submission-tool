@@ -80,7 +80,6 @@
 (rf/reg-fx ::fx3/post fx3/post)
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
 (rf/reg-fx ::fx3/set-location-href fx3/set-location-href)
-(rf/reg-fx ::fx3/xhrio-get-json fx3/xhrio-get-json)
 (rf/reg-fx ::low-code4/init! low-code4/init!)
 (rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)

@@ -12,12 +12,12 @@
   [{:keys [db]} [_ api-path]]
   (let [{:keys [uri options]} (get-in db api-path)]
     (when (nil? options)
-      {::fx3/xhrio-get-json {:uri uri :resp-v [:app/-load-api-options api-path]}})))
+      {:app/get-json-fx {:uri uri :resolve [:app/-load-api-options api-path]}})))
 
 (defn -load-api-options
-  [{:keys [db]} [_ api-path json]]
-  (let [results (gobj/get json "results")]
-    {:db (update-in db api-path assoc :options results)}))
+  [{:keys [db]} [_ api-path {:keys [status body]}]]
+  (when (= status 200)
+    {:db (update-in db api-path assoc :options (gobj/get body "results"))}))
 
 (defn close-modal
   [{:keys [db]}]

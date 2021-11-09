@@ -1,8 +1,5 @@
 (ns metcalf.common.fx3
-  (:require [cljs.spec.alpha :as s]
-            [goog.net.cookies]
-            [goog.net.XhrIo :as xhrio]
-            [goog.structs :as structs]
+  (:require [goog.net.cookies]
             [interop.cljs-ajax :refer [POST]]
             [re-frame.core :as rf]))
 
@@ -12,24 +9,6 @@
   (let [payload (js->clj (aget js/window "payload") :keywordize-keys true)]
     #_(get-csrf)
     (get-in payload [:context :csrf])))
-
-(defn ^:export get-cookie
-  [_name]
-  #_(.get goog.net.cookies _name))
-
-(def get-json-header
-  (structs/Map. (clj->js {:Accept "application/json" :X-CSRFToken (get-csrf)})))
-
-(defn xhrio-get-json
-  [{:keys [uri resp-v]}]
-
-  (s/assert string? uri)
-  (s/assert vector? resp-v)
-
-  (letfn [(callback [^js e]
-            (let [json (.. e -target getResponseJson)]
-              (rf/dispatch (conj resp-v json))))]
-    (xhrio/send uri callback "GET" nil get-json-header)))
 
 (defn set-location-href
   [url] (aset js/location "href" url))

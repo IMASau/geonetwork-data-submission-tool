@@ -13,12 +13,11 @@
       (assoc-in [:db :api api-id :uri] api-uri)
       (assoc-in [:db :api api-id :options] nil)
       ; TODO: use js/fetch
-      (update :fx conj
-              [::fx3/xhrio-get-json {:uri api-uri :resp-v [::-load-api api-id]}])))
+      (update :fx conj [::fx3/get-json-data {:uri api-uri :resolve [::-load-api api-id]}])))
 
 (defn -load-api-action
-  [s api-id json]
-  (let [results (gobj/get json "results")]
+  [s api-id body]
+  (let [results (gobj/get body "results")]
     (assoc-in s [:db :api api-id :options] results)))
 
 (defn load-apis-action

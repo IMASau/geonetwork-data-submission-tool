@@ -1,6 +1,6 @@
 (ns metcalf.common.logic4
-  (:require [metcalf.common.schema4 :as schema4]
-            [metcalf.common.blocks4 :as blocks4]))
+  (:require [metcalf.common.blocks4 :as blocks4]
+            [metcalf.common.schema4 :as schema4]))
 
 (defn massage-form
   [{:keys [data schema url]}]

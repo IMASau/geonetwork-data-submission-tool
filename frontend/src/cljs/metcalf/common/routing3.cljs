@@ -1,6 +1,4 @@
-(ns metcalf.common.routing3
-  (:require [goog.events :as e]
-            [goog.events.EventType :as et]))
+(ns metcalf.common.routing3)
 
 (defn route
   ([] (subs js/window.location.hash 1))

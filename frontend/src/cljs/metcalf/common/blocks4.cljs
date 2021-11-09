@@ -1,8 +1,8 @@
 (ns metcalf.common.blocks4
   (:require [cljs.spec.alpha :as s]
+            [clojure.string :as string]
             [metcalf.common.schema4 :as schema4]
-            [metcalf.common.utils4 :as utils4]
-            [clojure.string :as string]))
+            [metcalf.common.utils4 :as utils4]))
 
 
 (s/def ::type string?)

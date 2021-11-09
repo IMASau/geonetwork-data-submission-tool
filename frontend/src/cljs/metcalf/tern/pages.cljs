@@ -1,7 +1,7 @@
 (ns metcalf.tern.pages
-  (:require [re-frame.core :as rf]
+  (:require [metcalf.common.components4 :as components4]
             [metcalf.common.views4 :as views4]
-            [metcalf.common.components4 :as components4]))
+            [re-frame.core :as rf]))
 
 (defn navbar
   []

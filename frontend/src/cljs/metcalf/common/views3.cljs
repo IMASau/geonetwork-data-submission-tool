@@ -7,8 +7,7 @@
             [metcalf.common.utils3 :as utils3]
             [re-frame.core :as rf]
             [reagent.core :as r])
-  (:import [goog.events FileDropHandler]
-           [goog.events EventType]))
+  (:import [goog.events FileDropHandler]))
 
 
 (def ESCAPE-KEY-CODE 27)

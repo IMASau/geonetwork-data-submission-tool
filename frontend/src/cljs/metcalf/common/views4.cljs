@@ -1,10 +1,10 @@
 (ns metcalf.common.views4
-  (:require [clojure.string :as string]
-            [metcalf.common.utils3 :as utils3]
+  (:require [clojure.edn :as edn]
+            [clojure.string :as string]
+            [interop.blueprint :as bp3]
             [interop.moment :as moment]
             [metcalf.common.low-code4 :as low-code]
-            [clojure.edn :as edn]
-            [interop.blueprint :as bp3]
+            [metcalf.common.utils3 :as utils3]
             [metcalf.common.views3 :as views3]))
 
 ; For pure views only, no re-frame subs/handlers

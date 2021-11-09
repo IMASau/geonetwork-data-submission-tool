@@ -1,7 +1,7 @@
 (ns metcalf.tern.handlers
-  (:require [metcalf.common.logic3 :as logic3]
+  (:require [clojure.edn :as edn]
             [metcalf.common.actions4 :as actions4]
-            [clojure.edn :as edn]
+            [metcalf.common.logic3 :as logic3]
             [metcalf.common.schema4 :as schema4]))
 
 (defn init-db

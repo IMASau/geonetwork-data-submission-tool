@@ -3,8 +3,8 @@
             [goog.object :as gobject]
             [goog.string :as gstring]
             [goog.uri.utils :as uri]
-            [re-frame.core :as rf]
-            [lambdaisland.fetch :as fetch]))
+            [lambdaisland.fetch :as fetch]
+            [re-frame.core :as rf]))
 
 
 (s/def ::form-id vector?)

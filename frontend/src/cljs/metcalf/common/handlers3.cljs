@@ -1,11 +1,11 @@
 (ns metcalf.common.handlers3
   (:require [cljs.spec.alpha :as s]
             [goog.object :as gobj]
-            [metcalf.common.fx3 :as fx3]
-            [metcalf.common.utils3 :as utils3]
-            [re-frame.core :as rf]
             [metcalf.common.blocks4 :as blocks4]
-            [metcalf.common.rules4 :as rules4]))
+            [metcalf.common.fx3 :as fx3]
+            [metcalf.common.rules4 :as rules4]
+            [metcalf.common.utils3 :as utils3]
+            [re-frame.core :as rf]))
 
 (defn load-api-options
   [{:keys [db]} [_ api-path]]

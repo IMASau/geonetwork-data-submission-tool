@@ -1,9 +1,9 @@
 (ns metcalf.common.low-code4
   (:require [cljs.spec.alpha :as s]
+            [clojure.string :as string]
             [metcalf.common.schema4 :as schema4]
             [metcalf.common.utils4 :as utils4]
-            [re-frame.core :as rf]
-            [clojure.string :as string]))
+            [re-frame.core :as rf]))
 
 (defonce ^:dynamic component-registry {})
 (defonce ^:dynamic template-registry {})

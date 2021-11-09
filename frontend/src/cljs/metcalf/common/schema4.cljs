@@ -1,8 +1,8 @@
 (ns metcalf.common.schema4
   (:require [cljs.spec.alpha :as s]
             [clojure.set :as set]
-            [metcalf.common.utils4 :as utils4]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [metcalf.common.utils4 :as utils4]))
 
 
 (s/def ::schema (s/keys :opt-un [::type ::items ::properties]))

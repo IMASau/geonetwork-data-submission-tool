@@ -28,19 +28,19 @@ watch:
 
 build:
 	# init yarn
-	docker run --rm -it \
+	docker run --rm \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
 		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn
 	# transpile js components
-	docker run --rm -it \
+	docker run --rm \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
 		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn run build
 	# run shadow-cljs compile
-	docker run --rm -it \
+	docker run --rm \
 		-v $(shell pwd):/tmp \
 		-v $${HOME}/.clojure:/root/.clojure \
 		-v $${HOME}/.m2:/root/.m2 \

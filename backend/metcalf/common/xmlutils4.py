@@ -383,6 +383,29 @@ def spec_data_from_batch(batch_spec, key):
     return spec, data
 
 
+def extract_user_defined(data:dict, path="", acc:list=[]) -> list:
+    """Takes a json data document and returns a list of all terms that
+    have been added by the user.  Adjusts the term to include the data
+    path (for re-insertion) and the type."""
+    # FIXME: needs special handling for keywords, which don't have structure
+    if not isinstance(data, dict):
+        return acc
+    if is_userdefined(data):
+        # Flesh out so we can identify again on reinsertion:
+        data['duma_path'] = path
+        acc.append(data)
+        return acc
+    for k,v in data.items():
+        if isinstance(v, dict):
+            acc = extract_user_defined(v, path=f"{path}.{k}", acc=acc)
+        elif isinstance(v, list):
+            for ix, item in enumerate(v):
+                acc = extract_user_defined(item, path=f"{path}.{k}.{ix}", acc=acc)
+        else:
+            continue
+    return acc
+
+
 # TODO: this is a workaround for the unusual structure of the geographic extents
 # Basically each one needs to have its own mri:extent
 # but the first one should have the start/end date and description

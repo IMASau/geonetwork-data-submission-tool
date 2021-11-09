@@ -81,6 +81,7 @@
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
 (rf/reg-fx ::fx3/set-location-href fx3/set-location-href)
 (rf/reg-fx ::low-code4/init! low-code4/init!)
+(rf/reg-fx :app/get-json-fx (utils4/promise-fx utils4/get-json))
 (rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)

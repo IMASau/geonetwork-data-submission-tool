@@ -1,19 +1,19 @@
 (ns ^:dev/always metcalf.imas.config
   (:require [interop.ui :as ui]
-            [metcalf.imas.handlers :as imas-handlers]
-            [metcalf.imas.subs :as imas-subs]
-            [metcalf.common.handlers3 :as handlers3]
-            [metcalf.common.views3 :as views3]
             [metcalf.common.components4 :as components4]
+            [metcalf.common.fx3 :as fx3]
+            [metcalf.common.handlers3 :as handlers3]
             [metcalf.common.handlers4 :as handlers4]
             [metcalf.common.ins4 :as ins4]
-            [metcalf.common.low-code4 :as low-code]
-            [metcalf.common.rules4 :as rules]
+            [metcalf.common.low-code4 :as low-code4]
+            [metcalf.common.rules4 :as rules4]
+            [metcalf.common.subs3 :as subs3]
             [metcalf.common.subs4 :as subs4]
-            [re-frame.core :as rf]
             [metcalf.common.utils4 :as utils4]
-            [metcalf.common.fx3 :as fx3]
-            [metcalf.common.subs3 :as subs3]))
+            [metcalf.common.views3 :as views3]
+            [metcalf.imas.handlers :as imas-handlers]
+            [metcalf.imas.subs :as imas-subs]
+            [re-frame.core :as rf]))
 
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-event-fx ::components4/boxmap-coordinates-click-confirm-delete handlers4/boxmap-coordinates-click-confirm-delete)
@@ -92,7 +92,7 @@
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
-(rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
+(rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub :app/get-dashboard-props subs3/get-dashboard-props)
 (rf/reg-sub :app/get-progress-bar-props :<- [:subs/get-derived-state] subs3/get-progress-props)
@@ -105,16 +105,16 @@
 (rf/reg-sub :subs/get-page-props subs3/get-page-props)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
-(set! rules/rule-registry
-      {"requiredField"        rules/required-field
-       "maxLength"            rules/max-length
-       "geographyRequired"    rules/geography-required
-       "imasVerticalRequired" rules/imas-vertical-required
-       "licenseOther"         rules/license-other
-       "dateOrder"            rules/date-order
-       "endPosition"          rules/end-position
-       "maintFreq"            rules/maint-freq})
-(set! low-code/component-registry
+(set! rules4/rule-registry
+      {"requiredField"        rules4/required-field
+       "maxLength"            rules4/max-length
+       "geographyRequired"    rules4/geography-required
+       "imasVerticalRequired" rules4/imas-vertical-required
+       "licenseOther"         rules4/license-other
+       "dateOrder"            rules4/date-order
+       "endPosition"          rules4/end-position
+       "maintFreq"            rules4/maint-freq})
+(set! low-code4/component-registry
       {
        'm3/UploadData                     {:view views3/UploadData}
        'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
@@ -966,7 +966,7 @@
          We want you to submit your data via 'lodging' the information.
          This permits multi-user access via the portal in a more friendly format."]]]]})
 
-(set! low-code/template-registry
+(set! low-code4/template-registry
       (merge edit-templates
              {::components4/create-document-modal-form
               components4/create-document-modal-template}))

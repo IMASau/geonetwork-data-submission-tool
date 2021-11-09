@@ -1,18 +1,18 @@
 (ns ^:dev/always metcalf.tern.config
   (:require [interop.ui :as ui]
-            [metcalf.tern.subs :as tern-subs]
-            [metcalf.tern.handlers :as tern-handlers]
-            [metcalf.common.handlers3 :as handlers3]
             [metcalf.common.components4 :as components4]
+            [metcalf.common.fx3 :as fx3]
+            [metcalf.common.handlers3 :as handlers3]
             [metcalf.common.handlers4 :as handlers4]
             [metcalf.common.ins4 :as ins4]
-            [metcalf.common.low-code4 :as low-code]
-            [metcalf.common.rules4 :as rules]
-            [metcalf.common.subs4 :as subs4]
-            [re-frame.core :as rf]
-            [metcalf.common.utils4 :as utils4]
+            [metcalf.common.low-code4 :as low-code4]
+            [metcalf.common.rules4 :as rules4]
             [metcalf.common.subs3 :as subs3]
-            [metcalf.common.fx3 :as fx3]))
+            [metcalf.common.subs4 :as subs4]
+            [metcalf.common.utils4 :as utils4]
+            [metcalf.tern.handlers :as tern-handlers]
+            [metcalf.tern.subs :as tern-subs]
+            [re-frame.core :as rf]))
 
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-event-fx ::components4/create-document-modal-clear-click handlers3/close-modal)
@@ -81,14 +81,14 @@
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
 (rf/reg-fx ::fx3/set-location-href fx3/set-location-href)
 (rf/reg-fx ::fx3/xhrio-get-json fx3/xhrio-get-json)
-(rf/reg-fx ::low-code/init! low-code/init!)
+(rf/reg-fx ::low-code4/init! low-code4/init!)
 (rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
-(rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
+(rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub ::tern-subs/get-edit-tabs tern-subs/get-edit-tabs)
 (rf/reg-sub :app/get-dashboard-props subs3/get-dashboard-props)
@@ -102,19 +102,19 @@
 (rf/reg-sub :subs/get-page-props subs3/get-page-props)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
-(set! rules/rule-registry
-      {"requiredField"     rules/required-field
-       "requiredWhenYes"   rules/required-when-yes
-       "requiredAllNone"   rules/required-all-or-nothing
-       "maxLength"         rules/max-length
-       "geographyRequired" rules/geography-required
-       "licenseOther"      rules/license-other
-       "numericOrder"      rules/numeric-order
-       "dateOrder"         rules/date-order
-       "endPosition"       rules/end-position
-       "maintFreq"         rules/maint-freq
-       "verticalRequired"  rules/vertical-required})
-(set! low-code/component-registry
+(set! rules4/rule-registry
+      {"requiredField"     rules4/required-field
+       "requiredWhenYes"   rules4/required-when-yes
+       "requiredAllNone"   rules4/required-all-or-nothing
+       "maxLength"         rules4/max-length
+       "geographyRequired" rules4/geography-required
+       "licenseOther"      rules4/license-other
+       "numericOrder"      rules4/numeric-order
+       "dateOrder"         rules4/date-order
+       "endPosition"       rules4/end-position
+       "maintFreq"         rules4/maint-freq
+       "verticalRequired"  rules4/vertical-required})
+(set! low-code4/component-registry
       {
        'm4/async-item-picker             {:view components4/async-item-picker :init components4/async-item-picker-settings}
        'm4/async-list-picker             {:view components4/async-list-picker :init components4/async-list-picker-settings}
@@ -1285,7 +1285,7 @@
        :doi-requested-path         [:form :fields :doiRequested]
        :current-doi-path           [:form :fields :identificationInfo :doi]}]]})
 
-(set! low-code/template-registry
+(set! low-code4/template-registry
       (merge edit-templates
              {::components4/create-document-modal-form
               components4/create-document-modal-template}))

@@ -1,6 +1,6 @@
 (ns metcalf.common.low-code4
   (:require [cljs.spec.alpha :as s]
-            [metcalf.common.schema4 :as schema]
+            [metcalf.common.schema4 :as schema4]
             [metcalf.common.utils4 :as utils4]
             [re-frame.core :as rf]
             [clojure.string :as string]))
@@ -46,15 +46,15 @@
 (defn check-compatible-schema
   [{:keys [settings schema config]}]
   (when-let [schema2 (get-in settings [::schema])]
-    (schema/assert-compatible-schema {:schema1 schema :schema2 schema2 :path (schema/schema-path (:data-path config))})))
+    (schema4/assert-compatible-schema {:schema1 schema :schema2 schema2 :path (schema4/schema-path (:data-path config))})))
 
 (defn check-compatible-paths
   [{:keys [settings schema] :as ctx}]
   (doseq [path (remove nil? (get-in settings [::schema-paths]))]
     (if (= "array" (get-in schema [:type]))
-      (when-not (schema/contains-path? {:schema (:items schema) :path path})
+      (when-not (schema4/contains-path? {:schema (:items schema) :path path})
         (utils4/console-error (str "Path not present in schema: " (pr-str path)) {:ctx ctx :path path}))
-      (when-not (schema/contains-path? {:schema schema :path path})
+      (when-not (schema4/contains-path? {:schema schema :path path})
         (utils4/console-error (str "Path not present in schema: " (pr-str path)) {:ctx ctx :path path})))))
 
 (defn build-component

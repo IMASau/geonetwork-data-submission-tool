@@ -1,8 +1,8 @@
 (ns metcalf.tern.handlers
   (:require [metcalf.common.logic3 :as logic3]
-            [metcalf.common.actions4 :as actions]
+            [metcalf.common.actions4 :as actions4]
             [clojure.edn :as edn]
-            [metcalf.common.schema4 :as schema]))
+            [metcalf.common.schema4 :as schema4]))
 
 (defn init-db
   [_ [_ payload]]
@@ -10,8 +10,8 @@
         editor-tabs (:low-code/edit-tabs ui-data)
         db (-> (logic3/initial-state payload)
                (cond-> editor-tabs (assoc :low-code/edit-tabs editor-tabs)))]
-    (schema/assert-schema-data (:form db))
+    (schema4/assert-schema-data (:form db))
     (-> {:db db
          :fx [[:ui/setup-blueprint]
               [:metcalf.common.low-code/init! ui-data]]}
-        (actions/init-create-form-action payload))))
+        (actions4/init-create-form-action payload))))

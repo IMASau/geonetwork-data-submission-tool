@@ -1,11 +1,10 @@
-(ns metcalf4.utils
+(ns metcalf.common.utils4
   (:require [cljs.spec.alpha :as s]
             [goog.object :as gobject]
             [goog.string :as gstring]
             [goog.uri.utils :as uri]
-            [clojure.string :as string]
-            [re-frame.core :as rf]
-            [lambdaisland.fetch :as fetch]))
+            [lambdaisland.fetch :as fetch]
+            [re-frame.core :as rf]))
 
 
 (s/def ::form-id vector?)
@@ -84,13 +83,20 @@
                                        :X-CSRFToken  (get-csrf)}})
       (.then (fn [resp] (.json resp)))))
 
-(defn post-data
+(defn post-json
   [{:keys [url data]}]
   (s/assert string? url)
   (fetch/post url {:accept       :json
                    :content-type :json
                    :headers      {:X-CSRFToken (get-csrf)}
                    :body         data}))
+
+(defn get-json
+  [{:keys [url]}]
+  (s/assert string? url)
+  (fetch/get url {:accept       :json
+                  :content-type :json
+                  :headers      {:X-CSRFToken (get-csrf)}}))
 
 
 (defn get-value-by-keys [o path]
@@ -110,16 +116,6 @@
   (.then (fetch-get {:uri (append-params-from-map uri {search-param query})})
          (fn [json]
            (or (get-value-by-keys json results-path) #js []))))
-
-
-(defn fetch-post
-  [{:keys [uri body]}]
-  (-> (js/fetch uri #js {:method  "POST"
-                         :body    (js/JSON.stringify (clj->js body))
-                         :headers #js {:Content-Type "application/json"
-                                       :Accept       "application/json"
-                                       :X-CSRFToken  (get-csrf)}})
-      (.then (fn [resp] (.json resp)))))
 
 
 (defn spec-error-at-path
@@ -154,8 +150,8 @@
   "clojure.core/memoize but backed by explicit atom"
   [f mem]
   (fn [& args]
-    (let [v (get @mem args lookup-sentinel)]
-      (if (identical? v lookup-sentinel)
+    (let [v (get @mem args ::not-found)]
+      (if (= v ::not-found)
         (let [ret (apply f args)]
           (swap! mem assoc args ret)
           ret)

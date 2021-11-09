@@ -1,22 +1,22 @@
-(ns metcalf4.handlers
-  (:require [metcalf3.fx :as fx3]
-            [metcalf4.actions :as actions]
-            [metcalf4.blocks :as blocks]
-            [metcalf4.rules :as rules]
-            [metcalf4.schema :as schema]
-            [metcalf4.utils :as utils4]
-            [goog.object :as gobject]))
+(ns metcalf.common.handlers4
+  (:require [goog.object :as gobject]
+            [metcalf.common.actions4 :as actions4]
+            [metcalf.common.blocks4 :as blocks4]
+            [metcalf.common.fx3 :as fx3]
+            [metcalf.common.rules4 :as rules4]
+            [metcalf.common.schema4 :as schema4]
+            [metcalf.common.utils4 :as utils4]))
 
 (defn db-path
   [{:keys [form-id data-path]}]
-  (utils4/as-path [form-id :state (blocks/block-path data-path)]))
+  (utils4/as-path [form-id :state (blocks4/block-path data-path)]))
 
 (defn init-db
   [_ [_ payload]]
   (-> {:db {} :fx [[:ui/setup-blueprint]]}
-      (actions/load-page-action payload)
-      (actions/load-form-action payload)
-      (actions/load-apis-action
+      (actions4/load-page-action payload)
+      (actions4/load-form-action payload)
+      (actions4/load-apis-action
         payload
         {:api/ternparameters       "/api/ternparameters"
          :api/qudtunits            "/api/qudtunits"
@@ -39,25 +39,17 @@
 (defn option-change-handler
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path]} ctx
-        schema (get-in db (flatten [form-id :schema (schema/schema-path data-path)]))
-        state (blocks/as-blocks {:schema schema :data option})
+        schema (get-in db (flatten [form-id :schema (schema4/schema-path data-path)]))
+        state (blocks4/as-blocks {:schema schema :data option})
         path (db-path ctx)]
     {:db (-> db
              (assoc-in path state)
              (assoc-in (conj path :props :show-errors) true))}))
 
-(defn list-add-click-handler
-  [{:keys [db]} [_ ctx]]
-  (let [{:keys [form-id data-path]} ctx]
-    (-> {:db db}
-        (actions/save-snapshot-action form-id)
-        (actions/new-item-action form-id data-path)
-        (actions/select-last-item-action form-id data-path))))
-
 (defn text-value-add-click-handler
   [{:keys [db]} [_ ctx value]]
   (let [{:keys [form-id data-path]} ctx]
-    (actions/add-value-action {:db db} form-id data-path value)))
+    (actions4/add-value-action {:db db} form-id data-path value)))
 
 (defn list-add-with-defaults-click-handler2
   [{:keys [db]} [_ config]]
@@ -66,27 +58,9 @@
                       (assoc-in value-path (str (random-uuid)))
                       (assoc-in added-path true))]
     (-> {:db db}
-        (actions/save-snapshot-action form-id)
-        (actions/add-item-action form-id data-path value-path item-data)
-        (actions/select-last-item-action form-id data-path))))
-
-(defn list-add-with-defaults-click-handler
-  [{:keys [db]} [_ props]]
-  (let [{:keys [form-id data-path value-path added-path]} props
-        defaults {value-path (str (random-uuid)) added-path true}]
-    (-> {:db db}
-        (actions/save-snapshot-action form-id)
-        (actions/add-item-action form-id data-path value-path defaults)
-        (actions/select-last-item-action form-id data-path))))
-
-(defn item-add-with-defaults-click-handler
-  [{:keys [db]} [_ props]]
-  (let [{:keys [form-id data-path value-path added-path]} props
-        defaults {value-path (str (random-uuid)) added-path true}]
-    (-> {:db db}
-        (actions/save-snapshot-action form-id)
-        (actions/set-value-action form-id data-path defaults)
-        (actions/dialog-open-action form-id data-path))))
+        (actions4/save-snapshot-action form-id)
+        (actions4/add-item-action form-id data-path value-path item-data)
+        (actions4/select-last-item-action form-id data-path))))
 
 (defn item-add-with-defaults-click-handler2
   [{:keys [db]} [_ props]]
@@ -95,9 +69,9 @@
                      (assoc-in value-path (str (random-uuid)))
                      (assoc-in added-path true))]
     (-> {:db db}
-        (actions/save-snapshot-action form-id)
-        (actions/set-value-action form-id data-path defaults)
-        (actions/dialog-open-action form-id data-path))))
+        (actions4/save-snapshot-action form-id)
+        (actions4/set-value-action form-id data-path defaults)
+        (actions4/dialog-open-action form-id data-path))))
 
 (defn boxes-changed
   [{:keys [db]} [_ config geojson]]
@@ -106,57 +80,45 @@
         boxes (map utils4/geometry->box-value geometries)
         boxes (map-indexed (fn [idx m] (assoc-in m value-path idx)) boxes)
         boxes (map (fn [m] (assoc-in m added-path true)) boxes)
-        schema (get-in db (flatten [form-id :schema (schema/schema-path data-path)]))
-        state (blocks/as-blocks {:schema schema :data (vec boxes)})
-        db-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])]
+        schema (get-in db (flatten [form-id :schema (schema4/schema-path data-path)]))
+        state (blocks4/as-blocks {:schema schema :data (vec boxes)})
+        db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (-> {:db db}
         (assoc-in db-path state)
         (assoc-in (conj db-path :props :show-errors) true)
-        (actions/genkey-action form-id data-path))))
+        (actions4/genkey-action form-id data-path))))
 
 (defn list-option-picker-change
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path value-path]} ctx]
     (-> {:db db}
-        (actions/add-item-action form-id data-path value-path option))))
+        (actions4/add-item-action form-id data-path value-path option))))
 
 (defn item-option-picker-change
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
-        (actions/set-value-action form-id data-path option))))
+        (actions4/set-value-action form-id data-path option))))
 
 (defn selection-list-item-click2
   [{:keys [db]} [_ props idx]]
   (let [{:keys [form-id data-path added-path]} props]
     (cond-> {:db db}
       added-path
-      (actions/select-user-defined-list-item-action2 form-id data-path idx added-path))))
-
-(defn value-selection-list-item-click
-  [{:keys [db]} [_ props idx]]
-  (let [{:keys [form-id data-path]} props]
-    (actions/select-list-item-action {:db db} form-id data-path idx)))
-
-(defn selection-list-item-click
-  [{:keys [db]} [_ props idx]]
-  (let [{:keys [form-id data-path added-path]} props]
-    (cond-> {:db db}
-      added-path
-      (actions/select-user-defined-list-item-action form-id data-path idx added-path))))
+      (actions4/select-user-defined-list-item-action2 form-id data-path idx added-path))))
 
 (defn selection-list-remove-click
   [{:keys [db]} [_ ctx idx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
-        (actions/del-item-action form-id data-path idx))))
+        (actions4/del-item-action form-id data-path idx))))
 
 (defn selection-list-reorder
   [{:keys [db]} [_ ctx src-idx dst-idx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
-        (actions/genkey-action form-id data-path)
-        (actions/move-item-action form-id data-path src-idx dst-idx))))
+        (actions4/genkey-action form-id data-path)
+        (actions4/move-item-action form-id data-path src-idx dst-idx))))
 
 (defn boxmap-coordinates-open-add-modal
   [{:keys [db] :as s} [_ {:keys [ctx coord-field initial-data idx on-close on-save]}]]
@@ -165,13 +127,13 @@
         ;; a new item. So, we run an identical check here so we can calculate the correct idx
         ;; for the modal to use. We can't be sure that the previous record (idx-1) is the correct
         ;; item to use, but it's the most likely place for an all-0s record to be.
-        db-path (utils4/as-path [:db form-id :state (blocks/block-path data-path)])
-        items (set (blocks/as-data (get-in s db-path)))
+        db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
+        items (set (blocks4/as-data (get-in s db-path)))
         idx (if (contains? items initial-data) (dec idx) idx)
         new-field-path (conj data-path idx)]
     (-> {:db db}
-        (actions/add-value-action form-id data-path initial-data)
-        (actions/open-modal {:type           :m4/table-modal-add-form
+        (actions4/add-value-action form-id data-path initial-data)
+        (actions4/open-modal {:type          :m4/table-modal-add-form
                              :form           coord-field
                              :path           new-field-path
                              :title          "Geographic Coordinates"
@@ -182,7 +144,7 @@
   [{:keys [db]} [_ {:keys [ctx coord-field on-delete on-cancel on-save]}]]
   (let [{:keys [data-path]} ctx]
     (-> {:db db}
-        (actions/open-modal {:type            :m4/table-modal-edit-form
+        (actions4/open-modal {:type           :m4/table-modal-edit-form
                              :form            coord-field
                              :path            data-path
                              :title           "Geographic Coordinates"
@@ -193,7 +155,7 @@
 (defn boxmap-coordinates-click-confirm-delete
   [{:keys [db]} [_ on-confirm]]
   (-> {:db db}
-      (actions/open-modal {:type       :confirm
+      (actions4/open-modal {:type      :confirm
                            :title      "Delete"
                            :message    "Are you sure you want to delete?"
                            :on-confirm on-confirm})))
@@ -202,22 +164,23 @@
   [{:keys [db]} [_ ctx idx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
-        (actions/del-item-action form-id data-path idx)
+        (actions4/del-item-action form-id data-path idx)
         (update-in [:db :alert] pop))))
 
 (defn -load-api-handler
-  [{:keys [db]} [_ api results]]
-  (actions/-load-api-action {:db db} api results))
+  [{:keys [db]} [_ api {:keys [status body]}]]
+  (when (= 200 status)
+    (actions4/-load-api-action {:db db} api body)))
 
 (defn save-current-document
   [{:keys [db]} _]
   (let [url (get-in db [:form :url])
         state0 (get-in db [:form :state])
-        state1 (blocks/postwalk rules/apply-rules state0)
-        data (blocks/as-data state1)]
+        state1 (blocks4/postwalk rules4/apply-rules state0)
+        data (blocks4/as-data state1)]
     {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
      ; TODO: put logic in handler, use generic js/fetch fx
-     ::fx3/save-current-document
+     ::fx3/post-json-data
          {:url       url
           :data      data
           :success-v [::-save-current-document-success data]
@@ -240,63 +203,55 @@
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
-        (actions/restore-snapshot-action form-id)
-        (actions/unselect-list-item-action form-id data-path))))
+        (actions4/restore-snapshot-action form-id)
+        (actions4/unselect-list-item-action form-id data-path))))
 
 (defn list-edit-dialog-cancel-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
-        (actions/restore-snapshot-action form-id)
-        (actions/unselect-list-item-action form-id data-path))))
+        (actions4/restore-snapshot-action form-id)
+        (actions4/unselect-list-item-action form-id data-path))))
 
 (defn list-edit-dialog-save-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
-        (actions/discard-snapshot-action form-id)
-        (actions/unselect-list-item-action form-id data-path))))
+        (actions4/discard-snapshot-action form-id)
+        (actions4/unselect-list-item-action form-id data-path))))
 
 (defn item-edit-dialog-close-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
-        (actions/restore-snapshot-action form-id)
-        (actions/dialog-close-action form-id data-path))))
+        (actions4/restore-snapshot-action form-id)
+        (actions4/dialog-close-action form-id data-path))))
 
 (defn item-edit-dialog-cancel-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
-        (actions/restore-snapshot-action form-id)
-        (actions/dialog-close-action form-id data-path))))
+        (actions4/restore-snapshot-action form-id)
+        (actions4/dialog-close-action form-id data-path))))
 
 (defn item-edit-dialog-save-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
-        (actions/discard-snapshot-action form-id)
-        (actions/dialog-close-action form-id data-path))))
-
-(defn create-document-modal-close-click
-  []
-  )
-
-(defn create-document-modal-clear-click
-  []
-  )
+        (actions4/discard-snapshot-action form-id)
+        (actions4/dialog-close-action form-id data-path))))
 
 (defn create-document-modal-save-click
   [{:keys [db]}]
   (let [{:keys [url state]} (get-in db [:create_form])
-        data (blocks/as-data state)]
+        data (blocks4/as-data state)]
     (-> {:db db}
-        (actions/clear-errors [:create_form])
-        (actions/create-document-action url data))))
+        (actions4/clear-errors [:create_form])
+        (actions4/create-document-action url data))))
 
 (defn -create-document-handler
   [{:keys [db]} [_ {:keys [status body]}]]
   (case status
     200 {::fx3/set-location-href (gobject/getValueByKeys body "document" "url")}
-    400 (actions/set-errors {:db db} [:create_form] (js->clj body))
+    400 (actions4/set-errors {:db db} [:create_form] (js->clj body))
     :else nil))

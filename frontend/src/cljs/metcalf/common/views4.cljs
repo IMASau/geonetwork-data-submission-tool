@@ -1,42 +1,39 @@
-(ns metcalf4.views
-  (:require [clojure.string :as string]
-            [goog.object :as gobj]
-            [interop.react-imask :as react-imask]
-            [metcalf3.utils :as utils3]
-            [metcalf3.widget.modal :as modal]
-            [metcalf3.views :as views3]
+(ns metcalf.common.views4
+  (:require [clojure.edn :as edn]
+            [clojure.string :as string]
+            [interop.blueprint :as bp3]
             [interop.moment :as moment]
-            [metcalf4.low-code :as low-code]
-            [clojure.edn :as edn]
-            [interop.blueprint :as bp3]))
+            [metcalf.common.low-code4 :as low-code]
+            [metcalf.common.utils3 :as utils3]
+            [metcalf.common.views3 :as views3]))
 
 ; For pure views only, no re-frame subs/handlers
 
 (defn m4-modal-dialog-table-modal-edit-form
   [{:keys [form path title on-delete-click on-close-click on-save-click]}]
-  [modal/Modal {:ok-copy      "Done"
-                :modal-header [:span [:span.glyphicon.glyphicon-list] " Edit " title]
-                :modal-body   [form path]
-                :modal-footer [:div
-                               [:a.btn.text-danger.pull-left
-                                {:on-click #(do (.preventDefault %) (on-delete-click))}
-                                [:span.glyphicon.glyphicon-remove] " Delete"]
-                               [:button.btn.btn-primary {:on-click on-close-click} "Done"]]
-                :on-dismiss   on-close-click
-                :on-save      on-save-click}])
+  [views3/Modal {:ok-copy      "Done"
+                 :modal-header [:span [:span.glyphicon.glyphicon-list] " Edit " title]
+                 :modal-body   [form path]
+                 :modal-footer [:div
+                                [:a.btn.text-danger.pull-left
+                                 {:on-click #(do (.preventDefault %) (on-delete-click))}
+                                 [:span.glyphicon.glyphicon-remove] " Delete"]
+                                [:button.btn.btn-primary {:on-click on-close-click} "Done"]]
+                 :on-dismiss   on-close-click
+                 :on-save      on-save-click}])
 
 (defn m4-modal-dialog-table-modal-add-form
   [{:keys [form path title on-close-click on-save-click]}]
-  [modal/Modal {:ok-copy      "Done"
-                :modal-header [:span [:span.glyphicon.glyphicon-list] " Add " title]
-                :modal-body   [form path]
-                :on-dismiss   on-close-click
-                :on-cancel    on-close-click
-                :on-save      on-save-click}])
+  [views3/Modal {:ok-copy      "Done"
+                 :modal-header [:span [:span.glyphicon.glyphicon-list] " Add " title]
+                 :modal-body   [form path]
+                 :on-dismiss   on-close-click
+                 :on-cancel    on-close-click
+                 :on-save      on-save-click}])
 
 (defn modal-dialog-confirm
   [{:keys [message title on-dismiss on-cancel on-save]}]
-  [modal/Modal
+  [views3/Modal
    {:modal-header [:span [:span.glyphicon.glyphicon-question-sign] " " title]
     :dialog-class "modal-sm"
     :modal-body   message
@@ -46,7 +43,7 @@
 
 (defn modal-dialog-alert
   [{:keys [message on-dismiss on-save]}]
-  [modal/Modal
+  [views3/Modal
    {:modal-header [:span [:span.glyphicon.glyphicon-exclamation-sign]
                    " " "Alert"]
     :dialog-class "modal-sm"
@@ -202,7 +199,7 @@
   [{:keys [page context form dirty on-save-click on-archive-click
            tab-props on-pick-tab
            progress-props]}]
-  (let [{:keys [urls user]} context
+  (let [{:keys [urls]} context
         {:keys [disabled]} form
         {:keys [status title last_updated last_updated_by is_editor owner]} (:document context)
         saving (:metcalf3.handlers/saving? page)]

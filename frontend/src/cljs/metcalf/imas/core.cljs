@@ -1,7 +1,7 @@
 (ns metcalf.imas.core
   (:require [clojure.string :refer [blank?]]
+            [metcalf.common.routing3 :as router]
             [metcalf.imas.config]
-            [metcalf3.routing :as router]
             [metcalf.imas.pages :refer [app-root]]
             [re-frame.core :as rf]
             [re-frame.db :refer [app-db]]

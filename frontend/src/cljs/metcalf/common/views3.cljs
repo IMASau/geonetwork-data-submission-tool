@@ -1,12 +1,89 @@
-(ns metcalf3.views
+(ns metcalf.common.views3
   (:require-macros [cljs.core.async.macros :refer [go-loop]])
   (:require [cljs.core.async :refer [<! chan put!]]
+            [goog.dom.classes :as gclasses]
             [goog.events :as gevents]
-            [metcalf3.utils :as utils3]
+            [goog.labs.userAgent.platform :as gplatform]
+            [metcalf.common.utils3 :as utils3]
             [re-frame.core :as rf]
             [reagent.core :as r])
-  (:import [goog.events FileDropHandler]
-           [goog.events EventType]))
+  (:import [goog.events FileDropHandler]))
+
+
+(def ESCAPE-KEY-CODE 27)
+
+(defn show-modal [this]
+  (gclasses/add js/document.body "modal-open")
+  (.addEventListener js/window "keydown" (:key-down-callback (r/state this))))
+
+(defn hide-modal [this]
+  (gclasses/remove js/document.body "modal-open")
+  (.removeEventListener js/window "keydown" (:key-down-callback (r/state this))))
+
+(defn ModalContent
+  [{:keys [loading modal-header modal-body modal-footer hide-footer ok-copy
+           on-dismiss on-cancel on-save]}]
+  [:div.modal-content
+   [:div.modal-header
+    [:button.close {:disabled loading :on-click #(on-dismiss %)}
+     [:span {:dangerouslySetInnerHTML {:__html "&times;"}}]]
+    [:h4.modal-title modal-header]]
+   [:div.modal-body modal-body]
+   (when-not hide-footer
+     (if modal-footer
+       [:div.modal-footer modal-footer]
+       [:div.modal-footer
+        (when loading [:span [:span.fa.fa-spinner.fa-spin] " "])
+        (when on-cancel
+          [:button.btn.btn-default {:disabled loading
+                                    :on-click on-cancel} "Cancel"])
+        (when on-save
+          [:button.btn.btn-primary {:disabled loading
+                                    :on-click on-save} (or ok-copy "OK")])]))])
+
+(defn Modal
+  [{:keys [modal-header modal-body modal-footer dialog-class hide-footer
+           on-save on-cancel on-dismiss ok-copy loading]}]
+  (letfn [
+
+          (init-state [this]
+            {:key-down-callback
+             (fn [e] (when (= ESCAPE-KEY-CODE (.-keyCode e))
+                       (when-let [on-dismiss (:on-dismiss (r/props this))]
+                         (on-dismiss e))))})
+
+          (did-mount [this]
+            (show-modal this))
+
+          (will-unmount [this]
+            (hide-modal this))
+
+          (render [_]
+            [:div.modal-open
+             [:div.modal.in {:style {:display "block"}      ;:tabIndex -1
+                             }
+              [:div.modal-dialog {:class dialog-class}
+               [ModalContent
+                {:loading      loading
+                 :modal-header modal-header
+                 :modal-body   modal-body
+                 :modal-footer modal-footer
+                 :hide-footer  hide-footer
+                 :ok-copy      ok-copy
+                 :on-dismiss   on-dismiss
+                 :on-cancel    on-cancel
+                 :on-save      on-save}]]]
+             [:div.modal-backdrop.in {:style    (if (gplatform/isIos)
+                                                  {:position "sticky" :top 0} ; NOTE: attempt to avoid keyboard bug
+                                                  {:position "fixed"} ;GOTCHA: Large modals / scrolling is messy
+                                                  )
+                                      :disabled loading
+                                      :on-click #(on-dismiss %)}]])]
+    (r/create-class
+      {:get-initial-state      init-state
+       :component-did-mount    did-mount
+       :component-will-unmount will-unmount
+       :render                 render})))
 
 ; TODO: Build a react component for uploading
 (defn handle-file [this file]
@@ -15,7 +92,7 @@
             (<= (.-size file) (* 1024 1024 max-filesize)))
       (r/set-state this {:file file})
       (when max-filesize
-        (rf/dispatch [::open-modal
+        (rf/dispatch [:app/upload-max-filesize-exceeded
                       {:type    :alert
                        :message (str "Please, choose file less than " max-filesize "mb")}])
         (put! reset-ch true)))))
@@ -66,11 +143,11 @@
 (defn delete-attachment!
   "Quick and dirty delete function"
   [attachments-path attachment-idx]
-  (rf/dispatch [::open-modal
+  (rf/dispatch [:app/delete-attachment-click
                 {:type       :confirm
                  :title      "Delete?"
                  :message    "Are you sure you want to delete this file?"
-                 :on-confirm #(rf/dispatch [::del-value attachments-path attachment-idx])}]))
+                 :on-confirm #(rf/dispatch [:app/delete-attachment-confirm attachments-path attachment-idx])}]))
 
 ; TODO: Build a react component for uploading
 (defn UploadData
@@ -85,8 +162,8 @@
                     (fn []
                       (when (= (.-readyState xhr) 4)
                         (if (#{200 201} (.-status xhr))
-                          (rf/dispatch [::upload-data-confirm-upload-click-add-attachment (utils3/map-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
-                          (rf/dispatch [::open-modal
+                          (rf/dispatch [:app/upload-data-confirm-upload-click-add-attachment (utils3/map-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
+                          (rf/dispatch [:app/upload-data-file-upload-failed
                                         {:type    :alert
                                          :message "File upload failed. Please try again or contact administrator."}]))
                         (r/set-state this {:uploading false})

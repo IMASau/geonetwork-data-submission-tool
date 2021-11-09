@@ -1,19 +1,19 @@
 (ns ^:dev/always metcalf.imas.config
   (:require [interop.ui :as ui]
-            [metcalf.common-config]
+            [metcalf.common.components4 :as components4]
+            [metcalf.common.fx3 :as fx3]
+            [metcalf.common.handlers3 :as handlers3]
+            [metcalf.common.handlers4 :as handlers4]
+            [metcalf.common.ins4 :as ins4]
+            [metcalf.common.low-code4 :as low-code4]
+            [metcalf.common.rules4 :as rules4]
+            [metcalf.common.subs3 :as subs3]
+            [metcalf.common.subs4 :as subs4]
+            [metcalf.common.utils4 :as utils4]
+            [metcalf.common.views3 :as views3]
             [metcalf.imas.handlers :as imas-handlers]
             [metcalf.imas.subs :as imas-subs]
-            [metcalf3.handlers :as handlers3]
-            [metcalf3.views :as views3]
-            [metcalf4.components :as components4]
-            [metcalf4.handlers :as handlers4]
-            [metcalf4.ins :as ins4]
-            [metcalf4.low-code :as low-code]
-            [metcalf4.rules :as rules]
-            [metcalf4.subs :as subs4]
-            [metcalf4.views :as views4]
-            [re-frame.core :as rf]
-            [metcalf4.utils :as utils4]))
+            [re-frame.core :as rf]))
 
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-event-fx ::components4/boxmap-coordinates-click-confirm-delete handlers4/boxmap-coordinates-click-confirm-delete)
@@ -28,7 +28,6 @@
 (rf/reg-event-fx ::components4/item-edit-dialog-close handlers4/item-edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
-(rf/reg-event-fx ::components4/list-add-click handlers4/list-add-click-handler)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-close-handler)
@@ -40,44 +39,83 @@
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::components4/text-value-add-click-handler handlers4/text-value-add-click-handler)
 (rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/value-selection-list-item-click handlers4/value-selection-list-item-click)
 (rf/reg-event-fx ::components4/value-selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/value-selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
-(rf/reg-event-fx ::views3/PageViewEdit-save-button-click handlers4/save-current-document)
+(rf/reg-event-fx :app/-archive-current-document-success handlers3/-archive-current-document-success)
+(rf/reg-event-fx :app/-clone-document-error handlers3/-clone-document-error)
+(rf/reg-event-fx :app/-clone-document-success handlers3/-clone-document-success)
+(rf/reg-event-fx :app/-load-api-options handlers3/-load-api-options)
+(rf/reg-event-fx :app/-lodge-click-error handlers3/lodge-error)
+(rf/reg-event-fx :app/-lodge-click-success handlers3/lodge-save-success)
+(rf/reg-event-fx :app/-lodge-save-error handlers3/lodge-error)
+(rf/reg-event-fx :app/-lodge-save-success handlers3/-lodge-save-success)
+(rf/reg-event-fx :app/-transite-doc-click-confirm handlers3/-transite-doc-click-confirm)
+(rf/reg-event-fx :app/-transite-doc-confirm-error handlers3/-transite-doc-confirm-error)
+(rf/reg-event-fx :app/-transite-doc-confirm-success handlers3/-transite-doc-confirm-success)
 (rf/reg-event-fx :app/PageViewEdit-save-button-click handlers4/save-current-document)
-(rf/reg-event-fx ::views3/date-field-with-label-value-changed handlers3/date-field-value-change)
-(rf/reg-event-fx ::views3/input-field-with-label-value-changed handlers3/value-changed)
-(rf/reg-event-fx ::views3/textarea-field-with-label-value-changed handlers3/textarea-field-value-change)
+(rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)
+(rf/reg-event-fx :app/dashboard-create-click handlers3/dashboard-create-click)
+(rf/reg-event-fx :app/dashboard-show-all-click handlers3/show-all-documents)
+(rf/reg-event-fx :app/dashboard-toggle-status-filter handlers3/toggle-status-filter)
+(rf/reg-event-fx :app/delete-attachment-click handlers3/open-modal-handler)
+(rf/reg-event-fx :app/delete-attachment-confirm handlers3/del-value)
+(rf/reg-event-fx :app/document-teaser-archive-click (handlers3/transite-doc-click "archive"))
+(rf/reg-event-fx :app/document-teaser-clone-click handlers3/document-teaser-clone-click)
+(rf/reg-event-fx :app/document-teaser-delete-archived-click (handlers3/transite-doc-click "delete_archived"))
+(rf/reg-event-fx :app/document-teaser-restore-click (handlers3/transite-doc-click "restore"))
+(rf/reg-event-fx :app/edit-tabs-pick-click handlers3/set-tab)
+(rf/reg-event-fx :app/handle-page-view-edit-archive-click handlers3/handle-page-view-edit-archive-click)
+(rf/reg-event-fx :app/modal-dialog-alert-dismiss handlers3/close-modal)
+(rf/reg-event-fx :app/modal-dialog-alert-save handlers3/close-modal)
+(rf/reg-event-fx :app/modal-dialog-confirm-cancel handlers3/close-and-cancel)
+(rf/reg-event-fx :app/modal-dialog-confirm-dismiss handlers3/close-and-cancel)
+(rf/reg-event-fx :app/modal-dialog-confirm-save handlers3/close-and-confirm)
+(rf/reg-event-fx :app/open-modal handlers3/open-modal-handler)
+(rf/reg-event-fx :app/page-view-edit-archive-click-confirm handlers3/archive-current-document)
+(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
+(rf/reg-event-fx :app/upload-data-file-upload-failed handlers3/open-modal-handler)
+(rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/open-modal-handler)
 (rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
-(rf/reg-event-fx :metcalf4.actions/-create-document handlers4/-create-document-handler)
-(rf/reg-event-fx :textarea-field/value-change handlers3/textarea-field-value-change)
-(rf/reg-fx ::utils4/post-data (utils4/promise-fx utils4/post-data))
+(rf/reg-event-fx :metcalf.imas.handlers/-init-db-load-api-options handlers3/load-api-options)
+(rf/reg-event-fx :metcalf.common.actions/-create-document handlers4/-create-document-handler)
+(rf/reg-event-fx :metcalf.common.components/coordinates-modal-field-close-modal handlers3/close-modal)
+(rf/reg-event-fx :metcalf.common.components/lodge-button-click handlers3/lodge-click)
+(rf/reg-fx ::fx3/post fx3/post)
+(rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
+(rf/reg-fx ::fx3/set-location-href fx3/set-location-href)
+(rf/reg-fx ::low-code4/init! low-code4/init!)
+(rf/reg-fx :app/get-json-fx (utils4/promise-fx utils4/get-json))
+(rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
-(rf/reg-sub ::components4/get-data-schema subs4/get-data-schema-sub)
-(rf/reg-sub ::low-code/get-data-schema subs4/get-data-schema-sub)
+(rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
-(rf/reg-sub ::views3/get-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub :app/get-dashboard-props subs3/get-dashboard-props)
+(rf/reg-sub :app/get-progress-bar-props :<- [:subs/get-derived-state] subs3/get-progress-props)
 (rf/reg-sub :subs/get-app-root-modal-props subs4/get-modal-props)
 (rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
+(rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
+(rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] imas-subs/get-edit-tab-props)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
+(rf/reg-sub :subs/get-page-props subs3/get-page-props)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
-(set! rules/rule-registry
-      {"requiredField"        rules/required-field
-       "maxLength"            rules/max-length
-       "geographyRequired"    rules/geography-required
-       "imasVerticalRequired" rules/imas-vertical-required
-       "licenseOther"         rules/license-other
-       "dateOrder"            rules/date-order
-       "endPosition"          rules/end-position
-       "maintFreq"            rules/maint-freq})
-(set! low-code/component-registry
+(set! rules4/rule-registry
+      {"requiredField"        rules4/required-field
+       "maxLength"            rules4/max-length
+       "geographyRequired"    rules4/geography-required
+       "imasVerticalRequired" rules4/imas-vertical-required
+       "licenseOther"         rules4/license-other
+       "dateOrder"            rules4/date-order
+       "endPosition"          rules4/end-position
+       "maintFreq"            rules4/maint-freq})
+(set! low-code4/component-registry
       {
        'm3/UploadData                     {:view views3/UploadData}
        'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
@@ -929,7 +967,7 @@
          We want you to submit your data via 'lodging' the information.
          This permits multi-user access via the portal in a more friendly format."]]]]})
 
-(set! low-code/template-registry
+(set! low-code4/template-registry
       (merge edit-templates
              {::components4/create-document-modal-form
               components4/create-document-modal-template}))

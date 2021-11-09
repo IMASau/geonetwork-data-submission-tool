@@ -1,6 +1,4 @@
-(ns metcalf3.routing
-  (:require [goog.events :as e]
-            [goog.events.EventType :as et]))
+(ns metcalf.common.routing3)
 
 (defn route
   ([] (subs js/window.location.hash 1))
@@ -13,7 +11,6 @@
                :or   {->hash identity <-hash identity}}]
   (let [path (ensure-coll path)
         f #(swap! iref assoc-in path (<-hash (route)))]
-    (e/listen js/window et/HASHCHANGE f)
     (add-watch iref f #(when (not= (get-in %3 path) (get-in %4 path))
                          (route (->hash (get-in %4 path)))))
     (f)

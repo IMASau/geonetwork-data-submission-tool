@@ -1,15 +1,5 @@
-(ns metcalf3.utils
-  (:require [cljs.spec.alpha :as s]
-            [clojure.string :as string]
-            [goog.object :as gobject]))
-
-(defn js-lookup
-  "Helper for destructuring.  Returns an ILookup for fetching values out of a js-obj by keyword."
-  [js-obj]
-  (reify
-    ILookup
-    (-lookup [o k] (gobject/get js-obj (name k)))
-    (-lookup [o k not-found] (gobject/get js-obj (name k) not-found))))
+(ns metcalf.common.utils3
+  (:require [clojure.string :as string]))
 
 (defn map-keys [f m]
   (persistent! (reduce-kv (fn [z k v] (assoc! z (f k) v)) (transient {}) m)))

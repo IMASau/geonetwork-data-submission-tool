@@ -1,7 +1,6 @@
-(ns metcalf3.subs
+(ns metcalf.common.subs3
   (:require [clojure.set :as set]
-            [clojure.string :as string]
-            [metcalf3.logic :as logic3]))
+            [metcalf.common.logic3 :as logic3]))
 
 (defn get-derived-state
   [db _]
@@ -14,18 +13,6 @@
 (defn get-page-props
   [db _]
   (get-in db [:page]))
-
-(defn get-page-name
-  [db _]
-  (get-in db [:page :name]))
-
-(defn get-modal-props
-  [db _]
-  (let [modal-stack (:alert db)
-        modal-props (peek modal-stack)]
-    (when modal-props
-      (let [breadcrumbs (mapv :title modal-stack)]
-        (assoc modal-props :breadcrumbs breadcrumbs)))))
 
 (defn get-dashboard-props
   [db _]
@@ -59,27 +46,3 @@
     (when (pos-int? fields)
       {:can-submit? can-submit?
        :value       (/ (- fields empty) fields)})))
-
-(defn get-textarea-field-many-props
-  [derived-db [_ path field]]
-  (let [{:keys [placeholder maxlength]} (get-in derived-db [:form :fields :identificationInfo field])
-        {:keys [label help required disabled value show-errors errors]} (get-in derived-db path)
-        error-help (when (and show-errors (seq errors))
-                     (string/join ". " errors))]
-    {:label       label
-     :labelInfo   (when required "*")
-     :helperText  (or error-help help)
-     :value       (or value "")
-     :disabled    disabled
-     :maxlength   maxlength
-     :placeholder placeholder
-     :change-v    [:textarea-field/value-change path]
-     :intent      (when error-help "danger")}))
-
-(defn get-form-tick
-  [db _]
-  (get db :form/tick 0))
-
-(defn platform-selected?
-  [db [_ form-position]]
-  (get-in (get (get-in db [:form :fields :identificationInfo :dataParameters :value]) form-position) [:value :platform_vocabularyTermURL :value]))

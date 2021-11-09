@@ -1,10 +1,9 @@
-(ns metcalf4.low-code
+(ns metcalf.common.low-code4
   (:require [cljs.spec.alpha :as s]
-            [clojure.walk :as walk]
-            [metcalf4.schema :as schema]
-            [metcalf4.utils :as utils4]
-            [re-frame.core :as rf]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [metcalf.common.schema4 :as schema4]
+            [metcalf.common.utils4 :as utils4]
+            [re-frame.core :as rf]))
 
 (defonce ^:dynamic component-registry {})
 (defonce ^:dynamic template-registry {})
@@ -14,10 +13,11 @@
 (def *build-template-cache (atom {}))
 
 (defn init!
+  "Merge templates into template-registry."
   [{:keys [low-code/templates]}]
   (when (map? templates)
-    (reset! *build-template-cache ({}))
-    (set! template-registry templates)))
+    (reset! *build-template-cache {})
+    (set! template-registry (merge template-registry templates))))
 
 (defn variable?
   "A variable is a simple symbol which starts with ?"
@@ -46,15 +46,15 @@
 (defn check-compatible-schema
   [{:keys [settings schema config]}]
   (when-let [schema2 (get-in settings [::schema])]
-    (schema/assert-compatible-schema {:schema1 schema :schema2 schema2 :path (schema/schema-path (:data-path config))})))
+    (schema4/assert-compatible-schema {:schema1 schema :schema2 schema2 :path (schema4/schema-path (:data-path config))})))
 
 (defn check-compatible-paths
   [{:keys [settings schema] :as ctx}]
   (doseq [path (remove nil? (get-in settings [::schema-paths]))]
     (if (= "array" (get-in schema [:type]))
-      (when-not (schema/contains-path? {:schema (:items schema) :path path})
+      (when-not (schema4/contains-path? {:schema (:items schema) :path path})
         (utils4/console-error (str "Path not present in schema: " (pr-str path)) {:ctx ctx :path path}))
-      (when-not (schema/contains-path? {:schema schema :path path})
+      (when-not (schema4/contains-path? {:schema schema :path path})
         (utils4/console-error (str "Path not present in schema: " (pr-str path)) {:ctx ctx :path path})))))
 
 (defn build-component
@@ -105,7 +105,7 @@
           (build-component x reg-data)
           (report-unregistered-syms x))
 
-        :default
+        :else
         x))
 
 (defn prepare-template

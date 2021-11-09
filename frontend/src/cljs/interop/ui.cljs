@@ -11,8 +11,8 @@
             ["/ui/components/NumericInputField/NumericInputField" :as NumericInputField]
             ["/ui/components/SelectField/SelectField" :as SelectField]
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
-            ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/TextAddField/TextAddField" :as TextAddField]
+            ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/utils" :as ui-utils]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
             [cljs.spec.alpha :as s]
@@ -73,7 +73,6 @@
 
 (def BoxMap (r/adapt-react-class BoxMap/BoxMap))
 (def DateField (r/adapt-react-class DateField/DateField))
-(def ErrorSidebar (r/adapt-react-class ErrorSidebar/ErrorSidebar))
 (def ExpandingControl (r/adapt-react-class ExpandingControl/ExpandingControl))
 (def FormGroup (r/adapt-react-class FormGroup/FormGroup))
 (def InlineFormGroup (r/adapt-react-class FormGroup/InlineFormGroup))

@@ -1,8 +1,8 @@
-(ns metcalf4.rules
+(ns metcalf.common.rules4
   (:require [cljs.spec.alpha :as s]
             [clojure.string :as string]
             [interop.date :as date]
-            [metcalf4.blocks :as blocks]))
+            [metcalf.common.blocks4 :as blocks4]))
 
 (def ^:dynamic rule-registry {})
 
@@ -33,7 +33,7 @@
   [block required]
   (s/assert boolean? required)
   (if required
-    (let [value (blocks/as-data block)]
+    (let [value (blocks4/as-data block)]
       (-> block
           (assoc-in [:props :required] true)
           (cond-> (contains? empty-values value)

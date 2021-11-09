@@ -14,5 +14,5 @@
     (schema4/assert-schema-data (:form db))
     (-> {:db db
          :fx [[:ui/setup-blueprint]
-              [:low-code4/init! ui-data]]}
+              [::low-code4/init! ui-data]]}
         (actions4/init-create-form-action payload))))

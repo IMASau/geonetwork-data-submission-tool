@@ -23,6 +23,7 @@ urlpatterns = [
     path('portal/home?uuid=<uuid:uuid>/', edit, name="Edit"),  # legacy links
     path('dashboard/', dashboard, name="Dashboard"),
     path('edit/<uuid:uuid>/', edit, name="Edit"),
+    path('duma/<uuid:uuid>/', user_defined, name="DUMA"),
     path('save/<uuid:uuid>/', save, name="Save"),
     path('transition/<uuid:uuid>/', transition, name="Transition"),
     path('clone/<uuid:uuid>/', clone, name="Clone"),

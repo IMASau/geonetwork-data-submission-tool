@@ -466,6 +466,20 @@ def save(request, uuid):
 
 
 @login_required
+@api_view(['GET'])
+def user_defined(request, uuid):
+    doc = get_object_or_404(Document, uuid=uuid)
+    draft = doc.draftmetadata_set.all()[0]
+    data = to_json(draft.data)
+
+    duma = xmlutils4.extract_user_defined(data, acc=[])
+
+    return Response({"user_added": duma,
+                     "data": data,
+                     "data_id": uuid})
+
+
+@login_required
 def edit(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
     is_document_contributor(request, doc)

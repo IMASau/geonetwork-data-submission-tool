@@ -5,7 +5,8 @@
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.rules4 :as rules4]
             [metcalf.common.utils3 :as utils3]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [clojure.string :as string]))
 
 (defn load-api-options
   [{:keys [db]} [_ api-path]]
@@ -130,7 +131,7 @@
 (defn transite-doc-click
   [transition]
   (fn [_ [_ url]]
-    (let [trans-name (first (clojure.string/split transition "_"))]
+    (let [trans-name (first (string/split transition "_"))]
       {:dispatch [:app/open-modal
                   {:type       :confirm
                    :title      trans-name

@@ -1,5 +1,6 @@
 (ns metcalf.tern.handlers
   (:require [clojure.edn :as edn]
+            [metcalf.common.low-code4 :as low-code4]
             [metcalf.common.actions4 :as actions4]
             [metcalf.common.logic3 :as logic3]
             [metcalf.common.schema4 :as schema4]))
@@ -13,5 +14,5 @@
     (schema4/assert-schema-data (:form db))
     (-> {:db db
          :fx [[:ui/setup-blueprint]
-              [:metcalf.common.low-code/init! ui-data]]}
+              [:low-code4/init! ui-data]]}
         (actions4/init-create-form-action payload))))

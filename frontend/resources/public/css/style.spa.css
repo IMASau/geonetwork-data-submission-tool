@@ -60,6 +60,14 @@ footer > p {
 }
 
 /* Main Records listing */
+.DocumentTeaser.bp3-card h4 {
+    margin-top: 0px
+}
+
+.DocumentTeaser.bp3-card {
+    margin-bottom: 1em;
+}
+
 .DocumentTeaser.list-group-item {
     cursor: auto;
 }

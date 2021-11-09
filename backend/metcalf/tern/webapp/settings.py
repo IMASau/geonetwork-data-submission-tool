@@ -2,6 +2,7 @@
 Django settings for webapp project.
 """
 import os
+
 from django.conf.locale.en import formats as en_formats
 
 en_formats.DATETIME_FORMAT = "Y-m-d H:i:s"
@@ -191,7 +192,7 @@ FRONTEND_DEV_MODE = False
 # Elasticsearch
 ELASTICSEARCH_VERIFY_SSL = True
 
-LOGIN_URL = "/oidc/authenticate"
+# LOGIN_URL = "/accounts/login/"
 
 # OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get("OIDC_OP_AUTHORIZATION_ENDPOINT")
 # OIDC_OP_TOKEN_ENDPOINT = os.environ.get("OIDC_OP_TOKEN_ENDPOINT")

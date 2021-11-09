@@ -3,9 +3,13 @@ import inspect
 import logging
 from copy import deepcopy
 from decimal import Decimal
+from functools import partial
 
 from django.apps import apps
 from six import string_types
+from lxml import etree
+
+from metcalf.common import spec4
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +35,7 @@ class SpecialKeys:
     postprocess = 'postprocess'
     valueChild = 'valueChild'
     deleteWhenEmpty = 'deleteWhenEmpty'
+    userdefined = 'isUserDefined'
 
     @staticmethod
     def all_keys():
@@ -38,6 +43,7 @@ class SpecialKeys:
 
 
 def get_xpath(spec):
+    return spec.get(SpecialKeys.xpath)
     assert SpecialKeys.xpath in spec, ("No xpath in %r" % spec)
     return spec[SpecialKeys.xpath]
 
@@ -57,6 +63,10 @@ def get_batch(spec):
 
 def get_required(spec):
     return spec.get('required', False)
+
+
+def get_xpath_required(spec):
+    return spec.get('xpath_required', False)
 
 
 def has_valueChild(spec):
@@ -137,8 +147,36 @@ def is_postprocess(spec):
     return SpecialKeys.postprocess in spec
 
 
+def has_userdefined(data):
+    return SpecialKeys.userdefined in data
+
+
+def get_userdefined(data):
+    return data.get(SpecialKeys.userdefined)
+
+
+def is_userdefined(data):
+    return has_userdefined(data) and get_userdefined(data)
+
+
+def _make_list_fn(fns):
+    def inner(*args, **kwargs):
+        for f in fns:
+            f(*args, **kwargs)
+    return inner
+
+
 def get_postprocess(spec):
-    return spec.get(SpecialKeys.postprocess)
+    """Return a single post-processing function from the spec.  This
+    can either be a single function, or a list of {"function":<func>}
+    dicts, in which it returns a function that applies each in turn.
+    Note the functions have no return value, but mutate their args
+    in-place."""
+    pp = spec.get(SpecialKeys.postprocess)
+    if isinstance(pp, list):
+        return _make_list_fn([p[SpecialKeys.function] for p in pp])
+    else:
+        return pp
 
 
 def is_export(spec):
@@ -178,7 +216,7 @@ def parse_goc_date(text):
     raise ValueError('no valid date format found')
 
 
-def value(element, **kwargs):
+def extract_value_from_element(spec, element, **kwargs):
     assert kwargs['namespaces'] is not None, "No namespaces were specified."
     """
     Extract value.  Either tagged or text.  Always one value.
@@ -188,6 +226,9 @@ def value(element, **kwargs):
     """
     if element is None:
         raise Exception("Expected a valid element to extract value from")
+
+    if spec.get('type') == 'boolean':
+        return element.xpath("boolean(*)", **kwargs)
 
     value_element = element.xpath('*', **kwargs)
     if value_element and len(value_element) == 1:
@@ -209,7 +250,7 @@ def value(element, **kwargs):
             return Decimal(value)
 
         elif tag == "%sCharacterString" % gco:
-            pass
+            return value
 
         return value
 
@@ -223,7 +264,7 @@ def value(element, **kwargs):
 
 
 def get_default(spec):
-    default = spec.get('default', '')
+    default = spec.get('default', None)
     if hasattr(default, '__call__'):
         return default()
     else:
@@ -240,8 +281,13 @@ def process_node_child(element, spec, **kwargs):
     elif is_object(spec):
         obj_prop_spec = get_properties(spec)
         if isinstance(obj_prop_spec, dict):
-            return {n: extract_xml_data(element, s, **kwargs)
-                    for n, s in obj_prop_spec.items()}
+            ret = {}
+            for n, s in obj_prop_spec.items():
+                data = extract_xml_data(element, s, **kwargs)
+                if data is not None or spec.get("type", None) == "null":
+                    ret[n] = data
+            if ret != {}:
+                return ret
         else:
             assert "Expected dict.  Got %s" % type(obj_prop_spec)
     else:
@@ -249,19 +295,20 @@ def process_node_child(element, spec, **kwargs):
             if has_parser(spec):
                 return get_parser(spec)(element)
             else:
-                return value(element, **kwargs)
+                return extract_value_from_element(spec, element, **kwargs)
         else:
             return get_default(spec)
 
 
 def extract_xml_data(tree, spec, **kwargs):
-    required = is_required(spec)
+    xpath_required = get_xpath_required(spec)
     initial = get_initial(spec)
 
     if has_namespaces(spec):
         kwargs['namespaces'] = get_namespaces(spec)
 
     xpath = get_xpath2(spec)
+
     if xpath:
         elements = tree.xpath(xpath, **kwargs)
     else:
@@ -283,13 +330,16 @@ def extract_xml_data(tree, spec, **kwargs):
         if is_keep(spec):
             return [process_node_child(element, spec, **kwargs) for element in elements]
         else:
-            return []
-    elif len(elements) == 0 and not required:
+            return None
+    elif len(elements) == 0 and not xpath_required:
         return initial
     elif len(elements) == 1:
-        return process_node_child(elements[0], spec, **kwargs)
+        if is_keep(spec):
+            return process_node_child(elements[0], spec, **kwargs)
+        else:
+            return get_default(spec)
     else:
-        assert len(elements) > 0, ["No matches for required", get_xpath(spec), tree]
+        assert len(elements) > 0, ["No xml element matches for required", get_xpath(spec), tree]
 
 
 def parse_attributes(spec, namespaces):
@@ -333,6 +383,29 @@ def spec_data_from_batch(batch_spec, key):
     return spec, data
 
 
+def extract_user_defined(data:dict, path="", acc:list=[]) -> list:
+    """Takes a json data document and returns a list of all terms that
+    have been added by the user.  Adjusts the term to include the data
+    path (for re-insertion) and the type."""
+    # FIXME: needs special handling for keywords, which don't have structure
+    if not isinstance(data, dict):
+        return acc
+    if is_userdefined(data):
+        # Flesh out so we can identify again on reinsertion:
+        data['duma_path'] = path
+        acc.append(data)
+        return acc
+    for k,v in data.items():
+        if isinstance(v, dict):
+            acc = extract_user_defined(v, path=f"{path}.{k}", acc=acc)
+        elif isinstance(v, list):
+            for ix, item in enumerate(v):
+                acc = extract_user_defined(item, path=f"{path}.{k}.{ix}", acc=acc)
+        else:
+            continue
+    return acc
+
+
 # TODO: this is a workaround for the unusual structure of the geographic extents
 # Basically each one needs to have its own mri:extent
 # but the first one should have the start/end date and description
@@ -342,6 +415,8 @@ def spec_data_from_batch(batch_spec, key):
 # a geographicElementSecondary dict, which has a different xpath to the
 # geographicElement, meaning we can write the two different types
 def split_geographic_extents(data):
+    if 'identificationInfo' not in data: return data
+    if 'geographicElement' not in data['identificationInfo']: return data
     geo = data['identificationInfo']['geographicElement']
     boxes = geo.get('boxes', None)
     if boxes:
@@ -395,6 +470,8 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
         data_to_xml(data=data, xml_node=xml_node, spec=spec, nsmap=nsmap,
                     element_index=0, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
     elif is_object(spec):
+        if not get_xpath(spec):
+            return
         xml_node = xml_node.xpath(get_xpath(spec), namespaces=nsmap)[element_index]
         for field_key, node_spec in get_properties(spec).items():
             # workaround for a problem with identifiers in the final output
@@ -426,6 +503,8 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
     # default behaviour; populate the xml elements with the values in the data
     else:
         node_xpath = get_xpath(spec)
+        if not node_xpath:
+            return
         is_attr = node_xpath.startswith('@')
         if is_attr:
             attr_split = node_xpath[1:].split(':')
@@ -473,7 +552,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                 elif arity == 1:
                     final_value = transform(data)
                 elif arity == 2:
-                    source_value = value(element, namespaces=nsmap)
+                    source_value = extract_value_from_element(spec, element, namespaces=nsmap)
                     final_value = transform(data, source_value)
                 else:
                     msg = 'attr %s in spec %s has unsupported arity %d' % (attr, str(spec), arity)
@@ -497,3 +576,22 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
 
     if is_postprocess(spec):
         get_postprocess(spec)(data, xml_node, spec, nsmap, element_index, silent)
+
+
+def xpath_analysis_step(namespaces, tree, schema):
+    full_xpath = schema.get('full_xpath')
+
+    if full_xpath:
+        try:
+            eles = tree.xpath(full_xpath, namespaces=namespaces)
+            schema['xpath_analysis'] = "Found {} elements".format(len(eles))
+        except etree.XPathEvalError as e:
+            schema['xpath_analysis'] = "XPathEvalError: {}".format(e)
+    else:
+        schema['xpath_analysis'] = "Nothing to analyse"
+    return schema
+
+
+def xpath_analysis(tree, schema):
+    namespaces = schema['namespaces']
+    return spec4.postwalk(partial(xpath_analysis_step, namespaces, tree), schema)

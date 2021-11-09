@@ -378,11 +378,11 @@
          :label-path ["label"]
          :value-path ["uri"]}]]
       [m4/list-add-button
-       {:form-id    [:form]
-        :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
-        :text       "Add"
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]}]]
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
+        :button-text "Add"
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]]
 
      [m4/simple-selection-list
       {:form-id    [:form]
@@ -411,11 +411,11 @@
          :label-path ["label"]
          :value-path ["uri"]}]]
       [m4/list-add-button
-       {:form-id    [:form]
-        :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
-        :text       "Add"
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]}]]
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
+        :button-text "Add"
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]]
      [m4/table-selection-list
       {:form-id    [:form]
        :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
@@ -444,11 +444,11 @@
          :label-path ["label"]
          :value-path ["uri"]}]]
       [m4/list-add-button
-       {:form-id    [:form]
-        :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
-        :text       "Add"
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]}]]
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
+        :button-text "Add"
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]]
      [m4/table-selection-list
       {:form-id    [:form]
        :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
@@ -540,14 +540,14 @@
      [:div.bp3-control-group
       [:div.bp3-fill
        [m4/input-field
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]}]]
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]
       [m4/list-add-button
-       {:form-id    [:form]
-        :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
-        :text       "Add"
-        :value-path ["value"]
-        :added-path ["isUserDefined"]}]]
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]
+        :button-text "Add"
+        :value-path  ["value"]
+        :added-path  ["isUserDefined"]}]]
      [m4/simple-selection-list
       {:form-id    [:form]
        :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
@@ -635,11 +635,11 @@
                      {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
 
       [m4/list-add-button
-       {:form-id    [:form]
-        :data-path  ["identificationInfo" "geographicElement" "boxes"]
-        :text       "Add"
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]}]
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "geographicElement" "boxes"]
+        :button-text "Add"
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -735,7 +735,7 @@
         [m4/numeric-input-field
          {:form-id   [:form]
           :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeValue"]
-          :unit      ""                               ; Driven by logic
+          :unit      ""                                     ; Driven by logic
           }]]]]]]
 
    [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
@@ -798,7 +798,7 @@
     [m4/list-add-button
      {:form-id       [:form]
       :data-path     ["identificationInfo" "citedResponsibleParty"]
-      :text          "Add person"
+      :button-text   "Add person"
       :value-path    ["uri"]
       :added-path    ["isUserDefined"]
       :item-defaults {"partyType" "person"}}]
@@ -806,7 +806,7 @@
     [m4/list-add-button
      {:form-id       [:form]
       :data-path     ["identificationInfo" "citedResponsibleParty"]
-      :text          "Add organisation"
+      :button-text   "Add organisation"
       :value-path    ["uri"]
       :added-path    ["isUserDefined"]
       :item-defaults {"partyType" "organisation"}}]
@@ -826,7 +826,7 @@
    ;[m4/list-add-button
    ; {:form-id    [:form]
    ;  :data-path  ["identificationInfo" "PointOfContactForDataset"]
-   ;  :text       "Add"
+   ;  :button-text       "Add"
    ;  :value-path ["uri"]
    ;  :added-path ["isUserDefined"]}]
    ;
@@ -1083,7 +1083,7 @@
    [:h4 "Pixel Size"]
    [:div.row
     [:div.col-md-6
-     [m3/NasaListSelectField {:keyword   :horizontalResolution
+     [m3/NasaListSelectField {:keyword   :api/horizontalresolution
                               :form-id   [:form]
                               :data-path ["identificationInfo"]}]]]
    [:br]
@@ -1145,4 +1145,230 @@
     {:note-for-data-manager-path [:form :fields :noteForDataManager]
      :agreed-to-terms-path       [:form :fields :agreedToTerms]
      :doi-requested-path         [:form :fields :doiRequested]
-     :current-doi-path           [:form :fields :identificationInfo :doi]}]]}}
+     :current-doi-path           [:form :fields :identificationInfo :doi]}]]}
+
+ :low-code/schema
+ {:type "object",
+  :properties
+        {"parentMetadataFlag"
+         {},
+         "parentMetadata"
+         {:type "object",
+          :properties
+                {"label" {}, "value" {}}},
+         "identificationInfo"
+         {:type "object",
+          :properties
+                {"abstract"            {},
+                 "keywordsHorizontal"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "object",
+                                                :properties
+                                                      {"label" {},
+                                                       "uri"   {}}}}},
+                 "resourceSpecificUsage"
+                                       {},
+                 "keywordsTheme"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"breadcrumb" {},
+                                                              "label"      {},
+                                                              "uri"        {}}}}}},
+                 "keywordsAdditional"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"isUserDefined" {},
+                                                              "value"         {},
+                                                              "label"         {}}}}}},
+                 "keywordsFlora"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"breadcrumb" {},
+                                                              "label"      {},
+                                                              "uri"        {}}}}}},
+                 "keywordsPlatform"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"breadcrumb"    {},
+                                                              "isUserDefined" {},
+                                                              "label"         {},
+                                                              "uri"           {}}}}}},
+                 "supplemental"        {},
+                 "customCitation"      {},
+                 "endPosition"         {},
+                 "credit"              {},
+                 "beginPosition"       {},
+                 "maintenanceAndUpdateFrequency"
+                                       {},
+                 "doi"                 {},
+                 "citedResponsibleParty"
+                                       {:type  "array",
+                                        :items {}},
+                 "geographicElement"
+                                       {:type "object",
+                                        :properties
+                                              {"siteDescription" {},
+                                               "boxes"
+                                                                 {:type "array",
+                                                                  :items
+                                                                        {:type "object",
+                                                                         :properties
+                                                                               {"uri"           {},
+                                                                                "isUserDefined" {},
+                                                                                "westBoundLongitude"
+                                                                                                {},
+                                                                                "eastBoundLongitude"
+                                                                                                {},
+                                                                                "southBoundLatitude"
+                                                                                                {},
+                                                                                "northBoundLatitude"
+                                                                                                {}}}}}},
+                 "keywordsInstrument"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"breadcrumb"    {},
+                                                              "serial"        {},
+                                                              "isUserDefined" {},
+                                                              "label"         {},
+                                                              "uri"           {}}}}}},
+                 "keywordsFauna"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"breadcrumb" {},
+                                                              "label"      {},
+                                                              "uri"        {}}}}}},
+                 "datePublication"     {},
+                 "Who"
+                                       {:type "array",
+                                        :items
+                                              {:type "object",
+                                               :properties
+                                                     {"uri"           {},
+                                                      "role"
+                                                                      {:type "object",
+                                                                       :properties
+                                                                             {"uri"   {},
+                                                                              "label" {}}},
+                                                      "contact"
+                                                                      {:type "object",
+                                                                       :properties
+                                                                             {"uri"   {},
+                                                                              "label" {},
+                                                                              "isUserDefined"
+                                                                                      {}}},
+                                                      "organisation"
+                                                                      {:type "object",
+                                                                       :properties
+                                                                             {"uri"   {},
+                                                                              "label" {},
+                                                                              "isUserDefined"
+                                                                                      {}}},
+                                                      "isUserDefined" {}}}},
+                 "datePublicationFlag" {},
+                 "status"              {},
+                 "keywordsTemporal"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "object",
+                                                :properties
+                                                      {"label" {},
+                                                       "uri"   {}}}}},
+                 "title"               {},
+                 "environment"         {},
+                 "version"             {},
+                 "keywordsThemeAnzsrc"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"breadcrumb" {},
+                                                              "label"      {},
+                                                              "uri"        {}}}}}},
+                 "topicCategory"       {},
+                 "keywordsParameters"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"description"   {},
+                                                              "isUserDefined" {},
+                                                              "symbol"        {},
+                                                              "source"        {},
+                                                              "unit"
+                                                                              {:type "object",
+                                                                               :properties
+                                                                                     {"label" {},
+                                                                                      "uri"   {},
+                                                                                      "isUserDefined"
+                                                                                              {}}},
+                                                              "label"         {},
+                                                              "uri"           {}}}}}},
+                 "keywordsVertical"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "object",
+                                                :properties
+                                                      {"label" {},
+                                                       "uri"   {}}}}},
+                 "keywordsUoM"
+                                       {:type "object",
+                                        :properties
+                                              {"keywords"
+                                               {:type "array",
+                                                :items
+                                                      {:type "object",
+                                                       :properties
+                                                             {"isUserDefined" {},
+                                                              "source"        {},
+                                                              "label"         {},
+                                                              "uri"           {}}}}}},
+                 "purpose"             {},
+                 "dateCreation"        {}}},
+         "dataQualityInfo"
+         {:type "object",
+          :properties
+                {"methodSummary" {},
+                 "results"       {},
+                 "methods"       {}}}}}
+
+ }

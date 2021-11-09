@@ -1,0 +1,24 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Sign Out" %}</h1>
+
+<p>{% trans 'Are you sure you want to sign out?' %}</p>
+
+<form method="post" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{% url 'LandingPage' %}"/>
+    <button class="btn btn-primary" type="submit">
+        {% trans 'Sign Out' %}
+    </button>
+    <button class="btn btn-default" onclick='window.history.back()' type="submit">
+        {% trans 'Go back' %}
+    </button>
+</form>
+
+
+{% endblock %}

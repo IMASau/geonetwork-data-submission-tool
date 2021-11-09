@@ -205,6 +205,7 @@ class Document(AbstractDocument):
             data = to_json(self.latest_draft.data)
             xml = etree.parse(self.template.file.path)
             spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=self.template.mapper)
+            # TODO: Should this be optional post processing?
             data = xmlutils4.split_geographic_extents(data)
             xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                                   element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)

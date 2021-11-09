@@ -12,7 +12,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from django.middleware import csrf
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
@@ -30,6 +30,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+import requests
+
 from metcalf.common import spec4
 from metcalf.common import xmlutils4
 from metcalf.common.utils import to_json, get_exception_message
@@ -39,7 +41,7 @@ from metcalf.tern.frontend.forms import DocumentAttachmentForm
 from metcalf.tern.frontend.models import SiteContent
 from metcalf.tern.frontend.permissions import is_document_editor, is_document_contributor
 from metcalf.tern.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
-    SiteContentSerializer
+    SiteContentSerializer, CreateDocumentSerializer
 
 
 def theme_keywords():
@@ -102,20 +104,24 @@ def dashboard(request):
         },
         "create_form": {
             "url": reverse("Create"),
-            "fields": {
-                "title": {
-                    "label": "Document title",
-                    "initial": "Untitled",
-                    "value": "",
-                    "required": False
-                },
-                "template": {
-                    "label": "Template",
-                    "value": MetadataTemplate.objects.filter(site=get_current_site(request), archived=False).first().pk,
-                    "options": [[t.pk, t.__str__()]
-                                for t in
-                                MetadataTemplate.objects.filter(site=get_current_site(request), archived=False)],
-                    "required": True
+            "data": {},
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "label": "Title",
+                        "rules": ["requiredField"]
+                    },
+                    "template": {
+                        "type": "object",
+                        "label": "Template",
+                        "rules": ["requiredField"],
+                        "properties": {
+                            "id": {"type": "number"},
+                            "name": {"type": "string"}
+                        }
+                    }
                 }
             }
         },
@@ -127,8 +133,13 @@ def dashboard(request):
 @login_required
 @api_view(['POST'])
 def create(request):
+    serializer = CreateDocumentSerializer(data=request.data)
+
+    if not serializer.is_valid():
+        return Response(data=serializer.errors, status=400)
+
     template = get_object_or_404(
-        MetadataTemplate, site=get_current_site(request), archived=False, pk=request.data['template'])
+        MetadataTemplate, site=get_current_site(request), archived=False, pk=request.data['template']['id'])
 
     doc = Document(title=request.data['title'],
                    owner=request.user,
@@ -137,6 +148,36 @@ def create(request):
 
     return Response({"message": "Created",
                      "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
+
+
+@login_required
+@api_view(['GET'])
+def extract_xml_data(request, template_id):
+    template = get_object_or_404(
+        MetadataTemplate, site=get_current_site(request), archived=False, pk=template_id)
+    tree = etree.parse(template.file.path)
+    spec = spec4.make_spec(mapper=template.mapper)
+    data = xmlutils4.extract_xml_data(tree, spec)
+    return Response({"data": data})
+
+
+@login_required
+@api_view(['GET'])
+def analyse_metadata_template(request, template_id):
+    template = get_object_or_404(
+        MetadataTemplate, site=get_current_site(request), archived=False, pk=template_id)
+    tree = etree.parse(template.file.path)
+    payload = template.mapper.file.read().decode('utf-8')
+    full_schema = spec4.analyse_schema(payload=payload)
+    spec = spec4.compile_spec(payload=payload)
+    data = xmlutils4.extract_xml_data(tree, spec)
+
+    schema_with_analysis = xmlutils4.xpath_analysis(tree, full_schema)
+
+    return Response({
+        "data": data,
+        "schema": schema_with_analysis
+    })
 
 
 @login_required
@@ -184,6 +225,7 @@ def create_export_xml_string(doc, uuid):
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    # TODO: Should this be optional post processing?
     data = spec4.split_geographic_extents(data)
     xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                           element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
@@ -229,6 +271,7 @@ def mef(request, uuid):
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    # TODO: Should this be optional post processing?
     data = spec4.split_geographic_extents(data)
     xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                           element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
@@ -372,44 +415,43 @@ def save(request, uuid):
             doc.resubmit()
         doc.save()
 
-        # add any new people or institutions to the database
-        pointOfContacts = data['identificationInfo']['pointOfContact']
-        citedResponsibleParties = data['identificationInfo']['citedResponsibleParty']
+        # FIXME: these should be handled by DUMA now
+        # # add any new people or institutions to the database
+        # pointOfContacts = data['identificationInfo']['pointOfContact']
+        # citedResponsibleParties = data['identificationInfo']['citedResponsibleParty']
 
-        for pointOfContact in pointOfContacts:
-            updatedPerson = personFromData(pointOfContact)
-            if updatedPerson:
-                pointOfContact['individualName'] = updatedPerson.prefLabel
-            institutionFromData(pointOfContact)
+        # for pointOfContact in pointOfContacts:
+        #     updatedPerson = personFromData(pointOfContact)
+        #     if updatedPerson:
+        #         pointOfContact['individualName'] = updatedPerson.prefLabel
+        #     institutionFromData(pointOfContact)
 
-        for citedResponsibleParty in citedResponsibleParties:
-            updatedPerson = personFromData(citedResponsibleParty)
-            if updatedPerson:
-                citedResponsibleParty['individualName'] = updatedPerson.prefLabel
-            institutionFromData(citedResponsibleParty)
-
-        # update the publication date
-        data['identificationInfo']['datePublication'] = spec4.today()
+        # for citedResponsibleParty in citedResponsibleParties:
+        #     updatedPerson = personFromData(citedResponsibleParty)
+        #     if updatedPerson:
+        #         citedResponsibleParty['individualName'] = updatedPerson.prefLabel
+        #     institutionFromData(citedResponsibleParty)
 
         inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
-        inst.noteForDataManager = data['noteForDataManager'] or ''
-        inst.agreedToTerms = data['agreedToTerms'] or False
-        inst.doiRequested = data['doiRequested'] or False
+        inst.noteForDataManager = data.get('noteForDataManager') or ''
+        inst.agreedToTerms = data.get('agreedToTerms') or False
+        inst.doiRequested = data.get('doiRequested') or False
         inst.save()
 
-        # Remove any attachments which are no longer mentioned in the XML.
-        xml_names = tuple(map(lambda x: os.path.basename(x['file']), data['attachments']))
-        # TODO: the logic to find files based an os.path.basename seems te be flawed.
-        #       it works as long as the assumption that all files are stored are stored at the same path holds.
-        #       otherwise, we will run into problems
-        for attachment in doc.attachments.all():
-            name = os.path.basename(attachment.file.url)
-            if name not in xml_names:
-                # TODO: sholud we delete the actual file as well?
-                #       deleting the model does not remove files from storage backend
-                # TODO: if we leave files around we may want to think about some cleanup process
-                # attachement.file.delete()
-                attachment.delete()
+        # FIXME: Is this still  necessary?  (currently blocks saving; disabling for now)
+        # # Remove any attachments which are no longer mentioned in the XML.
+        # xml_names = tuple(map(lambda x: os.path.basename(x['file']), data['attachments']))
+        # # TODO: the logic to find files based an os.path.basename seems te be flawed.
+        # #       it works as long as the assumption that all files are stored are stored at the same path holds.
+        # #       otherwise, we will run into problems
+        # for attachment in doc.attachments.all():
+        #     name = os.path.basename(attachment.file.url)
+        #     if name not in xml_names:
+        #         # TODO: sholud we delete the actual file as well?
+        #         #       deleting the model does not remove files from storage backend
+        #         # TODO: if we leave files around we may want to think about some cleanup process
+        #         # attachement.file.delete()
+        #         attachment.delete()
 
         tree = etree.parse(doc.template.file.path)
 
@@ -421,6 +463,20 @@ def save(request, uuid):
                              "document": DocumentInfoSerializer(doc, context={'user': request.user}).data}})
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
+
+
+@login_required
+@api_view(['GET'])
+def user_defined(request, uuid):
+    doc = get_object_or_404(Document, uuid=uuid)
+    draft = doc.draftmetadata_set.all()[0]
+    data = to_json(draft.data)
+
+    duma = xmlutils4.extract_user_defined(data, acc=[])
+
+    return Response({"user_added": duma,
+                     "data": data,
+                     "data_id": uuid})
 
 
 @login_required
@@ -475,9 +531,10 @@ def edit(request, uuid):
         "messages": messages_payload(request),
         "data": data,
         "attachments": AttachmentSerializer(doc.attachments.all(), many=True).data,
-        "theme": {"keywordsTheme": {"table": theme_keywords()},
-                  "keywordsThemeAnzsrc": {"table": anzsrc_keywords()}},
-        "topicCategories": {"table": topic_categories()},
+        # FIXME: tidy up (remove this, but probably also associated code)
+        # "theme": {"keywordsTheme": {"table": theme_keywords()},
+        #           "keywordsThemeAnzsrc": {"table": anzsrc_keywords()}},
+        # "topicCategories": {"table": topic_categories()},
         # "institutions": [inst.to_dict() for inst in Institution.objects.all()],
         "page": {"name": request.resolver_match.url_name}
     }
@@ -574,7 +631,7 @@ def es_results(data):
 
     Returns a list of source documents as results
     """
-    return [massage_source(hit['_source']) for hit in data['hits']['hits']]
+    return {"results": [massage_source(hit['_source']) for hit in data['hits']['hits']]}
 
 
 @api_view(["GET", "POST"])
@@ -817,6 +874,440 @@ def tern_instruments(request) -> Response:
                     }
                 }
             }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def tern_instrument_types(request) -> Response:
+    """Search TERN Instrument-types Index
+
+    Search TERN People Instrument-types index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query". E.g. ?query=alos
+    - POST supports a post body object. E.g. {"query": "alos"}
+
+    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
+    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
+
+    OWL classes are filtered out via the selectable value.
+    """
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_TERNINSTRUMENTTYPES
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["label", "altLabel"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by label
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def tern_people(request) -> Response:
+    """Search TERN People Index
+
+    Search TERN People Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query". E.g. ?query=alos
+    - POST supports a post body object. E.g. {"query": "alos"}
+
+    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
+    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
+
+    OWL classes are filtered out via the selectable value.
+    """
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_TERNPEOPLE
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["name", "email"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"name.keyword": "asc"}],  # Sort by name
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def tern_orgs(request) -> Response:
+    """Search TERN Organisations Index
+
+    Search TERN Organisations Elasticsearch index using GET or POST. Returns an Elasticsearch multi_match query result.
+    - GET supports the query parameter "query". E.g. ?query=alos
+    - POST supports a post body object. E.g. {"query": "alos"}
+
+    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
+    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
+
+    OWL classes are filtered out via the selectable value.
+    """
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_TERNORGS
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["name", "full_address_line"]
+                        }
+                    },
+                    "filter": {
+                        "term": {"is_dissolved": "false"}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"name.keyword": "asc"}],  # Sort by name
+            "query": {
+                "bool": {
+                    "filter": {
+                        "term": {"is_dissolved": "false"}
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def geonetwork_entries(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_GEONETWORK
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["uuid", "label", "uri", "abstract"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def anzsrc_keywords(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_ANZSRC
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["breadcrumb", "label"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+# FIXME: no data / schema in the dumped index so far
+@api_view(['GET', 'POST'])
+def aus_plantnames(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_PLANTNAMES
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["uuid", "label", "uri", "abstract"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def gcmd_horizontal(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_GCMDHORIZONTAL
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["breadcrumb", "label", "uri"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def gcmd_sciencekeywords(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_GCMDSCIENCE
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["breadcrumb", "label", "uri"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def gcmd_temporal(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_GCMDTEMPORAL
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["breadcrumb", "label", "uri"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def gcmd_vertical(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_GCMDVERTICAL
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["breadcrumb", "label", "uri"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
         data = es.search(index=index_alias, body=body)
 
     return Response(es_results(data), status=200)

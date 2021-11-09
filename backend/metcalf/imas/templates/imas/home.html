@@ -1,0 +1,86 @@
+{% extends "imas/base.html" %}
+
+{% load i18n %}
+{% load bootstrap3 %}
+{% load static %}
+{% load imagekit %}
+
+{% block head_title %}{{ sitecontent.title }} {{ sitecontent.tag_line }}{% endblock %}
+
+{% block pagestyles %}
+    {% generateimage 'imas:frontend:homepage_image' source=sitecontent.homepage_image as homepage_image_resized %}
+    <link rel="stylesheet" href="https://use.typekit.net/pwr4rlr.css">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/style.landing-page.css' %}">
+    <link rel="stylesheet" href="{% static 'metcalf3/css/style.landing-page.imas.css' %}">
+    <style>
+    @media only screen and (width) {
+         html, body {
+             background-image: url({{ homepage_image_resized.url }});
+        }
+    }
+    </style>
+{% endblock %}
+
+{% block body %}
+<!-- Workaround for background-size: cover in IE8 -->
+<!--[if lte IE 8]>
+{% if homepage_image_resized %}
+<img src="{{ homepage_image_resized.url }}" class="ie8-bg" alt="">
+{% endif %}
+<![endif]-->
+
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <!--
+            {% bootstrap_messages %}
+            -->
+
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">{{ sitecontent.title }} {{ sitecontent.tag_line }}</h3>
+                    <nav>
+                        <ul class="nav masthead-nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            {% if sitecontent.guide_pdf %}
+                            <li><a href="{{ sitecontent.guide_pdf.url }}">Help</a></li>
+                            {% endif %}
+                            <li><a href="{% url 'account_login' %}">Sign in</a></li>
+                            <li><a href="{% url 'account_signup' %}">Register</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="inner cover">
+                <h1 class="cover-heading">{{ sitecontent.title }} {{ sitecontent.tag_line }}</h1>
+
+                <p class="lead">
+                    An open source tool for capturing research data -
+                    simplifying the process of gathering information in a standard format
+                    and preparing it for upload to the {{ sitecontent.portal_title }}.
+                </p>
+
+                <p class="lead">
+                    <a href="{% url 'account_login' %}" class="btn btn-lg btn-default">Sign in</a>
+                </p>
+            </div>
+
+            <div class="mastfoot">
+                <div class="inner">
+                    <p>Cover image by
+                        <a href="{{ sitecontent.homepage_image_credit_url }}">
+                            {{ sitecontent.homepage_image_credit_name }}</a>
+                        -
+                        Code on <a href="https://github.com/IMASau/geonetwork-data-submission-tool">GitHub</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -29,30 +29,26 @@ export const SimpleFieldWithLocalState = (args) => {
     return <CheckboxField {...args} checked={value} onChange={(v, t) => setValue(v)}/>;
 };
 SimpleFieldWithLocalState.args = {
-    checked: false,
-    disabled: false,
-    hasError: false,
+    label: "Agree?",
 };
 
 export const FieldDisabledState = FieldTemplate.bind({});
 FieldDisabledState.args = {
-    checked: false,
-    disabled: true,
-    hasError: false,
+    label: "Agree?",
+    disabled: true
 };
 
 export const FieldWithError = FieldTemplate.bind({});
 FieldWithError.args = {
-    checked: false,
-    disabled: false,
-    hasError: true,
+    label: "Agree?",
+    hasError: true
 };
 
 export const FieldWithValueAndError = FieldTemplate.bind({});
 FieldWithValueAndError.args = {
+    label: "Agree?",
     checked: true,
-    disabled: false,
-    hasError: true,
+    hasError: true
 };
 
 import NOTES from './NOTES.mdx';

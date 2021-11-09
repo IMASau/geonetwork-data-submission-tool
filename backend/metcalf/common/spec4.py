@@ -54,6 +54,9 @@ def insert_def(defs, schema):
 
 
 def inline_defs(schema):
+    """
+    replace any node group reference with the actual node_group
+    """
     defs = schema.get('$defs')
     if defs:
         schema = prewalk(partial(insert_def, defs), schema)
@@ -61,8 +64,48 @@ def inline_defs(schema):
     return schema
 
 
+def full_xpaths_step(schema):
+    """
+    Push down xpaths and generate full_xpath annotations.
+
+    :param schema:
+    :return:
+    """
+
+    # Set full_xpath if needed and possible
+    full_xpath = schema.get("full_xpath")
+    xpath = schema.get("xpath")
+    parent_xpath = schema.get("parent_xpath")
+    if not full_xpath and xpath and parent_xpath:
+        full_xpath = parent_xpath + "/" + xpath
+        schema['full_xpath'] = full_xpath
+
+    # Set parent_xpath if possible
+    if full_xpath:
+        schema_type = schema.get('type')
+        if schema_type == 'object':
+            for prop_name in schema['properties'].keys():
+                schema['properties'][prop_name]['parent_xpath'] = full_xpath
+        elif schema_type == 'array':
+            schema['items']['parent_xpath'] = full_xpath
+
+    # Clear parent_xpath if present (clean up)
+    if parent_xpath:
+        del schema['parent_xpath']
+
+    return schema
+
+
+def full_xpaths(schema):
+    """
+    Experimental analysis to resolve full_xpath based on schema tree and xpath annotations.
+    """
+    schema['full_xpath'] = schema['xpath']
+    return prewalk(full_xpaths_step, schema)
+
+
 def extract_field(schema):
-    return select_keys(schema, ['label', 'type', 'rules', 'items', 'properties'])
+    return select_keys(schema, ['label', 'type', 'rules', 'items', 'properties', 'required'])
 
 
 def extract_fields(schema):
@@ -96,6 +139,11 @@ def get_function_ref(x):
 
 # NOTE: Needs a review
 def insert_functions(spec):
+    """
+    update string references to functions with the actual functions
+    """
+    if is_function_ref(spec):
+        spec[SpecialKeys.function] = get_function_ref(spec)
     if isinstance(spec, list):
         for sub_spec in spec:
             insert_functions(sub_spec)
@@ -116,11 +164,26 @@ def make_spec(**kwargs):
     assert kwargs['mapper'] is not None, "No mapper exists for this template. Please specify one."
     spec = json.loads(kwargs['mapper'].file.read().decode('utf-8'))
     remove_comments(spec)
-    # replace any node group reference with the actual node_group
     spec = inline_defs(spec)
-    # update string references to functions with the actual functions
     insert_functions(spec)
     return spec
+
+
+def analyse_schema(**kwargs):
+    assert kwargs['payload'] is not None, "No schema data exists for this template. Please specify one."
+    schema = json.loads(kwargs['payload'])
+    schema = inline_defs(schema)
+    schema = full_xpaths(schema)
+    return schema
+
+
+def compile_spec(**kwargs):
+    assert kwargs['payload'] is not None, "No schema data exists for this template. Please specify one."
+    schema = json.loads(kwargs['payload'])
+    remove_comments(schema)
+    schema = inline_defs(schema)
+    insert_functions(schema)
+    return schema
 
 
 LINKAGE_UUID = re.compile(r'uuid=\w{8}-\w{4}-\w{4}-\w{4}-\w{12}')
@@ -160,7 +223,7 @@ def all_text(node):
 
 
 def is_empty(node):
-    return not all_text(node)
+    return not (node and all_text(node))
 
 
 def prune_if_empty(data, parent, spec, nsmap, i, silent):
@@ -172,6 +235,10 @@ def prune_if_empty(data, parent, spec, nsmap, i, silent):
     # descriptiveKeywords without any content; ie not empty, but don't have a gmd:keyword
     for elem in parent.findall('.//mri:descriptiveKeywords', nsmap):
         if elem.find('./mri:MD_Keywords/mri:keyword', nsmap) is None:
+            elem.getparent().remove(elem)
+    for elem in parent.findall('.//mdb:parentMetadata', nsmap):
+        # Use title as proxy for a value:
+        if is_empty(elem.find('./cit:CI_Citation/cit:title', nsmap)):
             elem.getparent().remove(elem)
     # No descendent text() at all:
     for xpath in ['mri:descriptiveKeywords',
@@ -216,6 +283,10 @@ def science_keyword_from_uuid(x):
 
 def date_as_string(x):
     return datetime.datetime.strptime(x[: 10], '%Y-%m-%d').date().isoformat()
+
+
+def date_as_version(x):
+    return datetime.datetime.strptime(x[: 10], '%Y-%m-%d').date().strftime("%Y.%m")
 
 
 def has_geographic_coverage(x):
@@ -396,6 +467,7 @@ SPEC_FUNCTIONS = {
     "parse_keywords": parse_keywords,
     "science_keyword_from_uuid": science_keyword_from_uuid,
     "date_as_string": date_as_string,
+    "date_as_version": date_as_version,
     "has_geographic_coverage": has_geographic_coverage,
     "to_string": to_string,
     "has_vertical_extent": has_vertical_extent,

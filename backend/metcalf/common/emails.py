@@ -90,6 +90,7 @@ def email_user_upload_alert(doc):
         'site': site
     }
     context['portal_record_url'] = Template(site.sitecontent.portal_record_url).render(Context(context)).strip()
+    # FIXME don't mention tern here
     send_mail(subject="Your data is now available in the TERN Metadata Catalogue",
               message=render_to_string('email_user_upload_alert.txt', context),
               from_email=site.sitecontent.email,

@@ -11,6 +11,7 @@
             ["/ui/components/NumericInputField/NumericInputField" :as NumericInputField]
             ["/ui/components/SelectField/SelectField" :as SelectField]
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
+            ["/ui/components/TextAddField/TextAddField" :as TextAddField]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/utils" :as ui-utils]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
@@ -36,6 +37,7 @@
 (assert CheckboxField/CheckboxField)
 (assert NumericInputField/NumericInputField)
 (assert EditDialog/EditDialog)
+(assert TextAddField/TextAddField)
 
 (s/def ::northBoundLatitude number?)
 (s/def ::westBoundLongitude number?)
@@ -71,7 +73,6 @@
 
 (def BoxMap (r/adapt-react-class BoxMap/BoxMap))
 (def DateField (r/adapt-react-class DateField/DateField))
-(def ErrorSidebar (r/adapt-react-class ErrorSidebar/ErrorSidebar))
 (def ExpandingControl (r/adapt-react-class ExpandingControl/ExpandingControl))
 (def FormGroup (r/adapt-react-class FormGroup/FormGroup))
 (def InlineFormGroup (r/adapt-react-class FormGroup/InlineFormGroup))
@@ -92,3 +93,4 @@
 (def CheckboxField (r/adapt-react-class CheckboxField/CheckboxField))
 (def NumericInputField (r/adapt-react-class NumericInputField/NumericInputField))
 (def EditDialog (r/adapt-react-class EditDialog/EditDialog))
+(def TextAddField (r/adapt-react-class TextAddField/TextAddField))

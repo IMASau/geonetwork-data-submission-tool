@@ -24,7 +24,7 @@ services:
       - --forwarded-allow-ips='*'
       - --statsd-host=statsd:9125
       - --statsd-prefix=data_submission_tool
-      - webapp.wsgi
+      - metcalf.tern.webapp.wsgi
     user: "1000:1000"
     volumes:
       - ./docker-files/local_settings.py:/etc/data-submission-tool/settings.py

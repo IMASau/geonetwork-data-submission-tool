@@ -15,8 +15,8 @@ def configure_backend_data(apps, schema_editor):
     # Create default MetadataTemplateMapper
     mtm, _ = MetadataTemplateMapper.objects.get_or_create(pk='1')
     mtm.name = 'Tern Mapper'
-    mtm.file = 'tern_template_spec.json'
-    mtm.notes = 'Default template mapper'
+    mtm.file = 'tern_jsonschema_mapper.json'
+    mtm.notes = 'Default template mapper (WIP)'
     mtm.archived = 'f'
     mtm.site_id = '1'
     mtm.created = now
@@ -25,7 +25,7 @@ def configure_backend_data(apps, schema_editor):
     # Create default MetadataTemplate
     mt, _ = MetadataTemplate.objects.get_or_create(pk='1')
     mt.name = "TERN Template"
-    mt.file = "Metadata_Template.xml"
+    mt.file = "TERN_ISO_Profile_v0_01.xml"
     mt.notes = "Default template"
     mt.archived = "f"
     mt.site_id = "1"

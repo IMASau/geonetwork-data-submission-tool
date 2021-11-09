@@ -1,0 +1,4 @@
+User-Agent: *
+Disallow: /dashboard/
+Disallow: /edit/
+Disallow: /admin/

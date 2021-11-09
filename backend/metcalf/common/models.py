@@ -1,4 +1,5 @@
 import uuid
+
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.db import models
@@ -10,6 +11,7 @@ from metcalf.common.utils import no_spaces_in_filename
 
 
 class AbstractDataFeed(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.SlugField()
 
     last_refresh = models.DateTimeField(blank=True, null=True)
@@ -41,7 +43,8 @@ class AbstractDataFeed(models.Model):
 
 
 class AbstractContributor(models.Model):
-    document = models.ForeignKey("Document", on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True)
+    document = models.ForeignKey("Document", on_delete=models.CASCADE, related_name="contributors")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
@@ -53,17 +56,10 @@ class AbstractDocument(models.Model):
     template = models.ForeignKey("MetadataTemplate", on_delete=models.SET_NULL, null=True)
     title = models.TextField(default="Untitled")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    doi = models.CharField(max_length=1024, default='', blank=True)
-    validation_result = models.TextField(null=True, blank=True, verbose_name="Validation result XML")
-    validation_status = models.CharField(max_length=256, default='Unvalidated', null=True, blank=True,
-                                         verbose_name='Validity')
-    date_last_validated = models.DateTimeField(blank=True, null=True, verbose_name='Last Validated')
-
-    # objects = DocumentManager()
 
     class Meta:
         abstract = True
-        # FIXME is this needed
+        # FIXME: is this needed?
         permissions = (
             ("workflow_reject", "Can reject record in workflow"),
             ("workflow_upload", "Can upload record in workflow"),
@@ -95,11 +91,15 @@ class AbstractDocument(models.Model):
     def is_editor(self, user):
         return user.is_staff or (user == self.owner)
 
+    def is_contributor(self, user):
+        return user.is_staff or self.contributors.filter(user=user).exists()
+
     def get_absolute_url(self):
         return reverse('Edit', kwargs={'uuid': self.uuid})
 
 
 class AbstractDocumentAttachment(models.Model):
+    id = models.AutoField(primary_key=True)
     document = models.ForeignKey("Document", on_delete=models.CASCADE, related_name='attachments')
     name = models.CharField(max_length=256)
     file = models.FileField(upload_to=no_spaces_in_filename)
@@ -111,13 +111,12 @@ class AbstractDocumentAttachment(models.Model):
 
 
 class AbstractDraftMetadata(models.Model):
+    id = models.AutoField(primary_key=True)
     document = models.ForeignKey("Document", on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     time = models.DateTimeField(auto_now_add=True)
     data = JSONField()
     noteForDataManager = models.TextField(default="")
-    agreedToTerms = models.BooleanField(default=False)
-    doiRequested = models.BooleanField(default=False)
 
     class Meta:
         # FIXME
@@ -127,6 +126,7 @@ class AbstractDraftMetadata(models.Model):
 
 
 class AbstractMetadataTemplateMapper(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128, help_text="Unique name for template mapper.  Used in menus.")
     file = models.FileField("metadata_template_mappers",
                             help_text="JSON file used to interpret XML files that specify records")
@@ -143,7 +143,26 @@ class AbstractMetadataTemplateMapper(models.Model):
         abstract = True
 
 
+class AbstractUserInterfaceTemplate(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=128, help_text="Unique name for UI template.  Used in menus.")
+    file = models.FileField("ui_template",
+                            help_text="EDN file used to define the UI needed for data capture")
+    notes = models.TextField(help_text="Internal use notes about this template mapper", blank=True, null=True)
+    site = models.ForeignKey(Site, on_delete=models.SET_NULL, blank=True, null=True)
+    archived = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "{1} (#{0})".format(self.pk, self.name)
+
+    class Meta:
+        abstract = True
+
+
 class AbstractMetadataTemplate(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128, help_text="Unique name for template.  Used in menus.")
     file = models.FileField("metadata_templates", help_text="XML file used when creating and exporting records")
     notes = models.TextField(help_text="Internal use notes about this template")
@@ -152,6 +171,7 @@ class AbstractMetadataTemplate(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     mapper = models.ForeignKey("MetadataTemplateMapper", on_delete=models.SET_NULL, blank=True, null=True)
+    ui_template = models.ForeignKey("UserInterfaceTemplate", on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return "{1} (#{0})".format(self.pk, self.name)
@@ -161,22 +181,17 @@ class AbstractMetadataTemplate(models.Model):
 
 
 class AbstractSiteContent(models.Model):
+    id = models.AutoField(primary_key=True)
     site = models.OneToOneField(Site, on_delete=models.SET_NULL, blank=True, null=True)
     title = models.CharField(max_length=32, default="Data Submission Tool")
     organisation_url = models.URLField(blank=True, null=True)
     tag_line = models.CharField(max_length=128, null=True)
     email = models.EmailField()
-    doi_uri = models.CharField(
-        max_length=1024,
-        verbose_name="DOI Service URI",
-        help_text="Base create URI for the DOI minting service")
     homepage_image = models.CharField(
         max_length=200,
         blank=True, null=True, verbose_name='Homepage Image',
         help_text="Url to homepage image. (Accepts django template formatting with access to `site` and `sitecontent`.)")
     guide_pdf = models.URLField(null=True, verbose_name="Help", blank=True, max_length=1024)
-    roadmap_pdf = models.URLField(null=True, verbose_name="Roadmap", blank=True, max_length=1024)
-    releasenotes_url = models.URLField(null=True, verbose_name="Release notes URL", blank=True)
     portal_title = models.CharField(
         max_length=64,
         help_text="Used to refer to the place where lodged data can be discovered")
@@ -187,7 +202,6 @@ class AbstractSiteContent(models.Model):
         help_text="Used to generate URLs to the published record on the portal. "
                   "(Accepts django template formatting with access to `site` and `document`.)"
     )
-    terms_pdf = models.URLField(blank=True, null=True, verbose_name='Terms PDF')
 
     homepage_image_credit_name = models.CharField(max_length=128, default="XXX")
     homepage_image_credit_url = models.URLField(blank=True, null=True)

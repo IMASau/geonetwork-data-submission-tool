@@ -2,11 +2,14 @@
 Django settings for webapp project.
 """
 import os
+
 from django.conf.locale.en import formats as en_formats
 
 en_formats.DATETIME_FORMAT = "Y-m-d H:i:s"
 
 DEBUG = False
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # EMAIL_HOST = os.environ.get("DJANGO_EMAIL_HOST")
@@ -142,12 +145,7 @@ LOGGING = {
             "level": "ERROR",
             "propagate": True,
         },
-        "metcalf.common.xmlutils": {
-            "handlers": ["console", "mail_admins"],
-            "level": "DEBUG",
-            "propagate": True,
-        },
-        "metcalf.tern.backend.management.commands": {
+        "metcalf": {
             "handlers": ["console", "mail_admins"],
             "level": "DEBUG",
             "propagate": True,
@@ -188,12 +186,13 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 GMAPS_API_KEY = ""
 
+# TODO: Remove me
 FRONTEND_DEV_MODE = False
 
 # Elasticsearch
 ELASTICSEARCH_VERIFY_SSL = True
 
-LOGIN_URL = "/oidc/authenticate"
+# LOGIN_URL = "/accounts/login/"
 
 # OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ.get("OIDC_OP_AUTHORIZATION_ENDPOINT")
 # OIDC_OP_TOKEN_ENDPOINT = os.environ.get("OIDC_OP_TOKEN_ENDPOINT")

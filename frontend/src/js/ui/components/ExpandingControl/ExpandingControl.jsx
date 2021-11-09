@@ -1,20 +1,22 @@
 import React from 'react';
 import * as BPCore from '@blueprintjs/core';
 import PropTypes from "prop-types";
+import {requiredLabelInfo} from "../utils";
 
 
-export function ExpandingControl({label, hasError, disabled, children}) {
-    console.log({label, hasError, disabled, children})
+export function ExpandingControl({label, required, children, keepChildrenMounted}) {
     const [isOpen, setOpen] = React.useState(false);
     return (
         <div className="ExpandingControl">
             <div className="ExpandingControlHeader" onClick={() => setOpen(!isOpen)}>
-                <label>{label}</label>
-                <BPCore.Button icon={isOpen ? "caret-up" : "caret-down"}
-                               minimal={true}/>
+                <div className="ExpandingControlHeaderLabel">
+                    {label}
+                    {requiredLabelInfo({required})}
+                </div>
+                <BPCore.Icon icon={isOpen ? "caret-up" : "caret-down"}/>
             </div>
-            <BPCore.Collapse isOpen={isOpen}>
-                {children}
+            <BPCore.Collapse isOpen={isOpen} keepChildrenMounted={keepChildrenMounted}>
+              {children}
             </BPCore.Collapse>
         </div>
     );
@@ -22,8 +24,7 @@ export function ExpandingControl({label, hasError, disabled, children}) {
 
 ExpandingControl.propTypes = {
     label: PropTypes.string.isRequired,
-    value: PropTypes.bool,
-    disabled: PropTypes.bool,
-    hasError: PropTypes.bool,
-    children: PropTypes.element
+    required: PropTypes.bool,
+    keepChildrenMounted: PropTypes.bool,
+    children: PropTypes.node.isRequired
 }

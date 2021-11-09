@@ -34,6 +34,7 @@ body {
 
 .main-footer{
 	background-color: #fff;
+        text-align: start;
 }
 
 .bp3-tab-list > *:not(:last-child) {

@@ -17,21 +17,25 @@ from rest_framework.renderers import JSONRenderer
 
 from metcalf.common.emails import *
 from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, AbstractDocument, AbstractContributor, \
-    AbstractMetadataTemplate, AbstractMetadataTemplateMapper, AbstractDraftMetadata
-from metcalf.common.spec import make_spec
+    AbstractMetadataTemplate, AbstractMetadataTemplateMapper, AbstractDraftMetadata, AbstractUserInterfaceTemplate
+from metcalf.common import spec4
 from metcalf.common.utils import to_json, get_exception_message, get_user_name
-from metcalf.common.xmlutils import extract_xml_data, data_to_xml, extract_fields, split_geographic_extents
+from metcalf.common import xmlutils4
 
 User.add_to_class("__str__", get_user_name)
 
 logger = logging.getLogger(__name__)
 
 
+class UserInterfaceTemplate(AbstractUserInterfaceTemplate):
+    pass
+
+
 class MetadataTemplateMapper(AbstractMetadataTemplateMapper):
 
     def clean(self):
         try:
-            spec = make_spec(science_keyword=ScienceKeyword, mapper=self)
+            spec = spec4.make_spec(science_keyword=ScienceKeyword, mapper=self)
         except Exception as e:
             traceback.print_exc()
             raise ValidationError({'file': get_exception_message(e)})
@@ -42,13 +46,14 @@ class MetadataTemplate(AbstractMetadataTemplate):
     def clean(self):
         try:
             tree = etree.fromstring(self.file.read())
-            spec = make_spec(science_keyword=ScienceKeyword, mapper=self.mapper)
-            fields = extract_fields(tree, spec)
-            data = extract_xml_data(tree, spec)
+            spec = spec4.make_spec(science_keyword=ScienceKeyword, mapper=self.mapper)
+            # TODO: replace with xml/mapper compatibility test
+            spec4.extract_fields(spec)
+            data = xmlutils4.extract_xml_data(tree, spec)
             # FIXME data_to_xml will validate presence of all nodes in the template, but only when data is fully mocked up
             data = json.loads(JSONRenderer().render(data).decode('utf-8'))
-            data_to_xml(data=data, xml_node=tree, spec=spec, nsmap=spec['namespaces'],
-                        element_index=0, silent=True, fieldKey=None, doc_uuid='cleanmetadatatemplatetest')
+            xmlutils4.data_to_xml(data=data, xml_node=tree, spec=spec, nsmap=spec['namespaces'],
+                                  element_index=0, silent=True, fieldKey=None, doc_uuid='cleanmetadatatemplatetest')
 
         except Exception as e:
             traceback.print_exc()
@@ -68,6 +73,7 @@ class DataFeed(AbstractDataFeed):
 
     state = FSMField(default=SCHEDULED, choices=STATUS_CHOICES)
 
+    # FIXME abstract model has this in Meta. Does it need to be here or there?
     class Meta:
         permissions = (
             ("datafeed_schedule", "Can schedule datafeed refresh"),
@@ -75,26 +81,31 @@ class DataFeed(AbstractDataFeed):
             ("datafeed_admin", "Can administer datafeed"),
         )
 
-    @transition(field=state, source=[IDLE], target=SCHEDULED, permission='backend.datafeed_schedule')
+    @transition(field=state, source=[IDLE], target=SCHEDULED,
+                permission='backend.datafeed_schedule')
     def schedule(self):
         pass
 
-    @transition(field=state, source=[SCHEDULED], target=IDLE, permission='backend.datafeed_unschedule')
+    @transition(field=state, source=[SCHEDULED], target=IDLE,
+                permission='backend.datafeed_unschedule')
     def unschedule(self):
         pass
 
-    @transition(field=state, source=[SCHEDULED], target=ACTIVE, permission='backend.datafeed_admin')
+    @transition(field=state, source=[SCHEDULED], target=ACTIVE,
+                permission='backend.datafeed_admin')
     def start(self):
         self.last_refresh = timezone.now()
         self.last_output = ""
 
-    @transition(field=state, source=[ACTIVE], target=IDLE, permission='backend.datafeed_admin')
+    @transition(field=state, source=[ACTIVE], target=IDLE,
+                permission='backend.datafeed_admin')
     def success(self, msg=""):
         self.last_output = msg
         self.last_success = timezone.now()
         self.last_duration = self.last_success - self.last_refresh
 
-    @transition(field=state, source=[ACTIVE], target=IDLE, permission='backend.datafeed_admin')
+    @transition(field=state, source=[ACTIVE], target=IDLE,
+                permission='backend.datafeed_admin')
     def failure(self, msg=""):
         self.last_output = msg
         self.last_failure = timezone.now()
@@ -143,6 +154,14 @@ class Document(AbstractDocument):
 
     status = FSMField(default=DRAFT, choices=STATUS_CHOICES)
 
+    validation_result = models.TextField(null=True, blank=True, verbose_name="Validation result XML")
+    validation_status = models.CharField(max_length=256, default='Unvalidated', null=True, blank=True,
+                                         verbose_name='Validity')
+    date_last_validated = models.DateTimeField(blank=True, null=True, verbose_name='Last Validated')
+
+    doi = models.CharField(max_length=1024, default='', blank=True)
+
+    # FIXME is this needed
     class Meta:
         permissions = (
             ("workflow_reject", "Can reject record in workflow"),
@@ -159,8 +178,8 @@ class Document(AbstractDocument):
             super(Document, self).save(*args, **kwargs)
 
             tree = etree.parse(self.template.file.path)
-            spec = make_spec(science_keyword=ScienceKeyword, uuid=self.uuid, mapper=self.template.mapper)
-            data = extract_xml_data(tree, spec)
+            spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=self.uuid, mapper=self.template.mapper)
+            data = xmlutils4.extract_xml_data(tree, spec)
             # make sure there is no newline in self.title
             if self.title:
                 self.title = self.title.replace('\n', ' ').strip()
@@ -185,10 +204,11 @@ class Document(AbstractDocument):
         try:
             data = to_json(self.latest_draft.data)
             xml = etree.parse(self.template.file.path)
-            spec = make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=self.template.mapper)
-            data = split_geographic_extents(data)
-            data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
-                        element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
+            spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=self.template.mapper)
+            # TODO: Should this be optional post processing?
+            data = xmlutils4.split_geographic_extents(data)
+            xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
+                                  element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
             request_xml = etree.tostring(xml)
             requestUri = 'https://apps.das.ga.gov.au/xmlProcessing/validation/iso19115-3'
             response = requests.post(requestUri, data=request_xml, verify=True,
@@ -231,7 +251,8 @@ class Document(AbstractDocument):
 
     ########################################################
     # Workflow (state) Transitions
-    @transition(field=status, source=[DRAFT, SUBMITTED], target=ARCHIVED)
+    @transition(field=status, source=[DRAFT, SUBMITTED],
+                target=ARCHIVED)
     def archive(self):
         pass
 
@@ -240,7 +261,8 @@ class Document(AbstractDocument):
         self.clear_note()
         self.clear_agreed()
 
-    @transition(field=status, source=SUBMITTED, target=DRAFT, permission='backend.workflow_reject')
+    @transition(field=status, source=SUBMITTED, target=DRAFT,
+                permission='backend.workflow_reject')
     def reject(self):
         self.clear_note()
         self.clear_agreed()
@@ -258,7 +280,8 @@ class Document(AbstractDocument):
         self.validate_with_ga()
         email_manager_updated_alert(self)
 
-    @transition(field=status, source=SUBMITTED, target=UPLOADED, permission='backend.workflow_upload')
+    @transition(field=status, source=SUBMITTED, target=UPLOADED,
+                permission='backend.workflow_upload')
     def upload(self):
         email_user_upload_alert(self)
 
@@ -313,6 +336,10 @@ class Contributor(AbstractContributor):
 
 
 class DraftMetadata(AbstractDraftMetadata):
+    agreedToTerms = models.BooleanField(default=False)
+    doiRequested = models.BooleanField(default=False)
+
+    # FIXME
     class Meta:
         verbose_name_plural = "Draft Metadata"
         ordering = ["-time"]
@@ -323,15 +350,19 @@ if settings.USE_TERN_STORAGE:
 
 
     class DocumentAttachment(AbstractDocumentAttachment):
+        objects = DocumentManager()
+
         file = models.FileField(upload_to=document_upload_path, storage=attachment_store)
 
 else:
 
     class DocumentAttachment(AbstractDocumentAttachment):
-        pass
+        objects = DocumentManager()
 
 
+# TODO: Should this be a separate app?  Does workflow complicate this?
 class Person(models.Model):
+    id = models.AutoField(primary_key=True)
     uri = models.CharField(max_length=512, default="")
     orgUri = models.CharField(max_length=512, default="", blank=True)
     familyName = models.CharField(max_length=256, verbose_name="family name", blank=True)
@@ -353,6 +384,7 @@ class Institution(models.Model):
     # TERN fields
     # http://linkeddata.tern.org.au/viewer/tern/id/http://linkeddata.tern.org.au/def/org
 
+    id = models.AutoField(primary_key=True)
     uri = models.CharField(max_length=512, default="")
     prefLabel = models.CharField(max_length=512, default="")
     altLabel = models.CharField(max_length=512, default="")
@@ -455,6 +487,7 @@ class RoleCode(models.Model):
 # https://vocabs.ands.org.au/aodn-discovery-parameter-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-discovery-parameter-vocabulary_version-1-1
 class ParameterName(ns_tree.NS_Node):
+    id = models.AutoField(primary_key=True)
     URI = models.CharField(max_length=128, db_column='URI')
     Name = models.CharField(max_length=128, db_column='Name')
     # Largest definition entry so far seen is 488 characters:
@@ -487,6 +520,7 @@ class ParameterName(ns_tree.NS_Node):
 # https://vocabs.ands.org.au/aodn-units-of-measure-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-units-of-measure-vocabulary_version-1-0
 class ParameterUnit(ns_tree.NS_Node):
+    id = models.AutoField(primary_key=True)
     URI = models.CharField(max_length=128, db_column='URI')
     Name = models.CharField(max_length=128, db_column='Name')
     Definition = models.CharField(max_length=256, db_column='Definition')
@@ -518,6 +552,7 @@ class ParameterUnit(ns_tree.NS_Node):
 # https://vocabs.ands.org.au/aodn-instrument-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-instrument-vocabulary_version-1-0
 class ParameterInstrument(ns_tree.NS_Node):
+    id = models.AutoField(primary_key=True)
     URI = models.CharField(max_length=128, db_column='URI')
     Name = models.CharField(max_length=128, db_column='Name')
     # Largest definition entry so far seen is 1252 characters:
@@ -550,6 +585,7 @@ class ParameterInstrument(ns_tree.NS_Node):
 # https://vocabs.ands.org.au/aodn-platform-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-platform-vocabulary_version-1-2
 class ParameterPlatform(ns_tree.NS_Node):
+    id = models.AutoField(primary_key=True)
     URI = models.CharField(max_length=128, db_column='URI')
     Name = models.CharField(max_length=128, db_column='Name')
     # Largest definition entry so far seen is 2154 characters:

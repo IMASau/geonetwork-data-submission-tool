@@ -2,6 +2,12 @@
 {% load static %}
 {% load frontend_tags %}
 
+{% block pagestyles %}
+<link rel="stylesheet" href="{% static 'metcalf3/css/style.npm-packaged.css' %}">
+<link rel="stylesheet" href="{% static 'metcalf3/css/style.spa.css' %}">
+<link rel="stylesheet" href="{% static 'metcalf3/css/style.spa.tern.css' %}">
+{% endblock %}
+
 {% block body %}
     <div id="Content"></div>
 

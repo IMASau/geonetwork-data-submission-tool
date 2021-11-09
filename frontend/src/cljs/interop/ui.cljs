@@ -1,16 +1,23 @@
 (ns interop.ui
   (:require ["/ui/components/BoxMap/BoxMap" :as BoxMap]
+            ["/ui/components/CheckboxField/CheckboxField" :as CheckboxField]
             ["/ui/components/DateField/DateField" :as DateField]
+            ["/ui/components/EditDialog/EditDialog" :as EditDialog]
             ["/ui/components/ErrorSidebar/ErrorSidebar" :as ErrorSidebar]
             ["/ui/components/ExpandingControl/ExpandingControl" :as ExpandingControl]
             ["/ui/components/FormGroup/FormGroup" :as FormGroup]
             ["/ui/components/InputField/InputField" :as InputField]
+            ["/ui/components/ListItem/ListItem" :as ListItem]
+            ["/ui/components/NumericInputField/NumericInputField" :as NumericInputField]
             ["/ui/components/SelectField/SelectField" :as SelectField]
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
+            ["/ui/components/TextAddField/TextAddField" :as TextAddField]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
+            ["/ui/components/utils" :as ui-utils]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
-
-            [cljs.spec.alpha :as s]))
+            [cljs.spec.alpha :as s]
+            [goog.object :as gobj]
+            [reagent.core :as r]))
 
 (assert BoxMap/BoxMap)
 (assert DateField/DateField)
@@ -18,11 +25,19 @@
 (assert ExpandingControl/ExpandingControl)
 (assert FormGroup/FormGroup)
 (assert InputField/InputField)
-(assert SelectField/SelectField)
-(assert SelectField/AsyncSelectField)
+(assert SelectField/SelectValueField)
+(assert SelectField/SimpleSelectField)
+(assert SelectField/AsyncSimpleSelectField)
 (assert SelectionList/SelectionList)
+(assert ListItem/SimpleListItem)
+(assert ListItem/TableListItem)
+(assert ListItem/BreadcrumbListItem)
 (assert TextareaField/TextareaField)
 (assert YesNoRadioGroup/YesNoRadioGroup)
+(assert CheckboxField/CheckboxField)
+(assert NumericInputField/NumericInputField)
+(assert EditDialog/EditDialog)
+(assert TextAddField/TextAddField)
 
 (s/def ::northBoundLatitude number?)
 (s/def ::westBoundLongitude number?)
@@ -30,91 +45,52 @@
 (s/def ::eastBoundLongitude number?)
 (s/def ::element (s/keys :req-un [::northBoundLatitude ::westBoundLongitude ::southBoundLatitude ::eastBoundLongitude]))
 (s/def ::elements (s/coll-of ::element))
+(s/def ::obj-path (s/coll-of string? :min-count 1))
 
-(defn box-map
-  [{:keys [elements map-width tick-id on-change]}]
-  (s/assert fn? on-change)
-  [:> BoxMap/BoxMap
-   {:elements (filter #(s/valid? ::element %) elements)
-    :mapWidth (s/assert pos? map-width)
-    :tickId   (s/assert number? tick-id)
-    :onChange (fn [geojson] (on-change (js->clj geojson :keywordize-keys true)))}])
+(defn get-obj-path
+  ([path] #(get-obj-path % path))
+  ([o path]
+   (let [path (if (string? path) [path] path)]
+     (apply gobj/getValueByKeys o path))))
 
-(defn DateField
-  [{:keys [value disabled onChange hasError minDate maxDate]}]
-  (s/assert inst? minDate)
-  (s/assert inst? maxDate)
-  [:> DateField/DateField
-   {:value    value
-    :disabled disabled
-    :onChange onChange
-    :hasError hasError
-    :minDate  minDate
-    :maxDate  maxDate}])
+(defn get-option-data [o] (js->clj o))
 
-(defn ErrorSidebar
-  [{:keys []}]
-  [:> ErrorSidebar/ErrorSidebar
-   {}])
+(defn setup-blueprint []
+  (ui-utils/setupBlueprint))
 
-(defn ExpandingControl
-  [{:keys []}]
-  [:> ExpandingControl/ExpandingControl
-   {}])
+(defn get-geojson-data [o] (js->clj o :keywordize-keys true))
+(defn boxes->elements
+  [boxes]
+  (for [box boxes]
+    {:northBoundLatitude (get-in box ["northBoundLatitude"])
+     :southBoundLatitude (get-in box ["southBoundLatitude"])
+     :eastBoundLongitude (get-in box ["eastBoundLongitude"])
+     :westBoundLongitude (get-in box ["westBoundLongitude"])}))
 
-(defn FormGroup
-  [{:keys [label required disabled hasError helperText toolTip]} & children]
-  (into [:> FormGroup/FormGroup
-         {:label      label
-          :required   required
-          :disabled   disabled
-          :hasError   hasError
-          :helperText helperText
-          :toolTip    toolTip}]
-        children))
+(defn valid-element?
+  [{:keys [northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude]}]
+  (and northBoundLatitude southBoundLatitude eastBoundLongitude westBoundLongitude))
 
-(defn InputField
-  [{:keys [value placeholder maxLength disabled hasError onChange]}]
-  [:> InputField/InputField
-   {:value       value
-    :placeholder placeholder
-    :maxLength   maxLength
-    :disabled    disabled
-    :hasError    hasError
-    :onChange    onChange}])
-
-(defn SelectField
-  [{:keys [value options placeholder disabled hasError onChange]}]
-  [:> SelectField/SelectField
-   {:value       value
-    :options     options
-    :placeholder placeholder
-    :disabled    disabled
-    :hasError    hasError
-    :onChange    onChange}])
-
-(defn AsyncSelectField
-  [{:keys []}]
-  [:> SelectField/AsyncSelectField
-   {}])
-
-(defn SelectionList
-  [{:keys []}]
-  [:> SelectionList/SelectionList
-   {}])
-
-(defn TextareaField
-  [{:keys [value placeholder maxLength rows disabled hasError onChange]}]
-  [:> TextareaField/TextareaField
-   {:value       value
-    :placeholder placeholder
-    :maxLength   maxLength
-    :rows        rows
-    :disabled    disabled
-    :hasError    hasError
-    :onChange    onChange}])
-
-(defn YesNoRadioGroup
-  [{:keys []}]
-  [:> YesNoRadioGroup/YesNoRadioGroup
-   {}])
+(def BoxMap (r/adapt-react-class BoxMap/BoxMap))
+(def DateField (r/adapt-react-class DateField/DateField))
+(def ExpandingControl (r/adapt-react-class ExpandingControl/ExpandingControl))
+(def FormGroup (r/adapt-react-class FormGroup/FormGroup))
+(def InlineFormGroup (r/adapt-react-class FormGroup/InlineFormGroup))
+(def InputField (r/adapt-react-class InputField/InputField))
+(def SelectValueField (r/adapt-react-class SelectField/SelectValueField))
+(def SimpleSelectField (r/adapt-react-class SelectField/SimpleSelectField))
+(def BreadcrumbSelectField (r/adapt-react-class SelectField/BreadcrumbSelectField))
+(def AsyncBreadcrumbSelectField (r/adapt-react-class SelectField/AsyncBreadcrumbSelectField))
+(def TableSelectField (r/adapt-react-class SelectField/TableSelectField))
+(def AsyncTableSelectField (r/adapt-react-class SelectField/AsyncTableSelectField))
+(def AsyncSimpleSelectField (r/adapt-react-class SelectField/AsyncSimpleSelectField))
+(def SimpleSelectionList (r/adapt-react-class SelectionList/SimpleSelectionList))
+(def SelectionList (r/adapt-react-class SelectionList/SelectionList))
+(def BreadcrumbSelectionList (r/adapt-react-class SelectionList/BreadcrumbSelectionList))
+(def TableSelectionList (r/adapt-react-class SelectionList/TableSelectionList))
+(def TextareaField (r/adapt-react-class TextareaField/TextareaField))
+(def YesNoRadioGroup (r/adapt-react-class YesNoRadioGroup/YesNoRadioGroup))
+(def CheckboxField (r/adapt-react-class CheckboxField/CheckboxField))
+(def NumericInputField (r/adapt-react-class NumericInputField/NumericInputField))
+(def EditDialog (r/adapt-react-class EditDialog/EditDialog))
+(def TextAddField (r/adapt-react-class TextAddField/TextAddField))

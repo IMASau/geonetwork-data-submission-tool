@@ -5,11 +5,14 @@ import * as BPDateTime from '@blueprintjs/datetime';
 import moment from 'moment';
 import {hasErrorIntent} from "../utils";
 
-function getMomentFormatter(format) {
-    return {
-        formatDate: (date) => moment(date).format(format),
-        parseDate: (str) => moment(str, format).toDate(),
-        placeholder: format,
+function getMomentFormatter({format, disabled}) {
+    const formatDate = (date) => moment(date).format(format);
+    const parseDate = (str) => moment(str, format).toDate();
+    const placeholder = format;
+    if (disabled) {
+        return { formatDate, parseDate }
+    } else {
+        return { formatDate, parseDate, placeholder }
     }
 }
 
@@ -42,9 +45,10 @@ export const DateField = ({value, disabled, onChange, hasError, minDate, maxDate
     console.assert(maxDate > minDate);
     const intent = hasErrorIntent({hasError, disabled});
     const outOfRange = value && (value < minDate || value > maxDate);
-    const onClearClick = () => onChange(null)
+    const onClearClick = () => onChange(null);
+    const format = "DD-MM-YYYY";
     if (outOfRange) {
-        return <OutOfRangeValue {...getMomentFormatter("DD-MM-YYYY")}
+        return <OutOfRangeValue {...getMomentFormatter({format, disabled})}
                                 value={value}
                                 disabled={disabled}
                                 hasError={hasError}
@@ -52,7 +56,7 @@ export const DateField = ({value, disabled, onChange, hasError, minDate, maxDate
     } else {
         return (
             <BPDateTime.DateInput
-                {...getMomentFormatter("DD-MM-YYYY")}
+                {...getMomentFormatter({format, disabled})}
                 disabled={disabled}
                 value={value}
                 onChange={(selectedDate, isUserChange) => {

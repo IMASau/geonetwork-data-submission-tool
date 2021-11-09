@@ -15,3 +15,5 @@ pom.xml.asc
 /.lsp/sqlite.db
 /.shadow-cljs/
 /.clj-kondo/.cache/
+.lsp/.cache
+resources/public/resources/icons/icons

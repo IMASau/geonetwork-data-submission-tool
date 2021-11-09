@@ -78,6 +78,13 @@ class MetadataTemplateAdmin(admin.ModelAdmin):
     readonly_fields = ['created', 'modified']
 
 
+class UserInterfaceTemplateAdmin(admin.ModelAdmin):
+    list_display = ['name', 'file', 'site', 'notes']
+    list_filter = ['archived', 'site', 'created', 'modified']
+    ordering = ['modified']
+    readonly_fields = ['created', 'modified']
+
+
 class MetadataTemplateMapperAdmin(admin.ModelAdmin):
     list_display = ['name', 'file', 'site', 'notes']
     list_filter = ['archived', 'site', 'created', 'modified']
@@ -87,6 +94,10 @@ class MetadataTemplateMapperAdmin(admin.ModelAdmin):
 
 class DocumentAttachmentInline(admin.TabularInline):
     model = models.DocumentAttachment
+
+
+class ContributorInline(admin.TabularInline):
+    model = models.Contributor
 
 
 def bulk_scheduled(modeladmin, request, queryset):
@@ -145,7 +156,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
     search_fields = ['title', 'owner__username', 'owner__email', 'uuid']
     fsm_field = ['status', ]
     readonly_fields = ['status', 'action_links', 'submission_note', 'doi_links', 'validity', 'date_last_validated']
-    inlines = [DocumentAttachmentInline]
+    inlines = [DocumentAttachmentInline, ContributorInline]
     fieldsets = [
         (None, {'fields': ('title', 'template', 'owner', 'status', 'submission_note', 'doi')}),
         ('Validation', {'fields': ('validity', 'date_last_validated')}),
@@ -396,6 +407,7 @@ class RoleCodeAdmin(admin.ModelAdmin):
 admin.site.register(models.Institution, InstitutionAdmin)
 admin.site.register(models.Document, DocumentAdmin)
 admin.site.register(models.DataFeed, DataFeedAdmin)
+admin.site.register(models.UserInterfaceTemplate, UserInterfaceTemplateAdmin)
 admin.site.register(models.MetadataTemplateMapper, MetadataTemplateMapperAdmin)
 admin.site.register(models.MetadataTemplate, MetadataTemplateAdmin)
 admin.site.register(models.DocumentAttachment, DocumentAttachmentAdmin)

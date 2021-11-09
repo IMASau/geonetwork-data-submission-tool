@@ -1,0 +1,1066 @@
+{
+  "type": "object",
+  "properties": {
+    "distributionInfo": {
+      "type": "object",
+      "properties": {
+        "distributionFormat": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "rules": {
+                "label": "Data file format date/version",
+                "maxLength": 20,
+                "placeholder": "Date format date or version if applicable"
+              }
+            },
+            "name": {
+              "rules": {
+                "label": "Data file format",
+                "maxLength": 100,
+                "placeholder": "e.g. Microsoft Excel, CSV, NetCDF"
+              }
+            }
+          }
+        }
+      }
+    },
+    "resourceLineage": {
+      "type": "object",
+      "properties": {
+        "lineage": {
+          "rules": {
+            "label": "Lineage",
+            "placeholder": "Provide a brief summary of the source of the data and related collection and/or processing methods. \n                                                                             Example: Data was collected at the site using the methods described in yyy Manual, refer to https://doi.org/10.5194/bg-14-2903-2017",
+            "maxLength": 1000,
+            "page": "about"
+          }
+        },
+        "processStep": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "rules": {
+                  "label": "Description",
+                  "required": true,
+                  "maxLength": 1000,
+                  "page": "how"
+                }
+              },
+              "name": {
+                "rules": {
+                  "label": "Name",
+                  "required": true,
+                  "maxLength": 250,
+                  "page": "how"
+                }
+              },
+              "uri": {
+                "rules": {
+                  "label": "URI",
+                  "page": "how"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "dataSources": {
+      "type": "array",
+      "rules": {
+        "page": "upload",
+        "label": "Data services",
+        "help": "Please note: This is intended for advanced users only",
+        "value": []
+      },
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "rules": {
+              "page": "upload",
+              "label": "Title",
+              "maxLength": 250,
+              "placeholder": "e.g. Map of Argo profiles"
+            }
+          },
+          "url": {
+            "rules": {
+              "page": "upload",
+              "label": "URL",
+              "maxLength": 250,
+              "placeholder": "e.g. http://geoserver-123.aodn.org.au/geoserver/wms"
+            }
+          },
+          "name": {
+            "rules": {
+              "page": "upload",
+              "maxLength": 250,
+              "label": "Layer",
+              "placeholder": "e.g. imos.argo_profile_map"
+            }
+          },
+          "protocol": {
+            "rules": {
+              "page": "upload",
+              "label": "Protocol",
+              "options": [
+                [
+                  "WWW:DOWNLOAD-1.0-http--download",
+                  "HTTP"
+                ],
+                [
+                  "OGC:WCS-1.1.0-http-get-capabilities",
+                  "OGC Web Coverage Service (WCS)"
+                ],
+                [
+                  "OGC:WMS-1.3.0-http-get-map",
+                  "OGC Web Map Service (WMS)"
+                ],
+                [
+                  "OGC:WFS-1.1.0-http-get-capabilities",
+                  "OGC Web Feature Service (WFS)"
+                ],
+                [
+                  "WWW:LINK-1.0-http--opendap",
+                  "OPeNDAP"
+                ],
+                [
+                  "FTP",
+                  "FTP"
+                ],
+                [
+                  "WWW:DOWNLOAD-1.0-http--downloaddata",
+                  "Other/unknown"
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "attachments": {
+      "type": "array",
+      "rules": {
+        "page": "upload",
+        "label": "Attachments",
+        "value": []
+      },
+      "items": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "rules": {
+              "page": "upload",
+              "label": "File"
+            }
+          },
+          "name": {
+            "rules": {
+              "page": "upload",
+              "label": "Name"
+            }
+          },
+          "delete_url": {
+            "rules": {}
+          }
+        }
+      }
+    },
+    "dataQualityInfo": {
+      "type": "object",
+      "properties": {
+        "methods": {
+          "rules": {
+            "rows": 20,
+            "label": "Data Quality Methods",
+            "maxLength": 1000,
+            "placeholder": "Provide a summary of the data quality assessment method. Example: The data were compared to xyz reference data.",
+            "value": null,
+            "page": "how"
+          }
+        },
+        "results": {
+          "rules": {
+            "rows": 20,
+            "label": "Data Quality Results",
+            "maxLength": 1000,
+            "placeholder": "Provide a statement regarding the data quality assessment results.  Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc.",
+            "value": null,
+            "page": "how"
+          }
+        }
+      }
+    },
+    "supportingResources": {
+      "type": "array",
+      "rules": {
+        "page": "about",
+        "label": "Supporting resources",
+        "value": []
+      },
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "rules": {
+              "page": "about",
+              "maxLength": 250,
+              "label": "Title"
+            }
+          },
+          "url": {
+            "rules": {
+              "page": "about",
+              "maxLength": 250,
+              "label": "URL"
+            }
+          }
+        }
+      }
+    },
+    "noteForDataManager": {
+      "rules": {
+        "label": "Include a note for the data manager",
+        "maxLength": 1000,
+        "style": {
+          "min-height": "80px"
+        },
+        "page": "lodge"
+      }
+    },
+    "identificationInfo": {
+      "type": "object",
+      "properties": {
+        "keywordsTaxonExtra": {
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "type": "array",
+              "rules": {
+                "placeholder": "Enter a taxon keyword",
+                "help": "Add any taxon names describing your data and click + to add",
+                "label": "Taxon keywords",
+                "maxLength": 250,
+                "page": "what"
+              },
+              "items": {}
+            }
+          }
+        },
+        "keywordsTheme": {
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "type": "array",
+              "rules": {
+                "label": "Research theme keywords, GCMD Science Keywords",
+                "help": "Select up to 12 research theme keywords describing your data",
+                "placeholder": "Start typing to filter list...",
+                "required": true,
+                "page": "what"
+              },
+              "items": {}
+            }
+          }
+        },
+        "dataParameters": {
+          "type": "array",
+          "rules": {
+            "value": [],
+            "label": "Data parameters",
+            "page": "about"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "serialNumber": {
+                "rules": {
+                  "label": "Serial Number",
+                  "placeholder": "",
+                  "maxLength": 100,
+                  "page": "about",
+                  "help": "Serial number of instrument."
+                }
+              },
+              "platform_term": {
+                "rules": {
+                  "label": "Platform",
+                  "placeholder": "Start typing to filter the list",
+                  "help": "Is the data measured from land, air or satellite?",
+                  "page": "about"
+                }
+              },
+              "name": {
+                "rules": {
+                  "label": "Parameter name in dataset",
+                  "maxLength": 100,
+                  "placeholder": "plant height",
+                  "page": "about",
+                  "help": "Name of the parameter in the dataset (optional)."
+                }
+              },
+              "platform_vocabularyVersion": {
+                "rules": {
+                  "page": "about"
+                }
+              },
+              "platform_termDefinition": {
+                "rules": {
+                  "page": "about"
+                }
+              },
+              "longName_vocabularyTermURL": {
+                "rules": {
+                  "page": "about"
+                }
+              },
+              "unit_termDefinition": {
+                "rules": {
+                  "page": "about"
+                }
+              },
+              "platform_vocabularyTermURL": {
+                "rules": {
+                  "page": "about"
+                }
+              },
+              "instrument_vocabularyVersion": {
+                "rules": {
+                  "page": "about"
+                }
+              },
+              "longName_term": {
+                "rules": {
+                  "page": "about",
+                  "label": "Parameter",
+                  "help": "Name of the measured parameter, e.g. vegetation height.",
+                  "placeholder": "Start typing to filter the list",
+                  "required": false
+                }
+              },
+              "instrument_vocabularyTermURL": {
+                "rules": {
+                  "page": "about"
+                }
+              },
+              "unit_vocabularyVersion": {
+                "rules": {
+                  "page": "about"
+                }
+              },
+              "instrument_termDefinition": {
+                "rules": {
+                  "page": "about"
+                }
+              },
+              "instrument_term": {
+                "rules": {
+                  "label": "Instrument",
+                  "placeholder": "Start typing to filter the list",
+                  "help": "Instrument used to measure the parameter. This includes digital camera models."
+                }
+              },
+              "unit_vocabularyTermURL": {
+                "rules": {
+                  "page": "about"
+                }
+              },
+              "longName_vocabularyVersion": {
+                "rules": {
+                  "page": "about"
+                }
+              },
+              "longName_termDefinition": {
+                "rules": {
+                  "page": "about"
+                }
+              },
+              "unit_term": {
+                "rules": {
+                  "label": "Unit type",
+                  "required": false,
+                  "page": "about",
+                  "placeholder": "Start typing to filter the list",
+                  "help": "The unit of measurement."
+                }
+              }
+            }
+          }
+        },
+        "horizontalResolution": {
+          "type": "object",
+          "properties": {
+            "label": null,
+            "uri": {
+              "rules": {
+                "page": "about"
+              }
+            },
+            "prefLabel": {
+              "rules": {
+                "page": "about"
+              }
+            }
+          }
+        },
+        "endPosition": {
+          "rules": {
+            "label": "End date",
+            "required": true,
+            "page": "when"
+          }
+        },
+        "verticalElement": {
+          "type": "object",
+          "properties": {
+            "hasVerticalExtent": {
+              "rules": {
+                "label": "Does data have a vertical (depth or altitude) component?",
+                "page": "where"
+              }
+            },
+            "minimumValue": {
+              "rules": {
+                "label": "Minimum (m)",
+                "required": true,
+                "help": "Specify the vertical extent of the data relative to a ground surface defined as 0m",
+                "page": "where"
+              }
+            },
+            "maximumValue": {
+              "rules": {
+                "label": "Maximum (m)",
+                "required": true,
+                "page": "where"
+              }
+            },
+            "method": {
+              "rules": {
+                "label": "Method",
+                "required": false,
+                "options": [
+                  [
+                    "not specified",
+                    "not specified"
+                  ],
+                  [
+                    "GPS",
+                    "GPS"
+                  ],
+                  [
+                    "Map",
+                    "Map"
+                  ],
+                  [
+                    "Other",
+                    "Other"
+                  ]
+                ],
+                "page": "where"
+              }
+            },
+            "elevation": {
+              "rules": {
+                "label": "Elevation in metres",
+                "required": true,
+                "page": "where"
+              }
+            }
+          }
+        },
+        "purpose": {
+          "rules": {
+            "label": "Purpose",
+            "maxLength": 1000,
+            "help": "Brief statement about the purpose of the study",
+            "placeholder": "Provide a brief summary of the purpose for collecting the data including the potential use. Example: The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future",
+            "page": "what"
+          }
+        },
+        "abstract": {
+          "rules": {
+            "label": "Abstract",
+            "maxLength": 2500,
+            "placeholder": "Provide a brief summary of What, Where, When, Why, Who and How for the collected the data.\n                                                                                 Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected.",
+            "help": "Describe the content of the resource; e.g. what information was collected,\n                                                                          how was it collected",
+            "rows": 10,
+            "required": true,
+            "page": "what"
+          }
+        },
+        "dateCreation": {
+          "rules": {
+            "label": "Date the resource was created",
+            "required": true,
+            "page": "data-identification"
+          }
+        },
+        "geographicElement": {
+          "type": "object",
+          "properties": {
+            "hasGeographicCoverage": {
+              "rules": {
+                "label": "Does data have a geographic coverage?",
+                "page": "where",
+                "value": true
+              }
+            },
+            "siteDescription": {
+              "rules": {
+                "label": "Site description",
+                "placeholder": "A descriptive reference for the site locality. May include a project code. Example: Geelong (Site: G145), VIC, Australia",
+                "maxLength": 250,
+                "page": "where"
+              }
+            },
+            "boxes": {
+              "type": "array",
+              "rules": {
+                "page": "where",
+                "label": "Geographic coverage",
+                "value": []
+              },
+              "items": {
+                "type": "object",
+                "properties": {
+                  "northBoundLatitude": {
+                    "type": "object",
+                    "properties": {
+                      "max": null,
+                      "min": null,
+                      "required": null,
+                      "label": null,
+                      "page": null
+                    }
+                  },
+                  "southBoundLatitude": {
+                    "type": "object",
+                    "properties": {
+                      "max": null,
+                      "min": null,
+                      "required": null,
+                      "label": null,
+                      "page": null
+                    }
+                  },
+                  "eastBoundLongitude": {
+                    "type": "object",
+                    "properties": {
+                      "max": null,
+                      "min": null,
+                      "required": null,
+                      "label": null,
+                      "page": null
+                    }
+                  },
+                  "westBoundLongitude": {
+                    "type": "object",
+                    "properties": {
+                      "max": null,
+                      "min": null,
+                      "required": null,
+                      "label": null,
+                      "page": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "title": {
+          "rules": {
+            "label": "Title",
+            "placeholder": "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing",
+            "help": "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing",
+            "rows": 3,
+            "maxLength": 250,
+            "required": true,
+            "page": "data-identification"
+          }
+        },
+        "citedResponsibleParty": {
+          "type": "array",
+          "rules": {
+            "page": "who",
+            "label": "Responsible parties"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "rules": {
+                  "label": "Role",
+                  "placeholder": "Role",
+                  "required": true,
+                  "page": "who"
+                }
+              },
+              "address": {
+                "type": "object",
+                "properties": {
+                  "deliveryPoint": {
+                    "rules": {
+                      "maxLength": 250
+                    }
+                  },
+                  "deliveryPoint2": {
+                    "rules": {
+                      "maxLength": 250,
+                      "aria-hidden": true,
+                      "class": "hidden"
+                    }
+                  },
+                  "city": {
+                    "rules": {
+                      "help": "City",
+                      "maxLength": 100
+                    }
+                  },
+                  "administrativeArea": {
+                    "rules": {
+                      "help": "State/territory",
+                      "maxLength": 100
+                    }
+                  },
+                  "postalCode": {
+                    "rules": {
+                      "help": "Postal / Zip code",
+                      "maxLength": 100
+                    }
+                  },
+                  "country": {
+                    "rules": {
+                      "help": "Country",
+                      "maxLength": 100
+                    }
+                  }
+                }
+              },
+              "individualName": {
+                "rules": {
+                  "label": "Contact name",
+                  "placeholder": "Contact name",
+                  "required": true,
+                  "page": "who"
+                }
+              },
+              "phone": {
+                "rules": {
+                  "label": "Phone number",
+                  "maxLength": 20,
+                  "page": "who"
+                }
+              },
+              "isUserAdded": {
+                "rules": {
+                  "required": false,
+                  "value": false,
+                  "page": "who"
+                }
+              },
+              "facsimile": {
+                "rules": {
+                  "label": "Fax number",
+                  "maxLength": 20,
+                  "page": "who"
+                }
+              },
+              "orcid": {
+                "rules": {
+                  "label": "ORCID ID",
+                  "placeholder": "XXXX-XXXX-XXXX-XXXX",
+                  "page": "who"
+                }
+              },
+              "familyName": {
+                "rules": {
+                  "label": "Surname",
+                  "placeholder": "Surname",
+                  "maxLength": 50,
+                  "required": true,
+                  "page": "who"
+                }
+              },
+              "electronicMailAddress": {
+                "rules": {
+                  "label": "Email address",
+                  "maxLength": 100,
+                  "page": "who"
+                }
+              },
+              "givenName": {
+                "rules": {
+                  "label": "Given name",
+                  "placeholder": "Given name",
+                  "maxLength": 50,
+                  "required": true,
+                  "page": "who"
+                }
+              },
+              "uri": {
+                "rules": {
+                  "label": "Person",
+                  "placeholder": "Person",
+                  "required": false,
+                  "page": "who"
+                }
+              },
+              "organisationName": {
+                "rules": {
+                  "label": "Organisation",
+                  "placeholder": "Start typing to filter list...",
+                  "required": true,
+                  "page": "who"
+                }
+              }
+            }
+          }
+        },
+        "status": {
+          "rules": {
+            "label": "Status of data",
+            "required": true,
+            "options": [
+              [
+                "onGoing",
+                "ongoing"
+              ],
+              [
+                "planned",
+                "planned"
+              ],
+              [
+                "completed",
+                "completed"
+              ]
+            ],
+            "page": "data-identification"
+          }
+        },
+        "topicCategory": {
+          "rules": {
+            "label": "Topic Categories",
+            "placeholder": "Select at least one topic category",
+            "required": true,
+            "page": "data-identification"
+          }
+        },
+        "supplementalInformation": {
+          "type": "array",
+          "rules": {
+            "page": "about",
+            "maxLength": 1000,
+            "label": "Publications associated with dataset"
+          },
+          "items": {}
+        },
+        "keywordsThemeExtra": {
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "type": "array",
+              "rules": {
+                "label": "Additional theme keywords for your data",
+                "help": "Enter your own additional theme keywords as required and click + to add",
+                "placeholder": "Enter a theme keyword",
+                "maxLength": 100,
+                "page": "what"
+              },
+              "items": {}
+            }
+          }
+        },
+        "keywordsThemeAnzsrc": {
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "type": "array",
+              "rules": {
+                "label": "Research theme keywords, ANZSRC Fields of Research",
+                "help": "Select up to 12 research theme keywords describing your data",
+                "placeholder": "Start typing to filter list...",
+                "required": true,
+                "page": "what"
+              },
+              "items": {}
+            }
+          }
+        },
+        "maintenanceAndUpdateFrequency": {
+          "rules": {
+            "label": "Maintenance and update frequency",
+            "required": true,
+            "options": [
+              [
+                "continually",
+                "Continually"
+              ],
+              [
+                "daily",
+                "Daily"
+              ],
+              [
+                "weekly",
+                "Weekly"
+              ],
+              [
+                "fortnightly",
+                "Fortnightly"
+              ],
+              [
+                "monthly",
+                "Monthly"
+              ],
+              [
+                "quarterly",
+                "Quarterly"
+              ],
+              [
+                "biannually",
+                "Twice each year"
+              ],
+              [
+                "annually",
+                "Annually"
+              ],
+              [
+                "asNeeded",
+                "As required"
+              ],
+              [
+                "irregular",
+                "Irregular"
+              ],
+              [
+                "notPlanned",
+                "None planned"
+              ],
+              [
+                "unknown",
+                "Unknown"
+              ],
+              [
+                "periodic",
+                "Periodic"
+              ],
+              [
+                "semimonthly",
+                "Twice a month"
+              ],
+              [
+                "biennially",
+                "Every 2 years"
+              ]
+            ],
+            "page": "data-identification"
+          }
+        },
+        "pointOfContact": {
+          "type": "array",
+          "rules": {
+            "page": "who",
+            "required": true,
+            "label": "Point of contact"
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "rules": {
+                  "label": "Role",
+                  "placeholder": "Role",
+                  "required": true,
+                  "page": "who"
+                }
+              },
+              "address": {
+                "type": "object",
+                "properties": {
+                  "deliveryPoint": {
+                    "rules": {
+                      "maxLength": 250
+                    }
+                  },
+                  "deliveryPoint2": {
+                    "rules": {
+                      "maxLength": 250,
+                      "aria-hidden": true,
+                      "class": "hidden"
+                    }
+                  },
+                  "city": {
+                    "rules": {
+                      "help": "City",
+                      "maxLength": 100
+                    }
+                  },
+                  "administrativeArea": {
+                    "rules": {
+                      "help": "State/territory",
+                      "maxLength": 100
+                    }
+                  },
+                  "postalCode": {
+                    "rules": {
+                      "help": "Postal / Zip code",
+                      "maxLength": 100
+                    }
+                  },
+                  "country": {
+                    "rules": {
+                      "help": "Country",
+                      "maxLength": 100
+                    }
+                  }
+                }
+              },
+              "individualName": {
+                "rules": {
+                  "label": "Contact name",
+                  "placeholder": "Contact name",
+                  "required": true,
+                  "page": "who"
+                }
+              },
+              "phone": {
+                "rules": {
+                  "label": "Phone number",
+                  "maxLength": 20,
+                  "page": "who"
+                }
+              },
+              "isUserAdded": {
+                "rules": {
+                  "required": false,
+                  "value": false,
+                  "page": "who"
+                }
+              },
+              "facsimile": {
+                "rules": {
+                  "label": "Fax number",
+                  "maxLength": 20,
+                  "page": "who"
+                }
+              },
+              "orcid": {
+                "rules": {
+                  "label": "ORCID ID",
+                  "placeholder": "XXXX-XXXX-XXXX-XXXX",
+                  "page": "who"
+                }
+              },
+              "familyName": {
+                "rules": {
+                  "label": "Surname",
+                  "placeholder": "Surname",
+                  "maxLength": 50,
+                  "required": true,
+                  "page": "who"
+                }
+              },
+              "electronicMailAddress": {
+                "rules": {
+                  "label": "Email address",
+                  "maxLength": 100,
+                  "page": "who"
+                }
+              },
+              "givenName": {
+                "rules": {
+                  "label": "Given name",
+                  "placeholder": "Given name",
+                  "maxLength": 50,
+                  "required": true,
+                  "page": "who"
+                }
+              },
+              "uri": {
+                "rules": {
+                  "label": "Person",
+                  "placeholder": "Person",
+                  "required": false,
+                  "page": "who"
+                }
+              },
+              "organisationName": {
+                "rules": {
+                  "label": "Organisation",
+                  "placeholder": "Start typing to filter list...",
+                  "required": true,
+                  "page": "who"
+                }
+              }
+            }
+          }
+        },
+        "useLimitations": {
+          "type": "array",
+          "rules": {
+            "label": "Use limitations",
+            "page": "about",
+            "maxLength": 1000,
+            "placeholder": "While every care is taken to ensure the accuracy of this information, the author makes no representations or warranties about its accuracy, reliability, completeness or suitability for any particular purpose and disclaims all responsibility and all liability (including without limitation, liability in negligence) for all expenses, losses, damages (including indirect or consequential damage) and costs which might be incurred as a result of the information being inaccurate or incomplete in any way and for any reason."
+          },
+          "items": {}
+        },
+        "credit": {
+          "rules": {
+            "help": "Acknowledge the contribution of any funding schemes or organisations.",
+            "maxLength": 1000,
+            "label": "Other credits"
+          }
+        },
+        "samplingFrequency": {
+          "type": "object",
+          "properties": {
+            "label": null,
+            "help": null,
+            "uri": {
+              "rules": {
+                "page": "when"
+              }
+            },
+            "prefLabel": {
+              "rules": {
+                "page": "when"
+              }
+            }
+          }
+        },
+        "beginPosition": {
+          "rules": {
+            "label": "Start date",
+            "required": true,
+            "page": "when"
+          }
+        }
+      }
+    },
+    "who-authorRequired": {
+      "rules": {
+        "label": "Author role",
+        "page": "who"
+      }
+    },
+    "doiRequested": {
+      "rules": {
+        "label": "Please mint a DOI for this submission",
+        "page": "lodge",
+        "value": false
+      }
+    },
+    "agreedToTerms": {
+      "rules": {
+        "label": "I have read and agree to the terms and conditions",
+        "page": "lodge",
+        "value": false
+      }
+    }
+  }
+}

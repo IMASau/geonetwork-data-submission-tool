@@ -1,3 +1,5 @@
+# TODO: move to tern.api app?
+
 from rest_framework import serializers
 
 from metcalf.tern.backend import models
@@ -31,6 +33,12 @@ class TopicCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.TopicCategory
         fields = '__all__'
+
+
+class MetadataTemplateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.MetadataTemplate
+        fields = ('id', 'name',)
 
 
 class ScienceKeywordSerializer(serializers.ModelSerializer):

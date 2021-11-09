@@ -6,10 +6,13 @@ from metcalf.common.models import AbstractSiteContent
 class SiteContent(AbstractSiteContent):
     tag_line = models.CharField(max_length=128, null=True, default="SHaRED Data Submission Tool")
     email = models.EmailField(default="esupport@tern.org.au")
-    doi_uri = models.CharField(max_length=1024,
-                               default='https://doi.tern.uq.edu.au/test/index.php?r=api/create&user_id=tern.data@uq.edu.au&app_id=',
-                               verbose_name="DOI Service URI",
-                               help_text="Base create URI for the DOI minting service")
+    releasenotes_url = models.URLField(null=True, verbose_name="Release notes URL", blank=True)
+    roadmap_pdf = models.URLField(null=True, verbose_name="Roadmap", blank=True, max_length=1024)
+    doi_uri = models.CharField(
+        max_length=1024,
+        default='https://doi.tern.uq.edu.au/test/index.php?r=api/create&user_id=tern.data@uq.edu.au&app_id=',
+        verbose_name="DOI Service URI",
+        help_text="Base create URI for the DOI minting service")
     homepage_image = models.CharField(
         max_length=200,
         blank=True, null=True, verbose_name='Homepage Image',

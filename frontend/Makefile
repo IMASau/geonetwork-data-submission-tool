@@ -48,16 +48,10 @@ build:
 		yarn shadow-cljs compile tern
 
 copy-static:
-	cp node_modules/normalize.css/normalize.css resources/public/css
-	cp node_modules/@blueprintjs/core/lib/css/blueprint.css resources/public/css
-	cp node_modules/@blueprintjs/core/lib/css/blueprint.css.map resources/public/css
-	cp node_modules/@blueprintjs/datetime/lib/css/blueprint-datetime.css resources/public/css
-	cp node_modules/@blueprintjs/datetime/lib/css/blueprint-datetime.css.map resources/public/css
-	cp node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css resources/public/css
-	cp node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css.map resources/public/css
-	cp node_modules/fixed-data-table-2/dist/fixed-data-table.css resources/public/css
-	cp -v node_modules/leaflet/dist/leaflet.css resources/public/css
-	cp -vr node_modules/leaflet-draw/dist/* resources/public/css
+	npx sass --load-path=. --style compressed src/js/index.scss resources/public/css/style.npm-packaged.css
+	mkdir -p resources/public/resources/icons resources/public/css/images
+	cp -fR node_modules/@blueprintjs/icons/resources/icons resources/public/resources/icons
+	cp -vr node_modules/leaflet-draw/dist/images/* resources/public/css/images
 
 release:
 	# init yarn

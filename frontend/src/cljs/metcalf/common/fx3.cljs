@@ -20,9 +20,6 @@
 (def get-json-header
   (structs/Map. (clj->js {:Accept "application/json" :X-CSRFToken (get-csrf)})))
 
-(def post-json-header
-  (structs/Map. (clj->js {:Content-Type "application/json" :Accept "application/json" :X-CSRFToken (get-csrf)})))
-
 (defn xhrio-get-json
   [{:keys [uri resp-v]}]
 

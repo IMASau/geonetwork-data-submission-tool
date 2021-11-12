@@ -15,11 +15,11 @@ class Migration(migrations.Migration):
             name='DataSource',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('slug', models.SlugField()),
+                ('slug', models.SlugField(unique=True)),
                 ('base_url', models.CharField(max_length=200)),
                 ('search_param', models.CharField(default='query', max_length=32)),
                 ('response_key', models.CharField(default='results', max_length=128)),
-                ('schema', jsonfield.fields.JSONField(blank=True, default='{}')),
+                ('schema', jsonfield.fields.JSONField(blank=True, default={ })),
             ],
         ),
     ]

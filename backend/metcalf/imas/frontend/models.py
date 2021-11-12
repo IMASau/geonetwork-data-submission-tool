@@ -15,7 +15,7 @@ class SiteContent(AbstractSiteContent):
 # Describes data sources (aka API endpoints)
 class DataSource(models.Model):
     id = models.AutoField(primary_key=True)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     base_url = models.CharField(max_length=200)
     search_param = models.CharField(max_length=32, default='query')
     response_key = models.CharField(max_length=128, default='results')

@@ -122,6 +122,8 @@ class CreateDocumentSerializer(serializers.ModelSerializer):
 
 
 class DataSourceSerializer(serializers.ModelSerializer):
+    schema = serializers.SerializerMethodField()
+
     class Meta:
         model = DataSource
         fields = (
@@ -131,3 +133,6 @@ class DataSourceSerializer(serializers.ModelSerializer):
             'response_key',
             'schema',
         )
+
+    def get_schema(self, inst):
+        return inst.schema

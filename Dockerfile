@@ -61,6 +61,7 @@ COPY frontend/resources/ /data-submission-tool/frontend/resources/
 # install media files
 COPY xml_template/Metadata_Template.xml \
      xml_template/tern_template_spec.json \
+     xml_template/tern_jsonschema_mapper.json \
      /data-submission-tool/xml_template/
 
 # setup crontab

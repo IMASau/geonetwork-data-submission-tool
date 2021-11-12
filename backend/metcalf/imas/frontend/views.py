@@ -31,10 +31,10 @@ from metcalf.common.utils import to_json, get_exception_message
 from metcalf.imas.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.imas.frontend.forms import DocumentAttachmentForm
-from metcalf.imas.frontend.models import SiteContent
+from metcalf.imas.frontend.models import SiteContent, DataSource
 from metcalf.imas.frontend.permissions import is_document_editor, is_document_contributor
 from metcalf.imas.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
-    SiteContentSerializer, CreateDocumentSerializer
+    SiteContentSerializer, CreateDocumentSerializer, DataSourceSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -469,6 +469,7 @@ def edit(request, uuid):
             "user": UserSerializer(request.user).data,
             "title": data['identificationInfo']['title'],
             "document": DocumentInfoSerializer(doc, context={'user': request.user}).data,
+            "data_sources": DataSourceSerializer(DataSource.objects.all(), many=True).data,
             "status": user_status_list(),
             "csrf": csrf.get_token(request),
         },

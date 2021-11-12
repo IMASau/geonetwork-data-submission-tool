@@ -23,6 +23,7 @@ definitions:
           - make clean
           - # init yarn
           - make release
+          - make copy-static
           # build django app
           - cd ..
           - make build

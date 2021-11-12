@@ -19,7 +19,7 @@ class DataSource(models.Model):
     base_url = models.CharField(max_length=200)
     search_param = models.CharField(max_length=32, default='query')
     response_key = models.CharField(max_length=128, default='results')
-    schema = JSONField(blank=True)
+    schema = JSONField(blank=True, default='{}')
 
     def __str__(self):
         return "{0} #{1}".format(str(self.slug), self.pk)

@@ -219,8 +219,7 @@
         (cond-> form (assoc :form (logic4/massage-form form)))
         (assoc :alert [])
         ; TODO: make deployment specific (put in init-db handler)
-        (assoc :api {:api/ternparameters       {:uri (str URL_ROOT "/api/ternparameters")}
-                     :api/qudtunits            {:uri (str URL_ROOT "/api/qudtunits")}
+        (assoc :api {:api/qudtunits            {:uri (str URL_ROOT "/api/qudtunits")}
                      :api/terninstruments      {:uri (str URL_ROOT "/api/terninstruments")}
                      :api/ternplatforms        {:uri (str URL_ROOT "/api/ternplatforms")}
                      :api/rolecode             {:uri (str URL_ROOT "/api/rolecode.json")}

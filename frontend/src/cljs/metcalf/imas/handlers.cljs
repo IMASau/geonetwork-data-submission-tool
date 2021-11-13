@@ -6,12 +6,17 @@
 (defn init-db
   [_ [_ payload]]
   (let [db' (logic3/initial-state payload)
-        db (update db' :api #(dissoc % :api/ternparameters :api/qudtunits :api/terninstruments
+        db (update db' :api #(dissoc % :api/qudtunits :api/terninstruments
                                      :api/horizontalresolution :api/ternplatforms :api/topiccategory))]
     (schema4/assert-schema-data (:form db))
+
     (-> {:db         db
          :fx         [[:ui/setup-blueprint]]
          ; TODO: use action
          :dispatch-n (for [api-key (keys (get db :api))]
                        [::-init-db-load-api-options [:api api-key]])}
+
+        ;(actions4/load-page-action payload)
+        ;(actions4/load-form-action payload)
+
         (actions4/init-create-form-action payload))))

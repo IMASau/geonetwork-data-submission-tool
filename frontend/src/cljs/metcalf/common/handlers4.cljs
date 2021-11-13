@@ -21,7 +21,6 @@
         {:api/ternplatforms        "/api/ternplatforms"
          :api/rolecode             "/api/rolecode.json"
          :api/samplingfrequency    "/api/samplingfrequency.json"
-         :api/horizontalresolution "/api/horizontalresolution.json"
          :api/person               "/api/person.json"
          :api/institution          "/api/institution.json"
          :api/topiccategory        "/api/topiccategory.json"})))

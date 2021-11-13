@@ -173,7 +173,7 @@
   [s url data]
   (update s :fx conj [:app/post-data-fx {:url url :data data :resolve [::-create-document]}]))
 
-(defn clear-errors
+(defn clear-errors-action
   [s form-path]
   (let [form-state-path (utils4/as-path [:db form-path :state])]
     (update-in s form-state-path #(blocks4/postwalk blocks4/clear-error-props %))))

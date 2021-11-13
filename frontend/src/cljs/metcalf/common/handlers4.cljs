@@ -229,7 +229,7 @@
   (let [{:keys [url state]} (get-in db [:create_form])
         data (blocks4/as-data state)]
     (-> {:db db}
-        (actions4/clear-errors [:create_form])
+        (actions4/clear-errors-action [:create_form])
         (actions4/create-document-action url data))))
 
 (defn -create-document-handler

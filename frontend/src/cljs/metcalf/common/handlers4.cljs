@@ -18,12 +18,11 @@
       (actions4/load-form-action payload)
       (actions4/load-apis-action
         payload
-        {:api/ternplatforms        "/api/ternplatforms"
-         :api/rolecode             "/api/rolecode.json"
-         :api/samplingfrequency    "/api/samplingfrequency.json"
-         :api/person               "/api/person.json"
-         :api/institution          "/api/institution.json"
-         :api/topiccategory        "/api/topiccategory.json"})))
+        {:api/rolecode          "/api/rolecode.json"
+         :api/samplingfrequency "/api/samplingfrequency.json"
+         :api/person            "/api/person.json"
+         :api/institution       "/api/institution.json"
+         :api/topiccategory     "/api/topiccategory.json"})))
 
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]
@@ -129,32 +128,32 @@
         new-field-path (conj data-path idx)]
     (-> {:db db}
         (actions4/add-value-action form-id data-path initial-data)
-        (actions4/open-modal {:type          :m4/table-modal-add-form
-                             :form           coord-field
-                             :path           new-field-path
-                             :title          "Geographic Coordinates"
-                             :on-close-click #(on-close idx)
-                             :on-save-click  on-save}))))
+        (actions4/open-modal {:type           :m4/table-modal-add-form
+                              :form           coord-field
+                              :path           new-field-path
+                              :title          "Geographic Coordinates"
+                              :on-close-click #(on-close idx)
+                              :on-save-click  on-save}))))
 
 (defn boxmap-coordinates-open-edit-modal
   [{:keys [db]} [_ {:keys [ctx coord-field on-delete on-cancel on-save]}]]
   (let [{:keys [data-path]} ctx]
     (-> {:db db}
-        (actions4/open-modal {:type           :m4/table-modal-edit-form
-                             :form            coord-field
-                             :path            data-path
-                             :title           "Geographic Coordinates"
-                             :on-delete-click on-delete
-                             :on-close-click  on-cancel
-                             :on-save-click   on-save}))))
+        (actions4/open-modal {:type            :m4/table-modal-edit-form
+                              :form            coord-field
+                              :path            data-path
+                              :title           "Geographic Coordinates"
+                              :on-delete-click on-delete
+                              :on-close-click  on-cancel
+                              :on-save-click   on-save}))))
 
 (defn boxmap-coordinates-click-confirm-delete
   [{:keys [db]} [_ on-confirm]]
   (-> {:db db}
-      (actions4/open-modal {:type      :confirm
-                           :title      "Delete"
-                           :message    "Are you sure you want to delete?"
-                           :on-confirm on-confirm})))
+      (actions4/open-modal {:type       :confirm
+                            :title      "Delete"
+                            :message    "Are you sure you want to delete?"
+                            :on-confirm on-confirm})))
 
 (defn boxmap-coordinates-list-delete
   [{:keys [db]} [_ ctx idx]]

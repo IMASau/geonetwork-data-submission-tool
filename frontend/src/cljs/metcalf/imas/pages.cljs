@@ -58,7 +58,7 @@
          [views4/m4-modal-dialog-table-modal-edit-form modal-props]
          :m4/table-modal-add-form
          [views4/m4-modal-dialog-table-modal-add-form modal-props]
-         :DashboardCreateModal
+         :modal.type/DashboardCreateModal
          [components4/create-document-modal]
          :modal.type/alert
          [views4/modal-dialog-alert

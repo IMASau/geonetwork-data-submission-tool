@@ -53,7 +53,7 @@
         modal-props @(rf/subscribe [:subs/get-app-root-modal-props])]
     [:div
      (case (:type modal-props)
-       :DashboardCreateModal
+       :modal.type/DashboardCreateModal
        [components4/create-document-modal]
        :modal.type/confirm
        [views4/modal-dialog-confirm

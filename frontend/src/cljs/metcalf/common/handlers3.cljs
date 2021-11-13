@@ -111,7 +111,7 @@
 
 (defn dashboard-create-click
   [{:keys [db]} _]
-  {:db (open-modal db {:type :DashboardCreateModal})})
+  {:db (open-modal db {:type :modal.type/DashboardCreateModal})})
 
 (defn clone-document
   [_ [_ url]]

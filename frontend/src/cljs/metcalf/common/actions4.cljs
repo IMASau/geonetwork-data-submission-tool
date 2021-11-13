@@ -7,14 +7,6 @@
             [metcalf.common.utils3 :as utils3]
             [metcalf.common.utils4 :as utils4]))
 
-(defn load-apis-action
-  [s payload api-paths]
-  (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))]
-    (reduce (fn [s [api-id api-path]]
-              (load-api-action s api-id (str URL_ROOT api-path)))
-            s
-            api-paths)))
-
 (defn load-page-action
   [s payload]
   (let [page-name (get-in payload [:page :name])]

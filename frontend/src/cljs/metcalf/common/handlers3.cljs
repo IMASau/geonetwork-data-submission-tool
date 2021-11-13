@@ -50,14 +50,14 @@
 
 (defn handle-page-view-edit-archive-click
   [{:keys [db]} _]
-  {:db (open-modal db {:type       :confirm
+  {:db (open-modal db {:type       :modal.type/confirm
                        :title      "Archive?"
                        :message    "Are you sure you want to archive this record?"
                        :on-confirm #(rf/dispatch [:app/page-view-edit-archive-click-confirm])})})
 
 (defn document-teaser-clone-click
   [{:keys [db]} [_ clone_url]]
-  {:db (open-modal db {:type       :confirm
+  {:db (open-modal db {:type       :modal.type/confirm
                        :title      "Clone?"
                        :message    "Are you sure you want to clone this record?"
                        :on-confirm (fn [] (rf/dispatch [:app/clone-doc-confirm clone_url]))})})
@@ -133,7 +133,7 @@
   (fn [_ [_ url]]
     (let [trans-name (first (string/split transition "_"))]
       {:dispatch [:app/open-modal
-                  {:type       :confirm
+                  {:type       :modal.type/confirm
                    :title      trans-name
                    :message    (str "Are you sure you want to " trans-name " this record?")
                    :on-confirm #(rf/dispatch [:app/-transite-doc-click-confirm url transition])}]})))

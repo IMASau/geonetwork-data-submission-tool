@@ -55,7 +55,7 @@
      (case (:type modal-props)
        :DashboardCreateModal
        [components4/create-document-modal]
-       :confirm
+       :modal.type/confirm
        [views4/modal-dialog-confirm
         {:title      (:title modal-props)
          :message    (:message modal-props)

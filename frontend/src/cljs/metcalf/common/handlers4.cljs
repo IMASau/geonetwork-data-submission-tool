@@ -143,7 +143,7 @@
 (defn boxmap-coordinates-click-confirm-delete
   [{:keys [db]} [_ on-confirm]]
   (-> {:db db}
-      (actions4/open-modal {:type       :confirm
+      (actions4/open-modal {:type       :modal.type/confirm
                             :title      "Delete"
                             :message    "Are you sure you want to delete?"
                             :on-confirm on-confirm})))

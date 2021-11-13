@@ -144,7 +144,7 @@
   "Quick and dirty delete function"
   [attachments-path attachment-idx]
   (rf/dispatch [:app/delete-attachment-click
-                {:type       :confirm
+                {:type       :modal.type/confirm
                  :title      "Delete?"
                  :message    "Are you sure you want to delete this file?"
                  :on-confirm #(rf/dispatch [:app/delete-attachment-confirm attachments-path attachment-idx])}]))

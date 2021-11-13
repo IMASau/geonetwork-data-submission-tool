@@ -211,11 +211,17 @@
        (update :fields reduce-many-field-templates data)
        (update :fields reduce-field-values data))))
 
+(defn setup-form-action
+  "Massage raw payload for use as app-state"
+  [s form]
+  (-> s
+      (cond-> form (assoc-in [:db :form] (logic4/massage-form form)))
+      (update-in [:db :form] initialise-form)))
+
 (defn initial-state-action
   "Massage raw payload for use as app-state"
   [s {:keys [form] :as payload}]
   (-> s
       (assoc :db payload)
-      (cond-> form (assoc-in [:db :form] (logic4/massage-form form)))
-      (update-in [:db :form] initialise-form)
+      (setup-form-action form)
       (assoc-in [:db :alert] [])))

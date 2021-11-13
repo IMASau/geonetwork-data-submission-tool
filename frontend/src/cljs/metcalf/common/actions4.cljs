@@ -7,19 +7,6 @@
             [metcalf.common.utils3 :as utils3]
             [metcalf.common.utils4 :as utils4]))
 
-(defn load-api-action
-  [s api-id api-uri]
-  (-> s
-      (assoc-in [:db :api api-id :uri] api-uri)
-      (assoc-in [:db :api api-id :options] nil)
-      ; TODO: use js/fetch
-      (update :fx conj [::fx3/get-json-data {:uri api-uri :resolve [::-load-api api-id]}])))
-
-(defn -load-api-action
-  [s api-id body]
-  (let [results (gobj/get body "results")]
-    (assoc-in s [:db :api api-id :options] results)))
-
 (defn load-apis-action
   [s payload api-paths]
   (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))]

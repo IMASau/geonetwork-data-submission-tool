@@ -7,7 +7,7 @@
       "base_url": "/api/rolecode.json",
       "search_param": "query",
       "response_key": "results",
-      "schema": "{}"
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"count\": {\"type\": \"integer\"}, \"next\": {\"type\": \"null\"}, \"previous\": {\"type\": \"null\"}, \"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"UUID\": {\"type\": \"string\"}, \"Identifier\": {\"type\": \"string\"}, \"Description\": {\"type\": \"string\"}}}}}}"
     }
   },
   {
@@ -18,7 +18,7 @@
       "base_url": "/api/keywords_with_breadcrumb_info",
       "search_param": "query",
       "response_key": "results",
-      "schema": "{}"
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"label\": {\"type\": \"string\"}, \"uri\": {\"type\": \"string\"}, \"breadcrumb\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}}}}}}"
     }
   },
   {
@@ -29,7 +29,7 @@
       "base_url": "/api/institution.json",
       "search_param": "query",
       "response_key": "results",
-      "schema": "{}"
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\"}}}}"
     }
   },
   {
@@ -40,7 +40,7 @@
       "base_url": "/api/parametername",
       "search_param": "query",
       "response_key": "results",
-      "schema": "{}"
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"count\": {\"type\": \"integer\"}, \"next\": {\"type\": \"string\"}, \"previous\": {\"type\": \"null\"}, \"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\"}, \"children_count\": {\"type\": \"integer\"}, \"lft\": {\"type\": \"integer\"}, \"rgt\": {\"type\": \"integer\"}, \"tree_id\": {\"type\": \"integer\"}, \"depth\": {\"type\": \"integer\"}, \"is_selectable\": {\"type\": \"boolean\"}, \"Name\": {\"type\": \"string\"}, \"URI\": {\"type\": \"string\"}, \"Version\": {\"type\": \"string\"}, \"Definition\": {\"type\": \"string\"}, \"term\": {\"type\": \"string\"}, \"vocabularyTermURL\": {\"type\": \"string\"}, \"vocabularyVersion\": {\"type\": \"string\"}, \"termDefinition\": {\"type\": \"string\"}}}}}}"
     }
   },
   {
@@ -51,7 +51,7 @@
       "base_url": "/api/parameterunit",
       "search_param": "query",
       "response_key": "results",
-      "schema": "{}"
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"count\": {\"type\": \"integer\"}, \"next\": {\"type\": \"string\"}, \"previous\": {\"type\": \"null\"}, \"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\"}, \"children_count\": {\"type\": \"integer\"}, \"lft\": {\"type\": \"integer\"}, \"rgt\": {\"type\": \"integer\"}, \"tree_id\": {\"type\": \"integer\"}, \"depth\": {\"type\": \"integer\"}, \"is_selectable\": {\"type\": \"boolean\"}, \"Name\": {\"type\": \"string\"}, \"URI\": {\"type\": \"string\"}, \"Version\": {\"type\": \"string\"}, \"Definition\": {\"type\": \"string\"}, \"term\": {\"type\": \"string\"}, \"vocabularyTermURL\": {\"type\": \"string\"}, \"vocabularyVersion\": {\"type\": \"string\"}, \"termDefinition\": {\"type\": \"string\"}}}}}}"
     }
   },
   {
@@ -62,7 +62,7 @@
       "base_url": "/api/parameterinstrument",
       "search_param": "query",
       "response_key": "results",
-      "schema": "{}"
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"count\": {\"type\": \"integer\"}, \"next\": {\"type\": \"string\"}, \"previous\": {\"type\": \"null\"}, \"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\"}, \"children_count\": {\"type\": \"integer\"}, \"lft\": {\"type\": \"integer\"}, \"rgt\": {\"type\": \"integer\"}, \"tree_id\": {\"type\": \"integer\"}, \"depth\": {\"type\": \"integer\"}, \"is_selectable\": {\"type\": \"boolean\"}, \"Name\": {\"type\": \"string\"}, \"URI\": {\"type\": \"string\"}, \"Version\": {\"type\": \"string\"}, \"Definition\": {\"type\": \"string\"}, \"term\": {\"type\": \"string\"}, \"vocabularyTermURL\": {\"type\": \"string\"}, \"vocabularyVersion\": {\"type\": \"string\"}, \"termDefinition\": {\"type\": \"string\"}}}}}}"
     }
   },
   {
@@ -73,7 +73,7 @@
       "base_url": "/api/parameterplatform",
       "search_param": "query",
       "response_key": "results",
-      "schema": "{}"
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"count\": {\"type\": \"integer\"}, \"next\": {\"type\": \"null\"}, \"previous\": {\"type\": \"null\"}, \"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\"}, \"children_count\": {\"type\": \"integer\"}, \"lft\": {\"type\": \"integer\"}, \"rgt\": {\"type\": \"integer\"}, \"tree_id\": {\"type\": \"integer\"}, \"depth\": {\"type\": \"integer\"}, \"is_selectable\": {\"type\": \"boolean\"}, \"Name\": {\"type\": \"string\"}, \"URI\": {\"type\": \"string\"}, \"Version\": {\"type\": \"string\"}, \"Definition\": {\"type\": \"string\"}, \"term\": {\"type\": \"string\"}, \"vocabularyTermURL\": {\"type\": \"string\"}, \"vocabularyVersion\": {\"type\": \"string\"}, \"termDefinition\": {\"type\": \"string\"}}}}}}"
     }
   }
 ]

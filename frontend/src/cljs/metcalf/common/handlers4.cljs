@@ -121,7 +121,7 @@
         new-field-path (conj data-path idx)]
     (-> {:db db}
         (actions4/add-value-action form-id data-path initial-data)
-        (actions4/open-modal {:type           :m4/table-modal-add-form
+        (actions4/open-modal-action {:type    :m4/table-modal-add-form
                               :form           coord-field
                               :path           new-field-path
                               :title          "Geographic Coordinates"
@@ -132,7 +132,7 @@
   [{:keys [db]} [_ {:keys [ctx coord-field on-delete on-cancel on-save]}]]
   (let [{:keys [data-path]} ctx]
     (-> {:db db}
-        (actions4/open-modal {:type            :m4/table-modal-edit-form
+        (actions4/open-modal-action {:type     :m4/table-modal-edit-form
                               :form            coord-field
                               :path            data-path
                               :title           "Geographic Coordinates"
@@ -143,10 +143,10 @@
 (defn boxmap-coordinates-click-confirm-delete
   [{:keys [db]} [_ on-confirm]]
   (-> {:db db}
-      (actions4/open-modal {:type       :modal.type/confirm
-                            :title      "Delete"
-                            :message    "Are you sure you want to delete?"
-                            :on-confirm on-confirm})))
+      (actions4/open-modal-action {:type :modal.type/confirm
+                            :title       "Delete"
+                            :message     "Are you sure you want to delete?"
+                            :on-confirm  on-confirm})))
 
 (defn boxmap-coordinates-list-delete
   [{:keys [db]} [_ ctx idx]]

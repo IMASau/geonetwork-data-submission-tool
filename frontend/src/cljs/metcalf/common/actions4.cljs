@@ -143,7 +143,7 @@
   (let [tick-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props :key])]
     (assoc-in s tick-path (genkey))))
 
-(defn open-modal
+(defn open-modal-action
   [s modal-props]
   (update-in s [:db :modal/stack] (fn [alerts]
                                     (when-not (= (peek alerts) modal-props)

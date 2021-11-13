@@ -19,7 +19,6 @@
       (actions4/load-apis-action
         payload
         {:api/rolecode          "/api/rolecode.json"
-         :api/samplingfrequency "/api/samplingfrequency.json"
          :api/person            "/api/person.json"
          :api/institution       "/api/institution.json"
          :api/topiccategory     "/api/topiccategory.json"})))

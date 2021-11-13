@@ -220,7 +220,6 @@
         (assoc :alert [])
         ; TODO: make deployment specific (put in init-db handler)
         (assoc :api {:api/rolecode             {:uri (str URL_ROOT "/api/rolecode.json")}
-                     :api/samplingfrequency    {:uri (str URL_ROOT "/api/samplingfrequency.json")}
                      :api/person               {:uri (str URL_ROOT "/api/person.json")}
                      :api/institution          {:uri (str URL_ROOT "/api/institution.json")}
                      :api/topiccategory        {:uri (str URL_ROOT "/api/topiccategory.json")}})

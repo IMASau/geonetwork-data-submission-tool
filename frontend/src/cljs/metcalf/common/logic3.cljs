@@ -214,8 +214,8 @@
 (defn initial-state-action
   "Massage raw payload for use as app-state"
   [s {:keys [form] :as payload}]
-  (assoc s :db (-> payload
-                   (cond-> form (assoc :form (logic4/massage-form form)))
-                   (assoc :alert [])
-                   ; TODO: make deployment specific (put in init-db handler)
-                   (update :form initialise-form))))
+  (-> s
+      (assoc :db payload)
+      (cond-> form (assoc-in [:db :form] (logic4/massage-form form)))
+      (update-in [:db :form] initialise-form)
+      (assoc-in [:db :alert] [])))

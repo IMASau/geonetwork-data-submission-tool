@@ -214,9 +214,8 @@
 (defn initial-state
   "Massage raw payload for use as app-state"
   [{:keys [form] :as payload}]
-  (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))]
-    (-> payload
-        (cond-> form (assoc :form (logic4/massage-form form)))
-        (assoc :alert [])
-        ; TODO: make deployment specific (put in init-db handler)
-        (update :form initialise-form))))
+  (-> payload
+      (cond-> form (assoc :form (logic4/massage-form form)))
+      (assoc :alert [])
+      ; TODO: make deployment specific (put in init-db handler)
+      (update :form initialise-form)))

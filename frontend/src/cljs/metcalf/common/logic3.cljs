@@ -211,11 +211,11 @@
        (update :fields reduce-many-field-templates data)
        (update :fields reduce-field-values data))))
 
-(defn initial-state
+(defn initial-state-action
   "Massage raw payload for use as app-state"
-  [{:keys [form] :as payload}]
-  (-> payload
-      (cond-> form (assoc :form (logic4/massage-form form)))
-      (assoc :alert [])
-      ; TODO: make deployment specific (put in init-db handler)
-      (update :form initialise-form)))
+  [s {:keys [form] :as payload}]
+  (assoc s :db (-> payload
+                   (cond-> form (assoc :form (logic4/massage-form form)))
+                   (assoc :alert [])
+                   ; TODO: make deployment specific (put in init-db handler)
+                   (update :form initialise-form))))

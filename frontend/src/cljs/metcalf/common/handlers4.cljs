@@ -18,8 +18,7 @@
       (actions4/load-form-action payload)
       (actions4/load-apis-action
         payload
-        {:api/person            "/api/person.json"
-         :api/institution       "/api/institution.json"
+        {:api/institution       "/api/institution.json"
          :api/topiccategory     "/api/topiccategory.json"})))
 
 (defn value-changed-handler

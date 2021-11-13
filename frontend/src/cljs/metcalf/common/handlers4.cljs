@@ -15,10 +15,7 @@
   [_ [_ payload]]
   (-> {:db {} :fx [[:ui/setup-blueprint]]}
       (actions4/load-page-action payload)
-      (actions4/load-form-action payload)
-      (actions4/load-apis-action
-        payload
-        {:api/topiccategory     "/api/topiccategory.json"})))
+      (actions4/load-form-action payload)))
 
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]

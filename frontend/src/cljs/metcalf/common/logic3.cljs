@@ -219,5 +219,4 @@
         (cond-> form (assoc :form (logic4/massage-form form)))
         (assoc :alert [])
         ; TODO: make deployment specific (put in init-db handler)
-        (assoc :api {:api/topiccategory        {:uri (str URL_ROOT "/api/topiccategory.json")}})
         (update :form initialise-form))))

@@ -5,8 +5,7 @@
 
 (defn init-db
   [_ [_ payload]]
-  (let [db' (logic3/initial-state payload)
-        db (update db' :api #(dissoc %   :api/topiccategory))]
+  (let [db (logic3/initial-state payload)]
     (schema4/assert-schema-data (:form db))
 
     (-> {:db         db

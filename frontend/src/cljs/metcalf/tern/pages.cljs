@@ -62,7 +62,7 @@
          :on-dismiss #(rf/dispatch [:app/modal-dialog-confirm-dismiss])
          :on-cancel  #(rf/dispatch [:app/modal-dialog-confirm-cancel])
          :on-save    #(rf/dispatch [:app/modal-dialog-confirm-save])}]
-       :alert
+       :modal.type/alert
        [views4/modal-dialog-alert
         {:message    (:message modal-props)
          :on-dismiss #(rf/dispatch [:app/modal-dialog-alert-dismiss])

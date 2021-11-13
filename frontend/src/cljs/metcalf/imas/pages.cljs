@@ -60,7 +60,7 @@
          [views4/m4-modal-dialog-table-modal-add-form modal-props]
          :DashboardCreateModal
          [components4/create-document-modal]
-         :alert
+         :modal.type/alert
          [views4/modal-dialog-alert
           {:message    (:message modal-props)
            :on-dismiss #(rf/dispatch [:app/modal-dialog-alert-dismiss])

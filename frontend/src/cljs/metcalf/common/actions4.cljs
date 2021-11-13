@@ -145,9 +145,9 @@
 
 (defn open-modal
   [s modal-props]
-  (update-in s [:db :alert] (fn [alerts]
-                              (when-not (= (peek alerts) modal-props)
-                                (conj alerts modal-props)))))
+  (update-in s [:db :modal/stack] (fn [alerts]
+                                    (when-not (= (peek alerts) modal-props)
+                                      (conj alerts modal-props)))))
 
 (defn load-form-action
   "Massage raw payload for use as app-state"

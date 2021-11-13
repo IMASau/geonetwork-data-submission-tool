@@ -21,25 +21,25 @@
 
 (defn close-modal
   [{:keys [db]}]
-  {:db (update db :alert pop)})
+  {:db (update db :modal/stack pop)})
 
 (defn close-and-cancel
   [{:keys [db]} _]
-  (let [{:keys [on-cancel]} (peek (:alert db))]
+  (let [{:keys [on-cancel]} (peek (:modal/stack db))]
     ; TODO: can we refactor around specific handlers to avoid this?
     (when on-cancel (on-cancel))
-    {:db (update db :alert pop)}))
+    {:db (update db :modal/stack pop)}))
 
 (defn close-and-confirm
   [{:keys [db]} _]
-  (let [{:keys [on-confirm]} (peek (:alert db))]
+  (let [{:keys [on-confirm]} (peek (:modal/stack db))]
     ; TODO: can we refactor around specific handlers to avoid this?
     (when on-confirm (on-confirm))
-    {:db (update db :alert pop)}))
+    {:db (update db :modal/stack pop)}))
 
 (defn open-modal
   [db props]
-  (update db :alert
+  (update db :modal/stack
           (fn [alerts]
             (when-not (= (peek alerts) props)
               (conj alerts props)))))
@@ -83,7 +83,7 @@
      {:url       transition_url
       :data      {:transition "archive"}
       :success-v [:app/-archive-current-document-success]
-      :error-v   [:app/open-modal {:type :alert :message "Unable to delete"}]}}))
+      :error-v   [:app/open-modal {:type :modal.type/alert :message "Unable to delete"}]}}))
 
 (defn -archive-current-document-success
   "Archive request succeeded.  Redirect to dashboard."
@@ -126,7 +126,7 @@
 
 (defn -clone-document-error
   [_ _]
-  {:dispatch [:app/open-modal {:type :alert :message "Unable to clone"}]})
+  {:dispatch [:app/open-modal {:type :modal.type/alert :message "Unable to clone"}]})
 
 (defn transite-doc-click
   [transition]
@@ -162,7 +162,7 @@
   [_ [_ transition]]
   (let [trans-name (first (clojure.string/split transition "_"))]
     {:dispatch [:app/open-modal
-                {:type    :alert
+                {:type    :modal.type/alert
                  :message (str "Unable to " trans-name)}]}))
 
 (defn lodge-click
@@ -202,5 +202,5 @@
   [{:keys [db]} [_ {:keys [status failure]}]]
   {:db       (assoc-in db [:page :metcalf3.handlers/saving?] false)
    :dispatch [:app/open-modal
-              {:type    :alert
+              {:type    :modal.type/alert
                :message (str "Unable to lodge: " status " " failure)}]})

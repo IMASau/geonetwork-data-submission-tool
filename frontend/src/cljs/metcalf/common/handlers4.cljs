@@ -153,7 +153,7 @@
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
         (actions4/del-item-action form-id data-path idx)
-        (update-in [:db :alert] pop))))
+        (update-in [:db :modal/stack] pop))))
 
 (defn save-current-document
   [{:keys [db]} _]

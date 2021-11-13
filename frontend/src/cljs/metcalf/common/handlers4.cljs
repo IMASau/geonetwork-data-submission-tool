@@ -18,8 +18,7 @@
       (actions4/load-form-action payload)
       (actions4/load-apis-action
         payload
-        {:api/institution       "/api/institution.json"
-         :api/topiccategory     "/api/topiccategory.json"})))
+        {:api/topiccategory     "/api/topiccategory.json"})))
 
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]

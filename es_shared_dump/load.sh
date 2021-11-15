@@ -63,6 +63,7 @@ load_index shared_platforms
 load_index shared_instrument_types
 load_index shared_anzsrc_keywords
 load_index shared_aus_plant_name
+load_index shared_faunal_name
 load_index shared_gcmd_horizontal_resolution
 load_index shared_gcmd_science_keywords
 load_index shared_gcmd_temporal_resolution

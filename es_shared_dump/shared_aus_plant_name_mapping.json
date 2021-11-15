@@ -1,1 +1,1 @@
-{"shared_aus_plant_name-2021-11-01t22-59-07":{"mappings":{}}}
+{"shared_aus_plant_name-2021-11-09t22-19-14":{"mappings":{"properties":{"acceptedNameUsage":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"altLabel":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"label":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"uri":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}}}}}}

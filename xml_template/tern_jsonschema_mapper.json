@@ -317,7 +317,7 @@
             },
             "boxes": {
               "!docstring": "Where2",
-              "xpath": "gex:geographicElement",
+              "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
               "rules": [
                 "requiredField"
               ],
@@ -325,14 +325,14 @@
               "keep": false,
               "type": "array",
               "items": {
-                "xpath": "gex:geographicElement",
+                "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
                 "type": "object",
                 "properties": {
                   "uri": {},
                   "isUserDefined": {},
                   "westBoundLongitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:westBoundLongitude",
+                    "xpath": "gex:westBoundLongitude",
                     "rules": [
                       "requiredField"
                     ],
@@ -346,7 +346,7 @@
                   },
                   "eastBoundLongitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:eastBoundLongitude",
+                    "xpath": "gex:eastBoundLongitude",
                     "rules": [
                       "requiredField"
                     ],
@@ -360,7 +360,7 @@
                   },
                   "southBoundLatitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:southBoundLatitude",
+                    "xpath": "gex:southBoundLatitude",
                     "rules": [
                       "requiredField"
                     ],
@@ -374,7 +374,7 @@
                   },
                   "northBoundLatitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:northBoundLatitude",
+                    "xpath": "gex:northBoundLatitude",
                     "rules": [
                       "requiredField"
                     ],

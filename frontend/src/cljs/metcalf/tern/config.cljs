@@ -674,7 +674,7 @@
         :toolTip "Species Taxa"}
        [m4/async-list-picker
         {:form-id         [:form]
-         :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
+         :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
          :kind            :breadcrumb
          :uri             "/api/ausfaunalnames"
          :label-path      ["label"]
@@ -682,7 +682,7 @@
          :breadcrumb-path ["breadcrumb"]}]
        [m4/breadcrumb-selection-list
         {:form-id         [:form]
-         :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
+         :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]]]

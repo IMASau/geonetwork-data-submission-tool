@@ -127,7 +127,8 @@
             "text": {
               "function": "date_as_version"
             }
-          }
+          },
+          "rules": ["dateBeforeToday"]
         }
       }
     },

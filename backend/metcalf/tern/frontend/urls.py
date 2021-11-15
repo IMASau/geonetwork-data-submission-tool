@@ -42,6 +42,7 @@ urlpatterns = [
     path('robots.txt', robots_view, name="Robots"),
     path('api/anzsrckeyword', anzsrc_keywords),
     path('api/ausplantnames', aus_plantnames),
+    path('api/ausfaunalnames', tern_faunalnames),
     path('api/horizontalresolution', gcmd_horizontal),
     path('api/sciencekeyword', gcmd_sciencekeywords),
     path('api/samplingfrequency', gcmd_temporal),

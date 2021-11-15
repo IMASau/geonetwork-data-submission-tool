@@ -79,7 +79,7 @@
 (rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/open-modal-handler)
 (rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
 (rf/reg-event-fx :metcalf.imas.handlers/-init-db-load-api-options handlers3/load-api-options)
-(rf/reg-event-fx :metcalf.common.actions/-create-document handlers4/-create-document-handler)
+(rf/reg-event-fx :metcalf.common.actions4/-create-document handlers4/-create-document-handler)
 (rf/reg-event-fx :metcalf.common.components/coordinates-modal-field-close-modal handlers3/close-modal)
 (rf/reg-event-fx :metcalf.common.components/lodge-button-click handlers3/lodge-click)
 (rf/reg-fx ::fx3/post fx3/post)

@@ -111,6 +111,7 @@
        "licenseOther"      rules4/license-other
        "numericOrder"      rules4/numeric-order
        "dateOrder"         rules4/date-order
+       "dateBeforeToday"   rules4/date-before-today
        "endPosition"       rules4/end-position
        "maintFreq"         rules4/maint-freq
        "verticalRequired"  rules4/vertical-required})

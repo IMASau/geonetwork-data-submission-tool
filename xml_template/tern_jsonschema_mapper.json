@@ -920,6 +920,18 @@
         }
       }
     },
+    "resourceLineage": {
+      "xpath": "mdb:resourceLineage/mrl:LI_Lineage",
+      "type": "object",
+      "properties": {
+        "statement": {
+          "!docstring": "How2",
+          "type": "string",
+          "xpath": "mrl:statement/gco:CharacterString",
+          "keep": false
+        }
+      }
+    },
     "dataQualityInfo": {
       "xpath": "mdb:dataQualityInfo/mdq:DQ_DataQuality",
       "type": "object",

@@ -1127,7 +1127,7 @@
 
       [m4/textarea-field-with-label
        {:form-id    [:form]
-        :data-path  ["dataQualityInfo" "methods"]
+        :data-path  ["resourceLineage" "statement"]
         :label      "Provide a brief summary of the source of the data and related collection and/or processing methods."
         :required   true
         :toolTip    "TODO"

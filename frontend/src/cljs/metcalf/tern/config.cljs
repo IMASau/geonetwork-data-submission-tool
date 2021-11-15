@@ -484,7 +484,7 @@
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
          :kind            :breadcrumb
-         :uri             "/api/What3"
+         :uri             "/api/sciencekeyword"
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]

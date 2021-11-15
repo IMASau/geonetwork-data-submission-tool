@@ -502,7 +502,7 @@
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
          :kind            :breadcrumb
-         :uri             "/api/What4"
+         :uri             "/api/anzsrckeyword"
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]

@@ -814,7 +814,6 @@
 
         [m4/form-group
          {:form-id   [:form]
-          :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]
           :label     "Date of dynamic datum"
           :toolTip   "TODO"}
          [m4/date-field-with-label

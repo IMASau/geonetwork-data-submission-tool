@@ -1138,7 +1138,7 @@
        :required true}
       [m4/table-selection-list
        {:form-id    [:form]
-        :data-path  ["dataQualityInfo" "methodDocs"]
+        :data-path  ["resourceLineage" "onlineMethods"]
         :value-path ["uri"]
         :added-path ["isUserDefined"]
         :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
@@ -1146,14 +1146,14 @@
 
       [m4/list-add-button
        {:form-id     [:form]
-        :data-path   ["dataQualityInfo" "methodDocs"]
+        :data-path   ["resourceLineage" "onlineMethods"]
         :button-text "Add"
         :value-path  ["uri"]
         :added-path  ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
-        :data-path   ["dataQualityInfo" "methodDocs"]
+        :data-path   ["resourceLineage" "onlineMethods"]
         :value-path  ["uri"]
         :added-path  ["isUserDefined"]
         :title       "Method Document"

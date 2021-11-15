@@ -929,6 +929,26 @@
           "type": "string",
           "xpath": "mrl:statement/gco:CharacterString",
           "keep": false
+        },
+        "onlineMethods": {
+          "type": "array",
+          "xpath": "mrl:additionalDocumentation",
+          "items": {
+            "type": "object",
+            "xpath": "mrl:additionalDocumentation",
+            "properties": {
+              "title": {
+                "!docstring": "How3",
+                "type": "string",
+                "xpath": "cit:CI_Citation/cit:title/gco:CharacterString"
+              },
+              "url": {
+                "!docstring": "How4",
+                "type": "string",
+                "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString"
+              }
+            }
+          }
         }
       }
     },

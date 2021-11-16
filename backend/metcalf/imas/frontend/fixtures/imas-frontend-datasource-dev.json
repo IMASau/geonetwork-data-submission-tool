@@ -1,0 +1,79 @@
+[
+  {
+    "model": "frontend.datasource",
+    "pk": 1,
+    "fields": {
+      "slug": "rolecode",
+      "base_url": "/api/rolecode.json",
+      "search_param": "query",
+      "response_key": "results",
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"count\": {\"type\": \"integer\"}, \"next\": {\"type\": \"null\"}, \"previous\": {\"type\": \"null\"}, \"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"UUID\": {\"type\": \"string\"}, \"Identifier\": {\"type\": \"string\"}, \"Description\": {\"type\": \"string\"}}}}}}"
+    }
+  },
+  {
+    "model": "frontend.datasource",
+    "pk": 2,
+    "fields": {
+      "slug": "keywords_with_breadcrumb_info",
+      "base_url": "/api/keywords_with_breadcrumb_info",
+      "search_param": "query",
+      "response_key": "results",
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"label\": {\"type\": \"string\"}, \"uri\": {\"type\": \"string\"}, \"breadcrumb\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}}}}}}"
+    }
+  },
+  {
+    "model": "frontend.datasource",
+    "pk": 3,
+    "fields": {
+      "slug": "institution",
+      "base_url": "/api/institution.json",
+      "search_param": "query",
+      "response_key": "results",
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\"}}}}"
+    }
+  },
+  {
+    "model": "frontend.datasource",
+    "pk": 4,
+    "fields": {
+      "slug": "parametername",
+      "base_url": "/api/parametername",
+      "search_param": "query",
+      "response_key": "results",
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"count\": {\"type\": \"integer\"}, \"next\": {\"type\": \"string\"}, \"previous\": {\"type\": \"null\"}, \"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\"}, \"children_count\": {\"type\": \"integer\"}, \"lft\": {\"type\": \"integer\"}, \"rgt\": {\"type\": \"integer\"}, \"tree_id\": {\"type\": \"integer\"}, \"depth\": {\"type\": \"integer\"}, \"is_selectable\": {\"type\": \"boolean\"}, \"Name\": {\"type\": \"string\"}, \"URI\": {\"type\": \"string\"}, \"Version\": {\"type\": \"string\"}, \"Definition\": {\"type\": \"string\"}, \"term\": {\"type\": \"string\"}, \"vocabularyTermURL\": {\"type\": \"string\"}, \"vocabularyVersion\": {\"type\": \"string\"}, \"termDefinition\": {\"type\": \"string\"}}}}}}"
+    }
+  },
+  {
+    "model": "frontend.datasource",
+    "pk": 5,
+    "fields": {
+      "slug": "parameterunit",
+      "base_url": "/api/parameterunit",
+      "search_param": "query",
+      "response_key": "results",
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"count\": {\"type\": \"integer\"}, \"next\": {\"type\": \"string\"}, \"previous\": {\"type\": \"null\"}, \"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\"}, \"children_count\": {\"type\": \"integer\"}, \"lft\": {\"type\": \"integer\"}, \"rgt\": {\"type\": \"integer\"}, \"tree_id\": {\"type\": \"integer\"}, \"depth\": {\"type\": \"integer\"}, \"is_selectable\": {\"type\": \"boolean\"}, \"Name\": {\"type\": \"string\"}, \"URI\": {\"type\": \"string\"}, \"Version\": {\"type\": \"string\"}, \"Definition\": {\"type\": \"string\"}, \"term\": {\"type\": \"string\"}, \"vocabularyTermURL\": {\"type\": \"string\"}, \"vocabularyVersion\": {\"type\": \"string\"}, \"termDefinition\": {\"type\": \"string\"}}}}}}"
+    }
+  },
+  {
+    "model": "frontend.datasource",
+    "pk": 6,
+    "fields": {
+      "slug": "parameterinstrument",
+      "base_url": "/api/parameterinstrument",
+      "search_param": "query",
+      "response_key": "results",
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"count\": {\"type\": \"integer\"}, \"next\": {\"type\": \"string\"}, \"previous\": {\"type\": \"null\"}, \"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\"}, \"children_count\": {\"type\": \"integer\"}, \"lft\": {\"type\": \"integer\"}, \"rgt\": {\"type\": \"integer\"}, \"tree_id\": {\"type\": \"integer\"}, \"depth\": {\"type\": \"integer\"}, \"is_selectable\": {\"type\": \"boolean\"}, \"Name\": {\"type\": \"string\"}, \"URI\": {\"type\": \"string\"}, \"Version\": {\"type\": \"string\"}, \"Definition\": {\"type\": \"string\"}, \"term\": {\"type\": \"string\"}, \"vocabularyTermURL\": {\"type\": \"string\"}, \"vocabularyVersion\": {\"type\": \"string\"}, \"termDefinition\": {\"type\": \"string\"}}}}}}"
+    }
+  },
+  {
+    "model": "frontend.datasource",
+    "pk": 7,
+    "fields": {
+      "slug": "parameterplatform",
+      "base_url": "/api/parameterplatform",
+      "search_param": "query",
+      "response_key": "results",
+      "schema": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\", \"type\": \"object\", \"properties\": {\"count\": {\"type\": \"integer\"}, \"next\": {\"type\": \"null\"}, \"previous\": {\"type\": \"null\"}, \"results\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"id\": {\"type\": \"integer\"}, \"children_count\": {\"type\": \"integer\"}, \"lft\": {\"type\": \"integer\"}, \"rgt\": {\"type\": \"integer\"}, \"tree_id\": {\"type\": \"integer\"}, \"depth\": {\"type\": \"integer\"}, \"is_selectable\": {\"type\": \"boolean\"}, \"Name\": {\"type\": \"string\"}, \"URI\": {\"type\": \"string\"}, \"Version\": {\"type\": \"string\"}, \"Definition\": {\"type\": \"string\"}, \"term\": {\"type\": \"string\"}, \"vocabularyTermURL\": {\"type\": \"string\"}, \"vocabularyVersion\": {\"type\": \"string\"}, \"termDefinition\": {\"type\": \"string\"}}}}}}"
+    }
+  }
+]

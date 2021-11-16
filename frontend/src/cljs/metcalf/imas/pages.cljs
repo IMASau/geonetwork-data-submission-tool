@@ -58,14 +58,14 @@
          [views4/m4-modal-dialog-table-modal-edit-form modal-props]
          :m4/table-modal-add-form
          [views4/m4-modal-dialog-table-modal-add-form modal-props]
-         :DashboardCreateModal
+         :modal.type/DashboardCreateModal
          [components4/create-document-modal]
-         :alert
+         :modal.type/alert
          [views4/modal-dialog-alert
           {:message    (:message modal-props)
            :on-dismiss #(rf/dispatch [:app/modal-dialog-alert-dismiss])
            :on-save    #(rf/dispatch [:app/modal-dialog-alert-save])}]
-         :confirm
+         :modal.type/confirm
          [views4/modal-dialog-confirm
           {:title      (:title modal-props)
            :message    (:message modal-props)

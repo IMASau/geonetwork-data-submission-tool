@@ -103,6 +103,7 @@
   (s/assert (s/coll-of string?) path)
   (gobject/getValueByKeys o (into-array (map name path))))
 
+(goog-define load-options-api-root "")
 
 (defn load-options
   "Helper for common load options pattern"
@@ -113,7 +114,7 @@
   (s/assert string? uri)
   (s/assert string? search-param)
   (s/assert (s/coll-of string?) results-path)
-  (.then (fetch-get {:uri (append-params-from-map uri {search-param query})})
+  (.then (fetch-get {:uri (append-params-from-map (str load-options-api-root uri) {search-param query})})
          (fn [json]
            (or (get-value-by-keys json results-path) #js []))))
 

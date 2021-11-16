@@ -74,7 +74,7 @@
 (rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/open-modal-handler)
 (rf/reg-event-fx :metcalf.imas.handlers/-init-db-load-api-options handlers3/load-api-options)
 (rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
-(rf/reg-event-fx :metcalf.common.actions/-create-document handlers4/-create-document-handler)
+(rf/reg-event-fx :metcalf.common.actions4/-create-document handlers4/-create-document-handler)
 (rf/reg-event-fx :metcalf.common.components/coordinates-modal-field-close-modal handlers3/close-modal)
 (rf/reg-event-fx :metcalf.common.components/lodge-button-click handlers3/lodge-click)
 (rf/reg-fx ::fx3/post fx3/post)
@@ -111,6 +111,7 @@
        "licenseOther"      rules4/license-other
        "numericOrder"      rules4/numeric-order
        "dateOrder"         rules4/date-order
+       "dateBeforeToday"   rules4/date-before-today
        "endPosition"       rules4/end-position
        "maintFreq"         rules4/maint-freq
        "verticalRequired"  rules4/vertical-required})
@@ -309,6 +310,7 @@
         {:form-id    ?form-id
          :data-path  [?data-path "unit"]
          :value-path ["uri"]
+         :item-defaults {"userAddedCategory" "unit"}
          :added-path ["isUserDefined"]}]]
 
       [m4/item-edit-dialog
@@ -483,7 +485,7 @@
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
          :kind            :breadcrumb
-         :uri             "/api/What3"
+         :uri             "/api/sciencekeyword"
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
@@ -501,7 +503,7 @@
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
          :kind            :breadcrumb
-         :uri             "/api/What4"
+         :uri             "/api/anzsrckeyword"
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
@@ -535,6 +537,7 @@
           :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
           :button-text "Add"
           :value-path  ["uri"]
+          :item-defaults {"userAddedCategory" "platform"}
           :added-path  ["isUserDefined"]}]]
 
        [m4/simple-selection-list
@@ -568,6 +571,7 @@
           :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
           :button-text "Add"
           :value-path  ["uri"]
+          :item-defaults {"userAddedCategory" "instrument"}
           :added-path  ["isUserDefined"]}]]
        [m4/table-selection-list
         {:form-id    [:form]
@@ -601,6 +605,7 @@
           :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
           :button-text "Add"
           :value-path  ["uri"]
+          :item-defaults {"userAddedCategory" "parameters"}
           :added-path  ["isUserDefined"]}]]
        [m4/table-selection-list
         {:form-id    [:form]
@@ -673,15 +678,15 @@
         :toolTip "Species Taxa"}
        [m4/async-list-picker
         {:form-id         [:form]
-         :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
+         :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
          :kind            :breadcrumb
-         :uri             "/api/What14"
+         :uri             "/api/ausfaunalnames"
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
        [m4/breadcrumb-selection-list
         {:form-id         [:form]
-         :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
+         :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]]]
@@ -813,7 +818,6 @@
 
         [m4/form-group
          {:form-id   [:form]
-          :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]
           :label     "Date of dynamic datum"
           :toolTip   "TODO"}
          [m4/date-field-with-label
@@ -936,6 +940,8 @@
         :data-path   ["identificationInfo" "citedResponsibleParty"]
         :template-id :party/list-item
         :value-path  ["uri"]
+        ;; FIXME: userAddedcategory may just be "party", or this may be trickier.
+        ;; :item-defaults {"userAddedCategory" "responsiblePerson"}
         :added-path  ["isUserDefined"]}]
 
       [m4/list-add-button
@@ -1127,7 +1133,7 @@
 
       [m4/textarea-field-with-label
        {:form-id    [:form]
-        :data-path  ["dataQualityInfo" "methods"]
+        :data-path  ["resourceLineage" "statement"]
         :label      "Provide a brief summary of the source of the data and related collection and/or processing methods."
         :required   true
         :toolTip    "TODO"
@@ -1138,7 +1144,7 @@
        :required true}
       [m4/table-selection-list
        {:form-id    [:form]
-        :data-path  ["dataQualityInfo" "methodDocs"]
+        :data-path  ["resourceLineage" "onlineMethods"]
         :value-path ["uri"]
         :added-path ["isUserDefined"]
         :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
@@ -1146,14 +1152,15 @@
 
       [m4/list-add-button
        {:form-id     [:form]
-        :data-path   ["dataQualityInfo" "methodDocs"]
+        :data-path   ["resourceLineage" "onlineMethods"]
         :button-text "Add"
         :value-path  ["uri"]
+        :item-defaults {"userAddedCategory" "onlineMethods"}
         :added-path  ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
-        :data-path   ["dataQualityInfo" "methodDocs"]
+        :data-path   ["resourceLineage" "onlineMethods"]
         :value-path  ["uri"]
         :added-path  ["isUserDefined"]
         :title       "Method Document"

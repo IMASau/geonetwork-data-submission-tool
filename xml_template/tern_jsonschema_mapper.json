@@ -127,7 +127,8 @@
             "text": {
               "function": "date_as_version"
             }
-          }
+          },
+          "rules": ["dateBeforeToday"]
         }
       }
     },
@@ -317,7 +318,7 @@
             },
             "boxes": {
               "!docstring": "Where2",
-              "xpath": "gex:geographicElement",
+              "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
               "rules": [
                 "requiredField"
               ],
@@ -325,14 +326,14 @@
               "keep": false,
               "type": "array",
               "items": {
-                "xpath": "gex:geographicElement",
+                "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
                 "type": "object",
                 "properties": {
                   "uri": {},
                   "isUserDefined": {},
                   "westBoundLongitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:westBoundLongitude",
+                    "xpath": "gex:westBoundLongitude",
                     "rules": [
                       "requiredField"
                     ],
@@ -346,7 +347,7 @@
                   },
                   "eastBoundLongitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:eastBoundLongitude",
+                    "xpath": "gex:eastBoundLongitude",
                     "rules": [
                       "requiredField"
                     ],
@@ -360,7 +361,7 @@
                   },
                   "southBoundLatitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:southBoundLatitude",
+                    "xpath": "gex:southBoundLatitude",
                     "rules": [
                       "requiredField"
                     ],
@@ -374,7 +375,7 @@
                   },
                   "northBoundLatitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:northBoundLatitude",
+                    "xpath": "gex:northBoundLatitude",
                     "rules": [
                       "requiredField"
                     ],
@@ -543,6 +544,9 @@
                 "properties": {
                   "breadcrumb": {},
                   "isUserDefined": {},
+                  "userAddedCategory": {
+                    "type": "string"
+                  },
                   "label": {
                     "xpath": "gcx:Anchor"
                   },
@@ -576,6 +580,9 @@
                   "breadcrumb": {},
                   "serial": {},
                   "isUserDefined": {},
+                  "userAddedCategory": {
+                    "type": "string"
+                  },
                   "label": {
                     "xpath": "gcx:Anchor"
                   },
@@ -611,6 +618,9 @@
                   },
                   "isUserDefined": {
                     "type": "boolean"
+                  },
+                  "userAddedCategory": {
+                    "type": "string"
                   },
                   "symbol": {
                     "type": "string"
@@ -668,6 +678,9 @@
                 "xpath": "mri:keyword",
                 "properties": {
                   "isUserDefined": {},
+                  "userAddedCategory": {
+                    "type": "string"
+                  },
                   "source": {},
                   "label": {
                     "xpath": "gcx:Anchor"
@@ -914,6 +927,42 @@
           "attributes": {
             "text": {
               "function": "write_doi"
+            }
+          }
+        }
+      }
+    },
+    "resourceLineage": {
+      "xpath": "mdb:resourceLineage/mrl:LI_Lineage",
+      "type": "object",
+      "properties": {
+        "statement": {
+          "!docstring": "How2",
+          "type": "string",
+          "xpath": "mrl:statement/gco:CharacterString",
+          "keep": false
+        },
+        "onlineMethods": {
+          "type": "array",
+          "xpath": "mrl:additionalDocumentation",
+          "items": {
+            "type": "object",
+            "xpath": "mrl:additionalDocumentation",
+            "properties": {
+              "isUserDefined": {},
+              "userAddedCategory": {
+                "type": "string"
+              },
+              "title": {
+                "!docstring": "How3",
+                "type": "string",
+                "xpath": "cit:CI_Citation/cit:title/gco:CharacterString"
+              },
+              "url": {
+                "!docstring": "How4",
+                "type": "string",
+                "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString"
+              }
             }
           }
         }

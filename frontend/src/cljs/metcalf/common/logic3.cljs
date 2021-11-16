@@ -211,22 +211,21 @@
        (update :fields reduce-many-field-templates data)
        (update :fields reduce-field-values data))))
 
-(defn initial-state
+(defn setup-form-action
   "Massage raw payload for use as app-state"
-  [{:keys [form] :as payload}]
-  (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))]
-    (-> payload
-        (cond-> form (assoc :form (logic4/massage-form form)))
-        (assoc :alert [])
-        ; TODO: make deployment specific (put in init-db handler)
-        (assoc :api {:api/ternparameters       {:uri (str URL_ROOT "/api/ternparameters")}
-                     :api/qudtunits            {:uri (str URL_ROOT "/api/qudtunits")}
-                     :api/terninstruments      {:uri (str URL_ROOT "/api/terninstruments")}
-                     :api/ternplatforms        {:uri (str URL_ROOT "/api/ternplatforms")}
-                     :api/rolecode             {:uri (str URL_ROOT "/api/rolecode.json")}
-                     :api/samplingfrequency    {:uri (str URL_ROOT "/api/samplingfrequency.json")}
-                     :api/horizontalresolution {:uri (str URL_ROOT "/api/horizontalresolution.json")}
-                     :api/person               {:uri (str URL_ROOT "/api/person.json")}
-                     :api/institution          {:uri (str URL_ROOT "/api/institution.json")}
-                     :api/topiccategory        {:uri (str URL_ROOT "/api/topiccategory.json")}})
-        (update :form initialise-form))))
+  [s form]
+  (-> s
+      (cond-> form (assoc-in [:db :form] (logic4/massage-form form)))
+      (update-in [:db :form] initialise-form)))
+
+(defn setup-alerts
+  [s]
+  (assoc-in s [:db :modal/stack] []))
+
+(defn initial-state-action
+  "Massage raw payload for use as app-state"
+  [s {:keys [form] :as payload}]
+  (-> s
+      (assoc :db payload)
+      (setup-form-action form)
+      (setup-alerts)))

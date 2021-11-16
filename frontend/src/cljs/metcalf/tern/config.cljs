@@ -537,6 +537,7 @@
           :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
           :button-text "Add"
           :value-path  ["uri"]
+          :item-defaults {"userAddedCategory" "platform"}
           :added-path  ["isUserDefined"]}]]
 
        [m4/simple-selection-list

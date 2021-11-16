@@ -544,6 +544,9 @@
                 "properties": {
                   "breadcrumb": {},
                   "isUserDefined": {},
+                  "userAddedCategory": {
+                    "type": "string"
+                  },
                   "label": {
                     "xpath": "gcx:Anchor"
                   },

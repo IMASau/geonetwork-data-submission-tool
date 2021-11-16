@@ -36,6 +36,7 @@ class SpecialKeys:
     valueChild = 'valueChild'
     deleteWhenEmpty = 'deleteWhenEmpty'
     userdefined = 'isUserDefined'
+    userdefinedCategory = 'userAddedCategory'
 
     @staticmethod
     def all_keys():
@@ -147,6 +148,10 @@ def is_postprocess(spec):
     return SpecialKeys.postprocess in spec
 
 
+def has_userdefinedCategory(data):
+    return SpecialKeys.userdefinedCategory in data
+
+
 def has_userdefined(data):
     return SpecialKeys.userdefined in data
 
@@ -156,7 +161,9 @@ def get_userdefined(data):
 
 
 def is_userdefined(data):
-    return has_userdefined(data) and get_userdefined(data)
+    return has_userdefined(data) and \
+        has_userdefinedCategory(data) and \
+        get_userdefined(data)
 
 
 def _make_list_fn(fns):

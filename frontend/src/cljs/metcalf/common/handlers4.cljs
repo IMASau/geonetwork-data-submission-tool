@@ -15,19 +15,7 @@
   [_ [_ payload]]
   (-> {:db {} :fx [[:ui/setup-blueprint]]}
       (actions4/load-page-action payload)
-      (actions4/load-form-action payload)
-      (actions4/load-apis-action
-        payload
-        {:api/ternparameters       "/api/ternparameters"
-         :api/qudtunits            "/api/qudtunits"
-         :api/terninstruments      "/api/terninstruments"
-         :api/ternplatforms        "/api/ternplatforms"
-         :api/rolecode             "/api/rolecode.json"
-         :api/samplingfrequency    "/api/samplingfrequency.json"
-         :api/horizontalresolution "/api/horizontalresolution.json"
-         :api/person               "/api/person.json"
-         :api/institution          "/api/institution.json"
-         :api/topiccategory        "/api/topiccategory.json"})))
+      (actions4/load-form-action payload)))
 
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]
@@ -133,44 +121,39 @@
         new-field-path (conj data-path idx)]
     (-> {:db db}
         (actions4/add-value-action form-id data-path initial-data)
-        (actions4/open-modal {:type          :m4/table-modal-add-form
-                             :form           coord-field
-                             :path           new-field-path
-                             :title          "Geographic Coordinates"
-                             :on-close-click #(on-close idx)
-                             :on-save-click  on-save}))))
+        (actions4/open-modal-action {:type    :m4/table-modal-add-form
+                              :form           coord-field
+                              :path           new-field-path
+                              :title          "Geographic Coordinates"
+                              :on-close-click #(on-close idx)
+                              :on-save-click  on-save}))))
 
 (defn boxmap-coordinates-open-edit-modal
   [{:keys [db]} [_ {:keys [ctx coord-field on-delete on-cancel on-save]}]]
   (let [{:keys [data-path]} ctx]
     (-> {:db db}
-        (actions4/open-modal {:type           :m4/table-modal-edit-form
-                             :form            coord-field
-                             :path            data-path
-                             :title           "Geographic Coordinates"
-                             :on-delete-click on-delete
-                             :on-close-click  on-cancel
-                             :on-save-click   on-save}))))
+        (actions4/open-modal-action {:type     :m4/table-modal-edit-form
+                              :form            coord-field
+                              :path            data-path
+                              :title           "Geographic Coordinates"
+                              :on-delete-click on-delete
+                              :on-close-click  on-cancel
+                              :on-save-click   on-save}))))
 
 (defn boxmap-coordinates-click-confirm-delete
   [{:keys [db]} [_ on-confirm]]
   (-> {:db db}
-      (actions4/open-modal {:type      :confirm
-                           :title      "Delete"
-                           :message    "Are you sure you want to delete?"
-                           :on-confirm on-confirm})))
+      (actions4/open-modal-action {:type :modal.type/confirm
+                            :title       "Delete"
+                            :message     "Are you sure you want to delete?"
+                            :on-confirm  on-confirm})))
 
 (defn boxmap-coordinates-list-delete
   [{:keys [db]} [_ ctx idx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
         (actions4/del-item-action form-id data-path idx)
-        (update-in [:db :alert] pop))))
-
-(defn -load-api-handler
-  [{:keys [db]} [_ api {:keys [status body]}]]
-  (when (= 200 status)
-    (actions4/-load-api-action {:db db} api body)))
+        (update-in [:db :modal/stack] pop))))
 
 (defn save-current-document
   [{:keys [db]} _]
@@ -246,12 +229,12 @@
   (let [{:keys [url state]} (get-in db [:create_form])
         data (blocks4/as-data state)]
     (-> {:db db}
-        (actions4/clear-errors [:create_form])
+        (actions4/clear-errors-action [:create_form])
         (actions4/create-document-action url data))))
 
 (defn -create-document-handler
   [{:keys [db]} [_ {:keys [status body]}]]
   (case status
     200 {::fx3/set-location-href (gobject/getValueByKeys body "document" "url")}
-    400 (actions4/set-errors {:db db} [:create_form] (js->clj body))
+    400 (actions4/set-errors-action {:db db} [:create_form] (js->clj body))
     :else nil))

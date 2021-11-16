@@ -3,7 +3,7 @@ from django.urls import reverse
 from rest_framework import serializers
 
 from metcalf.imas.backend.models import Document, DocumentAttachment, MetadataTemplate
-from metcalf.imas.frontend.models import SiteContent
+from metcalf.imas.frontend.models import SiteContent, DataSource
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -119,3 +119,20 @@ class CreateDocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = ['title', 'template']
+
+
+class DataSourceSerializer(serializers.ModelSerializer):
+    schema = serializers.SerializerMethodField()
+
+    class Meta:
+        model = DataSource
+        fields = (
+            'slug',
+            'base_url',
+            'search_param',
+            'response_key',
+            'schema',
+        )
+
+    def get_schema(self, inst):
+        return inst.schema

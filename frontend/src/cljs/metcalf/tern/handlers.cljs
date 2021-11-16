@@ -8,11 +8,9 @@
 (defn init-db
   [_ [_ payload]]
   (let [ui-data (some-> payload :ui_payload edn/read-string)
-        editor-tabs (:low-code/edit-tabs ui-data)
-        db (-> (logic3/initial-state payload)
-               (cond-> editor-tabs (assoc :low-code/edit-tabs editor-tabs)))]
-    (schema4/assert-schema-data (:form db))
-    (-> {:db db
-         :fx [[:ui/setup-blueprint]
+        editor-tabs (:low-code/edit-tabs ui-data)]
+    (-> {:fx [[:ui/setup-blueprint]
               [::low-code4/init! ui-data]]}
+        (logic3/initial-state-action payload)
+        (cond-> editor-tabs (assoc-in [:db :low-code/edit-tabs] editor-tabs))
         (actions4/init-create-form-action payload))))

@@ -21,25 +21,25 @@
 
 (defn close-modal
   [{:keys [db]}]
-  {:db (update db :alert pop)})
+  {:db (update db :modal/stack pop)})
 
 (defn close-and-cancel
   [{:keys [db]} _]
-  (let [{:keys [on-cancel]} (peek (:alert db))]
+  (let [{:keys [on-cancel]} (peek (:modal/stack db))]
     ; TODO: can we refactor around specific handlers to avoid this?
     (when on-cancel (on-cancel))
-    {:db (update db :alert pop)}))
+    {:db (update db :modal/stack pop)}))
 
 (defn close-and-confirm
   [{:keys [db]} _]
-  (let [{:keys [on-confirm]} (peek (:alert db))]
+  (let [{:keys [on-confirm]} (peek (:modal/stack db))]
     ; TODO: can we refactor around specific handlers to avoid this?
     (when on-confirm (on-confirm))
-    {:db (update db :alert pop)}))
+    {:db (update db :modal/stack pop)}))
 
 (defn open-modal
   [db props]
-  (update db :alert
+  (update db :modal/stack
           (fn [alerts]
             (when-not (= (peek alerts) props)
               (conj alerts props)))))
@@ -50,14 +50,14 @@
 
 (defn handle-page-view-edit-archive-click
   [{:keys [db]} _]
-  {:db (open-modal db {:type       :confirm
+  {:db (open-modal db {:type       :modal.type/confirm
                        :title      "Archive?"
                        :message    "Are you sure you want to archive this record?"
                        :on-confirm #(rf/dispatch [:app/page-view-edit-archive-click-confirm])})})
 
 (defn document-teaser-clone-click
   [{:keys [db]} [_ clone_url]]
-  {:db (open-modal db {:type       :confirm
+  {:db (open-modal db {:type       :modal.type/confirm
                        :title      "Clone?"
                        :message    "Are you sure you want to clone this record?"
                        :on-confirm (fn [] (rf/dispatch [:app/clone-doc-confirm clone_url]))})})
@@ -83,7 +83,7 @@
      {:url       transition_url
       :data      {:transition "archive"}
       :success-v [:app/-archive-current-document-success]
-      :error-v   [:app/open-modal {:type :alert :message "Unable to delete"}]}}))
+      :error-v   [:app/open-modal {:type :modal.type/alert :message "Unable to delete"}]}}))
 
 (defn -archive-current-document-success
   "Archive request succeeded.  Redirect to dashboard."
@@ -111,7 +111,7 @@
 
 (defn dashboard-create-click
   [{:keys [db]} _]
-  {:db (open-modal db {:type :DashboardCreateModal})})
+  {:db (open-modal db {:type :modal.type/DashboardCreateModal})})
 
 (defn clone-document
   [_ [_ url]]
@@ -126,14 +126,14 @@
 
 (defn -clone-document-error
   [_ _]
-  {:dispatch [:app/open-modal {:type :alert :message "Unable to clone"}]})
+  {:dispatch [:app/open-modal {:type :modal.type/alert :message "Unable to clone"}]})
 
 (defn transite-doc-click
   [transition]
   (fn [_ [_ url]]
     (let [trans-name (first (string/split transition "_"))]
       {:dispatch [:app/open-modal
-                  {:type       :confirm
+                  {:type       :modal.type/confirm
                    :title      trans-name
                    :message    (str "Are you sure you want to " trans-name " this record?")
                    :on-confirm #(rf/dispatch [:app/-transite-doc-click-confirm url transition])}]})))
@@ -162,7 +162,7 @@
   [_ [_ transition]]
   (let [trans-name (first (clojure.string/split transition "_"))]
     {:dispatch [:app/open-modal
-                {:type    :alert
+                {:type    :modal.type/alert
                  :message (str "Unable to " trans-name)}]}))
 
 (defn lodge-click
@@ -202,5 +202,5 @@
   [{:keys [db]} [_ {:keys [status failure]}]]
   {:db       (assoc-in db [:page :metcalf3.handlers/saving?] false)
    :dispatch [:app/open-modal
-              {:type    :alert
+              {:type    :modal.type/alert
                :message (str "Unable to lodge: " status " " failure)}]})

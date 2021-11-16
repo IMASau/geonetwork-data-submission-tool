@@ -71,7 +71,7 @@
 
 (defn get-modal-props
   [db _]
-  (let [modal-stack (:alert db)
+  (let [modal-stack (:modal/stack db)
         modal-props (peek modal-stack)]
     (when modal-props
       (let [breadcrumbs (mapv :title modal-stack)]

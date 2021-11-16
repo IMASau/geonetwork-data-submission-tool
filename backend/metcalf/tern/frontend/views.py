@@ -225,8 +225,6 @@ def create_export_xml_string(doc, uuid):
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
-    # TODO: Should this be optional post processing?
-    data = spec4.split_geographic_extents(data)
     xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                           element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     return etree.tostring(xml)
@@ -271,8 +269,6 @@ def mef(request, uuid):
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
-    # TODO: Should this be optional post processing?
-    data = spec4.split_geographic_extents(data)
     xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                           element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     response = HttpResponse(content_type="application/x-mef")
@@ -1278,6 +1274,45 @@ def gcmd_temporal(request: HttpRequest) -> Response:
 def gcmd_vertical(request: HttpRequest) -> Response:
     es = connections.get_connection()
     index_alias = settings.ELASTICSEARCH_INDEX_GCMDVERTICAL
+    result_size = settings.ELASTICSEARCH_RESULT_SIZE
+
+    if request.method == "GET":
+        query = request.GET.get("query")
+    elif request.method == "POST":
+        query = request.data.get("query")
+    else:
+        raise
+
+    if query:
+        body = {
+            "size": result_size,
+            "query": {
+                "bool": {
+                    "must": {
+                        "multi_match": {
+                            "query": query,
+                            "type": "phrase_prefix",
+                            "fields": ["breadcrumb", "label", "uri"]
+                        }
+                    }
+                }
+            }
+        }
+        data = es.search(index=index_alias, body=body)
+    else:
+        body = {
+            "size": result_size,
+            "sort": [{"label.keyword": "asc"}],  # Sort by title
+        }
+        data = es.search(index=index_alias, body=body)
+
+    return Response(es_results(data), status=200)
+
+
+@api_view(['GET', 'POST'])
+def tern_faunalnames(request: HttpRequest) -> Response:
+    es = connections.get_connection()
+    index_alias = settings.ELASTICSEARCH_INDEX_FAUNALNAMES
     result_size = settings.ELASTICSEARCH_RESULT_SIZE
 
     if request.method == "GET":

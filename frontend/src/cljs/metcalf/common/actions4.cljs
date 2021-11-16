@@ -7,27 +7,6 @@
             [metcalf.common.utils3 :as utils3]
             [metcalf.common.utils4 :as utils4]))
 
-(defn load-api-action
-  [s api-id api-uri]
-  (-> s
-      (assoc-in [:db :api api-id :uri] api-uri)
-      (assoc-in [:db :api api-id :options] nil)
-      ; TODO: use js/fetch
-      (update :fx conj [::fx3/get-json-data {:uri api-uri :resolve [::-load-api api-id]}])))
-
-(defn -load-api-action
-  [s api-id body]
-  (let [results (gobj/get body "results")]
-    (assoc-in s [:db :api api-id :options] results)))
-
-(defn load-apis-action
-  [s payload api-paths]
-  (let [URL_ROOT (-> payload :context :URL_ROOT (or ""))]
-    (reduce (fn [s [api-id api-path]]
-              (load-api-action s api-id (str URL_ROOT api-path)))
-            s
-            api-paths)))
-
 (defn load-page-action
   [s payload]
   (let [page-name (get-in payload [:page :name])]
@@ -164,11 +143,11 @@
   (let [tick-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props :key])]
     (assoc-in s tick-path (genkey))))
 
-(defn open-modal
+(defn open-modal-action
   [s modal-props]
-  (update-in s [:db :alert] (fn [alerts]
-                              (when-not (= (peek alerts) modal-props)
-                                (conj alerts modal-props)))))
+  (update-in s [:db :modal/stack] (fn [alerts]
+                                    (when-not (= (peek alerts) modal-props)
+                                      (conj alerts modal-props)))))
 
 (defn load-form-action
   "Massage raw payload for use as app-state"
@@ -194,12 +173,12 @@
   [s url data]
   (update s :fx conj [:app/post-data-fx {:url url :data data :resolve [::-create-document]}]))
 
-(defn clear-errors
+(defn clear-errors-action
   [s form-path]
   (let [form-state-path (utils4/as-path [:db form-path :state])]
     (update-in s form-state-path #(blocks4/postwalk blocks4/clear-error-props %))))
 
-(defn set-errors
+(defn set-errors-action
   [s form-path error-map]
   (let [path-errors (utils4/path-vals error-map)
         path (utils4/as-path [:db form-path :state])]

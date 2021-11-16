@@ -103,6 +103,15 @@
       (update-in [:content field1 :props :errors] conj
                  (str "Must be after " (date/to-string (date/from-value d0)))))))
 
+(defn date-before-today
+  "Date must be historic, ie before current date"
+  [date-block]
+  (if-let [value (date/from-value (blocks4/as-data date-block))]
+    (-> date-block
+        (cond-> (> value (js/Date.))
+          (update-in [:props :errors] conj "Date must be before today")))
+    date-block))
+
 (defn geography-required
   "Geography fields are required / included based on geographic coverage checkbox"
   [geographicElement]

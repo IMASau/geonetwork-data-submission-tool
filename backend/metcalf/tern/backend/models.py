@@ -336,6 +336,7 @@ class Contributor(AbstractContributor):
 class DraftMetadata(AbstractDraftMetadata):
     agreedToTerms = models.BooleanField(default=False)
     doiRequested = models.BooleanField(default=False)
+    hasUserDefined = models.BooleanField(default=False)
 
     # FIXME
     class Meta:

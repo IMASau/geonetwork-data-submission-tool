@@ -429,6 +429,7 @@ def save(request, uuid):
         #     institutionFromData(citedResponsibleParty)
 
         inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
+        inst.hasUserDefined = xmlutils4.extract_user_defined(data)
         inst.noteForDataManager = data.get('noteForDataManager') or ''
         inst.agreedToTerms = data.get('agreedToTerms') or False
         inst.doiRequested = data.get('doiRequested') or False

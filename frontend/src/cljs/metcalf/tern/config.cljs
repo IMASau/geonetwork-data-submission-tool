@@ -940,6 +940,8 @@
         :data-path   ["identificationInfo" "citedResponsibleParty"]
         :template-id :party/list-item
         :value-path  ["uri"]
+        ;; FIXME: userAddedcategory may just be "party", or this may be trickier.
+        ;; :item-defaults {"userAddedCategory" "responsiblePerson"}
         :added-path  ["isUserDefined"]}]
 
       [m4/list-add-button

@@ -605,6 +605,7 @@
           :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
           :button-text "Add"
           :value-path  ["uri"]
+          :item-defaults {"userAddedCategory" "parameters"}
           :added-path  ["isUserDefined"]}]]
        [m4/table-selection-list
         {:form-id    [:form]

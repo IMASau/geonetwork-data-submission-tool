@@ -619,6 +619,9 @@
                   "isUserDefined": {
                     "type": "boolean"
                   },
+                  "userAddedCategory": {
+                    "type": "string"
+                  },
                   "symbol": {
                     "type": "string"
                   },

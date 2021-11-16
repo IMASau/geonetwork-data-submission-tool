@@ -310,6 +310,7 @@
         {:form-id    ?form-id
          :data-path  [?data-path "unit"]
          :value-path ["uri"]
+         :item-defaults {"userAddedCategory" "unit"}
          :added-path ["isUserDefined"]}]]
 
       [m4/item-edit-dialog

@@ -669,6 +669,9 @@
                 "xpath": "mri:keyword",
                 "properties": {
                   "isUserDefined": {},
+                  "userAddedCategory": {
+                    "type": "string"
+                  },
                   "source": {},
                   "label": {
                     "xpath": "gcx:Anchor"

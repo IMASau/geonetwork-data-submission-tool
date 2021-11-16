@@ -571,6 +571,7 @@
           :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
           :button-text "Add"
           :value-path  ["uri"]
+          :item-defaults {"userAddedCategory" "instrument"}
           :added-path  ["isUserDefined"]}]]
        [m4/table-selection-list
         {:form-id    [:form]

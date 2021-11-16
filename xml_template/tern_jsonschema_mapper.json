@@ -949,6 +949,10 @@
             "type": "object",
             "xpath": "mrl:additionalDocumentation",
             "properties": {
+              "isUserDefined": {},
+              "userAddedCategory": {
+                "type": "string"
+              },
               "title": {
                 "!docstring": "How3",
                 "type": "string",

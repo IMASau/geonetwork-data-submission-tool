@@ -1153,6 +1153,7 @@
         :data-path   ["resourceLineage" "onlineMethods"]
         :button-text "Add"
         :value-path  ["uri"]
+        :item-defaults {"userAddedCategory" "onlineMethods"}
         :added-path  ["isUserDefined"]}]
 
       [m4/list-edit-dialog

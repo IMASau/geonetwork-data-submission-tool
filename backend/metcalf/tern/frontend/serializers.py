@@ -2,14 +2,9 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework import serializers
 
+from metcalf.common.serializers import UserInfoSerializer
 from metcalf.tern.backend.models import Document, DocumentAttachment, MetadataTemplate
 from metcalf.tern.frontend.models import SiteContent
-
-
-class UserInfoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'first_name', 'last_name')
 
 
 class DocumentInfoSerializer(serializers.ModelSerializer):

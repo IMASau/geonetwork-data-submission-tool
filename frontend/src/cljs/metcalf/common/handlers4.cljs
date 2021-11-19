@@ -15,9 +15,18 @@
 
 (defn init-db
   [_ [_ payload]]
-  (-> {:db {} :fx [[:ui/setup-blueprint]]}
-      (actions4/load-page-action payload)
-      (actions4/load-form-action payload)))
+  (case (get-in payload [:page :name])
+
+    "dashboard"
+    (-> {:db {} :fx [[:ui/setup-blueprint]]}
+        (actions4/load-page-action payload)
+        (actions4/load-dashboard-document-data payload))
+
+    "edit"
+    (-> {:db {} :fx [[:ui/setup-blueprint]]}
+        (actions4/load-page-action payload)
+        (actions4/load-form-action payload))
+    ))
 
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]
@@ -244,6 +253,7 @@
 (defn document-teaser-share-click
   [{:keys [db]} [_ uuid]]
   (-> (actions4/open-modal-action {:db db} {:type :modal.type/contributors-modal :uuid uuid})
+      (update :db dissoc :contributors-modal/saving?)
       (actions4/get-document-data-action uuid)))
 
 (defn -get-document-data-action
@@ -253,15 +263,13 @@
 
 (defn contributors-modal-share-click
   [{:keys [db]} [_ {:keys [uuid email]}]]
-  (let [stack (get db :modal/stack)
-        modal-idx (dec (count stack))
-        {:keys [contributors-modal/saving?]} (peek stack)
+  (let [{:keys [contributors-modal/saving?]} db
         {:keys [contributors]} (get-in db [:app/document-data uuid])
         novel? (not (contains? (set (map :email contributors)) email))]
     (when (and (not saving?) novel?)
       (-> {:db db}
           (update-in [:db :app/document-data uuid :contributors] conj {:email email})
-          (assoc-in [:db :modal/stack modal-idx :contributors-modal/saving?] true)
+          (assoc-in [:db :contributors-modal/saving?] true)
           (update :fx conj [:app/post-data-fx
                             {:url     (str "/share/" uuid "/")
                              :data    {:email email}
@@ -269,33 +277,29 @@
 
 (defn -contributors-modal-share-resolve
   [{:keys [db]} [_ {:keys [status body]}]]
-  (let [stack (get db :modal/stack)
-        modal-idx (dec (count stack))
-        {:keys [contributors-modal/saving?]} (peek stack)]
+  (let [{:keys [contributors-modal/saving?]} db]
     (cond
       (not saving?) {}
 
       (= status 200)
       (-> {:db db}
-          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/saving?))
+          (update :db dissoc :contributors-modal/saving?))
 
       (= status 400)
       (-> {:db db}
-          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/saving?)
+          (update :db dissoc :contributors-modal/saving?)
           (actions4/open-modal-action {:type :modal.type/alert :message (string/join ". " (mapcat val (js->clj body)))})))))
 
 (defn contributors-modal-unshare-click
   [{:keys [db]} [_ {:keys [uuid idx]}]]
-  (let [stack (get db :modal/stack)
-        modal-idx (dec (count stack))
-        {:keys [contributors-modal/saving?]} (peek stack)
+  (let [{:keys [contributors-modal/saving?]} db
         {:keys [contributors]} (get-in db [:app/document-data uuid])
         {:keys [email]} (get contributors idx)
         contributors' (filterv #(not= email (:email %)) contributors)]
     (when-not saving?
       (-> {:db db}
           (assoc-in [:db :app/document-data uuid :contributors] contributors')
-          (assoc-in [:db :modal/stack modal-idx :contributors-modal/saving?] true)
+          (assoc-in [:db :contributors-modal/saving?] true)
           (update :fx conj [:app/post-data-fx
                             {:url     (str "/unshare/" uuid "/")
                              :data    {:email email}
@@ -311,10 +315,10 @@
 
       (= status 200)
       (-> {:db db}
-          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/saving?))
+          (update :db dissoc :contributors-modal/saving?))
 
       (= status 400)
       (-> {:db db}
-          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/saving?)
+          (update :db dissoc :contributors-modal/saving?)
           (assoc-in [:db :modal/stack modal-idx :errors] (js->clj body))))))
 

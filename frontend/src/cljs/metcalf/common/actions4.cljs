@@ -12,6 +12,12 @@
   (let [page-name (get-in payload [:page :name])]
     (assoc-in s [:db :page :name] page-name)))
 
+(defn load-dashboard-document-data
+  [s payload]
+  (let [documents (get-in payload [:context :documents])
+        data (zipmap (map :uuid documents) documents)]
+    (assoc-in s [:db :app/document-data] data)))
+
 (defn save-snapshot-action
   [s form-id]
   (let [snapshots-path (utils4/as-path [:db form-id :snapshots])
@@ -191,5 +197,5 @@
   "Refresh contributor data in modal state"
   [s uuid]
   (update s :fx conj [:app/get-json-fx
-                      {:url     (str "/api/document/" uuid "/")
+                      {:url     (str "/api/document-info/" uuid "/")
                        :resolve [::-get-document-data-action uuid]}]))

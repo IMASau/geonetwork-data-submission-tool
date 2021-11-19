@@ -5,9 +5,14 @@ from metcalf.imas.backend import models
 from metcalf.imas.frontend import serializers
 
 
-class DocumentViewSet(viewsets.ReadOnlyModelViewSet):
+class DocumentInfoViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = models.Document.objects.all()
-    serializer_class = serializers.DocumentSerializer
+    serializer_class = serializers.DocumentInfoSerializer
+
+    def get_serializer_context(self):
+        context = super(DocumentInfoViewSet, self).get_serializer_context()
+        context.update({"user": self.request.user})
+        return context
 
     def get_queryset(self):
         return (self.queryset

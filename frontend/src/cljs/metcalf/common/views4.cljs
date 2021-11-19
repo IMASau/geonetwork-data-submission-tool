@@ -52,13 +52,14 @@
     :on-save      on-save}])
 
 (defn document-teaser
-  [{:keys [doc on-archive-click on-delete-archived-click on-restore-click on-clone-click on-edit-click]}]
+  [{:keys [doc on-archive-click on-delete-archived-click on-restore-click on-clone-click on-edit-click on-share-click]}]
   (let [{:keys [title last_updated last_updated_by status transitions is_editor owner]} doc
         handle-archive-click (fn [e] (.stopPropagation e) (on-archive-click doc))
         handle-delete-archived-click (fn [e] (.stopPropagation e) (on-delete-archived-click doc))
         handle-restore-click (fn [e] (.stopPropagation e) (on-restore-click doc))
         handle-clone-click (fn [e] (.stopPropagation e) (on-clone-click doc))
         handle-edit-click (fn [e] (.stopPropagation e) (on-edit-click doc))
+        handle-share-click (fn [e] (.stopPropagation e) (on-share-click doc))
         transitions (set transitions)]
 
     [:div.bp3-card.bp3-interactive.DocumentTeaser
@@ -81,7 +82,10 @@
          {:on-click handle-clone-click}
          [:span.glyphicon.glyphicon-duplicate] " clone"]
         [:span.btn.btn-default.noborder.btn-xs {:on-click handle-edit-click}
-         [:span.glyphicon.glyphicon-pencil] " edit"]])
+         [:span.glyphicon.glyphicon-pencil] " edit"]
+        (when on-share-click
+          [:span.btn.btn-default.noborder.btn-xs {:on-click handle-share-click}
+           [:span.glyphicon.glyphicon-share] " share"])])
      [:h4
       [:span.link
        [:span (:username owner)]
@@ -114,7 +118,8 @@
            document-delete-archived-click
            document-restore-click
            document-clone-click
-           document-edit-click]}]
+           document-edit-click
+           document-share-click]}]
   (let [{:keys [filtered-docs status-filter has-documents? status-freq status relevant-status-filter]} dashboard-props]
     [:div.container
      [:span.pull-right {:style {:margin-top 18}}
@@ -132,7 +137,9 @@
                      :on-delete-archived-click #(document-delete-archived-click filtered-doc)
                      :on-restore-click         #(document-restore-click filtered-doc)
                      :on-clone-click           #(document-clone-click filtered-doc)
-                     :on-edit-click            #(document-edit-click filtered-doc)}]))
+                     :on-edit-click            #(document-edit-click filtered-doc)
+                     :on-share-click           (when document-share-click
+                                                 #(document-share-click filtered-doc))}]))
            (conj (if has-documents?
                    [:a.list-group-item {:on-click dashboard-create-click}
                     [:span.glyphicon.glyphicon-star.pull-right]

@@ -273,21 +273,23 @@
           (update :fx conj [:app/post-data-fx
                             {:url     (str "/share/" uuid "/")
                              :data    {:email email}
-                             :resolve [::-contributors-modal-share-resolve]}])))))
+                             :resolve [::-contributors-modal-share-resolve uuid]}])))))
 
 (defn -contributors-modal-share-resolve
-  [{:keys [db]} [_ {:keys [status body]}]]
+  [{:keys [db]} [_ uuid {:keys [status body]}]]
   (let [{:keys [contributors-modal/saving?]} db]
     (cond
       (not saving?) {}
 
       (= status 200)
       (-> {:db db}
-          (update :db dissoc :contributors-modal/saving?))
+          (update :db dissoc :contributors-modal/saving?)
+          (actions4/get-document-data-action uuid))
 
       (= status 400)
       (-> {:db db}
           (update :db dissoc :contributors-modal/saving?)
+          (actions4/get-document-data-action uuid)
           (actions4/open-modal-action {:type :modal.type/alert :message (string/join ". " (mapcat val (js->clj body)))})))))
 
 (defn contributors-modal-unshare-click
@@ -303,22 +305,22 @@
           (update :fx conj [:app/post-data-fx
                             {:url     (str "/unshare/" uuid "/")
                              :data    {:email email}
-                             :resolve [::-contributors-modal-unshare-resolve]}])))))
+                             :resolve [::-contributors-modal-unshare-resolve uuid]}])))))
 
 (defn -contributors-modal-unshare-resolve
-  [{:keys [db]} [_ {:keys [status body]}]]
-  (let [stack (get db :modal/stack)
-        modal-idx (dec (count stack))
-        {:keys [icontributors-modal/saving?]} (peek stack)]
+  [{:keys [db]} [_ uuid {:keys [status body]}]]
+  (let [{:keys [contributors-modal/saving?]} db]
     (cond
       (not saving?) {}
 
       (= status 200)
       (-> {:db db}
-          (update :db dissoc :contributors-modal/saving?))
+          (update :db dissoc :contributors-modal/saving?)
+          (actions4/get-document-data-action uuid))
 
       (= status 400)
       (-> {:db db}
           (update :db dissoc :contributors-modal/saving?)
-          (assoc-in [:db :modal/stack modal-idx :errors] (js->clj body))))))
+          (actions4/get-document-data-action uuid)
+          (actions4/open-modal-action {:type :modal.type/alert :message (string/join ". " (mapcat val (js->clj body)))})))))
 

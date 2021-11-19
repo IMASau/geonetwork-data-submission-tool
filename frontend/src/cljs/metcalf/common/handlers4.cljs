@@ -256,7 +256,7 @@
   (let [stack (get db :modal/stack)
         modal-idx (dec (count stack))
         {:keys [contributors-modal/saving?]} (peek stack)
-        {:keys [contributors]} (get db [:app/document-data uuid])
+        {:keys [contributors]} (get-in db [:app/document-data uuid])
         novel? (not (contains? (set (map :email contributors)) email))]
     (when (and (not saving?) novel?)
       (-> {:db db}
@@ -289,7 +289,7 @@
   (let [stack (get db :modal/stack)
         modal-idx (dec (count stack))
         {:keys [contributors-modal/saving?]} (peek stack)
-        {:keys [contributors]} (get db [:app/document-data uuid])
+        {:keys [contributors]} (get-in db [:app/document-data uuid])
         {:keys [email]} (get contributors idx)
         contributors' (filterv #(not= email (:email %)) contributors)]
     (when-not saving?

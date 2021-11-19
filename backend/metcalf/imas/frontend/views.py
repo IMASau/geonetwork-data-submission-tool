@@ -9,6 +9,7 @@ from zipfile import ZipFile, ZipInfo
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
 from django.http import HttpResponse
@@ -18,6 +19,7 @@ from django.urls import reverse
 from django.utils.encoding import smart_text
 from django_fsm import has_transition_perm
 from lxml import etree
+from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -34,7 +36,7 @@ from metcalf.imas.frontend.forms import DocumentAttachmentForm
 from metcalf.imas.frontend.models import SiteContent, DataSource
 from metcalf.imas.frontend.permissions import is_document_editor, is_document_contributor
 from metcalf.imas.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
-    SiteContentSerializer, CreateDocumentSerializer, DataSourceSerializer
+    SiteContentSerializer, CreateDocumentSerializer, DataSourceSerializer, UserByEmailSerializer
 
 logger = logging.getLogger(__name__)
 

@@ -190,6 +190,44 @@ def clone(request, uuid):
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
 
 
+@login_required
+@api_view(['POST'])
+def share(request, uuid):
+    doc = get_object_or_404(Document, uuid=uuid)
+    is_document_editor(request, doc)
+    serializer = UserByEmailSerializer(data=request.data)
+    if serializer.is_valid():
+        email = serializer.validated_data['email']
+        users = doc.contributors.filter(email=email)
+        user = User.objects.get(email=email)
+        if doc.owner == user:
+            pass
+        elif users.exists():
+            pass
+        else:
+            doc.contributors.add(user)
+        return Response({'status': 'Success'})
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@login_required
+@api_view(['POST'])
+def unshare(request, uuid):
+    doc = get_object_or_404(Document, uuid=uuid)
+    is_document_editor(request, doc)
+    serializer = UserByEmailSerializer(data=request.data)
+    if serializer.is_valid():
+        email = serializer.validated_data['email']
+        users = doc.contributors.filter(email=email)
+        for user in users:
+            doc.contributors.remove(user)
+        return Response({'status': 'Success'})
+
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 # Error Pages
 def server_error(request):
     # FIXME remove tern references from 500 view

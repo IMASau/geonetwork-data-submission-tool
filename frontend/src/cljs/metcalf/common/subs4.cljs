@@ -65,6 +65,14 @@
         {:keys [progress/errors]} (:progress/score state1)]
     (not (pos? errors))))
 
+(defn contributors-modal-props
+  [db _]
+  (let [{:keys [doc]} (peek (get db :modal/stack))
+        {:keys [uuid contributors]} doc]
+    {:uuid   uuid
+     :emails (mapv :email contributors)
+     :errors errors}))
+
 (defn get-page-name
   [db _]
   (get-in db [:page :name]))

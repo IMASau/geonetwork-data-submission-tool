@@ -33,6 +33,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
 
 class DocumentInfoSerializer(serializers.ModelSerializer):
     owner = UserInfoSerializer()
+    contributors = UserInfoSerializer(many=True)
     url = serializers.SerializerMethodField()
     clone_url = serializers.SerializerMethodField()
     transition_url = serializers.SerializerMethodField()
@@ -46,7 +47,7 @@ class DocumentInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ('uuid', 'title', 'owner', 'last_updated', 'last_updated_by',
+        fields = ('uuid', 'title', 'owner', 'contributors', 'last_updated', 'last_updated_by',
                   'url', 'clone_url', 'transition_url', 'export_url',
                   'status', 'transitions', 'is_editor', 'is_contributor')
 

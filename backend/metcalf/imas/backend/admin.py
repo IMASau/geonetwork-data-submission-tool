@@ -146,8 +146,9 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
     fsm_field = ['status', ]
     readonly_fields = ['status', 'action_links', 'submission_note']
     inlines = [DocumentAttachmentInline]
+    autocomplete_fields=['contributors']
     fieldsets = [
-        (None, {'fields': ('title', 'template', 'owner', 'status', 'submission_note')}),
+        (None, {'fields': ('title', 'template', 'owner', 'contributors', 'status', 'submission_note')}),
         ('Export', {'fields': ('action_links',)}),
     ]
 

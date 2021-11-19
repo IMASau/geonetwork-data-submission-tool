@@ -255,7 +255,6 @@
     (when (and (not saving?) novel?)
       (-> {:db db}
           (update-in [:db :modal/stack modal-idx :doc :contributors] conj {:email email})
-          (assoc-in [:db :modal/stack modal-idx :contributors-modal/undo-doc] doc)
           (assoc-in [:db :modal/stack modal-idx :contributors-modal/saving?] true)
           (update :fx conj [:app/post-data-fx
                             {:url     (str "/share/" uuid "/")
@@ -266,20 +265,17 @@
   [{:keys [db]} [_ {:keys [status body]}]]
   (let [stack (get db :modal/stack)
         modal-idx (dec (count stack))
-        {:keys [contributors-modal/saving? contributors-modal/undo-doc]} (peek stack)]
+        {:keys [contributors-modal/saving?]} (peek stack)]
     (cond
       (not saving?) {}
 
       (= status 200)
       (-> {:db db}
-          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/undo-doc)
           (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/saving?))
 
       (= status 400)
       (-> {:db db}
-          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/undo-doc)
           (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/saving?)
-          (assoc-in [:db :modal/stack modal-idx :doc] undo-doc)
           (actions4/open-modal-action {:type :modal.type/alert :message (string/join ". " (mapcat val (js->clj body)))})))))
 
 (defn contributors-modal-unshare-click
@@ -293,7 +289,6 @@
     (when-not saving?
       (-> {:db db}
           (assoc-in [:db :modal/stack modal-idx :doc :contributors] contributors')
-          (assoc-in [:db :modal/stack modal-idx :contributors-modal/undo-doc] doc)
           (assoc-in [:db :modal/stack modal-idx :contributors-modal/saving?] true)
           (update :fx conj [:app/post-data-fx
                             {:url     (str "/unshare/" uuid "/")
@@ -304,20 +299,17 @@
   [{:keys [db]} [_ {:keys [status body]}]]
   (let [stack (get db :modal/stack)
         modal-idx (dec (count stack))
-        {:keys [doc contributors-modal/saving? contributors-modal/undo-doc]} (peek stack)
+        {:keys [doc contributors-modal/saving?]} (peek stack)
         {:keys [contributors]} doc]
     (cond
       (not saving?) {}
 
       (= status 200)
       (-> {:db db}
-          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/undo-doc)
           (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/saving?))
 
       (= status 400)
       (-> {:db db}
-          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/undo-doc)
           (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/saving?)
-          (assoc-in [:db :modal/stack modal-idx :doc] undo-doc)
           (assoc-in [:db :modal/stack modal-idx :errors] (js->clj body))))))
 

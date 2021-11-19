@@ -14,7 +14,7 @@ from lxml import etree
 from rest_framework.renderers import JSONRenderer
 
 from metcalf.common.emails import *
-from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, AbstractDocument, AbstractContributor, \
+from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, AbstractDocument, \
     AbstractMetadataTemplate, AbstractMetadataTemplateMapper, AbstractDraftMetadata, AbstractUserInterfaceTemplate
 from metcalf.common import spec4, xmlutils4
 from metcalf.common.utils import to_json, get_exception_message, get_user_name
@@ -251,10 +251,6 @@ class Document(AbstractDocument):
                              data=data,
                              noteForDataManager='')
         inst.save()
-
-
-class Contributor(AbstractContributor):
-    pass
 
 
 class DraftMetadata(AbstractDraftMetadata):

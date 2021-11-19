@@ -305,7 +305,7 @@
   [{:keys [db]} [_ {:keys [status body]}]]
   (let [stack (get db :modal/stack)
         modal-idx (dec (count stack))
-        {:keys [doc contributors-modal/saving?]} (peek stack)]
+        {:keys [icontributors-modal/saving?]} (peek stack)]
     (cond
       (not saving?) {}
 

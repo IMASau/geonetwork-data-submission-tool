@@ -70,8 +70,7 @@
   (let [{:keys [doc]} (peek (get db :modal/stack))
         {:keys [uuid contributors]} doc]
     {:uuid   uuid
-     :emails (mapv :email contributors)
-     :errors errors}))
+     :emails (mapv :email contributors)}))
 
 (defn get-page-name
   [db _]

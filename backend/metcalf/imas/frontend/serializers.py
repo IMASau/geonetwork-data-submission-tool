@@ -140,20 +140,6 @@ class DataSourceSerializer(serializers.ModelSerializer):
         return inst.schema
 
 
-class UserByEmailSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-
-    def validate_email(self, email):
-        try:
-            User.objects.get(email=email)
-        except ObjectDoesNotExist:
-            raise serializers.ValidationError("No matching users")
-        except MultipleObjectsReturned:
-            raise serializers.ValidationError("Multiple matching users")
-
-        return email
-
-
 class DocUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

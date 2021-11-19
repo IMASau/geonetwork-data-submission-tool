@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
 from django.http import HttpResponse, HttpRequest
@@ -22,6 +23,7 @@ from django.utils.encoding import smart_text
 from django_fsm import has_transition_perm
 from elasticsearch_dsl import connections
 from lxml import etree
+from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -34,6 +36,7 @@ import requests
 
 from metcalf.common import spec4
 from metcalf.common import xmlutils4
+from metcalf.common.serializers import UserByEmailSerializer
 from metcalf.common.utils import to_json, get_exception_message
 from metcalf.tern.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
@@ -191,6 +194,44 @@ def clone(request, uuid):
                          "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
+
+
+@login_required
+@api_view(['POST'])
+def share(request, uuid):
+    doc = get_object_or_404(Document, uuid=uuid)
+    is_document_editor(request, doc)
+    serializer = UserByEmailSerializer(data=request.data)
+    if serializer.is_valid():
+        email = serializer.validated_data['email']
+        users = doc.contributors.filter(email=email)
+        user = User.objects.get(email=email)
+        if doc.owner == user:
+            pass
+        elif users.exists():
+            pass
+        else:
+            doc.contributors.add(user)
+        return Response({'status': 'Success'})
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@login_required
+@api_view(['POST'])
+def unshare(request, uuid):
+    doc = get_object_or_404(Document, uuid=uuid)
+    is_document_editor(request, doc)
+    serializer = UserByEmailSerializer(data=request.data)
+    if serializer.is_valid():
+        email = serializer.validated_data['email']
+        users = doc.contributors.filter(email=email)
+        for user in users:
+            doc.contributors.remove(user)
+        return Response({'status': 'Success'})
+
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @login_required

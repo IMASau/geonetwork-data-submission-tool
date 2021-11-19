@@ -29,6 +29,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from metcalf.common import spec4, xmlutils4
+from metcalf.common.serializers import UserByEmailSerializer
 from metcalf.common.utils import to_json, get_exception_message
 from metcalf.imas.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
@@ -36,7 +37,8 @@ from metcalf.imas.frontend.forms import DocumentAttachmentForm
 from metcalf.imas.frontend.models import SiteContent, DataSource
 from metcalf.imas.frontend.permissions import is_document_editor, is_document_contributor
 from metcalf.imas.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
-    SiteContentSerializer, CreateDocumentSerializer, DataSourceSerializer, UserByEmailSerializer
+    SiteContentSerializer, CreateDocumentSerializer, DataSourceSerializer
+
 
 logger = logging.getLogger(__name__)
 

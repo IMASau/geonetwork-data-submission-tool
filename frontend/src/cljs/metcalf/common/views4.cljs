@@ -275,3 +275,23 @@
          [:span {:style {:padding "5px 10px 5px 10px"}} (utils3/userDisplay user)])
        [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
        [:a.bp3-button.bp3-minimal {:href account_logout} "Sign Out"]]]]))
+
+(defn collaborator-form
+  [{:keys [emails onRemoveClick onAddClick]}]
+  (let [items (map (fn [label] {:value (gensym) :label label}) emails)]
+    [:div
+     [ui/FormGroup
+      {:label   "Collaborators"
+       :toolTip "New users will need to create an account before you can add them as a collaborator"}
+      [ui/SimpleSelectionList
+       {:key           key
+        :items         items
+        :disabled      false
+        :getLabel      (ui/get-obj-path ["label"])
+        :getValue      (ui/get-obj-path ["value"])
+        :onRemoveClick onRemoveClick}]
+      [ui/TextAddField
+       {:buttonText  "Add"
+        :disabled    false
+        :placeholder "Email address"
+        :onAddClick  onAddClick}]]]))

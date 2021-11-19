@@ -68,7 +68,7 @@ if (!document.body) {
     document.body.appendChild(portal);
 }
 
-function PortalAwareItem({ provided, snapshot, itemLabel, removeButton, className }) {
+function PortalAwareItem({ provided, snapshot, itemLabel, removeButton, className, isDragDisabled }) {
 
     const usePortal = snapshot.isDragging;
 
@@ -84,7 +84,7 @@ function PortalAwareItem({ provided, snapshot, itemLabel, removeButton, classNam
         >
             <div className="DragHandleWrapperHandle"
                 {...provided.dragHandleProps}>
-                <DragHandle />
+                { isDragDisabled ? <span/> : <DragHandle /> }
             </div>
             <div className="DragHandleWrapperLabel">
                 {itemLabel}
@@ -102,9 +102,15 @@ function PortalAwareItem({ provided, snapshot, itemLabel, removeButton, classNam
     }
 }
 
-function getSelectionListItemClass({ item, getAdded }) {
-    const isAdded = getAdded && getAdded(item);
-    return isAdded ? "SelectionListAddedItem" : "SelectionListPickedItem"
+function getSelectionListItemClass({ item, getAdded, onItemClick }) {
+    const clickableClass = onItemClick ? "SelectionListItemClickable": "";
+    if (getAdded) {
+        const isAdded = getAdded && getAdded(item);
+        const itemClass = isAdded ? "SelectionListAddedItem" : "SelectionListPickedItem"
+        return [clickableClass, itemClass].join(" ")
+    } else {
+        return clickableClass
+    }
 }
 
 // NOTE: Attempts to workaround glitch on recorder by caching state
@@ -147,9 +153,10 @@ export function SelectionList({ items, itemProps, getValue, getAdded, onReorder,
                                     <PortalAwareItem
                                         provided={provided}
                                         snapshot={snapshot}
-                                        className={["SelectionListItem", getSelectionListItemClass({ item, getAdded })].join(" ")}
+                                        className={["SelectionListItem", getSelectionListItemClass({ item, getAdded, onItemClick })].join(" ")}
                                         itemLabel={ItemLabel({ itemProps, item, index, onItemClick, renderItem })}
                                         removeButton={RemoveButton({ disabled, onRemoveClick, index })}
+                                        isDragDisabled={isDragDisabled}
                                     />
                                 )}
                             </Draggable>

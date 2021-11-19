@@ -47,6 +47,7 @@ class AbstractDocument(models.Model):
     template = models.ForeignKey("MetadataTemplate", on_delete=models.SET_NULL, null=True)
     title = models.TextField(default="Untitled")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    contributors = models.ManyToManyField(User, related_name='contributor')
 
     class Meta:
         abstract = True

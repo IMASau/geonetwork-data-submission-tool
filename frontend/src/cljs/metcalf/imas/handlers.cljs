@@ -5,8 +5,16 @@
 
 (defn init-db
   [_ [_ payload]]
-  (-> {:fx [[:ui/setup-blueprint]]}
-      (logic3/initial-state-action payload)
-      ;(actions4/load-page-action payload)
-      ;(actions4/load-form-action payload)
-      (actions4/init-create-form-action payload)))
+  (case (get-in payload [:page :name])
+
+    "Dashboard"
+    (-> {:fx [[:ui/setup-blueprint]]}
+        (logic3/initial-state-action payload)
+        (actions4/init-create-form-action payload)
+        (actions4/load-dashboard-document-data payload))
+
+    "Edit"
+    (-> {:fx [[:ui/setup-blueprint]]}
+        (logic3/initial-state-action payload)
+        (actions4/init-create-form-action payload))
+    ))

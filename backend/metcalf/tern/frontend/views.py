@@ -90,7 +90,7 @@ def user_status_list():
 @login_required
 def dashboard(request):
     docs = (Document.objects
-            .filter(Q(owner=request.user))
+            .filter(Q(owner=request.user) | Q(contributors=request.user))
             .exclude(status=Document.DISCARDED))
     payload = JSONRenderer().render({
         "context": {

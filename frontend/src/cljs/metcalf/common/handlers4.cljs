@@ -5,7 +5,9 @@
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.rules4 :as rules4]
             [metcalf.common.schema4 :as schema4]
-            [metcalf.common.utils4 :as utils4]))
+            [metcalf.common.utils4 :as utils4]
+            [metcalf.common.utils3 :as utils3]
+            [clojure.string :as string]))
 
 (defn db-path
   [{:keys [form-id data-path]}]
@@ -238,3 +240,84 @@
     200 {::fx3/set-location-href (gobject/getValueByKeys body "document" "url")}
     400 (actions4/set-errors-action {:db db} [:create_form] (js->clj body))
     :else nil))
+
+(defn document-teaser-share-click
+  [{:keys [db]} [_ doc]]
+  (actions4/open-modal-action {:db db} {:type :modal.type/contributors-modal :doc doc}))
+
+(defn contributors-modal-share-click
+  [{:keys [db]} [_ {:keys [email]}]]
+  (let [stack (get db :modal/stack)
+        modal-idx (dec (count stack))
+        {:keys [doc contributors-modal/saving?]} (peek stack)
+        {:keys [uuid contributors]} doc
+        novel? (not (contains? (set (map :email contributors)) email))]
+    (when (and (not saving?) novel?)
+      (-> {:db db}
+          (update-in [:db :modal/stack modal-idx :doc :contributors] conj {:email email})
+          (assoc-in [:db :modal/stack modal-idx :contributors-modal/undo-doc] doc)
+          (assoc-in [:db :modal/stack modal-idx :contributors-modal/saving?] true)
+          (update :fx conj [:app/post-data-fx
+                            {:url     (str "/share/" uuid "/")
+                             :data    {:email email}
+                             :resolve [::-contributors-modal-share-resolve]}])))))
+
+(defn -contributors-modal-share-resolve
+  [{:keys [db]} [_ {:keys [status body]}]]
+  (let [stack (get db :modal/stack)
+        modal-idx (dec (count stack))
+        {:keys [contributors-modal/saving? contributors-modal/undo-doc]} (peek stack)]
+    (cond
+      (not saving?) {}
+
+      (= status 200)
+      (-> {:db db}
+          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/undo-doc)
+          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/saving?))
+
+      (= status 400)
+      (-> {:db db}
+          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/undo-doc)
+          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/saving?)
+          (assoc-in [:db :modal/stack modal-idx :doc] undo-doc)
+          (actions4/open-modal-action {:type :modal.type/alert :message (string/join ". " (mapcat val (js->clj body)))})))))
+
+(defn contributors-modal-unshare-click
+  [{:keys [db]} [_ {:keys [idx]}]]
+  (let [stack (get db :modal/stack)
+        modal-idx (dec (count stack))
+        {:keys [doc contributors-modal/saving?]} (peek stack)
+        {:keys [uuid contributors]} doc
+        {:keys [email]} (get contributors idx)
+        contributors' (filterv #(not= email (:email %)) contributors)]
+    (when-not saving?
+      (-> {:db db}
+          (assoc-in [:db :modal/stack modal-idx :doc :contributors] contributors')
+          (assoc-in [:db :modal/stack modal-idx :contributors-modal/undo-doc] doc)
+          (assoc-in [:db :modal/stack modal-idx :contributors-modal/saving?] true)
+          (update :fx conj [:app/post-data-fx
+                            {:url     (str "/unshare/" uuid "/")
+                             :data    {:email email}
+                             :resolve [::-contributors-modal-unshare-resolve]}])))))
+
+(defn -contributors-modal-unshare-resolve
+  [{:keys [db]} [_ {:keys [status body]}]]
+  (let [stack (get db :modal/stack)
+        modal-idx (dec (count stack))
+        {:keys [doc contributors-modal/saving? contributors-modal/undo-doc]} (peek stack)
+        {:keys [contributors]} doc]
+    (cond
+      (not saving?) {}
+
+      (= status 200)
+      (-> {:db db}
+          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/undo-doc)
+          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/saving?))
+
+      (= status 400)
+      (-> {:db db}
+          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/undo-doc)
+          (update-in [:db :modal/stack modal-idx] dissoc :contributors-modal/saving?)
+          (assoc-in [:db :modal/stack modal-idx :doc] undo-doc)
+          (assoc-in [:db :modal/stack modal-idx :errors] (js->clj body))))))
+

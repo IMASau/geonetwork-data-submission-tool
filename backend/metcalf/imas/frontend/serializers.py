@@ -152,3 +152,18 @@ class UserByEmailSerializer(serializers.Serializer):
             raise serializers.ValidationError("Multiple matching users")
 
         return email
+
+
+class DocUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('email',)
+
+
+class DocumentSerializer(serializers.ModelSerializer):
+    owner = DocUserSerializer(read_only=True)
+    contributors = DocUserSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Document
+        fields = ('uuid', 'title', 'status', 'owner', 'contributors',)

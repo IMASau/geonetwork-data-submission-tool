@@ -5,6 +5,7 @@ from rest_framework import routers
 
 import metcalf.imas.backend.viewsets as viewsets
 from metcalf.imas.frontend.views import *
+from metcalf.imas.frontend.viewsets import DocumentViewSet
 
 router = routers.DefaultRouter()
 router.register(r'institution', viewsets.InstitutionViewSet)
@@ -20,6 +21,7 @@ router.register(r'samplingfrequency', viewsets.SamplingFrequencyViewSet)
 router.register(r'horizontalresolution', viewsets.HorizontalResolutionViewSet)
 router.register(r'topiccategory', viewsets.TopicCategoryViewSet)
 router.register(r'metadata-template', viewsets.MetadataTemplateViewSet)
+router.register(r'document', DocumentViewSet)
 
 urlpatterns = [
     path('', home, name="LandingPage"),

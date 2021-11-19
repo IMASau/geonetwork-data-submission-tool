@@ -53,6 +53,7 @@
 (rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)
 (rf/reg-event-fx :app/dashboard-create-click handlers3/dashboard-create-click)
 (rf/reg-event-fx :app/document-teaser-share-click handlers4/document-teaser-share-click)
+(rf/reg-event-fx :metcalf.common.actions4/-get-document-data-action handlers4/-get-document-data-action)
 (rf/reg-event-fx :app/contributors-modal-unshare-click handlers4/contributors-modal-unshare-click)
 (rf/reg-event-fx :app/contributors-modal-share-click handlers4/contributors-modal-share-click)
 (rf/reg-event-fx :app/dashboard-show-all-click handlers3/show-all-documents)

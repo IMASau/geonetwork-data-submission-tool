@@ -187,3 +187,9 @@
                                           state
                                           path-errors)))))
 
+(defn get-document-data-action
+  "Refresh contributor data in modal state"
+  [s uuid]
+  (update s :fx conj [:app/get-json-fx
+                      {:url     (str "/api/document/" uuid "/")
+                       :resolve [::-get-document-data-action uuid]}]))

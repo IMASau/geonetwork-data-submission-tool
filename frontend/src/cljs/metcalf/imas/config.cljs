@@ -60,6 +60,7 @@
 (rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)
 (rf/reg-event-fx :app/dashboard-create-click handlers3/dashboard-create-click)
 (rf/reg-event-fx :app/document-teaser-share-click handlers4/document-teaser-share-click)
+(rf/reg-event-fx :metcalf.common.actions4/-get-document-data-action handlers4/-get-document-data-action)
 (rf/reg-event-fx :app/dashboard-show-all-click handlers3/show-all-documents)
 (rf/reg-event-fx :app/dashboard-toggle-status-filter handlers3/toggle-status-filter)
 (rf/reg-event-fx :app/delete-attachment-click handlers3/open-modal-handler)

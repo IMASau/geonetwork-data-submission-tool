@@ -66,9 +66,8 @@
     (not (pos? errors))))
 
 (defn contributors-modal-props
-  [db _]
-  (let [{:keys [doc]} (peek (get db :modal/stack))
-        {:keys [uuid contributors]} doc]
+  [db [_ uuid]]
+  (let [{:keys [contributors]} (get-in db [:app/document-data uuid])]
     {:uuid   uuid
      :emails (mapv :email contributors)}))
 

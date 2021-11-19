@@ -1203,12 +1203,12 @@
      :variables   '{?form-id [:create_form]}}]])
 
 (defn contributors-modal
-  [_]
+  [{:keys [uuid]}]
   [ui/ModalDialog
    {:isOpen  true
     :title   "Sharing"
     :onClose #(rf/dispatch [::create-document-modal-close-click])}
-   (let [{:keys [uuid emails]} @(rf/subscribe [:app/contributors-modal-props])]
+   (let [{:keys [emails]} @(rf/subscribe [:app/contributors-modal-props uuid])]
      [views4/collaborator-form
       {:uuid          uuid
        :emails        emails

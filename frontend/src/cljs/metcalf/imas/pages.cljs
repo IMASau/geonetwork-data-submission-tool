@@ -19,7 +19,7 @@
     :document-delete-archived-click #(rf/dispatch [:app/document-teaser-delete-archived-click (:transition_url %)])
     :document-restore-click         #(rf/dispatch [:app/document-teaser-restore-click (:transition_url %)])
     :document-clone-click           #(rf/dispatch [:app/document-teaser-clone-click (:clone_url %)])
-    :document-share-click           #(rf/dispatch [:app/document-teaser-share-click %])
+    :document-share-click           #(rf/dispatch [:app/document-teaser-share-click (:uuid %)])
     :document-edit-click            #(aset js/location "href" (:url %))}])
 
 (defn page-edit
@@ -62,7 +62,7 @@
          :modal.type/DashboardCreateModal
          [components4/create-document-modal]
          :modal.type/contributors-modal
-         [components4/contributors-modal]
+         [components4/contributors-modal modal-props]
          :modal.type/alert
          [views4/modal-dialog-alert
           {:message    (:message modal-props)

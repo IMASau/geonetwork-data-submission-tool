@@ -36,14 +36,14 @@ import requests
 
 from metcalf.common import spec4
 from metcalf.common import xmlutils4
-from metcalf.common.serializers import UserByEmailSerializer
+from metcalf.common.serializers import UserByEmailSerializer, UserSerializer
 from metcalf.common.utils import to_json, get_exception_message
 from metcalf.tern.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.tern.frontend.forms import DocumentAttachmentForm
 from metcalf.tern.frontend.models import SiteContent
 from metcalf.tern.frontend.permissions import is_document_editor, is_document_contributor
-from metcalf.tern.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
+from metcalf.tern.frontend.serializers import DocumentInfoSerializer, AttachmentSerializer, \
     SiteContentSerializer, CreateDocumentSerializer
 
 

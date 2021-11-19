@@ -1,29 +1,9 @@
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.urls import reverse
 from rest_framework import serializers
 
 from metcalf.imas.backend.models import Document, DocumentAttachment, MetadataTemplate
 from metcalf.imas.frontend.models import SiteContent, DataSource
-
-
-class UserSerializer(serializers.ModelSerializer):
-    groups = serializers.StringRelatedField(many=True)
-    permissions = serializers.SerializerMethodField()
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'groups', 'permissions', 'is_superuser', 'is_staff')
-
-    def get_permissions(self, obj):
-        permissions = set()
-        for p in obj.user_permissions.all():
-            permissions.add(p)
-        for g in obj.groups.all():
-            for p in g.permissions.all():
-                permissions.add(p)
-        # TODO: might need applabel.codename format
-        return ["{0}.{1}".format(p.content_type.app_label, p.codename) for p in permissions]
 
 
 class UserInfoSerializer(serializers.ModelSerializer):

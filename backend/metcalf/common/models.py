@@ -42,15 +42,6 @@ class AbstractDataFeed(models.Model):
             return "Stale"
 
 
-class AbstractContributor(models.Model):
-    id = models.AutoField(primary_key=True)
-    document = models.ForeignKey("Document", on_delete=models.CASCADE, related_name="contributors")
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    class Meta:
-        abstract = True
-
-
 class AbstractDocument(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     template = models.ForeignKey("MetadataTemplate", on_delete=models.SET_NULL, null=True)

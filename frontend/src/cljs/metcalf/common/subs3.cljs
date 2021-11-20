@@ -40,8 +40,8 @@
      :urls                   urls}))
 
 (defn get-progress-props
-  [derived-db _]
-  (let [{:progress/keys [fields empty errors]} (:progress derived-db)
+  [form-state _]
+  (let [{:progress/keys [fields empty errors]} (:progress/score form-state)
         can-submit? (= errors 0)]
     (when (pos-int? fields)
       {:can-submit? can-submit?

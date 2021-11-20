@@ -105,7 +105,7 @@
 (rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub :app/get-dashboard-props subs3/get-dashboard-props)
-(rf/reg-sub :app/get-progress-bar-props :<- [:subs/get-derived-state] subs3/get-progress-props)
+(rf/reg-sub :app/get-progress-bar-props :<- [::subs4/get-form-state [:form]] subs3/get-progress-props)
 (rf/reg-sub :subs/get-app-root-modal-props subs4/get-modal-props)
 (rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)

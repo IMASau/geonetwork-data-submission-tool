@@ -2,14 +2,10 @@
   (:require [clojure.test :refer [deftest is testing]])
   (:require [metcalf.tern.handlers :as tern-handlers]
             [cljs.spec.alpha :as s]
-            [cljs.spec.test.alpha :as stest]
             [clojure.test.check.generators]
             [clojure.test.check :as tc]
             [clojure.test.check.clojure-test :refer [defspec]]
-            [clojure.test.check.generators :as gen]
-            [clojure.test.check.properties :as prop]
-            [metcalf.common.low-code4 :as low-code]
-            [cljs.pprint :as pprint]))
+            [clojure.test.check.properties :as prop]))
 
 (s/def ::page-name #{"Dashboard" "Edit"})
 (s/def ::id keyword?)

@@ -2,8 +2,7 @@
   (:require [clojure.edn :as edn]
             [metcalf.common.low-code4 :as low-code4]
             [metcalf.common.actions4 :as actions4]
-            [metcalf.common.logic3 :as logic3]
-            [metcalf.common.schema4 :as schema4]))
+            [metcalf.common.logic3 :as logic3]))
 
 (defn init-db
   [_ [_ payload]]

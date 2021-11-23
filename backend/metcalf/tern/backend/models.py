@@ -161,6 +161,8 @@ class Document(AbstractDocument):
 
     doi = models.CharField(max_length=1024, default='', blank=True)
 
+    hasUserDefined = models.BooleanField(default=False)
+
     # FIXME is this needed
     class Meta:
         permissions = (
@@ -336,7 +338,6 @@ class Contributor(AbstractContributor):
 class DraftMetadata(AbstractDraftMetadata):
     agreedToTerms = models.BooleanField(default=False)
     doiRequested = models.BooleanField(default=False)
-    hasUserDefined = models.BooleanField(default=False)
 
     # FIXME
     class Meta:

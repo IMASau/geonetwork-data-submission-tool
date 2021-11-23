@@ -409,6 +409,7 @@ def save(request, uuid):
         doc.title = data['identificationInfo']['title'] or "Untitled"
         if (doc.status == doc.SUBMITTED):
             doc.resubmit()
+        doc.hasUserDefined = xmlutils4.extract_user_defined(data)
         doc.save()
 
         # FIXME: these should be handled by DUMA now
@@ -429,7 +430,6 @@ def save(request, uuid):
         #     institutionFromData(citedResponsibleParty)
 
         inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
-        inst.hasUserDefined = xmlutils4.extract_user_defined(data)
         inst.noteForDataManager = data.get('noteForDataManager') or ''
         inst.agreedToTerms = data.get('agreedToTerms') or False
         inst.doiRequested = data.get('doiRequested') or False

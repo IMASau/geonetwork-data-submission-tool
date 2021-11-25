@@ -161,10 +161,10 @@
 
 (defn derived-state
   "Used to include derived state for use by components."
-  [{:keys [data create_form] :as state}]
+  [{:keys [data] :as state}]
   (cond-> state
     data derive-data-state
-    create_form (update-in [:create_form] validate-required-fields)))
+    ))
 
 (defn path-fields [data]
   (into (sorted-set)

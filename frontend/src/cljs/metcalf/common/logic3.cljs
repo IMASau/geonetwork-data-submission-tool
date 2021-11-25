@@ -133,14 +133,6 @@
     (map (juxt get-path get-value)
          (utils3/keys-in data))))
 
-(defn reduce-field-values [fields values]
-  (reduce (fn [m [p v]]
-            (try (utils3/int-assoc-in m p v)
-                 (catch :default e
-                   (js/console.error (clj->js [m p v]) e)
-                   m)))
-          fields (path-values values)))
-
 ; TODO: remove or replace?
 (defn initialise-form
   ([{:keys [data] :as form}]
@@ -148,8 +140,7 @@
   ([form data]
    (-> form
        ;(reset-form)
-       (assoc :data data)
-       (update :fields reduce-field-values data))))
+       (assoc :data data))))
 
 (defn setup-form-action
   "Massage raw payload for use as app-state"

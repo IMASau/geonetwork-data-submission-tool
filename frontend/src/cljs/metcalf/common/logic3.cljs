@@ -133,19 +133,10 @@
     (map (juxt get-path get-value)
          (utils3/keys-in data))))
 
-; TODO: remove or replace?
-(defn initialise-form
-  ([{:keys [data] :as form}]
-   (initialise-form form data))
-  ([form data]
-   (assoc form :data data)))
-
 (defn setup-form-action
   "Massage raw payload for use as app-state"
   [s form]
-  (-> s
-      (cond-> form (assoc-in [:db :form] (logic4/massage-form form)))
-      (update-in [:db :form] initialise-form)))
+  (cond-> s form (assoc-in [:db :form] (logic4/massage-form form))))
 
 (defn setup-alerts
   [s]

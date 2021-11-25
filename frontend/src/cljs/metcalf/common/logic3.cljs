@@ -90,12 +90,6 @@
   [state]
   (blocks4/postwalk rules4/apply-rules state))
 
-(def contact-groups
-  [{:path  [:form :fields :identificationInfo :pointOfContact]
-    :title "Point of contact for dataset"}
-   {:path  [:form :fields :identificationInfo :citedResponsibleParty]
-    :title "Responsible parties for creating dataset"}])
-
 ; NOTE: hard to translate since the schema doesn't separate array from object in many case
 (defn data-service-logic-helper
   [data-service]

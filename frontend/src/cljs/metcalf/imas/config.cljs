@@ -959,9 +959,8 @@
                for discovery in the " [m4/portal-link] "."]
       [:p "How complete is your data?"]
       [m4/note-for-data-manager
-       {:form-id    [:form]
-        :data-path  ["noteForDataManager"]
-        :notes-path [:form :fields :noteForDataManager]}]
+       {:form-id   [:form]
+        :data-path ["noteForDataManager"]}]
       [m4/lodge-button]
       [m4/lodge-status-info]
       [:div.user-export

@@ -126,15 +126,6 @@
                        (conj parent :value i :value k)]))))
               (utils3/keys-in data))))
 
-(defn reduce-many-field-templates
-  "For each many field value "
-  [fields values]
-  (reduce (fn [m [tpl-path value-path]]
-            (try
-              (utils3/int-assoc-in m value-path (get-in fields tpl-path))
-              (catch js/Error _ m)))
-          fields (path-fields values)))
-
 (defn path-values
   [data]
   (let [get-value #(get-in data %)
@@ -158,7 +149,6 @@
    (-> form
        ;(reset-form)
        (assoc :data data)
-       (update :fields reduce-many-field-templates data)
        (update :fields reduce-field-values data))))
 
 (defn setup-form-action

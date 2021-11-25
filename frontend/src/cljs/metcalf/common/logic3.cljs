@@ -146,6 +146,5 @@
   "Massage raw payload for use as app-state"
   [s {:keys [form] :as payload}]
   (-> s
-      (assoc :db payload)
       (setup-form-action form)
       (setup-alerts)))

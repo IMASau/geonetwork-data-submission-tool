@@ -8,13 +8,15 @@
   (case (get-in payload [:page :name])
 
     "Dashboard"
-    (-> {:fx [[:ui/setup-blueprint]]}
+    (-> {:db payload
+         :fx [[:ui/setup-blueprint]]}
         (logic3/initial-state-action payload)
         (actions4/init-create-form-action payload)
         (actions4/load-dashboard-document-data payload))
 
     "Edit"
-    (-> {:fx [[:ui/setup-blueprint]]}
+    (-> {:db payload
+         :fx [[:ui/setup-blueprint]]}
         (logic3/initial-state-action payload)
         (actions4/init-create-form-action payload))
     ))

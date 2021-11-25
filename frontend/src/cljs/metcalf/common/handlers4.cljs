@@ -189,9 +189,11 @@
         (update-in [:db :context :document] merge doc))))
 
 (defn -save-current-document-error
-  [{:keys [db]} _]
-  (-> {:db db}
-      (assoc-in [:db :page :metcalf3.handlers/saving?] false)))
+  [{:keys [db]} [_ {:keys [status response]}]]
+  (let [msg (get response :message "Error saving")]
+    (-> {:db db}
+        (actions4/open-modal-action {:type :modal.type/alert :message (str status ": " msg)})
+        (assoc-in [:db :page :metcalf3.handlers/saving?] false))))
 
 (defn list-edit-dialog-close-handler
   [{:keys [db]} [_ ctx]]

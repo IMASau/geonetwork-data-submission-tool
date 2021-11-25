@@ -11,12 +11,14 @@
     (-> {:db payload
          :fx [[:ui/setup-blueprint]]}
         (logic3/initial-state-action payload)
+        (logic3/setup-alerts)
         (actions4/init-create-form-action payload)
         (actions4/load-dashboard-document-data payload))
 
     "Edit"
     (-> {:db payload
          :fx [[:ui/setup-blueprint]]}
+        (logic3/setup-alerts)
         (logic3/initial-state-action payload)
         (actions4/init-create-form-action payload))
     ))

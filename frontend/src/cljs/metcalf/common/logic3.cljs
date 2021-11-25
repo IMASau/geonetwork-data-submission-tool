@@ -145,6 +145,4 @@
 (defn initial-state-action
   "Massage raw payload for use as app-state"
   [s {:keys [form] :as payload}]
-  (-> s
-      (setup-form-action form)
-      (setup-alerts)))
+  (setup-form-action s form))

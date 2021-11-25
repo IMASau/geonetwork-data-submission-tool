@@ -126,7 +126,7 @@
        "maintFreq"            rules4/maint-freq})
 (set! low-code4/component-registry
       {
-       'm3/UploadData                     {:view views3/UploadData}
+       ;'m3/UploadData                     {:view views3/UploadData}
        'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-select-option            {:view components4/async-select-option :init components4/async-select-option-settings}
        'm4/async-select-value             {:view components4/async-select-value :init components4/async-select-value-settings}

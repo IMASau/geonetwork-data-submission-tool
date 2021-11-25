@@ -141,8 +141,3 @@
 (defn setup-alerts
   [s]
   (assoc-in s [:db :modal/stack] []))
-
-(defn initial-state-action
-  "Massage raw payload for use as app-state"
-  [s {:keys [form] :as payload}]
-  (setup-form-action s form))

@@ -16,7 +16,6 @@
            :fx [[:ui/setup-blueprint]
                 [::low-code4/init! ui-data]]}
           (logic3/setup-alerts)
-          (logic3/initial-state-action payload)
           (actions4/init-create-form-action payload)
           (actions4/load-dashboard-document-data payload))
 
@@ -25,5 +24,5 @@
            :fx [[:ui/setup-blueprint]
                 [::low-code4/init! ui-data]]}
           (logic3/setup-alerts)
-          (logic3/initial-state-action payload)
+          (logic3/setup-form-action (:form payload))
           (cond-> editor-tabs (assoc-in [:db :low-code/edit-tabs] editor-tabs))))))

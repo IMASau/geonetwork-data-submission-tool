@@ -138,9 +138,7 @@
   ([{:keys [data] :as form}]
    (initialise-form form data))
   ([form data]
-   (-> form
-       ;(reset-form)
-       (assoc :data data))))
+   (assoc form :data data)))
 
 (defn setup-form-action
   "Massage raw payload for use as app-state"

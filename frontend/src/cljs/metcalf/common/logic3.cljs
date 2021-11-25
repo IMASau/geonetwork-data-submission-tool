@@ -103,21 +103,6 @@
    {:path  [:form :fields :identificationInfo :citedResponsibleParty]
     :title "Responsible parties for creating dataset"}])
 
-(defn author-role-logic
-  "
-  At least one of the contacts has to be an author. Generate an error if none are.
-  "
-  [state]
-  (let [rule-path [:form :fields :who-authorRequired]
-        roles (for [[_ {:keys [path]}] (utils3/enum contact-groups)]
-                (for [field (get-in state (conj path :value))]
-                  (get-in field [:value :role :value])))
-        roles (apply concat roles)
-        has-author (some #(= "author" %) roles)]
-    (if has-author
-      (assoc-in state (conj rule-path :errors) nil)
-      (assoc-in state (conj rule-path :errors) ["at least one contact must have the author role"]))))
-
 ; NOTE: hard to translate since the schema doesn't separate array from object in many case
 (defn data-service-logic-helper
   [data-service]
@@ -151,7 +136,6 @@
 (defn derive-data-state [state]
   (-> state
       data-service-logic
-      author-role-logic
       (update-in [:form :fields] validate-required-fields)
       (update-in [:form :state] validate-rules)
       disable-form-when-submitted

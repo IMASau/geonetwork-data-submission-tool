@@ -705,7 +705,7 @@
      [m4/input-field-with-label
       {:form-id     [:form]
        :data-path   ["identificationInfo" "otherConstraints"]
-       :label       "Additional license requirements"   ;; FIXME
+       :label       "Additional license requirements"       ;; FIXME
        :placeholder "Enter additional license requirements"
        :required    true}]
 
@@ -879,8 +879,8 @@
        :data-path  []
        :data-paths [["attachments"]]}]
      [:h2 "8: Upload Data"]
-     [m3/UploadData
-      {:attachments-path [:form :fields :attachments]}]
+     #_[m3/UploadData
+        {:attachments-path [:form :fields :attachments]}]
      [:h2 "Data Services"]
      [m4/table-selection-list
       {:form-id    [:form]

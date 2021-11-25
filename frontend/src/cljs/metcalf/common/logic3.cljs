@@ -90,25 +90,6 @@
   [state]
   (blocks4/postwalk rules4/apply-rules state))
 
-; NOTE: hard to translate since the schema doesn't separate array from object in many case
-(defn data-service-logic-helper
-  [data-service]
-  (let [protocol-value (-> data-service :value :protocol :value)]
-    (if (contains? #{"OGC:WCS-1.1.0-http-get-capabilities"
-                     "OGC:WMS-1.3.0-http-get-map"} protocol-value)
-      (update-in data-service [:value :name]
-                 assoc :required true)
-      (update-in data-service [:value :name]
-                 assoc :required false :disabled true :placeholder "" :value nil))))
-
-(defn data-service-logic
-  "
-  If data service protocol 'Other' is chosen then layer field is disabled.
-  "
-  [state]
-  (update-in state [:form :fields :dataSources :value]
-             #(mapv data-service-logic-helper %)))
-
 (defn calculate-progress [db form-path]
   (let [form (get-in db form-path)
         state (:state form)
@@ -122,7 +103,6 @@
 
 (defn derive-data-state [state]
   (-> state
-      data-service-logic
       (update-in [:form :state] validate-rules)
       disable-form-when-submitted
       ;(update-in [:form] disabled-form-logic)

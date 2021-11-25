@@ -820,9 +820,9 @@
                          {"label" "GDA94 - EPSG:4283" "value" "EPSG:4283"}]}]]
 
         [m4/form-group
-         {:form-id   [:form]
-          :label     "Date of dynamic datum"
-          :toolTip   "TODO"}
+         {:form-id [:form]
+          :label   "Date of dynamic datum"
+          :toolTip "TODO"}
          [m4/date-field-with-label
           {:form-id   [:form]
            :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]
@@ -1275,8 +1275,8 @@
     [:div
      #_[m4/page-errors {:form-id [:form] :data-paths []}]
      [:h2 "9. Data Sources"]
-     [m3/UploadData
-      {:attachments-path [:form :fields :attachments]}]
+     #_[m3/UploadData
+        {:attachments-path [:form :fields :attachments]}]
      [:h2 "Data Services"]
      [m3/DataSources {:form-id   [:form]
                       :data-path ["dataSources"]}]

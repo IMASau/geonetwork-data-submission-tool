@@ -429,8 +429,16 @@ def institutionFromData(data):
 
 @login_required
 @api_view(['POST'])
-def save(request, uuid):
+def save(request, uuid, update_number):
     doc = get_object_or_404(Document, uuid=uuid)
+    latest_draft = doc.draftmetadata_set.all()[0]
+    if latest_draft.pk != update_number:
+        return Response(
+            {"message": "Stale save",
+             "args": {
+                 'posted': update_number,
+                 'latest': latest_draft.pk}},
+            status=400)
     is_document_contributor(request, doc)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
     try:
@@ -461,9 +469,9 @@ def save(request, uuid):
         # update the publication date
         data['identificationInfo']['datePublication'] = spec4.today()
 
-        inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
-        inst.noteForDataManager = data.get('attachments') or ''
-        inst.save()
+        draft = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
+        draft.noteForDataManager = data.get('attachments') or ''
+        draft.save()
 
         # Remove any attachments which are no longer mentioned in the XML.
         if data.get('attachments') is not None:
@@ -484,10 +492,10 @@ def save(request, uuid):
 
         return Response({"messages": messages_payload(request),
                          "form": {
-                             "url": reverse("Edit", kwargs={'uuid': doc.uuid}),
+                             "url": reverse("Save", kwargs={'uuid': doc.uuid, 'update_number': draft.pk}),
                              "schema": spec4.extract_fields(spec),
                              "data": data,
-                             "document": DocumentInfoSerializer(doc, context={'user': request.user}).data}})
+                         }})
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
 
@@ -516,7 +524,7 @@ def edit(request, uuid):
             "csrf": csrf.get_token(request),
         },
         "form": {
-            "url": reverse("Save", kwargs={'uuid': doc.uuid}),
+            "url": reverse("Save", kwargs={'uuid': doc.uuid, 'update_number': draft.pk}),
             "schema": spec4.extract_fields(spec),
             "data": data,
         },

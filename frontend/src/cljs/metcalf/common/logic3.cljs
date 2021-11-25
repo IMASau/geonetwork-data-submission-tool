@@ -86,13 +86,6 @@
       (assoc field :errors (conj errors "This field is required"))
       field)))
 
-(defn validate-required-fields
-  "Derive errors associated with missing required fields"
-  [state]
-  (blocks4/postwalk
-    #(if (is-required-field? %) (validate-required-field %) %)
-    state))
-
 (defn validate-rules
   [state]
   (blocks4/postwalk rules4/apply-rules state))
@@ -136,7 +129,6 @@
 (defn derive-data-state [state]
   (-> state
       data-service-logic
-      (update-in [:form :fields] validate-required-fields)
       (update-in [:form :state] validate-rules)
       disable-form-when-submitted
       ;(update-in [:form] disabled-form-logic)

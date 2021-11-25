@@ -7,7 +7,8 @@
             [metcalf.common.schema4 :as schema4]
             [metcalf.common.utils4 :as utils4]
             [metcalf.common.utils3 :as utils3]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [metcalf.common.logic4 :as logic4]))
 
 (defn db-path
   [{:keys [form-id data-path]}]
@@ -182,11 +183,10 @@
 
 (defn -save-current-document-success
   [{:keys [db]} [_ data resp]]
-  (let [doc (get-in resp [:form :document])]
+  (let [form (get-in resp [:form])]
     (-> {:db db}
-        (assoc-in [:db :form :data] data)
-        (assoc-in [:db :page :metcalf3.handlers/saving?] false)
-        (update-in [:db :context :document] merge doc))))
+        (assoc-in [:db :form] (logic4/massage-form form))
+        (assoc-in [:db :page :metcalf3.handlers/saving?] false))))
 
 (defn -save-current-document-error
   [{:keys [db]} [_ {:keys [status response]}]]

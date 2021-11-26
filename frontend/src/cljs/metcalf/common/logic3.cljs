@@ -57,15 +57,10 @@
 (defn disable-form-when-submitted [state]
   (assoc-in state [:form :disabled] (contains? disabled-statuses (get-in state [:context :document :status]))))
 
-(defn derive-data-state [state]
-  (-> state
-      disable-form-when-submitted
-      ))
-
 (defn derived-state
   "Used to include derived state for use by components."
   [{:keys [data] :as state}]
-  (cond-> state data derive-data-state))
+  (cond-> state data disable-form-when-submitted))
 
 (defn path-values
   [data]

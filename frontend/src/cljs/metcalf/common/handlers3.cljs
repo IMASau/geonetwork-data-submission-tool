@@ -146,13 +146,13 @@
 
 (defn transite-doc-click
   [transition]
-  (fn [_ [_ url]]
+  (fn [{:keys [db]} [_ url]]
     (let [trans-name (first (string/split transition "_"))]
-      {:dispatch [:app/open-modal
-                  {:type       :modal.type/confirm
-                   :title      trans-name
-                   :message    (str "Are you sure you want to " trans-name " this record?")
-                   :on-confirm #(rf/dispatch [:app/-transite-doc-click-confirm url transition])}]})))
+      (open-modal-action {:db db}
+                         {:type       :modal.type/confirm
+                          :title      trans-name
+                          :message    (str "Are you sure you want to " trans-name " this record?")
+                          :on-confirm #(rf/dispatch [:app/-transite-doc-click-confirm url transition])}))))
 
 (defn -transite-doc-click-confirm
   [_ [_ url transition]]

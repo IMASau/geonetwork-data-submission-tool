@@ -409,7 +409,7 @@ def save(request, uuid):
         doc.title = data['identificationInfo']['title'] or "Untitled"
         if (doc.status == doc.SUBMITTED):
             doc.resubmit()
-        doc.hasUserDefined = xmlutils4.extract_user_defined(data)
+        doc.hasUserDefined = bool(xmlutils4.extract_user_defined(data))
         doc.save()
 
         # FIXME: these should be handled by DUMA now

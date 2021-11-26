@@ -259,6 +259,15 @@
   [{:keys [name]}]
   [:h1 "Page not found: " name])
 
+(defn userDisplay
+  [user]
+  (if (and (string/blank? (:lastName user))
+           (string/blank? (:firstName user)))
+    (if (string/blank? (:email user))
+      (:username user)
+      (:email user))
+    (str (:firstName user) " " (:lastName user))))
+
 (defn navbar
   [{:keys [context]}]
   (let [{:keys [user urls site]} context
@@ -270,8 +279,8 @@
        [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading (str title " " tag_line)]]]
       [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
        (if account_profile
-         [:a.bp3-button.bp3-minimal {:href account_profile} (utils3/userDisplay user)]
-         [:span {:style {:padding "5px 10px 5px 10px"}} (utils3/userDisplay user)])
+         [:a.bp3-button.bp3-minimal {:href account_profile} (userDisplay user)]
+         [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)])
        [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
        [:a.bp3-button.bp3-minimal {:href account_logout} "Sign Out"]]]]))
 

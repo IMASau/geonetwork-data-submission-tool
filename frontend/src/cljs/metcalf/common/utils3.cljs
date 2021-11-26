@@ -11,12 +11,3 @@
 (defn vec-insert [v idx x]
   {:pre [(vector? v) (nat-int? idx)]}
   (into (conj (subvec v 0 idx) x) (subvec v idx)))
-
-(defn userDisplay
-  [user]
-  (if (and (string/blank? (:lastName user))
-           (string/blank? (:firstName user)))
-    (if (string/blank? (:email user))
-      (:username user)
-      (:email user))
-    (str (:firstName user) " " (:lastName user))))

@@ -372,7 +372,7 @@
         ;; FIXME need an m4 saving? value.
         saving (:metcalf3.handlers/saving? page)
         {:keys [document]} @(rf/subscribe [:subs/get-context])
-        {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
+        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
         is-are (if (> errors 1) "are" "is")
         plural (when (> errors 1) "s")
         has-errors? (and errors (> errors 0))]

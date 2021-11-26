@@ -13,6 +13,14 @@
   [db]
   (get-in db [:context]))
 
+(defn get-progress
+  [db]
+  (get-in db [:progress]))
+
+(defn get-form
+  [db]
+  (get-in db [:form]))
+
 (defn get-form-disabled?
   [db]
   (get-in db [:form :state :props :disabled]))

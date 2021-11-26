@@ -52,10 +52,6 @@
       (assoc field :errors (conj errors "This field is required"))
       field)))
 
-(defn validate-rules
-  [state]
-  (blocks4/postwalk rules4/apply-rules state))
-
 (def disabled-statuses #{"Archived" "Deleted" "Uploaded"})
 
 (defn disable-form-when-submitted [state]
@@ -63,7 +59,6 @@
 
 (defn derive-data-state [state]
   (-> state
-      (update-in [:form :state] validate-rules)
       disable-form-when-submitted
       ))
 

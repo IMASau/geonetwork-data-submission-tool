@@ -21,6 +21,10 @@
   [db]
   (get-in db [:form]))
 
+(defn get-upload-form
+  [db]
+  (get-in db [:upload_form]))
+
 (defn get-form-disabled?
   [db]
   (get-in db [:form :state :props :disabled]))

@@ -25,7 +25,7 @@
 (defn get-dashboard-props
   [db _]
   (let [{:keys [status-filter]
-         :or   {status-filter logic3/active-status-filter}
+         :or   {status-filter #{"Draft" "Submitted"}}
          :as   page} (get-in db [:page])
         {:keys [documents status urls user]} (get-in db [:context])
         status-freq (frequencies (map :status documents))

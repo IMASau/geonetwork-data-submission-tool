@@ -17,12 +17,12 @@
   (or (get db :low-code/edit-tabs) edit-tabs))
 
 (defn get-edit-tab-props
-  [[page derived-db edit-tabs]]
+  [[page form-state edit-tabs]]
   (let [selected-tab (get page :tab :data-identification)]
     {:selected-tab selected-tab
      :tab-props    (mapv
                      (fn [{:keys [id text]}]
-                       (let [progress (get-in derived-db [:progress])
+                       (let [progress (get-in form-state [:progress/score])
                              error-count (get-in progress [:page-errors id])]
                          {:id          id
                           :title       text

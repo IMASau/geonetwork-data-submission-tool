@@ -170,8 +170,7 @@
         (assoc-in [:db :form :schema] schema)               ; data schema used to generate new array items
         (assoc-in [:db :form :state] state)                 ; form state used to hold props/values
         (cond-> disabled?
-                ; NOTE: First pass attempt - are there better ways?
-                (assoc-in [:db :form :state ::blocks4/props :disabled] true)))))
+                (assoc-in [:db :form :state :props :disabled] true)))))
 
 (defn init-create-form-action
   [s payload]

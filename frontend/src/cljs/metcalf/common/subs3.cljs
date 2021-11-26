@@ -16,7 +16,7 @@
 
 (defn get-form-disabled?
   [db]
-  (get-in db [:form :disabled]))
+  (get-in db [:form :state :props :disabled]))
 
 (defn get-page-props
   [db _]

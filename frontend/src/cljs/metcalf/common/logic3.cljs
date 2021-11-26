@@ -69,11 +69,6 @@
     (map (juxt get-path get-value)
          (utils3/keys-in data))))
 
-(defn setup-form-action
-  "Massage raw payload for use as app-state"
-  [s form]
-  (cond-> s form (assoc-in [:db :form] (logic4/massage-form form))))
-
 (defn setup-alerts
   [s]
   (assoc-in s [:db :modal/stack] []))

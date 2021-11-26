@@ -395,7 +395,7 @@
 (defn xml-export-link
   [config]
   (let [{:keys [label]} @(rf/subscribe [::get-block-props config])
-        {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        {:keys [document]} @(rf/subscribe [:subs/get-context])
         dirty @(rf/subscribe [:subs/get-form-dirty])
         download-props {:href     (str (:export_url document) "?download")
                         :on-click #(when dirty

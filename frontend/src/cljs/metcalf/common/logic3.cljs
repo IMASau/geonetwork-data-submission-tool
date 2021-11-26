@@ -7,40 +7,6 @@
 
 (def active-status-filter #{"Draft" "Submitted"})
 
-(defn score-object [block]
-  (let [{:keys [content]} block]
-    (apply merge-with + (map ::score (vals content)))))
-
-(defn score-array [block]
-  (let [{:keys [content]} block]
-    (apply merge-with + (map ::score content))))
-
-(defn score-value [block]
-  (let [{:keys [props]} block
-        {:keys [value]} props]
-    (when (string/blank? value)
-      {:empty 1})))
-
-(defn score-props [block]
-  (let [{:keys [props]} block
-        {:keys [required errors]} props]
-    (-> {:fields 1}
-        (cond-> required (assoc :required 1))
-        (cond-> (seq errors) (assoc :errors 1))
-        (cond-> (and required (seq errors)) (assoc :required-errors 1)))))
-
-(defn score-block
-  "Score block considering props and content"
-  [block]
-  (let [{:keys [type props]} block
-        {:keys [disabled]} props
-        score (when-not disabled
-                (case type
-                  "array" (merge-with + (score-array block) (score-props block))
-                  "object" (merge-with + (score-object block) (score-props block))
-                  (merge-with + (score-value block) (score-props block))))]
-    (assoc block ::score score)))
-
 ; TODO: Use field-zipper.
 ; TODO: Store non-field errors (:non_field_errors form)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -90,12 +56,6 @@
   [state]
   (blocks4/postwalk rules4/apply-rules state))
 
-(defn calculate-progress [db form-path]
-  (let [form (get-in db form-path)
-        state (:state form)
-        state' (blocks4/postwalk score-block state)]
-    (assoc db :progress (::score state'))))
-
 (def disabled-statuses #{"Archived" "Deleted" "Uploaded"})
 
 (defn disable-form-when-submitted [state]
@@ -105,8 +65,6 @@
   (-> state
       (update-in [:form :state] validate-rules)
       disable-form-when-submitted
-      ;(update-in [:form] disabled-form-logic)
-      (calculate-progress [:form])
       ))
 
 (defn derived-state

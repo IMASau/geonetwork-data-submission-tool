@@ -149,6 +149,9 @@
                  :message    "Are you sure you want to delete this file?"
                  :on-confirm #(rf/dispatch [:app/delete-attachment-confirm attachments-path attachment-idx])}]))
 
+(defn update-keys [f m]
+  (reduce-kv (fn [z k v] (assoc z (f k) v)) {} m))
+
 ; TODO: Build a react component for uploading
 (defn UploadData
   [_]
@@ -162,7 +165,7 @@
                     (fn []
                       (when (= (.-readyState xhr) 4)
                         (if (#{200 201} (.-status xhr))
-                          (rf/dispatch [:app/upload-data-confirm-upload-click-add-attachment (utils3/map-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
+                          (rf/dispatch [:app/upload-data-confirm-upload-click-add-attachment (update-keys keyword (js->clj (.parse js/JSON (.-response xhr))))])
                           (rf/dispatch [:app/upload-data-file-upload-failed
                                         {:type    :modal.type/alert
                                          :message "File upload failed. Please try again or contact administrator."}]))

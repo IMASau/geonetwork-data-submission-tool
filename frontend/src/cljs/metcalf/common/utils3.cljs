@@ -1,8 +1,4 @@
-(ns metcalf.common.utils3
-  (:require [clojure.string :as string]))
-
-(defn map-keys [f m]
-  (persistent! (reduce-kv (fn [z k v] (assoc! z (f k) v)) (transient {}) m)))
+(ns metcalf.common.utils3)
 
 (defn vec-remove [v i]
   {:pre [(vector? v) (nat-int? i) (contains? v i)]}

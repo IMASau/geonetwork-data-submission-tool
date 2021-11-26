@@ -1,6 +1,7 @@
 from rest_framework.views import exception_handler
 
-from metcalf.imas.frontend.views import master_urls, site_content, UserSerializer
+from metcalf.common.serializers import UserSerializer
+from metcalf.imas.frontend.views import master_urls, site_content
 
 
 def custom_exception_handler(exc, context):

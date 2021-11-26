@@ -93,4 +93,5 @@
 (def CheckboxField (r/adapt-react-class CheckboxField/CheckboxField))
 (def NumericInputField (r/adapt-react-class NumericInputField/NumericInputField))
 (def EditDialog (r/adapt-react-class EditDialog/EditDialog))
+(def ModalDialog (r/adapt-react-class EditDialog/ModalDialog))
 (def TextAddField (r/adapt-react-class TextAddField/TextAddField))

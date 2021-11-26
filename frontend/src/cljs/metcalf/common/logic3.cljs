@@ -86,56 +86,9 @@
       (assoc field :errors (conj errors "This field is required"))
       field)))
 
-(defn validate-required-fields
-  "Derive errors associated with missing required fields"
-  [state]
-  (blocks4/postwalk
-    #(if (is-required-field? %) (validate-required-field %) %)
-    state))
-
 (defn validate-rules
   [state]
   (blocks4/postwalk rules4/apply-rules state))
-
-(def contact-groups
-  [{:path  [:form :fields :identificationInfo :pointOfContact]
-    :title "Point of contact for dataset"}
-   {:path  [:form :fields :identificationInfo :citedResponsibleParty]
-    :title "Responsible parties for creating dataset"}])
-
-(defn author-role-logic
-  "
-  At least one of the contacts has to be an author. Generate an error if none are.
-  "
-  [state]
-  (let [rule-path [:form :fields :who-authorRequired]
-        roles (for [[_ {:keys [path]}] (utils3/enum contact-groups)]
-                (for [field (get-in state (conj path :value))]
-                  (get-in field [:value :role :value])))
-        roles (apply concat roles)
-        has-author (some #(= "author" %) roles)]
-    (if has-author
-      (assoc-in state (conj rule-path :errors) nil)
-      (assoc-in state (conj rule-path :errors) ["at least one contact must have the author role"]))))
-
-; NOTE: hard to translate since the schema doesn't separate array from object in many case
-(defn data-service-logic-helper
-  [data-service]
-  (let [protocol-value (-> data-service :value :protocol :value)]
-    (if (contains? #{"OGC:WCS-1.1.0-http-get-capabilities"
-                     "OGC:WMS-1.3.0-http-get-map"} protocol-value)
-      (update-in data-service [:value :name]
-                 assoc :required true)
-      (update-in data-service [:value :name]
-                 assoc :required false :disabled true :placeholder "" :value nil))))
-
-(defn data-service-logic
-  "
-  If data service protocol 'Other' is chosen then layer field is disabled.
-  "
-  [state]
-  (update-in state [:form :fields :dataSources :value]
-             #(mapv data-service-logic-helper %)))
 
 (defn calculate-progress [db form-path]
   (let [form (get-in db form-path)
@@ -150,9 +103,6 @@
 
 (defn derive-data-state [state]
   (-> state
-      data-service-logic
-      author-role-logic
-      (update-in [:form :fields] validate-required-fields)
       (update-in [:form :state] validate-rules)
       disable-form-when-submitted
       ;(update-in [:form] disabled-form-logic)
@@ -161,10 +111,10 @@
 
 (defn derived-state
   "Used to include derived state for use by components."
-  [{:keys [data create_form] :as state}]
+  [{:keys [data] :as state}]
   (cond-> state
     data derive-data-state
-    create_form (update-in [:create_form] validate-required-fields)))
+    ))
 
 (defn path-fields [data]
   (into (sorted-set)
@@ -176,15 +126,6 @@
                        (conj parent :value i :value k)]))))
               (utils3/keys-in data))))
 
-(defn reduce-many-field-templates
-  "For each many field value "
-  [fields values]
-  (reduce (fn [m [tpl-path value-path]]
-            (try
-              (utils3/int-assoc-in m value-path (get-in fields tpl-path))
-              (catch js/Error _ m)))
-          fields (path-fields values)))
-
 (defn path-values
   [data]
   (let [get-value #(get-in data %)
@@ -192,40 +133,11 @@
     (map (juxt get-path get-value)
          (utils3/keys-in data))))
 
-(defn reduce-field-values [fields values]
-  (reduce (fn [m [p v]]
-            (try (utils3/int-assoc-in m p v)
-                 (catch :default e
-                   (js/console.error (clj->js [m p v]) e)
-                   m)))
-          fields (path-values values)))
-
-; TODO: remove or replace?
-(defn initialise-form
-  ([{:keys [data] :as form}]
-   (initialise-form form data))
-  ([form data]
-   (-> form
-       ;(reset-form)
-       (assoc :data data)
-       (update :fields reduce-many-field-templates data)
-       (update :fields reduce-field-values data))))
-
 (defn setup-form-action
   "Massage raw payload for use as app-state"
   [s form]
-  (-> s
-      (cond-> form (assoc-in [:db :form] (logic4/massage-form form)))
-      (update-in [:db :form] initialise-form)))
+  (cond-> s form (assoc-in [:db :form] (logic4/massage-form form))))
 
 (defn setup-alerts
   [s]
   (assoc-in s [:db :modal/stack] []))
-
-(defn initial-state-action
-  "Massage raw payload for use as app-state"
-  [s {:keys [form] :as payload}]
-  (-> s
-      (assoc :db payload)
-      (setup-form-action form)
-      (setup-alerts)))

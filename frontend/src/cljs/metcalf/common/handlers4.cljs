@@ -5,7 +5,10 @@
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.rules4 :as rules4]
             [metcalf.common.schema4 :as schema4]
-            [metcalf.common.utils4 :as utils4]))
+            [metcalf.common.utils4 :as utils4]
+            [metcalf.common.utils3 :as utils3]
+            [clojure.string :as string]
+            [metcalf.common.logic4 :as logic4]))
 
 (defn db-path
   [{:keys [form-id data-path]}]
@@ -13,9 +16,18 @@
 
 (defn init-db
   [_ [_ payload]]
-  (-> {:db {} :fx [[:ui/setup-blueprint]]}
-      (actions4/load-page-action payload)
-      (actions4/load-form-action payload)))
+  (case (get-in payload [:page :name])
+
+    "dashboard"
+    (-> {:db {} :fx [[:ui/setup-blueprint]]}
+        (actions4/load-page-action payload)
+        (actions4/load-dashboard-document-data payload))
+
+    "edit"
+    (-> {:db {} :fx [[:ui/setup-blueprint]]}
+        (actions4/load-page-action payload)
+        (actions4/load-form-action payload))
+    ))
 
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]
@@ -121,32 +133,32 @@
         new-field-path (conj data-path idx)]
     (-> {:db db}
         (actions4/add-value-action form-id data-path initial-data)
-        (actions4/open-modal-action {:type    :m4/table-modal-add-form
-                              :form           coord-field
-                              :path           new-field-path
-                              :title          "Geographic Coordinates"
-                              :on-close-click #(on-close idx)
-                              :on-save-click  on-save}))))
+        (actions4/open-modal-action {:type           :m4/table-modal-add-form
+                                     :form           coord-field
+                                     :path           new-field-path
+                                     :title          "Geographic Coordinates"
+                                     :on-close-click #(on-close idx)
+                                     :on-save-click  on-save}))))
 
 (defn boxmap-coordinates-open-edit-modal
   [{:keys [db]} [_ {:keys [ctx coord-field on-delete on-cancel on-save]}]]
   (let [{:keys [data-path]} ctx]
     (-> {:db db}
-        (actions4/open-modal-action {:type     :m4/table-modal-edit-form
-                              :form            coord-field
-                              :path            data-path
-                              :title           "Geographic Coordinates"
-                              :on-delete-click on-delete
-                              :on-close-click  on-cancel
-                              :on-save-click   on-save}))))
+        (actions4/open-modal-action {:type            :m4/table-modal-edit-form
+                                     :form            coord-field
+                                     :path            data-path
+                                     :title           "Geographic Coordinates"
+                                     :on-delete-click on-delete
+                                     :on-close-click  on-cancel
+                                     :on-save-click   on-save}))))
 
 (defn boxmap-coordinates-click-confirm-delete
   [{:keys [db]} [_ on-confirm]]
   (-> {:db db}
-      (actions4/open-modal-action {:type :modal.type/confirm
-                            :title       "Delete"
-                            :message     "Are you sure you want to delete?"
-                            :on-confirm  on-confirm})))
+      (actions4/open-modal-action {:type       :modal.type/confirm
+                                   :title      "Delete"
+                                   :message    "Are you sure you want to delete?"
+                                   :on-confirm on-confirm})))
 
 (defn boxmap-coordinates-list-delete
   [{:keys [db]} [_ ctx idx]]
@@ -171,16 +183,17 @@
 
 (defn -save-current-document-success
   [{:keys [db]} [_ data resp]]
-  (let [doc (get-in resp [:form :document])]
+  (let [form (get-in resp [:form])]
     (-> {:db db}
-        (assoc-in [:db :form :data] data)
-        (assoc-in [:db :page :metcalf3.handlers/saving?] false)
-        (update-in [:db :context :document] merge doc))))
+        (assoc-in [:db :form] (logic4/massage-form form))
+        (assoc-in [:db :page :metcalf3.handlers/saving?] false))))
 
 (defn -save-current-document-error
-  [{:keys [db]} _]
-  (-> {:db db}
-      (assoc-in [:db :page :metcalf3.handlers/saving?] false)))
+  [{:keys [db]} [_ {:keys [status response]}]]
+  (let [msg (get response :message "Error saving")]
+    (-> {:db db}
+        (actions4/open-modal-action {:type :modal.type/alert :message (str status ": " msg)})
+        (assoc-in [:db :page :metcalf3.handlers/saving?] false))))
 
 (defn list-edit-dialog-close-handler
   [{:keys [db]} [_ ctx]]
@@ -238,3 +251,78 @@
     200 {::fx3/set-location-href (gobject/getValueByKeys body "document" "url")}
     400 (actions4/set-errors-action {:db db} [:create_form] (js->clj body))
     :else nil))
+
+(defn document-teaser-share-click
+  [{:keys [db]} [_ uuid]]
+  (-> (actions4/open-modal-action {:db db} {:type :modal.type/contributors-modal :uuid uuid})
+      (update :db dissoc :contributors-modal/saving?)
+      (actions4/get-document-data-action uuid)))
+
+(defn -get-document-data-action
+  [{:keys [db]} [_ uuid {:keys [status body]}]]
+  (when (= 200 status)
+    (assoc-in {:db db} [:db :app/document-data uuid] (js->clj body :keywordize-keys true))))
+
+(defn contributors-modal-share-click
+  [{:keys [db]} [_ {:keys [uuid email]}]]
+  (let [{:keys [contributors-modal/saving?]} db
+        {:keys [contributors]} (get-in db [:app/document-data uuid])
+        novel? (not (contains? (set (map :email contributors)) email))]
+    (when (and (not saving?) novel?)
+      (-> {:db db}
+          (update-in [:db :app/document-data uuid :contributors] conj {:email email})
+          (assoc-in [:db :contributors-modal/saving?] true)
+          (update :fx conj [:app/post-data-fx
+                            {:url     (str "/share/" uuid "/")
+                             :data    {:email email}
+                             :resolve [::-contributors-modal-share-resolve uuid]}])))))
+
+(defn -contributors-modal-share-resolve
+  [{:keys [db]} [_ uuid {:keys [status body]}]]
+  (let [{:keys [contributors-modal/saving?]} db]
+    (cond
+      (not saving?) {}
+
+      (= status 200)
+      (-> {:db db}
+          (update :db dissoc :contributors-modal/saving?)
+          (actions4/get-document-data-action uuid))
+
+      (= status 400)
+      (-> {:db db}
+          (update :db dissoc :contributors-modal/saving?)
+          (actions4/get-document-data-action uuid)
+          (actions4/open-modal-action {:type :modal.type/alert :message (string/join ". " (mapcat val (js->clj body)))})))))
+
+(defn contributors-modal-unshare-click
+  [{:keys [db]} [_ {:keys [uuid idx]}]]
+  (let [{:keys [contributors-modal/saving?]} db
+        {:keys [contributors]} (get-in db [:app/document-data uuid])
+        {:keys [email]} (get contributors idx)
+        contributors' (filterv #(not= email (:email %)) contributors)]
+    (when-not saving?
+      (-> {:db db}
+          (assoc-in [:db :app/document-data uuid :contributors] contributors')
+          (assoc-in [:db :contributors-modal/saving?] true)
+          (update :fx conj [:app/post-data-fx
+                            {:url     (str "/unshare/" uuid "/")
+                             :data    {:email email}
+                             :resolve [::-contributors-modal-unshare-resolve uuid]}])))))
+
+(defn -contributors-modal-unshare-resolve
+  [{:keys [db]} [_ uuid {:keys [status body]}]]
+  (let [{:keys [contributors-modal/saving?]} db]
+    (cond
+      (not saving?) {}
+
+      (= status 200)
+      (-> {:db db}
+          (update :db dissoc :contributors-modal/saving?)
+          (actions4/get-document-data-action uuid))
+
+      (= status 400)
+      (-> {:db db}
+          (update :db dissoc :contributors-modal/saving?)
+          (actions4/get-document-data-action uuid)
+          (actions4/open-modal-action {:type :modal.type/alert :message (string/join ". " (mapcat val (js->clj body)))})))))
+

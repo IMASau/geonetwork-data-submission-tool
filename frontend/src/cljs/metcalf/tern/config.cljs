@@ -52,6 +52,12 @@
 (rf/reg-event-fx :app/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)
 (rf/reg-event-fx :app/dashboard-create-click handlers3/dashboard-create-click)
+(rf/reg-event-fx :app/document-teaser-share-click handlers4/document-teaser-share-click)
+(rf/reg-event-fx :metcalf.common.actions4/-get-document-data-action handlers4/-get-document-data-action)
+(rf/reg-event-fx :app/contributors-modal-unshare-click handlers4/contributors-modal-unshare-click)
+(rf/reg-event-fx :app/contributors-modal-share-click handlers4/contributors-modal-share-click)
+(rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
+(rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
 (rf/reg-event-fx :app/dashboard-show-all-click handlers3/show-all-documents)
 (rf/reg-event-fx :app/dashboard-toggle-status-filter handlers3/toggle-status-filter)
 (rf/reg-event-fx :app/delete-attachment-click handlers3/open-modal-handler)
@@ -69,7 +75,7 @@
 (rf/reg-event-fx :app/modal-dialog-confirm-save handlers3/close-and-confirm)
 (rf/reg-event-fx :app/open-modal handlers3/open-modal-handler)
 (rf/reg-event-fx :app/page-view-edit-archive-click-confirm handlers3/archive-current-document)
-(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
+#_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx :app/upload-data-file-upload-failed handlers3/open-modal-handler)
 (rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/open-modal-handler)
 (rf/reg-event-fx :metcalf.imas.handlers/-init-db-load-api-options handlers3/load-api-options)
@@ -85,6 +91,7 @@
 (rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
+(rf/reg-sub :app/contributors-modal-props subs4/contributors-modal-props)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
@@ -92,7 +99,7 @@
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub ::tern-subs/get-edit-tabs tern-subs/get-edit-tabs)
 (rf/reg-sub :app/get-dashboard-props subs3/get-dashboard-props)
-(rf/reg-sub :app/get-progress-bar-props :<- [:subs/get-derived-state] subs3/get-progress-props)
+(rf/reg-sub :app/get-progress-bar-props :<- [::subs4/get-form-state [:form]] subs3/get-progress-props)
 (rf/reg-sub :subs/get-app-root-modal-props subs4/get-modal-props)
 (rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
@@ -817,9 +824,9 @@
                          {"label" "GDA94 - EPSG:4283" "value" "EPSG:4283"}]}]]
 
         [m4/form-group
-         {:form-id   [:form]
-          :label     "Date of dynamic datum"
-          :toolTip   "TODO"}
+         {:form-id [:form]
+          :label   "Date of dynamic datum"
+          :toolTip "TODO"}
          [m4/date-field-with-label
           {:form-id   [:form]
            :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]
@@ -1275,8 +1282,8 @@
     [:div
      #_[m4/page-errors {:form-id [:form] :data-paths []}]
      [:h2 "9. Data Sources"]
-     [m3/UploadData
-      {:attachments-path [:form :fields :attachments]}]
+     #_[m3/UploadData
+        {:attachments-path [:form :fields :attachments]}]
      [:h2 "Data Services"]
      [m3/DataSources {:form-id   [:form]
                       :data-path ["dataSources"]}]
@@ -1286,11 +1293,11 @@
     [:div
      #_[m4/page-errors {:form-id [:form] :data-paths []}]
      [:h2 "10: Lodge Metadata Draft"]
-     [m3/Lodge
-      {:note-for-data-manager-path [:form :fields :noteForDataManager]
-       :agreed-to-terms-path       [:form :fields :agreedToTerms]
-       :doi-requested-path         [:form :fields :doiRequested]
-       :current-doi-path           [:form :fields :identificationInfo :doi]}]]})
+     #_[m3/Lodge
+        {:note-for-data-manager-path [:form :fields :noteForDataManager]
+         :agreed-to-terms-path       [:form :fields :agreedToTerms]
+         :doi-requested-path         [:form :fields :doiRequested]
+         :current-doi-path           [:form :fields :identificationInfo :doi]}]]})
 
 (set! low-code4/template-registry
       (merge edit-templates

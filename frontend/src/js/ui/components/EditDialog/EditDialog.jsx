@@ -2,6 +2,38 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Classes, Dialog, Overlay, Intent} from "@blueprintjs/core";
 
+ModalDialog.propTypes = {
+    title: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    onClose: PropTypes.func.isRequired,
+}
+
+export function ModalDialog({title, children, isOpen, onClose}) {
+
+    return (
+        <Dialog
+            icon="info-sign"
+            onClose={onClose}
+            title={title}
+            canEscapeKeyClose={false}
+            canOutsideClickClose={false}
+            isOpen={isOpen}
+            usePortal={true}
+            backdropClassName="EditDialogBackdrop"
+            className="EditDialogDialog"
+        >
+            <div className={"EditDialogBody "+Classes.DIALOG_BODY}>
+                {children}
+            </div>
+            <div className={Classes.DIALOG_FOOTER}>
+                <div className={Classes.DIALOG_FOOTER_ACTIONS}>
+                    <Button onClick={onClose}>Close</Button>
+                </div>
+            </div>
+        </Dialog>
+    )
+}
+
 EditDialog.propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,

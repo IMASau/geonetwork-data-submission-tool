@@ -23,6 +23,8 @@
 (rf/reg-event-fx ::components4/create-document-modal-clear-click handlers3/close-modal)
 (rf/reg-event-fx ::components4/create-document-modal-close-click handlers3/close-modal)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
+(rf/reg-event-fx ::components4/share-document-modal-clear-click handlers3/close-modal)
+(rf/reg-event-fx ::components4/share-document-modal-close-click handlers3/close-modal)
 (rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-close handlers4/item-edit-dialog-close-handler)
@@ -57,6 +59,8 @@
 (rf/reg-event-fx :app/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)
 (rf/reg-event-fx :app/dashboard-create-click handlers3/dashboard-create-click)
+(rf/reg-event-fx :app/document-teaser-share-click handlers4/document-teaser-share-click)
+(rf/reg-event-fx :metcalf.common.actions4/-get-document-data-action handlers4/-get-document-data-action)
 (rf/reg-event-fx :app/dashboard-show-all-click handlers3/show-all-documents)
 (rf/reg-event-fx :app/dashboard-toggle-status-filter handlers3/toggle-status-filter)
 (rf/reg-event-fx :app/delete-attachment-click handlers3/open-modal-handler)
@@ -74,7 +78,7 @@
 (rf/reg-event-fx :app/modal-dialog-confirm-save handlers3/close-and-confirm)
 (rf/reg-event-fx :app/open-modal handlers3/open-modal-handler)
 (rf/reg-event-fx :app/page-view-edit-archive-click-confirm handlers3/archive-current-document)
-(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
+#_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx :app/upload-data-file-upload-failed handlers3/open-modal-handler)
 (rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/open-modal-handler)
 (rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
@@ -90,13 +94,18 @@
 (rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
+(rf/reg-sub :app/contributors-modal-props subs4/contributors-modal-props)
+(rf/reg-event-fx :app/contributors-modal-unshare-click handlers4/contributors-modal-unshare-click)
+(rf/reg-event-fx :app/contributors-modal-share-click handlers4/contributors-modal-share-click)
+(rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
+(rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub :app/get-dashboard-props subs3/get-dashboard-props)
-(rf/reg-sub :app/get-progress-bar-props :<- [:subs/get-derived-state] subs3/get-progress-props)
+(rf/reg-sub :app/get-progress-bar-props :<- [::subs4/get-form-state [:form]] subs3/get-progress-props)
 (rf/reg-sub :subs/get-app-root-modal-props subs4/get-modal-props)
 (rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
 (rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
@@ -117,7 +126,7 @@
        "maintFreq"            rules4/maint-freq})
 (set! low-code4/component-registry
       {
-       'm3/UploadData                     {:view views3/UploadData}
+       ;'m3/UploadData                     {:view views3/UploadData}
        'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-select-option            {:view components4/async-select-option :init components4/async-select-option-settings}
        'm4/async-select-value             {:view components4/async-select-value :init components4/async-select-value-settings}
@@ -696,7 +705,7 @@
      [m4/input-field-with-label
       {:form-id     [:form]
        :data-path   ["identificationInfo" "otherConstraints"]
-       :label       "Additional license requirements"   ;; FIXME
+       :label       "Additional license requirements"       ;; FIXME
        :placeholder "Enter additional license requirements"
        :required    true}]
 
@@ -870,8 +879,8 @@
        :data-path  []
        :data-paths [["attachments"]]}]
      [:h2 "8: Upload Data"]
-     [m3/UploadData
-      {:attachments-path [:form :fields :attachments]}]
+     #_[m3/UploadData
+        {:attachments-path [:form :fields :attachments]}]
      [:h2 "Data Services"]
      [m4/table-selection-list
       {:form-id    [:form]
@@ -950,9 +959,8 @@
                for discovery in the " [m4/portal-link] "."]
       [:p "How complete is your data?"]
       [m4/note-for-data-manager
-       {:form-id    [:form]
-        :data-path  ["noteForDataManager"]
-        :notes-path [:form :fields :noteForDataManager]}]
+       {:form-id   [:form]
+        :data-path ["noteForDataManager"]}]
       [m4/lodge-button]
       [m4/lodge-status-info]
       [:div.user-export

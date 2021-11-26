@@ -8,7 +8,8 @@
             [metcalf.common.subs4 :as subs4]
             [metcalf.common.utils4 :as utils4]
             [re-frame.core :as rf]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [metcalf.common.views4 :as views4]))
 
 (s/def ::obj-path (s/coll-of string? :min-count 1))
 (s/def ::value-path string?)
@@ -1200,3 +1201,16 @@
    [low-code4/render-template
     {:template-id ::create-document-modal-form
      :variables   '{?form-id [:create_form]}}]])
+
+(defn contributors-modal
+  [{:keys [uuid]}]
+  [ui/ModalDialog
+   {:isOpen  true
+    :title   "Sharing"
+    :onClose #(rf/dispatch [::create-document-modal-close-click])}
+   (let [{:keys [emails]} @(rf/subscribe [:app/contributors-modal-props uuid])]
+     [views4/collaborator-form
+      {:uuid          uuid
+       :emails        emails
+       :onRemoveClick (fn [idx] (rf/dispatch [:app/contributors-modal-unshare-click {:uuid uuid :idx idx}]))
+       :onAddClick    (fn [email] (rf/dispatch [:app/contributors-modal-share-click {:uuid uuid :email email}]))}])])

@@ -42,20 +42,12 @@ class AbstractDataFeed(models.Model):
             return "Stale"
 
 
-class AbstractContributor(models.Model):
-    id = models.AutoField(primary_key=True)
-    document = models.ForeignKey("Document", on_delete=models.CASCADE, related_name="contributors")
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    class Meta:
-        abstract = True
-
-
 class AbstractDocument(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     template = models.ForeignKey("MetadataTemplate", on_delete=models.SET_NULL, null=True)
     title = models.TextField(default="Untitled")
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    contributors = models.ManyToManyField(User, related_name='contributor')
 
     class Meta:
         abstract = True
@@ -92,7 +84,7 @@ class AbstractDocument(models.Model):
         return user.is_staff or (user == self.owner)
 
     def is_contributor(self, user):
-        return user.is_staff or self.contributors.filter(user=user).exists()
+        return user.is_staff or self.contributors.filter(pk=user.pk).exists()
 
     def get_absolute_url(self):
         return reverse('Edit', kwargs={'uuid': self.uuid})

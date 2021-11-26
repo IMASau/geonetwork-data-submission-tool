@@ -66,14 +66,14 @@
   [{:keys [db]} [_ many-field-path i]]
   {:db (update-in db many-field-path update :value utils3/vec-remove i)})
 
-(defn add-attachment
-  [{:keys [db]} [_ attachment-data]]
-  (let [data (select-keys attachment-data [:file :name :delete_url])
-        template (get-in db [:form :fields :attachments :fields])
-        new-value (reduce (fn [form-acc [k v]]
-                            (assoc-in form-acc [k :value] v))
-                          template data)]
-    {:db (update-in db [:form :fields :attachments :value] conj {:value new-value})}))
+#_(defn add-attachment
+    [{:keys [db]} [_ attachment-data]]
+    (let [data (select-keys attachment-data [:file :name :delete_url])
+          template (get-in db [:form :fields :attachments :fields])
+          new-value (reduce (fn [form-acc [k v]]
+                              (assoc-in form-acc [k :value] v))
+                            template data)]
+      {:db (update-in db [:form :fields :attachments :value] conj {:value new-value})}))
 
 (defn archive-current-document
   "User wants to archive doc.  Send request."

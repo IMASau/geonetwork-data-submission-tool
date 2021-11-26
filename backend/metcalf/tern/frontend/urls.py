@@ -5,6 +5,7 @@ from rest_framework import routers
 
 import metcalf.tern.backend.viewsets as viewsets
 from metcalf.tern.frontend.views import *
+from metcalf.tern.frontend.viewsets import DocumentInfoViewSet
 
 router = routers.DefaultRouter()
 router.register(r'institution', viewsets.InstitutionViewSet)
@@ -17,6 +18,7 @@ router.register(r'person', viewsets.PersonViewSet)
 router.register(r'topiccategory', viewsets.TopicCategoryViewSet)
 router.register(r'metadata-template', viewsets.MetadataTemplateViewSet)
 router.register(r'duma', viewsets.DumaViewSet)
+router.register(r'document-info', DocumentInfoViewSet)
 
 urlpatterns = [
     path('', home, name="LandingPage"),
@@ -27,8 +29,11 @@ urlpatterns = [
     path('duma/', user_defined, name="DumaList"),
     path('duma/<uuid:uuid>/', user_defined, name="DumaDocument"),
     path('save/<uuid:uuid>/', save, name="Save"),
+    path('save/<uuid:uuid>/<int:update_number>/', save, name="Save"),
     path('transition/<uuid:uuid>/', transition, name="Transition"),
     path('clone/<uuid:uuid>/', clone, name="Clone"),
+    path('share/<uuid:uuid>/', share, name="share"),
+    path('unshare/<uuid:uuid>/', unshare, name="unshare"),
     path('validation/<uuid:uuid>/', validation_results, name="Validation"),
     path('upload/<uuid:uuid>/', UploadView.as_view(), name="Upload"),
     path('delete/<uuid:uuid>/<int:id>/', delete_attachment, name="DeleteAttachment"),

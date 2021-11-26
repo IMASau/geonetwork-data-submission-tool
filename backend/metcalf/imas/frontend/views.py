@@ -9,6 +9,7 @@ from zipfile import ZipFile, ZipInfo
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
 from django.http import HttpResponse
@@ -18,6 +19,7 @@ from django.urls import reverse
 from django.utils.encoding import smart_text
 from django_fsm import has_transition_perm
 from lxml import etree
+from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -27,14 +29,16 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from metcalf.common import spec4, xmlutils4
+from metcalf.common.serializers import UserByEmailSerializer, UserSerializer
 from metcalf.common.utils import to_json, get_exception_message
 from metcalf.imas.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.imas.frontend.forms import DocumentAttachmentForm
 from metcalf.imas.frontend.models import SiteContent, DataSource
 from metcalf.imas.frontend.permissions import is_document_editor, is_document_contributor
-from metcalf.imas.frontend.serializers import UserSerializer, DocumentInfoSerializer, AttachmentSerializer, \
+from metcalf.imas.frontend.serializers import DocumentInfoSerializer, AttachmentSerializer, \
     SiteContentSerializer, CreateDocumentSerializer, DataSourceSerializer
+
 
 logger = logging.getLogger(__name__)
 
@@ -86,7 +90,7 @@ def user_status_list():
 @login_required
 def dashboard(request):
     docs = (Document.objects
-            .filter(Q(owner=request.user) | Q(contributors__user=request.user))
+            .filter(Q(owner=request.user) | Q(contributors=request.user))
             .exclude(status=Document.DISCARDED))
     payload = JSONRenderer().render({
         "context": {
@@ -188,6 +192,44 @@ def clone(request, uuid):
                          "document": DocumentInfoSerializer(doc, context={'user': request.user}).data})
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
+
+
+@login_required
+@api_view(['POST'])
+def share(request, uuid):
+    doc = get_object_or_404(Document, uuid=uuid)
+    is_document_editor(request, doc)
+    serializer = UserByEmailSerializer(data=request.data)
+    if serializer.is_valid():
+        email = serializer.validated_data['email']
+        users = doc.contributors.filter(email=email)
+        user = User.objects.get(email=email)
+        if doc.owner == user:
+            pass
+        elif users.exists():
+            pass
+        else:
+            doc.contributors.add(user)
+        return Response({'status': 'Success'})
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@login_required
+@api_view(['POST'])
+def unshare(request, uuid):
+    doc = get_object_or_404(Document, uuid=uuid)
+    is_document_editor(request, doc)
+    serializer = UserByEmailSerializer(data=request.data)
+    if serializer.is_valid():
+        email = serializer.validated_data['email']
+        users = doc.contributors.filter(email=email)
+        for user in users:
+            doc.contributors.remove(user)
+        return Response({'status': 'Success'})
+
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Error Pages
@@ -387,8 +429,16 @@ def institutionFromData(data):
 
 @login_required
 @api_view(['POST'])
-def save(request, uuid):
+def save(request, uuid, update_number):
     doc = get_object_or_404(Document, uuid=uuid)
+    latest_draft = doc.draftmetadata_set.all()[0]
+    if latest_draft.pk != update_number:
+        return Response(
+            {"message": "Stale save",
+             "args": {
+                 'posted': update_number,
+                 'latest': latest_draft.pk}},
+            status=400)
     is_document_contributor(request, doc)
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
     try:
@@ -419,9 +469,9 @@ def save(request, uuid):
         # update the publication date
         data['identificationInfo']['datePublication'] = spec4.today()
 
-        inst = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
-        inst.noteForDataManager = data.get('attachments') or ''
-        inst.save()
+        draft = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
+        draft.noteForDataManager = data.get('attachments') or ''
+        draft.save()
 
         # Remove any attachments which are no longer mentioned in the XML.
         if data.get('attachments') is not None:
@@ -442,10 +492,10 @@ def save(request, uuid):
 
         return Response({"messages": messages_payload(request),
                          "form": {
-                             "url": reverse("Edit", kwargs={'uuid': doc.uuid}),
+                             "url": reverse("Save", kwargs={'uuid': doc.uuid, 'update_number': draft.pk}),
                              "schema": spec4.extract_fields(spec),
                              "data": data,
-                             "document": DocumentInfoSerializer(doc, context={'user': request.user}).data}})
+                         }})
     except RuntimeError as e:
         return Response({"message": get_exception_message(e), "args": e.args}, status=400)
 
@@ -474,7 +524,7 @@ def edit(request, uuid):
             "csrf": csrf.get_token(request),
         },
         "form": {
-            "url": reverse("Save", kwargs={'uuid': doc.uuid}),
+            "url": reverse("Save", kwargs={'uuid': doc.uuid, 'update_number': draft.pk}),
             "schema": spec4.extract_fields(spec),
             "data": data,
         },

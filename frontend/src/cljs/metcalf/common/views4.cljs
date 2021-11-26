@@ -5,7 +5,8 @@
             [interop.moment :as moment]
             [metcalf.common.low-code4 :as low-code]
             [metcalf.common.utils3 :as utils3]
-            [metcalf.common.views3 :as views3]))
+            [metcalf.common.views3 :as views3]
+            [interop.ui :as ui]))
 
 ; For pure views only, no re-frame subs/handlers
 
@@ -52,13 +53,14 @@
     :on-save      on-save}])
 
 (defn document-teaser
-  [{:keys [doc on-archive-click on-delete-archived-click on-restore-click on-clone-click on-edit-click]}]
+  [{:keys [doc on-archive-click on-delete-archived-click on-restore-click on-clone-click on-edit-click on-share-click]}]
   (let [{:keys [title last_updated last_updated_by status transitions is_editor owner]} doc
         handle-archive-click (fn [e] (.stopPropagation e) (on-archive-click doc))
         handle-delete-archived-click (fn [e] (.stopPropagation e) (on-delete-archived-click doc))
         handle-restore-click (fn [e] (.stopPropagation e) (on-restore-click doc))
         handle-clone-click (fn [e] (.stopPropagation e) (on-clone-click doc))
         handle-edit-click (fn [e] (.stopPropagation e) (on-edit-click doc))
+        handle-share-click (fn [e] (.stopPropagation e) (on-share-click doc))
         transitions (set transitions)]
 
     [:div.bp3-card.bp3-interactive.DocumentTeaser
@@ -81,7 +83,10 @@
          {:on-click handle-clone-click}
          [:span.glyphicon.glyphicon-duplicate] " clone"]
         [:span.btn.btn-default.noborder.btn-xs {:on-click handle-edit-click}
-         [:span.glyphicon.glyphicon-pencil] " edit"]])
+         [:span.glyphicon.glyphicon-pencil] " edit"]
+        (when on-share-click
+          [:span.btn.btn-default.noborder.btn-xs {:on-click handle-share-click}
+           [:span.glyphicon.glyphicon-share] " share"])])
      [:h4
       [:span.link
        [:span (:username owner)]
@@ -114,7 +119,8 @@
            document-delete-archived-click
            document-restore-click
            document-clone-click
-           document-edit-click]}]
+           document-edit-click
+           document-share-click]}]
   (let [{:keys [filtered-docs status-filter has-documents? status-freq status relevant-status-filter]} dashboard-props]
     [:div.container
      [:span.pull-right {:style {:margin-top 18}}
@@ -132,7 +138,9 @@
                      :on-delete-archived-click #(document-delete-archived-click filtered-doc)
                      :on-restore-click         #(document-restore-click filtered-doc)
                      :on-clone-click           #(document-clone-click filtered-doc)
-                     :on-edit-click            #(document-edit-click filtered-doc)}]))
+                     :on-edit-click            #(document-edit-click filtered-doc)
+                     :on-share-click           (when document-share-click
+                                                 #(document-share-click filtered-doc))}]))
            (conj (if has-documents?
                    [:a.list-group-item {:on-click dashboard-create-click}
                     [:span.glyphicon.glyphicon-star.pull-right]
@@ -268,3 +276,23 @@
          [:span {:style {:padding "5px 10px 5px 10px"}} (utils3/userDisplay user)])
        [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
        [:a.bp3-button.bp3-minimal {:href account_logout} "Sign Out"]]]]))
+
+(defn collaborator-form
+  [{:keys [emails onRemoveClick onAddClick]}]
+  (let [items (map (fn [label] {:value (gensym) :label label}) emails)]
+    [:div
+     [ui/FormGroup
+      {:label   "Collaborators"
+       :toolTip "New users will need to create an account before you can add them as a collaborator"}
+      [ui/SimpleSelectionList
+       {:key           key
+        :items         items
+        :disabled      false
+        :getLabel      (ui/get-obj-path ["label"])
+        :getValue      (ui/get-obj-path ["value"])
+        :onRemoveClick onRemoveClick}]
+      [ui/TextAddField
+       {:buttonText  "Add"
+        :disabled    false
+        :placeholder "Email address"
+        :onAddClick  onAddClick}]]]))

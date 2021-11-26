@@ -73,7 +73,6 @@
 (rf/reg-event-fx :app/modal-dialog-confirm-cancel handlers3/close-and-cancel)
 (rf/reg-event-fx :app/modal-dialog-confirm-dismiss handlers3/close-and-cancel)
 (rf/reg-event-fx :app/modal-dialog-confirm-save handlers3/close-and-confirm)
-(rf/reg-event-fx :app/open-modal handlers3/open-modal-handler)
 (rf/reg-event-fx :app/page-view-edit-archive-click-confirm handlers3/archive-current-document)
 #_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx :app/upload-data-file-upload-failed handlers3/upload-data-file-upload-failed)

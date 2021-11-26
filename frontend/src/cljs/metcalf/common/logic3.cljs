@@ -70,19 +70,7 @@
 (defn derived-state
   "Used to include derived state for use by components."
   [{:keys [data] :as state}]
-  (cond-> state
-    data derive-data-state
-    ))
-
-(defn path-fields [data]
-  (into (sorted-set)
-        (keep (fn [path]
-                (let [[parent [i k]] (split-with (complement integer?) path)]
-                  (when k
-                    (let [parent (vec parent)]
-                      [(conj parent :fields k)
-                       (conj parent :value i :value k)]))))
-              (utils3/keys-in data))))
+  (cond-> state data derive-data-state))
 
 (defn path-values
   [data]

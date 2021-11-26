@@ -10,7 +10,7 @@
     "Dashboard"
     (-> {:db payload
          :fx [[:ui/setup-blueprint]]}
-        (logic3/setup-alerts)
+        (actions4/init-modal-stack)
         (actions4/load-page-action payload)
         (actions4/init-create-form-action payload)
         (actions4/load-dashboard-document-data payload))
@@ -18,7 +18,7 @@
     "Edit"
     (-> {:db payload
          :fx [[:ui/setup-blueprint]]}
-        (logic3/setup-alerts)
+        (actions4/init-modal-stack)
         (actions4/load-page-action payload)
         (actions4/load-form-action payload))
     ))

@@ -7,6 +7,10 @@
             [metcalf.common.utils3 :as utils3]
             [metcalf.common.utils4 :as utils4]))
 
+(defn init-modal-stack
+  [s]
+  (assoc-in s [:db :modal/stack] []))
+
 (defn load-page-action
   [s payload]
   (let [page-name (get-in payload [:page :name])]

@@ -34,7 +34,3 @@
    If the mask yields no values, nil will be returned."
   [some-map map-mask]
   (apply merge (remove nil? (map #(mask-map-triage-kv % map-mask) some-map))))
-
-(defn setup-alerts
-  [s]
-  (assoc-in s [:db :modal/stack] []))

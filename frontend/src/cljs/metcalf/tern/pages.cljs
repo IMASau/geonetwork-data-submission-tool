@@ -26,7 +26,7 @@
   []
   [views4/PageViewEdit
    {:page             @(rf/subscribe [:subs/get-page-props])
-    :context          @(rf/subscribe [:subs/get-derived-path [:context]])
+    :context          @(rf/subscribe [:subs/get-context])
     :form             @(rf/subscribe [:subs/get-derived-path [:form]])
     :dirty            @(rf/subscribe [:subs/get-form-dirty [:form]])
     :tab-props        @(rf/subscribe [:subs/get-edit-tab-props])

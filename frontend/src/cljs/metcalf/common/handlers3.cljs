@@ -43,7 +43,9 @@
 
 (defn upload-data-file-upload-failed
   [{:keys [db]} [_ props]]
-  (open-modal-action {:db db} props))
+  (open-modal-action {:db db}
+                     {:type    :modal.type/alert
+                      :message "File upload failed. Please try again or contact administrator."}))
 
 (defn upload-max-filesize-exceeded
   [{:keys [db]} [_ props]]

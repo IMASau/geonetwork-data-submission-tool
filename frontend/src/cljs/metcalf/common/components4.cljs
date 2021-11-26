@@ -351,7 +351,7 @@
         ;; FIXME need an m4 saving? value.
         saving (:metcalf3.handlers/saving? page)
         {:keys [document urls]} @(rf/subscribe [:subs/get-context])
-        {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
+        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
         disabled @(rf/subscribe [:subs/get-form-disabled?])
         has-errors? (and errors (> errors 0))
         archived? (= (:status document) "Archived")

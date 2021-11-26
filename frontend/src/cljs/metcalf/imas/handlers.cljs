@@ -18,6 +18,5 @@
     (-> {:db payload
          :fx [[:ui/setup-blueprint]]}
         (logic3/setup-alerts)
-        (logic3/setup-form-action (:form payload))
-        (actions4/init-create-form-action payload))
+        (actions4/load-form-action payload))
     ))

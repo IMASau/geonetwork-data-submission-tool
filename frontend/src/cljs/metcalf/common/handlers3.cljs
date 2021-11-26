@@ -175,11 +175,11 @@
                               [] docs)))}))
 
 (defn -transite-doc-confirm-error
-  [_ [_ transition]]
+  [{:keys [db]} [_ transition]]
   (let [trans-name (first (clojure.string/split transition "_"))]
-    {:dispatch [:app/open-modal
-                {:type    :modal.type/alert
-                 :message (str "Unable to " trans-name)}]}))
+    (open-modal-action {:db db}
+                       {:type    :modal.type/alert
+                        :message (str "Unable to " trans-name)})))
 
 (defn lodge-click
   [{:keys [db]} _]

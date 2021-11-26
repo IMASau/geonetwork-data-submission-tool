@@ -216,7 +216,8 @@
 
 (defn lodge-error
   [{:keys [db]} [_ {:keys [status failure]}]]
-  {:db       (assoc-in db [:page :metcalf3.handlers/saving?] false)
-   :dispatch [:app/open-modal
-              {:type    :modal.type/alert
-               :message (str "Unable to lodge: " status " " failure)}]})
+  (-> {:db db}
+      (assoc-in [:db :page :metcalf3.handlers/saving?] false)
+      (open-modal-action
+        {:type    :modal.type/alert
+         :message (str "Unable to lodge: " status " " failure)})))

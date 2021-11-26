@@ -48,8 +48,10 @@
                       :message "File upload failed. Please try again or contact administrator."}))
 
 (defn upload-max-filesize-exceeded
-  [{:keys [db]} [_ props]]
-  (open-modal-action {:db db} props))
+  [{:keys [db]} [_ {:keys [max-filesize]}]]
+  (open-modal-action {:db db}
+                     {:type    :modal.type/alert
+                      :message (str "Please, choose file less than " max-filesize "mb")}))
 
 (defn handle-page-view-edit-archive-click
   [{:keys [db]} _]

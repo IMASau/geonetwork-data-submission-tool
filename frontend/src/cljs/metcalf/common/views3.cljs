@@ -93,8 +93,7 @@
       (r/set-state this {:file file})
       (when max-filesize
         (rf/dispatch [:app/upload-max-filesize-exceeded
-                      {:type    :modal.type/alert
-                       :message (str "Please, choose file less than " max-filesize "mb")}])
+                      {:max-filesize max-filesize}])
         (put! reset-ch true)))))
 
 ; TODO: Build a react component for uploading

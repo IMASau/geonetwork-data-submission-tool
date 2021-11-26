@@ -107,6 +107,8 @@
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] :<- [::tern-subs/get-edit-tabs] tern-subs/get-edit-tab-props)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
 (rf/reg-sub :subs/get-page-props subs3/get-page-props)
+(rf/reg-sub :subs/get-context subs3/get-context)
+(rf/reg-sub :subs/get-form-disabled? subs3/get-form-disabled?)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
 (set! rules4/rule-registry

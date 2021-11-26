@@ -10,6 +10,14 @@
   [db [_ path]]
   (get-in db path))
 
+(defn get-context
+  [db]
+  (get-in db [:context]))
+
+(defn get-form-disabled?
+  [db]
+  (get-in db [:form :disabled]))
+
 (defn get-page-props
   [db _]
   (get-in db [:page]))

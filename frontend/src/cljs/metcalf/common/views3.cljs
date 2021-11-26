@@ -140,15 +140,6 @@
        :component-did-update did-update
        :render               render})))
 
-(defn delete-attachment!
-  "Quick and dirty delete function"
-  [attachments-path attachment-idx]
-  (rf/dispatch [:app/delete-attachment-click
-                {:type       :modal.type/confirm
-                 :title      "Delete?"
-                 :message    "Are you sure you want to delete this file?"
-                 :on-confirm #(rf/dispatch [:app/delete-attachment-confirm attachments-path attachment-idx])}]))
-
 (defn update-keys [f m]
   (reduce-kv (fn [z k v] (assoc z (f k) v)) {} m))
 
@@ -197,7 +188,9 @@
                          [:td
                           [:a {:href (:value file) :target "blank"} (:value name)]
                           [:button.btn.btn-warn.btn-xs.pull-right
-                           {:on-click #(delete-attachment! attachments-path attachment-idx)
+                           {:on-click #(rf/dispatch [:app/delete-attachment-click
+                                                     {:attachments-path attachments-path
+                                                      :attachment-idx   attachment-idx}])
                             :disabled disabled}
                            [:span.glyphicon.glyphicon-minus]]]]))]]]
                  [:p "There are no data files attached to this record"])

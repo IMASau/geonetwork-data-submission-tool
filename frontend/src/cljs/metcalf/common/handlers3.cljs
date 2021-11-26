@@ -34,8 +34,12 @@
   (open-modal-action {:db db} props))
 
 (defn delete-attachment-click
-  [{:keys [db]} [_ props]]
-  (open-modal-action {:db db} props))
+  [{:keys [db]} [_ {:keys [attachments-path attachment-idx]}]]
+  (open-modal-action {:db db}
+                     {:type             :modal.type/confirm
+                      :title            "Delete?"
+                      :message          "Are you sure you want to delete this file?"
+                      :on-confirm       #(rf/dispatch [:app/delete-attachment-confirm attachments-path attachment-idx])}))
 
 (defn upload-data-file-upload-failed
   [{:keys [db]} [_ props]]

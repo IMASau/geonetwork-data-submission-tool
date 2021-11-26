@@ -1,10 +1,6 @@
 (ns metcalf.common.subs3
   (:require [clojure.set :as set]))
 
-(defn get-derived-state
-  [db _]
-  db)
-
 (defn get-attachments
   [db [_ path]]
   (get-in db path))

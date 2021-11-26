@@ -14,21 +14,6 @@
   [{:keys [form-id data-path]}]
   (utils4/as-path [form-id :state (blocks4/block-path data-path)]))
 
-(defn init-db
-  [_ [_ payload]]
-  (case (get-in payload [:page :name])
-
-    "dashboard"
-    (-> {:db {} :fx [[:ui/setup-blueprint]]}
-        (actions4/load-page-action payload)
-        (actions4/load-dashboard-document-data payload))
-
-    "edit"
-    (-> {:db {} :fx [[:ui/setup-blueprint]]}
-        (actions4/load-page-action payload)
-        (actions4/load-form-action payload))
-    ))
-
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]
   (let [path (db-path ctx)]

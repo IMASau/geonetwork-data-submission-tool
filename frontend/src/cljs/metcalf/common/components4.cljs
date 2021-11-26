@@ -350,7 +350,7 @@
   (let [page @(rf/subscribe [:subs/get-page-props])
         ;; FIXME need an m4 saving? value.
         saving (:metcalf3.handlers/saving? page)
-        {:keys [document urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        {:keys [document urls]} @(rf/subscribe [:subs/get-context])
         {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
         {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
         has-errors? (and errors (> errors 0))

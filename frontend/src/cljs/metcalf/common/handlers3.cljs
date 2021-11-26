@@ -33,6 +33,18 @@
   [{:keys [db]} [_ props]]
   (open-modal-action {:db db} props))
 
+(defn delete-attachment-click
+  [{:keys [db]} [_ props]]
+  (open-modal-action {:db db} props))
+
+(defn upload-data-file-upload-failed
+  [{:keys [db]} [_ props]]
+  (open-modal-action {:db db} props))
+
+(defn upload-max-filesize-exceeded
+  [{:keys [db]} [_ props]]
+  (open-modal-action {:db db} props))
+
 (defn handle-page-view-edit-archive-click
   [{:keys [db]} _]
   (open-modal-action {:db db}

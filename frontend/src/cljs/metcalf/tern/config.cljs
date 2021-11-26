@@ -39,6 +39,7 @@
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
 (rf/reg-event-fx :app/-archive-current-document-success handlers3/-archive-current-document-success)
+(rf/reg-event-fx :app/-archive-current-document-error handlers3/-archive-current-document-error)
 (rf/reg-event-fx :app/-clone-document-error handlers3/-clone-document-error)
 (rf/reg-event-fx :app/-clone-document-success handlers3/-clone-document-success)
 (rf/reg-event-fx :app/-lodge-click-error handlers3/lodge-error)

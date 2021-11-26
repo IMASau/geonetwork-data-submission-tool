@@ -90,13 +90,20 @@
      {:url       transition_url
       :data      {:transition "archive"}
       :success-v [:app/-archive-current-document-success]
-      :error-v   [:app/open-modal {:type :modal.type/alert :message "Unable to delete"}]}}))
+      :error-v   [:app/-archive-current-document-error]}}))
 
 (defn -archive-current-document-success
   "Archive request succeeded.  Redirect to dashboard."
   [{:keys [db]} _]
   (let [success_url (-> db :context :urls :Dashboard)]
     {::fx3/set-location-href success_url}))
+
+(defn -archive-current-document-error
+  "Archive request succeeded.  Redirect to dashboard."
+  [{:keys [db]} _]
+  (open-modal-action {:db db}
+                     {:type :modal.type/alert
+                      :message "Unable to delete"}))
 
 (defn toggle-status-filter
   [{:keys [db]} [_ {:keys [status-id status-filter]}]]

@@ -29,10 +29,6 @@
                (when-not (= (peek alerts) props)
                  (conj alerts props)))))
 
-(defn open-modal-handler
-  [{:keys [db]} [_ props]]
-  (open-modal-action {:db db} props))
-
 (defn delete-attachment-click
   [{:keys [db]} [_ {:keys [attachments-path attachment-idx]}]]
   (open-modal-action {:db db}

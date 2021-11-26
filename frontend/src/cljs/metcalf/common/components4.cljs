@@ -352,7 +352,7 @@
         saving (:metcalf3.handlers/saving? page)
         {:keys [document urls]} @(rf/subscribe [:subs/get-context])
         {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
-        {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
+        disabled @(rf/subscribe [:subs/get-form-disabled?])
         has-errors? (and errors (> errors 0))
         archived? (= (:status document) "Archived")
         submitted? (= (:status document) "Submitted")]

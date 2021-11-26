@@ -22,30 +22,32 @@
     (when on-confirm (on-confirm))
     {:db (update db :modal/stack pop)}))
 
-(defn open-modal
-  [db props]
-  (update db :modal/stack
-          (fn [alerts]
-            (when-not (= (peek alerts) props)
-              (conj alerts props)))))
+(defn open-modal-action
+  [s props]
+  (update-in s [:db :modal/stack]
+             (fn [alerts]
+               (when-not (= (peek alerts) props)
+                 (conj alerts props)))))
 
 (defn open-modal-handler
   [{:keys [db]} [_ props]]
-  {:db (open-modal db props)})
+  (open-modal-action {:db db} props))
 
 (defn handle-page-view-edit-archive-click
   [{:keys [db]} _]
-  {:db (open-modal db {:type       :modal.type/confirm
-                       :title      "Archive?"
-                       :message    "Are you sure you want to archive this record?"
-                       :on-confirm #(rf/dispatch [:app/page-view-edit-archive-click-confirm])})})
+  (open-modal-action {:db db}
+                     {:type       :modal.type/confirm
+                      :title      "Archive?"
+                      :message    "Are you sure you want to archive this record?"
+                      :on-confirm #(rf/dispatch [:app/page-view-edit-archive-click-confirm])}))
 
 (defn document-teaser-clone-click
   [{:keys [db]} [_ clone_url]]
-  {:db (open-modal db {:type       :modal.type/confirm
-                       :title      "Clone?"
-                       :message    "Are you sure you want to clone this record?"
-                       :on-confirm (fn [] (rf/dispatch [:app/clone-doc-confirm clone_url]))})})
+  (open-modal-action {:db db}
+                     {:type       :modal.type/confirm
+                      :title      "Clone?"
+                      :message    "Are you sure you want to clone this record?"
+                      :on-confirm (fn [] (rf/dispatch [:app/clone-doc-confirm clone_url]))}))
 
 (defn del-value
   [{:keys [db]} [_ many-field-path i]]
@@ -96,7 +98,7 @@
 
 (defn dashboard-create-click
   [{:keys [db]} _]
-  {:db (open-modal db {:type :modal.type/DashboardCreateModal})})
+  (open-modal-action {:db db} {:type :modal.type/DashboardCreateModal}))
 
 (defn clone-document
   [_ [_ url]]

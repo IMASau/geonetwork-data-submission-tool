@@ -28,6 +28,7 @@
    {:page             @(rf/subscribe [:subs/get-page-props])
     :context          @(rf/subscribe [:subs/get-context])
     :form             @(rf/subscribe [:subs/get-derived-path [:form]])
+    :form-disabled?   @(rf/subscribe [:subs/get-form-disabled?])
     :dirty            @(rf/subscribe [:subs/get-form-dirty [:form]])
     :tab-props        @(rf/subscribe [:subs/get-edit-tab-props])
     :progress-props   @(rf/subscribe [:app/get-progress-bar-props])

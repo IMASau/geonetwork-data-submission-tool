@@ -182,7 +182,7 @@
           (render [this]
             (let [{:keys [attachments-path]} (r/props this)
                   {:keys [file reset-file-drop uploading]} (r/state this)
-                  {:keys [disabled] :as attachments} @(rf/subscribe [:subs/get-derived-path attachments-path])
+                  {:keys [disabled] :as attachments} @(rf/subscribe [:subs/get-attachments attachments-path])
                   upload-form @(rf/subscribe [:subs/get-upload-form])]
               [:div.UploadData {:class (when disabled "disabled")}
                (if-not (empty? (:value attachments))

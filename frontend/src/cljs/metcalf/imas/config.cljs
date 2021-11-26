@@ -108,7 +108,7 @@
 (rf/reg-sub :app/get-progress-bar-props :<- [::subs4/get-form-state [:form]] subs3/get-progress-props)
 (rf/reg-sub :subs/get-app-root-modal-props subs4/get-modal-props)
 (rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
-(rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
+(rf/reg-sub :subs/get-attachments subs3/get-attachments)
 (rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
 (rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] imas-subs/get-edit-tab-props)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)

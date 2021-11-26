@@ -5,7 +5,7 @@
   [db _]
   db)
 
-(defn get-derived-path
+(defn get-attachments
   [db [_ path]]
   (get-in db path))
 

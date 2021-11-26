@@ -16,6 +16,7 @@ router.register(r'parameterplatform', viewsets.ParameterPlatformViewSet)
 router.register(r'person', viewsets.PersonViewSet)
 router.register(r'topiccategory', viewsets.TopicCategoryViewSet)
 router.register(r'metadata-template', viewsets.MetadataTemplateViewSet)
+router.register(r'duma', viewsets.DumaViewSet)
 
 urlpatterns = [
     path('', home, name="LandingPage"),
@@ -23,7 +24,8 @@ urlpatterns = [
     path('portal/home?uuid=<uuid:uuid>/', edit, name="Edit"),  # legacy links
     path('dashboard/', dashboard, name="Dashboard"),
     path('edit/<uuid:uuid>/', edit, name="Edit"),
-    path('duma/<uuid:uuid>/', user_defined, name="DUMA"),
+    path('duma/', user_defined, name="DumaList"),
+    path('duma/<uuid:uuid>/', user_defined, name="DumaDocument"),
     path('save/<uuid:uuid>/', save, name="Save"),
     path('transition/<uuid:uuid>/', transition, name="Transition"),
     path('clone/<uuid:uuid>/', clone, name="Clone"),

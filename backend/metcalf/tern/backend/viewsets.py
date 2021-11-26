@@ -3,11 +3,27 @@
 
 import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, filters
+from rest_framework import filters, renderers, viewsets
+from rest_framework.generics import get_object_or_404
 
 from metcalf.tern.backend import models
 from metcalf.tern.backend import serializers
 from metcalf.tern.frontend.filters import ParentFilter
+
+
+class DumaViewSet(viewsets.ModelViewSet):
+    lookup_field = 'uuid'
+    queryset = models.Document.objects.filter(hasUserDefined=True)  # FIXME: and status=SUBMITTED
+    serializer_class = serializers.DumaSerializer
+    renderer_classes = [renderers.JSONRenderer]
+
+# FIXME: how about a constant model for name/value/uuid?
+
+# FIXME: the POST endpoint probably should:
+# * check the UUID at that path
+# * If it doesn't match, do we abort, or try harder (exhaustive search for that uuid?)
+# * only update the uri
+# * serializer for the individual components can extract those components (?)
 
 
 class InstitutionViewSet(viewsets.ModelViewSet):

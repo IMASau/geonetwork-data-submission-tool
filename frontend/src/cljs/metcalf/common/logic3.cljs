@@ -35,29 +35,7 @@
   [some-map map-mask]
   (apply merge (remove nil? (map #(mask-map-triage-kv % map-mask) some-map))))
 
-(defn is-required-field?
-  "Identifies walker nodes which are fields relevant to require logic"
-  [m]
-  (and (map? m)
-       (:required m)
-       (contains? m :value)))
-
 (def empty-values #{nil "" [] {} #{}})
-
-(defn validate-required-field
-  "Validate required field adding error message to list if it exists"
-  [field]
-  (let [{:keys [required value errors]} field]
-    (if (and required (contains? empty-values value))
-      (assoc field :errors (conj errors "This field is required"))
-      field)))
-
-(defn path-values
-  [data]
-  (let [get-value #(get-in data %)
-        get-path #(mapcat concat (partition-by number? %) (repeat [:value]))]
-    (map (juxt get-path get-value)
-         (utils3/keys-in data))))
 
 (defn setup-alerts
   [s]

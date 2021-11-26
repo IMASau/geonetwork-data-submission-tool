@@ -404,7 +404,7 @@
 
 (defn mailto-data-manager-link
   []
-  (let [{:keys [site]} @(rf/subscribe [:subs/get-derived-path [:context]])
+  (let [{:keys [site]} @(rf/subscribe [:subs/get-context])
         {:keys [email]} site]
     [:a {:href (str "mailto:" email)} email]))
 

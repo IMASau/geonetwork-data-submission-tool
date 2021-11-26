@@ -371,7 +371,7 @@
   (let [page @(rf/subscribe [:subs/get-page-props])
         ;; FIXME need an m4 saving? value.
         saving (:metcalf3.handlers/saving? page)
-        {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        {:keys [document]} @(rf/subscribe [:subs/get-context])
         {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
         is-are (if (> errors 1) "are" "is")
         plural (when (> errors 1) "s")

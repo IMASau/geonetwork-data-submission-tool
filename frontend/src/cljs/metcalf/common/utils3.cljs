@@ -39,11 +39,6 @@
       (assoc m k (modified-assoc-in (get m k) ks v init-value-fn))
       (assoc m k v))))
 
-(defn int-assoc-in
-  "Helper based on assoc.  Initialises empty values as arrays if key is an integer"
-  [m ks v]
-  (modified-assoc-in m ks v #(when (integer? %) [])))
-
 (defn vec-remove [v i]
   {:pre [(vector? v) (nat-int? i) (contains? v i)]}
   (reduce conj (vec (subvec v 0 i)) (subvec v (inc i) (count v))))
@@ -54,9 +49,6 @@
 
 (defn zip [& colls]
   (apply map vector colls))
-
-(defn enum [coll]
-  (zip (range) coll))
 
 (defn userDisplay
   [user]

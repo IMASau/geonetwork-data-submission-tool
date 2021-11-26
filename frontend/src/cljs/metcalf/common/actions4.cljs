@@ -155,18 +155,23 @@
                                     (when-not (= (peek alerts) modal-props)
                                       (conj alerts modal-props)))))
 
+(def disabled-statuses #{"Archived" "Deleted" "Uploaded"})
+
 (defn load-form-action
   "Massage raw payload for use as app-state"
   [s payload]
   (let [data (get-in payload [:form :data])
         schema (get-in payload [:form :schema])
-        state (blocks4/as-blocks {:data data :schema schema})]
+        state (blocks4/as-blocks {:data data :schema schema})
+        disabled? (contains? disabled-statuses (get-in payload [:context :document :status]))]
     (schema4/assert-schema-data {:data data :schema schema})
     (-> s
         (assoc-in [:db :form :data] data)                   ; initial data used for 'is dirty' checks
         (assoc-in [:db :form :schema] schema)               ; data schema used to generate new array items
         (assoc-in [:db :form :state] state)                 ; form state used to hold props/values
-        )))
+        (cond-> disabled?
+                ; NOTE: First pass attempt - are there better ways?
+                (assoc-in [:db :form :state ::blocks4/props :disabled] true)))))
 
 (defn init-create-form-action
   [s payload]

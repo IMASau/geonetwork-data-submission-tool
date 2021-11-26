@@ -311,3 +311,23 @@
           (actions4/get-document-data-action uuid)
           (actions4/open-modal-action {:type :modal.type/alert :message (string/join ". " (mapcat val (js->clj body)))})))))
 
+(defn create-document-modal-clear-click
+  [{:keys [db]}]
+  (actions4/init-modal-stack {:db db}))
+
+(defn create-document-modal-close-click
+  [{:keys [db]}]
+  (actions4/init-modal-stack {:db db}))
+
+(defn modal-dialog-alert-dismiss
+  [{:keys [db]}]
+  (actions4/init-modal-stack {:db db}))
+
+(defn modal-dialog-alert-save
+  [{:keys [db]}]
+  (actions4/init-modal-stack {:db db}))
+
+(defn coordinates-modal-field-close-modal
+  [{:keys [db]}]
+  (actions4/init-modal-stack {:db db}))
+

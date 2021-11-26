@@ -8,10 +8,6 @@
             [re-frame.core :as rf]
             [clojure.string :as string]))
 
-(defn close-modal
-  [{:keys [db]}]
-  {:db (update db :modal/stack pop)})
-
 (defn close-and-cancel
   [{:keys [db]} _]
   (let [{:keys [on-cancel]} (peek (:modal/stack db))]

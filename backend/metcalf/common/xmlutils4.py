@@ -390,11 +390,13 @@ def spec_data_from_batch(batch_spec, key):
     return spec, data
 
 
-def extract_user_defined(data:dict, path="", acc:list=[]) -> list:
+def extract_user_defined(data:dict, path="", acc:list=None) -> list:
     """Takes a json data document and returns a list of all terms that
     have been added by the user.  Adjusts the term to include the data
     path (for re-insertion) and the type."""
     # FIXME: needs special handling for keywords, which don't have structure
+    if acc is None:
+        acc = []
     if not isinstance(data, dict):
         return acc
     if is_userdefined(data):

@@ -102,7 +102,7 @@
   "Archive request succeeded.  Redirect to dashboard."
   [{:keys [db]} _]
   (open-modal-action {:db db}
-                     {:type :modal.type/alert
+                     {:type    :modal.type/alert
                       :message "Unable to delete"}))
 
 (defn toggle-status-filter
@@ -139,8 +139,10 @@
   {::fx3/set-location-href (get-in data [:document :url])})
 
 (defn -clone-document-error
-  [_ _]
-  {:dispatch [:app/open-modal {:type :modal.type/alert :message "Unable to clone"}]})
+  [{:keys [db]} _]
+  (open-modal-action {:db db}
+                     {:type    :modal.type/alert
+                      :message "Unable to clone"}))
 
 (defn transite-doc-click
   [transition]

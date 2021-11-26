@@ -1,6 +1,5 @@
 (ns metcalf.common.subs3
-  (:require [clojure.set :as set]
-            [metcalf.common.logic3 :as logic3]))
+  (:require [clojure.set :as set]))
 
 (defn get-derived-state
   [db _]

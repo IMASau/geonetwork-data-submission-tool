@@ -333,7 +333,7 @@
 
 (defn note-for-data-manager
   [config]
-  (let [{:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+  (let [{:keys [document]} @(rf/subscribe [:subs/get-context])
         value @(rf/subscribe [::get-block-data config])]
     [:div
      {:style {:padding-top    5

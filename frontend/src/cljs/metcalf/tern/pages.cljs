@@ -6,7 +6,7 @@
 (defn navbar
   []
   [views4/navbar
-   {:context @(rf/subscribe [:subs/get-derived-path [:context]])}])
+   {:context @(rf/subscribe [:subs/get-context])}])
 
 (defn dashboard
   []

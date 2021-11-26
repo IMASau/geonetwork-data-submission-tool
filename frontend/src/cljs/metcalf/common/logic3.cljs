@@ -52,16 +52,6 @@
       (assoc field :errors (conj errors "This field is required"))
       field)))
 
-(def disabled-statuses #{"Archived" "Deleted" "Uploaded"})
-
-(defn disable-form-when-submitted [state]
-  (assoc-in state [:form :disabled] (contains? disabled-statuses (get-in state [:context :document :status]))))
-
-(defn derived-state
-  "Used to include derived state for use by components."
-  [{:keys [data] :as state}]
-  (cond-> state data disable-form-when-submitted))
-
 (defn path-values
   [data]
   (let [get-value #(get-in data %)

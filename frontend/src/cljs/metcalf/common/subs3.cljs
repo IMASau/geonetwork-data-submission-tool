@@ -4,7 +4,7 @@
 
 (defn get-derived-state
   [db _]
-  (logic3/derived-state db))
+  db)
 
 (defn get-derived-path
   [db [_ path]]

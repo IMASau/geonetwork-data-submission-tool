@@ -1,7 +1,8 @@
 (ns metcalf.tern.handlers
   (:require [clojure.edn :as edn]
             [metcalf.common.low-code4 :as low-code4]
-            [metcalf.common.actions4 :as actions4]))
+            [metcalf.common.actions4 :as actions4]
+            [metcalf.common.db4 :as db4]))
 
 (defn init-db
   [_ [_ payload]]
@@ -11,19 +12,19 @@
     (case (get-in payload [:page :name])
 
       "Dashboard"
-      (-> {:db payload
+      (-> {:db db4/default-db
            :fx [[:ui/setup-blueprint]
                 [::low-code4/init! ui-data]]}
-          (actions4/init-modal-stack)
+          (update :db merge payload)
           (actions4/load-page-action payload)
           (actions4/init-create-form-action payload)
           (actions4/load-dashboard-document-data payload))
 
       "Edit"
-      (-> {:db payload
+      (-> {:db db4/default-db
            :fx [[:ui/setup-blueprint]
                 [::low-code4/init! ui-data]]}
-          (actions4/init-modal-stack)
+          (update :db merge payload)
           (actions4/load-page-action payload)
           (actions4/load-form-action payload)
           (cond-> editor-tabs (assoc-in [:db :low-code/edit-tabs] editor-tabs))))))

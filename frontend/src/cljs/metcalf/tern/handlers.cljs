@@ -18,7 +18,6 @@
                   [::low-code4/init! ui-data]]}
             (assoc-in [:db :context] context)
             (assoc-in [:db :page] page)
-            (actions4/load-page-action payload)
             (actions4/init-create-form-action create_form)
             (actions4/load-dashboard-document-data payload)))
 
@@ -33,6 +32,5 @@
             (assoc-in [:db :data] data)
             (assoc-in [:db :attachments] attachments)
             (assoc-in [:db :page] page)
-            (actions4/load-page-action payload)
             (actions4/load-form-action payload)
             (cond-> editor-tabs (assoc-in [:db :low-code/edit-tabs] editor-tabs)))))))

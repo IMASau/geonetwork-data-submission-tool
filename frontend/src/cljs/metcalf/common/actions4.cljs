@@ -7,11 +7,6 @@
             [metcalf.common.utils3 :as utils3]
             [metcalf.common.utils4 :as utils4]))
 
-(defn load-page-action
-  [s payload]
-  (let [page-name (get-in payload [:page :name])]
-    (assoc-in s [:db :page :name] page-name)))
-
 (defn load-dashboard-document-data
   [s payload]
   (let [documents (get-in payload [:context :documents])

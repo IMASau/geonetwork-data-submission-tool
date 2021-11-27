@@ -13,7 +13,6 @@
            :fx [[:ui/setup-blueprint]]}
           (assoc-in [:db :context] context)
           (assoc-in [:db :page] page)
-          (actions4/load-page-action payload)
           (actions4/init-create-form-action create_form)
           (actions4/load-dashboard-document-data payload)))
 
@@ -28,5 +27,4 @@
           (assoc-in [:db :attachments] attachments)
           (assoc-in [:db :theme] theme)
           (assoc-in [:db :page] page)
-          (actions4/load-page-action payload)
           (actions4/load-form-action payload)))))

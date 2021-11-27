@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('backend', '0016_auto_20211119_0039'),
+        ('backend', '0016_document_hasuserdefined'),
     ]
 
     operations = [

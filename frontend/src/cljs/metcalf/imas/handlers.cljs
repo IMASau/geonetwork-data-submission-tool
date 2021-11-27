@@ -17,7 +17,7 @@
           (actions4/load-dashboard-document-data payload)))
 
     "Edit"
-    (let [{:keys [context form upload_form data attachments theme page]} payload]
+    (let [{:keys [context form upload_form data attachments page]} payload]
       (-> {:db db4/default-db
            :fx [[:ui/setup-blueprint]]}
           (assoc-in [:db :context] context)
@@ -25,6 +25,5 @@
           (assoc-in [:db :upload_form] upload_form)
           (assoc-in [:db :data] data)
           (assoc-in [:db :attachments] attachments)
-          (assoc-in [:db :theme] theme)
           (assoc-in [:db :page] page)
           (actions4/load-form-action payload)))))

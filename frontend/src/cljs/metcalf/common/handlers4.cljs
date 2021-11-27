@@ -313,21 +313,21 @@
 
 (defn create-document-modal-clear-click
   [{:keys [db]}]
-  (actions4/init-modal-stack {:db db}))
+  (actions4/close-modal-action {:db db}))
 
 (defn create-document-modal-close-click
   [{:keys [db]}]
-  (actions4/init-modal-stack {:db db}))
+  (actions4/close-modal-action {:db db}))
 
 (defn modal-dialog-alert-dismiss
   [{:keys [db]}]
-  (actions4/init-modal-stack {:db db}))
+  (actions4/close-modal-action {:db db}))
 
 (defn modal-dialog-alert-save
   [{:keys [db]}]
-  (actions4/init-modal-stack {:db db}))
+  (actions4/close-modal-action {:db db}))
 
 (defn coordinates-modal-field-close-modal
   [{:keys [db]}]
-  (actions4/init-modal-stack {:db db}))
+  (actions4/close-modal-action {:db db}))
 

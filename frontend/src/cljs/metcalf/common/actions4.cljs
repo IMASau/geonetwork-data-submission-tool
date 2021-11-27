@@ -141,6 +141,10 @@
                                     (when-not (= (peek alerts) modal-props)
                                       (conj alerts modal-props)))))
 
+(defn close-modal-action
+  [s]
+  (update-in s [:db :modal/stack] pop))
+
 (def disabled-statuses #{"Archived" "Deleted" "Uploaded"})
 
 (defn load-form-action

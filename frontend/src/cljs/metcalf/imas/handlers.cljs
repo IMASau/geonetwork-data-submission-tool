@@ -25,4 +25,4 @@
           (assoc-in [:db :data] data)
           (assoc-in [:db :attachments] attachments)
           (assoc-in [:db :page] page)
-          (actions4/load-form-action form)))))
+          (actions4/load-edit-form-action form)))))

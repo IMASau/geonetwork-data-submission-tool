@@ -138,7 +138,7 @@
 
 (def disabled-statuses #{"Archived" "Deleted" "Uploaded"})
 
-(defn load-form-action
+(defn load-edit-form-action
   "Massage raw payload for use as app-state"
   [s {:keys [data schema]}]
   (let [state (blocks4/as-blocks {:data data :schema schema})

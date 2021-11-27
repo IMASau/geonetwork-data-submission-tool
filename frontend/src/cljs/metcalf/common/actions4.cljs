@@ -159,11 +159,8 @@
                 (assoc-in [:db :form :state :props :disabled] true)))))
 
 (defn init-create-form-action
-  [s payload]
-  (let [{:keys [create_form]} payload]
-    (cond-> s
-      create_form
-      (assoc-in [:db :create_form] (logic4/massage-form create_form)))))
+  [s create_form]
+  (assoc-in s [:db :create_form] (logic4/massage-form create_form)))
 
 (defn create-document-action
   [s url data]

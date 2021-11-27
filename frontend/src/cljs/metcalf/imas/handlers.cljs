@@ -12,10 +12,9 @@
       (-> {:db db4/default-db
            :fx [[:ui/setup-blueprint]]}
           (assoc-in [:db :context] context)
-          (assoc-in [:db :create_form] create_form)
           (assoc-in [:db :page] page)
           (actions4/load-page-action payload)
-          (actions4/init-create-form-action payload)
+          (actions4/init-create-form-action create_form)
           (actions4/load-dashboard-document-data payload)))
 
     "Edit"

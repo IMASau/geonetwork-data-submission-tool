@@ -27,10 +27,9 @@
              :fx [[:ui/setup-blueprint]
                   [::low-code4/init! ui-data]]}
             (assoc-in [:db :context] context)
-            (assoc-in [:db :form] form)
             (assoc-in [:db :upload_form] upload_form)
             (assoc-in [:db :data] data)
             (assoc-in [:db :attachments] attachments)
             (assoc-in [:db :page] page)
-            (actions4/load-form-action payload)
+            (actions4/load-form-action form)
             (cond-> editor-tabs (assoc-in [:db :low-code/edit-tabs] editor-tabs)))))))

@@ -140,11 +140,9 @@
 
 (defn load-form-action
   "Massage raw payload for use as app-state"
-  [s payload]
-  (let [data (get-in payload [:form :data])
-        schema (get-in payload [:form :schema])
-        state (blocks4/as-blocks {:data data :schema schema})
-        disabled? (contains? disabled-statuses (get-in payload [:context :document :status]))]
+  [s {:keys [data schema]}]
+  (let [state (blocks4/as-blocks {:data data :schema schema})
+        disabled? (contains? disabled-statuses (get-in s [:db :context :document :status]))]
     (schema4/assert-schema-data {:data data :schema schema})
     (-> s
         (assoc-in [:db :form :data] data)                   ; initial data used for 'is dirty' checks

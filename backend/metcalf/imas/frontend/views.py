@@ -125,7 +125,6 @@ def dashboard(request):
                 }
             }
         },
-        "messages": messages_payload(request),
         "page": {"name": request.resolver_match.url_name}})
     return render(request, "imas/app.html", {"payload": smart_text(payload)})
 
@@ -550,7 +549,6 @@ def edit(request, uuid):
             },
             "data": {},
         },
-        "messages": messages_payload(request),
         "data": data,
         "attachments": AttachmentSerializer(doc.attachments.all(), many=True).data,
         "theme": {"keywordsTheme": {"table": theme_keywords()}},

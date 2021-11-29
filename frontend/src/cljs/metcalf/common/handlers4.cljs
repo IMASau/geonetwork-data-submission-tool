@@ -6,7 +6,6 @@
             [metcalf.common.rules4 :as rules4]
             [metcalf.common.schema4 :as schema4]
             [metcalf.common.utils4 :as utils4]
-            [metcalf.common.utils3 :as utils3]
             [clojure.string :as string]
             [metcalf.common.logic4 :as logic4]))
 

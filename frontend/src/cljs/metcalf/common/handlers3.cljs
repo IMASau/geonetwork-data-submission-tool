@@ -1,6 +1,5 @@
 (ns metcalf.common.handlers3
   (:require [cljs.spec.alpha :as s]
-            [goog.object :as gobj]
             [metcalf.common.blocks4 :as blocks4]
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.rules4 :as rules4]

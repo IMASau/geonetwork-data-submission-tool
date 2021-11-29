@@ -1,10 +1,7 @@
 (ns metcalf.common.ins4
-  (:require [cljs.pprint :as pprint]
+  (:require [cljs.spec.alpha :as s]
             [clojure.data :as data]
-            [metcalf.common.blocks4 :as blocks4]
-            [metcalf.common.rules4 :as rules4]
-            [re-frame.core :as rf]
-            [cljs.spec.alpha :as s]))
+            [re-frame.core :as rf]))
 
 (defmulti console-config :kind)
 (defmethod console-config :default [_] {})

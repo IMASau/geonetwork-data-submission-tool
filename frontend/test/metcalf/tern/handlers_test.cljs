@@ -1,5 +1,5 @@
 (ns metcalf.tern.handlers-test
-  (:require [clojure.test :refer [deftest is testing]])
+  (:require [clojure.test :refer [deftest is]])
   (:require [metcalf.tern.handlers :as tern-handlers]
             [cljs.spec.alpha :as s]
             [clojure.test.check.generators]

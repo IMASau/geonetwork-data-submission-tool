@@ -1,6 +1,58 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {Button, Classes, Dialog, Overlay, Intent} from "@blueprintjs/core";
+import { Button, Classes, Dialog, Overlay, Intent } from "@blueprintjs/core";
+
+Modal.propTypes = {
+    title: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    onClose: PropTypes.func.isRequired,
+}
+
+// Port of old view modal ahead of refactor 
+export function Modal({
+    modalHeader,
+    modalBody,
+    modalFooter,
+    dialogClass,
+    hideFooter,
+    onSave,
+    onCancel,
+    onDismiss,
+    okCopy,
+    loading
+}) {
+
+    const isSmall = dialogClass == "modal-sm";
+
+    return (
+        <Dialog
+            icon="info-sign"
+            onClose={onDismiss}
+            title={modalHeader}
+            canEscapeKeyClose={false}
+            canOutsideClickClose={false}
+            isOpen={isOpen}
+            usePortal={true}
+            backdropClassName="EditDialogBackdrop"
+            className="EditDialogDialog"
+        >
+            <div className={"EditDialogBody " + Classes.DIALOG_BODY}>
+                {modalBody}
+            </div>
+            {hideFooter ? null :
+                <div className={Classes.DIALOG_FOOTER}>
+                    {modalFooter ? modalFooter :
+                        <div className={Classes.DIALOG_FOOTER_ACTIONS}>
+                            {loading ? "loading..." : null}
+                            {onCancel ? <Button onClick={onClose}>Close</Button> : null}
+                            {onSave ? <Button onClick={onSave}>{ okCopy ? okCopy : "Ok"}</Button> : null}
+                        </div>
+                    }
+                </div>
+            }
+        </Dialog>
+    )
+}
 
 ModalDialog.propTypes = {
     title: PropTypes.string.isRequired,
@@ -8,7 +60,7 @@ ModalDialog.propTypes = {
     onClose: PropTypes.func.isRequired,
 }
 
-export function ModalDialog({title, children, isOpen, onClose}) {
+export function ModalDialog({ title, children, isOpen, onClose }) {
 
     return (
         <Dialog
@@ -22,7 +74,7 @@ export function ModalDialog({title, children, isOpen, onClose}) {
             backdropClassName="EditDialogBackdrop"
             className="EditDialogDialog"
         >
-            <div className={"EditDialogBody "+Classes.DIALOG_BODY}>
+            <div className={"EditDialogBody " + Classes.DIALOG_BODY}>
                 {children}
             </div>
             <div className={Classes.DIALOG_FOOTER}>
@@ -43,7 +95,7 @@ EditDialog.propTypes = {
     canSave: PropTypes.bool,
 }
 
-export function EditDialog({title, children, isOpen, onClose, onClear, onSave, canSave}) {
+export function EditDialog({ title, children, isOpen, onClose, onClear, onSave, canSave }) {
 
     return (
         <Dialog
@@ -57,7 +109,7 @@ export function EditDialog({title, children, isOpen, onClose, onClear, onSave, c
             backdropClassName="EditDialogBackdrop"
             className="EditDialogDialog"
         >
-            <div className={"EditDialogBody "+Classes.DIALOG_BODY}>
+            <div className={"EditDialogBody " + Classes.DIALOG_BODY}>
                 {children}
             </div>
             <div className={Classes.DIALOG_FOOTER}>
@@ -79,7 +131,7 @@ EditOverlay.propTypes = {
     canSave: PropTypes.bool,
 }
 
-export function EditOverlay({title, body, onClear, onSave, canSave}) {
+export function EditOverlay({ title, body, onClear, onSave, canSave }) {
     const [isOpen, setOpen] = React.useState(false);
 
     function open() {
@@ -114,10 +166,10 @@ export function EditOverlay({title, body, onClear, onSave, canSave}) {
                 backdropClassName="EditOverlayBackdrop"
             >
                 <div className="EditOverlayDialog">
-                    <div className={"EditOverlayBody "+Classes.DIALOG_BODY}>
+                    <div className={"EditOverlayBody " + Classes.DIALOG_BODY}>
                         {body}
                     </div>
-                    <div className={"EditOverlayFooter " +Classes.DIALOG_FOOTER}>
+                    <div className={"EditOverlayFooter " + Classes.DIALOG_FOOTER}>
                         <div className={Classes.DIALOG_FOOTER_ACTIONS}>
                             <Button onClick={clear}>Cancel</Button>
                             <Button onClick={save} disabled={canSave} intent={Intent.PRIMARY}>Save</Button>

@@ -28,7 +28,6 @@ urlpatterns = [
     path('edit/<uuid:uuid>/', edit, name="Edit"),
     path('duma/', user_defined, name="DumaList"),
     path('duma/<uuid:uuid>/', user_defined, name="DumaDocument"),
-    path('save/<uuid:uuid>/', save, name="Save"),
     path('save/<uuid:uuid>/<int:update_number>/', save, name="Save"),
     path('transition/<uuid:uuid>/', transition, name="Transition"),
     path('clone/<uuid:uuid>/', clone, name="Clone"),

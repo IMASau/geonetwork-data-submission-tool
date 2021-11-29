@@ -1,14 +1,13 @@
 (ns metcalf.common.handlers4
-  (:require [goog.object :as gobject]
+  (:require [clojure.string :as string]
+            [goog.object :as gobject]
             [metcalf.common.actions4 :as actions4]
             [metcalf.common.blocks4 :as blocks4]
             [metcalf.common.fx3 :as fx3]
+            [metcalf.common.logic4 :as logic4]
             [metcalf.common.rules4 :as rules4]
             [metcalf.common.schema4 :as schema4]
-            [metcalf.common.utils4 :as utils4]
-            [metcalf.common.utils3 :as utils3]
-            [clojure.string :as string]
-            [metcalf.common.logic4 :as logic4]))
+            [metcalf.common.utils4 :as utils4]))
 
 (defn db-path
   [{:keys [form-id data-path]}]
@@ -163,11 +162,11 @@
      ::fx3/post-json-data
          {:url       url
           :data      data
-          :success-v [::-save-current-document-success data]
+          :success-v [::-save-current-document-success]
           :error-v   [::-save-current-document-error]}}))
 
 (defn -save-current-document-success
-  [{:keys [db]} [_ data resp]]
+  [{:keys [db]} [_ resp]]
   (let [form (get-in resp [:form])]
     (-> {:db db}
         (assoc-in [:db :form] (logic4/massage-form form))

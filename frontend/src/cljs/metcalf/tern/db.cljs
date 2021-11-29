@@ -1,7 +1,7 @@
 (ns metcalf.tern.db
   (:require [cljs.spec.alpha :as s]
-            [metcalf.common.schema4 :as schema4]
-            [metcalf.common.blocks4 :as blocks4]))
+            [metcalf.common.blocks4 :as blocks4]
+            [metcalf.common.schema4 :as schema4]))
 
 (s/def :modal/stack vector?)
 (s/def :form/tick int?)
@@ -10,7 +10,7 @@
 
 (s/def ::schema ::schema4/schema)
 (s/def ::state ::blocks4/block)
-(s/def ::form (s/keys :req-un [::data ::schema ::state]))
+(s/def ::form (s/keys :req-un [::url ::data ::schema ::state]))
 
 (s/def ::tab keyword?)
 (s/def ::name string?)

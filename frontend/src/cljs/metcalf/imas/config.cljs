@@ -10,7 +10,6 @@
             [metcalf.common.subs3 :as subs3]
             [metcalf.common.subs4 :as subs4]
             [metcalf.common.utils4 :as utils4]
-            [metcalf.common.views3 :as views3]
             [metcalf.imas.handlers :as imas-handlers]
             [metcalf.imas.subs :as imas-subs]
             [re-frame.core :as rf]))

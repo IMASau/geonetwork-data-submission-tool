@@ -4,7 +4,6 @@
             [goog.dom.classes :as gclasses]
             [goog.events :as gevents]
             [goog.labs.userAgent.platform :as gplatform]
-            [metcalf.common.utils3 :as utils3]
             [re-frame.core :as rf]
             [reagent.core :as r])
   (:import [goog.events FileDropHandler]))

@@ -1,12 +1,11 @@
 (ns metcalf.common.handlers3
   (:require [cljs.spec.alpha :as s]
-            [goog.object :as gobj]
+            [clojure.string :as string]
             [metcalf.common.blocks4 :as blocks4]
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.rules4 :as rules4]
             [metcalf.common.utils3 :as utils3]
-            [re-frame.core :as rf]
-            [clojure.string :as string]))
+            [re-frame.core :as rf]))
 
 (defn close-and-cancel
   [{:keys [db]} _]

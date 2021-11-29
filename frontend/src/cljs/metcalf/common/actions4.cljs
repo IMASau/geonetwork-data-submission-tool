@@ -22,8 +22,8 @@
   [s form-id]
   (let [snapshots-path (utils4/as-path [:db form-id :snapshots])]
     (cond-> s
-      (seq (get-in s snapshots-path))
-      (update-in snapshots-path pop))))
+            (seq (get-in s snapshots-path))
+            (update-in snapshots-path pop))))
 
 (defn restore-snapshot-action
   [s form-id]
@@ -31,9 +31,9 @@
         state-path (utils4/as-path [:db form-id :state])
         state-data (peek (get-in s snapshots-path))]
     (cond-> s
-      (seq (get-in s snapshots-path))
-      (-> (assoc-in state-path state-data)
-          (discard-snapshot-action form-id)))))
+            (seq (get-in s snapshots-path))
+            (-> (assoc-in state-path state-data)
+                (discard-snapshot-action form-id)))))
 
 (defn unselect-list-item-action
   [s form-id data-path]
@@ -47,16 +47,16 @@
         block-data (get-in s block-path)
         added? (get-in block-data (utils4/as-path [:content idx (blocks4/block-path added-path) :props :value]))]
     (cond-> s
-      added?
-      (assoc-in (conj block-path :props :selected) idx))))
+            added?
+            (assoc-in (conj block-path :props :selected) idx))))
 
 (defn select-last-item-action
   [s form-id data-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
         last-idx (dec (count (get-in s (conj block-path :content))))]
     (cond-> s
-      (not (neg? last-idx))
-      (assoc-in (conj block-path :props :selected) last-idx))))
+            (not (neg? last-idx))
+            (assoc-in (conj block-path :props :selected) last-idx))))
 
 (defn del-item-action
   [s form-id data-path idx]
@@ -138,13 +138,14 @@
 
 (defn load-edit-form-action
   "Massage raw payload for use as app-state"
-  [s {:keys [data schema]}]
+  [s {:keys [url data schema]}]
   (let [data (schema4/massage-data-payload data)
         schema (schema4/massage-schema-payload schema)
         state (blocks4/as-blocks {:data data :schema schema})
         disabled? (contains? disabled-statuses (get-in s [:db :context :document :status]))]
     (schema4/assert-schema-data {:data data :schema schema})
     (-> s
+        (assoc-in [:db :form :url] url)
         (assoc-in [:db :form :data] data)                   ; initial data used for 'is dirty' checks
         (assoc-in [:db :form :schema] schema)               ; data schema used to generate new array items
         (assoc-in [:db :form :state] state)                 ; form state used to hold props/values

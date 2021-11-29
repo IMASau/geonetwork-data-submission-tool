@@ -7,9 +7,9 @@
             [metcalf.common.low-code4 :as low-code4]
             [metcalf.common.subs4 :as subs4]
             [metcalf.common.utils4 :as utils4]
+            [metcalf.common.views4 :as views4]
             [re-frame.core :as rf]
-            [reagent.core :as r]
-            [metcalf.common.views4 :as views4]))
+            [reagent.core :as r]))
 
 (s/def ::obj-path (s/coll-of string? :min-count 1))
 (s/def ::value-path string?)

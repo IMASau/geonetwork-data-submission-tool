@@ -6,7 +6,7 @@ from metcalf.common import xmlutils4
 from metcalf.tern.backend import models
 
 
-class DumaSerializer(serializers.BaseSerializer):
+class DumaDocumentSerializer(serializers.BaseSerializer):
     def to_representation(self, instance):
         if not instance:
             return []

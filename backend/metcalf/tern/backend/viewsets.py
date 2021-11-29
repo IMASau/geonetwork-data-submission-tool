@@ -14,7 +14,7 @@ from metcalf.tern.frontend.filters import ParentFilter
 class DumaViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'uuid'
     queryset = models.Document.objects.filter(hasUserDefined=True)  # FIXME: and status=SUBMITTED
-    serializer_class = serializers.DumaSerializer
+    serializer_class = serializers.DumaDocumentSerializer
     renderer_classes = [renderers.JSONRenderer]
 
 # FIXME: how about a constant model for name/value/uuid?

@@ -163,11 +163,11 @@
      ::fx3/post-json-data
          {:url       url
           :data      data
-          :success-v [::-save-current-document-success data]
+          :success-v [::-save-current-document-success]
           :error-v   [::-save-current-document-error]}}))
 
 (defn -save-current-document-success
-  [{:keys [db]} [_ data resp]]
+  [{:keys [db]} [_ resp]]
   (let [form (get-in resp [:form])]
     (-> {:db db}
         (assoc-in [:db :form] (logic4/massage-form form))

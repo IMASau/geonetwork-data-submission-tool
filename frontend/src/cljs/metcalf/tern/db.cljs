@@ -10,7 +10,7 @@
 
 (s/def ::schema ::schema4/schema)
 (s/def ::state ::blocks4/block)
-(s/def ::form (s/keys :req-un [::data ::schema ::state]))
+(s/def ::form (s/keys :req-un [::url ::data ::schema ::state]))
 
 (s/def ::tab keyword?)
 (s/def ::name string?)

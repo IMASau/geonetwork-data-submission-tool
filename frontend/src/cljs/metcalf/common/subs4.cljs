@@ -16,8 +16,7 @@
 (defn get-form-state
   [db [_ form-id]]
   (when (vector? form-id)
-    (let [path (conj form-id :state)
-          state (get-in db path)]
+    (let [{:keys [state]} (get-in db form-id)]
       (->> state
            (blocks4/prewalk prewalk-xform)
            (blocks4/postwalk postwalk-xform)))))

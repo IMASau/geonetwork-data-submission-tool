@@ -74,12 +74,6 @@
   (vec (interleave (repeat :content) data-path)))
 
 
-; TODO: no support for initial/default values yet
-(defn new-item
-  [schema]
-  (as-blocks {:data nil :schema schema}))
-
-
 (defn clear-error-props
   "clear out state related to errors on a block"
   [block]

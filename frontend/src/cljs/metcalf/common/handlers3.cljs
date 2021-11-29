@@ -8,21 +8,6 @@
             [re-frame.core :as rf]
             [clojure.string :as string]))
 
-(defn load-api-options
-  [{:keys [db]} [_ api-path]]
-  (let [{:keys [uri options]} (get-in db api-path)]
-    (when (nil? options)
-      {:app/get-json-fx {:uri uri :resolve [:app/-load-api-options api-path]}})))
-
-(defn -load-api-options
-  [{:keys [db]} [_ api-path {:keys [status body]}]]
-  (when (= status 200)
-    {:db (update-in db api-path assoc :options (gobj/get body "results"))}))
-
-(defn close-modal
-  [{:keys [db]}]
-  {:db (update db :modal/stack pop)})
-
 (defn close-and-cancel
   [{:keys [db]} _]
   (let [{:keys [on-cancel]} (peek (:modal/stack db))]
@@ -37,30 +22,48 @@
     (when on-confirm (on-confirm))
     {:db (update db :modal/stack pop)}))
 
-(defn open-modal
-  [db props]
-  (update db :modal/stack
-          (fn [alerts]
-            (when-not (= (peek alerts) props)
-              (conj alerts props)))))
+(defn open-modal-action
+  [s props]
+  (update-in s [:db :modal/stack]
+             (fn [alerts]
+               (when-not (= (peek alerts) props)
+                 (conj alerts props)))))
 
-(defn open-modal-handler
-  [{:keys [db]} [_ props]]
-  {:db (open-modal db props)})
+(defn delete-attachment-click
+  [{:keys [db]} [_ {:keys [attachments-path attachment-idx]}]]
+  (open-modal-action {:db db}
+                     {:type       :modal.type/confirm
+                      :title      "Delete?"
+                      :message    "Are you sure you want to delete this file?"
+                      :on-confirm #(rf/dispatch [:app/delete-attachment-confirm attachments-path attachment-idx])}))
+
+(defn upload-data-file-upload-failed
+  [{:keys [db]} _]
+  (open-modal-action {:db db}
+                     {:type    :modal.type/alert
+                      :message "File upload failed. Please try again or contact administrator."}))
+
+(defn upload-max-filesize-exceeded
+  [{:keys [db]} [_ {:keys [max-filesize]}]]
+  (open-modal-action {:db db}
+                     {:type    :modal.type/alert
+                      :message (str "Please, choose file less than " max-filesize "mb")}))
 
 (defn handle-page-view-edit-archive-click
   [{:keys [db]} _]
-  {:db (open-modal db {:type       :modal.type/confirm
-                       :title      "Archive?"
-                       :message    "Are you sure you want to archive this record?"
-                       :on-confirm #(rf/dispatch [:app/page-view-edit-archive-click-confirm])})})
+  (open-modal-action {:db db}
+                     {:type       :modal.type/confirm
+                      :title      "Archive?"
+                      :message    "Are you sure you want to archive this record?"
+                      :on-confirm #(rf/dispatch [:app/page-view-edit-archive-click-confirm])}))
 
 (defn document-teaser-clone-click
   [{:keys [db]} [_ clone_url]]
-  {:db (open-modal db {:type       :modal.type/confirm
-                       :title      "Clone?"
-                       :message    "Are you sure you want to clone this record?"
-                       :on-confirm (fn [] (rf/dispatch [:app/clone-doc-confirm clone_url]))})})
+  (open-modal-action {:db db}
+                     {:type       :modal.type/confirm
+                      :title      "Clone?"
+                      :message    "Are you sure you want to clone this record?"
+                      :on-confirm (fn [] (rf/dispatch [:app/clone-doc-confirm clone_url]))}))
 
 (defn del-value
   [{:keys [db]} [_ many-field-path i]]
@@ -83,13 +86,20 @@
      {:url       transition_url
       :data      {:transition "archive"}
       :success-v [:app/-archive-current-document-success]
-      :error-v   [:app/open-modal {:type :modal.type/alert :message "Unable to delete"}]}}))
+      :error-v   [:app/-archive-current-document-error]}}))
 
 (defn -archive-current-document-success
   "Archive request succeeded.  Redirect to dashboard."
   [{:keys [db]} _]
   (let [success_url (-> db :context :urls :Dashboard)]
     {::fx3/set-location-href success_url}))
+
+(defn -archive-current-document-error
+  "Archive request succeeded.  Redirect to dashboard."
+  [{:keys [db]} _]
+  (open-modal-action {:db db}
+                     {:type    :modal.type/alert
+                      :message "Unable to delete"}))
 
 (defn toggle-status-filter
   [{:keys [db]} [_ {:keys [status-id status-filter]}]]
@@ -111,7 +121,7 @@
 
 (defn dashboard-create-click
   [{:keys [db]} _]
-  {:db (open-modal db {:type :modal.type/DashboardCreateModal})})
+  (open-modal-action {:db db} {:type :modal.type/DashboardCreateModal}))
 
 (defn clone-document
   [_ [_ url]]
@@ -125,18 +135,20 @@
   {::fx3/set-location-href (get-in data [:document :url])})
 
 (defn -clone-document-error
-  [_ _]
-  {:dispatch [:app/open-modal {:type :modal.type/alert :message "Unable to clone"}]})
+  [{:keys [db]} _]
+  (open-modal-action {:db db}
+                     {:type    :modal.type/alert
+                      :message "Unable to clone"}))
 
 (defn transite-doc-click
   [transition]
-  (fn [_ [_ url]]
+  (fn [{:keys [db]} [_ url]]
     (let [trans-name (first (string/split transition "_"))]
-      {:dispatch [:app/open-modal
-                  {:type       :modal.type/confirm
-                   :title      trans-name
-                   :message    (str "Are you sure you want to " trans-name " this record?")
-                   :on-confirm #(rf/dispatch [:app/-transite-doc-click-confirm url transition])}]})))
+      (open-modal-action {:db db}
+                         {:type       :modal.type/confirm
+                          :title      trans-name
+                          :message    (str "Are you sure you want to " trans-name " this record?")
+                          :on-confirm #(rf/dispatch [:app/-transite-doc-click-confirm url transition])}))))
 
 (defn -transite-doc-click-confirm
   [_ [_ url transition]]
@@ -159,11 +171,11 @@
                               [] docs)))}))
 
 (defn -transite-doc-confirm-error
-  [_ [_ transition]]
+  [{:keys [db]} [_ transition]]
   (let [trans-name (first (clojure.string/split transition "_"))]
-    {:dispatch [:app/open-modal
-                {:type    :modal.type/alert
-                 :message (str "Unable to " trans-name)}]}))
+    (open-modal-action {:db db}
+                       {:type    :modal.type/alert
+                        :message (str "Unable to " trans-name)})))
 
 (defn lodge-click
   [{:keys [db]} _]
@@ -200,7 +212,8 @@
 
 (defn lodge-error
   [{:keys [db]} [_ {:keys [status failure]}]]
-  {:db       (assoc-in db [:page :metcalf3.handlers/saving?] false)
-   :dispatch [:app/open-modal
-              {:type    :modal.type/alert
-               :message (str "Unable to lodge: " status " " failure)}]})
+  (-> {:db db}
+      (assoc-in [:db :page :metcalf3.handlers/saving?] false)
+      (open-modal-action
+        {:type    :modal.type/alert
+         :message (str "Unable to lodge: " status " " failure)})))

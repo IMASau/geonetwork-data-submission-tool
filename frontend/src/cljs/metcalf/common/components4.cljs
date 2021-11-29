@@ -321,7 +321,7 @@
 
 (defn portal-link
   []
-  (let [{:keys [site]} @(rf/subscribe [:subs/get-derived-path [:context]])
+  (let [{:keys [site]} @(rf/subscribe [:subs/get-context])
         {:keys [portal_title portal_url]} site]
     (if portal_url
       [:a {:href portal_url :target "_blank"} [:span.portal-title portal_title]]
@@ -333,7 +333,7 @@
 
 (defn note-for-data-manager
   [config]
-  (let [{:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+  (let [{:keys [document]} @(rf/subscribe [:subs/get-context])
         value @(rf/subscribe [::get-block-data config])]
     [:div
      {:style {:padding-top    5
@@ -350,9 +350,9 @@
   (let [page @(rf/subscribe [:subs/get-page-props])
         ;; FIXME need an m4 saving? value.
         saving (:metcalf3.handlers/saving? page)
-        {:keys [document urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
-        {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
+        {:keys [document urls]} @(rf/subscribe [:subs/get-context])
+        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
+        disabled @(rf/subscribe [:subs/get-form-disabled?])
         has-errors? (and errors (> errors 0))
         archived? (= (:status document) "Archived")
         submitted? (= (:status document) "Submitted")]
@@ -371,8 +371,8 @@
   (let [page @(rf/subscribe [:subs/get-page-props])
         ;; FIXME need an m4 saving? value.
         saving (:metcalf3.handlers/saving? page)
-        {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
+        {:keys [document]} @(rf/subscribe [:subs/get-context])
+        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
         is-are (if (> errors 1) "are" "is")
         plural (when (> errors 1) "s")
         has-errors? (and errors (> errors 0))]
@@ -395,7 +395,7 @@
 (defn xml-export-link
   [config]
   (let [{:keys [label]} @(rf/subscribe [::get-block-props config])
-        {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        {:keys [document]} @(rf/subscribe [:subs/get-context])
         dirty @(rf/subscribe [:subs/get-form-dirty])
         download-props {:href     (str (:export_url document) "?download")
                         :on-click #(when dirty
@@ -404,7 +404,7 @@
 
 (defn mailto-data-manager-link
   []
-  (let [{:keys [site]} @(rf/subscribe [:subs/get-derived-path [:context]])
+  (let [{:keys [site]} @(rf/subscribe [:subs/get-context])
         {:keys [email]} site]
     [:a {:href (str "mailto:" email)} email]))
 

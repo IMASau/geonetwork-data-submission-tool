@@ -14,21 +14,6 @@
   [{:keys [form-id data-path]}]
   (utils4/as-path [form-id :state (blocks4/block-path data-path)]))
 
-(defn init-db
-  [_ [_ payload]]
-  (case (get-in payload [:page :name])
-
-    "dashboard"
-    (-> {:db {} :fx [[:ui/setup-blueprint]]}
-        (actions4/load-page-action payload)
-        (actions4/load-dashboard-document-data payload))
-
-    "edit"
-    (-> {:db {} :fx [[:ui/setup-blueprint]]}
-        (actions4/load-page-action payload)
-        (actions4/load-form-action payload))
-    ))
-
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]
   (let [path (db-path ctx)]
@@ -325,4 +310,24 @@
           (update :db dissoc :contributors-modal/saving?)
           (actions4/get-document-data-action uuid)
           (actions4/open-modal-action {:type :modal.type/alert :message (string/join ". " (mapcat val (js->clj body)))})))))
+
+(defn create-document-modal-clear-click
+  [{:keys [db]}]
+  (actions4/close-modal-action {:db db}))
+
+(defn create-document-modal-close-click
+  [{:keys [db]}]
+  (actions4/close-modal-action {:db db}))
+
+(defn modal-dialog-alert-dismiss
+  [{:keys [db]}]
+  (actions4/close-modal-action {:db db}))
+
+(defn modal-dialog-alert-save
+  [{:keys [db]}]
+  (actions4/close-modal-action {:db db}))
+
+(defn coordinates-modal-field-close-modal
+  [{:keys [db]}]
+  (actions4/close-modal-action {:db db}))
 

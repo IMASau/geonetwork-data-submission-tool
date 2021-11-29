@@ -1,8 +1,7 @@
 (ns metcalf.tern.handlers
   (:require [clojure.edn :as edn]
             [metcalf.common.low-code4 :as low-code4]
-            [metcalf.common.actions4 :as actions4]
-            [metcalf.common.logic3 :as logic3]))
+            [metcalf.common.actions4 :as actions4]))
 
 (defn init-db
   [_ [_ payload]]
@@ -12,17 +11,24 @@
     (case (get-in payload [:page :name])
 
       "Dashboard"
-      (-> {:db payload
-           :fx [[:ui/setup-blueprint]
-                [::low-code4/init! ui-data]]}
-          (logic3/setup-alerts)
-          (actions4/init-create-form-action payload)
-          (actions4/load-dashboard-document-data payload))
+      (let [{:keys [context create_form page]} payload]
+        (-> {:db {:modal/stack []
+                  :context     context
+                  :page        page}
+             :fx [[:ui/setup-blueprint]
+                  [::low-code4/init! ui-data]]}
+            (actions4/init-create-form-action create_form)
+            (actions4/load-dashboard-document-data payload)))
 
       "Edit"
-      (-> {:db payload
-           :fx [[:ui/setup-blueprint]
-                [::low-code4/init! ui-data]]}
-          (logic3/setup-alerts)
-          (logic3/setup-form-action (:form payload))
-          (cond-> editor-tabs (assoc-in [:db :low-code/edit-tabs] editor-tabs))))))
+      (let [{:keys [context form upload_form attachments page]} payload]
+        (-> {:db {:modal/stack []
+                  :context     context
+                  :upload_form upload_form
+                  ;:data        data
+                  :attachments attachments
+                  :page        page}
+             :fx [[:ui/setup-blueprint]
+                  [::low-code4/init! ui-data]]}
+            (actions4/load-edit-form-action form)
+            (cond-> editor-tabs (assoc-in [:db :low-code/edit-tabs] editor-tabs)))))))

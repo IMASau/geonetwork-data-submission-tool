@@ -7,11 +7,6 @@
             [metcalf.common.utils3 :as utils3]
             [metcalf.common.utils4 :as utils4]))
 
-(defn load-page-action
-  [s payload]
-  (let [page-name (get-in payload [:page :name])]
-    (assoc-in s [:db :page :name] page-name)))
-
 (defn load-dashboard-document-data
   [s payload]
   (let [documents (get-in payload [:context :documents])
@@ -57,16 +52,6 @@
       added?
       (assoc-in (conj block-path :props :selected) idx))))
 
-(defn select-user-defined-list-item-action
-  "Select item, but only if it's user defined"
-  [s form-id data-path idx addedKey]
-  (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
-        block-data (get-in s block-path)
-        added? (get-in block-data [:content idx :content addedKey :props :value])]
-    (cond-> s
-      added?
-      (assoc-in (conj block-path :props :selected) idx))))
-
 (defn select-last-item-action
   [s form-id data-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
@@ -74,14 +59,6 @@
     (cond-> s
       (not (neg? last-idx))
       (assoc-in (conj block-path :props :selected) last-idx))))
-
-(defn new-item-action
-  [s form-id data-path]
-  (let [schema-path (utils4/as-path [:db form-id :schema (schema4/schema-path data-path) :items])
-        list-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :content])
-        schema (get-in s schema-path)
-        new-item (blocks4/new-item schema)]
-    (update-in s list-path conj new-item)))
 
 (defn del-item-action
   [s form-id data-path idx]
@@ -155,25 +132,28 @@
                                     (when-not (= (peek alerts) modal-props)
                                       (conj alerts modal-props)))))
 
-(defn load-form-action
+(defn close-modal-action
+  [s]
+  (update-in s [:db :modal/stack] pop))
+
+(def disabled-statuses #{"Archived" "Deleted" "Uploaded"})
+
+(defn load-edit-form-action
   "Massage raw payload for use as app-state"
-  [s payload]
-  (let [data (get-in payload [:form :data])
-        schema (get-in payload [:form :schema])
-        state (blocks4/as-blocks {:data data :schema schema})]
+  [s {:keys [data schema]}]
+  (let [state (blocks4/as-blocks {:data data :schema schema})
+        disabled? (contains? disabled-statuses (get-in s [:db :context :document :status]))]
     (schema4/assert-schema-data {:data data :schema schema})
     (-> s
         (assoc-in [:db :form :data] data)                   ; initial data used for 'is dirty' checks
         (assoc-in [:db :form :schema] schema)               ; data schema used to generate new array items
         (assoc-in [:db :form :state] state)                 ; form state used to hold props/values
-        )))
+        (cond-> disabled?
+                (assoc-in [:db :form :state :props :disabled] true)))))
 
 (defn init-create-form-action
-  [s payload]
-  (let [{:keys [create_form]} payload]
-    (cond-> s
-      create_form
-      (assoc-in [:db :create_form] (logic4/massage-form create_form)))))
+  [s create_form]
+  (assoc-in s [:db :create_form] (logic4/massage-form create_form)))
 
 (defn create-document-action
   [s url data]

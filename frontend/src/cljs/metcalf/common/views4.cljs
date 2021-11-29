@@ -185,9 +185,8 @@
 
 
 (defn edit-tabs
-  [{:keys [form tab-props progress-props on-pick-tab]}]
-  (let [{:keys [disabled]} form
-        {:keys [selected-tab tab-props]} tab-props]
+  [{:keys [form-disabled? tab-props progress-props on-pick-tab]}]
+  (let [{:keys [selected-tab tab-props]} tab-props]
     (letfn [(pick-tab [id _ _] (on-pick-tab (edn/read-string id)))]
       [:div {:style {:min-width "60em"}}
        (-> [bp3/tabs {:selectedTabId            (pr-str selected-tab)
@@ -198,17 +197,16 @@
                      [bp3/tab {:title title :id (pr-str id)}])))
            (conj
              [bp3/tabs-expander]
-             (when-not disabled
+             (when-not form-disabled?
                [:div {:style {:width 200 :height 25}}
                 (conj [:div.hidden-xs.hidden-sm
                        [progress-bar progress-props]])])))])))
 
 (defn PageViewEdit
-  [{:keys [page context form dirty on-save-click on-archive-click
+  [{:keys [page context form-disabled? dirty on-save-click on-archive-click
            tab-props on-pick-tab
            progress-props]}]
   (let [{:keys [urls]} context
-        {:keys [disabled]} form
         {:keys [status title last_updated last_updated_by is_editor owner]} (:document context)
         saving (:metcalf3.handlers/saving? page)]
     [:div
@@ -217,10 +215,10 @@
        [:div.pull-right
         (when is_editor
           [:button.btn.btn-default.text-warn {:on-click on-archive-click
-                                              :disabled disabled}
+                                              :disabled form-disabled?}
            [:span.fa.fa-archive]
            " Archive"]) " "
-        [:button.btn.btn-primary {:disabled (or disabled (not dirty) saving)
+        [:button.btn.btn-primary {:disabled (or form-disabled? (not dirty) saving)
                                   :on-click on-save-click}
          (cond
            saving [:img {:src (str (:STATIC_URL urls) "metcalf3/img/saving.gif")}]
@@ -243,7 +241,7 @@
                  " by " (:username last_updated_by)]]]]]
      [:div.Home.container
       [edit-tabs
-       {:form           form
+       {:form-disabled? form-disabled?
         :tab-props      tab-props
         :progress-props progress-props
         :on-pick-tab    on-pick-tab}]
@@ -261,6 +259,15 @@
   [{:keys [name]}]
   [:h1 "Page not found: " name])
 
+(defn userDisplay
+  [user]
+  (if (and (string/blank? (:lastName user))
+           (string/blank? (:firstName user)))
+    (if (string/blank? (:email user))
+      (:username user)
+      (:email user))
+    (str (:firstName user) " " (:lastName user))))
+
 (defn navbar
   [{:keys [context]}]
   (let [{:keys [user urls site]} context
@@ -272,8 +279,8 @@
        [:a.bp3-button.bp3-minimal {:href Dashboard} [bp3/navbar-heading (str title " " tag_line)]]]
       [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
        (if account_profile
-         [:a.bp3-button.bp3-minimal {:href account_profile} (utils3/userDisplay user)]
-         [:span {:style {:padding "5px 10px 5px 10px"}} (utils3/userDisplay user)])
+         [:a.bp3-button.bp3-minimal {:href account_profile} (userDisplay user)]
+         [:span {:style {:padding "5px 10px 5px 10px"}} (userDisplay user)])
        [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"} "Help"]
        [:a.bp3-button.bp3-minimal {:href account_logout} "Sign Out"]]]]))
 

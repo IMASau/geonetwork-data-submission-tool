@@ -141,7 +141,9 @@
 (defn load-edit-form-action
   "Massage raw payload for use as app-state"
   [s {:keys [data schema]}]
-  (let [state (blocks4/as-blocks {:data data :schema schema})
+  (let [data (schema4/massage-data-payload data)
+        schema (schema4/massage-schema-payload schema)
+        state (blocks4/as-blocks {:data data :schema schema})
         disabled? (contains? disabled-statuses (get-in s [:db :context :document :status]))]
     (schema4/assert-schema-data {:data data :schema schema})
     (-> s

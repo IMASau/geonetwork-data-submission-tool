@@ -1,8 +1,5 @@
 (ns metcalf.common.ins4
-  (:require [cljs.pprint :as pprint]
-            [clojure.data :as data]
-            [metcalf.common.blocks4 :as blocks4]
-            [metcalf.common.rules4 :as rules4]
+  (:require [clojure.data :as data]
             [re-frame.core :as rf]
             [cljs.spec.alpha :as s]))
 

@@ -3,7 +3,8 @@
             [clojure.data :as data]
             [metcalf.common.blocks4 :as blocks4]
             [metcalf.common.rules4 :as rules4]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [cljs.spec.alpha :as s]))
 
 (defmulti console-config :kind)
 (defmethod console-config :default [_] {})
@@ -57,3 +58,15 @@
                         (not= form1 form2))
                  (rf/assoc-effect ctx :db (update new-db :form/tick inc))
                  ctx)))))
+
+(defn check-and-throw
+  [a-spec]
+  (rf/->interceptor
+    :id ::check-and-throw
+    :after (fn [context]
+             (js/console.log ::check-and-throw--after)
+             (let [new-db (rf/get-effect context :db ::not-found)]
+               (when-not (= new-db ::not-found)
+                 (when-not (s/valid? a-spec new-db)
+                   (throw (ex-info (str "spec check failed: " (s/explain-str a-spec new-db)) {})))))
+             context)))

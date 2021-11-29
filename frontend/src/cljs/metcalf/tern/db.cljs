@@ -14,9 +14,9 @@
 
 (s/def ::tab keyword?)
 (s/def ::name string?)
-(s/def ::page (s/keys :req-un [::name] :opt-un [:tab]))
+(s/def ::page (s/keys :req-un [::name] :opt-un [::tab]))
 
-(s/def :metcalf.common.db/db
+(s/def ::db
   (s/keys :req [:modal/stack]
           :opt [:form/tick]
           :opt-un [::context

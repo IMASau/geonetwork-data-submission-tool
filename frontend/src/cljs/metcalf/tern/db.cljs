@@ -1,7 +1,7 @@
 (ns metcalf.tern.db
   (:require [cljs.spec.alpha :as s]
-            [metcalf.common.schema4 :as schema4]
-            [metcalf.common.blocks4 :as blocks4]))
+            [metcalf.common.blocks4 :as blocks4]
+            [metcalf.common.schema4 :as schema4]))
 
 (s/def :modal/stack vector?)
 (s/def :form/tick int?)

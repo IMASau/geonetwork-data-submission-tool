@@ -3,9 +3,9 @@
             [clojure.string :as string]
             [interop.blueprint :as bp3]
             [interop.moment :as moment]
+            [interop.ui :as ui]
             [metcalf.common.low-code4 :as low-code]
-            [metcalf.common.views3 :as views3]
-            [interop.ui :as ui]))
+            [metcalf.common.views3 :as views3]))
 
 ; For pure views only, no re-frame subs/handlers
 

@@ -1,13 +1,13 @@
 (ns metcalf.common.handlers4
-  (:require [goog.object :as gobject]
+  (:require [clojure.string :as string]
+            [goog.object :as gobject]
             [metcalf.common.actions4 :as actions4]
             [metcalf.common.blocks4 :as blocks4]
             [metcalf.common.fx3 :as fx3]
+            [metcalf.common.logic4 :as logic4]
             [metcalf.common.rules4 :as rules4]
             [metcalf.common.schema4 :as schema4]
-            [metcalf.common.utils4 :as utils4]
-            [clojure.string :as string]
-            [metcalf.common.logic4 :as logic4]))
+            [metcalf.common.utils4 :as utils4]))
 
 (defn db-path
   [{:keys [form-id data-path]}]

@@ -547,7 +547,7 @@ def edit(request, uuid):
             "status": user_status_list()
         },
         "form": {
-            "url": reverse("Save", kwargs={'uuid': doc.uuid}),
+            "url": reverse("Save", kwargs={'uuid': doc.uuid, 'update_number': draft.pk}),
             "schema": spec4.extract_fields(spec),
             "data": data,
         },

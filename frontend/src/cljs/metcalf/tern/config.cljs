@@ -12,6 +12,7 @@
             [metcalf.common.utils4 :as utils4]
             [metcalf.tern.handlers :as tern-handlers]
             [metcalf.tern.subs :as tern-subs]
+            [metcalf.tern.db :as tern-db]
             [re-frame.core :as rf]))
 
 #_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
@@ -111,6 +112,7 @@
 (rf/reg-sub :subs/get-upload-form subs3/get-upload-form)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
+(when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
       {"requiredField"     rules4/required-field
        "requiredWhenYes"   rules4/required-when-yes

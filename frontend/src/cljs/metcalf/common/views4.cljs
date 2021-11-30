@@ -5,7 +5,6 @@
             [interop.moment :as moment]
             [interop.ui :as ui]
             [metcalf.common.low-code4 :as low-code]
-            [metcalf.common.views3 :as views3]
             [reagent.core :as r]))
 
 ; For pure views only, no re-frame subs/handlers

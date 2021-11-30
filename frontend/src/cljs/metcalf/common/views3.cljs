@@ -1,9 +1,7 @@
 (ns metcalf.common.views3
   (:require-macros [cljs.core.async.macros :refer [go-loop]])
   (:require [cljs.core.async :refer [<! chan put!]]
-            [goog.dom.classes :as gclasses]
             [goog.events :as gevents]
-            [goog.labs.userAgent.platform :as gplatform]
             [re-frame.core :as rf]
             [reagent.core :as r])
   (:import [goog.events FileDropHandler]))

@@ -12,6 +12,7 @@
             ["/ui/components/SelectField/SelectField" :as SelectField]
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
             ["/ui/components/TextAddField/TextAddField" :as TextAddField]
+            ["/ui/components/UploadField/UploadField" :as UploadField]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/utils" :as ui-utils]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
@@ -38,6 +39,7 @@
 (assert NumericInputField/NumericInputField)
 (assert EditDialog/EditDialog)
 (assert TextAddField/TextAddField)
+(assert UploadField/UploadField)
 
 (s/def ::northBoundLatitude number?)
 (s/def ::westBoundLongitude number?)
@@ -96,3 +98,4 @@
 (def Modal (r/adapt-react-class EditDialog/Modal))
 (def ModalDialog (r/adapt-react-class EditDialog/ModalDialog))
 (def TextAddField (r/adapt-react-class TextAddField/TextAddField))
+(def Dropzone (r/adapt-react-class UploadField/Dropzone))

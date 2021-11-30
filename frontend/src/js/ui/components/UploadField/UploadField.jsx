@@ -11,7 +11,7 @@ export function Dropzone({ disabled, onDropFile }) {
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, disabled});
 
     return (
-        <section className="container">
+        <div>
             <div {...getRootProps({ className: 'dropzone' })}>
                 <input {...getInputProps()} />
                 {
@@ -20,7 +20,7 @@ export function Dropzone({ disabled, onDropFile }) {
                         <p>Drag 'n' drop some files here, or click to select files</p>
                 }
                 </div>
-        </section>
+        </div>
     )
 }
 

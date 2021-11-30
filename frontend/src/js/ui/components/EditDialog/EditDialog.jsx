@@ -3,9 +3,17 @@ import PropTypes from 'prop-types';
 import { Button, Classes, Dialog, Overlay, Intent } from "@blueprintjs/core";
 
 Modal.propTypes = {
-    title: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
-    onClose: PropTypes.func.isRequired,
+    modalHeader: PropTypes.string.isRequired,
+    modalBody: PropTypes.node.isRequired,
+    modalFooter: PropTypes.node,
+    dialogClass: PropTypes.string,
+    hideFooter: PropTypes.bool,
+    onSave: PropTypes.func,
+    onCancel: PropTypes.func,
+    onDismiss: PropTypes.func.isRequired,
+    okCopy: PropTypes.string,
+    loading: PropTypes.bool,
+    isOpen: PropTypes.bool
 }
 
 // Port of old view modal ahead of refactor 
@@ -19,7 +27,8 @@ export function Modal({
     onCancel,
     onDismiss,
     okCopy,
-    loading
+    loading,
+    isOpen
 }) {
 
     const isSmall = dialogClass == "modal-sm";
@@ -34,7 +43,7 @@ export function Modal({
             isOpen={isOpen}
             usePortal={true}
             backdropClassName="EditDialogBackdrop"
-            className="EditDialogDialog"
+            className={["EditDialogDialog", dialogClass].join(" ")}
         >
             <div className={"EditDialogBody " + Classes.DIALOG_BODY}>
                 {modalBody}
@@ -44,7 +53,7 @@ export function Modal({
                     {modalFooter ? modalFooter :
                         <div className={Classes.DIALOG_FOOTER_ACTIONS}>
                             {loading ? "loading..." : null}
-                            {onCancel ? <Button onClick={onClose}>Close</Button> : null}
+                            {onCancel ? <Button onClick={onCancel}>Cancel</Button> : null}
                             {onSave ? <Button onClick={onSave}>{ okCopy ? okCopy : "Ok"}</Button> : null}
                         </div>
                     }

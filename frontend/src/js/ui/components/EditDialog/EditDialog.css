@@ -4,6 +4,11 @@
     width: 70vw;
 }
 
+.modal-sm.EditDialogDialog {
+    background-color: white;
+    width: 30em;
+}
+
 .EditOverlayDialog {
     background-color: white;
     display: flex;

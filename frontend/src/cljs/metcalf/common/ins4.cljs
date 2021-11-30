@@ -1,8 +1,6 @@
 (ns metcalf.common.ins4
-  (:require [cljs.pprint :as pprint]
+  (:require [cljs.spec.alpha :as s]
             [clojure.data :as data]
-            [metcalf.common.blocks4 :as blocks4]
-            [metcalf.common.rules4 :as rules4]
             [re-frame.core :as rf]))
 
 (defmulti console-config :kind)
@@ -58,19 +56,14 @@
                  (rf/assoc-effect ctx :db (update new-db :form/tick inc))
                  ctx)))))
 
-(def what-changed
+(defn check-and-throw
+  [a-spec]
   (rf/->interceptor
-    :id ::what-changed
-    :after (fn [ctx]
-             (let [db0 (rf/get-coeffect ctx :db)
-                   db1 (rf/get-effect ctx :db ::not-found)]
-               (when (and (not= db1 ::not-found)
-                          (not= db0 db1))
-                 (let [data0 (get-in db0 [:form :data])
-                       state1 (get-in db1 [:form :state])
-                       data1 (blocks4/as-data (blocks4/postwalk rules4/apply-rules state1))
-                       [only0 only1] (clojure.data/diff data0 data1)]
-                   (pprint/pprint {::what-changed.only0 only0
-                                   ::what-changed.only1 only1})))
-               ctx))))
-
+    :id ::check-and-throw
+    :after (fn [context]
+             (js/console.log ::check-and-throw--after)
+             (let [new-db (rf/get-effect context :db ::not-found)]
+               (when-not (= new-db ::not-found)
+                 (when-not (s/valid? a-spec new-db)
+                   (throw (ex-info (str "spec check failed: " (s/explain-str a-spec new-db)) {})))))
+             context)))

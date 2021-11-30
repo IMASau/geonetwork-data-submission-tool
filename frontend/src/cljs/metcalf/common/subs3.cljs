@@ -1,14 +1,29 @@
 (ns metcalf.common.subs3
-  (:require [clojure.set :as set]
-            [metcalf.common.logic3 :as logic3]))
+  (:require [clojure.set :as set]))
 
-(defn get-derived-state
-  [db _]
-  (logic3/derived-state db))
-
-(defn get-derived-path
+(defn get-attachments
   [db [_ path]]
   (get-in db path))
+
+(defn get-context
+  [db]
+  (get-in db [:context]))
+
+(defn get-progress
+  [db]
+  (get-in db [:progress]))
+
+(defn get-form
+  [db]
+  (get-in db [:form]))
+
+(defn get-upload-form
+  [db]
+  (get-in db [:upload_form]))
+
+(defn get-form-disabled?
+  [db]
+  (get-in db [:form :state :props :disabled]))
 
 (defn get-page-props
   [db _]
@@ -17,7 +32,7 @@
 (defn get-dashboard-props
   [db _]
   (let [{:keys [status-filter]
-         :or   {status-filter logic3/active-status-filter}
+         :or   {status-filter #{"Draft" "Submitted"}}
          :as   page} (get-in db [:page])
         {:keys [documents status urls user]} (get-in db [:context])
         status-freq (frequencies (map :status documents))
@@ -40,8 +55,8 @@
      :urls                   urls}))
 
 (defn get-progress-props
-  [derived-db _]
-  (let [{:progress/keys [fields empty errors]} (:progress derived-db)
+  [form-state _]
+  (let [{:progress/keys [fields empty errors]} (:progress/score form-state)
         can-submit? (= errors 0)]
     (when (pos-int? fields)
       {:can-submit? can-submit?

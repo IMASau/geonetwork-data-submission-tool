@@ -10,13 +10,15 @@
             [metcalf.common.subs3 :as subs3]
             [metcalf.common.subs4 :as subs4]
             [metcalf.common.utils4 :as utils4]
+            [metcalf.tern.db :as tern-db]
             [metcalf.tern.handlers :as tern-handlers]
             [metcalf.tern.subs :as tern-subs]
             [re-frame.core :as rf]))
 
+#_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
-(rf/reg-event-fx ::components4/create-document-modal-clear-click handlers3/close-modal)
-(rf/reg-event-fx ::components4/create-document-modal-close-click handlers3/close-modal)
+(rf/reg-event-fx ::components4/create-document-modal-clear-click handlers4/create-document-modal-clear-click)
+(rf/reg-event-fx ::components4/create-document-modal-close-click handlers4/create-document-modal-close-click)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
 (rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
@@ -38,10 +40,10 @@
 (rf/reg-event-fx ::components4/value-selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
+(rf/reg-event-fx :app/-archive-current-document-error handlers3/-archive-current-document-error)
 (rf/reg-event-fx :app/-archive-current-document-success handlers3/-archive-current-document-success)
 (rf/reg-event-fx :app/-clone-document-error handlers3/-clone-document-error)
 (rf/reg-event-fx :app/-clone-document-success handlers3/-clone-document-success)
-(rf/reg-event-fx :app/-load-api-options handlers3/-load-api-options)
 (rf/reg-event-fx :app/-lodge-click-error handlers3/lodge-error)
 (rf/reg-event-fx :app/-lodge-click-success handlers3/lodge-save-success)
 (rf/reg-event-fx :app/-lodge-save-error handlers3/lodge-error)
@@ -51,32 +53,35 @@
 (rf/reg-event-fx :app/-transite-doc-confirm-success handlers3/-transite-doc-confirm-success)
 (rf/reg-event-fx :app/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)
+(rf/reg-event-fx :app/contributors-modal-share-click handlers4/contributors-modal-share-click)
+(rf/reg-event-fx :app/contributors-modal-unshare-click handlers4/contributors-modal-unshare-click)
 (rf/reg-event-fx :app/dashboard-create-click handlers3/dashboard-create-click)
 (rf/reg-event-fx :app/dashboard-show-all-click handlers3/show-all-documents)
 (rf/reg-event-fx :app/dashboard-toggle-status-filter handlers3/toggle-status-filter)
-(rf/reg-event-fx :app/delete-attachment-click handlers3/open-modal-handler)
+(rf/reg-event-fx :app/delete-attachment-click handlers3/delete-attachment-click)
 (rf/reg-event-fx :app/delete-attachment-confirm handlers3/del-value)
 (rf/reg-event-fx :app/document-teaser-archive-click (handlers3/transite-doc-click "archive"))
 (rf/reg-event-fx :app/document-teaser-clone-click handlers3/document-teaser-clone-click)
 (rf/reg-event-fx :app/document-teaser-delete-archived-click (handlers3/transite-doc-click "delete_archived"))
 (rf/reg-event-fx :app/document-teaser-restore-click (handlers3/transite-doc-click "restore"))
+(rf/reg-event-fx :app/document-teaser-share-click handlers4/document-teaser-share-click)
 (rf/reg-event-fx :app/edit-tabs-pick-click handlers3/set-tab)
 (rf/reg-event-fx :app/handle-page-view-edit-archive-click handlers3/handle-page-view-edit-archive-click)
-(rf/reg-event-fx :app/modal-dialog-alert-dismiss handlers3/close-modal)
-(rf/reg-event-fx :app/modal-dialog-alert-save handlers3/close-modal)
+(rf/reg-event-fx :app/modal-dialog-alert-dismiss handlers4/modal-dialog-alert-dismiss)
+(rf/reg-event-fx :app/modal-dialog-alert-save handlers4/modal-dialog-alert-save)
 (rf/reg-event-fx :app/modal-dialog-confirm-cancel handlers3/close-and-cancel)
 (rf/reg-event-fx :app/modal-dialog-confirm-dismiss handlers3/close-and-cancel)
 (rf/reg-event-fx :app/modal-dialog-confirm-save handlers3/close-and-confirm)
-(rf/reg-event-fx :app/open-modal handlers3/open-modal-handler)
 (rf/reg-event-fx :app/page-view-edit-archive-click-confirm handlers3/archive-current-document)
-(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
-(rf/reg-event-fx :app/upload-data-file-upload-failed handlers3/open-modal-handler)
-(rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/open-modal-handler)
-(rf/reg-event-fx :metcalf.imas.handlers/-init-db-load-api-options handlers3/load-api-options)
-(rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
+(rf/reg-event-fx :app/upload-data-file-upload-failed handlers3/upload-data-file-upload-failed)
+(rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/upload-max-filesize-exceeded)
 (rf/reg-event-fx :metcalf.common.actions4/-create-document handlers4/-create-document-handler)
-(rf/reg-event-fx :metcalf.common.components/coordinates-modal-field-close-modal handlers3/close-modal)
+(rf/reg-event-fx :metcalf.common.actions4/-get-document-data-action handlers4/-get-document-data-action)
+(rf/reg-event-fx :metcalf.common.components/coordinates-modal-field-close-modal handlers4/coordinates-modal-field-close-modal)
 (rf/reg-event-fx :metcalf.common.components/lodge-button-click handlers3/lodge-click)
+(rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
+(rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
+(rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
 (rf/reg-fx ::fx3/post fx3/post)
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
 (rf/reg-fx ::fx3/set-location-href fx3/set-location-href)
@@ -91,17 +96,23 @@
 (rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub ::tern-subs/get-edit-tabs tern-subs/get-edit-tabs)
+(rf/reg-sub :app/contributors-modal-props subs4/contributors-modal-props)
 (rf/reg-sub :app/get-dashboard-props subs3/get-dashboard-props)
-(rf/reg-sub :app/get-progress-bar-props :<- [:subs/get-derived-state] subs3/get-progress-props)
+(rf/reg-sub :app/get-progress-bar-props :<- [::subs4/get-form-state [:form]] subs3/get-progress-props)
 (rf/reg-sub :subs/get-app-root-modal-props subs4/get-modal-props)
 (rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
-(rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
-(rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
-(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] :<- [::tern-subs/get-edit-tabs] tern-subs/get-edit-tab-props)
+(rf/reg-sub :subs/get-attachments subs3/get-attachments)
+(rf/reg-sub :subs/get-context subs3/get-context)
+(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [::subs4/get-form-state [:form]] :<- [::tern-subs/get-edit-tabs] tern-subs/get-edit-tab-props)
+(rf/reg-sub :subs/get-form subs3/get-form)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
+(rf/reg-sub :subs/get-form-disabled? subs3/get-form-disabled?)
 (rf/reg-sub :subs/get-page-props subs3/get-page-props)
+(rf/reg-sub :subs/get-progress subs3/get-progress)
+(rf/reg-sub :subs/get-upload-form subs3/get-upload-form)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
+(when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
       {"requiredField"     rules4/required-field
        "requiredWhenYes"   rules4/required-when-yes
@@ -817,9 +828,9 @@
                          {"label" "GDA94 - EPSG:4283" "value" "EPSG:4283"}]}]]
 
         [m4/form-group
-         {:form-id   [:form]
-          :label     "Date of dynamic datum"
-          :toolTip   "TODO"}
+         {:form-id [:form]
+          :label   "Date of dynamic datum"
+          :toolTip "TODO"}
          [m4/date-field-with-label
           {:form-id   [:form]
            :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]
@@ -1275,8 +1286,8 @@
     [:div
      #_[m4/page-errors {:form-id [:form] :data-paths []}]
      [:h2 "9. Data Sources"]
-     [m3/UploadData
-      {:attachments-path [:form :fields :attachments]}]
+     #_[m3/UploadData
+        {:attachments-path [:form :fields :attachments]}]
      [:h2 "Data Services"]
      [m3/DataSources {:form-id   [:form]
                       :data-path ["dataSources"]}]
@@ -1286,11 +1297,11 @@
     [:div
      #_[m4/page-errors {:form-id [:form] :data-paths []}]
      [:h2 "10: Lodge Metadata Draft"]
-     [m3/Lodge
-      {:note-for-data-manager-path [:form :fields :noteForDataManager]
-       :agreed-to-terms-path       [:form :fields :agreedToTerms]
-       :doi-requested-path         [:form :fields :doiRequested]
-       :current-doi-path           [:form :fields :identificationInfo :doi]}]]})
+     #_[m3/Lodge
+        {:note-for-data-manager-path [:form :fields :noteForDataManager]
+         :agreed-to-terms-path       [:form :fields :agreedToTerms]
+         :doi-requested-path         [:form :fields :doiRequested]
+         :current-doi-path           [:form :fields :identificationInfo :doi]}]]})
 
 (set! low-code4/template-registry
       (merge edit-templates

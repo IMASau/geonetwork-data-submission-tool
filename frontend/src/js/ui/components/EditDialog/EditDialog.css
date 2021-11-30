@@ -1,9 +1,4 @@
 
-.EditDialogBackdrop,
-.EditOverlayBackdrop {
-    background-color: whitesmoke;
-}
-
 .EditDialogDialog {
     background-color: white;
     width: 70vw;

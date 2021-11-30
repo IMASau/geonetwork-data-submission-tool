@@ -16,8 +16,7 @@
 (defn get-form-state
   [db [_ form-id]]
   (when (vector? form-id)
-    (let [path (conj form-id :state)
-          state (get-in db path)]
+    (let [{:keys [state]} (get-in db form-id)]
       (->> state
            (blocks4/prewalk prewalk-xform)
            (blocks4/postwalk postwalk-xform)))))
@@ -64,6 +63,12 @@
         state1 (blocks4/postwalk postwalk-xform state0)
         {:keys [progress/errors]} (:progress/score state1)]
     (not (pos? errors))))
+
+(defn contributors-modal-props
+  [db [_ uuid]]
+  (let [{:keys [contributors]} (get-in db [:app/document-data uuid])]
+    {:uuid   uuid
+     :emails (mapv :email contributors)}))
 
 (defn get-page-name
   [db _]

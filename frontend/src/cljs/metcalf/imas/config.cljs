@@ -10,18 +10,18 @@
             [metcalf.common.subs3 :as subs3]
             [metcalf.common.subs4 :as subs4]
             [metcalf.common.utils4 :as utils4]
-            [metcalf.common.views3 :as views3]
             [metcalf.imas.handlers :as imas-handlers]
             [metcalf.imas.subs :as imas-subs]
             [re-frame.core :as rf]))
 
+#_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-event-fx ::components4/boxmap-coordinates-click-confirm-delete handlers4/boxmap-coordinates-click-confirm-delete)
 (rf/reg-event-fx ::components4/boxmap-coordinates-list-delete handlers4/boxmap-coordinates-list-delete)
 (rf/reg-event-fx ::components4/boxmap-coordinates-open-add-modal handlers4/boxmap-coordinates-open-add-modal)
 (rf/reg-event-fx ::components4/boxmap-coordinates-open-edit-modal handlers4/boxmap-coordinates-open-edit-modal)
-(rf/reg-event-fx ::components4/create-document-modal-clear-click handlers3/close-modal)
-(rf/reg-event-fx ::components4/create-document-modal-close-click handlers3/close-modal)
+(rf/reg-event-fx ::components4/create-document-modal-clear-click handlers4/create-document-modal-clear-click)
+(rf/reg-event-fx ::components4/create-document-modal-close-click handlers4/create-document-modal-close-click)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
 (rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
@@ -43,10 +43,10 @@
 (rf/reg-event-fx ::components4/value-selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
+(rf/reg-event-fx :app/-archive-current-document-error handlers3/-archive-current-document-error)
 (rf/reg-event-fx :app/-archive-current-document-success handlers3/-archive-current-document-success)
 (rf/reg-event-fx :app/-clone-document-error handlers3/-clone-document-error)
 (rf/reg-event-fx :app/-clone-document-success handlers3/-clone-document-success)
-(rf/reg-event-fx :app/-load-api-options handlers3/-load-api-options)
 (rf/reg-event-fx :app/-lodge-click-error handlers3/lodge-error)
 (rf/reg-event-fx :app/-lodge-click-success handlers3/lodge-save-success)
 (rf/reg-event-fx :app/-lodge-save-error handlers3/lodge-error)
@@ -56,32 +56,35 @@
 (rf/reg-event-fx :app/-transite-doc-confirm-success handlers3/-transite-doc-confirm-success)
 (rf/reg-event-fx :app/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)
+(rf/reg-event-fx :app/contributors-modal-share-click handlers4/contributors-modal-share-click)
+(rf/reg-event-fx :app/contributors-modal-unshare-click handlers4/contributors-modal-unshare-click)
 (rf/reg-event-fx :app/dashboard-create-click handlers3/dashboard-create-click)
 (rf/reg-event-fx :app/dashboard-show-all-click handlers3/show-all-documents)
 (rf/reg-event-fx :app/dashboard-toggle-status-filter handlers3/toggle-status-filter)
-(rf/reg-event-fx :app/delete-attachment-click handlers3/open-modal-handler)
+(rf/reg-event-fx :app/delete-attachment-click handlers3/delete-attachment-click)
 (rf/reg-event-fx :app/delete-attachment-confirm handlers3/del-value)
 (rf/reg-event-fx :app/document-teaser-archive-click (handlers3/transite-doc-click "archive"))
 (rf/reg-event-fx :app/document-teaser-clone-click handlers3/document-teaser-clone-click)
 (rf/reg-event-fx :app/document-teaser-delete-archived-click (handlers3/transite-doc-click "delete_archived"))
 (rf/reg-event-fx :app/document-teaser-restore-click (handlers3/transite-doc-click "restore"))
+(rf/reg-event-fx :app/document-teaser-share-click handlers4/document-teaser-share-click)
 (rf/reg-event-fx :app/edit-tabs-pick-click handlers3/set-tab)
 (rf/reg-event-fx :app/handle-page-view-edit-archive-click handlers3/handle-page-view-edit-archive-click)
-(rf/reg-event-fx :app/modal-dialog-alert-dismiss handlers3/close-modal)
-(rf/reg-event-fx :app/modal-dialog-alert-save handlers3/close-modal)
+(rf/reg-event-fx :app/modal-dialog-alert-dismiss handlers4/modal-dialog-alert-dismiss)
+(rf/reg-event-fx :app/modal-dialog-alert-save handlers4/modal-dialog-alert-save)
 (rf/reg-event-fx :app/modal-dialog-confirm-cancel handlers3/close-and-cancel)
 (rf/reg-event-fx :app/modal-dialog-confirm-dismiss handlers3/close-and-cancel)
 (rf/reg-event-fx :app/modal-dialog-confirm-save handlers3/close-and-confirm)
-(rf/reg-event-fx :app/open-modal handlers3/open-modal-handler)
 (rf/reg-event-fx :app/page-view-edit-archive-click-confirm handlers3/archive-current-document)
-(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
-(rf/reg-event-fx :app/upload-data-file-upload-failed handlers3/open-modal-handler)
-(rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/open-modal-handler)
-(rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
-(rf/reg-event-fx :metcalf.imas.handlers/-init-db-load-api-options handlers3/load-api-options)
+(rf/reg-event-fx :app/upload-data-file-upload-failed handlers3/upload-data-file-upload-failed)
+(rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/upload-max-filesize-exceeded)
 (rf/reg-event-fx :metcalf.common.actions4/-create-document handlers4/-create-document-handler)
-(rf/reg-event-fx :metcalf.common.components/coordinates-modal-field-close-modal handlers3/close-modal)
+(rf/reg-event-fx :metcalf.common.actions4/-get-document-data-action handlers4/-get-document-data-action)
+(rf/reg-event-fx :metcalf.common.components/coordinates-modal-field-close-modal handlers4/coordinates-modal-field-close-modal)
 (rf/reg-event-fx :metcalf.common.components/lodge-button-click handlers3/lodge-click)
+(rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
+(rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
+(rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
 (rf/reg-fx ::fx3/post fx3/post)
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
 (rf/reg-fx ::fx3/set-location-href fx3/set-location-href)
@@ -95,15 +98,20 @@
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
+(rf/reg-sub :app/contributors-modal-props subs4/contributors-modal-props)
 (rf/reg-sub :app/get-dashboard-props subs3/get-dashboard-props)
-(rf/reg-sub :app/get-progress-bar-props :<- [:subs/get-derived-state] subs3/get-progress-props)
+(rf/reg-sub :app/get-progress-bar-props :<- [::subs4/get-form-state [:form]] subs3/get-progress-props)
 (rf/reg-sub :subs/get-app-root-modal-props subs4/get-modal-props)
 (rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
-(rf/reg-sub :subs/get-derived-path :<- [:subs/get-derived-state] subs3/get-derived-path)
-(rf/reg-sub :subs/get-derived-state subs3/get-derived-state)
-(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [:subs/get-derived-state] imas-subs/get-edit-tab-props)
+(rf/reg-sub :subs/get-attachments subs3/get-attachments)
+(rf/reg-sub :subs/get-context subs3/get-context)
+(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [::subs4/get-form-state [:form]] imas-subs/get-edit-tab-props)
+(rf/reg-sub :subs/get-form subs3/get-form)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
+(rf/reg-sub :subs/get-form-disabled? subs3/get-form-disabled?)
 (rf/reg-sub :subs/get-page-props subs3/get-page-props)
+(rf/reg-sub :subs/get-progress subs3/get-progress)
+(rf/reg-sub :subs/get-upload-form subs3/get-upload-form)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
 (set! rules4/rule-registry
@@ -117,7 +125,7 @@
        "maintFreq"            rules4/maint-freq})
 (set! low-code4/component-registry
       {
-       'm3/UploadData                     {:view views3/UploadData}
+       ;'m3/UploadData                     {:view views3/UploadData}
        'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-select-option            {:view components4/async-select-option :init components4/async-select-option-settings}
        'm4/async-select-value             {:view components4/async-select-value :init components4/async-select-value-settings}
@@ -696,7 +704,7 @@
      [m4/input-field-with-label
       {:form-id     [:form]
        :data-path   ["identificationInfo" "otherConstraints"]
-       :label       "Additional license requirements"   ;; FIXME
+       :label       "Additional license requirements"       ;; FIXME
        :placeholder "Enter additional license requirements"
        :required    true}]
 
@@ -870,8 +878,8 @@
        :data-path  []
        :data-paths [["attachments"]]}]
      [:h2 "8: Upload Data"]
-     [m3/UploadData
-      {:attachments-path [:form :fields :attachments]}]
+     #_[m3/UploadData
+        {:attachments-path [:form :fields :attachments]}]
      [:h2 "Data Services"]
      [m4/table-selection-list
       {:form-id    [:form]
@@ -950,9 +958,8 @@
                for discovery in the " [m4/portal-link] "."]
       [:p "How complete is your data?"]
       [m4/note-for-data-manager
-       {:form-id    [:form]
-        :data-path  ["noteForDataManager"]
-        :notes-path [:form :fields :noteForDataManager]}]
+       {:form-id   [:form]
+        :data-path ["noteForDataManager"]}]
       [m4/lodge-button]
       [m4/lodge-status-info]
       [:div.user-export

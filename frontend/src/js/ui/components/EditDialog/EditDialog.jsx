@@ -54,7 +54,7 @@ export function Modal({
                         <div className={Classes.DIALOG_FOOTER_ACTIONS}>
                             {loading ? "loading..." : null}
                             {onCancel ? <Button onClick={onCancel}>Cancel</Button> : null}
-                            {onSave ? <Button onClick={onSave}>{ okCopy ? okCopy : "Ok"}</Button> : null}
+                            {onSave ? <Button onClick={onSave} intent={Intent.PRIMARY}>{ okCopy ? okCopy : "Ok"}</Button> : null}
                         </div>
                     }
                 </div>

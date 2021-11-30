@@ -27,3 +27,9 @@ backend/mcp2-template.xml
 frontend/volumes
 volumes
 clojure-*.edn
+/frontend/storybook-static/
+/frontend/src/gen/
+/frontend/resources/public/css/style.npm-packaged.css*
+/frontend/resources/public/css/images/[a-z]*.*
+/frontend/resources/public/resources/icons/[a-z]*.*
+es-data

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { useDropzone } from 'react-dropzone'
 
 
-export function Dropzone({ disabled, onDropFile }) {
-    const onDrop = useCallback(acceptedFiles => {
+export function Dropzone({ disabled, onDropFile, maxSize }) {
+    const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
         // Do something with the files
-        onDropFile({ acceptedFiles })
+        onDropFile({ acceptedFiles, rejectedFiles })
     }, [])
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, disabled});
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, disabled, maxSize});
 
     return (
         <section className="container">
@@ -27,6 +27,7 @@ export function Dropzone({ disabled, onDropFile }) {
 Dropzone.propTypes = {
     disabled: PropTypes.bool,
     onDropFile: PropTypes.func,
+    maxSize: PropTypes.number,
 }
 
 export function UploadField({ disabled, onDropFile }) {

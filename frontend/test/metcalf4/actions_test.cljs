@@ -67,7 +67,7 @@
              (get-in [:db :form :state])))))
 
 (def s0 (-> {:db {}}
-            (actions/load-form-action
+            (actions/load-edit-form-action
               {:form {:data   {}
                       :schema {:type       "object"
                                :properties {"as" {:type  "array"

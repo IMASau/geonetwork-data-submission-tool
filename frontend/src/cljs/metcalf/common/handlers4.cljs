@@ -332,11 +332,11 @@
 
 (defn upload-data2-drop-file
   [{:keys [db]} [_ config data]]
-  (let [{:keys [form-id data-path ]} config
+  (let [{:keys [form-id data-path]} config
         {:keys [acceptedFiles]} data
-        value (map (fn [file]
-                     {"uuid" (str (random-uuid))
-                      "file" (.-path file)
-                      "name" (.-name file)})
-                   acceptedFiles)]
+        value (mapv (fn [file]
+                      {"uuid" (str (random-uuid))
+                       "file" (.-path file)
+                       "name" (.-name file)})
+                    acceptedFiles)]
     (actions4/set-value-action {:db db} form-id data-path value)))

@@ -35,7 +35,6 @@ export function Modal({
 
     return (
         <Dialog
-            icon="info-sign"
             onClose={onDismiss}
             title={modalHeader}
             canEscapeKeyClose={false}

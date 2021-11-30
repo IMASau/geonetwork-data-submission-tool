@@ -2,7 +2,15 @@
 
 from rest_framework import serializers
 
+from metcalf.common import xmlutils4
 from metcalf.tern.backend import models
+
+
+class DumaSerializer(serializers.BaseSerializer):
+    def to_representation(self, instance):
+        if not instance:
+            return []
+        return xmlutils4.extract_user_defined(instance.latest_draft.data)
 
 
 class InstitutionSerializer(serializers.ModelSerializer):

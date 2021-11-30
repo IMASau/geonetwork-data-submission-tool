@@ -33,7 +33,7 @@ def configure_backend_data(apps, schema_editor):
     mtm.modified = now
     mtm.save()
     # Create default MetadataTemplate
-    mt = MetadataTemplate.objects.create()
+    mt, _ = MetadataTemplate.objects.get_or_create(pk=2)
     mt.name = "TERN Template with uploaded UI"
     mt.file = "TERN_ISO_Profile_v0_01.xml"
     mt.notes = "Default template"

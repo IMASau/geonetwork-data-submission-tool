@@ -1,25 +1,43 @@
-import React from 'react';
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types';
-import * as BPCore from '@blueprintjs/core';
-import {hasErrorIntent, useCachedState} from "../utils";
+import { useDropzone } from 'react-dropzone'
 
 
-export function UploadField({label, checked, hasError, disabled, onChange}) {
-    const intent = hasErrorIntent({hasError, disabled});
+export function Dropzone({ disabled, onDropFile }) {
+    const onDrop = useCallback(acceptedFiles => {
+        // Do something with the files
+        onDropFile({ acceptedFiles })
+    }, [])
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, disabled});
+
     return (
-        <BPCore.FileInput
-            className={"intent-" + intent}
-            disabled={disabled}
-            onChange={(e) => onChange(e.target.checked)}
-        >
-        {label}
-        </BPCore.FileInput>
+        <section className="container">
+            <div {...getRootProps({ className: 'dropzone' })}>
+                <input {...getInputProps()} />
+                {
+                    isDragActive ?
+                        <p>Drop the files here ...</p> :
+                        <p>Drag 'n' drop some files here, or click to select files</p>
+                }
+                </div>
+        </section>
+    )
+}
+
+Dropzone.propTypes = {
+    disabled: PropTypes.bool,
+    onDropFile: PropTypes.func,
+}
+
+export function UploadField({ disabled, onDropFile }) {
+    return (
+        <Dropzone 
+            disabled={disabled} 
+            onDropFile={onDropFile} />
     );
 }
 
 UploadField.propTypes = {
-    label : PropTypes.string.isRequired,
     disabled: PropTypes.bool,
-    hasError: PropTypes.bool,
-    onChange: PropTypes.func,
+    onDropFile: PropTypes.func,
 }

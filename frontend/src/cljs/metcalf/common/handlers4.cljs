@@ -332,11 +332,19 @@
 
 (defn upload-data2-drop-file
   [{:keys [db]} [_ config data]]
-  (let [{:keys [form-id data-path]} config
-        {:keys [acceptedFiles]} data
-        value (mapv (fn [file]
-                      {"uuid" (str (random-uuid))
-                       "file" (.-path file)
-                       "name" (.-name file)})
-                    acceptedFiles)]
-    (actions4/set-value-action {:db db} form-id data-path value)))
+  (let [{:keys [acceptedFiles]} data
+        doc-uuid (get-in db [:context :document :uuid])]
+    (reduce (fn [s file]
+              (actions4/upload-attachment s {:doc-uuid doc-uuid
+                                             :file     file
+                                             :config   config}))
+            {:db db} acceptedFiles)))
+
+(defn -upload-attachment
+  [{:keys [db]} [_ config {:keys [status body]}]]
+  (let [{:keys [form-id data-path value-path]} config]
+    (cond status
+          201 (actions4/add-item-action {:db db} form-id data-path value-path (js->clj body))
+          (actions4/open-modal-action {:db db}
+                                      {:type    :modal.type/alert
+                                       :message (str status ": Error uploading file")}))))

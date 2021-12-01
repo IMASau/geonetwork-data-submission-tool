@@ -83,12 +83,14 @@
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
 (rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
 (rf/reg-event-fx :metcalf.common.components4/upload-data2-drop-file handlers4/upload-data2-drop-file)
+(rf/reg-event-fx :metcalf.common.actions4/-upload-attachment handlers4/-upload-attachment)
 (rf/reg-fx ::fx3/post fx3/post)
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
 (rf/reg-fx ::fx3/set-location-href fx3/set-location-href)
 (rf/reg-fx ::low-code4/init! low-code4/init!)
 (rf/reg-fx :app/get-json-fx (utils4/promise-fx utils4/get-json))
 (rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
+(rf/reg-fx :app/post-multipart-form (utils4/promise-fx utils4/post-multipart-form))
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
@@ -1290,7 +1292,8 @@
      [:h2 "9. Data Sources"]
      [m4/upload-data2
       {:form-id   [:form]
-       :data-path [:attachments]}]
+       :data-path ["attachments"]
+       :value-path ["id"]}]
      [:h2 "Data Services"]
      #_[m3/DataSources {:form-id   [:form]
                         :data-path ["dataSources"]}]

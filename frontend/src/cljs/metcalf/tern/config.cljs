@@ -82,7 +82,7 @@
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
 (rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
-(rf/reg-event-fx :metcalf.common.components4/upload-data2-drop-file handlers4/upload-data2-drop-file)
+(rf/reg-event-fx ::components4/upload-files-drop handlers4/upload-files-drop)
 (rf/reg-event-fx :metcalf.common.actions4/-upload-attachment handlers4/-upload-attachment)
 (rf/reg-fx ::fx3/post fx3/post)
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
@@ -170,7 +170,7 @@
        'm4/yes-no-field                  {:view components4/yes-no-field :init components4/yes-no-field-settings}
        'm4/simple-list                   {:view components4/simple-list :init components4/simple-list-settings}
        'm4/text-add-button               {:view components4/text-add-button :init components4/text-add-button-settings}
-       'm4/upload-data2                  {:view components4/upload-data2 :init components4/upload-data2-settings}
+       'm4/upload-files                  {:view components4/upload-files :init components4/upload-files-settings}
        })
 
 (def edit-templates
@@ -1290,10 +1290,13 @@
     [:div
      #_[m4/page-errors {:form-id [:form] :data-paths []}]
      [:h2 "9. Data Sources"]
-     [m4/upload-data2
-      {:form-id   [:form]
-       :data-path ["attachments"]
-       :value-path ["id"]}]
+     [m4/upload-files
+      {:form-id     [:form]
+       :data-path   ["attachments"]
+       :value-path  ["id"]
+       :placeholder [:div
+                     [:h3 "Drop file here or click here to upload"]
+                     [:span.help-block "Maximum file size 100 MB"]]}]
      [:h2 "Data Services"]
      #_[m3/DataSources {:form-id   [:form]
                         :data-path ["dataSources"]}]

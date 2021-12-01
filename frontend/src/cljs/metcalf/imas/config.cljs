@@ -85,7 +85,7 @@
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
 (rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
-(rf/reg-event-fx :metcalf.common.components4/upload-data2-drop-file handlers4/upload-data2-drop-file)
+(rf/reg-event-fx ::components4/upload-files-drop handlers4/upload-files-drop)
 (rf/reg-event-fx :metcalf.common.actions4/-upload-attachment handlers4/-upload-attachment)
 (rf/reg-fx ::fx3/post fx3/post)
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)

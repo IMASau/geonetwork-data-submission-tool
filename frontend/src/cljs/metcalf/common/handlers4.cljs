@@ -330,7 +330,7 @@
   [{:keys [db]}]
   (actions4/close-modal-action {:db db}))
 
-(defn upload-data2-drop-file
+(defn upload-files-drop
   [{:keys [db]} [_ config data]]
   (let [{:keys [acceptedFiles]} data
         doc-uuid (get-in db [:context :document :uuid])]

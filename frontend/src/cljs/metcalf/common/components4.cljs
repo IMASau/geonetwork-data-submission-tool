@@ -1213,28 +1213,28 @@
        :onRemoveClick (fn [idx] (rf/dispatch [:app/contributors-modal-unshare-click {:uuid uuid :idx idx}]))
        :onAddClick    (fn [email] (rf/dispatch [:app/contributors-modal-share-click {:uuid uuid :email email}]))}])])
 
-(defn upload-data2-settings [_]
-  {::low-code4/req-ks [:form-id :data-path]
+(defn upload-files-settings [_]
+  {::low-code4/req-ks [:form-id :data-path :value-path :placeholder]
    ::low-code4/opt-ks []})
 
-(defn upload-data2
+(defn upload-files
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
-        {:keys [disabled is-hidden]} props]
+        {:keys [disabled is-hidden value-path placeholder]} props]
     (when-not is-hidden
       [:div
+       [ui/SimpleSelectionList
+        {:key           key
+         :items         (or items [])
+         :disabled      disabled
+         :getLabel      (ui/get-obj-path "name")
+         :getValue      (ui/get-obj-path value-path)
+         :getAdded      (constantly true)
+         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]
        [ui/Dropzone
-        {:disabled   disabled
-         :onDropFile #(rf/dispatch [::upload-data2-drop-file config (js->clj % :keywordize-keys true)])}]
-       (when-not is-hidden
-         [ui/SimpleSelectionList
-          {:key           key
-           :items         (or items [])
-           :disabled      disabled
-           :getLabel      (ui/get-obj-path "name")
-           :getValue      (ui/get-obj-path "file")
-           :getAdded      (constantly true)
-           :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
-           :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
-           :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])])))
+        {:disabled    disabled
+         :placeholder (r/as-element placeholder)
+         :onDrop      #(rf/dispatch [::upload-files-drop config (js->clj % :keywordize-keys true)])}]])))

@@ -343,8 +343,8 @@
 (defn -upload-attachment
   [{:keys [db]} [_ config {:keys [status body]}]]
   (let [{:keys [form-id data-path value-path]} config]
-    (cond status
-          201 (actions4/add-item-action {:db db} form-id data-path value-path (js->clj body))
-          (actions4/open-modal-action {:db db}
-                                      {:type    :modal.type/alert
-                                       :message (str status ": Error uploading file")}))))
+    (case status
+      201 (actions4/add-item-action {:db db} form-id data-path value-path (js->clj body))
+      (actions4/open-modal-action {:db db}
+                                  {:type    :modal.type/alert
+                                   :message (str status ": Error uploading file")}))))

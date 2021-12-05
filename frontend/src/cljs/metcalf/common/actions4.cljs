@@ -180,3 +180,14 @@
   (update s :fx conj [:app/get-json-fx
                       {:url     (str "/api/document-info/" uuid "/")
                        :resolve [::-get-document-data-action uuid]}]))
+
+(defn upload-attachment
+  [s {:keys [config doc-uuid file]}]
+  (let [url (str "/upload/" doc-uuid "/")
+        data {:document doc-uuid
+              :name     (.-name file)
+              :file     file}]
+    (update s :fx conj [:app/post-multipart-form
+                        {:url     url
+                         :data    data
+                         :resolve [::-upload-attachment config]}])))

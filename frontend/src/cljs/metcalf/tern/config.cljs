@@ -77,17 +77,20 @@
 (rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/upload-max-filesize-exceeded)
 (rf/reg-event-fx :metcalf.common.actions4/-create-document handlers4/-create-document-handler)
 (rf/reg-event-fx :metcalf.common.actions4/-get-document-data-action handlers4/-get-document-data-action)
-(rf/reg-event-fx :metcalf.common.components/coordinates-modal-field-close-modal handlers4/coordinates-modal-field-close-modal)
-(rf/reg-event-fx :metcalf.common.components/lodge-button-click handlers3/lodge-click)
+(rf/reg-event-fx :metcalf.common.components4/coordinates-modal-field-close-modal handlers4/coordinates-modal-field-close-modal)
+(rf/reg-event-fx :metcalf.common.components4/lodge-button-click handlers3/lodge-click)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
 (rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
+(rf/reg-event-fx ::components4/upload-files-drop handlers4/upload-files-drop)
+(rf/reg-event-fx :metcalf.common.actions4/-upload-attachment handlers4/-upload-attachment)
 (rf/reg-fx ::fx3/post fx3/post)
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
 (rf/reg-fx ::fx3/set-location-href fx3/set-location-href)
 (rf/reg-fx ::low-code4/init! low-code4/init!)
 (rf/reg-fx :app/get-json-fx (utils4/promise-fx utils4/get-json))
 (rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
+(rf/reg-fx :app/post-multipart-form (utils4/promise-fx utils4/post-multipart-form))
 (rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
@@ -167,6 +170,7 @@
        'm4/yes-no-field                  {:view components4/yes-no-field :init components4/yes-no-field-settings}
        'm4/simple-list                   {:view components4/simple-list :init components4/simple-list-settings}
        'm4/text-add-button               {:view components4/text-add-button :init components4/text-add-button-settings}
+       'm4/upload-files                  {:view components4/upload-files :init components4/upload-files-settings}
        })
 
 (def edit-templates
@@ -318,11 +322,11 @@
           :value-path ["uri"]
           :added-path ["isUserDefined"]}]]
        [m4/item-add-button
-        {:form-id    ?form-id
-         :data-path  [?data-path "unit"]
-         :value-path ["uri"]
+        {:form-id       ?form-id
+         :data-path     [?data-path "unit"]
+         :value-path    ["uri"]
          :item-defaults {"userAddedCategory" "unit"}
-         :added-path ["isUserDefined"]}]]
+         :added-path    ["isUserDefined"]}]]
 
       [m4/item-edit-dialog
        {:form-id     ?form-id
@@ -544,12 +548,12 @@
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button
-         {:form-id     [:form]
-          :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
-          :button-text "Add"
-          :value-path  ["uri"]
+         {:form-id       [:form]
+          :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
+          :button-text   "Add"
+          :value-path    ["uri"]
           :item-defaults {"userAddedCategory" "platform"}
-          :added-path  ["isUserDefined"]}]]
+          :added-path    ["isUserDefined"]}]]
 
        [m4/simple-selection-list
         {:form-id    [:form]
@@ -578,12 +582,12 @@
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button
-         {:form-id     [:form]
-          :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
-          :button-text "Add"
-          :value-path  ["uri"]
+         {:form-id       [:form]
+          :data-path     ["identificationInfo" "keywordsInstrument" "keywords"]
+          :button-text   "Add"
+          :value-path    ["uri"]
           :item-defaults {"userAddedCategory" "instrument"}
-          :added-path  ["isUserDefined"]}]]
+          :added-path    ["isUserDefined"]}]]
        [m4/table-selection-list
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
@@ -612,12 +616,12 @@
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button
-         {:form-id     [:form]
-          :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
-          :button-text "Add"
-          :value-path  ["uri"]
+         {:form-id       [:form]
+          :data-path     ["identificationInfo" "keywordsParameters" "keywords"]
+          :button-text   "Add"
+          :value-path    ["uri"]
           :item-defaults {"userAddedCategory" "parameters"}
-          :added-path  ["isUserDefined"]}]]
+          :added-path    ["isUserDefined"]}]]
        [m4/table-selection-list
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
@@ -1162,12 +1166,12 @@
                      {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
 
       [m4/list-add-button
-       {:form-id     [:form]
-        :data-path   ["resourceLineage" "onlineMethods"]
-        :button-text "Add"
-        :value-path  ["uri"]
+       {:form-id       [:form]
+        :data-path     ["resourceLineage" "onlineMethods"]
+        :button-text   "Add"
+        :value-path    ["uri"]
         :item-defaults {"userAddedCategory" "onlineMethods"}
-        :added-path  ["isUserDefined"]}]
+        :added-path    ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -1286,11 +1290,16 @@
     [:div
      #_[m4/page-errors {:form-id [:form] :data-paths []}]
      [:h2 "9. Data Sources"]
-     #_[m3/UploadData
-        {:attachments-path [:form :fields :attachments]}]
+     [m4/upload-files
+      {:form-id     [:form]
+       :data-path   ["attachments"]
+       :value-path  ["id"]
+       :placeholder [:div
+                     [:h3 "Drop file here or click here to upload"]
+                     [:span.help-block "Maximum file size 100 MB"]]}]
      [:h2 "Data Services"]
-     [m3/DataSources {:form-id   [:form]
-                      :data-path ["dataSources"]}]
+     #_[m3/DataSources {:form-id   [:form]
+                        :data-path ["dataSources"]}]
      [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
     :lodge

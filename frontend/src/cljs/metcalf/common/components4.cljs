@@ -1020,7 +1020,6 @@
 (defmethod async-list-picker :breadcrumb [config] (async-breadcrumb-list-option-picker config))
 (defmethod async-list-picker :table [config] (async-table-list-option-picker config))
 
-
 (defmulti async-item-picker-settings :kind)
 (defmethod async-item-picker-settings :default [config] (async-simple-item-option-picker-settings config))
 ;(defmethod async-item-picker-settings :breadcrumb [config] (async-breadcrumb-item-option-picker-settings config))
@@ -1043,7 +1042,6 @@
            {:label    label
             :required required}]
           children)))
-
 
 (defn coord-field
   [path]
@@ -1214,3 +1212,29 @@
        :emails        emails
        :onRemoveClick (fn [idx] (rf/dispatch [:app/contributors-modal-unshare-click {:uuid uuid :idx idx}]))
        :onAddClick    (fn [email] (rf/dispatch [:app/contributors-modal-share-click {:uuid uuid :email email}]))}])])
+
+(defn upload-files-settings [_]
+  {::low-code4/req-ks [:form-id :data-path :value-path :placeholder]
+   ::low-code4/opt-ks []})
+
+(defn upload-files
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        items @(rf/subscribe [::get-block-data config])
+        {:keys [disabled is-hidden value-path placeholder]} props]
+    (when-not is-hidden
+      [:div
+       [ui/SimpleSelectionList
+        {:key           key
+         :items         (or items [])
+         :disabled      disabled
+         :getLabel      (ui/get-obj-path "name")
+         :getValue      (ui/get-obj-path value-path)
+         :getAdded      (constantly true)
+         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]
+       [ui/Dropzone
+        {:disabled    disabled
+         :placeholder (r/as-element placeholder)
+         :onDrop      #(rf/dispatch [::upload-files-drop config (js->clj % :keywordize-keys true)])}]])))

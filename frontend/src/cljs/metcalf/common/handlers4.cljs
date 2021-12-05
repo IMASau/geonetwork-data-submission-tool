@@ -330,3 +330,21 @@
   [{:keys [db]}]
   (actions4/close-modal-action {:db db}))
 
+(defn upload-files-drop
+  [{:keys [db]} [_ config data]]
+  (let [{:keys [acceptedFiles]} data
+        doc-uuid (get-in db [:context :document :uuid])]
+    (reduce (fn [s file]
+              (actions4/upload-attachment s {:doc-uuid doc-uuid
+                                             :file     file
+                                             :config   config}))
+            {:db db} acceptedFiles)))
+
+(defn -upload-attachment
+  [{:keys [db]} [_ config {:keys [status body]}]]
+  (let [{:keys [form-id data-path value-path]} config]
+    (case status
+      201 (actions4/add-item-action {:db db} form-id data-path value-path (js->clj body))
+      (actions4/open-modal-action {:db db}
+                                  {:type    :modal.type/alert
+                                   :message (str status ": Error uploading file")}))))

@@ -98,6 +98,18 @@
                   :content-type :json
                   :headers      {:X-CSRFToken (get-csrf)}}))
 
+(defn post-multipart-form
+  [{:keys [url data]}]
+  (let [body (js/FormData.)]
+    (doseq [[k v] data]
+      (.append body (name k) v))
+    (-> (js/fetch url #js {:headers #js {:X-CSRFToken (get-csrf)}
+                           :method  "post"
+                           :body    body})
+        (.then (fn [resp]
+                 (-> (.json resp)
+                     (.then (fn [json] {:status (.-status resp)
+                                        :body   json}))))))))
 
 (defn get-value-by-keys [o path]
   (s/assert (s/coll-of string?) path)
@@ -164,9 +176,9 @@
    * Avoids promise based fx being cluttered with re-frame plumbing"
   [{:keys [resolve reject finally] :as m}]
   (cond-> m
-    (vector? resolve) (assoc :resolve #(rf/dispatch (conj resolve %)))
-    (vector? reject) (assoc :reject #(rf/dispatch (conj reject %)))
-    (vector? finally) (assoc :finally #(rf/dispatch (conj finally %)))))
+          (vector? resolve) (assoc :resolve #(rf/dispatch (conj resolve %)))
+          (vector? reject) (assoc :reject #(rf/dispatch (conj reject %)))
+          (vector? finally) (assoc :finally #(rf/dispatch (conj finally %)))))
 
 (defn promise-fx
   "
@@ -178,9 +190,9 @@
     (let [{:keys [resolve reject finally]} (dispatchify fx-args)
           args (dissoc fx-args :resolve :reject :finally)]
       (cond-> (f args)
-        resolve (.then resolve)
-        reject (.catch reject)
-        finally (.finally finally)))))
+              resolve (.then resolve)
+              reject (.catch reject)
+              finally (.finally finally)))))
 
 (defn path-vals
   "Returns vector of tuples containing path vector to the value and the value."

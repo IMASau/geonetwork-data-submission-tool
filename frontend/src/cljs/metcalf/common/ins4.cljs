@@ -65,5 +65,6 @@
              (let [new-db (rf/get-effect context :db ::not-found)]
                (when-not (= new-db ::not-found)
                  (when-not (s/valid? a-spec new-db)
+                   (js/console.log ::check-and-throw--new-db new-db)
                    (throw (ex-info (str "spec check failed: " (s/explain-str a-spec new-db)) {})))))
              context)))

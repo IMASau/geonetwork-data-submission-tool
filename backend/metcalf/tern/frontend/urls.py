@@ -17,7 +17,7 @@ router.register(r'parameterplatform', viewsets.ParameterPlatformViewSet)
 router.register(r'person', viewsets.PersonViewSet)
 router.register(r'topiccategory', viewsets.TopicCategoryViewSet)
 router.register(r'metadata-template', viewsets.MetadataTemplateViewSet)
-router.register(r'duma', viewsets.DumaDocumentViewSet)
+router.register(r'duma', viewsets.DumaDocumentViewSet, basename='duma')
 router.register(r'document-info', DocumentInfoViewSet)
 
 urlpatterns = [

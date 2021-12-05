@@ -28,8 +28,13 @@ class DumaDocumentViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = serializers.DumaDocumentSerializer
     renderer_classes = [renderers.JSONRenderer]
 
+    def get_serializer_class(self):
+        if 'uuid' in self.kwargs:
+            return serializers.DumaTermListSerializer
+        return serializers.DumaDocumentSerializer
 
-class DumaTermViewSet(viewsets.ReadOnlyModelViewSet):
+
+class DumaTermViewSet(viewsets.GenericViewSet):
     pass
 
 

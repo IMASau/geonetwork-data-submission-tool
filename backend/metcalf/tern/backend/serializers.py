@@ -6,11 +6,23 @@ from metcalf.common import xmlutils4
 from metcalf.tern.backend import models
 
 
-class DumaDocumentSerializer(serializers.BaseSerializer):
+class DumaDocumentSerializer(serializers.ModelSerializer):
+    # The defaul returns the document-info url, we want the duma-specific one
+    url = serializers.SerializerMethodField()
+
+    def get_url(self, obj):
+        model_id = obj.uuid
+        return f'api/duma/{model_id}'
+
+    class Meta:
+        model = models.Document
+        fields = ('title', 'uuid', 'url',)
+
+
+class DumaTermSerializer(serializers.BaseSerializer):
     def to_representation(self, instance):
-        if not instance:
-            return []
-        return xmlutils4.extract_user_defined(instance.latest_draft.data)
+        # May need to normalise terms
+        pass
 
 
 class InstitutionSerializer(serializers.ModelSerializer):

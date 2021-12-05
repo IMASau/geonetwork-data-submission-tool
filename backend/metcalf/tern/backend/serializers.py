@@ -1,6 +1,7 @@
 # TODO: move to tern.api app?
 
 from rest_framework import serializers
+from rest_framework.reverse import reverse
 
 from metcalf.common import xmlutils4
 from metcalf.tern.backend import models
@@ -12,17 +13,19 @@ class DumaDocumentSerializer(serializers.ModelSerializer):
 
     def get_url(self, obj):
         model_id = obj.uuid
-        return f'api/duma/{model_id}'
+        request = self.context['request']
+        return reverse('duma-detail', args=[model_id], request=request)
 
     class Meta:
         model = models.Document
         fields = ('title', 'uuid', 'url',)
 
 
-class DumaTermSerializer(serializers.BaseSerializer):
+class DumaTermListSerializer(serializers.BaseSerializer):
     def to_representation(self, instance):
         # May need to normalise terms
-        pass
+        # label, description, uri, duma_path, url
+        return xmlutils4.extract_user_defined(instance.latest_draft.data)
 
 
 class InstitutionSerializer(serializers.ModelSerializer):

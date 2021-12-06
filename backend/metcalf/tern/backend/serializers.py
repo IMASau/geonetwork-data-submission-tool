@@ -25,7 +25,10 @@ class DumaTermListSerializer(serializers.BaseSerializer):
     def to_representation(self, instance):
         # May need to normalise terms
         # label, description, uri, duma_path, url
-        return xmlutils4.extract_user_defined(instance.latest_draft.data)
+        request = self.context['request']
+        update_url = reverse('duma-update', args=[instance.uuid], request=request)
+        user_defined = xmlutils4.extract_user_defined(instance.latest_draft.data)
+        return [dict(d, url=update_url) for d in user_defined]
 
 
 # Used for deserializing input:

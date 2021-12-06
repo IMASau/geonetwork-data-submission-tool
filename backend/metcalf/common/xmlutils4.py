@@ -415,6 +415,7 @@ def extract_user_defined(data:dict, path="", acc:list=None) -> list:
     return acc
 
 
+# TODO: refactor these into their own module (they're not exactly xml related)
 def update_user_defined(document_data:dict, update_data:dict, path:list) -> dict:
     document_data = deepcopy(document_data)
     to_update = document_data

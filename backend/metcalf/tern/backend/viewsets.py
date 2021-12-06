@@ -13,17 +13,6 @@ from metcalf.tern.backend import serializers
 from metcalf.tern.frontend.filters import ParentFilter
 
 
-# TODO (desired structure):
-# * GET /api/duma: list of URLs (of docs containing user-added terms) {title:'asdf', url:"/api/duma/...."}
-# * GET /api/duma/<docid>: list of URLs (list of user-added terms including URL)
-# * POST /api/duma/<docid>/<termid>:
-# * (alternate) POST /api/duma/<termid>: ie, URL is basically opaque, and comes from the instance
-# NOTE: we do need the document to look up where to insert the term!  So can't ditch that
-# * get endpoint (/api/duma/<doc-uuid>) returns a list of user-added terms
-# * a user-added term also has a URL (/api/duma/<doc-uuid>/<term-uuid>)
-# * Can POST to a term endpoint to update it
-
-# May want to create an even more stripped back version:
 class DumaDocumentViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'uuid'
     renderer_classes = [renderers.JSONRenderer]
@@ -66,15 +55,6 @@ def duma_update(request, *args, **kwargs):
     document.hasUserDefined = bool(xmlutils4.extract_user_defined(updated_doc))
 
     return response.Response(updated_doc)
-
-
-# FIXME: how about a constant model for name/value/uuid?
-
-# FIXME: the POST endpoint probably should:
-# * check the UUID at that path
-# * If it doesn't match, do we abort, or try harder (exhaustive search for that uuid?)
-# * only update the uri
-# * serializer for the individual components can extract those components (?)
 
 
 class InstitutionViewSet(viewsets.ModelViewSet):

@@ -20,8 +20,8 @@ class DumaDocumentViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = models.Document.objects.filter(hasUserDefined=True)
         submitted = self.request.query_params.get('submitted', 'true')
-        # if submitted.lower() != 'false':
-        #     queryset = queryset.filter(status=models.Document.SUBMITTED)
+        if submitted.lower() != 'false':
+            queryset = queryset.filter(status=models.Document.SUBMITTED)
         return queryset
 
     def get_serializer_class(self):

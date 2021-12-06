@@ -6,7 +6,7 @@
 (defn navbar
   []
   [views4/navbar
-   {:context @(rf/subscribe [:subs/get-derived-path [:context]])}])
+   {:context @(rf/subscribe [:subs/get-context])}])
 
 (defn dashboard
   []
@@ -19,14 +19,16 @@
     :document-delete-archived-click #(rf/dispatch [:app/document-teaser-delete-archived-click (:transition_url %)])
     :document-restore-click         #(rf/dispatch [:app/document-teaser-restore-click (:transition_url %)])
     :document-clone-click           #(rf/dispatch [:app/document-teaser-clone-click (:clone_url %)])
+    :document-share-click           #(rf/dispatch [:app/document-teaser-share-click (:uuid %)])
     :document-edit-click            #(aset js/location "href" (:url %))}])
 
 (defn page-edit
   []
   [views4/PageViewEdit
    {:page             @(rf/subscribe [:subs/get-page-props])
-    :context          @(rf/subscribe [:subs/get-derived-path [:context]])
-    :form             @(rf/subscribe [:subs/get-derived-path [:form]])
+    :context          @(rf/subscribe [:subs/get-context])
+    :form             @(rf/subscribe [:subs/get-form])
+    :form-disabled?   @(rf/subscribe [:subs/get-form-disabled?])
     :dirty            @(rf/subscribe [:subs/get-form-dirty [:form]])
     :tab-props        @(rf/subscribe [:subs/get-edit-tab-props])
     :progress-props   @(rf/subscribe [:app/get-progress-bar-props])
@@ -60,6 +62,8 @@
          [views4/m4-modal-dialog-table-modal-add-form modal-props]
          :modal.type/DashboardCreateModal
          [components4/create-document-modal]
+         :modal.type/contributors-modal
+         [components4/contributors-modal modal-props]
          :modal.type/alert
          [views4/modal-dialog-alert
           {:message    (:message modal-props)

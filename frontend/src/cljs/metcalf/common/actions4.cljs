@@ -1,16 +1,15 @@
 (ns metcalf.common.actions4
-  (:require [goog.object :as gobj]
-            [metcalf.common.blocks4 :as blocks4]
-            [metcalf.common.fx3 :as fx3]
+  (:require [metcalf.common.blocks4 :as blocks4]
             [metcalf.common.logic4 :as logic4]
             [metcalf.common.schema4 :as schema4]
             [metcalf.common.utils3 :as utils3]
             [metcalf.common.utils4 :as utils4]))
 
-(defn load-page-action
+(defn load-dashboard-document-data
   [s payload]
-  (let [page-name (get-in payload [:page :name])]
-    (assoc-in s [:db :page :name] page-name)))
+  (let [documents (get-in payload [:context :documents])
+        data (zipmap (map :uuid documents) documents)]
+    (assoc-in s [:db :app/document-data] data)))
 
 (defn save-snapshot-action
   [s form-id]
@@ -23,8 +22,8 @@
   [s form-id]
   (let [snapshots-path (utils4/as-path [:db form-id :snapshots])]
     (cond-> s
-      (seq (get-in s snapshots-path))
-      (update-in snapshots-path pop))))
+            (seq (get-in s snapshots-path))
+            (update-in snapshots-path pop))))
 
 (defn restore-snapshot-action
   [s form-id]
@@ -32,9 +31,9 @@
         state-path (utils4/as-path [:db form-id :state])
         state-data (peek (get-in s snapshots-path))]
     (cond-> s
-      (seq (get-in s snapshots-path))
-      (-> (assoc-in state-path state-data)
-          (discard-snapshot-action form-id)))))
+            (seq (get-in s snapshots-path))
+            (-> (assoc-in state-path state-data)
+                (discard-snapshot-action form-id)))))
 
 (defn unselect-list-item-action
   [s form-id data-path]
@@ -48,34 +47,16 @@
         block-data (get-in s block-path)
         added? (get-in block-data (utils4/as-path [:content idx (blocks4/block-path added-path) :props :value]))]
     (cond-> s
-      added?
-      (assoc-in (conj block-path :props :selected) idx))))
-
-(defn select-user-defined-list-item-action
-  "Select item, but only if it's user defined"
-  [s form-id data-path idx addedKey]
-  (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
-        block-data (get-in s block-path)
-        added? (get-in block-data [:content idx :content addedKey :props :value])]
-    (cond-> s
-      added?
-      (assoc-in (conj block-path :props :selected) idx))))
+            added?
+            (assoc-in (conj block-path :props :selected) idx))))
 
 (defn select-last-item-action
   [s form-id data-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
         last-idx (dec (count (get-in s (conj block-path :content))))]
     (cond-> s
-      (not (neg? last-idx))
-      (assoc-in (conj block-path :props :selected) last-idx))))
-
-(defn new-item-action
-  [s form-id data-path]
-  (let [schema-path (utils4/as-path [:db form-id :schema (schema4/schema-path data-path) :items])
-        list-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :content])
-        schema (get-in s schema-path)
-        new-item (blocks4/new-item schema)]
-    (update-in s list-path conj new-item)))
+            (not (neg? last-idx))
+            (assoc-in (conj block-path :props :selected) last-idx))))
 
 (defn del-item-action
   [s form-id data-path idx]
@@ -149,25 +130,31 @@
                                     (when-not (= (peek alerts) modal-props)
                                       (conj alerts modal-props)))))
 
-(defn load-form-action
+(defn close-modal-action
+  [s]
+  (update-in s [:db :modal/stack] pop))
+
+(def disabled-statuses #{"Archived" "Deleted" "Uploaded"})
+
+(defn load-edit-form-action
   "Massage raw payload for use as app-state"
-  [s payload]
-  (let [data (get-in payload [:form :data])
-        schema (get-in payload [:form :schema])
-        state (blocks4/as-blocks {:data data :schema schema})]
+  [s {:keys [url data schema]}]
+  (let [data (schema4/massage-data-payload data)
+        schema (schema4/massage-schema-payload schema)
+        state (blocks4/as-blocks {:data data :schema schema})
+        disabled? (contains? disabled-statuses (get-in s [:db :context :document :status]))]
     (schema4/assert-schema-data {:data data :schema schema})
     (-> s
+        (assoc-in [:db :form :url] url)
         (assoc-in [:db :form :data] data)                   ; initial data used for 'is dirty' checks
         (assoc-in [:db :form :schema] schema)               ; data schema used to generate new array items
         (assoc-in [:db :form :state] state)                 ; form state used to hold props/values
-        )))
+        (cond-> disabled?
+                (assoc-in [:db :form :state :props :disabled] true)))))
 
 (defn init-create-form-action
-  [s payload]
-  (let [{:keys [create_form]} payload]
-    (cond-> s
-      create_form
-      (assoc-in [:db :create_form] (logic4/massage-form create_form)))))
+  [s create_form]
+  (assoc-in s [:db :create_form] (logic4/massage-form create_form)))
 
 (defn create-document-action
   [s url data]
@@ -187,3 +174,20 @@
                                           state
                                           path-errors)))))
 
+(defn get-document-data-action
+  "Refresh contributor data in modal state"
+  [s uuid]
+  (update s :fx conj [:app/get-json-fx
+                      {:url     (str "/api/document-info/" uuid "/")
+                       :resolve [::-get-document-data-action uuid]}]))
+
+(defn upload-attachment
+  [s {:keys [config doc-uuid file]}]
+  (let [url (str "/upload/" doc-uuid "/")
+        data {:document doc-uuid
+              :name     (.-name file)
+              :file     file}]
+    (update s :fx conj [:app/post-multipart-form
+                        {:url     url
+                         :data    data
+                         :resolve [::-upload-attachment config]}])))

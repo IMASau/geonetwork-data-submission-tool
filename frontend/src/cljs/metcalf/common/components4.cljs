@@ -7,6 +7,7 @@
             [metcalf.common.low-code4 :as low-code4]
             [metcalf.common.subs4 :as subs4]
             [metcalf.common.utils4 :as utils4]
+            [metcalf.common.views4 :as views4]
             [re-frame.core :as rf]
             [reagent.core :as r]))
 
@@ -320,7 +321,7 @@
 
 (defn portal-link
   []
-  (let [{:keys [site]} @(rf/subscribe [:subs/get-derived-path [:context]])
+  (let [{:keys [site]} @(rf/subscribe [:subs/get-context])
         {:keys [portal_title portal_url]} site]
     (if portal_url
       [:a {:href portal_url :target "_blank"} [:span.portal-title portal_title]]
@@ -332,7 +333,7 @@
 
 (defn note-for-data-manager
   [config]
-  (let [{:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+  (let [{:keys [document]} @(rf/subscribe [:subs/get-context])
         value @(rf/subscribe [::get-block-data config])]
     [:div
      {:style {:padding-top    5
@@ -349,9 +350,9 @@
   (let [page @(rf/subscribe [:subs/get-page-props])
         ;; FIXME need an m4 saving? value.
         saving (:metcalf3.handlers/saving? page)
-        {:keys [document urls]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
-        {:keys [disabled]} @(rf/subscribe [:subs/get-derived-path [:form]])
+        {:keys [document urls]} @(rf/subscribe [:subs/get-context])
+        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
+        disabled @(rf/subscribe [:subs/get-form-disabled?])
         has-errors? (and errors (> errors 0))
         archived? (= (:status document) "Archived")
         submitted? (= (:status document) "Submitted")]
@@ -370,8 +371,8 @@
   (let [page @(rf/subscribe [:subs/get-page-props])
         ;; FIXME need an m4 saving? value.
         saving (:metcalf3.handlers/saving? page)
-        {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
-        {:keys [errors]} @(rf/subscribe [:subs/get-derived-path [:progress]])
+        {:keys [document]} @(rf/subscribe [:subs/get-context])
+        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
         is-are (if (> errors 1) "are" "is")
         plural (when (> errors 1) "s")
         has-errors? (and errors (> errors 0))]
@@ -394,7 +395,7 @@
 (defn xml-export-link
   [config]
   (let [{:keys [label]} @(rf/subscribe [::get-block-props config])
-        {:keys [document]} @(rf/subscribe [:subs/get-derived-path [:context]])
+        {:keys [document]} @(rf/subscribe [:subs/get-context])
         dirty @(rf/subscribe [:subs/get-form-dirty])
         download-props {:href     (str (:export_url document) "?download")
                         :on-click #(when dirty
@@ -403,7 +404,7 @@
 
 (defn mailto-data-manager-link
   []
-  (let [{:keys [site]} @(rf/subscribe [:subs/get-derived-path [:context]])
+  (let [{:keys [site]} @(rf/subscribe [:subs/get-context])
         {:keys [email]} site]
     [:a {:href (str "mailto:" email)} email]))
 
@@ -1019,7 +1020,6 @@
 (defmethod async-list-picker :breadcrumb [config] (async-breadcrumb-list-option-picker config))
 (defmethod async-list-picker :table [config] (async-table-list-option-picker config))
 
-
 (defmulti async-item-picker-settings :kind)
 (defmethod async-item-picker-settings :default [config] (async-simple-item-option-picker-settings config))
 ;(defmethod async-item-picker-settings :breadcrumb [config] (async-breadcrumb-item-option-picker-settings config))
@@ -1042,7 +1042,6 @@
            {:label    label
             :required required}]
           children)))
-
 
 (defn coord-field
   [path]
@@ -1200,3 +1199,42 @@
    [low-code4/render-template
     {:template-id ::create-document-modal-form
      :variables   '{?form-id [:create_form]}}]])
+
+(defn contributors-modal
+  [{:keys [uuid]}]
+  [ui/ModalDialog
+   {:isOpen  true
+    :title   "Sharing"
+    :onClose #(rf/dispatch [::create-document-modal-close-click])}
+   (let [{:keys [emails]} @(rf/subscribe [:app/contributors-modal-props uuid])]
+     [views4/collaborator-form
+      {:uuid          uuid
+       :emails        emails
+       :onRemoveClick (fn [idx] (rf/dispatch [:app/contributors-modal-unshare-click {:uuid uuid :idx idx}]))
+       :onAddClick    (fn [email] (rf/dispatch [:app/contributors-modal-share-click {:uuid uuid :email email}]))}])])
+
+(defn upload-files-settings [_]
+  {::low-code4/req-ks [:form-id :data-path :value-path :placeholder]
+   ::low-code4/opt-ks []})
+
+(defn upload-files
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        items @(rf/subscribe [::get-block-data config])
+        {:keys [disabled is-hidden value-path placeholder]} props]
+    (when-not is-hidden
+      [:div
+       [ui/SimpleSelectionList
+        {:key           key
+         :items         (or items [])
+         :disabled      disabled
+         :getLabel      (ui/get-obj-path "name")
+         :getValue      (ui/get-obj-path value-path)
+         :getAdded      (constantly true)
+         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]
+       [ui/Dropzone
+        {:disabled    disabled
+         :placeholder (r/as-element placeholder)
+         :onDrop      #(rf/dispatch [::upload-files-drop config (js->clj % :keywordize-keys true)])}]])))

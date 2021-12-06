@@ -16,7 +16,7 @@ from lxml import etree
 from rest_framework.renderers import JSONRenderer
 
 from metcalf.common.emails import *
-from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, AbstractDocument, AbstractContributor, \
+from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, AbstractDocument, \
     AbstractMetadataTemplate, AbstractMetadataTemplateMapper, AbstractDraftMetadata, AbstractUserInterfaceTemplate
 from metcalf.common import spec4
 from metcalf.common.utils import to_json, get_exception_message, get_user_name
@@ -160,6 +160,8 @@ class Document(AbstractDocument):
     date_last_validated = models.DateTimeField(blank=True, null=True, verbose_name='Last Validated')
 
     doi = models.CharField(max_length=1024, default='', blank=True)
+
+    hasUserDefined = models.BooleanField(default=False)
 
     # FIXME is this needed
     class Meta:
@@ -327,10 +329,6 @@ class Document(AbstractDocument):
                              data=data,
                              agreedToTerms=False)
         inst.save()
-
-
-class Contributor(AbstractContributor):
-    pass
 
 
 class DraftMetadata(AbstractDraftMetadata):

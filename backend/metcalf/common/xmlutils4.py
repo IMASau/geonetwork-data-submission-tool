@@ -390,11 +390,13 @@ def spec_data_from_batch(batch_spec, key):
     return spec, data
 
 
-def extract_user_defined(data:dict, path="", acc:list=[]) -> list:
+def extract_user_defined(data:dict, path="", acc:list=None) -> list:
     """Takes a json data document and returns a list of all terms that
     have been added by the user.  Adjusts the term to include the data
     path (for re-insertion) and the type."""
     # FIXME: needs special handling for keywords, which don't have structure
+    if acc is None:
+        acc = []
     if not isinstance(data, dict):
         return acc
     if is_userdefined(data):
@@ -411,6 +413,24 @@ def extract_user_defined(data:dict, path="", acc:list=[]) -> list:
         else:
             continue
     return acc
+
+
+# TODO: refactor these into their own module (they're not exactly xml related)
+def update_user_defined(document_data:dict, update_data:dict, path:list) -> dict:
+    document_data = deepcopy(document_data)
+    to_update = document_data
+    for p in path:
+        if isinstance(to_update, dict):
+            to_update = to_update[p]
+        elif isinstance(to_update, list):
+            to_update = to_update[int(p)]
+
+    for k,v in update_data.items():
+        if k not in to_update:
+            raise Exception(f"Key {k} doesn't exist in {to_update}")
+        to_update[k] = v
+    del to_update['isUserDefined']
+    return document_data
 
 
 # TODO: this is a workaround for the unusual structure of the geographic extents

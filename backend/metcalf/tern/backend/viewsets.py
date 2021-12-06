@@ -3,9 +3,11 @@
 
 import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters, renderers, viewsets
+from rest_framework import filters, renderers, response, viewsets
+from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404
 
+from metcalf.common import xmlutils4
 from metcalf.tern.backend import models
 from metcalf.tern.backend import serializers
 from metcalf.tern.frontend.filters import ParentFilter
@@ -29,8 +31,8 @@ class DumaDocumentViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = models.Document.objects.filter(hasUserDefined=True)
         submitted = self.request.query_params.get('submitted', 'true')
-        if submitted.lower() != 'false':
-            queryset = queryset.filter(status=models.Document.SUBMITTED)
+        # if submitted.lower() != 'false':
+        #     queryset = queryset.filter(status=models.Document.SUBMITTED)
         return queryset
 
     def get_serializer_class(self):
@@ -39,8 +41,31 @@ class DumaDocumentViewSet(viewsets.ReadOnlyModelViewSet):
         return serializers.DumaDocumentSerializer
 
 
-class DumaTermViewSet(viewsets.GenericViewSet):
-    pass
+@api_view(['PUT'])
+def duma_update(request, *args, **kwargs):
+    docid = kwargs.get('docid')
+    termid = kwargs.get('termid')
+    data = request.data
+
+    if 'duma_path' not in data:
+        raise Exception('Missing expected property "duma_path"')
+    path = data['duma_path'].lstrip('.').split('.')
+
+    document = get_object_or_404(models.Document, uuid=docid)
+    document_draft =document.latest_draft
+    document_data = document_draft.data
+
+    updated_doc = xmlutils4.update_user_defined(document_data, data, path)
+
+    newdraft = models.DraftMetadata.objects.create(document=document, user=request.user, data=updated_doc)
+    newdraft.noteForDataManager = document_draft.noteForDataManager
+    newdraft.agreedToTerms = document_draft.agreedToTerms
+    newdraft.doiRequested = document_draft.doiRequested
+    newdraft.save()
+
+    document.hasUserDefined = bool(xmlutils4.extract_user_defined(updated_doc))
+
+    return response.Response(updated_doc)
 
 
 # FIXME: how about a constant model for name/value/uuid?

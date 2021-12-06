@@ -415,6 +415,22 @@ def extract_user_defined(data:dict, path="", acc:list=None) -> list:
     return acc
 
 
+def update_user_defined(document_data:dict, update_data:dict, path:list) -> dict:
+    document_data = deepcopy(document_data)
+    to_update = document_data
+    for p in path:
+        if isinstance(to_update, dict):
+            to_update = to_update[p]
+        elif isinstance(to_update, list):
+            to_update = to_update[int(p)]
+
+    for k,v in update_data.items():
+        if k not in to_update:
+            raise Exception(f"Key {k} doesn't exist in {to_update}")
+        to_update[k] = v
+    return document_data
+
+
 # TODO: this is a workaround for the unusual structure of the geographic extents
 # Basically each one needs to have its own mri:extent
 # but the first one should have the start/end date and description

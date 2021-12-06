@@ -429,6 +429,7 @@ def update_user_defined(document_data:dict, update_data:dict, path:list) -> dict
         if k not in to_update:
             raise Exception(f"Key {k} doesn't exist in {to_update}")
         to_update[k] = v
+    del to_update['isUserDefined']
     return document_data
 
 

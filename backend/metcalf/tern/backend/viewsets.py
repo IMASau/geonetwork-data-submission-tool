@@ -24,9 +24,15 @@ from metcalf.tern.frontend.filters import ParentFilter
 # May want to create an even more stripped back version:
 class DumaDocumentViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'uuid'
-    queryset = models.Document.objects.filter(hasUserDefined=True)  # FIXME: and status=SUBMITTED
     serializer_class = serializers.DumaDocumentSerializer
     renderer_classes = [renderers.JSONRenderer]
+
+    def get_queryset(self):
+        queryset = models.Document.objects.filter(hasUserDefined=True)
+        submitted = self.request.query_params.get('submitted', 'true')
+        if submitted.lower() != 'false':
+            queryset = queryset.filter(status=models.Document.SUBMITTED)
+        return queryset
 
     def get_serializer_class(self):
         if 'uuid' in self.kwargs:

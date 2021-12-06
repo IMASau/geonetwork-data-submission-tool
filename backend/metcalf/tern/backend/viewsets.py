@@ -41,7 +41,7 @@ def duma_update(request, *args, **kwargs):
     path = data['duma_path'].lstrip('.').split('.')
 
     document = get_object_or_404(models.Document, uuid=docid)
-    document_draft =document.latest_draft
+    document_draft = document.latest_draft
     document_data = document_draft.data
 
     updated_doc = xmlutils4.update_user_defined(document_data, data, path)
@@ -53,6 +53,7 @@ def duma_update(request, *args, **kwargs):
     newdraft.save()
 
     document.hasUserDefined = bool(xmlutils4.extract_user_defined(updated_doc))
+    document.save()
 
     return response.Response(updated_doc)
 

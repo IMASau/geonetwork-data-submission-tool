@@ -47,7 +47,7 @@ urlpatterns = [
     path('logout', logout_view, name="Sign Out"),
     path('robots.txt', robots_view, name="Robots"),
     # DUMA: doesn't fit into the generic format used in the viewset
-    path('api/duma/<uuid:uuid>/', viewsets.duma_update, name='duma-update'),
+    path('api/duma/<uuid:docid>/update/', viewsets.duma_update, name='duma-update'),
     path('api/anzsrckeyword', anzsrc_keywords),
     path('api/ausplantnames', aus_plantnames),
     path('api/ausfaunalnames', tern_faunalnames),

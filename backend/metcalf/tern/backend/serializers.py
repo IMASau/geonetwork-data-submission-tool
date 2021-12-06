@@ -28,6 +28,15 @@ class DumaTermListSerializer(serializers.BaseSerializer):
         return xmlutils4.extract_user_defined(instance.latest_draft.data)
 
 
+# Used for deserializing input:
+class DumaTermSerializer(serializers.Serializer):
+    label = serializers.CharField(max_length=200)
+    description = serializers.CharField(max_length=200)
+    uri = serializers.UUIDField()
+    isUserDefined = serializers.BooleanField()
+    duma_path = serializers.CharField(max_length=200)
+
+
 class InstitutionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Institution

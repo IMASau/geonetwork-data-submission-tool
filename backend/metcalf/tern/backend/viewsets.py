@@ -53,6 +53,7 @@ def duma_update(request, *args, **kwargs):
     newdraft.save()
 
     document.hasUserDefined = bool(xmlutils4.extract_user_defined(updated_doc))
+    document.save()
 
     return response.Response(updated_doc)
 

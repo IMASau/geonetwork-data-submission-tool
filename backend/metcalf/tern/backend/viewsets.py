@@ -24,7 +24,6 @@ from metcalf.tern.frontend.filters import ParentFilter
 # May want to create an even more stripped back version:
 class DumaDocumentViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'uuid'
-    serializer_class = serializers.DumaDocumentSerializer
     renderer_classes = [renderers.JSONRenderer]
 
     def get_queryset(self):

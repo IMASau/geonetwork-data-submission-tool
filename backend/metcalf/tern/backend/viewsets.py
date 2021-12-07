@@ -54,34 +54,6 @@ class DumaDocumentViewSet(mixins.UpdateModelMixin,
         return response.Response(updated_draft)
 
 
-@api_view(['PUT'])
-def duma_update(request, *args, **kwargs):
-    docid = kwargs.get('docid')
-    termid = kwargs.get('termid')
-    data = request.data
-
-    if 'duma_path' not in data:
-        raise Exception('Missing expected property "duma_path"')
-    path = data['duma_path'].lstrip('.').split('.')
-
-    document = get_object_or_404(models.Document, uuid=docid)
-    document_draft = document.latest_draft
-    document_data = document_draft.data
-
-    updated_doc = xmlutils4.update_user_defined(document_data, data, path)
-
-    newdraft = models.DraftMetadata.objects.create(document=document, user=request.user, data=updated_doc)
-    newdraft.noteForDataManager = document_draft.noteForDataManager
-    newdraft.agreedToTerms = document_draft.agreedToTerms
-    newdraft.doiRequested = document_draft.doiRequested
-    newdraft.save()
-
-    document.hasUserDefined = bool(xmlutils4.extract_user_defined(updated_doc))
-    document.save()
-
-    return response.Response(updated_doc)
-
-
 class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = models.Institution.objects.all().order_by('prefLabel')
     serializer_class = serializers.InstitutionSerializer

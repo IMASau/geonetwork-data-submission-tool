@@ -356,8 +356,8 @@
        :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
 
      [m4/form-group
-      {:form-id [:form]
-       :label   "Parent Metadata"
+      {:form-id  [:form]
+       :label    "Parent Metadata"
        :required true}
       [m4/yes-no-field
        {:form-id   [:form]
@@ -1162,24 +1162,24 @@
         :toolTip    "TODO"
         :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}]
 
-     [m4/form-group
-      {:label    "Method documentation"
-       :required true}
-      [m4/table-selection-list
-       {:form-id    [:form]
-        :data-path  ["resourceLineage" "onlineMethods"]
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]
-        :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                     {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+      [m4/form-group
+       {:label    "Method documentation"
+        :required true}
+       [m4/table-selection-list
+        {:form-id    [:form]
+         :data-path  ["resourceLineage" "onlineMethods"]
+         :value-path ["uri"]
+         :added-path ["isUserDefined"]
+         :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                      {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
 
-      [m4/list-add-button
-       {:form-id       [:form]
-        :data-path     ["resourceLineage" "onlineMethods"]
-        :button-text   "Add"
-        :value-path    ["uri"]
-        :item-defaults {"userAddedCategory" "onlineMethods"}
-        :added-path    ["isUserDefined"]}]
+       [m4/list-add-button
+        {:form-id       [:form]
+         :data-path     ["resourceLineage" "onlineMethods"]
+         :button-text   "Add"
+         :value-path    ["uri"]
+         :item-defaults {"userAddedCategory" "onlineMethods"}
+         :added-path    ["isUserDefined"]}]
 
        [m4/list-edit-dialog
         {:form-id     [:form]

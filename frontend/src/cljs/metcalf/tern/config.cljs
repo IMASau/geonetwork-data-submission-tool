@@ -849,7 +849,7 @@
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]]]
 
-       [:h3 "Vertical extent (optional)"]
+       [:p [:label "Vertical extent (optional)"]]
        [:p "The vertial extent is optional.  If you choose to enter details then the following fields are mandatory"]
 
        [m4/inline-form-group

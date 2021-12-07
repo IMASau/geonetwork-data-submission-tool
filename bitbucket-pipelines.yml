@@ -8,7 +8,7 @@ image:
 definitions:
   # define custom cache for frontend/node_modules 
   caches:
-    frontend_node_modules: frontend/node_modules
+    frontend-node-modules: frontend/node_modules
 
   # generic re-usable steps
   steps:
@@ -20,7 +20,7 @@ definitions:
     - step: &build-test-step
         caches:
           - maven
-          - frontend_node_modules
+          - frontend-node-modules
         script: &build-test
           - *setenv
           # build frontend

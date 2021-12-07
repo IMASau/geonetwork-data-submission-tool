@@ -387,7 +387,7 @@
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
-                    :grid-template-columns "1fr 1fr 1fr"}}
+                    :grid-template-columns "1fr 0.5fr 1fr"}}
 
       [:div
 

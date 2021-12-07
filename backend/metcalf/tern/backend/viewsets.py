@@ -3,7 +3,7 @@
 
 import django_filters
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters, renderers, response, viewsets
+from rest_framework import filters, mixins, renderers, response, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.generics import get_object_or_404
 
@@ -13,7 +13,8 @@ from metcalf.tern.backend import serializers
 from metcalf.tern.frontend.filters import ParentFilter
 
 
-class DumaDocumentViewSet(viewsets.ReadOnlyModelViewSet):
+class DumaDocumentViewSet(mixins.UpdateModelMixin,
+                          viewsets.ReadOnlyModelViewSet):
     lookup_field = 'uuid'
     renderer_classes = [renderers.JSONRenderer]
 
@@ -28,6 +29,29 @@ class DumaDocumentViewSet(viewsets.ReadOnlyModelViewSet):
         if 'uuid' in self.kwargs:
             return serializers.DumaTermListSerializer
         return serializers.DumaDocumentSerializer
+
+    def update(self, request, *args, **kwargs):
+        document = self.get_object()
+        document_draft = document.latest_draft
+        draft_data = document_draft.data
+        data = request.data
+
+        if 'duma_path' not in data:
+            raise Exception('Missing expected property "duma_path"')
+        path = data['duma_path'].lstrip('.').split('.')
+
+        updated_draft = xmlutils4.update_user_defined(draft_data, data, path)
+
+        new_draft = models.DraftMetadata.objects.create(document=document, user=request.user, data=updated_doc)
+        new_draft.noteForDataManager = document_draft.noteForDataManager
+        new_draft.agreedToTerms = document_draft.agreedToTerms
+        new_draft.doiRequested = document_draft.doiRequested
+        new_draft.save()
+
+        document.hasUserDefined = bool(xmlutils4.extract_user_defined(updated_doc))
+        document.save()
+
+        return response.Response(updated_draft)
 
 
 @api_view(['PUT'])

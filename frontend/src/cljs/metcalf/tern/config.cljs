@@ -1160,7 +1160,7 @@
         :label      "Provide a brief summary of the source of the data and related collection and/or processing methods."
         :required   true
         :toolTip    "TODO"
-        :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}]]
+        :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}]
 
      [m4/form-group
       {:label    "Method documentation"
@@ -1181,13 +1181,17 @@
         :item-defaults {"userAddedCategory" "onlineMethods"}
         :added-path    ["isUserDefined"]}]
 
-      [m4/list-edit-dialog
-       {:form-id     [:form]
-        :data-path   ["resourceLineage" "onlineMethods"]
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]
-        :title       "Method Document"
-        :template-id :method-doc/user-defined-entry-form}]]
+       [m4/list-edit-dialog
+        {:form-id     [:form]
+         :data-path   ["resourceLineage" "onlineMethods"]
+         :value-path  ["uri"]
+         :added-path  ["isUserDefined"]
+         :title       "Method Document"
+         :template-id :method-doc/user-defined-entry-form}]]]
+
+     [m4/expanding-control {:label "Data procedure creation steps (Optional)"}
+
+      ]
 
      [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]
 

@@ -1251,8 +1251,10 @@
                       ["identificationInfo" "customCitation"]]}]
      [:h2 "8: About Dataset"]
      [:i "This section allows you to provide information of the dataset collection, and will inform the consumer with the legal obligations, limitations of use and any other relevant details such as resources and publications."]
-     [:h4 "Limitation/Constraints"
-      [:p TODO]]
+     [:h3 "Limitation/Constraints"]
+     [:div [:label "Use limitations"]]
+     [:div [:label "Other constraints"]]
+     [:div [:label "Any other constraints"]]
      [m4/form-group
       {:label "Security Classification"}
       [:p "TODO"]]

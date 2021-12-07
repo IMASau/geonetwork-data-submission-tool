@@ -370,7 +370,8 @@
         :uri             "/api/terngeonetwork"
         :label-path      ["label"]
         :value-path      ["uri"]
-        :breadcrumb-path ["uuid"]}]]
+        :breadcrumb-path ["uuid"]
+        :placeholder     "Start typing to filter list..."}]]
 
      [m4/select-value-with-label
       {:form-id     [:form]

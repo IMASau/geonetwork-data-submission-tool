@@ -451,13 +451,16 @@
        :label     "Has the data been published before?"}]
 
      ;; FIXME: I think this should be formatted as YYYY or YYYY-MM (according to the commented template)
-     [m4/date-field-with-label
+     [m4/inline-form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "datePublication"]
-       :label     "Previous Publication Date"
-       :required  true
-       :minDate   "1900-01-01"
-       :maxDate   "2100-01-01"}]
+       :label     "Previous Publication Date"}
+      [m4/date-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "datePublication"]
+        :required  true
+        :minDate   "1900-01-01"
+        :maxDate   "2100-01-01"}]]
 
      [:label "TODO: revision date?"]
 

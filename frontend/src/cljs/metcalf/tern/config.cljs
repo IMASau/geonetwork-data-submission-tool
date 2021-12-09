@@ -356,8 +356,9 @@
        :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
 
      [m4/form-group
-      {:form-id [:form]
-       :label   "Parent Metadata"}
+      {:form-id  [:form]
+       :label    "Parent Metadata"
+       :required true}
       [m4/yes-no-field
        {:form-id   [:form]
         :data-path ["parentMetadata" "parentMetadataFlag"]
@@ -369,7 +370,8 @@
         :uri             "/api/terngeonetwork"
         :label-path      ["label"]
         :value-path      ["uri"]
-        :breadcrumb-path ["uuid"]}]]
+        :breadcrumb-path ["uuid"]
+        :placeholder     "Start typing to filter list..."}]]
 
      [m4/select-value-with-label
       {:form-id     [:form]
@@ -385,7 +387,7 @@
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
-                    :grid-template-columns "1fr 1fr 1fr"}}
+                    :grid-template-columns "1fr 0.5fr 1fr"}}
 
       [:div
 
@@ -432,13 +434,16 @@
                       {"value" "semimonthly" "label" "Twice a month"}
                       {"value" "biennially" "label" "Every 2 years"}]}]]]
 
-     [m4/date-field-with-label
+     [m4/inline-form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "dateCreation"]
-       :label     "Date the resource was created"
-       :required  true
-       :minDate   "1900-01-01"
-       :maxDate   "2100-01-01"}]
+       :label     "Date the resource was created"}
+      [m4/date-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "dateCreation"]
+        :required  true
+        :minDate   "1900-01-01"
+        :maxDate   "2100-01-01"}]]
 
      [m4/yes-no-field
       {:form-id   [:form]
@@ -446,13 +451,16 @@
        :label     "Has the data been published before?"}]
 
      ;; FIXME: I think this should be formatted as YYYY or YYYY-MM (according to the commented template)
-     [m4/date-field-with-label
+     [m4/inline-form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "datePublication"]
-       :label     "Previous Publication Date"
-       :required  true
-       :minDate   "1900-01-01"
-       :maxDate   "2100-01-01"}]
+       :label     "Previous Publication Date"}
+      [m4/date-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "datePublication"]
+        :required  true
+        :minDate   "1900-01-01"
+        :maxDate   "2100-01-01"}]]
 
      [:label "TODO: revision date?"]
 
@@ -710,13 +718,13 @@
       [m4/form-group
        {:label   "Additional theme keywords can be added for review and approval process"
         :toolTip "Enter your own additional theme keywords as required and click to add"}
-       [m4/value-selection-list
-        {:form-id   [:form]
-         :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]
        [m4/text-add-button
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]
-         :button-text "Add"}]]]
+         :button-text "Add"}]
+       [m4/value-selection-list
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]]
 
      [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
@@ -841,7 +849,7 @@
            :minDate   "1900-01-01"
            :maxDate   "2100-01-01"}]]]
 
-       [:h3 "Vertical extent (optional)"]
+       [:p [:label "Vertical extent (optional)"]]
        [:p "The vertial extent is optional.  If you choose to enter details then the following fields are mandatory"]
 
        [m4/inline-form-group
@@ -1152,34 +1160,38 @@
         :label      "Provide a brief summary of the source of the data and related collection and/or processing methods."
         :required   true
         :toolTip    "TODO"
-        :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}]]
+        :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}]
 
-     [m4/form-group
-      {:label    "Method documentation"
-       :required true}
-      [m4/table-selection-list
-       {:form-id    [:form]
-        :data-path  ["resourceLineage" "onlineMethods"]
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]
-        :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                     {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+      [m4/form-group
+       {:label    "Method documentation"
+        :required true}
+       [m4/table-selection-list
+        {:form-id    [:form]
+         :data-path  ["resourceLineage" "onlineMethods"]
+         :value-path ["uri"]
+         :added-path ["isUserDefined"]
+         :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                      {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
 
-      [m4/list-add-button
-       {:form-id       [:form]
-        :data-path     ["resourceLineage" "onlineMethods"]
-        :button-text   "Add"
-        :value-path    ["uri"]
-        :item-defaults {"userAddedCategory" "onlineMethods"}
-        :added-path    ["isUserDefined"]}]
+       [m4/list-add-button
+        {:form-id       [:form]
+         :data-path     ["resourceLineage" "onlineMethods"]
+         :button-text   "Add"
+         :value-path    ["uri"]
+         :item-defaults {"userAddedCategory" "onlineMethods"}
+         :added-path    ["isUserDefined"]}]
 
-      [m4/list-edit-dialog
-       {:form-id     [:form]
-        :data-path   ["resourceLineage" "onlineMethods"]
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]
-        :title       "Method Document"
-        :template-id :method-doc/user-defined-entry-form}]]
+       [m4/list-edit-dialog
+        {:form-id     [:form]
+         :data-path   ["resourceLineage" "onlineMethods"]
+         :value-path  ["uri"]
+         :added-path  ["isUserDefined"]
+         :title       "Method Document"
+         :template-id :method-doc/user-defined-entry-form}]]]
+
+     [m4/expanding-control {:label "Data procedure creation steps (Optional)"}
+
+      ]
 
      [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]
 
@@ -1239,8 +1251,10 @@
                       ["identificationInfo" "customCitation"]]}]
      [:h2 "8: About Dataset"]
      [:i "This section allows you to provide information of the dataset collection, and will inform the consumer with the legal obligations, limitations of use and any other relevant details such as resources and publications."]
-     [:h4 "Limitation/Constraints"
-      [:p TODO]]
+     [:h3 "Limitation/Constraints"]
+     [:div [:label "Use limitations"]]
+     [:div [:label "Other constraints"]]
+     [:div [:label "Any other constraints"]]
      [m4/form-group
       {:label "Security Classification"}
       [:p "TODO"]]

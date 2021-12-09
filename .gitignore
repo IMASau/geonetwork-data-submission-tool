@@ -33,11 +33,3 @@ clojure-*.edn
 /frontend/resources/public/css/images/[a-z]*.*
 /frontend/resources/public/resources/icons/[a-z]*.*
 es-data
-frontend/src/gen
-hs_err_pid1.log
-.rebel_readline_history
-.vscode
-.devcontainer
-*.map
-.m2/
-.clojure/

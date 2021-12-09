@@ -48,14 +48,14 @@
         required? (some (complement nil?) vals)
         kvs (zipmap fields-list vals)]
     (reduce
-     (fn [blk [fld val]]
-       (cond-> blk
-         true
-         (assoc-in [:content fld :props :required] required?)
-         (and (not val) required?)
-         (update-in [:content fld :props :errors] conj "This field is required")))
-     block
-     kvs)))
+      (fn [blk [fld val]]
+        (cond-> blk
+          true
+          (assoc-in [:content fld :props :required] required?)
+          (and (not val) required?)
+          (update-in [:content fld :props :errors] conj "This field is required")))
+      block
+      kvs)))
 
 ; TODO: consider renaming - doing more than required flag (disable/hide/clear)
 (defn required-when-yes
@@ -81,8 +81,8 @@
   [block {:keys [field-min field-max]}]
   (let [fmin (get-in block [:content field-min :props :value])
         fmax (get-in block [:content field-max :props :value])
-        out-of-order? (and (not (string/blank? fmin))         ; FIXME: payload includes "" instead of null
-                           (not (string/blank? fmax))         ; FIXME: payload includes "" instead of null
+        out-of-order? (and (not (string/blank? fmin))       ; FIXME: payload includes "" instead of null
+                           (not (string/blank? fmax))       ; FIXME: payload includes "" instead of null
                            (< fmax fmin))]
     (cond-> block
       out-of-order?
@@ -109,7 +109,7 @@
   (if-let [value (date/from-value (blocks4/as-data date-block))]
     (-> date-block
         (cond-> (> value (js/Date.))
-          (update-in [:props :errors] conj "Date must be before today")))
+                (update-in [:props :errors] conj "Date must be before today")))
     date-block))
 
 (defn geography-required
@@ -176,7 +176,7 @@
                 "onGoing" {:is-hidden false :required true}
                 "planned" {:is-hidden false :required true}
                 "completed" {:is-hidden false :disabled true :value "notPlanned" :required false}
-                {:is-hidden true :disabled true :value nil :required false})]
+                {:disabled true :value nil :required false})]
     (-> identificationInfo
         (update-in [:content "maintenanceAndUpdateFrequency" :props] merge props)
         (update-in [:content "maintenanceAndUpdateFrequency"] required-field (:required props)))))

@@ -101,6 +101,14 @@ If an interactive python debugger is required the django container nees to be st
     RUN_CID=$(docker ps --filter "label=com.docker.compose.oneoff=True" --filter "label=com.docker.compose.service=web" --format '{{.ID}}')
     docker exec -ti -u 0 $RUN_CID pip3 install pyreadline ipdb
 
+Migrations can be created in a similar fashion:
+
+.. code:: bash
+
+    # stop existing conatiner if running
+    docker-compose stop web
+    # start django container (this allows dropping into an interactive pdb session)
+    docker-compose run --rm --service-ports web python3 manage.py makemigrations
 
 
 Release

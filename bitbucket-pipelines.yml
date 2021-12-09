@@ -1,0 +1,54 @@
+image:
+  name: ternau/bb-python:3.8.1-alpine
+
+# cloning another repo in pipeline
+# https://bitbucket.org/blog/cloning-another-bitbucket-repository-in-bitbucket-pipelines
+# TODO: I like the node cache ... need to do something about tern-react pkg caching .... properly version it?
+
+definitions:
+  # define custom cache for frontend/node_modules 
+  caches:
+    frontend-node-modules: frontend/node_modules
+
+  # generic re-usable steps
+  steps:
+    - step: &envstep
+      # use a multiline step to set environment variables
+      - script: &setenv |
+          export IMAGE_NAME=ternau/data-submission-tool
+
+    - step: &build-test-step
+        caches:
+          - maven
+          - frontend-node-modules
+        script: &build-test
+          - *setenv
+          # build frontend
+          - cd frontend
+          - make clean
+          - # init yarn
+          - make release
+          - make copy-static
+          # build django app
+          - cd ..
+          - make build
+          - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+          - make push
+          # - CI=true npm test
+        services:
+          - docker
+
+  services:
+    docker:
+      memory: 3072  # docker max memory
+
+
+pipelines:
+
+  branches:
+    development-release:
+      - step: *build-test-step
+
+  # pull-requests:
+  #   '**':
+  #     - step: *build-test-step

@@ -910,8 +910,9 @@
           [m4/numeric-input-field
            {:form-id   [:form]
             :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeValue"]
-            :unit      ""                                   ; Driven by logic
-            }]]]]]]
+            :unit      [m4/get-data
+                        {:form-id [:form]
+                         :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeUnits"]}]}]]]]]]
 
      [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 

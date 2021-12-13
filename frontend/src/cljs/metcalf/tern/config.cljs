@@ -859,7 +859,7 @@
         [m4/async-select-option
          {:form-id     [:form]
           :data-path   ["identificationInfo" "verticalCoordinateReferenceSystem"]
-          :uri         "/api/What9"
+          :uri         "/api/verticalresolution"
           :label-path  ["label"]
           :value-path  ["uri"]
           :placeholder "Select from list"}]]

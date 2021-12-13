@@ -124,6 +124,21 @@
         (update-in [:content "boxes" :props] merge props)
         (update-in [:content "boxes"] required-field (:required props)))))
 
+(defn spatial-resolution-units
+  "Depending on the resolution attribute chosen, the units for the value
+  field should change"
+  [spatial-block]
+  ;; FIXME: this will need to change when we get the ES endpoint:
+  (let [_ (js/console.log "**** spatial-block" spatial-block)
+        resolution-attribute (get-in spatial-block [:content "ResolutionAttribute" :props :value])
+        units (case resolution-attribute
+                "None" "Unitless"
+                "Angular distance" "Degrees"
+                "Metres")]
+    (assoc-in spatial-block
+               [:content "ResolutionAttributeUnits" :props :value]
+               units)))
+
 (defn imas-vertical-required
   "Vertical fields are required / included based on vertical extent checkbox"
   [verticalElement]

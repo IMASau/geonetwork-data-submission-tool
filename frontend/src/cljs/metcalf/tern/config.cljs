@@ -119,6 +119,7 @@
 (set! rules4/rule-registry
       {"requiredField"     rules4/required-field
        "requiredWhenYes"   rules4/required-when-yes
+       "spatialUnits"      rules4/spatial-resolution-units
        "requiredAllNone"   rules4/required-all-or-nothing
        "maxLength"         rules4/max-length
        "geographyRequired" rules4/geography-required

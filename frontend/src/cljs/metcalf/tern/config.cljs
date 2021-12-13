@@ -119,6 +119,7 @@
 (set! rules4/rule-registry
       {"requiredField"     rules4/required-field
        "requiredWhenYes"   rules4/required-when-yes
+       "spatialUnits"      rules4/spatial-resolution-units
        "requiredAllNone"   rules4/required-all-or-nothing
        "maxLength"         rules4/max-length
        "geographyRequired" rules4/geography-required
@@ -909,8 +910,9 @@
           [m4/numeric-input-field
            {:form-id   [:form]
             :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeValue"]
-            :unit      ""                                   ; Driven by logic
-            }]]]]]]
+            :unit      [m4/get-data
+                        {:form-id [:form]
+                         :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeUnits"]}]}]]]]]]
 
      [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 

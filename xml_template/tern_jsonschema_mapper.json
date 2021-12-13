@@ -462,12 +462,19 @@
           "type": "object",
           "properties": {
             "ResolutionAttribute": {
+              "!docstring": "Where9",
               "type": "string"
             },
             "ResolutionAttributeValue": {
+              "!docstring": "Where10",
               "type": "number"
+            },
+            "ResolutionAttributeUnits": {
+              "!docstring": "Derived; depends on the value of Where9",
+              "type": "string"
             }
-          }
+          },
+          "rules": ["spatialUnits"]
         },
         "keywordsTheme": {
           "!docstring": "What3",

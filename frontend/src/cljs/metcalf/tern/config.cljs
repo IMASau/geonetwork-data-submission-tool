@@ -318,7 +318,7 @@
         [m4/async-select-option
          {:form-id    ?form-id
           :data-path  [?data-path "unit"]
-          :uri        "/api/What9"
+          :uri        "/api/qudtunits"
           :label-path ["label"]
           :value-path ["uri"]
           :added-path ["isUserDefined"]}]]

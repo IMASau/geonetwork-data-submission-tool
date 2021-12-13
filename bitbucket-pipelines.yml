@@ -28,7 +28,7 @@ definitions:
           - make clean
           - # init yarn
           - make release
-          - make copy-static
+          - make copy-static-pipeline
           # build django app
           - cd ..
           - make build

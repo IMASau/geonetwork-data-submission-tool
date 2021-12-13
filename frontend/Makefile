@@ -2,6 +2,8 @@
 # if BITBUCKET_CLONE_DIR is not set use HOME (it is set during bb pipeline run)
 BITBUCKET_CLONE_DIR ?= $(HOME)
 
+.PHONY: clean figwheel watch build copy-static release storybook
+
 clean:
 	rm -fR src/gen/* resources/public/js/*
 

@@ -41,6 +41,16 @@ build:
 		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn shadow-cljs compile tern
 
+copy-static-pipeline:
+	docker run --rm \
+	  -v $(shell pwd):/tmp \
+	  -w tmp \
+	  theasp/clojurescript-nodejs:shadow-cljs-alpine \
+	  npx sass --load-path=. --style compressed src/js/index.scss resources/public/css/style.npm-packaged.css
+	mkdir -p resources/public/resources/icons resources/public/css/images
+	cp -fR node_modules/@blueprintjs/icons/resources/icons resources/public/resources/icons
+	cp -vr node_modules/leaflet-draw/dist/images/* resources/public/css/images
+
 copy-static:
 	npx sass --load-path=. --style compressed src/js/index.scss resources/public/css/style.npm-packaged.css
 	mkdir -p resources/public/resources/icons resources/public/css/images
@@ -49,19 +59,19 @@ copy-static:
 
 release:
 	# init yarn
-	docker run --rm -it \
+	docker run --rm \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
 		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn
 	# transpile js components
-	docker run --rm -it \
+	docker run --rm \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
 		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn run build
 	# run shadow-cljs release
-	docker run --rm -it \
+	docker run --rm \
 		-v $(shell pwd):/tmp \
 		-v $(HOME)/.clojure:/root/.clojure \
 		-v $(HOME)/.m2:/root/.m2 \

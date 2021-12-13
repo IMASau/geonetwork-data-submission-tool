@@ -1,3 +1,7 @@
+
+# if BITBUCKET_CLONE_DIR is not set use HOME (it is set during bb pipeline run)
+BITBUCKET_CLONE_DIR ?= $(HOME)
+
 clean:
 	rm -fR src/gen/* resources/public/js/*
 
@@ -73,7 +77,7 @@ release:
 	# run shadow-cljs release
 	docker run --rm \
 		-v $(shell pwd):/tmp \
-		-v $(HOME)/.clojure:/root/.clojure \
-		-v $(HOME)/.m2:/root/.m2 \
+		-v $(BITBUCKET_CLONE_DIR)/.clojure:/root/.clojure \
+		-v $(BITBUCKET_CLONE_DIR)/.m2:/root/.m2 \
 		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn shadow-cljs release tern

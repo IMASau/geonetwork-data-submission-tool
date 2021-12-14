@@ -25,6 +25,14 @@
   [[_ {:keys [form-id]}]]
   (rf/subscribe [::get-form-state form-id]))
 
+(defn get-list-edit-can-save-sub
+  [state [_ {:keys [data-path]}]]
+  (s/assert (s/nilable ::utils4/data-path) data-path)
+  (s/assert vector? data-path)
+  (let [path (blocks4/block-path data-path)
+        logic (get-in state path)
+        {:keys [progress/errors]} (:progress/score logic)]
+    (not (pos? errors))))
 
 (defn get-block-props-sub
   "take config and merge with block props"

@@ -604,15 +604,19 @@
                   },
                   "label": {
                     "type": "string",
+                    "rules": ["requiredField"],
                     "xpath": "gcx:Anchor"
                   },
                   "source": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "description": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "serial": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "uri": {

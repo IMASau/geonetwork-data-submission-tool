@@ -6,8 +6,9 @@ image:
 # TODO: I like the node cache ... need to do something about tern-react pkg caching .... properly version it?
 
 definitions:
-  # define custom cache for frontend/node_modules 
+  # define custom cache for frontend/node_modules
   caches:
+    clojure: ~/.clojure
     frontend-node-modules: frontend/node_modules
 
   # generic re-usable steps
@@ -17,20 +18,31 @@ definitions:
       - script: &setenv |
           export IMAGE_NAME=ternau/data-submission-tool
 
-    - step: &build-test-step
+    - step: &build-frontend-step
         caches:
           - maven
+          - clojure
           - frontend-node-modules
+        image:
+          name: theasp/clojurescript-nodejs:shadow-cljs-alpine
+          run-as-user: 1000
+        script:
+          - cd frontend
+          # clean
+          - rm -fR src/gen/* resources/public/js/*
+          # release build
+          - yarn
+          - yarn run build
+          - yarn shadow-cljs release tern
+          # copy-static step
+          - npx sass --load-path=. --style compressed src/js/index.scss resources/public/css/style.npm-packaged.css
+          - mkdir -p resources/public/resources/icons resources/public/css/images
+          - cp -fR node_modules/@blueprintjs/icons/resources/icons resources/public/resources/icons
+          - cp -vr node_modules/leaflet-draw/dist/images/* resources/public/css/images
+
+    - step: &build-test-step
         script: &build-test
           - *setenv
-          # build frontend
-          - cd frontend
-          - make clean
-          - # init yarn
-          - make release
-          - make copy-static-pipeline
-          # build django app
-          - cd ..
           - make build
           - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
           - make push
@@ -38,15 +50,11 @@ definitions:
         services:
           - docker
 
-  services:
-    docker:
-      memory: 3072  # docker max memory
-
-
 pipelines:
 
   branches:
     development-release:
+      - step: *build-frontend-step
       - step: *build-test-step
 
   # pull-requests:

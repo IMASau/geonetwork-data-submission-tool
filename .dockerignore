@@ -12,7 +12,4 @@ backend/**/__pycache__/
 # ignore all in frontend
 frontend/
 # whitelist some frontend resources
-!frontend/resources/public/css/
-!frontend/resources/public/fonts/
-!frontend/resources/public/img/
-!frontend/resources/public/js/prod.js*
+!frontend/resources/public/

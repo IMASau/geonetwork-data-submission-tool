@@ -557,7 +557,14 @@
                     "type": "string"
                   },
                   "label": {
+                    "type": "string",
                     "xpath": "gcx:Anchor"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
                   },
                   "uri": {
                     "xpath": "gcx:Anchor",
@@ -593,7 +600,17 @@
                     "type": "string"
                   },
                   "label": {
+                    "type": "string",
                     "xpath": "gcx:Anchor"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "serial": {
+                    "type": "string"
                   },
                   "uri": {
                     "xpath": "gcx:Anchor",

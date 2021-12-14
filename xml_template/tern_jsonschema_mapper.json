@@ -647,6 +647,7 @@
                 "xpath": "mri:keyword",
                 "properties": {
                   "description": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "isUserDefined": {
@@ -656,13 +657,16 @@
                     "type": "string"
                   },
                   "symbol": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "source": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "unit": {
                     "type": "object",
+                    "rules": ["requiredField"],
                     "properties": {
                       "label": {
                         "type": "string"
@@ -679,6 +683,7 @@
                     }
                   },
                   "label": {
+                    "rules": ["requiredField"],
                     "type": "string",
                     "xpath": "gcx:Anchor"
                   },

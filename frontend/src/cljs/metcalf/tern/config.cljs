@@ -318,7 +318,7 @@
         [m4/async-select-option
          {:form-id    ?form-id
           :data-path  [?data-path "unit"]
-          :uri        "/api/What9"
+          :uri        "/api/qudtunits"
           :label-path ["label"]
           :value-path ["uri"]
           :added-path ["isUserDefined"]}]]
@@ -1051,7 +1051,7 @@
       [m4/async-item-picker
        {:form-id     ?form-id
         :data-path   [?data-path "contact"]
-        :uri         "/api/What9"
+        :uri         "/api/ternpeople"
         :label-path  ["label"]
         :value-path  ["uri"]
         :placeholder "Search for contact details"}]]
@@ -1105,7 +1105,7 @@
         [m4/async-select-option
          {:form-id    ?form-id
           :data-path  [?data-path "organisation"]
-          :uri        "/api/What9"
+          :uri        "/api/ternorgs"
           :label-path ["organisationName"]
           :value-path ["organisationIdentifier"]}]]
        [m4/item-add-button

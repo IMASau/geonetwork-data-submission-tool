@@ -55,8 +55,7 @@ definitions:
 pipelines:
 
   branches:
-    # development-release:
-    pipeline-artifacts:
+    development-release:
       - step: *build-frontend-step
       - step: *build-test-step
 

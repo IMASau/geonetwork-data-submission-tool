@@ -53,8 +53,7 @@ definitions:
 pipelines:
 
   branches:
-    # development-release:
-    pipeline-bb-fix:
+    development-release:
       - step: *build-frontend-step
       - step: *build-test-step
 

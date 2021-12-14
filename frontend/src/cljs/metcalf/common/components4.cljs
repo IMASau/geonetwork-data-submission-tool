@@ -104,7 +104,7 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [form-id data-path selected title template-id show-errors errors]} props
-        can-save? @(rf/subscribe [::components4/get-list-edit-can-save-sub config])
+        can-save? @(rf/subscribe [::get-list-edit-can-save-sub config])
         item-data-path (conj data-path selected)]
     [ui/EditDialog
      {:isOpen  (boolean selected)

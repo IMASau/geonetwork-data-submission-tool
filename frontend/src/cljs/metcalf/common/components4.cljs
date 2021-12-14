@@ -104,7 +104,7 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [form-id data-path selected title template-id show-errors errors]} props
-        hasError (when (and show-errors (seq errors)) true)
+        can-save? @(rf/subscribe [::get-list-edit-can-save-sub config])
         item-data-path (conj data-path selected)]
     [ui/EditDialog
      {:isOpen  (boolean selected)
@@ -112,7 +112,7 @@
       :onClose #(rf/dispatch [::list-edit-dialog-close config])
       :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
       :onSave  #(rf/dispatch [::list-edit-dialog-save config])
-      :canSave (not hasError)}
+      :canSave can-save?}
      (low-code4/render-template
        {:template-id template-id
         :variables   {'?form-id   form-id

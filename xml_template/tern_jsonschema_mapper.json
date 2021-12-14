@@ -558,12 +558,15 @@
                   },
                   "label": {
                     "type": "string",
+                    "rules": ["requiredField"],
                     "xpath": "gcx:Anchor"
                   },
                   "source": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "description": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "uri": {
@@ -601,15 +604,19 @@
                   },
                   "label": {
                     "type": "string",
+                    "rules": ["requiredField"],
                     "xpath": "gcx:Anchor"
                   },
                   "source": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "description": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "serial": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "uri": {
@@ -640,6 +647,7 @@
                 "xpath": "mri:keyword",
                 "properties": {
                   "description": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "isUserDefined": {
@@ -649,13 +657,16 @@
                     "type": "string"
                   },
                   "symbol": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "source": {
+                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "unit": {
                     "type": "object",
+                    "rules": ["requiredField"],
                     "properties": {
                       "label": {
                         "type": "string"
@@ -672,6 +683,7 @@
                     }
                   },
                   "label": {
+                    "rules": ["requiredField"],
                     "type": "string",
                     "xpath": "gcx:Anchor"
                   },

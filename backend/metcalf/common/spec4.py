@@ -242,7 +242,13 @@ def prune_if_empty(data, parent, spec, nsmap, i, silent):
             elem.getparent().remove(elem)
     # No descendent text() at all:
     for xpath in ['mri:descriptiveKeywords',
-                  'mri:resourceConstraints']:
+                  'mri:resourceConstraints',
+                  # Where9/where10 (only one should be populated):
+                  'mri:equivalentScale/mri:MD_RepresentativeFraction/mri:denominator/gco:Integer',
+                  'mri:vertical/gco:Distance',
+                  'mri:distance/gco:Distance',
+                  'mri:angularDistance/gco:Angle',
+                  ]:
         for elem in parent.findall('.//' + xpath, nsmap):
             if is_empty(elem):
                 elem.getparent().remove(elem)

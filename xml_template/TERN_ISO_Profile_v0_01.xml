@@ -1108,10 +1108,10 @@
                 <!-- Where9 and Where10 ~ Cardinality ~ one -->
                <!-- Where9 and Where10 ~ Each line shows the XML that will apply depending on user selection: 
                 -->             
-               <mri:angularDistance><gco:Angle uom="degree">30</gco:Angle></mri:angularDistance>
-               <mri:equivalentScale><mri:MD_RepresentativeFraction><mri:denominator><gco:Integer>100000</gco:Integer></mri:denominator></mri:MD_RepresentativeFraction></mri:equivalentScale>
-               <mri:vertical><gco:Distance uom="metre">0.25</gco:Distance></mri:vertical>
-               <mri:distance><gco:Distance uom="metre">30</gco:Distance></mri:distance>
+               <mri:angularDistance><gco:Angle uom="degree"></gco:Angle></mri:angularDistance>
+               <mri:equivalentScale><mri:MD_RepresentativeFraction><mri:denominator><gco:Integer></gco:Integer></mri:denominator></mri:MD_RepresentativeFraction></mri:equivalentScale>
+               <mri:vertical><gco:Distance uom="metre"></gco:Distance></mri:vertical>
+               <mri:distance><gco:Distance uom="metre"></gco:Distance></mri:distance>
             </mri:MD_Resolution>
          </mri:spatialResolution>
             <!-- ID4 ~ Status mri:topicCategory ~ Current XML change text and codelist -->

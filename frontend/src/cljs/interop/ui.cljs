@@ -16,6 +16,7 @@
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/utils" :as ui-utils]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
+            ["/ui/components/RadioGroup/RadioGroup" :as RadioGroup]
             [cljs.spec.alpha :as s]
             [goog.object :as gobj]
             [reagent.core :as r]))
@@ -40,6 +41,8 @@
 (assert EditDialog/EditDialog)
 (assert TextAddField/TextAddField)
 (assert UploadField/UploadField)
+(assert RadioGroup/RadioGroup)
+(assert RadioGroup/RadioGroupSimple)
 
 (s/def ::northBoundLatitude number?)
 (s/def ::westBoundLongitude number?)
@@ -99,3 +102,5 @@
 (def ModalDialog (r/adapt-react-class EditDialog/ModalDialog))
 (def TextAddField (r/adapt-react-class TextAddField/TextAddField))
 (def Dropzone (r/adapt-react-class UploadField/Dropzone))
+(def RadioGroup (r/adapt-react-class RadioGroup/RadioGroup))
+(def RadioGroupSimple (r/adapt-react-class RadioGroup/RadioGroupSimple))

@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import {requiredLabelInfo} from "../utils";
 
 
-export function ExpandingControl({label, required, children, keepChildrenMounted}) {
-    const [isOpen, setOpen] = React.useState(false);
+export function ExpandingControl({label, required, defaultOpen, children, keepChildrenMounted}) {
+    const [isOpen, setOpen] = React.useState(defaultOpen ? true: false);
     return (
         <div className="ExpandingControl">
             <div className="ExpandingControlHeader" onClick={() => setOpen(!isOpen)}>
@@ -25,6 +25,7 @@ export function ExpandingControl({label, required, children, keepChildrenMounted
 ExpandingControl.propTypes = {
     label: PropTypes.string.isRequired,
     required: PropTypes.bool,
+    defaultOpen: PropTypes.bool,
     keepChildrenMounted: PropTypes.bool,
-    children: PropTypes.node.isRequired
+    children: PropTypes.node
 }

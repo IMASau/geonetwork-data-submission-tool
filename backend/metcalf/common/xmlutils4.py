@@ -132,8 +132,12 @@ def has_exportTo(spec):
     return 'exportTo' in spec
 
 
-def get_exportTo(spec):
-    return spec.get('exportTo')
+def get_exportTo(spec, data):
+    exportTo = spec.get('exportTo')
+    if callable(exportTo):
+        return exportTo(data)
+    else:
+        return exportTo
 
 
 def is_fanout(spec):

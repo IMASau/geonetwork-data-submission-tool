@@ -180,6 +180,11 @@ The `exportTo` definition allows the definition of an explicit write location, d
 
 If `export` is set to `true`, the export process will write to both the default location and the `exportTo` location.
 
+The `exportTo` definition can also be a function, taking the enclosing
+spec and data from that point in the schema, in which case it should
+return a similar `xpath` and `attributes` section.  The primary
+use-case for this is when the export location depends on the data.
+
 If `export` is `false` but `exportTo` is defined, then the property will be written only to the
 `exportTo` location.
 

@@ -1107,10 +1107,10 @@
                 <!-- Where9 and Where10 ~ Codelist ~ User interface drop down contains the list of values shown below, with "mri:" removed, in lower case, e.g. angular distance, e -->
                 <!-- Where9 and Where10 ~ Cardinality ~ one -->
                <!-- Where9 and Where10 ~ Each line shows the XML that will apply depending on user selection: 
+                -->             
                <mri:angularDistance><gco:Angle uom="degree">30</gco:Angle></mri:angularDistance>
                <mri:equivalentScale><mri:MD_RepresentativeFraction><mri:denominator><gco:Integer>100000</gco:Integer></mri:denominator></mri:MD_RepresentativeFraction></mri:equivalentScale>
                <mri:vertical><gco:Distance uom="metre">0.25</gco:Distance></mri:vertical>
-                -->             
                <mri:distance><gco:Distance uom="metre">30</gco:Distance></mri:distance>
             </mri:MD_Resolution>
          </mri:spatialResolution>

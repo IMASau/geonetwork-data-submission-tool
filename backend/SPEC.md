@@ -182,8 +182,9 @@ If `export` is set to `true`, the export process will write to both the default 
 
 The `exportTo` definition can also be a function, taking the enclosing
 spec and data from that point in the schema, in which case it should
-return a similar `xpath` and `attributes` section.  The primary
-use-case for this is when the export location depends on the data.
+return a essentially a replacement for the current `spec`.  The
+primary use-case for this is when the export location depends on the
+data.
 
 If `export` is `false` but `exportTo` is defined, then the property will be written only to the
 `exportTo` location.
@@ -235,6 +236,64 @@ SPEC_FUNCTIONS = {
     "write_orcid": write_orcid,
     "write_orcid_role": write_orcid_role,
 }
+```
+
+An example of programatic mapping:
+
+```json
+"SpatialResolution": {
+  "type": "object",
+  "xpath": "mri:spatialResolution/mri:MD_Resolution",
+  "properties": {
+    "ResolutionAttribute": {
+      "!docstring": "Where9",
+      "type": "string"
+    },
+    "ResolutionAttributeValue": {
+      "!docstring": "Where10",
+      "type": "number"
+    },
+    "ResolutionAttributeUnits": {
+      "!docstring": "Derived; depends on the value of Where9",
+      "type": "string"
+    }
+  },
+  "export": false,
+  "exportTo": {
+    "function": "spatial_units_export"
+  },
+}
+```
+
+```python
+def spatial_units_export(data):
+    # Based on the data passed in, map to the appropriate xml element.
+    # Note that at this point the unit attribute is hard-coded so we
+    # are only concerned with inserting the value:
+    attr = data.get('ResolutionAttribute')
+    unitToXPath = {
+        'Denominator scale': 'mri:equivalentScale/mri:MD_RepresentativeFraction/mri:denominator/gco:Integer',
+        'Vertical': 'mri:vertical/gco:Distance',
+        'Horizontal': 'mri:distance/gco:Distance',
+        'Angular distance': 'mri:angularDistance/gco:Angle',
+    }
+    if attr and attr in unitToXPath:
+        subElementPath = unitToXPath[attr]
+        return {
+            "type": "object",
+            "xpath": f"mri:spatialResolution/mri:MD_Resolution/{subElementPath}",
+            "properties": {
+                "ResolutionAttributeValue": {
+                    "xpath": ".",
+                    'attributes': {
+                        'text': to_string
+                    }
+                },
+            }
+        }
+    else:
+        # Nothing to map, just return an empty spec:
+        return {}
 ```
 
 ## keep

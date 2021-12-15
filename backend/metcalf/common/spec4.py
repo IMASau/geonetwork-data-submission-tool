@@ -455,11 +455,44 @@ def geonetwork_url(x):
     return 'https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/{uuid}'.format(uuid=x)
 
 
+# exportTo functions:
+
+def spatial_units_export(data):
+    # Based on the data passed in, map to the appropriate xml element.
+    # Note that at this point the unit attribute is hard-coded so we
+    # are only concerned with inserting the value:
+    attr = data.get('ResolutionAttribute')
+    unitToXPath = {
+        'Denominator scale': 'mri:equivalentScale/mri:MD_RepresentativeFraction/mri:denominator/gco:Integer',
+        'Vertical': 'mri:vertical/gco:Distance',
+        'Horizontal': 'mri:distance/gco:Distance',
+        'Angular distance': 'mri:angularDistance/gco:Angle',
+    }
+    if attr and attr in unitToXPath:
+        subElementPath = unitToXPath[attr]
+        return {
+            "type": "object",
+            "xpath": f"mri:spatialResolution/mri:MD_Resolution/{subElementPath}",
+            "properties": {
+                "ResolutionAttributeValue": {
+                    "xpath": ".",
+                    'attributes': {
+                        'text': to_string
+                    }
+                },
+            }
+        }
+    else:
+        # Nothing to map, just return an empty spec:
+        return {}
+
+
 # TODO: should not be in common
 SPEC_FUNCTIONS = {
     "massage_version_number": massage_version_number,
     "new_term_vocab_prune": new_term_vocab_prune,
     "generate_attachment_url": generate_attachment_url,
+    "spatial_units_export": spatial_units_export,
     "create_linkage_uuid": create_linkage_uuid,
     "filename": filename,
     "prune_if_empty": prune_if_empty,

@@ -29,36 +29,36 @@
    xmlns:gml="http://www.opengis.net/gml/3.2"
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xsi:schemaLocation="
-   http://standards.iso.org/iso/19115/-3/cat/1.0 https://schemas.isotc211.org/19115/-3/cat/1.0/cat.xsd 
-   http://standards.iso.org/iso/19115/-3/cit/2.0 https://schemas.isotc211.org/19115/-3/cit/2.0/cit.xsd 
-   http://standards.iso.org/iso/19115/-3/gcx/1.0 https://schemas.isotc211.org/19115/-3/gcx/1.0/gcx.xsd 
-   http://standards.iso.org/iso/19115/-3/gex/1.0 https://schemas.isotc211.org/19115/-3/gex/1.0/gex.xsd 
-   http://standards.iso.org/iso/19115/-3/lan/1.0 https://schemas.isotc211.org/19115/-3/lan/1.0/lan.xsd 
-   http://standards.iso.org/iso/19115/-3/srv/2.0 https://schemas.isotc211.org/19115/-3/srv/2.0/srv.xsd 
-   http://standards.iso.org/iso/19115/-3/mas/1.0 https://schemas.isotc211.org/19115/-3/mas/1.0/mas.xsd 
-   http://standards.iso.org/iso/19115/-3/mcc/1.0 https://schemas.isotc211.org/19115/-3/mcc/1.0/mcc.xsd 
-   http://standards.iso.org/iso/19115/-3/mco/1.0 https://schemas.isotc211.org/19115/-3/mco/1.0/mco.xsd 
-   http://standards.iso.org/iso/19115/-3/mda/2.0 https://schemas.isotc211.org/19115/-3/mda/2.0/mda.xsd 
-   http://standards.iso.org/iso/19115/-3/mdb/2.0 https://schemas.isotc211.org/19115/-3/mdb/2.0/mdb.xsd 
-   http://standards.iso.org/iso/19115/-3/mds/2.0 https://schemas.isotc211.org/19115/-3/mds/2.0/mds.xsd 
-   http://standards.iso.org/iso/19115/-3/mdt/1.0 https://schemas.isotc211.org/19115/-3/mdt/1.0/mdt.xsd 
-   http://standards.iso.org/iso/19115/-3/mex/1.0 https://schemas.isotc211.org/19115/-3/mex/1.0/mex.xsd 
-   http://standards.iso.org/iso/19115/-3/mmi/1.0 https://schemas.isotc211.org/19115/-3/mmi/1.0/mmi.xsd 
-   http://standards.iso.org/iso/19115/-3/mpc/1.0 https://schemas.isotc211.org/19115/-3/mpc/1.0/mpc.xsd 
-   http://standards.iso.org/iso/19115/-3/mrc/1.0 https://schemas.isotc211.org/19115/-3/mrc/1.0/mrc.xsd 
-   http://standards.iso.org/iso/19115/-3/mrd/1.0 https://schemas.isotc211.org/19115/-3/mrd/1.0/mrd.xsd 
-   http://standards.iso.org/iso/19115/-3/mri/1.0 https://schemas.isotc211.org/19115/-3/mri/1.0/mri.xsd 
-   http://standards.iso.org/iso/19115/-3/mrl/2.0 https://schemas.isotc211.org/19115/-3/mrl/2.0/mrl.xsd 
-   http://standards.iso.org/iso/19115/-3/mrs/1.0 https://schemas.isotc211.org/19115/-3/mrs/1.0/mrs.xsd 
-   http://standards.iso.org/iso/19115/-3/msr/2.0 https://schemas.isotc211.org/19115/-3/msr/2.0/msr.xsd 
-   http://standards.iso.org/iso/19157/-2/mdq/1.0 https://schemas.isotc211.org/19157/-2/mdq/1.0/mdq.xsd 
-   http://standards.iso.org/iso/19115/-3/mac/2.0 https://schemas.isotc211.org/19115/-3/mac/2.0/mac.xsd 
-   http://standards.iso.org/iso/19115/-3/gco/1.0 https://schemas.isotc211.org/19115/-3/gco/1.0/gco.xsd 
-   http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd 
+   http://standards.iso.org/iso/19115/-3/cat/1.0 https://schemas.isotc211.org/19115/-3/cat/1.0/cat.xsd
+   http://standards.iso.org/iso/19115/-3/cit/2.0 https://schemas.isotc211.org/19115/-3/cit/2.0/cit.xsd
+   http://standards.iso.org/iso/19115/-3/gcx/1.0 https://schemas.isotc211.org/19115/-3/gcx/1.0/gcx.xsd
+   http://standards.iso.org/iso/19115/-3/gex/1.0 https://schemas.isotc211.org/19115/-3/gex/1.0/gex.xsd
+   http://standards.iso.org/iso/19115/-3/lan/1.0 https://schemas.isotc211.org/19115/-3/lan/1.0/lan.xsd
+   http://standards.iso.org/iso/19115/-3/srv/2.0 https://schemas.isotc211.org/19115/-3/srv/2.0/srv.xsd
+   http://standards.iso.org/iso/19115/-3/mas/1.0 https://schemas.isotc211.org/19115/-3/mas/1.0/mas.xsd
+   http://standards.iso.org/iso/19115/-3/mcc/1.0 https://schemas.isotc211.org/19115/-3/mcc/1.0/mcc.xsd
+   http://standards.iso.org/iso/19115/-3/mco/1.0 https://schemas.isotc211.org/19115/-3/mco/1.0/mco.xsd
+   http://standards.iso.org/iso/19115/-3/mda/2.0 https://schemas.isotc211.org/19115/-3/mda/2.0/mda.xsd
+   http://standards.iso.org/iso/19115/-3/mdb/2.0 https://schemas.isotc211.org/19115/-3/mdb/2.0/mdb.xsd
+   http://standards.iso.org/iso/19115/-3/mds/2.0 https://schemas.isotc211.org/19115/-3/mds/2.0/mds.xsd
+   http://standards.iso.org/iso/19115/-3/mdt/1.0 https://schemas.isotc211.org/19115/-3/mdt/1.0/mdt.xsd
+   http://standards.iso.org/iso/19115/-3/mex/1.0 https://schemas.isotc211.org/19115/-3/mex/1.0/mex.xsd
+   http://standards.iso.org/iso/19115/-3/mmi/1.0 https://schemas.isotc211.org/19115/-3/mmi/1.0/mmi.xsd
+   http://standards.iso.org/iso/19115/-3/mpc/1.0 https://schemas.isotc211.org/19115/-3/mpc/1.0/mpc.xsd
+   http://standards.iso.org/iso/19115/-3/mrc/1.0 https://schemas.isotc211.org/19115/-3/mrc/1.0/mrc.xsd
+   http://standards.iso.org/iso/19115/-3/mrd/1.0 https://schemas.isotc211.org/19115/-3/mrd/1.0/mrd.xsd
+   http://standards.iso.org/iso/19115/-3/mri/1.0 https://schemas.isotc211.org/19115/-3/mri/1.0/mri.xsd
+   http://standards.iso.org/iso/19115/-3/mrl/2.0 https://schemas.isotc211.org/19115/-3/mrl/2.0/mrl.xsd
+   http://standards.iso.org/iso/19115/-3/mrs/1.0 https://schemas.isotc211.org/19115/-3/mrs/1.0/mrs.xsd
+   http://standards.iso.org/iso/19115/-3/msr/2.0 https://schemas.isotc211.org/19115/-3/msr/2.0/msr.xsd
+   http://standards.iso.org/iso/19157/-2/mdq/1.0 https://schemas.isotc211.org/19157/-2/mdq/1.0/mdq.xsd
+   http://standards.iso.org/iso/19115/-3/mac/2.0 https://schemas.isotc211.org/19115/-3/mac/2.0/mac.xsd
+   http://standards.iso.org/iso/19115/-3/gco/1.0 https://schemas.isotc211.org/19115/-3/gco/1.0/gco.xsd
+   http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd
    http://www.w3.org/1999/xlink http://www.w3.org/1999/xlink.xsd">
    <!-- Dependency ~ At 26/8/2020 Schematron and Validator are still in progress by GA for v2 namespaces -->
     <!-- Block Status mdb:metadataIdentifier ~ Current XML plus mcc:description -->
-    <!-- Description ~ Identifies the UUID for the metadata record --> 
+    <!-- Description ~ Identifies the UUID for the metadata record -->
     <!-- Operation ~ Shared generates the UUID in mcc:code -->
     <!-- UI ~ N/a -->
     <!-- Required ~ yes -->
@@ -83,9 +83,9 @@
          <!-- Status mcc:description ~ New XML -->
          <!-- Required ~ Conditional -->
          <!-- Rule ~ Add element and text if generated from Shared -->
-         <!-- Placeholder Text ~ Data was submitted via the TERN SHaRED Data Submission Tool https://shared.tern.org.au -->            
+         <!-- Placeholder Text ~ Data was submitted via the TERN SHaRED Data Submission Tool https://shared.tern.org.au -->
          <mcc:description>
-            <gco:CharacterString>Data was submitted via the TERN SHaRED Data Submission Tool 
+            <gco:CharacterString>Data was submitted via the TERN SHaRED Data Submission Tool
             https://shared.tern.org.au/
          </gco:CharacterString>
          </mcc:description>
@@ -100,8 +100,7 @@
             <lan:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="eng"/>
          </lan:language>
          <lan:characterEncoding>
-            <lan:MD_CharacterSetCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat
-               /codelists.xml#MD_CharacterSetCode" codeListValue="utf8"/>
+            <lan:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8"/>
          </lan:characterEncoding>
       </lan:PT_Locale>
    </mdb:defaultLocale>
@@ -121,7 +120,7 @@
     <!-- ID3 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-503 -->
     <!-- ID3 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556158/Parent+metadata -->
     <!-- ID3 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-    <!-- ID3 ~ WriteEmptyBlock ~ no -->   
+    <!-- ID3 ~ WriteEmptyBlock ~ no -->
    <mdb:parentMetadata>
       <cit:CI_Citation>
          <cit:title>
@@ -130,7 +129,8 @@
          <cit:identifier>
             <mcc:MD_Identifier>
                <mcc:code>
-                  <gco:CharacterString>https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/[Parent UUID goes here]</gco:CharacterString>
+                  <!-- gco:CharacterString>https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/[Parent UUID goes here]</gco:CharacterString -->
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/[Parent UUID goes here]" xlink:show="new">[Parent UUID goes here]</gcx:Anchor>
                </mcc:code>
                <!-- Static section ~ retain in XML output if the user selects a parent record -->
                <mcc:codeSpace>
@@ -157,7 +157,7 @@
    <mdb:metadataScope>
       <mdb:MD_MetadataScope>
          <mdb:resourceScope>
-            <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
+            <mcc:MD_ScopeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_ScopeCode" codeListValue="dataset"/>
          </mdb:resourceScope>
          <mdb:name gco:nilReason="missing"/>
       </mdb:MD_MetadataScope>
@@ -170,12 +170,12 @@
    <mdb:contact>
       <cit:CI_Responsibility>
          <cit:role>
-            <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="pointOfContact"/>
+            <cit:CI_RoleCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode" codeListValue="pointOfContact"/>
          </cit:role>
          <cit:party>
             <cit:CI_Organisation>
                <cit:name>
-                  <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+                  <gco:CharacterString>Terrestrial Ecosystem Research Network</gco:CharacterString>
                </cit:name>
                <cit:contactInfo>
                   <cit:CI_Contact>
@@ -185,7 +185,7 @@
                               <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
                            </cit:number>
                            <cit:numberType>
-                              <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="voice"/>
+                              <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                            </cit:numberType>
                         </cit:CI_Telephone>
                      </cit:phone>
@@ -216,13 +216,14 @@
                <cit:partyIdentifier>
                   <mcc:MD_Identifier>
                      <mcc:code>
-                        <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                        <!-- gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString -->
+                        <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66" xlink:show="new">https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gcx:Anchor>
                      </mcc:code>
                      <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
                      </mcc:codeSpace>
                   </mcc:MD_Identifier>
                </cit:partyIdentifier>
-               <cit:logo>                  
+               <cit:logo>
                   <mcc:MD_BrowseGraphic>
                      <mcc:fileName>
                         <gco:CharacterString>tern-logo.png</gco:CharacterString>
@@ -239,7 +240,7 @@
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="browseGraphic"/>
                            </cit:function>
                         </cit:CI_OnlineResource>
@@ -263,13 +264,14 @@
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028456560/Metadata+Dates -->
     <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
     <!-- Process ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1220182079/User+saves+metadata+record+document -->
+   <!-- ASD Date(s) associated with the metadata record. -->
    <mdb:dateInfo>
       <cit:CI_Date>
          <cit:date>
             <gco:Date>1999-12-31</gco:Date>
          </cit:date>
          <cit:dateType>
-            <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="creation"/>
+            <cit:CI_DateTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_DateTypeCode" codeListValue="creation"/>
          </cit:dateType>
       </cit:CI_Date>
    </mdb:dateInfo>
@@ -279,7 +281,7 @@
             <gco:Date>2000-01-01</gco:Date>
          </cit:date>
          <cit:dateType>
-            <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="revision"/>
+            <cit:CI_DateTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_DateTypeCode" codeListValue="revision"/>
          </cit:dateType>
       </cit:CI_Date>
    </mdb:dateInfo>
@@ -287,7 +289,7 @@
     <!-- Description ~ Describes the metadata standards for the XML -->
     <!-- Block Status mdb:metadataStandard ~ Current XML with updated content -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556211/Metadata+Standards -->
-    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->   
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
    <mdb:metadataStandard>
       <cit:CI_Citation>
          <cit:title>
@@ -334,7 +336,7 @@
           <cit:CI_Date>
           <!-- Description ~ Year of published version -->
             <cit:date><gco:Date>2021</gco:Date></cit:date>
-            <cit:dateType><cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="published"></cit:CI_DateTypeCode></cit:dateType>
+             <cit:dateType><cit:CI_DateTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_DateTypeCode" codeListValue="published"></cit:CI_DateTypeCode></cit:dateType>
           </cit:CI_Date>
          </cit:date>
          <cit:edition>
@@ -342,19 +344,22 @@
          </cit:edition>
          <cit:identifier>
          <mcc:MD_Identifier>
-            <mcc:code><gco:CharacterString>[SG - what goes in here]</gco:CharacterString></mcc:code>
+            <!-- mcc:code><gco:CharacterString> </gco:CharacterString></mcc:code -->
+            <mcc:code>
+            <gcx:Anchor xlink:role="uri" xlink:href="https://doi.org/10.5281/zenodo.5652221" xlink:show="new">10.5281/zenodo.5652221 </gcx:Anchor>
+            </mcc:code>
          </mcc:MD_Identifier>
          </cit:identifier>
          <cit:onlineResource>
             <cit:CI_OnlineResource>
                <cit:linkage>
-                  <gco:CharacterString>[GW - location on bitbucket for published version]</gco:CharacterString>
+                  <gco:CharacterString>https://github.com/ternaustralia/TERN-ISO19115/releases/tag/v1.0</gco:CharacterString>
                </cit:linkage>
                <cit:protocol>
                   <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                </cit:protocol>
                <cit:function>
-                  <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                  <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                      codeListValue="information"/>
                </cit:function>
             </cit:CI_OnlineResource>
@@ -373,7 +378,7 @@
       <cit:CI_OnlineResource>
          <cit:linkage>
             <gco:CharacterString>https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/d366e327-ba9b-42a2-8a96-56565c4b8c71</gco:CharacterString>
-         </cit:linkage>
+        </cit:linkage>
          <cit:protocol>
             <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
          </cit:protocol>
@@ -381,7 +386,7 @@
             <gco:CharacterString>Point of truth URL of this metadata record</gco:CharacterString>
          </cit:description>
          <cit:function>
-            <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="completeMetadata"/>
+            <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode" codeListValue="completeMetadata"/>
          </cit:function>
       </cit:CI_OnlineResource>
    </mdb:metadataLinkage>
@@ -413,22 +418,22 @@
                <!-- Where4 ~ KeepPlaceholderText ~ no -->
                <!-- Where4 ~ WriteEmptyBlock ~ no -->
                <mcc:version>
-                  <gco:CharacterString>2007.07</gco:CharacterString>
+                  <gco:CharacterString>2007.08</gco:CharacterString>
                </mcc:version>
                <mcc:description>
-                  <gco:CharacterString>WGS-84</gco:CharacterString>
+                  <gco:CharacterString>WGS 84</gco:CharacterString>
                </mcc:description>
             </mcc:MD_Identifier>
          </mrs:referenceSystemIdentifier>
          <mrs:referenceSystemType>
           <!-- Status ~ New XML -->
-            <mrs:MD_ReferenceSystemTypeCode codeList="codeListLocation#MD_ReferenceSystemTypeCode" codeListValue="geodeticGeographic2D"></mrs:MD_ReferenceSystemTypeCode>
+            <mrs:MD_ReferenceSystemTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_ReferenceSystemTypeCode" codeListValue="geodeticGeographic2D"></mrs:MD_ReferenceSystemTypeCode>
          </mrs:referenceSystemType>
       </mrs:MD_ReferenceSystem>
    </mdb:referenceSystemInfo>
     <!-- Block Status mdb:identificationInfo ~ Current XML and changes -->
     <!-- Description ~ Description of the resource (dataset) -->
-    <!-- Cardinality ~ one -->   
+    <!-- Cardinality ~ one -->
    <mdb:identificationInfo>
       <mri:MD_DataIdentification>
          <mri:citation>
@@ -466,7 +471,7 @@
                         <gco:Date>1899-12-31</gco:Date>
                      </cit:date>
                      <cit:dateType>
-                        <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="creation"/>
+                        <cit:CI_DateTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_DateTypeCode" codeListValue="creation"/>
                      </cit:dateType>
                   </cit:CI_Date>
                </cit:date>
@@ -486,10 +491,10 @@
                <cit:date>
                   <cit:CI_Date>
                      <cit:date>
-                        <gco:Date>1899</gco:Date> 
+                        <gco:Date>1899</gco:Date>
                      </cit:date>
                      <cit:dateType>
-                        <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="publication"/>
+                        <cit:CI_DateTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_DateTypeCode" codeListValue="publication"/>
                      </cit:dateType>
                   </cit:CI_Date>
                </cit:date>
@@ -497,20 +502,20 @@
                 <!-- Description ~ Revision date of the resource -->
                 <!-- Dependency ~ To be confirmed, may be updated by external interfaces when new releases of data are made -->
                 <!-- Operation ~ To be confirmed, SHaRED will calculate the revision date of the data -->
-				<!-- Operation ~ Revision date of dataset may not be the same as the revision date of the metadata --> 
+				<!-- Operation ~ Revision date of dataset may not be the same as the revision date of the metadata -->
                 <!-- UI ~ n/a -->
                 <!-- Required ~ yes -->
                 <!-- Rule ~ Valid date >= 1900-01-01 -->
                 <!-- Cardinality ~ one -->
                 <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
-                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->               
+                <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:date>
                   <cit:CI_Date>
                      <cit:date>
                         <gco:Date>2014-07-14</gco:Date>
                      </cit:date>
                      <cit:dateType>
-                        <cit:CI_DateTypeCode codeList="codeListLocation#CI_DateTypeCode" codeListValue="revision"/>
+                        <cit:CI_DateTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_DateTypeCode" codeListValue="revision"/>
                      </cit:dateType>
                   </cit:CI_Date>
                </cit:date>
@@ -528,7 +533,7 @@
                 <!-- ID7 ~ Cardinality ~ one -->
                 <!-- ID7 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDESK-937 -->
                 <!-- ID7 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718862/Data+Identification+Citation+Dates+and+Edition -->
-                <!-- ID7 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+                <!-- ID7 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:edition>
                   <gco:CharacterString>1.0</gco:CharacterString>
                </cit:edition>
@@ -571,12 +576,12 @@
                <cit:citedResponsibleParty>
                   <cit:CI_Responsibility>
                      <cit:role>
-                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="publisher"/>
+                        <cit:CI_RoleCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode" codeListValue="publisher"/>
                      </cit:role>
                      <cit:party>
                         <cit:CI_Organisation>
                            <cit:name>
-                              <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+                              <gco:CharacterString>Terrestrial Ecosystem Research Network</gco:CharacterString>
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
@@ -586,7 +591,7 @@
                                           <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
                                        </cit:number>
                                        <cit:numberType>
-                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="voice"/>
+                                          <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                                        </cit:numberType>
                                     </cit:CI_Telephone>
                                  </cit:phone>
@@ -617,7 +622,8 @@
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
-                                    <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                                    <!-- gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString -->
+                                    <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66" xlink:show="new">https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gcx:Anchor>
                                  </mcc:code>
                                  <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
                                  </mcc:codeSpace>
@@ -650,7 +656,7 @@
                      <!-- Who2 and Who11 ~ Codelist ~ https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; CI_RoleCode -->
                     <!-- Who2 and Who11 ~ Cardinality ~ one cit:role per cit:citedResponsibleParty -->
                      <cit:role>
-                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="author"/>
+                        <cit:CI_RoleCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode" codeListValue="author"/>
                      </cit:role>
                         <!-- Who8 and Who12 ~ Dependency ~ Functionality needs to be updated to support the revised data model, see Documentation -->
                         <!-- Who8 and Who12 ~ Status cit:party ~ Current XML with functional changes -->
@@ -684,7 +690,7 @@
                                           <gco:CharacterString>+61 2 6246 5588</gco:CharacterString>
                                        </cit:number>
                                        <cit:numberType>
-                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="voice"/>
+                                          <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                                        </cit:numberType>
                                     </cit:CI_Telephone>
                                  </cit:phone>
@@ -718,7 +724,8 @@
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
-                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                    <!-- gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString -->
+                                    <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1" xlink:show="new">https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gcx:Anchor>
                                  </mcc:code>
                                  <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
                                  </mcc:codeSpace>
@@ -734,9 +741,9 @@
                            <!-- Who3 ~ Rule ~ If Who1 then Individual cit:partyIdentifier is mandatory -->
                             <!-- Who3 ~ Codelist ~ TERN Persons Vocabulary -->
                             <!-- Who3 ~ InputLengths ~ As-Is 100 -->
-                            <!-- Who3 ~ Cardinality ~ one per cit:party -->    
-                            <!-- Who3 ~ Dependency ~ Functionality needs to support a person can belong to more than one organisation -->                            
-                            <!-- Who3 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->                           
+                            <!-- Who3 ~ Cardinality ~ one per cit:party -->
+                            <!-- Who3 ~ Dependency ~ Functionality needs to support a person can belong to more than one organisation -->
+                            <!-- Who3 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-439 -->
                            <cit:individual>
                               <cit:CI_Individual>
 							  <!-- Who5, Who4 -->
@@ -787,7 +794,7 @@
                   <cit:CI_Responsibility>
                     <!-- Who2 and Who11 ~ Example Organisation without Person -->
                      <cit:role>
-                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="coAuthor"/>
+                        <cit:CI_RoleCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode" codeListValue="coAuthor"/>
                      </cit:role>
                      <cit:party>
                         <cit:CI_Organisation>
@@ -805,7 +812,7 @@
                                           <gco:CharacterString>+61 2 6246 5588</gco:CharacterString>
                                        </cit:number>
                                        <cit:numberType>
-                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="voice"/>
+                                          <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                                        </cit:numberType>
                                     </cit:CI_Telephone>
                                  </cit:phone>
@@ -839,7 +846,8 @@
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
-                                    <gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString>
+                                    <!-- gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString -->
+                                    <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1" xlink:show="new">https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gcx:Anchor>
                                  </mcc:code>
                                  <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
                                  </mcc:codeSpace>
@@ -871,12 +879,12 @@
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
                            </cit:function>
                     </cit:CI_OnlineResource>
                </cit:onlineResource>
-               <!-- END Static Section -->    
+               <!-- END Static Section -->
                 <!-- Static section ~ retain in XML output -->
                 <!-- Block Status ~ Current XML  -->
                 <!-- Description ~ Close citation block -->
@@ -927,7 +935,12 @@
             <!-- About8 ~ Size ~ multiline -->
             <!-- About8 ~ Cardinality ~ one -->
             <!-- About8 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556386/Data+identification+Abstract+Purpose+Credit -->
-            <!-- About8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
+            <!-- About8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:credit>
+            <!-- This is standard credit statement to acknowledge traditional owners and custodians  -->
+            <gco:CharacterString> We at TERN acknowledge the Traditional Owners and Custodians throughout Australia, New Zealand and all nations. We honour their profound connections to land, water, biodiversity and culture and pay our respects to their Elders past, present and emerging.
+            </gco:CharacterString>
+         </mri:credit>
          <mri:credit>
             <gco:CharacterString>Placeholder text=The project was funded by xxx and yyy</gco:CharacterString>
          </mri:credit>
@@ -944,9 +957,9 @@
             <!-- ID5 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ProgressCode -->
             <!-- ID5 ~ Cardinality ~ one -->
             <!-- ID5 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1026556411/Data+Identification+Status -->
-            <!-- ID5 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
+            <!-- ID5 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:status>
-            <mcc:MD_ProgressCode codeList="codeListLocation#MD_ProgressCode" codeListValue="ongoing"/>
+            <mcc:MD_ProgressCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_ProgressCode" codeListValue="ongoing"/>
          </mri:status>
             <!-- Who17 ~ Status mri:pointOfContact ~ Current XML -->
             <!-- Who17 ~ Description ~ The contact for enquiries about the resource -->
@@ -958,7 +971,7 @@
             <!-- Who17 ~ Rule ~ as for cit:citedResponsibleParty -->
             <!-- Who17 ~ Cardinality ~ many -->
             <!-- Who17 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028555197/Data+Identification+Point+of+Contact -->
-            <!-- Who17 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->    
+            <!-- Who17 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:pointOfContact>
             <cit:CI_Responsibility>
             <!-- Status cit:role ~ Current XML -->
@@ -968,9 +981,9 @@
             <!-- Cardinality ~ default for each mri:pointOfContact -->
             <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-569 -->
             <!-- Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-863 -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->                
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <cit:role>
-                  <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode" codeListValue="pointOfContact"/>
+                  <cit:CI_RoleCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode" codeListValue="pointOfContact"/>
                </cit:role>
                <!-- Who8 and Who9 -->
                <cit:party>
@@ -986,7 +999,7 @@
                                     <gco:CharacterString>02 6249 9182/9781</gco:CharacterString>
                                  </cit:number>
                                  <cit:numberType>
-                                    <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="voice"/>
+                                    <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                                  </cit:numberType>
                               </cit:CI_Telephone>
                            </cit:phone>
@@ -996,7 +1009,7 @@
                                     <gco:CharacterString>02 6249 9920</gco:CharacterString>
                                  </cit:number>
                                  <cit:numberType>
-                                    <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode" codeListValue="facsimile"/>
+                                    <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="facsimile"/>
                                  </cit:numberType>
                               </cit:CI_Telephone>
                            </cit:phone>
@@ -1035,7 +1048,8 @@
                      <cit:partyIdentifier>
                         <mcc:MD_Identifier>
                            <mcc:code>
-                              <gco:CharacterString>https://w3id.org/tern/resources/797307f8-e10b-4c74-8688-d52f9ac8d669</gco:CharacterString>
+                              <!--gco:CharacterString>https://w3id.org/tern/resources/797307f8-e10b-4c74-8688-d52f9ac8d669</gco:CharacterString -->
+                              <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/797307f8-e10b-4c74-8688-d52f9ac8d669" xlink:show="new">https://w3id.org/tern/resources/797307f8-e10b-4c74-8688-d52f9ac8d669</gcx:Anchor>
                            </mcc:code>
                            <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
                            </mcc:codeSpace>
@@ -1057,13 +1071,14 @@
                                  </cit:address>
                               </cit:CI_Contact>
                            </cit:contactInfo>
-                           <!-- Who7 ~ Example ~ if person does NOT have an ORCID then write URI as shown below --> 
+                           <!-- Who7 ~ Example ~ if person does NOT have an ORCID then write URI as shown below -->
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
-                                    <gco:CharacterString>https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b</gco:CharacterString>
+                                    <!--gco:CharacterString>https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b</gco:CharacterString -->
+                                    <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b" xlink:show="new">https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b</gcx:Anchor>
                                   </mcc:code>
-                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b</gco:CharacterString>
+                                 <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
                                  </mcc:codeSpace>
                               </mcc:MD_Identifier>
                            </cit:partyIdentifier>
@@ -1085,7 +1100,7 @@
             <!-- Where9 and Where10 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1028718977/Data+Identification+Spatial+Resolution -->
             <!-- Where9 and Where10 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1242562565/List+of+Values+Spatial+Resolution+-+Distance+-+Unit+of+Measure -->
             <!-- Where9 and Where10 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-            <!-- Where9 and Where10 ~ WriteEmptyBlock ~ no -->        
+            <!-- Where9 and Where10 ~ WriteEmptyBlock ~ no -->
             <!-- Where9 and Where10 ~ Change Note ~ Removed mri:levelOfDetail element -->
             <!-- Where9 and Where10 ~ Similar attributes ~ GCMD_Horizontal will write into keywords -->
          <mri:spatialResolution>
@@ -1106,12 +1121,12 @@
                 <!-- Where9 and Where10 ~ Rule ~ UOM Must be metre for Distance, degree for angle -->
                 <!-- Where9 and Where10 ~ Codelist ~ User interface drop down contains the list of values shown below, with "mri:" removed, in lower case, e.g. angular distance, e -->
                 <!-- Where9 and Where10 ~ Cardinality ~ one -->
-               <!-- Where9 and Where10 ~ Each line shows the XML that will apply depending on user selection: 
-               <mri:angularDistance><gco:Angle uom="degree">30</gco:Angle></mri:angularDistance>
-               <mri:equivalentScale><mri:MD_RepresentativeFraction><mri:denominator><gco:Integer>100000</gco:Integer></mri:denominator></mri:MD_RepresentativeFraction></mri:equivalentScale>
-               <mri:vertical><gco:Distance uom="metre">0.25</gco:Distance></mri:vertical>
-                -->             
-               <mri:distance><gco:Distance uom="metre">30</gco:Distance></mri:distance>
+               <!-- Where9 and Where10 ~ Each line shows the XML that will apply depending on user selection:
+                -->
+               <mri:angularDistance><gco:Angle uom="degree"></gco:Angle></mri:angularDistance>
+               <mri:equivalentScale><mri:MD_RepresentativeFraction><mri:denominator><gco:Integer></gco:Integer></mri:denominator></mri:MD_RepresentativeFraction></mri:equivalentScale>
+               <mri:vertical><gco:Distance uom="metre"></gco:Distance></mri:vertical>
+               <mri:distance><gco:Distance uom="metre"></gco:Distance></mri:distance>
             </mri:MD_Resolution>
          </mri:spatialResolution>
             <!-- ID4 ~ Status mri:topicCategory ~ Current XML change text and codelist -->
@@ -1133,7 +1148,7 @@
          </mri:topicCategory>
          <!-- Status mri:extent ~ Current XML -->
          <mri:extent>
-            <!-- Status gex:EX_Extent ~ Current XML change text and UI layout --> 
+            <!-- Status gex:EX_Extent ~ Current XML change text and UI layout -->
             <!-- Description ~ Indicates the approximate geographic coverage of the resource -->
             <!-- UI ~ Change layout and text -->
             <!-- Tab ~ Where -->
@@ -1141,7 +1156,7 @@
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030619198/Data+Identification+Extent+Geographic+Bounding+Box -->
             <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
             <gex:EX_Extent>
-            <!-- Where1 ~ Status gex:EX_Extent ~ Current XML change text and UI layout --> 
+            <!-- Where1 ~ Status gex:EX_Extent ~ Current XML change text and UI layout -->
             <!-- Where1 ~ Description ~ Description of the geographic coverage area if appropriate -->
             <!-- Where1 ~ Operation ~ User input -->
             <!-- Where1 ~ UI ~ Change layout -->
@@ -1152,7 +1167,7 @@
                <gex:description>
                   <gco:CharacterString>Placeholder text=A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia</gco:CharacterString>
                </gex:description>
-                <!-- Where2 ~ Status gex:geographicElement ~ Current XML change text -->                
+                <!-- Where2 ~ Status gex:geographicElement ~ Current XML change text -->
                 <!-- Where2 ~ Operation ~ User draws polygons on the map -->
                 <!-- Where2 ~ Operation ~ User draws points on the map -->
                 <!-- Where2 ~ Operation ~ OR User enters coordinates in CRS WGS-84 -->
@@ -1162,7 +1177,7 @@
                 <!-- Where2 ~ Help Text ~ OR input decimal degrees in coordinate reference system WGS84. Geoscience Australia provide Grid to Geographic converter -->
                 <!-- Where2 ~ Link ~ 'Grid to Geographic converter' URL https://geodesyapps.ga.gov.au/grid-to-geographic -->
                 <!-- Where2 ~ Required ~ yes at least one set of 4 coordinates -->
-                <!-- Where2 ~ Cardinality ~ many -->
+                <!-- Where2 ~ Cardinality ~ many ref: https://schemas.isotc211.org/19115/-3/gex/1.0/gex/#element_geographicElement -->
                <gex:geographicElement>
                   <gex:EX_GeographicBoundingBox>
                      <!-- Rule ~ Allow [-180 to 180] to 3 dec pl -->
@@ -1180,6 +1195,26 @@
                      <!-- Rule ~ Allow [-90 to 90] to 3 dec pl -->
                      <gex:northBoundLatitude>
                         <gco:Decimal>-10.000</gco:Decimal>
+                     </gex:northBoundLatitude>
+                  </gex:EX_GeographicBoundingBox>
+               </gex:geographicElement>
+               <gex:geographicElement>
+                  <gex:EX_GeographicBoundingBox>
+                     <!-- Rule ~ Allow [-180 to 180] to 3 dec pl -->
+                     <gex:westBoundLongitude>
+                        <gco:Decimal>127.266</gco:Decimal>
+                     </gex:westBoundLongitude>
+                     <!-- Rule ~ Allow [-180 to 180] to 3 dec pl -->
+                     <gex:eastBoundLongitude>
+                        <gco:Decimal>136.406</gco:Decimal>
+                     </gex:eastBoundLongitude>
+                     <!-- Rule ~ Allow [-90 to 90] to 3 dec pl -->
+                     <gex:southBoundLatitude>
+                        <gco:Decimal>-28.211</gco:Decimal>
+                     </gex:southBoundLatitude>
+                     <!-- Rule ~ Allow [-90 to 90] to 3 dec pl -->
+                     <gex:northBoundLatitude>
+                        <gco:Decimal>-20.863</gco:Decimal>
                      </gex:northBoundLatitude>
                   </gex:EX_GeographicBoundingBox>
                </gex:geographicElement>
@@ -1201,9 +1236,9 @@
                      <gex:EX_TemporalExtent>
                         <gex:extent>
                            <gml:TimePeriod gml:id="bcf969df-6213-4e5c-86d4-64e3b53de64a">
-                              <!-- When1 ~ Help Text ~ The first date covered by the content of the resource -->                           
+                              <!-- When1 ~ Help Text ~ The first date covered by the content of the resource -->
                               <gml:beginPosition>1899-12-31</gml:beginPosition>
-                              <!-- When2 ~ Help Text ~ For ongoing datasets, input the last date in the current collection -->    
+                              <!-- When2 ~ Help Text ~ For ongoing datasets, input the last date in the current collection -->
                               <gml:endPosition>1899-12-31</gml:endPosition>
                            </gml:TimePeriod>
                         </gex:extent>
@@ -1280,9 +1315,9 @@
                             </mcc:MD_Identifier>
                          </mrs:referenceSystemIdentifier>
                          <mrs:referenceSystemType>
-                                <mrs:MD_ReferenceSystemTypeCode codeList="codeListLocation#MD_ReferenceSystemTypeCode" codeListValue="geodeticGeographic3D"></mrs:MD_ReferenceSystemTypeCode>
+                            <mrs:MD_ReferenceSystemTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_ReferenceSystemTypeCode" codeListValue="geodeticGeographic3D"></mrs:MD_ReferenceSystemTypeCode>
                          </mrs:referenceSystemType>
-                      </mrs:MD_ReferenceSystem> 
+                      </mrs:MD_ReferenceSystem>
                      </gex:verticalCRSId>
                   </gex:EX_VerticalExtent>
                </gex:verticalElement>
@@ -1317,7 +1352,7 @@
                   <gco:CharacterString>Placeholder text=Donohue, R.J. et al., (2014) Evaluation of the remote-sensing-based DIFFUSE model for estimating photosynthesis of vegetation. Remote Sensing of Environment. doi:10.1002/2013WR015138 [Title element 1]</gco:CharacterString>
                </cit:title>
                 <!-- About6 ~ Block Status cit:onlineResource ~ New XML and field -->
-                <!-- About6 ~ Description ~ Link to the documentation -->                
+                <!-- About6 ~ Description ~ Link to the documentation -->
                 <!-- About6 ~ Help Text ~ If the document is available online provide the link here -->
                 <!-- About6 ~ Operation ~ User input -->
                 <!-- About6 ~ Operation ~ Writes into cit:linkage -->
@@ -1325,20 +1360,20 @@
                 <!-- About6 ~ KeepPlaceholderText ~ no -->
                 <!-- About6 ~ Required ~ no -->
                 <!-- About6 ~ InputLength ~ 250 -->
-                <!-- About6 ~ Size ~ single --> 
+                <!-- About6 ~ Size ~ single -->
                 <!-- About6 ~ WriteEmptyBlock ~ no -->
                <cit:onlineResource>
                   <cit:CI_OnlineResource>
                      <cit:linkage>
                         <gco:CharacterString>Link to the document or website e.g. https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2013WR015138</gco:CharacterString>
                      </cit:linkage>
-                     <!-- Static section ~ retain in XML output if cit:linkage is populated-->                     
+                     <!-- Static section ~ retain in XML output if cit:linkage is populated-->
                      <cit:protocol>
                         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                      </cit:protocol>
                      <!-- END Static Section -->
                      <!-- About 5 Operation ~ Same as cit:title -->
-                     <cit:name><gco:CharacterString>Donohue, R.J. et al., 2014. 
+                     <cit:name><gco:CharacterString>Donohue, R.J. et al., 2014.
                         Evaluation of the remote-sensing-based DIFFUSE model for estimating photosynthesis of vegetation. Remote Sensing of Environment. doi:10.1002/2013WR015138 [Name element 1]</gco:CharacterString>
                         </cit:name>
                      <!-- Static section ~ retain in XML output if cit:linkage is populated-->
@@ -1346,7 +1381,7 @@
                         <gco:CharacterString>Related documentation
                      </gco:CharacterString></cit:description>
                      <cit:function>
-                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                        <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                            codeListValue="information"/>
                      </cit:function>
                   </cit:CI_OnlineResource>
@@ -1354,7 +1389,7 @@
                    <!-- END Static Section -->
             </cit:CI_Citation>
            </mri:additionalDocumentation>
-         <!-- Description ~ This is an example with a valid link for XML testing purposes --> 
+         <!-- Description ~ This is an example with a valid link for XML testing purposes -->
          <mri:additionalDocumentation>
             <cit:CI_Citation>
                <cit:title>
@@ -1368,14 +1403,14 @@
                      <cit:protocol>
                         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                      </cit:protocol>
-                     <cit:name><gco:CharacterString>Donohue, R.J. et al., 2014. 
+                     <cit:name><gco:CharacterString>Donohue, R.J. et al., 2014.
                         Evaluation of the remote-sensing-based DIFFUSE model for estimating photosynthesis of vegetation. Remote Sensing of Environment. doi:10.1002/2013WR015138 [Name element e.g 2]</gco:CharacterString>
                         </cit:name>
                      <cit:description>
                         <gco:CharacterString>Related documentation
                      </gco:CharacterString></cit:description>
                      <cit:function>
-                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                        <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                            codeListValue="information"/>
                      </cit:function>
                   </cit:CI_OnlineResource>
@@ -1389,7 +1424,7 @@
             <!-- Tab ~ Data ID -->
             <!-- Cardinality ~ one -->
             <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039466525/Data+Identification+Resource+Maintenance+Frequency -->
-            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+            <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:resourceMaintenance>
             <mmi:MD_MaintenanceInformation>
                 <!-- ID9 ~ Operation ~ Behaviour defined by value selected in mri:status -->
@@ -1400,7 +1435,7 @@
                 <!-- ID9 ~ Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_MaintenanceFrequencyCode -->
                 <!-- ID9 ~ Cardinality ~ one -->
                <mmi:maintenanceAndUpdateFrequency>
-                  <mmi:MD_MaintenanceFrequencyCode codeList="codeListLocation#MD_MaintenanceFrequencyCode"
+                  <mmi:MD_MaintenanceFrequencyCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_MaintenanceFrequencyCode"
                      codeListValue="annually"/>
                </mmi:maintenanceAndUpdateFrequency>
             </mmi:MD_MaintenanceInformation>
@@ -1420,7 +1455,7 @@
             <!-- Datasource3 ~ Placeholder Text ~ Maximum file size: nn MB. -->
             <!-- Datasource3 ~ KeepPlaceholderText ~ no -->
             <!-- Datasource3 ~ Required ~ conditional -->
-            <!-- Datasource3 ~ Rule ~ one mrd:transferOptions block required if a png file is uploaded -->        
+            <!-- Datasource3 ~ Rule ~ one mrd:transferOptions block required if a png file is uploaded -->
             <!-- Datasource3 ~ Rule ~ png files should be maximum x by y pixels -->
             <!-- Datasource3 ~ Cardinality ~ one -->
             <!-- Datasource3 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044152669/Data+Identification+Graphic+Overview -->
@@ -1448,7 +1483,7 @@
                      <!-- Datasource2b  ~ Description ~ Title of the stored image -->
                      <cit:name><gco:CharacterString>the title of the resource</gco:CharacterString></cit:name>
                      <cit:function>
-                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                        <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                            codeListValue="browseGraphic"/>
                      </cit:function>
                     <!-- END Static Section -->
@@ -1482,30 +1517,32 @@
                   <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/a0eb9268-0333-4442-9bc6-efbe338d9836" xlink:show="new">BIOMASS DYNAMICS</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+                  <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
                </mri:type>
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>GCMD Earth Science and Earth Science Services Keywords</gco:CharacterString>
+                        <gco:CharacterString>GCMD Earth Science Keywords</gco:CharacterString>
                      </cit:title>
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                          
+                           Global Change Master Directory (2021): GCMD Keywords. Version 11.3. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum
                         </gco:CharacterString>
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                             <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords</gco:CharacterString>
+                              <gco:CharacterString>
+                                 https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords
+                              </gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
-                           </cit:function>                          
+                           </cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
@@ -1527,16 +1564,13 @@
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050206" xlink:show="new">Environmental Monitoring</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://linked.data.gov.au/def/anzsrc-for/2020/3101" xlink:show="new">Biochemistry and cell biology</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/050102" xlink:show="new">Ecosystem Function</gcx:Anchor>
-               </mri:keyword>
-               <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="http://purl.org/au-research/vocabulary/anzsrc-for/2008/0401" xlink:show="new">ATMOSPHERIC SCIENCES</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://linked.data.gov.au/def/anzsrc-for/2020/3701" xlink:show="new">Atmospheric sciences</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+                  <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
                </mri:type>
                <mri:thesaurusName>
                   <cit:CI_Citation>
@@ -1545,34 +1579,35 @@
                      </cit:title>
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Australian Bureau of Statistics, 2008, Australian and New Zealand Standard Research Classification (ANZSRC), https://www.abs.gov.au
+                           Australian Bureau of Statistics (2020): Australian and New Zealand Standard Research Classification (ANZSRC). https://www.abs.gov.au
                         </gco:CharacterString>
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>https://vocabs.ands.org.au/viewById/20</gco:CharacterString>
+                              <gco:CharacterString>https://www.abs.gov.au/statistics/classifications/australian-and-new-zealand-standard-research-classification-anzsrc/2020
+                              </gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
-                           </cit:function> 
+                           </cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
                </mri:thesaurusName>
             </mri:MD_Keywords>
-         </mri:descriptiveKeywords>    
+         </mri:descriptiveKeywords>
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
                   <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/e729eba7-215a-4626-9d13-feece79c41ad" xlink:show="new">Alice Mulga SuperSite</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="platform"/>
+                  <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="platform"/>
                </mri:type>
                 <!-- What5 ~ Display Label ~ TERN Platform Vocabulary -->
                 <!-- What5 ~ Help Text ~ Select the Platform or Site or click Add to create a new entry -->
@@ -1589,32 +1624,33 @@
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>TERN Platform Vocabulary</gco:CharacterString>
+                        <gco:CharacterString> TERN Platform Vocabulary</gco:CharacterString>
                      </cit:title>
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. https://w3id.org/tern/assets/platforms/
+                           TERN (2020): TERN Platform Vocabulary. Terrestrial Ecosystem Research Network (TERN). https://w3id.org/tern/resources/
                         </gco:CharacterString>
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>https://w3id.org/tern/assets/platforms/</gco:CharacterString>
+                              <gco:CharacterString>https://w3id.org/tern/resources/
+                              </gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
-                           </cit:function> 
+                           </cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
-             <!-- What6 ~ Display Label ~ TERN Instrument Vocabulary -->
+             <!-- What6 ~ Display Label ~ TERN Instrument Instances -->
             <!-- What6 ~ Help Text ~ Select the Instrument or click Add to create a new entry -->
             <!-- What6 ~ Operation ~ User can select values and create new list values -->
             <!-- What6 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
@@ -1626,17 +1662,17 @@
             <!-- What6 ~ Codelist ~ API def tern_instruments(request) from Elastic Search contact Gerhard Weis -->
             <!-- What6 ~ Cardinality ~ one block contains many keywords-->
             <!-- What6 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- What6 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+            <!-- What6 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/55cd8c0b-20a3-4c22-a96f-52237be2b6db" xlink:show="new">Vaisala VSN1 Probe</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/020e7d8b-bf08-4b9f-b3b9-6b815ea383b4" xlink:show="new">stardot-E1159C</gcx:Anchor>
                </mri:keyword>
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/94bf9ec6-d4fb-4005-b54c-eca39a30a7e5" xlink:show="new">TERN thermometer (22401)</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/0287b3bd-ed50-4662-96e9-7f7469179344" xlink:show="new">SRTM</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="instrument"/>
+                  <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="instrument"/>
                </mri:type>
                <mri:thesaurusName>
                   <cit:CI_Citation>
@@ -1645,27 +1681,85 @@
                      </cit:title>
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. https://w3id.org/tern/assets/sensors/
+                           TERN (2020): TERN Instrument Vocabulary. Terrestrial Ecosystem Research Network (TERN). https://w3id.org/tern/resources/
                         </gco:CharacterString>
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>https://w3id.org/tern/assets/sensors/</gco:CharacterString>
+                              <gco:CharacterString>
+                                 https://w3id.org/tern/resources/
+                              </gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
-                           </cit:function> 
+                           </cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
                </mri:thesaurusName>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
+
+         <!-- What6 ~ Display Label ~ TERN Instrument Types -->
+         <!-- What6 ~ Help Text ~ Select the Instrument or click Add to create a new entry -->
+         <!-- What6 ~ Operation ~ User can select values and create new list values -->
+         <!-- What6 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
+         <!-- What6 ~ Change Note ~ Was on the About tab -->
+         <!-- What6 ~ Change Note ~ Remove field for Serial Number -->
+         <!-- What6 ~ Placeholder Text ~ Start typing to filter list... -->
+         <!-- What6 ~ KeepPlaceholderText ~ no -->
+         <!-- What6 ~ Required ~ no -->
+         <!-- What6 ~ Codelist ~ API def tern_instruments(request) from Elastic Search contact Gerhard Weis -->
+         <!-- What6 ~ Cardinality ~ one block contains many keywords-->
+         <!-- What6 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
+         <!-- What6 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+         <mri:descriptiveKeywords>
+            <mri:MD_Keywords>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/5e8135c1ac16ece813caad2e32e9d6fb56fc7e35b400fe7ae3d388e1bfdea6dc" xlink:show="new">IRGA</gcx:Anchor>
+               </mri:keyword>
+               <mri:keyword>
+                  <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/da00c4aa80d4a90a6072c8fb91bdf75ee68fd28ad890f4c6714b20e5ed41b63e" xlink:show="new">RAIN GAUGES</gcx:Anchor>
+               </mri:keyword>
+               <mri:type>
+                  <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="instrument"/>
+               </mri:type>
+               <mri:thesaurusName>
+                  <cit:CI_Citation>
+                     <cit:title>
+                        <gco:CharacterString>TERN Instrument Type Vocabulary</gco:CharacterString>
+                     </cit:title>
+                     <cit:otherCitationDetails>
+                        <gco:CharacterString>
+                           TERN (2020): TERN Instrument Type Vocabulary. Terrestrial Ecosystem Research Network (TERN). http://linked.data.gov.au/def/tern-cv/a3088b5c-622d-4e25-8a75-4c4961b0dfe8
+                        </gco:CharacterString>
+                     </cit:otherCitationDetails>
+                     <cit:onlineResource>
+                        <cit:CI_OnlineResource>
+                           <cit:linkage>
+                              <gco:CharacterString>
+                                 http://linked.data.gov.au/def/tern-cv/a3088b5c-622d-4e25-8a75-4c4961b0dfe8
+                              </gco:CharacterString>
+                           </cit:linkage>
+                           <cit:protocol>
+                              <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                           </cit:protocol>
+                           <cit:function>
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
+                                 codeListValue="information"/>
+                           </cit:function>
+                        </cit:CI_OnlineResource>
+                     </cit:onlineResource>
+                  </cit:CI_Citation>
+               </mri:thesaurusName>
+            </mri:MD_Keywords>
+         </mri:descriptiveKeywords>
+
             <!-- What8 ~ Display Label ~ TERN Parameter Vocabulary -->
             <!-- What8 ~ Help Text ~ Select the Parameter(s) or click Add to create a new entry -->
             <!-- What8 ~ Operation ~ User can select values and create new list values -->
@@ -1678,7 +1772,7 @@
             <!-- What8 ~ Cardinality ~ block contains at least one keyword -->
             <!-- What8 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-471 -->
             <!-- What8 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- What8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+            <!-- What8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
@@ -1688,30 +1782,32 @@
                   <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/83384366-87b2-4579-ba17-b7eac9d0b8b9" xlink:show="new">Hemispherical photography</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+                  <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
                </mri:type>
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title >
-                        <gco:CharacterString>TERN Parameter Vocabulary</gco:CharacterString>
+                        <gco:CharacterString>TERN Parameter Type Vocabulary</gco:CharacterString>
                      </cit:title>
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           TERN Global Vocabularies, 2020. http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396
+                           TERN (2020). TERN Parameter Type Vocabulary. Terrestrial Ecosystem Research Network (TERN). http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e
                         </gco:CharacterString>
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396</gco:CharacterString>
+                              <gco:CharacterString>
+                                 http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e
+                              </gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
-                           </cit:function> 
+                           </cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
@@ -1729,14 +1825,14 @@
             <!-- What9 ~ Codelist ~ API def qudt_units(request) from Elastic Search contact Gerhard Weis -->
             <!-- What9 ~ Cardinality ~ block contains at least one keyword -->
             <!-- What9 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- What9 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+            <!-- What9 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
                   <gcx:Anchor xlink:role="uri" xlink:href="http://qudt.org/vocab/unit/DAY" xlink:show="new">Day</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+                  <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
                </mri:type>
                <mri:thesaurusName>
                   <cit:CI_Citation>
@@ -1745,21 +1841,22 @@
                      </cit:title>
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           QUDT.org 2020. Units of Measure, http://www.qudt.org/2.1/catalog/qudt-catalog.html 
+                           QUDT.org (2020): Units of Measure. http://www.qudt.org/2.1/catalog/qudt-catalog.html
                         </gco:CharacterString>
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>http://www.qudt.org/2.1/vocab/unit</gco:CharacterString>
+                              <gco:CharacterString>http://www.qudt.org/2.1/vocab/unit
+                              </gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
-                           </cit:function> 
+                           </cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
@@ -1778,38 +1875,39 @@
             <!-- What11 ~ Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml -->
             <!-- What11 ~ Cardinality ~ one -->
             <!-- What11 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- What11 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+            <!-- What11 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.nasa.gov/kms/concept/abf43d91-a65d-4b3b-a6dd-593e211b2c7b.xml" xlink:show="new">1 meter - &lt; 30 meters</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/abf43d91-a65d-4b3b-a6dd-593e211b2c7b" xlink:show="new">1 meter - &lt; 30 meters</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+                  <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
                </mri:type>
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>GCMD Horizontal Resolution</gco:CharacterString>
+                        <gco:CharacterString>GCMD Horizontal Resolution Ranges</gco:CharacterString>
                      </cit:title>
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
+                           Global Change Master Directory (2021): GCMD Keywords. Version 11.3. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum
                         </gco:CharacterString>
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
                            <!-- The base uri has changed, below is the new base uri for the horizontal res -->
-                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml</gco:CharacterString>
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml
+                           </gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
-                           </cit:function> 
+                           </cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
@@ -1817,7 +1915,7 @@
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
          <!-- What12 ~ Display Label ~ GCMD Vertical Resolution -->
-         <!-- What12 ~ Help Text ~  Select the smallest vertical distance between successive elements of data in a dataset. 
+         <!-- What12 ~ Help Text ~  Select the smallest vertical distance between successive elements of data in a dataset.
             This is synonymous with terms such as sample spacing and pixel size -->
          <!-- What12 ~ Operation ~ User can select values -->
          <!-- What12 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
@@ -1833,33 +1931,34 @@
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/3f0aa4fc-802c-4804-9f9f-8b666f3a2776?format=json" xlink:show="new">> 1 km</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/3f0aa4fc-802c-4804-9f9f-8b666f3a2776" xlink:show="new"> &gt; 1 km</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="theme"/>
+                  <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
                </mri:type>
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>GCMD Vertical Resolution</gco:CharacterString>
+                        <gco:CharacterString>GCMD Vertical Resolution Ranges</gco:CharacterString>
                      </cit:title>
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
+                           Global Change Master Directory (2021): GCMD Keywords, Version 11.3. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum
                         </gco:CharacterString>
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml</gco:CharacterString>
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml
+                              </gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
-                           </cit:function> 
+                           </cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
@@ -1878,38 +1977,39 @@
             <!-- What10 ~ Codelist ~ https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange/?format=xml -->
             <!-- What10 ~ Cardinality ~ one -->
             <!-- What10 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- What10 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+            <!-- What10 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords>
                <mri:keyword>
-                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.nasa.gov/kms/concept/48ff676f-836c-4cff-bc88-4c4cc06b2e1b.xml" xlink:show="new">1 second - &lt; 1 minute</gcx:Anchor>
+                  <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/48ff676f-836c-4cff-bc88-4c4cc06b2e1b" xlink:show="new">1 second - &lt; 1 minute</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="temporal"/>
+                  <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="temporal"/>
                </mri:type>
                <mri:thesaurusName>
                   <cit:CI_Citation>
                      <cit:title>
-                        <gco:CharacterString>GCMD Temporal Resolution</gco:CharacterString>
+                        <gco:CharacterString>GCMD Temporal Resolution Ranges</gco:CharacterString>
                      </cit:title>
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Global Change Master Directory (GCMD). 2020. GCMD Keywords, Version 9.1.5 Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum                           
+                           Global Change Master Directory (2021): GCMD Keywords, Version 11.3. Greenbelt, MD: Earth Science Data and Information System, Earth Science Projects Division, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA). URL (GCMD Keyword Forum Page): https://earthdata.nasa.gov/gcmd-forum
                         </gco:CharacterString>
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
                             <!-- The base uri has changed, below is the new base uri -->
-                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange/?format=xml</gco:CharacterString>
+                              <gco:CharacterString>https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange/?format=xml
+                              </gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
-                           </cit:function> 
+                           </cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
@@ -1927,7 +2027,7 @@
             <!-- What13 ~ Codelist ~ http://www.cpbr.gov.au/cgi-bin/apni -->
             <!-- What13 ~ Cardinality ~ one block can contain many keywords -->
             <!-- What13 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-            <!-- What13 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->   
+            <!-- What13 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mri:descriptiveKeywords>
             <mri:MD_Keywords id="Flora">
                <mri:keyword>
@@ -1937,7 +2037,7 @@
                   <gcx:Anchor xlink:role="uri" xlink:href="https://id.biodiversity.org.au/name/apni/225451" xlink:show="new">Cunninghamiales Doweld</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="taxon"/>
+                  <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="taxon"/>
                </mri:type>
                <mri:thesaurusName>
                   <cit:CI_Citation>
@@ -1947,27 +2047,25 @@
                      <cit:alternateTitle>
                         <gco:CharacterString>APNI</gco:CharacterString>
                      </cit:alternateTitle>
+                     <!-- citation format follows https://www.anbg.gov.au/citation.html -->
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Australian Plant Name Index,
-                           IBIS database,
-                           Centre for Australian National Biodiversity Research,
-                           Australian Government, Canberra, 
-                           http://www.cpbr.gov.au/cgi-bin/apni
+                           Australian Plant Name Index. IBIS database. Centre for Australian National Biodiversity Research, Australian Government, Canberra. http://www.cpbr.gov.au/cgi-bin/apni
                         </gco:CharacterString>
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>http://www.cpbr.gov.au/cgi-bin/apni</gco:CharacterString>
+                              <gco:CharacterString>http://www.cpbr.gov.au/cgi-bin/apni
+                              </gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
-                           </cit:function> 
+                           </cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
@@ -1995,7 +2093,7 @@
                   <gcx:Anchor xlink:role="uri" xlink:href="https://biodiversity.org.au/afd/taxa/Petaurus_australis" xlink:show="new">Petaurus australis | Yellow-bellied Glider</gcx:Anchor>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="taxon"/>
+                  <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="taxon"/>
                </mri:type>
                <mri:thesaurusName>
                   <cit:CI_Citation>
@@ -2005,25 +2103,25 @@
                      <cit:alternateTitle>
                         <gco:CharacterString>AFD</gco:CharacterString>
                      </cit:alternateTitle>
+                     <!-- citation i=follows https://www.awe.gov.au/science-research/abrs/online-resources/citation -->
                      <cit:otherCitationDetails>
                         <gco:CharacterString>
-                           Australian Faunal Directory, 
-                           © Commonwealth of Australia 2019, 
-                           https://biodiversity.org.au/afd/home
+                           ABRS (2020): Australian Faunal Directory. Australian Biological Resources Study, Canberra. https://biodiversity.org.au/afd/home
                         </gco:CharacterString>
                      </cit:otherCitationDetails>
                      <cit:onlineResource>
                         <cit:CI_OnlineResource>
                            <cit:linkage>
-                              <gco:CharacterString>https://biodiversity.org.au/afd/home</gco:CharacterString>
+                              <gco:CharacterString>https://biodiversity.org.au/afd/home
+                              </gco:CharacterString>
                            </cit:linkage>
                            <cit:protocol>
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
-                           </cit:function> 
+                           </cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
@@ -2051,7 +2149,7 @@
                   <gco:CharacterString>Another free text keyword</gco:CharacterString>
                </mri:keyword>
                <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="codeListLocation#MD_KeywordTypeCode" codeListValue="discipline"/>
+                  <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="discipline"/>
                </mri:type>
             </mri:MD_Keywords>
          </mri:descriptiveKeywords>
@@ -2071,7 +2169,7 @@
          <mri:resourceConstraints>
             <mco:MD_LegalConstraints>
                <mco:useLimitation><gco:CharacterString>
-                  The CC-By license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties. Details are provided at https://creativecommons.org/licenses/by/4.0/legalcode                  
+                  The CC-By license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties. Details are provided at https://creativecommons.org/licenses/by/4.0/legalcode
                </gco:CharacterString></mco:useLimitation>
                <mco:graphic>
                   <mcc:MD_BrowseGraphic>
@@ -2095,7 +2193,7 @@
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="browseGraphic">
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode" codeListValue="browseGraphic">
                               </cit:CI_OnLineFunctionCode></cit:function>
                         </cit:CI_OnlineResource>
                      </mcc:linkage>
@@ -2121,14 +2219,14 @@
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="information">
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode" codeListValue="information">
                            </cit:CI_OnLineFunctionCode></cit:function>
                         </cit:CI_OnlineResource>
                      </cit:onlineResource>
                   </cit:CI_Citation>
                </mco:reference>
                <mco:accessConstraints>
-                  <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode" codeListValue="license"/>
+                  <mco:MD_RestrictionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_RestrictionCode" codeListValue="license"/>
                </mco:accessConstraints>
                <!-- END Static Section -->
                 <!-- Display Label ~ n/a -->
@@ -2138,22 +2236,23 @@
                 <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041760257/Data+Identification+Resource+Constraints -->
                 <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
                <mco:useConstraints>
-                  <mco:MD_RestrictionCode codeList="codeListLocation#MD_RestrictionCode" codeListValue="otherRestrictions"/>
+                  <mco:MD_RestrictionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_RestrictionCode" codeListValue="otherRestrictions"/>
                </mco:useConstraints>
                <!-- Static section ~ retain in XML output -->
                <!-- Description ~ Access policy, citation instructions, etc -->
                <mco:otherConstraints>
                   <!-- Disclaimer text from https://www.tern.org.au/access-policy/ -->
-                  <gco:CharacterString>TERN services are provided on an "as-is" and "as available" basis. Users use any TERN services at their discretion and risk. 
+                  <gco:CharacterString>TERN services are provided on an "as-is" and "as available" basis. Users use any TERN services at their discretion and risk.
                      They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.
                      &lt;br /&gt;Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.
                      &lt;br /&gt;&lt;br /&gt;Please advise any work or publications that use this data via the online form at https://www.tern.org.au/research-publications/#reporting</gco:CharacterString>
                </mco:otherConstraints>
                <mco:otherConstraints>
                   <!-- Format for citation -->
-                  <gco:CharacterString>Please cite this dataset as {Author}{Year Published}{Title}. Version {Version number}. Terrestrial Ecosystem Research Network (TERN). dataset. Accessed from https://geonetwork.tern.org.au on {Date}. 
+                  <gco:CharacterString>Please cite this dataset as {Author}{Year Published}{Title}. Version {Version number}. Terrestrial Ecosystem Research Network. dataset. Accessed from https://geonetwork.tern.org.au on {Date}.
                      </gco:CharacterString>
                </mco:otherConstraints>
+
                 <!-- END Static Section - User may add other constraints -->
                 <!-- Status ~ Current XML and UI -->
                 <!-- Description ~ Constraints identified by the User -->
@@ -2189,7 +2288,7 @@
             <!-- About2 ~ Codelist ~ https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml; MD_ClassificationCode -->
             <!-- About2 ~ Cardinality ~ one -->
             <!-- About2 ~ Documentation ~ document 8 on the MDWG Meeting 5 webpage: MDWG Meeting #5 - Presentations and Reports | Intergovernmental Committee on Surveying and Mapping (icsm.gov.au) -->
-            <!-- About2 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->            
+            <!-- About2 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->
          <mri:resourceConstraints>
          <mco:MD_SecurityConstraints>
                <mco:reference>
@@ -2209,7 +2308,7 @@
                               <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
                            </cit:protocol>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
                            </cit:function>
                         </cit:CI_OnlineResource>
@@ -2217,10 +2316,10 @@
                   </cit:CI_Citation>
                </mco:reference>
                <mco:classification>
-                  <mco:MD_ClassificationCode codeList="codeListLocation#MD_ClassificationCode" codeListValue="unclassified"/>
+                  <mco:MD_ClassificationCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_ClassificationCode" codeListValue="unclassified"/>
                </mco:classification>
             </mco:MD_SecurityConstraints>
-            </mri:resourceConstraints>        
+            </mri:resourceConstraints>
             <!-- About3 ~ WriteEmptyBlock ~ no -->
             <!-- About3 ~ Status ~ New XML and UI -->
             <!-- About3 ~ Description ~ Description of the resource in the producer's processing environment -->
@@ -2327,10 +2426,10 @@
                <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString>
                </mrd:fileDecompressionTechnique>
             </mrd:MD_Format>
-         </mrd:distributionFormat> 
+         </mrd:distributionFormat>
             <!-- Datasource1 ~ Status ~ New XML and field -->
             <!-- Datasource1 ~ Description ~ Indicates which organisation hosts and distributes the data -->
-            <!-- Datasource1 ~ Operation ~ If the user uploads data, then Distributor defaults to 'Terrestrial Ecosystem Research Network (TERN)' -->
+            <!-- Datasource1 ~ Operation ~ If the user uploads data, then Distributor defaults to 'Terrestrial Ecosystem Research Network' -->
             <!-- Datasource1 ~ Operation ~ Default details for TERN shown below -->
             <!-- Datasource1 ~ Required ~ yes -->
             <!-- Datasource1 ~ Cardinality ~ one -->
@@ -2341,13 +2440,13 @@
                <mrd:distributorContact>
                   <cit:CI_Responsibility>
                      <cit:role>
-                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                        <cit:CI_RoleCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode"
                            codeListValue="distributor"/>
                      </cit:role>
                      <cit:party>
                         <cit:CI_Organisation>
                            <cit:name>
-                              <gco:CharacterString>Terrestrial Ecosystem Research Network (TERN)</gco:CharacterString>
+                              <gco:CharacterString>Terrestrial Ecosystem Research Network</gco:CharacterString>
                            </cit:name>
                            <cit:contactInfo>
                               <cit:CI_Contact>
@@ -2357,7 +2456,7 @@
                                           <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
                                        </cit:number>
                                        <cit:numberType>
-                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode"
+                                          <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode"
                                              codeListValue="voice"/>
                                        </cit:numberType>
                                     </cit:CI_Telephone>
@@ -2389,7 +2488,8 @@
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
-                                    <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                                    <!-- gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString -->
+                                    <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66" xlink:show="new">https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gcx:Anchor>
                                  </mcc:code>
                                  <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
                                  </mcc:codeSpace>
@@ -2409,27 +2509,27 @@
          <!-- Datasource1 ~ Tab ~ Data sources - upload  -->
          <!-- Datasource1 ~ Display Label ~ see comments above under /mdb:MD_Metadata/mdb:identificationInfo[1]/mri:MD_DataIdentification[1]/mri:graphicOverview[1] -->
          <!-- Datasource1 ~ Required ~ conditional -->
-        <!-- Datasource1 ~ Help Text ~ Data files less than 100MB can be uploaded here -->        
+        <!-- Datasource1 ~ Help Text ~ Data files less than 100MB can be uploaded here -->
         <!-- Datasource1 ~ Cardinality ~ many -->
         <!-- Datasource1 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-456 -->
         <!-- Datasource1 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-367 -->
          <!-- Datasource1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251930/Distribution+Digital+Transfer+Options -->
-         <!-- Datasource1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->        
+         <!-- Datasource1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
          <mrd:transferOptions>
             <mrd:MD_DigitalTransferOptions>
-               <!-- Datasource1 ~ Display Label ~ n/a --> 
+               <!-- Datasource1 ~ Display Label ~ n/a -->
                <!-- Datasource1 ~ Operation ~ Can file size in MB be determined automatically by Data upload function? -->
                <mrd:transferSize><gco:Real>10</gco:Real></mrd:transferSize>
                <mrd:onLine>
                   <cit:CI_OnlineResource>
-                     <!-- Datasource1 ~ Display Label ~ n/a --> 
+                     <!-- Datasource1 ~ Display Label ~ n/a -->
                      <!-- Datasource1 ~ Description ~ URL where file is stored by SHaRED -->
                      <!-- Datasource1 ~ Required ~ conditional -->
                      <!-- Datasource1 ~ Rule ~ Required if a file is uploaded via Upload Data feature -->
                      <cit:linkage>
                         <gco:CharacterString>https://shared.tern.org.au/attachment/26f41575-b9f1-4e9b-81f4-d4283fa97855/DictionaryParkhurst_etal_2020_C2yqIeI.csv</gco:CharacterString>
                      </cit:linkage>
-                     <!-- Datasource1 ~ Display Label ~ n/a --> 
+                     <!-- Datasource1 ~ Display Label ~ n/a -->
                      <!-- Datasource1 ~ Description ~ Protocol used to access file -->
                      <!-- Datasource1 ~ Required ~ conditional -->
                      <!-- Datasource1 ~ Rule ~ Required if a file is uploaded via Upload Data feature -->
@@ -2437,14 +2537,14 @@
                      <cit:protocol>
                         <gco:CharacterString>WWW:DOWNLOAD-1.0-http--download</gco:CharacterString>
                      </cit:protocol>
-                     <!-- Datasource1 ~ Display Label ~ n/a --> 
+                     <!-- Datasource1 ~ Display Label ~ n/a -->
                      <!-- Datasource1 ~ Description ~ File name -->
                      <!-- Datasource1 ~ Required ~ conditional -->
                      <!-- Datasource1 ~ Rule ~ Required if a file is uploaded via Upload Data feature -->
                      <cit:name>
                         <gco:CharacterString>DictionaryParkhurst_etal_2020.csv [name element]</gco:CharacterString>
                      </cit:name>
-                     <!-- Datasource1 ~ Display Label ~ n/a --> 
+                     <!-- Datasource1 ~ Display Label ~ n/a -->
                      <!-- Datasource1 ~ Description ~ Description of file -->
                      <!-- Datasource1 ~ Required ~ conditional -->
                      <!-- Datasource1 ~ Rule ~ Required if a file is uploaded via Upload Data feature -->
@@ -2453,7 +2553,7 @@
                         <gco:CharacterString>DictionaryParkhurst etal 2020</gco:CharacterString>
                      </cit:description>
                      <cit:function>
-                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                        <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                            codeListValue="download"/>
                      </cit:function>
                   </cit:CI_OnlineResource>
@@ -2470,7 +2570,7 @@
             <!-- Datasource12 ~ Description ~ Indicates which organisation hosts and distributes the data -->
             <!-- Datasource12 ~ Operation ~ User selects a Distributor from TERN Organisations Vocabulary -->
             <!-- Datasource12 ~ Operation ~ User selects a Site Address from the TERN Site Addresses Vocabulary -->
-            <!-- Datasource12 ~ Operation ~ Default value 'Terrestrial Ecosystem Research Network (TERN)' -->
+            <!-- Datasource12 ~ Operation ~ Default value 'Terrestrial Ecosystem Research Network' -->
             <!-- Datasource12 ~ Operation ~ Details from Vocabularies default into cit:party elements -->
             <!-- Datasource12 ~ Change note ~ Data can have one distributor per distribution -->
             <!-- Datasource12 ~ UI ~ Change -->
@@ -2488,7 +2588,7 @@
                <mrd:distributorContact>
                   <cit:CI_Responsibility>
                      <cit:role>
-                        <cit:CI_RoleCode codeList="codeListLocation#CI_RoleCode"
+                        <cit:CI_RoleCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_RoleCode"
                            codeListValue="distributor"/>
                      </cit:role>
                      <cit:party>
@@ -2504,7 +2604,7 @@
                                           <gco:CharacterString>+61 2 3365 9097</gco:CharacterString>
                                        </cit:number>
                                        <cit:numberType>
-                                          <cit:CI_TelephoneTypeCode codeList="codeListLocation#CI_TelephoneTypeCode"
+                                          <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode"
                                              codeListValue="voice"/>
                                        </cit:numberType>
                                     </cit:CI_Telephone>
@@ -2536,7 +2636,8 @@
                            <cit:partyIdentifier>
                               <mcc:MD_Identifier>
                                  <mcc:code>
-                                    <gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString>
+                                    <!-- gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString -->
+                                    <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66" xlink:show="new">https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gcx:Anchor>
                                  </mcc:code>
                                  <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
                                  </mcc:codeSpace>
@@ -2554,7 +2655,7 @@
         <!-- Datasource4 ~ Operation ~ User input -->
         <!-- Datasource4 ~ Change note ~ There are subtle differences between User input and user uploads file -->
         <!-- Datasource4 ~ UI ~ Change -->
-        <!-- Datasource4 ~ Help Text ~ If the data is already available online via a service, API or catalog, provide details here -->        
+        <!-- Datasource4 ~ Help Text ~ If the data is already available online via a service, API or catalog, provide details here -->
         <!-- Datasource4 ~ Cardinality ~ many -->
         <!-- Datasource4 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-456 -->
         <!-- Datasource4 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-367 -->
@@ -2612,13 +2713,13 @@
                      <!-- Required ~ conditional -->
                      <!-- Rule ~ Required if cit:description is not blank -->
                      <!-- Size ~ single -->
-                     <!-- Cardinality ~ one per mrd:transferOptions block --> 
+                     <!-- Cardinality ~ one per mrd:transferOptions block -->
                      <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; CI_OnLineFunctionCode, only browsing, fileAccess and download are valid -->
                      <cit:function>
-                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode" codeListValue="fileAccess"/>
+                        <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode" codeListValue="fileAccess"/>
                      </cit:function>
                   </cit:CI_OnlineResource>
-               </mrd:onLine> 
+               </mrd:onLine>
             </mrd:MD_DigitalTransferOptions>
          </mrd:transferOptions>
       </mrd:MD_Distribution>
@@ -2633,7 +2734,7 @@
     <!-- Cardinality ~ one -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041727493/Data+Quality+Scope -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044480096/Data+Quality+Method+and+Result+Statements -->
-    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->      
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
    <mdb:dataQualityInfo>
       <mdq:DQ_DataQuality>
          <mdq:scope>
@@ -2642,13 +2743,13 @@
                <!-- Codelist ~  https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml; MD_ScopeCode  -->
             <!-- Cardinality ~ one -->
                <mcc:level>
-                  <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
+                  <mcc:MD_ScopeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_ScopeCode" codeListValue="dataset"/>
                </mcc:level>
                <mcc:levelDescription>
                     <!-- Display Label ~ Description of the scope -->
                     <!-- Help Text ~ Describe the class of information covered by the statement -->
                     <!-- Placeholder Text ~ as shown below -->
-                    <!-- KeepPlaceholderText ~ no -->        
+                    <!-- KeepPlaceholderText ~ no -->
                     <!-- Required ~ no -->
                     <!-- InputLength ~ 250 -->
                     <!-- Size ~ multiline -->
@@ -2665,7 +2766,7 @@
             <!-- How8 ~ Description ~ Describe the methods used to assess the data quality -->
             <!-- How8 ~ Help Text ~ Description of the evaluation method -->
             <!-- How8 ~ Placeholder Text ~ as shown below -->
-            <!-- How8 ~ KeepPlaceholderText ~ no -->        
+            <!-- How8 ~ KeepPlaceholderText ~ no -->
             <!-- How8 ~ Required ~ no -->
             <!-- How8 ~ InputLength ~ 1000 -->
             <!-- How8 ~ Size ~ multiline -->
@@ -2681,7 +2782,7 @@
                      <!-- How10 ~ Display Label ~ Title -->
                      <!-- How10 ~ Help Text ~ Provide the document title -->
                      <!-- How10 ~ Placeholder Text ~ as shown below -->
-                     <!-- How10 ~ KeepPlaceholderText ~ no -->        
+                     <!-- How10 ~ KeepPlaceholderText ~ no -->
                      <!-- How10 ~ Required ~ Conditional -->
                      <!-- How10 ~ InputLength ~ 300 -->
                      <!-- How10 ~ Size ~ single -->
@@ -2693,11 +2794,11 @@
                            <!-- How11 ~ Display Label ~ URI -->
                            <!-- How11 ~ Help Text ~ Provide a hyperlink to the method document -->
                            <!-- How11 ~ Placeholder Text ~ see Help Text -->
-                           <!-- How11 ~ KeepPlaceholderText ~ no -->        
+                           <!-- How11 ~ KeepPlaceholderText ~ no -->
                            <!-- How11 ~ Required ~ Conditional -->
                            <!-- How11 ~ InputLength ~ 250 -->
                            <!-- How11 ~ Size ~ single -->
-                           <!-- How11 ~ Cardinality ~ one per additionalDocumentation block --> 
+                           <!-- How11 ~ Cardinality ~ one per additionalDocumentation block -->
                            <cit:linkage>
                               <gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
                            </cit:linkage>
@@ -2709,7 +2810,7 @@
                               <gco:CharacterString>Data quality documentation</gco:CharacterString>
                            </cit:description>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
                            </cit:function>
                         </cit:CI_OnlineResource>
@@ -2734,7 +2835,7 @@
                               <gco:CharacterString>Data quality documentation</gco:CharacterString>
                            </cit:description>
                            <cit:function>
-                              <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                              <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                  codeListValue="information"/>
                            </cit:function>
                         </cit:CI_OnlineResource>
@@ -2746,7 +2847,7 @@
             <!-- How12 ~ Display Label ~ Data Quality Result -->
             <!-- How12 ~ Help Text ~ Description of the data quality assessment results -->
             <!-- How12 ~ Placeholder Text ~ as shown below -->
-            <!-- How12 ~ KeepPlaceholderText ~ no -->        
+            <!-- How12 ~ KeepPlaceholderText ~ no -->
             <!-- How12 ~ Required ~ no -->
             <!-- How12 ~ InputLength ~ As-Is 1000 -->
             <!-- How12 ~ Size ~ multiline -->
@@ -2754,7 +2855,7 @@
             <mdq:result>
                <mdq:DQ_DescriptiveResult>
                   <mdq:statement>
-                     <gco:CharacterString>Placeholder text=A statement regarding the data quality assessment results.  
+                     <gco:CharacterString>Placeholder text=A statement regarding the data quality assessment results.
                         Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc.</gco:CharacterString>
                   </mdq:statement>
                </mdq:DQ_DescriptiveResult>
@@ -2773,19 +2874,19 @@
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041825814/Resource+Lineage+Statement -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044381873/Resource+Lineage+Scope -->
     <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044414700/Resource+Lineage+Process+Step -->
-    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 --> 
+    <!-- Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
    <mdb:resourceLineage>
       <mrl:LI_Lineage>
          <!-- How2 ~ Description ~ Data creation procedure -->
             <!-- How2 ~ Help Text ~ Provide a brief summary of inputs and processing -->
             <!-- How2 ~ Placeholder Text ~ as shown below -->
-            <!-- How2 ~ KeepPlaceholderText ~ no -->        
+            <!-- How2 ~ KeepPlaceholderText ~ no -->
             <!-- How2 ~ Required ~ yes -->
             <!-- How2 ~ InputLength ~ 1000 -->
             <!-- How2 ~ Size ~ multiline -->
             <!-- How2 ~ Cardinality ~ one -->
          <mrl:statement>
-            <gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods. 
+            <gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods.
                </gco:CharacterString>
          </mrl:statement>
             <!-- Description ~ scope of the lineage information -->
@@ -2797,7 +2898,7 @@
          <mrl:scope>
             <mcc:MD_Scope>
                <mcc:level>
-                  <mcc:MD_ScopeCode codeList="codeListLocation#MD_ScopeCode" codeListValue="dataset"/>
+                  <mcc:MD_ScopeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_ScopeCode" codeListValue="dataset"/>
                </mcc:level>
             </mcc:MD_Scope>
          </mrl:scope>
@@ -2808,7 +2909,7 @@
                <!-- How3 ~ Description ~ Title -->
                <!-- How3 ~ Help Text ~ Provide the document title -->
                <!-- How3 ~ Placeholder Text ~ as shown below -->
-               <!-- How3 ~ KeepPlaceholderText ~ no -->        
+               <!-- How3 ~ KeepPlaceholderText ~ no -->
                <!-- How3 ~ Required ~ Conditional block -->
                <!-- How3 ~ InputLength ~ 500 -->
                <!-- How3 ~ Size ~ single -->
@@ -2819,11 +2920,11 @@
                <!-- How4 ~ Description ~ Hyperlink -->
                <!-- How4 ~ Help Text ~ Provide a hyperlink to the documentation -->
                <!-- How4 ~ Placeholder Text ~ see Help Text -->
-               <!-- How4 ~ KeepPlaceholderText ~ no -->        
+               <!-- How4 ~ KeepPlaceholderText ~ no -->
                <!-- How4 ~ Required ~ Conditional block -->
                <!-- How4 ~ InputLength ~ 300 -->
                <!-- How4 ~ Size ~ single -->
-               <!-- How4 ~ Cardinality ~ one per additionalDocumentation block -->   
+               <!-- How4 ~ Cardinality ~ one per additionalDocumentation block -->
                <cit:onlineResource>
                   <cit:CI_OnlineResource>
                      <cit:linkage><gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
@@ -2836,12 +2937,12 @@
                         <gco:CharacterString>Method documentation</gco:CharacterString>
                      </cit:description>
                      <cit:function>
-                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                        <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                            codeListValue="information"/>
                      </cit:function>
                   </cit:CI_OnlineResource>
                </cit:onlineResource>
-            </cit:CI_Citation>            
+            </cit:CI_Citation>
          </mrl:additionalDocumentation>
          <!-- Online documentation Title and URI - example 2 -->
          <mrl:additionalDocumentation>
@@ -2861,12 +2962,12 @@
                         <gco:CharacterString>Method documentation</gco:CharacterString>
                      </cit:description>
                      <cit:function>
-                        <cit:CI_OnLineFunctionCode codeList="codeListLocation#CI_OnLineFunctionCode"
+                        <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                            codeListValue="information"/>
                      </cit:function>
                   </cit:CI_OnlineResource>
                </cit:onlineResource>
-            </cit:CI_Citation>            
+            </cit:CI_Citation>
          </mrl:additionalDocumentation>
       </mrl:LI_Lineage>
    </mdb:resourceLineage>
@@ -2887,7 +2988,7 @@
          <!-- How7 ~ Description ~ Summary -->
          <!-- How7 ~ Help Text ~ Provide a brief description of the method -->
          <!-- How7 ~ Placeholder Text ~ as shown below -->
-         <!-- How7 ~ KeepPlaceholderText ~ yes -->        
+         <!-- How7 ~ KeepPlaceholderText ~ yes -->
          <!-- How7 ~ Required ~ Conditional - block is optional but field is required if block is completed -->
          <!-- How7 ~ InputLength ~ 500 -->
          <!-- How7 ~ Size ~ multiline -->
@@ -2900,7 +3001,7 @@
          <!-- How6 ~ Description ~ Name -->
          <!-- How6 ~ Help Text ~ Provide the name of the method or procedure -->
          <!-- How6 ~ Placeholder Text ~ as shown below -->
-         <!-- How6 ~ KeepPlaceholderText ~ no -->        
+         <!-- How6 ~ KeepPlaceholderText ~ no -->
          <!-- How6 ~ Required ~ Conditional - block is optional but field is required if block is completed -->
          <!-- How6 ~ InputLength ~ 500 -->
          <!-- How6 ~ Size ~ single -->
@@ -2908,12 +3009,12 @@
          <cit:title>
             <gco:CharacterString>Provide the name of the method or procedure</gco:CharacterString>
          </cit:title>
-      </cit:CI_Citation>            
+      </cit:CI_Citation>
    </mrl:additionalDocumentation>
          <!-- How7b ~ Description ~ Steps -->
          <!-- How7b ~ Help Text ~ Provide a description of the step in the method of collecting or preparing the data -->
          <!-- How7b ~ Placeholder Text ~ Input step details -->
-         <!-- How7b ~ KeepPlaceholderText ~ no -->        
+         <!-- How7b ~ KeepPlaceholderText ~ no -->
          <!-- How7b ~ Required ~ no -->
          <!-- How7b ~ InputLength ~ 500 -->
          <!-- How7b ~ Size ~ single -->
@@ -2925,7 +3026,7 @@
                   <gco:CharacterString>Provide the details of step 1</gco:CharacterString>
                </mrl:description>
             </mrl:LI_ProcessStep>
-         </mrl:processStep> 
+         </mrl:processStep>
          <!-- How7b ~ Example 1 step 2 -->
          <mrl:processStep>
             <mrl:LI_ProcessStep>
@@ -2933,7 +3034,7 @@
                   <gco:CharacterString>Provide the details of step 2</gco:CharacterString>
                </mrl:description>
             </mrl:LI_ProcessStep>
-         </mrl:processStep>  
+         </mrl:processStep>
       </mrl:LI_Lineage>
    </mdb:resourceLineage>
    <!-- Process steps - example 2 -->
@@ -2949,7 +3050,7 @@
                <cit:title>
                   <gco:CharacterString>Provide the name of the method or procedure</gco:CharacterString>
                </cit:title>
-            </cit:CI_Citation>            
+            </cit:CI_Citation>
          </mrl:additionalDocumentation>
          <!-- How7b ~ Example 2 step 1 -->
          <mrl:processStep>
@@ -2958,7 +3059,7 @@
                   <gco:CharacterString>Provide the details of step 1</gco:CharacterString>
                </mrl:description>
             </mrl:LI_ProcessStep>
-         </mrl:processStep> 
+         </mrl:processStep>
          <!-- How7b ~ Example 2 step 2 -->
          <mrl:processStep>
             <mrl:LI_ProcessStep>
@@ -2966,7 +3067,7 @@
                   <gco:CharacterString>Provide the details of step 2</gco:CharacterString>
                </mrl:description>
             </mrl:LI_ProcessStep>
-         </mrl:processStep>  
+         </mrl:processStep>
       </mrl:LI_Lineage>
    </mdb:resourceLineage>
 </mdb:MD_Metadata>

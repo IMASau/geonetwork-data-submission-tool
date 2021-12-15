@@ -1032,15 +1032,16 @@
 
 (defn expanding-control-settings [_]
   {::low-code4/req-ks [:label]
-   ::low-code4/opt-ks [:form-id :data-path :required]})
+   ::low-code4/opt-ks [:form-id :data-path :required :defaultOpen]})
 
 (defn expanding-control
   [config & children]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [label required]} props]
+        {:keys [label required defaultOpen]} props]
     (into [ui/ExpandingControl
            {:label    label
-            :required required}]
+            :required required
+            :defaultOpen defaultOpen}]
           children)))
 
 (defn coord-field

@@ -478,10 +478,10 @@ def spatial_units_export(data):
         subElementPath = unitToXPath[attr]
         return {
             "type": "object",
-            "xpath": f"mri:spatialResolution/mri:MD_Resolution/{subElementPath}",
+            "xpath": f"mri:spatialResolution/mri:MD_Resolution",
             "properties": {
                 "ResolutionAttributeValue": {
-                    "xpath": ".",
+                    "xpath": subElementPath,
                     'attributes': {
                         'text': to_string
                     }

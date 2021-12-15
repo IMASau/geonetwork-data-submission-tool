@@ -61,7 +61,6 @@
   (rf/->interceptor
     :id ::check-and-throw
     :after (fn [context]
-             (js/console.log ::check-and-throw--after)
              (let [new-db (rf/get-effect context :db ::not-found)]
                (when-not (= new-db ::not-found)
                  (when-not (s/valid? a-spec new-db)

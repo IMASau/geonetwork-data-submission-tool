@@ -7,7 +7,7 @@ export function TextAddField({hasError, disabled, placeholder, maxLength, onAddC
     const [stateValue, setStateValue] = React.useState("");
     const intent = hasErrorIntent({hasError, disabled});
 
-    let hasValue = stateValue !== null && stateValue !== "";
+    let hasValue = stateValue !== "";
     let buttonDisabled = disabled || !hasValue;
 
     function onClick() {

@@ -1050,6 +1050,15 @@
           "!docstring": "How7",
           "xpath": "mrl:statement/gco:CharacterString",
           "type": "string"
+        },
+        "steps": {
+          "!docstring": "How7b",
+          "xpath": "mrl:processStep",
+          "type": "array",
+          "items": {
+            "xpath": "mrl:processStep/mrl:LI_ProcessStep/mrl:description/gco:CharacterString",
+            "type": "string"
+          }
         }
       }
     },

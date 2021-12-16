@@ -1201,7 +1201,7 @@
 
      [m4/expanding-control {:label "Data creation procedure steps (Optional)" :defaultOpen true}
 
-      ;; WIP: How6: Name
+      ;; How6: Name
       [m4/textarea-field-with-label
        {:form-id    [:form]
         :data-path  ["resourceLineageProcessSteps" "statement"]
@@ -1211,7 +1211,7 @@
         :placeholder "Provide the name of the method or procedure"
         :helperText "Provide the name of the method or procedure"}]
 
-      ;; WIP: How7: Description
+      ;; How7: Description
       [m4/textarea-field-with-label
        {:form-id    [:form]
         :data-path  ["resourceLineageProcessSteps" "summary"]
@@ -1221,8 +1221,17 @@
         :placeholder "Provide a brief summary of a single method or procedure"
         :helperText "Provide a brief description of the method"}]
 
-      ;; WIP: How7b: list-add free-text entries
-      ]
+      ;; How7b: list-add free-text entries
+      [m4/form-group
+       {:label   "If the need arises please add steps taken for the Data creation procedure to support the brief provided above."
+        :toolTip "TODO"}
+       [m4/text-add-button
+        {:form-id     [:form]
+         :data-path   ["resourceLineageProcessSteps" "steps"]
+         :button-text "Add"}]
+       [m4/value-selection-list
+        {:form-id   [:form]
+         :data-path ["resourceLineageProcessSteps" "steps"]}]]]
 
      [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]
 

@@ -2984,58 +2984,58 @@
    <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044414700/Resource+Lineage+Process+Step -->
    <!-- Process steps - example 1 -->
    <mdb:resourceLineage>
-      <mrl:LI_Lineage>
-         <!-- How7 ~ Description ~ Summary -->
-         <!-- How7 ~ Help Text ~ Provide a brief description of the method -->
-         <!-- How7 ~ Placeholder Text ~ as shown below -->
-         <!-- How7 ~ KeepPlaceholderText ~ yes -->
-         <!-- How7 ~ Required ~ Conditional - block is optional but field is required if block is completed -->
-         <!-- How7 ~ InputLength ~ 500 -->
-         <!-- How7 ~ Size ~ multiline -->
-         <!-- How7 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -->
-         <mrl:statement>
-            <gco:CharacterString>Placeholder text=Provide a brief summary of a single method or procedure</gco:CharacterString>
-         </mrl:statement>
-   <mrl:additionalDocumentation>
-      <cit:CI_Citation>
-         <!-- How6 ~ Description ~ Name -->
-         <!-- How6 ~ Help Text ~ Provide the name of the method or procedure -->
-         <!-- How6 ~ Placeholder Text ~ as shown below -->
-         <!-- How6 ~ KeepPlaceholderText ~ no -->
-         <!-- How6 ~ Required ~ Conditional - block is optional but field is required if block is completed -->
-         <!-- How6 ~ InputLength ~ 500 -->
-         <!-- How6 ~ Size ~ single -->
-         <!-- How6 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -->
-         <cit:title>
-            <gco:CharacterString>Provide the name of the method or procedure</gco:CharacterString>
-         </cit:title>
-      </cit:CI_Citation>
-   </mrl:additionalDocumentation>
-         <!-- How7b ~ Description ~ Steps -->
-         <!-- How7b ~ Help Text ~ Provide a description of the step in the method of collecting or preparing the data -->
-         <!-- How7b ~ Placeholder Text ~ Input step details -->
-         <!-- How7b ~ KeepPlaceholderText ~ no -->
-         <!-- How7b ~ Required ~ no -->
-         <!-- How7b ~ InputLength ~ 500 -->
-         <!-- How7b ~ Size ~ single -->
-         <!-- How7b ~ Cardinality ~ 0 to many per mdb:resourceLineage block -->
-         <!-- How7b ~ Example step 1 -->
-         <mrl:processStep>
-            <mrl:LI_ProcessStep>
-               <mrl:description>
-                  <gco:CharacterString>Provide the details of step 1</gco:CharacterString>
-               </mrl:description>
-            </mrl:LI_ProcessStep>
-         </mrl:processStep>
-         <!-- How7b ~ Example 1 step 2 -->
-         <mrl:processStep>
-            <mrl:LI_ProcessStep>
-               <mrl:description>
-                  <gco:CharacterString>Provide the details of step 2</gco:CharacterString>
-               </mrl:description>
-            </mrl:LI_ProcessStep>
-         </mrl:processStep>
-      </mrl:LI_Lineage>
+     <mrl:LI_Lineage>
+       <!-- How7 ~ Description ~ Summary -->
+       <!-- How7 ~ Help Text ~ Provide a brief description of the method -->
+       <!-- How7 ~ Placeholder Text ~ as shown below -->
+       <!-- How7 ~ KeepPlaceholderText ~ yes -->
+       <!-- How7 ~ Required ~ Conditional - block is optional but field is required if block is completed -->
+       <!-- How7 ~ InputLength ~ 500 -->
+       <!-- How7 ~ Size ~ multiline -->
+       <!-- How7 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -->
+       <mrl:statement>
+         <gco:CharacterString>Placeholder text=Provide a brief summary of a single method or procedure</gco:CharacterString>
+       </mrl:statement>
+       <mrl:additionalDocumentation>
+         <cit:CI_Citation>
+           <!-- How6 ~ Description ~ Name -->
+           <!-- How6 ~ Help Text ~ Provide the name of the method or procedure -->
+           <!-- How6 ~ Placeholder Text ~ as shown below -->
+           <!-- How6 ~ KeepPlaceholderText ~ no -->
+           <!-- How6 ~ Required ~ Conditional - block is optional but field is required if block is completed -->
+           <!-- How6 ~ InputLength ~ 500 -->
+           <!-- How6 ~ Size ~ single -->
+           <!-- How6 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -->
+           <cit:title>
+             <gco:CharacterString>Provide the name of the method or procedure</gco:CharacterString>
+           </cit:title>
+         </cit:CI_Citation>
+       </mrl:additionalDocumentation>
+       <!-- How7b ~ Description ~ Steps -->
+       <!-- How7b ~ Help Text ~ Provide a description of the step in the method of collecting or preparing the data -->
+       <!-- How7b ~ Placeholder Text ~ Input step details -->
+       <!-- How7b ~ KeepPlaceholderText ~ no -->
+       <!-- How7b ~ Required ~ no -->
+       <!-- How7b ~ InputLength ~ 500 -->
+       <!-- How7b ~ Size ~ single -->
+       <!-- How7b ~ Cardinality ~ 0 to many per mdb:resourceLineage block -->
+       <!-- How7b ~ Example step 1 -->
+       <mrl:processStep>
+         <mrl:LI_ProcessStep>
+           <mrl:description>
+             <gco:CharacterString>Provide the details of step 1</gco:CharacterString>
+           </mrl:description>
+         </mrl:LI_ProcessStep>
+       </mrl:processStep>
+       <!-- How7b ~ Example 1 step 2 -->
+       <mrl:processStep>
+         <mrl:LI_ProcessStep>
+           <mrl:description>
+             <gco:CharacterString>Provide the details of step 2</gco:CharacterString>
+           </mrl:description>
+         </mrl:LI_ProcessStep>
+       </mrl:processStep>
+     </mrl:LI_Lineage>
    </mdb:resourceLineage>
    <!-- Process steps - example 2 -->
    <mdb:resourceLineage>

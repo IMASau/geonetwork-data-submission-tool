@@ -31,6 +31,7 @@
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
+(rf/reg-event-fx ::components4/add-record handlers4/add-record-handler)
 (rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click2)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
@@ -171,6 +172,7 @@
        'm4/get-data                      {:view components4/get-data :init components4/get-data-settings}
        'm4/yes-no-field                  {:view components4/yes-no-field :init components4/yes-no-field-settings}
        'm4/simple-list                   {:view components4/simple-list :init components4/simple-list-settings}
+       'm4/record-add-button               {:view components4/record-add-button :init components4/record-add-button-settings}
        'm4/text-add-button               {:view components4/text-add-button :init components4/text-add-button-settings}
        'm4/upload-files                  {:view components4/upload-files :init components4/upload-files-settings}
        })

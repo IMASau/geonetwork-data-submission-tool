@@ -3,23 +3,11 @@ import PropTypes from 'prop-types';
 import * as BPCore from '@blueprintjs/core';
 import {hasErrorIntent, useCachedState} from "../utils";
 
-// [:div.bp3-control-group
-//     [:div.bp3-fill
-//      [m4/input-field
-//       {:form-id   [:form]
-//        :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]
-//     [m4/list-add-button
-//      {:form-id    [:form]
-//       :data-path  ["identificationInfo" "keywordsAdditional" "keywords"]
-//       :text       "Add"
-//       :value-path ["value"]
-//       :added-path ["isUserDefined"]}]]
-
 export function TextAddField({hasError, disabled, placeholder, maxLength, onAddClick, buttonText}) {
-    const [stateValue, setStateValue] = useCachedState("");
+    const [stateValue, setStateValue] = React.useState("");
     const intent = hasErrorIntent({hasError, disabled});
 
-    let hasValue = stateValue !== null && stateValue !== "";
+    let hasValue = stateValue !== "";
     let buttonDisabled = disabled || !hasValue;
 
     function onClick() {

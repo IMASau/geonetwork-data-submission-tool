@@ -554,6 +554,27 @@
         :disabled   disabled
         :onAddClick #(rf/dispatch [::text-value-add-click-handler config %])}])))
 
+
+(defn record-add-button-settings
+  [{:keys [columns]}]
+  {::low-code4/req-ks [:form-id :data-path :button-text :columns]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "array"}
+   ::low-code4/schema-paths (mapv :value-path columns)})
+
+(defn record-add-button
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [disabled is-hidden button-text columns]} props]
+    (when-not is-hidden
+      [ui/RecordAddField
+       {:buttonText (r/as-element button-text)
+        :disabled   disabled
+        :columns    (for [{:keys [flex placeholder]} columns]
+                      {:flex        flex
+                       :placeholder placeholder})
+        :onAddClick #(rf/dispatch [::option-change config %])}])))
+
 (defn async-select-value-settings
   [{:keys [value-path label-path]}]
   {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path :results-path]
@@ -1032,15 +1053,16 @@
 
 (defn expanding-control-settings [_]
   {::low-code4/req-ks [:label]
-   ::low-code4/opt-ks [:form-id :data-path :required]})
+   ::low-code4/opt-ks [:form-id :data-path :required :defaultOpen]})
 
 (defn expanding-control
   [config & children]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [label required]} props]
+        {:keys [label required defaultOpen]} props]
     (into [ui/ExpandingControl
-           {:label    label
-            :required required}]
+           {:label       label
+            :required    required
+            :defaultOpen defaultOpen}]
           children)))
 
 (defn coord-field
@@ -1238,3 +1260,101 @@
         {:disabled    disabled
          :placeholder (r/as-element placeholder)
          :onDrop      #(rf/dispatch [::upload-files-drop config (js->clj % :keywordize-keys true)])}]])))
+
+(defn yes-no-radios-simple-settings [_]
+  {::low-code4/req-ks [:form-id :data-path :inline]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "boolean"}
+   })
+
+(defn yes-no-radios-simple
+  [config]
+  (def config config)
+  (let [props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
+        {:keys [value inline disabled is-hidden errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    (when-not is-hidden
+      [ui/RadioGroupSimple
+       {:value    value
+        :disabled disabled
+        :inline   inline
+        :options  [{:desc "Yes" :value true} {:desc "No" :value false}]
+        :getLabel (ui/get-obj-path ["desc"])
+        :getValue (ui/get-obj-path ["value"])
+        :hasError hasError
+        :onChange (fn [option]
+                    (rf/dispatch [:metcalf.common.components4/value-changed config (ui/get-obj-path option ["value"])]))}])))
+
+(defn yes-no-radios-settings [_]
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks []
+   ;::low-code4/schema {:type "boolean"}
+   })
+
+(defn yes-no-radios
+  [config]
+  (let [props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
+        data @(rf/subscribe [:metcalf.common.components4/get-block-data config])
+        {:keys [disabled is-hidden errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)
+        ]
+    (when-not is-hidden
+      [ui/RadioGroup
+       {:value    data
+        :disabled disabled
+        :inline   true
+        :options  [{:desc "Yes" :value true} {:desc "No" :value false}]
+        :getLabel (ui/get-obj-path ["desc"])
+        :getValue (ui/get-obj-path ["value"])
+        :hasError hasError
+        :onChange (fn [option]
+                    (rf/dispatch [:metcalf.common.components4/option-change config (ui/get-obj-path option ["value"])]))}])))
+
+
+(defn radio-group-settings
+  [{:keys [value-path label-path]}]
+  {::low-code4/req-ks       [:form-id :data-path :options :value-path :label-path :inline]
+   ::low-code4/opt-ks       [:placeholder]
+   ::low-code4/schema       {:type "object" :properties {}}
+   ::low-code4/schema-paths [value-path label-path]})
+
+(defn radio-group
+  [config]
+  (let [props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
+        data @(rf/subscribe [:metcalf.common.components4/get-block-data config])
+        {:keys [inline options label-path value-path disabled is-hidden errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    (when-not is-hidden
+      [ui/RadioGroup
+       {:value    data
+        :disabled disabled
+        :options  options
+        :inline   inline
+        :getLabel (ui/get-obj-path label-path)
+        :getValue (ui/get-obj-path value-path)
+        :hasError hasError
+        :onChange #(rf/dispatch [:metcalf.common.components4/option-change config (ui/get-option-data %)])}])))
+
+(defn radio-group-simple-settings
+  [{:keys [value-path label-path]}]
+  {::low-code4/req-ks       [:form-id :data-path :options :value-path :label-path :inline]
+   ::low-code4/opt-ks       [:placeholder]
+   ::low-code4/schema       {:type "object" :properties {}}
+   ::low-code4/schema-paths [value-path label-path]})
+
+(defn radio-group-simple
+  [config]
+  (let [props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
+        {:keys [value inline options label-path value-path disabled is-hidden errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)
+        value (or value "")]
+    (when-not is-hidden
+      [ui/RadioGroupSimple
+       {:value    value
+        :disabled disabled
+        :options  options
+        :inline   inline
+        :getLabel (ui/get-obj-path label-path)
+        :getValue (ui/get-obj-path value-path)
+        :hasError hasError
+        :onChange #(rf/dispatch [:metcalf.common.components4/value-changed config %])}])))

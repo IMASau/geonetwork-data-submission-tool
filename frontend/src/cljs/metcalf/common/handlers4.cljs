@@ -7,7 +7,8 @@
             [metcalf.common.logic4 :as logic4]
             [metcalf.common.rules4 :as rules4]
             [metcalf.common.schema4 :as schema4]
-            [metcalf.common.utils4 :as utils4]))
+            [metcalf.common.utils4 :as utils4]
+            [cljs.spec.alpha :as s]))
 
 (defn db-path
   [{:keys [form-id data-path]}]
@@ -25,6 +26,19 @@
   (let [{:keys [form-id data-path]} ctx
         schema (get-in db (flatten [form-id :schema (schema4/schema-path data-path)]))
         state (blocks4/as-blocks {:schema schema :data option})
+        path (db-path ctx)]
+    {:db (-> db
+             (assoc-in path state)
+             (assoc-in (conj path :props :show-errors) true))}))
+
+(defn add-record-handler
+  "Used with record-add-button which adds text values to a list"
+  [{:keys [db]} [_ ctx values]]
+  (s/assert (s/coll-of string?) values)
+  (let [{:keys [form-id data-path columns]} ctx
+        data (reduce-kv (fn [m ks v] (assoc-in m ks v)) {} (zipmap (map :value-path columns) values))
+        schema (get-in db (flatten [form-id :schema (schema4/schema-path data-path)]))
+        state (blocks4/as-blocks {:schema schema :data data})
         path (db-path ctx)]
     {:db (-> db
              (assoc-in path state)

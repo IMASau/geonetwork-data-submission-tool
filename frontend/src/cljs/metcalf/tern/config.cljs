@@ -119,6 +119,8 @@
 (rf/reg-sub :subs/get-upload-form subs3/get-upload-form)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
+(ins4/reg-global-singleton (ins4/slow-handler 100))
+(when goog/DEBUG (ins4/reg-global-singleton ins4/db-diff))
 (when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
       {"requiredField"     rules4/required-field

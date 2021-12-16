@@ -103,7 +103,7 @@
   "Popup dialog if item is selected"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        errors? @(rf/subscribe [::has-block-errors? config])
+        errors? @(rf/subscribe [::has-selected-block-errors? config])
         {:keys [form-id data-path selected title template-id]} props
         item-data-path (conj data-path selected)]
     [ui/EditDialog
@@ -129,7 +129,7 @@
   "Popup dialog if item is selected.  Use type to decide which template to use."
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        errors? @(rf/subscribe [::has-block-errors? config])
+        errors? @(rf/subscribe [::has-selected-block-errors? config])
         {:keys [form-id data-path type-path selected templates]} props
         item-data-path (conj data-path selected)
         value @(rf/subscribe [::get-block-data config])
@@ -157,7 +157,7 @@
   "Popup dialog if item is selected"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        errors? @(rf/subscribe [::has-block-errors? config])
+        errors? @(rf/subscribe [::has-selected-block-errors? config])
         {:keys [form-id data-path isOpen title template-id]} props]
     [ui/EditDialog
      {:isOpen  isOpen

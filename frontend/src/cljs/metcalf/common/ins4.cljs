@@ -47,6 +47,25 @@
                    (js/console.warn (str "SLOW_DIFF  " (.toFixed ms 6) " msecs")))))
              context)))
 
+(defn slow-handler [ms]
+  (rf/->interceptor
+    :id ::slow-handler
+    :before (fn [context]
+              (rf/assoc-coeffect context ::start (system-time)))
+    :after (fn [context]
+             (let [event (rf/get-coeffect context :event)
+                   start (rf/get-coeffect context ::start)
+                   interval (- (system-time) start)]
+               (when (> interval ms)
+                 (js/console.log "SLOW_HANDLER EVENT" (console-value {:kind :event :value event}))
+                 (js/console.log (str "SLOW_HANDLER TIME  " (.toFixed interval 6) " msecs"))))
+             (let [effects (rf/get-effect context)
+                   fx0 (map vec (remove (comp #{:db :fx} key) effects))
+                   fx1 (:fx effects)]
+               (doseq [fx [fx1 fx0] effect fx]
+                 (js/console.log "   FX" (console-value {:kind :effect :value (vec effect)}))))
+             context)))
+
 (defn reg-global-singleton
   [{:keys [id] :as ins}]
   (rf/clear-global-interceptor id)

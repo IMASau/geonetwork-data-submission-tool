@@ -1037,6 +1037,22 @@
         }
       }
     },
+    "resourceLineageProcessSteps": {
+      "xpath": "mdb:resourceLineage/mrl:LI_Lineage[mrl:processStep][1]",
+      "type": "object",
+      "properties": {
+        "statement": {
+          "!docstring": "How6",
+          "xpath": "mrl:additionalDocumentation/cit:CI_Citation/cit:title/gco:CharacterString",
+          "type": "string"
+        },
+        "summary": {
+          "!docstring": "How7",
+          "xpath": "mrl:statement/gco:CharacterString",
+          "type": "string"
+        }
+      }
+    },
     "dataQualityInfo": {
       "xpath": "mdb:dataQualityInfo/mdq:DQ_DataQuality",
       "type": "object",

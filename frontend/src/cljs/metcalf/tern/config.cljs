@@ -1199,8 +1199,29 @@
          :title       "Method Document"
          :template-id :method-doc/user-defined-entry-form}]]]
 
-     [m4/expanding-control {:label "Data procedure creation steps (Optional)"}
+     [m4/expanding-control {:label "Data creation procedure steps (Optional)" :defaultOpen true}
 
+      ;; WIP: How6: Name
+      [m4/textarea-field-with-label
+       {:form-id    [:form]
+        :data-path  ["resourceLineageProcessSteps" "statement"]
+        :label      "Name"
+        :required   true
+        :toolTip    "TODO"
+        :placeholder "Provide the name of the method or procedure"
+        :helperText "Provide the name of the method or procedure"}]
+
+      ;; WIP: How7: Description
+      [m4/textarea-field-with-label
+       {:form-id    [:form]
+        :data-path  ["resourceLineageProcessSteps" "summary"]
+        :label      "Summary"
+        :required   true
+        :toolTip    "TODO"
+        :placeholder "Provide a brief summary of a single method or procedure"
+        :helperText "Provide a brief description of the method"}]
+
+      ;; WIP: How7b: list-add free-text entries
       ]
 
      [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]

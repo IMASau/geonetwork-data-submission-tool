@@ -326,6 +326,7 @@
        [m4/item-add-button
         {:form-id       ?form-id
          :data-path     [?data-path "unit"]
+         :label-path    ["label"]
          :value-path    ["uri"]
          :item-defaults {"userAddedCategory" "unit"}
          :added-path    ["isUserDefined"]}]]

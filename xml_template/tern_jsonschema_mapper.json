@@ -657,7 +657,7 @@
         },
         "keywordsParameters": {
           "!docstring": "What8",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]",
           "type": "object",
           "properties": {
             "keywords": {
@@ -687,16 +687,25 @@
                     "type": "string"
                   },
                   "unit": {
+                    "!docstring": "What9",
+                    "xpath": "../../../mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]/mri:keyword",
                     "type": "object",
-                    "rules": ["requiredField"],
                     "properties": {
                       "label": {
+                        "xpath": "gcx:Anchor",
                         "type": "string"
                       },
                       "description": {
                         "type": "string"
                       },
                       "uri": {
+                        "rules": ["requiredField"],
+                        "xpath": "gcx:Anchor",
+                        "attributes": {
+                          "xlink:href": {
+                            "function": "identity"
+                          }
+                        },
                         "type": "string"
                       },
                       "isUserDefined": {

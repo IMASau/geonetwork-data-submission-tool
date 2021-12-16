@@ -152,6 +152,7 @@
        'm4/input-field                    {:view components4/input-field :init components4/input-field-settings}
        'm4/input-field-with-label         {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button                {:view components4/item-add-button :init components4/item-add-button-settings}
+       'm4/item-dialog-button               {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/item-edit-button               {:view components4/item-edit-button :init components4/item-edit-button-settings}
        'm4/item-edit-dialog               {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
        'm4/list-add-button                {:view components4/list-add-button :init components4/list-add-button-settings}

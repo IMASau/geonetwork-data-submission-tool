@@ -67,6 +67,14 @@
                   (get-in state (conj path :props))))]
     (merge config logic)))
 
+(defn is-item-added?
+  "Check if config refers to an 'added' entry"
+  [state [_ config]]
+  (let [{:keys [data-path added-path]} config
+        path (blocks4/block-path (into data-path added-path))
+        added? (get-in state (conj path :props :value))]
+    added?))
+
 (defn get-block-data-sub
   [state [_ {:keys [data-path]}]]
   (s/assert ::utils4/data-path data-path)

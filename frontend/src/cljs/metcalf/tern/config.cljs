@@ -97,6 +97,7 @@
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub ::components4/is-item-added? subs4/form-state-signal subs4/is-item-added?)
 (rf/reg-sub ::components4/get-list-edit-can-save-sub subs4/form-state-signal subs4/get-list-edit-can-save-sub)
 (rf/reg-sub ::components4/has-block-errors? subs4/form-state-signal subs4/has-block-errors?)
 (rf/reg-sub ::components4/has-selected-block-errors? subs4/form-state-signal subs4/has-selected-block-errors?)
@@ -155,6 +156,7 @@
        'm4/input-field                   {:view components4/input-field :init components4/input-field-settings}
        'm4/input-field-with-label        {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button               {:view components4/item-add-button :init components4/item-add-button-settings}
+       'm4/item-dialog-button                {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/item-edit-button              {:view components4/item-edit-button :init components4/item-edit-button-settings}
        'm4/item-edit-dialog              {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
        'm4/list-add-button               {:view components4/list-add-button :init components4/list-add-button-settings}
@@ -331,7 +333,7 @@
           :label-path ["label"]
           :value-path ["uri"]
           :added-path ["isUserDefined"]}]]
-       [m4/item-add-button
+       [m4/item-dialog-button
         {:form-id       ?form-id
          :data-path     [?data-path "unit"]
          :label-path    ["label"]
@@ -620,7 +622,7 @@
          :title       "Instrument"
          :template-id :instrument/user-defined-entry-form}]]]
 
-     [m4/expanding-control {:label "Parameters" :required true}
+     [m4/expanding-control {:label "Parameters" :required true :defaultOpen true}
 
       ;; TODO: also need a user-added option
       [m4/form-group

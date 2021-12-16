@@ -4,7 +4,7 @@ import * as BPCore from '@blueprintjs/core';
 import {hasErrorIntent, useCachedState} from "../utils";
 
 export function TextAddField({hasError, disabled, placeholder, maxLength, onAddClick, buttonText}) {
-    const [stateValue, setStateValue] = useCachedState("");
+    const [stateValue, setStateValue] = React.useState("");
     const intent = hasErrorIntent({hasError, disabled});
 
     let hasValue = stateValue !== null && stateValue !== "";

@@ -406,9 +406,12 @@
           }
         },
         "verticalCoordinateReferenceSystem": {
+          "!docstring": "Where5",
+          "xpath": "mri:extent/gex:EX_Extent/gex:verticalElement/gex:EX_VerticalExtent/gex:verticalCRSId",
           "type": "object",
           "properties": {
             "uri": {
+              "xpath": "mrs:MD_ReferenceSystem/mrs:referenceSystemIdentifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
               "type": "string"
             },
             "label": {

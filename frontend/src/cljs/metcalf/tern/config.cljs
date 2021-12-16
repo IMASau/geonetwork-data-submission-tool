@@ -861,7 +861,7 @@
         [m4/async-select-option
          {:form-id     [:form]
           :data-path   ["identificationInfo" "verticalCoordinateReferenceSystem"]
-          :uri         "/api/verticalresolution"
+          :uri         "/api/verticalresolution" ; FIXME: needs correct ES endpoint (this is resolution not CRS)
           :label-path  ["label"]
           :value-path  ["uri"]
           :placeholder "Select from list"}]]

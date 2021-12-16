@@ -13,13 +13,17 @@
   (comp blocks4/progress-score-analysis
         rules4/apply-rules))
 
+(defn apply-logic
+  [state]
+  (->> state
+       (blocks4/prewalk prewalk-xform)
+       (blocks4/postwalk postwalk-xform)))
+
 (defn get-form-state
   [db [_ form-id]]
   (when (vector? form-id)
     (let [{:keys [state]} (get-in db form-id)]
-      (->> state
-           (blocks4/prewalk prewalk-xform)
-           (blocks4/postwalk postwalk-xform)))))
+      (apply-logic state))))
 
 (defn form-state-signal
   [[_ {:keys [form-id]}]]

@@ -53,7 +53,7 @@ export function RecordAddField({disabled, columns, onAddClick, buttonText}) {
                 <BPCore.Button className={BPCore.Classes.FIXED} onClick={submitValue} disabled={buttonDisabled} intent={BPCore.Intent.PRIMARY}>{buttonText}</BPCore.Button>
             </BPCore.ControlGroup>
         )
-    };
+    }
 }
 
 RecordAddField.propTypes = {

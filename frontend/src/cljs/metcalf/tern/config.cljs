@@ -329,6 +329,7 @@
        [m4/item-add-button
         {:form-id       ?form-id
          :data-path     [?data-path "unit"]
+         :label-path    ["label"]
          :value-path    ["uri"]
          :item-defaults {"userAddedCategory" "unit"}
          :added-path    ["isUserDefined"]}]]
@@ -863,8 +864,8 @@
          :toolTip  "TODO"}
         [m4/async-select-option
          {:form-id     [:form]
-          :data-path   ["identificationInfo" "verticalCoordinateReferenceSystem"]
-          :uri         "/api/verticalresolution"
+          :data-path   ["identificationInfo" "verticalElement" "coordinateReferenceSystem"]
+          :uri         "/api/verticalresolution" ; FIXME: needs correct ES endpoint (this is resolution not CRS)
           :label-path  ["label"]
           :value-path  ["uri"]
           :placeholder "Select from list"}]]

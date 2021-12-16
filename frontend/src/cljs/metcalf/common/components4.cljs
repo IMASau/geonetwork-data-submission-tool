@@ -554,6 +554,27 @@
         :disabled   disabled
         :onAddClick #(rf/dispatch [::text-value-add-click-handler config %])}])))
 
+
+(defn record-add-button-settings
+  [{:keys [columns]}]
+  {::low-code4/req-ks [:form-id :data-path :button-text :columns]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "array"}
+   ::low-code4/schema-paths (mapv :value-path columns)})
+
+(defn record-add-button
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [disabled is-hidden button-text columns]} props]
+    (when-not is-hidden
+      [ui/RecordAddField
+       {:buttonText (r/as-element button-text)
+        :disabled   disabled
+        :columns    (for [{:keys [flex placeholder]} columns]
+                      {:flex        flex
+                       :placeholder placeholder})
+        :onAddClick #(rf/dispatch [::option-change config %])}])))
+
 (defn async-select-value-settings
   [{:keys [value-path label-path]}]
   {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path :results-path]
@@ -1039,8 +1060,8 @@
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [label required defaultOpen]} props]
     (into [ui/ExpandingControl
-           {:label    label
-            :required required
+           {:label       label
+            :required    required
             :defaultOpen defaultOpen}]
           children)))
 

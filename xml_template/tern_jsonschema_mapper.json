@@ -1002,7 +1002,7 @@
       }
     },
     "resourceLineage": {
-      "xpath": "mdb:resourceLineage/mrl:LI_Lineage[mrl:scop/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue='dataset']][1]",
+      "xpath": "mdb:resourceLineage/mrl:LI_Lineage[mrl:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue='dataset']][1]",
       "type": "object",
       "properties": {
         "statement": {

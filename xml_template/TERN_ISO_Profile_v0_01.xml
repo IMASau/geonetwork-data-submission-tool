@@ -3037,37 +3037,4 @@
        </mrl:processStep>
      </mrl:LI_Lineage>
    </mdb:resourceLineage>
-   <!-- Process steps - example 2 -->
-   <mdb:resourceLineage>
-      <mrl:LI_Lineage>
-         <!-- How7 ~ example 2 -->
-         <mrl:statement>
-            <gco:CharacterString>Placeholder text=Provide a brief summary of a single method or procedure</gco:CharacterString>
-         </mrl:statement>
-         <mrl:additionalDocumentation>
-            <cit:CI_Citation>
-               <!-- How6 - example 2 -->
-               <cit:title>
-                  <gco:CharacterString>Provide the name of the method or procedure</gco:CharacterString>
-               </cit:title>
-            </cit:CI_Citation>
-         </mrl:additionalDocumentation>
-         <!-- How7b ~ Example 2 step 1 -->
-         <mrl:processStep>
-            <mrl:LI_ProcessStep>
-               <mrl:description>
-                  <gco:CharacterString>Provide the details of step 1</gco:CharacterString>
-               </mrl:description>
-            </mrl:LI_ProcessStep>
-         </mrl:processStep>
-         <!-- How7b ~ Example 2 step 2 -->
-         <mrl:processStep>
-            <mrl:LI_ProcessStep>
-               <mrl:description>
-                  <gco:CharacterString>Provide the details of step 2</gco:CharacterString>
-               </mrl:description>
-            </mrl:LI_ProcessStep>
-         </mrl:processStep>
-      </mrl:LI_Lineage>
-   </mdb:resourceLineage>
 </mdb:MD_Metadata>

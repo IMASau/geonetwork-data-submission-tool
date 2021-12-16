@@ -331,23 +331,6 @@ Note: a default value defined here will override whatever is set in the XML temp
 },
 ```
 
-## many
-If `many` is set to `false`, (default) indicates a single value.
-
-If `many` is set to `true`, indicates that there can be multiple entries.
-
-```json
-"attachments": {
-  "many": true,
-  "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource[cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\"][cit:description/gco:CharacterString/text()=\"Data file\"]]",
-  "keep": false,
-  "nodes": {
-    "file": {...},
-    "name": {...}
-  }
-},
-```
-
 ## container
 
 This is an xpath that optionally defines the container XML fragment

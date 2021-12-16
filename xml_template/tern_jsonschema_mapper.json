@@ -693,13 +693,13 @@
                     "properties": {
                       "label": {
                         "xpath": "gcx:Anchor",
+                        "rules": ["requiredField"],
                         "type": "string"
                       },
                       "description": {
                         "type": "string"
                       },
                       "uri": {
-                        "rules": ["requiredField"],
                         "xpath": "gcx:Anchor",
                         "attributes": {
                           "xlink:href": {

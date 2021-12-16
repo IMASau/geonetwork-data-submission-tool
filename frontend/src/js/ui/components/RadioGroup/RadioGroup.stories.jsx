@@ -59,6 +59,3 @@ RadioWithInvalidValue.args = {
     getValue: (option => option.value),
     getLabel: (option => option.label)
 };
-
-import NOTES from './NOTES.mdx';
-export const DesignDecisions = NOTES;

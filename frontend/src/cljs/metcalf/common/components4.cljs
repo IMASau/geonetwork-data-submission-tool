@@ -103,8 +103,8 @@
   "Popup dialog if item is selected"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [form-id data-path selected title template-id show-errors errors]} props
-        can-save? @(rf/subscribe [::get-list-edit-can-save-sub config])
+        errors? @(rf/subscribe [::has-block-errors? config])
+        {:keys [form-id data-path selected title template-id]} props
         item-data-path (conj data-path selected)]
     [ui/EditDialog
      {:isOpen  (boolean selected)
@@ -112,7 +112,7 @@
       :onClose #(rf/dispatch [::list-edit-dialog-close config])
       :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
       :onSave  #(rf/dispatch [::list-edit-dialog-save config])
-      :canSave can-save?}
+      :canSave (not errors?)}
      (low-code4/render-template
        {:template-id template-id
         :variables   {'?form-id   form-id
@@ -129,8 +129,8 @@
   "Popup dialog if item is selected.  Use type to decide which template to use."
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [form-id data-path type-path selected templates show-errors errors]} props
-        hasError (when (and show-errors (seq errors)) true)
+        errors? @(rf/subscribe [::has-block-errors? config])
+        {:keys [form-id data-path type-path selected templates]} props
         item-data-path (conj data-path selected)
         value @(rf/subscribe [::get-block-data config])
         item-type (get-in value (into [selected] type-path))
@@ -141,7 +141,7 @@
       :onClose #(rf/dispatch [::list-edit-dialog-close config])
       :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
       :onSave  #(rf/dispatch [::list-edit-dialog-save config])
-      :canSave (not hasError)}
+      :canSave (not errors?)}
 
      (low-code4/render-template
        {:template-id template-id
@@ -157,15 +157,15 @@
   "Popup dialog if item is selected"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [form-id data-path isOpen title template-id show-errors errors]} props
-        hasError (when (and show-errors (seq errors)) true)]
+        errors? @(rf/subscribe [::has-block-errors? config])
+        {:keys [form-id data-path isOpen title template-id]} props]
     [ui/EditDialog
      {:isOpen  isOpen
       :title   title
       :onClose #(rf/dispatch [::item-edit-dialog-close config])
       :onClear #(rf/dispatch [::item-edit-dialog-cancel config])
       :onSave  #(rf/dispatch [::item-edit-dialog-save config])
-      :canSave (not hasError)}
+      :canSave (not errors?)}
      (low-code4/render-template
        {:template-id template-id
         :variables   {'?form-id   form-id

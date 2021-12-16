@@ -439,6 +439,20 @@
             }
           ],
           "properties": {
+            "coordinateReferenceSystem": {
+              "!docstring": "Where5",
+              "xpath": "gex:verticalCRSId/mrs:MD_ReferenceSystem/mrs:referenceSystemIdentifier/mcc:MD_Identifier",
+              "type": "object",
+              "properties": {
+                "uri": {
+                  "xpath": "mcc:code/gco:CharacterString",
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                }
+              }
+            },
             "minimumValue": {
               "!docstring": "Where7",
               "type": "number",

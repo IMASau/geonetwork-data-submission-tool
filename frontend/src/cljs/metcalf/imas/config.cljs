@@ -24,6 +24,7 @@
 (rf/reg-event-fx ::components4/create-document-modal-close-click handlers4/create-document-modal-close-click)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
 (rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-with-defaults-click-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-close handlers4/item-edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
@@ -151,6 +152,7 @@
        'm4/input-field                    {:view components4/input-field :init components4/input-field-settings}
        'm4/input-field-with-label         {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button                {:view components4/item-add-button :init components4/item-add-button-settings}
+       'm4/item-edit-button               {:view components4/item-edit-button :init components4/item-edit-button-settings}
        'm4/item-edit-dialog               {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
        'm4/list-add-button                {:view components4/list-add-button :init components4/list-add-button-settings}
        'm4/list-edit-dialog               {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}

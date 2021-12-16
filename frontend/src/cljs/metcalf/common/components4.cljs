@@ -522,6 +522,24 @@
         :onClick  #(rf/dispatch [::item-add-with-defaults-click-handler config])}
        "Add"])))
 
+(defn item-edit-button-settings [_]
+  {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "object"}})
+
+(defn item-edit-button
+  "Edit user defined item as value"
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [value-path added-path disabled is-hidden]} props]
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path added-path)
+    (when-not is-hidden
+      [:button.bp3-button.bp3-intent-primary
+       {:disabled disabled
+        :onClick  #(rf/dispatch [::item-edit-with-defaults-click-handler config])}
+       "Edit"])))
+
 (defn list-add-button-settings [_]
   {::low-code4/req-ks [:form-id :data-path :value-path :added-path :button-text]
    ::low-code4/opt-ks [:item-defaults]

@@ -43,6 +43,16 @@
         {:keys [progress/errors]} (:progress/score logic)]
     (pos? errors)))
 
+(defn has-selected-block-errors?
+  [state [_ {:keys [data-path]}]]
+  (s/assert (s/nilable ::utils4/data-path) data-path)
+  (s/assert vector? data-path)
+  (let [path (blocks4/block-path data-path)
+        logic (get-in state path)
+        selected (get-in logic [:props :selected])]
+    (when selected
+      (pos? (get-in logic [:content selected :progress/score :progress/errors])))))
+
 (defn get-block-props-sub
   "take config and merge with block props"
   [state [_ {:keys [data-path] :as config}]]

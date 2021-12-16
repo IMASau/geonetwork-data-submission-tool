@@ -34,17 +34,17 @@
     :id ::db-diff
     :after (fn [context]
              (let [orig-db (rf/get-coeffect context :db)
-                   new-db (rf/get-effect context :db ::not-found)
-                   start (system-time)]
+                   new-db (rf/get-effect context :db ::not-found)]
                (when-not (= new-db ::not-found)
-                 (let [[only-before only-after] (data/diff orig-db new-db)]
+                 (let [start (system-time)
+                       [only-before only-after] (data/diff orig-db new-db)]
                    (when (some? only-before)
                      (js/console.log "  -DB" (console-value {:kind :diff :value only-before})))
                    (when (some? only-after)
-                     (js/console.log "  +DB" (console-value {:kind :diff :value only-after})))))
-               (let [ms (- (system-time) start)]
-                 (when (> ms 100)
-                   (js/console.warn (str "SLOW_DIFF  " (.toFixed ms 6) " msecs")))))
+                     (js/console.log "  +DB" (console-value {:kind :diff :value only-after})))
+                   (let [ms (- (system-time) start)]
+                     (when (> ms 100)
+                       (js/console.warn (str "SLOW_DIFF  " (.toFixed ms 6) " msecs")))))))
              context)))
 
 (defn slow-handler [ms]

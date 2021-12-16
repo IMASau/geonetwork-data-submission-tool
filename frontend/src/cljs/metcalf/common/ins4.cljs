@@ -19,23 +19,32 @@
   (rf/->interceptor
     :id ::breadcrumbs
     :before (fn [context]
-              (let [event (rf/get-coeffect context :event)]
-                (js/console.log "EVENT" (console-value {:kind :event :value event}))
-                context))
+              (js/console.log "EVENT" (console-value {:kind :event :value (rf/get-coeffect context :event)}))
+              context)
     :after (fn [context]
-             (let [orig-db (rf/get-coeffect context :db)
-                   new-db (rf/get-effect context :db ::not-found)]
-               (when-not (= new-db ::not-found)
-                 (let [[only-before only-after] (data/diff orig-db new-db)]
-                   (when (some? only-before)
-                     (js/console.log "  -DB" (console-value {:kind :diff :value only-before})))
-                   (when (some? only-after)
-                     (js/console.log "  +DB" (console-value {:kind :diff :value only-after}))))))
              (let [effects (rf/get-effect context)
                    fx0 (map vec (remove (comp #{:db :fx} key) effects))
                    fx1 (:fx effects)]
                (doseq [fx [fx1 fx0] effect fx]
                  (js/console.log "   FX" (console-value {:kind :effect :value (vec effect)}))))
+             context)))
+
+(def db-diff
+  (rf/->interceptor
+    :id ::db-diff
+    :after (fn [context]
+             (let [orig-db (rf/get-coeffect context :db)
+                   new-db (rf/get-effect context :db ::not-found)
+                   start (system-time)]
+               (when-not (= new-db ::not-found)
+                 (let [[only-before only-after] (data/diff orig-db new-db)]
+                   (when (some? only-before)
+                     (js/console.log "  -DB" (console-value {:kind :diff :value only-before})))
+                   (when (some? only-after)
+                     (js/console.log "  +DB" (console-value {:kind :diff :value only-after})))))
+               (let [ms (- (system-time) start)]
+                 (when (> ms 100)
+                   (js/console.warn (str "SLOW_DIFF  " (.toFixed ms 6) " msecs")))))
              context)))
 
 (defn reg-global-singleton

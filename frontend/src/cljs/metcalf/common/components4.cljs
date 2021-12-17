@@ -503,6 +503,31 @@
   [form-group config
    [select-option config]])
 
+(defn item-dialog-button-settings [_]
+  {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "object"}})
+
+; TODO: Consider a view mode when it's not user defined.
+(defn item-dialog-button
+  "Add or edit a user defined item in a dialog"
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        added? @(rf/subscribe [::is-item-added? config])
+        {:keys [value-path added-path disabled is-hidden]} props]
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path added-path)
+    (when-not is-hidden
+      (if added?
+        [:button.bp3-button.bp3-intent-primary
+         {:disabled disabled
+          :onClick  #(rf/dispatch [::item-edit-with-defaults-click-handler config])}
+         "Edit"]
+        [:button.bp3-button.bp3-intent-primary
+         {:disabled disabled
+          :onClick  #(rf/dispatch [::item-add-with-defaults-click-handler config])}
+         "Add"]))))
+
 (defn item-add-button-settings [_]
   {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
    ::low-code4/opt-ks []
@@ -521,6 +546,24 @@
        {:disabled disabled
         :onClick  #(rf/dispatch [::item-add-with-defaults-click-handler config])}
        "Add"])))
+
+(defn item-edit-button-settings [_]
+  {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "object"}})
+
+(defn item-edit-button
+  "Edit user defined item as value"
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [value-path added-path disabled is-hidden]} props]
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path added-path)
+    (when-not is-hidden
+      [:button.bp3-button.bp3-intent-primary
+       {:disabled disabled
+        :onClick  #(rf/dispatch [::item-edit-with-defaults-click-handler config])}
+       "Edit"])))
 
 (defn list-add-button-settings [_]
   {::low-code4/req-ks [:form-id :data-path :value-path :added-path :button-text]

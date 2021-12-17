@@ -114,8 +114,23 @@
       "properties": {
         "crsCode": {
           "!docstring": "Where3",
-          "xpath": "mcc:code/gco:CharacterString",
-          "type": "string"
+          "xpath": ".",
+          "type": "object",
+          "properties": {
+            "code": {
+              "xpath": "mcc:code/gco:CharacterString",
+              "type": "string"
+            },
+            "codeSpace": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          }
         },
         "DateOfDynamicDatum": {
           "!docstring": "Where4",
@@ -405,20 +420,6 @@
             }
           }
         },
-        "verticalCoordinateReferenceSystem": {
-          "!docstring": "Where5",
-          "xpath": "mri:extent/gex:EX_Extent/gex:verticalElement/gex:EX_VerticalExtent/gex:verticalCRSId",
-          "type": "object",
-          "properties": {
-            "uri": {
-              "xpath": "mrs:MD_ReferenceSystem/mrs:referenceSystemIdentifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
-              "type": "string"
-            },
-            "label": {
-              "type": "string"
-            }
-          }
-        },
         "verticalElement": {
           "xpath": "mri:extent/gex:EX_Extent/gex:verticalElement/gex:EX_VerticalExtent",
           "type": "object",
@@ -444,11 +445,17 @@
               "xpath": "gex:verticalCRSId/mrs:MD_ReferenceSystem/mrs:referenceSystemIdentifier/mcc:MD_Identifier",
               "type": "object",
               "properties": {
-                "uri": {
+                "code": {
                   "xpath": "mcc:code/gco:CharacterString",
                   "type": "string"
                 },
-                "label": {
+                "codeSpace": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "version": {
                   "type": "string"
                 }
               }

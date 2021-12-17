@@ -1070,12 +1070,12 @@
       }
     },
     "dataQualityInfo": {
-      "xpath": "mdb:dataQualityInfo/mdq:DQ_DataQuality",
+      "xpath": "mdb:dataQualityInfo/mdq:DQ_DataQuality/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy",
       "type": "object",
       "properties": {
         "methodSummary": {
           "!docstring": "How8",
-          "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:evaluationMethodDescription",
+          "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:evaluationMethodDescription",
           "valueChild": "gco:CharacterString",
           "label": "Provide a summary of the scope of the Data Quality Assessment",
           "type": "string",
@@ -1084,7 +1084,7 @@
         },
         "results": {
           "!docstring": "How12",
-          "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
+          "xpath": "mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
           "keep": false,
           "required": false,
           "type": "string"

@@ -1084,7 +1084,7 @@
         },
         "results": {
           "!docstring": "How12",
-          "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
+          "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
           "keep": false,
           "required": false,
           "type": "string"

@@ -1042,10 +1042,21 @@
 
     :party/list-item
     [:div
-     [m4/get-data {:form-id ?form-id :data-path [?data-path "partyType"]}] ": "
-     [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "givenName"]}] " "
-     [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "familyName"]}] " / "
-     [m4/get-data {:form-id ?form-id :data-path [?data-path "organisation" "organisationName"]}]]
+
+     [m4/when-data {:form-id   [:form]
+                    :data-path [?data-path "partyType"]
+                    :pred      #{"person"}}
+      [:div
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "givenName"]}] " "
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "familyName"]}] " / "
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "label"]}]]]
+
+     [m4/when-data {:form-id   [:form]
+                    :data-path [?data-path "partyType"]
+                    :pred      #{"organisation"}}
+      [:div
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "organisation" "organisationName"]}]
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "label"]}]]]]
 
     :person/user-defined-entry-form
     [:div

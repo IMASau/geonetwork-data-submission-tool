@@ -156,7 +156,7 @@
        'm4/input-field                   {:view components4/input-field :init components4/input-field-settings}
        'm4/input-field-with-label        {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button               {:view components4/item-add-button :init components4/item-add-button-settings}
-       'm4/item-dialog-button                {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
+       'm4/item-dialog-button            {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/item-edit-button              {:view components4/item-edit-button :init components4/item-edit-button-settings}
        'm4/item-edit-dialog              {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
        'm4/list-add-button               {:view components4/list-add-button :init components4/list-add-button-settings}
@@ -920,7 +920,7 @@
            {:form-id   [:form]
             :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeValue"]
             :unit      [m4/get-data
-                        {:form-id [:form]
+                        {:form-id   [:form]
                          :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeUnits"]}]}]]]]]]
 
      [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
@@ -1013,7 +1013,8 @@
                     {:title       "Organisation"
                      :template-id :organisation/user-defined-entry-form}}}]]
 
-     ;[m4/expanding-control {:label "Point of contact for dataset" :required true}]
+     [m4/expanding-control {:label "Point of contact for dataset" :required true :defaultOpen true}]
+
      ;[m4/list-add-button
      ; {:form-id    [:form]
      ;  :data-path  ["identificationInfo" "PointOfContactForDataset"]
@@ -1136,7 +1137,7 @@
           :uri        "/api/ternorgs"
           :label-path ["organisationName"]
           :value-path ["organisationIdentifier"]}]]
-       [m4/item-add-button
+       [m4/item-dialog-button
         {:form-id    ?form-id
          :data-path  [?data-path "organisation"]
          :value-path ["organisationIdentifier"]
@@ -1168,7 +1169,26 @@
        :label     "Organisation Name"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "organisationName"]}]]]
+        :data-path [?data-path "organisation" "organisationName"]}]]
+
+     ; TODO: Contact details
+     ; TODO: * campus/site
+     ; TODO: * street address
+     ; TODO: * city
+     ; TODO: * state
+     ; TODO: * postcode
+     ; TODO: * country
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "electronicMailAddress"]
+       :label     "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "electronicMailAddress"]}]]
+     ; TODO: * phone
+     ; TODO: * fax
+
+     ]
 
     :how
     [:div
@@ -1223,23 +1243,23 @@
 
       ;; How6: Name
       [m4/textarea-field-with-label
-       {:form-id    [:form]
-        :data-path  ["resourceLineageProcessSteps" "statement"]
-        :label      "Name"
-        :required   true
-        :toolTip    "TODO"
+       {:form-id     [:form]
+        :data-path   ["resourceLineageProcessSteps" "statement"]
+        :label       "Name"
+        :required    true
+        :toolTip     "TODO"
         :placeholder "Provide the name of the method or procedure"
-        :helperText "Provide the name of the method or procedure"}]
+        :helperText  "Provide the name of the method or procedure"}]
 
       ;; How7: Description
       [m4/textarea-field-with-label
-       {:form-id    [:form]
-        :data-path  ["resourceLineageProcessSteps" "summary"]
-        :label      "Summary"
-        :required   true
-        :toolTip    "TODO"
+       {:form-id     [:form]
+        :data-path   ["resourceLineageProcessSteps" "summary"]
+        :label       "Summary"
+        :required    true
+        :toolTip     "TODO"
         :placeholder "Provide a brief summary of a single method or procedure"
-        :helperText "Provide a brief description of the method"}]
+        :helperText  "Provide a brief description of the method"}]
 
       ;; How7b: list-add free-text entries
       [m4/form-group
@@ -1302,12 +1322,12 @@
                      {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
 
       [m4/list-add-button
-       {:form-id       [:form]
-        :data-path     ["dataQualityInfo" "onlineMethods"]
-        :button-text   "Add"
-        :value-path    ["uri"]
+       {:form-id     [:form]
+        :data-path   ["dataQualityInfo" "onlineMethods"]
+        :button-text "Add"
+        :value-path  ["uri"]
         ;; :item-defaults {"userAddedCategory" "onlineMethods"}
-        :added-path    ["isUserDefined"]}]
+        :added-path  ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]

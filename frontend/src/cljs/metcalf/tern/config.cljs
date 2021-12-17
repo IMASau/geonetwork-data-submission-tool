@@ -841,16 +841,13 @@
          {:label    "Coordinate Reference System"
           :required true
           :toolTip  "TODO"}
-         [m4/select-value
+         [m4/async-select-option
           {:form-id     [:form]
            :data-path   ["referenceSystemInfo" "crsCode"]
-           :label-path  ["label"]
-           :value-path  ["value"]
+           :label-path  ["code"]
+           :value-path  ["code"]
            :placeholder "Select from list"
-           ;; FIXME: Placeholders for now:
-           :options     [{"label" "WGS 84 - EPSG:4326" "value" "EPSG:4326"}
-                         {"label" "WGS 84 / World Mercator - EPSG:3395" "value" "EPSG:3395"}
-                         {"label" "GDA94 - EPSG:4283" "value" "EPSG:4283"}]}]]
+           :uri         "/api/horizontalcrs"}]]
 
         [m4/form-group
          {:form-id [:form]
@@ -872,9 +869,9 @@
         [m4/async-select-option
          {:form-id     [:form]
           :data-path   ["identificationInfo" "verticalElement" "coordinateReferenceSystem"]
-          :uri         "/api/verticalresolution" ; FIXME: needs correct ES endpoint (this is resolution not CRS)
-          :label-path  ["label"]
-          :value-path  ["uri"]
+          :uri         "/api/verticalcrs"
+          :label-path  ["code"]
+          :value-path  ["code"]
           :placeholder "Select from list"}]]
 
        [m4/inline-form-group

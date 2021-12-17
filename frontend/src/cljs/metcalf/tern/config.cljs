@@ -963,7 +963,15 @@
     :who
     [:div
 
-     [m4/expanding-control {:label "Responsible for the creation of dataset" :required true}
+     [:p "
+     This is a mandatory section and requires the person/organisation who is/are responsible for the dataset
+     and the point of contact/s for the dataset.
+     It can be a person or an organisation.
+     You can assign more than one person or organisation to the sections.
+     The person or organisation can be added at any point of time but must be completed prior to lodgement
+     "]
+
+     [m4/expanding-control {:label "Responsible for the creation of dataset" :required true :defaultOpen true}
 
       [:p
        "Please assign a person and/or an organisation as responsible for the creation of the dataset. "

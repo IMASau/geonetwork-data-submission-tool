@@ -977,21 +977,13 @@
        "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
        "More than one person or an organisation can be included as well."]
 
-      [m4/selection-list
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "citedResponsibleParty"]
-        :template-id :party/list-item
-        :value-path  ["uri"]
-        ;; FIXME: userAddedcategory may just be "party", or this may be trickier.
-        ;; :item-defaults {"userAddedCategory" "responsiblePerson"}
-        :added-path  ["isUserDefined"]}]
-
       [m4/list-add-button
        {:form-id       [:form]
         :data-path     ["identificationInfo" "citedResponsibleParty"]
         :button-text   "Add person"
         :value-path    ["uri"]
         :added-path    ["isUserDefined"]
+        ;; FIXME: Add userAddedCategory to item defaults?
         :item-defaults {"partyType" "person"}}]
 
       [m4/list-add-button
@@ -1000,7 +992,15 @@
         :button-text   "Add organisation"
         :value-path    ["uri"]
         :added-path    ["isUserDefined"]
+        ;; FIXME: Add userAddedCategory to item defaults?
         :item-defaults {"partyType" "organisation"}}]
+
+      [m4/selection-list
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "citedResponsibleParty"]
+        :template-id :party/list-item
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
 
       [m4/typed-list-edit-dialog
        {:form-id   [:form]

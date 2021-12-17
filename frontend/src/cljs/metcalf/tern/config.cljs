@@ -1200,7 +1200,7 @@
          :title       "Method Document"
          :template-id :method-doc/user-defined-entry-form}]]]
 
-     [m4/expanding-control {:label "Data creation procedure steps (Optional)" :defaultOpen true}
+     [m4/expanding-control {:label "Data creation procedure steps (Optional)"}
 
       ;; How6: Name
       [m4/textarea-field-with-label

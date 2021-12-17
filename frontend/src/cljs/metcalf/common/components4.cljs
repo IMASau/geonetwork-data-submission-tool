@@ -103,8 +103,8 @@
   "Popup dialog if item is selected"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [form-id data-path selected title template-id show-errors errors]} props
-        can-save? @(rf/subscribe [::get-list-edit-can-save-sub config])
+        errors? @(rf/subscribe [::has-selected-block-errors? config])
+        {:keys [form-id data-path selected title template-id]} props
         item-data-path (conj data-path selected)]
     [ui/EditDialog
      {:isOpen  (boolean selected)
@@ -112,7 +112,7 @@
       :onClose #(rf/dispatch [::list-edit-dialog-close config])
       :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
       :onSave  #(rf/dispatch [::list-edit-dialog-save config])
-      :canSave can-save?}
+      :canSave (not errors?)}
      (low-code4/render-template
        {:template-id template-id
         :variables   {'?form-id   form-id
@@ -129,8 +129,8 @@
   "Popup dialog if item is selected.  Use type to decide which template to use."
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [form-id data-path type-path selected templates show-errors errors]} props
-        hasError (when (and show-errors (seq errors)) true)
+        errors? @(rf/subscribe [::has-selected-block-errors? config])
+        {:keys [form-id data-path type-path selected templates]} props
         item-data-path (conj data-path selected)
         value @(rf/subscribe [::get-block-data config])
         item-type (get-in value (into [selected] type-path))
@@ -141,7 +141,7 @@
       :onClose #(rf/dispatch [::list-edit-dialog-close config])
       :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
       :onSave  #(rf/dispatch [::list-edit-dialog-save config])
-      :canSave (not hasError)}
+      :canSave (not errors?)}
 
      (low-code4/render-template
        {:template-id template-id
@@ -157,15 +157,15 @@
   "Popup dialog if item is selected"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [form-id data-path isOpen title template-id show-errors errors]} props
-        hasError (when (and show-errors (seq errors)) true)]
+        errors? @(rf/subscribe [::has-selected-block-errors? config])
+        {:keys [form-id data-path isOpen title template-id]} props]
     [ui/EditDialog
      {:isOpen  isOpen
       :title   title
       :onClose #(rf/dispatch [::item-edit-dialog-close config])
       :onClear #(rf/dispatch [::item-edit-dialog-cancel config])
       :onSave  #(rf/dispatch [::item-edit-dialog-save config])
-      :canSave (not hasError)}
+      :canSave (not errors?)}
      (low-code4/render-template
        {:template-id template-id
         :variables   {'?form-id   form-id
@@ -503,6 +503,31 @@
   [form-group config
    [select-option config]])
 
+(defn item-dialog-button-settings [_]
+  {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "object"}})
+
+; TODO: Consider a view mode when it's not user defined.
+(defn item-dialog-button
+  "Add or edit a user defined item in a dialog"
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        added? @(rf/subscribe [::is-item-added? config])
+        {:keys [value-path added-path disabled is-hidden]} props]
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path added-path)
+    (when-not is-hidden
+      (if added?
+        [:button.bp3-button.bp3-intent-primary
+         {:disabled disabled
+          :onClick  #(rf/dispatch [::item-edit-with-defaults-click-handler config])}
+         "Edit"]
+        [:button.bp3-button.bp3-intent-primary
+         {:disabled disabled
+          :onClick  #(rf/dispatch [::item-add-with-defaults-click-handler config])}
+         "Add"]))))
+
 (defn item-add-button-settings [_]
   {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
    ::low-code4/opt-ks []
@@ -521,6 +546,24 @@
        {:disabled disabled
         :onClick  #(rf/dispatch [::item-add-with-defaults-click-handler config])}
        "Add"])))
+
+(defn item-edit-button-settings [_]
+  {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "object"}})
+
+(defn item-edit-button
+  "Edit user defined item as value"
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [value-path added-path disabled is-hidden]} props]
+    (s/assert ::obj-path value-path)
+    (s/assert ::obj-path added-path)
+    (when-not is-hidden
+      [:button.bp3-button.bp3-intent-primary
+       {:disabled disabled
+        :onClick  #(rf/dispatch [::item-edit-with-defaults-click-handler config])}
+       "Edit"])))
 
 (defn list-add-button-settings [_]
   {::low-code4/req-ks [:form-id :data-path :value-path :added-path :button-text]
@@ -553,6 +596,27 @@
        {:buttonText (r/as-element button-text)
         :disabled   disabled
         :onAddClick #(rf/dispatch [::text-value-add-click-handler config %])}])))
+
+
+(defn record-add-button-settings
+  [{:keys [columns]}]
+  {::low-code4/req-ks [:form-id :data-path :button-text :columns]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "array"}
+   ::low-code4/schema-paths (mapv :value-path columns)})
+
+(defn record-add-button
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [disabled is-hidden button-text columns]} props]
+    (when-not is-hidden
+      [ui/RecordAddField
+       {:buttonText (r/as-element button-text)
+        :disabled   disabled
+        :columns    (for [{:keys [flex placeholder]} columns]
+                      {:flex        flex
+                       :placeholder placeholder})
+        :onAddClick #(rf/dispatch [::option-change config %])}])))
 
 (defn async-select-value-settings
   [{:keys [value-path label-path]}]
@@ -1032,15 +1096,16 @@
 
 (defn expanding-control-settings [_]
   {::low-code4/req-ks [:label]
-   ::low-code4/opt-ks [:form-id :data-path :required]})
+   ::low-code4/opt-ks [:form-id :data-path :required :defaultOpen]})
 
 (defn expanding-control
   [config & children]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [label required]} props]
+        {:keys [label required defaultOpen]} props]
     (into [ui/ExpandingControl
-           {:label    label
-            :required required}]
+           {:label       label
+            :required    required
+            :defaultOpen defaultOpen}]
           children)))
 
 (defn coord-field
@@ -1238,3 +1303,101 @@
         {:disabled    disabled
          :placeholder (r/as-element placeholder)
          :onDrop      #(rf/dispatch [::upload-files-drop config (js->clj % :keywordize-keys true)])}]])))
+
+(defn yes-no-radios-simple-settings [_]
+  {::low-code4/req-ks [:form-id :data-path :inline]
+   ::low-code4/opt-ks []
+   ::low-code4/schema {:type "boolean"}
+   })
+
+(defn yes-no-radios-simple
+  [config]
+  (def config config)
+  (let [props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
+        {:keys [value inline disabled is-hidden errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    (when-not is-hidden
+      [ui/RadioGroupSimple
+       {:value    value
+        :disabled disabled
+        :inline   inline
+        :options  [{:desc "Yes" :value true} {:desc "No" :value false}]
+        :getLabel (ui/get-obj-path ["desc"])
+        :getValue (ui/get-obj-path ["value"])
+        :hasError hasError
+        :onChange (fn [option]
+                    (rf/dispatch [:metcalf.common.components4/value-changed config (ui/get-obj-path option ["value"])]))}])))
+
+(defn yes-no-radios-settings [_]
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks []
+   ;::low-code4/schema {:type "boolean"}
+   })
+
+(defn yes-no-radios
+  [config]
+  (let [props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
+        data @(rf/subscribe [:metcalf.common.components4/get-block-data config])
+        {:keys [disabled is-hidden errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)
+        ]
+    (when-not is-hidden
+      [ui/RadioGroup
+       {:value    data
+        :disabled disabled
+        :inline   true
+        :options  [{:desc "Yes" :value true} {:desc "No" :value false}]
+        :getLabel (ui/get-obj-path ["desc"])
+        :getValue (ui/get-obj-path ["value"])
+        :hasError hasError
+        :onChange (fn [option]
+                    (rf/dispatch [:metcalf.common.components4/option-change config (ui/get-obj-path option ["value"])]))}])))
+
+
+(defn radio-group-settings
+  [{:keys [value-path label-path]}]
+  {::low-code4/req-ks       [:form-id :data-path :options :value-path :label-path :inline]
+   ::low-code4/opt-ks       [:placeholder]
+   ::low-code4/schema       {:type "object" :properties {}}
+   ::low-code4/schema-paths [value-path label-path]})
+
+(defn radio-group
+  [config]
+  (let [props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
+        data @(rf/subscribe [:metcalf.common.components4/get-block-data config])
+        {:keys [inline options label-path value-path disabled is-hidden errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)]
+    (when-not is-hidden
+      [ui/RadioGroup
+       {:value    data
+        :disabled disabled
+        :options  options
+        :inline   inline
+        :getLabel (ui/get-obj-path label-path)
+        :getValue (ui/get-obj-path value-path)
+        :hasError hasError
+        :onChange #(rf/dispatch [:metcalf.common.components4/option-change config (ui/get-option-data %)])}])))
+
+(defn radio-group-simple-settings
+  [{:keys [value-path label-path]}]
+  {::low-code4/req-ks       [:form-id :data-path :options :value-path :label-path :inline]
+   ::low-code4/opt-ks       [:placeholder]
+   ::low-code4/schema       {:type "object" :properties {}}
+   ::low-code4/schema-paths [value-path label-path]})
+
+(defn radio-group-simple
+  [config]
+  (let [props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
+        {:keys [value inline options label-path value-path disabled is-hidden errors show-errors]} props
+        hasError (when (and show-errors (seq errors)) true)
+        value (or value "")]
+    (when-not is-hidden
+      [ui/RadioGroupSimple
+       {:value    value
+        :disabled disabled
+        :options  options
+        :inline   inline
+        :getLabel (ui/get-obj-path label-path)
+        :getValue (ui/get-obj-path value-path)
+        :hasError hasError
+        :onChange #(rf/dispatch [:metcalf.common.components4/value-changed config %])}])))

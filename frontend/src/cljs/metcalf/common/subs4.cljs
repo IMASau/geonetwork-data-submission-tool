@@ -13,13 +13,17 @@
   (comp blocks4/progress-score-analysis
         rules4/apply-rules))
 
+(defn apply-logic
+  [state]
+  (->> state
+       (blocks4/prewalk prewalk-xform)
+       (blocks4/postwalk postwalk-xform)))
+
 (defn get-form-state
   [db [_ form-id]]
   (when (vector? form-id)
     (let [{:keys [state]} (get-in db form-id)]
-      (->> state
-           (blocks4/prewalk prewalk-xform)
-           (blocks4/postwalk postwalk-xform)))))
+      (apply-logic state))))
 
 (defn form-state-signal
   [[_ {:keys [form-id]}]]
@@ -34,6 +38,25 @@
         {:keys [progress/errors]} (:progress/score logic)]
     (not (pos? errors))))
 
+(defn has-block-errors?
+  [state [_ {:keys [data-path]}]]
+  (s/assert (s/nilable ::utils4/data-path) data-path)
+  (s/assert vector? data-path)
+  (let [path (blocks4/block-path data-path)
+        logic (get-in state path)
+        {:keys [progress/errors]} (:progress/score logic)]
+    (pos? errors)))
+
+(defn has-selected-block-errors?
+  [state [_ {:keys [data-path]}]]
+  (s/assert (s/nilable ::utils4/data-path) data-path)
+  (s/assert vector? data-path)
+  (let [path (blocks4/block-path data-path)
+        logic (get-in state path)
+        selected (get-in logic [:props :selected])]
+    (when selected
+      (pos? (get-in logic [:content selected :progress/score :progress/errors])))))
+
 (defn get-block-props-sub
   "take config and merge with block props"
   [state [_ {:keys [data-path] :as config}]]
@@ -43,6 +66,14 @@
                 (let [path (blocks4/block-path data-path)]
                   (get-in state (conj path :props))))]
     (merge config logic)))
+
+(defn is-item-added?
+  "Check if config refers to an 'added' entry"
+  [state [_ config]]
+  (let [{:keys [data-path added-path]} config
+        path (blocks4/block-path (into data-path added-path))
+        added? (get-in state (conj path :props :value))]
+    added?))
 
 (defn get-block-data-sub
   [state [_ {:keys [data-path]}]]

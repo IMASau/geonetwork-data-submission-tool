@@ -24,6 +24,7 @@
 (rf/reg-event-fx ::components4/create-document-modal-close-click handlers4/create-document-modal-close-click)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
 (rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-with-defaults-click-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-close handlers4/item-edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
@@ -34,6 +35,7 @@
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
+(rf/reg-event-fx ::components4/add-record handlers4/add-record-handler)
 (rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click2)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
@@ -99,6 +101,8 @@
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-list-edit-can-save-sub subs4/form-state-signal subs4/get-list-edit-can-save-sub)
+(rf/reg-sub ::components4/has-block-errors? subs4/form-state-signal subs4/has-block-errors?)
+(rf/reg-sub ::components4/has-selected-block-errors? subs4/form-state-signal subs4/has-selected-block-errors?)
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
@@ -118,6 +122,9 @@
 (rf/reg-sub :subs/get-upload-form subs3/get-upload-form)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
+(ins4/reg-global-singleton (ins4/slow-handler 100))
+(when goog/DEBUG (ins4/reg-global-singleton ins4/db-diff))
+(when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
       {"requiredField"        rules4/required-field
        "maxLength"            rules4/max-length
@@ -145,6 +152,8 @@
        'm4/input-field                    {:view components4/input-field :init components4/input-field-settings}
        'm4/input-field-with-label         {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button                {:view components4/item-add-button :init components4/item-add-button-settings}
+       'm4/item-dialog-button               {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
+       'm4/item-edit-button               {:view components4/item-edit-button :init components4/item-edit-button-settings}
        'm4/item-edit-dialog               {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
        'm4/list-add-button                {:view components4/list-add-button :init components4/list-add-button-settings}
        'm4/list-edit-dialog               {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
@@ -174,6 +183,7 @@
        'm4/yes-no-field                   {:view components4/yes-no-field :init components4/yes-no-field-settings}
        'm4/xml-export-link                {:view components4/xml-export-link :init components4/xml-export-link-settings}
        'm4/async-item-picker              {:view components4/async-item-picker :init components4/async-item-picker-settings}
+       'm4/record-add-button              {:view components4/record-add-button :init components4/record-add-button-settings}
        'm4/text-add-button                {:view components4/text-add-button :init components4/text-add-button-settings}
        'm4/simple-list                    {:view components4/simple-list :init components4/simple-list-settings}
        })

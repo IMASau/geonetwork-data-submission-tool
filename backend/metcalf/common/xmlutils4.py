@@ -132,8 +132,12 @@ def has_exportTo(spec):
     return 'exportTo' in spec
 
 
-def get_exportTo(spec):
-    return spec.get('exportTo')
+def get_exportTo(spec, data):
+    exportTo = spec.get('exportTo')
+    if callable(exportTo):
+        return exportTo(data)
+    else:
+        return exportTo
 
 
 def is_fanout(spec):
@@ -489,7 +493,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
     # export can be false with an exportTo function, i.e. don't do the default export, do this instead
     elif not is_export(spec):
         if has_exportTo(spec):
-            data_to_xml(data=data, xml_node=xml_node, spec=get_exportTo(spec), nsmap=nsmap,
+            data_to_xml(data=data, xml_node=xml_node, spec=get_exportTo(spec, data), nsmap=nsmap,
                         element_index=element_index, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
     elif is_batch(spec):
         spec, data = spec_data_from_batch(get_batch(spec), data)
@@ -597,7 +601,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                 else:
                     element.set(attr, final_value)
             if has_exportTo(spec):
-                data_to_xml(data=data, xml_node=xml_node, spec=get_exportTo(spec), nsmap=nsmap,
+                data_to_xml(data=data, xml_node=xml_node, spec=get_exportTo(spec, data), nsmap=nsmap,
                             element_index=element_index, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
 
     if is_postprocess(spec):

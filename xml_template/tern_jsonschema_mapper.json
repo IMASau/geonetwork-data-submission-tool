@@ -49,7 +49,7 @@
       }
     },
     "attachments": {
-      "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource[cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\"][cit:description/gco:CharacterString/text()=\"Data file\"]]",
+      "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"][normalize-space(cit:description/gco:CharacterString)=\"Data file\"]]",
       "keep": false,
       "type": "array",
       "items": {
@@ -114,8 +114,23 @@
       "properties": {
         "crsCode": {
           "!docstring": "Where3",
-          "xpath": "mcc:code/gco:CharacterString",
-          "type": "string"
+          "xpath": ".",
+          "type": "object",
+          "properties": {
+            "code": {
+              "xpath": "mcc:code/gco:CharacterString",
+              "type": "string"
+            },
+            "codeSpace": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          }
         },
         "DateOfDynamicDatum": {
           "!docstring": "Where4",
@@ -405,17 +420,6 @@
             }
           }
         },
-        "verticalCoordinateReferenceSystem": {
-          "type": "object",
-          "properties": {
-            "uri": {
-              "type": "string"
-            },
-            "label": {
-              "type": "string"
-            }
-          }
-        },
         "verticalElement": {
           "xpath": "mri:extent/gex:EX_Extent/gex:verticalElement/gex:EX_VerticalExtent",
           "type": "object",
@@ -436,6 +440,26 @@
             }
           ],
           "properties": {
+            "coordinateReferenceSystem": {
+              "!docstring": "Where5",
+              "xpath": "gex:verticalCRSId/mrs:MD_ReferenceSystem/mrs:referenceSystemIdentifier/mcc:MD_Identifier",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "xpath": "mcc:code/gco:CharacterString",
+                  "type": "string"
+                },
+                "codeSpace": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                }
+              }
+            },
             "minimumValue": {
               "!docstring": "Where7",
               "type": "number",
@@ -460,6 +484,7 @@
         },
         "SpatialResolution": {
           "type": "object",
+          "xpath": "mri:spatialResolution/mri:MD_Resolution",
           "properties": {
             "ResolutionAttribute": {
               "!docstring": "Where9",
@@ -474,11 +499,15 @@
               "type": "string"
             }
           },
+          "export": false,
+          "exportTo": {
+            "function": "spatial_units_export"
+          },
           "rules": ["spatialUnits"]
         },
         "keywordsTheme": {
           "!docstring": "What3",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",
           "type": "object",
           "properties": {
             "keywords": {
@@ -509,7 +538,7 @@
         },
         "keywordsThemeAnzsrc": {
           "!docstring": "What4",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://vocabs.ands.org.au/viewById/20\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://www.abs.gov.au/statistics/classifications/australian-and-new-zealand-standard-research-classification-anzsrc/2020\"]",
           "type": "object",
           "properties": {
             "keywords": {
@@ -540,7 +569,7 @@
         },
         "keywordsPlatform": {
           "!docstring": "What5",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"platform\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://w3id.org/tern/assets/platforms/\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"platform\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://w3id.org/tern/resources/\"]",
           "type": "object",
           "properties": {
             "keywords": {
@@ -585,7 +614,7 @@
         },
         "keywordsInstrument": {
           "!docstring": "What6",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"instrument\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://w3id.org/tern/assets/sensors/\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"instrument\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://w3id.org/tern/resources/\"]",
           "type": "object",
           "properties": {
             "keywords": {
@@ -635,7 +664,7 @@
         },
         "keywordsParameters": {
           "!docstring": "What8",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"http://linked.data.gov.au/def/tern-cv/687472ef-24a1-42b0-b118-358d42957396\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]",
           "type": "object",
           "properties": {
             "keywords": {
@@ -665,16 +694,25 @@
                     "type": "string"
                   },
                   "unit": {
+                    "!docstring": "What9",
+                    "xpath": "../../../mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]/mri:keyword",
                     "type": "object",
-                    "rules": ["requiredField"],
                     "properties": {
                       "label": {
+                        "xpath": "gcx:Anchor",
+                        "rules": ["requiredField"],
                         "type": "string"
                       },
                       "description": {
                         "type": "string"
                       },
                       "uri": {
+                        "xpath": "gcx:Anchor",
+                        "attributes": {
+                          "xlink:href": {
+                            "function": "identity"
+                          }
+                        },
                         "type": "string"
                       },
                       "isUserDefined": {
@@ -704,7 +742,7 @@
         },
         "keywordsUoM": {
           "!docstring": "What9",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"http://www.qudt.org/2.1/vocab/unit\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]",
           "type": "object",
           "properties": {
             "keywords": {
@@ -739,7 +777,7 @@
         },
         "keywordsTemporal": {
           "!docstring": "What10",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"temporal\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange/?format=xml\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"temporal\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/temporalresolutionrange/?format=xml\"]",
           "type": "object",
           "properties": {
             "keywords": {
@@ -766,7 +804,7 @@
         },
         "keywordsHorizontal": {
           "!docstring": "What11",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/horizontalresolutionrange/?format=xml\"]",
           "type": "object",
           "properties": {
             "keywords": {
@@ -793,7 +831,7 @@
         },
         "keywordsVertical": {
           "!docstring": "What12",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/verticalresolutionrange/?format=xml\"]",
           "type": "object",
           "properties": {
             "keywords": {
@@ -819,7 +857,7 @@
         },
         "keywordsFlora": {
           "!docstring": "What13",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"taxon\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"http://www.cpbr.gov.au/cgi-bin/apni\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"taxon\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.cpbr.gov.au/cgi-bin/apni\"]",
           "type": "object",
           "properties": {
             "keywords": {
@@ -850,7 +888,7 @@
         },
         "keywordsFauna": {
           "!docstring": "What14",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"taxon\"]][mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text()=\"https://biodiversity.org.au/afd/home\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"taxon\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://biodiversity.org.au/afd/home\"]",
           "type": "object",
           "properties": {
             "keywords": {
@@ -941,7 +979,7 @@
         },
         "credit": {
           "!docstring": "About8",
-          "xpath": "mri:credit",
+          "xpath": "mri:credit[2]",
           "valueChild": "gco:CharacterString",
           "keep": false,
           "required": false,
@@ -971,7 +1009,7 @@
       }
     },
     "resourceLineage": {
-      "xpath": "mdb:resourceLineage/mrl:LI_Lineage[mrl:scop/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue='dataset']][1]",
+      "xpath": "mdb:resourceLineage/mrl:LI_Lineage[mrl:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue='dataset']][1]",
       "type": "object",
       "properties": {
         "statement": {
@@ -1006,13 +1044,38 @@
         }
       }
     },
+    "resourceLineageProcessSteps": {
+      "xpath": "mdb:resourceLineage/mrl:LI_Lineage[mrl:processStep][1]",
+      "type": "object",
+      "properties": {
+        "statement": {
+          "!docstring": "How6",
+          "xpath": "mrl:additionalDocumentation/cit:CI_Citation/cit:title/gco:CharacterString",
+          "type": "string"
+        },
+        "summary": {
+          "!docstring": "How7",
+          "xpath": "mrl:statement/gco:CharacterString",
+          "type": "string"
+        },
+        "steps": {
+          "!docstring": "How7b",
+          "xpath": "mrl:processStep",
+          "type": "array",
+          "items": {
+            "xpath": "mrl:processStep/mrl:LI_ProcessStep/mrl:description/gco:CharacterString",
+            "type": "string"
+          }
+        }
+      }
+    },
     "dataQualityInfo": {
-      "xpath": "mdb:dataQualityInfo/mdq:DQ_DataQuality",
+      "xpath": "mdb:dataQualityInfo/mdq:DQ_DataQuality/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy",
       "type": "object",
       "properties": {
         "methodSummary": {
           "!docstring": "How8",
-          "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:DQ_EvaluationMethod/mdq:evaluationMethodDescription",
+          "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:evaluationMethodDescription",
           "valueChild": "gco:CharacterString",
           "label": "Provide a summary of the scope of the Data Quality Assessment",
           "type": "string",
@@ -1021,34 +1084,32 @@
         },
         "results": {
           "!docstring": "How12",
-          "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
+          "xpath": "mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
           "keep": false,
           "required": false,
           "type": "string"
         },
-        "methods": {
-          "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:standaloneQualityReportDetails",
+        "onlineMethods": {
+          "!docstring": "How9",
+          "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
           "keep": false,
-          "valueChild": "gco:CharacterString",
           "required": false,
-          "type": "string"
-        },
-        "methodDocs": {
           "type": "array",
           "items": {
+            "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
             "type": "object",
             "properties": {
-              "uri": {
-                "type": "string"
-              },
               "title": {
+                "!docstring": "How10",
+                "xpath": "cit:CI_Citation/cit:title",
+                "valueChild": "gco:CharacterString",
                 "type": "string"
               },
               "url": {
+                "!docstring": "How11",
+                "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage",
+                "valueChild": "gco:CharacterString",
                 "type": "string"
-              },
-              "isUserDefined": {
-                "type": "boolean"
               }
             }
           }

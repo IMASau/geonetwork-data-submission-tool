@@ -180,6 +180,12 @@ The `exportTo` definition allows the definition of an explicit write location, d
 
 If `export` is set to `true`, the export process will write to both the default location and the `exportTo` location.
 
+The `exportTo` definition can also be a function, taking the enclosing
+spec and data from that point in the schema, in which case it should
+return a essentially a replacement for the current `spec`.  The
+primary use-case for this is when the export location depends on the
+data.
+
 If `export` is `false` but `exportTo` is defined, then the property will be written only to the
 `exportTo` location.
 
@@ -232,6 +238,64 @@ SPEC_FUNCTIONS = {
 }
 ```
 
+An example of programatic mapping:
+
+```json
+"SpatialResolution": {
+  "type": "object",
+  "xpath": "mri:spatialResolution/mri:MD_Resolution",
+  "properties": {
+    "ResolutionAttribute": {
+      "!docstring": "Where9",
+      "type": "string"
+    },
+    "ResolutionAttributeValue": {
+      "!docstring": "Where10",
+      "type": "number"
+    },
+    "ResolutionAttributeUnits": {
+      "!docstring": "Derived; depends on the value of Where9",
+      "type": "string"
+    }
+  },
+  "export": false,
+  "exportTo": {
+    "function": "spatial_units_export"
+  },
+}
+```
+
+```python
+def spatial_units_export(data):
+    # Based on the data passed in, map to the appropriate xml element.
+    # Note that at this point the unit attribute is hard-coded so we
+    # are only concerned with inserting the value:
+    attr = data.get('ResolutionAttribute')
+    unitToXPath = {
+        'Denominator scale': 'mri:equivalentScale/mri:MD_RepresentativeFraction/mri:denominator/gco:Integer',
+        'Vertical': 'mri:vertical/gco:Distance',
+        'Horizontal': 'mri:distance/gco:Distance',
+        'Angular distance': 'mri:angularDistance/gco:Angle',
+    }
+    if attr and attr in unitToXPath:
+        subElementPath = unitToXPath[attr]
+        return {
+            "type": "object",
+            "xpath": f"mri:spatialResolution/mri:MD_Resolution/{subElementPath}",
+            "properties": {
+                "ResolutionAttributeValue": {
+                    "xpath": ".",
+                    'attributes': {
+                        'text': to_string
+                    }
+                },
+            }
+        }
+    else:
+        # Nothing to map, just return an empty spec:
+        return {}
+```
+
 ## keep
 
 If `keep` is set to `true` (default), the value in the XML template file will be used as the default value for any new
@@ -263,23 +327,6 @@ Note: a default value defined here will override whatever is set in the XML temp
   "required": true,
   "default": {
     "function": "today"
-  }
-},
-```
-
-## many
-If `many` is set to `false`, (default) indicates a single value.
-
-If `many` is set to `true`, indicates that there can be multiple entries.
-
-```json
-"attachments": {
-  "many": true,
-  "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource[cit:protocol/gco:CharacterString/text()=\"WWW:DOWNLOAD-1.0-http--download\"][cit:description/gco:CharacterString/text()=\"Data file\"]]",
-  "keep": false,
-  "nodes": {
-    "file": {...},
-    "name": {...}
   }
 },
 ```

@@ -21,6 +21,7 @@
 (rf/reg-event-fx ::components4/create-document-modal-close-click handlers4/create-document-modal-close-click)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
 (rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-with-defaults-click-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-close handlers4/item-edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
@@ -31,6 +32,7 @@
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
+(rf/reg-event-fx ::components4/add-record handlers4/add-record-handler)
 (rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click2)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
@@ -95,7 +97,10 @@
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub ::components4/is-item-added? subs4/form-state-signal subs4/is-item-added?)
 (rf/reg-sub ::components4/get-list-edit-can-save-sub subs4/form-state-signal subs4/get-list-edit-can-save-sub)
+(rf/reg-sub ::components4/has-block-errors? subs4/form-state-signal subs4/has-block-errors?)
+(rf/reg-sub ::components4/has-selected-block-errors? subs4/form-state-signal subs4/has-selected-block-errors?)
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
@@ -116,6 +121,8 @@
 (rf/reg-sub :subs/get-upload-form subs3/get-upload-form)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
+(ins4/reg-global-singleton (ins4/slow-handler 100))
+(when goog/DEBUG (ins4/reg-global-singleton ins4/db-diff))
 (when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
       {"requiredField"     rules4/required-field
@@ -149,6 +156,8 @@
        'm4/input-field                   {:view components4/input-field :init components4/input-field-settings}
        'm4/input-field-with-label        {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button               {:view components4/item-add-button :init components4/item-add-button-settings}
+       'm4/item-dialog-button                {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
+       'm4/item-edit-button              {:view components4/item-edit-button :init components4/item-edit-button-settings}
        'm4/item-edit-dialog              {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
        'm4/list-add-button               {:view components4/list-add-button :init components4/list-add-button-settings}
        'm4/list-edit-dialog              {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
@@ -171,6 +180,7 @@
        'm4/get-data                      {:view components4/get-data :init components4/get-data-settings}
        'm4/yes-no-field                  {:view components4/yes-no-field :init components4/yes-no-field-settings}
        'm4/simple-list                   {:view components4/simple-list :init components4/simple-list-settings}
+       'm4/record-add-button             {:view components4/record-add-button :init components4/record-add-button-settings}
        'm4/text-add-button               {:view components4/text-add-button :init components4/text-add-button-settings}
        'm4/upload-files                  {:view components4/upload-files :init components4/upload-files-settings}
        })
@@ -323,9 +333,10 @@
           :label-path ["label"]
           :value-path ["uri"]
           :added-path ["isUserDefined"]}]]
-       [m4/item-add-button
+       [m4/item-dialog-button
         {:form-id       ?form-id
          :data-path     [?data-path "unit"]
+         :label-path    ["label"]
          :value-path    ["uri"]
          :item-defaults {"userAddedCategory" "unit"}
          :added-path    ["isUserDefined"]}]]
@@ -611,7 +622,7 @@
          :title       "Instrument"
          :template-id :instrument/user-defined-entry-form}]]]
 
-     [m4/expanding-control {:label "Parameters" :required true}
+     [m4/expanding-control {:label "Parameters" :required true :defaultOpen true}
 
       ;; TODO: also need a user-added option
       [m4/form-group
@@ -830,16 +841,13 @@
          {:label    "Coordinate Reference System"
           :required true
           :toolTip  "TODO"}
-         [m4/select-value
+         [m4/async-select-option
           {:form-id     [:form]
            :data-path   ["referenceSystemInfo" "crsCode"]
-           :label-path  ["label"]
-           :value-path  ["value"]
+           :label-path  ["code"]
+           :value-path  ["code"]
            :placeholder "Select from list"
-           ;; FIXME: Placeholders for now:
-           :options     [{"label" "WGS 84 - EPSG:4326" "value" "EPSG:4326"}
-                         {"label" "WGS 84 / World Mercator - EPSG:3395" "value" "EPSG:3395"}
-                         {"label" "GDA94 - EPSG:4283" "value" "EPSG:4283"}]}]]
+           :uri         "/api/horizontalcrs"}]]
 
         [m4/form-group
          {:form-id [:form]
@@ -860,10 +868,10 @@
          :toolTip  "TODO"}
         [m4/async-select-option
          {:form-id     [:form]
-          :data-path   ["identificationInfo" "verticalCoordinateReferenceSystem"]
-          :uri         "/api/verticalresolution"
-          :label-path  ["label"]
-          :value-path  ["uri"]
+          :data-path   ["identificationInfo" "verticalElement" "coordinateReferenceSystem"]
+          :uri         "/api/verticalcrs"
+          :label-path  ["code"]
+          :value-path  ["code"]
           :placeholder "Select from list"}]]
 
        [m4/inline-form-group
@@ -1153,7 +1161,7 @@
                       ["dataQualityInfo" "results"]]}]
      [:h2 "6: How"]
 
-     [:p "This section is optional.  You can add meethod/s used for the collection of the data and provide the Data Quality description and the associated results"]
+     [:p "This section is optional.  You can add method/s used for the collection of the data and provide the Data Quality description and the associated results"]
 
      [m4/expanding-control {:label "Data creation procedure details (Optional)"}
 
@@ -1192,9 +1200,39 @@
          :title       "Method Document"
          :template-id :method-doc/user-defined-entry-form}]]]
 
-     [m4/expanding-control {:label "Data procedure creation steps (Optional)"}
+     [m4/expanding-control {:label "Data creation procedure steps (Optional)"}
 
-      ]
+      ;; How6: Name
+      [m4/textarea-field-with-label
+       {:form-id    [:form]
+        :data-path  ["resourceLineageProcessSteps" "statement"]
+        :label      "Name"
+        :required   true
+        :toolTip    "TODO"
+        :placeholder "Provide the name of the method or procedure"
+        :helperText "Provide the name of the method or procedure"}]
+
+      ;; How7: Description
+      [m4/textarea-field-with-label
+       {:form-id    [:form]
+        :data-path  ["resourceLineageProcessSteps" "summary"]
+        :label      "Summary"
+        :required   true
+        :toolTip    "TODO"
+        :placeholder "Provide a brief summary of a single method or procedure"
+        :helperText "Provide a brief description of the method"}]
+
+      ;; How7b: list-add free-text entries
+      [m4/form-group
+       {:label   "If the need arises please add steps taken for the Data creation procedure to support the brief provided above."
+        :toolTip "TODO"}
+       [m4/text-add-button
+        {:form-id     [:form]
+         :data-path   ["resourceLineageProcessSteps" "steps"]
+         :button-text "Add"}]
+       [m4/value-selection-list
+        {:form-id   [:form]
+         :data-path ["resourceLineageProcessSteps" "steps"]}]]]
 
      [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]
 
@@ -1232,8 +1270,34 @@
        :label       "Provide a summary of the scope of the Data Quality Assessment"
        :maxLength   1000
        :placeholder "The data quality was assessed by ..."}]
-     [:h4 "Online data quality report"
-      [:p "TODO"]]
+
+     [m4/form-group
+      {:label    "Online data quality report"
+       :required true}
+      [m4/table-selection-list
+       {:form-id    [:form]
+        :data-path  ["dataQualityInfo" "onlineMethods"]
+        :value-path ["uri"]
+        :added-path ["isUserDefined"]
+        :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                     {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+
+      [m4/list-add-button
+       {:form-id       [:form]
+        :data-path     ["dataQualityInfo" "onlineMethods"]
+        :button-text   "Add"
+        :value-path    ["uri"]
+        ;; :item-defaults {"userAddedCategory" "onlineMethods"}
+        :added-path    ["isUserDefined"]}]
+
+      [m4/list-edit-dialog
+       {:form-id     [:form]
+        :data-path   ["dataQualityInfo" "onlineMethods"]
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]
+        :title       "Online Quality Report"
+        :template-id :quality/user-defined-entry-form}]]
+
      [m4/textarea-field-with-label
       {:form-id     [:form]
        :data-path   ["dataQualityInfo" "results"]
@@ -1241,6 +1305,24 @@
        :maxLength   1000
        :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]
      [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+
+    :quality/user-defined-entry-form
+    [:div
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "title"]
+       :label     "Title"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "title"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "url"]
+       :label     "URL"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "url"]}]]]
 
     :about
     [:div

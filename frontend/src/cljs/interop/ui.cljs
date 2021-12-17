@@ -12,10 +12,12 @@
             ["/ui/components/SelectField/SelectField" :as SelectField]
             ["/ui/components/SelectionList/SelectionList" :as SelectionList]
             ["/ui/components/TextAddField/TextAddField" :as TextAddField]
+            ["/ui/components/RecordAddField/RecordAddField" :as RecordAddField]
             ["/ui/components/UploadField/UploadField" :as UploadField]
             ["/ui/components/TextareaField/TextareaField" :as TextareaField]
             ["/ui/components/utils" :as ui-utils]
             ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
+            ["/ui/components/RadioGroup/RadioGroup" :as RadioGroup]
             [cljs.spec.alpha :as s]
             [goog.object :as gobj]
             [reagent.core :as r]))
@@ -39,7 +41,10 @@
 (assert NumericInputField/NumericInputField)
 (assert EditDialog/EditDialog)
 (assert TextAddField/TextAddField)
+(assert RecordAddField/RecordAddField)
 (assert UploadField/UploadField)
+(assert RadioGroup/RadioGroup)
+(assert RadioGroup/RadioGroupSimple)
 
 (s/def ::northBoundLatitude number?)
 (s/def ::westBoundLongitude number?)
@@ -98,4 +103,7 @@
 (def Modal (r/adapt-react-class EditDialog/Modal))
 (def ModalDialog (r/adapt-react-class EditDialog/ModalDialog))
 (def TextAddField (r/adapt-react-class TextAddField/TextAddField))
+(def RecordAddField (r/adapt-react-class RecordAddField/RecordAddField))
 (def Dropzone (r/adapt-react-class UploadField/Dropzone))
+(def RadioGroup (r/adapt-react-class RadioGroup/RadioGroup))
+(def RadioGroupSimple (r/adapt-react-class RadioGroup/RadioGroupSimple))

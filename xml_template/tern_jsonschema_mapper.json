@@ -1089,29 +1089,27 @@
           "required": false,
           "type": "string"
         },
-        "methods": {
-          "xpath": "mdq:DQ_DataQuality[mdq:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue=\"dataset\"]]/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:standaloneQualityReportDetails",
+        "onlineMethods": {
+          "!docstring": "How9",
+          "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
           "keep": false,
-          "valueChild": "gco:CharacterString",
           "required": false,
-          "type": "string"
-        },
-        "methodDocs": {
           "type": "array",
           "items": {
+            "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
             "type": "object",
             "properties": {
-              "uri": {
-                "type": "string"
-              },
               "title": {
+                "!docstring": "How10",
+                "xpath": "cit:CI_Citation/cit:title",
+                "valueChild": "gco:CharacterString",
                 "type": "string"
               },
               "url": {
+                "!docstring": "How11",
+                "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage",
+                "valueChild": "gco:CharacterString",
                 "type": "string"
-              },
-              "isUserDefined": {
-                "type": "boolean"
               }
             }
           }

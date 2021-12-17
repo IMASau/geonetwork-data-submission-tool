@@ -1270,8 +1270,34 @@
        :label       "Provide a summary of the scope of the Data Quality Assessment"
        :maxLength   1000
        :placeholder "The data quality was assessed by ..."}]
-     [:h4 "Online data quality report"
-      [:p "TODO"]]
+
+     [m4/form-group
+      {:label    "Online data quality report"
+       :required true}
+      [m4/table-selection-list
+       {:form-id    [:form]
+        :data-path  ["dataQualityInfo" "onlineMethods"]
+        :value-path ["uri"]
+        :added-path ["isUserDefined"]
+        :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                     {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+
+      [m4/list-add-button
+       {:form-id       [:form]
+        :data-path     ["dataQualityInfo" "onlineMethods"]
+        :button-text   "Add"
+        :value-path    ["uri"]
+        ;; :item-defaults {"userAddedCategory" "onlineMethods"}
+        :added-path    ["isUserDefined"]}]
+
+      [m4/list-edit-dialog
+       {:form-id     [:form]
+        :data-path   ["dataQualityInfo" "onlineMethods"]
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]
+        :title       "Online Quality Report"
+        :template-id :quality/user-defined-entry-form}]]
+
      [m4/textarea-field-with-label
       {:form-id     [:form]
        :data-path   ["dataQualityInfo" "results"]
@@ -1279,6 +1305,24 @@
        :maxLength   1000
        :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]
      [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+
+    :quality/user-defined-entry-form
+    [:div
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "title"]
+       :label     "Title"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "title"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "url"]
+       :label     "URL"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "url"]}]]]
 
     :about
     [:div

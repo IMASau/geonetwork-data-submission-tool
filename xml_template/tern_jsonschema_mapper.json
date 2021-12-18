@@ -320,6 +320,15 @@
           },
           "notes": "Responsible party/ies for creating dataset"
         },
+        "pointOfContact": {
+          "xpath": "mri:MD_DataIdentification/mri:pointOfContact/cit:CI_Responsibility",
+          "container": "mri:MD_DataIdentification/mri:pointOfContact/cit:CI_Responsibility",
+          "keep": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ci_responsible_party_nodes"
+          }
+        },
         "geographicElement": {
           "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",
           "type": "object",

@@ -72,8 +72,9 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
-      - es
+      db:
+        condition: service_healthy
+
 
   cron:
     image: ternau/data-submission-tool

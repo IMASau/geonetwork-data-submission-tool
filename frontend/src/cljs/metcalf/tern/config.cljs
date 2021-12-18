@@ -1008,10 +1008,10 @@
         :type-path ["partyType"]
         :templates {"person"
                     {:title       "Person"
-                     :template-id :person/user-defined-entry-form}
+                     :template-id :party-person/user-defined-entry-form}
                     "organisation"
                     {:title       "Organisation"
-                     :template-id :organisation/user-defined-entry-form}}}]]
+                     :template-id :party-organisation/user-defined-entry-form}}}]]
 
      [m4/expanding-control {:label "Point of contact for dataset" :required true :defaultOpen true}
 
@@ -1049,10 +1049,10 @@
         :type-path ["partyType"]
         :templates {"person"
                     {:title       "Person"
-                     :template-id :person/user-defined-entry-form}
+                     :template-id :party-person/user-defined-entry-form}
                     "organisation"
                     {:title       "Organisation"
-                     :template-id :organisation/user-defined-entry-form}}}]]
+                     :template-id :party-organisation/user-defined-entry-form}}}]]
 
      ;[m4/list-add-button
      ; {:form-id    [:form]
@@ -1098,7 +1098,7 @@
        [m4/get-data {:form-id ?form-id :data-path [?data-path "organisation" "organisationName"]}]
        [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "label"]}]]]]
 
-    :person/user-defined-entry-form
+    :party-person/user-defined-entry-form
     [:div
 
      [m4/form-group
@@ -1186,9 +1186,10 @@
        {:form-id     ?form-id
         :data-path   [?data-path "organisation"]
         :title       "Organisation"
-        :template-id :organisation/user-defined-entry-form}]]]
+        :template-id :person-organisation/user-defined-entry-form}]]]
 
-    :organisation/user-defined-entry-form
+    ; NOTE: organisation with role (not associated with a person)
+    :party-organisation/user-defined-entry-form
     [:div
 
      [m4/form-group
@@ -1201,6 +1202,37 @@
         :uri        "/api/What9"
         :label-path ["label"]
         :value-path ["value"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation" "organisationName"]
+       :label     "Organisation Name"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "organisationName"]}]]
+
+     ; TODO: Contact details
+     ; TODO: * campus/site
+     ; TODO: * street address
+     ; TODO: * city
+     ; TODO: * state
+     ; TODO: * postcode
+     ; TODO: * country
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "electronicMailAddress"]
+       :label     "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "electronicMailAddress"]}]]
+     ; TODO: * phone
+     ; TODO: * fax
+
+     ]
+
+    ; NOTE: person organisation (no role)
+    :person-organisation/user-defined-entry-form
+    [:div
 
      [m4/form-group
       {:form-id   ?form-id

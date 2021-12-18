@@ -1013,7 +1013,46 @@
                     {:title       "Organisation"
                      :template-id :organisation/user-defined-entry-form}}}]]
 
-     [m4/expanding-control {:label "Point of contact for dataset" :required true :defaultOpen true}]
+     [m4/expanding-control {:label "Point of contact for dataset" :required true :defaultOpen true}
+
+      [:p
+       "Please assign a persona and/or an organisation as the point of contact.  More than one person or organisation can be included."]
+
+      [m4/list-add-button
+       {:form-id       [:form]
+        :data-path     ["identificationInfo" "pointOfContact"]
+        :button-text   "Add person"
+        :value-path    ["uri"]
+        :added-path    ["isUserDefined"]
+        ;; FIXME: Add userAddedCategory to item defaults?
+        :item-defaults {"partyType" "person"}}]
+
+      [m4/list-add-button
+       {:form-id       [:form]
+        :data-path     ["identificationInfo" "pointOfContact"]
+        :button-text   "Add organisation"
+        :value-path    ["uri"]
+        :added-path    ["isUserDefined"]
+        ;; FIXME: Add userAddedCategory to item defaults?
+        :item-defaults {"partyType" "organisation"}}]
+
+      [m4/selection-list
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "pointOfContact"]
+        :template-id :party/list-item
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
+
+      [m4/typed-list-edit-dialog
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "pointOfContact"]
+        :type-path ["partyType"]
+        :templates {"person"
+                    {:title       "Person"
+                     :template-id :person/user-defined-entry-form}
+                    "organisation"
+                    {:title       "Organisation"
+                     :template-id :organisation/user-defined-entry-form}}}]]
 
      ;[m4/list-add-button
      ; {:form-id    [:form]

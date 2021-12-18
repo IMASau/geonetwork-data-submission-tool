@@ -164,8 +164,8 @@ def make_spec(**kwargs):
     assert kwargs['mapper'] is not None, "No mapper exists for this template. Please specify one."
     spec = json.loads(kwargs['mapper'].file.read().decode('utf-8'))
     remove_comments(spec)
-    spec = inline_defs(spec)
     insert_functions(spec)
+    spec = inline_defs(spec)
     return spec
 
 

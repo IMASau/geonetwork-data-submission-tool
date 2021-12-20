@@ -1043,8 +1043,8 @@
         },
         "customCitation": {
           "!docstring": "About9",
-          "xpath": "mri:citation/cit:CI_Citation/cit:otherCitationDetails",
-          "valueChild": "gco:CharacterString",
+          "xpath": "mri:citation/cit:CI_Citation",
+          "valueChild": "cit:otherCitationDetails/gco:CharacterString",
           "label": "Specific citation",
           "keep": false,
           "required": false,

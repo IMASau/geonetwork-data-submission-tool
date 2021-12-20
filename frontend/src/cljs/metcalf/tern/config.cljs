@@ -156,7 +156,7 @@
        'm4/input-field                   {:view components4/input-field :init components4/input-field-settings}
        'm4/input-field-with-label        {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button               {:view components4/item-add-button :init components4/item-add-button-settings}
-       'm4/item-dialog-button                {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
+       'm4/item-dialog-button            {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/item-edit-button              {:view components4/item-edit-button :init components4/item-edit-button-settings}
        'm4/item-edit-dialog              {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
        'm4/list-add-button               {:view components4/list-add-button :init components4/list-add-button-settings}
@@ -920,7 +920,7 @@
            {:form-id   [:form]
             :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeValue"]
             :unit      [m4/get-data
-                        {:form-id [:form]
+                        {:form-id   [:form]
                          :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeUnits"]}]}]]]]]]
 
      [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
@@ -963,20 +963,19 @@
     :who
     [:div
 
-     [m4/expanding-control {:label "Responsible for the creation of dataset" :required true}
+     [:p "
+     This is a mandatory section and requires the person/organisation who is/are responsible for the dataset
+     and the point of contact/s for the dataset.
+     It can be a person or an organisation.
+     You can assign more than one person or organisation to the sections.
+     The person or organisation can be added at any point of time but must be completed prior to lodgement
+     "]
+
+     [m4/expanding-control {:label "Responsible for the creation of dataset" :required true :defaultOpen true}
 
       [:p
        "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
        "More than one person or an organisation can be included as well."]
-
-      [m4/selection-list
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "citedResponsibleParty"]
-        :template-id :party/list-item
-        :value-path  ["uri"]
-        ;; FIXME: userAddedcategory may just be "party", or this may be trickier.
-        ;; :item-defaults {"userAddedCategory" "responsiblePerson"}
-        :added-path  ["isUserDefined"]}]
 
       [m4/list-add-button
        {:form-id       [:form]
@@ -984,6 +983,7 @@
         :button-text   "Add person"
         :value-path    ["uri"]
         :added-path    ["isUserDefined"]
+        ;; FIXME: Add userAddedCategory to item defaults?
         :item-defaults {"partyType" "person"}}]
 
       [m4/list-add-button
@@ -992,7 +992,15 @@
         :button-text   "Add organisation"
         :value-path    ["uri"]
         :added-path    ["isUserDefined"]
+        ;; FIXME: Add userAddedCategory to item defaults?
         :item-defaults {"partyType" "organisation"}}]
+
+      [m4/selection-list
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "citedResponsibleParty"]
+        :template-id :party/list-item
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
 
       [m4/typed-list-edit-dialog
        {:form-id   [:form]
@@ -1000,12 +1008,52 @@
         :type-path ["partyType"]
         :templates {"person"
                     {:title       "Person"
-                     :template-id :person/user-defined-entry-form}
+                     :template-id :party-person/user-defined-entry-form}
                     "organisation"
                     {:title       "Organisation"
-                     :template-id :organisation/user-defined-entry-form}}}]]
+                     :template-id :party-organisation/user-defined-entry-form}}}]]
 
-     ;[m4/expanding-control {:label "Point of contact for dataset" :required true}]
+     [m4/expanding-control {:label "Point of contact for dataset" :required true :defaultOpen true}
+
+      [:p
+       "Please assign a persona and/or an organisation as the point of contact.  More than one person or organisation can be included."]
+
+      [m4/list-add-button
+       {:form-id       [:form]
+        :data-path     ["identificationInfo" "pointOfContact"]
+        :button-text   "Add person"
+        :value-path    ["uri"]
+        :added-path    ["isUserDefined"]
+        ;; FIXME: Add userAddedCategory to item defaults?
+        :item-defaults {"partyType" "person"}}]
+
+      [m4/list-add-button
+       {:form-id       [:form]
+        :data-path     ["identificationInfo" "pointOfContact"]
+        :button-text   "Add organisation"
+        :value-path    ["uri"]
+        :added-path    ["isUserDefined"]
+        ;; FIXME: Add userAddedCategory to item defaults?
+        :item-defaults {"partyType" "organisation"}}]
+
+      [m4/selection-list
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "pointOfContact"]
+        :template-id :party/list-item
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
+
+      [m4/typed-list-edit-dialog
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "pointOfContact"]
+        :type-path ["partyType"]
+        :templates {"person"
+                    {:title       "Person"
+                     :template-id :party-person/user-defined-entry-form}
+                    "organisation"
+                    {:title       "Organisation"
+                     :template-id :party-organisation/user-defined-entry-form}}}]]
+
      ;[m4/list-add-button
      ; {:form-id    [:form]
      ;  :data-path  ["identificationInfo" "PointOfContactForDataset"]
@@ -1034,12 +1082,23 @@
 
     :party/list-item
     [:div
-     [m4/get-data {:form-id ?form-id :data-path [?data-path "partyType"]}] ": "
-     [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "givenName"]}] " "
-     [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "familyName"]}] " / "
-     [m4/get-data {:form-id ?form-id :data-path [?data-path "organisation" "organisationName"]}]]
 
-    :person/user-defined-entry-form
+     [m4/when-data {:form-id   [:form]
+                    :data-path [?data-path "partyType"]
+                    :pred      #{"person"}}
+      [:div
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "givenName"]}] " "
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "familyName"]}] " / "
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "label"]}]]]
+
+     [m4/when-data {:form-id   [:form]
+                    :data-path [?data-path "partyType"]
+                    :pred      #{"organisation"}}
+      [:div
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "organisation" "organisationName"]}]
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "label"]}]]]]
+
+    :party-person/user-defined-entry-form
     [:div
 
      [m4/form-group
@@ -1117,7 +1176,7 @@
           :uri        "/api/ternorgs"
           :label-path ["organisationName"]
           :value-path ["organisationIdentifier"]}]]
-       [m4/item-add-button
+       [m4/item-dialog-button
         {:form-id    ?form-id
          :data-path  [?data-path "organisation"]
          :value-path ["organisationIdentifier"]
@@ -1127,9 +1186,10 @@
        {:form-id     ?form-id
         :data-path   [?data-path "organisation"]
         :title       "Organisation"
-        :template-id :organisation/user-defined-entry-form}]]]
+        :template-id :person-organisation/user-defined-entry-form}]]]
 
-    :organisation/user-defined-entry-form
+    ; NOTE: organisation with role (not associated with a person)
+    :party-organisation/user-defined-entry-form
     [:div
 
      [m4/form-group
@@ -1149,7 +1209,57 @@
        :label     "Organisation Name"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "organisationName"]}]]]
+        :data-path [?data-path "organisation" "organisationName"]}]]
+
+     ; TODO: Contact details
+     ; TODO: * campus/site
+     ; TODO: * street address
+     ; TODO: * city
+     ; TODO: * state
+     ; TODO: * postcode
+     ; TODO: * country
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "electronicMailAddress"]
+       :label     "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "electronicMailAddress"]}]]
+     ; TODO: * phone
+     ; TODO: * fax
+
+     ]
+
+    ; NOTE: person organisation (no role)
+    :person-organisation/user-defined-entry-form
+    [:div
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation" "organisationName"]
+       :label     "Organisation Name"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "organisationName"]}]]
+
+     ; TODO: Contact details
+     ; TODO: * campus/site
+     ; TODO: * street address
+     ; TODO: * city
+     ; TODO: * state
+     ; TODO: * postcode
+     ; TODO: * country
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "electronicMailAddress"]
+       :label     "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "electronicMailAddress"]}]]
+     ; TODO: * phone
+     ; TODO: * fax
+
+     ]
 
     :how
     [:div
@@ -1204,23 +1314,23 @@
 
       ;; How6: Name
       [m4/textarea-field-with-label
-       {:form-id    [:form]
-        :data-path  ["resourceLineageProcessSteps" "statement"]
-        :label      "Name"
-        :required   true
-        :toolTip    "TODO"
+       {:form-id     [:form]
+        :data-path   ["resourceLineageProcessSteps" "statement"]
+        :label       "Name"
+        :required    true
+        :toolTip     "TODO"
         :placeholder "Provide the name of the method or procedure"
-        :helperText "Provide the name of the method or procedure"}]
+        :helperText  "Provide the name of the method or procedure"}]
 
       ;; How7: Description
       [m4/textarea-field-with-label
-       {:form-id    [:form]
-        :data-path  ["resourceLineageProcessSteps" "summary"]
-        :label      "Summary"
-        :required   true
-        :toolTip    "TODO"
+       {:form-id     [:form]
+        :data-path   ["resourceLineageProcessSteps" "summary"]
+        :label       "Summary"
+        :required    true
+        :toolTip     "TODO"
         :placeholder "Provide a brief summary of a single method or procedure"
-        :helperText "Provide a brief description of the method"}]
+        :helperText  "Provide a brief description of the method"}]
 
       ;; How7b: list-add free-text entries
       [m4/form-group
@@ -1283,12 +1393,12 @@
                      {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
 
       [m4/list-add-button
-       {:form-id       [:form]
-        :data-path     ["dataQualityInfo" "onlineMethods"]
-        :button-text   "Add"
-        :value-path    ["uri"]
+       {:form-id     [:form]
+        :data-path   ["dataQualityInfo" "onlineMethods"]
+        :button-text "Add"
+        :value-path  ["uri"]
         ;; :item-defaults {"userAddedCategory" "onlineMethods"}
-        :added-path    ["isUserDefined"]}]
+        :added-path  ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -1339,10 +1449,17 @@
      [:h3 "Limitation/Constraints"]
      [:div [:label "Use limitations"]]
      [:div [:label "Other constraints"]]
-     [:div [:label "Any other constraints"]]
+     [:div [:label "Any other constraints"]
+      [:p "TODO: list of constraints"]]
      [m4/form-group
       {:label "Security Classification"}
-      [:p "TODO"]]
+      [m4/async-select-option
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
+        :uri        "/api/What9"
+        :label-path ["label"]
+        :value-path ["uri"]}]]
+
      [m4/expanding-control {:label "Environment Description (Optional)"}
       [m4/textarea-field-with-label
        {:form-id     [:form]
@@ -1351,7 +1468,36 @@
         :placeholder "Information about the source and software to process the resource"
         :helperText  "Software, computer operating system, file name, or dataset size"
         :maxLength   1000}]]
+
      [m4/expanding-control {:label "Associated Documentation (Optional)"}
+
+      [m4/form-group
+       {:label    "Publication"
+        :required true}
+       [m4/table-selection-list
+        {:form-id    [:form]
+         :data-path  ["identificationInfo" "additionalPublications"]
+         :value-path ["uri"]
+         :added-path ["isUserDefined"]
+         :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                      {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+
+       [m4/list-add-button
+        {:form-id       [:form]
+         :data-path     ["identificationInfo" "additionalPublications"]
+         :button-text   "Add"
+         :value-path    ["uri"]
+         :item-defaults {"userAddedCategory" "additionalPublications"}
+         :added-path    ["isUserDefined"]}]
+
+       [m4/list-edit-dialog
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "additionalPublications"]
+         :value-path  ["uri"]
+         :added-path  ["isUserDefined"]
+         :title       "Online Publication"
+         :template-id :about/user-defined-entry}]]
+
       [m4/textarea-field-with-label
        {:form-id     [:form]
         :data-path   ["identificationInfo" "supplemental"]
@@ -1359,6 +1505,7 @@
         :placeholder "Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01"
         :helperText  "Any supplemental information needed to interpret the resource"
         :maxLength   1000}]]
+
      [m4/expanding-control {:label "Resource specific usage (Optional)"}
       [m4/textarea-field-with-label
        {:form-id     [:form]
@@ -1367,6 +1514,7 @@
         :placeholder "Resource specific usage..."
         :helperText  "What can this resource be used for environmental research?"
         :maxLength   1000}]]
+
      [m4/expanding-control {:label "Acknowledgment (Optional)"}
       [m4/textarea-field-with-label
        {:form-id     [:form]
@@ -1375,6 +1523,7 @@
         :placeholder "The project was funded by xxx and yyy"
         :helperText  "Write a sentence acknowledging sponsors, data providers or funding organisations"
         :maxLength   1000}]]
+
      [m4/expanding-control {:label "Citation (Optional)"}
       [m4/textarea-field-with-label
        {:form-id    [:form]
@@ -1384,6 +1533,24 @@
         :maxLength  1000}]]
 
      [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
+
+    :about/user-defined-entry
+    [:div
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "title"]
+       :label     "Title"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "title"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "url"]
+       :label     "URL"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "url"]}]]]
 
     :upload
     [:div

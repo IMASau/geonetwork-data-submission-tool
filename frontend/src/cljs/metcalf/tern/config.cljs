@@ -1449,10 +1449,17 @@
      [:h3 "Limitation/Constraints"]
      [:div [:label "Use limitations"]]
      [:div [:label "Other constraints"]]
-     [:div [:label "Any other constraints"]]
+     [:div [:label "Any other constraints"]
+      [:p "TODO: list of constraints"]]
      [m4/form-group
       {:label "Security Classification"}
-      [:p "TODO"]]
+      [m4/async-select-option
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
+        :uri        "/api/What9"
+        :label-path ["label"]
+        :value-path ["uri"]}]]
+
      [m4/expanding-control {:label "Environment Description (Optional)"}
       [m4/textarea-field-with-label
        {:form-id     [:form]
@@ -1498,6 +1505,7 @@
         :placeholder "Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01"
         :helperText  "Any supplemental information needed to interpret the resource"
         :maxLength   1000}]]
+
      [m4/expanding-control {:label "Resource specific usage (Optional)"}
       [m4/textarea-field-with-label
        {:form-id     [:form]
@@ -1506,6 +1514,7 @@
         :placeholder "Resource specific usage..."
         :helperText  "What can this resource be used for environmental research?"
         :maxLength   1000}]]
+
      [m4/expanding-control {:label "Acknowledgment (Optional)"}
       [m4/textarea-field-with-label
        {:form-id     [:form]
@@ -1514,6 +1523,7 @@
         :placeholder "The project was funded by xxx and yyy"
         :helperText  "Write a sentence acknowledging sponsors, data providers or funding organisations"
         :maxLength   1000}]]
+
      [m4/expanding-control {:label "Citation (Optional)"}
       [m4/textarea-field-with-label
        {:form-id    [:form]

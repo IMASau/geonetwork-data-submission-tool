@@ -1461,7 +1461,36 @@
         :placeholder "Information about the source and software to process the resource"
         :helperText  "Software, computer operating system, file name, or dataset size"
         :maxLength   1000}]]
+
      [m4/expanding-control {:label "Associated Documentation (Optional)"}
+
+      [m4/form-group
+       {:label    "Publication"
+        :required true}
+       [m4/table-selection-list
+        {:form-id    [:form]
+         :data-path  ["identificationInfo" "additionalPublications"]
+         :value-path ["uri"]
+         :added-path ["isUserDefined"]
+         :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                      {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+
+       [m4/list-add-button
+        {:form-id       [:form]
+         :data-path     ["identificationInfo" "additionalPublications"]
+         :button-text   "Add"
+         :value-path    ["uri"]
+         :item-defaults {"userAddedCategory" "additionalPublications"}
+         :added-path    ["isUserDefined"]}]
+
+       [m4/list-edit-dialog
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "additionalPublications"]
+         :value-path  ["uri"]
+         :added-path  ["isUserDefined"]
+         :title       "Online Publication"
+         :template-id :about/user-defined-entry}]]
+
       [m4/textarea-field-with-label
        {:form-id     [:form]
         :data-path   ["identificationInfo" "supplemental"]
@@ -1494,6 +1523,24 @@
         :maxLength  1000}]]
 
      [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
+
+    :about/user-defined-entry
+    [:div
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "title"]
+       :label     "Title"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "title"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "url"]
+       :label     "URL"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "url"]}]]]
 
     :upload
     [:div

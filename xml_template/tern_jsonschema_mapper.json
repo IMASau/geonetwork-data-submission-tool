@@ -995,11 +995,11 @@
           "type": "string"
         },
         "additionalPublications": {
-          "xpath": "mri:additionalDocumentation[1]",
+          "xpath": "mri:additionalDocumentation",
           "keep": false,
           "type": "array",
           "items": {
-            "xpath": "mri:additionalDocumentation[1]",
+            "xpath": "mri:additionalDocumentation",
             "keep": false,
             "type": "object",
             "properties": {

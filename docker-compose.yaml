@@ -10,6 +10,11 @@ services:
       - 5432:5432
     volumes:
       - ./volumes/db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 2s
+      retries: 15
 
   web:
     build: .
@@ -67,8 +72,9 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
-      - es
+      db:
+        condition: service_healthy
+
 
   cron:
     image: ternau/data-submission-tool

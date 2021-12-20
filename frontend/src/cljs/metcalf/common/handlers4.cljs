@@ -255,7 +255,10 @@
   (case status
     200 {::fx3/set-location-href (gobject/getValueByKeys body "document" "url")}
     400 (actions4/set-errors-action {:db db} [:create_form] (js->clj body))
-    :else nil))
+    (actions4/open-modal-action
+      {:db db}
+      {:type    :modal.type/alert
+       :message (str "Unexpected " status " error creating document")})))
 
 (defn document-teaser-share-click
   [{:keys [db]} [_ uuid]]

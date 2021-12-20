@@ -959,6 +959,23 @@
           "keep": false,
           "type": "string"
         },
+        "securityClassification": {
+          "!docstring": "About2",
+          "type": "object",
+          "properties": {
+            "label": {
+              "xpath": "gcx:Anchor"
+            },
+            "uri": {
+              "xpath": "gcx:Anchor",
+              "attributes": {
+                "xlink:href": {
+                  "function": "identity"
+                }
+              }
+            }
+          }
+        },
         "environment": {
           "!docstring": "About3",
           "xpath": "mri:environmentDescription",
@@ -976,6 +993,36 @@
           "keep": false,
           "required": false,
           "type": "string"
+        },
+        "additionalPublications": {
+          "xpath": "mri:additionalDocumentation[1]",
+          "keep": false,
+          "type": "array",
+          "items": {
+            "xpath": "mri:additionalDocumentation[1]",
+            "keep": false,
+            "type": "object",
+            "properties": {
+              "title": {
+                "!docstring": "About5 -- appears in two locations",
+                "type": "string",
+                "export": true,
+                "xpath": "cit:CI_Citation/cit:title/gco:CharacterString",
+                "keep": false,
+                "exportTo": {
+                  "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:name/gco:CharacterString"
+                }
+              },
+              "url": {
+                "!docstring": "About6",
+                "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
+                "keep": false,
+                "type": "string"
+              },
+              "uri": {},
+              "isUserDefined": {}
+            }
+          }
         },
         "resourceSpecificUsage": {
           "!docstring": "About7",
@@ -1018,7 +1065,7 @@
       }
     },
     "resourceLineage": {
-      "xpath": "mdb:resourceLineage/mrl:LI_Lineage[mrl:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue='dataset']][1]",
+      "xpath": "mdb:resourceLineage[1]/mrl:LI_Lineage[mrl:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue='dataset']][1]",
       "type": "object",
       "properties": {
         "statement": {
@@ -1030,22 +1077,26 @@
         "onlineMethods": {
           "type": "array",
           "xpath": "mrl:additionalDocumentation",
+          "keep": false,
           "items": {
             "type": "object",
             "xpath": "mrl:additionalDocumentation",
             "properties": {
               "isUserDefined": {},
               "userAddedCategory": {
+                "keep": false,
                 "type": "string"
               },
               "title": {
                 "!docstring": "How3",
                 "type": "string",
+                "keep": false,
                 "xpath": "cit:CI_Citation/cit:title/gco:CharacterString"
               },
               "url": {
                 "!docstring": "How4",
                 "type": "string",
+                "keep": false,
                 "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString"
               }
             }
@@ -1054,25 +1105,29 @@
       }
     },
     "resourceLineageProcessSteps": {
-      "xpath": "mdb:resourceLineage/mrl:LI_Lineage[mrl:processStep][1]",
+      "xpath": "mdb:resourceLineage[2]/mrl:LI_Lineage[mrl:processStep][1]",
       "type": "object",
       "properties": {
         "statement": {
           "!docstring": "How6",
           "xpath": "mrl:additionalDocumentation/cit:CI_Citation/cit:title/gco:CharacterString",
+          "keep": false,
           "type": "string"
         },
         "summary": {
           "!docstring": "How7",
           "xpath": "mrl:statement/gco:CharacterString",
+          "keep": false,
           "type": "string"
         },
         "steps": {
           "!docstring": "How7b",
           "xpath": "mrl:processStep",
+          "keep": false,
           "type": "array",
           "items": {
             "xpath": "mrl:processStep/mrl:LI_ProcessStep/mrl:description/gco:CharacterString",
+            "keep": false,
             "type": "string"
           }
         }

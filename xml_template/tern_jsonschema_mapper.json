@@ -1220,7 +1220,7 @@
           "properties": {
             "organisationName": {
               "xpath": "cit:party/cit:CI_Organisation/cit:name",
-              "valueChild": "gcx:Anchor",
+              "valueChild": "gco:CharacterString",
               "required": true,
               "xpath_required": true,
               "keep": false,
@@ -1231,7 +1231,7 @@
               }
             },
             "organisationIdentifier": {
-              "xpath": "cit:party/cit:CI_Organisation/cit:name/gcx:Anchor",
+              "xpath": "cit:party/cit:CI_Organisation/cit:partyIdentifier/mcc:MD_Identifier/mcc:code/gcx:Anchor",
               "required": false,
               "keep": false,
               "parser": {
@@ -1240,6 +1240,9 @@
               "attributes": {
                 "xlink:href": {
                   "function": "separate_organisation_identifier"
+                },
+                "text": {
+                  "function": "identity"
                 }
               }
             },
@@ -1285,6 +1288,19 @@
                 }
               }
             },
+            "companyIdentifier": {
+              "xpath": "cit:party/cit:CI_Organisation/cit:partyIdentifier/mcc:MD_Identifier/mcc:code",
+              "valueChild": "gcx:Anchor",
+              "keep": false,
+              "attributes": {
+                "xlink:href": {
+                  "function": "identity"
+                },
+                "text": {
+                  "function": "identity"
+                }
+              }
+            },
             "electronicMailAddress": {
               "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
               "valueChild": "gco:CharacterString",
@@ -1297,51 +1313,45 @@
               "keep": false,
               "required": false
             },
-            "individualName": {
+            "name": {
               "valueChild": "gcx:Anchor",
               "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name",
               "keep": false,
               "required": false
             },
-            "familyName": {
+            "surname": {
               "valueChild": "gcx:Anchor",
               "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name",
               "keep": false,
               "export": false
             },
-            "givenName": {
+            "given_name": {
               "valueChild": "gcx:Anchor",
               "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name",
               "keep": false,
               "export": false
             },
-            "uri": {
-              "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor[@xlink:role=\"uri\"]",
+            "individualElectronicMailAddress": {
+              "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:electronicMailAddress",
+              "valueChild": "gco:CharacterString",
               "keep": false,
-              "required": false,
-              "deleteWhenEmpty": false,
-              "export": false,
-              "parser": {
-                "function": "parse_individual_identifier"
-              }
+              "required": false
             },
             "orcid": {
-              "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor[@xlink:role=\"orcid\"]",
+              "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code",
+              "valueChild": "gcx:Anchor",
               "required": false,
               "keep": false,
               "export": false,
               "parser": {
                 "function": "parse_individual_orcid"
               },
-              "exportTo": {
-                "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name/gcx:Anchor",
-                "attributes": {
-                  "xlink:href": {
-                    "function": "write_orcid"
-                  },
-                  "xlink:role": {
-                    "function": "write_orcid_role"
-                  }
+              "attributes": {
+                "xlink:href": {
+                  "function": "write_orcid"
+                },
+                "xlink:role": {
+                  "function": "write_orcid_role"
                 }
               }
             },

@@ -1297,13 +1297,6 @@
               "keep": false,
               "required": false
             },
-            "facsimile": {
-              "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:phone/cit:CI_Telephone[cit:numberType/cit:CI_TelephoneTypeCode[@codeListValue=\"facsimile\"]]/cit:number",
-              "container": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:phone",
-              "keep": false,
-              "valueChild": "gco:CharacterString",
-              "required": false
-            },
             "individualName": {
               "valueChild": "gcx:Anchor",
               "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name",

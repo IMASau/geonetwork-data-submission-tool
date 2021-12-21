@@ -1278,6 +1278,12 @@
               "keep": false,
               "required": false
             },
+            "fax": {
+              "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:phone/cit:CI_Telephone[cit:numberType/cit:CI_TelephoneTypeCode[@codeListValue=\"facsimile\"]]/cit:number",
+              "valueChild": "gco:CharacterString",
+              "keep": false,
+              "required": false
+            },
             "name": {
               "valueChild": "gcx:Anchor",
               "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name",

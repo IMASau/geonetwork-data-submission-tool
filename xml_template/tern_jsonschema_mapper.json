@@ -959,6 +959,21 @@
           "keep": false,
           "type": "string"
         },
+        "additionalConstraints": {
+          "!docstring": "About1 -- still needs XML mapping",
+          "keep": false,
+          "type": "object",
+          "properties": {
+            "constraints": {
+              "keep": false,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "keep": false
+              }
+            }
+          }
+        },
         "securityClassification": {
           "!docstring": "About2",
           "type": "object",

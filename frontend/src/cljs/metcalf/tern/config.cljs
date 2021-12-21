@@ -1449,8 +1449,17 @@
      [:h3 "Limitation/Constraints"]
      [:div [:label "Use limitations"]]
      [:div [:label "Other constraints"]]
-     [:div [:label "Any other constraints"]
-      [:p "TODO: list of constraints"]]
+     [m4/form-group
+       {:label   "Any other constraints"
+        :toolTip "Enter any additional constraints as required and click to add"}
+       [m4/text-add-button
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "additionalConstraints" "constraints"]
+         :button-text "Add"}]
+       [m4/value-selection-list
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]
+
      [m4/form-group
       {:label "Security Classification"}
       [m4/async-select-option

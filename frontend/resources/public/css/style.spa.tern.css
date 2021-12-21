@@ -44,3 +44,7 @@
 .tern-fieldset:last-child {
     border: none;
 }
+
+.tern-collapsible-group {
+    margin-bottom: 15px;
+}

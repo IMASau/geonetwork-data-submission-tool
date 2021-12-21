@@ -973,86 +973,88 @@
 
      [m4/expanding-control {:label "Responsible for the creation of dataset" :required true :defaultOpen true}
 
-      [:p
-       "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
-       "More than one person or an organisation can be included as well."]
+      [:div.tern-collapsible-group
+       [:p
+        "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
+        "More than one person or an organisation can be included as well."]
 
-      [m4/list-add-button
-       {:form-id       [:form]
-        :data-path     ["identificationInfo" "citedResponsibleParty"]
-        :button-text   "Add person"
-        :value-path    ["uri"]
-        :added-path    ["isUserDefined"]
-        ;; FIXME: Add userAddedCategory to item defaults?
-        :item-defaults {"partyType" "person"}}]
+       [m4/list-add-button
+        {:form-id       [:form]
+         :data-path     ["identificationInfo" "citedResponsibleParty"]
+         :button-text   "Add person"
+         :value-path    ["uri"]
+         :added-path    ["isUserDefined"]
+         ;; FIXME: Add userAddedCategory to item defaults?
+         :item-defaults {"partyType" "person"}}]
 
-      [m4/list-add-button
-       {:form-id       [:form]
-        :data-path     ["identificationInfo" "citedResponsibleParty"]
-        :button-text   "Add organisation"
-        :value-path    ["uri"]
-        :added-path    ["isUserDefined"]
-        ;; FIXME: Add userAddedCategory to item defaults?
-        :item-defaults {"partyType" "organisation"}}]
+       [m4/list-add-button
+        {:form-id       [:form]
+         :data-path     ["identificationInfo" "citedResponsibleParty"]
+         :button-text   "Add organisation"
+         :value-path    ["uri"]
+         :added-path    ["isUserDefined"]
+         ;; FIXME: Add userAddedCategory to item defaults?
+         :item-defaults {"partyType" "organisation"}}]
 
-      [m4/selection-list
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "citedResponsibleParty"]
-        :template-id :party/list-item
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]}]
+       [m4/selection-list
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "citedResponsibleParty"]
+         :template-id :party/list-item
+         :value-path  ["uri"]
+         :added-path  ["isUserDefined"]}]
 
-      [m4/typed-list-edit-dialog
-       {:form-id   [:form]
-        :data-path ["identificationInfo" "citedResponsibleParty"]
-        :type-path ["partyType"]
-        :templates {"person"
-                    {:title       "Person"
-                     :template-id :party-person/user-defined-entry-form}
-                    "organisation"
-                    {:title       "Organisation"
-                     :template-id :party-organisation/user-defined-entry-form}}}]]
+       [m4/typed-list-edit-dialog
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "citedResponsibleParty"]
+         :type-path ["partyType"]
+         :templates {"person"
+                     {:title       "Person"
+                      :template-id :party-person/user-defined-entry-form}
+                     "organisation"
+                     {:title       "Organisation"
+                      :template-id :party-organisation/user-defined-entry-form}}}]]]
 
      [m4/expanding-control {:label "Point of contact for dataset" :required true :defaultOpen true}
 
-      [:p
-       "Please assign a persona and/or an organisation as the point of contact.  More than one person or organisation can be included."]
+      [:div.tern-collapsible-group
+       [:p
+        "Please assign a persona and/or an organisation as the point of contact.  More than one person or organisation can be included."]
 
-      [m4/list-add-button
-       {:form-id       [:form]
-        :data-path     ["identificationInfo" "pointOfContact"]
-        :button-text   "Add person"
-        :value-path    ["uri"]
-        :added-path    ["isUserDefined"]
-        ;; FIXME: Add userAddedCategory to item defaults?
-        :item-defaults {"partyType" "person"}}]
+       [m4/list-add-button
+        {:form-id       [:form]
+         :data-path     ["identificationInfo" "pointOfContact"]
+         :button-text   "Add person"
+         :value-path    ["uri"]
+         :added-path    ["isUserDefined"]
+         ;; FIXME: Add userAddedCategory to item defaults?
+         :item-defaults {"partyType" "person"}}]
 
-      [m4/list-add-button
-       {:form-id       [:form]
-        :data-path     ["identificationInfo" "pointOfContact"]
-        :button-text   "Add organisation"
-        :value-path    ["uri"]
-        :added-path    ["isUserDefined"]
-        ;; FIXME: Add userAddedCategory to item defaults?
-        :item-defaults {"partyType" "organisation"}}]
+       [m4/list-add-button
+        {:form-id       [:form]
+         :data-path     ["identificationInfo" "pointOfContact"]
+         :button-text   "Add organisation"
+         :value-path    ["uri"]
+         :added-path    ["isUserDefined"]
+         ;; FIXME: Add userAddedCategory to item defaults?
+         :item-defaults {"partyType" "organisation"}}]
 
-      [m4/selection-list
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "pointOfContact"]
-        :template-id :party/list-item
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]}]
+       [m4/selection-list
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "pointOfContact"]
+         :template-id :party/list-item
+         :value-path  ["uri"]
+         :added-path  ["isUserDefined"]}]
 
-      [m4/typed-list-edit-dialog
-       {:form-id   [:form]
-        :data-path ["identificationInfo" "pointOfContact"]
-        :type-path ["partyType"]
-        :templates {"person"
-                    {:title       "Person"
-                     :template-id :party-person/user-defined-entry-form}
-                    "organisation"
-                    {:title       "Organisation"
-                     :template-id :party-organisation/user-defined-entry-form}}}]]
+       [m4/typed-list-edit-dialog
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "pointOfContact"]
+         :type-path ["partyType"]
+         :templates {"person"
+                     {:title       "Person"
+                      :template-id :party-person/user-defined-entry-form}
+                     "organisation"
+                     {:title       "Organisation"
+                      :template-id :party-organisation/user-defined-entry-form}}}]]]
 
      ;[m4/list-add-button
      ; {:form-id    [:form]
@@ -1227,10 +1229,8 @@
         :data-path [?data-path "contact" "electronicMailAddress"]}]]
      ; TODO: * phone
      ; TODO: * fax
-
      ]
-
-    ; NOTE: person organisation (no role)
+; NOTE: person organisation (no role)
     :person-organisation/user-defined-entry-form
     [:div
 
@@ -1258,9 +1258,7 @@
         :data-path [?data-path "contact" "electronicMailAddress"]}]]
      ; TODO: * phone
      ; TODO: * fax
-
      ]
-
     :how
     [:div
      #_[m4/page-errors
@@ -1450,15 +1448,15 @@
      [:div [:label "Use limitations"]]
      [:div [:label "Other constraints"]]
      [m4/form-group
-       {:label   "Any other constraints"
-        :toolTip "Enter any additional constraints as required and click to add"}
-       [m4/text-add-button
-        {:form-id     [:form]
-         :data-path   ["identificationInfo" "additionalConstraints" "constraints"]
-         :button-text "Add"}]
-       [m4/value-selection-list
-        {:form-id   [:form]
-         :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]
+      {:label   "Any other constraints"
+       :toolTip "Enter any additional constraints as required and click to add"}
+      [m4/text-add-button
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "additionalConstraints" "constraints"]
+        :button-text "Add"}]
+      [m4/value-selection-list
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]
 
      [m4/form-group
       {:label "Security Classification"}

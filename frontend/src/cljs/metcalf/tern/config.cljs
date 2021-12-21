@@ -1213,13 +1213,62 @@
        {:form-id   ?form-id
         :data-path [?data-path "organisation" "organisationName"]}]]
 
-     ; TODO: Contact details
-     ; TODO: * campus/site
-     ; TODO: * street address
-     ; TODO: * city
-     ; TODO: * state
-     ; TODO: * postcode
-     ; TODO: * country
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "address" "deliveryPoint"]
+       :label     "Campus/Sitename"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "address" "deliveryPoint"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "address" "deliveryPoint2"]
+       :label     "Building"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "address" "deliveryPoint2"]}]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "address" "city"]
+        :label     "City"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "address" "city"]}]]
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "address" "administrativeArea"]
+        :label     "State"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "address" "administrativeArea"]}]]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "address" "postalCode"]
+        :label     "Postal Code"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "address" "postalCode"]}]]
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "address" "country"]
+        :label     "Country"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "address" "country"]}]]]
+
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact" "electronicMailAddress"]
@@ -1227,10 +1276,28 @@
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "contact" "electronicMailAddress"]}]]
-     ; TODO: * phone
-     ; TODO: * fax
-     ]
-; NOTE: person organisation (no role)
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "phone"]
+        :label     "Phone"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "phone"]}]]
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "fax"]
+        :label     "Fax"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "fax"]}]]]]
+
+                                        ; NOTE: person organisation (no role)
     :person-organisation/user-defined-entry-form
     [:div
 
@@ -1259,6 +1326,7 @@
      ; TODO: * phone
      ; TODO: * fax
      ]
+
     :how
     [:div
      #_[m4/page-errors

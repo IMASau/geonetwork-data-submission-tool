@@ -484,19 +484,20 @@ def save(request, uuid, update_number):
         draft.save()
 
         # FIXME: Is this still  necessary?  (currently blocks saving; disabling for now)
-        # # Remove any attachments which are no longer mentioned in the XML.
-        # xml_names = tuple(map(lambda x: os.path.basename(x['file']), data['attachments']))
-        # # TODO: the logic to find files based an os.path.basename seems te be flawed.
-        # #       it works as long as the assumption that all files are stored are stored at the same path holds.
-        # #       otherwise, we will run into problems
-        # for attachment in doc.attachments.all():
-        #     name = os.path.basename(attachment.file.url)
-        #     if name not in xml_names:
-        #         # TODO: sholud we delete the actual file as well?
-        #         #       deleting the model does not remove files from storage backend
-        #         # TODO: if we leave files around we may want to think about some cleanup process
-        #         # attachement.file.delete()
-        #         attachment.delete()
+        # Remove any attachments which are no longer mentioned in the XML.
+        xml_names = tuple(map(lambda x: os.path.basename(x['file']),
+                              data.get('attachments', [])))
+        # TODO: the logic to find files based an os.path.basename seems te be flawed.
+        #       it works as long as the assumption that all files are stored are stored at the same path holds.
+        #       otherwise, we will run into problems
+        for attachment in doc.attachments.all():
+            name = os.path.basename(attachment.file.url)
+            if name not in xml_names:
+                # TODO: sholud we delete the actual file as well?
+                #       deleting the model does not remove files from storage backend
+                # TODO: if we leave files around we may want to think about some cleanup process
+                # attachement.file.delete()
+                attachment.delete()
 
         tree = etree.parse(doc.template.file.path)
 

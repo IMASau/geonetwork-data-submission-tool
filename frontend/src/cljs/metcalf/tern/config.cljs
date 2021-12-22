@@ -1110,9 +1110,9 @@
       [m4/async-select-option
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
-        :uri        "/api/What9"
-        :label-path ["label"]
-        :value-path ["value"]}]]
+        :uri        "/api/rolecode"
+        :label-path ["Description"]
+        :value-path ["Identifier"]}]]
 
      [m4/form-group
       {:form-id   ?form-id
@@ -1201,9 +1201,9 @@
       [m4/async-select-option
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
-        :uri        "/api/What9"
-        :label-path ["label"]
-        :value-path ["value"]}]]
+        :uri        "/api/rolecode"
+        :label-path ["Description"]
+        :value-path ["Identifier"]}]]
 
      [m4/form-group
       {:form-id   ?form-id

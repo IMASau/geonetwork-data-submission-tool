@@ -359,6 +359,10 @@ def parse_codeListValue(x):
     return x.attrib['codeListValue']
 
 
+def parse_number(x):
+    return float(x.text)
+
+
 def parse_organisation_identifier(x):
     if x.attrib['{http://www.w3.org/1999/xlink}role'] == 'uri':
         return x.attrib['{http://www.w3.org/1999/xlink}href']
@@ -520,6 +524,7 @@ SPEC_FUNCTIONS = {
     "parse_individual_identifier": parse_individual_identifier,
     "parse_organisation_identifier": parse_organisation_identifier,
     "parse_individual_orcid": parse_individual_orcid,
+    "parse_number": parse_number,
     "science_keyword_name": science_keyword_name,
     "science_keyword_uri": science_keyword_uri,
     "anzsrc_keyword_name": anzsrc_keyword_name,

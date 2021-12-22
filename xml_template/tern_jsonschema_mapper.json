@@ -1310,7 +1310,7 @@
               "keep": false,
               "export": false
             },
-            "individualElectronicMailAddress": {
+            "email": {
               "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:electronicMailAddress",
               "valueChild": "gco:CharacterString",
               "keep": false,

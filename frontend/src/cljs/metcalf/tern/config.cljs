@@ -1122,7 +1122,7 @@
        {:form-id     ?form-id
         :data-path   [?data-path "contact"]
         :uri         "/api/ternpeople"
-        :label-path  ["label"]
+        :label-path  ["name"]
         :value-path  ["uri"]
         :placeholder "Search for contact details"}]]
 
@@ -1134,27 +1134,27 @@
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "givenName"]
+        :data-path [?data-path "contact" "given_name"]
         :label     "Given name"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "givenName"]}]]
+         :data-path [?data-path "contact" "given_name"]}]]
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "familyName"]
+        :data-path [?data-path "contact" "surname"]
         :label     "Surname"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "familyName"]}]]]
+         :data-path [?data-path "contact" "surname"]}]]]
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "electronicMailAddress"]
+       :data-path [?data-path "contact" "email"]
        :label     "Email address"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "electronicMailAddress"]}]]
+        :data-path [?data-path "contact" "email"]}]]
 
      [m4/form-group
       {:form-id     ?form-id

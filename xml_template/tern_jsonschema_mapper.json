@@ -1177,13 +1177,25 @@
         "role": {
           "xpath": "cit:role/cit:CI_RoleCode",
           "keep": false,
-          "attributes": {
-            "codeListValue": {
-              "function": "identity"
+          "type": "object",
+          "properties": {
+            "Identifier": {
+              "type": "string",
+              "attributes": {
+                "codeListValue": {
+                  "function": "identity"
+                },
+                "parser": {
+                  "function": "parse_codeListValue"
+                }
+              }
+            },
+            "Description": {
+              "type": "string"
+            },
+            "UUID": {
+              "type": "string"
             }
-          },
-          "parser": {
-            "function": "parse_codeListValue"
           },
           "required": true,
           "xpath_required": true

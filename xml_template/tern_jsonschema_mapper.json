@@ -1201,22 +1201,19 @@
           "xpath_required": true
         },
         "organisation": {
+          "xpath": "cit:party/cit:CI_Organisation",
           "type": "object",
           "properties": {
             "organisationName": {
-              "xpath": "cit:party/cit:CI_Organisation/cit:name",
+              "!docstring": "Who8 / Who12",
+              "xpath": "cit:name",
               "valueChild": "gco:CharacterString",
               "required": true,
               "xpath_required": true,
-              "keep": false,
-              "attributes": {
-                "text": {
-                  "function": "identity"
-                }
-              }
+              "keep": false
             },
             "organisationIdentifier": {
-              "xpath": "cit:party/cit:CI_Organisation/cit:partyIdentifier/mcc:MD_Identifier/mcc:code/gcx:Anchor",
+              "xpath": "cit:partyIdentifier/mcc:MD_Identifier/mcc:code/gcx:Anchor",
               "required": false,
               "keep": false,
               "parser": {
@@ -1231,22 +1228,22 @@
                 }
               }
             },
-            "deliveryPoint": {
+            "full_address_line": {
               "xpath": "cit:deliveryPoint[1]",
               "keep": false,
               "valueChild": "gco:CharacterString"
             },
-            "deliveryPoint2": {
+            "street_address": {
               "xpath": "cit:deliveryPoint[2]",
               "keep": false,
               "valueChild": "gco:CharacterString"
             },
-            "city": {
+            "address_locality": {
               "xpath": "cit:city",
               "keep": false,
               "valueChild": "gco:CharacterString"
             },
-            "administrativeArea": {
+            "address_region": {
               "xpath": "cit:administrativeArea",
               "keep": false,
               "valueChild": "gco:CharacterString"

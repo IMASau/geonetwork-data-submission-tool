@@ -1000,7 +1000,9 @@
                 "type": "string"
               },
               "uri": {},
-              "isUserDefined": {}
+              "isUserDefined": {},
+              "userAddedCategory": {},
+              "duma_path": {}
             }
           }
         },

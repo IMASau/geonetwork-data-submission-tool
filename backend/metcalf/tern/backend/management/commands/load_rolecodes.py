@@ -72,7 +72,7 @@ class Command(BaseCommand):
     def _fetch_rolecodes(self):
         """Returns a generator of RoleCode objects, created from the latest
         xml from isotc211."""
-        url = 'https://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml'
+        url = 'https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml'
 
         # Retrieve file.
         document = urlopen(url)

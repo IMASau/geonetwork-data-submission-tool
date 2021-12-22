@@ -1219,6 +1219,36 @@
                 }
               }
             },
+            "deliveryPoint": {
+              "xpath": "cit:deliveryPoint[1]",
+              "keep": false,
+              "valueChild": "gco:CharacterString"
+            },
+            "deliveryPoint2": {
+              "xpath": "cit:deliveryPoint[2]",
+              "keep": false,
+              "valueChild": "gco:CharacterString"
+            },
+            "city": {
+              "xpath": "cit:city",
+              "keep": false,
+              "valueChild": "gco:CharacterString"
+            },
+            "administrativeArea": {
+              "xpath": "cit:administrativeArea",
+              "keep": false,
+              "valueChild": "gco:CharacterString"
+            },
+            "postcode": {
+              "xpath": "cit:postalCode",
+              "keep": false,
+              "valueChild": "gco:CharacterString"
+            },
+            "country": {
+              "xpath": "cit:country",
+              "keep": false,
+              "valueChild": "gco:CharacterString"
+            },
             "isUserDefined": {}
           }
         },
@@ -1249,7 +1279,7 @@
                   "keep": false,
                   "valueChild": "gco:CharacterString"
                 },
-                "postalCode": {
+                "postcode": {
                   "xpath": "cit:postalCode",
                   "keep": false,
                   "valueChild": "gco:CharacterString"

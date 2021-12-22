@@ -1207,27 +1207,39 @@
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "organisation" "organisationName"]
+       :data-path [?data-path "organisation"]
+       :label     "Contact"}
+      [m4/async-item-picker
+       {:form-id     ?form-id
+        :data-path   [?data-path "organisation"]
+        :uri         "/api/ternorgs"
+        :label-path  ["name"]
+        :value-path  ["uri"]
+        :placeholder "Search for organisation details"}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation" "name"]
        :label     "Organisation Name"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "organisationName"]}]]
+        :data-path [?data-path "organisation" "name"]}]]
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "address" "deliveryPoint"]
+       :data-path [?data-path "organisation" "full_address_line"]
        :label     "Campus/Sitename"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "deliveryPoint"]}]]
+        :data-path [?data-path "organisation" "full_address_line"]}]]
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "address" "deliveryPoint2"]
+       :data-path [?data-path "organisation" "street_address"]
        :label     "Building"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "deliveryPoint2"]}]]
+        :data-path [?data-path "organisation" "street_address"]}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
@@ -1235,19 +1247,19 @@
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "city"]
+        :data-path [?data-path "organisation" "address_locality"]
         :label     "City"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "address" "city"]}]]
+         :data-path [?data-path "organisation" "address_locality"]}]]
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "administrativeArea"]
+        :data-path [?data-path "organisation" "address_region"]
         :label     "State"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "address" "administrativeArea"]}]]]
+         :data-path [?data-path "organisation" "address_region"]}]]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
@@ -1255,19 +1267,19 @@
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "postalCode"]
+        :data-path [?data-path "organisation" "postcode"]
         :label     "Postal Code"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "address" "postalCode"]}]]
+         :data-path [?data-path "organisation" "postcode"]}]]
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "country"]
+        :data-path [?data-path "organisation" "country"]
         :label     "Country"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "address" "country"]}]]]
+         :data-path [?data-path "organisation" "country"]}]]]
 
      [m4/form-group
       {:form-id   ?form-id
@@ -1303,11 +1315,11 @@
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "organisation" "organisationName"]
+       :data-path [?data-path "organisation" "name"]
        :label     "Organisation Name"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "organisationName"]}]]
+        :data-path [?data-path "organisation" "name"]}]]
 
      [m4/form-group
       {:form-id   ?form-id

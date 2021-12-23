@@ -276,6 +276,7 @@
           "required": false
         },
         "citedResponsibleParty": {
+          "!docstring": "Who tab: Responsible for the creation of the dataset",
           "xpath": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode[not(@codeListValue=\"publisher\")]]",
           "container": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty[cit:CI_Responsibility/cit:role/cit:CI_RoleCode[not(@codeListValue=\"publisher\")]]",
           "keep": false,
@@ -285,6 +286,7 @@
             "type": "object",
             "properties": {
               "role": {
+                "!docstring": "Who2 / Who11",
                 "xpath": "cit:role/cit:CI_RoleCode",
                 "keep": false,
                 "type": "object",
@@ -323,6 +325,7 @@
                     "keep": false
                   },
                   "uri": {
+                    "!docstring": "Who8 / Who9 / Who12",
                     "xpath": "cit:partyIdentifier",
                     "valueChild": "mcc:MD_Identifier/mcc:code/gcx:Anchor",
                     "required": false,
@@ -340,36 +343,43 @@
                     }
                   },
                   "full_address_line": {
+                    "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "street_address": {
+                    "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "address_locality": {
+                    "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "address_region": {
+                    "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "postcode": {
+                    "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "country": {
+                    "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "email": {
+                    "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
                     "keep": false,
                     "valueChild": "gco:CharacterString"
@@ -378,34 +388,40 @@
                 }
               },
               "contact": {
+                "!docstring": "Who3",
                 "type": "object",
                 "xpath": "cit:party/cit:CI_Organisation/cit:individual",
                 "properties": {
                   "name": {
+                    "!docstring": "Who3",
                     "xpath": "cit:CI_Individual/cit:name",
                     "valueChild": "gco:CharacterString",
                     "keep": false,
                     "required": false
                   },
                   "surname": {
+                    "!docstring": "Who5",
                     "xpath": "cit:CI_Individual/cit:name",
                     "valueChild": "gco:CharacterString",
                     "keep": false,
                     "export": false
                   },
                   "given_name": {
+                    "!docstring": "Who4",
                     "xpath": "cit:CI_Individual/cit:name",
                     "valueChild": "gco:CharacterString",
                     "keep": false,
                     "export": false
                   },
                   "email": {
+                    "!docstring": "Who6",
                     "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
                     "valueChild": "gco:CharacterString",
                     "keep": false,
                     "required": false
                   },
                   "orcid": {
+                    "!docstring": "Who7",
                     "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code",
                     "valueChild": "gcx:Anchor",
                     "required": false,

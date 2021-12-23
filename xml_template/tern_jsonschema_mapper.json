@@ -379,100 +379,34 @@
               },
               "contact": {
                 "type": "object",
+                "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual",
                 "properties": {
-                  "address": {
-                    "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address",
-                    "type": "object",
-                    "properties": {
-                      "deliveryPoint": {
-                        "xpath": "cit:deliveryPoint[1]",
-                        "keep": false,
-                        "valueChild": "gco:CharacterString"
-                      },
-                      "deliveryPoint2": {
-                        "xpath": "cit:deliveryPoint[2]",
-                        "keep": false,
-                        "valueChild": "gco:CharacterString"
-                      },
-                      "city": {
-                        "xpath": "cit:city",
-                        "keep": false,
-                        "valueChild": "gco:CharacterString"
-                      },
-                      "administrativeArea": {
-                        "xpath": "cit:administrativeArea",
-                        "keep": false,
-                        "valueChild": "gco:CharacterString"
-                      },
-                      "postcode": {
-                        "xpath": "cit:postalCode",
-                        "keep": false,
-                        "valueChild": "gco:CharacterString"
-                      },
-                      "country": {
-                        "xpath": "cit:country",
-                        "keep": false,
-                        "valueChild": "gco:CharacterString"
-                      }
-                    }
-                  },
-                  "companyIdentifier": {
-                    "xpath": "cit:party/cit:CI_Organisation/cit:partyIdentifier/mcc:MD_Identifier/mcc:code",
-                    "valueChild": "gcx:Anchor",
-                    "keep": false,
-                    "attributes": {
-                      "xlink:href": {
-                        "function": "identity"
-                      },
-                      "text": {
-                        "function": "identity"
-                      }
-                    }
-                  },
-                  "electronicMailAddress": {
-                    "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
-                    "valueChild": "gco:CharacterString",
-                    "keep": false,
-                    "required": false
-                  },
-                  "phone": {
-                    "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:phone/cit:CI_Telephone[cit:numberType/cit:CI_TelephoneTypeCode[@codeListValue=\"voice\"]]/cit:number",
-                    "valueChild": "gco:CharacterString",
-                    "keep": false,
-                    "required": false
-                  },
-                  "fax": {
-                    "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:phone/cit:CI_Telephone[cit:numberType/cit:CI_TelephoneTypeCode[@codeListValue=\"facsimile\"]]/cit:number",
-                    "valueChild": "gco:CharacterString",
-                    "keep": false,
-                    "required": false
-                  },
                   "name": {
-                    "valueChild": "gcx:Anchor",
-                    "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name",
+                    "xpath": "cit:name",
+                    "valueChild": "gco:CharacterString",
                     "keep": false,
                     "required": false
                   },
                   "surname": {
-                    "valueChild": "gcx:Anchor",
-                    "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name",
+                    "xpath": "cit:name",
+                    "valueChild": "gco:CharacterString",
                     "keep": false,
                     "export": false
                   },
                   "given_name": {
-                    "valueChild": "gcx:Anchor",
-                    "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:name",
+                    "xpath": "cit:name",
+                    "valueChild": "gco:CharacterString",
                     "keep": false,
                     "export": false
                   },
                   "email": {
-                    "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:electronicMailAddress",
+                    "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
                     "valueChild": "gco:CharacterString",
                     "keep": false,
                     "required": false
                   },
                   "orcid": {
-                    "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code",
+                    "xpath": "cit:partyIdentifier/mcc:MD_Identifier/mcc:code",
                     "valueChild": "gcx:Anchor",
                     "required": false,
                     "keep": false,
@@ -490,7 +424,7 @@
                     }
                   },
                   "positionName": {
-                    "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual/cit:positionName",
+                    "xpath": "cit:positionName",
                     "keep": false,
                     "valueChild": "gco:CharacterString",
                     "required": false

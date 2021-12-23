@@ -379,34 +379,34 @@
               },
               "contact": {
                 "type": "object",
-                "xpath": "cit:party/cit:CI_Organisation/cit:individual/cit:CI_Individual",
+                "xpath": "cit:party/cit:CI_Organisation/cit:individual",
                 "properties": {
                   "name": {
-                    "xpath": "cit:name",
+                    "xpath": "cit:CI_Individual/cit:name",
                     "valueChild": "gco:CharacterString",
                     "keep": false,
                     "required": false
                   },
                   "surname": {
-                    "xpath": "cit:name",
+                    "xpath": "cit:CI_Individual/cit:name",
                     "valueChild": "gco:CharacterString",
                     "keep": false,
                     "export": false
                   },
                   "given_name": {
-                    "xpath": "cit:name",
+                    "xpath": "cit:CI_Individual/cit:name",
                     "valueChild": "gco:CharacterString",
                     "keep": false,
                     "export": false
                   },
                   "email": {
-                    "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
+                    "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
                     "valueChild": "gco:CharacterString",
                     "keep": false,
                     "required": false
                   },
                   "orcid": {
-                    "xpath": "cit:partyIdentifier/mcc:MD_Identifier/mcc:code",
+                    "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code",
                     "valueChild": "gcx:Anchor",
                     "required": false,
                     "keep": false,
@@ -424,7 +424,7 @@
                     }
                   },
                   "positionName": {
-                    "xpath": "cit:positionName",
+                    "xpath": "cit:CI_Individual/cit:positionName",
                     "keep": false,
                     "valueChild": "gco:CharacterString",
                     "required": false

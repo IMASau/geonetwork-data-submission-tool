@@ -445,12 +445,171 @@
           "notes": "Responsible party/ies for creating dataset"
         },
         "pointOfContact": {
-          "xpath": "mri:MD_DataIdentification/mri:pointOfContact/cit:CI_Responsibility",
-          "container": "mri:MD_DataIdentification/mri:pointOfContact/cit:CI_Responsibility",
+          "xpath": "mri:pointOfContact/cit:CI_Responsibility",
+          "container": "mri:pointOfContact",
           "keep": false,
           "type": "array",
           "items": {
-            "$ref": "#/$defs/ci_responsible_party_nodes"
+            "xpath": "mri:pointOfContact/cit:CI_Responsibility",
+            "type": "object",
+            "properties": {
+              "role": {
+                "xpath": "cit:role/cit:CI_RoleCode",
+                "keep": false,
+                "type": "object",
+                "properties": {
+                  "Identifier": {
+                    "xpath": ".",
+                    "type": "string",
+                    "attributes": {
+                      "codeListValue": {
+                        "function": "identity"
+                      }
+                    },
+                    "parser": {
+                      "function": "parse_codeListValue"
+                    }
+                  },
+                  "Description": {
+                    "type": "string"
+                  },
+                  "UUID": {
+                    "type": "string"
+                  }
+                },
+                "required": true,
+                "xpath_required": true
+              },
+              "organisation": {
+                "xpath": "cit:party/cit:CI_Organisation",
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "!docstring": "Who8 / Who12",
+                    "xpath": "cit:name",
+                    "valueChild": "gco:CharacterString",
+                    "required": true,
+                    "keep": false
+                  },
+                  "uri": {
+                    "xpath": "cit:partyIdentifier",
+                    "valueChild": "mcc:MD_Identifier/mcc:code/gcx:Anchor",
+                    "required": false,
+                    "keep": false,
+                    "parser": {
+                      "function": "parse_organisation_identifier"
+                    },
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "separate_organisation_identifier"
+                      },
+                      "text": {
+                        "function": "identity"
+                      }
+                    }
+                  },
+                  "full_address_line": {
+                    "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
+                    "keep": false,
+                    "valueChild": "gco:CharacterString"
+                  },
+                  "street_address": {
+                    "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
+                    "keep": false,
+                    "valueChild": "gco:CharacterString"
+                  },
+                  "address_locality": {
+                    "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
+                    "keep": false,
+                    "valueChild": "gco:CharacterString"
+                  },
+                  "address_region": {
+                    "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
+                    "keep": false,
+                    "valueChild": "gco:CharacterString"
+                  },
+                  "postcode": {
+                    "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
+                    "keep": false,
+                    "valueChild": "gco:CharacterString"
+                  },
+                  "country": {
+                    "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
+                    "keep": false,
+                    "valueChild": "gco:CharacterString"
+                  },
+                  "email": {
+                    "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
+                    "keep": false,
+                    "valueChild": "gco:CharacterString"
+                  },
+                  "isUserDefined": {}
+                }
+              },
+              "contact": {
+                "type": "object",
+                "xpath": "cit:party/cit:CI_Organisation/cit:individual",
+                "properties": {
+                  "name": {
+                    "xpath": "cit:CI_Individual/cit:name",
+                    "valueChild": "gco:CharacterString",
+                    "keep": false,
+                    "required": false
+                  },
+                  "surname": {
+                    "xpath": "cit:CI_Individual/cit:name",
+                    "valueChild": "gco:CharacterString",
+                    "keep": false,
+                    "export": false
+                  },
+                  "given_name": {
+                    "xpath": "cit:CI_Individual/cit:name",
+                    "valueChild": "gco:CharacterString",
+                    "keep": false,
+                    "export": false
+                  },
+                  "email": {
+                    "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
+                    "valueChild": "gco:CharacterString",
+                    "keep": false,
+                    "required": false
+                  },
+                  "orcid": {
+                    "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code",
+                    "valueChild": "gcx:Anchor",
+                    "required": false,
+                    "keep": false,
+                    "export": false,
+                    "parser": {
+                      "function": "parse_individual_orcid"
+                    },
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "write_orcid"
+                      },
+                      "xlink:role": {
+                        "function": "write_orcid_role"
+                      }
+                    }
+                  },
+                  "positionName": {
+                    "xpath": "cit:CI_Individual/cit:positionName",
+                    "keep": false,
+                    "valueChild": "gco:CharacterString",
+                    "required": false
+                  },
+                  "isUserDefined": {}
+                }
+              },
+              "uri": {},
+              "partyType": {},
+              "isUserDefined": {
+                "!docstring": "Fake node so we can track person status",
+                "xpath": "isUserAdded",
+                "default": false,
+                "export": false
+              }
+            }
           }
         },
         "geographicElement": {

@@ -1283,11 +1283,11 @@
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "electronicMailAddress"]
+       :data-path [?data-path "organisation" "email"]
        :label     "Email address"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "electronicMailAddress"]}]]
+        :data-path [?data-path "organisation" "email"]}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"

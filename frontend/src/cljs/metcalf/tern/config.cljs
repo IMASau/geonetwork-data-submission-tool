@@ -1176,12 +1176,12 @@
          {:form-id    ?form-id
           :data-path  [?data-path "organisation"]
           :uri        "/api/ternorgs"
-          :label-path ["organisationName"]
-          :value-path ["organisationIdentifier"]}]]
+          :label-path ["name"]
+          :value-path ["uri"]}]]
        [m4/item-dialog-button
         {:form-id    ?form-id
          :data-path  [?data-path "organisation"]
-         :value-path ["organisationIdentifier"]
+         :value-path ["uri"]
          :added-path ["isUserDefined"]}]]
 
       [m4/item-edit-dialog

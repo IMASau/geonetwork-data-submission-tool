@@ -130,7 +130,8 @@
             "version": {
               "type": "string"
             }
-          }
+          },
+          "rules": ["requiredField"]
         },
         "DateOfDynamicDatum": {
           "!docstring": "Where4",
@@ -224,7 +225,8 @@
             "codeListValue": {
               "function": "identity"
             }
-          }
+          },
+          "rules": ["requiredField"]
         },
         "dateCreation": {
           "type": "string",
@@ -232,7 +234,8 @@
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",
           "valueChild": "gco:Date",
           "required": true,
-          "xpath_required": true
+          "xpath_required": true,
+          "rules": ["requiredField"]
         },
         "datePublicationFlag": {
           "type": "boolean",
@@ -244,7 +247,8 @@
           "!docstring": "ID8",
           "xpath": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]",
           "valueChild": "cit:CI_Date/cit:date/gco:Date",
-          "keep": false
+          "keep": false,
+          "rules": ["requiredField"]
         },
         "version": {
           "type": "string",
@@ -254,7 +258,8 @@
           "label": "Version",
           "keep": false,
           "required": true,
-          "xpath_required": true
+          "xpath_required": true,
+          "rules": ["requiredField"]
         },
         "abstract": {
           "!docstring": "What1",
@@ -264,7 +269,8 @@
           "type": "string",
           "keep": false,
           "required": true,
-          "xpath_required": true
+          "xpath_required": true,
+          "rules": ["requiredField"]
         },
         "purpose": {
           "!docstring": "What2",
@@ -311,7 +317,8 @@
                   }
                 },
                 "required": true,
-                "xpath_required": true
+                "xpath_required": true,
+                "rules": ["requiredField"]
               },
               "organisation": {
                 "xpath": "cit:party/cit:CI_Organisation",
@@ -322,7 +329,8 @@
                     "xpath": "cit:name",
                     "valueChild": "gco:CharacterString",
                     "required": true,
-                    "keep": false
+                    "keep": false,
+                    "rules": ["requiredField"]
                   },
                   "uri": {
                     "!docstring": "Who8 / Who9 / Who12",
@@ -397,7 +405,8 @@
                     "xpath": "cit:CI_Individual/cit:name",
                     "valueChild": "gco:CharacterString",
                     "keep": false,
-                    "required": false
+                    "required": false,
+                    "rules": ["requiredField"]
                   },
                   "surname": {
                     "!docstring": "Who5",
@@ -495,7 +504,8 @@
                   }
                 },
                 "required": true,
-                "xpath_required": true
+                "xpath_required": true,
+                "rules": ["requiredField"]
               },
               "organisation": {
                 "xpath": "cit:party/cit:CI_Organisation",
@@ -506,7 +516,8 @@
                     "xpath": "cit:name",
                     "valueChild": "gco:CharacterString",
                     "required": true,
-                    "keep": false
+                    "keep": false,
+                    "rules": ["requiredField"]
                   },
                   "uri": {
                     "!docstring": "Who8 / Who9 / Who12",
@@ -581,7 +592,8 @@
                     "xpath": "cit:CI_Individual/cit:name",
                     "valueChild": "gco:CharacterString",
                     "keep": false,
-                    "required": false
+                    "required": false,
+                    "rules": ["requiredField"]
                   },
                   "surname": {
                     "!docstring": "Who5",
@@ -756,6 +768,7 @@
             {
               "requiredAllNone": {
                 "fields-list": [
+                  "coordinateReferenceSystem",
                   "minimumValue",
                   "maximumValue"
                 ]
@@ -863,7 +876,8 @@
               }
             }
           },
-          "xpath_required": true
+          "xpath_required": true,
+          "rules": ["requiredField"]
         },
         "keywordsThemeAnzsrc": {
           "!docstring": "What4",
@@ -894,7 +908,8 @@
               }
             }
           },
-          "xpath_required": true
+          "xpath_required": true,
+          "rules": ["requiredField"]
         },
         "keywordsPlatform": {
           "!docstring": "What5",
@@ -1067,7 +1082,8 @@
               }
             }
           },
-          "xpath_required": true
+          "xpath_required": true,
+          "rules": ["requiredField"]
         },
         "keywordsUoM": {
           "!docstring": "What9",
@@ -1102,7 +1118,8 @@
               }
             }
           },
-          "xpath_required": true
+          "xpath_required": true,
+          "rules": ["requiredField"]
         },
         "keywordsTemporal": {
           "!docstring": "What10",
@@ -1270,14 +1287,16 @@
           "required": true,
           "xpath_required": true,
           "keep": false,
-          "type": "string"
+          "type": "string",
+          "rules": ["requiredField"]
         },
         "endPosition": {
           "!docstring": "When2",
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:endPosition",
           "deleteWhenEmpty": false,
           "keep": false,
-          "type": "string"
+          "type": "string",
+          "rules": ["requiredField"]
         },
         "additionalConstraints": {
           "!docstring": "About1 -- still needs XML mapping",
@@ -1309,7 +1328,8 @@
                 }
               }
             }
-          }
+          },
+          "rules": ["requiredField"]
         },
         "environment": {
           "!docstring": "About3",
@@ -1409,7 +1429,8 @@
           "!docstring": "How2",
           "type": "string",
           "xpath": "mrl:statement/gco:CharacterString",
-          "keep": false
+          "keep": false,
+          "rules": ["requiredField"]
         },
         "onlineMethods": {
           "type": "array",
@@ -1428,13 +1449,17 @@
                 "!docstring": "How3",
                 "type": "string",
                 "keep": false,
-                "xpath": "cit:CI_Citation/cit:title/gco:CharacterString"
+                "xpath": "cit:CI_Citation/cit:title/gco:CharacterString",
+                "required": true,
+                "rules": ["requiredField"]
               },
               "url": {
                 "!docstring": "How4",
                 "type": "string",
                 "keep": false,
-                "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString"
+                "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
+                "required": true,
+                "rules": ["requiredField"]
               }
             }
           }
@@ -1449,13 +1474,17 @@
           "!docstring": "How6",
           "xpath": "mrl:additionalDocumentation/cit:CI_Citation/cit:title/gco:CharacterString",
           "keep": false,
-          "type": "string"
+          "type": "string",
+          "required": true,
+          "rules": ["requiredField"]
         },
         "summary": {
           "!docstring": "How7",
           "xpath": "mrl:statement/gco:CharacterString",
           "keep": false,
-          "type": "string"
+          "type": "string",
+          "required": true,
+          "rules": ["requiredField"]
         },
         "steps": {
           "!docstring": "How7b",
@@ -1465,7 +1494,9 @@
           "items": {
             "xpath": "mrl:processStep/mrl:LI_ProcessStep/mrl:description/gco:CharacterString",
             "keep": false,
-            "type": "string"
+            "type": "string",
+            "required": true,
+            "rules": ["requiredField"]
           }
         }
       }

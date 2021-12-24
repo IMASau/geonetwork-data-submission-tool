@@ -128,15 +128,17 @@
   "Depending on the resolution attribute chosen, the units for the value
   field should change"
   [spatial-block]
-  ;; FIXME: this will need to change when we get the ES endpoint:
   (let [resolution-attribute (get-in spatial-block [:content "ResolutionAttribute" :props :value])
         units (case resolution-attribute
-                "None" "Unitless"
+                "None" ""
+                "Denominator scale" "Unitless"
                 "Angular distance" "Degrees"
                 "Metres")]
-    (assoc-in spatial-block
-               [:content "ResolutionAttributeUnits" :props :value]
-               units)))
+    (-> spatial-block
+        (assoc-in [:content "ResolutionAttributeUnits" :props :value] units)
+        (update-in [:content "ResolutionAttributeValue" :props]
+                   merge {:required (not= resolution-attribute "None")
+                          :disabled (=    resolution-attribute "None")}))))
 
 (defn imas-vertical-required
   "Vertical fields are required / included based on vertical extent checkbox"

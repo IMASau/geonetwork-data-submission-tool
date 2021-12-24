@@ -223,7 +223,7 @@ def all_text(node):
 
 
 def is_empty(node):
-    return not (node and all_text(node))
+    return not (node is not None and all_text(node))
 
 
 def prune_if_empty(data, parent, spec, nsmap, i, silent):
@@ -357,6 +357,10 @@ def parse_individual_orcid(x):
 
 def parse_codeListValue(x):
     return x.attrib['codeListValue']
+
+
+def parse_number(x):
+    return float(x.text)
 
 
 def parse_organisation_identifier(x):
@@ -520,6 +524,7 @@ SPEC_FUNCTIONS = {
     "parse_individual_identifier": parse_individual_identifier,
     "parse_organisation_identifier": parse_organisation_identifier,
     "parse_individual_orcid": parse_individual_orcid,
+    "parse_number": parse_number,
     "science_keyword_name": science_keyword_name,
     "science_keyword_uri": science_keyword_uri,
     "anzsrc_keyword_name": anzsrc_keyword_name,

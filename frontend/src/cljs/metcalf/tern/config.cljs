@@ -973,86 +973,88 @@
 
      [m4/expanding-control {:label "Responsible for the creation of dataset" :required true :defaultOpen true}
 
-      [:p
-       "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
-       "More than one person or an organisation can be included as well."]
+      [:div.tern-collapsible-group
+       [:p
+        "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
+        "More than one person or an organisation can be included as well."]
 
-      [m4/list-add-button
-       {:form-id       [:form]
-        :data-path     ["identificationInfo" "citedResponsibleParty"]
-        :button-text   "Add person"
-        :value-path    ["uri"]
-        :added-path    ["isUserDefined"]
-        ;; FIXME: Add userAddedCategory to item defaults?
-        :item-defaults {"partyType" "person"}}]
+       [m4/list-add-button
+        {:form-id       [:form]
+         :data-path     ["identificationInfo" "citedResponsibleParty"]
+         :button-text   "Add person"
+         :value-path    ["uri"]
+         :added-path    ["isUserDefined"]
+         ;; FIXME: Add userAddedCategory to item defaults?
+         :item-defaults {"partyType" "person"}}]
 
-      [m4/list-add-button
-       {:form-id       [:form]
-        :data-path     ["identificationInfo" "citedResponsibleParty"]
-        :button-text   "Add organisation"
-        :value-path    ["uri"]
-        :added-path    ["isUserDefined"]
-        ;; FIXME: Add userAddedCategory to item defaults?
-        :item-defaults {"partyType" "organisation"}}]
+       [m4/list-add-button
+        {:form-id       [:form]
+         :data-path     ["identificationInfo" "citedResponsibleParty"]
+         :button-text   "Add organisation"
+         :value-path    ["uri"]
+         :added-path    ["isUserDefined"]
+         ;; FIXME: Add userAddedCategory to item defaults?
+         :item-defaults {"partyType" "organisation"}}]
 
-      [m4/selection-list
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "citedResponsibleParty"]
-        :template-id :party/list-item
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]}]
+       [m4/selection-list
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "citedResponsibleParty"]
+         :template-id :party/list-item
+         :value-path  ["uri"]
+         :added-path  ["isUserDefined"]}]
 
-      [m4/typed-list-edit-dialog
-       {:form-id   [:form]
-        :data-path ["identificationInfo" "citedResponsibleParty"]
-        :type-path ["partyType"]
-        :templates {"person"
-                    {:title       "Person"
-                     :template-id :party-person/user-defined-entry-form}
-                    "organisation"
-                    {:title       "Organisation"
-                     :template-id :party-organisation/user-defined-entry-form}}}]]
+       [m4/typed-list-edit-dialog
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "citedResponsibleParty"]
+         :type-path ["partyType"]
+         :templates {"person"
+                     {:title       "Person"
+                      :template-id :party-person/user-defined-entry-form}
+                     "organisation"
+                     {:title       "Organisation"
+                      :template-id :party-organisation/user-defined-entry-form}}}]]]
 
      [m4/expanding-control {:label "Point of contact for dataset" :required true :defaultOpen true}
 
-      [:p
-       "Please assign a persona and/or an organisation as the point of contact.  More than one person or organisation can be included."]
+      [:div.tern-collapsible-group
+       [:p
+        "Please assign a persona and/or an organisation as the point of contact.  More than one person or organisation can be included."]
 
-      [m4/list-add-button
-       {:form-id       [:form]
-        :data-path     ["identificationInfo" "pointOfContact"]
-        :button-text   "Add person"
-        :value-path    ["uri"]
-        :added-path    ["isUserDefined"]
-        ;; FIXME: Add userAddedCategory to item defaults?
-        :item-defaults {"partyType" "person"}}]
+       [m4/list-add-button
+        {:form-id       [:form]
+         :data-path     ["identificationInfo" "pointOfContact"]
+         :button-text   "Add person"
+         :value-path    ["uri"]
+         :added-path    ["isUserDefined"]
+         ;; FIXME: Add userAddedCategory to item defaults?
+         :item-defaults {"partyType" "person"}}]
 
-      [m4/list-add-button
-       {:form-id       [:form]
-        :data-path     ["identificationInfo" "pointOfContact"]
-        :button-text   "Add organisation"
-        :value-path    ["uri"]
-        :added-path    ["isUserDefined"]
-        ;; FIXME: Add userAddedCategory to item defaults?
-        :item-defaults {"partyType" "organisation"}}]
+       [m4/list-add-button
+        {:form-id       [:form]
+         :data-path     ["identificationInfo" "pointOfContact"]
+         :button-text   "Add organisation"
+         :value-path    ["uri"]
+         :added-path    ["isUserDefined"]
+         ;; FIXME: Add userAddedCategory to item defaults?
+         :item-defaults {"partyType" "organisation"}}]
 
-      [m4/selection-list
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "pointOfContact"]
-        :template-id :party/list-item
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]}]
+       [m4/selection-list
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "pointOfContact"]
+         :template-id :party/list-item
+         :value-path  ["uri"]
+         :added-path  ["isUserDefined"]}]
 
-      [m4/typed-list-edit-dialog
-       {:form-id   [:form]
-        :data-path ["identificationInfo" "pointOfContact"]
-        :type-path ["partyType"]
-        :templates {"person"
-                    {:title       "Person"
-                     :template-id :party-person/user-defined-entry-form}
-                    "organisation"
-                    {:title       "Organisation"
-                     :template-id :party-organisation/user-defined-entry-form}}}]]
+       [m4/typed-list-edit-dialog
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "pointOfContact"]
+         :type-path ["partyType"]
+         :templates {"person"
+                     {:title       "Person"
+                      :template-id :party-person/user-defined-entry-form}
+                     "organisation"
+                     {:title       "Organisation"
+                      :template-id :party-organisation/user-defined-entry-form}}}]]]
 
      ;[m4/list-add-button
      ; {:form-id    [:form]
@@ -1087,16 +1089,16 @@
                     :data-path [?data-path "partyType"]
                     :pred      #{"person"}}
       [:div
-       [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "givenName"]}] " "
-       [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "familyName"]}] " / "
-       [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "label"]}]]]
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "given_name"]}] " "
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "surname"]}] " / "
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "Identifier"]}]]]
 
      [m4/when-data {:form-id   [:form]
                     :data-path [?data-path "partyType"]
                     :pred      #{"organisation"}}
       [:div
-       [m4/get-data {:form-id ?form-id :data-path [?data-path "organisation" "organisationName"]}]
-       [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "label"]}]]]]
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "organisation" "name"]}] " / "
+       [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "Identifier"]}]]]]
 
     :party-person/user-defined-entry-form
     [:div
@@ -1108,9 +1110,9 @@
       [m4/async-select-option
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
-        :uri        "/api/What9"
-        :label-path ["label"]
-        :value-path ["value"]}]]
+        :uri        "/api/rolecode"
+        :label-path ["Description"]
+        :value-path ["Identifier"]}]]
 
      [m4/form-group
       {:form-id   ?form-id
@@ -1120,7 +1122,7 @@
        {:form-id     ?form-id
         :data-path   [?data-path "contact"]
         :uri         "/api/ternpeople"
-        :label-path  ["label"]
+        :label-path  ["name"]
         :value-path  ["uri"]
         :placeholder "Search for contact details"}]]
 
@@ -1132,27 +1134,27 @@
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "givenName"]
+        :data-path [?data-path "contact" "given_name"]
         :label     "Given name"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "givenName"]}]]
+         :data-path [?data-path "contact" "given_name"]}]]
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "familyName"]
+        :data-path [?data-path "contact" "surname"]
         :label     "Surname"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "familyName"]}]]]
+         :data-path [?data-path "contact" "surname"]}]]]
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "electronicMailAddress"]
+       :data-path [?data-path "contact" "email"]
        :label     "Email address"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "electronicMailAddress"]}]]
+        :data-path [?data-path "contact" "email"]}]]
 
      [m4/form-group
       {:form-id     ?form-id
@@ -1174,12 +1176,12 @@
          {:form-id    ?form-id
           :data-path  [?data-path "organisation"]
           :uri        "/api/ternorgs"
-          :label-path ["organisationName"]
-          :value-path ["organisationIdentifier"]}]]
+          :label-path ["name"]
+          :value-path ["uri"]}]]
        [m4/item-dialog-button
         {:form-id    ?form-id
          :data-path  [?data-path "organisation"]
-         :value-path ["organisationIdentifier"]
+         :value-path ["uri"]
          :added-path ["isUserDefined"]}]]
 
       [m4/item-edit-dialog
@@ -1199,56 +1201,182 @@
       [m4/async-select-option
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
-        :uri        "/api/What9"
-        :label-path ["label"]
-        :value-path ["value"]}]]
+        :uri        "/api/rolecode"
+        :label-path ["Description"]
+        :value-path ["Identifier"]}]]
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "organisation" "organisationName"]
+       :data-path [?data-path "organisation"]
+       :label     "Contact"}
+      [m4/async-item-picker
+       {:form-id     ?form-id
+        :data-path   [?data-path "organisation"]
+        :uri         "/api/ternorgs"
+        :label-path  ["name"]
+        :value-path  ["uri"]
+        :placeholder "Search for organisation details"}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation" "name"]
        :label     "Organisation Name"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "organisationName"]}]]
+        :data-path [?data-path "organisation" "name"]}]]
 
-     ; TODO: Contact details
-     ; TODO: * campus/site
-     ; TODO: * street address
-     ; TODO: * city
-     ; TODO: * state
-     ; TODO: * postcode
-     ; TODO: * country
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "electronicMailAddress"]
+       :data-path [?data-path "organisation" "full_address_line"]
+       :label     "Campus/Sitename"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "full_address_line"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation" "street_address"]
+       :label     "Building"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "street_address"]}]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "address_locality"]
+        :label     "City"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "address_locality"]}]]
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "address_region"]
+        :label     "State"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "address_region"]}]]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "postcode"]
+        :label     "Postal Code"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "postcode"]}]]
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "country"]
+        :label     "Country"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "country"]}]]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation" "email"]
        :label     "Email address"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "electronicMailAddress"]}]]
-     ; TODO: * phone
-     ; TODO: * fax
+        :data-path [?data-path "organisation" "email"]}]]
 
-     ]
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
 
-    ; NOTE: person organisation (no role)
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "phone"]
+        :label     "Phone"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "phone"]}]]
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "fax"]
+        :label     "Fax"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "fax"]}]]]]
+
+                                        ; NOTE: person organisation (no role)
     :person-organisation/user-defined-entry-form
     [:div
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "organisation" "organisationName"]
+       :data-path [?data-path "organisation" "name"]
        :label     "Organisation Name"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "organisationName"]}]]
+        :data-path [?data-path "organisation" "name"]}]]
 
-     ; TODO: Contact details
-     ; TODO: * campus/site
-     ; TODO: * street address
-     ; TODO: * city
-     ; TODO: * state
-     ; TODO: * postcode
-     ; TODO: * country
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "address" "deliveryPoint"]
+       :label     "Campus/Sitename"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "address" "deliveryPoint"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "address" "deliveryPoint2"]
+       :label     "Building"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "address" "deliveryPoint2"]}]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "address" "city"]
+        :label     "City"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "address" "city"]}]]
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "address" "administrativeArea"]
+        :label     "State"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "address" "administrativeArea"]}]]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "address" "postalCode"]
+        :label     "Postal Code"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "address" "postalCode"]}]]
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "address" "country"]
+        :label     "Country"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "address" "country"]}]]]
+
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact" "electronicMailAddress"]
@@ -1256,10 +1384,26 @@
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "contact" "electronicMailAddress"]}]]
-     ; TODO: * phone
-     ; TODO: * fax
 
-     ]
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "phone"]
+        :label     "Phone"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "phone"]}]]
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "fax"]
+        :label     "Fax"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "fax"]}]]]]
 
     :how
     [:div
@@ -1449,8 +1593,17 @@
      [:h3 "Limitation/Constraints"]
      [:div [:label "Use limitations"]]
      [:div [:label "Other constraints"]]
-     [:div [:label "Any other constraints"]
-      [:p "TODO: list of constraints"]]
+     [m4/form-group
+      {:label   "Any other constraints"
+       :toolTip "Enter any additional constraints as required and click to add"}
+      [m4/text-add-button
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "additionalConstraints" "constraints"]
+        :button-text "Add"}]
+      [m4/value-selection-list
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]
+
      [m4/form-group
       {:label "Security Classification"}
       [m4/async-select-option
@@ -1563,10 +1716,90 @@
        :placeholder [:div
                      [:h3 "Drop file here or click here to upload"]
                      [:span.help-block "Maximum file size 100 MB"]]}]
+
+     [:h3 "TODO: thumbnail"]
+
      [:h2 "Data Services"]
-     #_[m3/DataSources {:form-id   [:form]
-                        :data-path ["dataSources"]}]
+     [m4/form-group
+      {:label    "Distributions"
+       :required true}
+      [m4/table-selection-list
+       {:form-id    [:form]
+        :data-path  ["dataSources"]
+        :value-path ["uri"]
+        :added-path ["isUserDefined"]
+        :columns    [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
+                     {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}
+                     {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]
+
+      [m4/list-add-button
+       {:form-id     [:form]
+        :data-path   ["dataSources"]
+        :button-text "Add"
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
+
+      [m4/list-edit-dialog
+       {:form-id     [:form]
+        :data-path   ["dataSources"]
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]
+        :title       "Data Distribution"
+        :template-id :data-sources/user-defined-entry-form}]]
+
      [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
+
+    :data-sources/user-defined-entry-form
+    [:div
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "transferOptions" "description"]
+       :label     "Description"}
+      [m4/textarea-field
+       {:form-id   ?form-id
+        :data-path [?data-path "transferOptions" "description"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "transferOptions" "protocol"]
+       :label     "Protocol"}
+      [m4/select-value
+       {:form-id    ?form-id
+        :data-path  [?data-path "transferOptions" "protocol"]
+        :label-path ["label"]
+        :value-path ["uri"]
+        :options    [{"label" "WFS" "value" "WFS"}
+                     {"label" "WMS" "value" "WMS"}
+                     {"label" "WCS" "value" "WCS"}
+                     {"label" "OpenDAP" "value" "OpenDAP"}]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "transferOptions" "linkage"]
+       :label     "URL"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "transferOptions" "linkage"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "transferOptions" "name"]
+       :label     "Layer Name"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "transferOptions" "name"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path]
+       :label     "Distributor"}
+      [m4/async-item-picker
+       {:form-id     ?form-id
+        :data-path   [?data-path "distributor"]
+        :uri         "/api/ternorgs"
+        :label-path  ["name"]
+        :value-path  ["uri"]
+        :placeholder "Search for organisation details"}]]]
 
     :lodge
     [:div

@@ -131,7 +131,7 @@
   ;; FIXME: this will need to change when we get the ES endpoint:
   (let [resolution-attribute (get-in spatial-block [:content "ResolutionAttribute" :props :value])
         units (case resolution-attribute
-                "None" "Unitless"
+                "Denominator scale" "Unitless"
                 "Angular distance" "Degrees"
                 "Metres")]
     (assoc-in spatial-block

@@ -1717,9 +1717,37 @@
                      [:h3 "Drop file here or click here to upload"]
                      [:span.help-block "Maximum file size 100 MB"]]}]
      [:h2 "Data Services"]
-     #_[m3/DataSources {:form-id   [:form]
-                        :data-path ["dataSources"]}]
+     [m4/form-group
+        {:label    "Distributions"
+         :required true}
+        [m4/table-selection-list
+         {:form-id    [:form]
+          :data-path  ["dataSources"]
+          :value-path ["uri"]
+          :added-path ["isUserDefined"]
+          :columns    [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
+                       {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}
+                       {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]
+
+        [m4/list-add-button
+         {:form-id     [:form]
+          :data-path   ["dataSources"]
+          :button-text "Add"
+          :value-path  ["uri"]
+          :added-path  ["isUserDefined"]}]
+
+        [m4/list-edit-dialog
+         {:form-id     [:form]
+          :data-path   ["dataSources"]
+          :value-path  ["uri"]
+          :added-path  ["isUserDefined"]
+          :title       "Data Distribution"
+          :template-id :data-sources/user-defined-entry-form}]]
+
      [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
+
+     :data-sources/user-defined-entry-form
+     [:div [:p "roar"]]
 
     :lodge
     [:div

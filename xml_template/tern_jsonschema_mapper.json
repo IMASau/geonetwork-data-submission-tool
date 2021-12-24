@@ -73,6 +73,107 @@
         }
       }
     },
+    "dataSources": {
+      "xpath": "mdb:distributionInfo",
+      "type": "array",
+      "items": {
+        "xpath": "mdb:distributionInfo",
+        "type": "object",
+        "properties": {
+          "distributor": {
+            "xpath": "",
+            "type": "object",
+            "properties": {
+              "name": {
+                "xpath": "cit:name",
+                "valueChild": "gco:CharacterString",
+                "required": true,
+                "keep": false,
+                "rules": ["requiredField"]
+              },
+              "uri": {
+                "xpath": "cit:partyIdentifier",
+                "valueChild": "mcc:MD_Identifier/mcc:code/gcx:Anchor",
+                "required": false,
+                "keep": false,
+                "parser": {
+                  "function": "parse_organisation_identifier"
+                },
+                "attributes": {
+                  "xlink:href": {
+                    "function": "separate_organisation_identifier"
+                  },
+                  "text": {
+                    "function": "identity"
+                  }
+                }
+              },
+              "full_address_line": {
+                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
+                "keep": false,
+                "valueChild": "gco:CharacterString"
+              },
+              "street_address": {
+                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
+                "keep": false,
+                "valueChild": "gco:CharacterString"
+              },
+              "address_locality": {
+                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
+                "keep": false,
+                "valueChild": "gco:CharacterString"
+              },
+              "address_region": {
+                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
+                "keep": false,
+                "valueChild": "gco:CharacterString"
+              },
+              "postcode": {
+                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
+                "keep": false,
+                "valueChild": "gco:CharacterString"
+              },
+              "country": {
+                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
+                "keep": false,
+                "valueChild": "gco:CharacterString"
+              },
+              "email": {
+                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
+                "keep": false,
+                "valueChild": "gco:CharacterString"
+              }
+            }
+          },
+          "transferOptions": {
+            "xpath": "mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource",
+            "type": "object",
+            "properties": {
+              "linkage": {
+                "xpath": "cit:linkage",
+                "valueChild": "gco:CharacterString",
+                "type": "string"
+              },
+              "protocol": {
+                "xpath": "cit:protocol",
+                "valueChild": "gco:CharacterString",
+                "type": "string"
+              },
+              "name": {
+                "xpath": "cit:name",
+                "valueChild": "gco:CharacterString",
+                "type": "string"
+              },
+              "description": {
+                "xpath": "cit:description",
+                "valueChild": "gco:CharacterString",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
     "parentMetadata": {
       "!docstring": "ID3",
       "xpath": "mdb:parentMetadata",

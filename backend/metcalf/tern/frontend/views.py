@@ -460,30 +460,12 @@ def save(request, uuid, update_number):
         doc.hasUserDefined = bool(xmlutils4.extract_user_defined(data))
         doc.save()
 
-        # FIXME: these should be handled by DUMA now
-        # # add any new people or institutions to the database
-        # pointOfContacts = data['identificationInfo']['pointOfContact']
-        # citedResponsibleParties = data['identificationInfo']['citedResponsibleParty']
-
-        # for pointOfContact in pointOfContacts:
-        #     updatedPerson = personFromData(pointOfContact)
-        #     if updatedPerson:
-        #         pointOfContact['individualName'] = updatedPerson.prefLabel
-        #     institutionFromData(pointOfContact)
-
-        # for citedResponsibleParty in citedResponsibleParties:
-        #     updatedPerson = personFromData(citedResponsibleParty)
-        #     if updatedPerson:
-        #         citedResponsibleParty['individualName'] = updatedPerson.prefLabel
-        #     institutionFromData(citedResponsibleParty)
-
         draft = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
         draft.noteForDataManager = data.get('noteForDataManager') or ''
         draft.agreedToTerms = data.get('agreedToTerms') or False
         draft.doiRequested = data.get('doiRequested') or False
         draft.save()
 
-        # FIXME: Is this still  necessary?  (currently blocks saving; disabling for now)
         # Remove any attachments which are no longer mentioned in the XML.
         xml_names = tuple(map(lambda x: os.path.basename(x['file']),
                               data.get('attachments', [])))

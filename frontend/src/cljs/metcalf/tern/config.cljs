@@ -1718,36 +1718,85 @@
                      [:span.help-block "Maximum file size 100 MB"]]}]
      [:h2 "Data Services"]
      [m4/form-group
-        {:label    "Distributions"
-         :required true}
-        [m4/table-selection-list
-         {:form-id    [:form]
-          :data-path  ["dataSources"]
-          :value-path ["uri"]
-          :added-path ["isUserDefined"]
-          :columns    [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
-                       {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}
-                       {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]
+      {:label    "Distributions"
+       :required true}
+      [m4/table-selection-list
+       {:form-id    [:form]
+        :data-path  ["dataSources"]
+        :value-path ["uri"]
+        :added-path ["isUserDefined"]
+        :columns    [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
+                     {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}
+                     {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]
 
-        [m4/list-add-button
-         {:form-id     [:form]
-          :data-path   ["dataSources"]
-          :button-text "Add"
-          :value-path  ["uri"]
-          :added-path  ["isUserDefined"]}]
+      [m4/list-add-button
+       {:form-id     [:form]
+        :data-path   ["dataSources"]
+        :button-text "Add"
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
 
-        [m4/list-edit-dialog
-         {:form-id     [:form]
-          :data-path   ["dataSources"]
-          :value-path  ["uri"]
-          :added-path  ["isUserDefined"]
-          :title       "Data Distribution"
-          :template-id :data-sources/user-defined-entry-form}]]
+      [m4/list-edit-dialog
+       {:form-id     [:form]
+        :data-path   ["dataSources"]
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]
+        :title       "Data Distribution"
+        :template-id :data-sources/user-defined-entry-form}]]
 
      [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
-     :data-sources/user-defined-entry-form
-     [:div [:p "roar"]]
+    :data-sources/user-defined-entry-form
+    [:div
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "transferOptions" "description"]
+       :label     "Description"}
+      [m4/textarea-field
+       {:form-id   ?form-id
+        :data-path [?data-path "transferOptions" "description"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "transferOptions" "protocol"]
+       :label     "Protocol"}
+      [m4/select-value
+       {:form-id    ?form-id
+        :data-path  [?data-path "transferOptions" "protocol"]
+        :label-path ["label"]
+        :value-path ["uri"]
+        :options    [{"label" "WFS" "value" "WFS"}
+                     {"label" "WMS" "value" "WMS"}
+                     {"label" "WCS" "value" "WCS"}
+                     {"label" "OpenDAP" "value" "OpenDAP"}]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "transferOptions" "linkage"]
+       :label     "URL"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "transferOptions" "linkage"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "transferOptions" "name"]
+       :label     "Layer Name"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "transferOptions" "name"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path]
+       :label     "Distributor"}
+      [m4/async-item-picker
+       {:form-id     ?form-id
+        :data-path   [?data-path "distributor"]
+        :uri         "/api/ternorgs"
+        :label-path  ["name"]
+        :value-path  ["uri"]
+        :placeholder "Search for organisation details"}]]]
 
     :lodge
     [:div

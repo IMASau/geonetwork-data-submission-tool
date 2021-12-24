@@ -17,3 +17,5 @@ pom.xml.asc
 /.clj-kondo/.cache/
 .lsp/.cache
 resources/public/resources/icons/icons
+core-js-banners
+v8-compile-cache*

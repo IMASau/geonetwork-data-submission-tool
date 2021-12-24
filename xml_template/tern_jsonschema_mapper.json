@@ -152,22 +152,30 @@
               "linkage": {
                 "xpath": "cit:linkage",
                 "valueChild": "gco:CharacterString",
-                "type": "string"
+                "type": "string",
+                "required": true,
+                "rules": ["requiredField"]
               },
               "protocol": {
                 "xpath": "cit:protocol",
                 "valueChild": "gco:CharacterString",
-                "type": "string"
+                "type": "string",
+                "required": true,
+                "rules": ["requiredField"]
               },
               "name": {
                 "xpath": "cit:name",
                 "valueChild": "gco:CharacterString",
-                "type": "string"
+                "type": "string",
+                "required": true,
+                "rules": ["requiredField"]
               },
               "description": {
                 "xpath": "cit:description",
                 "valueChild": "gco:CharacterString",
-                "type": "string"
+                "type": "string",
+                "required": true,
+                "rules": ["requiredField"]
               }
             }
           }

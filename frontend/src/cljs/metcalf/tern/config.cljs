@@ -1716,6 +1716,9 @@
        :placeholder [:div
                      [:h3 "Drop file here or click here to upload"]
                      [:span.help-block "Maximum file size 100 MB"]]}]
+
+     [:h3 "TODO: thumbnail"]
+
      [:h2 "Data Services"]
      [m4/form-group
       {:label    "Distributions"

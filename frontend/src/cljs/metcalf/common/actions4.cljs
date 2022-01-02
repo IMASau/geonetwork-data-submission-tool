@@ -98,9 +98,10 @@
         (assoc-in (conj db-path :props :show-errors) true))))
 
 (defn set-data-action
-  [s form-id data-path option]
+  "Replace block state at data-path based on data."
+  [s form-id data-path data]
   (let [schema (get-in s (flatten [:db form-id :schema (schema4/schema-path data-path)]))
-        state (blocks4/as-blocks {:schema schema :data option})
+        state (blocks4/as-blocks {:schema schema :data data})
         db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (-> s
         (assoc-in db-path state)

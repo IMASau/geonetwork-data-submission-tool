@@ -1090,7 +1090,8 @@
 ;(defmethod async-item-picker-settings :table [config] (async-table-item-option-picker-settings config))
 
 (defmulti async-item-picker
-          "Use case: As a user, I want to prepopulate a bunch of editable fields by picking from a list.  Use :kind to control how options are displayed."
+          "Use case: As a user, I want to prepopulate a bunch of editable fields by picking from a list.
+           Use :kind to control how options are displayed."
           :kind)
 (defmethod async-item-picker :default [config] (async-simple-item-option-picker config))
 ;(defmethod async-item-picker :breadcrumb [config] (async-breadcrumb-item-option-picker config))

@@ -1013,6 +1013,7 @@
    ::low-code4/schema {:type "array" :items {:type "object"}}})
 
 (defn async-simple-item-option-picker
+  "async-option-picker which displays options as simple labels"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder disabled is-hidden errors show-errors value-path label-path]} props

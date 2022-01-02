@@ -23,7 +23,7 @@
 
 
 (defn from-value
-  "Parse json string value to date"
+  "Parse json string value to date.  Returns nil for blank strings."
   [str]
   (s/assert (s/nilable string?) str)
   (when-not (string/blank? str)

@@ -68,7 +68,7 @@
                      (assoc-in added-path true))]
     (-> {:db db}
         (actions4/save-snapshot-action form-id)
-        (actions4/set-value-action form-id data-path defaults)
+        (actions4/set-data-action form-id data-path defaults)
         (actions4/dialog-open-action form-id data-path))))
 
 (defn item-edit-with-defaults-click-handler
@@ -104,7 +104,7 @@
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
-        (actions4/set-value-action form-id data-path option))))
+        (actions4/set-data-action form-id data-path option))))
 
 (defn selection-list-item-click2
   [{:keys [db]} [_ props idx]]

@@ -97,7 +97,7 @@
         ;; TODO: split out?
         (assoc-in (conj db-path :props :show-errors) true))))
 
-(defn set-value-action
+(defn set-data-action
   [s form-id data-path option]
   (let [schema (get-in s (flatten [:db form-id :schema (schema4/schema-path data-path)]))
         state (blocks4/as-blocks {:schema schema :data option})

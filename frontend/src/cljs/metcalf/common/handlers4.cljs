@@ -100,6 +100,7 @@
         (actions4/add-item-action form-id data-path value-path option))))
 
 (defn item-option-picker-change
+  "Handle picker change.  Uses option data to set values."
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}

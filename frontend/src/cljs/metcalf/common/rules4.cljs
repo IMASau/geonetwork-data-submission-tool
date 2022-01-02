@@ -57,6 +57,17 @@
       block
       kvs)))
 
+(defn required-at-least-one
+  "Sometimes a requirement can have multiple possibilities, for example
+  a contact could be a person or an organisation. This allows us to
+  say that at least one is mandatory."
+  [block {:keys [fields-list]}]
+  (let [invalid? (->> fields-list
+                      (map (fn [fld] (blocks4/as-data (get-in block (blocks4/block-path fld)))))
+                      (every? (partial contains? empty-values)))]
+    (cond-> block
+      invalid? (update-in [:props :errors] conj "Missing required field"))))
+
 ; TODO: consider renaming - doing more than required flag (disable/hide/clear)
 (defn required-when-yes
   [block {:keys [bool-field opt-field]}]

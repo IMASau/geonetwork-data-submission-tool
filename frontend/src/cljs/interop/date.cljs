@@ -36,7 +36,7 @@
 
 
 (defn to-string
-  "Print date in standard format for humans"
+  "Print date in standard format for humans.  Returns nil if no date provided."
   [date]
   (s/assert (s/nilable inst?) date)
   (some->> (c/from-date date)

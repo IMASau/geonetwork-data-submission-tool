@@ -10,7 +10,7 @@
 
 
 (defn to-value
-  "Convert date into a json string value"
+  "Convert date into a json string value.  Return nil if no date provided."
   [date]
   (s/assert (s/nilable inst?) date)
   (some->> (c/from-date date)

@@ -416,7 +416,8 @@
                     },
                     "parser": {
                       "function": "parse_codeListValue"
-                    }
+                    },
+                    "rules": ["requiredField"]
                   },
                   "Description": {
                     "type": "string"
@@ -426,8 +427,7 @@
                   }
                 },
                 "required": true,
-                "xpath_required": true,
-                "rules": ["requiredField"]
+                "xpath_required": true
               },
               "organisation": {
                 "xpath": "cit:party/cit:CI_Organisation",
@@ -438,8 +438,7 @@
                     "xpath": "cit:name",
                     "valueChild": "gco:CharacterString",
                     "required": true,
-                    "keep": false,
-                    "rules": ["requiredField"]
+                    "keep": false
                   },
                   "uri": {
                     "!docstring": "Who8 / Who9 / Who12",
@@ -514,8 +513,7 @@
                     "xpath": "cit:CI_Individual/cit:name",
                     "valueChild": "gco:CharacterString",
                     "keep": false,
-                    "required": false,
-                    "rules": ["requiredField"]
+                    "required": false
                   },
                   "surname": {
                     "!docstring": "Who5",
@@ -574,7 +572,17 @@
                 "default": false,
                 "export": false
               }
+            },
+            "rules": [
+              {
+              "requiredSome": {
+                "fields-list": [
+                  ["organisation", "name"],
+                  ["contact", "name"]
+                ]
+              }
             }
+            ]
           },
           "notes": "Responsible party/ies for creating dataset"
         },
@@ -603,7 +611,8 @@
                     },
                     "parser": {
                       "function": "parse_codeListValue"
-                    }
+                    },
+                    "rules": ["requiredField"]
                   },
                   "Description": {
                     "type": "string"
@@ -613,8 +622,7 @@
                   }
                 },
                 "required": true,
-                "xpath_required": true,
-                "rules": ["requiredField"]
+                "xpath_required": true
               },
               "organisation": {
                 "xpath": "cit:party/cit:CI_Organisation",
@@ -625,8 +633,7 @@
                     "xpath": "cit:name",
                     "valueChild": "gco:CharacterString",
                     "required": true,
-                    "keep": false,
-                    "rules": ["requiredField"]
+                    "keep": false
                   },
                   "uri": {
                     "!docstring": "Who8 / Who9 / Who12",
@@ -701,8 +708,7 @@
                     "xpath": "cit:CI_Individual/cit:name",
                     "valueChild": "gco:CharacterString",
                     "keep": false,
-                    "required": false,
-                    "rules": ["requiredField"]
+                    "required": false
                   },
                   "surname": {
                     "!docstring": "Who5",
@@ -761,7 +767,17 @@
                 "default": false,
                 "export": false
               }
+            },
+            "rules": [
+              {
+              "requiredSome": {
+                "fields-list": [
+                  ["organisation", "name"],
+                  ["contact", "name"]
+                ]
+              }
             }
+            ]
           }
         },
         "geographicElement": {

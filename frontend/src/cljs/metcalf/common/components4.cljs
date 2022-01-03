@@ -130,7 +130,7 @@
    ::low-code4/opt-ks []})
 
 (defn list-edit-dialog
-  "This component displays an edit dialog for a selected list item with a title, a rendered template for the item,
+  "This component displays an edit dialog for a selected list item with a title, a rendered template,
    and buttons to save or cancel out.
 
    The props allow control of

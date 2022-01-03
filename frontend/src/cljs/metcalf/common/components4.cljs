@@ -283,6 +283,15 @@
    ::low-code4/opt-ks []})
 
 (defn when-data
+  "This component displays children when the data satisfies the pred.
+
+   Config allows control of:
+   * data tested is identified by form-id and data-path
+   * pred is a valid clojure spec used to test the data.  Use pre-registered keywords or a set of values.
+
+   Logic influences behaviour
+   * component is not rendered if is-hidden is set"
+
   [config & children]
   (let [{:keys [pred is-hidden]} @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])]

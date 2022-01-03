@@ -47,7 +47,7 @@
 (defn text-value-add-click-handler
   [{:keys [db]} [_ ctx value]]
   (let [{:keys [form-id data-path]} ctx]
-    (actions4/add-value-action {:db db} form-id data-path value)))
+    (actions4/add-item-action {:db db} form-id data-path [] value)))
 
 (defn list-add-with-defaults-click-handler2
   [{:keys [db]} [_ config]]
@@ -138,7 +138,7 @@
         idx (if (contains? items initial-data) (dec idx) idx)
         new-field-path (conj data-path idx)]
     (-> {:db db}
-        (actions4/add-value-action form-id data-path initial-data)
+        (actions4/add-item-action form-id data-path [] initial-data)
         (actions4/open-modal-action {:type           :m4/table-modal-add-form
                                      :form           coord-field
                                      :path           new-field-path

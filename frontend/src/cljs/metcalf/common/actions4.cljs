@@ -198,6 +198,8 @@
                        :resolve [::-get-document-data-action uuid]}]))
 
 (defn upload-attachment
+  "POST attachment to server and dispatches response.
+   Uses uploaded filename as name."
   [s {:keys [config doc-uuid file]}]
   (let [url (str "/upload/" doc-uuid "/")
         data {:document doc-uuid

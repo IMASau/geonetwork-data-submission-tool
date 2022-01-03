@@ -30,8 +30,9 @@
    ::low-code4/opt-ks       []
    ::low-code4/schema-paths data-paths})
 
-(defn page-errors
-  "Display a list of errors associated with data-paths."
+(defn ^:deprecated page-errors
+  "Display a list of errors associated with data-paths.
+   NOTE: Depends on label in schema"
   [config]
   (let [{:keys [msgs]} @(rf/subscribe [::get-page-errors-props config])]
     (when (seq msgs)

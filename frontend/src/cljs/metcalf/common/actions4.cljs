@@ -141,7 +141,9 @@
   [s]
   (update-in s [:db :modal/stack] pop))
 
-(def disabled-statuses #{"Archived" "Deleted" "Uploaded"})
+(def disabled-statuses
+  "Statuses which indicate a document can't be edited."
+  #{"Archived" "Deleted" "Uploaded"})
 
 (defn load-edit-form-action
   "Massage raw payload for use as app-state"

@@ -87,15 +87,38 @@
               :isAdded    false}]
             children))))
 
-(defn inline-form-group-settings [_]
+(defn inline-form-group-settings
+  "Settings for inline-form-group component"
+  [_]
   {::low-code4/req-ks [:label]
-   ::low-code4/opt-ks [:form-id :data-path :placeholder :helperText :toolTip]})
+   ::low-code4/opt-ks [:form-id :data-path :helperText :toolTip]})
 
 (defn inline-form-group
+  "This component is a lightweight wrapper around its children with props for the label to the left and helper text below.
+
+   It's similar to form-group with a different layout and some additional constraints.
+
+   The props allow control of
+   * label is a string displayed to the left of the controls
+   * helperText is an optional string displayed below the controls
+   * toolTip is a string or hiccup
+
+   Logic can control how the form-group is rendered.  Uses form-id and data-path to access block props.
+   * is-hidden
+   * show-errors
+   * errors are displayed in place of helper text if present and show-errors flag set
+
+   * required - show that field is required
+   * disabled - styles control to indicate it's disabled
+   * show-errors - show errors if present
+   * errors - errors that may be displayed in place of helper text
+   * is-hidden - hide form-group and children entirely
+
+   Note: label is a special case, if defined in config it overrides logic
+   "
   [config & children]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [label helperText toolTip required disabled is-hidden show-errors errors]} props
-        ; NOTE: treating label is a special case, if defined in config it overrides logic
         label (get config :label label)
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden

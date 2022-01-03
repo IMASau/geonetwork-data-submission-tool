@@ -158,9 +158,9 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         errors? @(rf/subscribe [::has-selected-block-errors? config])
-        {:keys [form-id data-path isOpen title template-id]} props]
+        {:keys [form-id data-path open-dialog? title template-id]} props]
     [ui-controls/EditDialog
-     {:isOpen  isOpen
+     {:isOpen  open-dialog?
       :title   title
       :onClose #(rf/dispatch [::item-edit-dialog-close config])
       :onClear #(rf/dispatch [::item-edit-dialog-cancel config])

@@ -5,7 +5,8 @@
             [interop.moment :as moment]
             [interop.ui :as ui]
             [metcalf.common.low-code4 :as low-code]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [interop.cljs-time :as cljs-time]))
 
 ; For pure views only, no re-frame subs/handlers
 
@@ -106,7 +107,7 @@
                    :font-size "0.9em"}}
        (if-not (empty? last_updated)
          [:span
-          "Last edited " (moment/from-now last_updated)
+          "Last edited " (cljs-time/from-now (cljs-time/value-to-date last_updated))
           " by " (:username last_updated_by)]
          "Has not been edited yet")]]]))
 
@@ -243,7 +244,7 @@
         [:br]
         [:small [:i {:style {:color     "#aaa"
                              :font-size "1em"}}
-                 "Last edited " (moment/from-now last_updated)
+                 "Last edited " (cljs-time/from-now (cljs-time/value-to-date last_updated))
                  " by " (:username last_updated_by)]]]]]
      [:div.Home.container
       [edit-tabs

@@ -123,6 +123,7 @@
   (str ::genkey (swap! genkey-counter inc)))
 
 (defn genkey-action
+  "Generate a new key prop for data-path.  Used to reset stateful components."
   [s form-id data-path]
   (let [tick-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props :key])]
     (assoc-in s tick-path (genkey))))

@@ -180,11 +180,13 @@
     (update-in s form-state-path #(blocks4/postwalk blocks4/clear-error-props %))))
 
 (defn set-errors-action
+  "Save form errors in app-db.  Useful when POST returns 400 with field errors.
+   Takes error-map is a map of errors, can be nested."
   [s form-path error-map]
   (let [path-errors (utils4/path-vals error-map)
         path (utils4/as-path [:db form-path :state])]
-    (update-in s path (fn [state] (reduce (fn [state [path error]]
-                                            (blocks4/set-error-prop state path error))
+    (update-in s path (fn [state] (reduce (fn [state' [data-path error]]
+                                            (blocks4/set-error-prop state' data-path error))
                                           state
                                           path-errors)))))
 

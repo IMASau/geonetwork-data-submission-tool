@@ -106,7 +106,8 @@
                    :font-size "0.9em"}}
        (if-not (empty? last_updated)
          [:span
-          "Last edited " (cljs-time/from-now (cljs-time/value-to-datetime last_updated))
+          "Last edited " (when-let [d (cljs-time/value-to-datetime last_updated)]
+                           (cljs-time/from-now d))
           " by " (:username last_updated_by)]
          "Has not been edited yet")]]]))
 
@@ -243,7 +244,8 @@
         [:br]
         [:small [:i {:style {:color     "#aaa"
                              :font-size "1em"}}
-                 "Last edited " (cljs-time/from-now (cljs-time/value-to-datetime last_updated))
+                 "Last edited " (when-let [d (cljs-time/value-to-datetime last_updated)]
+                                  (cljs-time/from-now d))
                  " by " (:username last_updated_by)]]]]]
      [:div.Home.container
       [edit-tabs

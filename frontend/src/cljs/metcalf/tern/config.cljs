@@ -187,6 +187,7 @@
        })
 
 (def edit-templates
+  "Default ui templates for edit-page/"
   '{:platform/user-defined-entry-form
     [:div
 

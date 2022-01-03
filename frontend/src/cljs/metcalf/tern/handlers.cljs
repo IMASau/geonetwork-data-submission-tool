@@ -4,6 +4,7 @@
             [metcalf.common.low-code4 :as low-code4]))
 
 (defn init-db
+  "Handler to bootstrap app.  Returns valid db and fx initialisations depending on payload page name."
   [_ [_ payload]]
   (let [ui-data (some-> payload :ui_payload edn/read-string)
         editor-tabs (:low-code/edit-tabs ui-data)]

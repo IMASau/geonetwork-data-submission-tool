@@ -242,15 +242,29 @@
         :variables   {'?form-id   form-id
                       '?data-path data-path}})]))
 
-(defn input-field-settings [_]
+(defn input-field-settings
+  "Settings for input-field"
+  [_]
   {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks [:placeholder :maxLength]
    ::low-code4/schema {:type "string"}})
 
 (defn input-field
+  "This component displays an input field for entering a single line of text.
+
+   The props allow control of
+   * placeholder (string) displayed in input if empty
+   * maxLength (int) constraints the length of text entered
+
+   Logic can control how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * show-errors - style control to indicate error and show errors if present
+   * errors - errors that may be displayed in place of helper text
+   * is-hidden - hides component entirely
+  "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder maxLength value disabled is-hidden show-errors errors]} props
+        {:keys [placeholder maxLength value disabled show-errors errors is-hidden]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
       [ui-controls/InputField

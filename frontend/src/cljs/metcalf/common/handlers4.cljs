@@ -252,6 +252,10 @@
         (actions4/create-document-action url data))))
 
 (defn -create-document-handler
+  "Handle server response to create document POST request.
+   200: Handles success by opening new document (page will reload)
+   400: Handles invalid response shows errors on the form
+   Opens alert modal if status is unexpected"
   [{:keys [db]} [_ {:keys [status body]}]]
   (case status
     200 {::fx3/set-location-href (gobject/getValueByKeys body "document" "url")}

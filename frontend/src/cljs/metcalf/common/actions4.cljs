@@ -173,6 +173,8 @@
   (update s :fx conj [:app/post-data-fx {:url url :data data :resolve [::-create-document]}]))
 
 (defn clear-errors-action
+  "Clear out state related to errors in form-path.  Will dissoc :error and :show-errors from all block props.
+   Use to clear server errors which were saved in app-db."
   [s form-path]
   (let [form-state-path (utils4/as-path [:db form-path :state])]
     (update-in s form-state-path #(blocks4/postwalk blocks4/clear-error-props %))))

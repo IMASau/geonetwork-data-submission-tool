@@ -181,7 +181,7 @@
 
 (defn set-errors-action
   "Save form errors in app-db.  Useful when POST returns 400 with field errors.
-   Takes error-map is a map of errors, can be nested."
+   Takes error-map is a map of errors.  Supports nested objects but not arrays."
   [s form-path error-map]
   (let [path-errors (utils4/path-vals error-map)
         path (utils4/as-path [:db form-path :state])]

@@ -276,7 +276,9 @@
         :hasError    hasError
         :onChange    #(rf/dispatch [::value-changed config %])}])))
 
-(defn when-data-settings [_]
+(defn when-data-settings
+  "Settings for when-data component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :pred]
    ::low-code4/opt-ks []})
 
@@ -291,7 +293,9 @@
       (when (s/valid? pred value)
         (into [:div] children)))))
 
-(defn get-data-settings [_]
+(defn get-data-settings
+  "Settings for get-data component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks []})
 
@@ -304,7 +308,9 @@
   [form-group config
    [input-field config]])
 
-(defn numeric-input-field-settings [_]
+(defn numeric-input-field-settings
+  "Settings for numeric-input-field component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks [:placeholder :hasButtons :unit]
    ::low-code4/schema {:type "number"}})
@@ -331,7 +337,9 @@
   [form-group config
    [numeric-input-field config]])
 
-(defn textarea-field-settings [_]
+(defn textarea-field-settings
+  "Settings for textarea-field component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks [:placeholder :rows :maxLength]
    ::low-code4/schema {:type "string"}})
@@ -351,7 +359,9 @@
         :rows        rows
         :onChange    #(rf/dispatch [::value-changed config %])}])))
 
-(defn checkbox-field-settings [_]
+(defn checkbox-field-settings
+  "Settings for checkbox-field component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks [:label]
    ::low-code4/schema {:type "boolean"}})
@@ -381,7 +391,9 @@
   [form-group config
    [textarea-field config]])
 
-(defn date-field-settings [_]
+(defn date-field-settings
+  "Settings for date-field component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks [:minDate :maxDate]
    ::low-code4/schema {:type "string"}})
@@ -413,7 +425,9 @@
       [:a {:href portal_url :target "_blank"} [:span.portal-title portal_title]]
       [:span.portal-title portal_title])))
 
-(defn note-for-data-manager-settings [_]
+(defn note-for-data-manager-settings
+  "Settings for note-for-data-manager component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks []})
 
@@ -474,7 +488,9 @@
           (= (:status document) "Submitted") "Your record has been submitted."
           :else (:status document))]])))
 
-(defn xml-export-link-settings [_]
+(defn xml-export-link-settings
+  "Settings for xml-export-link component"
+  [_]
   {::low-code4/req-ks [:label]
    ::low-code4/opt-ks [:form-id :data-path]})
 
@@ -589,7 +605,9 @@
   [form-group config
    [select-option config]])
 
-(defn item-dialog-button-settings [_]
+(defn item-dialog-button-settings
+  "Settings for item-dialog-button component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
    ::low-code4/opt-ks []
    ::low-code4/schema {:type "object"}})
@@ -614,7 +632,9 @@
           :onClick  #(rf/dispatch [::item-dialog-button-add-click config])}
          "Add"]))))
 
-(defn item-add-button-settings [_]
+(defn item-add-button-settings
+  "Settings for item-add-button component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
    ::low-code4/opt-ks []
    ::low-code4/schema {:type "object"}})
@@ -633,7 +653,9 @@
         :onClick  #(rf/dispatch [::item-add-button-click config])}
        "Add"])))
 
-(defn list-add-button-settings [_]
+(defn list-add-button-settings
+  "Settings for list-add-button component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :value-path :added-path :button-text]
    ::low-code4/opt-ks [:item-defaults]
    ::low-code4/schema {:type "array"}})
@@ -649,7 +671,9 @@
         :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler config])}
        button-text])))
 
-(defn text-add-button-settings [_]
+(defn text-add-button-settings
+  "Settings for text-add-button component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :button-text]
    ::low-code4/opt-ks []
    ::low-code4/schema {:type "array"}})
@@ -760,7 +784,9 @@
         :hasError      hasError
         :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
-(defn async-table-select-option-settings [_]
+(defn async-table-select-option-settings
+  "Settings for async-table-select-option component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
    ::low-code4/opt-ks [:placeholder :added-path]
    ::low-code4/schema {:type "object" :properties {}}})
@@ -796,7 +822,9 @@
 (defmethod async-select-option :breadcrumb [config] (async-breadcrumb-select-option config))
 (defmethod async-select-option :table [config] (async-table-select-option config))
 
-(defn select-value-settings [_]
+(defn select-value-settings
+  "Settings for select-value component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :options :label-path :value-path]
    ::low-code4/opt-ks []})
 
@@ -821,7 +849,9 @@
   [form-group config
    [select-value config]])
 
-(defn yes-no-field-settings [_]
+(defn yes-no-field-settings
+  "Settings for yes-no-field component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :label]
    ::low-code4/opt-ks []
    ::low-code4/schema {:type "boolean"}})
@@ -987,7 +1017,9 @@
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}])))
 
-(defn simple-list-option-picker-settings [_]
+(defn simple-list-option-picker-settings
+  "Settings for simple-list-option-picker component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path]
    ::low-code4/opt-ks [:placeholder]
    ::low-code4/schema {:type "array" :items {:type "object"}}})
@@ -1008,7 +1040,9 @@
         :getValue    (ui-controls/obj-path-getter value-path)
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defn breadcrumb-list-option-picker-settings [_]
+(defn breadcrumb-list-option-picker-settings
+  "Settings for breadcrumb-list-option-picker component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path :breadcrumb-path]
    ::low-code4/opt-ks [:placeholder]
    ::low-code4/schema {:type "array" :items {:type "object"}}})
@@ -1030,7 +1064,9 @@
         :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
         :onChange      #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defn table-list-option-picker-settings [_]
+(defn table-list-option-picker-settings
+  "Settings for table-list-option-picker component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path :columns]
    ::low-code4/opt-ks [:placeholder]
    ::low-code4/schema {:type "array" :items {:type "object"}}})
@@ -1054,7 +1090,9 @@
                         :getLabel (ui-controls/obj-path-getter label-path)})
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defn async-simple-list-option-picker-settings [_]
+(defn async-simple-list-option-picker-settings
+  "Settings for async-simple-list-option-picker component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path]
    ::low-code4/opt-ks [:placeholder]
    ::low-code4/schema {:type "array" :items {:type "object"}}})
@@ -1075,7 +1113,9 @@
         :loadOptions (partial utils4/load-options config)
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defn async-simple-item-option-picker-settings [_]
+(defn async-simple-item-option-picker-settings
+  "Settings for async-simple-item-option-picker component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path]
    ::low-code4/opt-ks [:placeholder]
    ::low-code4/schema {:type "array" :items {:type "object"}}})
@@ -1097,7 +1137,9 @@
         :loadOptions (partial utils4/load-options config)
         :onChange    #(rf/dispatch [::item-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defn async-breadcrumb-list-option-picker-settings [_]
+(defn async-breadcrumb-list-option-picker-settings
+  "Settings for async-breadcrumb-list-option-picker component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
    ::low-code4/opt-ks [:placeholder]
    ::low-code4/schema {:type "array" :items {:type "object"}}})
@@ -1119,7 +1161,9 @@
         :loadOptions   (partial utils4/load-options config)
         :onChange      #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defn async-table-list-option-picker-settings [_]
+(defn async-table-list-option-picker-settings
+  "Settings for async-table-list-option-picker component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
    ::low-code4/opt-ks [:placeholder]
    ::low-code4/schema {:type "array" :items {:type "object"}}})
@@ -1166,7 +1210,9 @@
 ;(defmethod async-item-picker :breadcrumb [config] (async-breadcrumb-item-option-picker config))
 ;(defmethod async-item-picker :table [config] (async-table-item-option-picker config))
 
-(defn expanding-control-settings [_]
+(defn expanding-control-settings
+  "Settings for expanding-control component"
+  [_]
   {::low-code4/req-ks [:label]
    ::low-code4/opt-ks [:form-id :data-path :required :defaultOpen]})
 
@@ -1209,7 +1255,9 @@
        {:form-id   [:form]
         :data-path (conj path "southBoundLatitude")}]]]]])
 
-(defn boxmap-field-settings [_]
+(defn boxmap-field-settings
+  "Settings for boxmap-field component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks []})
 
@@ -1226,7 +1274,9 @@
         :tickId   key
         :onChange #(rf/dispatch [::boxes-changed config (ui-controls/get-geojson-data %)])}])))
 
-(defn coordinates-modal-field-settings [_]
+(defn coordinates-modal-field-settings
+  "Settings for coordinates-modal-field component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks [:help]})
 
@@ -1350,7 +1400,9 @@
        :onRemoveClick (fn [idx] (rf/dispatch [:app/contributors-modal-unshare-click {:uuid uuid :idx idx}]))
        :onAddClick    (fn [email] (rf/dispatch [:app/contributors-modal-share-click {:uuid uuid :email email}]))}])])
 
-(defn upload-files-settings [_]
+(defn upload-files-settings
+  "Settings for upload-files component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :value-path :placeholder]
    ::low-code4/opt-ks []})
 
@@ -1376,7 +1428,9 @@
          :placeholder (r/as-element placeholder)
          :onDrop      #(rf/dispatch [::upload-files-drop config (js->clj % :keywordize-keys true)])}]])))
 
-(defn yes-no-radios-simple-settings [_]
+(defn yes-no-radios-simple-settings
+  "Settings for yes-no-radios-simple component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :inline]
    ::low-code4/opt-ks []
    ::low-code4/schema {:type "boolean"}
@@ -1399,7 +1453,9 @@
         :onChange (fn [option]
                     (rf/dispatch [:metcalf.common.components4/value-changed config (ui-controls/obj-path-value option ["value"])]))}])))
 
-(defn yes-no-radios-settings [_]
+(defn yes-no-radios-settings
+  "Settings for yes-no-radios component"
+  [_]
   {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks []
    ;::low-code4/schema {:type "boolean"}

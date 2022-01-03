@@ -134,12 +134,13 @@
    and buttons to save or cancel out.
 
    The props allow control of
-   * title string
-   * template-id which identifies the template used to render body
+   * form-id and data-path identify the list.
+   * title (string) to display.
+   * template-id (keyword) which identifies the template used to render body.
 
    The edit dialog has specific behaviour
-   * Can save when the selected block has no errors
-   * Can cancel & close at any time.  Changes made in form are not kept
+   * Can save when the selected list item has no errors.
+   * Can clear & close at any time.  Changes made in form are not kept.
 
    The template is rendered with ?form-id and ?data-path variables for the selected item.
   "

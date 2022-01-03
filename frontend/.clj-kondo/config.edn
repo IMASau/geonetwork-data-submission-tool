@@ -1,4 +1,5 @@
-{:linters {:re-frame/keyword {:level :warning}}
+{:linters {:re-frame/keyword {:level :warning}
+           :missing-docstring {:level :warning}}
  :hooks   {:analyze-call {re-frame.core/dispatch     hooks.re-frame/use-qualified-keyword
                           re-frame.core/subscribe    hooks.re-frame/use-qualified-keyword
                           re-frame.core/reg-event-db hooks.re-frame/reg-qualified-keyword

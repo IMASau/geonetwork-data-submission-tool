@@ -199,7 +199,7 @@
 
 (defn upload-attachment
   "POST attachment to server and dispatches response.
-   Uses uploaded filename as name."
+   Uses uploaded filename as name in payload."
   [s {:keys [config doc-uuid file]}]
   (let [url (str "/upload/" doc-uuid "/")
         data {:document doc-uuid

@@ -162,6 +162,7 @@
                       '?data-path item-data-path}})]))
 
 (defn typed-list-edit-dialog-settings
+  "Settings for typed-list-edit-dialog"
   [{:keys [data-path type-path]}]
   {::low-code4/req-ks       [:form-id :data-path :type-path :templates]
    ::low-code4/opt-ks       []
@@ -169,7 +170,21 @@
    ::low-code4/schema-paths [data-path type-path]})
 
 (defn typed-list-edit-dialog
-  "Popup dialog if item is selected.  Use type to decide which template to use."
+  "This component displays an edit dialog for a selected list item with a title,
+   a rendered template, and buttons to save or cancel out.
+
+   The props allow control of
+   * form-id and data-path identify the list.
+   * title (string) to display.
+   * type-path identifies the value used to select the template
+   * templates which maps values to template-id.
+
+   The edit dialog has specific behaviour
+   * Can save when the selected list item has no errors.
+   * Can clear & close at any time.  Changes made in form are not kept.
+
+   The template is rendered with ?form-id and ?data-path variables for the selected item."
+
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         errors? @(rf/subscribe [::has-selected-block-errors? config])
@@ -189,8 +204,7 @@
      (low-code4/render-template
        {:template-id template-id
         :variables   {'?form-id   form-id
-                      '?data-path item-data-path
-                      '?item-type item-type}})]))
+                      '?data-path item-data-path}})]))
 
 (defn item-edit-dialog-settings [_]
   {::low-code4/req-ks [:form-id :data-path :title :template-id]

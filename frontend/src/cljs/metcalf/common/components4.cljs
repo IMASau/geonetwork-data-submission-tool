@@ -521,11 +521,11 @@
       (if added?
         [:button.bp3-button.bp3-intent-primary
          {:disabled disabled
-          :onClick  #(rf/dispatch [::item-edit-with-defaults-click-handler config])}
+          :onClick  #(rf/dispatch [::item-dialog-button-edit-click config])}
          "Edit"]
         [:button.bp3-button.bp3-intent-primary
          {:disabled disabled
-          :onClick  #(rf/dispatch [::item-add-with-defaults-click-handler config])}
+          :onClick  #(rf/dispatch [::item-dialog-button-add-click config])}
          "Add"]))))
 
 (defn item-add-button-settings [_]

@@ -207,11 +207,25 @@
                       '?data-path item-data-path}})]))
 
 (defn item-edit-dialog-settings [_]
+  "Settings for item-edit-dialog"
   {::low-code4/req-ks [:form-id :data-path :title :template-id]
    ::low-code4/opt-ks []})
 
 (defn item-edit-dialog
-  "Popup dialog if item is selected"
+  "This component displays an edit dialog with a title, a rendered template,
+   and buttons to save or cancel out.
+
+   The props allow control of
+   * form-id and data-path identify the block.
+   * title (string) to display.
+   * template-id (keyword) which identifies the template used to render body.
+
+   The edit dialog has specific behaviour
+   * Can save when the selected list item has no errors.
+   * Can clear & close at any time.  Changes made in form are not kept.
+
+   The template is rendered with ?form-id and ?data-path variables for the selected item.
+  "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         errors? @(rf/subscribe [::has-selected-block-errors? config])

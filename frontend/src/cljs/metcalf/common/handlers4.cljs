@@ -71,7 +71,7 @@
         (actions4/set-data-action form-id data-path defaults)
         (actions4/dialog-open-action form-id data-path))))
 
-(defn item-edit-with-defaults-click-handler
+(defn item-edit-click-handler
   [{:keys [db]} [_ props]]
   (let [{:keys [form-id data-path]} props]
     (-> {:db db}

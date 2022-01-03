@@ -4,11 +4,13 @@
             [re-frame.core :as rf]))
 
 (defn navbar
+  "Render navbar based on payload context"
   []
   [views4/navbar
    {:context @(rf/subscribe [:subs/get-context])}])
 
 (defn dashboard
+  "Render dashboard based on app-state."
   []
   [views4/dashboard
    {:dashboard-props                @(rf/subscribe [:app/get-dashboard-props])
@@ -23,6 +25,7 @@
     :document-edit-click            #(aset js/location "href" (:url %))}])
 
 (defn page-edit
+  "Render edit page based on app state"
   []
   [views4/PageViewEdit
    {:page             @(rf/subscribe [:subs/get-page-props])
@@ -37,6 +40,7 @@
     :on-archive-click #(rf/dispatch [:app/handle-page-view-edit-archive-click])}])
 
 (defn page-error
+  "Render page-error based on page props"
   []
   (let [{:keys [text code]} @(rf/subscribe [:subs/get-page-props])]
     [views4/page-error
@@ -44,12 +48,14 @@
       :code code}]))
 
 (defn page-404
+  "Render 404 error based on page props"
   [_]
   (let [{:keys [name]} @(rf/subscribe [:subs/get-page-props])]
     [views4/page-404
      {:name name}]))
 
 (defn app-root
+  "Render app modals and page based on app-state."
   []
   (let [page-name @(rf/subscribe [:subs/get-app-root-page-name])
         modal-props @(rf/subscribe [:subs/get-app-root-modal-props])]

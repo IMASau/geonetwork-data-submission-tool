@@ -59,13 +59,9 @@
    * toolTip is a string or hiccup.  Only displayed if label is set.
 
    Logic can control how the form-group is rendered.  Uses form-id and data-path to access block props.
-   * is-hidden
-   * show-errors
-   * errors are displayed in place of helper text if present and show-errors flag set
-
    * required - show that field is required
    * disabled - styles control to indicate it's disabled
-   * show-errors - show errors if present
+   * show-errors - style control to indicate error and show errors if present
    * errors - errors that may be displayed in place of helper text
    * is-hidden - hide form-group and children entirely
 
@@ -104,13 +100,9 @@
    * toolTip is a string or hiccup
 
    Logic can control how the form-group is rendered.  Uses form-id and data-path to access block props.
-   * is-hidden
-   * show-errors
-   * errors are displayed in place of helper text if present and show-errors flag set
-
    * required - show that field is required
    * disabled - styles control to indicate it's disabled
-   * show-errors - show errors if present
+   * show-errors - style control to indicate error and show errors if present
    * errors - errors that may be displayed in place of helper text
    * is-hidden - hide form-group and children entirely
 

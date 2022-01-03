@@ -115,7 +115,8 @@
         (update-in list-path utils3/vec-remove src-idx)
         (update-in list-path utils3/vec-insert dst-idx item))))
 
-(defonce genkey-counter (atom 10000))
+(defonce ^{:doc "Counter used to ensure generated keys are unique"}
+         genkey-counter (atom 10000))
 
 (defn genkey
   "Generate a unique string.  Helper for resetting stateful components."

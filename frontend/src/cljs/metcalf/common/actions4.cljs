@@ -137,6 +137,7 @@
       s)))
 
 (defn close-modal-action
+  "Close current modal."
   [s]
   (update-in s [:db :modal/stack] pop))
 

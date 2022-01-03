@@ -2,7 +2,7 @@
   (:require [cljs.spec.alpha :as s]
             [clojure.string :as string]
             [interop.cljs-time :as cljs-time]
-            [interop.ui :as ui]
+            [interop.ui-controls :as ui-controls]
             [metcalf.common.blocks4 :as blocks4]
             [metcalf.common.low-code4 :as low-code4]
             [metcalf.common.subs4 :as subs4]
@@ -65,7 +65,7 @@
         label (get config :label label)
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      (into [ui/FormGroup
+      (into [ui-controls/FormGroup
              {:label      label
               :required   required
               :disabled   disabled
@@ -86,7 +86,7 @@
         label (get config :label label)
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      (into [ui/InlineFormGroup
+      (into [ui-controls/InlineFormGroup
              {:label      label
               :required   required
               :disabled   disabled
@@ -106,7 +106,7 @@
         errors? @(rf/subscribe [::has-selected-block-errors? config])
         {:keys [form-id data-path selected title template-id]} props
         item-data-path (conj data-path selected)]
-    [ui/EditDialog
+    [ui-controls/EditDialog
      {:isOpen  (boolean selected)
       :title   title
       :onClose #(rf/dispatch [::list-edit-dialog-close config])
@@ -135,7 +135,7 @@
         value @(rf/subscribe [::get-block-data config])
         item-type (get-in value (into [selected] type-path))
         {:keys [title template-id]} (get templates item-type)]
-    [ui/EditDialog
+    [ui-controls/EditDialog
      {:isOpen  (boolean selected)
       :title   (or title "")
       :onClose #(rf/dispatch [::list-edit-dialog-close config])
@@ -159,7 +159,7 @@
   (let [props @(rf/subscribe [::get-block-props config])
         errors? @(rf/subscribe [::has-selected-block-errors? config])
         {:keys [form-id data-path isOpen title template-id]} props]
-    [ui/EditDialog
+    [ui-controls/EditDialog
      {:isOpen  isOpen
       :title   title
       :onClose #(rf/dispatch [::item-edit-dialog-close config])
@@ -182,7 +182,7 @@
         {:keys [placeholder maxLength value disabled is-hidden show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/InputField
+      [ui-controls/InputField
        {:value       (or value "")                          ; TODO: should be guaranteed by sub
         :placeholder placeholder
         :maxLength   maxLength
@@ -231,7 +231,7 @@
     (when-not is-hidden
       ; TODO: move styling to css
       [:div {:style {:display "flex" :flex-direction "row" :align-items "center"}}
-       [ui/NumericInputField
+       [ui-controls/NumericInputField
         {:value       value
          :placeholder placeholder
          :disabled    disabled
@@ -256,7 +256,7 @@
         {:keys [placeholder rows maxLength value disabled is-hidden show-errors errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/TextareaField
+      [ui-controls/TextareaField
        {:value       (or value "")                          ; TODO: should be guaranteed by sub
         :placeholder placeholder
         :disabled    disabled
@@ -277,7 +277,7 @@
         hasError (when (and show-errors (seq errors)) true)
         ; NOTE: treating label is a special case, if defined in config it overrides logic
         label (get config :label label)]
-    [ui/CheckboxField
+    [ui-controls/CheckboxField
      {:label    label
       :checked  (or value false)                            ; TODO: should be guaranteed by sub?
       :disabled disabled
@@ -306,7 +306,7 @@
         {:keys [minDate maxDate value disabled is-hidden errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/DateField
+      [ui-controls/DateField
        {:value    (cljs-time/value-to-date value)
         :disabled disabled
         :hasError hasError
@@ -422,16 +422,16 @@
         {:keys [placeholder options disabled is-hidden errors show-errors value-path label-path added-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/SimpleSelectField
+      [ui-controls/SimpleSelectField
        {:value       value
         :options     options
         :placeholder placeholder
         :disabled    disabled
-        :getValue    (ui/get-obj-path value-path)
-        :getLabel    (ui/get-obj-path label-path)
-        :getAdded    (when added-path (ui/get-obj-path added-path))
+        :getValue    (ui-controls/get-obj-path value-path)
+        :getLabel    (ui-controls/get-obj-path label-path)
+        :getAdded    (when added-path (ui-controls/get-obj-path added-path))
         :hasError    hasError
-        :onChange    #(rf/dispatch [::option-change config (ui/get-option-data %)])}])))
+        :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defn table-select-option-settings
   [{:keys [label-path value-path added-path columns]}]
@@ -448,19 +448,19 @@
         {:keys [placeholder options disabled is-hidden errors show-errors label-path value-path added-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/TableSelectField
+      [ui-controls/TableSelectField
        {:value       value
         :options     options
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :getLabel    (ui/get-obj-path label-path)
-        :getValue    (ui/get-obj-path value-path)
-        :getAdded    (when added-path (ui/get-obj-path added-path))
+        :getLabel    (ui-controls/get-obj-path label-path)
+        :getValue    (ui-controls/get-obj-path value-path)
+        :getAdded    (when added-path (ui-controls/get-obj-path added-path))
         :columns     (for [{:keys [flex label-path]} columns]
                        {:flex     flex
-                        :getLabel (ui/get-obj-path label-path)})
-        :onChange    #(rf/dispatch [::option-change config (ui/get-option-data %)])}])))
+                        :getLabel (ui-controls/get-obj-path label-path)})
+        :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defn breadcrumb-select-option-settings
   [{:keys [label-path value-path breadcrumb-path added-path]}]
@@ -476,17 +476,17 @@
         {:keys [placeholder options disabled is-hidden errors show-errors label-path value-path breadcrumb-path added-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/BreadcrumbSelectField
+      [ui-controls/BreadcrumbSelectField
        {:value         value
         :options       options
         :placeholder   placeholder
         :disabled      disabled
         :hasError      hasError
-        :getLabel      (ui/get-obj-path label-path)
-        :getValue      (ui/get-obj-path value-path)
-        :getBreadcrumb (ui/get-obj-path breadcrumb-path)
-        :getAdded      (when added-path (ui/get-obj-path added-path))
-        :onChange      #(rf/dispatch [::option-change config (ui/get-option-data %)])}])))
+        :getLabel      (ui-controls/get-obj-path label-path)
+        :getValue      (ui-controls/get-obj-path value-path)
+        :getBreadcrumb (ui-controls/get-obj-path breadcrumb-path)
+        :getAdded      (when added-path (ui-controls/get-obj-path added-path))
+        :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defmulti select-option-settings :kind)
 (defmethod select-option-settings :default [config] (simple-select-option-settings config))
@@ -592,7 +592,7 @@
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [disabled is-hidden button-text]} props]
     (when-not is-hidden
-      [ui/TextAddField
+      [ui-controls/TextAddField
        {:buttonText (r/as-element button-text)
         :disabled   disabled
         :onAddClick #(rf/dispatch [::text-value-add-click-handler config %])}])))
@@ -610,7 +610,7 @@
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [disabled is-hidden button-text columns]} props]
     (when-not is-hidden
-      [ui/RecordAddField
+      [ui-controls/RecordAddField
        {:buttonText (r/as-element button-text)
         :disabled   disabled
         :columns    (for [{:keys [flex placeholder]} columns]
@@ -631,14 +631,14 @@
         {:keys [placeholder value value-path label-path disabled is-hidden errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/AsyncSimpleSelectField
+      [ui-controls/AsyncSimpleSelectField
        {:value       value
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
         :loadOptions (partial utils4/load-options config)
-        :getValue    (ui/get-obj-path value-path)
-        :getLabel    (ui/get-obj-path label-path)
+        :getValue    (ui-controls/get-obj-path value-path)
+        :getLabel    (ui-controls/get-obj-path label-path)
         :onChange    #(rf/dispatch [::value-changed config %])}])))
 
 (defn async-simple-select-option-settings
@@ -655,16 +655,16 @@
         {:keys [placeholder value-path label-path added-path disabled is-hidden errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/AsyncSimpleSelectField
+      [ui-controls/AsyncSimpleSelectField
        {:value       value
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
         :loadOptions (partial utils4/load-options config)
-        :getValue    (ui/get-obj-path value-path)
-        :getLabel    (ui/get-obj-path label-path)
-        :getAdded    (when added-path (ui/get-obj-path added-path))
-        :onChange    #(rf/dispatch [::option-change config (ui/get-option-data %)])}])))
+        :getValue    (ui-controls/get-obj-path value-path)
+        :getLabel    (ui-controls/get-obj-path label-path)
+        :getAdded    (when added-path (ui-controls/get-obj-path added-path))
+        :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defn async-breadcrumb-select-option-settings
   [{:keys [value-path label-path breadcrumb-path]}]
@@ -680,17 +680,17 @@
         {:keys [placeholder disabled is-hidden errors show-errors value-path label-path breadcrumb-path added-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/AsyncBreadcrumbSelectField
+      [ui-controls/AsyncBreadcrumbSelectField
        {:value         value
         :loadOptions   (partial utils4/load-options config)
-        :getValue      (ui/get-obj-path value-path)
-        :getLabel      (ui/get-obj-path label-path)
-        :getAdded      (when added-path (ui/get-obj-path added-path))
-        :getBreadcrumb (ui/get-obj-path breadcrumb-path)
+        :getValue      (ui-controls/get-obj-path value-path)
+        :getLabel      (ui-controls/get-obj-path label-path)
+        :getAdded      (when added-path (ui-controls/get-obj-path added-path))
+        :getBreadcrumb (ui-controls/get-obj-path breadcrumb-path)
         :placeholder   placeholder
         :disabled      disabled
         :hasError      hasError
-        :onChange      #(rf/dispatch [::option-change config (ui/get-option-data %)])}])))
+        :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defn async-table-select-option-settings [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
@@ -704,19 +704,19 @@
         {:keys [placeholder disabled is-hidden errors show-errors value-path label-path added-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/AsyncTableSelectField
+      [ui-controls/AsyncTableSelectField
        {:value       value
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
         :loadOptions (partial utils4/load-options config)
-        :getValue    (ui/get-obj-path value-path)
-        :getLabel    (ui/get-obj-path label-path)
-        :getAdded    (when added-path (ui/get-obj-path added-path))
+        :getValue    (ui-controls/get-obj-path value-path)
+        :getLabel    (ui-controls/get-obj-path label-path)
+        :getAdded    (when added-path (ui-controls/get-obj-path added-path))
         :columns     (for [{:keys [flex label-path]} columns]
                        {:flex     flex
-                        :getLabel (ui/get-obj-path label-path)})
-        :onChange    #(rf/dispatch [::option-change config (ui/get-option-data %)])}])))
+                        :getLabel (ui-controls/get-obj-path label-path)})
+        :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defmulti async-select-option-settings :kind)
 (defmethod async-select-option-settings :default [config] (async-simple-select-option-settings config))
@@ -739,12 +739,12 @@
         hasError (when (and show-errors (seq errors)) true)
         value (or value "")]
     (when-not is-hidden
-      [ui/SelectValueField
+      [ui-controls/SelectValueField
        {:value    value
         :disabled disabled
         :options  options
-        :getLabel (ui/get-obj-path label-path)
-        :getValue (ui/get-obj-path value-path)
+        :getLabel (ui-controls/get-obj-path label-path)
+        :getValue (ui-controls/get-obj-path value-path)
         :hasError hasError
         :onChange #(rf/dispatch [::value-changed config %])}])))
 
@@ -764,7 +764,7 @@
         {:keys [label value disabled is-hidden errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/YesNoRadioGroup
+      [ui-controls/YesNoRadioGroup
        {:value    value
         :label    label
         :disabled disabled
@@ -784,13 +784,13 @@
         items @(rf/subscribe [::get-block-data config])
         {:keys [key disabled is-hidden label-path value-path added-path]} props]
     (when-not is-hidden
-      [ui/SimpleSelectionList
+      [ui-controls/SimpleSelectionList
        {:key           key
         :items         (or items [])
         :disabled      disabled
-        :getLabel      (ui/get-obj-path label-path)
-        :getValue      (ui/get-obj-path value-path)
-        :getAdded      (when added-path (ui/get-obj-path added-path))
+        :getLabel      (ui-controls/get-obj-path label-path)
+        :getValue      (ui-controls/get-obj-path value-path)
+        :getAdded      (when added-path (ui-controls/get-obj-path added-path))
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
@@ -808,12 +808,12 @@
         {:keys [key disabled is-hidden]} props
         items (map (fn [label] {:value (gensym) :label label}) labels)]
     (when-not is-hidden
-      [ui/SimpleSelectionList
+      [ui-controls/SimpleSelectionList
        {:key           key
         :items         items
         :disabled      disabled
-        :getLabel      (ui/get-obj-path ["label"])
-        :getValue      (ui/get-obj-path ["value"])
+        :getLabel      (ui-controls/get-obj-path ["label"])
+        :getValue      (ui-controls/get-obj-path ["value"])
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::value-selection-list-reorder props src-idx dst-idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::value-selection-list-remove-click props idx]))}])))
 
@@ -830,19 +830,19 @@
         items @(rf/subscribe [::get-block-data config])
         {:keys [form-id data-path key disabled is-hidden template-id value-path added-path]} props]
     (when-not is-hidden
-      [ui/SelectionList
+      [ui-controls/SelectionList
        {:key           key
         :items         (or items [])
         :disabled      disabled
         :renderItem    (fn [args]
-                         (let [index (ui/get-obj-path args ["index"])]
+                         (let [index (ui-controls/get-obj-path args ["index"])]
                            (r/as-element
                              (low-code4/render-template
                                {:template-id template-id
                                 :variables   {'?form-id   form-id
                                               '?data-path (conj data-path index)}}))))
-        :getValue      (ui/get-obj-path value-path)
-        :getAdded      (when added-path (ui/get-obj-path added-path))
+        :getValue      (ui-controls/get-obj-path value-path)
+        :getAdded      (when added-path (ui-controls/get-obj-path added-path))
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
@@ -880,14 +880,14 @@
         items @(rf/subscribe [::get-block-data config])
         {:keys [key disabled is-hidden label-path value-path added-path breadcrumb-path]} props]
     (when-not is-hidden
-      [ui/BreadcrumbSelectionList
+      [ui-controls/BreadcrumbSelectionList
        {:key           key
         :items         (or items [])
         :disabled      disabled
-        :getBreadcrumb (ui/get-obj-path breadcrumb-path)
-        :getLabel      (ui/get-obj-path label-path)
-        :getValue      (ui/get-obj-path value-path)
-        :getAdded      (when added-path (ui/get-obj-path added-path))
+        :getBreadcrumb (ui-controls/get-obj-path breadcrumb-path)
+        :getLabel      (ui-controls/get-obj-path label-path)
+        :getValue      (ui-controls/get-obj-path value-path)
+        :getAdded      (when added-path (ui-controls/get-obj-path added-path))
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
@@ -905,16 +905,16 @@
         {:keys [key disabled is-hidden columns value-path added-path]} props
         items @(rf/subscribe [::get-block-data config])]
     (when-not is-hidden
-      [ui/TableSelectionList
+      [ui-controls/TableSelectionList
        {:key           key
         :items         (or items [])
         :disabled      disabled
         :columns       (for [{:keys [flex label-path columnHeader]} columns]
                          {:flex         flex
-                          :getLabel     (ui/get-obj-path label-path)
+                          :getLabel     (ui-controls/get-obj-path label-path)
                           :columnHeader (or columnHeader "None")})
-        :getValue      (ui/get-obj-path value-path)
-        :getAdded      (when added-path (ui/get-obj-path added-path))
+        :getValue      (ui-controls/get-obj-path value-path)
+        :getAdded      (when added-path (ui-controls/get-obj-path added-path))
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}])))
@@ -930,15 +930,15 @@
         {:keys [placeholder options disabled is-hidden errors show-errors value-path label-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/SimpleSelectField
+      [ui-controls/SimpleSelectField
        {:value       nil
         :options     options
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :getLabel    (ui/get-obj-path label-path)
-        :getValue    (ui/get-obj-path value-path)
-        :onChange    #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
+        :getLabel    (ui-controls/get-obj-path label-path)
+        :getValue    (ui-controls/get-obj-path value-path)
+        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defn breadcrumb-list-option-picker-settings [_]
   {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path :breadcrumb-path]
@@ -951,16 +951,16 @@
         {:keys [placeholder options disabled is-hidden errors show-errors value-path label-path breadcrumb-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/BreadcrumbSelectField
+      [ui-controls/BreadcrumbSelectField
        {:value         nil
         :options       options
         :placeholder   placeholder
         :disabled      disabled
         :hasError      hasError
-        :getValue      (ui/get-obj-path value-path)
-        :getLabel      (ui/get-obj-path label-path)
-        :getBreadcrumb (ui/get-obj-path breadcrumb-path)
-        :onChange      #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
+        :getValue      (ui-controls/get-obj-path value-path)
+        :getLabel      (ui-controls/get-obj-path label-path)
+        :getBreadcrumb (ui-controls/get-obj-path breadcrumb-path)
+        :onChange      #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defn table-list-option-picker-settings [_]
   {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path :columns]
@@ -973,18 +973,18 @@
         {:keys [placeholder options disabled is-hidden errors show-errors value-path label-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/TableSelectField
+      [ui-controls/TableSelectField
        {:value       nil
         :options     options
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :getLabel    (ui/get-obj-path label-path)
-        :getValue    (ui/get-obj-path value-path)
+        :getLabel    (ui-controls/get-obj-path label-path)
+        :getValue    (ui-controls/get-obj-path value-path)
         :columns     (for [{:keys [flex label-path]} columns]
                        {:flex     flex
-                        :getLabel (ui/get-obj-path label-path)})
-        :onChange    #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
+                        :getLabel (ui-controls/get-obj-path label-path)})
+        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defn async-simple-list-option-picker-settings [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path]
@@ -997,15 +997,15 @@
         {:keys [placeholder is-hidden disabled errors show-errors value-path label-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/AsyncSimpleSelectField
+      [ui-controls/AsyncSimpleSelectField
        {:value       nil
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :getValue    (ui/get-obj-path value-path)
-        :getLabel    (ui/get-obj-path label-path)
+        :getValue    (ui-controls/get-obj-path value-path)
+        :getLabel    (ui-controls/get-obj-path label-path)
         :loadOptions (partial utils4/load-options config)
-        :onChange    #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
+        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defn async-simple-item-option-picker-settings [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path]
@@ -1019,15 +1019,15 @@
         {:keys [placeholder disabled is-hidden errors show-errors value-path label-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/AsyncSimpleSelectField
+      [ui-controls/AsyncSimpleSelectField
        {:value       nil
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :getValue    (ui/get-obj-path value-path)
-        :getLabel    (ui/get-obj-path label-path)
+        :getValue    (ui-controls/get-obj-path value-path)
+        :getLabel    (ui-controls/get-obj-path label-path)
         :loadOptions (partial utils4/load-options config)
-        :onChange    #(rf/dispatch [::item-option-picker-change config (ui/get-option-data %)])}])))
+        :onChange    #(rf/dispatch [::item-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defn async-breadcrumb-list-option-picker-settings [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
@@ -1040,16 +1040,16 @@
         {:keys [placeholder disabled is-hidden errors show-errors value-path label-path breadcrumb-path]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/AsyncBreadcrumbSelectField
+      [ui-controls/AsyncBreadcrumbSelectField
        {:value         nil
         :placeholder   placeholder
         :disabled      disabled
         :hasError      hasError
-        :getValue      (ui/get-obj-path value-path)
-        :getLabel      (ui/get-obj-path label-path)
-        :getBreadcrumb (ui/get-obj-path breadcrumb-path)
+        :getValue      (ui-controls/get-obj-path value-path)
+        :getLabel      (ui-controls/get-obj-path label-path)
+        :getBreadcrumb (ui-controls/get-obj-path breadcrumb-path)
         :loadOptions   (partial utils4/load-options config)
-        :onChange      #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
+        :onChange      #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defn async-table-list-option-picker-settings [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
@@ -1062,18 +1062,18 @@
         {:keys [placeholder disabled is-hidden errors show-errors value-path label-path columns]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/AsyncTableSelectField
+      [ui-controls/AsyncTableSelectField
        {:value       nil
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :getLabel    (ui/get-obj-path label-path)
-        :getValue    (ui/get-obj-path value-path)
+        :getLabel    (ui-controls/get-obj-path label-path)
+        :getValue    (ui-controls/get-obj-path value-path)
         :columns     (for [{:keys [flex label-path]} columns]
                        {:flex     flex
-                        :getLabel (ui/get-obj-path label-path)})
+                        :getLabel (ui-controls/get-obj-path label-path)})
         :loadOptions (partial utils4/load-options config)
-        :onChange    #(rf/dispatch [::list-option-picker-change config (ui/get-option-data %)])}])))
+        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defmulti async-list-picker-settings :kind)
 (defmethod async-list-picker-settings :default [config] (async-simple-list-option-picker-settings config))
@@ -1106,7 +1106,7 @@
   [config & children]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [label required defaultOpen]} props]
-    (into [ui/ExpandingControl
+    (into [ui-controls/ExpandingControl
            {:label       label
             :required    required
             :defaultOpen defaultOpen}]
@@ -1149,14 +1149,14 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         data @(rf/subscribe [::get-block-data config])
-        elements (ui/boxes->elements data)
+        elements (ui-controls/boxes->elements data)
         {:keys [disabled is-hidden key]} props]
     (when-not is-hidden
-      [ui/BoxMap
-       {:elements (filter ui/valid-element? elements)
+      [ui-controls/BoxMap
+       {:elements (filter ui-controls/valid-element? elements)
         :disabled (not disabled)
         :tickId   key
-        :onChange #(rf/dispatch [::boxes-changed config (ui/get-geojson-data %)])}])))
+        :onChange #(rf/dispatch [::boxes-changed config (ui-controls/get-geojson-data %)])}])))
 
 (defn coordinates-modal-field-settings [_]
   {::low-code4/req-ks [:form-id :data-path]
@@ -1258,7 +1258,7 @@
 (defn create-document-modal
   "Modal form for creating new documents"
   [_]
-  [ui/EditDialog
+  [ui-controls/EditDialog
    {:isOpen  true
     :title   "Create a new record"
     :onClose #(rf/dispatch [::create-document-modal-close-click])
@@ -1271,7 +1271,7 @@
 
 (defn contributors-modal
   [{:keys [uuid]}]
-  [ui/ModalDialog
+  [ui-controls/ModalDialog
    {:isOpen  true
     :title   "Sharing"
     :onClose #(rf/dispatch [::create-document-modal-close-click])}
@@ -1293,17 +1293,17 @@
         {:keys [disabled is-hidden value-path placeholder]} props]
     (when-not is-hidden
       [:div
-       [ui/SimpleSelectionList
+       [ui-controls/SimpleSelectionList
         {:key           key
          :items         (or items [])
          :disabled      disabled
-         :getLabel      (ui/get-obj-path "name")
-         :getValue      (ui/get-obj-path value-path)
+         :getLabel      (ui-controls/get-obj-path "name")
+         :getValue      (ui-controls/get-obj-path value-path)
          :getAdded      (constantly true)
          :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
          :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
          :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]
-       [ui/Dropzone
+       [ui-controls/Dropzone
         {:disabled    disabled
          :placeholder (r/as-element placeholder)
          :onDrop      #(rf/dispatch [::upload-files-drop config (js->clj % :keywordize-keys true)])}]])))
@@ -1321,16 +1321,16 @@
         {:keys [value inline disabled is-hidden errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/RadioGroupSimple
+      [ui-controls/RadioGroupSimple
        {:value    value
         :disabled disabled
         :inline   inline
         :options  [{:desc "Yes" :value true} {:desc "No" :value false}]
-        :getLabel (ui/get-obj-path ["desc"])
-        :getValue (ui/get-obj-path ["value"])
+        :getLabel (ui-controls/get-obj-path ["desc"])
+        :getValue (ui-controls/get-obj-path ["value"])
         :hasError hasError
         :onChange (fn [option]
-                    (rf/dispatch [:metcalf.common.components4/value-changed config (ui/get-obj-path option ["value"])]))}])))
+                    (rf/dispatch [:metcalf.common.components4/value-changed config (ui-controls/get-obj-path option ["value"])]))}])))
 
 (defn yes-no-radios-settings [_]
   {::low-code4/req-ks [:form-id :data-path]
@@ -1346,16 +1346,16 @@
         hasError (when (and show-errors (seq errors)) true)
         ]
     (when-not is-hidden
-      [ui/RadioGroup
+      [ui-controls/RadioGroup
        {:value    data
         :disabled disabled
         :inline   true
         :options  [{:desc "Yes" :value true} {:desc "No" :value false}]
-        :getLabel (ui/get-obj-path ["desc"])
-        :getValue (ui/get-obj-path ["value"])
+        :getLabel (ui-controls/get-obj-path ["desc"])
+        :getValue (ui-controls/get-obj-path ["value"])
         :hasError hasError
         :onChange (fn [option]
-                    (rf/dispatch [:metcalf.common.components4/option-change config (ui/get-obj-path option ["value"])]))}])))
+                    (rf/dispatch [:metcalf.common.components4/option-change config (ui-controls/get-obj-path option ["value"])]))}])))
 
 
 (defn radio-group-settings
@@ -1372,15 +1372,15 @@
         {:keys [inline options label-path value-path disabled is-hidden errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
-      [ui/RadioGroup
+      [ui-controls/RadioGroup
        {:value    data
         :disabled disabled
         :options  options
         :inline   inline
-        :getLabel (ui/get-obj-path label-path)
-        :getValue (ui/get-obj-path value-path)
+        :getLabel (ui-controls/get-obj-path label-path)
+        :getValue (ui-controls/get-obj-path value-path)
         :hasError hasError
-        :onChange #(rf/dispatch [:metcalf.common.components4/option-change config (ui/get-option-data %)])}])))
+        :onChange #(rf/dispatch [:metcalf.common.components4/option-change config (ui-controls/get-option-data %)])}])))
 
 (defn radio-group-simple-settings
   [{:keys [value-path label-path]}]
@@ -1396,12 +1396,12 @@
         hasError (when (and show-errors (seq errors)) true)
         value (or value "")]
     (when-not is-hidden
-      [ui/RadioGroupSimple
+      [ui-controls/RadioGroupSimple
        {:value    value
         :disabled disabled
         :options  options
         :inline   inline
-        :getLabel (ui/get-obj-path label-path)
-        :getValue (ui/get-obj-path value-path)
+        :getLabel (ui-controls/get-obj-path label-path)
+        :getValue (ui-controls/get-obj-path value-path)
         :hasError hasError
         :onChange #(rf/dispatch [:metcalf.common.components4/value-changed config %])}])))

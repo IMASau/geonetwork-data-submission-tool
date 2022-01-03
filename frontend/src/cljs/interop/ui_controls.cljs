@@ -1,4 +1,4 @@
-(ns interop.ui
+(ns interop.ui-controls
   (:require ["/ui/components/BoxMap/BoxMap" :as BoxMap]
             ["/ui/components/CheckboxField/CheckboxField" :as CheckboxField]
             ["/ui/components/DateField/DateField" :as DateField]

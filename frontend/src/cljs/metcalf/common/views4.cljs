@@ -2,7 +2,7 @@
   (:require [clojure.edn :as edn]
             [clojure.string :as string]
             [interop.blueprint :as bp3]
-            [interop.ui :as ui]
+            [interop.ui-controls :as ui-controls]
             [metcalf.common.low-code4 :as low-code]
             [reagent.core :as r]
             [interop.cljs-time :as cljs-time]))
@@ -11,7 +11,7 @@
 
 (defn m4-modal-dialog-table-modal-edit-form
   [{:keys [form path title on-delete-click on-close-click on-save-click]}]
-  [ui/Modal
+  [ui-controls/Modal
    {:isOpen       true
     :ok-copy      "Done"
     :modal-header (str " Edit " title)
@@ -28,7 +28,7 @@
 
 (defn m4-modal-dialog-table-modal-add-form
   [{:keys [form path title on-close-click on-save-click]}]
-  [ui/Modal
+  [ui-controls/Modal
    {:isOpen       true
     :ok-copy      "Done"
     :modal-header (str "Add " title)
@@ -39,7 +39,7 @@
 
 (defn modal-dialog-confirm
   [{:keys [message title on-dismiss on-cancel on-save]}]
-  [ui/Modal
+  [ui-controls/Modal
    {:isOpen       true
     :modal-header title
     :dialog-class "modal-sm"
@@ -50,7 +50,7 @@
 
 (defn modal-dialog-alert
   [{:keys [message on-dismiss on-save]}]
-  [ui/Modal
+  [ui-controls/Modal
    {:isOpen       true
     :modal-header "Alert"
     :dialog-class "modal-sm"
@@ -296,17 +296,17 @@
   [{:keys [emails onRemoveClick onAddClick]}]
   (let [items (map (fn [label] {:value (gensym) :label label}) emails)]
     [:div
-     [ui/FormGroup
+     [ui-controls/FormGroup
       {:label   "Collaborators"
        :toolTip "New users will need to create an account before you can add them as a collaborator"}
-      [ui/SimpleSelectionList
+      [ui-controls/SimpleSelectionList
        {:key           key
         :items         items
         :disabled      false
-        :getLabel      (ui/get-obj-path ["label"])
-        :getValue      (ui/get-obj-path ["value"])
+        :getLabel      (ui-controls/get-obj-path ["label"])
+        :getValue      (ui-controls/get-obj-path ["value"])
         :onRemoveClick onRemoveClick}]
-      [ui/TextAddField
+      [ui-controls/TextAddField
        {:buttonText  "Add"
         :disabled    false
         :placeholder "Email address"

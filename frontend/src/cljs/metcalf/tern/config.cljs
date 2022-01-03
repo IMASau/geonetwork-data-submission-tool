@@ -1,5 +1,5 @@
 (ns ^:dev/always metcalf.tern.config
-  (:require [interop.ui :as ui]
+  (:require [interop.ui-controls :as ui-controls]
             [metcalf.common.components4 :as components4]
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.handlers3 :as handlers3]
@@ -93,7 +93,7 @@
 (rf/reg-fx :app/get-json-fx (utils4/promise-fx utils4/get-json))
 (rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
 (rf/reg-fx :app/post-multipart-form (utils4/promise-fx utils4/post-multipart-form))
-(rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
+(rf/reg-fx :ui/setup-blueprint ui-controls/setup-blueprint)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)

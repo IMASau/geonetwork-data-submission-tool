@@ -6,12 +6,14 @@
             [metcalf.common.utils4 :as utils4]))
 
 (defn load-dashboard-document-data
+  "Massage document-data in payload and add to app-db."
   [s payload]
   (let [documents (get-in payload [:context :documents])
         data (zipmap (map :uuid documents) documents)]
     (assoc-in s [:db :app/document-data] data)))
 
 (defn save-snapshot-action
+  "Save a snapshot of form state.  Can be used to restore state when user cancels out of modal."
   [s form-id]
   (let [snapshots-path (utils4/as-path [:db form-id :snapshots])
         state-path (utils4/as-path [:db form-id :state])
@@ -19,6 +21,7 @@
     (update-in s snapshots-path conj state-data)))
 
 (defn discard-snapshot-action
+  "Discard the latest snapshot when no longer needed.  e.g. modal is closed without cancelling"
   [s form-id]
   (let [snapshots-path (utils4/as-path [:db form-id :snapshots])]
     (cond-> s
@@ -26,6 +29,7 @@
             (update-in snapshots-path pop))))
 
 (defn restore-snapshot-action
+  "Restore form state from the latest snapshot.  e.g. user makes changes in modal then cancels"
   [s form-id]
   (let [snapshots-path (utils4/as-path [:db form-id :snapshots])
         state-path (utils4/as-path [:db form-id :state])
@@ -36,12 +40,13 @@
                 (discard-snapshot-action form-id)))))
 
 (defn unselect-list-item-action
+  "Clears the :selected prop on an array block.  Used to dismiss modals."
   [s form-id data-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (update-in s (conj block-path :props) dissoc :selected)))
 
 (defn select-user-defined-list-item-action2
-  "Select item, but only if it's user defined"
+  "Set the :selected prop on an array block.  Does nothing if idx is not a user defined item."
   [s form-id data-path idx added-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
         block-data (get-in s block-path)
@@ -51,6 +56,7 @@
             (assoc-in (conj block-path :props :selected) idx))))
 
 (defn select-last-item-action
+  "Set the :selected prop to point at the last item in an array block.  Does nothing if list is empty."
   [s form-id data-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
         last-idx (dec (count (get-in s (conj block-path :content))))]
@@ -59,6 +65,7 @@
             (assoc-in (conj block-path :props :selected) last-idx))))
 
 (defn del-item-action
+  "Remove the item at idx from an array block."
   [s form-id data-path idx]
   (let [list-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :content])]
     (update-in s list-path utils3/vec-remove idx)))
@@ -119,7 +126,9 @@
 
 (def genkey-counter (atom 10000))
 
-(defn genkey []
+(defn genkey
+  "Generate a unique string.  Helper for resetting stateful components."
+  []
   (str ::genkey (swap! genkey-counter inc)))
 
 (defn genkey-action

@@ -95,10 +95,9 @@
         ;; TODO: split out?
         (assoc-in (conj db-path :props :show-errors) true))))
 
-; TODO: Split out "clear state"
 ; TODO: Split out "show errors"
 (defn set-data-action
-  "Replace block state at data-path based on data."
+  "Replace block state at data-path based on data.  Any additional values and props below data-path will be lost."
   [s form-id data-path data]
   (let [schema (get-in s (flatten [:db form-id :schema (schema4/schema-path data-path)]))
         state (blocks4/as-blocks {:schema schema :data data})

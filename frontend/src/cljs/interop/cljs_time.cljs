@@ -6,8 +6,8 @@
             [clojure.string :as string]))
 
 
-(def value-formatter (f/formatter "yyyy-MM-dd"))
-(def string-formatter (f/formatter "dd-MM-yyyy"))
+(def date-value-formatter (f/formatter "yyyy-MM-dd"))
+(def date-string-formatter (f/formatter "dd-MM-yyyy"))
 
 
 (defn date-to-value
@@ -16,7 +16,7 @@
   (s/assert (s/nilable inst?) date)
   (some->> (c/from-date date)
            cljs-time.coerce/to-date-time
-           (f/unparse value-formatter)))
+           (f/unparse date-value-formatter)))
 
 (comment (date-to-value nil)
          (date-to-value (js/Date.))
@@ -28,11 +28,19 @@
   [str]
   (s/assert (s/nilable string?) str)
   (when-not (string/blank? str)
-    (c/to-date (f/parse value-formatter str))))
+    (c/to-date (f/parse date-value-formatter str))))
 
 (comment (value-to-date nil)
          (value-to-date "2012-12-12")
          (value-to-date 123))
+
+
+(defn value-to-datetime
+  "Parse json string value to js date.  Returns nil for blank strings."
+  [str]
+  (s/assert (s/nilable string?) str)
+  (when-not (string/blank? str)
+    (js/Date. str)))
 
 
 
@@ -42,7 +50,7 @@
   (s/assert (s/nilable inst?) date)
   (some->> (c/from-date date)
            cljs-time.coerce/to-date-time
-           (f/unparse string-formatter)))
+           (f/unparse date-string-formatter)))
 
 (comment (humanize-date nil)
          (humanize-date (value-to-date "1911-02-01"))

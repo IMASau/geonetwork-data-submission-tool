@@ -40,13 +40,13 @@
                 (discard-snapshot-action form-id)))))
 
 (defn unselect-list-item-action
-  "Clears the :selected prop on an array block.  Used to dismiss modals."
+  "Clears the :list-item-selected-idx prop on an array block.  Used to dismiss modals."
   [s form-id data-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (update-in s (conj block-path :props) dissoc :list-item-selected-idx)))
 
 (defn select-user-defined-list-item-action2
-  "Set the :selected prop on an array block.  Does nothing if idx is not a user defined item."
+  "Set the :list-item-selected-idx prop on an array block.  Does nothing if idx is not a user defined item."
   [s form-id data-path idx added-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
         block-data (get-in s block-path)
@@ -56,7 +56,7 @@
             (assoc-in (conj block-path :props :list-item-selected-idx) idx))))
 
 (defn select-last-item-action
-  "Set the :selected prop to point at the last item in an array block.  Does nothing if list is empty."
+  "Set the :list-item-selected-idx prop to point at the last item in an array block.  Does nothing if list is empty."
   [s form-id data-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
         last-idx (dec (count (get-in s (conj block-path :content))))]

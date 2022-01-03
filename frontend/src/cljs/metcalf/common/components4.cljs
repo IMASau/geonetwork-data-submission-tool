@@ -123,12 +123,26 @@
               :toolTip    (r/as-element toolTip)}]
             children))))
 
-(defn list-edit-dialog-settings [_]
+(defn list-edit-dialog-settings
+  "Settings for list-edit-dialog"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :title :template-id]
    ::low-code4/opt-ks []})
 
 (defn list-edit-dialog
-  "Popup dialog if item is selected"
+  "This component displays an edit dialog for a selected list item with a title, a rendered template for the item,
+   and buttons to save or cancel out.
+
+   The props allow control of
+   * title string
+   * template-id which identifies the template used to render body
+
+   The edit dialog has specific behaviour
+   * Can save when the selected block has no errors
+   * Can cancel & close at any time.  Changes made in form are not kept
+
+   The template is rendered with ?form-id and ?data-path variables for the selected item.
+  "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         errors? @(rf/subscribe [::has-selected-block-errors? config])

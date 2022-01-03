@@ -36,7 +36,7 @@
 
 
 (defn value-to-datetime
-  "Parse json string value to js date.  Returns nil for blank strings."
+  "Parse json string value to js datetime.  Returns nil for blank strings."
   [str]
   (s/assert (s/nilable string?) str)
   (when-not (string/blank? str)

@@ -1,7 +1,7 @@
 (ns metcalf.common.components4
   (:require [cljs.spec.alpha :as s]
             [clojure.string :as string]
-            [interop.date :as date]
+            [interop.cljs-time :as cljs-time]
             [interop.ui :as ui]
             [metcalf.common.blocks4 :as blocks4]
             [metcalf.common.low-code4 :as low-code4]
@@ -307,12 +307,12 @@
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
       [ui/DateField
-       {:value    (date/from-value value)
+       {:value    (cljs-time/value-to-date value)
         :disabled disabled
         :hasError hasError
-        :minDate  (date/from-value minDate)
-        :maxDate  (date/from-value maxDate)
-        :onChange #(rf/dispatch [::value-changed config (date/to-value %)])}])))
+        :minDate  (cljs-time/value-to-date minDate)
+        :maxDate  (cljs-time/value-to-date maxDate)
+        :onChange #(rf/dispatch [::value-changed config (cljs-time/date-to-value %)])}])))
 
 (defn date-field-with-label
   [config]

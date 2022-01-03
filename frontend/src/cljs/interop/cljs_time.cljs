@@ -1,4 +1,4 @@
-(ns interop.date
+(ns interop.cljs-time
   (:require [cljs-time.coerce :as c]
             [cljs-time.format :as f]
             [cljs-time.core :as cljs-time]
@@ -10,46 +10,47 @@
 (def string-formatter (f/formatter "dd-MM-yyyy"))
 
 
-(defn to-value
-  "Convert date into a json string value.  Return nil if no date provided."
+(defn date-to-value
+  "Convert js date into a json string value.  Return nil if no date provided."
   [date]
   (s/assert (s/nilable inst?) date)
   (some->> (c/from-date date)
            cljs-time.coerce/to-date-time
            (f/unparse value-formatter)))
 
-(comment (to-value nil)
-         (to-value (js/Date.))
-         (to-value "2012-12-12"))
+(comment (date-to-value nil)
+         (date-to-value (js/Date.))
+         (date-to-value "2012-12-12"))
 
 
-(defn from-value
-  "Parse json string value to date.  Returns nil for blank strings."
+(defn value-to-date
+  "Parse json string value to js date.  Returns nil for blank strings."
   [str]
   (s/assert (s/nilable string?) str)
   (when-not (string/blank? str)
     (c/to-date (f/parse value-formatter str))))
 
-(comment (from-value nil)
-         (from-value "2012-12-12")
-         (from-value 123))
+(comment (value-to-date nil)
+         (value-to-date "2012-12-12")
+         (value-to-date 123))
 
 
 
-(defn to-string
-  "Print date in standard format for humans.  Returns nil if no date provided."
+(defn humanize-date
+  "Return string for date in standard format for humans.  Returns nil if no date provided."
   [date]
   (s/assert (s/nilable inst?) date)
   (some->> (c/from-date date)
            cljs-time.coerce/to-date-time
            (f/unparse string-formatter)))
 
-(comment (to-string nil)
-         (to-string (from-value "1911-02-01"))
-         (to-string 123))
+(comment (humanize-date nil)
+         (humanize-date (value-to-date "1911-02-01"))
+         (humanize-date 123))
 
 
 (defn humanize-interval
+  "Returns a short readable string describing the length of the interval.  Based on `moment.fromNow()`."
   [i]
   (let [total-days (cljs-time/in-days i)
         total-hours (cljs-time/in-hours i)
@@ -80,8 +81,11 @@
                               (cljs-time/interval (cljs-time/minus now period) now))))
 
 (defn from-now
-  [dt]
-  (str (humanize-interval (cljs-time/interval dt (cljs-time/now))) " ago"))
+  "Returns a short readable string describing how long ago `d` was.  Based on `moment.fromNow()`."
+  [d]
+  (let [start (c/from-date d)
+        end (cljs-time/now)]
+    (str (humanize-interval (cljs-time/interval start end)) " ago")))
 
-(comment (from-now (c/from-date (js/Date. 2022 0 3)))
-         (from-now (c/from-date (js/Date. "2022-01-03T11:11:11"))))
+(comment (from-now (js/Date. 2022 0 3))
+         (from-now (js/Date. "2022-01-03T11:11:11")))

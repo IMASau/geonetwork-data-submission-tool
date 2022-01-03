@@ -1,7 +1,7 @@
 (ns metcalf.common.rules4
   (:require [cljs.spec.alpha :as s]
             [clojure.string :as string]
-            [interop.date :as date]
+            [interop.cljs-time :as cljs-time]
             [metcalf.common.blocks4 :as blocks4]))
 
 (def ^:dynamic rule-registry {})
@@ -110,14 +110,14 @@
                            (not (string/blank? d1))         ; FIXME: payload includes "" instead of null
                            (not= r (sort r)))]
     (cond-> block
-      out-of-order?
-      (update-in [:content field1 :props :errors] conj
-                 (str "Must be after " (date/to-string (date/from-value d0)))))))
+            out-of-order?
+            (update-in [:content field1 :props :errors] conj
+                       (str "Must be after " (cljs-time/humanize-date (cljs-time/value-to-date d0)))))))
 
 (defn date-before-today
   "Date must be historic, ie before current date"
   [date-block]
-  (if-let [value (date/from-value (blocks4/as-data date-block))]
+  (if-let [value (cljs-time/value-to-date (blocks4/as-data date-block))]
     (-> date-block
         (cond-> (> value (js/Date.))
                 (update-in [:props :errors] conj "Date must be before today")))

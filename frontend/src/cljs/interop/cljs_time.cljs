@@ -81,7 +81,7 @@
       (>= total-minutes 45) "an hour"
       (>= total-seconds 90) (str ceil-minutes " minutes")   ;2 minutes ... 44 minutes
       (>= total-seconds 44) "a minute"
-      :default "a few seconds")))
+      :else "a few seconds")))
 
 
 (comment (humanize-interval (let [now (cljs-time/now)

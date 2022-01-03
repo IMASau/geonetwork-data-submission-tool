@@ -60,7 +60,7 @@
         (actions4/add-item-action form-id data-path value-path item-data)
         (actions4/select-last-item-action form-id data-path))))
 
-(defn item-add-with-defaults-click-handler2
+(defn item-add-with-defaults-click-handler
   [{:keys [db]} [_ props]]
   (let [{:keys [form-id data-path value-path added-path]} props
         defaults (-> {}

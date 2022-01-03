@@ -55,8 +55,12 @@
 (s/def ::obj-path (s/coll-of string? :min-count 1))
 
 (defn get-obj-path
+  "Helper for extracting data from a js object using getValueByKeys.
+   Unary form returns a getter fn.
+   Binary form returns value at path in object."
   ([path] #(get-obj-path % path))
   ([o path]
+   (s/assert vector? path)
    (let [path (if (string? path) [path] path)]
      (apply gobj/getValueByKeys o path))))
 

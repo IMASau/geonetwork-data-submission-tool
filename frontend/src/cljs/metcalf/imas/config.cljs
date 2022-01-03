@@ -23,7 +23,7 @@
 (rf/reg-event-fx ::components4/create-document-modal-clear-click handlers4/create-document-modal-clear-click)
 (rf/reg-event-fx ::components4/create-document-modal-close-click handlers4/create-document-modal-close-click)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
-(rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler)
+(rf/reg-event-fx ::components4/item-add-button-click handlers4/item-add-with-defaults-click-handler)
 (rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler)
 (rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/item-dialog-button-edit-click handlers4/item-edit-click-handler)

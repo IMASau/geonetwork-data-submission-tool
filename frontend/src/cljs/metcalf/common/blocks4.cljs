@@ -15,16 +15,13 @@
   (s/keys :opt-un [::type ::props ::content]))
 
 
-(defn update-vals [m f] (zipmap (keys m) (map f (vals m))))
-
-
 (defn walk
   "Traverses blocks.  inner and outer are functions.
    Applies inner to each element of form then applies outer to the result."
   [inner outer block]
   (case (:type block)
     "array" (outer (update block :content #(mapv inner %)))
-    "object" (outer (update block :content update-vals inner))
+    "object" (outer (update block :content utils4/update-vals inner))
     (outer block)))
 
 

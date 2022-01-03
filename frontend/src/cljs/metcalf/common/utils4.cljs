@@ -207,3 +207,9 @@
              (cons [(conj p k) v] l)))
          l m))]
     (pvals [] [] m)))
+
+
+(defn update-vals
+  [m f]
+  (zipmap (keys m) (map f (vals m))))
+

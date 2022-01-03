@@ -64,7 +64,9 @@
    (let [path (if (string? path) [path] path)]
      (apply gobj/getValueByKeys o path))))
 
-(defn get-option-data [o] (js->clj o))
+(defn get-option-data
+  "Convert js option data from ui control into clj data"
+  [o] (js->clj o))
 
 (defn setup-blueprint []
   (ui-utils/setupBlueprint))

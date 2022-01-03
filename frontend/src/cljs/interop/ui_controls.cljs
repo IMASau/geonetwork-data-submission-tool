@@ -54,15 +54,16 @@
 (s/def ::elements (s/coll-of ::element))
 (s/def ::obj-path (s/coll-of string? :min-count 1))
 
-(defn get-obj-path
-  "Helper for extracting data from a js object using getValueByKeys.
-   Unary form returns a getter fn.
-   Binary form returns value at path in object."
-  ([path] #(get-obj-path % path))
+(defn obj-path-value
+  "Returns value at path in js object."
   ([o path]
    (s/assert vector? path)
    (let [path (if (string? path) [path] path)]
      (apply gobj/getValueByKeys o path))))
+
+(defn obj-path-getter
+  "Returns a getter for extracting value at path in js object."
+  [path] (fn [o] (obj-path-value o path)))
 
 (defn get-option-data
   "Convert js option data from ui control into clj data"

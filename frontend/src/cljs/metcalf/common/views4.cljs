@@ -303,8 +303,8 @@
        {:key           key
         :items         items
         :disabled      false
-        :getLabel      (ui-controls/get-obj-path ["label"])
-        :getValue      (ui-controls/get-obj-path ["value"])
+        :getLabel      (ui-controls/obj-path-getter ["label"])
+        :getValue      (ui-controls/obj-path-getter ["value"])
         :onRemoveClick onRemoveClick}]
       [ui-controls/TextAddField
        {:buttonText  "Add"

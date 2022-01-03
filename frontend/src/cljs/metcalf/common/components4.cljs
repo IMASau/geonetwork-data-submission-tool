@@ -427,9 +427,9 @@
         :options     options
         :placeholder placeholder
         :disabled    disabled
-        :getValue    (ui-controls/get-obj-path value-path)
-        :getLabel    (ui-controls/get-obj-path label-path)
-        :getAdded    (when added-path (ui-controls/get-obj-path added-path))
+        :getValue    (ui-controls/obj-path-getter value-path)
+        :getLabel    (ui-controls/obj-path-getter label-path)
+        :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
         :hasError    hasError
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
@@ -454,12 +454,12 @@
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :getLabel    (ui-controls/get-obj-path label-path)
-        :getValue    (ui-controls/get-obj-path value-path)
-        :getAdded    (when added-path (ui-controls/get-obj-path added-path))
+        :getLabel    (ui-controls/obj-path-getter label-path)
+        :getValue    (ui-controls/obj-path-getter value-path)
+        :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
         :columns     (for [{:keys [flex label-path]} columns]
                        {:flex     flex
-                        :getLabel (ui-controls/get-obj-path label-path)})
+                        :getLabel (ui-controls/obj-path-getter label-path)})
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defn breadcrumb-select-option-settings
@@ -482,10 +482,10 @@
         :placeholder   placeholder
         :disabled      disabled
         :hasError      hasError
-        :getLabel      (ui-controls/get-obj-path label-path)
-        :getValue      (ui-controls/get-obj-path value-path)
-        :getBreadcrumb (ui-controls/get-obj-path breadcrumb-path)
-        :getAdded      (when added-path (ui-controls/get-obj-path added-path))
+        :getLabel      (ui-controls/obj-path-getter label-path)
+        :getValue      (ui-controls/obj-path-getter value-path)
+        :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
+        :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
         :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defmulti select-option-settings :kind)
@@ -637,8 +637,8 @@
         :disabled    disabled
         :hasError    hasError
         :loadOptions (partial utils4/load-options config)
-        :getValue    (ui-controls/get-obj-path value-path)
-        :getLabel    (ui-controls/get-obj-path label-path)
+        :getValue    (ui-controls/obj-path-getter value-path)
+        :getLabel    (ui-controls/obj-path-getter label-path)
         :onChange    #(rf/dispatch [::value-changed config %])}])))
 
 (defn async-simple-select-option-settings
@@ -661,9 +661,9 @@
         :disabled    disabled
         :hasError    hasError
         :loadOptions (partial utils4/load-options config)
-        :getValue    (ui-controls/get-obj-path value-path)
-        :getLabel    (ui-controls/get-obj-path label-path)
-        :getAdded    (when added-path (ui-controls/get-obj-path added-path))
+        :getValue    (ui-controls/obj-path-getter value-path)
+        :getLabel    (ui-controls/obj-path-getter label-path)
+        :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defn async-breadcrumb-select-option-settings
@@ -683,10 +683,10 @@
       [ui-controls/AsyncBreadcrumbSelectField
        {:value         value
         :loadOptions   (partial utils4/load-options config)
-        :getValue      (ui-controls/get-obj-path value-path)
-        :getLabel      (ui-controls/get-obj-path label-path)
-        :getAdded      (when added-path (ui-controls/get-obj-path added-path))
-        :getBreadcrumb (ui-controls/get-obj-path breadcrumb-path)
+        :getValue      (ui-controls/obj-path-getter value-path)
+        :getLabel      (ui-controls/obj-path-getter label-path)
+        :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
+        :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
         :placeholder   placeholder
         :disabled      disabled
         :hasError      hasError
@@ -710,12 +710,12 @@
         :disabled    disabled
         :hasError    hasError
         :loadOptions (partial utils4/load-options config)
-        :getValue    (ui-controls/get-obj-path value-path)
-        :getLabel    (ui-controls/get-obj-path label-path)
-        :getAdded    (when added-path (ui-controls/get-obj-path added-path))
+        :getValue    (ui-controls/obj-path-getter value-path)
+        :getLabel    (ui-controls/obj-path-getter label-path)
+        :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
         :columns     (for [{:keys [flex label-path]} columns]
                        {:flex     flex
-                        :getLabel (ui-controls/get-obj-path label-path)})
+                        :getLabel (ui-controls/obj-path-getter label-path)})
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defmulti async-select-option-settings :kind)
@@ -743,8 +743,8 @@
        {:value    value
         :disabled disabled
         :options  options
-        :getLabel (ui-controls/get-obj-path label-path)
-        :getValue (ui-controls/get-obj-path value-path)
+        :getLabel (ui-controls/obj-path-getter label-path)
+        :getValue (ui-controls/obj-path-getter value-path)
         :hasError hasError
         :onChange #(rf/dispatch [::value-changed config %])}])))
 
@@ -788,9 +788,9 @@
        {:key           key
         :items         (or items [])
         :disabled      disabled
-        :getLabel      (ui-controls/get-obj-path label-path)
-        :getValue      (ui-controls/get-obj-path value-path)
-        :getAdded      (when added-path (ui-controls/get-obj-path added-path))
+        :getLabel      (ui-controls/obj-path-getter label-path)
+        :getValue      (ui-controls/obj-path-getter value-path)
+        :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
@@ -812,8 +812,8 @@
        {:key           key
         :items         items
         :disabled      disabled
-        :getLabel      (ui-controls/get-obj-path ["label"])
-        :getValue      (ui-controls/get-obj-path ["value"])
+        :getLabel      (ui-controls/obj-path-getter ["label"])
+        :getValue      (ui-controls/obj-path-getter ["value"])
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::value-selection-list-reorder props src-idx dst-idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::value-selection-list-remove-click props idx]))}])))
 
@@ -835,14 +835,14 @@
         :items         (or items [])
         :disabled      disabled
         :renderItem    (fn [args]
-                         (let [index (ui-controls/get-obj-path args ["index"])]
+                         (let [index (ui-controls/obj-path-value args ["index"])]
                            (r/as-element
                              (low-code4/render-template
                                {:template-id template-id
                                 :variables   {'?form-id   form-id
                                               '?data-path (conj data-path index)}}))))
-        :getValue      (ui-controls/get-obj-path value-path)
-        :getAdded      (when added-path (ui-controls/get-obj-path added-path))
+        :getValue      (ui-controls/obj-path-getter value-path)
+        :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
@@ -884,10 +884,10 @@
        {:key           key
         :items         (or items [])
         :disabled      disabled
-        :getBreadcrumb (ui-controls/get-obj-path breadcrumb-path)
-        :getLabel      (ui-controls/get-obj-path label-path)
-        :getValue      (ui-controls/get-obj-path value-path)
-        :getAdded      (when added-path (ui-controls/get-obj-path added-path))
+        :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
+        :getLabel      (ui-controls/obj-path-getter label-path)
+        :getValue      (ui-controls/obj-path-getter value-path)
+        :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
@@ -911,10 +911,10 @@
         :disabled      disabled
         :columns       (for [{:keys [flex label-path columnHeader]} columns]
                          {:flex         flex
-                          :getLabel     (ui-controls/get-obj-path label-path)
+                          :getLabel     (ui-controls/obj-path-getter label-path)
                           :columnHeader (or columnHeader "None")})
-        :getValue      (ui-controls/get-obj-path value-path)
-        :getAdded      (when added-path (ui-controls/get-obj-path added-path))
+        :getValue      (ui-controls/obj-path-getter value-path)
+        :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}])))
@@ -936,8 +936,8 @@
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :getLabel    (ui-controls/get-obj-path label-path)
-        :getValue    (ui-controls/get-obj-path value-path)
+        :getLabel    (ui-controls/obj-path-getter label-path)
+        :getValue    (ui-controls/obj-path-getter value-path)
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defn breadcrumb-list-option-picker-settings [_]
@@ -957,9 +957,9 @@
         :placeholder   placeholder
         :disabled      disabled
         :hasError      hasError
-        :getValue      (ui-controls/get-obj-path value-path)
-        :getLabel      (ui-controls/get-obj-path label-path)
-        :getBreadcrumb (ui-controls/get-obj-path breadcrumb-path)
+        :getValue      (ui-controls/obj-path-getter value-path)
+        :getLabel      (ui-controls/obj-path-getter label-path)
+        :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
         :onChange      #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defn table-list-option-picker-settings [_]
@@ -979,11 +979,11 @@
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :getLabel    (ui-controls/get-obj-path label-path)
-        :getValue    (ui-controls/get-obj-path value-path)
+        :getLabel    (ui-controls/obj-path-getter label-path)
+        :getValue    (ui-controls/obj-path-getter value-path)
         :columns     (for [{:keys [flex label-path]} columns]
                        {:flex     flex
-                        :getLabel (ui-controls/get-obj-path label-path)})
+                        :getLabel (ui-controls/obj-path-getter label-path)})
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defn async-simple-list-option-picker-settings [_]
@@ -1002,8 +1002,8 @@
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :getValue    (ui-controls/get-obj-path value-path)
-        :getLabel    (ui-controls/get-obj-path label-path)
+        :getValue    (ui-controls/obj-path-getter value-path)
+        :getLabel    (ui-controls/obj-path-getter label-path)
         :loadOptions (partial utils4/load-options config)
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
@@ -1024,8 +1024,8 @@
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :getValue    (ui-controls/get-obj-path value-path)
-        :getLabel    (ui-controls/get-obj-path label-path)
+        :getValue    (ui-controls/obj-path-getter value-path)
+        :getLabel    (ui-controls/obj-path-getter label-path)
         :loadOptions (partial utils4/load-options config)
         :onChange    #(rf/dispatch [::item-option-picker-change config (ui-controls/get-option-data %)])}])))
 
@@ -1045,9 +1045,9 @@
         :placeholder   placeholder
         :disabled      disabled
         :hasError      hasError
-        :getValue      (ui-controls/get-obj-path value-path)
-        :getLabel      (ui-controls/get-obj-path label-path)
-        :getBreadcrumb (ui-controls/get-obj-path breadcrumb-path)
+        :getValue      (ui-controls/obj-path-getter value-path)
+        :getLabel      (ui-controls/obj-path-getter label-path)
+        :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
         :loadOptions   (partial utils4/load-options config)
         :onChange      #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
@@ -1067,11 +1067,11 @@
         :placeholder placeholder
         :disabled    disabled
         :hasError    hasError
-        :getLabel    (ui-controls/get-obj-path label-path)
-        :getValue    (ui-controls/get-obj-path value-path)
+        :getLabel    (ui-controls/obj-path-getter label-path)
+        :getValue    (ui-controls/obj-path-getter value-path)
         :columns     (for [{:keys [flex label-path]} columns]
                        {:flex     flex
-                        :getLabel (ui-controls/get-obj-path label-path)})
+                        :getLabel (ui-controls/obj-path-getter label-path)})
         :loadOptions (partial utils4/load-options config)
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
@@ -1297,8 +1297,8 @@
         {:key           key
          :items         (or items [])
          :disabled      disabled
-         :getLabel      (ui-controls/get-obj-path "name")
-         :getValue      (ui-controls/get-obj-path value-path)
+         :getLabel      (ui-controls/obj-path-getter "name")
+         :getValue      (ui-controls/obj-path-getter value-path)
          :getAdded      (constantly true)
          :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
          :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
@@ -1325,11 +1325,11 @@
         :disabled disabled
         :inline   inline
         :options  [{:desc "Yes" :value true} {:desc "No" :value false}]
-        :getLabel (ui-controls/get-obj-path ["desc"])
-        :getValue (ui-controls/get-obj-path ["value"])
+        :getLabel (ui-controls/obj-path-getter ["desc"])
+        :getValue (ui-controls/obj-path-getter ["value"])
         :hasError hasError
         :onChange (fn [option]
-                    (rf/dispatch [:metcalf.common.components4/value-changed config (ui-controls/get-obj-path option ["value"])]))}])))
+                    (rf/dispatch [:metcalf.common.components4/value-changed config (ui-controls/obj-path-value option ["value"])]))}])))
 
 (defn yes-no-radios-settings [_]
   {::low-code4/req-ks [:form-id :data-path]
@@ -1350,11 +1350,11 @@
         :disabled disabled
         :inline   true
         :options  [{:desc "Yes" :value true} {:desc "No" :value false}]
-        :getLabel (ui-controls/get-obj-path ["desc"])
-        :getValue (ui-controls/get-obj-path ["value"])
+        :getLabel (ui-controls/obj-path-getter ["desc"])
+        :getValue (ui-controls/obj-path-getter ["value"])
         :hasError hasError
         :onChange (fn [option]
-                    (rf/dispatch [:metcalf.common.components4/option-change config (ui-controls/get-obj-path option ["value"])]))}])))
+                    (rf/dispatch [:metcalf.common.components4/option-change config (ui-controls/obj-path-value option ["value"])]))}])))
 
 
 (defn radio-group-settings
@@ -1376,8 +1376,8 @@
         :disabled disabled
         :options  options
         :inline   inline
-        :getLabel (ui-controls/get-obj-path label-path)
-        :getValue (ui-controls/get-obj-path value-path)
+        :getLabel (ui-controls/obj-path-getter label-path)
+        :getValue (ui-controls/obj-path-getter value-path)
         :hasError hasError
         :onChange #(rf/dispatch [:metcalf.common.components4/option-change config (ui-controls/get-option-data %)])}])))
 
@@ -1400,7 +1400,7 @@
         :disabled disabled
         :options  options
         :inline   inline
-        :getLabel (ui-controls/get-obj-path label-path)
-        :getValue (ui-controls/get-obj-path value-path)
+        :getLabel (ui-controls/obj-path-getter label-path)
+        :getValue (ui-controls/obj-path-getter value-path)
         :hasError hasError
         :onChange #(rf/dispatch [:metcalf.common.components4/value-changed config %])}])))

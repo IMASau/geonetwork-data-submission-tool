@@ -95,6 +95,7 @@
         (assoc-in (conj db-path :props :show-errors) true))))
 
 (defn add-item-action
+  "Add item to a list.  Uses value-path to check for duplicates."
   [s form-id data-path value-path data]
   (let [schema (get-in s (utils4/as-path [:db form-id :schema (schema4/schema-path data-path) :items]))
         state (blocks4/as-blocks {:schema schema :data data})

@@ -43,7 +43,7 @@
   "Clears the :selected prop on an array block.  Used to dismiss modals."
   [s form-id data-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
-    (update-in s (conj block-path :props) dissoc :selected)))
+    (update-in s (conj block-path :props) dissoc :list-item-selected-idx)))
 
 (defn select-user-defined-list-item-action2
   "Set the :selected prop on an array block.  Does nothing if idx is not a user defined item."
@@ -53,7 +53,7 @@
         added? (get-in block-data (utils4/as-path [:content idx (blocks4/block-path added-path) :props :value]))]
     (cond-> s
             added?
-            (assoc-in (conj block-path :props :selected) idx))))
+            (assoc-in (conj block-path :props :list-item-selected-idx) idx))))
 
 (defn select-last-item-action
   "Set the :selected prop to point at the last item in an array block.  Does nothing if list is empty."
@@ -62,7 +62,7 @@
         last-idx (dec (count (get-in s (conj block-path :content))))]
     (cond-> s
             (not (neg? last-idx))
-            (assoc-in (conj block-path :props :selected) last-idx))))
+            (assoc-in (conj block-path :props :list-item-selected-idx) last-idx))))
 
 (defn del-item-action
   "Remove the item at idx from an array block."

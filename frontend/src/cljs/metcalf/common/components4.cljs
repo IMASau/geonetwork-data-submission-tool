@@ -104,10 +104,10 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         errors? @(rf/subscribe [::has-selected-block-errors? config])
-        {:keys [form-id data-path selected title template-id]} props
-        item-data-path (conj data-path selected)]
+        {:keys [form-id data-path list-item-selected-idx title template-id]} props
+        item-data-path (conj data-path list-item-selected-idx)]
     [ui-controls/EditDialog
-     {:isOpen  (boolean selected)
+     {:isOpen  (boolean list-item-selected-idx)
       :title   title
       :onClose #(rf/dispatch [::list-edit-dialog-close config])
       :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
@@ -130,13 +130,13 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         errors? @(rf/subscribe [::has-selected-block-errors? config])
-        {:keys [form-id data-path type-path selected templates]} props
-        item-data-path (conj data-path selected)
+        {:keys [form-id data-path type-path list-item-selected-idx templates]} props
+        item-data-path (conj data-path list-item-selected-idx)
         value @(rf/subscribe [::get-block-data config])
-        item-type (get-in value (into [selected] type-path))
+        item-type (get-in value (into [list-item-selected-idx] type-path))
         {:keys [title template-id]} (get templates item-type)]
     [ui-controls/EditDialog
-     {:isOpen  (boolean selected)
+     {:isOpen  (boolean list-item-selected-idx)
       :title   (or title "")
       :onClose #(rf/dispatch [::list-edit-dialog-close config])
       :onClear #(rf/dispatch [::list-edit-dialog-cancel config])

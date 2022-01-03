@@ -53,9 +53,9 @@
   (s/assert vector? data-path)
   (let [path (blocks4/block-path data-path)
         logic (get-in state path)
-        selected (get-in logic [:props :selected])]
-    (when selected
-      (pos? (get-in logic [:content selected :progress/score :progress/errors])))))
+        selected-idx (get-in logic [:props :list-item-selected-idx])]
+    (when selected-idx
+      (pos? (get-in logic [:content selected-idx :progress/score :progress/errors])))))
 
 (defn get-block-props-sub
   "take config and merge with block props"

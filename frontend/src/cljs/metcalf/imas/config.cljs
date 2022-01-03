@@ -12,7 +12,9 @@
             [metcalf.common.utils4 :as utils4]
             [metcalf.imas.handlers :as imas-handlers]
             [metcalf.imas.subs :as imas-subs]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [cljs.spec.alpha :as s]
+            [clojure.string :as string]))
 
 #_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
@@ -137,6 +139,11 @@
        "dateOrder"            rules4/date-order
        "endPosition"          rules4/end-position
        "maintFreq"            rules4/maint-freq})
+
+; Specs intended for use with when-data :pred
+(s/def :m4/empty-list? empty?)
+(s/def :m4/not-set? (s/or :n nil? :s (s/and string? string/blank?)))
+
 (set! low-code4/component-registry
       {
        ;'m3/UploadData                     {:view views3/UploadData}
@@ -381,7 +388,7 @@
        [m4/when-data
         {:form-id   [:form]
          :data-path ["identificationInfo" "geographicElement" "boxes"]
-         :pred      ::components4/empty-list?}
+         :pred      :m4/empty-list?}
         [:p "Specify the location(s) of this study."]]
 
        [m4/table-selection-list

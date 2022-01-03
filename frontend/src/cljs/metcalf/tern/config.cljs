@@ -13,7 +13,9 @@
             [metcalf.tern.db :as tern-db]
             [metcalf.tern.handlers :as tern-handlers]
             [metcalf.tern.subs :as tern-subs]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [cljs.spec.alpha :as s]
+            [clojure.string :as string]))
 
 #_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
@@ -187,6 +189,10 @@
        'm4/text-add-button               {:view components4/text-add-button :init components4/text-add-button-settings}
        'm4/upload-files                  {:view components4/upload-files :init components4/upload-files-settings}
        })
+
+; Specs intended for use with when-data :pred
+(s/def :m4/empty-list? empty?)
+(s/def :m4/not-set? (s/or :n nil? :s (s/and string? string/blank?)))
 
 (def edit-templates
   "Default ui templates for edit-page/"

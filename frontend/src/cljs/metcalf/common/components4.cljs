@@ -206,8 +206,9 @@
         :variables   {'?form-id   form-id
                       '?data-path item-data-path}})]))
 
-(defn edit-dialog-settings [_]
+(defn edit-dialog-settings
   "Settings for item-edit-dialog"
+  [_]
   {::low-code4/req-ks [:form-id :data-path :title :template-id]
    ::low-code4/opt-ks []})
 

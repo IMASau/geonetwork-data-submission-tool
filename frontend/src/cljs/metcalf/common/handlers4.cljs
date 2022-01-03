@@ -201,13 +201,6 @@
         (actions4/open-modal-action {:type :modal.type/alert :message (str status ": " msg)})
         (assoc-in [:db :page :metcalf3.handlers/saving?] false))))
 
-(defn list-edit-dialog-close-handler
-  [{:keys [db]} [_ ctx]]
-  (let [{:keys [form-id data-path]} ctx]
-    (-> {:db db}
-        (actions4/restore-snapshot-action form-id)
-        (actions4/unselect-list-item-action form-id data-path))))
-
 (defn list-edit-dialog-cancel-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]

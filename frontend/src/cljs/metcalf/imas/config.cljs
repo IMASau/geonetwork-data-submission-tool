@@ -33,7 +33,7 @@
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
-(rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-close-handler)
+(rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)

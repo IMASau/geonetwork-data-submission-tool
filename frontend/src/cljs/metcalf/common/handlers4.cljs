@@ -215,21 +215,21 @@
         (actions4/discard-snapshot-action form-id)
         (actions4/unselect-list-item-action form-id data-path))))
 
-(defn item-edit-dialog-close-handler
+(defn edit-dialog-close-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
         (actions4/restore-snapshot-action form-id)
         (actions4/dialog-close-action form-id data-path))))
 
-(defn item-edit-dialog-cancel-handler
+(defn edit-dialog-cancel-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
         (actions4/restore-snapshot-action form-id)
         (actions4/dialog-close-action form-id data-path))))
 
-(defn item-edit-dialog-save-handler
+(defn edit-dialog-save-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}

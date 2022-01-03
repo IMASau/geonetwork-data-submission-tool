@@ -206,12 +206,12 @@
         :variables   {'?form-id   form-id
                       '?data-path item-data-path}})]))
 
-(defn item-edit-dialog-settings [_]
+(defn edit-dialog-settings [_]
   "Settings for item-edit-dialog"
   {::low-code4/req-ks [:form-id :data-path :title :template-id]
    ::low-code4/opt-ks []})
 
-(defn item-edit-dialog
+(defn edit-dialog
   "This component displays an edit dialog with a title, a rendered template,
    and buttons to save or cancel out.
 
@@ -233,9 +233,9 @@
     [ui-controls/EditDialog
      {:isOpen  open-dialog?
       :title   title
-      :onClose #(rf/dispatch [::item-edit-dialog-close config])
-      :onClear #(rf/dispatch [::item-edit-dialog-cancel config])
-      :onSave  #(rf/dispatch [::item-edit-dialog-save config])
+      :onClose #(rf/dispatch [::edit-dialog-close config])
+      :onClear #(rf/dispatch [::edit-dialog-cancel config])
+      :onSave  #(rf/dispatch [::edit-dialog-save config])
       :canSave (not errors?)}
      (low-code4/render-template
        {:template-id template-id

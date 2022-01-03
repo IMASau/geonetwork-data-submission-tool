@@ -27,9 +27,9 @@
 (rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler)
 (rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/item-dialog-button-edit-click handlers4/item-edit-click-handler)
-(rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
-(rf/reg-event-fx ::components4/item-edit-dialog-close handlers4/item-edit-dialog-close-handler)
-(rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
+(rf/reg-event-fx ::components4/edit-dialog-cancel handlers4/edit-dialog-cancel-handler)
+(rf/reg-event-fx ::components4/edit-dialog-close handlers4/edit-dialog-close-handler)
+(rf/reg-event-fx ::components4/edit-dialog-save handlers4/edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
@@ -156,7 +156,7 @@
        'm4/input-field-with-label         {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button                {:view components4/item-add-button :init components4/item-add-button-settings}
        'm4/item-dialog-button             {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
-       'm4/item-edit-dialog               {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
+       'm4/edit-dialog                    {:view components4/edit-dialog :init components4/edit-dialog-settings}
        'm4/list-add-button                {:view components4/list-add-button :init components4/list-add-button-settings}
        'm4/list-edit-dialog               {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
        'm4/typed-list-edit-dialog         {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
@@ -819,7 +819,7 @@
         :value-path ["longName_term"]
         :added-path ["isUserDefined"]}]
 
-      [m4/item-edit-dialog
+      [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "longName_term"]
         :title       "LONG NAME"

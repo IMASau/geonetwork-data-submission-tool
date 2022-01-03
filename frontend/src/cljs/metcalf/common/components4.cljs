@@ -1316,7 +1316,6 @@
 
 (defn yes-no-radios-simple
   [config]
-  (def config config)
   (let [props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
         {:keys [value inline disabled is-hidden errors show-errors]} props
         hasError (when (and show-errors (seq errors)) true)]

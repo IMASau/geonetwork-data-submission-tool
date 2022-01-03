@@ -15,6 +15,15 @@
   (s/keys :opt-un [::type ::props ::content]))
 
 
+(defn children?
+  "Returns true if block can have children"
+  [block]
+  (case (:type block)
+    "array" true
+    "object" true
+    false))
+
+
 (defn walk
   "Traverses blocks.  inner and outer are functions.
    Applies inner to each element of form then applies outer to the result."

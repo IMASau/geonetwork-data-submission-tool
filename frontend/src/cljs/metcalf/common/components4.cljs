@@ -24,34 +24,23 @@
     (seq errors)))
 
 (defn page-errors-settings
+  "Settings for page-errors component."
   [{:keys [data-paths]}]
   {::low-code4/req-ks       [:form-id :data-path :data-paths]
    ::low-code4/opt-ks       []
    ::low-code4/schema-paths data-paths})
 
 (defn page-errors
-  [{:keys [form-id data-paths]}]
-  (letfn [(field-error [field]
-            (let [{:keys [errors label]} (:props field)]
-              [:span.FieldError label ": " (first errors)]))
-          (many-field-error [field]
-            (let [{:keys [errors label]} (:props field)]
-              [:span.FieldError label ": " (or (first errors) "check field errors")]))]
-    (let [form-state @(rf/subscribe [::subs4/get-form-state form-id])
-          paths-to-check-for-errors (remove #(not (has-error? form-state %)) data-paths)
-          msgs (for [data-path paths-to-check-for-errors]
-                 (let [path (blocks4/block-path data-path)
-                       field (get-in form-state path)]
-                   (if (-> field :props :many)
-                     [many-field-error field]
-                     [field-error field])))]
-      (when (seq msgs)
-        [:div.alert.alert-warning
-         (if (> (count msgs) 1)
-           [:div
-            [:b "There are multiple fields on this page that require your attention:"]
-            (into [:ul] (for [msg msgs] [:li msg]))]
-           (first msgs))]))))
+  "Display a list of errors associated with data-paths."
+  [config]
+  (let [{:keys [msgs]} @(rf/subscribe [::get-page-errors-props config])]
+    (when (seq msgs)
+      [:div.alert.alert-warning
+       (if (> (count msgs) 1)
+         [:div
+          [:b "There are multiple fields on this page that require your attention:"]
+          (into [:ul] (for [msg msgs] [:li msg]))]
+         (first msgs))])))
 
 (defn form-group-settings [_]
   {::low-code4/req-ks []

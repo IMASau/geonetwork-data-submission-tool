@@ -67,6 +67,20 @@
                   (get-in state (conj path :props))))]
     (merge config logic)))
 
+(defn get-page-errors-props-sub
+  "Check form state at data-paths for errors.  Returns collection of maps.
+   :label is taken from state so comes from schema, not UI."
+  [state [_ {:keys [data-paths]}]]
+  (let [msgs (for [data-path data-paths
+                   :let [block-path (blocks4/block-path data-path)
+                         block-state (get-in state block-path)
+                         {:keys [errors label]} (:props block-state)]
+                   :when (pos? (-> block-state :progress/score :progress/errors))]
+               (if (blocks4/children? block-state)
+                 {:label label :errors (or errors ["Check field errors"])}
+                 {:label label :errors errors}))]
+    {:msgs (seq msgs)}))
+
 (defn is-item-added?
   "Check if config refers to an 'added' entry"
   [state [_ config]]

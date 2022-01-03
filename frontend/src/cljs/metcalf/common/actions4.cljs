@@ -107,6 +107,7 @@
         (assoc-in (conj db-path :props :show-errors) true))))
 
 (defn move-item-action
+  "Move item in a list from src-idx to dst-idx."
   [s form-id data-path src-idx dst-idx]
   (let [list-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :content])
         item (get-in s (conj list-path src-idx))]

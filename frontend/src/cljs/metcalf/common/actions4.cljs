@@ -129,6 +129,7 @@
     (assoc-in s tick-path (genkey))))
 
 (defn open-modal-action
+  "Open modal with modal-props.  Does not add if same props are already on top of modal stack."
   [s modal-props]
   (update-in s [:db :modal/stack] (fn [alerts]
                                     (when-not (= (peek alerts) modal-props)

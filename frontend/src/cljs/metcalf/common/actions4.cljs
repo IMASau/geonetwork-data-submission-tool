@@ -168,6 +168,7 @@
   (assoc-in s [:db :create_form] (logic4/massage-form form-payload)))
 
 (defn create-document-action
+  "Send a POST request to create a document.  Server response is dispatched."
   [s url data]
   (update s :fx conj [:app/post-data-fx {:url url :data data :resolve [::-create-document]}]))
 

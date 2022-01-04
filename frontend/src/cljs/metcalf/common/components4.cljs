@@ -343,9 +343,21 @@
    ::low-code4/schema {:type "string"}})
 
 (defn textarea-field
+  "This component renders a textarea field which automatically grow vertically to accommodate content.
+
+   The props allow control of
+   * placeholder (string) displayed in input if empty
+   * rows (int) determines the initial height
+   * maxLength (int) constraints the length of text entered
+
+   Logic can control how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder rows maxLength value disabled is-hidden show-errors?]} props]
+        {:keys [placeholder rows maxLength value disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/TextareaField
        {:value       (or value "")                          ; TODO: should be guaranteed by sub

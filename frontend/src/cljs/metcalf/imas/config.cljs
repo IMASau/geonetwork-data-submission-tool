@@ -359,11 +359,14 @@
         :data-path ["identificationInfo" "beginPosition"]
         :minDate   "1900-01-01"
         :maxDate   "2100-01-01"}]]
-     [m4/date-field-with-label
+     [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "endPosition"]
-       :minDate   "1900-01-01"
-       :maxDate   "2100-01-01"}]
+       :data-path ["identificationInfo" "endPosition"]}
+      [m4/date-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "endPosition"]
+        :minDate   "1900-01-01"
+        :maxDate   "2100-01-01"}]]
      [m4/select-value-with-label
       {:form-id    [:form]
        :data-path  ["identificationInfo" "samplingFrequency"]

@@ -326,9 +326,22 @@
    ::low-code4/schema {:type "number"}})
 
 (defn numeric-input-field
+  "This component displays a numeric input.  Values entered are stored as numbers.
+
+   The props allow control of
+   * placeholder (string) displayed in input if empty
+   * hasButtons (boolean) shows nudge buttons
+   * unit (string) displayed to right of input
+
+   Logic can control how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * show-errors - style control to indicate error and show errors if present
+   * errors - errors that may be displayed in place of helper text
+   * is-hidden - hides component entirely
+  "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder hasButtons value disabled is-hidden show-errors errors unit]} props
+        {:keys [placeholder hasButtons unit value disabled show-errors errors is-hidden]} props
         hasError (when (and show-errors (seq errors)) true)]
     (when-not is-hidden
       ; TODO: move styling to css

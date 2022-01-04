@@ -381,12 +381,6 @@
       :hasError show-errors?
       :onChange #(rf/dispatch [::value-changed config %])}]))
 
-(defn checkbox-field-with-label
-  [config]
-  [:div.checkbox-field-with-label
-   [form-group config
-    [checkbox-field config]]])
-
 (defn textarea-field-with-label
   [config]
   [form-group config

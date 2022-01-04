@@ -154,7 +154,6 @@
        'm4/breadcrumb-list-option-picker  {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
        'm4/breadcrumb-selection-list      {:view components4/breadcrumb-selection-list :init components4/breadcrumb-selection-list-settings}
        'm4/checkbox-field                 {:view components4/checkbox-field :init components4/checkbox-field-settings}
-       'm4/checkbox-field-with-label      {:view components4/checkbox-field-with-label :init components4/checkbox-field-settings}
        'm4/coordinates-modal-field        {:view components4/coordinates-modal-field :init components4/coordinates-modal-field-settings}
        'm4/date-field-with-label          {:view components4/date-field-with-label :init components4/date-field-settings}
        'm4/form-group                     {:view components4/form-group :init components4/form-group-settings}

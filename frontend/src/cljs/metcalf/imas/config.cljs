@@ -991,15 +991,18 @@
        {:form-id   ?form-id
         :data-path [?data-path "protocol"]}]]
 
-     [m4/select-value-with-label
-      {:form-id    [:form]
-       :data-path  [?data-path "protocol"]
-       :label      "Protocol"
-       :value-path ["value"]
-       :label-path ["label"]
-       :options    [{"value" "OGC:WMS-1.3.0-http-get-map" "label" "OGC Web Map Service (WMS)"}
-                    {"value" "OGC:WFS-1.0.0-http-get-capabilities" "label" "OGC Web Feature Service (WFS)"}
-                    {"value" "WWW:LINK-1.0-http--downloaddata" "label" "Other/unknown"}]}]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path [?data-path "protocol"]
+       :label     "Protocol"}
+      [m4/select-value
+       {:form-id    [:form]
+        :data-path  [?data-path "protocol"]
+        :value-path ["value"]
+        :label-path ["label"]
+        :options    [{"value" "OGC:WMS-1.3.0-http-get-map" "label" "OGC Web Map Service (WMS)"}
+                     {"value" "OGC:WFS-1.0.0-http-get-capabilities" "label" "OGC Web Feature Service (WFS)"}
+                     {"value" "WWW:LINK-1.0-http--downloaddata" "label" "Other/unknown"}]}]]
 
      [m4/inline-form-group
       {:form-id   ?form-id

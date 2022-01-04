@@ -396,11 +396,6 @@
         :maxDate  (cljs-time/value-to-date maxDate)
         :onChange #(rf/dispatch [::value-changed config (cljs-time/date-to-value %)])}])))
 
-(defn date-field-with-label
-  [config]
-  [form-group config
-   [date-field config]])
-
 (defn portal-link
   []
   (let [{:keys [site]} @(rf/subscribe [:subs/get-context])

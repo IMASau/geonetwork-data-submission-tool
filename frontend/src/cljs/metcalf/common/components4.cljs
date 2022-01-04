@@ -335,11 +335,6 @@
          :onChange    #(rf/dispatch [::value-changed config %])}]
        [:div {:style {:padding-left "0.5em"}} unit]])))
 
-(defn numeric-input-field-with-label
-  [config]
-  [form-group config
-   [numeric-input-field config]])
-
 (defn textarea-field-settings
   "Settings for textarea-field component"
   [_]

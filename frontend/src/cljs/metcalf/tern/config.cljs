@@ -1514,14 +1514,17 @@
          :placeholder "Provide the name of the method or procedure"}]]
 
       ;; How7: Description
-      [m4/textarea-field-with-label
+      [m4/form-group
        {:form-id     [:form]
         :data-path   ["resourceLineageProcessSteps" "summary"]
         :label       "Summary"
         :required    true
         :toolTip     "TODO"
-        :placeholder "Provide a brief summary of a single method or procedure"
-        :helperText  "Provide a brief description of the method"}]
+        :helperText  "Provide a brief description of the method"}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path   ["resourceLineageProcessSteps" "summary"]
+         :placeholder "Provide a brief summary of a single method or procedure"}]]
 
       ;; How7b: list-add free-text entries
       [m4/form-group

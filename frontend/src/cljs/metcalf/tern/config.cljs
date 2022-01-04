@@ -1670,13 +1670,16 @@
         :value-path ["uri"]}]]
 
      [m4/expanding-control {:label "Environment Description (Optional)"}
-      [m4/textarea-field-with-label
+      [m4/form-group
        {:form-id     [:form]
         :data-path   ["identificationInfo" "environment"]
         :label       "Environmental description"
-        :placeholder "Information about the source and software to process the resource"
-        :helperText  "Software, computer operating system, file name, or dataset size"
-        :maxLength   1000}]]
+        :helperText  "Software, computer operating system, file name, or dataset size"}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "environment"]
+         :placeholder "Information about the source and software to process the resource"
+         :maxLength   1000}]]]
 
      [m4/expanding-control {:label "Associated Documentation (Optional)"}
 

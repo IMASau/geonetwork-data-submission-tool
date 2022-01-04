@@ -1200,28 +1200,40 @@
    [:div.row
     [:div.col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-2
      [:div.n-block
-      [numeric-input-field-with-label
+      [form-group
        {:form-id   [:form]
         :data-path (conj path "northBoundLatitude")
-        :required  true}]]]]
+        :required  true}
+       [numeric-input-field
+        {:form-id   [:form]
+         :data-path (conj path "northBoundLatitude")}]]]]]
    [:div.row
     [:div.col-sm-6.col-lg-4
      [:div.w-block
-      [numeric-input-field-with-label
+      [form-group
        {:form-id   [:form]
         :data-path (conj path "westBoundLongitude")
-        :required  true}]]]
+        :required  true}
+       [numeric-input-field
+        {:form-id   [:form]
+         :data-path (conj path "westBoundLongitude")}]]]]
     [:div.col-sm-6.col-lg-4
      [:div.e-block
-      [numeric-input-field-with-label
+      [form-group
        {:form-id   [:form]
-        :data-path (conj path "eastBoundLongitude")}]]]]
+        :data-path (conj path "eastBoundLongitude")}
+       [numeric-input-field
+        {:form-id   [:form]
+         :data-path (conj path "eastBoundLongitude")}]]]]]
    [:div.row
     [:div.col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-2
      [:div.s-block
-      [numeric-input-field-with-label
+      [form-group
        {:form-id   [:form]
-        :data-path (conj path "southBoundLatitude")}]]]]])
+        :data-path (conj path "southBoundLatitude")}
+       [numeric-input-field
+        {:form-id   [:form]
+         :data-path (conj path "southBoundLatitude")}]]]]]])
 
 (defn boxmap-field-settings
   "Settings for boxmap-field component"

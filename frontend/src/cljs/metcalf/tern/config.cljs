@@ -827,12 +827,15 @@
          :added-path ["isUserDefined"]}]]
       [:div.col-sm-7
 
-       [m4/textarea-field-with-label
+       [m4/form-group
         {:form-id     [:form]
          :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
          :label       "Provide a site description (optional)"
-         :placeholder "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"
-         :toolTip     "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}]
+         :toolTip     "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}
+        [m4/textarea-field
+         {:form-id     [:form]
+          :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
+          :placeholder "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}]]
 
        [:p
         "Please input in decimal degrees in coordinate reference system WGS84."

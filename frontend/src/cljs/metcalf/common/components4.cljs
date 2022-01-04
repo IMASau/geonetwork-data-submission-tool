@@ -376,11 +376,6 @@
       :hasError show-errors?
       :onChange #(rf/dispatch [::value-changed config %])}]))
 
-(defn textarea-field-with-label
-  [config]
-  [form-group config
-   [textarea-field config]])
-
 (defn date-field-settings
   "Settings for date-field component"
   [_]

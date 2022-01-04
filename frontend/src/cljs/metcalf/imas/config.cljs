@@ -225,9 +225,9 @@
         :minDate   "1900-01-01"
         :maxDate   "2100-01-01"}]]
      [m4/form-group
-      {:form-id    [:form]
-       :data-path  ["identificationInfo" "topicCategory"]
-       :label      "Topic categories"}
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "topicCategory"]
+       :label     "Topic categories"}
       [m4/select-value
        {:form-id    [:form]
         :data-path  ["identificationInfo" "topicCategory"]
@@ -238,14 +238,17 @@
                      {"value" "oceans" "label" "oceans"}
                      {"value" "geoscientificInformation" "label" "geoscientificInformation"}
                      {"value" "inlandWater" "label" "inlandWater"}]}]]
-     [m4/select-value-with-label
+     [m4/form-group
       {:form-id    [:form]
-       :data-path  ["identificationInfo" "status"]
-       :value-path ["value"]
-       :label-path ["label"]
-       :options    [{"value" "onGoing" "label" "ongoing"}
-                    {"value" "planned" "label" "planned"}
-                    {"value" "completed" "label" "completed"}]}]
+       :data-path  ["identificationInfo" "status"]}
+      [m4/select-value
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "status"]
+        :value-path ["value"]
+        :label-path ["label"]
+        :options    [{"value" "onGoing" "label" "ongoing"}
+                     {"value" "planned" "label" "planned"}
+                     {"value" "completed" "label" "completed"}]}]]
      [m4/select-value-with-label
       {:form-id    [:form]
        :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]

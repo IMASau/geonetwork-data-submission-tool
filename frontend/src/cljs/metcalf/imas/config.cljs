@@ -454,12 +454,15 @@
         :placeholder "Please select"
         :options     [{"label" "Depth (distance below mean sea level)" "value" "EPSG::5715"}
                       {"label" "Altitude (height above mean sea level)" "value" "EPSG::5714"}]}]]
-     [m4/numeric-input-field-with-label
+     [m4/form-group
       {:form-id    [:form]
        :data-path  ["identificationInfo" "verticalElement" "minimumValue"]
-       :class      "wauto"
-       :helperText "Shallowest depth / lowest altitude"}]
-     [m4/numeric-input-field-with-label
+       :helperText "Shallowest depth / lowest altitude"}
+      [m4/numeric-input-field
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "verticalElement" "minimumValue"]
+        :class      "wauto"}]]
+     [m4/form-group
       {:form-id    [:form]
        :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
        :class      "wauto"

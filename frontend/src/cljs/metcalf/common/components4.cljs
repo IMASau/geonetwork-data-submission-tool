@@ -591,11 +591,6 @@
 (defmethod select-option :breadcrumb [config] (breadcrumb-select-option config))
 (defmethod select-option :table [config] (table-select-option config))
 
-(defn select-option-with-label
-  [config]
-  [form-group config
-   [select-option config]])
-
 (defn item-dialog-button-settings
   "Settings for item-dialog-button component"
   [_]

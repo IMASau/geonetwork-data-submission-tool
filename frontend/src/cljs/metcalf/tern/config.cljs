@@ -155,7 +155,6 @@
        'm4/breadcrumb-selection-list     {:view components4/breadcrumb-selection-list :init components4/breadcrumb-selection-list-settings}
        'm4/checkbox-field                {:view components4/checkbox-field :init components4/checkbox-field-settings}
        'm4/date-field                    {:view components4/date-field :init components4/date-field-settings}
-       'm4/date-field-with-label         {:view components4/date-field-with-label :init components4/date-field-settings}
        'm4/expanding-control             {:view components4/expanding-control :init components4/expanding-control-settings}
        'm4/form-group                    {:view components4/form-group :init components4/form-group-settings}
        'm4/inline-form-group             {:view components4/inline-form-group :init components4/inline-form-group-settings}

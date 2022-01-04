@@ -428,7 +428,8 @@
      {:style {:padding-top    5
               :padding-bottom 5}}
      (if (= "Draft" (:status document))
-       [textarea-field-with-label config]
+       [form-group config
+        [textarea-field config]]
        (when-not (string/blank? value)
          [:div
           [:strong "Note for the data manager:"]

@@ -778,14 +778,20 @@
        :title       "Add supporting resource"
        :template-id :resource/user-defined-entry-form}]
      [:h4 "Distribution"]
-     [m4/input-field-with-label
-      {:form-id     [:form]
-       :data-path   ["distributionInfo" "distributionFormat" "name"]
-       :placeholder "e.g. Microsoft Excel, CSV, NetCDF"}]
-     [m4/input-field-with-label
-      {:form-id     [:form]
-       :data-path   ["distributionInfo" "distributionFormat" "version"]
-       :placeholder "Date format date or version if applicable"}]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["distributionInfo" "distributionFormat" "name"]}
+      [m4/input-field
+       {:form-id     [:form]
+        :data-path   ["distributionInfo" "distributionFormat" "name"]
+        :placeholder "e.g. Microsoft Excel, CSV, NetCDF"}]]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["distributionInfo" "distributionFormat" "version"]}
+      [m4/input-field
+       {:form-id     [:form]
+        :data-path   ["distributionInfo" "distributionFormat" "version"]
+        :placeholder "Date format date or version if applicable"}]]
      [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
 
     :resource/user-defined-entry-form

@@ -14,15 +14,6 @@
 (s/def ::obj-path (s/coll-of string? :min-count 1))
 (s/def ::value-path string?)
 
-(defn has-error?
-  "Given the current form state, and a data path, check if
-  the field for that data path has errors."
-  [form-state data-path]
-  (let [path (blocks4/block-path data-path)
-        field (get-in form-state path)
-        errors (-> field :props :errors)]
-    (seq errors)))
-
 (defn page-errors-settings
   "Settings for page-errors component."
   [{:keys [data-paths]}]
@@ -1314,7 +1305,12 @@
                                                                :coord-field coord-field
                                                                :on-delete   #(try-delete-fn (last indexed-data-path))
                                                                :on-save     #(rf/dispatch [::coordinates-modal-field-close-modal])
-                                                               :on-cancel   #(rf/dispatch [::coordinates-modal-field-close-modal])}])))]
+                                                               :on-cancel   #(rf/dispatch [::coordinates-modal-field-close-modal])}])))
+            (has-error? [form-state data-path]
+              (let [path (blocks4/block-path data-path)
+                    field (get-in form-state path)
+                    errors (-> field :props :errors)]
+                (seq errors)))]
       (when-not is-hidden
         [:div.TableInlineEdit
          (when help [:p.help-block help])

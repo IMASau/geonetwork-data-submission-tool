@@ -127,10 +127,10 @@
 (defn clear-error-props
   "Clear out state related to errors on a block.
    Useful for clearing server errors stored using blocks/set-error-prop"
-  [block]
-  (cond-> block
-    (contains? block :props)
-    (update :props dissoc :errors)))
+  [{:keys [props] :as block}]
+  (if (contains? props :errors)
+    (update block :props dissoc :errors)
+    block))
 
 
 (defn set-error-prop

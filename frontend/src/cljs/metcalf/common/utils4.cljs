@@ -4,7 +4,8 @@
             [goog.string :as gstring]
             [goog.uri.utils :as uri]
             [lambdaisland.fetch :as fetch]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [clojure.string :as string]))
 
 
 (s/def ::form-id vector?)
@@ -213,3 +214,12 @@
   [m f]
   (zipmap (keys m) (map f (vals m))))
 
+
+(defn render-error-analysis
+  "Postwalk analysis.  Add hasError prop if field should display error."
+  [{:keys [props] :as block}]
+  (let [{:keys [show-errors errors]} props
+        has-error? (and show-errors (seq errors))]
+    (if has-error?
+      (assoc-in block [:props :hasError] true)
+      block)))

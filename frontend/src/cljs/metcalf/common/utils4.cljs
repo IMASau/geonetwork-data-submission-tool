@@ -216,10 +216,10 @@
 
 
 (defn render-error-analysis
-  "Postwalk analysis.  Add hasError prop if field should display error."
+  "Postwalk analysis.  Set hasError prop if field should display error."
   [{:keys [props] :as block}]
-  (let [{:keys [show-errors errors]} props
-        has-error? (and show-errors (seq errors))]
-    (if has-error?
+  (let [{:keys [touched errors]} props
+        show-errors? (and touched (seq errors))]
+    (if show-errors?
       (assoc-in block [:props :hasError] true)
       block)))

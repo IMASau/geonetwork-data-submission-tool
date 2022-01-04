@@ -130,7 +130,8 @@
   [block]
   (cond-> block
     (contains? block :props)
-    (update :props dissoc :errors :show-errors)))
+    ; NOTE: should we really clear :touched here?
+    (update :props dissoc :errors :touched)))
 
 
 (defn set-error-prop

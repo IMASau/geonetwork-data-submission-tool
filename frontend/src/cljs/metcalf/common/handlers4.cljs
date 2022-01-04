@@ -19,7 +19,7 @@
   (let [path (db-path ctx)]
     {:db (-> db
              (assoc-in (conj path :props :value) value)
-             (assoc-in (conj path :props :show-errors) true))}))
+             (assoc-in (conj path :props :touched) true))}))
 
 (defn option-change-handler
   [{:keys [db]} [_ ctx option]]
@@ -29,7 +29,7 @@
         path (db-path ctx)]
     {:db (-> db
              (assoc-in path state)
-             (assoc-in (conj path :props :show-errors) true))}))
+             (assoc-in (conj path :props :touched) true))}))
 
 (defn add-record-handler
   "Used with record-add-button which adds text values to a list"
@@ -42,7 +42,7 @@
         path (db-path ctx)]
     {:db (-> db
              (assoc-in path state)
-             (assoc-in (conj path :props :show-errors) true))}))
+             (assoc-in (conj path :props :touched) true))}))
 
 (defn text-value-add-click-handler
   [{:keys [db]} [_ ctx value]]
@@ -90,7 +90,7 @@
         db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (-> {:db db}
         (assoc-in db-path state)
-        (assoc-in (conj db-path :props :show-errors) true)
+        (assoc-in (conj db-path :props :touched) true)
         (actions4/genkey-action form-id data-path))))
 
 (defn list-option-picker-change

@@ -10,26 +10,22 @@
             [metcalf.common.utils4 :as utils4]
             [cljs.spec.alpha :as s]))
 
-(defn db-path
-  [{:keys [form-id data-path]}]
-  (utils4/as-path [form-id :state (blocks4/block-path data-path)]))
-
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]
-  (let [path (db-path ctx)]
-    {:db (-> db
-             (assoc-in (conj path :props :value) value)
-             (assoc-in (conj path :props :touched) true))}))
+  (let [path (utils4/as-path [:db (:form-id ctx) :state (blocks4/block-path (:data-path ctx))])]
+    (-> {:db db}
+        (assoc-in (conj path :props :value) value)
+        (assoc-in (conj path :props :touched) true))))
 
 (defn option-change-handler
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path]} ctx
         schema (get-in db (flatten [form-id :schema (schema4/schema-path data-path)]))
         state (blocks4/as-blocks {:schema schema :data option})
-        path (db-path ctx)]
-    {:db (-> db
-             (assoc-in path state)
-             (assoc-in (conj path :props :touched) true))}))
+        path (utils4/as-path [:db (:form-id ctx) :state (blocks4/block-path (:data-path ctx))])]
+    (-> {:db db}
+        (assoc-in path state)
+        (assoc-in (conj path :props :touched) true))))
 
 (defn add-record-handler
   "Used with record-add-button which adds text values to a list"
@@ -39,10 +35,10 @@
         data (reduce-kv (fn [m ks v] (assoc-in m ks v)) {} (zipmap (map :value-path columns) values))
         schema (get-in db (flatten [form-id :schema (schema4/schema-path data-path)]))
         state (blocks4/as-blocks {:schema schema :data data})
-        path (db-path ctx)]
-    {:db (-> db
-             (assoc-in path state)
-             (assoc-in (conj path :props :touched) true))}))
+        path (utils4/as-path [:db (:form-id ctx) :state (blocks4/block-path (:data-path ctx))])]
+    (-> {:db db}
+        (assoc-in path state)
+        (assoc-in (conj path :props :touched) true))))
 
 (defn text-value-add-click-handler
   [{:keys [db]} [_ ctx value]]

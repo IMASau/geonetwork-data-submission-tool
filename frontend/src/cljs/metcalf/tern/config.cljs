@@ -446,27 +446,30 @@
       [:div
 
        ;; FIXME: Should this be use api for options?
-       [m4/select-value-with-label
+       [m4/form-group
         {:form-id    [:form]
          :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
-         :label      "Maintenance/Update Freq"
-         :value-path ["value"]
-         :label-path ["label"]
-         :options    [{"value" "continual" "label" "Continually"}
-                      {"value" "daily" "label" "Daily"}
-                      {"value" "weekly" "label" "Weekly"}
-                      {"value" "fortnightly" "label" "Fortnightly"}
-                      {"value" "monthly" "label" "Monthly"}
-                      {"value" "quarterly" "label" "Quarterly"}
-                      {"value" "biannually" "label" "Twice each year"}
-                      {"value" "annually" "label" "Annually"}
-                      {"value" "asNeeded" "label" "As required"}
-                      {"value" "irregular" "label" "Irregular"}
-                      {"value" "notPlanned" "label" "None planned"}
-                      {"value" "unknown" "label" "Unknown"}
-                      {"value" "periodic" "label" "Periodic"}
-                      {"value" "semimonthly" "label" "Twice a month"}
-                      {"value" "biennially" "label" "Every 2 years"}]}]]]
+         :label      "Maintenance/Update Freq"}
+        [m4/select-value
+         {:form-id    [:form]
+          :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
+          :value-path ["value"]
+          :label-path ["label"]
+          :options    [{"value" "continual" "label" "Continually"}
+                       {"value" "daily" "label" "Daily"}
+                       {"value" "weekly" "label" "Weekly"}
+                       {"value" "fortnightly" "label" "Fortnightly"}
+                       {"value" "monthly" "label" "Monthly"}
+                       {"value" "quarterly" "label" "Quarterly"}
+                       {"value" "biannually" "label" "Twice each year"}
+                       {"value" "annually" "label" "Annually"}
+                       {"value" "asNeeded" "label" "As required"}
+                       {"value" "irregular" "label" "Irregular"}
+                       {"value" "notPlanned" "label" "None planned"}
+                       {"value" "unknown" "label" "Unknown"}
+                       {"value" "periodic" "label" "Periodic"}
+                       {"value" "semimonthly" "label" "Twice a month"}
+                       {"value" "biennially" "label" "Every 2 years"}]}]]]]
 
      [m4/inline-form-group
       {:form-id   [:form]

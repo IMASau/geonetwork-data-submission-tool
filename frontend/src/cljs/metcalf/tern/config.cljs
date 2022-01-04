@@ -428,13 +428,13 @@
                       {"value" "planned" "label" "planned"}
                       {"value" "completed" "label" "completed"}]}]]
       [:div
-       [m4/input-field-with-label
+       [m4/form-group
         {:form-id    [:form]
          :data-path  ["identificationInfo" "version"]
          :label      "Version"
          :helperText "Version number of the resource"
          :required   true}
-        [m4/input-field-with-label
+        [m4/input-field
          {:form-id   [:form]
           :data-path ["identificationInfo" "version"]}]]]
 

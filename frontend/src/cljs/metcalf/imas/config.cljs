@@ -209,10 +209,13 @@
                     ["identificationInfo" "status"]
                     ["identificationInfo" "maintenanceAndUpdateFrequency"]]}]
      [:h2 "1. Data Identification"]
-     [m4/input-field-with-label
+     [m4/form-group
       {:form-id    [:form]
        :data-path  ["identificationInfo" "title"]
-       :helperText "Clear and concise description of the content of the resource"}]
+       :helperText "Clear and concise description of the content of the resource"}
+      [m4/input-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "title"]}]]
      [m4/date-field-with-label
       {:form-id   [:form]
        :data-path ["identificationInfo" "dateCreation"]

@@ -433,7 +433,10 @@
          :data-path  ["identificationInfo" "version"]
          :label      "Version"
          :helperText "Version number of the resource"
-         :required   true}]]
+         :required   true}
+        [m4/input-field-with-label
+         {:form-id   [:form]
+          :data-path ["identificationInfo" "version"]}]]]
 
       [:div
 

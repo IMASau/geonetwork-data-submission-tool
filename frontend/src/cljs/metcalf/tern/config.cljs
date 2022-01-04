@@ -1722,13 +1722,16 @@
          :maxLength   1000}]]]
 
      [m4/expanding-control {:label "Resource specific usage (Optional)"}
-      [m4/textarea-field-with-label
+      [m4/form-group
        {:form-id     [:form]
         :data-path   ["identificationInfo" "resourceSpecificUsage"]
         :label       "Resource specific usage"
-        :placeholder "Resource specific usage..."
-        :helperText  "What can this resource be used for environmental research?"
-        :maxLength   1000}]]
+        :helperText  "What can this resource be used for environmental research?"}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "resourceSpecificUsage"]
+         :placeholder "Resource specific usage..."
+         :maxLength   1000}]]]
 
      [m4/expanding-control {:label "Acknowledgment (Optional)"}
       [m4/textarea-field-with-label

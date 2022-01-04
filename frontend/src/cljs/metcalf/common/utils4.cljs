@@ -215,11 +215,11 @@
   (zipmap (keys m) (map f (vals m))))
 
 
-(defn render-error-analysis
-  "Postwalk analysis.  Set hasError prop if field should display error."
+(defn show-error-analysis
+  "Postwalk analysis.  Set show-errors? prop if field should display error."
   [{:keys [props] :as block}]
   (let [{:keys [touched errors]} props
         show-errors? (and touched (seq errors))]
     (if show-errors?
-      (assoc-in block [:props :hasError] true)
+      (assoc-in block [:props :show-errors?] true)
       block)))

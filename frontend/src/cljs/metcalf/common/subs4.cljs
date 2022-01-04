@@ -11,7 +11,7 @@
 
 (def postwalk-xform
   (comp blocks4/progress-score-analysis
-        utils4/render-error-analysis
+        utils4/show-error-analysis
         rules4/apply-rules))
 
 (defn apply-logic

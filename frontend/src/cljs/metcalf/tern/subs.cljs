@@ -29,7 +29,7 @@
                      (fn [{:keys [id text]}]
                        (let [progress (get-in form-state [:progress/score])
                              error-count (get-in progress [:page-errors id])]
-                         {:id          id
-                          :title       text
-                          :has-errors? (and error-count (> error-count 0))}))
+                         {:id           id
+                          :title        text
+                          :show-errors? (and error-count (> error-count 0))}))
                      edit-tabs)}))

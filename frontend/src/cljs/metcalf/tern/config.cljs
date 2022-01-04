@@ -785,20 +785,26 @@
       {:style {:display               "grid"
                :grid-column-gap       "1em"
                :grid-template-columns "repeat(auto-fill, minmax(10em, 1fr))"}}
-      [m4/date-field-with-label
+      [m4/form-group
        {:form-id   [:form]
         :data-path ["identificationInfo" "beginPosition"]
         :label     "Start date"
-        :required  true
-        :minDate   "1900-01-01"
-        :maxDate   "2100-01-01"}]
-      [m4/date-field-with-label
+        :required  true}
+       [m4/date-field
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "beginPosition"]
+         :minDate   "1900-01-01"
+         :maxDate   "2100-01-01"}]]
+      [m4/form-group
        {:form-id   [:form]
         :data-path ["identificationInfo" "endPosition"]
         :label     "End date"
-        :required  true
-        :minDate   "1900-01-01"
-        :maxDate   "2100-01-01"}]]
+        :required  true}
+       [m4/date-field
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "endPosition"]
+         :minDate   "1900-01-01"
+         :maxDate   "2100-01-01"}]]]
 
      [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 

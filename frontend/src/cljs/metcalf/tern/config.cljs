@@ -371,12 +371,15 @@
 
      [:h2 "1. Data Identification"]
 
-     [m4/input-field-with-label
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "title"]
-       :label       "Title"
-       :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
-       :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
+     [m4/form-group
+      {:form-id    [:form]
+       :data-path  ["identificationInfo" "title"]
+       :label      "Title"
+       :helperText "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}
+      [m4/input-field
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "title"]
+        :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"}]]
 
      [m4/form-group
       {:form-id  [:form]

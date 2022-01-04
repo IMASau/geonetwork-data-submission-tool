@@ -765,7 +765,7 @@
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "otherConstraints"]
-       :label     "Additional license requirements"       ;; FIXME
+       :label     "Additional license requirements"         ;; FIXME
        :required  true}
       [m4/input-field
        {:form-id     [:form]

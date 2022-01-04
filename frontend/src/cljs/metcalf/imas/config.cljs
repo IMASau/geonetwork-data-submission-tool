@@ -727,12 +727,15 @@
        :options    [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}
                     {"value" "http://creativecommons.org/licenses/by-nc/4.0/" "label" "Creative Commons, Non-commercial Use only"}
                     {"value" "http://creativecommons.org/licenses/other" "label" "Other constraints"}]}]
-     [m4/input-field-with-label
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "otherConstraints"]
-       :label       "Additional license requirements"       ;; FIXME
-       :placeholder "Enter additional license requirements"
-       :required    true}]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "otherConstraints"]
+       :label     "Additional license requirements"       ;; FIXME
+       :required  true}
+      [m4/input-field
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "otherConstraints"]
+        :placeholder "Enter additional license requirements"}]]
 
      [:label "Use limitations"]
      [m4/value-selection-list

@@ -1710,13 +1710,16 @@
          :title       "Online Publication"
          :template-id :about/user-defined-entry}]]
 
-      [m4/textarea-field-with-label
+      [m4/form-group
        {:form-id     [:form]
         :data-path   ["identificationInfo" "supplemental"]
         :label       "Supplemental Information"
-        :placeholder "Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01"
-        :helperText  "Any supplemental information needed to interpret the resource"
-        :maxLength   1000}]]
+        :helperText  "Any supplemental information needed to interpret the resource"}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "supplemental"]
+         :placeholder "Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01"
+         :maxLength   1000}]]]
 
      [m4/expanding-control {:label "Resource specific usage (Optional)"}
       [m4/textarea-field-with-label

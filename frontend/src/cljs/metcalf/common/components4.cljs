@@ -306,6 +306,10 @@
    ::low-code4/opt-ks []})
 
 (defn get-data
+  "This component displays form data as a string.
+
+   Config allows control of:
+   * data is identified by form-id and data-path."
   [config]
   (str @(rf/subscribe [::get-block-data config])))
 

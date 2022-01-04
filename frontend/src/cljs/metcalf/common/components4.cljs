@@ -825,11 +825,6 @@
         :hasError show-errors?
         :onChange #(rf/dispatch [::value-changed config %])}])))
 
-(defn select-value-with-label
-  [config]
-  [form-group config
-   [select-value config]])
-
 (defn yes-no-field-settings
   "Settings for yes-no-field component"
   [_]

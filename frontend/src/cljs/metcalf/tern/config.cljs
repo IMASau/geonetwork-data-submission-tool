@@ -1460,13 +1460,16 @@
 
      [m4/expanding-control {:label "Data creation procedure details (Optional)"}
 
-      [m4/textarea-field-with-label
+      [m4/form-group
        {:form-id    [:form]
         :data-path  ["resourceLineage" "statement"]
         :label      "Provide a brief summary of the source of the data and related collection and/or processing methods."
         :required   true
         :toolTip    "TODO"
-        :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}]
+        :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}
+       [m4/textarea-field
+        {:form-id    [:form]
+         :data-path  ["resourceLineage" "statement"]}]]
 
       [m4/form-group
        {:label    "Method documentation"

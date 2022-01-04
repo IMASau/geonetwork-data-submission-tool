@@ -1605,12 +1605,15 @@
         :title       "Online Quality Report"
         :template-id :quality/user-defined-entry-form}]]
 
-     [m4/textarea-field-with-label
+     [m4/form-group
       {:form-id     [:form]
        :data-path   ["dataQualityInfo" "results"]
-       :label       "Provide a statement regarding the Data Quality Assessment outcome"
-       :maxLength   1000
-       :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]
+       :label       "Provide a statement regarding the Data Quality Assessment outcome"}
+      [m4/textarea-field
+       {:form-id     [:form]
+        :data-path   ["dataQualityInfo" "results"]
+        :maxLength   1000
+        :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]]
      [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
 
     :quality/user-defined-entry-form

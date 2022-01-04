@@ -1501,14 +1501,17 @@
      [m4/expanding-control {:label "Data creation procedure steps (Optional)"}
 
       ;; How6: Name
-      [m4/textarea-field-with-label
+      [m4/form-group
        {:form-id     [:form]
         :data-path   ["resourceLineageProcessSteps" "statement"]
         :label       "Name"
         :required    true
         :toolTip     "TODO"
-        :placeholder "Provide the name of the method or procedure"
-        :helperText  "Provide the name of the method or procedure"}]
+        :helperText  "Provide the name of the method or procedure"}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path   ["resourceLineageProcessSteps" "statement"]
+         :placeholder "Provide the name of the method or procedure"}]]
 
       ;; How7: Description
       [m4/textarea-field-with-label

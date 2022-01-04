@@ -300,11 +300,6 @@
   [config]
   (str @(rf/subscribe [::get-block-data config])))
 
-(defn input-field-with-label
-  [config]
-  [form-group config
-   [input-field config]])
-
 (defn numeric-input-field-settings
   "Settings for numeric-input-field component"
   [_]

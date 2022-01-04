@@ -160,7 +160,6 @@
        'm4/form-group                     {:view components4/form-group :init components4/form-group-settings}
        'm4/inline-form-group              {:view components4/inline-form-group :init components4/inline-form-group-settings}
        'm4/input-field                    {:view components4/input-field :init components4/input-field-settings}
-       'm4/input-field-with-label         {:view components4/input-field-with-label :init components4/input-field-settings}
        'm4/item-add-button                {:view components4/item-add-button :init components4/item-add-button-settings}
        'm4/item-dialog-button             {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/edit-dialog                    {:view components4/edit-dialog :init components4/edit-dialog-settings}

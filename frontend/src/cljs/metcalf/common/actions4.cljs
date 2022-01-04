@@ -82,6 +82,12 @@
   (let [is-open-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props])]
     (update s is-open-path dissoc :open-dialog?)))
 
+(defn set-touched-action
+  "Set flag to indicate block has been interacted with.  Used to trigger display of errors."
+  [s form-id data-path]
+  (let [db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
+    (assoc-in s (conj db-path :props :touched) true)))
+
 (defn add-item-action
   "Add item to a list.  Uses value-path to check for duplicates."
   [s form-id data-path value-path data]

@@ -155,7 +155,6 @@
        'm4/breadcrumb-selection-list      {:view components4/breadcrumb-selection-list :init components4/breadcrumb-selection-list-settings}
        'm4/checkbox-field                 {:view components4/checkbox-field :init components4/checkbox-field-settings}
        'm4/coordinates-modal-field        {:view components4/coordinates-modal-field :init components4/coordinates-modal-field-settings}
-       'm4/date-field-with-label          {:view components4/date-field-with-label :init components4/date-field-settings}
        'm4/form-group                     {:view components4/form-group :init components4/form-group-settings}
        'm4/inline-form-group              {:view components4/inline-form-group :init components4/inline-form-group-settings}
        'm4/input-field                    {:view components4/input-field :init components4/input-field-settings}
@@ -170,13 +169,10 @@
        'm4/mailto-data-manager-link       {:view components4/mailto-data-manager-link}
        'm4/note-for-data-manager          {:view components4/note-for-data-manager :init components4/note-for-data-manager-settings}
        'm4/numeric-input-field            {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
-       'm4/numeric-input-field-with-label {:view components4/numeric-input-field-with-label :init components4/numeric-input-field-settings}
        'm4/page-errors                    {:view components4/page-errors :init components4/page-errors-settings}
        'm4/portal-link                    {:view components4/portal-link}
        'm4/select-option                  {:view components4/select-option :init components4/select-option-settings}
-       'm4/select-option-with-label       {:view components4/select-option-with-label :init components4/select-option-settings}
        'm4/select-value                   {:view components4/select-value :init components4/select-value-settings}
-       'm4/select-value-with-label        {:view components4/select-value-with-label :init components4/select-value-settings}
        'm4/simple-list-option-picker      {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
        'm4/selection-list                 {:view components4/selection-list :init components4/selection-list-settings}
        'm4/simple-selection-list          {:view components4/simple-selection-list :init components4/simple-selection-list-settings}
@@ -184,7 +180,6 @@
        'm4/table-list-option-picker       {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
        'm4/table-selection-list           {:view components4/table-selection-list :init components4/table-selection-list-settings}
        'm4/textarea-field                 {:view components4/textarea-field :init components4/textarea-field-settings}
-       'm4/textarea-field-with-label      {:view components4/textarea-field-with-label :init components4/textarea-field-settings}
        'm4/when-data                      {:view components4/when-data :init components4/when-data-settings}
        'm4/get-data                       {:view components4/get-data :init components4/get-data-settings}
        'm4/yes-no-field                   {:view components4/yes-no-field :init components4/yes-no-field-settings}

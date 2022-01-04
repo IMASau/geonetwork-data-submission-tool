@@ -1568,12 +1568,15 @@
                       ["dataQualityInfo" "results"]]}]
      [:h2 "7. Data Quality"]
      [:i "This section is optional"]
-     [m4/textarea-field-with-label
+     [m4/form-group
       {:form-id     [:form]
        :data-path   ["dataQualityInfo" "methodSummary"]
-       :label       "Provide a summary of the scope of the Data Quality Assessment"
-       :maxLength   1000
-       :placeholder "The data quality was assessed by ..."}]
+       :label       "Provide a summary of the scope of the Data Quality Assessment"}
+      [m4/textarea-field
+       {:form-id     [:form]
+        :data-path   ["dataQualityInfo" "methodSummary"]
+        :maxLength   1000
+        :placeholder "The data quality was assessed by ..."}]]
 
      [m4/form-group
       {:label    "Online data quality report"

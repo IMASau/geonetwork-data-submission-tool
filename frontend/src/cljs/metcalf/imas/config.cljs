@@ -282,8 +282,8 @@
        :data-paths [["identificationInfo" "abstract"]]}]
      [:h2 "2. What"]
      [m4/form-group
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "abstract"]}
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "abstract"]}
       [m4/textarea-field
        {:form-id     [:form]
         :data-path   ["identificationInfo" "abstract"]
@@ -351,11 +351,14 @@
                     ["identificationInfo" "endPosition"]
                     ["identificationInfo" "samplingFrequency"]]}]
      [:h2 "3. When was the data acquired?"]
-     [m4/date-field-with-label
+     [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "beginPosition"]
-       :minDate   "1900-01-01"
-       :maxDate   "2100-01-01"}]
+       :data-path ["identificationInfo" "beginPosition"]}
+      [m4/date-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "beginPosition"]
+        :minDate   "1900-01-01"
+        :maxDate   "2100-01-01"}]]
      [m4/date-field-with-label
       {:form-id   [:form]
        :data-path ["identificationInfo" "endPosition"]

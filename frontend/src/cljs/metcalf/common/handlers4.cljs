@@ -12,10 +12,11 @@
 
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]
-  (let [path (utils4/as-path [:db (:form-id ctx) :state (blocks4/block-path (:data-path ctx))])]
+  (let [{:keys [form-id data-path]} ctx
+        path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (-> {:db db}
         (assoc-in (conj path :props :value) value)
-        (assoc-in (conj path :props :touched) true))))
+        (actions4/set-touched-action form-id data-path))))
 
 (defn option-change-handler
   [{:keys [db]} [_ ctx option]]
@@ -25,7 +26,7 @@
         path (utils4/as-path [:db (:form-id ctx) :state (blocks4/block-path (:data-path ctx))])]
     (-> {:db db}
         (assoc-in path state)
-        (assoc-in (conj path :props :touched) true))))
+        (actions4/set-touched-action form-id data-path))))
 
 (defn add-record-handler
   "Used with record-add-button which adds text values to a list"
@@ -38,12 +39,13 @@
         path (utils4/as-path [:db (:form-id ctx) :state (blocks4/block-path (:data-path ctx))])]
     (-> {:db db}
         (assoc-in path state)
-        (assoc-in (conj path :props :touched) true))))
+        (actions4/set-touched-action form-id data-path))))
 
 (defn text-value-add-click-handler
   [{:keys [db]} [_ ctx value]]
   (let [{:keys [form-id data-path]} ctx]
-    (actions4/add-item-action {:db db} form-id data-path [] value)))
+    (-> {:db db}
+        (actions4/add-item-action form-id data-path [] value))))
 
 (defn list-add-with-defaults-click-handler2
   [{:keys [db]} [_ config]]
@@ -86,7 +88,7 @@
         db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (-> {:db db}
         (assoc-in db-path state)
-        (assoc-in (conj db-path :props :touched) true)
+        (actions4/set-touched-action form-id data-path)
         (actions4/genkey-action form-id data-path))))
 
 (defn list-option-picker-change

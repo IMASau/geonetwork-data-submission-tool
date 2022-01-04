@@ -99,7 +99,7 @@
         (cond-> (not (contains? ids (get-in data value-path)))
                 (update-in (conj db-path :content) conj state))
         ;; TODO: split out?
-        (assoc-in (conj db-path :props :touched) true))))
+        (set-touched-action form-id data-path))))
 
 ; TODO: Split out "show errors"
 (defn set-data-action
@@ -110,7 +110,7 @@
         db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (-> s
         (assoc-in db-path state)
-        (assoc-in (conj db-path :props :touched) true))))
+        (set-touched-action form-id data-path))))
 
 (defn move-item-action
   "Move item in a list from src-idx to dst-idx."

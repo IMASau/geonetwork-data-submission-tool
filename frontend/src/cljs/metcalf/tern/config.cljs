@@ -1734,13 +1734,16 @@
          :maxLength   1000}]]]
 
      [m4/expanding-control {:label "Acknowledgment (Optional)"}
-      [m4/textarea-field-with-label
+      [m4/form-group
        {:form-id     [:form]
         :data-path   ["identificationInfo" "credit"]
         :label       "Acknowledgment"
-        :placeholder "The project was funded by xxx and yyy"
-        :helperText  "Write a sentence acknowledging sponsors, data providers or funding organisations"
-        :maxLength   1000}]]
+        :helperText  "Write a sentence acknowledging sponsors, data providers or funding organisations"}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "credit"]
+         :placeholder "The project was funded by xxx and yyy"
+         :maxLength   1000}]]]
 
      [m4/expanding-control {:label "Citation (Optional)"}
       [m4/textarea-field-with-label

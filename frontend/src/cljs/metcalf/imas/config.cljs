@@ -459,9 +459,9 @@
        :data-path  ["identificationInfo" "verticalElement" "minimumValue"]
        :helperText "Shallowest depth / lowest altitude"}
       [m4/numeric-input-field
-       {:form-id    [:form]
-        :data-path  ["identificationInfo" "verticalElement" "minimumValue"]
-        :class      "wauto"}]]
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "verticalElement" "minimumValue"]
+        :class     "wauto"}]]
      [m4/form-group
       {:form-id    [:form]
        :data-path  ["identificationInfo" "verticalElement" "maximumValue"]

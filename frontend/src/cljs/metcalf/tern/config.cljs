@@ -420,15 +420,18 @@
       [:div
 
        ;; FIXME: Should this be use api for options?
-       [m4/select-value-with-label
+       [m4/form-group
         {:form-id    [:form]
          :data-path  ["identificationInfo" "status"]
-         :label      "Status of Data"
-         :value-path ["value"]
-         :label-path ["label"]
-         :options    [{"value" "onGoing" "label" "ongoing"}
-                      {"value" "planned" "label" "planned"}
-                      {"value" "completed" "label" "completed"}]}]]
+         :label      "Status of Data"}
+        [m4/select-value
+         {:form-id    [:form]
+          :data-path  ["identificationInfo" "status"]
+          :value-path ["value"]
+          :label-path ["label"]
+          :options    [{"value" "onGoing" "label" "ongoing"}
+                       {"value" "planned" "label" "planned"}
+                       {"value" "completed" "label" "completed"}]}]]]
       [:div
        [m4/form-group
         {:form-id    [:form]

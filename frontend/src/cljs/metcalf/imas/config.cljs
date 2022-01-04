@@ -467,9 +467,9 @@
        :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
        :helperText "Deepest depth / highest altitude"}
       [m4/numeric-input-field
-       {:form-id    [:form]
-        :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
-        :class      "wauto"}]]
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "verticalElement" "maximumValue"]
+        :class     "wauto"}]]
      [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
     :box/user-defined-entry-form

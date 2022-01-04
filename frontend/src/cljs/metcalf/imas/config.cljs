@@ -250,8 +250,8 @@
                      {"value" "planned" "label" "planned"}
                      {"value" "completed" "label" "completed"}]}]]
      [m4/form-group
-      {:form-id    [:form]
-       :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]}
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]}
       [m4/select-value
        {:form-id    [:form]
         :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
@@ -281,12 +281,14 @@
        :data-path  []
        :data-paths [["identificationInfo" "abstract"]]}]
      [:h2 "2. What"]
-     [m4/textarea-field-with-label
+     [m4/form-group
       {:form-id     [:form]
-       :data-path   ["identificationInfo" "abstract"]
-       :placeholder nil
-       :rows        3
-       :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"}]
+       :data-path   ["identificationInfo" "abstract"]}
+      [m4/textarea-field
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "abstract"]
+        :placeholder nil
+        :rows        3}]]
 
      [m4/form-group
       {:form-id   [:form]

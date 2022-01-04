@@ -52,7 +52,7 @@
    Logic can control how the form-group is rendered.  Uses form-id and data-path to access block props.
    * required - show that field is required
    * disabled - styles control to indicate it's disabled
-   * hasError - styles control to indicate data entry errors
+   * show-errors? - styles control to indicate data entry errors
    * errors - any data entry errors are displayed in place of helper text
    * is-hidden - hide form-group and children entirely
 
@@ -92,7 +92,7 @@
    Logic can control how the form-group is rendered.  Uses form-id and data-path to access block props.
    * required - show that field is required
    * disabled - styles control to indicate it's disabled
-   * hasError - styles control to indicate data entry errors
+   * show-errors? - styles control to indicate data entry errors
    * errors - any data entry errors are displayed in place of helper text
    * is-hidden - hide form-group and children entirely
 
@@ -248,7 +248,7 @@
 
    Logic can control how the component is rendered using form-id and data-path to access block props.
    * disabled - styles control to indicate it's disabled
-   * hasError - styles control to indicate data entry errors
+   * show-errors? - styles control to indicate data entry errors
    * is-hidden - hides component entirely
   "
   [config]
@@ -317,7 +317,7 @@
 
    Logic can control how the component is rendered using form-id and data-path to access block props.
    * disabled - styles control to indicate it's disabled
-   * hasError - styles control to indicate data entry errors
+   * show-errors? - styles control to indicate data entry errors
    * is-hidden - hides component entirely
   "
   [config]

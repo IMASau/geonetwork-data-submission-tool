@@ -215,23 +215,29 @@
       [m4/input-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "title"]}]]
-     [m4/date-field-with-label
+     [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "dateCreation"]
-       :label     "Date of record creation"
-       :minDate   "1900-01-01"
-       :maxDate   "2100-01-01"}]
-     [m4/select-value-with-label
+       :label     "Date of record creation"}
+      [m4/date-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "dateCreation"]
+        :minDate   "1900-01-01"
+        :maxDate   "2100-01-01"}]]
+     [m4/form-group
       {:form-id    [:form]
        :data-path  ["identificationInfo" "topicCategory"]
-       :label      "Topic categories"
-       :value-path ["value"]
-       :label-path ["label"]
-       :options    [{"value" "biota" "label" "biota"}
-                    {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
-                    {"value" "oceans" "label" "oceans"}
-                    {"value" "geoscientificInformation" "label" "geoscientificInformation"}
-                    {"value" "inlandWater" "label" "inlandWater"}]}]
+       :label      "Topic categories"}
+      [m4/select-value
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "topicCategory"]
+        :value-path ["value"]
+        :label-path ["label"]
+        :options    [{"value" "biota" "label" "biota"}
+                     {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
+                     {"value" "oceans" "label" "oceans"}
+                     {"value" "geoscientificInformation" "label" "geoscientificInformation"}
+                     {"value" "inlandWater" "label" "inlandWater"}]}]]
      [m4/select-value-with-label
       {:form-id    [:form]
        :data-path  ["identificationInfo" "status"]

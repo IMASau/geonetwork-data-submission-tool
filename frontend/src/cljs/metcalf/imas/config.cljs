@@ -743,21 +743,25 @@
        :template-id :data-parameter/user-defined-entry-form}]
      [:h4 "Resource constraints"]
      ;; FIXME license selection isn't being included in XML export.
-     [m4/select-option-with-label
-      {:form-id    [:form]
-       :data-path  ["identificationInfo" "creativeCommons"]
-       :help       [:span "Learn more about which license is right for you at "
-                    [:a {:href   "https://creativecommons.org/choose/"
-                         :target "_blank"}
-                     "Creative Commons"]]
-       :label      "License"
-       :required   true
-       :kind       "simple"
-       :value-path ["value"]
-       :label-path ["label"]
-       :options    [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}
-                    {"value" "http://creativecommons.org/licenses/by-nc/4.0/" "label" "Creative Commons, Non-commercial Use only"}
-                    {"value" "http://creativecommons.org/licenses/other" "label" "Other constraints"}]}]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "creativeCommons"]
+       ; TODO: This looks like helperText
+       :help      [:span "Learn more about which license is right for you at "
+                   [:a {:href   "https://creativecommons.org/choose/"
+                        :target "_blank"}
+                    "Creative Commons"]]
+       :label     "License"
+       :required  true}
+      [m4/select-option
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "creativeCommons"]
+        :kind       "simple"
+        :value-path ["value"]
+        :label-path ["label"]
+        :options    [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}
+                     {"value" "http://creativecommons.org/licenses/by-nc/4.0/" "label" "Creative Commons, Non-commercial Use only"}
+                     {"value" "http://creativecommons.org/licenses/other" "label" "Other constraints"}]}]]
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "otherConstraints"]

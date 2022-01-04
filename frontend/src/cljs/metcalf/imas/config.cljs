@@ -368,8 +368,8 @@
         :minDate   "1900-01-01"
         :maxDate   "2100-01-01"}]]
      [m4/form-group
-      {:form-id    [:form]
-       :data-path  ["identificationInfo" "samplingFrequency"]}
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "samplingFrequency"]}
       [m4/select-value
        {:form-id    [:form]
         :data-path  ["identificationInfo" "samplingFrequency"]

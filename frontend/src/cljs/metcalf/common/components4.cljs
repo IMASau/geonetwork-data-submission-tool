@@ -429,27 +429,6 @@
         :maxDate  (cljs-time/value-to-date maxDate)
         :onChange #(rf/dispatch [::value-changed config (cljs-time/date-to-value %)])}])))
 
-(defn note-for-data-manager-settings
-  "Settings for note-for-data-manager component"
-  [_]
-  {::low-code4/req-ks [:form-id :data-path]
-   ::low-code4/opt-ks []})
-
-(defn note-for-data-manager
-  [config]
-  (let [{:keys [document]} @(rf/subscribe [:subs/get-context])
-        value @(rf/subscribe [::get-block-data config])]
-    [:div
-     {:style {:padding-top    5
-              :padding-bottom 5}}
-     (if (= "Draft" (:status document))
-       [form-group config
-        [textarea-field config]]
-       (when-not (string/blank? value)
-         [:div
-          [:strong "Note for the data manager:"]
-          [:p value]]))]))
-
 (defn lodge-button
   []
   (let [page @(rf/subscribe [:subs/get-page-props])

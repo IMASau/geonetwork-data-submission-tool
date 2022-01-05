@@ -429,22 +429,6 @@
         :maxDate  (cljs-time/value-to-date maxDate)
         :onChange #(rf/dispatch [::value-changed config (cljs-time/date-to-value %)])}])))
 
-(defn xml-export-link-settings
-  "Settings for xml-export-link component"
-  [_]
-  {::low-code4/req-ks [:label]
-   ::low-code4/opt-ks [:form-id :data-path]})
-
-(defn xml-export-link
-  [config]
-  (let [{:keys [label]} @(rf/subscribe [::get-block-props config])
-        {:keys [document]} @(rf/subscribe [:subs/get-context])
-        dirty @(rf/subscribe [:subs/get-form-dirty])
-        download-props {:href     (str (:export_url document) "?download")
-                        :on-click #(when dirty
-                                     (js/alert "Please save changes before exporting."))}]
-    [:a download-props label]))
-
 (defn mailto-data-manager-link
   []
   (let [{:keys [site]} @(rf/subscribe [:subs/get-context])

@@ -184,7 +184,7 @@
        'm4/when-data                      {:view components4/when-data :init components4/when-data-settings}
        'm4/get-data                       {:view components4/get-data :init components4/get-data-settings}
        'm4/yes-no-field                   {:view components4/yes-no-field :init components4/yes-no-field-settings}
-       'm4/xml-export-link                {:view components4/xml-export-link :init components4/xml-export-link-settings}
+       'm4/xml-export-link                {:view imas-components/xml-export-link :init imas-components/xml-export-link-settings}
        'm4/async-item-picker              {:view components4/async-item-picker :init components4/async-item-picker-settings}
        'm4/record-add-button              {:view components4/record-add-button :init components4/record-add-button-settings}
        'm4/text-add-button                {:view components4/text-add-button :init components4/text-add-button-settings}

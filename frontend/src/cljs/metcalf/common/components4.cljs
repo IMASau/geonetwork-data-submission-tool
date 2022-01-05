@@ -429,28 +429,6 @@
         :maxDate  (cljs-time/value-to-date maxDate)
         :onChange #(rf/dispatch [::value-changed config (cljs-time/date-to-value %)])}])))
 
-(defn lodge-status-info
-  []
-  (let [page @(rf/subscribe [:subs/get-page-props])
-        ;; FIXME need an m4 saving? value.
-        saving (:metcalf3.handlers/saving? page)
-        {:keys [document]} @(rf/subscribe [:subs/get-context])
-        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
-        is-are (if (> errors 1) "are" "is")
-        plural (when (> errors 1) "s")
-        has-errors? (and errors (> errors 0))]
-    (if has-errors?
-      [:span.text-danger [:b "Unable to lodge: "]
-       "There " is-are " " [:span errors " error" plural
-                            " which must be corrected first."]]
-      [:span.text-success
-       [:b
-        (cond
-          saving "Submitting..."
-          (= (:status document) "Draft") "Ready to lodge"
-          (= (:status document) "Submitted") "Your record has been submitted."
-          :else (:status document))]])))
-
 (defn xml-export-link-settings
   "Settings for xml-export-link component"
   [_]

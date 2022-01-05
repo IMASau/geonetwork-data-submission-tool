@@ -429,12 +429,6 @@
         :maxDate  (cljs-time/value-to-date maxDate)
         :onChange #(rf/dispatch [::value-changed config (cljs-time/date-to-value %)])}])))
 
-(defn mailto-data-manager-link
-  []
-  (let [{:keys [site]} @(rf/subscribe [:subs/get-context])
-        {:keys [email]} site]
-    [:a {:href (str "mailto:" email)} email]))
-
 (defn simple-select-option-settings
   [{:keys [value-path label-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :options :value-path :label-path]

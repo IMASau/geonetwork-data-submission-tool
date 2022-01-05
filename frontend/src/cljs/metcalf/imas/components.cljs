@@ -93,3 +93,9 @@
                         :on-click #(when dirty
                                      (js/alert "Please save changes before exporting."))}]
     [:a download-props label]))
+
+(defn mailto-data-manager-link
+  []
+  (let [{:keys [site]} @(rf/subscribe [:subs/get-context])
+        {:keys [email]} site]
+    [:a {:href (str "mailto:" email)} email]))

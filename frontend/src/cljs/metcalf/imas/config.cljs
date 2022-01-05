@@ -167,7 +167,7 @@
        'm4/typed-list-edit-dialog         {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
        'm4/lodge-button                   {:view imas-components/lodge-button}
        'm4/lodge-status-info              {:view imas-components/lodge-status-info}
-       'm4/mailto-data-manager-link       {:view components4/mailto-data-manager-link}
+       'm4/mailto-data-manager-link       {:view imas-components/mailto-data-manager-link}
        'm4/note-for-data-manager          {:view imas-components/note-for-data-manager :init imas-components/note-for-data-manager-settings}
        'm4/numeric-input-field            {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
        'm4/page-errors                    {:view components4/page-errors :init components4/page-errors-settings}

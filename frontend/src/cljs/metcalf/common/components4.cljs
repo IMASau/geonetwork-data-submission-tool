@@ -433,15 +433,23 @@
   "Settings for simple-select-option component"
   [{:keys [value-path label-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :options :value-path :label-path]
-   ::low-code4/opt-ks       [:placeholder :added-path]
+   ::low-code4/opt-ks       [:placeholder]
    ::low-code4/schema       {:type "object" :properties {}}
    ::low-code4/schema-paths [value-path label-path added-path]})
 
 (defn simple-select-option
+  "This component renders a select control with options.  The value is option data at value-path.
+
+   Props configure the component
+   * options (maps) is a list of option data
+   * value-path (vector) describes where the value in the option data.  Values must be unique.
+   * label-path (vector) describes where the label is in the option data
+   * placeholder (string) will be displayed when no option is selected
+   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder options disabled is-hidden value-path label-path added-path show-errors?]} props]
+        {:keys [placeholder options disabled is-hidden value-path label-path show-errors?]} props]
     (when-not is-hidden
       [ui-controls/SimpleSelectField
        {:value       value
@@ -450,7 +458,6 @@
         :disabled    disabled
         :getValue    (ui-controls/obj-path-getter value-path)
         :getLabel    (ui-controls/obj-path-getter label-path)
-        :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
         :hasError    show-errors?
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 

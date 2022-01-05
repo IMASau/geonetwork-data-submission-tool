@@ -246,7 +246,7 @@
    * placeholder (string) displayed in input if empty
    * maxLength (int) constraints the length of text entered
 
-   Logic can control how the component is rendered using form-id and data-path to access block props.
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
    * disabled - styles control to indicate it's disabled
    * show-errors? - styles control to indicate data entry errors
    * is-hidden - hides component entirely
@@ -315,7 +315,7 @@
    * hasButtons (boolean) shows nudge buttons
    * unit (string) displayed to right of input
 
-   Logic can control how the component is rendered using form-id and data-path to access block props.
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
    * disabled - styles control to indicate it's disabled
    * show-errors? - styles control to indicate data entry errors
    * is-hidden - hides component entirely
@@ -350,7 +350,7 @@
    * rows (int) determines the initial height
    * maxLength (int) constraints the length of text entered
 
-   Logic can control how the component is rendered using form-id and data-path to access block props.
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
    * disabled - styles control to indicate it's disabled
    * show-errors? - styles control to indicate data entry errors
    * is-hidden - hides component entirely
@@ -381,7 +381,7 @@
    Props allow control of
    * label (string) to be displayed
 
-   Logic can control how the component is rendered using form-id and data-path to access block props.
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
    * value - value defaults to false if not set
    * disabled - styles control to indicate it's disabled
    * show-errors? - styles control to indicate data entry errors
@@ -411,7 +411,7 @@
    * minDate (date string) is required
    * maxDate (date string) is required
 
-   Logic can control how the component is rendered using form-id and data-path to access block props.
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
    * value - value defaults to false if not set
    * disabled - styles control to indicate it's disabled
    * show-errors? - styles control to indicate data entry errors

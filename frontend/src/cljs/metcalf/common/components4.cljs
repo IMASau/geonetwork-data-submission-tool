@@ -430,6 +430,7 @@
         :onChange #(rf/dispatch [::value-changed config (cljs-time/date-to-value %)])}])))
 
 (defn simple-select-option-settings
+  "Settings for simple-select-option component"
   [{:keys [value-path label-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :options :value-path :label-path]
    ::low-code4/opt-ks       [:placeholder :added-path]
@@ -454,6 +455,7 @@
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defn table-select-option-settings
+  "Settings for table-select-option component"
   [{:keys [label-path value-path added-path columns]}]
   {::low-code4/req-ks       [:form-id :data-path :options :label-path :value-path :columns]
    ::low-code4/opt-ks       [:placeholder :added-path]
@@ -482,6 +484,7 @@
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defn breadcrumb-select-option-settings
+  "Settings for breadcrumb-select-option component"
   [{:keys [label-path value-path breadcrumb-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :options :label-path :value-path :breadcrumb-path]
    ::low-code4/opt-ks       [:placeholder :added-path]

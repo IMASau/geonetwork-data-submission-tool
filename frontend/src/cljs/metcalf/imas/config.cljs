@@ -88,7 +88,7 @@
 (rf/reg-event-fx :metcalf.common.actions4/-create-document handlers4/-create-document-handler)
 (rf/reg-event-fx :metcalf.common.actions4/-get-document-data-action handlers4/-get-document-data-action)
 (rf/reg-event-fx :metcalf.common.components4/coordinates-modal-field-close-modal handlers4/coordinates-modal-field-close-modal)
-(rf/reg-event-fx :metcalf.common.components4/lodge-button-click handlers3/lodge-click)
+(rf/reg-event-fx ::imas-components/lodge-button-click handlers3/lodge-click)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
 (rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
@@ -165,7 +165,7 @@
        'm4/list-add-button                {:view components4/list-add-button :init components4/list-add-button-settings}
        'm4/list-edit-dialog               {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
        'm4/typed-list-edit-dialog         {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
-       'm4/lodge-button                   {:view components4/lodge-button}
+       'm4/lodge-button                   {:view imas-components/lodge-button}
        'm4/lodge-status-info              {:view components4/lodge-status-info}
        'm4/mailto-data-manager-link       {:view components4/mailto-data-manager-link}
        'm4/note-for-data-manager          {:view imas-components/note-for-data-manager :init imas-components/note-for-data-manager-settings}

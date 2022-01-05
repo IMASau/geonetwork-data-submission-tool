@@ -429,27 +429,6 @@
         :maxDate  (cljs-time/value-to-date maxDate)
         :onChange #(rf/dispatch [::value-changed config (cljs-time/date-to-value %)])}])))
 
-(defn lodge-button
-  []
-  (let [page @(rf/subscribe [:subs/get-page-props])
-        ;; FIXME need an m4 saving? value.
-        saving (:metcalf3.handlers/saving? page)
-        {:keys [document urls]} @(rf/subscribe [:subs/get-context])
-        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
-        disabled @(rf/subscribe [:subs/get-form-disabled?])
-        has-errors? (and errors (> errors 0))
-        archived? (= (:status document) "Archived")
-        submitted? (= (:status document) "Submitted")]
-    (when-not (or archived? submitted?)
-      [:button.btn.btn-primary.btn-lg
-       {:disabled (or has-errors? saving disabled)
-        :on-click #(rf/dispatch [::lodge-button-click])}
-       (when saving
-         [:img
-          {:src (str (:STATIC_URL urls)
-                     "metcalf3/img/saving.gif")}])
-       "Lodge data"])))
-
 (defn lodge-status-info
   []
   (let [page @(rf/subscribe [:subs/get-page-props])

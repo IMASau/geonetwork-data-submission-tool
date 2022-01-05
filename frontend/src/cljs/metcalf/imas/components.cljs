@@ -1,7 +1,8 @@
 (ns metcalf.imas.components
   (:require [re-frame.core :as rf]
             [metcalf.common.components4 :as components4]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [metcalf.common.low-code4 :as low-code4]))
 
 (defn portal-link
   []
@@ -32,3 +33,24 @@
          [:div
           [:strong "Note for the data manager:"]
           [:p value]]))]))
+
+(defn lodge-button
+  []
+  (let [page @(rf/subscribe [:subs/get-page-props])
+        ;; FIXME need an m4 saving? value.
+        saving (:metcalf3.handlers/saving? page)
+        {:keys [document urls]} @(rf/subscribe [:subs/get-context])
+        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
+        disabled @(rf/subscribe [:subs/get-form-disabled?])
+        has-errors? (and errors (> errors 0))
+        archived? (= (:status document) "Archived")
+        submitted? (= (:status document) "Submitted")]
+    (when-not (or archived? submitted?)
+      [:button.btn.btn-primary.btn-lg
+       {:disabled (or has-errors? saving disabled)
+        :on-click #(rf/dispatch [::lodge-button-click])}
+       (when saving
+         [:img
+          {:src (str (:STATIC_URL urls)
+                     "metcalf3/img/saving.gif")}])
+       "Lodge data"])))

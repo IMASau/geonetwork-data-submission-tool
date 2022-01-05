@@ -84,7 +84,6 @@
 (rf/reg-event-fx :metcalf.common.actions4/-create-document handlers4/-create-document-handler)
 (rf/reg-event-fx :metcalf.common.actions4/-get-document-data-action handlers4/-get-document-data-action)
 (rf/reg-event-fx :metcalf.common.components4/coordinates-modal-field-close-modal handlers4/coordinates-modal-field-close-modal)
-(rf/reg-event-fx :metcalf.common.components4/lodge-button-click handlers3/lodge-click)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
 (rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)

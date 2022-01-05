@@ -371,22 +371,32 @@
 (defn checkbox-field-settings
   "Settings for checkbox-field component"
   [_]
-  {::low-code4/req-ks [:form-id :data-path]
-   ::low-code4/opt-ks [:label]
+  {::low-code4/req-ks [:form-id :data-path :label]
+   ::low-code4/opt-ks []
    ::low-code4/schema {:type "boolean"}})
 
 (defn checkbox-field
+  "This component renders a checkbox.  Values are stored as boolean values.
+
+   Props allow control of
+   * label (string) to be displayed
+
+   Logic can control how the component is rendered using form-id and data-path to access block props.
+   * value - value defaults to false if not set
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [label value disabled show-errors?]} props
-        ; NOTE: treating label is a special case, if defined in config it overrides logic
-        label (get config :label label)]
-    [ui-controls/CheckboxField
-     {:label    label
-      :checked  (or value false)                            ; TODO: should be guaranteed by sub?
-      :disabled disabled
-      :hasError show-errors?
-      :onChange #(rf/dispatch [::value-changed config %])}]))
+        {:keys [label value disabled show-errors? is-hidden]} props]
+    (when-not is-hidden
+      [ui-controls/CheckboxField
+       {:label    label
+        :checked  (or value false)                          ; TODO: should be guaranteed by sub?
+        :disabled disabled
+        :hasError show-errors?
+        :onChange #(rf/dispatch [::value-changed config %])}])))
 
 (defn date-field-settings
   "Settings for date-field component"

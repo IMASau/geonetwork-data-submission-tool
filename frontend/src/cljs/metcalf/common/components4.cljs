@@ -429,14 +429,6 @@
         :maxDate  (cljs-time/value-to-date maxDate)
         :onChange #(rf/dispatch [::value-changed config (cljs-time/date-to-value %)])}])))
 
-(defn portal-link
-  []
-  (let [{:keys [site]} @(rf/subscribe [:subs/get-context])
-        {:keys [portal_title portal_url]} site]
-    (if portal_url
-      [:a {:href portal_url :target "_blank"} [:span.portal-title portal_title]]
-      [:span.portal-title portal_title])))
-
 (defn note-for-data-manager-settings
   "Settings for note-for-data-manager component"
   [_]

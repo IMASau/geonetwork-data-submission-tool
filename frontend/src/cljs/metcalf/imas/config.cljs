@@ -12,6 +12,7 @@
             [metcalf.common.utils4 :as utils4]
             [metcalf.imas.handlers :as imas-handlers]
             [metcalf.imas.subs :as imas-subs]
+            [metcalf.imas.components :as imas-components]
             [re-frame.core :as rf]
             [cljs.spec.alpha :as s]
             [clojure.string :as string]))
@@ -170,7 +171,7 @@
        'm4/note-for-data-manager          {:view components4/note-for-data-manager :init components4/note-for-data-manager-settings}
        'm4/numeric-input-field            {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
        'm4/page-errors                    {:view components4/page-errors :init components4/page-errors-settings}
-       'm4/portal-link                    {:view components4/portal-link}
+       'm4/portal-link                    {:view imas-components/portal-link}
        'm4/select-option                  {:view components4/select-option :init components4/select-option-settings}
        'm4/select-value                   {:view components4/select-value :init components4/select-value-settings}
        'm4/simple-list-option-picker      {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}

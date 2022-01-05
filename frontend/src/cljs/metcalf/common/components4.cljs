@@ -401,14 +401,25 @@
 (defn date-field-settings
   "Settings for date-field component"
   [_]
-  {::low-code4/req-ks [:form-id :data-path]
-   ::low-code4/opt-ks [:minDate :maxDate]
+  {::low-code4/req-ks [:form-id :data-path :minDate :maxDate]
    ::low-code4/schema {:type "string"}})
 
 (defn date-field
+  "This component renders a date field within a defined date range.  The value is a date string (yyyy-MM-dd).
+
+   Props control
+   * minDate (date string) is required
+   * maxDate (date string) is required
+
+   Logic can control how the component is rendered using form-id and data-path to access block props.
+   * value - value defaults to false if not set
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [minDate maxDate value disabled is-hidden show-errors?]} props]
+        {:keys [minDate maxDate value disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/DateField
        {:value    (cljs-time/value-to-date value)

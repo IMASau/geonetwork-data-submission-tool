@@ -147,8 +147,7 @@
       {
        'm4/async-item-picker              {:view components4/async-item-picker :init components4/async-item-picker-settings}
        'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
-       'm4/async-select-option            {:view components4/async-select-option :init components4/async-select-option-settings}
-       'm4/async-select-option-simple     {:view components4/async-select-option-simple :init components4/async-select-option-simple-settings}
+       'm4/async-select-option            {:view components4/async-select-option-simple :init components4/async-select-option-simple-settings}
        'm4/async-select-option-breadcrumb {:view components4/async-select-option-breadcrumb :init components4/async-select-option-breadcrumb-settings}
        'm4/async-select-option-table      {:view components4/async-select-option-table :init components4/async-select-option-table-settings}
        'm4/async-select-value             {:view components4/async-select-value :init components4/async-select-value-settings}
@@ -388,10 +387,9 @@
        {:form-id   [:form]
         :data-path ["parentMetadata" "parentMetadataFlag"]
         :label     "Does this record have a parent dataset?"}]
-      [m4/async-select-option
+      [m4/async-select-option-breadcrumb
        {:form-id         [:form]
         :data-path       ["parentMetadata" "record"]
-        :kind            :breadcrumb
         :uri             "/api/terngeonetwork"
         :label-path      ["label"]
         :value-path      ["uri"]

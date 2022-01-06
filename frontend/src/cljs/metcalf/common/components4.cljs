@@ -1081,14 +1081,14 @@
         :loadOptions   (partial utils4/load-options config)
         :onChange      #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defn async-list-option-picker-table-settings
+(defn async-list-option-picker-columns-settings
   "Settings for async-table-list-option-picker component"
   [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
    ::low-code4/opt-ks [:placeholder]
    ::low-code4/schema {:type "array" :items {:type "object"}}})
 
-(defn async-list-option-picker-table
+(defn async-list-option-picker-columns
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder disabled is-hidden value-path label-path columns show-errors?]} props]

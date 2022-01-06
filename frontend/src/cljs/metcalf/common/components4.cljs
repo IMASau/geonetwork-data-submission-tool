@@ -1104,27 +1104,27 @@
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}])))
 
-(defn simple-list-option-picker-settings
-  "Settings for simple-list-option-picker component"
-  [_]
-  {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path]
-   ::low-code4/opt-ks [:placeholder]
-   ::low-code4/schema {:type "array" :items {:type "object"}}})
-
-(defn simple-list-option-picker
-  [config]
-  (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder options disabled is-hidden value-path label-path show-errors?]} props]
-    (when-not is-hidden
-      [ui-controls/SimpleSelectField
-       {:value       nil
-        :options     options
-        :placeholder placeholder
-        :disabled    disabled
-        :hasError    show-errors?
-        :getLabel    (ui-controls/obj-path-getter label-path)
-        :getValue    (ui-controls/obj-path-getter value-path)
-        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
+;(defn simple-list-option-picker-settings
+;  "Settings for simple-list-option-picker component"
+;  [_]
+;  {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path]
+;   ::low-code4/opt-ks [:placeholder]
+;   ::low-code4/schema {:type "array" :items {:type "object"}}})
+;
+;(defn simple-list-option-picker
+;  [config]
+;  (let [props @(rf/subscribe [::get-block-props config])
+;        {:keys [placeholder options disabled is-hidden value-path label-path show-errors?]} props]
+;    (when-not is-hidden
+;      [ui-controls/SimpleSelectField
+;       {:value       nil
+;        :options     options
+;        :placeholder placeholder
+;        :disabled    disabled
+;        :hasError    show-errors?
+;        :getLabel    (ui-controls/obj-path-getter label-path)
+;        :getValue    (ui-controls/obj-path-getter value-path)
+;        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defn breadcrumb-list-option-picker-settings
   "Settings for breadcrumb-list-option-picker component"

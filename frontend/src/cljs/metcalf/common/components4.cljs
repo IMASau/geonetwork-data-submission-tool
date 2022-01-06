@@ -1013,14 +1013,14 @@
                         :getLabel (ui-controls/obj-path-getter label-path)})
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defn async-list-option-picker-simple-settings
+(defn async-list-option-picker-settings
   "Settings for async-simple-list-option-picker component"
   [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path]
    ::low-code4/opt-ks [:placeholder]
    ::low-code4/schema {:type "array" :items {:type "object"}}})
 
-(defn async-list-option-picker-simple
+(defn async-list-option-picker
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder is-hidden disabled value-path label-path show-errors?]} props]

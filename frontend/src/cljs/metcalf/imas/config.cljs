@@ -151,7 +151,7 @@
        'm4/async-list-option-picker            {:view components4/async-list-option-picker :init components4/async-list-option-picker-settings}
        'm4/async-list-option-picker-breadcrumb {:view components4/async-list-option-picker-breadcrumb :init components4/async-list-option-picker-breadcrumb-settings}
        'm4/async-list-option-picker-columns    {:view components4/async-list-option-picker-columns :init components4/async-list-option-picker-columns-settings}
-       'm4/async-select-option                 {:view components4/async-select-option-simple :init components4/async-select-option-simple-settings}
+       'm4/async-select-option-simple          {:view components4/async-select-option-simple :init components4/async-select-option-simple-settings}
        'm4/async-select-option-breadcrumb      {:view components4/async-select-option-breadcrumb :init components4/async-select-option-breadcrumb-settings}
        'm4/async-select-option-columns         {:view components4/async-select-option-columns :init components4/async-select-option-columns-settings}
        ;'m4/async-select-value                  {:view components4/async-select-value :init components4/async-select-value-settings}
@@ -618,7 +618,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "role"]
        :label     "Role"}
-      [m4/async-select-option
+      [m4/async-select-option-simple
        {:form-id      ?form-id
         :data-path    [?data-path "role"]
         :uri          "/api/rolecode.json"
@@ -629,7 +629,7 @@
       {:form-id   ?form-id
        :data-path [?data-path]
        :label     "Organisation"}
-      [m4/async-select-option
+      [m4/async-select-option-simple
        {:form-id     ?form-id
         :data-path   [?data-path]
         :uri         "/api/institution.json"
@@ -856,7 +856,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "longName_term"]
        :label     "Name"}
-      #_[m4/async-select-option
+      #_[m4/async-select-option-simple
          {:form-id     ?form-id
           :data-path   [?data-path "longName_term"]
           :uri         "/api/parametername"
@@ -888,7 +888,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "unit_term"]
        :label     "Unit"}
-      [m4/async-select-option
+      [m4/async-select-option-simple
        {:form-id     ?form-id
         :data-path   [?data-path "unit_term"]
         :uri         "/api/parameterunit"
@@ -905,7 +905,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "instrument_term"]
        :label     "Instrument"}
-      [m4/async-select-option
+      [m4/async-select-option-simple
        {:form-id     ?form-id
         :data-path   [?data-path "instrument_term"]
         :uri         "/api/parameterinstrument"
@@ -924,7 +924,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "platform_term"]
        :label     "Platform"}
-      [m4/async-select-option
+      [m4/async-select-option-simple
        {:form-id     ?form-id
         :data-path   [?data-path "platform_term"]
         :uri         "/api/parameterplatform"

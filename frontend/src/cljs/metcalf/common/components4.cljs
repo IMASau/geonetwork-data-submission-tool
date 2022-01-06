@@ -1293,7 +1293,7 @@
      {:form-id   ?form-id
       :data-path ["template"]
       :label     "Template"}
-     [m4/async-select-option
+     [m4/async-select-option-simple
       {:form-id    ?form-id
        :data-path  ["template"]
        :value-path ["id"]

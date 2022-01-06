@@ -149,7 +149,7 @@
        'm4/async-list-option-picker            {:view components4/async-list-option-picker :init components4/async-list-option-picker-settings}
        'm4/async-list-option-picker-breadcrumb {:view components4/async-list-option-picker-breadcrumb :init components4/async-list-option-picker-breadcrumb-settings}
        'm4/async-list-option-picker-columns    {:view components4/async-list-option-picker-columns :init components4/async-list-option-picker-columns-settings}
-       'm4/async-select-option                 {:view components4/async-select-option-simple :init components4/async-select-option-simple-settings}
+       'm4/async-select-option-simple          {:view components4/async-select-option-simple :init components4/async-select-option-simple-settings}
        'm4/async-select-option-breadcrumb      {:view components4/async-select-option-breadcrumb :init components4/async-select-option-breadcrumb-settings}
        'm4/async-select-option-columns         {:view components4/async-select-option-columns :init components4/async-select-option-columns-settings}
        ;'m4/async-select-value                  {:view components4/async-select-value :init components4/async-select-value-settings}
@@ -336,7 +336,7 @@
 
       [:div.bp3-control-group
        [:div.bp3-fill
-        [m4/async-select-option
+        [m4/async-select-option-simple
          {:form-id    ?form-id
           :data-path  [?data-path "unit"]
           :uri        "/api/qudtunits"
@@ -687,7 +687,7 @@
       [m4/form-group
        {:label   "Select a Temporal Resolution range"
         :toolTip "How frequently is the data collected?"}
-       [m4/async-select-option
+       [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsTemporal" "keywords"]
          :uri        "/api/samplingfrequency"
@@ -698,7 +698,7 @@
       [m4/form-group
        {:label   "Select a Horizontal Resolution range"
         :toolTip "For gridded data, select the pixel size of the data, for field plots, select average width"}
-       [m4/async-select-option
+       [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsHorizontal" "keywords"]
          :uri        "/api/horizontalresolution"
@@ -709,7 +709,7 @@
       [m4/form-group
        {:label   "Select a Vertical Resolution range"
         :toolTip "Select the smallest vertical distance between successive elements of data in a dataset. This is synonymous with terms such as sample spacing and pixel size"}
-       [m4/async-select-option
+       [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
          :uri        "/api/verticalresolution"
@@ -875,7 +875,7 @@
          {:label    "Coordinate Reference System"
           :required true
           :toolTip  "TODO"}
-         [m4/async-select-option
+         [m4/async-select-option-simple
           {:form-id     [:form]
            :data-path   ["referenceSystemInfo" "crsCode"]
            :label-path  ["code"]
@@ -903,7 +903,7 @@
         {:label    "Vertical Coordinate Reference System"
          :required true
          :toolTip  "TODO"}
-        [m4/async-select-option
+        [m4/async-select-option-simple
          {:form-id     [:form]
           :data-path   ["identificationInfo" "verticalElement" "coordinateReferenceSystem"]
           :uri         "/api/verticalcrs"
@@ -1144,7 +1144,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "role"]
        :label     "Role"}
-      [m4/async-select-option
+      [m4/async-select-option-simple
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
         :uri        "/api/rolecode"
@@ -1209,7 +1209,7 @@
 
       [:div.bp3-control-group
        [:div.bp3-fill
-        [m4/async-select-option
+        [m4/async-select-option-simple
          {:form-id    ?form-id
           :data-path  [?data-path "organisation"]
           :uri        "/api/ternorgs"
@@ -1235,7 +1235,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "role"]
        :label     "Role"}
-      [m4/async-select-option
+      [m4/async-select-option-simple
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
         :uri        "/api/rolecode"
@@ -1658,7 +1658,7 @@
 
      [m4/form-group
       {:label "Security Classification"}
-      [m4/async-select-option
+      [m4/async-select-option-simple
        {:form-id    [:form]
         :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
         :uri        "/api/What9"

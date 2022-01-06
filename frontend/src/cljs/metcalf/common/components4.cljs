@@ -893,6 +893,7 @@
         :onChange #(rf/dispatch [::value-changed config %])}])))
 
 (defn selection-list-simple-settings
+  "Settings for selection-list-simple component"
   [{:keys [label-path value-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :label-path :value-path]
    ::low-code4/opt-ks       [:added-path]
@@ -900,10 +901,21 @@
    ::low-code4/schema-paths [label-path value-path added-path]})
 
 (defn selection-list-simple
+  "This component renders a list of items.  Each item is identified by a label and can be
+   reordered and deleted.  User defined items can also be selected.
+
+   Props allow control of
+   * value-path (vector) - path to value in list item data.  Values must be unique.
+   * label-path (vector) - path to label in list item data.
+   * added-path (vector) - path to test if option is user defined.  Used to style control.
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * is-hidden - hides component entirely"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
-        {:keys [key disabled is-hidden label-path value-path added-path]} props]
+        {:keys [key value-path label-path added-path disabled is-hidden]} props]
     (when-not is-hidden
       [ui-controls/SimpleSelectionList
        {:key           key

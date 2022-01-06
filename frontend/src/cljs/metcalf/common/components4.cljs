@@ -681,17 +681,36 @@
 
 (defn async-select-option-simple-settings
   "Settings for async-select-option-simple component"
-  [{:keys [value-path label-path]}]
+  [{:keys [value-path label-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path]
    ::low-code4/opt-ks       [:placeholder :added-path]
    ::low-code4/schema       {:type "object" :properties {}}
-   ::low-code4/schema-paths [value-path label-path]})
+   ::low-code4/schema-paths [value-path label-path added-path]})
 
 (defn async-select-option-simple
+  "This component renders a select control linked to a json data source.  Options and selected option are
+   displayed as a text label.  The value is option data.
+
+   Props configure the component
+   * value-path (vector) - path to value in the option data.  Values must be unique.
+   * label-path (vector) - path to label is in the option data.  Used to render options and selected value.
+   * added-path (vector) - path to test if option is user defined.  Used to style control.
+   * placeholder (string) - text to displayed when no option is selected.
+
+   Props to configure the data source
+   * uri (string) - the resource that you wish to fetch data from
+   * results-path - where the result list is in the data source json data payload
+   * search-param - the request parameter name used for searching for matching results
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder value-path label-path added-path disabled is-hidden show-errors?]} props]
+        {:keys [value-path label-path added-path placeholder disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/AsyncSimpleSelectField
        {:value       value

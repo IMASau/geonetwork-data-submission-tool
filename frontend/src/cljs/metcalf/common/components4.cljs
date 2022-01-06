@@ -657,27 +657,27 @@
 ;                       :placeholder placeholder})
 ;        :onAddClick #(rf/dispatch [::option-change config %])}])))
 
-(defn async-select-value-settings
-  [{:keys [value-path label-path]}]
-  {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path :results-path]
-   ::low-code4/opt-ks       [:placeholder]
-   ::low-code4/schema       {:type "object" :properties {}}
-   ::low-code4/schema-paths [value-path label-path]})
-
-(defn ^:deprecated async-select-value
-  [config]
-  (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder value value-path label-path disabled is-hidden show-errors?]} props]
-    (when-not is-hidden
-      [ui-controls/AsyncSimpleSelectField
-       {:value       value
-        :placeholder placeholder
-        :disabled    disabled
-        :hasError    show-errors?
-        :loadOptions (partial utils4/load-options config)
-        :getValue    (ui-controls/obj-path-getter value-path)
-        :getLabel    (ui-controls/obj-path-getter label-path)
-        :onChange    #(rf/dispatch [::value-changed config %])}])))
+;(defn async-select-value-settings
+;  [{:keys [value-path label-path]}]
+;  {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path :results-path]
+;   ::low-code4/opt-ks       [:placeholder]
+;   ::low-code4/schema       {:type "object" :properties {}}
+;   ::low-code4/schema-paths [value-path label-path]})
+;
+;(defn ^:deprecated async-select-value
+;  [config]
+;  (let [props @(rf/subscribe [::get-block-props config])
+;        {:keys [placeholder value value-path label-path disabled is-hidden show-errors?]} props]
+;    (when-not is-hidden
+;      [ui-controls/AsyncSimpleSelectField
+;       {:value       value
+;        :placeholder placeholder
+;        :disabled    disabled
+;        :hasError    show-errors?
+;        :loadOptions (partial utils4/load-options config)
+;        :getValue    (ui-controls/obj-path-getter value-path)
+;        :getLabel    (ui-controls/obj-path-getter label-path)
+;        :onChange    #(rf/dispatch [::value-changed config %])}])))
 
 (defn async-select-option-simple-settings
   [{:keys [value-path label-path]}]

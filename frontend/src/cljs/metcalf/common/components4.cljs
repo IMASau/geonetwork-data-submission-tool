@@ -929,12 +929,19 @@
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
 
 (defn value-selection-list-settings
+  "Settings for value-selection-list component"
   [_]
   {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks []
    ::low-code4/schema {:type "array" :items {:type "string"}}})
 
 (defn value-selection-list
+  "This component renders a list of text values.  The items in the list can be reordered and deleted.
+   Values must be unique strings.
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * is-hidden - hides component entirely"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         labels @(rf/subscribe [::get-block-data config])

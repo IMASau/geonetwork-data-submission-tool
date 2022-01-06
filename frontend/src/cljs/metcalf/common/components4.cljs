@@ -1182,11 +1182,27 @@
    ::low-code4/schema {:type "array" :items {:type "object"}}})
 
 (defn async-list-option-picker
-  "This component renders a select control backed by a data source.  Selected options are added to the list.
-   Dropdown displays options as a text label."
+  "This component renders a select control backed by a json data source.  Options are displayed as a text label.
+   Selected options are added to the list.  The value is option data.
+
+   Props configure the component
+   * value-path (vector) - path to value in the option data.  Values must be unique.
+   * label-path (vector) - path to label is in the option data.  Used to render options.
+   * placeholder (string) - text to displayed when no option is selected.
+
+   Props to configure the data source
+   * uri (string) - the resource that you wish to fetch data from
+   * results-path - where the result list is in the data source json data payload
+   * search-param - the request parameter name used for searching for matching results
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder is-hidden disabled value-path label-path show-errors?]} props]
+        {:keys [value-path label-path placeholder disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/AsyncSimpleSelectField
        {:value       nil

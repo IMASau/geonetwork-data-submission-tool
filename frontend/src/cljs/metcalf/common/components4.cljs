@@ -521,10 +521,25 @@
    ::low-code4/schema-paths [label-path value-path added-path breadcrumb-path]})
 
 (defn breadcrumb-select-option
+  "This component renders a select control with options.  The dropdown displays options with breadcrumbs and a label.
+   The value is option data.
+
+   Props configure the component
+   * options (maps) - option data
+   * value-path (vector) - where the value in the option data.
+   * label-path (vector) - where the label is in the option data.  Label data must be a string.
+   * breadcrumb-path (vector) - where the breadcrumbs are in the option data.  Breadcrumbs data must be a list of string.
+   * placeholder (string) will be displayed when no option is selected.
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder options disabled is-hidden label-path value-path breadcrumb-path added-path show-errors?]} props]
+        {:keys [options value-path label-path breadcrumb-path placeholder disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/BreadcrumbSelectField
        {:value         value
@@ -535,7 +550,6 @@
         :getLabel      (ui-controls/obj-path-getter label-path)
         :getValue      (ui-controls/obj-path-getter value-path)
         :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
-        :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
         :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defmulti select-option-settings :kind)

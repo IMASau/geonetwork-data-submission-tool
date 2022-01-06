@@ -1149,30 +1149,30 @@
 ;        :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
 ;        :onChange      #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defn table-list-option-picker-settings
-  "Settings for table-list-option-picker component"
-  [_]
-  {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path :columns]
-   ::low-code4/opt-ks [:placeholder]
-   ::low-code4/schema {:type "array" :items {:type "object"}}})
-
-(defn table-list-option-picker
-  [config]
-  (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder options disabled is-hidden value-path label-path columns show-errors?]} props]
-    (when-not is-hidden
-      [ui-controls/TableSelectField
-       {:value       nil
-        :options     options
-        :placeholder placeholder
-        :disabled    disabled
-        :hasError    show-errors?
-        :getLabel    (ui-controls/obj-path-getter label-path)
-        :getValue    (ui-controls/obj-path-getter value-path)
-        :columns     (for [{:keys [flex label-path]} columns]
-                       {:flex     flex
-                        :getLabel (ui-controls/obj-path-getter label-path)})
-        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
+;(defn table-list-option-picker-settings
+;  "Settings for table-list-option-picker component"
+;  [_]
+;  {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path :columns]
+;   ::low-code4/opt-ks [:placeholder]
+;   ::low-code4/schema {:type "array" :items {:type "object"}}})
+;
+;(defn table-list-option-picker
+;  [config]
+;  (let [props @(rf/subscribe [::get-block-props config])
+;        {:keys [placeholder options disabled is-hidden value-path label-path columns show-errors?]} props]
+;    (when-not is-hidden
+;      [ui-controls/TableSelectField
+;       {:value       nil
+;        :options     options
+;        :placeholder placeholder
+;        :disabled    disabled
+;        :hasError    show-errors?
+;        :getLabel    (ui-controls/obj-path-getter label-path)
+;        :getValue    (ui-controls/obj-path-getter value-path)
+;        :columns     (for [{:keys [flex label-path]} columns]
+;                       {:flex     flex
+;                        :getLabel (ui-controls/obj-path-getter label-path)})
+;        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defn async-list-option-picker-settings
   "Settings for async-simple-list-option-picker component"

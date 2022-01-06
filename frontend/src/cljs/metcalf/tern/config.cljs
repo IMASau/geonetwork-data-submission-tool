@@ -178,7 +178,7 @@
        'm4/selection-list-template             {:view components4/selection-list-template :init components4/selection-list-template-settings}
        'm4/selection-list-simple               {:view components4/selection-list-simple :init components4/selection-list-simple-settings}
        'm4/selection-list-values               {:view components4/selection-list-values :init components4/selection-list-values-settings}
-       'm4/table-list-option-picker            {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
+       ;'m4/table-list-option-picker            {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
        'm4/selection-list-columns              {:view components4/selection-list-columns :init components4/selection-list-columns-settings}
        'm4/textarea-field                      {:view components4/textarea-field :init components4/textarea-field-settings}
        'm4/when-data                           {:view components4/when-data :init components4/when-data-settings}

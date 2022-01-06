@@ -1182,6 +1182,8 @@
    ::low-code4/schema {:type "array" :items {:type "object"}}})
 
 (defn async-list-option-picker
+  "This component renders a select control backed by a data source.  Selected options are added to the list.
+   Dropdown displays options as a text label."
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder is-hidden disabled value-path label-path show-errors?]} props]

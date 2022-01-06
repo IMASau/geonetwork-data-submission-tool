@@ -1309,6 +1309,29 @@
    ::low-code4/schema {:type "array" :items {:type "object"}}})
 
 (defn async-list-option-picker-columns
+  "This component renders a select control backed by a json data source.  The dropdown displays options in a table.
+   Picking an option updates data values.  The picked option is not held.
+
+   Intended where user can prepopulate editable fields by picking from a list.
+
+   Props configure the component
+   * value-path (vector) - path to value in the option data.  Values must be unique.
+   * label-path (vector) - path to label is in the option data.  Used to render options.
+   * columns (maps) - column metadata used when rendering options
+     * label-path - where the column label is in the option data
+     * flex (number) - how much space this column should use.
+   * placeholder (string) - text to displayed when no option is selected.
+
+   Props to configure the data source
+   * uri (string) - the resource that you wish to fetch data from
+   * results-path - where the result list is in the data source json data payload
+   * search-param - the request parameter name used for searching for matching results
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder disabled is-hidden value-path label-path columns show-errors?]} props]

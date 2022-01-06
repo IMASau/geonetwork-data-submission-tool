@@ -547,10 +547,9 @@
 
       [m4/form-group
        {:label "Select research theme keywords - maximum of 12 allowed"}
-       [m4/async-list-picker
+       [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
-         :kind            :breadcrumb
          :uri             "/api/sciencekeyword"
          :label-path      ["label"]
          :value-path      ["uri"]
@@ -565,10 +564,9 @@
      [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
       [m4/form-group
        {:label "Select research theme keywords - maximum of 12 allowed"}
-       [m4/async-list-picker
+       [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-         :kind            :breadcrumb
          :uri             "/api/anzsrckeyword"
          :label-path      ["label"]
          :value-path      ["uri"]
@@ -723,10 +721,9 @@
       [m4/form-group
        {:label   "Select Plant Name Indexes keywords"
         :toolTip "Species Taxa"}
-       [m4/async-list-picker
+       [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
-         :kind            :breadcrumb
          :uri             "/api/ausplantnames"              ; TODO: testing required; currently nothing in index
          :label-path      ["label"]
          :value-path      ["uri"]
@@ -742,10 +739,9 @@
       [m4/form-group
        {:label   "Select Australian Faunal Directory keywords"
         :toolTip "Species Taxa"}
-       [m4/async-list-picker
+       [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
-         :kind            :breadcrumb
          :uri             "/api/ausfaunalnames"
          :label-path      ["label"]
          :value-path      ["uri"]

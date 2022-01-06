@@ -438,7 +438,8 @@
    ::low-code4/schema-paths [value-path label-path added-path]})
 
 (defn simple-select-option
-  "This component renders a select control with options.  The value is option data at value-path.
+  "This component renders a select control with options.  The dropdown displays options as single lines of text.
+   The value is option data.
 
    Props configure the component
    * options (maps) is a list of option data

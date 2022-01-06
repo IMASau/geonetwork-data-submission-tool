@@ -958,6 +958,7 @@
         :onRemoveClick (fn [idx] (rf/dispatch [::value-selection-list-remove-click props idx]))}])))
 
 (defn selection-list-settings
+  "Settings for the selection-list component"
   [{:keys [value-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :value-path :template-id]
    ::low-code4/opt-ks       [:added-path]
@@ -965,10 +966,24 @@
    ::low-code4/schema-paths [value-path added-path]})
 
 (defn selection-list
+  "This component renders a selection list based on a template.  Items in the list can be reordered and deleted.
+   User defined items can also be selected.
+
+   Props allow control of
+   * value-path (vector) - path to value in list item data.  Values must be unique.
+   * template-id (keyword) - which identifies the template used to render list items.
+   * added-path (vector) - path to test if option is user defined.  Used to style control.
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * is-hidden - hides component entirely
+
+   The template is rendered with ?form-id and ?data-path variables for the item being rendered.
+  "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
-        {:keys [form-id data-path key disabled is-hidden template-id value-path added-path]} props]
+        {:keys [key form-id data-path value-path template-id added-path disabled is-hidden]} props]
     (when-not is-hidden
       [ui-controls/SelectionList
        {:key           key

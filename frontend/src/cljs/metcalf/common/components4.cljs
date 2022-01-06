@@ -928,14 +928,14 @@
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
 
-(defn value-selection-list-settings
-  "Settings for value-selection-list component"
+(defn selection-list-values-settings
+  "Settings for selection-list-values component"
   [_]
   {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks []
    ::low-code4/schema {:type "array" :items {:type "string"}}})
 
-(defn value-selection-list
+(defn selection-list-values
   "This component renders a list of text values.  The items in the list can be reordered and deleted.
    Values must be unique strings.
 
@@ -954,8 +954,8 @@
         :disabled      disabled
         :getLabel      (ui-controls/obj-path-getter ["label"])
         :getValue      (ui-controls/obj-path-getter ["value"])
-        :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::value-selection-list-reorder props src-idx dst-idx]))
-        :onRemoveClick (fn [idx] (rf/dispatch [::value-selection-list-remove-click props idx]))}])))
+        :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-values-reorder props src-idx dst-idx]))
+        :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-values-remove-click props idx]))}])))
 
 (defn selection-list-settings
   "Settings for the selection-list component"

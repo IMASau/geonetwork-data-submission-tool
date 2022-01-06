@@ -42,8 +42,8 @@
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::components4/text-value-add-click-handler handlers4/text-value-add-click-handler)
 (rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/value-selection-list-remove-click handlers4/selection-list-remove-click)
-(rf/reg-event-fx ::components4/value-selection-list-reorder handlers4/selection-list-reorder)
+(rf/reg-event-fx ::components4/selection-list-values-remove-click handlers4/selection-list-remove-click)
+(rf/reg-event-fx ::components4/selection-list-values-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
 (rf/reg-event-fx :app/-archive-current-document-error handlers3/-archive-current-document-error)
@@ -177,9 +177,9 @@
        'm4/simple-list-option-picker           {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
        'm4/selection-list                      {:view components4/selection-list :init components4/selection-list-settings}
        'm4/selection-list-simple               {:view components4/selection-list-simple :init components4/selection-list-simple-settings}
-       'm4/value-selection-list                {:view components4/value-selection-list :init components4/value-selection-list-settings}
+       'm4/selection-list-values               {:view components4/selection-list-values :init components4/selection-list-values-settings}
        'm4/table-list-option-picker            {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
-       'm4/selection-list-columns                {:view components4/selection-list-columns :init components4/selection-list-columns-settings}
+       'm4/selection-list-columns              {:view components4/selection-list-columns :init components4/selection-list-columns-settings}
        'm4/textarea-field                      {:view components4/textarea-field :init components4/textarea-field-settings}
        'm4/when-data                           {:view components4/when-data :init components4/when-data-settings}
        'm4/get-data                            {:view components4/get-data :init components4/get-data-settings}
@@ -760,7 +760,7 @@
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]
          :button-text "Add"}]
-       [m4/value-selection-list
+       [m4/selection-list-values
         {:form-id   [:form]
          :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]]
 
@@ -1530,7 +1530,7 @@
         {:form-id     [:form]
          :data-path   ["resourceLineageProcessSteps" "steps"]
          :button-text "Add"}]
-       [m4/value-selection-list
+       [m4/selection-list-values
         {:form-id   [:form]
          :data-path ["resourceLineageProcessSteps" "steps"]}]]]
 
@@ -1652,7 +1652,7 @@
        {:form-id     [:form]
         :data-path   ["identificationInfo" "additionalConstraints" "constraints"]
         :button-text "Add"}]
-      [m4/value-selection-list
+      [m4/selection-list-values
        {:form-id   [:form]
         :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]
 

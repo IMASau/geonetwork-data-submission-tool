@@ -618,7 +618,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "role"]
        :label     "Role"}
-      [m4/async-select-value
+      [m4/async-select-option
        {:form-id      ?form-id
         :data-path    [?data-path "role"]
         :uri          "/api/rolecode.json"
@@ -629,7 +629,7 @@
       {:form-id   ?form-id
        :data-path [?data-path]
        :label     "Organisation"}
-      [m4/async-select-value
+      [m4/async-select-option
        {:form-id     ?form-id
         :data-path   [?data-path]
         :uri         "/api/institution.json"

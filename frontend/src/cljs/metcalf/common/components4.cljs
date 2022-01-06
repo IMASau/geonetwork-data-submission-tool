@@ -433,7 +433,7 @@
   "Settings for select-option-simple component"
   [{:keys [value-path label-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :options :value-path :label-path]
-   ::low-code4/opt-ks       [:placeholder]
+   ::low-code4/opt-ks       [:placeholder :added-path]
    ::low-code4/schema       {:type "object" :properties {}}
    ::low-code4/schema-paths [value-path label-path added-path]})
 
@@ -445,6 +445,7 @@
    * options (maps) is a list of option data
    * value-path (vector) describes where the value in the option data.  Values must be unique.
    * label-path (vector) describes where the label is in the option data
+   * added-path (vector) - path to test if option is user defined.  Used to style control.
    * placeholder (string) will be displayed when no option is selected
 
    Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
@@ -455,7 +456,7 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [options value-path label-path placeholder disabled show-errors? is-hidden]} props]
+        {:keys [options value-path label-path added-path placeholder disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/SimpleSelectField
        {:value       value
@@ -464,6 +465,7 @@
         :disabled    disabled
         :getValue    (ui-controls/obj-path-getter value-path)
         :getLabel    (ui-controls/obj-path-getter label-path)
+        :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
         :hasError    show-errors?
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
@@ -471,7 +473,7 @@
   "Settings for select-option-columns component"
   [{:keys [label-path value-path added-path columns]}]
   {::low-code4/req-ks       [:form-id :data-path :options :label-path :value-path :columns]
-   ::low-code4/opt-ks       [:placeholder]
+   ::low-code4/opt-ks       [:added-path :placeholder]
    ::low-code4/schema       {:type "object" :properties {}}
    ::low-code4/schema-paths (into [label-path value-path added-path]
                                   (map :label-path columns))})
@@ -487,6 +489,7 @@
    * columns (maps) - column metadata used when rendering options
      * label-path - where the column label is in the option data
      * flex - how much space this column should use.
+   * added-path (vector) - path to test if option is user defined.  Used to style control.
    * placeholder (string) will be displayed when no option is selected
 
    Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
@@ -497,7 +500,7 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [options value-path label-path columns placeholder disabled show-errors? is-hidden]} props]
+        {:keys [options value-path label-path columns added-path placeholder disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/TableSelectField
        {:value       value
@@ -510,6 +513,7 @@
         :columns     (for [{:keys [flex label-path]} columns]
                        {:flex     flex
                         :getLabel (ui-controls/obj-path-getter label-path)})
+        :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defn select-option-breadcrumb-settings
@@ -529,6 +533,7 @@
    * value-path (vector) - where the value in the option data.
    * label-path (vector) - where the label is in the option data.  Label data must be a string.
    * breadcrumb-path (vector) - where the breadcrumbs are in the option data.  Breadcrumbs data must be a list of string.
+   * added-path (vector) - path to test if option is user defined.  Used to style control.
    * placeholder (string) will be displayed when no option is selected.
 
    Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
@@ -539,7 +544,7 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [options value-path label-path breadcrumb-path placeholder disabled show-errors? is-hidden]} props]
+        {:keys [options value-path label-path breadcrumb-path added-path placeholder disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/BreadcrumbSelectField
        {:value         value
@@ -550,6 +555,7 @@
         :getLabel      (ui-controls/obj-path-getter label-path)
         :getValue      (ui-controls/obj-path-getter value-path)
         :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
+        :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
         :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defn item-dialog-button-settings

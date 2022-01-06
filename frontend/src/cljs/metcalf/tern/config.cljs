@@ -145,7 +145,6 @@
        "verticalRequired"  rules4/vertical-required})
 (set! low-code4/component-registry
       {
-       'm4/async-item-picker                   {:view components4/async-item-picker :init components4/async-item-picker-settings}
        'm4/async-simple-item-option-picker     {:view components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
        'm4/async-list-option-picker            {:view components4/async-list-option-picker :init components4/async-list-option-picker-settings}
        'm4/async-list-option-picker-breadcrumb {:view components4/async-list-option-picker-breadcrumb :init components4/async-list-option-picker-breadcrumb-settings}

@@ -1285,19 +1285,6 @@
         :loadOptions (partial utils4/load-options config)
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defmulti async-item-picker-settings :kind)
-(defmethod async-item-picker-settings :default [config] (async-simple-item-option-picker-settings config))
-;(defmethod async-item-picker-settings :breadcrumb [config] (async-breadcrumb-item-option-picker-settings config))
-;(defmethod async-item-picker-settings :table [config] (async-table-item-option-picker-settings config))
-
-(defmulti async-item-picker
-          "Use case: As a user, I want to prepopulate a bunch of editable fields by picking from a list.
-           Use :kind to control how options are displayed."
-          :kind)
-(defmethod async-item-picker :default [config] (async-simple-item-option-picker config))
-;(defmethod async-item-picker :breadcrumb [config] (async-breadcrumb-item-option-picker config))
-;(defmethod async-item-picker :table [config] (async-table-item-option-picker config))
-
 (defn expanding-control-settings
   "Settings for expanding-control component"
   [_]

@@ -170,7 +170,7 @@
        'm4/typed-list-edit-dialog              {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
        'm4/numeric-input-field                 {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
        'm4/page-errors                         {:view components4/page-errors :init components4/page-errors-settings}
-       'm4/simple-select-option                {:view components4/simple-select-option :init components4/simple-select-option-settings}
+       'm4/select-option-simple                {:view components4/select-option-simple :init components4/select-option-simple-settings}
        'm4/select-option-breadcrumb            {:view components4/select-option-breadcrumb :init components4/select-option-breadcrumb-settings}
        'm4/select-option-columns               {:view components4/select-option-columns :init components4/select-option-columns-settings}
        'm4/select-value                        {:view components4/select-value :init components4/select-value-settings}

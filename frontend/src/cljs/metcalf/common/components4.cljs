@@ -429,15 +429,15 @@
         :maxDate  (cljs-time/value-to-date maxDate)
         :onChange #(rf/dispatch [::value-changed config (cljs-time/date-to-value %)])}])))
 
-(defn simple-select-option-settings
-  "Settings for simple-select-option component"
+(defn select-option-simple-settings
+  "Settings for select-option-simple component"
   [{:keys [value-path label-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :options :value-path :label-path]
    ::low-code4/opt-ks       [:placeholder]
    ::low-code4/schema       {:type "object" :properties {}}
    ::low-code4/schema-paths [value-path label-path added-path]})
 
-(defn simple-select-option
+(defn select-option-simple
   "This component renders a select control with options.  The dropdown displays options as single lines of text.
    The value is option data.
 

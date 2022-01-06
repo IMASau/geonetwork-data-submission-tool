@@ -155,7 +155,7 @@
        ;'m4/async-select-value                  {:view components4/async-select-value :init components4/async-select-value-settings}
        'm4/boxmap-field                        {:view components4/boxmap-field :init components4/boxmap-field-settings}
        'm4/breadcrumb-list-option-picker       {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
-       'm4/breadcrumb-selection-list           {:view components4/breadcrumb-selection-list :init components4/breadcrumb-selection-list-settings}
+       'm4/selection-list-breadcrumb           {:view components4/selection-list-breadcrumb :init components4/selection-list-breadcrumb-settings}
        'm4/checkbox-field                      {:view components4/checkbox-field :init components4/checkbox-field-settings}
        'm4/date-field                          {:view components4/date-field :init components4/date-field-settings}
        'm4/expanding-control                   {:view components4/expanding-control :init components4/expanding-control-settings}
@@ -553,7 +553,7 @@
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/breadcrumb-selection-list
+       [m4/selection-list-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
          :label-path      ["label"]
@@ -570,7 +570,7 @@
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/breadcrumb-selection-list
+       [m4/selection-list-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
          :label-path      ["label"]
@@ -727,7 +727,7 @@
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/breadcrumb-selection-list
+       [m4/selection-list-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
          :label-path      ["label"]
@@ -745,7 +745,7 @@
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/breadcrumb-selection-list
+       [m4/selection-list-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
          :label-path      ["label"]

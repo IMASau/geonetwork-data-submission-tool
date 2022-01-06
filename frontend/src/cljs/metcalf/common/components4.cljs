@@ -1022,15 +1022,15 @@
 ;            :variables   {'?form-id   form-id
 ;                          '?data-path (conj data-path index)}}))])))
 
-(defn breadcrumb-selection-list-settings
-  "Settings for breadcrumb-selection-list component"
+(defn selection-list-breadcrumb-settings
+  "Settings for selection-list-breadcrumb component"
   [{:keys [label-path value-path breadcrumb-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :label-path :value-path :breadcrumb-path]
    ::low-code4/opt-ks       [:added-path]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths [label-path value-path breadcrumb-path added-path]})
 
-(defn breadcrumb-selection-list
+(defn selection-list-breadcrumb
   "This components renders a selection list with each item displayed as breadcrumb path and label.
    Items in the list can be reordered and deleted.  User defined items can also be selected.
 

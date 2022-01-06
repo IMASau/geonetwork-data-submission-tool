@@ -175,7 +175,7 @@
        'm4/select-option-columns               {:view components4/select-option-columns :init components4/select-option-columns-settings}
        'm4/select-value                        {:view components4/select-value :init components4/select-value-settings}
        'm4/simple-list-option-picker           {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
-       'm4/selection-list                      {:view components4/selection-list :init components4/selection-list-settings}
+       'm4/selection-list-template             {:view components4/selection-list-template :init components4/selection-list-template-settings}
        'm4/selection-list-simple               {:view components4/selection-list-simple :init components4/selection-list-simple-settings}
        'm4/selection-list-values               {:view components4/selection-list-values :init components4/selection-list-values-settings}
        'm4/table-list-option-picker            {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
@@ -1033,7 +1033,7 @@
          ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults {"partyType" "organisation"}}]
 
-       [m4/selection-list
+       [m4/selection-list-template
         {:form-id     [:form]
          :data-path   ["identificationInfo" "citedResponsibleParty"]
          :template-id :party/list-item
@@ -1075,7 +1075,7 @@
          ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults {"partyType" "organisation"}}]
 
-       [m4/selection-list
+       [m4/selection-list-template
         {:form-id     [:form]
          :data-path   ["identificationInfo" "pointOfContact"]
          :template-id :party/list-item

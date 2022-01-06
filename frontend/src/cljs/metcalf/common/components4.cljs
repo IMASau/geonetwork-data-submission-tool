@@ -957,15 +957,15 @@
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-values-reorder props src-idx dst-idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-values-remove-click props idx]))}])))
 
-(defn selection-list-settings
-  "Settings for the selection-list component"
+(defn selection-list-template-settings
+  "Settings for the selection-list-template component"
   [{:keys [value-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :value-path :template-id]
    ::low-code4/opt-ks       [:added-path]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths [value-path added-path]})
 
-(defn selection-list
+(defn selection-list-template
   "This component renders a selection list based on a template.  Items in the list can be reordered and deleted.
    User defined items can also be selected.
 

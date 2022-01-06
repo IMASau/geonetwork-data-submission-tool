@@ -1064,15 +1064,30 @@
 (defn selection-list-columns-settings
   "Settings for selection-list-columns component"
   [{:keys [value-path columns added-path]}]
-  {::low-code4/req-ks       [:form-id :data-path :columns :value-path]
+  {::low-code4/req-ks       [:form-id :data-path :value-path :columns]
    ::low-code4/opt-ks       [:added-path]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths (into [value-path added-path] (map :label-path columns))})
 
 (defn selection-list-columns
+  "This component renders a selection list with columns of labels for each item.  Each column has a header.
+   Items in the list can be reordered and deleted.  User defined items can also be selected.
+
+   Props configure the component
+   * value-path (vector) - path to the value in the list item data.  Value must be unique.
+   * columns (maps) - column metadata used when rendering list items
+     * columnHeader (string) - Label to display above column
+     * label-path - path to the column label is in the list item data
+     * flex (number) - how much space this column should use.
+   * added-path (vector) - path to test if list item is user defined.  Used to style control.
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * is-hidden - hides component entirely
+   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [key disabled is-hidden columns value-path added-path]} props
+        {:keys [key value-path columns added-path disabled is-hidden]} props
         items @(rf/subscribe [::get-block-data config])]
     (when-not is-hidden
       [ui-controls/TableSelectionList

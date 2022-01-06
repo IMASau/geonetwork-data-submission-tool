@@ -892,14 +892,14 @@
         :hasError show-errors?
         :onChange #(rf/dispatch [::value-changed config %])}])))
 
-(defn simple-selection-list-settings
+(defn selection-list-simple-settings
   [{:keys [label-path value-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :label-path :value-path]
    ::low-code4/opt-ks       [:added-path]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths [label-path value-path added-path]})
 
-(defn simple-selection-list
+(defn selection-list-simple
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])

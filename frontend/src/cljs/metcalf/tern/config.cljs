@@ -176,7 +176,7 @@
        'm4/select-value                        {:view components4/select-value :init components4/select-value-settings}
        'm4/simple-list-option-picker           {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
        'm4/selection-list                      {:view components4/selection-list :init components4/selection-list-settings}
-       'm4/simple-selection-list               {:view components4/simple-selection-list :init components4/simple-selection-list-settings}
+       'm4/selection-list-simple               {:view components4/selection-list-simple :init components4/selection-list-simple-settings}
        'm4/value-selection-list                {:view components4/value-selection-list :init components4/value-selection-list-settings}
        'm4/table-list-option-picker            {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
        'm4/table-selection-list                {:view components4/table-selection-list :init components4/table-selection-list-settings}
@@ -603,7 +603,7 @@
           :item-defaults {"userAddedCategory" "platform"}
           :added-path    ["isUserDefined"]}]]
 
-       [m4/simple-selection-list
+       [m4/selection-list-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
          :label-path ["label"]

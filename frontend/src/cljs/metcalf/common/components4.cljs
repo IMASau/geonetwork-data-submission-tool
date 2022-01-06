@@ -664,7 +664,7 @@
    ::low-code4/schema       {:type "object" :properties {}}
    ::low-code4/schema-paths [value-path label-path]})
 
-(defn async-select-value
+(defn ^:deprecated async-select-value
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder value value-path label-path disabled is-hidden show-errors?]} props]

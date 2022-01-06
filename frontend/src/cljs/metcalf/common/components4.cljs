@@ -1013,14 +1013,14 @@
                         :getLabel (ui-controls/obj-path-getter label-path)})
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defn async-simple-list-option-picker-settings
+(defn async-list-option-picker-simple-settings
   "Settings for async-simple-list-option-picker component"
   [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path]
    ::low-code4/opt-ks [:placeholder]
    ::low-code4/schema {:type "array" :items {:type "object"}}})
 
-(defn async-simple-list-option-picker
+(defn async-list-option-picker-simple
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder is-hidden disabled value-path label-path show-errors?]} props]
@@ -1058,14 +1058,14 @@
         :loadOptions (partial utils4/load-options config)
         :onChange    #(rf/dispatch [::item-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defn async-breadcrumb-list-option-picker-settings
+(defn async-list-option-picker-breadcrumb-settings
   "Settings for async-breadcrumb-list-option-picker component"
   [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
    ::low-code4/opt-ks [:placeholder]
    ::low-code4/schema {:type "array" :items {:type "object"}}})
 
-(defn async-breadcrumb-list-option-picker
+(defn async-list-option-picker-breadcrumb
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder disabled is-hidden value-path label-path breadcrumb-path show-errors?]} props]
@@ -1081,14 +1081,14 @@
         :loadOptions   (partial utils4/load-options config)
         :onChange      #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defn async-table-list-option-picker-settings
+(defn async-list-option-picker-table-settings
   "Settings for async-table-list-option-picker component"
   [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
    ::low-code4/opt-ks [:placeholder]
    ::low-code4/schema {:type "array" :items {:type "object"}}})
 
-(defn async-table-list-option-picker
+(defn async-list-option-picker-table
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [placeholder disabled is-hidden value-path label-path columns show-errors?]} props]
@@ -1107,14 +1107,14 @@
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defmulti async-list-picker-settings :kind)
-(defmethod async-list-picker-settings :default [config] (async-simple-list-option-picker-settings config))
-(defmethod async-list-picker-settings :breadcrumb [config] (async-breadcrumb-list-option-picker-settings config))
-(defmethod async-list-picker-settings :table [config] (async-table-list-option-picker-settings config))
+(defmethod async-list-picker-settings :default [config] (async-list-option-picker-simple-settings config))
+(defmethod async-list-picker-settings :breadcrumb [config] (async-list-option-picker-breadcrumb-settings config))
+(defmethod async-list-picker-settings :table [config] (async-list-option-picker-table-settings config))
 
 (defmulti async-list-picker :kind)
-(defmethod async-list-picker :default [config] (async-simple-list-option-picker config))
-(defmethod async-list-picker :breadcrumb [config] (async-breadcrumb-list-option-picker config))
-(defmethod async-list-picker :table [config] (async-table-list-option-picker config))
+(defmethod async-list-picker :default [config] (async-list-option-picker-simple config))
+(defmethod async-list-picker :breadcrumb [config] (async-list-option-picker-breadcrumb config))
+(defmethod async-list-picker :table [config] (async-list-option-picker-table config))
 
 (defmulti async-item-picker-settings :kind)
 (defmethod async-item-picker-settings :default [config] (async-simple-item-option-picker-settings config))

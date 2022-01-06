@@ -471,16 +471,33 @@
   "Settings for table-select-option component"
   [{:keys [label-path value-path added-path columns]}]
   {::low-code4/req-ks       [:form-id :data-path :options :label-path :value-path :columns]
-   ::low-code4/opt-ks       [:placeholder :added-path]
+   ::low-code4/opt-ks       [:placeholder]
    ::low-code4/schema       {:type "object" :properties {}}
    ::low-code4/schema-paths (into [label-path value-path added-path]
                                   (map :label-path columns))})
 
 (defn table-select-option
+  "This component renders a select control with options.  The dropdown displays options in a table.
+   The value is option data.
+
+   Props configure the component
+   * options (maps) - option data
+   * value-path (vector) - where the value in the option data.  Must be unique.
+   * label-path (vector) - where the label is in the option data
+   * columns (maps) - column metadata used when rendering options
+     * label-path - where the column label is in the option data
+     * flex - how much space this column should use.
+   * placeholder (string) will be displayed when no option is selected
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder options disabled is-hidden label-path value-path added-path columns show-errors?]} props]
+        {:keys [options value-path label-path columns placeholder disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/TableSelectField
        {:value       value
@@ -490,7 +507,6 @@
         :hasError    show-errors?
         :getLabel    (ui-controls/obj-path-getter label-path)
         :getValue    (ui-controls/obj-path-getter value-path)
-        :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
         :columns     (for [{:keys [flex label-path]} columns]
                        {:flex     flex
                         :getLabel (ui-controls/obj-path-getter label-path)})

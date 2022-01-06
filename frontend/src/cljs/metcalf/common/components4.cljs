@@ -44,6 +44,8 @@
 (defn form-group
   "This component is a lightweight wrapper around its children with props for the label above and helper text below.
 
+   Use case: Give context to user entering data including label, help text, tool tips and error messages.
+
    The props allow control of
    * label is an optional string displayed above the controls
    * helperText is an optional string displayed below the controls
@@ -81,8 +83,10 @@
 
 (defn inline-form-group
   "This component is a lightweight wrapper around its children with props for the label to the left and helper text below.
-
    It's similar to form-group with a different layout and some additional constraints.
+
+   Use case: Layout form inputs in dialogs where scrolling is undesirable provides context to user entering data
+   including label, help text, tool tips and error messages.
 
    The props allow control of
    * label is a string displayed to the left of the controls
@@ -121,6 +125,8 @@
 (defn list-edit-dialog
   "This component displays an edit dialog for a selected list item with a title, a rendered template,
    and buttons to save or cancel out.
+
+   Use case: Allow user to edit a list item in a dialog by selecting from a list.
 
    The props allow control of
    * form-id and data-path identify the list.
@@ -161,6 +167,9 @@
 (defn typed-list-edit-dialog
   "This component displays an edit dialog for a selected list item with a title,
    a rendered template, and buttons to save or cancel out.
+
+   Use case: As with list-edit-dialog, but choose the template based on data
+   associated with the selected item.
 
    The props allow control of
    * form-id and data-path identify the list.
@@ -205,6 +214,8 @@
   "This component displays an edit dialog with a title, a rendered template,
    and buttons to save or cancel out.
 
+   Use case: Allow user to add and edit user defined entries on select controls.
+
    The props allow control of
    * form-id and data-path identify the block being edited.
    * title (string) to display.
@@ -215,6 +226,8 @@
    * Can clear & close at any time.  Changes made in form are not kept.
 
    The template is rendered with ?form-id and ?data-path variables for the selected item.
+
+   See also: item-dialog-button
   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
@@ -241,6 +254,8 @@
 
 (defn input-field
   "This component displays an input field for entering a single line of text.
+
+   Use case: Allow user to enter text values
 
    The props allow control of
    * placeholder (string) displayed in input if empty
@@ -272,6 +287,8 @@
 (defn when-data
   "This component displays children when the data satisfies the pred.
 
+   Use case: Only show help text when a list is empty.
+
    Config allows control of:
    * data tested is identified by form-id and data-path
    * pred is a valid clojure spec used to test the data.  Use pre-registered keywords or a set of values.
@@ -295,6 +312,8 @@
 (defn get-data
   "This component displays form data as a string.
 
+   Use case: Build custom list-item templates which display data.
+
    Config allows control of:
    * data is identified by form-id and data-path."
   [config]
@@ -309,6 +328,8 @@
 
 (defn numeric-input-field
   "This component displays a numeric input.  Values entered are stored as numbers.
+
+   Use case: Allow user to enter numeric values.
 
    The props allow control of
    * placeholder (string) displayed in input if empty
@@ -345,6 +366,8 @@
 (defn textarea-field
   "This component renders a textarea field which automatically grow vertically to accommodate content.
 
+   Use case: Allow user to enter paragraphs of text.
+
    The props allow control of
    * placeholder (string) displayed in input if empty
    * rows (int) determines the initial height
@@ -378,6 +401,8 @@
 (defn checkbox-field
   "This component renders a checkbox.  Values are stored as boolean values.
 
+   Use case: Allow user to enter boolean values.
+
    Props allow control of
    * label (string) to be displayed
 
@@ -406,6 +431,8 @@
 
 (defn date-field
   "This component renders a date field within a defined date range.  The value is a date string (yyyy-MM-dd).
+
+   Use case: Allow user to enter dates within a range.
 
    Props control
    * minDate (date string) is required
@@ -440,6 +467,8 @@
 (defn select-option-simple
   "This component renders a select control with options.  The dropdown displays options as single lines of text.
    The value is option data.
+
+   Use case: Allow user to pick option data from list.
 
    Props configure the component
    * options (maps) is a list of option data
@@ -481,6 +510,8 @@
 (defn select-option-columns
   "This component renders a select control with options.  The dropdown displays options in a table.
    The value is option data.
+
+   Use case: Allow user to pick option data from list.
 
    Props configure the component
    * options (maps) - option data
@@ -527,6 +558,8 @@
 (defn select-option-breadcrumb
   "This component renders a select control with options.  The dropdown displays options with breadcrumbs and a label.
    The value is option data.
+
+   Use case: Allow user to pick option data from list.
 
    Props configure the component
    * options (maps) - option data
@@ -614,7 +647,6 @@
    ::low-code4/schema {:type "array"}})
 
 (defn list-add-button
-  "Add user defined item to list"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [disabled is-hidden button-text]} props]
@@ -632,7 +664,6 @@
    ::low-code4/schema {:type "array"}})
 
 (defn text-add-button
-  "Add user defined item to list"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [disabled is-hidden button-text]} props]
@@ -697,6 +728,8 @@
   "This component renders a select control linked to a json data source.  Options and selected option are
    displayed as a text label.  The value is option data.
 
+   Use case: Allow user to pick option data from an API.
+
    Props configure the component
    * value-path (vector) - path to value in the option data.  Values must be unique.
    * label-path (vector) - path to label is in the option data.  Used to render options and selected value.
@@ -741,6 +774,8 @@
   "This component renders a select control linked to a json data source.  Selected option is
    displayed as a text label.  Options in dropdown display a breadcrumb path and text label.
    The value is option data.
+
+   Use case: Allow user to pick option data from an API.
 
    Props configure the component
    * value-path (vector) - path to value in the option data.  Values must be unique.
@@ -787,6 +822,8 @@
   "This component renders a select control linked to a json data source.  Selected option is
    displayed as a text label.  Options in dropdown are displayed as columns of values.
    The value is option data.
+
+   Use case: Allow user to pick option data from an API.
 
    Props configure the component
    * value-path (vector) - path to value in the option data.  Values must be unique.
@@ -836,6 +873,8 @@
   "This component renders a select control with options.  The dropdown displays options as single lines of text.
    The value is the option data at value-path.
 
+   Use case: Allow user to pick value from list of options.
+
    Props configure the component
    * options (maps) is a list of option data
    * value-path (vector) - path to value in the option data.  Values must be unique.
@@ -873,6 +912,8 @@
   "This component renders a radio group with yes/no options.  The value is boolean.
    Once set, the value cannot be unset.
 
+   Use case: Allow user set boolean value based on yes/no question.
+
    Props allow control of
    * label (string) to be displayed
 
@@ -903,6 +944,8 @@
 (defn selection-list-simple
   "This component renders a list of items.  Each item is identified by a label and can be
    reordered and deleted.  User defined items can also be selected.
+
+   Use case: Allow user to see and manage a list of items.
 
    Props allow control of
    * value-path (vector) - path to value in list item data.  Values must be unique.
@@ -939,6 +982,8 @@
   "This component renders a list of text values.  The items in the list can be reordered and deleted.
    Values must be unique strings.
 
+   Use case: Allow user to see and manage a list of text values.
+
    Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
    * disabled - styles control to indicate it's disabled
    * is-hidden - hides component entirely"
@@ -968,6 +1013,8 @@
 (defn selection-list-template
   "This component renders a selection list based on a template.  Items in the list can be reordered and deleted.
    User defined items can also be selected.
+
+   Use case: Allow user to see and manage a list of items.
 
    Props allow control of
    * value-path (vector) - path to value in list item data.  Values must be unique.
@@ -1034,6 +1081,8 @@
   "This components renders a selection list with each item displayed as breadcrumb path and label.
    Items in the list can be reordered and deleted.  User defined items can also be selected.
 
+   Use case: Allow user to see and manage a list of items.
+
    Props configure the component
    * value-path (vector) - path to the value in the list item data.  Value must be unique.
    * label-path (vector) - path to the label in the list item data.  Label must be a string.
@@ -1072,6 +1121,8 @@
 (defn selection-list-columns
   "This component renders a selection list with columns of labels for each item.  Each column has a header.
    Items in the list can be reordered and deleted.  User defined items can also be selected.
+
+   Use case: Allow user to see and manage a list of items.
 
    Props configure the component
    * value-path (vector) - path to the value in the list item data.  Value must be unique.
@@ -1184,6 +1235,8 @@
 (defn async-list-option-picker
   "This component renders a select control backed by a json data source.  Options are displayed as a text label.
    Selected options are added to the list.  The value is option data.
+
+   Use case: User can add item to a list via a select control.
 
    Props configure the component
    * value-path (vector) - path to value in the option data.  Values must be unique.

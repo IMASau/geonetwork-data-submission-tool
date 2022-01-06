@@ -299,10 +299,9 @@
 
       [:div "Select up to 12 research theme keywords describing your data"]
 
-      [m4/async-list-picker
+      [m4/async-list-option-picker-breadcrumb
        {:form-id         [:form]
         :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
-        :kind            :breadcrumb
         :uri             "/api/keywords_with_breadcrumb_info"
         :placeholder     "Search for keywords"
         :label-path      ["label"]

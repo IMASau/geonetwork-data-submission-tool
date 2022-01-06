@@ -467,8 +467,8 @@
         :hasError    show-errors?
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
-(defn table-select-option-settings
-  "Settings for table-select-option component"
+(defn select-option-columns-settings
+  "Settings for select-option-columns component"
   [{:keys [label-path value-path added-path columns]}]
   {::low-code4/req-ks       [:form-id :data-path :options :label-path :value-path :columns]
    ::low-code4/opt-ks       [:placeholder]
@@ -476,7 +476,7 @@
    ::low-code4/schema-paths (into [label-path value-path added-path]
                                   (map :label-path columns))})
 
-(defn table-select-option
+(defn select-option-columns
   "This component renders a select control with options.  The dropdown displays options in a table.
    The value is option data.
 
@@ -729,7 +729,7 @@
         :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defn async-select-option-columns-settings
-  "Settings for async-table-select-option component"
+  "Settings for async-select-option-columns component"
   [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
    ::low-code4/opt-ks [:placeholder :added-path]

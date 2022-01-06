@@ -178,7 +178,7 @@
        'm4/portal-link                         {:view imas-components/portal-link}
        'm4/simple-select-option                {:view components4/simple-select-option :init components4/simple-select-option-settings}
        'm4/breadcrumb-select-option            {:view components4/breadcrumb-select-option :init components4/breadcrumb-select-option-settings}
-       'm4/table-select-option                 {:view components4/table-select-option :init components4/table-select-option-settings}
+       'm4/select-option-columns               {:view components4/select-option-columns :init components4/select-option-columns-settings}
        'm4/select-value                        {:view components4/select-value :init components4/select-value-settings}
        'm4/simple-list-option-picker           {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
        'm4/selection-list                      {:view components4/selection-list :init components4/selection-list-settings}

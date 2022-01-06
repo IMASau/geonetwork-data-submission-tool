@@ -194,7 +194,7 @@
        'm4/async-item-picker                   {:view components4/async-item-picker :init components4/async-item-picker-settings}
        ;'m4/record-add-button                   {:view components4/record-add-button :init components4/record-add-button-settings}
        'm4/text-add-button                     {:view components4/text-add-button :init components4/text-add-button-settings}
-       'm4/simple-list                         {:view components4/simple-list :init components4/simple-list-settings}
+       ;'m4/simple-list                         {:view components4/simple-list :init components4/simple-list-settings}
        })
 
 (def edit-templates

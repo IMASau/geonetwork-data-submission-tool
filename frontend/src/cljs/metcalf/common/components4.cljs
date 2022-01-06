@@ -755,16 +755,6 @@
                         :getLabel (ui-controls/obj-path-getter label-path)})
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
-(defmulti async-select-option-settings :kind)
-(defmethod async-select-option-settings :default [config] (async-select-option-simple-settings config))
-(defmethod async-select-option-settings :breadcrumb [config] (async-select-option-breadcrumb-settings config))
-(defmethod async-select-option-settings :table [config] (async-select-option-table-settings config))
-
-(defmulti async-select-option :kind)
-(defmethod async-select-option :default [config] (async-select-option-simple config))
-(defmethod async-select-option :breadcrumb [config] (async-select-option-breadcrumb config))
-(defmethod async-select-option :table [config] (async-select-option-table config))
-
 (defn select-value-settings
   "Settings for select-value component"
   [_]

@@ -512,15 +512,15 @@
                         :getLabel (ui-controls/obj-path-getter label-path)})
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
-(defn breadcrumb-select-option-settings
-  "Settings for breadcrumb-select-option component"
+(defn select-option-breadcrumb-settings
+  "Settings for select-option-breadcrumb component"
   [{:keys [label-path value-path breadcrumb-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :options :label-path :value-path :breadcrumb-path]
    ::low-code4/opt-ks       [:placeholder :added-path]
    ::low-code4/schema       {:type "object" :properties {}}
    ::low-code4/schema-paths [label-path value-path added-path breadcrumb-path]})
 
-(defn breadcrumb-select-option
+(defn select-option-breadcrumb
   "This component renders a select control with options.  The dropdown displays options with breadcrumbs and a label.
    The value is option data.
 

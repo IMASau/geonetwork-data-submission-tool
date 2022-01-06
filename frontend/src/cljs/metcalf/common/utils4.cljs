@@ -32,6 +32,18 @@
   (js/console.error msg (console-value data)))
 
 
+(defn log
+  "Log to console with level.  Uses pprint with level/length set.
+   Intended for production logging."
+  [{:keys [level msg data]}]
+  (case level
+    :error (js/console.error msg (console-value data))
+    :info (js/console.info msg (console-value data))
+    :log (js/console.log msg (console-value data))
+    :debug (js/console.debug msg (console-value data))
+    :warn (js/console.warn msg (console-value data))))
+
+
 (defn contains-path?
   [m ks]
   (not= ::not-found (get-in m ks ::not-found)))

@@ -833,19 +833,34 @@
    ::low-code4/opt-ks []})
 
 (defn select-value
+  "This component renders a select control with options.  The dropdown displays options as single lines of text.
+   The value is the option data at value-path.
+
+   Props configure the component
+   * options (maps) is a list of option data
+   * value-path (vector) - path to value in the option data.  Values must be unique.
+   * label-path (vector) - path to label is in the option data.  Used to render options and selected value.
+   * placeholder (string) will be displayed when no option is selected
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [value options label-path value-path disabled is-hidden show-errors?]} props
+        {:keys [value options value-path label-path placeholder disabled show-errors? is-hidden]} props
         value (or value "")]
     (when-not is-hidden
       [ui-controls/SelectValueField
-       {:value    value
-        :disabled disabled
-        :options  options
-        :getLabel (ui-controls/obj-path-getter label-path)
-        :getValue (ui-controls/obj-path-getter value-path)
-        :hasError show-errors?
-        :onChange #(rf/dispatch [::value-changed config %])}])))
+       {:value       value
+        :disabled    disabled
+        :options     options
+        :placeholder placeholder
+        :getLabel    (ui-controls/obj-path-getter label-path)
+        :getValue    (ui-controls/obj-path-getter value-path)
+        :hasError    show-errors?
+        :onChange    #(rf/dispatch [::value-changed config %])}])))
 
 (defn yes-no-field-settings
   "Settings for yes-no-field component"

@@ -1062,6 +1062,7 @@
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
 
 (defn selection-list-columns-settings
+  "Settings for selection-list-columns component"
   [{:keys [value-path columns added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :columns :value-path]
    ::low-code4/opt-ks       [:added-path]

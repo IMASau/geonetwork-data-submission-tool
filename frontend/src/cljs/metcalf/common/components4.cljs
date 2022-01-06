@@ -488,7 +488,7 @@
    * label-path (vector) - where the label is in the option data
    * columns (maps) - column metadata used when rendering options
      * label-path - where the column label is in the option data
-     * flex - how much space this column should use.
+     * flex (number) - how much space this column should use.
    * added-path (vector) - path to test if option is user defined.  Used to style control.
    * placeholder (string) will be displayed when no option is selected
 
@@ -793,7 +793,7 @@
    * label-path (vector) - path to label is in the option data.  Used to render options and selected value.
    * columns (maps) - column metadata used when rendering options
      * label-path - where the column label is in the option data
-     * flex - how much space this column should use.
+     * flex (number) - how much space this column should use.
    * added-path (vector) - path to test if option is user defined.  Used to style control.
    * placeholder (string) - text to displayed when no option is selected.
 

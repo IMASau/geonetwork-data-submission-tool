@@ -148,7 +148,6 @@
 (set! low-code4/component-registry
       {
        ;'m3/UploadData                     {:view views3/UploadData}
-       'm4/async-list-picker                   {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-list-option-picker-simple     {:view components4/async-list-option-picker-simple :init components4/async-list-option-picker-simple-settings}
        'm4/async-list-option-picker-breadcrumb {:view components4/async-list-option-picker-breadcrumb :init components4/async-list-option-picker-breadcrumb-settings}
        'm4/async-list-option-picker-table      {:view components4/async-list-option-picker-table :init components4/async-list-option-picker-table-settings}

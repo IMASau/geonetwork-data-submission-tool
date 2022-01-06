@@ -1106,16 +1106,6 @@
         :loadOptions (partial utils4/load-options config)
         :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defmulti async-list-picker-settings :kind)
-(defmethod async-list-picker-settings :default [config] (async-list-option-picker-simple-settings config))
-(defmethod async-list-picker-settings :breadcrumb [config] (async-list-option-picker-breadcrumb-settings config))
-(defmethod async-list-picker-settings :table [config] (async-list-option-picker-table-settings config))
-
-(defmulti async-list-picker :kind)
-(defmethod async-list-picker :default [config] (async-list-option-picker-simple config))
-(defmethod async-list-picker :breadcrumb [config] (async-list-option-picker-breadcrumb config))
-(defmethod async-list-picker :table [config] (async-list-option-picker-table config))
-
 (defmulti async-item-picker-settings :kind)
 (defmethod async-item-picker-settings :default [config] (async-simple-item-option-picker-settings config))
 ;(defmethod async-item-picker-settings :breadcrumb [config] (async-breadcrumb-item-option-picker-settings config))

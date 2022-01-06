@@ -146,7 +146,6 @@
 (set! low-code4/component-registry
       {
        'm4/async-item-picker                   {:view components4/async-item-picker :init components4/async-item-picker-settings}
-       'm4/async-list-picker                   {:view components4/async-list-picker :init components4/async-list-picker-settings}
        'm4/async-list-option-picker-simple     {:view components4/async-list-option-picker-simple :init components4/async-list-option-picker-simple-settings}
        'm4/async-list-option-picker-breadcrumb {:view components4/async-list-option-picker-breadcrumb :init components4/async-list-option-picker-breadcrumb-settings}
        'm4/async-list-option-picker-table      {:view components4/async-list-option-picker-table :init components4/async-list-option-picker-table-settings}
@@ -590,7 +589,7 @@
 
        [:div.bp3-control-group
         [:div.bp3-fill
-         [m4/async-list-picker
+         [m4/async-list-option-picker-simple
           {:form-id    [:form]
            :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
            :uri        "/api/ternplatforms"
@@ -624,7 +623,7 @@
 
        [:div.bp3-control-group
         [:div.bp3-fill
-         [m4/async-list-picker
+         [m4/async-list-option-picker-simple
           {:form-id    [:form]
            :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
            :uri        "/api/terninstruments"
@@ -658,7 +657,7 @@
 
        [:div.bp3-control-group
         [:div.bp3-fill
-         [m4/async-list-picker
+         [m4/async-list-option-picker-simple
           {:form-id    [:form]
            :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
            :uri        "/api/terninstruments"

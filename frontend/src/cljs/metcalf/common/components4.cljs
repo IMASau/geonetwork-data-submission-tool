@@ -730,6 +730,7 @@
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defn async-select-option-breadcrumb-settings
+  "Settings for async-select-option-breadcrumb component"
   [{:keys [value-path label-path breadcrumb-path]}]
   {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
    ::low-code4/opt-ks       [:placeholder :added-path]

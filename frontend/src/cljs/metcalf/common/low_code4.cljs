@@ -27,13 +27,17 @@
 (defn report-unregistered-syms
   [x]
   (when (and (symbol? x) (not (variable? x)))
-    (utils4/console-error (str "Symbol not registered: " (pr-str x)) {:sym x}))
+    (utils4/log {:level :error
+                 :msg   (str "Symbol not registered: " (pr-str x))
+                 :data  {:sym x}}))
   x)
 
 (defn report-unregistered-var
   [x]
   (when (variable? x)
-    (utils4/console-error (str "Variable not bound: " (pr-str x)) {:var x}))
+    (utils4/log {:level :error
+                 :msg   (str "Variable not bound: " (pr-str x))
+                 :data  {:var x}}))
   x)
 
 (defn check-missing-keys
@@ -41,7 +45,9 @@
   (when-let [req-ks (get-in settings [::req-ks])]
     (let [missing-ks (remove (set (keys config)) req-ks)]
       (doseq [k missing-ks]
-        (utils4/console-error (str "Missing required key (" (pr-str k) ") in config") {:k k :ctx ctx})))))
+        (utils4/log {:level :error
+                     :msg   (str "Missing required key (" (pr-str k) ") in config")
+                     :data  {:k k :ctx ctx}})))))
 
 (defn check-compatible-schema
   [{:keys [settings schema config]}]
@@ -53,9 +59,13 @@
   (doseq [path (remove nil? (get-in settings [::schema-paths]))]
     (if (= "array" (get-in schema [:type]))
       (when-not (schema4/contains-path? {:schema (:items schema) :path path})
-        (utils4/console-error (str "Path not present in schema: " (pr-str path)) {:ctx ctx :path path}))
+        (utils4/log {:level :error
+                     :msg   (str "Path not present in schema: " (pr-str path))
+                     :data  {:ctx ctx :path path}}))
       (when-not (schema4/contains-path? {:schema schema :path path})
-        (utils4/console-error (str "Path not present in schema: " (pr-str path)) {:ctx ctx :path path})))))
+        (utils4/log {:level :error
+                     :msg   (str "Path not present in schema: " (pr-str path))
+                     :data  {:ctx ctx :path path}})))))
 
 (defn build-component
   [sym reg-data]

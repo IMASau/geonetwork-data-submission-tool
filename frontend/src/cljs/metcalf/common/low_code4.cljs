@@ -89,6 +89,7 @@
             schema @(rf/subscribe [::get-data-schema config])
             ctx {:sym sym :config config :settings settings :schema schema}
             view (cond->> view (:debug/log-view-inputs config) (log-view-inputs-wrapper ctx))]
+        ; TODO: put checks behind a flag?
         (check-missing-keys ctx)
         (check-compatible-schema ctx)
         (check-compatible-paths ctx)

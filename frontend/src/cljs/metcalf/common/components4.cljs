@@ -1225,7 +1225,7 @@
   "This component renders a select control backed by a json data source.  Options are rendered as a text label.
    Picking an option updates data values.  The picked value is not held.
 
-   Intended where user can prepopulate editable fields by picking from a list.
+   Use case: User can prepopulate editable fields by picking from a list.
 
    Props configure the component
    * value-path (vector) - path to value in the option data.  Values must be unique.
@@ -1268,7 +1268,7 @@
    display a breadcrumb path and text label.  Picking an option updates data values.
    The picked option is not held.
 
-   Intended where user can prepopulate editable fields by picking from a list.
+   Use case: User can prepopulate editable fields by picking from a list.
 
    Props configure the component
    * value-path (vector) - path to value in the option data.  Values must be unique.
@@ -1312,7 +1312,7 @@
   "This component renders a select control backed by a json data source.  The dropdown displays options in a table.
    Picking an option updates data values.  The picked option is not held.
 
-   Intended where user can prepopulate editable fields by picking from a list.
+   Use case: User can prepopulate editable fields by picking from a list.
 
    Props configure the component
    * value-path (vector) - path to value in the option data.  Values must be unique.

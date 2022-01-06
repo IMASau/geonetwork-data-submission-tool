@@ -153,7 +153,7 @@
        'm4/async-list-option-picker-columns    {:view components4/async-list-option-picker-columns :init components4/async-list-option-picker-columns-settings}
        'm4/async-select-option                 {:view components4/async-select-option-simple :init components4/async-select-option-simple-settings}
        'm4/async-select-option-breadcrumb      {:view components4/async-select-option-breadcrumb :init components4/async-select-option-breadcrumb-settings}
-       'm4/async-select-option-table           {:view components4/async-select-option-table :init components4/async-select-option-table-settings}
+       'm4/async-select-option-columns         {:view components4/async-select-option-columns :init components4/async-select-option-columns-settings}
        'm4/async-select-value                  {:view components4/async-select-value :init components4/async-select-value-settings}
        'm4/boxmap-field                        {:view components4/boxmap-field :init components4/boxmap-field-settings}
        'm4/breadcrumb-list-option-picker       {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}

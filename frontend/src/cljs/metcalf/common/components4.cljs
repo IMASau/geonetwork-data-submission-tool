@@ -728,14 +728,14 @@
         :hasError      show-errors?
         :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
-(defn async-select-option-table-settings
+(defn async-select-option-columns-settings
   "Settings for async-table-select-option component"
   [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
    ::low-code4/opt-ks [:placeholder :added-path]
    ::low-code4/schema {:type "object" :properties {}}})
 
-(defn async-select-option-table
+(defn async-select-option-columns
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])

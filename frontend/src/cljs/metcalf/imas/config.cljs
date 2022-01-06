@@ -185,7 +185,7 @@
        'm4/selection-list-simple               {:view components4/selection-list-simple :init components4/selection-list-simple-settings}
        'm4/value-selection-list                {:view components4/value-selection-list :init components4/value-selection-list-settings}
        'm4/table-list-option-picker            {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
-       'm4/table-selection-list                {:view components4/table-selection-list :init components4/table-selection-list-settings}
+       'm4/selection-list-columns                {:view components4/selection-list-columns :init components4/selection-list-columns-settings}
        'm4/textarea-field                      {:view components4/textarea-field :init components4/textarea-field-settings}
        'm4/when-data                           {:view components4/when-data :init components4/when-data-settings}
        'm4/get-data                            {:view components4/get-data :init components4/get-data-settings}
@@ -416,7 +416,7 @@
          :pred      :m4/empty-list?}
         [:p "Specify the location(s) of this study."]]
 
-       [m4/table-selection-list
+       [m4/selection-list-columns
         {:form-id    [:form]
          :data-path  ["identificationInfo" "geographicElement" "boxes"]
          :value-path ["uri"]
@@ -535,7 +535,7 @@
        :data-paths [["identificationInfo" "citedResponsibleParty"]
                     ["identificationInfo" "pointOfContact"]]}]
      [:h2 "6. Who"]
-     [m4/table-selection-list
+     [m4/selection-list-columns
       {:form-id    [:form]
        :data-path  ["identificationInfo" "citedResponsibleParty"]
        :value-path ["uri"]
@@ -555,7 +555,7 @@
        :title       "Responsible for creating the data"
        :template-id :person/user-defined-entry-form}]
      [:hr]
-     [m4/table-selection-list
+     [m4/selection-list-columns
       {:form-id    [:form]
        :data-path  ["identificationInfo" "pointOfContact"]
        :value-path ["uri"]
@@ -721,7 +721,7 @@
      [:h2 "7: About Dataset"]
      [:h4 "Data parameters"]
      ; WIP to replace m3/DataParametersTable
-     [m4/table-selection-list
+     [m4/selection-list-columns
       {:form-id    [:form]
        :data-path  ["identificationInfo" "dataParameters"]
        :value-path ["uri"]
@@ -793,7 +793,7 @@
        :button-text "Add"}]
 
      [:label "Supporting resources"]
-     [m4/table-selection-list
+     [m4/selection-list-columns
       {:form-id    [:form]
        :data-path  ["supportingResources"]
        :value-path ["url"]
@@ -950,7 +950,7 @@
      #_[m3/UploadData
         {:attachments-path [:form :fields :attachments]}]
      [:h2 "Data Services"]
-     [m4/table-selection-list
+     [m4/selection-list-columns
       {:form-id    [:form]
        :data-path  ["dataSources"]
        :value-path ["url"]

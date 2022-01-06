@@ -179,7 +179,7 @@
        'm4/selection-list-simple               {:view components4/selection-list-simple :init components4/selection-list-simple-settings}
        'm4/value-selection-list                {:view components4/value-selection-list :init components4/value-selection-list-settings}
        'm4/table-list-option-picker            {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
-       'm4/table-selection-list                {:view components4/table-selection-list :init components4/table-selection-list-settings}
+       'm4/selection-list-columns                {:view components4/selection-list-columns :init components4/selection-list-columns-settings}
        'm4/textarea-field                      {:view components4/textarea-field :init components4/textarea-field-settings}
        'm4/when-data                           {:view components4/when-data :init components4/when-data-settings}
        'm4/get-data                            {:view components4/get-data :init components4/get-data-settings}
@@ -636,7 +636,7 @@
           :value-path    ["uri"]
           :item-defaults {"userAddedCategory" "instrument"}
           :added-path    ["isUserDefined"]}]]
-       [m4/table-selection-list
+       [m4/selection-list-columns
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
          :value-path ["uri"]
@@ -670,7 +670,7 @@
           :value-path    ["uri"]
           :item-defaults {"userAddedCategory" "parameters"}
           :added-path    ["isUserDefined"]}]]
-       [m4/table-selection-list
+       [m4/selection-list-columns
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
          :value-path ["uri"]
@@ -843,7 +843,7 @@
        [m4/form-group
         {:label    "Limits"
          :required true}
-        [m4/table-selection-list
+        [m4/selection-list-columns
          {:form-id    [:form]
           :data-path  ["identificationInfo" "geographicElement" "boxes"]
           :value-path ["uri"]
@@ -1100,7 +1100,7 @@
      ;  :value-path ["uri"]
      ;  :added-path ["isUserDefined"]}]
      ;
-     ;[m4/table-selection-list
+     ;[m4/selection-list-columns
      ; {:form-id    [:form]
      ;  :data-path  ["identificationInfo" "PointOfContactForDataset"]
      ;  :label-path ["contact" "label"]
@@ -1470,7 +1470,7 @@
       [m4/form-group
        {:label    "Method documentation"
         :required true}
-       [m4/table-selection-list
+       [m4/selection-list-columns
         {:form-id    [:form]
          :data-path  ["resourceLineage" "onlineMethods"]
          :value-path ["uri"]
@@ -1577,7 +1577,7 @@
      [m4/form-group
       {:label    "Online data quality report"
        :required true}
-      [m4/table-selection-list
+      [m4/selection-list-columns
        {:form-id    [:form]
         :data-path  ["dataQualityInfo" "onlineMethods"]
         :value-path ["uri"]
@@ -1682,7 +1682,7 @@
       [m4/form-group
        {:label    "Publication"
         :required true}
-       [m4/table-selection-list
+       [m4/selection-list-columns
         {:form-id    [:form]
          :data-path  ["identificationInfo" "additionalPublications"]
          :value-path ["uri"]
@@ -1790,7 +1790,7 @@
      [m4/form-group
       {:label    "Distributions"
        :required true}
-      [m4/table-selection-list
+      [m4/selection-list-columns
        {:form-id    [:form]
         :data-path  ["dataSources"]
         :value-path ["uri"]

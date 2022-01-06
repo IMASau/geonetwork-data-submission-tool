@@ -1061,14 +1061,14 @@
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
 
-(defn table-selection-list-settings
+(defn selection-list-columns-settings
   [{:keys [value-path columns added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :columns :value-path]
    ::low-code4/opt-ks       [:added-path]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths (into [value-path added-path] (map :label-path columns))})
 
-(defn table-selection-list
+(defn selection-list-columns
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [key disabled is-hidden columns value-path added-path]} props

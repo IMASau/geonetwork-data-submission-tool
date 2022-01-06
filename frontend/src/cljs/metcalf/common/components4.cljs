@@ -680,6 +680,7 @@
 ;        :onChange    #(rf/dispatch [::value-changed config %])}])))
 
 (defn async-select-option-simple-settings
+  "Settings for async-select-option-simple component"
   [{:keys [value-path label-path]}]
   {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path]
    ::low-code4/opt-ks       [:placeholder :added-path]

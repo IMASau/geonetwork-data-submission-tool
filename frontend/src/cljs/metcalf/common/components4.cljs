@@ -557,11 +557,6 @@
 (defmethod select-option-settings :breadcrumb [config] (breadcrumb-select-option-settings config))
 (defmethod select-option-settings :table [config] (table-select-option-settings config))
 
-(defmulti select-option :kind)
-(defmethod select-option :default [config] (simple-select-option config))
-(defmethod select-option :breadcrumb [config] (breadcrumb-select-option config))
-(defmethod select-option :table [config] (table-select-option config))
-
 (defn item-dialog-button-settings
   "Settings for item-dialog-button component"
   [_]

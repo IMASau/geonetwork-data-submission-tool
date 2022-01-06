@@ -552,11 +552,6 @@
         :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
         :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
-(defmulti select-option-settings :kind)
-(defmethod select-option-settings :default [config] (simple-select-option-settings config))
-(defmethod select-option-settings :breadcrumb [config] (breadcrumb-select-option-settings config))
-(defmethod select-option-settings :table [config] (table-select-option-settings config))
-
 (defn item-dialog-button-settings
   "Settings for item-dialog-button component"
   [_]

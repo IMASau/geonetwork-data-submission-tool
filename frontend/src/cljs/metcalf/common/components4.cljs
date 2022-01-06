@@ -870,9 +870,20 @@
    ::low-code4/schema {:type "boolean"}})
 
 (defn yes-no-field
+  "This component renders a radio group with yes/no options.  The value is boolean.
+   Once set, the value cannot be unset.
+
+   Props allow control of
+   * label (string) to be displayed
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+  "
   [config]
   (let [props @(rf/subscribe [::get-yes-no-field-props config])
-        {:keys [label value disabled is-hidden show-errors?]} props]
+        {:keys [label value disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/YesNoRadioGroup
        {:value    value

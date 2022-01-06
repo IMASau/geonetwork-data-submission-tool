@@ -146,6 +146,7 @@
 (set! low-code4/component-registry
       {
        'm4/async-item-picker                   {:view components4/async-item-picker :init components4/async-item-picker-settings}
+       'm4/async-simple-item-option-picker     {:view components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
        'm4/async-list-option-picker            {:view components4/async-list-option-picker :init components4/async-list-option-picker-settings}
        'm4/async-list-option-picker-breadcrumb {:view components4/async-list-option-picker-breadcrumb :init components4/async-list-option-picker-breadcrumb-settings}
        'm4/async-list-option-picker-columns    {:view components4/async-list-option-picker-columns :init components4/async-list-option-picker-columns-settings}
@@ -399,8 +400,8 @@
         :placeholder     "Start typing to filter list..."}]]
 
      [m4/form-group
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "topicCategory"]}
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "topicCategory"]}
       [m4/select-value
        {:form-id     [:form]
         :data-path   ["identificationInfo" "topicCategory"]
@@ -421,9 +422,9 @@
 
        ;; FIXME: Should this be use api for options?
        [m4/form-group
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "status"]
-         :label      "Status of Data"}
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "status"]
+         :label     "Status of Data"}
         [m4/select-value
          {:form-id    [:form]
           :data-path  ["identificationInfo" "status"]
@@ -447,9 +448,9 @@
 
        ;; FIXME: Should this be use api for options?
        [m4/form-group
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
-         :label      "Maintenance/Update Freq"}
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
+         :label     "Maintenance/Update Freq"}
         [m4/select-value
          {:form-id    [:form]
           :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
@@ -513,22 +514,22 @@
      [:h2 "2. What"]
      [:p "TODO: Lorem ipsum..."]
      [m4/form-group
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "abstract"]
-       :label       "Abstract"
-       :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"
-       :toolTip     "Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected."
-       :required    true}
+      {:form-id    [:form]
+       :data-path  ["identificationInfo" "abstract"]
+       :label      "Abstract"
+       :helperText "Describe the content of the resource; e.g. what information was collected, how was it collected"
+       :toolTip    "Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected."
+       :required   true}
       [m4/textarea-field
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "abstract"]
-        :maxLength   2500}]]
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "abstract"]
+        :maxLength 2500}]]
      [m4/form-group
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "purpose"]
-       :label       "Purpose"
-       :helperText  "Brief statement about the purpose of the study"
-       :toolTip     "The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"}
+      {:form-id    [:form]
+       :data-path  ["identificationInfo" "purpose"]
+       :label      "Purpose"
+       :helperText "Brief statement about the purpose of the study"
+       :toolTip    "The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"}
       [m4/textarea-field
        {:form-id     [:form]
         :data-path   ["identificationInfo" "purpose"]
@@ -824,10 +825,10 @@
       [:div.col-sm-7
 
        [m4/form-group
-        {:form-id     [:form]
-         :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
-         :label       "Provide a site description (optional)"
-         :toolTip     "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "geographicElement" "siteDescription"]
+         :label     "Provide a site description (optional)"
+         :toolTip   "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}
         [m4/textarea-field
          {:form-id     [:form]
           :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
@@ -1155,7 +1156,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "contact"]
        :label     "Contact"}
-      [m4/async-item-picker
+      [m4/async-simple-item-option-picker
        {:form-id     ?form-id
         :data-path   [?data-path "contact"]
         :uri         "/api/ternpeople"
@@ -1246,7 +1247,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
        :label     "Contact"}
-      [m4/async-item-picker
+      [m4/async-simple-item-option-picker
        {:form-id     ?form-id
         :data-path   [?data-path "organisation"]
         :uri         "/api/ternorgs"
@@ -1464,8 +1465,8 @@
         :toolTip    "TODO"
         :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}
        [m4/textarea-field
-        {:form-id    [:form]
-         :data-path  ["resourceLineage" "statement"]}]]
+        {:form-id   [:form]
+         :data-path ["resourceLineage" "statement"]}]]
 
       [m4/form-group
        {:label    "Method documentation"
@@ -1498,12 +1499,12 @@
 
       ;; How6: Name
       [m4/form-group
-       {:form-id     [:form]
-        :data-path   ["resourceLineageProcessSteps" "statement"]
-        :label       "Name"
-        :required    true
-        :toolTip     "TODO"
-        :helperText  "Provide the name of the method or procedure"}
+       {:form-id    [:form]
+        :data-path  ["resourceLineageProcessSteps" "statement"]
+        :label      "Name"
+        :required   true
+        :toolTip    "TODO"
+        :helperText "Provide the name of the method or procedure"}
        [m4/textarea-field
         {:form-id     [:form]
          :data-path   ["resourceLineageProcessSteps" "statement"]
@@ -1511,12 +1512,12 @@
 
       ;; How7: Description
       [m4/form-group
-       {:form-id     [:form]
-        :data-path   ["resourceLineageProcessSteps" "summary"]
-        :label       "Summary"
-        :required    true
-        :toolTip     "TODO"
-        :helperText  "Provide a brief description of the method"}
+       {:form-id    [:form]
+        :data-path  ["resourceLineageProcessSteps" "summary"]
+        :label      "Summary"
+        :required   true
+        :toolTip    "TODO"
+        :helperText "Provide a brief description of the method"}
        [m4/textarea-field
         {:form-id     [:form]
          :data-path   ["resourceLineageProcessSteps" "summary"]
@@ -1565,9 +1566,9 @@
      [:h2 "7. Data Quality"]
      [:i "This section is optional"]
      [m4/form-group
-      {:form-id     [:form]
-       :data-path   ["dataQualityInfo" "methodSummary"]
-       :label       "Provide a summary of the scope of the Data Quality Assessment"}
+      {:form-id   [:form]
+       :data-path ["dataQualityInfo" "methodSummary"]
+       :label     "Provide a summary of the scope of the Data Quality Assessment"}
       [m4/textarea-field
        {:form-id     [:form]
         :data-path   ["dataQualityInfo" "methodSummary"]
@@ -1602,9 +1603,9 @@
         :template-id :quality/user-defined-entry-form}]]
 
      [m4/form-group
-      {:form-id     [:form]
-       :data-path   ["dataQualityInfo" "results"]
-       :label       "Provide a statement regarding the Data Quality Assessment outcome"}
+      {:form-id   [:form]
+       :data-path ["dataQualityInfo" "results"]
+       :label     "Provide a statement regarding the Data Quality Assessment outcome"}
       [m4/textarea-field
        {:form-id     [:form]
         :data-path   ["dataQualityInfo" "results"]
@@ -1667,10 +1668,10 @@
 
      [m4/expanding-control {:label "Environment Description (Optional)"}
       [m4/form-group
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "environment"]
-        :label       "Environmental description"
-        :helperText  "Software, computer operating system, file name, or dataset size"}
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "environment"]
+        :label      "Environmental description"
+        :helperText "Software, computer operating system, file name, or dataset size"}
        [m4/textarea-field
         {:form-id     [:form]
          :data-path   ["identificationInfo" "environment"]
@@ -1707,10 +1708,10 @@
          :template-id :about/user-defined-entry}]]
 
       [m4/form-group
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "supplemental"]
-        :label       "Supplemental Information"
-        :helperText  "Any supplemental information needed to interpret the resource"}
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "supplemental"]
+        :label      "Supplemental Information"
+        :helperText "Any supplemental information needed to interpret the resource"}
        [m4/textarea-field
         {:form-id     [:form]
          :data-path   ["identificationInfo" "supplemental"]
@@ -1719,10 +1720,10 @@
 
      [m4/expanding-control {:label "Resource specific usage (Optional)"}
       [m4/form-group
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "resourceSpecificUsage"]
-        :label       "Resource specific usage"
-        :helperText  "What can this resource be used for environmental research?"}
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "resourceSpecificUsage"]
+        :label      "Resource specific usage"
+        :helperText "What can this resource be used for environmental research?"}
        [m4/textarea-field
         {:form-id     [:form]
          :data-path   ["identificationInfo" "resourceSpecificUsage"]
@@ -1731,10 +1732,10 @@
 
      [m4/expanding-control {:label "Acknowledgment (Optional)"}
       [m4/form-group
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "credit"]
-        :label       "Acknowledgment"
-        :helperText  "Write a sentence acknowledging sponsors, data providers or funding organisations"}
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "credit"]
+        :label      "Acknowledgment"
+        :helperText "Write a sentence acknowledging sponsors, data providers or funding organisations"}
        [m4/textarea-field
         {:form-id     [:form]
          :data-path   ["identificationInfo" "credit"]
@@ -1748,9 +1749,9 @@
         :label      "Specific citation"
         :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details below."}
        [m4/textarea-field
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "customCitation"]
-         :maxLength  1000}]]]
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "customCitation"]
+         :maxLength 1000}]]]
 
      [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
 
@@ -1860,7 +1861,7 @@
       {:form-id   ?form-id
        :data-path [?data-path]
        :label     "Distributor"}
-      [m4/async-item-picker
+      [m4/async-simple-item-option-picker
        {:form-id     ?form-id
         :data-path   [?data-path "distributor"]
         :uri         "/api/ternorgs"

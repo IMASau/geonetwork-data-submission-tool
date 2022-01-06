@@ -445,11 +445,16 @@
    * value-path (vector) describes where the value in the option data.  Values must be unique.
    * label-path (vector) describes where the label is in the option data
    * placeholder (string) will be displayed when no option is selected
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
    "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
-        {:keys [placeholder options disabled is-hidden value-path label-path show-errors?]} props]
+        {:keys [options value-path label-path placeholder disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/SimpleSelectField
        {:value       value

@@ -830,7 +830,7 @@
   "Settings for select-value component"
   [_]
   {::low-code4/req-ks [:form-id :data-path :options :label-path :value-path]
-   ::low-code4/opt-ks []})
+   ::low-code4/opt-ks [:placeholder]})
 
 (defn select-value
   "This component renders a select control with options.  The dropdown displays options as single lines of text.

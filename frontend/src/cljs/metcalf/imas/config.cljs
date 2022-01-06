@@ -149,8 +149,7 @@
       {
        ;'m3/UploadData                     {:view views3/UploadData}
        'm4/async-list-picker              {:view components4/async-list-picker :init components4/async-list-picker-settings}
-       'm4/async-select-option            {:view components4/async-select-option :init components4/async-select-option-settings}
-       'm4/async-select-option-simple     {:view components4/async-select-option-simple :init components4/async-select-option-simple-settings}
+       'm4/async-select-option            {:view components4/async-select-option-simple :init components4/async-select-option-simple-settings}
        'm4/async-select-option-breadcrumb {:view components4/async-select-option-breadcrumb :init components4/async-select-option-breadcrumb-settings}
        'm4/async-select-option-table      {:view components4/async-select-option-table :init components4/async-select-option-table-settings}
        'm4/async-select-value             {:view components4/async-select-value :init components4/async-select-value-settings}

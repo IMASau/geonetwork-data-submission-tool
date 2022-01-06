@@ -679,14 +679,14 @@
         :getLabel    (ui-controls/obj-path-getter label-path)
         :onChange    #(rf/dispatch [::value-changed config %])}])))
 
-(defn async-simple-select-option-settings
+(defn async-select-option-simple-settings
   [{:keys [value-path label-path]}]
   {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path]
    ::low-code4/opt-ks       [:placeholder :added-path]
    ::low-code4/schema       {:type "object" :properties {}}
    ::low-code4/schema-paths [value-path label-path]})
 
-(defn async-simple-select-option
+(defn async-select-option-simple
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
@@ -703,14 +703,14 @@
         :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
-(defn async-breadcrumb-select-option-settings
+(defn async-select-option-breadcrumb-settings
   [{:keys [value-path label-path breadcrumb-path]}]
   {::low-code4/req-ks       [:form-id :data-path :uri :value-path :label-path :breadcrumb-path]
    ::low-code4/opt-ks       [:placeholder :added-path]
    ::low-code4/schema       {:type "object" :properties {}}
    ::low-code4/schema-paths [value-path label-path breadcrumb-path]})
 
-(defn async-breadcrumb-select-option
+(defn async-select-option-breadcrumb
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
@@ -728,14 +728,14 @@
         :hasError      show-errors?
         :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
-(defn async-table-select-option-settings
+(defn async-select-option-table-settings
   "Settings for async-table-select-option component"
   [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :columns]
    ::low-code4/opt-ks [:placeholder :added-path]
    ::low-code4/schema {:type "object" :properties {}}})
 
-(defn async-table-select-option
+(defn async-select-option-table
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         value @(rf/subscribe [::get-block-data config])
@@ -756,14 +756,14 @@
         :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
 
 (defmulti async-select-option-settings :kind)
-(defmethod async-select-option-settings :default [config] (async-simple-select-option-settings config))
-(defmethod async-select-option-settings :breadcrumb [config] (async-breadcrumb-select-option-settings config))
-(defmethod async-select-option-settings :table [config] (async-table-select-option-settings config))
+(defmethod async-select-option-settings :default [config] (async-select-option-simple-settings config))
+(defmethod async-select-option-settings :breadcrumb [config] (async-select-option-breadcrumb-settings config))
+(defmethod async-select-option-settings :table [config] (async-select-option-table-settings config))
 
 (defmulti async-select-option :kind)
-(defmethod async-select-option :default [config] (async-simple-select-option config))
-(defmethod async-select-option :breadcrumb [config] (async-breadcrumb-select-option config))
-(defmethod async-select-option :table [config] (async-table-select-option config))
+(defmethod async-select-option :default [config] (async-select-option-simple config))
+(defmethod async-select-option :breadcrumb [config] (async-select-option-breadcrumb config))
+(defmethod async-select-option :table [config] (async-select-option-table config))
 
 (defn select-value-settings
   "Settings for select-value component"

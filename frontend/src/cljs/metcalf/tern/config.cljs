@@ -154,7 +154,7 @@
        'm4/async-select-option-columns         {:view components4/async-select-option-columns :init components4/async-select-option-columns-settings}
        ;'m4/async-select-value                  {:view components4/async-select-value :init components4/async-select-value-settings}
        'm4/boxmap-field                        {:view components4/boxmap-field :init components4/boxmap-field-settings}
-       'm4/breadcrumb-list-option-picker       {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
+       ;'m4/breadcrumb-list-option-picker       {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
        'm4/selection-list-breadcrumb           {:view components4/selection-list-breadcrumb :init components4/selection-list-breadcrumb-settings}
        'm4/checkbox-field                      {:view components4/checkbox-field :init components4/checkbox-field-settings}
        'm4/date-field                          {:view components4/date-field :init components4/date-field-settings}

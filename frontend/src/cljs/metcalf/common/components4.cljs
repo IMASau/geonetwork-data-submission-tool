@@ -1126,28 +1126,28 @@
 ;        :getValue    (ui-controls/obj-path-getter value-path)
 ;        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
-(defn breadcrumb-list-option-picker-settings
-  "Settings for breadcrumb-list-option-picker component"
-  [_]
-  {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path :breadcrumb-path]
-   ::low-code4/opt-ks [:placeholder]
-   ::low-code4/schema {:type "array" :items {:type "object"}}})
-
-(defn breadcrumb-list-option-picker
-  [config]
-  (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder options disabled is-hidden value-path label-path breadcrumb-path show-errors?]} props]
-    (when-not is-hidden
-      [ui-controls/BreadcrumbSelectField
-       {:value         nil
-        :options       options
-        :placeholder   placeholder
-        :disabled      disabled
-        :hasError      show-errors?
-        :getValue      (ui-controls/obj-path-getter value-path)
-        :getLabel      (ui-controls/obj-path-getter label-path)
-        :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
-        :onChange      #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
+;(defn breadcrumb-list-option-picker-settings
+;  "Settings for breadcrumb-list-option-picker component"
+;  [_]
+;  {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path :breadcrumb-path]
+;   ::low-code4/opt-ks [:placeholder]
+;   ::low-code4/schema {:type "array" :items {:type "object"}}})
+;
+;(defn breadcrumb-list-option-picker
+;  [config]
+;  (let [props @(rf/subscribe [::get-block-props config])
+;        {:keys [placeholder options disabled is-hidden value-path label-path breadcrumb-path show-errors?]} props]
+;    (when-not is-hidden
+;      [ui-controls/BreadcrumbSelectField
+;       {:value         nil
+;        :options       options
+;        :placeholder   placeholder
+;        :disabled      disabled
+;        :hasError      show-errors?
+;        :getValue      (ui-controls/obj-path-getter value-path)
+;        :getLabel      (ui-controls/obj-path-getter label-path)
+;        :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
+;        :onChange      #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 (defn table-list-option-picker-settings
   "Settings for table-list-option-picker component"

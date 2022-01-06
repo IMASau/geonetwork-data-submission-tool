@@ -67,6 +67,18 @@
                      :msg   (str "Path not present in schema: " (pr-str path))
                      :data  {:ctx ctx :path path}})))))
 
+(defn log-view-inputs-wrapper
+  [{:keys [config] :as ctx} view]
+  (fn log-view-inputs
+    [& args]
+    (utils4/log {:level :debug
+                 :msg   (str ::log-view-inputs)
+                 :data  {:ctx  ctx
+                         :args args
+                         :subs {:block-props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
+                                :block-data  @(rf/subscribe [:metcalf.common.components4/get-block-data config])}}})
+    (apply view args)))
+
 (defn build-component
   [sym reg-data]
   (s/assert map? reg-data)
@@ -75,7 +87,8 @@
       (let [config (utils4/if-contains-update raw-config :data-path utils4/massage-data-path)
             settings (when init (init config))
             schema @(rf/subscribe [::get-data-schema config])
-            ctx {:sym sym :config config :settings settings :schema schema}]
+            ctx {:sym sym :config config :settings settings :schema schema}
+            view (cond->> view (:debug/log-view-inputs config) (log-view-inputs-wrapper ctx))]
         (check-missing-keys ctx)
         (check-compatible-schema ctx)
         (check-compatible-paths ctx)

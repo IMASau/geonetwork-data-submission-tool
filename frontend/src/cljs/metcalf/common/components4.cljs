@@ -1023,6 +1023,7 @@
 ;                          '?data-path (conj data-path index)}}))])))
 
 (defn breadcrumb-selection-list-settings
+  "Settings for breadcrumb-selection-list component"
   [{:keys [label-path value-path breadcrumb-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :label-path :value-path :breadcrumb-path]
    ::low-code4/opt-ks       [:added-path]
@@ -1030,6 +1031,19 @@
    ::low-code4/schema-paths [label-path value-path breadcrumb-path added-path]})
 
 (defn breadcrumb-selection-list
+  "This components renders a selection list with each item displayed as breadcrumb path and label.
+   Items in the list can be reordered and deleted.  User defined items can also be selected.
+
+   Props configure the component
+   * value-path (vector) - path to the value in the list item data.  Value must be unique.
+   * label-path (vector) - path to the label in the list item data.  Label must be a string.
+   * breadcrumb-path (vector) - where the breadcrumbs are in the list item data.  Breadcrumbs must be a list of string.
+   * added-path (vector) - path to test if list item is user defined.  Used to style control.
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * is-hidden - hides component entirely
+   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])

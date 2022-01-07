@@ -97,11 +97,13 @@
             (handle-breadcrumb-click [path] (reset! *selected-path path))
             (handle-property-click [path] (reset! *selected-path path))]
       (fn [{:keys [schema]}]
-        [schema-viz {:schema                  schema
-                     :expanded-paths          @*expanded-paths
-                     :selected-path           @*selected-path
-                     :handle-node-expand      handle-node-expand
-                     :handle-node-collapse    handle-node-collapse
-                     :handle-node-click       handle-node-click
-                     :handle-breadcrumb-click handle-breadcrumb-click
-                     :handle-property-click   handle-property-click}]))))
+        (let [selected-path @*selected-path
+              expanded-paths (into @*expanded-paths (take-while seq (iterate butlast selected-path)))]
+          [schema-viz {:schema                  schema
+                       :expanded-paths          expanded-paths
+                       :selected-path           selected-path
+                       :handle-node-expand      handle-node-expand
+                       :handle-node-collapse    handle-node-collapse
+                       :handle-node-click       handle-node-click
+                       :handle-breadcrumb-click handle-breadcrumb-click
+                       :handle-property-click   handle-property-click}])))))

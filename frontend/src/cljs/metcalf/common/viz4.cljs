@@ -44,7 +44,7 @@
      (when properties
        [:<> [:dt "properties"] [:dd (interpose " " (map (fn [k] [:span.bp3-button.bp3-minimal {:on-click #(handle-property-click k)} (name k)]) (keys properties)))]])
      (for [[k v] (dissoc schema :items :properties :type :rules)]
-       [:<> [:dt (name k)] [:dd (str v)]])
+       [:<> [:dt (name k)] [:dd (pr-str v)]])
      (when-let [rules (rules4/seq-rules rules)]
        [:<> [:dt "rules"]
         [:dd [:table.bp3-html-table
@@ -88,15 +88,21 @@
 
 
 (defn reagent-schema-viz
-  []
-  (let [*expanded-paths (r/atom #{[]})
-        *selected-path (r/atom [])]
+  [{:keys [initial-path]}]
+  (let [path (or initial-path [])
+        *expanded-paths (r/atom #{[]})
+        *selected-path (r/atom path)]
+    (when (seq (butlast path))
+      (swap! *expanded-paths conj (butlast path)))
     (letfn [(handle-node-expand [node] (swap! *expanded-paths conj (:path (gobj/get node "nodeData"))))
             (handle-node-collapse [node] (swap! *expanded-paths disj (:path (gobj/get node "nodeData"))))
-            (handle-node-click [node] (reset! *selected-path (:path (gobj/get node "nodeData"))))
+            (handle-node-click [node]
+              (swap! *expanded-paths conj (:path (gobj/get node "nodeData")))
+              (reset! *selected-path (:path (gobj/get node "nodeData"))))
             (handle-breadcrumb-click [path] (reset! *selected-path path))
             (handle-property-click [path]
-              (swap! *expanded-paths conj (butlast path))
+              (when (seq (butlast path))
+                (swap! *expanded-paths conj (butlast path)))
               (reset! *selected-path path))]
       (fn [{:keys [schema]}]
         (let [selected-path @*selected-path
@@ -114,10 +120,10 @@
 (defn schema-drawer
   []
   (let [*open? (r/atom false)]
-    (fn [{:keys [schema]}]
+    (fn [{:keys [schema initial-path] :or {initial-path []}}]
       [:div
        [:button.bp3-button.bp3-minimal {:onClick #(reset! *open? true)} "Show schema"]
        [bp3/drawer
         {:isOpen @*open?
          :size   "80%"}
-        [reagent-schema-viz {:schema schema}]]])))
+        [reagent-schema-viz {:schema schema :initial-path initial-path}]]])))

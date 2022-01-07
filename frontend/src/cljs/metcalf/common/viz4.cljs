@@ -3,82 +3,102 @@
             [reagent.core :as r]
             [goog.object :as gobj]
             [metcalf.common.schema4 :as schema4]
-            [clojure.string :as string]))
-
-(def *expanded-paths (r/atom #{[]}))
-(def *selected-path (r/atom []))
-
-(defn handle-node-expand [node] (swap! *expanded-paths conj (:path (gobj/get node "nodeData"))))
-(defn handle-node-collapse [node] (swap! *expanded-paths disj (:path (gobj/get node "nodeData"))))
-(defn handle-node-click [node] (reset! *selected-path (:path (gobj/get node "nodeData"))))
-(defn handle-breadcrumb-click [path] (reset! *selected-path path))
+            [clojure.string :as string]
+            [metcalf.common.rules4 :as rules4]))
 
 (defn schema-type
   [{:keys [type items]}]
   (if (= type "array")
-    (str "array of " (:type items) "s")
+    (if-let [t (:type items)]
+      (str "array of " t "s")
+      (str "array"))
     (or type "unknown")))
 
 (defn schema-child-node
-  [{:keys [schema path]}]
-  (let [{:keys [type items properties]} schema]
+  [ctx {:keys [schema path]}]
+  (let [{:keys [expanded-paths selected-path]} ctx
+        {:keys [type items properties]} schema]
     (case type
       "object" (into-array
                  (for [[k m] properties]
                    (let [path (conj path k)]
                      #js {:key        (name k)
                           :label      (str k " (" (schema-type m) ")")
-                          :isExpanded (contains? @*expanded-paths path)
-                          :isSelected (= @*selected-path path)
+                          :isExpanded (contains? expanded-paths path)
+                          :isSelected (= selected-path path)
                           :nodeData   {:path path}
-                          :childNodes (schema-child-node {:schema m :path path})})))
-      "array" (schema-child-node {:schema items :path path})
+                          :childNodes (schema-child-node ctx {:schema m :path path})})))
+      "array" (schema-child-node ctx {:schema items :path path})
       nil)))
 
 (defn schema-meta
-  [{:keys [schema]}]
-  (let [{:keys [items properties type]} schema]
+  [{:keys [schema handle-property-click]}]
+  (let [{:keys [type items properties rules]} schema]
     [:dl
-     [:<> [:dt "type"] [:dd (or type "unknown")]]
+     [:<> [:dt "type"] [:dd (pr-str type)]]
      (when items
        [:<> [:dt "items"] [:dd (schema-type items)]])
      (when properties
-       [:<> [:dt "properties"] [:dd (string/join ", " (map name (keys properties)))]])
-     (for [[k v] (dissoc schema :items :properties :type)]
-       [:<> [:dt (name k)] [:dd (str v)]])]))
+       [:<> [:dt "properties"] [:dd (interpose " " (map (fn [k] [:span.bp3-button.bp3-minimal {:on-click #(handle-property-click k)} (name k)]) (keys properties)))]])
+     (for [[k v] (dissoc schema :items :properties :type :rules)]
+       [:<> [:dt (name k)] [:dd (str v)]])
+     (when-let [rules (rules4/seq-rules rules)]
+       [:<> [:dt "rules"]
+        [:dd [:table.bp3-html-table
+              [:tbody
+               [:<> (for [rule rules]
+                      [:tr
+                       [:th (pr-str (key rule))]
+                       [:td (pr-str (val rule))]])]]]]])]))
 
 (defn schema-viz
-  [{:keys [schema]}]
+  [{:keys [schema expanded-paths selected-path handle-node-expand handle-node-collapse handle-node-click handle-breadcrumb-click handle-property-click]}]
   (let [path []
-        child-nodes (filterv some? (schema-child-node {:schema schema :path path}))
-        selected-path @*selected-path]
-    [:div
-     [:pre (with-out-str (cljs.pprint/pprint {:selected-path  selected-path
-                                              :expanded-paths @*expanded-paths}))]
+        child-nodes (filterv some? (schema-child-node {:expanded-paths expanded-paths :selected-path selected-path} {:schema schema :path path}))]
+    [:div {:style {:display "flex" :flex-direction "row"}}
+
+     [:div {:style {:flex 1}}
+      [bp3/tree
+       {:onNodeExpand   handle-node-expand
+        :onNodeCollapse handle-node-collapse
+        :onNodeClick    handle-node-click
+        :contents       [#js {:label      (str "root (" (schema-type schema) ")")
+                              :isExpanded (contains? expanded-paths path)
+                              :isSelected (= selected-path path)
+                              :nodeData   {:path path}
+                              :childNodes (into-array child-nodes)}]}]]
+     [:div {:style {:flex 2}}
+      [:div.bp3-card
+       [bp3/breadcrumbs
+        {:items (into [{:key     "-1"
+                        :text    "root"
+                        :onClick #(handle-breadcrumb-click [])}]
+                      (for [n (range (count selected-path))]
+                        (let [s (nth selected-path n)
+                              path (vec (take (inc n) selected-path))]
+                          {:key     (str n)
+                           :text    s
+                           :onClick #(handle-breadcrumb-click path)})))}]
+       (when selected-path
+         (let [schema (get-in schema (schema4/schema-path selected-path))]
+           [schema-meta {:schema schema :handle-property-click #(handle-property-click (conj selected-path %))}]))]]]))
 
 
-     [:div {:style {:display "flex" :flex-direction "row"}}
-
-      [:div {:style {:flex 1}}
-       [bp3/tree
-        {:onNodeExpand   handle-node-expand
-         :onNodeCollapse handle-node-collapse
-         :onNodeClick    handle-node-click
-         :contents       [#js {:label      (str "root (" (schema-type schema) ")")
-                               :isExpanded (contains? @*expanded-paths path)
-                               :isSelected (= @*selected-path path)
-                               :nodeData   {:path path}
-                               :childNodes (into-array child-nodes)}]}]]
-      [:div {:style {:flex 2}}
-       [:div.bp3-card
-        [bp3/breadcrumbs
-         {:items (into [{:text    "root"
-                         :onClick (handle-breadcrumb-click [])}]
-                       (for [n (range (count selected-path))]
-                         (let [s (nth selected-path n)
-                               path (vec (take (inc n) selected-path))]
-                           {:text    s
-                            :onClick (handle-breadcrumb-click path)})))}]
-        (when selected-path
-          (let [schema (get-in schema (schema4/schema-path selected-path))]
-            [schema-meta {:schema schema}]))]]]]))
+(defn reagent-schema-viz
+  []
+  (let [*expanded-paths (r/atom #{[]})
+        *selected-path (r/atom [])]
+    (letfn [(handle-node-expand [node] (swap! *expanded-paths conj (:path (gobj/get node "nodeData"))))
+            (handle-node-collapse [node] (swap! *expanded-paths disj (:path (gobj/get node "nodeData"))))
+            (handle-node-click [node] (reset! *selected-path (:path (gobj/get node "nodeData"))))
+            (handle-breadcrumb-click [path] (reset! *selected-path path))
+            (handle-property-click [path] (reset! *selected-path path))]
+      (fn [{:keys [schema]}]
+        [schema-viz {:schema                  schema
+                     :expanded-paths          @*expanded-paths
+                     :selected-path           @*selected-path
+                     :handle-node-expand      handle-node-expand
+                     :handle-node-collapse    handle-node-collapse
+                     :handle-node-click       handle-node-click
+                     :handle-breadcrumb-click handle-breadcrumb-click
+                     :handle-property-click   handle-property-click}]))))

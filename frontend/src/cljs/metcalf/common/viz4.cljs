@@ -95,10 +95,12 @@
             (handle-node-collapse [node] (swap! *expanded-paths disj (:path (gobj/get node "nodeData"))))
             (handle-node-click [node] (reset! *selected-path (:path (gobj/get node "nodeData"))))
             (handle-breadcrumb-click [path] (reset! *selected-path path))
-            (handle-property-click [path] (reset! *selected-path path))]
+            (handle-property-click [path]
+              (swap! *expanded-paths conj (butlast path))
+              (reset! *selected-path path))]
       (fn [{:keys [schema]}]
         (let [selected-path @*selected-path
-              expanded-paths (into @*expanded-paths (take-while seq (iterate butlast selected-path)))]
+              expanded-paths @*expanded-paths]
           [schema-viz {:schema                  schema
                        :expanded-paths          expanded-paths
                        :selected-path           selected-path
@@ -107,3 +109,15 @@
                        :handle-node-click       handle-node-click
                        :handle-breadcrumb-click handle-breadcrumb-click
                        :handle-property-click   handle-property-click}])))))
+
+; FIXME: tree doesn't scroll
+(defn schema-drawer
+  []
+  (let [*open? (r/atom false)]
+    (fn [{:keys [schema]}]
+      [:div
+       [:button.bp3-button.bp3-minimal {:onClick #(reset! *open? true)} "Show schema"]
+       [bp3/drawer
+        {:isOpen @*open?
+         :size   "80%"}
+        [reagent-schema-viz {:schema schema}]]])))

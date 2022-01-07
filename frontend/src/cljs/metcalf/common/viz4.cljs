@@ -37,7 +37,10 @@
     [:dl
      [:<> [:dt "type"] [:dd (pr-str type)]]
      (when items
-       [:<> [:dt "items"] [:dd (schema-type items)]])
+       [:<> [:dt "items"] [:dd (schema-type items)
+                           (when (= "object" (:type items))
+                             [:div (let [properties (:properties items)]
+                                     (interpose " " (map (fn [k] [:span.bp3-button.bp3-minimal {:on-click #(handle-property-click k)} (name k)]) (keys properties))))])]])
      (when properties
        [:<> [:dt "properties"] [:dd (interpose " " (map (fn [k] [:span.bp3-button.bp3-minimal {:on-click #(handle-property-click k)} (name k)]) (keys properties)))]])
      (for [[k v] (dissoc schema :items :properties :type :rules)]

@@ -132,6 +132,7 @@
       {"requiredField"     rules4/required-field
        "requiredWhenYes"   rules4/required-when-yes
        "requiredSome"      rules4/required-at-least-one
+       "requiredParty"     rules4/tern-org-or-person
        "spatialUnits"      rules4/spatial-resolution-units
        "requiredAllNone"   rules4/required-all-or-nothing
        "maxLength"         rules4/max-length

@@ -76,6 +76,7 @@
     "dataSources": {
       "xpath": "mdb:distributionInfo",
       "type": "array",
+      "keep": false,
       "items": {
         "xpath": "mdb:distributionInfo",
         "type": "object",

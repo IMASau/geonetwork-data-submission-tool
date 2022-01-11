@@ -1,5 +1,5 @@
 (ns ^:dev/always metcalf.tern.config
-  (:require [interop.ui :as ui]
+  (:require [interop.ui-controls :as ui-controls]
             [metcalf.common.components4 :as components4]
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.handlers3 :as handlers3]
@@ -13,22 +13,26 @@
             [metcalf.tern.db :as tern-db]
             [metcalf.tern.handlers :as tern-handlers]
             [metcalf.tern.subs :as tern-subs]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [cljs.spec.alpha :as s]
+            [clojure.string :as string]))
 
 #_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-event-fx ::components4/create-document-modal-clear-click handlers4/create-document-modal-clear-click)
 (rf/reg-event-fx ::components4/create-document-modal-close-click handlers4/create-document-modal-close-click)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
-(rf/reg-event-fx ::components4/item-add-with-defaults-click-handler handlers4/item-add-with-defaults-click-handler2)
-(rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-with-defaults-click-handler)
-(rf/reg-event-fx ::components4/item-edit-dialog-cancel handlers4/item-edit-dialog-cancel-handler)
-(rf/reg-event-fx ::components4/item-edit-dialog-close handlers4/item-edit-dialog-close-handler)
-(rf/reg-event-fx ::components4/item-edit-dialog-save handlers4/item-edit-dialog-save-handler)
+(rf/reg-event-fx ::components4/item-add-button-click handlers4/item-add-with-defaults-click-handler)
+(rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler)
+(rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-click-handler)
+(rf/reg-event-fx ::components4/item-dialog-button-edit-click handlers4/item-edit-click-handler)
+(rf/reg-event-fx ::components4/edit-dialog-cancel handlers4/edit-dialog-cancel-handler)
+(rf/reg-event-fx ::components4/edit-dialog-close handlers4/edit-dialog-close-handler)
+(rf/reg-event-fx ::components4/edit-dialog-save handlers4/edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
-(rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-close-handler)
+(rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
@@ -38,8 +42,8 @@
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::components4/text-value-add-click-handler handlers4/text-value-add-click-handler)
 (rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
-(rf/reg-event-fx ::components4/value-selection-list-remove-click handlers4/selection-list-remove-click)
-(rf/reg-event-fx ::components4/value-selection-list-reorder handlers4/selection-list-reorder)
+(rf/reg-event-fx ::components4/selection-list-values-remove-click handlers4/selection-list-remove-click)
+(rf/reg-event-fx ::components4/selection-list-values-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
 (rf/reg-event-fx :app/-archive-current-document-error handlers3/-archive-current-document-error)
@@ -80,7 +84,6 @@
 (rf/reg-event-fx :metcalf.common.actions4/-create-document handlers4/-create-document-handler)
 (rf/reg-event-fx :metcalf.common.actions4/-get-document-data-action handlers4/-get-document-data-action)
 (rf/reg-event-fx :metcalf.common.components4/coordinates-modal-field-close-modal handlers4/coordinates-modal-field-close-modal)
-(rf/reg-event-fx :metcalf.common.components4/lodge-button-click handlers3/lodge-click)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
 (rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
@@ -93,7 +96,7 @@
 (rf/reg-fx :app/get-json-fx (utils4/promise-fx utils4/get-json))
 (rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
 (rf/reg-fx :app/post-multipart-form (utils4/promise-fx utils4/post-multipart-form))
-(rf/reg-fx :ui/setup-blueprint ui/setup-blueprint)
+(rf/reg-fx :ui/setup-blueprint ui-controls/setup-blueprint)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
@@ -102,6 +105,7 @@
 (rf/reg-sub ::components4/has-block-errors? subs4/form-state-signal subs4/has-block-errors?)
 (rf/reg-sub ::components4/has-selected-block-errors? subs4/form-state-signal subs4/has-selected-block-errors?)
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub ::components4/get-page-errors-props subs4/form-state-signal subs4/get-page-errors-props-sub)
 (rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub ::tern-subs/get-edit-tabs tern-subs/get-edit-tabs)
@@ -128,6 +132,7 @@
       {"requiredField"     rules4/required-field
        "requiredWhenYes"   rules4/required-when-yes
        "requiredSome"      rules4/required-at-least-one
+       "requiredParty"     rules4/tern-org-or-person
        "spatialUnits"      rules4/spatial-resolution-units
        "requiredAllNone"   rules4/required-all-or-nothing
        "maxLength"         rules4/max-length
@@ -141,52 +146,57 @@
        "verticalRequired"  rules4/vertical-required})
 (set! low-code4/component-registry
       {
-       'm4/async-item-picker             {:view components4/async-item-picker :init components4/async-item-picker-settings}
-       'm4/async-list-picker             {:view components4/async-list-picker :init components4/async-list-picker-settings}
-       'm4/async-select-option           {:view components4/async-select-option :init components4/async-select-option-settings}
-       'm4/async-select-value            {:view components4/async-select-value :init components4/async-select-value-settings}
-       'm4/boxmap-field                  {:view components4/boxmap-field :init components4/boxmap-field-settings}
-       'm4/breadcrumb-list-option-picker {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
-       'm4/breadcrumb-selection-list     {:view components4/breadcrumb-selection-list :init components4/breadcrumb-selection-list-settings}
-       'm4/checkbox-field                {:view components4/checkbox-field :init components4/checkbox-field-settings}
-       'm4/date-field                    {:view components4/date-field :init components4/date-field-settings}
-       'm4/date-field-with-label         {:view components4/date-field-with-label :init components4/date-field-settings}
-       'm4/expanding-control             {:view components4/expanding-control :init components4/expanding-control-settings}
-       'm4/form-group                    {:view components4/form-group :init components4/form-group-settings}
-       'm4/inline-form-group             {:view components4/inline-form-group :init components4/inline-form-group-settings}
-       'm4/input-field                   {:view components4/input-field :init components4/input-field-settings}
-       'm4/input-field-with-label        {:view components4/input-field-with-label :init components4/input-field-settings}
-       'm4/item-add-button               {:view components4/item-add-button :init components4/item-add-button-settings}
-       'm4/item-dialog-button            {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
-       'm4/item-edit-button              {:view components4/item-edit-button :init components4/item-edit-button-settings}
-       'm4/item-edit-dialog              {:view components4/item-edit-dialog :init components4/item-edit-dialog-settings}
-       'm4/list-add-button               {:view components4/list-add-button :init components4/list-add-button-settings}
-       'm4/list-edit-dialog              {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
-       'm4/typed-list-edit-dialog        {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
-       'm4/numeric-input-field           {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
-       'm4/page-errors                   {:view components4/page-errors :init components4/page-errors-settings}
-       'm4/select-option                 {:view components4/select-option :init components4/select-option-settings}
-       'm4/select-option-with-label      {:view components4/select-option-with-label :init components4/select-option-settings}
-       'm4/select-value                  {:view components4/select-value :init components4/select-value-settings}
-       'm4/select-value-with-label       {:view components4/select-value-with-label :init components4/select-value-settings}
-       'm4/simple-list-option-picker     {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
-       'm4/selection-list                {:view components4/selection-list :init components4/selection-list-settings}
-       'm4/simple-selection-list         {:view components4/simple-selection-list :init components4/simple-selection-list-settings}
-       'm4/value-selection-list          {:view components4/value-selection-list :init components4/value-selection-list-settings}
-       'm4/table-list-option-picker      {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
-       'm4/table-selection-list          {:view components4/table-selection-list :init components4/table-selection-list-settings}
-       'm4/textarea-field                {:view components4/textarea-field :init components4/textarea-field-settings}
-       'm4/textarea-field-with-label     {:view components4/textarea-field-with-label :init components4/textarea-field-settings}
-       'm4/when-data                     {:view components4/when-data :init components4/when-data-settings}
-       'm4/get-data                      {:view components4/get-data :init components4/get-data-settings}
-       'm4/yes-no-field                  {:view components4/yes-no-field :init components4/yes-no-field-settings}
-       'm4/simple-list                   {:view components4/simple-list :init components4/simple-list-settings}
-       'm4/record-add-button             {:view components4/record-add-button :init components4/record-add-button-settings}
-       'm4/text-add-button               {:view components4/text-add-button :init components4/text-add-button-settings}
-       'm4/upload-files                  {:view components4/upload-files :init components4/upload-files-settings}
+       'm4/async-simple-item-option-picker     {:view components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
+       'm4/async-list-option-picker            {:view components4/async-list-option-picker :init components4/async-list-option-picker-settings}
+       'm4/async-list-option-picker-breadcrumb {:view components4/async-list-option-picker-breadcrumb :init components4/async-list-option-picker-breadcrumb-settings}
+       'm4/async-list-option-picker-columns    {:view components4/async-list-option-picker-columns :init components4/async-list-option-picker-columns-settings}
+       'm4/async-select-option-simple          {:view components4/async-select-option-simple :init components4/async-select-option-simple-settings}
+       'm4/async-select-option-breadcrumb      {:view components4/async-select-option-breadcrumb :init components4/async-select-option-breadcrumb-settings}
+       'm4/async-select-option-columns         {:view components4/async-select-option-columns :init components4/async-select-option-columns-settings}
+       ;'m4/async-select-value                  {:view components4/async-select-value :init components4/async-select-value-settings}
+       'm4/boxmap-field                        {:view components4/boxmap-field :init components4/boxmap-field-settings}
+       ;'m4/breadcrumb-list-option-picker       {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
+       'm4/selection-list-breadcrumb           {:view components4/selection-list-breadcrumb :init components4/selection-list-breadcrumb-settings}
+       'm4/checkbox-field                      {:view components4/checkbox-field :init components4/checkbox-field-settings}
+       'm4/date-field                          {:view components4/date-field :init components4/date-field-settings}
+       'm4/expanding-control                   {:view components4/expanding-control :init components4/expanding-control-settings}
+       'm4/form-group                          {:view components4/form-group :init components4/form-group-settings}
+       'm4/inline-form-group                   {:view components4/inline-form-group :init components4/inline-form-group-settings}
+       'm4/input-field                         {:view components4/input-field :init components4/input-field-settings}
+       'm4/item-add-button                     {:view components4/item-add-button :init components4/item-add-button-settings}
+       'm4/item-dialog-button                  {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
+       'm4/edit-dialog                         {:view components4/edit-dialog :init components4/edit-dialog-settings}
+       'm4/list-add-button                     {:view components4/list-add-button :init components4/list-add-button-settings}
+       'm4/list-edit-dialog                    {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
+       'm4/typed-list-edit-dialog              {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
+       'm4/numeric-input-field                 {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
+       'm4/page-errors                         {:view components4/page-errors :init components4/page-errors-settings}
+       'm4/select-option-simple                {:view components4/select-option-simple :init components4/select-option-simple-settings}
+       'm4/select-option-breadcrumb            {:view components4/select-option-breadcrumb :init components4/select-option-breadcrumb-settings}
+       'm4/select-option-columns               {:view components4/select-option-columns :init components4/select-option-columns-settings}
+       'm4/select-value                        {:view components4/select-value :init components4/select-value-settings}
+       ;'m4/simple-list-option-picker           {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
+       'm4/selection-list-template             {:view components4/selection-list-template :init components4/selection-list-template-settings}
+       'm4/selection-list-simple               {:view components4/selection-list-simple :init components4/selection-list-simple-settings}
+       'm4/selection-list-values               {:view components4/selection-list-values :init components4/selection-list-values-settings}
+       ;'m4/table-list-option-picker            {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
+       'm4/selection-list-columns              {:view components4/selection-list-columns :init components4/selection-list-columns-settings}
+       'm4/textarea-field                      {:view components4/textarea-field :init components4/textarea-field-settings}
+       'm4/when-data                           {:view components4/when-data :init components4/when-data-settings}
+       'm4/get-data                            {:view components4/get-data :init components4/get-data-settings}
+       'm4/yes-no-field                        {:view components4/yes-no-field :init components4/yes-no-field-settings}
+       ;'m4/simple-list                         {:view components4/simple-list :init components4/simple-list-settings}
+       ;'m4/record-add-button                   {:view components4/record-add-button :init components4/record-add-button-settings}
+       'm4/text-add-button                     {:view components4/text-add-button :init components4/text-add-button-settings}
+       'm4/upload-files                        {:view components4/upload-files :init components4/upload-files-settings}
        })
 
+; Specs intended for use with when-data :pred
+(s/def :m4/empty-list? empty?)
+(s/def :m4/not-set? (s/or :n nil? :s (s/and string? string/blank?)))
+
 (def edit-templates
+  "Default ui templates for edit-page/"
   '{:platform/user-defined-entry-form
     [:div
 
@@ -327,7 +337,7 @@
 
       [:div.bp3-control-group
        [:div.bp3-fill
-        [m4/async-select-option
+        [m4/async-select-option-simple
          {:form-id    ?form-id
           :data-path  [?data-path "unit"]
           :uri        "/api/qudtunits"
@@ -342,7 +352,7 @@
          :item-defaults {"userAddedCategory" "unit"}
          :added-path    ["isUserDefined"]}]]
 
-      [m4/item-edit-dialog
+      [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "unit"]
         :title       "Unit"
@@ -362,12 +372,15 @@
 
      [:h2 "1. Data Identification"]
 
-     [m4/input-field-with-label
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "title"]
-       :label       "Title"
-       :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"
-       :helperText  "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}]
+     [m4/form-group
+      {:form-id    [:form]
+       :data-path  ["identificationInfo" "title"]
+       :label      "Title"
+       :helperText "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}
+      [m4/input-field
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "title"]
+        :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"}]]
 
      [m4/form-group
       {:form-id  [:form]
@@ -377,27 +390,29 @@
        {:form-id   [:form]
         :data-path ["parentMetadata" "parentMetadataFlag"]
         :label     "Does this record have a parent dataset?"}]
-      [m4/async-select-option
+      [m4/async-select-option-breadcrumb
        {:form-id         [:form]
         :data-path       ["parentMetadata" "record"]
-        :kind            :breadcrumb
         :uri             "/api/terngeonetwork"
         :label-path      ["label"]
         :value-path      ["uri"]
         :breadcrumb-path ["uuid"]
         :placeholder     "Start typing to filter list..."}]]
 
-     [m4/select-value-with-label
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "topicCategory"]
-       :placeholder "Start typing to filter list..."
-       :label-path  ["label"]
-       :value-path  ["value"]
-       :options     [{"value" "biota" "label" "biota"}
-                     {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
-                     {"value" "oceans" "label" "oceans"}
-                     {"value" "geoscientificInformation" "label" "geoscientificInformation"}
-                     {"value" "inlandWater" "label" "inlandWater"}]}]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "topicCategory"]}
+      [m4/select-value
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "topicCategory"]
+        :placeholder "Start typing to filter list..."
+        :label-path  ["label"]
+        :value-path  ["value"]
+        :options     [{"value" "biota" "label" "biota"}
+                      {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
+                      {"value" "oceans" "label" "oceans"}
+                      {"value" "geoscientificInformation" "label" "geoscientificInformation"}
+                      {"value" "inlandWater" "label" "inlandWater"}]}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
@@ -406,47 +421,56 @@
       [:div
 
        ;; FIXME: Should this be use api for options?
-       [m4/select-value-with-label
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "status"]
-         :label      "Status of Data"
-         :value-path ["value"]
-         :label-path ["label"]
-         :options    [{"value" "onGoing" "label" "ongoing"}
-                      {"value" "planned" "label" "planned"}
-                      {"value" "completed" "label" "completed"}]}]]
+       [m4/form-group
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "status"]
+         :label     "Status of Data"}
+        [m4/select-value
+         {:form-id    [:form]
+          :data-path  ["identificationInfo" "status"]
+          :value-path ["value"]
+          :label-path ["label"]
+          :options    [{"value" "onGoing" "label" "ongoing"}
+                       {"value" "planned" "label" "planned"}
+                       {"value" "completed" "label" "completed"}]}]]]
       [:div
-       [m4/input-field-with-label
+       [m4/form-group
         {:form-id    [:form]
          :data-path  ["identificationInfo" "version"]
          :label      "Version"
          :helperText "Version number of the resource"
-         :required   true}]]
+         :required   true}
+        [m4/input-field
+         {:form-id   [:form]
+          :data-path ["identificationInfo" "version"]}]]]
 
       [:div
 
        ;; FIXME: Should this be use api for options?
-       [m4/select-value-with-label
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
-         :label      "Maintenance/Update Freq"
-         :value-path ["value"]
-         :label-path ["label"]
-         :options    [{"value" "continual" "label" "Continually"}
-                      {"value" "daily" "label" "Daily"}
-                      {"value" "weekly" "label" "Weekly"}
-                      {"value" "fortnightly" "label" "Fortnightly"}
-                      {"value" "monthly" "label" "Monthly"}
-                      {"value" "quarterly" "label" "Quarterly"}
-                      {"value" "biannually" "label" "Twice each year"}
-                      {"value" "annually" "label" "Annually"}
-                      {"value" "asNeeded" "label" "As required"}
-                      {"value" "irregular" "label" "Irregular"}
-                      {"value" "notPlanned" "label" "None planned"}
-                      {"value" "unknown" "label" "Unknown"}
-                      {"value" "periodic" "label" "Periodic"}
-                      {"value" "semimonthly" "label" "Twice a month"}
-                      {"value" "biennially" "label" "Every 2 years"}]}]]]
+       [m4/form-group
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
+         :label     "Maintenance/Update Freq"}
+        [m4/select-value
+         {:form-id    [:form]
+          :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
+          :value-path ["value"]
+          :label-path ["label"]
+          :options    [{"value" "continual" "label" "Continually"}
+                       {"value" "daily" "label" "Daily"}
+                       {"value" "weekly" "label" "Weekly"}
+                       {"value" "fortnightly" "label" "Fortnightly"}
+                       {"value" "monthly" "label" "Monthly"}
+                       {"value" "quarterly" "label" "Quarterly"}
+                       {"value" "biannually" "label" "Twice each year"}
+                       {"value" "annually" "label" "Annually"}
+                       {"value" "asNeeded" "label" "As required"}
+                       {"value" "irregular" "label" "Irregular"}
+                       {"value" "notPlanned" "label" "None planned"}
+                       {"value" "unknown" "label" "Unknown"}
+                       {"value" "periodic" "label" "Periodic"}
+                       {"value" "semimonthly" "label" "Twice a month"}
+                       {"value" "biennially" "label" "Every 2 years"}]}]]]]
 
      [m4/inline-form-group
       {:form-id   [:form]
@@ -489,23 +513,28 @@
                       ["identificationInfo" "purpose"]]}]
      [:h2 "2. What"]
      [:p "TODO: Lorem ipsum..."]
-     [m4/textarea-field-with-label
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "abstract"]
-       :label       "Abstract"
-       :placeholder "Provide a brief summary of What, Where, When, Why, Who and How for the collected the data."
-       :helperText  "Describe the content of the resource; e.g. what information was collected, how was it collected"
-       :toolTip     "Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected."
-       :maxLength   2500
-       :required    true}]
-     [m4/textarea-field-with-label
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "purpose"]
-       :label       "Purpose"
-       :placeholder "Provide a brief summary of the purpose for collecting the data including the potential use."
-       :maxLength   1000
-       :helperText  "Brief statement about the purpose of the study"
-       :toolTip     "The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"}]
+     [m4/form-group
+      {:form-id    [:form]
+       :data-path  ["identificationInfo" "abstract"]
+       :label      "Abstract"
+       :helperText "Describe the content of the resource; e.g. what information was collected, how was it collected"
+       :toolTip    "Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected."
+       :required   true}
+      [m4/textarea-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "abstract"]
+        :maxLength 2500}]]
+     [m4/form-group
+      {:form-id    [:form]
+       :data-path  ["identificationInfo" "purpose"]
+       :label      "Purpose"
+       :helperText "Brief statement about the purpose of the study"
+       :toolTip    "The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"}
+      [m4/textarea-field
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "purpose"]
+        :placeholder "Provide a brief summary of the purpose for collecting the data including the potential use."
+        :maxLength   1000}]]
 
      [m4/form-group
       {:label      "Descriptive keywords"
@@ -518,15 +547,14 @@
 
       [m4/form-group
        {:label "Select research theme keywords - maximum of 12 allowed"}
-       [m4/async-list-picker
+       [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
-         :kind            :breadcrumb
          :uri             "/api/sciencekeyword"
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/breadcrumb-selection-list
+       [m4/selection-list-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
          :label-path      ["label"]
@@ -536,15 +564,14 @@
      [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
       [m4/form-group
        {:label "Select research theme keywords - maximum of 12 allowed"}
-       [m4/async-list-picker
+       [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-         :kind            :breadcrumb
          :uri             "/api/anzsrckeyword"
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/breadcrumb-selection-list
+       [m4/selection-list-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
          :label-path      ["label"]
@@ -563,7 +590,7 @@
 
        [:div.bp3-control-group
         [:div.bp3-fill
-         [m4/async-list-picker
+         [m4/async-list-option-picker
           {:form-id    [:form]
            :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
            :uri        "/api/ternplatforms"
@@ -577,7 +604,7 @@
           :item-defaults {"userAddedCategory" "platform"}
           :added-path    ["isUserDefined"]}]]
 
-       [m4/simple-selection-list
+       [m4/selection-list-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
          :label-path ["label"]
@@ -597,7 +624,7 @@
 
        [:div.bp3-control-group
         [:div.bp3-fill
-         [m4/async-list-picker
+         [m4/async-list-option-picker
           {:form-id    [:form]
            :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
            :uri        "/api/terninstruments"
@@ -610,7 +637,7 @@
           :value-path    ["uri"]
           :item-defaults {"userAddedCategory" "instrument"}
           :added-path    ["isUserDefined"]}]]
-       [m4/table-selection-list
+       [m4/selection-list-columns
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
          :value-path ["uri"]
@@ -631,7 +658,7 @@
 
        [:div.bp3-control-group
         [:div.bp3-fill
-         [m4/async-list-picker
+         [m4/async-list-option-picker
           {:form-id    [:form]
            :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
            :uri        "/api/terninstruments"
@@ -644,7 +671,7 @@
           :value-path    ["uri"]
           :item-defaults {"userAddedCategory" "parameters"}
           :added-path    ["isUserDefined"]}]]
-       [m4/table-selection-list
+       [m4/selection-list-columns
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
          :value-path ["uri"]
@@ -661,7 +688,7 @@
       [m4/form-group
        {:label   "Select a Temporal Resolution range"
         :toolTip "How frequently is the data collected?"}
-       [m4/async-select-option
+       [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsTemporal" "keywords"]
          :uri        "/api/samplingfrequency"
@@ -672,7 +699,7 @@
       [m4/form-group
        {:label   "Select a Horizontal Resolution range"
         :toolTip "For gridded data, select the pixel size of the data, for field plots, select average width"}
-       [m4/async-select-option
+       [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsHorizontal" "keywords"]
          :uri        "/api/horizontalresolution"
@@ -683,7 +710,7 @@
       [m4/form-group
        {:label   "Select a Vertical Resolution range"
         :toolTip "Select the smallest vertical distance between successive elements of data in a dataset. This is synonymous with terms such as sample spacing and pixel size"}
-       [m4/async-select-option
+       [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
          :uri        "/api/verticalresolution"
@@ -694,15 +721,14 @@
       [m4/form-group
        {:label   "Select Plant Name Indexes keywords"
         :toolTip "Species Taxa"}
-       [m4/async-list-picker
+       [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
-         :kind            :breadcrumb
          :uri             "/api/ausplantnames"              ; TODO: testing required; currently nothing in index
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/breadcrumb-selection-list
+       [m4/selection-list-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
          :label-path      ["label"]
@@ -713,15 +739,14 @@
       [m4/form-group
        {:label   "Select Australian Faunal Directory keywords"
         :toolTip "Species Taxa"}
-       [m4/async-list-picker
+       [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
-         :kind            :breadcrumb
          :uri             "/api/ausfaunalnames"
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/breadcrumb-selection-list
+       [m4/selection-list-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
          :label-path      ["label"]
@@ -736,7 +761,7 @@
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]
          :button-text "Add"}]
-       [m4/value-selection-list
+       [m4/selection-list-values
         {:form-id   [:form]
          :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]]
 
@@ -757,20 +782,26 @@
       {:style {:display               "grid"
                :grid-column-gap       "1em"
                :grid-template-columns "repeat(auto-fill, minmax(10em, 1fr))"}}
-      [m4/date-field-with-label
+      [m4/form-group
        {:form-id   [:form]
         :data-path ["identificationInfo" "beginPosition"]
         :label     "Start date"
-        :required  true
-        :minDate   "1900-01-01"
-        :maxDate   "2100-01-01"}]
-      [m4/date-field-with-label
+        :required  true}
+       [m4/date-field
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "beginPosition"]
+         :minDate   "1900-01-01"
+         :maxDate   "2100-01-01"}]]
+      [m4/form-group
        {:form-id   [:form]
         :data-path ["identificationInfo" "endPosition"]
         :label     "End date"
-        :required  true
-        :minDate   "1900-01-01"
-        :maxDate   "2100-01-01"}]]
+        :required  true}
+       [m4/date-field
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "endPosition"]
+         :minDate   "1900-01-01"
+         :maxDate   "2100-01-01"}]]]
 
      [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
@@ -793,12 +824,15 @@
          :added-path ["isUserDefined"]}]]
       [:div.col-sm-7
 
-       [m4/textarea-field-with-label
-        {:form-id     [:form]
-         :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
-         :label       "Provide a site description (optional)"
-         :placeholder "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"
-         :toolTip     "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}]
+       [m4/form-group
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "geographicElement" "siteDescription"]
+         :label     "Provide a site description (optional)"
+         :toolTip   "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}
+        [m4/textarea-field
+         {:form-id     [:form]
+          :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
+          :placeholder "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}]]
 
        [:p
         "Please input in decimal degrees in coordinate reference system WGS84."
@@ -810,7 +844,7 @@
        [m4/form-group
         {:label    "Limits"
          :required true}
-        [m4/table-selection-list
+        [m4/selection-list-columns
          {:form-id    [:form]
           :data-path  ["identificationInfo" "geographicElement" "boxes"]
           :value-path ["uri"]
@@ -842,7 +876,7 @@
          {:label    "Coordinate Reference System"
           :required true
           :toolTip  "TODO"}
-         [m4/async-select-option
+         [m4/async-select-option-simple
           {:form-id     [:form]
            :data-path   ["referenceSystemInfo" "crsCode"]
            :label-path  ["code"]
@@ -854,11 +888,14 @@
          {:form-id [:form]
           :label   "Date of dynamic datum"
           :toolTip "TODO"}
-         [m4/date-field-with-label
+         [m4/form-group
           {:form-id   [:form]
-           :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]
-           :minDate   "1900-01-01"
-           :maxDate   "2100-01-01"}]]]
+           :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]}
+          [m4/date-field
+           {:form-id   [:form]
+            :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]
+            :minDate   "1900-01-01"
+            :maxDate   "2100-01-01"}]]]]
 
        [:p [:label "Vertical extent (optional)"]]
        [:p "The vertial extent is optional.  If you choose to enter details then the following fields are mandatory"]
@@ -867,7 +904,7 @@
         {:label    "Vertical Coordinate Reference System"
          :required true
          :toolTip  "TODO"}
-        [m4/async-select-option
+        [m4/async-select-option-simple
          {:form-id     [:form]
           :data-path   ["identificationInfo" "verticalElement" "coordinateReferenceSystem"]
           :uri         "/api/verticalcrs"
@@ -997,7 +1034,7 @@
          ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults {"partyType" "organisation"}}]
 
-       [m4/selection-list
+       [m4/selection-list-template
         {:form-id     [:form]
          :data-path   ["identificationInfo" "citedResponsibleParty"]
          :template-id :party/list-item
@@ -1039,7 +1076,7 @@
          ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults {"partyType" "organisation"}}]
 
-       [m4/selection-list
+       [m4/selection-list-template
         {:form-id     [:form]
          :data-path   ["identificationInfo" "pointOfContact"]
          :template-id :party/list-item
@@ -1064,7 +1101,7 @@
      ;  :value-path ["uri"]
      ;  :added-path ["isUserDefined"]}]
      ;
-     ;[m4/table-selection-list
+     ;[m4/selection-list-columns
      ; {:form-id    [:form]
      ;  :data-path  ["identificationInfo" "PointOfContactForDataset"]
      ;  :label-path ["contact" "label"]
@@ -1108,7 +1145,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "role"]
        :label     "Role"}
-      [m4/async-select-option
+      [m4/async-select-option-simple
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
         :uri        "/api/rolecode"
@@ -1119,7 +1156,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "contact"]
        :label     "Contact"}
-      [m4/async-item-picker
+      [m4/async-simple-item-option-picker
        {:form-id     ?form-id
         :data-path   [?data-path "contact"]
         :uri         "/api/ternpeople"
@@ -1173,7 +1210,7 @@
 
       [:div.bp3-control-group
        [:div.bp3-fill
-        [m4/async-select-option
+        [m4/async-select-option-simple
          {:form-id    ?form-id
           :data-path  [?data-path "organisation"]
           :uri        "/api/ternorgs"
@@ -1185,7 +1222,7 @@
          :value-path ["uri"]
          :added-path ["isUserDefined"]}]]
 
-      [m4/item-edit-dialog
+      [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "organisation"]
         :title       "Organisation"
@@ -1199,7 +1236,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "role"]
        :label     "Role"}
-      [m4/async-select-option
+      [m4/async-select-option-simple
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
         :uri        "/api/rolecode"
@@ -1210,7 +1247,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
        :label     "Contact"}
-      [m4/async-item-picker
+      [m4/async-simple-item-option-picker
        {:form-id     ?form-id
         :data-path   [?data-path "organisation"]
         :uri         "/api/ternorgs"
@@ -1310,7 +1347,7 @@
         {:form-id   ?form-id
          :data-path [?data-path "contact" "fax"]}]]]]
 
-                                        ; NOTE: person organisation (no role)
+    ; NOTE: person organisation (no role)
     :person-organisation/user-defined-entry-form
     [:div
 
@@ -1420,18 +1457,21 @@
 
      [m4/expanding-control {:label "Data creation procedure details (Optional)"}
 
-      [m4/textarea-field-with-label
+      [m4/form-group
        {:form-id    [:form]
         :data-path  ["resourceLineage" "statement"]
         :label      "Provide a brief summary of the source of the data and related collection and/or processing methods."
         :required   true
         :toolTip    "TODO"
-        :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}]
+        :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}
+       [m4/textarea-field
+        {:form-id   [:form]
+         :data-path ["resourceLineage" "statement"]}]]
 
       [m4/form-group
        {:label    "Method documentation"
         :required true}
-       [m4/table-selection-list
+       [m4/selection-list-columns
         {:form-id    [:form]
          :data-path  ["resourceLineage" "onlineMethods"]
          :value-path ["uri"]
@@ -1458,24 +1498,30 @@
      [m4/expanding-control {:label "Data creation procedure steps (Optional)"}
 
       ;; How6: Name
-      [m4/textarea-field-with-label
-       {:form-id     [:form]
-        :data-path   ["resourceLineageProcessSteps" "statement"]
-        :label       "Name"
-        :required    true
-        :toolTip     "TODO"
-        :placeholder "Provide the name of the method or procedure"
-        :helperText  "Provide the name of the method or procedure"}]
+      [m4/form-group
+       {:form-id    [:form]
+        :data-path  ["resourceLineageProcessSteps" "statement"]
+        :label      "Name"
+        :required   true
+        :toolTip    "TODO"
+        :helperText "Provide the name of the method or procedure"}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path   ["resourceLineageProcessSteps" "statement"]
+         :placeholder "Provide the name of the method or procedure"}]]
 
       ;; How7: Description
-      [m4/textarea-field-with-label
-       {:form-id     [:form]
-        :data-path   ["resourceLineageProcessSteps" "summary"]
-        :label       "Summary"
-        :required    true
-        :toolTip     "TODO"
-        :placeholder "Provide a brief summary of a single method or procedure"
-        :helperText  "Provide a brief description of the method"}]
+      [m4/form-group
+       {:form-id    [:form]
+        :data-path  ["resourceLineageProcessSteps" "summary"]
+        :label      "Summary"
+        :required   true
+        :toolTip    "TODO"
+        :helperText "Provide a brief description of the method"}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path   ["resourceLineageProcessSteps" "summary"]
+         :placeholder "Provide a brief summary of a single method or procedure"}]]
 
       ;; How7b: list-add free-text entries
       [m4/form-group
@@ -1485,7 +1531,7 @@
         {:form-id     [:form]
          :data-path   ["resourceLineageProcessSteps" "steps"]
          :button-text "Add"}]
-       [m4/value-selection-list
+       [m4/selection-list-values
         {:form-id   [:form]
          :data-path ["resourceLineageProcessSteps" "steps"]}]]]
 
@@ -1519,17 +1565,20 @@
                       ["dataQualityInfo" "results"]]}]
      [:h2 "7. Data Quality"]
      [:i "This section is optional"]
-     [m4/textarea-field-with-label
-      {:form-id     [:form]
-       :data-path   ["dataQualityInfo" "methodSummary"]
-       :label       "Provide a summary of the scope of the Data Quality Assessment"
-       :maxLength   1000
-       :placeholder "The data quality was assessed by ..."}]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["dataQualityInfo" "methodSummary"]
+       :label     "Provide a summary of the scope of the Data Quality Assessment"}
+      [m4/textarea-field
+       {:form-id     [:form]
+        :data-path   ["dataQualityInfo" "methodSummary"]
+        :maxLength   1000
+        :placeholder "The data quality was assessed by ..."}]]
 
      [m4/form-group
       {:label    "Online data quality report"
        :required true}
-      [m4/table-selection-list
+      [m4/selection-list-columns
        {:form-id    [:form]
         :data-path  ["dataQualityInfo" "onlineMethods"]
         :value-path ["uri"]
@@ -1553,12 +1602,15 @@
         :title       "Online Quality Report"
         :template-id :quality/user-defined-entry-form}]]
 
-     [m4/textarea-field-with-label
-      {:form-id     [:form]
-       :data-path   ["dataQualityInfo" "results"]
-       :label       "Provide a statement regarding the Data Quality Assessment outcome"
-       :maxLength   1000
-       :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["dataQualityInfo" "results"]
+       :label     "Provide a statement regarding the Data Quality Assessment outcome"}
+      [m4/textarea-field
+       {:form-id     [:form]
+        :data-path   ["dataQualityInfo" "results"]
+        :maxLength   1000
+        :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]]
      [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
 
     :quality/user-defined-entry-form
@@ -1601,13 +1653,13 @@
        {:form-id     [:form]
         :data-path   ["identificationInfo" "additionalConstraints" "constraints"]
         :button-text "Add"}]
-      [m4/value-selection-list
+      [m4/selection-list-values
        {:form-id   [:form]
         :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]
 
      [m4/form-group
       {:label "Security Classification"}
-      [m4/async-select-option
+      [m4/async-select-option-simple
        {:form-id    [:form]
         :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
         :uri        "/api/What9"
@@ -1615,20 +1667,23 @@
         :value-path ["uri"]}]]
 
      [m4/expanding-control {:label "Environment Description (Optional)"}
-      [m4/textarea-field-with-label
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "environment"]
-        :label       "Environmental description"
-        :placeholder "Information about the source and software to process the resource"
-        :helperText  "Software, computer operating system, file name, or dataset size"
-        :maxLength   1000}]]
+      [m4/form-group
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "environment"]
+        :label      "Environmental description"
+        :helperText "Software, computer operating system, file name, or dataset size"}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "environment"]
+         :placeholder "Information about the source and software to process the resource"
+         :maxLength   1000}]]]
 
      [m4/expanding-control {:label "Associated Documentation (Optional)"}
 
       [m4/form-group
        {:label    "Publication"
         :required true}
-       [m4/table-selection-list
+       [m4/selection-list-columns
         {:form-id    [:form]
          :data-path  ["identificationInfo" "additionalPublications"]
          :value-path ["uri"]
@@ -1652,39 +1707,51 @@
          :title       "Online Publication"
          :template-id :about/user-defined-entry}]]
 
-      [m4/textarea-field-with-label
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "supplemental"]
-        :label       "Supplemental Information"
-        :placeholder "Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01"
-        :helperText  "Any supplemental information needed to interpret the resource"
-        :maxLength   1000}]]
+      [m4/form-group
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "supplemental"]
+        :label      "Supplemental Information"
+        :helperText "Any supplemental information needed to interpret the resource"}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "supplemental"]
+         :placeholder "Information about how to interpret the resource, example: Pixel value indicates the number of days since reference date 1970-01-01"
+         :maxLength   1000}]]]
 
      [m4/expanding-control {:label "Resource specific usage (Optional)"}
-      [m4/textarea-field-with-label
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "resourceSpecificUsage"]
-        :label       "Resource specific usage"
-        :placeholder "Resource specific usage..."
-        :helperText  "What can this resource be used for environmental research?"
-        :maxLength   1000}]]
+      [m4/form-group
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "resourceSpecificUsage"]
+        :label      "Resource specific usage"
+        :helperText "What can this resource be used for environmental research?"}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "resourceSpecificUsage"]
+         :placeholder "Resource specific usage..."
+         :maxLength   1000}]]]
 
      [m4/expanding-control {:label "Acknowledgment (Optional)"}
-      [m4/textarea-field-with-label
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "credit"]
-        :label       "Acknowledgment"
-        :placeholder "The project was funded by xxx and yyy"
-        :helperText  "Write a sentence acknowledging sponsors, data providers or funding organisations"
-        :maxLength   1000}]]
+      [m4/form-group
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "credit"]
+        :label      "Acknowledgment"
+        :helperText "Write a sentence acknowledging sponsors, data providers or funding organisations"}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "credit"]
+         :placeholder "The project was funded by xxx and yyy"
+         :maxLength   1000}]]]
 
      [m4/expanding-control {:label "Citation (Optional)"}
-      [m4/textarea-field-with-label
+      [m4/form-group
        {:form-id    [:form]
         :data-path  ["identificationInfo" "customCitation"]
         :label      "Specific citation"
-        :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details below."
-        :maxLength  1000}]]
+        :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details below."}
+       [m4/textarea-field
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "customCitation"]
+         :maxLength 1000}]]]
 
      [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
 
@@ -1724,7 +1791,7 @@
      [m4/form-group
       {:label    "Distributions"
        :required true}
-      [m4/table-selection-list
+      [m4/selection-list-columns
        {:form-id    [:form]
         :data-path  ["dataSources"]
         :value-path ["uri"]
@@ -1794,7 +1861,7 @@
       {:form-id   ?form-id
        :data-path [?data-path]
        :label     "Distributor"}
-      [m4/async-item-picker
+      [m4/async-simple-item-option-picker
        {:form-id     ?form-id
         :data-path   [?data-path "distributor"]
         :uri         "/api/ternorgs"

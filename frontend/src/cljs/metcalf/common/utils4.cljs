@@ -4,7 +4,8 @@
             [goog.string :as gstring]
             [goog.uri.utils :as uri]
             [lambdaisland.fetch :as fetch]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [clojure.string :as string]))
 
 
 (s/def ::form-id vector?)
@@ -29,6 +30,18 @@
 (defn console-error
   [msg data]
   (js/console.error msg (console-value data)))
+
+
+(defn log
+  "Log to console with level.  Uses pprint with level/length set.
+   Intended for production logging."
+  [{:keys [level msg data]}]
+  (case level
+    :error (js/console.error msg (console-value data))
+    :info (js/console.info msg (console-value data))
+    :log (js/console.log msg (console-value data))
+    :debug (js/console.debug msg (console-value data))
+    :warn (js/console.warn msg (console-value data))))
 
 
 (defn contains-path?
@@ -207,3 +220,18 @@
              (cons [(conj p k) v] l)))
          l m))]
     (pvals [] [] m)))
+
+
+(defn update-vals
+  [m f]
+  (zipmap (keys m) (map f (vals m))))
+
+
+(defn show-error-analysis
+  "Postwalk analysis.  Set show-errors? prop if field should display error."
+  [{:keys [props] :as block}]
+  (let [{:keys [touched errors]} props
+        show-errors? (and touched (seq errors))]
+    (if show-errors?
+      (assoc-in block [:props :show-errors?] true)
+      block)))

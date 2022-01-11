@@ -48,8 +48,9 @@
                   "boolean" (boolean? data)
                   "null" (nil? data)
                   true))
-    (utils4/console-error (str "Invalid " (:type schema) " value: " (pr-str data))
-                          {:data data :schema schema :path path})))
+    (utils4/log {:level :error
+                 :msg   (str "Invalid " (:type schema) " value: " (pr-str data))
+                 :data  {:data data :schema schema :path path}})))
 
 (defn check-additional-properties
   [{:keys [schema data path]}]
@@ -57,8 +58,9 @@
     (let [prop-ks (set (keys (:properties schema)))
           data-ks (set (keys data))]
       (when-let [extra-ks (seq (set/difference data-ks prop-ks))]
-        (utils4/console-error (str "Unexpected additional properties: " (string/join ", " (map pr-str extra-ks)))
-                              {:extra-ks extra-ks :data data :schema schema :path path})))))
+        (utils4/log {:level :error
+                     :msg   (str "Unexpected additional properties: " (string/join ", " (map pr-str extra-ks)))
+                     :data  {:extra-ks extra-ks :data data :schema schema :path path}})))))
 
 (defn check-required-properties
   [{:keys [schema data path]}]
@@ -66,13 +68,15 @@
     (when (and (= "object" type) required)
 
       (if-not (s/valid? (s/coll-of string?) (:required schema))
-        (utils4/console-error (str "Invalid required annotation on object: " (pr-str (:required schema)))
-                              {:required (:required schema) :data data :schema schema :path path})
+        (utils4/log {:level :error
+                     :msg   (str "Invalid required annotation on object: " (pr-str (:required schema)))
+                     :data {:required (:required schema) :data data :schema schema :path path}})
 
         (let [missing (apply disj (set required) (keys data))]
           (when (seq missing)
-            (utils4/console-error (str "Required property missing: " (string/join ", " (map pr-str missing)))
-                                  {:missing missing :data data :schema schema :path path})))))))
+            (utils4/log {:level :error
+                         :msg   (str "Required property missing: " (string/join ", " (map pr-str missing)))
+                         :data {:missing missing :data data :schema schema :path path}})))))))
 
 (defn schema-data-valid?
   [{:keys [schema data]}]
@@ -87,7 +91,9 @@
 (defn check-data-type
   [form]
   (when-not (s/valid? schema-data-valid? form)
-    (utils4/console-error (utils4/spec-error-at-path schema-data-valid? form (:path form)) form)))
+    (utils4/log {:level :error
+                 :msg   (utils4/spec-error-at-path schema-data-valid? form (:path form))
+                 :data  form})))
 
 (defn massage-form
   [{:keys [path] :as form}]

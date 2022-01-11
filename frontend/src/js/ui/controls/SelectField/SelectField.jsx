@@ -182,6 +182,7 @@ AsyncSelectField.propTypes = {
 
 export function SelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange}) {
     const isAdded = getAdded ? getAdded(value): false;
+    const placeholderWhenEnabled = disabled ? null: placeholder;
     return (
         <Select
             styles={getReactSelectCustomStyles({hasError, isAdded})}
@@ -190,7 +191,7 @@ export function SelectField({value, options, hasError, disabled, placeholder, ge
             getOptionLabel={getLabel}
             value={value}
             options={options}
-            placeholder={placeholder}
+            placeholder={placeholderWhenEnabled}
             onChange={(value) => onChange(value)}
             isClearable={true}
             isDisabled={disabled}

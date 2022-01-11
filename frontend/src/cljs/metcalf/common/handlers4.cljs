@@ -10,26 +10,23 @@
             [metcalf.common.utils4 :as utils4]
             [cljs.spec.alpha :as s]))
 
-(defn db-path
-  [{:keys [form-id data-path]}]
-  (utils4/as-path [form-id :state (blocks4/block-path data-path)]))
-
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]
-  (let [path (db-path ctx)]
-    {:db (-> db
-             (assoc-in (conj path :props :value) value)
-             (assoc-in (conj path :props :show-errors) true))}))
+  (let [{:keys [form-id data-path]} ctx
+        path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
+    (-> {:db db}
+        (assoc-in (conj path :props :value) value)
+        (actions4/set-touched-action form-id data-path))))
 
 (defn option-change-handler
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path]} ctx
         schema (get-in db (flatten [form-id :schema (schema4/schema-path data-path)]))
         state (blocks4/as-blocks {:schema schema :data option})
-        path (db-path ctx)]
-    {:db (-> db
-             (assoc-in path state)
-             (assoc-in (conj path :props :show-errors) true))}))
+        path (utils4/as-path [:db (:form-id ctx) :state (blocks4/block-path (:data-path ctx))])]
+    (-> {:db db}
+        (assoc-in path state)
+        (actions4/set-touched-action form-id data-path))))
 
 (defn add-record-handler
   "Used with record-add-button which adds text values to a list"
@@ -39,15 +36,16 @@
         data (reduce-kv (fn [m ks v] (assoc-in m ks v)) {} (zipmap (map :value-path columns) values))
         schema (get-in db (flatten [form-id :schema (schema4/schema-path data-path)]))
         state (blocks4/as-blocks {:schema schema :data data})
-        path (db-path ctx)]
-    {:db (-> db
-             (assoc-in path state)
-             (assoc-in (conj path :props :show-errors) true))}))
+        path (utils4/as-path [:db (:form-id ctx) :state (blocks4/block-path (:data-path ctx))])]
+    (-> {:db db}
+        (assoc-in path state)
+        (actions4/set-touched-action form-id data-path))))
 
 (defn text-value-add-click-handler
   [{:keys [db]} [_ ctx value]]
   (let [{:keys [form-id data-path]} ctx]
-    (actions4/add-value-action {:db db} form-id data-path value)))
+    (-> {:db db}
+        (actions4/add-item-action form-id data-path [] value))))
 
 (defn list-add-with-defaults-click-handler2
   [{:keys [db]} [_ config]]
@@ -60,7 +58,7 @@
         (actions4/add-item-action form-id data-path value-path item-data)
         (actions4/select-last-item-action form-id data-path))))
 
-(defn item-add-with-defaults-click-handler2
+(defn item-add-with-defaults-click-handler
   [{:keys [db]} [_ props]]
   (let [{:keys [form-id data-path value-path added-path]} props
         defaults (-> {}
@@ -68,10 +66,10 @@
                      (assoc-in added-path true))]
     (-> {:db db}
         (actions4/save-snapshot-action form-id)
-        (actions4/set-value-action form-id data-path defaults)
+        (actions4/set-data-action form-id data-path defaults)
         (actions4/dialog-open-action form-id data-path))))
 
-(defn item-edit-with-defaults-click-handler
+(defn item-edit-click-handler
   [{:keys [db]} [_ props]]
   (let [{:keys [form-id data-path]} props]
     (-> {:db db}
@@ -90,7 +88,7 @@
         db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (-> {:db db}
         (assoc-in db-path state)
-        (assoc-in (conj db-path :props :show-errors) true)
+        (actions4/set-touched-action form-id data-path)
         (actions4/genkey-action form-id data-path))))
 
 (defn list-option-picker-change
@@ -100,10 +98,11 @@
         (actions4/add-item-action form-id data-path value-path option))))
 
 (defn item-option-picker-change
+  "Handle picker change.  Uses option data to set values."
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
-        (actions4/set-value-action form-id data-path option))))
+        (actions4/set-data-action form-id data-path option))))
 
 (defn selection-list-item-click2
   [{:keys [db]} [_ props idx]]
@@ -137,7 +136,7 @@
         idx (if (contains? items initial-data) (dec idx) idx)
         new-field-path (conj data-path idx)]
     (-> {:db db}
-        (actions4/add-value-action form-id data-path initial-data)
+        (actions4/add-item-action form-id data-path [] initial-data)
         (actions4/open-modal-action {:type           :m4/table-modal-add-form
                                      :form           coord-field
                                      :path           new-field-path
@@ -200,13 +199,6 @@
         (actions4/open-modal-action {:type :modal.type/alert :message (str status ": " msg)})
         (assoc-in [:db :page :metcalf3.handlers/saving?] false))))
 
-(defn list-edit-dialog-close-handler
-  [{:keys [db]} [_ ctx]]
-  (let [{:keys [form-id data-path]} ctx]
-    (-> {:db db}
-        (actions4/restore-snapshot-action form-id)
-        (actions4/unselect-list-item-action form-id data-path))))
-
 (defn list-edit-dialog-cancel-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
@@ -221,21 +213,21 @@
         (actions4/discard-snapshot-action form-id)
         (actions4/unselect-list-item-action form-id data-path))))
 
-(defn item-edit-dialog-close-handler
+(defn edit-dialog-close-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
         (actions4/restore-snapshot-action form-id)
         (actions4/dialog-close-action form-id data-path))))
 
-(defn item-edit-dialog-cancel-handler
+(defn edit-dialog-cancel-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
         (actions4/restore-snapshot-action form-id)
         (actions4/dialog-close-action form-id data-path))))
 
-(defn item-edit-dialog-save-handler
+(defn edit-dialog-save-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]
     (-> {:db db}
@@ -251,6 +243,10 @@
         (actions4/create-document-action url data))))
 
 (defn -create-document-handler
+  "Handle server response to create document POST request.
+   200: Handles success by opening new document (page will reload)
+   400: Handles invalid response shows errors on the form
+   Opens alert modal if status is unexpected"
   [{:keys [db]} [_ {:keys [status body]}]]
   (case status
     200 {::fx3/set-location-href (gobject/getValueByKeys body "document" "url")}

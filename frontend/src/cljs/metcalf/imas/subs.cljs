@@ -1,6 +1,7 @@
 (ns metcalf.imas.subs)
 
 (def edit-tabs
+  "Default edit tabs for imas deploy"
   [{:id :data-identification :text "Identification"}
    {:id :what :text "What"}
    {:id :when :text "When"}

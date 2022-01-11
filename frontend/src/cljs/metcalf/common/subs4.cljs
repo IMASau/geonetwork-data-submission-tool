@@ -11,6 +11,7 @@
 
 (def postwalk-xform
   (comp blocks4/progress-score-analysis
+        utils4/show-error-analysis
         rules4/apply-rules))
 
 (defn apply-logic
@@ -53,9 +54,9 @@
   (s/assert vector? data-path)
   (let [path (blocks4/block-path data-path)
         logic (get-in state path)
-        selected (get-in logic [:props :selected])]
-    (when selected
-      (pos? (get-in logic [:content selected :progress/score :progress/errors])))))
+        selected-idx (get-in logic [:props :list-item-selected-idx])]
+    (when selected-idx
+      (pos? (get-in logic [:content selected-idx :progress/score :progress/errors])))))
 
 (defn get-block-props-sub
   "take config and merge with block props"
@@ -66,6 +67,20 @@
                 (let [path (blocks4/block-path data-path)]
                   (get-in state (conj path :props))))]
     (merge config logic)))
+
+(defn get-page-errors-props-sub
+  "Check form state at data-paths for errors.  Returns collection of maps.
+   :label is taken from state so comes from schema, not UI."
+  [state [_ {:keys [data-paths]}]]
+  (let [msgs (for [data-path data-paths
+                   :let [block-path (blocks4/block-path data-path)
+                         block-state (get-in state block-path)
+                         {:keys [errors label]} (:props block-state)]
+                   :when (pos? (-> block-state :progress/score :progress/errors))]
+               (if (blocks4/children? block-state)
+                 {:label label :errors (or errors ["Check field errors"])}
+                 {:label label :errors errors}))]
+    {:msgs (seq msgs)}))
 
 (defn is-item-added?
   "Check if config refers to an 'added' entry"

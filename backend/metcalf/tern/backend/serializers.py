@@ -14,7 +14,10 @@ class DumaDocumentSerializer(serializers.ModelSerializer):
     def get_url(self, obj):
         model_id = obj.uuid
         request = self.context['request']
-        return reverse('duma-detail', args=[model_id], request=request)
+        # HACK: if document isn't submitted, add flag:
+        detail_url = reverse('duma-detail', args=[model_id], request=request)
+        is_submitted = obj.status == models.Document.SUBMITTED
+        return detail_url if is_submitted else detail_url + '?submitted=false'
 
     class Meta:
         model = models.Document
@@ -27,6 +30,9 @@ class DumaTermListSerializer(serializers.BaseSerializer):
         # label, description, uri, duma_path, url
         request = self.context['request']
         update_url = reverse('duma-detail', args=[instance.uuid], request=request)
+        # HACK: if document isn't submitted, add flag:
+        is_submitted = obj.status == models.Document.SUBMITTED
+        update_url = update_url if is_submitted else update_url + '?submitted=false'
         user_defined = xmlutils4.extract_user_defined(instance.latest_draft.data)
         return [dict(d, url=update_url) for d in user_defined]
 

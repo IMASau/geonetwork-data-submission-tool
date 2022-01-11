@@ -1,8 +1,9 @@
 (ns metcalf.common.rules4
   (:require [cljs.spec.alpha :as s]
             [clojure.string :as string]
-            [interop.date :as date]
-            [metcalf.common.blocks4 :as blocks4]))
+            [interop.cljs-time :as cljs-time]
+            [metcalf.common.blocks4 :as blocks4]
+            [metcalf.common.utils4 :refer [log]]))
 
 (def ^:dynamic rule-registry {})
 
@@ -57,6 +58,40 @@
       block
       kvs)))
 
+(defn- -enforce-required-subfields
+  [block field-list]
+  (reduce
+   (fn [blk fld]
+     (let [val (blocks4/as-data (get-in blk (blocks4/block-path fld)))]
+       (cond-> blk
+         (contains? empty-values val)
+         (update-in (conj (blocks4/block-path fld) :props)
+                    merge {:required true
+                           :errors ["Field is required"]}))))
+   block
+   field-list))
+
+(defn tern-org-or-person
+  "Certain entities (responsible party, point-of-contact) can be either
+  organisations or people. This means we can't just make all fields
+  required as the non-selected type would raise an error, so we
+  hard-code the required fields here and select based on party-type."
+  [block]
+  (let [party-type (get-in block [:content "partyType" :props :value])]
+    (case party-type
+      "person"
+      (-enforce-required-subfields block (map #(vector "contact" %) ["given_name" "surname" "email"]))
+
+      "organisation"
+      (-enforce-required-subfields block (map #(vector "organisation" %) ["name"]))
+
+      ;; default
+      (do (log {:level :warn
+                :msg "Unexpected partyType"
+                :data party-type})
+          block))))
+
+
 (defn required-at-least-one
   "Sometimes a requirement can have multiple possibilities, for example
   a contact could be a person or an organisation. This allows us to
@@ -110,14 +145,14 @@
                            (not (string/blank? d1))         ; FIXME: payload includes "" instead of null
                            (not= r (sort r)))]
     (cond-> block
-      out-of-order?
-      (update-in [:content field1 :props :errors] conj
-                 (str "Must be after " (date/to-string (date/from-value d0)))))))
+            out-of-order?
+            (update-in [:content field1 :props :errors] conj
+                       (str "Must be after " (cljs-time/humanize-date (cljs-time/value-to-date d0)))))))
 
 (defn date-before-today
   "Date must be historic, ie before current date"
   [date-block]
-  (if-let [value (date/from-value (blocks4/as-data date-block))]
+  (if-let [value (cljs-time/value-to-date (blocks4/as-data date-block))]
     (-> date-block
         (cond-> (> value (js/Date.))
                 (update-in [:props :errors] conj "Date must be before today")))

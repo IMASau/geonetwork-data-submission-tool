@@ -27,13 +27,17 @@
 (defn report-unregistered-syms
   [x]
   (when (and (symbol? x) (not (variable? x)))
-    (utils4/console-error (str "Symbol not registered: " (pr-str x)) {:sym x}))
+    (utils4/log {:level :error
+                 :msg   (str "Symbol not registered: " (pr-str x))
+                 :data  {:sym x}}))
   x)
 
 (defn report-unregistered-var
   [x]
   (when (variable? x)
-    (utils4/console-error (str "Variable not bound: " (pr-str x)) {:var x}))
+    (utils4/log {:level :error
+                 :msg   (str "Variable not bound: " (pr-str x))
+                 :data  {:var x}}))
   x)
 
 (defn check-missing-keys
@@ -41,7 +45,9 @@
   (when-let [req-ks (get-in settings [::req-ks])]
     (let [missing-ks (remove (set (keys config)) req-ks)]
       (doseq [k missing-ks]
-        (utils4/console-error (str "Missing required key (" (pr-str k) ") in config") {:k k :ctx ctx})))))
+        (utils4/log {:level :error
+                     :msg   (str "Missing required key (" (pr-str k) ") in config")
+                     :data  {:k k :ctx ctx}})))))
 
 (defn check-compatible-schema
   [{:keys [settings schema config]}]
@@ -53,9 +59,25 @@
   (doseq [path (remove nil? (get-in settings [::schema-paths]))]
     (if (= "array" (get-in schema [:type]))
       (when-not (schema4/contains-path? {:schema (:items schema) :path path})
-        (utils4/console-error (str "Path not present in schema: " (pr-str path)) {:ctx ctx :path path}))
+        (utils4/log {:level :error
+                     :msg   (str "Path not present in schema: " (pr-str path))
+                     :data  {:ctx ctx :path path}}))
       (when-not (schema4/contains-path? {:schema schema :path path})
-        (utils4/console-error (str "Path not present in schema: " (pr-str path)) {:ctx ctx :path path})))))
+        (utils4/log {:level :error
+                     :msg   (str "Path not present in schema: " (pr-str path))
+                     :data  {:ctx ctx :path path}})))))
+
+(defn log-view-inputs-wrapper
+  [{:keys [config] :as ctx} view]
+  (fn log-view-inputs
+    [& args]
+    (utils4/log {:level :debug
+                 :msg   (str ::log-view-inputs)
+                 :data  {:ctx  ctx
+                         :args args
+                         :subs {:block-props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
+                                :block-data  @(rf/subscribe [:metcalf.common.components4/get-block-data config])}}})
+    (apply view args)))
 
 (defn build-component
   [sym reg-data]
@@ -65,7 +87,9 @@
       (let [config (utils4/if-contains-update raw-config :data-path utils4/massage-data-path)
             settings (when init (init config))
             schema @(rf/subscribe [::get-data-schema config])
-            ctx {:sym sym :config config :settings settings :schema schema}]
+            ctx {:sym sym :config config :settings settings :schema schema}
+            view (cond->> view (:debug/log-view-inputs config) (log-view-inputs-wrapper ctx))]
+        ; TODO: put checks behind a flag?
         (check-missing-keys ctx)
         (check-compatible-schema ctx)
         (check-compatible-paths ctx)

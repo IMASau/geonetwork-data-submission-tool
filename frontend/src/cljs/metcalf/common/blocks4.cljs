@@ -15,7 +15,13 @@
   (s/keys :opt-un [::type ::props ::content]))
 
 
-(defn update-vals [m f] (zipmap (keys m) (map f (vals m))))
+(defn children?
+  "Returns true if block can have children"
+  [block]
+  (case (:type block)
+    "array" true
+    "object" true
+    false))
 
 
 (defn walk
@@ -24,7 +30,7 @@
   [inner outer block]
   (case (:type block)
     "array" (outer (update block :content #(mapv inner %)))
-    "object" (outer (update block :content update-vals inner))
+    "object" (outer (update block :content utils4/update-vals inner))
     (outer block)))
 
 
@@ -121,10 +127,10 @@
 (defn clear-error-props
   "Clear out state related to errors on a block.
    Useful for clearing server errors stored using blocks/set-error-prop"
-  [block]
-  (cond-> block
-    (contains? block :props)
-    (update :props dissoc :errors :show-errors)))
+  [{:keys [props] :as block}]
+  (if (contains? props :errors)
+    (update block :props dissoc :errors)
+    block))
 
 
 (defn set-error-prop

@@ -1,23 +1,23 @@
-(ns interop.ui
-  (:require ["/ui/components/BoxMap/BoxMap" :as BoxMap]
-            ["/ui/components/CheckboxField/CheckboxField" :as CheckboxField]
-            ["/ui/components/DateField/DateField" :as DateField]
-            ["/ui/components/EditDialog/EditDialog" :as EditDialog]
-            ["/ui/components/ErrorSidebar/ErrorSidebar" :as ErrorSidebar]
-            ["/ui/components/ExpandingControl/ExpandingControl" :as ExpandingControl]
-            ["/ui/components/FormGroup/FormGroup" :as FormGroup]
-            ["/ui/components/InputField/InputField" :as InputField]
-            ["/ui/components/ListItem/ListItem" :as ListItem]
-            ["/ui/components/NumericInputField/NumericInputField" :as NumericInputField]
-            ["/ui/components/SelectField/SelectField" :as SelectField]
-            ["/ui/components/SelectionList/SelectionList" :as SelectionList]
-            ["/ui/components/TextAddField/TextAddField" :as TextAddField]
-            ["/ui/components/RecordAddField/RecordAddField" :as RecordAddField]
-            ["/ui/components/UploadField/UploadField" :as UploadField]
-            ["/ui/components/TextareaField/TextareaField" :as TextareaField]
-            ["/ui/components/utils" :as ui-utils]
-            ["/ui/components/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
-            ["/ui/components/RadioGroup/RadioGroup" :as RadioGroup]
+(ns interop.ui-controls
+  (:require ["/ui/controls/BoxMap/BoxMap" :as BoxMap]
+            ["/ui/controls/CheckboxField/CheckboxField" :as CheckboxField]
+            ["/ui/controls/DateField/DateField" :as DateField]
+            ["/ui/controls/EditDialog/EditDialog" :as EditDialog]
+            ["/ui/controls/ErrorSidebar/ErrorSidebar" :as ErrorSidebar]
+            ["/ui/controls/ExpandingControl/ExpandingControl" :as ExpandingControl]
+            ["/ui/controls/FormGroup/FormGroup" :as FormGroup]
+            ["/ui/controls/InputField/InputField" :as InputField]
+            ["/ui/controls/ListItem/ListItem" :as ListItem]
+            ["/ui/controls/NumericInputField/NumericInputField" :as NumericInputField]
+            ["/ui/controls/SelectField/SelectField" :as SelectField]
+            ["/ui/controls/SelectionList/SelectionList" :as SelectionList]
+            ["/ui/controls/TextAddField/TextAddField" :as TextAddField]
+            ["/ui/controls/RecordAddField/RecordAddField" :as RecordAddField]
+            ["/ui/controls/UploadField/UploadField" :as UploadField]
+            ["/ui/controls/TextareaField/TextareaField" :as TextareaField]
+            ["/ui/controls/utils" :as ui-utils]
+            ["/ui/controls/YesNoRadioGroup/YesNoRadioGroup" :as YesNoRadioGroup]
+            ["/ui/controls/RadioGroup/RadioGroup" :as RadioGroup]
             [cljs.spec.alpha :as s]
             [goog.object :as gobj]
             [reagent.core :as r]))
@@ -54,13 +54,20 @@
 (s/def ::elements (s/coll-of ::element))
 (s/def ::obj-path (s/coll-of string? :min-count 1))
 
-(defn get-obj-path
-  ([path] #(get-obj-path % path))
+(defn obj-path-value
+  "Returns value at path in js object."
   ([o path]
+   (s/assert vector? path)
    (let [path (if (string? path) [path] path)]
      (apply gobj/getValueByKeys o path))))
 
-(defn get-option-data [o] (js->clj o))
+(defn obj-path-getter
+  "Returns a getter for extracting value at path in js object."
+  [path] (fn [o] (obj-path-value o path)))
+
+(defn get-option-data
+  "Convert js option data from ui control into clj data"
+  [o] (js->clj o))
 
 (defn setup-blueprint []
   (ui-utils/setupBlueprint))

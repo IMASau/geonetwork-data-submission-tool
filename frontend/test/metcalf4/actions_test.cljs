@@ -84,14 +84,14 @@
            (-> s0
                (actions/new-item-action [:form] ["as"])
                (actions/select-list-item-action [:form] ["as"] 0)
-               (get-in [:db :form :state :content "as" :props :selected]))))
+               (get-in [:db :form :state :content "as" :props :list-item-selected-idx]))))
 
     (is (= 1
            (-> s0
                (actions/new-item-action [:form] ["as"])
                (actions/new-item-action [:form] ["as"])
                (actions/select-list-item-action [:form] ["as"] 1)
-               (get-in [:db :form :state :content "as" :props :selected]))))))
+               (get-in [:db :form :state :content "as" :props :list-item-selected-idx]))))))
 
 (deftest unselect-list-item-action-test
   (testing "No action if not selected"
@@ -99,25 +99,25 @@
            (-> {:db {}}
                (actions/new-item-action [:form] ["as"])
                (actions/unselect-list-item-action [:form] [:as])
-               (get-in [:db :form :state :content "as" :props :selected])))))
+               (get-in [:db :form :state :content "as" :props :list-item-selected-idx])))))
   (testing "Unselect if selected"
     (is (= nil
            (-> {:db {}}
                (actions/new-item-action [:form] ["as"])
                (actions/select-list-item-action [:form] ["as"] 0)
                (actions/unselect-list-item-action [:form] ["as"])
-               (get-in [:db :form :state :content "as" :props :selected]))))))
+               (get-in [:db :form :state :content "as" :props :list-item-selected-idx]))))))
 
 (deftest select-last-item-action-test
   (testing "No action if no items"
     (is (= nil
            (-> {:db {}}
                (actions/select-last-item-action [:form] ["as"])
-               (get-in [:db :form :state :content "as" :props :selected])))))
+               (get-in [:db :form :state :content "as" :props :list-item-selected-idx])))))
   (testing "No action if no items"
     (is (= 1
            (-> {:db {}}
                (actions/new-item-action [:form] ["as"])
                (actions/new-item-action [:form] ["as"])
                (actions/select-last-item-action [:form] ["as"])
-               (get-in [:db :form :state :content "as" :props :selected]))))))
+               (get-in [:db :form :state :content "as" :props :list-item-selected-idx]))))))

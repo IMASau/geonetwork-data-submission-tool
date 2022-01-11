@@ -2,16 +2,16 @@
   (:require [clojure.edn :as edn]
             [clojure.string :as string]
             [interop.blueprint :as bp3]
-            [interop.moment :as moment]
-            [interop.ui :as ui]
+            [interop.ui-controls :as ui-controls]
             [metcalf.common.low-code4 :as low-code]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [interop.cljs-time :as cljs-time]))
 
 ; For pure views only, no re-frame subs/handlers
 
 (defn m4-modal-dialog-table-modal-edit-form
   [{:keys [form path title on-delete-click on-close-click on-save-click]}]
-  [ui/Modal
+  [ui-controls/Modal
    {:isOpen       true
     :ok-copy      "Done"
     :modal-header (str " Edit " title)
@@ -28,7 +28,7 @@
 
 (defn m4-modal-dialog-table-modal-add-form
   [{:keys [form path title on-close-click on-save-click]}]
-  [ui/Modal
+  [ui-controls/Modal
    {:isOpen       true
     :ok-copy      "Done"
     :modal-header (str "Add " title)
@@ -39,7 +39,7 @@
 
 (defn modal-dialog-confirm
   [{:keys [message title on-dismiss on-cancel on-save]}]
-  [ui/Modal
+  [ui-controls/Modal
    {:isOpen       true
     :modal-header title
     :dialog-class "modal-sm"
@@ -50,7 +50,7 @@
 
 (defn modal-dialog-alert
   [{:keys [message on-dismiss on-save]}]
-  [ui/Modal
+  [ui-controls/Modal
    {:isOpen       true
     :modal-header "Alert"
     :dialog-class "modal-sm"
@@ -106,7 +106,8 @@
                    :font-size "0.9em"}}
        (if-not (empty? last_updated)
          [:span
-          "Last edited " (moment/from-now last_updated)
+          "Last edited " (when-let [d (cljs-time/value-to-datetime last_updated)]
+                           (cljs-time/from-now d))
           " by " (:username last_updated_by)]
          "Has not been edited yet")]]]))
 
@@ -243,7 +244,8 @@
         [:br]
         [:small [:i {:style {:color     "#aaa"
                              :font-size "1em"}}
-                 "Last edited " (moment/from-now last_updated)
+                 "Last edited " (when-let [d (cljs-time/value-to-datetime last_updated)]
+                                  (cljs-time/from-now d))
                  " by " (:username last_updated_by)]]]]]
      [:div.Home.container
       [edit-tabs
@@ -294,17 +296,17 @@
   [{:keys [emails onRemoveClick onAddClick]}]
   (let [items (map (fn [label] {:value (gensym) :label label}) emails)]
     [:div
-     [ui/FormGroup
+     [ui-controls/FormGroup
       {:label   "Collaborators"
        :toolTip "New users will need to create an account before you can add them as a collaborator"}
-      [ui/SimpleSelectionList
+      [ui-controls/SimpleSelectionList
        {:key           key
         :items         items
         :disabled      false
-        :getLabel      (ui/get-obj-path ["label"])
-        :getValue      (ui/get-obj-path ["value"])
+        :getLabel      (ui-controls/obj-path-getter ["label"])
+        :getValue      (ui-controls/obj-path-getter ["value"])
         :onRemoveClick onRemoveClick}]
-      [ui/TextAddField
+      [ui-controls/TextAddField
        {:buttonText  "Add"
         :disabled    false
         :placeholder "Email address"

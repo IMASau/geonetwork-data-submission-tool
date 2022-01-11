@@ -6,12 +6,14 @@
             [metcalf.common.utils4 :as utils4]))
 
 (defn load-dashboard-document-data
+  "Massage document-data in payload and add to app-db."
   [s payload]
   (let [documents (get-in payload [:context :documents])
         data (zipmap (map :uuid documents) documents)]
     (assoc-in s [:db :app/document-data] data)))
 
 (defn save-snapshot-action
+  "Save a snapshot of form state.  Can be used to restore state when user cancels out of modal."
   [s form-id]
   (let [snapshots-path (utils4/as-path [:db form-id :snapshots])
         state-path (utils4/as-path [:db form-id :state])
@@ -19,6 +21,7 @@
     (update-in s snapshots-path conj state-data)))
 
 (defn discard-snapshot-action
+  "Discard the latest snapshot when no longer needed.  e.g. modal is closed without cancelling"
   [s form-id]
   (let [snapshots-path (utils4/as-path [:db form-id :snapshots])]
     (cond-> s
@@ -26,6 +29,7 @@
             (update-in snapshots-path pop))))
 
 (defn restore-snapshot-action
+  "Restore form state from the latest snapshot.  e.g. user makes changes in modal then cancels"
   [s form-id]
   (let [snapshots-path (utils4/as-path [:db form-id :snapshots])
         state-path (utils4/as-path [:db form-id :state])
@@ -36,56 +40,56 @@
                 (discard-snapshot-action form-id)))))
 
 (defn unselect-list-item-action
+  "Clears the :list-item-selected-idx prop on an array block.  Used to dismiss modals."
   [s form-id data-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
-    (update-in s (conj block-path :props) dissoc :selected)))
+    (update-in s (conj block-path :props) dissoc :list-item-selected-idx)))
 
 (defn select-user-defined-list-item-action2
-  "Select item, but only if it's user defined"
+  "Set the :list-item-selected-idx prop on an array block.  Does nothing if idx is not a user defined item."
   [s form-id data-path idx added-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
         block-data (get-in s block-path)
         added? (get-in block-data (utils4/as-path [:content idx (blocks4/block-path added-path) :props :value]))]
     (cond-> s
             added?
-            (assoc-in (conj block-path :props :selected) idx))))
+            (assoc-in (conj block-path :props :list-item-selected-idx) idx))))
 
 (defn select-last-item-action
+  "Set the :list-item-selected-idx prop to point at the last item in an array block.  Does nothing if list is empty."
   [s form-id data-path]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
         last-idx (dec (count (get-in s (conj block-path :content))))]
     (cond-> s
             (not (neg? last-idx))
-            (assoc-in (conj block-path :props :selected) last-idx))))
+            (assoc-in (conj block-path :props :list-item-selected-idx) last-idx))))
 
 (defn del-item-action
+  "Remove the item at idx from an array block."
   [s form-id data-path idx]
   (let [list-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :content])]
     (update-in s list-path utils3/vec-remove idx)))
 
 (defn dialog-open-action
+  "Set flag to indicate an open dialog at data-path"
   [s form-id data-path]
-  (let [is-open-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props :isOpen])]
+  (let [is-open-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props :open-dialog?])]
     (assoc-in s is-open-path true)))
 
 (defn dialog-close-action
+  "Clear flag to indicate dialog is not open at data-path"
   [s form-id data-path]
-  (let [is-open-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props :isOpen])]
-    (assoc-in s is-open-path false)))
+  (let [is-open-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props])]
+    (update s is-open-path dissoc :open-dialog?)))
 
-(defn add-value-action
-  [s form-id data-path value]
-  (let [schema (get-in s (utils4/as-path [:db form-id :schema (schema4/schema-path data-path) :items]))
-        state (blocks4/as-blocks {:schema schema :data value})
-        db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
-        items (set (blocks4/as-data (get-in s db-path)))]
-    (-> s
-        (cond-> (not (contains? items value))
-                (update-in (conj db-path :content) conj state))
-        ;; TODO: split out?
-        (assoc-in (conj db-path :props :show-errors) true))))
+(defn set-touched-action
+  "Set flag to indicate block has been interacted with.  Used to trigger display of errors."
+  [s form-id data-path]
+  (let [db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
+    (assoc-in s (conj db-path :props :touched) true)))
 
 (defn add-item-action
+  "Add item to a list.  Uses value-path to check for duplicates."
   [s form-id data-path value-path data]
   (let [schema (get-in s (utils4/as-path [:db form-id :schema (schema4/schema-path data-path) :items]))
         state (blocks4/as-blocks {:schema schema :data data})
@@ -95,18 +99,21 @@
         (cond-> (not (contains? ids (get-in data value-path)))
                 (update-in (conj db-path :content) conj state))
         ;; TODO: split out?
-        (assoc-in (conj db-path :props :show-errors) true))))
+        (set-touched-action form-id data-path))))
 
-(defn set-value-action
-  [s form-id data-path option]
+; TODO: Split out "show errors"
+(defn set-data-action
+  "Replace block state at data-path based on data.  Any additional values and props below data-path will be lost."
+  [s form-id data-path data]
   (let [schema (get-in s (flatten [:db form-id :schema (schema4/schema-path data-path)]))
-        state (blocks4/as-blocks {:schema schema :data option})
+        state (blocks4/as-blocks {:schema schema :data data})
         db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (-> s
         (assoc-in db-path state)
-        (assoc-in (conj db-path :props :show-errors) true))))
+        (set-touched-action form-id data-path))))
 
 (defn move-item-action
+  "Move item in a list from src-idx to dst-idx."
   [s form-id data-path src-idx dst-idx]
   (let [list-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :content])
         item (get-in s (conj list-path src-idx))]
@@ -114,27 +121,36 @@
         (update-in list-path utils3/vec-remove src-idx)
         (update-in list-path utils3/vec-insert dst-idx item))))
 
-(def genkey-counter (atom 10000))
+(defonce ^{:doc "Counter used to ensure generated keys are unique"}
+         genkey-counter (atom 10000))
 
-(defn genkey []
+(defn genkey
+  "Generate a unique string.  Helper for resetting stateful components."
+  []
   (str ::genkey (swap! genkey-counter inc)))
 
 (defn genkey-action
+  "Generate a new key prop for data-path.  Used to reset stateful components."
   [s form-id data-path]
   (let [tick-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props :key])]
     (assoc-in s tick-path (genkey))))
 
 (defn open-modal-action
+  "Open modal with modal-props.  Does not add if same props are already on top of modal stack."
   [s modal-props]
-  (update-in s [:db :modal/stack] (fn [alerts]
-                                    (when-not (= (peek alerts) modal-props)
-                                      (conj alerts modal-props)))))
+  (let [already-added? (= (peek (get-in s [:db :modal/stack])) modal-props)]
+    (if-not already-added?
+      (update-in s [:db :modal/stack] conj modal-props)
+      s)))
 
 (defn close-modal-action
+  "Close current modal."
   [s]
   (update-in s [:db :modal/stack] pop))
 
-(def disabled-statuses #{"Archived" "Deleted" "Uploaded"})
+(def disabled-statuses
+  "Statuses which indicate a document can't be edited."
+  #{"Archived" "Deleted" "Uploaded"})
 
 (defn load-edit-form-action
   "Massage raw payload for use as app-state"
@@ -153,24 +169,30 @@
                 (assoc-in [:db :form :state :props :disabled] true)))))
 
 (defn init-create-form-action
-  [s create_form]
-  (assoc-in s [:db :create_form] (logic4/massage-form create_form)))
+  "Initialise the create form based on payload passed from server"
+  [s form-payload]
+  (assoc-in s [:db :create_form] (logic4/massage-form form-payload)))
 
 (defn create-document-action
+  "Send a POST request to create a document.  Server response is dispatched."
   [s url data]
   (update s :fx conj [:app/post-data-fx {:url url :data data :resolve [::-create-document]}]))
 
 (defn clear-errors-action
+  "Clear out state related to errors in form-path.  Will dissoc :error and :show-errors from all block props.
+   Use to clear server errors which were saved in app-db."
   [s form-path]
   (let [form-state-path (utils4/as-path [:db form-path :state])]
     (update-in s form-state-path #(blocks4/postwalk blocks4/clear-error-props %))))
 
 (defn set-errors-action
+  "Save form errors in app-db.  Useful when POST returns 400 with field errors.
+   Takes error-map is a map of errors.  Supports nested objects but not arrays."
   [s form-path error-map]
   (let [path-errors (utils4/path-vals error-map)
         path (utils4/as-path [:db form-path :state])]
-    (update-in s path (fn [state] (reduce (fn [state [path error]]
-                                            (blocks4/set-error-prop state path error))
+    (update-in s path (fn [state] (reduce (fn [state' [data-path error]]
+                                            (blocks4/set-error-prop state' data-path error))
                                           state
                                           path-errors)))))
 
@@ -182,6 +204,8 @@
                        :resolve [::-get-document-data-action uuid]}]))
 
 (defn upload-attachment
+  "POST attachment to server and dispatches response.
+   Uses uploaded filename as name in payload."
   [s {:keys [config doc-uuid file]}]
   (let [url (str "/upload/" doc-uuid "/")
         data {:document doc-uuid

@@ -4,14 +4,14 @@
          com.andrewmcveigh/cljs-time {:mvn/version "0.5.2"}
          lambdaisland/fetch          {:mvn/version "1.0.41"}
          org.clojure/clojure         {:mvn/version "1.10.3"}
-         org.clojure/clojurescript   {:mvn/version "1.10.891"}
-         org.clojure/core.async      {:mvn/version "1.5.640"}
-         org.clojure/test.check      {:mvn/version "1.1.0"}
+         org.clojure/clojurescript   {:mvn/version "1.10.896"}
+         org.clojure/core.async      {:mvn/version "1.5.648"}
+         org.clojure/test.check      {:mvn/version "1.1.1"}
          reagent/reagent             {:mvn/version "1.1.0"}
          re-frame/re-frame           {:mvn/version "1.2.0"}}
  :aliases
  {:shadow-cljs
-  {:extra-deps {thheller/shadow-cljs   {:mvn/version "2.16.7"}
+  {:extra-deps {thheller/shadow-cljs   {:mvn/version "2.16.10"}
                 cider/cider-nrepl      {:mvn/version "0.27.3"}
                 org.slf4j/slf4j-simple {:mvn/version "1.7.32"}}}
   ; clj -Xclean-ns

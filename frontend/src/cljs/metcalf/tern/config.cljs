@@ -132,6 +132,7 @@
       {"requiredField"     rules4/required-field
        "requiredWhenYes"   rules4/required-when-yes
        "requiredSome"      rules4/required-at-least-one
+       "requiredParty"     rules4/tern-org-or-person
        "spatialUnits"      rules4/spatial-resolution-units
        "requiredAllNone"   rules4/required-all-or-nothing
        "maxLength"         rules4/max-length
@@ -649,7 +650,7 @@
          :title       "Instrument"
          :template-id :instrument/user-defined-entry-form}]]]
 
-     [m4/expanding-control {:label "Parameters" :required true :defaultOpen true}
+     [m4/expanding-control {:label "Parameters" :required true}
 
       ;; TODO: also need a user-added option
       [m4/form-group
@@ -660,7 +661,7 @@
          [m4/async-list-option-picker
           {:form-id    [:form]
            :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
-           :uri        "/api/terninstruments"
+           :uri        "/api/ternparameters"
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button
@@ -774,7 +775,7 @@
          :data-paths [["identificationInfo" "beginPosition"]
                       ["identificationInfo" "endPosition"]]}]
 
-     [:h2 "4. When"]
+     [:h2 "3. When"]
      [:p "Lorem ipsum..."]
 
      [:div

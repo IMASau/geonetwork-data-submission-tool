@@ -688,7 +688,7 @@ def qudt_units(request) -> Response:
             "size": result_size,
             "query": {
                 "multi_match": {
-                    "query": query,
+                    "query": urllib.parse.unquote(query),
                     "type": "phrase_prefix",
                     "fields": ["label", "ucumCode"]
                 }
@@ -733,7 +733,7 @@ def tern_parameters(request) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["label", "altLabel"]
                         }
@@ -793,7 +793,7 @@ def tern_platforms(request) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["label", "altLabel"]
                         }
@@ -858,7 +858,7 @@ def tern_instruments(request) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["label", "altLabel"]
                         }
@@ -937,7 +937,7 @@ def tern_instrument_types(request) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["label", "altLabel"]
                         }
@@ -987,7 +987,7 @@ def tern_people(request) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["name", "email"]
                         }
@@ -1037,7 +1037,7 @@ def tern_orgs(request) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["name", "full_address_line"]
                         }
@@ -1086,7 +1086,7 @@ def geonetwork_entries(request: HttpRequest) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["uuid", "label", "uri", "abstract"]
                         }
@@ -1125,7 +1125,7 @@ def anzsrc_keywords(request: HttpRequest) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["breadcrumb", "label"]
                         }
@@ -1165,7 +1165,7 @@ def aus_plantnames(request: HttpRequest) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["uuid", "label", "uri", "abstract"]
                         }
@@ -1204,7 +1204,7 @@ def gcmd_horizontal(request: HttpRequest) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["breadcrumb", "label", "uri"]
                         }
@@ -1243,7 +1243,7 @@ def gcmd_sciencekeywords(request: HttpRequest) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["breadcrumb", "label", "uri"]
                         }
@@ -1282,7 +1282,7 @@ def gcmd_temporal(request: HttpRequest) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["breadcrumb", "label", "uri"]
                         }
@@ -1321,7 +1321,7 @@ def gcmd_vertical(request: HttpRequest) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["breadcrumb", "label", "uri"]
                         }
@@ -1360,7 +1360,7 @@ def tern_faunalnames(request: HttpRequest) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["breadcrumb", "label", "uri"]
                         }
@@ -1399,7 +1399,7 @@ def tern_verticalcrs(request: HttpRequest) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["code", "codeSpace", "description", "MD_ReferenceSystemTypeCode"]
                         }
@@ -1438,7 +1438,7 @@ def tern_horizontalcrs(request: HttpRequest) -> Response:
                 "bool": {
                     "must": {
                         "multi_match": {
-                            "query": query,
+                            "query": urllib.parse.unquote(query),
                             "type": "phrase_prefix",
                             "fields": ["code", "codeSpace", "description", "MD_ReferenceSystemTypeCode"]
                         }

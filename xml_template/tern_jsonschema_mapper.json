@@ -81,11 +81,11 @@
         "type": "object",
         "properties": {
           "distributor": {
-            "xpath": "",
+            "xpath": "mrd:MD_Distribution/mrd:distributor/mrd:MD_Distributor/mrd:distributorContact/cit:CI_Responsibility",
             "type": "object",
             "properties": {
               "name": {
-                "xpath": "cit:name",
+                "xpath": "cit:party/cit:CI_Organisation/cit:name",
                 "type": "string",
                 "valueChild": "gco:CharacterString",
                 "required": true,

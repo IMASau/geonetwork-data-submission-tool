@@ -650,7 +650,7 @@
          :title       "Instrument"
          :template-id :instrument/user-defined-entry-form}]]]
 
-     [m4/expanding-control {:label "Parameters" :required true :defaultOpen true}
+     [m4/expanding-control {:label "Parameters" :required true}
 
       ;; TODO: also need a user-added option
       [m4/form-group

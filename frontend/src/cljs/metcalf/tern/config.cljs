@@ -775,7 +775,7 @@
          :data-paths [["identificationInfo" "beginPosition"]
                       ["identificationInfo" "endPosition"]]}]
 
-     [:h2 "4. When"]
+     [:h2 "3. When"]
      [:p "Lorem ipsum..."]
 
      [:div

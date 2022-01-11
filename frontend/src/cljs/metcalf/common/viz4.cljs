@@ -6,6 +6,11 @@
             [clojure.string :as string]
             [metcalf.common.rules4 :as rules4]))
 
+(defn data-path->schema-nav-path
+  "Translate a data-path into a path into the schema"
+  [data-path]
+  (filterv int? data-path))
+
 (defn schema-type
   [{:keys [type items]}]
   (if (= type "array")

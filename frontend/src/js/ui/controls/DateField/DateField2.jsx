@@ -31,7 +31,7 @@ function getMomentFormatter({ format, disabled }) {
     }
 }
 
-export const DateField2 = ({ value, disabled, onChange, hasError, minDate, maxDate }) => {
+export const DateField2 = ({ value, disabled, onChange, hasError }) => {
     const {formatDate, parseDate, placeholder} = getMomentFormatter({format: 'DD/MM/YYYY', disabled})
     const [stateValue, setStateValue] = useCachedState(value ? formatDate(value): '');
 

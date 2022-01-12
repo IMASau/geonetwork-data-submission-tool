@@ -6,19 +6,16 @@
             [metcalf.common.utils4 :as utils4]
             [re-frame.core :as rf]))
 
-(def prewalk-xform
-  (comp blocks4/propagate-disabled))
-
-(def postwalk-xform
+(def postwalk-analysis-xform
   (comp blocks4/progress-score-analysis
-        utils4/show-error-analysis
-        rules4/apply-rules))
+        utils4/show-error-analysis))
 
 (defn apply-logic
   [state]
   (->> state
-       (blocks4/prewalk prewalk-xform)
-       (blocks4/postwalk postwalk-xform)))
+       (blocks4/prewalk blocks4/propagate-disabled)
+       (blocks4/postwalk rules4/apply-rules)
+       (blocks4/postwalk postwalk-analysis-xform)))
 
 (defn get-form-state
   [db [_ form-id]]
@@ -114,7 +111,7 @@
 (defn create-document-modal-can-save?
   [db _]
   (let [state0 (get-in db [:create_form :state])
-        state1 (blocks4/postwalk postwalk-xform state0)
+        state1 (apply-logic state0)
         {:keys [progress/errors]} (:progress/score state1)]
     (not (pos? errors))))
 

@@ -33,7 +33,7 @@ Empty.args = {
 
 export const Preset = Template.bind({});
 Preset.args = {
-    value: 1580515200000,
+    value: "1975-11-03",
     disabled: false,
     hasError: false,
 };
@@ -43,7 +43,7 @@ export const Change = (args) => {
     return <Wrapper {...args} value={value} onChange={(v, t) => setValue(v)}/>;
 };
 Change.args = {
-    value: 946990800000,
+    value: "1975-11-03",
     disabled: false,
     hasError: false,
 };

@@ -222,11 +222,9 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "dateCreation"]
        :label     "Date of record creation"}
-      [m4/date-field
+      [m4/date-field2
        {:form-id   [:form]
-        :data-path ["identificationInfo" "dateCreation"]
-        :minDate   "1900-01-01"
-        :maxDate   "2100-01-01"}]]
+        :data-path ["identificationInfo" "dateCreation"]}]]
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "topicCategory"]
@@ -356,19 +354,15 @@
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "beginPosition"]}
-      [m4/date-field
+      [m4/date-field2
        {:form-id   [:form]
-        :data-path ["identificationInfo" "beginPosition"]
-        :minDate   "1900-01-01"
-        :maxDate   "2100-01-01"}]]
+        :data-path ["identificationInfo" "beginPosition"]}]]
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "endPosition"]}
-      [m4/date-field
+      [m4/date-field2
        {:form-id   [:form]
-        :data-path ["identificationInfo" "endPosition"]
-        :minDate   "1900-01-01"
-        :maxDate   "2100-01-01"}]]
+        :data-path ["identificationInfo" "endPosition"]}]]
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "samplingFrequency"]}

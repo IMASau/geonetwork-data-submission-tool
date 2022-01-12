@@ -80,7 +80,7 @@
   "Clear flag to indicate dialog is not open at data-path"
   [s form-id data-path]
   (let [is-open-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props])]
-    (update s is-open-path dissoc :open-dialog?)))
+    (update-in s is-open-path dissoc :open-dialog?)))
 
 (defn set-touched-action
   "Set flag to indicate block has been interacted with.  Used to trigger display of errors."

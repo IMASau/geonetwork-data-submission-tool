@@ -1353,27 +1353,27 @@
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "organisation" "name"]
+       :data-path [?data-path "name"]
        :label     "Organisation Name"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "name"]}]]
+        :data-path [?data-path "name"]}]]
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "address" "deliveryPoint"]
+       :data-path [?data-path "full_address_line"]
        :label     "Campus/Sitename"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "deliveryPoint"]}]]
+        :data-path [?data-path "full_address_line"]}]]
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "address" "deliveryPoint2"]
+       :data-path [?data-path "street_address"]
        :label     "Building"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "deliveryPoint2"]}]]
+        :data-path [?data-path "street_address"]}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
@@ -1381,19 +1381,19 @@
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "city"]
+        :data-path [?data-path "address_locality"]
         :label     "City"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "address" "city"]}]]
+         :data-path [?data-path "address_locality"]}]]
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "administrativeArea"]
+        :data-path [?data-path "address_region"]
         :label     "State"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "address" "administrativeArea"]}]]]
+         :data-path [?data-path "address_region"]}]]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
@@ -1401,27 +1401,27 @@
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "postalCode"]
+        :data-path [?data-path "postcode"]
         :label     "Postal Code"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "address" "postalCode"]}]]
+         :data-path [?data-path "postcode"]}]]
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "country"]
+        :data-path [?data-path "country"]
         :label     "Country"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "address" "country"]}]]]
+         :data-path [?data-path "country"]}]]]
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "electronicMailAddress"]
+       :data-path [?data-path "email"]
        :label     "Email address"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "electronicMailAddress"]}]]
+        :data-path [?data-path "email"]}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
@@ -1429,19 +1429,19 @@
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "phone"]
+        :data-path [?data-path "phone"]
         :label     "Phone"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "phone"]}]]
+         :data-path [?data-path "phone"]}]]
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "fax"]
+        :data-path [?data-path "fax"]
         :label     "Fax"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "fax"]}]]]]
+         :data-path [?data-path "fax"]}]]]]
 
     :how
     [:div

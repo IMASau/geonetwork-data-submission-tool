@@ -1271,7 +1271,7 @@
   [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path]
    ::low-code4/opt-ks [:placeholder :results-path :search-params]
-   ::low-code4/schema {:type "array" :items {:type "object"}}})
+   ::low-code4/schema {:type "object"}})
 
 (defn async-simple-item-option-picker
   "This component renders a select control backed by a json data source.  Options are rendered as a text label.

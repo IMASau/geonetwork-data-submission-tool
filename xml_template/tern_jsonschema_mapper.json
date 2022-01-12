@@ -81,6 +81,12 @@
         "xpath": "mdb:distributionInfo",
         "type": "object",
         "properties": {
+          "uri": {
+            "type": "string"
+          },
+          "isUserDefined": {
+            "type": "boolean"
+          },
           "distributor": {
             "xpath": "mrd:MD_Distribution/mrd:distributor/mrd:MD_Distributor/mrd:distributorContact/cit:CI_Responsibility",
             "type": "object",
@@ -523,12 +529,14 @@
                     "!docstring": "Who13 / Who14",
                     "xpath": "TODO",
                     "keep": false,
+                    "type": "string",
                     "valueChild": "gco:CharacterString"
                   },
                   "fax": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "TODO",
                     "keep": false,
+                    "type": "string",
                     "valueChild": "gco:CharacterString"
                   },
                   "isUserDefined": {}
@@ -1611,6 +1619,9 @@
             "xpath": "mrl:additionalDocumentation",
             "properties": {
               "isUserDefined": {},
+              "uri": {
+                "type": "string"
+              },
               "userAddedCategory": {
                 "keep": false,
                 "type": "string"
@@ -1701,6 +1712,12 @@
             "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
             "type": "object",
             "properties": {
+              "uri": {
+                "type": "string"
+              },
+              "isUserDefined": {
+                "type": "boolean"
+              },
               "title": {
                 "!docstring": "How10",
                 "xpath": "cit:CI_Citation/cit:title",

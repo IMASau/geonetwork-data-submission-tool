@@ -85,8 +85,8 @@ export const DateField2 = ({value, disabled, onChange, hasError}) => {
             />
             <div>
                 <DayPicker
-                    selectedDays={new Date(value)}
-                    month={value}
+                    selectedDays={dateValue}
+                    month={dateValue}
                     onDayClick={(day, modifiers, e) => onChange(formatValue(day))}
                 />
             </div>

@@ -38,8 +38,7 @@
   "Settings for form group"
   [{:keys [data-path]}]
   {::low-code4/req-ks       []
-   ::low-code4/opt-ks       [:label :form-id :data-path :helperText :toolTip]
-   ::low-code4/schema-paths [data-path]})
+   ::low-code4/opt-ks       [:label :form-id :data-path :helperText :toolTip]})
 
 (defn form-group
   "This component is a lightweight wrapper around its children with props for the label above and helper text below.
@@ -152,17 +151,17 @@
       :onSave  #(rf/dispatch [::list-edit-dialog-save config])
       :canSave (not errors?)}
      (low-code4/render-template
-       {:template-id template-id
-        :variables   {'?form-id   form-id
-                      '?data-path item-data-path}})]))
+      {:template-id template-id
+       :variables   {'?form-id   form-id
+                     '?data-path item-data-path}})]))
 
 (defn typed-list-edit-dialog-settings
   "Settings for typed-list-edit-dialog"
-  [{:keys [data-path type-path]}]
+  [{:keys [type-path]}]
   {::low-code4/req-ks       [:form-id :data-path :type-path :templates]
    ::low-code4/opt-ks       []
    ::low-code4/schema       {:type "array" :items {:type "object"}}
-   ::low-code4/schema-paths [data-path type-path]})
+   ::low-code4/schema-paths [type-path]})
 
 (defn typed-list-edit-dialog
   "This component displays an edit dialog for a selected list item with a title,

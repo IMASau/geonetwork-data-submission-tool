@@ -492,12 +492,10 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "datePublication"]
        :label     "Previous Publication Date"}
-      [m4/date-field
+      [m4/date-field2
        {:form-id   [:form]
         :data-path ["identificationInfo" "datePublication"]
-        :required  true
-        :minDate   "1900-01-01"
-        :maxDate   "2100-01-01"}]]
+        :required  true}]]
 
      [:label "TODO: revision date?"]
 

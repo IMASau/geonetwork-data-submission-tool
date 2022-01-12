@@ -884,11 +884,9 @@
          [m4/form-group
           {:form-id   [:form]
            :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]}
-          [m4/date-field
+          [m4/date-field2
            {:form-id   [:form]
-            :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]
-            :minDate   "1900-01-01"
-            :maxDate   "2100-01-01"}]]]]
+            :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]}]]]]
 
        [:p [:label "Vertical extent (optional)"]]
        [:p "The vertial extent is optional.  If you choose to enter details then the following fields are mandatory"]

@@ -6,6 +6,11 @@
             [clojure.string :as string]
             [metcalf.common.rules4 :as rules4]))
 
+(defn data-path->schema-nav-path
+  "Translate a data-path into a path into the schema"
+  [data-path]
+  (filterv int? data-path))
+
 (defn schema-type
   [{:keys [type items]}]
   (if (= type "array")
@@ -88,8 +93,8 @@
 
 
 (defn reagent-schema-viz
-  [{:keys [initial-path]}]
-  (let [path (or initial-path [])
+  [{:keys [initial-selected-path]}]
+  (let [path (or initial-selected-path [])
         *expanded-paths (r/atom #{[]})
         *selected-path (r/atom path)]
     (when (seq (butlast path))
@@ -115,15 +120,3 @@
                        :handle-node-click       handle-node-click
                        :handle-breadcrumb-click handle-breadcrumb-click
                        :handle-property-click   handle-property-click}])))))
-
-; FIXME: tree doesn't scroll
-(defn schema-drawer
-  []
-  (let [*open? (r/atom false)]
-    (fn [{:keys [schema initial-path] :or {initial-path []}}]
-      [:div
-       [:button.bp3-button.bp3-minimal {:onClick #(reset! *open? true)} "Show schema"]
-       [bp3/drawer
-        {:isOpen @*open?
-         :size   "80%"}
-        [reagent-schema-viz {:schema schema :initial-path initial-path}]]])))

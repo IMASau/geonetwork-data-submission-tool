@@ -784,11 +784,9 @@
         :data-path ["identificationInfo" "beginPosition"]
         :label     "Start date"
         :required  true}
-       [m4/date-field
+       [m4/date-field2
         {:form-id   [:form]
-         :data-path ["identificationInfo" "beginPosition"]
-         :minDate   "1900-01-01"
-         :maxDate   "2100-01-01"}]]
+         :data-path ["identificationInfo" "beginPosition"]}]]
       [m4/form-group
        {:form-id   [:form]
         :data-path ["identificationInfo" "endPosition"]

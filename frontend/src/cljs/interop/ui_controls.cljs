@@ -2,6 +2,7 @@
   (:require ["/ui/controls/BoxMap/BoxMap" :as BoxMap]
             ["/ui/controls/CheckboxField/CheckboxField" :as CheckboxField]
             ["/ui/controls/DateField/DateField" :as DateField]
+            ["/ui/controls/DateField/DateField2" :as DateField2]
             ["/ui/controls/EditDialog/EditDialog" :as EditDialog]
             ["/ui/controls/ErrorSidebar/ErrorSidebar" :as ErrorSidebar]
             ["/ui/controls/ExpandingControl/ExpandingControl" :as ExpandingControl]
@@ -24,6 +25,7 @@
 
 (assert BoxMap/BoxMap)
 (assert DateField/DateField)
+(assert DateField2/DateField2)
 (assert ErrorSidebar/ErrorSidebar)
 (assert ExpandingControl/ExpandingControl)
 (assert FormGroup/FormGroup)
@@ -87,6 +89,7 @@
 
 (def BoxMap (r/adapt-react-class BoxMap/BoxMap))
 (def DateField (r/adapt-react-class DateField/DateField))
+(def DateField2 (r/adapt-react-class DateField2/DateField2))
 (def ExpandingControl (r/adapt-react-class ExpandingControl/ExpandingControl))
 (def FormGroup (r/adapt-react-class FormGroup/FormGroup))
 (def InlineFormGroup (r/adapt-react-class FormGroup/InlineFormGroup))

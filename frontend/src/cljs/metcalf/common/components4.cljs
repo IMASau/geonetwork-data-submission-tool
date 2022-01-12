@@ -455,6 +455,33 @@
         :maxDate  (cljs-time/value-to-date maxDate)
         :onChange #(rf/dispatch [::value-changed config (cljs-time/date-to-value %)])}])))
 
+(defn date-field2-settings
+  "Settings for date-field component"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/schema {:type "string"}})
+
+(defn date-field2
+  "This component renders a date field.  The value is a date string (YYYY-MM-DD).
+
+   Use case: Allow user to enter dates.
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * value - value defaults to false if not set
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+   "
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [value disabled show-errors? is-hidden]} props]
+    (when-not is-hidden
+      [ui-controls/DateField2
+       {:value    value
+        :disabled disabled
+        :hasError show-errors?
+        :onChange #(rf/dispatch [::value-changed config %])}])))
+
 (defn select-option-simple-settings
   "Settings for select-option-simple component"
   [{:keys [value-path label-path added-path]}]

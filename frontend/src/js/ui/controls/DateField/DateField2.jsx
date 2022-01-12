@@ -5,7 +5,6 @@ import * as BPDateTime from '@blueprintjs/datetime';
 import moment from 'moment';
 import {useCachedState} from "../utils";
 import DayPicker from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
 
 function isEmpty(s) {
     return (!s || s.length === 0);

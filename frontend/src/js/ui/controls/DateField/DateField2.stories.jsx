@@ -3,7 +3,7 @@ import React from 'react';
 import {DateField2} from './DateField2';
 import './DateField2.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
-import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
+import 'react-day-picker/lib/style.css';
 import NOTES from './NOTES.mdx';
 
 export default {

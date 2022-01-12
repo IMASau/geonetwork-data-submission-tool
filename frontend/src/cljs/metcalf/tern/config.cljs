@@ -792,11 +792,9 @@
         :data-path ["identificationInfo" "endPosition"]
         :label     "End date"
         :required  true}
-       [m4/date-field
+       [m4/date-field2
         {:form-id   [:form]
-         :data-path ["identificationInfo" "endPosition"]
-         :minDate   "1900-01-01"
-         :maxDate   "2100-01-01"}]]]
+         :data-path ["identificationInfo" "endPosition"]}]]]
 
      [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 

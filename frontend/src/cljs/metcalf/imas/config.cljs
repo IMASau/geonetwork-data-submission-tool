@@ -257,29 +257,29 @@
         :options    [{"value" "onGoing" "label" "ongoing"}
                      {"value" "planned" "label" "planned"}
                      {"value" "completed" "label" "completed"}]}]]
-      [m4/form-group
-       {:form-id   [:form]
-        :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]}
-       [m4/select-value
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
-         :value-path ["value"]
-         :label-path ["label"]
-         :options    [{"value" "continually" "label" "Continually"}
-                      {"value" "daily" "label" "Daily"}
-                      {"value" "weekly" "label" "Weekly"}
-                      {"value" "fortnightly" "label" "Fortnightly"}
-                      {"value" "monthly" "label" "Monthly"}
-                      {"value" "quarterly" "label" "Quarterly"}
-                      {"value" "biannually" "label" "Twice each year"}
-                      {"value" "annually" "label" "Annually"}
-                      {"value" "asNeeded" "label" "As required"}
-                      {"value" "irregular" "label" "Irregular"}
-                      {"value" "notPlanned" "label" "None planned"}
-                      {"value" "unknown" "label" "Unknown"}
-                      {"value" "periodic" "label" "Periodic"}
-                      {"value" "semimonthly" "label" "Twice a month"}
-                      {"value" "biennially" "label" "Every 2 years"}]}]]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]}
+      [m4/select-value
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
+        :value-path ["value"]
+        :label-path ["label"]
+        :options    [{"value" "continually" "label" "Continually"}
+                     {"value" "daily" "label" "Daily"}
+                     {"value" "weekly" "label" "Weekly"}
+                     {"value" "fortnightly" "label" "Fortnightly"}
+                     {"value" "monthly" "label" "Monthly"}
+                     {"value" "quarterly" "label" "Quarterly"}
+                     {"value" "biannually" "label" "Twice each year"}
+                     {"value" "annually" "label" "Annually"}
+                     {"value" "asNeeded" "label" "As required"}
+                     {"value" "irregular" "label" "Irregular"}
+                     {"value" "notPlanned" "label" "None planned"}
+                     {"value" "unknown" "label" "Unknown"}
+                     {"value" "periodic" "label" "Periodic"}
+                     {"value" "semimonthly" "label" "Twice a month"}
+                     {"value" "biennially" "label" "Every 2 years"}]}]]
      [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
     :what
@@ -322,31 +322,31 @@
         :value-path      ["uri"]
         :breadcrumb-path ["breadcrumb"]}]]
 
-      [m4/form-group
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]
+       :label     "Additional theme keywords"}
+      [:div "Enter your own additional theme keywords as required and click + to add"]
+      [m4/selection-list-values
        {:form-id   [:form]
-        :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]
-        :label     "Additional theme keywords"}
-       [:div "Enter your own additional theme keywords as required and click + to add"]
-       [m4/selection-list-values
-        {:form-id   [:form]
-         :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]}]
-       [m4/text-add-button
-        {:form-id     [:form]
-         :data-path   ["identificationInfo" "keywordsThemeExtra" "keywords"]
-         :button-text "Add"}]]
+        :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]}]
+      [m4/text-add-button
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "keywordsThemeExtra" "keywords"]
+        :button-text "Add"}]]
 
-      [m4/form-group
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]
+       :label     "Taxon keywords"}
+      [:div "Add any taxon names describing your data and click + to add"]
+      [m4/selection-list-values
        {:form-id   [:form]
-        :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]
-        :label     "Taxon keywords"}
-       [:div "Add any taxon names describing your data and click + to add"]
-       [m4/selection-list-values
-        {:form-id   [:form]
-         :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]}]
-       [m4/text-add-button
-        {:form-id     [:form]
-         :data-path   ["identificationInfo" "keywordsTaxonExtra" "keywords"]
-         :button-text "Add"}]]
+        :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]}]
+      [m4/text-add-button
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "keywordsTaxonExtra" "keywords"]
+        :button-text "Add"}]]
 
      [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
@@ -377,88 +377,89 @@
 
     :where
     [:div
-    ; [m4/page-errors
-    ;  {:form-id    [:form]
-    ;   :data-path  []
-    ;   :data-paths [["identificationInfo" "geographicElement" "boxes"]
-    ;                ["identificationInfo" "verticalElement" "minimumValue"]
-    ;                ["identificationInfo" "verticalElement" "maximumValue"]]}]
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["identificationInfo" "geographicElement" "boxes"]
+     ;                ["identificationInfo" "verticalElement" "minimumValue"]
+     ;                ["identificationInfo" "verticalElement" "maximumValue"]]}]
      [:h2 "4. Where"]
      [:h3 "Geographic Coverage"]
      [m4/checkbox-field
       {:form-id   [:form]
        :data-path ["identificationInfo" "geographicElement" "hasGeographicCoverage"]
        :label     "Does data have a geographic coverage?"}]
-    ; [:div.row
-    ;  [:div.col-sm-6
-    ;   ;; FIXME add toggle for satellite imagery.
-    ;   [m4/boxmap-field
-    ;    {:form-id    [:form]
-    ;     :data-path  ["identificationInfo" "geographicElement" "boxes"]
-    ;     :value-path ["uri"]
-    ;     :added-path ["isUserDefined"]}]]
-    ;  [:div.col-sm-6
-    ;
-    ;   [m4/when-data
-    ;    {:form-id   [:form]
-    ;     :data-path ["identificationInfo" "geographicElement" "boxes"]
-    ;     :pred      :m4/empty-list?}
-    ;    [:p "Specify the location(s) of this study."]]
-    ;
-    ;   [m4/selection-list-columns
-    ;    {:form-id    [:form]
-    ;     :data-path  ["identificationInfo" "geographicElement" "boxes"]
-    ;     :value-path ["uri"]
-    ;     :added-path ["isUserDefined"]
-    ;     :columns    [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
-    ;                  {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
-    ;                  {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
-    ;                  {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
-    ;
-    ;   [m4/list-add-button
-    ;    {:form-id     [:form]
-    ;     :data-path   ["identificationInfo" "geographicElement" "boxes"]
-    ;     :button-text "Add new"
-    ;     :value-path  ["uri"]
-    ;     :added-path  ["isUserDefined"]}]
-    ;
-    ;   [m4/list-edit-dialog
-    ;    {:form-id     [:form]
-    ;     :data-path   ["identificationInfo" "geographicElement" "boxes"]
-    ;     :title       "Bounding box"
-    ;     :template-id :box/user-defined-entry-form}]]]
+     ; [:div.row
+     ;  [:div.col-sm-6
+     ;   ;; FIXME add toggle for satellite imagery.
+     ;   [m4/boxmap-field
+     ;    {:form-id    [:form]
+     ;     :data-path  ["identificationInfo" "geographicElement" "boxes"]
+     ;     :value-path ["uri"]
+     ;     :added-path ["isUserDefined"]}]]
+     ;  [:div.col-sm-6
+     ;
+     ;   [m4/when-data
+     ;    {:form-id   [:form]
+     ;     :data-path ["identificationInfo" "geographicElement" "boxes"]
+     ;     :pred      :m4/empty-list?}
+     ;    [:p "Specify the location(s) of this study."]]
+     ;
+     ;   [m4/selection-list-columns
+     ;    {:form-id    [:form]
+     ;     :data-path  ["identificationInfo" "geographicElement" "boxes"]
+     ;     :value-path ["uri"]
+     ;     :added-path ["isUserDefined"]
+     ;     :columns    [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
+     ;                  {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
+     ;                  {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
+     ;                  {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
+     ;
+     ;   [m4/list-add-button
+     ;    {:form-id     [:form]
+     ;     :data-path   ["identificationInfo" "geographicElement" "boxes"]
+     ;     :button-text "Add new"
+     ;     :value-path  ["uri"]
+     ;     :added-path  ["isUserDefined"]}]
+     ;
+     ;   [m4/list-edit-dialog
+     ;    {:form-id     [:form]
+     ;     :data-path   ["identificationInfo" "geographicElement" "boxes"]
+     ;     :title       "Bounding box"
+     ;     :template-id :box/user-defined-entry-form}]]]
      [:h3 "Vertical Coverage"]
      [m4/checkbox-field
       {:form-id   [:form]
        :data-path ["identificationInfo" "verticalElement" "hasVerticalExtent"]
        :label     "Does data have a vertical coverage?"}]
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "verticalElement" "verticalCRS"]}
-    ;  [m4/select-option-simple
-    ;   {:form-id     [:form]
-    ;    :data-path   ["identificationInfo" "verticalElement" "verticalCRS"]
-    ;    :value-path  ["value"]
-    ;    :label-path  ["label"]
-    ;    :placeholder "Please select"
-    ;    :options     [{"label" "Depth (distance below mean sea level)" "value" "EPSG::5715"}
-    ;                  {"label" "Altitude (height above mean sea level)" "value" "EPSG::5714"}]}]]
-    ; [m4/form-group
-    ;  {:form-id    [:form]
-    ;   :data-path  ["identificationInfo" "verticalElement" "minimumValue"]
-    ;   :helperText "Shallowest depth / lowest altitude"}
-    ;  [m4/numeric-input-field
-    ;   {:form-id   [:form]
-    ;    :data-path ["identificationInfo" "verticalElement" "minimumValue"]
-    ;    :class     "wauto"}]]
-    ; [m4/form-group
-    ;  {:form-id    [:form]
-    ;   :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
-    ;   :helperText "Deepest depth / highest altitude"}
-    ;  [m4/numeric-input-field
-    ;   {:form-id   [:form]
-    ;    :data-path ["identificationInfo" "verticalElement" "maximumValue"]
-    ;    :class     "wauto"}]]
+     ;[m4/form-group
+     ; {:form-id   [:form]
+     ;  :data-path ["identificationInfo" "verticalElement" "verticalCRS"]
+     ;  :label     "Vertical type"}
+     ; [m4/select-option-simple
+     ;  {:form-id     [:form]
+     ;   :data-path   ["identificationInfo" "verticalElement" "verticalCRS"]
+     ;   :value-path  ["value"]
+     ;   :label-path  ["label"]
+     ;   :placeholder "Please select"
+     ;   :options     [{"label" "Depth (distance below mean sea level)" "value" "EPSG::5715"}
+     ;                 {"label" "Altitude (height above mean sea level)" "value" "EPSG::5714"}]}]]
+     ; [m4/form-group
+     ;  {:form-id    [:form]
+     ;   :data-path  ["identificationInfo" "verticalElement" "minimumValue"]
+     ;   :helperText "Shallowest depth / lowest altitude"}
+     ;  [m4/numeric-input-field
+     ;   {:form-id   [:form]
+     ;    :data-path ["identificationInfo" "verticalElement" "minimumValue"]
+     ;    :class     "wauto"}]]
+     ; [m4/form-group
+     ;  {:form-id    [:form]
+     ;   :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
+     ;   :helperText "Deepest depth / highest altitude"}
+     ;  [m4/numeric-input-field
+     ;   {:form-id   [:form]
+     ;    :data-path ["identificationInfo" "verticalElement" "maximumValue"]
+     ;    :class     "wauto"}]]
      [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
     ;:box/user-defined-entry-form

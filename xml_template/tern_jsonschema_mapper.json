@@ -299,7 +299,6 @@
           "!docstring": "ID1",
           "xpath": "mri:citation/cit:CI_Citation/cit:title",
           "valueChild": "gco:CharacterString",
-          "label": "Title",
           "type": "string",
           "keep": false,
           "xpath_required": true,
@@ -312,7 +311,6 @@
           "xpath": "mri:topicCategory",
           "keep": false,
           "valueChild": "mri:MD_TopicCategoryCode",
-          "label": "Topic categories",
           "attributes": {
             "text": {
               "function": "identity"
@@ -329,7 +327,6 @@
           "!docstring": "ID5",
           "xpath": "mri:status",
           "valueChild": "mcc:MD_ProgressCode",
-          "label": "Status of data",
           "attributes": {
             "text": {
               "function": "identity"
@@ -346,7 +343,6 @@
           "!docstring": "ID9; FIXME: depends on status",
           "xpath": "mri:resourceMaintenance/mmi:MD_MaintenanceInformation/mmi:maintenanceAndUpdateFrequency",
           "valueChild": "mmi:MD_MaintenanceFrequencyCode",
-          "label": "Maintenance and update frequency",
           "attributes": {
             "codeListValue": {
               "function": "identity"
@@ -382,7 +378,6 @@
           "type": "string",
           "xpath": "mri:citation[1]/cit:CI_Citation[1]/cit:edition",
           "valueChild": "gco:CharacterString",
-          "label": "Version",
           "keep": false,
           "required": true,
           "xpath_required": true,
@@ -392,7 +387,6 @@
           "!docstring": "What1",
           "xpath": "mri:abstract",
           "valueChild": "gco:CharacterString",
-          "label": "Abstract",
           "type": "string",
           "keep": false,
           "required": true,
@@ -403,7 +397,6 @@
           "!docstring": "What2",
           "xpath": "mri:purpose",
           "valueChild": "gco:CharacterString",
-          "label": "Purpose",
           "type": "string",
           "keep": false,
           "required": false
@@ -854,7 +847,6 @@
               "!docstring": "Where1",
               "xpath": "gex:description",
               "valueChild": "gco:CharacterString",
-              "label": "Site Description",
               "type": "string",
               "keep": false,
               "required": false
@@ -865,7 +857,6 @@
               "rules": [
                 "requiredField"
               ],
-              "label": "Geographic coverage",
               "keep": false,
               "type": "array",
               "items": {
@@ -880,7 +871,6 @@
                     "rules": [
                       "requiredField"
                     ],
-                    "label": "West limit",
                     "type": "number",
                     "attributes": {
                       "text": {
@@ -894,7 +884,6 @@
                     "rules": [
                       "requiredField"
                     ],
-                    "label": "East limit",
                     "type": "number",
                     "attributes": {
                       "text": {
@@ -908,7 +897,6 @@
                     "rules": [
                       "requiredField"
                     ],
-                    "label": "South limit",
                     "type": "number",
                     "attributes": {
                       "text": {
@@ -922,7 +910,6 @@
                     "rules": [
                       "requiredField"
                     ],
-                    "label": "North limit",
                     "type": "number",
                     "attributes": {
                       "text": {
@@ -1515,7 +1502,6 @@
           "!docstring": "About3",
           "xpath": "mri:environmentDescription",
           "valueChild": "gco:CharacterString",
-          "label": "Environmental description",
           "keep": false,
           "required": false,
           "type": "string"
@@ -1524,7 +1510,6 @@
           "!docstring": "About4",
           "xpath": "mri:supplementalInformation",
           "valueChild": "gco:CharacterString",
-          "label": "Supplemental Information",
           "keep": false,
           "required": false,
           "type": "string"
@@ -1565,7 +1550,6 @@
           "!docstring": "About7",
           "xpath": "mri:resourceSpecificUsage",
           "valueChild": "mri:MD_Usage/mri:specificUsage/gco:CharacterString",
-          "label": "Resource specific usage",
           "keep": false,
           "required": false,
           "type": "string"
@@ -1582,7 +1566,6 @@
           "!docstring": "About9",
           "xpath": "mri:citation/cit:CI_Citation/cit:otherCitationDetails",
           "valueChild": "gco:CharacterString",
-          "label": "Specific citation",
           "keep": false,
           "required": false,
           "type": "string"
@@ -1692,7 +1675,6 @@
           "!docstring": "How8",
           "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:evaluationMethodDescription",
           "valueChild": "gco:CharacterString",
-          "label": "Provide a summary of the scope of the Data Quality Assessment",
           "type": "string",
           "keep": false,
           "required": false

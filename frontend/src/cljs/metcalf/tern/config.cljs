@@ -408,11 +408,27 @@
         :placeholder "Start typing to filter list..."
         :label-path  ["label"]
         :value-path  ["value"]
-        :options     [{"value" "biota" "label" "biota"}
+        :options     [{"value" "farming" "label" "farming"}
+                      {"value" "biota" "label" "biota"}
+                      {"value" "boundaries" "label" "boundaries"}
                       {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
-                      {"value" "oceans" "label" "oceans"}
+                      {"value" "economy" "label" "economy"}
+                      {"value" "environment" "label" "environment"}
                       {"value" "geoscientificInformation" "label" "geoscientificInformation"}
-                      {"value" "inlandWater" "label" "inlandWater"}]}]]
+                      {"value" "biota" "label" "biota"}
+                      {"value" "health" "label" "health"}
+                      {"value" "imageryBaseMapsEarthCover" "label" "imageryBaseMapsEarthCover"}
+                      {"value" "intelligenceMilitary" "label" "intelligenceMilitary"}
+                      {"value" "inlandWaters" "label" "inlandWaters"}
+                      {"value" "location" "label" "location"}
+                      {"value" "oceans" "label" "oceans"}
+                      {"value" "planningCadastre" "label" "planningCadastre"}
+                      {"value" "society" "label" "society"}
+                      {"value" "structure" "label" "structure"}
+                      {"value" "transportation" "label" "transportation"}
+                      {"value" "utilitiesCommunication" "label" "utilitiesCommunication"}
+                      {"value" "extraTerrestrial" "label" "extraTerrestrial"}
+                      {"value" "disaster" "label" "disaster"}]}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"

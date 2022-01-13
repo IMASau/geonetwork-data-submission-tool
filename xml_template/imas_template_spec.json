@@ -156,10 +156,8 @@
           "type": "object",
           "properties": {
             "hasGeographicCoverage": {
-              "xpath": "gex:geographicElement[count(.)>0]",
               "label": "Does data have a geographic coverage?",
               "export": false,
-              "default": false,
               "type": "boolean"
             }
           }

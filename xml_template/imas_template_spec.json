@@ -48,6 +48,15 @@
     },
     "identificationInfo": {
       "xpath": "mdb:identificationInfo/mri:MD_DataIdentification",
+      "rules": [
+        "endPosition",
+        {
+          "dateOrder": {
+            "field0": "beginPosition",
+            "field1": "endPosition"
+          }
+        }
+      ],
       "type": "object",
       "properties": {
         "title": {
@@ -165,6 +174,14 @@
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
           "required": true,
           "xpath_required": true,
+          "keep": false,
+          "type": "string",
+          "rules": ["requiredField"]
+        },
+        "endPosition": {
+          "!docstring": "When2",
+          "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:endPosition",
+          "deleteWhenEmpty": true,
           "keep": false,
           "type": "string",
           "rules": ["requiredField"]

@@ -367,12 +367,13 @@
       [m4/date-field2
        {:form-id   [:form]
         :data-path ["identificationInfo" "beginPosition"]}]]
-     ; [m4/form-group
-     ;  {:form-id   [:form]
-     ;   :data-path ["identificationInfo" "endPosition"]}
-     ;  [m4/date-field2
-     ;   {:form-id   [:form]
-     ;    :data-path ["identificationInfo" "endPosition"]}]]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "endPosition"]
+       :label     "End date"}
+      [m4/date-field2
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "endPosition"]}]]
      ; [m4/form-group
      ;  {:form-id   [:form]
      ;   :data-path ["identificationInfo" "samplingFrequency"]}

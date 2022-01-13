@@ -888,7 +888,7 @@
             :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]}]]]]
 
        [:p [:label "Vertical extent (optional)"]]
-       [:p "The vertial extent is optional.  If you choose to enter details then the following fields are mandatory"]
+       [:p "The vertical extent is optional.  If you choose to enter details then the following fields are mandatory"]
 
        [m4/inline-form-group
         {:label    "Vertical Coordinate Reference System"

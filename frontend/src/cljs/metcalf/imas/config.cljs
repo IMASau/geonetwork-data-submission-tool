@@ -376,8 +376,8 @@
         :data-path ["identificationInfo" "endPosition"]}]]
      [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
-    ;:where
-    ;[:div
+    :where
+    [:div
     ; [m4/page-errors
     ;  {:form-id    [:form]
     ;   :data-path  []
@@ -460,8 +460,8 @@
     ;   {:form-id   [:form]
     ;    :data-path ["identificationInfo" "verticalElement" "maximumValue"]
     ;    :class     "wauto"}]]
-    ; [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
-    ;
+     [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+
     ;:box/user-defined-entry-form
     ;[:div
     ; [m4/inline-form-group

@@ -18,6 +18,11 @@
   [db]
   (or (get db :low-code/edit-tabs) edit-tabs))
 
+(defn- get-next-tab
+  [tab-id edit-tabs]
+  (let [successors (drop-while #(not= tab-id (:id %)) edit-tabs)]
+    (doto (second successors) prn)))
+
 (defn get-edit-tab-props
   "Sub to return edit-tab props for use in views.
    Returns selected-tab and tab-props.
@@ -25,6 +30,7 @@
   [[page form-state edit-tabs]]
   (let [selected-tab (get page :tab :data-identification)]
     {:selected-tab selected-tab
+     :next-tab     (get-next-tab selected-tab edit-tabs)
      :tab-props    (mapv
                      (fn [{:keys [id text]}]
                        (let [progress (get-in form-state [:progress/score])

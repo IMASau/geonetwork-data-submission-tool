@@ -261,7 +261,8 @@
         :progress-props progress-props
         :on-pick-tab    on-pick-tab}]
       [:div.PageViewBody
-       [low-code/render-template {:template-id (get page :tab :data-identification)}]]]]))
+       [low-code/render-template {:template-id (get page :tab :data-identification)}]
+       [next-tab-link tab-props on-pick-tab]]]]))
 
 (defn page-error
   [{:keys [text code]}]

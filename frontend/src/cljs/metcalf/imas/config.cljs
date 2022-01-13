@@ -322,19 +322,19 @@
         :value-path      ["uri"]
         :breadcrumb-path ["breadcrumb"]}]]
 
-     ; [m4/form-group
-     ;  {:form-id   [:form]
-     ;   :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]
-     ;   :label     "Additional theme keywords"}
-     ;  [:div "Enter your own additional theme keywords as required and click + to add"]
-     ;  [m4/selection-list-values
-     ;   {:form-id   [:form]
-     ;    :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]}]
-     ;  [m4/text-add-button
-     ;   {:form-id     [:form]
-     ;    :data-path   ["identificationInfo" "keywordsThemeExtra" "keywords"]
-     ;    :button-text "Add"}]]
-     ;
+      [m4/form-group
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]
+        :label     "Additional theme keywords"}
+       [:div "Enter your own additional theme keywords as required and click + to add"]
+       [m4/selection-list-values
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]}]
+       [m4/text-add-button
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "keywordsThemeExtra" "keywords"]
+         :button-text "Add"}]]
+
      ; [m4/form-group
      ;  {:form-id   [:form]
      ;   :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]

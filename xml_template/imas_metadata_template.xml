@@ -515,6 +515,36 @@
 				</mmi:MD_MaintenanceInformation>
 			</mri:resourceMaintenance>
 
+			<!-- The user can manually enter one or more theme keywords (freetext)-->
+			<mri:descriptiveKeywords>
+				<mri:MD_Keywords>
+					<mri:type>
+						<mri:MD_KeywordTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode"
+												codeListValue="theme"/>
+					</mri:type>
+					<mri:keyword>
+						<gco:CharacterString>phycology</gco:CharacterString>
+					</mri:keyword>
+					<mri:keyword>
+						<gco:CharacterString>PAM fluorometry</gco:CharacterString>
+					</mri:keyword>
+				</mri:MD_Keywords>
+			</mri:descriptiveKeywords>
+
+			<!-- The user can manually enter one or more taxonomic keywords (freetext)-->
+			<mri:descriptiveKeywords>
+				<mri:MD_Keywords>
+					<mri:type>
+						<mri:MD_KeywordTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode"
+												codeListValue="taxon"/>
+					</mri:type>
+					<mri:keyword>
+						<gco:CharacterString>Ecklonia radiata</gco:CharacterString>
+					</mri:keyword>
+				</mri:MD_Keywords>
+			</mri:descriptiveKeywords>
+
+
 			<!-- The user can select one or more GCMD science keywords (in the "what" tab). -->
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>

@@ -512,9 +512,7 @@
         :data-path ["identificationInfo" "datePublication"]
         :required  true}]]
 
-     [:label "TODO: revision date?"]
-
-     [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
+     [:label "TODO: revision date?"]]
 
     :what
     [:div
@@ -775,9 +773,7 @@
          :button-text "Add"}]
        [m4/selection-list-values
         {:form-id   [:form]
-         :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]]
-
-     [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
+         :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]]]
 
     :when
     [:div
@@ -809,9 +805,7 @@
         :required  true}
        [m4/date-field2
         {:form-id   [:form]
-         :data-path ["identificationInfo" "endPosition"]}]]]
-
-     [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
+         :data-path ["identificationInfo" "endPosition"]}]]]]
 
     :where
     [:div
@@ -965,9 +959,7 @@
             :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeValue"]
             :unit      [m4/get-data
                         {:form-id   [:form]
-                         :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeUnits"]}]}]]]]]]
-
-     [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+                         :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeUnits"]}]}]]]]]]]
 
     :box/user-defined-entry-form
     [:div
@@ -1124,7 +1116,7 @@
 
      #_[m3/Who
         {:credit-path [:form :fields :identificationInfo :credit]}]
-     [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+     ]
 
     :party/list-item
     [:div
@@ -1539,9 +1531,7 @@
          :button-text "Add"}]
        [m4/selection-list-values
         {:form-id   [:form]
-         :data-path ["resourceLineageProcessSteps" "steps"]}]]]
-
-     [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]
+         :data-path ["resourceLineageProcessSteps" "steps"]}]]]]
 
     :method-doc/user-defined-entry-form
     [:div
@@ -1616,8 +1606,7 @@
        {:form-id     [:form]
         :data-path   ["dataQualityInfo" "results"]
         :maxLength   1000
-        :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]]
-     [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+        :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]]]
 
     :quality/user-defined-entry-form
     [:div
@@ -1757,9 +1746,7 @@
        [m4/textarea-field
         {:form-id   [:form]
          :data-path ["identificationInfo" "customCitation"]
-         :maxLength 1000}]]]
-
-     [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
+         :maxLength 1000}]]]]
 
     :about/user-defined-entry
     [:div
@@ -1819,9 +1806,7 @@
         :value-path  ["uri"]
         :added-path  ["isUserDefined"]
         :title       "Data Distribution"
-        :template-id :data-sources/user-defined-entry-form}]]
-
-     [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
+        :template-id :data-sources/user-defined-entry-form}]]]
 
     :data-sources/user-defined-entry-form
     [:div

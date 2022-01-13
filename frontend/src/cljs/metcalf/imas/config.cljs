@@ -219,13 +219,13 @@
       [m4/input-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "title"]}]]
-     ;[m4/form-group
-     ; {:form-id   [:form]
-     ;  :data-path ["identificationInfo" "dateCreation"]
-     ;  :label     "Date of record creation"}
-     ; [m4/date-field2
-     ;  {:form-id   [:form]
-     ;   :data-path ["identificationInfo" "dateCreation"]}]]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "dateCreation"]
+       :label     "Date of record creation"}
+      [m4/date-field2
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "dateCreation"]}]]
     ; [m4/form-group
     ;  {:form-id   [:form]
     ;   :data-path ["identificationInfo" "topicCategory"]

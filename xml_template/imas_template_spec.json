@@ -61,6 +61,16 @@
             "requiredField"
           ]
         },
+        "dateCreation": {
+          "!docstring": "ID6",
+          "type": "string",
+          "xpath": "/mdb:MD_Metadata/mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date/gco:DateTime",
+          "xpath-q1": "/mdb:MD_Metadata/mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date/gco:Date",
+          "required": true,
+          "xpath_required": true,
+          "keep": false,
+          "rules": ["requiredField"]
+        },
         "datePublication": {
           "!docstring": "ID8",
           "type": "string",

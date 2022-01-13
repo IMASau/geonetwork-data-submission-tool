@@ -46,7 +46,8 @@
             "function": "geonetwork_url"
           }
         }
-      }
+      },
+      "keep": false
     },
     "attachments": {
       "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"][normalize-space(cit:description/gco:CharacterString)=\"Data file\"]]",
@@ -359,6 +360,7 @@
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",
           "valueChild": "gco:Date",
           "required": true,
+          "keep": false,
           "xpath_required": true,
           "rules": ["requiredField"]
         },

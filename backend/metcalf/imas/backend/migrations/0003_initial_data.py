@@ -25,7 +25,7 @@ def configure_backend_data(apps, schema_editor):
     mtm.save()
     # Create default MetadataTemplate
     mt, _ = MetadataTemplate.objects.get_or_create(pk='1')
-    mt.name = "TERN Template"
+    mt.name = "imas_metadata_template.xml"
     mt.file = "imas_metadata_template.xml"
     mt.notes = "Default template"
     mt.archived = "f"

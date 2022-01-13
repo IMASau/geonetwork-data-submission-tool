@@ -36,6 +36,7 @@
     "fileIdentifier": {
       "xpath": "mdb:metadataIdentifier/mcc:MD_Identifier/mcc:code",
       "valueChild": "gco:CharacterString",
+      "keep": false,
       "exportTo": {
         "xpath": "mdb:metadataLinkage/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
         "attributes": {

@@ -511,6 +511,7 @@ def edit(request, uuid):
 
     raw_payload = {
         "context": {
+            "csrf": csrf.get_token(request),
             "site": site_content(get_current_site(request)),
             "urls": master_urls(),
             "URL_ROOT": settings.FORCE_SCRIPT_NAME or "",
@@ -519,8 +520,7 @@ def edit(request, uuid):
             "title": data['identificationInfo']['title'],
             "document": DocumentInfoSerializer(doc, context={'user': request.user}).data,
             "data_sources": DataSourceSerializer(DataSource.objects.all(), many=True).data,
-            "status": user_status_list(),
-            "csrf": csrf.get_token(request),
+            "status": user_status_list()
         },
         "form": {
             "url": reverse("Save", kwargs={'uuid': doc.uuid, 'update_number': draft.pk}),
@@ -549,12 +549,15 @@ def edit(request, uuid):
             },
             "data": {},
         },
-        "data": data,
+        # "data": data,
         "attachments": AttachmentSerializer(doc.attachments.all(), many=True).data,
         # "theme": {"keywordsTheme": {"table": theme_keywords()}},
         # "institutions": [inst.to_dict() for inst in Institution.objects.all()],
         "page": {"name": request.resolver_match.url_name}
     }
+
+    if doc.template.ui_template:
+        raw_payload["ui_payload"] = doc.template.ui_template.file.open().read()
 
     payload = smart_text(JSONRenderer().render(raw_payload), encoding='utf-8')
     return render(request, "imas/app.html", {"payload": payload})
@@ -645,7 +648,7 @@ def keyword_to_breadcrumbs(keyword):
     # Remove first matching item (this will be the label)
     keyword_values_in_array = keyword_values_in_array[1:]
 
-    return [" > ".join(keyword_values_in_array)]
+    return [" | ".join(keyword_values_in_array)]
 
 
 @api_view(['GET'])

@@ -158,7 +158,7 @@
        ;'m4/breadcrumb-list-option-picker       {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
        'm4/selection-list-breadcrumb           {:view components4/selection-list-breadcrumb :init components4/selection-list-breadcrumb-settings}
        'm4/checkbox-field                      {:view components4/checkbox-field :init components4/checkbox-field-settings}
-       'm4/date-field                          {:view components4/date-field :init components4/date-field-settings}
+       'm4/date-field2                         {:view components4/date-field2 :init components4/date-field2-settings}
        'm4/expanding-control                   {:view components4/expanding-control :init components4/expanding-control-settings}
        'm4/form-group                          {:view components4/form-group :init components4/form-group-settings}
        'm4/inline-form-group                   {:view components4/inline-form-group :init components4/inline-form-group-settings}
@@ -408,11 +408,27 @@
         :placeholder "Start typing to filter list..."
         :label-path  ["label"]
         :value-path  ["value"]
-        :options     [{"value" "biota" "label" "biota"}
+        :options     [{"value" "farming" "label" "farming"}
+                      {"value" "biota" "label" "biota"}
+                      {"value" "boundaries" "label" "boundaries"}
                       {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
-                      {"value" "oceans" "label" "oceans"}
+                      {"value" "economy" "label" "economy"}
+                      {"value" "environment" "label" "environment"}
                       {"value" "geoscientificInformation" "label" "geoscientificInformation"}
-                      {"value" "inlandWater" "label" "inlandWater"}]}]]
+                      {"value" "biota" "label" "biota"}
+                      {"value" "health" "label" "health"}
+                      {"value" "imageryBaseMapsEarthCover" "label" "imageryBaseMapsEarthCover"}
+                      {"value" "intelligenceMilitary" "label" "intelligenceMilitary"}
+                      {"value" "inlandWaters" "label" "inlandWaters"}
+                      {"value" "location" "label" "location"}
+                      {"value" "oceans" "label" "oceans"}
+                      {"value" "planningCadastre" "label" "planningCadastre"}
+                      {"value" "society" "label" "society"}
+                      {"value" "structure" "label" "structure"}
+                      {"value" "transportation" "label" "transportation"}
+                      {"value" "utilitiesCommunication" "label" "utilitiesCommunication"}
+                      {"value" "extraTerrestrial" "label" "extraTerrestrial"}
+                      {"value" "disaster" "label" "disaster"}]}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
@@ -476,12 +492,10 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "dateCreation"]
        :label     "Date the resource was created"}
-      [m4/date-field
+      [m4/date-field2
        {:form-id   [:form]
         :data-path ["identificationInfo" "dateCreation"]
-        :required  true
-        :minDate   "1900-01-01"
-        :maxDate   "2100-01-01"}]]
+        :required  true}]]
 
      [m4/yes-no-field
       {:form-id   [:form]
@@ -493,16 +507,12 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "datePublication"]
        :label     "Previous Publication Date"}
-      [m4/date-field
+      [m4/date-field2
        {:form-id   [:form]
         :data-path ["identificationInfo" "datePublication"]
-        :required  true
-        :minDate   "1900-01-01"
-        :maxDate   "2100-01-01"}]]
+        :required  true}]]
 
-     [:label "TODO: revision date?"]
-
-     [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
+     [:label "TODO: revision date?"]]
 
     :what
     [:div
@@ -763,9 +773,7 @@
          :button-text "Add"}]
        [m4/selection-list-values
         {:form-id   [:form]
-         :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]]
-
-     [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
+         :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]]]
 
     :when
     [:div
@@ -787,23 +795,17 @@
         :data-path ["identificationInfo" "beginPosition"]
         :label     "Start date"
         :required  true}
-       [m4/date-field
+       [m4/date-field2
         {:form-id   [:form]
-         :data-path ["identificationInfo" "beginPosition"]
-         :minDate   "1900-01-01"
-         :maxDate   "2100-01-01"}]]
+         :data-path ["identificationInfo" "beginPosition"]}]]
       [m4/form-group
        {:form-id   [:form]
         :data-path ["identificationInfo" "endPosition"]
         :label     "End date"
         :required  true}
-       [m4/date-field
+       [m4/date-field2
         {:form-id   [:form]
-         :data-path ["identificationInfo" "endPosition"]
-         :minDate   "1900-01-01"
-         :maxDate   "2100-01-01"}]]]
-
-     [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
+         :data-path ["identificationInfo" "endPosition"]}]]]]
 
     :where
     [:div
@@ -891,14 +893,12 @@
          [m4/form-group
           {:form-id   [:form]
            :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]}
-          [m4/date-field
+          [m4/date-field2
            {:form-id   [:form]
-            :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]
-            :minDate   "1900-01-01"
-            :maxDate   "2100-01-01"}]]]]
+            :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]}]]]]
 
        [:p [:label "Vertical extent (optional)"]]
-       [:p "The vertial extent is optional.  If you choose to enter details then the following fields are mandatory"]
+       [:p "The vertical extent is optional.  If you choose to enter details then the following fields are mandatory"]
 
        [m4/inline-form-group
         {:label    "Vertical Coordinate Reference System"
@@ -959,9 +959,7 @@
             :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeValue"]
             :unit      [m4/get-data
                         {:form-id   [:form]
-                         :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeUnits"]}]}]]]]]]
-
-     [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+                         :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeUnits"]}]}]]]]]]]
 
     :box/user-defined-entry-form
     [:div
@@ -1118,7 +1116,7 @@
 
      #_[m3/Who
         {:credit-path [:form :fields :identificationInfo :credit]}]
-     [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+     ]
 
     :party/list-item
     [:div
@@ -1353,27 +1351,27 @@
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "organisation" "name"]
+       :data-path [?data-path "name"]
        :label     "Organisation Name"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "name"]}]]
+        :data-path [?data-path "name"]}]]
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "address" "deliveryPoint"]
+       :data-path [?data-path "full_address_line"]
        :label     "Campus/Sitename"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "deliveryPoint"]}]]
+        :data-path [?data-path "full_address_line"]}]]
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "address" "deliveryPoint2"]
+       :data-path [?data-path "street_address"]
        :label     "Building"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "deliveryPoint2"]}]]
+        :data-path [?data-path "street_address"]}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
@@ -1381,19 +1379,19 @@
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "city"]
+        :data-path [?data-path "address_locality"]
         :label     "City"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "address" "city"]}]]
+         :data-path [?data-path "address_locality"]}]]
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "administrativeArea"]
+        :data-path [?data-path "address_region"]
         :label     "State"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "address" "administrativeArea"]}]]]
+         :data-path [?data-path "address_region"]}]]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
@@ -1401,27 +1399,27 @@
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "postalCode"]
+        :data-path [?data-path "postcode"]
         :label     "Postal Code"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "address" "postalCode"]}]]
+         :data-path [?data-path "postcode"]}]]
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "address" "country"]
+        :data-path [?data-path "country"]
         :label     "Country"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "address" "country"]}]]]
+         :data-path [?data-path "country"]}]]]
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "electronicMailAddress"]
+       :data-path [?data-path "email"]
        :label     "Email address"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "electronicMailAddress"]}]]
+        :data-path [?data-path "email"]}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
@@ -1429,19 +1427,19 @@
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "phone"]
+        :data-path [?data-path "phone"]
         :label     "Phone"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "phone"]}]]
+         :data-path [?data-path "phone"]}]]
 
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "fax"]
+        :data-path [?data-path "fax"]
         :label     "Fax"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "fax"]}]]]]
+         :data-path [?data-path "fax"]}]]]]
 
     :how
     [:div
@@ -1533,9 +1531,7 @@
          :button-text "Add"}]
        [m4/selection-list-values
         {:form-id   [:form]
-         :data-path ["resourceLineageProcessSteps" "steps"]}]]]
-
-     [:div.link-right-container [:a.link-right {:href "#quality"} "Next"]]]
+         :data-path ["resourceLineageProcessSteps" "steps"]}]]]]
 
     :method-doc/user-defined-entry-form
     [:div
@@ -1610,8 +1606,7 @@
        {:form-id     [:form]
         :data-path   ["dataQualityInfo" "results"]
         :maxLength   1000
-        :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]]
-     [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+        :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]]]
 
     :quality/user-defined-entry-form
     [:div
@@ -1751,9 +1746,7 @@
        [m4/textarea-field
         {:form-id   [:form]
          :data-path ["identificationInfo" "customCitation"]
-         :maxLength 1000}]]]
-
-     [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
+         :maxLength 1000}]]]]
 
     :about/user-defined-entry
     [:div
@@ -1813,9 +1806,7 @@
         :value-path  ["uri"]
         :added-path  ["isUserDefined"]
         :title       "Data Distribution"
-        :template-id :data-sources/user-defined-entry-form}]]
-
-     [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
+        :template-id :data-sources/user-defined-entry-form}]]]
 
     :data-sources/user-defined-entry-form
     [:div

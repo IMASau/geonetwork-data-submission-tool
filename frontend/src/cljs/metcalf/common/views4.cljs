@@ -209,6 +209,13 @@
                 (conj [:div.hidden-xs.hidden-sm
                        [progress-bar progress-props]])])))])))
 
+(defn next-tab-link
+  [tab-props on-pick-tab]
+  (when-let [next-id (-> tab-props :next-tab :id)]
+    [:div.link-right-container [:a.link-right {:href (str "#" (name next-id))
+                                               :on-click #(on-pick-tab next-id)}
+                                "Next"]]))
+
 (defn PageViewEdit
   [{:keys [page context form-disabled? dirty on-save-click on-archive-click
            tab-props on-pick-tab
@@ -254,7 +261,8 @@
         :progress-props progress-props
         :on-pick-tab    on-pick-tab}]
       [:div.PageViewBody
-       [low-code/render-template {:template-id (get page :tab :data-identification)}]]]]))
+       [low-code/render-template {:template-id (get page :tab :data-identification)}]
+       [next-tab-link tab-props on-pick-tab]]]]))
 
 (defn page-error
   [{:keys [text code]}]

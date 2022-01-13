@@ -38,8 +38,7 @@
   "Settings for form group"
   [{:keys [data-path]}]
   {::low-code4/req-ks       []
-   ::low-code4/opt-ks       [:label :form-id :data-path :helperText :toolTip]
-   ::low-code4/schema-paths [data-path]})
+   ::low-code4/opt-ks       [:label :form-id :data-path :helperText :toolTip]})
 
 (defn form-group
   "This component is a lightweight wrapper around its children with props for the label above and helper text below.
@@ -152,17 +151,17 @@
       :onSave  #(rf/dispatch [::list-edit-dialog-save config])
       :canSave (not errors?)}
      (low-code4/render-template
-       {:template-id template-id
-        :variables   {'?form-id   form-id
-                      '?data-path item-data-path}})]))
+      {:template-id template-id
+       :variables   {'?form-id   form-id
+                     '?data-path item-data-path}})]))
 
 (defn typed-list-edit-dialog-settings
   "Settings for typed-list-edit-dialog"
-  [{:keys [data-path type-path]}]
+  [{:keys [type-path]}]
   {::low-code4/req-ks       [:form-id :data-path :type-path :templates]
    ::low-code4/opt-ks       []
    ::low-code4/schema       {:type "array" :items {:type "object"}}
-   ::low-code4/schema-paths [data-path type-path]})
+   ::low-code4/schema-paths [type-path]})
 
 (defn typed-list-edit-dialog
   "This component displays an edit dialog for a selected list item with a title,
@@ -455,6 +454,33 @@
         :minDate  (cljs-time/value-to-date minDate)
         :maxDate  (cljs-time/value-to-date maxDate)
         :onChange #(rf/dispatch [::value-changed config (cljs-time/date-to-value %)])}])))
+
+(defn date-field2-settings
+  "Settings for date-field component"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/schema {:type "string"}})
+
+(defn date-field2
+  "This component renders a date field.  The value is a date string (YYYY-MM-DD).
+
+   Use case: Allow user to enter dates.
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * value - value defaults to false if not set
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+   "
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [value disabled show-errors? is-hidden]} props]
+    (when-not is-hidden
+      [ui-controls/DateField2
+       {:value    value
+        :disabled disabled
+        :hasError show-errors?
+        :onChange #(rf/dispatch [::value-changed config %])}])))
 
 (defn select-option-simple-settings
   "Settings for select-option-simple component"
@@ -1272,7 +1298,7 @@
   [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path]
    ::low-code4/opt-ks [:placeholder :results-path :search-params]
-   ::low-code4/schema {:type "array" :items {:type "object"}}})
+   ::low-code4/schema {:type "object"}})
 
 (defn async-simple-item-option-picker
   "This component renders a select control backed by a json data source.  Options are rendered as a text label.

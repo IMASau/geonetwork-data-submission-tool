@@ -3,7 +3,7 @@ import React from 'react';
 import {DateField2} from './DateField2';
 import './DateField2.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
-import '@blueprintjs/datetime/lib/css/blueprint-datetime.css';
+import 'react-day-picker/lib/style.css';
 import NOTES from './NOTES.mdx';
 
 export default {
@@ -11,19 +11,11 @@ export default {
     component: DateField2,
     argTypes: {
         // Most are inferred from DateField2.propTypes
-        value: {control: 'date'},
         onChange: {action: 'onChange'},
     }
 };
 
-// Wrapper helps because
-const Wrapper = (args) => {
-    const value = args.value ? new Date(args.value) : null;
-
-    return <DateField2 {...args} value={value}/>;
-};
-
-const Template = (args) => <Wrapper {...args} />;
+const Template = (args) => <DateField2 {...args} />;
 
 export const Empty = Template.bind({});
 Empty.args = {
@@ -33,17 +25,24 @@ Empty.args = {
 
 export const Preset = Template.bind({});
 Preset.args = {
-    value: 1580515200000,
+    value: "1975-11-03",
+    disabled: false,
+    hasError: false,
+};
+
+export const JunkIn = Template.bind({});
+JunkIn.args = {
+    value: "foobar",
     disabled: false,
     hasError: false,
 };
 
 export const Change = (args) => {
     const [value, setValue] = React.useState(args.value);
-    return <Wrapper {...args} value={value} onChange={(v, t) => setValue(v)}/>;
+    return <DateField2 {...args} value={value} onChange={(v, t) => setValue(v)}/>;
 };
 Change.args = {
-    value: 946990800000,
+    value: "1975-11-03",
     disabled: false,
     hasError: false,
 };

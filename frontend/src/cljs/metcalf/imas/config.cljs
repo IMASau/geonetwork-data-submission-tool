@@ -282,22 +282,23 @@
     ;                 {"value" "biennially" "label" "Every 2 years"}]}]]
      [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
-    ;:what
-    ;[:div
+    :what
+    [:div
     ; [m4/page-errors
     ;  {:form-id    [:form]
     ;   :data-path  []
     ;   :data-paths [["identificationInfo" "abstract"]]}]
-    ; [:h2 "2. What"]
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "abstract"]}
-    ;  [m4/textarea-field
-    ;   {:form-id     [:form]
-    ;    :data-path   ["identificationInfo" "abstract"]
-    ;    :placeholder nil
-    ;    :rows        3}]]
-    ;
+     [:h2 "2. What"]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "abstract"]
+       :helperText "Describe the content of the resource; e.g. what information was collected, how was it collected, brief statement about the purpose of the study"}
+      [m4/textarea-field
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "abstract"]
+        :placeholder nil
+        :rows        3}]]
+
     ; [m4/form-group
     ;  {:form-id   [:form]
     ;   :data-path ["identificationInfo" "keywordsTheme" "keywords"]
@@ -346,9 +347,9 @@
     ;    :data-path   ["identificationInfo" "keywordsTaxonExtra" "keywords"]
     ;    :button-text "Add"}]]
     ;
-    ; ;; TODO add theme keywords
-    ; [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
-    ;
+     ;; TODO add theme keywords
+     [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
+
     ;:when
     ;[:div
     ; [m4/page-errors

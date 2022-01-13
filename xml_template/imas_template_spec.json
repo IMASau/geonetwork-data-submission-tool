@@ -108,6 +108,17 @@
           "keep": false,
           "rules": ["requiredField"]
         },
+        "abstract": {
+          "!docstring": "What1",
+          "xpath": "mri:abstract",
+          "valueChild": "gco:CharacterString",
+          "label": "Abstract",
+          "type": "string",
+          "keep": false,
+          "required": true,
+          "xpath_required": true,
+          "rules": ["requiredField"]
+        },
         "datePublication": {
           "!docstring": "ID8",
           "type": "string",

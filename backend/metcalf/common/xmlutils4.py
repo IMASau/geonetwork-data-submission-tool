@@ -251,15 +251,20 @@ def extract_value_from_element(spec, element, **kwargs):
 
         if value is None:
             return None
+
+        # TODO: can we remove this - will be string in json file
         elif tag == "%sDateTime" % gco:
             return datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S")
 
+        # TODO: can we remove this - will be string in json file
         elif tag == "%sDate" % gco:
             return parse_goc_date(value)
 
+        # TODO: can we remove this - could be handled by type=number massage
         elif tag == "%sDecimal" % gco:
             return Decimal(value)
 
+        # TODO: can we remove this - default case is return string
         elif tag == "%sCharacterString" % gco:
             return value
 

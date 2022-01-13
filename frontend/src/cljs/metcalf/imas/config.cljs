@@ -226,20 +226,26 @@
       [m4/date-field2
        {:form-id   [:form]
         :data-path ["identificationInfo" "dateCreation"]}]]
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "topicCategory"]
-    ;   :label     "Topic categories"}
-    ;  [m4/select-value
-    ;   {:form-id    [:form]
-    ;    :data-path  ["identificationInfo" "topicCategory"]
-    ;    :value-path ["value"]
-    ;    :label-path ["label"]
-    ;    :options    [{"value" "biota" "label" "biota"}
-    ;                 {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
-    ;                 {"value" "oceans" "label" "oceans"}
-    ;                 {"value" "geoscientificInformation" "label" "geoscientificInformation"}
-    ;                 {"value" "inlandWater" "label" "inlandWater"}]}]]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "topicCategory"]
+       :label     "Topic categories"}
+      [m4/select-value
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "topicCategory"]
+        :value-path ["value"]
+        :label-path ["label"]
+        :placeholder "Please select"
+        :options    [{"value" "biota"
+                      "label" "biota"}
+                     {"value" "climatology/meteorology/atmosphere"
+                      "label" "climatology/meteorology/atmosphere"}
+                     {"value" "oceans"
+                      "label" "oceans"}
+                     {"value" "geoscientificInformation"
+                      "label" "geoscientificInformation"}
+                     {"value" "inlandWater"
+                      "label" "inlandWater"}]}]]
     ; [m4/form-group
     ;  {:form-id   [:form]
     ;   :data-path ["identificationInfo" "status"]}

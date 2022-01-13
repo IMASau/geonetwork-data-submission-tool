@@ -549,7 +549,7 @@ def edit(request, uuid):
             },
             "data": {},
         },
-        "data": data,
+        # "data": data,
         "attachments": AttachmentSerializer(doc.attachments.all(), many=True).data,
         # "theme": {"keywordsTheme": {"table": theme_keywords()}},
         # "institutions": [inst.to_dict() for inst in Institution.objects.all()],

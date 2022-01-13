@@ -156,7 +156,6 @@
           "type": "object",
           "properties": {
             "hasGeographicCoverage": {
-              "label": "Does data have a geographic coverage?",
               "export": false,
               "type": "boolean"
             }

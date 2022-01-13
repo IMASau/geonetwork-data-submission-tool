@@ -151,6 +151,19 @@
           "xpath_required": true,
           "rules": ["requiredField"]
         },
+        "geographicElement": {
+          "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",
+          "type": "object",
+          "properties": {
+            "hasGeographicCoverage": {
+              "xpath": "gex:geographicElement[count(.)>0]",
+              "label": "Does data have a geographic coverage?",
+              "export": false,
+              "default": false,
+              "type": "boolean"
+            }
+          }
+        },
         "keywordsTheme": {
           "!docstring": "What3",
           "xpath1": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",

@@ -374,23 +374,6 @@
       [m4/date-field2
        {:form-id   [:form]
         :data-path ["identificationInfo" "endPosition"]}]]
-     ; [m4/form-group
-     ;  {:form-id   [:form]
-     ;   :data-path ["identificationInfo" "samplingFrequency"]}
-     ;  [m4/select-value
-     ;   {:form-id    [:form]
-     ;    :data-path  ["identificationInfo" "samplingFrequency"]
-     ;    :value-path ["value"]
-     ;    :label-path ["label"]
-     ;    :options    [{"value" "daily" "label" "Daily"}
-     ;                 {"value" "weekly" "label" "Weekly"}
-     ;                 {"value" "monthly" "label" "Monthly"}
-     ;                 {"value" "quarterly" "label" "Quarterly"}
-     ;                 {"value" "annually" "label" "Annually"}
-     ;                 {"value" "ongoing" "label" "Ongoing"}
-     ;                 {"value" "asNeeded" "label" "As required"}
-     ;                 {"value" "irregular" "label" "Irregular"}
-     ;                 {"value" "none-planned" "label" "None planned"}]}]]
      [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
 
     ;:where

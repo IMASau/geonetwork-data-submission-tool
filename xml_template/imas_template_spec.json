@@ -126,6 +126,39 @@
           "required": true,
           "xpath_required": true,
           "rules": ["requiredField"]
+        },
+        "keywordsTheme": {
+          "!docstring": "What3",
+          "xpath1": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor)=\"geonetwork.thesaurus.external.theme.sciencekeywords\"]",
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "xpath": "mri:keyword",
+              "keep": false,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "xpath": "mri:keyword",
+                "properties": {
+                  "breadcrumb": {},
+                  "label": {
+                    "xpath": "gcx:Anchor"
+                  },
+                  "uri": {
+                    "xpath": "gcx:Anchor",
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "identity"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "xpath_required": true,
+          "rules": ["requiredField"]
         }
       }
     }

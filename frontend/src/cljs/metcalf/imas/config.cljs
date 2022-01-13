@@ -299,28 +299,29 @@
         :placeholder nil
         :rows        3}]]
 
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "keywordsTheme" "keywords"]
-    ;   :label     "Research theme keywords!"}
-    ;
-    ;  [:div "Select up to 12 research theme keywords describing your data"]
-    ;
-    ;  [m4/async-list-option-picker-breadcrumb
-    ;   {:form-id         [:form]
-    ;    :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
-    ;    :uri             "/api/keywords_with_breadcrumb_info"
-    ;    :placeholder     "Search for keywords"
-    ;    :label-path      ["label"]
-    ;    :value-path      ["uri"]
-    ;    :breadcrumb-path ["breadcrumb"]}]
-    ;  [m4/selection-list-breadcrumb
-    ;   {:form-id         [:form]
-    ;    :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
-    ;    :label-path      ["label"]
-    ;    :value-path      ["uri"]
-    ;    :breadcrumb-path ["breadcrumb"]}]]
-    ;
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "keywordsTheme" "keywords"]
+       :label     "Research theme keywords"}
+
+      [:div "Select up to 12 research theme keywords describing your data"]
+
+      [m4/selection-list-breadcrumb
+       {:form-id         [:form]
+        :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
+        :label-path      ["label"]
+        :value-path      ["uri"]
+        :breadcrumb-path ["breadcrumb"]}]
+
+      [m4/async-list-option-picker-breadcrumb
+       {:form-id         [:form]
+        :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
+        :uri             "/api/keywords_with_breadcrumb_info"
+        :placeholder     "Search for keywords"
+        :label-path      ["label"]
+        :value-path      ["uri"]
+        :breadcrumb-path ["breadcrumb"]}]]
+
     ; [m4/form-group
     ;  {:form-id   [:form]
     ;   :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]

@@ -201,6 +201,23 @@
           },
           "xpath_required": true
         },
+        "keywordsTaxonExtra": {
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"taxon\"]]",
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "keep": false,
+              "xpath": "mri:keyword",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "keep": "false",
+                "xpath": "mri:keyword/gco:CharacterString"
+              }
+            }
+          },
+          "xpath_required": true
+        },
         "beginPosition": {
           "!docstring": "When1",
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",

@@ -335,20 +335,19 @@
          :data-path   ["identificationInfo" "keywordsThemeExtra" "keywords"]
          :button-text "Add"}]]
 
-     ; [m4/form-group
-     ;  {:form-id   [:form]
-     ;   :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]
-     ;   :label     "Taxon keywords"}
-     ;  [:div "Add any taxon names describing your data and click + to add"]
-     ;  [m4/selection-list-values
-     ;   {:form-id   [:form]
-     ;    :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]}]
-     ;  [m4/text-add-button
-     ;   {:form-id     [:form]
-     ;    :data-path   ["identificationInfo" "keywordsTaxonExtra" "keywords"]
-     ;    :button-text "Add"}]]
-     ;
-     ;; TODO add theme keywords
+      [m4/form-group
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]
+        :label     "Taxon keywords"}
+       [:div "Add any taxon names describing your data and click + to add"]
+       [m4/selection-list-values
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]}]
+       [m4/text-add-button
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "keywordsTaxonExtra" "keywords"]
+         :button-text "Add"}]]
+
      [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
     :when

@@ -257,29 +257,29 @@
         :options    [{"value" "onGoing" "label" "ongoing"}
                      {"value" "planned" "label" "planned"}
                      {"value" "completed" "label" "completed"}]}]]
-     ; [m4/form-group
-     ;  {:form-id   [:form]
-     ;   :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]}
-     ;  [m4/select-value
-     ;   {:form-id    [:form]
-     ;    :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
-     ;    :value-path ["value"]
-     ;    :label-path ["label"]
-     ;    :options    [{"value" "continually" "label" "Continually"}
-     ;                 {"value" "daily" "label" "Daily"}
-     ;                 {"value" "weekly" "label" "Weekly"}
-     ;                 {"value" "fortnightly" "label" "Fortnightly"}
-     ;                 {"value" "monthly" "label" "Monthly"}
-     ;                 {"value" "quarterly" "label" "Quarterly"}
-     ;                 {"value" "biannually" "label" "Twice each year"}
-     ;                 {"value" "annually" "label" "Annually"}
-     ;                 {"value" "asNeeded" "label" "As required"}
-     ;                 {"value" "irregular" "label" "Irregular"}
-     ;                 {"value" "notPlanned" "label" "None planned"}
-     ;                 {"value" "unknown" "label" "Unknown"}
-     ;                 {"value" "periodic" "label" "Periodic"}
-     ;                 {"value" "semimonthly" "label" "Twice a month"}
-     ;                 {"value" "biennially" "label" "Every 2 years"}]}]]
+      [m4/form-group
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]}
+       [m4/select-value
+        {:form-id    [:form]
+         :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
+         :value-path ["value"]
+         :label-path ["label"]
+         :options    [{"value" "continually" "label" "Continually"}
+                      {"value" "daily" "label" "Daily"}
+                      {"value" "weekly" "label" "Weekly"}
+                      {"value" "fortnightly" "label" "Fortnightly"}
+                      {"value" "monthly" "label" "Monthly"}
+                      {"value" "quarterly" "label" "Quarterly"}
+                      {"value" "biannually" "label" "Twice each year"}
+                      {"value" "annually" "label" "Annually"}
+                      {"value" "asNeeded" "label" "As required"}
+                      {"value" "irregular" "label" "Irregular"}
+                      {"value" "notPlanned" "label" "None planned"}
+                      {"value" "unknown" "label" "Unknown"}
+                      {"value" "periodic" "label" "Periodic"}
+                      {"value" "semimonthly" "label" "Twice a month"}
+                      {"value" "biennially" "label" "Every 2 years"}]}]]
      [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
     :what

@@ -505,66 +505,76 @@
             </gex:EX_Extent>
          </mri:extent>
 
-         <!-- The user can select one or more GCMD science keywords (in the "what" tab). -->
-         <mri:descriptiveKeywords>
-            <mri:MD_Keywords>
-               <mri:keyword>
-                  <gcx:Anchor xlink:href="http://gcmdservices.gsfc.nasa.gov/kms/concept/d609fc5c-8267-4e79-84ec-93629d52aba8">EARTH SCIENCE | BIOSPHERE | ECOSYSTEMS | MARINE ECOSYSTEMS | COASTAL | KELP FOREST</gcx:Anchor>
-               </mri:keyword>
-               <mri:keyword>
-                  <gcx:Anchor xlink:href="http://gcmdservices.gsfc.nasa.gov/kms/concept/f6350232-b1c7-458c-bc43-bda357ebb6db">EARTH SCIENCE | BIOSPHERE | ECOSYSTEMS | MARINE ECOSYSTEMS</gcx:Anchor>
-               </mri:keyword>
-               <mri:type>
-                  <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
-               </mri:type>
-               <!-- This is fixed in template - need to update version info if we update in tool. -->
-               <mri:thesaurusName>
-                  <cit:CI_Citation>
-                     <cit:title>
-                        <gco:CharacterString>Global Change Master Directory Earsh Science Keywords, Version 8.5</gco:CharacterString>
-                     </cit:title>
-                     <cit:alternateTitle>
-                        <gco:CharacterString>GCMD</gco:CharacterString>
-                     </cit:alternateTitle>
-                     <cit:date>
-                        <cit:CI_Date>
-                           <cit:date>
-                              <gco:DateTime>2017-04-21</gco:DateTime>
-                           </cit:date>
-                           <cit:dateType>
-                              <cit:CI_DateTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode"
-                                                   codeListValue="revision"/>
-                           </cit:dateType>
-                        </cit:CI_Date>
-                     </cit:date>
-                     <cit:edition>
-                        <gco:CharacterString>8.5</gco:CharacterString>
-                     </cit:edition>
-                     <cit:identifier>
-                        <mcc:MD_Identifier>
-                           <mcc:code>
-                              <gcx:Anchor xlink:href="https://metadata.imas.utas.edu.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.sciencekeywords">geonetwork.thesaurus.external.theme.sciencekeywords</gcx:Anchor>
-                           </mcc:code>
-                        </mcc:MD_Identifier>
-                     </cit:identifier>
-                     <cit:citedResponsibleParty>
-                        <cit:CI_Responsibility>
-                           <cit:role>
-                              <cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="owner"/>
-                           </cit:role>
-                           <cit:party>
-                              <cit:CI_Organisation>
-                                 <cit:name>
-                                    <gco:CharacterString>Global Change Data Center, Science and Exploration Directorate, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA)</gco:CharacterString>
-                                 </cit:name>
-                              </cit:CI_Organisation>
-                           </cit:party>
-                        </cit:CI_Responsibility>
-                     </cit:citedResponsibleParty>
-                  </cit:CI_Citation>
-               </mri:thesaurusName>
-            </mri:MD_Keywords>
-         </mri:descriptiveKeywords>
+			<mri:resourceMaintenance>
+				<!--  The user must select how frequently the data will be updated, from a list defined by ISO -->
+				<mmi:MD_MaintenanceInformation>
+					<mmi:maintenanceAndUpdateFrequency>
+						<mmi:MD_MaintenanceFrequencyCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_MaintenanceFrequencyCode"
+														 codeListValue="notPlanned"/>
+					</mmi:maintenanceAndUpdateFrequency>
+				</mmi:MD_MaintenanceInformation>
+			</mri:resourceMaintenance>
+
+			<!-- The user can select one or more GCMD science keywords (in the "what" tab). -->
+			<mri:descriptiveKeywords>
+				<mri:MD_Keywords>
+					<mri:keyword>
+						<gcx:Anchor xlink:href="http://gcmdservices.gsfc.nasa.gov/kms/concept/d609fc5c-8267-4e79-84ec-93629d52aba8">EARTH SCIENCE | BIOSPHERE | ECOSYSTEMS | MARINE ECOSYSTEMS | COASTAL | KELP FOREST</gcx:Anchor>
+					</mri:keyword>
+					<mri:keyword>
+						<gcx:Anchor xlink:href="http://gcmdservices.gsfc.nasa.gov/kms/concept/f6350232-b1c7-458c-bc43-bda357ebb6db">EARTH SCIENCE | BIOSPHERE | ECOSYSTEMS | MARINE ECOSYSTEMS</gcx:Anchor>
+					</mri:keyword>
+					<mri:type>
+						<mri:MD_KeywordTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
+					</mri:type>
+					<!-- This is fixed in template - need to update version info if we update in tool. -->
+					<mri:thesaurusName>
+						<cit:CI_Citation>
+							<cit:title>
+								<gco:CharacterString>Global Change Master Directory Earsh Science Keywords, Version 8.5</gco:CharacterString>
+							</cit:title>
+							<cit:alternateTitle>
+								<gco:CharacterString>GCMD</gco:CharacterString>
+							</cit:alternateTitle>
+							<cit:date>
+								<cit:CI_Date>
+									<cit:date>
+										<gco:DateTime>2017-04-21</gco:DateTime>
+									</cit:date>
+									<cit:dateType>
+										<cit:CI_DateTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode"
+															 codeListValue="revision"/>
+									</cit:dateType>
+								</cit:CI_Date>
+							</cit:date>
+							<cit:edition>
+								<gco:CharacterString>8.5</gco:CharacterString>
+							</cit:edition>
+							<cit:identifier>
+								<mcc:MD_Identifier>
+									<mcc:code>
+										<gcx:Anchor xlink:href="https://metadata.imas.utas.edu.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.sciencekeywords">geonetwork.thesaurus.external.theme.sciencekeywords</gcx:Anchor>
+									</mcc:code>
+								</mcc:MD_Identifier>
+							</cit:identifier>
+							<cit:citedResponsibleParty>
+								<cit:CI_Responsibility>
+									<cit:role>
+										<cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="owner"/>
+									</cit:role>
+									<cit:party>
+										<cit:CI_Organisation>
+											<cit:name>
+												<gco:CharacterString>Global Change Data Center, Science and Exploration Directorate, Goddard Space Flight Center (GSFC) National Aeronautics and Space Administration (NASA)</gco:CharacterString>
+											</cit:name>
+										</cit:CI_Organisation>
+									</cit:party>
+								</cit:CI_Responsibility>
+							</cit:citedResponsibleParty>
+						</cit:CI_Citation>
+					</mri:thesaurusName>
+				</mri:MD_Keywords>
+			</mri:descriptiveKeywords>
 
          <!-- This is fetched/populated by PLATFORM vocab for parameters entered on "about" tab. -->
          <mri:descriptiveKeywords>

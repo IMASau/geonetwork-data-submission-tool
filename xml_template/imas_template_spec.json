@@ -49,6 +49,7 @@
     "identificationInfo": {
       "xpath": "mdb:identificationInfo/mri:MD_DataIdentification",
       "rules": [
+        "maintFreq",
         "endPosition",
         {
           "dateOrder": {
@@ -106,6 +107,17 @@
           "rules": [
             "requiredField"
           ]
+        },
+        "maintenanceAndUpdateFrequency": {
+          "xpath": "mri:resourceMaintenance/mmi:MD_MaintenanceInformation/mmi:maintenanceAndUpdateFrequency",
+          "valueChild": "mmi:MD_MaintenanceFrequencyCode",
+          "label": "Maintenance and update frequency",
+          "attributes": {
+            "codeListValue": {
+              "function": "identity"
+            }
+          },
+          "rules": ["requiredField"]
         },
         "dateCreation": {
           "!docstring": "ID6",

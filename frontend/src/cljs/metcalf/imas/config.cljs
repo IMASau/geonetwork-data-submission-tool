@@ -246,17 +246,17 @@
                       "label" "geoscientificInformation"}
                      {"value" "inlandWater"
                       "label" "inlandWater"}]}]]
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "status"]}
-    ;  [m4/select-value
-    ;   {:form-id    [:form]
-    ;    :data-path  ["identificationInfo" "status"]
-    ;    :value-path ["value"]
-    ;    :label-path ["label"]
-    ;    :options    [{"value" "onGoing" "label" "ongoing"}
-    ;                 {"value" "planned" "label" "planned"}
-    ;                 {"value" "completed" "label" "completed"}]}]]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "status"]}
+      [m4/select-value
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "status"]
+        :value-path ["value"]
+        :label-path ["label"]
+        :options    [{"value" "onGoing" "label" "ongoing"}
+                     {"value" "planned" "label" "planned"}
+                     {"value" "completed" "label" "completed"}]}]]
     ; [m4/form-group
     ;  {:form-id   [:form]
     ;   :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]}

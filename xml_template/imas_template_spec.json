@@ -79,6 +79,24 @@
             "requiredField"
           ]
         },
+        "status": {
+          "!docstring": "ID5",
+          "xpath": "mri:status",
+          "valueChild": "mcc:MD_ProgressCode",
+          "label": "Status of data",
+          "attributes": {
+            "text": {
+              "function": "identity"
+            },
+            "codeListValue": {
+              "function": "identity"
+            }
+          },
+          "keep": false,
+          "rules": [
+            "requiredField"
+          ]
+        },
         "dateCreation": {
           "!docstring": "ID6",
           "type": "string",

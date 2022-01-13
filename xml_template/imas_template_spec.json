@@ -108,6 +108,14 @@
           "keep": false,
           "rules": ["requiredField"]
         },
+        "datePublication": {
+          "!docstring": "ID8",
+          "type": "string",
+          "xpath": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]",
+          "valueChild": "cit:CI_Date/cit:date/gco:Date",
+          "keep": false,
+          "rules": ["requiredField"]
+        },
         "abstract": {
           "!docstring": "What1",
           "xpath": "mri:abstract",
@@ -117,14 +125,6 @@
           "keep": false,
           "required": true,
           "xpath_required": true,
-          "rules": ["requiredField"]
-        },
-        "datePublication": {
-          "!docstring": "ID8",
-          "type": "string",
-          "xpath": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]",
-          "valueChild": "cit:CI_Date/cit:date/gco:Date",
-          "keep": false,
           "rules": ["requiredField"]
         }
       }

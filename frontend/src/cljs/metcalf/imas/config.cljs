@@ -203,14 +203,14 @@
   '{
     :data-identification
     [:div
-    ; [m4/page-errors
-    ;  {:form-id    [:form]
-    ;   :data-path  []
-    ;   :data-paths [["identificationInfo" "title"]
-    ;                ["identificationInfo" "dateCreation"]
-    ;                ["identificationInfo" "topicCategory"]
-    ;                ["identificationInfo" "status"]
-    ;                ["identificationInfo" "maintenanceAndUpdateFrequency"]]}]
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["identificationInfo" "title"]
+     ;                ["identificationInfo" "dateCreation"]
+     ;                ["identificationInfo" "topicCategory"]
+     ;                ["identificationInfo" "status"]
+     ;                ["identificationInfo" "maintenanceAndUpdateFrequency"]]}]
      [:h2 "1. Data Identification"]
      [m4/form-group
       {:form-id    [:form]
@@ -231,21 +231,21 @@
        :data-path ["identificationInfo" "topicCategory"]
        :label     "Topic categories"}
       [m4/select-value
-       {:form-id    [:form]
-        :data-path  ["identificationInfo" "topicCategory"]
-        :value-path ["value"]
-        :label-path ["label"]
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "topicCategory"]
+        :value-path  ["value"]
+        :label-path  ["label"]
         :placeholder "Please select"
-        :options    [{"value" "biota"
-                      "label" "biota"}
-                     {"value" "climatology/meteorology/atmosphere"
-                      "label" "climatology/meteorology/atmosphere"}
-                     {"value" "oceans"
-                      "label" "oceans"}
-                     {"value" "geoscientificInformation"
-                      "label" "geoscientificInformation"}
-                     {"value" "inlandWater"
-                      "label" "inlandWater"}]}]]
+        :options     [{"value" "biota"
+                       "label" "biota"}
+                      {"value" "climatology/meteorology/atmosphere"
+                       "label" "climatology/meteorology/atmosphere"}
+                      {"value" "oceans"
+                       "label" "oceans"}
+                      {"value" "geoscientificInformation"
+                       "label" "geoscientificInformation"}
+                      {"value" "inlandWater"
+                       "label" "inlandWater"}]}]]
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "status"]}
@@ -257,41 +257,41 @@
         :options    [{"value" "onGoing" "label" "ongoing"}
                      {"value" "planned" "label" "planned"}
                      {"value" "completed" "label" "completed"}]}]]
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]}
-    ;  [m4/select-value
-    ;   {:form-id    [:form]
-    ;    :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
-    ;    :value-path ["value"]
-    ;    :label-path ["label"]
-    ;    :options    [{"value" "continually" "label" "Continually"}
-    ;                 {"value" "daily" "label" "Daily"}
-    ;                 {"value" "weekly" "label" "Weekly"}
-    ;                 {"value" "fortnightly" "label" "Fortnightly"}
-    ;                 {"value" "monthly" "label" "Monthly"}
-    ;                 {"value" "quarterly" "label" "Quarterly"}
-    ;                 {"value" "biannually" "label" "Twice each year"}
-    ;                 {"value" "annually" "label" "Annually"}
-    ;                 {"value" "asNeeded" "label" "As required"}
-    ;                 {"value" "irregular" "label" "Irregular"}
-    ;                 {"value" "notPlanned" "label" "None planned"}
-    ;                 {"value" "unknown" "label" "Unknown"}
-    ;                 {"value" "periodic" "label" "Periodic"}
-    ;                 {"value" "semimonthly" "label" "Twice a month"}
-    ;                 {"value" "biennially" "label" "Every 2 years"}]}]]
+     ; [m4/form-group
+     ;  {:form-id   [:form]
+     ;   :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]}
+     ;  [m4/select-value
+     ;   {:form-id    [:form]
+     ;    :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
+     ;    :value-path ["value"]
+     ;    :label-path ["label"]
+     ;    :options    [{"value" "continually" "label" "Continually"}
+     ;                 {"value" "daily" "label" "Daily"}
+     ;                 {"value" "weekly" "label" "Weekly"}
+     ;                 {"value" "fortnightly" "label" "Fortnightly"}
+     ;                 {"value" "monthly" "label" "Monthly"}
+     ;                 {"value" "quarterly" "label" "Quarterly"}
+     ;                 {"value" "biannually" "label" "Twice each year"}
+     ;                 {"value" "annually" "label" "Annually"}
+     ;                 {"value" "asNeeded" "label" "As required"}
+     ;                 {"value" "irregular" "label" "Irregular"}
+     ;                 {"value" "notPlanned" "label" "None planned"}
+     ;                 {"value" "unknown" "label" "Unknown"}
+     ;                 {"value" "periodic" "label" "Periodic"}
+     ;                 {"value" "semimonthly" "label" "Twice a month"}
+     ;                 {"value" "biennially" "label" "Every 2 years"}]}]]
      [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
 
     :what
     [:div
-    ; [m4/page-errors
-    ;  {:form-id    [:form]
-    ;   :data-path  []
-    ;   :data-paths [["identificationInfo" "abstract"]]}]
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["identificationInfo" "abstract"]]}]
      [:h2 "2. What"]
      [m4/form-group
-      {:form-id   [:form]
-       :data-path ["identificationInfo" "abstract"]
+      {:form-id    [:form]
+       :data-path  ["identificationInfo" "abstract"]
        :helperText "Describe the content of the resource; e.g. what information was collected, how was it collected, brief statement about the purpose of the study"}
       [m4/textarea-field
        {:form-id     [:form]
@@ -322,75 +322,76 @@
         :value-path      ["uri"]
         :breadcrumb-path ["breadcrumb"]}]]
 
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]
-    ;   :label     "Additional theme keywords"}
-    ;  [:div "Enter your own additional theme keywords as required and click + to add"]
-    ;  [m4/selection-list-values
-    ;   {:form-id   [:form]
-    ;    :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]}]
-    ;  [m4/text-add-button
-    ;   {:form-id     [:form]
-    ;    :data-path   ["identificationInfo" "keywordsThemeExtra" "keywords"]
-    ;    :button-text "Add"}]]
-    ;
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]
-    ;   :label     "Taxon keywords"}
-    ;  [:div "Add any taxon names describing your data and click + to add"]
-    ;  [m4/selection-list-values
-    ;   {:form-id   [:form]
-    ;    :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]}]
-    ;  [m4/text-add-button
-    ;   {:form-id     [:form]
-    ;    :data-path   ["identificationInfo" "keywordsTaxonExtra" "keywords"]
-    ;    :button-text "Add"}]]
-    ;
+     ; [m4/form-group
+     ;  {:form-id   [:form]
+     ;   :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]
+     ;   :label     "Additional theme keywords"}
+     ;  [:div "Enter your own additional theme keywords as required and click + to add"]
+     ;  [m4/selection-list-values
+     ;   {:form-id   [:form]
+     ;    :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]}]
+     ;  [m4/text-add-button
+     ;   {:form-id     [:form]
+     ;    :data-path   ["identificationInfo" "keywordsThemeExtra" "keywords"]
+     ;    :button-text "Add"}]]
+     ;
+     ; [m4/form-group
+     ;  {:form-id   [:form]
+     ;   :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]
+     ;   :label     "Taxon keywords"}
+     ;  [:div "Add any taxon names describing your data and click + to add"]
+     ;  [m4/selection-list-values
+     ;   {:form-id   [:form]
+     ;    :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]}]
+     ;  [m4/text-add-button
+     ;   {:form-id     [:form]
+     ;    :data-path   ["identificationInfo" "keywordsTaxonExtra" "keywords"]
+     ;    :button-text "Add"}]]
+     ;
      ;; TODO add theme keywords
      [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
 
-    ;:when
-    ;[:div
-    ; [m4/page-errors
-    ;  {:form-id    [:form]
-    ;   :data-path  []
-    ;   :data-paths [["identificationInfo" "beginPosition"]
-    ;                ["identificationInfo" "endPosition"]
-    ;                ["identificationInfo" "samplingFrequency"]]}]
-    ; [:h2 "3. When was the data acquired?"]
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "beginPosition"]}
-    ;  [m4/date-field2
-    ;   {:form-id   [:form]
-    ;    :data-path ["identificationInfo" "beginPosition"]}]]
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "endPosition"]}
-    ;  [m4/date-field2
-    ;   {:form-id   [:form]
-    ;    :data-path ["identificationInfo" "endPosition"]}]]
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "samplingFrequency"]}
-    ;  [m4/select-value
-    ;   {:form-id    [:form]
-    ;    :data-path  ["identificationInfo" "samplingFrequency"]
-    ;    :value-path ["value"]
-    ;    :label-path ["label"]
-    ;    :options    [{"value" "daily" "label" "Daily"}
-    ;                 {"value" "weekly" "label" "Weekly"}
-    ;                 {"value" "monthly" "label" "Monthly"}
-    ;                 {"value" "quarterly" "label" "Quarterly"}
-    ;                 {"value" "annually" "label" "Annually"}
-    ;                 {"value" "ongoing" "label" "Ongoing"}
-    ;                 {"value" "asNeeded" "label" "As required"}
-    ;                 {"value" "irregular" "label" "Irregular"}
-    ;                 {"value" "none-planned" "label" "None planned"}]}]]
-    ; [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
-    ;
+    :when
+    [:div
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["identificationInfo" "beginPosition"]
+     ;                ["identificationInfo" "endPosition"]
+     ;                ["identificationInfo" "samplingFrequency"]]}]
+     [:h2 "3. When was the data acquired?"]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "beginPosition"]
+       :label     "Start date"}
+      [m4/date-field2
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "beginPosition"]}]]
+     ; [m4/form-group
+     ;  {:form-id   [:form]
+     ;   :data-path ["identificationInfo" "endPosition"]}
+     ;  [m4/date-field2
+     ;   {:form-id   [:form]
+     ;    :data-path ["identificationInfo" "endPosition"]}]]
+     ; [m4/form-group
+     ;  {:form-id   [:form]
+     ;   :data-path ["identificationInfo" "samplingFrequency"]}
+     ;  [m4/select-value
+     ;   {:form-id    [:form]
+     ;    :data-path  ["identificationInfo" "samplingFrequency"]
+     ;    :value-path ["value"]
+     ;    :label-path ["label"]
+     ;    :options    [{"value" "daily" "label" "Daily"}
+     ;                 {"value" "weekly" "label" "Weekly"}
+     ;                 {"value" "monthly" "label" "Monthly"}
+     ;                 {"value" "quarterly" "label" "Quarterly"}
+     ;                 {"value" "annually" "label" "Annually"}
+     ;                 {"value" "ongoing" "label" "Ongoing"}
+     ;                 {"value" "asNeeded" "label" "As required"}
+     ;                 {"value" "irregular" "label" "Irregular"}
+     ;                 {"value" "none-planned" "label" "None planned"}]}]]
+     [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
+
     ;:where
     ;[:div
     ; [m4/page-errors

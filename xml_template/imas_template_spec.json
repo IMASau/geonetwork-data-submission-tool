@@ -159,6 +159,15 @@
           },
           "xpath_required": true,
           "rules": ["requiredField"]
+        },
+        "beginPosition": {
+          "!docstring": "When1",
+          "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
+          "required": true,
+          "xpath_required": true,
+          "keep": false,
+          "type": "string",
+          "rules": ["requiredField"]
         }
       }
     }

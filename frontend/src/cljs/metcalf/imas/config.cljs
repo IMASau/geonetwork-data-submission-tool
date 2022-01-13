@@ -427,11 +427,11 @@
     ;     :data-path   ["identificationInfo" "geographicElement" "boxes"]
     ;     :title       "Bounding box"
     ;     :template-id :box/user-defined-entry-form}]]]
-    ; [:h3 "Vertical Coverage"]
-    ; [m4/checkbox-field
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "verticalElement" "hasVerticalExtent"]
-    ;   :label     "Does data have a vertical coverage?"}]
+     [:h3 "Vertical Coverage"]
+     [m4/checkbox-field
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "verticalElement" "hasVerticalExtent"]
+       :label     "Does data have a vertical coverage?"}]
     ; [m4/form-group
     ;  {:form-id   [:form]
     ;   :data-path ["identificationInfo" "verticalElement" "verticalCRS"]}

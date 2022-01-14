@@ -456,6 +456,7 @@
      ; [m4/form-group
      ;  {:form-id    [:form]
      ;   :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
+     ;   :label      "Maximum"
      ;   :helperText "Deepest depth / highest altitude"}
      ;  [m4/numeric-input-field
      ;   {:form-id   [:form]

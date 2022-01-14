@@ -446,11 +446,6 @@
 			<mri:extent>
 				<gex:EX_Extent>
 
-					<gex:description>
-						<!-- I (Emma) can't remember if we asked for this - it's in the TERN instance. -->
-						<gco:CharacterString>Placeholder text=A descriptive reference for the site locality. May include a project code. Example: Geelong (Site: G145), VIC, Australia</gco:CharacterString>
-					</gex:description>
-
 					<gex:geographicElement>
 						<!-- The user may input the approximate location where the data was acquired specified as 4 different coordinates. 
 					Data collected at a point has two coordinates entered across the four attributes as illustrated below. -->

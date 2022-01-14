@@ -457,15 +457,15 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "verticalElement" "minimumValue"]
         :class     "wauto"}]]
-     ; [m4/form-group
-     ;  {:form-id    [:form]
-     ;   :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
-     ;   :label      "Maximum"
-     ;   :helperText "Deepest depth / highest altitude"}
-     ;  [m4/numeric-input-field
-     ;   {:form-id   [:form]
-     ;    :data-path ["identificationInfo" "verticalElement" "maximumValue"]
-     ;    :class     "wauto"}]]
+      [m4/form-group
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
+        :label      "Maximum"
+        :helperText "Deepest depth / highest altitude"}
+       [m4/numeric-input-field
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "verticalElement" "maximumValue"]
+         :class     "wauto"}]]
      [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
     :box/user-defined-entry-form

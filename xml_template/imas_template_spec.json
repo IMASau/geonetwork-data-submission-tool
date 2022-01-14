@@ -236,6 +236,11 @@
               "type": "number",
               "xpath": "gex:minimumValue/gco:Real",
               "keep": false
+            },
+            "maximumValue": {
+              "type": "number",
+              "xpath": "gex:maximumValue/gco:Real",
+              "keep": false
             }
           }
         },

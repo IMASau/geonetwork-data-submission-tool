@@ -154,6 +154,7 @@
         "geographicElement": {
           "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",
           "type": "object",
+          "rules": ["geographyRequired"],
           "properties": {
             "hasGeographicCoverage": {
               "export": false,
@@ -209,13 +210,17 @@
         "verticalElement": {
           "xpath": "mri:extent/gex:EX_Extent/gex:verticalElement/gex:EX_VerticalExtent",
           "type": "object",
+          "rules": [
+            "imasVerticalRequired"
+          ],
           "properties": {
             "hasVerticalExtent": {
               "export": false,
               "type": "boolean"
             },
             "verticalCRS": {
-              "xpath": "gex:verticalCRS/gml:VerticalCRS",
+              "xpath": "gex:verticalCRS",
+              "valueChild": "gml:VerticalCRS",
               "type": "object",
               "keep": false,
               "properties": {
@@ -234,7 +239,8 @@
             },
             "minimumValue": {
               "type": "number",
-              "xpath": "gex:minimumValue/gco:Real",
+              "xpath": "gex:minimumValue",
+              "valueChild": "gco:Real",
               "keep": false,
               "rules": [
                 "positive"
@@ -242,7 +248,8 @@
             },
             "maximumValue": {
               "type": "number",
-              "xpath": "gex:maximumValue/gco:Real",
+              "xpath": "gex:minimumValue",
+              "valueChild": "gco:Real",
               "keep": false,
               "rules": [
                 "positive"

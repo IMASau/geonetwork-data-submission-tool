@@ -238,8 +238,13 @@ def extract_value_from_element(spec, element, **kwargs):
     if element is None:
         raise Exception("Expected a valid element to extract value from")
 
-    if spec.get('type') == 'boolean':
-        return element.xpath("boolean(*)", **kwargs)
+    if spec.get('type') == 'number':
+        return element.xpath("number(text())", **kwargs)
+
+    # elif spec.get('type') == 'integer':
+    #     num = element.xpath("number(text())", **kwargs)
+    #     # TODO: assert integer (no loss of resolution)
+    #     return num
 
     value_element = element.xpath('*', **kwargs)
     if value_element and len(value_element) == 1:

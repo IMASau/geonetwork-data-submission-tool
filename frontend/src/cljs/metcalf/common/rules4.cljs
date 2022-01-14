@@ -168,7 +168,8 @@
     (s/assert boolean? shown?)
     (-> geographicElement
         (update-in [:content "boxes" :props] merge props)
-        (update-in [:content "boxes"] required-field (:required props)))))
+        (update-in [:content "boxes"] required-field (:required props))
+        (cond-> (not shown?) (assoc-in [:content "boxes" :content] [])))))
 
 (defn spatial-resolution-units
   "Depending on the resolution attribute chosen, the units for the value

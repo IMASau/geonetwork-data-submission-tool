@@ -154,6 +154,7 @@
         "geographicElement": {
           "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",
           "type": "object",
+          "rules": ["geographyRequired"],
           "properties": {
             "hasGeographicCoverage": {
               "export": false,

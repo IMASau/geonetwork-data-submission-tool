@@ -238,8 +238,13 @@ def extract_value_from_element(spec, element, **kwargs):
     if element is None:
         raise Exception("Expected a valid element to extract value from")
 
-    if spec.get('type') == 'boolean':
-        return element.xpath("boolean(*)", **kwargs)
+    if spec.get('type') == 'number':
+        return element.xpath("number(text())", **kwargs)
+
+    # elif spec.get('type') == 'integer':
+    #     num = element.xpath("number(text())", **kwargs)
+    #     # TODO: assert integer (no loss of resolution)
+    #     return num
 
     value_element = element.xpath('*', **kwargs)
     if value_element and len(value_element) == 1:
@@ -251,15 +256,20 @@ def extract_value_from_element(spec, element, **kwargs):
 
         if value is None:
             return None
+
+        # TODO: can we remove this - will be string in json file
         elif tag == "%sDateTime" % gco:
             return datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S")
 
+        # TODO: can we remove this - will be string in json file
         elif tag == "%sDate" % gco:
             return parse_goc_date(value)
 
+        # TODO: can we remove this - could be handled by type=number massage
         elif tag == "%sDecimal" % gco:
             return Decimal(value)
 
+        # TODO: can we remove this - default case is return string
         elif tag == "%sCharacterString" % gco:
             return value
 
@@ -375,7 +385,7 @@ def parse_attributes(spec, namespaces):
             else:
                 namespaced_attrs[attr] = value
     except KeyError:
-        return {'text': lambda x: x}
+        return {'text': lambda x: str(x)}
     return namespaced_attrs
 
 

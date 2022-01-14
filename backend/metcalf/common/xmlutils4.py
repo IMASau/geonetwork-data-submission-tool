@@ -385,7 +385,7 @@ def parse_attributes(spec, namespaces):
             else:
                 namespaced_attrs[attr] = value
     except KeyError:
-        return {'text': lambda x: x}
+        return {'text': lambda x: str(x)}
     return namespaced_attrs
 
 

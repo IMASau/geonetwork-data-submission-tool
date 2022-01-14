@@ -447,7 +447,7 @@
 				<gex:EX_Extent>
 
 					<gex:geographicElement>
-						<!-- The user may input the approximate location where the data was acquired specified as 4 different coordinates. 
+						<!-- The user may input the approximate location where the data was acquired specified as 4 different coordinates.
 					Data collected at a point has two coordinates entered across the four attributes as illustrated below. -->
 						<gex:EX_GeographicBoundingBox>
 							<gex:westBoundLongitude>
@@ -989,6 +989,24 @@
 			</mrd:transferOptions>
 		</mrd:MD_Distribution>
 	</mdb:distributionInfo>
+
+	<mdb:resourceLineage>
+		<mrl:LI_Lineage>
+			<mrl:statement>
+				<!-- The user may provide an overview of the methodology used to acquire and/or process the data -->
+				<gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods.
+					Example: Data was collected at the site using the methods described in yyy Manual, refer to somedoi.org</gco:CharacterString>
+			</mrl:statement>
+			<mrl:scope>
+				<mcc:MD_Scope>
+					<mcc:level>
+						<mcc:MD_ScopeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ScopeCode"
+										  codeListValue="dataset"/>
+					</mcc:level>
+				</mcc:MD_Scope>
+			</mrl:scope>
+		</mrl:LI_Lineage>
+	</mdb:resourceLineage>
 
 	<!-- PLATFORM and INSTRUMENTS are replicated here, and packaged together-->
 	<mdb:acquisitionInformation xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0" xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/1.0" xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/1.0">

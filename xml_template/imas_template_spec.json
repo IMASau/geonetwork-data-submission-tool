@@ -214,6 +214,24 @@
               "export": false,
               "type": "boolean"
             },
+            "verticalCRS": {
+              "xpath": "gex:verticalCRS/gml:VerticalCRS",
+              "type": "object",
+              "keep": false,
+              "properties": {
+                "identifier": {
+                  "xpath": "gml:identifier",
+                  "type": "string"
+                },
+                "name": {
+                  "xpath": "gml:name",
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                }
+              }
+            },
             "minimumValue": {
               "type": "number",
               "xpath": "gex:minimumValue/gco:Real",

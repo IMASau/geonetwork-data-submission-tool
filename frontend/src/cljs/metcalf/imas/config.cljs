@@ -432,18 +432,22 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "verticalElement" "hasVerticalExtent"]
        :label     "Does data have a vertical coverage?"}]
-     ;[m4/form-group
-     ; {:form-id   [:form]
-     ;  :data-path ["identificationInfo" "verticalElement" "verticalCRS"]
-     ;  :label     "Vertical type"}
-     ; [m4/select-option-simple
-     ;  {:form-id     [:form]
-     ;   :data-path   ["identificationInfo" "verticalElement" "verticalCRS"]
-     ;   :value-path  ["value"]
-     ;   :label-path  ["label"]
-     ;   :placeholder "Please select"
-     ;   :options     [{"label" "Depth (distance below mean sea level)" "value" "EPSG::5715"}
-     ;                 {"label" "Altitude (height above mean sea level)" "value" "EPSG::5714"}]}]]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "verticalElement" "verticalCRS"]
+       :label     "Vertical type"}
+      [m4/select-option-simple
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "verticalElement" "verticalCRS"]
+        :value-path  ["identifier"]
+        :label-path  ["label"]
+        :placeholder "Please select"
+        :options     [{"label" "Depth (distance below mean sea level)"
+                       "name" "MSL depth"
+                       "identifier" "EPSG::5715"}
+                      {"label" "Altitude (height above mean sea level)"
+                       "name" "MSL altitude"
+                       "identifier" "EPSG::5714"}]}]]
      [m4/form-group
       {:form-id    [:form]
        :data-path  ["identificationInfo" "verticalElement" "minimumValue"]

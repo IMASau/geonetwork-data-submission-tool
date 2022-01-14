@@ -162,11 +162,17 @@
           }
         },
         "verticalElement": {
+          "xpath": "mri:extent/gex:EX_Extent/gex:verticalElement/gex:EX_VerticalExtent",
           "type": "object",
           "properties": {
             "hasVerticalExtent": {
               "export": false,
               "type": "boolean"
+            },
+            "minimumValue": {
+              "type": "number",
+              "xpath": "gex:minimumValue/gco:Real",
+              "keep": false
             }
           }
         },

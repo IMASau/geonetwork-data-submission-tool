@@ -943,13 +943,19 @@
               "!docstring": "Where7",
               "type": "number",
               "xpath": "gex:minimumValue/gco:Real",
-              "keep": false
+              "keep": false,
+              "rules": [
+                "positive"
+              ]
             },
             "maximumValue": {
               "!docstring": "Where8",
               "type": "number",
               "xpath": "gex:maximumValue/gco:Real",
-              "keep": false
+              "keep": false,
+              "rules": [
+                "positive"
+              ]
             }
           }
         },

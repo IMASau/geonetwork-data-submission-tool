@@ -235,12 +235,18 @@
             "minimumValue": {
               "type": "number",
               "xpath": "gex:minimumValue/gco:Real",
-              "keep": false
+              "keep": false,
+              "rules": [
+                "positive"
+              ]
             },
             "maximumValue": {
               "type": "number",
               "xpath": "gex:maximumValue/gco:Real",
-              "keep": false
+              "keep": false,
+              "rules": [
+                "positive"
+              ]
             }
           }
         },

@@ -209,6 +209,9 @@
         "verticalElement": {
           "xpath": "mri:extent/gex:EX_Extent/gex:verticalElement/gex:EX_VerticalExtent",
           "type": "object",
+          "rules": [
+            "imasVerticalRequired"
+          ],
           "properties": {
             "hasVerticalExtent": {
               "export": false,
@@ -234,12 +237,14 @@
             },
             "minimumValue": {
               "type": "number",
-              "xpath": "gex:minimumValue/gco:Real",
+              "xpath": "gex:minimumValue",
+              "valueChild": "gco:Real",
               "keep": false
             },
             "maximumValue": {
               "type": "number",
-              "xpath": "gex:maximumValue/gco:Real",
+              "xpath": "gex:maximumValue",
+              "valueChild": "gco:Real",
               "keep": false
             }
           }

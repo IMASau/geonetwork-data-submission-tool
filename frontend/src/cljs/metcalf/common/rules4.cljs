@@ -61,15 +61,15 @@
 (defn- -enforce-required-subfields
   [block field-list]
   (reduce
-   (fn [blk fld]
-     (let [val (blocks4/as-data (get-in blk (blocks4/block-path fld)))]
-       (cond-> blk
-         (contains? empty-values val)
-         (update-in (conj (blocks4/block-path fld) :props)
-                    merge {:required true
-                           :errors ["Field is required"]}))))
-   block
-   field-list))
+    (fn [blk fld]
+      (let [val (blocks4/as-data (get-in blk (blocks4/block-path fld)))]
+        (cond-> blk
+          (contains? empty-values val)
+          (update-in (conj (blocks4/block-path fld) :props)
+                     merge {:required true
+                            :errors   ["Field is required"]}))))
+    block
+    field-list))
 
 (defn tern-org-or-person
   "Certain entities (responsible party, point-of-contact) can be either
@@ -87,8 +87,8 @@
 
       ;; default
       (do (log {:level :warn
-                :msg "Unexpected partyType"
-                :data party-type})
+                :msg   "Unexpected partyType"
+                :data  party-type})
           block))))
 
 
@@ -145,9 +145,9 @@
                            (not (string/blank? d1))         ; FIXME: payload includes "" instead of null
                            (not= r (sort r)))]
     (cond-> block
-            out-of-order?
-            (update-in [:content field1 :props :errors] conj
-                       (str "Must be after " (cljs-time/humanize-date (cljs-time/value-to-date d0)))))))
+      out-of-order?
+      (update-in [:content field1 :props :errors] conj
+                 (str "Must be after " (cljs-time/humanize-date (cljs-time/value-to-date d0)))))))
 
 (defn date-before-today
   "Date must be historic, ie before current date"
@@ -184,7 +184,7 @@
         (assoc-in [:content "ResolutionAttributeUnits" :props :value] units)
         (update-in [:content "ResolutionAttributeValue" :props]
                    merge {:required (not= resolution-attribute "None")
-                          :disabled (=    resolution-attribute "None")}))))
+                          :disabled (= resolution-attribute "None")}))))
 
 (defn imas-vertical-required
   "Vertical fields are required / included based on vertical extent checkbox"
@@ -199,6 +199,9 @@
           (update-in [:content "minimumValue"] required-field true)
           (update-in [:content "verticalCRS"] required-field true))
       (-> verticalElement
+          (update-in [:content "maximumValue" :props] dissoc :value)
+          (update-in [:content "minimumValue" :props] dissoc :value)
+          (update-in [:content "verticalCRS"] dissoc :content)
           (assoc-in [:content "maximumValue" :props :required] false)
           (assoc-in [:content "minimumValue" :props :required] false)
           (assoc-in [:content "verticalCRS" :props :required] false)

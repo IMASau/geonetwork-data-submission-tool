@@ -967,6 +967,7 @@
               "!docstring": "Where7",
               "type": "number",
               "xpath": "gex:minimumValue/gco:Real",
+              "keep": false,
               "attributes": {
                 "text": {
                   "function": "to_string"
@@ -980,6 +981,7 @@
               "!docstring": "Where8",
               "type": "number",
               "xpath": "gex:maximumValue/gco:Real",
+              "keep": false,
               "attributes": {
                 "text": {
                   "function": "to_string"

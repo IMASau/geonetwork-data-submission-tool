@@ -853,21 +853,21 @@
             },
             "boxes": {
               "!docstring": "Where2",
-              "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
+              "xpath": "gex:geographicElement",
               "rules": [
                 "requiredField"
               ],
               "keep": false,
               "type": "array",
               "items": {
-                "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
+                "xpath": "gex:geographicElement",
                 "type": "object",
                 "properties": {
                   "uri": {},
                   "isUserDefined": {},
                   "westBoundLongitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:westBoundLongitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:westBoundLongitude",
                     "rules": [
                       "requiredField"
                     ],
@@ -880,7 +880,7 @@
                   },
                   "eastBoundLongitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:eastBoundLongitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:eastBoundLongitude",
                     "rules": [
                       "requiredField"
                     ],
@@ -893,7 +893,7 @@
                   },
                   "southBoundLatitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:southBoundLatitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:southBoundLatitude",
                     "rules": [
                       "requiredField"
                     ],
@@ -906,7 +906,7 @@
                   },
                   "northBoundLatitude": {
                     "valueChild": "gco:Decimal",
-                    "xpath": "gex:northBoundLatitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:northBoundLatitude",
                     "rules": [
                       "requiredField"
                     ],

@@ -218,7 +218,8 @@
               "type": "boolean"
             },
             "verticalCRS": {
-              "xpath": "gex:verticalCRS/gml:VerticalCRS",
+              "xpath": "gex:verticalCRS",
+              "valueChild": "gml:VerticalCRS",
               "type": "object",
               "keep": false,
               "properties": {

@@ -510,9 +510,7 @@
       [m4/date-field2
        {:form-id   [:form]
         :data-path ["identificationInfo" "datePublication"]
-        :required  true}]]
-
-     [:label "TODO: revision date?"]]
+        :required  true}]]]
 
     :what
     [:div

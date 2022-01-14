@@ -870,48 +870,28 @@
                     "rules": [
                       "requiredField"
                     ],
-                    "type": "number",
-                    "attributes": {
-                      "text": {
-                        "function": "to_string"
-                      }
-                    }
+                    "type": "number"
                   },
                   "eastBoundLongitude": {
                     "xpath": "gex:EX_GeographicBoundingBox/gex:eastBoundLongitude/gco:Decimal",
                     "rules": [
                       "requiredField"
                     ],
-                    "type": "number",
-                    "attributes": {
-                      "text": {
-                        "function": "to_string"
-                      }
-                    }
+                    "type": "number"
                   },
                   "southBoundLatitude": {
                     "xpath": "gex:EX_GeographicBoundingBox/gex:southBoundLatitude/gco:Decimal",
                     "rules": [
                       "requiredField"
                     ],
-                    "type": "number",
-                    "attributes": {
-                      "text": {
-                        "function": "to_string"
-                      }
-                    }
+                    "type": "number"
                   },
                   "northBoundLatitude": {
                     "xpath": "gex:EX_GeographicBoundingBox/gex:northBoundLatitude/gco:Decimal",
                     "rules": [
                       "requiredField"
                     ],
-                    "type": "number",
-                    "attributes": {
-                      "text": {
-                        "function": "to_string"
-                      }
-                    }
+                    "type": "number"
                   }
                 }
               }
@@ -964,11 +944,6 @@
               "type": "number",
               "xpath": "gex:minimumValue/gco:Real",
               "keep": false,
-              "attributes": {
-                "text": {
-                  "function": "to_string"
-                }
-              },
               "parser": {
                 "function": "parse_number"
               }
@@ -978,11 +953,6 @@
               "type": "number",
               "xpath": "gex:maximumValue/gco:Real",
               "keep": false,
-              "attributes": {
-                "text": {
-                  "function": "to_string"
-                }
-              },
               "parser": {
                 "function": "parse_number"
               }

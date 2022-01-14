@@ -139,6 +139,7 @@
        "licenseOther"         rules4/license-other
        "dateOrder"            rules4/date-order
        "endPosition"          rules4/end-position
+       "positive"             rules4/force-positive
        "maintFreq"            rules4/maint-freq})
 
 ; Specs intended for use with when-data :pred

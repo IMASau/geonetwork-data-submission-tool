@@ -122,6 +122,16 @@
   [block maxLength]
   (assoc-in block [:props :maxLength] maxLength))
 
+(defn force-positive
+  "A numeric field should have a positive value (does not assume that a
+  value exists)"
+  [block]
+  (let [val (get-in block [:props :value])
+        negative? (and val (> 0 (js/parseFloat val)))]
+    (cond-> block
+      negative?
+      (update-in [:props :errors] conj "Value must be positive"))))
+
 (defn numeric-order
   "Two numeric fields (eg a min and a max) should appear in order."
   [block {:keys [field-min field-max]}]

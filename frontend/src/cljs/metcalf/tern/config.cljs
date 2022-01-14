@@ -139,6 +139,7 @@
        "geographyRequired" rules4/geography-required
        "licenseOther"      rules4/license-other
        "numericOrder"      rules4/numeric-order
+       "positive"          rules4/force-positive
        "dateOrder"         rules4/date-order
        "dateBeforeToday"   rules4/date-before-today
        "endPosition"       rules4/end-position

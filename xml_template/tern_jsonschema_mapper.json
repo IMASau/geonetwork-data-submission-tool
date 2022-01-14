@@ -866,8 +866,7 @@
                   "uri": {},
                   "isUserDefined": {},
                   "westBoundLongitude": {
-                    "valueChild": "gco:Decimal",
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:westBoundLongitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:westBoundLongitude/gco:Decimal",
                     "rules": [
                       "requiredField"
                     ],
@@ -879,8 +878,7 @@
                     }
                   },
                   "eastBoundLongitude": {
-                    "valueChild": "gco:Decimal",
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:eastBoundLongitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:eastBoundLongitude/gco:Decimal",
                     "rules": [
                       "requiredField"
                     ],
@@ -892,8 +890,7 @@
                     }
                   },
                   "southBoundLatitude": {
-                    "valueChild": "gco:Decimal",
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:southBoundLatitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:southBoundLatitude/gco:Decimal",
                     "rules": [
                       "requiredField"
                     ],
@@ -905,8 +902,7 @@
                     }
                   },
                   "northBoundLatitude": {
-                    "valueChild": "gco:Decimal",
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:northBoundLatitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:northBoundLatitude/gco:Decimal",
                     "rules": [
                       "requiredField"
                     ],

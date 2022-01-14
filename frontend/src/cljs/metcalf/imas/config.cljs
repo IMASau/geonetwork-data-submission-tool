@@ -446,7 +446,7 @@
                        "name" "MSL depth"
                        "identifier" "EPSG::5715"}
                       {"label" "Altitude (height above mean sea level)"
-                       "name" "MSL altitude"
+                       "name" "MSL height"
                        "identifier" "EPSG::5714"}]}]]
      [m4/form-group
       {:form-id    [:form]

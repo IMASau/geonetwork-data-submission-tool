@@ -342,6 +342,19 @@
           "rules": ["requiredField"]
         }
       }
+    },
+    "resourceLineage": {
+      "xpath": "mdb:resourceLineage/mrl:LI_Lineage",
+      "type": "object",
+      "properties": {
+        "statement": {
+          "type": "string",
+          "xpath": "mrl:statement",
+          "valueChild": "gco:CharacterString",
+          "keep": false,
+          "rules": ["requiredField"]
+        }
+      }
     }
   }
 }

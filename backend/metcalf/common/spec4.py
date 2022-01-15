@@ -76,8 +76,12 @@ def full_xpaths_step(schema):
     full_xpath = schema.get("full_xpath")
     xpath = schema.get("xpath")
     parent_xpath = schema.get("parent_xpath")
-    if xpath and xpath.startswith("/"):
-        schema['full_xpath'] = xpath
+    if schema.get("type") == "array":
+        full_xpath = parent_xpath
+        schema['full_xpath'] = full_xpath
+    elif xpath and xpath.startswith("/"):
+        full_xpath = xpath
+        schema['full_xpath'] = full_xpath
     elif not full_xpath and xpath and parent_xpath:
         full_xpath = parent_xpath + "/" + xpath
         schema['full_xpath'] = full_xpath

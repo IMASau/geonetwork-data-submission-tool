@@ -405,13 +405,13 @@ def extract2(tree, spec, parsers, **kwargs):
 
     Object
     - No annotations
-    - Passes tree to recursive call extract_xml_data2
+    - Passes tree to recursive call
     - Properties which return data are included
 
     Array
     - Annotation 'extract2_array_xpath' is optional
     - Finds items using extract2_array_xpath
-    - Passes matching item as tree to recursive call extract_xml_data2
+    - Passes matching item as tree to recursive call
     - Each item must return data
 
     Value

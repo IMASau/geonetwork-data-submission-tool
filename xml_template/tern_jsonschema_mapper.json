@@ -70,7 +70,15 @@
           },
           "name": {
             "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:name/gco:CharacterString",
-            "required": false
+            "required": true,
+            "exportTo": {
+              "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:description/gco:CharacterString",
+              "attributes": {
+                "text": {
+                  "function": "generate_attachment_description"
+                }
+              }
+            }
           }
         }
       }

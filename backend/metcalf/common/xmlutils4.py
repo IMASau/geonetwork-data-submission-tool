@@ -405,7 +405,7 @@ def extract2(tree, spec, parsers, **kwargs):
     - Must include 'xpath' and 'parser'
     - Uses xpath to find nodes
     - Uses parser to lookup handler in 'parsers' registry
-    - Calls handler to extract value
+    - Calls handler with kwargs (nodes, xpath, spec).  Should return (hit, val) tuple.
 
     extract2_branch
     - Must include 'xpath'
@@ -423,7 +423,7 @@ def extract2(tree, spec, parsers, **kwargs):
 
     :param tree: Element used to query xpaths and extract values
     :param spec: Spec being traversed
-    :param parsers: registry of parsers
+    :param parsers: registry of parser handlers
     :param kwargs: Additional context passed to ele.xpath (namespaces...)
     :return: hit, data - hit indicates presence of extracted data value
     """

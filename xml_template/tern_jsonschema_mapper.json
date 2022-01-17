@@ -1547,6 +1547,26 @@
           "required": false,
           "type": "string"
         },
+        "thumbnail": {
+          "!docstring": "DataSource3",
+          "type": "object",
+          "xpath": "mri:graphicOverview/mcc:MD_BrowseGraphic",
+          "keep": "false",
+          "properties": {
+            "title": {
+              "type": "string",
+              "xpath": "mcc:linkage/cit:CI_OnlineResource/cit:name/gco:CharacterString"
+            },
+            "file": {
+              "type": "string",
+              "xpath": "mcc:linkage/cit:CI_OnlineResource/cit:linkage/gco:CharacterString"
+            },
+            "name": {
+              "type": "string",
+              "xpath": "mcc:fileName/gco:CharacterString"
+            }
+          }
+        },
         "doi": {
           "!docstring": "Lodge4",
           "xpath": "mri:citation/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code",

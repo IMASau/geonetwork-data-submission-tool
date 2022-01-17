@@ -447,7 +447,7 @@ def extract2(tree, spec, parsers, **kwargs):
         assert handler, "extract2_leaf parser must resolve to handler"
 
         nodes = tree.xpath(xpath, **kwargs)
-        parser_kwargs = {"nodes": nodes, "xpath": xpath}
+        parser_kwargs = {"nodes": nodes, "xpath": xpath, "spec": spec}
         hit, value = handler(**parser_kwargs)
 
         if hit:

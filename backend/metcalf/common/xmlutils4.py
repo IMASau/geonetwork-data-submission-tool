@@ -1,6 +1,7 @@
 import datetime
 import inspect
 import logging
+import math
 from copy import deepcopy
 from decimal import Decimal
 from functools import partial
@@ -361,6 +362,132 @@ def extract_xml_data(tree, spec, **kwargs):
             return get_default(spec)
     else:
         assert len(elements) > 0, ["No xml element matches for required", get_xpath(spec), tree]
+
+
+def extract2_not_empty_parser(nodes, **kwargs):
+    return True, len(nodes) > 0
+
+
+def extract2_text_string_parser(nodes, xpath, **kwargs):
+    if len(nodes) == 0:
+        return False, None
+    elif len(nodes) == 1:
+        text = nodes[0]
+        return True, text
+    else:
+        raise Exception('Multiple xpath matches for value %s' % {'xpath': xpath, 'nodes': nodes})
+
+
+def extract2_text_number_parser(nodes, xpath, **kwargs):
+    if len(nodes) == 0:
+        return False, None
+    elif len(nodes) == 1:
+        text = nodes[0]
+        ret = float(text)
+        if math.isnan(ret):
+            raise Exception('Unable to parse value as number %s' % {'xpath': xpath, 'nodes': nodes, 'value': text})
+        else:
+            return True, ret
+    else:
+        raise Exception('Multiple xpath matches for value %s' % {'xpath': xpath, 'nodes': nodes})
+
+
+# TODO: WIP Experimental
+def extract2(tree, spec, parsers, **kwargs):
+    """
+    Traverse spec and extracts data from xml tree.
+
+    Operates based annotations
+    - extract2_leaf or extract2_branch (mutually exclusive)
+    - extract2_default
+
+    extract2_leaf
+    - Must include 'xpath' and 'parser'
+    - Uses xpath to find nodes
+    - Uses parser to lookup handler in 'parsers' registry
+    - Calls handler with kwargs (nodes, xpath, spec).  Should return (hit, val) tuple.
+
+    extract2_branch
+    - Must include 'xpath'
+    - Finds nodes using xpath
+    - Iterates over nodes, passing as tree to recursive calls
+
+    extract2_default
+    - Defines a default value
+    - Returned if no value is extracted
+
+    Object
+    - No annotations
+    - Passes tree to recursive call
+    - Properties which return data are included
+
+    :param tree: Element used to query xpaths and extract values
+    :param spec: Spec being traversed
+    :param parsers: registry of parser handlers
+    :param kwargs: Additional context passed to ele.xpath (namespaces...)
+    :return: hit, data - hit indicates presence of extracted data value
+    """
+
+    extract2_leaf = spec.get('extract2_leaf', None)
+    extract2_branch = spec.get('extract2_branch', None)
+    has_default = 'extract2_default' in spec
+    default = spec.get('extract2_default', None)
+
+    assert not (extract2_branch and extract2_leaf), "Spec can't have both extract2_leaf and extract2_branch set"
+
+    if extract2_leaf:
+        xpath = extract2_leaf.get('xpath', None)
+        parser = extract2_leaf.get('parser', None)
+
+        assert xpath, "extract2_leaf xpath required"
+        assert parser, "extract2_leaf parser required"
+
+        handler = parsers.get(parser, None)
+
+        assert handler, "extract2_leaf parser must resolve to handler"
+
+        nodes = tree.xpath(xpath, **kwargs)
+        parser_kwargs = {"nodes": nodes, "xpath": xpath, "spec": spec}
+        hit, value = handler(**parser_kwargs)
+
+        if hit:
+            return hit, value
+
+    elif extract2_branch:
+        xpath = extract2_branch.get('xpath', None)
+        items_spec = get_items(spec)
+
+        assert xpath, "extract2_branch xpath required"
+        assert items_spec, "extract2_branch spec items required"
+
+        nodes = tree.xpath(xpath, **kwargs)
+        hits = False
+        ret = []
+        for node in nodes:
+            hit, data = extract2(node, items_spec, parsers, **kwargs)
+            hits = hits or hit
+            if hit:
+                ret.append(data)
+
+        if hits:
+            return True, ret
+
+    elif is_object(spec):
+        ret = {}
+        hits = False
+        for prop_name, prop_spec in get_properties(spec).items():
+            hit, data = extract2(tree, prop_spec, parsers, **kwargs)
+            if hit:
+                hits = True
+                ret[prop_name] = data
+
+        if hits:
+            return True, ret
+
+    if has_default:
+        return True, default
+    else:
+        return False, None
 
 
 def parse_attributes(spec, namespaces):

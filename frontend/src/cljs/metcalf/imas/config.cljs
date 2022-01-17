@@ -390,44 +390,44 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "geographicElement" "hasGeographicCoverage"]
        :label     "Does data have a geographic coverage?"}]
-      [:div.row
-       [:div.col-sm-6
-        ;; FIXME add toggle for satellite imagery.
-        [m4/boxmap-field
-         {:form-id    [:form]
-          :data-path  ["identificationInfo" "geographicElement" "boxes"]
-          :value-path ["uri"]
-          :added-path ["isUserDefined"]}]]
-       [:div.col-sm-6
+     [:div.row
+      [:div.col-sm-6
+       ;; FIXME add toggle for satellite imagery.
+       [m4/boxmap-field
+        {:form-id    [:form]
+         :data-path  ["identificationInfo" "geographicElement" "boxes"]
+         :value-path ["uri"]
+         :added-path ["isUserDefined"]}]]
+      [:div.col-sm-6
 
-        [m4/when-data
-         {:form-id   [:form]
-          :data-path ["identificationInfo" "geographicElement" "boxes"]
-          :pred      :m4/empty-list?}
-         [:p "Specify the location(s) of this study."]]
+       [m4/when-data
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "geographicElement" "boxes"]
+         :pred      :m4/empty-list?}
+        [:p "Specify the location(s) of this study."]]
 
-        [m4/selection-list-columns
-         {:form-id    [:form]
-          :data-path  ["identificationInfo" "geographicElement" "boxes"]
-          :value-path ["uri"]
-          :added-path ["isUserDefined"]
-          :columns    [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
-                       {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
-                       {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
-                       {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
+       [m4/selection-list-columns
+        {:form-id    [:form]
+         :data-path  ["identificationInfo" "geographicElement" "boxes"]
+         :value-path ["uri"]
+         :added-path ["isUserDefined"]
+         :columns    [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
+                      {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
+                      {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
+                      {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
 
-        [m4/list-add-button
-         {:form-id     [:form]
-          :data-path   ["identificationInfo" "geographicElement" "boxes"]
-          :button-text "Add new"
-          :value-path  ["uri"]
-          :added-path  ["isUserDefined"]}]
+       [m4/list-add-button
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "geographicElement" "boxes"]
+         :button-text "Add new"
+         :value-path  ["uri"]
+         :added-path  ["isUserDefined"]}]
 
-        [m4/list-edit-dialog
-         {:form-id     [:form]
-          :data-path   ["identificationInfo" "geographicElement" "boxes"]
-          :title       "Bounding box"
-          :template-id :box/user-defined-entry-form}]]]
+       [m4/list-edit-dialog
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "geographicElement" "boxes"]
+         :title       "Bounding box"
+         :template-id :box/user-defined-entry-form}]]]
      [:h3 "Vertical Coverage"]
      [m4/checkbox-field
       {:form-id   [:form]
@@ -443,11 +443,11 @@
         :value-path  ["identifier"]
         :label-path  ["label"]
         :placeholder "Please select"
-        :options     [{"label" "Depth (distance below mean sea level)"
-                       "name" "MSL depth"
+        :options     [{"label"      "Depth (distance below mean sea level)"
+                       "name"       "MSL depth"
                        "identifier" "EPSG::5715"}
-                      {"label" "Altitude (height above mean sea level)"
-                       "name" "MSL height"
+                      {"label"      "Altitude (height above mean sea level)"
+                       "name"       "MSL height"
                        "identifier" "EPSG::5714"}]}]]
      [m4/form-group
       {:form-id    [:form]
@@ -458,15 +458,15 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "verticalElement" "minimumValue"]
         :class     "wauto"}]]
-      [m4/form-group
-       {:form-id    [:form]
-        :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
-        :label      "Maximum"
-        :helperText "Deepest depth / highest altitude"}
-       [m4/numeric-input-field
-        {:form-id   [:form]
-         :data-path ["identificationInfo" "verticalElement" "maximumValue"]
-         :class     "wauto"}]]
+     [m4/form-group
+      {:form-id    [:form]
+       :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
+       :label      "Maximum"
+       :helperText "Deepest depth / highest altitude"}
+      [m4/numeric-input-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "verticalElement" "maximumValue"]
+        :class     "wauto"}]]
      [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
 
     :box/user-defined-entry-form
@@ -503,27 +503,26 @@
        {:form-id   ?form-id
         :data-path [?data-path "westBoundLongitude"]}]]]
 
-    ;:how
-    ;[:div
-    ; [m4/page-errors
-    ;  {:form-id    [:form]
-    ;   :data-path  []
-    ;   :data-paths [["resourceLineage" "lineage"]]}]
-    ; [:h2 "5: How"]
-    ; [:div.lineage-textarea
-    ;  [m4/form-group
-    ;   {:form-id    [:form]
-    ;    :data-path  ["resourceLineage" "lineage"]
-    ;    :helperText "Provide a brief statement of the methods used for collection of the
-    ;                     data, can include information regarding sampling equipment (collection hardware),
-    ;                     procedures, and precision/resolution of data collected."
-    ;    :required   true}
-    ;   [m4/textarea-field
-    ;    {:form-id     [:form]
-    ;     :data-path   ["resourceLineage" "lineage"]
-    ;     :placeholder nil}]]]
-    ; [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
-    ;
+    :how
+    [:div
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["resourceLineage" "lineage"]]}]
+     ; [:h2 "5: How"]
+     [:div.lineage-textarea
+      [m4/form-group
+       {:form-id    [:form]
+        :data-path  ["resourceLineage" "statement"]
+        :label      "Methodological information"
+        :helperText "Provide a brief statement of the methods used for collection of the
+                     data, can include information regarding sampling equipment (collection hardware),
+                     procedures, and precision/resolution of data collected."}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path  ["resourceLineage" "statement"]}]]]
+     [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
+
     ;:who
     ;[:div
     ; [m4/page-errors

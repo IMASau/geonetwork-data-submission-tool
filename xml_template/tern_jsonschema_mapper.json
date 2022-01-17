@@ -250,6 +250,7 @@
         "crsCode": {
           "!docstring": "Where3",
           "xpath": ".",
+          "keep": false,
           "type": "object",
           "properties": {
             "code": {
@@ -910,6 +911,7 @@
         "verticalElement": {
           "xpath": "mri:extent/gex:EX_Extent/gex:verticalElement/gex:EX_VerticalExtent",
           "type": "object",
+          "keep": false,
           "rules": [
             {
               "numericOrder": {
@@ -1418,7 +1420,6 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "keep": "false",
                 "xpath": "mri:keyword/gco:CharacterString"
               }
             }

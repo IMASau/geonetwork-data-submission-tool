@@ -397,30 +397,29 @@ def extract2(tree, spec, parsers, **kwargs):
     """
     Traverse spec and extracts data from xml tree.
 
-    Operates based three annotations
-    - extract2_array_xpath
-    - extract2_value_xpath
-    - extract2_value_parser
-    - extract2_value_default
+    Operates based annotations
+    - extract2_leaf or extract2_branch (mutually exclusive)
+    - extract2_default
+
+    extract2_leaf
+    - Must include 'xpath' and 'parser'
+    - Uses xpath to find nodes
+    - Uses parser to lookup handler in 'parsers' registry
+    - Calls handler to extract value
+
+    extract2_branch
+    - Must include 'xpath'
+    - Finds nodes using xpath
+    - Iterates over nodes, passing as tree to recursive calls
+
+    extract2_default
+    - Defines a default value
+    - Returned if no value is extracted
 
     Object
     - No annotations
     - Passes tree to recursive call
     - Properties which return data are included
-
-    Array
-    - Annotation 'extract2_array_xpath' is optional
-    - Finds items using extract2_array_xpath
-    - Passes matching item as tree to recursive call
-    - Each item must return data
-
-    Value
-    - Annotation 'extract2_value_xpath' is optional
-    - Annotation 'extract2_value_parser' is optional
-    - Annotation 'extract2_value_default' is optional
-    - Finds nodes using extract2_value_xpath
-    - Uses extract2_value_parser to extract value
-    - Use extract2_value_default as value if no hit
 
     :param tree: Element used to query xpaths and extract values
     :param spec: Spec being traversed
@@ -429,7 +428,51 @@ def extract2(tree, spec, parsers, **kwargs):
     :return: hit, data - hit indicates presence of extracted data value
     """
 
-    if is_object(spec):
+    extract2_leaf = spec.get('extract2_leaf', None)
+    extract2_branch = spec.get('extract2_branch', None)
+    has_default = 'extract2_default' in spec
+    default = spec.get('extract2_default', None)
+
+    assert not (extract2_branch and extract2_leaf), "Spec can't have both extract2_leaf and extract2_branch set"
+
+    if extract2_leaf:
+        xpath = extract2_leaf.get('xpath', None)
+        parser = extract2_leaf.get('parser', None)
+
+        assert xpath, "extract2_leaf xpath required"
+        assert parser, "extract2_leaf parser required"
+
+        handler = parsers.get(parser, None)
+
+        assert handler, "extract2_leaf parser must resolve to handler"
+
+        nodes = tree.xpath(xpath, **kwargs)
+        parser_kwargs = {"nodes": nodes, "xpath": xpath}
+        hit, value = handler(**parser_kwargs)
+
+        if hit:
+            return hit, value
+
+    elif extract2_branch:
+        xpath = extract2_branch.get('xpath', None)
+        items_spec = get_items(spec)
+
+        assert xpath, "extract2_branch xpath required"
+        assert items_spec, "extract2_branch spec items required"
+
+        nodes = tree.xpath(xpath, **kwargs)
+        hits = False
+        ret = []
+        for node in nodes:
+            hit, data = extract2(node, items_spec, parsers, **kwargs)
+            hits = hits or hit
+            if hit:
+                ret.append(data)
+
+        if hits:
+            return True, ret
+
+    elif is_object(spec):
         ret = {}
         hits = False
         for prop_name, prop_spec in get_properties(spec).items():
@@ -437,52 +480,14 @@ def extract2(tree, spec, parsers, **kwargs):
             if hit:
                 hits = True
                 ret[prop_name] = data
+
         if hits:
             return True, ret
-        else:
-            return False, None
 
-    elif is_array(spec):
-        xpath = spec.get('extract2_array_xpath', None)
-        if xpath is None:
-            return False, None
-
-        nodes = tree.xpath(xpath, **kwargs)
-        ret = []
-        for node in nodes:
-            items_spec = get_items(spec)
-            hit, data = extract2(node, items_spec, parsers, **kwargs)
-            if not hit:
-                raise Exception('Array items must return a value %s' % {'items_spec': items_spec, 'node': node})
-            ret.append(data)
-        return True, ret
-
+    if has_default:
+        return True, default
     else:
-        xpath = spec.get('extract2_value_xpath', None)
-        parser = spec.get('extract2_value_parser', None)
-        has_default = 'extract2_value_default' in spec
-        default = spec.get('extract2_value_default', None)
-
-        if xpath is None:
-            return False, None
-
-        if parser is None:
-            return False, None
-
-        nodes = tree.xpath(xpath, **kwargs)
-        parser_kwargs = {"nodes": nodes, "xpath": xpath}
-        parser_handler = parsers.get(parser, None)
-
-        if parser_handler:
-            hit, value = parser_handler(**parser_kwargs)
-            if hit:
-                return True, value
-            elif has_default:
-                return True, default
-            else:
-                return False, None
-        else:
-            raise Exception("Unknown parser '%s'" % parser)
+        return False, None
 
 
 def parse_attributes(spec, namespaces):

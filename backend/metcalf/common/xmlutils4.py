@@ -1,6 +1,7 @@
 import datetime
 import inspect
 import logging
+import math
 from copy import deepcopy
 from decimal import Decimal
 from functools import partial
@@ -238,8 +239,13 @@ def extract_value_from_element(spec, element, **kwargs):
     if element is None:
         raise Exception("Expected a valid element to extract value from")
 
-    if spec.get('type') == 'boolean':
-        return element.xpath("boolean(*)", **kwargs)
+    if spec.get('type') == 'number':
+        return element.xpath("number(text())", **kwargs)
+
+    # elif spec.get('type') == 'integer':
+    #     num = element.xpath("number(text())", **kwargs)
+    #     # TODO: assert integer (no loss of resolution)
+    #     return num
 
     value_element = element.xpath('*', **kwargs)
     if value_element and len(value_element) == 1:
@@ -251,15 +257,20 @@ def extract_value_from_element(spec, element, **kwargs):
 
         if value is None:
             return None
+
+        # TODO: can we remove this - will be string in json file
         elif tag == "%sDateTime" % gco:
             return datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S")
 
+        # TODO: can we remove this - will be string in json file
         elif tag == "%sDate" % gco:
             return parse_goc_date(value)
 
+        # TODO: can we remove this - could be handled by type=number massage
         elif tag == "%sDecimal" % gco:
             return Decimal(value)
 
+        # TODO: can we remove this - default case is return string
         elif tag == "%sCharacterString" % gco:
             return value
 
@@ -353,6 +364,132 @@ def extract_xml_data(tree, spec, **kwargs):
         assert len(elements) > 0, ["No xml element matches for required", get_xpath(spec), tree]
 
 
+def extract2_not_empty_parser(nodes, **kwargs):
+    return True, len(nodes) > 0
+
+
+def extract2_text_string_parser(nodes, xpath, **kwargs):
+    if len(nodes) == 0:
+        return False, None
+    elif len(nodes) == 1:
+        text = nodes[0]
+        return True, text
+    else:
+        raise Exception('Multiple xpath matches for value %s' % {'xpath': xpath, 'nodes': nodes})
+
+
+def extract2_text_number_parser(nodes, xpath, **kwargs):
+    if len(nodes) == 0:
+        return False, None
+    elif len(nodes) == 1:
+        text = nodes[0]
+        ret = float(text)
+        if math.isnan(ret):
+            raise Exception('Unable to parse value as number %s' % {'xpath': xpath, 'nodes': nodes, 'value': text})
+        else:
+            return True, ret
+    else:
+        raise Exception('Multiple xpath matches for value %s' % {'xpath': xpath, 'nodes': nodes})
+
+
+# TODO: WIP Experimental
+def extract2(tree, spec, parsers, **kwargs):
+    """
+    Traverse spec and extracts data from xml tree.
+
+    Operates based annotations
+    - extract2_leaf or extract2_branch (mutually exclusive)
+    - extract2_default
+
+    extract2_leaf
+    - Must include 'xpath' and 'parser'
+    - Uses xpath to find nodes
+    - Uses parser to lookup handler in 'parsers' registry
+    - Calls handler with kwargs (nodes, xpath, spec).  Should return (hit, val) tuple.
+
+    extract2_branch
+    - Must include 'xpath'
+    - Finds nodes using xpath
+    - Iterates over nodes, passing as tree to recursive calls
+
+    extract2_default
+    - Defines a default value
+    - Returned if no value is extracted
+
+    Object
+    - No annotations
+    - Passes tree to recursive call
+    - Properties which return data are included
+
+    :param tree: Element used to query xpaths and extract values
+    :param spec: Spec being traversed
+    :param parsers: registry of parser handlers
+    :param kwargs: Additional context passed to ele.xpath (namespaces...)
+    :return: hit, data - hit indicates presence of extracted data value
+    """
+
+    extract2_leaf = spec.get('extract2_leaf', None)
+    extract2_branch = spec.get('extract2_branch', None)
+    has_default = 'extract2_default' in spec
+    default = spec.get('extract2_default', None)
+
+    assert not (extract2_branch and extract2_leaf), "Spec can't have both extract2_leaf and extract2_branch set"
+
+    if extract2_leaf:
+        xpath = extract2_leaf.get('xpath', None)
+        parser = extract2_leaf.get('parser', None)
+
+        assert xpath, "extract2_leaf xpath required"
+        assert parser, "extract2_leaf parser required"
+
+        handler = parsers.get(parser, None)
+
+        assert handler, "extract2_leaf parser must resolve to handler"
+
+        nodes = tree.xpath(xpath, **kwargs)
+        parser_kwargs = {"nodes": nodes, "xpath": xpath, "spec": spec}
+        hit, value = handler(**parser_kwargs)
+
+        if hit:
+            return hit, value
+
+    elif extract2_branch:
+        xpath = extract2_branch.get('xpath', None)
+        items_spec = get_items(spec)
+
+        assert xpath, "extract2_branch xpath required"
+        assert items_spec, "extract2_branch spec items required"
+
+        nodes = tree.xpath(xpath, **kwargs)
+        hits = False
+        ret = []
+        for node in nodes:
+            hit, data = extract2(node, items_spec, parsers, **kwargs)
+            hits = hits or hit
+            if hit:
+                ret.append(data)
+
+        if hits:
+            return True, ret
+
+    elif is_object(spec):
+        ret = {}
+        hits = False
+        for prop_name, prop_spec in get_properties(spec).items():
+            hit, data = extract2(tree, prop_spec, parsers, **kwargs)
+            if hit:
+                hits = True
+                ret[prop_name] = data
+
+        if hits:
+            return True, ret
+
+    if has_default:
+        return True, default
+    else:
+        return False, None
+
+
 def parse_attributes(spec, namespaces):
     """
     Pull the attribute types/transforms from the spec, or 'text' and identity function if not specified
@@ -375,7 +512,7 @@ def parse_attributes(spec, namespaces):
             else:
                 namespaced_attrs[attr] = value
     except KeyError:
-        return {'text': lambda x: x}
+        return {'text': lambda x: str(x)}
     return namespaced_attrs
 
 
@@ -434,31 +571,6 @@ def update_user_defined(document_data:dict, update_data:dict, path:list) -> dict
             to_update[k] = v
     del to_update['isUserDefined']
     return document_data
-
-
-# TODO: this is a workaround for the unusual structure of the geographic extents
-# Basically each one needs to have its own mri:extent
-# but the first one should have the start/end date and description
-# this should be doable through the mapping/frontend but we don't
-# have time.
-# This takes any geographic extents beyond the first and shoves them into
-# a geographicElementSecondary dict, which has a different xpath to the
-# geographicElement, meaning we can write the two different types
-def split_geographic_extents(data):
-    if 'identificationInfo' not in data: return data
-    if 'geographicElement' not in data['identificationInfo']: return data
-    geo = data['identificationInfo']['geographicElement']
-    boxes = geo.get('boxes', None)
-    if boxes:
-        if len(boxes) > 1:
-            data['identificationInfo']['geographicElementSecondary'] = []
-        else:
-            data['identificationInfo'].pop('geographicElementSecondary', None)
-        for box in boxes[1:]:
-            new_box = {'boxes': box}
-            data['identificationInfo']['geographicElementSecondary'].append(new_box)
-        data['identificationInfo']['geographicElement']['boxes'] = [boxes[0]]
-    return data
 
 
 def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=True, fieldKey=None):

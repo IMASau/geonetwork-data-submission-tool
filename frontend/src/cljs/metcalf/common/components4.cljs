@@ -1652,7 +1652,7 @@
         {:key           key
          :items         (or items [])
          :disabled      disabled
-         :getLabel      (ui-controls/obj-path-getter "name")
+         :getLabel      (ui-controls/obj-path-getter ["name"])
          :getValue      (ui-controls/obj-path-getter value-path)
          :getAdded      (constantly true)
          :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))

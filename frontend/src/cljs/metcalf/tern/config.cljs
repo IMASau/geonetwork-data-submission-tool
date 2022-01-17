@@ -139,6 +139,7 @@
        "geographyRequired" rules4/geography-required
        "licenseOther"      rules4/license-other
        "numericOrder"      rules4/numeric-order
+       "positive"          rules4/force-positive
        "dateOrder"         rules4/date-order
        "dateBeforeToday"   rules4/date-before-today
        "endPosition"       rules4/end-position
@@ -510,9 +511,7 @@
       [m4/date-field2
        {:form-id   [:form]
         :data-path ["identificationInfo" "datePublication"]
-        :required  true}]]
-
-     [:label "TODO: revision date?"]]
+        :required  true}]]]
 
     :what
     [:div
@@ -1852,7 +1851,7 @@
       {:form-id   ?form-id
        :data-path [?data-path]
        :label     "Distributor"}
-      [m4/async-simple-item-option-picker
+      [m4/async-select-option-simple
        {:form-id     ?form-id
         :data-path   [?data-path "distributor"]
         :uri         "/api/ternorgs"

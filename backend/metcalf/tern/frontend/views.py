@@ -165,6 +165,28 @@ def extract_xml_data(request, template_id):
 
 @login_required
 @api_view(['GET'])
+def extract_xml_data2(request, template_id):
+    template = get_object_or_404(
+        MetadataTemplate, site=get_current_site(request), archived=False, pk=template_id)
+    tree = etree.parse(template.file.path)
+    spec = spec4.make_spec(mapper=template.mapper)
+    kwargs = {}
+    if xmlutils4.has_namespaces(spec):
+        kwargs['namespaces'] = xmlutils4.get_namespaces(spec)
+    parsers = {
+        'not_empty': xmlutils4.extract2_not_empty_parser,
+        'text_string': xmlutils4.extract2_text_string_parser,
+        'text_number': xmlutils4.extract2_text_number_parser
+    }
+    hit, data = xmlutils4.extract2(tree, spec, parsers, **kwargs)
+    if hit:
+        return Response({"hit": hit, "data": data})
+    else:
+        return Response({"hit": hit})
+
+
+@login_required
+@api_view(['GET'])
 def analyse_metadata_template(request, template_id):
     template = get_object_or_404(
         MetadataTemplate, site=get_current_site(request), archived=False, pk=template_id)

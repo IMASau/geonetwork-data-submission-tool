@@ -1551,7 +1551,7 @@
           "!docstring": "DataSource3",
           "type": "object",
           "xpath": "mri:graphicOverview/mcc:MD_BrowseGraphic",
-          "keep": "false",
+          "keep": false,
           "properties": {
             "title": {
               "type": "string",

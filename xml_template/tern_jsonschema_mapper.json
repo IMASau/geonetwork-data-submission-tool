@@ -50,14 +50,16 @@
       "keep": false
     },
     "attachments": {
-      "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"][normalize-space(cit:description/gco:CharacterString)=\"Data file\"]]",
+      "!docstring": "DataSource1",
+      "xpath": "mdb:distributionInfo[mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"]]",
       "keep": false,
       "type": "array",
       "items": {
         "type": "object",
+        "xpath": "mdb:distributionInfo[mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"]]",
         "properties": {
           "file": {
-            "xpath": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
+            "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
             "required": true,
             "xpath_required": true,
             "attributes": {
@@ -67,19 +69,26 @@
             }
           },
           "name": {
-            "xpath": "cit:CI_OnlineResource/cit:name",
-            "required": false,
-            "valueChild": "gco:CharacterString"
+            "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:name/gco:CharacterString",
+            "required": true,
+            "exportTo": {
+              "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:description/gco:CharacterString",
+              "attributes": {
+                "text": {
+                  "function": "generate_attachment_description"
+                }
+              }
+            }
           }
         }
       }
     },
     "dataSources": {
-      "xpath": "mdb:distributionInfo",
+      "xpath": "mdb:distributionInfo[not(mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"])]",
       "type": "array",
       "keep": false,
       "items": {
-        "xpath": "mdb:distributionInfo",
+        "xpath": "mdb:distributionInfo[not(mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"])]",
         "type": "object",
         "properties": {
           "uri": {
@@ -853,69 +862,45 @@
             },
             "boxes": {
               "!docstring": "Where2",
-              "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
+              "xpath": "gex:geographicElement",
               "rules": [
                 "requiredField"
               ],
               "keep": false,
               "type": "array",
               "items": {
-                "xpath": "gex:geographicElement/gex:EX_GeographicBoundingBox",
+                "xpath": "gex:geographicElement",
                 "type": "object",
                 "properties": {
                   "uri": {},
                   "isUserDefined": {},
                   "westBoundLongitude": {
-                    "valueChild": "gco:Decimal",
-                    "xpath": "gex:westBoundLongitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:westBoundLongitude/gco:Decimal",
                     "rules": [
                       "requiredField"
                     ],
-                    "type": "number",
-                    "attributes": {
-                      "text": {
-                        "function": "to_string"
-                      }
-                    }
+                    "type": "number"
                   },
                   "eastBoundLongitude": {
-                    "valueChild": "gco:Decimal",
-                    "xpath": "gex:eastBoundLongitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:eastBoundLongitude/gco:Decimal",
                     "rules": [
                       "requiredField"
                     ],
-                    "type": "number",
-                    "attributes": {
-                      "text": {
-                        "function": "to_string"
-                      }
-                    }
+                    "type": "number"
                   },
                   "southBoundLatitude": {
-                    "valueChild": "gco:Decimal",
-                    "xpath": "gex:southBoundLatitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:southBoundLatitude/gco:Decimal",
                     "rules": [
                       "requiredField"
                     ],
-                    "type": "number",
-                    "attributes": {
-                      "text": {
-                        "function": "to_string"
-                      }
-                    }
+                    "type": "number"
                   },
                   "northBoundLatitude": {
-                    "valueChild": "gco:Decimal",
-                    "xpath": "gex:northBoundLatitude",
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:northBoundLatitude/gco:Decimal",
                     "rules": [
                       "requiredField"
                     ],
-                    "type": "number",
-                    "attributes": {
-                      "text": {
-                        "function": "to_string"
-                      }
-                    }
+                    "type": "number"
                   }
                 }
               }
@@ -968,28 +953,18 @@
               "type": "number",
               "xpath": "gex:minimumValue/gco:Real",
               "keep": false,
-              "attributes": {
-                "text": {
-                  "function": "to_string"
-                }
-              },
-              "parser": {
-                "function": "parse_number"
-              }
+              "rules": [
+                "positive"
+              ]
             },
             "maximumValue": {
               "!docstring": "Where8",
               "type": "number",
               "xpath": "gex:maximumValue/gco:Real",
               "keep": false,
-              "attributes": {
-                "text": {
-                  "function": "to_string"
-                }
-              },
-              "parser": {
-                "function": "parse_number"
-              }
+              "rules": [
+                "positive"
+              ]
             }
           }
         },

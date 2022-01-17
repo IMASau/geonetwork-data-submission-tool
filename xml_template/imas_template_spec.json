@@ -154,19 +154,106 @@
         "geographicElement": {
           "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",
           "type": "object",
+          "rules": ["geographyRequired"],
           "properties": {
             "hasGeographicCoverage": {
               "export": false,
               "type": "boolean"
+            },
+            "boxes": {
+              "!docstring": "Where2",
+              "xpath": "gex:geographicElement",
+              "rules": [
+                "requiredField"
+              ],
+              "keep": false,
+              "type": "array",
+              "items": {
+                "xpath": "gex:geographicElement",
+                "type": "object",
+                "properties": {
+                  "uri": {},
+                  "isUserDefined": {},
+                  "westBoundLongitude": {
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:westBoundLongitude/gco:Decimal",
+                    "rules": [
+                      "requiredField"
+                    ],
+                    "type": "number"
+                  },
+                  "eastBoundLongitude": {
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:eastBoundLongitude/gco:Decimal",
+                    "rules": [
+                      "requiredField"
+                    ],
+                    "type": "number"
+                  },
+                  "southBoundLatitude": {
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:southBoundLatitude/gco:Decimal",
+                    "rules": [
+                      "requiredField"
+                    ],
+                    "type": "number"
+                  },
+                  "northBoundLatitude": {
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:northBoundLatitude/gco:Decimal",
+                    "rules": [
+                      "requiredField"
+                    ],
+                    "type": "number"
+                  }
+                }
+              }
             }
           }
         },
         "verticalElement": {
+          "xpath": "mri:extent/gex:EX_Extent/gex:verticalElement/gex:EX_VerticalExtent",
           "type": "object",
+          "rules": [
+            "imasVerticalRequired"
+          ],
           "properties": {
             "hasVerticalExtent": {
               "export": false,
               "type": "boolean"
+            },
+            "verticalCRS": {
+              "xpath": "gex:verticalCRS",
+              "valueChild": "gml:VerticalCRS",
+              "type": "object",
+              "keep": false,
+              "properties": {
+                "identifier": {
+                  "xpath": "gml:identifier",
+                  "type": "string"
+                },
+                "name": {
+                  "xpath": "gml:name",
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                }
+              }
+            },
+            "minimumValue": {
+              "type": "number",
+              "xpath": "gex:minimumValue",
+              "valueChild": "gco:Real",
+              "keep": false,
+              "rules": [
+                "positive"
+              ]
+            },
+            "maximumValue": {
+              "type": "number",
+              "xpath": "gex:minimumValue",
+              "valueChild": "gco:Real",
+              "keep": false,
+              "rules": [
+                "positive"
+              ]
             }
           }
         },
@@ -252,6 +339,19 @@
           "deleteWhenEmpty": true,
           "keep": false,
           "type": "string",
+          "rules": ["requiredField"]
+        }
+      }
+    },
+    "resourceLineage": {
+      "xpath": "mdb:resourceLineage/mrl:LI_Lineage",
+      "type": "object",
+      "properties": {
+        "statement": {
+          "type": "string",
+          "xpath": "mrl:statement",
+          "valueChild": "gco:CharacterString",
+          "keep": false,
           "rules": ["requiredField"]
         }
       }

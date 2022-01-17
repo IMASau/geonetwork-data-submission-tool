@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as BPCore from '@blueprintjs/core';
 import {hasErrorIntent, useCachedState} from "../utils";
 
-export function NumericInputField({value, hasError, hasButtons, disabled, placeholder, maxLength, onChange}) {
+export function NumericInputField({value, hasError, hasButtons, disabled, placeholder, onChange}) {
     const [stateValue, setStateValue] = useCachedState(value);
     const intent = hasErrorIntent({hasError, disabled});
     const buttonPosition = hasButtons ? BPCore.Position.RIGHT : "none";

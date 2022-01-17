@@ -37,6 +37,7 @@ urlpatterns = [
     path('delete/<uuid:uuid>/<int:id>/', delete_attachment, name="DeleteAttachment"),
     path('create/', create, name="Create"),
     path('extract_xml_data/<int:template_id>/', extract_xml_data, name="extract_xml_data"),
+    path('extract_xml_data2/<int:template_id>/', extract_xml_data2, name="extract_xml_data"),
     path('analyse_metadata_template/<int:template_id>/', analyse_metadata_template, name="analyse_metadata_template"),
     path('export/<uuid:uuid>/', export, name="Export"),
     path('attachment/<path:path>', download_attachement, name="DownloadAttachment"),

@@ -2,6 +2,7 @@ import json
 import os
 import re
 from functools import partial
+from pathlib import Path
 from urllib.parse import urlsplit
 
 from django.contrib.sites.models import Site
@@ -222,6 +223,13 @@ def generate_attachment_url(**kwargs):
         Site.objects.get_current().domain,
         data
     )
+
+
+def generate_attachment_description(filename):
+    f = Path(filename).stem     # /path/to/file.txt -> 'file'
+    f = f.replace('-', ' ')
+    f = f.replace('_', ' ')
+    return f
 
 
 def all_text(node):
@@ -508,6 +516,7 @@ SPEC_FUNCTIONS = {
     "massage_version_number": massage_version_number,
     "new_term_vocab_prune": new_term_vocab_prune,
     "generate_attachment_url": generate_attachment_url,
+    "generate_attachment_description": generate_attachment_description,
     "spatial_units_export": spatial_units_export,
     "create_linkage_uuid": create_linkage_uuid,
     "filename": filename,

@@ -50,14 +50,16 @@
       "keep": false
     },
     "attachments": {
-      "xpath": "mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine[cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"][normalize-space(cit:description/gco:CharacterString)=\"Data file\"]]",
+      "!docstring": "DataSource1",
+      "xpath": "mdb:distributionInfo[mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"]]",
       "keep": false,
       "type": "array",
       "items": {
         "type": "object",
+        "xpath": "mdb:distributionInfo[mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"]]",
         "properties": {
           "file": {
-            "xpath": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
+            "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
             "required": true,
             "xpath_required": true,
             "attributes": {
@@ -67,19 +69,26 @@
             }
           },
           "name": {
-            "xpath": "cit:CI_OnlineResource/cit:name",
-            "required": false,
-            "valueChild": "gco:CharacterString"
+            "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:name/gco:CharacterString",
+            "required": true,
+            "exportTo": {
+              "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:description/gco:CharacterString",
+              "attributes": {
+                "text": {
+                  "function": "generate_attachment_description"
+                }
+              }
+            }
           }
         }
       }
     },
     "dataSources": {
-      "xpath": "mdb:distributionInfo",
+      "xpath": "mdb:distributionInfo[not(mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"])]",
       "type": "array",
       "keep": false,
       "items": {
-        "xpath": "mdb:distributionInfo",
+        "xpath": "mdb:distributionInfo[not(mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"])]",
         "type": "object",
         "properties": {
           "uri": {
@@ -1537,6 +1546,26 @@
           "keep": false,
           "required": false,
           "type": "string"
+        },
+        "thumbnail": {
+          "!docstring": "DataSource3",
+          "type": "object",
+          "xpath": "mri:graphicOverview/mcc:MD_BrowseGraphic",
+          "keep": "false",
+          "properties": {
+            "title": {
+              "type": "string",
+              "xpath": "mcc:linkage/cit:CI_OnlineResource/cit:name/gco:CharacterString"
+            },
+            "file": {
+              "type": "string",
+              "xpath": "mcc:linkage/cit:CI_OnlineResource/cit:linkage/gco:CharacterString"
+            },
+            "name": {
+              "type": "string",
+              "xpath": "mcc:fileName/gco:CharacterString"
+            }
+          }
         },
         "doi": {
           "!docstring": "Lodge4",

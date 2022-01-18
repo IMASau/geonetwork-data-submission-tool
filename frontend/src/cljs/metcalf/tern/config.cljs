@@ -1851,7 +1851,7 @@
       {:form-id   ?form-id
        :data-path [?data-path]
        :label     "Distributor"}
-      [m4/async-simple-item-option-picker
+      [m4/async-select-option-simple
        {:form-id     ?form-id
         :data-path   [?data-path "distributor"]
         :uri         "/api/ternorgs"

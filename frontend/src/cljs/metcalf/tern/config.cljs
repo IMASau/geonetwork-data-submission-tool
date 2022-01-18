@@ -999,6 +999,7 @@
 
     :who
     [:div
+     [:h2 "5. Who"]
 
      [:p "
      This is a mandatory section and requires the person/organisation who is/are responsible for the dataset
@@ -1450,7 +1451,7 @@
          :data-paths [["resourceLineage" "processStep"]
                       ["dataQualityInfo" "methods"]
                       ["dataQualityInfo" "results"]]}]
-     [:h2 "6: How"]
+     [:h2 "6. How"]
 
      [:p "This section is optional.  You can add method/s used for the collection of the data and provide the Data Quality description and the associated results"]
 

@@ -203,8 +203,23 @@
                       {:url     (str "/api/document-info/" uuid "/")
                        :resolve [::-get-document-data-action uuid]}]))
 
+(defn upload-single-attachment
+  "POST attachment to server and dispatches response, assuming
+   it is the only upload (ie data-path is an object not a list).
+   Uses uploaded filename as name in payload."
+  [s {:keys [config doc-uuid file]}]
+  (let [url (str "/upload/" doc-uuid "/")
+        data {:document doc-uuid
+              :name     (.-name file)
+              :file     file}]
+    (update s :fx conj [:app/post-multipart-form
+                        {:url     url
+                         :data    data
+                         :resolve [::-upload-single-attachment config]}])))
+
 (defn upload-attachment
-  "POST attachment to server and dispatches response.
+  "POST attachment to server and dispatches response, assuming
+   it is one of my uploads (ie data-path is a list not an object).
    Uses uploaded filename as name in payload."
   [s {:keys [config doc-uuid file]}]
   (let [url (str "/upload/" doc-uuid "/")

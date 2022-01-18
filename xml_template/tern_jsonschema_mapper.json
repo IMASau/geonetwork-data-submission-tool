@@ -1555,16 +1555,42 @@
           "keep": false,
           "properties": {
             "title": {
+              "!docstring": "DataSource2b",
               "type": "string",
               "xpath": "mcc:linkage/cit:CI_OnlineResource/cit:name/gco:CharacterString"
             },
             "file": {
-              "type": "string",
-              "xpath": "mcc:linkage/cit:CI_OnlineResource/cit:linkage/gco:CharacterString"
-            },
-            "name": {
-              "type": "string",
-              "xpath": "mcc:fileName/gco:CharacterString"
+              "!docstring": "DataSource3",
+              "type": "object",
+              "xpath": ".",
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "xpath": "mcc:linkage/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
+                  "attributes": {
+                    "text": {
+                      "function": "generate_attachment_url"
+                    }
+                  }
+                },
+                "name": {
+                  "!docstring": "DataSource2",
+                  "type": "string",
+                  "xpath": "mcc:fileName/gco:CharacterString"
+                },
+                "id": {
+                  "type": "number"
+                },
+                "created": {
+                  "type": "string"
+                },
+                "modified": {
+                  "type": "string"
+                },
+                "delete_url": {
+                  "type": "string"
+                }
+              }
             }
           }
         },

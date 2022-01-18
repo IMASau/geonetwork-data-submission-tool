@@ -350,6 +350,15 @@
   [{:keys [db]}]
   (actions4/close-modal-action {:db db}))
 
+(defn upload-file-drop
+  [{:keys [db]} [_ config data]]
+  (let [{:keys [acceptedFiles]} data
+        doc-uuid (get-in db [:context :document :uuid])]
+    (assert (= 1 (count acceptedFiles)) "upload-file-drop expects a single file")
+    (actions4/upload-single-attachment {:db db} {:doc-uuid doc-uuid
+                                                 :file     (first acceptedFiles)
+                                                 :config   config})))
+
 (defn upload-files-drop
   [{:keys [db]} [_ config data]]
   (let [{:keys [acceptedFiles]} data
@@ -365,6 +374,15 @@
   (let [{:keys [form-id data-path value-path]} config]
     (case status
       201 (actions4/add-item-action {:db db} form-id data-path value-path (js->clj body))
+      (actions4/open-modal-action {:db db}
+                                  {:type    :modal.type/alert
+                                   :message (str status ": Error uploading file")}))))
+
+(defn -upload-single-attachment
+  [{:keys [db]} [_ config {:keys [status body]}]]
+  (let [{:keys [form-id data-path]} config]
+    (case status
+      201 (actions4/set-data-action {:db db} form-id data-path (js->clj body))
       (actions4/open-modal-action {:db db}
                                   {:type    :modal.type/alert
                                    :message (str status ": Error uploading file")}))))

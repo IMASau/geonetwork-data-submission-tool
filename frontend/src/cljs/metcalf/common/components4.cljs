@@ -1663,6 +1663,29 @@
          :placeholder (r/as-element placeholder)
          :onDrop      #(rf/dispatch [::upload-files-drop config (js->clj % :keywordize-keys true)])}]])))
 
+(defn upload-thumbnail-settings
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :value-path :placeholder]
+   ::low-code4/opt-ks []})
+
+(defn upload-thumbnail
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        item @(rf/subscribe [::get-block-data config])
+        {:keys [disabled is-hidden placeholder]} props
+        {:strs [name]} item]
+    (when-not is-hidden
+      [:div
+       [ui-controls/InputField
+        {:value       (or name "")
+        :disabled    true}]
+       [ui-controls/Dropzone
+        {:disabled    disabled
+         :placeholder (r/as-element placeholder)
+         :maxFiles    1
+         :onDrop      #(rf/dispatch [::upload-file-drop config (js->clj % :keywordize-keys true)])}]])))
+
+
 (defn yes-no-radios-simple-settings
   "Settings for yes-no-radios-simple component"
   [_]

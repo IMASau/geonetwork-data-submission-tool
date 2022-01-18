@@ -87,7 +87,9 @@
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
 (rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
+(rf/reg-event-fx ::components4/upload-file-drop handlers4/upload-file-drop)
 (rf/reg-event-fx ::components4/upload-files-drop handlers4/upload-files-drop)
+(rf/reg-event-fx :metcalf.common.actions4/-upload-single-attachment handlers4/-upload-single-attachment)
 (rf/reg-event-fx :metcalf.common.actions4/-upload-attachment handlers4/-upload-attachment)
 (rf/reg-fx ::fx3/post fx3/post)
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
@@ -190,6 +192,7 @@
        ;'m4/record-add-button                   {:view components4/record-add-button :init components4/record-add-button-settings}
        'm4/text-add-button                     {:view components4/text-add-button :init components4/text-add-button-settings}
        'm4/upload-files                        {:view components4/upload-files :init components4/upload-files-settings}
+       'm4/upload-thumbnail                    {:view components4/upload-thumbnail :init components4/upload-thumbnail-settings}
        })
 
 ; Specs intended for use with when-data :pred
@@ -636,7 +639,7 @@
          [m4/async-list-option-picker
           {:form-id    [:form]
            :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
-           :uri        "/api/terninstruments"
+           :uri        "/api/terninstrumenttypes"
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button
@@ -997,6 +1000,7 @@
 
     :who
     [:div
+     [:h2 "5. Who"]
 
      [:p "
      This is a mandatory section and requires the person/organisation who is/are responsible for the dataset
@@ -1448,7 +1452,7 @@
          :data-paths [["resourceLineage" "processStep"]
                       ["dataQualityInfo" "methods"]
                       ["dataQualityInfo" "results"]]}]
-     [:h2 "6: How"]
+     [:h2 "6. How"]
 
      [:p "This section is optional.  You can add method/s used for the collection of the data and provide the Data Quality description and the associated results"]
 
@@ -1777,7 +1781,22 @@
                      [:h3 "Drop file here or click here to upload"]
                      [:span.help-block "Maximum file size 100 MB"]]}]
 
-     [:h3 "TODO: thumbnail"]
+     [:h3 "Thumbnail"]
+
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "thumbnail" "title"]
+       :label     "Title"}
+      [m4/input-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "thumbnail" "title"]}]]
+     [m4/upload-thumbnail
+      {:form-id     [:form]
+       :data-path   ["identificationInfo" "thumbnail" "file"]
+       :value-path  ["id"]
+       :placeholder [:div
+                     [:h3 "Drag and drop thumbnail here"]
+                     [:span.help-block "Maximum size 100 x 100px"]]}]
 
      [:h2 "Data Services"]
      [m4/form-group

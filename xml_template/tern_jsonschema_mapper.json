@@ -250,6 +250,7 @@
         "crsCode": {
           "!docstring": "Where3",
           "xpath": ".",
+          "keep": false,
           "type": "object",
           "properties": {
             "code": {
@@ -309,7 +310,7 @@
           "xpath": "mri:citation/cit:CI_Citation/cit:title",
           "valueChild": "gco:CharacterString",
           "type": "string",
-          "keep": false,
+          "keep": true,
           "xpath_required": true,
           "rules": [
             "requiredField"
@@ -910,6 +911,7 @@
         "verticalElement": {
           "xpath": "mri:extent/gex:EX_Extent/gex:verticalElement/gex:EX_VerticalExtent",
           "type": "object",
+          "keep": false,
           "rules": [
             {
               "numericOrder": {
@@ -1418,7 +1420,6 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "keep": "false",
                 "xpath": "mri:keyword/gco:CharacterString"
               }
             }
@@ -1546,6 +1547,52 @@
           "keep": false,
           "required": false,
           "type": "string"
+        },
+        "thumbnail": {
+          "!docstring": "DataSource3",
+          "type": "object",
+          "xpath": "mri:graphicOverview/mcc:MD_BrowseGraphic",
+          "keep": false,
+          "properties": {
+            "title": {
+              "!docstring": "DataSource2b",
+              "type": "string",
+              "xpath": "mcc:linkage/cit:CI_OnlineResource/cit:name/gco:CharacterString"
+            },
+            "file": {
+              "!docstring": "DataSource3",
+              "type": "object",
+              "xpath": ".",
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "xpath": "mcc:linkage/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
+                  "attributes": {
+                    "text": {
+                      "function": "generate_attachment_url"
+                    }
+                  }
+                },
+                "name": {
+                  "!docstring": "DataSource2",
+                  "type": "string",
+                  "xpath": "mcc:fileName/gco:CharacterString"
+                },
+                "id": {
+                  "type": "number"
+                },
+                "created": {
+                  "type": "string"
+                },
+                "modified": {
+                  "type": "string"
+                },
+                "delete_url": {
+                  "type": "string"
+                }
+              }
+            }
+          }
         },
         "doi": {
           "!docstring": "Lodge4",

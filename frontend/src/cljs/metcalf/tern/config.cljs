@@ -1781,7 +1781,22 @@
                      [:h3 "Drop file here or click here to upload"]
                      [:span.help-block "Maximum file size 100 MB"]]}]
 
-     [:h3 "TODO: thumbnail"]
+     [:h3 "Thumbnail"]
+
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "thumbnail" "title"]
+       :label     "Title"}
+      [m4/input-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "thumbnail" "title"]}]]
+     [m4/upload-thumbnail
+      {:form-id     [:form]
+       :data-path   ["identificationInfo" "thumbnail" "file"]
+       :value-path  ["id"]
+       :placeholder [:div
+                     [:h3 "Drag and drop thumbnail here"]
+                     [:span.help-block "Maximum size 100 x 100px"]]}]
 
      [:h2 "Data Services"]
      [m4/form-group

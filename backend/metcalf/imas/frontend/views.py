@@ -39,7 +39,6 @@ from metcalf.imas.frontend.permissions import is_document_editor, is_document_co
 from metcalf.imas.frontend.serializers import DocumentInfoSerializer, AttachmentSerializer, \
     SiteContentSerializer, CreateDocumentSerializer, DataSourceSerializer
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -282,6 +281,36 @@ def export(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
     is_document_contributor(request, doc)
     response = HttpResponse(create_export_xml_string(doc, uuid), content_type="application/xml")
+    if "download" in request.GET:
+        response['Content-Disposition'] = 'attachment; filename="{}.xml"'.format(uuid)
+    return response
+
+
+@login_required
+def export2(request, uuid):
+    doc = get_object_or_404(Document, uuid=uuid)
+
+    is_document_contributor(request, doc)
+    data = to_json(doc.latest_draft.data)
+    xml = etree.parse(doc.template.file.path)
+    spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+
+    handlers = {
+        "set_text": xmlutils4.export2_set_text_handler,
+        "remove_element": xmlutils4.export2_remove_element_handler,
+        "append_items": xmlutils4.export2_append_items_handler,
+    }
+
+    xmlutils4.export2(
+        data=data,
+        xml_node=xml,
+        spec=spec,
+        handlers=handlers,
+        xml_kwargs={'namespaces': spec['namespaces']}
+    )
+    xml_string = etree.tostring(xml)
+
+    response = HttpResponse(xml_string, content_type="application/xml")
     if "download" in request.GET:
         response['Content-Disposition'] = 'attachment; filename="{}.xml"'.format(uuid)
     return response

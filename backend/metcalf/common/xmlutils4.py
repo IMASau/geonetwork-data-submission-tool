@@ -491,6 +491,143 @@ def extract2(tree, spec, parsers, **kwargs):
         return False, None
 
 
+# TODO: WIP Experimental
+def export2_xform(xform, data, xml_node, spec, xml_kwargs, handlers):
+    handler = handlers.get(xform[0])
+    assert handler, "export2: xf_name must resolve to handler"
+    handler_kwargs = {
+        "data": data,
+        "xml_node": xml_node,
+        "spec": spec,
+        "xml_kwargs": xml_kwargs,
+        "handlers": handlers,
+        "xform": xform
+    }
+    handler(**handler_kwargs)
+
+
+def export2(data, xml_node, spec, xml_kwargs, handlers):
+    export2_xforms = spec.get('export2_xforms', [])
+    for xform in export2_xforms:
+        export2_xform(xform, data, xml_node, spec, xml_kwargs, handlers)
+
+
+def get_data_path(data, path):
+    if len(path) == 0:
+        return True, data
+    elif len(path) == 1:
+        if data is not None and path[0] in data:
+            return True, data[path[0]]
+        else:
+            return False, None
+    else:
+        if data is not None and path[0] in data:
+            return get_data_path(data[path[0]], path[1:])
+        else:
+            return False, None
+
+
+def get_spec_path(spec, prop_path):
+    ret = spec
+    for k in prop_path:
+        ret = ret['properties'][k]
+    return ret
+
+
+def get_dotted_path(data, dotpath):
+    assert dotpath is not None, "get_dotpath dotpath is required"
+    path = dotpath.split('.')
+    return get_data_path(data, path)
+
+
+def export2_set_text_handler(data, xml_node, xml_kwargs, xform, **kwargs):
+    """
+    Set text for node if data is present.
+
+    Configured with xform
+    - xform[1].data_path to get data from
+    - xform[1].node_xpath to node being updated
+
+    """
+    xf_props = xform[1]
+    data_path = xf_props.get('data_path', None)
+    node_xpath = xf_props.get('node_xpath', None)
+    assert data_path is not None, "export2_set_text_handler: xf_props.data_path must be set"
+    assert node_xpath is not None, "export2_set_text_handler: xf_props.node_xpath must be set"
+    hit, value = get_dotted_path(data, data_path)
+    if hit:
+        nodes = xml_node.xpath(node_xpath, **xml_kwargs)
+        assert len(nodes) == 1
+        nodes[0].text = str(value)
+
+
+def export2_remove_element_handler(data, xml_node, xml_kwargs, xform, **kwargs):
+    """
+    Remove matching elements if data not present.
+
+    Configured with xf_props
+    - xform[1].data_path for data presence check
+    - xform[1].xpath to node which would be removed
+
+    """
+    xf_props = xform[1]
+    data_path = xf_props.get('data_path', None)
+    xpath = xf_props.get('xpath', None)
+    assert data_path is not None, "export2_remove_element_handler: xf_props.data_path must be set"
+    assert xpath is not None, "export2_remove_element_handler: xf_props.xpath must be set"
+    hit, value = get_dotted_path(data, data_path)
+    if not hit:
+        nodes = xml_node.xpath(xpath, **xml_kwargs)
+        for node in nodes:
+            node.getparent().remove(node)
+
+
+def export2_append_items_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
+    """
+    Append elements for each list item.
+
+    Configured with xf_props
+    - xform[1].data_path
+    - xform[1].mount_xpath
+    - xform[1].template_xpath
+
+    """
+    xf_props = xform[1]
+    data_path = xf_props.get('data_path', None)
+    mount_xpath = xf_props.get('mount_xpath', None)
+    template_xpath = xf_props.get('template_xpath', None)
+
+    assert data_path is not None, "export2_append_items_handler: xf_props.data_path must be set"
+    assert mount_xpath is not None, "export2_append_items_handler: xf_props.mount_xpath must be set"
+    assert template_xpath is not None, "export2_append_items_handler: xf_props.template_xpath must be set"
+
+    hit, values = get_dotted_path(data, data_path)
+    mount_nodes = xml_node.xpath(mount_xpath, **xml_kwargs)
+    template_nodes = xml_node.xpath(template_xpath, **xml_kwargs)
+
+    assert len(mount_nodes) == 1
+    assert len(template_nodes) == 1
+
+    template = template_nodes[0]
+
+    if hit:
+        items_spec = get_spec_path(spec, data_path.split('.'))['items']
+        for value in values:
+            element = deepcopy(template)
+            mount_nodes[0].append(element)
+            item_xforms = xform[2:]
+            for item_xform in item_xforms:
+                export2_xform(
+                    xform=item_xform,
+                    data=value,
+                    xml_node=xml_node,
+                    spec=items_spec,
+                    xml_kwargs=xml_kwargs,
+                    handlers=handlers)
+
+        template.getparent().remove(template)
+
+
 def parse_attributes(spec, namespaces):
     """
     Pull the attribute types/transforms from the spec, or 'text' and identity function if not specified

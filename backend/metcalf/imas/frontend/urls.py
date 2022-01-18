@@ -40,6 +40,7 @@ urlpatterns = [
     path('extract_xml_data2/<int:template_id>/', extract_xml_data2, name="extract_xml_data"),
     path('analyse_metadata_template/<int:template_id>/', analyse_metadata_template, name="analyse_metadata_template"),
     path('export/<uuid:uuid>/', export, name="Export"),
+    path('export2/<uuid:uuid>/', export2, name="Export2"),
     path('attachment/<path:path>', download_attachement, name="DownloadAttachment"),
     path('mef/<uuid:uuid>/', mef, name="MEF"),
     path('api/', include(router.urls)),

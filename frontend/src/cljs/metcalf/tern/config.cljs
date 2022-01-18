@@ -639,7 +639,7 @@
          [m4/async-list-option-picker
           {:form-id    [:form]
            :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
-           :uri        "/api/terninstruments"
+           :uri        "/api/terninstrumenttypes"
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button

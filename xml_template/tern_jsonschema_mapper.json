@@ -310,7 +310,7 @@
           "xpath": "mri:citation/cit:CI_Citation/cit:title",
           "valueChild": "gco:CharacterString",
           "type": "string",
-          "keep": false,
+          "keep": true,
           "xpath_required": true,
           "rules": [
             "requiredField"

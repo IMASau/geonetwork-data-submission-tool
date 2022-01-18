@@ -167,14 +167,15 @@ def get_userdefined(data):
 
 def is_userdefined(data):
     return has_userdefined(data) and \
-        has_userdefinedCategory(data) and \
-        get_userdefined(data)
+           has_userdefinedCategory(data) and \
+           get_userdefined(data)
 
 
 def _make_list_fn(fns):
     def inner(*args, **kwargs):
         for f in fns:
             f(*args, **kwargs)
+
     return inner
 
 
@@ -531,7 +532,7 @@ def spec_data_from_batch(batch_spec, key):
     return spec, data
 
 
-def extract_user_defined(data:dict, path="", acc:list=None) -> list:
+def extract_user_defined(data: dict, path="", acc: list = None) -> list:
     """Takes a json data document and returns a list of all terms that
     have been added by the user.  Adjusts the term to include the data
     path (for re-insertion) and the type."""
@@ -545,7 +546,7 @@ def extract_user_defined(data:dict, path="", acc:list=None) -> list:
         data['duma_path'] = path
         acc.append(data)
         return acc
-    for k,v in data.items():
+    for k, v in data.items():
         if isinstance(v, dict):
             acc = extract_user_defined(v, path=f"{path}.{k}", acc=acc)
         elif isinstance(v, list):
@@ -557,7 +558,7 @@ def extract_user_defined(data:dict, path="", acc:list=None) -> list:
 
 
 # TODO: refactor these into their own module (they're not exactly xml related)
-def update_user_defined(document_data:dict, update_data:dict, path:list) -> dict:
+def update_user_defined(document_data: dict, update_data: dict, path: list) -> dict:
     document_data = deepcopy(document_data)
     to_update = document_data
     for p in path:
@@ -566,7 +567,7 @@ def update_user_defined(document_data:dict, update_data:dict, path:list) -> dict
         elif isinstance(to_update, list):
             to_update = to_update[int(p)]
 
-    for k,v in update_data.items():
+    for k, v in update_data.items():
         if k in to_update:
             to_update[k] = v
     del to_update['isUserDefined']

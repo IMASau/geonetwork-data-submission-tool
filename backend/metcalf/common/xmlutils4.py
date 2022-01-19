@@ -141,10 +141,6 @@ def get_exportTo(spec, data):
         return exportTo
 
 
-def is_fanout(spec):
-    return spec.get('fanout', False)
-
-
 def is_batch(spec):
     return spec.get('batch', False)
 
@@ -716,29 +712,24 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
     if is_array(spec):
         container_xpath = get_container(spec)
         container_node = xml_node.xpath(container_xpath, namespaces=nsmap)
-        if is_fanout(spec):
-            for i in range(len(container_node)):
-                data_to_xml(data=data, xml_node=xml_node, spec=get_items(spec), nsmap=nsmap,
-                            element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
-        else:
-            if len(container_node) < 1:
-                msg = "container at xpath %s is not found" % container_xpath
-                if silent:
-                    logger.warning(msg)
-                    return
-                else:
-                    raise Exception(msg)
-            mount_node = container_node[0].getparent()
-            mount_index = mount_node.index(container_node[0])
-            template = deepcopy(container_node[0])
-            # remove any existing entries from the node
-            for element in container_node:
-                mount_node.remove(element)
-            # call data_to_xml once for each item in the data
-            for i, item in enumerate(data):
-                mount_node.insert(mount_index + i, deepcopy(template))
-                data_to_xml(data=item, xml_node=xml_node, spec=get_items(spec), nsmap=nsmap,
-                            element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
+        if len(container_node) < 1:
+            msg = "container at xpath %s is not found" % container_xpath
+            if silent:
+                logger.warning(msg)
+                return
+            else:
+                raise Exception(msg)
+        mount_node = container_node[0].getparent()
+        mount_index = mount_node.index(container_node[0])
+        template = deepcopy(container_node[0])
+        # remove any existing entries from the node
+        for element in container_node:
+            mount_node.remove(element)
+        # call data_to_xml once for each item in the data
+        for i, item in enumerate(data):
+            mount_node.insert(mount_index + i, deepcopy(template))
+            data_to_xml(data=item, xml_node=xml_node, spec=get_items(spec), nsmap=nsmap,
+                        element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
 
     # export can be false with an exportTo function, i.e. don't do the default export, do this instead
     elif not is_export(spec):

@@ -59,10 +59,6 @@ def get_container(spec):
     return spec.get(SpecialKeys.container, get_xpath(spec))
 
 
-def get_batch(spec):
-    return spec['batch']
-
-
 def get_required(spec):
     return spec.get('required', False)
 
@@ -139,10 +135,6 @@ def get_exportTo(spec, data):
         return exportTo(data)
     else:
         return exportTo
-
-
-def is_batch(spec):
-    return spec.get('batch', False)
 
 
 def is_postprocess(spec):
@@ -654,17 +646,6 @@ def item_is_empty(data, k, v):
     return k not in data or data[k] is None or data[k] == '' or ('removeWhen' in v and v['removeWhen'](data[k]))
 
 
-def spec_data_from_batch(batch_spec, key):
-    raise Exception("TODO: still uses 'nodes' refactor for json schema")
-    assert isinstance(key, string_types), ("Expected a string key, but got {0}".format(type(key).__name__))
-    data = {name: node['data'] for name, node in batch_spec[key].items()}
-    spec = {
-        SpecialKeys.xpath: '.',
-        SpecialKeys.nodes: batch_spec[key]
-    }
-    return spec, data
-
-
 def extract_user_defined(data: dict, path="", acc: list = None) -> list:
     """Takes a json data document and returns a list of all terms that
     have been added by the user.  Adjusts the term to include the data
@@ -736,10 +717,6 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
         if has_exportTo(spec):
             data_to_xml(data=data, xml_node=xml_node, spec=get_exportTo(spec, data), nsmap=nsmap,
                         element_index=element_index, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
-    elif is_batch(spec):
-        spec, data = spec_data_from_batch(get_batch(spec), data)
-        data_to_xml(data=data, xml_node=xml_node, spec=spec, nsmap=nsmap,
-                    element_index=0, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
     elif is_object(spec):
         if not get_xpath(spec):
             return

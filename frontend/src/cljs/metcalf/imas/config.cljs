@@ -510,17 +510,17 @@
      ;   :data-path  []
      ;   :data-paths [["resourceLineage" "lineage"]]}]
      ; [:h2 "5: How"]
-     [:div.lineage-textarea
-      [m4/form-group
-       {:form-id    [:form]
-        :data-path  ["resourceLineage" "statement"]
-        :label      "Methodological information"
-        :helperText "Provide a brief statement of the methods used for collection of the
+     [m4/form-group
+      {:form-id    [:form]
+       :data-path  ["resourceLineage" "statement"]
+       :label      "Methodological information"
+       :helperText "Provide a brief statement of the methods used for collection of the
                      data, can include information regarding sampling equipment (collection hardware),
                      procedures, and precision/resolution of data collected."}
-       [m4/textarea-field
-        {:form-id     [:form]
-         :data-path  ["resourceLineage" "statement"]}]]]
+      [m4/textarea-field
+       {:form-id   [:form]
+        :data-path ["resourceLineage" "statement"]
+        :rows      6}]]
      [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
 
     ;:who

@@ -169,10 +169,36 @@
             "xpath": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode[not(@codeListValue=\"resourceProvider\")]]",
             "type": "object",
             "properties": {
+              "role": {
+                "!docstring": "Who2 / Who11",
+                "type": "string",
+                "xpath": "cit:role/cit:CI_RoleCode",
+                "keep": false,
+                "required": true,
+                "xpath_required": true,
+                "attributes": {
+                  "codeListValue": {
+                    "function": "identity"
+                  }
+                },
+                "parser": {
+                  "function": "parse_codeListValue"
+                },
+                "rules": [
+                  "requiredField"
+                ]
+              },
               "uri": {},
-              "isUserDefined": {}
+              "partyType": {},
+              "isUserDefined": {
+                "!docstring": "Fake node so we can track person status",
+                "xpath": "isUserAdded",
+                "default": false,
+                "export": false
+              }
             }
-          }
+          },
+          "notes": "Responsible party/ies for creating dataset"
         },
         "geographicElement": {
           "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",

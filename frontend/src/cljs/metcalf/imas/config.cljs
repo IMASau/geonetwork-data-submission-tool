@@ -606,6 +606,212 @@
      ;   :button-text "Add"}]
      ; [:hr]
      [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+
+    :party-person/user-defined-entry-form
+    [:div
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "role"]
+       :label     "Role"}
+      [m4/select-value
+       {:form-id    ?form-id
+        :data-path  [?data-path "role"]
+        :label-path ["label"]
+        :value-path ["value"]
+        :options    [{"value" "author" "label" "Author"}
+                     {"value" "custodian" "label" "Custodian"}
+                     {"value" "distributor" "label" "Distributor"}
+                     {"value" "originator" "label" "Originator"}
+                     {"value" "owner" "label" "Owner"}
+                     {"value" "pointOfContact" "label" "Point of contact"}
+                     {"value" "principalInvestigator" "label" "Principal investigator"}
+                     {"value" "processor" "label" "Processor"}
+                     {"value" "publisher" "label" "Publisher"}
+                     {"value" "resourceProvider" "label" "Resource Provider"}
+                     {"value" "user" "label" "User"}
+                     ;{"value" "coAuthor" "label" "Co-Author"}
+                     ;{"value" "collaborator" "label" "Collaborator"}
+                     ;{"value" "contributor" "label" "Contributor"}
+                     ;{"value" "editor" "label" "Editor"}
+                     ;{"value" "funder" "label" "Funder"}
+                     ;{"value" "mediator" "label" "Mediator"}
+                     ;{"value" "rightsHolder" "label" "Rights Holder"}
+                     ;{"value" "sponsor" "label" "Sponsor"}
+                     ;{"value" "stakeholder" "label" "Stakeholder"}
+                     ]}]]
+
+     #_[m4/form-group
+        {:form-id   ?form-id
+         :data-path [?data-path "contact"]
+         :label     "Contact"}
+        [m4/async-simple-item-option-picker
+         {:form-id     ?form-id
+          :data-path   [?data-path "contact"]
+          :uri         "/api/ternpeople"
+          :label-path  ["name"]
+          :value-path  ["uri"]
+          :placeholder "Search for contact details"}]]
+
+     #_[:p "If contact is not available, please enter the contact details below."]
+
+     #_[:div {:style {:display               "grid"
+                      :grid-column-gap       "1em"
+                      :grid-template-columns "1fr 1fr"}}
+
+        [m4/form-group
+         {:form-id   ?form-id
+          :data-path [?data-path "contact" "given_name"]
+          :label     "Given name"}
+         [m4/input-field
+          {:form-id   ?form-id
+           :data-path [?data-path "contact" "given_name"]}]]
+
+        [m4/form-group
+         {:form-id   ?form-id
+          :data-path [?data-path "contact" "surname"]
+          :label     "Surname"}
+         [m4/input-field
+          {:form-id   ?form-id
+           :data-path [?data-path "contact" "surname"]}]]]
+
+     #_[m4/form-group
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "email"]
+         :label     "Email address"}
+        [m4/input-field
+         {:form-id   ?form-id
+          :data-path [?data-path "contact" "email"]}]]
+
+     #_[m4/form-group
+        {:form-id     ?form-id
+         :data-path   [?data-path "contact" "orcid"]
+         :label       "ORCID ID"
+         :placeholder "XXXX-XXXX-XXXX-XXXX"}
+        [m4/input-field
+         {:form-id   ?form-id
+          :data-path [?data-path "contact" "orcid"]}]]
+
+     #_[m4/form-group
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation"]
+         :label     "Select associated Organisation"}
+
+        [:div.bp3-control-group
+         [:div.bp3-fill
+          [m4/async-select-option-simple
+           {:form-id    ?form-id
+            :data-path  [?data-path "organisation"]
+            :uri        "/api/ternorgs"
+            :label-path ["name"]
+            :value-path ["uri"]}]]
+         [m4/item-dialog-button
+          {:form-id    ?form-id
+           :data-path  [?data-path "organisation"]
+           :value-path ["uri"]
+           :added-path ["isUserDefined"]}]]
+
+        [m4/edit-dialog
+         {:form-id     ?form-id
+          :data-path   [?data-path "organisation"]
+          :title       "Organisation"
+          :template-id :person-organisation/user-defined-entry-form}]]]
+
+    #_#_:person-organisation/user-defined-entry-form
+        [:div
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "name"]
+           :label     "Organisation Name"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "name"]}]]
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "full_address_line"]
+           :label     "Campus/Sitename"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "full_address_line"]}]]
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "street_address"]
+           :label     "Building"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "street_address"]}]]
+
+         [:div {:style {:display               "grid"
+                        :grid-column-gap       "1em"
+                        :grid-template-columns "1fr 1fr"}}
+
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "address_locality"]
+            :label     "City"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "address_locality"]}]]
+
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "address_region"]
+            :label     "State"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "address_region"]}]]]
+
+         [:div {:style {:display               "grid"
+                        :grid-column-gap       "1em"
+                        :grid-template-columns "1fr 1fr"}}
+
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "postcode"]
+            :label     "Postal Code"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "postcode"]}]]
+
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "country"]
+            :label     "Country"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "country"]}]]]
+
+         [m4/form-group
+          {:form-id   ?form-id
+           :data-path [?data-path "email"]
+           :label     "Email address"}
+          [m4/input-field
+           {:form-id   ?form-id
+            :data-path [?data-path "email"]}]]
+
+         [:div {:style {:display               "grid"
+                        :grid-column-gap       "1em"
+                        :grid-template-columns "1fr 1fr"}}
+
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "phone"]
+            :label     "Phone"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "phone"]}]]
+
+          [m4/form-group
+           {:form-id   ?form-id
+            :data-path [?data-path "fax"]
+            :label     "Fax"}
+           [m4/input-field
+            {:form-id   ?form-id
+             :data-path [?data-path "fax"]}]]]]
+
     ;
     ;:person/user-defined-entry-form
     ;[:div

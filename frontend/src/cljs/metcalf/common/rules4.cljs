@@ -175,7 +175,7 @@
         props (if shown?
                 {:required true :is-hidden false}
                 {:required false :disabled true :is-hidden true})]
-    (s/assert boolean? shown?)
+    (s/assert (s/nilable boolean?) shown?)
     (-> geographicElement
         (update-in [:content "boxes" :props] merge props)
         (update-in [:content "boxes"] required-field (:required props))

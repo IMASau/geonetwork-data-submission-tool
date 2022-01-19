@@ -28,7 +28,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from metcalf.common import spec4, xmlutils4
+from metcalf.common import spec4, xmlutils4, xmlutils5
 from metcalf.common.serializers import UserByEmailSerializer, UserSerializer
 from metcalf.common.utils import to_json, get_exception_message
 from metcalf.imas.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
@@ -170,11 +170,11 @@ def extract_xml_data2(request, template_id):
     if xmlutils4.has_namespaces(spec):
         kwargs['namespaces'] = xmlutils4.get_namespaces(spec)
     parsers = {
-        'not_empty': xmlutils4.extract2_not_empty_parser,
-        'text_string': xmlutils4.extract2_text_string_parser,
-        'text_number': xmlutils4.extract2_text_number_parser
+        'not_empty': xmlutils5.extract2_not_empty_parser,
+        'text_string': xmlutils5.extract2_text_string_parser,
+        'text_number': xmlutils5.extract2_text_number_parser
     }
-    hit, data = xmlutils4.extract2(tree, spec, parsers, **kwargs)
+    hit, data = xmlutils5.extract2(tree, spec, parsers, **kwargs)
     if hit:
         return Response({"hit": hit, "data": data})
     else:
@@ -296,12 +296,12 @@ def export2(request, uuid):
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
 
     handlers = {
-        "set_text": xmlutils4.export2_set_text_handler,
-        "remove_element": xmlutils4.export2_remove_element_handler,
-        "append_items": xmlutils4.export2_append_items_handler,
+        "set_text": xmlutils5.export2_set_text_handler,
+        "remove_element": xmlutils5.export2_remove_element_handler,
+        "append_items": xmlutils5.export2_append_items_handler,
     }
 
-    xmlutils4.export2(
+    xmlutils5.export2(
         data=data,
         xml_node=xml,
         spec=spec,

@@ -523,64 +523,89 @@
         :rows      6}]]
      [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
 
-    ;:who
-    ;[:div
-    ; [m4/page-errors
-    ;  {:form-id    [:form]
-    ;   :data-path  []
-    ;   :data-paths [["identificationInfo" "citedResponsibleParty"]
-    ;                ["identificationInfo" "pointOfContact"]]}]
-    ; [:h2 "6. Who"]
-    ; [m4/selection-list-columns
-    ;  {:form-id    [:form]
-    ;   :data-path  ["identificationInfo" "citedResponsibleParty"]
-    ;   :value-path ["uri"]
-    ;   :added-path ["isUserDefined"]
-    ;   :columns    [{:columnHeader "Given name" :label-path ["givenName"] :flex 1}
-    ;                {:columnHeader "Family name" :label-path ["familyName"] :flex 1}]}]
-    ; [:div.bp3-control-group
-    ;  [m4/list-add-button
-    ;   {:form-id     [:form]
-    ;    :data-path   ["identificationInfo" "citedResponsibleParty"]
-    ;    :button-text "Add cited responsible party"
-    ;    :value-path  ["uri"]
-    ;    :added-path  ["isUserDefined"]}]]
-    ; [m4/list-edit-dialog
-    ;  {:form-id     [:form]
-    ;   :data-path   ["identificationInfo" "citedResponsibleParty"]
-    ;   :title       "Responsible for creating the data"
-    ;   :template-id :person/user-defined-entry-form}]
-    ; [:hr]
-    ; [m4/selection-list-columns
-    ;  {:form-id    [:form]
-    ;   :data-path  ["identificationInfo" "pointOfContact"]
-    ;   :value-path ["uri"]
-    ;   :added-path ["isUserDefined"]
-    ;   :columns    [{:columnHeader "Given name" :label-path ["givenName"] :flex 1}
-    ;                {:columnHeader "Family name" :label-path ["familyName"] :flex 1}]}]
-    ; [:div.bp3-control-group
-    ;  [m4/list-add-button
-    ;   {:form-id     [:form]
-    ;    :data-path   ["identificationInfo" "pointOfContact"]
-    ;    :button-text "Add point of contact"
-    ;    :value-path  ["uri"]
-    ;    :added-path  ["isUserDefined"]}]]
-    ; [m4/list-edit-dialog
-    ;  {:form-id     [:form]
-    ;   :data-path   ["identificationInfo" "pointOfContact"]
-    ;   :title       "Responsible for creating the data"
-    ;   :template-id :person/user-defined-entry-form}]
-    ; [:h3 "Other credits"]
-    ; [:div "Acknowledge the contribution of any funding schemes or organisations."]
-    ; [m4/selection-list-values
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "credit"]}]
-    ; [m4/text-add-button
-    ;  {:form-id     [:form]
-    ;   :data-path   ["identificationInfo" "credit"]
-    ;   :button-text "Add"}]
-    ; [:hr]
-    ; [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+    :who
+    [:div
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["identificationInfo" "citedResponsibleParty"]
+     ;                ["identificationInfo" "pointOfContact"]]}]
+     [:h2 "6. Who"]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "citedResponsibleParty"]
+       :label     "Responsible parties for creating dataset"}
+
+      [m4/selection-list-template
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "citedResponsibleParty"]
+        :template-id :party/list-item
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
+
+      [m4/list-add-button
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "citedResponsibleParty"]
+        :button-text "Add person"
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
+
+      [m4/list-edit-dialog
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "citedResponsibleParty"]
+        :title       "Person"
+        :template-id :party-person/user-defined-entry-form}]]
+
+     ; [m4/selection-list-columns
+     ;  {:form-id    [:form]
+     ;   :data-path  ["identificationInfo" "citedResponsibleParty"]
+     ;   :value-path ["uri"]
+     ;   :added-path ["isUserDefined"]
+     ;   :columns    [{:columnHeader "Given name" :label-path ["givenName"] :flex 1}
+     ;                {:columnHeader "Family name" :label-path ["familyName"] :flex 1}]}]
+     ; [:div.bp3-control-group
+     ;  [m4/list-add-button
+     ;   {:form-id     [:form]
+     ;    :data-path   ["identificationInfo" "citedResponsibleParty"]
+     ;    :button-text "Add cited responsible party"
+     ;    :value-path  ["uri"]
+     ;    :added-path  ["isUserDefined"]}]]
+     ; [m4/list-edit-dialog
+     ;  {:form-id     [:form]
+     ;   :data-path   ["identificationInfo" "citedResponsibleParty"]
+     ;   :title       "Responsible for creating the data"
+     ;   :template-id :person/user-defined-entry-form}]
+     ; [:hr]
+     ; [m4/selection-list-columns
+     ;  {:form-id    [:form]
+     ;   :data-path  ["identificationInfo" "pointOfContact"]
+     ;   :value-path ["uri"]
+     ;   :added-path ["isUserDefined"]
+     ;   :columns    [{:columnHeader "Given name" :label-path ["givenName"] :flex 1}
+     ;                {:columnHeader "Family name" :label-path ["familyName"] :flex 1}]}]
+     ; [:div.bp3-control-group
+     ;  [m4/list-add-button
+     ;   {:form-id     [:form]
+     ;    :data-path   ["identificationInfo" "pointOfContact"]
+     ;    :button-text "Add point of contact"
+     ;    :value-path  ["uri"]
+     ;    :added-path  ["isUserDefined"]}]]
+     ; [m4/list-edit-dialog
+     ;  {:form-id     [:form]
+     ;   :data-path   ["identificationInfo" "pointOfContact"]
+     ;   :title       "Responsible for creating the data"
+     ;   :template-id :person/user-defined-entry-form}]
+     ; [:h3 "Other credits"]
+     ; [:div "Acknowledge the contribution of any funding schemes or organisations."]
+     ; [m4/selection-list-values
+     ;  {:form-id   [:form]
+     ;   :data-path ["identificationInfo" "credit"]}]
+     ; [m4/text-add-button
+     ;  {:form-id     [:form]
+     ;   :data-path   ["identificationInfo" "credit"]
+     ;   :button-text "Add"}]
+     ; [:hr]
+     [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
     ;
     ;:person/user-defined-entry-form
     ;[:div

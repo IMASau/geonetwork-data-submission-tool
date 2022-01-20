@@ -652,7 +652,8 @@
         :label     "Contact name"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "name"]}]]]
+         :data-path [?data-path "contact" "name"]
+         :placeholder "Last name, First name"}]]]
 
      [m4/form-group
       {:form-id   ?form-id

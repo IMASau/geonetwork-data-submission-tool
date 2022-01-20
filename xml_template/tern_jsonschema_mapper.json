@@ -855,7 +855,8 @@
                   ["contact", "name"]
                 ]
               }
-            }
+            },
+              "requiredParty"
             ]
           }
         },

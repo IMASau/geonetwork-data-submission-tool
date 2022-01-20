@@ -151,9 +151,9 @@
       :onSave  #(rf/dispatch [::list-edit-dialog-save config])
       :canSave (not errors?)}
      (low-code4/render-template
-      {:template-id template-id
-       :variables   {'?form-id   form-id
-                     '?data-path item-data-path}})]))
+       {:template-id template-id
+        :variables   {'?form-id   form-id
+                      '?data-path item-data-path}})]))
 
 (defn typed-list-edit-dialog-settings
   "Settings for typed-list-edit-dialog"

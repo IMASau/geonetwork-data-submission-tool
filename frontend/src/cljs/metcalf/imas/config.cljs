@@ -679,11 +679,12 @@
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
        :label     "Organisation"}
-      [m4/async-simple-item-option-picker
+      [m4/async-simple-item-option-picker2
        {:form-id     ?form-id
-        :data-path   [?data-path "organisation"]
+        :data-path   ?data-path
+        :data-mapper {["organisationName"] ["organisation" "name"]}
         :uri         "/api/institution/"
-        :label-path  ["name"]
+        :label-path  ["organisationName"]
         :value-path  ["uri"]
         :placeholder "Search for an organisation"}]]
 

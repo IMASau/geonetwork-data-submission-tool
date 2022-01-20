@@ -6,28 +6,22 @@ from metcalf.imas.backend import models
 
 
 class InstitutionSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(source='prefLabel')
-    full_address_line = serializers.CharField(source='deliveryPoint')
-    street_address = serializers.CharField(source='deliveryPoint2')
-    address_locality = serializers.CharField(source='city')
-    address_region = serializers.CharField(source='administrativeArea')
-    postcode = serializers.CharField(source='postalCode')
 
     class Meta:
         model = models.Institution
         fields = [
             # 'id',
             'uri',
-            'name',  # 'prefLabel',
+            'prefLabel',
             # 'altLabel',
             # 'exactMatch',
             # 'isUserAdded',
-            # 'organisationName',
-            'full_address_line',  # 'deliveryPoint',
-            'street_address',  # 'deliveryPoint2',
-            'address_locality',  # 'city',
-            'address_region',  # 'administrativeArea',
-            'postcode',  # 'postalCode',
+            'organisationName',
+            'deliveryPoint',
+            'deliveryPoint2',
+            'city',
+            'administrativeArea',
+            'postalCode',
             'country',
         ]
 

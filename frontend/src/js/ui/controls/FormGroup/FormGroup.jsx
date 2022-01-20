@@ -81,7 +81,7 @@ export function InlineFormGroup({label, required, toolTip, helperText, hasError,
 }
 
 InlineFormGroup.propTypes = {
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     required: PropTypes.bool,
     toolTip: PropTypes.node,
     helperText: PropTypes.string,

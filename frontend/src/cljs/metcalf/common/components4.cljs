@@ -77,8 +77,8 @@
 (defn inline-form-group-settings
   "Settings for inline-form-group component"
   [_]
-  {::low-code4/req-ks [:label]
-   ::low-code4/opt-ks [:form-id :data-path :helperText :toolTip]})
+  {::low-code4/req-ks []
+   ::low-code4/opt-ks [:label :form-id :data-path :helperText :toolTip]})
 
 (defn inline-form-group
   "This component is a lightweight wrapper around its children with props for the label to the left and helper text below.

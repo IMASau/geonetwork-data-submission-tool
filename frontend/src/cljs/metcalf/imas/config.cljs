@@ -684,7 +684,8 @@
         :data-path   ?data-path
         :data-mapper {["organisationName"] ["organisation" "name"]
                       ["deliveryPoint"]    ["contact" "deliveryPoint"]
-                      ["deliveryPoint2"]   ["contact" "deliveryPoint2"]}
+                      ["deliveryPoint2"]   ["contact" "deliveryPoint2"]
+                      ["city"]             ["contact" "city"]}
         :uri         "/api/institution/"
         :label-path  ["organisationName"]
         :value-path  ["uri"]
@@ -711,7 +712,15 @@
        :data-path [?data-path "contact" "deliveryPoint2"]}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "deliveryPoint2"]}]]]
+        :data-path [?data-path "contact" "deliveryPoint2"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "city"]
+       :label     "City"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "city"]}]]]
 
     #_#_:person-organisation/user-defined-entry-form
         [:div
@@ -743,14 +752,6 @@
          [:div {:style {:display               "grid"
                         :grid-column-gap       "1em"
                         :grid-template-columns "1fr 1fr"}}
-
-          [m4/form-group
-           {:form-id   ?form-id
-            :data-path [?data-path "address_locality"]
-            :label     "City"}
-           [m4/input-field
-            {:form-id   ?form-id
-             :data-path [?data-path "address_locality"]}]]
 
           [m4/form-group
            {:form-id   ?form-id

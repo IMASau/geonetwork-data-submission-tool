@@ -219,13 +219,6 @@
                       }
                     }
                   },
-                  "address_locality": {
-                    "!docstring": "Who13 / Who14",
-                    "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
-                    "type": "string",
-                    "keep": false,
-                    "valueChild": "gco:CharacterString"
-                  },
                   "address_region": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
@@ -334,6 +327,13 @@
                   "deliveryPoint2": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
+                    "type": "string",
+                    "keep": false,
+                    "valueChild": "gco:CharacterString"
+                  },
+                  "city": {
+                    "!docstring": "Who13 / Who14",
+                    "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
                     "type": "string",
                     "keep": false,
                     "valueChild": "gco:CharacterString"

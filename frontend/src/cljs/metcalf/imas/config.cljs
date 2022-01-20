@@ -665,14 +665,6 @@
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "email"]
-       :label     "Email address"}
-      [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "email"]}]]
-
-     [m4/form-group
-      {:form-id   ?form-id
        :data-path [?data-path "organisation"]
        :label     "Organisation"}
       [m4/async-simple-item-option-picker2
@@ -734,7 +726,15 @@
         :label     "Postal Code"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "postalCode"]}]]]]
+         :data-path [?data-path "contact" "postalCode"]}]]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "email"]
+       :label     "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "email"]}]]]
 
     #_#_:person-organisation/user-defined-entry-form
         [:div

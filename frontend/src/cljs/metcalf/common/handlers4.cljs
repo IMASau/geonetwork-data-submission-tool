@@ -107,12 +107,9 @@
 (defn item-option-picker2-change
   "Handle picker change.  Uses option data to set values controlled by data-mapper."
   [{:keys [db]} [_ ctx option]]
-  (js/console.log ::item-option-picker2-change.option option)
   (let [{:keys [form-id data-path data-mapper]} ctx]
     (reduce (fn [s [get-path set-path]]
-              (js/console.log ::item-option-picker2-change.get-path get-path)
               (let [value (get-in option get-path)]
-                (js/console.log ::item-option-picker2-change.value value)
                 (actions4/set-data-action s form-id (into data-path set-path) value)))
             {:db db}
             data-mapper)))

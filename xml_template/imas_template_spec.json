@@ -226,20 +226,6 @@
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
-                  "phone": {
-                    "!docstring": "Who13 / Who14",
-                    "xpath": "TODO",
-                    "keep": false,
-                    "type": "string",
-                    "valueChild": "gco:CharacterString"
-                  },
-                  "fax": {
-                    "!docstring": "Who13 / Who14",
-                    "xpath": "TODO",
-                    "keep": false,
-                    "type": "string",
-                    "valueChild": "gco:CharacterString"
-                  },
                   "isUserDefined": {}
                 }
               },
@@ -273,17 +259,17 @@
                   },
                   "phone": {
                     "!docstring": "Who13 / Who14",
-                    "xpath": "TODO",
+                    "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:phone[cit:CI_Telephone/cit:numberType/cit:CI_TelephoneTypeCode[@codeListValue=\"voice\"]]",
                     "type": "string",
                     "keep": false,
-                    "valueChild": "gco:CharacterString"
+                    "valueChild": "cit:CI_Telephone/cit:number/gco:CharacterString"
                   },
                   "fax": {
                     "!docstring": "Who13 / Who14",
-                    "xpath": "TODO",
+                    "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:phone[cit:CI_Telephone/cit:numberType/cit:CI_TelephoneTypeCode[@codeListValue=\"facsimile\"]]",
                     "type": "string",
                     "keep": false,
-                    "valueChild": "gco:CharacterString"
+                    "valueChild": "cit:CI_Telephone/cit:number/gco:CharacterString"
                   },
                   "orcid2": {
                     "!docstring": "Who7",

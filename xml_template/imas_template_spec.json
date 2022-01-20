@@ -219,13 +219,6 @@
                       }
                     }
                   },
-                  "address_region": {
-                    "!docstring": "Who13 / Who14",
-                    "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
-                    "type": "string",
-                    "keep": false,
-                    "valueChild": "gco:CharacterString"
-                  },
                   "postcode": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
@@ -334,6 +327,13 @@
                   "city": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
+                    "type": "string",
+                    "keep": false,
+                    "valueChild": "gco:CharacterString"
+                  },
+                  "administrativeArea": {
+                    "!docstring": "Who13 / Who14",
+                    "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
                     "type": "string",
                     "keep": false,
                     "valueChild": "gco:CharacterString"

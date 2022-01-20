@@ -715,13 +715,23 @@
        {:form-id   ?form-id
         :data-path [?data-path "contact" "deliveryPoint2"]}]]
 
-     [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "contact" "city"]
-       :label     "City"}
-      [m4/input-field
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+      [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "city"]}]]]
+        :data-path [?data-path "contact" "city"]
+        :label     "City"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "city"]}]]
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "administrativeArea"]
+        :label     "State / territory"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "administrativeArea"]}]]]]
 
     #_#_:person-organisation/user-defined-entry-form
         [:div

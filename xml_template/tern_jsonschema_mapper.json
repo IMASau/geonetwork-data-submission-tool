@@ -552,29 +552,33 @@
                 "type": "object",
                 "xpath": "cit:party/cit:CI_Organisation/cit:individual",
                 "properties": {
+                  "canonical_name": {
+                    "!docstring": "Not for entry; holds 'surname,given_name'",
+                    "xpath": "cit:CI_Individual/cit:name/gco:CharacterString",
+                    "type": "string",
+                    "keep": false
+                  },
                   "name": {
                     "!docstring": "Who3",
-                    "xpath": "cit:CI_Individual/cit:name",
-                    "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
                     "required": false
                   },
                   "surname": {
                     "!docstring": "Who5",
-                    "xpath": "cit:CI_Individual/cit:name",
-                    "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
-                    "export": false
+                    "export": false,
+                    "required": true,
+                    "rules": ["requiredField"]
                   },
                   "given_name": {
                     "!docstring": "Who4",
-                    "xpath": "cit:CI_Individual/cit:name",
-                    "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
-                    "export": false
+                    "export": false,
+                    "required": true,
+                    "rules": ["requiredField"]
                   },
                   "email": {
                     "!docstring": "Who6",
@@ -625,7 +629,8 @@
                     "required": false
                   },
                   "isUserDefined": {}
-                }
+                },
+                "rules": ["mergeNameParts"]
               },
               "uri": {},
               "partyType": {},
@@ -767,27 +772,31 @@
                 "type": "object",
                 "xpath": "cit:party/cit:CI_Organisation/cit:individual",
                 "properties": {
+                  "canonical_name": {
+                    "!docstring": "Not for entry; holds 'surname,given_name'",
+                    "xpath": "cit:CI_Individual/cit:name/gco:CharacterString",
+                    "type": "string",
+                    "keep": false
+                  },
                   "name": {
                     "!docstring": "Who3",
-                    "xpath": "cit:CI_Individual/cit:name",
-                    "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
                     "required": false
                   },
                   "surname": {
                     "!docstring": "Who5",
-                    "xpath": "cit:CI_Individual/cit:name",
-                    "valueChild": "gco:CharacterString",
                     "type": "string",
+                    "required": true,
+                    "rules": ["requiredField"],
                     "keep": false,
                     "export": false
                   },
                   "given_name": {
                     "!docstring": "Who4",
-                    "xpath": "cit:CI_Individual/cit:name",
-                    "valueChild": "gco:CharacterString",
                     "type": "string",
+                    "required": true,
+                    "rules": ["requiredField"],
                     "keep": false,
                     "export": false
                   },
@@ -826,7 +835,8 @@
                     "required": false
                   },
                   "isUserDefined": {}
-                }
+                },
+                "rules": ["mergeNameParts"]
               },
               "uri": {},
               "partyType": {},

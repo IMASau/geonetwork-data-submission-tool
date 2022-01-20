@@ -345,6 +345,26 @@
 															</cit:name>
 														</cit:CI_OnlineResource>
 													</cit:onlineResource>
+													<cit:phone>
+														<cit:CI_Telephone>
+															<cit:number>
+																<gco:CharacterString>61 8 6488 3179</gco:CharacterString>
+															</cit:number>
+															<cit:numberType>
+																<cit:CI_TelephoneTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
+															</cit:numberType>
+														</cit:CI_Telephone>
+													</cit:phone>
+													<cit:phone>
+														<cit:CI_Telephone>
+															<cit:number>
+																<gco:CharacterString>61 8 6488 3179</gco:CharacterString>
+															</cit:number>
+															<cit:numberType>
+																<cit:CI_TelephoneTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="facsimile"/>
+															</cit:numberType>
+														</cit:CI_Telephone>
+													</cit:phone>
 												</cit:CI_Contact>
 											</cit:contactInfo>
 										</cit:CI_Individual>

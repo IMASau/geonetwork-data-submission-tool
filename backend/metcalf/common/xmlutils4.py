@@ -2,6 +2,7 @@ import datetime
 import inspect
 import logging
 import math
+import sys
 from copy import deepcopy
 from decimal import Decimal
 from functools import partial
@@ -426,6 +427,8 @@ def update_user_defined(document_data: dict, update_data: dict, path: list) -> d
 
 
 def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=True, fieldKey=None):
+    print("data_to_xml")
+    print("  data_to_xml.spec['xpath']", spec.get('xpath', None))
     # indicates that the spec allows more than one value for this node
     if is_array(spec):
         container_xpath = get_container(spec)
@@ -457,7 +460,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
     elif is_object(spec):
         if not get_xpath(spec):
             return
-        xml_node = xml_node.xpath(get_xpath(spec), namespaces=nsmap)[element_index]
+        xml_node0 = xml_node.xpath(get_xpath(spec), namespaces=nsmap)[element_index]
         for field_key, node_spec in get_properties(spec).items():
             # workaround for a problem with identifiers in the final output
             # we need to write either the orcid or the uri to the XML file
@@ -475,15 +478,15 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                 container_xpath = get_container(node_spec)
                 # don't delete it, but do have to clear any preset value
                 if not is_deleteWhenEmpty(node_spec):
-                    elements = xml_node.xpath(container_xpath, namespaces=nsmap)
+                    elements = xml_node0.xpath(container_xpath, namespaces=nsmap)
                     for element in elements:
                         element.text = ''
                 elif container_xpath is not None:
-                    elements = xml_node.xpath(container_xpath, namespaces=nsmap)
+                    elements = xml_node0.xpath(container_xpath, namespaces=nsmap)
                     for element in elements:
                         element.getparent().remove(element)
                 continue
-            data_to_xml(data=data[field_key], xml_node=xml_node, spec=node_spec, nsmap=nsmap,
+            data_to_xml(data=data[field_key], xml_node=xml_node0, spec=node_spec, nsmap=nsmap,
                         element_index=0, silent=silent, fieldKey=field_key, doc_uuid=doc_uuid)
     # default behaviour; populate the xml elements with the values in the data
     else:

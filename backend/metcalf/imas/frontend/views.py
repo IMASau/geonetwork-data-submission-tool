@@ -494,24 +494,6 @@ def save(request, uuid, update_number):
             doc.resubmit()
         doc.save()
 
-        # add any new people or institutions to the database
-        pointOfContacts = data['identificationInfo'].get('pointOfContact')
-        citedResponsibleParties = data['identificationInfo'].get('citedResponsibleParty')
-
-        if pointOfContacts:
-            for pointOfContact in pointOfContacts:
-                updatedPerson = personFromData(pointOfContact)
-                if updatedPerson:
-                    pointOfContact['individualName'] = updatedPerson.prefLabel
-                institutionFromData(pointOfContact)
-
-        if citedResponsibleParties:
-            for citedResponsibleParty in citedResponsibleParties:
-                updatedPerson = personFromData(citedResponsibleParty)
-                if updatedPerson:
-                    citedResponsibleParty['individualName'] = updatedPerson.prefLabel
-                institutionFromData(citedResponsibleParty)
-
         # update the publication date
         data['identificationInfo']['datePublication'] = spec4.today()
 

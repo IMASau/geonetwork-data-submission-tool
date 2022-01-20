@@ -670,12 +670,13 @@
       [m4/async-simple-item-option-picker2
        {:form-id     ?form-id
         :data-path   ?data-path
-        :data-mapper {["organisationName"] ["organisation" "name"]
-                      ["deliveryPoint"]    ["contact" "deliveryPoint"]
-                      ["deliveryPoint2"]   ["contact" "deliveryPoint2"]
-                      ["city"]             ["contact" "city"]
-                      ["postalCode"]       ["contact" "postalCode"]
-                      ["country"]          ["contact" "country"]}
+        :data-mapper {["organisationName"]   ["organisation" "name"]
+                      ["deliveryPoint"]      ["contact" "deliveryPoint"]
+                      ["deliveryPoint2"]     ["contact" "deliveryPoint2"]
+                      ["city"]               ["contact" "city"]
+                      ["administrativeArea"] ["contact" "administrativeArea"]
+                      ["postalCode"]         ["contact" "postalCode"]
+                      ["country"]            ["contact" "country"]}
         :uri         "/api/institution/"
         :label-path  ["prefLabel"]
         :value-path  ["uri"]

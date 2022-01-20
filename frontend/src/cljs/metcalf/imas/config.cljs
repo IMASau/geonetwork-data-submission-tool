@@ -695,9 +695,10 @@
       {:form-id   ?form-id
        :data-path [?data-path "organisation" "name"]
        :label     "Organisation Name"}
-      [m4/input-field
+      [m4/textarea-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "name"]}]]
+        :data-path [?data-path "organisation" "name"]
+        :rows      1}]]
 
      [m4/form-group
       {:form-id   ?form-id

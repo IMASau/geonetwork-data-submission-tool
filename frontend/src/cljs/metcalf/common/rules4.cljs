@@ -51,12 +51,14 @@
       (update-in [:props :errors] conj "Must be formatted 'Last name, First name'"))))
 
 (defn valid-ordid-uri
-  "Raise an error if the string field value isn't formatted as 'last name, first name'"
+  "Raise an error if the string field value isn't formatted as a valid
+  ORCID uri; see
+  https://support.orcid.org/hc/en-us/articles/360006897674-Structure-of-the-ORCID-Identifier"
   [block]
   (let [value (blocks4/as-data block)]
     (cond-> block
       (and (not (string/blank? value))
-           (not (re-matches #"https?://orcid.org/\w\w\w\w-\w\w\w\w-\w\w\w\w-\w\w\w\w" value)))
+           (not (re-matches #"https?://orcid.org/\d\d\d\d-\d\d\d\d-\d\d\d\d-\d\d\d[\dxX]" value)))
       (update-in [:props :errors] conj "Invalid ORCID url.  Expected format is 'https://orcid.org/XXXX-XXXX-XXXX-XXXX'"))))
 
 (defn required-all-or-nothing

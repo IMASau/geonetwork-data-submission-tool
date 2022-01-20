@@ -654,26 +654,6 @@
         {:form-id   ?form-id
          :data-path [?data-path "contact" "name"]}]]]
 
-     #_[:div {:style {:display               "grid"
-                      :grid-column-gap       "1em"
-                      :grid-template-columns "1fr 1fr"}}
-
-        [m4/form-group
-         {:form-id   ?form-id
-          :data-path [?data-path "contact" "given_name"]
-          :label     "Given name"}
-         [m4/input-field
-          {:form-id   ?form-id
-           :data-path [?data-path "contact" "given_name"]}]]
-
-        [m4/form-group
-         {:form-id   ?form-id
-          :data-path [?data-path "contact" "surname"]
-          :label     "Surname"}
-         [m4/input-field
-          {:form-id   ?form-id
-           :data-path [?data-path "contact" "surname"]}]]]
-
      #_[m4/form-group
         {:form-id   ?form-id
          :data-path [?data-path "contact" "email"]

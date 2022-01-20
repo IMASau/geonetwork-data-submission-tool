@@ -140,7 +140,8 @@
        "dateOrder"            rules4/date-order
        "endPosition"          rules4/end-position
        "positive"             rules4/force-positive
-       "maintFreq"            rules4/maint-freq})
+       "maintFreq"            rules4/maint-freq
+       "firstCommaLast"       rules4/first-comma-last})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)
@@ -536,12 +537,12 @@
        :data-path ["identificationInfo" "citedResponsibleParty"]
        :label     "Responsible parties for creating dataset"}
 
-      [m4/selection-list-template
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "citedResponsibleParty"]
-        :template-id :party/list-item
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]}]
+      [m4/selection-list-simple
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "citedResponsibleParty"]
+        :label-path ["contact" "name"]
+        :value-path ["uri"]
+        :added-path ["isUserDefined"]}]
 
       [m4/list-add-button
        {:form-id     [:form]
@@ -654,6 +655,18 @@
           :placeholder "Search for contact details"}]]
 
      #_[:p "If contact is not available, please enter the contact details below."]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "name"]
+        :label     "Contact name"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "name"]}]]]
 
      #_[:div {:style {:display               "grid"
                       :grid-column-gap       "1em"

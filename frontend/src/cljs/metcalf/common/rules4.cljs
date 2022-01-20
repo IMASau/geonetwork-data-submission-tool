@@ -41,6 +41,15 @@
                   (update-in [:props :errors] conj "This field is required"))))
     block))
 
+(defn first-comma-last
+  "Raise an error if the string field value isn't formatted as 'last name, first name'"
+  [block]
+  (let [value (blocks4/as-data block)]
+    (cond-> block
+      (and (not (string/blank? value))
+           (not (string/includes? value ", ")))
+      (update-in [:props :errors] conj "Name must be formatted 'Last name, First name'"))))
+
 (defn required-all-or-nothing
   "Handles cases where a group of fields are mandatory if set; ie if you
   set one, they should all be set"

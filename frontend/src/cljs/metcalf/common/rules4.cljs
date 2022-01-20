@@ -48,7 +48,7 @@
     (cond-> block
       (and (not (string/blank? value))
            (not (string/includes? value ", ")))
-      (update-in [:props :errors] conj "Name must be formatted 'Last name, First name'"))))
+      (update-in [:props :errors] conj "Must be formatted 'Last name, First name'"))))
 
 (defn required-all-or-nothing
   "Handles cases where a group of fields are mandatory if set; ie if you

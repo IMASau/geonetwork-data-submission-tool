@@ -1721,8 +1721,8 @@
     (when-not is-hidden
       [:div
        [ui-controls/InputField
-        {:value       (or name "")
-        :disabled    true}]
+        {:value    (or name "")
+         :disabled true}]
        [ui-controls/Dropzone
         {:disabled    disabled
          :placeholder (r/as-element placeholder)

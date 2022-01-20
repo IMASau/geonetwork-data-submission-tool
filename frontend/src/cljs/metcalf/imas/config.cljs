@@ -673,30 +673,17 @@
        {:form-id   ?form-id
         :data-path [?data-path "contact" "email"]}]]
 
-     #_[m4/form-group
-        {:form-id   ?form-id
-         :data-path [?data-path "organisation"]
-         :label     "Select associated Organisation"}
-
-        [:div.bp3-control-group
-         [:div.bp3-fill
-          [m4/async-select-option-simple
-           {:form-id    ?form-id
-            :data-path  [?data-path "organisation"]
-            :uri        "/api/ternorgs"
-            :label-path ["name"]
-            :value-path ["uri"]}]]
-         [m4/item-dialog-button
-          {:form-id    ?form-id
-           :data-path  [?data-path "organisation"]
-           :value-path ["uri"]
-           :added-path ["isUserDefined"]}]]
-
-        [m4/edit-dialog
-         {:form-id     ?form-id
-          :data-path   [?data-path "organisation"]
-          :title       "Organisation"
-          :template-id :person-organisation/user-defined-entry-form}]]]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation"]
+       :label     "Organisation"}
+      [m4/async-simple-item-option-picker
+       {:form-id     ?form-id
+        :data-path   [?data-path "organisation"]
+        :uri         "/api/institution/"
+        :label-path  ["name"]
+        :value-path  ["uri"]
+        :placeholder "Search for an organisation"}]]]
 
     #_#_:person-organisation/user-defined-entry-form
         [:div

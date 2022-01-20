@@ -642,20 +642,6 @@
                      ;{"value" "stakeholder" "label" "Stakeholder"}
                      ]}]]
 
-     #_[m4/form-group
-        {:form-id   ?form-id
-         :data-path [?data-path "contact"]
-         :label     "Contact"}
-        [m4/async-simple-item-option-picker
-         {:form-id     ?form-id
-          :data-path   [?data-path "contact"]
-          :uri         "/api/ternpeople"
-          :label-path  ["name"]
-          :value-path  ["uri"]
-          :placeholder "Search for contact details"}]]
-
-     #_[:p "If contact is not available, please enter the contact details below."]
-
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
                     :grid-template-columns "1fr 1fr"}}

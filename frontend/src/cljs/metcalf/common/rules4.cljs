@@ -56,7 +56,7 @@
   (let [value (blocks4/as-data block)]
     (cond-> block
       (and (not (string/blank? value))
-           (not (re-matches #"https://orcid.org/\d\d\d\d-\d\d\d\d-\d\d\d\d-\d\d\d\d" value)))
+           (not (re-matches #"https?://orcid.org/\w\w\w\w-\w\w\w\w-\w\w\w\w-\w\w\w\w" value)))
       (update-in [:props :errors] conj "Invalid ORCID url.  Expected format is 'https://orcid.org/XXXX-XXXX-XXXX-XXXX'"))))
 
 (defn required-all-or-nothing

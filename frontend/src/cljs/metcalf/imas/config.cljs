@@ -614,7 +614,7 @@
     :party-person/user-defined-entry-form
     [:div
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "role"]
        :label     "Role"}
@@ -645,7 +645,7 @@
                      ;{"value" "stakeholder" "label" "Stakeholder"}
                      ]}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact" "name"]
        :label     "Contact name"}
@@ -654,7 +654,7 @@
         :data-path   [?data-path "contact" "name"]
         :placeholder "Last name, First name"}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact" "orcid2"]
        :label     "ORCID ID"}
@@ -663,7 +663,7 @@
         :data-path   [?data-path "contact" "orcid2"]
         :placeholder "https://orcid.org/XXXX-XXXX-XXXX-XXXX"}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
        :label     "Organisation"}
@@ -682,7 +682,7 @@
         :value-path  ["uri"]
         :placeholder "Search for an organisation"}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "organisation" "name"]
        :label     "Organisation Name"}
@@ -691,54 +691,59 @@
         :data-path [?data-path "organisation" "name"]
         :rows      1}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact" "deliveryPoint"]
        :label     "Postal address"}
       [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "deliveryPoint"]}]]
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "deliveryPoint"]
+        :placeholder "Street address"}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact" "deliveryPoint2"]}
       [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "deliveryPoint2"]}]]
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "deliveryPoint2"]
+        :placeholder ""}]]
 
-     [:div {:style {:display               "grid"
-                    :grid-column-gap       "1em"
-                    :grid-template-columns "1fr 1fr"}}
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "city"]
-        :label     "City"}
-       [m4/input-field
+     [m4/inline-form-group
+      {}
+      [:div {:style {:display               "grid"
+                     :grid-column-gap       "1em"
+                     :grid-template-columns "1fr 1fr"}}
+       [m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "city"]}]]
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "administrativeArea"]
-        :label     "State / territory"}
-       [m4/input-field
+         :data-path [?data-path "contact" "city"]}
+        [m4/input-field
+         {:form-id     ?form-id
+          :data-path   [?data-path "contact" "city"]
+          :placeholder "City"}]]
+       [m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "administrativeArea"]}]]
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "postalCode"]
-        :label     "Postal Code"}
-       [m4/input-field
+         :data-path [?data-path "contact" "administrativeArea"]}
+        [m4/input-field
+         {:form-id     ?form-id
+          :data-path   [?data-path "contact" "administrativeArea"]
+          :placeholder "State / territory"}]]
+       [m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "postalCode"]}]]
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "country"]
-        :label     "Country"}
-       [m4/input-field
+         :data-path [?data-path "contact" "postalCode"]}
+        [m4/input-field
+         {:form-id     ?form-id
+          :data-path   [?data-path "contact" "postalCode"]
+          :placeholder "Post code"}]]
+       [m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "country"]}]]]
+         :data-path [?data-path "contact" "country"]
+         }
+        [m4/input-field
+         {:form-id     ?form-id
+          :data-path   [?data-path "contact" "country"]
+          :placeholder "Country"}]]]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact" "email"]
        :label     "Email address"}

@@ -37,8 +37,8 @@
 (defn form-group-settings
   "Settings for form group"
   [{:keys [data-path]}]
-  {::low-code4/req-ks       []
-   ::low-code4/opt-ks       [:label :form-id :data-path :helperText :toolTip]})
+  {::low-code4/req-ks []
+   ::low-code4/opt-ks [:label :form-id :data-path :helperText :toolTip]})
 
 (defn form-group
   "This component is a lightweight wrapper around its children with props for the label above and helper text below.

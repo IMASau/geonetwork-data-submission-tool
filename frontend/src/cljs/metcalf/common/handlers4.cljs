@@ -109,8 +109,11 @@
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path data-mapper]} ctx]
     (reduce (fn [s [get-path set-path]]
-              (let [value (get-in option get-path)]
-                (actions4/set-data-action s form-id (into data-path set-path) value)))
+              (let [value (get-in option get-path)
+                    value-path (into data-path set-path)]
+                (-> s
+                    (actions4/set-data-action form-id value-path value)
+                    (actions4/genkey-action form-id value-path))))
             {:db db}
             data-mapper)))
 

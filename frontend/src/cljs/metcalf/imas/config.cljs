@@ -682,7 +682,8 @@
       [m4/async-simple-item-option-picker2
        {:form-id     ?form-id
         :data-path   ?data-path
-        :data-mapper {["organisationName"] ["organisation" "name"]}
+        :data-mapper {["organisationName"] ["organisation" "name"]
+                      ["deliveryPoint"]    ["contact" "deliveryPoint"]}
         :uri         "/api/institution/"
         :label-path  ["organisationName"]
         :value-path  ["uri"]
@@ -694,7 +695,15 @@
        :label     "Organisation Name"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "name"]}]]]
+        :data-path [?data-path "organisation" "name"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "deliveryPoint"]
+       :label     "Postal address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "deliveryPoint"]}]]]
 
     #_#_:person-organisation/user-defined-entry-form
         [:div

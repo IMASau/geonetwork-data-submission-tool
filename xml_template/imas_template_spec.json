@@ -219,13 +219,6 @@
                       }
                     }
                   },
-                  "full_address_line": {
-                    "!docstring": "Who13 / Who14",
-                    "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
-                    "type": "string",
-                    "keep": false,
-                    "valueChild": "gco:CharacterString"
-                  },
                   "street_address": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
@@ -337,6 +330,13 @@
                     "rules": [
                       "valid-ordid-uri"
                     ]
+                  },
+                  "deliveryPoint": {
+                    "!docstring": "Who13 / Who14",
+                    "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
+                    "valueChild": "gco:CharacterString",
+                    "type": "string",
+                    "keep": false
                   },
                   "isUserDefined": {}
                 }

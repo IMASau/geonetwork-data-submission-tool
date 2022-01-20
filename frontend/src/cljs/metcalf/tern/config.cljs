@@ -138,6 +138,7 @@
        "spatialUnits"      rules4/spatial-resolution-units
        "requiredAllNone"   rules4/required-all-or-nothing
        "maxLength"         rules4/max-length
+       "mergeNameParts"    rules4/merge-names
        "geographyRequired" rules4/geography-required
        "licenseOther"      rules4/license-other
        "numericOrder"      rules4/numeric-order

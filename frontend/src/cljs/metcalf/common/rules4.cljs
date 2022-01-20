@@ -177,6 +177,16 @@
                 (update-in [:props :errors] conj "Date must be before today")))
     date-block))
 
+(defn merge-names
+  "The form has fields for firstname and surname, but export is a
+  surname,firstname single field. Create that from the input fields"
+  [block]
+  (let [firstname (get-in block [:content "given_name" :props :value])
+        surname (get-in block [:content "surname" :props :value])]
+    (cond-> block
+      (and firstname surname)
+      (assoc-in [:content "canonical_name" :props :value] (str surname ", " firstname)))))
+
 (defn geography-required
   "Geography fields are required / included based on geographic coverage checkbox"
   [geographicElement]

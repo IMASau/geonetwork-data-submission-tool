@@ -731,7 +731,14 @@
         :label     "State / territory"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "administrativeArea"]}]]]]
+         :data-path [?data-path "contact" "administrativeArea"]}]]
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "postalCode"]
+        :label     "Postal Code"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "postalCode"]}]]]]
 
     #_#_:person-organisation/user-defined-entry-form
         [:div

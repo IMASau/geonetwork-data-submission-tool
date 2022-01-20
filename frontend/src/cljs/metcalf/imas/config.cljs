@@ -732,11 +732,11 @@
          :data-path [?data-path "contact" "postalCode"]}]]
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "country"]
+        :data-path [?data-path "contact" "country"]
         :label     "Country"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "country"]}]]]
+         :data-path [?data-path "contact" "country"]}]]]
 
      [m4/form-group
       {:form-id   ?form-id

@@ -654,13 +654,13 @@
         {:form-id   ?form-id
          :data-path [?data-path "contact" "name"]}]]]
 
-     #_[m4/form-group
-        {:form-id   ?form-id
-         :data-path [?data-path "contact" "email"]
-         :label     "Email address"}
-        [m4/input-field
-         {:form-id   ?form-id
-          :data-path [?data-path "contact" "email"]}]]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "email"]
+       :label     "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "email"]}]]
 
      #_[m4/form-group
         {:form-id     ?form-id

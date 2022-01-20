@@ -308,7 +308,10 @@
                     "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
-                    "required": false
+                    "required": false,
+                    "rules": [
+                      "requiredField"
+                    ]
                   },
                   "phone": {
                     "!docstring": "Who13 / Who14",
@@ -368,7 +371,9 @@
         "geographicElement": {
           "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",
           "type": "object",
-          "rules": ["geographyRequired"],
+          "rules": [
+            "geographyRequired"
+          ],
           "properties": {
             "hasGeographicCoverage": {
               "export": false,

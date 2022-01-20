@@ -379,10 +379,11 @@
    "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder rows maxLength value disabled show-errors? is-hidden]} props]
+        {:keys [key placeholder rows maxLength value disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/TextareaField
-       {:value       (or value "")                          ; TODO: should be guaranteed by sub
+       {:key         key
+        :value       (or value "")                          ; TODO: should be guaranteed by sub
         :placeholder placeholder
         :disabled    disabled
         :hasError    show-errors?

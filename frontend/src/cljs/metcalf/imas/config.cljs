@@ -683,7 +683,15 @@
         :uri         "/api/institution/"
         :label-path  ["name"]
         :value-path  ["uri"]
-        :placeholder "Search for an organisation"}]]]
+        :placeholder "Search for an organisation"}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation" "name"]
+       :label     "Organisation Name"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "name"]}]]]
 
     #_#_:person-organisation/user-defined-entry-form
         [:div

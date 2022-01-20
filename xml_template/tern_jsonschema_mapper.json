@@ -845,7 +845,8 @@
                   ["contact", "name"]
                 ]
               }
-            }
+            },
+              "requiredParty"
             ]
           }
         },

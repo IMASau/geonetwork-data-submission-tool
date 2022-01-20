@@ -645,18 +645,14 @@
                      ;{"value" "stakeholder" "label" "Stakeholder"}
                      ]}]]
 
-     [:div {:style {:display               "grid"
-                    :grid-column-gap       "1em"
-                    :grid-template-columns "1fr 1fr"}}
-
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "name"]
-        :label     "Contact name"}
-       [m4/input-field
-        {:form-id     ?form-id
-         :data-path   [?data-path "contact" "name"]
-         :placeholder "Last name, First name"}]]]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "name"]
+       :label     "Contact name"}
+      [m4/input-field
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "name"]
+        :placeholder "Last name, First name"}]]
 
      [m4/form-group
       {:form-id   ?form-id

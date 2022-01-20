@@ -50,6 +50,15 @@
            (not (string/includes? value ", ")))
       (update-in [:props :errors] conj "Must be formatted 'Last name, First name'"))))
 
+(defn valid-ordid-uri
+  "Raise an error if the string field value isn't formatted as 'last name, first name'"
+  [block]
+  (let [value (blocks4/as-data block)]
+    (cond-> block
+      (and (not (string/blank? value))
+           (not (re-matches #"https?://orcid.org/\w\w\w\w-\w\w\w\w-\w\w\w\w-\w\w\w\w" value)))
+      (update-in [:props :errors] conj "Invalid ORCID url.  Expected format is 'https://orcid.org/XXXX-XXXX-XXXX-XXXX'"))))
+
 (defn required-all-or-nothing
   "Handles cases where a group of fields are mandatory if set; ie if you
   set one, they should all be set"

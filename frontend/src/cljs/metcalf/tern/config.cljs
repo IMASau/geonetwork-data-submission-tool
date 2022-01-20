@@ -30,6 +30,7 @@
 (rf/reg-event-fx ::components4/edit-dialog-close handlers4/edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/edit-dialog-save handlers4/edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
+(rf/reg-event-fx ::components4/item-option-picker2-change handlers4/item-option-picker2-change)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-cancel-handler)
@@ -151,6 +152,7 @@
 (set! low-code4/component-registry
       {
        'm4/async-simple-item-option-picker     {:view components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
+       'm4/async-simple-item-option-picker2    {:view components4/async-simple-item-option-picker2 :init components4/async-simple-item-option-picker2-settings}
        'm4/async-list-option-picker            {:view components4/async-list-option-picker :init components4/async-list-option-picker-settings}
        'm4/async-list-option-picker-breadcrumb {:view components4/async-list-option-picker-breadcrumb :init components4/async-list-option-picker-breadcrumb-settings}
        'm4/async-list-option-picker-columns    {:view components4/async-list-option-picker-columns :init components4/async-list-option-picker-columns-settings}

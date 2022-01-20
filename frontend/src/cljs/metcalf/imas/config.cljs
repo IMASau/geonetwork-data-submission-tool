@@ -34,6 +34,7 @@
 (rf/reg-event-fx ::components4/edit-dialog-close handlers4/edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/edit-dialog-save handlers4/edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
+(rf/reg-event-fx ::components4/item-option-picker2-change handlers4/item-option-picker2-change)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-cancel-handler)
@@ -129,7 +130,7 @@
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
 (ins4/reg-global-singleton (ins4/slow-handler 100))
-(when goog/DEBUG (ins4/reg-global-singleton ins4/db-diff))
+;(when goog/DEBUG (ins4/reg-global-singleton ins4/db-diff))
 ;(when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
       {"requiredField"        rules4/required-field
@@ -141,7 +142,8 @@
        "endPosition"          rules4/end-position
        "positive"             rules4/force-positive
        "maintFreq"            rules4/maint-freq
-       "firstCommaLast"       rules4/first-comma-last})
+       "firstCommaLast"       rules4/first-comma-last
+       "valid-ordid-uri"      rules4/valid-ordid-uri})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)
@@ -196,6 +198,7 @@
        'm4/yes-no-field                        {:view components4/yes-no-field :init components4/yes-no-field-settings}
        'm4/xml-export-link                     {:view imas-components/xml-export-link :init imas-components/xml-export-link-settings}
        'm4/async-simple-item-option-picker     {:view components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
+       'm4/async-simple-item-option-picker2    {:view components4/async-simple-item-option-picker2 :init components4/async-simple-item-option-picker2-settings}
        ;'m4/record-add-button                   {:view components4/record-add-button :init components4/record-add-button-settings}
        'm4/text-add-button                     {:view components4/text-add-button :init components4/text-add-button-settings}
        ;'m4/simple-list                         {:view components4/simple-list :init components4/simple-list-settings}
@@ -642,93 +645,106 @@
                      ;{"value" "stakeholder" "label" "Stakeholder"}
                      ]}]]
 
-     #_[m4/form-group
-        {:form-id   ?form-id
-         :data-path [?data-path "contact"]
-         :label     "Contact"}
-        [m4/async-simple-item-option-picker
-         {:form-id     ?form-id
-          :data-path   [?data-path "contact"]
-          :uri         "/api/ternpeople"
-          :label-path  ["name"]
-          :value-path  ["uri"]
-          :placeholder "Search for contact details"}]]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "name"]
+       :label     "Contact name"}
+      [m4/input-field
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "name"]
+        :placeholder "Last name, First name"}]]
 
-     #_[:p "If contact is not available, please enter the contact details below."]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "orcid2"]
+       :label     "ORCID ID"}
+      [m4/input-field
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "orcid2"]
+        :placeholder "https://orcid.org/XXXX-XXXX-XXXX-XXXX"}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation"]
+       :label     "Organisation"}
+      [m4/async-simple-item-option-picker2
+       {:form-id     ?form-id
+        :data-path   ?data-path
+        :data-mapper {["organisationName"]   ["organisation" "name"]
+                      ["deliveryPoint"]      ["contact" "deliveryPoint"]
+                      ["deliveryPoint2"]     ["contact" "deliveryPoint2"]
+                      ["city"]               ["contact" "city"]
+                      ["administrativeArea"] ["contact" "administrativeArea"]
+                      ["postalCode"]         ["contact" "postalCode"]
+                      ["country"]            ["contact" "country"]}
+        :uri         "/api/institution/"
+        :label-path  ["prefLabel"]
+        :value-path  ["uri"]
+        :placeholder "Search for an organisation"}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation" "name"]
+       :label     "Organisation Name"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "name"]
+        :rows      1}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "deliveryPoint"]
+       :label     "Postal address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "deliveryPoint"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "deliveryPoint2"]}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "deliveryPoint2"]}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
                     :grid-template-columns "1fr 1fr"}}
-
       [m4/form-group
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "name"]
-        :label     "Contact name"}
+        :data-path [?data-path "contact" "city"]
+        :label     "City"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "name"]}]]]
-
-     #_[:div {:style {:display               "grid"
-                      :grid-column-gap       "1em"
-                      :grid-template-columns "1fr 1fr"}}
-
-        [m4/form-group
-         {:form-id   ?form-id
-          :data-path [?data-path "contact" "given_name"]
-          :label     "Given name"}
-         [m4/input-field
-          {:form-id   ?form-id
-           :data-path [?data-path "contact" "given_name"]}]]
-
-        [m4/form-group
-         {:form-id   ?form-id
-          :data-path [?data-path "contact" "surname"]
-          :label     "Surname"}
-         [m4/input-field
-          {:form-id   ?form-id
-           :data-path [?data-path "contact" "surname"]}]]]
-
-     #_[m4/form-group
+         :data-path [?data-path "contact" "city"]}]]
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "administrativeArea"]
+        :label     "State / territory"}
+       [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "email"]
-         :label     "Email address"}
-        [m4/input-field
-         {:form-id   ?form-id
-          :data-path [?data-path "contact" "email"]}]]
-
-     #_[m4/form-group
-        {:form-id     ?form-id
-         :data-path   [?data-path "contact" "orcid"]
-         :label       "ORCID ID"
-         :placeholder "XXXX-XXXX-XXXX-XXXX"}
-        [m4/input-field
-         {:form-id   ?form-id
-          :data-path [?data-path "contact" "orcid"]}]]
-
-     #_[m4/form-group
+         :data-path [?data-path "contact" "administrativeArea"]}]]
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "postalCode"]
+        :label     "Postal Code"}
+       [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "organisation"]
-         :label     "Select associated Organisation"}
+         :data-path [?data-path "contact" "postalCode"]}]]
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "country"]
+        :label     "Country"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "country"]}]]]
 
-        [:div.bp3-control-group
-         [:div.bp3-fill
-          [m4/async-select-option-simple
-           {:form-id    ?form-id
-            :data-path  [?data-path "organisation"]
-            :uri        "/api/ternorgs"
-            :label-path ["name"]
-            :value-path ["uri"]}]]
-         [m4/item-dialog-button
-          {:form-id    ?form-id
-           :data-path  [?data-path "organisation"]
-           :value-path ["uri"]
-           :added-path ["isUserDefined"]}]]
-
-        [m4/edit-dialog
-         {:form-id     ?form-id
-          :data-path   [?data-path "organisation"]
-          :title       "Organisation"
-          :template-id :person-organisation/user-defined-entry-form}]]]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "email"]
+       :label     "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "email"]}]]]
 
     #_#_:person-organisation/user-defined-entry-form
         [:div
@@ -760,14 +776,6 @@
          [:div {:style {:display               "grid"
                         :grid-column-gap       "1em"
                         :grid-template-columns "1fr 1fr"}}
-
-          [m4/form-group
-           {:form-id   ?form-id
-            :data-path [?data-path "address_locality"]
-            :label     "City"}
-           [m4/input-field
-            {:form-id   ?form-id
-             :data-path [?data-path "address_locality"]}]]
 
           [m4/form-group
            {:form-id   ?form-id

@@ -219,13 +219,6 @@
                       }
                     }
                   },
-                  "country": {
-                    "!docstring": "Who13 / Who14",
-                    "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
-                    "type": "string",
-                    "keep": false,
-                    "valueChild": "gco:CharacterString"
-                  },
                   "email": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
@@ -334,6 +327,13 @@
                   "postalCode": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
+                    "type": "string",
+                    "keep": false,
+                    "valueChild": "gco:CharacterString"
+                  },
+                  "country": {
+                    "!docstring": "Who13 / Who14",
+                    "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
                     "type": "string",
                     "keep": false,
                     "valueChild": "gco:CharacterString"

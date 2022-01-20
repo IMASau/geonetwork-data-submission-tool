@@ -728,7 +728,14 @@
         :label     "Postal Code"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "postalCode"]}]]]
+         :data-path [?data-path "contact" "postalCode"]}]]
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "country"]
+        :label     "Country"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "country"]}]]]
 
      [m4/form-group
       {:form-id   ?form-id

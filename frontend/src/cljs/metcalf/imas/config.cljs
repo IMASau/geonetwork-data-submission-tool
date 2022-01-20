@@ -665,14 +665,13 @@
         :data-path   [?data-path "contact" "orcid2"]
         :placeholder "https://orcid.org/XXXX-XXXX-XXXX-XXXX"}]]
 
-     #_[m4/form-group
-        {:form-id     ?form-id
-         :data-path   [?data-path "contact" "orcid"]
-         :label       "ORCID ID"
-         :placeholder "XXXX-XXXX-XXXX-XXXX"}
-        [m4/input-field
-         {:form-id   ?form-id
-          :data-path [?data-path "contact" "orcid"]}]]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "email"]
+       :label     "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "email"]}]]
 
      #_[m4/form-group
         {:form-id   ?form-id

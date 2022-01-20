@@ -327,25 +327,16 @@
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
-                  "orcid": {
+                  "orcid2": {
                     "!docstring": "Who7",
-                    "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code",
-                    "valueChild": "gcx:Anchor",
+                    "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:onlineResource",
+                    "valueChild": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
                     "type": "string",
                     "required": false,
                     "keep": false,
-                    "export": false,
-                    "parser": {
-                      "function": "parse_individual_orcid"
-                    },
-                    "attributes": {
-                      "xlink:href": {
-                        "function": "write_orcid"
-                      },
-                      "xlink:role": {
-                        "function": "write_orcid_role"
-                      }
-                    }
+                    "rules": [
+                      "valid-ordid-uri"
+                    ]
                   },
                   "positionName": {
                     "xpath": "cit:CI_Individual/cit:positionName",

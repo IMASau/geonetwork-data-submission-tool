@@ -141,7 +141,8 @@
        "endPosition"          rules4/end-position
        "positive"             rules4/force-positive
        "maintFreq"            rules4/maint-freq
-       "firstCommaLast"       rules4/first-comma-last})
+       "firstCommaLast"       rules4/first-comma-last
+       "valid-ordid-uri"      rules4/valid-ordid-uri})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)
@@ -651,17 +652,18 @@
         :data-path [?data-path "contact" "name"]
         :label     "Contact name"}
        [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "contact" "name"]
+        {:form-id     ?form-id
+         :data-path   [?data-path "contact" "name"]
          :placeholder "Last name, First name"}]]]
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "contact" "email"]
-       :label     "Email address"}
+       :data-path [?data-path "contact" "orcid2"]
+       :label     "ORCID ID"}
       [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "email"]}]]
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "orcid2"]
+        :placeholder "https://orcid.org/XXXX-XXXX-XXXX-XXXX"}]]
 
      #_[m4/form-group
         {:form-id     ?form-id

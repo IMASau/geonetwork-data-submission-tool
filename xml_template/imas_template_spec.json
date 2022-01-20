@@ -264,13 +264,6 @@
                     "keep": false,
                     "valueChild": "cit:CI_Telephone/cit:number/gco:CharacterString"
                   },
-                  "fax": {
-                    "!docstring": "Who13 / Who14",
-                    "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:phone[cit:CI_Telephone/cit:numberType/cit:CI_TelephoneTypeCode[@codeListValue=\"facsimile\"]]",
-                    "type": "string",
-                    "keep": false,
-                    "valueChild": "cit:CI_Telephone/cit:number/gco:CharacterString"
-                  },
                   "orcid2": {
                     "!docstring": "Who7",
                     "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:onlineResource",

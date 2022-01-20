@@ -751,25 +751,13 @@
        {:form-id   ?form-id
         :data-path [?data-path "contact" "email"]}]]
 
-     [:div {:style {:display               "grid"
-                    :grid-column-gap       "1em"
-                    :grid-template-columns "1fr 1fr"}}
-
-      [m4/form-group
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "phone"]
+       :label     "Phone"}
+      [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "phone"]
-        :label     "Phone"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "contact" "phone"]}]]
-
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "fax"]
-        :label     "Fax"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "contact" "fax"]}]]]]
+        :data-path [?data-path "contact" "phone"]}]]]
 
     #_#_:person-organisation/user-defined-entry-form
         [:div

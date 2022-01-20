@@ -1335,6 +1335,49 @@
         :loadOptions (partial utils4/load-options config)
         :onChange    #(rf/dispatch [::item-option-picker-change config (ui-controls/get-option-data %)])}])))
 
+(defn async-simple-item-option-picker2-settings
+  "Settings for async-simple-item-option-picker component"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :data-mapper]
+   ::low-code4/opt-ks [:placeholder :results-path :search-params]
+   ::low-code4/schema {:type "object"}})
+
+(defn async-simple-item-option-picker2
+  "This component renders a select control backed by a json data source.  Options are rendered as a text label.
+   Picking an option updates data values.  The picked value is not held.
+
+   Use case: User can prepopulate editable fields by picking from a list.
+
+   Props configure the component
+   * value-path (vector) - path to value in the option data.  Values must be unique.
+   * label-path (vector) - path to label is in the option data.  Used to render options.
+   * data-mapper - sequence of [get-path set-path] for updating form data based on selected option.
+   * placeholder (string) - text to displayed when no option is selected.
+
+   Props to configure the data source
+   * uri (string) - the resource that you wish to fetch data from
+   * results-path - where the result list is in the data source json data payload
+   * search-param - the request parameter name used for searching for matching results
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+   "
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [placeholder disabled is-hidden value-path label-path show-errors?]} props]
+    (when-not is-hidden
+      [ui-controls/AsyncSimpleSelectField
+       {:value       nil
+        :placeholder placeholder
+        :disabled    disabled
+        :hasError    show-errors?
+        :getValue    (ui-controls/obj-path-getter value-path)
+        :getLabel    (ui-controls/obj-path-getter label-path)
+        :loadOptions (partial utils4/load-options config)
+        :onChange    #(rf/dispatch [::item-option-picker2-change config (ui-controls/get-option-data %)])}])))
+
 (defn async-list-option-picker-breadcrumb-settings
   "Settings for async-breadcrumb-list-option-picker component"
   [_]

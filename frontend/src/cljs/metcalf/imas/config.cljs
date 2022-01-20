@@ -34,6 +34,7 @@
 (rf/reg-event-fx ::components4/edit-dialog-close handlers4/edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/edit-dialog-save handlers4/edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
+(rf/reg-event-fx ::components4/item-option-picker2-change handlers4/item-option-picker2-change)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-cancel-handler)
@@ -197,6 +198,7 @@
        'm4/yes-no-field                        {:view components4/yes-no-field :init components4/yes-no-field-settings}
        'm4/xml-export-link                     {:view imas-components/xml-export-link :init imas-components/xml-export-link-settings}
        'm4/async-simple-item-option-picker     {:view components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
+       'm4/async-simple-item-option-picker2    {:view components4/async-simple-item-option-picker2 :init components4/async-simple-item-option-picker2-settings}
        ;'m4/record-add-button                   {:view components4/record-add-button :init components4/record-add-button-settings}
        'm4/text-add-button                     {:view components4/text-add-button :init components4/text-add-button-settings}
        ;'m4/simple-list                         {:view components4/simple-list :init components4/simple-list-settings}

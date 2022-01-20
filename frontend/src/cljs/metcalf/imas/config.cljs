@@ -670,7 +670,7 @@
       [m4/async-simple-item-option-picker2
        {:form-id     ?form-id
         :data-path   ?data-path
-        :data-mapper {["organisationName"]   ["organisation" "name"]
+        :data-mapper {["prefLabel"]          ["organisation" "name"]
                       ["deliveryPoint"]      ["contact" "deliveryPoint"]
                       ["deliveryPoint2"]     ["contact" "deliveryPoint2"]
                       ["city"]               ["contact" "city"]
@@ -686,10 +686,10 @@
       {:form-id   ?form-id
        :data-path [?data-path "organisation" "name"]
        :label     "Organisation Name"}
-      [m4/input-field
+      [m4/textarea-field
        {:form-id   ?form-id
         :data-path [?data-path "organisation" "name"]
-        :rows      1}]]
+        :rows      2}]]
 
      [m4/inline-form-group
       {:form-id   ?form-id

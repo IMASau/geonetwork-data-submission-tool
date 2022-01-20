@@ -338,12 +338,6 @@
                       "valid-ordid-uri"
                     ]
                   },
-                  "positionName": {
-                    "xpath": "cit:CI_Individual/cit:positionName",
-                    "keep": false,
-                    "valueChild": "gco:CharacterString",
-                    "required": false
-                  },
                   "isUserDefined": {}
                 }
               },

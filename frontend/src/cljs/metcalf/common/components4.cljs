@@ -1026,7 +1026,9 @@
         :disabled      disabled
         :getLabel      (ui-controls/obj-path-getter ["label"])
         :getValue      (ui-controls/obj-path-getter ["value"])
+        :getAdded      (constantly true)
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-values-reorder props src-idx dst-idx]))
+        :onItemClick   (fn [idx] (rf/dispatch [::selection-list-values-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-values-remove-click props idx]))}])))
 
 (defn selection-list-template-settings

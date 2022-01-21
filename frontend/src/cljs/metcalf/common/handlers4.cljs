@@ -117,6 +117,12 @@
             {:db db}
             data-mapper)))
 
+(defn selection-list-values-item-click
+  [{:keys [db]} [_ props idx]]
+  (let [{:keys [form-id data-path]} props]
+    (-> {:db db}
+        (actions4/select-user-defined-list-item-action2 form-id data-path idx))))
+
 (defn selection-list-item-click2
   [{:keys [db]} [_ props idx]]
   (let [{:keys [form-id data-path added-path]} props]

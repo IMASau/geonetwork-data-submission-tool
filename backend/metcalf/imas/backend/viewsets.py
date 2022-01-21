@@ -92,8 +92,8 @@ class ParameterNameViewSet(viewsets.ModelViewSet):
     queryset = models.ParameterName.objects.all().order_by('Name')
     serializer_class = serializers.ParameterNameSerializer
     filter_backends = (filters.SearchFilter, DjangoFilterBackend, ParentFilter)
-    filter_class = ParameterNameNodeFilter
-    search_fields = ('Name', 'Definition')
+    # filter_class = ParameterNameNodeFilter
+    search_fields = ('Name',)
 
 
 # TODO: Remove. Not used anymore since we pull TERN parameters from Elasticsearch.

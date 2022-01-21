@@ -537,6 +537,31 @@
      [:h2 "6. Who"]
      [m4/form-group
       {:form-id   [:form]
+       :data-path ["pointOfContact"]
+       :label     "Point of contact for dataset"}
+
+      [m4/selection-list-simple
+       {:form-id    [:form]
+        :data-path  ["pointOfContact"]
+        :label-path ["contact" "name"]
+        :value-path ["uri"]
+        :added-path ["isUserDefined"]}]
+
+      [m4/list-add-button
+       {:form-id     [:form]
+        :data-path   ["pointOfContact"]
+        :button-text "Add person"
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
+
+      [m4/list-edit-dialog
+       {:form-id     [:form]
+        :data-path   ["pointOfContact"]
+        :title       "Person"
+        :template-id :party-person/user-defined-entry-form}]]
+
+     [m4/form-group
+      {:form-id   [:form]
        :data-path ["identificationInfo" "citedResponsibleParty"]
        :label     "Responsible parties for creating dataset"}
 

@@ -170,23 +170,7 @@
             "type": "object",
             "properties": {
               "role": {
-                "!docstring": "Who2 / Who11",
-                "type": "string",
-                "xpath": "cit:role/cit:CI_RoleCode",
-                "keep": false,
-                "required": true,
-                "xpath_required": true,
-                "attributes": {
-                  "codeListValue": {
-                    "function": "identity"
-                  }
-                },
-                "parser": {
-                  "function": "parse_codeListValue"
-                },
-                "rules": [
-                  "requiredField"
-                ]
+                "$ref": "#/$defs/role"
               },
               "organisation": {
                 "xpath": "cit:party/cit:CI_Organisation",
@@ -546,6 +530,26 @@
           ]
         }
       }
+    }
+  },
+  "$defs": {
+    "role": {
+      "type": "string",
+      "xpath": "cit:role/cit:CI_RoleCode",
+      "keep": false,
+      "required": true,
+      "xpath_required": true,
+      "attributes": {
+        "codeListValue": {
+          "function": "identity"
+        }
+      },
+      "parser": {
+        "function": "parse_codeListValue"
+      },
+      "rules": [
+        "requiredField"
+      ]
     }
   }
 }

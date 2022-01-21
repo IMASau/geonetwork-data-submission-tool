@@ -165,7 +165,9 @@
           "container": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty[cit:CI_Responsibility/cit:role/cit:CI_RoleCode[not(@codeListValue=\"resourceProvider\")]]",
           "keep": false,
           "type": "array",
-          "rules": ["requiredField"],
+          "rules": [
+            "requiredField"
+          ],
           "items": {
             "xpath": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode[not(@codeListValue=\"resourceProvider\")]]",
             "type": "object",
@@ -409,7 +411,9 @@
       "xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification[mri:pointOfContact]",
       "container": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:pointOfContact",
       "type": "array",
-      "rules": ["requiredField"],
+      "rules": [
+        "requiredField"
+      ],
       "keep": false,
       "items": {
         "xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:pointOfContact/cit:CI_Responsibility",

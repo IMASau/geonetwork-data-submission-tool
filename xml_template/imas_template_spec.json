@@ -165,6 +165,7 @@
           "container": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty[cit:CI_Responsibility/cit:role/cit:CI_RoleCode[not(@codeListValue=\"resourceProvider\")]]",
           "keep": false,
           "type": "array",
+          "rules": ["requiredField"],
           "items": {
             "xpath": "mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode[not(@codeListValue=\"resourceProvider\")]]",
             "type": "object",
@@ -408,6 +409,7 @@
       "xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification[mri:pointOfContact]",
       "container": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:pointOfContact",
       "type": "array",
+      "rules": ["requiredField"],
       "keep": false,
       "items": {
         "xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:pointOfContact/cit:CI_Responsibility",
@@ -553,33 +555,10 @@
           "valueChild": "gco:CharacterString",
           "type": "string",
           "required": true,
-          "keep": false
-        },
-        "uri": {
-          "!docstring": "Who8 / Who9 / Who12",
-          "xpath": "cit:partyIdentifier",
-          "valueChild": "mcc:MD_Identifier/mcc:code/gcx:Anchor",
-          "type": "string",
-          "required": false,
           "keep": false,
-          "parser": {
-            "function": "parse_organisation_identifier"
-          },
-          "attributes": {
-            "xlink:href": {
-              "function": "separate_organisation_identifier"
-            },
-            "text": {
-              "function": "identity"
-            }
-          }
-        },
-        "email": {
-          "!docstring": "Who13 / Who14",
-          "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
-          "type": "string",
-          "keep": false,
-          "valueChild": "gco:CharacterString"
+          "rules": [
+            "requiredField"
+          ]
         },
         "isUserDefined": {}
       }

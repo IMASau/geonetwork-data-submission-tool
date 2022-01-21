@@ -273,13 +273,18 @@ def create_export_xml_string(doc, uuid):
     spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
     xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                           element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
+    handlers = {
+        "set_text": xmlutils5.export2_set_text_handler,
+        "remove_element": xmlutils5.export2_remove_element_handler,
+        "append_items": xmlutils5.export2_append_items_handler,
+    }
+
     xmlutils5.export2(
         data=data,
         xml_node=xml,
         spec=spec,
         xml_kwargs={"namespaces": spec['namespaces']},
-        handlers={
-        })
+        handlers=handlers)
     return etree.tostring(xml)
 
 

@@ -530,6 +530,18 @@
           ]
         }
       }
+    },
+    "pointOfContact": {
+      "xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification[mri:pointOfContact]",
+      "container": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:pointOfContact",
+      "type": "array",
+      "keep": false,
+      "items": {
+        "xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:pointOfContact/cit:CI_Responsibility",
+        "type": "object",
+        "properties": {
+        }
+      }
     }
   },
   "$defs": {

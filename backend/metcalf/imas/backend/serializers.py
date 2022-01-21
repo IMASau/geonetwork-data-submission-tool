@@ -6,9 +6,24 @@ from metcalf.imas.backend import models
 
 
 class InstitutionSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = models.Institution
-        fields = '__all__'
+        fields = [
+            # 'id',
+            'uri',
+            'prefLabel',
+            # 'altLabel',
+            # 'exactMatch',
+            # 'isUserAdded',
+            'organisationName',
+            'deliveryPoint',
+            'deliveryPoint2',
+            'city',
+            'administrativeArea',
+            'postalCode',
+            'country',
+        ]
 
 
 class PersonSerializer(serializers.ModelSerializer):

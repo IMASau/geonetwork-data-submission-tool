@@ -34,7 +34,7 @@ from rest_framework.views import APIView
 
 import requests
 
-from metcalf.common import spec4
+from metcalf.common import spec4, xmlutils5
 from metcalf.common import xmlutils4
 from metcalf.common.serializers import UserByEmailSerializer, UserSerializer
 from metcalf.common.utils import to_json, get_exception_message
@@ -174,11 +174,11 @@ def extract_xml_data2(request, template_id):
     if xmlutils4.has_namespaces(spec):
         kwargs['namespaces'] = xmlutils4.get_namespaces(spec)
     parsers = {
-        'not_empty': xmlutils4.extract2_not_empty_parser,
-        'text_string': xmlutils4.extract2_text_string_parser,
-        'text_number': xmlutils4.extract2_text_number_parser
+        'not_empty': xmlutils5.extract2_not_empty_parser,
+        'text_string': xmlutils5.extract2_text_string_parser,
+        'text_number': xmlutils5.extract2_text_number_parser
     }
-    hit, data = xmlutils4.extract2(tree, spec, parsers, **kwargs)
+    hit, data = xmlutils5.extract2(tree, spec, parsers, **kwargs)
     if hit:
         return Response({"hit": hit, "data": data})
     else:
@@ -923,56 +923,6 @@ def tern_instruments(request) -> Response:
                     }
                 }
             }
-        data = es.search(index=index_alias, body=body)
-
-    return Response(es_results(data), status=200)
-
-
-@api_view(['GET', 'POST'])
-def tern_instrument_types(request) -> Response:
-    """Search TERN Instrument-types Index
-
-    Search TERN People Instrument-types index using GET or POST. Returns an Elasticsearch multi_match query result.
-    - GET supports the query parameter "query". E.g. ?query=alos
-    - POST supports a post body object. E.g. {"query": "alos"}
-
-    If "query" is not supplied or is an empty string, the first n hits of the default /_search endpoint is returned,
-    where n is the ELASTICSEARCH_RESULT_SIZE set in the configuration.
-
-    OWL classes are filtered out via the selectable value.
-    """
-    es = connections.get_connection()
-    index_alias = settings.ELASTICSEARCH_INDEX_TERNINSTRUMENTTYPES
-    result_size = settings.ELASTICSEARCH_RESULT_SIZE
-
-    if request.method == "GET":
-        query = request.GET.get("query")
-    elif request.method == "POST":
-        query = request.data.get("query")
-    else:
-        raise
-
-    if query:
-        body = {
-            "size": result_size,
-            "query": {
-                "bool": {
-                    "must": {
-                        "multi_match": {
-                            "query": urllib.parse.unquote(query),
-                            "type": "phrase_prefix",
-                            "fields": ["label", "altLabel"]
-                        }
-                    }
-                }
-            }
-        }
-        data = es.search(index=index_alias, body=body)
-    else:
-        body = {
-            "size": result_size,
-            "sort": [{"label.keyword": "asc"}],  # Sort by label
-        }
         data = es.search(index=index_alias, body=body)
 
     return Response(es_results(data), status=200)

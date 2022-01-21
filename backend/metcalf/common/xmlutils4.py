@@ -2,6 +2,7 @@ import datetime
 import inspect
 import logging
 import math
+import sys
 from copy import deepcopy
 from decimal import Decimal
 from functools import partial
@@ -57,10 +58,6 @@ def get_xpath2(spec):
 
 def get_container(spec):
     return spec.get(SpecialKeys.container, get_xpath(spec))
-
-
-def get_batch(spec):
-    return spec['batch']
 
 
 def get_required(spec):
@@ -139,14 +136,6 @@ def get_exportTo(spec, data):
         return exportTo(data)
     else:
         return exportTo
-
-
-def is_fanout(spec):
-    return spec.get('fanout', False)
-
-
-def is_batch(spec):
-    return spec.get('batch', False)
 
 
 def is_postprocess(spec):
@@ -365,269 +354,6 @@ def extract_xml_data(tree, spec, **kwargs):
         assert len(elements) > 0, ["No xml element matches for required", get_xpath(spec), tree]
 
 
-def extract2_not_empty_parser(nodes, **kwargs):
-    return True, len(nodes) > 0
-
-
-def extract2_text_string_parser(nodes, xpath, **kwargs):
-    if len(nodes) == 0:
-        return False, None
-    elif len(nodes) == 1:
-        text = nodes[0]
-        return True, text
-    else:
-        raise Exception('Multiple xpath matches for value %s' % {'xpath': xpath, 'nodes': nodes})
-
-
-def extract2_text_number_parser(nodes, xpath, **kwargs):
-    if len(nodes) == 0:
-        return False, None
-    elif len(nodes) == 1:
-        text = nodes[0]
-        ret = float(text)
-        if math.isnan(ret):
-            raise Exception('Unable to parse value as number %s' % {'xpath': xpath, 'nodes': nodes, 'value': text})
-        else:
-            return True, ret
-    else:
-        raise Exception('Multiple xpath matches for value %s' % {'xpath': xpath, 'nodes': nodes})
-
-
-# TODO: WIP Experimental
-def extract2(tree, spec, parsers, **kwargs):
-    """
-    Traverse spec and extracts data from xml tree.
-
-    Operates based annotations
-    - extract2_leaf or extract2_branch (mutually exclusive)
-    - extract2_default
-
-    extract2_leaf
-    - Must include 'xpath' and 'parser'
-    - Uses xpath to find nodes
-    - Uses parser to lookup handler in 'parsers' registry
-    - Calls handler with kwargs (nodes, xpath, spec).  Should return (hit, val) tuple.
-
-    extract2_branch
-    - Must include 'xpath'
-    - Finds nodes using xpath
-    - Iterates over nodes, passing as tree to recursive calls
-
-    extract2_default
-    - Defines a default value
-    - Returned if no value is extracted
-
-    Object
-    - No annotations
-    - Passes tree to recursive call
-    - Properties which return data are included
-
-    :param tree: Element used to query xpaths and extract values
-    :param spec: Spec being traversed
-    :param parsers: registry of parser handlers
-    :param kwargs: Additional context passed to ele.xpath (namespaces...)
-    :return: hit, data - hit indicates presence of extracted data value
-    """
-
-    extract2_leaf = spec.get('extract2_leaf', None)
-    extract2_branch = spec.get('extract2_branch', None)
-    has_default = 'extract2_default' in spec
-    default = spec.get('extract2_default', None)
-
-    assert not (extract2_branch and extract2_leaf), "Spec can't have both extract2_leaf and extract2_branch set"
-
-    if extract2_leaf:
-        xpath = extract2_leaf.get('xpath', None)
-        parser = extract2_leaf.get('parser', None)
-
-        assert xpath, "extract2_leaf xpath required"
-        assert parser, "extract2_leaf parser required"
-
-        handler = parsers.get(parser, None)
-
-        assert handler, "extract2_leaf parser must resolve to handler"
-
-        nodes = tree.xpath(xpath, **kwargs)
-        parser_kwargs = {"nodes": nodes, "xpath": xpath, "spec": spec}
-        hit, value = handler(**parser_kwargs)
-
-        if hit:
-            return hit, value
-
-    elif extract2_branch:
-        xpath = extract2_branch.get('xpath', None)
-        items_spec = get_items(spec)
-
-        assert xpath, "extract2_branch xpath required"
-        assert items_spec, "extract2_branch spec items required"
-
-        nodes = tree.xpath(xpath, **kwargs)
-        hits = False
-        ret = []
-        for node in nodes:
-            hit, data = extract2(node, items_spec, parsers, **kwargs)
-            hits = hits or hit
-            if hit:
-                ret.append(data)
-
-        if hits:
-            return True, ret
-
-    elif is_object(spec):
-        ret = {}
-        hits = False
-        for prop_name, prop_spec in get_properties(spec).items():
-            hit, data = extract2(tree, prop_spec, parsers, **kwargs)
-            if hit:
-                hits = True
-                ret[prop_name] = data
-
-        if hits:
-            return True, ret
-
-    if has_default:
-        return True, default
-    else:
-        return False, None
-
-
-# TODO: WIP Experimental
-def export2_xform(xform, data, xml_node, spec, xml_kwargs, handlers):
-    handler = handlers.get(xform[0])
-    assert handler, "export2: xf_name must resolve to handler"
-    handler_kwargs = {
-        "data": data,
-        "xml_node": xml_node,
-        "spec": spec,
-        "xml_kwargs": xml_kwargs,
-        "handlers": handlers,
-        "xform": xform
-    }
-    handler(**handler_kwargs)
-
-
-def export2(data, xml_node, spec, xml_kwargs, handlers):
-    export2_xforms = spec.get('export2_xforms', [])
-    for xform in export2_xforms:
-        export2_xform(xform, data, xml_node, spec, xml_kwargs, handlers)
-
-
-def get_data_path(data, path):
-    if len(path) == 0:
-        return True, data
-    elif len(path) == 1:
-        if data is not None and path[0] in data:
-            return True, data[path[0]]
-        else:
-            return False, None
-    else:
-        if data is not None and path[0] in data:
-            return get_data_path(data[path[0]], path[1:])
-        else:
-            return False, None
-
-
-def get_spec_path(spec, prop_path):
-    ret = spec
-    for k in prop_path:
-        ret = ret['properties'][k]
-    return ret
-
-
-def get_dotted_path(data, dotpath):
-    assert dotpath is not None, "get_dotpath dotpath is required"
-    path = dotpath.split('.')
-    return get_data_path(data, path)
-
-
-def export2_set_text_handler(data, xml_node, xml_kwargs, xform, **kwargs):
-    """
-    Set text for node if data is present.
-
-    Configured with xform
-    - xform[1].data_path to get data from
-    - xform[1].node_xpath to node being updated
-
-    """
-    xf_props = xform[1]
-    data_path = xf_props.get('data_path', None)
-    node_xpath = xf_props.get('node_xpath', None)
-    assert data_path is not None, "export2_set_text_handler: xf_props.data_path must be set"
-    assert node_xpath is not None, "export2_set_text_handler: xf_props.node_xpath must be set"
-    hit, value = get_dotted_path(data, data_path)
-    if hit:
-        nodes = xml_node.xpath(node_xpath, **xml_kwargs)
-        assert len(nodes) == 1
-        nodes[0].text = str(value)
-
-
-def export2_remove_element_handler(data, xml_node, xml_kwargs, xform, **kwargs):
-    """
-    Remove matching elements if data not present.
-
-    Configured with xf_props
-    - xform[1].data_path for data presence check
-    - xform[1].xpath to node which would be removed
-
-    """
-    xf_props = xform[1]
-    data_path = xf_props.get('data_path', None)
-    xpath = xf_props.get('xpath', None)
-    assert data_path is not None, "export2_remove_element_handler: xf_props.data_path must be set"
-    assert xpath is not None, "export2_remove_element_handler: xf_props.xpath must be set"
-    hit, value = get_dotted_path(data, data_path)
-    if not hit:
-        nodes = xml_node.xpath(xpath, **xml_kwargs)
-        for node in nodes:
-            node.getparent().remove(node)
-
-
-def export2_append_items_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
-    """
-    Append elements for each list item.
-
-    Configured with xf_props
-    - xform[1].data_path
-    - xform[1].mount_xpath
-    - xform[1].template_xpath
-
-    """
-    xf_props = xform[1]
-    data_path = xf_props.get('data_path', None)
-    mount_xpath = xf_props.get('mount_xpath', None)
-    template_xpath = xf_props.get('template_xpath', None)
-
-    assert data_path is not None, "export2_append_items_handler: xf_props.data_path must be set"
-    assert mount_xpath is not None, "export2_append_items_handler: xf_props.mount_xpath must be set"
-    assert template_xpath is not None, "export2_append_items_handler: xf_props.template_xpath must be set"
-
-    hit, values = get_dotted_path(data, data_path)
-    mount_nodes = xml_node.xpath(mount_xpath, **xml_kwargs)
-    template_nodes = xml_node.xpath(template_xpath, **xml_kwargs)
-
-    assert len(mount_nodes) == 1
-    assert len(template_nodes) == 1
-
-    template = template_nodes[0]
-
-    if hit:
-        items_spec = get_spec_path(spec, data_path.split('.'))['items']
-        for value in values:
-            element = deepcopy(template)
-            mount_nodes[0].append(element)
-            item_xforms = xform[2:]
-            for item_xform in item_xforms:
-                export2_xform(
-                    xform=item_xform,
-                    data=value,
-                    xml_node=xml_node,
-                    spec=items_spec,
-                    xml_kwargs=xml_kwargs,
-                    handlers=handlers)
-
-        template.getparent().remove(template)
-
-
 def parse_attributes(spec, namespaces):
     """
     Pull the attribute types/transforms from the spec, or 'text' and identity function if not specified
@@ -656,17 +382,6 @@ def parse_attributes(spec, namespaces):
 
 def item_is_empty(data, k, v):
     return k not in data or data[k] is None or data[k] == '' or ('removeWhen' in v and v['removeWhen'](data[k]))
-
-
-def spec_data_from_batch(batch_spec, key):
-    raise Exception("TODO: still uses 'nodes' refactor for json schema")
-    assert isinstance(key, string_types), ("Expected a string key, but got {0}".format(type(key).__name__))
-    data = {name: node['data'] for name, node in batch_spec[key].items()}
-    spec = {
-        SpecialKeys.xpath: '.',
-        SpecialKeys.nodes: batch_spec[key]
-    }
-    return spec, data
 
 
 def extract_user_defined(data: dict, path="", acc: list = None) -> list:
@@ -716,53 +431,35 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
     if is_array(spec):
         container_xpath = get_container(spec)
         container_node = xml_node.xpath(container_xpath, namespaces=nsmap)
-        if is_fanout(spec):
-            for i in range(len(container_node)):
-                data_to_xml(data=data, xml_node=xml_node, spec=get_items(spec), nsmap=nsmap,
-                            element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
-        else:
-            if len(container_node) < 1:
-                msg = "container at xpath %s is not found" % container_xpath
-                if silent:
-                    logger.warning(msg)
-                    return
-                else:
-                    raise Exception(msg)
-            mount_node = container_node[0].getparent()
-            mount_index = mount_node.index(container_node[0])
-            template = deepcopy(container_node[0])
-            # remove any existing entries from the node
-            for element in container_node:
-                mount_node.remove(element)
-            # call data_to_xml once for each item in the data
-            for i, item in enumerate(data):
-                mount_node.insert(mount_index + i, deepcopy(template))
-                data_to_xml(data=item, xml_node=xml_node, spec=get_items(spec), nsmap=nsmap,
-                            element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
+        if len(container_node) < 1:
+            msg = "container at xpath %s is not found" % container_xpath
+            if silent:
+                logger.warning(msg)
+                return
+            else:
+                raise Exception(msg)
+        mount_node = container_node[0].getparent()
+        mount_index = mount_node.index(container_node[0])
+        template = deepcopy(container_node[0])
+        # remove any existing entries from the node
+        for element in container_node:
+            mount_node.remove(element)
+        # call data_to_xml once for each item in the data
+        for i, item in enumerate(data):
+            mount_node.insert(mount_index + i, deepcopy(template))
+            data_to_xml(data=item, xml_node=xml_node, spec=get_items(spec), nsmap=nsmap,
+                        element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
 
     # export can be false with an exportTo function, i.e. don't do the default export, do this instead
     elif not is_export(spec):
         if has_exportTo(spec):
             data_to_xml(data=data, xml_node=xml_node, spec=get_exportTo(spec, data), nsmap=nsmap,
                         element_index=element_index, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
-    elif is_batch(spec):
-        spec, data = spec_data_from_batch(get_batch(spec), data)
-        data_to_xml(data=data, xml_node=xml_node, spec=spec, nsmap=nsmap,
-                    element_index=0, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
     elif is_object(spec):
         if not get_xpath(spec):
             return
-        xml_node = xml_node.xpath(get_xpath(spec), namespaces=nsmap)[element_index]
+        xml_node0 = xml_node.xpath(get_xpath(spec), namespaces=nsmap)[element_index]
         for field_key, node_spec in get_properties(spec).items():
-            # workaround for a problem with identifiers in the final output
-            # we need to write either the orcid or the uri to the XML file
-            # but we can't do that at the node writing point, because we don't have the
-            # sibling data
-            # TODO: there is a better way to structure this, but we can't overhaul the mapper right now
-            if field_key == 'orcid':
-                orcid = data[field_key]
-                if not orcid:
-                    data[field_key] = data['uri']
             if item_is_empty(data, field_key, node_spec):
                 if get_required(node_spec):
                     # at the moment, we are always graceful to missing fields, only reporting them w/o raising exception
@@ -770,15 +467,15 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                 container_xpath = get_container(node_spec)
                 # don't delete it, but do have to clear any preset value
                 if not is_deleteWhenEmpty(node_spec):
-                    elements = xml_node.xpath(container_xpath, namespaces=nsmap)
+                    elements = xml_node0.xpath(container_xpath, namespaces=nsmap)
                     for element in elements:
                         element.text = ''
                 elif container_xpath is not None:
-                    elements = xml_node.xpath(container_xpath, namespaces=nsmap)
+                    elements = xml_node0.xpath(container_xpath, namespaces=nsmap)
                     for element in elements:
                         element.getparent().remove(element)
                 continue
-            data_to_xml(data=data[field_key], xml_node=xml_node, spec=node_spec, nsmap=nsmap,
+            data_to_xml(data=data[field_key], xml_node=xml_node0, spec=node_spec, nsmap=nsmap,
                         element_index=0, silent=silent, fieldKey=field_key, doc_uuid=doc_uuid)
     # default behaviour; populate the xml elements with the values in the data
     else:

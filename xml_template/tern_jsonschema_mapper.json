@@ -31,9 +31,10 @@
     "xlink": "http://www.w3.org/1999/xlink"
   },
   "xpath": "/mdb:MD_Metadata",
-  "postprocess": {
-    "function": "prune_if_empty"
-  },
+  "postprocess": [
+    {"function": "prune_if_empty"},
+    {"function": "prune_orcid_uri"}
+  ],
   "type": "object",
   "properties": {
     "fileIdentifier": {
@@ -552,29 +553,33 @@
                 "type": "object",
                 "xpath": "cit:party/cit:CI_Organisation/cit:individual",
                 "properties": {
+                  "canonical_name": {
+                    "!docstring": "Not for entry; holds 'surname,given_name'",
+                    "xpath": "cit:CI_Individual/cit:name/gco:CharacterString",
+                    "type": "string",
+                    "keep": false
+                  },
                   "name": {
                     "!docstring": "Who3",
-                    "xpath": "cit:CI_Individual/cit:name",
-                    "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
                     "required": false
                   },
                   "surname": {
                     "!docstring": "Who5",
-                    "xpath": "cit:CI_Individual/cit:name",
-                    "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
-                    "export": false
+                    "export": false,
+                    "required": true,
+                    "rules": ["requiredField"]
                   },
                   "given_name": {
                     "!docstring": "Who4",
-                    "xpath": "cit:CI_Individual/cit:name",
-                    "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
-                    "export": false
+                    "export": false,
+                    "required": true,
+                    "rules": ["requiredField"]
                   },
                   "email": {
                     "!docstring": "Who6",
@@ -600,21 +605,31 @@
                   },
                   "orcid": {
                     "!docstring": "Who7",
-                    "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code",
-                    "valueChild": "gcx:Anchor",
+                    "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
                     "type": "string",
                     "required": false,
-                    "keep": false,
-                    "export": false,
+                    "deleteWhenEmpty": false,
                     "parser": {
                       "function": "parse_individual_orcid"
                     },
                     "attributes": {
-                      "xlink:href": {
+                      "text": {
                         "function": "write_orcid"
+                      }
+                    },
+                    "rules": ["validOrcid"]
+                  },
+                  "uri": {
+                    "!docstring": "Populated via the controlled vocab contact picker; replaces orcid if that doesn't exist",
+                    "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code/gcx:Anchor",
+                    "type": "string",
+                    "required": false,
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "identity"
                       },
-                      "xlink:role": {
-                        "function": "write_orcid_role"
+                      "text": {
+                        "function": "identity"
                       }
                     }
                   },
@@ -625,7 +640,8 @@
                     "required": false
                   },
                   "isUserDefined": {}
-                }
+                },
+                "rules": ["mergeNameParts"]
               },
               "uri": {},
               "partyType": {},
@@ -767,27 +783,31 @@
                 "type": "object",
                 "xpath": "cit:party/cit:CI_Organisation/cit:individual",
                 "properties": {
+                  "canonical_name": {
+                    "!docstring": "Not for entry; holds 'surname,given_name'",
+                    "xpath": "cit:CI_Individual/cit:name/gco:CharacterString",
+                    "type": "string",
+                    "keep": false
+                  },
                   "name": {
                     "!docstring": "Who3",
-                    "xpath": "cit:CI_Individual/cit:name",
-                    "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
                     "required": false
                   },
                   "surname": {
                     "!docstring": "Who5",
-                    "xpath": "cit:CI_Individual/cit:name",
-                    "valueChild": "gco:CharacterString",
                     "type": "string",
+                    "required": true,
+                    "rules": ["requiredField"],
                     "keep": false,
                     "export": false
                   },
                   "given_name": {
                     "!docstring": "Who4",
-                    "xpath": "cit:CI_Individual/cit:name",
-                    "valueChild": "gco:CharacterString",
                     "type": "string",
+                    "required": true,
+                    "rules": ["requiredField"],
                     "keep": false,
                     "export": false
                   },
@@ -801,21 +821,31 @@
                   },
                   "orcid": {
                     "!docstring": "Who7",
-                    "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code",
+                    "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
                     "type": "string",
-                    "valueChild": "gcx:Anchor",
                     "required": false,
-                    "keep": false,
-                    "export": false,
+                    "deleteWhenEmpty": false,
                     "parser": {
                       "function": "parse_individual_orcid"
                     },
                     "attributes": {
-                      "xlink:href": {
+                      "text": {
                         "function": "write_orcid"
+                      }
+                    },
+                    "rules": ["validOrcid"]
+                  },
+                  "uri": {
+                    "!docstring": "Populated via the controlled vocab contact picker; replaces orcid if that doesn't exist",
+                    "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code/gcx:Anchor",
+                    "type": "string",
+                    "required": false,
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "identity"
                       },
-                      "xlink:role": {
-                        "function": "write_orcid_role"
+                      "text": {
+                        "function": "identity"
                       }
                     }
                   },
@@ -826,7 +856,8 @@
                     "required": false
                   },
                   "isUserDefined": {}
-                }
+                },
+                "rules": ["mergeNameParts"]
               },
               "uri": {},
               "partyType": {},
@@ -845,7 +876,8 @@
                   ["contact", "name"]
                 ]
               }
-            }
+            },
+              "requiredParty"
             ]
           }
         },

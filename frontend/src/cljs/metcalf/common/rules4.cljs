@@ -41,6 +41,26 @@
                   (update-in [:props :errors] conj "This field is required"))))
     block))
 
+(defn first-comma-last
+  "Raise an error if the string field value isn't formatted as 'last name, first name'"
+  [block]
+  (let [value (blocks4/as-data block)]
+    (cond-> block
+      (and (not (string/blank? value))
+           (not (string/includes? value ", ")))
+      (update-in [:props :errors] conj "Must be formatted 'Last name, First name'"))))
+
+(defn valid-ordid-uri
+  "Raise an error if the string field value isn't formatted as a valid
+  ORCID uri; see
+  https://support.orcid.org/hc/en-us/articles/360006897674-Structure-of-the-ORCID-Identifier"
+  [block]
+  (let [value (blocks4/as-data block)]
+    (cond-> block
+      (and (not (string/blank? value))
+           (not (re-matches #"https?://orcid.org/\d\d\d\d-\d\d\d\d-\d\d\d\d-\d\d\d[\dxX]" value)))
+      (update-in [:props :errors] conj "Invalid ORCID url.  Expected format is 'https://orcid.org/XXXX-XXXX-XXXX-XXXX'"))))
+
 (defn required-all-or-nothing
   "Handles cases where a group of fields are mandatory if set; ie if you
   set one, they should all be set"
@@ -168,6 +188,16 @@
                 (update-in [:props :errors] conj "Date must be before today")))
     date-block))
 
+(defn merge-names
+  "The form has fields for firstname and surname, but export is a
+  surname,firstname single field. Create that from the input fields"
+  [block]
+  (let [firstname (get-in block [:content "given_name" :props :value])
+        surname (get-in block [:content "surname" :props :value])]
+    (cond-> block
+      (and firstname surname)
+      (assoc-in [:content "canonical_name" :props :value] (str surname ", " firstname)))))
+
 (defn geography-required
   "Geography fields are required / included based on geographic coverage checkbox"
   [geographicElement]
@@ -175,7 +205,7 @@
         props (if shown?
                 {:required true :is-hidden false}
                 {:required false :disabled true :is-hidden true})]
-    (s/assert boolean? shown?)
+    (s/assert (s/nilable boolean?) shown?)
     (-> geographicElement
         (update-in [:content "boxes" :props] merge props)
         (update-in [:content "boxes"] required-field (:required props))

@@ -49,7 +49,7 @@ def get_ref_schema(defs, schema):
 
 def insert_def(defs, schema):
     if is_ref(schema):
-        return get_ref_schema(defs, schema)
+        return deepcopy(get_ref_schema(defs, schema))
     else:
         return schema
 
@@ -268,6 +268,39 @@ def prune_if_empty(data, parent, spec, nsmap, i, silent):
                 elem.getparent().remove(elem)
 
 
+def prune_orcid_uri(data, parent, spec, nsmap, i, silent):
+    """
+    Individuals are preferably identified by their orcid, if one
+    is entered, else the uri from the TERN contacts controlled-vocab
+    (and if that doesn't exist, ie a user-entered contact not yet in
+    the vocabulary, we need to handle that too)
+    """
+    # All party identifier nodes that have both options present, ie
+    # our template nodes (and skip the static content that's also
+    # present, but already correctly formed):
+    numelems = len(parent.xpath('.//cit:partyIdentifier[mcc:MD_Identifier/mcc:code/gco:CharacterString][mcc:MD_Identifier/mcc:code/gcx:Anchor]', namespaces=nsmap))
+    print(f'prune_orcid_uri; {numelems} elements')
+    for party in parent.xpath('.//cit:partyIdentifier[mcc:MD_Identifier/mcc:code/gco:CharacterString][mcc:MD_Identifier/mcc:code/gcx:Anchor]', namespaces=nsmap):
+        print('prune_orcid_uri')
+        print(f'    {all_text(party)}')
+        if not is_empty(party.find('mcc:MD_Identifier/mcc:code/gco:CharacterString', nsmap)):
+            # if have orcid, delete Anchor and then role[2]
+            uriNode = party.find('mcc:MD_Identifier/mcc:code/gcx:Anchor', nsmap)
+            uriNode.getparent().remove(uriNode)
+            otherRoleNode = party.find('mcc:MD_Identifier/mcc:codeSpace/gco:CharacterString[2]', nsmap)
+            otherRoleNode.getparent().remove(otherRoleNode)
+            # import pdb; pdb.set_trace()
+        elif not is_empty(party.find('mcc:MD_Identifier/mcc:code/gcx:Anchor', nsmap)):
+            # elif have Anchor, delete CharacterString then role[1]
+            orcidNode = party.find('mcc:MD_Identifier/mcc:code/gco:CharacterString', nsmap)
+            orcidNode.getparent().remove(orcidNode)
+            otherRoleNode = party.find('mcc:MD_Identifier/mcc:codeSpace/gco:CharacterString[1]', nsmap)
+            otherRoleNode.getparent().remove(otherRoleNode)
+        else:
+            # else delete party element:
+            party.getparent().remove(party)
+
+
 def new_term_vocab_prune(data, parent, spec, nsmap, i, silent):
     """
     In case of a new term we need to prune some XML chunks from the template.
@@ -441,8 +474,13 @@ def is_orcid(x):
 
 
 def write_orcid(x):
-    if is_orcid(x):
-        return 'https://orcid.org/{orcid}'.format(orcid=x)
+    """The field ensures a valid uri format, ie
+    https://orcid.org/0000-0000-1234-5678; we want to export as
+    'orcid:0000-0000-1234-5678'"""
+    orcid_re = re.compile(r'https://orcid.org/(\d\d\d\d-\d\d\d\d-\d\d\d\d-\d\d\d[\dxX])')
+    m = orcid_re.match(x)
+    if m:
+        return f"orcid:{m.group(1)}"
     else:
         return x
 
@@ -521,6 +559,7 @@ SPEC_FUNCTIONS = {
     "create_linkage_uuid": create_linkage_uuid,
     "filename": filename,
     "prune_if_empty": prune_if_empty,
+    "prune_orcid_uri": prune_orcid_uri,
     "today": today,
     "parse_keywords": parse_keywords,
     "science_keyword_from_uuid": science_keyword_from_uuid,

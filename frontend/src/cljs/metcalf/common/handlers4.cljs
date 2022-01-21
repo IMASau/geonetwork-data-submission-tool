@@ -111,7 +111,7 @@
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path data-mapper]} ctx]
     (if data-mapper
-      (actions4/set-data-action-from-mapper {:db db} form-id data-path option data-mapper)
+      (actions4/set-data-action-from-mapper {:db db} form-id data-path data-mapper option)
       (actions4/set-data-action {:db db} form-id data-path option))))
 
 (defn item-option-picker2-change

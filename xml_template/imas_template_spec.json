@@ -497,7 +497,7 @@
           "required": false,
           "keep": false,
           "rules": [
-            "valid-ordid-uri"
+            "validOrcid"
           ]
         },
         "deliveryPoint": {

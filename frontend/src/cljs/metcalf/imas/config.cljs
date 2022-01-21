@@ -414,14 +414,15 @@
         [:p "Specify the location(s) of this study."]]
 
        [m4/selection-list-columns
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "geographicElement" "boxes"]
-         :value-path ["uri"]
-         :added-path ["isUserDefined"]
-         :columns    [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
-                      {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
-                      {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
-                      {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
+        {:form-id             [:form]
+         :data-path           ["identificationInfo" "geographicElement" "boxes"]
+         :value-path          ["uri"]
+         :added-path          ["isUserDefined"]
+         :columns             [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
+                               {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
+                               {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
+                               {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]
+         :placeholder-record? true}]
 
        [m4/list-add-button
         {:form-id     [:form]
@@ -544,13 +545,14 @@
        :label     "Point of contact for dataset"}
 
       [m4/selection-list-columns
-       {:form-id    [:form]
-        :data-path  ["pointOfContact"]
-        :columns    [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
-                     {:flex 2 :label-path ["organisation" "name"] :columnHeader "Organisation"}
-                     {:flex 1 :label-path ["role"] :columnHeader "Role"}]
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]}]
+       {:form-id             [:form]
+        :data-path           ["pointOfContact"]
+        :columns             [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
+                              {:flex 2 :label-path ["organisation" "name"] :columnHeader "Organisation"}
+                              {:flex 1 :label-path ["role"] :columnHeader "Role"}]
+        :placeholder-record? true
+        :value-path          ["uri"]
+        :added-path          ["isUserDefined"]}]
 
       [m4/list-add-button
        {:form-id     [:form]
@@ -571,13 +573,14 @@
        :label     "Responsible parties for creating dataset"}
 
       [m4/selection-list-columns
-       {:form-id    [:form]
-        :data-path  ["identificationInfo" "citedResponsibleParty"]
-        :columns    [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
-                     {:flex 2 :label-path ["organisation" "name"] :columnHeader "Organisation"}
-                     {:flex 1 :label-path ["role"] :columnHeader "Role"}]
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]}]
+       {:form-id             [:form]
+        :data-path           ["identificationInfo" "citedResponsibleParty"]
+        :columns             [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
+                              {:flex 2 :label-path ["organisation" "name"] :columnHeader "Organisation"}
+                              {:flex 1 :label-path ["role"] :columnHeader "Role"}]
+        :placeholder-record? true
+        :value-path          ["uri"]
+        :added-path          ["isUserDefined"]}]
 
       [m4/list-add-button
        {:form-id     [:form]

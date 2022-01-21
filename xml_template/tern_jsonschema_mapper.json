@@ -1782,10 +1782,7 @@
       {
         "mount_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification",
         "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords",
-        "data_path": [
-          "identificationInfo",
-          "keywordsParameters"
-        ]
+        "data_path": "identificationInfo.keywordsParameters"
       }
     ]
   ]

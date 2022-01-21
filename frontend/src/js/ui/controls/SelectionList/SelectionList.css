@@ -25,8 +25,10 @@
 }
 
 .SelectionListItem {
-    margin: .2em 0;
+}
 
+.SelectionButtonStyle .SelectionListItem {
+    margin: .2em 0;
     background-color: #f5f8fa;
     background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), to(rgba(255, 255, 255, 0)));
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
@@ -37,11 +39,23 @@
     padding: 3px;
 }
 
+.SelectionTableStyle .SelectionListItem {
+    border-top: 1px solid rgb(16 22 26 / 20%);
+    border-bottom: 1px solid rgb(16 22 26 / 20%);
+}
+
 .SelectionListPickedItem {
-    /*background-color: #99ffcc24;*/
 }
 
 .SelectionListAddedItem {
-    /*background-color: #d9822b24;*/
     cursor: pointer;
+}
+
+
+.SelectionListItemColoured .SelectionListPickedItem {
+    background-color: #99ffcc24;
+}
+
+.SelectionListItemColoured .SelectionListAddedItem {
+    background-color: #d9822b24;
 }

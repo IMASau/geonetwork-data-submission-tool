@@ -273,3 +273,43 @@ def export2_append_items_handler(data, xml_node, spec, xml_kwargs, handlers, xfo
                     handlers=handlers)
 
         template.getparent().remove(template)
+
+
+def export2_generateParameterKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
+    """
+    Append keyword for each parameter and unit.
+
+    Configured with xf_props
+    - xform[1].data_path
+    - xform[1].mount_xpath
+    - xform[1].template_xpath
+
+    """
+    xf_props = xform[1]
+    data_path = xf_props.get('data_path', None)
+    mount_xpath = xf_props.get('mount_xpath', None)
+    template_xpath = xf_props.get('template_xpath', None)
+
+    assert data_path is not None, "export2_generateParameterKeywords_handler: xf_props.data_path must be set"
+    assert mount_xpath is not None, "export2_generateParameterKeywords_handler: xf_props.mount_xpath must be set"
+    assert template_xpath is not None, "export2_generateParameterKeywords_handler: xf_props.template_xpath must be set"
+
+    hit, values = get_dotted_path(data, data_path)
+    mount_nodes = xml_node.xpath(mount_xpath, **xml_kwargs)
+    template_nodes = xml_node.xpath(template_xpath, **xml_kwargs)
+
+    assert len(mount_nodes) == 1
+    assert len(template_nodes) == 1
+
+    template = template_nodes[0]
+
+    if hit:
+        # items_spec = get_spec_path(spec, data_path.split('.'))['items']
+
+        for value in values:
+            element = copy.deepcopy(template)
+            mount_nodes[0].append(element)
+
+            # TODO: update element from data
+
+        template.getparent().remove(template)

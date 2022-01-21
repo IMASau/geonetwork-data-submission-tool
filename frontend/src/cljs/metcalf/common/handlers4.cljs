@@ -122,7 +122,7 @@
   (let [{:keys [form-id data-path added-path]} props]
     (cond-> {:db db}
       added-path
-      (actions4/select-user-defined-list-item-action2 form-id data-path idx added-path))))
+      (actions4/select-user-defined-list-item-action2 form-id data-path idx))))
 
 (defn selection-list-remove-click
   [{:keys [db]} [_ ctx idx]]
@@ -193,10 +193,10 @@
     {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
      ; TODO: put logic in handler, use generic js/fetch fx
      ::fx3/post-json-data
-         {:url       url
-          :data      data
-          :success-v [::-save-current-document-success]
-          :error-v   [::-save-current-document-error]}}))
+     {:url       url
+      :data      data
+      :success-v [::-save-current-document-success]
+      :error-v   [::-save-current-document-error]}}))
 
 (defn -save-current-document-success
   [{:keys [db]} [_ resp]]

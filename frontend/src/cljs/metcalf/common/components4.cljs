@@ -1177,7 +1177,7 @@
      * label-path - path to the column label is in the list item data
      * flex (number) - how much space this column should use.
    * added-path (vector) - path to test if list item is user defined.  Used to style control.
-   * placeholder-record? (boolean) - display an empty record is displayed when the list is empty
+   * placeholder-record? (boolean) - display an empty record when the list is empty
 
    Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
    * disabled - styles control to indicate it's disabled

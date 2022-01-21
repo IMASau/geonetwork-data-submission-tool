@@ -646,7 +646,7 @@
          [m4/async-list-option-picker
           {:form-id    [:form]
            :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
-           :uri        "/api/terninstrumenttypes"
+           :uri        "/api/terninstruments"
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button

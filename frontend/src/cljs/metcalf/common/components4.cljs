@@ -1160,7 +1160,7 @@
   "Settings for selection-list-columns component"
   [{:keys [value-path columns added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :value-path :columns]
-   ::low-code4/opt-ks       [:added-path]
+   ::low-code4/opt-ks       [:added-path :placeholder-record?]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths (into [value-path added-path] (map :label-path columns))})
 
@@ -1177,6 +1177,7 @@
      * label-path - path to the column label is in the list item data
      * flex (number) - how much space this column should use.
    * added-path (vector) - path to test if list item is user defined.  Used to style control.
+   * placeholder-record? (boolean) - display an empty record is displayed when the list is empty
 
    Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
    * disabled - styles control to indicate it's disabled
@@ -1184,22 +1185,40 @@
    "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [key value-path columns added-path disabled is-hidden]} props
+        {:keys [key value-path columns added-path disabled is-hidden placeholder-record?]} props
         items @(rf/subscribe [::get-block-data config])]
     (when-not is-hidden
-      [ui-controls/TableSelectionList
-       {:key           key
-        :items         (or items [])
-        :disabled      disabled
-        :columns       (for [{:keys [flex label-path columnHeader]} columns]
-                         {:flex         flex
-                          :getLabel     (ui-controls/obj-path-getter label-path)
-                          :columnHeader (or columnHeader "None")})
-        :getValue      (ui-controls/obj-path-getter value-path)
-        :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
-        :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
-        :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
-        :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}])))
+      (cond (seq items)
+            ; Has results, display them
+            [ui-controls/TableSelectionList
+             {:key           key
+              :items         (or items [])
+              :disabled      disabled
+              :columns       (for [{:keys [flex label-path columnHeader]} columns]
+                               {:flex         flex
+                                :getLabel     (ui-controls/obj-path-getter label-path)
+                                :columnHeader (or columnHeader "None")})
+              :getValue      (ui-controls/obj-path-getter value-path)
+              :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
+              :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
+              :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
+              :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}]
+
+            placeholder-record?
+            ; No results but we do want a table with a placeholder record
+            [ui-controls/TableSelectionList
+             {:key           key
+              :items         [{}]
+              :disabled      disabled
+              :columns       (for [{:keys [flex columnHeader]} columns]
+                               {:flex         flex
+                                :getLabel     (constantly "--")
+                                :columnHeader (or columnHeader "None")})
+              :getValue      (constantly "--")
+              :getAdded      (constantly false)
+              :onReorder     (fn [src-idx dst-idx] #_(rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
+              :onItemClick   (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler config]))
+              :onRemoveClick (fn [idx] #_(rf/dispatch [::selection-list-remove-click config idx]))}]))))
 
 ;(defn simple-list-option-picker-settings
 ;  "Settings for simple-list-option-picker component"

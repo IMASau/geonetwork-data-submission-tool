@@ -29,10 +29,10 @@
 }
 
 .SelectionListPickedItem {
-    background-color: #99ffcc24;
+    /*background-color: #99ffcc24;*/
 }
 
 .SelectionListAddedItem {
-    background-color: #d9822b24;
+    /*background-color: #d9822b24;*/
     cursor: pointer;
 }

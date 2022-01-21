@@ -588,6 +588,24 @@
         :title       "Person"
         :template-id :party-person/user-defined-entry-form}]]
 
+     [:h3 "Other credits"]
+     [:div "Acknowledge the contribution of any funding schemes or organisations."]
+     [m4/selection-list-values
+      {:form-id   [:form]
+       :data-path ["credits"]}]
+
+     [m4/value-list-add-button
+      {:form-id     [:form]
+       :data-path   ["credits"]
+       :button-text "Add credit"}]
+
+     [m4/list-edit-dialog
+      {:form-id     [:form]
+       :data-path   ["credits"]
+       :title       "Credit"
+       :template-id :credit/edit-form}]
+
+
      ; [m4/selection-list-columns
      ;  {:form-id    [:form]
      ;   :data-path  ["identificationInfo" "citedResponsibleParty"]
@@ -638,6 +656,17 @@
      ;   :button-text "Add"}]
      ; [:hr]
      [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+
+    :credit/edit-form
+    [:div
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path ?data-path
+       :label     "Credit"}
+      [m4/textarea-field
+       {:form-id   ?form-id
+        :data-path ?data-path
+        :rows      5}]]]
 
     :party-person/user-defined-entry-form
     [:div

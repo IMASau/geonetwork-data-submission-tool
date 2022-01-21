@@ -437,6 +437,19 @@
           }
         }
       }
+    },
+    "credits": {
+      "xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification[mri:credit]",
+      "container": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:credit",
+      "type": "array",
+      "items": {
+        "xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:credit",
+        "valueChild": "gco:CharacterString",
+        "type": "string",
+        "rules": [
+          "requiredField"
+        ]
+      }
     }
   },
   "$defs": {

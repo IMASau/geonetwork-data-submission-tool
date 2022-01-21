@@ -1336,7 +1336,7 @@
   "Settings for async-simple-item-option-picker component"
   [_]
   {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path]
-   ::low-code4/opt-ks [:placeholder :results-path :search-params]
+   ::low-code4/opt-ks [:placeholder :data-mapper :results-path :search-params]
    ::low-code4/schema {:type "object"}})
 
 (defn async-simple-item-option-picker
@@ -1349,6 +1349,7 @@
    * value-path (vector) - path to value in the option data.  Values must be unique.
    * label-path (vector) - path to label is in the option data.  Used to render options.
    * placeholder (string) - text to displayed when no option is selected.
+   * data-mapper [{:get-path :set-path}..] - defines how selected option is used to update form data
 
    Props to configure the data source
    * uri (string) - the resource that you wish to fetch data from

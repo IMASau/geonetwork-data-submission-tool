@@ -685,7 +685,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
        :label     "Organisation"}
-      [m4/async-simple-item-option-picker2
+      [m4/async-simple-item-option-picker
        {:form-id     ?form-id
         :data-path   ?data-path
         :data-mapper [{:get-path ["prefLabel"] :set-path ["organisation" "name"]}

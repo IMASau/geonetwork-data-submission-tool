@@ -25,14 +25,37 @@
 }
 
 .SelectionListItem {
+}
+
+.SelectionButtonStyle .SelectionListItem {
     margin: .2em 0;
+    background-color: #f5f8fa;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.8)), to(rgba(255, 255, 255, 0)));
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    -webkit-box-shadow: inset 0 0 0 1px rgb(16 22 26 / 20%), inset 0 -1px 0 rgb(16 22 26 / 10%);
+    box-shadow: inset 0 0 0 1px rgb(16 22 26 / 20%), inset 0 -1px 0 rgb(16 22 26 / 10%);
+    color: #182026;
+    border-radius: 3px;
+    padding: 3px;
+}
+
+.SelectionTableStyle .SelectionListItem {
+    border-top: 1px solid rgb(16 22 26 / 20%);
+    border-bottom: 1px solid rgb(16 22 26 / 20%);
 }
 
 .SelectionListPickedItem {
-    background-color: #99ffcc24;
 }
 
 .SelectionListAddedItem {
-    background-color: #d9822b24;
     cursor: pointer;
+}
+
+
+.SelectionListItemColoured .SelectionListPickedItem {
+    background-color: #99ffcc24;
+}
+
+.SelectionListItemColoured .SelectionListAddedItem {
+    background-color: #d9822b24;
 }

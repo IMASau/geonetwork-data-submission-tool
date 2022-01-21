@@ -58,6 +58,15 @@
         (actions4/add-item-action form-id data-path value-path item-data)
         (actions4/select-last-item-action form-id data-path))))
 
+(defn value-list-add-with-defaults-click-handler2
+  [{:keys [db]} [_ config]]
+  (let [{:keys [form-id data-path item-default]} config
+        item-data item-default]
+    (-> {:db db}
+        (actions4/save-snapshot-action form-id)
+        (actions4/add-item-action form-id data-path [] item-data)
+        (actions4/select-last-item-action form-id data-path))))
+
 (defn item-add-with-defaults-click-handler
   [{:keys [db]} [_ props]]
   (let [{:keys [form-id data-path value-path added-path]} props
@@ -104,12 +113,31 @@
     (-> {:db db}
         (actions4/set-data-action form-id data-path option))))
 
+(defn item-option-picker2-change
+  "Handle picker change.  Uses option data to set values controlled by data-mapper."
+  [{:keys [db]} [_ ctx option]]
+  (let [{:keys [form-id data-path data-mapper]} ctx]
+    (reduce (fn [s [get-path set-path]]
+              (let [value (get-in option get-path)
+                    value-path (into data-path set-path)]
+                (-> s
+                    (actions4/set-data-action form-id value-path value)
+                    (actions4/genkey-action form-id value-path))))
+            {:db db}
+            data-mapper)))
+
+(defn selection-list-values-item-click
+  [{:keys [db]} [_ props idx]]
+  (let [{:keys [form-id data-path]} props]
+    (-> {:db db}
+        (actions4/select-user-defined-list-item-action2 form-id data-path idx))))
+
 (defn selection-list-item-click2
   [{:keys [db]} [_ props idx]]
   (let [{:keys [form-id data-path added-path]} props]
     (cond-> {:db db}
       added-path
-      (actions4/select-user-defined-list-item-action2 form-id data-path idx added-path))))
+      (actions4/select-user-defined-list-item-action2 form-id data-path idx))))
 
 (defn selection-list-remove-click
   [{:keys [db]} [_ ctx idx]]
@@ -180,10 +208,10 @@
     {:db (assoc-in db [:page :metcalf3.handlers/saving?] true)
      ; TODO: put logic in handler, use generic js/fetch fx
      ::fx3/post-json-data
-         {:url       url
-          :data      data
-          :success-v [::-save-current-document-success]
-          :error-v   [::-save-current-document-error]}}))
+     {:url       url
+      :data      data
+      :success-v [::-save-current-document-success]
+      :error-v   [::-save-current-document-error]}}))
 
 (defn -save-current-document-success
   [{:keys [db]} [_ resp]]

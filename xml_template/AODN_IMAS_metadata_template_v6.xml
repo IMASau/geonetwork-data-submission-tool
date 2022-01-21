@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mdb:MD_Metadata 	xmlns:mdb="http://standards.iso.org/iso/19115/-3/mdb/2.0"
-					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-					xmlns:cat="http://standards.iso.org/iso/19115/-3/cat/1.0"
-					xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1"
-					xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/2.0"
-					xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0"
-					xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
-					xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
-					xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.1"
-					xmlns:mas="http://standards.iso.org/iso/19115/-3/mas/1.0"
-					xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0"
-					xmlns:mco="http://standards.iso.org/iso/19115/-3/mco/1.0"
-					xmlns:mda="http://standards.iso.org/iso/19115/-3/mda/1.0"
-					xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/2.0"
-					xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/2.0"
-					xmlns:mex="http://standards.iso.org/iso/19115/-3/mex/1.0"
-					xmlns:mmi="http://standards.iso.org/iso/19115/-3/mmi/1.0"
-					xmlns:mpc="http://standards.iso.org/iso/19115/-3/mpc/1.0"
-					xmlns:mrc="http://standards.iso.org/iso/19115/-3/mrc/2.0"
-					xmlns:mrd="http://standards.iso.org/iso/19115/-3/mrd/1.0"
-					xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
-					xmlns:mrl="http://standards.iso.org/iso/19115/-3/mrl/2.0"
-					xmlns:mrs="http://standards.iso.org/iso/19115/-3/mrs/1.0"
-					xmlns:msr="http://standards.iso.org/iso/19115/-3/msr/2.0"
-					xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
-					xmlns:mac="http://standards.iso.org/iso/19115/-3/mac/2.0"
-					xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
-					xmlns:gml="http://www.opengis.net/gml/3.2"
-					xmlns:xlink="http://www.w3.org/1999/xlink"
-					xsi:schemaLocation="http://standards.iso.org/iso/19115/-3/cat/1.0 http://standards.iso.org/iso/19115/-3/cat/1.0/cat.xsd http://standards.iso.org/iso/19115/-3/cit/2.0 http://standards.iso.org/iso/19115/-3/cit/2.0/cit.xsd http://standards.iso.org/iso/19115/-3/gcx/1.0 http://standards.iso.org/iso/19115/-3/gcx/1.0/gcx.xsd http://standards.iso.org/iso/19115/-3/gex/1.0 http://standards.iso.org/iso/19115/-3/gex/1.0/gex.xsd http://standards.iso.org/iso/19115/-3/lan/1.0 http://standards.iso.org/iso/19115/-3/lan/1.0/lan.xsd http://standards.iso.org/iso/19115/-3/srv/2.0 http://standards.iso.org/iso/19115/-3/srv/2.0/srv.xsd http://standards.iso.org/iso/19115/-3/mas/1.0 http://standards.iso.org/iso/19115/-3/mas/1.0/mas.xsd http://standards.iso.org/iso/19115/-3/mcc/1.0 http://standards.iso.org/iso/19115/-3/mcc/1.0/mcc.xsd http://standards.iso.org/iso/19115/-3/mco/1.0 http://standards.iso.org/iso/19115/-3/mco/1.0/mco.xsd http://standards.iso.org/iso/19115/-3/mda/2.0 http://standards.iso.org/iso/19115/-3/mda/2.0/mda.xsd http://standards.iso.org/iso/19115/-3/mdb/2.0 http://standards.iso.org/iso/19115/-3/mdb/2.0/mdb.xsd http://standards.iso.org/iso/19115/-3/mds/2.0 http://standards.iso.org/iso/19115/-3/mds/2.0/mds.xsd http://standards.iso.org/iso/19115/-3/mdt/2.0 http://standards.iso.org/iso/19115/-3/mdt/2.0/mdt.xsd http://standards.iso.org/iso/19115/-3/mex/1.0 http://standards.iso.org/iso/19115/-3/mex/1.0/mex.xsd http://standards.iso.org/iso/19115/-3/mmi/1.0 http://standards.iso.org/iso/19115/-3/mmi/1.0/mmi.xsd http://standards.iso.org/iso/19115/-3/mpc/1.0 http://standards.iso.org/iso/19115/-3/mpc/1.0/mpc.xsd http://standards.iso.org/iso/19115/-3/mrc/2.0 http://standards.iso.org/iso/19115/-3/mrc/2.0/mrc.xsd http://standards.iso.org/iso/19115/-3/mrd/1.0 http://standards.iso.org/iso/19115/-3/mrd/1.0/mrd.xsd http://standards.iso.org/iso/19115/-3/mri/1.0 http://standards.iso.org/iso/19115/-3/mri/1.0/mri.xsd http://standards.iso.org/iso/19115/-3/mrl/2.0 http://standards.iso.org/iso/19115/-3/mrl/2.0/mrl.xsd http://standards.iso.org/iso/19115/-3/mrs/1.0 http://standards.iso.org/iso/19115/-3/mrs/1.0/mrs.xsd http://standards.iso.org/iso/19115/-3/msr/2.0 http://standards.iso.org/iso/19115/-3/msr/2.0/msr.xsd http://standards.iso.org/iso/19157/-2/mdq/1.0 http://standards.iso.org/iso/19157/-2/mdq/1.0/mdq.xsd http://standards.iso.org/iso/19115/-3/mac/2.0 http://standards.iso.org/iso/19115/-3/mac/2.0/mac.xsd http://standards.iso.org/iso/19115/-3/gco/1.0 http://standards.iso.org/iso/19115/-3/gco/1.0/gco.xsd http://standards.iso.org/iso/19115/-3/gmw/1.0 http://standards.iso.org/iso/19115/-3/gmw/1.0/gmw.xsd http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd http://www.w3.org/1999/xlink http://www.w3.org/1999/xlink.xsd">
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:cat="http://standards.iso.org/iso/19115/-3/cat/1.0"
+		xmlns:gfc="http://standards.iso.org/iso/19110/gfc/1.1"
+		xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/2.0"
+		xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0"
+		xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
+		xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
+		xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.1"
+		xmlns:mas="http://standards.iso.org/iso/19115/-3/mas/1.0"
+		xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0"
+		xmlns:mco="http://standards.iso.org/iso/19115/-3/mco/1.0"
+		xmlns:mda="http://standards.iso.org/iso/19115/-3/mda/1.0"
+		xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/2.0"
+		xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/2.0"
+		xmlns:mex="http://standards.iso.org/iso/19115/-3/mex/1.0"
+		xmlns:mmi="http://standards.iso.org/iso/19115/-3/mmi/1.0"
+		xmlns:mpc="http://standards.iso.org/iso/19115/-3/mpc/1.0"
+		xmlns:mrc="http://standards.iso.org/iso/19115/-3/mrc/2.0"
+		xmlns:mrd="http://standards.iso.org/iso/19115/-3/mrd/1.0"
+		xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
+		xmlns:mrl="http://standards.iso.org/iso/19115/-3/mrl/2.0"
+		xmlns:mrs="http://standards.iso.org/iso/19115/-3/mrs/1.0"
+		xmlns:msr="http://standards.iso.org/iso/19115/-3/msr/2.0"
+		xmlns:mdq="http://standards.iso.org/iso/19157/-2/mdq/1.0"
+		xmlns:mac="http://standards.iso.org/iso/19115/-3/mac/2.0"
+		xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
+		xmlns:gml="http://www.opengis.net/gml/3.2"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		xsi:schemaLocation="http://standards.iso.org/iso/19115/-3/cat/1.0 http://standards.iso.org/iso/19115/-3/cat/1.0/cat.xsd http://standards.iso.org/iso/19115/-3/cit/2.0 http://standards.iso.org/iso/19115/-3/cit/2.0/cit.xsd http://standards.iso.org/iso/19115/-3/gcx/1.0 http://standards.iso.org/iso/19115/-3/gcx/1.0/gcx.xsd http://standards.iso.org/iso/19115/-3/gex/1.0 http://standards.iso.org/iso/19115/-3/gex/1.0/gex.xsd http://standards.iso.org/iso/19115/-3/lan/1.0 http://standards.iso.org/iso/19115/-3/lan/1.0/lan.xsd http://standards.iso.org/iso/19115/-3/srv/2.0 http://standards.iso.org/iso/19115/-3/srv/2.0/srv.xsd http://standards.iso.org/iso/19115/-3/mas/1.0 http://standards.iso.org/iso/19115/-3/mas/1.0/mas.xsd http://standards.iso.org/iso/19115/-3/mcc/1.0 http://standards.iso.org/iso/19115/-3/mcc/1.0/mcc.xsd http://standards.iso.org/iso/19115/-3/mco/1.0 http://standards.iso.org/iso/19115/-3/mco/1.0/mco.xsd http://standards.iso.org/iso/19115/-3/mda/2.0 http://standards.iso.org/iso/19115/-3/mda/2.0/mda.xsd http://standards.iso.org/iso/19115/-3/mdb/2.0 http://standards.iso.org/iso/19115/-3/mdb/2.0/mdb.xsd http://standards.iso.org/iso/19115/-3/mds/2.0 http://standards.iso.org/iso/19115/-3/mds/2.0/mds.xsd http://standards.iso.org/iso/19115/-3/mdt/2.0 http://standards.iso.org/iso/19115/-3/mdt/2.0/mdt.xsd http://standards.iso.org/iso/19115/-3/mex/1.0 http://standards.iso.org/iso/19115/-3/mex/1.0/mex.xsd http://standards.iso.org/iso/19115/-3/mmi/1.0 http://standards.iso.org/iso/19115/-3/mmi/1.0/mmi.xsd http://standards.iso.org/iso/19115/-3/mpc/1.0 http://standards.iso.org/iso/19115/-3/mpc/1.0/mpc.xsd http://standards.iso.org/iso/19115/-3/mrc/2.0 http://standards.iso.org/iso/19115/-3/mrc/2.0/mrc.xsd http://standards.iso.org/iso/19115/-3/mrd/1.0 http://standards.iso.org/iso/19115/-3/mrd/1.0/mrd.xsd http://standards.iso.org/iso/19115/-3/mri/1.0 http://standards.iso.org/iso/19115/-3/mri/1.0/mri.xsd http://standards.iso.org/iso/19115/-3/mrl/2.0 http://standards.iso.org/iso/19115/-3/mrl/2.0/mrl.xsd http://standards.iso.org/iso/19115/-3/mrs/1.0 http://standards.iso.org/iso/19115/-3/mrs/1.0/mrs.xsd http://standards.iso.org/iso/19115/-3/msr/2.0 http://standards.iso.org/iso/19115/-3/msr/2.0/msr.xsd http://standards.iso.org/iso/19157/-2/mdq/1.0 http://standards.iso.org/iso/19157/-2/mdq/1.0/mdq.xsd http://standards.iso.org/iso/19115/-3/mac/2.0 http://standards.iso.org/iso/19115/-3/mac/2.0/mac.xsd http://standards.iso.org/iso/19115/-3/gco/1.0 http://standards.iso.org/iso/19115/-3/gco/1.0/gco.xsd http://standards.iso.org/iso/19115/-3/gmw/1.0 http://standards.iso.org/iso/19115/-3/gmw/1.0/gmw.xsd http://www.opengis.net/gml/3.2 http://schemas.opengis.net/gml/3.2.1/gml.xsd http://www.w3.org/1999/xlink http://www.w3.org/1999/xlink.xsd">
 
 	<mdb:metadataIdentifier>
 		<!-- 02.11.2021 This template contains examples of content for metadata describing a data set.
-	Some sections are replaced by the values selected by the user during data submission -->
+	Some sections are replaced by the values selected by the user during data submission -->  
 		<mcc:MD_Identifier>
 			<mcc:code>
 				<gco:CharacterString>POPULATED BY TOOL (UUID automatically generated by DAST as per Geonetwork format)</gco:CharacterString>
@@ -66,7 +66,7 @@
 	</mdb:metadataScope>
 
 	<mdb:contact xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0" xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/1.0" xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/1.0">
-		<!-- Content of this section is defined by template. IMOS is defined here as the 'distributor' contact for all metadata created using this template - IMAS will populate this with their own content -->
+		<!-- Content of this section is defined by template. IMOS is defined here as the 'distributor' contact for all metadata created using this template - IMAS will populate this with their own content -->	
 		<cit:CI_Responsibility>
 			<cit:role>
 				<cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="distributor"/>
@@ -163,7 +163,7 @@
 	</mdb:dateInfo>
 
 	<mdb:metadataStandard xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0" xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/1.0" xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/1.0">
-		<!-- Details of the metadata standard applied in this XML file. These details are set in the XML. -->
+		<!-- Details of the metadata standard applied in this XML file. These details are set in the XML. -->	
 		<cit:CI_Citation>
 			<cit:title>
 				<gco:CharacterString>ISO 19115-3:2018</gco:CharacterString>
@@ -196,7 +196,7 @@
 					</cit:title>
 					<cit:date>
 						<!-- Date the resource was published.
-					This should set to today's date by default, but can be edited by the user input during submission. Note this should probably be tweaked by admin when importing to Geonetwork - as the user submitting data won't necessarily know what data the record is published. -->
+					This should set to today's date by default, but can be edited by the user input during submission. Note this should probably be tweaked by admin when importing to Geonetwork - as the user submitting data won't necessarily know what data the record is published. -->					
 						<cit:CI_Date>
 							<cit:date>
 								<gco:DateTime>2014-01-16T00:00:00</gco:DateTime>
@@ -207,7 +207,7 @@
 						</cit:CI_Date>
 					</cit:date>
 					<cit:citedResponsibleParty>
-						<!--  AODN will likely want to hardcode a 'resourceprovider' instance here - not sure how to distinguish between hard-coded 'template' content, and modifiable content. -->
+						<!--  AODN will likely want to hardcode a 'resourceprovider' instance here - not sure how to distinguish between hard-coded 'template' content, and modifiable content. -->					
 						<cit:CI_Responsibility>
 							<cit:role>
 								<cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="resourceProvider"/>
@@ -278,9 +278,9 @@
 					</cit:citedResponsibleParty>
 					<cit:citedResponsibleParty>
 						<!--  This (and any subsequent) cit:citedResponsibleParty are populated by user input - all text is placeholder.
-					 At least one citedResponsibleParty must be entered by the user-->
+					 At least one citedResponsibleParty must be entered by the user-->					
 						<cit:CI_Responsibility>
-							<!--  Role is chosen by user from controlled codelist -->
+							<!--  Role is chosen by user from controlled codelist -->											
 							<cit:role>
 								<cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="author"/>
 							</cit:role>
@@ -300,7 +300,7 @@
 														<cit:CI_Telephone>
 															<cit:number>
 																<gco:CharacterString xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0">
-																	+61 3 6226 2582
+															+61 3 6226 2582
 																</gco:CharacterString>
 															</cit:number>
 															<cit:numberType>
@@ -334,7 +334,7 @@
 														</cit:CI_Address>
 													</cit:address>
 													<cit:onlineResource>
-														<!--  ORCID URL is collected from a specific user-entered field. cit:name and cit:protocl are auto-populated -->
+														<!--  ORCID URL is collected from a specific user-entered field. cit:name and cit:protocl are auto-populated -->											
 														<cit:CI_OnlineResource>
 															<cit:linkage>
 																<gco:CharacterString>https://orcid.org/0000-0002-3390-6437</gco:CharacterString>
@@ -350,11 +350,11 @@
 												</cit:CI_Contact>
 											</cit:contactInfo>
 										</cit:CI_Individual>
-									</cit:individual>
+									</cit:individual>									
 								</cit:CI_Organisation>
 							</cit:party>
 						</cit:CI_Responsibility>
-					</cit:citedResponsibleParty>
+					</cit:citedResponsibleParty>					
 				</cit:CI_Citation>
 			</mri:citation>
 			<mri:abstract>
@@ -362,11 +362,11 @@
 					Example: The Australian National Facility for Ocean Gliders (ANFOG), with IMOS/NCRIS funding, deploys a fleet of eight gliders around Australia. The data represented by this record, are presented in delayed mode. The underwater ocean glider represents a technological revolution for oceanography. Autonomous ocean gliders can be built relatively cheaply, are controlled remotely and are reusable allowing them to make repeated subsurface ocean observations at a fraction of the cost of conventional methods. The data retrieved from the glider fleet will contribute to the study of the major boundary current systems surrounding Australia and their links to coastal ecosystems....The IMOS gliders will focus particularly on the major boundary currents that run down the Australian coast, the Leeuwin in the west and the East Australian Current (EAC). The study of these currents is critical for understanding the north-south transport of freshwater, heat and biogeochemical properties. The currents exert a large influence on coastal ecosystems, shipping lanes and fisheries.</gco:CharacterString>
 			</mri:abstract>
 			<mri:credit>
-				<!-- If placeholder text is in the template, retain this unles overwritten -->
+				<!-- If placeholder text is in the template, retain this unles overwritten -->			
 				<gco:CharacterString>Placeholder text=Thanks to all the lovely sponsors:  xxx, yyy</gco:CharacterString>
 			</mri:credit>
 			<mri:status>
-				<!--  The user must select from a subset of ISO status codes during data submission. -->
+				<!--  The user must select from a subset of ISO status codes during data submission. --> 
 				<mcc:MD_ProgressCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ProgressCode" codeListValue="completed"/>
 			</mri:status>
 			<mri:pointOfContact>
@@ -420,7 +420,7 @@
 												</cit:CI_Address>
 											</cit:address>
 											<cit:onlineResource>
-												<!--  ORCID URL is collected from a specific user-entered field. cit:name and cit:protocl are auto-populated -->
+												<!--  ORCID URL is collected from a specific user-entered field. cit:name and cit:protocl are auto-populated -->											
 												<cit:CI_OnlineResource>
 													<cit:linkage>
 														<gco:CharacterString>https://orcid.org/0000-0002-3390-6437</gco:CharacterString>
@@ -432,7 +432,7 @@
 														<gco:CharacterString>ORCID ID</gco:CharacterString>
 													</cit:name>
 												</cit:CI_OnlineResource>
-											</cit:onlineResource>
+											</cit:onlineResource>											
 										</cit:CI_Contact>
 									</cit:contactInfo>
 								</cit:CI_Individual>
@@ -442,15 +442,15 @@
 				</cit:CI_Responsibility>
 			</mri:pointOfContact>
 			<mri:topicCategory>
-				<!-- The user must select a topic category from a list defined by ISO -->
+				<!-- The user must select a topic category from a list defined by ISO -->			
 				<mri:MD_TopicCategoryCode>oceans</mri:MD_TopicCategoryCode>
 			</mri:topicCategory>
 			<mri:extent>
 				<gex:EX_Extent>
 
 					<gex:geographicElement>
-						<!-- The user may input the approximate location where the data was acquired specified as 4 different coordinates.
-					Data collected at a point has two coordinates entered across the four attributes as illustrated below. -->
+						<!-- The user may input the approximate location where the data was acquired specified as 4 different coordinates. 
+					Data collected at a point has two coordinates entered across the four attributes as illustrated below. -->     				   
 						<gex:EX_GeographicBoundingBox>
 							<gex:westBoundLongitude>
 								<gco:Decimal>148.4746</gco:Decimal>
@@ -469,7 +469,7 @@
 
 					<gex:temporalElement>
 						<!--  As a minimum the user must specify the start date of data acquisition -->
-						<!--  For some statuses, such as 'completed', end date must also be input -->
+						<!--  For some statuses, such as 'completed', end date must also be input -->					
 						<gex:EX_TemporalExtent>
 							<gex:extent>
 								<gml:TimePeriod gml:id="d5137372e782a1052958">
@@ -478,7 +478,7 @@
 								</gml:TimePeriod>
 							</gex:extent>
 						</gex:EX_TemporalExtent>
-					</gex:temporalElement>
+					</gex:temporalElement>			
 
 					<gex:verticalElement>
 						<!--  A user can optionally enter depth info. the verticalCRS should auto-populate from this. ***NEED TO CHECK THIS STRUCTURE*** -->
@@ -507,17 +507,17 @@
 				<mmi:MD_MaintenanceInformation>
 					<mmi:maintenanceAndUpdateFrequency>
 						<mmi:MD_MaintenanceFrequencyCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_MaintenanceFrequencyCode"
-														 codeListValue="notPlanned"/>
+                                                 codeListValue="notPlanned"/>
 					</mmi:maintenanceAndUpdateFrequency>
 				</mmi:MD_MaintenanceInformation>
-			</mri:resourceMaintenance>
+			</mri:resourceMaintenance>					
 
-			<!-- The user can manually enter one or more theme keywords (freetext)-->
+			<!-- The user can manually enter one or more theme keywords (freetext)-->								
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
 					<mri:type>
 						<mri:MD_KeywordTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode"
-												codeListValue="theme"/>
+                                          codeListValue="theme"/>
 					</mri:type>
 					<mri:keyword>
 						<gco:CharacterString>phycology</gco:CharacterString>
@@ -528,12 +528,12 @@
 				</mri:MD_Keywords>
 			</mri:descriptiveKeywords>
 
-			<!-- The user can manually enter one or more taxonomic keywords (freetext)-->
+			<!-- The user can manually enter one or more taxonomic keywords (freetext)-->			 
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
 					<mri:type>
 						<mri:MD_KeywordTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode"
-												codeListValue="taxon"/>
+                                          codeListValue="taxon"/>
 					</mri:type>
 					<mri:keyword>
 						<gco:CharacterString>Ecklonia radiata</gco:CharacterString>
@@ -542,7 +542,7 @@
 			</mri:descriptiveKeywords>
 
 
-			<!-- The user can select one or more GCMD science keywords (in the "what" tab). -->
+			<!-- The user can select one or more GCMD science keywords (in the "what" tab). -->								
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
 					<mri:keyword>
@@ -554,7 +554,7 @@
 					<mri:type>
 						<mri:MD_KeywordTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
 					</mri:type>
-					<!-- This is fixed in template - need to update version info if we update in tool. -->
+					<!-- This is fixed in template - need to update version info if we update in tool. -->													
 					<mri:thesaurusName>
 						<cit:CI_Citation>
 							<cit:title>
@@ -570,7 +570,7 @@
 									</cit:date>
 									<cit:dateType>
 										<cit:CI_DateTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode"
-															 codeListValue="revision"/>
+																			   codeListValue="revision"/>
 									</cit:dateType>
 								</cit:CI_Date>
 							</cit:date>
@@ -583,7 +583,7 @@
 										<gcx:Anchor xlink:href="https://metadata.imas.utas.edu.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.sciencekeywords">geonetwork.thesaurus.external.theme.sciencekeywords</gcx:Anchor>
 									</mcc:code>
 								</mcc:MD_Identifier>
-							</cit:identifier>
+							</cit:identifier>							
 							<cit:citedResponsibleParty>
 								<cit:CI_Responsibility>
 									<cit:role>
@@ -603,7 +603,7 @@
 				</mri:MD_Keywords>
 			</mri:descriptiveKeywords>
 
-			<!-- This is fetched/populated by PLATFORM vocab for parameters entered on "about" tab. -->
+			<!-- This is fetched/populated by PLATFORM vocab for parameters entered on "about" tab. -->																
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
 					<mri:keyword>
@@ -628,7 +628,7 @@
 								</cit:CI_Date>
 							</cit:date>
 							<cit:identifier>
-								<!-- Local catalogue reference needs to be updated by catalogue set in Site Contents (or from template). -->
+								<!-- Local catalogue reference needs to be updated by catalogue set in Site Contents (or from template). -->													
 								<mcc:MD_Identifier>
 									<mcc:code>
 										<gcx:Anchor xlink:href="https://metadata.imas.utas.edu.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-platform-vocabulary">geonetwork.thesaurus.external.theme.aodn_aodn-platform-vocabulary</gcx:Anchor>
@@ -640,7 +640,7 @@
 				</mri:MD_Keywords>
 			</mri:descriptiveKeywords>
 
-			<!-- This is fetched/populated by PARAMETER vocab for parameters entered on "about" tab. -->
+			<!-- This is fetched/populated by PARAMETER vocab for parameters entered on "about" tab. -->																			
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
 					<mri:keyword>
@@ -671,7 +671,7 @@
 								</cit:CI_Date>
 							</cit:date>
 							<cit:identifier>
-								<!-- Local catalogue reference needs to be updated by catalogue set in Site Contents (or from template). -->
+								<!-- Local catalogue reference needs to be updated by catalogue set in Site Contents (or from template). -->																				
 								<mcc:MD_Identifier>
 									<mcc:code>
 										<gcx:Anchor xlink:href="https://catalogue-imos.aodn.org.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-discovery-parameter-vocabulary">geonetwork.thesaurus.external.theme.aodn_aodn-discovery-parameter-vocabulary</gcx:Anchor>
@@ -683,7 +683,7 @@
 				</mri:MD_Keywords>
 			</mri:descriptiveKeywords>
 
-			<!-- This is fetched/populated by INSTRUMENT vocab for parameters entered on "about" tab. -->
+			<!-- This is fetched/populated by INSTRUMENT vocab for parameters entered on "about" tab. -->																						
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
 					<mri:keyword>
@@ -711,7 +711,7 @@
 								</cit:CI_Date>
 							</cit:date>
 							<cit:identifier>
-								<!-- Local catalogue reference needs to be updated by catalogue set in Site Contents (or from template). -->
+								<!-- Local catalogue reference needs to be updated by catalogue set in Site Contents (or from template). -->																				
 								<mcc:MD_Identifier>
 									<mcc:code>
 										<gcx:Anchor xlink:href="https://catalogue-imos.aodn.org.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-instrument-vocabulary">geonetwork.thesaurus.external.theme.aodn_aodn-instrument-vocabulary</gcx:Anchor>
@@ -724,7 +724,7 @@
 			</mri:descriptiveKeywords>
 
 			<mri:resourceConstraints>
-				<!-- Generic statement hard-coded in template. -->
+				<!-- Generic statement hard-coded in template. -->																									
 				<mco:MD_Constraints>
 					<mco:useLimitation>
 						<gco:CharacterString>Data, products and services from IMAS are provided "as is" without any warranty as to fitness for a particular purpose.</gco:CharacterString>
@@ -756,7 +756,7 @@
 						</mcc:MD_BrowseGraphic>
 					</mco:graphic>
 
-					<!-- License information will be populated depending on the license selected by the user. The only options provided are CC-BY or CC-BY-NC  -->
+					<!-- License information will be populated depending on the license selected by the user. The only options provided are CC-BY or CC-BY-NC  -->					
 					<mco:reference>
 						<cit:CI_Citation>
 							<cit:title>
@@ -767,7 +767,7 @@
 							</cit:alternateTitle>
 							<cit:edition>
 								<gco:CharacterString>4.0</gco:CharacterString>
-							</cit:edition>
+							</cit:edition>							
 							<cit:citedResponsibleParty>
 								<cit:CI_Responsibility>
 									<cit:party>
@@ -806,12 +806,12 @@
 						</cit:CI_Citation>
 					</mco:reference>
 
-					<!-- Template hardcoded  -->
+					<!-- Template hardcoded  -->										
 					<mco:otherConstraints>
 						<gco:CharacterString>The citation in a list of references is: "IMOS [year-of-data-download], [Title], [data-access-URL], accessed [date-of-access]."</gco:CharacterString>
 					</mco:otherConstraints>
 
-					<!-- Populated if user selects "other constraints" when selecting license type  -->
+					<!-- Populated if user selects "other constraints" when selecting license type  -->					
 					<mco:otherConstraints>
 						<gco:CharacterString>Any other constraints manually entered by user</gco:CharacterString>
 					</mco:otherConstraints>
@@ -820,7 +820,7 @@
 			</mri:resourceConstraints>
 
 			<mri:defaultLocale>
-				<!-- Template hardcoded  -->
+				<!-- Template hardcoded  -->			
 				<lan:PT_Locale>
 					<lan:language>
 						<lan:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="eng"/>
@@ -832,14 +832,14 @@
 			</mri:defaultLocale>
 
 			<mri:supplementalInformation>
-				<!-- Populated by user entry -->
+				<!-- Populated by user entry -->						
 				<gco:CharacterString>Phinn, SR et al. (2012): Multi-scale, object-based image analysis for mapping geomorphic and ecological zones on coral reefs. International Journal of Remote Sensing, 33(12), 3768-3797, doi:10.1080/01431161.2011.633122</gco:CharacterString>
-			</mri:supplementalInformation>
+			</mri:supplementalInformation>			
 
 		</mri:MD_DataIdentification>
 	</mdb:identificationInfo>
 
-	<!-- PARAMETER is replicated here, and packaged with UNITS-->
+	<!-- PARAMETER is replicated here, and packaged with UNITS-->																
 	<mdb:contentInfo xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0" xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/1.0" xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/1.0">
 		<mrc:MD_CoverageDescription>
 			<mrc:attributeDescription gco:nilReason="inapplicable"/>
@@ -849,10 +849,10 @@
 						<mrc:MD_CoverageContentTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_CoverageContentTypeCode" codeListValue="physicalMeasurement"/>
 					</mrc:contentType>
 
-					<!-- Attribute group #1 -->
+					<!-- Attribute group #1 -->																								
 					<mrc:attribute>
 						<mrc:MD_SampleDimension>
-							<!-- Parameter #1 -->
+							<!-- Parameter #1 -->																														
 							<mrc:name>
 								<mcc:MD_Identifier>
 									<mcc:code>
@@ -860,14 +860,14 @@
 									</mcc:code>
 								</mcc:MD_Identifier>
 							</mrc:name>
-							<!-- Second 'freetext' instance of name (ie name in dataset), if entered -->
+							<!-- Second 'freetext' instance of name (ie name in dataset), if entered -->																		
 							<mrc:name>
 								<mcc:MD_Identifier>
 									<mcc:code>
 										<gco:CharacterString>MY_MEASURED_TEMP</gco:CharacterString>
 									</mcc:code>
 								</mcc:MD_Identifier>
-							</mrc:name>
+							</mrc:name>							
 							<!-- Unit #1 -->
 							<mrc:units>
 								<gml:BaseUnit gml:id="d20e484">
@@ -879,10 +879,10 @@
 						</mrc:MD_SampleDimension>
 					</mrc:attribute>
 
-					<!-- Attribute group #2 -->
+					<!-- Attribute group #2 -->																													
 					<mrc:attribute>
 						<mrc:MD_SampleDimension>
-							<!-- Parameter #2 -->
+							<!-- Parameter #2 -->																																				
 							<mrc:name>
 								<mcc:MD_Identifier>
 									<mcc:code>
@@ -896,8 +896,8 @@
 										<gco:CharacterString>PSAL</gco:CharacterString>
 									</mcc:code>
 								</mcc:MD_Identifier>
-							</mrc:name>
-							<!-- Unit #2 -->
+							</mrc:name>								
+							<!-- Unit #2 -->																																				
 							<mrc:units>
 								<gml:BaseUnit gml:id="d20e534">
 									<gml:identifier codeSpace="unknown">http://vocab.aodn.org.au/def/unitsofmeasure/entity/481</gml:identifier>
@@ -917,7 +917,7 @@
 		<mrd:MD_Distribution>
 
 			<mrd:distributionFormat>
-				<!-- Info on distribution format of data, from user input-->
+				<!-- Info on distribution format of data, from user input-->																			
 				<mrd:MD_Format>
 					<mrd:formatSpecificationCitation>
 						<cit:CI_Citation>
@@ -933,11 +933,11 @@
 			</mrd:distributionFormat>
 
 			<mrd:transferOptions>
-				<!-- The user may enter links to the download the data, or related services (WMS etc) -->
+				<!-- The user may enter links to the download the data, or related services (WMS etc) -->  			
 				<mrd:MD_DigitalTransferOptions>
 
 					<mrd:onLine>
-						<!-- Populated by user selecting WMS data servie-->
+						<!-- Populated by user selecting WMS data servie-->																								
 						<cit:CI_OnlineResource>
 							<cit:linkage>
 								<gco:CharacterString>http://***serverURL***/geoserver/wms</gco:CharacterString>
@@ -955,7 +955,7 @@
 					</mrd:onLine>
 
 					<mrd:onLine>
-						<!-- Populated by user selecting WFS data servie-->
+						<!-- Populated by user selecting WFS data servie-->																													
 						<cit:CI_OnlineResource>
 							<cit:linkage>
 								<gco:CharacterString>http://***serverURL***/geoserver/wfs</gco:CharacterString>
@@ -970,10 +970,10 @@
 								<gco:CharacterString>***Description of WFS service***</gco:CharacterString>
 							</cit:description>
 						</cit:CI_OnlineResource>
-					</mrd:onLine>
+					</mrd:onLine>					
 
 					<mrd:onLine>
-						<!-- Populated by user selecting Other/unknown data servie-->
+						<!-- Populated by user selecting Other/unknown data servie-->																																		
 						<cit:CI_OnlineResource>
 							<cit:linkage>
 								<gco:CharacterString>http://someexampleURL.com/readme.pdf</gco:CharacterString>
@@ -985,7 +985,7 @@
 								<gco:CharacterString>***Description of supplied URL****</gco:CharacterString>
 							</cit:name>
 						</cit:CI_OnlineResource>
-					</mrd:onLine>
+					</mrd:onLine>				
 
 				</mrd:MD_DigitalTransferOptions>
 			</mrd:transferOptions>
@@ -995,22 +995,22 @@
 	<mdb:resourceLineage>
 		<mrl:LI_Lineage>
 			<mrl:statement>
-				<!-- The user may provide an overview of the methodology used to acquire and/or process the data -->
-				<gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods.
-					Example: Data was collected at the site using the methods described in yyy Manual, refer to somedoi.org</gco:CharacterString>
+				<!-- The user may provide an overview of the methodology used to acquire and/or process the data -->		 
+				<gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods. 
+               Example: Data was collected at the site using the methods described in yyy Manual, refer to somedoi.org</gco:CharacterString>
 			</mrl:statement>
 			<mrl:scope>
 				<mcc:MD_Scope>
 					<mcc:level>
 						<mcc:MD_ScopeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ScopeCode"
-										  codeListValue="dataset"/>
+                                    codeListValue="dataset"/>
 					</mcc:level>
 				</mcc:MD_Scope>
 			</mrl:scope>
 		</mrl:LI_Lineage>
-	</mdb:resourceLineage>
+	</mdb:resourceLineage>	
 
-	<!-- PLATFORM and INSTRUMENTS are replicated here, and packaged together-->
+	<!-- PLATFORM and INSTRUMENTS are replicated here, and packaged together-->																
 	<mdb:acquisitionInformation xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0" xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/1.0" xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/1.0">
 		<mac:MI_AcquisitionInformation>
 			<mac:scope>
@@ -1021,7 +1021,7 @@
 				</mcc:MD_Scope>
 			</mac:scope>
 
-			<!-- This is fetched/populated by PLATFORM and INSTRUMENT vocabs for parameters entered on "about" tab. -->
+			<!-- This is fetched/populated by PLATFORM and INSTRUMENT vocabs for parameters entered on "about" tab. -->																						
 			<mac:platform>
 				<mac:MI_Platform>
 					<mac:identifier>
@@ -1031,7 +1031,7 @@
 							</mcc:code>
 						</mcc:MD_Identifier>
 					</mac:identifier>
-					<!-- There may be multiple instruments per platform - but if tricky, just package 1:1 (ie repeat platforms if necessary) -->
+					<!-- There may be multiple instruments per platform - but if tricky, just package 1:1 (ie repeat platforms if necessary) -->																	
 					<mac:instrument>
 						<mac:MI_Instrument>
 							<mac:identifier>

@@ -37,8 +37,8 @@
 (defn form-group-settings
   "Settings for form group"
   [{:keys [data-path]}]
-  {::low-code4/req-ks       []
-   ::low-code4/opt-ks       [:label :form-id :data-path :helperText :toolTip]})
+  {::low-code4/req-ks []
+   ::low-code4/opt-ks [:label :form-id :data-path :helperText :toolTip]})
 
 (defn form-group
   "This component is a lightweight wrapper around its children with props for the label above and helper text below.
@@ -77,8 +77,8 @@
 (defn inline-form-group-settings
   "Settings for inline-form-group component"
   [_]
-  {::low-code4/req-ks [:label]
-   ::low-code4/opt-ks [:form-id :data-path :helperText :toolTip]})
+  {::low-code4/req-ks []
+   ::low-code4/opt-ks [:label :form-id :data-path :helperText :toolTip]})
 
 (defn inline-form-group
   "This component is a lightweight wrapper around its children with props for the label to the left and helper text below.
@@ -151,9 +151,9 @@
       :onSave  #(rf/dispatch [::list-edit-dialog-save config])
       :canSave (not errors?)}
      (low-code4/render-template
-      {:template-id template-id
-       :variables   {'?form-id   form-id
-                     '?data-path item-data-path}})]))
+       {:template-id template-id
+        :variables   {'?form-id   form-id
+                      '?data-path item-data-path}})]))
 
 (defn typed-list-edit-dialog-settings
   "Settings for typed-list-edit-dialog"
@@ -379,10 +379,11 @@
    "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder rows maxLength value disabled show-errors? is-hidden]} props]
+        {:keys [key placeholder rows maxLength value disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/TextareaField
-       {:value       (or value "")                          ; TODO: should be guaranteed by sub
+       {:key         key
+        :value       (or value "")                          ; TODO: should be guaranteed by sub
         :placeholder placeholder
         :disabled    disabled
         :hasError    show-errors?
@@ -680,6 +681,23 @@
       [:button.bp3-button.bp3-intent-primary
        {:disabled disabled
         :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler config])}
+       button-text])))
+
+(defn value-list-add-button-settings
+  "Settings for value-list-add-button component"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :button-text]
+   ::low-code4/opt-ks [:item-default]
+   ::low-code4/schema {:type "array"}})
+
+(defn value-list-add-button
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [disabled is-hidden button-text]} props]
+    (when-not is-hidden
+      [:button.bp3-button.bp3-intent-primary
+       {:disabled disabled
+        :onClick  #(rf/dispatch [::value-list-add-with-defaults-click-handler config])}
        button-text])))
 
 (defn text-add-button-settings
@@ -1025,7 +1043,9 @@
         :disabled      disabled
         :getLabel      (ui-controls/obj-path-getter ["label"])
         :getValue      (ui-controls/obj-path-getter ["value"])
+        :getAdded      (constantly true)
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-values-reorder props src-idx dst-idx]))
+        :onItemClick   (fn [idx] (rf/dispatch [::selection-list-values-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-values-remove-click props idx]))}])))
 
 (defn selection-list-template-settings
@@ -1140,7 +1160,7 @@
   "Settings for selection-list-columns component"
   [{:keys [value-path columns added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :value-path :columns]
-   ::low-code4/opt-ks       [:added-path]
+   ::low-code4/opt-ks       [:added-path :placeholder-record?]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths (into [value-path added-path] (map :label-path columns))})
 
@@ -1157,6 +1177,7 @@
      * label-path - path to the column label is in the list item data
      * flex (number) - how much space this column should use.
    * added-path (vector) - path to test if list item is user defined.  Used to style control.
+   * placeholder-record? (boolean) - display an empty record is displayed when the list is empty
 
    Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
    * disabled - styles control to indicate it's disabled
@@ -1164,22 +1185,40 @@
    "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [key value-path columns added-path disabled is-hidden]} props
+        {:keys [key value-path columns added-path disabled is-hidden placeholder-record?]} props
         items @(rf/subscribe [::get-block-data config])]
     (when-not is-hidden
-      [ui-controls/TableSelectionList
-       {:key           key
-        :items         (or items [])
-        :disabled      disabled
-        :columns       (for [{:keys [flex label-path columnHeader]} columns]
-                         {:flex         flex
-                          :getLabel     (ui-controls/obj-path-getter label-path)
-                          :columnHeader (or columnHeader "None")})
-        :getValue      (ui-controls/obj-path-getter value-path)
-        :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
-        :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
-        :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
-        :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}])))
+      (cond (seq items)
+            ; Has results, display them
+            [ui-controls/TableSelectionList
+             {:key           key
+              :items         (or items [])
+              :disabled      disabled
+              :columns       (for [{:keys [flex label-path columnHeader]} columns]
+                               {:flex         flex
+                                :getLabel     (ui-controls/obj-path-getter label-path)
+                                :columnHeader (or columnHeader "None")})
+              :getValue      (ui-controls/obj-path-getter value-path)
+              :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
+              :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
+              :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
+              :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}]
+
+            placeholder-record?
+            ; No results but we do want a table with a placeholder record
+            [ui-controls/TableSelectionList
+             {:key           key
+              :items         [{}]
+              :disabled      disabled
+              :columns       (for [{:keys [flex columnHeader]} columns]
+                               {:flex         flex
+                                :getLabel     (constantly "--")
+                                :columnHeader (or columnHeader "None")})
+              :getValue      (constantly "--")
+              :getAdded      (constantly false)
+              :onReorder     (fn [src-idx dst-idx] #_(rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
+              :onItemClick   (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler config]))
+              :onRemoveClick (fn [idx] #_(rf/dispatch [::selection-list-remove-click config idx]))}]))))
 
 ;(defn simple-list-option-picker-settings
 ;  "Settings for simple-list-option-picker component"
@@ -1334,6 +1373,49 @@
         :getLabel    (ui-controls/obj-path-getter label-path)
         :loadOptions (partial utils4/load-options config)
         :onChange    #(rf/dispatch [::item-option-picker-change config (ui-controls/get-option-data %)])}])))
+
+(defn async-simple-item-option-picker2-settings
+  "Settings for async-simple-item-option-picker component"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :uri :value-path :label-path :data-mapper]
+   ::low-code4/opt-ks [:placeholder :results-path :search-params]
+   ::low-code4/schema {:type "object"}})
+
+(defn async-simple-item-option-picker2
+  "This component renders a select control backed by a json data source.  Options are rendered as a text label.
+   Picking an option updates data values.  The picked value is not held.
+
+   Use case: User can prepopulate editable fields by picking from a list.
+
+   Props configure the component
+   * value-path (vector) - path to value in the option data.  Values must be unique.
+   * label-path (vector) - path to label is in the option data.  Used to render options.
+   * data-mapper - sequence of [get-path set-path] for updating form data based on selected option.
+   * placeholder (string) - text to displayed when no option is selected.
+
+   Props to configure the data source
+   * uri (string) - the resource that you wish to fetch data from
+   * results-path - where the result list is in the data source json data payload
+   * search-param - the request parameter name used for searching for matching results
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * show-errors? - styles control to indicate data entry errors
+   * is-hidden - hides component entirely
+   "
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [placeholder disabled is-hidden value-path label-path show-errors?]} props]
+    (when-not is-hidden
+      [ui-controls/AsyncSimpleSelectField
+       {:value       nil
+        :placeholder placeholder
+        :disabled    disabled
+        :hasError    show-errors?
+        :getValue    (ui-controls/obj-path-getter value-path)
+        :getLabel    (ui-controls/obj-path-getter label-path)
+        :loadOptions (partial utils4/load-options config)
+        :onChange    #(rf/dispatch [::item-option-picker2-change config (ui-controls/get-option-data %)])}])))
 
 (defn async-list-option-picker-breadcrumb-settings
   "Settings for async-breadcrumb-list-option-picker component"
@@ -1677,8 +1759,8 @@
     (when-not is-hidden
       [:div
        [ui-controls/InputField
-        {:value       (or name "")
-        :disabled    true}]
+        {:value    (or name "")
+         :disabled true}]
        [ui-controls/Dropzone
         {:disabled    disabled
          :placeholder (r/as-element placeholder)

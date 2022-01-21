@@ -4,6 +4,10 @@
     align-items: center;
 }
 
+.TableListColumnHeaderCell {
+    font-weight: bold;
+}
+
 .SimpleListItem, .TableListItemRow {
     min-height: 30px;
 }
@@ -22,7 +26,4 @@
 }
 
 .TableListItemCol {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }

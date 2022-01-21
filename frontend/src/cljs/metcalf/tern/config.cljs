@@ -30,7 +30,9 @@
 (rf/reg-event-fx ::components4/edit-dialog-close handlers4/edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/edit-dialog-save handlers4/edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
+(rf/reg-event-fx ::components4/item-option-picker2-change handlers4/item-option-picker2-change)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/value-list-add-with-defaults-click-handler handlers4/value-list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
@@ -44,6 +46,7 @@
 (rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/selection-list-values-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-values-reorder handlers4/selection-list-reorder)
+(rf/reg-event-fx ::components4/selection-list-values-item-click handlers4/selection-list-values-item-click)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
 (rf/reg-event-fx :app/-archive-current-document-error handlers3/-archive-current-document-error)
@@ -138,6 +141,8 @@
        "spatialUnits"      rules4/spatial-resolution-units
        "requiredAllNone"   rules4/required-all-or-nothing
        "maxLength"         rules4/max-length
+       "mergeNameParts"    rules4/merge-names
+       "validOrcid"        rules4/valid-ordid-uri
        "geographyRequired" rules4/geography-required
        "licenseOther"      rules4/license-other
        "numericOrder"      rules4/numeric-order
@@ -150,6 +155,7 @@
 (set! low-code4/component-registry
       {
        'm4/async-simple-item-option-picker     {:view components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
+       'm4/async-simple-item-option-picker2    {:view components4/async-simple-item-option-picker2 :init components4/async-simple-item-option-picker2-settings}
        'm4/async-list-option-picker            {:view components4/async-list-option-picker :init components4/async-list-option-picker-settings}
        'm4/async-list-option-picker-breadcrumb {:view components4/async-list-option-picker-breadcrumb :init components4/async-list-option-picker-breadcrumb-settings}
        'm4/async-list-option-picker-columns    {:view components4/async-list-option-picker-columns :init components4/async-list-option-picker-columns-settings}
@@ -170,6 +176,7 @@
        'm4/item-dialog-button                  {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/edit-dialog                         {:view components4/edit-dialog :init components4/edit-dialog-settings}
        'm4/list-add-button                     {:view components4/list-add-button :init components4/list-add-button-settings}
+       'm4/value-list-add-button               {:view components4/value-list-add-button :init components4/value-list-add-button-settings}
        'm4/list-edit-dialog                    {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
        'm4/typed-list-edit-dialog              {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
        'm4/numeric-input-field                 {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
@@ -639,7 +646,7 @@
          [m4/async-list-option-picker
           {:form-id    [:form]
            :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
-           :uri        "/api/terninstrumenttypes"
+           :uri        "/api/terninstruments"
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button
@@ -1146,10 +1153,69 @@
       {:form-id   ?form-id
        :data-path [?data-path "role"]
        :label     "Role"}
-      [m4/async-select-option-simple
+      [m4/select-option-simple
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
-        :uri        "/api/rolecode"
+        :options    [{"UUID" "a37cc120-9920-4495-9a2f-698e225b5902"
+                      "Identifier" "author"
+                      "Description" "Party who authored the resource"}
+                     {"UUID" "cc22ca92-a323-42fa-8e01-1503f0edf6b9"
+                      "Identifier" "coAuthor"
+                      "Description" "Party who jointly authors the resource"}
+                     {"UUID" "a2d57717-48fb-4675-95dd-4be8f9d585d6"
+                      "Identifier" "collaborator"
+                      "Description" "Party who assists with the generation of the resource other than the principal investigator"}
+                     {"UUID" "b91ddbe5-584e-46ff-a242-1c7c67b836e3"
+                      "Identifier" "contributor"
+                      "Description" "Party contributing to the resource"}
+                     {"UUID" "3373d310-f065-4ece-a61b-9bb04bd1df27"
+                      "Identifier" "custodian"
+                      "Description" "Party that accepts accountability and responsibility for the resource and ensures appropriate care and maintenance of the resource"}
+                     {"UUID" "abd843f7-9d47-4a69-b9bc-3544202488fe"
+                      "Identifier" "distributor"
+                      "Description" "Party who distributes the resource"}
+                     {"UUID" "370e8b34-d7ce-42fc-904f-05e263789389"
+                      "Identifier" "editor"
+                      "Description" "Party who reviewed or modified the resource to improve the content"}
+                     {"UUID" "06213565-8aff-4c98-9ae3-4dd1023a2cdc"
+                      "Identifier" "funder"
+                      "Description" "Party providing monetary support for the resource"}
+                     {"UUID" "2961f936-74cf-4192-95dc-959e8dae7189"
+                      "Identifier" "mediator"
+                      "Description" "A class of entity that mediates access to the resource and for whom the resource is intended or useful"}
+                     {"UUID" "6cd5bbc6-463d-4850-9ad4-2353cb9451f5"
+                      "Identifier" "originator"
+                      "Description" "Party who created the resource"}
+                     {"UUID" "0e75b54c-0cff-4753-a66a-c359f604689d"
+                      "Identifier" "owner"
+                      "Description" "Party that owns the resource"}
+                     {"UUID" "6511df52-a5ff-42da-8788-34dcad38ccc8"
+                      "Identifier" "pointOfContact"
+                      "Description" "Party who can be contacted for acquiring knowledge about or acquisition of the resource"}
+                     {"UUID" "6b20a462-bc67-46c3-bdcb-b558f0127fe2"
+                      "Identifier" "principalInvestigator"
+                      "Description" "Key party responsible for gathering information and conducting research"}
+                     {"UUID" "c3429513-50aa-4288-b919-cdeb816815a7"
+                      "Identifier" "processor"
+                      "Description" "Party who has processed the data in a manner such that the resource has been modified"}
+                     {"UUID" "1359d456-c428-49f1-8c8e-c46ebff53a10"
+                      "Identifier" "publisher"
+                      "Description" "Party who published the resource"}
+                     {"UUID" "b25e217a-ed48-4d10-831e-298975f6cedf"
+                      "Identifier" "resourceProvider"
+                      "Description" "Party that supplies the resource"}
+                     {"UUID" "028232f0-36c8-4ff6-aef4-ec0c424b7887"
+                      "Identifier" "rightsHolder"
+                      "Description" "Party owning or managing rights over the resource"}
+                     {"UUID" "8211c24f-e1be-4a2d-962e-856304fa53de"
+                      "Identifier" "sponsor"
+                      "Description" "Party who speaks for the resource"}
+                     {"UUID" "a9199aa5-26e2-4951-af7b-3132118d7569"
+                      "Identifier" "stakeholder"
+                      "Description" "Party who has an interest in the resource or the use of the resource"}
+                     {"UUID" "4122989f-f824-4d4a-8a29-10bd3541c17e"
+                      "Identifier" "user"
+                      "Description" "Party who uses the resource"}]
         :label-path ["Description"]
         :value-path ["Identifier"]}]]
 
@@ -1237,10 +1303,69 @@
       {:form-id   ?form-id
        :data-path [?data-path "role"]
        :label     "Role"}
-      [m4/async-select-option-simple
+      [m4/select-option-simple
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
-        :uri        "/api/rolecode"
+        :options    [{"UUID" "a37cc120-9920-4495-9a2f-698e225b5902"
+                      "Identifier" "author"
+                      "Description" "Party who authored the resource"}
+                     {"UUID" "cc22ca92-a323-42fa-8e01-1503f0edf6b9"
+                      "Identifier" "coAuthor"
+                      "Description" "Party who jointly authors the resource"}
+                     {"UUID" "a2d57717-48fb-4675-95dd-4be8f9d585d6"
+                      "Identifier" "collaborator"
+                      "Description" "Party who assists with the generation of the resource other than the principal investigator"}
+                     {"UUID" "b91ddbe5-584e-46ff-a242-1c7c67b836e3"
+                      "Identifier" "contributor"
+                      "Description" "Party contributing to the resource"}
+                     {"UUID" "3373d310-f065-4ece-a61b-9bb04bd1df27"
+                      "Identifier" "custodian"
+                      "Description" "Party that accepts accountability and responsibility for the resource and ensures appropriate care and maintenance of the resource"}
+                     {"UUID" "abd843f7-9d47-4a69-b9bc-3544202488fe"
+                      "Identifier" "distributor"
+                      "Description" "Party who distributes the resource"}
+                     {"UUID" "370e8b34-d7ce-42fc-904f-05e263789389"
+                      "Identifier" "editor"
+                      "Description" "Party who reviewed or modified the resource to improve the content"}
+                     {"UUID" "06213565-8aff-4c98-9ae3-4dd1023a2cdc"
+                      "Identifier" "funder"
+                      "Description" "Party providing monetary support for the resource"}
+                     {"UUID" "2961f936-74cf-4192-95dc-959e8dae7189"
+                      "Identifier" "mediator"
+                      "Description" "A class of entity that mediates access to the resource and for whom the resource is intended or useful"}
+                     {"UUID" "6cd5bbc6-463d-4850-9ad4-2353cb9451f5"
+                      "Identifier" "originator"
+                      "Description" "Party who created the resource"}
+                     {"UUID" "0e75b54c-0cff-4753-a66a-c359f604689d"
+                      "Identifier" "owner"
+                      "Description" "Party that owns the resource"}
+                     {"UUID" "6511df52-a5ff-42da-8788-34dcad38ccc8"
+                      "Identifier" "pointOfContact"
+                      "Description" "Party who can be contacted for acquiring knowledge about or acquisition of the resource"}
+                     {"UUID" "6b20a462-bc67-46c3-bdcb-b558f0127fe2"
+                      "Identifier" "principalInvestigator"
+                      "Description" "Key party responsible for gathering information and conducting research"}
+                     {"UUID" "c3429513-50aa-4288-b919-cdeb816815a7"
+                      "Identifier" "processor"
+                      "Description" "Party who has processed the data in a manner such that the resource has been modified"}
+                     {"UUID" "1359d456-c428-49f1-8c8e-c46ebff53a10"
+                      "Identifier" "publisher"
+                      "Description" "Party who published the resource"}
+                     {"UUID" "b25e217a-ed48-4d10-831e-298975f6cedf"
+                      "Identifier" "resourceProvider"
+                      "Description" "Party that supplies the resource"}
+                     {"UUID" "028232f0-36c8-4ff6-aef4-ec0c424b7887"
+                      "Identifier" "rightsHolder"
+                      "Description" "Party owning or managing rights over the resource"}
+                     {"UUID" "8211c24f-e1be-4a2d-962e-856304fa53de"
+                      "Identifier" "sponsor"
+                      "Description" "Party who speaks for the resource"}
+                     {"UUID" "a9199aa5-26e2-4951-af7b-3132118d7569"
+                      "Identifier" "stakeholder"
+                      "Description" "Party who has an interest in the resource or the use of the resource"}
+                     {"UUID" "4122989f-f824-4d4a-8a29-10bd3541c17e"
+                      "Identifier" "user"
+                      "Description" "Party who uses the resource"}]
         :label-path ["Description"]
         :value-path ["Identifier"]}]]
 

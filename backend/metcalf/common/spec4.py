@@ -49,7 +49,7 @@ def get_ref_schema(defs, schema):
 
 def insert_def(defs, schema):
     if is_ref(schema):
-        return get_ref_schema(defs, schema)
+        return deepcopy(get_ref_schema(defs, schema))
     else:
         return schema
 

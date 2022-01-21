@@ -36,6 +36,7 @@
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
 (rf/reg-event-fx ::components4/item-option-picker2-change handlers4/item-option-picker2-change)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/value-list-add-with-defaults-click-handler handlers4/value-list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
@@ -49,6 +50,7 @@
 (rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/selection-list-values-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-values-reorder handlers4/selection-list-reorder)
+(rf/reg-event-fx ::components4/selection-list-values-item-click handlers4/selection-list-values-item-click)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
 (rf/reg-event-fx :app/-archive-current-document-error handlers3/-archive-current-document-error)
@@ -143,7 +145,7 @@
        "positive"             rules4/force-positive
        "maintFreq"            rules4/maint-freq
        "firstCommaLast"       rules4/first-comma-last
-       "valid-ordid-uri"      rules4/valid-ordid-uri})
+       "validOrcid"           rules4/valid-ordid-uri})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)
@@ -173,6 +175,7 @@
        'm4/item-dialog-button                  {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/edit-dialog                         {:view components4/edit-dialog :init components4/edit-dialog-settings}
        'm4/list-add-button                     {:view components4/list-add-button :init components4/list-add-button-settings}
+       'm4/value-list-add-button               {:view components4/value-list-add-button :init components4/value-list-add-button-settings}
        'm4/list-edit-dialog                    {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
        'm4/typed-list-edit-dialog              {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
        'm4/lodge-button                        {:view imas-components/lodge-button}
@@ -537,13 +540,42 @@
      [:h2 "6. Who"]
      [m4/form-group
       {:form-id   [:form]
+       :data-path ["pointOfContact"]
+       :label     "Point of contact for dataset"}
+
+      [m4/selection-list-columns
+       {:form-id    [:form]
+        :data-path  ["pointOfContact"]
+        :columns    [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
+                     {:flex 2 :label-path ["organisation" "name"] :columnHeader "Organisation"}
+                     {:flex 1 :label-path ["role"] :columnHeader "Role"}]
+        :value-path ["uri"]
+        :added-path ["isUserDefined"]}]
+
+      [m4/list-add-button
+       {:form-id     [:form]
+        :data-path   ["pointOfContact"]
+        :button-text "Add person"
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
+
+      [m4/list-edit-dialog
+       {:form-id     [:form]
+        :data-path   ["pointOfContact"]
+        :title       "Person"
+        :template-id :party-person/user-defined-entry-form}]]
+
+     [m4/form-group
+      {:form-id   [:form]
        :data-path ["identificationInfo" "citedResponsibleParty"]
        :label     "Responsible parties for creating dataset"}
 
-      [m4/selection-list-simple
+      [m4/selection-list-columns
        {:form-id    [:form]
         :data-path  ["identificationInfo" "citedResponsibleParty"]
-        :label-path ["contact" "name"]
+        :columns    [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
+                     {:flex 2 :label-path ["organisation" "name"] :columnHeader "Organisation"}
+                     {:flex 1 :label-path ["role"] :columnHeader "Role"}]
         :value-path ["uri"]
         :added-path ["isUserDefined"]}]
 
@@ -559,6 +591,24 @@
         :data-path   ["identificationInfo" "citedResponsibleParty"]
         :title       "Person"
         :template-id :party-person/user-defined-entry-form}]]
+
+     [:h3 "Other credits"]
+     [:div "Acknowledge the contribution of any funding schemes or organisations."]
+     [m4/selection-list-values
+      {:form-id   [:form]
+       :data-path ["credits"]}]
+
+     [m4/value-list-add-button
+      {:form-id     [:form]
+       :data-path   ["credits"]
+       :button-text "Add credit"}]
+
+     [m4/list-edit-dialog
+      {:form-id     [:form]
+       :data-path   ["credits"]
+       :title       "Credit"
+       :template-id :credit/edit-form}]
+
 
      ; [m4/selection-list-columns
      ;  {:form-id    [:form]
@@ -611,10 +661,21 @@
      ; [:hr]
      [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
 
+    :credit/edit-form
+    [:div
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path ?data-path
+       :label     "Credit"}
+      [m4/textarea-field
+       {:form-id   ?form-id
+        :data-path ?data-path
+        :rows      5}]]]
+
     :party-person/user-defined-entry-form
     [:div
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "role"]
        :label     "Role"}
@@ -645,7 +706,7 @@
                      ;{"value" "stakeholder" "label" "Stakeholder"}
                      ]}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact" "name"]
        :label     "Contact name"}
@@ -654,7 +715,7 @@
         :data-path   [?data-path "contact" "name"]
         :placeholder "Last name, First name"}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact" "orcid2"]
        :label     "ORCID ID"}
@@ -663,14 +724,14 @@
         :data-path   [?data-path "contact" "orcid2"]
         :placeholder "https://orcid.org/XXXX-XXXX-XXXX-XXXX"}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
        :label     "Organisation"}
       [m4/async-simple-item-option-picker2
        {:form-id     ?form-id
         :data-path   ?data-path
-        :data-mapper {["organisationName"]   ["organisation" "name"]
+        :data-mapper {["prefLabel"]          ["organisation" "name"]
                       ["deliveryPoint"]      ["contact" "deliveryPoint"]
                       ["deliveryPoint2"]     ["contact" "deliveryPoint2"]
                       ["city"]               ["contact" "city"]
@@ -682,63 +743,68 @@
         :value-path  ["uri"]
         :placeholder "Search for an organisation"}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "organisation" "name"]
        :label     "Organisation Name"}
-      [m4/input-field
+      [m4/textarea-field
        {:form-id   ?form-id
         :data-path [?data-path "organisation" "name"]
-        :rows      1}]]
+        :rows      2}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact" "deliveryPoint"]
        :label     "Postal address"}
       [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "deliveryPoint"]}]]
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "deliveryPoint"]
+        :placeholder "Street address"}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact" "deliveryPoint2"]}
       [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "deliveryPoint2"]}]]
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "deliveryPoint2"]
+        :placeholder ""}]]
 
-     [:div {:style {:display               "grid"
-                    :grid-column-gap       "1em"
-                    :grid-template-columns "1fr 1fr"}}
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "city"]
-        :label     "City"}
-       [m4/input-field
+     [m4/inline-form-group
+      {}
+      [:div {:style {:display               "grid"
+                     :grid-column-gap       "1em"
+                     :grid-template-columns "1fr 1fr"}}
+       [m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "city"]}]]
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "administrativeArea"]
-        :label     "State / territory"}
-       [m4/input-field
+         :data-path [?data-path "contact" "city"]}
+        [m4/input-field
+         {:form-id     ?form-id
+          :data-path   [?data-path "contact" "city"]
+          :placeholder "City"}]]
+       [m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "administrativeArea"]}]]
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "postalCode"]
-        :label     "Postal Code"}
-       [m4/input-field
+         :data-path [?data-path "contact" "administrativeArea"]}
+        [m4/input-field
+         {:form-id     ?form-id
+          :data-path   [?data-path "contact" "administrativeArea"]
+          :placeholder "State / territory"}]]
+       [m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "postalCode"]}]]
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "country"]
-        :label     "Country"}
-       [m4/input-field
+         :data-path [?data-path "contact" "postalCode"]}
+        [m4/input-field
+         {:form-id     ?form-id
+          :data-path   [?data-path "contact" "postalCode"]
+          :placeholder "Post code"}]]
+       [m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "country"]}]]]
+         :data-path [?data-path "contact" "country"]
+         }
+        [m4/input-field
+         {:form-id     ?form-id
+          :data-path   [?data-path "contact" "country"]
+          :placeholder "Country"}]]]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact" "email"]
        :label     "Email address"}
@@ -746,25 +812,13 @@
        {:form-id   ?form-id
         :data-path [?data-path "contact" "email"]}]]
 
-     [:div {:style {:display               "grid"
-                    :grid-column-gap       "1em"
-                    :grid-template-columns "1fr 1fr"}}
-
-      [m4/form-group
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "phone"]
+       :label     "Phone"}
+      [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "phone"]
-        :label     "Phone"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "contact" "phone"]}]]
-
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "fax"]
-        :label     "Fax"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "contact" "fax"]}]]]]
+        :data-path [?data-path "contact" "phone"]}]]]
 
     #_#_:person-organisation/user-defined-entry-form
         [:div

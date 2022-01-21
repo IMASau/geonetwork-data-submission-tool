@@ -32,6 +32,7 @@
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
 (rf/reg-event-fx ::components4/item-option-picker2-change handlers4/item-option-picker2-change)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/value-list-add-with-defaults-click-handler handlers4/value-list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
@@ -45,6 +46,7 @@
 (rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
 (rf/reg-event-fx ::components4/selection-list-values-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-values-reorder handlers4/selection-list-reorder)
+(rf/reg-event-fx ::components4/selection-list-values-item-click handlers4/selection-list-values-item-click)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
 (rf/reg-event-fx :app/-archive-current-document-error handlers3/-archive-current-document-error)
@@ -174,6 +176,7 @@
        'm4/item-dialog-button                  {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/edit-dialog                         {:view components4/edit-dialog :init components4/edit-dialog-settings}
        'm4/list-add-button                     {:view components4/list-add-button :init components4/list-add-button-settings}
+       'm4/value-list-add-button               {:view components4/value-list-add-button :init components4/value-list-add-button-settings}
        'm4/list-edit-dialog                    {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
        'm4/typed-list-edit-dialog              {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
        'm4/numeric-input-field                 {:view components4/numeric-input-field :init components4/numeric-input-field-settings}

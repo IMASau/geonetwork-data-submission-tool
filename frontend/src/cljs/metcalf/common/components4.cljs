@@ -37,8 +37,8 @@
 (defn form-group-settings
   "Settings for form group"
   [{:keys [data-path]}]
-  {::low-code4/req-ks       []
-   ::low-code4/opt-ks       [:label :form-id :data-path :helperText :toolTip]})
+  {::low-code4/req-ks []
+   ::low-code4/opt-ks [:label :form-id :data-path :helperText :toolTip]})
 
 (defn form-group
   "This component is a lightweight wrapper around its children with props for the label above and helper text below.
@@ -77,8 +77,8 @@
 (defn inline-form-group-settings
   "Settings for inline-form-group component"
   [_]
-  {::low-code4/req-ks [:label]
-   ::low-code4/opt-ks [:form-id :data-path :helperText :toolTip]})
+  {::low-code4/req-ks []
+   ::low-code4/opt-ks [:label :form-id :data-path :helperText :toolTip]})
 
 (defn inline-form-group
   "This component is a lightweight wrapper around its children with props for the label to the left and helper text below.
@@ -151,9 +151,9 @@
       :onSave  #(rf/dispatch [::list-edit-dialog-save config])
       :canSave (not errors?)}
      (low-code4/render-template
-      {:template-id template-id
-       :variables   {'?form-id   form-id
-                     '?data-path item-data-path}})]))
+       {:template-id template-id
+        :variables   {'?form-id   form-id
+                      '?data-path item-data-path}})]))
 
 (defn typed-list-edit-dialog-settings
   "Settings for typed-list-edit-dialog"
@@ -379,10 +379,11 @@
    "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [placeholder rows maxLength value disabled show-errors? is-hidden]} props]
+        {:keys [key placeholder rows maxLength value disabled show-errors? is-hidden]} props]
     (when-not is-hidden
       [ui-controls/TextareaField
-       {:value       (or value "")                          ; TODO: should be guaranteed by sub
+       {:key         key
+        :value       (or value "")                          ; TODO: should be guaranteed by sub
         :placeholder placeholder
         :disabled    disabled
         :hasError    show-errors?
@@ -680,6 +681,23 @@
       [:button.bp3-button.bp3-intent-primary
        {:disabled disabled
         :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler config])}
+       button-text])))
+
+(defn value-list-add-button-settings
+  "Settings for value-list-add-button component"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :button-text]
+   ::low-code4/opt-ks [:item-default]
+   ::low-code4/schema {:type "array"}})
+
+(defn value-list-add-button
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [disabled is-hidden button-text]} props]
+    (when-not is-hidden
+      [:button.bp3-button.bp3-intent-primary
+       {:disabled disabled
+        :onClick  #(rf/dispatch [::value-list-add-with-defaults-click-handler config])}
        button-text])))
 
 (defn text-add-button-settings
@@ -1025,7 +1043,9 @@
         :disabled      disabled
         :getLabel      (ui-controls/obj-path-getter ["label"])
         :getValue      (ui-controls/obj-path-getter ["value"])
+        :getAdded      (constantly true)
         :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-values-reorder props src-idx dst-idx]))
+        :onItemClick   (fn [idx] (rf/dispatch [::selection-list-values-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-values-remove-click props idx]))}])))
 
 (defn selection-list-template-settings
@@ -1720,8 +1740,8 @@
     (when-not is-hidden
       [:div
        [ui-controls/InputField
-        {:value       (or name "")
-        :disabled    true}]
+        {:value    (or name "")
+         :disabled true}]
        [ui-controls/Dropzone
         {:disabled    disabled
          :placeholder (r/as-element placeholder)

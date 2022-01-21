@@ -1775,5 +1775,18 @@
         }
       }
     }
-  }
+  },
+  "export2_xforms": [
+    [
+      "generateParameterKeywords",
+      {
+        "mount_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification",
+        "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords",
+        "data_path": [
+          "identificationInfo",
+          "keywordsParameters"
+        ]
+      }
+    ]
+  ]
 }

@@ -772,10 +772,15 @@
                       <cit:partyIdentifier>
                         <mcc:MD_Identifier>
                           <mcc:code>
-                            <gco:CharacterString>orcid:0000-0002-6995-4721</gco:CharacterString>
+                            <!-- Only one of gcx:Anchor and gco:CharacterString allowed; clean-up in post-processing -->
+                            <!-- Both nodes empty in the template so we can tell which one was populated: -->
+                            <gco:CharacterString></gco:CharacterString>
+                            <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b" xlink:show="new"></gcx:Anchor>
                           </mcc:code>
                           <mcc:codeSpace>
+                            <!-- Clean-up in postprocessing: -->
                             <gco:CharacterString>https://orcid.org</gco:CharacterString>
+                            <gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
                           </mcc:codeSpace>
 
                         </mcc:MD_Identifier>
@@ -1075,10 +1080,15 @@
                   <cit:partyIdentifier>
                     <mcc:MD_Identifier>
                       <mcc:code>
-                        <!--gco:CharacterString>https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b</gco:CharacterString -->
-                        <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b" xlink:show="new">https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b</gcx:Anchor>
+                        <!-- Only one of gcx:Anchor and gco:CharacterString allowed; clean-up in post-processing -->
+                        <!-- Both nodes empty in the template so we can tell which one was populated: -->
+                        <gco:CharacterString></gco:CharacterString>
+                        <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/71c3eb61-de6b-4184-a7c4-74fed184a10b" xlink:show="new"></gcx:Anchor>
                       </mcc:code>
-                      <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
+                      <mcc:codeSpace>
+                        <!-- Clean-up in postprocessing: -->
+                        <gco:CharacterString>https://orcid.org</gco:CharacterString>
+                        <gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
                       </mcc:codeSpace>
                     </mcc:MD_Identifier>
                   </cit:partyIdentifier>

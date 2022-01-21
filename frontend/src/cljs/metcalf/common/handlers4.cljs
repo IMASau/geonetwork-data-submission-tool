@@ -58,6 +58,15 @@
         (actions4/add-item-action form-id data-path value-path item-data)
         (actions4/select-last-item-action form-id data-path))))
 
+(defn value-list-add-with-defaults-click-handler2
+  [{:keys [db]} [_ config]]
+  (let [{:keys [form-id data-path item-default]} config
+        item-data item-default]
+    (-> {:db db}
+        (actions4/save-snapshot-action form-id)
+        (actions4/add-item-action form-id data-path [] item-data)
+        (actions4/select-last-item-action form-id data-path))))
+
 (defn item-add-with-defaults-click-handler
   [{:keys [db]} [_ props]]
   (let [{:keys [form-id data-path value-path added-path]} props

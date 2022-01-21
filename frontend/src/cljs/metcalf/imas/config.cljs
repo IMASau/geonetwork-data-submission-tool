@@ -827,354 +827,148 @@
        {:form-id   ?form-id
         :data-path [?data-path "contact" "phone"]}]]]
 
-    #_#_:person-organisation/user-defined-entry-form
-        [:div
+    :about
+    [:div
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["identificationInfo" "dataParameters"]
+     ;                ["identificationInfo" "creativeCommons"]
+     ;                ["identificationInfo" "otherConstraints"]
+     ;                ["identificationInfo" "useLimitations"]
+     ;                ["identificationInfo" "supplementalInformation"]
+     ;                ["supportingResources"]
+     ;                ["distributionInfo" "distributionFormat" "name"]
+     ;                ["distributionInfo" "distributionFormat" "version"]]}]
+     ; [:h2 "7: About Dataset"]
+     ; [:h4 "Data parameters"]
+     ; ; WIP to replace m3/DataParametersTable
+     ; [m4/selection-list-columns
+     ;  {:form-id    [:form]
+     ;   :data-path  ["identificationInfo" "dataParameters"]
+     ;   :value-path ["uri"]
+     ;   :added-path ["isUserDefined"]
+     ;   :columns    [{:columnHeader "Name" :flex 1 :label-path ["longName_term"]}
+     ;                {:columnHeader "Units" :flex 1 :label-path ["unit_term"]}
+     ;                {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term"]}
+     ;                {:columnHeader "Platform" :flex 1 :label-path ["platform_term"]}]}]
+     ; [m4/list-add-button
+     ;  {:form-id     [:form]
+     ;   :data-path   ["identificationInfo" "dataParameters"]
+     ;   :button-text "Add data parameter"
+     ;   :value-path  ["uri"]
+     ;   :added-path  ["isUserDefined"]}]
+     ; [m4/list-edit-dialog
+     ;  {:form-id     [:form]
+     ;   :data-path   ["identificationInfo" "dataParameters"]
+     ;   :title       "Add parameter"
+     ;   :template-id :data-parameter/user-defined-entry-form}]
+     ; [:h4 "Resource constraints"]
+     ; ;; FIXME license selection isn't being included in XML export.
+     ; [m4/form-group
+     ;  {:form-id   [:form]
+     ;   :data-path ["identificationInfo" "creativeCommons"]
+     ;   ; TODO: This looks like helperText
+     ;   :help      [:span "Learn more about which license is right for you at "
+     ;               [:a {:href   "https://creativecommons.org/choose/"
+     ;                    :target "_blank"}
+     ;                "Creative Commons"]]
+     ;   :label     "License"
+     ;   :required  true}
+     ;  [m4/select-option-simple
+     ;   {:form-id    [:form]
+     ;    :data-path  ["identificationInfo" "creativeCommons"]
+     ;    :value-path ["value"]
+     ;    :label-path ["label"]
+     ;    :options    [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}
+     ;                 {"value" "http://creativecommons.org/licenses/by-nc/4.0/" "label" "Creative Commons, Non-commercial Use only"}
+     ;                 {"value" "http://creativecommons.org/licenses/other" "label" "Other constraints"}]}]]
+     ; [m4/form-group
+     ;  {:form-id   [:form]
+     ;   :data-path ["identificationInfo" "otherConstraints"]
+     ;   :label     "Additional license requirements"         ;; FIXME
+     ;   :required  true}
+     ;  [m4/input-field
+     ;   {:form-id     [:form]
+     ;    :data-path   ["identificationInfo" "otherConstraints"]
+     ;    :placeholder "Enter additional license requirements"}]]
+     ;
+     ; [:label "Use limitations"]
+     ; [m4/selection-list-values
+     ;  {:form-id   [:form]
+     ;   :data-path ["identificationInfo" "useLimitations"]}]
+     ; [m4/text-add-button
+     ;  {:form-id     [:form]
+     ;   :data-path   ["identificationInfo" "useLimitations"]
+     ;   :button-text "Add"}]
+     ;
+     ; [:hr]
+     ;
+     ; [:h4 "Supplemental information"]
+     ; [:label "Publications associated with dataset"]
+     ; [m4/selection-list-values
+     ;  {:form-id   [:form]
+     ;   :data-path ["identificationInfo" "supplementalInformation"]}]
+     ; [m4/text-add-button
+     ;  {:form-id     [:form]
+     ;   :data-path   ["identificationInfo" "supplementalInformation"]
+     ;   :button-text "Add"}]
+     ;
+     ; [:label "Supporting resources"]
+     ; [m4/selection-list-columns
+     ;  {:form-id    [:form]
+     ;   :data-path  ["supportingResources"]
+     ;   :value-path ["url"]
+     ;   :added-path ["isUserDefined"]
+     ;   :columns    [{:columnHeader "Title" :label-path ["name"] :flex 1}
+     ;                {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+     ; [m4/list-add-button
+     ;  {:form-id     [:form]
+     ;   :data-path   ["supportingResources"]
+     ;   :button-text [:span [:span.bp3-icon-plus] " Add supporting resource"]
+     ;   :value-path  ["url"]
+     ;   :added-path  ["isUserDefined"]}]
+     ; [m4/list-edit-dialog
+     ;  {:form-id     [:form]
+     ;   :data-path   ["supportingResources"]
+     ;   :title       "Add supporting resource"
+     ;   :template-id :resource/user-defined-entry-form}]
+     ; [:h4 "Distribution"]
+     ; [m4/form-group
+     ;  {:form-id   [:form]
+     ;   :data-path ["distributionInfo" "distributionFormat" "name"]}
+     ;  [m4/input-field
+     ;   {:form-id     [:form]
+     ;    :data-path   ["distributionInfo" "distributionFormat" "name"]
+     ;    :placeholder "e.g. Microsoft Excel, CSV, NetCDF"}]]
+     ; [m4/form-group
+     ;  {:form-id   [:form]
+     ;   :data-path ["distributionInfo" "distributionFormat" "version"]}
+     ;  [m4/input-field
+     ;   {:form-id     [:form]
+     ;    :data-path   ["distributionInfo" "distributionFormat" "version"]
+     ;    :placeholder "Date format date or version if applicable"}]]
+     ; [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
+     ;
+     ;:resource/user-defined-entry-form
+     ;[:div
+     ; [m4/inline-form-group
+     ;  {:form-id   ?form-id
+     ;   :data-path [?data-path "name"]
+     ;   :label     "Title"}
+     ;  [m4/input-field
+     ;   {:form-id   ?form-id
+     ;    :data-path [?data-path "name"]}]]
+     ;
+     ; [m4/inline-form-group
+     ;  {:form-id   ?form-id
+     ;   :data-path [?data-path "url"]
+     ;   :label     "URL"}
+     ;  [m4/input-field
+     ;   {:form-id   ?form-id
+     ;    :data-path [?data-path "url"]}]]
+     ]
 
-         [m4/form-group
-          {:form-id   ?form-id
-           :data-path [?data-path "name"]
-           :label     "Organisation Name"}
-          [m4/input-field
-           {:form-id   ?form-id
-            :data-path [?data-path "name"]}]]
-
-         [m4/form-group
-          {:form-id   ?form-id
-           :data-path [?data-path "full_address_line"]
-           :label     "Campus/Sitename"}
-          [m4/input-field
-           {:form-id   ?form-id
-            :data-path [?data-path "full_address_line"]}]]
-
-         [m4/form-group
-          {:form-id   ?form-id
-           :data-path [?data-path "street_address"]
-           :label     "Building"}
-          [m4/input-field
-           {:form-id   ?form-id
-            :data-path [?data-path "street_address"]}]]
-
-         [:div {:style {:display               "grid"
-                        :grid-column-gap       "1em"
-                        :grid-template-columns "1fr 1fr"}}
-
-          [m4/form-group
-           {:form-id   ?form-id
-            :data-path [?data-path "address_region"]
-            :label     "State"}
-           [m4/input-field
-            {:form-id   ?form-id
-             :data-path [?data-path "address_region"]}]]]
-
-         [:div {:style {:display               "grid"
-                        :grid-column-gap       "1em"
-                        :grid-template-columns "1fr 1fr"}}
-
-          [m4/form-group
-           {:form-id   ?form-id
-            :data-path [?data-path "postcode"]
-            :label     "Postal Code"}
-           [m4/input-field
-            {:form-id   ?form-id
-             :data-path [?data-path "postcode"]}]]
-
-          [m4/form-group
-           {:form-id   ?form-id
-            :data-path [?data-path "country"]
-            :label     "Country"}
-           [m4/input-field
-            {:form-id   ?form-id
-             :data-path [?data-path "country"]}]]]
-
-         [m4/form-group
-          {:form-id   ?form-id
-           :data-path [?data-path "email"]
-           :label     "Email address"}
-          [m4/input-field
-           {:form-id   ?form-id
-            :data-path [?data-path "email"]}]]
-
-         [:div {:style {:display               "grid"
-                        :grid-column-gap       "1em"
-                        :grid-template-columns "1fr 1fr"}}
-
-          [m4/form-group
-           {:form-id   ?form-id
-            :data-path [?data-path "phone"]
-            :label     "Phone"}
-           [m4/input-field
-            {:form-id   ?form-id
-             :data-path [?data-path "phone"]}]]
-
-          [m4/form-group
-           {:form-id   ?form-id
-            :data-path [?data-path "fax"]
-            :label     "Fax"}
-           [m4/input-field
-            {:form-id   ?form-id
-             :data-path [?data-path "fax"]}]]]]
-
-    ;
-    ;:person/user-defined-entry-form
-    ;[:div
-    ; [:div {:style {:display               "grid"
-    ;                :grid-column-gap       "1em"
-    ;                :grid-template-columns "1fr 1fr"}}
-    ;  [m4/form-group
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "givenName"]
-    ;    :label     "Given name"}
-    ;   [m4/input-field
-    ;    {:form-id   ?form-id
-    ;     :data-path [?data-path "givenName"]}]]
-    ;  [m4/form-group
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "familyName"]
-    ;    :label     "Surname"}
-    ;   [m4/input-field
-    ;    {:form-id   ?form-id
-    ;     :data-path [?data-path "familyName"]}]]]
-    ;
-    ; [m4/form-group
-    ;  {:form-id     ?form-id
-    ;   :data-path   [?data-path "orcid"]
-    ;   :label       "ORCID ID"
-    ;   :placeholder "XXXX-XXXX-XXXX-XXXX"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "orcid"]}]]
-    ; [m4/form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "role"]
-    ;   :label     "Role"}
-    ;  [m4/async-select-option-simple
-    ;   {:form-id      ?form-id
-    ;    :data-path    [?data-path "role"]
-    ;    :uri          "/api/rolecode.json"
-    ;    :results-path ["results"]
-    ;    :label-path   ["Identifier"]
-    ;    :value-path   ["UUID"]}]]
-    ; [m4/form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path]
-    ;   :label     "Organisation"}
-    ;  [m4/async-select-option-simple
-    ;   {:form-id     ?form-id
-    ;    :data-path   [?data-path]
-    ;    :uri         "/api/institution.json"
-    ;    :label-path  ["label"]
-    ;    :value-path  ["uri"]
-    ;    :placeholder "Search for contact details"}]]
-    ; [m4/form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "address" "deliveryPoint"]
-    ;   :label     "Postal address"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "address" "deliveryPoint"]}]]
-    ; [m4/form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "address" "deliveryPoint2"]
-    ;   :label     "Postal address 2"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "address" "deliveryPoint2"]}]]
-    ;
-    ; [:div {:style {:display               "grid"
-    ;                :grid-column-gap       "1em"
-    ;                :grid-template-columns "1fr 1fr"}}
-    ;  [m4/form-group
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "address" "city"]
-    ;    :label     "City"}
-    ;   [m4/input-field
-    ;    {:form-id   ?form-id
-    ;     :data-path [?data-path "address" "city"]}]]
-    ;  [m4/form-group
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "address" "administrativeArea"]
-    ;    :label     "State / territory"}
-    ;   [m4/input-field
-    ;    {:form-id   ?form-id
-    ;     :data-path [?data-path "address" "administrativeArea"]}]]
-    ;  [m4/form-group
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "address" "postalCode"]
-    ;    :label     "Postal / Zip code"}
-    ;   [m4/input-field
-    ;    {:form-id   ?form-id
-    ;     :data-path [?data-path "address" "postalCode"]}]]
-    ;  [m4/form-group
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "address" "country"]
-    ;    :label     "Country"}
-    ;   [m4/input-field
-    ;    {:form-id   ?form-id
-    ;     :data-path [?data-path "address" "country"]}]]]
-    ;
-    ; [m4/form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "phone"]
-    ;   :label     "Phone number"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "phone"]}]]
-    ; [m4/form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "facsimile"]
-    ;   :label     "Fax number"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "facsimile"]}]]
-    ; [m4/form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "electronicMailAddress"]
-    ;   :label     "Email address"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "electronicMailAddress"]}]]]
-    ;
-    ;:about
-    ;[:div
-    ; [m4/page-errors
-    ;  {:form-id    [:form]
-    ;   :data-path  []
-    ;   :data-paths [["identificationInfo" "dataParameters"]
-    ;                ["identificationInfo" "creativeCommons"]
-    ;                ["identificationInfo" "otherConstraints"]
-    ;                ["identificationInfo" "useLimitations"]
-    ;                ["identificationInfo" "supplementalInformation"]
-    ;                ["supportingResources"]
-    ;                ["distributionInfo" "distributionFormat" "name"]
-    ;                ["distributionInfo" "distributionFormat" "version"]]}]
-    ; [:h2 "7: About Dataset"]
-    ; [:h4 "Data parameters"]
-    ; ; WIP to replace m3/DataParametersTable
-    ; [m4/selection-list-columns
-    ;  {:form-id    [:form]
-    ;   :data-path  ["identificationInfo" "dataParameters"]
-    ;   :value-path ["uri"]
-    ;   :added-path ["isUserDefined"]
-    ;   :columns    [{:columnHeader "Name" :flex 1 :label-path ["longName_term"]}
-    ;                {:columnHeader "Units" :flex 1 :label-path ["unit_term"]}
-    ;                {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term"]}
-    ;                {:columnHeader "Platform" :flex 1 :label-path ["platform_term"]}]}]
-    ; [m4/list-add-button
-    ;  {:form-id     [:form]
-    ;   :data-path   ["identificationInfo" "dataParameters"]
-    ;   :button-text "Add data parameter"
-    ;   :value-path  ["uri"]
-    ;   :added-path  ["isUserDefined"]}]
-    ; [m4/list-edit-dialog
-    ;  {:form-id     [:form]
-    ;   :data-path   ["identificationInfo" "dataParameters"]
-    ;   :title       "Add parameter"
-    ;   :template-id :data-parameter/user-defined-entry-form}]
-    ; [:h4 "Resource constraints"]
-    ; ;; FIXME license selection isn't being included in XML export.
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "creativeCommons"]
-    ;   ; TODO: This looks like helperText
-    ;   :help      [:span "Learn more about which license is right for you at "
-    ;               [:a {:href   "https://creativecommons.org/choose/"
-    ;                    :target "_blank"}
-    ;                "Creative Commons"]]
-    ;   :label     "License"
-    ;   :required  true}
-    ;  [m4/select-option-simple
-    ;   {:form-id    [:form]
-    ;    :data-path  ["identificationInfo" "creativeCommons"]
-    ;    :value-path ["value"]
-    ;    :label-path ["label"]
-    ;    :options    [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}
-    ;                 {"value" "http://creativecommons.org/licenses/by-nc/4.0/" "label" "Creative Commons, Non-commercial Use only"}
-    ;                 {"value" "http://creativecommons.org/licenses/other" "label" "Other constraints"}]}]]
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "otherConstraints"]
-    ;   :label     "Additional license requirements"         ;; FIXME
-    ;   :required  true}
-    ;  [m4/input-field
-    ;   {:form-id     [:form]
-    ;    :data-path   ["identificationInfo" "otherConstraints"]
-    ;    :placeholder "Enter additional license requirements"}]]
-    ;
-    ; [:label "Use limitations"]
-    ; [m4/selection-list-values
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "useLimitations"]}]
-    ; [m4/text-add-button
-    ;  {:form-id     [:form]
-    ;   :data-path   ["identificationInfo" "useLimitations"]
-    ;   :button-text "Add"}]
-    ;
-    ; [:hr]
-    ;
-    ; [:h4 "Supplemental information"]
-    ; [:label "Publications associated with dataset"]
-    ; [m4/selection-list-values
-    ;  {:form-id   [:form]
-    ;   :data-path ["identificationInfo" "supplementalInformation"]}]
-    ; [m4/text-add-button
-    ;  {:form-id     [:form]
-    ;   :data-path   ["identificationInfo" "supplementalInformation"]
-    ;   :button-text "Add"}]
-    ;
-    ; [:label "Supporting resources"]
-    ; [m4/selection-list-columns
-    ;  {:form-id    [:form]
-    ;   :data-path  ["supportingResources"]
-    ;   :value-path ["url"]
-    ;   :added-path ["isUserDefined"]
-    ;   :columns    [{:columnHeader "Title" :label-path ["name"] :flex 1}
-    ;                {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
-    ; [m4/list-add-button
-    ;  {:form-id     [:form]
-    ;   :data-path   ["supportingResources"]
-    ;   :button-text [:span [:span.bp3-icon-plus] " Add supporting resource"]
-    ;   :value-path  ["url"]
-    ;   :added-path  ["isUserDefined"]}]
-    ; [m4/list-edit-dialog
-    ;  {:form-id     [:form]
-    ;   :data-path   ["supportingResources"]
-    ;   :title       "Add supporting resource"
-    ;   :template-id :resource/user-defined-entry-form}]
-    ; [:h4 "Distribution"]
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["distributionInfo" "distributionFormat" "name"]}
-    ;  [m4/input-field
-    ;   {:form-id     [:form]
-    ;    :data-path   ["distributionInfo" "distributionFormat" "name"]
-    ;    :placeholder "e.g. Microsoft Excel, CSV, NetCDF"}]]
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path ["distributionInfo" "distributionFormat" "version"]}
-    ;  [m4/input-field
-    ;   {:form-id     [:form]
-    ;    :data-path   ["distributionInfo" "distributionFormat" "version"]
-    ;    :placeholder "Date format date or version if applicable"}]]
-    ; [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
-    ;
-    ;:resource/user-defined-entry-form
-    ;[:div
-    ; [m4/inline-form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "name"]
-    ;   :label     "Title"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "name"]}]]
-    ;
-    ; [m4/inline-form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "url"]
-    ;   :label     "URL"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "url"]}]]]
-    ;
     ;:test/long-name
     ;[:div "Setting longName."]
     ;

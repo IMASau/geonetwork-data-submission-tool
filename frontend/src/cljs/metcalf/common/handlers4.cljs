@@ -109,9 +109,10 @@
 (defn item-option-picker-change
   "Handle picker change.  Uses option data to set values."
   [{:keys [db]} [_ ctx option]]
-  (let [{:keys [form-id data-path]} ctx]
-    (-> {:db db}
-        (actions4/set-data-action form-id data-path option))))
+  (let [{:keys [form-id data-path data-mapper]} ctx]
+    (if data-mapper
+      (actions4/set-data-action-from-mapper {:db db} form-id data-path option data-mapper)
+      (actions4/set-data-action {:db db} form-id data-path option))))
 
 (defn item-option-picker2-change
   "Handle picker change.  Uses option data to set values controlled by data-mapper."

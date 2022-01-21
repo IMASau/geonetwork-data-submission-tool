@@ -840,29 +840,39 @@
      ;                ["supportingResources"]
      ;                ["distributionInfo" "distributionFormat" "name"]
      ;                ["distributionInfo" "distributionFormat" "version"]]}]
-     ; [:h2 "7: About Dataset"]
-     ; [:h4 "Data parameters"]
-     ; ; WIP to replace m3/DataParametersTable
-     ; [m4/selection-list-columns
-     ;  {:form-id    [:form]
-     ;   :data-path  ["identificationInfo" "dataParameters"]
-     ;   :value-path ["uri"]
-     ;   :added-path ["isUserDefined"]
-     ;   :columns    [{:columnHeader "Name" :flex 1 :label-path ["longName_term"]}
-     ;                {:columnHeader "Units" :flex 1 :label-path ["unit_term"]}
-     ;                {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term"]}
-     ;                {:columnHeader "Platform" :flex 1 :label-path ["platform_term"]}]}]
-     ; [m4/list-add-button
-     ;  {:form-id     [:form]
-     ;   :data-path   ["identificationInfo" "dataParameters"]
-     ;   :button-text "Add data parameter"
-     ;   :value-path  ["uri"]
-     ;   :added-path  ["isUserDefined"]}]
-     ; [m4/list-edit-dialog
-     ;  {:form-id     [:form]
-     ;   :data-path   ["identificationInfo" "dataParameters"]
-     ;   :title       "Add parameter"
-     ;   :template-id :data-parameter/user-defined-entry-form}]
+     [:h2 "7: About Dataset"]
+     [:h4 "Data parameters"]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "citedResponsibleParty"]
+       :label     "Responsible parties for creating dataset"}
+      [:div.SelectionTableStyle
+
+       [m4/selection-list-columns
+        {:form-id             [:form]
+         :data-path           ["identificationInfo" "dataParameters"]
+         :value-path          ["uri"]
+         :added-path          ["isUserDefined"]
+         ; TODO: Rename to something shorter
+         :placeholder-record? true
+         :columns             [{:columnHeader "Name" :flex 1 :label-path ["longName_term" "Name"]}
+                               {:columnHeader "Units" :flex 1 :label-path ["unit_term"]}
+                               {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term"]}
+                               {:columnHeader "Platform" :flex 1 :label-path ["platform_term"]}]}]]
+
+      [m4/list-add-button
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "dataParameters"]
+        :button-text "Add data parameter"
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
+
+      [m4/list-edit-dialog
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "dataParameters"]
+        :title       "Data parameter"
+        :template-id :data-parameter/user-defined-entry-form}]]
+
      ; [:h4 "Resource constraints"]
      ; ;; FIXME license selection isn't being included in XML export.
      ; [m4/form-group
@@ -971,97 +981,99 @@
 
     ;:test/long-name
     ;[:div "Setting longName."]
-    ;
-    ;:data-parameter/user-defined-entry-form
-    ;[:div
-    ;
-    ; [m4/form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "longName_term"]
-    ;   :label     "Name"}
-    ;  #_[m4/async-select-option-simple
-    ;     {:form-id     ?form-id
-    ;      :data-path   [?data-path "longName_term"]
-    ;      :uri         "/api/parametername"
-    ;      :label-path  ["label"]
-    ;      :value-path  ["uri"]
-    ;      :added-path  ["isUserDefined"]
-    ;      :placeholder "Select..."}]
-    ;
-    ;  [m4/item-add-button
-    ;   {:form-id    ?form-id
-    ;    :data-path  [?data-path "longName_term"]
-    ;    :text       "Browse"
-    ;    :value-path ["longName_term"]
-    ;    :added-path ["isUserDefined"]}]
-    ;
-    ;  [m4/edit-dialog
-    ;   {:form-id     ?form-id
-    ;    :data-path   [?data-path "longName_term"]
-    ;    :title       "LONG NAME"
-    ;    :template-id :test/long-name}]
-    ;
-    ;  [m4/input-field
-    ;   {:form-id     ?form-id
-    ;    :data-path   [?data-path "name"]
-    ;    :placeholder "Name in dataset (optional)"}]]
-    ;
-    ;
-    ; [m4/form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "unit_term"]
-    ;   :label     "Unit"}
-    ;  [m4/async-select-option-simple
-    ;   {:form-id     ?form-id
-    ;    :data-path   [?data-path "unit_term"]
-    ;    :uri         "/api/parameterunit"
-    ;    :label-path  ["label"]
-    ;    :value-path  ["value"]
-    ;    :placeholder "Select..."}]
-    ;  [m4/list-add-button
-    ;   {:form-id    ?form-id
-    ;    :data-path  [?data-path "unit_term"]
-    ;    :text       "Browse"
-    ;    :value-path ["value"]}]]
-    ;
-    ; [m4/form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "instrument_term"]
-    ;   :label     "Instrument"}
-    ;  [m4/async-select-option-simple
-    ;   {:form-id     ?form-id
-    ;    :data-path   [?data-path "instrument_term"]
-    ;    :uri         "/api/parameterinstrument"
-    ;    :label-path  ["label"]
-    ;    :value-path  ["uri"]
-    ;    :added-path  ["isUserDefined"]
-    ;    :placeholder "Select..."}]
-    ;  [m4/list-add-button
-    ;   {:form-id    ?form-id
-    ;    :data-path  [?data-path "instrument_term"]
-    ;    :text       "Browse"
-    ;    :value-path ["uri"]
-    ;    :added-path ["isUserDefined"]}]]
-    ;
-    ; [m4/form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "platform_term"]
-    ;   :label     "Platform"}
-    ;  [m4/async-select-option-simple
-    ;   {:form-id     ?form-id
-    ;    :data-path   [?data-path "platform_term"]
-    ;    :uri         "/api/parameterplatform"
-    ;    :label-path  ["label"]
-    ;    :value-path  ["uri"]
-    ;    :added-path  ["isUserDefined"]
-    ;    :placeholder "Select..."}]
-    ;  [m4/list-add-button
-    ;   {:form-id    ?form-id
-    ;    :data-path  [?data-path "platform_term"]
-    ;    :text       "Browse"
-    ;    :value-path ["uri"]
-    ;    :added-path ["isUserDefined"]}]]]
-    ;
+
+    :data-parameter/user-defined-entry-form
+    [:div
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "longName_term"]
+       :label     "Name"}
+      [m4/async-select-option-simple
+       {:form-id     ?form-id
+        :data-path   [?data-path "longName_term"]
+        :uri         "/api/parametername"
+        :label-path  ["Name"]
+        :value-path  ["URI"]
+        :added-path  ["isUserDefined"]
+        :placeholder "Select..."}]]
+
+
+     ;[m4/item-add-button
+     ;   {:form-id    ?form-id
+     ;    :data-path  [?data-path "longName_term"]
+     ;    :text       "Browse"
+     ;    :value-path ["longName_term"]
+     ;    :added-path ["isUserDefined"]}]
+     ;
+     ;[m4/edit-dialog
+     ;   {:form-id     ?form-id
+     ;    :data-path   [?data-path "longName_term"]
+     ;    :title       "LONG NAME"
+     ;    :template-id :test/long-name}]
+     ;
+     ;[m4/input-field
+     ;   {:form-id     ?form-id
+     ;    :data-path   [?data-path "name"]
+     ;    :placeholder "Name in dataset (optional)"}]
+
+
+     ; [m4/form-group
+     ;  {:form-id   ?form-id
+     ;   :data-path [?data-path "unit_term"]
+     ;   :label     "Unit"}
+     ;  [m4/async-select-option-simple
+     ;   {:form-id     ?form-id
+     ;    :data-path   [?data-path "unit_term"]
+     ;    :uri         "/api/parameterunit"
+     ;    :label-path  ["label"]
+     ;    :value-path  ["value"]
+     ;    :placeholder "Select..."}]
+     ;  [m4/list-add-button
+     ;   {:form-id    ?form-id
+     ;    :data-path  [?data-path "unit_term"]
+     ;    :text       "Browse"
+     ;    :value-path ["value"]}]]
+     ;
+     ; [m4/form-group
+     ;  {:form-id   ?form-id
+     ;   :data-path [?data-path "instrument_term"]
+     ;   :label     "Instrument"}
+     ;  [m4/async-select-option-simple
+     ;   {:form-id     ?form-id
+     ;    :data-path   [?data-path "instrument_term"]
+     ;    :uri         "/api/parameterinstrument"
+     ;    :label-path  ["label"]
+     ;    :value-path  ["uri"]
+     ;    :added-path  ["isUserDefined"]
+     ;    :placeholder "Select..."}]
+     ;  [m4/list-add-button
+     ;   {:form-id    ?form-id
+     ;    :data-path  [?data-path "instrument_term"]
+     ;    :text       "Browse"
+     ;    :value-path ["uri"]
+     ;    :added-path ["isUserDefined"]}]]
+     ;
+     ; [m4/form-group
+     ;  {:form-id   ?form-id
+     ;   :data-path [?data-path "platform_term"]
+     ;   :label     "Platform"}
+     ;  [m4/async-select-option-simple
+     ;   {:form-id     ?form-id
+     ;    :data-path   [?data-path "platform_term"]
+     ;    :uri         "/api/parameterplatform"
+     ;    :label-path  ["label"]
+     ;    :value-path  ["uri"]
+     ;    :added-path  ["isUserDefined"]
+     ;    :placeholder "Select..."}]
+     ;  [m4/list-add-button
+     ;   {:form-id    ?form-id
+     ;    :data-path  [?data-path "platform_term"]
+     ;    :text       "Browse"
+     ;    :value-path ["uri"]
+     ;    :added-path ["isUserDefined"]}]]
+     ]
+
     ;
     ;:upload
     ;[:div

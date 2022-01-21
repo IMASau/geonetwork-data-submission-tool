@@ -543,12 +543,13 @@
        :data-path ["pointOfContact"]
        :label     "Point of contact for dataset"}
 
-      [m4/selection-list-simple
-       {:form-id    [:form]
-        :data-path  ["pointOfContact"]
-        :label-path ["contact" "name"]
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]}]
+      [m4/selection-list-columns
+       {:form-id     [:form]
+        :data-path   ["pointOfContact"]
+        :columns [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
+                  {:flex 1 :label-path ["role"] :columnHeader "Role"}]
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
 
       [m4/list-add-button
        {:form-id     [:form]
@@ -568,12 +569,13 @@
        :data-path ["identificationInfo" "citedResponsibleParty"]
        :label     "Responsible parties for creating dataset"}
 
-      [m4/selection-list-simple
-       {:form-id    [:form]
-        :data-path  ["identificationInfo" "citedResponsibleParty"]
-        :label-path ["contact" "name"]
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]}]
+      [m4/selection-list-columns
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "citedResponsibleParty"]
+        :columns [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
+                  {:flex 1 :label-path ["role"] :columnHeader "Role"}]
+        :value-path  ["uri"]
+        :added-path  ["isUserDefined"]}]
 
       [m4/list-add-button
        {:form-id     [:form]

@@ -1208,13 +1208,13 @@
             ; No results but we do want a table with a placeholder record
             [ui-controls/TableSelectionList
              {:key           key
-              :items         [{}]
+              :items         [(assoc-in {} value-path "dummy")]
               :disabled      disabled
               :columns       (for [{:keys [flex columnHeader]} columns]
                                {:flex         flex
                                 :getLabel     (constantly "--")
                                 :columnHeader (or columnHeader "None")})
-              :getValue      (constantly "--")
+              :getValue      (ui-controls/obj-path-getter value-path)
               :getAdded      (constantly false)
               :onReorder     (fn [src-idx dst-idx] #_(rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
               :onItemClick   (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler config]))

@@ -87,9 +87,21 @@ class ParameterNameSerializer(BaseParameterSerializer):
     class Meta:
         model = models.ParameterName
         fields = [
-            "id", "children_count", "lft", "rgt", "tree_id", "depth", "is_selectable",
-            "Name", "URI", "Version", "Definition",
-            "term", "vocabularyTermURL", "vocabularyVersion", "termDefinition",
+            # "id",
+            # "children_count",
+            # "lft",
+            # "rgt",
+            # "tree_id",
+            # "depth",
+            # "is_selectable",
+            "Name",
+            "URI",
+            "Version",
+            "Definition",
+            # "term",
+            # "vocabularyTermURL",
+            # "vocabularyVersion",
+            # "termDefinition",
         ]
 
 

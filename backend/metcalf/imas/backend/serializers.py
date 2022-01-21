@@ -6,7 +6,6 @@ from metcalf.imas.backend import models
 
 
 class InstitutionSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = models.Institution
         fields = [

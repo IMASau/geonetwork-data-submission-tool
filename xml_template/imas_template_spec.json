@@ -389,6 +389,26 @@
           "rules": [
             "requiredField"
           ]
+        },
+        "dataParameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "longName_term": {
+                "type": "object",
+                "properties": {
+                  "URI": {},
+                  "Name": {}
+                }
+              },
+              "unit_term": {},
+              "instrument_term": {},
+              "platform_term": {},
+              "uri": {},
+              "isUserDefined": {}
+            }
+          }
         }
       }
     },

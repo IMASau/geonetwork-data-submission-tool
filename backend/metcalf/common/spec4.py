@@ -441,8 +441,13 @@ def is_orcid(x):
 
 
 def write_orcid(x):
-    if is_orcid(x):
-        return 'https://orcid.org/{orcid}'.format(orcid=x)
+    """The field ensures a valid uri format, ie
+    https://orcid.org/0000-0000-1234-5678; we want to export as
+    'orcid:0000-0000-1234-5678'"""
+    orcid_re = re.compile(r'https://orcid.org/(\d\d\d\d-\d\d\d\d-\d\d\d\d-\d\d\d[\dxX])')
+    m = orcid_re.match(x)
+    if m:
+        return f"orcid:{m.group(1)}"
     else:
         return x
 

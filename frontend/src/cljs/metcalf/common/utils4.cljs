@@ -156,8 +156,10 @@
       js-ret)))
 
 (defn load-options
-  "Helper for common load options pattern"
-  [{:keys [uri results-path search-param]
+  "Helper for common load options pattern.
+   Gets option data from :results-path.
+   Maps over results with :option-xform (if set)."
+  [{:keys [uri results-path search-param option-xform]
     :or   {results-path ["results"]
            search-param "query"}}
    query]
@@ -166,8 +168,8 @@
   (s/assert (s/coll-of string?) results-path)
   (.then (fetch-get {:uri (append-params-from-map (str load-options-api-root uri) {search-param query})})
          (fn [json]
-           (or (get-value-by-keys json results-path) #js []))))
-
+           (cond-> (or (get-value-by-keys json results-path) #js [])
+             option-xform (.map option-xform)))))
 
 (defn spec-error-at-path
   [spec form path]

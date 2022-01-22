@@ -279,7 +279,7 @@ def export2_append_items_handler(data, xml_node, spec, xml_kwargs, handlers, xfo
 
 def export2_generateParameterKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
     """
-    Append keyword for each parameter and unit.
+    Append keyword for each parameter.
 
     Configured with xf_props
     - xform[1].data_path
@@ -322,3 +322,57 @@ def export2_generateParameterKeywords_handler(data, xml_node, spec, xml_kwargs, 
             for attr, f in attrs.items():
                 anchor.set(attr, f(value['uri']))
             mount_node.insert(mount_index + i, element)
+
+
+def export2_generateUnitKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
+    """
+    Append keyword for each unit (contained as a sub-child of parameter).
+
+    Configured with xf_props
+    - xform[1].data_path
+    - xform[1].mount_xpath
+    - xform[1].template_xpath
+
+    """
+    xf_props = xform[1]
+    data_path = xf_props.get('data_path', None)
+    mount_xpath = xf_props.get('mount_xpath', None)
+    template_xpath = xf_props.get('template_xpath', None)
+
+    assert data_path is not None, "export2_generateParameterKeywords_handler: xf_props.data_path must be set"
+    assert mount_xpath is not None, "export2_generateParameterKeywords_handler: xf_props.mount_xpath must be set"
+    assert template_xpath is not None, "export2_generateParameterKeywords_handler: xf_props.template_xpath must be set"
+
+    hit, values = get_dotted_path(data, data_path)
+    mount_nodes = xml_node.xpath(mount_xpath, **xml_kwargs)
+    template_nodes = xml_node.xpath(template_xpath, **xml_kwargs)
+
+    assert len(mount_nodes) == 1
+    assert len(template_nodes) >= 1
+
+    mount_node = mount_nodes[0]
+    mount_index = mount_node.index(template_nodes[0])
+    template = copy.deepcopy(template_nodes[0])
+    for node in template_nodes:
+        node.getparent().remove(node)
+
+    if hit:
+        items_spec = get_spec_path(spec, data_path.split('.'))['items']['properties']
+
+        i = 0
+        for value in values:
+            # FIXME: We should always have a unit, but handle the case
+            # where we don't for robustness:
+            if 'unit' not in value:
+                continue
+            uval = value['unit']
+            element = copy.deepcopy(template)
+            # FIXME: Could make this generic like data_to_xml, but
+            # that's a bit messy so just hard-code for now.
+            anchor = element.xpath('gcx:Anchor', **xml_kwargs)[0]
+            anchor.text = uval['label']
+            attrs = xmlutils4.parse_attributes(items_spec['uri'], xml_kwargs['namespaces'])
+            for attr, f in attrs.items():
+                anchor.set(attr, f(uval['uri']))
+            mount_node.insert(mount_index + i, element)
+            i += 1

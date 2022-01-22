@@ -295,7 +295,8 @@ def create_export_xml_string(doc, uuid):
         spec=spec,
         xml_kwargs={"namespaces": spec['namespaces']},
         handlers={
-            "generateParameterKeywords": xmlutils5.export2_generateParameterKeywords_handler
+            "generateParameterKeywords": xmlutils5.export2_generateParameterKeywords_handler,
+            "generateUnitKeywords": xmlutils5.export2_generateUnitKeywords_handler,
         })
     return etree.tostring(xml)
 

@@ -130,6 +130,19 @@
   (s/assert (s/coll-of string?) path)
   (gobject/getValueByKeys o (into-array (map name path))))
 
+(defn set-value-by-keys
+  "Like assoc-in but for js object"
+  [o path v]
+  (s/assert (s/coll-of string? :min-count 1) path)
+  (let [p (reduce
+            (fn [o k]
+              (gobject/setIfUndefined o k (js-obj))
+              (gobject/get o k))
+            o
+            (butlast path))]
+    (gobject/set p (last path) v))
+  o)
+
 (goog-define load-options-api-root "")
 
 (defn load-options

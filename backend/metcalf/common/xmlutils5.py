@@ -1,6 +1,8 @@
 import copy
 import math
 
+import metcalf.common.xmlutils4 as xmlutils4
+
 
 def get_items(spec):
     return spec.get('items')
@@ -299,17 +301,24 @@ def export2_generateParameterKeywords_handler(data, xml_node, spec, xml_kwargs, 
     template_nodes = xml_node.xpath(template_xpath, **xml_kwargs)
 
     assert len(mount_nodes) == 1
-    assert len(template_nodes) == 1
+    assert len(template_nodes) >= 1
 
-    template = template_nodes[0]
+    mount_node = mount_nodes[0]
+    mount_index = mount_node.index(template_nodes[0])
+    template = copy.deepcopy(template_nodes[0])
+    for node in template_nodes:
+        node.getparent().remove(node)
 
     if hit:
-        # items_spec = get_spec_path(spec, data_path.split('.'))['items']
+        items_spec = get_spec_path(spec, data_path.split('.'))['items']['properties']
 
-        for value in values:
+        for i, value in enumerate(values):
             element = copy.deepcopy(template)
-            mount_nodes[0].append(element)
-
-            # TODO: update element from data
-
-        template.getparent().remove(template)
+            # FIXME: Could make this generic like data_to_xml, but
+            # that's a bit messy so just hard-code for now:
+            anchor = element.xpath('gcx:Anchor', **xml_kwargs)[0]
+            anchor.text = value['label']
+            attrs = xmlutils4.parse_attributes(items_spec['uri'], xml_kwargs['namespaces'])
+            for attr, f in attrs.items():
+                anchor.set(attr, f(value['uri']))
+            mount_node.insert(mount_index + i, element)

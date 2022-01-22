@@ -145,6 +145,16 @@
 
 (goog-define load-options-api-root "")
 
+(defn js-xformer
+  "Returns a function for massaging js-object data"
+  [data-mapper]
+  (s/assert (s/coll-of (s/keys :req-un [::get-path ::set-path])) data-mapper)
+  (fn [js-option]
+    (let [js-ret (js-obj)]
+      (doseq [{:keys [get-path set-path]} data-mapper]
+        (set-value-by-keys js-ret set-path (get-value-by-keys js-option get-path)))
+      js-ret)))
+
 (defn load-options
   "Helper for common load options pattern"
   [{:keys [uri results-path search-param]

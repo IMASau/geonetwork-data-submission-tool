@@ -124,7 +124,9 @@
                      (.then (fn [json] {:status (.-status resp)
                                         :body   json}))))))))
 
-(defn get-value-by-keys [o path]
+(defn get-value-by-keys
+  "Like get-in but for js objects."
+  [o path]
   (s/assert (s/coll-of string?) path)
   (gobject/getValueByKeys o (into-array (map name path))))
 

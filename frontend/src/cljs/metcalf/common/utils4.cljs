@@ -216,9 +216,9 @@
    * Avoids promise based fx being cluttered with re-frame plumbing"
   [{:keys [resolve reject finally] :as m}]
   (cond-> m
-          (vector? resolve) (assoc :resolve #(rf/dispatch (conj resolve %)))
-          (vector? reject) (assoc :reject #(rf/dispatch (conj reject %)))
-          (vector? finally) (assoc :finally #(rf/dispatch (conj finally %)))))
+    (vector? resolve) (assoc :resolve #(rf/dispatch (conj resolve %)))
+    (vector? reject) (assoc :reject #(rf/dispatch (conj reject %)))
+    (vector? finally) (assoc :finally #(rf/dispatch (conj finally %)))))
 
 (defn promise-fx
   "
@@ -230,9 +230,9 @@
     (let [{:keys [resolve reject finally]} (dispatchify fx-args)
           args (dissoc fx-args :resolve :reject :finally)]
       (cond-> (f args)
-              resolve (.then resolve)
-              reject (.catch reject)
-              finally (.finally finally)))))
+        resolve (.then resolve)
+        reject (.catch reject)
+        finally (.finally finally)))))
 
 (defn path-vals
   "Returns vector of tuples containing path vector to the value and the value."

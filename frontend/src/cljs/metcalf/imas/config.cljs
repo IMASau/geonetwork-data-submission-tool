@@ -959,11 +959,11 @@
      ;    :data-path   [?data-path "longName_term"]
      ;    :title       "LONG NAME"
      ;    :template-id :test/long-name}]
-     ;
-     ;[m4/input-field
-     ;   {:form-id     ?form-id
-     ;    :data-path   [?data-path "name"]
-     ;    :placeholder "Name in dataset (optional)"}]
+
+     [m4/input-field
+        {:form-id     ?form-id
+         :data-path   [?data-path "name"]
+         :placeholder "Name in dataset (optional)"}]
 
 
      [m4/form-group

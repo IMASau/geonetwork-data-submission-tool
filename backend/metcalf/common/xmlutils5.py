@@ -324,24 +324,29 @@ def export2_generateParameterKeywords_handler(data, xml_node, spec, xml_kwargs, 
             mount_node.insert(mount_index + i, element)
 
 
-def export2_imasGenerateParameterKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
+def export2_imasGenerateKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
     """
     Append keyword for each parameter.
 
+
+
     Configured with xf_props
-    - xform[1].data_path
-    - xform[1].mount_xpath
-    - xform[1].template_xpath
+    - data_path
+    - term_key
+    - mount_xpath
+    - template_xpath
 
     """
     xf_props = xform[1]
     data_path = xf_props.get('data_path', None)
+    term_key = xf_props.get('term_key', None)
     mount_xpath = xf_props.get('mount_xpath', None)
     template_xpath = xf_props.get('template_xpath', None)
 
-    assert data_path is not None, "export2_imasGenerateParameterKeywords_handler: xf_props.data_path must be set"
-    assert mount_xpath is not None, "export2_imasGenerateParameterKeywords_handler: xf_props.mount_xpath must be set"
-    assert template_xpath is not None, "export2_imasGenerateParameterKeywords_handler: xf_props.template_xpath must be set"
+    assert data_path is not None, "data_path must be set"
+    assert term_key is not None, "term_key must be set"
+    assert mount_xpath is not None, "mount_xpath must be set"
+    assert template_xpath is not None, "template_xpath must be set"
 
     hit, values = get_dotted_path(data, data_path)
     mount_nodes = xml_node.xpath(mount_xpath, **xml_kwargs)
@@ -349,34 +354,53 @@ def export2_imasGenerateParameterKeywords_handler(data, xml_node, spec, xml_kwar
     nsmap = xml_kwargs['namespaces']
     attr = '{%s}%s' % (nsmap['xlink'], 'href')
 
-    assert len(mount_nodes) == 1
-    assert len(template_nodes) >= 1
+    assert len(mount_nodes) == 1, "A single mount element is required"
+    assert len(template_nodes) >= 1, "At least one template node is required"
 
     mount_node = mount_nodes[0]
     mount_index = mount_node.index(template_nodes[0])
+
+    # Prepare a template
     template = copy.deepcopy(template_nodes[0])
+
+    # Delete all template nodes
     for node in template_nodes:
         node.getparent().remove(node)
 
     if hit:
-        # remove duplicates
-        term_dict = {}
-        for value in values:
-            term = value.get('longName_term')
-            term_dict[term.get("URI")] = term
+
+        seen = set()
 
         # Add a keyword for each term
-        for i, term_uri in enumerate(term_dict):
-            element = copy.deepcopy(template)
-            term = term_dict[term_uri]
+        for i, value in enumerate(values):
+            term = value.get(term_key)
 
-            # that's a bit messy so just hard-code for now:
+            # Skip optional, unset terms
+            if term is None:
+                continue
+
+            is_user_defined = term.get('isUserDefined', False)
+            name = term.get('Name')
+            uri = term.get('URI')
+
+            assert name is not None
+            assert uri is not None
+
+            if uri in seen:
+                continue
+            else:
+                seen.add(uri)
+
+            element = copy.deepcopy(template)
             anchor = element.xpath('gcx:Anchor', **xml_kwargs)[0]
-            anchor.text = term['Name']
-            if term.get('isUserDefined'):
+
+            if is_user_defined:
+                anchor.text = name
                 anchor.attrib.pop(attr)
             else:
-                anchor.set(attr, term['URI'])
+                assert name is not None
+                anchor.text = name
+                anchor.set(attr, uri)
 
             mount_node.insert(mount_index + i, element)
             i += 1

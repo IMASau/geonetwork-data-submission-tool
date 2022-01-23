@@ -184,7 +184,7 @@ SelectionList.propTypes = {
 }
 
 export function TableSelectionList({ items, getValue, getAdded, onReorder, onItemClick, onRemoveClick, disabled, columns }) {
-    if (items.length == 0) {
+    if (items.length === 0) {
         return <div />
     }
     return (

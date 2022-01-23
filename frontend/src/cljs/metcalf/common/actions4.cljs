@@ -226,3 +226,15 @@
                         {:url     url
                          :data    data
                          :resolve [::-upload-attachment config]}])))
+
+(defn set-data-action-from-mapper
+  "Set data using data-mapper.  Runs genkey on updated blocks."
+  [s form-id data-path data-mapper data]
+  (reduce (fn [s {:keys [get-path set-path]}]
+            (let [value (get-in data get-path)
+                  value-path (into data-path set-path)]
+              (-> s
+                  (set-data-action form-id value-path value)
+                  (genkey-action form-id value-path))))
+          s
+          data-mapper))

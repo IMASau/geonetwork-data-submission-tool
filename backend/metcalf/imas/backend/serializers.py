@@ -6,7 +6,6 @@ from metcalf.imas.backend import models
 
 
 class InstitutionSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = models.Institution
         fields = [
@@ -74,7 +73,6 @@ class RoleCodeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class BaseParameterSerializer(serializers.ModelSerializer):
     children_count = serializers.SerializerMethodField()
 
@@ -82,45 +80,45 @@ class BaseParameterSerializer(serializers.ModelSerializer):
         return obj.get_children_count()
 
 
-# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterNameSerializer(BaseParameterSerializer):
     class Meta:
         model = models.ParameterName
         fields = [
-            "id", "children_count", "lft", "rgt", "tree_id", "depth", "is_selectable",
-            "Name", "URI", "Version", "Definition",
-            "term", "vocabularyTermURL", "vocabularyVersion", "termDefinition",
+            # "id", "children_count", "lft", "rgt", "tree_id", "depth", "is_selectable",
+            "Name", "URI",
+            # "Version", "Definition",
+            # "term", "vocabularyTermURL", "vocabularyVersion", "termDefinition",
         ]
 
 
-# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterUnitSerializer(BaseParameterSerializer):
     class Meta:
         model = models.ParameterUnit
         fields = [
-            "id", "children_count", "lft", "rgt", "tree_id", "depth", "is_selectable",
-            "Name", "URI", "Version", "Definition",
-            "term", "vocabularyTermURL", "vocabularyVersion", "termDefinition",
+            # "id", "children_count", "lft", "rgt", "tree_id", "depth", "is_selectable",
+            "Name", "URI",
+            # "Version", "Definition",
+            # "term", "vocabularyTermURL", "vocabularyVersion", "termDefinition",
         ]
 
 
-# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterInstrumentSerializer(BaseParameterSerializer):
     class Meta:
         model = models.ParameterInstrument
         fields = [
-            "id", "children_count", "lft", "rgt", "tree_id", "depth", "is_selectable",
-            "Name", "URI", "Version", "Definition",
-            "term", "vocabularyTermURL", "vocabularyVersion", "termDefinition",
+            # "id", "children_count", "lft", "rgt", "tree_id", "depth", "is_selectable",
+            "Name", "URI",
+            # "Version", "Definition",
+            # "term", "vocabularyTermURL", "vocabularyVersion", "termDefinition",
         ]
 
 
-# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 class ParameterPlatformSerializer(BaseParameterSerializer):
     class Meta:
         model = models.ParameterPlatform
         fields = [
-            "id", "children_count", "lft", "rgt", "tree_id", "depth", "is_selectable",
-            "Name", "URI", "Version", "Definition",
-            "term", "vocabularyTermURL", "vocabularyVersion", "termDefinition",
+            # "id", "children_count", "lft", "rgt", "tree_id", "depth", "is_selectable",
+            "Name", "URI",
+            # "Version", "Definition",
+            # "term", "vocabularyTermURL", "vocabularyVersion", "termDefinition",
         ]

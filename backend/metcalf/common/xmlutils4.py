@@ -427,6 +427,10 @@ def update_user_defined(document_data: dict, update_data: dict, path: list) -> d
 
 
 def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=True, fieldKey=None):
+
+    if spec.get('data_to_xml_skip', False):
+        return
+
     # indicates that the spec allows more than one value for this node
     if is_array(spec):
         container_xpath = get_container(spec)

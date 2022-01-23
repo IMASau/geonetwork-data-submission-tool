@@ -124,15 +124,42 @@
                      (.then (fn [json] {:status (.-status resp)
                                         :body   json}))))))))
 
-(defn get-value-by-keys [o path]
+(defn get-value-by-keys
+  "Like get-in but for js objects."
+  [o path]
   (s/assert (s/coll-of string?) path)
   (gobject/getValueByKeys o (into-array (map name path))))
 
+(defn set-value-by-keys
+  "Like assoc-in but for js object"
+  [o path v]
+  (s/assert (s/coll-of string? :min-count 1) path)
+  (let [p (reduce
+            (fn [o k]
+              (gobject/setIfUndefined o k (js-obj))
+              (gobject/get o k))
+            o
+            (butlast path))]
+    (gobject/set p (last path) v))
+  o)
+
 (goog-define load-options-api-root "")
 
+(defn js-xformer
+  "Returns a function for massaging js-object data"
+  [data-mapper]
+  (s/assert (s/coll-of (s/keys :req-un [::get-path ::set-path])) data-mapper)
+  (fn [js-option]
+    (let [js-ret (js-obj)]
+      (doseq [{:keys [get-path set-path]} data-mapper]
+        (set-value-by-keys js-ret set-path (get-value-by-keys js-option get-path)))
+      js-ret)))
+
 (defn load-options
-  "Helper for common load options pattern"
-  [{:keys [uri results-path search-param]
+  "Helper for common load options pattern.
+   Gets option data from :results-path.
+   Maps over results with :option-xform (if set)."
+  [{:keys [uri results-path search-param option-xform]
     :or   {results-path ["results"]
            search-param "query"}}
    query]
@@ -141,8 +168,8 @@
   (s/assert (s/coll-of string?) results-path)
   (.then (fetch-get {:uri (append-params-from-map (str load-options-api-root uri) {search-param query})})
          (fn [json]
-           (or (get-value-by-keys json results-path) #js []))))
-
+           (cond-> (or (get-value-by-keys json results-path) #js [])
+             option-xform (.map option-xform)))))
 
 (defn spec-error-at-path
   [spec form path]
@@ -189,9 +216,9 @@
    * Avoids promise based fx being cluttered with re-frame plumbing"
   [{:keys [resolve reject finally] :as m}]
   (cond-> m
-          (vector? resolve) (assoc :resolve #(rf/dispatch (conj resolve %)))
-          (vector? reject) (assoc :reject #(rf/dispatch (conj reject %)))
-          (vector? finally) (assoc :finally #(rf/dispatch (conj finally %)))))
+    (vector? resolve) (assoc :resolve #(rf/dispatch (conj resolve %)))
+    (vector? reject) (assoc :reject #(rf/dispatch (conj reject %)))
+    (vector? finally) (assoc :finally #(rf/dispatch (conj finally %)))))
 
 (defn promise-fx
   "
@@ -203,9 +230,9 @@
     (let [{:keys [resolve reject finally]} (dispatchify fx-args)
           args (dissoc fx-args :resolve :reject :finally)]
       (cond-> (f args)
-              resolve (.then resolve)
-              reject (.catch reject)
-              finally (.finally finally)))))
+        resolve (.then resolve)
+        reject (.catch reject)
+        finally (.finally finally)))))
 
 (defn path-vals
   "Returns vector of tuples containing path vector to the value and the value."

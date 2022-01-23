@@ -91,6 +91,7 @@
       "items": {
         "xpath": "mdb:distributionInfo[not(mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"])]",
         "type": "object",
+        "export": false,
         "properties": {
           "uri": {
             "type": "string"
@@ -111,7 +112,7 @@
                 "rules": ["requiredField"]
               },
               "uri": {
-                "xpath": "cit:partyIdentifier",
+                "xpath": "cit:party/cit:CI_Organisation/cit:partyIdentifier",
                 "type": "string",
                 "valueChild": "mcc:MD_Identifier/mcc:code/gcx:Anchor",
                 "required": false,
@@ -129,43 +130,42 @@
                 }
               },
               "full_address_line": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
+                "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
               },
               "street_address": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
               },
               "address_locality": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
+                "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
               },
               "address_region": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
+                "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
               },
               "postcode": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
+                "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
               },
               "country": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
+                "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
               },
               "email": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
+                "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
@@ -173,33 +173,29 @@
             }
           },
           "transferOptions": {
-            "xpath": "mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource",
+            "xpath": "mrd:MD_Distribution/mrd:transferOptions",
             "type": "object",
             "properties": {
               "linkage": {
-                "xpath": "cit:linkage",
-                "valueChild": "gco:CharacterString",
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
                 "type": "string",
                 "required": true,
                 "rules": ["requiredField"]
               },
               "protocol": {
-                "xpath": "cit:protocol",
-                "valueChild": "gco:CharacterString",
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:protocol/gco:CharacterString",
                 "type": "string",
                 "required": true,
                 "rules": ["requiredField"]
               },
               "name": {
-                "xpath": "cit:name",
-                "valueChild": "gco:CharacterString",
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:name/gco:CharacterString",
                 "type": "string",
                 "required": true,
                 "rules": ["requiredField"]
               },
               "description": {
-                "xpath": "cit:description",
-                "valueChild": "gco:CharacterString",
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:description/gco:CharacterString",
                 "type": "string",
                 "required": true,
                 "rules": ["requiredField"]

@@ -404,6 +404,101 @@ def export2_imasGenerateKeywords_handler(data, xml_node, spec, xml_kwargs, handl
             i += 1
 
 
+def export2_imasParameterUnitAttributeGroup_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
+    """
+    Add attribute group for parameter/unit combinations.
+
+
+
+    Configured with xf_props
+    - data_path - path to parameter table
+    - term_key - key in parameter table which has: Name, URI and optionally isUserDefined
+    - mount_xpath - xpath where elements will be mounted
+    - template_xpath - xpath to template.  First is used as a template.  All matches are removed.
+
+    """
+    xf_props = xform[1]
+    data_path = xf_props.get('data_path', None)
+    mount_xpath = xf_props.get('mount_xpath', None)
+    template_xpath = xf_props.get('template_xpath', None)
+
+    assert data_path is not None, "data_path must be set"
+    assert mount_xpath is not None, "mount_xpath must be set"
+    assert template_xpath is not None, "template_xpath must be set"
+
+    hit, values = get_dotted_path(data, data_path)
+    mount_nodes = xml_node.xpath(mount_xpath, **xml_kwargs)
+    template_nodes = xml_node.xpath(template_xpath, **xml_kwargs)
+
+    assert len(mount_nodes) == 1, "A single mount element is required, %s found" % (len(mount_nodes))
+    assert len(template_nodes) >= 1, "At least one template node is required, %s found" % (len(template_nodes))
+
+    nsmap = xml_kwargs['namespaces']
+    xlink_href_attr = '{%s}%s' % (nsmap['xlink'], 'href')
+
+    mount_node = mount_nodes[0]
+    mount_index = mount_node.index(template_nodes[0])
+
+    # Prepare a template
+    template = copy.deepcopy(template_nodes[0])
+
+    # Delete all template nodes
+    for node in template_nodes:
+        node.getparent().remove(node)
+
+    if hit:
+
+        # Add a keyword for each term
+        for i, value in enumerate(values):
+            longName_term = value.get('longName_term')
+            name = value.get('name')
+            unit_term = value.get('unit_term')
+
+            # Skip optional, unset terms
+            if longName_term is None:
+                continue
+
+            if unit_term is None:
+                continue
+
+            # TODO: duplicate detection
+
+            element = copy.deepcopy(template)
+
+            # Parameter #1
+            param_node = element.xpath('mrc:MD_SampleDimension/mrc:name/mcc:MD_Identifier/mcc:code/gcx:Anchor', **xml_kwargs)[0]
+
+            if longName_term.get('isUserDefined'):
+                param_node.text = longName_term.get('Name')
+                param_node.attrib.pop(xlink_href_attr)
+            else:
+                param_node.text = longName_term.get('Name')
+                param_node.set(xlink_href_attr, longName_term.get('URI'))
+
+            # Second 'freetext' instance of name (ie name in dataset), if entered
+            name_root = element.xpath('mrc:MD_SampleDimension/mrc:name[mcc:MD_Identifier/mcc:code/gco:CharacterString]', **xml_kwargs)[0]
+            name_node = name_root.xpath('mcc:MD_Identifier/mcc:code/gco:CharacterString', **xml_kwargs)[0]
+
+            if name:
+                name_node.text = name
+            else:
+                name_root.getparent().remove(name_root)
+
+            # Unit #1
+            unit_identifier_node = element.xpath('mrc:MD_SampleDimension/mrc:units/gml:BaseUnit/gml:identifier', **xml_kwargs)[0]
+            unit_name_node = element.xpath('mrc:MD_SampleDimension/mrc:units/gml:BaseUnit/gml:name', **xml_kwargs)[0]
+
+            if unit_term.get('isUserDefined'):
+                unit_name_node.text = unit_term.get('Name')
+                unit_identifier_node.getparent().remove(unit_identifier_node)
+            else:
+                unit_name_node.text = unit_term.get('Name')
+                unit_identifier_node.text = unit_term.get('URI')
+
+            mount_node.insert(mount_index + i, element)
+            i += 1
+
+
 def export2_generateUnitKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
     """
     Append keyword for each unit (contained as a sub-child of parameter).

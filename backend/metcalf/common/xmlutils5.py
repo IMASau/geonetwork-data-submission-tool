@@ -464,7 +464,8 @@ def export2_imasParameterUnitAttributeGroup_handler(data, xml_node, spec, xml_kw
             element = copy.deepcopy(template)
 
             # Parameter #1
-            param_node = element.xpath('mrc:MD_SampleDimension/mrc:name/mcc:MD_Identifier/mcc:code/gcx:Anchor', **xml_kwargs)[0]
+            param_xpath = 'mrc:MD_SampleDimension/mrc:name/mcc:MD_Identifier/mcc:code/gcx:Anchor'
+            param_node = element.xpath(param_xpath, **xml_kwargs)[0]
 
             if longName_term.get('isUserDefined'):
                 param_node.text = longName_term.get('Name')
@@ -474,7 +475,8 @@ def export2_imasParameterUnitAttributeGroup_handler(data, xml_node, spec, xml_kw
                 param_node.set(xlink_href_attr, longName_term.get('URI'))
 
             # Second 'freetext' instance of name (ie name in dataset), if entered
-            name_root = element.xpath('mrc:MD_SampleDimension/mrc:name[mcc:MD_Identifier/mcc:code/gco:CharacterString]', **xml_kwargs)[0]
+            name_xpath = 'mrc:MD_SampleDimension/mrc:name[mcc:MD_Identifier/mcc:code/gco:CharacterString]'
+            name_root = element.xpath(name_xpath, **xml_kwargs)[0]
             name_node = name_root.xpath('mcc:MD_Identifier/mcc:code/gco:CharacterString', **xml_kwargs)[0]
 
             if name:
@@ -483,7 +485,8 @@ def export2_imasParameterUnitAttributeGroup_handler(data, xml_node, spec, xml_kw
                 name_root.getparent().remove(name_root)
 
             # Unit #1
-            unit_identifier_node = element.xpath('mrc:MD_SampleDimension/mrc:units/gml:BaseUnit/gml:identifier', **xml_kwargs)[0]
+            unit_identifier_xpath = 'mrc:MD_SampleDimension/mrc:units/gml:BaseUnit/gml:identifier'
+            unit_identifier_node = element.xpath(unit_identifier_xpath, **xml_kwargs)[0]
             unit_name_node = element.xpath('mrc:MD_SampleDimension/mrc:units/gml:BaseUnit/gml:name', **xml_kwargs)[0]
 
             if unit_term.get('isUserDefined'):

@@ -397,6 +397,9 @@
             "properties": {
               "longName_term": {
                 "type": "object",
+                "rules": [
+                  "requiredField"
+                ],
                 "properties": {
                   "URI": {
                     "type": "string"
@@ -411,6 +414,9 @@
               },
               "unit_term": {
                 "type": "object",
+                "rules": [
+                  "requiredField"
+                ],
                 "properties": {
                   "URI": {
                     "type": "string"

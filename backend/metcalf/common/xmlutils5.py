@@ -500,6 +500,116 @@ def export2_imasParameterUnitAttributeGroup_handler(data, xml_node, spec, xml_kw
             i += 1
 
 
+def export2_imasParameterInstrumentAcquisitionInformation_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
+    """
+    Add acquisition information for parameter/instrument combinations.
+
+    Configured with xf_props
+    - data_path - path to parameter table
+    - mount_xpath - xpath where elements will be mounted
+    - template_xpath - xpath to template.  First is used as a template.  All matches are removed.
+
+    """
+    xf_props = xform[1]
+    data_path = xf_props.get('data_path', None)
+    mount_xpath = xf_props.get('mount_xpath', None)
+    template_xpath = xf_props.get('template_xpath', None)
+
+    assert data_path is not None, "data_path must be set"
+    assert mount_xpath is not None, "mount_xpath must be set"
+    assert template_xpath is not None, "template_xpath must be set"
+
+    hit, values = get_dotted_path(data, data_path)
+    mount_nodes = xml_node.xpath(mount_xpath, **xml_kwargs)
+    template_nodes = xml_node.xpath(template_xpath, **xml_kwargs)
+
+    assert len(mount_nodes) == 1, "A single mount element is required, %s found" % (len(mount_nodes))
+    assert len(template_nodes) >= 1, "At least one template node is required, %s found" % (len(template_nodes))
+
+    nsmap = xml_kwargs['namespaces']
+    xlink_href_attr = '{%s}%s' % (nsmap['xlink'], 'href')
+
+    mount_node = mount_nodes[0]
+    mount_index = mount_node.index(template_nodes[0])
+
+    # Prepare a template
+    template = copy.deepcopy(template_nodes[0])
+
+    # Delete all template nodes
+    for node in template_nodes:
+        node.getparent().remove(node)
+
+    if hit:
+
+        platforms = {}
+        platform_instruments = defaultdict(list)
+        for value in values:
+            platform_term = value.get('platform_term')
+            instrument_term = value.get('instrument_term')
+
+            if platform_term:
+                platforms[platform_term['URI']] = platform_term
+
+            if platform_term and instrument_term:
+                platform_instruments[platform_term['URI']].append(instrument_term)
+
+        # Add a keyword for each term
+        for i, platform_uri in enumerate(platform_instruments):
+            platform = platforms[platform_uri]
+            instruments = platform_instruments[platform_uri]
+
+            if len(instruments) == 0:
+                continue
+
+            element = copy.deepcopy(template)
+
+            # Platform
+            platform_xpath = "mac:MI_Platform/mac:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor"
+            platform_node = element.xpath(platform_xpath, **xml_kwargs)[0]
+
+            if platform.get('isUserDefined'):
+                platform_node.text = platform.get('Name')
+                platform_node.attrib.pop(xlink_href_attr)
+            else:
+                platform_node.text = platform.get('Name')
+                platform_node.set(xlink_href_attr, platform.get('URI'))
+
+            # Multiple instruments per platform
+            instrument_mount_xpath = "mac:MI_Platform[mac:instrument]"
+            instrument_template_xpath = "mac:MI_Platform/mac:instrument"
+
+            instrument_mount_nodes = element.xpath(instrument_mount_xpath, **xml_kwargs)
+            instrument_template_nodes = element.xpath(instrument_template_xpath, **xml_kwargs)
+
+            instrument_mount_node = instrument_mount_nodes[0]
+            instrument_mount_index = instrument_mount_node.index(instrument_template_nodes[0])
+
+            # Prepare template
+            instrument_template = copy.deepcopy(instrument_template_nodes[0])
+            for node in instrument_template_nodes:
+                node.getparent().remove(node)
+
+            for j, instrument in enumerate(instruments):
+
+                instrument_element = copy.deepcopy(instrument_template)
+
+                instrument_xpath = "mac:MI_Instrument/mac:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor"
+                instrument_node = instrument_element.xpath(instrument_xpath, **xml_kwargs)[0]
+
+                if instrument.get('isUserDefined'):
+                    instrument_node.text = instrument.get('Name')
+                    instrument_node.attrib.pop(xlink_href_attr)
+                else:
+                    instrument_node.text = instrument.get('Name')
+                    instrument_node.set(xlink_href_attr, instrument.get('URI'))
+
+                instrument_mount_node.insert(instrument_mount_index + j, instrument_element)
+                j += 1
+
+            mount_node.insert(mount_index + i, element)
+            i += 1
+
+
 def export2_generateUnitKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
     """
     Append keyword for each unit (contained as a sub-child of parameter).
@@ -625,7 +735,8 @@ def export2_generateDatasourceDistributions_handler(data, xml_node, spec, xml_kw
             transferSpec = transferSpec['properties']
             # clone the transferOptions node, use as template
             transferTemplate = distributionNode.xpath(transferXpath, **xml_kwargs)
-            assert len(transferTemplate) == 1, f"Expected a single node for {transferXpath}, found {len(transferTemplate)}"
+            assert len(
+                transferTemplate) == 1, f"Expected a single node for {transferXpath}, found {len(transferTemplate)}"
             transferTemplate = transferTemplate[0]
             transferMount = transferTemplate.getparent()
             transferIdx = transferMount.index(transferTemplate)

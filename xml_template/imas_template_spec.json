@@ -696,6 +696,14 @@
         "mount_xpath": "/mdb:MD_Metadata/mdb:contentInfo/mrc:MD_CoverageDescription/mrc:attributeGroup/mrc:MD_AttributeGroup",
         "template_xpath": "/mdb:MD_Metadata/mdb:contentInfo/mrc:MD_CoverageDescription/mrc:attributeGroup/mrc:MD_AttributeGroup/mrc:attribute"
       }
+    ],
+    [
+      "imasParameterInstrumentAcquisitionInformation",
+      {
+        "data_path": "identificationInfo.dataParameters",
+        "mount_xpath": "/mdb:MD_Metadata/mdb:acquisitionInformation/mac:MI_AcquisitionInformation",
+        "template_xpath": "/mdb:MD_Metadata/mdb:acquisitionInformation/mac:MI_AcquisitionInformation/mac:platform"
+      }
     ]
   ]
 }

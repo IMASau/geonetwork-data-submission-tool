@@ -997,7 +997,7 @@
       [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "longName_term"]
-        :title       "Define a custom data parameter"
+        :title       "Define a custom parameter name"
         :template-id :parameter-name/user-defined-entry-form}]]
 
      [m4/form-group
@@ -1030,7 +1030,7 @@
       [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "unit_term"]
-        :title       "Define a custom unit parameter"
+        :title       "Define a custom parameter unit"
         :template-id :parameter-unit/user-defined-entry-form}]]
 
      [m4/form-group
@@ -1055,28 +1055,34 @@
       [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "instrument_term"]
-        :title       "Define a custom instrument"
-        :template-id :parameter-unit/user-defined-entry-form}]]
+        :title       "Define a custom parameter instrument"
+        :template-id :parameter-instrument/user-defined-entry-form}]]
 
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "platform_term"]
        :label     "Platform"}
-      [m4/async-select-option-simple
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id     ?form-id
+          :data-path   [?data-path "platform_term"]
+          :uri         "/api/parameterplatform"
+          :label-path  ["Name"]
+          :value-path  ["URI"]
+          :added-path  ["isUserDefined"]
+          :placeholder "Select..."}]]
+       [m4/item-dialog-button
+        {:form-id    ?form-id
+         :data-path  [?data-path "platform_term"]
+         :text       "Browse"
+         :value-path ["URI"]
+         :added-path ["isUserDefined"]}]]
+      [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "platform_term"]
-        :uri         "/api/parameterplatform"
-        :label-path  ["Name"]
-        :value-path  ["URI"]
-        :added-path  ["isUserDefined"]
-        :placeholder "Select..."}]]
-     ;[m4/list-add-button
-     ; {:form-id    ?form-id
-     ;  :data-path  [?data-path "platform_term"]
-     ;  :text       "Browse"
-     ;  :value-path ["uri"]
-     ;  :added-path ["isUserDefined"]}]
-     ]
+        :title       "Define a custom parameter platform"
+        :template-id :parameter-platform/user-defined-entry-form}]]]
 
     ;
     ;:upload

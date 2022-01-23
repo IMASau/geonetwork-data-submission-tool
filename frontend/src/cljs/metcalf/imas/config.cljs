@@ -804,9 +804,9 @@
          ; TODO: Rename to something shorter
          :placeholder-record? true
          :columns             [{:columnHeader "Name" :flex 1 :label-path ["longName_term" "Name"]}
-                               {:columnHeader "Units" :flex 1 :label-path ["unit_term"]}
-                               {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term"]}
-                               {:columnHeader "Platform" :flex 1 :label-path ["platform_term"]}]}]]
+                               {:columnHeader "Units" :flex 1 :label-path ["unit_term" "Name"]}
+                               {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term" "Name"]}
+                               {:columnHeader "Platform" :flex 1 :label-path ["platform_term" "Name"]}]}]]
 
       [m4/list-add-button
        {:form-id     [:form]
@@ -966,60 +966,61 @@
      ;    :placeholder "Name in dataset (optional)"}]
 
 
-     ; [m4/form-group
-     ;  {:form-id   ?form-id
-     ;   :data-path [?data-path "unit_term"]
-     ;   :label     "Unit"}
-     ;  [m4/async-select-option-simple
-     ;   {:form-id     ?form-id
-     ;    :data-path   [?data-path "unit_term"]
-     ;    :uri         "/api/parameterunit"
-     ;    :label-path  ["label"]
-     ;    :value-path  ["value"]
-     ;    :placeholder "Select..."}]
-     ;  [m4/list-add-button
-     ;   {:form-id    ?form-id
-     ;    :data-path  [?data-path "unit_term"]
-     ;    :text       "Browse"
-     ;    :value-path ["value"]}]]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "unit_term"]
+       :label     "Unit"}
+      [m4/async-select-option-simple
+       {:form-id     ?form-id
+        :data-path   [?data-path "unit_term"]
+        :uri         "/api/parameterunit"
+        :label-path  ["Name"]
+        :value-path  ["URI"]
+        :added-path  ["isUserDefined"]
+        :placeholder "Select..."}]]
+     ;[m4/list-add-button
+     ; {:form-id    ?form-id
+     ;  :data-path  [?data-path "unit_term"]
+     ;  :text       "Browse"
+     ;  :value-path ["value"]}]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "instrument_term"]
+       :label     "Instrument"}
+      [m4/async-select-option-simple
+       {:form-id     ?form-id
+        :data-path   [?data-path "instrument_term"]
+        :uri         "/api/parameterinstrument"
+        :label-path  ["Name"]
+        :value-path  ["URI"]
+        :added-path  ["isUserDefined"]
+        :placeholder "Select..."}]]
+     ;[m4/list-add-button
+     ; {:form-id    ?form-id
+     ;  :data-path  [?data-path "instrument_term"]
+     ;  :text       "Browse"
+     ;  :value-path ["uri"]
+     ;  :added-path ["isUserDefined"]}]
      ;
-     ; [m4/form-group
-     ;  {:form-id   ?form-id
-     ;   :data-path [?data-path "instrument_term"]
-     ;   :label     "Instrument"}
-     ;  [m4/async-select-option-simple
-     ;   {:form-id     ?form-id
-     ;    :data-path   [?data-path "instrument_term"]
-     ;    :uri         "/api/parameterinstrument"
-     ;    :label-path  ["label"]
-     ;    :value-path  ["uri"]
-     ;    :added-path  ["isUserDefined"]
-     ;    :placeholder "Select..."}]
-     ;  [m4/list-add-button
-     ;   {:form-id    ?form-id
-     ;    :data-path  [?data-path "instrument_term"]
-     ;    :text       "Browse"
-     ;    :value-path ["uri"]
-     ;    :added-path ["isUserDefined"]}]]
-     ;
-     ; [m4/form-group
-     ;  {:form-id   ?form-id
-     ;   :data-path [?data-path "platform_term"]
-     ;   :label     "Platform"}
-     ;  [m4/async-select-option-simple
-     ;   {:form-id     ?form-id
-     ;    :data-path   [?data-path "platform_term"]
-     ;    :uri         "/api/parameterplatform"
-     ;    :label-path  ["label"]
-     ;    :value-path  ["uri"]
-     ;    :added-path  ["isUserDefined"]
-     ;    :placeholder "Select..."}]
-     ;  [m4/list-add-button
-     ;   {:form-id    ?form-id
-     ;    :data-path  [?data-path "platform_term"]
-     ;    :text       "Browse"
-     ;    :value-path ["uri"]
-     ;    :added-path ["isUserDefined"]}]]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "platform_term"]
+       :label     "Platform"}
+      [m4/async-select-option-simple
+       {:form-id     ?form-id
+        :data-path   [?data-path "platform_term"]
+        :uri         "/api/parameterplatform"
+        :label-path  ["Name"]
+        :value-path  ["URI"]
+        :added-path  ["isUserDefined"]
+        :placeholder "Select..."}]]
+     ;[m4/list-add-button
+     ; {:form-id    ?form-id
+     ;  :data-path  [?data-path "platform_term"]
+     ;  :text       "Browse"
+     ;  :value-path ["uri"]
+     ;  :added-path ["isUserDefined"]}]
      ]
 
     ;

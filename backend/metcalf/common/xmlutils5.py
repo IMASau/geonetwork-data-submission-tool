@@ -1,3 +1,4 @@
+from collections import defaultdict
 import copy
 import math
 
@@ -514,9 +515,9 @@ def export2_generateUnitKeywords_handler(data, xml_node, spec, xml_kwargs, handl
     mount_xpath = xf_props.get('mount_xpath', None)
     template_xpath = xf_props.get('template_xpath', None)
 
-    assert data_path is not None, "export2_generateParameterKeywords_handler: xf_props.data_path must be set"
-    assert mount_xpath is not None, "export2_generateParameterKeywords_handler: xf_props.mount_xpath must be set"
-    assert template_xpath is not None, "export2_generateParameterKeywords_handler: xf_props.template_xpath must be set"
+    assert data_path is not None, "export2_generateUnitKeywords_handler: xf_props.data_path must be set"
+    assert mount_xpath is not None, "export2_generateUnitKeywords_handler: xf_props.mount_xpath must be set"
+    assert template_xpath is not None, "export2_generateUnitKeywords_handler: xf_props.template_xpath must be set"
 
     hit, values = get_dotted_path(data, data_path)
     mount_nodes = xml_node.xpath(mount_xpath, **xml_kwargs)
@@ -551,3 +552,101 @@ def export2_generateUnitKeywords_handler(data, xml_node, spec, xml_kwargs, handl
                 anchor.set(attr, f(uval['uri']))
             mount_node.insert(mount_index + i, element)
             i += 1
+
+
+def export2_generateDatasourceDistributions_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
+    """
+    Append keyword for each unit (contained as a sub-child of parameter).
+
+    Configured with xf_props
+    - xform[1].data_path
+    - xform[1].template_xpath
+
+    """
+    xf_props = xform[1]
+    data_path = xf_props.get('data_path', None)
+    template_xpath = xf_props.get('template_xpath', None)
+
+    assert data_path is not None, "export2_generateDatasourceDistributions_handler: xf_props.data_path must be set"
+    assert template_xpath is not None, "export2_generateDatasourceDistributions_handler: xf_props.template_xpath must be set"
+
+    hit, values = get_dotted_path(data, data_path)
+    template_nodes = xml_node.xpath(template_xpath, **xml_kwargs)
+
+    assert len(template_nodes) >= 1
+
+    mount_node = template_nodes[0].getparent()
+    mount_index = mount_node.index(template_nodes[0])
+    template = copy.deepcopy(template_nodes[0])
+    for node in template_nodes:
+        node.getparent().remove(node)
+
+    if hit:
+        items_spec = get_spec_path(spec, data_path.split('.'))['items']['properties']
+
+        groupby = defaultdict(list)
+        for v in values:
+            groupby[v['distributor']['uri']].append(v)
+
+        distIdx = 0
+        for sources in groupby.values():
+            distributor = sources[0]['distributor']
+            distributionNode = copy.deepcopy(template)
+            distributorSpec = items_spec['distributor']
+            distributorXpath = distributorSpec['xpath']
+            distributorSpec = distributorSpec['properties']
+
+            for prop, spec in distributorSpec.items():
+                if 'xpath' not in spec:
+                    continue
+                specxpath = spec["xpath"]
+                path = f"{distributorXpath}/{specxpath}"
+                node = distributionNode.xpath(path, **xml_kwargs)
+                assert len(node) == 1, f"Expected a single node for {path}, found {len(node)}"
+                node = node[0]
+                if prop not in distributor:
+                    node.getparent().remove(node)
+                    continue
+                if 'valueChild' in spec:
+                    path = spec['valueChild']
+                    node = node.xpath(path, **xml_kwargs)[0]
+                attrs = xmlutils4.parse_attributes(spec, xml_kwargs['namespaces'])
+                for attr, transform in attrs.items():
+                    if attr == 'text':
+                        node.text = transform(distributor[prop])
+                    else:
+                        node.set(attr, transform(distributor[prop]))
+
+                mount_node.insert(mount_index + distIdx, distributionNode)
+                distIdx += 1
+
+            transferSpec = items_spec['transferOptions']
+            transferXpath = transferSpec['xpath']
+            transferSpec = transferSpec['properties']
+            # clone the transferOptions node, use as template
+            transferTemplate = distributionNode.xpath(transferXpath, **xml_kwargs)
+            assert len(transferTemplate) == 1, f"Expected a single node for {transferXpath}, found {len(transferTemplate)}"
+            transferTemplate = transferTemplate[0]
+            transferMount = transferTemplate.getparent()
+            transferIdx = transferMount.index(transferTemplate)
+            transferMount.remove(transferTemplate)
+
+            for i, source in enumerate(sources):
+                # write transferOptions
+                transferOptions = source['transferOptions']
+                transferNode = copy.deepcopy(transferTemplate)
+                for prop, spec in transferSpec.items():
+                    if 'xpath' not in spec:
+                        continue
+                    specxpath = spec['xpath']
+                    node = transferNode.xpath(specxpath, **xml_kwargs)
+                    assert len(node) == 1, f"Expected a single node for {specxpath}, found {len(node)}"
+                    node = node[0]
+                    attrs = xmlutils4.parse_attributes(spec, xml_kwargs['namespaces'])
+                    for attr, transform in attrs.items():
+                        if attr == 'text':
+                            node.text = transform(transferOptions[prop])
+                        else:
+                            node.set(attr, transform(transferOptions[prop]))
+
+                transferMount.insert(transferIdx + i, transferNode)

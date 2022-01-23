@@ -297,6 +297,7 @@ def create_export_xml_string(doc, uuid):
         handlers={
             "generateParameterKeywords": xmlutils5.export2_generateParameterKeywords_handler,
             "generateUnitKeywords": xmlutils5.export2_generateUnitKeywords_handler,
+            "generateDatasourceDistributions": xmlutils5.export2_generateDatasourceDistributions_handler,
         })
     return etree.tostring(xml)
 

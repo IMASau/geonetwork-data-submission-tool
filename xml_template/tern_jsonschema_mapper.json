@@ -91,6 +91,7 @@
       "items": {
         "xpath": "mdb:distributionInfo[not(mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"])]",
         "type": "object",
+        "export": false,
         "properties": {
           "uri": {
             "type": "string"
@@ -111,7 +112,7 @@
                 "rules": ["requiredField"]
               },
               "uri": {
-                "xpath": "cit:partyIdentifier",
+                "xpath": "cit:party/cit:CI_Organisation/cit:partyIdentifier",
                 "type": "string",
                 "valueChild": "mcc:MD_Identifier/mcc:code/gcx:Anchor",
                 "required": false,
@@ -129,43 +130,42 @@
                 }
               },
               "full_address_line": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
+                "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
               },
               "street_address": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
               },
               "address_locality": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
+                "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
               },
               "address_region": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
+                "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
               },
               "postcode": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
+                "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
               },
               "country": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
+                "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
               },
               "email": {
-                "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
+                "xpath": "cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
@@ -173,33 +173,29 @@
             }
           },
           "transferOptions": {
-            "xpath": "mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource",
+            "xpath": "mrd:MD_Distribution/mrd:transferOptions",
             "type": "object",
             "properties": {
               "linkage": {
-                "xpath": "cit:linkage",
-                "valueChild": "gco:CharacterString",
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
                 "type": "string",
                 "required": true,
                 "rules": ["requiredField"]
               },
               "protocol": {
-                "xpath": "cit:protocol",
-                "valueChild": "gco:CharacterString",
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:protocol/gco:CharacterString",
                 "type": "string",
                 "required": true,
                 "rules": ["requiredField"]
               },
               "name": {
-                "xpath": "cit:name",
-                "valueChild": "gco:CharacterString",
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:name/gco:CharacterString",
                 "type": "string",
                 "required": true,
                 "rules": ["requiredField"]
               },
               "description": {
-                "xpath": "cit:description",
-                "valueChild": "gco:CharacterString",
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:description/gco:CharacterString",
                 "type": "string",
                 "required": true,
                 "rules": ["requiredField"]
@@ -1188,6 +1184,7 @@
           "!docstring": "What8",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]",
           "type": "object",
+          "export": false,
           "properties": {
             "keywords": {
               "xpath": "mri:keyword",
@@ -1249,42 +1246,6 @@
                   },
                   "uri": {
                     "type": "string",
-                    "xpath": "gcx:Anchor",
-                    "attributes": {
-                      "xlink:href": {
-                        "function": "identity"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "xpath_required": true,
-          "rules": ["requiredField"]
-        },
-        "keywordsUoM": {
-          "!docstring": "What9",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]",
-          "type": "object",
-          "properties": {
-            "keywords": {
-              "xpath": "mri:keyword",
-              "keep": false,
-              "type": "array",
-              "items": {
-                "type": "object",
-                "xpath": "mri:keyword",
-                "properties": {
-                  "isUserDefined": {},
-                  "userAddedCategory": {
-                    "type": "string"
-                  },
-                  "source": {},
-                  "label": {
-                    "xpath": "gcx:Anchor"
-                  },
-                  "uri": {
                     "xpath": "gcx:Anchor",
                     "attributes": {
                       "xlink:href": {
@@ -1775,5 +1736,30 @@
         }
       }
     }
-  }
+  },
+  "export2_xforms": [
+    [
+      "generateParameterKeywords",
+      {
+        "mount_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]",
+        "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]/mri:keyword",
+        "data_path": "identificationInfo.keywordsParameters.keywords"
+      }
+    ],
+    [
+      "generateUnitKeywords",
+      {
+        "mount_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]",
+        "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]/mri:keyword",
+        "data_path": "identificationInfo.keywordsParameters.keywords"
+      }
+    ],
+    [
+      "generateDatasourceDistributions",
+      {
+        "template_xpath": "/mdb:MD_Metadata/mdb:distributionInfo[not(mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"])]",
+        "data_path": "dataSources"
+      }
+    ]
+  ]
 }

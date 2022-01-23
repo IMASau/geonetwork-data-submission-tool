@@ -409,11 +409,8 @@ def export2_imasParameterUnitAttributeGroup_handler(data, xml_node, spec, xml_kw
     """
     Add attribute group for parameter/unit combinations.
 
-
-
     Configured with xf_props
     - data_path - path to parameter table
-    - term_key - key in parameter table which has: Name, URI and optionally isUserDefined
     - mount_xpath - xpath where elements will be mounted
     - template_xpath - xpath to template.  First is used as a template.  All matches are removed.
 

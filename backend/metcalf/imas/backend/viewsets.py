@@ -112,10 +112,11 @@ class ParameterUnitNodeFilter(django_filters.FilterSet):
 class ParameterUnitViewSet(viewsets.ModelViewSet):
     queryset = models.ParameterUnit.objects.all().order_by('Name')
     serializer_class = serializers.ParameterUnitSerializer
-    filter_backends = (filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter, ParentFilter)
-    filter_class = ParameterUnitNodeFilter
-    search_fields = ('Name', 'Definition')
-    ordering_fields = ('tree_id', 'Name')
+    # filter_backends = (filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter, ParentFilter)
+    # filter_class = ParameterUnitNodeFilter
+    # search_fields = ('Name', 'Definition')
+    search_fields = ('Name',)
+    # ordering_fields = ('tree_id', 'Name')
 
 
 # TODO: Remove. Not used anymore since we pull from Elasticsearch.
@@ -133,8 +134,9 @@ class ParameterInstrumentViewSet(viewsets.ModelViewSet):
     queryset = models.ParameterInstrument.objects.all().order_by('Name')
     serializer_class = serializers.ParameterInstrumentSerializer
     filter_backends = (filters.SearchFilter, DjangoFilterBackend, ParentFilter)
-    filter_class = ParameterInstrumentNodeFilter
-    search_fields = ('Name', 'Definition')
+    # filter_class = ParameterInstrumentNodeFilter
+    # search_fields = ('Name', 'Definition')
+    search_fields = ('Name',)
 
 
 # TODO: Remove. Not used anymore since we pull from Elasticsearch.
@@ -152,6 +154,7 @@ class ParameterPlatformViewSet(viewsets.ModelViewSet):
     queryset = models.ParameterPlatform.objects.all().order_by('Name')
     serializer_class = serializers.ParameterPlatformSerializer
     filter_backends = (filters.SearchFilter, DjangoFilterBackend, ParentFilter)
-    filter_class = ParameterPlatformNodeFilter
+    # filter_class = ParameterPlatformNodeFilter
     ordering_fields = ['Name']
-    search_fields = ('Name', 'Definition')
+    # search_fields = ('Name', 'Definition')
+    search_fields = ('Name',)

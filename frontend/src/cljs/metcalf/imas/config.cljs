@@ -107,6 +107,7 @@
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
+(rf/reg-sub ::components4/is-item-added? subs4/form-state-signal subs4/is-item-added?)
 (rf/reg-sub ::components4/get-list-edit-can-save-sub subs4/form-state-signal subs4/get-list-edit-can-save-sub)
 (rf/reg-sub ::components4/has-block-errors? subs4/form-state-signal subs4/has-block-errors?)
 (rf/reg-sub ::components4/has-selected-block-errors? subs4/form-state-signal subs4/has-selected-block-errors?)
@@ -804,9 +805,9 @@
          ; TODO: Rename to something shorter
          :placeholder-record? true
          :columns             [{:columnHeader "Name" :flex 1 :label-path ["longName_term" "Name"]}
-                               {:columnHeader "Units" :flex 1 :label-path ["unit_term"]}
-                               {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term"]}
-                               {:columnHeader "Platform" :flex 1 :label-path ["platform_term"]}]}]]
+                               {:columnHeader "Units" :flex 1 :label-path ["unit_term" "Name"]}
+                               {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term" "Name"]}
+                               {:columnHeader "Platform" :flex 1 :label-path ["platform_term" "Name"]}]}]]
 
       [m4/list-add-button
        {:form-id     [:form]
@@ -930,6 +931,46 @@
     ;:test/long-name
     ;[:div "Setting longName."]
 
+    :parameter-name/user-defined-entry-form
+    [:div
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "Name"]}
+      [m4/input-field
+       {:form-id     ?form-id
+        :data-path   [?data-path "Name"]
+        :placeholder "Name in dataset (optional)"}]]]
+
+    :parameter-unit/user-defined-entry-form
+    [:div
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "Name"]}
+      [m4/input-field
+       {:form-id     ?form-id
+        :data-path   [?data-path "Name"]
+        :placeholder "Name in dataset (optional)"}]]]
+
+    :parameter-instrument/user-defined-entry-form
+    [:div
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "Name"]}
+      [m4/input-field
+       {:form-id     ?form-id
+        :data-path   [?data-path "Name"]
+        :placeholder "Name in dataset (optional)"}]]]
+
+    :parameter-platform/user-defined-entry-form
+    [:div
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "Name"]
+       :label     "Parameter platform"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "Name"]}]]]
+
     :data-parameter/user-defined-entry-form
     [:div
 
@@ -937,90 +978,111 @@
       {:form-id   ?form-id
        :data-path [?data-path "longName_term"]
        :label     "Name"}
-      [m4/async-select-option-simple
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id     ?form-id
+          :data-path   [?data-path "longName_term"]
+          :uri         "/api/parametername"
+          :label-path  ["Name"]
+          :value-path  ["URI"]
+          :added-path  ["isUserDefined"]
+          :placeholder "Select..."}]]
+       [m4/item-dialog-button
+        {:form-id    ?form-id
+         :data-path  [?data-path "longName_term"]
+         :value-path ["URI"]
+         :added-path ["isUserDefined"]}]]
+
+      [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "longName_term"]
-        :uri         "/api/parametername"
-        :label-path  ["Name"]
-        :value-path  ["URI"]
-        :added-path  ["isUserDefined"]
-        :placeholder "Select..."}]]
+        :title       "Define a custom parameter name"
+        :template-id :parameter-name/user-defined-entry-form}]]
 
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "name"]}
+      [m4/input-field
+       {:form-id     ?form-id
+        :data-path   [?data-path "name"]
+        :placeholder "Name in dataset (optional)"}]]
 
-     ;[m4/item-add-button
-     ;   {:form-id    ?form-id
-     ;    :data-path  [?data-path "longName_term"]
-     ;    :text       "Browse"
-     ;    :value-path ["longName_term"]
-     ;    :added-path ["isUserDefined"]}]
-     ;
-     ;[m4/edit-dialog
-     ;   {:form-id     ?form-id
-     ;    :data-path   [?data-path "longName_term"]
-     ;    :title       "LONG NAME"
-     ;    :template-id :test/long-name}]
-     ;
-     ;[m4/input-field
-     ;   {:form-id     ?form-id
-     ;    :data-path   [?data-path "name"]
-     ;    :placeholder "Name in dataset (optional)"}]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "unit_term"]
+       :label     "Unit"}
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id     ?form-id
+          :data-path   [?data-path "unit_term"]
+          :uri         "/api/parameterunit"
+          :label-path  ["Name"]
+          :value-path  ["URI"]
+          :added-path  ["isUserDefined"]
+          :placeholder "Select..."}]]
+       [m4/item-dialog-button
+        {:form-id    ?form-id
+         :data-path  [?data-path "unit_term"]
+         :value-path ["URI"]
+         :added-path ["isUserDefined"]}]]
+      [m4/edit-dialog
+       {:form-id     ?form-id
+        :data-path   [?data-path "unit_term"]
+        :title       "Define a custom parameter unit"
+        :template-id :parameter-unit/user-defined-entry-form}]]
 
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "instrument_term"]
+       :label     "Instrument"}
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id     ?form-id
+          :data-path   [?data-path "instrument_term"]
+          :uri         "/api/parameterinstrument"
+          :label-path  ["Name"]
+          :value-path  ["URI"]
+          :added-path  ["isUserDefined"]
+          :placeholder "Select..."}]]
+       [m4/item-dialog-button
+        {:form-id    ?form-id
+         :data-path  [?data-path "instrument_term"]
+         :value-path ["URI"]
+         :added-path ["isUserDefined"]}]]
+      [m4/edit-dialog
+       {:form-id     ?form-id
+        :data-path   [?data-path "instrument_term"]
+        :title       "Define a custom parameter instrument"
+        :template-id :parameter-instrument/user-defined-entry-form}]]
 
-     ; [m4/form-group
-     ;  {:form-id   ?form-id
-     ;   :data-path [?data-path "unit_term"]
-     ;   :label     "Unit"}
-     ;  [m4/async-select-option-simple
-     ;   {:form-id     ?form-id
-     ;    :data-path   [?data-path "unit_term"]
-     ;    :uri         "/api/parameterunit"
-     ;    :label-path  ["label"]
-     ;    :value-path  ["value"]
-     ;    :placeholder "Select..."}]
-     ;  [m4/list-add-button
-     ;   {:form-id    ?form-id
-     ;    :data-path  [?data-path "unit_term"]
-     ;    :text       "Browse"
-     ;    :value-path ["value"]}]]
-     ;
-     ; [m4/form-group
-     ;  {:form-id   ?form-id
-     ;   :data-path [?data-path "instrument_term"]
-     ;   :label     "Instrument"}
-     ;  [m4/async-select-option-simple
-     ;   {:form-id     ?form-id
-     ;    :data-path   [?data-path "instrument_term"]
-     ;    :uri         "/api/parameterinstrument"
-     ;    :label-path  ["label"]
-     ;    :value-path  ["uri"]
-     ;    :added-path  ["isUserDefined"]
-     ;    :placeholder "Select..."}]
-     ;  [m4/list-add-button
-     ;   {:form-id    ?form-id
-     ;    :data-path  [?data-path "instrument_term"]
-     ;    :text       "Browse"
-     ;    :value-path ["uri"]
-     ;    :added-path ["isUserDefined"]}]]
-     ;
-     ; [m4/form-group
-     ;  {:form-id   ?form-id
-     ;   :data-path [?data-path "platform_term"]
-     ;   :label     "Platform"}
-     ;  [m4/async-select-option-simple
-     ;   {:form-id     ?form-id
-     ;    :data-path   [?data-path "platform_term"]
-     ;    :uri         "/api/parameterplatform"
-     ;    :label-path  ["label"]
-     ;    :value-path  ["uri"]
-     ;    :added-path  ["isUserDefined"]
-     ;    :placeholder "Select..."}]
-     ;  [m4/list-add-button
-     ;   {:form-id    ?form-id
-     ;    :data-path  [?data-path "platform_term"]
-     ;    :text       "Browse"
-     ;    :value-path ["uri"]
-     ;    :added-path ["isUserDefined"]}]]
-     ]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "platform_term"]
+       :label     "Platform"}
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id     ?form-id
+          :data-path   [?data-path "platform_term"]
+          :uri         "/api/parameterplatform"
+          :label-path  ["Name"]
+          :value-path  ["URI"]
+          :added-path  ["isUserDefined"]
+          :placeholder "Select..."}]]
+       [m4/item-dialog-button
+        {:form-id    ?form-id
+         :data-path  [?data-path "platform_term"]
+         :text       "Browse"
+         :value-path ["URI"]
+         :added-path ["isUserDefined"]}]]
+      [m4/edit-dialog
+       {:form-id     ?form-id
+        :data-path   [?data-path "platform_term"]
+        :title       "Define a custom parameter platform"
+        :template-id :parameter-platform/user-defined-entry-form}]]]
 
     ;
     ;:upload

@@ -328,13 +328,11 @@ def export2_imasGenerateKeywords_handler(data, xml_node, spec, xml_kwargs, handl
     """
     Append keyword for each parameter.
 
-
-
     Configured with xf_props
-    - data_path
-    - term_key
-    - mount_xpath
-    - template_xpath
+    - data_path - path to parameter table
+    - term_key - key in parameter table which has: Name, URI and optionally isUserDefined
+    - mount_xpath - xpath where elements will be mounted
+    - template_xpath - xpath to template.  First is used as a template.  All matches are removed.
 
     """
     xf_props = xform[1]

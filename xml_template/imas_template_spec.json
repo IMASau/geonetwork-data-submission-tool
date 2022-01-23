@@ -398,15 +398,68 @@
               "longName_term": {
                 "type": "object",
                 "properties": {
-                  "URI": {},
-                  "Name": {}
+                  "URI": {
+                    "type": "string"
+                  },
+                  "Name": {
+                    "type": "string"
+                  },
+                  "isUserDefined": {
+                    "type": "boolean"
+                  }
                 }
               },
-              "unit_term": {},
-              "instrument_term": {},
-              "platform_term": {},
-              "uri": {},
-              "isUserDefined": {}
+              "unit_term": {
+                "type": "object",
+                "properties": {
+                  "URI": {
+                    "type": "string"
+                  },
+                  "Name": {
+                    "type": "string"
+                  },
+                  "isUserDefined": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "instrument_term": {
+                "type": "object",
+                "properties": {
+                  "URI": {
+                    "type": "string"
+                  },
+                  "Name": {
+                    "type": "string"
+                  },
+                  "isUserDefined": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "platform_term": {
+                "type": "object",
+                "properties": {
+                  "URI": {
+                    "type": "string"
+                  },
+                  "Name": {
+                    "type": "string"
+                  },
+                  "isUserDefined": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "name": {
+                "type": "string"
+              },
+              "uri": {
+                "type": "string"
+              },
+              "isUserDefined": {
+                "type": "boolean"
+              }
             }
           }
         }

@@ -339,9 +339,9 @@ def export2_generateUnitKeywords_handler(data, xml_node, spec, xml_kwargs, handl
     mount_xpath = xf_props.get('mount_xpath', None)
     template_xpath = xf_props.get('template_xpath', None)
 
-    assert data_path is not None, "export2_generateParameterKeywords_handler: xf_props.data_path must be set"
-    assert mount_xpath is not None, "export2_generateParameterKeywords_handler: xf_props.mount_xpath must be set"
-    assert template_xpath is not None, "export2_generateParameterKeywords_handler: xf_props.template_xpath must be set"
+    assert data_path is not None, "export2_generateUnitKeywords_handler: xf_props.data_path must be set"
+    assert mount_xpath is not None, "export2_generateUnitKeywords_handler: xf_props.mount_xpath must be set"
+    assert template_xpath is not None, "export2_generateUnitKeywords_handler: xf_props.template_xpath must be set"
 
     hit, values = get_dotted_path(data, data_path)
     mount_nodes = xml_node.xpath(mount_xpath, **xml_kwargs)

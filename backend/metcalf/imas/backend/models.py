@@ -450,7 +450,6 @@ class ParameterUnit(ns_tree.NS_Node):
         return self.Definition
 
 
-# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 # https://vocabs.ands.org.au/aodn-instrument-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-instrument-vocabulary_version-1-0
 class ParameterInstrument(ns_tree.NS_Node):

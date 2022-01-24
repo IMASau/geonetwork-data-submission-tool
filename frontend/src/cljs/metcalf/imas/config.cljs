@@ -831,8 +831,7 @@
                     [:a {:href   "https://creativecommons.org/choose/"
                          :target "_blank"}
                      "Creative Commons"]]
-       :label      "License"
-       :required   true}
+       :label      "License"}
       [m4/select-option-simple
        {:form-id    [:form]
         :data-path  ["identificationInfo" "creativeCommons"]

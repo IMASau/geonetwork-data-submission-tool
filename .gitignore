@@ -33,3 +33,5 @@ clojure-*.edn
 /frontend/resources/public/css/images/[a-z]*.*
 /frontend/resources/public/resources/icons/[a-z]*.*
 es-data
+.lsp/
+.clj-kondo/

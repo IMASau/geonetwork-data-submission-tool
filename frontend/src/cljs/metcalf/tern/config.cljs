@@ -150,7 +150,8 @@
        "dateBeforeToday"   rules4/date-before-today
        "endPosition"       rules4/end-position
        "maintFreq"         rules4/maint-freq
-       "verticalRequired"  rules4/vertical-required})
+       "verticalRequired"  rules4/vertical-required
+       "maxKeywords"       rules4/tern-max-keywords})
 (set! low-code4/component-registry
       {
        'm4/async-simple-item-option-picker     {:view components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
@@ -579,7 +580,9 @@
        :required true}
 
       [m4/form-group
-       {:label "Select research theme keywords - maximum of 12 allowed"}
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "keywordsTheme" "keywords"]
+        :label     "Select research theme keywords - maximum of 12 allowed"}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
@@ -596,7 +599,9 @@
 
      [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
       [m4/form-group
-       {:label "Select research theme keywords - maximum of 12 allowed"}
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
+        :label     "Select research theme keywords - maximum of 12 allowed"}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]

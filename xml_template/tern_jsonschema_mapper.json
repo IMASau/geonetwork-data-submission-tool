@@ -1029,6 +1029,7 @@
             "keywords": {
               "xpath": "mri:keyword",
               "keep": false,
+              "rules": [{"maxKeywords": {"max-keywords": 12}}],
               "type": "array",
               "items": {
                 "type": "object",
@@ -1062,6 +1063,7 @@
               "xpath": "mri:keyword",
               "keep": false,
               "type": "array",
+              "rules": [{"maxKeywords": {"max-keywords": 12}}],
               "items": {
                 "type": "object",
                 "xpath": "mri:keyword",

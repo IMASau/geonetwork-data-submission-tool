@@ -432,42 +432,42 @@ def personFromData(data):
     return None
 
 
-def institutionFromData(data):
-    orgUri = data['organisationIdentifier']
-    city = None
-    if data.get('address', None):
-        city = data['address'].get('city', None)
-    if '||' in orgUri:
-        orgUri = orgUri[:orgUri.index('||')]
-    if orgUri:
-        try:
-            if city:
-                matchingOrg = Institution.objects.get(uri=orgUri, city=city)
-            else:
-                matchingOrg = Institution.objects.get(uri=orgUri)
-            if matchingOrg.isUserAdded:
-                matchingOrg.prefLabel = data['organisationName']
-                matchingOrg.organisationName = data['organisationName']
-                matchingOrg.administrativeArea = data['address']['administrativeArea']
-                matchingOrg.city = data['address']['city']
-                matchingOrg.postalCode = data['address']['postalCode']
-                matchingOrg.country = data['address']['country']
-                matchingOrg.deliveryPoint = data['address']['deliveryPoint']
-                matchingOrg.deliveryPoint2 = data['address']['deliveryPoint2']
-                matchingOrg.save()
-        except Institution.DoesNotExist:
-            inst = Institution.objects.create(uri=orgUri,
-                                              prefLabel=data['organisationName'],
-                                              altLabel=data['organisationName'],
-                                              organisationName=data['organisationName'],
-                                              administrativeArea=data['address']['administrativeArea'],
-                                              city=data['address']['city'],
-                                              postalCode=data['address']['postalCode'],
-                                              country=data['address']['country'],
-                                              deliveryPoint=data['address']['deliveryPoint'],
-                                              deliveryPoint2=data['address']['deliveryPoint2'],
-                                              isUserAdded=True)
-            inst.save()
+# def institutionFromData(data):
+#     orgUri = data['organisationIdentifier']
+#     city = None
+#     if data.get('address', None):
+#         city = data['address'].get('city', None)
+#     if '||' in orgUri:
+#         orgUri = orgUri[:orgUri.index('||')]
+#     if orgUri:
+#         try:
+#             if city:
+#                 matchingOrg = Institution.objects.get(uri=orgUri, city=city)
+#             else:
+#                 matchingOrg = Institution.objects.get(uri=orgUri)
+#             if matchingOrg.isUserAdded:
+#                 matchingOrg.prefLabel = data['organisationName']
+#                 matchingOrg.organisationName = data['organisationName']
+#                 matchingOrg.administrativeArea = data['address']['administrativeArea']
+#                 matchingOrg.city = data['address']['city']
+#                 matchingOrg.postalCode = data['address']['postalCode']
+#                 matchingOrg.country = data['address']['country']
+#                 matchingOrg.deliveryPoint = data['address']['deliveryPoint']
+#                 matchingOrg.deliveryPoint2 = data['address']['deliveryPoint2']
+#                 matchingOrg.save()
+#         except Institution.DoesNotExist:
+#             inst = Institution.objects.create(uri=orgUri,
+#                                               prefLabel=data['organisationName'],
+#                                               altLabel=data['organisationName'],
+#                                               organisationName=data['organisationName'],
+#                                               administrativeArea=data['address']['administrativeArea'],
+#                                               city=data['address']['city'],
+#                                               postalCode=data['address']['postalCode'],
+#                                               country=data['address']['country'],
+#                                               deliveryPoint=data['address']['deliveryPoint'],
+#                                               deliveryPoint2=data['address']['deliveryPoint2'],
+#                                               isUserAdded=True)
+#             inst.save()
 
 
 @login_required

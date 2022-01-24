@@ -129,10 +129,10 @@
    add more items once the length of array has exceeded the max."
   [block {:keys [max-keywords]}]
   (let [items    (blocks4/as-data block)
-        enabled? (< (count items) max-keywords)
-        props    {:disabled (not enabled?)}]
-    (-> block
-        (update-in [:props] merge props))))
+        enabled? (<= (count items) max-keywords)]
+    (cond-> block
+        (not enabled?)
+        (update-in [:props :errors] conj "Exceeded the maximum number of keywords"))))
 
 (defn required-at-least-one
   "Sometimes a requirement can have multiple possibilities, for example

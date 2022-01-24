@@ -485,7 +485,6 @@ class ParameterInstrument(ns_tree.NS_Node):
         return self.Definition
 
 
-# TODO: Remove. Not used anymore since we pull from Elasticsearch.
 # https://vocabs.ands.org.au/aodn-platform-vocabulary
 # http://vocabs.ands.org.au/repository/api/sparql/aodn_aodn-platform-vocabulary_version-1-2
 class ParameterPlatform(ns_tree.NS_Node):

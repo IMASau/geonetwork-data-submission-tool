@@ -456,9 +456,24 @@
           :data-path  ["identificationInfo" "status"]
           :value-path ["value"]
           :label-path ["label"]
-          :options    [{"value" "onGoing" "label" "ongoing"}
-                       {"value" "planned" "label" "planned"}
-                       {"value" "completed" "label" "completed"}]}]]]
+          :options    [{"value" "accepted" "label" "Accepted"}
+                       {"value" "completed" "label" "Completed"}
+                       {"value" "deprecated" "label" "Deprecated"}
+                       {"value" "final" "label" "Final"}
+                       {"value" "historicalArchive" "label" "Historical Archive"}
+                       {"value" "notAccepted" "label" "Not Accepted"}
+                       {"value" "obsolete" "label" "Obsolete"}
+                       {"value" "onGoing" "label" "Ongoing"}
+                       {"value" "pending" "label" "Pending"}
+                       {"value" "planned" "label" "Planned"}
+                       {"value" "proposed" "label" "Proposed"}
+                       {"value" "required" "label" "Required"}
+                       {"value" "retired" "label" "Retired"}
+                       {"value" "superseded" "label" "Superseded"}
+                       {"value" "tentative" "label" "Tentative"}
+                       {"value" "underDevelopment" "label" "Under Development"}
+                       {"value" "valid" "label" "Valid"}
+                       {"value" "withdrawn" "label" "Withdrawn"}]}]]]
       [:div
        [m4/form-group
         {:form-id    [:form]

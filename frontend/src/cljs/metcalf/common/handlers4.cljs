@@ -368,12 +368,16 @@
 
 (defn upload-file-drop
   [{:keys [db]} [_ config data]]
-  (let [{:keys [acceptedFiles]} data
-        doc-uuid (get-in db [:context :document :uuid])]
-    (assert (= 1 (count acceptedFiles)) "upload-file-drop expects a single file")
-    (actions4/upload-single-attachment {:db db} {:doc-uuid doc-uuid
-                                                 :file     (first acceptedFiles)
-                                                 :config   config})))
+  (let [{:keys [acceptedFiles rejectedFiles]} data
+        doc-uuid                              (get-in db [:context :document :uuid])]
+    (if (> (count rejectedFiles) 0)
+      (actions4/open-modal-action
+       {:db db}
+       {:type    :modal.type/alert
+        :message "Thumbnail must be an image"})
+      (actions4/upload-single-attachment {:db db} {:doc-uuid doc-uuid
+                                                   :file     (first acceptedFiles)
+                                                   :config   config}))))
 
 (defn upload-files-drop
   [{:keys [db]} [_ config data]]

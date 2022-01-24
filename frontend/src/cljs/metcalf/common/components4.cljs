@@ -69,7 +69,7 @@
               :required   required
               :disabled   disabled
               :hasError   show-errors?
-              :helperText (if show-errors? (string/join ". " errors) helperText)
+              :helperText (if show-errors? (string/join ". " errors) (r/as-element helperText))
               :toolTip    (r/as-element toolTip)
               :isAdded    false}]
             children))))
@@ -1716,14 +1716,16 @@
         {:strs [name]} item]
     (when-not is-hidden
       [:div
+       [:div.bp3-form-group
+        [ui-controls/Dropzone
+         {:disabled    disabled
+          :placeholder (r/as-element placeholder)
+          :maxFiles    1
+          :accept      "image/*"
+          :onDrop      #(rf/dispatch [::upload-file-drop config (js->clj % :keywordize-keys true)])}]]
        [ui-controls/InputField
         {:value    (or name "")
-         :disabled true}]
-       [ui-controls/Dropzone
-        {:disabled    disabled
-         :placeholder (r/as-element placeholder)
-         :maxFiles    1
-         :onDrop      #(rf/dispatch [::upload-file-drop config (js->clj % :keywordize-keys true)])}]])))
+         :disabled true}]])))
 
 
 (defn yes-no-radios-simple-settings

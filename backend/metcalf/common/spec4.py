@@ -330,8 +330,8 @@ def parse_keywords(x):
     return x.get('{http://www.w3.org/1999/xlink}href').split('/')[-1]
 
 
-def science_keyword_from_uuid(x):
-    return KWARGS['science_keyword'].objects.get(UUID=x).as_str()
+# def science_keyword_from_uuid(x):
+#     return KWARGS['science_keyword'].objects.get(UUID=x).as_str()
 
 
 def date_as_string(x):
@@ -422,31 +422,31 @@ def separate_organisation_identifier(x):
     return x
 
 
-def science_keyword_name(**kwargs):
-    assert kwargs['data'] != None, "data not provided"
-    assert kwargs['models'] != None, "models not provided"
-    data = kwargs['data']
-    models = kwargs['models']
-    keyword = models['backend']['sciencekeyword'].objects.get(pk=data)
-    return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
+# def science_keyword_name(**kwargs):
+#     assert kwargs['data'] != None, "data not provided"
+#     assert kwargs['models'] != None, "models not provided"
+#     data = kwargs['data']
+#     models = kwargs['models']
+#     keyword = models['backend']['sciencekeyword'].objects.get(pk=data)
+#     return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
 
 
-def science_keyword_uri(**kwargs):
-    assert kwargs['data'] != None, "data not provided"
-    assert kwargs['models'] != None, "models not provided"
-    data = kwargs['data']
-    models = kwargs['models']
-    keyword = models['backend']['sciencekeyword'].objects.get(pk=data)
-    return keyword.uri
+# def science_keyword_uri(**kwargs):
+#     assert kwargs['data'] != None, "data not provided"
+#     assert kwargs['models'] != None, "models not provided"
+#     data = kwargs['data']
+#     models = kwargs['models']
+#     keyword = models['backend']['sciencekeyword'].objects.get(pk=data)
+#     return keyword.uri
 
 
-def anzsrc_keyword_name(**kwargs):
-    assert kwargs['data'] != None, "data not provided"
-    assert kwargs['models'] != None, "models not provided"
-    data = kwargs['data']
-    models = kwargs['models']
-    keyword = models['backend']['anzsrckeyword'].objects.get(pk=data)
-    return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
+# def anzsrc_keyword_name(**kwargs):
+#     assert kwargs['data'] != None, "data not provided"
+#     assert kwargs['models'] != None, "models not provided"
+#     data = kwargs['data']
+#     models = kwargs['models']
+#     keyword = models['backend']['anzsrckeyword'].objects.get(pk=data)
+#     return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
 
 
 def anzsrc_uri(**kwargs):
@@ -562,7 +562,7 @@ SPEC_FUNCTIONS = {
     "prune_orcid_uri": prune_orcid_uri,
     "today": today,
     "parse_keywords": parse_keywords,
-    "science_keyword_from_uuid": science_keyword_from_uuid,
+    # "science_keyword_from_uuid": science_keyword_from_uuid,
     "date_as_string": date_as_string,
     "date_as_version": date_as_version,
     "has_geographic_coverage": has_geographic_coverage,
@@ -579,9 +579,9 @@ SPEC_FUNCTIONS = {
     "parse_organisation_identifier": parse_organisation_identifier,
     "parse_individual_orcid": parse_individual_orcid,
     "parse_number": parse_number,
-    "science_keyword_name": science_keyword_name,
-    "science_keyword_uri": science_keyword_uri,
-    "anzsrc_keyword_name": anzsrc_keyword_name,
+    # "science_keyword_name": science_keyword_name,
+    # "science_keyword_uri": science_keyword_uri,
+    # "anzsrc_keyword_name": anzsrc_keyword_name,
     "anzsrc_uri": anzsrc_uri,
     "parse_codeListValue": parse_codeListValue,
     "vocab_url": vocab_url,

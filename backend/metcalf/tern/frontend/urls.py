@@ -8,14 +8,14 @@ from metcalf.tern.frontend.views import *
 from metcalf.tern.frontend.viewsets import DocumentInfoViewSet
 
 router = routers.DefaultRouter()
-router.register(r'institution', viewsets.InstitutionViewSet)
-router.register(r'rolecode', viewsets.RoleCodeViewSet)
-router.register(r'parametername', viewsets.ParameterNameViewSet)
-router.register(r'parameterunit', viewsets.ParameterUnitViewSet)
-router.register(r'parameterinstrument', viewsets.ParameterInstrumentViewSet)
-router.register(r'parameterplatform', viewsets.ParameterPlatformViewSet)
-router.register(r'person', viewsets.PersonViewSet)
-router.register(r'topiccategory', viewsets.TopicCategoryViewSet)
+# router.register(r'institution', viewsets.InstitutionViewSet)
+# router.register(r'rolecode', viewsets.RoleCodeViewSet)
+# router.register(r'parametername', viewsets.ParameterNameViewSet)
+# router.register(r'parameterunit', viewsets.ParameterUnitViewSet)
+# router.register(r'parameterinstrument', viewsets.ParameterInstrumentViewSet)
+# router.register(r'parameterplatform', viewsets.ParameterPlatformViewSet)
+# router.register(r'person', viewsets.PersonViewSet)
+# router.register(r'topiccategory', viewsets.TopicCategoryViewSet)
 router.register(r'metadata-template', viewsets.MetadataTemplateViewSet)
 router.register(r'duma', viewsets.DumaDocumentViewSet, basename='duma')
 router.register(r'document-info', DocumentInfoViewSet)
@@ -63,9 +63,6 @@ urlpatterns = [
     path('api/terngeonetwork', geonetwork_entries),
     path('api/verticalcrs', tern_verticalcrs),
     path('api/horizontalcrs', tern_horizontalcrs),
-
-    # Dummy endpoints to be implemented
-    path('api/What9', tern_instruments),
 ]
 
 if settings.DEBUG:

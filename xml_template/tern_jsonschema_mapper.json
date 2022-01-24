@@ -88,10 +88,12 @@
       "xpath": "mdb:distributionInfo[not(mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"])]",
       "type": "array",
       "keep": false,
+      "deleteWhenEmpty": false,
       "items": {
         "xpath": "mdb:distributionInfo[not(mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"])]",
         "type": "object",
         "export": false,
+        "deleteWhenEmpty": false,
         "properties": {
           "uri": {
             "type": "string"
@@ -169,7 +171,11 @@
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
-              }
+              },
+              "site_uri": {"type":"string"},
+              "date_modified": {"type":"string"},
+              "date_created": {"type":"string"},
+              "is_dissolved": {"type":"string"}
             }
           },
           "transferOptions": {
@@ -1184,14 +1190,14 @@
           "!docstring": "What8",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]",
           "type": "object",
-          "export": false,
+          "deleteWhenEmpty": false,
           "properties": {
             "keywords": {
               "xpath": "mri:keyword",
-              "keep": false,
               "type": "array",
               "items": {
                 "type": "object",
+                "export": false,
                 "xpath": "mri:keyword",
                 "properties": {
                   "description": {
@@ -1235,6 +1241,9 @@
                       },
                       "isUserDefined": {
                         "type": "boolean"
+                      },
+                      "ucumCode": {
+                        "type": "string"
                       }
                     }
                   },
@@ -1251,7 +1260,16 @@
                         "function": "identity"
                       }
                     }
-                  }
+                  },
+                  "duma_path":{
+                    "type": "string"
+                  },
+                  "broader": {"type": "string"},
+                  "broader_chain": {"type": "string"},
+                  "broader_chain_label": {"type": "string"},
+                  "breadcrumb": {"type": "string"},
+                  "altLabel": {"type": "string"},
+                  "is_top_concept": {"type": "boolean"}
                 }
               }
             }
@@ -1455,9 +1473,9 @@
           "type": "object",
           "properties": {
             "label": {
-              "xpath": "gcx:Anchor"
+              "type": "string"
             },
-            "uri": {
+            "value": {
               "xpath": "gcx:Anchor",
               "attributes": {
                 "xlink:href": {

@@ -169,7 +169,11 @@
                 "type": "string",
                 "keep": false,
                 "valueChild": "gco:CharacterString"
-              }
+              },
+              "site_uri": {"type":"string"},
+              "date_modified": {"type":"string"},
+              "date_created": {"type":"string"},
+              "is_dissolved": {"type":"string"}
             }
           },
           "transferOptions": {
@@ -1236,6 +1240,9 @@
                       },
                       "isUserDefined": {
                         "type": "boolean"
+                      },
+                      "ucumCode": {
+                        "type": "string"
                       }
                     }
                   },
@@ -1252,7 +1259,16 @@
                         "function": "identity"
                       }
                     }
-                  }
+                  },
+                  "duma_path":{
+                    "type": "string"
+                  },
+                  "broader": {"type": "string"},
+                  "broader_chain": {"type": "string"},
+                  "broader_chain_label": {"type": "string"},
+                  "breadcrumb": {"type": "string"},
+                  "altLabel": {"type": "string"},
+                  "is_top_concept": {"type": "boolean"}
                 }
               }
             }

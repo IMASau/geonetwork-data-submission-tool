@@ -1144,7 +1144,6 @@
                 "xpath": "mri:keyword",
                 "properties": {
                   "breadcrumb": {},
-                  "serial": {},
                   "isUserDefined": {},
                   "userAddedCategory": {
                     "type": "string"
@@ -1163,7 +1162,6 @@
                     "type": "string"
                   },
                   "serial": {
-                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "uri": {

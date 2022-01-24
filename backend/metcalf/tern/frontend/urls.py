@@ -8,7 +8,7 @@ from metcalf.tern.frontend.views import *
 from metcalf.tern.frontend.viewsets import DocumentInfoViewSet
 
 router = routers.DefaultRouter()
-router.register(r'institution', viewsets.InstitutionViewSet)
+# router.register(r'institution', viewsets.InstitutionViewSet)
 router.register(r'rolecode', viewsets.RoleCodeViewSet)
 # router.register(r'parametername', viewsets.ParameterNameViewSet)
 # router.register(r'parameterunit', viewsets.ParameterUnitViewSet)

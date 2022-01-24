@@ -1780,12 +1780,20 @@
 
      [m4/form-group
       {:label "Security Classification"}
-      [m4/async-select-option-simple
+      [m4/select-option-simple
        {:form-id    [:form]
-        :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
-        :uri        "/api/What9"
+        :data-path  ["identificationInfo" "securityClassification"]
         :label-path ["label"]
-        :value-path ["uri"]}]]
+        :value-path ["value"]
+        :options    [{"label" "Unclassified" "value" "unclassified"}
+                     {"label" "Restricted" "value" "restricted"}
+                     {"label" "Confidential" "value" "confidential"}
+                     {"label" "Secret" "value" "secret"}
+                     {"label" "Top-Secret" "value" "topSecret"}
+                     {"label" "SBU" "value" "SBU"}
+                     {"label" "For Official Use Only" "value" "forOfficialUseOnly"}
+                     {"label" "Protected" "value" "protected"}
+                     {"label" "Limited Distribution" "value" "limitedDistribution"}]}]]
 
      [m4/expanding-control {:label "Environment Description (Optional)"}
       [m4/form-group

@@ -1472,9 +1472,9 @@
           "type": "object",
           "properties": {
             "label": {
-              "xpath": "gcx:Anchor"
+              "type": "string"
             },
-            "uri": {
+            "value": {
               "xpath": "gcx:Anchor",
               "attributes": {
                 "xlink:href": {

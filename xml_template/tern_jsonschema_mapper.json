@@ -1203,7 +1203,6 @@
                     "type": "string"
                   },
                   "symbol": {
-                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "source": {

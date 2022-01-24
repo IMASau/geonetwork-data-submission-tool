@@ -63,9 +63,6 @@ urlpatterns = [
     path('api/terngeonetwork', geonetwork_entries),
     path('api/verticalcrs', tern_verticalcrs),
     path('api/horizontalcrs', tern_horizontalcrs),
-
-    # Dummy endpoints to be implemented
-    path('api/What9', tern_instruments),
 ]
 
 if settings.DEBUG:

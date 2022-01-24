@@ -57,7 +57,7 @@ FormGroup.propTypes = {
     label: PropTypes.string,
     required: PropTypes.bool,
     toolTip: PropTypes.node,
-    helperText: PropTypes.string,
+    helperText: PropTypes.node,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
     isAdded: PropTypes.bool,

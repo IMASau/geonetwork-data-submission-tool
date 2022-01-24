@@ -8,17 +8,17 @@
     "gcx": "http://standards.iso.org/iso/19115/-3/gcx/1.0",
     "gex": "http://standards.iso.org/iso/19115/-3/gex/1.0",
     "lan": "http://standards.iso.org/iso/19115/-3/lan/1.0",
-    "srv": "http://standards.iso.org/iso/19115/-3/srv/2.0",
+    "srv": "http://standards.iso.org/iso/19115/-3/srv/2.1",
     "mas": "http://standards.iso.org/iso/19115/-3/mas/1.0",
     "mcc": "http://standards.iso.org/iso/19115/-3/mcc/1.0",
     "mco": "http://standards.iso.org/iso/19115/-3/mco/1.0",
-    "mda": "http://standards.iso.org/iso/19115/-3/mda/2.0",
+    "mda": "http://standards.iso.org/iso/19115/-3/mda/1.0",
     "mds": "http://standards.iso.org/iso/19115/-3/mds/2.0",
     "mdt": "http://standards.iso.org/iso/19115/-3/mdt/2.0",
     "mex": "http://standards.iso.org/iso/19115/-3/mex/1.0",
     "mmi": "http://standards.iso.org/iso/19115/-3/mmi/1.0",
     "mpc": "http://standards.iso.org/iso/19115/-3/mpc/1.0",
-    "mrc": "http://standards.iso.org/iso/19115/-3/mrc/1.0",
+    "mrc": "http://standards.iso.org/iso/19115/-3/mrc/2.0",
     "mrd": "http://standards.iso.org/iso/19115/-3/mrd/1.0",
     "mri": "http://standards.iso.org/iso/19115/-3/mri/1.0",
     "mrl": "http://standards.iso.org/iso/19115/-3/mrl/2.0",
@@ -54,6 +54,7 @@
       "rules": [
         "maintFreq",
         "endPosition",
+        "otherConstraintsLogic",
         {
           "dateOrder": {
             "field0": "beginPosition",
@@ -469,6 +470,26 @@
               }
             }
           }
+        },
+        "creativeCommons": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            },
+            "other": {
+              "type": "boolean"
+            }
+          },
+          "rules": [
+            "requiredField"
+          ]
+        },
+        "otherConstraints": {
+          "type": "string"
         }
       }
     },
@@ -687,6 +708,28 @@
         "term_key": "instrument_term",
         "mount_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor/@xlink:href=\"https://catalogue-imos.aodn.org.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-instrument-vocabulary\"]",
         "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor/@xlink:href=\"https://catalogue-imos.aodn.org.au/geonetwork/srv/eng/thesaurus.download?ref=external.theme.aodn_aodn-instrument-vocabulary\"]/mri:keyword"
+      }
+    ],
+    [
+      "imasParameterUnitAttributeGroup",
+      {
+        "data_path": "identificationInfo.dataParameters",
+        "mount_xpath": "/mdb:MD_Metadata/mdb:contentInfo/mrc:MD_CoverageDescription/mrc:attributeGroup/mrc:MD_AttributeGroup",
+        "template_xpath": "/mdb:MD_Metadata/mdb:contentInfo/mrc:MD_CoverageDescription/mrc:attributeGroup/mrc:MD_AttributeGroup/mrc:attribute"
+      }
+    ],
+    [
+      "imasParameterInstrumentAcquisitionInformation",
+      {
+        "data_path": "identificationInfo.dataParameters",
+        "mount_xpath": "/mdb:MD_Metadata/mdb:acquisitionInformation/mac:MI_AcquisitionInformation",
+        "template_xpath": "/mdb:MD_Metadata/mdb:acquisitionInformation/mac:MI_AcquisitionInformation/mac:platform"
+      }
+    ],
+    [
+      "imasLegalConstraints",
+      {
+        "node_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:resourceConstraints[mco:MD_LegalConstraints]"
       }
     ]
   ]

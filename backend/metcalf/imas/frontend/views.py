@@ -271,7 +271,10 @@ export2_handlers = {
     "set_text": xmlutils5.export2_set_text_handler,
     "remove_element": xmlutils5.export2_remove_element_handler,
     "append_items": xmlutils5.export2_append_items_handler,
-    "imasGenerateKeywords": xmlutils5.export2_imasGenerateKeywords_handler
+    "imasGenerateKeywords": xmlutils5.export2_imasGenerateKeywords_handler,
+    "imasParameterUnitAttributeGroup": xmlutils5.export2_imasParameterUnitAttributeGroup_handler,
+    "imasParameterInstrumentAcquisitionInformation": xmlutils5.export2_imasParameterInstrumentAcquisitionInformation_handler,
+    "imasLegalConstraints": xmlutils5.export2_imasLegalConstraints_handler
 }
 
 

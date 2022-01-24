@@ -47,9 +47,9 @@ from metcalf.tern.frontend.serializers import DocumentInfoSerializer, Attachment
     SiteContentSerializer, CreateDocumentSerializer
 
 
-def theme_keywords():
-    return ScienceKeyword.objects.all().exclude(Topic="").values_list(
-        'UUID', 'Topic', 'Term', 'VariableLevel1', 'VariableLevel2', 'VariableLevel3')
+# def theme_keywords():
+#     return ScienceKeyword.objects.all().exclude(Topic="").values_list(
+#         'UUID', 'Topic', 'Term', 'VariableLevel1', 'VariableLevel2', 'VariableLevel3')
 
 
 def anzsrc_keywords():

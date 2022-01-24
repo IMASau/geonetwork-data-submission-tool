@@ -14,7 +14,7 @@ python manage.py runserver
 
 Additional steps when setting up locally:
 
-### Load external sources
+### Load external sources (IMAS)
 ```
 python3 manage.py load_parameterunits
 python3 manage.py load_parameterplatforms

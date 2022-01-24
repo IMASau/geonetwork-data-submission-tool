@@ -57,9 +57,9 @@ def anzsrc_keywords():
         'UUID', 'Topic', 'Term', 'VariableLevel1', 'VariableLevel2', 'VariableLevel3')
 
 
-def topic_categories():
-    return TopicCategory.objects.all().values_list(
-        'identifier', 'name')
+# def topic_categories():
+#     return TopicCategory.objects.all().values_list(
+#         'identifier', 'name')
 
 
 def master_urls():

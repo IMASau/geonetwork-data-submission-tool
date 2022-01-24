@@ -31,12 +31,14 @@ build:
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
+		--user $(shell id -u) \
 		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn
 	# transpile js components
 	docker run --rm -it \
 		-v $(shell pwd):/tmp \
 		-w /tmp \
+		--user $(shell id -u) \
 		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn run build
 	# run shadow-cljs compile
@@ -44,6 +46,7 @@ build:
 		-v $(shell pwd):/tmp \
 		-v $${HOME}/.clojure:/root/.clojure \
 		-v $${HOME}/.m2:/root/.m2 \
+		--user $(shell id -u) \
 		theasp/clojurescript-nodejs:shadow-cljs-alpine \
 		yarn shadow-cljs compile tern
 

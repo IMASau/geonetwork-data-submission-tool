@@ -135,17 +135,18 @@
 ;(when goog/DEBUG (ins4/reg-global-singleton ins4/db-diff))
 ;(when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
-      {"requiredField"        rules4/required-field
-       "maxLength"            rules4/max-length
-       "geographyRequired"    rules4/geography-required
-       "imasVerticalRequired" rules4/imas-vertical-required
-       "licenseOther"         rules4/license-other
-       "dateOrder"            rules4/date-order
-       "endPosition"          rules4/end-position
-       "positive"             rules4/force-positive
-       "maintFreq"            rules4/maint-freq
-       "firstCommaLast"       rules4/first-comma-last
-       "validOrcid"           rules4/valid-ordid-uri})
+      {"requiredField"         rules4/required-field
+       "otherConstraintsLogic" rules4/other-constraints-logic
+       "maxLength"             rules4/max-length
+       "geographyRequired"     rules4/geography-required
+       "imasVerticalRequired"  rules4/imas-vertical-required
+       "licenseOther"          rules4/license-other
+       "dateOrder"             rules4/date-order
+       "endPosition"           rules4/end-position
+       "positive"              rules4/force-positive
+       "maintFreq"             rules4/maint-freq
+       "firstCommaLast"        rules4/first-comma-last
+       "validOrcid"            rules4/valid-ordid-uri})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)

@@ -41,6 +41,15 @@
                   (update-in [:props :errors] conj "This field is required"))))
     block))
 
+(defn other-constraints-logic
+  [block required]
+  (s/assert boolean? required)
+  (let [value (blocks4/as-data block)
+        other? (get-in value ["creativeCommons" "other"])]
+    (if other?
+      (update-in block [:content "otherConstraints" :props] assoc :required true)
+      (update-in block [:content "otherConstraints" :props] assoc :is-hidden true :value nil))))
+
 (defn first-comma-last
   "Raise an error if the string field value isn't formatted as 'last name, first name'"
   [block]

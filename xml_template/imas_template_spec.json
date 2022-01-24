@@ -54,6 +54,7 @@
       "rules": [
         "maintFreq",
         "endPosition",
+        "otherConstraintsLogic",
         {
           "dateOrder": {
             "field0": "beginPosition",
@@ -469,6 +470,26 @@
               }
             }
           }
+        },
+        "creativeCommons": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            },
+            "other": {
+              "type": "boolean"
+            }
+          },
+          "rules": [
+            "requiredField"
+          ]
+        },
+        "otherConstraints": {
+          "type": "string"
         }
       }
     },
@@ -703,6 +724,12 @@
         "data_path": "identificationInfo.dataParameters",
         "mount_xpath": "/mdb:MD_Metadata/mdb:acquisitionInformation/mac:MI_AcquisitionInformation",
         "template_xpath": "/mdb:MD_Metadata/mdb:acquisitionInformation/mac:MI_AcquisitionInformation/mac:platform"
+      }
+    ],
+    [
+      "imasLegalConstraints",
+      {
+        "node_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:resourceConstraints[mco:MD_LegalConstraints]"
       }
     ]
   ]

@@ -41,6 +41,17 @@
                   (update-in [:props :errors] conj "This field is required"))))
     block))
 
+(defn other-constraints-logic
+  [block required]
+  (s/assert boolean? required)
+  (let [value (blocks4/as-data block)
+        other? (get-in value ["creativeCommons" "other"])]
+    (if other?
+      ; NOTE: This rule acts "below" the block and so :required flag won't be seen by required-field processing.
+      ; Instead, we call required-field manually to set the flag and do the required check.
+      (update-in block [:content "otherConstraints"] required-field true)
+      (update-in block [:content "otherConstraints" :props] assoc :is-hidden true :value nil))))
+
 (defn first-comma-last
   "Raise an error if the string field value isn't formatted as 'last name, first name'"
   [block]

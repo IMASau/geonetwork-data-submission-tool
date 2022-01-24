@@ -401,7 +401,7 @@ class RoleCodeAdmin(admin.ModelAdmin):
     readonly_fields = ['UUID', 'Identifier', 'Description']
 
 
-admin.site.register(models.Institution, InstitutionAdmin)
+# admin.site.register(models.Institution, InstitutionAdmin)
 admin.site.register(models.Document, DocumentAdmin)
 admin.site.register(models.DataFeed, DataFeedAdmin)
 admin.site.register(models.UserInterfaceTemplate, UserInterfaceTemplateAdmin)
@@ -417,6 +417,6 @@ admin.site.register(models.AnzsrcKeyword, AnzsrcKeywordAdmin)
 # admin.site.register(models.ParameterPlatform, ParameterPlatformAdmin)
 # admin.site.register(models.RoleCode, RoleCodeAdmin)
 # admin.site.register(models.Person, PersonAdmin)
-admin.site.register(models.SamplingFrequency, SamplingFrequencyAdmin)
-admin.site.register(models.HorizontalResolution, HorizontalResolutionAdmin)
-admin.site.register(models.TopicCategory, TopicCategoryAdmin)
+# admin.site.register(models.SamplingFrequency, SamplingFrequencyAdmin)
+# admin.site.register(models.HorizontalResolution, HorizontalResolutionAdmin)
+# admin.site.register(models.TopicCategory, TopicCategoryAdmin)

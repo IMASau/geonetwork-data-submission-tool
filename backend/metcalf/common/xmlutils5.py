@@ -610,6 +610,74 @@ def export2_imasParameterInstrumentAcquisitionInformation_handler(data, xml_node
             i += 1
 
 
+imasLegalConstraintsLookup = {
+    'CC-BY': {
+        "uri": "https://creativecommons.org/licenses/by/4.0/",
+        "title": "Creative Commons Attribution 4.0 International License",
+        "alt_title": "CC-BY",
+        "edition": "4.0",
+        "graphic": "https://licensebuttons.net/l/by/4.0/88x31.png"
+    },
+    'CC-BY-NC': {
+        "uri": "https://creativecommons.org/licenses/by-nc/4.0/",
+        "title": "Creative Commons Attribution-NonCommercial 4.0 International License",
+        "alt_title": "CC-BY-NC",
+        "edition": "4.0",
+        "graphic": "https://licensebuttons.net/l/by-nc/4.0/88x31.png"}
+}
+
+
+def set_text_helper(xml_node, xpath, data, xml_kwargs):
+    nodes = xml_node.xpath(xpath, **xml_kwargs)
+    assert len(nodes) == 1, "Expected one node, found %s" % len(nodes)
+    nodes[0].text = str(data)
+
+
+def remove_element_helper(xml_node, xpath, xml_kwargs):
+    nodes = xml_node.xpath(xpath, **xml_kwargs)
+    assert len(nodes) == 1, "Expected one node to remove, found %s" % len(nodes)
+    for node in nodes:
+        node.getparent().remove(node)
+
+
+def export2_imasLegalConstraints_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
+    xf_props = xform[1]
+    node_xpath = xf_props.get('node_xpath', None)
+
+    cc_hit, creative_commons = get_dotted_path(data, 'identificationInfo.creativeCommons')
+    oc_hit, other_constraints = get_dotted_path(data, 'identificationInfo.otherConstraints')
+
+    if cc_hit:
+        cc_value = creative_commons.get('value')
+        constraints_key = 'CC-BY' if cc_value == 'OTHER' else cc_value
+        constraints = imasLegalConstraintsLookup.get(constraints_key)
+
+        nodes = xml_node.xpath(node_xpath, **xml_kwargs)
+        assert len(nodes) == 1
+
+        graphic_xpath = "mco:MD_LegalConstraints/mco:graphic/mcc:MD_BrowseGraphic/mcc:linkage/cit:CI_OnlineResource/cit:linkage/gco:CharacterString"
+        title_xpath = "mco:MD_LegalConstraints/mco:reference/cit:CI_Citation/cit:title/gco:CharacterString"
+        alt_title_xpath = "mco:MD_LegalConstraints/mco:reference/cit:CI_Citation/cit:alternateTitle/gco:CharacterString"
+        edition_xpath = "mco:MD_LegalConstraints/mco:reference/cit:CI_Citation/cit:edition/gco:CharacterString"
+        uri_xpath = "mco:MD_LegalConstraints/mco:reference/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString"
+        other_root_xpath = "mco:MD_LegalConstraints/mco:otherConstraints[2]"
+        other_value_xpath = "mco:MD_LegalConstraints/mco:otherConstraints[2]/gco:CharacterString"
+
+        set_text_helper(xml_node=nodes[0], xpath=graphic_xpath, data=constraints['graphic'], xml_kwargs=xml_kwargs)
+        set_text_helper(xml_node=nodes[0], xpath=title_xpath, data=constraints['title'], xml_kwargs=xml_kwargs)
+        set_text_helper(xml_node=nodes[0], xpath=alt_title_xpath, data=constraints['alt_title'], xml_kwargs=xml_kwargs)
+        set_text_helper(xml_node=nodes[0], xpath=edition_xpath, data=constraints['edition'], xml_kwargs=xml_kwargs)
+        set_text_helper(xml_node=nodes[0], xpath=uri_xpath, data=constraints['uri'], xml_kwargs=xml_kwargs)
+
+        if other_constraints:
+            set_text_helper(xml_node=nodes[0], xpath=other_value_xpath, data=other_constraints, xml_kwargs=xml_kwargs)
+        else:
+            remove_element_helper(xml_node=nodes[0], xpath=other_root_xpath, xml_kwargs=xml_kwargs)
+
+    else:
+        remove_element_helper(xml_node=xml_node, xpath=node_xpath, xml_kwargs=xml_kwargs)
+
+
 def export2_generateUnitKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
     """
     Append keyword for each unit (contained as a sub-child of parameter).

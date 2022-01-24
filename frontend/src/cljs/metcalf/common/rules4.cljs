@@ -47,7 +47,9 @@
   (let [value (blocks4/as-data block)
         other? (get-in value ["creativeCommons" "other"])]
     (if other?
-      (update-in block [:content "otherConstraints" :props] assoc :required true)
+      ; NOTE: This rule acts "below" the block and so :required flag won't be seen by required-field processing.
+      ; Instead, we call required-field manually to set the flag and do the required check.
+      (update-in block [:content "otherConstraints"] required-field true)
       (update-in block [:content "otherConstraints" :props] assoc :is-hidden true :value nil))))
 
 (defn first-comma-last

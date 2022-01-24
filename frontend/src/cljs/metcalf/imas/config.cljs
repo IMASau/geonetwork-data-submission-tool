@@ -135,17 +135,18 @@
 ;(when goog/DEBUG (ins4/reg-global-singleton ins4/db-diff))
 ;(when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
-      {"requiredField"        rules4/required-field
-       "maxLength"            rules4/max-length
-       "geographyRequired"    rules4/geography-required
-       "imasVerticalRequired" rules4/imas-vertical-required
-       "licenseOther"         rules4/license-other
-       "dateOrder"            rules4/date-order
-       "endPosition"          rules4/end-position
-       "positive"             rules4/force-positive
-       "maintFreq"            rules4/maint-freq
-       "firstCommaLast"       rules4/first-comma-last
-       "validOrcid"           rules4/valid-ordid-uri})
+      {"requiredField"         rules4/required-field
+       "otherConstraintsLogic" rules4/other-constraints-logic
+       "maxLength"             rules4/max-length
+       "geographyRequired"     rules4/geography-required
+       "imasVerticalRequired"  rules4/imas-vertical-required
+       "licenseOther"          rules4/license-other
+       "dateOrder"             rules4/date-order
+       "endPosition"           rules4/end-position
+       "positive"              rules4/force-positive
+       "maintFreq"             rules4/maint-freq
+       "firstCommaLast"        rules4/first-comma-last
+       "validOrcid"            rules4/valid-ordid-uri})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)
@@ -822,36 +823,37 @@
         :title       "Data parameter"
         :template-id :data-parameter/user-defined-entry-form}]]
 
-     ; [:h4 "Resource constraints"]
-     ; ;; FIXME license selection isn't being included in XML export.
-     ; [m4/form-group
-     ;  {:form-id   [:form]
-     ;   :data-path ["identificationInfo" "creativeCommons"]
-     ;   ; TODO: This looks like helperText
-     ;   :help      [:span "Learn more about which license is right for you at "
-     ;               [:a {:href   "https://creativecommons.org/choose/"
-     ;                    :target "_blank"}
-     ;                "Creative Commons"]]
-     ;   :label     "License"
-     ;   :required  true}
-     ;  [m4/select-option-simple
-     ;   {:form-id    [:form]
-     ;    :data-path  ["identificationInfo" "creativeCommons"]
-     ;    :value-path ["value"]
-     ;    :label-path ["label"]
-     ;    :options    [{"value" "http://creativecommons.org/licenses/by/4.0/" "label" "Creative Commons by Attribution (recommended​)"}
-     ;                 {"value" "http://creativecommons.org/licenses/by-nc/4.0/" "label" "Creative Commons, Non-commercial Use only"}
-     ;                 {"value" "http://creativecommons.org/licenses/other" "label" "Other constraints"}]}]]
-     ; [m4/form-group
-     ;  {:form-id   [:form]
-     ;   :data-path ["identificationInfo" "otherConstraints"]
-     ;   :label     "Additional license requirements"         ;; FIXME
-     ;   :required  true}
-     ;  [m4/input-field
-     ;   {:form-id     [:form]
-     ;    :data-path   ["identificationInfo" "otherConstraints"]
-     ;    :placeholder "Enter additional license requirements"}]]
-     ;
+     [:h4 "Resource constraints"]
+     [m4/form-group
+      {:form-id    [:form]
+       :data-path  ["identificationInfo" "creativeCommons"]
+       :helperText [:span "Learn more about which license is right for you at "
+                    [:a {:href   "https://creativecommons.org/choose/"
+                         :target "_blank"}
+                     "Creative Commons"]]
+       :label      "License"}
+      [m4/select-option-simple
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "creativeCommons"]
+        :value-path ["value"]
+        :label-path ["label"]
+        :options    [{"label" "Creative Commons Attribution 4.0 International License"
+                      "value" "CC-BY"}
+                     {"label" "Creative Commons Attribution-NonCommercial 4.0 International License"
+                      "value" "CC-BY-NC"}
+                     {"label" "Other constraints"
+                      "value" "OTHER"
+                      "other" true}]}]]
+
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "otherConstraints"]
+       :label     "Additional license requirements"}
+      [m4/input-field
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "otherConstraints"]
+        :placeholder "Enter additional license requirements"}]]
+
      ; [:label "Use limitations"]
      ; [m4/selection-list-values
      ;  {:form-id   [:form]

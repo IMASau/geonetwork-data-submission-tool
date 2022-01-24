@@ -150,7 +150,8 @@
        "dateBeforeToday"   rules4/date-before-today
        "endPosition"       rules4/end-position
        "maintFreq"         rules4/maint-freq
-       "verticalRequired"  rules4/vertical-required})
+       "verticalRequired"  rules4/vertical-required
+       "maxKeywords"       rules4/tern-max-keywords})
 (set! low-code4/component-registry
       {
        'm4/async-simple-item-option-picker     {:view components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
@@ -410,7 +411,8 @@
 
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "topicCategory"]}
+       :data-path ["identificationInfo" "topicCategory"]
+       :label     "Topic Category"}
       [m4/select-value
        {:form-id     [:form]
         :data-path   ["identificationInfo" "topicCategory"]
@@ -455,9 +457,24 @@
           :data-path  ["identificationInfo" "status"]
           :value-path ["value"]
           :label-path ["label"]
-          :options    [{"value" "onGoing" "label" "ongoing"}
-                       {"value" "planned" "label" "planned"}
-                       {"value" "completed" "label" "completed"}]}]]]
+          :options    [{"value" "accepted" "label" "Accepted"}
+                       {"value" "completed" "label" "Completed"}
+                       {"value" "deprecated" "label" "Deprecated"}
+                       {"value" "final" "label" "Final"}
+                       {"value" "historicalArchive" "label" "Historical Archive"}
+                       {"value" "notAccepted" "label" "Not Accepted"}
+                       {"value" "obsolete" "label" "Obsolete"}
+                       {"value" "onGoing" "label" "Ongoing"}
+                       {"value" "pending" "label" "Pending"}
+                       {"value" "planned" "label" "Planned"}
+                       {"value" "proposed" "label" "Proposed"}
+                       {"value" "required" "label" "Required"}
+                       {"value" "retired" "label" "Retired"}
+                       {"value" "superseded" "label" "Superseded"}
+                       {"value" "tentative" "label" "Tentative"}
+                       {"value" "underDevelopment" "label" "Under Development"}
+                       {"value" "valid" "label" "Valid"}
+                       {"value" "withdrawn" "label" "Withdrawn"}]}]]]
       [:div
        [m4/form-group
         {:form-id    [:form]
@@ -563,7 +580,9 @@
        :required true}
 
       [m4/form-group
-       {:label "Select research theme keywords - maximum of 12 allowed"}
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "keywordsTheme" "keywords"]
+        :label     "Select research theme keywords - maximum of 12 allowed"}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
@@ -580,7 +599,9 @@
 
      [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
       [m4/form-group
-       {:label "Select research theme keywords - maximum of 12 allowed"}
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
+        :label     "Select research theme keywords - maximum of 12 allowed"}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]

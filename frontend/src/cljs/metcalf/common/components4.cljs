@@ -69,7 +69,7 @@
               :required   required
               :disabled   disabled
               :hasError   show-errors?
-              :helperText (if show-errors? (string/join ". " errors) helperText)
+              :helperText (if show-errors? (string/join ". " errors) (r/as-element helperText))
               :toolTip    (r/as-element toolTip)
               :isAdded    false}]
             children))))

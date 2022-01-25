@@ -679,13 +679,14 @@
           :value-path    ["uri"]
           :item-defaults {"userAddedCategory" "instrument"}
           :added-path    ["isUserDefined"]}]]
-       [m4/selection-list-columns
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
-         :value-path ["uri"]
-         :added-path ["isUserDefined"]
-         :columns    [{:columnHeader "Instrument" :label-path ["label"] :flex 2}
-                      {:columnHeader "Serial no." :label-path ["serial"] :flex 3}]}]
+       [m4/selection-list-columns3
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "keywordsInstrument" "keywords"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]
+         :columns            [{:columnHeader "Instrument" :label-path ["label"] :flex 2}
+                              {:columnHeader "Serial no." :label-path ["serial"] :flex 3}]}]
        [m4/list-edit-dialog
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
@@ -713,13 +714,14 @@
           :value-path    ["uri"]
           :item-defaults {"userAddedCategory" "parameters"}
           :added-path    ["isUserDefined"]}]]
-       [m4/selection-list-columns
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
-         :value-path ["uri"]
-         :added-path ["isUserDefined"]
-         :columns    [{:columnHeader "Name" :label-path ["label"] :flex 2}
-                      {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]
+       [m4/selection-list-columns3
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]
+         :columns            [{:columnHeader "Name" :label-path ["label"] :flex 2}
+                              {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]
        [m4/list-edit-dialog
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
@@ -878,15 +880,16 @@
        [m4/form-group
         {:label    "Limits"
          :required true}
-        [m4/selection-list-columns
-         {:form-id    [:form]
-          :data-path  ["identificationInfo" "geographicElement" "boxes"]
-          :value-path ["uri"]
-          :added-path ["isUserDefined"]
-          :columns    [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
-                       {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
-                       {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
-                       {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
+        [m4/selection-list-columns3
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "geographicElement" "boxes"]
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :added-path         ["isUserDefined"]
+          :columns            [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
+                               {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
+                               {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
+                               {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
 
         [m4/list-add-button
          {:form-id     [:form]
@@ -1132,11 +1135,12 @@
      ;  :value-path ["uri"]
      ;  :added-path ["isUserDefined"]}]
      ;
-     ;[m4/selection-list-columns
+     ;[m4/selection-list-columns3
      ; {:form-id    [:form]
      ;  :data-path  ["identificationInfo" "PointOfContactForDataset"]
      ;  :label-path ["contact" "label"]
      ;  :value-path ["uri"]
+     ;  :random-uuid-value? true
      ;  :columns    [{:columnHeader "contact" :label-path ["contact" "label"] :flex 2}
      ;               {:columnHeader "role" :label-path ["role" "label"] :flex 3}]
      ;  :added-path ["isUserDefined"]}]
@@ -1620,10 +1624,11 @@
       [m4/form-group
        {:label    "Method documentation"
         :required true}
-       [m4/selection-list-columns
+       [m4/selection-list-columns3
         {:form-id    [:form]
          :data-path  ["resourceLineage" "onlineMethods"]
          :value-path ["uri"]
+         :random-uuid-value? true
          :added-path ["isUserDefined"]
          :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
                       {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
@@ -1725,13 +1730,14 @@
      [m4/form-group
       {:label    "Online data quality report"
        :required true}
-      [m4/selection-list-columns
-       {:form-id    [:form]
-        :data-path  ["dataQualityInfo" "onlineMethods"]
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]
-        :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                     {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+      [m4/selection-list-columns3
+       {:form-id            [:form]
+        :data-path          ["dataQualityInfo" "onlineMethods"]
+        :value-path         ["uri"]
+        :random-uuid-value? true
+        :added-path         ["isUserDefined"]
+        :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                             {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
 
       [m4/list-add-button
        {:form-id     [:form]
@@ -1837,13 +1843,14 @@
       [m4/form-group
        {:label    "Publication"
         :required true}
-       [m4/selection-list-columns
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "additionalPublications"]
-         :value-path ["uri"]
-         :added-path ["isUserDefined"]
-         :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                      {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+       [m4/selection-list-columns3
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "additionalPublications"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]
+         :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
 
        [m4/list-add-button
         {:form-id       [:form]
@@ -1958,14 +1965,15 @@
      [m4/form-group
       {:label    "Distributions"
        :required true}
-      [m4/selection-list-columns
-       {:form-id    [:form]
-        :data-path  ["dataSources"]
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]
-        :columns    [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
-                     {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}
-                     {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]
+      [m4/selection-list-columns3
+       {:form-id            [:form]
+        :data-path          ["dataSources"]
+        :value-path         ["uri"]
+        :random-uuid-value? true
+        :added-path         ["isUserDefined"]
+        :columns            [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
+                             {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}
+                             {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]
 
       [m4/list-add-button
        {:form-id     [:form]

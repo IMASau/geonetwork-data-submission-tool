@@ -176,8 +176,7 @@
        'm4/item-add-button                     {:view components4/item-add-button :init components4/item-add-button-settings}
        'm4/item-dialog-button                  {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/edit-dialog                         {:view components4/edit-dialog :init components4/edit-dialog-settings}
-       'm4/list-add-button                     {:view components4/list-add-button :init components4/list-add-button-settings}
-       'm4/list-add-button3                    {:view components4/list-add-button3 :init components4/list-add-button3-settings}
+       'm4/list-add-button                     {:view components4/list-add-button3 :init components4/list-add-button3-settings}
        'm4/value-list-add-button               {:view components4/value-list-add-button :init components4/value-list-add-button-settings}
        'm4/list-edit-dialog                    {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
        'm4/typed-list-edit-dialog              {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
@@ -429,11 +428,12 @@
           :random-uuid-value?  true}]]
 
        [m4/list-add-button
-        {:form-id     [:form]
-         :data-path   ["identificationInfo" "geographicElement" "boxes"]
-         :button-text "Add new"
-         :value-path  ["uri"]
-         :added-path  ["isUserDefined"]}]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "geographicElement" "boxes"]
+         :button-text        "Add new"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]
 
        [m4/list-edit-dialog
         {:form-id     [:form]
@@ -561,11 +561,12 @@
          :random-uuid-value?  true}]]
 
       [m4/list-add-button
-       {:form-id     [:form]
-        :data-path   ["pointOfContact"]
-        :button-text "Add person"
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]}]
+       {:form-id            [:form]
+        :data-path          ["pointOfContact"]
+        :button-text        "Add person"
+        :value-path         ["uri"]
+        :random-uuid-value? true
+        :added-path         ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -592,11 +593,12 @@
          :random-uuid-value?  true}]]
 
       [m4/list-add-button
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "citedResponsibleParty"]
-        :button-text "Add person"
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]}]
+       {:form-id            [:form]
+        :data-path          ["identificationInfo" "citedResponsibleParty"]
+        :button-text        "Add person"
+        :value-path         ["uri"]
+        :random-uuid-value? true
+        :added-path         ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -816,11 +818,12 @@
                                {:columnHeader "Platform" :flex 1 :label-path ["platform_term" "Name"]}]}]]
 
       [m4/list-add-button
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "dataParameters"]
-        :button-text "Add data parameter"
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]}]
+       {:form-id            [:form]
+        :data-path          ["identificationInfo" "dataParameters"]
+        :button-text        "Add data parameter"
+        :value-path         ["uri"]
+        :random-uuid-value? true
+        :added-path         ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -895,7 +898,7 @@
                               {:columnHeader "URL" :label-path ["url"] :flex 1}]
         :placeholder-record? true}]]
 
-     [m4/list-add-button3
+     [m4/list-add-button
       {:form-id     [:form]
        :data-path   ["identificationInfo" "supportingResources"]
        :button-text "Add"}]

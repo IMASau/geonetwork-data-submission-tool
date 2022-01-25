@@ -176,8 +176,7 @@
        'm4/item-add-button                     {:view components4/item-add-button :init components4/item-add-button-settings}
        'm4/item-dialog-button                  {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/edit-dialog                         {:view components4/edit-dialog :init components4/edit-dialog-settings}
-       'm4/list-add-button                     {:view components4/list-add-button :init components4/list-add-button-settings}
-       'm4/list-add-button3                    {:view components4/list-add-button3 :init components4/list-add-button3-settings}
+       'm4/list-add-button                     {:view components4/list-add-button3 :init components4/list-add-button3-settings}
        'm4/value-list-add-button               {:view components4/value-list-add-button :init components4/value-list-add-button-settings}
        'm4/list-edit-dialog                    {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
        'm4/typed-list-edit-dialog              {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
@@ -638,12 +637,13 @@
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button
-         {:form-id       [:form]
-          :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
-          :button-text   "Add"
-          :value-path    ["uri"]
-          :item-defaults {"userAddedCategory" "platform"}
-          :added-path    ["isUserDefined"]}]]
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "keywordsPlatform" "keywords"]
+          :button-text        "Add"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :item-defaults      {"userAddedCategory" "platform"}
+          :added-path         ["isUserDefined"]}]]
 
        [m4/selection-list-simple
         {:form-id    [:form]
@@ -672,12 +672,13 @@
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button
-         {:form-id       [:form]
-          :data-path     ["identificationInfo" "keywordsInstrument" "keywords"]
-          :button-text   "Add"
-          :value-path    ["uri"]
-          :item-defaults {"userAddedCategory" "instrument"}
-          :added-path    ["isUserDefined"]}]]
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "keywordsInstrument" "keywords"]
+          :button-text        "Add"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :item-defaults      {"userAddedCategory" "instrument"}
+          :added-path         ["isUserDefined"]}]]
        [m4/selection-list-columns
         {:form-id            [:form]
          :data-path          ["identificationInfo" "keywordsInstrument" "keywords"]
@@ -707,12 +708,13 @@
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button
-         {:form-id       [:form]
-          :data-path     ["identificationInfo" "keywordsParameters" "keywords"]
-          :button-text   "Add"
-          :value-path    ["uri"]
-          :item-defaults {"userAddedCategory" "parameters"}
-          :added-path    ["isUserDefined"]}]]
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
+          :button-text        "Add"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :item-defaults      {"userAddedCategory" "parameters"}
+          :added-path         ["isUserDefined"]}]]
        [m4/selection-list-columns
         {:form-id            [:form]
          :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
@@ -891,11 +893,12 @@
                                {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
 
         [m4/list-add-button
-         {:form-id     [:form]
-          :data-path   ["identificationInfo" "geographicElement" "boxes"]
-          :button-text "Add"
-          :value-path  ["uri"]
-          :added-path  ["isUserDefined"]}]
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "geographicElement" "boxes"]
+          :button-text        "Add"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :added-path         ["isUserDefined"]}]
 
         [m4/list-edit-dialog
          {:form-id     [:form]
@@ -1050,22 +1053,24 @@
         "More than one person or an organisation can be included as well."]
 
        [m4/list-add-button
-        {:form-id       [:form]
-         :data-path     ["identificationInfo" "citedResponsibleParty"]
-         :button-text   "Add person"
-         :value-path    ["uri"]
-         :added-path    ["isUserDefined"]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "citedResponsibleParty"]
+         :button-text        "Add person"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]
          ;; FIXME: Add userAddedCategory to item defaults?
-         :item-defaults {"partyType" "person"}}]
+         :item-defaults      {"partyType" "person"}}]
 
        [m4/list-add-button
-        {:form-id       [:form]
-         :data-path     ["identificationInfo" "citedResponsibleParty"]
-         :button-text   "Add organisation"
-         :value-path    ["uri"]
-         :added-path    ["isUserDefined"]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "citedResponsibleParty"]
+         :button-text        "Add organisation"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]
          ;; FIXME: Add userAddedCategory to item defaults?
-         :item-defaults {"partyType" "organisation"}}]
+         :item-defaults      {"partyType" "organisation"}}]
 
        [m4/selection-list-template
         {:form-id     [:form]
@@ -1092,22 +1097,24 @@
         "Please assign a persona and/or an organisation as the point of contact.  More than one person or organisation can be included."]
 
        [m4/list-add-button
-        {:form-id       [:form]
-         :data-path     ["identificationInfo" "pointOfContact"]
-         :button-text   "Add person"
-         :value-path    ["uri"]
-         :added-path    ["isUserDefined"]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "pointOfContact"]
+         :button-text        "Add person"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]
          ;; FIXME: Add userAddedCategory to item defaults?
-         :item-defaults {"partyType" "person"}}]
+         :item-defaults      {"partyType" "person"}}]
 
        [m4/list-add-button
-        {:form-id       [:form]
-         :data-path     ["identificationInfo" "pointOfContact"]
-         :button-text   "Add organisation"
-         :value-path    ["uri"]
-         :added-path    ["isUserDefined"]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "pointOfContact"]
+         :button-text        "Add organisation"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]
          ;; FIXME: Add userAddedCategory to item defaults?
-         :item-defaults {"partyType" "organisation"}}]
+         :item-defaults      {"partyType" "organisation"}}]
 
        [m4/selection-list-template
         {:form-id     [:form]
@@ -1633,12 +1640,13 @@
                               {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
 
        [m4/list-add-button
-        {:form-id       [:form]
-         :data-path     ["resourceLineage" "onlineMethods"]
-         :button-text   "Add"
-         :value-path    ["uri"]
-         :item-defaults {"userAddedCategory" "onlineMethods"}
-         :added-path    ["isUserDefined"]}]
+        {:form-id            [:form]
+         :data-path          ["resourceLineage" "onlineMethods"]
+         :button-text        "Add"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "onlineMethods"}
+         :added-path         ["isUserDefined"]}]
 
        [m4/list-edit-dialog
         {:form-id     [:form]
@@ -1739,12 +1747,13 @@
                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
 
       [m4/list-add-button
-       {:form-id     [:form]
-        :data-path   ["dataQualityInfo" "onlineMethods"]
-        :button-text "Add"
-        :value-path  ["uri"]
+       {:form-id            [:form]
+        :data-path          ["dataQualityInfo" "onlineMethods"]
+        :button-text        "Add"
+        :value-path         ["uri"]
+        :random-uuid-value? true
         ;; :item-defaults {"userAddedCategory" "onlineMethods"}
-        :added-path  ["isUserDefined"]}]
+        :added-path         ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -1852,12 +1861,13 @@
                               {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
 
        [m4/list-add-button
-        {:form-id       [:form]
-         :data-path     ["identificationInfo" "additionalPublications"]
-         :button-text   "Add"
-         :value-path    ["uri"]
-         :item-defaults {"userAddedCategory" "additionalPublications"}
-         :added-path    ["isUserDefined"]}]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "additionalPublications"]
+         :button-text        "Add"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "additionalPublications"}
+         :added-path         ["isUserDefined"]}]
 
        [m4/list-edit-dialog
         {:form-id     [:form]
@@ -1975,11 +1985,12 @@
                              {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]
 
       [m4/list-add-button
-       {:form-id     [:form]
-        :data-path   ["dataSources"]
-        :button-text "Add"
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]}]
+       {:form-id            [:form]
+        :data-path          ["dataSources"]
+        :button-text        "Add"
+        :value-path         ["uri"]
+        :random-uuid-value? true
+        :added-path         ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]

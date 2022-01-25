@@ -593,6 +593,30 @@
           "requiredField"
         ]
       }
+    },
+    "distributionInfo": {
+      "xpath": "mdb:distributionInfo/mrd:MD_Distribution",
+      "type": "object",
+      "properties": {
+        "distributionFormat": {
+          "xpath": "mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation",
+          "type": "object",
+          "properties": {
+            "title": {
+              "xpath": "cit:title",
+              "rules": [{"maxLength": 100}],
+              "valueChild": "gco:CharacterString",
+              "type": "string"
+            },
+            "edition": {
+              "xpath": "cit:edition",
+              "rules": [{"maxLength": 20}],
+              "valueChild": "gco:CharacterString",
+              "type": "string"
+            }
+          }
+        }
+      }
     }
   },
   "$defs": {

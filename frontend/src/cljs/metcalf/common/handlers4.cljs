@@ -78,6 +78,17 @@
         (actions4/set-data-action form-id data-path defaults)
         (actions4/dialog-open-action form-id data-path))))
 
+(defn item-add-with-defaults-click-handler2
+  [{:keys [db]} [_ props]]
+  (let [{:keys [form-id data-path value-path added-path random-uuid-value?]} props
+        defaults (-> {}
+                     (cond-> random-uuid-value? (assoc-in value-path (str (random-uuid))))
+                     (cond-> added-path (assoc-in added-path true)))]
+    (-> {:db db}
+        (actions4/save-snapshot-action form-id)
+        (actions4/set-data-action form-id data-path defaults)
+        (actions4/dialog-open-action form-id data-path))))
+
 (defn item-edit-click-handler
   [{:keys [db]} [_ props]]
   (let [{:keys [form-id data-path]} props]

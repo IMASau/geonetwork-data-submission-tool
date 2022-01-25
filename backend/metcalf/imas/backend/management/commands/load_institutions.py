@@ -220,7 +220,7 @@ class Command(BaseCommand):
         response.encoding = encoding
         response.raw.readline()  # "Export OF QUERY RESULTS FROM EDMO."
         # reader = csv.DictReader(open("edmo_export.csv"), skipinitialspace=True)
-        reader = csv.DictReader(response.raw, skipinitialspace=True)
+        reader = csv.DictReader(io.StringIO(response.text, newline=""), skipinitialspace=True)
         for row in reader:
             yield dict(URL=use_enc(row['URL']).strip(),
                        Name=use_enc(row['Name']).strip(),

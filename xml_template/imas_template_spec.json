@@ -501,6 +501,17 @@
             "keep": "false",
             "xpath": "mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation/gco:CharacterString"
           }
+        },
+        "supplementalInformation": {
+          "xpath": "mri:supplementalInformation/gco:CharacterString",
+          "type": "array",
+          "items": {
+            "xpath": "mri:supplementalInformation/gco:CharacterString",
+            "type": "string",
+            "rules": [
+              "requiredField"
+            ]
+          }
         }
       }
     },

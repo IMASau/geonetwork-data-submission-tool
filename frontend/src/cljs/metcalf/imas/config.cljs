@@ -865,16 +865,19 @@
 
      ; [:hr]
      ;
-     ; [:h4 "Supplemental information"]
-     ; [:label "Publications associated with dataset"]
-     ; [m4/selection-list-values
-     ;  {:form-id   [:form]
-     ;   :data-path ["identificationInfo" "supplementalInformation"]}]
-     ; [m4/text-add-button
-     ;  {:form-id     [:form]
-     ;   :data-path   ["identificationInfo" "supplementalInformation"]
-     ;   :button-text "Add"}]
-     ;
+     [:h4 "Supplemental information"]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "supplementalInformation"]
+       :label     "Publications associated with the dataset"}
+      [m4/selection-list-values
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "supplementalInformation"]}]
+      [m4/text-add-button
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "supplementalInformation"]
+        :button-text "Add publication"}]]
+
      ; [:label "Supporting resources"]
      ; [m4/selection-list-columns
      ;  {:form-id    [:form]

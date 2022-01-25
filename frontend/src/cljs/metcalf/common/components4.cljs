@@ -38,7 +38,7 @@
   "Settings for form group"
   [{:keys [data-path]}]
   {::low-code4/req-ks []
-   ::low-code4/opt-ks [:label :form-id :data-path :helperText :toolTip]})
+   ::low-code4/opt-ks [:label :form-id :data-path :helperText :toolTip :added-path]})
 
 (defn form-group
   "This component is a lightweight wrapper around its children with props for the label above and helper text below.
@@ -49,6 +49,7 @@
    * label is an optional string displayed above the controls
    * helperText is an optional string displayed below the controls
    * toolTip is a string or hiccup.  Only displayed if label is set.
+   * added-path - path to data which indicates data is 'added'.  Used to style control.
 
    Logic can control how the form-group is rendered.  Uses form-id and data-path to access block props.
    * required - show that field is required
@@ -61,7 +62,8 @@
    "
   [config & children]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [label helperText toolTip required disabled is-hidden show-errors? errors]} props
+        value @(rf/subscribe [::get-block-data config])
+        {:keys [label helperText toolTip required disabled is-hidden show-errors? errors added-path]} props
         label (get config :label label)]
     (when-not is-hidden
       (into [ui-controls/FormGroup
@@ -71,7 +73,7 @@
               :hasError   show-errors?
               :helperText (if show-errors? (string/join ". " errors) (r/as-element helperText))
               :toolTip    (r/as-element toolTip)
-              :isAdded    false}]
+              :isAdded    (and (seq added-path) (get-in value added-path))}]
             children))))
 
 (defn inline-form-group-settings

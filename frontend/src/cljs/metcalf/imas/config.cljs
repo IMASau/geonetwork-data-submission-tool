@@ -35,6 +35,7 @@
 (rf/reg-event-fx ::components4/edit-dialog-save handlers4/edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/list-add-with-defaults-click-handler3 handlers4/list-add-with-defaults-click-handler3)
 (rf/reg-event-fx ::components4/value-list-add-with-defaults-click-handler handlers4/value-list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-cancel-handler)
@@ -176,6 +177,7 @@
        'm4/item-dialog-button                  {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/edit-dialog                         {:view components4/edit-dialog :init components4/edit-dialog-settings}
        'm4/list-add-button                     {:view components4/list-add-button :init components4/list-add-button-settings}
+       'm4/list-add-button3                    {:view components4/list-add-button3 :init components4/list-add-button3-settings}
        'm4/value-list-add-button               {:view components4/value-list-add-button :init components4/value-list-add-button-settings}
        'm4/list-edit-dialog                    {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
        'm4/typed-list-edit-dialog              {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
@@ -196,6 +198,7 @@
        'm4/selection-list-values               {:view components4/selection-list-values :init components4/selection-list-values-settings}
        ;'m4/table-list-option-picker            {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
        'm4/selection-list-columns              {:view components4/selection-list-columns :init components4/selection-list-columns-settings}
+       'm4/selection-list-columns3             {:view components4/selection-list-columns3 :init components4/selection-list-columns3-settings}
        'm4/textarea-field                      {:view components4/textarea-field :init components4/textarea-field-settings}
        'm4/when-data                           {:view components4/when-data :init components4/when-data-settings}
        'm4/get-data                            {:view components4/get-data :init components4/get-data-settings}

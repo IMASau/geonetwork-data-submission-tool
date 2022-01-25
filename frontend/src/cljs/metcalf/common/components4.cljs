@@ -685,6 +685,23 @@
         :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler config])}
        button-text])))
 
+(defn list-add-button3-settings
+  "Settings for list-add-button component"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :button-text]
+   ::low-code4/opt-ks [:item-defaults :added-path :random-uuid-value?]
+   ::low-code4/schema {:type "array"}})
+
+(defn list-add-button3
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [disabled is-hidden button-text]} props]
+    (when-not is-hidden
+      [:button.bp3-button.bp3-intent-primary
+       {:disabled disabled
+        :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler3 config])}
+       button-text])))
+
 (defn value-list-add-button-settings
   "Settings for value-list-add-button component"
   [_]
@@ -1220,6 +1237,70 @@
               :getAdded      (constantly false)
               :onReorder     (fn [src-idx dst-idx] #_(rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
               :onItemClick   (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler config]))
+              :onRemoveClick (fn [idx] #_(rf/dispatch [::selection-list-remove-click config idx]))}]))))
+
+(defn selection-list-columns3-settings
+  "Settings for selection-list-columns component"
+  [{:keys [value-path columns added-path]}]
+  {::low-code4/req-ks       [:form-id :data-path :value-path :columns]
+   ::low-code4/opt-ks       [:added-path :placeholder-record? :random-uuid-value?]
+   ::low-code4/schema       {:type "array" :items {:type "object"}}
+   ::low-code4/schema-paths (into [value-path added-path] (map :label-path columns))})
+
+(defn selection-list-columns3
+  "This component renders a selection list with columns of labels for each item.  Each column has a header.
+   Items in the list can be reordered and deleted.  User defined items can also be selected.
+
+   Use case: Allow user to see and manage a list of items.
+
+   Props configure the component
+   * value-path (vector) - path to the value in the list item data.  Value must be unique.
+   * columns (maps) - column metadata used when rendering list items
+     * columnHeader (string) - Label to display above column
+     * label-path - path to the column label is in the list item data
+     * flex (number) - how much space this column should use.
+   * added-path (vector) - path to test if list item is user defined.  Used to style control.
+   * placeholder-record? (boolean) - display an empty record when the list is empty
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * is-hidden - hides component entirely
+   "
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [key value-path columns added-path disabled is-hidden placeholder-record?]} props
+        items @(rf/subscribe [::get-block-data config])]
+    (when-not is-hidden
+      (cond (seq items)
+            ; Has results, display them
+            [ui-controls/TableSelectionList
+             {:key           key
+              :items         (or items [])
+              :disabled      disabled
+              :columns       (for [{:keys [flex label-path columnHeader]} columns]
+                               {:flex         flex
+                                :getLabel     (ui-controls/obj-path-getter label-path)
+                                :columnHeader (or columnHeader "None")})
+              :getValue      (ui-controls/obj-path-getter value-path)
+              :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
+              :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
+              :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
+              :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}]
+
+            placeholder-record?
+            ; No results but we do want a table with a placeholder record
+            [ui-controls/TableSelectionList
+             {:key           key
+              :items         [(assoc-in {} value-path "dummy")]
+              :disabled      disabled
+              :columns       (for [{:keys [flex columnHeader]} columns]
+                               {:flex         flex
+                                :getLabel     (constantly "--")
+                                :columnHeader (or columnHeader "None")})
+              :getValue      (ui-controls/obj-path-getter value-path)
+              :getAdded      (constantly false)
+              :onReorder     (fn [src-idx dst-idx] #_(rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
+              :onItemClick   (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler3 config]))
               :onRemoveClick (fn [idx] #_(rf/dispatch [::selection-list-remove-click config idx]))}]))))
 
 ;(defn simple-list-option-picker-settings

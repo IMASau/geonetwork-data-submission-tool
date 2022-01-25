@@ -1299,9 +1299,7 @@
                                 :columnHeader (or columnHeader "None")})
               :getValue      (ui-controls/obj-path-getter value-path)
               :getAdded      (constantly false)
-              :onReorder     (fn [src-idx dst-idx] #_(rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
-              :onItemClick   (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler3 config]))
-              :onRemoveClick (fn [idx] #_(rf/dispatch [::selection-list-remove-click config idx]))}]))))
+              :onItemClick   (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler3 config]))}]))))
 
 ;(defn simple-list-option-picker-settings
 ;  "Settings for simple-list-option-picker component"

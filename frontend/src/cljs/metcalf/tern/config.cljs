@@ -133,25 +133,26 @@
 (when goog/DEBUG (ins4/reg-global-singleton ins4/db-diff))
 (when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
-      {"requiredField"     rules4/required-field
-       "requiredWhenYes"   rules4/required-when-yes
-       "requiredSome"      rules4/required-at-least-one
-       "requiredParty"     rules4/tern-org-or-person
-       "spatialUnits"      rules4/spatial-resolution-units
-       "requiredAllNone"   rules4/required-all-or-nothing
-       "maxLength"         rules4/max-length
-       "mergeNameParts"    rules4/merge-names
-       "validOrcid"        rules4/valid-ordid-uri
-       "geographyRequired" rules4/geography-required
-       "licenseOther"      rules4/license-other
-       "numericOrder"      rules4/numeric-order
-       "positive"          rules4/force-positive
-       "dateOrder"         rules4/date-order
-       "dateBeforeToday"   rules4/date-before-today
-       "endPosition"       rules4/end-position
-       "maintFreq"         rules4/maint-freq
-       "verticalRequired"  rules4/vertical-required
-       "maxKeywords"       rules4/tern-max-keywords})
+      {"requiredField"        rules4/required-field
+       "requiredWhenYes"      rules4/required-when-yes
+       "requiredSome"         rules4/required-at-least-one
+       "requiredParty"        rules4/tern-org-or-person
+       "spatialUnits"         rules4/spatial-resolution-units
+       "requiredAllNone"      rules4/required-all-or-nothing
+       "maxLength"            rules4/max-length
+       "mergeNameParts"       rules4/merge-names
+       "validOrcid"           rules4/valid-ordid-uri
+       "geographyRequired"    rules4/geography-required
+       "licenseOther"         rules4/license-other
+       "numericOrder"         rules4/numeric-order
+       "positive"             rules4/force-positive
+       "dateOrder"            rules4/date-order
+       "dateBeforeToday"      rules4/date-before-today
+       "endPosition"          rules4/end-position
+       "maintFreq"            rules4/maint-freq
+       "verticalRequired"     rules4/vertical-required
+       "maxKeywords"          rules4/tern-max-keywords
+       "requiredOrganisation" rules4/tern-organisation})
 (set! low-code4/component-registry
       {
        'm4/async-simple-item-option-picker     {:view components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}

@@ -549,7 +549,8 @@
                     "valueChild": "gco:CharacterString"
                   },
                   "isUserDefined": {}
-                }
+                },
+                "rules": ["requiredOrganisation"]
               },
               "contact": {
                 "!docstring": "Who3",
@@ -780,7 +781,8 @@
                     "valueChild": "gco:CharacterString"
                   },
                   "isUserDefined": {}
-                }
+                },
+                "rules": ["requiredOrganisation"]
               },
               "contact": {
                 "!docstring": "Who3",

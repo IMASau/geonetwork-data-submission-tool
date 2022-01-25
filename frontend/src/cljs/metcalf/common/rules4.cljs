@@ -122,7 +122,6 @@
                 :data  party-type})
           block))))
 
-;; TODO: Stop from disabling the ability to delete keywords
 (defn tern-max-keywords
   "For certain arrays we want to limit the amount of items the user can
    add to them. This rule accomplishes this by disabling the ability to
@@ -133,6 +132,13 @@
     (cond-> block
         (not enabled?)
         (update-in [:props :errors] conj "Exceeded the maximum number of keywords"))))
+
+;; TODO: Fix so that modal is disabled
+(defn tern-organisation
+  ""
+  [block]
+  (js/console.log "This is required!")
+  (-enforce-required-subfields block (map #(vector %) ["name" "full_address_line" "street_address" "address_locality" "address_region" "postcode" "country"])))
 
 (defn required-at-least-one
   "Sometimes a requirement can have multiple possibilities, for example

@@ -27,6 +27,14 @@
 .SelectionListItem {
 }
 
+.DragHandleWrapperRemoveButton {
+    width: 24px;
+}
+
+.DragHandleWrapperHandle {
+    width: 24px;
+}
+
 .SelectionButtonStyle .SelectionListItem {
     margin: .2em 0;
     background-color: #f5f8fa;

@@ -605,13 +605,21 @@
           "properties": {
             "title": {
               "xpath": "cit:title",
-              "rules": [{"maxLength": 100}],
+              "rules": [
+                {
+                  "maxLength": 100
+                }
+              ],
               "valueChild": "gco:CharacterString",
               "type": "string"
             },
             "edition": {
               "xpath": "cit:edition",
-              "rules": [{"maxLength": 20}],
+              "rules": [
+                {
+                  "maxLength": 20
+                }
+              ],
               "valueChild": "gco:CharacterString",
               "type": "string"
             }

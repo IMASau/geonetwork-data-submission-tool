@@ -1072,12 +1072,13 @@
        :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
-        [m4/async-select-option-simple
+        [m4/async-select-option-breadcrumb
          {:form-id     ?form-id
           :data-path   [?data-path "platform_term"]
           :uri         "/api/parameterplatform"
           :label-path  ["Name"]
           :value-path  ["URI"]
+          :breadcrumb-path ["breadcrumbs"]
           :added-path  ["isUserDefined"]
           :placeholder "Select..."}]]
        [m4/item-dialog-button

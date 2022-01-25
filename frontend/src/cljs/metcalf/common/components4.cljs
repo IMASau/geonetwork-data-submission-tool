@@ -1021,7 +1021,7 @@
   "Settings for selection-list-values component"
   [_]
   {::low-code4/req-ks [:form-id :data-path]
-   ::low-code4/opt-ks []
+   ::low-code4/opt-ks [:placeholder-record?]
    ::low-code4/schema {:type "array" :items {:type "string"}}})
 
 (defn selection-list-values
@@ -1030,25 +1030,38 @@
 
    Use case: Allow user to see and manage a list of text values.
 
+   Controls
+   * :placeholder-record?
+
    Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
    * disabled - styles control to indicate it's disabled
    * is-hidden - hides component entirely"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         labels @(rf/subscribe [::get-block-data config])
-        {:keys [key disabled is-hidden]} props
+        {:keys [placeholder-record? key disabled is-hidden]} props
         items (map (fn [label] {:value (gensym) :label label}) labels)]
     (when-not is-hidden
-      [ui-controls/SimpleSelectionList
-       {:key           key
-        :items         items
-        :disabled      disabled
-        :getLabel      (ui-controls/obj-path-getter ["label"])
-        :getValue      (ui-controls/obj-path-getter ["value"])
-        :getAdded      (constantly true)
-        :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-values-reorder props src-idx dst-idx]))
-        :onItemClick   (fn [idx] (rf/dispatch [::selection-list-values-item-click props idx]))
-        :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-values-remove-click props idx]))}])))
+      (if (seq items)
+        [ui-controls/SimpleSelectionList
+         {:key           key
+          :items         items
+          :disabled      disabled
+          :getLabel      (ui-controls/obj-path-getter ["label"])
+          :getValue      (ui-controls/obj-path-getter ["value"])
+          :getAdded      (constantly true)
+          :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-values-reorder props src-idx dst-idx]))
+          :onItemClick   (fn [idx] (rf/dispatch [::selection-list-values-item-click props idx]))
+          :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-values-remove-click props idx]))}]
+        (when placeholder-record?
+          [ui-controls/SimpleSelectionList
+           {:key         key
+            :items       [{:value "--" :label "--"}]
+            :disabled    disabled
+            :getLabel    (ui-controls/obj-path-getter ["label"])
+            :getValue    (ui-controls/obj-path-getter ["value"])
+            :getAdded    (constantly true)
+            :onItemClick (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler3 config]))}])))))
 
 (defn selection-list-template-settings
   "Settings for the selection-list-template component"

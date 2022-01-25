@@ -877,26 +877,33 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "supplementalInformation"]
        :label     "Publications associated with the dataset"}
-      [m4/selection-list-values
-       {:form-id   [:form]
-        :data-path ["identificationInfo" "supplementalInformation"]}]
-      [m4/text-add-button
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "supplementalInformation"]
-        :button-text "Add publication"}]]
+      [:div.SelectionTableStyle
+       [m4/selection-list-values
+        {:form-id             [:form]
+         :data-path           ["identificationInfo" "supplementalInformation"]
+         :placeholder-record? true}]]]
+     [m4/list-add-button
+      {:form-id     [:form]
+       :data-path   ["identificationInfo" "supplementalInformation"]
+       :button-text "Add"}]
+     [m4/list-edit-dialog
+      {:form-id     [:form]
+       :data-path   ["identificationInfo" "supplementalInformation"]
+       :title       "Add supporting resource"
+       :template-id :supplementalInformation/user-defined-entry-form}]
 
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "supportingResources"]
        :label     "Any supplemental resources with hyperlinks"}
-      [m4/selection-list-columns
-       {:form-id             [:form]
-        :data-path           ["identificationInfo" "supportingResources"]
-        :value-path          ["url"]
-        :columns             [{:columnHeader "Title" :label-path ["name"] :flex 1}
-                              {:columnHeader "URL" :label-path ["url"] :flex 1}]
-        :placeholder-record? true}]]
-
+      [:div.SelectionTableStyle
+       [m4/selection-list-columns
+        {:form-id             [:form]
+         :data-path           ["identificationInfo" "supportingResources"]
+         :value-path          ["url"]
+         :columns             [{:columnHeader "Title" :label-path ["name"] :flex 1}
+                               {:columnHeader "URL" :label-path ["url"] :flex 1}]
+         :placeholder-record? true}]]]
      [m4/list-add-button
       {:form-id     [:form]
        :data-path   ["identificationInfo" "supportingResources"]
@@ -906,7 +913,7 @@
       {:form-id     [:form]
        :data-path   ["identificationInfo" "supportingResources"]
        :title       "Add supporting resource"
-       :template-id :resource/user-defined-entry-form}]
+       :template-id :supportingResources/user-defined-entry-form}]
 
      [:h4 "Distribution"]
      [m4/form-group
@@ -927,7 +934,17 @@
         :placeholder "Date format date or version if applicable"}]]
      [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
 
-    :resource/user-defined-entry-form
+    :supplementalInformation/user-defined-entry-form
+    [:div
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "name"]
+       :label     "Title"}
+      [m4/textarea-field
+       {:form-id   ?form-id
+        :data-path ?data-path}]]]
+
+    :supportingResources/user-defined-entry-form
     [:div
      [m4/inline-form-group
       {:form-id   ?form-id

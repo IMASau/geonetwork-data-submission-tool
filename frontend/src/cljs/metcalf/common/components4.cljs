@@ -650,8 +650,8 @@
 (defn item-add-button-settings
   "Settings for item-add-button component"
   [_]
-  {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
-   ::low-code4/opt-ks []
+  {::low-code4/req-ks [:form-id :data-path :value-path]
+   ::low-code4/opt-ks [:random-uuid-value? :added-path]
    ::low-code4/schema {:type "object"}})
 
 (defn item-add-button

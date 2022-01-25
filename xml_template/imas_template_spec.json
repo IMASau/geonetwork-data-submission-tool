@@ -512,6 +512,26 @@
               "requiredField"
             ]
           }
+        },
+        "supportingResources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "rules": [
+                  "requiredField"
+                ]
+              },
+              "url": {
+                "type": "string",
+                "rules": [
+                  "requiredField"
+                ]
+              }
+            }
+          }
         }
       }
     },

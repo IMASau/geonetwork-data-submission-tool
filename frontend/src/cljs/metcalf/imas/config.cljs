@@ -27,7 +27,7 @@
 (rf/reg-event-fx ::components4/create-document-modal-close-click handlers4/create-document-modal-close-click)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
 (rf/reg-event-fx ::components4/item-add-button-click handlers4/item-add-with-defaults-click-handler2)
-(rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler)
+(rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/item-dialog-button-edit-click handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/edit-dialog-cancel handlers4/edit-dialog-cancel-handler)
@@ -1008,10 +1008,11 @@
           :added-path      ["isUserDefined"]
           :placeholder     "Select..."}]]
        [m4/item-dialog-button
-        {:form-id    ?form-id
-         :data-path  [?data-path "longName_term"]
-         :value-path ["URI"]
-         :added-path ["isUserDefined"]}]]
+        {:form-id            ?form-id
+         :data-path          [?data-path "longName_term"]
+         :value-path         ["URI"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
        {:form-id     ?form-id
@@ -1043,10 +1044,11 @@
           :added-path  ["isUserDefined"]
           :placeholder "Select..."}]]
        [m4/item-dialog-button
-        {:form-id    ?form-id
-         :data-path  [?data-path "unit_term"]
-         :value-path ["URI"]
-         :added-path ["isUserDefined"]}]]
+        {:form-id            ?form-id
+         :data-path          [?data-path "unit_term"]
+         :value-path         ["URI"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]
       [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "unit_term"]
@@ -1073,6 +1075,7 @@
         {:form-id    ?form-id
          :data-path  [?data-path "instrument_term"]
          :value-path ["URI"]
+         :random-uuid-value? true
          :added-path ["isUserDefined"]}]]
       [m4/edit-dialog
        {:form-id     ?form-id
@@ -1101,6 +1104,7 @@
          :data-path  [?data-path "platform_term"]
          :text       "Browse"
          :value-path ["URI"]
+         :random-uuid-value? true
          :added-path ["isUserDefined"]}]]
       [m4/edit-dialog
        {:form-id     ?form-id

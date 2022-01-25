@@ -623,8 +623,8 @@
 (defn item-dialog-button-settings
   "Settings for item-dialog-button component"
   [_]
-  {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
-   ::low-code4/opt-ks []
+  {::low-code4/req-ks [:form-id :data-path :value-path]
+   ::low-code4/opt-ks [:added-path :random-uuid-value?]
    ::low-code4/schema {:type "object"}})
 
 ; TODO: Consider a view mode when it's not user defined.
@@ -1210,16 +1210,16 @@
             placeholder-record?
             ; No results but we do want a table with a placeholder record
             [ui-controls/TableSelectionList
-             {:key           key
-              :items         [(assoc-in {} value-path "dummy")]
-              :disabled      disabled
-              :columns       (for [{:keys [flex columnHeader]} columns]
-                               {:flex         flex
-                                :getLabel     (constantly "--")
-                                :columnHeader (or columnHeader "None")})
-              :getValue      (ui-controls/obj-path-getter value-path)
-              :getAdded      (constantly false)
-              :onItemClick   (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler3 config]))}]))))
+             {:key         key
+              :items       [(assoc-in {} value-path "dummy")]
+              :disabled    disabled
+              :columns     (for [{:keys [flex columnHeader]} columns]
+                             {:flex         flex
+                              :getLabel     (constantly "--")
+                              :columnHeader (or columnHeader "None")})
+              :getValue    (ui-controls/obj-path-getter value-path)
+              :getAdded    (constantly false)
+              :onItemClick (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler3 config]))}]))))
 
 ;(defn simple-list-option-picker-settings
 ;  "Settings for simple-list-option-picker component"

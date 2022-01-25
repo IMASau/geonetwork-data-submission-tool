@@ -22,8 +22,8 @@
 (rf/reg-event-fx ::components4/create-document-modal-clear-click handlers4/create-document-modal-clear-click)
 (rf/reg-event-fx ::components4/create-document-modal-close-click handlers4/create-document-modal-close-click)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
-(rf/reg-event-fx ::components4/item-add-button-click handlers4/item-add-with-defaults-click-handler)
-(rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler)
+(rf/reg-event-fx ::components4/item-add-button-click handlers4/item-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/item-dialog-button-edit-click handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/edit-dialog-cancel handlers4/edit-dialog-cancel-handler)
@@ -356,12 +356,13 @@
           :value-path ["uri"]
           :added-path ["isUserDefined"]}]]
        [m4/item-dialog-button
-        {:form-id       ?form-id
-         :data-path     [?data-path "unit"]
-         :label-path    ["label"]
-         :value-path    ["uri"]
-         :item-defaults {"userAddedCategory" "unit"}
-         :added-path    ["isUserDefined"]}]]
+        {:form-id            ?form-id
+         :data-path          [?data-path "unit"]
+         :label-path         ["label"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "unit"}
+         :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
        {:form-id     ?form-id
@@ -1316,10 +1317,11 @@
           :label-path ["name"]
           :value-path ["uri"]}]]
        [m4/item-dialog-button
-        {:form-id    ?form-id
-         :data-path  [?data-path "organisation"]
-         :value-path ["uri"]
-         :added-path ["isUserDefined"]}]]
+        {:form-id            ?form-id
+         :data-path          [?data-path "organisation"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
        {:form-id     ?form-id

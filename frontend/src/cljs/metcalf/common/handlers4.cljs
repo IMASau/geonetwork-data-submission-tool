@@ -380,12 +380,12 @@
 (defn upload-file-drop
   [{:keys [db]} [_ config data]]
   (let [{:keys [acceptedFiles rejectedFiles]} data
-        doc-uuid                              (get-in db [:context :document :uuid])]
+        doc-uuid (get-in db [:context :document :uuid])]
     (if (> (count rejectedFiles) 0)
       (actions4/open-modal-action
-       {:db db}
-       {:type    :modal.type/alert
-        :message "Thumbnail must be an image"})
+        {:db db}
+        {:type    :modal.type/alert
+         :message "Thumbnail must be an image"})
       (actions4/upload-single-attachment {:db db} {:doc-uuid doc-uuid
                                                    :file     (first acceptedFiles)
                                                    :config   config}))))

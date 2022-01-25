@@ -417,7 +417,7 @@
         [:p "Specify the location(s) of this study."]]
 
        [:div.SelectionTableStyle
-        [m4/selection-list-columns
+        [m4/selection-list-columns3
          {:form-id             [:form]
           :data-path           ["identificationInfo" "geographicElement" "boxes"]
           :value-path          ["uri"]
@@ -426,7 +426,8 @@
                                 {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
                                 {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
                                 {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]
-          :placeholder-record? true}]]
+          :placeholder-record? true
+          :random-uuid-value?  true}]]
 
        [m4/list-add-button
         {:form-id     [:form]
@@ -549,7 +550,7 @@
        :label     "Point of contact for dataset"}
 
       [:div.SelectionTableStyle
-       [m4/selection-list-columns
+       [m4/selection-list-columns3
         {:form-id             [:form]
          :data-path           ["pointOfContact"]
          :columns             [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
@@ -557,7 +558,8 @@
                                {:flex 1 :label-path ["role"] :columnHeader "Role"}]
          :placeholder-record? true
          :value-path          ["uri"]
-         :added-path          ["isUserDefined"]}]]
+         :added-path          ["isUserDefined"]
+         :random-uuid-value?  true}]]
 
       [m4/list-add-button
        {:form-id     [:form]
@@ -579,7 +581,7 @@
 
       [:div.SelectionTableStyle
 
-       [m4/selection-list-columns
+       [m4/selection-list-columns3
         {:form-id             [:form]
          :data-path           ["identificationInfo" "citedResponsibleParty"]
          :columns             [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
@@ -587,7 +589,8 @@
                                {:flex 1 :label-path ["role"] :columnHeader "Role"}]
          :placeholder-record? true
          :value-path          ["uri"]
-         :added-path          ["isUserDefined"]}]]
+         :added-path          ["isUserDefined"]
+         :random-uuid-value?  true}]]
 
       [m4/list-add-button
        {:form-id     [:form]
@@ -801,12 +804,12 @@
        :label     "Responsible parties for creating dataset"}
       [:div.SelectionTableStyle
 
-       [m4/selection-list-columns
+       [m4/selection-list-columns3
         {:form-id             [:form]
          :data-path           ["identificationInfo" "dataParameters"]
          :value-path          ["uri"]
          :added-path          ["isUserDefined"]
-         ; TODO: Rename to something shorter
+         :random-uuid-value?  true
          :placeholder-record? true
          :columns             [{:columnHeader "Name" :flex 1 :label-path ["longName_term" "Name"]}
                                {:columnHeader "Units" :flex 1 :label-path ["unit_term" "Name"]}
@@ -1115,7 +1118,7 @@
     ; #_[m3/UploadData
     ;    {:attachments-path [:form :fields :attachments]}]
     ; [:h2 "Data Services"]
-    ; [m4/selection-list-columns
+    ; [m4/selection-list-columns2
     ;  {:form-id    [:form]
     ;   :data-path  ["dataSources"]
     ;   :value-path ["url"]

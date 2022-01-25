@@ -47,17 +47,6 @@
     (-> {:db db}
         (actions4/add-item-action form-id data-path [] value))))
 
-(defn list-add-with-defaults-click-handler2
-  [{:keys [db]} [_ config]]
-  (let [{:keys [form-id data-path value-path added-path item-defaults]} config
-        item-data (-> item-defaults
-                      (assoc-in value-path (str (random-uuid)))
-                      (assoc-in added-path true))]
-    (-> {:db db}
-        (actions4/save-snapshot-action form-id)
-        (actions4/add-item-action form-id data-path value-path item-data)
-        (actions4/select-last-item-action form-id data-path))))
-
 (defn list-add-with-defaults-click-handler3
   [{:keys [db]} [_ config]]
   (let [{:keys [form-id data-path value-path added-path item-defaults random-uuid-value?]} config

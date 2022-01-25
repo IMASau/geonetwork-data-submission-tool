@@ -505,6 +505,7 @@
         "supplementalInformation": {
           "xpath": "mri:supplementalInformation/gco:CharacterString",
           "type": "array",
+          "keep": false,
           "items": {
             "xpath": "mri:supplementalInformation/gco:CharacterString",
             "type": "string",

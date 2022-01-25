@@ -854,15 +854,15 @@
         :data-path   ["identificationInfo" "otherConstraints"]
         :placeholder "Enter additional license requirements"}]]
 
-     ; [:label "Use limitations"]
-     ; [m4/selection-list-values
-     ;  {:form-id   [:form]
-     ;   :data-path ["identificationInfo" "useLimitations"]}]
-     ; [m4/text-add-button
-     ;  {:form-id     [:form]
-     ;   :data-path   ["identificationInfo" "useLimitations"]
-     ;   :button-text "Add"}]
-     ;
+      [:label "Use limitations"]
+      [m4/selection-list-values
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "useLimitations"]}]
+      [m4/text-add-button
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "useLimitations"]
+        :button-text "Add"}]
+
      ; [:hr]
      ;
      ; [:h4 "Supplemental information"]

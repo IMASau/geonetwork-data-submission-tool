@@ -490,6 +490,17 @@
         },
         "otherConstraints": {
           "type": "string"
+        },
+        "useLimitations": {
+          "type": "array",
+          "xpath": "mri:resourceConstraints/mco:MD_Constraints/[mco:useLimitation]",
+          "container": "mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation[last()]",
+          "keep": false,
+          "items": {
+            "type": "string",
+            "keep": "false",
+            "xpath": "mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation/gco:CharacterString"
+          }
         }
       }
     },

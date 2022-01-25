@@ -724,10 +724,14 @@
 			</mri:descriptiveKeywords>
 
 			<mri:resourceConstraints>
-				<!-- Generic statement hard-coded in template. -->
 				<mco:MD_Constraints>
+					<!-- Generic statement hard-coded in template. -->
 					<mco:useLimitation>
 						<gco:CharacterString>Data, products and services from IMAS are provided "as is" without any warranty as to fitness for a particular purpose.</gco:CharacterString>
+					</mco:useLimitation>
+					<!-- Additional user defined limitations -->
+					<mco:useLimitation>
+						<gco:CharacterString>xxx</gco:CharacterString>
 					</mco:useLimitation>
 				</mco:MD_Constraints>
 			</mri:resourceConstraints>

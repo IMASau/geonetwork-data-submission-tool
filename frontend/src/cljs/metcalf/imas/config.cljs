@@ -977,9 +977,10 @@
     [:div
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "longName_term"]
-       :label     "Name"}
+      {:form-id    ?form-id
+       :data-path  [?data-path "longName_term"]
+       :label      "Name"
+       :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
         [m4/async-select-option-simple
@@ -1011,9 +1012,10 @@
         :placeholder "Name in dataset (optional)"}]]
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "unit_term"]
-       :label     "Unit"}
+      {:form-id    ?form-id
+       :data-path  [?data-path "unit_term"]
+       :label      "Unit"
+       :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
         [m4/async-select-option-simple
@@ -1036,9 +1038,10 @@
         :template-id :parameter-unit/user-defined-entry-form}]]
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "instrument_term"]
-       :label     "Instrument"}
+      {:form-id    ?form-id
+       :data-path  [?data-path "instrument_term"]
+       :label      "Instrument"
+       :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
         [m4/async-select-option-simple
@@ -1061,9 +1064,10 @@
         :template-id :parameter-instrument/user-defined-entry-form}]]
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "platform_term"]
-       :label     "Platform"}
+      {:form-id    ?form-id
+       :data-path  [?data-path "platform_term"]
+       :label      "Platform"
+       :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
         [m4/async-select-option-simple

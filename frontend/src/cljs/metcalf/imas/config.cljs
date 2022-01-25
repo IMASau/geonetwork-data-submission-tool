@@ -197,7 +197,7 @@
        'm4/selection-list-simple               {:view components4/selection-list-simple :init components4/selection-list-simple-settings}
        'm4/selection-list-values               {:view components4/selection-list-values :init components4/selection-list-values-settings}
        ;'m4/table-list-option-picker            {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
-       'm4/selection-list-columns3             {:view components4/selection-list-columns3 :init components4/selection-list-columns3-settings}
+       'm4/selection-list-columns              {:view components4/selection-list-columns3 :init components4/selection-list-columns3-settings}
        'm4/textarea-field                      {:view components4/textarea-field :init components4/textarea-field-settings}
        'm4/when-data                           {:view components4/when-data :init components4/when-data-settings}
        'm4/get-data                            {:view components4/get-data :init components4/get-data-settings}
@@ -416,7 +416,7 @@
         [:p "Specify the location(s) of this study."]]
 
        [:div.SelectionTableStyle
-        [m4/selection-list-columns3
+        [m4/selection-list-columns
          {:form-id             [:form]
           :data-path           ["identificationInfo" "geographicElement" "boxes"]
           :value-path          ["uri"]
@@ -549,7 +549,7 @@
        :label     "Point of contact for dataset"}
 
       [:div.SelectionTableStyle
-       [m4/selection-list-columns3
+       [m4/selection-list-columns
         {:form-id             [:form]
          :data-path           ["pointOfContact"]
          :columns             [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
@@ -580,7 +580,7 @@
 
       [:div.SelectionTableStyle
 
-       [m4/selection-list-columns3
+       [m4/selection-list-columns
         {:form-id             [:form]
          :data-path           ["identificationInfo" "citedResponsibleParty"]
          :columns             [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
@@ -803,7 +803,7 @@
        :label     "Responsible parties for creating dataset"}
       [:div.SelectionTableStyle
 
-       [m4/selection-list-columns3
+       [m4/selection-list-columns
         {:form-id             [:form]
          :data-path           ["identificationInfo" "dataParameters"]
          :value-path          ["uri"]
@@ -887,7 +887,7 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "supportingResources"]
        :label     "Any supplemental resources with hyperlinks"}
-      [m4/selection-list-columns3
+      [m4/selection-list-columns
        {:form-id             [:form]
         :data-path           ["identificationInfo" "supportingResources"]
         :value-path          ["url"]

@@ -427,7 +427,6 @@ def update_user_defined(document_data: dict, update_data: dict, path: list) -> d
 
 
 def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=True, fieldKey=None):
-
     if spec.get('data_to_xml_skip', False):
         return
 
@@ -452,7 +451,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
         for i, item in enumerate(data):
             mount_node.insert(mount_index + i, deepcopy(template))
             data_to_xml(data=item, xml_node=xml_node, spec=get_items(spec), nsmap=nsmap,
-                        element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
+                        element_index=mount_index + i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
 
     # export can be false with an exportTo function, i.e. don't do the default export, do this instead
     elif not is_export(spec):

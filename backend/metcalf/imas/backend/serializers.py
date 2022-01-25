@@ -113,6 +113,7 @@ class ParameterInstrumentSerializer(BaseParameterSerializer):
         fields = [
             # "id", "children_count", "lft", "rgt", "tree_id", "depth", "is_selectable",
             "Name", "URI",
+            "breadcrumbs"
             # "Version", "Definition",
             # "term", "vocabularyTermURL", "vocabularyVersion", "termDefinition",
         ]

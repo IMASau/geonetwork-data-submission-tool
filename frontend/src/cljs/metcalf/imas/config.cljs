@@ -1045,14 +1045,15 @@
        :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
-        [m4/async-select-option-simple
-         {:form-id     ?form-id
-          :data-path   [?data-path "instrument_term"]
-          :uri         "/api/parameterinstrument"
-          :label-path  ["Name"]
-          :value-path  ["URI"]
-          :added-path  ["isUserDefined"]
-          :placeholder "Select..."}]]
+        [m4/async-select-option-breadcrumb
+         {:form-id         ?form-id
+          :data-path       [?data-path "instrument_term"]
+          :uri             "/api/parameterinstrument"
+          :label-path      ["Name"]
+          :value-path      ["URI"]
+          :breadcrumb-path ["breadcrumbs"]
+          :added-path      ["isUserDefined"]
+          :placeholder     "Select..."}]]
        [m4/item-dialog-button
         {:form-id    ?form-id
          :data-path  [?data-path "instrument_term"]

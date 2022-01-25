@@ -493,7 +493,7 @@
         },
         "useLimitations": {
           "type": "array",
-          "xpath": "mri:resourceConstraints/mco:MD_Constraints/[mco:useLimitation]",
+          "xpath": "mri:resourceConstraints/mco:MD_Constraints[mco:useLimitation]",
           "container": "mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation[last()]",
           "keep": false,
           "items": {

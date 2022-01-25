@@ -177,7 +177,7 @@
        'm4/item-dialog-button                  {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/edit-dialog                         {:view components4/edit-dialog :init components4/edit-dialog-settings}
        'm4/list-add-button                     {:view components4/list-add-button :init components4/list-add-button-settings}
-       'm4/list-add-button2                    {:view components4/list-add-button3 :init components4/list-add-button3-settings}
+       'm4/list-add-button3                    {:view components4/list-add-button3 :init components4/list-add-button3-settings}
        'm4/value-list-add-button               {:view components4/value-list-add-button :init components4/value-list-add-button-settings}
        'm4/list-edit-dialog                    {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
        'm4/typed-list-edit-dialog              {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}

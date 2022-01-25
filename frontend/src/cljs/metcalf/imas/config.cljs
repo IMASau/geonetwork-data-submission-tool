@@ -814,21 +814,20 @@
          :columns             [{:columnHeader "Name" :flex 1 :label-path ["longName_term" "Name"]}
                                {:columnHeader "Units" :flex 1 :label-path ["unit_term" "Name"]}
                                {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term" "Name"]}
-                               {:columnHeader "Platform" :flex 1 :label-path ["platform_term" "Name"]}]}]]
+                               {:columnHeader "Platform" :flex 1 :label-path ["platform_term" "Name"]}]}]]]
+     [m4/list-add-button
+      {:form-id            [:form]
+       :data-path          ["identificationInfo" "dataParameters"]
+       :button-text        "Add data parameter"
+       :value-path         ["uri"]
+       :random-uuid-value? true
+       :added-path         ["isUserDefined"]}]
 
-      [m4/list-add-button
-       {:form-id            [:form]
-        :data-path          ["identificationInfo" "dataParameters"]
-        :button-text        "Add data parameter"
-        :value-path         ["uri"]
-        :random-uuid-value? true
-        :added-path         ["isUserDefined"]}]
-
-      [m4/list-edit-dialog
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "dataParameters"]
-        :title       "Data parameter"
-        :template-id :data-parameter/user-defined-entry-form}]]
+     [m4/list-edit-dialog
+      {:form-id     [:form]
+       :data-path   ["identificationInfo" "dataParameters"]
+       :title       "Data parameter"
+       :template-id :data-parameter/user-defined-entry-form}]
 
      [:h4 "Resource constraints"]
      [m4/form-group
@@ -908,7 +907,6 @@
       {:form-id     [:form]
        :data-path   ["identificationInfo" "supportingResources"]
        :button-text "Add"}]
-
      [m4/list-edit-dialog
       {:form-id     [:form]
        :data-path   ["identificationInfo" "supportingResources"]
@@ -1089,11 +1087,11 @@
           :added-path      ["isUserDefined"]
           :placeholder     "Select..."}]]
        [m4/item-dialog-button
-        {:form-id    ?form-id
-         :data-path  [?data-path "instrument_term"]
-         :value-path ["URI"]
+        {:form-id            ?form-id
+         :data-path          [?data-path "instrument_term"]
+         :value-path         ["URI"]
          :random-uuid-value? true
-         :added-path ["isUserDefined"]}]]
+         :added-path         ["isUserDefined"]}]]
       [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "instrument_term"]
@@ -1117,21 +1115,21 @@
           :added-path      ["isUserDefined"]
           :placeholder     "Select..."}]]
        [m4/item-dialog-button
-        {:form-id    ?form-id
-         :data-path  [?data-path "platform_term"]
-         :text       "Browse"
-         :value-path ["URI"]
+        {:form-id            ?form-id
+         :data-path          [?data-path "platform_term"]
+         :text               "Browse"
+         :value-path         ["URI"]
          :random-uuid-value? true
-         :added-path ["isUserDefined"]}]]
+         :added-path         ["isUserDefined"]}]]
       [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "platform_term"]
         :title       "Define a custom parameter platform"
         :template-id :parameter-platform/user-defined-entry-form}]]]
 
-    ;
-    ;:upload
-    ;[:div
+
+    :upload
+    [:div
     ; [m4/page-errors
     ;  {:form-id    [:form]
     ;   :data-path  []
@@ -1160,8 +1158,8 @@
     ;   :data-path   ["dataSources"]
     ;   :title       "Data Service"
     ;   :template-id :data-source/user-defined-entry-form}]
-    ; [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
-    ;
+     [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
+
     ;:data-source/user-defined-entry-form
     ;[:div
     ; [m4/inline-form-group

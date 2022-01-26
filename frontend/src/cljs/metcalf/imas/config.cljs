@@ -874,8 +874,6 @@
        :data-path   ["identificationInfo" "useLimitations"]
        :button-text "Add"}]
 
-     ; [:hr]
-     ;
      [:h4 "Supplemental information"]
      [m4/form-group
       {:form-id   [:form]

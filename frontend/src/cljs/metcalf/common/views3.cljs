@@ -4,7 +4,7 @@
             [goog.events :as gevents]
             [re-frame.core :as rf]
             [reagent.core :as r])
-  (:import [goog.events FileDropHandler]))
+  (:import (goog.events FileDropHandler)))
 
 
 ; TODO: Build a react component for uploading

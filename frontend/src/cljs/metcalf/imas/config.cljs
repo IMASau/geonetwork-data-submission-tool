@@ -1141,21 +1141,22 @@
      ; #_[m3/UploadData
      ;    {:attachments-path [:form :fields :attachments]}]
 
-     [m4/upload-files
-      {:form-id    [:form]
-       :data-path  ["attachments"]
-       :value-path ["uri"]
-       :placeholder
-
-       [:div.bp3-non-ideal-state
-        [:div.bp3-non-ideal-state-visual
-         [:span.bp3-icon.bp3-icon-upload]]
-        [:h4.bp3-heading "Drop file here or click to upload"]
-        [:div "Max file size 100 MB"]
-        [:button.bp3-button.bp3-intent-primary "Upload"]]}]
+     [m4/form-group
+      {:label     "Upload data"
+       :form-id   [:form]
+       :data-path ["distributionInfo" "transferOptions"]
+       :required  true}
+      [m4/upload-files
+       {:form-id    [:form]
+        :data-path  ["attachments"]
+        :value-path ["uri"]
+        :placeholder
+        [:div.bp3-non-ideal-state
+         [:h4.bp3-heading "Drop file here or click to upload"]
+         [:div "Max file size 100 MB"]]}]]
 
      [m4/form-group
-      {:label     "Data Services"
+      {:label     "Link to data services"
        :form-id   [:form]
        :data-path ["distributionInfo" "transferOptions"]
        :required  true}

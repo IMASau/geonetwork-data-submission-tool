@@ -425,6 +425,7 @@
                                 {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
                                 {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]
           :placeholder-record? true
+          :select-snapshot?    true
           :random-uuid-value?  true}]]
 
        [m4/list-add-button
@@ -558,6 +559,7 @@
          :placeholder-record? true
          :value-path          ["uri"]
          :added-path          ["isUserDefined"]
+         :select-snapshot?    true
          :random-uuid-value?  true}]]
 
       [m4/list-add-button
@@ -590,6 +592,7 @@
          :placeholder-record? true
          :value-path          ["uri"]
          :added-path          ["isUserDefined"]
+         :select-snapshot?    true
          :random-uuid-value?  true}]]
 
       [m4/list-add-button
@@ -812,6 +815,7 @@
          :added-path          ["isUserDefined"]
          :random-uuid-value?  true
          :placeholder-record? true
+         :select-snapshot?    true
          :columns             [{:columnHeader "Name" :flex 1 :label-path ["longName_term" "Name"]}
                                {:columnHeader "Units" :flex 1 :label-path ["unit_term" "Name"]}
                                {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term" "Name"]}
@@ -903,6 +907,7 @@
          :value-path          ["url"]
          :columns             [{:columnHeader "Title" :label-path ["name"] :flex 1}
                                {:columnHeader "URL" :label-path ["url"] :flex 1}]
+         :select-snapshot?    true
          :placeholder-record? true}]]]
      [m4/list-add-button
       {:form-id     [:form]
@@ -1150,6 +1155,7 @@
          :data-path           ["distributionInfo" "transferOptions"]
          :value-path          ["linkage"]
          :placeholder-record? true
+         :select-snapshot?    true
          :columns             [{:columnHeader "Protocol" :label-path ["protocol"] :flex 1}
                                {:columnHeader "Server" :label-path ["linkage"] :flex 1}
                                {:columnHeader "Name" :label-path ["name"] :flex 1}]}]]

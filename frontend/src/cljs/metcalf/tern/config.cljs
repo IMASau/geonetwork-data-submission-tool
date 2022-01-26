@@ -684,6 +684,7 @@
          :data-path          ["identificationInfo" "keywordsInstrument" "keywords"]
          :value-path         ["uri"]
          :random-uuid-value? true
+         :select-snapshot?   true
          :added-path         ["isUserDefined"]
          :columns            [{:columnHeader "Instrument" :label-path ["label"] :flex 2}
                               {:columnHeader "Serial no." :label-path ["serial"] :flex 3}]}]
@@ -720,6 +721,7 @@
          :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
          :value-path         ["uri"]
          :random-uuid-value? true
+         :select-snapshot?   true
          :added-path         ["isUserDefined"]
          :columns            [{:columnHeader "Name" :label-path ["label"] :flex 2}
                               {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]
@@ -886,6 +888,7 @@
           :data-path          ["identificationInfo" "geographicElement" "boxes"]
           :value-path         ["uri"]
           :random-uuid-value? true
+          :select-snapshot?   true
           :added-path         ["isUserDefined"]
           :columns            [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
                                {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
@@ -1636,6 +1639,7 @@
          :data-path          ["resourceLineage" "onlineMethods"]
          :value-path         ["uri"]
          :random-uuid-value? true
+         :select-snapshot?   true
          :added-path         ["isUserDefined"]
          :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
                               {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
@@ -1743,6 +1747,7 @@
         :data-path          ["dataQualityInfo" "onlineMethods"]
         :value-path         ["uri"]
         :random-uuid-value? true
+        :select-snapshot?   true
         :added-path         ["isUserDefined"]
         :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
@@ -1857,6 +1862,7 @@
          :data-path          ["identificationInfo" "additionalPublications"]
          :value-path         ["uri"]
          :random-uuid-value? true
+         :select-snapshot?   true
          :added-path         ["isUserDefined"]
          :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
                               {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
@@ -1980,6 +1986,7 @@
         :data-path          ["dataSources"]
         :value-path         ["uri"]
         :random-uuid-value? true
+        :select-snapshot?   true
         :added-path         ["isUserDefined"]
         :columns            [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
                              {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}

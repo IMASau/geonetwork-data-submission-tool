@@ -138,6 +138,22 @@
       (actions4/select-user-defined-list-item-action3 {:db db} form-id data-path added-path idx)
       (actions4/select-list-item-action3 {:db db} form-id data-path idx))))
 
+(defn selection-list-item-click3
+  "Unselects selected item then tries to select item at idx.
+   :added-path (if present) - only allows selection of added items (e.g. user defined).
+   :select-snapshot? (if set) takes snapshot for dialog cancel behaviour."
+  [{:keys [db]} [_ props idx]]
+  (let [{:keys [form-id data-path added-path select-snapshot?]} props
+        has-added-path? (contains? props :added-path)
+        s1 (actions4/unselect-list-item-action {:db db} form-id data-path)
+        s2 (if has-added-path?
+             (actions4/select-user-defined-list-item-action3 s1 form-id data-path added-path idx)
+             (actions4/select-list-item-action3 s1 form-id data-path idx))
+        has-selected-idx (get-in s2 (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props :list-item-selected-idx]))]
+    (cond-> s2
+      (and has-selected-idx select-snapshot?)
+      (actions4/save-snapshot-action form-id))))
+
 (defn selection-list-remove-click
   [{:keys [db]} [_ ctx idx]]
   (let [{:keys [form-id data-path]} ctx]

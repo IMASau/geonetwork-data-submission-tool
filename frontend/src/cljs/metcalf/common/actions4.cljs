@@ -25,8 +25,8 @@
   [s form-id]
   (let [snapshots-path (utils4/as-path [:db form-id :snapshots])]
     (cond-> s
-            (seq (get-in s snapshots-path))
-            (update-in snapshots-path pop))))
+      (seq (get-in s snapshots-path))
+      (update-in snapshots-path pop))))
 
 (defn restore-snapshot-action
   "Restore form state from the latest snapshot.  e.g. user makes changes in modal then cancels"
@@ -35,9 +35,9 @@
         state-path (utils4/as-path [:db form-id :state])
         state-data (peek (get-in s snapshots-path))]
     (cond-> s
-            (seq (get-in s snapshots-path))
-            (-> (assoc-in state-path state-data)
-                (discard-snapshot-action form-id)))))
+      (seq (get-in s snapshots-path))
+      (-> (assoc-in state-path state-data)
+          (discard-snapshot-action form-id)))))
 
 (defn unselect-list-item-action
   "Clears the :list-item-selected-idx prop on an array block.  Used to dismiss modals."

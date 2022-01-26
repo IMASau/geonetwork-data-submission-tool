@@ -2,10 +2,10 @@
   (:require [clojure.edn :as edn]
             [clojure.string :as string]
             [interop.blueprint :as bp3]
+            [interop.cljs-time :as cljs-time]
             [interop.ui-controls :as ui-controls]
             [metcalf.common.low-code4 :as low-code]
-            [reagent.core :as r]
-            [interop.cljs-time :as cljs-time]))
+            [reagent.core :as r]))
 
 ; For pure views only, no re-frame subs/handlers
 

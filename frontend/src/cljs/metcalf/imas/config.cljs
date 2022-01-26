@@ -1139,9 +1139,8 @@
      ; [:h2 "8: Upload Data"]
      ; #_[m3/UploadData
      ;    {:attachments-path [:form :fields :attachments]}]
-     [:h2 "Data Services"]
      [m4/form-group
-      {:label     "Distributions"
+      {:label     "Data Services"
        :form-id   [:form]
        :data-path ["distributionInfo" "transferOptions"]
        :required  true}

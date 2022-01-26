@@ -431,7 +431,7 @@
         [m4/list-add-button
          {:form-id            [:form]
           :data-path          ["identificationInfo" "geographicElement" "boxes"]
-          :button-text        "Add new"
+          :button-text        "Add location"
           :value-path         ["uri"]
           :random-uuid-value? true
           :added-path         ["isUserDefined"]}]]

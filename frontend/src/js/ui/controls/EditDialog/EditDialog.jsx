@@ -101,9 +101,10 @@ EditDialog.propTypes = {
     onClear: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     canSave: PropTypes.bool,
+    canClear: PropTypes.bool,
 }
 
-export function EditDialog({ title, children, isOpen, onClose, onClear, onSave, canSave }) {
+export function EditDialog({ title, children, isOpen, onClose, onClear, canClear, onSave, canSave }) {
 
     return (
         <Dialog
@@ -122,7 +123,7 @@ export function EditDialog({ title, children, isOpen, onClose, onClear, onSave, 
             </div>
             <div className={Classes.DIALOG_FOOTER}>
                 <div className={Classes.DIALOG_FOOTER_ACTIONS}>
-                    <Button onClick={onClear}>Cancel</Button>
+                    <Button onClick={onClear} disabled={!canClear} >Cancel</Button>
                     <Button onClick={onSave} disabled={!canSave} intent={Intent.PRIMARY}>Save</Button>
                 </div>
             </div>

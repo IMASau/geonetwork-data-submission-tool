@@ -898,20 +898,19 @@
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "supportingResources"]
-       :label     "Any supplemental resources with hyperlinks"}
+       :label     "Supplemental resources with hyperlinks"}
       [:div.SelectionTableStyle
        [m4/selection-list-columns
-        {:form-id             [:form]
-         :data-path           ["identificationInfo" "supportingResources"]
-         :value-path          ["url"]
-         :columns             [{:columnHeader "Title" :label-path ["name"] :flex 1}
-                               {:columnHeader "URL" :label-path ["url"] :flex 1}]
-         :select-snapshot?    true
-         :placeholder-record? true}]]]
-     [m4/list-add-button
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "supportingResources"]
-       :button-text "Add"}]
+        {:form-id          [:form]
+         :data-path        ["identificationInfo" "supportingResources"]
+         :value-path       ["url"]
+         :columns          [{:columnHeader "Title" :label-path ["name"] :flex 1}
+                            {:columnHeader "URL" :label-path ["url"] :flex 1}]
+         :select-snapshot? true}]
+       [m4/list-add-button
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "supportingResources"]
+         :button-text "Add supplemental resource"}]]]
      [m4/list-edit-dialog
       {:form-id     [:form]
        :data-path   ["identificationInfo" "supportingResources"]

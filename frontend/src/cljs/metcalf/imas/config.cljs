@@ -427,15 +427,14 @@
                                 {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]
           :placeholder-record? true
           :select-snapshot?    true
-          :random-uuid-value?  true}]]
-
-       [m4/list-add-button
-        {:form-id            [:form]
-         :data-path          ["identificationInfo" "geographicElement" "boxes"]
-         :button-text        "Add new"
-         :value-path         ["uri"]
-         :random-uuid-value? true
-         :added-path         ["isUserDefined"]}]
+          :random-uuid-value?  true}]
+        [m4/list-add-button
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "geographicElement" "boxes"]
+          :button-text        "Add new"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :added-path         ["isUserDefined"]}]]
 
        [m4/list-edit-dialog
         {:form-id     [:form]

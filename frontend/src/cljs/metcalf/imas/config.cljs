@@ -1158,7 +1158,7 @@
       [m4/list-add-button
        {:form-id     [:form]
         :data-path   ["distributionInfo" "transferOptions"]
-        :button-text "Add"
+        :button-text "Add data service"
         :value-path  ["linkage"]}]
 
       [m4/list-edit-dialog

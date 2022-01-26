@@ -1,5 +1,7 @@
 (ns ^:dev/always metcalf.tern.config
-  (:require [interop.ui-controls :as ui-controls]
+  (:require [cljs.spec.alpha :as s]
+            [clojure.string :as string]
+            [interop.ui-controls :as ui-controls]
             [metcalf.common.components4 :as components4]
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.handlers3 :as handlers3]
@@ -13,9 +15,7 @@
             [metcalf.tern.db :as tern-db]
             [metcalf.tern.handlers :as tern-handlers]
             [metcalf.tern.subs :as tern-subs]
-            [re-frame.core :as rf]
-            [cljs.spec.alpha :as s]
-            [clojure.string :as string]))
+            [re-frame.core :as rf]))
 
 #_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)

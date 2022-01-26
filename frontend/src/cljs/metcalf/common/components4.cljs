@@ -151,12 +151,13 @@
         (js/console.log "snapshot-depth" (count ss))
         (js/console.warn "WARNING: No snapshot!  Did you forget to set :select-snapshot?")))
     [ui-controls/EditDialog
-     {:isOpen  (boolean list-item-selected-idx)
-      :title   title
-      :onClose #(rf/dispatch [::list-edit-dialog-close config])
-      :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
-      :onSave  #(rf/dispatch [::list-edit-dialog-save config])
-      :canSave (not errors?)}
+     {:isOpen   (boolean list-item-selected-idx)
+      :title    title
+      :onClose  #(rf/dispatch [::list-edit-dialog-close config])
+      :onClear  #(rf/dispatch [::list-edit-dialog-cancel config])
+      :canClear @(rf/subscribe [::can-dialog-cancel? config])
+      :onSave   #(rf/dispatch [::list-edit-dialog-save config])
+      :canSave  (not errors?)}
      (low-code4/render-template
        {:template-id template-id
         :variables   {'?form-id   form-id
@@ -198,12 +199,13 @@
         item-type (get-in value (into [list-item-selected-idx] type-path))
         {:keys [title template-id]} (get templates item-type)]
     [ui-controls/EditDialog
-     {:isOpen  (boolean list-item-selected-idx)
-      :title   (or title "")
-      :onClose #(rf/dispatch [::list-edit-dialog-close config])
-      :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
-      :onSave  #(rf/dispatch [::list-edit-dialog-save config])
-      :canSave (not errors?)}
+     {:isOpen   (boolean list-item-selected-idx)
+      :title    (or title "")
+      :onClose  #(rf/dispatch [::list-edit-dialog-close config])
+      :onClear  #(rf/dispatch [::list-edit-dialog-cancel config])
+      :canClear @(rf/subscribe [::can-dialog-cancel? config])
+      :onSave   #(rf/dispatch [::list-edit-dialog-save config])
+      :canSave  (not errors?)}
 
      (low-code4/render-template
        {:template-id template-id
@@ -240,12 +242,13 @@
         errors? @(rf/subscribe [::has-selected-block-errors? config])
         {:keys [form-id data-path open-dialog? title template-id]} props]
     [ui-controls/EditDialog
-     {:isOpen  open-dialog?
-      :title   title
-      :onClose #(rf/dispatch [::edit-dialog-close config])
-      :onClear #(rf/dispatch [::edit-dialog-cancel config])
-      :onSave  #(rf/dispatch [::edit-dialog-save config])
-      :canSave (not errors?)}
+     {:isOpen   open-dialog?
+      :title    title
+      :onClose  #(rf/dispatch [::edit-dialog-close config])
+      :onClear  #(rf/dispatch [::edit-dialog-cancel config])
+      :onSave   #(rf/dispatch [::edit-dialog-save config])
+      :canClear @(rf/subscribe [::can-dialog-cancel? config])
+      :canSave  (not errors?)}
      (low-code4/render-template
        {:template-id template-id
         :variables   {'?form-id   form-id
@@ -1672,12 +1675,13 @@
   "Modal form for creating new documents"
   [_]
   [ui-controls/EditDialog
-   {:isOpen  true
-    :title   "Create a new record"
-    :onClose #(rf/dispatch [::create-document-modal-close-click])
-    :onClear #(rf/dispatch [::create-document-modal-clear-click])
-    :onSave  #(rf/dispatch [::create-document-modal-save-click])
-    :canSave @(rf/subscribe [::create-document-modal-can-save?])}
+   {:isOpen   true
+    :title    "Create a new record"
+    :onClose  #(rf/dispatch [::create-document-modal-close-click])
+    :onClear  #(rf/dispatch [::create-document-modal-clear-click])
+    :onSave   #(rf/dispatch [::create-document-modal-save-click])
+    :canClear true
+    :canSave  @(rf/subscribe [::create-document-modal-can-save?])}
    [low-code4/render-template
     {:template-id ::create-document-modal-form
      :variables   '{?form-id [:create_form]}}]])

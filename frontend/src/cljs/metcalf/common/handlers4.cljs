@@ -1,6 +1,5 @@
 (ns metcalf.common.handlers4
-  (:require [cljs.spec.alpha :as s]
-            [clojure.string :as string]
+  (:require [clojure.string :as string]
             [goog.object :as gobject]
             [metcalf.common.actions4 :as actions4]
             [metcalf.common.blocks4 :as blocks4]
@@ -8,7 +7,8 @@
             [metcalf.common.logic4 :as logic4]
             [metcalf.common.rules4 :as rules4]
             [metcalf.common.schema4 :as schema4]
-            [metcalf.common.utils4 :as utils4]))
+            [metcalf.common.utils4 :as utils4]
+            [cljs.spec.alpha :as s]))
 
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]

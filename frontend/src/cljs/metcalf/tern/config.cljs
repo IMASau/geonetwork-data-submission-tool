@@ -108,6 +108,7 @@
 (rf/reg-sub ::components4/get-list-edit-can-save-sub subs4/form-state-signal subs4/get-list-edit-can-save-sub)
 (rf/reg-sub ::components4/has-block-errors? subs4/form-state-signal subs4/has-block-errors?)
 (rf/reg-sub ::components4/has-selected-block-errors? subs4/form-state-signal subs4/has-selected-block-errors?)
+(rf/reg-sub ::components4/can-dialog-cancel? subs4/can-dialog-cancel-sub)
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-page-errors-props subs4/form-state-signal subs4/get-page-errors-props-sub)
 (rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)

@@ -819,14 +819,14 @@
          :columns             [{:columnHeader "Name" :flex 1 :label-path ["longName_term" "Name"]}
                                {:columnHeader "Units" :flex 1 :label-path ["unit_term" "Name"]}
                                {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term" "Name"]}
-                               {:columnHeader "Platform" :flex 1 :label-path ["platform_term" "Name"]}]}]]]
-     [m4/list-add-button
-      {:form-id            [:form]
-       :data-path          ["identificationInfo" "dataParameters"]
-       :button-text        "Add data parameter"
-       :value-path         ["uri"]
-       :random-uuid-value? true
-       :added-path         ["isUserDefined"]}]
+                               {:columnHeader "Platform" :flex 1 :label-path ["platform_term" "Name"]}]}]
+       [m4/list-add-button
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "dataParameters"]
+         :button-text        "Add data parameter"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]]
 
      [m4/list-edit-dialog
       {:form-id     [:form]

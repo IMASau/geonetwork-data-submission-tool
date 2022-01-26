@@ -45,11 +45,24 @@
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (update-in s (conj block-path :props) dissoc :list-item-selected-idx)))
 
-(defn select-user-defined-list-item-action2
-  "Set the :list-item-selected-idx prop on an array block.  Does nothing if idx is not a user defined item."
-  [s form-id data-path idx ]
+(defn select-list-item-action3
+  "Set the :list-item-selected-idx prop on an array block."
+  [s form-id data-path idx]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (assoc-in s (conj block-path :props :list-item-selected-idx) idx)))
+
+(defn select-user-defined-list-item-action3
+  "Set the :list-item-selected-idx prop on an array block.  Does nothing if idx is not a user defined item."
+  [s form-id data-path added-path idx]
+  (let [state (get-in s (utils4/as-path [:db form-id :state]))
+        block (get-in state (blocks4/block-path data-path))
+        list-data (blocks4/as-data block)
+        item-data (get list-data idx)
+        item-added? (get-in item-data added-path)
+        block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
+    (cond-> s
+      item-added?
+      (assoc-in (conj block-path :props :list-item-selected-idx) idx))))
 
 (defn select-last-item-action
   "Set the :list-item-selected-idx prop to point at the last item in an array block.  Does nothing if list is empty."

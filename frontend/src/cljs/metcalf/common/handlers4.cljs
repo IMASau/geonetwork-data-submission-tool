@@ -129,14 +129,14 @@
   [{:keys [db]} [_ props idx]]
   (let [{:keys [form-id data-path]} props]
     (-> {:db db}
-        (actions4/select-user-defined-list-item-action2 form-id data-path idx))))
+        (actions4/select-list-item-action3 form-id data-path idx))))
 
 (defn selection-list-item-click2
   [{:keys [db]} [_ props idx]]
   (let [{:keys [form-id data-path added-path]} props]
-    (cond-> {:db db}
-      added-path
-      (actions4/select-user-defined-list-item-action2 form-id data-path idx))))
+    (if (contains? props :added-path)
+      (actions4/select-user-defined-list-item-action3 {:db db} form-id data-path added-path idx)
+      (actions4/select-list-item-action3 {:db db} form-id data-path idx))))
 
 (defn selection-list-remove-click
   [{:keys [db]} [_ ctx idx]]

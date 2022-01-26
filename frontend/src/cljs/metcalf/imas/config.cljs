@@ -883,13 +883,12 @@
        :label     "Publications associated with the dataset"}
       [:div.SelectionTableStyle
        [m4/selection-list-values
-        {:form-id             [:form]
-         :data-path           ["identificationInfo" "supplementalInformation"]
-         :placeholder-record? true}]]]
-     [m4/list-add-button
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "supplementalInformation"]
-       :button-text "Add"}]
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "supplementalInformation"]}]
+       [m4/list-add-button
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "supplementalInformation"]
+         :button-text "Add associated publication"}]]]
      [m4/list-edit-dialog
       {:form-id     [:form]
        :data-path   ["identificationInfo" "supplementalInformation"]

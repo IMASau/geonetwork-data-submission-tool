@@ -1137,7 +1137,7 @@
      ;  {:form-id    [:form]
      ;   :data-path  []
      ;   :data-paths [["attachments"]]}]
-     ; [:h2 "8: Upload Data"]
+     [:h2 "8: Upload Data"]
      ; #_[m3/UploadData
      ;    {:attachments-path [:form :fields :attachments]}]
      [m4/form-group

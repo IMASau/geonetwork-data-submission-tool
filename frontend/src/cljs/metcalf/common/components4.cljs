@@ -145,6 +145,11 @@
         errors? @(rf/subscribe [::has-selected-block-errors? config])
         {:keys [form-id data-path list-item-selected-idx title template-id]} props
         item-data-path (conj data-path list-item-selected-idx)]
+    ; NOTE: Debugging code to aid resolution of dialog cancel saving
+    (when (boolean list-item-selected-idx)
+      (if-let [ss (seq (:snapshots (get-in @re-frame.db/app-db form-id)))]
+        (js/console.log "snapshot-depth" (count ss))
+        (js/console.warn "WARNING: No snapshot!  Did you forget to set :select-snapshot?")))
     [ui-controls/EditDialog
      {:isOpen  (boolean list-item-selected-idx)
       :title   title

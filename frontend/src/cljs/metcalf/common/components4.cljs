@@ -1175,7 +1175,7 @@
   "Settings for selection-list-columns component"
   [{:keys [value-path columns added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :value-path :columns]
-   ::low-code4/opt-ks       [:added-path :placeholder-record? :random-uuid-value?]
+   ::low-code4/opt-ks       [:added-path :placeholder-record? :random-uuid-value? :select-snapshot?]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths (into [value-path added-path] (map :label-path columns))})
 
@@ -1194,6 +1194,7 @@
    * added-path (vector) - path to test if list item is user defined.  Used to style control.
    * placeholder-record? (boolean) - display an empty record when the list is empty
    * random-uuid-value? (boolean) - when creating a new entry, set value to a random-uuid
+   * select-snapshot? (boolean) - whether add/edit clicks should save a snapshot (for dialog)
 
    Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
    * disabled - styles control to indicate it's disabled

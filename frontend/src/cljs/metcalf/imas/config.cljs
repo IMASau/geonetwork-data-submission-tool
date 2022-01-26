@@ -1137,7 +1137,7 @@
      ;  {:form-id    [:form]
      ;   :data-path  []
      ;   :data-paths [["attachments"]]}]
-     [:h2 "8: Upload Data"]
+     [:h2 "8: Data sources"]
      ; #_[m3/UploadData
      ;    {:attachments-path [:form :fields :attachments]}]
 
@@ -1167,8 +1167,8 @@
          :value-path          ["linkage"]
          :placeholder-record? true
          :select-snapshot?    true
-         :columns             [{:columnHeader "Protocol" :label-path ["protocol"] :flex 1}
-                               {:columnHeader "Server" :label-path ["linkage"] :flex 1}
+         :columns             [{:columnHeader "Protocol" :label-path ["protocol"] :flex 2}
+                               {:columnHeader "Server" :label-path ["linkage"] :flex 2}
                                {:columnHeader "Name" :label-path ["name"] :flex 1}]}]]
 
       [m4/list-add-button

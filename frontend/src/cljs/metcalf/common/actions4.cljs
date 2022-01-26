@@ -70,8 +70,8 @@
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
         last-idx (dec (count (get-in s (conj block-path :content))))]
     (cond-> s
-            (not (neg? last-idx))
-            (assoc-in (conj block-path :props :list-item-selected-idx) last-idx))))
+      (not (neg? last-idx))
+      (assoc-in (conj block-path :props :list-item-selected-idx) last-idx))))
 
 (defn del-item-action
   "Remove the item at idx from an array block."

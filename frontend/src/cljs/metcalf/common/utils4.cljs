@@ -1,11 +1,11 @@
 (ns metcalf.common.utils4
   (:require [cljs.spec.alpha :as s]
-            [clojure.string :as string]
             [goog.object :as gobject]
             [goog.string :as gstring]
             [goog.uri.utils :as uri]
             [lambdaisland.fetch :as fetch]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [clojure.string :as string]))
 
 
 (s/def ::form-id vector?)

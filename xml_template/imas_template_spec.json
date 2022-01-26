@@ -596,11 +596,11 @@
       }
     },
     "distributionInfo": {
-      "xpath": "mdb:distributionInfo/mrd:MD_Distribution",
+      "xpath": "mdb:distributionInfo",
       "type": "object",
       "properties": {
         "distributionFormat": {
-          "xpath": "mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation",
+          "xpath": "mrd:MD_Distribution/mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation",
           "type": "object",
           "properties": {
             "title": {
@@ -622,6 +622,64 @@
               ],
               "valueChild": "gco:CharacterString",
               "type": "string"
+            }
+          }
+        },
+        "transferOptions": {
+          "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine",
+          "type": "array",
+          "keep": false,
+          "deleteWhenEmpty": false,
+          "items": {
+            "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine",
+            "type": "object",
+            "deleteWhenEmpty": false,
+            "rules": [
+              {
+                "imasTransferOptionLayer": {
+                  "excludeValues": [
+                    "WWW:LINK-1.0-http--downloaddata"
+                  ]
+                }
+              }
+            ],
+            "properties": {
+              "linkage": {
+                "xpath": "cit:CI_OnlineResource/cit:linkage",
+                "valueChild": "gco:CharacterString",
+                "type": "string",
+                "required": true,
+                "rules": [
+                  "requiredField"
+                ]
+              },
+              "protocol": {
+                "xpath": "cit:CI_OnlineResource/cit:protocol",
+                "valueChild": "gco:CharacterString",
+                "type": "string",
+                "required": true,
+                "rules": [
+                  "requiredField"
+                ]
+              },
+              "name": {
+                "xpath": "cit:CI_OnlineResource/cit:name",
+                "valueChild": "gco:CharacterString",
+                "type": "string",
+                "required": true,
+                "rules": [
+                  "requiredField"
+                ]
+              },
+              "description": {
+                "xpath": "cit:CI_OnlineResource/cit:description",
+                "valueChild": "gco:CharacterString",
+                "type": "string",
+                "required": true,
+                "rules": [
+                  "requiredField"
+                ]
+              }
             }
           }
         }

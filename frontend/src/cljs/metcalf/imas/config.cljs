@@ -135,18 +135,19 @@
 ;(when goog/DEBUG (ins4/reg-global-singleton ins4/db-diff))
 ;(when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
-      {"requiredField"         rules4/required-field
-       "otherConstraintsLogic" rules4/other-constraints-logic
-       "maxLength"             rules4/max-length
-       "geographyRequired"     rules4/geography-required
-       "imasVerticalRequired"  rules4/imas-vertical-required
-       "licenseOther"          rules4/license-other
-       "dateOrder"             rules4/date-order
-       "endPosition"           rules4/end-position
-       "positive"              rules4/force-positive
-       "maintFreq"             rules4/maint-freq
-       "firstCommaLast"        rules4/first-comma-last
-       "validOrcid"            rules4/valid-ordid-uri})
+      {"requiredField"           rules4/required-field
+       "otherConstraintsLogic"   rules4/other-constraints-logic
+       "maxLength"               rules4/max-length
+       "geographyRequired"       rules4/geography-required
+       "imasVerticalRequired"    rules4/imas-vertical-required
+       "imasTransferOptionLayer" rules4/imas-transfer-option-layer
+       "licenseOther"            rules4/license-other
+       "dateOrder"               rules4/date-order
+       "endPosition"             rules4/end-position
+       "positive"                rules4/force-positive
+       "maintFreq"               rules4/maint-freq
+       "firstCommaLast"          rules4/first-comma-last
+       "validOrcid"              rules4/valid-ordid-uri})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)
@@ -1130,83 +1131,84 @@
 
     :upload
     [:div
-    ; [m4/page-errors
-    ;  {:form-id    [:form]
-    ;   :data-path  []
-    ;   :data-paths [["attachments"]]}]
-    ; [:h2 "8: Upload Data"]
-    ; #_[m3/UploadData
-    ;    {:attachments-path [:form :fields :attachments]}]
-    ; [:h2 "Data Services"]
-    ; [m4/selection-list-columns2
-    ;  {:form-id    [:form]
-    ;   :data-path  ["dataSources"]
-    ;   :value-path ["url"]
-    ;   :added-path ["isUserDefined"]
-    ;   :columns    [{:columnHeader "Description" :label-path ["description"] :flex 1}
-    ;                {:columnHeader "URL" :label-path ["url"] :flex 1}
-    ;                {:columnHeader "Layer" :label-path ["name"] :flex 1}]}]
-    ; [:div.bp3-control-group
-    ;  [m4/list-add-button
-    ;   {:form-id     [:form]
-    ;    :data-path   ["dataSources"]
-    ;    :button-text "Add data service"
-    ;    :value-path  ["url"]
-    ;    :added-path  ["isUserDefined"]}]]
-    ; [m4/list-edit-dialog
-    ;  {:form-id     [:form]
-    ;   :data-path   ["dataSources"]
-    ;   :title       "Data Service"
-    ;   :template-id :data-source/user-defined-entry-form}]
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["attachments"]]}]
+     ; [:h2 "8: Upload Data"]
+     ; #_[m3/UploadData
+     ;    {:attachments-path [:form :fields :attachments]}]
+     [:h2 "Data Services"]
+     [m4/form-group
+      {:label     "Distributions"
+       :form-id   [:form]
+       :data-path ["distributionInfo" "transferOptions"]
+       :required  true}
+      [:div.SelectionTableStyle
+       [m4/selection-list-columns
+        {:form-id             [:form]
+         :data-path           ["distributionInfo" "transferOptions"]
+         :value-path          ["linkage"]
+         :placeholder-record? true
+         :columns             [{:columnHeader "Protocol" :label-path ["protocol"] :flex 1}
+                               {:columnHeader "Server" :label-path ["linkage"] :flex 1}
+                               {:columnHeader "Name" :label-path ["name"] :flex 1}]}]]
+
+      [m4/list-add-button
+       {:form-id     [:form]
+        :data-path   ["distributionInfo" "transferOptions"]
+        :button-text "Add"
+        :value-path  ["linkage"]}]
+
+      [m4/list-edit-dialog
+       {:form-id     [:form]
+        :data-path   ["distributionInfo" "transferOptions"]
+        :value-path  ["linkage"]
+        :title       "Data Distribution"
+        :template-id :transferOptions/user-defined-entry-form}]]
+
+
      [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
 
-    ;:data-source/user-defined-entry-form
-    ;[:div
-    ; [m4/inline-form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "description"]
-    ;   :label     "Title"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "description"]}]]
-    ;
-    ; [m4/inline-form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "protocol"]
-    ;   :label     "Protocol"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "protocol"]}]]
-    ;
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path [?data-path "protocol"]
-    ;   :label     "Protocol"}
-    ;  [m4/select-value
-    ;   {:form-id    [:form]
-    ;    :data-path  [?data-path "protocol"]
-    ;    :value-path ["value"]
-    ;    :label-path ["label"]
-    ;    :options    [{"value" "OGC:WMS-1.3.0-http-get-map" "label" "OGC Web Map Service (WMS)"}
-    ;                 {"value" "OGC:WFS-1.0.0-http-get-capabilities" "label" "OGC Web Feature Service (WFS)"}
-    ;                 {"value" "WWW:LINK-1.0-http--downloaddata" "label" "Other/unknown"}]}]]
-    ;
-    ; [m4/inline-form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "url"]
-    ;   :label     "URL"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "url"]}]]
-    ;
-    ; [m4/inline-form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "name"]
-    ;   :label     "Layer"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "name"]}]]]
-    ;
+    :transferOptions/user-defined-entry-form
+    [:div
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "description"]
+       :label     "Title"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "description"]}]]
+
+     [m4/inline-form-group
+      {:form-id   [:form]
+       :data-path [?data-path "protocol"]
+       :label     "Protocol"}
+      [m4/select-value
+       {:form-id    [:form]
+        :data-path  [?data-path "protocol"]
+        :value-path ["value"]
+        :label-path ["label"]
+        :options    [{"value" "OGC:WMS-1.3.0-http-get-map" "label" "OGC Web Map Service (WMS)"}
+                     {"value" "OGC:WFS-1.0.0-http-get-capabilities" "label" "OGC Web Feature Service (WFS)"}
+                     {"value" "WWW:LINK-1.0-http--downloaddata" "label" "Other/unknown"}]}]]
+
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "linkage"]
+       :label     "URL"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "linkage"]}]]
+
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "name"]
+       :label     "Layer"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "name"]}]]]
+
     ;:lodge
     ;[:div
     ; [:h2 "9: Lodge Metadata Draft"]

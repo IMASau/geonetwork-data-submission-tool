@@ -1,5 +1,7 @@
 (ns ^:dev/always metcalf.imas.config
-  (:require [interop.ui-controls :as ui-controls]
+  (:require [cljs.spec.alpha :as s]
+            [clojure.string :as string]
+            [interop.ui-controls :as ui-controls]
             [metcalf.common.components4 :as components4]
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.handlers3 :as handlers3]
@@ -10,12 +12,10 @@
             [metcalf.common.subs3 :as subs3]
             [metcalf.common.subs4 :as subs4]
             [metcalf.common.utils4 :as utils4]
+            [metcalf.imas.components :as imas-components]
             [metcalf.imas.handlers :as imas-handlers]
             [metcalf.imas.subs :as imas-subs]
-            [metcalf.imas.components :as imas-components]
-            [re-frame.core :as rf]
-            [cljs.spec.alpha :as s]
-            [clojure.string :as string]))
+            [re-frame.core :as rf]))
 
 #_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)

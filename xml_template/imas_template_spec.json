@@ -515,6 +515,7 @@
           }
         },
         "supportingResources": {
+          "data_to_xml_skip": true,
           "type": "array",
           "items": {
             "type": "object",
@@ -626,6 +627,7 @@
           }
         },
         "transferOptions": {
+          "data_to_xml_skip": true,
           "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine",
           "type": "array",
           "keep": false,
@@ -878,6 +880,71 @@
       {
         "node_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:resourceConstraints[mco:MD_LegalConstraints]"
       }
+    ],
+    [
+      "imasDigitalTransferOptions",
+      {
+        "mount_xpath": "/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions",
+        "template_xpath": "/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine"
+      },
+      [
+        [
+          "set_text",
+          {
+            "data_path": "description",
+            "node_xpath": "cit:CI_OnlineResource/cit:description/gco:CharacterString"
+          }
+        ],
+        [
+          "remove_element",
+          {
+            "data_path": "description",
+            "node_xpath": "cit:CI_OnlineResource/cit:description"
+          }
+        ],
+        [
+          "set_text",
+          {
+            "data_path": "linkage",
+            "node_xpath": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString"
+          }
+        ],
+        [
+          "remove_element",
+          {
+            "data_path": "linkage",
+            "node_xpath": "cit:CI_OnlineResource/cit:linkage"
+          }
+        ],
+        [
+          "set_text",
+          {
+            "data_path": "protocol",
+            "node_xpath": "cit:CI_OnlineResource/cit:protocol/gco:CharacterString"
+          }
+        ],
+        [
+          "remove_element",
+          {
+            "data_path": "protocol",
+            "node_xpath": "cit:CI_OnlineResource/cit:protocol"
+          }
+        ],
+        [
+          "set_text",
+          {
+            "data_path": "name",
+            "node_xpath": "cit:CI_OnlineResource/cit:name/gco:CharacterString"
+          }
+        ],
+        [
+          "remove_element",
+          {
+            "data_path": "name",
+            "node_xpath": "cit:CI_OnlineResource/cit:name"
+          }
+        ]
+      ]
     ]
   ]
 }

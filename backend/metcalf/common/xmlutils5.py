@@ -222,9 +222,9 @@ def export2_remove_element_handler(data, xml_node, xml_kwargs, xform, **kwargs):
     """
     xf_props = xform[1]
     data_path = xf_props.get('data_path', None)
-    xpath = xf_props.get('xpath', None)
-    assert data_path is not None, "export2_remove_element_handler: xf_props.data_path must be set"
-    assert xpath is not None, "export2_remove_element_handler: xf_props.xpath must be set"
+    node_xpath = xf_props.get('node_xpath', None)
+    assert data_path is not None, "data_path must be set"
+    assert node_xpath is not None, "node_xpath must be set"
     hit, value = get_dotted_path(data, data_path)
     if not hit:
         nodes = xml_node.xpath(xpath, **xml_kwargs)

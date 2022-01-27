@@ -270,7 +270,7 @@ def export2_append_items_handler(data, xml_node, spec, xml_kwargs, handlers, xfo
                 export2_xform(
                     xform=item_xform,
                     data=value,
-                    xml_node=xml_node,
+                    xml_node=element,
                     spec=items_spec,
                     xml_kwargs=xml_kwargs,
                     handlers=handlers)

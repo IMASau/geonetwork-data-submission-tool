@@ -207,7 +207,7 @@ def export2_set_text_handler(data, xml_node, xml_kwargs, xform, **kwargs):
     hit, value = get_dotted_path(data, data_path)
     if hit:
         nodes = xml_node.xpath(node_xpath, **xml_kwargs)
-        assert len(nodes) == 1
+        assert len(nodes) == 1, "node_xpath must match one node, %s found" % len(nodes)
         nodes[0].text = str(value)
 
 

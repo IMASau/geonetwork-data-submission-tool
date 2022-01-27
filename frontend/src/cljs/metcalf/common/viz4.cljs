@@ -1,10 +1,10 @@
 (ns metcalf.common.viz4
-  (:require [interop.blueprint :as bp3]
-            [reagent.core :as r]
+  (:require [clojure.string :as string]
             [goog.object :as gobj]
+            [interop.blueprint :as bp3]
+            [metcalf.common.rules4 :as rules4]
             [metcalf.common.schema4 :as schema4]
-            [clojure.string :as string]
-            [metcalf.common.rules4 :as rules4]))
+            [reagent.core :as r]))
 
 (defn data-path->schema-nav-path
   "Translate a data-path into a path into the schema"

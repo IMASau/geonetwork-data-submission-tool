@@ -490,6 +490,49 @@
         },
         "otherConstraints": {
           "type": "string"
+        },
+        "useLimitations": {
+          "type": "array",
+          "xpath": "mri:resourceConstraints/mco:MD_Constraints[mco:useLimitation]",
+          "container": "mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation[last()]",
+          "keep": false,
+          "items": {
+            "type": "string",
+            "keep": "false",
+            "xpath": "mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation/gco:CharacterString"
+          }
+        },
+        "supplementalInformation": {
+          "xpath": "mri:supplementalInformation/gco:CharacterString",
+          "type": "array",
+          "keep": false,
+          "items": {
+            "xpath": "mri:supplementalInformation/gco:CharacterString",
+            "type": "string",
+            "rules": [
+              "requiredField"
+            ]
+          }
+        },
+        "supportingResources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "rules": [
+                  "requiredField"
+                ]
+              },
+              "url": {
+                "type": "string",
+                "rules": [
+                  "requiredField"
+                ]
+              }
+            }
+          }
         }
       }
     },
@@ -550,6 +593,110 @@
         "rules": [
           "requiredField"
         ]
+      }
+    },
+    "distributionInfo": {
+      "xpath": "mdb:distributionInfo",
+      "type": "object",
+      "properties": {
+        "distributionFormat": {
+          "xpath": "mrd:MD_Distribution/mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation",
+          "type": "object",
+          "properties": {
+            "title": {
+              "xpath": "cit:title",
+              "rules": [
+                {
+                  "maxLength": 100
+                }
+              ],
+              "valueChild": "gco:CharacterString",
+              "type": "string"
+            },
+            "edition": {
+              "xpath": "cit:edition",
+              "rules": [
+                {
+                  "maxLength": 20
+                }
+              ],
+              "valueChild": "gco:CharacterString",
+              "type": "string"
+            }
+          }
+        },
+        "transferOptions": {
+          "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine",
+          "type": "array",
+          "keep": false,
+          "deleteWhenEmpty": false,
+          "items": {
+            "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine",
+            "type": "object",
+            "deleteWhenEmpty": false,
+            "rules": [
+              {
+                "imasTransferOptionLayer": {
+                  "excludeValues": [
+                    "WWW:LINK-1.0-http--downloaddata"
+                  ]
+                }
+              }
+            ],
+            "properties": {
+              "linkage": {
+                "xpath": "cit:CI_OnlineResource/cit:linkage",
+                "valueChild": "gco:CharacterString",
+                "type": "string",
+                "required": true,
+                "rules": [
+                  "requiredField"
+                ]
+              },
+              "protocol": {
+                "xpath": "cit:CI_OnlineResource/cit:protocol",
+                "valueChild": "gco:CharacterString",
+                "type": "string",
+                "required": true,
+                "rules": [
+                  "requiredField"
+                ]
+              },
+              "name": {
+                "xpath": "cit:CI_OnlineResource/cit:name",
+                "valueChild": "gco:CharacterString",
+                "type": "string",
+                "required": true,
+                "rules": [
+                  "requiredField"
+                ]
+              },
+              "description": {
+                "xpath": "cit:CI_OnlineResource/cit:description",
+                "valueChild": "gco:CharacterString",
+                "type": "string",
+                "required": true,
+                "rules": [
+                  "requiredField"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
       }
     }
   },

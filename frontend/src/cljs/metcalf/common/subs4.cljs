@@ -58,6 +58,11 @@
             field-blocks (map #(get-in item-block (blocks4/block-path %)) field-paths)]
         (some pos? (map #(get-in % [:progress/score :progress/errors]) field-blocks))))))
 
+(defn can-dialog-cancel-sub
+  [db [_ {:keys [form-id]}]]
+  (let [{:keys [snapshots]} (get-in db form-id)]
+    (boolean (seq snapshots))))
+
 (defn get-block-props-sub
   "take config and merge with block props"
   [state [_ {:keys [data-path] :as config}]]

@@ -1,5 +1,7 @@
 (ns ^:dev/always metcalf.tern.config
-  (:require [interop.ui-controls :as ui-controls]
+  (:require [cljs.spec.alpha :as s]
+            [clojure.string :as string]
+            [interop.ui-controls :as ui-controls]
             [metcalf.common.components4 :as components4]
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.handlers3 :as handlers3]
@@ -13,24 +15,22 @@
             [metcalf.tern.db :as tern-db]
             [metcalf.tern.handlers :as tern-handlers]
             [metcalf.tern.subs :as tern-subs]
-            [re-frame.core :as rf]
-            [cljs.spec.alpha :as s]
-            [clojure.string :as string]))
+            [re-frame.core :as rf]))
 
 #_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-event-fx ::components4/create-document-modal-clear-click handlers4/create-document-modal-clear-click)
 (rf/reg-event-fx ::components4/create-document-modal-close-click handlers4/create-document-modal-close-click)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
-(rf/reg-event-fx ::components4/item-add-button-click handlers4/item-add-with-defaults-click-handler)
-(rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler)
+(rf/reg-event-fx ::components4/item-add-button-click handlers4/item-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/item-dialog-button-edit-click handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/edit-dialog-cancel handlers4/edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/edit-dialog-close handlers4/edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/edit-dialog-save handlers4/edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
-(rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/list-add-with-defaults-click-handler3 handlers4/list-add-with-defaults-click-handler3)
 (rf/reg-event-fx ::components4/value-list-add-with-defaults-click-handler handlers4/value-list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-cancel-handler)
@@ -38,7 +38,7 @@
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/add-record handlers4/add-record-handler)
-(rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click2)
+(rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click3)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::components4/text-value-add-click-handler handlers4/text-value-add-click-handler)
@@ -108,6 +108,7 @@
 (rf/reg-sub ::components4/get-list-edit-can-save-sub subs4/form-state-signal subs4/get-list-edit-can-save-sub)
 (rf/reg-sub ::components4/has-block-errors? subs4/form-state-signal subs4/has-block-errors?)
 (rf/reg-sub ::components4/has-selected-block-errors? subs4/form-state-signal subs4/has-selected-block-errors?)
+(rf/reg-sub ::components4/can-dialog-cancel? subs4/can-dialog-cancel-sub)
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-page-errors-props subs4/form-state-signal subs4/get-page-errors-props-sub)
 (rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
@@ -175,7 +176,7 @@
        'm4/item-add-button                     {:view components4/item-add-button :init components4/item-add-button-settings}
        'm4/item-dialog-button                  {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/edit-dialog                         {:view components4/edit-dialog :init components4/edit-dialog-settings}
-       'm4/list-add-button                     {:view components4/list-add-button :init components4/list-add-button-settings}
+       'm4/list-add-button                     {:view components4/list-add-button3 :init components4/list-add-button3-settings}
        'm4/value-list-add-button               {:view components4/value-list-add-button :init components4/value-list-add-button-settings}
        'm4/list-edit-dialog                    {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
        'm4/typed-list-edit-dialog              {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
@@ -190,7 +191,7 @@
        'm4/selection-list-simple               {:view components4/selection-list-simple :init components4/selection-list-simple-settings}
        'm4/selection-list-values               {:view components4/selection-list-values :init components4/selection-list-values-settings}
        ;'m4/table-list-option-picker            {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
-       'm4/selection-list-columns              {:view components4/selection-list-columns :init components4/selection-list-columns-settings}
+       'm4/selection-list-columns              {:view components4/selection-list-columns3 :init components4/selection-list-columns3-settings}
        'm4/textarea-field                      {:view components4/textarea-field :init components4/textarea-field-settings}
        'm4/when-data                           {:view components4/when-data :init components4/when-data-settings}
        'm4/get-data                            {:view components4/get-data :init components4/get-data-settings}
@@ -356,12 +357,13 @@
           :value-path ["uri"]
           :added-path ["isUserDefined"]}]]
        [m4/item-dialog-button
-        {:form-id       ?form-id
-         :data-path     [?data-path "unit"]
-         :label-path    ["label"]
-         :value-path    ["uri"]
-         :item-defaults {"userAddedCategory" "unit"}
-         :added-path    ["isUserDefined"]}]]
+        {:form-id            ?form-id
+         :data-path          [?data-path "unit"]
+         :label-path         ["label"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "unit"}
+         :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
        {:form-id     ?form-id
@@ -636,12 +638,13 @@
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button
-         {:form-id       [:form]
-          :data-path     ["identificationInfo" "keywordsPlatform" "keywords"]
-          :button-text   "Add"
-          :value-path    ["uri"]
-          :item-defaults {"userAddedCategory" "platform"}
-          :added-path    ["isUserDefined"]}]]
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "keywordsPlatform" "keywords"]
+          :button-text        "Add"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :item-defaults      {"userAddedCategory" "platform"}
+          :added-path         ["isUserDefined"]}]]
 
        [m4/selection-list-simple
         {:form-id    [:form]
@@ -670,19 +673,22 @@
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button
-         {:form-id       [:form]
-          :data-path     ["identificationInfo" "keywordsInstrument" "keywords"]
-          :button-text   "Add"
-          :value-path    ["uri"]
-          :item-defaults {"userAddedCategory" "instrument"}
-          :added-path    ["isUserDefined"]}]]
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "keywordsInstrument" "keywords"]
+          :button-text        "Add"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :item-defaults      {"userAddedCategory" "instrument"}
+          :added-path         ["isUserDefined"]}]]
        [m4/selection-list-columns
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
-         :value-path ["uri"]
-         :added-path ["isUserDefined"]
-         :columns    [{:columnHeader "Instrument" :label-path ["label"] :flex 2}
-                      {:columnHeader "Serial no." :label-path ["serial"] :flex 3}]}]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "keywordsInstrument" "keywords"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :select-snapshot?   true
+         :added-path         ["isUserDefined"]
+         :columns            [{:columnHeader "Instrument" :label-path ["label"] :flex 2}
+                              {:columnHeader "Serial no." :label-path ["serial"] :flex 3}]}]
        [m4/list-edit-dialog
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
@@ -704,19 +710,22 @@
            :label-path ["label"]
            :value-path ["uri"]}]]
         [m4/list-add-button
-         {:form-id       [:form]
-          :data-path     ["identificationInfo" "keywordsParameters" "keywords"]
-          :button-text   "Add"
-          :value-path    ["uri"]
-          :item-defaults {"userAddedCategory" "parameters"}
-          :added-path    ["isUserDefined"]}]]
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
+          :button-text        "Add"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :item-defaults      {"userAddedCategory" "parameters"}
+          :added-path         ["isUserDefined"]}]]
        [m4/selection-list-columns
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
-         :value-path ["uri"]
-         :added-path ["isUserDefined"]
-         :columns    [{:columnHeader "Name" :label-path ["label"] :flex 2}
-                      {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :select-snapshot?   true
+         :added-path         ["isUserDefined"]
+         :columns            [{:columnHeader "Name" :label-path ["label"] :flex 2}
+                              {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]
        [m4/list-edit-dialog
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
@@ -876,21 +885,24 @@
         {:label    "Limits"
          :required true}
         [m4/selection-list-columns
-         {:form-id    [:form]
-          :data-path  ["identificationInfo" "geographicElement" "boxes"]
-          :value-path ["uri"]
-          :added-path ["isUserDefined"]
-          :columns    [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
-                       {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
-                       {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
-                       {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "geographicElement" "boxes"]
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :select-snapshot?   true
+          :added-path         ["isUserDefined"]
+          :columns            [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
+                               {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
+                               {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
+                               {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
 
         [m4/list-add-button
-         {:form-id     [:form]
-          :data-path   ["identificationInfo" "geographicElement" "boxes"]
-          :button-text "Add"
-          :value-path  ["uri"]
-          :added-path  ["isUserDefined"]}]
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "geographicElement" "boxes"]
+          :button-text        "Add"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :added-path         ["isUserDefined"]}]
 
         [m4/list-edit-dialog
          {:form-id     [:form]
@@ -1045,22 +1057,24 @@
         "More than one person or an organisation can be included as well."]
 
        [m4/list-add-button
-        {:form-id       [:form]
-         :data-path     ["identificationInfo" "citedResponsibleParty"]
-         :button-text   "Add person"
-         :value-path    ["uri"]
-         :added-path    ["isUserDefined"]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "citedResponsibleParty"]
+         :button-text        "Add person"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]
          ;; FIXME: Add userAddedCategory to item defaults?
-         :item-defaults {"partyType" "person"}}]
+         :item-defaults      {"partyType" "person"}}]
 
        [m4/list-add-button
-        {:form-id       [:form]
-         :data-path     ["identificationInfo" "citedResponsibleParty"]
-         :button-text   "Add organisation"
-         :value-path    ["uri"]
-         :added-path    ["isUserDefined"]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "citedResponsibleParty"]
+         :button-text        "Add organisation"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]
          ;; FIXME: Add userAddedCategory to item defaults?
-         :item-defaults {"partyType" "organisation"}}]
+         :item-defaults      {"partyType" "organisation"}}]
 
        [m4/selection-list-template
         {:form-id     [:form]
@@ -1087,22 +1101,24 @@
         "Please assign a persona and/or an organisation as the point of contact.  More than one person or organisation can be included."]
 
        [m4/list-add-button
-        {:form-id       [:form]
-         :data-path     ["identificationInfo" "pointOfContact"]
-         :button-text   "Add person"
-         :value-path    ["uri"]
-         :added-path    ["isUserDefined"]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "pointOfContact"]
+         :button-text        "Add person"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]
          ;; FIXME: Add userAddedCategory to item defaults?
-         :item-defaults {"partyType" "person"}}]
+         :item-defaults      {"partyType" "person"}}]
 
        [m4/list-add-button
-        {:form-id       [:form]
-         :data-path     ["identificationInfo" "pointOfContact"]
-         :button-text   "Add organisation"
-         :value-path    ["uri"]
-         :added-path    ["isUserDefined"]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "pointOfContact"]
+         :button-text        "Add organisation"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]
          ;; FIXME: Add userAddedCategory to item defaults?
-         :item-defaults {"partyType" "organisation"}}]
+         :item-defaults      {"partyType" "organisation"}}]
 
        [m4/selection-list-template
         {:form-id     [:form]
@@ -1134,6 +1150,7 @@
      ;  :data-path  ["identificationInfo" "PointOfContactForDataset"]
      ;  :label-path ["contact" "label"]
      ;  :value-path ["uri"]
+     ;  :random-uuid-value? true
      ;  :columns    [{:columnHeader "contact" :label-path ["contact" "label"] :flex 2}
      ;               {:columnHeader "role" :label-path ["role" "label"] :flex 3}]
      ;  :added-path ["isUserDefined"]}]
@@ -1176,65 +1193,65 @@
       [m4/select-option-simple
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
-        :options    [{"UUID" "a37cc120-9920-4495-9a2f-698e225b5902"
-                      "Identifier" "author"
+        :options    [{"UUID"        "a37cc120-9920-4495-9a2f-698e225b5902"
+                      "Identifier"  "author"
                       "Description" "Party who authored the resource"}
-                     {"UUID" "cc22ca92-a323-42fa-8e01-1503f0edf6b9"
-                      "Identifier" "coAuthor"
+                     {"UUID"        "cc22ca92-a323-42fa-8e01-1503f0edf6b9"
+                      "Identifier"  "coAuthor"
                       "Description" "Party who jointly authors the resource"}
-                     {"UUID" "a2d57717-48fb-4675-95dd-4be8f9d585d6"
-                      "Identifier" "collaborator"
+                     {"UUID"        "a2d57717-48fb-4675-95dd-4be8f9d585d6"
+                      "Identifier"  "collaborator"
                       "Description" "Party who assists with the generation of the resource other than the principal investigator"}
-                     {"UUID" "b91ddbe5-584e-46ff-a242-1c7c67b836e3"
-                      "Identifier" "contributor"
+                     {"UUID"        "b91ddbe5-584e-46ff-a242-1c7c67b836e3"
+                      "Identifier"  "contributor"
                       "Description" "Party contributing to the resource"}
-                     {"UUID" "3373d310-f065-4ece-a61b-9bb04bd1df27"
-                      "Identifier" "custodian"
+                     {"UUID"        "3373d310-f065-4ece-a61b-9bb04bd1df27"
+                      "Identifier"  "custodian"
                       "Description" "Party that accepts accountability and responsibility for the resource and ensures appropriate care and maintenance of the resource"}
-                     {"UUID" "abd843f7-9d47-4a69-b9bc-3544202488fe"
-                      "Identifier" "distributor"
+                     {"UUID"        "abd843f7-9d47-4a69-b9bc-3544202488fe"
+                      "Identifier"  "distributor"
                       "Description" "Party who distributes the resource"}
-                     {"UUID" "370e8b34-d7ce-42fc-904f-05e263789389"
-                      "Identifier" "editor"
+                     {"UUID"        "370e8b34-d7ce-42fc-904f-05e263789389"
+                      "Identifier"  "editor"
                       "Description" "Party who reviewed or modified the resource to improve the content"}
-                     {"UUID" "06213565-8aff-4c98-9ae3-4dd1023a2cdc"
-                      "Identifier" "funder"
+                     {"UUID"        "06213565-8aff-4c98-9ae3-4dd1023a2cdc"
+                      "Identifier"  "funder"
                       "Description" "Party providing monetary support for the resource"}
-                     {"UUID" "2961f936-74cf-4192-95dc-959e8dae7189"
-                      "Identifier" "mediator"
+                     {"UUID"        "2961f936-74cf-4192-95dc-959e8dae7189"
+                      "Identifier"  "mediator"
                       "Description" "A class of entity that mediates access to the resource and for whom the resource is intended or useful"}
-                     {"UUID" "6cd5bbc6-463d-4850-9ad4-2353cb9451f5"
-                      "Identifier" "originator"
+                     {"UUID"        "6cd5bbc6-463d-4850-9ad4-2353cb9451f5"
+                      "Identifier"  "originator"
                       "Description" "Party who created the resource"}
-                     {"UUID" "0e75b54c-0cff-4753-a66a-c359f604689d"
-                      "Identifier" "owner"
+                     {"UUID"        "0e75b54c-0cff-4753-a66a-c359f604689d"
+                      "Identifier"  "owner"
                       "Description" "Party that owns the resource"}
-                     {"UUID" "6511df52-a5ff-42da-8788-34dcad38ccc8"
-                      "Identifier" "pointOfContact"
+                     {"UUID"        "6511df52-a5ff-42da-8788-34dcad38ccc8"
+                      "Identifier"  "pointOfContact"
                       "Description" "Party who can be contacted for acquiring knowledge about or acquisition of the resource"}
-                     {"UUID" "6b20a462-bc67-46c3-bdcb-b558f0127fe2"
-                      "Identifier" "principalInvestigator"
+                     {"UUID"        "6b20a462-bc67-46c3-bdcb-b558f0127fe2"
+                      "Identifier"  "principalInvestigator"
                       "Description" "Key party responsible for gathering information and conducting research"}
-                     {"UUID" "c3429513-50aa-4288-b919-cdeb816815a7"
-                      "Identifier" "processor"
+                     {"UUID"        "c3429513-50aa-4288-b919-cdeb816815a7"
+                      "Identifier"  "processor"
                       "Description" "Party who has processed the data in a manner such that the resource has been modified"}
-                     {"UUID" "1359d456-c428-49f1-8c8e-c46ebff53a10"
-                      "Identifier" "publisher"
+                     {"UUID"        "1359d456-c428-49f1-8c8e-c46ebff53a10"
+                      "Identifier"  "publisher"
                       "Description" "Party who published the resource"}
-                     {"UUID" "b25e217a-ed48-4d10-831e-298975f6cedf"
-                      "Identifier" "resourceProvider"
+                     {"UUID"        "b25e217a-ed48-4d10-831e-298975f6cedf"
+                      "Identifier"  "resourceProvider"
                       "Description" "Party that supplies the resource"}
-                     {"UUID" "028232f0-36c8-4ff6-aef4-ec0c424b7887"
-                      "Identifier" "rightsHolder"
+                     {"UUID"        "028232f0-36c8-4ff6-aef4-ec0c424b7887"
+                      "Identifier"  "rightsHolder"
                       "Description" "Party owning or managing rights over the resource"}
-                     {"UUID" "8211c24f-e1be-4a2d-962e-856304fa53de"
-                      "Identifier" "sponsor"
+                     {"UUID"        "8211c24f-e1be-4a2d-962e-856304fa53de"
+                      "Identifier"  "sponsor"
                       "Description" "Party who speaks for the resource"}
-                     {"UUID" "a9199aa5-26e2-4951-af7b-3132118d7569"
-                      "Identifier" "stakeholder"
+                     {"UUID"        "a9199aa5-26e2-4951-af7b-3132118d7569"
+                      "Identifier"  "stakeholder"
                       "Description" "Party who has an interest in the resource or the use of the resource"}
-                     {"UUID" "4122989f-f824-4d4a-8a29-10bd3541c17e"
-                      "Identifier" "user"
+                     {"UUID"        "4122989f-f824-4d4a-8a29-10bd3541c17e"
+                      "Identifier"  "user"
                       "Description" "Party who uses the resource"}]
         :label-path ["Description"]
         :value-path ["Identifier"]}]]
@@ -1304,10 +1321,11 @@
           :label-path ["name"]
           :value-path ["uri"]}]]
        [m4/item-dialog-button
-        {:form-id    ?form-id
-         :data-path  [?data-path "organisation"]
-         :value-path ["uri"]
-         :added-path ["isUserDefined"]}]]
+        {:form-id            ?form-id
+         :data-path          [?data-path "organisation"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
        {:form-id     ?form-id
@@ -1326,65 +1344,65 @@
       [m4/select-option-simple
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
-        :options    [{"UUID" "a37cc120-9920-4495-9a2f-698e225b5902"
-                      "Identifier" "author"
+        :options    [{"UUID"        "a37cc120-9920-4495-9a2f-698e225b5902"
+                      "Identifier"  "author"
                       "Description" "Party who authored the resource"}
-                     {"UUID" "cc22ca92-a323-42fa-8e01-1503f0edf6b9"
-                      "Identifier" "coAuthor"
+                     {"UUID"        "cc22ca92-a323-42fa-8e01-1503f0edf6b9"
+                      "Identifier"  "coAuthor"
                       "Description" "Party who jointly authors the resource"}
-                     {"UUID" "a2d57717-48fb-4675-95dd-4be8f9d585d6"
-                      "Identifier" "collaborator"
+                     {"UUID"        "a2d57717-48fb-4675-95dd-4be8f9d585d6"
+                      "Identifier"  "collaborator"
                       "Description" "Party who assists with the generation of the resource other than the principal investigator"}
-                     {"UUID" "b91ddbe5-584e-46ff-a242-1c7c67b836e3"
-                      "Identifier" "contributor"
+                     {"UUID"        "b91ddbe5-584e-46ff-a242-1c7c67b836e3"
+                      "Identifier"  "contributor"
                       "Description" "Party contributing to the resource"}
-                     {"UUID" "3373d310-f065-4ece-a61b-9bb04bd1df27"
-                      "Identifier" "custodian"
+                     {"UUID"        "3373d310-f065-4ece-a61b-9bb04bd1df27"
+                      "Identifier"  "custodian"
                       "Description" "Party that accepts accountability and responsibility for the resource and ensures appropriate care and maintenance of the resource"}
-                     {"UUID" "abd843f7-9d47-4a69-b9bc-3544202488fe"
-                      "Identifier" "distributor"
+                     {"UUID"        "abd843f7-9d47-4a69-b9bc-3544202488fe"
+                      "Identifier"  "distributor"
                       "Description" "Party who distributes the resource"}
-                     {"UUID" "370e8b34-d7ce-42fc-904f-05e263789389"
-                      "Identifier" "editor"
+                     {"UUID"        "370e8b34-d7ce-42fc-904f-05e263789389"
+                      "Identifier"  "editor"
                       "Description" "Party who reviewed or modified the resource to improve the content"}
-                     {"UUID" "06213565-8aff-4c98-9ae3-4dd1023a2cdc"
-                      "Identifier" "funder"
+                     {"UUID"        "06213565-8aff-4c98-9ae3-4dd1023a2cdc"
+                      "Identifier"  "funder"
                       "Description" "Party providing monetary support for the resource"}
-                     {"UUID" "2961f936-74cf-4192-95dc-959e8dae7189"
-                      "Identifier" "mediator"
+                     {"UUID"        "2961f936-74cf-4192-95dc-959e8dae7189"
+                      "Identifier"  "mediator"
                       "Description" "A class of entity that mediates access to the resource and for whom the resource is intended or useful"}
-                     {"UUID" "6cd5bbc6-463d-4850-9ad4-2353cb9451f5"
-                      "Identifier" "originator"
+                     {"UUID"        "6cd5bbc6-463d-4850-9ad4-2353cb9451f5"
+                      "Identifier"  "originator"
                       "Description" "Party who created the resource"}
-                     {"UUID" "0e75b54c-0cff-4753-a66a-c359f604689d"
-                      "Identifier" "owner"
+                     {"UUID"        "0e75b54c-0cff-4753-a66a-c359f604689d"
+                      "Identifier"  "owner"
                       "Description" "Party that owns the resource"}
-                     {"UUID" "6511df52-a5ff-42da-8788-34dcad38ccc8"
-                      "Identifier" "pointOfContact"
+                     {"UUID"        "6511df52-a5ff-42da-8788-34dcad38ccc8"
+                      "Identifier"  "pointOfContact"
                       "Description" "Party who can be contacted for acquiring knowledge about or acquisition of the resource"}
-                     {"UUID" "6b20a462-bc67-46c3-bdcb-b558f0127fe2"
-                      "Identifier" "principalInvestigator"
+                     {"UUID"        "6b20a462-bc67-46c3-bdcb-b558f0127fe2"
+                      "Identifier"  "principalInvestigator"
                       "Description" "Key party responsible for gathering information and conducting research"}
-                     {"UUID" "c3429513-50aa-4288-b919-cdeb816815a7"
-                      "Identifier" "processor"
+                     {"UUID"        "c3429513-50aa-4288-b919-cdeb816815a7"
+                      "Identifier"  "processor"
                       "Description" "Party who has processed the data in a manner such that the resource has been modified"}
-                     {"UUID" "1359d456-c428-49f1-8c8e-c46ebff53a10"
-                      "Identifier" "publisher"
+                     {"UUID"        "1359d456-c428-49f1-8c8e-c46ebff53a10"
+                      "Identifier"  "publisher"
                       "Description" "Party who published the resource"}
-                     {"UUID" "b25e217a-ed48-4d10-831e-298975f6cedf"
-                      "Identifier" "resourceProvider"
+                     {"UUID"        "b25e217a-ed48-4d10-831e-298975f6cedf"
+                      "Identifier"  "resourceProvider"
                       "Description" "Party that supplies the resource"}
-                     {"UUID" "028232f0-36c8-4ff6-aef4-ec0c424b7887"
-                      "Identifier" "rightsHolder"
+                     {"UUID"        "028232f0-36c8-4ff6-aef4-ec0c424b7887"
+                      "Identifier"  "rightsHolder"
                       "Description" "Party owning or managing rights over the resource"}
-                     {"UUID" "8211c24f-e1be-4a2d-962e-856304fa53de"
-                      "Identifier" "sponsor"
+                     {"UUID"        "8211c24f-e1be-4a2d-962e-856304fa53de"
+                      "Identifier"  "sponsor"
                       "Description" "Party who speaks for the resource"}
-                     {"UUID" "a9199aa5-26e2-4951-af7b-3132118d7569"
-                      "Identifier" "stakeholder"
+                     {"UUID"        "a9199aa5-26e2-4951-af7b-3132118d7569"
+                      "Identifier"  "stakeholder"
                       "Description" "Party who has an interest in the resource or the use of the resource"}
-                     {"UUID" "4122989f-f824-4d4a-8a29-10bd3541c17e"
-                      "Identifier" "user"
+                     {"UUID"        "4122989f-f824-4d4a-8a29-10bd3541c17e"
+                      "Identifier"  "user"
                       "Description" "Party who uses the resource"}]
         :label-path ["Description"]
         :value-path ["Identifier"]}]]
@@ -1618,20 +1636,23 @@
        {:label    "Method documentation"
         :required true}
        [m4/selection-list-columns
-        {:form-id    [:form]
-         :data-path  ["resourceLineage" "onlineMethods"]
-         :value-path ["uri"]
-         :added-path ["isUserDefined"]
-         :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                      {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+        {:form-id            [:form]
+         :data-path          ["resourceLineage" "onlineMethods"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :select-snapshot?   true
+         :added-path         ["isUserDefined"]
+         :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
 
        [m4/list-add-button
-        {:form-id       [:form]
-         :data-path     ["resourceLineage" "onlineMethods"]
-         :button-text   "Add"
-         :value-path    ["uri"]
-         :item-defaults {"userAddedCategory" "onlineMethods"}
-         :added-path    ["isUserDefined"]}]
+        {:form-id            [:form]
+         :data-path          ["resourceLineage" "onlineMethods"]
+         :button-text        "Add"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "onlineMethods"}
+         :added-path         ["isUserDefined"]}]
 
        [m4/list-edit-dialog
         {:form-id     [:form]
@@ -1723,20 +1744,23 @@
       {:label    "Online data quality report"
        :required true}
       [m4/selection-list-columns
-       {:form-id    [:form]
-        :data-path  ["dataQualityInfo" "onlineMethods"]
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]
-        :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                     {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+       {:form-id            [:form]
+        :data-path          ["dataQualityInfo" "onlineMethods"]
+        :value-path         ["uri"]
+        :random-uuid-value? true
+        :select-snapshot?   true
+        :added-path         ["isUserDefined"]
+        :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                             {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
 
       [m4/list-add-button
-       {:form-id     [:form]
-        :data-path   ["dataQualityInfo" "onlineMethods"]
-        :button-text "Add"
-        :value-path  ["uri"]
+       {:form-id            [:form]
+        :data-path          ["dataQualityInfo" "onlineMethods"]
+        :button-text        "Add"
+        :value-path         ["uri"]
+        :random-uuid-value? true
         ;; :item-defaults {"userAddedCategory" "onlineMethods"}
-        :added-path  ["isUserDefined"]}]
+        :added-path         ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -1835,20 +1859,23 @@
        {:label    "Publication"
         :required true}
        [m4/selection-list-columns
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "additionalPublications"]
-         :value-path ["uri"]
-         :added-path ["isUserDefined"]
-         :columns    [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                      {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "additionalPublications"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :select-snapshot?   true
+         :added-path         ["isUserDefined"]
+         :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
 
        [m4/list-add-button
-        {:form-id       [:form]
-         :data-path     ["identificationInfo" "additionalPublications"]
-         :button-text   "Add"
-         :value-path    ["uri"]
-         :item-defaults {"userAddedCategory" "additionalPublications"}
-         :added-path    ["isUserDefined"]}]
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "additionalPublications"]
+         :button-text        "Add"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "additionalPublications"}
+         :added-path         ["isUserDefined"]}]
 
        [m4/list-edit-dialog
         {:form-id     [:form]
@@ -1956,20 +1983,23 @@
       {:label    "Distributions"
        :required true}
       [m4/selection-list-columns
-       {:form-id    [:form]
-        :data-path  ["dataSources"]
-        :value-path ["uri"]
-        :added-path ["isUserDefined"]
-        :columns    [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
-                     {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}
-                     {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]
+       {:form-id            [:form]
+        :data-path          ["dataSources"]
+        :value-path         ["uri"]
+        :random-uuid-value? true
+        :select-snapshot?   true
+        :added-path         ["isUserDefined"]
+        :columns            [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
+                             {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}
+                             {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]
 
       [m4/list-add-button
-       {:form-id     [:form]
-        :data-path   ["dataSources"]
-        :button-text "Add"
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]}]
+       {:form-id            [:form]
+        :data-path          ["dataSources"]
+        :button-text        "Add"
+        :value-path         ["uri"]
+        :random-uuid-value? true
+        :added-path         ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]

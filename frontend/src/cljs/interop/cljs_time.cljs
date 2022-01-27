@@ -1,7 +1,7 @@
 (ns interop.cljs-time
   (:require [cljs-time.coerce :as c]
-            [cljs-time.format :as f]
             [cljs-time.core :as cljs-time]
+            [cljs-time.format :as f]
             [cljs.spec.alpha :as s]
             [clojure.string :as string]))
 

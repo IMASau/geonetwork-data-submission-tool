@@ -678,6 +678,70 @@ def export2_imasLegalConstraints_handler(data, xml_node, spec, xml_kwargs, handl
         remove_element_helper(xml_node=xml_node, xpath=node_xpath, xml_kwargs=xml_kwargs)
 
 
+def export2_imasDigitalTransferOptions_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
+    """
+    Massages data from distributionInfo.transferOptions and identificationInfo.supportingResources to
+    generate a list of Digital Transfer Options.
+
+    :param data:
+    :param xml_node:
+    :param spec:
+    :param xml_kwargs:
+    :param handlers:
+    :param xform:
+    :return:
+    """
+    xf_props = xform[1]
+    mount_xpath = xf_props.get('mount_xpath', None)
+    template_xpath = xf_props.get('template_xpath', None)
+
+    to_hit, to_data = get_dotted_path(data, "distributionInfo.transferOptions")
+    sr_hit, sr_data = get_dotted_path(data, "identificationInfo.supportingResources")
+
+    dtos = [*to_data] if to_hit else []
+
+    if sr_hit:
+        for sr in sr_data:
+            dtos.append({
+                "description": sr.get('name'),
+                "linkage": sr.get('url'),
+                "protocol": 'WWW:LINK-1.0-http--downloaddata',
+            })
+
+    export2_append_items_handler(
+        data={'dtos': dtos},
+        xml_node=xml_node,
+        spec={
+            "type": "object",
+            "properties": {
+                "dtos": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "description": {"type": "string"},
+                            "linkage": {"type": "string"},
+                            "protocol": {"type": "string"},
+                            "name": {"type": "string"}
+                        }
+                    }
+                }
+            }
+        },
+        xml_kwargs=xml_kwargs,
+        handlers=handlers,
+        xform=[
+            "append_items",
+            {
+                "data_path": "dtos",
+                "mount_xpath": mount_xpath,
+                "template_xpath": template_xpath
+            },
+            *xform[2]
+        ]
+    )
+
+
 def export2_generateUnitKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
     """
     Append keyword for each unit (contained as a sub-child of parameter).

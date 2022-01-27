@@ -46,14 +46,17 @@
     (pos? errors)))
 
 (defn has-selected-block-errors?
-  [state [_ {:keys [data-path]}]]
+  [state [_ {:keys [data-path field-paths]
+             :or {field-paths #{[]}}}]]
   (s/assert (s/nilable ::utils4/data-path) data-path)
   (s/assert vector? data-path)
   (let [path (blocks4/block-path data-path)
         logic (get-in state path)
         selected-idx (get-in logic [:props :list-item-selected-idx])]
     (when selected-idx
-      (pos? (get-in logic [:content selected-idx :progress/score :progress/errors])))))
+      (let [item-block (get-in logic [:content selected-idx])
+            field-blocks (map #(get-in item-block (blocks4/block-path %)) field-paths)]
+        (some pos? (map #(get-in % [:progress/score :progress/errors]) field-blocks))))))
 
 (defn get-block-props-sub
   "take config and merge with block props"

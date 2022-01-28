@@ -1194,6 +1194,7 @@
           "!docstring": "What8",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]",
           "type": "object",
+          "keep": false,
           "deleteWhenEmpty": false,
           "properties": {
             "keywords": {

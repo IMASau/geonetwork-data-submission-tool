@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 class SpecialKeys:
+    append = 'append'
     comment = '!docstring'
     function = 'function'
     namespaces = 'namespaces'
@@ -124,6 +125,10 @@ def is_keep(spec):
 
 def get_attributes(spec):
     return spec[SpecialKeys.attributes]
+
+
+def get_append(spec):
+    return spec.get(SpecialKeys.append, False)
 
 
 def has_exportTo(spec):
@@ -495,14 +500,20 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
         else:
             elements = xml_node.xpath(node_xpath, namespaces=nsmap)
 
-            if len(elements) < element_index + 1:
+            # If we should be appending then find the last matching
+            # element, otherwise use the element index parameter:
+            if get_append(spec):
+                element = elements[-1]
+                pass
+            elif len(elements) < element_index + 1:
                 msg = 'element %s[%d] not found in template, not written' % (get_xpath(spec), element_index)
                 if silent:
                     logger.warning(msg)
                 else:
                     raise Exception(msg)
                 return
-            element = elements[element_index]
+            else:
+                element = elements[element_index]
             if has_valueChild(spec):
                 # xpath returns a list regardless, but we require only one result
                 valueChildren = element.xpath(get_valueChild(spec), namespaces=nsmap)

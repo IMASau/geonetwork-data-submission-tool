@@ -1458,6 +1458,13 @@
           "type": "string",
           "rules": ["requiredField"]
         },
+        "useLimitation": {
+          "!docstring": "About - non-editable but displayed from the template",
+          "xpath": "mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation/gco:CharacterString",
+          "type": "string",
+          "keep": true,
+          "export": false
+        },
         "additionalConstraints": {
           "!docstring": "About1 -- still needs XML mapping",
           "keep": false,

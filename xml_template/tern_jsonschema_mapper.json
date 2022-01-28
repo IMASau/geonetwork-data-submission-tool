@@ -1478,16 +1478,22 @@
           }
         },
         "additionalConstraints": {
-          "!docstring": "About1 -- still needs XML mapping",
+          "!docstring": "About1",
           "keep": false,
           "type": "object",
+          "xpath": "mri:resourceConstraints/mco:MD_LegalConstraints",
           "properties": {
             "constraints": {
               "keep": false,
               "type": "array",
+              "xpath": "mco:otherConstraints",
+              "container": "mco:otherConstraints[last()]",
               "items": {
                 "type": "string",
-                "keep": false
+                "keep": false,
+                "append": true,
+                "xpath": "mco:otherConstraints",
+                "valueChild": "gco:CharacterString"
               }
             }
           }

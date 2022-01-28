@@ -1495,14 +1495,15 @@
         "securityClassification": {
           "!docstring": "About2",
           "type": "object",
+          "xpath": "mri:resourceConstraints/mco:MD_SecurityConstraints/mco:classification/mco:MD_ClassificationCode",
           "properties": {
             "label": {
               "type": "string"
             },
             "value": {
-              "xpath": "gcx:Anchor",
+              "xpath": ".",
               "attributes": {
-                "xlink:href": {
+                "codeListValue": {
                   "function": "identity"
                 }
               }

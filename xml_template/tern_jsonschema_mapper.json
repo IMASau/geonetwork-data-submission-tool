@@ -1465,6 +1465,18 @@
           "keep": true,
           "export": false
         },
+        "otherConstraints": {
+          "!docstring": "About - non-editable but displayed from the template",
+          "xpath": "(mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints/gco:CharacterString)[position()<last()]",
+          "keep": true,
+          "export": false,
+          "type": "array",
+          "items": {
+            "xpath": ".",
+            "export": false,
+            "type": "string"
+          }
+        },
         "additionalConstraints": {
           "!docstring": "About1 -- still needs XML mapping",
           "keep": false,

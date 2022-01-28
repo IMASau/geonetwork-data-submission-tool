@@ -430,8 +430,14 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
     if spec.get('data_to_xml_skip', False):
         return
 
+    # export can be false with an exportTo function, i.e. don't do the default export, do this instead
+    if not is_export(spec):
+        if has_exportTo(spec):
+            data_to_xml(data=data, xml_node=xml_node, spec=get_exportTo(spec, data), nsmap=nsmap,
+                        element_index=element_index, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
+
     # indicates that the spec allows more than one value for this node
-    if is_array(spec):
+    elif is_array(spec):
         container_xpath = get_container(spec)
         container_node = xml_node.xpath(container_xpath, namespaces=nsmap)
         if len(container_node) < 1:
@@ -453,11 +459,6 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
             data_to_xml(data=item, xml_node=xml_node, spec=get_items(spec), nsmap=nsmap,
                         element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
 
-    # export can be false with an exportTo function, i.e. don't do the default export, do this instead
-    elif not is_export(spec):
-        if has_exportTo(spec):
-            data_to_xml(data=data, xml_node=xml_node, spec=get_exportTo(spec, data), nsmap=nsmap,
-                        element_index=element_index, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
     elif is_object(spec):
         if not get_xpath(spec):
             return

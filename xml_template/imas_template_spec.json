@@ -141,7 +141,7 @@
           "!docstring": "ID8",
           "type": "string",
           "xpath": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]",
-          "valueChild": "cit:CI_Date/cit:date/gco:Date",
+          "valueChild": "cit:CI_Date/cit:date/gco:DateTime",
           "keep": false,
           "rules": [
             "requiredField"

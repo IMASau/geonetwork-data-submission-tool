@@ -1811,7 +1811,12 @@
      [:h2 "8: About Dataset"]
      [:i "This section allows you to provide information of the dataset collection, and will inform the consumer with the legal obligations, limitations of use and any other relevant details such as resources and publications."]
      [:h3 "Limitation/Constraints"]
-     [:div [:label "Use limitations"]]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "useLimitation"]
+       :label     "Use limitations"}
+      [:div
+       [:i [m4/get-data {:form-id [:form] :data-path ["identificationInfo" "useLimitation"]}]]]]
      [:div [:label "Other constraints"]]
      [m4/form-group
       {:label   "Any other constraints"

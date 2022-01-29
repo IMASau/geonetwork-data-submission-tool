@@ -1194,6 +1194,7 @@
           "!docstring": "What8",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]",
           "type": "object",
+          "keep": false,
           "deleteWhenEmpty": false,
           "properties": {
             "keywords": {
@@ -1457,17 +1458,42 @@
           "type": "string",
           "rules": ["requiredField"]
         },
+        "useLimitation": {
+          "!docstring": "About - non-editable but displayed from the template",
+          "xpath": "mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation/gco:CharacterString",
+          "type": "string",
+          "keep": true,
+          "export": false
+        },
+        "otherConstraints": {
+          "!docstring": "About - non-editable but displayed from the template",
+          "xpath": "(mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints/gco:CharacterString)[position()<last()]",
+          "keep": true,
+          "export": false,
+          "type": "array",
+          "items": {
+            "xpath": ".",
+            "export": false,
+            "type": "string"
+          }
+        },
         "additionalConstraints": {
-          "!docstring": "About1 -- still needs XML mapping",
+          "!docstring": "About1",
           "keep": false,
           "type": "object",
+          "xpath": "mri:resourceConstraints/mco:MD_LegalConstraints",
           "properties": {
             "constraints": {
               "keep": false,
               "type": "array",
+              "xpath": "mco:otherConstraints",
+              "container": "mco:otherConstraints[last()]",
               "items": {
                 "type": "string",
-                "keep": false
+                "keep": false,
+                "append": true,
+                "xpath": "mco:otherConstraints",
+                "valueChild": "gco:CharacterString"
               }
             }
           }
@@ -1475,14 +1501,15 @@
         "securityClassification": {
           "!docstring": "About2",
           "type": "object",
+          "xpath": "mri:resourceConstraints/mco:MD_SecurityConstraints/mco:classification/mco:MD_ClassificationCode",
           "properties": {
             "label": {
               "type": "string"
             },
             "value": {
-              "xpath": "gcx:Anchor",
+              "xpath": ".",
               "attributes": {
-                "xlink:href": {
+                "codeListValue": {
                   "function": "identity"
                 }
               }

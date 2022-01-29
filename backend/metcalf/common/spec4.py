@@ -238,6 +238,7 @@ def analyse_schema(**kwargs):
     schema = json.loads(kwargs['payload'])
     schema = inline_defs(schema)
     schema = full_xpaths(schema)
+    schema = xslt_extract(schema)
     return schema
 
 

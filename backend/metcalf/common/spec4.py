@@ -91,6 +91,9 @@ def full_xpaths_step(schema):
     if full_xpath:
         schema_type = schema.get('type')
         if schema_type == 'object':
+            valueChild = schema.get('valueChild')
+            if valueChild:
+                full_xpath = full_xpath + "/" + valueChild
             for prop_name in schema['properties'].keys():
                 schema['properties'][prop_name]['parent_xpath'] = full_xpath
         elif schema_type == 'array':

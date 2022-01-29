@@ -114,6 +114,60 @@ def full_xpaths(schema):
     return prewalk(full_xpaths_step, schema)
 
 
+def xslt_extract_step(schema):
+    """
+    add xslt extraction annotations
+
+    :param schema:
+    :return:
+    """
+
+    type = schema.get('type')
+    full_xpath = schema.get('full_xpath')
+    valueChild = schema.get('valueChild')
+    attributes = schema.get('attributes')
+
+    if type == 'object':
+        for prop_name, prop_schema in schema.get('properties').items():
+            prop_schema['xsl:tag name'] = prop_name
+    elif type == 'array':
+        items = schema.get('items')
+        items_xpath = items.get('xpath')
+        if items_xpath:
+            schema['items']['xsl:tag name'] = schema.get('xsl:tag name')
+            schema['xsl:for-each select'] = full_xpath + "/" + items_xpath
+    else:
+
+        if full_xpath:
+            value_of_select = full_xpath
+
+            if valueChild:
+                value_of_select = value_of_select + "/" + valueChild
+
+            if attributes is None:
+                schema['xsl:value-of select'] = value_of_select
+            elif attributes.get('text'):
+                # treat text attr as blessed for reading
+                schema['xsl:value-of select'] = value_of_select
+            elif len(attributes) == 1:
+                # Single attribute clear for import
+                k = list(attributes.keys())[0]
+                schema['xsl:value-of select'] = value_of_select + "/@" + k
+            else:
+                raise Exception("Unable to infer for multiple attributes cases")
+
+    return schema
+
+
+def xslt_extract(schema):
+    """
+    Experimental analysis to resolve full_xpath based on schema tree and xpath annotations.
+    """
+    schema['xsl:tag name'] = 'root'
+    assert schema.get('type') == 'object', "Only tested with object root, found %s" % schema.get('type')
+    return prewalk(xslt_extract_step, schema)
+
+
 def extract_field(schema):
     return select_keys(schema, ['label', 'type', 'rules', 'items', 'properties', 'required'])
 

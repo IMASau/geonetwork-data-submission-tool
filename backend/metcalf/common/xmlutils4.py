@@ -575,3 +575,20 @@ def xpath_analysis_step(namespaces, tree, schema):
 def xpath_analysis(tree, schema):
     namespaces = schema['namespaces']
     return spec4.postwalk(partial(xpath_analysis_step, namespaces, tree), schema)
+
+
+def xslt_analysis_step(namespaces, tree, schema):
+    value_of_select = schema.get('xsl:value-of select')
+
+    if value_of_select:
+        try:
+            eles = tree.xpath(value_of_select, namespaces=namespaces)
+            schema['xsl:value-of count'] = "Found {} elements".format(len(eles))
+        except etree.XPathEvalError as e:
+            schema['xsl:value-of XPathEvalError'] = str(e)
+    return schema
+
+
+def xslt_analysis(tree, schema):
+    namespaces = schema['namespaces']
+    return spec4.postwalk(partial(xslt_analysis_step, namespaces, tree), schema)

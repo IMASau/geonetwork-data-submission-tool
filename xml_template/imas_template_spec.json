@@ -575,7 +575,6 @@
           "uri": {},
           "isUserDefined": {
             "!docstring": "Fake node so we can track person status",
-            "xpath": "isUserAdded",
             "default": false,
             "export": false
           }

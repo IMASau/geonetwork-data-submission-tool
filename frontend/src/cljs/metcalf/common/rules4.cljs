@@ -133,13 +133,6 @@
       (not enabled?)
       (update-in [:props :errors] conj "Exceeded the maximum number of keywords"))))
 
-;; TODO: Fix so that modal is disabled
-(defn tern-organisation
-  ""
-  [block]
-  (js/console.log "This is required!")
-  (-enforce-required-subfields block (map #(vector %) ["name" "full_address_line" "street_address" "address_locality" "address_region" "postcode" "country"])))
-
 (defn required-at-least-one
   "Sometimes a requirement can have multiple possibilities, for example
   a contact could be a person or an organisation. This allows us to

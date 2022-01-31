@@ -27,6 +27,14 @@
 .SelectionListItem {
 }
 
+.DragHandleWrapperRemoveButton {
+    width: 24px;
+}
+
+.DragHandleWrapperHandle {
+    width: 24px;
+}
+
 .SelectionButtonStyle .SelectionListItem {
     margin: .2em 0;
     background-color: #f5f8fa;
@@ -41,6 +49,9 @@
 
 .SelectionTableStyle .SelectionListItem {
     border-top: 1px solid rgb(16 22 26 / 20%);
+}
+
+.SelectionTableStyle .SelectionListItem:last-child {
     border-bottom: 1px solid rgb(16 22 26 / 20%);
 }
 

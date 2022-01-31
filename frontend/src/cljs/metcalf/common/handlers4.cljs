@@ -47,12 +47,12 @@
     (-> {:db db}
         (actions4/add-item-action form-id data-path [] value))))
 
-(defn list-add-with-defaults-click-handler2
+(defn list-add-with-defaults-click-handler3
   [{:keys [db]} [_ config]]
-  (let [{:keys [form-id data-path value-path added-path item-defaults]} config
+  (let [{:keys [form-id data-path value-path added-path item-defaults random-uuid-value?]} config
         item-data (-> item-defaults
-                      (assoc-in value-path (str (random-uuid)))
-                      (assoc-in added-path true))]
+                      (cond-> random-uuid-value? (assoc-in value-path (str (random-uuid))))
+                      (cond-> added-path (assoc-in added-path true)))]
     (-> {:db db}
         (actions4/save-snapshot-action form-id)
         (actions4/add-item-action form-id data-path value-path item-data)
@@ -73,6 +73,17 @@
         defaults (-> {}
                      (assoc-in value-path (str (random-uuid)))
                      (assoc-in added-path true))]
+    (-> {:db db}
+        (actions4/save-snapshot-action form-id)
+        (actions4/set-data-action form-id data-path defaults)
+        (actions4/dialog-open-action form-id data-path))))
+
+(defn item-add-with-defaults-click-handler2
+  [{:keys [db]} [_ props]]
+  (let [{:keys [form-id data-path value-path added-path random-uuid-value?]} props
+        defaults (-> {}
+                     (cond-> random-uuid-value? (assoc-in value-path (str (random-uuid))))
+                     (cond-> added-path (assoc-in added-path true)))]
     (-> {:db db}
         (actions4/save-snapshot-action form-id)
         (actions4/set-data-action form-id data-path defaults)
@@ -103,8 +114,9 @@
 (defn list-option-picker-change
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path value-path]} ctx]
-    (-> {:db db}
-        (actions4/add-item-action form-id data-path value-path option))))
+    (cond-> {:db db}
+      option
+      (actions4/add-item-action form-id data-path value-path option))))
 
 (defn item-option-picker-change
   "Handle picker change.  Uses option data to set values."
@@ -118,14 +130,30 @@
   [{:keys [db]} [_ props idx]]
   (let [{:keys [form-id data-path]} props]
     (-> {:db db}
-        (actions4/select-user-defined-list-item-action2 form-id data-path idx))))
+        (actions4/select-list-item-action3 form-id data-path idx))))
 
 (defn selection-list-item-click2
   [{:keys [db]} [_ props idx]]
   (let [{:keys [form-id data-path added-path]} props]
-    (cond-> {:db db}
-      added-path
-      (actions4/select-user-defined-list-item-action2 form-id data-path idx))))
+    (if (contains? props :added-path)
+      (actions4/select-user-defined-list-item-action3 {:db db} form-id data-path added-path idx)
+      (actions4/select-list-item-action3 {:db db} form-id data-path idx))))
+
+(defn selection-list-item-click3
+  "Unselects selected item then tries to select item at idx.
+   :added-path (if present) - only allows selection of added items (e.g. user defined).
+   :select-snapshot? (if set) takes snapshot for dialog cancel behaviour."
+  [{:keys [db]} [_ props idx]]
+  (let [{:keys [form-id data-path added-path select-snapshot?]} props
+        has-added-path? (contains? props :added-path)
+        s1 (actions4/unselect-list-item-action {:db db} form-id data-path)
+        s2 (if has-added-path?
+             (actions4/select-user-defined-list-item-action3 s1 form-id data-path added-path idx)
+             (actions4/select-list-item-action3 s1 form-id data-path idx))
+        has-selected-idx (get-in s2 (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props :list-item-selected-idx]))]
+    (cond-> s2
+      (and has-selected-idx select-snapshot?)
+      (actions4/save-snapshot-action form-id))))
 
 (defn selection-list-remove-click
   [{:keys [db]} [_ ctx idx]]
@@ -369,12 +397,12 @@
 (defn upload-file-drop
   [{:keys [db]} [_ config data]]
   (let [{:keys [acceptedFiles rejectedFiles]} data
-        doc-uuid                              (get-in db [:context :document :uuid])]
+        doc-uuid (get-in db [:context :document :uuid])]
     (if (> (count rejectedFiles) 0)
       (actions4/open-modal-action
-       {:db db}
-       {:type    :modal.type/alert
-        :message "Thumbnail must be an image"})
+        {:db db}
+        {:type    :modal.type/alert
+         :message "Thumbnail must be an image"})
       (actions4/upload-single-attachment {:db db} {:doc-uuid doc-uuid
                                                    :file     (first acceptedFiles)
                                                    :config   config}))))

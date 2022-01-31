@@ -1,5 +1,7 @@
 (ns ^:dev/always metcalf.imas.config
-  (:require [interop.ui-controls :as ui-controls]
+  (:require [cljs.spec.alpha :as s]
+            [clojure.string :as string]
+            [interop.ui-controls :as ui-controls]
             [metcalf.common.components4 :as components4]
             [metcalf.common.fx3 :as fx3]
             [metcalf.common.handlers3 :as handlers3]
@@ -10,12 +12,10 @@
             [metcalf.common.subs3 :as subs3]
             [metcalf.common.subs4 :as subs4]
             [metcalf.common.utils4 :as utils4]
+            [metcalf.imas.components :as imas-components]
             [metcalf.imas.handlers :as imas-handlers]
             [metcalf.imas.subs :as imas-subs]
-            [metcalf.imas.components :as imas-components]
-            [re-frame.core :as rf]
-            [cljs.spec.alpha :as s]
-            [clojure.string :as string]))
+            [re-frame.core :as rf]))
 
 #_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
@@ -26,15 +26,15 @@
 (rf/reg-event-fx ::components4/create-document-modal-clear-click handlers4/create-document-modal-clear-click)
 (rf/reg-event-fx ::components4/create-document-modal-close-click handlers4/create-document-modal-close-click)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
-(rf/reg-event-fx ::components4/item-add-button-click handlers4/item-add-with-defaults-click-handler)
-(rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler)
+(rf/reg-event-fx ::components4/item-add-button-click handlers4/item-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/item-dialog-button-edit-click handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/edit-dialog-cancel handlers4/edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/edit-dialog-close handlers4/edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/edit-dialog-save handlers4/edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
-(rf/reg-event-fx ::components4/list-add-with-defaults-click-handler handlers4/list-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/list-add-with-defaults-click-handler3 handlers4/list-add-with-defaults-click-handler3)
 (rf/reg-event-fx ::components4/value-list-add-with-defaults-click-handler handlers4/value-list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-cancel-handler)
@@ -42,7 +42,7 @@
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
 (rf/reg-event-fx ::components4/add-record handlers4/add-record-handler)
-(rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click2)
+(rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click3)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
 (rf/reg-event-fx ::components4/text-value-add-click-handler handlers4/text-value-add-click-handler)
@@ -111,6 +111,7 @@
 (rf/reg-sub ::components4/get-list-edit-can-save-sub subs4/form-state-signal subs4/get-list-edit-can-save-sub)
 (rf/reg-sub ::components4/has-block-errors? subs4/form-state-signal subs4/has-block-errors?)
 (rf/reg-sub ::components4/has-selected-block-errors? subs4/form-state-signal subs4/has-selected-block-errors?)
+(rf/reg-sub ::components4/can-dialog-cancel? subs4/can-dialog-cancel-sub)
 (rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/get-page-errors-props subs4/form-state-signal subs4/get-page-errors-props-sub)
 (rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
@@ -135,18 +136,19 @@
 ;(when goog/DEBUG (ins4/reg-global-singleton ins4/db-diff))
 ;(when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
-      {"requiredField"         rules4/required-field
-       "otherConstraintsLogic" rules4/other-constraints-logic
-       "maxLength"             rules4/max-length
-       "geographyRequired"     rules4/geography-required
-       "imasVerticalRequired"  rules4/imas-vertical-required
-       "licenseOther"          rules4/license-other
-       "dateOrder"             rules4/date-order
-       "endPosition"           rules4/end-position
-       "positive"              rules4/force-positive
-       "maintFreq"             rules4/maint-freq
-       "firstCommaLast"        rules4/first-comma-last
-       "validOrcid"            rules4/valid-ordid-uri})
+      {"requiredField"           rules4/required-field
+       "otherConstraintsLogic"   rules4/other-constraints-logic
+       "maxLength"               rules4/max-length
+       "geographyRequired"       rules4/geography-required
+       "imasVerticalRequired"    rules4/imas-vertical-required
+       "imasTransferOptionLayer" rules4/imas-transfer-option-layer
+       "licenseOther"            rules4/license-other
+       "dateOrder"               rules4/date-order
+       "endPosition"             rules4/end-position
+       "positive"                rules4/force-positive
+       "maintFreq"               rules4/maint-freq
+       "firstCommaLast"          rules4/first-comma-last
+       "validOrcid"              rules4/valid-ordid-uri})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)
@@ -175,7 +177,7 @@
        'm4/item-add-button                     {:view components4/item-add-button :init components4/item-add-button-settings}
        'm4/item-dialog-button                  {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/edit-dialog                         {:view components4/edit-dialog :init components4/edit-dialog-settings}
-       'm4/list-add-button                     {:view components4/list-add-button :init components4/list-add-button-settings}
+       'm4/list-add-button                     {:view components4/list-add-button3 :init components4/list-add-button3-settings}
        'm4/value-list-add-button               {:view components4/value-list-add-button :init components4/value-list-add-button-settings}
        'm4/list-edit-dialog                    {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
        'm4/typed-list-edit-dialog              {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
@@ -195,7 +197,7 @@
        'm4/selection-list-simple               {:view components4/selection-list-simple :init components4/selection-list-simple-settings}
        'm4/selection-list-values               {:view components4/selection-list-values :init components4/selection-list-values-settings}
        ;'m4/table-list-option-picker            {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
-       'm4/selection-list-columns              {:view components4/selection-list-columns :init components4/selection-list-columns-settings}
+       'm4/selection-list-columns              {:view components4/selection-list-columns3 :init components4/selection-list-columns3-settings}
        'm4/textarea-field                      {:view components4/textarea-field :init components4/textarea-field-settings}
        'm4/when-data                           {:view components4/when-data :init components4/when-data-settings}
        'm4/get-data                            {:view components4/get-data :init components4/get-data-settings}
@@ -204,6 +206,7 @@
        'm4/async-simple-item-option-picker     {:view components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
        ;'m4/record-add-button                   {:view components4/record-add-button :init components4/record-add-button-settings}
        'm4/text-add-button                     {:view components4/text-add-button :init components4/text-add-button-settings}
+       'm4/upload-files                        {:view components4/upload-files :init components4/upload-files-settings}
        ;'m4/simple-list                         {:view components4/simple-list :init components4/simple-list-settings}
        })
 
@@ -423,14 +426,16 @@
                                 {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
                                 {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
                                 {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]
-          :placeholder-record? true}]]
-
-       [m4/list-add-button
-        {:form-id     [:form]
-         :data-path   ["identificationInfo" "geographicElement" "boxes"]
-         :button-text "Add new"
-         :value-path  ["uri"]
-         :added-path  ["isUserDefined"]}]
+          :placeholder-record? true
+          :select-snapshot?    true
+          :random-uuid-value?  true}]
+        [m4/list-add-button
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "geographicElement" "boxes"]
+          :button-text        "Add location"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :added-path         ["isUserDefined"]}]]
 
        [m4/list-edit-dialog
         {:form-id     [:form]
@@ -554,14 +559,17 @@
                                {:flex 1 :label-path ["role"] :columnHeader "Role"}]
          :placeholder-record? true
          :value-path          ["uri"]
-         :added-path          ["isUserDefined"]}]]
+         :added-path          ["isUserDefined"]
+         :select-snapshot?    true
+         :random-uuid-value?  true}]]
 
       [m4/list-add-button
-       {:form-id     [:form]
-        :data-path   ["pointOfContact"]
-        :button-text "Add person"
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]}]
+       {:form-id            [:form]
+        :data-path          ["pointOfContact"]
+        :button-text        "Add person"
+        :value-path         ["uri"]
+        :random-uuid-value? true
+        :added-path         ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -584,14 +592,17 @@
                                {:flex 1 :label-path ["role"] :columnHeader "Role"}]
          :placeholder-record? true
          :value-path          ["uri"]
-         :added-path          ["isUserDefined"]}]]
+         :added-path          ["isUserDefined"]
+         :select-snapshot?    true
+         :random-uuid-value?  true}]]
 
       [m4/list-add-button
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "citedResponsibleParty"]
-        :button-text "Add person"
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]}]
+       {:form-id            [:form]
+        :data-path          ["identificationInfo" "citedResponsibleParty"]
+        :button-text        "Add person"
+        :value-path         ["uri"]
+        :random-uuid-value? true
+        :added-path         ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -803,25 +814,26 @@
          :data-path           ["identificationInfo" "dataParameters"]
          :value-path          ["uri"]
          :added-path          ["isUserDefined"]
-         ; TODO: Rename to something shorter
+         :random-uuid-value?  true
          :placeholder-record? true
+         :select-snapshot?    true
          :columns             [{:columnHeader "Name" :flex 1 :label-path ["longName_term" "Name"]}
                                {:columnHeader "Units" :flex 1 :label-path ["unit_term" "Name"]}
                                {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term" "Name"]}
-                               {:columnHeader "Platform" :flex 1 :label-path ["platform_term" "Name"]}]}]]
+                               {:columnHeader "Platform" :flex 1 :label-path ["platform_term" "Name"]}]}]
+       [m4/list-add-button
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "dataParameters"]
+         :button-text        "Add data parameter"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]]
 
-      [m4/list-add-button
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "dataParameters"]
-        :button-text "Add data parameter"
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]}]
-
-      [m4/list-edit-dialog
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "dataParameters"]
-        :title       "Data parameter"
-        :template-id :data-parameter/user-defined-entry-form}]]
+     [m4/list-edit-dialog
+      {:form-id     [:form]
+       :data-path   ["identificationInfo" "dataParameters"]
+       :title       "Data parameter"
+       :template-id :data-parameter/user-defined-entry-form}]
 
      [:h4 "Resource constraints"]
      [m4/form-group
@@ -854,81 +866,102 @@
         :data-path   ["identificationInfo" "otherConstraints"]
         :placeholder "Enter additional license requirements"}]]
 
-     ; [:label "Use limitations"]
-     ; [m4/selection-list-values
-     ;  {:form-id   [:form]
-     ;   :data-path ["identificationInfo" "useLimitations"]}]
-     ; [m4/text-add-button
-     ;  {:form-id     [:form]
-     ;   :data-path   ["identificationInfo" "useLimitations"]
-     ;   :button-text "Add"}]
-     ;
-     ; [:hr]
-     ;
-     ; [:h4 "Supplemental information"]
-     ; [:label "Publications associated with dataset"]
-     ; [m4/selection-list-values
-     ;  {:form-id   [:form]
-     ;   :data-path ["identificationInfo" "supplementalInformation"]}]
-     ; [m4/text-add-button
-     ;  {:form-id     [:form]
-     ;   :data-path   ["identificationInfo" "supplementalInformation"]
-     ;   :button-text "Add"}]
-     ;
-     ; [:label "Supporting resources"]
-     ; [m4/selection-list-columns
-     ;  {:form-id    [:form]
-     ;   :data-path  ["supportingResources"]
-     ;   :value-path ["url"]
-     ;   :added-path ["isUserDefined"]
-     ;   :columns    [{:columnHeader "Title" :label-path ["name"] :flex 1}
-     ;                {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
-     ; [m4/list-add-button
-     ;  {:form-id     [:form]
-     ;   :data-path   ["supportingResources"]
-     ;   :button-text [:span [:span.bp3-icon-plus] " Add supporting resource"]
-     ;   :value-path  ["url"]
-     ;   :added-path  ["isUserDefined"]}]
-     ; [m4/list-edit-dialog
-     ;  {:form-id     [:form]
-     ;   :data-path   ["supportingResources"]
-     ;   :title       "Add supporting resource"
-     ;   :template-id :resource/user-defined-entry-form}]
-     ; [:h4 "Distribution"]
-     ; [m4/form-group
-     ;  {:form-id   [:form]
-     ;   :data-path ["distributionInfo" "distributionFormat" "name"]}
-     ;  [m4/input-field
-     ;   {:form-id     [:form]
-     ;    :data-path   ["distributionInfo" "distributionFormat" "name"]
-     ;    :placeholder "e.g. Microsoft Excel, CSV, NetCDF"}]]
-     ; [m4/form-group
-     ;  {:form-id   [:form]
-     ;   :data-path ["distributionInfo" "distributionFormat" "version"]}
-     ;  [m4/input-field
-     ;   {:form-id     [:form]
-     ;    :data-path   ["distributionInfo" "distributionFormat" "version"]
-     ;    :placeholder "Date format date or version if applicable"}]]
-     ; [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
-     ;
-     ;:resource/user-defined-entry-form
-     ;[:div
-     ; [m4/inline-form-group
-     ;  {:form-id   ?form-id
-     ;   :data-path [?data-path "name"]
-     ;   :label     "Title"}
-     ;  [m4/input-field
-     ;   {:form-id   ?form-id
-     ;    :data-path [?data-path "name"]}]]
-     ;
-     ; [m4/inline-form-group
-     ;  {:form-id   ?form-id
-     ;   :data-path [?data-path "url"]
-     ;   :label     "URL"}
-     ;  [m4/input-field
-     ;   {:form-id   ?form-id
-     ;    :data-path [?data-path "url"]}]]
-     ]
+     [:label "Use limitations"]
+     [m4/selection-list-values
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "useLimitations"]}]
+     [m4/text-add-button
+      {:form-id     [:form]
+       :data-path   ["identificationInfo" "useLimitations"]
+       :button-text "Add"}]
+
+     [:h4 "Supplemental information"]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "supplementalInformation"]
+       :label     "Publications associated with the dataset"}
+      [:div.SelectionTableStyle
+       [m4/selection-list-values
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "supplementalInformation"]}]
+       [m4/list-add-button
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "supplementalInformation"]
+         :button-text "Add associated publication"}]]]
+     [m4/list-edit-dialog
+      {:form-id     [:form]
+       :data-path   ["identificationInfo" "supplementalInformation"]
+       :title       "Add supporting resource"
+       :template-id :supplementalInformation/user-defined-entry-form}]
+
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "supportingResources"]
+       :label     "Supplemental resources with hyperlinks"}
+      [:div.SelectionTableStyle
+       [m4/selection-list-columns
+        {:form-id          [:form]
+         :data-path        ["identificationInfo" "supportingResources"]
+         :value-path       ["url"]
+         :columns          [{:columnHeader "Title" :label-path ["name"] :flex 1}
+                            {:columnHeader "URL" :label-path ["url"] :flex 1}]
+         :select-snapshot? true}]
+       [m4/list-add-button
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "supportingResources"]
+         :button-text "Add supplemental resource"}]]]
+     [m4/list-edit-dialog
+      {:form-id     [:form]
+       :data-path   ["identificationInfo" "supportingResources"]
+       :title       "Add supporting resource"
+       :template-id :supportingResources/user-defined-entry-form}]
+
+     [:h4 "Distribution"]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["distributionInfo" "distributionFormat" "title"]
+       :label     "Data file format"}
+      [m4/input-field
+       {:form-id     [:form]
+        :data-path   ["distributionInfo" "distributionFormat" "title"]
+        :placeholder "e.g. Microsoft Excel, CSV, NetCDF"}]]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["distributionInfo" "distributionFormat" "edition"]
+       :label     "Data file format date/version",}
+      [m4/input-field
+       {:form-id     [:form]
+        :data-path   ["distributionInfo" "distributionFormat" "edition"]
+        :placeholder "Date format date or version if applicable"}]]
+     [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
+
+    :supplementalInformation/user-defined-entry-form
+    [:div
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "name"]
+       :label     "Title"}
+      [m4/textarea-field
+       {:form-id   ?form-id
+        :data-path ?data-path}]]]
+
+    :supportingResources/user-defined-entry-form
+    [:div
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "name"]
+       :label     "Title"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "name"]}]]
+
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "url"]
+       :label     "URL"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "url"]}]]]
 
     ;:test/long-name
     ;[:div "Setting longName."]
@@ -977,24 +1010,27 @@
     [:div
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "longName_term"]
-       :label     "Name"}
+      {:form-id    ?form-id
+       :data-path  [?data-path "longName_term"]
+       :label      "Name"
+       :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
-        [m4/async-select-option-simple
-         {:form-id     ?form-id
-          :data-path   [?data-path "longName_term"]
-          :uri         "/api/parametername"
-          :label-path  ["Name"]
-          :value-path  ["URI"]
-          :added-path  ["isUserDefined"]
-          :placeholder "Select..."}]]
+        [m4/async-select-option-breadcrumb
+         {:form-id         ?form-id
+          :data-path       [?data-path "longName_term"]
+          :uri             "/api/parametername"
+          :label-path      ["Name"]
+          :value-path      ["URI"]
+          :breadcrumb-path ["breadcrumbs"]
+          :added-path      ["isUserDefined"]
+          :placeholder     "Select..."}]]
        [m4/item-dialog-button
-        {:form-id    ?form-id
-         :data-path  [?data-path "longName_term"]
-         :value-path ["URI"]
-         :added-path ["isUserDefined"]}]]
+        {:form-id            ?form-id
+         :data-path          [?data-path "longName_term"]
+         :value-path         ["URI"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
        {:form-id     ?form-id
@@ -1011,9 +1047,10 @@
         :placeholder "Name in dataset (optional)"}]]
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "unit_term"]
-       :label     "Unit"}
+      {:form-id    ?form-id
+       :data-path  [?data-path "unit_term"]
+       :label      "Unit"
+       :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
         [m4/async-select-option-simple
@@ -1025,10 +1062,11 @@
           :added-path  ["isUserDefined"]
           :placeholder "Select..."}]]
        [m4/item-dialog-button
-        {:form-id    ?form-id
-         :data-path  [?data-path "unit_term"]
-         :value-path ["URI"]
-         :added-path ["isUserDefined"]}]]
+        {:form-id            ?form-id
+         :data-path          [?data-path "unit_term"]
+         :value-path         ["URI"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]
       [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "unit_term"]
@@ -1036,24 +1074,27 @@
         :template-id :parameter-unit/user-defined-entry-form}]]
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "instrument_term"]
-       :label     "Instrument"}
+      {:form-id    ?form-id
+       :data-path  [?data-path "instrument_term"]
+       :label      "Instrument"
+       :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
-        [m4/async-select-option-simple
-         {:form-id     ?form-id
-          :data-path   [?data-path "instrument_term"]
-          :uri         "/api/parameterinstrument"
-          :label-path  ["Name"]
-          :value-path  ["URI"]
-          :added-path  ["isUserDefined"]
-          :placeholder "Select..."}]]
+        [m4/async-select-option-breadcrumb
+         {:form-id         ?form-id
+          :data-path       [?data-path "instrument_term"]
+          :uri             "/api/parameterinstrument"
+          :label-path      ["Name"]
+          :value-path      ["URI"]
+          :breadcrumb-path ["breadcrumbs"]
+          :added-path      ["isUserDefined"]
+          :placeholder     "Select..."}]]
        [m4/item-dialog-button
-        {:form-id    ?form-id
-         :data-path  [?data-path "instrument_term"]
-         :value-path ["URI"]
-         :added-path ["isUserDefined"]}]]
+        {:form-id            ?form-id
+         :data-path          [?data-path "instrument_term"]
+         :value-path         ["URI"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]
       [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "instrument_term"]
@@ -1061,111 +1102,130 @@
         :template-id :parameter-instrument/user-defined-entry-form}]]
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "platform_term"]
-       :label     "Platform"}
+      {:form-id    ?form-id
+       :data-path  [?data-path "platform_term"]
+       :label      "Platform"
+       :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
-        [m4/async-select-option-simple
-         {:form-id     ?form-id
-          :data-path   [?data-path "platform_term"]
-          :uri         "/api/parameterplatform"
-          :label-path  ["Name"]
-          :value-path  ["URI"]
-          :added-path  ["isUserDefined"]
-          :placeholder "Select..."}]]
+        [m4/async-select-option-breadcrumb
+         {:form-id         ?form-id
+          :data-path       [?data-path "platform_term"]
+          :uri             "/api/parameterplatform"
+          :label-path      ["Name"]
+          :value-path      ["URI"]
+          :breadcrumb-path ["breadcrumbs"]
+          :added-path      ["isUserDefined"]
+          :placeholder     "Select..."}]]
        [m4/item-dialog-button
-        {:form-id    ?form-id
-         :data-path  [?data-path "platform_term"]
-         :text       "Browse"
-         :value-path ["URI"]
-         :added-path ["isUserDefined"]}]]
+        {:form-id            ?form-id
+         :data-path          [?data-path "platform_term"]
+         :text               "Browse"
+         :value-path         ["URI"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]
       [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "platform_term"]
         :title       "Define a custom parameter platform"
         :template-id :parameter-platform/user-defined-entry-form}]]]
 
-    ;
-    ;:upload
-    ;[:div
-    ; [m4/page-errors
-    ;  {:form-id    [:form]
-    ;   :data-path  []
-    ;   :data-paths [["attachments"]]}]
-    ; [:h2 "8: Upload Data"]
-    ; #_[m3/UploadData
-    ;    {:attachments-path [:form :fields :attachments]}]
-    ; [:h2 "Data Services"]
-    ; [m4/selection-list-columns
-    ;  {:form-id    [:form]
-    ;   :data-path  ["dataSources"]
-    ;   :value-path ["url"]
-    ;   :added-path ["isUserDefined"]
-    ;   :columns    [{:columnHeader "Description" :label-path ["description"] :flex 1}
-    ;                {:columnHeader "URL" :label-path ["url"] :flex 1}
-    ;                {:columnHeader "Layer" :label-path ["name"] :flex 1}]}]
-    ; [:div.bp3-control-group
-    ;  [m4/list-add-button
-    ;   {:form-id     [:form]
-    ;    :data-path   ["dataSources"]
-    ;    :button-text "Add data service"
-    ;    :value-path  ["url"]
-    ;    :added-path  ["isUserDefined"]}]]
-    ; [m4/list-edit-dialog
-    ;  {:form-id     [:form]
-    ;   :data-path   ["dataSources"]
-    ;   :title       "Data Service"
-    ;   :template-id :data-source/user-defined-entry-form}]
-    ; [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
-    ;
-    ;:data-source/user-defined-entry-form
-    ;[:div
-    ; [m4/inline-form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "description"]
-    ;   :label     "Title"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "description"]}]]
-    ;
-    ; [m4/inline-form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "protocol"]
-    ;   :label     "Protocol"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "protocol"]}]]
-    ;
-    ; [m4/form-group
-    ;  {:form-id   [:form]
-    ;   :data-path [?data-path "protocol"]
-    ;   :label     "Protocol"}
-    ;  [m4/select-value
-    ;   {:form-id    [:form]
-    ;    :data-path  [?data-path "protocol"]
-    ;    :value-path ["value"]
-    ;    :label-path ["label"]
-    ;    :options    [{"value" "OGC:WMS-1.3.0-http-get-map" "label" "OGC Web Map Service (WMS)"}
-    ;                 {"value" "OGC:WFS-1.0.0-http-get-capabilities" "label" "OGC Web Feature Service (WFS)"}
-    ;                 {"value" "WWW:LINK-1.0-http--downloaddata" "label" "Other/unknown"}]}]]
-    ;
-    ; [m4/inline-form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "url"]
-    ;   :label     "URL"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "url"]}]]
-    ;
-    ; [m4/inline-form-group
-    ;  {:form-id   ?form-id
-    ;   :data-path [?data-path "name"]
-    ;   :label     "Layer"}
-    ;  [m4/input-field
-    ;   {:form-id   ?form-id
-    ;    :data-path [?data-path "name"]}]]]
-    ;
+
+    :upload
+    [:div
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["attachments"]]}]
+     [:h2 "8: Data sources"]
+     ; #_[m3/UploadData
+     ;    {:attachments-path [:form :fields :attachments]}]
+
+     [m4/form-group
+      {:label     "Upload data"
+       :form-id   [:form]
+       :data-path ["distributionInfo" "transferOptions"]
+       :required  true}
+      [m4/upload-files
+       {:form-id    [:form]
+        :data-path  ["attachments"]
+        :value-path ["uri"]
+        :placeholder
+        [:div.bp3-non-ideal-state
+         [:h4.bp3-heading "Drop file here or click to upload"]
+         [:div "Max file size 100 MB"]]}]]
+
+     [m4/form-group
+      {:label     "Link to data services"
+       :form-id   [:form]
+       :data-path ["distributionInfo" "transferOptions"]
+       :required  true}
+      [:div.SelectionTableStyle
+       [m4/selection-list-columns
+        {:form-id             [:form]
+         :data-path           ["distributionInfo" "transferOptions"]
+         :value-path          ["linkage"]
+         :placeholder-record? true
+         :select-snapshot?    true
+         :columns             [{:columnHeader "Protocol" :label-path ["protocol"] :flex 2}
+                               {:columnHeader "Server" :label-path ["linkage"] :flex 2}
+                               {:columnHeader "Name" :label-path ["name"] :flex 1}]}]]
+
+      [m4/list-add-button
+       {:form-id     [:form]
+        :data-path   ["distributionInfo" "transferOptions"]
+        :button-text "Add data service"
+        :value-path  ["linkage"]}]
+
+      [m4/list-edit-dialog
+       {:form-id     [:form]
+        :data-path   ["distributionInfo" "transferOptions"]
+        :value-path  ["linkage"]
+        :title       "Data Distribution"
+        :template-id :transferOptions/user-defined-entry-form}]]
+
+
+     [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
+
+    :transferOptions/user-defined-entry-form
+    [:div
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "description"]
+       :label     "Title"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "description"]}]]
+
+     [m4/inline-form-group
+      {:form-id   [:form]
+       :data-path [?data-path "protocol"]
+       :label     "Protocol"}
+      [m4/select-value
+       {:form-id    [:form]
+        :data-path  [?data-path "protocol"]
+        :value-path ["value"]
+        :label-path ["label"]
+        :options    [{"value" "OGC:WMS-1.3.0-http-get-map" "label" "OGC Web Map Service (WMS)"}
+                     {"value" "OGC:WFS-1.0.0-http-get-capabilities" "label" "OGC Web Feature Service (WFS)"}
+                     {"value" "WWW:LINK-1.0-http--downloaddata" "label" "Other/unknown"}]}]]
+
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "linkage"]
+       :label     "URL"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "linkage"]}]]
+
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "name"]
+       :label     "Layer"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "name"]}]]]
+
     ;:lodge
     ;[:div
     ; [:h2 "9: Lodge Metadata Draft"]

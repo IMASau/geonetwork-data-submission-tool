@@ -122,17 +122,16 @@
                 :data  party-type})
           block))))
 
-;; TODO: Stop from disabling the ability to delete keywords
 (defn tern-max-keywords
   "For certain arrays we want to limit the amount of items the user can
    add to them. This rule accomplishes this by disabling the ability to
    add more items once the length of array has exceeded the max."
   [block {:keys [max-keywords]}]
-  (let [items    (blocks4/as-data block)
-        enabled? (< (count items) max-keywords)
-        props    {:disabled (not enabled?)}]
-    (-> block
-        (update-in [:props] merge props))))
+  (let [items (blocks4/as-data block)
+        enabled? (<= (count items) max-keywords)]
+    (cond-> block
+      (not enabled?)
+      (update-in [:props :errors] conj "Exceeded the maximum number of keywords"))))
 
 (defn required-at-least-one
   "Sometimes a requirement can have multiple possibilities, for example
@@ -274,6 +273,22 @@
           (assoc-in [:content "maximumValue" :props :is-hidden] true)
           (assoc-in [:content "minimumValue" :props :is-hidden] true)
           (assoc-in [:content "verticalCRS" :props :is-hidden] true)))))
+
+(defn imas-transfer-option-layer
+  "the layer field is only displayed & required when protocol is WMS/WCS"
+  [transferOption rule-data]
+  (let [{:keys [excludeValues]} rule-data
+        protocol (get-in transferOption [:content "protocol" :props :value])
+        exclude? (contains? (set excludeValues) protocol)]
+    (if exclude?
+      (-> transferOption
+          (update-in [:content "name" :props] dissoc :value)
+          (assoc-in [:content "name" :props :required] false)
+          (assoc-in [:content "name" :props :disabled] true)
+          ;(assoc-in [:content "name" :props :is-hidden] true)
+          )
+      (-> transferOption
+          (update-in [:content "name"] required-field true)))))
 
 (defn license-other
   [identificationInfo]

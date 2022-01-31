@@ -25,8 +25,8 @@
   [s form-id]
   (let [snapshots-path (utils4/as-path [:db form-id :snapshots])]
     (cond-> s
-            (seq (get-in s snapshots-path))
-            (update-in snapshots-path pop))))
+      (seq (get-in s snapshots-path))
+      (update-in snapshots-path pop))))
 
 (defn restore-snapshot-action
   "Restore form state from the latest snapshot.  e.g. user makes changes in modal then cancels"
@@ -35,9 +35,9 @@
         state-path (utils4/as-path [:db form-id :state])
         state-data (peek (get-in s snapshots-path))]
     (cond-> s
-            (seq (get-in s snapshots-path))
-            (-> (assoc-in state-path state-data)
-                (discard-snapshot-action form-id)))))
+      (seq (get-in s snapshots-path))
+      (-> (assoc-in state-path state-data)
+          (discard-snapshot-action form-id)))))
 
 (defn unselect-list-item-action
   "Clears the :list-item-selected-idx prop on an array block.  Used to dismiss modals."
@@ -45,11 +45,24 @@
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (update-in s (conj block-path :props) dissoc :list-item-selected-idx)))
 
-(defn select-user-defined-list-item-action2
-  "Set the :list-item-selected-idx prop on an array block.  Does nothing if idx is not a user defined item."
-  [s form-id data-path idx ]
+(defn select-list-item-action3
+  "Set the :list-item-selected-idx prop on an array block."
+  [s form-id data-path idx]
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (assoc-in s (conj block-path :props :list-item-selected-idx) idx)))
+
+(defn select-user-defined-list-item-action3
+  "Set the :list-item-selected-idx prop on an array block.  Does nothing if idx is not a user defined item."
+  [s form-id data-path added-path idx]
+  (let [state (get-in s (utils4/as-path [:db form-id :state]))
+        block (get-in state (blocks4/block-path data-path))
+        list-data (blocks4/as-data block)
+        item-data (get list-data idx)
+        item-added? (get-in item-data added-path)
+        block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
+    (cond-> s
+      item-added?
+      (assoc-in (conj block-path :props :list-item-selected-idx) idx))))
 
 (defn select-last-item-action
   "Set the :list-item-selected-idx prop to point at the last item in an array block.  Does nothing if list is empty."
@@ -57,8 +70,8 @@
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
         last-idx (dec (count (get-in s (conj block-path :content))))]
     (cond-> s
-            (not (neg? last-idx))
-            (assoc-in (conj block-path :props :list-item-selected-idx) last-idx))))
+      (not (neg? last-idx))
+      (assoc-in (conj block-path :props :list-item-selected-idx) last-idx))))
 
 (defn del-item-action
   "Remove the item at idx from an array block."

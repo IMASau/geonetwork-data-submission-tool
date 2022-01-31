@@ -46,7 +46,7 @@ class MetadataTemplate(AbstractMetadataTemplate):
     def clean(self):
         try:
             tree = etree.fromstring(self.file.read())
-            spec = spec4.make_spec(science_keyword=ScienceKeyword, mapper=self.mapper)
+            spec = spec4.make_spec(mapper=self.mapper)
             # TODO: replace with xml/mapper compatibility test
             spec4.extract_fields(spec)
             data = xmlutils4.extract_xml_data(tree, spec)

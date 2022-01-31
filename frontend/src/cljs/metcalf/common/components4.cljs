@@ -1122,7 +1122,7 @@
  [_]
  {::low-code4/req-ks       [:form-id :data-path :template-id]
   ::low-code4/opt-ks       []
-  ::low-code4/schema       {:type "array" :items {:type "object"}}
+  ::low-code4/schema       {:type "array"}
   ::low-code4/schema-paths []})
 
 (defn simple-list

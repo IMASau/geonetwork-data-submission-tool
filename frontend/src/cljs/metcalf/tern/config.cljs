@@ -144,7 +144,6 @@
        "mergeNameParts"       rules4/merge-names
        "validOrcid"           rules4/valid-ordid-uri
        "geographyRequired"    rules4/geography-required
-       "licenseOther"         rules4/license-other
        "numericOrder"         rules4/numeric-order
        "positive"             rules4/force-positive
        "dateOrder"            rules4/date-order
@@ -195,7 +194,7 @@
        'm4/when-data                           {:view components4/when-data :init components4/when-data-settings}
        'm4/get-data                            {:view components4/get-data :init components4/get-data-settings}
        'm4/yes-no-field                        {:view components4/yes-no-field :init components4/yes-no-field-settings}
-       ;'m4/simple-list                         {:view components4/simple-list :init components4/simple-list-settings}
+       'm4/simple-list                         {:view components4/simple-list :init components4/simple-list-settings}
        ;'m4/record-add-button                   {:view components4/record-add-button :init components4/record-add-button-settings}
        'm4/text-add-button                     {:view components4/text-add-button :init components4/text-add-button-settings}
        'm4/upload-files                        {:view components4/upload-files :init components4/upload-files-settings}
@@ -1820,7 +1819,14 @@
        :label     "Use limitations"}
       [:div
        [:i [m4/get-data {:form-id [:form] :data-path ["identificationInfo" "useLimitation"]}]]]]
-     [:div [:label "Other constraints"]]
+     [m4/form-group
+      {;:form-id   [:form]
+       ;:data-path ["identificationInfo"]
+       :label     "Other constraints"}
+      [m4/simple-list
+       {:form-id [:form]
+        :data-path ["identificationInfo" "otherConstraints"]
+        :template-id :about/other-constraints-list-entry}]]
      [m4/form-group
       {:label   "Any other constraints"
        :toolTip "Enter any additional constraints as required and click to add"}
@@ -1956,6 +1962,13 @@
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "url"]}]]]
+
+    :about/other-constraints-list-entry
+    [:p {:key ?data-path}
+     [:i
+      [m4/get-data
+       {:form-id ?form-id
+        :data-path ?data-path}]]]
 
     :upload
     [:div

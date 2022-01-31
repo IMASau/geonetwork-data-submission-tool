@@ -300,7 +300,6 @@
       "rules": [
         "maintFreq",
         "endPosition",
-        "licenseOther",
         {
           "dateOrder": {
             "field0": "beginPosition",

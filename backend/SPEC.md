@@ -420,6 +420,29 @@ If no `attributes` are defined, this is the default write location.
 },
 ```
 
+## parser
+
+The logical complement of `attributes` is `parser`; this allows
+registering custom code to describe how data is *imported*.  A common
+use-case for this is attributes; in this example the data is written
+into an attribute, and requires a parser specification to handle the
+corresponding import:
+
+```json
+"Identifier": {
+  "xpath": ".",
+  "type": "string",
+  "attributes": {
+    "codeListValue": {
+      "function": "identity"
+    }
+  },
+  "parser": {
+    "function": "parse_codeListValue"
+  }
+}
+```
+
 ## function
 
 The function to call when processing this node's value.   

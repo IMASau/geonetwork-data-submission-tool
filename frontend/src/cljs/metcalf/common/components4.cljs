@@ -1119,25 +1119,36 @@
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
 
-;(defn simple-list-settings
-;  [_]
-;  {::low-code4/req-ks       [:form-id :data-path :template-id]
-;   ::low-code4/opt-ks       []
-;   ::low-code4/schema       {:type "array" :items {:type "object"}}
-;   ::low-code4/schema-paths []})
-;
-;(defn simple-list
-;  [config]
-;  (let [props @(rf/subscribe [::get-block-props config])
-;        items @(rf/subscribe [::get-block-data config])
-;        {:keys [form-id data-path is-hidden template-id]} props]
-;    (when-not is-hidden
-;      [:<>
-;       (for [index (range (count items))]
-;         (low-code4/render-template
-;           {:template-id template-id
-;            :variables   {'?form-id   form-id
-;                          '?data-path (conj data-path index)}}))])))
+(defn simple-list-settings
+ [_]
+ {::low-code4/req-ks       [:form-id :data-path :template-id]
+  ::low-code4/opt-ks       []
+  ::low-code4/schema       {:type "array"}
+  ::low-code4/schema-paths []})
+
+(defn simple-list
+  "Displays an arbitrary array of values, using a template to manage the
+  actual rendering. Nothing else is assumed about the data, other than
+  it is an array. The template is responsible for setting the key
+  property required by React.
+
+  Required props:
+  * form-id
+  * data-path
+  * template-id
+
+  Logic can also control whether it is displayed by setting is-hidden."
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        items @(rf/subscribe [::get-block-data config])
+        {:keys [form-id data-path is-hidden template-id]} props]
+    (when-not is-hidden
+      [:<>
+       (for [index (range (count items))]
+         (low-code4/render-template
+          {:template-id template-id
+           :variables   {'?form-id   form-id
+                         '?data-path (conj data-path index)}}))])))
 
 (defn selection-list-breadcrumb-settings
   "Settings for selection-list-breadcrumb component"

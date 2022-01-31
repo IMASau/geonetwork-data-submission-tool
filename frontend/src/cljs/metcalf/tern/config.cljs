@@ -1867,8 +1867,7 @@
      [m4/expanding-control {:label "Associated Documentation (Optional)"}
 
       [m4/form-group
-       {:label    "Publication"
-        :required true}
+       {:label    "Publication"}
        [m4/selection-list-columns
         {:form-id            [:form]
          :data-path          ["identificationInfo" "additionalPublications"]

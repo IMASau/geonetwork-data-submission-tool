@@ -239,8 +239,16 @@
             "uuid": {},
             "abstract": {},
             "uri": {
-              "xpath": "cit:identifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
-              "keep": false
+              "keep": "false",
+              "xpath": "cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor",
+              "attributes": {
+                "text": {
+                  "function": "identity"
+                },
+                "xlink:href": {
+                  "function": "identity"
+                }
+              }
             }
           }
         }

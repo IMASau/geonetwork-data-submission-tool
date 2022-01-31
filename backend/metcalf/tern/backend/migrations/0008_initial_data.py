@@ -35,10 +35,7 @@ def configure_backend_data(apps, schema_editor):
     mt.save()
     # Create data feeds
     datafeeds = [
-        "load_institutions", "load_horizontalresolutions", "load_parameterplatforms",
-        "load_topiccategories", "load_sciencekeywords", "load_samplingfrequencies",
-        "load_rolecodes", "load_persons", "load_parameterunits", "load_parameternames",
-        "load_parameterinstruments"
+
     ]
     for idx, name in enumerate(datafeeds):
         df, _ = DataFeed.objects.get_or_create(pk=str(idx + 1))

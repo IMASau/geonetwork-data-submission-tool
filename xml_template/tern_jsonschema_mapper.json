@@ -239,8 +239,16 @@
             "uuid": {},
             "abstract": {},
             "uri": {
-              "xpath": "cit:identifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
-              "keep": false
+              "keep": "false",
+              "xpath": "cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor",
+              "attributes": {
+                "text": {
+                  "function": "identity"
+                },
+                "xlink:href": {
+                  "function": "identity"
+                }
+              }
             }
           }
         }
@@ -292,7 +300,6 @@
       "rules": [
         "maintFreq",
         "endPosition",
-        "licenseOther",
         {
           "dateOrder": {
             "field0": "beginPosition",
@@ -451,7 +458,8 @@
                   }
                 },
                 "required": true,
-                "xpath_required": true
+                "xpath_required": true,
+                "rules": ["requiredField"]
               },
               "organisation": {
                 "xpath": "cit:party/cit:CI_Organisation",
@@ -463,6 +471,7 @@
                     "valueChild": "gco:CharacterString",
                     "type": "string",
                     "required": true,
+                    "rules": ["requiredField"],
                     "keep": false
                   },
                   "uri": {
@@ -488,6 +497,7 @@
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
                     "type": "string",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -495,6 +505,7 @@
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
                     "type": "string",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -502,6 +513,7 @@
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
                     "type": "string",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -509,6 +521,7 @@
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
                     "type": "string",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -516,6 +529,7 @@
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
                     "type": "string",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -523,6 +537,7 @@
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
                     "type": "string",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -548,7 +563,8 @@
                     "valueChild": "gco:CharacterString"
                   },
                   "isUserDefined": {}
-                }
+                },
+                "rules": ["requiredField"]
               },
               "contact": {
                 "!docstring": "Who3",
@@ -589,7 +605,8 @@
                     "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
-                    "required": false
+                    "required": false,
+                    "rules": ["requiredField"]
                   },
                   "phone": {
                     "!docstring": "Who13 / Who14",
@@ -653,18 +670,7 @@
                 "default": false,
                 "export": false
               }
-            },
-            "rules": [
-              {
-              "requiredSome": {
-                "fields-list": [
-                  ["organisation", "name"],
-                  ["contact", "name"]
-                ]
-              }
-            },
-              "requiredParty"
-            ]
+            }
           },
           "notes": "Responsible party/ies for creating dataset"
         },
@@ -704,7 +710,8 @@
                   }
                 },
                 "required": true,
-                "xpath_required": true
+                "xpath_required": true,
+                "rules": ["requiredField"]
               },
               "organisation": {
                 "xpath": "cit:party/cit:CI_Organisation",
@@ -715,6 +722,7 @@
                     "xpath": "cit:name",
                     "valueChild": "gco:CharacterString",
                     "required": true,
+                    "rules": ["requiredField"],
                     "keep": false
                   },
                   "uri": {
@@ -738,36 +746,42 @@
                   "full_address_line": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "street_address": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "address_locality": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "address_region": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "postcode": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "country": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -778,7 +792,8 @@
                     "valueChild": "gco:CharacterString"
                   },
                   "isUserDefined": {}
-                }
+                },
+                "rules": ["requiredField"]
               },
               "contact": {
                 "!docstring": "Who3",
@@ -819,7 +834,8 @@
                     "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
-                    "required": false
+                    "required": false,
+                    "rules": ["requiredField"]
                   },
                   "orcid": {
                     "!docstring": "Who7",
@@ -869,18 +885,7 @@
                 "default": false,
                 "export": false
               }
-            },
-            "rules": [
-              {
-              "requiredSome": {
-                "fields-list": [
-                  ["organisation", "name"],
-                  ["contact", "name"]
-                ]
-              }
-            },
-              "requiredParty"
-            ]
+            }
           }
         },
         "geographicElement": {
@@ -1190,6 +1195,7 @@
           "!docstring": "What8",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]",
           "type": "object",
+          "keep": false,
           "deleteWhenEmpty": false,
           "properties": {
             "keywords": {
@@ -1453,17 +1459,42 @@
           "type": "string",
           "rules": ["requiredField"]
         },
+        "useLimitation": {
+          "!docstring": "About - non-editable but displayed from the template",
+          "xpath": "mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation/gco:CharacterString",
+          "type": "string",
+          "keep": true,
+          "export": false
+        },
+        "otherConstraints": {
+          "!docstring": "About - non-editable but displayed from the template",
+          "xpath": "(mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints/gco:CharacterString)[position()<last()]",
+          "keep": true,
+          "export": false,
+          "type": "array",
+          "items": {
+            "xpath": ".",
+            "export": false,
+            "type": "string"
+          }
+        },
         "additionalConstraints": {
-          "!docstring": "About1 -- still needs XML mapping",
+          "!docstring": "About1",
           "keep": false,
           "type": "object",
+          "xpath": "mri:resourceConstraints/mco:MD_LegalConstraints",
           "properties": {
             "constraints": {
               "keep": false,
               "type": "array",
+              "xpath": "mco:otherConstraints",
+              "container": "mco:otherConstraints[last()]",
               "items": {
                 "type": "string",
-                "keep": false
+                "keep": false,
+                "append": true,
+                "xpath": "mco:otherConstraints",
+                "valueChild": "gco:CharacterString"
               }
             }
           }
@@ -1471,14 +1502,15 @@
         "securityClassification": {
           "!docstring": "About2",
           "type": "object",
+          "xpath": "mri:resourceConstraints/mco:MD_SecurityConstraints/mco:classification/mco:MD_ClassificationCode",
           "properties": {
             "label": {
               "type": "string"
             },
             "value": {
-              "xpath": "gcx:Anchor",
+              "xpath": ".",
               "attributes": {
-                "xlink:href": {
+                "codeListValue": {
                   "function": "identity"
                 }
               }

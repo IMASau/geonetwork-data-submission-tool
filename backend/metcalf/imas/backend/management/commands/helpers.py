@@ -3,6 +3,7 @@ import datetime
 import io
 import logging
 import urllib
+import urllib.parse
 
 import requests
 from django.contrib.admin.models import CHANGE, LogEntry
@@ -12,10 +13,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import CommandError
 from django.db import transaction
 
+import re
+
 logger = logging.getLogger(__name__)
 
 
-# FIXME this mentions tern
 class BaseParameterVocabLoader(object):
     """Mixin class to implement the generic parameter-* loaders"""
 
@@ -51,13 +53,12 @@ class BaseParameterVocabLoader(object):
         vocab_list = [(self.CategoryVocab, False),
                       (self.ParameterVocab, True)]
 
-        self._fetch_data("org", True, 1)
-
         entry_count = 0
         for vocab, selectable in vocab_list:
             if not vocab:
                 continue
-            for uri, parenturi, data in self._fetch_data(vocab, selectable, ''):
+            version = self._fetch_version(vocab)
+            for uri, parenturi, data in self._fetch_data(vocab, selectable, version):
                 entry_count = entry_count + 1
                 entry = self._merge_or_create(entries, uri, data)
                 if not parenturi:
@@ -70,7 +71,7 @@ class BaseParameterVocabLoader(object):
 
         try:
             if entry_count == 0:
-                raise CommandError('No TERN persons found, assuming error; aborting')
+                raise CommandError('No entries.  Aborting')
             with transaction.atomic():
 
                 transaction.get_connection().cursor().execute(
@@ -109,27 +110,27 @@ class BaseParameterVocabLoader(object):
             adminpk = adminuser.pk
         return adminpk
 
-    def _fetch_data(self, VocabName, selectable, version):
+    @staticmethod
+    def _fetch_data(VocabName, selectable, version):
         """Returns a generator of triples of the URI, the parent URI
         (nullable), and the data as a dictionary, created from the
         current AODN vocab."""
-        _vocabServer = 'http://vocabs.ands.org.au/repository/api/sparql/'
+        _vocabServer = 'http://vocabs.ands.org.au/repository/api/sparql/aodn_'
         # Key concepts in this query: definition isn't present in
         # every entry so must be OPTIONAL, and the parent concept is
         # both OPTIONAL and can be specified in two different ways
         # (depending on whether the parent entry appears in the same
         # vocab or not):
         _query = urllib.parse.quote('PREFIX skos: <http://www.w3.org/2004/02/skos/core#>'
-                                    ' SELECT ?uri ?name ?definition ?parent ?extParent ?top WHERE {'
+                                    ' SELECT ?uri ?name ?definition ?parent ?extParent WHERE {'
                                     '?uri skos:prefLabel ?name . '
                                     'OPTIONAL { ?uri skos:definition ?definition } . '
                                     'OPTIONAL { ?uri skos:broader ?parent } . '
-                                    'OPTIONAL { ?uri skos:broadMatch ?extParent } . '
-                                    'OPTIONAL { ?uri skos:topConceptOf ?top}'
+                                    'OPTIONAL { ?uri skos:broadMatch ?extParent }'
                                     '}')
-        url = '{base}{vocabName}?query={query}'.format(base=_vocabServer,
-                                                       vocabName=VocabName,
-                                                       query=_query)
+        url = '{base}{vocabName}_current?query={query}'.format(base=_vocabServer,
+                                                               vocabName=VocabName,
+                                                               query=_query)
 
         response = requests.get(url, headers={'Accept': 'text/csv'})
         reader = csv.DictReader(io.StringIO(response.text, newline=""), skipinitialspace=True)
@@ -139,9 +140,20 @@ class BaseParameterVocabLoader(object):
                 'URI': row['uri'],
                 'Name': row['name'],
                 'Definition': row['definition'],
-                'is_selectable': selectable and (row['top'] != self.TopCategory),
+                'is_selectable': selectable,
                 'Version': version
             }
+
+    @staticmethod
+    def _fetch_version(VocabName):
+        """Parse the vocab version from a linked-data endpoint. Slightly hacky,
+        but works."""
+        url = 'http://vocabs.ands.org.au/repository/api/lda/aodn/{vocab}/current/concept.json'.format(vocab=VocabName)
+        response = requests.get(url)
+        rjson = response.json()
+        aboutstr = rjson['result']['_about']
+        vmatch = re.search(r'version-[-0-9]+', aboutstr)
+        return vmatch.group(0)
 
     @staticmethod
     def _merge_or_create(entries, uri, data):

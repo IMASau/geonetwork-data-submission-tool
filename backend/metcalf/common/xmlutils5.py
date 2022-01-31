@@ -207,7 +207,7 @@ def export2_set_text_handler(data, xml_node, xml_kwargs, xform, **kwargs):
     hit, value = get_dotted_path(data, data_path)
     if hit:
         nodes = xml_node.xpath(node_xpath, **xml_kwargs)
-        assert len(nodes) == 1
+        assert len(nodes) == 1, "node_xpath must match one node, %s found" % len(nodes)
         nodes[0].text = str(value)
 
 
@@ -222,9 +222,9 @@ def export2_remove_element_handler(data, xml_node, xml_kwargs, xform, **kwargs):
     """
     xf_props = xform[1]
     data_path = xf_props.get('data_path', None)
-    xpath = xf_props.get('xpath', None)
-    assert data_path is not None, "export2_remove_element_handler: xf_props.data_path must be set"
-    assert xpath is not None, "export2_remove_element_handler: xf_props.xpath must be set"
+    node_xpath = xf_props.get('node_xpath', None)
+    assert data_path is not None, "data_path must be set"
+    assert node_xpath is not None, "node_xpath must be set"
     hit, value = get_dotted_path(data, data_path)
     if not hit:
         nodes = xml_node.xpath(xpath, **xml_kwargs)
@@ -255,8 +255,8 @@ def export2_append_items_handler(data, xml_node, spec, xml_kwargs, handlers, xfo
     mount_nodes = xml_node.xpath(mount_xpath, **xml_kwargs)
     template_nodes = xml_node.xpath(template_xpath, **xml_kwargs)
 
-    assert len(mount_nodes) == 1
-    assert len(template_nodes) == 1
+    assert len(mount_nodes) == 1, 'mount_xpath must match one node, %s found' % len(mount_nodes)
+    assert len(template_nodes) > 0, 'template_xpath must match at least one node'
 
     template = template_nodes[0]
 
@@ -270,7 +270,7 @@ def export2_append_items_handler(data, xml_node, spec, xml_kwargs, handlers, xfo
                 export2_xform(
                     xform=item_xform,
                     data=value,
-                    xml_node=xml_node,
+                    xml_node=element,
                     spec=items_spec,
                     xml_kwargs=xml_kwargs,
                     handlers=handlers)
@@ -676,6 +676,70 @@ def export2_imasLegalConstraints_handler(data, xml_node, spec, xml_kwargs, handl
 
     else:
         remove_element_helper(xml_node=xml_node, xpath=node_xpath, xml_kwargs=xml_kwargs)
+
+
+def export2_imasDigitalTransferOptions_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
+    """
+    Massages data from distributionInfo.transferOptions and identificationInfo.supportingResources to
+    generate a list of Digital Transfer Options.
+
+    :param data:
+    :param xml_node:
+    :param spec:
+    :param xml_kwargs:
+    :param handlers:
+    :param xform:
+    :return:
+    """
+    xf_props = xform[1]
+    mount_xpath = xf_props.get('mount_xpath', None)
+    template_xpath = xf_props.get('template_xpath', None)
+
+    to_hit, to_data = get_dotted_path(data, "distributionInfo.transferOptions")
+    sr_hit, sr_data = get_dotted_path(data, "identificationInfo.supportingResources")
+
+    dtos = [*to_data] if to_hit else []
+
+    if sr_hit:
+        for sr in sr_data:
+            dtos.append({
+                "description": sr.get('name'),
+                "linkage": sr.get('url'),
+                "protocol": 'WWW:LINK-1.0-http--downloaddata',
+            })
+
+    export2_append_items_handler(
+        data={'dtos': dtos},
+        xml_node=xml_node,
+        spec={
+            "type": "object",
+            "properties": {
+                "dtos": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "description": {"type": "string"},
+                            "linkage": {"type": "string"},
+                            "protocol": {"type": "string"},
+                            "name": {"type": "string"}
+                        }
+                    }
+                }
+            }
+        },
+        xml_kwargs=xml_kwargs,
+        handlers=handlers,
+        xform=[
+            "append_items",
+            {
+                "data_path": "dtos",
+                "mount_xpath": mount_xpath,
+                "template_xpath": template_xpath
+            },
+            *xform[2]
+        ]
+    )
 
 
 def export2_generateUnitKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):

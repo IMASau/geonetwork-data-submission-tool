@@ -47,9 +47,9 @@ from metcalf.tern.frontend.serializers import DocumentInfoSerializer, Attachment
     SiteContentSerializer, CreateDocumentSerializer
 
 
-def theme_keywords():
-    return ScienceKeyword.objects.all().exclude(Topic="").values_list(
-        'UUID', 'Topic', 'Term', 'VariableLevel1', 'VariableLevel2', 'VariableLevel3')
+# def theme_keywords():
+#     return ScienceKeyword.objects.all().exclude(Topic="").values_list(
+#         'UUID', 'Topic', 'Term', 'VariableLevel1', 'VariableLevel2', 'VariableLevel3')
 
 
 def anzsrc_keywords():
@@ -57,9 +57,9 @@ def anzsrc_keywords():
         'UUID', 'Topic', 'Term', 'VariableLevel1', 'VariableLevel2', 'VariableLevel3')
 
 
-def topic_categories():
-    return TopicCategory.objects.all().values_list(
-        'identifier', 'name')
+# def topic_categories():
+#     return TopicCategory.objects.all().values_list(
+#         'identifier', 'name')
 
 
 def master_urls():
@@ -394,80 +394,80 @@ def home(request):
     return render(request, "home.html", context)
 
 
-def personFromData(data):
-    uri = data['uri']
-    if uri:
-        familyName = data['familyName']
-        givenName = data['givenName']
-        if not familyName and not givenName:
-            data['individualName'] = ''
-        elif not familyName:
-            data['individualName'] = familyName
-        elif not givenName:
-            data['individualName'] = givenName
-        else:
-            data['individualName'] = '{0}, {1}'.format(familyName, givenName)
-        try:
-            matchingPerson = Person.objects.get(uri=uri)
-            if matchingPerson.isUserAdded:
-                matchingPerson.orgUri = data['organisationIdentifier'] or ''
-                matchingPerson.givenName = data['givenName'] or ''
-                matchingPerson.familyName = data['familyName'] or ''
-                matchingPerson.orcid = data['orcid'] or ''
-                matchingPerson.prefLabel = data['individualName'] or ''
-                matchingPerson.electronicMailAddress = data['electronicMailAddress'] or ''
-                matchingPerson.save()
-                return matchingPerson
-        except Person.DoesNotExist:
-            inst = Person.objects.create(uri=uri,
-                                         orgUri=data['organisationIdentifier'] or '',
-                                         givenName=data['givenName'] or '',
-                                         familyName=data['familyName'] or '',
-                                         orcid=data['orcid'] or '',
-                                         prefLabel=data['individualName'] or '',
-                                         electronicMailAddress=data['electronicMailAddress'] or '',
-                                         isUserAdded=True)
-            inst.save()
-            return inst
-    return None
+# def personFromData(data):
+#     uri = data['uri']
+#     if uri:
+#         familyName = data['familyName']
+#         givenName = data['givenName']
+#         if not familyName and not givenName:
+#             data['individualName'] = ''
+#         elif not familyName:
+#             data['individualName'] = familyName
+#         elif not givenName:
+#             data['individualName'] = givenName
+#         else:
+#             data['individualName'] = '{0}, {1}'.format(familyName, givenName)
+#         try:
+#             matchingPerson = Person.objects.get(uri=uri)
+#             if matchingPerson.isUserAdded:
+#                 matchingPerson.orgUri = data['organisationIdentifier'] or ''
+#                 matchingPerson.givenName = data['givenName'] or ''
+#                 matchingPerson.familyName = data['familyName'] or ''
+#                 matchingPerson.orcid = data['orcid'] or ''
+#                 matchingPerson.prefLabel = data['individualName'] or ''
+#                 matchingPerson.electronicMailAddress = data['electronicMailAddress'] or ''
+#                 matchingPerson.save()
+#                 return matchingPerson
+#         except Person.DoesNotExist:
+#             inst = Person.objects.create(uri=uri,
+#                                          orgUri=data['organisationIdentifier'] or '',
+#                                          givenName=data['givenName'] or '',
+#                                          familyName=data['familyName'] or '',
+#                                          orcid=data['orcid'] or '',
+#                                          prefLabel=data['individualName'] or '',
+#                                          electronicMailAddress=data['electronicMailAddress'] or '',
+#                                          isUserAdded=True)
+#             inst.save()
+#             return inst
+#     return None
 
 
-def institutionFromData(data):
-    orgUri = data['organisationIdentifier']
-    city = None
-    if data.get('address', None):
-        city = data['address'].get('city', None)
-    if '||' in orgUri:
-        orgUri = orgUri[:orgUri.index('||')]
-    if orgUri:
-        try:
-            if city:
-                matchingOrg = Institution.objects.get(uri=orgUri, city=city)
-            else:
-                matchingOrg = Institution.objects.get(uri=orgUri)
-            if matchingOrg.isUserAdded:
-                matchingOrg.prefLabel = data['organisationName']
-                matchingOrg.organisationName = data['organisationName']
-                matchingOrg.administrativeArea = data['address']['administrativeArea']
-                matchingOrg.city = data['address']['city']
-                matchingOrg.postalCode = data['address']['postalCode']
-                matchingOrg.country = data['address']['country']
-                matchingOrg.deliveryPoint = data['address']['deliveryPoint']
-                matchingOrg.deliveryPoint2 = data['address']['deliveryPoint2']
-                matchingOrg.save()
-        except Institution.DoesNotExist:
-            inst = Institution.objects.create(uri=orgUri,
-                                              prefLabel=data['organisationName'],
-                                              altLabel=data['organisationName'],
-                                              organisationName=data['organisationName'],
-                                              administrativeArea=data['address']['administrativeArea'],
-                                              city=data['address']['city'],
-                                              postalCode=data['address']['postalCode'],
-                                              country=data['address']['country'],
-                                              deliveryPoint=data['address']['deliveryPoint'],
-                                              deliveryPoint2=data['address']['deliveryPoint2'],
-                                              isUserAdded=True)
-            inst.save()
+# def institutionFromData(data):
+#     orgUri = data['organisationIdentifier']
+#     city = None
+#     if data.get('address', None):
+#         city = data['address'].get('city', None)
+#     if '||' in orgUri:
+#         orgUri = orgUri[:orgUri.index('||')]
+#     if orgUri:
+#         try:
+#             if city:
+#                 matchingOrg = Institution.objects.get(uri=orgUri, city=city)
+#             else:
+#                 matchingOrg = Institution.objects.get(uri=orgUri)
+#             if matchingOrg.isUserAdded:
+#                 matchingOrg.prefLabel = data['organisationName']
+#                 matchingOrg.organisationName = data['organisationName']
+#                 matchingOrg.administrativeArea = data['address']['administrativeArea']
+#                 matchingOrg.city = data['address']['city']
+#                 matchingOrg.postalCode = data['address']['postalCode']
+#                 matchingOrg.country = data['address']['country']
+#                 matchingOrg.deliveryPoint = data['address']['deliveryPoint']
+#                 matchingOrg.deliveryPoint2 = data['address']['deliveryPoint2']
+#                 matchingOrg.save()
+#         except Institution.DoesNotExist:
+#             inst = Institution.objects.create(uri=orgUri,
+#                                               prefLabel=data['organisationName'],
+#                                               altLabel=data['organisationName'],
+#                                               organisationName=data['organisationName'],
+#                                               administrativeArea=data['address']['administrativeArea'],
+#                                               city=data['address']['city'],
+#                                               postalCode=data['address']['postalCode'],
+#                                               country=data['address']['country'],
+#                                               deliveryPoint=data['address']['deliveryPoint'],
+#                                               deliveryPoint2=data['address']['deliveryPoint2'],
+#                                               isUserAdded=True)
+#             inst.save()
 
 
 @login_required

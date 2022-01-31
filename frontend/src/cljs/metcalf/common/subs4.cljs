@@ -46,14 +46,22 @@
     (pos? errors)))
 
 (defn has-selected-block-errors?
-  [state [_ {:keys [data-path]}]]
+  [state [_ {:keys [data-path field-paths]
+             :or {field-paths #{[]}}}]]
   (s/assert (s/nilable ::utils4/data-path) data-path)
   (s/assert vector? data-path)
   (let [path (blocks4/block-path data-path)
         logic (get-in state path)
         selected-idx (get-in logic [:props :list-item-selected-idx])]
     (when selected-idx
-      (pos? (get-in logic [:content selected-idx :progress/score :progress/errors])))))
+      (let [item-block (get-in logic [:content selected-idx])
+            field-blocks (map #(get-in item-block (blocks4/block-path %)) field-paths)]
+        (some pos? (map #(get-in % [:progress/score :progress/errors]) field-blocks))))))
+
+(defn can-dialog-cancel-sub
+  [db [_ {:keys [form-id]}]]
+  (let [{:keys [snapshots]} (get-in db form-id)]
+    (boolean (seq snapshots))))
 
 (defn get-block-props-sub
   "take config and merge with block props"
@@ -89,9 +97,9 @@
 
 (defn get-block-data-sub
   [state [_ {:keys [data-path]}]]
-  (s/assert ::utils4/data-path data-path)
-  (let [path (blocks4/block-path data-path)]
-    (blocks4/as-data (get-in state path))))
+  (when data-path
+    (let [path (blocks4/block-path data-path)]
+      (blocks4/as-data (get-in state path)))))
 
 (defn get-data-schema-sub
   [db [_ {:keys [form-id data-path]}]]

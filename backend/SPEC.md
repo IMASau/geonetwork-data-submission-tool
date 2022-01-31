@@ -296,6 +296,46 @@ def spatial_units_export(data):
         return {}
 ```
 
+## append
+
+If `append` is `true` (default is `false`), arrays will be exported by
+ignoring the `element_index` parameter and using the last matching
+element as the template.
+
+In certain situations, regular xpaths aren't expressive enough for
+standard `array` exports. The canonical case is where the only
+distinguishing feature of a template element is its position, for
+example we have several nodes of fixed content (eg, "Other
+Constraints"), then the final node should be our template. This
+doesn't work because recursive processing will identify a single node
+every time, regardless of how many elements have been exported.
+
+Example, noting the `[last()]` clause:
+```json
+"additionalConstraints": {
+  "!docstring": "About1",
+  "keep": false,
+  "type": "object",
+  "xpath": "mri:resourceConstraints/mco:MD_LegalConstraints",
+  "properties": {
+    "constraints": {
+      "keep": false,
+      "type": "array",
+      "xpath": "mco:otherConstraints",
+      "container": "mco:otherConstraints[last()]",
+      "items": {
+        "type": "string",
+        "keep": false,
+        "append": true,
+        "xpath": "mco:otherConstraints",
+        "valueChild": "gco:CharacterString"
+      }
+    }
+  }
+},
+
+```
+
 ## keep
 
 If `keep` is set to `true` (default), the value in the XML template file will be used as the default value for any new
@@ -378,6 +418,29 @@ If no `attributes` are defined, this is the default write location.
   },
   ...
 },
+```
+
+## parser
+
+The logical complement of `attributes` is `parser`; this allows
+registering custom code to describe how data is *imported*.  A common
+use-case for this is attributes; in this example the data is written
+into an attribute, and requires a parser specification to handle the
+corresponding import:
+
+```json
+"Identifier": {
+  "xpath": ".",
+  "type": "string",
+  "attributes": {
+    "codeListValue": {
+      "function": "identity"
+    }
+  },
+  "parser": {
+    "function": "parse_codeListValue"
+  }
+}
 ```
 
 ## function

@@ -1,7 +1,10 @@
 @import 'node_modules/normalize.css/normalize';
 @import 'node_modules/@blueprintjs/core/lib/css/blueprint';
 @import 'node_modules/@blueprintjs/datetime/lib/css/blueprint-datetime';
-@import 'node_modules/@blueprintjs/icons/lib/css/blueprint-icons';
+
+$icon-font-path: "../resources/icons";
+@import 'node_modules/@blueprintjs/icons/src/blueprint-icons';
+
 @import 'node_modules/@blueprintjs/popover2/lib/css/blueprint-popover2';
 @import 'node_modules/fixed-data-table-2/dist/fixed-data-table';
 @import 'node_modules/leaflet/dist/leaflet';

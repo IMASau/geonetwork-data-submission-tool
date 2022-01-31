@@ -91,6 +91,9 @@ def full_xpaths_step(schema):
     if full_xpath:
         schema_type = schema.get('type')
         if schema_type == 'object':
+            valueChild = schema.get('valueChild')
+            if valueChild:
+                full_xpath = full_xpath + "/" + valueChild
             for prop_name in schema['properties'].keys():
                 schema['properties'][prop_name]['parent_xpath'] = full_xpath
         elif schema_type == 'array':
@@ -109,6 +112,60 @@ def full_xpaths(schema):
     """
     schema['full_xpath'] = schema['xpath']
     return prewalk(full_xpaths_step, schema)
+
+
+def xslt_extract_step(schema):
+    """
+    add xslt extraction annotations
+
+    :param schema:
+    :return:
+    """
+
+    type = schema.get('type')
+    full_xpath = schema.get('full_xpath')
+    valueChild = schema.get('valueChild')
+    attributes = schema.get('attributes')
+
+    if type == 'object':
+        for prop_name, prop_schema in schema.get('properties').items():
+            prop_schema['xsl:tag name'] = prop_name
+    elif type == 'array':
+        items = schema.get('items')
+        items_xpath = items.get('xpath')
+        if items_xpath:
+            schema['items']['xsl:tag name'] = schema.get('xsl:tag name')
+            schema['xsl:for-each select'] = full_xpath + "/" + items_xpath
+    else:
+
+        if full_xpath:
+            value_of_select = full_xpath
+
+            if valueChild:
+                value_of_select = value_of_select + "/" + valueChild
+
+            if attributes is None:
+                schema['xsl:value-of select'] = value_of_select
+            elif attributes.get('text'):
+                # treat text attr as blessed for reading
+                schema['xsl:value-of select'] = value_of_select
+            elif len(attributes) == 1:
+                # Single attribute clear for import
+                k = list(attributes.keys())[0]
+                schema['xsl:value-of select'] = value_of_select + "/@" + k
+            else:
+                raise Exception("Unable to infer for multiple attributes cases")
+
+    return schema
+
+
+def xslt_extract(schema):
+    """
+    Experimental analysis to resolve full_xpath based on schema tree and xpath annotations.
+    """
+    schema['xsl:tag name'] = 'root'
+    assert schema.get('type') == 'object', "Only tested with object root, found %s" % schema.get('type')
+    return prewalk(xslt_extract_step, schema)
 
 
 def extract_field(schema):
@@ -181,6 +238,7 @@ def analyse_schema(**kwargs):
     schema = json.loads(kwargs['payload'])
     schema = inline_defs(schema)
     schema = full_xpaths(schema)
+    schema = xslt_extract(schema)
     return schema
 
 
@@ -330,8 +388,8 @@ def parse_keywords(x):
     return x.get('{http://www.w3.org/1999/xlink}href').split('/')[-1]
 
 
-def science_keyword_from_uuid(x):
-    return KWARGS['science_keyword'].objects.get(UUID=x).as_str()
+# def science_keyword_from_uuid(x):
+#     return KWARGS['science_keyword'].objects.get(UUID=x).as_str()
 
 
 def date_as_string(x):
@@ -422,31 +480,31 @@ def separate_organisation_identifier(x):
     return x
 
 
-def science_keyword_name(**kwargs):
-    assert kwargs['data'] != None, "data not provided"
-    assert kwargs['models'] != None, "models not provided"
-    data = kwargs['data']
-    models = kwargs['models']
-    keyword = models['backend']['sciencekeyword'].objects.get(pk=data)
-    return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
+# def science_keyword_name(**kwargs):
+#     assert kwargs['data'] != None, "data not provided"
+#     assert kwargs['models'] != None, "models not provided"
+#     data = kwargs['data']
+#     models = kwargs['models']
+#     keyword = models['backend']['sciencekeyword'].objects.get(pk=data)
+#     return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
 
 
-def science_keyword_uri(**kwargs):
-    assert kwargs['data'] != None, "data not provided"
-    assert kwargs['models'] != None, "models not provided"
-    data = kwargs['data']
-    models = kwargs['models']
-    keyword = models['backend']['sciencekeyword'].objects.get(pk=data)
-    return keyword.uri
+# def science_keyword_uri(**kwargs):
+#     assert kwargs['data'] != None, "data not provided"
+#     assert kwargs['models'] != None, "models not provided"
+#     data = kwargs['data']
+#     models = kwargs['models']
+#     keyword = models['backend']['sciencekeyword'].objects.get(pk=data)
+#     return keyword.uri
 
 
-def anzsrc_keyword_name(**kwargs):
-    assert kwargs['data'] != None, "data not provided"
-    assert kwargs['models'] != None, "models not provided"
-    data = kwargs['data']
-    models = kwargs['models']
-    keyword = models['backend']['anzsrckeyword'].objects.get(pk=data)
-    return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
+# def anzsrc_keyword_name(**kwargs):
+#     assert kwargs['data'] != None, "data not provided"
+#     assert kwargs['models'] != None, "models not provided"
+#     data = kwargs['data']
+#     models = kwargs['models']
+#     keyword = models['backend']['anzsrckeyword'].objects.get(pk=data)
+#     return keyword.DetailedVariable or keyword.VariableLevel3 or keyword.VariableLevel2 or keyword.VariableLevel1 or keyword.Term or keyword.Topic or keyword.Category
 
 
 def anzsrc_uri(**kwargs):
@@ -562,7 +620,7 @@ SPEC_FUNCTIONS = {
     "prune_orcid_uri": prune_orcid_uri,
     "today": today,
     "parse_keywords": parse_keywords,
-    "science_keyword_from_uuid": science_keyword_from_uuid,
+    # "science_keyword_from_uuid": science_keyword_from_uuid,
     "date_as_string": date_as_string,
     "date_as_version": date_as_version,
     "has_geographic_coverage": has_geographic_coverage,
@@ -579,9 +637,9 @@ SPEC_FUNCTIONS = {
     "parse_organisation_identifier": parse_organisation_identifier,
     "parse_individual_orcid": parse_individual_orcid,
     "parse_number": parse_number,
-    "science_keyword_name": science_keyword_name,
-    "science_keyword_uri": science_keyword_uri,
-    "anzsrc_keyword_name": anzsrc_keyword_name,
+    # "science_keyword_name": science_keyword_name,
+    # "science_keyword_uri": science_keyword_uri,
+    # "anzsrc_keyword_name": anzsrc_keyword_name,
     "anzsrc_uri": anzsrc_uri,
     "parse_codeListValue": parse_codeListValue,
     "vocab_url": vocab_url,

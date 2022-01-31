@@ -38,7 +38,7 @@
   "Settings for form group"
   [{:keys [data-path]}]
   {::low-code4/req-ks []
-   ::low-code4/opt-ks [:label :form-id :data-path :helperText :toolTip]})
+   ::low-code4/opt-ks [:label :form-id :data-path :helperText :toolTip :added-path]})
 
 (defn form-group
   "This component is a lightweight wrapper around its children with props for the label above and helper text below.
@@ -49,6 +49,7 @@
    * label is an optional string displayed above the controls
    * helperText is an optional string displayed below the controls
    * toolTip is a string or hiccup.  Only displayed if label is set.
+   * added-path - path to data which indicates data is 'added'.  Used to style control.
 
    Logic can control how the form-group is rendered.  Uses form-id and data-path to access block props.
    * required - show that field is required
@@ -61,7 +62,8 @@
    "
   [config & children]
   (let [props @(rf/subscribe [::get-block-props config])
-        {:keys [label helperText toolTip required disabled is-hidden show-errors? errors]} props
+        value @(rf/subscribe [::get-block-data config])
+        {:keys [label helperText toolTip required disabled is-hidden show-errors? errors added-path]} props
         label (get config :label label)]
     (when-not is-hidden
       (into [ui-controls/FormGroup
@@ -71,7 +73,7 @@
               :hasError   show-errors?
               :helperText (if show-errors? (string/join ". " errors) (r/as-element helperText))
               :toolTip    (r/as-element toolTip)
-              :isAdded    false}]
+              :isAdded    (and (seq added-path) (get-in value added-path))}]
             children))))
 
 (defn inline-form-group-settings
@@ -143,13 +145,19 @@
         errors? @(rf/subscribe [::has-selected-block-errors? config])
         {:keys [form-id data-path list-item-selected-idx title template-id]} props
         item-data-path (conj data-path list-item-selected-idx)]
+    ; NOTE: Debugging code to aid resolution of dialog cancel saving
+    (when (boolean list-item-selected-idx)
+      (if-let [ss (seq (:snapshots (get-in @re-frame.db/app-db form-id)))]
+        (js/console.log "snapshot-depth" (count ss))
+        (js/console.warn "WARNING: No snapshot!  Did you forget to set :select-snapshot?")))
     [ui-controls/EditDialog
-     {:isOpen  (boolean list-item-selected-idx)
-      :title   title
-      :onClose #(rf/dispatch [::list-edit-dialog-close config])
-      :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
-      :onSave  #(rf/dispatch [::list-edit-dialog-save config])
-      :canSave (not errors?)}
+     {:isOpen   (boolean list-item-selected-idx)
+      :title    title
+      :onClose  #(rf/dispatch [::list-edit-dialog-close config])
+      :onClear  #(rf/dispatch [::list-edit-dialog-cancel config])
+      :canClear @(rf/subscribe [::can-dialog-cancel? config])
+      :onSave   #(rf/dispatch [::list-edit-dialog-save config])
+      :canSave  (not errors?)}
      (low-code4/render-template
        {:template-id template-id
         :variables   {'?form-id   form-id
@@ -184,19 +192,21 @@
 
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        errors? @(rf/subscribe [::has-selected-block-errors? config])
         {:keys [form-id data-path type-path list-item-selected-idx templates]} props
         item-data-path (conj data-path list-item-selected-idx)
         value @(rf/subscribe [::get-block-data config])
         item-type (get-in value (into [list-item-selected-idx] type-path))
-        {:keys [title template-id]} (get templates item-type)]
+        {:keys [title template-id field-paths]} (get templates item-type)
+        config (assoc config :field-paths field-paths)
+        errors? @(rf/subscribe [::has-selected-block-errors? config])]
     [ui-controls/EditDialog
-     {:isOpen  (boolean list-item-selected-idx)
-      :title   (or title "")
-      :onClose #(rf/dispatch [::list-edit-dialog-close config])
-      :onClear #(rf/dispatch [::list-edit-dialog-cancel config])
-      :onSave  #(rf/dispatch [::list-edit-dialog-save config])
-      :canSave (not errors?)}
+     {:isOpen   (boolean list-item-selected-idx)
+      :title    (or title "")
+      :onClose  #(rf/dispatch [::list-edit-dialog-close config])
+      :onClear  #(rf/dispatch [::list-edit-dialog-cancel config])
+      :canClear @(rf/subscribe [::can-dialog-cancel? config])
+      :onSave   #(rf/dispatch [::list-edit-dialog-save config])
+      :canSave  (not errors?)}
 
      (low-code4/render-template
        {:template-id template-id
@@ -233,12 +243,13 @@
         errors? @(rf/subscribe [::has-selected-block-errors? config])
         {:keys [form-id data-path open-dialog? title template-id]} props]
     [ui-controls/EditDialog
-     {:isOpen  open-dialog?
-      :title   title
-      :onClose #(rf/dispatch [::edit-dialog-close config])
-      :onClear #(rf/dispatch [::edit-dialog-cancel config])
-      :onSave  #(rf/dispatch [::edit-dialog-save config])
-      :canSave (not errors?)}
+     {:isOpen   open-dialog?
+      :title    title
+      :onClose  #(rf/dispatch [::edit-dialog-close config])
+      :onClear  #(rf/dispatch [::edit-dialog-cancel config])
+      :onSave   #(rf/dispatch [::edit-dialog-save config])
+      :canClear @(rf/subscribe [::can-dialog-cancel? config])
+      :canSave  (not errors?)}
      (low-code4/render-template
        {:template-id template-id
         :variables   {'?form-id   form-id
@@ -621,8 +632,8 @@
 (defn item-dialog-button-settings
   "Settings for item-dialog-button component"
   [_]
-  {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
-   ::low-code4/opt-ks []
+  {::low-code4/req-ks [:form-id :data-path :value-path]
+   ::low-code4/opt-ks [:added-path :random-uuid-value?]
    ::low-code4/schema {:type "object"}})
 
 ; TODO: Consider a view mode when it's not user defined.
@@ -648,8 +659,8 @@
 (defn item-add-button-settings
   "Settings for item-add-button component"
   [_]
-  {::low-code4/req-ks [:form-id :data-path :value-path :added-path]
-   ::low-code4/opt-ks []
+  {::low-code4/req-ks [:form-id :data-path :value-path]
+   ::low-code4/opt-ks [:random-uuid-value? :added-path]
    ::low-code4/schema {:type "object"}})
 
 (defn item-add-button
@@ -666,21 +677,21 @@
         :onClick  #(rf/dispatch [::item-add-button-click config])}
        "Add"])))
 
-(defn list-add-button-settings
+(defn list-add-button3-settings
   "Settings for list-add-button component"
   [_]
-  {::low-code4/req-ks [:form-id :data-path :value-path :added-path :button-text]
-   ::low-code4/opt-ks [:item-defaults]
+  {::low-code4/req-ks [:form-id :data-path :button-text]
+   ::low-code4/opt-ks [:item-defaults :added-path :random-uuid-value?]
    ::low-code4/schema {:type "array"}})
 
-(defn list-add-button
+(defn list-add-button3
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [disabled is-hidden button-text]} props]
     (when-not is-hidden
-      [:button.bp3-button.bp3-intent-primary
+      [:button.bp3-button.bp3-minimal.bp3-icon-plus
        {:disabled disabled
-        :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler config])}
+        :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler3 config])}
        button-text])))
 
 (defn value-list-add-button-settings
@@ -695,7 +706,7 @@
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [disabled is-hidden button-text]} props]
     (when-not is-hidden
-      [:button.bp3-button.bp3-intent-primary
+      [:button.bp3-button.bp3-minimal.bp3-icon-plus
        {:disabled disabled
         :onClick  #(rf/dispatch [::value-list-add-with-defaults-click-handler config])}
        button-text])))
@@ -1019,7 +1030,7 @@
   "Settings for selection-list-values component"
   [_]
   {::low-code4/req-ks [:form-id :data-path]
-   ::low-code4/opt-ks []
+   ::low-code4/opt-ks [:placeholder-record?]
    ::low-code4/schema {:type "array" :items {:type "string"}}})
 
 (defn selection-list-values
@@ -1028,25 +1039,38 @@
 
    Use case: Allow user to see and manage a list of text values.
 
+   Controls
+   * :placeholder-record?
+
    Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
    * disabled - styles control to indicate it's disabled
    * is-hidden - hides component entirely"
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         labels @(rf/subscribe [::get-block-data config])
-        {:keys [key disabled is-hidden]} props
+        {:keys [placeholder-record? key disabled is-hidden]} props
         items (map (fn [label] {:value (gensym) :label label}) labels)]
     (when-not is-hidden
-      [ui-controls/SimpleSelectionList
-       {:key           key
-        :items         items
-        :disabled      disabled
-        :getLabel      (ui-controls/obj-path-getter ["label"])
-        :getValue      (ui-controls/obj-path-getter ["value"])
-        :getAdded      (constantly true)
-        :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-values-reorder props src-idx dst-idx]))
-        :onItemClick   (fn [idx] (rf/dispatch [::selection-list-values-item-click props idx]))
-        :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-values-remove-click props idx]))}])))
+      (if (seq items)
+        [ui-controls/SimpleSelectionList
+         {:key           key
+          :items         items
+          :disabled      disabled
+          :getLabel      (ui-controls/obj-path-getter ["label"])
+          :getValue      (ui-controls/obj-path-getter ["value"])
+          :getAdded      (constantly true)
+          :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-values-reorder props src-idx dst-idx]))
+          :onItemClick   (fn [idx] (rf/dispatch [::selection-list-values-item-click props idx]))
+          :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-values-remove-click props idx]))}]
+        (when placeholder-record?
+          [ui-controls/SimpleSelectionList
+           {:key         key
+            :items       [{:value "--" :label "--"}]
+            :disabled    disabled
+            :getLabel    (ui-controls/obj-path-getter ["label"])
+            :getValue    (ui-controls/obj-path-getter ["value"])
+            :getAdded    (constantly true)
+            :onItemClick (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler3 config]))}])))))
 
 (defn selection-list-template-settings
   "Settings for the selection-list-template component"
@@ -1095,25 +1119,36 @@
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
 
-;(defn simple-list-settings
-;  [_]
-;  {::low-code4/req-ks       [:form-id :data-path :template-id]
-;   ::low-code4/opt-ks       []
-;   ::low-code4/schema       {:type "array" :items {:type "object"}}
-;   ::low-code4/schema-paths []})
-;
-;(defn simple-list
-;  [config]
-;  (let [props @(rf/subscribe [::get-block-props config])
-;        items @(rf/subscribe [::get-block-data config])
-;        {:keys [form-id data-path is-hidden template-id]} props]
-;    (when-not is-hidden
-;      [:<>
-;       (for [index (range (count items))]
-;         (low-code4/render-template
-;           {:template-id template-id
-;            :variables   {'?form-id   form-id
-;                          '?data-path (conj data-path index)}}))])))
+(defn simple-list-settings
+ [_]
+ {::low-code4/req-ks       [:form-id :data-path :template-id]
+  ::low-code4/opt-ks       []
+  ::low-code4/schema       {:type "array"}
+  ::low-code4/schema-paths []})
+
+(defn simple-list
+  "Displays an arbitrary array of values, using a template to manage the
+  actual rendering. Nothing else is assumed about the data, other than
+  it is an array. The template is responsible for setting the key
+  property required by React.
+
+  Required props:
+  * form-id
+  * data-path
+  * template-id
+
+  Logic can also control whether it is displayed by setting is-hidden."
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        items @(rf/subscribe [::get-block-data config])
+        {:keys [form-id data-path is-hidden template-id]} props]
+    (when-not is-hidden
+      [:<>
+       (for [index (range (count items))]
+         (low-code4/render-template
+          {:template-id template-id
+           :variables   {'?form-id   form-id
+                         '?data-path (conj data-path index)}}))])))
 
 (defn selection-list-breadcrumb-settings
   "Settings for selection-list-breadcrumb component"
@@ -1156,15 +1191,15 @@
         :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
 
-(defn selection-list-columns-settings
+(defn selection-list-columns3-settings
   "Settings for selection-list-columns component"
   [{:keys [value-path columns added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :value-path :columns]
-   ::low-code4/opt-ks       [:added-path :placeholder-record?]
+   ::low-code4/opt-ks       [:added-path :placeholder-record? :random-uuid-value? :select-snapshot?]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths (into [value-path added-path] (map :label-path columns))})
 
-(defn selection-list-columns
+(defn selection-list-columns3
   "This component renders a selection list with columns of labels for each item.  Each column has a header.
    Items in the list can be reordered and deleted.  User defined items can also be selected.
 
@@ -1178,6 +1213,8 @@
      * flex (number) - how much space this column should use.
    * added-path (vector) - path to test if list item is user defined.  Used to style control.
    * placeholder-record? (boolean) - display an empty record when the list is empty
+   * random-uuid-value? (boolean) - when creating a new entry, set value to a random-uuid
+   * select-snapshot? (boolean) - whether add/edit clicks should save a snapshot (for dialog)
 
    Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
    * disabled - styles control to indicate it's disabled
@@ -1207,18 +1244,16 @@
             placeholder-record?
             ; No results but we do want a table with a placeholder record
             [ui-controls/TableSelectionList
-             {:key           key
-              :items         [(assoc-in {} value-path "dummy")]
-              :disabled      disabled
-              :columns       (for [{:keys [flex columnHeader]} columns]
-                               {:flex         flex
-                                :getLabel     (constantly "--")
-                                :columnHeader (or columnHeader "None")})
-              :getValue      (ui-controls/obj-path-getter value-path)
-              :getAdded      (constantly false)
-              :onReorder     (fn [src-idx dst-idx] #_(rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
-              :onItemClick   (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler config]))
-              :onRemoveClick (fn [idx] #_(rf/dispatch [::selection-list-remove-click config idx]))}]))))
+             {:key         key
+              :items       [(assoc-in {} value-path "dummy")]
+              :disabled    disabled
+              :columns     (for [{:keys [flex columnHeader]} columns]
+                             {:flex         flex
+                              :getLabel     (constantly "--")
+                              :columnHeader (or columnHeader "None")})
+              :getValue    (ui-controls/obj-path-getter value-path)
+              :getAdded    (constantly false)
+              :onItemClick (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler3 config]))}]))))
 
 ;(defn simple-list-option-picker-settings
 ;  "Settings for simple-list-option-picker component"
@@ -1652,12 +1687,13 @@
   "Modal form for creating new documents"
   [_]
   [ui-controls/EditDialog
-   {:isOpen  true
-    :title   "Create a new record"
-    :onClose #(rf/dispatch [::create-document-modal-close-click])
-    :onClear #(rf/dispatch [::create-document-modal-clear-click])
-    :onSave  #(rf/dispatch [::create-document-modal-save-click])
-    :canSave @(rf/subscribe [::create-document-modal-can-save?])}
+   {:isOpen   true
+    :title    "Create a new record"
+    :onClose  #(rf/dispatch [::create-document-modal-close-click])
+    :onClear  #(rf/dispatch [::create-document-modal-clear-click])
+    :onSave   #(rf/dispatch [::create-document-modal-save-click])
+    :canClear true
+    :canSave  @(rf/subscribe [::create-document-modal-can-save?])}
    [low-code4/render-template
     {:template-id ::create-document-modal-form
      :variables   '{?form-id [:create_form]}}]])

@@ -141,7 +141,7 @@
           "!docstring": "ID8",
           "type": "string",
           "xpath": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]",
-          "valueChild": "cit:CI_Date/cit:date/gco:Date",
+          "valueChild": "cit:CI_Date/cit:date/gco:DateTime",
           "keep": false,
           "rules": [
             "requiredField"
@@ -185,7 +185,6 @@
               "uri": {},
               "isUserDefined": {
                 "!docstring": "Fake node so we can track person status",
-                "xpath": "isUserAdded",
                 "default": false,
                 "export": false
               }
@@ -490,6 +489,50 @@
         },
         "otherConstraints": {
           "type": "string"
+        },
+        "useLimitations": {
+          "type": "array",
+          "xpath": "mri:resourceConstraints/mco:MD_Constraints[mco:useLimitation]",
+          "container": "mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation[last()]",
+          "keep": false,
+          "items": {
+            "type": "string",
+            "keep": "false",
+            "xpath": "mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation/gco:CharacterString"
+          }
+        },
+        "supplementalInformation": {
+          "xpath": "mri:supplementalInformation/gco:CharacterString",
+          "type": "array",
+          "keep": false,
+          "items": {
+            "xpath": "mri:supplementalInformation/gco:CharacterString",
+            "type": "string",
+            "rules": [
+              "requiredField"
+            ]
+          }
+        },
+        "supportingResources": {
+          "data_to_xml_skip": true,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "rules": [
+                  "requiredField"
+                ]
+              },
+              "url": {
+                "type": "string",
+                "rules": [
+                  "requiredField"
+                ]
+              }
+            }
+          }
         }
       }
     },
@@ -532,7 +575,6 @@
           "uri": {},
           "isUserDefined": {
             "!docstring": "Fake node so we can track person status",
-            "xpath": "isUserAdded",
             "default": false,
             "export": false
           }
@@ -550,6 +592,111 @@
         "rules": [
           "requiredField"
         ]
+      }
+    },
+    "distributionInfo": {
+      "xpath": "mdb:distributionInfo",
+      "type": "object",
+      "properties": {
+        "distributionFormat": {
+          "xpath": "mrd:MD_Distribution/mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation",
+          "type": "object",
+          "properties": {
+            "title": {
+              "xpath": "cit:title",
+              "rules": [
+                {
+                  "maxLength": 100
+                }
+              ],
+              "valueChild": "gco:CharacterString",
+              "type": "string"
+            },
+            "edition": {
+              "xpath": "cit:edition",
+              "rules": [
+                {
+                  "maxLength": 20
+                }
+              ],
+              "valueChild": "gco:CharacterString",
+              "type": "string"
+            }
+          }
+        },
+        "transferOptions": {
+          "data_to_xml_skip": true,
+          "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine",
+          "type": "array",
+          "keep": false,
+          "deleteWhenEmpty": false,
+          "items": {
+            "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine",
+            "type": "object",
+            "deleteWhenEmpty": false,
+            "rules": [
+              {
+                "imasTransferOptionLayer": {
+                  "excludeValues": [
+                    "WWW:LINK-1.0-http--downloaddata"
+                  ]
+                }
+              }
+            ],
+            "properties": {
+              "linkage": {
+                "xpath": "cit:CI_OnlineResource/cit:linkage",
+                "valueChild": "gco:CharacterString",
+                "type": "string",
+                "required": true,
+                "rules": [
+                  "requiredField"
+                ]
+              },
+              "protocol": {
+                "xpath": "cit:CI_OnlineResource/cit:protocol",
+                "valueChild": "gco:CharacterString",
+                "type": "string",
+                "required": true,
+                "rules": [
+                  "requiredField"
+                ]
+              },
+              "name": {
+                "xpath": "cit:CI_OnlineResource/cit:name",
+                "valueChild": "gco:CharacterString",
+                "type": "string",
+                "required": true,
+                "rules": [
+                  "requiredField"
+                ]
+              },
+              "description": {
+                "xpath": "cit:CI_OnlineResource/cit:description",
+                "valueChild": "gco:CharacterString",
+                "type": "string",
+                "required": true,
+                "rules": [
+                  "requiredField"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
       }
     }
   },
@@ -731,6 +878,71 @@
       {
         "node_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:resourceConstraints[mco:MD_LegalConstraints]"
       }
+    ],
+    [
+      "imasDigitalTransferOptions",
+      {
+        "mount_xpath": "/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions",
+        "template_xpath": "/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine"
+      },
+      [
+        [
+          "set_text",
+          {
+            "data_path": "description",
+            "node_xpath": "cit:CI_OnlineResource/cit:description/gco:CharacterString"
+          }
+        ],
+        [
+          "remove_element",
+          {
+            "data_path": "description",
+            "node_xpath": "cit:CI_OnlineResource/cit:description"
+          }
+        ],
+        [
+          "set_text",
+          {
+            "data_path": "linkage",
+            "node_xpath": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString"
+          }
+        ],
+        [
+          "remove_element",
+          {
+            "data_path": "linkage",
+            "node_xpath": "cit:CI_OnlineResource/cit:linkage"
+          }
+        ],
+        [
+          "set_text",
+          {
+            "data_path": "protocol",
+            "node_xpath": "cit:CI_OnlineResource/cit:protocol/gco:CharacterString"
+          }
+        ],
+        [
+          "remove_element",
+          {
+            "data_path": "protocol",
+            "node_xpath": "cit:CI_OnlineResource/cit:protocol"
+          }
+        ],
+        [
+          "set_text",
+          {
+            "data_path": "name",
+            "node_xpath": "cit:CI_OnlineResource/cit:name/gco:CharacterString"
+          }
+        ],
+        [
+          "remove_element",
+          {
+            "data_path": "name",
+            "node_xpath": "cit:CI_OnlineResource/cit:name"
+          }
+        ]
+      ]
     ]
   ]
 }

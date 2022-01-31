@@ -1,11 +1,10 @@
 from django.core.management.base import BaseCommand
 
+from .helpers import BaseParameterVocabLoader
 from metcalf.imas.backend.models import ParameterInstrument
-from .aodn_helpers import AodnBaseParameterVocabLoader
 
 
-# TODO: when TERN provides a vocab for this, switch away from AODN commands
-class Command(AodnBaseParameterVocabLoader, BaseCommand):
+class Command(BaseParameterVocabLoader, BaseCommand):
     help = 'Refresh parameter-instrument list from online vocab'
 
     ParameterClass = ParameterInstrument

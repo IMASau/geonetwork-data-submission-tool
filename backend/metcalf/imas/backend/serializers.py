@@ -75,9 +75,13 @@ class RoleCodeSerializer(serializers.ModelSerializer):
 
 class BaseParameterSerializer(serializers.ModelSerializer):
     children_count = serializers.SerializerMethodField()
+    breadcrumbs = serializers.SerializerMethodField()
 
     def get_children_count(self, obj):
         return obj.get_children_count()
+
+    def get_breadcrumbs(self, obj):
+        return " | ".join([x.Name for x in obj.get_ancestors()])
 
 
 class ParameterNameSerializer(BaseParameterSerializer):
@@ -86,6 +90,7 @@ class ParameterNameSerializer(BaseParameterSerializer):
         fields = [
             # "id", "children_count", "lft", "rgt", "tree_id", "depth", "is_selectable",
             "Name", "URI",
+            "breadcrumbs"
             # "Version", "Definition",
             # "term", "vocabularyTermURL", "vocabularyVersion", "termDefinition",
         ]
@@ -108,6 +113,7 @@ class ParameterInstrumentSerializer(BaseParameterSerializer):
         fields = [
             # "id", "children_count", "lft", "rgt", "tree_id", "depth", "is_selectable",
             "Name", "URI",
+            "breadcrumbs"
             # "Version", "Definition",
             # "term", "vocabularyTermURL", "vocabularyVersion", "termDefinition",
         ]
@@ -119,6 +125,7 @@ class ParameterPlatformSerializer(BaseParameterSerializer):
         fields = [
             # "id", "children_count", "lft", "rgt", "tree_id", "depth", "is_selectable",
             "Name", "URI",
+            "breadcrumbs"
             # "Version", "Definition",
             # "term", "vocabularyTermURL", "vocabularyVersion", "termDefinition",
         ]

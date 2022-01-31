@@ -670,18 +670,7 @@
                 "default": false,
                 "export": false
               }
-            },
-            "rules": [
-              {
-              "requiredSome": {
-                "fields-list": [
-                  ["organisation", "name"],
-                  ["contact", "name"]
-                ]
-              }
-            },
-              "requiredParty"
-            ]
+            }
           },
           "notes": "Responsible party/ies for creating dataset"
         },
@@ -895,18 +884,7 @@
                 "default": false,
                 "export": false
               }
-            },
-            "rules": [
-              {
-              "requiredSome": {
-                "fields-list": [
-                  ["organisation", "name"],
-                  ["contact", "name"]
-                ]
-              }
-            },
-              "requiredParty"
-            ]
+            }
           }
         },
         "geographicElement": {

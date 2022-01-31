@@ -472,6 +472,7 @@
                     "valueChild": "gco:CharacterString",
                     "type": "string",
                     "required": true,
+                    "rules": ["requiredField"],
                     "keep": false
                   },
                   "uri": {
@@ -497,6 +498,7 @@
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
                     "type": "string",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -504,6 +506,7 @@
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
                     "type": "string",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -511,6 +514,7 @@
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
                     "type": "string",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -518,6 +522,7 @@
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
                     "type": "string",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -525,6 +530,7 @@
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
                     "type": "string",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -532,6 +538,7 @@
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
                     "type": "string",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -558,7 +565,7 @@
                   },
                   "isUserDefined": {}
                 },
-                "rules": ["requiredOrganisation"]
+                "rules": ["requiredField"]
               },
               "contact": {
                 "!docstring": "Who3",
@@ -726,6 +733,7 @@
                     "xpath": "cit:name",
                     "valueChild": "gco:CharacterString",
                     "required": true,
+                    "rules": ["requiredField"],
                     "keep": false
                   },
                   "uri": {
@@ -749,36 +757,42 @@
                   "full_address_line": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "street_address": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "address_locality": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "address_region": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "postcode": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
                   "country": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
+                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -790,7 +804,7 @@
                   },
                   "isUserDefined": {}
                 },
-                "rules": ["requiredOrganisation"]
+                "rules": ["requiredField"]
               },
               "contact": {
                 "!docstring": "Who3",

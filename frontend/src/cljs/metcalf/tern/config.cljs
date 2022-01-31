@@ -1997,8 +1997,7 @@
 
      [:h2 "Data Services"]
      [m4/form-group
-      {:label    "Distributions"
-       :required true}
+      {:label    "Distributions"}
       [m4/selection-list-columns
        {:form-id            [:form]
         :data-path          ["dataSources"]

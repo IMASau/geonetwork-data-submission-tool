@@ -152,8 +152,7 @@
        "endPosition"          rules4/end-position
        "maintFreq"            rules4/maint-freq
        "verticalRequired"     rules4/vertical-required
-       "maxKeywords"          rules4/tern-max-keywords
-       "requiredOrganisation" rules4/tern-organisation})
+       "maxKeywords"          rules4/tern-max-keywords})
 (set! low-code4/component-registry
       {
        'm4/async-simple-item-option-picker     {:view components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}

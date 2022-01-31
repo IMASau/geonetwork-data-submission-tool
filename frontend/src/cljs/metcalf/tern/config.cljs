@@ -1816,7 +1816,14 @@
        :label     "Use limitations"}
       [:div
        [:i [m4/get-data {:form-id [:form] :data-path ["identificationInfo" "useLimitation"]}]]]]
-     [:div [:label "Other constraints"]]
+     [m4/form-group
+      {;:form-id   [:form]
+       ;:data-path ["identificationInfo"]
+       :label     "Other constraints"}
+      [m4/simple-list
+       {:form-id [:form]
+        :data-path ["identificationInfo" "otherConstraints"]
+        :template-id :about/other-constraints-list-entry}]]
      [m4/form-group
       {:label   "Any other constraints"
        :toolTip "Enter any additional constraints as required and click to add"}
@@ -1952,6 +1959,12 @@
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "url"]}]]]
+
+    :about/other-constraints-list-entry
+    [:p [:i
+         [m4/get-data
+          {:form-id ?form-id
+           :data-path ?data-path}]]]
 
     :upload
     [:div

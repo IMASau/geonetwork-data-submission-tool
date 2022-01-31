@@ -1088,10 +1088,12 @@
          :type-path ["partyType"]
          :templates {"person"
                      {:title       "Person"
-                      :template-id :party-person/user-defined-entry-form}
+                      :template-id :party-person/user-defined-entry-form
+                      :field-paths #{["role"]["contact"]["organisation"]}}
                      "organisation"
                      {:title       "Organisation"
-                      :template-id :party-organisation/user-defined-entry-form}}}]]]
+                      :template-id :party-organisation/user-defined-entry-form
+                      :field-paths #{["role"]["organisation"]}}}}]]]
 
      [m4/expanding-control {:label "Point of contact for dataset" :required true :defaultOpen true}
 
@@ -1132,10 +1134,12 @@
          :type-path ["partyType"]
          :templates {"person"
                      {:title       "Person"
-                      :template-id :party-person/user-defined-entry-form}
+                      :template-id :party-person/user-defined-entry-form
+                      :field-paths #{["role"]["contact"]["organisation"]}}
                      "organisation"
                      {:title       "Organisation"
-                      :template-id :party-organisation/user-defined-entry-form}}}]]]
+                      :template-id :party-organisation/user-defined-entry-form
+                      :field-paths #{["role"]["organisation"]}}}}]]]
 
      ;[m4/list-add-button
      ; {:form-id    [:form]

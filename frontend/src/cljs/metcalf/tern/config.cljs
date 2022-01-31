@@ -1960,10 +1960,11 @@
         :data-path [?data-path "url"]}]]]
 
     :about/other-constraints-list-entry
-    [:p [:i
-         [m4/get-data
-          {:form-id ?form-id
-           :data-path ?data-path}]]]
+    [:p {:key ?data-path}
+     [:i
+      [m4/get-data
+       {:form-id ?form-id
+        :data-path ?data-path}]]]
 
     :upload
     [:div

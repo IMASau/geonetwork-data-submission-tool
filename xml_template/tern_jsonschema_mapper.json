@@ -605,7 +605,8 @@
                     "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
-                    "required": false
+                    "required": false,
+                    "rules": ["requiredField"]
                   },
                   "phone": {
                     "!docstring": "Who13 / Who14",
@@ -833,7 +834,8 @@
                     "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
-                    "required": false
+                    "required": false,
+                    "rules": ["requiredField"]
                   },
                   "orcid": {
                     "!docstring": "Who7",

@@ -144,7 +144,6 @@
        "mergeNameParts"       rules4/merge-names
        "validOrcid"           rules4/valid-ordid-uri
        "geographyRequired"    rules4/geography-required
-       "licenseOther"         rules4/license-other
        "numericOrder"         rules4/numeric-order
        "positive"             rules4/force-positive
        "dateOrder"            rules4/date-order

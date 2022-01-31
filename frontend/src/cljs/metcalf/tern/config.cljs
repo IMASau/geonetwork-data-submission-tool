@@ -1633,8 +1633,7 @@
          :data-path ["resourceLineage" "statement"]}]]
 
       [m4/form-group
-       {:label    "Method documentation"
-        :required true}
+       {:label    "Method documentation"}
        [m4/selection-list-columns
         {:form-id            [:form]
          :data-path          ["resourceLineage" "onlineMethods"]

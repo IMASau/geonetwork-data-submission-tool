@@ -192,12 +192,13 @@
 
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        errors? @(rf/subscribe [::has-selected-block-errors? config])
         {:keys [form-id data-path type-path list-item-selected-idx templates]} props
         item-data-path (conj data-path list-item-selected-idx)
         value @(rf/subscribe [::get-block-data config])
         item-type (get-in value (into [list-item-selected-idx] type-path))
-        {:keys [title template-id]} (get templates item-type)]
+        {:keys [title template-id field-paths]} (get templates item-type)
+        config (assoc config :field-paths field-paths)
+        errors? @(rf/subscribe [::has-selected-block-errors? config])]
     [ui-controls/EditDialog
      {:isOpen   (boolean list-item-selected-idx)
       :title    (or title "")

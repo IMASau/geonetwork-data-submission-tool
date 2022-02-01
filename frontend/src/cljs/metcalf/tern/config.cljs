@@ -888,8 +888,8 @@
           :select-snapshot?   true
           :added-path         ["isUserDefined"]
           :columns            [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
-                               {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
-                               {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
+                               {:columnHeader "East" :label-path ["eastBoundLongitude"] :flex 1}
+                               {:columnHeader "South" :label-path ["southBoundLatitude"] :flex 1}
                                {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
 
         [m4/list-add-button
@@ -1011,19 +1011,19 @@
 
      [m4/inline-form-group
       {:form-id   ?form-id
-       :data-path [?data-path "southBoundLatitude"]
+       :data-path [?data-path "eastBoundLongitude"]
        :label     "East"}
       [m4/numeric-input-field
        {:form-id   ?form-id
-        :data-path [?data-path "southBoundLatitude"]}]]
+        :data-path [?data-path "eastBoundLongitude"]}]]
 
      [m4/inline-form-group
       {:form-id   ?form-id
-       :data-path [?data-path "eastBoundLongitude"]
+       :data-path [?data-path "southBoundLatitude"]
        :label     "South"}
       [m4/numeric-input-field
        {:form-id   ?form-id
-        :data-path [?data-path "eastBoundLongitude"]}]]
+        :data-path [?data-path "southBoundLatitude"]}]]
 
      [m4/inline-form-group
       {:form-id   ?form-id

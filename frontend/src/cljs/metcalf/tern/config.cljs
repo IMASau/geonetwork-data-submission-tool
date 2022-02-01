@@ -1668,7 +1668,6 @@
        {:form-id    [:form]
         :data-path  ["resourceLineageProcessSteps" "statement"]
         :label      "Name"
-        :required   true
         :toolTip    "TODO"
         :helperText "Provide the name of the method or procedure"}
        [m4/textarea-field
@@ -1680,8 +1679,7 @@
       [m4/form-group
        {:form-id    [:form]
         :data-path  ["resourceLineageProcessSteps" "summary"]
-        :label      "Summary"
-        :required   true
+        :label      "Description"
         :toolTip    "TODO"
         :helperText "Provide a brief description of the method"}
        [m4/textarea-field

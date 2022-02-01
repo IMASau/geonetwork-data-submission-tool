@@ -1706,17 +1706,13 @@
           "!docstring": "How6",
           "xpath": "mrl:additionalDocumentation/cit:CI_Citation/cit:title/gco:CharacterString",
           "keep": false,
-          "type": "string",
-          "required": true,
-          "rules": ["requiredField"]
+          "type": "string"
         },
         "summary": {
           "!docstring": "How7",
           "xpath": "mrl:statement/gco:CharacterString",
           "keep": false,
-          "type": "string",
-          "required": true,
-          "rules": ["requiredField"]
+          "type": "string"
         },
         "steps": {
           "!docstring": "How7b",

@@ -1,7 +1,6 @@
 import requests
 from django.db import connection
 from django.http import JsonResponse
-from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from elasticsearch_dsl.connections import connections
 # Create your views here.
@@ -28,8 +27,8 @@ def check_elasticsearch_index_health(index):
 
 
 def check_database_health():
-    c = connection.cursor()
     try:
+        c = connection.cursor()
         c.execute('SELECT 1')
     except Exception:
         return False, FAILED_STATUS
@@ -37,7 +36,7 @@ def check_database_health():
 
 
 def check_geonetwork_health():
-    response = requests.get('https://metadata.imas.utas.edu.au/geonetwork/criticalhealthcheck')
+    response = requests.get('https://metadata.imas.utas.edu.au/geonetwork/criticalhealthcheck', timeout=5)
     if response.status_code == 200:
         return True, OK_STATUS
     else:

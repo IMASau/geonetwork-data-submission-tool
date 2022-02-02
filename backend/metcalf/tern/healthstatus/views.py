@@ -47,10 +47,9 @@ def check_geonetwork_health():
 for setting in settings:
     if "ELASTICSEARCH_INDEX" in setting:
         index_name = settings[setting]
-        # don't pass settings[setting] directly to the function below, it will become True
-        checkerfn = lambda: check_elasticsearch_index_health(index_name)
+        checkerfn = lambda index_name=index_name: check_elasticsearch_index_health(index_name)
         # for the py-healthcheck library to recognize the health
-        checkerfn.__name__ = 'es_'+index_name
+        checkerfn.__name__ = 'es_' + index_name
         health.add_check(checkerfn)
 health.add_check(check_database_health)
 health.add_check(check_geonetwork_health)

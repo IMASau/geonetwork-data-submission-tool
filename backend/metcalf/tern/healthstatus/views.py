@@ -47,7 +47,7 @@ for setting in settings:
     if "ELASTICSEARCH_INDEX" in setting:
         index_name = settings[setting]
         checkerfn = lambda index_name=index_name: check_elasticsearch_index_health(index_name)
-        # for the py-healthcheck library to recognize the health
+        # for the py-healthcheck library to display the checker name
         checkerfn.__name__ = 'es_' + index_name
         health.add_check(checkerfn)
 health.add_check(check_database_health)

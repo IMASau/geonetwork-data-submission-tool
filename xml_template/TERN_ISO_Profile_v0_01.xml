@@ -1788,7 +1788,10 @@
       <mri:descriptiveKeywords>
         <mri:MD_Keywords>
           <mri:keyword>
-            <gcx:Anchor xlink:role="uri" xlink:href="http://qudt.org/vocab/unit/DAY" xlink:show="new">Day</gcx:Anchor>
+            <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="http://qudt.org/vocab/unit/DEG" xlink:show="new">Degree</gcx:Anchor>
+          </mri:keyword>
+          <mri:keyword>
+            <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="http://qudt.org/vocab/unit/NUM" xlink:show="new">Number</gcx:Anchor>
           </mri:keyword>
           <mri:type>
             <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>

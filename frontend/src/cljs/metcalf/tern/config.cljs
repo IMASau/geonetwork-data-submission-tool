@@ -589,12 +589,13 @@
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/selection-list-breadcrumb
-        {:form-id         [:form]
-         :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
-         :label-path      ["label"]
-         :value-path      ["uri"]
-         :breadcrumb-path ["breadcrumb"]}]]]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-breadcrumb
+         {:form-id         [:form]
+          :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
+          :label-path      ["label"]
+          :value-path      ["uri"]
+          :breadcrumb-path ["breadcrumb"]}]]]]
 
      [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
       [m4/form-group
@@ -608,12 +609,13 @@
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/selection-list-breadcrumb
-        {:form-id         [:form]
-         :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-         :label-path      ["label"]
-         :value-path      ["uri"]
-         :breadcrumb-path ["breadcrumb"]}]]]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-breadcrumb
+         {:form-id         [:form]
+          :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
+          :label-path      ["label"]
+          :value-path      ["uri"]
+          :breadcrumb-path ["breadcrumb"]}]]]]
 
      [m4/expanding-control {:label "Platforms" :required true}
       ;; TODO: also need a user-added option
@@ -775,12 +777,13 @@
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/selection-list-breadcrumb
-        {:form-id         [:form]
-         :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
-         :label-path      ["label"]
-         :value-path      ["uri"]
-         :breadcrumb-path ["breadcrumb"]}]]]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-breadcrumb
+         {:form-id         [:form]
+          :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
+          :label-path      ["label"]
+          :value-path      ["uri"]
+          :breadcrumb-path ["breadcrumb"]}]]]]
 
      [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required false}
       [m4/form-group
@@ -793,12 +796,13 @@
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/selection-list-breadcrumb
-        {:form-id         [:form]
-         :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
-         :label-path      ["label"]
-         :value-path      ["uri"]
-         :breadcrumb-path ["breadcrumb"]}]]]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-breadcrumb
+         {:form-id         [:form]
+          :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
+          :label-path      ["label"]
+          :value-path      ["uri"]
+          :breadcrumb-path ["breadcrumb"]}]]]]
 
      [m4/expanding-control {:label "Additional Keywords (Optional)" :required false}
       [m4/form-group

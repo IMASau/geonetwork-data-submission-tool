@@ -2665,13 +2665,13 @@
               <cit:name>
                 <gco:CharacterString>Name of Feature</gco:CharacterString>
               </cit:name>
-              <!-- Datasource6 ~ Description ~ Description of layer or dataset -->
+              <!-- Datasource6 ~ Description ~ Layer name -->
               <!-- Datasource6 ~ Required ~ no -->
               <!-- Datasource6 ~ InputLength ~ As-Is 250 -->
               <!-- Datasource6 ~ Size ~ single -->
               <!-- Datasource6 ~ Cardinality ~ one per mrd:transferOptions block -->
               <cit:description>
-                <gco:CharacterString>WFS Service OGC:WFS [description element]</gco:CharacterString>
+                <gco:CharacterString>WFS Service OGC:WFS [layer name]</gco:CharacterString>
               </cit:description>
               <!-- Required ~ conditional -->
               <!-- Rule ~ Required if cit:description is not blank -->

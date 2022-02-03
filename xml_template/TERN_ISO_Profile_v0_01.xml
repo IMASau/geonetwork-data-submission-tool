@@ -1532,7 +1532,7 @@
           <mri:thesaurusName>
             <cit:CI_Citation>
               <cit:title>
-                <gco:CharacterString>GCMD Earth Science Keywords</gco:CharacterString>
+                <gco:CharacterString>GCMD Science Keywords</gco:CharacterString>
               </cit:title>
               <cit:otherCitationDetails>
                 <gco:CharacterString>
@@ -1634,7 +1634,7 @@
           <mri:thesaurusName>
             <cit:CI_Citation>
               <cit:title>
-                <gco:CharacterString> TERN Platform Vocabulary</gco:CharacterString>
+                <gco:CharacterString>TERN Platform Vocabulary</gco:CharacterString>
               </cit:title>
               <cit:otherCitationDetails>
                 <gco:CharacterString>
@@ -1742,11 +1742,11 @@
           <mri:thesaurusName>
             <cit:CI_Citation>
               <cit:title>
-                <gco:CharacterString>TERN Instrument Type Vocabulary</gco:CharacterString>
+                <gco:CharacterString>TERN Instrument Vocabulary</gco:CharacterString>
               </cit:title>
               <cit:otherCitationDetails>
                 <gco:CharacterString>
-                  TERN (2020): TERN Instrument Type Vocabulary. Terrestrial Ecosystem Research Network (TERN). http://linked.data.gov.au/def/tern-cv/a3088b5c-622d-4e25-8a75-4c4961b0dfe8
+                  TERN (2020): TERN Instrument Vocabulary. Terrestrial Ecosystem Research Network (TERN). https://linkeddata.tern.org.au/
                 </gco:CharacterString>
               </cit:otherCitationDetails>
               <cit:onlineResource>

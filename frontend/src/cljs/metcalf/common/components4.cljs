@@ -240,7 +240,7 @@
   "
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
-        errors? @(rf/subscribe [::has-selected-block-errors? config])
+        errors? @(rf/subscribe [::has-block-errors? config])
         {:keys [form-id data-path open-dialog? title template-id]} props]
     [ui-controls/EditDialog
      {:isOpen   open-dialog?

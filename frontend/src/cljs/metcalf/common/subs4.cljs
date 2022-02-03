@@ -53,9 +53,10 @@
   (let [path (blocks4/block-path data-path)
         logic (get-in state path)
         selected-idx (get-in logic [:props :list-item-selected-idx])]
-    (let [item-block (if selected-idx (get-in logic [:content selected-idx]) logic)
-          field-blocks (map #(get-in item-block (blocks4/block-path %)) field-paths)]
-      (some pos? (map #(get-in % [:progress/score :progress/errors]) field-blocks)))))
+    (when selected-idx
+      (let [item-block (get-in logic [:content selected-idx])
+            field-blocks (map #(get-in item-block (blocks4/block-path %)) field-paths)]
+        (some pos? (map #(get-in % [:progress/score :progress/errors]) field-blocks))))))
 
 (defn can-dialog-cancel-sub
   [db [_ {:keys [form-id]}]]

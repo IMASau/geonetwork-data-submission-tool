@@ -161,7 +161,7 @@ class Document(AbstractDocument):
 
     doi = models.CharField(max_length=1024, default='', blank=True)
 
-    hasUserDefined = models.BooleanField(default=False)
+    hasUserDefined = models.BooleanField(default=False, verbose_name='Has User-defined')
 
     # FIXME is this needed
     class Meta:

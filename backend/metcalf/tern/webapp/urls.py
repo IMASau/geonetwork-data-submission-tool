@@ -9,6 +9,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', include('metcalf.tern.frontend.urls')),
+    path('', include('metcalf.tern.healthstatus.urls')),
     path('accounts/profile/', TemplateView.as_view(template_name='account/profile.html'), name="account_profile"),
     path('admin/', admin.site.urls),
 ]

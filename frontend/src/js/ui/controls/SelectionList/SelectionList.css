@@ -63,7 +63,8 @@
 }
 
 
-.SelectionListItemColoured .SelectionListPickedItem {
+.SelectionListItemColoured .SelectionListPickedItem,
+.SelectionListItemColoured .SelectionListItem {
     background-color: #99ffcc24;
 }
 

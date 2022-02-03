@@ -713,7 +713,7 @@
           :button-text        "Add"
           :value-path         ["uri"]
           :random-uuid-value? true
-          :item-defaults      {"userAddedCategory" "parameters"}
+          :item-defaults      {"userAddedCategory" "parameter"}
           :added-path         ["isUserDefined"]}]]
        [:div.SelectionListItemColoured
         [m4/selection-list-columns

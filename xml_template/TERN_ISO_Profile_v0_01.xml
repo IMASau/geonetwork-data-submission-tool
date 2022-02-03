@@ -2735,9 +2735,10 @@
           <!-- How8 ~ Cardinality ~ one -->
           <mdq:evaluationMethod>
             <mdq:DQ_EvaluationMethod>
-              <mdq:evaluationMethodDescription>
+              <!-- ASD@2022 comment out this element as there is no GUI element in SHAREDv4 to capture this information -->
+              <!-- mdq:evaluationMethodDescription>
                 <gco:CharacterString>The data quality was assessed by ...</gco:CharacterString>
-              </mdq:evaluationMethodDescription>
+              </mdq:evaluationMethodDescription -->
               <!-- How9 ~ Cardinality ~ 0 to many referenceDoc blocks -->
               <!-- How9 ~ Online documentation Title and URI - example 1 -->
               <mdq:referenceDoc>

@@ -2132,7 +2132,7 @@
       <mri:resourceConstraints>
         <mco:MD_LegalConstraints>
           <mco:useLimitation><gco:CharacterString>
-            The CC-By license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties. Details are provided at https://creativecommons.org/licenses/by/4.0/legalcode
+            The Creative Commons Attribution 4.0 International (CC BY 4.0) license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties. Details are provided at https://creativecommons.org/licenses/by/4.0/
           </gco:CharacterString></mco:useLimitation>
           <mco:graphic>
             <mcc:MD_BrowseGraphic>

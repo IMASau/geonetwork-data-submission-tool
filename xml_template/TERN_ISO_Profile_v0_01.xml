@@ -1795,7 +1795,7 @@
             <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="http://qudt.org/vocab/unit/NUM" xlink:show="new">Number</gcx:Anchor>
           </mri:keyword>
           <mri:type>
-            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
+            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="uom"/>
           </mri:type>
           <mri:thesaurusName>
             <cit:CI_Citation>
@@ -1845,7 +1845,7 @@
             <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/abf43d91-a65d-4b3b-a6dd-593e211b2c7b" xlink:show="new">1 meter - &lt; 30 meters</gcx:Anchor>
           </mri:keyword>
           <mri:type>
-            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
+            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="dataResolution"/>
           </mri:type>
           <mri:thesaurusName>
             <cit:CI_Citation>
@@ -1897,7 +1897,7 @@
             <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/3f0aa4fc-802c-4804-9f9f-8b666f3a2776" xlink:show="new"> &gt; 1 km</gcx:Anchor>
           </mri:keyword>
           <mri:type>
-            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
+            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="dataResolution"/>
           </mri:type>
           <mri:thesaurusName>
             <cit:CI_Citation>
@@ -1947,7 +1947,7 @@
             <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/48ff676f-836c-4cff-bc88-4c4cc06b2e1b" xlink:show="new">1 second - &lt; 1 minute</gcx:Anchor>
           </mri:keyword>
           <mri:type>
-            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="temporal"/>
+            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="dataResolution"/>
           </mri:type>
           <mri:thesaurusName>
             <cit:CI_Citation>

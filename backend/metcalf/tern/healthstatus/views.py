@@ -1,13 +1,15 @@
+import json
 import requests
+
 from django.db import connection
 from django.http import JsonResponse
-from rest_framework.decorators import api_view
 from elasticsearch_dsl.connections import connections
-# Create your views here.
 from healthcheck import HealthCheck
-from metcalf.tern.webapp.settings import settings
-import json
+from rest_framework.decorators import api_view
 
+from metcalf.tern.webapp.settings import settings
+
+# Create your views here.
 health = HealthCheck()
 
 OK_STATUS = 'ok'
@@ -21,17 +23,18 @@ def check_elasticsearch_index_health(index):
         response = es.search(index=index, body=body, timeout='5s')
         if not response['timed_out']:
             return True, OK_STATUS
+        else:
+            return False, 'check timed out'
     except Exception as e:
-        pass
-    return False, FAILED_STATUS
+        return False, str(e)
 
 
 def check_database_health():
     try:
         c = connection.cursor()
         c.execute('SELECT 1')
-    except Exception:
-        return False, FAILED_STATUS
+    except Exception as e:
+        return False, str(e)
     return True, OK_STATUS
 
 
@@ -40,7 +43,7 @@ def check_geonetwork_health():
     if response.status_code == 200:
         return True, OK_STATUS
     else:
-        return False, FAILED_STATUS
+        return False, response.text
 
 
 for setting in settings:

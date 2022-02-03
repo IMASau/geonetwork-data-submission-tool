@@ -1660,62 +1660,7 @@
           </mri:thesaurusName>
         </mri:MD_Keywords>
       </mri:descriptiveKeywords>
-      <!-- What6 ~ Display Label ~ TERN Instrument Instances -->
-      <!-- What6 ~ Help Text ~ Select the Instrument or click Add to create a new entry -->
-      <!-- What6 ~ Operation ~ User can select values and create new list values -->
-      <!-- What6 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-      <!-- What6 ~ Change Note ~ Was on the About tab -->
-      <!-- What6 ~ Change Note ~ Remove field for Serial Number -->
-      <!-- What6 ~ Placeholder Text ~ Start typing to filter list... -->
-      <!-- What6 ~ KeepPlaceholderText ~ no -->
-      <!-- What6 ~ Required ~ no -->
-      <!-- What6 ~ Codelist ~ API def tern_instruments(request) from Elastic Search contact Gerhard Weis -->
-      <!-- What6 ~ Cardinality ~ one block contains many keywords-->
-      <!-- What6 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-      <!-- What6 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-      <mri:descriptiveKeywords>
-        <mri:MD_Keywords>
-          <mri:keyword>
-            <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/020e7d8b-bf08-4b9f-b3b9-6b815ea383b4" xlink:show="new">stardot-E1159C</gcx:Anchor>
-          </mri:keyword>
-          <mri:keyword>
-            <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/0287b3bd-ed50-4662-96e9-7f7469179344" xlink:show="new">SRTM</gcx:Anchor>
-          </mri:keyword>
-          <mri:type>
-            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="instrument"/>
-          </mri:type>
-          <mri:thesaurusName>
-            <cit:CI_Citation>
-              <cit:title>
-                <gco:CharacterString>TERN Instrument Vocabulary</gco:CharacterString>
-              </cit:title>
-              <cit:otherCitationDetails>
-                <gco:CharacterString>
-                  TERN (2020): TERN Instrument Vocabulary. Terrestrial Ecosystem Research Network (TERN). https://w3id.org/tern/resources/
-                </gco:CharacterString>
-              </cit:otherCitationDetails>
-              <cit:onlineResource>
-                <cit:CI_OnlineResource>
-                  <cit:linkage>
-                    <gco:CharacterString>
-                      https://w3id.org/tern/resources/
-                    </gco:CharacterString>
-                  </cit:linkage>
-                  <cit:protocol>
-                    <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                  </cit:protocol>
-                  <cit:function>
-                    <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
-                                               codeListValue="information"/>
-                  </cit:function>
-                </cit:CI_OnlineResource>
-              </cit:onlineResource>
-            </cit:CI_Citation>
-          </mri:thesaurusName>
-        </mri:MD_Keywords>
-      </mri:descriptiveKeywords>
-
-      <!-- What6 ~ Display Label ~ TERN Instrument Types -->
+      <!-- What6 ~ Display Label ~ TERN Instrument (Types and Individuals) -->
       <!-- What6 ~ Help Text ~ Select the Instrument or click Add to create a new entry -->
       <!-- What6 ~ Operation ~ User can select values and create new list values -->
       <!-- What6 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
@@ -1783,8 +1728,9 @@
       <!-- What8 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-471 -->
       <!-- What8 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
       <!-- What8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+      <!-- Note: Each parameter may or may not have units. -->
       <mri:descriptiveKeywords>
-        <mri:MD_Keywords>
+        <mri:MD_Keywords uuid="Data_Group">
           <mri:keyword>
             <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/878ec60a-9d2c-414b-a776-d3380d89342f" xlink:show="new">bare soil cover</gcx:Anchor>
           </mri:keyword>
@@ -1792,16 +1738,16 @@
             <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/83384366-87b2-4579-ba17-b7eac9d0b8b9" xlink:show="new">Hemispherical photography</gcx:Anchor>
           </mri:keyword>
           <mri:type>
-            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
+            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="parameter"/>
           </mri:type>
           <mri:thesaurusName>
             <cit:CI_Citation>
               <cit:title >
-                <gco:CharacterString>TERN Parameter Type Vocabulary</gco:CharacterString>
+                <gco:CharacterString>TERN Parameter Vocabulary</gco:CharacterString>
               </cit:title>
               <cit:otherCitationDetails>
                 <gco:CharacterString>
-                  TERN (2020). TERN Parameter Type Vocabulary. Terrestrial Ecosystem Research Network (TERN). http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e
+                  TERN (2020). TERN Parameter Vocabulary. Terrestrial Ecosystem Research Network (TERN). http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e
                 </gco:CharacterString>
               </cit:otherCitationDetails>
               <cit:onlineResource>

@@ -1616,6 +1616,9 @@
           <mri:keyword>
             <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/e729eba7-215a-4626-9d13-feece79c41ad" xlink:show="new">Alice Mulga SuperSite</gcx:Anchor>
           </mri:keyword>
+          <mri:keyword>
+            <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/77de3679-cdaa-4dec-b595-6e11de3c3ec0" xlink:show="new">Calperum Mallee SuperSite</gcx:Anchor>
+          </mri:keyword>
           <mri:type>
             <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="platform"/>
           </mri:type>

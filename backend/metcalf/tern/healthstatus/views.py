@@ -39,7 +39,7 @@ def check_database_health():
 
 
 def check_geonetwork_health():
-    response = requests.get('https://metadata.imas.utas.edu.au/geonetwork/criticalhealthcheck', timeout=5)
+    response = requests.get(f'{settings.GEONETWORK_URLROOT}/criticalhealthcheck', timeout=5)
     if response.status_code == 200:
         return True, OK_STATUS
     else:

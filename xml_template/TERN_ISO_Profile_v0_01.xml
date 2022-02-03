@@ -2512,9 +2512,11 @@
               <!-- Datasource1 ~ Required ~ conditional -->
               <!-- Datasource1 ~ Rule ~ Required if a file is uploaded via Upload Data feature -->
               <!-- Datasource1 ~ Rule ~ File name without file extension, replace ["_","-"] with space -->
+              <!-- ASD@2022 Comment out this element as it is not supported on SHaRED GUI for file upload-->
+              <!--
               <cit:description>
                 <gco:CharacterString>DictionaryParkhurst etal 2020</gco:CharacterString>
-              </cit:description>
+              </cit:description> -->
               <cit:function>
                 <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                            codeListValue="download"/>

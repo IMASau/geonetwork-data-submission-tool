@@ -1,11 +1,11 @@
 import json
-import requests
 
 from django.db import connection
 from django.http import JsonResponse
 from elasticsearch_dsl.connections import connections
 from healthcheck import HealthCheck
 from rest_framework.decorators import api_view
+import requests
 
 from metcalf.tern.webapp.settings import settings
 

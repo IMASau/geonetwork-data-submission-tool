@@ -115,6 +115,7 @@ INSTALLED_APPS = [
     "metcalf.tern.frontend.config.FrontendConfig",
     "bootstrap3",
     "mozilla_django_oidc",
+    "metcalf.tern.healthstatus"
 ]
 
 LOGGING = {

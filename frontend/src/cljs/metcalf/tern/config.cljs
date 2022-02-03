@@ -642,12 +642,13 @@
           :item-defaults      {"userAddedCategory" "platform"}
           :added-path         ["isUserDefined"]}]]
 
-       [m4/selection-list-simple
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
-         :label-path ["label"]
-         :value-path ["uri"]
-         :added-path ["isUserDefined"]}]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-simple
+         {:form-id    [:form]
+          :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
+          :label-path ["label"]
+          :value-path ["uri"]
+          :added-path ["isUserDefined"]}]]
 
        [m4/list-edit-dialog
         {:form-id     [:form]
@@ -676,15 +677,16 @@
           :random-uuid-value? true
           :item-defaults      {"userAddedCategory" "instrument"}
           :added-path         ["isUserDefined"]}]]
-       [m4/selection-list-columns
-        {:form-id            [:form]
-         :data-path          ["identificationInfo" "keywordsInstrument" "keywords"]
-         :value-path         ["uri"]
-         :random-uuid-value? true
-         :select-snapshot?   true
-         :added-path         ["isUserDefined"]
-         :columns            [{:columnHeader "Instrument" :label-path ["label"] :flex 2}
-                              {:columnHeader "Serial no." :label-path ["serial"] :flex 3}]}]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-columns
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "keywordsInstrument" "keywords"]
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :select-snapshot?   true
+          :added-path         ["isUserDefined"]
+          :columns            [{:columnHeader "Instrument" :label-path ["label"] :flex 2}
+                               {:columnHeader "Serial no." :label-path ["serial"] :flex 3}]}]]
        [m4/list-edit-dialog
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
@@ -713,15 +715,16 @@
           :random-uuid-value? true
           :item-defaults      {"userAddedCategory" "parameters"}
           :added-path         ["isUserDefined"]}]]
-       [m4/selection-list-columns
-        {:form-id            [:form]
-         :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
-         :value-path         ["uri"]
-         :random-uuid-value? true
-         :select-snapshot?   true
-         :added-path         ["isUserDefined"]
-         :columns            [{:columnHeader "Name" :label-path ["label"] :flex 2}
-                              {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-columns
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :select-snapshot?   true
+          :added-path         ["isUserDefined"]
+          :columns            [{:columnHeader "Name" :label-path ["label"] :flex 2}
+                               {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]]
        [m4/list-edit-dialog
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
@@ -805,9 +808,10 @@
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]
          :button-text "Add"}]
-       [m4/selection-list-values
-        {:form-id   [:form]
-         :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]]]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-values
+         {:form-id   [:form]
+          :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]]]]
 
     :when
     [:div
@@ -888,8 +892,8 @@
           :select-snapshot?   true
           :added-path         ["isUserDefined"]
           :columns            [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
-                               {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
-                               {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
+                               {:columnHeader "East" :label-path ["eastBoundLongitude"] :flex 1}
+                               {:columnHeader "South" :label-path ["southBoundLatitude"] :flex 1}
                                {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]}]
 
         [m4/list-add-button
@@ -1011,19 +1015,19 @@
 
      [m4/inline-form-group
       {:form-id   ?form-id
-       :data-path [?data-path "southBoundLatitude"]
+       :data-path [?data-path "eastBoundLongitude"]
        :label     "East"}
       [m4/numeric-input-field
        {:form-id   ?form-id
-        :data-path [?data-path "southBoundLatitude"]}]]
+        :data-path [?data-path "eastBoundLongitude"]}]]
 
      [m4/inline-form-group
       {:form-id   ?form-id
-       :data-path [?data-path "eastBoundLongitude"]
+       :data-path [?data-path "southBoundLatitude"]
        :label     "South"}
       [m4/numeric-input-field
        {:form-id   ?form-id
-        :data-path [?data-path "eastBoundLongitude"]}]]
+        :data-path [?data-path "southBoundLatitude"]}]]
 
      [m4/inline-form-group
       {:form-id   ?form-id
@@ -1072,12 +1076,13 @@
          ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults      {"partyType" "organisation"}}]
 
-       [m4/selection-list-template
-        {:form-id     [:form]
-         :data-path   ["identificationInfo" "citedResponsibleParty"]
-         :template-id :party/list-item
-         :value-path  ["uri"]
-         :added-path  ["isUserDefined"]}]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-template
+         {:form-id     [:form]
+          :data-path   ["identificationInfo" "citedResponsibleParty"]
+          :template-id :party/list-item
+          :value-path  ["uri"]
+          :added-path  ["isUserDefined"]}]]
 
        [m4/typed-list-edit-dialog
         {:form-id   [:form]
@@ -1086,11 +1091,11 @@
          :templates {"person"
                      {:title       "Person"
                       :template-id :party-person/user-defined-entry-form
-                      :field-paths #{["role"]["contact"]["organisation"]}}
+                      :field-paths #{["role"] ["contact"] ["organisation"]}}
                      "organisation"
                      {:title       "Organisation"
                       :template-id :party-organisation/user-defined-entry-form
-                      :field-paths #{["role"]["organisation"]}}}}]]]
+                      :field-paths #{["role"] ["organisation"]}}}}]]]
 
      [m4/expanding-control {:label "Point of contact for dataset" :required true :defaultOpen true}
 
@@ -1132,11 +1137,11 @@
          :templates {"person"
                      {:title       "Person"
                       :template-id :party-person/user-defined-entry-form
-                      :field-paths #{["role"]["contact"]["organisation"]}}
+                      :field-paths #{["role"] ["contact"] ["organisation"]}}
                      "organisation"
                      {:title       "Organisation"
                       :template-id :party-organisation/user-defined-entry-form
-                      :field-paths #{["role"]["organisation"]}}}}]]]
+                      :field-paths #{["role"] ["organisation"]}}}}]]]
 
      ;[m4/list-add-button
      ; {:form-id    [:form]
@@ -1162,8 +1167,7 @@
      ;  :template-id :person/user-defined-entry-form}]
 
      #_[m3/Who
-        {:credit-path [:form :fields :identificationInfo :credit]}]
-     ]
+        {:credit-path [:form :fields :identificationInfo :credit]}]]
 
     :party/list-item
     [:div
@@ -1668,7 +1672,6 @@
        {:form-id    [:form]
         :data-path  ["resourceLineageProcessSteps" "statement"]
         :label      "Name"
-        :required   true
         :toolTip    "TODO"
         :helperText "Provide the name of the method or procedure"}
        [m4/textarea-field
@@ -1680,8 +1683,7 @@
       [m4/form-group
        {:form-id    [:form]
         :data-path  ["resourceLineageProcessSteps" "summary"]
-        :label      "Summary"
-        :required   true
+        :label      "Description"
         :toolTip    "TODO"
         :helperText "Provide a brief description of the method"}
        [m4/textarea-field

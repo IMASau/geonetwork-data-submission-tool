@@ -107,6 +107,13 @@
         (actions4/save-snapshot-action form-id)
         (actions4/dialog-open-action form-id data-path))))
 
+(defn open-dialog-button-click-handler
+  [{:keys [db]} [_ props]]
+  (let [{:keys [form-id data-path]} props]
+    (-> {:db db}
+        (actions4/save-snapshot-action form-id)
+        (actions4/dialog-open-action form-id data-path))))
+
 (defn boxes-changed
   [{:keys [db]} [_ config geojson]]
   (let [{:keys [form-id data-path value-path added-path]} config

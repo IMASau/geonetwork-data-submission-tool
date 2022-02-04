@@ -534,7 +534,8 @@
         :getLabel    (ui-controls/obj-path-getter label-path)
         :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
         :hasError    show-errors?
-        :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
+        :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])
+        :onBlur      #(rf/dispatch [::input-blur config])}])))
 
 (defn select-option-columns-settings
   "Settings for select-option-columns component"
@@ -583,7 +584,8 @@
                        {:flex     flex
                         :getLabel (ui-controls/obj-path-getter label-path)})
         :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
-        :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
+        :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])
+        :onBlur      #(rf/dispatch [::input-blur config])}])))
 
 (defn select-option-breadcrumb-settings
   "Settings for select-option-breadcrumb component"
@@ -627,7 +629,8 @@
         :getValue      (ui-controls/obj-path-getter value-path)
         :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
         :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
-        :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
+        :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])
+        :onBlur        #(rf/dispatch [::input-blur config])}])))
 
 (defn item-dialog-button-settings
   "Settings for item-dialog-button component"
@@ -832,7 +835,8 @@
         :getValue    (ui-controls/obj-path-getter value-path)
         :getLabel    (ui-controls/obj-path-getter label-path)
         :getAdded    (when added-path (ui-controls/obj-path-getter added-path))
-        :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
+        :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])
+        :onBlur      #(rf/dispatch [::input-blur config])}])))
 
 (defn async-select-option-breadcrumb-settings
   "Settings for async-select-option-breadcrumb component"
@@ -881,7 +885,8 @@
         :placeholder   placeholder
         :disabled      disabled
         :hasError      show-errors?
-        :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
+        :onChange      #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])
+        :onBlur        #(rf/dispatch [::input-blur config])}])))
 
 (defn async-select-option-columns-settings
   "Settings for async-select-option-columns component"
@@ -933,7 +938,8 @@
         :columns     (for [{:keys [flex label-path]} columns]
                        {:flex     flex
                         :getLabel (ui-controls/obj-path-getter label-path)})
-        :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])}])))
+        :onChange    #(rf/dispatch [::option-change config (ui-controls/get-option-data %)])
+        :onBlur      #(rf/dispatch [::input-blur config])}])))
 
 (defn select-value-settings
   "Settings for select-value component"
@@ -971,7 +977,8 @@
         :getLabel    (ui-controls/obj-path-getter label-path)
         :getValue    (ui-controls/obj-path-getter value-path)
         :hasError    show-errors?
-        :onChange    #(rf/dispatch [::value-changed config %])}])))
+        :onChange    #(rf/dispatch [::value-changed config %])
+        :onBlur      #(rf/dispatch [::input-blur config])}])))
 
 (defn yes-no-field-settings
   "Settings for yes-no-field component"
@@ -1427,7 +1434,8 @@
         :getValue    (ui-controls/obj-path-getter value-path)
         :getLabel    (ui-controls/obj-path-getter label-path)
         :loadOptions (partial utils4/load-options config)
-        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
+        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])
+        :onBlur      #(rf/dispatch [::input-blur config])}])))
 
 (defn async-simple-item-option-picker-settings
   "Settings for async-simple-item-option-picker component"
@@ -1470,7 +1478,8 @@
         :getValue    (ui-controls/obj-path-getter value-path)
         :getLabel    (ui-controls/obj-path-getter label-path)
         :loadOptions (partial utils4/load-options config)
-        :onChange    #(rf/dispatch [::item-option-picker-change config (ui-controls/get-option-data %)])}])))
+        :onChange    #(rf/dispatch [::item-option-picker-change config (ui-controls/get-option-data %)])
+        :onBlur      #(rf/dispatch [::input-blur config])}])))
 
 (defn async-list-option-picker-breadcrumb-settings
   "Settings for async-breadcrumb-list-option-picker component"
@@ -1515,7 +1524,8 @@
         :getLabel      (ui-controls/obj-path-getter label-path)
         :getBreadcrumb (ui-controls/obj-path-getter breadcrumb-path)
         :loadOptions   (partial utils4/load-options config)
-        :onChange      #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
+        :onChange      #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])
+        :onBlur        #(rf/dispatch [::input-blur config])}])))
 
 (defn async-list-option-picker-columns-settings
   "Settings for async-table-list-option-picker component"
@@ -1563,7 +1573,8 @@
                        {:flex     flex
                         :getLabel (ui-controls/obj-path-getter label-path)})
         :loadOptions (partial utils4/load-options config)
-        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
+        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])
+        :onBlur      #(rf/dispatch [::input-blur config])}])))
 
 (defn expanding-control-settings
   "Settings for expanding-control component"

@@ -1532,7 +1532,7 @@
           <mri:thesaurusName>
             <cit:CI_Citation>
               <cit:title>
-                <gco:CharacterString>GCMD Earth Science Keywords</gco:CharacterString>
+                <gco:CharacterString>GCMD Science Keywords</gco:CharacterString>
               </cit:title>
               <cit:otherCitationDetails>
                 <gco:CharacterString>
@@ -1616,6 +1616,9 @@
           <mri:keyword>
             <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/e729eba7-215a-4626-9d13-feece79c41ad" xlink:show="new">Alice Mulga SuperSite</gcx:Anchor>
           </mri:keyword>
+          <mri:keyword>
+            <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/77de3679-cdaa-4dec-b595-6e11de3c3ec0" xlink:show="new">Calperum Mallee SuperSite</gcx:Anchor>
+          </mri:keyword>
           <mri:type>
             <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="platform"/>
           </mri:type>
@@ -1634,7 +1637,7 @@
           <mri:thesaurusName>
             <cit:CI_Citation>
               <cit:title>
-                <gco:CharacterString> TERN Platform Vocabulary</gco:CharacterString>
+                <gco:CharacterString>TERN Platform Vocabulary</gco:CharacterString>
               </cit:title>
               <cit:otherCitationDetails>
                 <gco:CharacterString>
@@ -1660,62 +1663,7 @@
           </mri:thesaurusName>
         </mri:MD_Keywords>
       </mri:descriptiveKeywords>
-      <!-- What6 ~ Display Label ~ TERN Instrument Instances -->
-      <!-- What6 ~ Help Text ~ Select the Instrument or click Add to create a new entry -->
-      <!-- What6 ~ Operation ~ User can select values and create new list values -->
-      <!-- What6 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
-      <!-- What6 ~ Change Note ~ Was on the About tab -->
-      <!-- What6 ~ Change Note ~ Remove field for Serial Number -->
-      <!-- What6 ~ Placeholder Text ~ Start typing to filter list... -->
-      <!-- What6 ~ KeepPlaceholderText ~ no -->
-      <!-- What6 ~ Required ~ no -->
-      <!-- What6 ~ Codelist ~ API def tern_instruments(request) from Elastic Search contact Gerhard Weis -->
-      <!-- What6 ~ Cardinality ~ one block contains many keywords-->
-      <!-- What6 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
-      <!-- What6 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-      <mri:descriptiveKeywords>
-        <mri:MD_Keywords>
-          <mri:keyword>
-            <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/020e7d8b-bf08-4b9f-b3b9-6b815ea383b4" xlink:show="new">stardot-E1159C</gcx:Anchor>
-          </mri:keyword>
-          <mri:keyword>
-            <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/0287b3bd-ed50-4662-96e9-7f7469179344" xlink:show="new">SRTM</gcx:Anchor>
-          </mri:keyword>
-          <mri:type>
-            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="instrument"/>
-          </mri:type>
-          <mri:thesaurusName>
-            <cit:CI_Citation>
-              <cit:title>
-                <gco:CharacterString>TERN Instrument Vocabulary</gco:CharacterString>
-              </cit:title>
-              <cit:otherCitationDetails>
-                <gco:CharacterString>
-                  TERN (2020): TERN Instrument Vocabulary. Terrestrial Ecosystem Research Network (TERN). https://w3id.org/tern/resources/
-                </gco:CharacterString>
-              </cit:otherCitationDetails>
-              <cit:onlineResource>
-                <cit:CI_OnlineResource>
-                  <cit:linkage>
-                    <gco:CharacterString>
-                      https://w3id.org/tern/resources/
-                    </gco:CharacterString>
-                  </cit:linkage>
-                  <cit:protocol>
-                    <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                  </cit:protocol>
-                  <cit:function>
-                    <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
-                                               codeListValue="information"/>
-                  </cit:function>
-                </cit:CI_OnlineResource>
-              </cit:onlineResource>
-            </cit:CI_Citation>
-          </mri:thesaurusName>
-        </mri:MD_Keywords>
-      </mri:descriptiveKeywords>
-
-      <!-- What6 ~ Display Label ~ TERN Instrument Types -->
+      <!-- What6 ~ Display Label ~ TERN Instrument (Types and Individuals) -->
       <!-- What6 ~ Help Text ~ Select the Instrument or click Add to create a new entry -->
       <!-- What6 ~ Operation ~ User can select values and create new list values -->
       <!-- What6 ~ Implementation ~ include tags xlink:role always "uri", write xlink:href value -->
@@ -1742,11 +1690,11 @@
           <mri:thesaurusName>
             <cit:CI_Citation>
               <cit:title>
-                <gco:CharacterString>TERN Instrument Type Vocabulary</gco:CharacterString>
+                <gco:CharacterString>TERN Instrument Vocabulary</gco:CharacterString>
               </cit:title>
               <cit:otherCitationDetails>
                 <gco:CharacterString>
-                  TERN (2020): TERN Instrument Type Vocabulary. Terrestrial Ecosystem Research Network (TERN). http://linked.data.gov.au/def/tern-cv/a3088b5c-622d-4e25-8a75-4c4961b0dfe8
+                  TERN (2020): TERN Instrument Vocabulary. Terrestrial Ecosystem Research Network (TERN). https://linkeddata.tern.org.au/
                 </gco:CharacterString>
               </cit:otherCitationDetails>
               <cit:onlineResource>
@@ -1783,25 +1731,27 @@
       <!-- What8 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-471 -->
       <!-- What8 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1039433784/Data+Identification+Descriptive+Keywords -->
       <!-- What8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
+      <!-- Note: Each parameter may or may not have units. -->
       <mri:descriptiveKeywords>
-        <mri:MD_Keywords>
+        <mri:MD_Keywords uuid="Data_Group">
           <mri:keyword>
-            <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/878ec60a-9d2c-414b-a776-d3380d89342f" xlink:show="new">bare soil cover</gcx:Anchor>
+            <gcx:Anchor xlink:title="Parameter" xlink:role="uri" xlink:type="simple" xlink:href="http://linked.data.gov.au/def/tern-cv/4c19f603-572e-471c-82eb-230f822c263d" xlink:show="new">animal occurrence</gcx:Anchor>
           </mri:keyword>
-          <mri:keyword>
-            <gcx:Anchor xlink:role="uri" xlink:href="http://linked.data.gov.au/def/tern-cv/83384366-87b2-4579-ba17-b7eac9d0b8b9" xlink:show="new">Hemispherical photography</gcx:Anchor>
-          </mri:keyword>
+          <!-- MH: commented out because we will only export parameters, with TERN to add corresponding units in the backend: -->
+          <!-- <mri:keyword> -->
+          <!--   <gcx:Anchor xlink:title="UOM" xlink:role="uri" xlink:type="simple" xlink:href="http://qudt.org/vocab/unit/DEG" xlink:show="new">Degree</gcx:Anchor> -->
+          <!-- </mri:keyword> -->
           <mri:type>
-            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
+            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="parameter"/>
           </mri:type>
           <mri:thesaurusName>
             <cit:CI_Citation>
               <cit:title >
-                <gco:CharacterString>TERN Parameter Type Vocabulary</gco:CharacterString>
+                <gco:CharacterString>TERN Parameter Vocabulary</gco:CharacterString>
               </cit:title>
               <cit:otherCitationDetails>
                 <gco:CharacterString>
-                  TERN (2020). TERN Parameter Type Vocabulary. Terrestrial Ecosystem Research Network (TERN). http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e
+                  TERN (2020). TERN Parameter Vocabulary. Terrestrial Ecosystem Research Network (TERN). http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e
                 </gco:CharacterString>
               </cit:otherCitationDetails>
               <cit:onlineResource>
@@ -1839,10 +1789,13 @@
       <mri:descriptiveKeywords>
         <mri:MD_Keywords>
           <mri:keyword>
-            <gcx:Anchor xlink:role="uri" xlink:href="http://qudt.org/vocab/unit/DAY" xlink:show="new">Day</gcx:Anchor>
+            <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="http://qudt.org/vocab/unit/DEG" xlink:show="new">Degree</gcx:Anchor>
+          </mri:keyword>
+          <mri:keyword>
+            <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="http://qudt.org/vocab/unit/NUM" xlink:show="new">Number</gcx:Anchor>
           </mri:keyword>
           <mri:type>
-            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
+            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="uom"/>
           </mri:type>
           <mri:thesaurusName>
             <cit:CI_Citation>
@@ -1892,7 +1845,7 @@
             <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/abf43d91-a65d-4b3b-a6dd-593e211b2c7b" xlink:show="new">1 meter - &lt; 30 meters</gcx:Anchor>
           </mri:keyword>
           <mri:type>
-            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
+            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="dataResolution"/>
           </mri:type>
           <mri:thesaurusName>
             <cit:CI_Citation>
@@ -1944,7 +1897,7 @@
             <gcx:Anchor xlink:role="uri" xlink:type="simple" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/3f0aa4fc-802c-4804-9f9f-8b666f3a2776" xlink:show="new"> &gt; 1 km</gcx:Anchor>
           </mri:keyword>
           <mri:type>
-            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
+            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="dataResolution"/>
           </mri:type>
           <mri:thesaurusName>
             <cit:CI_Citation>
@@ -1994,7 +1947,7 @@
             <gcx:Anchor xlink:role="uri" xlink:href="https://gcmd.earthdata.nasa.gov/kms/concept/48ff676f-836c-4cff-bc88-4c4cc06b2e1b" xlink:show="new">1 second - &lt; 1 minute</gcx:Anchor>
           </mri:keyword>
           <mri:type>
-            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="temporal"/>
+            <mri:MD_KeywordTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="dataResolution"/>
           </mri:type>
           <mri:thesaurusName>
             <cit:CI_Citation>
@@ -2179,7 +2132,7 @@
       <mri:resourceConstraints>
         <mco:MD_LegalConstraints>
           <mco:useLimitation><gco:CharacterString>
-            The CC-By license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties. Details are provided at https://creativecommons.org/licenses/by/4.0/legalcode
+            The Creative Commons Attribution 4.0 International (CC BY 4.0) license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties. Details are provided at https://creativecommons.org/licenses/by/4.0/
           </gco:CharacterString></mco:useLimitation>
           <mco:graphic>
             <mcc:MD_BrowseGraphic>
@@ -2301,7 +2254,7 @@
       <!-- About2 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->
       <mri:resourceConstraints>
         <mco:MD_SecurityConstraints>
-          <mco:reference>
+          <!-- <mco:reference>
             <cit:CI_Citation>
               <cit:title>
                 <gco:CharacterString>Security Classification</gco:CharacterString>
@@ -2315,7 +2268,7 @@
                     <gco:CharacterString>https://www.protectivesecurity.gov.au/Pages/default.aspx</gco:CharacterString>
                   </cit:linkage>
                   <cit:protocol>
-                    <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                    <gco:CharacterString>WWW:LINK-1.0-http-/-link</gco:CharacterString>
                   </cit:protocol>
                   <cit:function>
                     <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
@@ -2324,7 +2277,7 @@
                 </cit:CI_OnlineResource>
               </cit:onlineResource>
             </cit:CI_Citation>
-          </mco:reference>
+          </mco:reference> -->
           <mco:classification>
             <mco:MD_ClassificationCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_ClassificationCode" codeListValue="unclassified"/>
           </mco:classification>
@@ -2559,9 +2512,11 @@
               <!-- Datasource1 ~ Required ~ conditional -->
               <!-- Datasource1 ~ Rule ~ Required if a file is uploaded via Upload Data feature -->
               <!-- Datasource1 ~ Rule ~ File name without file extension, replace ["_","-"] with space -->
+              <!-- ASD@2022 Comment out this element as it is not supported on SHaRED GUI for file upload-->
+              <!--
               <cit:description>
                 <gco:CharacterString>DictionaryParkhurst etal 2020</gco:CharacterString>
-              </cit:description>
+              </cit:description> -->
               <cit:function>
                 <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                            codeListValue="download"/>
@@ -2712,13 +2667,13 @@
               <cit:name>
                 <gco:CharacterString>Name of Feature</gco:CharacterString>
               </cit:name>
-              <!-- Datasource6 ~ Description ~ Description of layer or dataset -->
+              <!-- Datasource6 ~ Description ~ Layer name -->
               <!-- Datasource6 ~ Required ~ no -->
               <!-- Datasource6 ~ InputLength ~ As-Is 250 -->
               <!-- Datasource6 ~ Size ~ single -->
               <!-- Datasource6 ~ Cardinality ~ one per mrd:transferOptions block -->
               <cit:description>
-                <gco:CharacterString>WFS Service OGC:WFS [description element]</gco:CharacterString>
+                <gco:CharacterString>WFS Service OGC:WFS [layer name]</gco:CharacterString>
               </cit:description>
               <!-- Required ~ conditional -->
               <!-- Rule ~ Required if cit:description is not blank -->
@@ -2783,9 +2738,10 @@
           <!-- How8 ~ Cardinality ~ one -->
           <mdq:evaluationMethod>
             <mdq:DQ_EvaluationMethod>
-              <mdq:evaluationMethodDescription>
+              <!-- ASD@2022 comment out this element as there is no GUI element in SHAREDv4 to capture this information -->
+              <!-- mdq:evaluationMethodDescription>
                 <gco:CharacterString>The data quality was assessed by ...</gco:CharacterString>
-              </mdq:evaluationMethodDescription>
+              </mdq:evaluationMethodDescription -->
               <!-- How9 ~ Cardinality ~ 0 to many referenceDoc blocks -->
               <!-- How9 ~ Online documentation Title and URI - example 1 -->
               <mdq:referenceDoc>
@@ -2980,6 +2936,23 @@
           </cit:onlineResource>
         </cit:CI_Citation>
       </mrl:additionalDocumentation>
+      <!-- ASD@2022 Included examples of process steps -->
+
+      <mrl:processStep>
+        <mrl:LI_ProcessStep>
+          <mrl:description>
+            <gco:CharacterString>Provide the details of step 1</gco:CharacterString>
+          </mrl:description>
+        </mrl:LI_ProcessStep>
+      </mrl:processStep>
+      <mrl:processStep>
+        <mrl:LI_ProcessStep>
+          <mrl:description>
+            <gco:CharacterString>Provide the details of step 2</gco:CharacterString>
+          </mrl:description>
+        </mrl:LI_ProcessStep>
+      </mrl:processStep>
+
     </mrl:LI_Lineage>
   </mdb:resourceLineage>
   <!-- Description ~ Individual methods used to produce the dataset/collection -->
@@ -2994,58 +2967,59 @@
   <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041825814/Resource+Lineage+Statement -->
   <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044414700/Resource+Lineage+Process+Step -->
   <!-- Process steps - example 1 -->
-  <mdb:resourceLineage>
-    <mrl:LI_Lineage>
-      <!-- How7 ~ Description ~ Summary -->
-      <!-- How7 ~ Help Text ~ Provide a brief description of the method -->
-      <!-- How7 ~ Placeholder Text ~ as shown below -->
-      <!-- How7 ~ KeepPlaceholderText ~ yes -->
-      <!-- How7 ~ Required ~ Conditional - block is optional but field is required if block is completed -->
-      <!-- How7 ~ InputLength ~ 500 -->
-      <!-- How7 ~ Size ~ multiline -->
-      <!-- How7 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -->
-      <mrl:statement>
-        <gco:CharacterString>Placeholder text=Provide a brief summary of a single method or procedure</gco:CharacterString>
-      </mrl:statement>
-      <mrl:additionalDocumentation>
-        <cit:CI_Citation>
-          <!-- How6 ~ Description ~ Name -->
-          <!-- How6 ~ Help Text ~ Provide the name of the method or procedure -->
-          <!-- How6 ~ Placeholder Text ~ as shown below -->
-          <!-- How6 ~ KeepPlaceholderText ~ no -->
-          <!-- How6 ~ Required ~ Conditional - block is optional but field is required if block is completed -->
-          <!-- How6 ~ InputLength ~ 500 -->
-          <!-- How6 ~ Size ~ single -->
-          <!-- How6 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -->
-          <cit:title>
-            <gco:CharacterString>Provide the name of the method or procedure</gco:CharacterString>
-          </cit:title>
-        </cit:CI_Citation>
-      </mrl:additionalDocumentation>
-      <!-- How7b ~ Description ~ Steps -->
-      <!-- How7b ~ Help Text ~ Provide a description of the step in the method of collecting or preparing the data -->
-      <!-- How7b ~ Placeholder Text ~ Input step details -->
-      <!-- How7b ~ KeepPlaceholderText ~ no -->
-      <!-- How7b ~ Required ~ no -->
-      <!-- How7b ~ InputLength ~ 500 -->
-      <!-- How7b ~ Size ~ single -->
-      <!-- How7b ~ Cardinality ~ 0 to many per mdb:resourceLineage block -->
-      <!-- How7b ~ Example step 1 -->
-      <mrl:processStep>
-        <mrl:LI_ProcessStep>
-          <mrl:description>
-            <gco:CharacterString>Provide the details of step 1</gco:CharacterString>
-          </mrl:description>
-        </mrl:LI_ProcessStep>
-      </mrl:processStep>
-      <!-- How7b ~ Example 1 step 2 -->
-      <mrl:processStep>
-        <mrl:LI_ProcessStep>
-          <mrl:description>
-            <gco:CharacterString>Provide the details of step 2</gco:CharacterString>
-          </mrl:description>
-        </mrl:LI_ProcessStep>
-      </mrl:processStep>
-    </mrl:LI_Lineage>
-  </mdb:resourceLineage>
+  <!-- ASD@2022 Disable this example as mdb:MD_Metadata can have one mdb:resourceLineage and  mdb:resourceLineage can have 0..* mrl:LI_Lineage -->
+  <!-- <mdb:resourceLineage> -->
+  <!--   <mrl:LI_Lineage> -->
+  <!--     <!-\- How7 ~ Description ~ Summary -\-> -->
+  <!--     <!-\- How7 ~ Help Text ~ Provide a brief description of the method -\-> -->
+  <!--     <!-\- How7 ~ Placeholder Text ~ as shown below -\-> -->
+  <!--     <!-\- How7 ~ KeepPlaceholderText ~ yes -\-> -->
+  <!--     <!-\- How7 ~ Required ~ Conditional - block is optional but field is required if block is completed -\-> -->
+  <!--     <!-\- How7 ~ InputLength ~ 500 -\-> -->
+  <!--     <!-\- How7 ~ Size ~ multiline -\-> -->
+  <!--     <!-\- How7 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -\-> -->
+  <!--     <mrl:statement> -->
+  <!--       <gco:CharacterString>Placeholder text=Provide a brief summary of a single method or procedure</gco:CharacterString> -->
+  <!--     </mrl:statement> -->
+  <!--     <mrl:additionalDocumentation> -->
+  <!--       <cit:CI_Citation> -->
+  <!--         <!-\- How6 ~ Description ~ Name -\-> -->
+  <!--         <!-\- How6 ~ Help Text ~ Provide the name of the method or procedure -\-> -->
+  <!--         <!-\- How6 ~ Placeholder Text ~ as shown below -\-> -->
+  <!--         <!-\- How6 ~ KeepPlaceholderText ~ no -\-> -->
+  <!--         <!-\- How6 ~ Required ~ Conditional - block is optional but field is required if block is completed -\-> -->
+  <!--         <!-\- How6 ~ InputLength ~ 500 -\-> -->
+  <!--         <!-\- How6 ~ Size ~ single -\-> -->
+  <!--         <!-\- How6 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -\-> -->
+  <!--         <cit:title> -->
+  <!--           <gco:CharacterString>Provide the name of the method or procedure</gco:CharacterString> -->
+  <!--         </cit:title> -->
+  <!--       </cit:CI_Citation> -->
+  <!--     </mrl:additionalDocumentation> -->
+  <!--     <!-\- How7b ~ Description ~ Steps -\-> -->
+  <!--     <!-\- How7b ~ Help Text ~ Provide a description of the step in the method of collecting or preparing the data -\-> -->
+  <!--     <!-\- How7b ~ Placeholder Text ~ Input step details -\-> -->
+  <!--     <!-\- How7b ~ KeepPlaceholderText ~ no -\-> -->
+  <!--     <!-\- How7b ~ Required ~ no -\-> -->
+  <!--     <!-\- How7b ~ InputLength ~ 500 -\-> -->
+  <!--     <!-\- How7b ~ Size ~ single -\-> -->
+  <!--     <!-\- How7b ~ Cardinality ~ 0 to many per mdb:resourceLineage block -\-> -->
+  <!--     <!-\- How7b ~ Example step 1 -\-> -->
+  <!--     <mrl:processStep> -->
+  <!--       <mrl:LI_ProcessStep> -->
+  <!--         <mrl:description> -->
+  <!--           <gco:CharacterString>Provide the details of step 1</gco:CharacterString> -->
+  <!--         </mrl:description> -->
+  <!--       </mrl:LI_ProcessStep> -->
+  <!--     </mrl:processStep> -->
+  <!--     <!-\- How7b ~ Example 1 step 2 -\-> -->
+  <!--     <mrl:processStep> -->
+  <!--       <mrl:LI_ProcessStep> -->
+  <!--         <mrl:description> -->
+  <!--           <gco:CharacterString>Provide the details of step 2</gco:CharacterString> -->
+  <!--         </mrl:description> -->
+  <!--       </mrl:LI_ProcessStep> -->
+  <!--     </mrl:processStep> -->
+  <!--   </mrl:LI_Lineage> -->
+  <!-- </mdb:resourceLineage> -->
 </mdb:MD_Metadata>

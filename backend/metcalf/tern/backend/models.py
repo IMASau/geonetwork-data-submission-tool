@@ -35,7 +35,7 @@ class MetadataTemplateMapper(AbstractMetadataTemplateMapper):
 
     def clean(self):
         try:
-            spec = spec4.make_spec(science_keyword=ScienceKeyword, mapper=self)
+            spec = spec4.make_spec(mapper=self)
         except Exception as e:
             traceback.print_exc()
             raise ValidationError({'file': get_exception_message(e)})
@@ -161,7 +161,7 @@ class Document(AbstractDocument):
 
     doi = models.CharField(max_length=1024, default='', blank=True)
 
-    hasUserDefined = models.BooleanField(default=False)
+    hasUserDefined = models.BooleanField(default=False, verbose_name='Has User-defined')
 
     # FIXME is this needed
     class Meta:
@@ -180,7 +180,7 @@ class Document(AbstractDocument):
             super(Document, self).save(*args, **kwargs)
 
             tree = etree.parse(self.template.file.path)
-            spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=self.uuid, mapper=self.template.mapper)
+            spec = spec4.make_spec(uuid=self.uuid, mapper=self.template.mapper)
             data = xmlutils4.extract_xml_data(tree, spec)
             # make sure there is no newline in self.title
             if self.title:
@@ -206,7 +206,7 @@ class Document(AbstractDocument):
         try:
             data = to_json(self.latest_draft.data)
             xml = etree.parse(self.template.file.path)
-            spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=self.template.mapper)
+            spec = spec4.make_spec(uuid=uuid, mapper=self.template.mapper)
             xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                                   element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
             request_xml = etree.tostring(xml)

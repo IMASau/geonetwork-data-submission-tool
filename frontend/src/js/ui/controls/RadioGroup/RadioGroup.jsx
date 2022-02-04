@@ -9,10 +9,10 @@ export function RadioGroup({ value, options, inline, disabled, hasError, getLabe
     const hasErrorClass = !disabled && hasError ? 'hasError' : '';
     const isDisabledClass = disabled ? 'bp3-text-disabled' : '';
     const classes = `radio-group ${hasErrorClass} ${isDisabledClass}`;
-    console.log({value, selectedIndex, options})
     return (
         <div className={classes}>
             <BPCore.RadioGroup
+                disabled={disabled}
                 selectedValue={selectedIndex}
                 onChange={(e) => onChange && onChange(options[e.target.value])}
                 inline={inline}>
@@ -24,7 +24,7 @@ export function RadioGroup({ value, options, inline, disabled, hasError, getLabe
 
 RadioGroup.propTypes = {
     inline: PropTypes.bool,
-    value: PropTypes.any.isRequired,
+    value: PropTypes.any,
     options: PropTypes.arrayOf(PropTypes.object).isRequired,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
@@ -50,7 +50,7 @@ export function RadioGroupSimple(args) {
 
 RadioGroupSimple.propTypes = {
     inline: PropTypes.bool,
-    value: PropTypes.any.isRequired,
+    value: PropTypes.any,
     options: PropTypes.arrayOf(PropTypes.object).isRequired,
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,

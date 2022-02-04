@@ -18,34 +18,36 @@
             [re-frame.core :as rf]))
 
 #_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
+(rf/reg-event-fx ::components4/add-record handlers4/add-record-handler)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-event-fx ::components4/create-document-modal-clear-click handlers4/create-document-modal-clear-click)
 (rf/reg-event-fx ::components4/create-document-modal-close-click handlers4/create-document-modal-close-click)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
-(rf/reg-event-fx ::components4/item-add-button-click handlers4/item-add-with-defaults-click-handler2)
-(rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler2)
-(rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-click-handler)
-(rf/reg-event-fx ::components4/item-dialog-button-edit-click handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/edit-dialog-cancel handlers4/edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/edit-dialog-close handlers4/edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/edit-dialog-save handlers4/edit-dialog-save-handler)
+(rf/reg-event-fx ::components4/item-add-button-click handlers4/item-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/item-dialog-button-edit-click handlers4/item-edit-click-handler)
+(rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler3 handlers4/list-add-with-defaults-click-handler3)
-(rf/reg-event-fx ::components4/value-list-add-with-defaults-click-handler handlers4/value-list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/add-record handlers4/add-record-handler)
 (rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click3)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
-(rf/reg-event-fx ::components4/text-value-add-click-handler handlers4/text-value-add-click-handler)
-(rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/selection-list-values-item-click handlers4/selection-list-values-item-click)
 (rf/reg-event-fx ::components4/selection-list-values-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-values-reorder handlers4/selection-list-reorder)
-(rf/reg-event-fx ::components4/selection-list-values-item-click handlers4/selection-list-values-item-click)
+(rf/reg-event-fx ::components4/text-value-add-click-handler handlers4/text-value-add-click-handler)
+(rf/reg-event-fx ::components4/upload-file-drop handlers4/upload-file-drop)
+(rf/reg-event-fx ::components4/upload-files-drop handlers4/upload-files-drop)
+(rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/value-list-add-with-defaults-click-handler handlers4/value-list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
 (rf/reg-event-fx :app/-archive-current-document-error handlers3/-archive-current-document-error)
@@ -59,7 +61,6 @@
 (rf/reg-event-fx :app/-transite-doc-click-confirm handlers3/-transite-doc-click-confirm)
 (rf/reg-event-fx :app/-transite-doc-confirm-error handlers3/-transite-doc-confirm-error)
 (rf/reg-event-fx :app/-transite-doc-confirm-success handlers3/-transite-doc-confirm-success)
-(rf/reg-event-fx :app/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)
 (rf/reg-event-fx :app/contributors-modal-share-click handlers4/contributors-modal-share-click)
 (rf/reg-event-fx :app/contributors-modal-unshare-click handlers4/contributors-modal-unshare-click)
@@ -81,18 +82,17 @@
 (rf/reg-event-fx :app/modal-dialog-confirm-dismiss handlers3/close-and-cancel)
 (rf/reg-event-fx :app/modal-dialog-confirm-save handlers3/close-and-confirm)
 (rf/reg-event-fx :app/page-view-edit-archive-click-confirm handlers3/archive-current-document)
+(rf/reg-event-fx :app/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx :app/upload-data-file-upload-failed handlers3/upload-data-file-upload-failed)
 (rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/upload-max-filesize-exceeded)
 (rf/reg-event-fx :metcalf.common.actions4/-create-document handlers4/-create-document-handler)
 (rf/reg-event-fx :metcalf.common.actions4/-get-document-data-action handlers4/-get-document-data-action)
+(rf/reg-event-fx :metcalf.common.actions4/-upload-attachment handlers4/-upload-attachment)
+(rf/reg-event-fx :metcalf.common.actions4/-upload-single-attachment handlers4/-upload-single-attachment)
 (rf/reg-event-fx :metcalf.common.components4/coordinates-modal-field-close-modal handlers4/coordinates-modal-field-close-modal)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
 (rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
-(rf/reg-event-fx ::components4/upload-file-drop handlers4/upload-file-drop)
-(rf/reg-event-fx ::components4/upload-files-drop handlers4/upload-files-drop)
-(rf/reg-event-fx :metcalf.common.actions4/-upload-single-attachment handlers4/-upload-single-attachment)
-(rf/reg-event-fx :metcalf.common.actions4/-upload-attachment handlers4/-upload-attachment)
 (rf/reg-fx ::fx3/post fx3/post)
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
 (rf/reg-fx ::fx3/set-location-href fx3/set-location-href)
@@ -101,16 +101,16 @@
 (rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
 (rf/reg-fx :app/post-multipart-form (utils4/promise-fx utils4/post-multipart-form))
 (rf/reg-fx :ui/setup-blueprint ui-controls/setup-blueprint)
+(rf/reg-sub ::components4/can-dialog-cancel? subs4/can-dialog-cancel-sub)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
-(rf/reg-sub ::components4/is-item-added? subs4/form-state-signal subs4/is-item-added?)
 (rf/reg-sub ::components4/get-list-edit-can-save-sub subs4/form-state-signal subs4/get-list-edit-can-save-sub)
+(rf/reg-sub ::components4/get-page-errors-props subs4/form-state-signal subs4/get-page-errors-props-sub)
+(rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/has-block-errors? subs4/form-state-signal subs4/has-block-errors?)
 (rf/reg-sub ::components4/has-selected-block-errors? subs4/form-state-signal subs4/has-selected-block-errors?)
-(rf/reg-sub ::components4/can-dialog-cancel? subs4/can-dialog-cancel-sub)
-(rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
-(rf/reg-sub ::components4/get-page-errors-props subs4/form-state-signal subs4/get-page-errors-props-sub)
+(rf/reg-sub ::components4/is-item-added? subs4/form-state-signal subs4/is-item-added?)
 (rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub ::tern-subs/get-edit-tabs tern-subs/get-edit-tabs)
@@ -589,12 +589,13 @@
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/selection-list-breadcrumb
-        {:form-id         [:form]
-         :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
-         :label-path      ["label"]
-         :value-path      ["uri"]
-         :breadcrumb-path ["breadcrumb"]}]]]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-breadcrumb
+         {:form-id         [:form]
+          :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
+          :label-path      ["label"]
+          :value-path      ["uri"]
+          :breadcrumb-path ["breadcrumb"]}]]]]
 
      [m4/expanding-control {:label "ANZSRC Fields keywords" :required true}
       [m4/form-group
@@ -608,12 +609,13 @@
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/selection-list-breadcrumb
-        {:form-id         [:form]
-         :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-         :label-path      ["label"]
-         :value-path      ["uri"]
-         :breadcrumb-path ["breadcrumb"]}]]]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-breadcrumb
+         {:form-id         [:form]
+          :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
+          :label-path      ["label"]
+          :value-path      ["uri"]
+          :breadcrumb-path ["breadcrumb"]}]]]]
 
      [m4/expanding-control {:label "Platforms" :required true}
       ;; TODO: also need a user-added option
@@ -713,7 +715,7 @@
           :button-text        "Add"
           :value-path         ["uri"]
           :random-uuid-value? true
-          :item-defaults      {"userAddedCategory" "parameters"}
+          :item-defaults      {"userAddedCategory" "parameter"}
           :added-path         ["isUserDefined"]}]]
        [:div.SelectionListItemColoured
         [m4/selection-list-columns
@@ -775,12 +777,13 @@
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/selection-list-breadcrumb
-        {:form-id         [:form]
-         :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
-         :label-path      ["label"]
-         :value-path      ["uri"]
-         :breadcrumb-path ["breadcrumb"]}]]]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-breadcrumb
+         {:form-id         [:form]
+          :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
+          :label-path      ["label"]
+          :value-path      ["uri"]
+          :breadcrumb-path ["breadcrumb"]}]]]]
 
      [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required false}
       [m4/form-group
@@ -793,12 +796,13 @@
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
-       [m4/selection-list-breadcrumb
-        {:form-id         [:form]
-         :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
-         :label-path      ["label"]
-         :value-path      ["uri"]
-         :breadcrumb-path ["breadcrumb"]}]]]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-breadcrumb
+         {:form-id         [:form]
+          :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
+          :label-path      ["label"]
+          :value-path      ["uri"]
+          :breadcrumb-path ["breadcrumb"]}]]]]
 
      [m4/expanding-control {:label "Additional Keywords (Optional)" :required false}
       [m4/form-group
@@ -1668,27 +1672,27 @@
      [m4/expanding-control {:label "Data creation procedure steps (Optional)"}
 
       ;; How6: Name
-      [m4/form-group
+      #_[m4/form-group
        {:form-id    [:form]
-        :data-path  ["resourceLineageProcessSteps" "statement"]
+        :data-path  ["resourceLineage" "processStatement"]
         :label      "Name"
         :toolTip    "TODO"
         :helperText "Provide the name of the method or procedure"}
        [m4/textarea-field
         {:form-id     [:form]
-         :data-path   ["resourceLineageProcessSteps" "statement"]
+         :data-path   ["resourceLineage" "processStatement"]
          :placeholder "Provide the name of the method or procedure"}]]
 
       ;; How7: Description
-      [m4/form-group
+      #_[m4/form-group
        {:form-id    [:form]
-        :data-path  ["resourceLineageProcessSteps" "summary"]
+        :data-path  ["resourceLineage" "summary"]
         :label      "Description"
         :toolTip    "TODO"
         :helperText "Provide a brief description of the method"}
        [m4/textarea-field
         {:form-id     [:form]
-         :data-path   ["resourceLineageProcessSteps" "summary"]
+         :data-path   ["resourceLineage" "summary"]
          :placeholder "Provide a brief summary of a single method or procedure"}]]
 
       ;; How7b: list-add free-text entries
@@ -1697,11 +1701,11 @@
         :toolTip "TODO"}
        [m4/text-add-button
         {:form-id     [:form]
-         :data-path   ["resourceLineageProcessSteps" "steps"]
+         :data-path   ["resourceLineage" "steps"]
          :button-text "Add"}]
        [m4/selection-list-values
         {:form-id   [:form]
-         :data-path ["resourceLineageProcessSteps" "steps"]}]]]]
+         :data-path ["resourceLineage" "steps"]}]]]]
 
     :method-doc/user-defined-entry-form
     [:div

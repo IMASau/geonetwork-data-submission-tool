@@ -677,6 +677,23 @@
         :onClick  #(rf/dispatch [::item-add-button-click config])}
        "Add"])))
 
+(defn list-add-button-settings
+  "Settings for list-add-button component"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :value-path :added-path :button-text]
+   ::low-code4/opt-ks [:item-defaults]
+   ::low-code4/schema {:type "array"}})
+
+(defn list-add-button
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [disabled is-hidden button-text]} props]
+    (when-not is-hidden
+      [:button.bp3-button.bp3-intent-primary
+       {:disabled disabled
+        :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler config])}
+       button-text])))
+
 (defn list-add-button3-settings
   "Settings for list-add-button component"
   [_]
@@ -1120,11 +1137,11 @@
         :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}])))
 
 (defn simple-list-settings
- [_]
- {::low-code4/req-ks       [:form-id :data-path :template-id]
-  ::low-code4/opt-ks       []
-  ::low-code4/schema       {:type "array"}
-  ::low-code4/schema-paths []})
+  [_]
+  {::low-code4/req-ks       [:form-id :data-path :template-id]
+   ::low-code4/opt-ks       []
+   ::low-code4/schema       {:type "array"}
+   ::low-code4/schema-paths []})
 
 (defn simple-list
   "Displays an arbitrary array of values, using a template to manage the
@@ -1146,9 +1163,9 @@
       [:<>
        (for [index (range (count items))]
          (low-code4/render-template
-          {:template-id template-id
-           :variables   {'?form-id   form-id
-                         '?data-path (conj data-path index)}}))])))
+           {:template-id template-id
+            :variables   {'?form-id   form-id
+                          '?data-path (conj data-path index)}}))])))
 
 (defn selection-list-breadcrumb-settings
   "Settings for selection-list-breadcrumb component"
@@ -1198,6 +1215,51 @@
    ::low-code4/opt-ks       [:added-path :placeholder-record? :random-uuid-value? :select-snapshot?]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths (into [value-path added-path] (map :label-path columns))})
+
+(defn selection-list-columns-settings
+  "Settings for selection-list-columns component"
+  [{:keys [value-path columns added-path]}]
+  {::low-code4/req-ks       [:form-id :data-path :value-path :columns]
+   ::low-code4/opt-ks       [:added-path]
+   ::low-code4/schema       {:type "array" :items {:type "object"}}
+   ::low-code4/schema-paths (into [value-path added-path] (map :label-path columns))})
+
+(defn selection-list-columns
+  "This component renders a selection list with columns of labels for each item.  Each column has a header.
+   Items in the list can be reordered and deleted.  User defined items can also be selected.
+
+   Use case: Allow user to see and manage a list of items.
+
+   Props configure the component
+   * value-path (vector) - path to the value in the list item data.  Value must be unique.
+   * columns (maps) - column metadata used when rendering list items
+     * columnHeader (string) - Label to display above column
+     * label-path - path to the column label is in the list item data
+     * flex (number) - how much space this column should use.
+   * added-path (vector) - path to test if list item is user defined.  Used to style control.
+
+   Logic can control aspects of how the component is rendered using form-id and data-path to access block props.
+   * disabled - styles control to indicate it's disabled
+   * is-hidden - hides component entirely
+   "
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [key value-path columns added-path disabled is-hidden]} props
+        items @(rf/subscribe [::get-block-data config])]
+    (when-not is-hidden
+      [ui-controls/TableSelectionList
+       {:key           key
+        :items         (or items [])
+        :disabled      disabled
+        :columns       (for [{:keys [flex label-path columnHeader]} columns]
+                         {:flex         flex
+                          :getLabel     (ui-controls/obj-path-getter label-path)
+                          :columnHeader (or columnHeader "None")})
+        :getValue      (ui-controls/obj-path-getter value-path)
+        :getAdded      (when added-path (ui-controls/obj-path-getter added-path))
+        :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
+        :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
+        :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}])))
 
 (defn selection-list-columns3
   "This component renders a selection list with columns of labels for each item.  Each column has a header.

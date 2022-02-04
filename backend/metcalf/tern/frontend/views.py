@@ -38,7 +38,7 @@ from metcalf.common import spec4, xmlutils5
 from metcalf.common import xmlutils4
 from metcalf.common.serializers import UserByEmailSerializer, UserSerializer
 from metcalf.common.utils import to_json, get_exception_message
-from metcalf.tern.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
+from metcalf.tern.backend.models import DraftMetadata, Document, DocumentAttachment, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.tern.frontend.forms import DocumentAttachmentForm
 from metcalf.tern.frontend.models import SiteContent
@@ -286,7 +286,7 @@ def bad_request(request, exception):
 def create_export_xml_string(doc, uuid):
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
-    spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    spec = spec4.make_spec(uuid=uuid, mapper=doc.template.mapper)
     xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                           element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     xmlutils5.export2(
@@ -310,6 +310,45 @@ def export(request, uuid):
     if "download" in request.GET:
         response['Content-Disposition'] = 'attachment; filename="{}.xml"'.format(uuid)
     return response
+
+
+def publish_to_geonetwork(doc, uuid):
+    gn_root = settings.GEONETWORK_URLROOT
+    gn_user = settings.GEONETWORK_USER
+    gn_pass = settings.GEONETWORK_PASSWORD
+    # export
+    exported_doc = create_export_xml_string(doc, uuid)
+    try:
+        with requests.Session() as session:
+            # login
+            ## Load initial token:
+            res = session.post(f"{gn_root}/srv/eng/info?type=me")
+            token = res.cookies['XSRF-TOKEN']
+            ## authenticate:
+            res = session.post(f"{gn_root}/srv/eng/info?type=me",
+                               auth=(gn_user,gn_pass),
+                               headers={'X-XSRF-TOKEN': token})
+            ## Verify login (checking http status is probably
+            ## sufficient, but GN's own docs emphasise the
+            ## authenticated=true requirement so we'll follow suit):
+            res_xml = etree.fromstring(res.content)
+            is_authed = len( res_xml.xpath('/info/me[@authenticated="true"]') ) > 0
+            if not is_authed:
+                raise Exception(f"Couldn't authenticate with Geonetwork instance {gn_root}")
+            # publish
+            res = session.post(f"{gn_root}/srv/api/records",
+                               auth=(gn_user,gn_user),
+                               headers={'X-XSRF-TOKEN': token,
+                                        'Accept': 'application/json'},
+                               data={'metadataType': 'METADATA',
+                                     # Shared creates the UUID:
+                                     'uuidProcessing': 'NOTHING'},
+                               files={'file': ('metadata.xml', exported_doc)})
+            # (update model)
+    except Exception as e:
+        # update model with error
+        # raise?
+        pass
 
 
 MEF_TEMPLATE = '''<?xml version="1.0" encoding="UTF-8"?>
@@ -340,7 +379,7 @@ def mef(request, uuid):
     is_document_contributor(request, doc)
     data = to_json(doc.latest_draft.data)
     xml = etree.parse(doc.template.file.path)
-    spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    spec = spec4.make_spec(uuid=uuid, mapper=doc.template.mapper)
     xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
                           element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
     response = HttpResponse(content_type="application/x-mef")
@@ -483,7 +522,7 @@ def save(request, uuid, update_number):
                  'latest': latest_draft.pk}},
             status=400)
     is_document_contributor(request, doc)
-    spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    spec = spec4.make_spec(uuid=uuid, mapper=doc.template.mapper)
     try:
         data = request.data
         doc.title = data['identificationInfo']['title'] or "Untitled"
@@ -543,7 +582,7 @@ def user_defined(request, uuid):
 def edit(request, uuid):
     doc = get_object_or_404(Document, uuid=uuid)
     is_document_contributor(request, doc)
-    spec = spec4.make_spec(science_keyword=ScienceKeyword, uuid=uuid, mapper=doc.template.mapper)
+    spec = spec4.make_spec(uuid=uuid, mapper=doc.template.mapper)
 
     draft = doc.draftmetadata_set.all()[0]
     data = to_json(draft.data)

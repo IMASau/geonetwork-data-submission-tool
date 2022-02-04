@@ -18,6 +18,11 @@
         (assoc-in (conj path :props :value) value)
         (actions4/set-touched-action form-id data-path))))
 
+(defn input-blur-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (actions4/set-touched-action {:db db} form-id data-path)))
+
 (defn option-change-handler
   [{:keys [db]} [_ ctx option]]
   (let [{:keys [form-id data-path]} ctx

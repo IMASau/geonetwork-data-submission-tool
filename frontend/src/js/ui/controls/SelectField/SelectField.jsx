@@ -146,7 +146,7 @@ export function getReactSelectComponents({Option}) {
     }
 }
 
-export function AsyncSelectField({value, loadOptions, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange}) {
+export function AsyncSelectField({value, loadOptions, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange, onBlur}) {
     const defaultOptions = !disabled
     const isAdded = getAdded ? getAdded(value): false;
     return (
@@ -159,6 +159,7 @@ export function AsyncSelectField({value, loadOptions, hasError, disabled, placeh
             loadOptions={loadOptions}
             placeholder={placeholder}
             onChange={(value) => onChange(value)}
+            onBlur={() => onBlur ? onBlur(): null}
             isClearable={true}
             isDisabled={disabled}
             defaultOptions={defaultOptions}
@@ -175,6 +176,7 @@ AsyncSelectField.propTypes = {
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
+    onBlur: PropTypes.func,
     Option: PropTypes.func.isRequired,
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,

@@ -1672,27 +1672,27 @@
      [m4/expanding-control {:label "Data creation procedure steps (Optional)"}
 
       ;; How6: Name
-      [m4/form-group
+      #_[m4/form-group
        {:form-id    [:form]
-        :data-path  ["resourceLineageProcessSteps" "statement"]
+        :data-path  ["resourceLineage" "processStatement"]
         :label      "Name"
         :toolTip    "TODO"
         :helperText "Provide the name of the method or procedure"}
        [m4/textarea-field
         {:form-id     [:form]
-         :data-path   ["resourceLineageProcessSteps" "statement"]
+         :data-path   ["resourceLineage" "processStatement"]
          :placeholder "Provide the name of the method or procedure"}]]
 
       ;; How7: Description
-      [m4/form-group
+      #_[m4/form-group
        {:form-id    [:form]
-        :data-path  ["resourceLineageProcessSteps" "summary"]
+        :data-path  ["resourceLineage" "summary"]
         :label      "Description"
         :toolTip    "TODO"
         :helperText "Provide a brief description of the method"}
        [m4/textarea-field
         {:form-id     [:form]
-         :data-path   ["resourceLineageProcessSteps" "summary"]
+         :data-path   ["resourceLineage" "summary"]
          :placeholder "Provide a brief summary of a single method or procedure"}]]
 
       ;; How7b: list-add free-text entries
@@ -1701,11 +1701,11 @@
         :toolTip "TODO"}
        [m4/text-add-button
         {:form-id     [:form]
-         :data-path   ["resourceLineageProcessSteps" "steps"]
+         :data-path   ["resourceLineage" "steps"]
          :button-text "Add"}]
        [m4/selection-list-values
         {:form-id   [:form]
-         :data-path ["resourceLineageProcessSteps" "steps"]}]]]]
+         :data-path ["resourceLineage" "steps"]}]]]]
 
     :method-doc/user-defined-entry-form
     [:div

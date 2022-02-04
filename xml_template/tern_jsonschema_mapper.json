@@ -214,7 +214,6 @@
     "parentMetadata": {
       "!docstring": "ID3",
       "xpath": "mdb:parentMetadata",
-      "keep": false,
       "type": "object",
       "rules": [
         {
@@ -226,7 +225,11 @@
       ],
       "properties": {
         "parentMetadataFlag": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": false,
+          "keep": true,
+          "export": false,
+          "xpath": "cit:CI_Citation"
         },
         "record": {
           "type": "object",
@@ -239,7 +242,7 @@
             "uuid": {},
             "abstract": {},
             "uri": {
-              "keep": "false",
+              "keep": false,
               "xpath": "cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor",
               "attributes": {
                 "text": {
@@ -382,8 +385,10 @@
         },
         "datePublicationFlag": {
           "type": "boolean",
+          "keep": true,
+          "default": false,
           "export": false,
-          "xpath": "dummy"
+          "xpath": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]"
         },
         "datePublication": {
           "!docstring": "ID8",

@@ -37,13 +37,14 @@
     (not (pos? errors))))
 
 (defn has-block-errors?
-  [state [_ {:keys [data-path]}]]
+  [state [_ {:keys [data-path field-paths]
+             :or {field-paths #{[]}}}]]
   (s/assert (s/nilable ::utils4/data-path) data-path)
   (s/assert vector? data-path)
   (let [path (blocks4/block-path data-path)
         logic (get-in state path)
-        {:keys [progress/errors]} (:progress/score logic)]
-    (pos? errors)))
+        field-blocks (map #(get-in logic (blocks4/block-path %)) field-paths)]
+    (some pos? (map #(get-in % [:progress/score :progress/errors]) field-blocks))))
 
 (defn has-selected-block-errors?
   [state [_ {:keys [data-path field-paths]

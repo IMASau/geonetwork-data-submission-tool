@@ -1163,9 +1163,9 @@
       [:<>
        (for [index (range (count items))]
          (low-code4/render-template
-          {:template-id template-id
-           :variables   {'?form-id   form-id
-                         '?data-path (conj data-path index)}}))])))
+           {:template-id template-id
+            :variables   {'?form-id   form-id
+                          '?data-path (conj data-path index)}}))])))
 
 (defn selection-list-breadcrumb-settings
   "Settings for selection-list-breadcrumb component"

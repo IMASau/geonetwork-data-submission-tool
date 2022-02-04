@@ -2132,7 +2132,7 @@
       <mri:resourceConstraints>
         <mco:MD_LegalConstraints>
           <mco:useLimitation><gco:CharacterString>
-            The CC-By license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties. Details are provided at https://creativecommons.org/licenses/by/4.0/legalcode
+            The Creative Commons Attribution 4.0 International (CC BY 4.0) license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties. Details are provided at https://creativecommons.org/licenses/by/4.0/
           </gco:CharacterString></mco:useLimitation>
           <mco:graphic>
             <mcc:MD_BrowseGraphic>
@@ -2254,7 +2254,7 @@
       <!-- About2 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->
       <mri:resourceConstraints>
         <mco:MD_SecurityConstraints>
-          <mco:reference>
+          <!-- <mco:reference>
             <cit:CI_Citation>
               <cit:title>
                 <gco:CharacterString>Security Classification</gco:CharacterString>
@@ -2268,7 +2268,7 @@
                     <gco:CharacterString>https://www.protectivesecurity.gov.au/Pages/default.aspx</gco:CharacterString>
                   </cit:linkage>
                   <cit:protocol>
-                    <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+                    <gco:CharacterString>WWW:LINK-1.0-http-/-link</gco:CharacterString>
                   </cit:protocol>
                   <cit:function>
                     <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
@@ -2277,7 +2277,7 @@
                 </cit:CI_OnlineResource>
               </cit:onlineResource>
             </cit:CI_Citation>
-          </mco:reference>
+          </mco:reference> -->
           <mco:classification>
             <mco:MD_ClassificationCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_ClassificationCode" codeListValue="unclassified"/>
           </mco:classification>
@@ -2512,9 +2512,11 @@
               <!-- Datasource1 ~ Required ~ conditional -->
               <!-- Datasource1 ~ Rule ~ Required if a file is uploaded via Upload Data feature -->
               <!-- Datasource1 ~ Rule ~ File name without file extension, replace ["_","-"] with space -->
+              <!-- ASD@2022 Comment out this element as it is not supported on SHaRED GUI for file upload-->
+              <!--
               <cit:description>
                 <gco:CharacterString>DictionaryParkhurst etal 2020</gco:CharacterString>
-              </cit:description>
+              </cit:description> -->
               <cit:function>
                 <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                            codeListValue="download"/>
@@ -2665,13 +2667,13 @@
               <cit:name>
                 <gco:CharacterString>Name of Feature</gco:CharacterString>
               </cit:name>
-              <!-- Datasource6 ~ Description ~ Description of layer or dataset -->
+              <!-- Datasource6 ~ Description ~ Layer name -->
               <!-- Datasource6 ~ Required ~ no -->
               <!-- Datasource6 ~ InputLength ~ As-Is 250 -->
               <!-- Datasource6 ~ Size ~ single -->
               <!-- Datasource6 ~ Cardinality ~ one per mrd:transferOptions block -->
               <cit:description>
-                <gco:CharacterString>WFS Service OGC:WFS [description element]</gco:CharacterString>
+                <gco:CharacterString>WFS Service OGC:WFS [layer name]</gco:CharacterString>
               </cit:description>
               <!-- Required ~ conditional -->
               <!-- Rule ~ Required if cit:description is not blank -->
@@ -2934,6 +2936,23 @@
           </cit:onlineResource>
         </cit:CI_Citation>
       </mrl:additionalDocumentation>
+      <!-- ASD@2022 Included examples of process steps -->
+
+      <mrl:processStep>
+        <mrl:LI_ProcessStep>
+          <mrl:description>
+            <gco:CharacterString>Provide the details of step 1</gco:CharacterString>
+          </mrl:description>
+        </mrl:LI_ProcessStep>
+      </mrl:processStep>
+      <mrl:processStep>
+        <mrl:LI_ProcessStep>
+          <mrl:description>
+            <gco:CharacterString>Provide the details of step 2</gco:CharacterString>
+          </mrl:description>
+        </mrl:LI_ProcessStep>
+      </mrl:processStep>
+
     </mrl:LI_Lineage>
   </mdb:resourceLineage>
   <!-- Description ~ Individual methods used to produce the dataset/collection -->
@@ -2948,58 +2967,59 @@
   <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041825814/Resource+Lineage+Statement -->
   <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044414700/Resource+Lineage+Process+Step -->
   <!-- Process steps - example 1 -->
-  <mdb:resourceLineage>
-    <mrl:LI_Lineage>
-      <!-- How7 ~ Description ~ Summary -->
-      <!-- How7 ~ Help Text ~ Provide a brief description of the method -->
-      <!-- How7 ~ Placeholder Text ~ as shown below -->
-      <!-- How7 ~ KeepPlaceholderText ~ yes -->
-      <!-- How7 ~ Required ~ Conditional - block is optional but field is required if block is completed -->
-      <!-- How7 ~ InputLength ~ 500 -->
-      <!-- How7 ~ Size ~ multiline -->
-      <!-- How7 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -->
-      <mrl:statement>
-        <gco:CharacterString>Placeholder text=Provide a brief summary of a single method or procedure</gco:CharacterString>
-      </mrl:statement>
-      <mrl:additionalDocumentation>
-        <cit:CI_Citation>
-          <!-- How6 ~ Description ~ Name -->
-          <!-- How6 ~ Help Text ~ Provide the name of the method or procedure -->
-          <!-- How6 ~ Placeholder Text ~ as shown below -->
-          <!-- How6 ~ KeepPlaceholderText ~ no -->
-          <!-- How6 ~ Required ~ Conditional - block is optional but field is required if block is completed -->
-          <!-- How6 ~ InputLength ~ 500 -->
-          <!-- How6 ~ Size ~ single -->
-          <!-- How6 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -->
-          <cit:title>
-            <gco:CharacterString>Provide the name of the method or procedure</gco:CharacterString>
-          </cit:title>
-        </cit:CI_Citation>
-      </mrl:additionalDocumentation>
-      <!-- How7b ~ Description ~ Steps -->
-      <!-- How7b ~ Help Text ~ Provide a description of the step in the method of collecting or preparing the data -->
-      <!-- How7b ~ Placeholder Text ~ Input step details -->
-      <!-- How7b ~ KeepPlaceholderText ~ no -->
-      <!-- How7b ~ Required ~ no -->
-      <!-- How7b ~ InputLength ~ 500 -->
-      <!-- How7b ~ Size ~ single -->
-      <!-- How7b ~ Cardinality ~ 0 to many per mdb:resourceLineage block -->
-      <!-- How7b ~ Example step 1 -->
-      <mrl:processStep>
-        <mrl:LI_ProcessStep>
-          <mrl:description>
-            <gco:CharacterString>Provide the details of step 1</gco:CharacterString>
-          </mrl:description>
-        </mrl:LI_ProcessStep>
-      </mrl:processStep>
-      <!-- How7b ~ Example 1 step 2 -->
-      <mrl:processStep>
-        <mrl:LI_ProcessStep>
-          <mrl:description>
-            <gco:CharacterString>Provide the details of step 2</gco:CharacterString>
-          </mrl:description>
-        </mrl:LI_ProcessStep>
-      </mrl:processStep>
-    </mrl:LI_Lineage>
-  </mdb:resourceLineage>
+  <!-- ASD@2022 Disable this example as mdb:MD_Metadata can have one mdb:resourceLineage and  mdb:resourceLineage can have 0..* mrl:LI_Lineage -->
+  <!-- <mdb:resourceLineage> -->
+  <!--   <mrl:LI_Lineage> -->
+  <!--     <!-\- How7 ~ Description ~ Summary -\-> -->
+  <!--     <!-\- How7 ~ Help Text ~ Provide a brief description of the method -\-> -->
+  <!--     <!-\- How7 ~ Placeholder Text ~ as shown below -\-> -->
+  <!--     <!-\- How7 ~ KeepPlaceholderText ~ yes -\-> -->
+  <!--     <!-\- How7 ~ Required ~ Conditional - block is optional but field is required if block is completed -\-> -->
+  <!--     <!-\- How7 ~ InputLength ~ 500 -\-> -->
+  <!--     <!-\- How7 ~ Size ~ multiline -\-> -->
+  <!--     <!-\- How7 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -\-> -->
+  <!--     <mrl:statement> -->
+  <!--       <gco:CharacterString>Placeholder text=Provide a brief summary of a single method or procedure</gco:CharacterString> -->
+  <!--     </mrl:statement> -->
+  <!--     <mrl:additionalDocumentation> -->
+  <!--       <cit:CI_Citation> -->
+  <!--         <!-\- How6 ~ Description ~ Name -\-> -->
+  <!--         <!-\- How6 ~ Help Text ~ Provide the name of the method or procedure -\-> -->
+  <!--         <!-\- How6 ~ Placeholder Text ~ as shown below -\-> -->
+  <!--         <!-\- How6 ~ KeepPlaceholderText ~ no -\-> -->
+  <!--         <!-\- How6 ~ Required ~ Conditional - block is optional but field is required if block is completed -\-> -->
+  <!--         <!-\- How6 ~ InputLength ~ 500 -\-> -->
+  <!--         <!-\- How6 ~ Size ~ single -\-> -->
+  <!--         <!-\- How6 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -\-> -->
+  <!--         <cit:title> -->
+  <!--           <gco:CharacterString>Provide the name of the method or procedure</gco:CharacterString> -->
+  <!--         </cit:title> -->
+  <!--       </cit:CI_Citation> -->
+  <!--     </mrl:additionalDocumentation> -->
+  <!--     <!-\- How7b ~ Description ~ Steps -\-> -->
+  <!--     <!-\- How7b ~ Help Text ~ Provide a description of the step in the method of collecting or preparing the data -\-> -->
+  <!--     <!-\- How7b ~ Placeholder Text ~ Input step details -\-> -->
+  <!--     <!-\- How7b ~ KeepPlaceholderText ~ no -\-> -->
+  <!--     <!-\- How7b ~ Required ~ no -\-> -->
+  <!--     <!-\- How7b ~ InputLength ~ 500 -\-> -->
+  <!--     <!-\- How7b ~ Size ~ single -\-> -->
+  <!--     <!-\- How7b ~ Cardinality ~ 0 to many per mdb:resourceLineage block -\-> -->
+  <!--     <!-\- How7b ~ Example step 1 -\-> -->
+  <!--     <mrl:processStep> -->
+  <!--       <mrl:LI_ProcessStep> -->
+  <!--         <mrl:description> -->
+  <!--           <gco:CharacterString>Provide the details of step 1</gco:CharacterString> -->
+  <!--         </mrl:description> -->
+  <!--       </mrl:LI_ProcessStep> -->
+  <!--     </mrl:processStep> -->
+  <!--     <!-\- How7b ~ Example 1 step 2 -\-> -->
+  <!--     <mrl:processStep> -->
+  <!--       <mrl:LI_ProcessStep> -->
+  <!--         <mrl:description> -->
+  <!--           <gco:CharacterString>Provide the details of step 2</gco:CharacterString> -->
+  <!--         </mrl:description> -->
+  <!--       </mrl:LI_ProcessStep> -->
+  <!--     </mrl:processStep> -->
+  <!--   </mrl:LI_Lineage> -->
+  <!-- </mdb:resourceLineage> -->
 </mdb:MD_Metadata>

@@ -1651,7 +1651,7 @@
       }
     },
     "resourceLineage": {
-      "xpath": "mdb:resourceLineage[1]/mrl:LI_Lineage[mrl:scope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode[@codeListValue='dataset']][1]",
+      "xpath": "mdb:resourceLineage/mrl:LI_Lineage",
       "type": "object",
       "properties": {
         "statement": {
@@ -1695,24 +1695,6 @@
               }
             }
           }
-        }
-      }
-    },
-    "resourceLineageProcessSteps": {
-      "xpath": "mdb:resourceLineage[2]/mrl:LI_Lineage[mrl:processStep][1]",
-      "type": "object",
-      "properties": {
-        "statement": {
-          "!docstring": "How6",
-          "xpath": "mrl:additionalDocumentation/cit:CI_Citation/cit:title/gco:CharacterString",
-          "keep": false,
-          "type": "string"
-        },
-        "summary": {
-          "!docstring": "How7",
-          "xpath": "mrl:statement/gco:CharacterString",
-          "keep": false,
-          "type": "string"
         },
         "steps": {
           "!docstring": "How7b",
@@ -1724,7 +1706,9 @@
             "keep": false,
             "type": "string",
             "required": true,
-            "rules": ["requiredField"]
+            "rules": [
+              "requiredField"
+            ]
           }
         }
       }

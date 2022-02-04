@@ -312,6 +312,45 @@ def export(request, uuid):
     return response
 
 
+def publish_to_geonetwork(doc, uuid):
+    gn_root = settings.GEONETWORK_URLROOT
+    gn_user = settings.GEONETWORK_USER
+    gn_pass = settings.GEONETWORK_PASSWORD
+    # export
+    exported_doc = create_export_xml_string(doc, uuid)
+    try:
+        with requests.Session() as session:
+            # login
+            ## Load initial token:
+            res = session.post(f"{gn_root}/srv/eng/info?type=me")
+            token = res.cookies['XSRF-TOKEN']
+            ## authenticate:
+            res = session.post(f"{gn_root}/srv/eng/info?type=me",
+                               auth=(gn_user,gn_pass),
+                               headers={'X-XSRF-TOKEN': token})
+            ## Verify login (checking http status is probably
+            ## sufficient, but GN's own docs emphasise the
+            ## authenticated=true requirement so we'll follow suit):
+            res_xml = etree.fromstring(res.content)
+            is_authed = len( res_xml.xpath('/info/me[@authenticated="true"]') ) > 0
+            if not is_authed:
+                raise Exception(f"Couldn't authenticate with Geonetwork instance {gn_root}")
+            # publish
+            res = session.post(f"{gn_root}/srv/api/records",
+                               auth=(gn_user,gn_user),
+                               headers={'X-XSRF-TOKEN': token,
+                                        'Accept': 'application/json'},
+                               data={'metadataType': 'METADATA',
+                                     # Shared creates the UUID:
+                                     'uuidProcessing': 'NOTHING'},
+                               files={'file': ('metadata.xml', exported_doc)})
+            # (update model)
+    except Exception as e:
+        # update model with error
+        # raise?
+        pass
+
+
 MEF_TEMPLATE = '''<?xml version="1.0" encoding="UTF-8"?>
 <info version="1.1">
   <general>

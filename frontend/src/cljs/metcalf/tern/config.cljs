@@ -47,6 +47,7 @@
 (rf/reg-event-fx ::components4/upload-file-drop handlers4/upload-file-drop)
 (rf/reg-event-fx ::components4/upload-files-drop handlers4/upload-files-drop)
 (rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/input-blur handlers4/input-blur-handler)
 (rf/reg-event-fx ::components4/value-list-add-with-defaults-click-handler handlers4/value-list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)

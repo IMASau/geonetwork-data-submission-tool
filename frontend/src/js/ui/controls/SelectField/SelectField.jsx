@@ -182,7 +182,7 @@ AsyncSelectField.propTypes = {
     getLabel: PropTypes.func.isRequired,
 }
 
-export function SelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange}) {
+export function SelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange, onBlur}) {
     const isAdded = getAdded ? getAdded(value): false;
     const placeholderWhenEnabled = disabled ? null: placeholder;
     return (
@@ -195,6 +195,7 @@ export function SelectField({value, options, hasError, disabled, placeholder, ge
             options={options}
             placeholder={placeholderWhenEnabled}
             onChange={(value) => onChange(value)}
+            onBlur={() => onBlur ? onBlur(): null}
             isClearable={true}
             isDisabled={disabled}
             isLoading={false}
@@ -211,6 +212,7 @@ SelectField.propTypes = {
     disabled: PropTypes.bool,
     hasError: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
+    onBlur: PropTypes.func,
     Option: PropTypes.func.isRequired,
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,

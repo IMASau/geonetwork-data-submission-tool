@@ -11,6 +11,7 @@ export default {
     argTypes: {
         // Most are inferred from propTypes
         onChange: {action: 'onChange'},
+        onBlur: {action: 'onBlur'},
     }
 };
 

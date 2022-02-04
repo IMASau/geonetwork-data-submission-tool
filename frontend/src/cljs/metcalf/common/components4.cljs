@@ -677,6 +677,23 @@
         :onClick  #(rf/dispatch [::item-add-button-click config])}
        "Add"])))
 
+(defn list-add-button-settings
+  "Settings for list-add-button component"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :value-path :added-path :button-text]
+   ::low-code4/opt-ks [:item-defaults]
+   ::low-code4/schema {:type "array"}})
+
+(defn list-add-button
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [disabled is-hidden button-text]} props]
+    (when-not is-hidden
+      [:button.bp3-button.bp3-intent-primary
+       {:disabled disabled
+        :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler config])}
+       button-text])))
+
 (defn list-add-button3-settings
   "Settings for list-add-button component"
   [_]

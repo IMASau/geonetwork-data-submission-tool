@@ -47,7 +47,7 @@
 
 (defn has-selected-block-errors?
   [state [_ {:keys [data-path field-paths]
-             :or {field-paths #{[]}}}]]
+             :or   {field-paths #{[]}}}]]
   (s/assert (s/nilable ::utils4/data-path) data-path)
   (s/assert vector? data-path)
   (let [path (blocks4/block-path data-path)

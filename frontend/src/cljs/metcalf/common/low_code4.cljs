@@ -93,7 +93,7 @@
         (let [block-props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
               block-data @(rf/subscribe [:metcalf.common.components4/get-block-data config])]
           [:div {:onMouseDown (fn [e]
-                                (when (.-shiftKey e)
+                                (when (.-altKey e)
                                   (reset! *open true)
                                   (.. e stopPropagation)))}
            [bp3/overlay {:isOpen               @*open

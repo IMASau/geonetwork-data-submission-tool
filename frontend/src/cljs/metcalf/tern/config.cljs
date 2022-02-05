@@ -394,8 +394,8 @@
 
      [m4/form-group
       {:form-id  [:form]
-       :label    "Parent Metadata"
-       :required true}
+       :data-path ["parentMetadata"]
+       :label    "Parent Metadata"}
       [m4/yes-no-field
        {:form-id   [:form]
         :data-path ["parentMetadata" "parentMetadataFlag"]

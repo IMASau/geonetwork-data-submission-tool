@@ -3,7 +3,10 @@
             [clojure.string :as string]
             [metcalf.common.schema4 :as schema4]
             [metcalf.common.utils4 :as utils4]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [cljs.pprint :as pprint]
+            [reagent.core :as r]
+            [interop.blueprint :as bp3]))
 
 (defonce ^:dynamic component-registry {})
 (defonce ^:dynamic template-registry {})
@@ -78,6 +81,46 @@
                          :subs {:block-props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
                                 :block-data  @(rf/subscribe [:metcalf.common.components4/get-block-data config])}}})
     (apply view args)))
+
+; NOTE: experimental
+(defn component-debug-wrapper
+  "Opens an overlay with debug info on shift-click"
+  [{:keys [config schema] :as ctx} view]
+  (fn log-view-inputs
+    []
+    (let [*open (r/atom false)]
+      (fn [& args]
+        (let [block-props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
+              block-data @(rf/subscribe [:metcalf.common.components4/get-block-data config])]
+          [:div {:onMouseDown (fn [e]
+                                (when (.-shiftKey e)
+                                  (reset! *open true)
+                                  (.. e stopPropagation)))}
+           [bp3/overlay {:isOpen               @*open
+                         :onClose              #(reset! *open false)
+                         :autoFocus            true,
+                         :canEscapeKeyClose    true,
+                         :canOutsideClickClose true,
+                         :enforceFocus         true,
+                         :hasBackdrop          true,
+                         :usePortal            true,
+                         :className            "bp3-overlay-scroll-container"}
+            [:div.bp3-card {:style {:width "80%" :margin "10%"}}
+             [:h3 (str (get-in ctx [:sym]))]
+             (into [bp3/tabs {}]
+                   (for [{:keys [id data]} [{:id "ctx" :data ctx}
+                                            {:id "args" :data args}
+                                            {:id "block-props" :data block-props}
+                                            {:id "block-data" :data block-data}
+                                            {:id "block-schema" :data schema}]]
+                     [bp3/tab {:id    id
+                               :title id
+                               :panel (r/as-element
+                                        [:pre.bp3-text-small
+                                         (with-out-str
+                                           (binding [pprint/*print-miser-width* 10]
+                                             (pprint/pprint data)))])}]))]]
+           (into [view] args)])))))
 
 (defn build-component
   [sym reg-data]

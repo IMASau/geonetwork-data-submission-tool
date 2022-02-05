@@ -88,55 +88,67 @@
     (binding [pprint/*print-miser-width* 10]
       (pprint/pprint x))))
 
+(defn component-controls-overlay
+  [{:keys [config settings schema view args sym onClose]}]
+  (let [block-props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
+        block-data @(rf/subscribe [:metcalf.common.components4/get-block-data config])
+        doc (:doc (meta view))]
+    [bp3/overlay {:isOpen               true
+                  :onClose              onClose
+                  :autoFocus            true,
+                  :canEscapeKeyClose    true,
+                  :canOutsideClickClose true,
+                  :enforceFocus         true,
+                  :hasBackdrop          true,
+                  :usePortal            true,
+                  :className            "bp3-overlay-scroll-container"}
+     [:div.bp3-card {:style {:width "80%" :margin "10%"}}
+      [:h3 (str sym)]
+      [bp3/tabs {}
+       (when doc
+         [bp3/tab {:id    "about"
+                   :title "about"
+                   :panel (r/as-element
+                            [:div {:style {:white-space "pre-line"}}
+                             doc])}])
+       [bp3/tab {:id    "args"
+                 :title "args"
+                 :panel (r/as-element [:pre.bp3-text-small (pre-str args)])}]
+       [bp3/tab {:id    "block-props"
+                 :title "block-props"
+                 :panel (r/as-element [:pre.bp3-text-small (pre-str block-props)])}]
+       [bp3/tab {:id    "block-data"
+                 :title "block-data"
+                 :panel (r/as-element [:pre.bp3-text-small (pre-str block-data)])}]
+       [bp3/tab {:id    "block-schema"
+                 :title "block-schema"
+                 :panel (r/as-element [:pre.bp3-text-small (pre-str schema)])}]
+       ; TODO: data is confusing.  Remove or translate for users?
+       [bp3/tab {:id    "settings"
+                 :title "settings"
+                 :panel (r/as-element [:pre.bp3-text-small (pre-str settings)])}]]]]))
+
 (defn component-controls-wrapper
   "Opens an overlay with debug info on shift-click"
-  [{:keys [config settings schema] :as ctx} view]
+  [{:keys [sym config settings schema]} view]
   (fn log-view-inputs
     []
     (let [*open (r/atom false)]
       (fn [& args]
-        (let [block-props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
-              block-data @(rf/subscribe [:metcalf.common.components4/get-block-data config])
-              doc (:doc (meta view))]
-          [:div {:onMouseDown (fn [e]
-                                (when (.-altKey e)
-                                  (reset! *open true)
-                                  (.. e stopPropagation)))}
-           [bp3/overlay {:isOpen               @*open
-                         :onClose              #(reset! *open false)
-                         :autoFocus            true,
-                         :canEscapeKeyClose    true,
-                         :canOutsideClickClose true,
-                         :enforceFocus         true,
-                         :hasBackdrop          true,
-                         :usePortal            true,
-                         :className            "bp3-overlay-scroll-container"}
-            [:div.bp3-card {:style {:width "80%" :margin "10%"}}
-             [:h3 (str (get-in ctx [:sym]))]
-             [bp3/tabs {}
-              (when doc
-                [bp3/tab {:id    "about"
-                          :title "about"
-                          :panel (r/as-element
-                                   [:div {:style {:white-space "pre-line"}}
-                                    doc])}])
-              [bp3/tab {:id    "args"
-                        :title "args"
-                        :panel (r/as-element [:pre.bp3-text-small (pre-str args)])}]
-              [bp3/tab {:id    "block-props"
-                        :title "block-props"
-                        :panel (r/as-element [:pre.bp3-text-small (pre-str block-props)])}]
-              [bp3/tab {:id    "block-data"
-                        :title "block-data"
-                        :panel (r/as-element [:pre.bp3-text-small (pre-str block-data)])}]
-              [bp3/tab {:id    "block-schema"
-                        :title "block-schema"
-                        :panel (r/as-element [:pre.bp3-text-small (pre-str schema)])}]
-              ; TODO: data is confusing.  Remove or translate for users?
-              [bp3/tab {:id    "settings"
-                        :title "settings"
-                        :panel (r/as-element [:pre.bp3-text-small (pre-str settings)])}]]]]
-           (into [view] args)])))))
+        [:div {:onMouseDown (fn [e]
+                              (when (.-altKey e)
+                                (reset! *open true)
+                                (.. e stopPropagation)))}
+         (when @*open
+           [component-controls-overlay
+            {:config   config
+             :settings settings
+             :schema   schema
+             :view     view
+             :args     args
+             :sym      sym
+             :onClose #(reset! *open false)}])
+         (into [view] args)]))))
 
 (goog-define enable-component-controls false)
 

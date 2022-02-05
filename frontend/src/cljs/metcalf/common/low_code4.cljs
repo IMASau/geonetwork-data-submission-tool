@@ -130,6 +130,7 @@
               [bp3/tab {:id    "block-schema"
                         :title "block-schema"
                         :panel (r/as-element [:pre.bp3-text-small (pre-str schema)])}]
+              ; TODO: data is confusing.  Remove or translate for users?
               [bp3/tab {:id    "settings"
                         :title "settings"
                         :panel (r/as-element [:pre.bp3-text-small (pre-str settings)])}]]]]

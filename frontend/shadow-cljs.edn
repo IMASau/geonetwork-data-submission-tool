@@ -14,7 +14,9 @@
            :modules    {:app {:entries [metcalf.imas.core]}}
            :output-dir "resources/public/js/app"
            :asset-path "/static/metcalf3/js/app"
-           :devtools   {:preloads [devtools.preload metcalf.common.preload3]}}
+           :devtools   {:preloads [devtools.preload metcalf.common.preload3]}
+           :closure-defines {metcalf.common.low-code4/enable-component-controls true}}
+          }
           :imas-prod
           {:target     :browser
            :modules    {:app {:entries [metcalf.imas.core]}}

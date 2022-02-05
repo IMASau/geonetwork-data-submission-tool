@@ -124,9 +124,9 @@
                  :title "block-schema"
                  :panel (r/as-element [:pre.bp3-text-small (pre-str schema)])}]
        ; TODO: data is confusing.  Remove or translate for users?
-       [bp3/tab {:id    "settings"
-                 :title "settings"
-                 :panel (r/as-element [:pre.bp3-text-small (pre-str settings)])}]]]]))
+       #_[bp3/tab {:id    "settings"
+                   :title "settings"
+                   :panel (r/as-element [:pre.bp3-text-small (pre-str settings)])}]]]]))
 
 (defn component-controls-wrapper
   "Opens an overlay with debug info on shift-click"
@@ -147,7 +147,7 @@
              :view     view
              :args     args
              :sym      sym
-             :onClose #(reset! *open false)}])
+             :onClose  #(reset! *open false)}])
          (into [view] args)]))))
 
 (goog-define enable-component-controls false)

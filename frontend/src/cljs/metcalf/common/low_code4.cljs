@@ -105,12 +105,6 @@
      [:div.bp3-card {:style {:width "80%" :margin "10%"}}
       [:h3 (str sym)]
       [bp3/tabs {}
-       (when doc
-         [bp3/tab {:id    "about"
-                   :title "about"
-                   :panel (r/as-element
-                            [:div {:style {:white-space "pre-line"}}
-                             doc])}])
        [bp3/tab {:id    "args"
                  :title "args"
                  :panel (r/as-element [:pre.bp3-text-small (pre-str args)])}]
@@ -123,6 +117,12 @@
        [bp3/tab {:id    "block-schema"
                  :title "block-schema"
                  :panel (r/as-element [:pre.bp3-text-small (pre-str schema)])}]
+       (when doc
+         [bp3/tab {:id    "about"
+                   :title "about"
+                   :panel (r/as-element
+                            [:div {:style {:white-space "pre-line"}}
+                             doc])}])
        ; TODO: data is confusing.  Remove or translate for users?
        #_[bp3/tab {:id    "settings"
                    :title "settings"

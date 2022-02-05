@@ -106,8 +106,8 @@
       [:h3 (str sym)]
       [bp3/tabs {}
        [bp3/tab {:id    "args"
-                 :title "args"
-                 :panel (r/as-element [:pre.bp3-text-small (pre-str args)])}]
+                 :title "ui config"
+                 :panel (r/as-element [:pre.bp3-text-small (pre-str (into [sym] args))])}]
        [bp3/tab {:id    "block-props"
                  :title "block-props"
                  :panel (r/as-element [:pre.bp3-text-small (pre-str block-props)])}]

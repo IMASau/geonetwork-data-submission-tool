@@ -83,9 +83,14 @@
     (apply view args)))
 
 ; NOTE: experimental
+(defn pre-str [x]
+  (with-out-str
+    (binding [pprint/*print-miser-width* 10]
+      (pprint/pprint x))))
+
 (defn component-debug-wrapper
   "Opens an overlay with debug info on shift-click"
-  [{:keys [config schema] :as ctx} view]
+  [{:keys [config settings schema] :as ctx} view]
   (fn log-view-inputs
     []
     (let [*open (r/atom false)]
@@ -107,19 +112,27 @@
                          :className            "bp3-overlay-scroll-container"}
             [:div.bp3-card {:style {:width "80%" :margin "10%"}}
              [:h3 (str (get-in ctx [:sym]))]
-             (into [bp3/tabs {}]
-                   (for [{:keys [id data]} [{:id "ctx" :data ctx}
-                                            {:id "args" :data args}
-                                            {:id "block-props" :data block-props}
-                                            {:id "block-data" :data block-data}
-                                            {:id "block-schema" :data schema}]]
-                     [bp3/tab {:id    id
-                               :title id
-                               :panel (r/as-element
-                                        [:pre.bp3-text-small
-                                         (with-out-str
-                                           (binding [pprint/*print-miser-width* 10]
-                                             (pprint/pprint data)))])}]))]]
+             [bp3/tabs {}
+              [bp3/tab {:id    "about"
+                        :title "about"
+                        :panel (r/as-element
+                                 [:div {:style {:white-space "pre-line"}}
+                                  (:doc (meta view))])}]
+              [bp3/tab {:id    "args"
+                        :title "args"
+                        :panel (r/as-element [:pre.bp3-text-small (pre-str args)])}]
+              [bp3/tab {:id    "block-props"
+                        :title "block-props"
+                        :panel (r/as-element [:pre.bp3-text-small (pre-str block-props)])}]
+              [bp3/tab {:id    "block-data"
+                        :title "block-data"
+                        :panel (r/as-element [:pre.bp3-text-small (pre-str block-data)])}]
+              [bp3/tab {:id    "block-schema"
+                        :title "block-schema"
+                        :panel (r/as-element [:pre.bp3-text-small (pre-str schema)])}]
+              [bp3/tab {:id    "settings"
+                        :title "settings"
+                        :panel (r/as-element [:pre.bp3-text-small (pre-str settings)])}]]]]
            (into [view] args)])))))
 
 (defn build-component

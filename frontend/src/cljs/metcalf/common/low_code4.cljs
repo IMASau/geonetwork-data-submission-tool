@@ -96,7 +96,8 @@
     (let [*open (r/atom false)]
       (fn [& args]
         (let [block-props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
-              block-data @(rf/subscribe [:metcalf.common.components4/get-block-data config])]
+              block-data @(rf/subscribe [:metcalf.common.components4/get-block-data config])
+              doc (:doc (meta view))]
           [:div {:onMouseDown (fn [e]
                                 (when (.-altKey e)
                                   (reset! *open true)
@@ -113,11 +114,12 @@
             [:div.bp3-card {:style {:width "80%" :margin "10%"}}
              [:h3 (str (get-in ctx [:sym]))]
              [bp3/tabs {}
-              [bp3/tab {:id    "about"
-                        :title "about"
-                        :panel (r/as-element
-                                 [:div {:style {:white-space "pre-line"}}
-                                  (:doc (meta view))])}]
+              (when doc
+                [bp3/tab {:id    "about"
+                          :title "about"
+                          :panel (r/as-element
+                                   [:div {:style {:white-space "pre-line"}}
+                                    doc])}])
               [bp3/tab {:id    "args"
                         :title "args"
                         :panel (r/as-element [:pre.bp3-text-small (pre-str args)])}]

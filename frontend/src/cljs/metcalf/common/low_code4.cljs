@@ -88,7 +88,7 @@
     (binding [pprint/*print-miser-width* 10]
       (pprint/pprint x))))
 
-(defn component-debug-wrapper
+(defn component-controls-wrapper
   "Opens an overlay with debug info on shift-click"
   [{:keys [config settings schema] :as ctx} view]
   (fn log-view-inputs
@@ -136,6 +136,8 @@
                         :panel (r/as-element [:pre.bp3-text-small (pre-str settings)])}]]]]
            (into [view] args)])))))
 
+(goog-define enable-component-controls false)
+
 (defn build-component
   [sym reg-data]
   (s/assert map? reg-data)
@@ -146,7 +148,7 @@
             schema @(rf/subscribe [::get-data-schema config])
             ctx {:sym sym :config config :settings settings :schema schema}
             view (cond->> view (:debug/log-view-inputs config false) (log-view-inputs-wrapper ctx))
-            view (cond->> view goog/DEBUG (component-debug-wrapper ctx))]
+            view (cond->> view enable-component-controls (component-controls-wrapper ctx))]
         ; TODO: put checks behind a flag?
         (check-missing-keys ctx)
         (check-compatible-schema ctx)

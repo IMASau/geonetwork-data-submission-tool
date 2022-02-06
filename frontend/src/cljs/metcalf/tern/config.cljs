@@ -426,7 +426,6 @@
                       {"value" "economy" "label" "economy"}
                       {"value" "environment" "label" "environment"}
                       {"value" "geoscientificInformation" "label" "geoscientificInformation"}
-                      {"value" "biota" "label" "biota"}
                       {"value" "health" "label" "health"}
                       {"value" "imageryBaseMapsEarthCover" "label" "imageryBaseMapsEarthCover"}
                       {"value" "intelligenceMilitary" "label" "intelligenceMilitary"}

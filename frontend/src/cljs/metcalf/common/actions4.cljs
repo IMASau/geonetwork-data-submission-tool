@@ -51,6 +51,16 @@
   (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (assoc-in s (conj block-path :props :list-item-selected-idx) idx)))
 
+(defn select-user-defined-list-item-action2
+  "Set the :list-item-selected-idx prop on an array block.  Does nothing if idx is not a user defined item."
+  [s form-id data-path idx added-path]
+  (let [block-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])
+        block-data (get-in s block-path)
+        added? (get-in block-data (utils4/as-path [:content idx (blocks4/block-path added-path) :props :value]))]
+    (cond-> s
+      added?
+      (assoc-in (conj block-path :props :list-item-selected-idx) idx))))
+
 (defn select-user-defined-list-item-action3
   "Set the :list-item-selected-idx prop on an array block.  Does nothing if idx is not a user defined item."
   [s form-id data-path added-path idx]

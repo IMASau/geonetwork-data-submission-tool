@@ -18,34 +18,37 @@
             [re-frame.core :as rf]))
 
 #_(rf/reg-event-fx :app/upload-data-confirm-upload-click-add-attachment handlers3/add-attachment)
+(rf/reg-event-fx ::components4/add-record handlers4/add-record-handler)
 (rf/reg-event-fx ::components4/boxes-changed handlers4/boxes-changed)
 (rf/reg-event-fx ::components4/create-document-modal-clear-click handlers4/create-document-modal-clear-click)
 (rf/reg-event-fx ::components4/create-document-modal-close-click handlers4/create-document-modal-close-click)
 (rf/reg-event-fx ::components4/create-document-modal-save-click handlers4/create-document-modal-save-click)
-(rf/reg-event-fx ::components4/item-add-button-click handlers4/item-add-with-defaults-click-handler2)
-(rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler2)
-(rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-click-handler)
-(rf/reg-event-fx ::components4/item-dialog-button-edit-click handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/edit-dialog-cancel handlers4/edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/edit-dialog-close handlers4/edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/edit-dialog-save handlers4/edit-dialog-save-handler)
+(rf/reg-event-fx ::components4/item-add-button-click handlers4/item-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/item-dialog-button-add-click handlers4/item-add-with-defaults-click-handler2)
+(rf/reg-event-fx ::components4/item-dialog-button-edit-click handlers4/item-edit-click-handler)
+(rf/reg-event-fx ::components4/item-edit-with-defaults-click-handler handlers4/item-edit-click-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler3 handlers4/list-add-with-defaults-click-handler3)
-(rf/reg-event-fx ::components4/value-list-add-with-defaults-click-handler handlers4/value-list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::components4/list-edit-dialog-cancel handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-close handlers4/list-edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/list-edit-dialog-save handlers4/list-edit-dialog-save-handler)
 (rf/reg-event-fx ::components4/list-option-picker-change handlers4/list-option-picker-change)
 (rf/reg-event-fx ::components4/option-change handlers4/option-change-handler)
-(rf/reg-event-fx ::components4/add-record handlers4/add-record-handler)
 (rf/reg-event-fx ::components4/selection-list-item-click handlers4/selection-list-item-click3)
 (rf/reg-event-fx ::components4/selection-list-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-reorder handlers4/selection-list-reorder)
-(rf/reg-event-fx ::components4/text-value-add-click-handler handlers4/text-value-add-click-handler)
-(rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/selection-list-values-item-click handlers4/selection-list-values-item-click)
 (rf/reg-event-fx ::components4/selection-list-values-remove-click handlers4/selection-list-remove-click)
 (rf/reg-event-fx ::components4/selection-list-values-reorder handlers4/selection-list-reorder)
-(rf/reg-event-fx ::components4/selection-list-values-item-click handlers4/selection-list-values-item-click)
+(rf/reg-event-fx ::components4/text-value-add-click-handler handlers4/text-value-add-click-handler)
+(rf/reg-event-fx ::components4/upload-file-drop handlers4/upload-file-drop)
+(rf/reg-event-fx ::components4/upload-files-drop handlers4/upload-files-drop)
+(rf/reg-event-fx ::components4/value-changed handlers4/value-changed-handler)
+(rf/reg-event-fx ::components4/input-blur handlers4/input-blur-handler)
+(rf/reg-event-fx ::components4/value-list-add-with-defaults-click-handler handlers4/value-list-add-with-defaults-click-handler2)
 (rf/reg-event-fx ::handlers4/-save-current-document-error handlers4/-save-current-document-error)
 (rf/reg-event-fx ::handlers4/-save-current-document-success handlers4/-save-current-document-success)
 (rf/reg-event-fx :app/-archive-current-document-error handlers3/-archive-current-document-error)
@@ -59,7 +62,6 @@
 (rf/reg-event-fx :app/-transite-doc-click-confirm handlers3/-transite-doc-click-confirm)
 (rf/reg-event-fx :app/-transite-doc-confirm-error handlers3/-transite-doc-confirm-error)
 (rf/reg-event-fx :app/-transite-doc-confirm-success handlers3/-transite-doc-confirm-success)
-(rf/reg-event-fx :app/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx :app/clone-doc-confirm handlers3/clone-document)
 (rf/reg-event-fx :app/contributors-modal-share-click handlers4/contributors-modal-share-click)
 (rf/reg-event-fx :app/contributors-modal-unshare-click handlers4/contributors-modal-unshare-click)
@@ -81,18 +83,17 @@
 (rf/reg-event-fx :app/modal-dialog-confirm-dismiss handlers3/close-and-cancel)
 (rf/reg-event-fx :app/modal-dialog-confirm-save handlers3/close-and-confirm)
 (rf/reg-event-fx :app/page-view-edit-archive-click-confirm handlers3/archive-current-document)
+(rf/reg-event-fx :app/PageViewEdit-save-button-click handlers4/save-current-document)
 (rf/reg-event-fx :app/upload-data-file-upload-failed handlers3/upload-data-file-upload-failed)
 (rf/reg-event-fx :app/upload-max-filesize-exceeded handlers3/upload-max-filesize-exceeded)
 (rf/reg-event-fx :metcalf.common.actions4/-create-document handlers4/-create-document-handler)
 (rf/reg-event-fx :metcalf.common.actions4/-get-document-data-action handlers4/-get-document-data-action)
+(rf/reg-event-fx :metcalf.common.actions4/-upload-attachment handlers4/-upload-attachment)
+(rf/reg-event-fx :metcalf.common.actions4/-upload-single-attachment handlers4/-upload-single-attachment)
 (rf/reg-event-fx :metcalf.common.components4/coordinates-modal-field-close-modal handlers4/coordinates-modal-field-close-modal)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
 (rf/reg-event-fx :metcalf.tern.core/init-db tern-handlers/init-db)
-(rf/reg-event-fx ::components4/upload-file-drop handlers4/upload-file-drop)
-(rf/reg-event-fx ::components4/upload-files-drop handlers4/upload-files-drop)
-(rf/reg-event-fx :metcalf.common.actions4/-upload-single-attachment handlers4/-upload-single-attachment)
-(rf/reg-event-fx :metcalf.common.actions4/-upload-attachment handlers4/-upload-attachment)
 (rf/reg-fx ::fx3/post fx3/post)
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
 (rf/reg-fx ::fx3/set-location-href fx3/set-location-href)
@@ -101,16 +102,16 @@
 (rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
 (rf/reg-fx :app/post-multipart-form (utils4/promise-fx utils4/post-multipart-form))
 (rf/reg-fx :ui/setup-blueprint ui-controls/setup-blueprint)
+(rf/reg-sub ::components4/can-dialog-cancel? subs4/can-dialog-cancel-sub)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
 (rf/reg-sub ::components4/get-block-props subs4/form-state-signal subs4/get-block-props-sub)
-(rf/reg-sub ::components4/is-item-added? subs4/form-state-signal subs4/is-item-added?)
 (rf/reg-sub ::components4/get-list-edit-can-save-sub subs4/form-state-signal subs4/get-list-edit-can-save-sub)
+(rf/reg-sub ::components4/get-page-errors-props subs4/form-state-signal subs4/get-page-errors-props-sub)
+(rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
 (rf/reg-sub ::components4/has-block-errors? subs4/form-state-signal subs4/has-block-errors?)
 (rf/reg-sub ::components4/has-selected-block-errors? subs4/form-state-signal subs4/has-selected-block-errors?)
-(rf/reg-sub ::components4/can-dialog-cancel? subs4/can-dialog-cancel-sub)
-(rf/reg-sub ::components4/get-yes-no-field-props subs4/form-state-signal subs4/get-block-props-sub)
-(rf/reg-sub ::components4/get-page-errors-props subs4/form-state-signal subs4/get-page-errors-props-sub)
+(rf/reg-sub ::components4/is-item-added? subs4/form-state-signal subs4/is-item-added?)
 (rf/reg-sub ::low-code4/get-data-schema subs4/get-data-schema-sub)
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub ::tern-subs/get-edit-tabs tern-subs/get-edit-tabs)
@@ -152,51 +153,51 @@
        "maxKeywords"          rules4/tern-max-keywords})
 (set! low-code4/component-registry
       {
-       'm4/async-simple-item-option-picker     {:view components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
-       'm4/async-list-option-picker            {:view components4/async-list-option-picker :init components4/async-list-option-picker-settings}
-       'm4/async-list-option-picker-breadcrumb {:view components4/async-list-option-picker-breadcrumb :init components4/async-list-option-picker-breadcrumb-settings}
-       'm4/async-list-option-picker-columns    {:view components4/async-list-option-picker-columns :init components4/async-list-option-picker-columns-settings}
-       'm4/async-select-option-simple          {:view components4/async-select-option-simple :init components4/async-select-option-simple-settings}
-       'm4/async-select-option-breadcrumb      {:view components4/async-select-option-breadcrumb :init components4/async-select-option-breadcrumb-settings}
-       'm4/async-select-option-columns         {:view components4/async-select-option-columns :init components4/async-select-option-columns-settings}
-       ;'m4/async-select-value                  {:view components4/async-select-value :init components4/async-select-value-settings}
-       'm4/boxmap-field                        {:view components4/boxmap-field :init components4/boxmap-field-settings}
-       ;'m4/breadcrumb-list-option-picker       {:view components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
-       'm4/selection-list-breadcrumb           {:view components4/selection-list-breadcrumb :init components4/selection-list-breadcrumb-settings}
-       'm4/checkbox-field                      {:view components4/checkbox-field :init components4/checkbox-field-settings}
-       'm4/date-field2                         {:view components4/date-field2 :init components4/date-field2-settings}
-       'm4/expanding-control                   {:view components4/expanding-control :init components4/expanding-control-settings}
-       'm4/form-group                          {:view components4/form-group :init components4/form-group-settings}
-       'm4/inline-form-group                   {:view components4/inline-form-group :init components4/inline-form-group-settings}
-       'm4/input-field                         {:view components4/input-field :init components4/input-field-settings}
-       'm4/item-add-button                     {:view components4/item-add-button :init components4/item-add-button-settings}
-       'm4/item-dialog-button                  {:view components4/item-dialog-button :init components4/item-dialog-button-settings}
-       'm4/edit-dialog                         {:view components4/edit-dialog :init components4/edit-dialog-settings}
-       'm4/list-add-button                     {:view components4/list-add-button3 :init components4/list-add-button3-settings}
-       'm4/value-list-add-button               {:view components4/value-list-add-button :init components4/value-list-add-button-settings}
-       'm4/list-edit-dialog                    {:view components4/list-edit-dialog :init components4/list-edit-dialog-settings}
-       'm4/typed-list-edit-dialog              {:view components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
-       'm4/numeric-input-field                 {:view components4/numeric-input-field :init components4/numeric-input-field-settings}
-       'm4/page-errors                         {:view components4/page-errors :init components4/page-errors-settings}
-       'm4/select-option-simple                {:view components4/select-option-simple :init components4/select-option-simple-settings}
-       'm4/select-option-breadcrumb            {:view components4/select-option-breadcrumb :init components4/select-option-breadcrumb-settings}
-       'm4/select-option-columns               {:view components4/select-option-columns :init components4/select-option-columns-settings}
-       'm4/select-value                        {:view components4/select-value :init components4/select-value-settings}
-       ;'m4/simple-list-option-picker           {:view components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
-       'm4/selection-list-template             {:view components4/selection-list-template :init components4/selection-list-template-settings}
-       'm4/selection-list-simple               {:view components4/selection-list-simple :init components4/selection-list-simple-settings}
-       'm4/selection-list-values               {:view components4/selection-list-values :init components4/selection-list-values-settings}
-       ;'m4/table-list-option-picker            {:view components4/table-list-option-picker :init components4/table-list-option-picker-settings}
-       'm4/selection-list-columns              {:view components4/selection-list-columns3 :init components4/selection-list-columns3-settings}
-       'm4/textarea-field                      {:view components4/textarea-field :init components4/textarea-field-settings}
-       'm4/when-data                           {:view components4/when-data :init components4/when-data-settings}
-       'm4/get-data                            {:view components4/get-data :init components4/get-data-settings}
-       'm4/yes-no-field                        {:view components4/yes-no-field :init components4/yes-no-field-settings}
-       'm4/simple-list                         {:view components4/simple-list :init components4/simple-list-settings}
-       ;'m4/record-add-button                   {:view components4/record-add-button :init components4/record-add-button-settings}
-       'm4/text-add-button                     {:view components4/text-add-button :init components4/text-add-button-settings}
-       'm4/upload-files                        {:view components4/upload-files :init components4/upload-files-settings}
-       'm4/upload-thumbnail                    {:view components4/upload-thumbnail :init components4/upload-thumbnail-settings}
+       'm4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
+       'm4/async-list-option-picker            {:view #'components4/async-list-option-picker :init components4/async-list-option-picker-settings}
+       'm4/async-list-option-picker-breadcrumb {:view #'components4/async-list-option-picker-breadcrumb :init components4/async-list-option-picker-breadcrumb-settings}
+       'm4/async-list-option-picker-columns    {:view #'components4/async-list-option-picker-columns :init components4/async-list-option-picker-columns-settings}
+       'm4/async-select-option-simple          {:view #'components4/async-select-option-simple :init components4/async-select-option-simple-settings}
+       'm4/async-select-option-breadcrumb      {:view #'components4/async-select-option-breadcrumb :init components4/async-select-option-breadcrumb-settings}
+       'm4/async-select-option-columns         {:view #'components4/async-select-option-columns :init components4/async-select-option-columns-settings}
+       ;'m4/async-select-value                  {:view #'components4/async-select-value :init components4/async-select-value-settings}
+       'm4/boxmap-field                        {:view #'components4/boxmap-field :init components4/boxmap-field-settings}
+       ;'m4/breadcrumb-list-option-picker       {:view #'components4/breadcrumb-list-option-picker :init components4/breadcrumb-list-option-picker-settings}
+       'm4/selection-list-breadcrumb           {:view #'components4/selection-list-breadcrumb :init components4/selection-list-breadcrumb-settings}
+       'm4/checkbox-field                      {:view #'components4/checkbox-field :init components4/checkbox-field-settings}
+       'm4/date-field2                         {:view #'components4/date-field2 :init components4/date-field2-settings}
+       'm4/expanding-control                   {:view #'components4/expanding-control :init components4/expanding-control-settings}
+       'm4/form-group                          {:view #'components4/form-group :init components4/form-group-settings}
+       'm4/inline-form-group                   {:view #'components4/inline-form-group :init components4/inline-form-group-settings}
+       'm4/input-field                         {:view #'components4/input-field :init components4/input-field-settings}
+       'm4/item-add-button                     {:view #'components4/item-add-button :init components4/item-add-button-settings}
+       'm4/item-dialog-button                  {:view #'components4/item-dialog-button :init components4/item-dialog-button-settings}
+       'm4/edit-dialog                         {:view #'components4/edit-dialog :init components4/edit-dialog-settings}
+       'm4/list-add-button                     {:view #'components4/list-add-button3 :init components4/list-add-button3-settings}
+       'm4/value-list-add-button               {:view #'components4/value-list-add-button :init components4/value-list-add-button-settings}
+       'm4/list-edit-dialog                    {:view #'components4/list-edit-dialog :init components4/list-edit-dialog-settings}
+       'm4/typed-list-edit-dialog              {:view #'components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
+       'm4/numeric-input-field                 {:view #'components4/numeric-input-field :init components4/numeric-input-field-settings}
+       'm4/page-errors                         {:view #'components4/page-errors :init components4/page-errors-settings}
+       'm4/select-option-simple                {:view #'components4/select-option-simple :init components4/select-option-simple-settings}
+       'm4/select-option-breadcrumb            {:view #'components4/select-option-breadcrumb :init components4/select-option-breadcrumb-settings}
+       'm4/select-option-columns               {:view #'components4/select-option-columns :init components4/select-option-columns-settings}
+       'm4/select-value                        {:view #'components4/select-value :init components4/select-value-settings}
+       ;'m4/simple-list-option-picker           {:view #'components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
+       'm4/selection-list-template             {:view #'components4/selection-list-template :init components4/selection-list-template-settings}
+       'm4/selection-list-simple               {:view #'components4/selection-list-simple :init components4/selection-list-simple-settings}
+       'm4/selection-list-values               {:view #'components4/selection-list-values :init components4/selection-list-values-settings}
+       ;'m4/table-list-option-picker            {:view #'components4/table-list-option-picker :init components4/table-list-option-picker-settings}
+       'm4/selection-list-columns              {:view #'components4/selection-list-columns3 :init components4/selection-list-columns3-settings}
+       'm4/textarea-field                      {:view #'components4/textarea-field :init components4/textarea-field-settings}
+       'm4/when-data                           {:view #'components4/when-data :init components4/when-data-settings}
+       'm4/get-data                            {:view #'components4/get-data :init components4/get-data-settings}
+       'm4/yes-no-field                        {:view #'components4/yes-no-field :init components4/yes-no-field-settings}
+       'm4/simple-list                         {:view #'components4/simple-list :init components4/simple-list-settings}
+       ;'m4/record-add-button                   {:view #'components4/record-add-button :init components4/record-add-button-settings}
+       'm4/text-add-button                     {:view #'components4/text-add-button :init components4/text-add-button-settings}
+       'm4/upload-files                        {:view #'components4/upload-files :init components4/upload-files-settings}
+       'm4/upload-thumbnail                    {:view #'components4/upload-thumbnail :init components4/upload-thumbnail-settings}
        })
 
 ; Specs intended for use with when-data :pred

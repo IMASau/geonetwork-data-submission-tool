@@ -58,12 +58,15 @@ export const DateField2 = ({value, disabled, onChange, hasError}) => {
 
     const handleChangeValue = (s) => {
         if (isEmpty(s)) {
+            setStateValue('')
             onChange(null)
         } else {
             let d = parseDate(s)
             if (isValidDate(d)) {
+                setStateValue(formatDate(d))
                 onChange(formatValue(d))
             } else {
+                setStateValue('')
                 onChange(null)
             }
         }

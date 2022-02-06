@@ -40,13 +40,14 @@
 (defn required-field
   [block required]
   (s/assert boolean? required)
-  (if required
-    (let [value (blocks4/as-data block)]
-      (-> block
-          (assoc-in [:props :required] true)
-          (cond-> (contains? empty-values value)
-                  (update-in [:props :errors] conj "This field is required"))))
-    block))
+  (let [block (detect-duplicate-application block ::required-field)]
+    (if required
+      (let [value (blocks4/as-data block)]
+        (-> block
+            (assoc-in [:props :required] true)
+            (cond-> (contains? empty-values value)
+                    (update-in [:props :errors] conj "This field is required"))))
+      block)))
 
 (defn other-constraints-logic
   [block required]

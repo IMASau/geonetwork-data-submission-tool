@@ -29,7 +29,14 @@
 
 (def empty-values #{nil "" [] {} #{}})
 
-;NOTE: It's possible that require-field is poor fit for objects/arrays
+(defn detect-duplicate-application
+  "Utility to identify duplicate application of rules.
+   Uses metadata ::rules-applied key to track applied rules."
+  [block rule-id]
+  (when (contains? (::rules-applied (meta block)) rule-id)
+    (js/console.error (str ::duplicate-application-detected) {:rule-id rule-id :block block}))
+  (vary-meta block update ::rules-applied (fnil conj #{}) rule-id))
+
 (defn required-field
   [block required]
   (s/assert boolean? required)

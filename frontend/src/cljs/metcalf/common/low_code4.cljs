@@ -136,7 +136,7 @@
     (let [*open (r/atom false)]
       (fn [& args]
         [:div {:onMouseDown (fn [e]
-                              (when (.-altKey e)
+                              (when (.-metaKey e)
                                 (reset! *open true)
                                 (.. e stopPropagation)))}
          (when @*open

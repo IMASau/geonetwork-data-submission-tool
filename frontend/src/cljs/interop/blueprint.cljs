@@ -17,5 +17,6 @@
 (def progress-bar (r/adapt-react-class BlueprintCore/ProgressBar))
 (def tree (r/adapt-react-class BlueprintCore/Tree))
 (def breadcrumbs (r/adapt-react-class BlueprintCore/Breadcrumbs))
+(def overlay (r/adapt-react-class BlueprintCore/Overlay))
 
 (def alignment (js->clj BlueprintCore/Alignment :keywordize-keys true))

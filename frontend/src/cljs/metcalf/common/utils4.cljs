@@ -257,8 +257,8 @@
 (defn show-error-analysis
   "Postwalk analysis.  Set show-errors? prop if field should display error."
   [{:keys [props] :as block}]
-  (let [{:keys [touched errors]} props
-        show-errors? (and touched (seq errors))]
+  (let [{:keys [touched errors disabled]} props
+        show-errors? (and (not disabled) touched (seq errors))]
     (if show-errors?
       (assoc-in block [:props :show-errors?] true)
       block)))

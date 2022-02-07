@@ -94,7 +94,7 @@ class DumaDocumentViewSet(mixins.UpdateModelMixin,
 
 
 class MetadataTemplateViewSet(viewsets.ModelViewSet):
-    queryset = models.MetadataTemplate.objects.all()
+    queryset = models.MetadataTemplate.objects.filter(archived=False)
     serializer_class = serializers.MetadataTemplateSerializer
     search_fields = ('name',)
 

@@ -926,7 +926,7 @@
          [m4/async-select-option-simple
           {:form-id     [:form]
            :data-path   ["referenceSystemInfo" "crsCode"]
-           :label-path  ["code"]
+           :label-path  ["description"]
            :value-path  ["code"]
            :placeholder "Select from list"
            :uri         "/api/horizontalcrs"}]]
@@ -953,7 +953,7 @@
          {:form-id     [:form]
           :data-path   ["identificationInfo" "verticalElement" "coordinateReferenceSystem"]
           :uri         "/api/verticalcrs"
-          :label-path  ["code"]
+          :label-path  ["description"]
           :value-path  ["code"]
           :placeholder "Select from list"}]]
 

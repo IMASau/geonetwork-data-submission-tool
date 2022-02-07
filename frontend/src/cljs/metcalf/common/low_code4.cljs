@@ -3,7 +3,10 @@
             [clojure.string :as string]
             [metcalf.common.schema4 :as schema4]
             [metcalf.common.utils4 :as utils4]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [cljs.pprint :as pprint]
+            [reagent.core :as r]
+            [interop.blueprint :as bp3]))
 
 (defonce ^:dynamic component-registry {})
 (defonce ^:dynamic template-registry {})
@@ -79,6 +82,76 @@
                                 :block-data  @(rf/subscribe [:metcalf.common.components4/get-block-data config])}}})
     (apply view args)))
 
+; NOTE: experimental
+(defn pre-str [x]
+  (with-out-str
+    (binding [pprint/*print-miser-width* 10]
+      (pprint/pprint x))))
+
+(defn component-controls-overlay
+  [{:keys [config settings schema view args sym onClose]}]
+  (let [block-props @(rf/subscribe [:metcalf.common.components4/get-block-props config])
+        block-data @(rf/subscribe [:metcalf.common.components4/get-block-data config])
+        doc (:doc (meta view))]
+    [bp3/overlay {:isOpen               true
+                  :onClose              onClose
+                  :autoFocus            true,
+                  :canEscapeKeyClose    true,
+                  :canOutsideClickClose true,
+                  :enforceFocus         true,
+                  :hasBackdrop          true,
+                  :usePortal            true,
+                  :className            "bp3-overlay-scroll-container"}
+     [:div.bp3-card {:style {:width "80%" :margin "10%"}}
+      [:h3 (str sym)]
+      [bp3/tabs {}
+       [bp3/tab {:id    "args"
+                 :title "ui config"
+                 :panel (r/as-element [:pre.bp3-text-small (pre-str (into [sym] args))])}]
+       [bp3/tab {:id    "block-props"
+                 :title "block-props"
+                 :panel (r/as-element [:pre.bp3-text-small (pre-str block-props)])}]
+       [bp3/tab {:id    "block-data"
+                 :title "block-data"
+                 :panel (r/as-element [:pre.bp3-text-small (pre-str block-data)])}]
+       [bp3/tab {:id    "block-schema"
+                 :title "block-schema"
+                 :panel (r/as-element [:pre.bp3-text-small (pre-str schema)])}]
+       (when doc
+         [bp3/tab {:id    "about"
+                   :title "about"
+                   :panel (r/as-element
+                            [:div {:style {:white-space "pre-line"}}
+                             doc])}])
+       ; TODO: data is confusing.  Remove or translate for users?
+       #_[bp3/tab {:id    "settings"
+                   :title "settings"
+                   :panel (r/as-element [:pre.bp3-text-small (pre-str settings)])}]]]]))
+
+(defn component-controls-wrapper
+  "Opens an overlay with debug info on shift-click"
+  [{:keys [sym config settings schema]} view]
+  (fn log-view-inputs
+    []
+    (let [*open (r/atom false)]
+      (fn [& args]
+        [:div {:onMouseDown (fn [e]
+                              (when (.-altKey e)
+                                (reset! *open true)
+                                (.. e stopPropagation)))}
+         (when @*open
+           [component-controls-overlay
+            {:config   config
+             :settings settings
+             :schema   schema
+             :view     view
+             :args     args
+             :sym      sym
+             :onClose  #(reset! *open false)}])
+         (into [view] args)]))))
+
+(goog-define enable-component-controls false)
+
 (defn build-component
   [sym reg-data]
   (s/assert map? reg-data)
@@ -88,7 +161,8 @@
             settings (when init (init config))
             schema @(rf/subscribe [::get-data-schema config])
             ctx {:sym sym :config config :settings settings :schema schema}
-            view (cond->> view (:debug/log-view-inputs config) (log-view-inputs-wrapper ctx))]
+            view (cond->> view (:debug/log-view-inputs config false) (log-view-inputs-wrapper ctx))
+            view (cond->> view enable-component-controls (component-controls-wrapper ctx))]
         ; TODO: put checks behind a flag?
         (check-missing-keys ctx)
         (check-compatible-schema ctx)

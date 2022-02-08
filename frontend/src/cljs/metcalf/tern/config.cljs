@@ -840,6 +840,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "beginPosition"]
         :label     "Start date"
+        :toolTip   "Describes the date of the first data point in the dataset."
         :required  true}
        [m4/date-field2
         {:form-id   [:form]
@@ -848,6 +849,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "endPosition"]
         :label     "End date"
+        :toolTip   "Describes the date of the last data point in the data set."
         :required  true}
        [m4/date-field2
         {:form-id   [:form]

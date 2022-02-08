@@ -878,7 +878,7 @@
         {:form-id   [:form]
          :data-path ["identificationInfo" "geographicElement" "siteDescription"]
          :label     "Provide a site description (optional)"
-         :toolTip   "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}
+         :toolTip   "Please provide a short description pertaining to the site of the dataset. This field is optional."}
         [m4/textarea-field
          {:form-id     [:form]
           :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
@@ -893,6 +893,7 @@
 
        [m4/form-group
         {:label    "Limits"
+         :toolTip  "Select the data's spatial extent on the map and the coordinates will be automatically populated."
          :required true}
         [m4/selection-list-columns
          {:form-id            [:form]
@@ -928,7 +929,7 @@
         [m4/form-group
          {:label    "Coordinate Reference System"
           :required true
-          :toolTip  "TODO"}
+          :toolTip  "Select a Coordinate Reference System."}
          [m4/async-select-option-simple
           {:form-id     [:form]
            :data-path   ["referenceSystemInfo" "crsCode"]
@@ -954,7 +955,7 @@
        [m4/inline-form-group
         {:label    "Vertical Coordinate Reference System"
          :required true
-         :toolTip  "TODO"}
+         :toolTip  "Select the Vertical Coordinate System."}
         [m4/async-select-option-simple
          {:form-id     [:form]
           :data-path   ["identificationInfo" "verticalElement" "coordinateReferenceSystem"]
@@ -966,7 +967,7 @@
        [m4/inline-form-group
         {:label    "Minimum"
          :required true
-         :toolTip  "TODO"}
+         :toolTip  "Input the minimum extent in meters."}
         [m4/numeric-input-field
          {:form-id   [:form]
           :data-path ["identificationInfo" "verticalElement" "minimumValue"]
@@ -975,7 +976,7 @@
        [m4/inline-form-group
         {:label    "Maximum"
          :required true
-         :toolTip  "TODO"}
+         :toolTip  "Input the maximum extent in meters."}
         [m4/numeric-input-field
          {:form-id   [:form]
           :data-path ["identificationInfo" "verticalElement" "maximumValue"]
@@ -989,7 +990,7 @@
          [m4/form-group
           {:label    "Resolution attribute"
            :required true
-           :toolTip  "TODO"}
+           :toolTip  "Indicate the attribute used is either a Denominator Scale, Vertical, Horizontal, or Angular distance."}
           [m4/select-value
            {:form-id     [:form]
             :data-path   ["identificationInfo" "SpatialResolution" "ResolutionAttribute"]

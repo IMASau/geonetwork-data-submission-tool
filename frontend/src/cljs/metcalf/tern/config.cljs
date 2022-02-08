@@ -386,7 +386,8 @@
       {:form-id    [:form]
        :data-path  ["identificationInfo" "title"]
        :label      "Title"
-       :helperText "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"}
+       :helperText "Clear and concise description of the content of the resource including What, Where, (How), When e.g. Fractional Cover for Australia 2014 ongoing"
+       :toolTip    "Enter the title of the dataset. Title should be short and informative."}
       [m4/input-field
        {:form-id     [:form]
         :data-path   ["identificationInfo" "title"]
@@ -395,7 +396,8 @@
      [m4/form-group
       {:form-id  [:form]
        :data-path ["parentMetadata"]
-       :label    "Parent Metadata"}
+       :label    "Parent Metadata"
+       :toolTip  "Check 'Yes' if there is a Parent Metadata Record associated with the dataset"}
       [m4/yes-no-field
        {:form-id   [:form]
         :data-path ["parentMetadata" "parentMetadataFlag"]
@@ -412,7 +414,8 @@
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "topicCategory"]
-       :label     "Topic Category"}
+       :label     "Topic Category"
+       :toolTip   "Please select a topic category relevant to the dataset (multiple selection is allowed)."}
       [m4/select-value
        {:form-id     [:form]
         :data-path   ["identificationInfo" "topicCategory"]
@@ -450,7 +453,8 @@
        [m4/form-group
         {:form-id   [:form]
          :data-path ["identificationInfo" "status"]
-         :label     "Status of Data"}
+         :label     "Status of Data"
+         :toolTip   "Please indicate the status of the dataset."}
         [m4/select-value
          {:form-id    [:form]
           :data-path  ["identificationInfo" "status"]
@@ -480,6 +484,7 @@
          :data-path  ["identificationInfo" "version"]
          :label      "Version"
          :helperText "Version number of the resource"
+         :toolTip    "Please input the version number of the collection."
          :required   true}
         [m4/input-field
          {:form-id   [:form]
@@ -491,7 +496,8 @@
        [m4/form-group
         {:form-id   [:form]
          :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
-         :label     "Maintenance/Update Freq"}
+         :label     "Maintenance/Update Freq"
+         :toolTip   "Please select the update frequency of the dataset."}
         [m4/select-value
          {:form-id    [:form]
           :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
@@ -516,7 +522,8 @@
      [m4/inline-form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "dateCreation"]
-       :label     "Date the resource was created"}
+       :label     "Date the resource was created"
+       :toolTip   "Select the creation date of the record."}
       [m4/date-field2
        {:form-id   [:form]
         :data-path ["identificationInfo" "dateCreation"]
@@ -525,7 +532,8 @@
      [m4/yes-no-field
       {:form-id   [:form]
        :data-path ["identificationInfo" "datePublicationFlag"]
-       :label     "Has the data been published before?"}]
+       :label     "Has the data been published before?"
+       :toolTip   "If the record has been published before, then please indicate as Yes and enter a published date. Or else leave as default value."}]
 
      ;; FIXME: I think this should be formatted as YYYY or YYYY-MM (according to the commented template)
      [m4/inline-form-group

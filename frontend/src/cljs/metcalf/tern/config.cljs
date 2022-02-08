@@ -229,7 +229,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "source"]
        :label     "Source"
-       :toolTip   "TODO"}
+       :toolTip   "Specify the source of the platform descriptions in citation format, if available."}
       [m4/textarea-field
        {:form-id     ?form-id
         :data-path   [?data-path "source"]
@@ -260,7 +260,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "source"]
        :label     "Source"
-       :toolTip   "TODO"}
+       :toolTip   "Specify the source of the instrument information in citation format, if available."}
       [m4/textarea-field
        {:form-id     ?form-id
         :data-path   [?data-path "source"]
@@ -271,7 +271,7 @@
        :data-path  [?data-path "serial"]
        :label      "Serial Number"
        :helperText "Optional"
-       :toolTip    "TODO"}
+       :toolTip    "This is optional. You can a serial number of the instrument if it is available."}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "serial"]}]]]
@@ -338,11 +338,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "unit"]
        :label     "Unit of measure"
-       :toolTip   [:div
-                   "Select a from the predefined list.  "
-                   "If the required unit is not found within the list you can use the "
-                   [:code "Add"]
-                   " button to define your own"]}
+       :toolTip   "Select a Unit of Measure (UoM) from the list. If the required UoM is not found within the list, you can click the 'Add' button to define a new units of measurement. The entry will be reviewed prior to publishing."}
 
       [:div.bp3-control-group
        [:div.bp3-fill

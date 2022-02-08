@@ -559,7 +559,7 @@
        :data-path  ["identificationInfo" "abstract"]
        :label      "Abstract"
        :helperText "Describe the content of the resource; e.g. what information was collected, how was it collected"
-       :toolTip    "Example: The Arcturus greenhouse gas (GHG) monitoring station was established in July 2010 48 km southeast of Emerald, Queensland, with flux tower measurements starting in June 2011 until early 2014. The station was part of a collaborative project between Geoscience Australia (GA) and CSIRO Marine and Atmospheric Research (CMAR). Elevation of the site was approximately 170m asl and mean annual precipitation was 572mm. The tower borderered 2 land use types split N-S: To the west lightly forested tussock grasslands; To the east crop lands, cycling through fallow periods.The instruments were installed on a square lattice tower with an adjustable pulley lever system to raise and lower the instrument arm. The tower was 5.6m tall with the instrument mast extending a further 1.1m above, totalling a height of 6.7m. Fluxes of heat, water vapour, methane and carbon dioxide were measured using the open-path eddy flux technique. Supplementary measurements above the canopy included temperature, humidity, windspeed, wind direction, rainfall, and the 4 components of net radiation. Soil heat flux, soil moisture and soil temperature measurements were also collected."
+       :toolTip    "A summary describing the dataset, e.g., “What, When, Where and How” in relation to the dataset."
        :required   true}
       [m4/textarea-field
        {:form-id   [:form]
@@ -570,7 +570,7 @@
        :data-path  ["identificationInfo" "purpose"]
        :label      "Purpose"
        :helperText "Brief statement about the purpose of the study"
-       :toolTip    "The Arcturus flux station data was collected to gain an understanding of natural background carbon dioxide and methane fluxes in the region prior to carbon sequestration and coal seam gas activities take place and to assess the feasibility of using this type of instrumentation for baseline studies prior to industry activities that will be required to monitor and assess CO2 or CH4 leakage to atmosphere in the future"}
+       :toolTip    "Provide the purpose of the dataset."}
       [m4/textarea-field
        {:form-id     [:form]
         :data-path   ["identificationInfo" "purpose"]
@@ -589,7 +589,8 @@
       [m4/form-group
        {:form-id   [:form]
         :data-path ["identificationInfo" "keywordsTheme" "keywords"]
-        :label     "Select research theme keywords - maximum of 12 allowed"}
+        :label     "Select research theme keywords - maximum of 12 allowed"
+        :toolTip   "Select the GCMD Science keywords representing the dataset . You may select up to 12 keywords."}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
@@ -609,7 +610,8 @@
       [m4/form-group
        {:form-id   [:form]
         :data-path ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-        :label     "Select research theme keywords - maximum of 12 allowed"}
+        :label     "Select research theme keywords - maximum of 12 allowed"
+        :toolTip   "Select the keywords representing fields of research . You may select up to 12 keywords."}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
@@ -629,11 +631,7 @@
       ;; TODO: also need a user-added option
       [m4/form-group
        {:label   "Select a platform for the data measurement"
-        :toolTip [:div
-                  "Select a platform from the predefined list.  "
-                  "If the required platform is not found within the list you can use the "
-                  [:code "Add"]
-                  " button to define your own"]}
+        :toolTip "Select the platform(s) that hosts the sensors that generates the dataset from the list. If the required platform is not in the list, you can click the '+ Add' button to add your platform. The entry will be reviewed prior to publishing."}
 
        [:div.bp3-control-group
         [:div.bp3-fill
@@ -669,7 +667,8 @@
      [m4/expanding-control {:label "Instruments" :required true}
       ;; TODO: also need a user-added option
       [m4/form-group
-       {:label "Select the instrument used for the platform"}
+       {:label   "Select the instrument used for the platform"
+        :toolTip "Select the instruments(s) or sensor(s) used to create the dataset from the list. If the required instrument is not in the list, you can click the '+ Add' button to add your instrument. The entry will be reviewed prior to publishing."}
 
        [:div.bp3-control-group
         [:div.bp3-fill
@@ -707,7 +706,8 @@
 
       ;; TODO: also need a user-added option
       [m4/form-group
-       {:label "Select the name of the measured parameter, e.g. vegetation height"}
+       {:label   "Select the name of the measured parameter, e.g. vegetation height"
+        :toolTip "Select a parameter (observed variable) from the predefined list. If the required parameter is not found within the list, you can click the '+ Add' button to define a new parameter. The entry will be reviewed prior to publishing."}
 
        [:div.bp3-control-group
         [:div.bp3-fill
@@ -744,7 +744,7 @@
      [m4/expanding-control {:label "Temporal Resolution" :required true}
       [m4/form-group
        {:label   "Select a Temporal Resolution range"
-        :toolTip "How frequently is the data collected?"}
+        :toolTip "Temporal resolution specifies the targeted time period between each value in the data set. Select a Temporal resolution range from the predefined list. Only one item can be selected."}
        [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsTemporal" "keywords"]
@@ -755,7 +755,7 @@
      [m4/expanding-control {:label "Horizontal Resolution" :required true}
       [m4/form-group
        {:label   "Select a Horizontal Resolution range"
-        :toolTip "For gridded data, select the pixel size of the data, for field plots, select average width"}
+        :toolTip "Select a Horizontal resolution range from the predefined list. Only one item can be selected."}
        [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsHorizontal" "keywords"]
@@ -766,7 +766,7 @@
      [m4/expanding-control {:label "Vertical Resolution (Optional)" :required false}
       [m4/form-group
        {:label   "Select a Vertical Resolution range"
-        :toolTip "Select the smallest vertical distance between successive elements of data in a dataset. This is synonymous with terms such as sample spacing and pixel size"}
+        :toolTip "Select a Vertical resolution range from the predefined list. Only one item can be selected."}
        [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
@@ -777,7 +777,7 @@
      [m4/expanding-control {:label "Australian Plant Name Index (Optional)" :required false}
       [m4/form-group
        {:label   "Select Plant Name Indexes keywords"
-        :toolTip "Species Taxa"}
+        :toolTip "Select the plant names from the APNI list. You may select up to 12 names."}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
@@ -796,7 +796,7 @@
      [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required false}
       [m4/form-group
        {:label   "Select Australian Faunal Directory keywords"
-        :toolTip "Species Taxa"}
+        :toolTip "Select animal species from the Australian Faunal Directory. You may select up to 12 keywords."}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
@@ -815,7 +815,7 @@
      [m4/expanding-control {:label "Additional Keywords (Optional)" :required false}
       [m4/form-group
        {:label   "Additional theme keywords can be added for review and approval process"
-        :toolTip "Enter your own additional theme keywords as required and click to add"}
+        :toolTip "You may define additional keywords if they are not available in the lists above.  The keywords will be reviewed prior to publishing."}
        [m4/text-add-button
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]

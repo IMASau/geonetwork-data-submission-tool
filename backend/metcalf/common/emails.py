@@ -30,7 +30,7 @@ def send_mail(subject=None, message=None, html_message=None, from_email=None, re
 
 def email_manager_submit_alert(doc):
     """
-    1. New metadata submitted (email to data manger)
+    1. New metadata submitted (email to data manager)
     """
     site = get_site(doc)
     context = {
@@ -64,7 +64,7 @@ def email_user_submit_confirmation(doc):
 
 def email_manager_updated_alert(doc):
     """
-    3. Submitted metadata has been modified (email to Data Manger)
+    3. Submitted metadata has been modified (email to Data Manager)
 
     """
     site = get_site(doc)

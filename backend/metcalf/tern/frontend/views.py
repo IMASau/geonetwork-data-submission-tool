@@ -316,9 +316,9 @@ def publish_to_geonetwork(doc, uuid):
     gn_root = settings.GEONETWORK_URLROOT
     gn_user = settings.GEONETWORK_USER
     gn_pass = settings.GEONETWORK_PASSWORD
-    # export
-    exported_doc = create_export_xml_string(doc, uuid)
     try:
+        # export
+        exported_doc = create_export_xml_string(doc, uuid)
         with requests.Session() as session:
             # Retrieve XSRF token:
             res = session.post(f"{gn_root}/srv/eng/info?type=me")

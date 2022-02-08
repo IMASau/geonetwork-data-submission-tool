@@ -320,21 +320,9 @@ def publish_to_geonetwork(doc, uuid):
     exported_doc = create_export_xml_string(doc, uuid)
     try:
         with requests.Session() as session:
-            # login
-            ## Load initial token:
+            # Retrieve XSRF token:
             res = session.post(f"{gn_root}/srv/eng/info?type=me")
             token = res.cookies['XSRF-TOKEN']
-            ## authenticate:
-            res = session.post(f"{gn_root}/srv/eng/info?type=me",
-                               auth=(gn_user,gn_pass),
-                               headers={'X-XSRF-TOKEN': token})
-            ## Verify login (checking http status is probably
-            ## sufficient, but GN's own docs emphasise the
-            ## authenticated=true requirement so we'll follow suit):
-            res_xml = etree.fromstring(res.content)
-            is_authed = len( res_xml.xpath('/info/me[@authenticated="true"]') ) > 0
-            if not is_authed:
-                raise Exception(f"Couldn't authenticate with Geonetwork instance {gn_root}")
             # publish
             res = session.post(f"{gn_root}/srv/api/records",
                                auth=(gn_user,gn_user),

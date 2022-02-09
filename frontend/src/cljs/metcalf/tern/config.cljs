@@ -387,10 +387,10 @@
         :placeholder "Provide a descriptive title for the data set including the subject of study, the study location and time period. Example: TERN OzFlux Arcturus Emerald Tower Site 2014-ongoing"}]]
 
      [m4/form-group
-      {:form-id  [:form]
+      {:form-id   [:form]
        :data-path ["parentMetadata"]
-       :label    "Parent Metadata"
-       :toolTip  "Select 'Yes' if there is a parent metadata record associated with the dataset."}
+       :label     "Parent Metadata"
+       :toolTip   "Select 'Yes' if there is a parent metadata record associated with the dataset."}
       [m4/yes-no-field
        {:form-id   [:form]
         :data-path ["parentMetadata" "parentMetadataFlag"]
@@ -435,11 +435,12 @@
                       {"value" "utilitiesCommunication" "label" "Utilities Communication"}
                       {"value" "extraTerrestrial" "label" "Extra Terrestrial"}
                       {"value" "disaster" "label" "Disaster"}]}]
-      [m4/selection-list-simple
-       {:form-id     [:form]
-        :data-path   ["identificationInfo" "topicCategories"]
-        :label-path  ["label"]
-        :value-path  ["value"]}]]
+      [:div.SelectionListItemColoured
+       [m4/selection-list-simple
+        {:form-id    [:form]
+         :data-path  ["identificationInfo" "topicCategories"]
+         :label-path ["label"]
+         :value-path ["value"]}]]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
@@ -1138,12 +1139,13 @@
          ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults      {"partyType" "organisation"}}]
 
-       [m4/selection-list-template
-        {:form-id     [:form]
-         :data-path   ["identificationInfo" "pointOfContact"]
-         :template-id :party/list-item
-         :value-path  ["uri"]
-         :added-path  ["isUserDefined"]}]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-template
+         {:form-id     [:form]
+          :data-path   ["identificationInfo" "pointOfContact"]
+          :template-id :party/list-item
+          :value-path  ["uri"]
+          :added-path  ["isUserDefined"]}]]
 
        [m4/typed-list-edit-dialog
         {:form-id   [:form]
@@ -1193,14 +1195,16 @@
       [:div
        [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "given_name"]}] " "
        [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "surname"]}] " / "
-       [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "Identifier"]}]]]
+       [:span {:style {:text-transform "capitalize"}}
+        [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "Identifier"]}]]]]
 
      [m4/when-data {:form-id   [:form]
                     :data-path [?data-path "partyType"]
                     :pred      #{"organisation"}}
       [:div
        [m4/get-data {:form-id ?form-id :data-path [?data-path "organisation" "name"]}] " / "
-       [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "Identifier"]}]]]]
+       [:span {:style {:text-transform "capitalize"}}
+        [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "Identifier"]}]]]]]
 
     :party-person/user-defined-entry-form
     [:div
@@ -1640,8 +1644,8 @@
          :data-path ["resourceLineage" "statement"]}]]
 
       [m4/form-group
-       {:label    "Method documentation"
-        :toolTip  "The method of production of the dataset. Provide the title and URL of the method documentation."}
+       {:label   "Method documentation"
+        :toolTip "The method of production of the dataset. Provide the title and URL of the method documentation."}
        [m4/selection-list-columns
         {:form-id            [:form]
          :data-path          ["resourceLineage" "onlineMethods"]
@@ -1673,25 +1677,25 @@
 
       ;; How6: Name
       #_[m4/form-group
-       {:form-id    [:form]
-        :data-path  ["resourceLineage" "processStatement"]
-        :label      "Name"
-        :helperText "Provide the name of the method or procedure"}
-       [m4/textarea-field
-        {:form-id     [:form]
-         :data-path   ["resourceLineage" "processStatement"]
-         :placeholder "Provide the name of the method or procedure"}]]
+         {:form-id    [:form]
+          :data-path  ["resourceLineage" "processStatement"]
+          :label      "Name"
+          :helperText "Provide the name of the method or procedure"}
+         [m4/textarea-field
+          {:form-id     [:form]
+           :data-path   ["resourceLineage" "processStatement"]
+           :placeholder "Provide the name of the method or procedure"}]]
 
       ;; How7: Description
       #_[m4/form-group
-       {:form-id    [:form]
-        :data-path  ["resourceLineage" "summary"]
-        :label      "Description"
-        :helperText "Provide a brief description of the method"}
-       [m4/textarea-field
-        {:form-id     [:form]
-         :data-path   ["resourceLineage" "summary"]
-         :placeholder "Provide a brief summary of a single method or procedure"}]]
+         {:form-id    [:form]
+          :data-path  ["resourceLineage" "summary"]
+          :label      "Description"
+          :helperText "Provide a brief description of the method"}
+         [m4/textarea-field
+          {:form-id     [:form]
+           :data-path   ["resourceLineage" "summary"]
+           :placeholder "Provide a brief summary of a single method or procedure"}]]
 
       ;; How7b: list-add free-text entries
       [m4/form-group
@@ -1824,10 +1828,10 @@
      [m4/form-group
       {;:form-id   [:form]
        ;:data-path ["identificationInfo"]
-       :label     "Other constraints"}
+       :label "Other constraints"}
       [m4/simple-list
-       {:form-id [:form]
-        :data-path ["identificationInfo" "otherConstraints"]
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "otherConstraints"]
         :template-id :about/other-constraints-list-entry}]]
      [m4/form-group
       {:label   "Any other constraints"
@@ -1874,8 +1878,8 @@
      [m4/expanding-control {:label "Associated Documentation (Optional)"}
 
       [m4/form-group
-       {:label    "Publication"
-        :toolTip  "Please provide the title and URL of the publications describing the dataset."}
+       {:label   "Publication"
+        :toolTip "Please provide the title and URL of the publications describing the dataset."}
        [m4/selection-list-columns
         {:form-id            [:form]
          :data-path          ["identificationInfo" "additionalPublications"]
@@ -1975,7 +1979,7 @@
     [:p {:key ?data-path}
      [:i
       [m4/get-data
-       {:form-id ?form-id
+       {:form-id   ?form-id
         :data-path ?data-path}]]]
 
     :upload
@@ -2010,8 +2014,8 @@
 
      [:h2 "Data Services"]
      [m4/form-group
-      {:label    "Distributions"
-       :toolTip  "Provide information (name, URL) about the services for downloading the datasets."}
+      {:label   "Distributions"
+       :toolTip "Provide information (name, URL) about the services for downloading the datasets."}
       [m4/selection-list-columns
        {:form-id            [:form]
         :data-path          ["dataSources"]

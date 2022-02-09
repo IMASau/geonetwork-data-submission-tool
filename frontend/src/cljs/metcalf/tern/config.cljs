@@ -1204,7 +1204,8 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "role"]
-       :label     "Role"}
+       :label     "Role"
+       :toolTip   "Select the role of any individuals that contributed to the creation of the dataset."}
       [m4/select-option-simple
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
@@ -1274,7 +1275,8 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact"]
-       :label     "Contact"}
+       :label     "Contact"
+       :toolTip   "Select the primary contact of the dataset."}
       [m4/async-simple-item-option-picker
        {:form-id     ?form-id
         :data-path   [?data-path "contact"]
@@ -1325,7 +1327,8 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
-       :label     "Select associated Organisation"}
+       :label     "Select associated Organisation"
+       :toolTip   "Select the organisation associated with the primary contact. You can add an organisation if a required organisation is not listed."}
 
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -1355,7 +1358,8 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "role"]
-       :label     "Role"}
+       :label     "Role"
+       :toolTip   "Select the role of any individuals that contributed to the creation of the dataset."}
       [m4/select-option-simple
        {:form-id    ?form-id
         :data-path  [?data-path "role"]
@@ -1425,7 +1429,8 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
-       :label     "Contact"}
+       :label     "Contact"
+       :toolTip   "Select an organisation from the list or add a new organisation if  it is not available  in the list."}
       [m4/async-simple-item-option-picker
        {:form-id     ?form-id
         :data-path   [?data-path "organisation"]

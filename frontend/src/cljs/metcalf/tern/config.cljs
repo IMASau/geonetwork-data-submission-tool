@@ -1760,6 +1760,7 @@
 
      [m4/form-group
       {:label    "Online data quality report"
+       :toolTip  "Data quality report refers to a textual description of the quality control of the dataset. Provide the title and URL of the report, if available."
        :required true}
       [m4/selection-list-columns
        {:form-id            [:form]

@@ -328,17 +328,30 @@
             "requiredField"
           ]
         },
-        "topicCategory": {
+        "topicCategories": {
           "!docstring": "ID4",
           "xpath": "mri:topicCategory",
           "keep": false,
-          "valueChild": "mri:MD_TopicCategoryCode",
-          "attributes": {
-            "text": {
-              "function": "identity"
-            },
-            "codeListValue": {
-              "function": "identity"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "xpath": "mri:topicCategory",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string",
+                "xpath": "mri:MD_TopicCategoryCode",
+                "attributes": {
+                  "text": {
+                    "function": "identity"
+                  },
+                  "codeListValue": {
+                    "function": "identity"
+                  }
+                }
+              }
             }
           },
           "rules": [

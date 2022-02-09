@@ -412,11 +412,11 @@
 
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "topicCategory"]
-       :label     "Topic Category"}
-      [m4/select-value
+       :data-path ["identificationInfo" "topicCategories"]
+       :label     "Topic Categories"}
+      [m4/simple-list-option-picker
        {:form-id     [:form]
-        :data-path   ["identificationInfo" "topicCategory"]
+        :data-path   ["identificationInfo" "topicCategories"]
         :placeholder "Start typing to filter list..."
         :label-path  ["label"]
         :value-path  ["value"]
@@ -439,7 +439,12 @@
                       {"value" "transportation" "label" "transportation"}
                       {"value" "utilitiesCommunication" "label" "utilitiesCommunication"}
                       {"value" "extraTerrestrial" "label" "extraTerrestrial"}
-                      {"value" "disaster" "label" "disaster"}]}]]
+                      {"value" "disaster" "label" "disaster"}]}]
+      [m4/selection-list-simple
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "topicCategories"]
+        :label-path  ["label"]
+        :value-path  ["value"]}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"

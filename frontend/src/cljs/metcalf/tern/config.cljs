@@ -2061,7 +2061,7 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "transferOptions" "linkage"]
-       :label     "URL"}
+       :label     "URL Address"}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "transferOptions" "linkage"]}]]
@@ -2077,7 +2077,7 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path]
-       :label     "Distributor"}
+       :label     "Distributor's Organisation"}
       [m4/async-select-option-simple
        {:form-id     ?form-id
         :data-path   [?data-path "distributor"]

@@ -94,6 +94,7 @@
         "type": "object",
         "export": false,
         "deleteWhenEmpty": false,
+        "rules": ["protocolLayer"],
         "properties": {
           "uri": {
             "type": "string"
@@ -196,9 +197,7 @@
               },
               "name": {
                 "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:name/gco:CharacterString",
-                "type": "string",
-                "required": true,
-                "rules": ["requiredField"]
+                "type": "string"
               },
               "description": {
                 "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:description/gco:CharacterString",
@@ -329,17 +328,30 @@
             "requiredField"
           ]
         },
-        "topicCategory": {
+        "topicCategories": {
           "!docstring": "ID4",
           "xpath": "mri:topicCategory",
           "keep": false,
-          "valueChild": "mri:MD_TopicCategoryCode",
-          "attributes": {
-            "text": {
-              "function": "identity"
-            },
-            "codeListValue": {
-              "function": "identity"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "xpath": "mri:topicCategory",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string",
+                "xpath": "mri:MD_TopicCategoryCode",
+                "attributes": {
+                  "text": {
+                    "function": "identity"
+                  },
+                  "codeListValue": {
+                    "function": "identity"
+                  }
+                }
+              }
             }
           },
           "rules": [
@@ -394,8 +406,7 @@
           "type": "string",
           "xpath": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]",
           "valueChild": "cit:CI_Date/cit:date/gco:Date",
-          "keep": false,
-          "rules": ["requiredField"]
+          "keep": false
         },
         "version": {
           "!docstring": "ID7",
@@ -559,13 +570,6 @@
                     "type": "string",
                     "valueChild": "gco:CharacterString"
                   },
-                  "fax": {
-                    "!docstring": "Who13 / Who14",
-                    "xpath": "TODO",
-                    "keep": false,
-                    "type": "string",
-                    "valueChild": "gco:CharacterString"
-                  },
                   "isUserDefined": {}
                 },
                 "rules": ["requiredField"]
@@ -613,13 +617,6 @@
                     "rules": ["requiredField"]
                   },
                   "phone": {
-                    "!docstring": "Who13 / Who14",
-                    "xpath": "TODO",
-                    "type": "string",
-                    "keep": false,
-                    "valueChild": "gco:CharacterString"
-                  },
-                  "fax": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "TODO",
                     "type": "string",
@@ -907,9 +904,6 @@
             "boxes": {
               "!docstring": "Where2",
               "xpath": "gex:geographicElement",
-              "rules": [
-                "requiredField"
-              ],
               "keep": false,
               "type": "array",
               "items": {
@@ -1460,8 +1454,7 @@
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:endPosition",
           "deleteWhenEmpty": true,
           "keep": false,
-          "type": "string",
-          "rules": ["requiredField"]
+          "type": "string"
         },
         "useLimitation": {
           "!docstring": "About - non-editable but displayed from the template",

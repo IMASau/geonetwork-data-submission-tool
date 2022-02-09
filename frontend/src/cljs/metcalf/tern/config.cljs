@@ -1331,7 +1331,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
        :label     "Select associated Organisation"
-       :toolTip   "Select the organisation associated with the primary contact. You can add an organisation if a required organisation is not listed."}
+       :toolTip   "Select the organisation associated with the primary contact or define your own."}
 
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -1433,7 +1433,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
        :label     "Contact"
-       :toolTip   "Select an organisation from the list or add a new organisation if  it is not available  in the list."}
+       :toolTip   "Select an organisation from the list or define your own."}
       [m4/async-simple-item-option-picker
        {:form-id     ?form-id
         :data-path   [?data-path "organisation"]
@@ -1656,7 +1656,7 @@
 
       [m4/form-group
        {:label    "Method documentation"
-        :toolTip  "The method of production of the dataset. Provide the title and url of the method documentation."}
+        :toolTip  "The method of production of the dataset. Provide the title and URL of the method documentation."}
        [m4/selection-list-columns
         {:form-id            [:form]
          :data-path          ["resourceLineage" "onlineMethods"]
@@ -1922,7 +1922,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "supplemental"]
         :label      "Supplemental Information"
-        :toolTip    "Miscellaneous information about the dataset, not captured elsewhere.  This is an optional field."
+        :toolTip    "Miscellaneous information about the dataset, not captured elsewhere."
         :helperText "Any supplemental information needed to interpret the resource"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -2025,7 +2025,8 @@
 
      [:h2 "Data Services"]
      [m4/form-group
-      {:label    "Distributions"}
+      {:label    "Distributions"
+       :toolTip  "Provide information (name, URL) about the services for downloading the datasets."}
       [m4/selection-list-columns
        {:form-id            [:form]
         :data-path          ["dataSources"]

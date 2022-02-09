@@ -407,33 +407,33 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "topicCategory"]
        :label     "Topic Category"
-       :toolTip   "Please select a topic category relevant to the dataset."}
+       :toolTip   "Please select a topic category relevant to the dataset (multiple selection is allowed)."}
       [m4/select-value
        {:form-id     [:form]
         :data-path   ["identificationInfo" "topicCategory"]
         :placeholder "Start typing to filter list..."
         :label-path  ["label"]
         :value-path  ["value"]
-        :options     [{"value" "farming" "label" "farming"}
-                      {"value" "biota" "label" "biota"}
-                      {"value" "boundaries" "label" "boundaries"}
-                      {"value" "climatology/meteorology/atmosphere" "label" "climatology/meteorology/atmosphere"}
-                      {"value" "economy" "label" "economy"}
-                      {"value" "environment" "label" "environment"}
-                      {"value" "geoscientificInformation" "label" "geoscientificInformation"}
-                      {"value" "health" "label" "health"}
-                      {"value" "imageryBaseMapsEarthCover" "label" "imageryBaseMapsEarthCover"}
-                      {"value" "intelligenceMilitary" "label" "intelligenceMilitary"}
-                      {"value" "inlandWaters" "label" "inlandWaters"}
-                      {"value" "location" "label" "location"}
-                      {"value" "oceans" "label" "oceans"}
-                      {"value" "planningCadastre" "label" "planningCadastre"}
-                      {"value" "society" "label" "society"}
-                      {"value" "structure" "label" "structure"}
-                      {"value" "transportation" "label" "transportation"}
-                      {"value" "utilitiesCommunication" "label" "utilitiesCommunication"}
-                      {"value" "extraTerrestrial" "label" "extraTerrestrial"}
-                      {"value" "disaster" "label" "disaster"}]}]]
+        :options     [{"value" "farming" "label" "Farming"}
+                      {"value" "biota" "label" "Biota"}
+                      {"value" "boundaries" "label" "Boundaries"}
+                      {"value" "climatology/meteorology/atmosphere" "label" "Climatology/meteorology/atmosphere"}
+                      {"value" "economy" "label" "Economy"}
+                      {"value" "environment" "label" "Environment"}
+                      {"value" "geoscientificInformation" "label" "Geoscientific Information"}
+                      {"value" "health" "label" "Health"}
+                      {"value" "imageryBaseMapsEarthCover" "label" "Imagery Base Maps Earth Cover"}
+                      {"value" "intelligenceMilitary" "label" "Intelligence Military"}
+                      {"value" "inlandWaters" "label" "Inland Waters"}
+                      {"value" "location" "label" "Location"}
+                      {"value" "oceans" "label" "Oceans"}
+                      {"value" "planningCadastre" "label" "Planning Cadastre"}
+                      {"value" "society" "label" "Society"}
+                      {"value" "structure" "label" "Structure"}
+                      {"value" "transportation" "label" "Transportation"}
+                      {"value" "utilitiesCommunication" "label" "Utilities Communication"}
+                      {"value" "extraTerrestrial" "label" "Extra Terrestrial"}
+                      {"value" "disaster" "label" "Disaster"}]}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"

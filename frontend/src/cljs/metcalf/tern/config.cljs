@@ -1139,12 +1139,13 @@
          ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults      {"partyType" "organisation"}}]
 
-       [m4/selection-list-template
-        {:form-id     [:form]
-         :data-path   ["identificationInfo" "pointOfContact"]
-         :template-id :party/list-item
-         :value-path  ["uri"]
-         :added-path  ["isUserDefined"]}]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-template
+         {:form-id     [:form]
+          :data-path   ["identificationInfo" "pointOfContact"]
+          :template-id :party/list-item
+          :value-path  ["uri"]
+          :added-path  ["isUserDefined"]}]]
 
        [m4/typed-list-edit-dialog
         {:form-id   [:form]

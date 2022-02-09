@@ -241,8 +241,7 @@
      [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "label"]
-       :label     "Name/Label"
-       :toolTip   "TODO"}
+       :label     "Name/Label"}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "label"]}]]
@@ -250,8 +249,7 @@
      [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "description"]
-       :label     "Description /Definition"
-       :toolTip   "TODO"}
+       :label     "Description /Definition"}
       [m4/textarea-field
        {:form-id   ?form-id
         :data-path [?data-path "description"]}]]
@@ -282,8 +280,7 @@
      [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "label"]
-       :label     "Name/Label"
-       :toolTip   "TODO"}
+       :label     "Name/Label"}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "label"]}]]
@@ -291,8 +288,7 @@
      [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "description"]
-       :label     "Description /Definition"
-       :toolTip   "TODO"}
+       :label     "Description /Definition"}
       [m4/textarea-field
        {:form-id   ?form-id
         :data-path [?data-path "description"]}]]]
@@ -575,7 +571,6 @@
 
      [m4/form-group
       {:label      "Descriptive keywords"
-       :toolTip    "TODO"
        :helperText "Vocabulary terms that describe the general science categories, general location, organizations, projects, platforms, instruments associated with the resource."}]
 
      [m4/expanding-control
@@ -940,8 +935,7 @@
 
         [m4/form-group
          {:form-id [:form]
-          :label   "Date of dynamic datum"
-          :toolTip "TODO"}
+          :label   "Date of dynamic datum"}
          [m4/form-group
           {:form-id   [:form]
            :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]}
@@ -1646,7 +1640,6 @@
         :data-path  ["resourceLineage" "statement"]
         :label      "Provide a brief summary of the source of the data and related collection and/or processing methods."
         :required   true
-        :toolTip    "TODO"
         :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}
        [m4/textarea-field
         {:form-id   [:form]
@@ -1689,7 +1682,6 @@
        {:form-id    [:form]
         :data-path  ["resourceLineage" "processStatement"]
         :label      "Name"
-        :toolTip    "TODO"
         :helperText "Provide the name of the method or procedure"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -1701,7 +1693,6 @@
        {:form-id    [:form]
         :data-path  ["resourceLineage" "summary"]
         :label      "Description"
-        :toolTip    "TODO"
         :helperText "Provide a brief description of the method"}
        [m4/textarea-field
         {:form-id     [:form]

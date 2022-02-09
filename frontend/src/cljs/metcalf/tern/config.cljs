@@ -269,7 +269,7 @@
        :data-path  [?data-path "serial"]
        :label      "Serial Number"
        :helperText "Optional"
-       :toolTip    "This is optional. You can a serial number of the instrument if it is available."}
+       :toolTip    "Add the serial number for the instrument, if available."}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "serial"]}]]]
@@ -334,7 +334,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "unit"]
        :label     "Unit of measure"
-       :toolTip   "Select a Unit of Measure (UoM) from the list. If the required UoM is not found within the list, you can click the 'Add' button to define a new units of measurement. The entry will be reviewed prior to publishing."}
+       :toolTip   "Select a \"unit of measure\" (UoM) from the predefined list. If the required UoM is not in the list, you can click the 'Add' button to define your own. The entry will be reviewed prior to publishing."}
 
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -554,7 +554,7 @@
        :data-path  ["identificationInfo" "abstract"]
        :label      "Abstract"
        :helperText "Describe the content of the resource; e.g. what information was collected, how was it collected"
-       :toolTip    "A summary describing the dataset, e.g., “What, When, Where and How” in relation to the dataset."
+       :toolTip    "A summary describing the dataset, e.g., \"What, When, Where, and How\" in relation to the dataset."
        :required   true}
       [m4/textarea-field
        {:form-id   [:form]
@@ -625,7 +625,7 @@
       ;; TODO: also need a user-added option
       [m4/form-group
        {:label   "Select a platform for the data measurement"
-        :toolTip "Select the platform(s) that hosts the sensors that generates the dataset from the list. If the required platform is not in the list, you can click the '+ Add' button to add your platform. The entry will be reviewed prior to publishing."}
+        :toolTip "Select the platform(s) that hosts the sensors used to generate the dataset from the predefined list. If the required platform is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
 
        [:div.bp3-control-group
         [:div.bp3-fill
@@ -662,7 +662,7 @@
       ;; TODO: also need a user-added option
       [m4/form-group
        {:label   "Select the instrument used for the platform"
-        :toolTip "Select the instruments(s) or sensor(s) used to create the dataset from the list. If the required instrument is not in the list, you can click the '+ Add' button to add your instrument. The entry will be reviewed prior to publishing."}
+        :toolTip "Select the instrument(s) or sensor(s) used to create the dataset from the predefined list. If the required instrument or sensor is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
 
        [:div.bp3-control-group
         [:div.bp3-fill
@@ -701,7 +701,7 @@
       ;; TODO: also need a user-added option
       [m4/form-group
        {:label   "Select the name of the measured parameter, e.g. vegetation height"
-        :toolTip "Select a parameter (observed variable) from the predefined list. If the required parameter is not found within the list, you can click the '+ Add' button to define a new parameter. The entry will be reviewed prior to publishing."}
+        :toolTip "Select the parameter(s) (observed variables) from the predefined list. If the required parameter is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
 
        [:div.bp3-control-group
         [:div.bp3-fill
@@ -738,7 +738,7 @@
      [m4/expanding-control {:label "Temporal Resolution" :required true}
       [m4/form-group
        {:label   "Select a Temporal Resolution range"
-        :toolTip "Temporal resolution specifies the targeted time period between each value in the data set. Select a Temporal resolution range from the predefined list. Only one item can be selected."}
+        :toolTip "The temporal resolution specifies the targeted time period between each value in the data set. Select a temporal resolution range from the predefined list. Only one item may be selected."}
        [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsTemporal" "keywords"]
@@ -749,7 +749,7 @@
      [m4/expanding-control {:label "Horizontal Resolution" :required true}
       [m4/form-group
        {:label   "Select a Horizontal Resolution range"
-        :toolTip "Select a Horizontal resolution range from the predefined list. Only one item can be selected."}
+        :toolTip "Select a horizontal resolution range from the predefined list. Only one item may be selected."}
        [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsHorizontal" "keywords"]
@@ -760,7 +760,7 @@
      [m4/expanding-control {:label "Vertical Resolution (Optional)" :required false}
       [m4/form-group
        {:label   "Select a Vertical Resolution range"
-        :toolTip "Select a Vertical resolution range from the predefined list. Only one item can be selected."}
+        :toolTip "Select a vertical resolution range from the predefined list. Only one item may be selected."}
        [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
@@ -771,7 +771,7 @@
      [m4/expanding-control {:label "Australian Plant Name Index (Optional)" :required false}
       [m4/form-group
        {:label   "Select Plant Name Indexes keywords"
-        :toolTip "Select the plant names from the APNI list. You may select up to 12 names."}
+        :toolTip "Select the plant names from the APNI list. Up to 12 names may be selected."}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
@@ -790,7 +790,7 @@
      [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required false}
       [m4/form-group
        {:label   "Select Australian Faunal Directory keywords"
-        :toolTip "Select animal species from the Australian Faunal Directory. You may select up to 12 keywords."}
+        :toolTip "Select animal species from the Australian Faunal Directory. Up to 12 names may be selected."}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
@@ -809,7 +809,7 @@
      [m4/expanding-control {:label "Additional Keywords (Optional)" :required false}
       [m4/form-group
        {:label   "Additional theme keywords can be added for review and approval process"
-        :toolTip "You may define additional keywords if they are not available in the lists above.  The keywords will be reviewed prior to publishing."}
+        :toolTip "You may define additional keywords here if they are not available in the above lists. The keywords will be reviewed prior to publishing."}
        [m4/text-add-button
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]
@@ -838,7 +838,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "beginPosition"]
         :label     "Start date"
-        :toolTip   "Describes the date of the first data point in the dataset."
+        :toolTip   "Select the date of the first data point in the dataset."
         :required  true}
        [m4/date-field2
         {:form-id   [:form]
@@ -847,7 +847,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "endPosition"]
         :label     "End date"
-        :toolTip   "Describes the date of the last data point in the data set."
+        :toolTip   "Select the date of the last data point in the data set."
         :required  true}
        [m4/date-field2
         {:form-id   [:form]
@@ -876,7 +876,7 @@
         {:form-id   [:form]
          :data-path ["identificationInfo" "geographicElement" "siteDescription"]
          :label     "Provide a site description (optional)"
-         :toolTip   "Please provide a short description pertaining to the site of the dataset. This field is optional."}
+         :toolTip   "Provide a short description pertaining to the site of the dataset."}
         [m4/textarea-field
          {:form-id     [:form]
           :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
@@ -927,7 +927,7 @@
         [m4/form-group
          {:label    "Coordinate Reference System"
           :required true
-          :toolTip  "Select a Coordinate Reference System."}
+          :toolTip  "Select the coordinate reference system."}
          [m4/async-select-option-simple
           {:form-id     [:form]
            :data-path   ["referenceSystemInfo" "crsCode"]
@@ -952,7 +952,7 @@
        [m4/inline-form-group
         {:label    "Vertical Coordinate Reference System"
          :required true
-         :toolTip  "Select the Vertical Coordinate System."}
+         :toolTip  "Select the vertical coordinate system."}
         [m4/async-select-option-simple
          {:form-id     [:form]
           :data-path   ["identificationInfo" "verticalElement" "coordinateReferenceSystem"]
@@ -987,7 +987,7 @@
          [m4/form-group
           {:label    "Resolution attribute"
            :required true
-           :toolTip  "Indicate the attribute used is either a Denominator Scale, Vertical, Horizontal, or Angular distance."}
+           :toolTip  "Indicate that the attribute used is either a denominator scale, vertical, horizontal, or the angular distance."}
           [m4/select-value
            {:form-id     [:form]
             :data-path   ["identificationInfo" "SpatialResolution" "ResolutionAttribute"]

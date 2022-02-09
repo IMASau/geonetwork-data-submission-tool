@@ -184,6 +184,7 @@
                   <cit:number>
                     <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
                   </cit:number>
+                  <!-- ASD@2022 Telephone type code is static - the codeListValue 'voice' is fixed -->
                   <cit:numberType>
                     <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                   </cit:numberType>
@@ -590,6 +591,7 @@
                           <cit:number>
                             <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
                           </cit:number>
+                          <!-- ASD@2022 Telephone type code is static - the codeListValue 'voice' is fixed -->
                           <cit:numberType>
                             <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                           </cit:numberType>
@@ -682,13 +684,14 @@
                   </cit:name>
                   <cit:contactInfo>
                     <cit:CI_Contact>
-		      <!-- Who15.  For Who16 codelist value changes to 'fax' -->
 		      <!-- Codelist ~ https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml  CI_TelephoneTypeCode -->
+                      <!-- ASD@2022 Telephone type code is static - the codeListValue 'voice' is fixed -->
                       <cit:phone>
                         <cit:CI_Telephone>
                           <cit:number>
                             <gco:CharacterString>+61 2 6246 5588</gco:CharacterString>
                           </cit:number>
+                          <!-- ASD@2022 Telephone type code is static - the codeListValue 'voice' is fixed -->
                           <cit:numberType>
                             <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                           </cit:numberType>
@@ -816,6 +819,7 @@
                           <cit:number>
                             <gco:CharacterString>+61 2 6246 5588</gco:CharacterString>
                           </cit:number>
+                          <!-- ASD@2022 Telephone type code is static - the codeListValue 'voice' is fixed -->
                           <cit:numberType>
                             <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                           </cit:numberType>
@@ -1003,11 +1007,14 @@
                       <cit:number>
                         <gco:CharacterString>02 6249 9182/9781</gco:CharacterString>
                       </cit:number>
+                      <!-- ASD@2022 Telephone type code is static - the codeListValue 'voice' is fixed -->
                       <cit:numberType>
                         <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                       </cit:numberType>
                     </cit:CI_Telephone>
                   </cit:phone>
+                  <!-- ASD@2022 excluding this part as organization does not have a fax number in SHaRED v4 -->
+                  <!--
                   <cit:phone>
                     <cit:CI_Telephone>
                       <cit:number>
@@ -1018,6 +1025,7 @@
                       </cit:numberType>
                     </cit:CI_Telephone>
                   </cit:phone>
+                  -->
                   <cit:address>
                     <cit:CI_Address>
                       <cit:deliveryPoint>
@@ -2207,8 +2215,8 @@
             <!-- Disclaimer text from https://www.tern.org.au/access-policy/ -->
             <gco:CharacterString>TERN services are provided on an "as-is" and "as available" basis. Users use any TERN services at their discretion and risk.
             They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.
-            &lt;br /&gt;Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.
-            &lt;br /&gt;&lt;br /&gt;Please advise any work or publications that use this data via the online form at https://www.tern.org.au/research-publications/#reporting</gco:CharacterString>
+            Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.
+            Please advise any work or publications that use this data via the online form at https://www.tern.org.au/research-publications/#reporting</gco:CharacterString>
           </mco:otherConstraints>
           <mco:otherConstraints>
             <!-- Format for citation -->
@@ -2418,6 +2426,7 @@
                           <cit:number>
                             <gco:CharacterString>+61 7 3365 9097</gco:CharacterString>
                           </cit:number>
+                          <!-- ASD@2022 Telephone type code is static - the codeListValue 'voice' is fixed -->
                           <cit:numberType>
                             <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode"
                                                       codeListValue="voice"/>
@@ -2568,6 +2577,7 @@
                           <cit:number>
                             <gco:CharacterString>+61 2 3365 9097</gco:CharacterString>
                           </cit:number>
+                          <!-- ASD@2022 Telephone type code is static - the codeListValue 'voice' is fixed -->
                           <cit:numberType>
                             <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode"
                                                       codeListValue="voice"/>

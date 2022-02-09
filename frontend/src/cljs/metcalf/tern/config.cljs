@@ -534,7 +534,8 @@
        :toolTip   "If the record has been published before, then please indicate as 'Yes' and enter a published date, else select 'No'."}
       [m4/yes-no-field
        {:form-id   [:form]
-        :data-path ["identificationInfo" "datePublicationFlag"]}]]
+        :data-path ["identificationInfo" "datePublicationFlag"]
+        :label     ""}]]
 
      ;; FIXME: I think this should be formatted as YYYY or YYYY-MM (according to the commented template)
      [m4/inline-form-group
@@ -1524,15 +1525,7 @@
         :label     "Phone"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "phone"]}]]
-
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "fax"]
-        :label     "Fax"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "contact" "fax"]}]]]]
+         :data-path [?data-path "contact" "phone"]}]]]]
 
     ; NOTE: person organisation (no role)
     :person-organisation/user-defined-entry-form
@@ -1620,15 +1613,7 @@
         :label     "Phone"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "phone"]}]]
-
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "fax"]
-        :label     "Fax"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "fax"]}]]]]
+         :data-path [?data-path "phone"]}]]]]
 
     :how
     [:div

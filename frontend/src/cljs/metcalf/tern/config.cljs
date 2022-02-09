@@ -1856,7 +1856,8 @@
         :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]
 
      [m4/form-group
-      {:label "Security Classification"}
+      {:label   "Security Classification"
+       :toolTip "Please select a relevant security classification for the dataset."}
       [m4/select-option-simple
        {:form-id    [:form]
         :data-path  ["identificationInfo" "securityClassification"]
@@ -1877,6 +1878,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "environment"]
         :label      "Environmental description"
+        :toolTip    "Description of the dataset in the producer's processing environment, including items such as the software, the computer operating system, file name, format, language and the dataset size."
         :helperText "Software, computer operating system, file name, or dataset size"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -1887,7 +1889,8 @@
      [m4/expanding-control {:label "Associated Documentation (Optional)"}
 
       [m4/form-group
-       {:label    "Publication"}
+       {:label    "Publication"
+        :toolTip  "Please provide the title and URL of the publications describing the dataset."}
        [m4/selection-list-columns
         {:form-id            [:form]
          :data-path          ["identificationInfo" "additionalPublications"]
@@ -1919,6 +1922,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "supplemental"]
         :label      "Supplemental Information"
+        :toolTip    "Miscellaneous information about the dataset, not captured elsewhere.  This is an optional field."
         :helperText "Any supplemental information needed to interpret the resource"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -1931,6 +1935,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "resourceSpecificUsage"]
         :label      "Resource specific usage"
+        :toolTip    "Please provide a brief description with regards to the usage of the resource and/or the resource series usage."
         :helperText "What can this resource be used for environmental research?"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -1943,6 +1948,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "credit"]
         :label      "Acknowledgment"
+        :toolTip    "Please include statements to acknowledge various types of support that led to the creation of the dataset."
         :helperText "Write a sentence acknowledging sponsors, data providers or funding organisations"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -1955,6 +1961,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "customCitation"]
         :label      "Specific citation"
+        :toolTip    "The system will generate a standard citation based on the metadata provided. Here you may indicate a specific citation for this dataset."
         :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details below."}
        [m4/textarea-field
         {:form-id   [:form]

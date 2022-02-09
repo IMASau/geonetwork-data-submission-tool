@@ -2050,10 +2050,13 @@
         :data-path  [?data-path "transferOptions" "protocol"]
         :label-path ["label"]
         :value-path ["uri"]
-        :options    [{"label" "WFS" "value" "WFS"}
-                     {"label" "WMS" "value" "WMS"}
-                     {"label" "WCS" "value" "WCS"}
-                     {"label" "OpenDAP" "value" "OpenDAP"}]}]]
+        :options    [{"label" "HTTP" "value" "WWW:DOWNLOAD-1.0-http--download"}
+                     {"label" "OGC Web Coverage Service (WCS)" "value" "OGC:WCS-1.1.0-http-get-capabilities"}
+                     {"label" "OGC Web Map Service (WMS)" "value" "OGC:WMS-1.3.0-http-get-map"}
+                     {"label" "OGC Web Feature Service (WFS)" "value" "OGC:WFS-1.1.0-http-get-capabilities"}
+                     {"label" "OPeNDAP" "value" "WWW:LINK-1.0-http--opendap"}
+                     {"label" "FTP" "value" "FTP"}
+                     {"label" "Other/unknown" "value" "WWW:DOWNLOAD-1.0-http--downloaddata"}]}]]
 
      [m4/form-group
       {:form-id   ?form-id

@@ -94,6 +94,7 @@
         "type": "object",
         "export": false,
         "deleteWhenEmpty": false,
+        "rules": ["protocolLayer"],
         "properties": {
           "uri": {
             "type": "string"
@@ -196,9 +197,7 @@
               },
               "name": {
                 "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:name/gco:CharacterString",
-                "type": "string",
-                "required": true,
-                "rules": ["requiredField"]
+                "type": "string"
               },
               "description": {
                 "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:description/gco:CharacterString",

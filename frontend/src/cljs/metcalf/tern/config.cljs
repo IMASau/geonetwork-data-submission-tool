@@ -1654,7 +1654,7 @@
 
       [m4/form-group
        {:label    "Method documentation"
-        :tooltip  "The method of production of the dataset. Provide the title and url of the method documentation."}
+        :toolTip  "The method of production of the dataset. Provide the title and url of the method documentation."}
        [m4/selection-list-columns
         {:form-id            [:form]
          :data-path          ["resourceLineage" "onlineMethods"]

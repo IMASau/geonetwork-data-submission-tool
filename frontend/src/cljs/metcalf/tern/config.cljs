@@ -2010,7 +2010,8 @@
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "thumbnail" "title"]
-       :label     "Title"}
+       :label     "Title"
+       :toolTip   "Provide the title of the file uploaded."}
       [m4/input-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "thumbnail" "title"]}]]
@@ -2095,7 +2096,8 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path]
-       :label     "Distributor"}
+       :label     "Distributor"
+       :toolTip   "TERN is selected by default. You may select a different distributor for the dataset, if necessary."}
       [m4/async-select-option-simple
        {:form-id     ?form-id
         :data-path   [?data-path "distributor"]

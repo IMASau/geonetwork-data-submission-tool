@@ -1653,7 +1653,8 @@
          :data-path ["resourceLineage" "statement"]}]]
 
       [m4/form-group
-       {:label    "Method documentation"}
+       {:label    "Method documentation"
+        :tooltip  "The method of production of the dataset. Provide the title and url of the method documentation."}
        [m4/selection-list-columns
         {:form-id            [:form]
          :data-path          ["resourceLineage" "onlineMethods"]
@@ -1710,7 +1711,7 @@
       ;; How7b: list-add free-text entries
       [m4/form-group
        {:label   "If the need arises please add steps taken for the Data creation procedure to support the brief provided above."
-        :toolTip "TODO"}
+        :toolTip "Specify the steps of the procedure."}
        [m4/text-add-button
         {:form-id     [:form]
          :data-path   ["resourceLineage" "steps"]

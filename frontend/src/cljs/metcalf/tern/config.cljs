@@ -150,6 +150,7 @@
        "endPosition"          rules4/end-position
        "maintFreq"            rules4/maint-freq
        "verticalRequired"     rules4/vertical-required
+       "protocolLayer"        rules4/data-source-required-layer
        "maxKeywords"          rules4/tern-max-keywords})
 (set! low-code4/component-registry
       {

@@ -1194,14 +1194,16 @@
       [:div
        [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "given_name"]}] " "
        [m4/get-data {:form-id ?form-id :data-path [?data-path "contact" "surname"]}] " / "
-       [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "Identifier"]}]]]
+       [:span {:style {:text-transform "capitalize"}}
+        [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "Identifier"]}]]]]
 
      [m4/when-data {:form-id   [:form]
                     :data-path [?data-path "partyType"]
                     :pred      #{"organisation"}}
       [:div
        [m4/get-data {:form-id ?form-id :data-path [?data-path "organisation" "name"]}] " / "
-       [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "Identifier"]}]]]]
+       [:span {:style {:text-transform "capitalize"}}
+        [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "Identifier"]}]]]]]
 
     :party-person/user-defined-entry-form
     [:div

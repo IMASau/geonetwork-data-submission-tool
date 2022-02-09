@@ -393,8 +393,7 @@
           "type": "string",
           "xpath": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]",
           "valueChild": "cit:CI_Date/cit:date/gco:Date",
-          "keep": false,
-          "rules": ["requiredField"]
+          "keep": false
         },
         "version": {
           "!docstring": "ID7",
@@ -906,9 +905,6 @@
             "boxes": {
               "!docstring": "Where2",
               "xpath": "gex:geographicElement",
-              "rules": [
-                "requiredField"
-              ],
               "keep": false,
               "type": "array",
               "items": {
@@ -1459,8 +1455,7 @@
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:endPosition",
           "deleteWhenEmpty": true,
           "keep": false,
-          "type": "string",
-          "rules": ["requiredField"]
+          "type": "string"
         },
         "useLimitation": {
           "!docstring": "About - non-editable but displayed from the template",

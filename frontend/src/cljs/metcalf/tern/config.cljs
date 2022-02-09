@@ -1525,15 +1525,7 @@
         :label     "Phone"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "phone"]}]]
-
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "fax"]
-        :label     "Fax"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "contact" "fax"]}]]]]
+         :data-path [?data-path "contact" "phone"]}]]]]
 
     ; NOTE: person organisation (no role)
     :person-organisation/user-defined-entry-form
@@ -1621,15 +1613,7 @@
         :label     "Phone"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "phone"]}]]
-
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "fax"]
-        :label     "Fax"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "fax"]}]]]]
+         :data-path [?data-path "phone"]}]]]]
 
     :how
     [:div

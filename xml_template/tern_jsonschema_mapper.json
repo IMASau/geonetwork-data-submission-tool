@@ -570,13 +570,6 @@
                     "type": "string",
                     "valueChild": "gco:CharacterString"
                   },
-                  "fax": {
-                    "!docstring": "Who13 / Who14",
-                    "xpath": "TODO",
-                    "keep": false,
-                    "type": "string",
-                    "valueChild": "gco:CharacterString"
-                  },
                   "isUserDefined": {}
                 },
                 "rules": ["requiredField"]
@@ -624,13 +617,6 @@
                     "rules": ["requiredField"]
                   },
                   "phone": {
-                    "!docstring": "Who13 / Who14",
-                    "xpath": "TODO",
-                    "type": "string",
-                    "keep": false,
-                    "valueChild": "gco:CharacterString"
-                  },
-                  "fax": {
                     "!docstring": "Who13 / Who14",
                     "xpath": "TODO",
                     "type": "string",

@@ -534,7 +534,8 @@
        :toolTip   "If the record has been published before, then please indicate as 'Yes' and enter a published date, else select 'No'."}
       [m4/yes-no-field
        {:form-id   [:form]
-        :data-path ["identificationInfo" "datePublicationFlag"]}]]
+        :data-path ["identificationInfo" "datePublicationFlag"]
+        :label     ""}]]
 
      ;; FIXME: I think this should be formatted as YYYY or YYYY-MM (according to the commented template)
      [m4/inline-form-group

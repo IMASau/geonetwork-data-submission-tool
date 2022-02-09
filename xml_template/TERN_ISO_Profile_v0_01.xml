@@ -684,7 +684,6 @@
                   </cit:name>
                   <cit:contactInfo>
                     <cit:CI_Contact>
-		      <!-- Who15.  For Who16 codelist value changes to 'fax' -->
 		      <!-- Codelist ~ https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml  CI_TelephoneTypeCode -->
                       <!-- ASD@2022 Telephone type code is static - the codeListValue 'voice' is fixed -->
                       <cit:phone>
@@ -1014,6 +1013,8 @@
                       </cit:numberType>
                     </cit:CI_Telephone>
                   </cit:phone>
+                  <!-- ASD@2022 excluding this part as organization does not have a fax number in SHaRED v4 -->
+                  <!--
                   <cit:phone>
                     <cit:CI_Telephone>
                       <cit:number>
@@ -1024,6 +1025,7 @@
                       </cit:numberType>
                     </cit:CI_Telephone>
                   </cit:phone>
+                  -->
                   <cit:address>
                     <cit:CI_Address>
                       <cit:deliveryPoint>

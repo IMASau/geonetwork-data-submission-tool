@@ -352,3 +352,18 @@
           (assoc-in [:content "maximumValue" :props :disabled] true)
           (assoc-in [:content "method" :props :disabled] true)
           (assoc-in [:content "minimumValue" :props :disabled] true)))))
+
+(defn data-source-required-layer
+  "Not all data distributions have an applicable `layer' value; in those
+  cases, the field should be disabled."
+  [block]
+  (let [protocol (get-in block [:content "transferOptions" :content "protocol" :props :value])
+        name (get-in block [:content "transferOptions" :content "name" :props :value])
+        name-required? (#{"OGC:WCS-1.1.0-http-get-capabilities" "OGC:WMS-1.3.0-http-get-map"} protocol)
+        block (update-in block
+                         [:content "transferOptions" :content "name" :props]
+                         merge {:required (boolean name-required?)
+                                :disabled (not name-required?)})]
+    (cond-> block
+      (empty-values name)
+      (update-in [:content "transferOptions" :content "name" :props :errors] conj "This field is required"))))

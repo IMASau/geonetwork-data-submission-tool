@@ -1,9 +1,13 @@
+import logging
+
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 
 import requests
 
 from metcalf.tern.backend.serializers import DocumentCategorySerializer
+
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -18,22 +22,16 @@ class Command(BaseCommand):
         gn_user = settings.GEONETWORK_USER
         gn_pass = settings.GEONETWORK_PASSWORD
         try:
-            with requests.Session() as session:
-                # Retrieve XSRF token:
-                res = session.post(f"{gn_root}/srv/eng/info?type=me")
-                token = res.cookies['XSRF-TOKEN']
-                res = session.get(f"{gn_root}/srv/api/tags",
-                                  auth=(gn_user, gn_pass),
-                                  headers={'X-XSRF-TOKEN': token,
-                                           'Accept': 'application/json'})
-                data = list(map(self.extract_eng_label, res.json()))
+            res = requests.get(f"{gn_root}/srv/api/tags",
+                               auth=(gn_user, gn_pass),
+                               headers={'Accept': 'application/json'})
+            data = list(map(self.extract_eng_label, res.json()))
 
-                serializer = DocumentCategorySerializer(data=data, many=True)
-                if serializer.is_valid(raise_exception=True):
-                    serializer.save()
+            serializer = DocumentCategorySerializer(data=data, many=True)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
 
         except Exception as e:
-            print(e)
-            # update model with error
-            # raise?
-            pass
+            import traceback
+            logger.error(traceback.format_exc())
+            raise

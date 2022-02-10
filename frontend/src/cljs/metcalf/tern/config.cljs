@@ -1706,9 +1706,10 @@
         {:form-id     [:form]
          :data-path   ["resourceLineage" "steps"]
          :button-text "Add"}]
-       [m4/selection-list-values
-        {:form-id   [:form]
-         :data-path ["resourceLineage" "steps"]}]]]]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-values
+         {:form-id   [:form]
+          :data-path ["resourceLineage" "steps"]}]]]]]
 
     :method-doc/user-defined-entry-form
     [:div

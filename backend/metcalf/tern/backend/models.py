@@ -280,7 +280,7 @@ class Document(AbstractDocument):
                                             'Accept': 'application/json'},
                                    data={'metadataType': 'METADATA',
                                          # Shared creates the UUID:
-                                         'uuidProcessing': 'OVERWRITE',
+                                         'uuidProcessing': 'NOTHING',
                                          'category': categories
                                          },
                                    files={'file': ('metadata.xml', exported_doc)}
@@ -292,10 +292,16 @@ class Document(AbstractDocument):
                 self.publish_result = 'Success'
         except Exception as e:
             # update model with error
-            if res and res.json()['message']:
+            if res is not None and 'message' in res.json():
                 self.publish_result = res.json()['message']
+                logger.error(
+                    'There was an error while validating {}. The error was: {} - {}'.format(self.uuid, res.status_code,
+                                                                                            res.json()['message']))
             else:
                 self.publish_result = 'Service Unavailable'
+                logger.error(
+                    'There was an error while validating {}. No response was received. This may be caused by a timeout.'.format(
+                        self.uuid))
             # raise?
         self.date_published = datetime.datetime.now()
 

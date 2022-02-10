@@ -709,7 +709,7 @@
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [disabled is-hidden button-text]} props]
     (when-not is-hidden
-      [:button.bp3-button.bp3-minimal.bp3-icon-plus
+      [:button.bp3-button.bp3-intent-primary.bp3-icon-plus
        {:disabled disabled
         :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler3 config])}
        button-text])))
@@ -726,7 +726,7 @@
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [disabled is-hidden button-text]} props]
     (when-not is-hidden
-      [:button.bp3-button.bp3-minimal.bp3-icon-plus
+      [:button.bp3-button.bp3-intent-primary.bp3-icon-plus
        {:disabled disabled
         :onClick  #(rf/dispatch [::value-list-add-with-defaults-click-handler config])}
        button-text])))

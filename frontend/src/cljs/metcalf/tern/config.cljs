@@ -1753,15 +1753,16 @@
       {:label    "Online data quality report"
        :toolTip  "Data quality report refers to a textual description of the quality control of the dataset. Provide the title and URL of the report, if available."
        :required true}
-      [m4/selection-list-columns
-       {:form-id            [:form]
-        :data-path          ["dataQualityInfo" "onlineMethods"]
-        :value-path         ["uri"]
-        :random-uuid-value? true
-        :select-snapshot?   true
-        :added-path         ["isUserDefined"]
-        :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                             {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+      [:div.SelectionListItemColoured
+       [m4/selection-list-columns
+        {:form-id            [:form]
+         :data-path          ["dataQualityInfo" "onlineMethods"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :select-snapshot?   true
+         :added-path         ["isUserDefined"]
+         :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]]
 
       [m4/list-add-button
        {:form-id            [:form]

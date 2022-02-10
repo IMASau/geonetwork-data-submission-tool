@@ -1646,15 +1646,16 @@
       [m4/form-group
        {:label   "Method documentation"
         :toolTip "The method of production of the dataset. Provide the title and URL of the method documentation."}
-       [m4/selection-list-columns
-        {:form-id            [:form]
-         :data-path          ["resourceLineage" "onlineMethods"]
-         :value-path         ["uri"]
-         :random-uuid-value? true
-         :select-snapshot?   true
-         :added-path         ["isUserDefined"]
-         :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-columns
+         {:form-id            [:form]
+          :data-path          ["resourceLineage" "onlineMethods"]
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :select-snapshot?   true
+          :added-path         ["isUserDefined"]
+          :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                               {:columnHeader "URL" :label-path ["url"] :flex 1}]}]]
 
        [m4/list-add-button
         {:form-id            [:form]

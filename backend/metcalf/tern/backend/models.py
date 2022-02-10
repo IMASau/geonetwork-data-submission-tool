@@ -19,7 +19,7 @@ from metcalf.common.emails import *
 from metcalf.common.models import AbstractDocumentAttachment, AbstractDataFeed, AbstractDocument, \
     AbstractMetadataTemplate, AbstractMetadataTemplateMapper, AbstractDraftMetadata, AbstractUserInterfaceTemplate
 from metcalf.common import spec4
-from metcalf.common.utils import to_json, get_exception_message, get_user_name
+from metcalf.common.utils import to_json, get_exception_message, get_user_name, create_export_xml_string
 from metcalf.common import xmlutils4
 
 User.add_to_class("__str__", get_user_name)
@@ -135,6 +135,12 @@ class DocumentManager(models.Manager):
         return doc
 
 
+class DocumentCategory(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=256)
+    label = models.CharField(max_length=256)
+
+
 class Document(AbstractDocument):
     objects = DocumentManager()
 
@@ -159,7 +165,11 @@ class Document(AbstractDocument):
                                          verbose_name='Validity')
     date_last_validated = models.DateTimeField(blank=True, null=True, verbose_name='Last Validated')
 
+    publish_result = models.TextField(null=True, blank=True, verbose_name="Publish result")
+    publish_status = models.BooleanField(default=False, verbose_name='Publish status')
+    date_published = models.DateTimeField(blank=True, null=True, verbose_name='Date Published')
     doi = models.CharField(max_length=1024, default='', blank=True)
+    categories = models.ManyToManyField(DocumentCategory)
 
     hasUserDefined = models.BooleanField(default=False, verbose_name='Has User-defined')
 
@@ -249,6 +259,53 @@ class Document(AbstractDocument):
                     uuid))
         self.date_last_validated = datetime.datetime.now()
 
+    def publish_to_geonetwork(self):
+        gn_root = settings.GEONETWORK_URLROOT
+        gn_user = settings.GEONETWORK_USER
+        gn_pass = settings.GEONETWORK_PASSWORD
+        res = None
+        try:
+            # export
+            exported_doc = create_export_xml_string(self, self.uuid)
+            with requests.Session() as session:
+                # Retrieve XSRF token:
+                res = session.post(f"{gn_root}/srv/eng/info?type=me")
+                token = res.cookies['XSRF-TOKEN']
+                # publish
+                categories = [category.id for category in self.categories.all()]
+                res = session.post(f"{gn_root}/srv/api/records",
+                                   auth=(gn_user,gn_pass),
+                                   headers={'X-XSRF-TOKEN': token,
+                                            'Accept': 'application/json'},
+                                   data={'metadataType': 'METADATA',
+                                         # Shared creates the UUID:
+                                         'uuidProcessing': 'NOTHING',
+                                         'category': categories
+                                         },
+                                   files={'file': ('metadata.xml', exported_doc)}
+                                   )
+                if res.status_code != 201:
+                    raise Exception()
+                # (update model)
+                self.publish_status = True
+                self.publish_result = 'Success'
+        except Exception as e:
+            # update model with error
+            if res is not None:
+                self.publish_result = res.text
+                logger.error(
+                    'There was an error while validating {}. The error was: {} - {}'.format(self.uuid, res.status_code,
+                                                                                            res.text))
+            else:
+                self.publish_result = 'Service Unavailable'
+                logger.error(
+                    'There was an error while validating {}. No response was received. This may be caused by a timeout.'.format(
+                        self.uuid))
+            # raise?
+        self.date_published = datetime.datetime.now()
+
+
+
     ########################################################
     # Workflow (state) Transitions
     @transition(field=status, source=[DRAFT, SUBMITTED],
@@ -283,6 +340,7 @@ class Document(AbstractDocument):
     @transition(field=status, source=SUBMITTED, target=UPLOADED,
                 permission='backend.workflow_upload')
     def upload(self):
+        self.publish_to_geonetwork()
         email_user_upload_alert(self)
 
     @transition(field=status, source=UPLOADED, target=DISCARDED,

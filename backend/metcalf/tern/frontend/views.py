@@ -37,7 +37,7 @@ import requests
 from metcalf.common import spec4, xmlutils5
 from metcalf.common import xmlutils4
 from metcalf.common.serializers import UserByEmailSerializer, UserSerializer
-from metcalf.common.utils import to_json, get_exception_message
+from metcalf.common.utils import to_json, get_exception_message, create_export_xml_string
 from metcalf.tern.backend.models import DraftMetadata, Document, DocumentAttachment, \
     AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
 from metcalf.tern.frontend.forms import DocumentAttachmentForm
@@ -283,23 +283,6 @@ def bad_request(request, exception):
     return response
 
 
-def create_export_xml_string(doc, uuid):
-    data = to_json(doc.latest_draft.data)
-    xml = etree.parse(doc.template.file.path)
-    spec = spec4.make_spec(uuid=uuid, mapper=doc.template.mapper)
-    xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
-                          element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
-    xmlutils5.export2(
-        data=data,
-        xml_node=xml,
-        spec=spec,
-        xml_kwargs={"namespaces": spec['namespaces']},
-        handlers={
-            "generateParameterKeywords": xmlutils5.export2_generateParameterKeywords_handler,
-            "generateUnitKeywords": xmlutils5.export2_generateUnitKeywords_handler,
-            "generateDatasourceDistributions": xmlutils5.export2_generateDatasourceDistributions_handler,
-        })
-    return etree.tostring(xml)
 
 
 @login_required
@@ -312,31 +295,6 @@ def export(request, uuid):
     return response
 
 
-def publish_to_geonetwork(doc, uuid):
-    gn_root = settings.GEONETWORK_URLROOT
-    gn_user = settings.GEONETWORK_USER
-    gn_pass = settings.GEONETWORK_PASSWORD
-    try:
-        # export
-        exported_doc = create_export_xml_string(doc, uuid)
-        with requests.Session() as session:
-            # Retrieve XSRF token:
-            res = session.post(f"{gn_root}/srv/eng/info?type=me")
-            token = res.cookies['XSRF-TOKEN']
-            # publish
-            res = session.post(f"{gn_root}/srv/api/records",
-                               auth=(gn_user,gn_user),
-                               headers={'X-XSRF-TOKEN': token,
-                                        'Accept': 'application/json'},
-                               data={'metadataType': 'METADATA',
-                                     # Shared creates the UUID:
-                                     'uuidProcessing': 'NOTHING'},
-                               files={'file': ('metadata.xml', exported_doc)})
-            # (update model)
-    except Exception as e:
-        # update model with error
-        # raise?
-        pass
 
 
 MEF_TEMPLATE = '''<?xml version="1.0" encoding="UTF-8"?>

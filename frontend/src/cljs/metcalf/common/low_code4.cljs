@@ -135,10 +135,10 @@
     []
     (let [*open (r/atom false)]
       (fn [& args]
-        [:div {:onMouseDown (fn [e]
-                              (when (.-metaKey e)
-                                (reset! *open true)
-                                (.. e stopPropagation)))}
+        [:span {:onMouseDown (fn [e]
+                               (when (.-metaKey e)
+                                 (reset! *open true)
+                                 (.. e stopPropagation)))}
          (when @*open
            [component-controls-overlay
             {:config   config

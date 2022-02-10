@@ -311,7 +311,7 @@
         value @(rf/subscribe [::get-block-data config])]
     (when-not is-hidden
       (when (s/valid? pred value)
-        (into [:div] children)))))
+        (into [:<>] children)))))
 
 (defn get-data-settings
   "Settings for get-data component"

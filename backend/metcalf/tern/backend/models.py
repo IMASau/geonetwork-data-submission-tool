@@ -165,9 +165,8 @@ class Document(AbstractDocument):
                                          verbose_name='Validity')
     date_last_validated = models.DateTimeField(blank=True, null=True, verbose_name='Last Validated')
 
-    publish_result = models.TextField(null=True, blank=True, verbose_name="Publish result XML")
-    publish_status = models.CharField(max_length=256, default='Unpublished', null=True, blank=True,
-                                      verbose_name='Publish status')
+    publish_result = models.TextField(null=True, blank=True, verbose_name="Publish result")
+    publish_status = models.BooleanField(default=False, verbose_name='Publish status')
     date_published = models.DateTimeField(blank=True, null=True, verbose_name='Date Published')
     doi = models.CharField(max_length=1024, default='', blank=True)
     categories = models.ManyToManyField(DocumentCategory)
@@ -288,15 +287,15 @@ class Document(AbstractDocument):
                 if res.status_code != 201:
                     raise Exception()
                 # (update model)
-                self.publish_status = 'Published'
+                self.publish_status = True
                 self.publish_result = 'Success'
         except Exception as e:
             # update model with error
-            if res is not None and 'message' in res.json():
-                self.publish_result = res.json()['message']
+            if res is not None:
+                self.publish_result = res.text
                 logger.error(
                     'There was an error while validating {}. The error was: {} - {}'.format(self.uuid, res.status_code,
-                                                                                            res.json()['message']))
+                                                                                            res.text))
             else:
                 self.publish_result = 'Service Unavailable'
                 logger.error(

@@ -1300,36 +1300,28 @@
                     :grid-template-columns "1fr 1fr"}}
 
       [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "given_name"]
-        :label     "Given name"}
+       {:label "Given name"}
        [m4/input-field
         {:form-id   ?form-id
          :data-path [?data-path "contact" "given_name"]
          :disabled  true}]]
 
       [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "surname"]
-        :label     "Surname"}
+       {:label "Surname"}
        [m4/input-field
         {:form-id   ?form-id
          :data-path [?data-path "contact" "surname"]
          :disabled  true}]]]
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "contact" "email"]
-       :label     "Email address"}
+      {:label "Email address"}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "contact" "email"]
         :disabled  true}]]
 
      [m4/form-group
-      {:form-id     ?form-id
-       :data-path   [?data-path "contact" "orcid"]
-       :label       "ORCID ID"}
+      {:label "ORCID ID"}
       [m4/input-field
        {:form-id     ?form-id
         :data-path   [?data-path "contact" "orcid"]

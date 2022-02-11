@@ -17,7 +17,6 @@
                  xmlns:mex="http://standards.iso.org/iso/19115/-3/mex/1.0"
                  xmlns:mmi="http://standards.iso.org/iso/19115/-3/mmi/1.0"
                  xmlns:mpc="http://standards.iso.org/iso/19115/-3/mpc/1.0"
-                 xmlns:mrc="http://standards.iso.org/iso/19115/-3/mrc/1.0"
                  xmlns:mrd="http://standards.iso.org/iso/19115/-3/mrd/1.0"
                  xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0"
                  xmlns:mrl="http://standards.iso.org/iso/19115/-3/mrl/2.0"
@@ -45,7 +44,6 @@
                  http://standards.iso.org/iso/19115/-3/mex/1.0 https://schemas.isotc211.org/19115/-3/mex/1.0/mex.xsd
                  http://standards.iso.org/iso/19115/-3/mmi/1.0 https://schemas.isotc211.org/19115/-3/mmi/1.0/mmi.xsd
                  http://standards.iso.org/iso/19115/-3/mpc/1.0 https://schemas.isotc211.org/19115/-3/mpc/1.0/mpc.xsd
-                 http://standards.iso.org/iso/19115/-3/mrc/1.0 https://schemas.isotc211.org/19115/-3/mrc/1.0/mrc.xsd
                  http://standards.iso.org/iso/19115/-3/mrd/1.0 https://schemas.isotc211.org/19115/-3/mrd/1.0/mrd.xsd
                  http://standards.iso.org/iso/19115/-3/mri/1.0 https://schemas.isotc211.org/19115/-3/mri/1.0/mri.xsd
                  http://standards.iso.org/iso/19115/-3/mrl/2.0 https://schemas.isotc211.org/19115/-3/mrl/2.0/mrl.xsd
@@ -383,8 +381,9 @@
       <cit:protocol>
         <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
       </cit:protocol>
+      <!-- ASD@2022 Please dont change the description - static text required for crosswalk -->
       <cit:description>
-        <gco:CharacterString>Point of truth URL of this metadata record</gco:CharacterString>
+        <gco:CharacterString>Point-of-truth metadata URL</gco:CharacterString>
       </cit:description>
       <cit:function>
         <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode" codeListValue="completeMetadata"/>
@@ -685,18 +684,18 @@
                   <cit:contactInfo>
                     <cit:CI_Contact>
 		      <!-- Codelist ~ https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml  CI_TelephoneTypeCode -->
-                      <!-- ASD@2022 Telephone type code is static - the codeListValue 'voice' is fixed -->
+                      <!-- ASD@2022 excluding the phone of the organization as it is not supported in SHaRED v4 -->
+                      <!--
                       <cit:phone>
                         <cit:CI_Telephone>
                           <cit:number>
                             <gco:CharacterString>+61 2 6246 5588</gco:CharacterString>
                           </cit:number>
-                          <!-- ASD@2022 Telephone type code is static - the codeListValue 'voice' is fixed -->
                           <cit:numberType>
                             <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                           </cit:numberType>
                         </cit:CI_Telephone>
-                      </cit:phone>
+                      </cit:phone> -->
 		      <!-- Who13, Who14 -->
                       <cit:address>
                         <cit:CI_Address>
@@ -715,7 +714,6 @@
                           <cit:country>
                             <gco:CharacterString>Australia</gco:CharacterString>
                           </cit:country>
-                          <!-- Optional ~ If available Organisation email from TERN Organisations Vocabulary -->
                           <cit:electronicMailAddress>
                             <gco:CharacterString>help@csiro.au</gco:CharacterString>
                           </cit:electronicMailAddress>
@@ -814,17 +812,18 @@
                     <cit:CI_Contact>
 		      <!-- Who15.  For Who16 codelist value changes to 'fax' -->
 		      <!-- Codelist ~ https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml  CI_TelephoneTypeCode -->
+                      <!-- ASD@2022 excluding the phone of the organization as it is not supported in SHaRED v4 -->
+                       <!--
                       <cit:phone>
                         <cit:CI_Telephone>
                           <cit:number>
                             <gco:CharacterString>+61 2 6246 5588</gco:CharacterString>
                           </cit:number>
-                          <!-- ASD@2022 Telephone type code is static - the codeListValue 'voice' is fixed -->
                           <cit:numberType>
                             <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                           </cit:numberType>
                         </cit:CI_Telephone>
-                      </cit:phone>
+                      </cit:phone> -->
 		      <!-- Who13, Who14 -->
                       <cit:address>
                         <cit:CI_Address>
@@ -843,7 +842,6 @@
                           <cit:country>
                             <gco:CharacterString>Australia</gco:CharacterString>
                           </cit:country>
-                          <!-- Optional ~ If available Organisation email from TERN Organisations Vocabulary -->
                           <cit:electronicMailAddress>
                             <gco:CharacterString>data.support@csiro.au</gco:CharacterString>
                           </cit:electronicMailAddress>
@@ -872,9 +870,12 @@
           <!-- About9 ~ Help Text ~ for a non-standard citation, provide the details below.  -->
           <!-- About9 ~ Rule ~ If a custom citation is present this supercedes the standard generated citation -->
           <!-- About9 ~ Rule ~ If a custom citation is present then DOI minting should be disabled and DOI should be created manually -->
+          <!--ASD@2022 - Comment out otherCitationDetails as the property is not supported by SHaREDv4 and cit:otherCitationDetails is for other 
+              information required to complete the citation that is not recorded elsewhere; see https://wiki.esipfed.org/CI_Citation -->
+          <!--
           <cit:otherCitationDetails><gco:CharacterString>
             a custom citation
-          </gco:CharacterString></cit:otherCitationDetails>
+          </gco:CharacterString></cit:otherCitationDetails> -->
           <!-- Static section ~ retain in XML output -->
           <!-- Block Status ~ New XML block, begins after last cit:citedResponsibleParty  -->
           <!-- Description ~ TERN web site -->
@@ -1002,17 +1003,18 @@
               </cit:name>
               <cit:contactInfo>
                 <cit:CI_Contact>
+                  <!-- ASD@2022 excluding the phone number of the point of contact as it is not supported in SHaRED v4 -->
+                  <!--
                   <cit:phone>
                     <cit:CI_Telephone>
                       <cit:number>
                         <gco:CharacterString>02 6249 9182/9781</gco:CharacterString>
                       </cit:number>
-                      <!-- ASD@2022 Telephone type code is static - the codeListValue 'voice' is fixed -->
                       <cit:numberType>
                         <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                       </cit:numberType>
                     </cit:CI_Telephone>
-                  </cit:phone>
+                  </cit:phone> -->
                   <!-- ASD@2022 excluding this part as organization does not have a fax number in SHaRED v4 -->
                   <!--
                   <cit:phone>
@@ -1049,7 +1051,6 @@
                       <cit:country>
                         <gco:CharacterString>Australia</gco:CharacterString>
                       </cit:country>
-		      <!-- Optional ~ If available Organisation email from TERN Organisations Vocabulary -->
                       <cit:electronicMailAddress>
                         <gco:CharacterString>info@ga.gov.au</gco:CharacterString>
                       </cit:electronicMailAddress>
@@ -2665,7 +2666,7 @@
               <!-- Datasource10 ~ Codelist ~ GA Service types https://vocabs.ardc.edu.au/viewById/181 -->
               <!-- Datasource10 ~ Cardinality ~ one per mrd:transferOptions block -->
               <cit:protocol>
-                <gco:CharacterString>Web Feature Service</gco:CharacterString>
+                <gco:CharacterString>OGC Web Feature Service</gco:CharacterString>
               </cit:protocol>
               <!-- Datasource5 ~ Description ~ Layer or Feature Name -->
               <!-- Datasource5 ~ Required ~ conditional -->

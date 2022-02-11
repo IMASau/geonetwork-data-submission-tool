@@ -2176,7 +2176,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "XXX"]}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "doiFlag"]
        :label     "Is there an existing DOI for this dataset?"
@@ -2184,12 +2184,11 @@
        }
       [m4/yes-no-field
        {:form-id   [:form]
-        :data-path ["identificationInfo" "doiFlag"]
-        :label     "Does this record have a DOI?"}]
-      [m4/input-field
-       {:form-id         [:form]
-        :data-path       ["identificationInfo" "doi"]
-        :placeholder     "Please enter existing DOI here"}]]
+        :data-path ["identificationInfo" "doiFlag"]}]]
+     [m4/input-field
+      {:form-id         [:form]
+       :data-path       ["identificationInfo" "doi"]
+       :placeholder     "Please enter existing DOI here"}]
      #_[m3/Lodge
         {:note-for-data-manager-path [:form :fields :noteForDataManager]
          :agreed-to-terms-path       [:form :fields :agreedToTerms]

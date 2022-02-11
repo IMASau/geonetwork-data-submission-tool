@@ -1306,8 +1306,7 @@
        {:form-id     ?form-id
         :data-path   [?data-path "contact"]
         :title       "Contact"
-        :template-id :person-contact/user-defined-entry-form}]
-      ]
+        :template-id :person-contact/user-defined-entry-form}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"

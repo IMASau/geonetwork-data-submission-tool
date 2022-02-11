@@ -6,11 +6,16 @@
   [{:id         :data-identification
     :text       "Identification"
     :data-paths [["identificationInfo" "title"]
-                 ["identificationInfo" "dateCreation"]
-                 ["identificationInfo" "topicCategory"]
+                 ["parentMetadata"]
+                 ["parentMetadata" "parentMetadataFlag"]
+                 ["parentMetadata" "record"]
+                 ["identificationInfo" "topicCategories"]
                  ["identificationInfo" "status"]
+                 ["identificationInfo" "version"]
                  ["identificationInfo" "maintenanceAndUpdateFrequency"]
-                 ["identificationInfo" "version"]]}
+                 ["identificationInfo" "dateCreation"]
+                 ["identificationInfo" "datePublicationFlag"]
+                 ["identificationInfo" "datePublication"]]}
    {:id         :what
     :text       "What"
     :data-paths [["identificationInfo" "abstract"]

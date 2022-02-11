@@ -80,7 +80,9 @@
                  ["dataSources"]]}
    {:id         :lodge
     :text       "Lodge"
-    :data-paths []}])
+    :data-paths [["identificationInfo" "XXX"]
+                 ["identificationInfo" "doiFlag"]
+                 ["identificationInfo" "doi"]]}])
 
 (defn get-edit-tabs
   "Sub to return edit-tab data.  Defaults to edit-tabs if not set in app-db."

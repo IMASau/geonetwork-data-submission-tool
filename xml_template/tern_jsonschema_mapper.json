@@ -313,6 +313,12 @@
             "bool-field": "datePublicationFlag",
             "opt-field": "datePublication"
           }
+        },
+        {
+          "requiredWhenYes": {
+            "bool-field": "doiFlag",
+            "opt-field": "doi"
+          }
         }
       ],
       "type": "object",
@@ -1633,15 +1639,25 @@
             }
           }
         },
+        "doiFlag": {
+          "type": "boolean",
+          "default": false,
+          "keep": true,
+          "export": false,
+          "xpath": "mri:citation/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code"
+        },
         "doi": {
           "!docstring": "Lodge4",
           "xpath": "mri:citation/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code",
           "container": "mri:citation/cit:CI_Citation/cit:identifier",
           "keep": false,
-          "valueChild": "gco:CharacterString",
+          "valueChild": "gcx:Anchor",
           "attributes": {
             "text": {
               "function": "write_doi"
+            },
+            "xlink:href": {
+              "function": "write_doi_url"
             }
           }
         }

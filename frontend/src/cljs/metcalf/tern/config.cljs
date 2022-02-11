@@ -2120,6 +2120,38 @@
     [:div
      #_[m4/page-errors {:form-id [:form] :data-paths []}]
      [:h2 "10: Lodge Metadata Draft"]
+     [:h4 "Generated Citation"]
+     [:p "Nulla posuere.  Praesent augue."]
+
+     [:p "If you have any difficulties with the lodgement process or form entry requirements, please email: "
+      [:a {:href "mailto:esupport@tern.org.au"} "esupport@tern.org.au"]]
+     [:hr]
+     [:h4 "You are now ready to lodge your request"]
+     [:p "The Data Manager will be notified of your submission and will be in contact"
+      " if any further information is required. Once approved, your data will be archived for discovery in the "
+      [:b "TERN Data Portal."]]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "XXX"]
+       :label     "You can include a note for the Data Manager (Optional)"}
+      [m4/textarea-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "XXX"]}]]
+
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "doiFlag"]
+       :label     "Is there an existing DOI for this dataset?"
+       ;:toolTip   "Select 'Yes' if a DOI has already been minted for this dataset."
+       }
+      [m4/yes-no-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "doiFlag"]
+        :label     "Does this record have a DOI?"}]
+      [m4/input-field
+       {:form-id         [:form]
+        :data-path       ["identificationInfo" "doi"]
+        :placeholder     "Please enter existing DOI here"}]]
      #_[m3/Lodge
         {:note-for-data-manager-path [:form :fields :noteForDataManager]
          :agreed-to-terms-path       [:form :fields :agreedToTerms]

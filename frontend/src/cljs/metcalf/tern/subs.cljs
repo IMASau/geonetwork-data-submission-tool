@@ -24,7 +24,8 @@
   (let [successors (drop-while #(not= tab-id (:id %)) edit-tabs)]
     (doto (second successors) prn)))
 
-(defn get-edit-tab-props
+; NOTE: v3 code
+(defn ^:deprecated get-edit-tab-props
   "Sub to return edit-tab props for use in views.
    Returns selected-tab and tab-props.
    Each tab-prop includes an id, title and has-error? flag"

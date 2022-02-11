@@ -566,8 +566,23 @@ def sampling_uri(x):
     return x['uri']
 
 
+def _as_doi(arg):
+    """We want to ensure a valid DOI; this applies minimal checks to
+    strip possible prefixes etc."""
+    arg = re.sub(r'^(https?://)?(dx\.)?doi.org', '', arg)
+    arg = re.sub(r'^doi:', '', arg)
+    return arg
+
+
 def write_doi(x):
-    return 'doi: {doi}'.format(doi=x)
+    doi = _as_doi(x)
+    return f'doi:{doi}'
+
+
+def write_doi_url(arg):
+    doi = _as_doi(arg)
+    return f"https://dx.doi.org/{doi}"
+
 
 
 # TODO: should not be in common
@@ -649,6 +664,7 @@ SPEC_FUNCTIONS = {
     "write_orcid": write_orcid,
     "write_orcid_role": write_orcid_role,
     "write_doi": write_doi,
+    "write_doi_url": write_doi_url,
     "geonetwork_url": geonetwork_url,
     "write_constraints": write_constraints,
     "separate_organisation_identifier": separate_organisation_identifier,

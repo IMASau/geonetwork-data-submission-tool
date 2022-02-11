@@ -62,7 +62,16 @@
                  ["dataQualityInfo" "results"]]}
    {:id         :about
     :text       "About"
-    :data-paths []}
+    :data-paths [["identificationInfo" "useLimitation"]
+                 ["identificationInfo" "otherConstraints"]
+                 ["identificationInfo" "additionalConstraints" "constraints"]
+                 ["identificationInfo" "securityClassification"]
+                 ["identificationInfo" "environment"]
+                 ["identificationInfo" "additionalPublications"]
+                 ["identificationInfo" "supplemental"]
+                 ["identificationInfo" "resourceSpecificUsage"]
+                 ["identificationInfo" "credit"]
+                 ["identificationInfo" "customCitation"]]}
    {:id         :upload
     :text       "Data sources"
     :data-paths []}

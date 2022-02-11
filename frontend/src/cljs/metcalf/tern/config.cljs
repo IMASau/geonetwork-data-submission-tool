@@ -2183,7 +2183,8 @@
        }
       [m4/yes-no-field
        {:form-id   [:form]
-        :data-path ["identificationInfo" "doiFlag"]}]]
+        :data-path ["identificationInfo" "doiFlag"]
+        :label     ""}]]
      [m4/input-field
       {:form-id         [:form]
        :data-path       ["identificationInfo" "doi"]

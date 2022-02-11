@@ -57,20 +57,32 @@
                  ["resourceLineage" "steps"]]}
    {:id         :quality
     :text       "Data Quality"
-    :data-paths [["identificationInfo" "environment"]
+    :data-paths [["dataQualityInfo" "methodSummary"]
+                 ["dataQualityInfo" "onlineMethods"]
+                 ["dataQualityInfo" "results"]]}
+   {:id         :about
+    :text       "About"
+    :data-paths [["identificationInfo" "useLimitation"]
+                 ["identificationInfo" "otherConstraints"]
+                 ["identificationInfo" "additionalConstraints" "constraints"]
+                 ["identificationInfo" "securityClassification"]
+                 ["identificationInfo" "environment"]
+                 ["identificationInfo" "additionalPublications"]
                  ["identificationInfo" "supplemental"]
                  ["identificationInfo" "resourceSpecificUsage"]
                  ["identificationInfo" "credit"]
                  ["identificationInfo" "customCitation"]]}
-   {:id         :about
-    :text       "About"
-    :data-paths []}
    {:id         :upload
     :text       "Data sources"
-    :data-paths []}
+    :data-paths [["attachments"]
+                 ["identificationInfo" "thumbnail" "title"]
+                 ["identificationInfo" "thumbnail" "file"]
+                 ["dataSources"]]}
    {:id         :lodge
     :text       "Lodge"
-    :data-paths []}])
+    :data-paths [["identificationInfo" "XXX"]
+                 ["identificationInfo" "doiFlag"]
+                 ["identificationInfo" "doi"]]}])
 
 (defn get-edit-tabs
   "Sub to return edit-tab data.  Defaults to edit-tabs if not set in app-db."

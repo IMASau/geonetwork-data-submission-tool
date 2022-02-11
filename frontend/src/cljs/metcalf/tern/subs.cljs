@@ -47,9 +47,9 @@
                  ["identificationInfo" "SpatialResolution" "ResolutionAttribute"]]}
    {:id         :who
     :text       "Who"
-    :data-paths [["resourceLineage" "processStep"]
-                 ["dataQualityInfo" "methods"]
-                 ["dataQualityInfo" "results"]]}
+    :data-paths [["identificationInfo" "citedResponsibleParty"]
+                 ["identificationInfo" "pointOfContact"]
+                 ["resourceLineage" "processStep"]]}
    {:id         :how
     :text       "How"
     :data-paths [["dataQualityInfo" "methodSummary"]

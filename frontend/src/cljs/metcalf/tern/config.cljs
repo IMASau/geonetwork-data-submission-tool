@@ -1302,11 +1302,11 @@
          :random-uuid-value? true
          :added-path         ["isUserDefined"]}]]
 
-      ;; [m4/edit-dialog
-      ;;  {:form-id     ?form-id
-      ;;   :data-path   [?data-path "contact"]
-      ;;   :title       "Contact"
-      ;;   :template-id :person-organisation/user-defined-entry-form}]
+      [m4/edit-dialog
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact"]
+        :title       "Contact"
+        :template-id :person-contact/user-defined-entry-form}]
       ]
 
      [:div {:style {:display               "grid"
@@ -1629,6 +1629,46 @@
        [m4/input-field
         {:form-id   ?form-id
          :data-path [?data-path "phone"]}]]]]
+
+    :person-contact/user-defined-entry-form
+    [:div
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "given_name"]
+        :label     "Given name"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "given_name"]}]]
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "surname"]
+        :label     "Surname"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "surname"]}]]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "email"]
+       :label     "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "email"]}]]
+
+     [m4/form-group
+      {:form-id     ?form-id
+       :data-path   [?data-path "orcid"]
+       :label       "ORCID ID"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "orcid"]
+        :placeholder "XXXX-XXXX-XXXX-XXXX"}]]]
 
     :how
     [:div

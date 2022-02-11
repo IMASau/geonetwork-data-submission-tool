@@ -74,7 +74,10 @@
                  ["identificationInfo" "customCitation"]]}
    {:id         :upload
     :text       "Data sources"
-    :data-paths []}
+    :data-paths [["attachments"]
+                 ["identificationInfo" "thumbnail" "title"]
+                 ["identificationInfo" "thumbnail" "file"]
+                 ["dataSources"]]}
    {:id         :lodge
     :text       "Lodge"
     :data-paths []}])

@@ -19,7 +19,18 @@
    {:id         :what
     :text       "What"
     :data-paths [["identificationInfo" "abstract"]
-                 ["identificationInfo" "purpose"]]}
+                 ["identificationInfo" "purpose"]
+                 ["identificationInfo" "keywordsTheme" "keywords"]
+                 ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
+                 ["identificationInfo" "keywordsPlatform" "keywords"]
+                 ["identificationInfo" "keywordsInstrument" "keywords"]
+                 ["identificationInfo" "keywordsParameters" "keywords"]
+                 ["identificationInfo" "keywordsTemporal" "keywords"]
+                 ["identificationInfo" "keywordsHorizontal" "keywords"]
+                 ["identificationInfo" "keywordsVertical" "keywords"]
+                 ["identificationInfo" "keywordsFlora" "keywords"]
+                 ["identificationInfo" "keywordsFauna" "keywords"]
+                 ["identificationInfo" "keywordsAdditional" "keywords"]]}
    {:id         :when
     :text       "When"
     :data-paths [["identificationInfo" "beginPosition"]

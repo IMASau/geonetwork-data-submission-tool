@@ -1285,13 +1285,29 @@
        :data-path [?data-path "contact"]
        :label     "Select Person"
        :toolTip   "Select the primary contact of the dataset."}
-      [m4/async-simple-item-option-picker
-       {:form-id     ?form-id
-        :data-path   [?data-path "contact"]
-        :uri         "/api/ternpeople"
-        :label-path  ["name"]
-        :value-path  ["uri"]
-        :placeholder "Search for contact details"}]]
+
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id     ?form-id
+          :data-path   [?data-path "contact"]
+          :uri         "/api/ternpeople"
+          :label-path  ["name"]
+          :value-path  ["uri"]
+          :placeholder "Search for contact details"}]]
+       [m4/item-dialog-button
+        {:form-id            ?form-id
+         :data-path          [?data-path "contact"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]
+
+      ;; [m4/edit-dialog
+      ;;  {:form-id     ?form-id
+      ;;   :data-path   [?data-path "contact"]
+      ;;   :title       "Contact"
+      ;;   :template-id :person-organisation/user-defined-entry-form}]
+      ]
 
      [:p "If contact is not available, please enter the contact details below."]
 

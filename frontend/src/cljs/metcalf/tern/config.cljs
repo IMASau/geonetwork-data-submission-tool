@@ -1309,8 +1309,6 @@
       ;;   :template-id :person-organisation/user-defined-entry-form}]
       ]
 
-     [:p "If contact is not available, please enter the contact details below."]
-
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
                     :grid-template-columns "1fr 1fr"}}

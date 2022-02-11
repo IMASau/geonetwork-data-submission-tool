@@ -1,5 +1,10 @@
 import json
 
+from lxml import etree
+
+from metcalf.common import spec4, xmlutils5
+from metcalf.common import xmlutils4
+
 
 def to_json(x):
     if isinstance(x, str):
@@ -20,3 +25,22 @@ def get_user_name(obj):
     if obj.email:
         return obj.email
     return obj.username
+
+
+def create_export_xml_string(doc, uuid):
+    data = to_json(doc.latest_draft.data)
+    xml = etree.parse(doc.template.file.path)
+    spec = spec4.make_spec(uuid=uuid, mapper=doc.template.mapper)
+    xmlutils4.data_to_xml(data=data, xml_node=xml, spec=spec, nsmap=spec['namespaces'],
+                          element_index=0, silent=True, fieldKey=None, doc_uuid=uuid)
+    xmlutils5.export2(
+        data=data,
+        xml_node=xml,
+        spec=spec,
+        xml_kwargs={"namespaces": spec['namespaces']},
+        handlers={
+            "generateParameterKeywords": xmlutils5.export2_generateParameterKeywords_handler,
+            "generateUnitKeywords": xmlutils5.export2_generateUnitKeywords_handler,
+            "generateDatasourceDistributions": xmlutils5.export2_generateDatasourceDistributions_handler,
+        })
+    return etree.tostring(xml)

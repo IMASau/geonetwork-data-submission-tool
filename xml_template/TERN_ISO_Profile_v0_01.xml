@@ -684,8 +684,6 @@
                   <cit:contactInfo>
                     <cit:CI_Contact>
 		      <!-- Codelist ~ https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml  CI_TelephoneTypeCode -->
-                      <!-- ASD@2022 excluding the phone of the organization as it is not supported in SHaRED v4 -->
-                      <!--
                       <cit:phone>
                         <cit:CI_Telephone>
                           <cit:number>
@@ -695,7 +693,7 @@
                             <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                           </cit:numberType>
                         </cit:CI_Telephone>
-                      </cit:phone> -->
+                      </cit:phone>
 		      <!-- Who13, Who14 -->
                       <cit:address>
                         <cit:CI_Address>
@@ -812,8 +810,6 @@
                     <cit:CI_Contact>
 		      <!-- Who15.  For Who16 codelist value changes to 'fax' -->
 		      <!-- Codelist ~ https://schemas.isotc211.org/schemas/19115/-3/mco/1.0/codelists.xml  CI_TelephoneTypeCode -->
-                      <!-- ASD@2022 excluding the phone of the organization as it is not supported in SHaRED v4 -->
-                       <!--
                       <cit:phone>
                         <cit:CI_Telephone>
                           <cit:number>
@@ -823,7 +819,7 @@
                             <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                           </cit:numberType>
                         </cit:CI_Telephone>
-                      </cit:phone> -->
+                      </cit:phone>
 		      <!-- Who13, Who14 -->
                       <cit:address>
                         <cit:CI_Address>
@@ -870,12 +866,9 @@
           <!-- About9 ~ Help Text ~ for a non-standard citation, provide the details below.  -->
           <!-- About9 ~ Rule ~ If a custom citation is present this supercedes the standard generated citation -->
           <!-- About9 ~ Rule ~ If a custom citation is present then DOI minting should be disabled and DOI should be created manually -->
-          <!--ASD@2022 - Comment out otherCitationDetails as the property is not supported by SHaREDv4 and cit:otherCitationDetails is for other 
-              information required to complete the citation that is not recorded elsewhere; see https://wiki.esipfed.org/CI_Citation -->
-          <!--
           <cit:otherCitationDetails><gco:CharacterString>
             a custom citation
-          </gco:CharacterString></cit:otherCitationDetails> -->
+          </gco:CharacterString></cit:otherCitationDetails>
           <!-- Static section ~ retain in XML output -->
           <!-- Block Status ~ New XML block, begins after last cit:citedResponsibleParty  -->
           <!-- Description ~ TERN web site -->
@@ -1003,8 +996,6 @@
               </cit:name>
               <cit:contactInfo>
                 <cit:CI_Contact>
-                  <!-- ASD@2022 excluding the phone number of the point of contact as it is not supported in SHaRED v4 -->
-                  <!--
                   <cit:phone>
                     <cit:CI_Telephone>
                       <cit:number>
@@ -1014,7 +1005,7 @@
                         <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="voice"/>
                       </cit:numberType>
                     </cit:CI_Telephone>
-                  </cit:phone> -->
+                  </cit:phone>
                   <!-- ASD@2022 excluding this part as organization does not have a fax number in SHaRED v4 -->
                   <!--
                   <cit:phone>

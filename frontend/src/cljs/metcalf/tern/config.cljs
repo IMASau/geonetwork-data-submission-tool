@@ -122,7 +122,7 @@
 (rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
 (rf/reg-sub :subs/get-attachments subs3/get-attachments)
 (rf/reg-sub :subs/get-context subs3/get-context)
-(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [::subs4/get-form-state [:form]] :<- [::tern-subs/get-edit-tabs] tern-subs/get-edit-tab-props)
+(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [::subs4/get-form-state [:form]] :<- [::tern-subs/get-edit-tabs] tern-subs/get-edit-tab-props2)
 (rf/reg-sub :subs/get-form subs3/get-form)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
 (rf/reg-sub :subs/get-form-disabled? subs3/get-form-disabled?)
@@ -135,23 +135,23 @@
 (when goog/DEBUG (ins4/reg-global-singleton ins4/db-diff))
 (when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
-      {"requiredField"        rules4/required-field
-       "requiredWhenYes"      rules4/required-when-yes
-       "spatialUnits"         rules4/spatial-resolution-units
-       "requiredAllNone"      rules4/required-all-or-nothing
-       "maxLength"            rules4/max-length
-       "mergeNameParts"       rules4/merge-names
-       "validOrcid"           rules4/valid-ordid-uri
-       "geographyRequired"    rules4/geography-required
-       "numericOrder"         rules4/numeric-order
-       "positive"             rules4/force-positive
-       "dateOrder"            rules4/date-order
-       "dateBeforeToday"      rules4/date-before-today
-       "endPosition"          rules4/end-position
-       "maintFreq"            rules4/maint-freq
-       "verticalRequired"     rules4/vertical-required
-       "protocolLayer"        rules4/data-source-required-layer
-       "maxKeywords"          rules4/tern-max-keywords})
+      {"requiredField"     rules4/required-field
+       "requiredWhenYes"   rules4/required-when-yes
+       "spatialUnits"      rules4/spatial-resolution-units
+       "requiredAllNone"   rules4/required-all-or-nothing
+       "maxLength"         rules4/max-length
+       "mergeNameParts"    rules4/merge-names
+       "validOrcid"        rules4/valid-ordid-uri
+       "geographyRequired" rules4/geography-required
+       "numericOrder"      rules4/numeric-order
+       "positive"          rules4/force-positive
+       "dateOrder"         rules4/date-order
+       "dateBeforeToday"   rules4/date-before-today
+       "endPosition"       rules4/end-position
+       "maintFreq"         rules4/maint-freq
+       "verticalRequired"  rules4/vertical-required
+       "protocolLayer"     rules4/data-source-required-layer
+       "maxKeywords"       rules4/tern-max-keywords})
 (set! low-code4/component-registry
       {
        'm4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
@@ -1285,52 +1285,60 @@
        :data-path [?data-path "contact"]
        :label     "Select Person"
        :toolTip   "Select the primary contact of the dataset."}
-      [m4/async-simple-item-option-picker
+
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id     ?form-id
+          :data-path   [?data-path "contact"]
+          :uri         "/api/ternpeople"
+          :label-path  ["name"]
+          :value-path  ["uri"]
+          :placeholder "Search for contact details"}]]
+       [m4/item-dialog-button
+        {:form-id            ?form-id
+         :data-path          [?data-path "contact"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]
+
+      [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "contact"]
-        :uri         "/api/ternpeople"
-        :label-path  ["name"]
-        :value-path  ["uri"]
-        :placeholder "Search for contact details"}]]
-
-     [:p "If contact is not available, please enter the contact details below."]
+        :title       "Contact"
+        :template-id :person-contact/user-defined-entry-form}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
                     :grid-template-columns "1fr 1fr"}}
 
       [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "given_name"]
-        :label     "Given name"}
+       {:label "Given name"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "given_name"]}]]
+         :data-path [?data-path "contact" "given_name"]
+         :disabled  true}]]
 
       [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "surname"]
-        :label     "Surname"}
+       {:label "Surname"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "surname"]}]]]
+         :data-path [?data-path "contact" "surname"]
+         :disabled  true}]]]
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "contact" "email"]
-       :label     "Email address"}
+      {:label "Email address"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "email"]}]]
+        :data-path [?data-path "contact" "email"]
+        :disabled  true}]]
 
      [m4/form-group
-      {:form-id     ?form-id
-       :data-path   [?data-path "contact" "orcid"]
-       :label       "ORCID ID"
-       :placeholder "XXXX-XXXX-XXXX-XXXX"}
+      {:label "ORCID ID"}
       [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "orcid"]}]]
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "orcid"]
+        :disabled    true}]]
 
      [m4/form-group
       {:form-id   ?form-id
@@ -1621,6 +1629,46 @@
         {:form-id   ?form-id
          :data-path [?data-path "phone"]}]]]]
 
+    :person-contact/user-defined-entry-form
+    [:div
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "given_name"]
+        :label     "Given name"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "given_name"]}]]
+
+      [m4/form-group
+       {:form-id   ?form-id
+        :data-path [?data-path "surname"]
+        :label     "Surname"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "surname"]}]]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "email"]
+       :label     "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "email"]}]]
+
+     [m4/form-group
+      {:form-id     ?form-id
+       :data-path   [?data-path "orcid"]
+       :label       "ORCID ID"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "orcid"]
+        :placeholder "XXXX-XXXX-XXXX-XXXX"}]]]
+
     :how
     [:div
      #_[m4/page-errors
@@ -1648,15 +1696,16 @@
       [m4/form-group
        {:label   "Method documentation"
         :toolTip "The method of production of the dataset. Provide the title and URL of the method documentation."}
-       [m4/selection-list-columns
-        {:form-id            [:form]
-         :data-path          ["resourceLineage" "onlineMethods"]
-         :value-path         ["uri"]
-         :random-uuid-value? true
-         :select-snapshot?   true
-         :added-path         ["isUserDefined"]
-         :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-columns
+         {:form-id            [:form]
+          :data-path          ["resourceLineage" "onlineMethods"]
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :select-snapshot?   true
+          :added-path         ["isUserDefined"]
+          :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                               {:columnHeader "URL" :label-path ["url"] :flex 1}]}]]
 
        [m4/list-add-button
         {:form-id            [:form]
@@ -1707,9 +1756,10 @@
         {:form-id     [:form]
          :data-path   ["resourceLineage" "steps"]
          :button-text "Add"}]
-       [m4/selection-list-values
-        {:form-id   [:form]
-         :data-path ["resourceLineage" "steps"]}]]]]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-values
+         {:form-id   [:form]
+          :data-path ["resourceLineage" "steps"]}]]]]]
 
     :method-doc/user-defined-entry-form
     [:div
@@ -1753,15 +1803,16 @@
       {:label    "Online data quality report"
        :toolTip  "Data quality report refers to a textual description of the quality control of the dataset. Provide the title and URL of the report, if available."
        :required true}
-      [m4/selection-list-columns
-       {:form-id            [:form]
-        :data-path          ["dataQualityInfo" "onlineMethods"]
-        :value-path         ["uri"]
-        :random-uuid-value? true
-        :select-snapshot?   true
-        :added-path         ["isUserDefined"]
-        :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                             {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+      [:div.SelectionListItemColoured
+       [m4/selection-list-columns
+        {:form-id            [:form]
+         :data-path          ["dataQualityInfo" "onlineMethods"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :select-snapshot?   true
+         :added-path         ["isUserDefined"]
+         :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]]
 
       [m4/list-add-button
        {:form-id            [:form]
@@ -1842,9 +1893,10 @@
        {:form-id     [:form]
         :data-path   ["identificationInfo" "additionalConstraints" "constraints"]
         :button-text "Add"}]
-      [m4/selection-list-values
-       {:form-id   [:form]
-        :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]
+      [:div.SelectionListItemColoured
+       [m4/selection-list-values
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]]
 
      [m4/form-group
       {:label   "Security Classification"
@@ -2099,12 +2151,44 @@
         :uri         "/api/ternorgs"
         :label-path  ["name"]
         :value-path  ["uri"]
-        :placeholder "Search for organisation details"}]]]
+        :placeholder "Will use TERN - UQ Long Pocket if not specified"}]]]
 
     :lodge
     [:div
      #_[m4/page-errors {:form-id [:form] :data-paths []}]
      [:h2 "10: Lodge Metadata Draft"]
+     [:h4 "Generated Citation"]
+     [:p "Nulla posuere.  Praesent augue."]
+
+     [:p "If you have any difficulties with the lodgement process or form entry requirements, please email: "
+      [:a {:href "mailto:esupport@tern.org.au"} "esupport@tern.org.au"]]
+     [:hr]
+     [:h4 "You are now ready to lodge your request"]
+     [:p "The Data Manager will be notified of your submission and will be in contact"
+      " if any further information is required. Once approved, your data will be archived for discovery in the "
+      [:b "TERN Data Portal."]]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "XXX"]
+       :label     "You can include a note for the Data Manager (Optional)"}
+      [m4/textarea-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "XXX"]}]]
+
+     [m4/inline-form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "doiFlag"]
+       :label     "Is there an existing DOI for this dataset?"
+       ;:toolTip   "Select 'Yes' if a DOI has already been minted for this dataset."
+       }
+      [m4/yes-no-field
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "doiFlag"]
+        :label     ""}]]
+     [m4/input-field
+      {:form-id         [:form]
+       :data-path       ["identificationInfo" "doi"]
+       :placeholder     "Please enter existing DOI here"}]
      #_[m3/Lodge
         {:note-for-data-manager-path [:form :fields :noteForDataManager]
          :agreed-to-terms-path       [:form :fields :agreedToTerms]

@@ -3,16 +3,52 @@
 
 (def edit-tabs
   "Default edit tabs for tern.  Can be overridden through app-db state.  See init-db."
-  [{:id :data-identification :text "Identification"}
-   {:id :what :text "What"}
-   {:id :when :text "When"}
-   {:id :where :text "Where"}
-   {:id :who :text "Who"}
-   {:id :how :text "How"}
-   {:id :quality :text "Data Quality"}
-   {:id :about :text "About"}
-   {:id :upload :text "Data sources"}
-   {:id :lodge :text "Lodge"}])
+  [{:id         :data-identification
+    :text       "Identification"
+    :data-paths [["identificationInfo" "title"]
+                 ["identificationInfo" "dateCreation"]
+                 ["identificationInfo" "topicCategory"]
+                 ["identificationInfo" "status"]
+                 ["identificationInfo" "maintenanceAndUpdateFrequency"]
+                 ["identificationInfo" "version"]]}
+   {:id         :what
+    :text       "What"
+    :data-paths [["identificationInfo" "abstract"]
+                 ["identificationInfo" "purpose"]]}
+   {:id         :when
+    :text       "When"
+    :data-paths [["identificationInfo" "beginPosition"]
+                 ["identificationInfo" "endPosition"]]}
+   {:id         :where
+    :text       "Where"
+    :data-paths [["identificationInfo" "geographicElement" "boxes"]
+                 ["identificationInfo" "verticalElement" "minimumValue"]
+                 ["identificationInfo" "verticalElement" "maximumValue"]]}
+   {:id         :who
+    :text       "Who"
+    :data-paths [["resourceLineage" "processStep"]
+                 ["dataQualityInfo" "methods"]
+                 ["dataQualityInfo" "results"]]}
+   {:id         :how
+    :text       "How"
+    :data-paths [["dataQualityInfo" "methodSummary"]
+                 ["dataQualityInfo" "results"]]}
+   {:id         :quality
+    :text       "Data Quality"
+    :data-paths [["identificationInfo" "environment"]
+                 ["identificationInfo" "supplemental"]
+                 ["identificationInfo" "resourceSpecificUsage"]
+                 ["identificationInfo" "credit"]
+                 ["identificationInfo" "customCitation"]]}
+   {:id         :about
+    :text       "About"
+    :data-paths []}
+   {:id         :upload
+    :text       "Data sources"
+    :data-paths []}
+   {:id         :lodge
+    :text       "Lodge"
+    :data-paths []}])
 
 (defn get-edit-tabs
   "Sub to return edit-tab data.  Defaults to edit-tabs if not set in app-db."

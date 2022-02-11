@@ -147,7 +147,8 @@ def add_creator(creators, person, nsmap):
 
 
 class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
-    list_display = ['admin_name', 'owner_name', 'status', 'validity', 'date_last_validated', 'hasUserDefined', 'action_links']
+    list_display = ['admin_name', 'owner_name', 'status', 'validity', 'date_last_validated', 'publish_status',
+                    'date_published', 'hasUserDefined', 'action_links']
     list_filter = ['status', 'template', 'hasUserDefined']
     search_fields = ['title', 'owner__username', 'owner__email', 'uuid']
     fsm_field = ['status', ]

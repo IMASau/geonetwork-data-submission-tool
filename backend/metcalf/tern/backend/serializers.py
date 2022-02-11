@@ -7,6 +7,12 @@ from metcalf.common import xmlutils4
 from metcalf.tern.backend import models
 
 
+class DocumentCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.DocumentCategory
+        fields = '__all__'
+
+
 class DumaDocumentSerializer(serializers.ModelSerializer):
     # The defaul returns the document-info url, we want the duma-specific one
     url = serializers.SerializerMethodField()
@@ -80,7 +86,6 @@ class MetadataTemplateSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.MetadataTemplate
         fields = ('id', 'name',)
-
 
 # class ScienceKeywordSerializer(serializers.ModelSerializer):
 #     class Meta:

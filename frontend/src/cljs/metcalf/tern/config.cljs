@@ -1283,7 +1283,7 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "contact"]
-       :label     "Contact"
+       :label     "Select Person"
        :toolTip   "Select the primary contact of the dataset."}
       [m4/async-simple-item-option-picker
        {:form-id     ?form-id
@@ -1437,7 +1437,7 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
-       :label     "Contact"
+       :label     "Select an Organisation"
        :toolTip   "Select an organisation from the list or define your own."}
       [m4/async-simple-item-option-picker
        {:form-id     ?form-id
@@ -1446,6 +1446,8 @@
         :label-path  ["name"]
         :value-path  ["uri"]
         :placeholder "Search for organisation details"}]]
+
+     [:p "If the Organisation you need is not listed, you can add the Organisation and respective details below."]
 
      [m4/form-group
       {:form-id   ?form-id

@@ -1305,7 +1305,8 @@
         :label     "Given name"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "given_name"]}]]
+         :data-path [?data-path "contact" "given_name"]
+         :disabled  true}]]
 
       [m4/form-group
        {:form-id   ?form-id
@@ -1313,7 +1314,8 @@
         :label     "Surname"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "surname"]}]]]
+         :data-path [?data-path "contact" "surname"]
+         :disabled  true}]]]
 
      [m4/form-group
       {:form-id   ?form-id
@@ -1321,16 +1323,17 @@
        :label     "Email address"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "contact" "email"]}]]
+        :data-path [?data-path "contact" "email"]
+        :disabled  true}]]
 
      [m4/form-group
       {:form-id     ?form-id
        :data-path   [?data-path "contact" "orcid"]
-       :label       "ORCID ID"
-       :placeholder "XXXX-XXXX-XXXX-XXXX"}
+       :label       "ORCID ID"}
       [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "orcid"]}]]
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "orcid"]
+        :disabled    true}]]
 
      [m4/form-group
       {:form-id   ?form-id

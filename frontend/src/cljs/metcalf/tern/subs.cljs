@@ -57,11 +57,9 @@
                  ["resourceLineage" "steps"]]}
    {:id         :quality
     :text       "Data Quality"
-    :data-paths [["identificationInfo" "environment"]
-                 ["identificationInfo" "supplemental"]
-                 ["identificationInfo" "resourceSpecificUsage"]
-                 ["identificationInfo" "credit"]
-                 ["identificationInfo" "customCitation"]]}
+    :data-paths [["dataQualityInfo" "methodSummary"]
+                 ["dataQualityInfo" "onlineMethods"]
+                 ["dataQualityInfo" "results"]]}
    {:id         :about
     :text       "About"
     :data-paths []}

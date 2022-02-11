@@ -135,23 +135,23 @@
 (when goog/DEBUG (ins4/reg-global-singleton ins4/db-diff))
 (when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
-      {"requiredField"        rules4/required-field
-       "requiredWhenYes"      rules4/required-when-yes
-       "spatialUnits"         rules4/spatial-resolution-units
-       "requiredAllNone"      rules4/required-all-or-nothing
-       "maxLength"            rules4/max-length
-       "mergeNameParts"       rules4/merge-names
-       "validOrcid"           rules4/valid-ordid-uri
-       "geographyRequired"    rules4/geography-required
-       "numericOrder"         rules4/numeric-order
-       "positive"             rules4/force-positive
-       "dateOrder"            rules4/date-order
-       "dateBeforeToday"      rules4/date-before-today
-       "endPosition"          rules4/end-position
-       "maintFreq"            rules4/maint-freq
-       "verticalRequired"     rules4/vertical-required
-       "protocolLayer"        rules4/data-source-required-layer
-       "maxKeywords"          rules4/tern-max-keywords})
+      {"requiredField"     rules4/required-field
+       "requiredWhenYes"   rules4/required-when-yes
+       "spatialUnits"      rules4/spatial-resolution-units
+       "requiredAllNone"   rules4/required-all-or-nothing
+       "maxLength"         rules4/max-length
+       "mergeNameParts"    rules4/merge-names
+       "validOrcid"        rules4/valid-ordid-uri
+       "geographyRequired" rules4/geography-required
+       "numericOrder"      rules4/numeric-order
+       "positive"          rules4/force-positive
+       "dateOrder"         rules4/date-order
+       "dateBeforeToday"   rules4/date-before-today
+       "endPosition"       rules4/end-position
+       "maintFreq"         rules4/maint-freq
+       "verticalRequired"  rules4/vertical-required
+       "protocolLayer"     rules4/data-source-required-layer
+       "maxKeywords"       rules4/tern-max-keywords})
 (set! low-code4/component-registry
       {
        'm4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
@@ -1648,15 +1648,16 @@
       [m4/form-group
        {:label   "Method documentation"
         :toolTip "The method of production of the dataset. Provide the title and URL of the method documentation."}
-       [m4/selection-list-columns
-        {:form-id            [:form]
-         :data-path          ["resourceLineage" "onlineMethods"]
-         :value-path         ["uri"]
-         :random-uuid-value? true
-         :select-snapshot?   true
-         :added-path         ["isUserDefined"]
-         :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-columns
+         {:form-id            [:form]
+          :data-path          ["resourceLineage" "onlineMethods"]
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :select-snapshot?   true
+          :added-path         ["isUserDefined"]
+          :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                               {:columnHeader "URL" :label-path ["url"] :flex 1}]}]]
 
        [m4/list-add-button
         {:form-id            [:form]
@@ -1707,9 +1708,10 @@
         {:form-id     [:form]
          :data-path   ["resourceLineage" "steps"]
          :button-text "Add"}]
-       [m4/selection-list-values
-        {:form-id   [:form]
-         :data-path ["resourceLineage" "steps"]}]]]]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-values
+         {:form-id   [:form]
+          :data-path ["resourceLineage" "steps"]}]]]]]
 
     :method-doc/user-defined-entry-form
     [:div
@@ -1753,15 +1755,16 @@
       {:label    "Online data quality report"
        :toolTip  "Data quality report refers to a textual description of the quality control of the dataset. Provide the title and URL of the report, if available."
        :required true}
-      [m4/selection-list-columns
-       {:form-id            [:form]
-        :data-path          ["dataQualityInfo" "onlineMethods"]
-        :value-path         ["uri"]
-        :random-uuid-value? true
-        :select-snapshot?   true
-        :added-path         ["isUserDefined"]
-        :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                             {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+      [:div.SelectionListItemColoured
+       [m4/selection-list-columns
+        {:form-id            [:form]
+         :data-path          ["dataQualityInfo" "onlineMethods"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :select-snapshot?   true
+         :added-path         ["isUserDefined"]
+         :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]]
 
       [m4/list-add-button
        {:form-id            [:form]
@@ -1842,9 +1845,10 @@
        {:form-id     [:form]
         :data-path   ["identificationInfo" "additionalConstraints" "constraints"]
         :button-text "Add"}]
-      [m4/selection-list-values
-       {:form-id   [:form]
-        :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]
+      [:div.SelectionListItemColoured
+       [m4/selection-list-values
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]]
 
      [m4/form-group
       {:label   "Security Classification"

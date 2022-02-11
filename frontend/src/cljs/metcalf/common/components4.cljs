@@ -709,7 +709,7 @@
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [disabled is-hidden button-text]} props]
     (when-not is-hidden
-      [:button.bp3-button.bp3-intent-primary.bp3-icon-plus
+      [:button.bp3-button.bp3-intent-primary
        {:disabled disabled
         :onClick  #(rf/dispatch [::list-add-with-defaults-click-handler3 config])}
        button-text])))
@@ -726,7 +726,7 @@
   (let [props @(rf/subscribe [::get-block-props config])
         {:keys [disabled is-hidden button-text]} props]
     (when-not is-hidden
-      [:button.bp3-button.bp3-intent-primary.bp3-icon-plus
+      [:button.bp3-button.bp3-intent-primary
        {:disabled disabled
         :onClick  #(rf/dispatch [::value-list-add-with-defaults-click-handler config])}
        button-text])))
@@ -1325,26 +1325,26 @@
               :onItemClick (fn [idx] (rf/dispatch [::list-add-with-defaults-click-handler3 config]))}]))))
 
 (defn simple-list-option-picker-settings
- "Settings for simple-list-option-picker component"
- [_]
- {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path]
-  ::low-code4/opt-ks [:placeholder]
-  ::low-code4/schema {:type "array" :items {:type "object"}}})
+  "Settings for simple-list-option-picker component"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :options :value-path :label-path]
+   ::low-code4/opt-ks [:placeholder]
+   ::low-code4/schema {:type "array" :items {:type "object"}}})
 
 (defn simple-list-option-picker
- [config]
- (let [props @(rf/subscribe [::get-block-props config])
-       {:keys [placeholder options disabled is-hidden value-path label-path show-errors?]} props]
-   (when-not is-hidden
-     [ui-controls/SimpleSelectField
-      {:value       nil
-       :options     options
-       :placeholder placeholder
-       :disabled    disabled
-       :hasError    show-errors?
-       :getLabel    (ui-controls/obj-path-getter label-path)
-       :getValue    (ui-controls/obj-path-getter value-path)
-       :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [placeholder options disabled is-hidden value-path label-path show-errors?]} props]
+    (when-not is-hidden
+      [ui-controls/SimpleSelectField
+       {:value       nil
+        :options     options
+        :placeholder placeholder
+        :disabled    disabled
+        :hasError    show-errors?
+        :getLabel    (ui-controls/obj-path-getter label-path)
+        :getValue    (ui-controls/obj-path-getter value-path)
+        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
 
 ;(defn breadcrumb-list-option-picker-settings
 ;  "Settings for breadcrumb-list-option-picker component"

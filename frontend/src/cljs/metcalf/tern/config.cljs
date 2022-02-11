@@ -2151,7 +2151,7 @@
         :uri         "/api/ternorgs"
         :label-path  ["name"]
         :value-path  ["uri"]
-        :placeholder "Search for organisation details"}]]]
+        :placeholder "Will use TERN - UQ Long Pocket if not specified"}]]]
 
     :lodge
     [:div

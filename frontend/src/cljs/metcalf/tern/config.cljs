@@ -122,7 +122,7 @@
 (rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
 (rf/reg-sub :subs/get-attachments subs3/get-attachments)
 (rf/reg-sub :subs/get-context subs3/get-context)
-(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [::subs4/get-form-state [:form]] :<- [::tern-subs/get-edit-tabs] tern-subs/get-edit-tab-props)
+(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [::subs4/get-form-state [:form]] :<- [::tern-subs/get-edit-tabs] tern-subs/get-edit-tab-props2)
 (rf/reg-sub :subs/get-form subs3/get-form)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
 (rf/reg-sub :subs/get-form-disabled? subs3/get-form-disabled?)

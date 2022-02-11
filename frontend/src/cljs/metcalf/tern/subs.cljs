@@ -1,4 +1,5 @@
-(ns metcalf.tern.subs)
+(ns metcalf.tern.subs
+  (:require [metcalf.common.blocks4 :as blocks4]))
 
 (def edit-tabs
   "Default edit tabs for tern.  Can be overridden through app-db state.  See init-db."
@@ -39,3 +40,22 @@
                           :title        text
                           :show-errors? (and error-count (> error-count 0))}))
                      edit-tabs)}))
+
+(defn get-edit-tab-props2
+  "Sub to return edit-tab props for use in views.
+   Returns selected-tab and tab-props.
+   Each tab-prop includes an id, title and has-error? flag"
+  [[page form-state edit-tabs]]
+  (letfn [(has-block-errors? [data-path]
+            (let [block (get-in form-state (blocks4/block-path data-path))]
+              (get-in block [:progress/score :progress/errors])))]
+    (let [selected-tab (get page :tab :data-identification)]
+      {:selected-tab selected-tab
+       :next-tab     (get-next-tab selected-tab edit-tabs)
+       :tab-props    (mapv
+                       (fn [{:keys [id text data-paths]}]
+                         (let [has-errors? (some has-block-errors? data-paths)]
+                           {:id          id
+                            :title       text
+                            :has-errors? (boolean has-errors?)}))
+                       edit-tabs)})))

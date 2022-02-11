@@ -38,8 +38,13 @@
    {:id         :where
     :text       "Where"
     :data-paths [["identificationInfo" "geographicElement" "boxes"]
+                 ["identificationInfo" "geographicElement" "siteDescription"]
+                 ["referenceSystemInfo" "crsCode"]
+                 ["referenceSystemInfo" "DateOfDynamicDatum"]
+                 ["identificationInfo" "verticalElement" "coordinateReferenceSystem"]
                  ["identificationInfo" "verticalElement" "minimumValue"]
-                 ["identificationInfo" "verticalElement" "maximumValue"]]}
+                 ["identificationInfo" "verticalElement" "maximumValue"]
+                 ["identificationInfo" "SpatialResolution" "ResolutionAttribute"]]}
    {:id         :who
     :text       "Who"
     :data-paths [["resourceLineage" "processStep"]

@@ -42,13 +42,13 @@ class DumaDocumentViewSet(mixins.UpdateModelMixin,
 
         updated_draft = xmlutils4.update_user_defined(draft_data, data, path)
 
-        new_draft = models.DraftMetadata.objects.create(document=document, user=request.user, data=updated_doc)
+        new_draft = models.DraftMetadata.objects.create(document=document, user=request.user, data=updated_draft)
         new_draft.noteForDataManager = document_draft.noteForDataManager
         new_draft.agreedToTerms = document_draft.agreedToTerms
         new_draft.doiRequested = document_draft.doiRequested
         new_draft.save()
 
-        document.hasUserDefined = bool(xmlutils4.extract_user_defined(updated_doc))
+        document.hasUserDefined = bool(xmlutils4.extract_user_defined(updated_draft))
         document.save()
 
         return response.Response(updated_draft)

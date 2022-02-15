@@ -276,6 +276,9 @@
             "description": {
               "type": "string"
             },
+            "label": {
+              "type": "string"
+            },
             "version": {
               "type": "string"
             }
@@ -986,6 +989,9 @@
                   "type": "string"
                 },
                 "description": {
+                  "type": "string"
+                },
+                "label": {
                   "type": "string"
                 },
                 "version": {

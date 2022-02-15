@@ -283,7 +283,8 @@ class Document(AbstractDocument):
                                    data={'metadataType': 'METADATA',
                                          # Shared creates the UUID:
                                          'uuidProcessing': 'NOTHING',
-                                         'category': categories
+                                         'category': categories,
+                                         'publishToAll': True,
                                          },
                                    files={'file': ('metadata.xml', exported_doc)}
                                    )

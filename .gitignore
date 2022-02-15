@@ -29,6 +29,7 @@ volumes
 clojure-*.edn
 /frontend/storybook-static/
 /frontend/src/gen/
+/frontend/resources/public/version.txt
 /frontend/resources/public/css/style.npm-packaged.css*
 /frontend/resources/public/css/images/[a-z]*.*
 /frontend/resources/public/resources/icons/[a-z]*.*

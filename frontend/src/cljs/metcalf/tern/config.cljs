@@ -1098,7 +1098,7 @@
           :data-path   ["identificationInfo" "citedResponsibleParty"]
           :template-id :party/list-item
           :value-path  ["uri"]
-          :added-path  ["isUserDefined"]}]]
+          :added-path  ["contact" "isUserDefined"]}]]
 
        [m4/typed-list-edit-dialog
         {:form-id   [:form]
@@ -1145,7 +1145,7 @@
           :data-path   ["identificationInfo" "pointOfContact"]
           :template-id :party/list-item
           :value-path  ["uri"]
-          :added-path  ["isUserDefined"]}]]
+          :added-path  ["contact" "isUserDefined"]}]]
 
        [m4/typed-list-edit-dialog
         {:form-id   [:form]

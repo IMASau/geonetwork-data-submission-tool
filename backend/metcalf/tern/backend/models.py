@@ -140,6 +140,9 @@ class DocumentCategory(models.Model):
     name = models.CharField(max_length=256)
     label = models.CharField(max_length=256)
 
+    def __str__(self):
+        return f'{self.label} ({self.name})'
+
 
 class Document(AbstractDocument):
     objects = DocumentManager()

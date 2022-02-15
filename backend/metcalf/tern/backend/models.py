@@ -292,6 +292,7 @@ class Document(AbstractDocument):
                 # (update model)
                 self.publish_status = True
                 self.publish_result = 'Success'
+                self.date_published = datetime.datetime.now()
         except Exception as e:
             # update model with error
             if res is not None:
@@ -304,10 +305,9 @@ class Document(AbstractDocument):
                 logger.error(
                     'There was an error while validating {}. No response was received. This may be caused by a timeout.'.format(
                         self.uuid))
-            # raise?
-        self.date_published = datetime.datetime.now()
-
-
+            raise
+        finally:
+            self.save()
 
     ########################################################
     # Workflow (state) Transitions

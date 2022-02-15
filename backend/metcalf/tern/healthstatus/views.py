@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+import os
 
 from django.conf import settings
 from django.db import connection
@@ -70,7 +71,7 @@ def add_version():
         # Could try a bit harder here, but most likely the environment
         # isn't set up correctly and most likely because we're
         # developing locally:
-        return "dynamic"
+        return os.environ.get("GIT_VERSION", "dynamic")
 
 
 def check_health(request) -> JsonResponse:

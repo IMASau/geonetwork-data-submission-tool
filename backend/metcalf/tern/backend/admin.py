@@ -156,7 +156,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
     inlines = [DocumentAttachmentInline]
     autocomplete_fields=['contributors']
     fieldsets = [
-        (None, {'fields': ('title', 'template', 'owner', 'contributors', 'status', 'hasUserDefined', 'submission_note', 'doi')}),
+        (None, {'fields': ('title', 'template', 'owner', 'contributors', 'categories', 'status', 'hasUserDefined', 'submission_note', 'doi')}),
         ('Validation', {'fields': ('validity', 'date_last_validated')}),
         ('Export', {'fields': ('action_links',)}),
         ('DOI Minting', {'fields': ('doi_links',)}),

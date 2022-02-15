@@ -39,6 +39,7 @@ definitions:
           - mkdir -p resources/public/resources/icons resources/public/css/images
           - cp -fR node_modules/@blueprintjs/icons/resources/icons resources/public/resources/icons
           - cp -vr node_modules/leaflet-draw/dist/images/* resources/public/css/images
+          - echo "$BITBUCKET_COMMIT `date -Iseconds`" > resources/public/version.txt
         artifacts:
           - frontend/resources/public/**
 

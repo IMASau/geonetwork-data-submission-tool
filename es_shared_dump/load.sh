@@ -69,3 +69,6 @@ load_index shared_gcmd_science_keywords
 load_index shared_gcmd_temporal_resolution
 load_index shared_gcmd_vertical_resolution
 load_index shared_geonetwork_sources
+
+load_index shared_horizontal_coordinate_reference_system
+load_index shared_vertical_coordinate_reference_system

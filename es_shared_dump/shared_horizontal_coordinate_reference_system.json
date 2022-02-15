@@ -1,5 +1,5 @@
 {
-  "took" : 6,
+  "took" : 2,
   "timed_out" : false,
   "_shards" : {
     "total" : 1,
@@ -15,7 +15,7 @@
     "max_score" : 1.0,
     "hits" : [
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:4326",
         "_score" : 1.0,
@@ -23,12 +23,13 @@
           "code" : "EPSG:4326",
           "codeSpace" : "EPSG",
           "description" : "WGS 84",
+          "label" : "WGS 84 - EPSG:4326",
           "MD_ReferenceSystemTypeCode" : "geodeticGeographic2D",
           "version" : "2007.08"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:3395",
         "_score" : 1.0,
@@ -36,12 +37,13 @@
           "code" : "EPSG:3395",
           "codeSpace" : "EPSG",
           "description" : "WGS 84 / World Mercator",
+          "label" : "WGS 84 / World Mercator - EPSG:3395",
           "MD_ReferenceSystemTypeCode" : "projected",
           "version" : "2006.06"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:3857",
         "_score" : 1.0,
@@ -49,12 +51,13 @@
           "code" : "EPSG:3857",
           "codeSpace" : "EPSG",
           "description" : "WGS 84 / Pseudo-Mercator",
+          "label" : "WGS 84 / Pseudo-Mercator - EPSG:3857",
           "MD_ReferenceSystemTypeCode" : "projected",
           "version" : "2015.11"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:4283",
         "_score" : 1.0,
@@ -62,12 +65,13 @@
           "code" : "EPSG:4283",
           "codeSpace" : "EPSG",
           "description" : "GDA94",
+          "label" : "GDA94 - EPSG:4283",
           "MD_ReferenceSystemTypeCode" : "geodeticGeographic2D",
           "version" : "2019.09"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:3577",
         "_score" : 1.0,
@@ -75,12 +79,13 @@
           "code" : "EPSG:3577",
           "codeSpace" : "EPSG",
           "description" : "GDA94 / Australian Albers",
+          "label" : "GDA94 / Australian Albers - EPSG:3577",
           "MD_ReferenceSystemTypeCode" : "projected",
           "version" : "2007.01"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:3308",
         "_score" : 1.0,
@@ -88,12 +93,13 @@
           "code" : "EPSG:3308",
           "codeSpace" : "EPSG",
           "description" : "GDA94 / NSW Lambert",
+          "label" : "GDA94 / NSW Lambert - EPSG:3308",
           "MD_ReferenceSystemTypeCode" : "projected",
           "version" : "2005.08"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:28354",
         "_score" : 1.0,
@@ -101,12 +107,13 @@
           "code" : "EPSG:28354",
           "codeSpace" : "EPSG",
           "description" : "GDA94 / MGA zone 54",
+          "label" : "GDA94 / MGA zone 54 - EPSG:28354",
           "MD_ReferenceSystemTypeCode" : "projected",
           "version" : "1995.06"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:28355",
         "_score" : 1.0,
@@ -114,12 +121,13 @@
           "code" : "EPSG:28355",
           "codeSpace" : "EPSG",
           "description" : "GDA94 / MGA zone 55",
+          "label" : "GDA94 / MGA zone 55 - EPSG:28355",
           "MD_ReferenceSystemTypeCode" : "projected",
           "version" : "1995.06"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:28356",
         "_score" : 1.0,
@@ -127,12 +135,13 @@
           "code" : "EPSG:28356",
           "codeSpace" : "EPSG",
           "description" : "GDA94 / MGA zone 56",
+          "label" : "GDA94 / MGA zone 56 - EPSG:28356",
           "MD_ReferenceSystemTypeCode" : "projected",
           "version" : "1995.06"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:7844",
         "_score" : 1.0,
@@ -140,12 +149,13 @@
           "code" : "EPSG:7844",
           "codeSpace" : "EPSG",
           "description" : "GDA2020",
+          "label" : "GDA2020 - EPSG:7844",
           "MD_ReferenceSystemTypeCode" : "geodeticGeographic2D",
           "version" : "2019.09"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:8058",
         "_score" : 1.0,
@@ -153,12 +163,13 @@
           "code" : "EPSG:8058",
           "codeSpace" : "EPSG",
           "description" : "GDA2020 / NSW Lambert",
+          "label" : "GDA2020 / NSW Lambert - EPSG:8058",
           "MD_ReferenceSystemTypeCode" : "projected",
           "version" : "2017.05"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:7854",
         "_score" : 1.0,
@@ -166,12 +177,13 @@
           "code" : "EPSG:7854",
           "codeSpace" : "EPSG",
           "description" : "GDA2020 / MGA zone 54",
+          "label" : "GDA2020 / MGA zone 54 - EPSG:7854",
           "MD_ReferenceSystemTypeCode" : "projected",
           "version" : "2016.09"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:7855",
         "_score" : 1.0,
@@ -179,12 +191,13 @@
           "code" : "EPSG:7855",
           "codeSpace" : "EPSG",
           "description" : "GDA2020 / MGA zone 55",
+          "label" : "GDA2020 / MGA zone 55 - EPSG:7855",
           "MD_ReferenceSystemTypeCode" : "projected",
           "version" : "2016.09"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:7856",
         "_score" : 1.0,
@@ -192,12 +205,13 @@
           "code" : "EPSG:7856",
           "codeSpace" : "EPSG",
           "description" : "GDA2020 / MGA zone 56",
+          "label" : "GDA2020 / MGA zone 56 - EPSG:7856",
           "MD_ReferenceSystemTypeCode" : "projected",
           "version" : "2016.09"
         }
       },
       {
-        "_index" : "shared_horizontal_coordinate_reference_system-2021-12-16t01-53-54",
+        "_index" : "shared_horizontal_coordinate_reference_system-2022-02-14t14-31-56",
         "_type" : "_doc",
         "_id" : "EPSG:7857",
         "_score" : 1.0,
@@ -205,6 +219,7 @@
           "code" : "EPSG:7857",
           "codeSpace" : "EPSG",
           "description" : "GDA2020 / MGA zone 57",
+          "label" : "GDA2020 / MGA zone 57 - EPSG:7857",
           "MD_ReferenceSystemTypeCode" : "projected",
           "version" : "2016.09"
         }

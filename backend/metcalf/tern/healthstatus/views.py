@@ -1,5 +1,7 @@
+from pathlib import Path
 import json
 
+from django.conf import settings
 from django.db import connection
 from django.http import JsonResponse
 from elasticsearch_dsl.connections import connections
@@ -57,6 +59,23 @@ health.add_check(check_database_health)
 health.add_check(check_geonetwork_health)
 
 
+def add_version():
+    """Add a version string,slurped from a file in the static content
+    directory. If there's any issue, just return a dummy value."""
+    try:
+        with open(Path(settings.STATIC_ROOT) / 'version.txt') as f:
+            version = f.readline()
+            return version.strip()
+    except:
+        # Could try a bit harder here, but most likely the environment
+        # isn't set up correctly and most likely because we're
+        # developing locally:
+        return "dynamic"
+
+
 def check_health(request) -> JsonResponse:
-    resp = health.run()
-    return JsonResponse(json.loads(resp[0]), status=resp[1])
+    jsonstr, status, _ = health.run()
+    body = json.loads(jsonstr)
+    # Safely add a version string to the payload:
+    body['version'] = add_version()
+    return JsonResponse(body, status=status)

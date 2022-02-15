@@ -1527,19 +1527,7 @@
        :label     "Email address"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "email"]}]]
-
-     [:div {:style {:display               "grid"
-                    :grid-column-gap       "1em"
-                    :grid-template-columns "1fr 1fr"}}
-
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "contact" "phone"]
-        :label     "Phone"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "contact" "phone"]}]]]]
+        :data-path [?data-path "organisation" "email"]}]]]
 
     ; NOTE: person organisation (no role)
     :person-organisation/user-defined-entry-form
@@ -1607,27 +1595,7 @@
         :label     "Country"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "country"]}]]]
-
-     [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "email"]
-       :label     "Email address"}
-      [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "email"]}]]
-
-     [:div {:style {:display               "grid"
-                    :grid-column-gap       "1em"
-                    :grid-template-columns "1fr 1fr"}}
-
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "phone"]
-        :label     "Phone"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "phone"]}]]]]
+         :data-path [?data-path "country"]}]]]]
 
     :person-contact/user-defined-entry-form
     [:div

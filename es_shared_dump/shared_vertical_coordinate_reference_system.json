@@ -15,7 +15,7 @@
     "max_score" : 1.0,
     "hits" : [
       {
-        "_index" : "shared_vertical_coordinate_reference_system-2021-12-16t01-53-28",
+        "_index" : "shared_vertical_coordinate_reference_system-2022-02-14t14-30-57",
         "_type" : "_doc",
         "_id" : "EPSG:4979",
         "_score" : 1.0,
@@ -23,12 +23,13 @@
           "code" : "EPSG:4979",
           "codeSpace" : "EPSG",
           "description" : "WGS 84",
+          "label" : "WGS 84 - EPSG:4979",
           "MD_ReferenceSystemTypeCode" : "geodeticGeographic3D",
           "version" : "2007.08"
         }
       },
       {
-        "_index" : "shared_vertical_coordinate_reference_system-2021-12-16t01-53-28",
+        "_index" : "shared_vertical_coordinate_reference_system-2022-02-14t14-30-57",
         "_type" : "_doc",
         "_id" : "EPSG:4939",
         "_score" : 1.0,
@@ -36,12 +37,13 @@
           "code" : "EPSG:4939",
           "codeSpace" : "EPSG",
           "description" : "GDA94",
+          "label" : "GDA94 - EPSG:4939",
           "MD_ReferenceSystemTypeCode" : "geodeticGeographic3D",
           "version" : "2019.09"
         }
       },
       {
-        "_index" : "shared_vertical_coordinate_reference_system-2021-12-16t01-53-28",
+        "_index" : "shared_vertical_coordinate_reference_system-2022-02-14t14-30-57",
         "_type" : "_doc",
         "_id" : "EPSG:7843",
         "_score" : 1.0,
@@ -49,12 +51,13 @@
           "code" : "EPSG:7843",
           "codeSpace" : "EPSG",
           "description" : "GDA2020",
+          "label" : "GDA2020 - EPSG:7843",
           "MD_ReferenceSystemTypeCode" : "geodeticGeographic3D",
           "version" : "2019.09"
         }
       },
       {
-        "_index" : "shared_vertical_coordinate_reference_system-2021-12-16t01-53-28",
+        "_index" : "shared_vertical_coordinate_reference_system-2022-02-14t14-30-57",
         "_type" : "_doc",
         "_id" : "EPSG:5711",
         "_score" : 1.0,
@@ -62,12 +65,13 @@
           "code" : "EPSG:5711",
           "codeSpace" : "EPSG",
           "description" : "Australian Height Datum",
+          "label" : "Australian Height Datum - EPSG:5711",
           "MD_ReferenceSystemTypeCode" : "vertical",
           "version" : "2019.09"
         }
       },
       {
-        "_index" : "shared_vertical_coordinate_reference_system-2021-12-16t01-53-28",
+        "_index" : "shared_vertical_coordinate_reference_system-2022-02-14t14-30-57",
         "_type" : "_doc",
         "_id" : "EPSG:5712",
         "_score" : 1.0,
@@ -75,6 +79,7 @@
           "code" : "EPSG:5712",
           "codeSpace" : "EPSG",
           "description" : "Australian Height Datum - Tasmania",
+          "label" : "Australian Height Datum - Tasmania - EPSG:5712",
           "MD_ReferenceSystemTypeCode" : "vertical",
           "version" : "2018.04"
         }

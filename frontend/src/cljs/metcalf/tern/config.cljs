@@ -2143,6 +2143,7 @@
       [:a {:href "mailto:esupport@tern.org.au"} "esupport@tern.org.au"]]
      [:hr]
      [:h4 "You are now ready to lodge your request"]
+     [:hr]
      [:p "The Data Manager will be notified of your submission and will be in contact"
       " if any further information is required. Once approved, your data will be archived for discovery in the "
       [:b "TERN Data Portal."]]
@@ -2194,7 +2195,17 @@
       [m4/checkbox-field
        {:form-id   [:form]
         :data-path ["XXX"]
-        :label     "I want to keep a personal copy of the metadata record"}]]]})
+        :label     "I want to keep a personal copy of the metadata record"}]
+      
+      ;; TODO: Give button functionality
+      ;; TODO: Replace with component?
+      ;; TODO: Use CSS?
+      [:button.bp3-button.bp3-intent-primary
+       {:style {:width "100%"}}
+       [:h4
+        {:style {:color "white"
+                 :font-weight "bold"}}
+        "Lodge Data"]]]]})
 
 (set! low-code4/template-registry
       (merge edit-templates

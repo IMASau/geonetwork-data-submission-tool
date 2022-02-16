@@ -196,8 +196,10 @@
                 "rules": ["requiredField"]
               },
               "name": {
-                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:name/gco:CharacterString",
-                "type": "string"
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:name",
+                "valueChild": "gco:CharacterString",
+                "type": "string",
+                "keep": false
               },
               "description": {
                 "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:description/gco:CharacterString",

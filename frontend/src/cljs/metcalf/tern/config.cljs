@@ -2141,9 +2141,17 @@
 
      [:p "If you have any difficulties with the lodgement process or form entry requirements, please email: "
       [:a {:href "mailto:esupport@tern.org.au"} "esupport@tern.org.au"]]
-     [:hr]
-     [:h4 "You are now ready to lodge your request"]
-     [:hr]
+     
+     ;; TODO: CSS class required here?
+     [:div
+      {:style {:background-color "green"
+               :text-align "center"}}
+      [:h4
+       {:style {:color "white"
+                :font-weight "bold"
+                :padding "12px"}}
+       "You are now ready to lodge your request"]]
+     
      [:p "The Data Manager will be notified of your submission and will be in contact"
       " if any further information is required. Once approved, your data will be archived for discovery in the "
       [:b "TERN Data Portal."]]

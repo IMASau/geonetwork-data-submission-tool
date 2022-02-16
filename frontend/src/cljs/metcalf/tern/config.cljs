@@ -2135,8 +2135,9 @@
        :data-path ["XXX"]
        :label     "Generated Citation"}
       [m4/textarea-field
-       {:form-id   [:form]
-        :data-path ["XXX"]}]]
+       {:form-id     [:form]
+        :data-path   ["XXX"]
+        :placeholder "(Authors, co-authors)[Year Published](Title). Version {number}. Terrestrial Ecosystem Research Network (TERN), dataset {DOI}"}]]
 
      [:h4 "Generated Citation"]
      [:p "Nulla posuere.  Praesent augue."]

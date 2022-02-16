@@ -151,7 +151,8 @@
        "maintFreq"         rules4/maint-freq
        "verticalRequired"  rules4/vertical-required
        "protocolLayer"     rules4/data-source-required-layer
-       "maxKeywords"       rules4/tern-max-keywords})
+       "maxKeywords"       rules4/tern-max-keywords
+       "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined})
 (set! low-code4/component-registry
       {
        'm4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}

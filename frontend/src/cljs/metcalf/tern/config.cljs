@@ -152,7 +152,8 @@
        "verticalRequired"  rules4/vertical-required
        "protocolLayer"     rules4/data-source-required-layer
        "defaultDistributor" rules4/default-distributor
-       "maxKeywords"       rules4/tern-max-keywords})
+       "maxKeywords"       rules4/tern-max-keywords
+       "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined})
 (set! low-code4/component-registry
       {
        'm4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
@@ -1099,7 +1100,7 @@
           :data-path   ["identificationInfo" "citedResponsibleParty"]
           :template-id :party/list-item
           :value-path  ["uri"]
-          :added-path  ["contact" "isUserDefined"]}]]
+          :added-path  ["isUserDefined"]}]]
 
        [m4/typed-list-edit-dialog
         {:form-id   [:form]
@@ -1146,7 +1147,7 @@
           :data-path   ["identificationInfo" "pointOfContact"]
           :template-id :party/list-item
           :value-path  ["uri"]
-          :added-path  ["contact" "isUserDefined"]}]]
+          :added-path  ["isUserDefined"]}]]
 
        [m4/typed-list-edit-dialog
         {:form-id   [:form]

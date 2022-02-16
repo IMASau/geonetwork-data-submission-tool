@@ -699,7 +699,8 @@
                 "default": false,
                 "export": false
               }
-            }
+            },
+            "rules":["contactOrganisationUserDefined"]
           },
           "notes": "Responsible party/ies for creating dataset"
         },
@@ -914,7 +915,8 @@
                 "default": false,
                 "export": false
               }
-            }
+            },
+            "rules":["contactOrganisationUserDefined"]
           }
         },
         "geographicElement": {

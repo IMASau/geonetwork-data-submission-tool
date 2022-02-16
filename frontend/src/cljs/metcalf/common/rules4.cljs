@@ -153,6 +153,16 @@
     (cond-> block
       invalid? (update-in [:props :errors] conj "Missing required field"))))
 
+(defn tern-contact-organisation-user-defined
+  "If an object has neither a user-defined contact nor user-defined
+   organisation, then we can say that the object is not user-defined,
+   else it is user-defined"
+  [block]
+  (let [items (blocks4/as-data block)
+        contact-user-defined (get-in items ["contact" "isUserDefined"])
+        organisation-user-defined (get-in items ["organisation" "isUserDefined"])]
+    (assoc-in block [:content "isUserDefined" :props :value] (or contact-user-defined organisation-user-defined))))
+
 ; TODO: consider renaming - doing more than required flag (disable/hide/clear)
 (defn required-when-yes
   [block {:keys [bool-field opt-field]}]

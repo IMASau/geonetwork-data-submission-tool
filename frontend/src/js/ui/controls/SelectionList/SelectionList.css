@@ -71,3 +71,12 @@
 .SelectionListItemColoured .SelectionListAddedItem {
     background-color: #d9822b24;
 }
+
+.SelectionListItemColoured.Inverted .SelectionListPickedItem,
+.SelectionListItemColoured.Inverted .SelectionListItem {
+    background-color: #d9822b24;
+}
+
+.SelectionListItemColoured.Inverted .SelectionListAddedItem {
+    background-color: #99ffcc24;
+}

@@ -3,6 +3,7 @@
             [clojure.string :as string]
             [interop.cljs-time :as cljs-time]
             [metcalf.common.blocks4 :as blocks4]
+            [metcalf.common.schema4 :as schema4]
             [metcalf.common.utils4 :refer [log]]))
 
 (def ^:dynamic rule-registry {})
@@ -377,3 +378,14 @@
     (cond-> block
       (empty-values name)
       (update-in [:content "transferOptions" :content "name" :props :errors] conj "This field is required"))))
+
+(defn default-distributor
+  [block distributor-data]
+  (let [value-picked? (boolean (blocks4/as-data (get-in block [:content "distributor"])))
+        default-value (-> {:data distributor-data
+                           :schema {:type "object" :properties {}}}
+                          blocks4/as-blocks
+                          schema4/massage-data-payload)]
+    (cond-> block
+      (not value-picked?)
+      (assoc-in [:content "distributor"] default-value))))

@@ -94,7 +94,25 @@
         "type": "object",
         "export": false,
         "deleteWhenEmpty": false,
-        "rules": ["protocolLayer"],
+        "rules": [
+          "protocolLayer",
+          {
+            "defaultDistributor": {
+              "uri": "https://w3id.org/tern/resources/8f2acf9f-3cf2-48c7-b911-ed1b1113932e",
+              "site_uri": "https://w3id.org/tern/resources/fa56a1ed-ec38-4294-90ae-ab203a25d5ad",
+              "date_created": "2021-05-14T03:33:48.260Z",
+              "date_modified": "2021-05-14T05:18:27.281Z",
+              "name": "TERN Ecosystem Processes - UQ Long Pocket",
+              "is_dissolved": "false",
+              "full_address_line": "Building 1019, 80 Meiers Rd, Indooroopilly, QLD, Australia, 4068",
+              "street_address": "Building 1019, 80 Meiers Rd",
+              "address_locality": "Indooroopilly",
+              "address_region": "QLD",
+              "postcode": "4068",
+              "country": "Australia"
+            }
+          }
+        ],
         "properties": {
           "uri": {
             "type": "string"
@@ -111,8 +129,7 @@
                 "type": "string",
                 "valueChild": "gco:CharacterString",
                 "required": true,
-                "keep": false,
-                "rules": ["requiredField"]
+                "keep": false
               },
               "uri": {
                 "xpath": "cit:party/cit:CI_Organisation/cit:partyIdentifier",

@@ -1,5 +1,6 @@
 from collections import defaultdict
 import copy
+import uuid
 import math
 
 import metcalf.common.xmlutils4 as xmlutils4
@@ -832,6 +833,11 @@ def export2_generateDatasourceDistributions_handler(data, xml_node, spec, xml_kw
 
         distIdx = 0
         for sources in groupby.values():
+            # FIXME: the "nicer" way to do this is probably to
+            # reformat the spec (ie, wrap components as
+            # objects/arrays), then hand down to xmlutils4.data_to_xml
+            # again for export, which handles all the corner cases
+            # already.  See below for a small part of this.
             distributor = sources[0]['distributor']
             distributionNode = copy.deepcopy(template)
             distributorSpec = items_spec['distributor']
@@ -874,22 +880,19 @@ def export2_generateDatasourceDistributions_handler(data, xml_node, spec, xml_kw
             transferIdx = transferMount.index(transferTemplate)
             transferMount.remove(transferTemplate)
 
+            nsmap = xml_kwargs['namespaces']
             for i, source in enumerate(sources):
-                # write transferOptions
+                # write transferOptions:
                 transferOptions = source['transferOptions']
                 transferNode = copy.deepcopy(transferTemplate)
-                for prop, spec in transferSpec.items():
-                    if 'xpath' not in spec:
-                        continue
-                    specxpath = spec['xpath']
-                    node = transferNode.xpath(specxpath, **xml_kwargs)
-                    assert len(node) == 1, f"Expected a single node for {specxpath}, found {len(node)}"
-                    node = node[0]
-                    attrs = xmlutils4.parse_attributes(spec, xml_kwargs['namespaces'])
-                    for attr, transform in attrs.items():
-                        if attr == 'text':
-                            node.text = transform(transferOptions[prop])
-                        else:
-                            node.set(attr, transform(transferOptions[prop]))
+                # Wrap the current spec as an object, so we can use xmlutils4.data_to_xml again:
+                transferSpecObject = {
+                    "type": "object",
+                    "xpath": ".",
+                    "properties": transferSpec,
+                }
 
+                xmlutils4.data_to_xml(transferOptions, transferNode, transferSpecObject, nsmap,
+                                      # WARNING: doc_uuid isn't used here, but be careful
+                                      None)
                 transferMount.insert(transferIdx + i, transferNode)

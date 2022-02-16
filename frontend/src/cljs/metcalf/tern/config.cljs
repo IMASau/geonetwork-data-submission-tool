@@ -2175,8 +2175,26 @@
          :current-doi-path           [:form :fields :identificationInfo :doi]}]
      
      [m4/form-group
-      {:form-id   [:form]
-       :label     "Please tick the relevant boxes as required"}]]})
+      {:form-id [:form]
+       :label   "Please tick the relevant boxes as required"}
+      
+      ;; TODO: provide a mint DOI data path
+      [m4/checkbox-field
+       {:form-id   [:form]
+        :data-path ["XXX"]
+        :label     "Please mint a DOI for this submission"}]
+      
+      ;; TODO: provide a T&C agreement data path
+      [m4/checkbox-field
+       {:form-id   [:form]
+        :data-path ["XXX"]
+        :label     "I have read and agree with the terms and conditions"}]
+      
+      ;; TODO: provide a personal metadata record copy data path
+      [m4/checkbox-field
+       {:form-id   [:form]
+        :data-path ["XXX"]
+        :label     "I want to keep a personal copy of the metadata record"}]]]})
 
 (set! low-code4/template-registry
       (merge edit-templates

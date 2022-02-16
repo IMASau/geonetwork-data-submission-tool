@@ -3,6 +3,7 @@
             [clojure.string :as string]
             [interop.cljs-time :as cljs-time]
             [metcalf.common.blocks4 :as blocks4]
+            [metcalf.common.schema4 :as schema4]
             [metcalf.common.utils4 :refer [log]]))
 
 (def ^:dynamic rule-registry {})
@@ -151,6 +152,16 @@
                       (every? (partial contains? empty-values)))]
     (cond-> block
       invalid? (update-in [:props :errors] conj "Missing required field"))))
+
+(defn tern-contact-organisation-user-defined
+  "If an object has neither a user-defined contact nor user-defined
+   organisation, then we can say that the object is not user-defined,
+   else it is user-defined"
+  [block]
+  (let [items (blocks4/as-data block)
+        contact-user-defined (get-in items ["contact" "isUserDefined"])
+        organisation-user-defined (get-in items ["organisation" "isUserDefined"])]
+    (assoc-in block [:content "isUserDefined" :props :value] (or contact-user-defined organisation-user-defined))))
 
 ; TODO: consider renaming - doing more than required flag (disable/hide/clear)
 (defn required-when-yes
@@ -367,3 +378,14 @@
     (cond-> block
       (empty-values name)
       (update-in [:content "transferOptions" :content "name" :props :errors] conj "This field is required"))))
+
+(defn default-distributor
+  [block distributor-data]
+  (let [value-picked? (boolean (blocks4/as-data (get-in block [:content "distributor"])))
+        default-value (-> {:data distributor-data
+                           :schema {:type "object" :properties {}}}
+                          blocks4/as-blocks
+                          schema4/massage-data-payload)]
+    (cond-> block
+      (not value-picked?)
+      (assoc-in [:content "distributor"] default-value))))

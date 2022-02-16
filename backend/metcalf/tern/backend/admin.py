@@ -152,7 +152,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
     list_filter = ['status', 'template', 'hasUserDefined']
     search_fields = ['title', 'owner__username', 'owner__email', 'uuid']
     fsm_field = ['status', ]
-    readonly_fields = ['status', 'action_links', 'submission_note', 'doi_links', 'validity', 'date_last_validated', 'hasUserDefined']
+    readonly_fields = ['status', 'action_links', 'submission_note', 'doi_links', 'validity', 'date_last_validated', 'hasUserDefined', 'publish_status', 'date_published', 'publish_result',]
     inlines = [DocumentAttachmentInline]
     autocomplete_fields=['contributors']
     fieldsets = [
@@ -166,6 +166,15 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
     formfield_overrides = {
         django_models.TextField: {'widget': widgets.AdminTextInputWidget(attrs={'style': "width:60em;"})}
     }
+
+    # Override fieldsets to customise publication-related display
+    def get_fieldsets(self, request, obj=None):
+        # Initialise with the fieldsets declared above:
+        fieldsets = super().get_fieldsets(request, obj)
+        if obj and obj.status in (models.Document.SUBMITTED, models.Document.UPLOADED):
+            gn_fieldset = ('Publishing to Catalogue', {'fields': ('date_published', 'publish_result',)})
+            fieldsets.append(gn_fieldset)
+        return fieldsets
 
     def validity(self, obj):
         if obj.validation_status in ['Valid', 'Invalid']:

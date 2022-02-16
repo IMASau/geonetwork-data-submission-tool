@@ -160,13 +160,21 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
         ('Validation', {'fields': ('validity', 'date_last_validated')}),
         ('Export', {'fields': ('action_links',)}),
         ('DOI Minting', {'fields': ('doi_links',)}),
-        ('Publishing to Catalogue', {'fields': ('publish_status', 'date_published', 'publish_result',)})
     ]
 
     # a quick hack to make admin interface a bit nicer to use for title field
     formfield_overrides = {
         django_models.TextField: {'widget': widgets.AdminTextInputWidget(attrs={'style': "width:60em;"})}
     }
+
+    # Override fieldsets to customise publication-related display
+    def get_fieldsets(self, request, obj=None):
+        # Initialise with the fieldsets declared above:
+        fieldsets = super().get_fieldsets(request, obj)
+        if obj and obj.status in (models.Document.SUBMITTED, models.Document.UPLOADED):
+            gn_fieldset = ('Publishing to Catalogue', {'fields': ('date_published', 'publish_result',)})
+            fieldsets.append(gn_fieldset)
+        return fieldsets
 
     def validity(self, obj):
         if obj.validation_status in ['Valid', 'Invalid']:

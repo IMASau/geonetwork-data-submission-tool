@@ -1666,7 +1666,7 @@
       [m4/form-group
        {:label   "Method documentation"
         :toolTip "The method of production of the dataset. Provide the title and URL of the method documentation."}
-       [:div.SelectionListItemColoured
+       [:div.SelectionListItemColoured.Inverted
         [m4/selection-list-columns
          {:form-id            [:form]
           :data-path          ["resourceLineage" "onlineMethods"]

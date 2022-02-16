@@ -61,17 +61,8 @@ health.add_check(check_geonetwork_health)
 
 
 def add_version():
-    """Add a version string,slurped from a file in the static content
-    directory. If there's any issue, just return a dummy value."""
-    try:
-        with open(Path(settings.STATIC_ROOT) / 'version.txt') as f:
-            version = f.readline()
-            return version.strip()
-    except:
-        # Could try a bit harder here, but most likely the environment
-        # isn't set up correctly and most likely because we're
-        # developing locally:
-        return os.environ.get("GIT_VERSION", "dynamic")
+    """Placeholder for creating a version string."""
+    return os.environ.get("GIT_VERSION", "dynamic")
 
 
 def check_health(request) -> JsonResponse:

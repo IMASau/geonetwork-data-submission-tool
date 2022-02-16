@@ -1863,7 +1863,7 @@
        {:form-id     [:form]
         :data-path   ["identificationInfo" "additionalConstraints" "constraints"]
         :button-text "Add"}]
-      [:div.SelectionListItemColoured
+      [:div.SelectionListItemColoured.Inverted
        [m4/selection-list-values
         {:form-id   [:form]
          :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]]

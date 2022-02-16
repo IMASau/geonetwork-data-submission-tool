@@ -2178,25 +2178,25 @@
      [m4/form-group
       {:form-id [:form]
        :label   "Please tick the relevant boxes as required"}
-      
+
       ;; TODO: provide a mint DOI data path
       [m4/checkbox-field
        {:form-id   [:form]
         :data-path ["XXX"]
         :label     "Please mint a DOI for this submission"}]
-      
+
       ;; TODO: provide a T&C agreement data path
       [m4/checkbox-field
        {:form-id   [:form]
         :data-path ["XXX"]
         :label     "I have read and agree with the terms and conditions"}]
-      
+
       ;; TODO: provide a personal metadata record copy data path
       [m4/checkbox-field
        {:form-id   [:form]
         :data-path ["XXX"]
         :label     "I want to keep a personal copy of the metadata record"}]
-      
+
       ;; TODO: Give button functionality
       ;; TODO: Replace with component?
       ;; TODO: Use CSS?
@@ -2205,7 +2205,17 @@
        [:h4
         {:style {:color "white"
                  :font-weight "bold"}}
-        "Lodge Data"]]]]})
+        "Lodge Data"]]
+
+      [:hr]
+      [:b "Want to keep a personal copy of your metadata record?"]
+      [:p
+       ;; TODO: add function to "click here" button
+       [:button.btn-link
+        {:style {:padding 0}}
+        "Click here"]
+       " to generate an XML version of your metadata submission. The file generated includes all of the details you have provided under the tabs, but not files you have uploaded."]
+      [:p "Please note: this XML file is not the recommended way to share your metadata. We want you to submit your data via 'lodging' the information. This permits multi-user access via the portal in a more friendly format."]]]})
 
 (set! low-code4/template-registry
       (merge edit-templates

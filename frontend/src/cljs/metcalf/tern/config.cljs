@@ -2172,7 +2172,11 @@
         {:note-for-data-manager-path [:form :fields :noteForDataManager]
          :agreed-to-terms-path       [:form :fields :agreedToTerms]
          :doi-requested-path         [:form :fields :doiRequested]
-         :current-doi-path           [:form :fields :identificationInfo :doi]}]]})
+         :current-doi-path           [:form :fields :identificationInfo :doi]}]
+     
+     [m4/form-group
+      {:form-id   [:form]
+       :label     "Please tick the relevant boxes as required"}]]})
 
 (set! low-code4/template-registry
       (merge edit-templates

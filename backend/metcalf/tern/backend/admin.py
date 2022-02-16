@@ -152,7 +152,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
     list_filter = ['status', 'template', 'hasUserDefined']
     search_fields = ['title', 'owner__username', 'owner__email', 'uuid']
     fsm_field = ['status', ]
-    readonly_fields = ['status', 'action_links', 'submission_note', 'doi_links', 'validity', 'date_last_validated', 'hasUserDefined']
+    readonly_fields = ['status', 'action_links', 'submission_note', 'doi_links', 'validity', 'date_last_validated', 'hasUserDefined', 'publish_status', 'date_published', 'publish_result',]
     inlines = [DocumentAttachmentInline]
     autocomplete_fields=['contributors']
     fieldsets = [
@@ -160,6 +160,7 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
         ('Validation', {'fields': ('validity', 'date_last_validated')}),
         ('Export', {'fields': ('action_links',)}),
         ('DOI Minting', {'fields': ('doi_links',)}),
+        ('Publishing to Catalogue', {'fields': ('publish_status', 'date_published', 'publish_result',)})
     ]
 
     # a quick hack to make admin interface a bit nicer to use for title field

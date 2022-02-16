@@ -153,6 +153,9 @@
       invalid? (update-in [:props :errors] conj "Missing required field"))))
 
 (defn tern-contact-organisation-user-defined
+  "If an object has neither a user-defined contact nor user-defined
+   organisation, then we can say that the object is not user-defined,
+   else it is user-defined"
   [block]
   (let [items (blocks4/as-data block)
         contact-user-defined (get-in items ["contact" "isUserDefined"])

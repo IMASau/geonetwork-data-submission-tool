@@ -341,6 +341,13 @@
             "bool-field": "doiFlag",
             "opt-field": "doi"
           }
+        },
+        {
+          "requiredWhenYes": {
+            "bool-field": "doiFlag",
+            "opt-field": "doiRequested",
+            "negate": true
+          }
         }
       ],
       "type": "object",
@@ -1812,6 +1819,12 @@
     "doiRequested": {
       "!docstring": "Fake node so we can pass some additional metadata as payload",
       "xpath": "doiRequested",
+      "default": false,
+      "export": false
+    },
+    "personalCopyRequested": {
+      "!docstring": "Fake node so we can pass some additional metadata as payload",
+      "xpath": "personalCopyRequested",
       "default": false,
       "export": false
     }

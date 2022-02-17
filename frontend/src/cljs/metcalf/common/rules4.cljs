@@ -165,9 +165,11 @@
 
 ; TODO: consider renaming - doing more than required flag (disable/hide/clear)
 (defn required-when-yes
-  [block {:keys [bool-field opt-field]}]
+  [block {:keys [bool-field opt-field negate]}]
   (let [required? (get-in block [:content bool-field :props :value])
         opt-type (get-in block [:content opt-field :type])
+        required? (or (and required? (not negate))
+                      (and (not required?) negate))
         props (if required?
                 {:required true :is-hidden false}
                 {:required false :is-hidden true :disabled true :value nil})]

@@ -313,6 +313,20 @@
       (when (s/valid? pred value)
         (into [:<>] children)))))
 
+(defn when-block-errors-settings
+  "Settings for when-data component"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :pred]
+   ::low-code4/opt-ks []})
+
+(defn when-block-errors
+  [config & children]
+  (let [{:keys [pred is-hidden]} @(rf/subscribe [::get-block-props config])
+        value @(rf/subscribe [::get-block-data config])]
+    (when-not is-hidden
+      (when (s/valid? pred value)
+        (into [:<>] children)))))
+
 (defn get-data-settings
   "Settings for get-data component"
   [_]

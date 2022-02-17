@@ -314,11 +314,21 @@
         (into [:<>] children)))))
 
 (defn when-errors-settings
+  "Settings for when-errors component"
   [_]
   {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks []})
 
 (defn when-errors
+  "This component displays children when the block has errors.
+
+   Use case: Display big error warning when data is missing in field.
+
+   Config allows control of:
+   * block tested is identified by form-id and data-path
+
+   Logic influences behaviour
+   * component is not rendered if is-hidden is set"
   [config & children]
   (let [{:keys [is-hidden]} @(rf/subscribe [::get-block-props config])
         errors? @(rf/subscribe [::has-block-errors? config])]

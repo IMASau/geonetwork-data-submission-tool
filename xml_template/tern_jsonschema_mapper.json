@@ -370,15 +370,7 @@
               },
               "value": {
                 "type": "string",
-                "xpath": "mri:MD_TopicCategoryCode",
-                "attributes": {
-                  "text": {
-                    "function": "identity"
-                  },
-                  "codeListValue": {
-                    "function": "identity"
-                  }
-                }
+                "xpath": "mri:MD_TopicCategoryCode"
               }
             }
           },

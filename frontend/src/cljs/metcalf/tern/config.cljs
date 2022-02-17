@@ -1666,7 +1666,7 @@
       [m4/form-group
        {:label   "Method documentation"
         :toolTip "The method of production of the dataset. Provide the title and URL of the method documentation."}
-       [:div.SelectionListItemColoured
+       [:div.SelectionListItemColoured.Inverted
         [m4/selection-list-columns
          {:form-id            [:form]
           :data-path          ["resourceLineage" "onlineMethods"]
@@ -1773,7 +1773,7 @@
       {:label    "Online data quality report"
        :toolTip  "Data quality report refers to a textual description of the quality control of the dataset. Provide the title and URL of the report, if available."
        :required true}
-      [:div.SelectionListItemColoured
+      [:div.SelectionListItemColoured.Inverted
        [m4/selection-list-columns
         {:form-id            [:form]
          :data-path          ["dataQualityInfo" "onlineMethods"]
@@ -1863,7 +1863,7 @@
        {:form-id     [:form]
         :data-path   ["identificationInfo" "additionalConstraints" "constraints"]
         :button-text "Add"}]
-      [:div.SelectionListItemColoured
+      [:div.SelectionListItemColoured.Inverted
        [m4/selection-list-values
         {:form-id   [:form]
          :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]]
@@ -2141,8 +2141,17 @@
 
      [:p "If you have any difficulties with the lodgement process or form entry requirements, please email: "
       [:a {:href "mailto:esupport@tern.org.au"} "esupport@tern.org.au"]]
-     [:hr]
-     [:h4 "You are now ready to lodge your request"]
+     
+     ;; TODO: CSS class required here?
+     [:div
+      {:style {:background-color "green"
+               :text-align "center"}}
+      [:h4
+       {:style {:color "white"
+                :font-weight "bold"
+                :padding "12px"}}
+       "You are now ready to lodge your request"]]
+     
      [:p "The Data Manager will be notified of your submission and will be in contact"
       " if any further information is required. Once approved, your data will be archived for discovery in the "
       [:b "TERN Data Portal."]]
@@ -2177,24 +2186,44 @@
      [m4/form-group
       {:form-id [:form]
        :label   "Please tick the relevant boxes as required"}
-      
+
       ;; TODO: provide a mint DOI data path
       [m4/checkbox-field
        {:form-id   [:form]
         :data-path ["XXX"]
         :label     "Please mint a DOI for this submission"}]
-      
+
       ;; TODO: provide a T&C agreement data path
       [m4/checkbox-field
        {:form-id   [:form]
         :data-path ["XXX"]
         :label     "I have read and agree with the terms and conditions"}]
-      
+
       ;; TODO: provide a personal metadata record copy data path
       [m4/checkbox-field
        {:form-id   [:form]
         :data-path ["XXX"]
-        :label     "I want to keep a personal copy of the metadata record"}]]]})
+        :label     "I want to keep a personal copy of the metadata record"}]
+
+      ;; TODO: Give button functionality
+      ;; TODO: Replace with component?
+      ;; TODO: Use CSS?
+      [:button.bp3-button.bp3-intent-primary
+       {:style {:width "100%"}}
+       [:h4
+        {:style {:color "white"
+                 :font-weight "bold"}}
+        "Lodge Data"]]
+
+      [:hr]
+      [:b "Want to keep a personal copy of your metadata record?"]
+      [:p
+       ;; TODO: add function to "click here" button
+       [:button.btn-link
+        {:style {:padding 0}}
+        "Click here"]
+       " to generate an XML version of your metadata submission. The file generated includes all of the details you have provided under the tabs, but not files you have uploaded."]
+      [:p "Please note: this XML file is not the recommended way to share your metadata. We want you to submit your data via 'lodging' the information. This permits multi-user access via the portal in a more friendly format."]]]})
 
 (set! low-code4/template-registry
       (merge edit-templates

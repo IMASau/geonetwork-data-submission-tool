@@ -2234,7 +2234,7 @@
       ;; TODO: provide a mint DOI data path
        [m4/checkbox-field
         {:form-id   [:form]
-         :data-path ["doiRequested"]
+         :data-path ["identificationInfo" "doiRequested"]
          :label     "Please mint a DOI for this submission"}]
 
       ;; TODO: provide a T&C agreement data path

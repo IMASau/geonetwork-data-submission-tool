@@ -341,6 +341,13 @@
             "bool-field": "doiFlag",
             "opt-field": "doi"
           }
+        },
+        {
+          "requiredWhenYes": {
+            "bool-field": "doiFlag",
+            "opt-field": "doiRequested",
+            "negate": true
+          }
         }
       ],
       "type": "object",

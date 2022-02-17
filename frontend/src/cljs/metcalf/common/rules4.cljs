@@ -382,10 +382,8 @@
 (defn default-distributor
   [block distributor-data]
   (let [value-picked? (boolean (blocks4/as-data (get-in block [:content "distributor"])))
-        default-value (-> {:data distributor-data
-                           :schema {:type "object" :properties {}}}
-                          blocks4/as-blocks
-                          schema4/massage-data-payload)]
+        default-value (blocks4/as-blocks {:data distributor-data
+                                          :schema {:type "object" :properties {}}})]
     (cond-> block
       (not value-picked?)
       (assoc-in [:content "distributor"] default-value))))

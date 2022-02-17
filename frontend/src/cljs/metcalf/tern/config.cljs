@@ -2129,81 +2129,95 @@
      [:h2 "10: Lodge Metadata Draft"]
      [:p "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."]
 
-     ;; TODO: provide a citation data path
-     [m4/form-group
-      {:form-id   [:form]
-       :data-path ["XXX"]
-       :label     "Generated Citation"}
-      [m4/textarea-field
-       {:form-id     [:form]
-        :data-path   ["XXX"]
-        :placeholder "(Authors, co-authors)[Year Published](Title). Version {number}. Terrestrial Ecosystem Research Network (TERN), dataset {DOI}"}]]
-
-     [:p "If you have any difficulties with the lodgement process or form entry requirements, please email: "
-      [:a {:href "mailto:esupport@tern.org.au"} "esupport@tern.org.au"]]
-     
-     ;; TODO: CSS class required here?
      [:div
-      {:style {:background-color "green"
-               :text-align "center"}}
-      [:h4
-       {:style {:color "white"
-                :font-weight "bold"
-                :padding "12px"}}
-       "You are now ready to lodge your request"]]
-     
-     [:p "The Data Manager will be notified of your submission and will be in contact"
-      " if any further information is required. Once approved, your data will be archived for discovery in the "
-      [:b "TERN Data Portal."]]
-     [m4/form-group
-      {:form-id   [:form]
-       :data-path ["identificationInfo" "XXX"]
-       :label     "You can include a note for the Data Manager (Optional)"}
-      [m4/textarea-field
-       {:form-id   [:form]
-        :data-path ["identificationInfo" "XXX"]}]]
+      ;; TODO: CSS for <b> styling?
+      [:b
+       {:style {:color "#e36a51"}}
+       "Please note the following:"]
+      [:ul
+       [:li "You will not be able to lodge this form as it is incomplete."]
+       [:li "The tabs with the Red Asterisk indicate that Mandatory fields are incomplete."]
+       [:li "Ensure all required fields are complete."]
+       [:li "Please contact esupport@tern.org.au if you encounter any difficulties."]]
+      ]
 
-     [m4/inline-form-group
-      {:form-id   [:form]
-       :data-path ["identificationInfo" "doiFlag"]
-       :label     "Is there an existing DOI for this dataset?"
-       ;:toolTip   "Select 'Yes' if a DOI has already been minted for this dataset."
-       }
-      [m4/yes-no-field
+     [:div
+      {:style {:display "none"}}
+      ;; TODO: provide a citation data path
+      [m4/form-group
+       {:form-id   [:form]
+        :data-path ["XXX"]
+        :label     "Generated Citation"}
+       [m4/textarea-field
+        {:form-id     [:form]
+         :data-path   ["XXX"]
+         :placeholder "(Authors, co-authors)[Year Published](Title). Version {number}. Terrestrial Ecosystem Research Network (TERN), dataset {DOI}"}]]
+
+      [:p "If you have any difficulties with the lodgement process or form entry requirements, please email: "
+       [:a {:href "mailto:esupport@tern.org.au"} "esupport@tern.org.au"]]
+
+      ;; TODO: CSS class required here?
+      [:div
+       {:style {:background-color "green"
+                :text-align "center"}}
+       [:h4
+        {:style {:color "white"
+                 :font-weight "bold"
+                 :padding "12px"}}
+        "You are now ready to lodge your request"]]
+
+      [:p "The Data Manager will be notified of your submission and will be in contact"
+       " if any further information is required. Once approved, your data will be archived for discovery in the "
+       [:b "TERN Data Portal."]]
+      [m4/form-group
+       {:form-id   [:form]
+        :data-path ["identificationInfo" "XXX"]
+        :label     "You can include a note for the Data Manager (Optional)"}
+       [m4/textarea-field
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "XXX"]}]]
+
+      [m4/inline-form-group
        {:form-id   [:form]
         :data-path ["identificationInfo" "doiFlag"]
-        :label     ""}]]
-     [m4/input-field
-      {:form-id         [:form]
-       :data-path       ["identificationInfo" "doi"]
-       :placeholder     "Please enter existing DOI here"}]
-     #_[m3/Lodge
-        {:note-for-data-manager-path [:form :fields :noteForDataManager]
-         :agreed-to-terms-path       [:form :fields :agreedToTerms]
-         :doi-requested-path         [:form :fields :doiRequested]
-         :current-doi-path           [:form :fields :identificationInfo :doi]}]
-     
-     [m4/form-group
-      {:form-id [:form]
-       :label   "Please tick the relevant boxes as required"}
+        :label     "Is there an existing DOI for this dataset?"
+        ;:toolTip   "Select 'Yes' if a DOI has already been minted for this dataset."
+        }
+       [m4/yes-no-field
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "doiFlag"]
+         :label     ""}]]
+      [m4/input-field
+       {:form-id         [:form]
+        :data-path       ["identificationInfo" "doi"]
+        :placeholder     "Please enter existing DOI here"}]
+      #_[m3/Lodge
+         {:note-for-data-manager-path [:form :fields :noteForDataManager]
+          :agreed-to-terms-path       [:form :fields :agreedToTerms]
+          :doi-requested-path         [:form :fields :doiRequested]
+          :current-doi-path           [:form :fields :identificationInfo :doi]}]
+
+      [m4/form-group
+       {:form-id [:form]
+        :label   "Please tick the relevant boxes as required"}
 
       ;; TODO: provide a mint DOI data path
-      [m4/checkbox-field
-       {:form-id   [:form]
-        :data-path ["XXX"]
-        :label     "Please mint a DOI for this submission"}]
+       [m4/checkbox-field
+        {:form-id   [:form]
+         :data-path ["XXX"]
+         :label     "Please mint a DOI for this submission"}]
 
       ;; TODO: provide a T&C agreement data path
-      [m4/checkbox-field
-       {:form-id   [:form]
-        :data-path ["XXX"]
-        :label     "I have read and agree with the terms and conditions"}]
+       [m4/checkbox-field
+        {:form-id   [:form]
+         :data-path ["XXX"]
+         :label     "I have read and agree with the terms and conditions"}]
 
       ;; TODO: provide a personal metadata record copy data path
-      [m4/checkbox-field
-       {:form-id   [:form]
-        :data-path ["XXX"]
-        :label     "I want to keep a personal copy of the metadata record"}]
+       [m4/checkbox-field
+        {:form-id   [:form]
+         :data-path ["XXX"]
+         :label     "I want to keep a personal copy of the metadata record"}]]
 
       ;; TODO: Give button functionality
       ;; TODO: Replace with component?
@@ -2218,7 +2232,7 @@
       [:hr]
       [:b "Want to keep a personal copy of your metadata record?"]
       [:p
-       ;; TODO: add function to "click here" button
+      ;; TODO: add function to "click here" button
        [:button.btn-link
         {:style {:padding 0}}
         "Click here"]

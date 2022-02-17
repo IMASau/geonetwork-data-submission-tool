@@ -420,7 +420,7 @@
         :options     [{"value" "farming" "label" "Farming"}
                       {"value" "biota" "label" "Biota"}
                       {"value" "boundaries" "label" "Boundaries"}
-                      {"value" "climatology/meteorology/atmosphere" "label" "Climatology/meteorology/atmosphere"}
+                      {"value" "climatologyMeteorologyAtmosphere" "label" "Climatology/meteorology/atmosphere"}
                       {"value" "economy" "label" "Economy"}
                       {"value" "environment" "label" "Environment"}
                       {"value" "geoscientificInformation" "label" "Geoscientific Information"}

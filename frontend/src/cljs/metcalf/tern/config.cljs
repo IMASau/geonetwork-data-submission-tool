@@ -1867,7 +1867,12 @@
       [:div.SelectionListItemColoured.Inverted
        [m4/selection-list-values
         {:form-id   [:form]
-         :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]]
+         :data-path ["identificationInfo" "additionalConstraints" "constraints"]}]]
+      [m4/list-edit-dialog
+       {:form-id [:form]
+        :data-path ["identificationInfo" "additionalConstraints" "constraints"]
+        :title "Other Constraints"
+        :template-id :about/other-constraints-edit-entry}]]
 
      [m4/form-group
       {:label   "Security Classification"
@@ -1982,6 +1987,16 @@
         {:form-id   [:form]
          :data-path ["identificationInfo" "customCitation"]
          :maxLength 1000}]]]]
+
+    :about/other-constraints-edit-entry
+    [:div
+     [m4/form-group
+      {:form-id ?form-id
+       :data-path ?data-path
+       :label "Edit"}
+      [m4/input-field
+       {:form-id ?form-id
+        :data-path ?data-path}]]]
 
     :about/user-defined-entry
     [:div

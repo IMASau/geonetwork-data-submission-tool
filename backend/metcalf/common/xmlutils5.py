@@ -832,6 +832,7 @@ def export2_generateDatasourceDistributions_handler(data, xml_node, spec, xml_kw
             groupby[v['distributor']['uri']].append(v)
 
         distIdx = 0
+        # For each distibutor:
         for sources in groupby.values():
             # FIXME: the "nicer" way to do this is probably to
             # reformat the spec (ie, wrap components as
@@ -844,6 +845,7 @@ def export2_generateDatasourceDistributions_handler(data, xml_node, spec, xml_kw
             distributorXpath = distributorSpec['xpath']
             distributorSpec = distributorSpec['properties']
 
+            # populate the distibutor elements (address, etc)
             for prop, spec in distributorSpec.items():
                 if 'xpath' not in spec:
                     continue
@@ -865,9 +867,7 @@ def export2_generateDatasourceDistributions_handler(data, xml_node, spec, xml_kw
                     else:
                         node.set(attr, transform(distributor[prop]))
 
-                mount_node.insert(mount_index + distIdx, distributionNode)
-                distIdx += 1
-
+            # Now populate each transferOptions item, as children after the distributor info:
             transferSpec = items_spec['transferOptions']
             transferXpath = transferSpec['xpath']
             transferSpec = transferSpec['properties']
@@ -896,3 +896,6 @@ def export2_generateDatasourceDistributions_handler(data, xml_node, spec, xml_kw
                                       # WARNING: doc_uuid isn't used here, but be careful
                                       None)
                 transferMount.insert(transferIdx + i, transferNode)
+
+            mount_node.insert(mount_index + distIdx, distributionNode)
+            distIdx += 1

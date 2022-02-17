@@ -201,6 +201,7 @@
        'm4/text-add-button                     {:view #'components4/text-add-button :init components4/text-add-button-settings}
        'm4/upload-files                        {:view #'components4/upload-files :init components4/upload-files-settings}
        'm4/upload-thumbnail                    {:view #'components4/upload-thumbnail :init components4/upload-thumbnail-settings}
+       'm4/when-errors                         {:view #'components4/when-errors :init components4/when-errors-settings}
        })
 
 ; Specs intended for use with when-data :pred
@@ -2131,7 +2132,11 @@
      [:h2 "10: Lodge Metadata Draft"]
      [:p "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."]
 
-     [:div
+     [m4/when-errors
+      {:form-id   [:form]
+       :data-path []
+       :show      true}
+      
       ;; TODO: CSS for <b> styling?
       [:b
        {:style {:color "#e36a51"}}
@@ -2163,8 +2168,11 @@
         [:a {:href "mailto:esupport@tern.org.au"} "esupport@tern.org.au"]
         " if you encounter any difficulties."]]]
 
-     [:div
-      {:style {:display "none"}}
+     [m4/when-errors
+      {:form-id   [:form]
+       :data-path []
+       :show      false}
+      
       ;; TODO: provide a citation data path
       [m4/form-group
        {:form-id   [:form]

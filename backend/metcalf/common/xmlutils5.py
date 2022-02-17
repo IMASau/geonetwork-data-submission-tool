@@ -881,16 +881,16 @@ def export2_generateDatasourceDistributions_handler(data, xml_node, spec, xml_kw
             transferMount.remove(transferTemplate)
 
             nsmap = xml_kwargs['namespaces']
+            # Wrap the current spec as an object, so we can use xmlutils4.data_to_xml again:
+            transferSpecObject = {
+                "type": "object",
+                "xpath": ".",
+                "properties": transferSpec,
+            }
             for i, source in enumerate(sources):
                 # write transferOptions:
                 transferOptions = source['transferOptions']
                 transferNode = copy.deepcopy(transferTemplate)
-                # Wrap the current spec as an object, so we can use xmlutils4.data_to_xml again:
-                transferSpecObject = {
-                    "type": "object",
-                    "xpath": ".",
-                    "properties": transferSpec,
-                }
 
                 xmlutils4.data_to_xml(transferOptions, transferNode, transferSpecObject, nsmap,
                                       # WARNING: doc_uuid isn't used here, but be careful

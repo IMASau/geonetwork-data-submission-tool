@@ -2135,11 +2135,31 @@
        {:style {:color "#e36a51"}}
        "Please note the following:"]
       [:ul
-       [:li "You will not be able to lodge this form as it is incomplete."]
-       [:li "The tabs with the Red Asterisk indicate that Mandatory fields are incomplete."]
+       [:li
+        "You will not be able to lodge this form as it is "
+        ;; TODO: CSS for <b> styling?
+        [:b
+         {:style {:color "#e36a51"}}
+         "incomplete"]
+        "."]
+       [:li
+        "The tabs with the "
+        ;; TODO: CSS for span styling?
+        [:span
+         {:style {:color "#e36a51"}}
+         "Red Asterisk"]
+        " indicate that "
+        ;; TODO: CSS for span styling?
+        [:span
+         {:style {:font-style "italic"
+                  :font-weight "bold"}}
+         "Mandatory fields are incomplete"]
+        "."]
        [:li "Ensure all required fields are complete."]
-       [:li "Please contact esupport@tern.org.au if you encounter any difficulties."]]
-      ]
+       [:li
+        "Please contact "
+        [:a {:href "mailto:esupport@tern.org.au"} "esupport@tern.org.au"]
+        " if you encounter any difficulties."]]]
 
      [:div
       {:style {:display "none"}}

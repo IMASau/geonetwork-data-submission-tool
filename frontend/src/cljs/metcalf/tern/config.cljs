@@ -2168,8 +2168,11 @@
         [:a {:href "mailto:esupport@tern.org.au"} "esupport@tern.org.au"]
         " if you encounter any difficulties."]]]
 
-     [:div
-      {:style {:display "none"}}
+     [m4/when-errors
+      {:form-id   [:form]
+       :data-path []
+       :show      false}
+      
       ;; TODO: provide a citation data path
       [m4/form-group
        {:form-id   [:form]

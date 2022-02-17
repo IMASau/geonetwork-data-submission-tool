@@ -2134,7 +2134,8 @@
 
      [m4/when-errors
       {:form-id   [:form]
-       :data-path []}
+       :data-path []
+       :show      true}
       
       ;; TODO: CSS for <b> styling?
       [:b

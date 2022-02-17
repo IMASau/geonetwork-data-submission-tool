@@ -316,15 +316,15 @@
 (defn when-block-errors-settings
   "Settings for when-data component"
   [_]
-  {::low-code4/req-ks [:form-id :data-path :pred]
+  {::low-code4/req-ks [:form-id :data-path]
    ::low-code4/opt-ks []})
 
 (defn when-block-errors
   [config & children]
-  (let [{:keys [pred is-hidden]} @(rf/subscribe [::get-block-props config])
-        value @(rf/subscribe [::get-block-data config])]
+  (let [{:keys [is-hidden]} @(rf/subscribe [::get-block-props config])
+        errors? @(rf/subscribe [::has-block-errors? config])]
     (when-not is-hidden
-      (when (s/valid? pred value)
+      (when errors?
         (into [:<>] children)))))
 
 (defn get-data-settings

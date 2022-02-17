@@ -2201,11 +2201,11 @@
        [:b "TERN Data Portal."]]
       [m4/form-group
        {:form-id   [:form]
-        :data-path ["identificationInfo" "XXX"]
+        :data-path ["noteForDataManager"]
         :label     "You can include a note for the Data Manager (Optional)"}
        [m4/textarea-field
         {:form-id   [:form]
-         :data-path ["identificationInfo" "XXX"]}]]
+         :data-path ["noteForDataManager"]}]]
 
       [m4/inline-form-group
        {:form-id   [:form]
@@ -2234,19 +2234,19 @@
       ;; TODO: provide a mint DOI data path
        [m4/checkbox-field
         {:form-id   [:form]
-         :data-path ["XXX"]
+         :data-path ["doiRequested"]
          :label     "Please mint a DOI for this submission"}]
 
       ;; TODO: provide a T&C agreement data path
        [m4/checkbox-field
         {:form-id   [:form]
-         :data-path ["XXX"]
+         :data-path ["agreedToTerms"]
          :label     "I have read and agree with the terms and conditions"}]
 
       ;; TODO: provide a personal metadata record copy data path
        [m4/checkbox-field
         {:form-id   [:form]
-         :data-path ["XXX"]
+         :data-path ["personalCopyRequested"]
          :label     "I want to keep a personal copy of the metadata record"}]]
 
       ;; TODO: Give button functionality

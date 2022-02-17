@@ -1814,6 +1814,12 @@
       "xpath": "doiRequested",
       "default": false,
       "export": false
+    },
+    "personalCopyRequested": {
+      "!docstring": "Fake node so we can pass some additional metadata as payload",
+      "xpath": "personalCopyRequested",
+      "default": false,
+      "export": false
     }
   },
   "export2_xforms": [

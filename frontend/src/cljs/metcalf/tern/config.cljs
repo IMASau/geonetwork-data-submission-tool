@@ -1726,7 +1726,7 @@
         {:form-id     [:form]
          :data-path   ["resourceLineage" "steps"]
          :button-text "Add"}]
-       [:div.SelectionListItemColoured
+       [:div.SelectionListItemColoured.Inverted
         [m4/selection-list-values
          {:form-id   [:form]
           :data-path ["resourceLineage" "steps"]}]]]]]
@@ -1904,15 +1904,16 @@
       [m4/form-group
        {:label   "Publication"
         :toolTip "Please provide the title and URL of the publications describing the dataset."}
-       [m4/selection-list-columns
-        {:form-id            [:form]
-         :data-path          ["identificationInfo" "additionalPublications"]
-         :value-path         ["uri"]
-         :random-uuid-value? true
-         :select-snapshot?   true
-         :added-path         ["isUserDefined"]
-         :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+       [:div.SelectionListItemColoured.Inverted
+        [m4/selection-list-columns
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "additionalPublications"]
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :select-snapshot?   true
+          :added-path         ["isUserDefined"]
+          :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                               {:columnHeader "URL" :label-path ["url"] :flex 1}]}]]
 
        [m4/list-add-button
         {:form-id            [:form]
@@ -2040,16 +2041,17 @@
      [m4/form-group
       {:label   "Distributions"
        :toolTip "Provide information (name, URL) about the services for downloading the datasets."}
-      [m4/selection-list-columns
-       {:form-id            [:form]
-        :data-path          ["dataSources"]
-        :value-path         ["uri"]
-        :random-uuid-value? true
-        :select-snapshot?   true
-        :added-path         ["isUserDefined"]
-        :columns            [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
-                             {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}
-                             {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]
+      [:div.SelectionListItemColoured.Inverted
+       [m4/selection-list-columns
+        {:form-id            [:form]
+         :data-path          ["dataSources"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :select-snapshot?   true
+         :added-path         ["isUserDefined"]
+         :columns            [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
+                              {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}
+                              {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]]
 
       [m4/list-add-button
        {:form-id            [:form]
@@ -2141,7 +2143,7 @@
 
      [:p "If you have any difficulties with the lodgement process or form entry requirements, please email: "
       [:a {:href "mailto:esupport@tern.org.au"} "esupport@tern.org.au"]]
-     
+
      ;; TODO: CSS class required here?
      [:div
       {:style {:background-color "green"
@@ -2151,7 +2153,7 @@
                 :font-weight "bold"
                 :padding "12px"}}
        "You are now ready to lodge your request"]]
-     
+
      [:p "The Data Manager will be notified of your submission and will be in contact"
       " if any further information is required. Once approved, your data will be archived for discovery in the "
       [:b "TERN Data Portal."]]
@@ -2182,7 +2184,7 @@
          :agreed-to-terms-path       [:form :fields :agreedToTerms]
          :doi-requested-path         [:form :fields :doiRequested]
          :current-doi-path           [:form :fields :identificationInfo :doi]}]
-     
+
      [m4/form-group
       {:form-id [:form]
        :label   "Please tick the relevant boxes as required"}

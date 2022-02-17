@@ -1727,7 +1727,7 @@
         {:form-id     [:form]
          :data-path   ["resourceLineage" "steps"]
          :button-text "Add"}]
-       [:div.SelectionListItemColoured
+       [:div.SelectionListItemColoured.Inverted
         [m4/selection-list-values
          {:form-id   [:form]
           :data-path ["resourceLineage" "steps"]}]]]]]
@@ -1905,15 +1905,16 @@
       [m4/form-group
        {:label   "Publication"
         :toolTip "Please provide the title and URL of the publications describing the dataset."}
-       [m4/selection-list-columns
-        {:form-id            [:form]
-         :data-path          ["identificationInfo" "additionalPublications"]
-         :value-path         ["uri"]
-         :random-uuid-value? true
-         :select-snapshot?   true
-         :added-path         ["isUserDefined"]
-         :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]
+       [:div.SelectionListItemColoured.Inverted
+        [m4/selection-list-columns
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "additionalPublications"]
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :select-snapshot?   true
+          :added-path         ["isUserDefined"]
+          :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                               {:columnHeader "URL" :label-path ["url"] :flex 1}]}]]
 
        [m4/list-add-button
         {:form-id            [:form]
@@ -2041,16 +2042,17 @@
      [m4/form-group
       {:label   "Distributions"
        :toolTip "Provide information (name, URL) about the services for downloading the datasets."}
-      [m4/selection-list-columns
-       {:form-id            [:form]
-        :data-path          ["dataSources"]
-        :value-path         ["uri"]
-        :random-uuid-value? true
-        :select-snapshot?   true
-        :added-path         ["isUserDefined"]
-        :columns            [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
-                             {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}
-                             {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]
+      [:div.SelectionListItemColoured.Inverted
+       [m4/selection-list-columns
+        {:form-id            [:form]
+         :data-path          ["dataSources"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :select-snapshot?   true
+         :added-path         ["isUserDefined"]
+         :columns            [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
+                              {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}
+                              {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]]
 
       [m4/list-add-button
        {:form-id            [:form]

@@ -402,9 +402,13 @@
 
       [:div.bp3-control-group
        [:div.bp3-fill
-        #_[m4/async-select-option-simple
-           {:form-id     ?form-id
-            :data-path   [?data-path]}]]
+        [m4/async-select-option-simple
+         {:form-id    ?form-id
+          :data-path  [?data-path "unit"]
+          :uri        "/api/qudtunits"
+          :label-path ["label"]
+          :value-path ["uri"]
+          :added-path ["isUserDefined"]}]]
 
        [m4/item-dialog-button
         {:form-id            ?form-id

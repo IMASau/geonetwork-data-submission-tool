@@ -1722,7 +1722,15 @@
         :label     "Country"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "country"]}]]]]
+         :data-path [?data-path "country"]}]]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "email"]
+       :label     "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "email"]}]]]
 
     :person-contact/user-defined-entry-form
     [:div

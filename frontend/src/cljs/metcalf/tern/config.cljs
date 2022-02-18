@@ -1528,77 +1528,69 @@
 
      #_[:p "If the Organisation you need is not listed, you can add the Organisation and respective details below."]
 
-     #_[m4/form-group
-        {:form-id   ?form-id
-         :data-path [?data-path "organisation" "name"]
-         :label     "Organisation Name"}
-        [m4/input-field
-         {:form-id   ?form-id
-          :data-path [?data-path "organisation" "name"]}]]
-
-     #_[m4/form-group
-        {:form-id   ?form-id
-         :data-path [?data-path "organisation" "full_address_line"]
-         :label     "Campus/Sitename"}
-        [m4/input-field
-         {:form-id   ?form-id
-          :data-path [?data-path "organisation" "full_address_line"]}]]
-
-     #_[m4/form-group
-        {:form-id   ?form-id
-         :data-path [?data-path "organisation" "street_address"]
-         :label     "Building"}
-        [m4/input-field
-         {:form-id   ?form-id
-          :data-path [?data-path "organisation" "street_address"]}]]
-
-     #_[:div {:style {:display               "grid"
-                      :grid-column-gap       "1em"
-                      :grid-template-columns "1fr 1fr"}}
-
-        [m4/form-group
-         {:form-id   ?form-id
-          :data-path [?data-path "organisation" "address_locality"]
-          :label     "City"}
-         [m4/input-field
-          {:form-id   ?form-id
-           :data-path [?data-path "organisation" "address_locality"]}]]
-
-        [m4/form-group
-         {:form-id   ?form-id
-          :data-path [?data-path "organisation" "address_region"]
-          :label     "State"}
-         [m4/input-field
-          {:form-id   ?form-id
-           :data-path [?data-path "organisation" "address_region"]}]]]
-
-     #_[:div {:style {:display               "grid"
-                      :grid-column-gap       "1em"
-                      :grid-template-columns "1fr 1fr"}}
-
-        [m4/form-group
-         {:form-id   ?form-id
-          :data-path [?data-path "organisation" "postcode"]
-          :label     "Postal Code"}
-         [m4/input-field
-          {:form-id   ?form-id
-           :data-path [?data-path "organisation" "postcode"]}]]
-
-        [m4/form-group
-         {:form-id   ?form-id
-          :data-path [?data-path "organisation" "country"]
-          :label     "Country"}
-         [m4/input-field
-          {:form-id   ?form-id
-           :data-path [?data-path "organisation" "country"]}]]]
-
-     #_[m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "organisation" "email"]
-       :label     "Email address"}
+     [m4/form-group
+      {:label "Organisation Name"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "email"]}]]]
+        :data-path [?data-path "organisation" "name"]
+        :disabled  true}]]
+
+     [m4/form-group
+      {:label "Campus/Sitename"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "full_address_line"]
+        :disabled  true}]]
+
+     [m4/form-group
+      {:label "Building"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "street_address"]
+        :disabled  true}]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:label "City"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "address_locality"]
+         :disabled  true}]]
+
+      [m4/form-group
+       {:label "State"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "address_region"]
+         :disabled  true}]]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:label "Postal Code"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "postcode"]
+         :disabled  true}]]
+
+      [m4/form-group
+       {:label     "Country"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "country"]
+         :disabled  true}]]]
+
+     [m4/form-group
+      {:label "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "email"]
+        :disabled  true}]]]
 
     ; NOTE: person organisation (no role)
     :person-organisation/user-defined-entry-form

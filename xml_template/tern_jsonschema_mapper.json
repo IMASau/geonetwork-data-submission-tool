@@ -422,6 +422,12 @@
           "xpath_required": true,
           "rules": ["requiredField"]
         },
+        "dateSubmitted": {
+          "!docstring": "Created by the backend when data is submitted",
+          "type": "string",
+          "export": false,
+          "xpath": "dateSubmitted"
+        },
         "datePublicationFlag": {
           "type": "boolean",
           "keep": true,

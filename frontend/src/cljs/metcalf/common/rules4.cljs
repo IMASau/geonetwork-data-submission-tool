@@ -163,6 +163,16 @@
         organisation-user-defined (get-in items ["organisation" "isUserDefined"])]
     (assoc-in block [:content "isUserDefined" :props :value] (or contact-user-defined organisation-user-defined))))
 
+(defn tern-parameter-unit-user-defined
+  "If an object has neither a user-defined parameter nor user-defined
+   unit, then we can say that the object is not user-defined, else it
+   is user-defined"
+  [block]
+  (let [items (blocks4/as-data block)
+        parameter-user-defined (get-in items ["parameter" "isUserDefined"])
+        unit-user-defined (get-in items ["unit" "isUserDefined"])]
+    (assoc-in block [:content "isUserDefined" :props :value] (or parameter-user-defined unit-user-defined))))
+
 ; TODO: consider renaming - doing more than required flag (disable/hide/clear)
 (defn required-when-yes
   [block {:keys [bool-field opt-field negate]}]

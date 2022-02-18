@@ -154,7 +154,8 @@
        "defaultDistributor"             rules4/default-distributor
        "maxKeywords"                    rules4/tern-max-keywords
        "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined
-       "generateCitation"               rules4/generate-citation})
+       "generateCitation"               rules4/generate-citation
+       "parameterUnitUserDefined"       rules4/tern-parameter-unit-user-defined})
 (set! low-code4/component-registry
       {'m4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
        'm4/async-list-option-picker            {:view #'components4/async-list-option-picker :init components4/async-list-option-picker-settings}
@@ -331,7 +332,39 @@
       [m4/textarea-field
        {:form-id     ?form-id
         :data-path   [?data-path "source"]
-        :placeholder "E.g. Creator (Publication year).  Title.  Version.  Publisher.  Resource type.  Identifier.  "}]]
+        :placeholder "E.g. Creator (Publication year).  Title.  Version.  Publisher.  Resource type.  Identifier.  "}]]]
+
+    :parameter-unit/user-defined-entry-form
+    [:div
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "parameter"]
+       :label     "Parameter"
+       :toolTip   "Select the parameter(s) (observed variables) from the predefined list. If the required parameter is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
+
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id    ?form-id
+          :data-path  [?data-path "parameter"]
+          :uri        "/api/ternparameters"
+          :label-path ["label"]
+          :value-path ["uri"]}]]
+
+       [m4/item-dialog-button
+        {:form-id            ?form-id
+         :data-path          [?data-path "parameter"]
+         :label-path         ["label"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "parameter"}
+         :added-path         ["isUserDefined"]}]]
+
+      [m4/edit-dialog
+       {:form-id     ?form-id
+        :data-path   [?data-path "parameter"]
+        :title       "Parameter"
+        :template-id :parameter/user-defined-entry-form}]]
 
      [m4/inline-form-group
       {:form-id   ?form-id
@@ -346,8 +379,8 @@
           :data-path  [?data-path "unit"]
           :uri        "/api/qudtunits"
           :label-path ["label"]
-          :value-path ["uri"]
-          :added-path ["isUserDefined"]}]]
+          :value-path ["uri"]}]]
+
        [m4/item-dialog-button
         {:form-id            ?form-id
          :data-path          [?data-path "unit"]
@@ -709,26 +742,17 @@
      [m4/expanding-control {:label "Parameters" :required true}
 
       ;; TODO: also need a user-added option
-      [m4/form-group
-       {:label   "Select the name of the measured parameter, e.g. vegetation height"
-        :toolTip "Select the parameter(s) (observed variables) from the predefined list. If the required parameter is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
+      [:div
+       [:p "Select a measured parameter, e.g. vegetation height"]
 
-       [:div.bp3-control-group
-        [:div.bp3-fill
-         [m4/async-list-option-picker
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
-           :uri        "/api/ternparameters"
-           :label-path ["label"]
-           :value-path ["uri"]}]]
-        [m4/list-add-button
-         {:form-id            [:form]
-          :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
-          :button-text        "Add"
-          :value-path         ["uri"]
-          :random-uuid-value? true
-          :item-defaults      {"userAddedCategory" "parameter"}
-          :added-path         ["isUserDefined"]}]]
+       [m4/list-add-button
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
+         :button-text        "Add Parameter"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "parameter"}}]
+
        [:div.SelectionListItemColoured
         [m4/selection-list-columns
          {:form-id            [:form]
@@ -737,13 +761,14 @@
           :random-uuid-value? true
           :select-snapshot?   true
           :added-path         ["isUserDefined"]
-          :columns            [{:columnHeader "Name" :label-path ["label"] :flex 2}
+          :columns            [{:columnHeader "Name" :label-path ["parameter" "label"] :flex 2}
                                {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]]
        [m4/list-edit-dialog
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
          :title       "Parameter"
-         :template-id :parameter/user-defined-entry-form}]]]
+         :template-id :parameter-unit/user-defined-entry-form
+         :field-paths [["parameter" "label"] ["unit"]]}]]]
 
      [m4/expanding-control {:label "Temporal Resolution" :required true}
       [m4/form-group
@@ -1367,7 +1392,71 @@
        {:form-id     ?form-id
         :data-path   [?data-path "organisation"]
         :title       "Organisation"
-        :template-id :person-organisation/user-defined-entry-form}]]]
+        :template-id :person-organisation/user-defined-entry-form}]]
+
+     #_[m4/form-group
+      {:label "Organisation Name"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "name"]
+        :disabled  true}]]
+
+     #_[m4/form-group
+      {:label "Campus/Sitename"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "full_address_line"]
+        :disabled  true}]]
+
+     #_[m4/form-group
+      {:label "Building"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "street_address"]
+        :disabled  true}]]
+
+     #_[:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:label "City"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "address_locality"]
+         :disabled  true}]]
+
+      [m4/form-group
+       {:label "State"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "address_region"]
+         :disabled  true}]]]
+
+     #_[:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:label "Postal Code"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "postcode"]
+         :disabled  true}]]
+
+      [m4/form-group
+       {:label     "Country"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "country"]
+         :disabled  true}]]]
+
+     #_[m4/form-group
+      {:label "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "email"]
+        :disabled  true}]]]
 
     ; NOTE: organisation with role (not associated with a person)
     :party-organisation/user-defined-entry-form
@@ -1447,89 +1536,93 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
-       :label     "Select an Organisation"
-       :toolTip   "Select an organisation from the list or define your own."}
-      [m4/async-simple-item-option-picker
+       :label     "Select associated Organisation"
+       :toolTip   "Select the organisation associated with the primary contact or define your own."}
+
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id    ?form-id
+          :data-path  [?data-path "organisation"]
+          :uri        "/api/ternorgs"
+          :label-path ["name"]
+          :value-path ["uri"]}]]
+       [m4/item-dialog-button
+        {:form-id            ?form-id
+         :data-path          [?data-path "organisation"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]
+
+      [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "organisation"]
-        :uri         "/api/ternorgs"
-        :label-path  ["name"]
-        :value-path  ["uri"]
-        :placeholder "Search for organisation details"}]]
-
-     [:p "If the Organisation you need is not listed, you can add the Organisation and respective details below."]
+        :title       "Organisation"
+        :template-id :person-organisation/user-defined-entry-form}]]
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "organisation" "name"]
-       :label     "Organisation Name"}
+      {:label "Organisation Name"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "name"]}]]
+        :data-path [?data-path "organisation" "name"]
+        :disabled  true}]]
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "organisation" "full_address_line"]
-       :label     "Campus/Sitename"}
+      {:label "Campus/Sitename"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "full_address_line"]}]]
+        :data-path [?data-path "organisation" "full_address_line"]
+        :disabled  true}]]
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "organisation" "street_address"]
-       :label     "Building"}
+      {:label "Building"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "street_address"]}]]
+        :data-path [?data-path "organisation" "street_address"]
+        :disabled  true}]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
                     :grid-template-columns "1fr 1fr"}}
 
       [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "address_locality"]
-        :label     "City"}
+       {:label "City"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "organisation" "address_locality"]}]]
+         :data-path [?data-path "organisation" "address_locality"]
+         :disabled  true}]]
 
       [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "address_region"]
-        :label     "State"}
+       {:label "State"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "organisation" "address_region"]}]]]
+         :data-path [?data-path "organisation" "address_region"]
+         :disabled  true}]]]
 
      [:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
                     :grid-template-columns "1fr 1fr"}}
 
       [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "postcode"]
-        :label     "Postal Code"}
+       {:label "Postal Code"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "organisation" "postcode"]}]]
+         :data-path [?data-path "organisation" "postcode"]
+         :disabled  true}]]
 
       [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "country"]
-        :label     "Country"}
+       {:label     "Country"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "organisation" "country"]}]]]
+         :data-path [?data-path "organisation" "country"]
+         :disabled  true}]]]
 
      [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "organisation" "email"]
-       :label     "Email address"}
+      {:label "Email address"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "organisation" "email"]}]]]
+        :data-path [?data-path "organisation" "email"]
+        :disabled  true}]]]
 
     ; NOTE: person organisation (no role)
     :person-organisation/user-defined-entry-form
@@ -1597,7 +1690,15 @@
         :label     "Country"}
        [m4/input-field
         {:form-id   ?form-id
-         :data-path [?data-path "country"]}]]]]
+         :data-path [?data-path "country"]}]]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "email"]
+       :label     "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "email"]}]]]
 
     :person-contact/user-defined-entry-form
     [:div

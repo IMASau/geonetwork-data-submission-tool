@@ -706,7 +706,10 @@
                 "export": false
               }
             },
-            "rules":["contactOrganisationUserDefined"]
+            "rules": [
+              "requiredField",
+              "contactOrganisationUserDefined"
+            ]
           },
           "notes": "Responsible party/ies for creating dataset"
         },
@@ -922,7 +925,10 @@
                 "export": false
               }
             },
-            "rules":["contactOrganisationUserDefined"]
+            "rules": [
+              "requiredField",
+              "contactOrganisationUserDefined"
+            ]
           }
         },
         "geographicElement": {
@@ -1243,22 +1249,50 @@
                 "export": false,
                 "xpath": "mri:keyword",
                 "properties": {
-                  "description": {
-                    "rules": ["requiredField"],
-                    "type": "string"
-                  },
-                  "isUserDefined": {
-                    "type": "boolean"
-                  },
-                  "userAddedCategory": {
-                    "type": "string"
-                  },
-                  "symbol": {
-                    "type": "string"
-                  },
-                  "source": {
-                    "rules": ["requiredField"],
-                    "type": "string"
+                  "parameter": {
+                    "type": "object",
+                    "properties": {
+                      "description": {
+                        "rules": ["requiredField"],
+                        "type": "string"
+                      },
+                      "isUserDefined": {
+                        "type": "boolean"
+                      },
+                      "userAddedCategory": {
+                        "type": "string"
+                      },
+                      "symbol": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "rules": ["requiredField"],
+                        "type": "string"
+                      },
+                      "label": {
+                        "rules": ["requiredField"],
+                        "type": "string",
+                        "xpath": "gcx:Anchor"
+                      },
+                      "uri": {
+                        "type": "string",
+                        "xpath": "gcx:Anchor",
+                        "attributes": {
+                          "xlink:href": {
+                            "function": "identity"
+                          }
+                        }
+                      },
+                      "duma_path":{
+                        "type": "string"
+                      },
+                      "broader": {"type": "string"},
+                      "broader_chain": {"type": "string"},
+                      "broader_chain_label": {"type": "string"},
+                      "breadcrumb": {"type": "string"},
+                      "altLabel": {"type": "string"},
+                      "is_top_concept": {"type": "boolean"}
+                    }
                   },
                   "unit": {
                     "!docstring": "What9",
@@ -1290,11 +1324,6 @@
                       }
                     }
                   },
-                  "label": {
-                    "rules": ["requiredField"],
-                    "type": "string",
-                    "xpath": "gcx:Anchor"
-                  },
                   "uri": {
                     "type": "string",
                     "xpath": "gcx:Anchor",
@@ -1304,16 +1333,11 @@
                       }
                     }
                   },
-                  "duma_path":{
-                    "type": "string"
-                  },
-                  "broader": {"type": "string"},
-                  "broader_chain": {"type": "string"},
-                  "broader_chain_label": {"type": "string"},
-                  "breadcrumb": {"type": "string"},
-                  "altLabel": {"type": "string"},
-                  "is_top_concept": {"type": "boolean"}
-                }
+                  "isUserDefined": {
+                    "type": "boolean"
+                  }
+                },
+                "rules": ["parameterUnitUserDefined"]
               }
             }
           },
@@ -1551,8 +1575,7 @@
                 }
               }
             }
-          },
-          "rules": ["requiredField"]
+          }
         },
         "environment": {
           "!docstring": "About3",

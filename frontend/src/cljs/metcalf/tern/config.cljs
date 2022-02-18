@@ -1577,21 +1577,6 @@
         :title       "Organisation"
         :template-id :person-organisation/user-defined-entry-form}]]
 
-     #_[m4/form-group
-        {:form-id   ?form-id
-         :data-path [?data-path "organisation"]
-         :label     "Select an Organisation"
-         :toolTip   "Select an organisation from the list or define your own."}
-        [m4/async-simple-item-option-picker
-         {:form-id     ?form-id
-          :data-path   [?data-path "organisation"]
-          :uri         "/api/ternorgs"
-          :label-path  ["name"]
-          :value-path  ["uri"]
-          :placeholder "Search for organisation details"}]]
-
-     #_[:p "If the Organisation you need is not listed, you can add the Organisation and respective details below."]
-
      [m4/form-group
       {:label "Organisation Name"}
       [m4/input-field

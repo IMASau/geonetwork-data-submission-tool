@@ -419,14 +419,7 @@
 
 (defn generate-citation
   [block]
-  ;; Need responsible-for-creation
-  ;; * could be people or orgs
-  ;; * filter out to authors + co-authors
-  ;; * format people-names (surname, initials)
-  ;; title
-  ;; date
-  ;; DOI (if present)
-  (let [{:strs [title date dateSubmitted doi citedResponsibleParty]} (blocks4/as-data block)
+  (let [{:strs [title date dateSubmitted doi citedResponsibleParty version]} (blocks4/as-data block)
         authors (->> citedResponsibleParty
                      (filter #(= "a37cc120-9920-4495-9a2f-698e225b5902"
                                  (get-in % ["role" "UUID"]))))

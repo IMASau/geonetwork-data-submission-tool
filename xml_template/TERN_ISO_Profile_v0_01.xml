@@ -2212,7 +2212,7 @@
           </mco:otherConstraints>
           <mco:otherConstraints>
             <!-- Format for citation -->
-            <gco:CharacterString>Please cite this dataset as {Author}{Year Published}{Title}. Version {Version number}. Terrestrial Ecosystem Research Network. dataset. Accessed from https://geonetwork.tern.org.au on {Date}.
+            <gco:CharacterString>Please cite this dataset as {Author} ({PublicationYear}). {Title}. {Version, as appropriate}. Terrestrial Ecosystem Research Network. Dataset. {Identifier}.
             </gco:CharacterString>
           </mco:otherConstraints>
 

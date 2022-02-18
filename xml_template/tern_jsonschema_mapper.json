@@ -1319,6 +1319,9 @@
                         "function": "identity"
                       }
                     }
+                  },
+                  "isUserDefined": {
+                    "type": "boolean"
                   }
                 }
               }

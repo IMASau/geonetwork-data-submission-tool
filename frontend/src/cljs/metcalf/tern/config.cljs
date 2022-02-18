@@ -153,7 +153,8 @@
        "protocolLayer"                  rules4/data-source-required-layer
        "defaultDistributor"             rules4/default-distributor
        "maxKeywords"                    rules4/tern-max-keywords
-       "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined})
+       "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined
+       "parameterUnitUserDefined"       rules4/tern-parameter-unit-user-defined})
 (set! low-code4/component-registry
       {
        'm4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
@@ -778,7 +779,7 @@
           :value-path         ["uri"]
           :random-uuid-value? true
           :select-snapshot?   true
-          ;:added-path         ["isUserDefined"]
+          :added-path         ["isUserDefined"]
           :columns            [{:columnHeader "Name" :label-path ["parameter" "label"] :flex 2}
                                {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]]
        [m4/list-edit-dialog

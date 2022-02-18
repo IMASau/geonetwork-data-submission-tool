@@ -699,7 +699,7 @@
                 "export": false
               }
             },
-            "rules":["contactOrganisationUserDefined"]
+            "rules":["requiredField", "contactOrganisationUserDefined"]
           },
           "notes": "Responsible party/ies for creating dataset"
         },
@@ -916,7 +916,8 @@
               }
             },
             "rules":["contactOrganisationUserDefined"]
-          }
+          },
+          "rules":["requiredField"]
         },
         "geographicElement": {
           "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",

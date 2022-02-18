@@ -1562,8 +1562,7 @@
                 }
               }
             }
-          },
-          "rules": ["requiredField"]
+          }
         },
         "environment": {
           "!docstring": "About3",

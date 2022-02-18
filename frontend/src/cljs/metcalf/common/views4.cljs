@@ -200,7 +200,8 @@
                       :onChange                 pick-tab
                       :renderActiveTabPanelOnly true}]
            (into (for [{:keys [id title has-errors?]} tab-props]
-                   (let [title (if has-errors? (str title " *") title)]
+                   (if has-errors?
+                     [bp3/tab {:title title :id (pr-str id) :className "has-errors"}]
                      [bp3/tab {:title title :id (pr-str id)}])))
            (conj
              [bp3/tabs-expander]

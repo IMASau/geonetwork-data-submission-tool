@@ -373,9 +373,12 @@
 
       [:div.bp3-control-group
        [:div.bp3-fill
-        #_[m4/async-select-option-simple
-           {:form-id     ?form-id
-            :data-path   [?data-path]}]]
+        [m4/async-select-option-simple
+           {:form-id    ?form-id
+            :data-path  [?data-path]
+            :uri        "/api/ternparameters"
+            :label-path ["label"]
+            :value-path ["uri"]}]]
 
        #_[m4/item-dialog-button
           {:form-id            ?form-id

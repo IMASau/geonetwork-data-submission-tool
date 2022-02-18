@@ -366,8 +366,49 @@
 
     :parameter-unit/user-defined-entry-form
     [:div
-     
-     ]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path]
+       :label     "Parameter"}
+
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        #_[m4/async-select-option-simple
+           {:form-id     ?form-id
+            :data-path   [?data-path]}]]
+
+       #_[m4/item-dialog-button
+          {:form-id            ?form-id
+           :data-path          [?data-path]
+           :random-uuid-value? true
+           :added-path         ["isUserDefined"]}]]
+
+      [m4/edit-dialog
+       {:form-id     ?form-id
+        :data-path   [?data-path]
+        :title       "Parameter"}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path]
+       :label     "Unit"}
+
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        #_[m4/async-select-option-simple
+           {:form-id     ?form-id
+            :data-path   [?data-path]}]]
+
+       #_[m4/item-dialog-button
+          {:form-id            ?form-id
+           :data-path          [?data-path]
+           :random-uuid-value? true
+           :added-path         ["isUserDefined"]}]]
+
+      [m4/edit-dialog
+       {:form-id     ?form-id
+        :data-path   [?data-path]
+        :title       "Unit"}]]]
 
     :data-identification
     [:div

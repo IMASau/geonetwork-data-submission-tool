@@ -1236,7 +1236,7 @@
         },
         "keywordsParametersUnits": {
           "!docstring": "What8",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"parameter\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"uom\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]",
           "type": "object",
           "keep": false,
           "deleteWhenEmpty": false,
@@ -1246,11 +1246,11 @@
               "type": "array",
               "items": {
                 "type": "object",
-                "export": false,
                 "xpath": "mri:keyword",
                 "properties": {
                   "parameter": {
                     "type": "object",
+                    "export": false,
                     "properties": {
                       "description": {
                         "rules": ["requiredField"],
@@ -1296,7 +1296,7 @@
                   },
                   "unit": {
                     "!docstring": "What9",
-                    "xpath": "../../../mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"uom\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]/mri:keyword",
+                    "xpath": ".",
                     "type": "object",
                     "properties": {
                       "label": {
@@ -1873,14 +1873,6 @@
       {
         "mount_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"parameter\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]",
         "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"parameter\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]/mri:keyword",
-        "data_path": "identificationInfo.keywordsParametersUnits.keywords"
-      }
-    ],
-    [
-      "generateUnitKeywords",
-      {
-        "mount_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"uom\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]",
-        "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"uom\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]/mri:keyword",
         "data_path": "identificationInfo.keywordsParametersUnits.keywords"
       }
     ],

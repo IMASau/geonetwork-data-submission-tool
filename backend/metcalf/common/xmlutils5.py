@@ -281,7 +281,7 @@ def export2_append_items_handler(data, xml_node, spec, xml_kwargs, handlers, xfo
 
 def export2_generateParameterKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
     """
-    Append keyword for each parameter.
+    Append keyword,unit pairing for each parameter.
 
     Configured with xf_props
     - xform[1].data_path

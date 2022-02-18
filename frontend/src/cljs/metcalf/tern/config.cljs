@@ -364,6 +364,11 @@
         :title       "Unit"
         :template-id :unit/user-defined-entry-form}]]]
 
+    :parameter-unit/user-defined-entry-form
+    [:div
+     
+     ]
+
     :data-identification
     [:div
      #_[m4/page-errors
@@ -753,7 +758,7 @@
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
          :title       "Parameter"
-         :template-id :parameter/user-defined-entry-form}]]]
+         :template-id :parameter-unit/user-defined-entry-form}]]]
 
      [m4/expanding-control {:label "Temporal Resolution" :required true}
       [m4/form-group

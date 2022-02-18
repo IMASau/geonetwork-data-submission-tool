@@ -406,10 +406,9 @@
   (get-in organisation ["organisation" "name"]))
 
 (defn -format-citation
-  [{:keys [title date submittedDate authors coauthors doi]}]
-  (let [date (or (cljs-time/value-to-date (or date submittedDate))
-                 (js/Date.))
-        year (.getFullYear date)
+  [{:keys [title date dateSubmitted authors coauthors doi]}]
+  (let [date (cljs-time/value-to-date (or date dateSubmitted))
+        year (.getFullYear (or date (js/Date.))) ; fallback for (dev-only?) case where it hasn't been saved yet
         authors (map -format-author authors)
         coauthors (map -format-author coauthors)
         author-list (->> (concat authors coauthors)
@@ -427,7 +426,7 @@
   ;; title
   ;; date
   ;; DOI (if present)
-  (let [{:strs [title date doi citedResponsibleParty]} (blocks4/as-data block)
+  (let [{:strs [title date dateSubmitted doi citedResponsibleParty]} (blocks4/as-data block)
         authors (->> citedResponsibleParty
                      (filter #(= "a37cc120-9920-4495-9a2f-698e225b5902"
                                  (get-in % ["role" "UUID"]))))
@@ -436,8 +435,10 @@
                                    (get-in % ["role" "UUID"]))))]
     (assoc-in block [:content "generatedCitation" :props :value]
               (-format-citation
-               {:authors   authors
-                :coauthors coauthors
-                :title     title
-                :date      date
-                :doi       doi}))))
+               {:authors       authors
+                :coauthors     coauthors
+                :title         title
+                :date          date
+                :dateSubmitted dateSubmitted
+                :doi           doi}))))
+

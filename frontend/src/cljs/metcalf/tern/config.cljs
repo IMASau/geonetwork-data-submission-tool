@@ -714,7 +714,15 @@
        {:label   "Select the name of the measured parameter, e.g. vegetation height"
         :toolTip "Select the parameter(s) (observed variables) from the predefined list. If the required parameter is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
 
-       [:div.bp3-control-group
+       [m4/list-add-button
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
+         :button-text        "Add"
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "parameter"}}]
+
+       #_[:div.bp3-control-group
         [:div.bp3-fill
          [m4/async-list-option-picker
           {:form-id    [:form]
@@ -730,6 +738,7 @@
           :random-uuid-value? true
           :item-defaults      {"userAddedCategory" "parameter"}
           :added-path         ["isUserDefined"]}]]
+       
        [:div.SelectionListItemColoured
         [m4/selection-list-columns
          {:form-id            [:form]

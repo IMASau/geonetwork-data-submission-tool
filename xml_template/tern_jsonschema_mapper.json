@@ -348,7 +348,8 @@
             "opt-field": "doiRequested",
             "negate": true
           }
-        }
+        },
+        "generateCitation"
       ],
       "type": "object",
       "properties": {
@@ -1617,6 +1618,10 @@
           "valueChild": "gco:CharacterString",
           "keep": false,
           "required": false,
+          "type": "string"
+        },
+        "generatedCitation": {
+          "!docstring": "Schema for the system-generated citation displayed on Lodge page",
           "type": "string"
         },
         "thumbnail": {

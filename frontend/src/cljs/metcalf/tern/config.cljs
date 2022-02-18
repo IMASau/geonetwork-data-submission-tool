@@ -2190,11 +2190,12 @@
       ;; TODO: provide a citation data path
       [m4/form-group
        {:form-id   [:form]
-        :data-path ["XXX"]
+        :data-path ["identificationInfo" "generatedCitation"]
         :label     "Generated Citation"}
        [m4/textarea-field
         {:form-id     [:form]
-         :data-path   ["XXX"]
+         :data-path   ["identificationInfo" "generatedCitation"]
+         :disabled    true
          :placeholder "(Authors, co-authors)[Year Published](Title). Version {number}. Terrestrial Ecosystem Research Network (TERN), dataset {DOI}"}]]
 
       [:p "If you have any difficulties with the lodgement process or form entry requirements, please email: "

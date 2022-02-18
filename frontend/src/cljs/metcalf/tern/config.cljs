@@ -785,7 +785,8 @@
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
          :title       "Parameter"
-         :template-id :parameter-unit/user-defined-entry-form}]]]
+         :template-id :parameter-unit/user-defined-entry-form
+         :field-paths [["parameter" "label"]["unit"]]}]]]
 
      [m4/expanding-control {:label "Temporal Resolution" :required true}
       [m4/form-group

@@ -917,7 +917,7 @@
             },
             "rules":["contactOrganisationUserDefined"]
           },
-          "rules":["requiredField"]
+          "rules":["requiredField", "contactOrganisationUserDefined"]
         },
         "geographicElement": {
           "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",

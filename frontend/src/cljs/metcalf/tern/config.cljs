@@ -1411,28 +1411,28 @@
         :title       "Organisation"
         :template-id :person-organisation/user-defined-entry-form}]]
 
-     [m4/form-group
+     #_[m4/form-group
       {:label "Organisation Name"}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "organisation" "name"]
         :disabled  true}]]
 
-     [m4/form-group
+     #_[m4/form-group
       {:label "Campus/Sitename"}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "organisation" "full_address_line"]
         :disabled  true}]]
 
-     [m4/form-group
+     #_[m4/form-group
       {:label "Building"}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "organisation" "street_address"]
         :disabled  true}]]
 
-     [:div {:style {:display               "grid"
+     #_[:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
                     :grid-template-columns "1fr 1fr"}}
 
@@ -1450,7 +1450,7 @@
          :data-path [?data-path "organisation" "address_region"]
          :disabled  true}]]]
 
-     [:div {:style {:display               "grid"
+     #_[:div {:style {:display               "grid"
                     :grid-column-gap       "1em"
                     :grid-template-columns "1fr 1fr"}}
 
@@ -1468,7 +1468,7 @@
          :data-path [?data-path "organisation" "country"]
          :disabled  true}]]]
 
-     [m4/form-group
+     #_[m4/form-group
       {:label "Email address"}
       [m4/input-field
        {:form-id   ?form-id

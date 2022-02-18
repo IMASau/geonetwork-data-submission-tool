@@ -1489,83 +1489,110 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
-       :label     "Select an Organisation"
-       :toolTip   "Select an organisation from the list or define your own."}
-      [m4/async-simple-item-option-picker
+       :label     "Select associated Organisation"
+       :toolTip   "Select the organisation associated with the primary contact or define your own."}
+
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id    ?form-id
+          :data-path  [?data-path "organisation"]
+          :uri        "/api/ternorgs"
+          :label-path ["name"]
+          :value-path ["uri"]}]]
+       [m4/item-dialog-button
+        {:form-id            ?form-id
+         :data-path          [?data-path "organisation"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]
+
+      [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "organisation"]
-        :uri         "/api/ternorgs"
-        :label-path  ["name"]
-        :value-path  ["uri"]
-        :placeholder "Search for organisation details"}]]
+        :title       "Organisation"
+        :template-id :person-organisation/user-defined-entry-form}]]
 
-     [:p "If the Organisation you need is not listed, you can add the Organisation and respective details below."]
-
-     [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "organisation" "name"]
-       :label     "Organisation Name"}
-      [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "name"]}]]
-
-     [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "organisation" "full_address_line"]
-       :label     "Campus/Sitename"}
-      [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "full_address_line"]}]]
-
-     [m4/form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "organisation" "street_address"]
-       :label     "Building"}
-      [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "street_address"]}]]
-
-     [:div {:style {:display               "grid"
-                    :grid-column-gap       "1em"
-                    :grid-template-columns "1fr 1fr"}}
-
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "address_locality"]
-        :label     "City"}
-       [m4/input-field
+     #_[m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "organisation" "address_locality"]}]]
+         :data-path [?data-path "organisation"]
+         :label     "Select an Organisation"
+         :toolTip   "Select an organisation from the list or define your own."}
+        [m4/async-simple-item-option-picker
+         {:form-id     ?form-id
+          :data-path   [?data-path "organisation"]
+          :uri         "/api/ternorgs"
+          :label-path  ["name"]
+          :value-path  ["uri"]
+          :placeholder "Search for organisation details"}]]
 
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "address_region"]
-        :label     "State"}
-       [m4/input-field
+     #_[:p "If the Organisation you need is not listed, you can add the Organisation and respective details below."]
+
+     #_[m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "organisation" "address_region"]}]]]
+         :data-path [?data-path "organisation" "name"]
+         :label     "Organisation Name"}
+        [m4/input-field
+         {:form-id   ?form-id
+          :data-path [?data-path "organisation" "name"]}]]
 
-     [:div {:style {:display               "grid"
-                    :grid-column-gap       "1em"
-                    :grid-template-columns "1fr 1fr"}}
-
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "postcode"]
-        :label     "Postal Code"}
-       [m4/input-field
+     #_[m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "organisation" "postcode"]}]]
+         :data-path [?data-path "organisation" "full_address_line"]
+         :label     "Campus/Sitename"}
+        [m4/input-field
+         {:form-id   ?form-id
+          :data-path [?data-path "organisation" "full_address_line"]}]]
 
-      [m4/form-group
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "country"]
-        :label     "Country"}
-       [m4/input-field
+     #_[m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "organisation" "country"]}]]]
+         :data-path [?data-path "organisation" "street_address"]
+         :label     "Building"}
+        [m4/input-field
+         {:form-id   ?form-id
+          :data-path [?data-path "organisation" "street_address"]}]]
 
-     [m4/form-group
+     #_[:div {:style {:display               "grid"
+                      :grid-column-gap       "1em"
+                      :grid-template-columns "1fr 1fr"}}
+
+        [m4/form-group
+         {:form-id   ?form-id
+          :data-path [?data-path "organisation" "address_locality"]
+          :label     "City"}
+         [m4/input-field
+          {:form-id   ?form-id
+           :data-path [?data-path "organisation" "address_locality"]}]]
+
+        [m4/form-group
+         {:form-id   ?form-id
+          :data-path [?data-path "organisation" "address_region"]
+          :label     "State"}
+         [m4/input-field
+          {:form-id   ?form-id
+           :data-path [?data-path "organisation" "address_region"]}]]]
+
+     #_[:div {:style {:display               "grid"
+                      :grid-column-gap       "1em"
+                      :grid-template-columns "1fr 1fr"}}
+
+        [m4/form-group
+         {:form-id   ?form-id
+          :data-path [?data-path "organisation" "postcode"]
+          :label     "Postal Code"}
+         [m4/input-field
+          {:form-id   ?form-id
+           :data-path [?data-path "organisation" "postcode"]}]]
+
+        [m4/form-group
+         {:form-id   ?form-id
+          :data-path [?data-path "organisation" "country"]
+          :label     "Country"}
+         [m4/input-field
+          {:form-id   ?form-id
+           :data-path [?data-path "organisation" "country"]}]]]
+
+     #_[m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "organisation" "email"]
        :label     "Email address"}

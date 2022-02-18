@@ -406,7 +406,7 @@
   (get-in organisation ["organisation" "name"]))
 
 (defn -format-citation
-  [{:keys [title date dateSubmitted authors coauthors doi]}]
+  [{:keys [title date dateSubmitted authors coauthors version doi]}]
   (let [date (cljs-time/value-to-date (or date dateSubmitted))
         year (.getFullYear (or date (js/Date.))) ; fallback for (dev-only?) case where it hasn't been saved yet
         authors (map -format-author authors)
@@ -414,7 +414,7 @@
         author-list (->> (concat authors coauthors)
                          (interpose ", ")
                          (apply str))]
-    (str author-list " (" year "). " title ". "
+    (str author-list " (" year "). " version ". " title ". "
          (if doi (str "https://dx.doi.org/" doi) "{Identifier}"))))
 
 (defn generate-citation
@@ -440,5 +440,6 @@
                 :title         title
                 :date          date
                 :dateSubmitted dateSubmitted
+                :version       version
                 :doi           doi}))))
 

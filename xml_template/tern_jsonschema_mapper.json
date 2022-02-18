@@ -1812,24 +1812,28 @@
     "noteForDataManager": {
       "!docstring": "Fake node so we can pass some additional metadata as payload",
       "xpath": "noteForDataManager",
+      "type": "string",
       "default": "",
       "export": false
     },
     "agreedToTerms": {
       "!docstring": "Fake node so we can pass some additional metadata as payload",
       "xpath": "agreedToTerms",
+      "type": "boolean",
       "default": false,
       "export": false
     },
     "doiRequested": {
       "!docstring": "Fake node so we can pass some additional metadata as payload",
       "xpath": "doiRequested",
+      "type": "boolean",
       "default": false,
       "export": false
     },
     "personalCopyRequested": {
       "!docstring": "Fake node so we can pass some additional metadata as payload",
       "xpath": "personalCopyRequested",
+      "type": "boolean",
       "default": false,
       "export": false
     }

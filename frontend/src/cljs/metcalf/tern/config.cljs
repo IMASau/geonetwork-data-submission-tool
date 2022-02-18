@@ -332,37 +332,7 @@
       [m4/textarea-field
        {:form-id     ?form-id
         :data-path   [?data-path "source"]
-        :placeholder "E.g. Creator (Publication year).  Title.  Version.  Publisher.  Resource type.  Identifier.  "}]]
-
-     [m4/inline-form-group
-      {:form-id   ?form-id
-       :data-path [?data-path "unit"]
-       :label     "Unit of measure"
-       :toolTip   "Select a \"unit of measure\" (UoM) from the predefined list. If the required UoM is not in the list, you can click the 'Add' button to define your own. The entry will be reviewed prior to publishing."}
-
-      [:div.bp3-control-group
-       [:div.bp3-fill
-        [m4/async-select-option-simple
-         {:form-id    ?form-id
-          :data-path  [?data-path "unit"]
-          :uri        "/api/qudtunits"
-          :label-path ["label"]
-          :value-path ["uri"]
-          :added-path ["isUserDefined"]}]]
-       [m4/item-dialog-button
-        {:form-id            ?form-id
-         :data-path          [?data-path "unit"]
-         :label-path         ["label"]
-         :value-path         ["uri"]
-         :random-uuid-value? true
-         :item-defaults      {"userAddedCategory" "unit"}
-         :added-path         ["isUserDefined"]}]]
-
-      [m4/edit-dialog
-       {:form-id     ?form-id
-        :data-path   [?data-path "unit"]
-        :title       "Unit"
-        :template-id :unit/user-defined-entry-form}]]]
+        :placeholder "E.g. Creator (Publication year).  Title.  Version.  Publisher.  Resource type.  Identifier.  "}]]]
 
     :parameter-unit/user-defined-entry-form
     [:div

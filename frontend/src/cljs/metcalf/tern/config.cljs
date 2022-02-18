@@ -747,7 +747,7 @@
 
        [m4/list-add-button
         {:form-id            [:form]
-         :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
+         :data-path          ["identificationInfo" "keywordsParametersUnits" "keywords"]
          :button-text        "Add Parameter"
          :value-path         ["uri"]
          :random-uuid-value? true
@@ -756,7 +756,7 @@
        [:div.SelectionListItemColoured
         [m4/selection-list-columns
          {:form-id            [:form]
-          :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
+          :data-path          ["identificationInfo" "keywordsParametersUnits" "keywords"]
           :value-path         ["uri"]
           :random-uuid-value? true
           :select-snapshot?   true
@@ -765,7 +765,7 @@
                                {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]]
        [m4/list-edit-dialog
         {:form-id     [:form]
-         :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
+         :data-path   ["identificationInfo" "keywordsParametersUnits" "keywords"]
          :title       "Parameter"
          :template-id :parameter-unit/user-defined-entry-form
          :field-paths [["parameter" "label"] ["unit"]]}]]]

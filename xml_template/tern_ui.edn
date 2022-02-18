@@ -439,26 +439,26 @@
       [:div.bp3-fill
        [m4/async-list-picker
         {:form-id    [:form]
-         :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
+         :data-path  ["identificationInfo" "keywordsParametersUnits" "keywords"]
          :uri        "/api/terninstruments"
          :label-path ["label"]
          :value-path ["uri"]}]]
       [m4/list-add-button
        {:form-id     [:form]
-        :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
+        :data-path   ["identificationInfo" "keywordsParametersUnits" "keywords"]
         :button-text "Add"
         :value-path  ["uri"]
         :added-path  ["isUserDefined"]}]]
      [m4/table-selection-list
       {:form-id    [:form]
-       :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
+       :data-path  ["identificationInfo" "keywordsParametersUnits" "keywords"]
        :value-path ["uri"]
        :added-path ["isUserDefined"]
        :columns    [{:columnHeader "Name" :label-path ["label"] :flex 2}
                     {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]
      [m4/list-edit-dialog
       {:form-id     [:form]
-       :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
+       :data-path   ["identificationInfo" "keywordsParametersUnits" "keywords"]
        :title       "Parameter"
        :template-id :parameter/user-defined-entry-form}]]]
 
@@ -1321,7 +1321,7 @@
                                                               "label"      {},
                                                               "uri"        {}}}}}},
                  "topicCategory"       {},
-                 "keywordsParameters"
+                 "keywordsParametersUnits"
                                        {:type "object",
                                         :properties
                                               {"keywords"

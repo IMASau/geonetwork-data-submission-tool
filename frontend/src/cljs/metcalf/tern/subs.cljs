@@ -24,7 +24,7 @@
                  ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
                  ["identificationInfo" "keywordsPlatform" "keywords"]
                  ["identificationInfo" "keywordsInstrument" "keywords"]
-                 ["identificationInfo" "keywordsParameters" "keywords"]
+                 ["identificationInfo" "keywordsParametersUnits" "keywords"]
                  ["identificationInfo" "keywordsTemporal" "keywords"]
                  ["identificationInfo" "keywordsHorizontal" "keywords"]
                  ["identificationInfo" "keywordsVertical" "keywords"]

@@ -125,8 +125,10 @@
        :next-tab     (get-next-tab selected-tab edit-tabs)
        :tab-props    (mapv
                        (fn [{:keys [id text data-paths]}]
-                         (let [has-errors? (some has-block-errors? data-paths)]
-                           {:id          id
-                            :title       text
-                            :has-errors? (boolean has-errors?)}))
+                         (let [has-errors? (some has-block-errors? data-paths)
+                               has-required-fields? (seq data-paths)]
+                           {:id                   id
+                            :title                text
+                            :has-errors?          (boolean has-errors?)
+                            :has-required-fields? (boolean has-required-fields?)}))
                        edit-tabs)})))

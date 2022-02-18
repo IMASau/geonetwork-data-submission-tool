@@ -481,6 +481,8 @@ def save(request, uuid, update_number):
         draft.noteForDataManager = data.get('noteForDataManager') or ''
         draft.agreedToTerms = data.get('agreedToTerms') or False
         draft.doiRequested = data.get('doiRequested') or False
+        # update dateSubmitted; it will eventually be "correct":
+        data["identificationInfo"]["dateSubmitted"] = datetime.date.today().isoformat()
         draft.save()
 
         # Remove any attachments which are no longer mentioned in the XML.

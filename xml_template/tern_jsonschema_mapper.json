@@ -348,7 +348,8 @@
             "opt-field": "doiRequested",
             "negate": true
           }
-        }
+        },
+        "generateCitation"
       ],
       "type": "object",
       "properties": {
@@ -420,6 +421,12 @@
           "keep": false,
           "xpath_required": true,
           "rules": ["requiredField"]
+        },
+        "dateSubmitted": {
+          "!docstring": "Created by the backend when data is submitted",
+          "type": "string",
+          "export": false,
+          "xpath": "dateSubmitted"
         },
         "datePublicationFlag": {
           "type": "boolean",
@@ -1642,6 +1649,10 @@
           "required": false,
           "type": "string"
         },
+        "generatedCitation": {
+          "!docstring": "Schema for the system-generated citation displayed on Lodge page",
+          "type": "string"
+        },
         "thumbnail": {
           "!docstring": "DataSource3",
           "type": "object",
@@ -1830,24 +1841,28 @@
     "noteForDataManager": {
       "!docstring": "Fake node so we can pass some additional metadata as payload",
       "xpath": "noteForDataManager",
+      "type": "string",
       "default": "",
       "export": false
     },
     "agreedToTerms": {
       "!docstring": "Fake node so we can pass some additional metadata as payload",
       "xpath": "agreedToTerms",
+      "type": "boolean",
       "default": false,
       "export": false
     },
     "doiRequested": {
       "!docstring": "Fake node so we can pass some additional metadata as payload",
       "xpath": "doiRequested",
+      "type": "boolean",
       "default": false,
       "export": false
     },
     "personalCopyRequested": {
       "!docstring": "Fake node so we can pass some additional metadata as payload",
       "xpath": "personalCopyRequested",
+      "type": "boolean",
       "default": false,
       "export": false
     }

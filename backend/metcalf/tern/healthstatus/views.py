@@ -42,11 +42,14 @@ def check_database_health():
 
 
 def check_geonetwork_health():
-    response = requests.get(f'{settings.GEONETWORK_URLROOT}/criticalhealthcheck', timeout=5)
-    if response.status_code == 200:
-        return True, OK_STATUS
-    else:
-        return False, response.text
+    try:
+        response = requests.get(f'{settings.GEONETWORK_URLROOT}/criticalhealthcheck', timeout=5)
+        if response.status_code == 200:
+            return True, OK_STATUS
+        else:
+            return False, response.text
+    except Exception as e:
+        return False, str(e)
 
 
 for setting in settings:

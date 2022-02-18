@@ -383,8 +383,10 @@
        [m4/item-dialog-button
         {:form-id            ?form-id
          :data-path          [?data-path]
+         :label-path         ["label"]
          :value-path         ["uri"]
          :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "parameter"}
          :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
@@ -395,7 +397,7 @@
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path]
+       :data-path [?data-path "unit"]
        :label     "Unit"}
 
       [:div.bp3-control-group
@@ -404,15 +406,18 @@
            {:form-id     ?form-id
             :data-path   [?data-path]}]]
 
-       #_[m4/item-dialog-button
-          {:form-id            ?form-id
-           :data-path          [?data-path]
-           :random-uuid-value? true
-           :added-path         ["isUserDefined"]}]]
+       [m4/item-dialog-button
+        {:form-id            ?form-id
+         :data-path          [?data-path "unit"]
+         :label-path         ["label"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "unit"}
+         :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
        {:form-id     ?form-id
-        :data-path   [?data-path]
+        :data-path   [?data-path "unit"]
         :title       "Unit"
         :template-id :unit/user-defined-entry-form}]]]
 

@@ -153,10 +153,10 @@
        "protocolLayer"                  rules4/data-source-required-layer
        "defaultDistributor"             rules4/default-distributor
        "maxKeywords"                    rules4/tern-max-keywords
-       "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined})
+       "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined
+       "generateCitation"               rules4/generate-citation})
 (set! low-code4/component-registry
-      {
-       'm4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
+      {'m4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
        'm4/async-list-option-picker            {:view #'components4/async-list-option-picker :init components4/async-list-option-picker-settings}
        'm4/async-list-option-picker-breadcrumb {:view #'components4/async-list-option-picker-breadcrumb :init components4/async-list-option-picker-breadcrumb-settings}
        'm4/async-list-option-picker-columns    {:view #'components4/async-list-option-picker-columns :init components4/async-list-option-picker-columns-settings}
@@ -201,8 +201,7 @@
        'm4/text-add-button                     {:view #'components4/text-add-button :init components4/text-add-button-settings}
        'm4/upload-files                        {:view #'components4/upload-files :init components4/upload-files-settings}
        'm4/upload-thumbnail                    {:view #'components4/upload-thumbnail :init components4/upload-thumbnail-settings}
-       'm4/when-errors                         {:view #'components4/when-errors :init components4/when-errors-settings}
-       })
+       'm4/when-errors                         {:view #'components4/when-errors :init components4/when-errors-settings}})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)

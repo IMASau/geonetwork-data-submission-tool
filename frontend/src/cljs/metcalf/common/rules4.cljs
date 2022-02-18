@@ -389,3 +389,55 @@
     (cond-> block
       (not value-picked?)
       (assoc-in [:content "distributor"] default-value))))
+
+(defmulti -format-author #(% "partyType"))
+(defmethod -format-author "person"
+  [{:strs [contact]}]
+  (let [{:strs [surname given_name]} contact
+        initials (as-> given_name ils
+                   (string/split ils #" +")
+                   (map first ils)
+                   (map #(str % ".") ils)
+                   (interpose " " ils)
+                   (apply str ils))]
+    (str surname ", " initials)))
+(defmethod -format-author "organisation"
+  [organisation]
+  (get-in organisation ["organisation" "name"]))
+
+(defn -format-citation
+  [{:keys [title date submittedDate authors coauthors doi]}]
+  (let [date (or (cljs-time/value-to-date (or date submittedDate))
+                 (js/Date.))
+        year (.getFullYear date)
+        authors (map -format-author authors)
+        coauthors (map -format-author coauthors)
+        author-list (->> (concat authors coauthors)
+                         (interpose ", ")
+                         (apply str))]
+    (str author-list " (" year "). " title ". "
+         (if doi (str "https://dx.doi.org/" doi) "{Identifier}"))))
+
+(defn generate-citation
+  [block]
+  ;; Need responsible-for-creation
+  ;; * could be people or orgs
+  ;; * filter out to authors + co-authors
+  ;; * format people-names (surname, initials)
+  ;; title
+  ;; date
+  ;; DOI (if present)
+  (let [{:strs [title date doi citedResponsibleParty]} (blocks4/as-data block)
+        authors (->> citedResponsibleParty
+                     (filter #(= "a37cc120-9920-4495-9a2f-698e225b5902"
+                                 (get-in % ["role" "UUID"]))))
+        coauthors (->> citedResponsibleParty
+                       (filter #(= "cc22ca92-a323-42fa-8e01-1503f0edf6b9"
+                                   (get-in % ["role" "UUID"]))))]
+    (assoc-in block [:content "generatedCitation" :props :value]
+              (-format-citation
+               {:authors   authors
+                :coauthors coauthors
+                :title     title
+                :date      date
+                :doi       doi}))))

@@ -374,17 +374,18 @@
       [:div.bp3-control-group
        [:div.bp3-fill
         [m4/async-select-option-simple
-           {:form-id    ?form-id
-            :data-path  [?data-path]
-            :uri        "/api/ternparameters"
-            :label-path ["label"]
-            :value-path ["uri"]}]]
+         {:form-id    ?form-id
+          :data-path  [?data-path]
+          :uri        "/api/ternparameters"
+          :label-path ["label"]
+          :value-path ["uri"]}]]
 
-       #_[m4/item-dialog-button
-          {:form-id            ?form-id
-           :data-path          [?data-path]
-           :random-uuid-value? true
-           :added-path         ["isUserDefined"]}]]
+       [m4/item-dialog-button
+        {:form-id            ?form-id
+         :data-path          [?data-path]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
        {:form-id     ?form-id

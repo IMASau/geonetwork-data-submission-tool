@@ -340,7 +340,8 @@
      [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "parameter"]
-       :label     "Parameter"}
+       :label     "Parameter"
+       :toolTip   "Select the parameter(s) (observed variables) from the predefined list. If the required parameter is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
 
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -379,8 +380,7 @@
           :data-path  [?data-path "unit"]
           :uri        "/api/qudtunits"
           :label-path ["label"]
-          :value-path ["uri"]
-          :added-path ["isUserDefined"]}]]
+          :value-path ["uri"]}]]
 
        [m4/item-dialog-button
         {:form-id            ?form-id
@@ -743,35 +743,17 @@
      [m4/expanding-control {:label "Parameters" :required true}
 
       ;; TODO: also need a user-added option
-      [m4/form-group
-       {:label   "Select the name of the measured parameter, e.g. vegetation height"
-        :toolTip "Select the parameter(s) (observed variables) from the predefined list. If the required parameter is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
+      [:div
+       [:p "Select a measured parameter, e.g. vegetation height"]
 
        [m4/list-add-button
         {:form-id            [:form]
          :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
-         :button-text        "Add"
+         :button-text        "Add Parameter"
          :value-path         ["uri"]
          :random-uuid-value? true
          :item-defaults      {"userAddedCategory" "parameter"}}]
 
-       #_[:div.bp3-control-group
-        [:div.bp3-fill
-         [m4/async-list-option-picker
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "keywordsParameters" "keywords"]
-           :uri        "/api/ternparameters"
-           :label-path ["label"]
-           :value-path ["uri"]}]]
-        [m4/list-add-button
-         {:form-id            [:form]
-          :data-path          ["identificationInfo" "keywordsParameters" "keywords"]
-          :button-text        "Add"
-          :value-path         ["uri"]
-          :random-uuid-value? true
-          :item-defaults      {"userAddedCategory" "parameter"}
-          :added-path         ["isUserDefined"]}]]
-       
        [:div.SelectionListItemColoured
         [m4/selection-list-columns
          {:form-id            [:form]
@@ -787,7 +769,7 @@
          :data-path   ["identificationInfo" "keywordsParameters" "keywords"]
          :title       "Parameter"
          :template-id :parameter-unit/user-defined-entry-form
-         :field-paths [["parameter" "label"]["unit"]]}]]]
+         :field-paths [["parameter" "label"] ["unit"]]}]]]
 
      [m4/expanding-control {:label "Temporal Resolution" :required true}
       [m4/form-group

@@ -479,8 +479,11 @@ a {
 }
 
 .bp3-tab::after {
-    content: " *";
 	color: green;
+}
+
+.bp3-tab.has-required-fields::after {
+    content: " *";
 }
 
 .bp3-tab.has-errors::after {

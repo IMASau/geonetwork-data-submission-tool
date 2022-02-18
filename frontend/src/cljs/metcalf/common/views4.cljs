@@ -199,10 +199,12 @@
        (-> [bp3/tabs {:selectedTabId            (pr-str selected-tab)
                       :onChange                 pick-tab
                       :renderActiveTabPanelOnly true}]
-           (into (for [{:keys [id title has-errors?]} tab-props]
-                   (if has-errors?
-                     [bp3/tab {:title title :id (pr-str id) :className "has-errors"}]
-                     [bp3/tab {:title title :id (pr-str id)}])))
+           (into (for [{:keys [id title has-errors? has-required-fields?]} tab-props]
+                   (let [classes []
+                         classes (if has-errors? (conj classes "has-errors") classes)
+                         classes (if has-required-fields? (conj classes "has-required-fields") classes)
+                         className (string/join " " classes)]
+                     [bp3/tab {:title title :id (pr-str id) :className className}])))
            (conj
              [bp3/tabs-expander]
              (when-not form-disabled?

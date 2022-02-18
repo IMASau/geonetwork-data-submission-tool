@@ -386,7 +386,8 @@
       [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path]
-        :title       "Parameter"}]]
+        :title       "Parameter"
+        :template-id :parameter/user-defined-entry-form}]]
 
      [m4/form-group
       {:form-id   ?form-id
@@ -408,7 +409,8 @@
       [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path]
-        :title       "Unit"}]]]
+        :title       "Unit"
+        :template-id :unit/user-defined-entry-form}]]]
 
     :data-identification
     [:div

@@ -366,7 +366,7 @@
 
     :parameter-unit/user-defined-entry-form
     [:div
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path]
        :label     "Parameter"}
@@ -395,10 +395,11 @@
         :title       "Parameter"
         :template-id :parameter/user-defined-entry-form}]]
 
-     [m4/form-group
+     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "unit"]
-       :label     "Unit"}
+       :label     "Unit of measure"
+       :toolTip   "Select a \"unit of measure\" (UoM) from the predefined list. If the required UoM is not in the list, you can click the 'Add' button to define your own. The entry will be reviewed prior to publishing."}
 
       [:div.bp3-control-group
        [:div.bp3-fill

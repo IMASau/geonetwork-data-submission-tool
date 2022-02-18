@@ -338,21 +338,21 @@
     [:div
      [m4/inline-form-group
       {:form-id   ?form-id
-       :data-path [?data-path]
+       :data-path [?data-path "parameter"]
        :label     "Parameter"}
 
       [:div.bp3-control-group
        [:div.bp3-fill
         [m4/async-select-option-simple
          {:form-id    ?form-id
-          :data-path  [?data-path]
+          :data-path  [?data-path "parameter"]
           :uri        "/api/ternparameters"
           :label-path ["label"]
           :value-path ["uri"]}]]
 
        [m4/item-dialog-button
         {:form-id            ?form-id
-         :data-path          [?data-path]
+         :data-path          [?data-path "parameter"]
          :label-path         ["label"]
          :value-path         ["uri"]
          :random-uuid-value? true
@@ -361,7 +361,7 @@
 
       [m4/edit-dialog
        {:form-id     ?form-id
-        :data-path   [?data-path]
+        :data-path   [?data-path "parameter"]
         :title       "Parameter"
         :template-id :parameter/user-defined-entry-form}]]
 
@@ -778,8 +778,8 @@
           :value-path         ["uri"]
           :random-uuid-value? true
           :select-snapshot?   true
-          :added-path         ["isUserDefined"]
-          :columns            [{:columnHeader "Name" :label-path ["label"] :flex 2}
+          ;:added-path         ["isUserDefined"]
+          :columns            [{:columnHeader "Name" :label-path ["parameter" "label"] :flex 2}
                                {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]]
        [m4/list-edit-dialog
         {:form-id     [:form]

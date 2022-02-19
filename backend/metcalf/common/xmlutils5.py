@@ -284,19 +284,25 @@ def export2_generateParameterKeywords_handler(data, xml_node, spec, xml_kwargs, 
     Append keyword,unit pairing for each parameter.
 
     Configured with xf_props
-    - xform[1].data_path
     - xform[1].mount_xpath
     - xform[1].template_xpath
+    - xform[1].data_path
+    - xform[1].parameter_path (key under main data path)
+    - xform[1].unit_path (key under main data path)
 
     """
     xf_props = xform[1]
     data_path = xf_props.get('data_path', None)
     mount_xpath = xf_props.get('mount_xpath', None)
     template_xpath = xf_props.get('template_xpath', None)
+    parameter_path = xf_props.get('parameter_path', None)
+    unit_path = xf_props.get('unit_path', None)
 
-    assert data_path is not None, "export2_generateParameterKeywords_handler: xf_props.data_path must be set"
     assert mount_xpath is not None, "export2_generateParameterKeywords_handler: xf_props.mount_xpath must be set"
     assert template_xpath is not None, "export2_generateParameterKeywords_handler: xf_props.template_xpath must be set"
+    assert data_path is not None, "export2_generateParameterKeywords_handler: xf_props.data_path must be set"
+    assert parameter_path is not None, "export2_generateParameterKeywords_handler: xf_props.parameter_path must be set"
+    assert unit_path is not None, "export2_generateParameterKeywords_handler: xf_props.unit_path must be set"
 
     hit, values = get_dotted_path(data, data_path)
     mount_nodes = xml_node.xpath(mount_xpath, **xml_kwargs)
@@ -314,16 +320,23 @@ def export2_generateParameterKeywords_handler(data, xml_node, spec, xml_kwargs, 
     if hit:
         items_spec = get_spec_path(spec, data_path.split('.'))['items']['properties']
 
-        for i, value in enumerate(values):
-            element = copy.deepcopy(template)
-            # FIXME: Could make this generic like data_to_xml, but
-            # that's a bit messy so just hard-code for now:
-            anchor = element.xpath('gcx:Anchor', **xml_kwargs)[0]
-            anchor.text = value['label']
-            attrs = xmlutils4.parse_attributes(items_spec['uri'], xml_kwargs['namespaces'])
-            for attr, f in attrs.items():
-                anchor.set(attr, f(value['uri']))
-            mount_node.insert(mount_index + i, element)
+        i = 0
+        for value in values:
+            # Need to do this twice; once for parameter, once for unit (each has different title)
+            for key,title in [(parameter_path, 'Parameter'), (unit_path, 'UOM')]:
+                data = value[key]
+                element = copy.deepcopy(template)
+                # FIXME: Could make this generic like data_to_xml, but
+                # that's a bit messy so just hard-code for now:
+                anchor = element.xpath('gcx:Anchor', **xml_kwargs)[0]
+                anchor.text = data['label']
+                attrs = xmlutils4.parse_attributes(items_spec['uri'], xml_kwargs['namespaces'])
+                for attr, f in attrs.items():
+                    anchor.set(attr, f(data['uri']))
+                # hard-code the title:
+                anchor.set('{http://www.w3.org/1999/xlink}title', title)
+                mount_node.insert(mount_index + i, element)
+                i += 1
 
 
 def export2_imasGenerateKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):

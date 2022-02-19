@@ -24,7 +24,7 @@
                  ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
                  ["identificationInfo" "keywordsPlatform" "keywords"]
                  ["identificationInfo" "keywordsInstrument" "keywords"]
-                 ["identificationInfo" "keywordsParameters" "keywords"]
+                 ["identificationInfo" "keywordsParametersUnits" "keywords"]
                  ["identificationInfo" "keywordsTemporal" "keywords"]
                  ["identificationInfo" "keywordsHorizontal" "keywords"]
                  ["identificationInfo" "keywordsVertical" "keywords"]
@@ -57,32 +57,16 @@
                  ["resourceLineage" "steps"]]}
    {:id         :quality
     :text       "Data Quality"
-    :data-paths [["dataQualityInfo" "methodSummary"]
-                 ["dataQualityInfo" "onlineMethods"]
-                 ["dataQualityInfo" "results"]]}
+    :data-paths []}
    {:id         :about
     :text       "About"
-    :data-paths [["identificationInfo" "useLimitation"]
-                 ["identificationInfo" "otherConstraints"]
-                 ["identificationInfo" "additionalConstraints" "constraints"]
-                 ["identificationInfo" "securityClassification"]
-                 ["identificationInfo" "environment"]
-                 ["identificationInfo" "additionalPublications"]
-                 ["identificationInfo" "supplemental"]
-                 ["identificationInfo" "resourceSpecificUsage"]
-                 ["identificationInfo" "credit"]
-                 ["identificationInfo" "customCitation"]]}
+    :data-paths []}
    {:id         :upload
     :text       "Data sources"
-    :data-paths [["attachments"]
-                 ["identificationInfo" "thumbnail" "title"]
-                 ["identificationInfo" "thumbnail" "file"]
-                 ["dataSources"]]}
+    :data-paths []}
    {:id         :lodge
     :text       "Lodge"
-    :data-paths [["identificationInfo" "XXX"]
-                 ["identificationInfo" "doiFlag"]
-                 ["identificationInfo" "doi"]]}])
+    :data-paths []}])
 
 (defn get-edit-tabs
   "Sub to return edit-tab data.  Defaults to edit-tabs if not set in app-db."
@@ -125,8 +109,10 @@
        :next-tab     (get-next-tab selected-tab edit-tabs)
        :tab-props    (mapv
                        (fn [{:keys [id text data-paths]}]
-                         (let [has-errors? (some has-block-errors? data-paths)]
-                           {:id          id
-                            :title       text
-                            :has-errors? (boolean has-errors?)}))
+                         (let [has-errors? (some has-block-errors? data-paths)
+                               has-required-fields? (seq data-paths)]
+                           {:id                   id
+                            :title                text
+                            :has-errors?          (boolean has-errors?)
+                            :has-required-fields? (boolean has-required-fields?)}))
                        edit-tabs)})))

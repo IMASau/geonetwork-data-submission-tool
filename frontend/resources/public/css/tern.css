@@ -477,3 +477,15 @@ a {
 .tern-fieldset:last-child {
     border: none;
 }
+
+.bp3-tab::after {
+	color: green;
+}
+
+.bp3-tab.has-required-fields::after {
+    content: " *";
+}
+
+.bp3-tab.has-errors::after {
+	color: red;
+}

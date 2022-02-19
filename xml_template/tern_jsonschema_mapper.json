@@ -348,7 +348,8 @@
             "opt-field": "doiRequested",
             "negate": true
           }
-        }
+        },
+        "generateCitation"
       ],
       "type": "object",
       "properties": {
@@ -420,6 +421,12 @@
           "keep": false,
           "xpath_required": true,
           "rules": ["requiredField"]
+        },
+        "dateSubmitted": {
+          "!docstring": "Created by the backend when data is submitted",
+          "type": "string",
+          "export": false,
+          "xpath": "dateSubmitted"
         },
         "datePublicationFlag": {
           "type": "boolean",
@@ -699,7 +706,10 @@
                 "export": false
               }
             },
-            "rules":["contactOrganisationUserDefined"]
+            "rules": [
+              "requiredField",
+              "contactOrganisationUserDefined"
+            ]
           },
           "notes": "Responsible party/ies for creating dataset"
         },
@@ -915,7 +925,10 @@
                 "export": false
               }
             },
-            "rules":["contactOrganisationUserDefined"]
+            "rules": [
+              "requiredField",
+              "contactOrganisationUserDefined"
+            ]
           }
         },
         "geographicElement": {
@@ -1221,9 +1234,9 @@
           },
           "xpath_required": true
         },
-        "keywordsParameters": {
+        "keywordsParametersUnits": {
           "!docstring": "What8",
-          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"parameter\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"uom\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]",
           "type": "object",
           "keep": false,
           "deleteWhenEmpty": false,
@@ -1233,29 +1246,57 @@
               "type": "array",
               "items": {
                 "type": "object",
-                "export": false,
                 "xpath": "mri:keyword",
                 "properties": {
-                  "description": {
-                    "rules": ["requiredField"],
-                    "type": "string"
-                  },
-                  "isUserDefined": {
-                    "type": "boolean"
-                  },
-                  "userAddedCategory": {
-                    "type": "string"
-                  },
-                  "symbol": {
-                    "type": "string"
-                  },
-                  "source": {
-                    "rules": ["requiredField"],
-                    "type": "string"
+                  "parameter": {
+                    "type": "object",
+                    "export": false,
+                    "properties": {
+                      "description": {
+                        "rules": ["requiredField"],
+                        "type": "string"
+                      },
+                      "isUserDefined": {
+                        "type": "boolean"
+                      },
+                      "userAddedCategory": {
+                        "type": "string"
+                      },
+                      "symbol": {
+                        "type": "string"
+                      },
+                      "source": {
+                        "rules": ["requiredField"],
+                        "type": "string"
+                      },
+                      "label": {
+                        "rules": ["requiredField"],
+                        "type": "string",
+                        "xpath": "gcx:Anchor"
+                      },
+                      "uri": {
+                        "type": "string",
+                        "xpath": "gcx:Anchor",
+                        "attributes": {
+                          "xlink:href": {
+                            "function": "identity"
+                          }
+                        }
+                      },
+                      "duma_path":{
+                        "type": "string"
+                      },
+                      "broader": {"type": "string"},
+                      "broader_chain": {"type": "string"},
+                      "broader_chain_label": {"type": "string"},
+                      "breadcrumb": {"type": "string"},
+                      "altLabel": {"type": "string"},
+                      "is_top_concept": {"type": "boolean"}
+                    }
                   },
                   "unit": {
                     "!docstring": "What9",
-                    "xpath": "../../../mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"uom\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]/mri:keyword",
+                    "xpath": ".",
                     "type": "object",
                     "properties": {
                       "label": {
@@ -1283,11 +1324,6 @@
                       }
                     }
                   },
-                  "label": {
-                    "rules": ["requiredField"],
-                    "type": "string",
-                    "xpath": "gcx:Anchor"
-                  },
                   "uri": {
                     "type": "string",
                     "xpath": "gcx:Anchor",
@@ -1297,16 +1333,11 @@
                       }
                     }
                   },
-                  "duma_path":{
-                    "type": "string"
-                  },
-                  "broader": {"type": "string"},
-                  "broader_chain": {"type": "string"},
-                  "broader_chain_label": {"type": "string"},
-                  "breadcrumb": {"type": "string"},
-                  "altLabel": {"type": "string"},
-                  "is_top_concept": {"type": "boolean"}
-                }
+                  "isUserDefined": {
+                    "type": "boolean"
+                  }
+                },
+                "rules": ["parameterUnitUserDefined"]
               }
             }
           },
@@ -1544,8 +1575,7 @@
                 }
               }
             }
-          },
-          "rules": ["requiredField"]
+          }
         },
         "environment": {
           "!docstring": "About3",
@@ -1617,6 +1647,10 @@
           "valueChild": "gco:CharacterString",
           "keep": false,
           "required": false,
+          "type": "string"
+        },
+        "generatedCitation": {
+          "!docstring": "Schema for the system-generated citation displayed on Lodge page",
           "type": "string"
         },
         "thumbnail": {
@@ -1807,43 +1841,41 @@
     "noteForDataManager": {
       "!docstring": "Fake node so we can pass some additional metadata as payload",
       "xpath": "noteForDataManager",
+      "type": "string",
       "default": "",
       "export": false
     },
     "agreedToTerms": {
       "!docstring": "Fake node so we can pass some additional metadata as payload",
       "xpath": "agreedToTerms",
+      "type": "boolean",
       "default": false,
       "export": false
     },
     "doiRequested": {
       "!docstring": "Fake node so we can pass some additional metadata as payload",
       "xpath": "doiRequested",
+      "type": "boolean",
       "default": false,
       "export": false
     },
     "personalCopyRequested": {
       "!docstring": "Fake node so we can pass some additional metadata as payload",
       "xpath": "personalCopyRequested",
+      "type": "boolean",
       "default": false,
       "export": false
     }
   },
   "export2_xforms": [
     [
-      "generateParameterKeywords",
+      "generateParameterUnitKeywords",
       {
         "mount_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"parameter\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]",
         "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"parameter\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://linked.data.gov.au/def/tern-cv/5699eca7-9ef0-47a6-bcfb-9306e0e2b85e\"]/mri:keyword",
-        "data_path": "identificationInfo.keywordsParameters.keywords"
-      }
-    ],
-    [
-      "generateUnitKeywords",
-      {
-        "mount_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"uom\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]",
-        "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"uom\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"http://www.qudt.org/2.1/vocab/unit\"]/mri:keyword",
-        "data_path": "identificationInfo.keywordsParameters.keywords"
+        "data_path": "identificationInfo.keywordsParametersUnits.keywords",
+        "parameter_path": "parameter",
+        "unit_path": "unit"
       }
     ],
     [

@@ -163,6 +163,16 @@
         organisation-user-defined (get-in items ["organisation" "isUserDefined"])]
     (assoc-in block [:content "isUserDefined" :props :value] (or contact-user-defined organisation-user-defined))))
 
+(defn tern-parameter-unit-user-defined
+  "If an object has neither a user-defined parameter nor user-defined
+   unit, then we can say that the object is not user-defined, else it
+   is user-defined"
+  [block]
+  (let [items (blocks4/as-data block)
+        parameter-user-defined (get-in items ["parameter" "isUserDefined"])
+        unit-user-defined (get-in items ["unit" "isUserDefined"])]
+    (assoc-in block [:content "isUserDefined" :props :value] (or parameter-user-defined unit-user-defined))))
+
 ; TODO: consider renaming - doing more than required flag (disable/hide/clear)
 (defn required-when-yes
   [block {:keys [bool-field opt-field negate]}]
@@ -389,3 +399,50 @@
     (cond-> block
       (not value-picked?)
       (assoc-in [:content "distributor"] default-value))))
+
+(defmulti -format-author #(% "partyType"))
+(defmethod -format-author "person"
+  [{:strs [contact]}]
+  (let [{:strs [surname given_name]} contact
+        initials (as-> given_name ils
+                   (string/split ils #" +")
+                   (map first ils)
+                   (map #(str % ".") ils)
+                   (interpose " " ils)
+                   (apply str ils))]
+    (str surname ", " initials)))
+(defmethod -format-author "organisation"
+  [organisation]
+  (get-in organisation ["organisation" "name"]))
+
+(defn -format-citation
+  [{:keys [title date dateSubmitted authors coauthors version doi]}]
+  (let [date (cljs-time/value-to-date (or date dateSubmitted))
+        year (.getFullYear (or date (js/Date.))) ; fallback for (dev-only?) case where it hasn't been saved yet
+        authors (map -format-author authors)
+        coauthors (map -format-author coauthors)
+        author-list (->> (concat authors coauthors)
+                         (interpose ", ")
+                         (apply str))]
+    (str author-list " (" year "). " version ". " title ". "
+         (if doi (str "https://dx.doi.org/" doi) "{Identifier}"))))
+
+(defn generate-citation
+  [block]
+  (let [{:strs [title date dateSubmitted doi citedResponsibleParty version]} (blocks4/as-data block)
+        authors (->> citedResponsibleParty
+                     (filter #(= "a37cc120-9920-4495-9a2f-698e225b5902"
+                                 (get-in % ["role" "UUID"]))))
+        coauthors (->> citedResponsibleParty
+                       (filter #(= "cc22ca92-a323-42fa-8e01-1503f0edf6b9"
+                                   (get-in % ["role" "UUID"]))))]
+    (assoc-in block [:content "generatedCitation" :props :value]
+              (-format-citation
+               {:authors       authors
+                :coauthors     coauthors
+                :title         title
+                :date          date
+                :dateSubmitted dateSubmitted
+                :version       version
+                :doi           doi}))))
+

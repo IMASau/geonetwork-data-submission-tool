@@ -760,6 +760,7 @@
           :value-path         ["uri"]
           :random-uuid-value? true
           :select-snapshot?   true
+          :select-mode        :all-items
           :added-path         ["isUserDefined"]
           :columns            [{:columnHeader "Name" :label-path ["parameter" "label"] :flex 2}
                                {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]]

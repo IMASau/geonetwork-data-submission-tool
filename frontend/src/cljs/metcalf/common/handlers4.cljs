@@ -155,7 +155,7 @@
     (-> {:db db}
         (actions4/select-list-item-action3 form-id data-path idx))))
 
-(defn selection-list-item-click2
+(defn ^:deprecated selection-list-item-click2
   [{:keys [db]} [_ props idx]]
   (let [{:keys [form-id data-path added-path]} props]
     (if (contains? props :added-path)

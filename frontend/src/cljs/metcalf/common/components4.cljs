@@ -1861,6 +1861,28 @@
          :disabled true}]])))
 
 
+(defn lodge-button
+  []
+  (let [page @(rf/subscribe [:subs/get-page-props])
+        ;; FIXME need an m4 saving? value.
+        saving (:metcalf3.handlers/saving? page)
+        {:keys [document urls]} @(rf/subscribe [:subs/get-context])
+        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
+        disabled @(rf/subscribe [:subs/get-form-disabled?])
+        has-errors? (and errors (> errors 0))
+        archived? (= (:status document) "Archived")
+        submitted? (= (:status document) "Submitted")]
+    (when-not (or archived? submitted?)
+      [:button.btn.btn-primary.btn-lg
+       {:disabled (or has-errors? saving disabled)
+        :on-click #(rf/dispatch [:app/lodge-button-click])}
+       (when saving
+         [:img
+          {:src (str (:STATIC_URL urls)
+                     "metcalf3/img/saving.gif")}])
+       "Lodge data"])))
+
+
 (defn yes-no-radios-simple-settings
   "Settings for yes-no-radios-simple component"
   [_]

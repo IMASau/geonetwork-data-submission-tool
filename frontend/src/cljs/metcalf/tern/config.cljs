@@ -55,6 +55,7 @@
 (rf/reg-event-fx :app/-archive-current-document-success handlers3/-archive-current-document-success)
 (rf/reg-event-fx :app/-clone-document-error handlers3/-clone-document-error)
 (rf/reg-event-fx :app/-clone-document-success handlers3/-clone-document-success)
+(rf/reg-event-fx :app/lodge-button-click handlers3/lodge-click)
 (rf/reg-event-fx :app/-lodge-click-error handlers3/lodge-error)
 (rf/reg-event-fx :app/-lodge-click-success handlers3/lodge-save-success)
 (rf/reg-event-fx :app/-lodge-save-error handlers3/lodge-error)
@@ -202,6 +203,7 @@
        'm4/text-add-button                     {:view #'components4/text-add-button :init components4/text-add-button-settings}
        'm4/upload-files                        {:view #'components4/upload-files :init components4/upload-files-settings}
        'm4/upload-thumbnail                    {:view #'components4/upload-thumbnail :init components4/upload-thumbnail-settings}
+       'm4/lodge-button                        {:view #'components4/lodge-button}
        'm4/when-errors                         {:view #'components4/when-errors :init components4/when-errors-settings}})
 
 ; Specs intended for use with when-data :pred
@@ -760,6 +762,7 @@
           :value-path         ["uri"]
           :random-uuid-value? true
           :select-snapshot?   true
+          :select-mode        :all-items
           :added-path         ["isUserDefined"]
           :columns            [{:columnHeader "Name" :label-path ["parameter" "label"] :flex 2}
                                {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]]
@@ -2368,12 +2371,13 @@
       ;; TODO: Give button functionality
       ;; TODO: Replace with component?
       ;; TODO: Use CSS?
-      [:button.bp3-button.bp3-intent-primary
+      #_[:button.bp3-button.bp3-intent-primary
        {:style {:width "100%"}}
        [:h4
         {:style {:color "white"
                  :font-weight "bold"}}
         "Lodge Data"]]
+      [m4/lodge-button]
 
       [:hr]
       [:b "Want to keep a personal copy of your metadata record?"]

@@ -169,7 +169,7 @@
   [{:keys [db]} [_ props idx]]
   (let [{:keys [form-id data-path added-path select-snapshot?]} props
         s1 (actions4/unselect-list-item-action {:db db} form-id data-path)
-        s2 (cond (utils4/resolve-select-mode props)
+        s2 (case (utils4/resolve-select-mode props)
              :added-only (actions4/select-user-defined-list-item-action3 s1 form-id data-path added-path idx)
              :all-items (actions4/select-list-item-action3 s1 form-id data-path idx))
         has-selected-idx (get-in s2 (utils4/as-path [:db form-id :state (blocks4/block-path data-path) :props :list-item-selected-idx]))]

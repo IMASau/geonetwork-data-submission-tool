@@ -20,16 +20,27 @@
     :text       "What"
     :data-paths [["identificationInfo" "abstract"]
                  ["identificationInfo" "purpose"]
+                 ["identificationInfo" "keywordsTheme"]
                  ["identificationInfo" "keywordsTheme" "keywords"]
+                 ["identificationInfo" "keywordsThemeAnzsrc"]
                  ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
+                 ["identificationInfo" "keywordsPlatform"]
                  ["identificationInfo" "keywordsPlatform" "keywords"]
+                 ["identificationInfo" "keywordsInstrument"]
                  ["identificationInfo" "keywordsInstrument" "keywords"]
+                 ["identificationInfo" "keywordsParametersUnits"]
                  ["identificationInfo" "keywordsParametersUnits" "keywords"]
+                 ["identificationInfo" "keywordsTemporal"]
                  ["identificationInfo" "keywordsTemporal" "keywords"]
+                 ["identificationInfo" "keywordsHorizontal"]
                  ["identificationInfo" "keywordsHorizontal" "keywords"]
+                 ["identificationInfo" "keywordsVertical"]
                  ["identificationInfo" "keywordsVertical" "keywords"]
+                 ["identificationInfo" "keywordsFlora"]
                  ["identificationInfo" "keywordsFlora" "keywords"]
+                 ["identificationInfo" "keywordsFauna"]
                  ["identificationInfo" "keywordsFauna" "keywords"]
+                 ["identificationInfo" "keywordsAdditional"]
                  ["identificationInfo" "keywordsAdditional" "keywords"]]}
    {:id         :when
     :text       "When"

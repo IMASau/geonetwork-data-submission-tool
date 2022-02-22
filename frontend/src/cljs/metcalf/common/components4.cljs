@@ -1040,7 +1040,7 @@
   "Settings for selection-list-simple component"
   [{:keys [label-path value-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :label-path :value-path]
-   ::low-code4/opt-ks       [:added-path]
+   ::low-code4/opt-ks       [:added-path :select-mode]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths [label-path value-path added-path]})
 
@@ -1124,7 +1124,7 @@
   "Settings for the selection-list-template component"
   [{:keys [value-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :value-path :template-id]
-   ::low-code4/opt-ks       [:added-path]
+   ::low-code4/opt-ks       [:added-path :select-mode]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths [value-path added-path]})
 
@@ -1202,7 +1202,7 @@
   "Settings for selection-list-breadcrumb component"
   [{:keys [label-path value-path breadcrumb-path added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :label-path :value-path :breadcrumb-path]
-   ::low-code4/opt-ks       [:added-path]
+   ::low-code4/opt-ks       [:added-path :select-mode]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths [label-path value-path breadcrumb-path added-path]})
 
@@ -1251,7 +1251,7 @@
   "Settings for selection-list-columns component"
   [{:keys [value-path columns added-path]}]
   {::low-code4/req-ks       [:form-id :data-path :value-path :columns]
-   ::low-code4/opt-ks       [:added-path]
+   ::low-code4/opt-ks       [:added-path :select-mode]
    ::low-code4/schema       {:type "array" :items {:type "object"}}
    ::low-code4/schema-paths (into [value-path added-path] (map :label-path columns))})
 
@@ -1859,6 +1859,28 @@
        [ui-controls/InputField
         {:value    (or name "")
          :disabled true}]])))
+
+
+(defn lodge-button
+  []
+  (let [page @(rf/subscribe [:subs/get-page-props])
+        ;; FIXME need an m4 saving? value.
+        saving (:metcalf3.handlers/saving? page)
+        {:keys [document urls]} @(rf/subscribe [:subs/get-context])
+        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
+        disabled @(rf/subscribe [:subs/get-form-disabled?])
+        has-errors? (and errors (> errors 0))
+        archived? (= (:status document) "Archived")
+        submitted? (= (:status document) "Submitted")]
+    (when-not (or archived? submitted?)
+      [:button.btn.btn-primary.btn-lg
+       {:disabled (or has-errors? saving disabled)
+        :on-click #(rf/dispatch [:app/lodge-button-click])}
+       (when saving
+         [:img
+          {:src (str (:STATIC_URL urls)
+                     "metcalf3/img/saving.gif")}])
+       "Lodge data"])))
 
 
 (defn yes-no-radios-simple-settings

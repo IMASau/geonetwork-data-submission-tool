@@ -262,3 +262,14 @@
     (if show-errors?
       (assoc-in block [:props :show-errors?] true)
       block)))
+
+(defn resolve-select-mode
+  "Provide a default where select-mode isn't defined."
+  [{:keys [select-mode added-path]}]
+  (when-not select-mode
+    (js/console.warn (str ::resolve-selected-mode ": Please specify select-mode")))
+  (when (and (= select-mode :added-only) (empty? added-path))
+    (js/console.error (str ::resolve-selected-mode ": added-path required for :added-only")))
+  (or select-mode
+      (when added-path :added-only)
+      :all-items))

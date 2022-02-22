@@ -1232,7 +1232,8 @@
               }
             }
           },
-          "xpath_required": true
+          "xpath_required": true,
+          "rules": ["requiredField"]
         },
         "keywordsParametersUnits": {
           "!docstring": "What8",

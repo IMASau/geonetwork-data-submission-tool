@@ -52,9 +52,7 @@
                  ["resourceLineage" "processStep"]]}
    {:id         :how
     :text       "How"
-    :data-paths [["resourceLineage" "statement"]
-                 ["resourceLineage" "onlineMethods"]
-                 ["resourceLineage" "steps"]]}
+    :data-paths []}
    {:id         :quality
     :text       "Data Quality"
     :data-paths []}

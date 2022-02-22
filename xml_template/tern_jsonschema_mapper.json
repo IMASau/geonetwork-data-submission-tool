@@ -1184,7 +1184,8 @@
               }
             }
           },
-          "xpath_required": true
+          "xpath_required": true,
+          "rules": ["requiredField"]
         },
         "keywordsInstrument": {
           "!docstring": "What6",

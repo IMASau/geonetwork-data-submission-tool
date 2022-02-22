@@ -520,8 +520,7 @@
          :data-path  ["identificationInfo" "version"]
          :label      "Version"
          :helperText "Version number of the resource"
-         :toolTip    "Please input the version number of the collection."
-         :required   true}
+         :toolTip    "Please input the version number of the collection."}
         [m4/input-field
          {:form-id   [:form]
           :data-path ["identificationInfo" "version"]}]]]
@@ -562,8 +561,7 @@
        :toolTip   "Select the creation date of the record."}
       [m4/date-field2
        {:form-id   [:form]
-        :data-path ["identificationInfo" "dateCreation"]
-        :required  true}]]
+        :data-path ["identificationInfo" "dateCreation"]}]]
 
      [m4/inline-form-group
       {:form-id   [:form]
@@ -582,8 +580,7 @@
        :label     "Previous Publication Date"}
       [m4/date-field2
        {:form-id   [:form]
-        :data-path ["identificationInfo" "datePublication"]
-        :required  true}]]]
+        :data-path ["identificationInfo" "datePublication"]}]]]
 
     :what
     [:div
@@ -599,8 +596,7 @@
        :data-path  ["identificationInfo" "abstract"]
        :label      "Abstract"
        :helperText "Describe the content of the resource; e.g. what information was collected, how was it collected"
-       :toolTip    "A summary describing the dataset, e.g., \"What, When, Where, and How\" in relation to the dataset."
-       :required   true}
+       :toolTip    "A summary describing the dataset, e.g., \"What, When, Where, and How\" in relation to the dataset."}
       [m4/textarea-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "abstract"]
@@ -876,8 +872,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "beginPosition"]
         :label     "Start date"
-        :toolTip   "Select the date of the first data point in the dataset."
-        :required  true}
+        :toolTip   "Select the date of the first data point in the dataset."}
        [m4/date-field2
         {:form-id   [:form]
          :data-path ["identificationInfo" "beginPosition"]}]]
@@ -885,8 +880,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "endPosition"]
         :label     "End date"
-        :toolTip   "Select the date of the last data point in the data set."
-        :required  true}
+        :toolTip   "Select the date of the last data point in the data set."}
        [m4/date-field2
         {:form-id   [:form]
          :data-path ["identificationInfo" "endPosition"]}]]]]
@@ -929,8 +923,7 @@
 
        [m4/form-group
         {:label    "Limits"
-         :toolTip  "Select the data's spatial extent on the map and the coordinates will be automatically populated."
-         :required true}
+         :toolTip  "Select the data's spatial extent on the map and the coordinates will be automatically populated."}
         [m4/selection-list-columns
          {:form-id            [:form]
           :data-path          ["identificationInfo" "geographicElement" "boxes"]
@@ -964,7 +957,6 @@
                       :grid-template-columns "1fr 1fr"}}
         [m4/form-group
          {:label    "Coordinate Reference System"
-          :required true
           :toolTip  "Select the coordinate reference system."}
          [m4/async-select-option-simple
           {:form-id     [:form]
@@ -989,7 +981,6 @@
 
        [m4/inline-form-group
         {:label    "Vertical Coordinate Reference System"
-         :required true
          :toolTip  "Select the vertical coordinate system."}
         [m4/async-select-option-simple
          {:form-id     [:form]
@@ -1001,7 +992,6 @@
 
        [m4/inline-form-group
         {:label    "Minimum"
-         :required true
          :toolTip  "Input the minimum extent in meters."}
         [m4/numeric-input-field
          {:form-id   [:form]
@@ -1010,7 +1000,6 @@
 
        [m4/inline-form-group
         {:label    "Maximum"
-         :required true
          :toolTip  "Input the maximum extent in meters."}
         [m4/numeric-input-field
          {:form-id   [:form]
@@ -1024,7 +1013,6 @@
 
          [m4/form-group
           {:label    "Resolution attribute"
-           :required true
            :toolTip  "Indicate that the attribute used is either a denominator scale, vertical, horizontal, or the angular distance."}
           [m4/select-value
            {:form-id     [:form]
@@ -1039,8 +1027,7 @@
                           {"value" "Angular distance" "label" "Angular distance"}]}]]
 
          [m4/form-group
-          {:label    "Value"
-           :required true}
+          {:label    "Value"}
           [m4/numeric-input-field
            {:form-id   [:form]
             :data-path ["identificationInfo" "SpatialResolution" "ResolutionAttributeValue"]
@@ -1874,8 +1861,7 @@
 
      [m4/form-group
       {:label    "Online data quality report"
-       :toolTip  "Data quality report refers to a textual description of the quality control of the dataset. Provide the title and URL of the report, if available."
-       :required true}
+       :toolTip  "Data quality report refers to a textual description of the quality control of the dataset. Provide the title and URL of the report, if available."}
       [:div.SelectionListItemColoured.Inverted
        [m4/selection-list-columns
         {:form-id            [:form]

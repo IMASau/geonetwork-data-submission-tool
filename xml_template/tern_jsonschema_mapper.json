@@ -1399,7 +1399,8 @@
               }
             }
           },
-          "xpath_required": true
+          "xpath_required": true,
+          "rules": ["requiredField"]
         },
         "keywordsVertical": {
           "!docstring": "What12",

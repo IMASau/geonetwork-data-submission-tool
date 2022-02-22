@@ -1731,8 +1731,7 @@
           "!docstring": "How2",
           "type": "string",
           "xpath": "mrl:statement/gco:CharacterString",
-          "keep": false,
-          "rules": ["requiredField"]
+          "keep": false
         },
         "onlineMethods": {
           "type": "array",

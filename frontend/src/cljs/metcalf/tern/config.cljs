@@ -1761,7 +1761,6 @@
        {:form-id    [:form]
         :data-path  ["resourceLineage" "statement"]
         :label      "Provide a brief summary of the source of the data and related collection and/or processing methods."
-        :required   true
         :helperText "e.g. Data was collected at the site using the meethod described in XXX Manual, refer to URL..."}
        [m4/textarea-field
         {:form-id   [:form]

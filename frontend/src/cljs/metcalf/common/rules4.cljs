@@ -269,6 +269,7 @@
   field should change"
   [spatial-block]
   (let [resolution-attribute (get-in spatial-block [:content "ResolutionAttribute" :props :value])
+        resolution-value (get-in spatial-block [:content "ResolutionAttributeValue" :props :value])
         units (case resolution-attribute
                 "None" ""
                 "Denominator scale" "Unitless"
@@ -278,7 +279,10 @@
         (assoc-in [:content "ResolutionAttributeUnits" :props :value] units)
         (update-in [:content "ResolutionAttributeValue" :props]
                    merge {:required (not= resolution-attribute "None")
-                          :disabled (= resolution-attribute "None")}))))
+                          :disabled (= resolution-attribute "None")})
+        (cond->
+          (not resolution-value)
+          (update-in [:content "ResolutionAttributeValue" :props :errors] conj "This field is required")))))
 
 (defn imas-vertical-required
   "Vertical fields are required / included based on vertical extent checkbox"

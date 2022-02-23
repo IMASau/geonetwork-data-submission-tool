@@ -798,8 +798,7 @@
      [:h4 "Data parameters"]
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "citedResponsibleParty"]
-       :label     "Responsible parties for creating dataset"}
+       :data-path ["identificationInfo" "dataParameters"]}
       [:div.SelectionTableStyle
 
        [m4/selection-list-columns

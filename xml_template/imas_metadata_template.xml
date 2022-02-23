@@ -141,6 +141,7 @@
 	</mdb:contact>
 
 	<mdb:dateInfo xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0" xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/1.0" xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/1.0">
+    <!-- ID2 -->
 		<!-- The date when a metadata record was created. This should be updated by the data submission tool (date of *creation* and date of *revision* may be different)-->
 		<cit:CI_Date>
 			<cit:date>
@@ -191,6 +192,7 @@
 		<mri:MD_DataIdentification>
 			<mri:citation>
 				<cit:CI_Citation>
+          <!-- ID1 -->
 					<cit:title>
 						<gco:CharacterString>Placeholder text=Provide a descriptive title for the data set including the subject of study, the study location and time period (if appropriate). Example: IMOS - Australian National Facility for Ocean Gliders (ANFOG) - delayed mode glider deployments - 2010-present</gco:CharacterString>
 					</cit:title>
@@ -366,6 +368,7 @@
 				<gco:CharacterString>Placeholder text=Thanks to all the lovely sponsors:  xxx, yyy</gco:CharacterString>
 			</mri:credit>
 			<mri:status>
+        <!-- ID4 -->
 				<!--  The user must select from a subset of ISO status codes during data submission. -->
 				<mcc:MD_ProgressCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ProgressCode" codeListValue="completed"/>
 			</mri:status>
@@ -445,7 +448,9 @@
 				</cit:CI_Responsibility>
 			</mri:pointOfContact>
 			<mri:topicCategory>
+        <!-- ID3 -->
 				<!-- The user must select a topic category from a list defined by ISO -->
+        <!-- https://wiki.esipfed.org/ISO_19115-3_Codelists#MD_TopicCategoryCode -->
 				<mri:MD_TopicCategoryCode>oceans</mri:MD_TopicCategoryCode>
 			</mri:topicCategory>
 			<mri:extent>
@@ -506,6 +511,7 @@
 			</mri:extent>
 
 			<mri:resourceMaintenance>
+        <!-- ID5 -->
 				<!--  The user must select how frequently the data will be updated, from a list defined by ISO -->
 				<mmi:MD_MaintenanceInformation>
 					<mmi:maintenanceAndUpdateFrequency>

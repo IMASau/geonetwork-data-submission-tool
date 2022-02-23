@@ -77,7 +77,7 @@
           ]
         },
         "topicCategory": {
-          "!docstring": "ID4",
+          "!docstring": "ID3",
           "xpath": "mri:topicCategory",
           "keep": false,
           "valueChild": "mri:MD_TopicCategoryCode",
@@ -95,7 +95,7 @@
           ]
         },
         "status": {
-          "!docstring": "ID5",
+          "!docstring": "ID4",
           "xpath": "mri:status",
           "valueChild": "mcc:MD_ProgressCode",
           "label": "Status of data",
@@ -113,6 +113,7 @@
           ]
         },
         "maintenanceAndUpdateFrequency": {
+          "!docstring": "ID5",
           "xpath": "mri:resourceMaintenance/mmi:MD_MaintenanceInformation/mmi:maintenanceAndUpdateFrequency",
           "valueChild": "mmi:MD_MaintenanceFrequencyCode",
           "label": "Maintenance and update frequency",
@@ -126,7 +127,7 @@
           ]
         },
         "dateCreation": {
-          "!docstring": "ID6",
+          "!docstring": "ID2",
           "type": "string",
           "xpath": "/mdb:MD_Metadata/mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date/gco:DateTime",
           "xpath-q1": "/mdb:MD_Metadata/mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date/gco:Date",
@@ -138,7 +139,7 @@
           ]
         },
         "datePublication": {
-          "!docstring": "ID8",
+          "!docstring": "FIXME -- needed? ID8",
           "type": "string",
           "xpath": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]",
           "valueChild": "cit:CI_Date/cit:date/gco:DateTime",

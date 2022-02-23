@@ -241,7 +241,7 @@
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "topicCategory"]
-       :label     "Topic categories"}
+       :label     "Topic category"}
       [m4/select-value
        {:form-id     [:form]
         :data-path   ["identificationInfo" "topicCategory"]

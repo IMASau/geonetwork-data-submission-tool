@@ -1165,11 +1165,9 @@
                     "xpath": "gcx:Anchor"
                   },
                   "source": {
-                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "description": {
-                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "uri": {
@@ -1211,11 +1209,9 @@
                     "xpath": "gcx:Anchor"
                   },
                   "source": {
-                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "description": {
-                    "rules": ["requiredField"],
                     "type": "string"
                   },
                   "serial": {
@@ -1255,7 +1251,6 @@
                     "export": false,
                     "properties": {
                       "description": {
-                        "rules": ["requiredField"],
                         "type": "string"
                       },
                       "isUserDefined": {
@@ -1268,7 +1263,6 @@
                         "type": "string"
                       },
                       "source": {
-                        "rules": ["requiredField"],
                         "type": "string"
                       },
                       "label": {
@@ -1735,8 +1729,7 @@
           "!docstring": "How2",
           "type": "string",
           "xpath": "mrl:statement/gco:CharacterString",
-          "keep": false,
-          "rules": ["requiredField"]
+          "keep": false
         },
         "onlineMethods": {
           "type": "array",

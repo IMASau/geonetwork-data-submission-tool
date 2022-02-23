@@ -241,7 +241,7 @@
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "topicCategory"]
-       :label     "Topic categories"}
+       :label     "Topic category"}
       [m4/select-value
        {:form-id     [:form]
         :data-path   ["identificationInfo" "topicCategory"]
@@ -250,7 +250,7 @@
         :placeholder "Please select"
         :options     [{"value" "biota"
                        "label" "biota"}
-                      {"value" "climatology/meteorology/atmosphere"
+                      {"value" "climatologyMeteorologyAtmosphere"
                        "label" "climatology/meteorology/atmosphere"}
                       {"value" "oceans"
                        "label" "oceans"}
@@ -291,8 +291,7 @@
                      {"value" "unknown" "label" "Unknown"}
                      {"value" "periodic" "label" "Periodic"}
                      {"value" "semimonthly" "label" "Twice a month"}
-                     {"value" "biennially" "label" "Every 2 years"}]}]]
-     [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
+                     {"value" "biennially" "label" "Every 2 years"}]}]]]
 
     :what
     [:div
@@ -358,9 +357,7 @@
       [m4/text-add-button
        {:form-id     [:form]
         :data-path   ["identificationInfo" "keywordsTaxonExtra" "keywords"]
-        :button-text "Add"}]]
-
-     [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
+        :button-text "Add"}]]]
 
     :when
     [:div
@@ -384,8 +381,7 @@
        :label     "End date"}
       [m4/date-field2
        {:form-id   [:form]
-        :data-path ["identificationInfo" "endPosition"]}]]
-     [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
+        :data-path ["identificationInfo" "endPosition"]}]]]
 
     :where
     [:div
@@ -424,8 +420,8 @@
           :value-path          ["uri"]
           :added-path          ["isUserDefined"]
           :columns             [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
-                                {:columnHeader "East" :label-path ["southBoundLatitude"] :flex 1}
-                                {:columnHeader "South" :label-path ["eastBoundLongitude"] :flex 1}
+                                {:columnHeader "East" :label-path ["eastBoundLongitude"] :flex 1}
+                                {:columnHeader "South" :label-path ["southBoundLatitude"] :flex 1}
                                 {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]
           :placeholder-record? true
           :select-snapshot?    true
@@ -481,8 +477,7 @@
       [m4/numeric-input-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "verticalElement" "maximumValue"]
-        :class     "wauto"}]]
-     [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+        :class     "wauto"}]]]
 
     :box/user-defined-entry-form
     [:div
@@ -496,19 +491,19 @@
 
      [m4/inline-form-group
       {:form-id   ?form-id
-       :data-path [?data-path "southBoundLatitude"]
+       :data-path [?data-path "eastBoundLongitude"]
        :label     "East"}
       [m4/numeric-input-field
        {:form-id   ?form-id
-        :data-path [?data-path "southBoundLatitude"]}]]
+        :data-path [?data-path "eastBoundLongitude"]}]]
 
      [m4/inline-form-group
       {:form-id   ?form-id
-       :data-path [?data-path "eastBoundLongitude"]
+       :data-path [?data-path "southBoundLatitude"]
        :label     "South"}
       [m4/numeric-input-field
        {:form-id   ?form-id
-        :data-path [?data-path "eastBoundLongitude"]}]]
+        :data-path [?data-path "southBoundLatitude"]}]]
 
      [m4/inline-form-group
       {:form-id   ?form-id
@@ -535,8 +530,7 @@
       [m4/textarea-field
        {:form-id   [:form]
         :data-path ["resourceLineage" "statement"]
-        :rows      6}]]
-     [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
+        :rows      6}]]]
 
     :who
     [:div
@@ -626,9 +620,7 @@
       {:form-id     [:form]
        :data-path   ["credits"]
        :title       "Credit"
-       :template-id :credit/edit-form}]
-
-     [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+       :template-id :credit/edit-form}]]
 
     :credit/edit-form
     [:div
@@ -806,8 +798,7 @@
      [:h4 "Data parameters"]
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "citedResponsibleParty"]
-       :label     "Responsible parties for creating dataset"}
+       :data-path ["identificationInfo" "dataParameters"]}
       [:div.SelectionTableStyle
 
        [m4/selection-list-columns
@@ -933,8 +924,7 @@
       [m4/input-field
        {:form-id     [:form]
         :data-path   ["distributionInfo" "distributionFormat" "edition"]
-        :placeholder "Date format date or version if applicable"}]]
-     [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
+        :placeholder "Date format date or version if applicable"}]]]
 
     :supplementalInformation/user-defined-entry-form
     [:div
@@ -1183,10 +1173,7 @@
         :data-path   ["distributionInfo" "transferOptions"]
         :value-path  ["linkage"]
         :title       "Data Distribution"
-        :template-id :transferOptions/user-defined-entry-form}]]
-
-
-     [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
+        :template-id :transferOptions/user-defined-entry-form}]]]
 
     :transferOptions/user-defined-entry-form
     [:div

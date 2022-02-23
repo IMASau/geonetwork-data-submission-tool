@@ -85,7 +85,7 @@
 (defn- get-next-tab
   [tab-id edit-tabs]
   (let [successors (drop-while #(not= tab-id (:id %)) edit-tabs)]
-    (doto (second successors) prn)))
+    (second successors)))
 
 ; NOTE: v3 code
 (defn ^:deprecated get-edit-tab-props

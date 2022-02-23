@@ -141,6 +141,7 @@
 	</mdb:contact>
 
 	<mdb:dateInfo xmlns:srv="http://standards.iso.org/iso/19115/-3/srv/2.0" xmlns:mdt="http://standards.iso.org/iso/19115/-3/mdt/1.0" xmlns:mds="http://standards.iso.org/iso/19115/-3/mds/1.0">
+    <!-- ID2 -->
 		<!-- The date when a metadata record was created. This should be updated by the data submission tool (date of *creation* and date of *revision* may be different)-->
 		<cit:CI_Date>
 			<cit:date>
@@ -191,6 +192,7 @@
 		<mri:MD_DataIdentification>
 			<mri:citation>
 				<cit:CI_Citation>
+          <!-- ID1 -->
 					<cit:title>
 						<gco:CharacterString>Placeholder text=Provide a descriptive title for the data set including the subject of study, the study location and time period (if appropriate). Example: IMOS - Australian National Facility for Ocean Gliders (ANFOG) - delayed mode glider deployments - 2010-present</gco:CharacterString>
 					</cit:title>
@@ -357,6 +359,7 @@
 					</cit:citedResponsibleParty>
 				</cit:CI_Citation>
 			</mri:citation>
+      <!-- What1 -->
 			<mri:abstract>
 				<gco:CharacterString> Placeholder text=Provide a brief summary of the content described by this record.
 					Example: The Australian National Facility for Ocean Gliders (ANFOG), with IMOS/NCRIS funding, deploys a fleet of eight gliders around Australia. The data represented by this record, are presented in delayed mode. The underwater ocean glider represents a technological revolution for oceanography. Autonomous ocean gliders can be built relatively cheaply, are controlled remotely and are reusable allowing them to make repeated subsurface ocean observations at a fraction of the cost of conventional methods. The data retrieved from the glider fleet will contribute to the study of the major boundary current systems surrounding Australia and their links to coastal ecosystems....The IMOS gliders will focus particularly on the major boundary currents that run down the Australian coast, the Leeuwin in the west and the East Australian Current (EAC). The study of these currents is critical for understanding the north-south transport of freshwater, heat and biogeochemical properties. The currents exert a large influence on coastal ecosystems, shipping lanes and fisheries.</gco:CharacterString>
@@ -366,6 +369,7 @@
 				<gco:CharacterString>Placeholder text=Thanks to all the lovely sponsors:  xxx, yyy</gco:CharacterString>
 			</mri:credit>
 			<mri:status>
+        <!-- ID4 -->
 				<!--  The user must select from a subset of ISO status codes during data submission. -->
 				<mcc:MD_ProgressCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ProgressCode" codeListValue="completed"/>
 			</mri:status>
@@ -445,12 +449,15 @@
 				</cit:CI_Responsibility>
 			</mri:pointOfContact>
 			<mri:topicCategory>
+        <!-- ID3 -->
 				<!-- The user must select a topic category from a list defined by ISO -->
+        <!-- https://wiki.esipfed.org/ISO_19115-3_Codelists#MD_TopicCategoryCode -->
 				<mri:MD_TopicCategoryCode>oceans</mri:MD_TopicCategoryCode>
 			</mri:topicCategory>
 			<mri:extent>
 				<gex:EX_Extent>
 
+          <!-- Where2 -->
 					<gex:geographicElement>
 						<!-- The user may input the approximate location where the data was acquired specified as 4 different coordinates.
 					Data collected at a point has two coordinates entered across the four attributes as illustrated below. -->
@@ -476,7 +483,9 @@
 						<gex:EX_TemporalExtent>
 							<gex:extent>
 								<gml:TimePeriod gml:id="d5137372e782a1052958">
+                  <!-- When1 -->
 									<gml:beginPosition>2008-07-16</gml:beginPosition>
+                  <!-- When2 -->
 									<gml:endPosition>2008-07-16</gml:endPosition>
 								</gml:TimePeriod>
 							</gex:extent>
@@ -486,12 +495,15 @@
 					<gex:verticalElement>
 						<!--  A user can optionally enter depth info. the verticalCRS should auto-populate from this. ***NEED TO CHECK THIS STRUCTURE*** -->
 						<gex:EX_VerticalExtent>
+              <!-- Where5 -->
 							<gex:minimumValue>
 								<gco:Real>3</gco:Real>
 							</gex:minimumValue>
+              <!-- Where6 -->
 							<gex:maximumValue>
 								<gco:Real>35</gco:Real>
 							</gex:maximumValue>
+              <!-- Where4 -->
 							<gex:verticalCRS>
 								<gml:VerticalCRS gml:id="d431822e741a1050910">
 									<gml:identifier codeSpace="urn:ogc:def:crs:EPSG::">EPSG::5715</gml:identifier>
@@ -506,6 +518,7 @@
 			</mri:extent>
 
 			<mri:resourceMaintenance>
+        <!-- ID5 -->
 				<!--  The user must select how frequently the data will be updated, from a list defined by ISO -->
 				<mmi:MD_MaintenanceInformation>
 					<mmi:maintenanceAndUpdateFrequency>
@@ -515,6 +528,7 @@
 				</mmi:MD_MaintenanceInformation>
 			</mri:resourceMaintenance>
 
+      <!-- What3 -->
 			<!-- The user can manually enter one or more theme keywords (freetext)-->
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
@@ -531,6 +545,7 @@
 				</mri:MD_Keywords>
 			</mri:descriptiveKeywords>
 
+      <!-- What4 -->
 			<!-- The user can manually enter one or more taxonomic keywords (freetext)-->
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
@@ -545,6 +560,7 @@
 			</mri:descriptiveKeywords>
 
 
+      <!-- What2 -->
 			<!-- The user can select one or more GCMD science keywords (in the "what" tab). -->
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
@@ -1001,6 +1017,7 @@
 
 	<mdb:resourceLineage>
 		<mrl:LI_Lineage>
+      <!-- How1 -->
 			<mrl:statement>
 				<!-- The user may provide an overview of the methodology used to acquire and/or process the data -->
 				<gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods.

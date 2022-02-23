@@ -291,8 +291,7 @@
                      {"value" "unknown" "label" "Unknown"}
                      {"value" "periodic" "label" "Periodic"}
                      {"value" "semimonthly" "label" "Twice a month"}
-                     {"value" "biennially" "label" "Every 2 years"}]}]]
-     [:div.link-right-container [:a.link-right {:href "#what"} "Next"]]]
+                     {"value" "biennially" "label" "Every 2 years"}]}]]]
 
     :what
     [:div
@@ -358,9 +357,7 @@
       [m4/text-add-button
        {:form-id     [:form]
         :data-path   ["identificationInfo" "keywordsTaxonExtra" "keywords"]
-        :button-text "Add"}]]
-
-     [:div.link-right-container [:a.link-right {:href "#when"} "Next"]]]
+        :button-text "Add"}]]]
 
     :when
     [:div
@@ -384,8 +381,7 @@
        :label     "End date"}
       [m4/date-field2
        {:form-id   [:form]
-        :data-path ["identificationInfo" "endPosition"]}]]
-     [:div.link-right-container [:a.link-right {:href "#where"} "Next"]]]
+        :data-path ["identificationInfo" "endPosition"]}]]]
 
     :where
     [:div
@@ -481,8 +477,7 @@
       [m4/numeric-input-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "verticalElement" "maximumValue"]
-        :class     "wauto"}]]
-     [:div.link-right-container [:a.link-right {:href "#how"} "Next"]]]
+        :class     "wauto"}]]]
 
     :box/user-defined-entry-form
     [:div
@@ -535,8 +530,7 @@
       [m4/textarea-field
        {:form-id   [:form]
         :data-path ["resourceLineage" "statement"]
-        :rows      6}]]
-     [:div.link-right-container [:a.link-right {:href "#who"} "Next"]]]
+        :rows      6}]]]
 
     :who
     [:div
@@ -626,9 +620,7 @@
       {:form-id     [:form]
        :data-path   ["credits"]
        :title       "Credit"
-       :template-id :credit/edit-form}]
-
-     [:div.link-right-container [:a.link-right {:href "#about"} "Next"]]]
+       :template-id :credit/edit-form}]]
 
     :credit/edit-form
     [:div
@@ -933,8 +925,7 @@
       [m4/input-field
        {:form-id     [:form]
         :data-path   ["distributionInfo" "distributionFormat" "edition"]
-        :placeholder "Date format date or version if applicable"}]]
-     [:div.link-right-container [:a.link-right {:href "#upload"} "Next"]]]
+        :placeholder "Date format date or version if applicable"}]]]
 
     :supplementalInformation/user-defined-entry-form
     [:div
@@ -1183,10 +1174,7 @@
         :data-path   ["distributionInfo" "transferOptions"]
         :value-path  ["linkage"]
         :title       "Data Distribution"
-        :template-id :transferOptions/user-defined-entry-form}]]
-
-
-     [:div.link-right-container [:a.link-right {:href "#lodge"} "Next"]]]
+        :template-id :transferOptions/user-defined-entry-form}]]]
 
     :transferOptions/user-defined-entry-form
     [:div

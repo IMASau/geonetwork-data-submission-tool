@@ -482,7 +482,9 @@
 						<gex:EX_TemporalExtent>
 							<gex:extent>
 								<gml:TimePeriod gml:id="d5137372e782a1052958">
+                  <!-- When1 -->
 									<gml:beginPosition>2008-07-16</gml:beginPosition>
+                  <!-- When2 -->
 									<gml:endPosition>2008-07-16</gml:endPosition>
 								</gml:TimePeriod>
 							</gex:extent>

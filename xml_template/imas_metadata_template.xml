@@ -1017,6 +1017,7 @@
 
 	<mdb:resourceLineage>
 		<mrl:LI_Lineage>
+      <!-- How1 -->
 			<mrl:statement>
 				<!-- The user may provide an overview of the methodology used to acquire and/or process the data -->
 				<gco:CharacterString>Placeholder text=Provide a brief summary of the source of the data and related collection and/or processing methods.

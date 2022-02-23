@@ -547,6 +547,7 @@
       "type": "object",
       "properties": {
         "statement": {
+          "!docstring": "How1",
           "type": "string",
           "xpath": "mrl:statement",
           "valueChild": "gco:CharacterString",

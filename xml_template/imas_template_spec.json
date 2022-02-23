@@ -302,7 +302,7 @@
           }
         },
         "keywordsTheme": {
-          "!docstring": "What3",
+          "!docstring": "What2",
           "xpath1": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor)=\"geonetwork.thesaurus.external.theme.sciencekeywords\"]",
           "type": "object",
@@ -337,6 +337,7 @@
           ]
         },
         "keywordsThemeExtra": {
+          "!docstring": "What3",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][not(mri:thesaurusName)]",
           "type": "object",
           "properties": {
@@ -354,6 +355,7 @@
           "xpath_required": true
         },
         "keywordsTaxonExtra": {
+          "!docstring": "What4",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"taxon\"]]",
           "type": "object",
           "properties": {

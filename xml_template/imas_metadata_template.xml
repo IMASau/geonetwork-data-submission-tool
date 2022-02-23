@@ -359,6 +359,7 @@
 					</cit:citedResponsibleParty>
 				</cit:CI_Citation>
 			</mri:citation>
+      <!-- What1 -->
 			<mri:abstract>
 				<gco:CharacterString> Placeholder text=Provide a brief summary of the content described by this record.
 					Example: The Australian National Facility for Ocean Gliders (ANFOG), with IMOS/NCRIS funding, deploys a fleet of eight gliders around Australia. The data represented by this record, are presented in delayed mode. The underwater ocean glider represents a technological revolution for oceanography. Autonomous ocean gliders can be built relatively cheaply, are controlled remotely and are reusable allowing them to make repeated subsurface ocean observations at a fraction of the cost of conventional methods. The data retrieved from the glider fleet will contribute to the study of the major boundary current systems surrounding Australia and their links to coastal ecosystems....The IMOS gliders will focus particularly on the major boundary currents that run down the Australian coast, the Leeuwin in the west and the East Australian Current (EAC). The study of these currents is critical for understanding the north-south transport of freshwater, heat and biogeochemical properties. The currents exert a large influence on coastal ecosystems, shipping lanes and fisheries.</gco:CharacterString>
@@ -521,6 +522,7 @@
 				</mmi:MD_MaintenanceInformation>
 			</mri:resourceMaintenance>
 
+      <!-- What3 -->
 			<!-- The user can manually enter one or more theme keywords (freetext)-->
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
@@ -537,6 +539,7 @@
 				</mri:MD_Keywords>
 			</mri:descriptiveKeywords>
 
+      <!-- What4 -->
 			<!-- The user can manually enter one or more taxonomic keywords (freetext)-->
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
@@ -551,6 +554,7 @@
 			</mri:descriptiveKeywords>
 
 
+      <!-- What2 -->
 			<!-- The user can select one or more GCMD science keywords (in the "what" tab). -->
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>

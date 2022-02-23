@@ -201,6 +201,7 @@
           ],
           "properties": {
             "hasGeographicCoverage": {
+              "!docstring": "Where1",
               "export": false,
               "type": "boolean"
             },
@@ -259,12 +260,13 @@
           ],
           "properties": {
             "hasVerticalExtent": {
+              "!docstring": "Where3",
               "export": false,
               "type": "boolean"
             },
             "verticalCRS": {
-              "xpath": "gex:verticalCRS",
-              "valueChild": "gml:VerticalCRS",
+              "!docstring": "Where4",
+              "xpath": "gex:verticalCRS/gml:VerticalCRS",
               "type": "object",
               "keep": false,
               "properties": {
@@ -282,17 +284,18 @@
               }
             },
             "minimumValue": {
+              "!docstring": "Where5",
               "type": "number",
-              "xpath": "gex:minimumValue",
-              "valueChild": "gco:Real",
+              "xpath": "gex:minimumValue/gco:Real",
               "keep": false,
               "rules": [
                 "positive"
               ]
             },
             "maximumValue": {
+              "!docstring": "Where6",
               "type": "number",
-              "xpath": "gex:minimumValue",
+              "xpath": "gex:maximumValue",
               "valueChild": "gco:Real",
               "keep": false,
               "rules": [

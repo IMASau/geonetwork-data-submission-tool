@@ -457,6 +457,7 @@
 			<mri:extent>
 				<gex:EX_Extent>
 
+          <!-- Where2 -->
 					<gex:geographicElement>
 						<!-- The user may input the approximate location where the data was acquired specified as 4 different coordinates.
 					Data collected at a point has two coordinates entered across the four attributes as illustrated below. -->
@@ -494,12 +495,15 @@
 					<gex:verticalElement>
 						<!--  A user can optionally enter depth info. the verticalCRS should auto-populate from this. ***NEED TO CHECK THIS STRUCTURE*** -->
 						<gex:EX_VerticalExtent>
+              <!-- Where5 -->
 							<gex:minimumValue>
 								<gco:Real>3</gco:Real>
 							</gex:minimumValue>
+              <!-- Where6 -->
 							<gex:maximumValue>
 								<gco:Real>35</gco:Real>
 							</gex:maximumValue>
+              <!-- Where4 -->
 							<gex:verticalCRS>
 								<gml:VerticalCRS gml:id="d431822e741a1050910">
 									<gml:identifier codeSpace="urn:ogc:def:crs:EPSG::">EPSG::5715</gml:identifier>

@@ -1362,11 +1362,11 @@
                     }
                   }
                 }
-              }
+              },
+              "rules": ["requiredField"]
             }
           },
-          "xpath_required": true,
-          "rules": ["requiredField"]
+          "xpath_required": true
         },
         "keywordsHorizontal": {
           "!docstring": "What11",
@@ -1393,8 +1393,7 @@
               }
             }
           },
-          "xpath_required": true,
-          "rules": ["requiredField"]
+          "xpath_required": true
         },
         "keywordsVertical": {
           "!docstring": "What12",

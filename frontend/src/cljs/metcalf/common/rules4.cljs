@@ -85,7 +85,8 @@
   "Handles cases where a group of fields are mandatory if set; ie if you
   set one, they should all be set"
   [block {:keys [fields-list]}]
-  (let [vals (map #(get-in block [:content % :props :value]) fields-list)
+  (let [data (blocks4/as-data block)
+        vals (map #(get data %) fields-list)
         required? (some (complement nil?) vals)
         kvs (zipmap fields-list vals)]
     (reduce

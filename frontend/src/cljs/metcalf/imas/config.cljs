@@ -250,7 +250,7 @@
         :placeholder "Please select"
         :options     [{"value" "biota"
                        "label" "biota"}
-                      {"value" "climatology/meteorology/atmosphere"
+                      {"value" "climatologyMeteorologyAtmosphere"
                        "label" "climatology/meteorology/atmosphere"}
                       {"value" "oceans"
                        "label" "oceans"}

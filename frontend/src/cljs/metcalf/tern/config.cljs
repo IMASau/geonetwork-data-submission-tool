@@ -2008,7 +2008,7 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "transferOptions" "description"]
-       :label     "Description"}
+       :label     "Title"}
       [m4/textarea-field
        {:form-id   ?form-id
         :data-path [?data-path "transferOptions" "description"]}]]

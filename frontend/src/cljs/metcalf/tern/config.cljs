@@ -1282,7 +1282,7 @@
                      {"UUID"        "4122989f-f824-4d4a-8a29-10bd3541c17e"
                       "Identifier"  "user"
                       "Description" "Party who uses the resource"}]
-        :label-path ["Description"]
+        :label-path ["Identifier"]
         :value-path ["Identifier"]}]]
 
      [m4/form-group
@@ -1508,7 +1508,7 @@
                      {"UUID"        "4122989f-f824-4d4a-8a29-10bd3541c17e"
                       "Identifier"  "user"
                       "Description" "Party who uses the resource"}]
-        :label-path ["Description"]
+        :label-path ["Identifier"]
         :value-path ["Identifier"]}]]
 
      [m4/form-group

@@ -1101,7 +1101,6 @@
          :value-path         ["uri"]
          :random-uuid-value? true
          :added-path         ["isUserDefined"]
-         ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults      {"partyType" "person"}}]
 
        [m4/list-add-button
@@ -1111,7 +1110,6 @@
          :value-path         ["uri"]
          :random-uuid-value? true
          :added-path         ["isUserDefined"]
-         ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults      {"partyType" "organisation"}}]
 
        [:div.SelectionListItemColoured

@@ -733,8 +733,7 @@
          :data-path          ["identificationInfo" "keywordsParametersUnits" "keywords"]
          :button-text        "Add Parameter"
          :value-path         ["uri"]
-         :random-uuid-value? true
-         :item-defaults      {"userAddedCategory" "parameter"}}]
+         :random-uuid-value? true}]
 
        [:div.SelectionListItemColoured
         [m4/selection-list-columns

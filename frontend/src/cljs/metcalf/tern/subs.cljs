@@ -59,8 +59,7 @@
    {:id         :who
     :text       "Who"
     :data-paths [["identificationInfo" "citedResponsibleParty"]
-                 ["identificationInfo" "pointOfContact"]
-                 ["resourceLineage" "processStep"]]}
+                 ["identificationInfo" "pointOfContact"]]}
    {:id         :how
     :text       "How"
     :data-paths []}

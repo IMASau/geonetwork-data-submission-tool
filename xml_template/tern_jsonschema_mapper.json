@@ -1373,7 +1373,8 @@
                     }
                   }
                 }
-              }
+              },
+              "rules": ["requiredField"]
             }
           },
           "xpath_required": true

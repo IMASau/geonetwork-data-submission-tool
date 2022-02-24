@@ -297,12 +297,15 @@
               "type": "string"
             },
             "description": {
+              "xpath": "mcc:description/gco:CharacterString",
               "type": "string"
             },
             "label": {
               "type": "string"
             },
             "version": {
+              "!docstring": "Where4",
+              "xpath": "mcc:version/gco:CharacterString",
               "type": "string"
             }
           },

@@ -1969,7 +1969,8 @@
        :value-path  ["id"]
        :placeholder [:div
                      [:h3 "Drag and drop thumbnail here"]
-                     [:span.help-block "Maximum size 100 x 100px"]]}]
+                     [:span.help-block "Maximum size 1000 x 1000px"]]}]
+     [:p "A small image that exemplifies the collective resource. The graphic file should be less than 500KB and 1000x1000 pixels."]
 
      [:h2 "Data Services"]
      [m4/form-group

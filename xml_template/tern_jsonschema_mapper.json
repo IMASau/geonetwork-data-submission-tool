@@ -691,11 +691,11 @@
               }
             },
             "rules": [
-              "requiredField",
               "contactNotForOrgs",
               "contactOrganisationUserDefined"
             ]
           },
+          "rules": ["requiredField"],
           "notes": "Responsible party/ies for creating dataset"
         },
         "pointOfContact": {
@@ -908,11 +908,11 @@
               }
             },
             "rules": [
-              "requiredField",
               "contactNotForOrgs",
               "contactOrganisationUserDefined"
             ]
-          }
+          },
+          "rules": ["requiredField"]
         },
         "geographicElement": {
           "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",

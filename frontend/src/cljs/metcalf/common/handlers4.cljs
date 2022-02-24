@@ -96,8 +96,8 @@
 
 (defn item-add-with-defaults-click-handler2
   [{:keys [db]} [_ props]]
-  (let [{:keys [form-id data-path value-path added-path random-uuid-value?]} props
-        defaults (-> {}
+  (let [{:keys [form-id data-path value-path added-path item-defaults random-uuid-value?]} props
+        defaults (-> item-defaults
                      (cond-> random-uuid-value? (assoc-in value-path (str (random-uuid))))
                      (cond-> added-path (assoc-in added-path true)))]
     (-> {:db db}

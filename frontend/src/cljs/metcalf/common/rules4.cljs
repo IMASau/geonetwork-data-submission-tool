@@ -164,6 +164,25 @@
         organisation-user-defined (get-in items ["organisation" "isUserDefined"])]
     (assoc-in block [:content "isUserDefined" :props :value] (or contact-user-defined organisation-user-defined))))
 
+(defn tern-contact-unless-org
+  "For responsible-parties and points-of-contact, the contact is not
+  required unless we are picking a person, in which case some fields
+  are required."
+  [block]
+  (let [data (blocks4/as-data block)
+        party-type (get data "partyType")]
+    (js/console.warn ::tern-contact party-type block)
+    ;; block
+    (cond-> block
+      (= party-type "person")
+      (-> ;block
+       ;; Tweak: would be nicer to update required-field based on the
+       ;; value of "required" in the schema, but we'll hard-code for
+       ;; now:
+       (update-in [:content "contact" :content "surname"] required-field true)
+       (update-in [:content "contact" :content "given_name"] required-field true)
+       (update-in [:content "contact" :content "email"] required-field true)))))
+
 (defn tern-parameter-unit-user-defined
   "If an object has neither a user-defined parameter nor user-defined
    unit, then we can say that the object is not user-defined, else it

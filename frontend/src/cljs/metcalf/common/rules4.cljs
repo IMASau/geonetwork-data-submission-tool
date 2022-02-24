@@ -85,7 +85,8 @@
   "Handles cases where a group of fields are mandatory if set; ie if you
   set one, they should all be set"
   [block {:keys [fields-list]}]
-  (let [vals (map #(get-in block [:content % :props :value]) fields-list)
+  (let [data (blocks4/as-data block)
+        vals (map #(get data %) fields-list)
         required? (some (complement nil?) vals)
         kvs (zipmap fields-list vals)]
     (reduce
@@ -162,6 +163,25 @@
         contact-user-defined (get-in items ["contact" "isUserDefined"])
         organisation-user-defined (get-in items ["organisation" "isUserDefined"])]
     (assoc-in block [:content "isUserDefined" :props :value] (or contact-user-defined organisation-user-defined))))
+
+(defn tern-contact-unless-org
+  "For responsible-parties and points-of-contact, the contact is not
+  required unless we are picking a person, in which case some fields
+  are required."
+  [block]
+  (let [data (blocks4/as-data block)
+        party-type (get data "partyType")]
+    (js/console.warn ::tern-contact party-type block)
+    ;; block
+    (cond-> block
+      (= party-type "person")
+      (-> ;block
+       ;; Tweak: would be nicer to update required-field based on the
+       ;; value of "required" in the schema, but we'll hard-code for
+       ;; now:
+       (update-in [:content "contact" :content "surname"] required-field true)
+       (update-in [:content "contact" :content "given_name"] required-field true)
+       (update-in [:content "contact" :content "email"] required-field true)))))
 
 (defn tern-parameter-unit-user-defined
   "If an object has neither a user-defined parameter nor user-defined
@@ -268,6 +288,7 @@
   field should change"
   [spatial-block]
   (let [resolution-attribute (get-in spatial-block [:content "ResolutionAttribute" :props :value])
+        resolution-value (get-in spatial-block [:content "ResolutionAttributeValue" :props :value])
         units (case resolution-attribute
                 "None" ""
                 "Denominator scale" "Unitless"
@@ -277,7 +298,10 @@
         (assoc-in [:content "ResolutionAttributeUnits" :props :value] units)
         (update-in [:content "ResolutionAttributeValue" :props]
                    merge {:required (not= resolution-attribute "None")
-                          :disabled (= resolution-attribute "None")}))))
+                          :disabled (= resolution-attribute "None")})
+        (cond->
+          (not resolution-value)
+          (update-in [:content "ResolutionAttributeValue" :props :errors] conj "This field is required")))))
 
 (defn imas-vertical-required
   "Vertical fields are required / included based on vertical extent checkbox"

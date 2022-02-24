@@ -303,19 +303,6 @@
             }
           },
           "rules": ["requiredField"]
-        },
-        "DateOfDynamicDatum": {
-          "!docstring": "Where4",
-          "type": "string",
-          "xpath": "mcc:version",
-          "valueChild": "gco:CharacterString",
-          "keep": false,
-          "attributes": {
-            "text": {
-              "function": "date_as_version"
-            }
-          },
-          "rules": ["dateBeforeToday"]
         }
       }
     },
@@ -630,16 +617,14 @@
                     "type": "string",
                     "keep": false,
                     "export": false,
-                    "required": true,
-                    "rules": ["requiredField"]
+                    "required": true
                   },
                   "given_name": {
                     "!docstring": "Who4",
                     "type": "string",
                     "keep": false,
                     "export": false,
-                    "required": true,
-                    "rules": ["requiredField"]
+                    "required": true
                   },
                   "email": {
                     "!docstring": "Who6",
@@ -647,8 +632,7 @@
                     "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
-                    "required": false,
-                    "rules": ["requiredField"]
+                    "required": false
                   },
                   "phone": {
                     "!docstring": "Who13 / Who14",
@@ -708,6 +692,7 @@
             },
             "rules": [
               "requiredField",
+              "contactNotForOrgs",
               "contactOrganisationUserDefined"
             ]
           },
@@ -855,7 +840,6 @@
                     "!docstring": "Who5",
                     "type": "string",
                     "required": true,
-                    "rules": ["requiredField"],
                     "keep": false,
                     "export": false
                   },
@@ -863,7 +847,6 @@
                     "!docstring": "Who4",
                     "type": "string",
                     "required": true,
-                    "rules": ["requiredField"],
                     "keep": false,
                     "export": false
                   },
@@ -873,8 +856,7 @@
                     "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
-                    "required": false,
-                    "rules": ["requiredField"]
+                    "required": false
                   },
                   "orcid": {
                     "!docstring": "Who7",
@@ -927,6 +909,7 @@
             },
             "rules": [
               "requiredField",
+              "contactNotForOrgs",
               "contactOrganisationUserDefined"
             ]
           }
@@ -1182,7 +1165,8 @@
               }
             }
           },
-          "xpath_required": true
+          "xpath_required": true,
+          "rules": ["requiredField"]
         },
         "keywordsInstrument": {
           "!docstring": "What6",
@@ -1228,7 +1212,8 @@
               }
             }
           },
-          "xpath_required": true
+          "xpath_required": true,
+          "rules": ["requiredField"]
         },
         "keywordsParametersUnits": {
           "!docstring": "What8",
@@ -1360,7 +1345,8 @@
                     }
                   }
                 }
-              }
+              },
+              "rules": ["requiredField"]
             }
           },
           "xpath_required": true

@@ -77,7 +77,7 @@
           ]
         },
         "topicCategory": {
-          "!docstring": "ID4",
+          "!docstring": "ID3",
           "xpath": "mri:topicCategory",
           "keep": false,
           "valueChild": "mri:MD_TopicCategoryCode",
@@ -95,7 +95,7 @@
           ]
         },
         "status": {
-          "!docstring": "ID5",
+          "!docstring": "ID4",
           "xpath": "mri:status",
           "valueChild": "mcc:MD_ProgressCode",
           "label": "Status of data",
@@ -113,6 +113,7 @@
           ]
         },
         "maintenanceAndUpdateFrequency": {
+          "!docstring": "ID5",
           "xpath": "mri:resourceMaintenance/mmi:MD_MaintenanceInformation/mmi:maintenanceAndUpdateFrequency",
           "valueChild": "mmi:MD_MaintenanceFrequencyCode",
           "label": "Maintenance and update frequency",
@@ -126,7 +127,7 @@
           ]
         },
         "dateCreation": {
-          "!docstring": "ID6",
+          "!docstring": "ID2",
           "type": "string",
           "xpath": "/mdb:MD_Metadata/mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date/gco:DateTime",
           "xpath-q1": "/mdb:MD_Metadata/mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date/gco:Date",
@@ -138,7 +139,7 @@
           ]
         },
         "datePublication": {
-          "!docstring": "ID8",
+          "!docstring": "FIXME -- needed? ID8",
           "type": "string",
           "xpath": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]",
           "valueChild": "cit:CI_Date/cit:date/gco:DateTime",
@@ -200,6 +201,7 @@
           ],
           "properties": {
             "hasGeographicCoverage": {
+              "!docstring": "Where1",
               "export": false,
               "type": "boolean"
             },
@@ -258,12 +260,13 @@
           ],
           "properties": {
             "hasVerticalExtent": {
+              "!docstring": "Where3",
               "export": false,
               "type": "boolean"
             },
             "verticalCRS": {
-              "xpath": "gex:verticalCRS",
-              "valueChild": "gml:VerticalCRS",
+              "!docstring": "Where4",
+              "xpath": "gex:verticalCRS/gml:VerticalCRS",
               "type": "object",
               "keep": false,
               "properties": {
@@ -281,17 +284,18 @@
               }
             },
             "minimumValue": {
+              "!docstring": "Where5",
               "type": "number",
-              "xpath": "gex:minimumValue",
-              "valueChild": "gco:Real",
+              "xpath": "gex:minimumValue/gco:Real",
               "keep": false,
               "rules": [
                 "positive"
               ]
             },
             "maximumValue": {
+              "!docstring": "Where6",
               "type": "number",
-              "xpath": "gex:minimumValue",
+              "xpath": "gex:maximumValue",
               "valueChild": "gco:Real",
               "keep": false,
               "rules": [
@@ -301,7 +305,7 @@
           }
         },
         "keywordsTheme": {
-          "!docstring": "What3",
+          "!docstring": "What2",
           "xpath1": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor)=\"geonetwork.thesaurus.external.theme.sciencekeywords\"]",
           "type": "object",
@@ -336,6 +340,7 @@
           ]
         },
         "keywordsThemeExtra": {
+          "!docstring": "What3",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][not(mri:thesaurusName)]",
           "type": "object",
           "properties": {
@@ -353,6 +358,7 @@
           "xpath_required": true
         },
         "keywordsTaxonExtra": {
+          "!docstring": "What4",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"taxon\"]]",
           "type": "object",
           "properties": {
@@ -541,6 +547,7 @@
       "type": "object",
       "properties": {
         "statement": {
+          "!docstring": "How1",
           "type": "string",
           "xpath": "mrl:statement",
           "valueChild": "gco:CharacterString",

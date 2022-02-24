@@ -12,10 +12,16 @@
    {:id :upload :text "Data sources"}
    {:id :lodge :text "Lodge"}])
 
+(defn- get-next-tab
+  [tab-id]
+  (let [successors (drop-while #(not= tab-id (:id %)) edit-tabs)]
+    (second successors)))
+
 (defn get-edit-tab-props
   [[page form-state]]
   (let [selected-tab (get page :tab :data-identification)]
     {:selected-tab selected-tab
+     :next-tab     (get-next-tab selected-tab)
      :tab-props    (mapv
                      (fn [{:keys [id text]}]
                        (let [progress (get-in form-state [:progress/score])

@@ -155,6 +155,7 @@
        "defaultDistributor"             rules4/default-distributor
        "maxKeywords"                    rules4/tern-max-keywords
        "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined
+       "contactNotForOrgs"              rules4/tern-contact-unless-org
        "generateCitation"               rules4/generate-citation
        "parameterUnitUserDefined"       rules4/tern-parameter-unit-user-defined})
 (set! low-code4/component-registry
@@ -952,29 +953,16 @@
           :title       "Bounding box"
           :template-id :box/user-defined-entry-form}]]
 
-       [:div {:style {:display               "grid"
-                      :grid-column-gap       "1em"
-                      :grid-template-columns "1fr 1fr"}}
-        [m4/form-group
-         {:label    "Coordinate Reference System"
-          :toolTip  "Select the coordinate reference system."}
-         [m4/async-select-option-simple
-          {:form-id     [:form]
-           :data-path   ["referenceSystemInfo" "crsCode"]
-           :label-path  ["label"]
-           :value-path  ["code"]
-           :placeholder "Select from list"
-           :uri         "/api/horizontalcrs"}]]
-
-        [m4/form-group
-         {:form-id [:form]
-          :label   "Date of dynamic datum"}
-         [m4/form-group
-          {:form-id   [:form]
-           :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]}
-          [m4/date-field2
-           {:form-id   [:form]
-            :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]}]]]]
+       [m4/inline-form-group
+        {:label    "Coordinate Reference System"
+         :toolTip  "Select the coordinate reference system."}
+        [m4/async-select-option-simple
+         {:form-id     [:form]
+          :data-path   ["referenceSystemInfo" "crsCode"]
+          :label-path  ["label"]
+          :value-path  ["code"]
+          :placeholder "Select from list"
+          :uri         "/api/horizontalcrs"}]]
 
        [:p [:label "Vertical extent (optional)"]]
        [:p "The vertical extent is optional.  If you choose to enter details then the following fields are mandatory"]
@@ -1134,7 +1122,7 @@
 
       [:div.tern-collapsible-group
        [:p
-        "Please assign a persona and/or an organisation as the point of contact.  More than one person or organisation can be included."]
+        "Please assign a person and/or an organisation as the point of contact.  More than one person or organisation can be included."]
 
        [m4/list-add-button
         {:form-id            [:form]

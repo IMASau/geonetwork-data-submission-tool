@@ -73,12 +73,13 @@
 (defn valid-ordid-uri
   "Raise an error if the string field value isn't formatted as a valid
   ORCID uri; see
-  https://support.orcid.org/hc/en-us/articles/360006897674-Structure-of-the-ORCID-Identifier"
+  https://support.orcid.org/hc/en-us/articles/360006897674-Structure-of-the-ORCID-Identifier
+  After feedback though we will allow skipping the orcid.org prefix."
   [block]
   (let [value (blocks4/as-data block)]
     (cond-> block
       (and (not (string/blank? value))
-           (not (re-matches #"https?://orcid.org/\d\d\d\d-\d\d\d\d-\d\d\d\d-\d\d\d[\dxX]" value)))
+           (not (re-matches #"(?i)(https?://orcid.org/)?\d\d\d\d-\d\d\d\d-\d\d\d\d-\d\d\d[\dxX]" value)))
       (update-in [:props :errors] conj "Invalid ORCID url.  Expected format is 'https://orcid.org/XXXX-XXXX-XXXX-XXXX'"))))
 
 (defn required-all-or-nothing

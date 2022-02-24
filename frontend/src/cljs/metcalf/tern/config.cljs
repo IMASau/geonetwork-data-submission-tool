@@ -1084,7 +1084,6 @@
          :value-path         ["uri"]
          :random-uuid-value? true
          :added-path         ["isUserDefined"]
-         ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults      {"partyType" "person"}}]
 
        [m4/list-add-button
@@ -1094,7 +1093,6 @@
          :value-path         ["uri"]
          :random-uuid-value? true
          :added-path         ["isUserDefined"]
-         ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults      {"partyType" "organisation"}}]
 
        [:div.SelectionListItemColoured
@@ -1305,6 +1303,7 @@
          :data-path          [?data-path "contact"]
          :value-path         ["uri"]
          :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "person"}
          :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
@@ -1364,6 +1363,7 @@
          :data-path          [?data-path "organisation"]
          :value-path         ["uri"]
          :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "organisation"}
          :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
@@ -1530,6 +1530,7 @@
          :data-path          [?data-path "organisation"]
          :value-path         ["uri"]
          :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "organisation"}
          :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog

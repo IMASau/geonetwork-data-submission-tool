@@ -591,6 +591,7 @@
                     "type": "string",
                     "valueChild": "gco:CharacterString"
                   },
+                  "userAddedCategory": {},
                   "isUserDefined": {}
                 },
                 "rules": ["requiredField"]
@@ -677,6 +678,7 @@
                     "valueChild": "gco:CharacterString",
                     "required": false
                   },
+                  "userAddedCategory": {},
                   "isUserDefined": {}
                 },
                 "rules": ["mergeNameParts"]

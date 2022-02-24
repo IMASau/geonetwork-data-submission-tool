@@ -290,6 +290,7 @@
   [spatial-block]
   (let [resolution-attribute (get-in spatial-block [:content "ResolutionAttribute" :props :value])
         resolution-value (get-in spatial-block [:content "ResolutionAttributeValue" :props :value])
+        disable-value? #(boolean (#{"None" "Denominator scale"} %))
         units (case resolution-attribute
                 "None" ""
                 "Denominator scale" "Unitless"
@@ -298,8 +299,8 @@
     (-> spatial-block
         (assoc-in [:content "ResolutionAttributeUnits" :props :value] units)
         (update-in [:content "ResolutionAttributeValue" :props]
-                   merge {:required (not= resolution-attribute "None")
-                          :disabled (= resolution-attribute "None")})
+                   merge {:required (not (disable-value? resolution-attribute))
+                          :disabled (disable-value? resolution-attribute)})
         (cond->
           (not resolution-value)
           (update-in [:content "ResolutionAttributeValue" :props :errors] conj "This field is required")))))

@@ -650,7 +650,6 @@
           :breadcrumb-path ["breadcrumb"]}]]]]
 
      [m4/expanding-control {:label "Platforms" :required true}
-      ;; TODO: also need a user-added option
       [m4/form-group
        {:label   "Select a platform for the data measurement"
         :toolTip "Select the platform(s) that hosts the sensors used to generate the dataset from the predefined list. If the required platform is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
@@ -687,7 +686,6 @@
          :template-id :platform/user-defined-entry-form}]]]
 
      [m4/expanding-control {:label "Instruments" :required true}
-      ;; TODO: also need a user-added option
       [m4/form-group
        {:label   "Select the instrument used for the platform"
         :toolTip "Select the instrument(s) or sensor(s) used to create the dataset from the predefined list. If the required instrument or sensor is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
@@ -726,7 +724,6 @@
 
      [m4/expanding-control {:label "Parameters" :required true}
 
-      ;; TODO: also need a user-added option
       [:div
        [:p "Select a measured parameter, e.g. vegetation height"]
 
@@ -796,7 +793,7 @@
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
-         :uri             "/api/ausplantnames"              ; TODO: testing required; currently nothing in index
+         :uri             "/api/ausplantnames"
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
@@ -2108,7 +2105,6 @@
        :data-path []
        :show      false}
 
-      ;; TODO: provide a citation data path
       [m4/form-group
        {:form-id   [:form]
         :data-path ["identificationInfo" "generatedCitation"]
@@ -2162,19 +2158,16 @@
        {:form-id [:form]
         :label   "Please tick the relevant boxes as required"}
 
-      ;; TODO: provide a mint DOI data path
        [m4/checkbox-field
         {:form-id   [:form]
          :data-path ["identificationInfo" "doiRequested"]
          :label     "Please mint a DOI for this submission"}]
 
-      ;; TODO: provide a T&C agreement data path
        [m4/checkbox-field
         {:form-id   [:form]
          :data-path ["agreedToTerms"]
          :label     "I have read and agree with the terms and conditions"}]
 
-      ;; TODO: provide a personal metadata record copy data path
        [m4/checkbox-field
         {:form-id   [:form]
          :data-path ["personalCopyRequested"]

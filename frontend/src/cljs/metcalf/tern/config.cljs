@@ -1121,7 +1121,7 @@
 
       [:div.tern-collapsible-group
        [:p
-        "Please assign a persona and/or an organisation as the point of contact.  More than one person or organisation can be included."]
+        "Please assign a person and/or an organisation as the point of contact.  More than one person or organisation can be included."]
 
        [m4/list-add-button
         {:form-id            [:form]

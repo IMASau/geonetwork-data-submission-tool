@@ -172,7 +172,6 @@
   [block]
   (let [data (blocks4/as-data block)
         party-type (get data "partyType")]
-    (js/console.warn ::tern-contact party-type block)
     ;; block
     (cond-> block
       (= party-type "person")

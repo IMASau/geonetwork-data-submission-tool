@@ -660,7 +660,7 @@
   "Settings for item-dialog-button component"
   [_]
   {::low-code4/req-ks [:form-id :data-path :value-path]
-   ::low-code4/opt-ks [:added-path :random-uuid-value?]
+   ::low-code4/opt-ks [:added-path :item-defaults :random-uuid-value?]
    ::low-code4/schema {:type "object"}})
 
 ; TODO: Consider a view mode when it's not user defined.

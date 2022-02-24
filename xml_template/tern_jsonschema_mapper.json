@@ -201,25 +201,29 @@
             "type": "object",
             "properties": {
               "linkage": {
+                "!docstring": "DataSource11",
                 "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
                 "type": "string",
                 "required": true,
                 "rules": ["requiredField"]
               },
               "protocol": {
+                "!docstring": "DataSource10",
                 "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:protocol/gco:CharacterString",
                 "type": "string",
                 "required": true,
                 "rules": ["requiredField"]
               },
               "name": {
-                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:name",
+                "!docstring": "DataSource6",
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:description",
                 "valueChild": "gco:CharacterString",
                 "type": "string",
                 "keep": false
               },
               "description": {
-                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:description/gco:CharacterString",
+                "!docstring": "DataSource5",
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:name/gco:CharacterString",
                 "type": "string",
                 "required": true,
                 "rules": ["requiredField"]
@@ -293,12 +297,15 @@
               "type": "string"
             },
             "description": {
+              "xpath": "mcc:description/gco:CharacterString",
               "type": "string"
             },
             "label": {
               "type": "string"
             },
             "version": {
+              "!docstring": "Where4",
+              "xpath": "mcc:version/gco:CharacterString",
               "type": "string"
             }
           },
@@ -591,6 +598,7 @@
                     "type": "string",
                     "valueChild": "gco:CharacterString"
                   },
+                  "userAddedCategory": {},
                   "isUserDefined": {}
                 },
                 "rules": ["requiredField"]
@@ -677,6 +685,7 @@
                     "valueChild": "gco:CharacterString",
                     "required": false
                   },
+                  "userAddedCategory": {},
                   "isUserDefined": {}
                 },
                 "rules": ["mergeNameParts"]
@@ -691,11 +700,11 @@
               }
             },
             "rules": [
-              "requiredField",
               "contactNotForOrgs",
               "contactOrganisationUserDefined"
             ]
           },
+          "rules": ["requiredField"],
           "notes": "Responsible party/ies for creating dataset"
         },
         "pointOfContact": {
@@ -908,11 +917,11 @@
               }
             },
             "rules": [
-              "requiredField",
               "contactNotForOrgs",
               "contactOrganisationUserDefined"
             ]
-          }
+          },
+          "rules": ["requiredField"]
         },
         "geographicElement": {
           "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",

@@ -401,15 +401,6 @@
 
     :data-identification
     [:div
-     #_[m4/page-errors
-        {:form-id    [:form]
-         :data-path  []
-         :data-paths [["identificationInfo" "title"]
-                      ["identificationInfo" "dateCreation"]
-                      ["identificationInfo" "topicCategory"]
-                      ["identificationInfo" "status"]
-                      ["identificationInfo" "maintenanceAndUpdateFrequency"]
-                      ["identificationInfo" "version"]]}]
 
      [:h2 "1. Data Identification"]
 
@@ -585,11 +576,6 @@
 
     :what
     [:div
-     #_[m4/page-errors
-        {:form-id    [:form]
-         :data-path  []
-         :data-paths [["identificationInfo" "abstract"]
-                      ["identificationInfo" "purpose"]]}]
      [:h2 "2. What"]
      [:p "TODO: Lorem ipsum..."]
      [m4/form-group
@@ -664,7 +650,6 @@
           :breadcrumb-path ["breadcrumb"]}]]]]
 
      [m4/expanding-control {:label "Platforms" :required true}
-      ;; TODO: also need a user-added option
       [m4/form-group
        {:label   "Select a platform for the data measurement"
         :toolTip "Select the platform(s) that hosts the sensors used to generate the dataset from the predefined list. If the required platform is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
@@ -701,7 +686,6 @@
          :template-id :platform/user-defined-entry-form}]]]
 
      [m4/expanding-control {:label "Instruments" :required true}
-      ;; TODO: also need a user-added option
       [m4/form-group
        {:label   "Select the instrument used for the platform"
         :toolTip "Select the instrument(s) or sensor(s) used to create the dataset from the predefined list. If the required instrument or sensor is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
@@ -740,7 +724,6 @@
 
      [m4/expanding-control {:label "Parameters" :required true}
 
-      ;; TODO: also need a user-added option
       [:div
        [:p "Select a measured parameter, e.g. vegetation height"]
 
@@ -810,7 +793,7 @@
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
-         :uri             "/api/ausplantnames"              ; TODO: testing required; currently nothing in index
+         :uri             "/api/ausplantnames"
          :label-path      ["label"]
          :value-path      ["uri"]
          :breadcrumb-path ["breadcrumb"]}]
@@ -856,11 +839,6 @@
 
     :when
     [:div
-     #_[m4/page-errors
-        {:form-id    [:form]
-         :data-path  []
-         :data-paths [["identificationInfo" "beginPosition"]
-                      ["identificationInfo" "endPosition"]]}]
 
      [:h2 "3. When"]
      [:p "Lorem ipsum..."]
@@ -888,12 +866,6 @@
 
     :where
     [:div
-     #_[m4/page-errors
-        {:form-id    [:form]
-         :data-path  []
-         :data-paths [["identificationInfo" "geographicElement" "boxes"]
-                      ["identificationInfo" "verticalElement" "minimumValue"]
-                      ["identificationInfo" "verticalElement" "maximumValue"]]}]
      [:h2 "4. Where"]
      [:div.row
       [:div.col-sm-5
@@ -1084,7 +1056,6 @@
          :value-path         ["uri"]
          :random-uuid-value? true
          :added-path         ["isUserDefined"]
-         ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults      {"partyType" "person"}}]
 
        [m4/list-add-button
@@ -1094,7 +1065,6 @@
          :value-path         ["uri"]
          :random-uuid-value? true
          :added-path         ["isUserDefined"]
-         ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults      {"partyType" "organisation"}}]
 
        [:div.SelectionListItemColoured
@@ -1163,33 +1133,7 @@
                      "organisation"
                      {:title       "Organisation"
                       :template-id :party-organisation/user-defined-entry-form
-                      :field-paths #{["role"] ["organisation"]}}}}]]]
-
-     ;[m4/list-add-button
-     ; {:form-id    [:form]
-     ;  :data-path  ["identificationInfo" "PointOfContactForDataset"]
-     ;  :text       "Add"
-     ;  :value-path ["uri"]
-     ;  :added-path ["isUserDefined"]}]
-     ;
-     ;[m4/selection-list-columns
-     ; {:form-id    [:form]
-     ;  :data-path  ["identificationInfo" "PointOfContactForDataset"]
-     ;  :label-path ["contact" "label"]
-     ;  :value-path ["uri"]
-     ;  :random-uuid-value? true
-     ;  :columns    [{:columnHeader "contact" :label-path ["contact" "label"] :flex 2}
-     ;               {:columnHeader "role" :label-path ["role" "label"] :flex 3}]
-     ;  :added-path ["isUserDefined"]}]
-     ;
-     ;[m4/list-edit-dialog
-     ; {:form-id     [:form]
-     ;  :data-path   ["identificationInfo" "PointOfContactForDataset"]
-     ;  :title       "Responsible for creating the data"
-     ;  :template-id :person/user-defined-entry-form}]
-
-     #_[m3/Who
-        {:credit-path [:form :fields :identificationInfo :credit]}]]
+                      :field-paths #{["role"] ["organisation"]}}}}]]]]
 
     :party/list-item
     [:div
@@ -1282,7 +1226,7 @@
                      {"UUID"        "4122989f-f824-4d4a-8a29-10bd3541c17e"
                       "Identifier"  "user"
                       "Description" "Party who uses the resource"}]
-        :label-path ["Description"]
+        :label-path ["Identifier"]
         :value-path ["Identifier"]}]]
 
      [m4/form-group
@@ -1305,6 +1249,7 @@
          :data-path          [?data-path "contact"]
          :value-path         ["uri"]
          :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "person"}
          :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
@@ -1364,77 +1309,14 @@
          :data-path          [?data-path "organisation"]
          :value-path         ["uri"]
          :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "organisation"}
          :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
        {:form-id     ?form-id
         :data-path   [?data-path "organisation"]
         :title       "Organisation"
-        :template-id :person-organisation/user-defined-entry-form}]]
-
-     #_[m4/form-group
-      {:label "Organisation Name"}
-      [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "name"]
-        :disabled  true}]]
-
-     #_[m4/form-group
-      {:label "Campus/Sitename"}
-      [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "full_address_line"]
-        :disabled  true}]]
-
-     #_[m4/form-group
-      {:label "Building"}
-      [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "street_address"]
-        :disabled  true}]]
-
-     #_[:div {:style {:display               "grid"
-                    :grid-column-gap       "1em"
-                    :grid-template-columns "1fr 1fr"}}
-
-      [m4/form-group
-       {:label "City"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "organisation" "address_locality"]
-         :disabled  true}]]
-
-      [m4/form-group
-       {:label "State"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "organisation" "address_region"]
-         :disabled  true}]]]
-
-     #_[:div {:style {:display               "grid"
-                    :grid-column-gap       "1em"
-                    :grid-template-columns "1fr 1fr"}}
-
-      [m4/form-group
-       {:label "Postal Code"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "organisation" "postcode"]
-         :disabled  true}]]
-
-      [m4/form-group
-       {:label     "Country"}
-       [m4/input-field
-        {:form-id   ?form-id
-         :data-path [?data-path "organisation" "country"]
-         :disabled  true}]]]
-
-     #_[m4/form-group
-      {:label "Email address"}
-      [m4/input-field
-       {:form-id   ?form-id
-        :data-path [?data-path "organisation" "email"]
-        :disabled  true}]]]
+        :template-id :person-organisation/user-defined-entry-form}]]]
 
     ; NOTE: organisation with role (not associated with a person)
     :party-organisation/user-defined-entry-form
@@ -1508,7 +1390,7 @@
                      {"UUID"        "4122989f-f824-4d4a-8a29-10bd3541c17e"
                       "Identifier"  "user"
                       "Description" "Party who uses the resource"}]
-        :label-path ["Description"]
+        :label-path ["Identifier"]
         :value-path ["Identifier"]}]]
 
      [m4/form-group
@@ -1530,6 +1412,7 @@
          :data-path          [?data-path "organisation"]
          :value-path         ["uri"]
          :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "organisation"}
          :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
@@ -1720,12 +1603,6 @@
 
     :how
     [:div
-     #_[m4/page-errors
-        {:form-id    [:form]
-         :data-path  []
-         :data-paths [["resourceLineage" "processStep"]
-                      ["dataQualityInfo" "methods"]
-                      ["dataQualityInfo" "results"]]}]
      [:h2 "6. How"]
 
      [:p "This section is optional.  You can add method/s used for the collection of the data and provide the Data Quality description and the associated results"]
@@ -1774,28 +1651,6 @@
 
      [m4/expanding-control {:label "Data creation procedure steps (Optional)"}
 
-      ;; How6: Name
-      #_[m4/form-group
-         {:form-id    [:form]
-          :data-path  ["resourceLineage" "processStatement"]
-          :label      "Name"
-          :helperText "Provide the name of the method or procedure"}
-         [m4/textarea-field
-          {:form-id     [:form]
-           :data-path   ["resourceLineage" "processStatement"]
-           :placeholder "Provide the name of the method or procedure"}]]
-
-      ;; How7: Description
-      #_[m4/form-group
-         {:form-id    [:form]
-          :data-path  ["resourceLineage" "summary"]
-          :label      "Description"
-          :helperText "Provide a brief description of the method"}
-         [m4/textarea-field
-          {:form-id     [:form]
-           :data-path   ["resourceLineage" "summary"]
-           :placeholder "Provide a brief summary of a single method or procedure"}]]
-
       ;; How7b: list-add free-text entries
       [m4/form-group
        {:label   "If the need arises please add steps taken for the Data creation procedure to support the brief provided above."
@@ -1830,13 +1685,9 @@
 
     :quality
     [:div
-     #_[m4/page-errors
-        {:form-id    [:form]
-         :data-path  []
-         :data-paths [["dataQualityInfo" "methodSummary"]
-                      ["dataQualityInfo" "results"]]}]
      [:h2 "7. Data Quality"]
      [:i "This section is optional"]
+
      [m4/form-group
       {:form-id   [:form]
        :data-path ["dataQualityInfo" "methodSummary"]
@@ -1867,7 +1718,6 @@
         :button-text        "Add"
         :value-path         ["uri"]
         :random-uuid-value? true
-        ;; :item-defaults {"userAddedCategory" "onlineMethods"}
         :added-path         ["isUserDefined"]}]
 
       [m4/list-edit-dialog
@@ -1908,16 +1758,9 @@
 
     :about
     [:div
-     #_[m4/page-errors
-        {:form-id    [:form]
-         :data-path  []
-         :data-paths [["identificationInfo" "environment"]
-                      ["identificationInfo" "supplemental"]
-                      ["identificationInfo" "resourceSpecificUsage"]
-                      ["identificationInfo" "credit"]
-                      ["identificationInfo" "customCitation"]]}]
      [:h2 "8: About Dataset"]
      [:i "This section allows you to provide information of the dataset collection, and will inform the consumer with the legal obligations, limitations of use and any other relevant details such as resources and publications."]
+
      [:h3 "Limitation/Constraints"]
      [m4/form-group
       {:form-id   [:form]
@@ -2101,7 +1944,6 @@
 
     :upload
     [:div
-     #_[m4/page-errors {:form-id [:form] :data-paths []}]
      [:h2 "9. Data Sources"]
      [m4/upload-files
       {:form-id     [:form]
@@ -2127,7 +1969,8 @@
        :value-path  ["id"]
        :placeholder [:div
                      [:h3 "Drag and drop thumbnail here"]
-                     [:span.help-block "Maximum size 100 x 100px"]]}]
+                     [:span.help-block "Maximum size 1000 x 1000px"]]}]
+     [:p "A small image that exemplifies the collective resource. The graphic file should be less than 500KB and 1000x1000 pixels."]
 
      [:h2 "Data Services"]
      [m4/form-group
@@ -2166,7 +2009,7 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "transferOptions" "description"]
-       :label     "Description"}
+       :label     "Title"}
       [m4/textarea-field
        {:form-id   ?form-id
         :data-path [?data-path "transferOptions" "description"]}]]
@@ -2219,7 +2062,6 @@
 
     :lodge
     [:div
-     #_[m4/page-errors {:form-id [:form] :data-paths []}]
      [:h2 "10: Lodge Metadata Draft"]
      [:p "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."]
 
@@ -2227,7 +2069,7 @@
       {:form-id   [:form]
        :data-path []
        :show      true}
-      
+
       ;; TODO: CSS for <b> styling?
       [:b
        {:style {:color "#e36a51"}}
@@ -2263,8 +2105,7 @@
       {:form-id   [:form]
        :data-path []
        :show      false}
-      
-      ;; TODO: provide a citation data path
+
       [m4/form-group
        {:form-id   [:form]
         :data-path ["identificationInfo" "generatedCitation"]
@@ -2313,43 +2154,27 @@
        {:form-id         [:form]
         :data-path       ["identificationInfo" "doi"]
         :placeholder     "Please enter existing DOI here"}]
-      #_[m3/Lodge
-         {:note-for-data-manager-path [:form :fields :noteForDataManager]
-          :agreed-to-terms-path       [:form :fields :agreedToTerms]
-          :doi-requested-path         [:form :fields :doiRequested]
-          :current-doi-path           [:form :fields :identificationInfo :doi]}]
 
       [m4/form-group
        {:form-id [:form]
         :label   "Please tick the relevant boxes as required"}
 
-      ;; TODO: provide a mint DOI data path
        [m4/checkbox-field
         {:form-id   [:form]
          :data-path ["identificationInfo" "doiRequested"]
          :label     "Please mint a DOI for this submission"}]
 
-      ;; TODO: provide a T&C agreement data path
        [m4/checkbox-field
         {:form-id   [:form]
          :data-path ["agreedToTerms"]
          :label     "I have read and agree with the terms and conditions"}]
 
-      ;; TODO: provide a personal metadata record copy data path
        [m4/checkbox-field
         {:form-id   [:form]
          :data-path ["personalCopyRequested"]
          :label     "I want to keep a personal copy of the metadata record"}]]
 
-      ;; TODO: Give button functionality
-      ;; TODO: Replace with component?
       ;; TODO: Use CSS?
-      #_[:button.bp3-button.bp3-intent-primary
-       {:style {:width "100%"}}
-       [:h4
-        {:style {:color "white"
-                 :font-weight "bold"}}
-        "Lodge Data"]]
       [m4/lodge-button]
 
       [:hr]

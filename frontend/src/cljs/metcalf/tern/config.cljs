@@ -1309,7 +1309,7 @@
          :data-path          [?data-path "organisation"]
          :value-path         ["uri"]
          :random-uuid-value? true
-         :item-defaults      {"userAddedCategory" "organisation"}
+         :item-defaults      {"userAddedCategory" "organization"}
          :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
@@ -1412,7 +1412,7 @@
          :data-path          [?data-path "organisation"]
          :value-path         ["uri"]
          :random-uuid-value? true
-         :item-defaults      {"userAddedCategory" "organisation"}
+         :item-defaults      {"userAddedCategory" "organization"}
          :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog

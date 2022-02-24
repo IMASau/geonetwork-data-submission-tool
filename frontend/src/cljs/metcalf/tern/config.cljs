@@ -952,29 +952,16 @@
           :title       "Bounding box"
           :template-id :box/user-defined-entry-form}]]
 
-       [:div {:style {:display               "grid"
-                      :grid-column-gap       "1em"
-                      :grid-template-columns "1fr 1fr"}}
-        [m4/form-group
-         {:label    "Coordinate Reference System"
-          :toolTip  "Select the coordinate reference system."}
-         [m4/async-select-option-simple
-          {:form-id     [:form]
-           :data-path   ["referenceSystemInfo" "crsCode"]
-           :label-path  ["label"]
-           :value-path  ["code"]
-           :placeholder "Select from list"
-           :uri         "/api/horizontalcrs"}]]
-
-        [m4/form-group
-         {:form-id [:form]
-          :label   "Date of dynamic datum"}
-         [m4/form-group
-          {:form-id   [:form]
-           :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]}
-          [m4/date-field2
-           {:form-id   [:form]
-            :data-path ["referenceSystemInfo" "DateOfDynamicDatum"]}]]]]
+       [m4/inline-form-group
+        {:label    "Coordinate Reference System"
+         :toolTip  "Select the coordinate reference system."}
+        [m4/async-select-option-simple
+         {:form-id     [:form]
+          :data-path   ["referenceSystemInfo" "crsCode"]
+          :label-path  ["label"]
+          :value-path  ["code"]
+          :placeholder "Select from list"
+          :uri         "/api/horizontalcrs"}]]
 
        [:p [:label "Vertical extent (optional)"]]
        [:p "The vertical extent is optional.  If you choose to enter details then the following fields are mandatory"]

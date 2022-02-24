@@ -140,6 +140,7 @@
        "requiredWhenYes"                rules4/required-when-yes
        "spatialUnits"                   rules4/spatial-resolution-units
        "requiredAllNone"                rules4/required-all-or-nothing
+       "requiredIfValue"                rules4/required-if-value
        "maxLength"                      rules4/max-length
        "mergeNameParts"                 rules4/merge-names
        "validOrcid"                     rules4/valid-ordid-uri

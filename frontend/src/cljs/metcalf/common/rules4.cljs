@@ -100,6 +100,16 @@
       block
       kvs)))
 
+(defn required-if-value
+  "Handles the case where a field is enabled iff another field has a
+  value, any value, such as a selection list"
+  [block {:keys [value-field dependent-field]}]
+  (let [data (blocks4/as-data block)
+        has-value? (not (contains? empty-values (get data value-field)))]
+    (-> block
+        (update-in [:content dependent-field] required-field has-value?)
+        (assoc-in [:content dependent-field :props :disabled] (not has-value?)))))
+
 (defn- -enforce-required-subfields
   [block field-list]
   (reduce

@@ -155,6 +155,7 @@
        "defaultDistributor"             rules4/default-distributor
        "maxKeywords"                    rules4/tern-max-keywords
        "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined
+       "contactNotForOrgs"              rules4/tern-contact-unless-org
        "generateCitation"               rules4/generate-citation
        "parameterUnitUserDefined"       rules4/tern-parameter-unit-user-defined})
 (set! low-code4/component-registry

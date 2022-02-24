@@ -617,16 +617,14 @@
                     "type": "string",
                     "keep": false,
                     "export": false,
-                    "required": true,
-                    "rules": ["requiredField"]
+                    "required": true
                   },
                   "given_name": {
                     "!docstring": "Who4",
                     "type": "string",
                     "keep": false,
                     "export": false,
-                    "required": true,
-                    "rules": ["requiredField"]
+                    "required": true
                   },
                   "email": {
                     "!docstring": "Who6",
@@ -634,8 +632,7 @@
                     "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
-                    "required": false,
-                    "rules": ["requiredField"]
+                    "required": false
                   },
                   "phone": {
                     "!docstring": "Who13 / Who14",
@@ -695,6 +692,7 @@
             },
             "rules": [
               "requiredField",
+              "contactNotForOrgs",
               "contactOrganisationUserDefined"
             ]
           },
@@ -842,7 +840,6 @@
                     "!docstring": "Who5",
                     "type": "string",
                     "required": true,
-                    "rules": ["requiredField"],
                     "keep": false,
                     "export": false
                   },
@@ -850,7 +847,6 @@
                     "!docstring": "Who4",
                     "type": "string",
                     "required": true,
-                    "rules": ["requiredField"],
                     "keep": false,
                     "export": false
                   },
@@ -860,8 +856,7 @@
                     "valueChild": "gco:CharacterString",
                     "type": "string",
                     "keep": false,
-                    "required": false,
-                    "rules": ["requiredField"]
+                    "required": false
                   },
                   "orcid": {
                     "!docstring": "Who7",
@@ -914,6 +909,7 @@
             },
             "rules": [
               "requiredField",
+              "contactNotForOrgs",
               "contactOrganisationUserDefined"
             ]
           }

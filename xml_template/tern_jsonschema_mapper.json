@@ -1316,13 +1316,7 @@
                     }
                   },
                   "uri": {
-                    "type": "string",
-                    "xpath": "gcx:Anchor",
-                    "attributes": {
-                      "xlink:href": {
-                        "function": "identity"
-                      }
-                    }
+                    "type": "string"
                   },
                   "isUserDefined": {
                     "type": "boolean"

@@ -268,7 +268,7 @@
               "xpath": "cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor",
               "attributes": {
                 "text": {
-                  "function": "identity"
+                  "function": "geonetwork_uuid"
                 },
                 "xlink:href": {
                   "function": "identity"
@@ -1316,13 +1316,7 @@
                     }
                   },
                   "uri": {
-                    "type": "string",
-                    "xpath": "gcx:Anchor",
-                    "attributes": {
-                      "xlink:href": {
-                        "function": "identity"
-                      }
-                    }
+                    "type": "string"
                   },
                   "isUserDefined": {
                     "type": "boolean"

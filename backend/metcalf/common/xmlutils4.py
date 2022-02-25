@@ -420,7 +420,7 @@ def extract_user_defined(data: dict, path="$", acc: list = None) -> list:
                     filterkey = 'url'
                     filterval = item.get('url')
                 else:
-                    raise KeyError('DUMA expects either uri or url keys to be present')
+                    raise KeyError(f'DUMA expects either uri or url keys to be present; path: {path}|{k}')
                 filter = f'{k}[?(@.{filterkey}=="{filterval}")]'
                 acc = extract_user_defined(item, path=f"{path}.{filter}", acc=acc)
         else:

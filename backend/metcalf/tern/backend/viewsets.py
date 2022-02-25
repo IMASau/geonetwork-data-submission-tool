@@ -38,7 +38,7 @@ class DumaDocumentViewSet(mixins.UpdateModelMixin,
 
         if 'duma_path' not in data:
             raise Exception('Missing expected property "duma_path"')
-        path = data['duma_path'].lstrip('.').split('.')
+        path = data['duma_path']
 
         updated_draft = xmlutils4.update_user_defined(draft_data, data, path)
 

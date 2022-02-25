@@ -20,9 +20,14 @@ class DumaDocumentViewSet(mixins.UpdateModelMixin,
 
     def get_queryset(self):
         queryset = models.Document.objects.filter(hasUserDefined=True)
+        # by default we should only return submitted documents, but
+        # this may be overridden to also return drafts (for ease of
+        # testing):
         submitted = self.request.query_params.get('submitted', 'true')
         if submitted.lower() != 'false':
             queryset = queryset.filter(status=models.Document.SUBMITTED)
+        else:
+            queryset = queryset.filter(status__in=(models.Document.SUBMITTED, models.Document.DRAFT))
         return queryset
 
     def get_serializer_class(self):

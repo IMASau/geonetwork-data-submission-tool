@@ -140,6 +140,7 @@
        "requiredWhenYes"                rules4/required-when-yes
        "spatialUnits"                   rules4/spatial-resolution-units
        "requiredAllNone"                rules4/required-all-or-nothing
+       "requiredIfValue"                rules4/required-if-value
        "maxLength"                      rules4/max-length
        "mergeNameParts"                 rules4/merge-names
        "validOrcid"                     rules4/valid-ordid-uri
@@ -732,8 +733,7 @@
          :data-path          ["identificationInfo" "keywordsParametersUnits" "keywords"]
          :button-text        "Add Parameter"
          :value-path         ["uri"]
-         :random-uuid-value? true
-         :item-defaults      {"userAddedCategory" "parameter"}}]
+         :random-uuid-value? true}]
 
        [:div.SelectionListItemColoured
         [m4/selection-list-columns
@@ -1101,7 +1101,6 @@
          :value-path         ["uri"]
          :random-uuid-value? true
          :added-path         ["isUserDefined"]
-         ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults      {"partyType" "person"}}]
 
        [m4/list-add-button
@@ -1111,7 +1110,6 @@
          :value-path         ["uri"]
          :random-uuid-value? true
          :added-path         ["isUserDefined"]
-         ;; FIXME: Add userAddedCategory to item defaults?
          :item-defaults      {"partyType" "organisation"}}]
 
        [:div.SelectionListItemColoured
@@ -1309,7 +1307,7 @@
          :data-path          [?data-path "organisation"]
          :value-path         ["uri"]
          :random-uuid-value? true
-         :item-defaults      {"userAddedCategory" "organisation"}
+         :item-defaults      {"userAddedCategory" "organization"}
          :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog
@@ -1412,7 +1410,7 @@
          :data-path          [?data-path "organisation"]
          :value-path         ["uri"]
          :random-uuid-value? true
-         :item-defaults      {"userAddedCategory" "organisation"}
+         :item-defaults      {"userAddedCategory" "organization"}
          :added-path         ["isUserDefined"]}]]
 
       [m4/edit-dialog

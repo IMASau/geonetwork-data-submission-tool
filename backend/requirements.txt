@@ -20,6 +20,7 @@ djangorestframework==3.12.4
 dynaconf
 elasticsearch-dsl>=7.0.0,<8.0.0
 jsonfield==3.1.0
+jsonpath-python==1.0.5
 lxml==4.6.3
 mozilla-django-oidc==2.0.0
 pytz==2021.1

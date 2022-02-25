@@ -8,6 +8,7 @@ from decimal import Decimal
 from functools import partial
 
 from django.apps import apps
+from jsonpath import JSONPath
 from six import string_types
 from lxml import etree
 
@@ -389,11 +390,11 @@ def item_is_empty(data, k, v):
     return k not in data or data[k] is None or data[k] == '' or ('removeWhen' in v and v['removeWhen'](data[k]))
 
 
-def extract_user_defined(data: dict, path="", acc: list = None) -> list:
+def extract_user_defined(data: dict, path="$", acc: list = None) -> list:
     """Takes a json data document and returns a list of all terms that
-    have been added by the user.  Adjusts the term to include the data
-    path (for re-insertion) and the type."""
-    # FIXME: needs special handling for keywords, which don't have structure
+    have been added by the user. Adjusts the term to include the data
+    path (for re-insertion) and the type. The data path conforms to
+    jsonpath."""
     if acc is None:
         acc = []
     if not isinstance(data, dict):
@@ -407,8 +408,21 @@ def extract_user_defined(data: dict, path="", acc: list = None) -> list:
         if isinstance(v, dict):
             acc = extract_user_defined(v, path=f"{path}.{k}", acc=acc)
         elif isinstance(v, list):
-            for ix, item in enumerate(v):
-                acc = extract_user_defined(item, path=f"{path}.{k}.{ix}", acc=acc)
+            for item in v:
+                # Skip over simple lists
+                if not isinstance(item, dict):
+                    continue
+                # Pick out the filter; we only support a couple of cases for now:
+                if 'uri' in item:
+                    filterkey = 'uri'
+                    filterval = item.get('uri')
+                elif 'url' in item:
+                    filterkey = 'url'
+                    filterval = item.get('url')
+                else:
+                    raise KeyError('DUMA expects either uri or url keys to be present')
+                filter = f'{k}[?(@.{filterkey}=="{filterval}")]'
+                acc = extract_user_defined(item, path=f"{path}.{filter}", acc=acc)
         else:
             continue
     return acc
@@ -418,11 +432,13 @@ def extract_user_defined(data: dict, path="", acc: list = None) -> list:
 def update_user_defined(document_data: dict, update_data: dict, path: list) -> dict:
     document_data = deepcopy(document_data)
     to_update = document_data
-    for p in path:
-        if isinstance(to_update, dict):
-            to_update = to_update[p]
-        elif isinstance(to_update, list):
-            to_update = to_update[int(p)]
+    # WARNING: there's an implicit assumption here that jsonpath
+    # doesn't copy any structure (a quick skim of its source suggests
+    # that's a safe assumption for now)
+    to_update = JSONPath(path).parse(to_update)
+    if len(to_update) != 1:
+        raise Exception(f'Expected exactly one result at duma_path {path}')
+    to_update = to_update[0]
 
     for k, v in update_data.items():
         if k in to_update:

@@ -991,12 +991,15 @@
               }
             },
             {
-              "requiredAllNone": {
-                "fields-list": [
-                  "coordinateReferenceSystem",
-                  "minimumValue",
-                  "maximumValue"
-                ]
+              "requiredIfValue": {
+                "value-field": "coordinateReferenceSystem",
+                "dependent-field": "minimumValue"
+              }
+            },
+            {
+              "requiredIfValue": {
+                "value-field": "coordinateReferenceSystem",
+                "dependent-field": "maximumValue"
               }
             }
           ],

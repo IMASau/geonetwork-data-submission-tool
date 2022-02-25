@@ -268,7 +268,7 @@
               "xpath": "cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor",
               "attributes": {
                 "text": {
-                  "function": "identity"
+                  "function": "geonetwork_uuid"
                 },
                 "xlink:href": {
                   "function": "identity"

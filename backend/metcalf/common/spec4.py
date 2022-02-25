@@ -581,6 +581,15 @@ def write_doi_url(arg):
     return f"https://dx.doi.org/{doi}"
 
 
+UUID_RE = r'(?i)\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b'
+
+def geonetwork_uuid(x):
+    m = re.search(UUID_RE, x)
+    if m:
+        return m.group(0)
+    else:
+        return x
+
 
 # TODO: should not be in common
 def geonetwork_url(x):
@@ -663,6 +672,7 @@ SPEC_FUNCTIONS = {
     "write_doi": write_doi,
     "write_doi_url": write_doi_url,
     "geonetwork_url": geonetwork_url,
+    "geonetwork_uuid": geonetwork_uuid,
     "write_constraints": write_constraints,
     "separate_organisation_identifier": separate_organisation_identifier,
 }

@@ -517,6 +517,9 @@
                     "rules": ["requiredField"],
                     "keep": false
                   },
+                  "display_name": {
+                    "type": "string"
+                  },
                   "uri": {
                     "!docstring": "Who8 / Who9 / Who12",
                     "xpath": "cit:partyIdentifier",
@@ -757,6 +760,9 @@
                     "required": true,
                     "rules": ["requiredField"],
                     "keep": false
+                  },
+                  "display_name": {
+                    "type": "string"
                   },
                   "uri": {
                     "!docstring": "Who8 / Who9 / Who12",

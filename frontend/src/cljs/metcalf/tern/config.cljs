@@ -1300,7 +1300,7 @@
          {:form-id    ?form-id
           :data-path  [?data-path "organisation"]
           :uri        "/api/ternorgs"
-          :label-path ["name"]
+          :label-path ["display_name"]
           :value-path ["uri"]}]]
        [m4/item-dialog-button
         {:form-id            ?form-id
@@ -1403,7 +1403,7 @@
          {:form-id    ?form-id
           :data-path  [?data-path "organisation"]
           :uri        "/api/ternorgs"
-          :label-path ["name"]
+          :label-path ["display_name"]
           :value-path ["uri"]}]]
        [m4/item-dialog-button
         {:form-id            ?form-id
@@ -2054,7 +2054,7 @@
        {:form-id     ?form-id
         :data-path   [?data-path "distributor"]
         :uri         "/api/ternorgs"
-        :label-path  ["name"]
+        :label-path  ["display_name"]
         :value-path  ["uri"]
         :placeholder "Will use TERN - UQ Long Pocket if not specified"}]]]
 

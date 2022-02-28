@@ -207,7 +207,7 @@
        'm4/upload-files                        {:view #'components4/upload-files :init components4/upload-files-settings}
        'm4/upload-thumbnail                    {:view #'components4/upload-thumbnail :init components4/upload-thumbnail-settings}
        'm4/terms-conditions                    {:view #'components4/terms-and-conditions}
-       'm4/lodge-button                        {:view #'components4/lodge-button}
+       'm4/lodge-button                        {:view #'components4/lodge-button :init components4/lodge-button-settings}
        'm4/xml-export-link                     {:view #'components4/xml-export-link :init components4/xml-export-link-settings}
        'm4/when-errors                         {:view #'components4/when-errors :init components4/when-errors-settings}})
 
@@ -2170,8 +2170,9 @@
 
       [m4/terms-conditions]
 
-      ;; TODO: Use CSS?
-      [m4/lodge-button]
+      [m4/lodge-button
+       {:form-id   [:form]
+        :data-path ["agreedToTerms"]}]
 
       [:hr]
       [:b "Want to keep a personal copy of your metadata record?"]

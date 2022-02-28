@@ -1875,21 +1875,26 @@
         {:value    (or name "")
          :disabled true}]])))
 
+(defn lodge-button-settings
+  [_]
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks []})
 
 (defn lodge-button
-  []
+  [config]
   (let [page @(rf/subscribe [:subs/get-page-props])
         ;; FIXME need an m4 saving? value.
         saving (:metcalf3.handlers/saving? page)
         {:keys [document urls]} @(rf/subscribe [:subs/get-context])
         {:keys [errors]} @(rf/subscribe [:subs/get-progress])
         disabled @(rf/subscribe [:subs/get-form-disabled?])
+        agreed-terms? @(rf/subscribe [::get-block-data config])
         has-errors? (and errors (> errors 0))
         archived? (= (:status document) "Archived")
         submitted? (= (:status document) "Submitted")]
     (when-not (or archived? submitted?)
       [:button.btn.btn-primary.btn-lg
-       {:disabled (or has-errors? saving disabled)
+       {:disabled (or has-errors? saving disabled (not agreed-terms?))
         :on-click #(rf/dispatch [:app/lodge-button-click])}
        (when saving
          [:img

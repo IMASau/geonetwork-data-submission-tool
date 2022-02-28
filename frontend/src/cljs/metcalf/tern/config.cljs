@@ -207,6 +207,7 @@
        'm4/upload-files                        {:view #'components4/upload-files :init components4/upload-files-settings}
        'm4/upload-thumbnail                    {:view #'components4/upload-thumbnail :init components4/upload-thumbnail-settings}
        'm4/lodge-button                        {:view #'components4/lodge-button}
+       'm4/xml-export-link                     {:view #'components4/xml-export-link :init components4/xml-export-link-settings}
        'm4/when-errors                         {:view #'components4/when-errors :init components4/when-errors-settings}})
 
 ; Specs intended for use with when-data :pred

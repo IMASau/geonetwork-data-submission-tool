@@ -2165,12 +2165,7 @@
        [m4/checkbox-field
         {:form-id   [:form]
          :data-path ["agreedToTerms"]
-         :label     "I have read and agree with the terms and conditions"}]
-
-       [m4/checkbox-field
-        {:form-id   [:form]
-         :data-path ["personalCopyRequested"]
-         :label     "I want to keep a personal copy of the metadata record"}]]
+         :label     "I have read and agree with the terms and conditions"}]]
 
       ;; TODO: Use CSS?
       [m4/lodge-button]
@@ -2178,10 +2173,8 @@
       [:hr]
       [:b "Want to keep a personal copy of your metadata record?"]
       [:p
-      ;; TODO: add function to "click here" button
-       [:button.btn-link
-        {:style {:padding 0}}
-        "Click here"]
+       [m4/xml-export-link
+        {:label "Click here"}]
        " to generate an XML version of your metadata submission. The file generated includes all of the details you have provided under the tabs, but not files you have uploaded."]
       [:p "Please note: this XML file is not the recommended way to share your metadata. We want you to submit your data via 'lodging' the information. This permits multi-user access via the portal in a more friendly format."]]]})
 

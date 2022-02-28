@@ -1913,6 +1913,15 @@
                                      (js/alert "Please save changes before exporting."))}]
     [:a download-props label]))
 
+(defn terms-and-conditions
+  [_config]
+  (let [{:keys [site]} @(rf/subscribe [:subs/get-context])
+        {:keys [terms_pdf]} site]
+    [expanding-control {:label "Terms & Conditions"}
+     [:iframe {:width  "100%"
+               :height "600px"
+               :src    terms_pdf}]]))
+
 
 (defn yes-no-radios-simple-settings
   "Settings for yes-no-radios-simple component"

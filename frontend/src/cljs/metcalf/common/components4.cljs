@@ -353,6 +353,21 @@
   [config]
   (str @(rf/subscribe [::get-block-data config])))
 
+(defn dangerous-data-settings
+  "Settings for dangerous-data component"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks []})
+
+(defn dangerous-data
+  "A version of get-data that renders its text using dangerouslySetInnerHTML inside a span.
+
+  Intended for use displaying boilerplate text from the template, which may contain markup."
+  [config]
+  (let [str @(rf/subscribe [::get-block-data config])]
+    [:span {"dangerouslySetInnerHTML"
+            #js{:__html str}}]))
+
 (defn numeric-input-field-settings
   "Settings for numeric-input-field component"
   [_]

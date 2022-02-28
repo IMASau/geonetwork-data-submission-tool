@@ -199,6 +199,7 @@
        'm4/textarea-field                      {:view #'components4/textarea-field :init components4/textarea-field-settings}
        'm4/when-data                           {:view #'components4/when-data :init components4/when-data-settings}
        'm4/get-data                            {:view #'components4/get-data :init components4/get-data-settings}
+       'm4/dangerous-data                      {:view #'components4/dangerous-data :init components4/dangerous-data-settings}
        'm4/yes-no-field                        {:view #'components4/yes-no-field :init components4/yes-no-field-settings}
        'm4/simple-list                         {:view #'components4/simple-list :init components4/simple-list-settings}
        ;'m4/record-add-button                   {:view #'components4/record-add-button :init components4/record-add-button-settings}

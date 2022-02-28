@@ -199,13 +199,16 @@
        'm4/textarea-field                      {:view #'components4/textarea-field :init components4/textarea-field-settings}
        'm4/when-data                           {:view #'components4/when-data :init components4/when-data-settings}
        'm4/get-data                            {:view #'components4/get-data :init components4/get-data-settings}
+       'm4/dangerous-data                      {:view #'components4/dangerous-data :init components4/dangerous-data-settings}
        'm4/yes-no-field                        {:view #'components4/yes-no-field :init components4/yes-no-field-settings}
        'm4/simple-list                         {:view #'components4/simple-list :init components4/simple-list-settings}
        ;'m4/record-add-button                   {:view #'components4/record-add-button :init components4/record-add-button-settings}
        'm4/text-add-button                     {:view #'components4/text-add-button :init components4/text-add-button-settings}
        'm4/upload-files                        {:view #'components4/upload-files :init components4/upload-files-settings}
        'm4/upload-thumbnail                    {:view #'components4/upload-thumbnail :init components4/upload-thumbnail-settings}
-       'm4/lodge-button                        {:view #'components4/lodge-button}
+       'm4/terms-conditions                    {:view #'components4/terms-and-conditions}
+       'm4/lodge-button                        {:view #'components4/lodge-button :init components4/lodge-button-settings}
+       'm4/xml-export-link                     {:view #'components4/xml-export-link :init components4/xml-export-link-settings}
        'm4/when-errors                         {:view #'components4/when-errors :init components4/when-errors-settings}})
 
 ; Specs intended for use with when-data :pred
@@ -445,26 +448,26 @@
         :placeholder "Start typing to filter list..."
         :label-path  ["label"]
         :value-path  ["value"]
-        :options     [{"value" "farming" "label" "Farming"}
-                      {"value" "biota" "label" "Biota"}
-                      {"value" "boundaries" "label" "Boundaries"}
-                      {"value" "climatologyMeteorologyAtmosphere" "label" "Climatology/meteorology/atmosphere"}
-                      {"value" "economy" "label" "Economy"}
-                      {"value" "environment" "label" "Environment"}
-                      {"value" "geoscientificInformation" "label" "Geoscientific Information"}
-                      {"value" "health" "label" "Health"}
-                      {"value" "imageryBaseMapsEarthCover" "label" "Imagery Base Maps Earth Cover"}
-                      {"value" "intelligenceMilitary" "label" "Intelligence Military"}
-                      {"value" "inlandWaters" "label" "Inland Waters"}
-                      {"value" "location" "label" "Location"}
-                      {"value" "oceans" "label" "Oceans"}
-                      {"value" "planningCadastre" "label" "Planning Cadastre"}
-                      {"value" "society" "label" "Society"}
-                      {"value" "structure" "label" "Structure"}
-                      {"value" "transportation" "label" "Transportation"}
-                      {"value" "utilitiesCommunication" "label" "Utilities Communication"}
-                      {"value" "extraTerrestrial" "label" "Extra Terrestrial"}
-                      {"value" "disaster" "label" "Disaster"}]}]
+        :options     [{"value" "farming" "label" "Farming" "uri" "58c9c399-cf08-4f74-82f8-23506cf3c472"}
+                      {"value" "biota" "label" "Biota" "uri" "46cb9d9a-08d5-4d65-ae01-794881169317"}
+                      {"value" "boundaries" "label" "Boundaries" "uri" "13f26c70-a6cc-4c14-b823-487e05046324"}
+                      {"value" "climatologyMeteorologyAtmosphere" "label" "Climatology/meteorology/atmosphere" "uri" "f4d1f2fb-3f2c-43c0-8196-0f12a32c0192"}
+                      {"value" "economy" "label" "Economy" "uri" "19baf9c1-46e5-4522-872a-f4f10da3f530"}
+                      {"value" "environment" "label" "Environment" "uri" "615c77e6-aec0-43d8-994c-9ff9421c3c96"}
+                      {"value" "geoscientificInformation" "label" "Geoscientific Information" "uri" "943e577c-2097-4314-85ae-609f5e749886"}
+                      {"value" "health" "label" "Health" "uri" "2f2d5de2-6def-4243-b407-b68bdef4d18d"}
+                      {"value" "imageryBaseMapsEarthCover" "label" "Imagery Base Maps Earth Cover" "uri" "cacc1969-e445-4f5c-b63f-ae15357eca63"}
+                      {"value" "intelligenceMilitary" "label" "Intelligence Military" "uri" "c6e74ebf-8b85-43c1-98f0-ad384e7d9926"}
+                      {"value" "inlandWaters" "label" "Inland Waters" "uri" "d83db4fd-ab8b-4b3d-b3ba-1150f6365a70"}
+                      {"value" "location" "label" "Location" "uri" "71107532-2a3c-4ac3-baae-147192cfb369"}
+                      {"value" "oceans" "label" "Oceans" "uri" "7c3024e9-3838-4db0-a3b3-e4005f6a6572"}
+                      {"value" "planningCadastre" "label" "Planning Cadastre" "uri" "012cae3c-0aa6-4cb7-a182-36b6cb60b83b"}
+                      {"value" "society" "label" "Society" "uri" "a7c4b461-a912-4bcd-83de-b5b53a60b92e"}
+                      {"value" "structure" "label" "Structure" "uri" "abb85428-f6f9-4647-9591-b28392fa3f12"}
+                      {"value" "transportation" "label" "Transportation" "uri" "cfc0ef86-a8e1-4c06-b450-dac04c116d86"}
+                      {"value" "utilitiesCommunication" "label" "Utilities Communication" "uri" "d090879c-f1cc-4929-b8a1-723c57eba3c1"}
+                      {"value" "extraTerrestrial" "label" "Extra Terrestrial" "uri" "ccd13796-b99c-459d-a604-a8cc89674746"}
+                      {"value" "disaster" "label" "Disaster" "uri" "36e178f2-ff28-461b-9a6f-117f9faed747"}]}]
       [:div.SelectionListItemColoured
        [m4/selection-list-simple
         {:form-id    [:form]
@@ -980,10 +983,9 @@
             :placeholder "Start typing to filter list..."
             :label-path  ["label"]
             :value-path  ["value"]
-            :options     [{"value" "None" "label" "None"}
-                          {"value" "Denominator scale" "label" "Denominator scale"}
+            :options     [{"value" "Equivalent scale" "label" "Equivalent scale"}
+                          {"value" "Distance" "label" "Distance"}
                           {"value" "Vertical" "label" "Vertical"}
-                          {"value" "Horizontal" "label" "Horizontal"}
                           {"value" "Angular distance" "label" "Angular distance"}]}]]
 
          [m4/form-group
@@ -1300,7 +1302,7 @@
          {:form-id    ?form-id
           :data-path  [?data-path "organisation"]
           :uri        "/api/ternorgs"
-          :label-path ["name"]
+          :label-path ["display_name"]
           :value-path ["uri"]}]]
        [m4/item-dialog-button
         {:form-id            ?form-id
@@ -1403,7 +1405,7 @@
          {:form-id    ?form-id
           :data-path  [?data-path "organisation"]
           :uri        "/api/ternorgs"
-          :label-path ["name"]
+          :label-path ["display_name"]
           :value-path ["uri"]}]]
        [m4/item-dialog-button
         {:form-id            ?form-id
@@ -1935,10 +1937,9 @@
 
     :about/other-constraints-list-entry
     [:p {:key ?data-path}
-     [:i
-      [m4/get-data
-       {:form-id   ?form-id
-        :data-path ?data-path}]]]
+     [:i [m4/dangerous-data
+          {:form-id   ?form-id
+           :data-path ?data-path}]]]
 
     :upload
     [:div
@@ -2054,7 +2055,7 @@
        {:form-id     ?form-id
         :data-path   [?data-path "distributor"]
         :uri         "/api/ternorgs"
-        :label-path  ["name"]
+        :label-path  ["display_name"]
         :value-path  ["uri"]
         :placeholder "Will use TERN - UQ Long Pocket if not specified"}]]]
 
@@ -2165,23 +2166,19 @@
        [m4/checkbox-field
         {:form-id   [:form]
          :data-path ["agreedToTerms"]
-         :label     "I have read and agree with the terms and conditions"}]
+         :label     "I have read and agree with the terms and conditions"}]]
 
-       [m4/checkbox-field
-        {:form-id   [:form]
-         :data-path ["personalCopyRequested"]
-         :label     "I want to keep a personal copy of the metadata record"}]]
+      [m4/terms-conditions]
 
-      ;; TODO: Use CSS?
-      [m4/lodge-button]
+      [m4/lodge-button
+       {:form-id   [:form]
+        :data-path ["agreedToTerms"]}]
 
       [:hr]
       [:b "Want to keep a personal copy of your metadata record?"]
       [:p
-      ;; TODO: add function to "click here" button
-       [:button.btn-link
-        {:style {:padding 0}}
-        "Click here"]
+       [m4/xml-export-link
+        {:label "Click here"}]
        " to generate an XML version of your metadata submission. The file generated includes all of the details you have provided under the tabs, but not files you have uploaded."]
       [:p "Please note: this XML file is not the recommended way to share your metadata. We want you to submit your data via 'lodging' the information. This permits multi-user access via the portal in a more friendly format."]]]})
 

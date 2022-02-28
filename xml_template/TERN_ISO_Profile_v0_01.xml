@@ -1254,23 +1254,19 @@
               </gex:extent>
             </gex:EX_TemporalExtent>
           </gex:temporalElement>
-        </gex:EX_Extent>
-      </mri:extent>
-      <!-- Where7 and Where8 ~ Block Status vertical mri:extent ~ Current XML, change XML and functionality -->
-      <!-- Where7 and Where8 ~ Description ~ Indicates the lowest and highest vertical elevation at the site dataset was collected -->
-      <!-- Where7 and Where8 ~ Operation ~ If user elects to input vertical component, the fields are mandatory -->
-      <!-- Where7 and Where8 ~ Change Note ~ Remove from UI - field and label 'Elevation in metres' -->
-      <!-- Where7 and Where8 ~ Change Note ~ Remove from UI - text 'Specify the vertical extent of the data relative to a ground surface defined as 0m' -->
-      <!-- Where7 and Where8 ~ UI ~ Change function/Change texts -->
-      <!-- Where7 and Where8 ~ Tab ~ Where -->
-      <!-- Where7 and Where8 ~ Help Text ~ The lowest and highest vertical elevation at the site where the dataset was collected -->
-      <!-- Where7 and Where8 ~ Required ~ no -->
-      <!-- Where7 and Where8 ~ Cardinality ~ one -->
-      <!-- Where7 and Where8 ~ WriteEmptyBlock ~ no -->
-      <!-- Where7 and Where8 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030750285/Data+Identification+Extent+Vertical+Extent+TBC -->
-      <!-- Where7 and Where8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-      <mri:extent>
-        <gex:EX_Extent id="Vertical">
+          <!-- Where7 and Where8 ~ Block Status vertical mri:extent ~ Current XML, change XML and functionality -->
+          <!-- Where7 and Where8 ~ Description ~ Indicates the lowest and highest vertical elevation at the site dataset was collected -->
+          <!-- Where7 and Where8 ~ Operation ~ If user elects to input vertical component, the fields are mandatory -->
+          <!-- Where7 and Where8 ~ Change Note ~ Remove from UI - field and label 'Elevation in metres' -->
+          <!-- Where7 and Where8 ~ Change Note ~ Remove from UI - text 'Specify the vertical extent of the data relative to a ground surface defined as 0m' -->
+          <!-- Where7 and Where8 ~ UI ~ Change function/Change texts -->
+          <!-- Where7 and Where8 ~ Tab ~ Where -->
+          <!-- Where7 and Where8 ~ Help Text ~ The lowest and highest vertical elevation at the site where the dataset was collected -->
+          <!-- Where7 and Where8 ~ Required ~ no -->
+          <!-- Where7 and Where8 ~ Cardinality ~ one -->
+          <!-- Where7 and Where8 ~ WriteEmptyBlock ~ no -->
+          <!-- Where7 and Where8 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030750285/Data+Identification+Extent+Vertical+Extent+TBC -->
+          <!-- Where7 and Where8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
           <gex:verticalElement>
             <gex:EX_VerticalExtent>
               <!-- Where7 ~ Description ~ Minimum elevation of site in metres -->
@@ -2206,8 +2202,8 @@
             <!-- Disclaimer text from https://www.tern.org.au/access-policy/ -->
             <gco:CharacterString>TERN services are provided on an "as-is" and "as available" basis. Users use any TERN services at their discretion and risk.
             They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.
-            Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.
-            Please advise any work or publications that use this data via the online form at https://www.tern.org.au/research-publications/#reporting</gco:CharacterString>
+            &lt;br /&gt;Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.
+            &lt;br /&gt;&lt;br /&gt;Please advise any work or publications that use this data via the online form at https://www.tern.org.au/research-publications/#reporting</gco:CharacterString>
           </mco:otherConstraints>
           <mco:otherConstraints>
             <!-- Format for citation -->
@@ -2720,7 +2716,6 @@
             <!-- InputLength ~ 250 -->
             <!-- Size ~ multiline -->
             <!-- Cardinality ~ one -->
-            <!-- As at 05032021 I have advised SG that evaluationMethodDescription is a better element to use -->
             <mcc:MD_ScopeDescription>
               <mcc:other><gco:CharacterString>Placeholder Text=Does the quality statement apply to the entire data set or specific attributes?</gco:CharacterString></mcc:other>
             </mcc:MD_ScopeDescription>

@@ -353,6 +353,21 @@
   [config]
   (str @(rf/subscribe [::get-block-data config])))
 
+(defn dangerous-data-settings
+  "Settings for dangerous-data component"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks []})
+
+(defn dangerous-data
+  "A version of get-data that renders its text using dangerouslySetInnerHTML inside a span.
+
+  Intended for use displaying boilerplate text from the template, which may contain markup."
+  [config]
+  (let [str @(rf/subscribe [::get-block-data config])]
+    [:span {"dangerouslySetInnerHTML"
+            #js{:__html str}}]))
+
 (defn numeric-input-field-settings
   "Settings for numeric-input-field component"
   [_]
@@ -1860,27 +1875,57 @@
         {:value    (or name "")
          :disabled true}]])))
 
+(defn lodge-button-settings
+  [_]
+  {::low-code4/req-ks [:form-id :data-path]
+   ::low-code4/opt-ks []})
 
 (defn lodge-button
-  []
+  [config]
   (let [page @(rf/subscribe [:subs/get-page-props])
         ;; FIXME need an m4 saving? value.
         saving (:metcalf3.handlers/saving? page)
         {:keys [document urls]} @(rf/subscribe [:subs/get-context])
         {:keys [errors]} @(rf/subscribe [:subs/get-progress])
         disabled @(rf/subscribe [:subs/get-form-disabled?])
+        agreed-terms? @(rf/subscribe [::get-block-data config])
         has-errors? (and errors (> errors 0))
         archived? (= (:status document) "Archived")
         submitted? (= (:status document) "Submitted")]
     (when-not (or archived? submitted?)
       [:button.btn.btn-primary.btn-lg
-       {:disabled (or has-errors? saving disabled)
+       {:disabled (or has-errors? saving disabled (not agreed-terms?))
         :on-click #(rf/dispatch [:app/lodge-button-click])}
        (when saving
          [:img
           {:src (str (:STATIC_URL urls)
                      "metcalf3/img/saving.gif")}])
        "Lodge data"])))
+
+(defn xml-export-link-settings
+  "Settings for xml-export-link component"
+  [_]
+  {::low-code4/req-ks [:label]
+   ::low-code4/opt-ks [:form-id :data-path]})
+
+(defn xml-export-link
+  [config]
+  (let [{:keys [label]} @(rf/subscribe [::get-block-props config])
+        {:keys [document]} @(rf/subscribe [:subs/get-context])
+        dirty @(rf/subscribe [:subs/get-form-dirty])
+        download-props {:href     (str (:export_url document) "?download")
+                        :on-click #(when dirty
+                                     (js/alert "Please save changes before exporting."))}]
+    [:a download-props label]))
+
+(defn terms-and-conditions
+  [_config]
+  (let [{:keys [site]} @(rf/subscribe [:subs/get-context])
+        {:keys [terms_pdf]} site]
+    [expanding-control {:label "Terms & Conditions"}
+     [:iframe {:width  "100%"
+               :height "600px"
+               :src    terms_pdf}]]))
 
 
 (defn yes-no-radios-simple-settings

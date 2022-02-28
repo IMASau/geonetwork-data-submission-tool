@@ -367,6 +367,9 @@
             "type": "object",
             "xpath": "mri:topicCategory",
             "properties": {
+              "uri": {
+                "type": "string"
+              },
               "label": {
                 "type": "string"
               },
@@ -517,6 +520,9 @@
                     "rules": ["requiredField"],
                     "keep": false
                   },
+                  "display_name": {
+                    "type": "string"
+                  },
                   "uri": {
                     "!docstring": "Who8 / Who9 / Who12",
                     "xpath": "cit:partyIdentifier",
@@ -633,6 +639,10 @@
                     "keep": false,
                     "export": false,
                     "required": true
+                  },
+                  "position": {
+                    "type": "string",
+                    "xpath": "cit:positionName/gco:CharacterString"
                   },
                   "email": {
                     "!docstring": "Who6",
@@ -758,6 +768,9 @@
                     "rules": ["requiredField"],
                     "keep": false
                   },
+                  "display_name": {
+                    "type": "string"
+                  },
                   "uri": {
                     "!docstring": "Who8 / Who9 / Who12",
                     "xpath": "cit:partyIdentifier",
@@ -858,6 +871,10 @@
                     "required": true,
                     "keep": false,
                     "export": false
+                  },
+                  "position": {
+                    "type": "string",
+                    "xpath": "cit:positionName/gco:CharacterString"
                   },
                   "email": {
                     "!docstring": "Who6",
@@ -1068,7 +1085,15 @@
           "exportTo": {
             "function": "spatial_units_export"
           },
-          "rules": ["spatialUnits"]
+          "rules": [
+            "spatialUnits",
+            {
+              "requiredIfValue": {
+                "value-field": "ResolutionAttribute",
+                "dependent-field": "ResolutionAttributeValue"
+              }
+            }
+          ]
         },
         "keywordsTheme": {
           "!docstring": "What3",
@@ -1562,7 +1587,8 @@
                 }
               }
             }
-          }
+          },
+          "rules": ["requiredField"]
         },
         "environment": {
           "!docstring": "About3",
@@ -1773,32 +1799,31 @@
       }
     },
     "dataQualityInfo": {
-      "xpath": "mdb:dataQualityInfo/mdq:DQ_DataQuality/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy",
+      "xpath": "mdb:dataQualityInfo/mdq:DQ_DataQuality",
       "type": "object",
       "properties": {
         "methodSummary": {
           "!docstring": "How8",
-          "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:evaluationMethodDescription",
-          "valueChild": "gco:CharacterString",
+          "xpath": "mdq:scope/mcc:MD_Scope/mcc:levelDescription/mcc:MD_ScopeDescription/mcc:other/gco:CharacterString",
           "type": "string",
           "keep": false,
           "required": false
         },
         "results": {
           "!docstring": "How12",
-          "xpath": "mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
+          "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
           "keep": false,
           "required": false,
           "type": "string"
         },
         "onlineMethods": {
           "!docstring": "How9",
-          "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
+          "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
           "keep": false,
           "required": false,
           "type": "array",
           "items": {
-            "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
+            "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
             "type": "object",
             "properties": {
               "uri": {

@@ -314,7 +314,6 @@ def prune_if_empty(data, parent, spec, nsmap, i, silent):
             elem.getparent().remove(elem)
     # No descendent text() at all:
     for xpath in ['mri:descriptiveKeywords',
-                  'mri:resourceConstraints',
                   # Where9/where10 (only one should be populated):
                   'mri:equivalentScale',
                   'mri:vertical',
@@ -604,9 +603,9 @@ def spatial_units_export(data):
     # are only concerned with inserting the value:
     attr = data.get('ResolutionAttribute')
     unitToXPath = {
-        'Denominator scale': 'mri:equivalentScale/mri:MD_RepresentativeFraction/mri:denominator/gco:Integer',
+        'Equivalent scale': 'mri:equivalentScale/mri:MD_RepresentativeFraction/mri:denominator/gco:Integer',
         'Vertical': 'mri:vertical/gco:Distance',
-        'Horizontal': 'mri:distance/gco:Distance',
+        'Distance': 'mri:distance/gco:Distance',
         'Angular distance': 'mri:angularDistance/gco:Angle',
     }
     if attr and attr in unitToXPath:

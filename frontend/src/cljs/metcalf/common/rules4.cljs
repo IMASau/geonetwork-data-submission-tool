@@ -108,7 +108,10 @@
         has-value? (not (contains? empty-values (get data value-field)))]
     (-> block
         (update-in [:content dependent-field] required-field has-value?)
-        (assoc-in [:content dependent-field :props :disabled] (not has-value?)))))
+        (assoc-in [:content dependent-field :props :disabled] (not has-value?))
+        (cond-> ;block
+          (not has-value?)
+          (assoc-in [:content dependent-field :props :value] nil)))))
 
 (defn- -enforce-required-subfields
   [block field-list]
@@ -298,21 +301,13 @@
   field should change"
   [spatial-block]
   (let [resolution-attribute (get-in spatial-block [:content "ResolutionAttribute" :props :value])
-        resolution-value (get-in spatial-block [:content "ResolutionAttributeValue" :props :value])
-        disable-value? #(boolean (#{"None" "Denominator scale"} %))
         units (case resolution-attribute
-                "None" ""
-                "Denominator scale" "Unitless"
+                nil ""
+                "Equivalent scale" "Unitless"
                 "Angular distance" "Degrees"
                 "Metres")]
     (-> spatial-block
-        (assoc-in [:content "ResolutionAttributeUnits" :props :value] units)
-        (update-in [:content "ResolutionAttributeValue" :props]
-                   merge {:required (not (disable-value? resolution-attribute))
-                          :disabled (disable-value? resolution-attribute)})
-        (cond->
-          (not resolution-value)
-          (update-in [:content "ResolutionAttributeValue" :props :errors] conj "This field is required")))))
+        (assoc-in [:content "ResolutionAttributeUnits" :props :value] units))))
 
 (defn imas-vertical-required
   "Vertical fields are required / included based on vertical extent checkbox"

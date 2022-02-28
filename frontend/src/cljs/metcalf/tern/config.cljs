@@ -980,10 +980,9 @@
             :placeholder "Start typing to filter list..."
             :label-path  ["label"]
             :value-path  ["value"]
-            :options     [{"value" "None" "label" "None"}
-                          {"value" "Denominator scale" "label" "Denominator scale"}
+            :options     [{"value" "Equivalent scale" "label" "Equivalent scale"}
+                          {"value" "Distance" "label" "Distance"}
                           {"value" "Vertical" "label" "Vertical"}
-                          {"value" "Horizontal" "label" "Horizontal"}
                           {"value" "Angular distance" "label" "Angular distance"}]}]]
 
          [m4/form-group

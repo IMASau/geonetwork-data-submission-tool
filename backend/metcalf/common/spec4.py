@@ -604,9 +604,9 @@ def spatial_units_export(data):
     # are only concerned with inserting the value:
     attr = data.get('ResolutionAttribute')
     unitToXPath = {
-        'Denominator scale': 'mri:equivalentScale/mri:MD_RepresentativeFraction/mri:denominator/gco:Integer',
+        'Equivalent scale': 'mri:equivalentScale/mri:MD_RepresentativeFraction/mri:denominator/gco:Integer',
         'Vertical': 'mri:vertical/gco:Distance',
-        'Horizontal': 'mri:distance/gco:Distance',
+        'Distance': 'mri:distance/gco:Distance',
         'Angular distance': 'mri:angularDistance/gco:Angle',
     }
     if attr and attr in unitToXPath:

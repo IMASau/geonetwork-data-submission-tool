@@ -1074,7 +1074,15 @@
           "exportTo": {
             "function": "spatial_units_export"
           },
-          "rules": ["spatialUnits"]
+          "rules": [
+            "spatialUnits",
+            {
+              "requiredIfValue": {
+                "value-field": "ResolutionAttribute",
+                "dependent-field": "ResolutionAttributeValue"
+              }
+            }
+          ]
         },
         "keywordsTheme": {
           "!docstring": "What3",

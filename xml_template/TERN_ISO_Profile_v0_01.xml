@@ -1254,23 +1254,19 @@
               </gex:extent>
             </gex:EX_TemporalExtent>
           </gex:temporalElement>
-        </gex:EX_Extent>
-      </mri:extent>
-      <!-- Where7 and Where8 ~ Block Status vertical mri:extent ~ Current XML, change XML and functionality -->
-      <!-- Where7 and Where8 ~ Description ~ Indicates the lowest and highest vertical elevation at the site dataset was collected -->
-      <!-- Where7 and Where8 ~ Operation ~ If user elects to input vertical component, the fields are mandatory -->
-      <!-- Where7 and Where8 ~ Change Note ~ Remove from UI - field and label 'Elevation in metres' -->
-      <!-- Where7 and Where8 ~ Change Note ~ Remove from UI - text 'Specify the vertical extent of the data relative to a ground surface defined as 0m' -->
-      <!-- Where7 and Where8 ~ UI ~ Change function/Change texts -->
-      <!-- Where7 and Where8 ~ Tab ~ Where -->
-      <!-- Where7 and Where8 ~ Help Text ~ The lowest and highest vertical elevation at the site where the dataset was collected -->
-      <!-- Where7 and Where8 ~ Required ~ no -->
-      <!-- Where7 and Where8 ~ Cardinality ~ one -->
-      <!-- Where7 and Where8 ~ WriteEmptyBlock ~ no -->
-      <!-- Where7 and Where8 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030750285/Data+Identification+Extent+Vertical+Extent+TBC -->
-      <!-- Where7 and Where8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-      <mri:extent>
-        <gex:EX_Extent id="Vertical">
+          <!-- Where7 and Where8 ~ Block Status vertical mri:extent ~ Current XML, change XML and functionality -->
+          <!-- Where7 and Where8 ~ Description ~ Indicates the lowest and highest vertical elevation at the site dataset was collected -->
+          <!-- Where7 and Where8 ~ Operation ~ If user elects to input vertical component, the fields are mandatory -->
+          <!-- Where7 and Where8 ~ Change Note ~ Remove from UI - field and label 'Elevation in metres' -->
+          <!-- Where7 and Where8 ~ Change Note ~ Remove from UI - text 'Specify the vertical extent of the data relative to a ground surface defined as 0m' -->
+          <!-- Where7 and Where8 ~ UI ~ Change function/Change texts -->
+          <!-- Where7 and Where8 ~ Tab ~ Where -->
+          <!-- Where7 and Where8 ~ Help Text ~ The lowest and highest vertical elevation at the site where the dataset was collected -->
+          <!-- Where7 and Where8 ~ Required ~ no -->
+          <!-- Where7 and Where8 ~ Cardinality ~ one -->
+          <!-- Where7 and Where8 ~ WriteEmptyBlock ~ no -->
+          <!-- Where7 and Where8 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1030750285/Data+Identification+Extent+Vertical+Extent+TBC -->
+          <!-- Where7 and Where8 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
           <gex:verticalElement>
             <gex:EX_VerticalExtent>
               <!-- Where7 ~ Description ~ Minimum elevation of site in metres -->

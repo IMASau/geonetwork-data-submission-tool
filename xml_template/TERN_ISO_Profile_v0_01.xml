@@ -2720,7 +2720,6 @@
             <!-- InputLength ~ 250 -->
             <!-- Size ~ multiline -->
             <!-- Cardinality ~ one -->
-            <!-- As at 05032021 I have advised SG that evaluationMethodDescription is a better element to use -->
             <mcc:MD_ScopeDescription>
               <mcc:other><gco:CharacterString>Placeholder Text=Does the quality statement apply to the entire data set or specific attributes?</gco:CharacterString></mcc:other>
             </mcc:MD_ScopeDescription>

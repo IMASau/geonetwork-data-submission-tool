@@ -1798,32 +1798,31 @@
       }
     },
     "dataQualityInfo": {
-      "xpath": "mdb:dataQualityInfo/mdq:DQ_DataQuality/mdq:report/mdq:DQ_QuantitativeAttributeAccuracy",
+      "xpath": "mdb:dataQualityInfo/mdq:DQ_DataQuality",
       "type": "object",
       "properties": {
         "methodSummary": {
           "!docstring": "How8",
-          "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:evaluationMethodDescription",
-          "valueChild": "gco:CharacterString",
+          "xpath": "mdq:scope/mcc:MD_Scope/mcc:levelDescription/mcc:MD_ScopeDescription/mcc:other/gco:CharacterString",
           "type": "string",
           "keep": false,
           "required": false
         },
         "results": {
           "!docstring": "How12",
-          "xpath": "mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
+          "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
           "keep": false,
           "required": false,
           "type": "string"
         },
         "onlineMethods": {
           "!docstring": "How9",
-          "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
+          "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
           "keep": false,
           "required": false,
           "type": "array",
           "items": {
-            "xpath": "mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
+            "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
             "type": "object",
             "properties": {
               "uri": {

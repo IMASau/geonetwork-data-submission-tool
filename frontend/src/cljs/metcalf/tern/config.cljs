@@ -2168,6 +2168,8 @@
          :data-path ["agreedToTerms"]
          :label     "I have read and agree with the terms and conditions"}]]
 
+      [m4/terms-conditions]
+
       ;; TODO: Use CSS?
       [m4/lodge-button]
 

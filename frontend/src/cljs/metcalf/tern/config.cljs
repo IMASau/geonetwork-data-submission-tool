@@ -1935,10 +1935,9 @@
 
     :about/other-constraints-list-entry
     [:p {:key ?data-path}
-     [:i
-      [m4/get-data
-       {:form-id   ?form-id
-        :data-path ?data-path}]]]
+     [:i [m4/dangerous-data
+          {:form-id   ?form-id
+           :data-path ?data-path}]]]
 
     :upload
     [:div

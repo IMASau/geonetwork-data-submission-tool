@@ -637,6 +637,10 @@
                     "export": false,
                     "required": true
                   },
+                  "position": {
+                    "type": "string",
+                    "xpath": "cit:positionName/gco:CharacterString"
+                  },
                   "email": {
                     "!docstring": "Who6",
                     "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
@@ -864,6 +868,10 @@
                     "required": true,
                     "keep": false,
                     "export": false
+                  },
+                  "position": {
+                    "type": "string",
+                    "xpath": "cit:positionName/gco:CharacterString"
                   },
                   "email": {
                     "!docstring": "Who6",

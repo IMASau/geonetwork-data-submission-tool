@@ -367,6 +367,9 @@
             "type": "object",
             "xpath": "mri:topicCategory",
             "properties": {
+              "uri": {
+                "type": "string"
+              },
               "label": {
                 "type": "string"
               },

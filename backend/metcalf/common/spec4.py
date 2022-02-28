@@ -314,7 +314,6 @@ def prune_if_empty(data, parent, spec, nsmap, i, silent):
             elem.getparent().remove(elem)
     # No descendent text() at all:
     for xpath in ['mri:descriptiveKeywords',
-                  'mri:resourceConstraints',
                   # Where9/where10 (only one should be populated):
                   'mri:equivalentScale',
                   'mri:vertical',

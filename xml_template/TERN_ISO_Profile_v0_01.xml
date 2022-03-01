@@ -2708,122 +2708,67 @@
             <mcc:MD_ScopeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_ScopeCode" codeListValue="dataset"/>
           </mcc:level>
           <mcc:levelDescription>
-            <!-- Display Label ~ Description of the scope -->
-            <!-- Help Text ~ Describe the class of information covered by the statement -->
-            <!-- Placeholder Text ~ as shown below -->
-            <!-- KeepPlaceholderText ~ no -->
-            <!-- Required ~ no -->
-            <!-- InputLength ~ 250 -->
-            <!-- Size ~ multiline -->
-            <!-- Cardinality ~ one -->
+            <!-- Data Quality 1 ~ Display Label ~ A more detailed description of the scope of the data quality that includes specific attributes, features, or elements of the resource-->
+            <!-- Data Quality 1 ~ Help Text ~  Description of the scope of the data quality -->
+            <!-- Data Quality 1 ~ Placeholder Text ~ as shown below -->
+            <!-- Data Quality 1 ~ KeepPlaceholderText ~ no -->
+            <!-- Data Quality 1 ~Required ~ yes -->
+            <!-- Data Quality 1 ~ InputLength ~ 600 -->
+            <!-- Data Quality 1 ~ Size ~ multiline -->
+            <!-- Data Quality 1 ~ Cardinality ~ one -->
+            <!-- Data Quality 1 ~ this element is used to capture the description with the title "provide a summary of the scope of the Data Quality Assessment" -->
             <mcc:MD_ScopeDescription>
-              <mcc:other><gco:CharacterString>Placeholder Text=Does the quality statement apply to the entire data set or specific attributes?</gco:CharacterString></mcc:other>
+              <mcc:other>
+                <gco:CharacterString>Placeholder Text=A more detailed description of the scope of the data quality that includes specific attributes, features, or elements of the resource?</gco:CharacterString>
+              </mcc:other>
             </mcc:MD_ScopeDescription>
           </mcc:levelDescription>
         </mcc:MD_Scope>
       </mdq:scope>
+      <!-- Data Quality 2 ~Display Label ~ Information about an external data quality report.-->
+      <!-- Data Quality 2 ~ Help Text ~  Information about an external data quality report -->
+      <!-- Data Quality 2 ~ Placeholder Text ~ as shown below -->
+      <!-- Data Quality 2 ~ KeepPlaceholderText ~ yes -->
+      <!-- Data Quality 2 ~ Required ~ no -->
+      <!-- Data Quality 2 ~ InputLength ~ 150 -->
+      <!-- Data Quality 2 ~ Size ~ single line -->
+      <!-- Data Quality 2 ~ Cardinality ~ one -->
+      <mdq:standaloneQualityReport>
+        <mdq:DQ_StandaloneQualityReportInformation>
+          <mdq:reportReference>
+            <cit:CI_Citation>
+              <cit:title>
+                <gco:CharacterString>PlaceHolder Text = Name of the report</gco:CharacterString>
+              </cit:title>
+              <cit:onlineResource>
+                <cit:CI_OnlineResource>
+                  <cit:linkage>
+                    <gco:CharacterString>PlaceHolder Text = URL of the report</gco:CharacterString>
+                  </cit:linkage>
+                </cit:CI_OnlineResource>
+              </cit:onlineResource>
+            </cit:CI_Citation>
+          </mdq:reportReference>
+        </mdq:DQ_StandaloneQualityReportInformation>
+      </mdq:standaloneQualityReport>
       <mdq:report>
-        <mdq:DQ_QuantitativeAttributeAccuracy>
-          <!-- How8 ~ Description ~ Describe the methods used to assess the data quality -->
-          <!-- How8 ~ Help Text ~ Description of the evaluation method -->
-          <!-- How8 ~ Placeholder Text ~ as shown below -->
-          <!-- How8 ~ KeepPlaceholderText ~ no -->
-          <!-- How8 ~ Required ~ no -->
-          <!-- How8 ~ InputLength ~ 1000 -->
-          <!-- How8 ~ Size ~ multiline -->
-          <!-- How8 ~ Cardinality ~ one -->
-          <mdq:evaluationMethod>
-            <mdq:DQ_EvaluationMethod>
-              <!-- ASD@2022 comment out this element as there is no GUI element in SHAREDv4 to capture this information -->
-              <!-- mdq:evaluationMethodDescription>
-                <gco:CharacterString>The data quality was assessed by ...</gco:CharacterString>
-              </mdq:evaluationMethodDescription -->
-              <!-- How9 ~ Cardinality ~ 0 to many referenceDoc blocks -->
-              <!-- How9 ~ Online documentation Title and URI - example 1 -->
-              <mdq:referenceDoc>
-                <cit:CI_Citation>
-                  <!-- How10 ~ Display Label ~ Title -->
-                  <!-- How10 ~ Help Text ~ Provide the document title -->
-                  <!-- How10 ~ Placeholder Text ~ as shown below -->
-                  <!-- How10 ~ KeepPlaceholderText ~ no -->
-                  <!-- How10 ~ Required ~ Conditional -->
-                  <!-- How10 ~ InputLength ~ 300 -->
-                  <!-- How10 ~ Size ~ single -->
-                  <cit:title>
-                    <gco:CharacterString>Provide the document title</gco:CharacterString>
-                  </cit:title>
-                  <cit:onlineResource>
-                    <cit:CI_OnlineResource>
-                      <!-- How11 ~ Display Label ~ URI -->
-                      <!-- How11 ~ Help Text ~ Provide a hyperlink to the method document -->
-                      <!-- How11 ~ Placeholder Text ~ see Help Text -->
-                      <!-- How11 ~ KeepPlaceholderText ~ no -->
-                      <!-- How11 ~ Required ~ Conditional -->
-                      <!-- How11 ~ InputLength ~ 250 -->
-                      <!-- How11 ~ Size ~ single -->
-                      <!-- How11 ~ Cardinality ~ one per additionalDocumentation block -->
-                      <cit:linkage>
-                        <gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
-                      </cit:linkage>
-                      <!-- How11 ~ default values apply -->
-                      <cit:protocol>
-                        <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                      </cit:protocol>
-                      <cit:description>
-                        <gco:CharacterString>Data quality documentation</gco:CharacterString>
-                      </cit:description>
-                      <cit:function>
-                        <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
-                                                   codeListValue="information"/>
-                      </cit:function>
-                    </cit:CI_OnlineResource>
-                  </cit:onlineResource>
-                </cit:CI_Citation>
-              </mdq:referenceDoc>
-              <!-- Online documentation Title and URI - example 2 -->
-              <mdq:referenceDoc><cit:CI_Citation>
-                <cit:title>
-                  <gco:CharacterString>Provide the document title</gco:CharacterString>
-                </cit:title>
-                <cit:onlineResource>
-                  <cit:CI_OnlineResource>
-                    <cit:linkage>
-                      <gco:CharacterString>Provide the hyperlink to the online document</gco:CharacterString>
-                    </cit:linkage>
-                    <!-- default values apply -->
-                    <cit:protocol>
-                      <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                    </cit:protocol>
-                    <cit:description>
-                      <gco:CharacterString>Data quality documentation</gco:CharacterString>
-                    </cit:description>
-                    <cit:function>
-                      <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
-                                                 codeListValue="information"/>
-                    </cit:function>
-                  </cit:CI_OnlineResource>
-                </cit:onlineResource>
-              </cit:CI_Citation>
-              </mdq:referenceDoc>
-            </mdq:DQ_EvaluationMethod>
-          </mdq:evaluationMethod>
-          <!-- How12 ~ Display Label ~ Data Quality Result -->
-          <!-- How12 ~ Help Text ~ Description of the data quality assessment results -->
-          <!-- How12 ~ Placeholder Text ~ as shown below -->
-          <!-- How12 ~ KeepPlaceholderText ~ no -->
-          <!-- How12 ~ Required ~ no -->
-          <!-- How12 ~ InputLength ~ As-Is 1000 -->
-          <!-- How12 ~ Size ~ multiline -->
-          <!-- How12 ~ Cardinality ~ one -->
-          <mdq:result>
+        <!-- Data Quality 3 ~ Display Label ~ Data Quality Result -->
+        <!-- Data Quality 3 ~ Help Text ~ A description of the result of a data quality measure -->
+        <!-- Data Quality 3 ~ ~ Placeholder Text ~ as shown below -->
+        <!-- Data Quality 3 ~ KeepPlaceholderText ~ yes -->
+        <!-- Data Quality 3 ~ Required ~ no -->
+        <!-- Data Quality 3 ~ InputLength ~ 400 -->
+        <!-- Data Quality 3 ~ Size ~ multiline -->
+        <!-- Data Quality 3 ~ Cardinality ~ one -->
+        <mdq:result>
+          <mdq:DQ_QuantitativeAttributeAccuracy>
             <mdq:DQ_DescriptiveResult>
               <mdq:statement>
-                <gco:CharacterString>Placeholder text=A statement regarding the data quality assessment results.
-                Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc.</gco:CharacterString>
+                <gco:CharacterString>Placeholder text = A description of the result of a data quality measure </gco:CharacterString>
               </mdq:statement>
             </mdq:DQ_DescriptiveResult>
-          </mdq:result>
-        </mdq:DQ_QuantitativeAttributeAccuracy>
+          </mdq:DQ_QuantitativeAttributeAccuracy>
+        </mdq:result>
       </mdq:report>
     </mdq:DQ_DataQuality>
   </mdb:dataQualityInfo>

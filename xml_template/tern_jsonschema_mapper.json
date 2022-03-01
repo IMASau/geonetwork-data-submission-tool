@@ -80,6 +80,18 @@
                 }
               }
             }
+          },
+          "id": {
+            "type": "number"
+          },
+          "created": {
+            "type": "string"
+          },
+          "modified": {
+            "type": "string"
+          },
+          "delete_url": {
+            "type": "string"
           }
         }
       }

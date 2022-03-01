@@ -412,13 +412,12 @@ def extract_user_defined(data: dict, path="$", acc: list = None) -> list:
                 # Skip over simple lists
                 if not isinstance(item, dict):
                     continue
-                # Pick out the filter; we only support a couple of cases for now:
-                if 'uri' in item:
-                    filterkey = 'uri'
-                    filterval = item.get('uri')
-                elif 'url' in item:
-                    filterkey = 'url'
-                    filterval = item.get('url')
+                # Pick out the filter; we only support a few cases for now:
+                for prop in ['uri', 'url', 'id']:
+                    if prop in item:
+                        filterkey = prop
+                        filterval = item.get(prop)
+                        break
                 else:
                     raise KeyError(f'DUMA expects either uri or url keys to be present; path: {path}|{k}')
                 filter = f'{k}[?(@.{filterkey}=="{filterval}")]'

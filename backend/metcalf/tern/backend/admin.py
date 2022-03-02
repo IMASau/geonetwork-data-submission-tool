@@ -1,3 +1,4 @@
+import copy
 import urllib
 import urllib.parse
 
@@ -171,6 +172,11 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
     def get_fieldsets(self, request, obj=None):
         # Initialise with the fieldsets declared above:
         fieldsets = super().get_fieldsets(request, obj)
+        # Trap for beginners: if super.get_fieldsets returns the
+        # admin-instance variable we will potentially append multiple
+        # copies (ignoring the actual status of the object in
+        # question)
+        fieldsets = copy.deepcopy(fieldsets)
         if obj and obj.status in (models.Document.SUBMITTED, models.Document.UPLOADED):
             gn_fieldset = ('Publishing to Catalogue', {'fields': ('date_published', 'publish_result',)})
             fieldsets.append(gn_fieldset)

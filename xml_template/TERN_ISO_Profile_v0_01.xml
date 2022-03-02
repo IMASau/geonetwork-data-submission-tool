@@ -157,7 +157,6 @@
       <mdb:resourceScope>
         <mcc:MD_ScopeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_ScopeCode" codeListValue="dataset"/>
       </mdb:resourceScope>
-      <mdb:name gco:nilReason="missing"/>
     </mdb:MD_MetadataScope>
   </mdb:metadataScope>
   <!-- Static section ~ retain in XML output -->
@@ -215,7 +214,6 @@
           <cit:partyIdentifier>
             <mcc:MD_Identifier>
               <mcc:code>
-                <!-- gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString -->
                 <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66" xlink:show="new">https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gcx:Anchor>
               </mcc:code>
               <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -343,7 +341,6 @@
       </cit:edition>
       <cit:identifier>
         <mcc:MD_Identifier>
-          <!-- mcc:code><gco:CharacterString> </gco:CharacterString></mcc:code -->
           <mcc:code>
             <gcx:Anchor xlink:role="uri" xlink:href="https://doi.org/10.5281/zenodo.5652221" xlink:show="new">10.5281/zenodo.5652221 </gcx:Anchor>
           </mcc:code>
@@ -623,7 +620,6 @@
                   <cit:partyIdentifier>
                     <mcc:MD_Identifier>
                       <mcc:code>
-                        <!-- gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString -->
                         <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66" xlink:show="new">https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gcx:Anchor>
                       </mcc:code>
                       <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -723,7 +719,6 @@
                   <cit:partyIdentifier>
                     <mcc:MD_Identifier>
                       <mcc:code>
-                        <!-- gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString -->
                         <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1" xlink:show="new">https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gcx:Anchor>
                       </mcc:code>
                       <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -849,7 +844,6 @@
                   <cit:partyIdentifier>
                     <mcc:MD_Identifier>
                       <mcc:code>
-                        <!-- gco:CharacterString>https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gco:CharacterString -->
                         <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1" xlink:show="new">https://w3id.org/tern/resources/276dd611-5d74-4555-b20f-12f0f0b618a1</gcx:Anchor>
                       </mcc:code>
                       <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -1006,19 +1000,6 @@
                       </cit:numberType>
                     </cit:CI_Telephone>
                   </cit:phone>
-                  <!-- ASD@2022 excluding this part as organization does not have a fax number in SHaRED v4 -->
-                  <!--
-                  <cit:phone>
-                    <cit:CI_Telephone>
-                      <cit:number>
-                        <gco:CharacterString>02 6249 9920</gco:CharacterString>
-                      </cit:number>
-                      <cit:numberType>
-                        <cit:CI_TelephoneTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_TelephoneTypeCode" codeListValue="facsimile"/>
-                      </cit:numberType>
-                    </cit:CI_Telephone>
-                  </cit:phone>
-                  -->
                   <cit:address>
                     <cit:CI_Address>
                       <cit:deliveryPoint>
@@ -1050,7 +1031,6 @@
               <cit:partyIdentifier>
                 <mcc:MD_Identifier>
                   <mcc:code>
-                    <!--gco:CharacterString>https://w3id.org/tern/resources/797307f8-e10b-4c74-8688-d52f9ac8d669</gco:CharacterString -->
                     <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/797307f8-e10b-4c74-8688-d52f9ac8d669" xlink:show="new">https://w3id.org/tern/resources/797307f8-e10b-4c74-8688-d52f9ac8d669</gcx:Anchor>
                   </mcc:code>
                   <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -1710,7 +1690,6 @@
           </mri:thesaurusName>
         </mri:MD_Keywords>
       </mri:descriptiveKeywords>
-
       <!-- What8 ~ Display Label ~ TERN Parameter Vocabulary -->
       <!-- What8 ~ Help Text ~ Select the Parameter(s) or click Add to create a new entry -->
       <!-- What8 ~ Operation ~ User can select values and create new list values -->
@@ -2444,7 +2423,6 @@
                   <cit:partyIdentifier>
                     <mcc:MD_Identifier>
                       <mcc:code>
-                        <!-- gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString -->
                         <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66" xlink:show="new">https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gcx:Anchor>
                       </mcc:code>
                       <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>
@@ -2475,7 +2453,6 @@
         <mrd:MD_DigitalTransferOptions>
           <!-- Datasource1 ~ Display Label ~ n/a -->
           <!-- Datasource1 ~ Operation ~ Can file size in MB be determined automatically by Data upload function? -->
-          <mrd:transferSize><gco:Real>10</gco:Real></mrd:transferSize>
           <mrd:onLine>
             <cit:CI_OnlineResource>
               <!-- Datasource1 ~ Display Label ~ n/a -->
@@ -2505,11 +2482,6 @@
               <!-- Datasource1 ~ Required ~ conditional -->
               <!-- Datasource1 ~ Rule ~ Required if a file is uploaded via Upload Data feature -->
               <!-- Datasource1 ~ Rule ~ File name without file extension, replace ["_","-"] with space -->
-              <!-- ASD@2022 Comment out this element as it is not supported on SHaRED GUI for file upload-->
-              <!--
-              <cit:description>
-                <gco:CharacterString>DictionaryParkhurst etal 2020</gco:CharacterString>
-              </cit:description> -->
               <cit:function>
                 <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
                                            codeListValue="download"/>
@@ -2628,7 +2600,6 @@
           <!-- InputLength ~ 10 -->
           <!-- Size ~ single -->
           <!-- Cardinality ~ one per mrd:transferOptions block -->
-          <mrd:transferSize><gco:Real>200</gco:Real></mrd:transferSize>
           <mrd:onLine>
             <cit:CI_OnlineResource>
               <!-- Datasource11 ~ Description ~ URL -->
@@ -2893,71 +2864,4 @@
 
     </mrl:LI_Lineage>
   </mdb:resourceLineage>
-  <!-- Description ~ Individual methods used to produce the dataset/collection -->
-  <!-- WriteEmptyBlock ~ no -->
-  <!-- Status ~ Current XML and additional elements -->
-  <!-- Operation ~ User input -->
-  <!-- Operation ~ Block is optional, but if selected then Name and Description are mandatory -->
-  <!-- UI ~ Change function/Change texts -->
-  <!-- Tab ~ How -->
-  <!-- Display Label ~ Process steps optional -->
-  <!-- Cardinality ~ one for each Process steps -->
-  <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1041825814/Resource+Lineage+Statement -->
-  <!-- Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1044414700/Resource+Lineage+Process+Step -->
-  <!-- Process steps - example 1 -->
-  <!-- ASD@2022 Disable this example as mdb:MD_Metadata can have one mdb:resourceLineage and  mdb:resourceLineage can have 0..* mrl:LI_Lineage -->
-  <!-- <mdb:resourceLineage> -->
-  <!--   <mrl:LI_Lineage> -->
-  <!--     <!-\- How7 ~ Description ~ Summary -\-> -->
-  <!--     <!-\- How7 ~ Help Text ~ Provide a brief description of the method -\-> -->
-  <!--     <!-\- How7 ~ Placeholder Text ~ as shown below -\-> -->
-  <!--     <!-\- How7 ~ KeepPlaceholderText ~ yes -\-> -->
-  <!--     <!-\- How7 ~ Required ~ Conditional - block is optional but field is required if block is completed -\-> -->
-  <!--     <!-\- How7 ~ InputLength ~ 500 -\-> -->
-  <!--     <!-\- How7 ~ Size ~ multiline -\-> -->
-  <!--     <!-\- How7 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -\-> -->
-  <!--     <mrl:statement> -->
-  <!--       <gco:CharacterString>Placeholder text=Provide a brief summary of a single method or procedure</gco:CharacterString> -->
-  <!--     </mrl:statement> -->
-  <!--     <mrl:additionalDocumentation> -->
-  <!--       <cit:CI_Citation> -->
-  <!--         <!-\- How6 ~ Description ~ Name -\-> -->
-  <!--         <!-\- How6 ~ Help Text ~ Provide the name of the method or procedure -\-> -->
-  <!--         <!-\- How6 ~ Placeholder Text ~ as shown below -\-> -->
-  <!--         <!-\- How6 ~ KeepPlaceholderText ~ no -\-> -->
-  <!--         <!-\- How6 ~ Required ~ Conditional - block is optional but field is required if block is completed -\-> -->
-  <!--         <!-\- How6 ~ InputLength ~ 500 -\-> -->
-  <!--         <!-\- How6 ~ Size ~ single -\-> -->
-  <!--         <!-\- How6 ~ Cardinality ~ one per Process steps mdb:resourceLineage block -\-> -->
-  <!--         <cit:title> -->
-  <!--           <gco:CharacterString>Provide the name of the method or procedure</gco:CharacterString> -->
-  <!--         </cit:title> -->
-  <!--       </cit:CI_Citation> -->
-  <!--     </mrl:additionalDocumentation> -->
-  <!--     <!-\- How7b ~ Description ~ Steps -\-> -->
-  <!--     <!-\- How7b ~ Help Text ~ Provide a description of the step in the method of collecting or preparing the data -\-> -->
-  <!--     <!-\- How7b ~ Placeholder Text ~ Input step details -\-> -->
-  <!--     <!-\- How7b ~ KeepPlaceholderText ~ no -\-> -->
-  <!--     <!-\- How7b ~ Required ~ no -\-> -->
-  <!--     <!-\- How7b ~ InputLength ~ 500 -\-> -->
-  <!--     <!-\- How7b ~ Size ~ single -\-> -->
-  <!--     <!-\- How7b ~ Cardinality ~ 0 to many per mdb:resourceLineage block -\-> -->
-  <!--     <!-\- How7b ~ Example step 1 -\-> -->
-  <!--     <mrl:processStep> -->
-  <!--       <mrl:LI_ProcessStep> -->
-  <!--         <mrl:description> -->
-  <!--           <gco:CharacterString>Provide the details of step 1</gco:CharacterString> -->
-  <!--         </mrl:description> -->
-  <!--       </mrl:LI_ProcessStep> -->
-  <!--     </mrl:processStep> -->
-  <!--     <!-\- How7b ~ Example 1 step 2 -\-> -->
-  <!--     <mrl:processStep> -->
-  <!--       <mrl:LI_ProcessStep> -->
-  <!--         <mrl:description> -->
-  <!--           <gco:CharacterString>Provide the details of step 2</gco:CharacterString> -->
-  <!--         </mrl:description> -->
-  <!--       </mrl:LI_ProcessStep> -->
-  <!--     </mrl:processStep> -->
-  <!--   </mrl:LI_Lineage> -->
-  <!-- </mdb:resourceLineage> -->
 </mdb:MD_Metadata>

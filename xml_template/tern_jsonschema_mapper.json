@@ -115,6 +115,7 @@
               "date_created": "2021-05-14T03:33:48.260Z",
               "date_modified": "2021-05-14T05:18:27.281Z",
               "name": "TERN Ecosystem Processes - UQ Long Pocket",
+              "display_name": "TERN Ecosystem Processes - UQ Long Pocket",
               "is_dissolved": "false",
               "full_address_line": "Building 1019, 80 Meiers Rd, Indooroopilly, QLD, Australia, 4068",
               "street_address": "Building 1019, 80 Meiers Rd",
@@ -142,6 +143,10 @@
                 "valueChild": "gco:CharacterString",
                 "required": true,
                 "keep": false
+              },
+              "display_name": {
+                "!docstring": "No exported; used for display purposes from the ES index",
+                "type": "string"
               },
               "uri": {
                 "xpath": "cit:party/cit:CI_Organisation/cit:partyIdentifier",
@@ -228,17 +233,17 @@
               },
               "name": {
                 "!docstring": "DataSource6",
-                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:description",
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:name",
                 "valueChild": "gco:CharacterString",
                 "type": "string",
-                "keep": false
+                "keep": false,
+                "required": true,
+                "rules": ["requiredField"]
               },
               "description": {
                 "!docstring": "DataSource5",
-                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:name/gco:CharacterString",
-                "type": "string",
-                "required": true,
-                "rules": ["requiredField"]
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:description/gco:CharacterString",
+                "type": "string"
               }
             }
           }

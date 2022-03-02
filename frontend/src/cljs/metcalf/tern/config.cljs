@@ -2007,11 +2007,11 @@
     [:div
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "transferOptions" "description"]
+       :data-path [?data-path "transferOptions" "name"]
        :label     "Title"}
       [m4/textarea-field
        {:form-id   ?form-id
-        :data-path [?data-path "transferOptions" "description"]}]]
+        :data-path [?data-path "transferOptions" "name"]}]]
 
      [m4/form-group
       {:form-id   ?form-id
@@ -2040,11 +2040,11 @@
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "transferOptions" "name"]
+       :data-path [?data-path "transferOptions" "description"]
        :label     "Layer Name"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "transferOptions" "name"]}]]
+        :data-path [?data-path "transferOptions" "description"]}]]
 
      [m4/form-group
       {:form-id   ?form-id

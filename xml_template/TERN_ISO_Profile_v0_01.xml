@@ -2728,15 +2728,15 @@
         <!-- Data Quality 3 ~ InputLength ~ 400 -->
         <!-- Data Quality 3 ~ Size ~ multiline -->
         <!-- Data Quality 3 ~ Cardinality ~ one -->
-        <mdq:result>
-          <mdq:DQ_QuantitativeAttributeAccuracy>
+        <mdq:DQ_QuantitativeAttributeAccuracy>
+          <mdq:result>
             <mdq:DQ_DescriptiveResult>
               <mdq:statement>
                 <gco:CharacterString>Placeholder text = A description of the result of a data quality measure </gco:CharacterString>
               </mdq:statement>
             </mdq:DQ_DescriptiveResult>
-          </mdq:DQ_QuantitativeAttributeAccuracy>
-        </mdq:result>
+          </mdq:result>
+        </mdq:DQ_QuantitativeAttributeAccuracy>
       </mdq:report>
     </mdq:DQ_DataQuality>
   </mdb:dataQualityInfo>

@@ -1835,12 +1835,12 @@
         },
         "onlineMethods": {
           "!docstring": "Data Quality 2",
-          "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
+          "xpath": "mdq:standaloneQualityReport",
           "keep": false,
           "required": false,
           "type": "array",
           "items": {
-            "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
+            "xpath": "mdq:standaloneQualityReport",
             "type": "object",
             "properties": {
               "uri": {
@@ -1850,12 +1850,11 @@
                 "type": "boolean"
               },
               "title": {
-                "xpath": "cit:CI_Citation/cit:title",
-                "valueChild": "gco:CharacterString",
+                "xpath": "mdq:DQ_StandaloneQualityReportInformation/mdq:reportReference/cit:CI_Citation/cit:title/gco:CharacterString",
                 "type": "string"
               },
               "url": {
-                "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage",
+                "xpath": "mdq:DQ_StandaloneQualityReportInformation/mdq:reportReference/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage",
                 "valueChild": "gco:CharacterString",
                 "type": "string"
               }

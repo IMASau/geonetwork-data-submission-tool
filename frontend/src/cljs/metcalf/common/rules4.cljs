@@ -88,17 +88,12 @@
   [block {:keys [fields-list]}]
   (let [data (blocks4/as-data block)
         vals (map #(get data %) fields-list)
-        required? (some (complement nil?) vals)
-        kvs (zipmap fields-list vals)]
+        required? (not (every? (partial contains? empty-values) vals))]
     (reduce
-      (fn [blk [fld val]]
-        (cond-> blk
-          true
-          (assoc-in [:content fld :props :required] required?)
-          (and (not val) required?)
-          (update-in [:content fld :props :errors] conj "This field is required")))
+     (fn [blk fld]
+       (update-in blk [:content fld] required-field required?))
       block
-      kvs)))
+      fields-list)))
 
 (defn required-if-value
   "Handles the case where a field is enabled iff another field has a

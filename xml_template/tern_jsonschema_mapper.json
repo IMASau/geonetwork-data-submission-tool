@@ -1820,21 +1820,21 @@
       "type": "object",
       "properties": {
         "methodSummary": {
-          "!docstring": "How8",
+          "!docstring": "Data Quality 1",
           "xpath": "mdq:scope/mcc:MD_Scope/mcc:levelDescription/mcc:MD_ScopeDescription/mcc:other/gco:CharacterString",
           "type": "string",
           "keep": false,
           "required": false
         },
         "results": {
-          "!docstring": "How12",
+          "!docstring": "Data Quality 3",
           "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
           "keep": false,
           "required": false,
           "type": "string"
         },
         "onlineMethods": {
-          "!docstring": "How9",
+          "!docstring": "Data Quality 2",
           "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:evaluationMethod/mdq:DQ_EvaluationMethod/mdq:referenceDoc",
           "keep": false,
           "required": false,
@@ -1850,13 +1850,11 @@
                 "type": "boolean"
               },
               "title": {
-                "!docstring": "How10",
                 "xpath": "cit:CI_Citation/cit:title",
                 "valueChild": "gco:CharacterString",
                 "type": "string"
               },
               "url": {
-                "!docstring": "How11",
                 "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage",
                 "valueChild": "gco:CharacterString",
                 "type": "string"

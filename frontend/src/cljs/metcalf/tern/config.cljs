@@ -154,6 +154,7 @@
        "verticalRequired"               rules4/vertical-required
        "protocolLayer"                  rules4/data-source-required-layer
        "defaultDistributor"             rules4/default-distributor
+       "defaultClassification"          rules4/default-classification
        "maxKeywords"                    rules4/tern-max-keywords
        "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined
        "contactNotForOrgs"              rules4/tern-contact-unless-org

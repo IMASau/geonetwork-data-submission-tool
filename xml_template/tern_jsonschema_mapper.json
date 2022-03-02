@@ -360,7 +360,13 @@
             "negate": true
           }
         },
-        "generateCitation"
+        "generateCitation",
+        {
+          "defaultClassification": {
+            "label": "Unclassified",
+            "value": "unclassified"
+          }
+        }
       ],
       "type": "object",
       "properties": {
@@ -1604,8 +1610,7 @@
                 }
               }
             }
-          },
-          "rules": ["requiredField"]
+          }
         },
         "environment": {
           "!docstring": "About3",

@@ -1837,27 +1837,24 @@
           "!docstring": "Data Quality 2",
           "xpath": "mdq:standaloneQualityReport",
           "keep": false,
-          "required": false,
-          "type": "array",
-          "items": {
-            "xpath": "mdq:standaloneQualityReport",
-            "type": "object",
-            "properties": {
-              "uri": {
-                "type": "string"
-              },
-              "isUserDefined": {
-                "type": "boolean"
-              },
-              "title": {
-                "xpath": "mdq:DQ_StandaloneQualityReportInformation/mdq:reportReference/cit:CI_Citation/cit:title/gco:CharacterString",
-                "type": "string"
-              },
-              "url": {
-                "xpath": "mdq:DQ_StandaloneQualityReportInformation/mdq:reportReference/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage",
-                "valueChild": "gco:CharacterString",
-                "type": "string"
-              }
+          "type": "object",
+          "rules": [{
+            "requiredAllNone": {
+              "fields-list": [
+                "title",
+                "url"
+              ]
+            }
+          }],
+          "properties": {
+            "title": {
+              "xpath": "mdq:DQ_StandaloneQualityReportInformation/mdq:reportReference/cit:CI_Citation/cit:title/gco:CharacterString",
+              "type": "string"
+            },
+            "url": {
+              "xpath": "mdq:DQ_StandaloneQualityReportInformation/mdq:reportReference/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage",
+              "valueChild": "gco:CharacterString",
+              "type": "string"
             }
           }
         }

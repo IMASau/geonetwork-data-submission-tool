@@ -411,15 +411,10 @@
   cases, the field should be disabled."
   [block]
   (let [protocol (get-in block [:content "transferOptions" :content "protocol" :props :value])
-        name (get-in block [:content "transferOptions" :content "name" :props :value])
-        name-required? (#{"OGC:WCS-1.1.0-http-get-capabilities" "OGC:WMS-1.3.0-http-get-map"} protocol)
-        block (update-in block
-                         [:content "transferOptions" :content "name" :props]
-                         merge {:required (boolean name-required?)
-                                :disabled (not name-required?)})]
-    (cond-> block
-      (empty-values name)
-      (update-in [:content "transferOptions" :content "name" :props :errors] conj "This field is required"))))
+        layer-name-required? (#{"OGC:WCS-1.1.0-http-get-capabilities" "OGC:WMS-1.3.0-http-get-map"} protocol)]
+    (-> block
+        (assoc-in [:content "transferOptions" :content "description" :props :disabled] (not layer-name-required?))
+        (update-in [:content "transferOptions" :content "description"] required-field (boolean layer-name-required?)))))
 
 (defn default-distributor
   [block distributor-data]

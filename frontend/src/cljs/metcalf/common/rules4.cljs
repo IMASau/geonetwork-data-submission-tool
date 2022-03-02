@@ -88,17 +88,12 @@
   [block {:keys [fields-list]}]
   (let [data (blocks4/as-data block)
         vals (map #(get data %) fields-list)
-        required? (some (complement nil?) vals)
-        kvs (zipmap fields-list vals)]
+        required? (not (every? (partial contains? empty-values) vals))]
     (reduce
-      (fn [blk [fld val]]
-        (cond-> blk
-          true
-          (assoc-in [:content fld :props :required] required?)
-          (and (not val) required?)
-          (update-in [:content fld :props :errors] conj "This field is required")))
+     (fn [blk fld]
+       (update-in blk [:content fld] required-field required?))
       block
-      kvs)))
+      fields-list)))
 
 (defn required-if-value
   "Handles the case where a field is enabled iff another field has a
@@ -411,16 +406,12 @@
   cases, the field should be disabled."
   [block]
   (let [protocol (get-in block [:content "transferOptions" :content "protocol" :props :value])
-        name (get-in block [:content "transferOptions" :content "name" :props :value])
-        name-required? (#{"OGC:WCS-1.1.0-http-get-capabilities" "OGC:WMS-1.3.0-http-get-map"} protocol)
-        block (update-in block
-                         [:content "transferOptions" :content "name" :props]
-                         merge {:required (boolean name-required?)
-                                :disabled (not name-required?)})]
-    (cond-> block
-      (empty-values name)
-      (update-in [:content "transferOptions" :content "name" :props :errors] conj "This field is required"))))
+        layer-name-required? (#{"OGC:WCS-1.1.0-http-get-capabilities" "OGC:WMS-1.3.0-http-get-map"} protocol)]
+    (-> block
+        (assoc-in [:content "transferOptions" :content "description" :props :disabled] (not layer-name-required?))
+        (update-in [:content "transferOptions" :content "description"] required-field (boolean layer-name-required?)))))
 
+;;; TODO: generalise the following two default-value rules
 (defn default-distributor
   [block distributor-data]
   (let [value-picked? (boolean (blocks4/as-data (get-in block [:content "distributor"])))
@@ -429,6 +420,15 @@
     (cond-> block
       (not value-picked?)
       (assoc-in [:content "distributor"] default-value))))
+
+(defn default-classification
+  [block classification-data]
+  (let [value-picked? (boolean (blocks4/as-data (get-in block [:content "securityClassification"])))
+        default-value (blocks4/as-blocks {:data classification-data
+                                          :schema {:type "object" :properties {}}})]
+    (cond-> block
+      (not value-picked?)
+      (assoc-in [:content "securityClassification"] default-value))))
 
 (defmulti -format-author #(% "partyType"))
 (defmethod -format-author "person"

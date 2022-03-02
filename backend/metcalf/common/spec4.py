@@ -319,6 +319,7 @@ def prune_if_empty(data, parent, spec, nsmap, i, silent):
                   'mri:vertical',
                   'mri:distance',
                   'mri:angularDistance',
+                  'mri:spatialResolution',  # Where9/Where10: when none is selected
                   ]:
         for elem in parent.findall('.//' + xpath, nsmap):
             if is_empty(elem):

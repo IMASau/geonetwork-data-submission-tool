@@ -154,6 +154,7 @@
        "verticalRequired"               rules4/vertical-required
        "protocolLayer"                  rules4/data-source-required-layer
        "defaultDistributor"             rules4/default-distributor
+       "defaultClassification"          rules4/default-classification
        "maxKeywords"                    rules4/tern-max-keywords
        "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined
        "contactNotForOrgs"              rules4/tern-contact-unless-org
@@ -1701,32 +1702,26 @@
      [m4/form-group
       {:label    "Online data quality report"
        :toolTip  "Data quality report refers to a textual description of the quality control of the dataset. Provide the title and URL of the report, if available."}
-      [:div.SelectionListItemColoured.Inverted
-       [m4/selection-list-columns
-        {:form-id            [:form]
-         :data-path          ["dataQualityInfo" "onlineMethods"]
-         :value-path         ["uri"]
-         :random-uuid-value? true
-         :select-snapshot?   true
-         :added-path         ["isUserDefined"]
-         :columns            [{:columnHeader "Title" :label-path ["title"] :flex 1}
-                              {:columnHeader "URL" :label-path ["url"] :flex 1}]}]]
 
-      [m4/list-add-button
-       {:form-id            [:form]
-        :data-path          ["dataQualityInfo" "onlineMethods"]
-        :button-text        "Add"
-        :value-path         ["uri"]
-        :random-uuid-value? true
-        :added-path         ["isUserDefined"]}]
+      [:div {:style {:display               "grid"
+                     :grid-column-gap       "1em"
+                     :grid-template-columns "auto auto"}}
 
-      [m4/list-edit-dialog
-       {:form-id     [:form]
-        :data-path   ["dataQualityInfo" "onlineMethods"]
-        :value-path  ["uri"]
-        :added-path  ["isUserDefined"]
-        :title       "Online Quality Report"
-        :template-id :quality/user-defined-entry-form}]]
+       [m4/form-group
+        {:label "Title"
+         :form-id [:form]
+         :data-path ["dataQualityInfo" "onlineMethods" "title"]}
+        [m4/input-field
+         {:form-id [:form]
+          :data-path ["dataQualityInfo" "onlineMethods" "title"]}]]
+
+       [m4/form-group
+        {:label "URL"
+         :form-id [:form]
+         :data-path ["dataQualityInfo" "onlineMethods" "url"]}
+        [m4/input-field
+         {:form-id [:form]
+          :data-path ["dataQualityInfo" "onlineMethods" "url"]}]]]]
 
      [m4/form-group
       {:form-id   [:form]
@@ -1901,7 +1896,7 @@
         :data-path  ["identificationInfo" "customCitation"]
         :label      "Specific citation"
         :toolTip    "The system will generate a standard citation based on the metadata provided. Here you may indicate a specific citation for this dataset."
-        :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details below."}
+        :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details above."}
        [m4/textarea-field
         {:form-id   [:form]
          :data-path ["identificationInfo" "customCitation"]
@@ -2007,11 +2002,11 @@
     [:div
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "transferOptions" "description"]
+       :data-path [?data-path "transferOptions" "name"]
        :label     "Title"}
       [m4/textarea-field
        {:form-id   ?form-id
-        :data-path [?data-path "transferOptions" "description"]}]]
+        :data-path [?data-path "transferOptions" "name"]}]]
 
      [m4/form-group
       {:form-id   ?form-id
@@ -2040,11 +2035,11 @@
 
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "transferOptions" "name"]
+       :data-path [?data-path "transferOptions" "description"]
        :label     "Layer Name"}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "transferOptions" "name"]}]]
+        :data-path [?data-path "transferOptions" "description"]}]]
 
      [m4/form-group
       {:form-id   ?form-id

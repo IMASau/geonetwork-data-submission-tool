@@ -329,10 +329,16 @@ def export2_generateParameterKeywords_handler(data, xml_node, spec, xml_kwargs, 
                 # FIXME: Could make this generic like data_to_xml, but
                 # that's a bit messy so just hard-code for now:
                 anchor = element.xpath('gcx:Anchor', **xml_kwargs)[0]
-                anchor.text = data['label']
-                attrs = xmlutils4.parse_attributes(items_spec['uri'], xml_kwargs['namespaces'])
-                for attr, f in attrs.items():
-                    anchor.set(attr, f(data['uri']))
+                for prop, propspec in items_spec[key]['properties'].items():
+                    if prop not in data or 'xpath' not in propspec:
+                        continue
+                    attrval = data[prop]
+                    attrs = xmlutils4.parse_attributes(propspec, xml_kwargs['namespaces'])
+                    for attr, f in attrs.items():
+                        if attr == 'text':
+                            anchor.text = f(attrval)
+                        else:
+                            anchor.set(attr, f(attrval))
                 # hard-code the title:
                 anchor.set('{http://www.w3.org/1999/xlink}title', title)
                 mount_node.insert(mount_index + i, element)

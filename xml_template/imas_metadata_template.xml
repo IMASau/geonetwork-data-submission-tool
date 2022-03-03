@@ -984,15 +984,19 @@
 					<mrd:onLine>
 						<!-- Populated by user selecting WMS data servie-->
 						<cit:CI_OnlineResource>
+              <!-- DataSource4 -->
 							<cit:linkage>
 								<gco:CharacterString>http://***serverURL***/geoserver/wms</gco:CharacterString>
 							</cit:linkage>
+              <!-- DataSource3 -->
 							<cit:protocol>
 								<gco:CharacterString>OGC:WMS-1.1.1-http-get-map</gco:CharacterString>
 							</cit:protocol>
+              <!-- DataSource5 -->
 							<cit:name>
 								<gco:CharacterString>***layername***</gco:CharacterString>
 							</cit:name>
+              <!-- DataSource2 -->
 							<cit:description>
 								<gco:CharacterString>***Description of map layer***</gco:CharacterString>
 							</cit:description>

@@ -676,6 +676,7 @@
 			<!-- This is fetched/populated by PARAMETER vocab for parameters entered on "about" tab. -->
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
+          <!-- About1 -->
 					<mri:keyword>
 						<gcx:Anchor xlink:href="http://vocab.nerc.ac.uk/collection/P01/current/TEMPPR01">Temperature of the water body</gcx:Anchor>
 					</mri:keyword>
@@ -719,6 +720,7 @@
 			<!-- This is fetched/populated by INSTRUMENT vocab for parameters entered on "about" tab. -->
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
+          <!-- About3 -->
 					<mri:keyword>
 						<gcx:Anchor xlink:href="http://vocab.nerc.ac.uk/collection/L05/current/351">dissolved gas sensors</gcx:Anchor>
 					</mri:keyword>
@@ -763,6 +765,7 @@
 						<gco:CharacterString>Data, products and services from IMAS are provided "as is" without any warranty as to fitness for a particular purpose.</gco:CharacterString>
 					</mco:useLimitation>
 					<!-- Additional user defined limitations -->
+          <!-- About6 -->
 					<mco:useLimitation>
 						<gco:CharacterString>xxx</gco:CharacterString>
 					</mco:useLimitation>
@@ -795,6 +798,7 @@
 
 					<!-- License information will be populated depending on the license selected by the user. The only options provided are CC-BY or CC-BY-NC  -->
 					<mco:reference>
+            <!-- About5 -->
 						<cit:CI_Citation>
 							<cit:title>
 								<gco:CharacterString>Creative Commons Attribution 4.0 International License</gco:CharacterString>
@@ -870,6 +874,7 @@
 
 			<mri:supplementalInformation>
 				<!-- Populated by user entry -->
+        <!-- About7 -->
 				<gco:CharacterString>Phinn, SR et al. (2012): Multi-scale, object-based image analysis for mapping geomorphic and ecological zones on coral reefs. International Journal of Remote Sensing, 33(12), 3768-3797, doi:10.1080/01431161.2011.633122</gco:CharacterString>
 			</mri:supplementalInformation>
 
@@ -906,6 +911,7 @@
 								</mcc:MD_Identifier>
 							</mrc:name>
 							<!-- Unit #1 -->
+              <!-- About2 -->
 							<mrc:units>
 								<gml:BaseUnit gml:id="d20e484">
 									<gml:identifier codeSpace="unknown">http://vocab.nerc.ac.uk/collection/P06/current/UPAA</gml:identifier>
@@ -958,9 +964,11 @@
 				<mrd:MD_Format>
 					<mrd:formatSpecificationCitation>
 						<cit:CI_Citation>
+              <!-- About9 -->
 							<cit:title>
 								<gco:CharacterString>ESRI Shapefile</gco:CharacterString>
 							</cit:title>
+              <!-- About10 -->
 							<cit:edition>
 								<gco:CharacterString>version info here</gco:CharacterString>
 							</cit:edition>
@@ -1060,6 +1068,7 @@
 			</mac:scope>
 
 			<!-- This is fetched/populated by PLATFORM and INSTRUMENT vocabs for parameters entered on "about" tab. -->
+      <!-- About4 -->
 			<mac:platform>
 				<mac:MI_Platform>
 					<mac:identifier>
@@ -1089,6 +1098,7 @@
 							<mac:identifier>
 								<mcc:MD_Identifier>
 									<mcc:code>
+                    <!-- About3 -->
 										<gcx:Anchor xlink:href="http://vocab.nerc.ac.uk/collection/L05/current/351">dissolved gas sensors</gcx:Anchor>
 									</mcc:code>
 								</mcc:MD_Identifier>

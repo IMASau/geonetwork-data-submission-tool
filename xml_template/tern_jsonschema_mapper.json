@@ -1854,7 +1854,10 @@
           "properties": {
             "title": {
               "xpath": "mdq:DQ_StandaloneQualityReportInformation/mdq:reportReference/cit:CI_Citation/cit:title/gco:CharacterString",
-              "type": "string"
+              "type": "string",
+              "exportTo": {
+                "xpath": "mdq:DQ_StandaloneQualityReportInformation/mdq:abstract/gco:CharacterString"
+              }
             },
             "url": {
               "xpath": "mdq:DQ_StandaloneQualityReportInformation/mdq:reportReference/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage",

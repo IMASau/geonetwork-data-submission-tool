@@ -284,16 +284,19 @@
 						<cit:CI_Responsibility>
 							<!--  Role is chosen by user from controlled codelist -->
 							<cit:role>
+                <!-- Who9 -->
 								<cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="author"/>
 							</cit:role>
 							<cit:party>
 								<cit:CI_Organisation>
 									<cit:name>
+                    <!-- Who13 -->
 										<gco:CharacterString>Bureau of Important Things</gco:CharacterString>
 									</cit:name>
 									<cit:individual>
 										<cit:CI_Individual>
 											<cit:name>
+                        <!-- Who10 -->
 												<gco:CharacterString>Layton, Cayne</gco:CharacterString>
 											</cit:name>
 											<cit:contactInfo>
@@ -301,6 +304,7 @@
 													<cit:phone>
 														<cit:CI_Telephone>
 															<cit:number>
+                                <!-- Who16 -->
 																<gco:CharacterString xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0">
 																	+61 3 6226 2582
 																</gco:CharacterString>
@@ -312,6 +316,7 @@
 													</cit:phone>
 													<cit:address>
 														<cit:CI_Address>
+                              <!-- Who14 -->
 															<cit:deliveryPoint>
 																<gco:CharacterString>IMAS - Hobart</gco:CharacterString>
 															</cit:deliveryPoint>
@@ -331,6 +336,7 @@
 																<gco:CharacterString>Australia</gco:CharacterString>
 															</cit:country>
 															<cit:electronicMailAddress>
+                                <!-- Who15 -->
 																<gco:CharacterString>cayne.layton@utas.edu.au</gco:CharacterString>
 															</cit:electronicMailAddress>
 														</cit:CI_Address>
@@ -339,6 +345,7 @@
 														<!--  ORCID URL is collected from a specific user-entered field. cit:name and cit:protocl are auto-populated -->
 														<cit:CI_OnlineResource>
 															<cit:linkage>
+                                <!-- Who11 -->
 																<gco:CharacterString>https://orcid.org/0000-0002-3390-6437</gco:CharacterString>
 															</cit:linkage>
 															<cit:protocol>
@@ -377,16 +384,19 @@
 				<!--  The user must input at least one point of contact during data submission. All text below is populated by user -->
 				<cit:CI_Responsibility>
 					<cit:role>
+            <!-- Who1 -->
 						<cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="pointOfContact"/>
 					</cit:role>
 					<cit:party>
 						<cit:CI_Organisation>
 							<cit:name>
+                <!-- Who5 -->
 								<gco:CharacterString>Oceans Graduate School (OGS), The University of Western Australia (UWA)</gco:CharacterString>
 							</cit:name>
 							<cit:individual>
 								<cit:CI_Individual>
 									<cit:name>
+                    <!-- Who2 -->
 										<gco:CharacterString>Pattiaratchi, Charitha, Professor</gco:CharacterString>
 									</cit:name>
 									<cit:contactInfo>
@@ -394,6 +404,7 @@
 											<cit:phone>
 												<cit:CI_Telephone>
 													<cit:number>
+                            <!-- Who8 -->
 														<gco:CharacterString>61 8 6488 3179</gco:CharacterString>
 													</cit:number>
 													<cit:numberType>
@@ -404,6 +415,7 @@
 											<cit:address>
 												<cit:CI_Address>
 													<cit:deliveryPoint>
+                            <!-- Who6 -->
 														<gco:CharacterString>M470, 35 Stirling Highway</gco:CharacterString>
 													</cit:deliveryPoint>
 													<cit:deliveryPoint>
@@ -422,6 +434,7 @@
 														<gco:CharacterString>Australia</gco:CharacterString>
 													</cit:country>
 													<cit:electronicMailAddress>
+                            <!-- Who7 -->
 														<gco:CharacterString>chari.pattiaratchi@uwa.edu.au</gco:CharacterString>
 													</cit:electronicMailAddress>
 												</cit:CI_Address>
@@ -430,6 +443,7 @@
 												<!--  ORCID URL is collected from a specific user-entered field. cit:name and cit:protocl are auto-populated -->
 												<cit:CI_OnlineResource>
 													<cit:linkage>
+                            <!-- Who3 -->
 														<gco:CharacterString>https://orcid.org/0000-0002-3390-6437</gco:CharacterString>
 													</cit:linkage>
 													<cit:protocol>
@@ -662,6 +676,7 @@
 			<!-- This is fetched/populated by PARAMETER vocab for parameters entered on "about" tab. -->
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
+          <!-- About1 -->
 					<mri:keyword>
 						<gcx:Anchor xlink:href="http://vocab.nerc.ac.uk/collection/P01/current/TEMPPR01">Temperature of the water body</gcx:Anchor>
 					</mri:keyword>
@@ -705,6 +720,7 @@
 			<!-- This is fetched/populated by INSTRUMENT vocab for parameters entered on "about" tab. -->
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>
+          <!-- About3 -->
 					<mri:keyword>
 						<gcx:Anchor xlink:href="http://vocab.nerc.ac.uk/collection/L05/current/351">dissolved gas sensors</gcx:Anchor>
 					</mri:keyword>
@@ -749,6 +765,7 @@
 						<gco:CharacterString>Data, products and services from IMAS are provided "as is" without any warranty as to fitness for a particular purpose.</gco:CharacterString>
 					</mco:useLimitation>
 					<!-- Additional user defined limitations -->
+          <!-- About6 -->
 					<mco:useLimitation>
 						<gco:CharacterString>xxx</gco:CharacterString>
 					</mco:useLimitation>
@@ -781,6 +798,7 @@
 
 					<!-- License information will be populated depending on the license selected by the user. The only options provided are CC-BY or CC-BY-NC  -->
 					<mco:reference>
+            <!-- About5 -->
 						<cit:CI_Citation>
 							<cit:title>
 								<gco:CharacterString>Creative Commons Attribution 4.0 International License</gco:CharacterString>
@@ -856,6 +874,7 @@
 
 			<mri:supplementalInformation>
 				<!-- Populated by user entry -->
+        <!-- About7 -->
 				<gco:CharacterString>Phinn, SR et al. (2012): Multi-scale, object-based image analysis for mapping geomorphic and ecological zones on coral reefs. International Journal of Remote Sensing, 33(12), 3768-3797, doi:10.1080/01431161.2011.633122</gco:CharacterString>
 			</mri:supplementalInformation>
 
@@ -892,6 +911,7 @@
 								</mcc:MD_Identifier>
 							</mrc:name>
 							<!-- Unit #1 -->
+              <!-- About2 -->
 							<mrc:units>
 								<gml:BaseUnit gml:id="d20e484">
 									<gml:identifier codeSpace="unknown">http://vocab.nerc.ac.uk/collection/P06/current/UPAA</gml:identifier>
@@ -944,9 +964,11 @@
 				<mrd:MD_Format>
 					<mrd:formatSpecificationCitation>
 						<cit:CI_Citation>
+              <!-- About9 -->
 							<cit:title>
 								<gco:CharacterString>ESRI Shapefile</gco:CharacterString>
 							</cit:title>
+              <!-- About10 -->
 							<cit:edition>
 								<gco:CharacterString>version info here</gco:CharacterString>
 							</cit:edition>
@@ -962,15 +984,19 @@
 					<mrd:onLine>
 						<!-- Populated by user selecting WMS data servie-->
 						<cit:CI_OnlineResource>
+              <!-- DataSource4 -->
 							<cit:linkage>
 								<gco:CharacterString>http://***serverURL***/geoserver/wms</gco:CharacterString>
 							</cit:linkage>
+              <!-- DataSource3 -->
 							<cit:protocol>
 								<gco:CharacterString>OGC:WMS-1.1.1-http-get-map</gco:CharacterString>
 							</cit:protocol>
+              <!-- DataSource5 -->
 							<cit:name>
 								<gco:CharacterString>***layername***</gco:CharacterString>
 							</cit:name>
+              <!-- DataSource2 -->
 							<cit:description>
 								<gco:CharacterString>***Description of map layer***</gco:CharacterString>
 							</cit:description>
@@ -1046,6 +1072,7 @@
 			</mac:scope>
 
 			<!-- This is fetched/populated by PLATFORM and INSTRUMENT vocabs for parameters entered on "about" tab. -->
+      <!-- About4 -->
 			<mac:platform>
 				<mac:MI_Platform>
 					<mac:identifier>
@@ -1075,6 +1102,7 @@
 							<mac:identifier>
 								<mcc:MD_Identifier>
 									<mcc:code>
+                    <!-- About3 -->
 										<gcx:Anchor xlink:href="http://vocab.nerc.ac.uk/collection/L05/current/351">dissolved gas sensors</gcx:Anchor>
 									</mcc:code>
 								</mcc:MD_Identifier>

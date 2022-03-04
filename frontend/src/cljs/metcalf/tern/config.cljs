@@ -159,6 +159,7 @@
        "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined
        "contactNotForOrgs"              rules4/tern-contact-unless-org
        "generateCitation"               rules4/generate-citation
+       "uploadTitleFromName"            rules4/uploads-title-from-name
        "parameterUnitUserDefined"       rules4/tern-parameter-unit-user-defined})
 (set! low-code4/component-registry
       {'m4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
@@ -1943,9 +1944,17 @@
       {:form-id     [:form]
        :data-path   ["attachments"]
        :value-path  ["id"]
+       :columns     [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                     {:columnHeader "Filename" :label-path ["name"] :flex 1}]
        :placeholder [:div
                      [:h3 "Drop file here or click here to upload"]
                      [:span.help-block "Maximum file size 100 MB"]]}]
+     [m4/list-edit-dialog
+      {:form-id     [:form]
+       :data-path   ["attachments"]
+       :value-path  ["id"]
+       :title       "File Details"
+       :template-id :upload-files/edit-details-template}]
 
      [:h3 "Thumbnail"]
 
@@ -1997,6 +2006,24 @@
         :added-path  ["isUserDefined"]
         :title       "Data Distribution"
         :template-id :data-sources/user-defined-entry-form}]]]
+
+    :upload-files/edit-details-template
+    [:div
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "title"]
+       :label     "Title"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "title"]}]]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "name"]
+       :label     "Filename"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "name"]
+        :disabled  true}]]]
 
     :data-sources/user-defined-entry-form
     [:div

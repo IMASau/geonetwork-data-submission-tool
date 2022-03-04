@@ -200,6 +200,7 @@ class Document(AbstractDocument):
                 self.title = self.title.replace('\n', ' ').strip()
             data['identificationInfo']['title'] = self.title or data['identificationInfo']['title']
             data['fileIdentifier'] = self.pk
+            data['systemCreationDate'] = datetime.date.today().isoformat()
 
             DraftMetadata.objects.create(document=self,
                                          user=self.owner,

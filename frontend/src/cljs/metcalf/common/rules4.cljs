@@ -430,6 +430,16 @@
       (not value-picked?)
       (assoc-in [:content "securityClassification"] default-value))))
 
+;;; Hard-coded for now; perhaps there's benefit in generalising later
+(defn uploads-title-from-name
+  "Initialises the title field in a file-attachment to the file name, so
+  it can be independently edited."
+  [block]
+  (let [{:strs [name title]} (blocks4/as-data block)]
+    (cond-> block
+      (contains? empty-values title)
+      (assoc-in [:content "title" :props :value] name))))
+
 (defmulti -format-author #(% "partyType"))
 (defmethod -format-author "person"
   [{:strs [contact]}]
@@ -445,6 +455,14 @@
   [organisation]
   (get-in organisation ["organisation" "name"]))
 
+(defn -format-doi [doi]
+  (if doi
+    (str "https://dx.doi.org/"
+         (-> doi
+             (string/replace #"^(https?://)?(dx\.)?doi.org/+" "")
+             (string/replace #"^doi:" "")))
+    "{Identifier}"))
+
 (defn -format-citation
   [{:keys [title date dateSubmitted authors coauthors version doi]}]
   (let [date (cljs-time/value-to-date (or date dateSubmitted))
@@ -455,7 +473,7 @@
                          (interpose ", ")
                          (apply str))]
     (str author-list " (" year "). " version ". " title ". "
-         (if doi (str "https://dx.doi.org/" doi) "{Identifier}"))))
+         (-format-doi doi))))
 
 (defn generate-citation
   [block]

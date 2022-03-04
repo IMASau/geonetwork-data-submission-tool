@@ -665,7 +665,7 @@
                   },
                   "position": {
                     "type": "string",
-                    "xpath": "cit:positionName/gco:CharacterString"
+                    "xpath": "cit:CI_Individual/cit:positionName/gco:CharacterString"
                   },
                   "email": {
                     "!docstring": "Who6",
@@ -711,12 +711,6 @@
                         "function": "identity"
                       }
                     }
-                  },
-                  "positionName": {
-                    "xpath": "cit:CI_Individual/cit:positionName",
-                    "keep": false,
-                    "valueChild": "gco:CharacterString",
-                    "required": false
                   },
                   "userAddedCategory": {},
                   "isUserDefined": {}
@@ -897,7 +891,8 @@
                   },
                   "position": {
                     "type": "string",
-                    "xpath": "cit:positionName/gco:CharacterString"
+                    "xpath": "cit:CI_Individual/cit:positionName/gco:CharacterString",
+                    "keep": false
                   },
                   "email": {
                     "!docstring": "Who6",
@@ -936,12 +931,6 @@
                         "function": "identity"
                       }
                     }
-                  },
-                  "positionName": {
-                    "xpath": "cit:CI_Individual/cit:positionName",
-                    "keep": false,
-                    "valueChild": "gco:CharacterString",
-                    "required": false
                   },
                   "isUserDefined": {}
                 },

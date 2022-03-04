@@ -2717,6 +2717,10 @@
               </cit:onlineResource>
             </cit:CI_Citation>
           </mdq:reportReference>
+          <!--ASD@2022 use the title of the 'Online data quality report' as abstract value -->
+          <mdq:abstract>
+            <gco:CharacterString> PlaceHolder Text =  Name of the report</gco:CharacterString>
+          </mdq:abstract>
         </mdq:DQ_StandaloneQualityReportInformation>
       </mdq:standaloneQualityReport>
       <mdq:report>

@@ -449,7 +449,7 @@
   (if doi
     (str "https://dx.doi.org/"
          (-> doi
-             (string/replace #"^(https?://)?(dx\.)?doi.org/" "")
+             (string/replace #"^(https?://)?(dx\.)?doi.org/+" "")
              (string/replace #"^doi:" "")))
     "{Identifier}"))
 

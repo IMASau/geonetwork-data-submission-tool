@@ -566,7 +566,7 @@ def sampling_uri(x):
 def _as_doi(arg):
     """We want to ensure a valid DOI; this applies minimal checks to
     strip possible prefixes etc."""
-    arg = re.sub(r'^(https?://)?(dx\.)?doi.org/', '', arg)
+    arg = re.sub(r'^(https?://)?(dx\.)?doi.org/+', '', arg)
     arg = re.sub(r'^doi:', '', arg)
     return arg
 

@@ -1944,6 +1944,8 @@
       {:form-id     [:form]
        :data-path   ["attachments"]
        :value-path  ["id"]
+       :columns     [{:columnHeader "Title" :label-path ["title"] :flex 1}
+                     {:columnHeader "Filename" :label-path ["name"] :flex 1}]
        :placeholder [:div
                      [:h3 "Drop file here or click here to upload"]
                      [:span.help-block "Maximum file size 100 MB"]]}]

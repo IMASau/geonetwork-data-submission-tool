@@ -1826,28 +1826,24 @@
 (defn upload-files-settings
   "Settings for upload-files component"
   [_]
-  {::low-code4/req-ks [:form-id :data-path :value-path :placeholder]
+  {::low-code4/req-ks [:form-id :data-path :value-path :placeholder :columns]
    ::low-code4/opt-ks []})
 
 (defn upload-files
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
-        {:keys [disabled is-hidden value-path data-path placeholder]} props
-        columns [{:columnHeader "Title" :label-path ["name"] :flex 1}
-                 {:columnHeader "Filename" :label-path ["file"] :flex 1}]]
+        {:keys [disabled is-hidden value-path data-path placeholder columns]} props]
     (when-not is-hidden
       [:div
        [ui-controls/TableSelectionList
-        {;:key key
-         :items              (or items [])
+        {:items              (or items [])
          :disabled           disabled
          :form-id            [:form]
          :data-path          data-path
          :value-path         ["uri"]
          :random-uuid-value? true
          :select-snapshot?   true
-         ;; :added-path         ["isUserDefined"]
          :getValue           (ui-controls/obj-path-getter value-path)
          :columns            (for [{:keys [flex label-path columnHeader]} columns]
                                {:flex         flex
@@ -1856,17 +1852,6 @@
          :onReorder          (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
          :onItemClick        (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
          :onRemoveClick      (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}]
-       []
-       #_[ui-controls/SimpleSelectionList
-          {:key           key
-           :items         (or items [])
-           :disabled      disabled
-           :getLabel      (ui-controls/obj-path-getter ["name"])
-           :getValue      (ui-controls/obj-path-getter value-path)
-           :getAdded      (constantly true)
-           :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
-           :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
-           :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]
        [ui-controls/Dropzone
         {:disabled    disabled
          :placeholder (r/as-element placeholder)

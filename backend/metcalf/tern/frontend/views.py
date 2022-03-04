@@ -471,16 +471,17 @@ def save(request, uuid, update_number):
     spec = spec4.make_spec(uuid=uuid, mapper=doc.template.mapper)
     try:
         data = request.data
-        doc.title = data['identificationInfo']['title'] or "Untitled"
+        identificationInfo = data.get('identificationInfo',{})
+        doc.title = identificationInfo.get('title', "Untitled")
         if (doc.status == doc.SUBMITTED):
             doc.resubmit()
         doc.hasUserDefined = bool(xmlutils4.extract_user_defined(data))
         doc.save()
 
         draft = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
-        draft.noteForDataManager = data.get('noteForDataManager') or ''
-        draft.agreedToTerms = data.get('agreedToTerms') or False
-        draft.doiRequested = data.get('doiRequested') or False
+        draft.noteForDataManager = identificationInfo.get('noteForDataManager', '')
+        draft.agreedToTerms = identificationInfo.get('agreedToTerms', False)
+        draft.doiRequested = identificationInfo.get('doiRequested', False)
         # update dateSubmitted; it will eventually be "correct":
         data["identificationInfo"]["dateSubmitted"] = datetime.date.today().isoformat()
         draft.save()

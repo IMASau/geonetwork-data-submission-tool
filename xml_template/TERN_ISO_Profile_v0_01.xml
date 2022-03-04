@@ -127,7 +127,6 @@
       <cit:identifier>
         <mcc:MD_Identifier>
           <mcc:code>
-            <!-- gco:CharacterString>https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/[Parent UUID goes here]</gco:CharacterString -->
             <gcx:Anchor xlink:role="uri" xlink:href="https://geonetwork.tern.org.au/geonetwork/srv/eng/catalog.search#/metadata/[Parent UUID goes here]" xlink:show="new">[Parent UUID goes here]</gcx:Anchor>
           </mcc:code>
           <!-- Static section ~ retain in XML output if the user selects a parent record -->
@@ -2225,30 +2224,6 @@
       <!-- About2 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-1287 -->
       <mri:resourceConstraints>
         <mco:MD_SecurityConstraints>
-          <!-- <mco:reference>
-            <cit:CI_Citation>
-              <cit:title>
-                <gco:CharacterString>Security Classification</gco:CharacterString>
-              </cit:title>
-              <cit:editionDate>
-                <gco:DateTime>2018-11-01T00:00:00</gco:DateTime>
-              </cit:editionDate>
-              <cit:onlineResource>
-                <cit:CI_OnlineResource>
-                  <cit:linkage>
-                    <gco:CharacterString>https://www.protectivesecurity.gov.au/Pages/default.aspx</gco:CharacterString>
-                  </cit:linkage>
-                  <cit:protocol>
-                    <gco:CharacterString>WWW:LINK-1.0-http-/-link</gco:CharacterString>
-                  </cit:protocol>
-                  <cit:function>
-                    <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
-                                               codeListValue="information"/>
-                  </cit:function>
-                </cit:CI_OnlineResource>
-              </cit:onlineResource>
-            </cit:CI_Citation>
-          </mco:reference> -->
           <mco:classification>
             <mco:MD_ClassificationCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#MD_ClassificationCode" codeListValue="unclassified"/>
           </mco:classification>
@@ -2305,62 +2280,6 @@
   <mdb:distributionInfo>
     <!-- Scenario 1 user uploads data - Tool should populate most values -->
     <mrd:MD_Distribution>
-      <!-- Datasource1 ~ WriteEmptyBlock ~ no -->
-      <!-- Datasource1 ~ Status ~ Change XML and add mrd:fileDecompressionTechnique -->
-      <!-- Datasource1 ~ Description ~ Information related to the file format(s) of the data -->
-      <!-- Datasource1 ~ Operation ~ Can system identify values for file format fields when file is uploaded? -->
-      <!-- Datasource1 ~ UI ~ Change function/Change texts -->
-      <!-- Datasource1 ~ Change note ~ Fields are currently on About tab -->
-      <!-- Datasource1 ~ Rule ~ one mrd:MD_Distribution block for each DATA file uploaded by the user -->
-      <!-- Datasource1 ~ Change note ~ Thumbnails or documentation files write into different XML elements NOT Distribution -->
-      <!-- Datasource1 ~ Cardinality ~ many -->
-      <!-- Datasource1 ~ Documentation ~ https://bitbucket.org/terndatateam/data-submission-tool/issues/47 -->
-      <!-- Datasource1 ~ Documentation ~ https://ternaus.atlassian.net/browse/TERNDA-390 -->
-      <!-- Datasource1 ~ Documentation ~ https://ternaus.atlassian.net/wiki/spaces/TDSAG/pages/1042251879/Distribution+Distribution+Format -->
-      <!-- Datasource1 ~ Documentation ~ https://docs.google.com/spreadsheets/d/1jQVXfjI_cybkuS07k0tYA3-75acErog2zpmfXU2ztHY/edit#gid=0 -->
-      <mrd:distributionFormat>
-        <mrd:MD_Format>
-          <!-- Datasource1 ~ Description ~ File format of the data -->
-          <!-- Datasource1 ~ Display Label ~ File format of the data file -->
-          <!-- Datasource1 ~ Help Text ~ CSV, NetCDF, etc. -->
-          <!-- Datasource1 ~ Placeholder Text ~ Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc -->
-          <!-- Datasource1 ~ KeepPlaceholderText ~ no -->
-          <!-- Datasource1 ~ Required ~ yes -->
-          <!-- Datasource1 ~ InputLength ~ codelist? -->
-          <!-- Datasource1 ~ Size ~ single -->
-          <!-- Datasource1 ~ Codelist ~ To be confirmed - possibly https://www.loc.gov/preservation/digital/formats/fdd/browse_list.shtml-->
-          <mrd:formatSpecificationCitation>
-            <cit:CI_Citation>
-              <!-- Datasource1 ~ Find or create a codelist for valid values -->
-              <cit:title>
-                <gco:CharacterString>Placeholder Text=Examples:CSV, NetCDF, GeoTIFF, TIF, IMG, HDF, ASCII, etc</gco:CharacterString>
-              </cit:title>
-            </cit:CI_Citation>
-          </mrd:formatSpecificationCitation>
-          <!-- Datasource1 ~ Description ~ Version or date of the file format -->
-          <!-- Datasource1 ~ Display Label ~ File format date/version-->
-          <!-- Datasource1 ~ Help Text ~ CSV, NetCDF, etc. -->
-          <!-- Datasource1 ~ Placeholder Text ~ Version number of the file format -->
-          <!-- Datasource1 ~ KeepPlaceholderText ~ no -->
-          <!-- Datasource1 ~ Required ~ no -->
-          <!-- Datasource1 ~ InputLength ~ 12 -->
-          <!-- Datasource1 ~ Size ~ single -->
-          <!-- Datasource1 ~ Codelist ~ n/a -->
-          <mrd:amendmentNumber><gco:CharacterString>Placeholder Text=Version number of the file format</gco:CharacterString>
-          </mrd:amendmentNumber>
-          <!-- Datasource1 ~ Description ~ Whether the file is compressed -->
-          <!-- Datasource1 ~ Display Label ~ File compression technique -->
-          <!-- Datasource1 ~ Help Text ~ What type of compression is applied to the file? -->
-          <!-- Datasource1 ~ Placeholder Text ~ Examples:Not compressed, ZIP, TAR (Unix) -->
-          <!-- Datasource1 ~ KeepPlaceholderText ~ no -->
-          <!-- Datasource1 ~ Required ~ no -->
-          <!-- Datasource1 ~ InputLength ~ 100 -->
-          <!-- Datasource1 ~ Size ~ single -->
-          <!-- Datasource1 ~ Codelist ~ n/a -->
-          <mrd:fileDecompressionTechnique><gco:CharacterString>Placeholder Text=Examples:Not compressed, ZIP, TAR (Unix)</gco:CharacterString>
-          </mrd:fileDecompressionTechnique>
-        </mrd:MD_Format>
-      </mrd:distributionFormat>
       <!-- Datasource1 ~ Status ~ New XML and field -->
       <!-- Datasource1 ~ Description ~ Indicates which organisation hosts and distributes the data -->
       <!-- Datasource1 ~ Operation ~ If the user uploads data, then Distributor defaults to 'Terrestrial Ecosystem Research Network' -->
@@ -2567,7 +2486,6 @@
                   <cit:partyIdentifier>
                     <mcc:MD_Identifier>
                       <mcc:code>
-                        <!-- gco:CharacterString>https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gco:CharacterString -->
                         <gcx:Anchor xlink:role="uri" xlink:href="https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66" xlink:show="new">https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66</gcx:Anchor>
                       </mcc:code>
                       <mcc:codeSpace><gco:CharacterString>https://w3id.org/tern/resources</gco:CharacterString>

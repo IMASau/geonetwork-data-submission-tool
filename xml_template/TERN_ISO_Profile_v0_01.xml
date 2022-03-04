@@ -779,7 +779,7 @@
 
                         </mcc:MD_Identifier>
                       </cit:partyIdentifier>
-		      <!-- Optional ~ If available Position from TERN Person Vocabulary -->
+		                  <!-- Optional ~ If available Position from TERN Person Vocabulary -->
                       <cit:positionName>
                         <gco:CharacterString>Technical Contact</gco:CharacterString>
                       </cit:positionName>
@@ -1069,7 +1069,7 @@
                       </mcc:codeSpace>
                     </mcc:MD_Identifier>
                   </cit:partyIdentifier>
-		  <!-- Optional ~ If available Position from TERN Person Vocabulary -->
+		              <!-- Optional ~ If available Position from TERN Person Vocabulary -->
                   <cit:positionName>
                     <gco:CharacterString>Position from TERN Person Vocabulary</gco:CharacterString>
                   </cit:positionName>

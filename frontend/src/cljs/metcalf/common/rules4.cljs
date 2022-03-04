@@ -445,6 +445,14 @@
   [organisation]
   (get-in organisation ["organisation" "name"]))
 
+(defn -format-doi [doi]
+  (if doi
+    (str "https://dx.doi.org/"
+         (-> doi
+             (string/replace #"^(https?://)?(dx\.)?doi.org/" "")
+             (string/replace #"^doi:" "")))
+    "{Identifier}"))
+
 (defn -format-citation
   [{:keys [title date dateSubmitted authors coauthors version doi]}]
   (let [date (cljs-time/value-to-date (or date dateSubmitted))
@@ -455,7 +463,7 @@
                          (interpose ", ")
                          (apply str))]
     (str author-list " (" year "). " version ". " title ". "
-         (if doi (str "https://dx.doi.org/" doi) "{Identifier}"))))
+         (-format-doi doi))))
 
 (defn generate-citation
   [block]

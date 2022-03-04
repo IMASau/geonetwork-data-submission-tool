@@ -484,6 +484,7 @@ def save(request, uuid, update_number):
         draft.doiRequested = identificationInfo.get('doiRequested', False)
         # update dateSubmitted; it will eventually be "correct":
         data["identificationInfo"]["dateSubmitted"] = datetime.date.today().isoformat()
+        data["systemRevisionDate"] = datetime.date.today().isoformat()
         draft.save()
 
         # Remove any attachments which are no longer mentioned in the XML.

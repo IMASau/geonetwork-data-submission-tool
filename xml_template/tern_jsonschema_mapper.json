@@ -1884,6 +1884,18 @@
       "type": "boolean",
       "default": false,
       "export": false
+    },
+    "systemCreationDate": {
+      "!docstring": "System time when record first created",
+      "type": "string",
+      "xpath": "mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]",
+      "valueChild": "cit:date/gco:Date"
+    },
+    "systemRevisionDate": {
+      "!docstring": "System time when record last saved",
+      "type": "string",
+      "xpath": "mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"revision\"]]",
+      "valueChild": "cit:date/gco:Date"
     }
   },
   "export2_xforms": [

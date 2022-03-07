@@ -79,7 +79,7 @@ jobs:
       - run: cp -fR node_modules/@blueprintjs/icons/resources/icons resources/public/resources/icons
       - run: cp -vr node_modules/leaflet-draw/dist/images/* resources/public/css/images
 
-      - run: tar -c -z -v -C resources/public -f "${{ env.GITHUB_REPOSITORY_SLUG }}-${{ env.GITHUB_REF_SLUG }}-imas-frontend.tgz" js/compiled/app.js js/compiled/app.js.map css img
+      - run: tar -c -z -v -C resources/public -f "${{ env.GITHUB_REPOSITORY_SLUG }}-${{ env.GITHUB_REF_SLUG }}-imas-frontend.tgz" js/app/app.js css img icons fonts
 
       - name: Create timestamp for release tag-name
         id: tag_name

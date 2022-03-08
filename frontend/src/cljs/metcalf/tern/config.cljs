@@ -847,7 +847,7 @@
     [:div
 
      [:h2 "3. When"]
-     [:p "Lorem ipsum..."]
+     [:p "Provide temporal extent of the dataset."]
 
      [:div
       {:style {:display               "grid"
@@ -857,7 +857,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "beginPosition"]
         :label     "Start date"
-        :toolTip   "Select the date of the first data point in the dataset."}
+        :toolTip   "This field is required. Start date in the dataset."}
        [m4/date-field2
         {:form-id   [:form]
          :data-path ["identificationInfo" "beginPosition"]}]]
@@ -865,7 +865,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "endPosition"]
         :label     "End date"
-        :toolTip   "Select the date of the last data point in the data set."}
+        :toolTip   "This field is optional. The End date in the dataset, leave blank if it is continuous dataset."}
        [m4/date-field2
         {:form-id   [:form]
          :data-path ["identificationInfo" "endPosition"]}]]]]

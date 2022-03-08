@@ -464,7 +464,7 @@
     "{Identifier}"))
 
 (defn -format-citation
-  [{:keys [title date dateSubmitted authors coauthors version doi]}]
+  [{:keys [title date dateSubmitted authors coauthors version customCitation doi]}]
   (let [date (cljs-time/value-to-date (or date dateSubmitted))
         year (.getFullYear (or date (js/Date.))) ; fallback for (dev-only?) case where it hasn't been saved yet
         authors (map -format-author authors)
@@ -472,12 +472,15 @@
         author-list (->> (concat authors coauthors)
                          (interpose ", ")
                          (apply str))]
-    (str author-list " (" year "). " version ". " title ". "
-         (-format-doi doi))))
+    (str author-list " (" year "): Version " version ". " title
+         ". Terrestrial Ecosystem Research Network (TERN). (Dataset). "
+         (-format-doi doi)
+         (when-not (contains? empty-values customCitation)
+           (str ". " customCitation)))))
 
 (defn generate-citation
   [block]
-  (let [{:strs [title date dateSubmitted doi citedResponsibleParty version]} (blocks4/as-data block)
+  (let [{:strs [title date dateSubmitted doi citedResponsibleParty version customCitation]} (blocks4/as-data block)
         authors (->> citedResponsibleParty
                      (filter #(= "a37cc120-9920-4495-9a2f-698e225b5902"
                                  (get-in % ["role" "UUID"]))))
@@ -486,11 +489,12 @@
                                    (get-in % ["role" "UUID"]))))]
     (assoc-in block [:content "generatedCitation" :props :value]
               (-format-citation
-               {:authors       authors
-                :coauthors     coauthors
-                :title         title
-                :date          date
-                :dateSubmitted dateSubmitted
-                :version       version
-                :doi           doi}))))
+               {:authors        authors
+                :coauthors      coauthors
+                :title          title
+                :date           date
+                :dateSubmitted  dateSubmitted
+                :version        version
+                :doi            doi
+                :customCitation customCitation}))))
 

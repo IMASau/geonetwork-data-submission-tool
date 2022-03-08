@@ -1833,9 +1833,12 @@
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
+        errors? @(rf/subscribe [::has-block-errors? config])
         {:keys [disabled is-hidden value-path data-path placeholder columns]} props]
     (when-not is-hidden
       [:div
+       (when errors?
+         [:span {:style {:color "red"}} "You must specify a title for each file"])
        [ui-controls/TableSelectionList
         {:items              (or items [])
          :disabled           disabled

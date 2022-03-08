@@ -1,0 +1,107 @@
+name: Build frontend
+
+on:
+  workflow_dispatch:            # Enable manual invocation for testing
+  push:
+    branches:
+      - develop
+      - master
+
+
+jobs:
+  build-frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+
+    env:
+      JVM_OPTS: -Xmx3200m
+
+    defaults:
+      run:
+        working-directory: frontend
+
+    # NOTE: might need a matrix setup, for imas + tern builds. For now
+    # we only care about IMAS (because TERN manage their own builds)
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Introduces slugified variables; eg "master" instead of "refs/heads/master"
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v3.x
+
+      # Probably don't need this:
+      - name: Conditionally set build profile based on branch (master)
+        if: endswith(github.ref, '/master')
+        run: |
+          echo "PROFILE=min" >> $GITHUB_ENV
+      - name: Conditionally set build profile based on branch (develop)
+        if: endswith(github.ref, '/develop')
+        run: |
+          echo "PROFILE=mindev" >> $GITHUB_ENV
+
+      - name: Set up Java for Clojure
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Install clojure tools
+        uses: DeLaGuardo/setup-clojure@4.0
+        with:
+          cli: 1.10.1.693 # Clojure CLI based on tools.deps
+
+      - name: Set up / restore node-module caching
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: yarn-packages-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-packages-
+
+      - name: Set up / restore maven-deps caching
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: m2-deps-${{ hashFiles('shadow-cljs.edn') }}
+          restore-keys: |
+            m2-deps-
+
+      - name: Install Dependencies
+        run: yarn
+      - name: Components build
+        run: yarn run build
+
+      - name: Build project
+        run: npx shadow-cljs release imas-prod
+
+        # copy-static step
+      - run: npx sass --load-path=. --style compressed src/js/index.scss resources/public/css/style.npm-packaged.css
+      - run: mkdir -p resources/public/resources/icons resources/public/css/images
+      - run: cp -fR node_modules/@blueprintjs/icons/resources/icons resources/public/resources/icons
+      - run: cp -vr node_modules/leaflet-draw/dist/images/* resources/public/css/images
+
+      - run: tar -c -z -v -f "${{ env.GITHUB_REPOSITORY_SLUG }}-${{ env.GITHUB_REF_SLUG }}-imas-frontend.tgz" --exclude=manifest.edn --exclude=cljs-runtime --exclude=js/test resources
+
+      - name: Create timestamp for release tag-name
+        id: tag_name
+        run: echo "::set-output name=tag_name::$(date +%Y%m%d%H%M%S)"
+
+      - name: Cut a release, for download by Ansible
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag_name.outputs.tag_name }}
+          release_name: Frontend (${{ env.GITHUB_REF_SLUG }}-imas - ${{ env.GITHUB_SHA_SHORT }})
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "frontend/${{ env.GITHUB_REPOSITORY_SLUG }}-${{ env.GITHUB_REF_SLUG }}-imas-frontend.tgz"
+          asset_name: "${{ env.GITHUB_REPOSITORY_SLUG }}-${{ env.GITHUB_REF_SLUG }}-imas-frontend.tgz"
+          asset_content_type: application/gzip

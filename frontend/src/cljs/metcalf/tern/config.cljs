@@ -425,7 +425,7 @@
       {:form-id   [:form]
        :data-path ["parentMetadata"]
        :label     "Parent Metadata"
-       :toolTip   "Select 'Yes' if there is a parent metadata record associated with the dataset."}
+       :toolTip   "Check 'Yes' if there is a parent metadata record associated with the dataset."}
       [m4/yes-no-field
        {:form-id   [:form]
         :data-path ["parentMetadata" "parentMetadataFlag"]
@@ -443,7 +443,7 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "topicCategories"]
        :label     "Topic Categories"
-       :toolTip   "Please select a topic category relevant to the dataset (multiple selection is allowed)."}
+       :toolTip   "Select high-level thematic classification of the dataset."}
       [m4/simple-list-option-picker
        {:form-id     [:form]
         :data-path   ["identificationInfo" "topicCategories"]
@@ -488,7 +488,7 @@
         {:form-id   [:form]
          :data-path ["identificationInfo" "status"]
          :label     "Status of Data"
-         :toolTip   "Please select the status of the dataset."}
+         :toolTip   "Please indicate the status of the dataset."}
         [m4/select-value
          {:form-id    [:form]
           :data-path  ["identificationInfo" "status"]
@@ -518,7 +518,7 @@
          :data-path  ["identificationInfo" "version"]
          :label      "Version"
          :helperText "Version number of the resource"
-         :toolTip    "Please input the version number of the collection."}
+         :toolTip    "Please input the version number of the collection, by default the version number starts with 1.0"}
         [m4/input-field
          {:form-id   [:form]
           :data-path ["identificationInfo" "version"]}]]]
@@ -530,7 +530,7 @@
         {:form-id   [:form]
          :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
          :label     "Maintenance/Update Freq"
-         :toolTip   "Please select the update frequency of the dataset."}
+         :toolTip   "Select the frequency of data maintained or updated"}
         [m4/select-value
          {:form-id    [:form]
           :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
@@ -556,7 +556,7 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "dateCreation"]
        :label     "Date the resource was created"
-       :toolTip   "Select the creation date of the record."}
+       :toolTip   "This is a required field. Set the date the data was created or collected using the Calendar. The selected date can be in the past."}
       [m4/date-field2
        {:form-id   [:form]
         :data-path ["identificationInfo" "dateCreation"]}]]
@@ -565,7 +565,7 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "datePublicationFlag"]
        :label     "Has the data been published before?"
-       :toolTip   "If the record has been published before, then please indicate as 'Yes' and enter a published date, else select 'No'."}
+       :toolTip   "If the record has been published before, then select Yes and enter a published date below. Or else leave as default value as No"}
       [m4/yes-no-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "datePublicationFlag"]

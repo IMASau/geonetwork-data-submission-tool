@@ -1040,19 +1040,17 @@
      [:h2 "5. Who"]
 
      [:p "
-     This is a mandatory section and requires the person/organisation who is/are responsible for the dataset
+     This is a mandatory section and requires the person/organisation who is/are responsible for the dataset creation
      and the point of contact/s for the dataset.
      It can be a person or an organisation.
-     You can assign more than one person or organisation to the sections.
-     The person or organisation can be added at any point of time but must be completed prior to lodgement
+     You can assign more than one person or organisation.
      "]
 
      [m4/expanding-control {:label "Responsible for the creation of dataset" :required true :defaultOpen true}
 
       [:div.tern-collapsible-group
        [:p
-        "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
-        "More than one person or an organisation can be included as well."]
+        "Add people and/or organisations responsible for the dataset creation. Names of those assigned with Author and Co-authors will appear in the Citation statement."]
 
        [m4/list-add-button
         {:form-id            [:form]
@@ -1097,7 +1095,7 @@
 
       [:div.tern-collapsible-group
        [:p
-        "Please assign a person and/or an organisation as the point of contact.  More than one person or organisation can be included."]
+        "Add a Person and/or an Organisation as the contact for the dataset. Select only one entry."]
 
        [m4/list-add-button
         {:form-id            [:form]
@@ -1236,7 +1234,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "contact"]
        :label     "Select Person"
-       :toolTip   "Select the primary contact of the dataset."}
+       :toolTip   "Specify the name of the person associated with the selected role."}
 
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -1297,7 +1295,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
        :label     "Select associated Organisation"
-       :toolTip   "Select the organisation associated with the primary contact or define your own."}
+       :toolTip   "Select the organisation associated with the person. You can add an organisation using the “Add” button if the required organisation is not listed."}
 
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -1400,7 +1398,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
        :label     "Select associated Organisation"
-       :toolTip   "Select the organisation associated with the primary contact or define your own."}
+       :toolTip   "Select the organisation associated with the primary contact. You can add an organisation if a required organisation is not listed."}
 
       [:div.bp3-control-group
        [:div.bp3-fill

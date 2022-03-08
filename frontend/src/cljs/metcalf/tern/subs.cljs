@@ -71,7 +71,7 @@
     :data-paths []}
    {:id         :upload
     :text       "Data sources"
-    :data-paths []}
+    :data-paths [["attachments"]]}
    {:id         :lodge
     :text       "Lodge"
     :data-paths []}])

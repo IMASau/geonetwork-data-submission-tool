@@ -887,7 +887,7 @@
         {:form-id   [:form]
          :data-path ["identificationInfo" "geographicElement" "siteDescription"]
          :label     "Provide a site description (optional)"
-         :toolTip   "Provide a short description pertaining to the site of the dataset."}
+         :toolTip   "Please provide a short description pertaining to the site of the dataset. This field is optional."}
         [m4/textarea-field
          {:form-id     [:form]
           :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
@@ -933,7 +933,7 @@
 
        [m4/inline-form-group
         {:label    "Coordinate Reference System"
-         :toolTip  "Select the coordinate reference system."}
+         :toolTip  "This field is required. Select a Coordinate Reference System related to the dataset."}
         [m4/async-select-option-simple
          {:form-id     [:form]
           :data-path   ["referenceSystemInfo" "crsCode"]
@@ -947,7 +947,7 @@
 
        [m4/inline-form-group
         {:label    "Vertical Coordinate Reference System"
-         :toolTip  "Select the vertical coordinate system."}
+         :toolTip  "This field is Optional. If a Vertical Coordinate System is selected for the related to the dataset, then Minimum and Maximum are required."}
         [m4/async-select-option-simple
          {:form-id     [:form]
           :data-path   ["identificationInfo" "verticalElement" "coordinateReferenceSystem"]
@@ -979,7 +979,7 @@
 
          [m4/form-group
           {:label    "Resolution attribute"
-           :toolTip  "Indicate that the attribute used is either a denominator scale, vertical, horizontal, or the angular distance."}
+           :toolTip  "Select an attribute used from the drop down list."}
           [m4/select-value
            {:form-id     [:form]
             :data-path   ["identificationInfo" "SpatialResolution" "ResolutionAttribute"]

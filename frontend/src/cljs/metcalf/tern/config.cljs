@@ -1606,7 +1606,7 @@
     [:div
      [:h2 "6. How"]
 
-     [:p "This section is optional.  You can add method/s used for the collection of the data and provide the Data Quality description and the associated results"]
+     [:p "This section is optional. You can provide a description of method(s) used for the collection of the data and/or Add online documentation of the methods and detailed procedure steps."]
 
      [m4/expanding-control {:label "Data creation procedure details (Optional)"}
 
@@ -1621,7 +1621,7 @@
 
       [m4/form-group
        {:label   "Method documentation"
-        :toolTip "The method of production of the dataset. Provide the title and URL of the method documentation."}
+        :toolTip "Provide links to the online method documentations, including peer-review papers describing the method."}
        [:div.SelectionListItemColoured.Inverted
         [m4/selection-list-columns
          {:form-id            [:form]

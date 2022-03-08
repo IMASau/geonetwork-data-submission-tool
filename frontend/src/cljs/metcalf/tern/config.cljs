@@ -1754,7 +1754,7 @@
     :about
     [:div
      [:h2 "8: About Dataset"]
-     [:i "This section allows you to provide information of the dataset collection, and will inform the consumer with the legal obligations, limitations of use and any other relevant details such as resources and publications."]
+     [:p "This section allows you to provide information of the dataset collection, and will inform the consumer with the legal obligations, limitations of use and any other relevant details such as resources and publications."]
 
      [:h3 "Limitation/Constraints"]
      [m4/form-group
@@ -1773,7 +1773,7 @@
         :template-id :about/other-constraints-list-entry}]]
      [m4/form-group
       {:label   "Any other constraints"
-       :toolTip "Enter any additional constraints as required and click to add"}
+       :toolTip "Enter any additional constraints as required and click the Add button."}
       [m4/text-add-button
        {:form-id     [:form]
         :data-path   ["identificationInfo" "additionalConstraints" "constraints"]
@@ -1811,7 +1811,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "environment"]
         :label      "Environmental description"
-        :toolTip    "Description of the dataset in the producer's processing environment, including items such as the software, the computer operating system, file name, format, language and the dataset size."
+        :toolTip    "Description of the dataset in the producer’s processing environment, including items such as the software, the computer operating system, file name, format, language and the dataset size."
         :helperText "Software, computer operating system, file name, or dataset size"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -1823,7 +1823,7 @@
 
       [m4/form-group
        {:label   "Publication"
-        :toolTip "Please provide the title and URL of the publications describing the dataset."}
+        :toolTip "Associated resources related to the dataset such as projects and documents"}
        [:div.SelectionListItemColoured.Inverted
         [m4/selection-list-columns
          {:form-id            [:form]
@@ -1856,7 +1856,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "supplemental"]
         :label      "Supplemental Information"
-        :toolTip    "Miscellaneous information about the dataset, not captured elsewhere."
+        :toolTip    "Miscellaneous information about the dataset, not captured elsewhere. This is an optional field."
         :helperText "Any supplemental information needed to interpret the resource"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -1869,7 +1869,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "resourceSpecificUsage"]
         :label      "Resource specific usage"
-        :toolTip    "Please provide a brief description with regards to the usage of the resource and/or the resource series usage."
+        :toolTip    "Information about use of the datasets in specific application(s) by different users."
         :helperText "What can this resource be used for environmental research?"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -1882,7 +1882,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "credit"]
         :label      "Acknowledgment"
-        :toolTip    "Please include statements to acknowledge various types of support that led to the creation of the dataset."
+        :toolTip    "Recognition of those who contributed to the dataset. Do not include URLs here."
         :helperText "Write a sentence acknowledging sponsors, data providers or funding organisations"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -1895,7 +1895,8 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "customCitation"]
         :label      "Specific citation"
-        :toolTip    "The system will generate a standard citation based on the metadata provided. Here you may indicate a specific citation for this dataset."
+        :toolTip    "Other information required to complete the citation that is not
+recorded in the standard citation."
         :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details above."}
        [m4/textarea-field
         {:form-id   [:form]

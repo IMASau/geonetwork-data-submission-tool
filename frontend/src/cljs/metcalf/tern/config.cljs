@@ -1940,6 +1940,7 @@ recorded in the standard citation."
     :upload
     [:div
      [:h2 "9. Data Sources"]
+     [:p "Add dataset files and services associated with the metadata."]
      [m4/upload-files
       {:form-id     [:form]
        :data-path   ["attachments"]
@@ -1962,7 +1963,7 @@ recorded in the standard citation."
       {:form-id   [:form]
        :data-path ["identificationInfo" "thumbnail" "title"]
        :label     "Title"
-       :toolTip   "Provide the title of the file uploaded."}
+       :toolTip   "Provide the title of the Thumbnail uploaded."}
       [m4/input-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "thumbnail" "title"]}]]
@@ -1973,12 +1974,12 @@ recorded in the standard citation."
        :placeholder [:div
                      [:h3 "Drag and drop thumbnail here"]
                      [:span.help-block "Maximum size 1000 x 1000px"]]}]
-     [:p "A small image that exemplifies the collective resource. The graphic file should be less than 500KB and 1000x1000 pixels."]
+     [:p "A small image that exemplifies the collective resource."]
 
      [:h2 "Data Services"]
      [m4/form-group
       {:label   "Distributions"
-       :toolTip "Provide information (name, URL) about the services for downloading the datasets."}
+       :toolTip "Information about distributed data details."}
       [:div.SelectionListItemColoured.Inverted
        [m4/selection-list-columns
         {:form-id            [:form]
@@ -2030,7 +2031,8 @@ recorded in the standard citation."
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "transferOptions" "name"]
-       :label     "Title"}
+       :label     "Title"
+       :toolTip   "Title of the data source"}
       [m4/textarea-field
        {:form-id   ?form-id
         :data-path [?data-path "transferOptions" "name"]}]]
@@ -2072,7 +2074,7 @@ recorded in the standard citation."
       {:form-id   ?form-id
        :data-path [?data-path]
        :label     "Distributor's Organisation"
-       :toolTip   "TERN is selected by default. You may select a different distributor for the dataset, if necessary."}
+       :toolTip   "TERN is selected by default. You can select another organisation as a distributor for the dataset"}
       [m4/async-select-option-simple
        {:form-id     ?form-id
         :data-path   [?data-path "distributor"]

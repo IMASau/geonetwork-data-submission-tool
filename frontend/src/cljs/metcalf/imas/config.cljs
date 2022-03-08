@@ -212,8 +212,7 @@
        })
 
 (def edit-templates
-  '{
-    :data-identification
+  '{:data-identification
     [:div
      ; [m4/page-errors
      ;  {:form-id    [:form]
@@ -764,8 +763,7 @@
           :placeholder "Post code"}]]
        [m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "country"]
-         }
+         :data-path [?data-path "contact" "country"]}
         [m4/input-field
          {:form-id     ?form-id
           :data-path   [?data-path "contact" "country"]
@@ -926,7 +924,7 @@
      [m4/form-group
       {:form-id   [:form]
        :data-path ["distributionInfo" "distributionFormat" "edition"]
-       :label     "Data file format date/version",}
+       :label     "Data file format date/version"}
       [m4/input-field
        {:form-id     [:form]
         :data-path   ["distributionInfo" "distributionFormat" "edition"]
@@ -1126,7 +1124,6 @@
         :data-path   [?data-path "platform_term"]
         :title       "Define a custom parameter platform"
         :template-id :parameter-platform/user-defined-entry-form}]]]
-
 
     :upload
     [:div

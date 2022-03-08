@@ -1687,7 +1687,7 @@
     :quality
     [:div
      [:h2 "7. Data Quality"]
-     [:i "This section is optional"]
+     [:p "Provide details about the scope of the data quality assessment, reports on data quality and any data quality assessment outcome."]
 
      [m4/form-group
       {:form-id   [:form]

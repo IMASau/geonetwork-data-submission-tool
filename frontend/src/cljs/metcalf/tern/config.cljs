@@ -242,7 +242,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "source"]
        :label     "Source"
-       :toolTip   "Specify the source of the platform descriptions in citation format, if available."}
+       :toolTip   "Specify the source of the platform, if available, in citation format. Eg Creators (Publication year), Title, Version, Publisher, Resource type, Identifer."}
       [m4/textarea-field
        {:form-id     ?form-id
         :data-path   [?data-path "source"]
@@ -282,7 +282,7 @@
        :data-path  [?data-path "serial"]
        :label      "Serial Number"
        :helperText "Optional"
-       :toolTip    "Add the serial number for the instrument, if available."}
+       :toolTip    "This is optional. You can add a serial number of the instrument if it is available."}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "serial"]}]]]
@@ -349,7 +349,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "parameter"]
        :label     "Parameter"
-       :toolTip   "Select the parameter(s) (observed variables) from the predefined list. If the required parameter is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
+       :toolTip   "Select Parameters (observable properties) in the dataset from the predefined list. If the required parameter is not available, you can click the ‘Add’ button to define a new parameter. All new entries will be reviewed prior to publication."}
 
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -379,7 +379,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "unit"]
        :label     "Unit of measure"
-       :toolTip   "Select a \"unit of measure\" (UoM) from the predefined list. If the required UoM is not in the list, you can click the 'Add' button to define your own. The entry will be reviewed prior to publishing."}
+       :toolTip   "Select a Unit of Measure (UoM) related to the selected parameter from the list. If the required UoM is not found within the list, you can click the ‘Add’ button to define a new unit of measure."}
 
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -425,7 +425,7 @@
       {:form-id   [:form]
        :data-path ["parentMetadata"]
        :label     "Parent Metadata"
-       :toolTip   "Select 'Yes' if there is a parent metadata record associated with the dataset."}
+       :toolTip   "Check 'Yes' if there is a parent metadata record associated with the dataset."}
       [m4/yes-no-field
        {:form-id   [:form]
         :data-path ["parentMetadata" "parentMetadataFlag"]
@@ -443,7 +443,7 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "topicCategories"]
        :label     "Topic Categories"
-       :toolTip   "Please select a topic category relevant to the dataset (multiple selection is allowed)."}
+       :toolTip   "Select high-level thematic classification of the dataset."}
       [m4/simple-list-option-picker
        {:form-id     [:form]
         :data-path   ["identificationInfo" "topicCategories"]
@@ -488,7 +488,7 @@
         {:form-id   [:form]
          :data-path ["identificationInfo" "status"]
          :label     "Status of Data"
-         :toolTip   "Please select the status of the dataset."}
+         :toolTip   "Please indicate the status of the dataset."}
         [m4/select-value
          {:form-id    [:form]
           :data-path  ["identificationInfo" "status"]
@@ -518,7 +518,7 @@
          :data-path  ["identificationInfo" "version"]
          :label      "Version"
          :helperText "Version number of the resource"
-         :toolTip    "Please input the version number of the collection."}
+         :toolTip    "Please input the version number of the collection, by default the version number starts with 1.0"}
         [m4/input-field
          {:form-id   [:form]
           :data-path ["identificationInfo" "version"]}]]]
@@ -530,7 +530,7 @@
         {:form-id   [:form]
          :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
          :label     "Maintenance/Update Freq"
-         :toolTip   "Please select the update frequency of the dataset."}
+         :toolTip   "Select the frequency of data maintained or updated"}
         [m4/select-value
          {:form-id    [:form]
           :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
@@ -556,7 +556,7 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "dateCreation"]
        :label     "Date the resource was created"
-       :toolTip   "Select the creation date of the record."}
+       :toolTip   "This is a required field. Set the date the data was created or collected using the Calendar. The selected date can be in the past."}
       [m4/date-field2
        {:form-id   [:form]
         :data-path ["identificationInfo" "dateCreation"]}]]
@@ -565,7 +565,7 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "datePublicationFlag"]
        :label     "Has the data been published before?"
-       :toolTip   "If the record has been published before, then please indicate as 'Yes' and enter a published date, else select 'No'."}
+       :toolTip   "If the record has been published before, then select Yes and enter a published date below. Or else leave as default value as No"}
       [m4/yes-no-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "datePublicationFlag"]
@@ -583,13 +583,13 @@
     :what
     [:div
      [:h2 "2. What"]
-     [:p "TODO: Lorem ipsum..."]
+     [:p "In this tab you will provide more contextual information about the data you are publishing."]
      [m4/form-group
       {:form-id    [:form]
        :data-path  ["identificationInfo" "abstract"]
        :label      "Abstract"
        :helperText "Describe the content of the resource; e.g. what information was collected, how was it collected"
-       :toolTip    "A summary describing the dataset, e.g., \"What, When, Where, and How\" in relation to the dataset."}
+       :toolTip    "Brief summary description about key aspects, attributes of the data, and contextual information about the dataset you are publishing in a clear, concise and human readable manner"}
       [m4/textarea-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "abstract"]
@@ -599,7 +599,7 @@
        :data-path  ["identificationInfo" "purpose"]
        :label      "Purpose"
        :helperText "Brief statement about the purpose of the study"
-       :toolTip    "Provide the purpose of the dataset."}
+       :toolTip    "Summary of intentions for which the dataset was created."}
       [m4/textarea-field
        {:form-id     [:form]
         :data-path   ["identificationInfo" "purpose"]
@@ -608,7 +608,7 @@
 
      [m4/form-group
       {:label      "Descriptive keywords"
-       :helperText "Vocabulary terms that describe the general science categories, general location, organizations, projects, platforms, instruments associated with the resource."}]
+       :helperText "Vocabulary terms related to the dataset that describes the science categories, Field of research, Platforms, Instruments, Resolutions and Species information."}]
 
      [m4/expanding-control
       {:label    "GCMD Science keywords"
@@ -639,7 +639,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
         :label     "Select research theme keywords - maximum of 12 allowed"
-        :toolTip   "Select the keywords representing fields of research . You may select up to 12 keywords."}
+        :toolTip   "Select Fields of Research keywords from the list. You can select upto 12 keywords."}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
@@ -658,7 +658,7 @@
      [m4/expanding-control {:label "Platforms" :required true}
       [m4/form-group
        {:label   "Select a platform for the data measurement"
-        :toolTip "Select the platform(s) that hosts the sensors used to generate the dataset from the predefined list. If the required platform is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
+        :toolTip "Select platform(s) that hosts other entities to generate the dataset from the list. If the required platform is not in the list, you can click the ‘Add’ button to add your platform. All new entries will be reviewed prior to publication."}
 
        [:div.bp3-control-group
         [:div.bp3-fill
@@ -694,7 +694,7 @@
      [m4/expanding-control {:label "Instruments" :required true}
       [m4/form-group
        {:label   "Select the instrument used for the platform"
-        :toolTip "Select the instrument(s) or sensor(s) used to create the dataset from the predefined list. If the required instrument or sensor is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
+        :toolTip "Select the instrument(s) or sensor(s) used in data collection.  If the required instrument is not in the list, you can click the ‘Add’ button to add your instrument. All new entries will be reviewed prior to publication."}
 
        [:div.bp3-control-group
         [:div.bp3-fill
@@ -730,8 +730,9 @@
 
      [m4/expanding-control {:label "Parameters" :required true}
 
-      [:div
-       [:p "Select a measured parameter, e.g. vegetation height"]
+      [m4/form-group
+       {:label "Select a measured parameter, e.g. vegetation height"
+        :toolTip "Select Parameters (observable properties) in the dataset from the predefined list. If the required parameter is not available, you can click the ‘Add’ button to define a new parameter. All new entries will be reviewed prior to publication."}
 
        [m4/list-add-button
         {:form-id            [:form]
@@ -761,7 +762,7 @@
      [m4/expanding-control {:label "Temporal Resolution" :required true}
       [m4/form-group
        {:label   "Select a Temporal Resolution range"
-        :toolTip "The temporal resolution specifies the targeted time period between each value in the data set. Select a temporal resolution range from the predefined list. Only one item may be selected."}
+        :toolTip "Temporal resolution specifies the time interval between data points. Select a resolution from the drop-down menu."}
        [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsTemporal" "keywords"]
@@ -772,7 +773,7 @@
      [m4/expanding-control {:label "Horizontal Resolution" :required true}
       [m4/form-group
        {:label   "Select a Horizontal Resolution range"
-        :toolTip "Select a horizontal resolution range from the predefined list. Only one item may be selected."}
+        :toolTip "Horizontal resolution is a horizontal extent of the dataset. Select a resolution from the drop-down menu."}
        [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsHorizontal" "keywords"]
@@ -783,7 +784,7 @@
      [m4/expanding-control {:label "Vertical Resolution (Optional)" :required false}
       [m4/form-group
        {:label   "Select a Vertical Resolution range"
-        :toolTip "Select a vertical resolution range from the predefined list. Only one item may be selected."}
+        :toolTip "This field is optional. A Vertical resolution is a vertical extent of the dataset. Select a resolution from the drop-down menu."}
        [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
@@ -794,7 +795,7 @@
      [m4/expanding-control {:label "Australian Plant Name Index (Optional)" :required false}
       [m4/form-group
        {:label   "Select Plant Name Indexes keywords"
-        :toolTip "Select the plant names from the APNI list. Up to 12 names may be selected."}
+        :toolTip "Select Plant names from the APNI list. You may select upto 12 names."}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
@@ -813,7 +814,7 @@
      [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required false}
       [m4/form-group
        {:label   "Select Australian Faunal Directory keywords"
-        :toolTip "Select animal species from the Australian Faunal Directory. Up to 12 names may be selected."}
+        :toolTip "Select Animal species from the Australian Faunal Directory. You can select up to 12 names."}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
@@ -832,7 +833,7 @@
      [m4/expanding-control {:label "Additional Keywords (Optional)" :required false}
       [m4/form-group
        {:label   "Additional theme keywords can be added for review and approval process"
-        :toolTip "You may define additional keywords here if they are not available in the above lists. The keywords will be reviewed prior to publishing."}
+        :toolTip "You can add any additional keywords if they are not available in the lists above. All entries will be reviewed prior to publication."}
        [m4/text-add-button
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]
@@ -846,7 +847,7 @@
     [:div
 
      [:h2 "3. When"]
-     [:p "Lorem ipsum..."]
+     [:p "Provide temporal extent of the dataset."]
 
      [:div
       {:style {:display               "grid"
@@ -856,7 +857,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "beginPosition"]
         :label     "Start date"
-        :toolTip   "Select the date of the first data point in the dataset."}
+        :toolTip   "This field is required. Start date in the dataset."}
        [m4/date-field2
         {:form-id   [:form]
          :data-path ["identificationInfo" "beginPosition"]}]]
@@ -864,7 +865,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "endPosition"]
         :label     "End date"
-        :toolTip   "Select the date of the last data point in the data set."}
+        :toolTip   "This field is optional. The End date in the dataset, leave blank if it is continuous dataset."}
        [m4/date-field2
         {:form-id   [:form]
          :data-path ["identificationInfo" "endPosition"]}]]]]
@@ -886,7 +887,7 @@
         {:form-id   [:form]
          :data-path ["identificationInfo" "geographicElement" "siteDescription"]
          :label     "Provide a site description (optional)"
-         :toolTip   "Provide a short description pertaining to the site of the dataset."}
+         :toolTip   "Please provide a short description pertaining to the site of the dataset. This field is optional."}
         [m4/textarea-field
          {:form-id     [:form]
           :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
@@ -932,7 +933,7 @@
 
        [m4/inline-form-group
         {:label    "Coordinate Reference System"
-         :toolTip  "Select the coordinate reference system."}
+         :toolTip  "This field is required. Select a Coordinate Reference System related to the dataset."}
         [m4/async-select-option-simple
          {:form-id     [:form]
           :data-path   ["referenceSystemInfo" "crsCode"]
@@ -946,7 +947,7 @@
 
        [m4/inline-form-group
         {:label    "Vertical Coordinate Reference System"
-         :toolTip  "Select the vertical coordinate system."}
+         :toolTip  "This field is Optional. If a Vertical Coordinate System is selected for the related to the dataset, then Minimum and Maximum are required."}
         [m4/async-select-option-simple
          {:form-id     [:form]
           :data-path   ["identificationInfo" "verticalElement" "coordinateReferenceSystem"]
@@ -978,7 +979,7 @@
 
          [m4/form-group
           {:label    "Resolution attribute"
-           :toolTip  "Indicate that the attribute used is either a denominator scale, vertical, horizontal, or the angular distance."}
+           :toolTip  "Select an attribute used from the drop down list."}
           [m4/select-value
            {:form-id     [:form]
             :data-path   ["identificationInfo" "SpatialResolution" "ResolutionAttribute"]
@@ -1039,19 +1040,17 @@
      [:h2 "5. Who"]
 
      [:p "
-     This is a mandatory section and requires the person/organisation who is/are responsible for the dataset
+     This is a mandatory section and requires the person/organisation who is/are responsible for the dataset creation
      and the point of contact/s for the dataset.
      It can be a person or an organisation.
-     You can assign more than one person or organisation to the sections.
-     The person or organisation can be added at any point of time but must be completed prior to lodgement
+     You can assign more than one person or organisation.
      "]
 
      [m4/expanding-control {:label "Responsible for the creation of dataset" :required true :defaultOpen true}
 
       [:div.tern-collapsible-group
        [:p
-        "Please assign a person and/or an organisation as responsible for the creation of the dataset. "
-        "More than one person or an organisation can be included as well."]
+        "Add people and/or organisations responsible for the dataset creation. Names of those assigned with Author and Co-authors will appear in the Citation statement."]
 
        [m4/list-add-button
         {:form-id            [:form]
@@ -1096,7 +1095,7 @@
 
       [:div.tern-collapsible-group
        [:p
-        "Please assign a person and/or an organisation as the point of contact.  More than one person or organisation can be included."]
+        "Add a Person and/or an Organisation as the contact for the dataset. Select only one entry."]
 
        [m4/list-add-button
         {:form-id            [:form]
@@ -1235,7 +1234,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "contact"]
        :label     "Select Person"
-       :toolTip   "Select the primary contact of the dataset."}
+       :toolTip   "Specify the name of the person associated with the selected role."}
 
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -1296,7 +1295,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
        :label     "Select associated Organisation"
-       :toolTip   "Select the organisation associated with the primary contact or define your own."}
+       :toolTip   "Select the organisation associated with the person. You can add an organisation using the “Add” button if the required organisation is not listed."}
 
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -1320,7 +1319,7 @@
         :title       "Organisation"
         :template-id :person-organisation/user-defined-entry-form}]]]
 
-    ; NOTE: organisation with role (not associated with a person)
+                                        ; NOTE: organisation with role (not associated with a person)
     :party-organisation/user-defined-entry-form
     [:div
 
@@ -1399,7 +1398,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "organisation"]
        :label     "Select associated Organisation"
-       :toolTip   "Select the organisation associated with the primary contact or define your own."}
+       :toolTip   "Select the organisation associated with the primary contact. You can add an organisation if a required organisation is not listed."}
 
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -1487,7 +1486,7 @@
         :data-path [?data-path "organisation" "email"]
         :disabled  true}]]]
 
-    ; NOTE: person organisation (no role)
+                                        ; NOTE: person organisation (no role)
     :person-organisation/user-defined-entry-form
     [:div
 
@@ -1607,7 +1606,7 @@
     [:div
      [:h2 "6. How"]
 
-     [:p "This section is optional.  You can add method/s used for the collection of the data and provide the Data Quality description and the associated results"]
+     [:p "This section is optional. You can provide a description of method(s) used for the collection of the data and/or Add online documentation of the methods and detailed procedure steps."]
 
      [m4/expanding-control {:label "Data creation procedure details (Optional)"}
 
@@ -1622,7 +1621,7 @@
 
       [m4/form-group
        {:label   "Method documentation"
-        :toolTip "The method of production of the dataset. Provide the title and URL of the method documentation."}
+        :toolTip "Provide links to the online method documentations, including peer-review papers describing the method."}
        [:div.SelectionListItemColoured.Inverted
         [m4/selection-list-columns
          {:form-id            [:form]
@@ -1688,7 +1687,7 @@
     :quality
     [:div
      [:h2 "7. Data Quality"]
-     [:i "This section is optional"]
+     [:p "Provide details about the scope of the data quality assessment, reports on data quality and any data quality assessment outcome."]
 
      [m4/form-group
       {:form-id   [:form]
@@ -1755,7 +1754,7 @@
     :about
     [:div
      [:h2 "8: About Dataset"]
-     [:i "This section allows you to provide information of the dataset collection, and will inform the consumer with the legal obligations, limitations of use and any other relevant details such as resources and publications."]
+     [:p "This section allows you to provide information of the dataset collection, and will inform the consumer with the legal obligations, limitations of use and any other relevant details such as resources and publications."]
 
      [:h3 "Limitation/Constraints"]
      [m4/form-group
@@ -1765,8 +1764,8 @@
       [:div
        [:i [m4/get-data {:form-id [:form] :data-path ["identificationInfo" "useLimitation"]}]]]]
      [m4/form-group
-      {;:form-id   [:form]
-       ;:data-path ["identificationInfo"]
+      {                             ;:form-id   [:form]
+                                        ;:data-path ["identificationInfo"]
        :label "Other constraints"}
       [m4/simple-list
        {:form-id     [:form]
@@ -1774,7 +1773,7 @@
         :template-id :about/other-constraints-list-entry}]]
      [m4/form-group
       {:label   "Any other constraints"
-       :toolTip "Enter any additional constraints as required and click to add"}
+       :toolTip "Enter any additional constraints as required and click the Add button."}
       [m4/text-add-button
        {:form-id     [:form]
         :data-path   ["identificationInfo" "additionalConstraints" "constraints"]
@@ -1812,7 +1811,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "environment"]
         :label      "Environmental description"
-        :toolTip    "Description of the dataset in the producer's processing environment, including items such as the software, the computer operating system, file name, format, language and the dataset size."
+        :toolTip    "Description of the dataset in the producer’s processing environment, including items such as the software, the computer operating system, file name, format, language and the dataset size."
         :helperText "Software, computer operating system, file name, or dataset size"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -1824,7 +1823,7 @@
 
       [m4/form-group
        {:label   "Publication"
-        :toolTip "Please provide the title and URL of the publications describing the dataset."}
+        :toolTip "Associated resources related to the dataset such as projects and documents"}
        [:div.SelectionListItemColoured.Inverted
         [m4/selection-list-columns
          {:form-id            [:form]
@@ -1857,7 +1856,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "supplemental"]
         :label      "Supplemental Information"
-        :toolTip    "Miscellaneous information about the dataset, not captured elsewhere."
+        :toolTip    "Miscellaneous information about the dataset, not captured elsewhere. This is an optional field."
         :helperText "Any supplemental information needed to interpret the resource"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -1870,7 +1869,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "resourceSpecificUsage"]
         :label      "Resource specific usage"
-        :toolTip    "Please provide a brief description with regards to the usage of the resource and/or the resource series usage."
+        :toolTip    "Information about use of the datasets in specific application(s) by different users."
         :helperText "What can this resource be used for environmental research?"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -1883,7 +1882,7 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "credit"]
         :label      "Acknowledgment"
-        :toolTip    "Please include statements to acknowledge various types of support that led to the creation of the dataset."
+        :toolTip    "Recognition of those who contributed to the dataset. Do not include URLs here."
         :helperText "Write a sentence acknowledging sponsors, data providers or funding organisations"}
        [m4/textarea-field
         {:form-id     [:form]
@@ -1896,7 +1895,8 @@
        {:form-id    [:form]
         :data-path  ["identificationInfo" "customCitation"]
         :label      "Specific citation"
-        :toolTip    "The system will generate a standard citation based on the metadata provided. Here you may indicate a specific citation for this dataset."
+        :toolTip    "Other information required to complete the citation that is not
+recorded in the standard citation."
         :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details above."}
        [m4/textarea-field
         {:form-id   [:form]
@@ -1940,6 +1940,7 @@
     :upload
     [:div
      [:h2 "9. Data Sources"]
+     [:p "Add dataset files and services associated with the metadata."]
      [m4/upload-files
       {:form-id     [:form]
        :data-path   ["attachments"]
@@ -1962,7 +1963,7 @@
       {:form-id   [:form]
        :data-path ["identificationInfo" "thumbnail" "title"]
        :label     "Title"
-       :toolTip   "Provide the title of the file uploaded."}
+       :toolTip   "Provide the title of the Thumbnail uploaded."}
       [m4/input-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "thumbnail" "title"]}]]
@@ -1973,12 +1974,12 @@
        :placeholder [:div
                      [:h3 "Drag and drop thumbnail here"]
                      [:span.help-block "Maximum size 1000 x 1000px"]]}]
-     [:p "A small image that exemplifies the collective resource. The graphic file should be less than 500KB and 1000x1000 pixels."]
+     [:p "A small image that exemplifies the collective resource."]
 
      [:h2 "Data Services"]
      [m4/form-group
       {:label   "Distributions"
-       :toolTip "Provide information (name, URL) about the services for downloading the datasets."}
+       :toolTip "Information about distributed data details."}
       [:div.SelectionListItemColoured.Inverted
        [m4/selection-list-columns
         {:form-id            [:form]
@@ -2030,7 +2031,8 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "transferOptions" "name"]
-       :label     "Title"}
+       :label     "Title"
+       :toolTip   "Title of the data source"}
       [m4/textarea-field
        {:form-id   ?form-id
         :data-path [?data-path "transferOptions" "name"]}]]
@@ -2072,7 +2074,7 @@
       {:form-id   ?form-id
        :data-path [?data-path]
        :label     "Distributor's Organisation"
-       :toolTip   "TERN is selected by default. You may select a different distributor for the dataset, if necessary."}
+       :toolTip   "TERN is selected by default. You can select another organisation as a distributor for the dataset"}
       [m4/async-select-option-simple
        {:form-id     ?form-id
         :data-path   [?data-path "distributor"]
@@ -2084,7 +2086,7 @@
     :lodge
     [:div
      [:h2 "10: Lodge Metadata Draft"]
-     [:p "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."]
+     [:p "Information about distribution and options to load data."]
 
      [m4/when-errors
       {:form-id   [:form]
@@ -2165,7 +2167,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "doiFlag"]
         :label     "Is there an existing DOI for this dataset?"
-        ;:toolTip   "Select 'Yes' if a DOI has already been minted for this dataset."
+                                        ;:toolTip   "Select 'Yes' if a DOI has already been minted for this dataset."
         }
        [m4/yes-no-field
         {:form-id   [:form]

@@ -242,7 +242,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "source"]
        :label     "Source"
-       :toolTip   "Specify the source of the platform descriptions in citation format, if available."}
+       :toolTip   "Specify the source of the platform, if available, in citation format. Eg Creators (Publication year), Title, Version, Publisher, Resource type, Identifer."}
       [m4/textarea-field
        {:form-id     ?form-id
         :data-path   [?data-path "source"]
@@ -282,7 +282,7 @@
        :data-path  [?data-path "serial"]
        :label      "Serial Number"
        :helperText "Optional"
-       :toolTip    "Add the serial number for the instrument, if available."}
+       :toolTip    "This is optional. You can add a serial number of the instrument if it is available."}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "serial"]}]]]
@@ -349,7 +349,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "parameter"]
        :label     "Parameter"
-       :toolTip   "Select the parameter(s) (observed variables) from the predefined list. If the required parameter is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
+       :toolTip   "Select Parameters (observable properties) in the dataset from the predefined list. If the required parameter is not available, you can click the ‘Add’ button to define a new parameter. All new entries will be reviewed prior to publication."}
 
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -379,7 +379,7 @@
       {:form-id   ?form-id
        :data-path [?data-path "unit"]
        :label     "Unit of measure"
-       :toolTip   "Select a \"unit of measure\" (UoM) from the predefined list. If the required UoM is not in the list, you can click the 'Add' button to define your own. The entry will be reviewed prior to publishing."}
+       :toolTip   "Select a Unit of Measure (UoM) related to the selected parameter from the list. If the required UoM is not found within the list, you can click the ‘Add’ button to define a new unit of measure."}
 
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -583,13 +583,13 @@
     :what
     [:div
      [:h2 "2. What"]
-     [:p "TODO: Lorem ipsum..."]
+     [:p "In this tab you will provide more contextual information about the data you are publishing."]
      [m4/form-group
       {:form-id    [:form]
        :data-path  ["identificationInfo" "abstract"]
        :label      "Abstract"
        :helperText "Describe the content of the resource; e.g. what information was collected, how was it collected"
-       :toolTip    "A summary describing the dataset, e.g., \"What, When, Where, and How\" in relation to the dataset."}
+       :toolTip    "Brief summary description about key aspects, attributes of the data, and contextual information about the dataset you are publishing in a clear, concise and human readable manner"}
       [m4/textarea-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "abstract"]
@@ -599,7 +599,7 @@
        :data-path  ["identificationInfo" "purpose"]
        :label      "Purpose"
        :helperText "Brief statement about the purpose of the study"
-       :toolTip    "Provide the purpose of the dataset."}
+       :toolTip    "Summary of intentions for which the dataset was created."}
       [m4/textarea-field
        {:form-id     [:form]
         :data-path   ["identificationInfo" "purpose"]
@@ -608,7 +608,7 @@
 
      [m4/form-group
       {:label      "Descriptive keywords"
-       :helperText "Vocabulary terms that describe the general science categories, general location, organizations, projects, platforms, instruments associated with the resource."}]
+       :helperText "Vocabulary terms related to the dataset that describes the science categories, Field of research, Platforms, Instruments, Resolutions and Species information."}]
 
      [m4/expanding-control
       {:label    "GCMD Science keywords"
@@ -639,7 +639,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
         :label     "Select research theme keywords - maximum of 12 allowed"
-        :toolTip   "Select the keywords representing fields of research . You may select up to 12 keywords."}
+        :toolTip   "Select Fields of Research keywords from the list. You can select upto 12 keywords."}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
@@ -658,7 +658,7 @@
      [m4/expanding-control {:label "Platforms" :required true}
       [m4/form-group
        {:label   "Select a platform for the data measurement"
-        :toolTip "Select the platform(s) that hosts the sensors used to generate the dataset from the predefined list. If the required platform is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
+        :toolTip "Select platform(s) that hosts other entities to generate the dataset from the list. If the required platform is not in the list, you can click the ‘Add’ button to add your platform. All new entries will be reviewed prior to publication."}
 
        [:div.bp3-control-group
         [:div.bp3-fill
@@ -694,7 +694,7 @@
      [m4/expanding-control {:label "Instruments" :required true}
       [m4/form-group
        {:label   "Select the instrument used for the platform"
-        :toolTip "Select the instrument(s) or sensor(s) used to create the dataset from the predefined list. If the required instrument or sensor is not in the list, you can click the '+ Add' button to define your own. The entry will be reviewed prior to publishing."}
+        :toolTip "Select the instrument(s) or sensor(s) used in data collection.  If the required instrument is not in the list, you can click the ‘Add’ button to add your instrument. All new entries will be reviewed prior to publication."}
 
        [:div.bp3-control-group
         [:div.bp3-fill
@@ -730,8 +730,9 @@
 
      [m4/expanding-control {:label "Parameters" :required true}
 
-      [:div
-       [:p "Select a measured parameter, e.g. vegetation height"]
+      [m4/form-group
+       {:label "Select a measured parameter, e.g. vegetation height"
+        :toolTip "Select Parameters (observable properties) in the dataset from the predefined list. If the required parameter is not available, you can click the ‘Add’ button to define a new parameter. All new entries will be reviewed prior to publication."}
 
        [m4/list-add-button
         {:form-id            [:form]
@@ -761,7 +762,7 @@
      [m4/expanding-control {:label "Temporal Resolution" :required true}
       [m4/form-group
        {:label   "Select a Temporal Resolution range"
-        :toolTip "The temporal resolution specifies the targeted time period between each value in the data set. Select a temporal resolution range from the predefined list. Only one item may be selected."}
+        :toolTip "Temporal resolution specifies the time interval between data points. Select a resolution from the drop-down menu."}
        [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsTemporal" "keywords"]
@@ -772,7 +773,7 @@
      [m4/expanding-control {:label "Horizontal Resolution" :required true}
       [m4/form-group
        {:label   "Select a Horizontal Resolution range"
-        :toolTip "Select a horizontal resolution range from the predefined list. Only one item may be selected."}
+        :toolTip "Horizontal resolution is a horizontal extent of the dataset. Select a resolution from the drop-down menu."}
        [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsHorizontal" "keywords"]
@@ -783,7 +784,7 @@
      [m4/expanding-control {:label "Vertical Resolution (Optional)" :required false}
       [m4/form-group
        {:label   "Select a Vertical Resolution range"
-        :toolTip "Select a vertical resolution range from the predefined list. Only one item may be selected."}
+        :toolTip "This field is optional. A Vertical resolution is a vertical extent of the dataset. Select a resolution from the drop-down menu."}
        [m4/async-select-option-simple
         {:form-id    [:form]
          :data-path  ["identificationInfo" "keywordsVertical" "keywords"]
@@ -794,7 +795,7 @@
      [m4/expanding-control {:label "Australian Plant Name Index (Optional)" :required false}
       [m4/form-group
        {:label   "Select Plant Name Indexes keywords"
-        :toolTip "Select the plant names from the APNI list. Up to 12 names may be selected."}
+        :toolTip "Select Plant names from the APNI list. You may select upto 12 names."}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFlora" "keywords"]
@@ -813,7 +814,7 @@
      [m4/expanding-control {:label "Australian Faunal Directory (Optional)" :required false}
       [m4/form-group
        {:label   "Select Australian Faunal Directory keywords"
-        :toolTip "Select animal species from the Australian Faunal Directory. Up to 12 names may be selected."}
+        :toolTip "Select Animal species from the Australian Faunal Directory. You can select up to 12 names."}
        [m4/async-list-option-picker-breadcrumb
         {:form-id         [:form]
          :data-path       ["identificationInfo" "keywordsFauna" "keywords"]
@@ -832,7 +833,7 @@
      [m4/expanding-control {:label "Additional Keywords (Optional)" :required false}
       [m4/form-group
        {:label   "Additional theme keywords can be added for review and approval process"
-        :toolTip "You may define additional keywords here if they are not available in the above lists. The keywords will be reviewed prior to publishing."}
+        :toolTip "You can add any additional keywords if they are not available in the lists above. All entries will be reviewed prior to publication."}
        [m4/text-add-button
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]
@@ -1320,7 +1321,7 @@
         :title       "Organisation"
         :template-id :person-organisation/user-defined-entry-form}]]]
 
-    ; NOTE: organisation with role (not associated with a person)
+                                        ; NOTE: organisation with role (not associated with a person)
     :party-organisation/user-defined-entry-form
     [:div
 
@@ -1487,7 +1488,7 @@
         :data-path [?data-path "organisation" "email"]
         :disabled  true}]]]
 
-    ; NOTE: person organisation (no role)
+                                        ; NOTE: person organisation (no role)
     :person-organisation/user-defined-entry-form
     [:div
 
@@ -1765,8 +1766,8 @@
       [:div
        [:i [m4/get-data {:form-id [:form] :data-path ["identificationInfo" "useLimitation"]}]]]]
      [m4/form-group
-      {;:form-id   [:form]
-       ;:data-path ["identificationInfo"]
+      {                             ;:form-id   [:form]
+                                        ;:data-path ["identificationInfo"]
        :label "Other constraints"}
       [m4/simple-list
        {:form-id     [:form]
@@ -2165,7 +2166,7 @@
        {:form-id   [:form]
         :data-path ["identificationInfo" "doiFlag"]
         :label     "Is there an existing DOI for this dataset?"
-        ;:toolTip   "Select 'Yes' if a DOI has already been minted for this dataset."
+                                        ;:toolTip   "Select 'Yes' if a DOI has already been minted for this dataset."
         }
        [m4/yes-no-field
         {:form-id   [:form]

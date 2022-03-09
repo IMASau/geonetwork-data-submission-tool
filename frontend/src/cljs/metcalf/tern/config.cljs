@@ -873,6 +873,7 @@
     :where
     [:div
      [:h2 "4. Where"]
+     [:p "Spatial representation and properties related to the dataset."]
      [:div.row
       [:div.col-sm-5
        ;; FIXME add toggle for satellite imagery.
@@ -1974,7 +1975,7 @@ recorded in the standard citation."
        :placeholder [:div
                      [:h3 "Drag and drop thumbnail here"]
                      [:span.help-block "Maximum size 1000 x 1000px"]]}]
-     [:p "A small image that exemplifies the collective resource."]
+     [:p "A small image that exemplifies the dataset."]
 
      [:h2 "Data Services"]
      [m4/form-group

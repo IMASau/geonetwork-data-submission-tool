@@ -343,6 +343,37 @@
             "requiredField"
           ]
         },
+        "keywordsThemeAnzsrc": {
+          "!docstring": "What4",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://www.abs.gov.au/statistics/classifications/australian-and-new-zealand-standard-research-classification-anzsrc/2020\"]",
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "xpath": "mri:keyword",
+              "keep": false,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "xpath": "mri:keyword",
+                "properties": {
+                  "breadcrumb": {},
+                  "label": {
+                    "xpath": "gcx:Anchor"
+                  },
+                  "uri": {
+                    "xpath": "gcx:Anchor",
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "identity"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "xpath_required": true
+        },
         "keywordsThemeExtra": {
           "!docstring": "What3",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][not(mri:thesaurusName)]",

@@ -36,3 +36,5 @@ clojure-*.edn
 es-data
 .lsp/
 .clj-kondo/
+/volumes-imas/
+/volumes-tern/

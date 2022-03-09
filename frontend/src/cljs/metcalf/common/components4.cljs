@@ -1826,35 +1826,35 @@
 (defn upload-files-settings
   "Settings for upload-files component"
   [_]
-  {::low-code4/req-ks [:form-id :data-path :value-path :placeholder :columns]
+  {::low-code4/req-ks [:form-id :data-path :value-path :placeholder :row-template]
    ::low-code4/opt-ks []})
 
 (defn upload-files
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])
-        errors? @(rf/subscribe [::has-block-errors? config])
-        {:keys [disabled is-hidden value-path data-path placeholder columns]} props]
+        {:keys [form-id disabled is-hidden value-path data-path placeholder row-template]} props]
     (when-not is-hidden
       [:div
-       (when errors?
-         [:span {:style {:color "red"}} "You must specify a title for each file"])
-       [ui-controls/TableSelectionList
-        {:items              (or items [])
-         :disabled           disabled
-         :form-id            [:form]
-         :data-path          data-path
-         :value-path         ["uri"]
-         :random-uuid-value? true
-         :select-snapshot?   true
-         :getValue           (ui-controls/obj-path-getter value-path)
-         :columns            (for [{:keys [flex label-path columnHeader]} columns]
-                               {:flex         flex
-                                :getLabel     (ui-controls/obj-path-getter label-path)
-                                :columnHeader (or columnHeader "None")})
-         :onReorder          (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder config src-idx dst-idx]))
-         :onItemClick        (fn [idx] (rf/dispatch [::selection-list-item-click config idx]))
-         :onRemoveClick      (fn [idx] (rf/dispatch [::selection-list-remove-click config idx]))}]
+       (when (pos? (count items))
+         [:div.TableListColumnHeaderRow
+          [:span.TableListColumnHeaderCell {:style {:flex 1}} "Title *"]
+          [:span.TableListColumnHeaderCell {:style {:flex 1}} "Filename"]])
+       [ui-controls/SelectionList
+       {:key           key
+        :items         (or items [])
+        :disabled      disabled
+        :renderItem    (fn [args]
+                         (let [index (ui-controls/obj-path-value args ["index"])]
+                           (r/as-element
+                             (low-code4/render-template
+                               {:template-id row-template
+                                :variables   {'?form-id   form-id
+                                              '?data-path (conj data-path index)}}))))
+        :getValue      (ui-controls/obj-path-getter value-path)
+        :onReorder     (fn [src-idx dst-idx] (rf/dispatch [::selection-list-reorder props src-idx dst-idx]))
+        :onItemClick   (fn [idx] (rf/dispatch [::selection-list-item-click props idx]))
+        :onRemoveClick (fn [idx] (rf/dispatch [::selection-list-remove-click props idx]))}]
        [ui-controls/Dropzone
         {:disabled    disabled
          :placeholder (r/as-element placeholder)

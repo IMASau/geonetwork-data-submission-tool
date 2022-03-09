@@ -455,13 +455,13 @@
   [organisation]
   (get-in organisation ["organisation" "name"]))
 
-(defn -format-doi [doi]
+(defn -format-identifier [doi]
   (if doi
     (str "https://dx.doi.org/"
          (-> doi
              (string/replace #"^(https?://)?(dx\.)?doi.org/+" "")
              (string/replace #"^doi:" "")))
-    "{Identifier}"))
+    "{Data URL from the TERN Data Discovery Portal}"))
 
 (defn -format-citation
   [{:keys [title date dateSubmitted authors coauthors version customCitation doi]}]
@@ -474,7 +474,7 @@
                          (apply str))]
     (str author-list " (" year "): Version " version ". " title
          ". Terrestrial Ecosystem Research Network (TERN). (Dataset). "
-         (-format-doi doi)
+         (-format-identifier doi)
          (when-not (contains? empty-values customCitation)
            (str ". " customCitation)))))
 

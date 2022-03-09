@@ -461,7 +461,7 @@
          (-> doi
              (string/replace #"^(https?://)?(dx\.)?doi.org/+" "")
              (string/replace #"^doi:" "")))
-    "{Identifier}"))
+    "{Data URL from the TERN Data Discovery Portal}"))
 
 (defn -format-citation
   [{:keys [title date dateSubmitted authors coauthors version customCitation doi]}]

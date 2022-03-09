@@ -318,7 +318,7 @@
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "keywordsTheme" "keywords"]
-       :label     "Research theme keywords, GCMD Science Keywords"}
+       :label     "Research theme keywords"}
 
       [:div "Select up to 12 research theme keywords describing your data"]
 
@@ -333,29 +333,6 @@
        {:form-id         [:form]
         :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
         :uri             "/api/keywords_with_breadcrumb_info"
-        :placeholder     "Search for keywords"
-        :label-path      ["label"]
-        :value-path      ["uri"]
-        :breadcrumb-path ["breadcrumb"]}]]
-
-     [m4/form-group
-      {:form-id   [:form]
-       :data-path ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-       :label     "Research theme keywords, ANZSRC Fields of Research"}
-
-      [:div "Select up to 12 research theme keywords describing your data"]
-
-      [m4/selection-list-breadcrumb
-       {:form-id         [:form]
-        :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-        :label-path      ["label"]
-        :value-path      ["uri"]
-        :breadcrumb-path ["breadcrumb"]}]
-
-      [m4/async-list-option-picker-breadcrumb
-       {:form-id         [:form]
-        :data-path       ["identificationInfo" "keywordsThemeAnzsrc" "keywords"]
-        :uri             "/api/anzsrc_with_breadcrumb_info"
         :placeholder     "Search for keywords"
         :label-path      ["label"]
         :value-path      ["uri"]

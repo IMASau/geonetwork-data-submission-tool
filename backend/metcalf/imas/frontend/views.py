@@ -712,23 +712,3 @@ def keywords_with_breadcrumb_info(request) -> Response:
                     "breadcrumb": keyword_to_breadcrumbs(k)} for k in keywords]
 
     return Response({"results": breadcrumbs}, status=200)
-
-
-@api_view(['GET'])
-def anzsrc_keywords_with_breadcrumb_info(request) -> Response:
-    query = request.GET.get("query")
-    keywords = AnzsrcKeyword.objects.exclude(Topic="")
-    if query is not None:
-        keywords = (keywords
-                    .filter(Q(Category__icontains=query) | Q(Topic__icontains=query)
-                            | Q(Term__icontains=query) | Q(VariableLevel1__icontains=query)
-                            | Q(VariableLevel2__icontains=query) | Q(VariableLevel3__icontains=query)
-                            | Q(DetailedVariable__icontains=query)))
-
-    keywords = keywords[:100]
-
-    breadcrumbs = [{"label": keyword_to_label(k),
-                    "uri": k.uri,
-                    "breadcrumb": keyword_to_breadcrumbs(k)} for k in keywords]
-
-    return Response({"results": breadcrumbs}, status=200)

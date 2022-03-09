@@ -636,50 +636,6 @@
 				</mri:MD_Keywords>
 			</mri:descriptiveKeywords>
 
-      <!-- What5 -->
-			<!-- The user can select one or more ANZSRC Fields-of-Research keywords (in the "what" tab). -->
-			<mri:descriptiveKeywords>
-				<mri:MD_Keywords>
-					<mri:keyword>
-            <gcx:Anchor xlink:role="uri" xlink:href="https://linked.data.gov.au/def/anzsrc-for/2020/3101" xlink:show="new">Biochemistry and cell biology</gcx:Anchor>
-          </mri:keyword>
-          <mri:keyword>
-            <gcx:Anchor xlink:role="uri" xlink:href="https://linked.data.gov.au/def/anzsrc-for/2020/3701" xlink:show="new">Atmospheric sciences</gcx:Anchor>
-          </mri:keyword>
-					<mri:type>
-						<mri:MD_KeywordTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="theme"/>
-					</mri:type>
-					<!-- This is fixed in template - need to update version info if we update in tool. -->
-          <mri:thesaurusName>
-            <cit:CI_Citation>
-              <cit:title>
-                <gco:CharacterString>ANZSRC Fields of Research</gco:CharacterString>
-              </cit:title>
-              <cit:otherCitationDetails>
-                <gco:CharacterString>
-                  Australian Bureau of Statistics (2020): Australian and New Zealand Standard Research Classification (ANZSRC). https://www.abs.gov.au
-                </gco:CharacterString>
-              </cit:otherCitationDetails>
-              <cit:onlineResource>
-                <cit:CI_OnlineResource>
-                  <cit:linkage>
-                    <gco:CharacterString>https://www.abs.gov.au/statistics/classifications/australian-and-new-zealand-standard-research-classification-anzsrc/2020
-                    </gco:CharacterString>
-                  </cit:linkage>
-                  <cit:protocol>
-                    <gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
-                  </cit:protocol>
-                  <cit:function>
-                    <cit:CI_OnLineFunctionCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_OnLineFunctionCode"
-                                               codeListValue="information"/>
-                  </cit:function>
-                </cit:CI_OnlineResource>
-              </cit:onlineResource>
-            </cit:CI_Citation>
-          </mri:thesaurusName>
-				</mri:MD_Keywords>
-			</mri:descriptiveKeywords>
-
 			<!-- This is fetched/populated by PLATFORM vocab for parameters entered on "about" tab. -->
 			<mri:descriptiveKeywords>
 				<mri:MD_Keywords>

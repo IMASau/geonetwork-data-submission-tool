@@ -1897,7 +1897,7 @@
         :label      "Specific citation"
         :toolTip    "Other information required to complete the citation that is not
 recorded in the standard citation."
-        :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details above."}
+        :helperText "e.g., “The data is owned by the Queensland government.”"}
        [m4/textarea-field
         {:form-id   [:form]
          :data-path ["identificationInfo" "customCitation"]

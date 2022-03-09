@@ -455,7 +455,7 @@
   [organisation]
   (get-in organisation ["organisation" "name"]))
 
-(defn -format-doi [doi]
+(defn -format-identifier [doi]
   (if doi
     (str "https://dx.doi.org/"
          (-> doi
@@ -474,7 +474,7 @@
                          (apply str))]
     (str author-list " (" year "): Version " version ". " title
          ". Terrestrial Ecosystem Research Network (TERN). (Dataset). "
-         (-format-doi doi)
+         (-format-identifier doi)
          (when-not (contains? empty-values customCitation)
            (str ". " customCitation)))))
 

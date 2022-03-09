@@ -856,9 +856,9 @@
           <!-- About9 ~ Documentation ~ Email 20210301 DV - custom citation is required and will write to othercitationdetails -->
           <!-- About9 ~ Help Text ~ The format of the standard citation is provided at  -->
           <!-- About9 ~ Help Text ~ https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  -->
-          <!-- About9 ~ Help Text ~ for a non-standard citation, provide the details below.  -->
-          <!-- About9 ~ Rule ~ If a custom citation is present this supercedes the standard generated citation -->
-          <!-- About9 ~ Rule ~ If a custom citation is present then DOI minting should be disabled and DOI should be created manually -->
+          <!-- About9 ~ Help Text ~ provide text for additional citation information  -->
+          <!-- About9 ~ Rule ~ If a custom citation is present this should append with the standard citation after identifier -->
+          <!-- About9 ~ Rule ~ If a custom citation is present then DOI minting should be disabled and DOI should be created manually, the text in other citation needs to be mapped to a description of the datacite schema -->
           <cit:otherCitationDetails><gco:CharacterString>
             a custom citation
           </gco:CharacterString></cit:otherCitationDetails>

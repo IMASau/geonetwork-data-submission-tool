@@ -873,6 +873,7 @@
     :where
     [:div
      [:h2 "4. Where"]
+     [:p "Spatial representation and properties related to the dataset."]
      [:div.row
       [:div.col-sm-5
        ;; FIXME add toggle for satellite imagery.
@@ -1897,7 +1898,7 @@
         :label      "Specific citation"
         :toolTip    "Other information required to complete the citation that is not
 recorded in the standard citation."
-        :helperText "The format of the standard citation is provided at https://ternaus.atlassian.net/wiki/spaces/TERNSup/pages/1223163969/How+is+the+citation+constructed+from+the+metadata  For a non-standard citation, provide the details above."}
+        :helperText "e.g., “The data is owned by the Queensland government.”"}
        [m4/textarea-field
         {:form-id   [:form]
          :data-path ["identificationInfo" "customCitation"]
@@ -1945,8 +1946,7 @@ recorded in the standard citation."
       {:form-id     [:form]
        :data-path   ["attachments"]
        :value-path  ["id"]
-       :columns     [{:columnHeader "Title *" :label-path ["title"] :flex 1}
-                     {:columnHeader "Filename" :label-path ["name"] :flex 1}]
+       :row-template :upload-files/file-row-template
        :placeholder [:div
                      [:h3 "Drop file here or click here to upload"]
                      [:span.help-block "Maximum file size 100 MB"]]}]
@@ -1974,7 +1974,7 @@ recorded in the standard citation."
        :placeholder [:div
                      [:h3 "Drag and drop thumbnail here"]
                      [:span.help-block "Maximum size 1000 x 1000px"]]}]
-     [:p "A small image that exemplifies the collective resource."]
+     [:p "A small image that exemplifies the dataset."]
 
      [:h2 "Data Services"]
      [m4/form-group
@@ -2007,6 +2007,26 @@ recorded in the standard citation."
         :added-path  ["isUserDefined"]
         :title       "Data Distribution"
         :template-id :data-sources/user-defined-entry-form}]]]
+
+    :upload-files/file-row-template
+    [:div {:style {:display :flex}}
+     [:span {:style {:flex 1}}
+      [m4/when-errors
+       {:form-id ?form-id
+        :data-path [?data-path "title"]
+        :show false}
+       [m4/get-data
+        {:form-id ?form-id
+         :data-path [?data-path "title"]}]]
+      [m4/when-errors
+       {:form-id ?form-id
+        :data-path [?data-path "title"]
+        :show true}
+       [:span {:style {:color "red"}} "A title is required"]]]
+     [:span {:style {:flex 1}}
+      [m4/get-data
+       {:form-id ?form-id
+        :data-path [?data-path "name"]}]]]
 
     :upload-files/edit-details-template
     [:div

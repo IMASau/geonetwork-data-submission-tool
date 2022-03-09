@@ -193,7 +193,7 @@
        'm4/select-option-breadcrumb            {:view #'components4/select-option-breadcrumb :init components4/select-option-breadcrumb-settings}
        'm4/select-option-columns               {:view #'components4/select-option-columns :init components4/select-option-columns-settings}
        'm4/select-value                        {:view #'components4/select-value :init components4/select-value-settings}
-       ;'m4/simple-list-option-picker           {:view #'components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
+       'm4/simple-list-option-picker           {:view #'components4/simple-list-option-picker :init components4/simple-list-option-picker-settings}
        'm4/selection-list-template             {:view #'components4/selection-list-template :init components4/selection-list-template-settings}
        'm4/selection-list-simple               {:view #'components4/selection-list-simple :init components4/selection-list-simple-settings}
        'm4/selection-list-values               {:view #'components4/selection-list-values :init components4/selection-list-values-settings}
@@ -212,8 +212,7 @@
        })
 
 (def edit-templates
-  '{
-    :data-identification
+  '{:data-identification
     [:div
      ; [m4/page-errors
      ;  {:form-id    [:form]
@@ -240,11 +239,11 @@
         :data-path ["identificationInfo" "dateCreation"]}]]
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "topicCategory"]
-       :label     "Topic category"}
-      [m4/select-value
+       :data-path ["identificationInfo" "topicCategories"]
+       :label     "Topic Categories"}
+      [m4/simple-list-option-picker
        {:form-id     [:form]
-        :data-path   ["identificationInfo" "topicCategory"]
+        :data-path   ["identificationInfo" "topicCategories"]
         :value-path  ["value"]
         :label-path  ["label"]
         :placeholder "Please select"
@@ -257,7 +256,13 @@
                       {"value" "geoscientificInformation"
                        "label" "geoscientificInformation"}
                       {"value" "inlandWater"
-                       "label" "inlandWater"}]}]]
+                       "label" "inlandWater"}]}]
+      [m4/selection-list-simple
+       {:form-id    [:form]
+        :data-path  ["identificationInfo" "topicCategories"]
+        :value-path ["value"]
+        :label-path ["label"]}]]
+
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "status"]}
@@ -758,8 +763,7 @@
           :placeholder "Post code"}]]
        [m4/form-group
         {:form-id   ?form-id
-         :data-path [?data-path "contact" "country"]
-         }
+         :data-path [?data-path "contact" "country"]}
         [m4/input-field
          {:form-id     ?form-id
           :data-path   [?data-path "contact" "country"]
@@ -920,7 +924,7 @@
      [m4/form-group
       {:form-id   [:form]
        :data-path ["distributionInfo" "distributionFormat" "edition"]
-       :label     "Data file format date/version",}
+       :label     "Data file format date/version"}
       [m4/input-field
        {:form-id     [:form]
         :data-path   ["distributionInfo" "distributionFormat" "edition"]
@@ -1120,7 +1124,6 @@
         :data-path   [?data-path "platform_term"]
         :title       "Define a custom parameter platform"
         :template-id :parameter-platform/user-defined-entry-form}]]]
-
 
     :upload
     [:div

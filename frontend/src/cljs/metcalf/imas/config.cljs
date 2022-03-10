@@ -1143,7 +1143,7 @@
       [m4/upload-files
        {:form-id    [:form]
         :data-path  ["attachments"]
-        :value-path ["uri"]
+        :value-path ["file"]
         :placeholder
         [:div.bp3-non-ideal-state
          [:h4.bp3-heading "Drop file here or click to upload"]

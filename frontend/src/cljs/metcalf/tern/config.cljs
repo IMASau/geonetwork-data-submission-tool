@@ -1076,6 +1076,7 @@
          {:form-id     [:form]
           :data-path   ["identificationInfo" "citedResponsibleParty"]
           :template-id :party/list-item
+          :select-mode :all-items
           :value-path  ["uri"]
           :added-path  ["isUserDefined"]}]]
 
@@ -1121,6 +1122,7 @@
          {:form-id     [:form]
           :data-path   ["identificationInfo" "pointOfContact"]
           :template-id :party/list-item
+          :select-mode :all-items
           :value-path  ["uri"]
           :added-path  ["isUserDefined"]}]]
 

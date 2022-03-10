@@ -1837,8 +1837,7 @@
     (when-not is-hidden
       [:div
        [ui-controls/SimpleSelectionList
-        {:key           key
-         :items         (or items [])
+        {:items         (or items [])
          :disabled      disabled
          :getLabel      (ui-controls/obj-path-getter ["name"])
          :getValue      (ui-controls/obj-path-getter value-path)
@@ -1870,8 +1869,7 @@
           [:span.TableListColumnHeaderCell {:style {:flex 1}} "Title *"]
           [:span.TableListColumnHeaderCell {:style {:flex 1}} "Filename"]])
        [ui-controls/SelectionList
-       {:key           key
-        :items         (or items [])
+       {:items         (or items [])
         :disabled      disabled
         :renderItem    (fn [args]
                          (let [index (ui-controls/obj-path-value args ["index"])]

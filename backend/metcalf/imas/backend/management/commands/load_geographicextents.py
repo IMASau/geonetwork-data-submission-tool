@@ -1,11 +1,16 @@
 import csv
 import io
+import logging
 import urllib
 
 from django.core.management.base import BaseCommand
+from django.db import transaction
 import requests
 
 from metcalf.imas.backend.models import GeographicExtentKeyword
+
+
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -14,6 +19,31 @@ class Command(BaseCommand):
     VocabName = 'aodn-geographic-extents-vocabulary'
     TopCategory = 'http://vocab.aodn.org.au/def/geographicextents/1'
     VocabVersion = 'version-4-0'
+
+    def handle(self, *args, **options):
+        try:
+            with transaction.atomic():
+                GeographicExtentKeyword.objects.all().delete()
+
+                keywords = self.process_keywords(self.VocabName,
+                                                 self.make_sciencekeyword_pk,
+                                                 self.VocabVersion,
+                                                 'GeographicExtentKeyword',
+                                                 self.TopCategory)
+
+                GeographicExtentKeyword.objects.bulk_create(keywords)
+
+                LogEntry.objects.log_action(
+                    user_id=adminpk,
+                    content_type_id=ContentType.objects.get_for_model(GeographicExtentKeyword).pk,
+                    object_id='',  # Hack; this disables the link in the admin log
+                    object_repr=u'Refreshed GCMD keyword list - {:%Y-%m-%d %H:%M}'.format(datetime.datetime.utcnow()),
+                    action_flag=CHANGE)
+            logger.info("Finished loading {} GCMD keywords".format(GeographicExtentKeyword.objects.count()))
+        except:
+            import traceback
+            logger.error(traceback.format_exc())
+            raise
 
     def process_keywords(self, vocab_name, pk_fn, version, objName, topCategory):
         base_keywords = self._fetch_vocab_data(vocab_name, version, topCategory)

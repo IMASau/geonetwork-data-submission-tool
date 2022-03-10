@@ -982,7 +982,7 @@
 				<mrd:MD_DigitalTransferOptions>
 
 					<mrd:onLine>
-						<!-- Populated by user selecting WMS data servie-->
+						<!-- Populated by user selecting WMS data service-->
 						<cit:CI_OnlineResource>
               <!-- DataSource4 -->
 							<cit:linkage>
@@ -1004,7 +1004,7 @@
 					</mrd:onLine>
 
 					<mrd:onLine>
-						<!-- Populated by user selecting WFS data servie-->
+						<!-- Populated by user selecting WFS data service-->
 						<cit:CI_OnlineResource>
 							<cit:linkage>
 								<gco:CharacterString>http://***serverURL***/geoserver/wfs</gco:CharacterString>
@@ -1022,7 +1022,7 @@
 					</mrd:onLine>
 
 					<mrd:onLine>
-						<!-- Populated by user selecting Other/unknown data servie-->
+						<!-- Populated by user selecting Other/unknown data service-->
 						<cit:CI_OnlineResource>
 							<cit:linkage>
 								<gco:CharacterString>http://someexampleURL.com/readme.pdf</gco:CharacterString>

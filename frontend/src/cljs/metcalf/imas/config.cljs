@@ -1138,7 +1138,7 @@
      [m4/form-group
       {:label     "Upload data"
        :form-id   [:form]
-       :data-path ["distributionInfo" "transferOptions"]
+       :data-path ["attachments"]
        :required  true}
       [m4/upload-files
        {:form-id    [:form]

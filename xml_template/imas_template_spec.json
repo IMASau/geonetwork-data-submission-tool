@@ -697,13 +697,26 @@
     },
     "attachments": {
       "type": "array",
+      "export": false,
       "items": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "number"
+          },
           "file": {
             "type": "string"
           },
           "name": {
+            "type": "string"
+          },
+          "delete_url": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "modified": {
             "type": "string"
           }
         }

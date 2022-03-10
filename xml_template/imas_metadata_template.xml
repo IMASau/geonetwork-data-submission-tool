@@ -758,6 +758,48 @@
 				</mri:MD_Keywords>
 			</mri:descriptiveKeywords>
 
+      <mri:descriptiveKeywords>
+        <mri:MD_Keywords>
+          <!-- What6 -->
+          <mri:keyword>
+            <gcx:Anchor xlink:href="http://vocab.aodn.org.au/def/geographicextents/entity/6">Global / Oceans | Southern Ocean</gcx:Anchor>
+          </mri:keyword>
+          <mri:keyword>
+            <gcx:Anchor xlink:href="http://vocab.aodn.org.au/def/geographicextents/entity/5">Global / Oceans | Pacific Ocean</gcx:Anchor>
+          </mri:keyword>
+          <mri:keyword>
+            <gcx:Anchor xlink:href="http://vocab.aodn.org.au/def/geographicextents/entity/13">Regional Seas | Coral Sea</gcx:Anchor>
+          </mri:keyword>
+          <mri:type>
+            <mri:MD_KeywordTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_KeywordTypeCode" codeListValue="place" />
+          </mri:type>
+          <mri:thesaurusName>
+            <cit:CI_Citation>
+              <cit:title>
+                <gcx:Anchor xlink:href="http://vocab.aodn.org.au/def/geographicextents/1">AODN Geographic Extents Vocabulary</gcx:Anchor>
+              </cit:title>
+              <cit:date>
+                <cit:CI_Date>
+                  <cit:date>
+                    <gco:Date>2021-09-02</gco:Date>
+                  </cit:date>
+                  <cit:dateType>
+                    <cit:CI_DateTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode" codeListValue="publication" />
+                  </cit:dateType>
+                </cit:CI_Date>
+              </cit:date>
+              <cit:identifier>
+                <mcc:MD_Identifier>
+                  <mcc:code>
+                    <gcx:Anchor xlink:href="https://catalogue-imos.aodn.org.au/geonetwork/srv/api/registries/vocabularies/external.place.aodn_aodn-geographic-extents-vocabulary">geonetwork.thesaurus.external.place.aodn_aodn-geographic-extents-vocabulary</gcx:Anchor>
+                  </mcc:code>
+                </mcc:MD_Identifier>
+              </cit:identifier>
+            </cit:CI_Citation>
+          </mri:thesaurusName>
+        </mri:MD_Keywords>
+      </mri:descriptiveKeywords>
+
 			<mri:resourceConstraints>
 				<mco:MD_Constraints>
 					<!-- Generic statement hard-coded in template. -->

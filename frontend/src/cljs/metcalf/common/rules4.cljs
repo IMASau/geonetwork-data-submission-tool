@@ -472,7 +472,7 @@
         author-list (->> (concat authors coauthors)
                          (interpose ", ")
                          (apply str))]
-    (str author-list " (" year "): Version " version ". " title
+    (str author-list " (" year "): " title ". Version " version
          ". Terrestrial Ecosystem Research Network (TERN). (Dataset). "
          (-format-identifier doi)
          (when-not (contains? empty-values customCitation)

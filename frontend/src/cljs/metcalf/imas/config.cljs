@@ -207,7 +207,7 @@
        'm4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
        ;'m4/record-add-button                   {:view #'components4/record-add-button :init components4/record-add-button-settings}
        'm4/text-add-button                     {:view #'components4/text-add-button :init components4/text-add-button-settings}
-       'm4/upload-files                        {:view #'components4/upload-files :init components4/upload-files-settings}
+       'm4/upload-files                        {:view #'components4/imas-upload-files :init components4/imas-upload-files-settings}
        ;'m4/simple-list                         {:view #'components4/simple-list :init components4/simple-list-settings}
        })
 
@@ -1138,12 +1138,12 @@
      [m4/form-group
       {:label     "Upload data"
        :form-id   [:form]
-       :data-path ["distributionInfo" "transferOptions"]
+       :data-path ["attachments"]
        :required  true}
       [m4/upload-files
        {:form-id    [:form]
         :data-path  ["attachments"]
-        :value-path ["uri"]
+        :value-path ["file"]
         :placeholder
         [:div.bp3-non-ideal-state
          [:h4.bp3-heading "Drop file here or click to upload"]

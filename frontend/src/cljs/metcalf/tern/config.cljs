@@ -1898,7 +1898,7 @@
         :label      "Specific citation"
         :toolTip    "Other information required to complete the citation that is not
 recorded in the standard citation."
-        :helperText "e.g., “The data is owned by the Queensland government.”"}
+        :helperText "e.g., “The data is owned by the Queensland Government.”"}
        [m4/textarea-field
         {:form-id   [:form]
          :data-path ["identificationInfo" "customCitation"]

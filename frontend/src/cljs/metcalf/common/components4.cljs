@@ -1852,13 +1852,13 @@
          :onDrop      #(rf/dispatch [::upload-files-drop config (js->clj % :keywordize-keys true)])}]])))
 
 
-(defn upload-files-settings
+(defn tern-upload-files-settings
   "Settings for upload-files component"
   [_]
   {::low-code4/req-ks [:form-id :data-path :value-path :placeholder :row-template]
    ::low-code4/opt-ks []})
 
-(defn upload-files
+(defn tern-upload-files
   [config]
   (let [props @(rf/subscribe [::get-block-props config])
         items @(rf/subscribe [::get-block-data config])

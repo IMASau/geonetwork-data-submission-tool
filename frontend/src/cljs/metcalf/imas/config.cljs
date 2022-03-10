@@ -207,7 +207,7 @@
        'm4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
        ;'m4/record-add-button                   {:view #'components4/record-add-button :init components4/record-add-button-settings}
        'm4/text-add-button                     {:view #'components4/text-add-button :init components4/text-add-button-settings}
-       'm4/upload-files                        {:view #'components4/upload-files :init components4/upload-files-settings}
+       'm4/upload-files                        {:view #'components4/imas-upload-files :init components4/imas-upload-files-settings}
        ;'m4/simple-list                         {:view #'components4/simple-list :init components4/simple-list-settings}
        })
 

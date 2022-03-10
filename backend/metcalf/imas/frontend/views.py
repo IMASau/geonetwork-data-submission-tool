@@ -32,7 +32,7 @@ from metcalf.common import spec4, xmlutils4, xmlutils5
 from metcalf.common.serializers import UserByEmailSerializer, UserSerializer
 from metcalf.common.utils import to_json, get_exception_message
 from metcalf.imas.backend.models import DraftMetadata, Document, DocumentAttachment, ScienceKeyword, \
-    AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution
+    AnzsrcKeyword, MetadataTemplate, TopicCategory, Person, Institution, GeographicExtentKeyword
 from metcalf.imas.frontend.forms import DocumentAttachmentForm
 from metcalf.imas.frontend.models import SiteContent, DataSource
 from metcalf.imas.frontend.permissions import is_document_editor, is_document_contributor
@@ -698,6 +698,26 @@ def keyword_to_breadcrumbs(keyword):
 def keywords_with_breadcrumb_info(request) -> Response:
     query = request.GET.get("query")
     keywords = ScienceKeyword.objects.exclude(Topic="")
+    if query is not None:
+        keywords = (keywords
+                    .filter(Q(Category__icontains=query) | Q(Topic__icontains=query)
+                            | Q(Term__icontains=query) | Q(VariableLevel1__icontains=query)
+                            | Q(VariableLevel2__icontains=query) | Q(VariableLevel3__icontains=query)
+                            | Q(DetailedVariable__icontains=query)))
+
+    keywords = keywords[:100]
+
+    breadcrumbs = [{"label": keyword_to_label(k),
+                    "uri": k.uri,
+                    "breadcrumb": keyword_to_breadcrumbs(k)} for k in keywords]
+
+    return Response({"results": breadcrumbs}, status=200)
+
+
+@api_view(['GET'])
+def geoextents_with_breadcrumb_info(request) -> Response:
+    query = request.GET.get("query")
+    keywords = GeographicExtentKeyword.objects.exclude(Topic="")
     if query is not None:
         keywords = (keywords
                     .filter(Q(Category__icontains=query) | Q(Topic__icontains=query)

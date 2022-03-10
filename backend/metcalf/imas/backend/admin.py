@@ -207,6 +207,16 @@ class AnzsrcKeywordAdmin(admin.ModelAdmin):
                      'DetailedVariable']
 
 
+class GeographicExtentKeywordAdmin(admin.ModelAdmin):
+    list_display = ['UUID', 'Category', 'Topic', 'Term',
+                    'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
+                    'DetailedVariable', 'uri']
+    list_filter = ['Category', 'Topic']
+    search_fields = ['UUID', 'Category', 'Topic', 'Term',
+                     'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
+                     'DetailedVariable']
+
+
 class CommonVocabNodeAdmin(admin.ModelAdmin):
     list_display = ['Name', 'URI', 'is_selectable']
     list_filter = ['depth', 'is_selectable']
@@ -263,6 +273,7 @@ admin.site.register(models.DocumentAttachment, DocumentAttachmentAdmin)
 admin.site.register(models.DraftMetadata, DraftMetadataAdmin)
 admin.site.register(models.ScienceKeyword, ScienceKeywordAdmin)
 admin.site.register(models.AnzsrcKeyword, AnzsrcKeywordAdmin)
+admin.site.register(models.GeographicExtentKeyword, GeographicExtentKeywordAdmin)
 admin.site.register(models.ParameterName, ParameterNameAdmin)
 admin.site.register(models.ParameterUnit, ParameterUnitAdmin)
 admin.site.register(models.ParameterInstrument, ParameterInstrumentAdmin)

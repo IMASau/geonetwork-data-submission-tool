@@ -26,6 +26,7 @@ python3 manage.py load_rolecodes
 python3 manage.py load_samplingfrequencies
 python3 manage.py load_topiccategories
 python3 manage.py load_sciencekeywords
+python3 manage.py load_geographicextents
 python3 manage.py load_horizontalresolutions
 ```
 

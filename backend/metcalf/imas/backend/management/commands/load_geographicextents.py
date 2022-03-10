@@ -5,39 +5,12 @@ import urllib
 from django.core.management.base import BaseCommand
 import requests
 
-# from metcalf.imas.backend.models import ParameterName
-
-
-
-
-class GeographicExtent:
-    def __init__(self):
-        self.UUID = ''
-        self.Category = ''
-        self.Topic = ''
-        self.Term = ''
-        self.VariableLevel1 = ''
-        self.VariableLevel2 = ''
-        self.VariableLevel3 = ''
-        self.DetailedVariable = ''
-        self.uri = ''
-
-    def as_str(self):
-        return ' | '.join(filter(
-            lambda x: x,
-            [self.Category, self.Topic, self.Term,
-             self.VariableLevel1, self.VariableLevel2, self.VariableLevel3, self.DetailedVariable, self.uri]))
-
-    class Meta:
-        ordering = ['Category', 'Topic', 'Term',
-                    'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
-                    'DetailedVariable']
+from metcalf.imas.backend.models import GeographicExtentKeyword
 
 
 class Command(BaseCommand):
     help = 'Refresh geographic-extents list from online vocab'
 
-    # ParameterClass = ParameterName
     VocabName = 'aodn-geographic-extents-vocabulary'
     TopCategory = 'http://vocab.aodn.org.au/def/geographicextents/1'
     VocabVersion = 'version-4-0'
@@ -66,7 +39,7 @@ class Command(BaseCommand):
 
         keywords = []
         for chain in chains:
-            keyword = GeographicExtent()
+            keyword = GeographicExtentKeyword()
             keyword.UUID = chain[0]
             keyword.Category = chain[1]
             keyword.Topic = chain[2]

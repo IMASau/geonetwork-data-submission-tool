@@ -501,14 +501,15 @@
           "type": "string"
         },
         "useLimitations": {
+          "!docstring": "About6",
           "type": "array",
-          "xpath": "mri:resourceConstraints/mco:MD_Constraints[mco:useLimitation]",
-          "container": "mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation[last()]",
+          "xpath": "mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation[position()>1]",
           "keep": false,
           "items": {
             "type": "string",
             "keep": "false",
-            "xpath": "mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation/gco:CharacterString"
+            "xpath": "mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation[position()>1]",
+            "valueChild": "gco:CharacterString"
           }
         },
         "supplementalInformation": {

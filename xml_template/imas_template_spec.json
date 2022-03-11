@@ -135,7 +135,6 @@
           "type": "string",
           "xpath": "/mdb:MD_Metadata/mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date/gco:DateTime",
           "xpath-q1": "/mdb:MD_Metadata/mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date/gco:Date",
-          "required": true,
           "xpath_required": true,
           "keep": false,
           "rules": [
@@ -159,7 +158,6 @@
           "label": "Abstract",
           "type": "string",
           "keep": false,
-          "required": true,
           "xpath_required": true,
           "rules": [
             "requiredField"
@@ -412,7 +410,6 @@
         "beginPosition": {
           "!docstring": "When1",
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
-          "required": true,
           "xpath_required": true,
           "keep": false,
           "type": "string",
@@ -695,7 +692,6 @@
                 "xpath": "cit:CI_OnlineResource/cit:linkage",
                 "valueChild": "gco:CharacterString",
                 "type": "string",
-                "required": true,
                 "rules": [
                   "requiredField"
                 ]
@@ -705,7 +701,6 @@
                 "xpath": "cit:CI_OnlineResource/cit:protocol",
                 "valueChild": "gco:CharacterString",
                 "type": "string",
-                "required": true,
                 "rules": [
                   "requiredField"
                 ]
@@ -715,7 +710,6 @@
                 "xpath": "cit:CI_OnlineResource/cit:name",
                 "valueChild": "gco:CharacterString",
                 "type": "string",
-                "required": true,
                 "rules": [
                   "requiredField"
                 ]
@@ -725,7 +719,6 @@
                 "xpath": "cit:CI_OnlineResource/cit:description",
                 "valueChild": "gco:CharacterString",
                 "type": "string",
-                "required": true,
                 "rules": [
                   "requiredField"
                 ]
@@ -769,7 +762,6 @@
       "type": "string",
       "xpath": "cit:role/cit:CI_RoleCode",
       "keep": false,
-      "required": true,
       "xpath_required": true,
       "attributes": {
         "codeListValue": {
@@ -793,7 +785,6 @@
           "valueChild": "gco:CharacterString",
           "type": "string",
           "keep": false,
-          "required": false,
           "rules": [
             "requiredField",
             "firstCommaLast"
@@ -805,7 +796,6 @@
           "valueChild": "gco:CharacterString",
           "type": "string",
           "keep": false,
-          "required": false,
           "rules": [
             "requiredField"
           ]
@@ -822,7 +812,6 @@
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:onlineResource",
           "valueChild": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
           "type": "string",
-          "required": false,
           "keep": false,
           "rules": [
             "validOrcid"
@@ -877,7 +866,6 @@
           "xpath": "cit:name",
           "valueChild": "gco:CharacterString",
           "type": "string",
-          "required": true,
           "keep": false,
           "rules": [
             "requiredField"

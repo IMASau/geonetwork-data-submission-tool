@@ -756,6 +756,7 @@
   },
   "$defs": {
     "role": {
+      "!docstring": "Who1 / Who9",
       "type": "string",
       "xpath": "cit:role/cit:CI_RoleCode",
       "keep": false,
@@ -774,12 +775,11 @@
       ]
     },
     "contact": {
-      "!docstring": "Who3",
       "type": "object",
       "xpath": "cit:party/cit:CI_Organisation/cit:individual",
       "properties": {
         "name": {
-          "!docstring": "Who3",
+          "!docstring": "Who2 / Who10",
           "xpath": "cit:CI_Individual/cit:name",
           "valueChild": "gco:CharacterString",
           "type": "string",
@@ -791,7 +791,7 @@
           ]
         },
         "email": {
-          "!docstring": "Who6",
+          "!docstring": "Who7 / Who15",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
           "valueChild": "gco:CharacterString",
           "type": "string",
@@ -802,14 +802,14 @@
           ]
         },
         "phone": {
-          "!docstring": "Who13 / Who14",
+          "!docstring": "Who8 / Who16",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:phone[cit:CI_Telephone/cit:numberType/cit:CI_TelephoneTypeCode[@codeListValue=\"voice\"]]",
           "type": "string",
           "keep": false,
           "valueChild": "cit:CI_Telephone/cit:number/gco:CharacterString"
         },
         "orcid2": {
-          "!docstring": "Who7",
+          "!docstring": "Who3 / Who11",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:onlineResource",
           "valueChild": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
           "type": "string",
@@ -820,42 +820,37 @@
           ]
         },
         "deliveryPoint": {
-          "!docstring": "Who13 / Who14",
+          "!docstring": "Who6 / Who14",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
           "valueChild": "gco:CharacterString",
           "type": "string",
           "keep": false
         },
         "deliveryPoint2": {
-          "!docstring": "Who13 / Who14",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
           "type": "string",
           "keep": false,
           "valueChild": "gco:CharacterString"
         },
         "city": {
-          "!docstring": "Who13 / Who14",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
           "type": "string",
           "keep": false,
           "valueChild": "gco:CharacterString"
         },
         "administrativeArea": {
-          "!docstring": "Who13 / Who14",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
           "type": "string",
           "keep": false,
           "valueChild": "gco:CharacterString"
         },
         "postalCode": {
-          "!docstring": "Who13 / Who14",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
           "type": "string",
           "keep": false,
           "valueChild": "gco:CharacterString"
         },
         "country": {
-          "!docstring": "Who13 / Who14",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
           "type": "string",
           "keep": false,
@@ -869,7 +864,7 @@
       "type": "object",
       "properties": {
         "name": {
-          "!docstring": "Who8 / Who12",
+          "!docstring": "Who5 / Who13",
           "xpath": "cit:name",
           "valueChild": "gco:CharacterString",
           "type": "string",

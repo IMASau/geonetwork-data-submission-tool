@@ -1063,6 +1063,9 @@
 						</cit:CI_OnlineResource>
 					</mrd:onLine>
 
+          <!-- About8 -->
+          <!-- Also: -->
+          <!-- DataSource2 / DataSource3 / DataSource4 / DataSource5 -->
 					<mrd:onLine>
 						<!-- Populated by user selecting Other/unknown data service-->
 						<cit:CI_OnlineResource>

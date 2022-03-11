@@ -276,7 +276,8 @@ def export2_append_items_handler(data, xml_node, spec, xml_kwargs, handlers, xfo
                     xml_kwargs=xml_kwargs,
                     handlers=handlers)
 
-        template.getparent().remove(template)
+    for node in template_nodes:
+        node.getparent().remove(node)
 
 
 def export2_generateParameterKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):

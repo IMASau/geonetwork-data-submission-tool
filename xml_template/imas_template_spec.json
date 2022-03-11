@@ -68,7 +68,6 @@
           "!docstring": "ID1",
           "xpath": "mri:citation/cit:CI_Citation/cit:title",
           "valueChild": "gco:CharacterString",
-          "label": "Title",
           "type": "string",
           "keep": false,
           "xpath_required": true,
@@ -102,7 +101,6 @@
           "!docstring": "ID4",
           "xpath": "mri:status",
           "valueChild": "mcc:MD_ProgressCode",
-          "label": "Status of data",
           "attributes": {
             "text": {
               "function": "identity"
@@ -120,7 +118,6 @@
           "!docstring": "ID5",
           "xpath": "mri:resourceMaintenance/mmi:MD_MaintenanceInformation/mmi:maintenanceAndUpdateFrequency",
           "valueChild": "mmi:MD_MaintenanceFrequencyCode",
-          "label": "Maintenance and update frequency",
           "attributes": {
             "codeListValue": {
               "function": "identity"
@@ -155,7 +152,6 @@
           "!docstring": "What1",
           "xpath": "mri:abstract",
           "valueChild": "gco:CharacterString",
-          "label": "Abstract",
           "type": "string",
           "keep": false,
           "xpath_required": true,

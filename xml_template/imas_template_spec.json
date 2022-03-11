@@ -543,11 +543,13 @@
           }
         },
         "supplementalInformation": {
-          "xpath": "mri:supplementalInformation/gco:CharacterString",
+          "!docstring": "About7",
+          "xpath": "mri:supplementalInformation",
           "type": "array",
           "keep": false,
           "items": {
-            "xpath": "mri:supplementalInformation/gco:CharacterString",
+            "xpath": "mri:supplementalInformation",
+            "valueChild": "gco:CharacterString",
             "type": "string",
             "rules": [
               "requiredField"

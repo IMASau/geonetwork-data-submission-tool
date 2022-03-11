@@ -340,6 +340,25 @@
 
      [m4/form-group
       {:form-id   [:form]
+       :data-path ["identificationInfo" "keywordsGeoExtent" "keywords"]
+       :label     "Geographic Extent keywords"}
+      [m4/selection-list-breadcrumb
+       {:form-id         [:form]
+        :data-path       ["identificationInfo" "keywordsGeoExtent" "keywords"]
+        :label-path      ["label"]
+        :value-path      ["uri"]
+        :breadcrumb-path ["breadcrumb"]}]
+      [m4/async-list-option-picker-breadcrumb
+       {:form-id         [:form]
+        :data-path       ["identificationInfo" "keywordsGeoExtent" "keywords"]
+        :uri             "/api/geoextents_with_breadcrumb_info"
+        :placeholder     "Search for keywords"
+        :label-path      ["label"]
+        :value-path      ["uri"]
+        :breadcrumb-path ["breadcrumb"]}]]
+
+     [m4/form-group
+      {:form-id   [:form]
        :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]
        :label     "Additional theme keywords"}
       [:div "Enter your own additional theme keywords as required and click + to add"]

@@ -54,13 +54,7 @@
       "rules": [
         "maintFreq",
         "endPosition",
-        "otherConstraintsLogic",
-        {
-          "dateOrder": {
-            "field0": "beginPosition",
-            "field1": "endPosition"
-          }
-        }
+        "otherConstraintsLogic"
       ],
       "type": "object",
       "properties": {
@@ -192,6 +186,12 @@
           "xpath": "mri:extent/gex:EX_Extent",
           "type": "object",
           "rules": [
+            {
+              "dateOrder": {
+                "field0": "beginPosition",
+                "field1": "endPosition"
+              }
+            }
           ],
           "properties": {
             "geographicElement": {

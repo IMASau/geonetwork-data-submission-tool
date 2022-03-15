@@ -365,8 +365,8 @@
                 {:required false :disabled true :value nil}
                 {:required true})]
     (-> identificationInfo
-        (update-in [:content "endPosition" :props] merge props)
-        (update-in [:content "endPosition"] required-field (:required props)))))
+        (update-in [:content "extents" :content "endPosition" :props] merge props)
+        (update-in [:content "extents" :content "endPosition"] required-field (:required props)))))
 
 (defn maint-freq
   [identificationInfo]

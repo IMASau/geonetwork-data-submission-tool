@@ -374,20 +374,30 @@ Note: a default value defined here will override whatever is set in the XML temp
 ## container
 
 This is an xpath that optionally defines the container XML fragment
-for the property.
+for the property. The main purpose for this is to differentiate
+reading and exporting; `xpath` is used for importing data, while
+`container` can be used to specify a different xpath for export
+(noting that if `container` is not present it will fall back to the
+value of `xpath`)
 
-*TODO: why this, rather than hierarchy (ie, why is the container not
-just the parent of this node?)*
+This is particularly useful when dealing with arrays, where (for
+reasons to do with the export process, where the template node
+specified by the array xpath is cloned and inserted then the path is
+relative to the parent node again, vs the import that does a regular
+recursive descent) contexts of the two paths are subtely different.
 
 ```json
-"keywords": {
-  "xpath": "mri:keyword/gco:CharacterString",
-  "many": true,
-  "container": "mri:keyword",
-  "keep": false,
-  "export": false,
-  "exportTo": {
-    "xpath": "mri:keyword/gco:CharacterString"
+"credits": {
+  "!docstring": "Who17",
+  "xpath": "mri:credit",
+  "type": "array",
+  "items": {
+    "xpath": "gco:CharacterString",
+    "container": "mri:credit/gco:CharacterString",
+    "type": "string",
+    "rules": [
+      "requiredField"
+    ]
   }
 }
 ```

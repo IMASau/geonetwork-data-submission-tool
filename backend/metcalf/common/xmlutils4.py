@@ -480,9 +480,9 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                         element_index=i, silent=silent, fieldKey=fieldKey, doc_uuid=doc_uuid)
 
     elif is_object(spec):
-        if not get_xpath(spec):
+        if not get_container(spec):
             return
-        xml_node0 = xml_node.xpath(get_xpath(spec), namespaces=nsmap)[element_index]
+        xml_node0 = xml_node.xpath(get_container(spec), namespaces=nsmap)[element_index]
         for field_key, node_spec in get_properties(spec).items():
             if item_is_empty(data, field_key, node_spec):
                 if get_required(node_spec):
@@ -503,7 +503,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                         element_index=0, silent=silent, fieldKey=field_key, doc_uuid=doc_uuid)
     # default behaviour; populate the xml elements with the values in the data
     else:
-        node_xpath = get_xpath(spec)
+        node_xpath = get_container(spec)
         if not node_xpath:
             return
         is_attr = node_xpath.startswith('@')
@@ -521,7 +521,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                 element = elements[-1]
                 pass
             elif len(elements) < element_index + 1:
-                msg = 'element %s[%d] not found in template, not written' % (get_xpath(spec), element_index)
+                msg = 'element %s[%d] not found in template, not written' % (get_container(spec), element_index)
                 if silent:
                     logger.warning(msg)
                 else:
@@ -536,7 +536,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                     element = valueChildren[0]
                 else:
                     msg = 'element %s had an incorrect number of valueChild results (%d)' % (
-                        get_xpath(spec), len(valueChildren))
+                        get_container(spec), len(valueChildren))
                     if silent:
                         logger.warning(msg)
                     else:
@@ -544,7 +544,7 @@ def data_to_xml(data, xml_node, spec, nsmap, doc_uuid, element_index=0, silent=T
                     return
             # at this point we should have a single node to deal with
             if len(element.getchildren()) > 0:
-                msg = 'element %s had children' % (get_xpath(spec))
+                msg = 'element %s had children' % (get_container(spec))
                 if silent:
                     logger.warning(msg)
                 else:

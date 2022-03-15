@@ -306,29 +306,29 @@
 
 (defn imas-vertical-required
   "Vertical fields are required / included based on vertical extent checkbox"
-  [verticalElement]
-  (let [shown? (get-in verticalElement [:content "hasVerticalExtent" :props :value])]
+  [extentElement]
+  (let [shown? (get-in extentElement [:content "hasVerticalExtent" :props :value])]
     (if shown?
-      (-> verticalElement
-          (assoc-in [:content "maximumValue" :props :required] true)
-          (assoc-in [:content "minimumValue" :props :required] true)
-          (assoc-in [:content "verticalCRS" :props :required] true)
-          (update-in [:content "maximumValue"] required-field true)
-          (update-in [:content "minimumValue"] required-field true)
-          (update-in [:content "verticalCRS"] required-field true))
-      (-> verticalElement
-          (update-in [:content "maximumValue" :props] dissoc :value)
-          (update-in [:content "minimumValue" :props] dissoc :value)
-          (update-in [:content "verticalCRS"] dissoc :content)
-          (assoc-in [:content "maximumValue" :props :required] false)
-          (assoc-in [:content "minimumValue" :props :required] false)
-          (assoc-in [:content "verticalCRS" :props :required] false)
-          (assoc-in [:content "maximumValue" :props :disabled] true)
-          (assoc-in [:content "minimumValue" :props :disabled] true)
-          (assoc-in [:content "verticalCRS" :props :disabled] true)
-          (assoc-in [:content "maximumValue" :props :is-hidden] true)
-          (assoc-in [:content "minimumValue" :props :is-hidden] true)
-          (assoc-in [:content "verticalCRS" :props :is-hidden] true)))))
+      (-> extentElement
+          (assoc-in [:content "verticalElement" :content "maximumValue" :props :required] true)
+          (assoc-in [:content "verticalElement" :content "minimumValue" :props :required] true)
+          (assoc-in [:content "verticalElement" :content "verticalCRS" :props :required] true)
+          (update-in [:content "verticalElement" :content "maximumValue"] required-field true)
+          (update-in [:content "verticalElement" :content "minimumValue"] required-field true)
+          (update-in [:content "verticalElement" :content "verticalCRS"] required-field true))
+      (-> extentElement
+          (update-in [:content "verticalElement" :content "maximumValue" :props] dissoc :value)
+          (update-in [:content "verticalElement" :content "minimumValue" :props] dissoc :value)
+          (update-in [:content "verticalElement" :content "verticalCRS"] dissoc :content)
+          (assoc-in [:content "verticalElement" :content "maximumValue" :props :required] false)
+          (assoc-in [:content "verticalElement" :content "minimumValue" :props :required] false)
+          (assoc-in [:content "verticalElement" :content "verticalCRS" :props :required] false)
+          (assoc-in [:content "verticalElement" :content "maximumValue" :props :disabled] true)
+          (assoc-in [:content "verticalElement" :content "minimumValue" :props :disabled] true)
+          (assoc-in [:content "verticalElement" :content "verticalCRS" :props :disabled] true)
+          (assoc-in [:content "verticalElement" :content "maximumValue" :props :is-hidden] true)
+          (assoc-in [:content "verticalElement" :content "minimumValue" :props :is-hidden] true)
+          (assoc-in [:content "verticalElement" :content "verticalCRS" :props :is-hidden] true)))))
 
 (defn imas-transfer-option-layer
   "the layer field is only displayed & required when protocol is WMS/WCS"

@@ -186,6 +186,7 @@
           "xpath": "mri:extent/gex:EX_Extent",
           "type": "object",
           "rules": [
+            "imasVerticalRequired",
             {
               "dateOrder": {
                 "field0": "beginPosition",
@@ -250,11 +251,15 @@
                 }
               }
             },
+            "hasVerticalExtent": {
+              "!docstring": "Where3",
+              "export": false,
+              "type": "boolean"
+            },
             "verticalElement": {
-              "xpath": "gex:verticalElement/gex:EX_VerticalExtent",
+              "xpath": "gex:verticalElement",
               "type": "object",
               "rules": [
-                "imasVerticalRequired",
                 {
                   "numericOrder": {
                     "field-min": "minimumValue",
@@ -263,14 +268,9 @@
                 }
               ],
               "properties": {
-                "hasVerticalExtent": {
-                  "!docstring": "Where3",
-                  "export": false,
-                  "type": "boolean"
-                },
                 "verticalCRS": {
                   "!docstring": "Where4",
-                  "xpath": "gex:verticalCRS/gml:VerticalCRS",
+                  "xpath": "gex:EX_VerticalExtent/gex:verticalCRS/gml:VerticalCRS",
                   "type": "object",
                   "keep": false,
                   "properties": {
@@ -290,7 +290,7 @@
                 "minimumValue": {
                   "!docstring": "Where5",
                   "type": "number",
-                  "xpath": "gex:minimumValue/gco:Real",
+                  "xpath": "gex:EX_VerticalExtent/gex:minimumValue/gco:Real",
                   "keep": false,
                   "rules": [
                     "positive"
@@ -299,7 +299,7 @@
                 "maximumValue": {
                   "!docstring": "Where6",
                   "type": "number",
-                  "xpath": "gex:maximumValue",
+                  "xpath": "gex:EX_VerticalExtent/gex:maximumValue",
                   "valueChild": "gco:Real",
                   "keep": false,
                   "rules": [

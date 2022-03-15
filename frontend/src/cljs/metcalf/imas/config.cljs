@@ -138,6 +138,7 @@
 ;(when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
       {"requiredField"           rules4/required-field
+       "requiredWhenYes"         rules4/required-when-yes
        "otherConstraintsLogic"   rules4/other-constraints-logic
        "maxLength"               rules4/max-length
        "geographyRequired"       rules4/geography-required
@@ -468,7 +469,7 @@
      [:h3 "Vertical Coverage"]
      [m4/checkbox-field
       {:form-id   [:form]
-       :data-path ["identificationInfo" "extents" "verticalElement" "hasVerticalExtent"]
+       :data-path ["identificationInfo" "extents" "hasVerticalExtent"]
        :label     "Does data have a vertical coverage?"}]
      [m4/form-group
       {:form-id   [:form]

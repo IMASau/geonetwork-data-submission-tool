@@ -141,7 +141,7 @@
        "requiredWhenYes"         rules4/required-when-yes
        "otherConstraintsLogic"   rules4/other-constraints-logic
        "maxLength"               rules4/max-length
-       "geographyRequired"       rules4/geography-required
+       "geographyRequired"       rules4/imas-geography-required
        "imasVerticalRequired"    rules4/imas-vertical-required
        "imasTransferOptionLayer" rules4/imas-transfer-option-layer
        "licenseOther"            rules4/license-other

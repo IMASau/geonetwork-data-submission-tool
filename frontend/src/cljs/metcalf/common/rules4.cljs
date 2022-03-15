@@ -291,6 +291,19 @@
         (update-in [:content "boxes"] required-field (:required props))
         (cond-> (not shown?) (assoc-in [:content "boxes" :content] [])))))
 
+(defn imas-geography-required
+  "Geography fields are required / included based on geographic coverage checkbox"
+  [extentElement]
+  (let [shown? (get-in extentElement [:content "hasGeographicCoverage" :props :value])
+        props (if shown?
+                {:required true :is-hidden false}
+                {:required false :disabled true :is-hidden true})]
+    (s/assert (s/nilable boolean?) shown?)
+    (-> extentElement
+        (update-in [:content "geographicElement" :props] merge props)
+        (update-in [:content "geographicElement"] required-field (:required props))
+        (cond-> (not shown?) (assoc-in [:content "geographicElement" :content] [])))))
+
 (defn spatial-resolution-units
   "Depending on the resolution attribute chosen, the units for the value
   field should change"

@@ -122,10 +122,7 @@
             "codeListValue": {
               "function": "identity"
             }
-          },
-          "rules": [
-            "requiredField"
-          ]
+          }
         },
         "dateCreation": {
           "!docstring": "ID2",
@@ -206,9 +203,6 @@
             "boxes": {
               "!docstring": "Where2",
               "xpath": "gex:geographicElement",
-              "rules": [
-                "requiredField"
-              ],
               "keep": false,
               "type": "array",
               "items": {
@@ -418,10 +412,7 @@
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:endPosition",
           "deleteWhenEmpty": true,
           "keep": false,
-          "type": "string",
-          "rules": [
-            "requiredField"
-          ]
+          "type": "string"
         },
         "dataParameters": {
           "type": "array",

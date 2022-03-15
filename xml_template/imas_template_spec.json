@@ -188,111 +188,136 @@
           },
           "notes": "Responsible party/ies for creating dataset"
         },
-        "geographicElement": {
-          "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",
+        "extents": {
+          "xpath": "mri:extent/gex:EX_Extent",
           "type": "object",
           "rules": [
-            "geographyRequired"
           ],
           "properties": {
-            "hasGeographicCoverage": {
-              "!docstring": "Where1",
-              "export": false,
-              "type": "boolean"
-            },
-            "boxes": {
-              "!docstring": "Where2",
-              "xpath": "gex:geographicElement",
-              "keep": false,
-              "type": "array",
-              "items": {
-                "xpath": "gex:geographicElement",
-                "type": "object",
-                "properties": {
-                  "uri": {},
-                  "isUserDefined": {},
-                  "westBoundLongitude": {
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:westBoundLongitude/gco:Decimal",
-                    "rules": [
-                      "requiredField"
-                    ],
-                    "type": "number"
-                  },
-                  "eastBoundLongitude": {
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:eastBoundLongitude/gco:Decimal",
-                    "rules": [
-                      "requiredField"
-                    ],
-                    "type": "number"
-                  },
-                  "southBoundLatitude": {
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:southBoundLatitude/gco:Decimal",
-                    "rules": [
-                      "requiredField"
-                    ],
-                    "type": "number"
-                  },
-                  "northBoundLatitude": {
-                    "xpath": "gex:EX_GeographicBoundingBox/gex:northBoundLatitude/gco:Decimal",
-                    "rules": [
-                      "requiredField"
-                    ],
-                    "type": "number"
+            "geographicElement": {
+              "xpath": ".",
+              "type": "object",
+              "rules": [
+                "geographyRequired"
+              ],
+              "properties": {
+                "hasGeographicCoverage": {
+                  "!docstring": "Where1",
+                  "export": false,
+                  "type": "boolean"
+                },
+                "boxes": {
+                  "!docstring": "Where2",
+                  "xpath": "gex:geographicElement",
+                  "keep": false,
+                  "type": "array",
+                  "items": {
+                    "xpath": "gex:geographicElement",
+                    "type": "object",
+                    "properties": {
+                      "uri": {},
+                      "isUserDefined": {},
+                      "westBoundLongitude": {
+                        "xpath": "gex:EX_GeographicBoundingBox/gex:westBoundLongitude/gco:Decimal",
+                        "rules": [
+                          "requiredField"
+                        ],
+                        "type": "number"
+                      },
+                      "eastBoundLongitude": {
+                        "xpath": "gex:EX_GeographicBoundingBox/gex:eastBoundLongitude/gco:Decimal",
+                        "rules": [
+                          "requiredField"
+                        ],
+                        "type": "number"
+                      },
+                      "southBoundLatitude": {
+                        "xpath": "gex:EX_GeographicBoundingBox/gex:southBoundLatitude/gco:Decimal",
+                        "rules": [
+                          "requiredField"
+                        ],
+                        "type": "number"
+                      },
+                      "northBoundLatitude": {
+                        "xpath": "gex:EX_GeographicBoundingBox/gex:northBoundLatitude/gco:Decimal",
+                        "rules": [
+                          "requiredField"
+                        ],
+                        "type": "number"
+                      }
+                    }
                   }
                 }
               }
-            }
-          }
-        },
-        "verticalElement": {
-          "xpath": "mri:extent/gex:EX_Extent/gex:verticalElement/gex:EX_VerticalExtent",
-          "type": "object",
-          "rules": [
-            "imasVerticalRequired"
-          ],
-          "properties": {
-            "hasVerticalExtent": {
-              "!docstring": "Where3",
-              "export": false,
-              "type": "boolean"
             },
-            "verticalCRS": {
-              "!docstring": "Where4",
-              "xpath": "gex:verticalCRS/gml:VerticalCRS",
+            "verticalElement": {
+              "xpath": "gex:verticalElement/gex:EX_VerticalExtent",
               "type": "object",
-              "keep": false,
+              "rules": [
+                "imasVerticalRequired"
+              ],
               "properties": {
-                "identifier": {
-                  "xpath": "gml:identifier",
-                  "type": "string"
+                "hasVerticalExtent": {
+                  "!docstring": "Where3",
+                  "export": false,
+                  "type": "boolean"
                 },
-                "name": {
-                  "xpath": "gml:name",
-                  "type": "string"
+                "verticalCRS": {
+                  "!docstring": "Where4",
+                  "xpath": "gex:verticalCRS/gml:VerticalCRS",
+                  "type": "object",
+                  "keep": false,
+                  "properties": {
+                    "identifier": {
+                      "xpath": "gml:identifier",
+                      "type": "string"
+                    },
+                    "name": {
+                      "xpath": "gml:name",
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    }
+                  }
                 },
-                "label": {
-                  "type": "string"
+                "minimumValue": {
+                  "!docstring": "Where5",
+                  "type": "number",
+                  "xpath": "gex:minimumValue/gco:Real",
+                  "keep": false,
+                  "rules": [
+                    "positive"
+                  ]
+                },
+                "maximumValue": {
+                  "!docstring": "Where6",
+                  "type": "number",
+                  "xpath": "gex:maximumValue",
+                  "valueChild": "gco:Real",
+                  "keep": false,
+                  "rules": [
+                    "positive"
+                  ]
                 }
               }
             },
-            "minimumValue": {
-              "!docstring": "Where5",
-              "type": "number",
-              "xpath": "gex:minimumValue/gco:Real",
+            "beginPosition": {
+              "!docstring": "When1",
+              "xpath": "gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
+              "xpath_required": true,
               "keep": false,
+              "type": "string",
               "rules": [
-                "positive"
+                "requiredField"
               ]
             },
-            "maximumValue": {
-              "!docstring": "Where6",
-              "type": "number",
-              "xpath": "gex:maximumValue",
-              "valueChild": "gco:Real",
+            "endPosition": {
+              "!docstring": "When2",
+              "xpath": "gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:endPosition",
+              "deleteWhenEmpty": true,
               "keep": false,
-              "rules": [
-                "positive"
-              ]
+              "type": "string"
             }
           }
         },
@@ -396,23 +421,6 @@
             }
           },
           "xpath_required": true
-        },
-        "beginPosition": {
-          "!docstring": "When1",
-          "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
-          "xpath_required": true,
-          "keep": false,
-          "type": "string",
-          "rules": [
-            "requiredField"
-          ]
-        },
-        "endPosition": {
-          "!docstring": "When2",
-          "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:endPosition",
-          "deleteWhenEmpty": true,
-          "keep": false,
-          "type": "string"
         },
         "dataParameters": {
           "type": "array",

@@ -394,18 +394,18 @@
      [:h2 "3. When was the data acquired?"]
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "beginPosition"]
+       :data-path ["identificationInfo" "extents" "beginPosition"]
        :label     "Start date"}
       [m4/date-field2
        {:form-id   [:form]
-        :data-path ["identificationInfo" "beginPosition"]}]]
+        :data-path ["identificationInfo" "extents" "beginPosition"]}]]
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "endPosition"]
+       :data-path ["identificationInfo" "extents" "endPosition"]
        :label     "End date"}
       [m4/date-field2
        {:form-id   [:form]
-        :data-path ["identificationInfo" "endPosition"]}]]]
+        :data-path ["identificationInfo" "extents" "endPosition"]}]]]
 
     :where
     [:div
@@ -419,28 +419,28 @@
      [:h3 "Geographic Coverage"]
      [m4/checkbox-field
       {:form-id   [:form]
-       :data-path ["identificationInfo" "geographicElement" "hasGeographicCoverage"]
+       :data-path ["identificationInfo" "extents" "geographicElement" "hasGeographicCoverage"]
        :label     "Does data have a geographic coverage?"}]
      [:div.row
       [:div.col-sm-6
        ;; FIXME add toggle for satellite imagery.
        [m4/boxmap-field
         {:form-id    [:form]
-         :data-path  ["identificationInfo" "geographicElement" "boxes"]
+         :data-path  ["identificationInfo" "extents" "geographicElement" "boxes"]
          :value-path ["uri"]
          :added-path ["isUserDefined"]}]]
       [:div.col-sm-6
 
        [m4/when-data
         {:form-id   [:form]
-         :data-path ["identificationInfo" "geographicElement" "boxes"]
+         :data-path ["identificationInfo" "extents" "geographicElement" "boxes"]
          :pred      :m4/empty-list?}
         [:p "Specify the location(s) of this study."]]
 
        [:div.SelectionTableStyle
         [m4/selection-list-columns
          {:form-id             [:form]
-          :data-path           ["identificationInfo" "geographicElement" "boxes"]
+          :data-path           ["identificationInfo" "extents" "geographicElement" "boxes"]
           :value-path          ["uri"]
           :added-path          ["isUserDefined"]
           :columns             [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
@@ -452,7 +452,7 @@
           :random-uuid-value?  true}]
         [m4/list-add-button
          {:form-id            [:form]
-          :data-path          ["identificationInfo" "geographicElement" "boxes"]
+          :data-path          ["identificationInfo" "extents" "geographicElement" "boxes"]
           :button-text        "Add location"
           :value-path         ["uri"]
           :random-uuid-value? true
@@ -460,21 +460,21 @@
 
        [m4/list-edit-dialog
         {:form-id     [:form]
-         :data-path   ["identificationInfo" "geographicElement" "boxes"]
+         :data-path   ["identificationInfo" "extents" "geographicElement" "boxes"]
          :title       "Bounding box"
          :template-id :box/user-defined-entry-form}]]]
      [:h3 "Vertical Coverage"]
      [m4/checkbox-field
       {:form-id   [:form]
-       :data-path ["identificationInfo" "verticalElement" "hasVerticalExtent"]
+       :data-path ["identificationInfo" "extents" "verticalElement" "hasVerticalExtent"]
        :label     "Does data have a vertical coverage?"}]
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "verticalElement" "verticalCRS"]
+       :data-path ["identificationInfo" "extents" "verticalElement" "verticalCRS"]
        :label     "Vertical type"}
       [m4/select-option-simple
        {:form-id     [:form]
-        :data-path   ["identificationInfo" "verticalElement" "verticalCRS"]
+        :data-path   ["identificationInfo" "extents" "verticalElement" "verticalCRS"]
         :value-path  ["identifier"]
         :label-path  ["label"]
         :placeholder "Please select"
@@ -486,21 +486,21 @@
                        "identifier" "EPSG::5714"}]}]]
      [m4/form-group
       {:form-id    [:form]
-       :data-path  ["identificationInfo" "verticalElement" "minimumValue"]
+       :data-path  ["identificationInfo" "extents" "verticalElement" "minimumValue"]
        :label      "Minimum"
        :helperText "Shallowest depth / lowest altitude"}
       [m4/numeric-input-field
        {:form-id   [:form]
-        :data-path ["identificationInfo" "verticalElement" "minimumValue"]
+        :data-path ["identificationInfo" "extents" "verticalElement" "minimumValue"]
         :class     "wauto"}]]
      [m4/form-group
       {:form-id    [:form]
-       :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
+       :data-path  ["identificationInfo" "extents" "verticalElement" "maximumValue"]
        :label      "Maximum"
        :helperText "Deepest depth / highest altitude"}
       [m4/numeric-input-field
        {:form-id   [:form]
-        :data-path ["identificationInfo" "verticalElement" "maximumValue"]
+        :data-path ["identificationInfo" "extents" "verticalElement" "maximumValue"]
         :class     "wauto"}]]]
 
     :box/user-defined-entry-form

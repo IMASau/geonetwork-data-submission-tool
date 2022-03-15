@@ -186,6 +186,7 @@
           "xpath": "mri:extent/gex:EX_Extent",
           "type": "object",
           "rules": [
+            "geographyRequired",
             "imasVerticalRequired",
             {
               "dateOrder": {
@@ -195,58 +196,49 @@
             }
           ],
           "properties": {
+            "hasGeographicCoverage": {
+              "!docstring": "Where1",
+              "export": false,
+              "type": "boolean"
+            },
             "geographicElement": {
-              "xpath": ".",
-              "type": "object",
-              "rules": [
-                "geographyRequired"
-              ],
-              "properties": {
-                "hasGeographicCoverage": {
-                  "!docstring": "Where1",
-                  "export": false,
-                  "type": "boolean"
-                },
-                "boxes": {
-                  "!docstring": "Where2",
-                  "xpath": "gex:geographicElement",
-                  "keep": false,
-                  "type": "array",
-                  "items": {
-                    "xpath": "gex:geographicElement",
-                    "type": "object",
-                    "properties": {
-                      "uri": {},
-                      "isUserDefined": {},
-                      "westBoundLongitude": {
-                        "xpath": "gex:EX_GeographicBoundingBox/gex:westBoundLongitude/gco:Decimal",
-                        "rules": [
-                          "requiredField"
-                        ],
-                        "type": "number"
-                      },
-                      "eastBoundLongitude": {
-                        "xpath": "gex:EX_GeographicBoundingBox/gex:eastBoundLongitude/gco:Decimal",
-                        "rules": [
-                          "requiredField"
-                        ],
-                        "type": "number"
-                      },
-                      "southBoundLatitude": {
-                        "xpath": "gex:EX_GeographicBoundingBox/gex:southBoundLatitude/gco:Decimal",
-                        "rules": [
-                          "requiredField"
-                        ],
-                        "type": "number"
-                      },
-                      "northBoundLatitude": {
-                        "xpath": "gex:EX_GeographicBoundingBox/gex:northBoundLatitude/gco:Decimal",
-                        "rules": [
-                          "requiredField"
-                        ],
-                        "type": "number"
-                      }
-                    }
+              "!docstring": "Where2",
+              "xpath": "gex:geographicElement",
+              "keep": false,
+              "type": "array",
+              "items": {
+                "xpath": "gex:geographicElement",
+                "type": "object",
+                "properties": {
+                  "uri": {},
+                  "isUserDefined": {},
+                  "westBoundLongitude": {
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:westBoundLongitude/gco:Decimal",
+                    "rules": [
+                      "requiredField"
+                    ],
+                    "type": "number"
+                  },
+                  "eastBoundLongitude": {
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:eastBoundLongitude/gco:Decimal",
+                    "rules": [
+                      "requiredField"
+                    ],
+                    "type": "number"
+                  },
+                  "southBoundLatitude": {
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:southBoundLatitude/gco:Decimal",
+                    "rules": [
+                      "requiredField"
+                    ],
+                    "type": "number"
+                  },
+                  "northBoundLatitude": {
+                    "xpath": "gex:EX_GeographicBoundingBox/gex:northBoundLatitude/gco:Decimal",
+                    "rules": [
+                      "requiredField"
+                    ],
+                    "type": "number"
                   }
                 }
               }

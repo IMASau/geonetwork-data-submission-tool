@@ -422,28 +422,28 @@
      [:h3 "Geographic Coverage"]
      [m4/checkbox-field
       {:form-id   [:form]
-       :data-path ["identificationInfo" "extents" "geographicElement" "hasGeographicCoverage"]
+       :data-path ["identificationInfo" "extents" "hasGeographicCoverage"]
        :label     "Does data have a geographic coverage?"}]
      [:div.row
       [:div.col-sm-6
        ;; FIXME add toggle for satellite imagery.
        [m4/boxmap-field
         {:form-id    [:form]
-         :data-path  ["identificationInfo" "extents" "geographicElement" "boxes"]
+         :data-path  ["identificationInfo" "extents" "geographicElement"]
          :value-path ["uri"]
          :added-path ["isUserDefined"]}]]
       [:div.col-sm-6
 
        [m4/when-data
         {:form-id   [:form]
-         :data-path ["identificationInfo" "extents" "geographicElement" "boxes"]
+         :data-path ["identificationInfo" "extents" "geographicElement"]
          :pred      :m4/empty-list?}
         [:p "Specify the location(s) of this study."]]
 
        [:div.SelectionTableStyle
         [m4/selection-list-columns
          {:form-id             [:form]
-          :data-path           ["identificationInfo" "extents" "geographicElement" "boxes"]
+          :data-path           ["identificationInfo" "extents" "geographicElement"]
           :value-path          ["uri"]
           :added-path          ["isUserDefined"]
           :columns             [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
@@ -455,7 +455,7 @@
           :random-uuid-value?  true}]
         [m4/list-add-button
          {:form-id            [:form]
-          :data-path          ["identificationInfo" "extents" "geographicElement" "boxes"]
+          :data-path          ["identificationInfo" "extents" "geographicElement"]
           :button-text        "Add location"
           :value-path         ["uri"]
           :random-uuid-value? true
@@ -463,7 +463,7 @@
 
        [m4/list-edit-dialog
         {:form-id     [:form]
-         :data-path   ["identificationInfo" "extents" "geographicElement" "boxes"]
+         :data-path   ["identificationInfo" "extents" "geographicElement"]
          :title       "Bounding box"
          :template-id :box/user-defined-entry-form}]]]
      [:h3 "Vertical Coverage"]

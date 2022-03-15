@@ -818,7 +818,7 @@
           "keep": false
         },
         "deliveryPoint2": {
-          "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
+          "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[last()]",
           "type": "string",
           "keep": false,
           "valueChild": "gco:CharacterString"

@@ -633,16 +633,16 @@
      [:div "Acknowledge the contribution of any funding schemes or organisations."]
      [m4/selection-list-values
       {:form-id   [:form]
-       :data-path ["credits"]}]
+       :data-path ["identificationInfo" "credits"]}]
 
      [m4/value-list-add-button
       {:form-id     [:form]
-       :data-path   ["credits"]
+       :data-path   ["identificationInfo" "credits"]
        :button-text "Add credit"}]
 
      [m4/list-edit-dialog
       {:form-id     [:form]
-       :data-path   ["credits"]
+       :data-path   ["identificationInfo" "credits"]
        :title       "Credit"
        :template-id :credit/edit-form}]]
 

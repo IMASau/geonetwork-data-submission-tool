@@ -570,6 +570,19 @@
               }
             }
           }
+        },
+        "credits": {
+          "!docstring": "Who17",
+          "xpath": "mri:credit",
+          "type": "array",
+          "items": {
+            "xpath": "gco:CharacterString",
+            "container": "mri:credit/gco:CharacterString",
+            "type": "string",
+            "rules": [
+              "requiredField"
+            ]
+          }
         }
       }
     },
@@ -617,19 +630,6 @@
             "export": false
           }
         }
-      }
-    },
-    "credits": {
-      "xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification[mri:credit]",
-      "container": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:credit",
-      "type": "array",
-      "items": {
-        "xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:credit",
-        "valueChild": "gco:CharacterString",
-        "type": "string",
-        "rules": [
-          "requiredField"
-        ]
       }
     },
     "distributionInfo": {

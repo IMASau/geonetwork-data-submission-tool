@@ -144,6 +144,7 @@
        "imasVerticalRequired"    rules4/imas-vertical-required
        "imasTransferOptionLayer" rules4/imas-transfer-option-layer
        "licenseOther"            rules4/license-other
+       "numericOrder"            rules4/numeric-order
        "dateOrder"               rules4/date-order
        "endPosition"             rules4/end-position
        "positive"                rules4/force-positive

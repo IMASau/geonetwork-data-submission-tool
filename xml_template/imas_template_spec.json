@@ -254,7 +254,13 @@
               "xpath": "gex:verticalElement/gex:EX_VerticalExtent",
               "type": "object",
               "rules": [
-                "imasVerticalRequired"
+                "imasVerticalRequired",
+                {
+                  "numericOrder": {
+                    "field-min": "minimumValue",
+                    "field-max": "maximumValue"
+                  }
+                }
               ],
               "properties": {
                 "hasVerticalExtent": {

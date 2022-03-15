@@ -265,7 +265,8 @@
 
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "status"]}
+       :data-path ["identificationInfo" "status"]
+       :label     "Status"}
       [m4/select-value
        {:form-id    [:form]
         :data-path  ["identificationInfo" "status"]

@@ -338,9 +338,22 @@
               "items": {
                 "type": "object",
                 "xpath": "mri:keyword",
+                "rules": [
+                  {
+                    "fullLabel": {
+                      "breadcrumb": "breadcrumb",
+                      "label": "label",
+                      "dest": "fullLabel"
+                    }
+                  }
+                ],
                 "properties": {
                   "breadcrumb": {},
                   "label": {
+                    "type": "string"
+                  },
+                  "fullLabel": {
+                    "type": "string",
                     "xpath": "gcx:Anchor"
                   },
                   "uri": {
@@ -373,9 +386,22 @@
               "items": {
                 "type": "object",
                 "xpath": "mri:keyword",
+                "rules": [
+                  {
+                    "fullLabel": {
+                      "breadcrumb": "breadcrumb",
+                      "label": "label",
+                      "dest": "fullLabel"
+                    }
+                  }
+                ],
                 "properties": {
                   "breadcrumb": {},
                   "label": {
+                    "type": "string"
+                  },
+                  "fullLabel": {
+                    "type": "string",
                     "xpath": "gcx:Anchor"
                   },
                   "uri": {

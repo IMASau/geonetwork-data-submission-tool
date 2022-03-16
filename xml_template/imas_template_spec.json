@@ -328,6 +328,7 @@
               "xpath": "mri:keyword",
               "keep": false,
               "type": "array",
+              "rules": [{"maxKeywords": {"max-keywords": 12}}],
               "items": {
                 "type": "object",
                 "xpath": "mri:keyword",
@@ -362,6 +363,7 @@
               "xpath": "mri:keyword",
               "keep": false,
               "type": "array",
+              "rules": [{"maxKeywords": {"max-keywords": 12}}],
               "items": {
                 "type": "object",
                 "xpath": "mri:keyword",
@@ -393,6 +395,7 @@
               "keep": false,
               "xpath": "mri:keyword",
               "type": "array",
+              "rules": [{"maxKeywords": {"max-keywords": 12}}],
               "items": {
                 "type": "string",
                 "keep": "false",
@@ -411,6 +414,7 @@
               "keep": false,
               "xpath": "mri:keyword",
               "type": "array",
+              "rules": [{"maxKeywords": {"max-keywords": 12}}],
               "items": {
                 "type": "string",
                 "keep": "false",

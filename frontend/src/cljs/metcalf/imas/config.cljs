@@ -1256,6 +1256,10 @@
       [m4/note-for-data-manager
        {:form-id   [:form]
         :data-path ["noteForDataManager"]}]
+      [m4/checkbox-field
+       {:form-id [:form]
+        :data-path ["doiRequested"]
+        :label "Check if you would like a DOI minted for this dataset"}]
       [m4/lodge-button]
       [m4/lodge-status-info]
       [:div.user-export

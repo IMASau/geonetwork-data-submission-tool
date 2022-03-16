@@ -2,6 +2,10 @@
     background-color: white;
 }
 
+.bp3-tab.has-errors::after {
+    content: " *";
+}
+
 .bp3-tab {
     padding: 5px;
     user-select: none;

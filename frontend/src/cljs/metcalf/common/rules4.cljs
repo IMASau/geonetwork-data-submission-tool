@@ -519,3 +519,13 @@
                     (apply str))]
     (-> block
         (assoc-in [:content to :props :value] joined))))
+
+(defn expand-breadcrumb
+  [block {:keys [breadcrumb label dest]}]
+  (let [data (blocks4/as-data block)
+        breadcrumb (get data breadcrumb)
+        ;; Not sure why it looks like ["breadcrumb"] but handle both cases:
+        breadcrumb (if (sequential? breadcrumb) (first breadcrumb) breadcrumb)
+        label (get data label)]
+    (assoc-in block [:content dest :props :value]
+              (str breadcrumb (when breadcrumb " | ") label))))

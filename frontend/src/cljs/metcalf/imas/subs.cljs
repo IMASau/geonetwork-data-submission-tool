@@ -1,4 +1,4 @@
-(ns metcalf.imas.subs 
+(ns metcalf.imas.subs
   (:require [metcalf.common.blocks4 :as blocks4]))
 
 (def edit-tabs
@@ -37,6 +37,11 @@
    {:id         :lodge
     :text       "Lodge"
     :data-paths []}])
+
+(defn get-edit-tabs
+  "Sub to return edit-tab data.  Defaults to edit-tabs if not set in app-db."
+  [db]
+  (or (get db :low-code/edit-tabs) edit-tabs))
 
 (defn- get-next-tab
   [tab-id]

@@ -254,6 +254,7 @@ class Document(AbstractDocument):
 
 
 class DraftMetadata(AbstractDraftMetadata):
+    doiRequested = models.BooleanField(default=False)
     # FIXME
     class Meta:
         verbose_name_plural = "Draft Metadata"

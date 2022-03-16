@@ -513,6 +513,7 @@ def save(request, uuid, update_number):
 
         draft = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
         draft.noteForDataManager = data.get('attachments') or ''
+        draft.doiRequested = identificationInfo.get('doiRequested', False)
         draft.save()
 
         # Remove any attachments which are no longer mentioned in the XML.

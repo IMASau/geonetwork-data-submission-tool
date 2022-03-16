@@ -3,15 +3,40 @@
 
 (def edit-tabs
   "Default edit tabs for imas deploy"
-  [{:id :data-identification :text "Identification"}
-   {:id :what :text "What"}
-   {:id :when :text "When"}
-   {:id :where :text "Where"}
-   {:id :how :text "How"}
-   {:id :who :text "Who"}
-   {:id :about :text "About"}
-   {:id :upload :text "Data sources"}
-   {:id :lodge :text "Lodge"}])
+  [{:id         :data-identification
+    :text       "Identification"
+    :data-paths [["identificationInfo" "title"]
+                 ["identificationInfo" "dateCreation"]
+                 ["identificationInfo" "topicCategories"]
+                 ["identificationInfo" "status"]
+                 ["identificationInfo" "maintenanceAndUpdateFrequency"]]}
+   {:id         :what
+    :text       "What"
+    :data-paths []}
+   {:id         :when
+    :text       "When"
+    :data-paths [["identificationInfo" "extents" "beginPosition"]
+                 ["identificationInfo" "extents" "endPosition"]]}
+   {:id         :where
+    :text       "Where"
+    :data-paths [["identificationInfo" "extents" "geographicElement"]
+                 ["identificationInfo" "extents" "verticalElement"]]}
+   {:id         :how
+    :text       "How"
+    :data-paths [["resourceLineage" "statement"]]}
+   {:id         :who
+    :text       "Who"
+    :data-paths [["pointOfContact"]
+                 ["identificationInfo" "citedResponsibleParty"]]}
+   {:id         :about
+    :text       "About"
+    :data-paths [["identificationInfo" "creativeCommons"]]}
+   {:id         :upload
+    :text       "Data sources"
+    :data-paths []}
+   {:id         :lodge
+    :text       "Lodge"
+    :data-paths []}])
 
 (defn- get-next-tab
   [tab-id]

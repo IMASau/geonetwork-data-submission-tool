@@ -511,3 +511,11 @@
                 :doi            doi
                 :customCitation customCitation}))))
 
+(defn string-concat
+  [block {:keys [from-array to]}]
+  (let [contents (-> block blocks4/as-data (get from-array))
+        joined (->> contents
+                    (interpose "\n")
+                    (apply str))]
+    (-> block
+        (assoc-in [:content to :props :value] joined))))

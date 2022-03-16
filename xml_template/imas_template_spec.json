@@ -54,6 +54,12 @@
       "rules": [
         "maintFreq",
         "endPosition",
+        {
+          "stringConcat": {
+            "from-array": "supplementalInformation",
+            "to": "supplementalInformationExport"
+          }
+        },
         "otherConstraintsLogic"
       ],
       "type": "object",
@@ -538,17 +544,20 @@
         },
         "supplementalInformation": {
           "!docstring": "About7",
-          "xpath": "mri:supplementalInformation",
           "type": "array",
-          "keep": false,
+          "export": false,
           "items": {
-            "xpath": "mri:supplementalInformation",
-            "valueChild": "gco:CharacterString",
             "type": "string",
             "rules": [
               "requiredField"
             ]
           }
+        },
+        "supplementalInformationExport": {
+          "!docstring": "About7 - data entered as a list but exported as a concatnated string.  A rule transforms the former into this location",
+          "type": "string",
+          "keep": false,
+          "xpath": "mri:supplementalInformation/gco:CharacterString"
         },
         "supportingResources": {
           "!docstring": "About8",

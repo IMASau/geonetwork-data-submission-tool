@@ -142,6 +142,7 @@
        "otherConstraintsLogic"   rules4/other-constraints-logic
        "maxLength"               rules4/max-length
        "maxKeywords"             rules4/tern-max-keywords
+       "stringConcat"            rules4/string-concat
        "geographyRequired"       rules4/imas-geography-required
        "imasVerticalRequired"    rules4/imas-vertical-required
        "imasTransferOptionLayer" rules4/imas-transfer-option-layer

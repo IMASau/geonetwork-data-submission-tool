@@ -11,6 +11,12 @@ from metcalf.common.utils import no_spaces_in_filename
 
 
 class AbstractDataFeed(models.Model):
+    """Represents a management command to load some data feed, eg
+    load_sciencekeywords. The `name` field should be set to the name
+    of the command that would be manually invoked via manage.py; it
+    will be called via `django.core.management.call_command`. The two
+    commands schedule_datafeeds and refresh_datafeeds control the
+    state machine and execution of the feeds themselves."""
     id = models.AutoField(primary_key=True)
     name = models.SlugField()
 

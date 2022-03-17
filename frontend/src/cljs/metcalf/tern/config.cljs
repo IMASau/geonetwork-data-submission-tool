@@ -1323,7 +1323,8 @@
     :party-person-poc/user-defined-entry-form
     [:div
 
-     [m4/form-group
+     ;; Only one "option" here, so leave it as the default:
+     #_[m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "role"]
        :label     "Role"
@@ -1593,7 +1594,8 @@
     :party-organisation-poc/user-defined-entry-form
     [:div
 
-     [m4/form-group
+     ;; Only one "option" here, so leave it as the default:
+     #_[m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "role"]
        :label     "Role"

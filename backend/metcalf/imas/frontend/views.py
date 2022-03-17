@@ -512,7 +512,7 @@ def save(request, uuid, update_number):
         data['identificationInfo']['datePublication'] = spec4.today()
 
         draft = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
-        draft.noteForDataManager = data.get('attachments') or ''
+        draft.noteForDataManager = data.get('noteForDataManager') or ''
         draft.doiRequested = data.get('doiRequested', False)
         draft.save()
 

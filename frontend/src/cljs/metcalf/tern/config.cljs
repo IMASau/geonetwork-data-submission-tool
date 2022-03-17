@@ -655,7 +655,7 @@
           :value-path      ["uri"]
           :breadcrumb-path ["breadcrumb"]}]]]]
 
-     [m4/expanding-control {:label "Platforms" :required true}
+     [m4/expanding-control {:label "Platforms (Optional)"}
       [m4/form-group
        {:label   "Select a platform for the data measurement"
         :toolTip "Select platform(s) that hosts other entities to generate the dataset from the list. If the required platform is not in the list, you can click the ‘Add’ button to add your platform. All new entries will be reviewed prior to publication."}
@@ -691,7 +691,7 @@
          :title       "Platform"
          :template-id :platform/user-defined-entry-form}]]]
 
-     [m4/expanding-control {:label "Instruments" :required true}
+     [m4/expanding-control {:label "Instruments (Optional)"}
       [m4/form-group
        {:label   "Select the instrument used for the platform"
         :toolTip "Select the instrument(s) or sensor(s) used in data collection.  If the required instrument is not in the list, you can click the ‘Add’ button to add your instrument. All new entries will be reviewed prior to publication."}
@@ -1767,7 +1767,7 @@
       [:div
        [:i [m4/get-data {:form-id [:form] :data-path ["identificationInfo" "useLimitation"]}]]]]
      [m4/form-group
-      {                             ;:form-id   [:form]
+      {;:form-id   [:form]
                                         ;:data-path ["identificationInfo"]
        :label "Other constraints"}
       [m4/simple-list

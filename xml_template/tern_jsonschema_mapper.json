@@ -1211,8 +1211,7 @@
               }
             }
           },
-          "xpath_required": true,
-          "rules": ["requiredField"]
+          "xpath_required": true
         },
         "keywordsInstrument": {
           "!docstring": "What6",
@@ -1258,8 +1257,7 @@
               }
             }
           },
-          "xpath_required": true,
-          "rules": ["requiredField"]
+          "xpath_required": true
         },
         "keywordsParametersUnits": {
           "!docstring": "What8",

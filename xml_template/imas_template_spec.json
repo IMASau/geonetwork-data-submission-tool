@@ -786,6 +786,12 @@
           }
         }
       }
+    },
+    "doiRequested": {
+      "!docstring": "Fake node so we can pass some additional metadata as payload",
+      "type": "boolean",
+      "default": false,
+      "export": false
     }
   },
   "$defs": {
@@ -905,13 +911,6 @@
         },
         "isUserDefined": {}
       }
-    },
-    "doiRequested": {
-      "!docstring": "Fake node so we can pass some additional metadata as payload",
-      "xpath": "doiRequested",
-      "type": "boolean",
-      "default": false,
-      "export": false
     }
   },
   "export2_xforms": [

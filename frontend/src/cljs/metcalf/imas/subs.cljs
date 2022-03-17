@@ -12,7 +12,8 @@
                  ["identificationInfo" "maintenanceAndUpdateFrequency"]]}
    {:id         :what
     :text       "What"
-    :data-paths []}
+    :data-paths [["identificationInfo" "abstract"]
+                 ["identificationInfo" "keywordsTheme"]]}
    {:id         :when
     :text       "When"
     :data-paths [["identificationInfo" "extents" "beginPosition"]

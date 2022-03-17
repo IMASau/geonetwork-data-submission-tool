@@ -655,6 +655,59 @@
           :value-path      ["uri"]
           :breadcrumb-path ["breadcrumb"]}]]]]
 
+     [m4/expanding-control {:label "Parameters" :required true}
+
+      [m4/form-group
+       {:label "Select a measured parameter, e.g. vegetation height"
+        :toolTip "Select Parameters (observable properties) in the dataset from the predefined list. If the required parameter is not available, you can click the ‘Add’ button to define a new parameter. All new entries will be reviewed prior to publication."}
+
+       [m4/list-add-button
+        {:form-id            [:form]
+         :data-path          ["identificationInfo" "keywordsParametersUnits" "keywords"]
+         :button-text        "Add Parameter"
+         :value-path         ["uri"]
+         :random-uuid-value? true}]
+
+       [:div.SelectionListItemColoured
+        [m4/selection-list-columns
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "keywordsParametersUnits" "keywords"]
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :select-snapshot?   true
+          :select-mode        :all-items
+          :added-path         ["isUserDefined"]
+          :columns            [{:columnHeader "Name" :label-path ["parameter" "label"] :flex 2}
+                               {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]]
+       [m4/list-edit-dialog
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "keywordsParametersUnits" "keywords"]
+         :title       "Parameter"
+         :template-id :parameter-unit/user-defined-entry-form
+         :field-paths [["parameter" "label"] ["unit"]]}]]]
+
+     [m4/expanding-control {:label "Temporal Resolution" :required true}
+      [m4/form-group
+       {:label   "Select a Temporal Resolution range"
+        :toolTip "Temporal resolution specifies the time interval between data points. Select a resolution from the drop-down menu."}
+       [m4/async-select-option-simple
+        {:form-id    [:form]
+         :data-path  ["identificationInfo" "keywordsTemporal" "keywords"]
+         :uri        "/api/samplingfrequency"
+         :label-path ["label"]
+         :value-path ["uri"]}]]]
+
+     [m4/expanding-control {:label "Horizontal Resolution" :required true}
+      [m4/form-group
+       {:label   "Select a Horizontal Resolution range"
+        :toolTip "Horizontal resolution is a horizontal extent of the dataset. Select a resolution from the drop-down menu."}
+       [m4/async-select-option-simple
+        {:form-id    [:form]
+         :data-path  ["identificationInfo" "keywordsHorizontal" "keywords"]
+         :uri        "/api/horizontalresolution"
+         :label-path ["label"]
+         :value-path ["uri"]}]]]
+
      [m4/expanding-control {:label "Platforms (Optional)"}
       [m4/form-group
        {:label   "Select a platform for the data measurement"
@@ -727,59 +780,6 @@
          :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
          :title       "Instrument"
          :template-id :instrument/user-defined-entry-form}]]]
-
-     [m4/expanding-control {:label "Parameters" :required true}
-
-      [m4/form-group
-       {:label "Select a measured parameter, e.g. vegetation height"
-        :toolTip "Select Parameters (observable properties) in the dataset from the predefined list. If the required parameter is not available, you can click the ‘Add’ button to define a new parameter. All new entries will be reviewed prior to publication."}
-
-       [m4/list-add-button
-        {:form-id            [:form]
-         :data-path          ["identificationInfo" "keywordsParametersUnits" "keywords"]
-         :button-text        "Add Parameter"
-         :value-path         ["uri"]
-         :random-uuid-value? true}]
-
-       [:div.SelectionListItemColoured
-        [m4/selection-list-columns
-         {:form-id            [:form]
-          :data-path          ["identificationInfo" "keywordsParametersUnits" "keywords"]
-          :value-path         ["uri"]
-          :random-uuid-value? true
-          :select-snapshot?   true
-          :select-mode        :all-items
-          :added-path         ["isUserDefined"]
-          :columns            [{:columnHeader "Name" :label-path ["parameter" "label"] :flex 2}
-                               {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]]
-       [m4/list-edit-dialog
-        {:form-id     [:form]
-         :data-path   ["identificationInfo" "keywordsParametersUnits" "keywords"]
-         :title       "Parameter"
-         :template-id :parameter-unit/user-defined-entry-form
-         :field-paths [["parameter" "label"] ["unit"]]}]]]
-
-     [m4/expanding-control {:label "Temporal Resolution" :required true}
-      [m4/form-group
-       {:label   "Select a Temporal Resolution range"
-        :toolTip "Temporal resolution specifies the time interval between data points. Select a resolution from the drop-down menu."}
-       [m4/async-select-option-simple
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "keywordsTemporal" "keywords"]
-         :uri        "/api/samplingfrequency"
-         :label-path ["label"]
-         :value-path ["uri"]}]]]
-
-     [m4/expanding-control {:label "Horizontal Resolution" :required true}
-      [m4/form-group
-       {:label   "Select a Horizontal Resolution range"
-        :toolTip "Horizontal resolution is a horizontal extent of the dataset. Select a resolution from the drop-down menu."}
-       [m4/async-select-option-simple
-        {:form-id    [:form]
-         :data-path  ["identificationInfo" "keywordsHorizontal" "keywords"]
-         :uri        "/api/horizontalresolution"
-         :label-path ["label"]
-         :value-path ["uri"]}]]]
 
      [m4/expanding-control {:label "Vertical Resolution (Optional)" :required false}
       [m4/form-group

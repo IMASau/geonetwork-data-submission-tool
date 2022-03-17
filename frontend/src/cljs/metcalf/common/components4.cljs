@@ -1885,6 +1885,7 @@
        [ui-controls/Dropzone
         {:disabled    disabled
          :placeholder (r/as-element placeholder)
+         :maxSize     (* 100 1024 1024) ; 100M in bytes
          :onDrop      #(rf/dispatch [::upload-files-drop config (js->clj % :keywordize-keys true)])}]])))
 
 (defn upload-thumbnail-settings

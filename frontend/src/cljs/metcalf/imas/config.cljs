@@ -1164,8 +1164,7 @@
      [m4/form-group
       {:label     "Upload data"
        :form-id   [:form]
-       :data-path ["attachments"]
-       :required  true}
+       :data-path ["attachments"]}
       [m4/upload-files
        {:form-id    [:form]
         :data-path  ["attachments"]
@@ -1178,8 +1177,7 @@
      [m4/form-group
       {:label     "Link to data services"
        :form-id   [:form]
-       :data-path ["distributionInfo" "transferOptions"]
-       :required  true}
+       :data-path ["distributionInfo" "transferOptions"]}
       [:div.SelectionTableStyle
        [m4/selection-list-columns
         {:form-id             [:form]

@@ -172,7 +172,7 @@ class Document(AbstractDocument):
     publish_status = models.BooleanField(default=False, verbose_name='Publish status')
     date_published = models.DateTimeField(blank=True, null=True, verbose_name='Date Published')
     doi = models.CharField(max_length=1024, default='', blank=True)
-    categories = models.ManyToManyField(DocumentCategory)
+    categories = models.ManyToManyField(DocumentCategory, blank=True)
 
     hasUserDefined = models.BooleanField(default=False, verbose_name='Has User-defined')
 
@@ -277,6 +277,10 @@ class Document(AbstractDocument):
                 token = res.cookies['XSRF-TOKEN']
                 # publish
                 categories = [category.id for category in self.categories.all()]
+                # We need the "datasets" category; assume the 'name' doesn't change:
+                datasetsCategory = DocumentCategory.objects.get(name='datasets')
+                if datasetsCategory.id not in categories:
+                    categories.append(datasetsCategory.id)
                 res = session.post(f"{gn_root}/srv/api/records",
                                    auth=(gn_user,gn_pass),
                                    headers={'X-XSRF-TOKEN': token,

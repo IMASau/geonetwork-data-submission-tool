@@ -1260,8 +1260,8 @@
        {:form-id [:form]
         :data-path ["doiRequested"]
         :label "Check if you would like a DOI minted for this dataset"}]
-      [m4/lodge-button]
-      [m4/lodge-status-info]
+      [m4/lodge-button {:form-id [:form]}]
+      [m4/lodge-status-info {:form-id [:form]}]
       [:div.user-export
        [:p [:strong "Want to keep a personal copy of your metadata record?"]]
        [:p

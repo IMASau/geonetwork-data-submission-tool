@@ -350,6 +350,10 @@ class DocumentAttachmentAdmin(admin.ModelAdmin):
     list_display = ['document', 'file']
 
 
+class DocumentCategoryAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'label']
+    readonly_fields = ['name', 'label']
+
 class ScienceKeywordAdmin(admin.ModelAdmin):
     list_display = ['UUID', 'Category', 'Topic', 'Term',
                     'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
@@ -427,6 +431,7 @@ admin.site.register(models.DocumentAttachment, DocumentAttachmentAdmin)
 admin.site.register(models.DraftMetadata, DraftMetadataAdmin)
 admin.site.register(models.ScienceKeyword, ScienceKeywordAdmin)
 admin.site.register(models.AnzsrcKeyword, AnzsrcKeywordAdmin)
+admin.site.register(models.DocumentCategory, DocumentCategoryAdmin)
 # admin.site.register(models.ParameterName, ParameterNameAdmin)
 # admin.site.register(models.ParameterUnit, ParameterUnitAdmin)
 # admin.site.register(models.ParameterInstrument, ParameterInstrumentAdmin)

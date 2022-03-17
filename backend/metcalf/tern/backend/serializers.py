@@ -7,10 +7,30 @@ from metcalf.common import xmlutils4
 from metcalf.tern.backend import models
 
 
+class DocumentCategoryListSerializer(serializers.ListSerializer):
+    def update(self, instance, validated_data):
+        doc_mapping = {d.id: d for d in instance}
+        data_mapping = {item['id']: item for item in validated_data}
+
+        # Creations / updates using primary key; ignore deletions
+        ret = []
+        for doc_id, data in data_mapping.items():
+            doc = doc_mapping.get(doc_id, None)
+            if doc is None:
+                ret.append(self.child.create(data))
+            else:
+                ret.append(self.child.update(doc, data))
+        return ret
+
+
 class DocumentCategorySerializer(serializers.ModelSerializer):
+    # Make writeable so we can access it (need to preserve from input data):
+    id = serializers.IntegerField()
+
     class Meta:
         model = models.DocumentCategory
-        fields = '__all__'
+        fields = ('id', 'name', 'label')
+        list_serializer_class = DocumentCategoryListSerializer
 
 
 class DumaDocumentSerializer(serializers.ModelSerializer):

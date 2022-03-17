@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand, CommandError
 
 import requests
 
+from metcalf.tern.backend.models import DocumentCategory
 from metcalf.tern.backend.serializers import DocumentCategorySerializer
 
 logger = logging.getLogger(__name__)
@@ -27,7 +28,8 @@ class Command(BaseCommand):
                                headers={'Accept': 'application/json'})
             data = list(map(self.extract_eng_label, res.json()))
 
-            serializer = DocumentCategorySerializer(data=data, many=True)
+            existing_categories = DocumentCategory.objects.all()
+            serializer = DocumentCategorySerializer(existing_categories, data=data, many=True)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
 

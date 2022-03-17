@@ -424,7 +424,7 @@
         (assoc-in [:content "transferOptions" :content "description" :props :disabled] (not layer-name-required?))
         (update-in [:content "transferOptions" :content "description"] required-field (boolean layer-name-required?)))))
 
-;;; TODO: generalise the following two default-value rules
+;;; TODO: generalise the following two^Wthree default-value rules
 (defn default-distributor
   [block distributor-data]
   (let [value-picked? (boolean (blocks4/as-data (get-in block [:content "distributor"])))
@@ -442,6 +442,15 @@
     (cond-> block
       (not value-picked?)
       (assoc-in [:content "securityClassification"] default-value))))
+
+(defn default-role
+  [block role-data]
+  (let [value-picked? (boolean (blocks4/as-data (get-in block [:content "role"])))
+        default-value (blocks4/as-blocks {:data role-data
+                                          :schema {:type "object" :properties {}}})]
+    (cond-> block
+      (not value-picked?)
+      (assoc-in [:content "role"] default-value))))
 
 ;;; Hard-coded for now; perhaps there's benefit in generalising later
 (defn uploads-title-from-name

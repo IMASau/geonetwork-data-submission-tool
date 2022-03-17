@@ -155,6 +155,7 @@
        "protocolLayer"                  rules4/data-source-required-layer
        "defaultDistributor"             rules4/default-distributor
        "defaultClassification"          rules4/default-classification
+       "defaultRole"                    rules4/default-role
        "maxKeywords"                    rules4/tern-max-keywords
        "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined
        "contactNotForOrgs"              rules4/tern-contact-unless-org

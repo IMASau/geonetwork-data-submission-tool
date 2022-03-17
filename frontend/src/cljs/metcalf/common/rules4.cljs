@@ -291,6 +291,19 @@
         (update-in [:content "boxes"] required-field (:required props))
         (cond-> (not shown?) (assoc-in [:content "boxes" :content] [])))))
 
+(defn imas-geography-required
+  "Geography fields are required / included based on geographic coverage checkbox"
+  [extentElement]
+  (let [shown? (get-in extentElement [:content "hasGeographicCoverage" :props :value])
+        props (if shown?
+                {:required true :is-hidden false}
+                {:required false :disabled true :is-hidden true})]
+    (s/assert (s/nilable boolean?) shown?)
+    (-> extentElement
+        (update-in [:content "geographicElement" :props] merge props)
+        (update-in [:content "geographicElement"] required-field (:required props))
+        (cond-> (not shown?) (assoc-in [:content "geographicElement" :content] [])))))
+
 (defn spatial-resolution-units
   "Depending on the resolution attribute chosen, the units for the value
   field should change"
@@ -306,29 +319,29 @@
 
 (defn imas-vertical-required
   "Vertical fields are required / included based on vertical extent checkbox"
-  [verticalElement]
-  (let [shown? (get-in verticalElement [:content "hasVerticalExtent" :props :value])]
+  [extentElement]
+  (let [shown? (get-in extentElement [:content "hasVerticalExtent" :props :value])]
     (if shown?
-      (-> verticalElement
-          (assoc-in [:content "maximumValue" :props :required] true)
-          (assoc-in [:content "minimumValue" :props :required] true)
-          (assoc-in [:content "verticalCRS" :props :required] true)
-          (update-in [:content "maximumValue"] required-field true)
-          (update-in [:content "minimumValue"] required-field true)
-          (update-in [:content "verticalCRS"] required-field true))
-      (-> verticalElement
-          (update-in [:content "maximumValue" :props] dissoc :value)
-          (update-in [:content "minimumValue" :props] dissoc :value)
-          (update-in [:content "verticalCRS"] dissoc :content)
-          (assoc-in [:content "maximumValue" :props :required] false)
-          (assoc-in [:content "minimumValue" :props :required] false)
-          (assoc-in [:content "verticalCRS" :props :required] false)
-          (assoc-in [:content "maximumValue" :props :disabled] true)
-          (assoc-in [:content "minimumValue" :props :disabled] true)
-          (assoc-in [:content "verticalCRS" :props :disabled] true)
-          (assoc-in [:content "maximumValue" :props :is-hidden] true)
-          (assoc-in [:content "minimumValue" :props :is-hidden] true)
-          (assoc-in [:content "verticalCRS" :props :is-hidden] true)))))
+      (-> extentElement
+          (assoc-in [:content "verticalElement" :content "maximumValue" :props :required] true)
+          (assoc-in [:content "verticalElement" :content "minimumValue" :props :required] true)
+          (assoc-in [:content "verticalElement" :content "verticalCRS" :props :required] true)
+          (update-in [:content "verticalElement" :content "maximumValue"] required-field true)
+          (update-in [:content "verticalElement" :content "minimumValue"] required-field true)
+          (update-in [:content "verticalElement" :content "verticalCRS"] required-field true))
+      (-> extentElement
+          (update-in [:content "verticalElement" :content "maximumValue" :props] dissoc :value)
+          (update-in [:content "verticalElement" :content "minimumValue" :props] dissoc :value)
+          (update-in [:content "verticalElement" :content "verticalCRS"] dissoc :content)
+          (assoc-in [:content "verticalElement" :content "maximumValue" :props :required] false)
+          (assoc-in [:content "verticalElement" :content "minimumValue" :props :required] false)
+          (assoc-in [:content "verticalElement" :content "verticalCRS" :props :required] false)
+          (assoc-in [:content "verticalElement" :content "maximumValue" :props :disabled] true)
+          (assoc-in [:content "verticalElement" :content "minimumValue" :props :disabled] true)
+          (assoc-in [:content "verticalElement" :content "verticalCRS" :props :disabled] true)
+          (assoc-in [:content "verticalElement" :content "maximumValue" :props :is-hidden] true)
+          (assoc-in [:content "verticalElement" :content "minimumValue" :props :is-hidden] true)
+          (assoc-in [:content "verticalElement" :content "verticalCRS" :props :is-hidden] true)))))
 
 (defn imas-transfer-option-layer
   "the layer field is only displayed & required when protocol is WMS/WCS"
@@ -365,8 +378,8 @@
                 {:required false :disabled true :value nil}
                 {:required true})]
     (-> identificationInfo
-        (update-in [:content "endPosition" :props] merge props)
-        (update-in [:content "endPosition"] required-field (:required props)))))
+        (update-in [:content "extents" :content "endPosition" :props] merge props)
+        (update-in [:content "extents" :content "endPosition"] required-field (:required props)))))
 
 (defn maint-freq
   [identificationInfo]
@@ -411,7 +424,7 @@
         (assoc-in [:content "transferOptions" :content "description" :props :disabled] (not layer-name-required?))
         (update-in [:content "transferOptions" :content "description"] required-field (boolean layer-name-required?)))))
 
-;;; TODO: generalise the following two default-value rules
+;;; TODO: generalise the following two^Wthree default-value rules
 (defn default-distributor
   [block distributor-data]
   (let [value-picked? (boolean (blocks4/as-data (get-in block [:content "distributor"])))
@@ -429,6 +442,15 @@
     (cond-> block
       (not value-picked?)
       (assoc-in [:content "securityClassification"] default-value))))
+
+(defn default-role
+  [block role-data]
+  (let [value-picked? (boolean (blocks4/as-data (get-in block [:content "role"])))
+        default-value (blocks4/as-blocks {:data role-data
+                                          :schema {:type "object" :properties {}}})]
+    (cond-> block
+      (not value-picked?)
+      (assoc-in [:content "role"] default-value))))
 
 ;;; Hard-coded for now; perhaps there's benefit in generalising later
 (defn uploads-title-from-name
@@ -498,3 +520,21 @@
                 :doi            doi
                 :customCitation customCitation}))))
 
+(defn string-concat
+  [block {:keys [from-array to]}]
+  (let [contents (-> block blocks4/as-data (get from-array))
+        joined (->> contents
+                    (interpose "\n")
+                    (apply str))]
+    (-> block
+        (assoc-in [:content to :props :value] joined))))
+
+(defn expand-breadcrumb
+  [block {:keys [breadcrumb label dest]}]
+  (let [data (blocks4/as-data block)
+        breadcrumb (get data breadcrumb)
+        ;; Not sure why it looks like ["breadcrumb"] but handle both cases:
+        breadcrumb (if (sequential? breadcrumb) (first breadcrumb) breadcrumb)
+        label (get data label)]
+    (assoc-in block [:content dest :props :value]
+              (str breadcrumb (when breadcrumb " | ") label))))

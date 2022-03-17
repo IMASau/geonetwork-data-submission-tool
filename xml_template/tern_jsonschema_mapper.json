@@ -944,7 +944,14 @@
             },
             "rules": [
               "contactNotForOrgs",
-              "contactOrganisationUserDefined"
+              "contactOrganisationUserDefined",
+              {
+                "defaultRole": {
+                  "UUID": "6511df52-a5ff-42da-8788-34dcad38ccc8",
+                   "Identifier": "pointOfContact",
+                   "Description": "Party who can be contacted for acquiring knowledge about or acquisition of the resource"
+                }
+              }
             ]
           },
           "rules": ["requiredField"]
@@ -1211,8 +1218,7 @@
               }
             }
           },
-          "xpath_required": true,
-          "rules": ["requiredField"]
+          "xpath_required": true
         },
         "keywordsInstrument": {
           "!docstring": "What6",
@@ -1258,8 +1264,7 @@
               }
             }
           },
-          "xpath_required": true,
-          "rules": ["requiredField"]
+          "xpath_required": true
         },
         "keywordsParametersUnits": {
           "!docstring": "What8",

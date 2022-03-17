@@ -54,13 +54,13 @@
       "rules": [
         "maintFreq",
         "endPosition",
-        "otherConstraintsLogic",
         {
-          "dateOrder": {
-            "field0": "beginPosition",
-            "field1": "endPosition"
+          "stringConcat": {
+            "from-array": "supplementalInformation",
+            "to": "supplementalInformationExport"
           }
-        }
+        },
+        "otherConstraintsLogic"
       ],
       "type": "object",
       "properties": {
@@ -68,7 +68,6 @@
           "!docstring": "ID1",
           "xpath": "mri:citation/cit:CI_Citation/cit:title",
           "valueChild": "gco:CharacterString",
-          "label": "Title",
           "type": "string",
           "keep": false,
           "xpath_required": true,
@@ -102,7 +101,6 @@
           "!docstring": "ID4",
           "xpath": "mri:status",
           "valueChild": "mcc:MD_ProgressCode",
-          "label": "Status of data",
           "attributes": {
             "text": {
               "function": "identity"
@@ -120,22 +118,17 @@
           "!docstring": "ID5",
           "xpath": "mri:resourceMaintenance/mmi:MD_MaintenanceInformation/mmi:maintenanceAndUpdateFrequency",
           "valueChild": "mmi:MD_MaintenanceFrequencyCode",
-          "label": "Maintenance and update frequency",
           "attributes": {
             "codeListValue": {
               "function": "identity"
             }
-          },
-          "rules": [
-            "requiredField"
-          ]
+          }
         },
         "dateCreation": {
           "!docstring": "ID2",
           "type": "string",
           "xpath": "/mdb:MD_Metadata/mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date/gco:DateTime",
           "xpath-q1": "/mdb:MD_Metadata/mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date/gco:Date",
-          "required": true,
           "xpath_required": true,
           "keep": false,
           "rules": [
@@ -156,10 +149,8 @@
           "!docstring": "What1",
           "xpath": "mri:abstract",
           "valueChild": "gco:CharacterString",
-          "label": "Abstract",
           "type": "string",
           "keep": false,
-          "required": true,
           "xpath_required": true,
           "rules": [
             "requiredField"
@@ -197,11 +188,18 @@
           },
           "notes": "Responsible party/ies for creating dataset"
         },
-        "geographicElement": {
-          "xpath": "mri:extent/gex:EX_Extent[gex:geographicElement][gex:temporalElement]",
+        "extents": {
+          "xpath": "mri:extent/gex:EX_Extent",
           "type": "object",
           "rules": [
-            "geographyRequired"
+            "geographyRequired",
+            "imasVerticalRequired",
+            {
+              "dateOrder": {
+                "field0": "beginPosition",
+                "field1": "endPosition"
+              }
+            }
           ],
           "properties": {
             "hasGeographicCoverage": {
@@ -209,12 +207,9 @@
               "export": false,
               "type": "boolean"
             },
-            "boxes": {
+            "geographicElement": {
               "!docstring": "Where2",
               "xpath": "gex:geographicElement",
-              "rules": [
-                "requiredField"
-              ],
               "keep": false,
               "type": "array",
               "items": {
@@ -253,64 +248,85 @@
                   }
                 }
               }
-            }
-          }
-        },
-        "verticalElement": {
-          "xpath": "mri:extent/gex:EX_Extent/gex:verticalElement/gex:EX_VerticalExtent",
-          "type": "object",
-          "rules": [
-            "imasVerticalRequired"
-          ],
-          "properties": {
+            },
             "hasVerticalExtent": {
               "!docstring": "Where3",
               "export": false,
               "type": "boolean"
             },
-            "verticalCRS": {
-              "!docstring": "Where4",
-              "xpath": "gex:verticalCRS/gml:VerticalCRS",
+            "verticalElement": {
+              "xpath": "gex:verticalElement",
               "type": "object",
-              "keep": false,
+              "rules": [
+                {
+                  "numericOrder": {
+                    "field-min": "minimumValue",
+                    "field-max": "maximumValue"
+                  }
+                }
+              ],
               "properties": {
-                "identifier": {
-                  "xpath": "gml:identifier",
-                  "type": "string"
+                "verticalCRS": {
+                  "!docstring": "Where4",
+                  "xpath": "gex:EX_VerticalExtent/gex:verticalCRS/gml:VerticalCRS",
+                  "type": "object",
+                  "keep": false,
+                  "properties": {
+                    "identifier": {
+                      "xpath": "gml:identifier",
+                      "type": "string"
+                    },
+                    "name": {
+                      "xpath": "gml:name",
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    }
+                  }
                 },
-                "name": {
-                  "xpath": "gml:name",
-                  "type": "string"
+                "minimumValue": {
+                  "!docstring": "Where5",
+                  "type": "number",
+                  "xpath": "gex:EX_VerticalExtent/gex:minimumValue/gco:Real",
+                  "keep": false,
+                  "rules": [
+                    "positive"
+                  ]
                 },
-                "label": {
-                  "type": "string"
+                "maximumValue": {
+                  "!docstring": "Where6",
+                  "type": "number",
+                  "xpath": "gex:EX_VerticalExtent/gex:maximumValue",
+                  "valueChild": "gco:Real",
+                  "keep": false,
+                  "rules": [
+                    "positive"
+                  ]
                 }
               }
             },
-            "minimumValue": {
-              "!docstring": "Where5",
-              "type": "number",
-              "xpath": "gex:minimumValue/gco:Real",
+            "beginPosition": {
+              "!docstring": "When1",
+              "xpath": "gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
+              "xpath_required": true,
               "keep": false,
+              "type": "string",
               "rules": [
-                "positive"
+                "requiredField"
               ]
             },
-            "maximumValue": {
-              "!docstring": "Where6",
-              "type": "number",
-              "xpath": "gex:maximumValue",
-              "valueChild": "gco:Real",
+            "endPosition": {
+              "!docstring": "When2",
+              "xpath": "gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:endPosition",
+              "deleteWhenEmpty": true,
               "keep": false,
-              "rules": [
-                "positive"
-              ]
+              "type": "string"
             }
           }
         },
         "keywordsTheme": {
           "!docstring": "What2",
-          "xpath1": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString)=\"https://gcmd.earthdata.nasa.gov/kms/concepts/concept_scheme/sciencekeywords\"]",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor)=\"geonetwork.thesaurus.external.theme.sciencekeywords\"]",
           "type": "object",
           "properties": {
@@ -318,12 +334,26 @@
               "xpath": "mri:keyword",
               "keep": false,
               "type": "array",
+              "rules": [{"maxKeywords": {"max-keywords": 12}}],
               "items": {
                 "type": "object",
                 "xpath": "mri:keyword",
+                "rules": [
+                  {
+                    "fullLabel": {
+                      "breadcrumb": "breadcrumb",
+                      "label": "label",
+                      "dest": "fullLabel"
+                    }
+                  }
+                ],
                 "properties": {
                   "breadcrumb": {},
                   "label": {
+                    "type": "string"
+                  },
+                  "fullLabel": {
+                    "type": "string",
                     "xpath": "gcx:Anchor"
                   },
                   "uri": {
@@ -343,6 +373,51 @@
             "requiredField"
           ]
         },
+        "keywordsGeoExtent": {
+          "!docstring": "What6",
+          "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"place\"]][normalize-space(mri:thesaurusName/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code/gcx:Anchor)=\"geonetwork.thesaurus.external.place.aodn_aodn-geographic-extents-vocabulary\"]",
+          "type": "object",
+          "properties": {
+            "keywords": {
+              "xpath": "mri:keyword",
+              "keep": false,
+              "type": "array",
+              "rules": [{"maxKeywords": {"max-keywords": 12}}],
+              "items": {
+                "type": "object",
+                "xpath": "mri:keyword",
+                "rules": [
+                  {
+                    "fullLabel": {
+                      "breadcrumb": "breadcrumb",
+                      "label": "label",
+                      "dest": "fullLabel"
+                    }
+                  }
+                ],
+                "properties": {
+                  "breadcrumb": {},
+                  "label": {
+                    "type": "string"
+                  },
+                  "fullLabel": {
+                    "type": "string",
+                    "xpath": "gcx:Anchor"
+                  },
+                  "uri": {
+                    "xpath": "gcx:Anchor",
+                    "attributes": {
+                      "xlink:href": {
+                        "function": "identity"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "xpath_required": true
+        },
         "keywordsThemeExtra": {
           "!docstring": "What3",
           "xpath": "mri:descriptiveKeywords/mri:MD_Keywords[mri:type/mri:MD_KeywordTypeCode[@codeListValue=\"theme\"]][not(mri:thesaurusName)]",
@@ -352,6 +427,7 @@
               "keep": false,
               "xpath": "mri:keyword",
               "type": "array",
+              "rules": [{"maxKeywords": {"max-keywords": 12}}],
               "items": {
                 "type": "string",
                 "keep": "false",
@@ -370,6 +446,7 @@
               "keep": false,
               "xpath": "mri:keyword",
               "type": "array",
+              "rules": [{"maxKeywords": {"max-keywords": 12}}],
               "items": {
                 "type": "string",
                 "keep": "false",
@@ -378,27 +455,6 @@
             }
           },
           "xpath_required": true
-        },
-        "beginPosition": {
-          "!docstring": "When1",
-          "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
-          "required": true,
-          "xpath_required": true,
-          "keep": false,
-          "type": "string",
-          "rules": [
-            "requiredField"
-          ]
-        },
-        "endPosition": {
-          "!docstring": "When2",
-          "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:endPosition",
-          "deleteWhenEmpty": true,
-          "keep": false,
-          "type": "string",
-          "rules": [
-            "requiredField"
-          ]
         },
         "dataParameters": {
           "type": "array",
@@ -513,19 +569,25 @@
           }
         },
         "supplementalInformation": {
-          "xpath": "mri:supplementalInformation/gco:CharacterString",
+          "!docstring": "About7",
           "type": "array",
-          "keep": false,
+          "export": false,
           "items": {
-            "xpath": "mri:supplementalInformation/gco:CharacterString",
             "type": "string",
             "rules": [
               "requiredField"
             ]
           }
         },
+        "supplementalInformationExport": {
+          "!docstring": "About7 - data entered as a list but exported as a concatnated string.  A rule transforms the former into this location",
+          "type": "string",
+          "keep": false,
+          "xpath": "mri:supplementalInformation/gco:CharacterString"
+        },
         "supportingResources": {
-          "data_to_xml_skip": true,
+          "!docstring": "About8",
+          "export": false,
           "type": "array",
           "items": {
             "type": "object",
@@ -543,6 +605,19 @@
                 ]
               }
             }
+          }
+        },
+        "credits": {
+          "!docstring": "Who17",
+          "xpath": "mri:credit",
+          "type": "array",
+          "items": {
+            "xpath": "gco:CharacterString",
+            "container": "mri:credit/gco:CharacterString",
+            "type": "string",
+            "rules": [
+              "requiredField"
+            ]
           }
         }
       }
@@ -593,19 +668,6 @@
         }
       }
     },
-    "credits": {
-      "xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification[mri:credit]",
-      "container": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:credit",
-      "type": "array",
-      "items": {
-        "xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:credit",
-        "valueChild": "gco:CharacterString",
-        "type": "string",
-        "rules": [
-          "requiredField"
-        ]
-      }
-    },
     "distributionInfo": {
       "xpath": "mdb:distributionInfo",
       "type": "object",
@@ -637,9 +699,11 @@
           }
         },
         "transferOptions": {
+          "!docstring": "Uses a special handler for export",
           "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine",
           "type": "array",
           "keep": false,
+          "export": false,
           "deleteWhenEmpty": false,
           "items": {
             "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine",
@@ -656,37 +720,37 @@
             ],
             "properties": {
               "linkage": {
+                "!docstring": "DataSource4",
                 "xpath": "cit:CI_OnlineResource/cit:linkage",
                 "valueChild": "gco:CharacterString",
                 "type": "string",
-                "required": true,
                 "rules": [
                   "requiredField"
                 ]
               },
               "protocol": {
+                "!docstring": "DataSource3",
                 "xpath": "cit:CI_OnlineResource/cit:protocol",
                 "valueChild": "gco:CharacterString",
                 "type": "string",
-                "required": true,
                 "rules": [
                   "requiredField"
                 ]
               },
               "name": {
+                "!docstring": "DataSource5",
                 "xpath": "cit:CI_OnlineResource/cit:name",
                 "valueChild": "gco:CharacterString",
                 "type": "string",
-                "required": true,
                 "rules": [
                   "requiredField"
                 ]
               },
               "description": {
+                "!docstring": "DataSource2",
                 "xpath": "cit:CI_OnlineResource/cit:description",
                 "valueChild": "gco:CharacterString",
                 "type": "string",
-                "required": true,
                 "rules": [
                   "requiredField"
                 ]
@@ -722,14 +786,20 @@
           }
         }
       }
+    },
+    "doiRequested": {
+      "!docstring": "Fake node so we can pass some additional metadata as payload",
+      "type": "boolean",
+      "default": false,
+      "export": false
     }
   },
   "$defs": {
     "role": {
+      "!docstring": "Who1 / Who9",
       "type": "string",
       "xpath": "cit:role/cit:CI_RoleCode",
       "keep": false,
-      "required": true,
       "xpath_required": true,
       "attributes": {
         "codeListValue": {
@@ -744,88 +814,79 @@
       ]
     },
     "contact": {
-      "!docstring": "Who3",
       "type": "object",
       "xpath": "cit:party/cit:CI_Organisation/cit:individual",
       "properties": {
         "name": {
-          "!docstring": "Who3",
+          "!docstring": "Who2 / Who10",
           "xpath": "cit:CI_Individual/cit:name",
           "valueChild": "gco:CharacterString",
           "type": "string",
           "keep": false,
-          "required": false,
           "rules": [
             "requiredField",
             "firstCommaLast"
           ]
         },
         "email": {
-          "!docstring": "Who6",
+          "!docstring": "Who7 / Who15",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
           "valueChild": "gco:CharacterString",
           "type": "string",
           "keep": false,
-          "required": false,
           "rules": [
             "requiredField"
           ]
         },
         "phone": {
-          "!docstring": "Who13 / Who14",
+          "!docstring": "Who8 / Who16",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:phone[cit:CI_Telephone/cit:numberType/cit:CI_TelephoneTypeCode[@codeListValue=\"voice\"]]",
           "type": "string",
           "keep": false,
           "valueChild": "cit:CI_Telephone/cit:number/gco:CharacterString"
         },
         "orcid2": {
-          "!docstring": "Who7",
+          "!docstring": "Who3 / Who11",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:onlineResource",
           "valueChild": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
           "type": "string",
-          "required": false,
           "keep": false,
           "rules": [
             "validOrcid"
           ]
         },
         "deliveryPoint": {
-          "!docstring": "Who13 / Who14",
+          "!docstring": "Who6 / Who14",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
           "valueChild": "gco:CharacterString",
           "type": "string",
           "keep": false
         },
         "deliveryPoint2": {
-          "!docstring": "Who13 / Who14",
-          "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[2]",
+          "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[last()]",
           "type": "string",
           "keep": false,
           "valueChild": "gco:CharacterString"
         },
         "city": {
-          "!docstring": "Who13 / Who14",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:city",
           "type": "string",
           "keep": false,
           "valueChild": "gco:CharacterString"
         },
         "administrativeArea": {
-          "!docstring": "Who13 / Who14",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:administrativeArea",
           "type": "string",
           "keep": false,
           "valueChild": "gco:CharacterString"
         },
         "postalCode": {
-          "!docstring": "Who13 / Who14",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:postalCode",
           "type": "string",
           "keep": false,
           "valueChild": "gco:CharacterString"
         },
         "country": {
-          "!docstring": "Who13 / Who14",
           "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:country",
           "type": "string",
           "keep": false,
@@ -839,11 +900,10 @@
       "type": "object",
       "properties": {
         "name": {
-          "!docstring": "Who8 / Who12",
+          "!docstring": "Who5 / Who13",
           "xpath": "cit:name",
           "valueChild": "gco:CharacterString",
           "type": "string",
-          "required": true,
           "keep": false,
           "rules": [
             "requiredField"
@@ -902,6 +962,71 @@
       {
         "node_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:resourceConstraints[mco:MD_LegalConstraints]"
       }
+    ],
+    [
+      "imasDigitalTransferOptions",
+      {
+        "mount_xpath": "/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions",
+        "template_xpath": "/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine"
+      },
+      [
+        [
+          "set_text",
+          {
+            "data_path": "description",
+            "node_xpath": "cit:CI_OnlineResource/cit:description/gco:CharacterString"
+          }
+        ],
+        [
+          "remove_element",
+          {
+            "data_path": "description",
+            "node_xpath": "cit:CI_OnlineResource/cit:description"
+          }
+        ],
+        [
+          "set_text",
+          {
+            "data_path": "linkage",
+            "node_xpath": "cit:CI_OnlineResource/cit:linkage/gco:CharacterString"
+          }
+        ],
+        [
+          "remove_element",
+          {
+            "data_path": "linkage",
+            "node_xpath": "cit:CI_OnlineResource/cit:linkage"
+          }
+        ],
+        [
+          "set_text",
+          {
+            "data_path": "protocol",
+            "node_xpath": "cit:CI_OnlineResource/cit:protocol/gco:CharacterString"
+          }
+        ],
+        [
+          "remove_element",
+          {
+            "data_path": "protocol",
+            "node_xpath": "cit:CI_OnlineResource/cit:protocol"
+          }
+        ],
+        [
+          "set_text",
+          {
+            "data_path": "name",
+            "node_xpath": "cit:CI_OnlineResource/cit:name/gco:CharacterString"
+          }
+        ],
+        [
+          "remove_element",
+          {
+            "data_path": "name",
+            "node_xpath": "cit:CI_OnlineResource/cit:name"
+          }
+        ]
+      ]
     ]
   ]
 }

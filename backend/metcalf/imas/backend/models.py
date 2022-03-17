@@ -254,6 +254,7 @@ class Document(AbstractDocument):
 
 
 class DraftMetadata(AbstractDraftMetadata):
+    doiRequested = models.BooleanField(default=False)
     # FIXME
     class Meta:
         verbose_name_plural = "Draft Metadata"
@@ -358,7 +359,31 @@ class AnzsrcKeyword(models.Model):
     VariableLevel2 = models.CharField(max_length=128)
     VariableLevel3 = models.CharField(max_length=128)
     DetailedVariable = models.CharField(max_length=128)
-    # the "UUID" column is already a URL here, but we want to keep the two science keyword tables the same
+    # the "UUID" column is already a URL here, but we want to keep the science keyword tables the same
+    uri = models.CharField(max_length=512, default="", blank=True, null=True)
+
+    def as_str(self):
+        return ' | '.join(filter(
+            lambda x: x,
+            [self.Category, self.Topic, self.Term,
+             self.VariableLevel1, self.VariableLevel2, self.VariableLevel3, self.DetailedVariable, self.uri]))
+
+    class Meta:
+        ordering = ['Category', 'Topic', 'Term',
+                    'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
+                    'DetailedVariable']
+
+
+class GeographicExtentKeyword(models.Model):
+    UUID = models.CharField(max_length=256, primary_key=True, default='', editable=False, verbose_name="URL")
+    Category = models.CharField(max_length=128)
+    Topic = models.CharField(max_length=128)
+    Term = models.CharField(max_length=128)
+    VariableLevel1 = models.CharField(max_length=128)
+    VariableLevel2 = models.CharField(max_length=128)
+    VariableLevel3 = models.CharField(max_length=128)
+    DetailedVariable = models.CharField(max_length=128)
+    # the "UUID" column is already a URL here, but we want to keep the science keyword tables the same
     uri = models.CharField(max_length=512, default="", blank=True, null=True)
 
     def as_str(self):

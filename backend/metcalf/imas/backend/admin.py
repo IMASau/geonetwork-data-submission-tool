@@ -144,11 +144,11 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
     list_filter = ['status', 'template']
     search_fields = ['title', 'owner__username', 'owner__email', 'uuid']
     fsm_field = ['status', ]
-    readonly_fields = ['status', 'action_links', 'submission_note']
+    readonly_fields = ['status', 'action_links', 'submission_note', 'doi_minting']
     inlines = [DocumentAttachmentInline]
     autocomplete_fields=['contributors']
     fieldsets = [
-        (None, {'fields': ('title', 'template', 'owner', 'contributors', 'status', 'submission_note')}),
+        (None, {'fields': ('title', 'template', 'owner', 'contributors', 'status', 'submission_note', 'doi_minting')}),
         ('Export', {'fields': ('action_links',)}),
     ]
 
@@ -160,6 +160,20 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
     def submission_note(self, obj):
         if obj.latest_draft:
             return obj.latest_draft.noteForDataManager
+
+    @admin.display(description='DOI Minting')
+    def doi_minting(self, obj):
+        try:
+            wantsDoi = obj.latest_draft.doiRequested
+            if not wantsDoi:
+                return "User has not requested a DOI be minted."
+            else:
+                if obj.status != models.Document.SUBMITTED:
+                    return "Cannot mint a DOI until the document is lodged."
+                else:
+                    return "User has requested that a DOI be minted."
+        except Exception:
+            return "Cannot mint a DOI for this document"
 
     def action_links(self, obj):
         htmlString = ("<a href='{0}' target='_blank'>Edit</a> | "
@@ -198,6 +212,16 @@ class ScienceKeywordAdmin(admin.ModelAdmin):
 
 
 class AnzsrcKeywordAdmin(admin.ModelAdmin):
+    list_display = ['UUID', 'Category', 'Topic', 'Term',
+                    'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
+                    'DetailedVariable', 'uri']
+    list_filter = ['Category', 'Topic']
+    search_fields = ['UUID', 'Category', 'Topic', 'Term',
+                     'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
+                     'DetailedVariable']
+
+
+class GeographicExtentKeywordAdmin(admin.ModelAdmin):
     list_display = ['UUID', 'Category', 'Topic', 'Term',
                     'VariableLevel1', 'VariableLevel2', 'VariableLevel3',
                     'DetailedVariable', 'uri']
@@ -263,6 +287,7 @@ admin.site.register(models.DocumentAttachment, DocumentAttachmentAdmin)
 admin.site.register(models.DraftMetadata, DraftMetadataAdmin)
 admin.site.register(models.ScienceKeyword, ScienceKeywordAdmin)
 admin.site.register(models.AnzsrcKeyword, AnzsrcKeywordAdmin)
+admin.site.register(models.GeographicExtentKeyword, GeographicExtentKeywordAdmin)
 admin.site.register(models.ParameterName, ParameterNameAdmin)
 admin.site.register(models.ParameterUnit, ParameterUnitAdmin)
 admin.site.register(models.ParameterInstrument, ParameterInstrumentAdmin)

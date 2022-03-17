@@ -4,7 +4,7 @@ from metcalf.imas.backend.models import DataFeed
 
 
 class Command(BaseCommand):
-    help = "Run any scheduled datafeed refresh requests.  Run via a cron job."
+    help = "Schedule any datafeed refresh requests.  Run via a cron job."
 
     def add_arguments(self, parser):
         parser.add_argument('args', metavar='datafeeds', nargs='*', help='Datafeed names')

@@ -36,14 +36,14 @@
           [:p value]]))]))
 
 (defn lodge-button
-  []
-  (let [page @(rf/subscribe [:subs/get-page-props])
+  [config]
+  (let [config (assoc config :data-path [])
+        page @(rf/subscribe [:subs/get-page-props])
         ;; FIXME need an m4 saving? value.
         saving (:metcalf3.handlers/saving? page)
         {:keys [document urls]} @(rf/subscribe [:subs/get-context])
-        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
         disabled @(rf/subscribe [:subs/get-form-disabled?])
-        has-errors? (and errors (> errors 0))
+        has-errors? @(rf/subscribe [::components4/has-block-errors? config])
         archived? (= (:status document) "Archived")
         submitted? (= (:status document) "Submitted")]
     (when-not (or archived? submitted?)
@@ -57,19 +57,16 @@
        "Lodge data"])))
 
 (defn lodge-status-info
-  []
-  (let [page @(rf/subscribe [:subs/get-page-props])
+  [config]
+  (let [config (assoc config :data-path [])
+        page @(rf/subscribe [:subs/get-page-props])
         ;; FIXME need an m4 saving? value.
         saving (:metcalf3.handlers/saving? page)
         {:keys [document]} @(rf/subscribe [:subs/get-context])
-        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
-        is-are (if (> errors 1) "are" "is")
-        plural (when (> errors 1) "s")
-        has-errors? (and errors (> errors 0))]
+        has-errors? @(rf/subscribe [::components4/has-block-errors? config])]
     (if has-errors?
       [:span.text-danger [:b "Unable to lodge: "]
-       "There " is-are " " [:span errors " error" plural
-                            " which must be corrected first."]]
+       "There are still errors which must be corrected first."]
       [:span.text-success
        [:b
         (cond

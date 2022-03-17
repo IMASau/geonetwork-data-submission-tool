@@ -47,6 +47,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('robots.txt', robots_view, name="Robots"),
     path('api/keywords_with_breadcrumb_info', keywords_with_breadcrumb_info),
+    path('api/geoextents_with_breadcrumb_info', geoextents_with_breadcrumb_info),
 ]
 
 if settings.DEBUG:

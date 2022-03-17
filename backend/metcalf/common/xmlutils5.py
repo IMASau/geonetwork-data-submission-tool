@@ -228,7 +228,7 @@ def export2_remove_element_handler(data, xml_node, xml_kwargs, xform, **kwargs):
     assert node_xpath is not None, "node_xpath must be set"
     hit, value = get_dotted_path(data, data_path)
     if not hit:
-        nodes = xml_node.xpath(xpath, **xml_kwargs)
+        nodes = xml_node.xpath(node_xpath, **xml_kwargs)
         for node in nodes:
             node.getparent().remove(node)
 
@@ -276,7 +276,8 @@ def export2_append_items_handler(data, xml_node, spec, xml_kwargs, handlers, xfo
                     xml_kwargs=xml_kwargs,
                     handlers=handlers)
 
-        template.getparent().remove(template)
+    for node in template_nodes:
+        node.getparent().remove(node)
 
 
 def export2_generateParameterKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):

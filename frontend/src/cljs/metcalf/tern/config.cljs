@@ -155,6 +155,7 @@
        "protocolLayer"                  rules4/data-source-required-layer
        "defaultDistributor"             rules4/default-distributor
        "defaultClassification"          rules4/default-classification
+       "defaultRole"                    rules4/default-role
        "maxKeywords"                    rules4/tern-max-keywords
        "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined
        "contactNotForOrgs"              rules4/tern-contact-unless-org
@@ -655,79 +656,6 @@
           :value-path      ["uri"]
           :breadcrumb-path ["breadcrumb"]}]]]]
 
-     [m4/expanding-control {:label "Platforms" :required true}
-      [m4/form-group
-       {:label   "Select a platform for the data measurement"
-        :toolTip "Select platform(s) that hosts other entities to generate the dataset from the list. If the required platform is not in the list, you can click the ‘Add’ button to add your platform. All new entries will be reviewed prior to publication."}
-
-       [:div.bp3-control-group
-        [:div.bp3-fill
-         [m4/async-list-option-picker
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
-           :uri        "/api/ternplatforms"
-           :label-path ["label"]
-           :value-path ["uri"]}]]
-        [m4/list-add-button
-         {:form-id            [:form]
-          :data-path          ["identificationInfo" "keywordsPlatform" "keywords"]
-          :button-text        "Add"
-          :value-path         ["uri"]
-          :random-uuid-value? true
-          :item-defaults      {"userAddedCategory" "platform"}
-          :added-path         ["isUserDefined"]}]]
-
-       [:div.SelectionListItemColoured
-        [m4/selection-list-simple
-         {:form-id    [:form]
-          :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
-          :label-path ["label"]
-          :value-path ["uri"]
-          :added-path ["isUserDefined"]}]]
-
-       [m4/list-edit-dialog
-        {:form-id     [:form]
-         :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
-         :title       "Platform"
-         :template-id :platform/user-defined-entry-form}]]]
-
-     [m4/expanding-control {:label "Instruments" :required true}
-      [m4/form-group
-       {:label   "Select the instrument used for the platform"
-        :toolTip "Select the instrument(s) or sensor(s) used in data collection.  If the required instrument is not in the list, you can click the ‘Add’ button to add your instrument. All new entries will be reviewed prior to publication."}
-
-       [:div.bp3-control-group
-        [:div.bp3-fill
-         [m4/async-list-option-picker
-          {:form-id    [:form]
-           :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
-           :uri        "/api/terninstruments"
-           :label-path ["label"]
-           :value-path ["uri"]}]]
-        [m4/list-add-button
-         {:form-id            [:form]
-          :data-path          ["identificationInfo" "keywordsInstrument" "keywords"]
-          :button-text        "Add"
-          :value-path         ["uri"]
-          :random-uuid-value? true
-          :item-defaults      {"userAddedCategory" "instrument"}
-          :added-path         ["isUserDefined"]}]]
-       [:div.SelectionListItemColoured
-        [m4/selection-list-columns
-         {:form-id            [:form]
-          :data-path          ["identificationInfo" "keywordsInstrument" "keywords"]
-          :value-path         ["uri"]
-          :random-uuid-value? true
-          :select-snapshot?   true
-          :added-path         ["isUserDefined"]
-          :columns            [{:columnHeader "Instrument" :label-path ["label"] :flex 2}
-                               {:columnHeader "Serial no." :label-path ["serial"] :flex 3}]}]]
-       [m4/list-edit-dialog
-        {:form-id     [:form]
-         :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
-         :title       "Instrument"
-         :template-id :instrument/user-defined-entry-form}]]]
-
      [m4/expanding-control {:label "Parameters" :required true}
 
       [m4/form-group
@@ -780,6 +708,79 @@
          :uri        "/api/horizontalresolution"
          :label-path ["label"]
          :value-path ["uri"]}]]]
+
+     [m4/expanding-control {:label "Platforms (Optional)"}
+      [m4/form-group
+       {:label   "Select a platform for the data measurement"
+        :toolTip "Select platform(s) that hosts other entities to generate the dataset from the list. If the required platform is not in the list, you can click the ‘Add’ button to add your platform. All new entries will be reviewed prior to publication."}
+
+       [:div.bp3-control-group
+        [:div.bp3-fill
+         [m4/async-list-option-picker
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
+           :uri        "/api/ternplatforms"
+           :label-path ["label"]
+           :value-path ["uri"]}]]
+        [m4/list-add-button
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "keywordsPlatform" "keywords"]
+          :button-text        "Add"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :item-defaults      {"userAddedCategory" "platform"}
+          :added-path         ["isUserDefined"]}]]
+
+       [:div.SelectionListItemColoured
+        [m4/selection-list-simple
+         {:form-id    [:form]
+          :data-path  ["identificationInfo" "keywordsPlatform" "keywords"]
+          :label-path ["label"]
+          :value-path ["uri"]
+          :added-path ["isUserDefined"]}]]
+
+       [m4/list-edit-dialog
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "keywordsPlatform" "keywords"]
+         :title       "Platform"
+         :template-id :platform/user-defined-entry-form}]]]
+
+     [m4/expanding-control {:label "Instruments (Optional)"}
+      [m4/form-group
+       {:label   "Select the instrument used for the platform"
+        :toolTip "Select the instrument(s) or sensor(s) used in data collection.  If the required instrument is not in the list, you can click the ‘Add’ button to add your instrument. All new entries will be reviewed prior to publication."}
+
+       [:div.bp3-control-group
+        [:div.bp3-fill
+         [m4/async-list-option-picker
+          {:form-id    [:form]
+           :data-path  ["identificationInfo" "keywordsInstrument" "keywords"]
+           :uri        "/api/terninstruments"
+           :label-path ["label"]
+           :value-path ["uri"]}]]
+        [m4/list-add-button
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "keywordsInstrument" "keywords"]
+          :button-text        "Add"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :item-defaults      {"userAddedCategory" "instrument"}
+          :added-path         ["isUserDefined"]}]]
+       [:div.SelectionListItemColoured
+        [m4/selection-list-columns
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "keywordsInstrument" "keywords"]
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :select-snapshot?   true
+          :added-path         ["isUserDefined"]
+          :columns            [{:columnHeader "Instrument" :label-path ["label"] :flex 2}
+                               {:columnHeader "Serial no." :label-path ["serial"] :flex 3}]}]]
+       [m4/list-edit-dialog
+        {:form-id     [:form]
+         :data-path   ["identificationInfo" "keywordsInstrument" "keywords"]
+         :title       "Instrument"
+         :template-id :instrument/user-defined-entry-form}]]]
 
      [m4/expanding-control {:label "Vertical Resolution (Optional)" :required false}
       [m4/form-group
@@ -1086,11 +1087,11 @@
          :type-path ["partyType"]
          :templates {"person"
                      {:title       "Person"
-                      :template-id :party-person/user-defined-entry-form
+                      :template-id :party-person-responsible/user-defined-entry-form
                       :field-paths #{["role"] ["contact"] ["organisation"]}}
                      "organisation"
                      {:title       "Organisation"
-                      :template-id :party-organisation/user-defined-entry-form
+                      :template-id :party-organisation-responsible/user-defined-entry-form
                       :field-paths #{["role"] ["organisation"]}}}}]]]
 
      [m4/expanding-control {:label "Point of contact for dataset" :required true :defaultOpen true}
@@ -1132,11 +1133,11 @@
          :type-path ["partyType"]
          :templates {"person"
                      {:title       "Person"
-                      :template-id :party-person/user-defined-entry-form
+                      :template-id :party-person-poc/user-defined-entry-form
                       :field-paths #{["role"] ["contact"] ["organisation"]}}
                      "organisation"
                      {:title       "Organisation"
-                      :template-id :party-organisation/user-defined-entry-form
+                      :template-id :party-organisation-poc/user-defined-entry-form
                       :field-paths #{["role"] ["organisation"]}}}}]]]]
 
     :party/list-item
@@ -1159,7 +1160,7 @@
        [:span {:style {:text-transform "capitalize"}}
         [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "Identifier"]}]]]]]
 
-    :party-person/user-defined-entry-form
+    :party-person-responsible/user-defined-entry-form
     [:div
 
      [m4/form-group
@@ -1203,9 +1204,6 @@
                      {"UUID"        "0e75b54c-0cff-4753-a66a-c359f604689d"
                       "Identifier"  "owner"
                       "Description" "Party that owns the resource"}
-                     {"UUID"        "6511df52-a5ff-42da-8788-34dcad38ccc8"
-                      "Identifier"  "pointOfContact"
-                      "Description" "Party who can be contacted for acquiring knowledge about or acquisition of the resource"}
                      {"UUID"        "6b20a462-bc67-46c3-bdcb-b558f0127fe2"
                       "Identifier"  "principalInvestigator"
                       "Description" "Key party responsible for gathering information and conducting research"}
@@ -1322,8 +1320,114 @@
         :title       "Organisation"
         :template-id :person-organisation/user-defined-entry-form}]]]
 
+    :party-person-poc/user-defined-entry-form
+    [:div
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "role"]
+       :label     "Role"
+       :toolTip   "Select the role of any individuals that contributed to the creation of the dataset."}
+      [m4/select-option-simple
+       {:form-id    ?form-id
+        :data-path  [?data-path "role"]
+        :options    [{"UUID"        "6511df52-a5ff-42da-8788-34dcad38ccc8"
+                      "Identifier"  "pointOfContact"
+                      "Description" "Party who can be contacted for acquiring knowledge about or acquisition of the resource"}]
+        :label-path ["Identifier"]
+        :value-path ["Identifier"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact"]
+       :label     "Select Person"
+       :toolTip   "Specify the name of the person associated with the selected role."}
+
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id     ?form-id
+          :data-path   [?data-path "contact"]
+          :uri         "/api/ternpeople"
+          :label-path  ["name"]
+          :value-path  ["uri"]
+          :placeholder "Search for contact details"}]]
+       [m4/item-dialog-button
+        {:form-id            ?form-id
+         :data-path          [?data-path "contact"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "person"}
+         :added-path         ["isUserDefined"]}]]
+
+      [m4/edit-dialog
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact"]
+        :title       "Contact"
+        :template-id :person-contact/user-defined-entry-form}]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:label "Given name"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "given_name"]
+         :disabled  true}]]
+
+      [m4/form-group
+       {:label "Surname"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "surname"]
+         :disabled  true}]]]
+
+     [m4/form-group
+      {:label "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "email"]
+        :disabled  true}]]
+
+     [m4/form-group
+      {:label "ORCID ID"}
+      [m4/input-field
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "orcid"]
+        :disabled    true}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation"]
+       :label     "Select associated Organisation"
+       :toolTip   "Select the organisation associated with the person. You can add an organisation using the “Add” button if the required organisation is not listed."}
+
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id    ?form-id
+          :data-path  [?data-path "organisation"]
+          :uri        "/api/ternorgs"
+          :label-path ["display_name"]
+          :value-path ["uri"]}]]
+       [m4/item-dialog-button
+        {:form-id            ?form-id
+         :data-path          [?data-path "organisation"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "organization"}
+         :added-path         ["isUserDefined"]}]]
+
+      [m4/edit-dialog
+       {:form-id     ?form-id
+        :data-path   [?data-path "organisation"]
+        :title       "Organisation"
+        :template-id :person-organisation/user-defined-entry-form}]]]
+
                                         ; NOTE: organisation with role (not associated with a person)
-    :party-organisation/user-defined-entry-form
+    :party-organisation-responsible/user-defined-entry-form
     [:div
 
      [m4/form-group
@@ -1367,9 +1471,6 @@
                      {"UUID"        "0e75b54c-0cff-4753-a66a-c359f604689d"
                       "Identifier"  "owner"
                       "Description" "Party that owns the resource"}
-                     {"UUID"        "6511df52-a5ff-42da-8788-34dcad38ccc8"
-                      "Identifier"  "pointOfContact"
-                      "Description" "Party who can be contacted for acquiring knowledge about or acquisition of the resource"}
                      {"UUID"        "6b20a462-bc67-46c3-bdcb-b558f0127fe2"
                       "Identifier"  "principalInvestigator"
                       "Description" "Key party responsible for gathering information and conducting research"}
@@ -1394,6 +1495,115 @@
                      {"UUID"        "4122989f-f824-4d4a-8a29-10bd3541c17e"
                       "Identifier"  "user"
                       "Description" "Party who uses the resource"}]
+        :label-path ["Identifier"]
+        :value-path ["Identifier"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation"]
+       :label     "Select associated Organisation"
+       :toolTip   "Select the organisation associated with the primary contact. You can add an organisation if a required organisation is not listed."}
+
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id    ?form-id
+          :data-path  [?data-path "organisation"]
+          :uri        "/api/ternorgs"
+          :label-path ["display_name"]
+          :value-path ["uri"]}]]
+       [m4/item-dialog-button
+        {:form-id            ?form-id
+         :data-path          [?data-path "organisation"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "organization"}
+         :added-path         ["isUserDefined"]}]]
+
+      [m4/edit-dialog
+       {:form-id     ?form-id
+        :data-path   [?data-path "organisation"]
+        :title       "Organisation"
+        :template-id :person-organisation/user-defined-entry-form}]]
+
+     [m4/form-group
+      {:label "Organisation Name"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "name"]
+        :disabled  true}]]
+
+     [m4/form-group
+      {:label "Campus/Sitename"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "full_address_line"]
+        :disabled  true}]]
+
+     [m4/form-group
+      {:label "Building"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "street_address"]
+        :disabled  true}]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:label "City"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "address_locality"]
+         :disabled  true}]]
+
+      [m4/form-group
+       {:label "State"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "address_region"]
+         :disabled  true}]]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:label "Postal Code"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "postcode"]
+         :disabled  true}]]
+
+      [m4/form-group
+       {:label     "Country"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "country"]
+         :disabled  true}]]]
+
+     [m4/form-group
+      {:label "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "email"]
+        :disabled  true}]]]
+
+    :party-organisation-poc/user-defined-entry-form
+    [:div
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "role"]
+       :label     "Role"
+       :toolTip   "Select the role of any individuals that contributed to the creation of the dataset."}
+      [m4/select-option-simple
+       {:form-id    ?form-id
+        :data-path  [?data-path "role"]
+        :options    [{"UUID"        "6511df52-a5ff-42da-8788-34dcad38ccc8"
+                      "Identifier"  "pointOfContact"
+                      "Description" "Party who can be contacted for acquiring knowledge about or acquisition of the resource"}]
         :label-path ["Identifier"]
         :value-path ["Identifier"]}]]
 
@@ -1767,7 +1977,7 @@
       [:div
        [:i [m4/get-data {:form-id [:form] :data-path ["identificationInfo" "useLimitation"]}]]]]
      [m4/form-group
-      {                             ;:form-id   [:form]
+      {;:form-id   [:form]
                                         ;:data-path ["identificationInfo"]
        :label "Other constraints"}
       [m4/simple-list

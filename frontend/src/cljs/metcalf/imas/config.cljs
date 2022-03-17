@@ -124,7 +124,8 @@
 (rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
 (rf/reg-sub :subs/get-attachments subs3/get-attachments)
 (rf/reg-sub :subs/get-context subs3/get-context)
-(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [::subs4/get-form-state [:form]] imas-subs/get-edit-tab-props)
+(rf/reg-sub ::imas-subs/get-edit-tabs imas-subs/get-edit-tabs)
+(rf/reg-sub :subs/get-edit-tab-props :<- [:subs/get-page-props] :<- [::subs4/get-form-state [:form]] :<- [::imas-subs/get-edit-tabs] imas-subs/get-edit-tab-props2)
 (rf/reg-sub :subs/get-form subs3/get-form)
 (rf/reg-sub :subs/get-form-dirty subs4/get-form-dirty?)
 (rf/reg-sub :subs/get-form-disabled? subs3/get-form-disabled?)
@@ -138,12 +139,17 @@
 ;(when goog/DEBUG (ins4/reg-global-singleton (ins4/check-and-throw ::tern-db/db)))
 (set! rules4/rule-registry
       {"requiredField"           rules4/required-field
+       "requiredWhenYes"         rules4/required-when-yes
        "otherConstraintsLogic"   rules4/other-constraints-logic
        "maxLength"               rules4/max-length
-       "geographyRequired"       rules4/geography-required
+       "maxKeywords"             rules4/tern-max-keywords
+       "stringConcat"            rules4/string-concat
+       "fullLabel"               rules4/expand-breadcrumb
+       "geographyRequired"       rules4/imas-geography-required
        "imasVerticalRequired"    rules4/imas-vertical-required
        "imasTransferOptionLayer" rules4/imas-transfer-option-layer
        "licenseOther"            rules4/license-other
+       "numericOrder"            rules4/numeric-order
        "dateOrder"               rules4/date-order
        "endPosition"             rules4/end-position
        "positive"                rules4/force-positive
@@ -265,7 +271,8 @@
 
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "status"]}
+       :data-path ["identificationInfo" "status"]
+       :label     "Status"}
       [m4/select-value
        {:form-id    [:form]
         :data-path  ["identificationInfo" "status"]
@@ -340,6 +347,25 @@
 
      [m4/form-group
       {:form-id   [:form]
+       :data-path ["identificationInfo" "keywordsGeoExtent" "keywords"]
+       :label     "Geographic Extent keywords"}
+      [m4/selection-list-breadcrumb
+       {:form-id         [:form]
+        :data-path       ["identificationInfo" "keywordsGeoExtent" "keywords"]
+        :label-path      ["label"]
+        :value-path      ["uri"]
+        :breadcrumb-path ["breadcrumb"]}]
+      [m4/async-list-option-picker-breadcrumb
+       {:form-id         [:form]
+        :data-path       ["identificationInfo" "keywordsGeoExtent" "keywords"]
+        :uri             "/api/geoextents_with_breadcrumb_info"
+        :placeholder     "Search for keywords"
+        :label-path      ["label"]
+        :value-path      ["uri"]
+        :breadcrumb-path ["breadcrumb"]}]]
+
+     [m4/form-group
+      {:form-id   [:form]
        :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]
        :label     "Additional theme keywords"}
       [:div "Enter your own additional theme keywords as required and click + to add"]
@@ -375,18 +401,18 @@
      [:h2 "3. When was the data acquired?"]
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "beginPosition"]
+       :data-path ["identificationInfo" "extents" "beginPosition"]
        :label     "Start date"}
       [m4/date-field2
        {:form-id   [:form]
-        :data-path ["identificationInfo" "beginPosition"]}]]
+        :data-path ["identificationInfo" "extents" "beginPosition"]}]]
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "endPosition"]
+       :data-path ["identificationInfo" "extents" "endPosition"]
        :label     "End date"}
       [m4/date-field2
        {:form-id   [:form]
-        :data-path ["identificationInfo" "endPosition"]}]]]
+        :data-path ["identificationInfo" "extents" "endPosition"]}]]]
 
     :where
     [:div
@@ -400,28 +426,28 @@
      [:h3 "Geographic Coverage"]
      [m4/checkbox-field
       {:form-id   [:form]
-       :data-path ["identificationInfo" "geographicElement" "hasGeographicCoverage"]
+       :data-path ["identificationInfo" "extents" "hasGeographicCoverage"]
        :label     "Does data have a geographic coverage?"}]
      [:div.row
       [:div.col-sm-6
        ;; FIXME add toggle for satellite imagery.
        [m4/boxmap-field
         {:form-id    [:form]
-         :data-path  ["identificationInfo" "geographicElement" "boxes"]
+         :data-path  ["identificationInfo" "extents" "geographicElement"]
          :value-path ["uri"]
          :added-path ["isUserDefined"]}]]
       [:div.col-sm-6
 
        [m4/when-data
         {:form-id   [:form]
-         :data-path ["identificationInfo" "geographicElement" "boxes"]
+         :data-path ["identificationInfo" "extents" "geographicElement"]
          :pred      :m4/empty-list?}
         [:p "Specify the location(s) of this study."]]
 
        [:div.SelectionTableStyle
         [m4/selection-list-columns
          {:form-id             [:form]
-          :data-path           ["identificationInfo" "geographicElement" "boxes"]
+          :data-path           ["identificationInfo" "extents" "geographicElement"]
           :value-path          ["uri"]
           :added-path          ["isUserDefined"]
           :columns             [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
@@ -433,7 +459,7 @@
           :random-uuid-value?  true}]
         [m4/list-add-button
          {:form-id            [:form]
-          :data-path          ["identificationInfo" "geographicElement" "boxes"]
+          :data-path          ["identificationInfo" "extents" "geographicElement"]
           :button-text        "Add location"
           :value-path         ["uri"]
           :random-uuid-value? true
@@ -441,21 +467,21 @@
 
        [m4/list-edit-dialog
         {:form-id     [:form]
-         :data-path   ["identificationInfo" "geographicElement" "boxes"]
+         :data-path   ["identificationInfo" "extents" "geographicElement"]
          :title       "Bounding box"
          :template-id :box/user-defined-entry-form}]]]
      [:h3 "Vertical Coverage"]
      [m4/checkbox-field
       {:form-id   [:form]
-       :data-path ["identificationInfo" "verticalElement" "hasVerticalExtent"]
+       :data-path ["identificationInfo" "extents" "hasVerticalExtent"]
        :label     "Does data have a vertical coverage?"}]
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "verticalElement" "verticalCRS"]
+       :data-path ["identificationInfo" "extents" "verticalElement" "verticalCRS"]
        :label     "Vertical type"}
       [m4/select-option-simple
        {:form-id     [:form]
-        :data-path   ["identificationInfo" "verticalElement" "verticalCRS"]
+        :data-path   ["identificationInfo" "extents" "verticalElement" "verticalCRS"]
         :value-path  ["identifier"]
         :label-path  ["label"]
         :placeholder "Please select"
@@ -467,21 +493,21 @@
                        "identifier" "EPSG::5714"}]}]]
      [m4/form-group
       {:form-id    [:form]
-       :data-path  ["identificationInfo" "verticalElement" "minimumValue"]
+       :data-path  ["identificationInfo" "extents" "verticalElement" "minimumValue"]
        :label      "Minimum"
        :helperText "Shallowest depth / lowest altitude"}
       [m4/numeric-input-field
        {:form-id   [:form]
-        :data-path ["identificationInfo" "verticalElement" "minimumValue"]
+        :data-path ["identificationInfo" "extents" "verticalElement" "minimumValue"]
         :class     "wauto"}]]
      [m4/form-group
       {:form-id    [:form]
-       :data-path  ["identificationInfo" "verticalElement" "maximumValue"]
+       :data-path  ["identificationInfo" "extents" "verticalElement" "maximumValue"]
        :label      "Maximum"
        :helperText "Deepest depth / highest altitude"}
       [m4/numeric-input-field
        {:form-id   [:form]
-        :data-path ["identificationInfo" "verticalElement" "maximumValue"]
+        :data-path ["identificationInfo" "extents" "verticalElement" "maximumValue"]
         :class     "wauto"}]]]
 
     :box/user-defined-entry-form
@@ -614,16 +640,16 @@
      [:div "Acknowledge the contribution of any funding schemes or organisations."]
      [m4/selection-list-values
       {:form-id   [:form]
-       :data-path ["credits"]}]
+       :data-path ["identificationInfo" "credits"]}]
 
      [m4/value-list-add-button
       {:form-id     [:form]
-       :data-path   ["credits"]
+       :data-path   ["identificationInfo" "credits"]
        :button-text "Add credit"}]
 
      [m4/list-edit-dialog
       {:form-id     [:form]
-       :data-path   ["credits"]
+       :data-path   ["identificationInfo" "credits"]
        :title       "Credit"
        :template-id :credit/edit-form}]]
 
@@ -1138,8 +1164,7 @@
      [m4/form-group
       {:label     "Upload data"
        :form-id   [:form]
-       :data-path ["attachments"]
-       :required  true}
+       :data-path ["attachments"]}
       [m4/upload-files
        {:form-id    [:form]
         :data-path  ["attachments"]
@@ -1152,8 +1177,7 @@
      [m4/form-group
       {:label     "Link to data services"
        :form-id   [:form]
-       :data-path ["distributionInfo" "transferOptions"]
-       :required  true}
+       :data-path ["distributionInfo" "transferOptions"]}
       [:div.SelectionTableStyle
        [m4/selection-list-columns
         {:form-id             [:form]
@@ -1217,33 +1241,36 @@
        {:form-id   ?form-id
         :data-path [?data-path "name"]}]]]
 
-    ;:lodge
-    ;[:div
-    ; [:h2 "9: Lodge Metadata Draft"]
-    ; [:div.lodge-section
-    ;  [:p "Are you finished? Use this page to lodge your completed metadata record."]
-    ;  [:p "Any difficulties?  Please contact " [m4/mailto-data-manager-link]]
-    ;  [:p "The Data Manager will be notified of your submission and will be in contact
-    ;           if any further information is required. Once approved, your data will be archived
-    ;           for discovery in the " [m4/portal-link] "."]
-    ;  [:p "How complete is your data?"]
-    ;  [m4/note-for-data-manager
-    ;   {:form-id   [:form]
-    ;    :data-path ["noteForDataManager"]}]
-    ;  [m4/lodge-button]
-    ;  [m4/lodge-status-info]
-    ;  [:div.user-export
-    ;   [:p [:strong "Want to keep a personal copy of your metadata record?"]]
-    ;   [:p
-    ;    [m4/xml-export-link {:label "Click here"}]
-    ;    " to generate an XML version of your metadata submission. "
-    ;    "The file generated includes all of the details you have provided under the
-    ;     tabs, but not files you have uploaded."]
-    ;   [:p
-    ;    "Please note: this XML file is not the recommended way to share your metadata.
-    ;     We want you to submit your data via 'lodging' the information.
-    ;     This permits multi-user access via the portal in a more friendly format."]]]]
-    })
+    :lodge
+    [:div
+     [:h2 "9: Lodge Metadata Draft"]
+     [:div.lodge-section
+      [:p "Are you finished? Use this page to lodge your completed metadata record."]
+      [:p "Any difficulties?  Please contact " [m4/mailto-data-manager-link]]
+      [:p "The Data Manager will be notified of your submission and will be in contact
+              if any further information is required. Once approved, your data will be archived
+              for discovery in the " [m4/portal-link] "."]
+      [:p "How complete is your data?"]
+      [m4/note-for-data-manager
+       {:form-id   [:form]
+        :data-path ["noteForDataManager"]}]
+      [m4/checkbox-field
+       {:form-id [:form]
+        :data-path ["doiRequested"]
+        :label "Check if you would like a DOI minted for this dataset"}]
+      [m4/lodge-button {:form-id [:form]}]
+      [m4/lodge-status-info {:form-id [:form]}]
+      [:div.user-export
+       [:p [:strong "Want to keep a personal copy of your metadata record?"]]
+       [:p
+        [m4/xml-export-link {:label "Click here"}]
+        " to generate an XML version of your metadata submission. "
+        "The file generated includes all of the details you have provided under the
+        tabs, but not files you have uploaded."]
+       [:p
+        "Please note: this XML file is not the recommended way to share your metadata.
+        We want you to submit your data via 'lodging' the information.
+        This permits multi-user access via the portal in a more friendly format."]]]]})
 
 (set! low-code4/template-registry
       (merge edit-templates

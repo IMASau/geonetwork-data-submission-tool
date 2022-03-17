@@ -1086,11 +1086,11 @@
          :type-path ["partyType"]
          :templates {"person"
                      {:title       "Person"
-                      :template-id :party-person/user-defined-entry-form
+                      :template-id :party-person-responsible/user-defined-entry-form
                       :field-paths #{["role"] ["contact"] ["organisation"]}}
                      "organisation"
                      {:title       "Organisation"
-                      :template-id :party-organisation/user-defined-entry-form
+                      :template-id :party-organisation-responsible/user-defined-entry-form
                       :field-paths #{["role"] ["organisation"]}}}}]]]
 
      [m4/expanding-control {:label "Point of contact for dataset" :required true :defaultOpen true}
@@ -1132,11 +1132,11 @@
          :type-path ["partyType"]
          :templates {"person"
                      {:title       "Person"
-                      :template-id :party-person/user-defined-entry-form
+                      :template-id :party-person-poc/user-defined-entry-form
                       :field-paths #{["role"] ["contact"] ["organisation"]}}
                      "organisation"
                      {:title       "Organisation"
-                      :template-id :party-organisation/user-defined-entry-form
+                      :template-id :party-organisation-poc/user-defined-entry-form
                       :field-paths #{["role"] ["organisation"]}}}}]]]]
 
     :party/list-item
@@ -1159,7 +1159,167 @@
        [:span {:style {:text-transform "capitalize"}}
         [m4/get-data {:form-id ?form-id :data-path [?data-path "role" "Identifier"]}]]]]]
 
-    :party-person/user-defined-entry-form
+    :party-person-responsible/user-defined-entry-form
+    [:div
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "role"]
+       :label     "Role"
+       :toolTip   "Select the role of any individuals that contributed to the creation of the dataset."}
+      [m4/select-option-simple
+       {:form-id    ?form-id
+        :data-path  [?data-path "role"]
+        :options    [{"UUID"        "a37cc120-9920-4495-9a2f-698e225b5902"
+                      "Identifier"  "author"
+                      "Description" "Party who authored the resource"}
+                     {"UUID"        "cc22ca92-a323-42fa-8e01-1503f0edf6b9"
+                      "Identifier"  "coAuthor"
+                      "Description" "Party who jointly authors the resource"}
+                     {"UUID"        "a2d57717-48fb-4675-95dd-4be8f9d585d6"
+                      "Identifier"  "collaborator"
+                      "Description" "Party who assists with the generation of the resource other than the principal investigator"}
+                     {"UUID"        "b91ddbe5-584e-46ff-a242-1c7c67b836e3"
+                      "Identifier"  "contributor"
+                      "Description" "Party contributing to the resource"}
+                     {"UUID"        "3373d310-f065-4ece-a61b-9bb04bd1df27"
+                      "Identifier"  "custodian"
+                      "Description" "Party that accepts accountability and responsibility for the resource and ensures appropriate care and maintenance of the resource"}
+                     {"UUID"        "abd843f7-9d47-4a69-b9bc-3544202488fe"
+                      "Identifier"  "distributor"
+                      "Description" "Party who distributes the resource"}
+                     {"UUID"        "370e8b34-d7ce-42fc-904f-05e263789389"
+                      "Identifier"  "editor"
+                      "Description" "Party who reviewed or modified the resource to improve the content"}
+                     {"UUID"        "06213565-8aff-4c98-9ae3-4dd1023a2cdc"
+                      "Identifier"  "funder"
+                      "Description" "Party providing monetary support for the resource"}
+                     {"UUID"        "2961f936-74cf-4192-95dc-959e8dae7189"
+                      "Identifier"  "mediator"
+                      "Description" "A class of entity that mediates access to the resource and for whom the resource is intended or useful"}
+                     {"UUID"        "6cd5bbc6-463d-4850-9ad4-2353cb9451f5"
+                      "Identifier"  "originator"
+                      "Description" "Party who created the resource"}
+                     {"UUID"        "0e75b54c-0cff-4753-a66a-c359f604689d"
+                      "Identifier"  "owner"
+                      "Description" "Party that owns the resource"}
+                     {"UUID"        "6b20a462-bc67-46c3-bdcb-b558f0127fe2"
+                      "Identifier"  "principalInvestigator"
+                      "Description" "Key party responsible for gathering information and conducting research"}
+                     {"UUID"        "c3429513-50aa-4288-b919-cdeb816815a7"
+                      "Identifier"  "processor"
+                      "Description" "Party who has processed the data in a manner such that the resource has been modified"}
+                     {"UUID"        "1359d456-c428-49f1-8c8e-c46ebff53a10"
+                      "Identifier"  "publisher"
+                      "Description" "Party who published the resource"}
+                     {"UUID"        "b25e217a-ed48-4d10-831e-298975f6cedf"
+                      "Identifier"  "resourceProvider"
+                      "Description" "Party that supplies the resource"}
+                     {"UUID"        "028232f0-36c8-4ff6-aef4-ec0c424b7887"
+                      "Identifier"  "rightsHolder"
+                      "Description" "Party owning or managing rights over the resource"}
+                     {"UUID"        "8211c24f-e1be-4a2d-962e-856304fa53de"
+                      "Identifier"  "sponsor"
+                      "Description" "Party who speaks for the resource"}
+                     {"UUID"        "a9199aa5-26e2-4951-af7b-3132118d7569"
+                      "Identifier"  "stakeholder"
+                      "Description" "Party who has an interest in the resource or the use of the resource"}
+                     {"UUID"        "4122989f-f824-4d4a-8a29-10bd3541c17e"
+                      "Identifier"  "user"
+                      "Description" "Party who uses the resource"}]
+        :label-path ["Identifier"]
+        :value-path ["Identifier"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact"]
+       :label     "Select Person"
+       :toolTip   "Specify the name of the person associated with the selected role."}
+
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id     ?form-id
+          :data-path   [?data-path "contact"]
+          :uri         "/api/ternpeople"
+          :label-path  ["name"]
+          :value-path  ["uri"]
+          :placeholder "Search for contact details"}]]
+       [m4/item-dialog-button
+        {:form-id            ?form-id
+         :data-path          [?data-path "contact"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "person"}
+         :added-path         ["isUserDefined"]}]]
+
+      [m4/edit-dialog
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact"]
+        :title       "Contact"
+        :template-id :person-contact/user-defined-entry-form}]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:label "Given name"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "given_name"]
+         :disabled  true}]]
+
+      [m4/form-group
+       {:label "Surname"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "contact" "surname"]
+         :disabled  true}]]]
+
+     [m4/form-group
+      {:label "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "contact" "email"]
+        :disabled  true}]]
+
+     [m4/form-group
+      {:label "ORCID ID"}
+      [m4/input-field
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "orcid"]
+        :disabled    true}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation"]
+       :label     "Select associated Organisation"
+       :toolTip   "Select the organisation associated with the person. You can add an organisation using the “Add” button if the required organisation is not listed."}
+
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id    ?form-id
+          :data-path  [?data-path "organisation"]
+          :uri        "/api/ternorgs"
+          :label-path ["display_name"]
+          :value-path ["uri"]}]]
+       [m4/item-dialog-button
+        {:form-id            ?form-id
+         :data-path          [?data-path "organisation"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "organization"}
+         :added-path         ["isUserDefined"]}]]
+
+      [m4/edit-dialog
+       {:form-id     ?form-id
+        :data-path   [?data-path "organisation"]
+        :title       "Organisation"
+        :template-id :person-organisation/user-defined-entry-form}]]]
+
+    :party-person-poc/user-defined-entry-form
     [:div
 
      [m4/form-group
@@ -1323,7 +1483,170 @@
         :template-id :person-organisation/user-defined-entry-form}]]]
 
                                         ; NOTE: organisation with role (not associated with a person)
-    :party-organisation/user-defined-entry-form
+    :party-organisation-responsible/user-defined-entry-form
+    [:div
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "role"]
+       :label     "Role"
+       :toolTip   "Select the role of any individuals that contributed to the creation of the dataset."}
+      [m4/select-option-simple
+       {:form-id    ?form-id
+        :data-path  [?data-path "role"]
+        :options    [{"UUID"        "a37cc120-9920-4495-9a2f-698e225b5902"
+                      "Identifier"  "author"
+                      "Description" "Party who authored the resource"}
+                     {"UUID"        "cc22ca92-a323-42fa-8e01-1503f0edf6b9"
+                      "Identifier"  "coAuthor"
+                      "Description" "Party who jointly authors the resource"}
+                     {"UUID"        "a2d57717-48fb-4675-95dd-4be8f9d585d6"
+                      "Identifier"  "collaborator"
+                      "Description" "Party who assists with the generation of the resource other than the principal investigator"}
+                     {"UUID"        "b91ddbe5-584e-46ff-a242-1c7c67b836e3"
+                      "Identifier"  "contributor"
+                      "Description" "Party contributing to the resource"}
+                     {"UUID"        "3373d310-f065-4ece-a61b-9bb04bd1df27"
+                      "Identifier"  "custodian"
+                      "Description" "Party that accepts accountability and responsibility for the resource and ensures appropriate care and maintenance of the resource"}
+                     {"UUID"        "abd843f7-9d47-4a69-b9bc-3544202488fe"
+                      "Identifier"  "distributor"
+                      "Description" "Party who distributes the resource"}
+                     {"UUID"        "370e8b34-d7ce-42fc-904f-05e263789389"
+                      "Identifier"  "editor"
+                      "Description" "Party who reviewed or modified the resource to improve the content"}
+                     {"UUID"        "06213565-8aff-4c98-9ae3-4dd1023a2cdc"
+                      "Identifier"  "funder"
+                      "Description" "Party providing monetary support for the resource"}
+                     {"UUID"        "2961f936-74cf-4192-95dc-959e8dae7189"
+                      "Identifier"  "mediator"
+                      "Description" "A class of entity that mediates access to the resource and for whom the resource is intended or useful"}
+                     {"UUID"        "6cd5bbc6-463d-4850-9ad4-2353cb9451f5"
+                      "Identifier"  "originator"
+                      "Description" "Party who created the resource"}
+                     {"UUID"        "0e75b54c-0cff-4753-a66a-c359f604689d"
+                      "Identifier"  "owner"
+                      "Description" "Party that owns the resource"}
+                     {"UUID"        "6b20a462-bc67-46c3-bdcb-b558f0127fe2"
+                      "Identifier"  "principalInvestigator"
+                      "Description" "Key party responsible for gathering information and conducting research"}
+                     {"UUID"        "c3429513-50aa-4288-b919-cdeb816815a7"
+                      "Identifier"  "processor"
+                      "Description" "Party who has processed the data in a manner such that the resource has been modified"}
+                     {"UUID"        "1359d456-c428-49f1-8c8e-c46ebff53a10"
+                      "Identifier"  "publisher"
+                      "Description" "Party who published the resource"}
+                     {"UUID"        "b25e217a-ed48-4d10-831e-298975f6cedf"
+                      "Identifier"  "resourceProvider"
+                      "Description" "Party that supplies the resource"}
+                     {"UUID"        "028232f0-36c8-4ff6-aef4-ec0c424b7887"
+                      "Identifier"  "rightsHolder"
+                      "Description" "Party owning or managing rights over the resource"}
+                     {"UUID"        "8211c24f-e1be-4a2d-962e-856304fa53de"
+                      "Identifier"  "sponsor"
+                      "Description" "Party who speaks for the resource"}
+                     {"UUID"        "a9199aa5-26e2-4951-af7b-3132118d7569"
+                      "Identifier"  "stakeholder"
+                      "Description" "Party who has an interest in the resource or the use of the resource"}
+                     {"UUID"        "4122989f-f824-4d4a-8a29-10bd3541c17e"
+                      "Identifier"  "user"
+                      "Description" "Party who uses the resource"}]
+        :label-path ["Identifier"]
+        :value-path ["Identifier"]}]]
+
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "organisation"]
+       :label     "Select associated Organisation"
+       :toolTip   "Select the organisation associated with the primary contact. You can add an organisation if a required organisation is not listed."}
+
+      [:div.bp3-control-group
+       [:div.bp3-fill
+        [m4/async-select-option-simple
+         {:form-id    ?form-id
+          :data-path  [?data-path "organisation"]
+          :uri        "/api/ternorgs"
+          :label-path ["display_name"]
+          :value-path ["uri"]}]]
+       [m4/item-dialog-button
+        {:form-id            ?form-id
+         :data-path          [?data-path "organisation"]
+         :value-path         ["uri"]
+         :random-uuid-value? true
+         :item-defaults      {"userAddedCategory" "organization"}
+         :added-path         ["isUserDefined"]}]]
+
+      [m4/edit-dialog
+       {:form-id     ?form-id
+        :data-path   [?data-path "organisation"]
+        :title       "Organisation"
+        :template-id :person-organisation/user-defined-entry-form}]]
+
+     [m4/form-group
+      {:label "Organisation Name"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "name"]
+        :disabled  true}]]
+
+     [m4/form-group
+      {:label "Campus/Sitename"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "full_address_line"]
+        :disabled  true}]]
+
+     [m4/form-group
+      {:label "Building"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "street_address"]
+        :disabled  true}]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:label "City"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "address_locality"]
+         :disabled  true}]]
+
+      [m4/form-group
+       {:label "State"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "address_region"]
+         :disabled  true}]]]
+
+     [:div {:style {:display               "grid"
+                    :grid-column-gap       "1em"
+                    :grid-template-columns "1fr 1fr"}}
+
+      [m4/form-group
+       {:label "Postal Code"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "postcode"]
+         :disabled  true}]]
+
+      [m4/form-group
+       {:label     "Country"}
+       [m4/input-field
+        {:form-id   ?form-id
+         :data-path [?data-path "organisation" "country"]
+         :disabled  true}]]]
+
+     [m4/form-group
+      {:label "Email address"}
+      [m4/input-field
+       {:form-id   ?form-id
+        :data-path [?data-path "organisation" "email"]
+        :disabled  true}]]]
+
+    :party-organisation-poc/user-defined-entry-form
     [:div
 
      [m4/form-group

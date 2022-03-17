@@ -283,7 +283,7 @@ class Document(AbstractDocument):
                                             'Accept': 'application/json'},
                                    data={'metadataType': 'METADATA',
                                          # Shared creates the UUID:
-                                         'uuidProcessing': 'NOTHING',
+                                         'uuidProcessing': 'OVERWRITE',
                                          'category': categories,
                                          'publishToAll': True,
                                          },

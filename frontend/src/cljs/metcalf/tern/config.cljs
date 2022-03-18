@@ -189,6 +189,7 @@
        'm4/typed-list-edit-dialog              {:view #'components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
        'm4/numeric-input-field                 {:view #'components4/numeric-input-field :init components4/numeric-input-field-settings}
        'm4/page-errors                         {:view #'components4/page-errors :init components4/page-errors-settings}
+       'm4/submit-status                       {:view #'components4/tern-document-status-display}
        'm4/select-option-simple                {:view #'components4/select-option-simple :init components4/select-option-simple-settings}
        'm4/select-option-breadcrumb            {:view #'components4/select-option-breadcrumb :init components4/select-option-breadcrumb-settings}
        'm4/select-option-columns               {:view #'components4/select-option-columns :init components4/select-option-columns-settings}
@@ -2376,15 +2377,7 @@ recorded in the standard citation."
       [:p "If you have any difficulties with the lodgement process or form entry requirements, please email: "
        [:a {:href "mailto:esupport@tern.org.au"} "esupport@tern.org.au"]]
 
-      ;; TODO: CSS class required here?
-      [:div
-       {:style {:background-color "green"
-                :text-align "center"}}
-       [:h4
-        {:style {:color "white"
-                 :font-weight "bold"
-                 :padding "12px"}}
-        "You are now ready to lodge your request"]]
+      [m4/submit-status]
 
       [:p "The Data Manager will be notified of your submission and will be in contact"
        " if any further information is required. Once approved, your data will be archived for discovery in the "

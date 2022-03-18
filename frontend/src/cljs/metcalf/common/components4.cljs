@@ -1823,6 +1823,23 @@
        :onRemoveClick (fn [idx] (rf/dispatch [:app/contributors-modal-unshare-click {:uuid uuid :idx idx}]))
        :onAddClick    (fn [email] (rf/dispatch [:app/contributors-modal-share-click {:uuid uuid :email email}]))}])])
 
+(defn tern-document-status-display
+  [_]
+  (let [{:keys [document]} @(rf/subscribe [:subs/get-context])
+        {:keys [errors]} @(rf/subscribe [:subs/get-progress])
+        has-errors? (and errors (> errors 0))
+        archived? (= (:status document) "Archived")
+        submitted? (= (:status document) "Submitted")]
+    (when-not (or archived? submitted? has-errors?)
+      [:div
+       {:style {:background-color "green"
+                :text-align "center"}}
+       [:h4
+        {:style {:color "white"
+                 :font-weight "bold"
+                 :padding "12px"}}
+        "You are now ready to lodge your request"]])))
+
 (defn imas-upload-files-settings
   "Settings for upload-files component"
   [_]

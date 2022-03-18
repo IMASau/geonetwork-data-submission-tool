@@ -624,6 +624,9 @@
                     "type": "string",
                     "valueChild": "gco:CharacterString"
                   },
+                  "duma_path": {
+                    "type": "string"
+                  },
                   "userAddedCategory": {},
                   "isUserDefined": {}
                 },
@@ -708,6 +711,9 @@
                         "function": "identity"
                       }
                     }
+                  },
+                  "duma_path": {
+                    "type": "string"
                   },
                   "userAddedCategory": {},
                   "isUserDefined": {}
@@ -851,6 +857,12 @@
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
+                  "duma_path":{
+                    "type": "string"
+                  },
+                  "userAddedCategory": {
+                    "type": "string"
+                  },
                   "isUserDefined": {}
                 },
                 "rules": ["requiredField"]
@@ -928,6 +940,12 @@
                         "function": "identity"
                       }
                     }
+                  },
+                  "duma_path":{
+                    "type": "string"
+                  },
+                  "userAddedCategory": {
+                    "type": "string"
                   },
                   "isUserDefined": {}
                 },
@@ -1192,6 +1210,9 @@
                 "properties": {
                   "breadcrumb": {},
                   "isUserDefined": {},
+                  "duma_path":{
+                    "type": "string"
+                  },
                   "userAddedCategory": {
                     "type": "string"
                   },
@@ -1236,6 +1257,9 @@
                   "breadcrumb": {},
                   "isUserDefined": {},
                   "userAddedCategory": {
+                    "type": "string"
+                  },
+                  "duma_path": {
                     "type": "string"
                   },
                   "label": {
@@ -1348,6 +1372,12 @@
                       },
                       "isUserDefined": {
                         "type": "boolean"
+                      },
+                      "duma_path": {
+                        "type": "string"
+                      },
+                      "userAddedCategory": {
+                        "type": "string"
                       },
                       "ucumCode": {
                         "type": "string"

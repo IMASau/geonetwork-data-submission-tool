@@ -61,7 +61,6 @@
         "properties": {
           "file": {
             "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
-            "required": true,
             "xpath_required": true,
             "attributes": {
               "text": {
@@ -138,7 +137,6 @@
                 "xpath": "cit:party/cit:CI_Organisation/cit:name",
                 "type": "string",
                 "valueChild": "gco:CharacterString",
-                "required": true,
                 "keep": false
               },
               "display_name": {
@@ -149,7 +147,6 @@
                 "xpath": "cit:party/cit:CI_Organisation/cit:partyIdentifier",
                 "type": "string",
                 "valueChild": "mcc:MD_Identifier/mcc:code/gcx:Anchor",
-                "required": false,
                 "keep": false,
                 "parser": {
                   "function": "parse_organisation_identifier"
@@ -218,14 +215,12 @@
                 "!docstring": "DataSource11",
                 "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
                 "type": "string",
-                "required": true,
                 "rules": ["requiredField"]
               },
               "protocol": {
                 "!docstring": "DataSource10",
                 "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:protocol/gco:CharacterString",
                 "type": "string",
-                "required": true,
                 "rules": ["requiredField"]
               },
               "name": {
@@ -234,7 +229,6 @@
                 "valueChild": "gco:CharacterString",
                 "type": "string",
                 "keep": false,
-                "required": true,
                 "rules": ["requiredField"]
               },
               "description": {
@@ -434,7 +428,6 @@
           "type": "string",
           "xpath": "mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]/cit:date",
           "valueChild": "gco:Date",
-          "required": true,
           "keep": false,
           "xpath_required": true,
           "rules": ["requiredField"]
@@ -465,7 +458,6 @@
           "xpath": "mri:citation[1]/cit:CI_Citation[1]/cit:edition",
           "valueChild": "gco:CharacterString",
           "keep": false,
-          "required": true,
           "xpath_required": true,
           "rules": ["requiredField"]
         },
@@ -475,7 +467,6 @@
           "valueChild": "gco:CharacterString",
           "type": "string",
           "keep": false,
-          "required": true,
           "xpath_required": true,
           "rules": ["requiredField"]
         },
@@ -484,8 +475,7 @@
           "xpath": "mri:purpose",
           "valueChild": "gco:CharacterString",
           "type": "string",
-          "keep": false,
-          "required": false
+          "keep": false
         },
         "citedResponsibleParty": {
           "!docstring": "Who tab: Responsible for the creation of the dataset",
@@ -523,7 +513,6 @@
                     "type": "string"
                   }
                 },
-                "required": true,
                 "xpath_required": true,
                 "rules": ["requiredField"]
               },
@@ -536,7 +525,6 @@
                     "xpath": "cit:name",
                     "valueChild": "gco:CharacterString",
                     "type": "string",
-                    "required": true,
                     "rules": ["requiredField"],
                     "keep": false
                   },
@@ -548,7 +536,6 @@
                     "xpath": "cit:partyIdentifier",
                     "valueChild": "mcc:MD_Identifier/mcc:code/gcx:Anchor",
                     "type": "string",
-                    "required": false,
                     "keep": false,
                     "parser": {
                       "function": "parse_organisation_identifier"
@@ -624,6 +611,9 @@
                     "type": "string",
                     "valueChild": "gco:CharacterString"
                   },
+                  "duma_path": {
+                    "type": "string"
+                  },
                   "userAddedCategory": {},
                   "isUserDefined": {}
                 },
@@ -643,22 +633,19 @@
                   "name": {
                     "!docstring": "Who3",
                     "type": "string",
-                    "keep": false,
-                    "required": false
+                    "keep": false
                   },
                   "surname": {
                     "!docstring": "Who5",
                     "type": "string",
                     "keep": false,
-                    "export": false,
-                    "required": true
+                    "export": false
                   },
                   "given_name": {
                     "!docstring": "Who4",
                     "type": "string",
                     "keep": false,
-                    "export": false,
-                    "required": true
+                    "export": false
                   },
                   "position": {
                     "type": "string",
@@ -669,8 +656,7 @@
                     "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
                     "valueChild": "gco:CharacterString",
                     "type": "string",
-                    "keep": false,
-                    "required": false
+                    "keep": false
                   },
                   "phone": {
                     "!docstring": "Who13 / Who14",
@@ -683,7 +669,6 @@
                     "!docstring": "Who7",
                     "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
                     "type": "string",
-                    "required": false,
                     "deleteWhenEmpty": false,
                     "parser": {
                       "function": "parse_individual_orcid"
@@ -699,7 +684,6 @@
                     "!docstring": "Populated via the controlled vocab contact picker; replaces orcid if that doesn't exist",
                     "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code/gcx:Anchor",
                     "type": "string",
-                    "required": false,
                     "attributes": {
                       "xlink:href": {
                         "function": "identity"
@@ -708,6 +692,9 @@
                         "function": "identity"
                       }
                     }
+                  },
+                  "duma_path": {
+                    "type": "string"
                   },
                   "userAddedCategory": {},
                   "isUserDefined": {}
@@ -766,7 +753,6 @@
                     "type": "string"
                   }
                 },
-                "required": true,
                 "xpath_required": true,
                 "rules": ["requiredField"]
               },
@@ -778,7 +764,6 @@
                     "!docstring": "Who8 / Who12",
                     "xpath": "cit:name",
                     "valueChild": "gco:CharacterString",
-                    "required": true,
                     "rules": ["requiredField"],
                     "keep": false
                   },
@@ -789,7 +774,6 @@
                     "!docstring": "Who8 / Who9 / Who12",
                     "xpath": "cit:partyIdentifier",
                     "valueChild": "mcc:MD_Identifier/mcc:code/gcx:Anchor",
-                    "required": false,
                     "keep": false,
                     "parser": {
                       "function": "parse_organisation_identifier"
@@ -851,6 +835,12 @@
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
+                  "duma_path":{
+                    "type": "string"
+                  },
+                  "userAddedCategory": {
+                    "type": "string"
+                  },
                   "isUserDefined": {}
                 },
                 "rules": ["requiredField"]
@@ -869,20 +859,17 @@
                   "name": {
                     "!docstring": "Who3",
                     "type": "string",
-                    "keep": false,
-                    "required": false
+                    "keep": false
                   },
                   "surname": {
                     "!docstring": "Who5",
                     "type": "string",
-                    "required": true,
                     "keep": false,
                     "export": false
                   },
                   "given_name": {
                     "!docstring": "Who4",
                     "type": "string",
-                    "required": true,
                     "keep": false,
                     "export": false
                   },
@@ -896,14 +883,12 @@
                     "xpath": "cit:CI_Individual/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress",
                     "valueChild": "gco:CharacterString",
                     "type": "string",
-                    "keep": false,
-                    "required": false
+                    "keep": false
                   },
                   "orcid": {
                     "!docstring": "Who7",
                     "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code/gco:CharacterString",
                     "type": "string",
-                    "required": false,
                     "deleteWhenEmpty": false,
                     "parser": {
                       "function": "parse_individual_orcid"
@@ -919,7 +904,6 @@
                     "!docstring": "Populated via the controlled vocab contact picker; replaces orcid if that doesn't exist",
                     "xpath": "cit:CI_Individual/cit:partyIdentifier/mcc:MD_Identifier/mcc:code/gcx:Anchor",
                     "type": "string",
-                    "required": false,
                     "attributes": {
                       "xlink:href": {
                         "function": "identity"
@@ -928,6 +912,12 @@
                         "function": "identity"
                       }
                     }
+                  },
+                  "duma_path":{
+                    "type": "string"
+                  },
+                  "userAddedCategory": {
+                    "type": "string"
                   },
                   "isUserDefined": {}
                 },
@@ -965,8 +955,7 @@
               "xpath": "gex:description",
               "valueChild": "gco:CharacterString",
               "type": "string",
-              "keep": false,
-              "required": false
+              "keep": false
             },
             "boxes": {
               "!docstring": "Where2",
@@ -1192,6 +1181,9 @@
                 "properties": {
                   "breadcrumb": {},
                   "isUserDefined": {},
+                  "duma_path":{
+                    "type": "string"
+                  },
                   "userAddedCategory": {
                     "type": "string"
                   },
@@ -1236,6 +1228,9 @@
                   "breadcrumb": {},
                   "isUserDefined": {},
                   "userAddedCategory": {
+                    "type": "string"
+                  },
+                  "duma_path": {
                     "type": "string"
                   },
                   "label": {
@@ -1349,6 +1344,12 @@
                       "isUserDefined": {
                         "type": "boolean"
                       },
+                      "duma_path": {
+                        "type": "string"
+                      },
+                      "userAddedCategory": {
+                        "type": "string"
+                      },
                       "ucumCode": {
                         "type": "string"
                       }
@@ -1447,8 +1448,7 @@
                 }
               }
             }
-          },
-          "required": false
+          }
         },
         "keywordsFlora": {
           "!docstring": "What13",
@@ -1532,7 +1532,6 @@
         "beginPosition": {
           "!docstring": "When1",
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition",
-          "required": true,
           "xpath_required": true,
           "keep": false,
           "type": "string",
@@ -1608,7 +1607,6 @@
           "xpath": "mri:environmentDescription",
           "valueChild": "gco:CharacterString",
           "keep": false,
-          "required": false,
           "type": "string"
         },
         "supplemental": {
@@ -1616,7 +1614,6 @@
           "xpath": "mri:supplementalInformation",
           "valueChild": "gco:CharacterString",
           "keep": false,
-          "required": false,
           "type": "string"
         },
         "additionalPublications": {
@@ -1656,7 +1653,6 @@
           "xpath": "mri:resourceSpecificUsage",
           "valueChild": "mri:MD_Usage/mri:specificUsage/gco:CharacterString",
           "keep": false,
-          "required": false,
           "type": "string"
         },
         "credit": {
@@ -1664,7 +1660,6 @@
           "xpath": "mri:credit[2]",
           "valueChild": "gco:CharacterString",
           "keep": false,
-          "required": false,
           "type": "string"
         },
         "customCitation": {
@@ -1672,7 +1667,6 @@
           "xpath": "mri:citation/cit:CI_Citation/cit:otherCitationDetails",
           "valueChild": "gco:CharacterString",
           "keep": false,
-          "required": false,
           "type": "string"
         },
         "generatedCitation": {
@@ -1780,7 +1774,6 @@
                 "type": "string",
                 "keep": false,
                 "xpath": "cit:CI_Citation/cit:title/gco:CharacterString",
-                "required": true,
                 "rules": ["requiredField"]
               },
               "url": {
@@ -1788,7 +1781,6 @@
                 "type": "string",
                 "keep": false,
                 "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
-                "required": true,
                 "rules": ["requiredField"]
               }
             }
@@ -1803,7 +1795,6 @@
             "xpath": "mrl:processStep/mrl:LI_ProcessStep/mrl:description/gco:CharacterString",
             "keep": false,
             "type": "string",
-            "required": true,
             "rules": [
               "requiredField"
             ]
@@ -1819,14 +1810,12 @@
           "!docstring": "Data Quality 1",
           "xpath": "mdq:scope/mcc:MD_Scope/mcc:levelDescription/mcc:MD_ScopeDescription/mcc:other/gco:CharacterString",
           "type": "string",
-          "keep": false,
-          "required": false
+          "keep": false
         },
         "results": {
           "!docstring": "Data Quality 3",
           "xpath": "mdq:report/mdq:DQ_QuantitativeAttributeAccuracy/mdq:result/mdq:DQ_DescriptiveResult/mdq:statement/gco:CharacterString",
           "keep": false,
-          "required": false,
           "type": "string"
         },
         "onlineMethods": {

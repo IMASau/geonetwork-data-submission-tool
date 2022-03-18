@@ -283,7 +283,8 @@
                      {"value" "completed" "label" "completed"}]}]]
      [m4/form-group
       {:form-id   [:form]
-       :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]}
+       :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
+       :label     "Maintenance and Update Frequency"}
       [m4/select-value
        {:form-id    [:form]
         :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]

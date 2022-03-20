@@ -431,13 +431,22 @@
 
 (defn upload-files-drop
   [{:keys [db]} [_ config data]]
-  (let [{:keys [acceptedFiles]} data
+  (let [{:keys [acceptedFiles rejectedFiles]} data
+        file-errors (map (fn [{:keys [file errors]}]
+                           (str (.-name file) " (" (-> errors first :message) ")"))
+                         rejectedFiles)
         doc-uuid (get-in db [:context :document :uuid])]
-    (reduce (fn [s file]
-              (actions4/upload-attachment s {:doc-uuid doc-uuid
-                                             :file     file
-                                             :config   config}))
-            {:db db} acceptedFiles)))
+    (if (seq file-errors)
+      (actions4/open-modal-action
+       {:db db}
+       {:type    :modal.type/alert
+        :message (apply str "Unable to upload: "
+                        (interpose ", " file-errors))})
+      (reduce (fn [s file]
+                (actions4/upload-attachment s {:doc-uuid doc-uuid
+                                               :file     file
+                                               :config   config}))
+              {:db db} acceptedFiles))))
 
 (defn -upload-attachment
   [{:keys [db]} [_ config {:keys [status body]}]]

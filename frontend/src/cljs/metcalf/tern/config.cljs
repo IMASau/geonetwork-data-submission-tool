@@ -457,6 +457,7 @@
                       {"value" "boundaries" "label" "Boundaries" "uri" "13f26c70-a6cc-4c14-b823-487e05046324"}
                       {"value" "climatologyMeteorologyAtmosphere" "label" "Climatology/meteorology/atmosphere" "uri" "f4d1f2fb-3f2c-43c0-8196-0f12a32c0192"}
                       {"value" "economy" "label" "Economy" "uri" "19baf9c1-46e5-4522-872a-f4f10da3f530"}
+                      {"value" "elevation" "label" "Elevation" "uri" "58b94857-6977-474a-be0e-6c9856bfebdc"}
                       {"value" "environment" "label" "Environment" "uri" "615c77e6-aec0-43d8-994c-9ff9421c3c96"}
                       {"value" "geoscientificInformation" "label" "Geoscientific Information" "uri" "943e577c-2097-4314-85ae-609f5e749886"}
                       {"value" "health" "label" "Health" "uri" "2f2d5de2-6def-4243-b407-b68bdef4d18d"}

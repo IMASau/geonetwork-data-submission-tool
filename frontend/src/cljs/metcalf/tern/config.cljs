@@ -452,27 +452,27 @@
         :placeholder "Start typing to filter list..."
         :label-path  ["label"]
         :value-path  ["value"]
-        :options     [{"value" "farming" "label" "Farming" "uri" "58c9c399-cf08-4f74-82f8-23506cf3c472"}
-                      {"value" "biota" "label" "Biota" "uri" "46cb9d9a-08d5-4d65-ae01-794881169317"}
+        :options     [{"value" "biota" "label" "Biota" "uri" "46cb9d9a-08d5-4d65-ae01-794881169317"}
                       {"value" "boundaries" "label" "Boundaries" "uri" "13f26c70-a6cc-4c14-b823-487e05046324"}
                       {"value" "climatologyMeteorologyAtmosphere" "label" "Climatology/meteorology/atmosphere" "uri" "f4d1f2fb-3f2c-43c0-8196-0f12a32c0192"}
+                      {"value" "disaster" "label" "Disaster" "uri" "36e178f2-ff28-461b-9a6f-117f9faed747"}
                       {"value" "economy" "label" "Economy" "uri" "19baf9c1-46e5-4522-872a-f4f10da3f530"}
                       {"value" "elevation" "label" "Elevation" "uri" "58b94857-6977-474a-be0e-6c9856bfebdc"}
                       {"value" "environment" "label" "Environment" "uri" "615c77e6-aec0-43d8-994c-9ff9421c3c96"}
+                      {"value" "extraTerrestrial" "label" "Extra Terrestrial" "uri" "ccd13796-b99c-459d-a604-a8cc89674746"}
+                      {"value" "farming" "label" "Farming" "uri" "58c9c399-cf08-4f74-82f8-23506cf3c472"}
                       {"value" "geoscientificInformation" "label" "Geoscientific Information" "uri" "943e577c-2097-4314-85ae-609f5e749886"}
                       {"value" "health" "label" "Health" "uri" "2f2d5de2-6def-4243-b407-b68bdef4d18d"}
                       {"value" "imageryBaseMapsEarthCover" "label" "Imagery Base Maps Earth Cover" "uri" "cacc1969-e445-4f5c-b63f-ae15357eca63"}
-                      {"value" "intelligenceMilitary" "label" "Intelligence Military" "uri" "c6e74ebf-8b85-43c1-98f0-ad384e7d9926"}
                       {"value" "inlandWaters" "label" "Inland Waters" "uri" "d83db4fd-ab8b-4b3d-b3ba-1150f6365a70"}
+                      {"value" "intelligenceMilitary" "label" "Intelligence Military" "uri" "c6e74ebf-8b85-43c1-98f0-ad384e7d9926"}
                       {"value" "location" "label" "Location" "uri" "71107532-2a3c-4ac3-baae-147192cfb369"}
                       {"value" "oceans" "label" "Oceans" "uri" "7c3024e9-3838-4db0-a3b3-e4005f6a6572"}
                       {"value" "planningCadastre" "label" "Planning Cadastre" "uri" "012cae3c-0aa6-4cb7-a182-36b6cb60b83b"}
                       {"value" "society" "label" "Society" "uri" "a7c4b461-a912-4bcd-83de-b5b53a60b92e"}
                       {"value" "structure" "label" "Structure" "uri" "abb85428-f6f9-4647-9591-b28392fa3f12"}
                       {"value" "transportation" "label" "Transportation" "uri" "cfc0ef86-a8e1-4c06-b450-dac04c116d86"}
-                      {"value" "utilitiesCommunication" "label" "Utilities Communication" "uri" "d090879c-f1cc-4929-b8a1-723c57eba3c1"}
-                      {"value" "extraTerrestrial" "label" "Extra Terrestrial" "uri" "ccd13796-b99c-459d-a604-a8cc89674746"}
-                      {"value" "disaster" "label" "Disaster" "uri" "36e178f2-ff28-461b-9a6f-117f9faed747"}]}]
+                      {"value" "utilitiesCommunication" "label" "Utilities Communication" "uri" "d090879c-f1cc-4929-b8a1-723c57eba3c1"}]}]
       [:div.SelectionListItemColoured
        [m4/selection-list-simple
         {:form-id    [:form]

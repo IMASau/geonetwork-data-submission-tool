@@ -450,7 +450,7 @@
        {:form-id     [:form]
         :data-path   ["identificationInfo" "topicCategories"]
         :placeholder "Start typing to filter list..."
-        :label-path  ["label"]
+        :label-path  ["value"]
         :value-path  ["value"]
         :options     [{"value" "biota" "label" "Biota" "uri" "46cb9d9a-08d5-4d65-ae01-794881169317"}
                       {"value" "boundaries" "label" "Boundaries" "uri" "13f26c70-a6cc-4c14-b823-487e05046324"}
@@ -496,7 +496,7 @@
          {:form-id    [:form]
           :data-path  ["identificationInfo" "status"]
           :value-path ["value"]
-          :label-path ["label"]
+          :label-path ["value"]
           :options    [{"value" "accepted" "label" "Accepted"}
                        {"value" "completed" "label" "Completed"}
                        {"value" "deprecated" "label" "Deprecated"}
@@ -538,7 +538,7 @@
          {:form-id    [:form]
           :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
           :value-path ["value"]
-          :label-path ["label"]
+          :label-path ["value"]
           :options    [{"value" "continual" "label" "Continually"}
                        {"value" "daily" "label" "Daily"}
                        {"value" "weekly" "label" "Weekly"}
@@ -2011,7 +2011,7 @@
       [m4/select-option-simple
        {:form-id    [:form]
         :data-path  ["identificationInfo" "securityClassification"]
-        :label-path ["label"]
+        :label-path ["value"]
         :value-path ["value"]
         :options    [{"label" "Unclassified" "value" "unclassified"}
                      {"label" "Restricted" "value" "restricted"}
@@ -2280,7 +2280,7 @@ recorded in the standard citation."
       [m4/select-value
        {:form-id    ?form-id
         :data-path  [?data-path "transferOptions" "protocol"]
-        :label-path ["label"]
+        :label-path ["value"]
         :value-path ["uri"]
         :options    [{"label" "HTTP" "value" "WWW:DOWNLOAD-1.0-http--download"}
                      {"label" "OGC Web Coverage Service (WCS)" "value" "OGC:WCS-1.1.0-http-get-capabilities"}

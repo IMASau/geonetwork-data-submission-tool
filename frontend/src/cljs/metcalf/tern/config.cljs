@@ -2280,7 +2280,7 @@ recorded in the standard citation."
       [m4/select-value
        {:form-id    ?form-id
         :data-path  [?data-path "transferOptions" "protocol"]
-        :label-path ["value"]
+        :label-path ["label"]
         :value-path ["uri"]
         :options    [{"label" "HTTP" "value" "WWW:DOWNLOAD-1.0-http--download"}
                      {"label" "OGC Web Coverage Service (WCS)" "value" "OGC:WCS-1.1.0-http-get-capabilities"}

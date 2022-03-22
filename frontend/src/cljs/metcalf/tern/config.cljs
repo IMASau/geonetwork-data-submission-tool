@@ -2204,7 +2204,7 @@ recorded in the standard citation."
          :random-uuid-value? true
          :select-snapshot?   true
          :added-path         ["isUserDefined"]
-         :columns            [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol"] :flex 1}
+         :columns            [{:columnHeader "Protocol" :label-path ["transferOptions" "protocol" "label"] :flex 1}
                               {:columnHeader "Server" :label-path ["transferOptions" "linkage"] :flex 1}
                               {:columnHeader "Name" :label-path ["transferOptions" "name"] :flex 1}]}]]
 
@@ -2277,7 +2277,7 @@ recorded in the standard citation."
       {:form-id   ?form-id
        :data-path [?data-path "transferOptions" "protocol"]
        :label     "Protocol"}
-      [m4/select-value
+      [m4/select-option-simple
        {:form-id    ?form-id
         :data-path  [?data-path "transferOptions" "protocol"]
         :label-path ["label"]

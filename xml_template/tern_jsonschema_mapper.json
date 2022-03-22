@@ -218,9 +218,18 @@
                 "rules": ["requiredField"]
               },
               "protocol": {
+                "type": "object",
+                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:protocol",
                 "!docstring": "DataSource10",
-                "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:protocol/gco:CharacterString",
-                "type": "string",
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string",
+                    "xpath": "gco:CharacterString"
+                  }
+                },
                 "rules": ["requiredField"]
               },
               "name": {

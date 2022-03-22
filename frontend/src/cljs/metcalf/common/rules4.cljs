@@ -418,7 +418,8 @@
   "Not all data distributions have an applicable `layer' value; in those
   cases, the field should be disabled."
   [block]
-  (let [protocol (get-in block [:content "transferOptions" :content "protocol" :props :value])
+  (let [data (blocks4/as-data block)
+        protocol (get-in data ["transferOptions" "protocol" "value"])
         layer-name-required? (#{"OGC:WCS-1.1.0-http-get-capabilities" "OGC:WMS-1.3.0-http-get-map"} protocol)]
     (-> block
         (assoc-in [:content "transferOptions" :content "description" :props :disabled] (not layer-name-required?))

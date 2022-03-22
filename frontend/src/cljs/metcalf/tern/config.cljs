@@ -2288,7 +2288,7 @@ recorded in the standard citation."
                      {"label" "OGC Web Feature Service (WFS)" "value" "OGC:WFS-1.1.0-http-get-capabilities"}
                      {"label" "OPeNDAP" "value" "WWW:LINK-1.0-http--opendap"}
                      {"label" "FTP" "value" "FTP"}
-                     {"label" "Other/unknown" "value" "WWW:DOWNLOAD-1.0-http--downloaddata"}]}]]
+                     {"label" "Other/unknown" "value" "WWW:DOWNLOAD-1.0-http--download"}]}]]
 
      [m4/form-group
       {:form-id   ?form-id

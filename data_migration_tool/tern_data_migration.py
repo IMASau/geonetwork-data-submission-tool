@@ -54,12 +54,12 @@ input_data = json.loads(open(input_filepath, 'r').read())
 
 migrations_filepath = input('Please input the filepath to the list of migrations you wish to make (leave blank for default): ')
 if len(migrations_filepath) == 0:
-    migrations_filepath = 'migrations.json'
+    migrations_filepath = 'data_migration_tool/migrations.json'
 migrations = json.loads(open(migrations_filepath, 'r').read())
 
 output_filepath = input('Please input the filepath to where you wish to output the migrated data (leave blank for default): ')
 if len(output_filepath) == 0:
-    output_filepath = 'output.json'
+    output_filepath = 'data_migration_tool/output.json'
 
 output_data = {}
 

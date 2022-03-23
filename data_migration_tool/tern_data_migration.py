@@ -1,6 +1,19 @@
 import json
 import copy
 
+def topic_category(value):
+    return {
+        # 'uri': TODO
+        'label': value.capitalize(),
+        'value': value
+    }
+
+def topic_categories(value):
+    return [topic_category(v) for v in value]
+
+functions = {
+    'topicCategories': topic_categories
+}
 
 def get_data_at_path(data, path):
     data = copy.deepcopy(data)

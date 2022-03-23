@@ -53,7 +53,8 @@
 	},
 	{
 		"src": ["identificationInfo", "keywordsTheme", "keywords"],
-		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["uri"]]
+		"dst": ["identificationInfo", "keywordsTheme", "keywords"],
+		"fn": "keywordsTheme"
 	},
 	{
 		"src": ["identificationInfo", "dataParameters", ["serialNumber"]],

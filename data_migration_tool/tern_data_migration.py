@@ -5,14 +5,26 @@ def topic_category(value):
     return {
         # 'uri': TODO
         'label': value.capitalize(),
-        'value': value
+        'value': value,
     }
 
 def topic_categories(value):
     return [topic_category(v) for v in value]
 
+def keyword_theme(value):
+    return {
+        # 'breadcrumb': TODO,
+        # 'label': TODO,
+        'uri': value,
+        # 'broader_concept': TODO
+    }
+
+def keywords_theme(value):
+    return [keyword_theme(v) for v in value]
+
 functions = {
-    'topicCategories': topic_categories
+    'topicCategories': topic_categories,
+    'keywordsTheme': keywords_theme
 }
 
 def get_data_at_path(data, path):
@@ -67,7 +79,8 @@ def clear_empty_keys(data):
         data = [v for v in data if not (v == None or v == {} or v == [] or v == "")]
     return data
 
-input_filepath = input('Please input the filepath to the data you wish to migrate: ')
+# input_filepath = input('Please input the filepath to the data you wish to migrate: ')
+input_filepath = 'data_migration_tool/xgz.json'
 input_data = json.loads(open(input_filepath, 'r').read())
 
 migrations_filepath = input('Please input the filepath to the list of migrations you wish to make (leave blank for default): ')

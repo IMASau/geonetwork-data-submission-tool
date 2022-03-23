@@ -70,8 +70,7 @@ def clear_empty_keys(data):
 
 
 
-# filepath = input('Please input the filepath to the data you wish to migrate: ')
-filepath = '/Users/joshua/Documents/json/xgz.json'
+filepath = input('Please input the filepath to the data you wish to migrate: ')
 
 input = json.loads(open(filepath, 'r').read())
 

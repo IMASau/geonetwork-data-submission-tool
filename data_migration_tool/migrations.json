@@ -1,5 +1,5 @@
 [
-	{
+    {
 		"src": ["fileIdentifier"],
 		"dst": ["fileIdentifier"]
 	},
@@ -188,59 +188,59 @@
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "street_address"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["address", "administrativeArea"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "city"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "city"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["address", "postalCode"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "administrativeArea"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "address_region"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["address", "country"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "postalCode"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "postcode"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["individualName"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "country"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "country"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["phone"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["individualName"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "canonical_name"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["isUserAdded"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["phone"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "phone"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["facsimile"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["isUserAdded"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["isUserDefined"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["orcid"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["facsimile"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "fax"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["familyName"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["orcid"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "orcid"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["organisationIdentifier"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["familyName"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "surname"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["electronicMailAddress"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["organisationIdentifier"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "uri"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["givenName"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["electronicMailAddress"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "email"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["uri"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["givenName"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "given_name"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["organisationName"]],
+		"src": ["identificationInfo", "citedResponsibleParty", ["uri"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "uri"]]
 	},
 	{
@@ -280,59 +280,59 @@
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "street_address"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["address", "administrativeArea"]],
+		"src": ["identificationInfo", "pointOfContact", ["address", "city"]],
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "city"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["address", "postalCode"]],
+		"src": ["identificationInfo", "pointOfContact", ["address", "administrativeArea"]],
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "address_region"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["address", "country"]],
+		"src": ["identificationInfo", "pointOfContact", ["address", "postalCode"]],
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "postcode"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["individualName"]],
+		"src": ["identificationInfo", "pointOfContact", ["address", "country"]],
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "country"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["phone"]],
+		"src": ["identificationInfo", "pointOfContact", ["individualName"]],
 		"dst": ["identificationInfo", "pointOfContact", ["contact", "canonical_name"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["isUserAdded"]],
+		"src": ["identificationInfo", "pointOfContact", ["phone"]],
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "phone"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["facsimile"]],
+		"src": ["identificationInfo", "pointOfContact", ["isUserAdded"]],
 		"dst": ["identificationInfo", "pointOfContact", ["isUserDefined"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["orcid"]],
+		"src": ["identificationInfo", "pointOfContact", ["facsimile"]],
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "fax"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["familyName"]],
+		"src": ["identificationInfo", "pointOfContact", ["orcid"]],
 		"dst": ["identificationInfo", "pointOfContact", ["contact", "orcid"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["organisationIdentifier"]],
+		"src": ["identificationInfo", "pointOfContact", ["familyName"]],
 		"dst": ["identificationInfo", "pointOfContact", ["contact", "surname"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["electronicMailAddress"]],
+		"src": ["identificationInfo", "pointOfContact", ["organisationIdentifier"]],
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "uri"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["givenName"]],
+		"src": ["identificationInfo", "pointOfContact", ["electronicMailAddress"]],
 		"dst": ["identificationInfo", "pointOfContact", ["contact", "email"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["uri"]],
+		"src": ["identificationInfo", "pointOfContact", ["givenName"]],
 		"dst": ["identificationInfo", "pointOfContact", ["contact", "given_name"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["organisationName"]],
+		"src": ["identificationInfo", "pointOfContact", ["uri"]],
 		"dst": ["identificationInfo", "pointOfContact", ["contact", "uri"]]
 	},
 	{

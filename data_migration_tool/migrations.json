@@ -267,7 +267,8 @@
 	},
 	{
 		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
-		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["uri"]]
+		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
+		"fn": "keywordsTheme"
 	},
 	{
 		"src": ["identificationInfo", "maintenanceAndUpdateFrequency"],

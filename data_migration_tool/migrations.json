@@ -253,7 +253,8 @@
 	},
 	{
 		"src": ["identificationInfo", "topicCategory"],
-		"dst": ["identificationInfo", "topicCategory"]
+		"dst": ["identificationInfo", "topicCategories"],
+		"fn": "topicCategories"
 	},
 	{
 		"src": ["identificationInfo", "supplementalInformation"],

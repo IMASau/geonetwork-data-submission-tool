@@ -1,0 +1,354 @@
+[
+	{
+		"src": ["fileIdentifier"],
+		"dst": ["fileIdentifier"]
+	},
+	{
+		"src": ["resourceLineage", "lineage"],
+		"dst": ["resourceLineage", "statement"]
+	},
+	{
+		"src": ["resourceLineage", "processStep", ["name"]],
+		"dst": ["resourceLineage", "onlineMethods", ["title"]]
+	},
+	{
+		"src": ["resourceLineage", "processStep", ["uri"]],
+		"dst": ["resourceLineage", "onlineMethods", ["uri"]]
+	},
+	{
+		"src": ["dataSources", ["description"]],
+		"dst": ["dataSources", ["transferOptions", "description"]]
+	},
+	{
+		"src": ["dataSources", ["name"]],
+		"dst": ["dataSources", ["transferOptions", "name"]]
+	},
+	{
+		"src": ["dataSources", ["protocol"]],
+		"dst": ["dataSources", ["transferOptions", "protocol"]]
+	},
+	{
+		"src": ["dataSources", ["url"]],
+		"dst": ["dataSources", ["transferOptions", "linkage"]]
+	},
+	{
+		"src": ["attachments", ["file"]],
+		"dst": ["attachments", ["file"]]
+	},
+	{
+		"src": ["attachments", ["name"]],
+		"dst": ["attachments", ["name"]]
+	},
+	{
+		"src": ["attachments", ["delete_url"]],
+		"dst": ["attachments", ["delete_url"]]
+	},
+	{
+		"src": ["dataQualityInfo", "methods"],
+		"dst": ["dataQualityInfo", "methodSummary"]
+	},
+	{
+		"src": ["dataQualityInfo", "results"],
+		"dst": ["dataQualityInfo", "results"]
+	},
+	{
+		"src": ["identificationInfo", "keywordsTheme", "keywords"],
+		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["serialNumber"]],
+		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["serial"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["platform_term"]],
+		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["label"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["platform_termDefinition"]],
+		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["description"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["platform_vocabularyTermURL"]],
+		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["platform_vocabularyVersion"]],
+		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["source"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["instrument_term"]],
+		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["label"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["instrument_termDefinition"]],
+		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["description"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["instrument_vocabularyTermURL"]],
+		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["instrument_vocabularyVersion"]],
+		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["source"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["longName_term"]],
+		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["label"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["longName_termDefinition"]],
+		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["description"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["longName_vocabularyTermURL"]],
+		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["longName_vocabularyVersion"]],
+		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["source"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["unit_term"]],
+		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["unit", "label"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["unit_termDefinition"]],
+		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["unit", "description"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["unit_vocabularyTermURL"]],
+		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["unit", "uri"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["unit_vocabularyVersion"]],
+		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["unit", "source"]]
+	},
+	{
+		"src": ["identificationInfo", "horizontalResolution", ["prefLabel"]],
+		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", ["label"]]
+	},
+	{
+		"src": ["identificationInfo", "horizontalResolution", ["uri"]],
+		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "endPosition"],
+		"dst": ["identificationInfo", "endPosition"]
+	},
+	{
+		"src": ["identificationInfo", "verticalElement", "minimumValue"],
+		"dst": ["identificationInfo", "verticalElement", "minimumValue"]
+	},
+	{
+		"src": ["identificationInfo", "verticalElement", "maximumValue"],
+		"dst": ["identificationInfo", "verticalElement", "maximumValue"]
+	},
+	{
+		"src": ["identificationInfo", "purpose"],
+		"dst": ["identificationInfo", "purpose"]
+	},
+	{
+		"src": ["identificationInfo", "abstract"],
+		"dst": ["identificationInfo", "abstract"]
+	},
+	{
+		"src": ["identificationInfo", "dateCreation"],
+		"dst": ["identificationInfo", "dateCreation"]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "siteDescription"],
+		"dst": ["identificationInfo", "geographicElement", "siteDescription"]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "boxes", ["northBoundLatitude"]],
+		"dst": ["identificationInfo", "geographicElement", "boxes", ["northBoundLatitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "boxes", ["southBoundLatitude"]],
+		"dst": ["identificationInfo", "geographicElement", "boxes", ["southBoundLatitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "boxes", ["eastBoundLongitude"]],
+		"dst": ["identificationInfo", "geographicElement", "boxes", ["eastBoundLongitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "boxes", ["westBoundLongitude"]],
+		"dst": ["identificationInfo", "geographicElement", "boxes", ["westBoundLongitude"]]
+	},
+	{
+		"src": ["identificationInfo", "title"],
+		"dst": ["identificationInfo", "title"]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["role", "Identifier"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "deliveryPoint2"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "street_address"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "administrativeArea"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "city"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "postalCode"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "address_region"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "country"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "postcode"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["individualName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "country"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["phone"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "canonical_name"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["isUserAdded"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "phone"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["facsimile"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["isUserDefined"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["orcid"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "fax"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["familyName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "orcid"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["organisationIdentifier"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "surname"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["electronicMailAddress"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "uri"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["givenName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "email"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["uri"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "given_name"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["organisationName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "uri"]]
+	},
+	{
+		"src": ["identificationInfo", "datePublication"],
+		"dst": ["identificationInfo", "datePublication"]
+	},
+	{
+		"src": ["identificationInfo", "status"],
+		"dst": ["identificationInfo", "status"]
+	},
+	{
+		"src": ["identificationInfo", "topicCategory"],
+		"dst": ["identificationInfo", "topicCategory"]
+	},
+	{
+		"src": ["identificationInfo", "supplementalInformation"],
+		"dst": ["identificationInfo", "supplementalInformation"]
+	},
+	{
+		"src": ["identificationInfo", "keywordsThemeExtra", "keywords"],
+		"dst": ["identificationInfo", "keywordsAdditional", "keywords"]
+	},
+	{
+		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
+		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "maintenanceAndUpdateFrequency"],
+		"dst": ["identificationInfo", "maintenanceAndUpdateFrequency"]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["role"]],
+		"dst": ["identificationInfo", "pointOfContact", ["role", "Identifier"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "deliveryPoint2"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "street_address"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "administrativeArea"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "city"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "postalCode"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "address_region"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "country"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "postcode"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["individualName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "country"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["phone"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "canonical_name"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["isUserAdded"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "phone"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["facsimile"]],
+		"dst": ["identificationInfo", "pointOfContact", ["isUserDefined"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["orcid"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "fax"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["familyName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "orcid"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["organisationIdentifier"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "surname"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["electronicMailAddress"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "uri"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["givenName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "email"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["uri"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "given_name"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["organisationName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "uri"]]
+	},
+	{
+		"src": ["identificationInfo", "useLimitations"],
+		"dst": ["identificationInfo", "useLimitations"]
+	},
+	{
+		"src": ["identificationInfo", "samplingFrequency", ["prefLabel"]],
+		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "label"]
+	},
+	{
+		"src": ["identificationInfo", "samplingFrequency", ["uri"]],
+		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "uri"]
+	},
+	{
+		"src": ["identificationInfo", "beginPosition"],
+		"dst": ["identificationInfo", "beginPosition"]
+	}
+]

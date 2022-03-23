@@ -37,6 +37,11 @@ def migrate_data(input, output, migration):
     src = migration['src']
     dst = migration['dst']
     value = get_data_at_path(input, src)
+
+    if 'fn' in migration.keys():
+        fn = functions[migration['fn']]
+        value = fn(value)
+
     return set_data_at_path(output, dst, value)
 
 def clear_empty_keys(data):

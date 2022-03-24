@@ -286,6 +286,11 @@
 		"dst": ["identificationInfo", "datePublication"]
 	},
 	{
+		"src": ["identificationInfo", "datePublication"],
+		"dst": ["identificationInfo", "datePublicationFlag"],
+		"fn": "exists"
+	},
+	{
 		"src": ["identificationInfo", "status"],
 		"dst": ["identificationInfo", "status"]
 	},

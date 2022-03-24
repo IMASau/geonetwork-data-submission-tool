@@ -425,6 +425,16 @@
         (assoc-in [:content "transferOptions" :content "description" :props :disabled] (not layer-name-required?))
         (update-in [:content "transferOptions" :content "description"] required-field (boolean layer-name-required?)))))
 
+(defn imas-data-source-placeholder
+  "Customisable placeholder text, only present for WMS/WFS"
+  [block {:keys [server layer]}]
+  (let [protocol (get-in block [:content "protocol" :props :value])
+        placeholder-needed? (#{"OGC:WFS-1.0.0-http-get-capabilities" "OGC:WMS-1.3.0-http-get-map"} protocol)]
+    (if placeholder-needed?
+      (-> block
+          (assoc-in [:content "linkage" :props :placeholder] server)
+          (assoc-in [:content "name" :props :placeholder] layer)))))
+
 ;;; TODO: generalise the following two^Wthree default-value rules
 (defn default-distributor
   [block distributor-data]

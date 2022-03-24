@@ -708,6 +708,12 @@
             "deleteWhenEmpty": false,
             "rules": [
               {
+                "datasourcePlaceholder": {
+                  "server": "eg https://geoserver.imas.utas.edu.au/geoserver/wms",
+                  "layer": "eg store:my_map_layer"
+                }
+              },
+              {
                 "imasTransferOptionLayer": {
                   "excludeValues": [
                     "WWW:LINK-1.0-http--downloaddata"

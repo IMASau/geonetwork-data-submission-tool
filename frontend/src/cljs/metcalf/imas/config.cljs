@@ -148,6 +148,7 @@
        "geographyRequired"       rules4/imas-geography-required
        "imasVerticalRequired"    rules4/imas-vertical-required
        "imasTransferOptionLayer" rules4/imas-transfer-option-layer
+       "datasourcePlaceholder"   rules4/imas-data-source-placeholder
        "licenseOther"            rules4/license-other
        "numericOrder"            rules4/numeric-order
        "dateOrder"               rules4/date-order

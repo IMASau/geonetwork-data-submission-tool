@@ -13,7 +13,7 @@
 	},
 	{
 		"src": ["resourceLineage", "processStep", ["uri"]],
-		"dst": ["resourceLineage", "onlineMethods", ["uri"]]
+		"dst": ["resourceLineage", "onlineMethods", ["url"]]
 	},
 	{
 		"src": ["dataSources", ["description"]],

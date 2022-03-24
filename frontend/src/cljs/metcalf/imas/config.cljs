@@ -326,6 +326,7 @@
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "keywordsTheme" "keywords"]
+       :required  true
        :label     "Research theme keywords"}
 
       [:div "Select up to 12 research theme keywords describing your data"]

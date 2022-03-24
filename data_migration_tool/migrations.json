@@ -423,5 +423,10 @@
 	{
 		"src": ["identificationInfo", "beginPosition"],
 		"dst": ["identificationInfo", "beginPosition"]
+	},
+	{
+		"src": ["identificationInfo"],
+		"dst": ["identificationInfo", "referenceSystemInfo"],
+		"fn": "todo"
 	}
 ]

@@ -21,7 +21,10 @@ def get_data_at_path(data, path):
         if type(key) is list:
             return [get_data_at_path(d, key) for d in data]
         else:
-            return get_data_at_path(data[key], path)
+            if not (type(data) is list and key >= len(data)):
+                return get_data_at_path(data[key], path)
+            else:
+                return None
     else:
         return data
 

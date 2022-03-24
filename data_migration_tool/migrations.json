@@ -376,29 +376,20 @@
 		"dst": ["identificationInfo", "useLimitations"]
 	},
 	{
-		"src": ["identificationInfo", "samplingFrequency", ["prefLabel"]],
+		"src": ["identificationInfo", "samplingFrequency", 0, "prefLabel"],
 		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "label"]
 	},
 	{
-		"src": ["identificationInfo", "samplingFrequency", ["uri"]],
+		"src": ["identificationInfo", "samplingFrequency", 0, "uri"],
 		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "uri"]
 	},
 	{
-		"src": ["identificationInfo", "samplingFrequency", "keywords"],
+		"src": ["identificationInfo", "samplingFrequency"],
 		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "breadcrumb"],
 		"fn": "todo"
 	},
 	{
-		"src": ["identificationInfo", "samplingFrequency", "keywords"],
-		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "label"],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "samplingFrequency", "keywords"],
-		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "uri"]
-	},
-	{
-		"src": ["identificationInfo", "samplingFrequency", "keywords"],
+		"src": ["identificationInfo", "samplingFrequency"],
 		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "broader_concept"],
 		"fn": "todo"
 	},

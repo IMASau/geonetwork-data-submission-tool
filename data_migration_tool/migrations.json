@@ -108,35 +108,31 @@
 	},
 	{
 		"src": ["identificationInfo", "dataParameters", ["longName_term"]],
-		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["label"]]
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "label"]]
 	},
 	{
 		"src": ["identificationInfo", "dataParameters", ["longName_termDefinition"]],
-		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["description"]]
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "description"]]
 	},
 	{
 		"src": ["identificationInfo", "dataParameters", ["longName_vocabularyTermURL"]],
-		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["uri"]]
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "uri"]]
 	},
 	{
 		"src": ["identificationInfo", "dataParameters", ["longName_vocabularyVersion"]],
-		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["source"]]
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "source"]]
 	},
 	{
 		"src": ["identificationInfo", "dataParameters", ["unit_term"]],
-		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["unit", "label"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["unit_termDefinition"]],
-		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["unit", "description"]]
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["unit", "label"]]
 	},
 	{
 		"src": ["identificationInfo", "dataParameters", ["unit_vocabularyTermURL"]],
-		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["unit", "uri"]]
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["unit", "uri"]]
 	},
 	{
 		"src": ["identificationInfo", "dataParameters", ["unit_vocabularyVersion"]],
-		"dst": ["identificationInfo", "keywordsParameters", "keywords", ["unit", "source"]]
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["unit", "source"]]
 	},
 	{
 		"src": ["identificationInfo", "horizontalResolution", ["prefLabel"]],

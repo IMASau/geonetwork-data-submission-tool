@@ -1,30 +1,15 @@
 import json
 import copy
 
-def topic_category(value):
-    return {
-        # 'uri': TODO
-        'label': value.capitalize(),
-        'value': value,
-    }
+def todo(value):
+    return None
 
-def topic_categories(value):
-    return [topic_category(v) for v in value]
-
-def keyword_theme(value):
-    return {
-        # 'breadcrumb': TODO,
-        # 'label': TODO,
-        'uri': value,
-        # 'broader_concept': TODO
-    }
-
-def keywords_theme(value):
-    return [keyword_theme(v) for v in value]
+def my_capitalize(value):
+    return value.capitalize()
 
 functions = {
-    'topicCategories': topic_categories,
-    'keywordsTheme': keywords_theme
+    'todo': todo,
+    'capitalize': my_capitalize
 }
 
 def get_data_at_path(data, path):

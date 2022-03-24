@@ -53,8 +53,22 @@
 	},
 	{
 		"src": ["identificationInfo", "keywordsTheme", "keywords"],
-		"dst": ["identificationInfo", "keywordsTheme", "keywords"],
-		"fn": "keywordsTheme"
+		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["breadcrumb"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "keywordsTheme", "keywords"],
+		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["label"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "keywordsTheme", "keywords"],
+		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "keywordsTheme", "keywords"],
+		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["broader_concept"]],
+		"fn": "todo"
 	},
 	{
 		"src": ["identificationInfo", "dataParameters", ["serialNumber"]],
@@ -254,8 +268,17 @@
 	},
 	{
 		"src": ["identificationInfo", "topicCategory"],
-		"dst": ["identificationInfo", "topicCategories"],
-		"fn": "topicCategories"
+		"dst": ["identificationInfo", "topicCategories", ["value"]]
+	},
+	{
+		"src": ["identificationInfo", "topicCategory"],
+		"dst": ["identificationInfo", "topicCategories", ["label"]],
+		"fn": "capitalize"
+	},
+	{
+		"src": ["identificationInfo", "topicCategory"],
+		"dst": ["identificationInfo", "topicCategories", ["uri"]],
+		"fn": "todo"
 	},
 	{
 		"src": ["identificationInfo", "supplementalInformation"],
@@ -267,8 +290,22 @@
 	},
 	{
 		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
-		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
-		"fn": "keywordsTheme"
+		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["breadcrumb"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
+		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["label"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
+		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
+		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["broader_concept"]],
+		"fn": "todo"
 	},
 	{
 		"src": ["identificationInfo", "maintenanceAndUpdateFrequency"],

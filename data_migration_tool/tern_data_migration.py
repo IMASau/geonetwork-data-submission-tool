@@ -33,12 +33,16 @@ def parse_num(value):
     except:
         return value
 
+def exists(value):
+    return value != None and value != ""
+
 functions = {
     'todo': todo,
     'capitalize': my_capitalize,
     'flora': flora,
     'fauna': fauna,
-    'parseNum': parse_num
+    'parseNum': parse_num,
+    'exists': exists
 }
 
 def get_data_at_path(data, path):

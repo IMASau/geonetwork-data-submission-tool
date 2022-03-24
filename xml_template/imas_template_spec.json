@@ -607,6 +607,7 @@
         "credits": {
           "!docstring": "Who17",
           "xpath": "mri:credit",
+          "keep": false,
           "type": "array",
           "items": {
             "xpath": "gco:CharacterString",
@@ -674,7 +675,9 @@
           "type": "object",
           "properties": {
             "title": {
+              "!docstring": "About9",
               "xpath": "cit:title",
+              "keep": false,
               "rules": [
                 {
                   "maxLength": 100
@@ -684,7 +687,9 @@
               "type": "string"
             },
             "edition": {
+              "!docstring": "About10",
               "xpath": "cit:edition",
+              "keep": false,
               "rules": [
                 {
                   "maxLength": 20

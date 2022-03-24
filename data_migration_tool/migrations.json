@@ -384,6 +384,25 @@
 		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "uri"]
 	},
 	{
+		"src": ["identificationInfo", "samplingFrequency", "keywords"],
+		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "breadcrumb"],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "samplingFrequency", "keywords"],
+		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "label"],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "samplingFrequency", "keywords"],
+		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "uri"]
+	},
+	{
+		"src": ["identificationInfo", "samplingFrequency", "keywords"],
+		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "broader_concept"],
+		"fn": "todo"
+	},
+	{
 		"src": ["identificationInfo", "beginPosition"],
 		"dst": ["identificationInfo", "beginPosition"]
 	}

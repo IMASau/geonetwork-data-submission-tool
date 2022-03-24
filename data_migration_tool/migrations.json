@@ -52,6 +52,16 @@
 		"dst": ["dataQualityInfo", "results"]
 	},
 	{
+		"src": ["identificationInfo", "keywordsTaxonExtra", "keywords"],
+		"dst": ["identificationInfo", "keywordsFlora", "keywords"],
+		"fn": "flora"
+	},
+	{
+		"src": ["identificationInfo", "keywordsTaxonExtra", "keywords"],
+		"dst": ["identificationInfo", "keywordsFauna", "keywords"],
+		"fn": "fauna"
+	},
+	{
 		"src": ["identificationInfo", "keywordsTheme", "keywords"],
 		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["breadcrumb"]],
 		"fn": "todo"

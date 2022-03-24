@@ -7,9 +7,30 @@ def todo(value):
 def my_capitalize(value):
     return value.capitalize()
 
+def flora(value):
+    # TODO: treats every taxon keyword as flora (when it could be fauna)
+    return [{
+        # 'uri': TODO,
+        # 'acceptedNameUsage': TODO,
+        'label': v,
+        # 'altLabel': TODO
+    } for v in value]
+
+def fauna(value):
+    # TODO: treats every taxon keyword as fauna (when it could be flora)
+    return [{
+        'label': v,
+        # 'uri': TODO,
+        # 'broader_uri': TODO,
+        # 'has_children': TODO,
+        # 'breadcrumb': TODO
+    } for v in value]
+
 functions = {
     'todo': todo,
-    'capitalize': my_capitalize
+    'capitalize': my_capitalize,
+    'flora': flora,
+    'fauna': fauna
 }
 
 def get_data_at_path(data, path):

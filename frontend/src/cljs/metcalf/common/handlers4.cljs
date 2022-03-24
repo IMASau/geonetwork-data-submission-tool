@@ -433,7 +433,17 @@
   [{:keys [db]} [_ config data]]
   (let [{:keys [acceptedFiles rejectedFiles]} data
         file-errors (map (fn [{:keys [file errors]}]
-                           (str (.-name file) " (" (-> errors first :message) ")"))
+                           ;; Hack here; we want to display an
+                           ;; accurate error, but Dropzone displays
+                           ;; "larger than 104857600 bytes", so we'll
+                           ;; risk hard-coding the size. If it's not a
+                           ;; too-big error, just use the dropzone
+                           ;; message:
+                           (let [err (first errors)
+                                 msg (if (= (:code err) "file-too-large")
+                                       "File is larger than 100MB"
+                                       (:message err))]
+                             (str (.-name file) " (" msg ")")))
                          rejectedFiles)
         doc-uuid (get-in db [:context :document :uuid])]
     (if (seq file-errors)

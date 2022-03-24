@@ -485,6 +485,19 @@
 		"fn": "todo"
 	},
 	{
+		"src": ["identificationInfo", "pointOfContact", ["uri"]],
+		"dst": ["identificationInfo", "pointOfContact", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["isUserAdded"]],
+		"dst": ["identificationInfo", "pointOfContact", ["isUserDefined"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["partyType"]],
+		"fn": "partyType"
+	},
+	{
 		"src": ["identificationInfo", "useLimitations"],
 		"dst": ["identificationInfo", "useLimitations"]
 	},

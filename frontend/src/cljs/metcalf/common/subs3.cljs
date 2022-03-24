@@ -56,8 +56,10 @@
 
 (defn get-progress-props
   [form-state _]
-  (let [{:progress/keys [fields empty errors]} (:progress/score form-state)
+  (let [{:progress/keys [fields required required-errors errors]
+         :or            {errors 0 required-errors 0}}
+        (:progress/score form-state)
         can-submit? (= errors 0)]
     (when (pos-int? fields)
       {:can-submit? can-submit?
-       :value       (/ (- fields empty) fields)})))
+       :value       (/ (- required required-errors) required)})))

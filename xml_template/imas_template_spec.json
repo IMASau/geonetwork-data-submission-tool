@@ -136,14 +136,11 @@
           ]
         },
         "datePublication": {
-          "!docstring": "FIXME -- needed? ID8",
+          "!docstring": "ID8 -- populated by backend",
           "type": "string",
           "xpath": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]",
           "valueChild": "cit:CI_Date/cit:date/gco:DateTime",
-          "keep": false,
-          "rules": [
-            "requiredField"
-          ]
+          "keep": false
         },
         "abstract": {
           "!docstring": "What1",

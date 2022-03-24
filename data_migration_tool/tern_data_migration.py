@@ -58,6 +58,20 @@ def set_data_at_path(data, path, value):
             data[key] = value
     return data
 
+
+def depth(path):
+    if (type(path[-1]) is list):
+        return depth(path[-1]) + 1
+    else:
+        return 0
+
+def apply(value, fn, depth):
+    value = copy.deepcopy(value)
+    if depth == 0:
+        return fn(value)
+    else:
+        return [apply(v, fn, depth - 1) for v in value]
+
 def migrate_data(input, output, migration):
     src = migration['src']
     dst = migration['dst']
@@ -65,7 +79,7 @@ def migrate_data(input, output, migration):
 
     if 'fn' in migration.keys():
         fn = functions[migration['fn']]
-        value = fn(value)
+        value = apply(value, fn, depth(dst))
 
     return set_data_at_path(output, dst, value)
 

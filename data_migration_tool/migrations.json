@@ -431,6 +431,60 @@
 		"fn": "todo"
 	},
 	{
+		"src": ["identificationInfo", "pointOfContact", ["individualName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "canonical_name"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["orcid"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "orcid"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["electronicMailAddress"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "email"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["isUserAdded"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "isUserDefined"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["familyName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "surname"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["givenName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "given_name"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "name"]],
+		"fn": "name"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "uri"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "userAddedCategory"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "duma_path"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "date_modified"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "date_created"]],
+		"fn": "todo"
+	},
+	{
 		"src": ["identificationInfo", "useLimitations"],
 		"dst": ["identificationInfo", "useLimitations"]
 	},

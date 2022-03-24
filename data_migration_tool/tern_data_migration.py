@@ -39,6 +39,9 @@ def exists(value):
 def full_address_line(value):
     return f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}"
 
+def name(value):
+    return f"{value['givenName']} {value['familyName']}"
+
 functions = {
     'todo': todo,
     'capitalize': my_capitalize,
@@ -46,7 +49,8 @@ functions = {
     'fauna': fauna,
     'parseNum': parse_num,
     'exists': exists,
-    'fullAddressLine': full_address_line
+    'fullAddressLine': full_address_line,
+    'name': name
 }
 
 def get_data_at_path(data, path):

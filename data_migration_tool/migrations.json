@@ -1,0 +1,432 @@
+[
+    {
+		"src": ["fileIdentifier"],
+		"dst": ["fileIdentifier"]
+	},
+	{
+		"src": ["resourceLineage", "lineage"],
+		"dst": ["resourceLineage", "statement"]
+	},
+	{
+		"src": ["resourceLineage", "processStep", ["name"]],
+		"dst": ["resourceLineage", "onlineMethods", ["title"]]
+	},
+	{
+		"src": ["resourceLineage", "processStep", ["uri"]],
+		"dst": ["resourceLineage", "onlineMethods", ["uri"]]
+	},
+	{
+		"src": ["dataSources", ["description"]],
+		"dst": ["dataSources", ["transferOptions", "description"]]
+	},
+	{
+		"src": ["dataSources", ["name"]],
+		"dst": ["dataSources", ["transferOptions", "name"]]
+	},
+	{
+		"src": ["dataSources", ["protocol"]],
+		"dst": ["dataSources", ["transferOptions", "protocol"]]
+	},
+	{
+		"src": ["dataSources", ["url"]],
+		"dst": ["dataSources", ["transferOptions", "linkage"]]
+	},
+	{
+		"src": ["attachments", ["file"]],
+		"dst": ["attachments", ["file"]]
+	},
+	{
+		"src": ["attachments", ["name"]],
+		"dst": ["attachments", ["name"]]
+	},
+	{
+		"src": ["attachments", ["delete_url"]],
+		"dst": ["attachments", ["delete_url"]]
+	},
+	{
+		"src": ["dataQualityInfo", "methods"],
+		"dst": ["dataQualityInfo", "methodSummary"]
+	},
+	{
+		"src": ["dataQualityInfo", "results"],
+		"dst": ["dataQualityInfo", "results"]
+	},
+	{
+		"src": ["identificationInfo", "keywordsTaxonExtra", "keywords"],
+		"dst": ["identificationInfo", "keywordsFlora", "keywords"],
+		"fn": "flora"
+	},
+	{
+		"src": ["identificationInfo", "keywordsTaxonExtra", "keywords"],
+		"dst": ["identificationInfo", "keywordsFauna", "keywords"],
+		"fn": "fauna"
+	},
+	{
+		"src": ["identificationInfo", "keywordsTheme", "keywords"],
+		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["breadcrumb"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "keywordsTheme", "keywords"],
+		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["label"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "keywordsTheme", "keywords"],
+		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "keywordsTheme", "keywords"],
+		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["broader_concept"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["serialNumber"]],
+		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["serial"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["platform_term"]],
+		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["label"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["platform_termDefinition"]],
+		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["description"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["platform_vocabularyTermURL"]],
+		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["platform_vocabularyVersion"]],
+		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["source"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["instrument_term"]],
+		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["label"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["instrument_termDefinition"]],
+		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["description"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["instrument_vocabularyTermURL"]],
+		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["instrument_vocabularyVersion"]],
+		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["source"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["longName_term"]],
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "label"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["longName_termDefinition"]],
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "description"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["longName_vocabularyTermURL"]],
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "uri"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["longName_vocabularyVersion"]],
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "source"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["unit_term"]],
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["unit", "label"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["unit_vocabularyTermURL"]],
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["unit", "uri"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["unit_vocabularyVersion"]],
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["unit", "source"]]
+	},
+	{
+		"src": ["identificationInfo", "horizontalResolution", 0, "prefLabel"],
+		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", "label"]
+	},
+	{
+		"src": ["identificationInfo", "horizontalResolution", 0, "uri"],
+		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", "uri"]
+	},
+	{
+		"src": ["identificationInfo", "horizontalResolution"],
+		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", "breadcrumb"],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "horizontalResolution"],
+		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", "broader_concept"],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "endPosition"],
+		"dst": ["identificationInfo", "endPosition"]
+	},
+	{
+		"src": ["identificationInfo", "verticalElement", "minimumValue"],
+		"dst": ["identificationInfo", "verticalElement", "minimumValue"],
+		"fn": "parseNum"
+	},
+	{
+		"src": ["identificationInfo", "verticalElement", "maximumValue"],
+		"dst": ["identificationInfo", "verticalElement", "maximumValue"],
+		"fn": "parseNum"
+	},
+	{
+		"src": ["identificationInfo", "verticalElement"],
+		"dst": ["identificationInfo", "verticalElement", "coordinateReferenceSystem"],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "purpose"],
+		"dst": ["identificationInfo", "purpose"]
+	},
+	{
+		"src": ["identificationInfo", "abstract"],
+		"dst": ["identificationInfo", "abstract"]
+	},
+	{
+		"src": ["identificationInfo", "dateCreation"],
+		"dst": ["identificationInfo", "dateCreation"]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "siteDescription"],
+		"dst": ["identificationInfo", "geographicElement", "siteDescription"]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "boxes", ["northBoundLatitude"]],
+		"dst": ["identificationInfo", "geographicElement", "boxes", ["northBoundLatitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "boxes", ["southBoundLatitude"]],
+		"dst": ["identificationInfo", "geographicElement", "boxes", ["southBoundLatitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "boxes", ["eastBoundLongitude"]],
+		"dst": ["identificationInfo", "geographicElement", "boxes", ["eastBoundLongitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "boxes", ["westBoundLongitude"]],
+		"dst": ["identificationInfo", "geographicElement", "boxes", ["westBoundLongitude"]]
+	},
+	{
+		"src": ["identificationInfo", "title"],
+		"dst": ["identificationInfo", "title"]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["role", "Identifier"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "deliveryPoint2"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "street_address"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "city"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "city"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "administrativeArea"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "address_region"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "postalCode"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "postcode"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "country"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "country"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["individualName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "canonical_name"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["phone"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "phone"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["isUserAdded"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["isUserDefined"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["facsimile"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "fax"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["orcid"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "orcid"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["familyName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "surname"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["organisationIdentifier"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "uri"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["electronicMailAddress"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "email"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["givenName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "given_name"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["uri"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "uri"]]
+	},
+	{
+		"src": ["identificationInfo", "datePublication"],
+		"dst": ["identificationInfo", "datePublication"]
+	},
+	{
+		"src": ["identificationInfo", "status"],
+		"dst": ["identificationInfo", "status"]
+	},
+	{
+		"src": ["identificationInfo", "topicCategory"],
+		"dst": ["identificationInfo", "topicCategories", ["value"]]
+	},
+	{
+		"src": ["identificationInfo", "topicCategory"],
+		"dst": ["identificationInfo", "topicCategories", ["label"]],
+		"fn": "capitalize"
+	},
+	{
+		"src": ["identificationInfo", "topicCategory"],
+		"dst": ["identificationInfo", "topicCategories", ["uri"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "supplementalInformation"],
+		"dst": ["identificationInfo", "supplementalInformation"]
+	},
+	{
+		"src": ["identificationInfo", "keywordsThemeExtra", "keywords"],
+		"dst": ["identificationInfo", "keywordsAdditional", "keywords"]
+	},
+	{
+		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
+		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["breadcrumb"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
+		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["label"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
+		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
+		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["broader_concept"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "maintenanceAndUpdateFrequency"],
+		"dst": ["identificationInfo", "maintenanceAndUpdateFrequency"]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["role"]],
+		"dst": ["identificationInfo", "pointOfContact", ["role", "Identifier"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "deliveryPoint2"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "street_address"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "city"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "city"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "administrativeArea"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "address_region"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "postalCode"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "postcode"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "country"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "country"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["individualName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "canonical_name"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["phone"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "phone"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["isUserAdded"]],
+		"dst": ["identificationInfo", "pointOfContact", ["isUserDefined"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["facsimile"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "fax"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["orcid"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "orcid"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["familyName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "surname"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["organisationIdentifier"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "uri"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["electronicMailAddress"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "email"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["givenName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "given_name"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["uri"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "uri"]]
+	},
+	{
+		"src": ["identificationInfo", "useLimitations"],
+		"dst": ["identificationInfo", "useLimitations"]
+	},
+	{
+		"src": ["identificationInfo", "samplingFrequency", 0, "prefLabel"],
+		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "label"]
+	},
+	{
+		"src": ["identificationInfo", "samplingFrequency", 0, "uri"],
+		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "uri"]
+	},
+	{
+		"src": ["identificationInfo", "samplingFrequency"],
+		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "breadcrumb"],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "samplingFrequency"],
+		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "broader_concept"],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "beginPosition"],
+		"dst": ["identificationInfo", "beginPosition"]
+	},
+	{
+		"src": ["identificationInfo"],
+		"dst": ["identificationInfo", "referenceSystemInfo"],
+		"fn": "todo"
+	}
+]

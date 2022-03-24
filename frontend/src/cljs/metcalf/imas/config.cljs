@@ -185,6 +185,7 @@
        'm4/item-add-button                     {:view #'components4/item-add-button :init components4/item-add-button-settings}
        'm4/item-dialog-button                  {:view #'components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/edit-dialog                         {:view #'components4/edit-dialog :init components4/edit-dialog-settings}
+       'm4/edit-dialog2                        {:view #'components4/edit-dialog2 :init components4/edit-dialog2-settings}
        'm4/list-add-button                     {:view #'components4/list-add-button3 :init components4/list-add-button3-settings}
        'm4/value-list-add-button               {:view #'components4/value-list-add-button :init components4/value-list-add-button-settings}
        'm4/list-edit-dialog                    {:view #'components4/list-edit-dialog :init components4/list-edit-dialog-settings}
@@ -1055,11 +1056,13 @@
          :random-uuid-value? true
          :added-path         ["isUserDefined"]}]]
 
-      [m4/edit-dialog
+      ; WIP
+      [m4/edit-dialog2
        {:form-id     ?form-id
         :data-path   [?data-path "longName_term"]
         :title       "Define a custom parameter name"
-        :template-id :parameter-name/user-defined-entry-form}]]
+        :template-id :parameter-name/user-defined-entry-form
+        :field-paths [[?data-path "Name"]]}]]
 
      [m4/form-group
       {:form-id   ?form-id

@@ -293,12 +293,25 @@
         (actions4/restore-snapshot-action form-id)
         (actions4/dialog-close-action form-id data-path))))
 
+; WIP: helper - move to utils?
+(defn has-block-errors?
+  [state data-path field-paths]
+  (let [path (blocks4/block-path data-path)
+        logic (get-in state path)
+        field-blocks (map #(get-in logic (blocks4/block-path %)) field-paths)]
+    (some pos? (map #(get-in % [:progress/score :progress/errors]) field-blocks))))
+
+; WIP: updated with field-paths
 (defn edit-dialog-save-handler
-  [{:keys [db]} [_ ctx]]
-  (let [{:keys [form-id data-path]} ctx]
-    (-> {:db db}
-        (actions4/discard-snapshot-action form-id)
-        (actions4/dialog-close-action form-id data-path))))
+  [{:keys [db]} [_ {:keys [form-id data-path field-paths]
+                    :or   {field-paths #{[]}}}]]
+  (let [state0 (get-in db form-id)
+        logic (blocks4/postwalk rules4/apply-rules state0)]
+    (if (has-block-errors? logic data-path field-paths)
+      (actions4/touch-paths {:db db} form-id data-path field-paths)
+      (-> {:db db}
+          (actions4/discard-snapshot-action form-id)
+          (actions4/dialog-close-action form-id data-path)))))
 
 (defn create-document-modal-save-click
   [{:keys [db]}]

@@ -255,6 +255,50 @@
         :variables   {'?form-id   form-id
                       '?data-path data-path}})]))
 
+; WIP
+(defn edit-dialog2-settings
+  "Settings for item-edit-dialog"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :title :template-id :field-paths]
+   ::low-code4/opt-ks []})
+
+; WIP
+(defn edit-dialog2
+  "This component displays an edit dialog with a title, a rendered template,
+   and buttons to save or cancel out.
+
+   Use case: Allow user to add and edit user defined entries on select controls.
+
+   The props allow control of
+   * form-id and data-path identify the block being edited.
+   * title (string) to display.
+   * template-id (keyword) which identifies the template used to render body.
+   * field-paths are the visible fields which determine if form is valid and can be saved.  Invalid save will touch fields.
+
+   The edit dialog has specific behaviour
+   * Can save when the data-path has no errors.
+   * Can clear & close at any time.  Changes made in form are not kept.
+
+   The template is rendered with ?form-id and ?data-path variables for the selected item.
+
+   See also: item-dialog-button
+  "
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [form-id data-path open-dialog? title template-id]} props]
+    [ui-controls/EditDialog
+     {:isOpen   open-dialog?
+      :title    title
+      :onClose  #(rf/dispatch [::edit-dialog-close config])
+      :onClear  #(rf/dispatch [::edit-dialog-cancel config])
+      :onSave   #(rf/dispatch [::edit-dialog-save config])
+      :canClear @(rf/subscribe [::can-dialog-cancel? config])
+      :canSave  true}
+     (low-code4/render-template
+       {:template-id template-id
+        :variables   {'?form-id   form-id
+                      '?data-path data-path}})]))
+
 (defn input-field-settings
   "Settings for input-field"
   [_]

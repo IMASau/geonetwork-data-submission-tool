@@ -107,6 +107,13 @@
   (let [db-path (utils4/as-path [:db form-id :state (blocks4/block-path data-path)])]
     (assoc-in s (conj db-path :props :touched) true)))
 
+; WIP
+(defn touch-paths
+  [s form-id data-path field-paths]
+  (reduce (fn [s field-path]
+            (set-touched-action s form-id (into data-path field-path)))
+          s field-paths))
+
 (defn add-item-action
   "Add item to a list.  Uses value-path to check for duplicates."
   [s form-id data-path value-path data]

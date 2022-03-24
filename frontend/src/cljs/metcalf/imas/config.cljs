@@ -1047,7 +1047,6 @@
           :label-path      ["Name"]
           :value-path      ["URI"]
           :breadcrumb-path ["breadcrumbs"]
-          :added-path      ["isUserDefined"]
           :placeholder     "Select..."}]]
        [m4/item-dialog-button
         {:form-id            ?form-id
@@ -1083,7 +1082,6 @@
           :uri         "/api/parameterunit"
           :label-path  ["Name"]
           :value-path  ["URI"]
-          :added-path  ["isUserDefined"]
           :placeholder "Select..."}]]
        [m4/item-dialog-button
         {:form-id            ?form-id
@@ -1111,7 +1109,6 @@
           :label-path      ["Name"]
           :value-path      ["URI"]
           :breadcrumb-path ["breadcrumbs"]
-          :added-path      ["isUserDefined"]
           :placeholder     "Select..."}]]
        [m4/item-dialog-button
         {:form-id            ?form-id
@@ -1139,7 +1136,6 @@
           :label-path      ["Name"]
           :value-path      ["URI"]
           :breadcrumb-path ["breadcrumbs"]
-          :added-path      ["isUserDefined"]
           :placeholder     "Select..."}]]
        [m4/item-dialog-button
         {:form-id            ?form-id

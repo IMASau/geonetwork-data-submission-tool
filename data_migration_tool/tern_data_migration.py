@@ -33,12 +33,31 @@ def parse_num(value):
     except:
         return value
 
+def exists(value):
+    return value != None and value != ""
+
+def full_address_line(value):
+    return f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}"
+
+def name(value):
+    return f"{value['givenName']} {value['familyName']}"
+
+def party_type(value):
+    if value['givenName'] == 'a_not_applicable' or value['givenName'] == '':
+        return 'organisation'
+    else:
+        return 'person'
+
 functions = {
     'todo': todo,
     'capitalize': my_capitalize,
     'flora': flora,
     'fauna': fauna,
-    'parseNum': parse_num
+    'parseNum': parse_num,
+    'exists': exists,
+    'fullAddressLine': full_address_line,
+    'name': name,
+    'partyType': party_type
 }
 
 def get_data_at_path(data, path):

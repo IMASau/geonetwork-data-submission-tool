@@ -13,7 +13,7 @@
 	},
 	{
 		"src": ["resourceLineage", "processStep", ["uri"]],
-		"dst": ["resourceLineage", "onlineMethods", ["uri"]]
+		"dst": ["resourceLineage", "onlineMethods", ["url"]]
 	},
 	{
 		"src": ["dataSources", ["description"]],
@@ -222,16 +222,22 @@
 		"dst": ["identificationInfo", "citedResponsibleParty", ["role", "Identifier"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["address", "deliveryPoint2"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "street_address"]]
+		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["role", "Description"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["role", "UUID"]],
+		"fn": "todo"
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["address", "city"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "city"]]
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "address_locality"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["address", "administrativeArea"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "address_region"]]
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "deliveryPoint"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "street_address"]]
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["address", "postalCode"]],
@@ -242,48 +248,141 @@
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "country"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["individualName"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "canonical_name"]]
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "administrativeArea"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "address_region"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["phone"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "phone"]]
+		"src": ["identificationInfo", "citedResponsibleParty", ["address"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "full_address_line"]],
+		"fn": "fullAddressLine"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["organisationName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "name"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "uri"]],
+		"fn": "todo"
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["isUserAdded"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["isUserDefined"]]
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "isUserDefined"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["facsimile"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "fax"]]
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "email"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "userAddedCategory"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "duma_path"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "site_uri"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "date_modified"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["organisationName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "display_name"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "is_dissolved"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "date_created"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["individualName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "canonical_name"]]
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["orcid"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "orcid"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["familyName"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "surname"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["organisationIdentifier"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "uri"]]
-	},
-	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["electronicMailAddress"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "email"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["isUserAdded"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "isUserDefined"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["familyName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "surname"]]
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["givenName"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "given_name"]]
 	},
 	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "name"]],
+		"fn": "name"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "uri"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "userAddedCategory"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "duma_path"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "date_modified"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "date_created"]],
+		"fn": "todo"
+	},
+	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["uri"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "uri"]]
+		"dst": ["identificationInfo", "citedResponsibleParty", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["isUserAdded"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["isUserDefined"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["partyType"]],
+		"fn": "partyType"
 	},
 	{
 		"src": ["identificationInfo", "datePublication"],
 		"dst": ["identificationInfo", "datePublication"]
+	},
+	{
+		"src": ["identificationInfo", "datePublication"],
+		"dst": ["identificationInfo", "datePublicationFlag"],
+		"fn": "exists"
 	},
 	{
 		"src": ["identificationInfo", "status"],
@@ -339,16 +438,22 @@
 		"dst": ["identificationInfo", "pointOfContact", ["role", "Identifier"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["address", "deliveryPoint2"]],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "street_address"]]
+		"src": ["identificationInfo", "pointOfContact", ["role"]],
+		"dst": ["identificationInfo", "pointOfContact", ["role", "Description"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["role"]],
+		"dst": ["identificationInfo", "pointOfContact", ["role", "UUID"]],
+		"fn": "todo"
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["address", "city"]],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "city"]]
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "address_locality"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["address", "administrativeArea"]],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "address_region"]]
+		"src": ["identificationInfo", "pointOfContact", ["address", "deliveryPoint"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "street_address"]]
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["address", "postalCode"]],
@@ -359,44 +464,132 @@
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "country"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["individualName"]],
-		"dst": ["identificationInfo", "pointOfContact", ["contact", "canonical_name"]]
+		"src": ["identificationInfo", "pointOfContact", ["address", "administrativeArea"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "address_region"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["phone"]],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "phone"]]
+		"src": ["identificationInfo", "pointOfContact", ["address"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "full_address_line"]],
+		"fn": "fullAddressLine"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["organisationName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "name"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "uri"]],
+		"fn": "todo"
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["isUserAdded"]],
-		"dst": ["identificationInfo", "pointOfContact", ["isUserDefined"]]
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "isUserDefined"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["facsimile"]],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "fax"]]
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "email"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "userAddedCategory"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "duma_path"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "site_uri"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "date_modified"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["organisationName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "display_name"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "is_dissolved"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "date_created"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["individualName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "canonical_name"]]
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["orcid"]],
 		"dst": ["identificationInfo", "pointOfContact", ["contact", "orcid"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["familyName"]],
-		"dst": ["identificationInfo", "pointOfContact", ["contact", "surname"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["organisationIdentifier"]],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "uri"]]
-	},
-	{
 		"src": ["identificationInfo", "pointOfContact", ["electronicMailAddress"]],
 		"dst": ["identificationInfo", "pointOfContact", ["contact", "email"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["isUserAdded"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "isUserDefined"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["familyName"]],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "surname"]]
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["givenName"]],
 		"dst": ["identificationInfo", "pointOfContact", ["contact", "given_name"]]
 	},
 	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "name"]],
+		"fn": "name"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "uri"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "userAddedCategory"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "duma_path"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "date_modified"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["contact", "date_created"]],
+		"fn": "todo"
+	},
+	{
 		"src": ["identificationInfo", "pointOfContact", ["uri"]],
-		"dst": ["identificationInfo", "pointOfContact", ["contact", "uri"]]
+		"dst": ["identificationInfo", "pointOfContact", ["uri"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["isUserAdded"]],
+		"dst": ["identificationInfo", "pointOfContact", ["isUserDefined"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["identificationInfo", "pointOfContact", ["partyType"]],
+		"fn": "partyType"
 	},
 	{
 		"src": ["identificationInfo", "useLimitations"],

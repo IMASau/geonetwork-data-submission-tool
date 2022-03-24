@@ -344,6 +344,16 @@
 		"dst": ["identificationInfo", "pointOfContact", ["role", "Identifier"]]
 	},
 	{
+		"src": ["identificationInfo", "pointOfContact", ["role"]],
+		"dst": ["identificationInfo", "pointOfContact", ["role", "Description"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["role"]],
+		"dst": ["identificationInfo", "pointOfContact", ["role", "UUID"]],
+		"fn": "todo"
+	},
+	{
 		"src": ["identificationInfo", "pointOfContact", ["address", "deliveryPoint2"]],
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "street_address"]]
 	},

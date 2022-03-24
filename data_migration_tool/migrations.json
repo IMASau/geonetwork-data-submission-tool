@@ -354,16 +354,12 @@
 		"fn": "todo"
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["address", "deliveryPoint2"]],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "street_address"]]
-	},
-	{
 		"src": ["identificationInfo", "pointOfContact", ["address", "city"]],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "city"]]
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "address_locality"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["address", "administrativeArea"]],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "address_region"]]
+		"src": ["identificationInfo", "pointOfContact", ["address", "deliveryPoint"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "street_address"]]
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["address", "postalCode"]],
@@ -374,44 +370,13 @@
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "country"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["individualName"]],
-		"dst": ["identificationInfo", "pointOfContact", ["contact", "canonical_name"]]
+		"src": ["identificationInfo", "pointOfContact", ["address", "administrativeArea"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "address_region"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["phone"]],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "phone"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["isUserAdded"]],
-		"dst": ["identificationInfo", "pointOfContact", ["isUserDefined"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["facsimile"]],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "fax"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["orcid"]],
-		"dst": ["identificationInfo", "pointOfContact", ["contact", "orcid"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["familyName"]],
-		"dst": ["identificationInfo", "pointOfContact", ["contact", "surname"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["organisationIdentifier"]],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "uri"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["electronicMailAddress"]],
-		"dst": ["identificationInfo", "pointOfContact", ["contact", "email"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["givenName"]],
-		"dst": ["identificationInfo", "pointOfContact", ["contact", "given_name"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["uri"]],
-		"dst": ["identificationInfo", "pointOfContact", ["contact", "uri"]]
+		"src": ["identificationInfo", "pointOfContact", ["address"]],
+		"dst": ["identificationInfo", "pointOfContact", ["organisation", "full_address_line"]],
+		"fn": "fullAddressLine"
 	},
 	{
 		"src": ["identificationInfo", "useLimitations"],

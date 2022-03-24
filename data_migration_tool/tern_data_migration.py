@@ -36,13 +36,17 @@ def parse_num(value):
 def exists(value):
     return value != None and value != ""
 
+def full_address_line(value):
+    return f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}"
+
 functions = {
     'todo': todo,
     'capitalize': my_capitalize,
     'flora': flora,
     'fauna': fauna,
     'parseNum': parse_num,
-    'exists': exists
+    'exists': exists,
+    'fullAddressLine': full_address_line
 }
 
 def get_data_at_path(data, path):

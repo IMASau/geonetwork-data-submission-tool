@@ -1,11 +1,12 @@
 (ns metcalf.imas.pages
   (:require [metcalf.common.components4 :as components4]
             [metcalf.common.views4 :as views4]
+            [metcalf.imas.views :as imas-views]
             [re-frame.core :as rf]))
 
 (defn navbar
   []
-  [views4/navbar
+  [imas-views/navbar
    {:context @(rf/subscribe [:subs/get-context])}])
 
 (defn dashboard

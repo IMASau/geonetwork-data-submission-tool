@@ -136,14 +136,11 @@
           ]
         },
         "datePublication": {
-          "!docstring": "FIXME -- needed? ID8",
+          "!docstring": "ID8 -- populated by backend",
           "type": "string",
           "xpath": "mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"publication\"]]",
           "valueChild": "cit:CI_Date/cit:date/gco:DateTime",
-          "keep": false,
-          "rules": [
-            "requiredField"
-          ]
+          "keep": false
         },
         "abstract": {
           "!docstring": "What1",
@@ -610,6 +607,7 @@
         "credits": {
           "!docstring": "Who17",
           "xpath": "mri:credit",
+          "keep": false,
           "type": "array",
           "items": {
             "xpath": "gco:CharacterString",
@@ -677,7 +675,9 @@
           "type": "object",
           "properties": {
             "title": {
+              "!docstring": "About9",
               "xpath": "cit:title",
+              "keep": false,
               "rules": [
                 {
                   "maxLength": 100
@@ -687,7 +687,9 @@
               "type": "string"
             },
             "edition": {
+              "!docstring": "About10",
               "xpath": "cit:edition",
+              "keep": false,
               "rules": [
                 {
                   "maxLength": 20
@@ -710,6 +712,12 @@
             "type": "object",
             "deleteWhenEmpty": false,
             "rules": [
+              {
+                "datasourcePlaceholder": {
+                  "server": "eg https://geoserver.imas.utas.edu.au/geoserver/wms",
+                  "layer": "eg store:my_map_layer"
+                }
+              },
               {
                 "imasTransferOptionLayer": {
                   "excludeValues": [

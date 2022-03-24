@@ -148,6 +148,7 @@
        "geographyRequired"       rules4/imas-geography-required
        "imasVerticalRequired"    rules4/imas-vertical-required
        "imasTransferOptionLayer" rules4/imas-transfer-option-layer
+       "datasourcePlaceholder"   rules4/imas-data-source-placeholder
        "licenseOther"            rules4/license-other
        "numericOrder"            rules4/numeric-order
        "dateOrder"               rules4/date-order
@@ -326,6 +327,7 @@
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "keywordsTheme" "keywords"]
+       :required  true
        :label     "Research theme keywords"}
 
       [:div "Select up to 12 research theme keywords describing your data"]
@@ -1045,7 +1047,6 @@
           :label-path      ["Name"]
           :value-path      ["URI"]
           :breadcrumb-path ["breadcrumbs"]
-          :added-path      ["isUserDefined"]
           :placeholder     "Select..."}]]
        [m4/item-dialog-button
         {:form-id            ?form-id
@@ -1081,7 +1082,6 @@
           :uri         "/api/parameterunit"
           :label-path  ["Name"]
           :value-path  ["URI"]
-          :added-path  ["isUserDefined"]
           :placeholder "Select..."}]]
        [m4/item-dialog-button
         {:form-id            ?form-id
@@ -1109,7 +1109,6 @@
           :label-path      ["Name"]
           :value-path      ["URI"]
           :breadcrumb-path ["breadcrumbs"]
-          :added-path      ["isUserDefined"]
           :placeholder     "Select..."}]]
        [m4/item-dialog-button
         {:form-id            ?form-id
@@ -1137,7 +1136,6 @@
           :label-path      ["Name"]
           :value-path      ["URI"]
           :breadcrumb-path ["breadcrumbs"]
-          :added-path      ["isUserDefined"]
           :placeholder     "Select..."}]]
        [m4/item-dialog-button
         {:form-id            ?form-id

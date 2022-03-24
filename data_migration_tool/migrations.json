@@ -168,11 +168,18 @@
 	},
 	{
 		"src": ["identificationInfo", "verticalElement", "minimumValue"],
-		"dst": ["identificationInfo", "verticalElement", "minimumValue"]
+		"dst": ["identificationInfo", "verticalElement", "minimumValue"],
+		"fn": "parseNum"
 	},
 	{
 		"src": ["identificationInfo", "verticalElement", "maximumValue"],
-		"dst": ["identificationInfo", "verticalElement", "maximumValue"]
+		"dst": ["identificationInfo", "verticalElement", "maximumValue"],
+		"fn": "parseNum"
+	},
+	{
+		"src": ["identificationInfo", "verticalElement"],
+		"dst": ["identificationInfo", "verticalElement", "coordinateReferenceSystem"],
+		"fn": "todo"
 	},
 	{
 		"src": ["identificationInfo", "purpose"],

@@ -26,11 +26,19 @@ def fauna(value):
         # 'breadcrumb': TODO
     } for v in value]
 
+def parse_num(value):
+    try:
+        v = float(value)
+        return v
+    except:
+        return value
+
 functions = {
     'todo': todo,
     'capitalize': my_capitalize,
     'flora': flora,
-    'fauna': fauna
+    'fauna': fauna,
+    'parseNum': parse_num
 }
 
 def get_data_at_path(data, path):

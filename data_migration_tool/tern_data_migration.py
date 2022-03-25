@@ -65,7 +65,8 @@ functions = {
     'name': name,
     'partyType': party_type,
     'otherConstraints': other_constraints,
-    'true': lambda value : True
+    'true': lambda value : True,
+    'join': lambda value: "\n".join(value)
 }
 
 def get_data_at_path(data, path):

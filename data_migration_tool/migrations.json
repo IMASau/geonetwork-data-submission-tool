@@ -678,4 +678,10 @@
 		"dst": ["identificationInfo", "referenceSystemInfo"],
 		"fn": "todo"
 	}
+	,
+	{
+		"src": ["identificationInfo", "credit"],
+		"dst": ["identificationInfo", "credit"],
+		"fn": "join"
+	}
 ]

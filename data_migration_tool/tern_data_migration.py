@@ -54,6 +54,25 @@ def other_constraints(value):
             "Please cite this dataset as {Author} ({PublicationYear}). {Title}. {Version, as appropriate}. Terrestrial Ecosystem Research Network. Dataset. {Identifier}.\n            "
         ]
 
+def protocol(value):
+    protocols = [
+        {'label': 'HTTP',
+         'value': 'WWW:DOWNLOAD-1.0-http--download'},
+        {'label': 'OGC Web Coverage Service (WCS)',
+         'value': 'OGC:WCS-1.1.0-http-get-capabilities'},
+        {'label': 'OGC Web Map Service (WMS)',
+         'value': 'OGC:WMS-1.3.0-http-get-map'},
+        {'label': 'OGC Web Feature Service (WFS)',
+         'value': 'OGC:WFS-1.1.0-http-get-capabilities'},
+         {'label': 'OPeNDAP',
+         'value': 'WWW:LINK-1.0-http--opendap'},
+        {'label': 'FTP',
+         'value': 'FTP'},
+        {'label': 'Other/unknown',
+         'value': 'WWW:DOWNLOAD-1.0-http--download'}
+    ]
+    return next(v for v in protocols if v['value'] == value)
+
 functions = {
     'todo': todo,
     'capitalize': my_capitalize,
@@ -66,7 +85,8 @@ functions = {
     'partyType': party_type,
     'otherConstraints': other_constraints,
     'true': lambda value : True,
-    'join': lambda value: "\n".join(value)
+    'join': lambda value: "\n".join(value),
+    'protocol': protocol
 }
 
 def get_data_at_path(data, path):

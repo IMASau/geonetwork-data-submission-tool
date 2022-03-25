@@ -56,12 +56,8 @@
 	},
 	{
 		"src": ["dataSources", ["protocol"]],
-		"dst": ["dataSources", ["transferOptions", "protocol", "label"]]
-	},
-	{
-		"src": ["dataSources", ["protocol"]],
-		"dst": ["dataSources", ["transferOptions", "protocol", "value"]],
-		"fn": "todo"
+		"dst": ["dataSources", ["transferOptions", "protocol", "label"]],
+		"fn": "protocol"
 	},
 	{
 		"src": ["dataSources", ["url"]],

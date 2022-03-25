@@ -212,6 +212,11 @@
 		"dst": ["identificationInfo", "geographicElement", "boxes", ["westBoundLongitude"]]
 	},
 	{
+		"src": ["identificationInfo", "geographicElement", "boxes"],
+		"dst": ["identificationInfo", "geographicElement", "boxes", ["uri"]],
+		"fn": "uuid"
+	},
+	{
 		"src": ["identificationInfo", "title"],
 		"dst": ["identificationInfo", "title"]
 	},

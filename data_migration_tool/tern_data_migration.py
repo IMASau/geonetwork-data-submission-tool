@@ -156,7 +156,8 @@ def platform(value):
             'label': v['unit_term'],
             'uri': v['unit_vocabularyTermURL'],
             'source': v['unit_vocabularyVersion']
-        }
+        },
+        'uri' : str(uuid.uuid4())
     } for v in value]
 
 def instrument(value):

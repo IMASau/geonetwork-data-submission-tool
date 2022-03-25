@@ -1,7 +1,38 @@
 [
-    {
+	{
 		"src": ["fileIdentifier"],
 		"dst": ["fileIdentifier"]
+	},
+	{
+		"src": ["agreedToTerms"],
+		"dst": ["agreedToTerms"]
+	},
+	{
+		"src": ["noteForDataManager"],
+		"dst": ["noteForDataManager"]
+	},
+    {
+		"src": [],
+		"dst": ["systemCreationDate"],
+		"fn": "todo"
+	},
+	{
+		"src": [],
+		"dst": ["systemRevisionDate"],
+		"fn": "todo"
+	},
+	{
+		"src": [],
+		"dst": ["identificationInfo", "dateSubmitted"],
+		"fn": "todo"
+	},
+	{
+		"src": ["doiRequested"],
+		"dst": ["identificationInfo", "doiFlag"]
+	},
+	{
+		"src": ["identificationInfo", "doi"],
+		"dst": ["identificationInfo", "doi"]
 	},
 	{
 		"src": ["resourceLineage", "lineage"],
@@ -25,11 +56,27 @@
 	},
 	{
 		"src": ["dataSources", ["protocol"]],
-		"dst": ["dataSources", ["transferOptions", "protocol"]]
+		"dst": ["dataSources", ["transferOptions", "protocol"]],
+		"fn": "protocol"
 	},
 	{
 		"src": ["dataSources", ["url"]],
 		"dst": ["dataSources", ["transferOptions", "linkage"]]
+	},
+	{
+		"src": ["dataSources"],
+		"dst": ["dataSources", ["distributor"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["dataSources"],
+		"dst": ["dataSources", ["uri"]],
+		"fn": "uuid"
+	},
+	{
+		"src": ["dataSources"],
+		"dst": ["dataSources", ["isUserDefined"]],
+		"fn": "true"
 	},
 	{
 		"src": ["attachments", ["file"]],
@@ -50,6 +97,11 @@
 	{
 		"src": ["dataQualityInfo", "results"],
 		"dst": ["dataQualityInfo", "results"]
+	},
+	{
+		"src": ["identificationInfo", "useLimitations"],
+		"dst": ["identificationInfo", "otherConstraints"],
+		"fn": "otherConstraints"
 	},
 	{
 		"src": ["identificationInfo", "keywordsTaxonExtra", "keywords"],
@@ -81,68 +133,14 @@
 		"fn": "todo"
 	},
 	{
-		"src": ["identificationInfo", "dataParameters", ["serialNumber"]],
-		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["serial"]]
+		"src": ["identificationInfo", "dataParameters"],
+		"dst": ["identificationInfo", "keywordsInstrument", "keywords"],
+		"fn": "instrument"
 	},
 	{
-		"src": ["identificationInfo", "dataParameters", ["platform_term"]],
-		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["label"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["platform_termDefinition"]],
-		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["description"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["platform_vocabularyTermURL"]],
-		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["uri"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["platform_vocabularyVersion"]],
-		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["source"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["instrument_term"]],
-		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["label"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["instrument_termDefinition"]],
-		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["description"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["instrument_vocabularyTermURL"]],
-		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["uri"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["instrument_vocabularyVersion"]],
-		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["source"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["longName_term"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "label"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["longName_termDefinition"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "description"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["longName_vocabularyTermURL"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "uri"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["longName_vocabularyVersion"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "source"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["unit_term"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["unit", "label"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["unit_vocabularyTermURL"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["unit", "uri"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["unit_vocabularyVersion"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["unit", "source"]]
+		"src": ["identificationInfo", "dataParameters"],
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords"],
+		"fn": "platform"
 	},
 	{
 		"src": ["identificationInfo", "horizontalResolution", 0, "prefLabel"],
@@ -214,22 +212,18 @@
 		"dst": ["identificationInfo", "geographicElement", "boxes", ["westBoundLongitude"]]
 	},
 	{
+		"src": ["identificationInfo", "geographicElement", "boxes"],
+		"dst": ["identificationInfo", "geographicElement", "boxes", ["uri"]],
+		"fn": "uuid"
+	},
+	{
 		"src": ["identificationInfo", "title"],
 		"dst": ["identificationInfo", "title"]
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["role", "Identifier"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["role", "Description"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["role", "UUID"]],
-		"fn": "todo"
+		"dst": ["identificationInfo", "citedResponsibleParty", ["role"]],
+		"fn": "role"
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["address", "city"]],
@@ -263,7 +257,7 @@
 	{
 		"src": ["identificationInfo", "citedResponsibleParty"],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "uri"]],
-		"fn": "todo"
+		"fn": "uuid"
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["isUserAdded"]],
@@ -277,16 +271,6 @@
 	{
 		"src": ["identificationInfo", "citedResponsibleParty"],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "userAddedCategory"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty"],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "duma_path"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty"],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "site_uri"]],
 		"fn": "todo"
 	},
 	{
@@ -340,16 +324,11 @@
 	{
 		"src": ["identificationInfo", "citedResponsibleParty"],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "uri"]],
-		"fn": "todo"
+		"fn": "uuid"
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty"],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "userAddedCategory"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty"],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "duma_path"]],
 		"fn": "todo"
 	},
 	{
@@ -400,11 +379,35 @@
 	{
 		"src": ["identificationInfo", "topicCategory"],
 		"dst": ["identificationInfo", "topicCategories", ["uri"]],
-		"fn": "todo"
+		"fn": "uuid"
 	},
 	{
 		"src": ["identificationInfo", "supplementalInformation"],
-		"dst": ["identificationInfo", "supplementalInformation"]
+		"dst": ["identificationInfo", "supplemental"],
+		"fn": "join"
+	},
+	{
+		"src": ["supportingResources", ["name"]],
+		"dst": ["identificationInfo", "additionalPublications", ["title"]]
+	},
+	{
+		"src": ["supportingResources", ["url"]],
+		"dst": ["identificationInfo", "additionalPublications", ["url"]]
+	},
+	{
+		"src": ["supportingResources"],
+		"dst": ["identificationInfo", "additionalPublications", ["uri"]],
+		"fn": "uuid"
+	},
+	{
+		"src": ["supportingResources"],
+		"dst": ["identificationInfo", "additionalPublications", ["isUserDefined"]],
+		"fn": "true"
+	},
+	{
+		"src": ["supportingResources"],
+		"dst": ["identificationInfo", "additionalPublications", ["userAddedCategory"]],
+		"fn": "todo"
 	},
 	{
 		"src": ["identificationInfo", "keywordsThemeExtra", "keywords"],
@@ -435,17 +438,8 @@
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["role"]],
-		"dst": ["identificationInfo", "pointOfContact", ["role", "Identifier"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["role"]],
-		"dst": ["identificationInfo", "pointOfContact", ["role", "Description"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["role"]],
-		"dst": ["identificationInfo", "pointOfContact", ["role", "UUID"]],
-		"fn": "todo"
+		"dst": ["identificationInfo", "pointOfContact", ["role"]],
+		"fn": "role"
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["address", "city"]],
@@ -479,7 +473,7 @@
 	{
 		"src": ["identificationInfo", "pointOfContact"],
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "uri"]],
-		"fn": "todo"
+		"fn": "uuid"
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["isUserAdded"]],
@@ -493,16 +487,6 @@
 	{
 		"src": ["identificationInfo", "pointOfContact"],
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "userAddedCategory"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact"],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "duma_path"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact"],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "site_uri"]],
 		"fn": "todo"
 	},
 	{
@@ -556,16 +540,11 @@
 	{
 		"src": ["identificationInfo", "pointOfContact"],
 		"dst": ["identificationInfo", "pointOfContact", ["contact", "uri"]],
-		"fn": "todo"
+		"fn": "uuid"
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact"],
 		"dst": ["identificationInfo", "pointOfContact", ["contact", "userAddedCategory"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact"],
-		"dst": ["identificationInfo", "pointOfContact", ["contact", "duma_path"]],
 		"fn": "todo"
 	},
 	{
@@ -621,5 +600,11 @@
 		"src": ["identificationInfo"],
 		"dst": ["identificationInfo", "referenceSystemInfo"],
 		"fn": "todo"
+	}
+	,
+	{
+		"src": ["identificationInfo", "credit"],
+		"dst": ["identificationInfo", "credit"],
+		"fn": "join"
 	}
 ]

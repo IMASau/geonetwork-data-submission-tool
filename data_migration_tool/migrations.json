@@ -1,7 +1,22 @@
 [
-    {
+	{
 		"src": ["fileIdentifier"],
 		"dst": ["fileIdentifier"]
+	},
+    {
+		"src": [],
+		"dst": ["systemCreationDate"],
+		"fn": "todo"
+	},
+	{
+		"src": [],
+		"dst": ["systemRevisionDate"],
+		"fn": "todo"
+	},
+	{
+		"src": [],
+		"dst": ["identificationInfo", "dateSubmitted"],
+		"fn": "todo"
 	},
 	{
 		"src": ["resourceLineage", "lineage"],

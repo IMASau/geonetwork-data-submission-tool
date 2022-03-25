@@ -71,7 +71,7 @@
 	{
 		"src": ["dataSources"],
 		"dst": ["dataSources", ["uri"]],
-		"fn": "todo"
+		"fn": "uuid"
 	},
 	{
 		"src": ["dataSources"],
@@ -306,7 +306,7 @@
 	{
 		"src": ["identificationInfo", "citedResponsibleParty"],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "uri"]],
-		"fn": "todo"
+		"fn": "uuid"
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["isUserAdded"]],
@@ -330,7 +330,7 @@
 	{
 		"src": ["identificationInfo", "citedResponsibleParty"],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "site_uri"]],
-		"fn": "todo"
+		"fn": "uuid"
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty"],
@@ -383,7 +383,7 @@
 	{
 		"src": ["identificationInfo", "citedResponsibleParty"],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "uri"]],
-		"fn": "todo"
+		"fn": "uuid"
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty"],
@@ -443,7 +443,7 @@
 	{
 		"src": ["identificationInfo", "topicCategory"],
 		"dst": ["identificationInfo", "topicCategories", ["uri"]],
-		"fn": "todo"
+		"fn": "uuid"
 	},
 	{
 		"src": ["identificationInfo", "supplementalInformation"],
@@ -461,7 +461,7 @@
 	{
 		"src": ["supportingResources"],
 		"dst": ["identificationInfo", "additionalPublications", ["uri"]],
-		"fn": "todo"
+		"fn": "uuid"
 	},
 	{
 		"src": ["supportingResources"],
@@ -542,7 +542,7 @@
 	{
 		"src": ["identificationInfo", "pointOfContact"],
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "uri"]],
-		"fn": "todo"
+		"fn": "uuid"
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["isUserAdded"]],
@@ -619,7 +619,7 @@
 	{
 		"src": ["identificationInfo", "pointOfContact"],
 		"dst": ["identificationInfo", "pointOfContact", ["contact", "uri"]],
-		"fn": "todo"
+		"fn": "uuid"
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact"],

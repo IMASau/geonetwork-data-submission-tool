@@ -133,29 +133,9 @@
 		"fn": "todo"
 	},
 	{
-		"src": ["identificationInfo", "dataParameters", ["serialNumber"]],
-		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["serial"]]
-	},
-	{
 		"src": ["identificationInfo", "dataParameters"],
-		"dst": ["identificationInfo", "keywordsPlatform", "keywords"],
-		"fn": "parameter"
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["instrument_term"]],
-		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["label"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["instrument_termDefinition"]],
-		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["description"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["instrument_vocabularyTermURL"]],
-		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["uri"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["instrument_vocabularyVersion"]],
-		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["source"]]
+		"dst": ["identificationInfo", "keywordsInstrument", "keywords"],
+		"fn": "instrument"
 	},
 	{
 		"src": ["identificationInfo", "dataParameters"],

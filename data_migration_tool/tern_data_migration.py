@@ -159,6 +159,15 @@ def platform(value):
         }
     } for v in value]
 
+def instrument(value):
+    return [{
+        'serial': v['serialNumber'],
+        'label': v['instrument_term'],
+        'description': v['instrument_termDefinition'],
+        'uri': v['instrument_vocabularyTermURL'],
+        'source': v['instrument_vocabularyVersion']
+    } for v in value]
+
 functions = {
     'todo': todo,
     'capitalize': my_capitalize,
@@ -175,7 +184,9 @@ functions = {
     'protocol': protocol,
     'role': role,
     'uuid': lambda value: str(uuid.uuid4()),
-    'parameter': parameter
+    'parameter': parameter,
+    'platform': platform,
+    'instrument': instrument
 }
 
 def get_data_at_path(data, path):

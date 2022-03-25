@@ -293,12 +293,25 @@
         (actions4/restore-snapshot-action form-id)
         (actions4/dialog-close-action form-id data-path))))
 
+; WIP: helper - move to utils?
+(defn has-block-errors?
+  [state data-path field-paths]
+  (let [path (blocks4/block-path data-path)
+        logic (get-in state path)
+        field-blocks (map #(get-in logic (blocks4/block-path %)) field-paths)]
+    (some pos? (map #(get-in % [:progress/score :progress/errors]) field-blocks))))
+
+; WIP: updated with field-paths
 (defn edit-dialog-save-handler
-  [{:keys [db]} [_ ctx]]
-  (let [{:keys [form-id data-path]} ctx]
-    (-> {:db db}
-        (actions4/discard-snapshot-action form-id)
-        (actions4/dialog-close-action form-id data-path))))
+  [{:keys [db]} [_ {:keys [form-id data-path field-paths]
+                    :or   {field-paths #{[]}}}]]
+  (let [state0 (get-in db form-id)
+        logic (blocks4/postwalk rules4/apply-rules state0)]
+    (if (has-block-errors? logic data-path field-paths)
+      (actions4/touch-paths {:db db} form-id data-path field-paths)
+      (-> {:db db}
+          (actions4/discard-snapshot-action form-id)
+          (actions4/dialog-close-action form-id data-path)))))
 
 (defn create-document-modal-save-click
   [{:keys [db]}]
@@ -433,7 +446,17 @@
   [{:keys [db]} [_ config data]]
   (let [{:keys [acceptedFiles rejectedFiles]} data
         file-errors (map (fn [{:keys [file errors]}]
-                           (str (.-name file) " (" (-> errors first :message) ")"))
+                           ;; Hack here; we want to display an
+                           ;; accurate error, but Dropzone displays
+                           ;; "larger than 104857600 bytes", so we'll
+                           ;; risk hard-coding the size. If it's not a
+                           ;; too-big error, just use the dropzone
+                           ;; message:
+                           (let [err (first errors)
+                                 msg (if (= (:code err) "file-too-large")
+                                       "File is larger than 100MB"
+                                       (:message err))]
+                             (str (.-name file) " (" msg ")")))
                          rejectedFiles)
         doc-uuid (get-in db [:context :document :uuid])]
     (if (seq file-errors)

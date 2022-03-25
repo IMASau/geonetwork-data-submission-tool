@@ -3,6 +3,14 @@
 		"src": ["fileIdentifier"],
 		"dst": ["fileIdentifier"]
 	},
+	{
+		"src": ["agreedToTerms"],
+		"dst": ["agreedToTerms"]
+	},
+	{
+		"src": ["noteForDataManager"],
+		"dst": ["noteForDataManager"]
+	},
     {
 		"src": [],
 		"dst": ["systemCreationDate"],

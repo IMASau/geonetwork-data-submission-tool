@@ -138,8 +138,9 @@ def clear_empty_keys(data):
         data = [v for v in data if not (v == None or v == {} or v == [] or v == "")]
     return data
 
-# input_filepath = input('Please input the filepath to the data you wish to migrate: ')
-input_filepath = 'data_migration_tool/xgz.json'
+input_filepath = input('Please input the filepath to the data you wish to migrate(leave blank for xgz.json): ')
+if len(input_filepath) == 0:
+    input_filepath = 'data_migration_tool/xgz.json'
 input_data = json.loads(open(input_filepath, 'r').read())
 
 migrations_filepath = input('Please input the filepath to the list of migrations you wish to make (leave blank for default): ')

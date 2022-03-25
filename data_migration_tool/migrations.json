@@ -435,6 +435,34 @@
 		"dst": ["identificationInfo", "supplemental"]
 	},
 	{
+		"src": ["supportingResources", ["name"]],
+		"dst": ["identificationInfo", "additionalPublications", ["title"]]
+	},
+	{
+		"src": ["supportingResources", ["url"]],
+		"dst": ["identificationInfo", "additionalPublications", ["url"]]
+	},
+	{
+		"src": ["supportingResources"],
+		"dst": ["identificationInfo", "additionalPublications", ["uri"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["supportingResources"],
+		"dst": ["identificationInfo", "additionalPublications", ["isUserDefined"]],
+		"fn": "true"
+	},
+	{
+		"src": ["supportingResources"],
+		"dst": ["identificationInfo", "additionalPublications", ["userAddedCategory"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["supportingResources"],
+		"dst": ["identificationInfo", "additionalPublications", ["duma_path"]],
+		"fn": "todo"
+	},
+	{
 		"src": ["identificationInfo", "keywordsThemeExtra", "keywords"],
 		"dst": ["identificationInfo", "keywordsAdditional", "keywords"]
 	},

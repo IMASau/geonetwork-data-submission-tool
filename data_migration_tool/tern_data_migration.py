@@ -64,7 +64,8 @@ functions = {
     'fullAddressLine': full_address_line,
     'name': name,
     'partyType': party_type,
-    'otherConstraints': other_constraints
+    'otherConstraints': other_constraints,
+    'true': lambda value : True
 }
 
 def get_data_at_path(data, path):

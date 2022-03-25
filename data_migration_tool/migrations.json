@@ -48,11 +48,26 @@
 	},
 	{
 		"src": ["dataSources", ["protocol"]],
-		"dst": ["dataSources", ["transferOptions", "protocol"]]
+		"dst": ["dataSources", ["transferOptions", "protocol", "label"]]
+	},
+	{
+		"src": ["dataSources", ["protocol"]],
+		"dst": ["dataSources", ["transferOptions", "protocol", "value"]],
+		"fn": "todo"
 	},
 	{
 		"src": ["dataSources", ["url"]],
 		"dst": ["dataSources", ["transferOptions", "linkage"]]
+	},
+	{
+		"src": ["dataSources"],
+		"dst": ["dataSources", ["distributor"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["dataSources"],
+		"dst": ["dataSources", ["isUserDefined"]],
+		"fn": "true"
 	},
 	{
 		"src": ["attachments", ["file"]],
@@ -432,7 +447,8 @@
 	},
 	{
 		"src": ["identificationInfo", "supplementalInformation"],
-		"dst": ["identificationInfo", "supplemental"]
+		"dst": ["identificationInfo", "supplemental"],
+		"fn": "join"
 	},
 	{
 		"src": ["supportingResources", ["name"]],

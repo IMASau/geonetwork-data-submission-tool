@@ -1,5 +1,6 @@
 import json
 import copy
+import uuid
 
 def todo(value):
     return None
@@ -149,7 +150,8 @@ functions = {
     'true': lambda value : True,
     'join': lambda value: "\n".join(value),
     'protocol': protocol,
-    'role': role
+    'role': role,
+    'uuid': lambda value: str(uuid.uuid4())
 }
 
 def get_data_at_path(data, path):

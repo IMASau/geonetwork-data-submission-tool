@@ -137,20 +137,9 @@
 		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["serial"]]
 	},
 	{
-		"src": ["identificationInfo", "dataParameters", ["platform_term"]],
-		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["label"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["platform_termDefinition"]],
-		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["description"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["platform_vocabularyTermURL"]],
-		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["uri"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["platform_vocabularyVersion"]],
-		"dst": ["identificationInfo", "keywordsPlatform", "keywords", ["source"]]
+		"src": ["identificationInfo", "dataParameters"],
+		"dst": ["identificationInfo", "keywordsPlatform", "keywords"],
+		"fn": "parameter"
 	},
 	{
 		"src": ["identificationInfo", "dataParameters", ["instrument_term"]],

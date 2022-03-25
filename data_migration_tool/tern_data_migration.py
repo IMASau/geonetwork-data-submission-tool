@@ -136,6 +136,14 @@ def role(value):
     ]
     return next(v for v in roles if v['Identifier'] == value)
 
+def parameter(value):
+    return [{
+        'label': v['platform_term'],
+        'description': v['platform_termDefinition'],
+        'uri': v['platform_vocabularyTermURL'],
+        'source': v['platform_vocabularyVersion']
+    } for v in value]
+
 functions = {
     'todo': todo,
     'capitalize': my_capitalize,
@@ -151,7 +159,8 @@ functions = {
     'join': lambda value: "\n".join(value),
     'protocol': protocol,
     'role': role,
-    'uuid': lambda value: str(uuid.uuid4())
+    'uuid': lambda value: str(uuid.uuid4()),
+    'parameter': parameter
 }
 
 def get_data_at_path(data, path):

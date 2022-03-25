@@ -52,6 +52,11 @@
 		"dst": ["dataQualityInfo", "results"]
 	},
 	{
+		"src": ["identificationInfo", "useLimitations"],
+		"dst": ["identificationInfo", "otherConstraints"],
+		"fn": "otherConstraints"
+	},
+	{
 		"src": ["identificationInfo", "keywordsTaxonExtra", "keywords"],
 		"dst": ["identificationInfo", "keywordsFlora", "keywords"],
 		"fn": "flora"

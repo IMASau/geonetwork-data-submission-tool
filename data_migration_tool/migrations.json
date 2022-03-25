@@ -56,7 +56,7 @@
 	},
 	{
 		"src": ["dataSources", ["protocol"]],
-		"dst": ["dataSources", ["transferOptions", "protocol", "label"]],
+		"dst": ["dataSources", ["transferOptions", "protocol"]],
 		"fn": "protocol"
 	},
 	{
@@ -329,11 +329,6 @@
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty"],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "site_uri"]],
-		"fn": "uuid"
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty"],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "date_modified"]],
 		"fn": "todo"
 	},
@@ -561,11 +556,6 @@
 	{
 		"src": ["identificationInfo", "pointOfContact"],
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "duma_path"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact"],
-		"dst": ["identificationInfo", "pointOfContact", ["organisation", "site_uri"]],
 		"fn": "todo"
 	},
 	{

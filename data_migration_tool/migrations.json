@@ -534,22 +534,8 @@
 		"dst": ["identificationInfo", "useLimitations"]
 	},
 	{
-		"src": ["identificationInfo", "samplingFrequency", 0, "prefLabel"],
-		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "label"]
-	},
-	{
-		"src": ["identificationInfo", "samplingFrequency", 0, "uri"],
-		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "uri"]
-	},
-	{
 		"src": ["identificationInfo", "samplingFrequency"],
-		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "breadcrumb"],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "samplingFrequency"],
-		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "broader_concept"],
-		"fn": "todo"
+		"dst": ["identificationInfo", "keywordsTemporal", "keywords"]
 	},
 	{
 		"src": ["identificationInfo", "beginPosition"],

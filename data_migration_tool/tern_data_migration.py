@@ -188,6 +188,9 @@ def keywordsHorizontal(value):
         # 'broader_concept': TODO
     } if len(value) > 0 else None
 
+def keywordsTemporal(value):
+    return keywordsHorizontal(value)
+
 functions = {
     'todo': todo,
     'capitalize': my_capitalize,
@@ -209,7 +212,8 @@ functions = {
     'instrument': instrument,
     'keywordsTheme': keywordsTheme,
     'keywordsThemeAnzsrc': keywordsThemeAnzsrc,
-    'keywordsHorizontal': keywordsHorizontal
+    'keywordsHorizontal': keywordsHorizontal,
+    'keywordsTemporal': keywordsTemporal
 }
 
 def get_data_at_path(data, path):

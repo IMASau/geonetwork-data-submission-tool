@@ -74,6 +74,11 @@
 	},
 	{
 		"src": ["dataSources"],
+		"dst": ["dataSources", ["uri"]],
+		"fn": "todo"
+	},
+	{
+		"src": ["dataSources"],
 		"dst": ["dataSources", ["isUserDefined"]],
 		"fn": "true"
 	},

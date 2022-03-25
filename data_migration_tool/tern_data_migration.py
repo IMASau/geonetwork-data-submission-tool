@@ -142,7 +142,11 @@ output_filepath = input('Please input the filepath to where you wish to output t
 if len(output_filepath) == 0:
     output_filepath = 'data_migration_tool/output.json'
 
-output_data = {}
+template_filepath = input('Please input the filepath to the output template data (leave blank for default): ')
+if len(template_filepath) == 0:
+    template_filepath = 'data_migration_tool/template.json'
+
+output_data = json.loads(open(template_filepath, 'r').read())
 
 for migration in migrations:
     output_data = migrate_data(input_data, output_data, migration)

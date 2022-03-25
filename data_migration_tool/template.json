@@ -1,0 +1,16 @@
+{
+    "parentMetadata": {
+        "parentMetadataFlag": false
+    },
+    "identificationInfo": {
+        "SpatialResolution": {
+            "ResolutionAttributeUnits": ""
+        },
+        "securityClassification": {
+            "label": "Unclassified",
+            "value": "unclassified"
+        },
+        "useLimitation": "\n            The Creative Commons Attribution 4.0 International (CC BY 4.0) license allows others to copy, distribute, display, and create derivative works provided that they credit the original source and any other nominated parties. Details are provided at https://creativecommons.org/licenses/by/4.0/\n          ",
+        "generatedCitation": " (2022): a8. Version . Terrestrial Ecosystem Research Network (TERN). (Dataset). {Data URL from the TERN Data Discovery Portal}"
+    }
+}

@@ -19,6 +19,14 @@
 		"fn": "todo"
 	},
 	{
+		"src": ["doiRequested"],
+		"dst": ["identificationInfo", "doiFlag"]
+	},
+	{
+		"src": ["identificationInfo", "doi"],
+		"dst": ["identificationInfo", "doi"]
+	},
+	{
 		"src": ["resourceLineage", "lineage"],
 		"dst": ["resourceLineage", "statement"]
 	},

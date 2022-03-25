@@ -177,6 +177,14 @@ def keywordsTheme(value):
         # 'broader_concept': TODO
     } for v in value]
 
+def keywordsHorizontal(value):
+    return {
+        # 'breadcrumb': TODO,
+        'label': value[0]['prefLabel'],
+        'uri': value[0]['uri'],
+        # 'broader_concept': TODO
+    } if len(value) > 0 else None
+
 functions = {
     'todo': todo,
     'capitalize': my_capitalize,
@@ -196,7 +204,8 @@ functions = {
     'parameter': parameter,
     'platform': platform,
     'instrument': instrument,
-    'keywordsTheme': keywordsTheme
+    'keywordsTheme': keywordsTheme,
+    'keywordsHorizontal': keywordsHorizontal
 }
 
 def get_data_at_path(data, path):

@@ -129,22 +129,9 @@
 		"fn": "platform"
 	},
 	{
-		"src": ["identificationInfo", "horizontalResolution", 0, "prefLabel"],
-		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", "label"]
-	},
-	{
-		"src": ["identificationInfo", "horizontalResolution", 0, "uri"],
-		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", "uri"]
-	},
-	{
 		"src": ["identificationInfo", "horizontalResolution"],
-		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", "breadcrumb"],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "horizontalResolution"],
-		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", "broader_concept"],
-		"fn": "todo"
+		"dst": ["identificationInfo", "keywordsHorizontal", "keywords"],
+		"fn": "keywordsHorizontal"
 	},
 	{
 		"src": ["identificationInfo", "endPosition"],

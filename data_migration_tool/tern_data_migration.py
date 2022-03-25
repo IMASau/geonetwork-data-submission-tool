@@ -2,11 +2,6 @@ import json
 import copy
 import uuid
 
-def todo(value):
-    return None
-
-def my_capitalize(value):
-    return value.capitalize()
 
 def flora(value):
     # TODO: treats every taxon keyword as flora (when it could be fauna)
@@ -34,21 +29,6 @@ def parse_num(value):
     except:
         return value
 
-def exists(value):
-    return value != None and value != ""
-
-def full_address_line(value):
-    return f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}"
-
-def name(value):
-    return f"{value['givenName']} {value['familyName']}"
-
-def party_type(value):
-    if value['givenName'] == 'a_not_applicable' or value['givenName'] == '':
-        return 'organisation'
-    else:
-        return 'person'
-
 def other_constraints(value):
     return [
             "TERN services are provided on an \"as-is\" and \"as available\" basis. Users use any TERN services at their discretion and risk.\n            They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.\n            <br />Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.\n            <br /><br />Please advise any work or publications that use this data via the online form at https://www.tern.org.au/research-publications/#reporting",
@@ -72,7 +52,10 @@ def protocol(value):
         {'label': 'Other/unknown',
          'value': 'WWW:DOWNLOAD-1.0-http--download'}
     ]
-    return next(v for v in protocols if v['value'] == value)
+    try:
+        return next(v for v in protocols if v['value'] == value)
+    except:
+        return {'value': value}
 
 def role(value):
     roles = [
@@ -134,7 +117,10 @@ def role(value):
         'Identifier': 'user',
         'Description': 'Party who uses the resource'}
     ]
-    return next(v for v in roles if v['Identifier'] == value)
+    try:
+        return next(v for v in roles if v['Identifier'] == value)
+    except:
+        return {'Identifier': value}
 
 def parameter(value):
     return [{
@@ -192,18 +178,18 @@ def keywordsTemporal(value):
     return keywordsHorizontal(value)
 
 functions = {
-    'todo': todo,
-    'capitalize': my_capitalize,
+    'todo': lambda value: None,
+    'capitalize': lambda value: value.capitalize(),
     'flora': flora,
     'fauna': fauna,
     'parseNum': parse_num,
-    'exists': exists,
-    'fullAddressLine': full_address_line,
-    'name': name,
-    'partyType': party_type,
+    'exists': lambda value: value != None and value != "",
+    'fullAddressLine': lambda value: f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}",
+    'name': lambda value: f"{value['givenName']} {value['familyName']}",
+    'partyType': lambda value: 'organisation' if value['givenName'] == 'a_not_applicable' or value['givenName'] == '' else 'person',
     'otherConstraints': other_constraints,
     'true': lambda value : True,
-    'join': lambda value: "\n".join(value),
+    'join': lambda value: "\n".join(list(filter(None, value))),
     'protocol': protocol,
     'role': role,
     'uuid': lambda value: str(uuid.uuid4()),

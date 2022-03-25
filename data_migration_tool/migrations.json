@@ -388,22 +388,8 @@
 	},
 	{
 		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
-		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["breadcrumb"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
-		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["label"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
-		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["uri"]]
-	},
-	{
-		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
-		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["broader_concept"]],
-		"fn": "todo"
+		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
+		"fn": "keywordsThemeAnzsrc"
 	},
 	{
 		"src": ["identificationInfo", "maintenanceAndUpdateFrequency"],

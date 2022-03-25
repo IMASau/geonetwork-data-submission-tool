@@ -177,6 +177,9 @@ def keywordsTheme(value):
         # 'broader_concept': TODO
     } for v in value]
 
+def keywordsThemeAnzsrc(value):
+    return keywordsTheme(value)
+
 def keywordsHorizontal(value):
     return {
         # 'breadcrumb': TODO,
@@ -205,6 +208,7 @@ functions = {
     'platform': platform,
     'instrument': instrument,
     'keywordsTheme': keywordsTheme,
+    'keywordsThemeAnzsrc': keywordsThemeAnzsrc,
     'keywordsHorizontal': keywordsHorizontal
 }
 

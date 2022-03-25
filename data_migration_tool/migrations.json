@@ -271,17 +271,8 @@
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["role", "Identifier"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["role", "Description"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["role", "UUID"]],
-		"fn": "todo"
+		"dst": ["identificationInfo", "citedResponsibleParty", ["role"]],
+		"fn": "role"
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["address", "city"]],
@@ -516,17 +507,8 @@
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["role"]],
-		"dst": ["identificationInfo", "pointOfContact", ["role", "Identifier"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["role"]],
-		"dst": ["identificationInfo", "pointOfContact", ["role", "Description"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["role"]],
-		"dst": ["identificationInfo", "pointOfContact", ["role", "UUID"]],
-		"fn": "todo"
+		"dst": ["identificationInfo", "pointOfContact", ["role"]],
+		"fn": "role"
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["address", "city"]],

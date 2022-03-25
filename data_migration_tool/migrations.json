@@ -432,7 +432,7 @@
 	},
 	{
 		"src": ["identificationInfo", "supplementalInformation"],
-		"dst": ["identificationInfo", "supplementalInformation"]
+		"dst": ["identificationInfo", "supplemental"]
 	},
 	{
 		"src": ["identificationInfo", "keywordsThemeExtra", "keywords"],

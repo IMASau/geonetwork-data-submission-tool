@@ -144,6 +144,21 @@ def parameter(value):
         'source': v['platform_vocabularyVersion']
     } for v in value]
 
+def platform(value):
+    return [{
+        'parameter': {
+            'label': v['longName_term'],
+            'description': v['longName_termDefinition'],
+            'uri': v['longName_vocabularyTermURL'],
+            'source': v['longName_vocabularyVersion']
+        },
+        'unit': {
+            'label': v['unit_term'],
+            'uri': v['unit_vocabularyTermURL'],
+            'source': v['unit_vocabularyVersion']
+        }
+    } for v in value]
+
 functions = {
     'todo': todo,
     'capitalize': my_capitalize,

@@ -158,32 +158,9 @@
 		"dst": ["identificationInfo", "keywordsInstrument", "keywords", ["source"]]
 	},
 	{
-		"src": ["identificationInfo", "dataParameters", ["longName_term"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "label"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["longName_termDefinition"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "description"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["longName_vocabularyTermURL"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "uri"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["longName_vocabularyVersion"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["parameter", "source"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["unit_term"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["unit", "label"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["unit_vocabularyTermURL"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["unit", "uri"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["unit_vocabularyVersion"]],
-		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords", ["unit", "source"]]
+		"src": ["identificationInfo", "dataParameters"],
+		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords"],
+		"fn": "platform"
 	},
 	{
 		"src": ["identificationInfo", "horizontalResolution", 0, "prefLabel"],

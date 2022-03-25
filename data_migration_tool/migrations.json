@@ -115,22 +115,8 @@
 	},
 	{
 		"src": ["identificationInfo", "keywordsTheme", "keywords"],
-		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["breadcrumb"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "keywordsTheme", "keywords"],
-		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["label"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "keywordsTheme", "keywords"],
-		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["uri"]]
-	},
-	{
-		"src": ["identificationInfo", "keywordsTheme", "keywords"],
-		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["broader_concept"]],
-		"fn": "todo"
+		"dst": ["identificationInfo", "keywordsTheme", "keywords"],
+		"fn": "keywordsTheme"
 	},
 	{
 		"src": ["identificationInfo", "dataParameters"],

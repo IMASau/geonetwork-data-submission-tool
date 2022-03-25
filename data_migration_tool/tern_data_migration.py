@@ -169,6 +169,14 @@ def instrument(value):
         'source': v['instrument_vocabularyVersion']
     } for v in value]
 
+def keywordsTheme(value):
+    return [{
+        # 'breadcrumb': TODO,
+        # 'label': TODO,
+        'uri': v,
+        # 'broader_concept': TODO
+    } for v in value]
+
 functions = {
     'todo': todo,
     'capitalize': my_capitalize,
@@ -187,7 +195,8 @@ functions = {
     'uuid': lambda value: str(uuid.uuid4()),
     'parameter': parameter,
     'platform': platform,
-    'instrument': instrument
+    'instrument': instrument,
+    'keywordsTheme': keywordsTheme
 }
 
 def get_data_at_path(data, path):

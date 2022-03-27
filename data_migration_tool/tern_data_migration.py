@@ -166,7 +166,7 @@ def keywordsTheme(value):
 def keywordsThemeAnzsrc(value):
     return [{
         # 'breadcrumb': TODO,
-        # 'label': TODO,
+        'label': v,
         'uri': v,
         # 'broader_concept': TODO
     } for v in value]

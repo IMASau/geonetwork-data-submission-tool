@@ -158,13 +158,18 @@ def instrument(value):
 def keywordsTheme(value):
     return [{
         # 'breadcrumb': TODO,
-        # 'label': TODO,
-        'uri': v,
+        'label': f'https://gcmd.earthdata.nasa.gov/kms/concept/{v}',
+        'uri': f'https://gcmd.earthdata.nasa.gov/kms/concept/{v}',
         # 'broader_concept': TODO
     } for v in value]
 
 def keywordsThemeAnzsrc(value):
-    return keywordsTheme(value)
+    return [{
+        # 'breadcrumb': TODO,
+        # 'label': TODO,
+        'uri': v,
+        # 'broader_concept': TODO
+    } for v in value]
 
 def keywordsHorizontal(value):
     return {

@@ -535,7 +535,8 @@
 	},
 	{
 		"src": ["identificationInfo", "samplingFrequency"],
-		"dst": ["identificationInfo", "keywordsTemporal", "keywords"]
+		"dst": ["identificationInfo", "keywordsTemporal", "keywords"],
+		"fn": "keywordsTemporal"
 	},
 	{
 		"src": ["identificationInfo", "beginPosition"],

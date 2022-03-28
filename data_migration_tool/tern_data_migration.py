@@ -210,7 +210,7 @@ functions = {
     'name': lambda value: f"{value['givenName']} {value['familyName']}",
     'partyType': lambda value: 'organisation' if value['givenName'] == 'a_not_applicable' or value['givenName'] == '' else 'person',
     'otherConstraints': other_constraints,
-    'true': lambda value : True,
+    'true': lambda value: True,
     'join': lambda value: "\n".join(list(filter(None, value))),
     'protocol': protocol,
     'role': role,
@@ -222,7 +222,8 @@ functions = {
     'keywordsThemeAnzsrc': keywordsThemeAnzsrc,
     'keywordsHorizontal': keywordsHorizontal,
     'keywordsTemporal': keywordsTemporal,
-    'distributor': distributor
+    'distributor': distributor,
+    'keywordsAdditional': lambda value: value['keywordsThemeExtra']['keywords'] + value['keywordsTaxonExtra']['keywords']
 }
 
 def get_data_at_path(data, path):

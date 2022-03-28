@@ -104,16 +104,6 @@
 		"fn": "otherConstraints"
 	},
 	{
-		"src": ["identificationInfo", "keywordsTaxonExtra", "keywords"],
-		"dst": ["identificationInfo", "keywordsFlora", "keywords"],
-		"fn": "flora"
-	},
-	{
-		"src": ["identificationInfo", "keywordsTaxonExtra", "keywords"],
-		"dst": ["identificationInfo", "keywordsFauna", "keywords"],
-		"fn": "fauna"
-	},
-	{
 		"src": ["identificationInfo", "keywordsTheme", "keywords"],
 		"dst": ["identificationInfo", "keywordsTheme", "keywords"],
 		"fn": "keywordsTheme"
@@ -383,8 +373,9 @@
 		"fn": "todo"
 	},
 	{
-		"src": ["identificationInfo", "keywordsThemeExtra", "keywords"],
-		"dst": ["identificationInfo", "keywordsAdditional", "keywords"]
+		"src": ["identificationInfo"],
+		"dst": ["identificationInfo", "keywordsAdditional", "keywords"],
+		"fn": "keywordsAdditional"
 	},
 	{
 		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],

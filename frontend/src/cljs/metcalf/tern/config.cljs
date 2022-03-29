@@ -328,15 +328,6 @@
         :data-path [?data-path "description"]}]]
 
      [m4/inline-form-group
-      {:form-id    ?form-id
-       :data-path  [?data-path "symbol"]
-       :label      "Symbol"
-       :helperText "Optional"}
-      [m4/textarea-field
-       {:form-id   ?form-id
-        :data-path [?data-path "symbol"]}]]
-
-     [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "source"]
        :label     "Source"}

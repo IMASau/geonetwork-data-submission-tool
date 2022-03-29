@@ -250,7 +250,8 @@ functions = {
     'topicCategories': lambda value: [{'label': value, 'value': value}],
     'status': lambda value: value if value != 'complete' else 'completed',
     'imas_keywordsTheme': lambda value: [{'label': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}", 'uri': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}"} for v in value],
-    'verticalCRS': vertical_crs
+    'verticalCRS': vertical_crs,
+    'dataParametersName': lambda value: value['longName'] if value['longName'] != value['name'] else None
 }
 
 def get_data_at_path(data, path):

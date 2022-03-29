@@ -10,9 +10,9 @@
 	{
 		"src": ["identificationInfo", "status"],
 		"dst": ["identificationInfo", "status"],
-        "fn": "status"
+		"fn": "status"
 	},
-    {
+	{
 		"src": ["identificationInfo", "topicCategory"],
 		"dst": ["identificationInfo", "topicCategories"],
 		"fn": "topicCategories"
@@ -46,14 +46,49 @@
 		"src": ["identificationInfo", "endPosition"],
 		"dst": ["identificationInfo", "extents", "endPosition"]
 	},
-    {
+	{
 		"src": ["identificationInfo", "geographicElement"],
 		"dst": ["identificationInfo", "extents", "hasGeographicCoverage"],
-        "fn": "exists"
+		"fn": "exists"
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", ["westBoundLongitude"]],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["westBoundLongitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", ["eastBoundLongitude"]],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["eastBoundLongitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", ["southBoundLatitude"]],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["southBoundLatitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", ["northBoundLatitude"]],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["northBoundLatitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", ["westBoundLongitude"]],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["westBoundLongitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement"],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["isUserDefined"]],
+		"fn": "true"
+	},
+	{
+		"src": ["identificationInfo", "geographicElement"],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["uri"]],
+		"fn": "uuid"
 	},
 	{
 		"src": ["identificationInfo", "verticalElement", "hasVerticalExtent"],
 		"dst": ["identificationInfo", "extents", "hasVerticalExtent"]
+	},
+    {
+		"src": ["identificationInfo", "verticalElement", "verticalCRS"],
+		"dst": ["identificationInfo", "extents", "verticalElement", "verticalCRS"],
+		"fn": "verticalCRS"
 	},
 	{
 		"src": ["identificationInfo", "verticalElement", "maximumValue"],

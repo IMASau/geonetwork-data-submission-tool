@@ -199,6 +199,29 @@ def distributor(value):
         'country': 'Australia'
     }
 
+def vertical_crs(value):
+    crs = [
+        {
+            'identifier': 'EPSG::5714',
+            'name': 'MSL height',
+            'label': 'Altitude (height above mean sea level)'
+        },
+        {
+            'identifier': 'EPSG::5715',
+            'name': 'MSL depth',
+            'label': 'Depth (distance below mean sea level)'
+        }
+    ]
+
+    try:
+        return next(v for v in crs if v['identifier'] == value)
+    except:
+        return {
+            'identifier': value,
+            'name': value,
+            'label': value
+        }
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -226,7 +249,8 @@ functions = {
     'keywordsAdditional': lambda value: value['keywordsThemeExtra']['keywords'] + value['keywordsTaxonExtra']['keywords'],
     'topicCategories': lambda value: [{'label': value, 'value': value}],
     'status': lambda value: value if value != 'complete' else 'completed',
-    'imas_keywordsTheme': lambda value: [{'label': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}", 'uri': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}"} for v in value]
+    'imas_keywordsTheme': lambda value: [{'label': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}", 'uri': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}"} for v in value],
+    'verticalCRS': vertical_crs
 }
 
 def get_data_at_path(data, path):

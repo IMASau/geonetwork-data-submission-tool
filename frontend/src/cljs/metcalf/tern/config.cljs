@@ -702,7 +702,7 @@
 
      [m4/expanding-control {:label "Horizontal Resolution" :required true}
       [m4/form-group
-       {:label   "Select a Horizontal Resolution range"
+       {:label   "Select a Horizontal (Spatial) Resolution range"
         :toolTip "Horizontal resolution is a horizontal extent of the dataset. Select a resolution from the drop-down menu."}
        [m4/async-select-option-simple
         {:form-id    [:form]

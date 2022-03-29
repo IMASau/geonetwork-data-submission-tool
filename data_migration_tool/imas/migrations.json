@@ -11,6 +11,11 @@
 		"src": ["identificationInfo", "status"],
 		"dst": ["identificationInfo", "status"]
 	},
+    {
+		"src": ["identificationInfo", "topicCategory"],
+		"dst": ["identificationInfo", "topicCategories"],
+		"fn": "topicCategories"
+	},
 	{
 		"src": ["identificationInfo", "maintenanceAndUpdateFrequency"],
 		"dst": ["identificationInfo", "maintenanceAndUpdateFrequency"]

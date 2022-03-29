@@ -223,7 +223,8 @@ functions = {
     'keywordsHorizontal': keywordsHorizontal,
     'keywordsTemporal': keywordsTemporal,
     'distributor': distributor,
-    'keywordsAdditional': lambda value: value['keywordsThemeExtra']['keywords'] + value['keywordsTaxonExtra']['keywords']
+    'keywordsAdditional': lambda value: value['keywordsThemeExtra']['keywords'] + value['keywordsTaxonExtra']['keywords'],
+    'topicCategories': lambda value: [{'label': value, 'value': value}]
 }
 
 def get_data_at_path(data, path):

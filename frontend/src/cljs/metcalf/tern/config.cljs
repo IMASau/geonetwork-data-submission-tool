@@ -558,8 +558,8 @@
      [m4/inline-form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "dateCreation"]
-       :label     "Date the resource was created"
-       :toolTip   "This is a required field. Set the date the data was created or collected using the Calendar. The selected date can be in the past."}
+       :label     "Date the dataset was created"
+       :toolTip   "For raw data this is the date when the data were collected. For derived data this is the date when the data were processed."}
       [m4/date-field2
        {:form-id   [:form]
         :data-path ["identificationInfo" "dateCreation"]}]]

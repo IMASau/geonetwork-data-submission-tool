@@ -1,0 +1,170 @@
+[
+	{
+		"src": ["identificationInfo", "title"],
+		"dst": ["identificationInfo", "title"]
+	},
+	{
+		"src": ["identificationInfo", "dateCreation"],
+		"dst": ["identificationInfo", "dateCreation"]
+	},
+	{
+		"src": ["identificationInfo", "status"],
+		"dst": ["identificationInfo", "status"]
+	},
+	{
+		"src": ["identificationInfo", "maintenanceAndUpdateFrequency"],
+		"dst": ["identificationInfo", "maintenanceAndUpdateFrequency"]
+	},
+	{
+		"src": ["identificationInfo", "abstract"],
+		"dst": ["identificationInfo", "abstract"]
+	},
+	{
+		"src": ["identificationInfo", "keywordsThemeExtra", "keywords"],
+		"dst": ["identificationInfo", "keywordsThemeExtra", "keywords"]
+	},
+	{
+		"src": ["identificationInfo", "keywordsTaxonExtra", "keywords"],
+		"dst": ["identificationInfo", "keywordsTaxonExtra", "keywords"]
+	},
+	{
+		"src": ["identificationInfo", "beginPosition"],
+		"dst": ["identificationInfo", "extents", "beginPosition"]
+	},
+	{
+		"src": ["identificationInfo", "endPosition"],
+		"dst": ["identificationInfo", "extents", "endPosition"]
+	},
+	{
+		"src": ["identificationInfo", "verticalElement", "hasVerticalExtent"],
+		"dst": ["identificationInfo", "extents", "hasVerticalExtent"]
+	},
+	{
+		"src": ["identificationInfo", "verticalElement", "maximumValue"],
+		"dst": ["identificationInfo", "extents", "verticalElement", "maximumValue"]
+	},
+	{
+		"src": ["dataQualityInfo", "statement"],
+		"dst": ["resourceLineage", "statement"]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["role"]],
+		"dst": ["pointOfContact", ["role"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["individualName"]],
+		"dst": ["pointOfContact", ["name"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["orcid"]],
+		"dst": ["pointOfContact", ["contact", "orcid2"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["organisationName"]],
+		"dst": ["pointOfContact", ["organisation", "name"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "deliveryPoint"]],
+		"dst": ["pointOfContact", ["contact", "deliveryPoint"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "deliveryPoint2"]],
+		"dst": ["pointOfContact", ["contact", "deliveryPoint2"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "city"]],
+		"dst": ["pointOfContact", ["contact", "city"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "administrativeArea"]],
+		"dst": ["pointOfContact", ["contact", "administrativeArea"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "postalCode"]],
+		"dst": ["pointOfContact", ["contact", "postalCode"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "country"]],
+		"dst": ["pointOfContact", ["contact", "country"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["electronicMailAddress"]],
+		"dst": ["pointOfContact", ["contact", "email"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["phone"]],
+		"dst": ["pointOfContact", ["contact", "phone"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["role"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["individualName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["name"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["orcid"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "orcid2"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["organisationName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "name"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "deliveryPoint"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "deliveryPoint"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "deliveryPoint2"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "deliveryPoint2"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "city"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "city"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "administrativeArea"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "administrativeArea"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "postalCode"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "postalCode"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "country"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "country"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["electronicMailAddress"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "email"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["phone"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "phone"]]
+	},
+	{
+		"src": ["identificationInfo", "credit"],
+		"dst": ["identificationInfo", "credits"]
+	},
+	{
+		"src": ["identificationInfo", "supplementalInformation"],
+		"dst": ["identificationInfo", "supplementalInformation"]
+	},
+	{
+		"src": ["distributionInfo", "distributionFormat", "NetCDF"],
+		"dst": ["distributionInfo", "distributionFormat", "title"]
+	},
+	{
+		"src": ["distributionInfo", "distributionFormat", "version"],
+		"dst": ["distributionInfo", "distributionFormat", "edition"]
+	},
+	{
+		"src": ["fileIdentifier"],
+		"dst": ["fileIdentifier"]
+	},
+	{
+		"src": ["identificationInfo", "dateCreation"],
+		"dst": ["identificationInfo", "datePublication"]
+	}
+]

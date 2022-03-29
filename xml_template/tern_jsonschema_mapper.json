@@ -342,6 +342,12 @@
           }
         },
         {
+          "dateOrder": {
+            "field0": "endPosition",
+            "field1": "dateCreation"
+          }
+        },
+        {
           "requiredWhenYes": {
             "bool-field": "datePublicationFlag",
             "opt-field": "datePublication"

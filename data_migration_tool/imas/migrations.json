@@ -26,6 +26,11 @@
 		"dst": ["identificationInfo", "abstract"]
 	},
 	{
+		"src": ["identificationInfo", "keywordsTheme", "keywords"],
+		"dst": ["identificationInfo", "keywordsTheme", "keywords"],
+		"fn": "imas_keywordsTheme"
+	},
+	{
 		"src": ["identificationInfo", "keywordsThemeExtra", "keywords"],
 		"dst": ["identificationInfo", "keywordsThemeExtra", "keywords"]
 	},

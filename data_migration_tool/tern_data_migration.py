@@ -1,6 +1,7 @@
 import json
 import copy
 import uuid
+import re
 
 
 def flora(value):
@@ -222,6 +223,31 @@ def vertical_crs(value):
             'label': value
         }
 
+def creative_commons(value):
+    if value == None:
+        return None
+
+    constraints = {
+        'by': {
+            'label': 'Creative Commons Attribution 4.0 International License',
+            'value': 'CC-BY'
+        },
+        'by-nc': {
+            'label': 'Creative Commons Attribution-NonCommercial 4.0 International License',
+            'value': 'CC-BY-NC'
+        }
+    }
+
+    try:
+        constraint_key = re.search(r"licenses\/([^\/]+)\/", value).group(1)
+        return constraints[constraint_key]
+    except:
+        return {
+            'label': 'Other constraints',
+            'value': 'OTHER',
+            'other': True
+        }
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -251,7 +277,8 @@ functions = {
     'status': lambda value: value if value != 'complete' else 'completed',
     'imas_keywordsTheme': lambda value: [{'label': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}", 'uri': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}"} for v in value],
     'verticalCRS': vertical_crs,
-    'dataParametersName': lambda value: value['longName'] if value['longName'] != value['name'] else None
+    'dataParametersName': lambda value: value['longName'] if value['longName'] != value['name'] else None,
+    'creativeCommons': creative_commons
 }
 
 def get_data_at_path(data, path):

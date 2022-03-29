@@ -269,6 +269,11 @@
 		"dst": ["identificationInfo", "dataParameters", ["isUserDefined"]],
 		"fn": "true" 
 	},
+    {
+		"src": ["identificationInfo", "creativeCommons"],
+		"dst": ["identificationInfo", "creativeCommons"],
+		"fn": "creativeCommons"
+	},
 	{
 		"src": ["identificationInfo", "supplementalInformation"],
 		"dst": ["identificationInfo", "supplementalInformation"]

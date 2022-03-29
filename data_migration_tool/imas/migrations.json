@@ -110,7 +110,7 @@
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["individualName"]],
-		"dst": ["pointOfContact", ["name"]]
+		"dst": ["pointOfContact", ["contact", "name"]]
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["orcid"]],
@@ -152,13 +152,23 @@
 		"src": ["identificationInfo", "pointOfContact", ["phone"]],
 		"dst": ["pointOfContact", ["contact", "phone"]]
 	},
+    {
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["pointOfContact", ["uri"]],
+		"fn": "uuid"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["pointOfContact", ["isUserDefined"]],
+		"fn": "true" 
+	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["role"]]
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["individualName"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["name"]]
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "name"]]
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["orcid"]],
@@ -199,6 +209,16 @@
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["phone"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "phone"]]
+	},
+    {
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["uri"]],
+		"fn": "uuid"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["isUserDefined"]],
+		"fn": "true" 
 	},
 	{
 		"src": ["identificationInfo", "credit"],

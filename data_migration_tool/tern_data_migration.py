@@ -205,7 +205,7 @@ functions = {
     'flora': flora,
     'fauna': fauna,
     'parseNum': parse_num,
-    'exists': lambda value: value != None and value != "",
+    'exists': lambda value: value != None and len(value) != 0,
     'fullAddressLine': lambda value: f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}",
     'name': lambda value: f"{value['givenName']} {value['familyName']}",
     'partyType': lambda value: 'organisation' if value['givenName'] == 'a_not_applicable' or value['givenName'] == '' else 'person',

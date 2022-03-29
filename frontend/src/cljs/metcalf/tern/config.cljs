@@ -1536,7 +1536,7 @@
         :disabled  true}]]
 
      [m4/form-group
-      {:label "Building"}
+      {:label "Street name"}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "organisation" "street_address"]
@@ -1646,7 +1646,7 @@
         :disabled  true}]]
 
      [m4/form-group
-      {:label "Building"}
+      {:label "Street name"}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "organisation" "street_address"]
@@ -1718,7 +1718,7 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "street_address"]
-       :label     "Building"}
+       :label     "Street name"}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "street_address"]}]]

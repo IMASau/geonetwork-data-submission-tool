@@ -835,7 +835,7 @@
 
      [m4/expanding-control {:label "Additional Keywords (Optional)" :required false}
       [m4/form-group
-       {:label   "Additional theme keywords can be added for review and approval process"
+       {:label   "Additional theme keywords"
         :toolTip "You can add any additional keywords if they are not available in the lists above. All entries will be reviewed prior to publication."}
        [m4/text-add-button
         {:form-id     [:form]

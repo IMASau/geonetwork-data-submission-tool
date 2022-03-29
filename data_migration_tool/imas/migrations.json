@@ -9,7 +9,8 @@
 	},
 	{
 		"src": ["identificationInfo", "status"],
-		"dst": ["identificationInfo", "status"]
+		"dst": ["identificationInfo", "status"],
+        "fn": "status"
 	},
     {
 		"src": ["identificationInfo", "topicCategory"],

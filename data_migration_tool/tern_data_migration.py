@@ -224,7 +224,8 @@ functions = {
     'keywordsTemporal': keywordsTemporal,
     'distributor': distributor,
     'keywordsAdditional': lambda value: value['keywordsThemeExtra']['keywords'] + value['keywordsTaxonExtra']['keywords'],
-    'topicCategories': lambda value: [{'label': value, 'value': value}]
+    'topicCategories': lambda value: [{'label': value, 'value': value}],
+    'status': lambda value: value if value != 'complete' else 'completed'
 }
 
 def get_data_at_path(data, path):

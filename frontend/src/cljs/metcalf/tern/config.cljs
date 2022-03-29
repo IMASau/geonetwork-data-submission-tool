@@ -596,7 +596,7 @@
       [m4/textarea-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "abstract"]
-        :maxLength 500}]]
+        :maxLength 2500}]]
      [m4/form-group
       {:form-id    [:form]
        :data-path  ["identificationInfo" "purpose"]

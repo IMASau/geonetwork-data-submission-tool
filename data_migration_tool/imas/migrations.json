@@ -252,7 +252,6 @@
 		"dst": ["identificationInfo", "dataParameters", ["unit_term", "isUserDefined"]],
 		"fn": "true" 
 	},
-    
     {
 		"src": ["identificationInfo", "dataParameters"],
 		"dst": ["identificationInfo", "dataParameters", ["name"]],
@@ -275,8 +274,18 @@
 		"fn": "creativeCommons"
 	},
 	{
+		"src": ["identificationInfo", "useLimitation"],
+		"dst": ["identificationInfo", "useLimitations"],
+		"fn": "list"
+	},
+	{
 		"src": ["identificationInfo", "supplementalInformation"],
 		"dst": ["identificationInfo", "supplementalInformation"]
+	},
+	{
+		"src": ["identificationInfo", "supplementalInformation"],
+		"dst": ["identificationInfo", "supplementalInformationExport"],
+		"fn": "join"
 	},
 	{
 		"src": ["distributionInfo", "distributionFormat", "name"],

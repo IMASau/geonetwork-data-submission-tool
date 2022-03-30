@@ -1,4 +1,3 @@
-import json
 import copy
 import uuid
 import re
@@ -307,7 +306,7 @@ def apply(value, fn, depth):
     else:
         return [apply(v, fn, depth - 1) for v in value]
 
-def migrate_data(input, output, migration):
+def do_migration(input, output, migration):
     src = migration['src']
     dst = migration['dst']
     value = get_data_at_path(input, src)
@@ -328,29 +327,9 @@ def clear_empty_keys(data):
         data = [v for v in data if not (v == None or v == {} or v == [] or v == "")]
     return data
 
-input_filepath = input('Please input the filepath to the data you wish to migrate(leave blank for xgz.json): ')
-if len(input_filepath) == 0:
-    input_filepath = 'data_migration_tool/xgz.json'
-input_data = json.loads(open(input_filepath, 'r').read())
-
-migrations_filepath = input('Please input the filepath to the list of migrations you wish to make (leave blank for default): ')
-if len(migrations_filepath) == 0:
-    migrations_filepath = 'data_migration_tool/migrations.json'
-migrations = json.loads(open(migrations_filepath, 'r').read())
-
-output_filepath = input('Please input the filepath to where you wish to output the migrated data (leave blank for default): ')
-if len(output_filepath) == 0:
-    output_filepath = 'data_migration_tool/output.json'
-
-template_filepath = input('Please input the filepath to the output template data (leave blank for default): ')
-if len(template_filepath) == 0:
-    template_filepath = 'data_migration_tool/template.json'
-
-output_data = json.loads(open(template_filepath, 'r').read())
-
-for migration in migrations:
-    output_data = migrate_data(input_data, output_data, migration)
-
-output_data = clear_empty_keys(output_data)
-
-open(output_filepath, 'wt').write(json.dumps(output_data))
+def migrate_data(input_data, template, migrations):
+    output_data = copy.deepcopy(template)
+    for migration in migrations:
+        output_data = do_migration(input_data, output_data, migration)
+    output_data = clear_empty_keys(output_data)
+    return output_data

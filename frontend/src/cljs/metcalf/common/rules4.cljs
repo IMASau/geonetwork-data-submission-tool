@@ -222,6 +222,22 @@
         unit-user-defined (get-in items ["unit" "isUserDefined"])]
     (assoc-in block [:content "isUserDefined" :props :value] (or parameter-user-defined unit-user-defined))))
 
+(defn tern-duplicate-parameters
+  "Keyword list duplicates are enforced by default by id, but in this special
+  case where a list is a pair, with a fresh UUID each time, we have to check
+  manually."
+  [block]
+  (let [data (blocks4/as-data block)
+        keywords (get data "keywords")
+        cnt (count keywords)
+        uniq-cnt (->> keywords
+                      (map #(vector (get-in % ["parameter" "uri"]) (get-in % ["unit" "uri"])))
+                      (into #{})
+                      count)]
+    (cond-> block
+      (not= cnt uniq-cnt)
+      (update-in [:props :errors] conj "Can't have duplicate parameter/unit entries"))))
+
 ; TODO: consider renaming - doing more than required flag (disable/hide/clear)
 (defn required-when-yes
   [block {:keys [bool-field opt-field negate]}]

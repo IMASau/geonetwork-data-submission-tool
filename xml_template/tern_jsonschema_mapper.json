@@ -1657,7 +1657,8 @@
                 "!docstring": "About6",
                 "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
                 "keep": false,
-                "type": "string"
+                "type": "string",
+                "rules": ["validURL"]
               },
               "uri": {},
               "isUserDefined": {},

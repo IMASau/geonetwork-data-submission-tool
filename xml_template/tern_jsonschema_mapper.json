@@ -730,7 +730,10 @@
               "contactOrganisationUserDefined"
             ]
           },
-          "rules": ["requiredField"],
+          "rules": [
+            "requiredField",
+            "authorRequired"
+          ],
           "notes": "Responsible party/ies for creating dataset"
         },
         "pointOfContact": {

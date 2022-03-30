@@ -157,6 +157,7 @@
        "defaultClassification"          rules4/default-classification
        "defaultRole"                    rules4/default-role
        "maxKeywords"                    rules4/tern-max-keywords
+       "authorRequired"                 rules4/author-required
        "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined
        "contactNotForOrgs"              rules4/tern-contact-unless-org
        "generateCitation"               rules4/generate-citation

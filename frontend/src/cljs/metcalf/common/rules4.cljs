@@ -141,6 +141,17 @@
                 :data  party-type})
           block))))
 
+(defn author-required
+  "At least one cited-responsible-party must be an author"
+  [block]
+  (let [data (blocks4/as-data block)
+        any-authors? (->> data
+                          (map #(get-in % ["role" "Identifier"]))
+                          (some #(= "author" %)))]
+    (cond-> block
+      (not any-authors?)
+      (update-in [:props :errors] conj "At least one author must be defined"))))
+
 (defn tern-max-keywords
   "For certain arrays we want to limit the amount of items the user can
    add to them. This rule accomplishes this by disabling the ability to

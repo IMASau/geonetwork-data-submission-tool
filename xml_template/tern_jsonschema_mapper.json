@@ -215,7 +215,10 @@
                 "!docstring": "DataSource11",
                 "xpath": "mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
                 "type": "string",
-                "rules": ["requiredField"]
+                "rules": [
+                  "requiredField",
+                  "validURL"
+                ]
               },
               "protocol": {
                 "type": "object",
@@ -339,6 +342,12 @@
           "dateOrder": {
             "field0": "beginPosition",
             "field1": "endPosition"
+          }
+        },
+        {
+          "dateOrder": {
+            "field0": "endPosition",
+            "field1": "dateCreation"
           }
         },
         {
@@ -724,7 +733,10 @@
               "contactOrganisationUserDefined"
             ]
           },
-          "rules": ["requiredField"],
+          "rules": [
+            "requiredField",
+            "authorRequired"
+          ],
           "notes": "Responsible party/ies for creating dataset"
         },
         "pointOfContact": {
@@ -1648,7 +1660,8 @@
                 "!docstring": "About6",
                 "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
                 "keep": false,
-                "type": "string"
+                "type": "string",
+                "rules": ["validURL"]
               },
               "uri": {},
               "isUserDefined": {},
@@ -1790,7 +1803,10 @@
                 "type": "string",
                 "keep": false,
                 "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
-                "rules": ["requiredField"]
+                "rules": [
+                  "requiredField",
+                  "validURL"
+                ]
               }
             }
           }
@@ -1851,7 +1867,8 @@
             "url": {
               "xpath": "mdq:DQ_StandaloneQualityReportInformation/mdq:reportReference/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage",
               "valueChild": "gco:CharacterString",
-              "type": "string"
+              "type": "string",
+              "rules": ["validURL"]
             }
           }
         }

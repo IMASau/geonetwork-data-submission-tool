@@ -15,11 +15,11 @@
       [bp3/navbar-group {:align (:RIGHT bp3/alignment)}
        (if account_profile
          [:a.bp3-button.bp3-minimal {:href account_profile}
-          [:span.fa.fa-user " " (userDisplay user)]]
-         [:span.fa.fa-user {:style {:padding "5px 10px 5px 10px"}} " " (userDisplay user)])
+          [:span [:span.fa.fa-user] " " (userDisplay user)]]
+         [:span [:span.fa.fa-user] " " (userDisplay user)])
        [:a.bp3-button.bp3-minimal {:href Dashboard}
-        [:span.fa.fa-folder-open " My Records"]]
+        [:span [:span.fa.fa-folder-open] " My Records"]]
        [:a.bp3-button.bp3-minimal {:href guide_pdf :target "_blank"}
-        [:span.fa.fa-info " Help"]]
+        [:span [:span.fa.fa-info] " Help"]]
        [:a.bp3-button.bp3-minimal {:href account_logout}
-        [:span.fa.fa-sign-out " Sign Out"]]]]]))
+        [:span [:span.fa.fa-sign-out] " Sign Out"]]]]]))

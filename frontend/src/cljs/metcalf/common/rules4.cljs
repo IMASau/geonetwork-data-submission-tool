@@ -82,6 +82,16 @@
            (not (re-matches #"(?i)(https?://orcid.org/)?\d\d\d\d-\d\d\d\d-\d\d\d\d-\d\d\d[\dxX]" value)))
       (update-in [:props :errors] conj "Invalid ORCID url.  Expected format is 'https://orcid.org/XXXX-XXXX-XXXX-XXXX'"))))
 
+(defn valid-url
+  "Generic validator for URLs"
+  [block]
+  (let [value (blocks4/as-data block)]
+    (cond-> block
+      ;; Start with a simple validator, only get more sophisticated if we need to:
+      (and (string? value)
+           (not (re-matches #"^(?:ftp|http|https)://[^ \"]+$" value)))
+      (update-in [:props :errors] conj "Value must be a valid URL"))))
+
 (defn required-all-or-nothing
   "Handles cases where a group of fields are mandatory if set; ie if you
   set one, they should all be set"
@@ -140,6 +150,17 @@
                 :msg   "Unexpected partyType"
                 :data  party-type})
           block))))
+
+(defn author-required
+  "At least one cited-responsible-party must be an author"
+  [block]
+  (let [data (blocks4/as-data block)
+        any-authors? (->> data
+                          (map #(get-in % ["role" "Identifier"]))
+                          (some #(= "author" %)))]
+    (cond-> block
+      (not any-authors?)
+      (update-in [:props :errors] conj "At least one author must be defined"))))
 
 (defn tern-max-keywords
   "For certain arrays we want to limit the amount of items the user can
@@ -378,8 +399,8 @@
                 {:required false :disabled true :value nil}
                 {:required true})]
     (-> identificationInfo
-        (update-in [:content "extents" :content "endPosition" :props] merge props)
-        (update-in [:content "extents" :content "endPosition"] required-field (:required props)))))
+        (update-in [:content "endPosition" :props] merge props)
+        (update-in [:content "endPosition"] required-field (:required props)))))
 
 (defn maint-freq
   [identificationInfo]

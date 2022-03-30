@@ -143,6 +143,7 @@
        "requiredIfValue"                rules4/required-if-value
        "maxLength"                      rules4/max-length
        "mergeNameParts"                 rules4/merge-names
+       "validURL"                       rules4/valid-url
        "validOrcid"                     rules4/valid-ordid-uri
        "geographyRequired"              rules4/geography-required
        "numericOrder"                   rules4/numeric-order
@@ -157,6 +158,7 @@
        "defaultClassification"          rules4/default-classification
        "defaultRole"                    rules4/default-role
        "maxKeywords"                    rules4/tern-max-keywords
+       "authorRequired"                 rules4/author-required
        "contactOrganisationUserDefined" rules4/tern-contact-organisation-user-defined
        "contactNotForOrgs"              rules4/tern-contact-unless-org
        "generateCitation"               rules4/generate-citation
@@ -326,15 +328,6 @@
       [m4/textarea-field
        {:form-id   ?form-id
         :data-path [?data-path "description"]}]]
-
-     [m4/inline-form-group
-      {:form-id    ?form-id
-       :data-path  [?data-path "symbol"]
-       :label      "Symbol"
-       :helperText "Optional"}
-      [m4/textarea-field
-       {:form-id   ?form-id
-        :data-path [?data-path "symbol"]}]]
 
      [m4/inline-form-group
       {:form-id   ?form-id
@@ -558,8 +551,8 @@
      [m4/inline-form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "dateCreation"]
-       :label     "Date the resource was created"
-       :toolTip   "This is a required field. Set the date the data was created or collected using the Calendar. The selected date can be in the past."}
+       :label     "Date the dataset was created"
+       :toolTip   "For raw data this is the date when the data were collected. For derived data this is the date when the data were processed."}
       [m4/date-field2
        {:form-id   [:form]
         :data-path ["identificationInfo" "dateCreation"]}]]
@@ -702,7 +695,7 @@
 
      [m4/expanding-control {:label "Horizontal Resolution" :required true}
       [m4/form-group
-       {:label   "Select a Horizontal Resolution range"
+       {:label   "Select a Horizontal (Spatial) Resolution range"
         :toolTip "Horizontal resolution is a horizontal extent of the dataset. Select a resolution from the drop-down menu."}
        [m4/async-select-option-simple
         {:form-id    [:form]
@@ -835,13 +828,13 @@
 
      [m4/expanding-control {:label "Additional Keywords (Optional)" :required false}
       [m4/form-group
-       {:label   "Additional theme keywords can be added for review and approval process"
+       {:label   "Additional theme keywords"
         :toolTip "You can add any additional keywords if they are not available in the lists above. All entries will be reviewed prior to publication."}
        [m4/text-add-button
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]
          :button-text "Add"}]
-       [:div.SelectionListItemColoured
+       [:div.SelectionListItemColoured.Inverted
         [m4/selection-list-values
          {:form-id   [:form]
           :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]]]]
@@ -895,7 +888,8 @@
         [m4/textarea-field
          {:form-id     [:form]
           :data-path   ["identificationInfo" "geographicElement" "siteDescription"]
-          :placeholder "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"}]]
+          :placeholder "A descriptive reference for the coverage. May include a project code. Example: Geelong (Site: G145), VIC, Australia"
+          :maxLength   500}]]
 
        [:p
         "Please input in decimal degrees in coordinate reference system WGS84."
@@ -1074,14 +1068,17 @@
          :added-path         ["isUserDefined"]
          :item-defaults      {"partyType" "organisation"}}]
 
-       [:div.SelectionListItemColoured
-        [m4/selection-list-template
-         {:form-id     [:form]
-          :data-path   ["identificationInfo" "citedResponsibleParty"]
-          :template-id :party/list-item
-          :select-mode :all-items
-          :value-path  ["uri"]
-          :added-path  ["isUserDefined"]}]]
+       [m4/form-group
+        {:form-id    [:form]
+         :data-path ["identificationInfo" "citedResponsibleParty"]}
+        [:div.SelectionListItemColoured
+         [m4/selection-list-template
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "citedResponsibleParty"]
+           :template-id :party/list-item
+           :select-mode :all-items
+           :value-path  ["uri"]
+           :added-path  ["isUserDefined"]}]]]
 
        [m4/typed-list-edit-dialog
         {:form-id   [:form]
@@ -1120,14 +1117,17 @@
          :added-path         ["isUserDefined"]
          :item-defaults      {"partyType" "organisation"}}]
 
-       [:div.SelectionListItemColoured
-        [m4/selection-list-template
-         {:form-id     [:form]
-          :data-path   ["identificationInfo" "pointOfContact"]
-          :template-id :party/list-item
-          :select-mode :all-items
-          :value-path  ["uri"]
-          :added-path  ["isUserDefined"]}]]
+       [m4/form-group
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "pointOfContact"]}
+        [:div.SelectionListItemColoured
+         [m4/selection-list-template
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "pointOfContact"]
+           :template-id :party/list-item
+           :select-mode :all-items
+           :value-path  ["uri"]
+           :added-path  ["isUserDefined"]}]]]
 
        [m4/typed-list-edit-dialog
         {:form-id   [:form]
@@ -1544,7 +1544,7 @@
         :disabled  true}]]
 
      [m4/form-group
-      {:label "Building"}
+      {:label "Street name"}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "organisation" "street_address"]
@@ -1654,7 +1654,7 @@
         :disabled  true}]]
 
      [m4/form-group
-      {:label "Building"}
+      {:label "Street name"}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "organisation" "street_address"]
@@ -1726,7 +1726,7 @@
      [m4/form-group
       {:form-id   ?form-id
        :data-path [?data-path "street_address"]
-       :label     "Building"}
+       :label     "Street name"}
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "street_address"]}]]
@@ -1864,14 +1864,14 @@
          :data-path   ["resourceLineage" "onlineMethods"]
          :value-path  ["uri"]
          :added-path  ["isUserDefined"]
-         :title       "Method Document"
+         :title       "Method Documentation"
          :template-id :method-doc/user-defined-entry-form}]]]
 
      [m4/expanding-control {:label "Data creation procedure steps (Optional)"}
 
       ;; How7b: list-add free-text entries
       [m4/form-group
-       {:label   "If the need arises please add steps taken for the Data creation procedure to support the brief provided above."
+       {:label   "If the need arises please add steps taken for the Data creation procedure to support the summary provided above."
         :toolTip "Specify the steps of the procedure."}
        [m4/text-add-button
         {:form-id     [:form]
@@ -1913,7 +1913,7 @@
       [m4/textarea-field
        {:form-id     [:form]
         :data-path   ["dataQualityInfo" "methodSummary"]
-        :maxLength   1000
+        :maxLength   2500
         :placeholder "The data quality was assessed by ..."}]]
 
      [m4/form-group
@@ -1947,7 +1947,7 @@
       [m4/textarea-field
        {:form-id     [:form]
         :data-path   ["dataQualityInfo" "results"]
-        :maxLength   1000
+        :maxLength   2500
         :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]]]
 
     :quality/user-defined-entry-form
@@ -2034,7 +2034,7 @@
         {:form-id     [:form]
          :data-path   ["identificationInfo" "environment"]
          :placeholder "Information about the source and software to process the resource"
-         :maxLength   1000}]]]
+         :maxLength   2500}]]]
 
      [m4/expanding-control {:label "Associated Documentation (Optional)"}
 

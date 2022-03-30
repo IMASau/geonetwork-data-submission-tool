@@ -1863,7 +1863,8 @@
             "url": {
               "xpath": "mdq:DQ_StandaloneQualityReportInformation/mdq:reportReference/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage",
               "valueChild": "gco:CharacterString",
-              "type": "string"
+              "type": "string",
+              "rules": ["validURL"]
             }
           }
         }

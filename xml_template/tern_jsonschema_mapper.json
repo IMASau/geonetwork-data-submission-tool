@@ -1390,7 +1390,10 @@
             }
           },
           "xpath_required": true,
-          "rules": ["requiredField"]
+          "rules": [
+            "requiredField",
+            "duplicateParameters"
+          ]
         },
         "keywordsTemporal": {
           "!docstring": "What10",

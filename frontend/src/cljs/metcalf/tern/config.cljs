@@ -665,17 +665,21 @@
          :value-path         ["uri"]
          :random-uuid-value? true}]
 
-       [:div.SelectionListItemColoured
-        [m4/selection-list-columns
-         {:form-id            [:form]
-          :data-path          ["identificationInfo" "keywordsParametersUnits" "keywords"]
-          :value-path         ["uri"]
-          :random-uuid-value? true
-          :select-snapshot?   true
-          :select-mode        :all-items
-          :added-path         ["isUserDefined"]
-          :columns            [{:columnHeader "Name" :label-path ["parameter" "label"] :flex 2}
-                               {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]]
+       [m4/form-group
+        {:form-id      [:form]
+         :data-path    ["identificationInfo" "keywordsParametersUnits"]
+         :show-errors? true}
+        [:div.SelectionListItemColoured
+         [m4/selection-list-columns
+          {:form-id            [:form]
+           :data-path          ["identificationInfo" "keywordsParametersUnits" "keywords"]
+           :value-path         ["uri"]
+           :random-uuid-value? true
+           :select-snapshot?   true
+           :select-mode        :all-items
+           :added-path         ["isUserDefined"]
+           :columns            [{:columnHeader "Name" :label-path ["parameter" "label"] :flex 2}
+                                {:columnHeader "Units" :label-path ["unit" "label"] :flex 3}]}]]]
        [m4/list-edit-dialog
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsParametersUnits" "keywords"]

@@ -252,7 +252,6 @@
 		"dst": ["identificationInfo", "dataParameters", ["unit_term", "isUserDefined"]],
 		"fn": "true" 
 	},
-    
     {
 		"src": ["identificationInfo", "dataParameters"],
 		"dst": ["identificationInfo", "dataParameters", ["name"]],
@@ -273,6 +272,11 @@
 		"src": ["identificationInfo", "creativeCommons"],
 		"dst": ["identificationInfo", "creativeCommons"],
 		"fn": "creativeCommons"
+	},
+	{
+		"src": ["identificationInfo", "useLimitation"],
+		"dst": ["identificationInfo", "useLimitations"],
+		"fn": "list"
 	},
 	{
 		"src": ["identificationInfo", "supplementalInformation"],

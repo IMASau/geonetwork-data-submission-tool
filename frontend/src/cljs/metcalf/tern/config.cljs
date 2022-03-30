@@ -2034,7 +2034,7 @@
         {:form-id     [:form]
          :data-path   ["identificationInfo" "environment"]
          :placeholder "Information about the source and software to process the resource"
-         :maxLength   2500}]]]
+         :maxLength   6000}]]]
 
      [m4/expanding-control {:label "Associated Documentation (Optional)"}
 

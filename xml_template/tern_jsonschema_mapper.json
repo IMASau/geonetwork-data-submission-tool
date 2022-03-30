@@ -1756,7 +1756,6 @@
         "doi": {
           "!docstring": "Lodge4",
           "xpath": "mri:citation/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code",
-          "container": "mri:citation/cit:CI_Citation/cit:identifier",
           "keep": false,
           "valueChild": "gcx:Anchor",
           "attributes": {

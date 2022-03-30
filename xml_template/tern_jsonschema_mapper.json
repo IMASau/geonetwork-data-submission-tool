@@ -1799,7 +1799,10 @@
                 "type": "string",
                 "keep": false,
                 "xpath": "cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString",
-                "rules": ["requiredField"]
+                "rules": [
+                  "requiredField",
+                  "validURL"
+                ]
               }
             }
           }

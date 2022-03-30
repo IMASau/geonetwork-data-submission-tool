@@ -143,6 +143,7 @@
        "requiredIfValue"                rules4/required-if-value
        "maxLength"                      rules4/max-length
        "mergeNameParts"                 rules4/merge-names
+       "validURL"                       rules4/valid-url
        "validOrcid"                     rules4/valid-ordid-uri
        "geographyRequired"              rules4/geography-required
        "numericOrder"                   rules4/numeric-order

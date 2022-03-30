@@ -82,6 +82,16 @@
            (not (re-matches #"(?i)(https?://orcid.org/)?\d\d\d\d-\d\d\d\d-\d\d\d\d-\d\d\d[\dxX]" value)))
       (update-in [:props :errors] conj "Invalid ORCID url.  Expected format is 'https://orcid.org/XXXX-XXXX-XXXX-XXXX'"))))
 
+(defn valid-url
+  "Generic validator for URLs"
+  [block]
+  (let [value (blocks4/as-data block)]
+    (cond-> block
+      ;; Start with a simple validator, only get more sophisticated if we need to:
+      (and (string? value)
+           (not (re-matches #"^(?:ftp|http|https)://[^ \"]+$" value)))
+      (update-in [:props :errors] conj "Value must be a valid URL"))))
+
 (defn required-all-or-nothing
   "Handles cases where a group of fields are mandatory if set; ie if you
   set one, they should all be set"

@@ -834,7 +834,7 @@
         {:form-id     [:form]
          :data-path   ["identificationInfo" "keywordsAdditional" "keywords"]
          :button-text "Add"}]
-       [:div.SelectionListItemColoured
+       [:div.SelectionListItemColoured.Inverted
         [m4/selection-list-values
          {:form-id   [:form]
           :data-path ["identificationInfo" "keywordsAdditional" "keywords"]}]]]]]

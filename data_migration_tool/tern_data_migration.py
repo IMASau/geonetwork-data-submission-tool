@@ -3,26 +3,6 @@ import copy
 import uuid
 import re
 
-
-def flora(value):
-    # TODO: treats every taxon keyword as flora (when it could be fauna)
-    return [{
-        # 'uri': TODO,
-        # 'acceptedNameUsage': TODO,
-        'label': v,
-        # 'altLabel': TODO
-    } for v in value]
-
-def fauna(value):
-    # TODO: treats every taxon keyword as fauna (when it could be flora)
-    return [{
-        'label': v,
-        # 'uri': TODO,
-        # 'broader_uri': TODO,
-        # 'has_children': TODO,
-        # 'breadcrumb': TODO
-    } for v in value]
-
 def parse_num(value):
     try:
         v = float(value)
@@ -251,8 +231,6 @@ def creative_commons(value):
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
-    'flora': flora,
-    'fauna': fauna,
     'parseNum': parse_num,
     'exists': lambda value: value != None and len(value) != 0,
     'fullAddressLine': lambda value: f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}",

@@ -1864,7 +1864,7 @@
          :data-path   ["resourceLineage" "onlineMethods"]
          :value-path  ["uri"]
          :added-path  ["isUserDefined"]
-         :title       "Method Document"
+         :title       "Method Documentation"
          :template-id :method-doc/user-defined-entry-form}]]]
 
      [m4/expanding-control {:label "Data creation procedure steps (Optional)"}

@@ -66,7 +66,7 @@
 	{
 		"src": ["dataSources"],
 		"dst": ["dataSources", ["distributor"]],
-		"fn": "todo"
+		"fn": "distributor"
 	},
 	{
 		"src": ["dataSources"],
@@ -104,33 +104,9 @@
 		"fn": "otherConstraints"
 	},
 	{
-		"src": ["identificationInfo", "keywordsTaxonExtra", "keywords"],
-		"dst": ["identificationInfo", "keywordsFlora", "keywords"],
-		"fn": "flora"
-	},
-	{
-		"src": ["identificationInfo", "keywordsTaxonExtra", "keywords"],
-		"dst": ["identificationInfo", "keywordsFauna", "keywords"],
-		"fn": "fauna"
-	},
-	{
 		"src": ["identificationInfo", "keywordsTheme", "keywords"],
-		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["breadcrumb"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "keywordsTheme", "keywords"],
-		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["label"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "keywordsTheme", "keywords"],
-		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["uri"]]
-	},
-	{
-		"src": ["identificationInfo", "keywordsTheme", "keywords"],
-		"dst": ["identificationInfo", "keywordsTheme", "keywords", ["broader_concept"]],
-		"fn": "todo"
+		"dst": ["identificationInfo", "keywordsTheme", "keywords"],
+		"fn": "keywordsTheme"
 	},
 	{
 		"src": ["identificationInfo", "dataParameters"],
@@ -143,22 +119,9 @@
 		"fn": "platform"
 	},
 	{
-		"src": ["identificationInfo", "horizontalResolution", 0, "prefLabel"],
-		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", "label"]
-	},
-	{
-		"src": ["identificationInfo", "horizontalResolution", 0, "uri"],
-		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", "uri"]
-	},
-	{
 		"src": ["identificationInfo", "horizontalResolution"],
-		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", "breadcrumb"],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "horizontalResolution"],
-		"dst": ["identificationInfo", "keywordsHorizontal", "keywords", "broader_concept"],
-		"fn": "todo"
+		"dst": ["identificationInfo", "keywordsHorizontal", "keywords"],
+		"fn": "keywordsHorizontal"
 	},
 	{
 		"src": ["identificationInfo", "endPosition"],
@@ -410,27 +373,14 @@
 		"fn": "todo"
 	},
 	{
-		"src": ["identificationInfo", "keywordsThemeExtra", "keywords"],
-		"dst": ["identificationInfo", "keywordsAdditional", "keywords"]
+		"src": ["identificationInfo"],
+		"dst": ["identificationInfo", "keywordsAdditional", "keywords"],
+		"fn": "keywordsAdditional"
 	},
 	{
 		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
-		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["breadcrumb"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
-		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["label"]],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
-		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["uri"]]
-	},
-	{
-		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
-		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords", ["broader_concept"]],
-		"fn": "todo"
+		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
+		"fn": "keywordsThemeAnzsrc"
 	},
 	{
 		"src": ["identificationInfo", "maintenanceAndUpdateFrequency"],
@@ -575,22 +525,9 @@
 		"dst": ["identificationInfo", "useLimitations"]
 	},
 	{
-		"src": ["identificationInfo", "samplingFrequency", 0, "prefLabel"],
-		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "label"]
-	},
-	{
-		"src": ["identificationInfo", "samplingFrequency", 0, "uri"],
-		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "uri"]
-	},
-	{
 		"src": ["identificationInfo", "samplingFrequency"],
-		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "breadcrumb"],
-		"fn": "todo"
-	},
-	{
-		"src": ["identificationInfo", "samplingFrequency"],
-		"dst": ["identificationInfo", "keywordsTemporal", "keywords", "broader_concept"],
-		"fn": "todo"
+		"dst": ["identificationInfo", "keywordsTemporal", "keywords"],
+		"fn": "keywordsTemporal"
 	},
 	{
 		"src": ["identificationInfo", "beginPosition"],

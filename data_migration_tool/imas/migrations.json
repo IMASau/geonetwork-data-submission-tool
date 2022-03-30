@@ -1,0 +1,297 @@
+[
+	{
+		"src": ["identificationInfo", "title"],
+		"dst": ["identificationInfo", "title"]
+	},
+	{
+		"src": ["identificationInfo", "dateCreation"],
+		"dst": ["identificationInfo", "dateCreation"]
+	},
+	{
+		"src": ["identificationInfo", "status"],
+		"dst": ["identificationInfo", "status"],
+		"fn": "status"
+	},
+	{
+		"src": ["identificationInfo", "topicCategory"],
+		"dst": ["identificationInfo", "topicCategories"],
+		"fn": "topicCategories"
+	},
+	{
+		"src": ["identificationInfo", "maintenanceAndUpdateFrequency"],
+		"dst": ["identificationInfo", "maintenanceAndUpdateFrequency"]
+	},
+	{
+		"src": ["identificationInfo", "abstract"],
+		"dst": ["identificationInfo", "abstract"]
+	},
+	{
+		"src": ["identificationInfo", "keywordsTheme", "keywords"],
+		"dst": ["identificationInfo", "keywordsTheme", "keywords"],
+		"fn": "imas_keywordsTheme"
+	},
+	{
+		"src": ["identificationInfo", "keywordsThemeExtra", "keywords"],
+		"dst": ["identificationInfo", "keywordsThemeExtra", "keywords"]
+	},
+	{
+		"src": ["identificationInfo", "keywordsTaxonExtra", "keywords"],
+		"dst": ["identificationInfo", "keywordsTaxonExtra", "keywords"]
+	},
+	{
+		"src": ["identificationInfo", "beginPosition"],
+		"dst": ["identificationInfo", "extents", "beginPosition"]
+	},
+	{
+		"src": ["identificationInfo", "endPosition"],
+		"dst": ["identificationInfo", "extents", "endPosition"]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement"],
+		"dst": ["identificationInfo", "extents", "hasGeographicCoverage"],
+		"fn": "exists"
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", ["westBoundLongitude"]],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["westBoundLongitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", ["eastBoundLongitude"]],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["eastBoundLongitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", ["southBoundLatitude"]],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["southBoundLatitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", ["northBoundLatitude"]],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["northBoundLatitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", ["westBoundLongitude"]],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["westBoundLongitude"]]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement"],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["isUserDefined"]],
+		"fn": "true"
+	},
+	{
+		"src": ["identificationInfo", "geographicElement"],
+		"dst": ["identificationInfo", "extents", "geographicElement", ["uri"]],
+		"fn": "uuid"
+	},
+	{
+		"src": ["identificationInfo", "verticalElement", "hasVerticalExtent"],
+		"dst": ["identificationInfo", "extents", "hasVerticalExtent"]
+	},
+    {
+		"src": ["identificationInfo", "verticalElement", "verticalCRS"],
+		"dst": ["identificationInfo", "extents", "verticalElement", "verticalCRS"],
+		"fn": "verticalCRS"
+	},
+	{
+		"src": ["identificationInfo", "verticalElement", "minimumValue"],
+		"dst": ["identificationInfo", "extents", "verticalElement", "minimumValue"],
+        "fn": "parseNum"
+	},
+    {
+		"src": ["identificationInfo", "verticalElement", "maximumValue"],
+		"dst": ["identificationInfo", "extents", "verticalElement", "maximumValue"],
+        "fn": "parseNum"
+	},
+	{
+		"src": ["dataQualityInfo", "statement"],
+		"dst": ["resourceLineage", "statement"]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["role"]],
+		"dst": ["pointOfContact", ["role"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["individualName"]],
+		"dst": ["pointOfContact", ["contact", "name"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["orcid"]],
+		"dst": ["pointOfContact", ["contact", "orcid2"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["organisationName"]],
+		"dst": ["pointOfContact", ["organisation", "name"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "deliveryPoint"]],
+		"dst": ["pointOfContact", ["contact", "deliveryPoint"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "deliveryPoint2"]],
+		"dst": ["pointOfContact", ["contact", "deliveryPoint2"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "city"]],
+		"dst": ["pointOfContact", ["contact", "city"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "administrativeArea"]],
+		"dst": ["pointOfContact", ["contact", "administrativeArea"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "postalCode"]],
+		"dst": ["pointOfContact", ["contact", "postalCode"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["address", "country"]],
+		"dst": ["pointOfContact", ["contact", "country"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["electronicMailAddress"]],
+		"dst": ["pointOfContact", ["contact", "email"]]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact", ["phone"]],
+		"dst": ["pointOfContact", ["contact", "phone"]]
+	},
+    {
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["pointOfContact", ["uri"]],
+		"fn": "uuid"
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["pointOfContact", ["isUserDefined"]],
+		"fn": "true" 
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["role"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["individualName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "name"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["orcid"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "orcid2"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["organisationName"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "name"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "deliveryPoint"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "deliveryPoint"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "deliveryPoint2"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "deliveryPoint2"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "city"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "city"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "administrativeArea"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "administrativeArea"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "postalCode"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "postalCode"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["address", "country"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "country"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["electronicMailAddress"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "email"]]
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty", ["phone"]],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "phone"]]
+	},
+    {
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["uri"]],
+		"fn": "uuid"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty", ["isUserDefined"]],
+		"fn": "true" 
+	},
+	{
+		"src": ["identificationInfo", "credit"],
+		"dst": ["identificationInfo", "credits"]
+	},
+    {
+		"src": ["identificationInfo", "dataParameters", ["name"]],
+		"dst": ["identificationInfo", "dataParameters", ["longName_term", "Name"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["name"]],
+		"dst": ["identificationInfo", "dataParameters", ["longName_term", "URI"]],
+		"fn": "uuid"
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["name"]],
+		"dst": ["identificationInfo", "dataParameters", ["longName_term", "isUserDefined"]],
+		"fn": "true" 
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["unit"]],
+		"dst": ["identificationInfo", "dataParameters", ["unit_term", "Name"]]
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["unit"]],
+		"dst": ["identificationInfo", "dataParameters", ["unit_term", "URI"]],
+		"fn": "uuid"
+	},
+	{
+		"src": ["identificationInfo", "dataParameters", ["unit"]],
+		"dst": ["identificationInfo", "dataParameters", ["unit_term", "isUserDefined"]],
+		"fn": "true" 
+	},
+    
+    {
+		"src": ["identificationInfo", "dataParameters"],
+		"dst": ["identificationInfo", "dataParameters", ["name"]],
+		"fn": "dataParametersName",
+		"notes": "use longName if longName and name are different"
+	},
+	{
+		"src": ["identificationInfo", "dataParameters"],
+		"dst": ["identificationInfo", "dataParameters", ["uri"]],
+		"fn": "uuid"
+	},
+	{
+		"src": ["identificationInfo", "dataParameters"],
+		"dst": ["identificationInfo", "dataParameters", ["isUserDefined"]],
+		"fn": "true" 
+	},
+    {
+		"src": ["identificationInfo", "creativeCommons"],
+		"dst": ["identificationInfo", "creativeCommons"],
+		"fn": "creativeCommons"
+	},
+	{
+		"src": ["identificationInfo", "supplementalInformation"],
+		"dst": ["identificationInfo", "supplementalInformation"]
+	},
+	{
+		"src": ["distributionInfo", "distributionFormat", "name"],
+		"dst": ["distributionInfo", "distributionFormat", "title"]
+	},
+	{
+		"src": ["distributionInfo", "distributionFormat", "version"],
+		"dst": ["distributionInfo", "distributionFormat", "edition"]
+	},
+	{
+		"src": ["fileIdentifier"],
+		"dst": ["fileIdentifier"]
+	},
+	{
+		"src": ["identificationInfo", "dateCreation"],
+		"dst": ["identificationInfo", "datePublication"]
+	}
+]

@@ -1,31 +1,7 @@
 import json
 import copy
 import uuid
-
-def todo(value):
-    return None
-
-def my_capitalize(value):
-    return value.capitalize()
-
-def flora(value):
-    # TODO: treats every taxon keyword as flora (when it could be fauna)
-    return [{
-        # 'uri': TODO,
-        # 'acceptedNameUsage': TODO,
-        'label': v,
-        # 'altLabel': TODO
-    } for v in value]
-
-def fauna(value):
-    # TODO: treats every taxon keyword as fauna (when it could be flora)
-    return [{
-        'label': v,
-        # 'uri': TODO,
-        # 'broader_uri': TODO,
-        # 'has_children': TODO,
-        # 'breadcrumb': TODO
-    } for v in value]
+import re
 
 def parse_num(value):
     try:
@@ -33,21 +9,6 @@ def parse_num(value):
         return v
     except:
         return value
-
-def exists(value):
-    return value != None and value != ""
-
-def full_address_line(value):
-    return f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}"
-
-def name(value):
-    return f"{value['givenName']} {value['familyName']}"
-
-def party_type(value):
-    if value['givenName'] == 'a_not_applicable' or value['givenName'] == '':
-        return 'organisation'
-    else:
-        return 'person'
 
 def other_constraints(value):
     return [
@@ -72,7 +33,10 @@ def protocol(value):
         {'label': 'Other/unknown',
          'value': 'WWW:DOWNLOAD-1.0-http--download'}
     ]
-    return next(v for v in protocols if v['value'] == value)
+    try:
+        return next(v for v in protocols if v['value'] == value)
+    except:
+        return {'value': value}
 
 def role(value):
     roles = [
@@ -134,7 +98,10 @@ def role(value):
         'Identifier': 'user',
         'Description': 'Party who uses the resource'}
     ]
-    return next(v for v in roles if v['Identifier'] == value)
+    try:
+        return next(v for v in roles if v['Identifier'] == value)
+    except:
+        return {'Identifier': value}
 
 def parameter(value):
     return [{
@@ -169,25 +136,127 @@ def instrument(value):
         'source': v['instrument_vocabularyVersion']
     } for v in value]
 
+def keywordsTheme(value):
+    return [{
+        # 'breadcrumb': TODO,
+        'label': f'https://gcmd.earthdata.nasa.gov/kms/concept/{v}',
+        'uri': f'https://gcmd.earthdata.nasa.gov/kms/concept/{v}',
+        # 'broader_concept': TODO
+    } for v in value]
+
+def keywordsThemeAnzsrc(value):
+    return [{
+        # 'breadcrumb': TODO,
+        'label': v,
+        'uri': v,
+        # 'broader_concept': TODO
+    } for v in value]
+
+def keywordsHorizontal(value):
+    return {
+        # 'breadcrumb': TODO,
+        'label': value[0]['prefLabel'],
+        'uri': value[0]['uri'],
+        # 'broader_concept': TODO
+    } if len(value) > 0 else None
+
+def keywordsTemporal(value):
+    return keywordsHorizontal(value)
+
+def distributor(value):
+    return {
+        'is_dissolved': 'false',
+        'name': 'TERN Ecosystem Processes - UQ Long Pocket',
+        'full_address_line': 'Building 1019, 80 Meiers Rd, Indooroopilly, QLD, Australia, 4068',
+        'postcode': '4068',
+        'address_region': 'QLD',
+        'address_locality': 'Indooroopilly',
+        'date_modified': '2021-05-14T05:18:27.281Z',
+        'street_address': 'Building 1019, 80 Meiers Rd',
+        'date_created': '2021-05-14T03:33:48.260Z',
+        'uri': 'https://w3id.org/tern/resources/8f2acf9f-3cf2-48c7-b911-ed1b1113932e',
+        'display_name': 'TERN Ecosystem Processes - UQ Long Pocket',
+        'site_uri': 'https://w3id.org/tern/resources/fa56a1ed-ec38-4294-90ae-ab203a25d5ad',
+        'country': 'Australia'
+    }
+
+def vertical_crs(value):
+    crs = [
+        {
+            'identifier': 'EPSG::5714',
+            'name': 'MSL height',
+            'label': 'Altitude (height above mean sea level)'
+        },
+        {
+            'identifier': 'EPSG::5715',
+            'name': 'MSL depth',
+            'label': 'Depth (distance below mean sea level)'
+        }
+    ]
+
+    try:
+        return next(v for v in crs if v['identifier'] == value)
+    except:
+        return {
+            'identifier': value,
+            'name': value,
+            'label': value
+        }
+
+def creative_commons(value):
+    if value == None:
+        return None
+
+    constraints = {
+        'by': {
+            'label': 'Creative Commons Attribution 4.0 International License',
+            'value': 'CC-BY'
+        },
+        'by-nc': {
+            'label': 'Creative Commons Attribution-NonCommercial 4.0 International License',
+            'value': 'CC-BY-NC'
+        }
+    }
+
+    try:
+        constraint_key = re.search(r"licenses\/([^\/]+)\/", value).group(1)
+        return constraints[constraint_key]
+    except:
+        return {
+            'label': 'Other constraints',
+            'value': 'OTHER',
+            'other': True
+        }
+
 functions = {
-    'todo': todo,
-    'capitalize': my_capitalize,
-    'flora': flora,
-    'fauna': fauna,
+    'todo': lambda value: None,
+    'capitalize': lambda value: value.capitalize(),
     'parseNum': parse_num,
-    'exists': exists,
-    'fullAddressLine': full_address_line,
-    'name': name,
-    'partyType': party_type,
+    'exists': lambda value: value != None and len(value) != 0,
+    'fullAddressLine': lambda value: f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}",
+    'name': lambda value: f"{value['givenName']} {value['familyName']}",
+    'partyType': lambda value: 'organisation' if value['givenName'] == 'a_not_applicable' or value['givenName'] == '' else 'person',
     'otherConstraints': other_constraints,
-    'true': lambda value : True,
-    'join': lambda value: "\n".join(value),
+    'true': lambda value: True,
+    'join': lambda value: "\n".join(list(filter(None, value))),
     'protocol': protocol,
     'role': role,
     'uuid': lambda value: str(uuid.uuid4()),
     'parameter': parameter,
     'platform': platform,
-    'instrument': instrument
+    'instrument': instrument,
+    'keywordsTheme': keywordsTheme,
+    'keywordsThemeAnzsrc': keywordsThemeAnzsrc,
+    'keywordsHorizontal': keywordsHorizontal,
+    'keywordsTemporal': keywordsTemporal,
+    'distributor': distributor,
+    'keywordsAdditional': lambda value: value['keywordsThemeExtra']['keywords'] + value['keywordsTaxonExtra']['keywords'],
+    'topicCategories': lambda value: [{'label': value, 'value': value}],
+    'status': lambda value: value if value != 'complete' else 'completed',
+    'imas_keywordsTheme': lambda value: [{'label': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}", 'uri': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}"} for v in value],
+    'verticalCRS': vertical_crs,
+    'dataParametersName': lambda value: value['longName'] if value['longName'] != value['name'] else None,
+    'creativeCommons': creative_commons
 }
 
 def get_data_at_path(data, path):

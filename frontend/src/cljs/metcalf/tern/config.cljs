@@ -1067,14 +1067,17 @@
          :added-path         ["isUserDefined"]
          :item-defaults      {"partyType" "organisation"}}]
 
-       [:div.SelectionListItemColoured
-        [m4/selection-list-template
-         {:form-id     [:form]
-          :data-path   ["identificationInfo" "citedResponsibleParty"]
-          :template-id :party/list-item
-          :select-mode :all-items
-          :value-path  ["uri"]
-          :added-path  ["isUserDefined"]}]]
+       [m4/form-group
+        {:form-id    [:form]
+         :data-path ["identificationInfo" "citedResponsibleParty"]}
+        [:div.SelectionListItemColoured
+         [m4/selection-list-template
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "citedResponsibleParty"]
+           :template-id :party/list-item
+           :select-mode :all-items
+           :value-path  ["uri"]
+           :added-path  ["isUserDefined"]}]]]
 
        [m4/typed-list-edit-dialog
         {:form-id   [:form]
@@ -1113,14 +1116,17 @@
          :added-path         ["isUserDefined"]
          :item-defaults      {"partyType" "organisation"}}]
 
-       [:div.SelectionListItemColoured
-        [m4/selection-list-template
-         {:form-id     [:form]
-          :data-path   ["identificationInfo" "pointOfContact"]
-          :template-id :party/list-item
-          :select-mode :all-items
-          :value-path  ["uri"]
-          :added-path  ["isUserDefined"]}]]
+       [m4/form-group
+        {:form-id   [:form]
+         :data-path ["identificationInfo" "pointOfContact"]}
+        [:div.SelectionListItemColoured
+         [m4/selection-list-template
+          {:form-id     [:form]
+           :data-path   ["identificationInfo" "pointOfContact"]
+           :template-id :party/list-item
+           :select-mode :all-items
+           :value-path  ["uri"]
+           :added-path  ["isUserDefined"]}]]]
 
        [m4/typed-list-edit-dialog
         {:form-id   [:form]

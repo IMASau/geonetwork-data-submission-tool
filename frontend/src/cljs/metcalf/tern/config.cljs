@@ -1871,7 +1871,7 @@
 
       ;; How7b: list-add free-text entries
       [m4/form-group
-       {:label   "If the need arises please add steps taken for the Data creation procedure to support the brief provided above."
+       {:label   "If the need arises please add steps taken for the Data creation procedure to support the summary provided above."
         :toolTip "Specify the steps of the procedure."}
        [m4/text-add-button
         {:form-id     [:form]

@@ -1913,7 +1913,7 @@
       [m4/textarea-field
        {:form-id     [:form]
         :data-path   ["dataQualityInfo" "methodSummary"]
-        :maxLength   2500
+        :maxLength   6000
         :placeholder "The data quality was assessed by ..."}]]
 
      [m4/form-group

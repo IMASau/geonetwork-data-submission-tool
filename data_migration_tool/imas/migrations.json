@@ -283,6 +283,11 @@
 		"dst": ["identificationInfo", "supplementalInformation"]
 	},
 	{
+		"src": ["identificationInfo", "supplementalInformation"],
+		"dst": ["identificationInfo", "supplementalInformationExport"],
+		"fn": "join"
+	},
+	{
 		"src": ["distributionInfo", "distributionFormat", "name"],
 		"dst": ["distributionInfo", "distributionFormat", "title"]
 	},

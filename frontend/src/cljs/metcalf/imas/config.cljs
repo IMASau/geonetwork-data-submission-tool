@@ -1062,7 +1062,7 @@
         :data-path   [?data-path "longName_term"]
         :title       "Define a custom parameter name"
         :template-id :parameter-name/user-defined-entry-form
-        :field-paths [[?data-path "Name"]]}]]
+        :field-paths [["Name"]]}]]
 
      [m4/form-group
       {:form-id   ?form-id

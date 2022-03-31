@@ -469,7 +469,10 @@
                     "type": "string"
                   },
                   "Name": {
-                    "type": "string"
+                    "type": "string",
+                    "rules": [
+                      "requiredField"
+                    ]
                   },
                   "isUserDefined": {
                     "type": "boolean"

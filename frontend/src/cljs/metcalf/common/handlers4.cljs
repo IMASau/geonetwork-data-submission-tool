@@ -303,15 +303,15 @@
 (defn has-block-errors?
   [state data-path field-paths]
   (let [path (blocks4/block-path data-path)
-        logic (get-in state path)
-        field-blocks (map #(get-in logic (blocks4/block-path %)) field-paths)]
+        logic (blocks4/postwalk blocks4/progress-score-analysis (get-in state path))
+        field-blocks (map #(get-in logic (blocks4/block-path (utils4/as-path %))) field-paths)]
     (some pos? (map #(get-in % [:progress/score :progress/errors]) field-blocks))))
 
 ; WIP: updated with field-paths
 (defn edit-dialog-save-handler
   [{:keys [db]} [_ {:keys [form-id data-path field-paths]
                     :or   {field-paths #{[]}}}]]
-  (let [state0 (get-in db form-id)
+  (let [state0 (get-in db (utils4/as-path [form-id :state]))
         logic (blocks4/postwalk rules4/apply-rules state0)]
     (if (has-block-errors? logic data-path field-paths)
       (actions4/touch-paths {:db db} form-id data-path field-paths)

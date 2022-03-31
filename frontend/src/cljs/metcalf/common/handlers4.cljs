@@ -434,10 +434,16 @@
   (let [{:keys [acceptedFiles rejectedFiles]} data
         doc-uuid (get-in db [:context :document :uuid])]
     (if (> (count rejectedFiles) 0)
-      (actions4/open-modal-action
-        {:db db}
-        {:type    :modal.type/alert
-         :message "Thumbnail must be an image"})
+      (let [rejected (first rejectedFiles)
+            error  (-> rejected :errors first)
+            reason (case (:code error)
+                     "file-invalid-type" "Thumbnail must be an image"
+                     "file-too-large" "File is larger than 3MB"
+                     (:message error))]
+        (actions4/open-modal-action
+         {:db db}
+         {:type    :modal.type/alert
+          :message reason}))
       (actions4/upload-single-attachment {:db db} {:doc-uuid doc-uuid
                                                    :file     (first acceptedFiles)
                                                    :config   config}))))

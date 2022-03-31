@@ -1967,6 +1967,7 @@
          {:disabled    disabled
           :placeholder (r/as-element placeholder)
           :maxFiles    1
+          :maxSize     (* 3 1024 1024)  ; 3M in bytes
           :accept      "image/*"
           :onDrop      #(rf/dispatch [::upload-file-drop config (js->clj % :keywordize-keys true)])}]]
        [ui-controls/InputField

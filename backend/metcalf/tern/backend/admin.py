@@ -144,7 +144,11 @@ class DataFeedAdmin(FSMTransitionMixin, admin.ModelAdmin):
 def add_creator(creators, person, nsmap):
     creator = etree.SubElement(creators, 'creator')
     creatorName = etree.SubElement(creator, 'creatorName')
-    creatorName.text = '{last}, {first}'.format(last=person['familyName'], first=person['givenName'])
+    # person could be an organisation:
+    if "contact" in person:
+        creatorName.text = person['contact']['canonical_name']
+    else:
+        creatorName.text = person['organisation']['name']
 
 
 class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
@@ -243,43 +247,32 @@ class DocumentAdmin(FSMTransitionMixin, admin.ModelAdmin):
         request_xml = etree.fromstring(doi_template.encode('utf-8'))
         data = doc.latest_draft.data
 
-        # all the people involved
-        pocs = data['identificationInfo']['pointOfContact']
-        crps = data['identificationInfo']['citedResponsibleParty']
-
         # add title
         request_xml.find('n:titles/n:title', ns).text = data['identificationInfo']['title']
 
         publicationYear = request_xml.find('n:publicationYear', ns)
-        # might be nicer to convert to a date and explicitly pull the year maybe
-        publicationYear.text = data['identificationInfo']['datePublication'][:4]
-
-        author_uuids = []
-        coauthor_uuids = []
+        # might be nicer to convert to a date and explicitly pull the year maybe.
+        # We only have a date of publication if it has been previously
+        # published; otherwise use the creation date:
+        if 'datePublication' in data['identificationInfo']:
+            publicationYear.text = data['identificationInfo']['datePublication'][:4]
+        else:
+            publicationYear.text = data['identificationInfo']['dateSubmitted'][:4]
 
         # <creator><creatorName></creatorName></creator>
         creators = request_xml.find('n:creators', ns)
-        # we want to add the authors first, easier to just loop through twice
-        # check the uri to make sure we don't add a person twice
-        for person in pocs:
-            if person['role'] == 'author' and person['uri'] not in author_uuids:
+
+        # all the people (authors/coauthors) involved:
+        crps = data['identificationInfo']['citedResponsibleParty']
+
+        # List authors first, then co-authors:
+        for person in crps:
+            if person['role']['Identifier'] == 'author':
                 add_creator(creators, person, ns)
-                author_uuids.append(person['uri'])
 
         for person in crps:
-            if person['role'] == 'author' and person['uri'] not in author_uuids:
+            if person['role']['Identifier'] == 'coAuthor':
                 add_creator(creators, person, ns)
-                author_uuids.append(person['uri'])
-
-        for person in pocs:
-            if person['role'] == 'coAuthor' and person['uri'] not in coauthor_uuids:
-                add_creator(creators, person, ns)
-                coauthor_uuids.append(person['uri'])
-
-        for person in crps:
-            if person['role'] == 'coAuthor' and person['uri'] not in coauthor_uuids:
-                add_creator(creators, person, ns)
-                coauthor_uuids.append(person['uri'])
 
         response = None
         try:

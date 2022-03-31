@@ -2189,13 +2189,16 @@ recorded in the standard citation."
       [m4/input-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "thumbnail" "title"]}]]
-     [m4/upload-thumbnail
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "thumbnail" "file"]
-       :value-path  ["id"]
-       :placeholder [:div
-                     [:h3 "Drag and drop thumbnail here"]
-                     [:span.help-block "Maximum size 1000 x 1000px"]]}]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "thumbnail" "file"]}
+      [m4/upload-thumbnail
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "thumbnail" "file"]
+        :value-path  ["id"]
+        :placeholder [:div
+                      [:h3 "Drag and drop thumbnail here"]
+                      [:span.help-block "Maximum size 1000 x 1000px"]]}]]
      [:p "A small image that exemplifies the dataset."]
 
      [:h2 "Data Services"]

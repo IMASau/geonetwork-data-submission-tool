@@ -1970,9 +1970,13 @@
           :maxSize     (* 3 1024 1024)  ; 3M in bytes
           :accept      "image/*"
           :onDrop      #(rf/dispatch [::upload-file-drop config (js->clj % :keywordize-keys true)])}]]
-       [ui-controls/InputField
-        {:value    (or name "")
-         :disabled true}]])))
+       [ui-controls/SimpleSelectionList
+        {:items         (if item [item] [])
+         :disabled      disabled
+         :getLabel      (constantly name)
+         :getValue      (constantly item)
+         :getAdded      (constantly true)
+         :onRemoveClick (fn [_idx] (rf/dispatch [::thumbnail-remove-selection props]))}]])))
 
 (defn lodge-button-settings
   [_]

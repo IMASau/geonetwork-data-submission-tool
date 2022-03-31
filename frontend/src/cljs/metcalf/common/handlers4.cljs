@@ -190,6 +190,12 @@
         (actions4/genkey-action form-id data-path)
         (actions4/move-item-action form-id data-path src-idx dst-idx))))
 
+(defn thumbnail-remove-selection
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions4/set-data-action form-id data-path nil))))
+
 (defn boxmap-coordinates-open-add-modal
   [{:keys [db] :as s} [_ {:keys [ctx coord-field initial-data idx on-close on-save]}]]
   (let [{:keys [form-id data-path]} ctx

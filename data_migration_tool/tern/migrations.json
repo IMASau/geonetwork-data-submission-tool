@@ -48,7 +48,7 @@
 		"fn": {
 			"name": "filter",
 			"args": {
-				"matches": ["XXX"]
+				"matches": ["XXX", "XXXx"]
 			}
 		}
 	},

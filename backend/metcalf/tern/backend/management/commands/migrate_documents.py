@@ -38,7 +38,8 @@ class Command(BaseCommand):
         document_no = int(options['document']) if options['document'] != None else None
 
         if document_no == None:
-            for document in Document.objects.all():
-                migrate_document(document, migrations, template)
+            for i, document in enumerate(Document.objects.all()):
+                print(f'migrating document no {i}: {document}')
+                migrate_document(document, template, migrations)
         else:
             migrate_document(Document.objects.all()[document_no], template, migrations)

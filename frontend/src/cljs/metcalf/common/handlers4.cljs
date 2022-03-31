@@ -190,6 +190,12 @@
         (actions4/genkey-action form-id data-path)
         (actions4/move-item-action form-id data-path src-idx dst-idx))))
 
+(defn thumbnail-remove-selection
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions4/set-data-action form-id data-path nil))))
+
 (defn boxmap-coordinates-open-add-modal
   [{:keys [db] :as s} [_ {:keys [ctx coord-field initial-data idx on-close on-save]}]]
   (let [{:keys [form-id data-path]} ctx
@@ -434,10 +440,16 @@
   (let [{:keys [acceptedFiles rejectedFiles]} data
         doc-uuid (get-in db [:context :document :uuid])]
     (if (> (count rejectedFiles) 0)
-      (actions4/open-modal-action
-        {:db db}
-        {:type    :modal.type/alert
-         :message "Thumbnail must be an image"})
+      (let [rejected (first rejectedFiles)
+            error  (-> rejected :errors first)
+            reason (case (:code error)
+                     "file-invalid-type" "Thumbnail must be an image"
+                     "file-too-large" "File is larger than 3MB"
+                     (:message error))]
+        (actions4/open-modal-action
+         {:db db}
+         {:type    :modal.type/alert
+          :message reason}))
       (actions4/upload-single-attachment {:db db} {:doc-uuid doc-uuid
                                                    :file     (first acceptedFiles)
                                                    :config   config}))))

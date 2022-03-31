@@ -91,6 +91,7 @@
 (rf/reg-event-fx :metcalf.common.actions4/-get-document-data-action handlers4/-get-document-data-action)
 (rf/reg-event-fx :metcalf.common.actions4/-upload-attachment handlers4/-upload-attachment)
 (rf/reg-event-fx :metcalf.common.actions4/-upload-single-attachment handlers4/-upload-single-attachment)
+(rf/reg-event-fx :metcalf.common.components4/thumbnail-remove-selection handlers4/thumbnail-remove-selection)
 (rf/reg-event-fx :metcalf.common.components4/coordinates-modal-field-close-modal handlers4/coordinates-modal-field-close-modal)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-share-resolve handlers4/-contributors-modal-share-resolve)
 (rf/reg-event-fx :metcalf.common.handlers4/-contributors-modal-unshare-resolve handlers4/-contributors-modal-unshare-resolve)
@@ -2188,13 +2189,16 @@ recorded in the standard citation."
       [m4/input-field
        {:form-id   [:form]
         :data-path ["identificationInfo" "thumbnail" "title"]}]]
-     [m4/upload-thumbnail
-      {:form-id     [:form]
-       :data-path   ["identificationInfo" "thumbnail" "file"]
-       :value-path  ["id"]
-       :placeholder [:div
-                     [:h3 "Drag and drop thumbnail here"]
-                     [:span.help-block "Maximum size 1000 x 1000px"]]}]
+     [m4/form-group
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "thumbnail" "file"]}
+      [m4/upload-thumbnail
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "thumbnail" "file"]
+        :value-path  ["id"]
+        :placeholder [:div
+                      [:h3 "Drag and drop thumbnail here"]
+                      [:span.help-block "Maximum size 1000 x 1000px"]]}]]
      [:p "A small image that exemplifies the dataset."]
 
      [:h2 "Data Services"]

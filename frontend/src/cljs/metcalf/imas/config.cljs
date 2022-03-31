@@ -1057,7 +1057,6 @@
          :random-uuid-value? true
          :added-path         ["isUserDefined"]}]]
 
-      ; WIP
       [m4/edit-dialog2
        {:form-id     ?form-id
         :data-path   [?data-path "longName_term"]
@@ -1093,9 +1092,10 @@
          :value-path         ["URI"]
          :random-uuid-value? true
          :added-path         ["isUserDefined"]}]]
-      [m4/edit-dialog
+      [m4/edit-dialog2
        {:form-id     ?form-id
         :data-path   [?data-path "unit_term"]
+        :field-paths [["Name"]]
         :title       "Define a custom parameter unit"
         :template-id :parameter-unit/user-defined-entry-form}]]
 

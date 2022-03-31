@@ -104,35 +104,35 @@ def role(value):
 
 def parameter(value):
     return [{
-        'label': v['platform_term'],
-        'description': v['platform_termDefinition'],
-        'uri': v['platform_vocabularyTermURL'],
-        'source': v['platform_vocabularyVersion']
+        'label': v.get('platform_term'),
+        'description': v.get('platform_termDefinition'),
+        'uri': v.get('platform_vocabularyTermURL') if v.get('platform_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
+        'source': v.get('platform_vocabularyVersion')
     } for v in value]
 
 def platform(value):
     return [{
         'parameter': {
-            'label': v['longName_term'],
-            'description': v['longName_termDefinition'],
-            'uri': v['longName_vocabularyTermURL'],
-            'source': v['longName_vocabularyVersion']
+            'label': v.get('longName_term'),
+            'description': v.get('longName_termDefinition'),
+            'uri': v.get('longName_vocabularyTermURL') if v.get('longName_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
+            'source': v.get('longName_vocabularyVersion')
         },
         'unit': {
-            'label': v['unit_term'],
-            'uri': v['unit_vocabularyTermURL'],
-            'source': v['unit_vocabularyVersion']
+            'label': v.get('unit_term'),
+            'uri': v.get('unit_vocabularyTermURL') if v.get('unit_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
+            'source': v.get('unit_vocabularyVersion')
         },
         'uri' : str(uuid.uuid4())
     } for v in value]
 
 def instrument(value):
     return [{
-        'serial': v['serialNumber'],
-        'label': v['instrument_term'],
-        'description': v['instrument_termDefinition'],
-        'uri': v['instrument_vocabularyTermURL'],
-        'source': v['instrument_vocabularyVersion']
+        'serial': v.get('serialNumber'),
+        'label': v.get('instrument_term'),
+        'description': v.get('instrument_termDefinition'),
+        'uri': v.get('instrument_vocabularyTermURL') if v.get('instrument_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
+        'source': v.get('instrument_vocabularyVersion')
     } for v in value]
 
 def keywordsTheme(value):

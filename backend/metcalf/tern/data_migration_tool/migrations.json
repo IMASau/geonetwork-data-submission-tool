@@ -44,7 +44,13 @@
 	},
 	{
 		"src": ["resourceLineage", "processStep", ["uri"]],
-		"dst": ["resourceLineage", "onlineMethods", ["url"]]
+		"dst": ["resourceLineage", "onlineMethods", ["url"]],
+		"fn": {
+			"name": "filter",
+			"args": {
+				"matches": ["XXX", "XXXx"]
+			}
+		}
 	},
 	{
 		"src": ["dataSources", ["description"]],

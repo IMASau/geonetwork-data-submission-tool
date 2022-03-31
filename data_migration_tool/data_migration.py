@@ -240,7 +240,7 @@ functions = {
     'join': lambda value: ("\n".join(list(filter(None, value))) if isinstance(value, list) else value) if value != None else None,
     'protocol': protocol,
     'role': role,
-    'uuid': lambda value: str(uuid.uuid4()),
+    'uuid': lambda value: value or str(uuid.uuid4()),
     'parameter': parameter,
     'platform': platform,
     'instrument': instrument,
@@ -333,8 +333,15 @@ def do_migration(input, output, migration):
         fn_args = fn.get('args')
     
     fn = functions.get(fn_name)
-    if fn:
-        value = apply(value, depth(dst), fn, fn_args)
+
+    if not clear_empty_keys(value): # if the untransformed source is empty
+        value = get_data_at_path(input, dst) # try getting from the destination.
+        if not clear_empty_keys(value) and fn: # assuming the destination is empty, and we have a function,
+            value = apply(value, depth(dst), fn, fn_args) # try applying that function.
+    elif fn: # if the untransformed source isn't empty, and we have a function
+        value = apply(value, depth(dst), fn, fn_args) # try applying that function.
+        if not clear_empty_keys(value): # if applying the function resulted in empty data
+            value = get_data_at_path(input, dst) # just grab whatever is at the destination.
 
     return set_data_at_path(output, dst, value)
 

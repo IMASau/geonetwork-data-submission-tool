@@ -256,7 +256,8 @@ functions = {
     'verticalCRS': vertical_crs,
     'dataParametersName': lambda value: value['longName'] if value['longName'] != value['name'] else None,
     'creativeCommons': creative_commons,
-    'list': lambda value: [value]
+    'list': lambda value: [value],
+    'filter': lambda value, args: value if value not in args.get('matches') else None
 }
 
 def get_data_at_path(data, path):

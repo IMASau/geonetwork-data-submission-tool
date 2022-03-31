@@ -300,12 +300,12 @@ def depth(path):
     else:
         return 0
 
-def apply(value, fn, depth):
+def apply(value, depth, fn, args):
     value = copy.deepcopy(value)
     if depth == 0:
-        return fn(value)
+        return fn(value, args) if args else fn(value)
     else:
-        return [apply(v, fn, depth - 1) for v in value]
+        return [apply(v, depth - 1, fn, args) for v in value]
 
 def do_migration(input, output, migration):
     src = migration['src']
@@ -314,17 +314,17 @@ def do_migration(input, output, migration):
 
     fn = migration.get('fn')
     fn_name = None
-    fn_args = {}
-    
+    fn_args = None
+
     if type(fn) is str:
         fn_name = fn
     elif type(fn) is dict:
         fn_name = fn.get('name')
-        fn_args = fn.get('args', fn_args)
+        fn_args = fn.get('args')
     
     fn = functions.get(fn_name)
     if fn:
-        value = apply(value, fn, depth(dst))
+        value = apply(value, depth(dst), fn, fn_args)
 
     return set_data_at_path(output, dst, value)
 

@@ -124,7 +124,7 @@ def platform(value):
             'source': v.get('unit_vocabularyVersion')
         },
         'uri' : str(uuid.uuid4())
-    } for v in value]
+    } for v in value] if value != None else None
 
 def instrument(value):
     return [{
@@ -133,7 +133,7 @@ def instrument(value):
         'description': v.get('instrument_termDefinition'),
         'uri': v.get('instrument_vocabularyTermURL') if v.get('instrument_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
         'source': v.get('instrument_vocabularyVersion')
-    } for v in value]
+    } for v in value] if value != None else None
 
 def keywordsTheme(value):
     return [{
@@ -141,7 +141,7 @@ def keywordsTheme(value):
         'label': f'https://gcmd.earthdata.nasa.gov/kms/concept/{v}',
         'uri': f'https://gcmd.earthdata.nasa.gov/kms/concept/{v}',
         # 'broader_concept': TODO
-    } for v in value]
+    } for v in value] if value != None else None
 
 def keywordsThemeAnzsrc(value):
     return [{
@@ -149,7 +149,7 @@ def keywordsThemeAnzsrc(value):
         'label': v,
         'uri': v,
         # 'broader_concept': TODO
-    } for v in value]
+    } for v in value] if value != None else None
 
 def keywordsHorizontal(value):
     return {
@@ -157,7 +157,7 @@ def keywordsHorizontal(value):
         'label': value[0]['prefLabel'],
         'uri': value[0]['uri'],
         # 'broader_concept': TODO
-    } if len(value) > 0 else None
+    } if (value != None and len(value) > 0) else None
 
 def keywordsTemporal(value):
     return keywordsHorizontal(value)
@@ -237,7 +237,7 @@ functions = {
     'partyType': lambda value: 'organisation' if value['givenName'] == 'a_not_applicable' or value['givenName'] == '' else 'person',
     'otherConstraints': other_constraints,
     'true': lambda value: True,
-    'join': lambda value: "\n".join(list(filter(None, value))),
+    'join': lambda value: "\n".join(list(filter(None, value))) if value != None else None,
     'protocol': protocol,
     'role': role,
     'uuid': lambda value: str(uuid.uuid4()),
@@ -249,7 +249,7 @@ functions = {
     'keywordsHorizontal': keywordsHorizontal,
     'keywordsTemporal': keywordsTemporal,
     'distributor': distributor,
-    'keywordsAdditional': lambda value: value['keywordsThemeExtra']['keywords'] + value['keywordsTaxonExtra']['keywords'],
+    'keywordsAdditional': lambda value: (value.get('keywordsThemeExtra', {}).get('keywords', []) + value.get('keywordsTaxonExtra', {}).get('keywords', [])) if value != None else None,
     'topicCategories': lambda value: [{'label': value, 'value': value}],
     'status': lambda value: value if value != 'complete' else 'completed',
     'imas_keywordsTheme': lambda value: [{'label': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}", 'uri': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}"} for v in value],
@@ -264,13 +264,16 @@ def get_data_at_path(data, path):
     data = copy.deepcopy(data)
     path = copy.deepcopy(path)
 
+    if data == None:
+        return data
+
     if len(path) > 0:
         key = path.pop(0)
         if type(key) is list:
             return [get_data_at_path(d, key) for d in data]
         else:
             if not (type(data) is list and key >= len(data)):
-                return get_data_at_path(data[key], path)
+                return get_data_at_path(data.get(key), path)
             else:
                 return None
     else:
@@ -279,6 +282,9 @@ def get_data_at_path(data, path):
 def set_data_at_path(data, path, value):
     data = copy.deepcopy(data)
     path = copy.deepcopy(path)
+
+    if value == None:
+        return data
 
     key = path.pop(0)
     if type(key) is list:
@@ -303,10 +309,13 @@ def depth(path):
 
 def apply(value, depth, fn, args):
     value = copy.deepcopy(value)
+
     if depth == 0:
         return fn(value, args) if args else fn(value)
-    else:
+    elif value != None:
         return [apply(v, depth - 1, fn, args) for v in value]
+    else:
+        return value
 
 def do_migration(input, output, migration):
     src = migration['src']

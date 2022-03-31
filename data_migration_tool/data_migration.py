@@ -312,8 +312,18 @@ def do_migration(input, output, migration):
     dst = migration['dst']
     value = get_data_at_path(input, src)
 
-    if 'fn' in migration.keys():
-        fn = functions[migration['fn']]
+    fn = migration.get('fn')
+    fn_name = None
+    fn_args = {}
+    
+    if type(fn) is str:
+        fn_name = fn
+    elif type(fn) is dict:
+        fn_name = fn.get('name')
+        fn_args = fn.get('args', fn_args)
+    
+    fn = functions.get(fn_name)
+    if fn:
         value = apply(value, fn, depth(dst))
 
     return set_data_at_path(output, dst, value)

@@ -307,8 +307,14 @@
         field-blocks (map #(get-in logic (blocks4/block-path (utils4/as-path %))) field-paths)]
     (some pos? (map #(get-in % [:progress/score :progress/errors]) field-blocks))))
 
-; WIP: updated with field-paths
 (defn edit-dialog-save-handler
+  [{:keys [db]} [_ ctx]]
+  (let [{:keys [form-id data-path]} ctx]
+    (-> {:db db}
+        (actions4/discard-snapshot-action form-id)
+        (actions4/dialog-close-action form-id data-path))))
+
+(defn edit-dialog2-save-handler
   [{:keys [db]} [_ {:keys [form-id data-path field-paths]
                     :or   {field-paths #{[]}}}]]
   (let [state0 (get-in db (utils4/as-path [form-id :state]))

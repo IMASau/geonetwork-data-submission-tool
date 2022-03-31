@@ -291,7 +291,7 @@
       :title    title
       :onClose  #(rf/dispatch [::edit-dialog-close config])
       :onClear  #(rf/dispatch [::edit-dialog-cancel config])
-      :onSave   #(rf/dispatch [::edit-dialog-save config])
+      :onSave   #(rf/dispatch [::edit-dialog2-save config])
       :canClear @(rf/subscribe [::can-dialog-cancel? config])
       :canSave  true}
      (low-code4/render-template

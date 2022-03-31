@@ -98,42 +98,42 @@ def role(value):
         'Description': 'Party who uses the resource'}
     ]
     try:
-        return next(v for v in roles if v['Identifier'] == value)
+        return next(v for v in roles if v['Identifier'] == value) if isinstance(value, str) else value
     except:
         return {'Identifier': value}
 
 def parameter(value):
     return [{
-        'label': v['platform_term'],
-        'description': v['platform_termDefinition'],
-        'uri': v['platform_vocabularyTermURL'],
-        'source': v['platform_vocabularyVersion']
+        'label': v.get('platform_term'),
+        'description': v.get('platform_termDefinition'),
+        'uri': v.get('platform_vocabularyTermURL') if v.get('platform_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
+        'source': v.get('platform_vocabularyVersion')
     } for v in value]
 
 def platform(value):
     return [{
         'parameter': {
-            'label': v['longName_term'],
-            'description': v['longName_termDefinition'],
-            'uri': v['longName_vocabularyTermURL'],
-            'source': v['longName_vocabularyVersion']
+            'label': v.get('longName_term'),
+            'description': v.get('longName_termDefinition'),
+            'uri': v.get('longName_vocabularyTermURL') if v.get('longName_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
+            'source': v.get('longName_vocabularyVersion')
         },
         'unit': {
-            'label': v['unit_term'],
-            'uri': v['unit_vocabularyTermURL'],
-            'source': v['unit_vocabularyVersion']
+            'label': v.get('unit_term'),
+            'uri': v.get('unit_vocabularyTermURL') if v.get('unit_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
+            'source': v.get('unit_vocabularyVersion')
         },
         'uri' : str(uuid.uuid4())
-    } for v in value]
+    } for v in value] if value != None else None
 
 def instrument(value):
     return [{
-        'serial': v['serialNumber'],
-        'label': v['instrument_term'],
-        'description': v['instrument_termDefinition'],
-        'uri': v['instrument_vocabularyTermURL'],
-        'source': v['instrument_vocabularyVersion']
-    } for v in value]
+        'serial': v.get('serialNumber'),
+        'label': v.get('instrument_term'),
+        'description': v.get('instrument_termDefinition'),
+        'uri': v.get('instrument_vocabularyTermURL') if v.get('instrument_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
+        'source': v.get('instrument_vocabularyVersion')
+    } for v in value] if value != None else None
 
 def keywordsTheme(value):
     return [{
@@ -141,7 +141,7 @@ def keywordsTheme(value):
         'label': f'https://gcmd.earthdata.nasa.gov/kms/concept/{v}',
         'uri': f'https://gcmd.earthdata.nasa.gov/kms/concept/{v}',
         # 'broader_concept': TODO
-    } for v in value]
+    } if isinstance(v, str) else v for v in value] if value != None else None
 
 def keywordsThemeAnzsrc(value):
     return [{
@@ -149,7 +149,7 @@ def keywordsThemeAnzsrc(value):
         'label': v,
         'uri': v,
         # 'broader_concept': TODO
-    } for v in value]
+    } if isinstance(v, str) else v for v in value] if value != None else None
 
 def keywordsHorizontal(value):
     return {
@@ -157,7 +157,7 @@ def keywordsHorizontal(value):
         'label': value[0]['prefLabel'],
         'uri': value[0]['uri'],
         # 'broader_concept': TODO
-    } if len(value) > 0 else None
+    } if (value != None and len(value) > 0) else None
 
 def keywordsTemporal(value):
     return keywordsHorizontal(value)
@@ -232,15 +232,15 @@ functions = {
     'capitalize': lambda value: value.capitalize(),
     'parseNum': parse_num,
     'exists': lambda value: value != None and len(value) != 0,
-    'fullAddressLine': lambda value: f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}",
-    'name': lambda value: f"{value['givenName']} {value['familyName']}",
-    'partyType': lambda value: 'organisation' if value['givenName'] == 'a_not_applicable' or value['givenName'] == '' else 'person',
+    'fullAddressLine': lambda value: f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}" if value != None else None,
+    'name': lambda value: f"{value.get('givenName')} {value.get('familyName')}" if (value != None and value.get('givenName') and value.get('familyName')) else None,
+    'partyType': lambda value: 'organisation' if (value.get('givenName') in ['a_not_applicable', '', None]) else 'person',
     'otherConstraints': other_constraints,
     'true': lambda value: True,
-    'join': lambda value: "\n".join(list(filter(None, value))),
+    'join': lambda value: ("\n".join(list(filter(None, value))) if isinstance(value, list) else value) if value != None else None,
     'protocol': protocol,
     'role': role,
-    'uuid': lambda value: str(uuid.uuid4()),
+    'uuid': lambda value: value or str(uuid.uuid4()),
     'parameter': parameter,
     'platform': platform,
     'instrument': instrument,
@@ -249,19 +249,23 @@ functions = {
     'keywordsHorizontal': keywordsHorizontal,
     'keywordsTemporal': keywordsTemporal,
     'distributor': distributor,
-    'keywordsAdditional': lambda value: value['keywordsThemeExtra']['keywords'] + value['keywordsTaxonExtra']['keywords'],
+    'keywordsAdditional': lambda value: (value.get('keywordsThemeExtra', {}).get('keywords', []) + value.get('keywordsTaxonExtra', {}).get('keywords', [])) if value != None else None,
     'topicCategories': lambda value: [{'label': value, 'value': value}],
     'status': lambda value: value if value != 'complete' else 'completed',
     'imas_keywordsTheme': lambda value: [{'label': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}", 'uri': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}"} for v in value],
     'verticalCRS': vertical_crs,
     'dataParametersName': lambda value: value['longName'] if value['longName'] != value['name'] else None,
     'creativeCommons': creative_commons,
-    'list': lambda value: [value]
+    'list': lambda value: [value],
+    'filter': lambda value, args: value if value not in args.get('matches') else None
 }
 
 def get_data_at_path(data, path):
     data = copy.deepcopy(data)
     path = copy.deepcopy(path)
+
+    if data == None:
+        return data
 
     if len(path) > 0:
         key = path.pop(0)
@@ -269,7 +273,7 @@ def get_data_at_path(data, path):
             return [get_data_at_path(d, key) for d in data]
         else:
             if not (type(data) is list and key >= len(data)):
-                return get_data_at_path(data[key], path)
+                return get_data_at_path(data.get(key), path)
             else:
                 return None
     else:
@@ -278,6 +282,9 @@ def get_data_at_path(data, path):
 def set_data_at_path(data, path, value):
     data = copy.deepcopy(data)
     path = copy.deepcopy(path)
+
+    if value == None:
+        return data
 
     key = path.pop(0)
     if type(key) is list:
@@ -300,21 +307,41 @@ def depth(path):
     else:
         return 0
 
-def apply(value, fn, depth):
+def apply(value, depth, fn, args):
     value = copy.deepcopy(value)
+
     if depth == 0:
-        return fn(value)
+        return fn(value, args) if args else fn(value)
+    elif value != None:
+        return [apply(v, depth - 1, fn, args) for v in value]
     else:
-        return [apply(v, fn, depth - 1) for v in value]
+        return value
 
 def do_migration(input, output, migration):
     src = migration['src']
     dst = migration['dst']
     value = get_data_at_path(input, src)
 
-    if 'fn' in migration.keys():
-        fn = functions[migration['fn']]
-        value = apply(value, fn, depth(dst))
+    fn = migration.get('fn')
+    fn_name = None
+    fn_args = None
+
+    if type(fn) is str:
+        fn_name = fn
+    elif type(fn) is dict:
+        fn_name = fn.get('name')
+        fn_args = fn.get('args')
+    
+    fn = functions.get(fn_name)
+
+    if not clear_empty_keys(value): # if the untransformed source is empty
+        value = get_data_at_path(input, dst) # try getting from the destination.
+        if not clear_empty_keys(value) and fn: # assuming the destination is empty, and we have a function,
+            value = apply(value, depth(dst), fn, fn_args) # try applying that function.
+    elif fn: # if the untransformed source isn't empty, and we have a function
+        value = apply(value, depth(dst), fn, fn_args) # try applying that function.
+        if not clear_empty_keys(value): # if applying the function resulted in empty data
+            value = get_data_at_path(input, dst) # just grab whatever is at the destination.
 
     return set_data_at_path(output, dst, value)
 

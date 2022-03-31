@@ -44,7 +44,13 @@
 	},
 	{
 		"src": ["resourceLineage", "processStep", ["uri"]],
-		"dst": ["resourceLineage", "onlineMethods", ["url"]]
+		"dst": ["resourceLineage", "onlineMethods", ["url"]],
+		"fn": {
+			"name": "filter",
+			"args": {
+				"matches": ["XXX", "XXXx"]
+			}
+		}
 	},
 	{
 		"src": ["dataSources", ["description"]],
@@ -69,7 +75,7 @@
 		"fn": "distributor"
 	},
 	{
-		"src": ["dataSources"],
+		"src": ["dataSources", ["uri"]],
 		"dst": ["dataSources", ["uri"]],
 		"fn": "uuid"
 	},
@@ -175,7 +181,7 @@
 		"dst": ["identificationInfo", "geographicElement", "boxes", ["westBoundLongitude"]]
 	},
 	{
-		"src": ["identificationInfo", "geographicElement", "boxes"],
+		"src": ["identificationInfo", "geographicElement", "boxes", ["uri"]],
 		"dst": ["identificationInfo", "geographicElement", "boxes", ["uri"]],
 		"fn": "uuid"
 	},
@@ -218,7 +224,7 @@
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "name"]]
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty"],
+		"src": ["identificationInfo", "citedResponsibleParty", ["organisation", "uri"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "uri"]],
 		"fn": "uuid"
 	},
@@ -285,7 +291,7 @@
 		"fn": "name"
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty"],
+		"src": ["identificationInfo", "citedResponsibleParty", ["contact", "uri"]],
 		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "uri"]],
 		"fn": "uuid"
 	},
@@ -340,7 +346,7 @@
 		"fn": "capitalize"
 	},
 	{
-		"src": ["identificationInfo", "topicCategory"],
+		"src": ["identificationInfo", "topicCategory", ["uri"]],
 		"dst": ["identificationInfo", "topicCategories", ["uri"]],
 		"fn": "uuid"
 	},
@@ -421,7 +427,7 @@
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "name"]]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact"],
+		"src": ["identificationInfo", "pointOfContact", ["organisation", "uri"]],
 		"dst": ["identificationInfo", "pointOfContact", ["organisation", "uri"]],
 		"fn": "uuid"
 	},
@@ -488,7 +494,7 @@
 		"fn": "name"
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact"],
+		"src":["identificationInfo", "pointOfContact", ["contact", "uri"]],
 		"dst": ["identificationInfo", "pointOfContact", ["contact", "uri"]],
 		"fn": "uuid"
 	},

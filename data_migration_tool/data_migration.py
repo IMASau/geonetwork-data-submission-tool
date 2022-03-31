@@ -98,7 +98,7 @@ def role(value):
         'Description': 'Party who uses the resource'}
     ]
     try:
-        return next(v for v in roles if v['Identifier'] == value)
+        return next(v for v in roles if v['Identifier'] == value) if isinstance(value, str) else value
     except:
         return {'Identifier': value}
 
@@ -141,7 +141,7 @@ def keywordsTheme(value):
         'label': f'https://gcmd.earthdata.nasa.gov/kms/concept/{v}',
         'uri': f'https://gcmd.earthdata.nasa.gov/kms/concept/{v}',
         # 'broader_concept': TODO
-    } for v in value] if value != None else None
+    } if isinstance(v, str) else v for v in value] if value != None else None
 
 def keywordsThemeAnzsrc(value):
     return [{
@@ -149,7 +149,7 @@ def keywordsThemeAnzsrc(value):
         'label': v,
         'uri': v,
         # 'broader_concept': TODO
-    } for v in value] if value != None else None
+    } if isinstance(v, str) else v for v in value] if value != None else None
 
 def keywordsHorizontal(value):
     return {
@@ -237,7 +237,7 @@ functions = {
     'partyType': lambda value: 'organisation' if (value.get('givenName') in ['a_not_applicable', '', None]) else 'person',
     'otherConstraints': other_constraints,
     'true': lambda value: True,
-    'join': lambda value: "\n".join(list(filter(None, value))) if value != None else None,
+    'join': lambda value: ("\n".join(list(filter(None, value))) if isinstance(value, list) else value) if value != None else None,
     'protocol': protocol,
     'role': role,
     'uuid': lambda value: str(uuid.uuid4()),

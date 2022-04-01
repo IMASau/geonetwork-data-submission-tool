@@ -263,9 +263,9 @@ def data_sources(value):
 def boxes(value):
     return [{
         'northBoundLatitude': v.get('northBoundLatitude'),
-        'northBoundLatitude': v.get('southBoundLatitude'),
-        'northBoundLatitude': v.get('eastBoundLongitude'),
-        'northBoundLatitude': v.get('westBoundLongitude'),
+        'southBoundLatitude': v.get('southBoundLatitude'),
+        'eastBoundLongitude': v.get('eastBoundLongitude'),
+        'westBoundLongitude': v.get('westBoundLongitude'),
         'uri': str(uuid.uuid4())
     } for v in value] if value != None else None
 

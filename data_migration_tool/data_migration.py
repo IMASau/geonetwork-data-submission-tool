@@ -2,6 +2,11 @@ import copy
 import uuid
 import re
 
+import functools
+
+def coalesce(*arg):
+  return functools.reduce(lambda x, y: x if x is not None else y, arg)
+
 def parse_num(value):
     try:
         v = float(value)
@@ -227,14 +232,125 @@ def creative_commons(value):
             'other': True
         }
 
+def online_methods(value):
+    return [{
+        'title': v.get('name'),
+        'url': v.get('uri') if not v.get('uri') in ["XXX", "XXXx"] else None
+    } for v in value] if value != None else None
+
+def data_sources(value):
+    return [{
+        'transferOptions': {
+            'description': coalesce(v.get('transferOptions', {}).get('description'), v.get('description')),
+            'name': coalesce(v.get('transferOptions', {}).get('name'), v.get('name')),
+            'protocol': coalesce(v.get('transferOptions', {}).get('protocol'), protocol(v.get('protocol'))),
+            'linkage': coalesce(v.get('transferOptions', {}).get('linkage'), v.get('url'))
+        },
+        'distributor': {
+            'is_dissolved': 'false',
+            'name': 'TERN Ecosystem Processes - UQ Long Pocket',
+            'full_address_line': 'Building 1019, 80 Meiers Rd, Indooroopilly, QLD, Australia, 4068',
+            'postcode': '4068',
+            'address_region': 'QLD',
+            'address_locality': 'Indooroopilly',
+            'date_modified': '2021-05-14T05:18:27.281Z',
+            'street_address': 'Building 1019, 80 Meiers Rd',
+            'date_created': '2021-05-14T03:33:48.260Z',
+            'uri': 'https://w3id.org/tern/resources/8f2acf9f-3cf2-48c7-b911-ed1b1113932e',
+            'display_name': 'TERN Ecosystem Processes - UQ Long Pocket',
+            'site_uri': 'https://w3id.org/tern/resources/fa56a1ed-ec38-4294-90ae-ab203a25d5ad',
+            'country': 'Australia'
+        },
+        'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
+        'isUserDefined': coalesce(v.get('transferOptions', {}).get('isUserDefined'), True)
+    } for v in value] if value != None else None
+
+def boxes(value):
+    return [{
+        'northBoundLatitude': v.get('northBoundLatitude'),
+        'southBoundLatitude': v.get('southBoundLatitude'),
+        'eastBoundLongitude': v.get('eastBoundLongitude'),
+        'westBoundLongitude': v.get('westBoundLongitude'),
+        'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
+    } for v in value] if value != None else None
+
+def full_address_line(value):
+    return f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}" if value != None else None
+
+def name(value):
+    return f"{value.get('givenName')} {value.get('familyName')}" if (value != None and value.get('givenName') and value.get('familyName')) else None
+
+def party_type(value):
+    return 'organisation' if (value.get('givenName') in ['a_not_applicable', '', None]) else 'person'
+
+def cited_responsible_party(value):
+    return [{
+        'role': role(v.get('role')),
+        'organisation': {
+            'address_locality': coalesce(v.get('organisation', {}).get('address_locality'), v.get('address', {}).get('city')),
+            'street_address': coalesce(v.get('organisation', {}).get('street_address'), v.get('address', {}).get('deliveryPoint')),
+            'postcode': coalesce(v.get('organisation', {}).get('postcode'), v.get('address', {}).get('postalCode')),
+            'country': coalesce(v.get('organisation', {}).get('country'), v.get('address', {}).get('country')),
+            'address_region': coalesce(v.get('organisation', {}).get('address_region'), v.get('address', {}).get('administrativeArea')),
+            'full_address_line': coalesce(v.get('organisation', {}).get('full_address_line'), full_address_line(v.get('address'))),
+            'name': coalesce(v.get('organisation', {}).get('name'), v.get('organisationName')),
+            'uri': coalesce(v.get('organisation', {}).get('uri'), str(uuid.uuid4())),
+            'isUserDefined': coalesce(v.get('organisation', {}).get('isUserDefined'), v.get('isUserAdded')),
+            'email': coalesce(v.get('organisation', {}).get('email'), None), #TODO
+            'userAddedCategory': coalesce(v.get('organisation', {}).get('userAddedCategory'), None), #TODO
+            'date_modified': coalesce(v.get('organisation', {}).get('date_modified'), None), #TODO
+            'display_name': coalesce(v.get('organisation', {}).get('display_name'), v.get('organisationName')),
+            'is_dissolved': coalesce(v.get('organisation', {}).get('is_dissolved'), None), #TODO
+            'date_created': coalesce(v.get('organisation', {}).get('date_created'), None) #TODO
+        },
+        'contact': {
+            'canonical_name': coalesce(v.get('contact', {}).get('canonical_name'), v.get('individualName')),
+            'orcid': coalesce(v.get('contact', {}).get('orcid'), v.get('orcid')),
+            'email': coalesce(v.get('contact', {}).get('email'), v.get('electronicMailAddress')),
+            'isUserDefined': coalesce(v.get('contact', {}).get('isUserDefined'), v.get('isUserAdded')),
+            'surname': coalesce(v.get('contact', {}).get('surname'), v.get('familyName')),
+            'given_name': coalesce(v.get('contact', {}).get('given_name'), v.get('givenName')),
+            'name': coalesce(v.get('contact', {}).get('name'), name(v)),
+            'uri': coalesce(v.get('contact', {}).get('uri'), str(uuid.uuid4())),
+            'userAddedCategory': coalesce(v.get('contact', {}).get('userAddedCategory'), None), #TODO
+            'date_modified': coalesce(v.get('contact', {}).get('date_modified'), None), #TODO
+            'date_created': coalesce(v.get('contact', {}).get('date_created'), None) #TODO
+        },
+        'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
+        'isUserDefined': coalesce(v.get('isUserDefined'), v.get('isUserAdded')),
+        'partyType': coalesce(v.get('partyType'), party_type(v))
+    } for v in value] if value != None else None
+
+def tern_topic_categories(value):
+    return [{
+        'value': v,
+        'label': v.capitalize(),
+        'uri': str(uuid.uuid4())
+    } for v in value] if value != None else None
+
+def additional_publications(value):
+    return [{
+        'title': v.get('name'),
+        'url': v.get('url'),
+        'uri': str(uuid.uuid4()),
+        'isUserDefined': True,
+        'userAddedCategory': None # TODO
+    } for v in value] if value != None else None
+
+def point_of_contact(value):
+    return cited_responsible_party(value)
+
+def keywords_additional(value):
+    return value.get('keywordsAdditional', {}).get('keywords') or ((value.get('keywordsThemeExtra', {}).get('keywords', []) + value.get('keywordsTaxonExtra', {}).get('keywords', [])) if value != None else None)
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
     'parseNum': parse_num,
     'exists': lambda value: value != None and len(value) != 0,
-    'fullAddressLine': lambda value: f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}" if value != None else None,
-    'name': lambda value: f"{value.get('givenName')} {value.get('familyName')}" if (value != None and value.get('givenName') and value.get('familyName')) else None,
-    'partyType': lambda value: 'organisation' if (value.get('givenName') in ['a_not_applicable', '', None]) else 'person',
+    'fullAddressLine': full_address_line,
+    'name': name,
+    'partyType': party_type,
     'otherConstraints': other_constraints,
     'true': lambda value: True,
     'join': lambda value: ("\n".join(list(filter(None, value))) if isinstance(value, list) else value) if value != None else None,
@@ -249,7 +365,7 @@ functions = {
     'keywordsHorizontal': keywordsHorizontal,
     'keywordsTemporal': keywordsTemporal,
     'distributor': distributor,
-    'keywordsAdditional': lambda value: (value.get('keywordsThemeExtra', {}).get('keywords', []) + value.get('keywordsTaxonExtra', {}).get('keywords', [])) if value != None else None,
+    'keywordsAdditional': keywords_additional,
     'topicCategories': lambda value: [{'label': value, 'value': value}],
     'status': lambda value: value if value != 'complete' else 'completed',
     'imas_keywordsTheme': lambda value: [{'label': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}", 'uri': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}"} for v in value],
@@ -257,7 +373,14 @@ functions = {
     'dataParametersName': lambda value: value['longName'] if value['longName'] != value['name'] else None,
     'creativeCommons': creative_commons,
     'list': lambda value: [value],
-    'filter': lambda value, args: value if value not in args.get('matches') else None
+    'filter': lambda value, args: value if value not in args.get('matches') else None,
+    'onlineMethods': online_methods,
+    'dataSources': data_sources,
+    'boxes': boxes,
+    'citedResponsibleParty': cited_responsible_party,
+    'ternTopicCategories': tern_topic_categories,
+    'additionalPublications': additional_publications,
+    'pointOfContact': point_of_contact
 }
 
 def get_data_at_path(data, path):
@@ -334,14 +457,12 @@ def do_migration(input, output, migration):
     
     fn = functions.get(fn_name)
 
-    if not clear_empty_keys(value): # if the untransformed source is empty
-        value = get_data_at_path(input, dst) # try getting from the destination.
-        if not clear_empty_keys(value) and fn: # assuming the destination is empty, and we have a function,
-            value = apply(value, depth(dst), fn, fn_args) # try applying that function.
-    elif fn: # if the untransformed source isn't empty, and we have a function
-        value = apply(value, depth(dst), fn, fn_args) # try applying that function.
-        if not clear_empty_keys(value): # if applying the function resulted in empty data
-            value = get_data_at_path(input, dst) # just grab whatever is at the destination.
+    value = get_data_at_path(input, src)
+
+    if value == None:
+        value = get_data_at_path(input, dst)
+    elif fn:
+        value = apply(value, 0, fn, fn_args)
 
     return set_data_at_path(output, dst, value)
 

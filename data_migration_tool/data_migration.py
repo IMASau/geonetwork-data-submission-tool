@@ -451,7 +451,10 @@ def do_migration(input, output, migration):
 
     value = get_data_at_path(input, src)
 
-    value = apply(value, 0, fn, fn_args) if fn else value
+    if value == None:
+        value = get_data_at_path(input, dst)
+    elif fn:
+        value = apply(value, 0, fn, fn_args)
 
     return set_data_at_path(output, dst, value)
 

@@ -149,17 +149,8 @@
 	},
 	{
 		"src": ["identificationInfo", "topicCategory"],
-		"dst": ["identificationInfo", "topicCategories", ["value"]]
-	},
-	{
-		"src": ["identificationInfo", "topicCategory"],
-		"dst": ["identificationInfo", "topicCategories", ["label"]],
-		"fn": "capitalize"
-	},
-	{
-		"src": ["identificationInfo", "topicCategory", ["uri"]],
-		"dst": ["identificationInfo", "topicCategories", ["uri"]],
-		"fn": "uuid"
+		"dst": ["identificationInfo", "topicCategories"],
+		"fn": "ternTopicCategories"
 	},
 	{
 		"src": ["identificationInfo", "supplementalInformation"],

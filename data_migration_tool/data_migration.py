@@ -316,6 +316,13 @@ def cited_responsible_party(value):
         'partyType': party_type(v)
     } for v in value] if value != None else None
 
+def tern_topic_categories(value):
+    return [{
+        'value': v,
+        'label': v.capitalize(),
+        'uri': str(uuid.uuid4())
+    } for v in value] if value != None else None
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -350,7 +357,8 @@ functions = {
     'onlineMethods': online_methods,
     'dataSources': data_sources,
     'boxes': boxes,
-    'citedResponsibleParty': cited_responsible_party
+    'citedResponsibleParty': cited_responsible_party,
+    'ternTopicCategories': tern_topic_categories
 }
 
 def get_data_at_path(data, path):

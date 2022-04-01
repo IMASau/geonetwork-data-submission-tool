@@ -49,16 +49,8 @@
 		"fn": "dataSources"
 	},
 	{
-		"src": ["attachments", ["file"]],
-		"dst": ["attachments", ["file"]]
-	},
-	{
-		"src": ["attachments", ["name"]],
-		"dst": ["attachments", ["name"]]
-	},
-	{
-		"src": ["attachments", ["delete_url"]],
-		"dst": ["attachments", ["delete_url"]]
+		"src": ["attachments"],
+		"dst": ["attachments"]
 	},
 	{
 		"src": ["dataQualityInfo", "methods"],

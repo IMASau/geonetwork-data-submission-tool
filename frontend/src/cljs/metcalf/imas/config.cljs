@@ -187,6 +187,7 @@
        'm4/item-dialog-button                  {:view #'components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/edit-dialog                         {:view #'components4/edit-dialog :init components4/edit-dialog-settings}
        'm4/edit-dialog2                        {:view #'components4/edit-dialog2 :init components4/edit-dialog2-settings}
+       'm4/list-select-person                  {:view #'components4/imas-copy-person-selector :init components4/imas-copy-person-selector-settings}
        'm4/list-add-button                     {:view #'components4/list-add-button3 :init components4/list-add-button3-settings}
        'm4/value-list-add-button               {:view #'components4/value-list-add-button :init components4/value-list-add-button-settings}
        'm4/list-edit-dialog                    {:view #'components4/list-edit-dialog :init components4/list-edit-dialog-settings}
@@ -601,6 +602,13 @@
         :value-path         ["uri"]
         :random-uuid-value? true
         :added-path         ["isUserDefined"]}]
+      [m4/list-select-person
+       {:form-id     [:form]
+        :data-path   ["pointOfContact"]
+        :source-path ["identificationInfo" "citedResponsibleParty"]
+        :placeholder "Copy person"
+        :value-path  ["uri"]
+        :label-path  ["contact" "name"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -634,6 +642,13 @@
         :value-path         ["uri"]
         :random-uuid-value? true
         :added-path         ["isUserDefined"]}]
+      [m4/list-select-person
+       {:form-id     [:form]
+        :data-path   ["identificationInfo" "citedResponsibleParty"]
+        :source-path ["pointOfContact"]
+        :placeholder "Copy person"
+        :value-path  ["uri"]
+        :label-path  ["contact" "name"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -1000,7 +1015,7 @@
       [m4/input-field
        {:form-id     ?form-id
         :data-path   [?data-path "Name"]
-        :placeholder "Name in dataset (optional)"}]]]
+        :placeholder "Name in dataset"}]]]
 
     :parameter-unit/user-defined-entry-form
     [:div

@@ -1884,6 +1884,31 @@
                  :padding "12px"}}
         "You are now ready to lodge your request"]])))
 
+(defn imas-copy-person-selector-settings
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :label-path :value-path :source-path]
+   ::low-code4/opt-ks [:is-hidden :disabled :placeholder]})
+
+(defn imas-copy-person-selector
+  "IMAS offers the ability to copy a previously-defined person from
+  another data-path (ie, copy a point-of-contact from an existing
+  responsible-party entry)"
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        {:keys [is-hidden disabled value-path label-path source-path placeholder]} props
+        ;; WIP: custom sub to filter existing entries
+        options @(rf/subscribe [::get-block-data (assoc props :data-path source-path)])]
+    (when-not is-hidden
+      [ui-controls/SimpleSelectField
+       {:value       nil
+        :options     (or options [])
+        :placeholder placeholder
+        :disabled    (or disabled (not options))
+        :hasError    false
+        :getLabel    (ui-controls/obj-path-getter label-path)
+        :getValue    (ui-controls/obj-path-getter value-path)
+        :onChange    #(rf/dispatch [::list-option-picker-change config (ui-controls/get-option-data %)])}])))
+
 (defn imas-upload-files-settings
   "Settings for upload-files component"
   [_]

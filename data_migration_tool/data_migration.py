@@ -261,7 +261,7 @@ def data_sources(value):
             'site_uri': 'https://w3id.org/tern/resources/fa56a1ed-ec38-4294-90ae-ab203a25d5ad',
             'country': 'Australia'
         },
-        'uri': coalesce(v.get('transferOptions', {}).get('uri'), str(uuid.uuid4())),
+        'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
         'isUserDefined': coalesce(v.get('transferOptions', {}).get('isUserDefined'), True)
     } for v in value] if value != None else None
 

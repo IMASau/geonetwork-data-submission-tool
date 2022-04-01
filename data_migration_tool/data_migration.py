@@ -269,14 +269,61 @@ def boxes(value):
         'uri': str(uuid.uuid4())
     } for v in value] if value != None else None
 
+def full_address_line(value):
+    return f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}" if value != None else None
+
+def name(value):
+    return f"{value.get('givenName')} {value.get('familyName')}" if (value != None and value.get('givenName') and value.get('familyName')) else None
+
+def party_type(value):
+    return 'organisation' if (value.get('givenName') in ['a_not_applicable', '', None]) else 'person'
+
+def cited_responsible_party(value):
+    return [{
+        'role': role(v.get('role')),
+        'organisation': {
+            'address_locality': v.get('address', {}).get('city'),
+            'street_address': v.get('address', {}).get('deliveryPoint'),
+            'postcode': v.get('address', {}).get('postalCode'),
+            'country': v.get('address', {}).get('country'),
+            'address_region': v.get('address', {}).get('administrativeArea'),
+            'full_address_line': full_address_line(v.get('address')),
+            'name': v.get('organisationName'),
+            'uri': str(uuid.uuid4()),
+            'isUserDefined': v.get('isUserAdded'),
+            'email': None, #TODO
+            'userAddedCategory': None, #TODO
+            'date_modified': None, #TODO
+            'display_name': v.get('organisationName'),
+            'is_dissolved': None, #TODO
+            'date_created': None #TODO
+        },
+        'contact': {
+            'canonical_name': v.get('individualName'),
+            'orcid': v.get('orcid'),
+            'email': v.get('electronicMailAddress'),
+            'isUserDefined': v.get('isUserAdded'),
+            'surname': v.get('familyName'),
+            'given_name': v.get('givenName'),
+            'name': name(v),
+            'uri': str(uuid.uuid4()),
+            'userAddedCategory': None, #TODO
+            'date_modified': None, #TODO
+            'date_created': None #TODO
+        },
+        'uri': str(uuid.uuid4()),
+        'isUserDefined': v.get('isUserAdded'),
+        'partyType': party_type(v)
+    } for v in value] if value != None else None
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
     'parseNum': parse_num,
     'exists': lambda value: value != None and len(value) != 0,
-    'fullAddressLine': lambda value: f"{value['deliveryPoint']} {value['city']} {value['administrativeArea']} {value['postalCode']} {value['country']}" if value != None else None,
-    'name': lambda value: f"{value.get('givenName')} {value.get('familyName')}" if (value != None and value.get('givenName') and value.get('familyName')) else None,
-    'partyType': lambda value: 'organisation' if (value.get('givenName') in ['a_not_applicable', '', None]) else 'person',
+    'fullAddressLine': full_address_line,
+    'name': name,
+    'partyType': party_type,
     'otherConstraints': other_constraints,
     'true': lambda value: True,
     'join': lambda value: ("\n".join(list(filter(None, value))) if isinstance(value, list) else value) if value != None else None,
@@ -302,7 +349,8 @@ functions = {
     'filter': lambda value, args: value if value not in args.get('matches') else None,
     'onlineMethods': online_methods,
     'dataSources': data_sources,
-    'boxes': boxes
+    'boxes': boxes,
+    'citedResponsibleParty': cited_responsible_party
 }
 
 def get_data_at_path(data, path):

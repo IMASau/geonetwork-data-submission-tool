@@ -282,38 +282,38 @@ def cited_responsible_party(value):
     return [{
         'role': role(v.get('role')),
         'organisation': {
-            'address_locality': v.get('address', {}).get('city'),
-            'street_address': v.get('address', {}).get('deliveryPoint'),
-            'postcode': v.get('address', {}).get('postalCode'),
-            'country': v.get('address', {}).get('country'),
-            'address_region': v.get('address', {}).get('administrativeArea'),
-            'full_address_line': full_address_line(v.get('address')),
-            'name': v.get('organisationName'),
-            'uri': str(uuid.uuid4()),
-            'isUserDefined': v.get('isUserAdded'),
-            'email': None, #TODO
-            'userAddedCategory': None, #TODO
-            'date_modified': None, #TODO
-            'display_name': v.get('organisationName'),
-            'is_dissolved': None, #TODO
-            'date_created': None #TODO
+            'address_locality': v.get('organisation', {}).get('address_locality') or v.get('organisation', {}).get('address_locality'),
+            'street_address': v.get('organisation', {}).get('street_address') or v.get('address', {}).get('deliveryPoint'),
+            'postcode': v.get('organisation', {}).get('postcode') or v.get('address', {}).get('postalCode'),
+            'country': v.get('organisation', {}).get('country') or v.get('address', {}).get('country'),
+            'address_region': v.get('organisation', {}).get('address_region') or v.get('address', {}).get('administrativeArea'),
+            'full_address_line': v.get('organisation', {}).get('full_address_line') or full_address_line(v.get('address')),
+            'name': v.get('organisation', {}).get('name') or v.get('organisationName'),
+            'uri': v.get('organisation', {}).get('uri') or str(uuid.uuid4()),
+            'isUserDefined': v.get('organisation', {}).get('isUserDefined') or v.get('isUserAdded'),
+            'email': v.get('organisation', {}).get('email') or None, #TODO
+            'userAddedCategory': v.get('organisation', {}).get('userAddedCategory') or None, #TODO
+            'date_modified': v.get('organisation', {}).get('date_modified') or None, #TODO
+            'display_name': v.get('organisation', {}).get('display_name') or v.get('organisationName'),
+            'is_dissolved': v.get('organisation', {}).get('is_dissolved') or None, #TODO
+            'date_created': v.get('organisation', {}).get('date_created') or None #TODO
         },
         'contact': {
-            'canonical_name': v.get('individualName'),
-            'orcid': v.get('orcid'),
-            'email': v.get('electronicMailAddress'),
-            'isUserDefined': v.get('isUserAdded'),
-            'surname': v.get('familyName'),
-            'given_name': v.get('givenName'),
-            'name': name(v),
-            'uri': str(uuid.uuid4()),
-            'userAddedCategory': None, #TODO
-            'date_modified': None, #TODO
-            'date_created': None #TODO
+            'canonical_name': v.get('contact', {}).get('canonical_name') or v.get('individualName'),
+            'orcid': v.get('contact', {}).get('orcid') or v.get('orcid'),
+            'email': v.get('contact', {}).get('email') or v.get('electronicMailAddress'),
+            'isUserDefined': v.get('contact', {}).get('isUserDefined') or v.get('isUserAdded'),
+            'surname': v.get('contact', {}).get('surname') or v.get('familyName'),
+            'given_name': v.get('contact', {}).get('given_name') or v.get('givenName'),
+            'name': v.get('contact', {}).get('name') or name(v),
+            'uri': v.get('contact', {}).get('uri') or str(uuid.uuid4()),
+            'userAddedCategory': v.get('contact', {}).get('userAddedCategory') or None, #TODO
+            'date_modified': v.get('contact', {}).get('date_modified') or None, #TODO
+            'date_created': v.get('contact', {}).get('date_created') or None #TODO
         },
-        'uri': str(uuid.uuid4()),
-        'isUserDefined': v.get('isUserAdded'),
-        'partyType': party_type(v)
+        'uri': v.get('uri') or str(uuid.uuid4()),
+        'isUserDefined': v.get('isUserDefined') or v.get('isUserAdded'),
+        'partyType': v.get('partyType') or party_type(v)
     } for v in value] if value != None else None
 
 def tern_topic_categories(value):

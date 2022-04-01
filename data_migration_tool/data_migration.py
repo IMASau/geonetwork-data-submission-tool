@@ -227,6 +227,12 @@ def creative_commons(value):
             'other': True
         }
 
+def online_methods(value):
+    return [{
+        'title': value.get('name'),
+        'url': value.get('uri') if not value.get('uri') in ["XXX", "XXXx"] else None
+    } for v in value] if value != None else None
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -257,7 +263,8 @@ functions = {
     'dataParametersName': lambda value: value['longName'] if value['longName'] != value['name'] else None,
     'creativeCommons': creative_commons,
     'list': lambda value: [value],
-    'filter': lambda value, args: value if value not in args.get('matches') else None
+    'filter': lambda value, args: value if value not in args.get('matches') else None,
+    'onlineMethods': online_methods
 }
 
 def get_data_at_path(data, path):

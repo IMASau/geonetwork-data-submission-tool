@@ -1953,7 +1953,7 @@
       [m4/textarea-field
        {:form-id     [:form]
         :data-path   ["dataQualityInfo" "results"]
-        :maxLength   2500
+        :maxLength   6000
         :placeholder "A statement regarding the data quality assessment results. Examples: RMSE relative to reference data set; horizontal or vertical positional accuracy; etc."}]]]
 
     :quality/user-defined-entry-form

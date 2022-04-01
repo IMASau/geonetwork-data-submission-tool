@@ -332,6 +332,9 @@ def additional_publications(value):
         'userAddedCategory': None # TODO
     } for v in value] if value != None else None
 
+def point_of_contact(value):
+    return cited_responsible_party(value)
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -368,7 +371,8 @@ functions = {
     'boxes': boxes,
     'citedResponsibleParty': cited_responsible_party,
     'ternTopicCategories': tern_topic_categories,
-    'additionalPublications': additional_publications
+    'additionalPublications': additional_publications,
+    'pointOfContact': point_of_contact
 }
 
 def get_data_at_path(data, path):

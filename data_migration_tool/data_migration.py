@@ -229,8 +229,8 @@ def creative_commons(value):
 
 def online_methods(value):
     return [{
-        'title': value.get('name'),
-        'url': value.get('uri') if not value.get('uri') in ["XXX", "XXXx"] else None
+        'title': v.get('name'),
+        'url': v.get('uri') if not v.get('uri') in ["XXX", "XXXx"] else None
     } for v in value] if value != None else None
 
 functions = {

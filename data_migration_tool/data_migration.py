@@ -241,10 +241,10 @@ def online_methods(value):
 def data_sources(value):
     return [{
         'transferOptions': {
-            'description': v.get('description'),
-            'name': v.get('name'),
-            'protocol': v.get('protocol'),
-            'linkage': v.get('url')
+            'description': coalesce(v.get('transferOptions', {}).get('description'), v.get('description')),
+            'name': coalesce(v.get('transferOptions', {}).get('name'), v.get('name')),
+            'protocol': coalesce(v.get('transferOptions', {}).get('protocol'), v.get('protocol')),
+            'linkage': coalesce(v.get('transferOptions', {}).get('linkage'), v.get('url'))
         },
         'distributor': {
             'is_dissolved': 'false',
@@ -261,8 +261,8 @@ def data_sources(value):
             'site_uri': 'https://w3id.org/tern/resources/fa56a1ed-ec38-4294-90ae-ab203a25d5ad',
             'country': 'Australia'
         },
-        'uri': str(uuid.uuid4()),
-        'isUserDefined': True
+        'uri': coalesce(v.get('transferOptions', {}).get('uri'), str(uuid.uuid4())),
+        'isUserDefined': coalesce(v.get('transferOptions', {}).get('isUserDefined'), True)
     } for v in value] if value != None else None
 
 def boxes(value):
@@ -271,7 +271,7 @@ def boxes(value):
         'southBoundLatitude': v.get('southBoundLatitude'),
         'eastBoundLongitude': v.get('eastBoundLongitude'),
         'westBoundLongitude': v.get('westBoundLongitude'),
-        'uri': coalesce(v.get('uri'), str(uuid.uuid4()))
+        'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
     } for v in value] if value != None else None
 
 def full_address_line(value):

@@ -260,6 +260,15 @@ def data_sources(value):
         'isUserDefined': True
     } for v in value] if value != None else None
 
+def boxes(value):
+    return [{
+        'northBoundLatitude': v.get('northBoundLatitude'),
+        'northBoundLatitude': v.get('southBoundLatitude'),
+        'northBoundLatitude': v.get('eastBoundLongitude'),
+        'northBoundLatitude': v.get('westBoundLongitude'),
+        'uri': str(uuid.uuid4())
+    } for v in value] if value != None else None
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -292,7 +301,8 @@ functions = {
     'list': lambda value: [value],
     'filter': lambda value, args: value if value not in args.get('matches') else None,
     'onlineMethods': online_methods,
-    'dataSources': data_sources
+    'dataSources': data_sources,
+    'boxes': boxes
 }
 
 def get_data_at_path(data, path):

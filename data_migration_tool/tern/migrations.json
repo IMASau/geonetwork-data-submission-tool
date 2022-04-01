@@ -121,25 +121,9 @@
 		"dst": ["identificationInfo", "geographicElement", "siteDescription"]
 	},
 	{
-		"src": ["identificationInfo", "geographicElement", "boxes", ["northBoundLatitude"]],
-		"dst": ["identificationInfo", "geographicElement", "boxes", ["northBoundLatitude"]]
-	},
-	{
-		"src": ["identificationInfo", "geographicElement", "boxes", ["southBoundLatitude"]],
-		"dst": ["identificationInfo", "geographicElement", "boxes", ["southBoundLatitude"]]
-	},
-	{
-		"src": ["identificationInfo", "geographicElement", "boxes", ["eastBoundLongitude"]],
-		"dst": ["identificationInfo", "geographicElement", "boxes", ["eastBoundLongitude"]]
-	},
-	{
-		"src": ["identificationInfo", "geographicElement", "boxes", ["westBoundLongitude"]],
-		"dst": ["identificationInfo", "geographicElement", "boxes", ["westBoundLongitude"]]
-	},
-	{
-		"src": ["identificationInfo", "geographicElement", "boxes", ["uri"]],
-		"dst": ["identificationInfo", "geographicElement", "boxes", ["uri"]],
-		"fn": "uuid"
+		"src": ["identificationInfo", "geographicElement", "boxes"],
+		"dst": ["identificationInfo", "geographicElement", "boxes"],
+		"fn": "boxes"
 	},
 	{
 		"src": ["identificationInfo", "title"],

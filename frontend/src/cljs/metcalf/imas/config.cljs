@@ -33,6 +33,7 @@
 (rf/reg-event-fx ::components4/edit-dialog-cancel handlers4/edit-dialog-cancel-handler)
 (rf/reg-event-fx ::components4/edit-dialog-close handlers4/edit-dialog-close-handler)
 (rf/reg-event-fx ::components4/edit-dialog-save handlers4/edit-dialog-save-handler)
+(rf/reg-event-fx ::components4/edit-dialog2-save handlers4/edit-dialog2-save-handler)
 (rf/reg-event-fx ::components4/item-option-picker-change handlers4/item-option-picker-change)
 (rf/reg-event-fx ::components4/list-add-with-defaults-click-handler3 handlers4/list-add-with-defaults-click-handler3)
 (rf/reg-event-fx ::components4/value-list-add-with-defaults-click-handler handlers4/value-list-add-with-defaults-click-handler2)
@@ -1056,13 +1057,12 @@
          :random-uuid-value? true
          :added-path         ["isUserDefined"]}]]
 
-      ; WIP
       [m4/edit-dialog2
        {:form-id     ?form-id
         :data-path   [?data-path "longName_term"]
         :title       "Define a custom parameter name"
         :template-id :parameter-name/user-defined-entry-form
-        :field-paths [[?data-path "Name"]]}]]
+        :field-paths [["Name"]]}]]
 
      [m4/form-group
       {:form-id   ?form-id
@@ -1092,9 +1092,10 @@
          :value-path         ["URI"]
          :random-uuid-value? true
          :added-path         ["isUserDefined"]}]]
-      [m4/edit-dialog
+      [m4/edit-dialog2
        {:form-id     ?form-id
         :data-path   [?data-path "unit_term"]
+        :field-paths [["Name"]]
         :title       "Define a custom parameter unit"
         :template-id :parameter-unit/user-defined-entry-form}]]
 

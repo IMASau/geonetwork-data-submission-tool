@@ -323,6 +323,15 @@ def tern_topic_categories(value):
         'uri': str(uuid.uuid4())
     } for v in value] if value != None else None
 
+def additional_publications(value):
+    return [{
+        'title': v.get('name'),
+        'url': v.get('url'),
+        'uri': str(uuid.uuid4()),
+        'isUserDefined': True,
+        'userAddedCategory': None # TODO
+    } for v in value] if value != None else None
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -358,7 +367,8 @@ functions = {
     'dataSources': data_sources,
     'boxes': boxes,
     'citedResponsibleParty': cited_responsible_party,
-    'ternTopicCategories': tern_topic_categories
+    'ternTopicCategories': tern_topic_categories,
+    'additionalPublications': additional_publications
 }
 
 def get_data_at_path(data, path):

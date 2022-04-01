@@ -158,27 +158,9 @@
 		"fn": "join"
 	},
 	{
-		"src": ["supportingResources", ["name"]],
-		"dst": ["identificationInfo", "additionalPublications", ["title"]]
-	},
-	{
-		"src": ["supportingResources", ["url"]],
-		"dst": ["identificationInfo", "additionalPublications", ["url"]]
-	},
-	{
 		"src": ["supportingResources"],
-		"dst": ["identificationInfo", "additionalPublications", ["uri"]],
-		"fn": "uuid"
-	},
-	{
-		"src": ["supportingResources"],
-		"dst": ["identificationInfo", "additionalPublications", ["isUserDefined"]],
-		"fn": "true"
-	},
-	{
-		"src": ["supportingResources"],
-		"dst": ["identificationInfo", "additionalPublications", ["userAddedCategory"]],
-		"fn": "todo"
+		"dst": ["identificationInfo", "additionalPublications"],
+		"fn": "additionalPublications"
 	},
 	{
 		"src": ["identificationInfo"],

@@ -243,7 +243,7 @@ def data_sources(value):
         'transferOptions': {
             'description': coalesce(v.get('transferOptions', {}).get('description'), v.get('description')),
             'name': coalesce(v.get('transferOptions', {}).get('name'), v.get('name')),
-            'protocol': coalesce(v.get('transferOptions', {}).get('protocol'), v.get('protocol')),
+            'protocol': coalesce(v.get('transferOptions', {}).get('protocol'), protocol(v.get('protocol'))),
             'linkage': coalesce(v.get('transferOptions', {}).get('linkage'), v.get('url'))
         },
         'distributor': {

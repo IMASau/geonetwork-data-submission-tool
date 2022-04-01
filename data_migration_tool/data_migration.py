@@ -233,6 +233,33 @@ def online_methods(value):
         'url': v.get('uri') if not v.get('uri') in ["XXX", "XXXx"] else None
     } for v in value] if value != None else None
 
+def data_sources(value):
+    return [{
+        'transferOptions': {
+            'description': v.get('description'),
+            'name': v.get('name'),
+            'protocol': v.get('protocol'),
+            'linkage': v.get('url')
+        },
+        'distributor': {
+            'is_dissolved': 'false',
+            'name': 'TERN Ecosystem Processes - UQ Long Pocket',
+            'full_address_line': 'Building 1019, 80 Meiers Rd, Indooroopilly, QLD, Australia, 4068',
+            'postcode': '4068',
+            'address_region': 'QLD',
+            'address_locality': 'Indooroopilly',
+            'date_modified': '2021-05-14T05:18:27.281Z',
+            'street_address': 'Building 1019, 80 Meiers Rd',
+            'date_created': '2021-05-14T03:33:48.260Z',
+            'uri': 'https://w3id.org/tern/resources/8f2acf9f-3cf2-48c7-b911-ed1b1113932e',
+            'display_name': 'TERN Ecosystem Processes - UQ Long Pocket',
+            'site_uri': 'https://w3id.org/tern/resources/fa56a1ed-ec38-4294-90ae-ab203a25d5ad',
+            'country': 'Australia'
+        },
+        'uri': str(uuid.uuid4()),
+        'isUserDefined': True
+    } for v in value] if value != None else None
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -264,7 +291,8 @@ functions = {
     'creativeCommons': creative_commons,
     'list': lambda value: [value],
     'filter': lambda value, args: value if value not in args.get('matches') else None,
-    'onlineMethods': online_methods
+    'onlineMethods': online_methods,
+    'dataSources': data_sources
 }
 
 def get_data_at_path(data, path):

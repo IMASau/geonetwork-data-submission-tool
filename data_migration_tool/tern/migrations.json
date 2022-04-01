@@ -44,36 +44,9 @@
 		"fn": "onlineMethods"
 	},
 	{
-		"src": ["dataSources", ["description"]],
-		"dst": ["dataSources", ["transferOptions", "description"]]
-	},
-	{
-		"src": ["dataSources", ["name"]],
-		"dst": ["dataSources", ["transferOptions", "name"]]
-	},
-	{
-		"src": ["dataSources", ["protocol"]],
-		"dst": ["dataSources", ["transferOptions", "protocol"]],
-		"fn": "protocol"
-	},
-	{
-		"src": ["dataSources", ["url"]],
-		"dst": ["dataSources", ["transferOptions", "linkage"]]
-	},
-	{
 		"src": ["dataSources"],
-		"dst": ["dataSources", ["distributor"]],
-		"fn": "distributor"
-	},
-	{
-		"src": ["dataSources", ["uri"]],
-		"dst": ["dataSources", ["uri"]],
-		"fn": "uuid"
-	},
-	{
-		"src": ["dataSources"],
-		"dst": ["dataSources", ["isUserDefined"]],
-		"fn": "true"
+		"dst": ["dataSources"],
+		"fn": "dataSources"
 	},
 	{
 		"src": ["attachments", ["file"]],

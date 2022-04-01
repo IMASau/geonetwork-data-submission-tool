@@ -449,14 +449,9 @@ def do_migration(input, output, migration):
     
     fn = functions.get(fn_name)
 
-    if not clear_empty_keys(value): # if the untransformed source is empty
-        value = get_data_at_path(input, dst) # try getting from the destination.
-        if not clear_empty_keys(value) and fn: # assuming the destination is empty, and we have a function,
-            value = apply(value, depth(dst), fn, fn_args) # try applying that function.
-    elif fn: # if the untransformed source isn't empty, and we have a function
-        value = apply(value, depth(dst), fn, fn_args) # try applying that function.
-        if not clear_empty_keys(value): # if applying the function resulted in empty data
-            value = get_data_at_path(input, dst) # just grab whatever is at the destination.
+    value = get_data_at_path(input, src)
+
+    value = apply(value, 0, fn, fn_args) if fn else value
 
     return set_data_at_path(output, dst, value)
 

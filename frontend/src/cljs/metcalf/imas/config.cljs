@@ -187,6 +187,7 @@
        'm4/item-dialog-button                  {:view #'components4/item-dialog-button :init components4/item-dialog-button-settings}
        'm4/edit-dialog                         {:view #'components4/edit-dialog :init components4/edit-dialog-settings}
        'm4/edit-dialog2                        {:view #'components4/edit-dialog2 :init components4/edit-dialog2-settings}
+       'm4/list-select-person                  {:view #'components4/imas-copy-person-selector :init components4/imas-copy-person-selector-settings}
        'm4/list-add-button                     {:view #'components4/list-add-button3 :init components4/list-add-button3-settings}
        'm4/value-list-add-button               {:view #'components4/value-list-add-button :init components4/value-list-add-button-settings}
        'm4/list-edit-dialog                    {:view #'components4/list-edit-dialog :init components4/list-edit-dialog-settings}
@@ -594,13 +595,23 @@
          :select-snapshot?    true
          :random-uuid-value?  true}]]
 
-      [m4/list-add-button
-       {:form-id            [:form]
-        :data-path          ["pointOfContact"]
-        :button-text        "Add person"
-        :value-path         ["uri"]
-        :random-uuid-value? true
-        :added-path         ["isUserDefined"]}]
+      [:div {:style {:display "flex"}}
+       [:div {:style {:flex-grow 0 :flex-shrink 1 :flex-basis "auto"}}
+        [m4/list-add-button
+         {:form-id            [:form]
+          :data-path          ["pointOfContact"]
+          :button-text        "Add person"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :added-path         ["isUserDefined"]}]]
+       [:div {:style {:flex-grow 1 :flex-shrink 0 :flex-basis "auto" :display "block"}}
+        [m4/list-select-person
+         {:form-id     [:form]
+          :data-path   ["pointOfContact"]
+          :source-path ["identificationInfo" "citedResponsibleParty"]
+          :placeholder "Copy person"
+          :value-path  ["uri"]
+          :label-path  ["contact" "name"]}]]]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -627,13 +638,23 @@
          :select-snapshot?    true
          :random-uuid-value?  true}]]
 
-      [m4/list-add-button
-       {:form-id            [:form]
-        :data-path          ["identificationInfo" "citedResponsibleParty"]
-        :button-text        "Add person"
-        :value-path         ["uri"]
-        :random-uuid-value? true
-        :added-path         ["isUserDefined"]}]
+      [:div {:style {:display "flex"}}
+       [:div {:style {:flex-grow 0 :flex-shrink 0 :flex-basis "auto" :display "block"}}
+        [m4/list-add-button
+         {:form-id            [:form]
+          :data-path          ["identificationInfo" "citedResponsibleParty"]
+          :button-text        "Add person"
+          :value-path         ["uri"]
+          :random-uuid-value? true
+          :added-path         ["isUserDefined"]}]]
+       [:div {:style {:flex-grow 1 :flex-shrink 1 :flex-basis "auto" :display "block"}}
+        [m4/list-select-person
+         {:form-id     [:form]
+          :data-path   ["identificationInfo" "citedResponsibleParty"]
+          :source-path ["pointOfContact"]
+          :placeholder "Copy person"
+          :value-path  ["uri"]
+          :label-path  ["contact" "name"]}]]]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -1000,7 +1021,7 @@
       [m4/input-field
        {:form-id     ?form-id
         :data-path   [?data-path "Name"]
-        :placeholder "Name in dataset (optional)"}]]]
+        :placeholder "Name in dataset"}]]]
 
     :parameter-unit/user-defined-entry-form
     [:div

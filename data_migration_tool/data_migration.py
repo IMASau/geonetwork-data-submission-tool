@@ -343,6 +343,16 @@ def point_of_contact(value):
 def keywords_additional(value):
     return value.get('keywordsAdditional', {}).get('keywords') or ((value.get('keywordsThemeExtra', {}).get('keywords', []) + value.get('keywordsTaxonExtra', {}).get('keywords', [])) if value != None else None)
 
+def imas_geographic_element(value):
+    return [{
+        'northBoundLatitude': v.get('northBoundLatitude'),
+        'southBoundLatitude': v.get('southBoundLatitude'),
+        'eastBoundLongitude': v.get('eastBoundLongitude'),
+        'westBoundLongitude': v.get('westBoundLongitude'),
+        'isUserDefined': True,
+        'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
+    } for v in value] if value != None else None
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -380,7 +390,8 @@ functions = {
     'citedResponsibleParty': cited_responsible_party,
     'ternTopicCategories': tern_topic_categories,
     'additionalPublications': additional_publications,
-    'pointOfContact': point_of_contact
+    'pointOfContact': point_of_contact,
+    'imas_geographicElement': imas_geographic_element
 }
 
 def get_data_at_path(data, path):

@@ -52,34 +52,9 @@
 		"fn": "exists"
 	},
 	{
-		"src": ["identificationInfo", "geographicElement", ["westBoundLongitude"]],
-		"dst": ["identificationInfo", "extents", "geographicElement", ["westBoundLongitude"]]
-	},
-	{
-		"src": ["identificationInfo", "geographicElement", ["eastBoundLongitude"]],
-		"dst": ["identificationInfo", "extents", "geographicElement", ["eastBoundLongitude"]]
-	},
-	{
-		"src": ["identificationInfo", "geographicElement", ["southBoundLatitude"]],
-		"dst": ["identificationInfo", "extents", "geographicElement", ["southBoundLatitude"]]
-	},
-	{
-		"src": ["identificationInfo", "geographicElement", ["northBoundLatitude"]],
-		"dst": ["identificationInfo", "extents", "geographicElement", ["northBoundLatitude"]]
-	},
-	{
-		"src": ["identificationInfo", "geographicElement", ["westBoundLongitude"]],
-		"dst": ["identificationInfo", "extents", "geographicElement", ["westBoundLongitude"]]
-	},
-	{
 		"src": ["identificationInfo", "geographicElement"],
-		"dst": ["identificationInfo", "extents", "geographicElement", ["isUserDefined"]],
-		"fn": "true"
-	},
-	{
-		"src": ["identificationInfo", "geographicElement"],
-		"dst": ["identificationInfo", "extents", "geographicElement", ["uri"]],
-		"fn": "uuid"
+		"dst": ["identificationInfo", "extents", "geographicElement"],
+		"fn": "imas_geographicElement"
 	},
 	{
 		"src": ["identificationInfo", "verticalElement", "hasVerticalExtent"],

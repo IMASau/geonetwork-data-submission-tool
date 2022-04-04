@@ -378,6 +378,23 @@ def imas_cited_responsible_party(value):
 def imas_point_of_contact(value):
     imas_cited_responsible_party(value)
 
+def imas_data_parameters(value):
+    return [{
+        'longName_term': {
+            'Name': coalesce(v.get('longName_term', {}).get('Name'), v.get('name')),
+            'URI': coalesce(v.get('longName_term', {}).get('URI'), str(uuid.uuid4())),
+            'isUserDefined': True,
+        },
+        'unit_term': {
+            'Name': coalesce(v.get('unit_term', {}).get('Name'), v.get('unit')),
+            'URI': coalesce(v.get('unit_term', {}).get('URI'), str(uuid.uuid4())),
+            'isUserDefined': True,
+        },
+        'name': (v.get('longName') if v.get('longName') != v.get('name') else None) if 'longName' in v.keys() else v.get('name'),
+        'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
+        'isUserDefined': True
+    } for v in value] if value != None else None
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -405,7 +422,6 @@ functions = {
     'status': lambda value: value if value != 'complete' else 'completed',
     'imas_keywordsTheme': lambda value: [{'label': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}", 'uri': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}"} if isinstance(v, str) else v for v in value],
     'verticalCRS': vertical_crs,
-    'dataParametersName': lambda value: value['longName'] if value['longName'] != value['name'] else None,
     'creativeCommons': creative_commons,
     'list': lambda value: [value],
     'filter': lambda value, args: value if value not in args.get('matches') else None,
@@ -418,7 +434,8 @@ functions = {
     'pointOfContact': point_of_contact,
     'imas_geographicElement': imas_geographic_element,
     'imas_pointOfContact': imas_point_of_contact,
-    'imas_citedResponsibleParty': imas_cited_responsible_party
+    'imas_citedResponsibleParty': imas_cited_responsible_party,
+    'imas_dataParameters': imas_data_parameters
 }
 
 def get_data_at_path(data, path):

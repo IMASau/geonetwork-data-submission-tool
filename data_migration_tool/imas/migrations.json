@@ -95,47 +95,8 @@
 	},
     {
 		"src": ["identificationInfo", "dataParameters", ["name"]],
-		"dst": ["identificationInfo", "dataParameters", ["longName_term", "Name"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["name"]],
-		"dst": ["identificationInfo", "dataParameters", ["longName_term", "URI"]],
-		"fn": "uuid"
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["name"]],
-		"dst": ["identificationInfo", "dataParameters", ["longName_term", "isUserDefined"]],
-		"fn": "true" 
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["unit"]],
-		"dst": ["identificationInfo", "dataParameters", ["unit_term", "Name"]]
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["unit"]],
-		"dst": ["identificationInfo", "dataParameters", ["unit_term", "URI"]],
-		"fn": "uuid"
-	},
-	{
-		"src": ["identificationInfo", "dataParameters", ["unit"]],
-		"dst": ["identificationInfo", "dataParameters", ["unit_term", "isUserDefined"]],
-		"fn": "true" 
-	},
-    {
-		"src": ["identificationInfo", "dataParameters"],
-		"dst": ["identificationInfo", "dataParameters", ["name"]],
-		"fn": "dataParametersName",
-		"notes": "use longName if longName and name are different"
-	},
-	{
-		"src": ["identificationInfo", "dataParameters"],
-		"dst": ["identificationInfo", "dataParameters", ["uri"]],
-		"fn": "uuid"
-	},
-	{
-		"src": ["identificationInfo", "dataParameters"],
-		"dst": ["identificationInfo", "dataParameters", ["isUserDefined"]],
-		"fn": "true" 
+		"dst": ["identificationInfo", "dataParameters", ["longName_term", "Name"]],
+		"fn": "imas_dataParameters"
 	},
     {
 		"src": ["identificationInfo", "creativeCommons"],

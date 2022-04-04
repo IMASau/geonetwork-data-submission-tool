@@ -18,6 +18,7 @@ def migrate_document(document, template, migrations):
     if not new_data.get('attachments'):
         attachments = []
 
+        # this code could probably be sped up
         for attachment in DocumentAttachment.objects.all():
             if attachment.document == document:
                 attachments.append({

@@ -132,5 +132,9 @@
 	{
 		"src": ["identificationInfo", "dateCreation"],
 		"dst": ["identificationInfo", "datePublication"]
+	},
+	{
+		"src": ["attachments"],
+		"dst": ["attachments"]
 	}
 ]

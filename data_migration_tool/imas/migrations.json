@@ -80,14 +80,9 @@
 		"dst": ["resourceLineage", "statement"]
 	},
 	{
-		"src": ["identificationInfo", "pointOfContact", ["role"]],
-		"dst": ["pointOfContact", ["role"]],
-		"fn": "imas_pointOfContact"
-	},
-	{
 		"src": ["identificationInfo", "pointOfContact"],
-		"dst": ["pointOfContact", ["isUserDefined"]],
-		"fn": "true" 
+		"dst": ["pointOfContact"],
+		"fn": "imas_pointOfContact"
 	},
 	{
 		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],

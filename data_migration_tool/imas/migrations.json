@@ -85,62 +85,9 @@
 		"fn": "imas_pointOfContact"
 	},
 	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["role"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["role"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["individualName"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "name"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["orcid"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "orcid2"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["organisationName"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["organisation", "name"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["address", "deliveryPoint"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "deliveryPoint"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["address", "deliveryPoint2"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "deliveryPoint2"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["address", "city"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "city"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["address", "administrativeArea"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "administrativeArea"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["address", "postalCode"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "postalCode"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["address", "country"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "country"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["electronicMailAddress"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "email"]]
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty", ["phone"]],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["contact", "phone"]]
-	},
-    {
 		"src": ["identificationInfo", "citedResponsibleParty"],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["uri"]],
-		"fn": "uuid"
-	},
-	{
-		"src": ["identificationInfo", "citedResponsibleParty"],
-		"dst": ["identificationInfo", "citedResponsibleParty", ["isUserDefined"]],
-		"fn": "true" 
+		"dst": ["identificationInfo", "citedResponsibleParty"],
+		"fn": "imas_citedResponsibleParty"
 	},
 	{
 		"src": ["identificationInfo", "credit"],

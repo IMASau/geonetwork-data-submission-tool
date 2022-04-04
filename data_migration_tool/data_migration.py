@@ -353,27 +353,30 @@ def imas_geographic_element(value):
         'uri': coalesce(v.get('uri'), str(uuid.uuid4()))
     } for v in value] if value != None else None
 
-def imas_point_of_contact(value):
+def imas_cited_responsible_party(value):
     return [{
         'role': v.get('role'),
         'contact': {
-            'name': v.get('individualName'),
-            'orcid2': v.get('orcid'),
-            'deliveryPoint': v.get('address', {}).get('deliveryPoint'),
-            'deliveryPoint2': v.get('address', {}).get('deliveryPoint2'),
-            'city': v.get('address', {}).get('city'),
-            'administrativeArea': v.get('address', {}).get('administrativeArea'),
-            'postalCode': v.get('address', {}).get('postalCode'),
-            'country': v.get('address', {}).get('country'),
-            'email': v.get('electronicMailAddress'),
-            'phone': v.get('phone'),
+            'name': coalesce(v.get('contact', {}).get('name'), v.get('individualName')),
+            'orcid2': coalesce(v.get('contact', {}).get('orcid2'), v.get('orcid')),
+            'deliveryPoint': coalesce(v.get('contact', {}).get('deliveryPoint'), v.get('address', {}).get('deliveryPoint')),
+            'deliveryPoint2': coalesce(v.get('contact', {}).get('deliveryPoint2'), v.get('address', {}).get('deliveryPoint2')),
+            'city': coalesce(v.get('contact', {}).get('city'), v.get('address', {}).get('city')),
+            'administrativeArea': coalesce(v.get('contact', {}).get('administrativeArea'), v.get('address', {}).get('administrativeArea')),
+            'postalCode': coalesce(v.get('contact', {}).get('postalCode'), v.get('address', {}).get('postalCode')),
+            'country': coalesce(v.get('contact', {}).get('country'), v.get('address', {}).get('country')),
+            'email': coalesce(v.get('contact', {}).get('email'), v.get('electronicMailAddress')),
+            'phone': coalesce(v.get('contact', {}).get('phone'), v.get('phone')),
         },
         'organisation' : {
-            'name': v.get('organisationName'),
+            'name': coalesce(v.get('organisation', {}).get('name'), v.get('organisationName')),
         },
-        'uri': str(uuid.uuid4()),
+        'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
         'isUserDefined': True
     } for v in value] if value != None else None
+
+def imas_point_of_contact(value):
+    imas_cited_responsible_party(value)
 
 functions = {
     'todo': lambda value: None,
@@ -414,7 +417,8 @@ functions = {
     'additionalPublications': additional_publications,
     'pointOfContact': point_of_contact,
     'imas_geographicElement': imas_geographic_element,
-    'imas_pointOfContact': imas_point_of_contact
+    'imas_pointOfContact': imas_point_of_contact,
+    'imas_citedResponsibleParty': imas_cited_responsible_party
 }
 
 def get_data_at_path(data, path):

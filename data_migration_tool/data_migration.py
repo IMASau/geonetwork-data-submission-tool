@@ -4,6 +4,8 @@ import re
 
 import functools
 
+from numpy import isin
+
 def coalesce(*arg):
   return functools.reduce(lambda x, y: x if x is not None else y, arg)
 
@@ -208,8 +210,8 @@ def vertical_crs(value):
         }
 
 def creative_commons(value):
-    if value == None:
-        return None
+    if not isinstance(value, str):
+        return value
 
     constraints = {
         'by': {
@@ -221,7 +223,7 @@ def creative_commons(value):
             'value': 'CC-BY-NC'
         }
     }
-
+    
     try:
         constraint_key = re.search(r"licenses\/([^\/]+)\/", value).group(1)
         return constraints[constraint_key]

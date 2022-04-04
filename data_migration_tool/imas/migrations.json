@@ -81,56 +81,8 @@
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact", ["role"]],
-		"dst": ["pointOfContact", ["role"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["individualName"]],
-		"dst": ["pointOfContact", ["contact", "name"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["orcid"]],
-		"dst": ["pointOfContact", ["contact", "orcid2"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["organisationName"]],
-		"dst": ["pointOfContact", ["organisation", "name"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["address", "deliveryPoint"]],
-		"dst": ["pointOfContact", ["contact", "deliveryPoint"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["address", "deliveryPoint2"]],
-		"dst": ["pointOfContact", ["contact", "deliveryPoint2"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["address", "city"]],
-		"dst": ["pointOfContact", ["contact", "city"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["address", "administrativeArea"]],
-		"dst": ["pointOfContact", ["contact", "administrativeArea"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["address", "postalCode"]],
-		"dst": ["pointOfContact", ["contact", "postalCode"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["address", "country"]],
-		"dst": ["pointOfContact", ["contact", "country"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["electronicMailAddress"]],
-		"dst": ["pointOfContact", ["contact", "email"]]
-	},
-	{
-		"src": ["identificationInfo", "pointOfContact", ["phone"]],
-		"dst": ["pointOfContact", ["contact", "phone"]]
-	},
-    {
-		"src": ["identificationInfo", "pointOfContact"],
-		"dst": ["pointOfContact", ["uri"]],
-		"fn": "uuid"
+		"dst": ["pointOfContact", ["role"]],
+		"fn": "imas_pointOfContact"
 	},
 	{
 		"src": ["identificationInfo", "pointOfContact"],

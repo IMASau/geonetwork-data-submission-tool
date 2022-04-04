@@ -350,7 +350,29 @@ def imas_geographic_element(value):
         'eastBoundLongitude': v.get('eastBoundLongitude'),
         'westBoundLongitude': v.get('westBoundLongitude'),
         'isUserDefined': True,
-        'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
+        'uri': coalesce(v.get('uri'), str(uuid.uuid4()))
+    } for v in value] if value != None else None
+
+def imas_point_of_contact(value):
+    return [{
+        'role': v.get('role'),
+        'contact': {
+            'name': v.get('individualName'),
+            'orcid2': v.get('orcid'),
+            'deliveryPoint': v.get('address', {}).get('deliveryPoint'),
+            'deliveryPoint2': v.get('address', {}).get('deliveryPoint2'),
+            'city': v.get('address', {}).get('city'),
+            'administrativeArea': v.get('address', {}).get('administrativeArea'),
+            'postalCode': v.get('address', {}).get('postalCode'),
+            'country': v.get('address', {}).get('country'),
+            'email': v.get('electronicMailAddress'),
+            'phone': v.get('phone'),
+        },
+        'organisation' : {
+            'name': v.get('organisationName'),
+        },
+        'uri': str(uuid.uuid4()),
+        'isUserDefined': True
     } for v in value] if value != None else None
 
 functions = {
@@ -391,7 +413,8 @@ functions = {
     'ternTopicCategories': tern_topic_categories,
     'additionalPublications': additional_publications,
     'pointOfContact': point_of_contact,
-    'imas_geographicElement': imas_geographic_element
+    'imas_geographicElement': imas_geographic_element,
+    'imas_pointOfContact': imas_point_of_contact
 }
 
 def get_data_at_path(data, path):

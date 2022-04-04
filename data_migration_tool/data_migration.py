@@ -378,7 +378,7 @@ def imas_cited_responsible_party(value):
     } for v in value] if value != None else None
 
 def imas_point_of_contact(value):
-    imas_cited_responsible_party(value)
+    return imas_cited_responsible_party(value)
 
 def imas_data_parameters(value):
     return [{

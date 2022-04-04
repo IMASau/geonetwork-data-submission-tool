@@ -8,12 +8,30 @@ import requests
 import json
 
 from metcalf.imas.data_migration_tool.data_migration import migrate_data
-from metcalf.imas.backend.models import Document, DraftMetadata
+from metcalf.imas.backend.models import Document, DraftMetadata, DocumentAttachment
 
 def migrate_document(document, template, migrations):
     data = document.latest_draft.data
     data = json.loads(data) if isinstance(data, str) else data
     new_data = migrate_data(data, template, migrations)
+
+    if not new_data.get('attachments'):
+        attachments = []
+
+        for attachment in DocumentAttachment.objects.all():
+            if attachment.document == document:
+                attachments.append({
+                    'id': attachment.id,
+                    'file': f'{attachment.file}',
+                    'name': attachment.name,
+                    'delete_url': f'/delete/{new_data.get("fileIdentifier")}/{attachment.id}',
+                    'created': attachment.created,
+                    'modified': attachment.modified
+                })
+        
+        if len(attachments) > 0:
+            new_data['attachments'] = attachments
+
     DraftMetadata.objects.create(
         document=document,
         user=document.owner,

@@ -4,6 +4,8 @@ import re
 
 import functools
 
+from numpy import isin
+
 def coalesce(*arg):
   return functools.reduce(lambda x, y: x if x is not None else y, arg)
 
@@ -208,8 +210,8 @@ def vertical_crs(value):
         }
 
 def creative_commons(value):
-    if value == None:
-        return None
+    if not isinstance(value, str):
+        return value
 
     constraints = {
         'by': {
@@ -221,7 +223,7 @@ def creative_commons(value):
             'value': 'CC-BY-NC'
         }
     }
-
+    
     try:
         constraint_key = re.search(r"licenses\/([^\/]+)\/", value).group(1)
         return constraints[constraint_key]
@@ -343,6 +345,58 @@ def point_of_contact(value):
 def keywords_additional(value):
     return value.get('keywordsAdditional', {}).get('keywords') or ((value.get('keywordsThemeExtra', {}).get('keywords', []) + value.get('keywordsTaxonExtra', {}).get('keywords', [])) if value != None else None)
 
+def imas_geographic_element(value):
+    return [{
+        'northBoundLatitude': v.get('northBoundLatitude'),
+        'southBoundLatitude': v.get('southBoundLatitude'),
+        'eastBoundLongitude': v.get('eastBoundLongitude'),
+        'westBoundLongitude': v.get('westBoundLongitude'),
+        'isUserDefined': True,
+        'uri': coalesce(v.get('uri'), str(uuid.uuid4()))
+    } for v in value] if value != None else None
+
+def imas_cited_responsible_party(value):
+    return [{
+        'role': v.get('role'),
+        'contact': {
+            'name': coalesce(v.get('contact', {}).get('name'), v.get('individualName')),
+            'orcid2': coalesce(v.get('contact', {}).get('orcid2'), v.get('orcid')),
+            'deliveryPoint': coalesce(v.get('contact', {}).get('deliveryPoint'), v.get('address', {}).get('deliveryPoint')),
+            'deliveryPoint2': coalesce(v.get('contact', {}).get('deliveryPoint2'), v.get('address', {}).get('deliveryPoint2')),
+            'city': coalesce(v.get('contact', {}).get('city'), v.get('address', {}).get('city')),
+            'administrativeArea': coalesce(v.get('contact', {}).get('administrativeArea'), v.get('address', {}).get('administrativeArea')),
+            'postalCode': coalesce(v.get('contact', {}).get('postalCode'), v.get('address', {}).get('postalCode')),
+            'country': coalesce(v.get('contact', {}).get('country'), v.get('address', {}).get('country')),
+            'email': coalesce(v.get('contact', {}).get('email'), v.get('electronicMailAddress')),
+            'phone': coalesce(v.get('contact', {}).get('phone'), v.get('phone')),
+        },
+        'organisation' : {
+            'name': coalesce(v.get('organisation', {}).get('name'), v.get('organisationName')),
+        },
+        'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
+        'isUserDefined': True
+    } for v in value] if value != None else None
+
+def imas_point_of_contact(value):
+    return imas_cited_responsible_party(value)
+
+def imas_data_parameters(value):
+    return [{
+        'longName_term': {
+            'Name': coalesce(v.get('longName_term', {}).get('Name'), v.get('name')),
+            'URI': coalesce(v.get('longName_term', {}).get('URI'), str(uuid.uuid4())),
+            'isUserDefined': True,
+        },
+        'unit_term': {
+            'Name': coalesce(v.get('unit_term', {}).get('Name'), v.get('unit')),
+            'URI': coalesce(v.get('unit_term', {}).get('URI'), str(uuid.uuid4())),
+            'isUserDefined': True,
+        },
+        'name': (v.get('longName') if v.get('longName') != v.get('name') else None) if 'longName' in v.keys() else v.get('name'),
+        'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
+        'isUserDefined': True
+    } for v in value] if value != None else None
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -366,11 +420,10 @@ functions = {
     'keywordsTemporal': keywordsTemporal,
     'distributor': distributor,
     'keywordsAdditional': keywords_additional,
-    'topicCategories': lambda value: [{'label': value, 'value': value}],
+    'topicCategories': lambda value: [{'label': value, 'value': value}] if isinstance(value, str) else value,
     'status': lambda value: value if value != 'complete' else 'completed',
-    'imas_keywordsTheme': lambda value: [{'label': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}", 'uri': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}"} for v in value],
+    'imas_keywordsTheme': lambda value: [{'label': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}", 'uri': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}"} if isinstance(v, str) else v for v in value],
     'verticalCRS': vertical_crs,
-    'dataParametersName': lambda value: value['longName'] if value['longName'] != value['name'] else None,
     'creativeCommons': creative_commons,
     'list': lambda value: [value],
     'filter': lambda value, args: value if value not in args.get('matches') else None,
@@ -380,7 +433,11 @@ functions = {
     'citedResponsibleParty': cited_responsible_party,
     'ternTopicCategories': tern_topic_categories,
     'additionalPublications': additional_publications,
-    'pointOfContact': point_of_contact
+    'pointOfContact': point_of_contact,
+    'imas_geographicElement': imas_geographic_element,
+    'imas_pointOfContact': imas_point_of_contact,
+    'imas_citedResponsibleParty': imas_cited_responsible_party,
+    'imas_dataParameters': imas_data_parameters
 }
 
 def get_data_at_path(data, path):

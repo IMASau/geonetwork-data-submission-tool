@@ -366,7 +366,7 @@ functions = {
     'keywordsTemporal': keywordsTemporal,
     'distributor': distributor,
     'keywordsAdditional': keywords_additional,
-    'topicCategories': lambda value: [{'label': value, 'value': value}],
+    'topicCategories': lambda value: [{'label': value, 'value': value}] if isinstance(value, str) else value,
     'status': lambda value: value if value != 'complete' else 'completed',
     'imas_keywordsTheme': lambda value: [{'label': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}", 'uri': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}"} for v in value],
     'verticalCRS': vertical_crs,

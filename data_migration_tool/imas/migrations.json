@@ -136,5 +136,9 @@
 	{
 		"src": ["attachments"],
 		"dst": ["attachments"]
+	},
+	{
+		"src": ["identificationInfo", "samplingFrequency"],
+		"dst": ["identificationInfo", "samplingFrequency"]
 	}
 ]

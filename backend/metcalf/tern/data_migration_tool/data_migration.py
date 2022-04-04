@@ -4,8 +4,6 @@ import re
 
 import functools
 
-from numpy import isin
-
 def coalesce(*arg):
   return functools.reduce(lambda x, y: x if x is not None else y, arg)
 
@@ -369,6 +367,7 @@ def imas_cited_responsible_party(value):
             'country': coalesce(v.get('contact', {}).get('country'), v.get('address', {}).get('country')),
             'email': coalesce(v.get('contact', {}).get('email'), v.get('electronicMailAddress')),
             'phone': coalesce(v.get('contact', {}).get('phone'), v.get('phone')),
+            'facsimile': coalesce(v.get('contact', {}).get('facsimile'), v.get('facsimile'))
         },
         'organisation' : {
             'name': coalesce(v.get('organisation', {}).get('name'), v.get('organisationName')),
@@ -394,7 +393,8 @@ def imas_data_parameters(value):
         },
         'name': (v.get('longName') if v.get('longName') != v.get('name') else None) if 'longName' in v.keys() else v.get('name'),
         'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
-        'isUserDefined': True
+        'isUserDefined': True,
+        'parameterDescription': v.get('parameterDescription')
     } for v in value] if value != None else None
 
 functions = {

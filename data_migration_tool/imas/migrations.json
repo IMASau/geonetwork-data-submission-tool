@@ -94,8 +94,8 @@
 		"dst": ["identificationInfo", "credits"]
 	},
     {
-		"src": ["identificationInfo", "dataParameters", ["name"]],
-		"dst": ["identificationInfo", "dataParameters", ["longName_term", "Name"]],
+		"src": ["identificationInfo", "dataParameters"],
+		"dst": ["identificationInfo", "dataParameters"],
 		"fn": "imas_dataParameters"
 	},
     {

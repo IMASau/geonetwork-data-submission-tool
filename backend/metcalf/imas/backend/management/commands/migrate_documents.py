@@ -11,33 +11,36 @@ from metcalf.imas.data_migration_tool.data_migration import migrate_data
 from metcalf.imas.backend.models import Document, DraftMetadata, DocumentAttachment
 
 def migrate_document(document, template, migrations):
-    data = document.latest_draft.data
-    data = json.loads(data) if isinstance(data, str) else data
-    new_data = migrate_data(data, template, migrations)
+    draft = document.latest_draft
 
-    if not new_data.get('attachments'):
-        attachments = []
+    if draft:
+        data = draft.data
+        data = json.loads(data) if isinstance(data, str) else data
+        new_data = migrate_data(data, template, migrations)
 
-        # this code could probably be sped up
-        for attachment in DocumentAttachment.objects.all():
-            if attachment.document == document:
-                attachments.append({
-                    'id': attachment.id,
-                    'file': f'{attachment.file}',
-                    'name': attachment.name,
-                    'delete_url': f'/delete/{new_data.get("fileIdentifier")}/{attachment.id}',
-                    'created': attachment.created,
-                    'modified': attachment.modified
-                })
-        
-        if len(attachments) > 0:
-            new_data['attachments'] = attachments
+        if not new_data.get('attachments'):
+            attachments = []
 
-    DraftMetadata.objects.create(
-        document=document,
-        user=document.owner,
-        data=new_data
-    )
+            # this code could probably be sped up
+            for attachment in DocumentAttachment.objects.all():
+                if attachment.document == document:
+                    attachments.append({
+                        'id': attachment.id,
+                        'file': f'{attachment.file}',
+                        'name': attachment.name,
+                        'delete_url': f'/delete/{new_data.get("fileIdentifier")}/{attachment.id}',
+                        'created': attachment.created,
+                        'modified': attachment.modified
+                    })
+            
+            if len(attachments) > 0:
+                new_data['attachments'] = attachments
+
+        DraftMetadata.objects.create(
+            document=document,
+            user=document.owner,
+            data=new_data
+        )
 
 
 class Command(BaseCommand):

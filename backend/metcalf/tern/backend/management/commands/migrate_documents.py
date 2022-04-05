@@ -11,13 +11,16 @@ from metcalf.tern.data_migration_tool.data_migration import migrate_data
 from metcalf.tern.backend.models import Document, DraftMetadata
 
 def migrate_document(document, template, migrations):
-    data = document.latest_draft.data
-    new_data = migrate_data(data, template, migrations)
-    DraftMetadata.objects.create(
-        document=document,
-        user=document.owner,
-        data=new_data
-    )
+    draft = document.latest_draft
+
+    if draft:
+        data = document.latest_draft.data
+        new_data = migrate_data(data, template, migrations)
+        DraftMetadata.objects.create(
+            document=document,
+            user=document.owner,
+            data=new_data
+        )
 
 
 class Command(BaseCommand):

@@ -19,11 +19,13 @@ def v3_to_v4_draft_metadata(apps, schema_editor):
     DraftMetadata = apps.get_model('backend', 'DraftMetadata')
 
     for document in Document.objects.all():
-        DraftMetadata.objects.create(
-            document=document,
-            user=document.owner,
-            data=migrate_data(latest_draft(document).data, template, data_migrations)
-        )
+        draft = latest_draft(document)
+        if draft:
+            DraftMetadata.objects.create(
+                document=document,
+                user=document.owner,
+                data=migrate_data(draft.data, template, data_migrations)
+            )
 
 class Migration(migrations.Migration):
 

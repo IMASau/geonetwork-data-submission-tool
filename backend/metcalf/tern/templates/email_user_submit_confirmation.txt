@@ -1,13 +1,10 @@
 
-Thank you for submitting your metadata record.
+Thank you for submitting data to the TERN repository.
 
-View record:
-https://{{site.domain}}{{ document.get_absolute_url }}
+Following is the link to your submitted record: https://{{site.domain}}{{ document.get_absolute_url }}.
 
-The Data Manager will review your submission and contact you
-    if they require further information. Please reply to this
-    email if you have any queries about your submission. You
-    will be notified when your data is scheduled for upload 
-    on the {{ site.sitecontent.portal_title }}
+The TERN data curation team will review your submission and contact you with any further information. If you have any queries about your submission, please email esupport@tern.org.au with the submitted record details. You will be notified when your record is published.
 
-{{site.sitecontent.portal_url}}
+Kind Regards
+
+TERN eSupport Team

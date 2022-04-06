@@ -4,6 +4,47 @@ import json
 from django.db import migrations
 from metcalf.imas.data_migration_tool.data_migration import migrate_data
 
+def keyword_to_label(keyword):
+    keyword_values_in_array = [keyword.DetailedVariable,
+                               keyword.VariableLevel3,
+                               keyword.VariableLevel2,
+                               keyword.VariableLevel1,
+                               keyword.Term,
+                               keyword.Topic,
+                               keyword.Category]
+
+    return next((x for x in keyword_values_in_array if x is not None and x != ""), "")
+
+
+def keyword_to_breadcrumbs(keyword):
+    keyword_values_in_array = [keyword.DetailedVariable,
+                               keyword.VariableLevel3,
+                               keyword.VariableLevel2,
+                               keyword.VariableLevel1,
+                               keyword.Term,
+                               keyword.Topic,
+                               keyword.Category]
+
+    # Remove empty values.
+    keyword_values_in_array = [x for x in keyword_values_in_array if x is not None and x != ""]
+
+    # Remove first matching item (this will be the label)
+    keyword_values_in_array = keyword_values_in_array[1:]
+
+    # Reverse the breadcrumb order
+    keyword_values_in_array.reverse()
+
+    return [" | ".join(keyword_values_in_array)]
+
+def keywords_with_breadcrumb_info(apps):
+    ScienceKeyword = apps.get_model('backend', 'ScienceKeyword')
+    keywords = ScienceKeyword.objects.all()
+    return [{
+        'label': keyword_to_label(k),
+        'uri': k.uri,
+        'breadcrumb': keyword_to_breadcrumbs(k)
+    } for k in keywords]
+
 def latest_draft(document):
         all_drafts = document.draftmetadata_set.all()
         return all_drafts[0] if all_drafts else None
@@ -23,8 +64,11 @@ def migrate_draft_metadata(apps, schema_editor):
         draft = latest_draft(document)
 
         if draft:
+            data = draft.data
+            data = json.loads(data) if isinstance(data, str) else data
             new_data = migrate_data(draft.data, template, data_migrations)
 
+            # attachments
             if not new_data.get('attachments'):
                 attachments = []
 
@@ -42,6 +86,20 @@ def migrate_draft_metadata(apps, schema_editor):
             
                 if len(attachments) > 0:
                     new_data['attachments'] = attachments
+
+            # keywords
+            all_keywords = keywords_with_breadcrumb_info(apps)
+            old_keywords = new_data.get('identificationInfo', {}).get('keywordsTheme', {}).get('keywords')
+            new_keywords = []
+
+            if old_keywords:
+                for old_keyword in old_keywords:
+                    new_keyword = next((k for k in all_keywords if (k.get('uri') == old_keyword.get('uri') and k.get('uri') != None)), old_keyword)
+                    new_keywords.append(new_keyword)
+                
+                if new_keywords:
+                    new_data['identificationInfo']['keywordsTheme'] = {}
+                    new_data['identificationInfo']['keywordsTheme']['keywords'] = new_keywords
 
             DraftMetadata.objects.create(
                 document=document,

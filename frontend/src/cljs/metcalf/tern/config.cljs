@@ -2093,7 +2093,7 @@
         :data-path  ["identificationInfo" "resourceSpecificUsage"]
         :label      "Resource specific usage"
         :toolTip    "Information about use of the datasets in specific application(s) by different users."
-        :helperText "What can this resource be used for environmental research?"}
+        :helperText "Provide a brief overview on how the dataset can be used"}
        [m4/textarea-field
         {:form-id     [:form]
          :data-path   ["identificationInfo" "resourceSpecificUsage"]

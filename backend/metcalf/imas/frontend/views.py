@@ -691,6 +691,9 @@ def keyword_to_breadcrumbs(keyword):
 
     # Remove first matching item (this will be the label)
     keyword_values_in_array = keyword_values_in_array[1:]
+    
+    # Reverse the breadcrumb order
+    keyword_values_in_array.reverse()
 
     return [" | ".join(keyword_values_in_array)]
 

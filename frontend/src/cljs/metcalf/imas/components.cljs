@@ -80,3 +80,19 @@
   (let [{:keys [site]} @(rf/subscribe [:subs/get-context])
         {:keys [email]} site]
     [:a {:href (str "mailto:" email)} email]))
+
+(defn add-clone-person-settings
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :button-text :value-path :added-path]
+   ::low-code4/opt-ks [:random-uuid-value?]})
+
+(defn add-clone-person
+  [config]
+  (let [{:keys [button-text]} config]
+    [components4/dropdown-menu
+     {:text      button-text
+      :placement "right"
+      :menu-items [{:text "Add new"
+                    :icon "add"
+                    :onClick #(rf/dispatch [::components4/list-add-with-defaults-click-handler3 config])}
+                   {:divider true}]}]))

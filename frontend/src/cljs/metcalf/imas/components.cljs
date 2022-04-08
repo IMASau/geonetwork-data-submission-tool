@@ -83,16 +83,27 @@
 
 (defn add-clone-person-settings
   [_]
-  {::low-code4/req-ks [:form-id :data-path :button-text :value-path :added-path]
+  {::low-code4/req-ks [:form-id :data-path :button-text :value-path :added-path :source-path :label-path]
    ::low-code4/opt-ks [:random-uuid-value?]})
 
 (defn add-clone-person
   [config]
-  (let [{:keys [button-text]} config]
+  (let [{:keys [button-text source-path label-path]} config
+        options @(rf/subscribe [::components4/get-block-data (assoc config :data-path source-path)])
+        option-items (if options
+                       (map
+                        (fn [option]
+                          {:text    (get-in option label-path)
+                           :onClick #(rf/dispatch [::components4/list-option-picker-change config option])})
+                        options))
+        menu-items (concat
+                    [{:text "Add new"
+                      :icon "add"
+                      :onClick #(rf/dispatch [::components4/list-add-with-defaults-click-handler3 config])}]
+                    (if option-items
+                      [{:divider true}])
+                    option-items)]
     [components4/dropdown-menu
      {:text      button-text
       :placement "right"
-      :menu-items [{:text "Add new"
-                    :icon "add"
-                    :onClick #(rf/dispatch [::components4/list-add-with-defaults-click-handler3 config])}
-                   {:divider true}]}]))
+      :menu-items menu-items}]))

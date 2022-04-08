@@ -104,6 +104,7 @@
                       [{:divider true}])
                     option-items)]
     [components4/dropdown-menu
-     {:text      button-text
-      :placement "right"
-      :menu-items menu-items}]))
+     {:text       button-text
+      :placement  "right"
+      :menu-items menu-items
+      :class      "bp3-button bp3-intent-primary"}]))

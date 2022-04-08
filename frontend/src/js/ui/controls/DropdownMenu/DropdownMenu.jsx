@@ -11,7 +11,7 @@ function MenuItem(menuItem, index) {
 	: <BPCore.Menu.Item key={index} text={text} icon={icon} onClick={onClick}/>;
 }
 
-export function DropdownMenu({text, icon, placement, menuItems}) {
+export function DropdownMenu({text, icon, placement, className, menuItems}) {
 	return (
 		<BPCore.Popover
 			content={<BPCore.Menu>
@@ -19,7 +19,7 @@ export function DropdownMenu({text, icon, placement, menuItems}) {
 			</BPCore.Menu>}
 			placement={placement}
 		>
-			<BPCore.Button icon={icon} text={text}/>
+			<BPCore.Button icon={icon} text={text} className={className}/>
 		</BPCore.Popover>
 	);
 }
@@ -28,5 +28,6 @@ DropdownMenu.propTypes = {
     text: PropTypes.string.isRequired,
     icon: PropTypes.string,
 	placement: PropTypes.string,
+	className: PropTypes.string,
     menuItems: PropTypes.arrayOf(PropTypes.object).isRequired
 }

@@ -88,3 +88,13 @@
                             :has-errors?          (boolean has-errors?)
                             :has-required-fields? (boolean has-required-fields?)}))
                        edit-tabs)})))
+
+(defn get-unique-contacts-sub
+  [state [_ {:keys [data-path source-path value-path]}]]
+  (let [data-path (blocks4/block-path data-path)
+        source-path (blocks4/block-path source-path)
+        value-path (blocks4/block-path value-path)
+        data (blocks4/as-data (get-in state data-path))
+        source (blocks4/as-data (get-in state source-path))]
+    (js/console.log "get-unique-contacts-sub")
+    source))

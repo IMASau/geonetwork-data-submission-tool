@@ -133,6 +133,7 @@
 (rf/reg-sub :subs/get-page-props subs3/get-page-props)
 (rf/reg-sub :subs/get-progress subs3/get-progress)
 (rf/reg-sub :subs/get-upload-form subs3/get-upload-form)
+(rf/reg-sub ::components4/get-unique-contacts subs4/form-state-signal imas-subs/get-unique-contacts-sub)
 (ins4/reg-global-singleton ins4/form-ticker)
 (ins4/reg-global-singleton ins4/breadcrumbs)
 (ins4/reg-global-singleton (ins4/slow-handler 100))

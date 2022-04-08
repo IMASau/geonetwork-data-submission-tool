@@ -89,7 +89,7 @@
 (defn add-clone-person
   [config]
   (let [{:keys [button-text source-path label-path]} config
-        options @(rf/subscribe [::components4/get-block-data (assoc config :data-path source-path)])
+        options @(rf/subscribe [::components4/get-unique-contacts (assoc config :value-path label-path)])
         option-items (if options
                        (map
                         (fn [option]

@@ -595,7 +595,7 @@
          :added-path          ["isUserDefined"]
          :select-snapshot?    true
          :random-uuid-value?  true}]]
-      
+
       [m4/add-clone-person
        {:form-id            [:form]
         :data-path          ["pointOfContact"]
@@ -897,7 +897,7 @@
        {:form-id     [:form]
         :data-path   ["identificationInfo" "otherConstraints"]
         :placeholder "Enter additional license requirements"}]]
-     
+
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "useLimitations"]
@@ -909,6 +909,11 @@
        {:form-id     [:form]
         :data-path   ["identificationInfo" "useLimitations"]
         :button-text "Add"}]]
+     [m4/list-edit-dialog
+      {:form-id     [:form]
+       :data-path   ["identificationInfo" "useLimitations"]
+       :title       "Use limitation"
+       :template-id :useLimitations/user-defined-entry-form}]
 
      [:h4 "Supplemental information"]
      [m4/form-group
@@ -969,11 +974,21 @@
         :data-path   ["distributionInfo" "distributionFormat" "edition"]
         :placeholder "Date format date or version if applicable"}]]]
 
-    :supplementalInformation/user-defined-entry-form
+    :useLimitations/user-defined-entry-form
     [:div
      [m4/inline-form-group
       {:form-id   ?form-id
        :data-path [?data-path "name"]
+       :label     "Title"}
+      [m4/textarea-field
+       {:form-id   ?form-id
+        :data-path ?data-path}]]]
+
+    :supplementalInformation/user-defined-entry-form
+    [:div
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path ?data-path
        :label     "Title"}
       [m4/textarea-field
        {:form-id   ?form-id

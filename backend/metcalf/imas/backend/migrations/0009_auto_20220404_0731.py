@@ -66,7 +66,7 @@ def migrate_draft_metadata(apps, schema_editor):
         if draft:
             data = draft.data
             data = json.loads(data) if isinstance(data, str) else data
-            new_data = migrate_data(draft.data, template, data_migrations)
+            new_data = migrate_data(data, template, data_migrations)
 
             # attachments
             if not new_data.get('attachments'):

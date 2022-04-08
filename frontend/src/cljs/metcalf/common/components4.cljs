@@ -2152,3 +2152,11 @@
         :getValue (ui-controls/obj-path-getter value-path)
         :hasError show-errors?
         :onChange #(rf/dispatch [:metcalf.common.components4/value-changed config %])}])))
+
+(defn dropdown-menu
+  [{:keys [text icon placement menu-items]}]
+  [ui-controls/DropdownMenu
+   {:text      text
+    :icon      icon
+    :placement placement
+    :menuItems menu-items}])

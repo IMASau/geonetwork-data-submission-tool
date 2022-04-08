@@ -219,7 +219,7 @@
        'm4/text-add-button                     {:view #'components4/text-add-button :init components4/text-add-button-settings}
        'm4/upload-files                        {:view #'components4/imas-upload-files :init components4/imas-upload-files-settings}
        ;'m4/simple-list                         {:view #'components4/simple-list :init components4/simple-list-settings}
-       })
+       'm4/add-clone-person                    {:view #'imas-components/add-clone-person :init imas-components/add-clone-person-settings}})
 
 (def edit-templates
   '{:data-identification
@@ -594,24 +594,16 @@
          :added-path          ["isUserDefined"]
          :select-snapshot?    true
          :random-uuid-value?  true}]]
-
-      [:div {:style {:display "flex"}}
-       [:div {:style {:flex-grow 0 :flex-shrink 1 :flex-basis "auto"}}
-        [m4/list-add-button
-         {:form-id            [:form]
-          :data-path          ["pointOfContact"]
-          :button-text        "Add person"
-          :value-path         ["uri"]
-          :random-uuid-value? true
-          :added-path         ["isUserDefined"]}]]
-       [:div {:style {:flex-grow 1 :flex-shrink 0 :flex-basis "auto" :display "block"}}
-        [m4/list-select-person
-         {:form-id     [:form]
-          :data-path   ["pointOfContact"]
-          :source-path ["identificationInfo" "citedResponsibleParty"]
-          :placeholder "Copy person"
-          :value-path  ["uri"]
-          :label-path  ["contact" "name"]}]]]
+      
+      [m4/add-clone-person
+       {:form-id            [:form]
+        :data-path          ["pointOfContact"]
+        :source-path        ["identificationInfo" "citedResponsibleParty"]
+        :button-text        "Add person"
+        :value-path         ["uri"]
+        :label-path         ["contact" "name"]
+        :random-uuid-value? true
+        :added-path         ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]
@@ -625,7 +617,6 @@
        :label     "Responsible parties for creating dataset"}
 
       [:div.SelectionTableStyle
-
        [m4/selection-list-columns
         {:form-id             [:form]
          :data-path           ["identificationInfo" "citedResponsibleParty"]
@@ -638,23 +629,15 @@
          :select-snapshot?    true
          :random-uuid-value?  true}]]
 
-      [:div {:style {:display "flex"}}
-       [:div {:style {:flex-grow 0 :flex-shrink 0 :flex-basis "auto" :display "block"}}
-        [m4/list-add-button
-         {:form-id            [:form]
-          :data-path          ["identificationInfo" "citedResponsibleParty"]
-          :button-text        "Add person"
-          :value-path         ["uri"]
-          :random-uuid-value? true
-          :added-path         ["isUserDefined"]}]]
-       [:div {:style {:flex-grow 1 :flex-shrink 1 :flex-basis "auto" :display "block"}}
-        [m4/list-select-person
-         {:form-id     [:form]
-          :data-path   ["identificationInfo" "citedResponsibleParty"]
-          :source-path ["pointOfContact"]
-          :placeholder "Copy person"
-          :value-path  ["uri"]
-          :label-path  ["contact" "name"]}]]]
+      [m4/add-clone-person
+       {:form-id            [:form]
+        :data-path          ["identificationInfo" "citedResponsibleParty"]
+        :source-path        ["pointOfContact"]
+        :button-text        "Add person"
+        :value-path         ["uri"]
+        :label-path         ["contact" "name"]
+        :random-uuid-value? true
+        :added-path         ["isUserDefined"]}]
 
       [m4/list-edit-dialog
        {:form-id     [:form]

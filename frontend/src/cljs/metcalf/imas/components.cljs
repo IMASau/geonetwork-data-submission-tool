@@ -107,4 +107,4 @@
       :placement  "right"
       :menu-items menu-items
       :class      "bp3-button bp3-intent-primary"
-      :on-click   (when-not option-items #(rf/dispatch [::components4/list-add-with-defaults-click-handler3 config]))}]))
+      :on-click   (when (empty? option-items) #(rf/dispatch [::components4/list-add-with-defaults-click-handler3 config]))}]))

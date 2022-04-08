@@ -99,12 +99,12 @@
         menu-items (concat
                     [{:text "Add new"
                       :icon "add"
-                      :onClick #(rf/dispatch [::components4/list-add-with-defaults-click-handler3 config])}]
-                    (if option-items
-                      [{:divider true}])
+                      :onClick #(rf/dispatch [::components4/list-add-with-defaults-click-handler3 config])}
+                     {:divider true}]
                     option-items)]
     [components4/dropdown-menu
      {:text       button-text
       :placement  "right"
       :menu-items menu-items
-      :class      "bp3-button bp3-intent-primary"}]))
+      :class      "bp3-button bp3-intent-primary"
+      :on-click   (when-not option-items #(rf/dispatch [::components4/list-add-with-defaults-click-handler3 config]))}]))

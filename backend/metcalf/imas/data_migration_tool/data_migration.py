@@ -351,7 +351,7 @@ def imas_geographic_element(value):
         'westBoundLongitude': v.get('westBoundLongitude'),
         'isUserDefined': True,
         'uri': coalesce(v.get('uri'), str(uuid.uuid4()))
-    } for v in value] if value != None else None
+    } if isinstance(v, dict) else v for v in value] if value != None else None
 
 def imas_cited_responsible_party(value):
     return [{

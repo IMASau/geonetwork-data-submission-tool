@@ -64,52 +64,55 @@ def migrate_draft_metadata(apps, schema_editor):
     DocumentAttachment = apps.get_model('backend', 'DocumentAttachment')
 
     for document in Document.objects.all():
-        draft = latest_draft(document)
-        logger.debug(f'migrating document: {document}')
+        try:
+            draft = latest_draft(document)
 
-        if draft:
-            data = draft.data
-            data = json.loads(data) if isinstance(data, str) else data
-            new_data = migrate_data(data, template, data_migrations)
+            if draft:
+                data = draft.data
+                data = json.loads(data) if isinstance(data, str) else data
+                new_data = migrate_data(data, template, data_migrations)
 
-            # attachments
-            if not new_data.get('attachments'):
-                attachments = []
+                # attachments
+                if not new_data.get('attachments'):
+                    attachments = []
 
-                # this code could probably be sped up
-                for attachment in DocumentAttachment.objects.all():
-                    if attachment.document == document:
-                        attachments.append({
-                            'id': attachment.id,
-                            'file': f'{attachment.file}',
-                            'name': attachment.name,
-                            'delete_url': f'/delete/{new_data.get("fileIdentifier")}/{attachment.id}',
-                            'created': attachment.created,
-                            'modified': attachment.modified
-                        })
-            
-                if len(attachments) > 0:
-                    new_data['attachments'] = attachments
-
-            # keywords
-            all_keywords = keywords_with_breadcrumb_info(apps)
-            old_keywords = new_data.get('identificationInfo', {}).get('keywordsTheme', {}).get('keywords')
-            new_keywords = []
-
-            if old_keywords:
-                for old_keyword in old_keywords:
-                    new_keyword = next((k for k in all_keywords if (k.get('uri') == old_keyword.get('uri') and k.get('uri') != None)), old_keyword)
-                    new_keywords.append(new_keyword)
+                    # this code could probably be sped up
+                    for attachment in DocumentAttachment.objects.all():
+                        if attachment.document == document:
+                            attachments.append({
+                                'id': attachment.id,
+                                'file': f'{attachment.file}',
+                                'name': attachment.name,
+                                'delete_url': f'/delete/{new_data.get("fileIdentifier")}/{attachment.id}',
+                                'created': attachment.created,
+                                'modified': attachment.modified
+                            })
                 
-                if new_keywords:
-                    new_data['identificationInfo']['keywordsTheme'] = {}
-                    new_data['identificationInfo']['keywordsTheme']['keywords'] = new_keywords
+                    if len(attachments) > 0:
+                        new_data['attachments'] = attachments
 
-            DraftMetadata.objects.create(
-                document=document,
-                user=document.owner,
-                data=new_data
-            )
+                # keywords
+                all_keywords = keywords_with_breadcrumb_info(apps)
+                old_keywords = new_data.get('identificationInfo', {}).get('keywordsTheme', {}).get('keywords')
+                new_keywords = []
+
+                if old_keywords:
+                    for old_keyword in old_keywords:
+                        new_keyword = next((k for k in all_keywords if (k.get('uri') == old_keyword.get('uri') and k.get('uri') != None)), old_keyword)
+                        new_keywords.append(new_keyword)
+                    
+                    if new_keywords:
+                        new_data['identificationInfo']['keywordsTheme'] = {}
+                        new_data['identificationInfo']['keywordsTheme']['keywords'] = new_keywords
+
+                DraftMetadata.objects.create(
+                    document=document,
+                    user=document.owner,
+                    data=new_data
+                )
+        except:
+            logger.error(f'failed to migrate document {document.uuid}')
+            raise
 
 class Migration(migrations.Migration):
 

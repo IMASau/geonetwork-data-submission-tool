@@ -494,7 +494,7 @@ def save(request, uuid, update_number):
     latest_draft = doc.draftmetadata_set.all()[0]
     if latest_draft.pk != update_number:
         return Response(
-            {"message": "Stale save",
+            {"message": "Concurrent editing of record",
              "args": {
                  'posted': update_number,
                  'latest': latest_draft.pk}},

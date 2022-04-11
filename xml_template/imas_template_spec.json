@@ -604,7 +604,8 @@
               "url": {
                 "type": "string",
                 "rules": [
-                  "requiredField"
+                  "requiredField",
+                  "validURL"
                 ]
               }
             }

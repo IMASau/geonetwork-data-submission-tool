@@ -157,7 +157,8 @@
        "positive"                rules4/force-positive
        "maintFreq"               rules4/maint-freq
        "firstCommaLast"          rules4/first-comma-last
-       "validOrcid"              rules4/valid-ordid-uri})
+       "validOrcid"              rules4/valid-ordid-uri
+       "validURL"                rules4/valid-url})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)

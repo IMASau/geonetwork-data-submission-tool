@@ -385,7 +385,7 @@
   [transferOption rule-data]
   (let [{:keys [excludeValues]} rule-data
         protocol (get-in transferOption [:content "protocol" :props :value])
-        exclude? (contains? (set excludeValues) protocol)]
+        exclude? (some #{protocol} (set excludeValues))]
     (if exclude?
       (-> transferOption
           (update-in [:content "name" :props] dissoc :value)
@@ -471,6 +471,42 @@
       (-> block
           (assoc-in [:content "linkage" :props :placeholder] server)
           (assoc-in [:content "name" :props :placeholder] layer)))))
+
+(defn imas-data-source-protocol
+  [block]
+  (let [data (blocks4/as-data block)
+        protocol (get-in data ["protocol"])
+        layer-path (blocks4/block-path ["name"])
+        title-path (blocks4/block-path ["description"])
+        url-path (blocks4/block-path ["linkage"])
+        layer-block (get-in block layer-path)
+        title-block (get-in block title-path)
+        url-block (get-in block url-path)
+        protocol-selected? protocol
+        layer-block (if (#{"OGC:WFS-1.0.0-http-get-capabilities" "OGC:WMS-1.3.0-http-get-map"} protocol)
+                      (-> layer-block
+                          (assoc-in [:props :placeholder] "eg store:my_map_layer")
+                          (assoc-in [:props :required] true))
+                      (-> layer-block
+                        (assoc-in [:props :disabled] true)
+                        (assoc-in [:props :value] nil)))
+        title-block (if protocol-selected?
+                      title-block
+                      (-> title-block
+                          (assoc-in [:props :disabled] true)
+                          (assoc-in [:props :value] nil)))
+        url-block (if protocol-selected?
+                    url-block
+                    (-> url-block
+                        (assoc-in [:props :disabled] true)
+                        (assoc-in [:props :value] nil)))
+        url-block (cond-> url-block
+                      (#{"OGC:WFS-1.0.0-http-get-capabilities" "OGC:WMS-1.3.0-http-get-map"} protocol)
+                      (assoc-in [:props :placeholder] "eg https://geoserver.imas.utas.edu.au/geoserver/wms"))]
+    (-> block
+        (assoc-in layer-path layer-block)
+        (assoc-in title-path title-block)
+        (assoc-in url-path url-block))))
 
 ;;; TODO: generalise the following two^Wthree default-value rules
 (defn default-distributor

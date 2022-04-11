@@ -718,19 +718,7 @@
             "type": "object",
             "deleteWhenEmpty": false,
             "rules": [
-              {
-                "datasourcePlaceholder": {
-                  "server": "eg https://geoserver.imas.utas.edu.au/geoserver/wms",
-                  "layer": "eg store:my_map_layer"
-                }
-              },
-              {
-                "imasTransferOptionLayer": {
-                  "excludeValues": [
-                    "WWW:LINK-1.0-http--downloaddata"
-                  ]
-                }
-              }
+              "imasDataSourceProtocol"
             ],
             "properties": {
               "linkage": {
@@ -739,7 +727,8 @@
                 "valueChild": "gco:CharacterString",
                 "type": "string",
                 "rules": [
-                  "requiredField"
+                  "requiredField",
+                  "validURL"
                 ]
               },
               "protocol": {
@@ -755,10 +744,7 @@
                 "!docstring": "DataSource5",
                 "xpath": "cit:CI_OnlineResource/cit:name",
                 "valueChild": "gco:CharacterString",
-                "type": "string",
-                "rules": [
-                  "requiredField"
-                ]
+                "type": "string"
               },
               "description": {
                 "!docstring": "DataSource2",

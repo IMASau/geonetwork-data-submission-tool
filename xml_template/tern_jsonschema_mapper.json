@@ -1920,16 +1920,16 @@
       "!docstring": "System time when record first created",
       "type": "string",
       "xpath": "mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"creation\"]]",
-      "valueChild": "cit:date/gco:Date"
+      "valueChild": "cit:date/gco:DateTime"
     },
     "systemRevisionDate": {
       "!docstring": "System time when record last saved",
       "type": "string",
       "xpath": "mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"revision\"]]",
-      "valueChild": "cit:date/gco:Date",
+      "valueChild": "cit:date/gco:DateTime",
       "exportTo": {
         "xpath": "mdb:identificationInfo/mri:MD_DataIdentification/mri:citation/cit:CI_Citation/cit:date/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"revision\"]]",
-        "valueChild": "cit:date/gco:Date"
+        "valueChild": "cit:date/gco:DateTime"
       }
     }
   },

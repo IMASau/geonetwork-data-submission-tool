@@ -612,11 +612,16 @@
         :random-uuid-value? true
         :added-path         ["isUserDefined"]}]
 
-      [m4/list-edit-dialog
+      [m4/list-edit-dialog2
        {:form-id     [:form]
         :data-path   ["pointOfContact"]
         :title       "Person"
-        :template-id :party-person/user-defined-entry-form}]]
+        :template-id :party-person/user-defined-entry-form
+        :field-paths [["role"]
+                      ["contact" "name"]
+                      ["contact" "orcid2"]
+                      ["organisation" "name"]
+                      ["contact" "email"]]}]]
 
      [m4/form-group
       {:form-id   [:form]
@@ -646,11 +651,16 @@
         :random-uuid-value? true
         :added-path         ["isUserDefined"]}]
 
-      [m4/list-edit-dialog
+      [m4/list-edit-dialog2
        {:form-id     [:form]
         :data-path   ["identificationInfo" "citedResponsibleParty"]
         :title       "Person"
-        :template-id :party-person/user-defined-entry-form}]]
+        :template-id :party-person/user-defined-entry-form
+        :field-paths [["role"]
+                      ["contact" "name"]
+                      ["contact" "orcid2"]
+                      ["organisation" "name"]
+                      ["contact" "email"]]}]]
 
      [:h3 "Other credits"]
      [:div "Acknowledge the contribution of any funding schemes or organisations."]

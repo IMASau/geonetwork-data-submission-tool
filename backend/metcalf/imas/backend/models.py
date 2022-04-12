@@ -1,4 +1,5 @@
 import copy
+import datetime
 import json
 import logging
 import traceback
@@ -177,6 +178,7 @@ class Document(AbstractDocument):
             data = data or {}
             identificationInfo = data.get('identificationInfo', {})
             identificationInfo['title'] = self.title or identificationInfo.get('title')
+            identificationInfo['dateCreation'] = datetime.date.today().isoformat()
             data['identificationInfo'] = identificationInfo
             data['fileIdentifier'] = self.pk
 

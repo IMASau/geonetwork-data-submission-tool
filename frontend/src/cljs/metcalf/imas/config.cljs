@@ -1246,12 +1246,14 @@
         :button-text "Add data service"
         :value-path  ["linkage"]}]
 
-      [m4/list-edit-dialog
+      [m4/list-edit-dialog2
        {:form-id     [:form]
         :data-path   ["distributionInfo" "transferOptions"]
         :value-path  ["linkage"]
         :title       "Data Source"
-        :template-id :transferOptions/user-defined-entry-form}]]]
+        :template-id :transferOptions/user-defined-entry-form
+        :field-paths [["description"]
+                      ["protocol"]]}]]]
 
     :transferOptions/user-defined-entry-form
     [:div

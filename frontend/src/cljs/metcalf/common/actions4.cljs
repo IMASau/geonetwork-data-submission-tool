@@ -233,9 +233,8 @@
   "POST attachment to server and dispatches response, assuming
    it is the only upload (ie data-path is an object not a list).
    Uses uploaded filename as name in payload."
-  [s {:keys [config doc-uuid file]}]
-  (let [url (str "/upload/" doc-uuid "/")
-        data {:document doc-uuid
+  [s {:keys [config doc-uuid url file]}]
+  (let [data {:document doc-uuid
               :name     (.-name file)
               :file     file}]
     (update s :fx conj [:app/post-multipart-form
@@ -247,9 +246,8 @@
   "POST attachment to server and dispatches response, assuming
    it is one of my uploads (ie data-path is a list not an object).
    Uses uploaded filename as name in payload."
-  [s {:keys [config doc-uuid file]}]
-  (let [url (str "/upload/" doc-uuid "/")
-        data {:document doc-uuid
+  [s {:keys [config doc-uuid url file]}]
+  (let [data {:document doc-uuid
               :name     (.-name file)
               :file     file}]
     (update s :fx conj [:app/post-multipart-form

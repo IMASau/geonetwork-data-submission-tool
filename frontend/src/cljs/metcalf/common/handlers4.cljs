@@ -444,7 +444,8 @@
 (defn upload-file-drop
   [{:keys [db]} [_ config data]]
   (let [{:keys [acceptedFiles rejectedFiles]} data
-        doc-uuid (get-in db [:context :document :uuid])]
+        doc-uuid (get-in db [:context :document :uuid])
+        upload-url (get-in db [:upload_form :url])]
     (if (> (count rejectedFiles) 0)
       (let [rejected (first rejectedFiles)
             error  (-> rejected :errors first)
@@ -457,6 +458,7 @@
          {:type    :modal.type/alert
           :message reason}))
       (actions4/upload-single-attachment {:db db} {:doc-uuid doc-uuid
+                                                   :url      upload-url
                                                    :file     (first acceptedFiles)
                                                    :config   config}))))
 
@@ -476,7 +478,8 @@
                                        (:message err))]
                              (str (.-name file) " (" msg ")")))
                          rejectedFiles)
-        doc-uuid (get-in db [:context :document :uuid])]
+        doc-uuid (get-in db [:context :document :uuid])
+        upload-url (get-in db [:upload_form :url])]
     (if (seq file-errors)
       (actions4/open-modal-action
        {:db db}
@@ -485,6 +488,7 @@
                         (interpose ", " file-errors))})
       (reduce (fn [s file]
                 (actions4/upload-attachment s {:doc-uuid doc-uuid
+                                               :url      upload-url
                                                :file     file
                                                :config   config}))
               {:db db} acceptedFiles))))

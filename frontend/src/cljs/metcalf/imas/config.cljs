@@ -474,11 +474,15 @@
           :random-uuid-value? true
           :added-path         ["isUserDefined"]}]]
 
-       [m4/list-edit-dialog
+       [m4/list-edit-dialog2
         {:form-id     [:form]
          :data-path   ["identificationInfo" "extents" "geographicElement"]
          :title       "Bounding box"
-         :template-id :box/user-defined-entry-form}]]]
+         :template-id :box/user-defined-entry-form
+         :field-paths [["northBoundLatitude"]
+                       ["eastBoundLongitude"]
+                       ["southBoundLatitude"]
+                       ["westBoundLongitude"]]}]]]
      [:h3 "Vertical Coverage"]
      [m4/checkbox-field
       {:form-id   [:form]

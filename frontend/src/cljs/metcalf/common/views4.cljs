@@ -59,13 +59,13 @@
     :on-save      on-save}])
 
 (defn userDisplay
-  [user]
-  (if (and (string/blank? (:last_name user))
-           (string/blank? (:first_name user)))
-    (if (string/blank? (:email user))
-      (:username user)
-      (:email user))
-    (str (:first_name user) " " (:last_name user))))
+  [{:keys [email username first_name last_name]}]
+  (if (and (string/blank? last_name)
+           (string/blank? first_name))
+    (if (string/blank? email)
+      username
+      email)
+    (str first_name " " last_name)))
 
 (defn document-teaser
   [{:keys [doc on-archive-click on-delete-archived-click on-restore-click on-clone-click on-edit-click on-share-click]}]

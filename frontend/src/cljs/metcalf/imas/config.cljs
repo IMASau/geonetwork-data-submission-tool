@@ -878,7 +878,7 @@
          :random-uuid-value? true
          :added-path         ["isUserDefined"]}]]]
 
-     [m4/list-edit-dialog
+     [m4/list-edit-dialog2
       {:form-id     [:form]
        :data-path   ["identificationInfo" "dataParameters"]
        :field-paths [["longName_term"]

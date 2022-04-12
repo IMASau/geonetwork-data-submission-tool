@@ -10,6 +10,14 @@
             [metcalf.common.schema4 :as schema4]
             [metcalf.common.utils4 :as utils4]))
 
+; WIP: helper - move to utils?
+(defn has-block-errors?
+  [state data-path field-paths]
+  (let [path (blocks4/block-path data-path)
+        logic (blocks4/postwalk blocks4/progress-score-analysis (get-in state path))
+        field-blocks (map #(get-in logic (blocks4/block-path (utils4/as-path %))) field-paths)]
+    (some pos? (map #(get-in % [:progress/score :progress/errors]) field-blocks))))
+
 (defn value-changed-handler
   [{:keys [db]} [_ ctx value]]
   (let [{:keys [form-id data-path]} ctx
@@ -298,14 +306,6 @@
     (-> {:db db}
         (actions4/restore-snapshot-action form-id)
         (actions4/dialog-close-action form-id data-path))))
-
-; WIP: helper - move to utils?
-(defn has-block-errors?
-  [state data-path field-paths]
-  (let [path (blocks4/block-path data-path)
-        logic (blocks4/postwalk blocks4/progress-score-analysis (get-in state path))
-        field-blocks (map #(get-in logic (blocks4/block-path (utils4/as-path %))) field-paths)]
-    (some pos? (map #(get-in % [:progress/score :progress/errors]) field-blocks))))
 
 (defn edit-dialog-save-handler
   [{:keys [db]} [_ ctx]]

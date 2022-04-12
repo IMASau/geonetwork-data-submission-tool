@@ -510,6 +510,7 @@ def save(request, uuid, update_number):
 
         # update the publication date
         data['identificationInfo']['datePublication'] = spec4.today()
+        data['identificationInfo']['dateRevision'] = spec4.today()
 
         draft = DraftMetadata.objects.create(document=doc, user=request.user, data=data)
         draft.noteForDataManager = data.get('noteForDataManager') or ''

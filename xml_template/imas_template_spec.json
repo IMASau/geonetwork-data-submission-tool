@@ -142,6 +142,16 @@
           "valueChild": "cit:CI_Date/cit:date/gco:DateTime",
           "keep": false
         },
+        "dateRevision": {
+          "type": "string",
+          "xpath": "/mdb:MD_Metadata/mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"revision\"]]/cit:date/gco:DateTime",
+          "xpath-q1": "/mdb:MD_Metadata/mdb:dateInfo/cit:CI_Date[cit:dateType/cit:CI_DateTypeCode[@codeListValue=\"revision\"]]/cit:date/gco:Date",
+          "xpath_required": true,
+          "keep": false,
+          "rules": [
+            "requiredField"
+          ]
+        },
         "abstract": {
           "!docstring": "What1",
           "xpath": "mri:abstract",

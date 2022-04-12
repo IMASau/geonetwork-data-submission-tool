@@ -948,11 +948,12 @@
         {:form-id     [:form]
          :data-path   ["identificationInfo" "supplementalInformation"]
          :button-text "Add associated publication"}]]]
-     [m4/list-edit-dialog
+     [m4/list-edit-dialog2
       {:form-id     [:form]
        :data-path   ["identificationInfo" "supplementalInformation"]
        :title       "Add supporting resource"
-       :template-id :supplementalInformation/user-defined-entry-form}]
+       :template-id :supplementalInformation/user-defined-entry-form
+       :field-paths [[]]}]
 
      [m4/form-group
       {:form-id   [:form]

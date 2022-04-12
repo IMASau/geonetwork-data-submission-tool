@@ -971,11 +971,13 @@
         {:form-id     [:form]
          :data-path   ["identificationInfo" "supportingResources"]
          :button-text "Add supplemental resource"}]]]
-     [m4/list-edit-dialog
+     [m4/list-edit-dialog2
       {:form-id     [:form]
        :data-path   ["identificationInfo" "supportingResources"]
        :title       "Add supporting resource"
-       :template-id :supportingResources/user-defined-entry-form}]
+       :template-id :supportingResources/user-defined-entry-form
+       :field-paths [["name"]
+                     ["url"]]}]
 
      [:h4 "Distribution"]
      [m4/form-group

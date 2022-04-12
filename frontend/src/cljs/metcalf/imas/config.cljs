@@ -864,6 +864,8 @@
      [m4/list-edit-dialog
       {:form-id     [:form]
        :data-path   ["identificationInfo" "dataParameters"]
+       :field-paths [["longName_term"]
+                     ["unit_term"]]
        :title       "Data parameter"
        :template-id :data-parameter/user-defined-entry-form}]
 

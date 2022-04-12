@@ -293,6 +293,17 @@
         (actions4/discard-snapshot-action form-id)
         (actions4/unselect-list-item-action form-id data-path))))
 
+(defn list-edit-dialog2-save-handler
+  [{:keys [db]} [_ {:keys [form-id data-path item-data-path field-paths]
+                    :or   {field-paths #{[]}}}]]
+ (let [state0 (get-in db (utils4/as-path [form-id :state]))
+       logic (blocks4/postwalk rules4/apply-rules state0)]
+   (if (has-block-errors? logic item-data-path field-paths)
+     (actions4/touch-paths {:db db} form-id item-data-path field-paths)
+     (-> {:db db}
+         (actions4/discard-snapshot-action form-id)
+         (actions4/unselect-list-item-action form-id data-path)))))
+
 (defn edit-dialog-close-handler
   [{:keys [db]} [_ ctx]]
   (let [{:keys [form-id data-path]} ctx]

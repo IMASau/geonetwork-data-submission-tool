@@ -1035,7 +1035,7 @@
       [m4/input-field
        {:form-id     ?form-id
         :data-path   [?data-path "Name"]
-        :placeholder "Name in dataset (optional)"}]]]
+        :placeholder "Name in dataset"}]]]
 
     :parameter-instrument/user-defined-entry-form
     [:div
@@ -1045,7 +1045,7 @@
       [m4/input-field
        {:form-id     ?form-id
         :data-path   [?data-path "Name"]
-        :placeholder "Name in dataset (optional)"}]]]
+        :placeholder "Name in dataset"}]]]
 
     :parameter-platform/user-defined-entry-form
     [:div

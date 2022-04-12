@@ -673,11 +673,12 @@
        :data-path   ["identificationInfo" "credits"]
        :button-text "Add credit"}]
 
-     [m4/list-edit-dialog
+     [m4/list-edit-dialog2
       {:form-id     [:form]
        :data-path   ["identificationInfo" "credits"]
        :title       "Credit"
-       :template-id :credit/edit-form}]]
+       :template-id :credit/edit-form
+       :field-paths [[]]}]]
 
     :credit/edit-form
     [:div

@@ -193,6 +193,7 @@
        'm4/list-add-button                     {:view #'components4/list-add-button3 :init components4/list-add-button3-settings}
        'm4/value-list-add-button               {:view #'components4/value-list-add-button :init components4/value-list-add-button-settings}
        'm4/list-edit-dialog                    {:view #'components4/list-edit-dialog :init components4/list-edit-dialog-settings}
+       'm4/list-edit-dialog2                   {:view #'components4/list-edit-dialog2 :init components4/list-edit-dialog2-settings}
        'm4/typed-list-edit-dialog              {:view #'components4/typed-list-edit-dialog :init components4/typed-list-edit-dialog-settings}
        'm4/lodge-button                        {:view #'imas-components/lodge-button}
        'm4/lodge-status-info                   {:view #'imas-components/lodge-status-info}

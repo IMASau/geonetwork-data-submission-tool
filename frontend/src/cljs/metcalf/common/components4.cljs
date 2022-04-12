@@ -163,6 +163,53 @@
         :variables   {'?form-id   form-id
                       '?data-path item-data-path}})]))
 
+(defn list-edit-dialog2-settings
+  "Settings for list-edit-dialog"
+  [_]
+  {::low-code4/req-ks [:form-id :data-path :title :template-id :field-paths]
+   ::low-code4/opt-ks []})
+
+(defn list-edit-dialog2
+  "This component displays an edit dialog for a selected list item with a title, a rendered template,
+   and buttons to save or cancel out.
+
+   Use case: Allow user to edit a list item in a dialog by selecting from a list.
+
+   The props allow control of
+   * form-id and data-path identify the list.
+   * title (string) to display.
+   * template-id (keyword) which identifies the template used to render body.
+   * field-paths are the visible fields which determine if form is valid and can be saved.  Invalid save will touch fields.
+
+   The edit dialog has specific behaviour
+   * Can save when the selected list item has no errors.
+   * Can clear & close at any time.  Changes made in form are not kept.
+
+   The template is rendered with ?form-id and ?data-path variables for the selected item.
+  "
+  [config]
+  (let [props @(rf/subscribe [::get-block-props config])
+        errors? @(rf/subscribe [::has-selected-block-errors? config])
+        {:keys [form-id data-path list-item-selected-idx title template-id]} props
+        item-data-path (conj data-path list-item-selected-idx)]
+    ; NOTE: Debugging code to aid resolution of dialog cancel saving
+    (when (boolean list-item-selected-idx)
+      (if-let [ss (seq (:snapshots (get-in @re-frame.db/app-db form-id)))]
+        (js/console.log "snapshot-depth" (count ss))
+        (js/console.warn "WARNING: No snapshot!  Did you forget to set :select-snapshot?")))
+    [ui-controls/EditDialog
+     {:isOpen   (boolean list-item-selected-idx)
+      :title    title
+      :onClose  #(rf/dispatch [::list-edit-dialog-close config])
+      :onClear  #(rf/dispatch [::list-edit-dialog-cancel config])
+      :canClear @(rf/subscribe [::can-dialog-cancel? config])
+      :onSave   #(rf/dispatch [::list-edit-dialog2-save (assoc config :item-data-path item-data-path)])
+      :canSave  true}
+     (low-code4/render-template
+      {:template-id template-id
+       :variables   {'?form-id   form-id
+                     '?data-path item-data-path}})]))
+
 (defn typed-list-edit-dialog-settings
   "Settings for typed-list-edit-dialog"
   [{:keys [type-path]}]

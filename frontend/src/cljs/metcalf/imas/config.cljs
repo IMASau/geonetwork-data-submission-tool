@@ -1051,11 +1051,11 @@
     [:div
      [m4/form-group
       {:form-id   ?form-id
-       :data-path [?data-path "Name"]
-       :label     "Parameter platform"}
+       :data-path [?data-path "Name"]}
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "Name"]}]]]
+        :data-path [?data-path "Name"]
+        :placeholder "Name in dataset"}]]]
 
     :data-parameter/user-defined-entry-form
     [:div

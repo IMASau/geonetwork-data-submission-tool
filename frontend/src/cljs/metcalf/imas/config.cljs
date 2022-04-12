@@ -928,11 +928,12 @@
        {:form-id     [:form]
         :data-path   ["identificationInfo" "useLimitations"]
         :button-text "Add"}]]
-     [m4/list-edit-dialog
+     [m4/list-edit-dialog2
       {:form-id     [:form]
        :data-path   ["identificationInfo" "useLimitations"]
        :title       "Use limitation"
-       :template-id :useLimitations/user-defined-entry-form}]
+       :template-id :useLimitations/user-defined-entry-form
+       :field-paths [[]]}]
 
      [:h4 "Supplemental information"]
      [m4/form-group

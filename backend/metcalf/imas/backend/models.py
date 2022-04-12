@@ -179,6 +179,7 @@ class Document(AbstractDocument):
             identificationInfo = data.get('identificationInfo', {})
             identificationInfo['title'] = self.title or identificationInfo.get('title')
             identificationInfo['dateCreation'] = datetime.date.today().isoformat()
+            identificationInfo['dateRevision'] = datetime.date.today().isoformat()
             data['identificationInfo'] = identificationInfo
             data['fileIdentifier'] = self.pk
 

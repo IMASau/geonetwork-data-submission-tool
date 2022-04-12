@@ -1225,7 +1225,7 @@
        {:form-id     [:form]
         :data-path   ["distributionInfo" "transferOptions"]
         :value-path  ["linkage"]
-        :title       "Data Distribution"
+        :title       "Data Source"
         :template-id :transferOptions/user-defined-entry-form}]]]
 
     :transferOptions/user-defined-entry-form

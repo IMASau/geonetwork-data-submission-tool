@@ -1145,9 +1145,10 @@
          :value-path         ["URI"]
          :random-uuid-value? true
          :added-path         ["isUserDefined"]}]]
-      [m4/edit-dialog
+      [m4/edit-dialog2
        {:form-id     ?form-id
         :data-path   [?data-path "instrument_term"]
+        :field-paths [["Name"]]
         :title       "Define a custom parameter instrument"
         :template-id :parameter-instrument/user-defined-entry-form}]]
 
@@ -1173,9 +1174,10 @@
          :value-path         ["URI"]
          :random-uuid-value? true
          :added-path         ["isUserDefined"]}]]
-      [m4/edit-dialog
+      [m4/edit-dialog2
        {:form-id     ?form-id
         :data-path   [?data-path "platform_term"]
+        :field-paths [["Name"]]
         :title       "Define a custom parameter platform"
         :template-id :parameter-platform/user-defined-entry-form}]]]
 

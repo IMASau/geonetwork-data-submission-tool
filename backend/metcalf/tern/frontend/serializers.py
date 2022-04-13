@@ -10,7 +10,7 @@ class DocumentInfoSerializer(AbstractDocumentInfoSerializer):
     class Meta:
         model = Document
         fields = ('uuid', 'title', 'owner', 'contributors', 'last_updated', 'last_updated_by',
-                  'url', 'clone_url', 'transition_url', 'export_url',
+                  'url', 'clone_url', 'transition_url', 'export_url', 'share_url',
                   'status', 'transitions', 'is_editor', 'is_contributor')
 
 

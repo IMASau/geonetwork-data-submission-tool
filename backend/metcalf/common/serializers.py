@@ -51,6 +51,7 @@ class AbstractDocumentInfoSerializer(serializers.ModelSerializer):
     clone_url = serializers.SerializerMethodField()
     transition_url = serializers.SerializerMethodField()
     export_url = serializers.SerializerMethodField()
+    share_url = serializers.SerializerMethodField()
     last_updated = serializers.SerializerMethodField()
     last_updated_by = serializers.SerializerMethodField()
     status = serializers.SerializerMethodField()
@@ -61,7 +62,7 @@ class AbstractDocumentInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = AbstractDocument
         fields = ('uuid', 'title', 'owner', 'contributors', 'last_updated', 'last_updated_by',
-                  'url', 'clone_url', 'transition_url', 'export_url',
+                  'url', 'clone_url', 'transition_url', 'export_url', 'share_url',
                   'status', 'transitions', 'is_editor', 'is_contributor')
         abstract = True
 
@@ -76,6 +77,9 @@ class AbstractDocumentInfoSerializer(serializers.ModelSerializer):
 
     def get_export_url(self, doc):
         return reverse("Export", kwargs={'uuid': doc.uuid})
+
+    def get_share_url(self, doc):
+        return reverse("share", kwargs={'uuid': doc.uuid})
 
     def get_last_updated(self, doc):
         drafts = doc.draftmetadata_set

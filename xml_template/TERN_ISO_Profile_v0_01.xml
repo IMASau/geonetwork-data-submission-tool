@@ -264,7 +264,7 @@
   <mdb:dateInfo>
     <cit:CI_Date>
       <cit:date>
-        <gco:Date>1999-12-31</gco:Date>
+        <gco:DateTime>1999-12-31T00:00:00</gco:DateTime>
       </cit:date>
       <cit:dateType>
         <cit:CI_DateTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_DateTypeCode" codeListValue="creation"/>
@@ -274,7 +274,7 @@
   <mdb:dateInfo>
     <cit:CI_Date>
       <cit:date>
-        <gco:Date>2000-01-01</gco:Date>
+        <gco:DateTime>2000-01-01T00:00:00</gco:DateTime>
       </cit:date>
       <cit:dateType>
         <cit:CI_DateTypeCode codeList="https://schemas.isotc211.org/19115/resources/Codelist/cat/codelists.xml#CI_DateTypeCode" codeListValue="revision"/>

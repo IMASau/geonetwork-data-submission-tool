@@ -58,6 +58,15 @@
     :on-dismiss   on-dismiss
     :on-save      on-save}])
 
+(defn userDisplay
+  [{:keys [email username first_name last_name]}]
+  (if (and (string/blank? last_name)
+           (string/blank? first_name))
+    (if (string/blank? email)
+      username
+      email)
+    (str first_name " " last_name)))
+
 (defn document-teaser
   [{:keys [doc on-archive-click on-delete-archived-click on-restore-click on-clone-click on-edit-click on-share-click]}]
   (let [{:keys [title last_updated last_updated_by status transitions is_editor owner]} doc
@@ -95,7 +104,7 @@
            [:span.glyphicon.glyphicon-share] " share"])])
      [:h4
       [:span.link
-       [:span (:username owner)]
+       [:span (userDisplay owner)]
        " / "
        [:strong title]]
       " "
@@ -108,7 +117,7 @@
          [:span
           "Last edited " (when-let [d (cljs-time/value-to-datetime last_updated)]
                            (cljs-time/from-now d))
-          " by " (:username last_updated_by)]
+          " by " (userDisplay last_updated_by)]
          "Has not been edited yet")]]]))
 
 (defn new-document-button
@@ -246,7 +255,7 @@
            dirty " Save"
            :else " Saved")]]
        [:h4
-        [:span (:username owner)]
+        [:span (userDisplay owner)]
         " / "
         [:strong (if (string/blank? title) "Untitled" title)]
         " "
@@ -256,7 +265,7 @@
                              :font-size "1em"}}
                  "Last edited " (when-let [d (cljs-time/value-to-datetime last_updated)]
                                   (cljs-time/from-now d))
-                 " by " (:username last_updated_by)]]]]]
+                 " by " (userDisplay last_updated_by)]]]]]
      [:div.Home.container
       [edit-tabs
        {:form-disabled? form-disabled?
@@ -277,15 +286,6 @@
 (defn page-404
   [{:keys [name]}]
   [:h1 "Page not found: " name])
-
-(defn userDisplay
-  [user]
-  (if (and (string/blank? (:lastName user))
-           (string/blank? (:firstName user)))
-    (if (string/blank? (:email user))
-      (:username user)
-      (:email user))
-    (str (:firstName user) " " (:lastName user))))
 
 (defn navbar
   [{:keys [context]}]

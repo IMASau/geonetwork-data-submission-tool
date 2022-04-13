@@ -373,13 +373,14 @@
   [{:keys [db]} [_ {:keys [uuid email]}]]
   (let [{:keys [contributors-modal/saving?]} db
         {:keys [contributors]} (get-in db [:app/document-data uuid])
-        novel? (not (contains? (set (map :email contributors)) email))]
+        novel? (not (contains? (set (map :email contributors)) email))
+        url (get-in db [:app/document-data uuid :share_url])]
     (when (and (not saving?) novel?)
       (-> {:db db}
           (update-in [:db :app/document-data uuid :contributors] conj {:email email})
           (assoc-in [:db :contributors-modal/saving?] true)
           (update :fx conj [:app/post-data-fx
-                            {:url     (str "/share/" uuid "/")
+                            {:url     url
                              :data    {:email email}
                              :resolve [::-contributors-modal-share-resolve uuid]}])))))
 
@@ -405,13 +406,14 @@
   (let [{:keys [contributors-modal/saving?]} db
         {:keys [contributors]} (get-in db [:app/document-data uuid])
         {:keys [email]} (get contributors idx)
-        contributors' (filterv #(not= email (:email %)) contributors)]
+        contributors' (filterv #(not= email (:email %)) contributors)
+        url (get-in db [:app/document-data uuid :unshare_url])]
     (when-not saving?
       (-> {:db db}
           (assoc-in [:db :app/document-data uuid :contributors] contributors')
           (assoc-in [:db :contributors-modal/saving?] true)
           (update :fx conj [:app/post-data-fx
-                            {:url     (str "/unshare/" uuid "/")
+                            {:url     url
                              :data    {:email email}
                              :resolve [::-contributors-modal-unshare-resolve uuid]}])))))
 

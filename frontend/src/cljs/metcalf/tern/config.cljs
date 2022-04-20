@@ -2450,4 +2450,6 @@ recorded in the standard citation."
 (set! low-code4/template-registry
       (merge edit-templates
              {::components4/create-document-modal-form
-              components4/create-document-modal-template}))
+              components4/create-document-modal-template
+              ::components4/contributors-modal-form
+              components4/contributors-modal-template}))

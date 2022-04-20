@@ -1921,18 +1921,31 @@
         :placeholder "Email address"
         :onAddClick  onAddClick}]]]))
 
+(def contributors-modal-template
+  '[:div
+    [m4/collaborator-form
+     {:uuid          ?uuid
+      :emails        ?emails
+      :onRemoveClick ?onRemoveClick
+      :onAddClick    ?onAddClick}]])
+
 (defn contributors-modal
   [{:keys [uuid]}]
-  [ui-controls/ModalDialog
-   {:isOpen  true
-    :title   "Sharing"
-    :onClose #(rf/dispatch [::create-document-modal-close-click])}
-   (let [{:keys [emails]} @(rf/subscribe [:app/contributors-modal-props uuid])]
-     [views4/collaborator-form
-      {:uuid          uuid
-       :emails        emails
-       :onRemoveClick (fn [idx] (rf/dispatch [:app/contributors-modal-unshare-click {:uuid uuid :idx idx}]))
-       :onAddClick    (fn [email] (rf/dispatch [:app/contributors-modal-share-click {:uuid uuid :email email}]))}])])
+  [ui-controls/EditDialog
+   {:isOpen   true
+    :title    "Sharing"
+    :onClose  #(rf/dispatch [::contributors-modal-close-click])
+    :onClear  #(rf/dispatch [::contributors-modal-clear-click])
+    :onSave   #(rf/dispatch [::contributors-modal-save-click])
+    :canSave  true
+    :canClear true}
+   [low-code4/render-template
+    {:template-id ::contributors-modal-form
+     :variables   {'?form-id       [:contributors_form]
+                   '?uuid          uuid
+                   '?emails        (get @(rf/subscribe [:app/contributors-modal-props uuid]) :emails)
+                   '?onRemoveClick (fn [idx] (rf/dispatch [:app/contributors-modal-unshare-click {:uuid uuid :idx idx}]))
+                   '?onAddClick    (fn [email] (rf/dispatch [:app/contributors-modal-share-click {:uuid uuid :email email}]))}}]])
 
 (defn tern-document-status-display
   [_]

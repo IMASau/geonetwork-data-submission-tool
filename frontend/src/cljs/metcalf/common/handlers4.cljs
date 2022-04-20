@@ -442,6 +442,18 @@
   [{:keys [db]}]
   (actions4/close-modal-action {:db db}))
 
+(defn contributors-modal-close-click
+  [{:keys [db]}]
+  (actions4/close-modal-action {:db db}))
+
+(defn contributors-modal-clear-click
+  [{:keys [db]}]
+  (actions4/close-modal-action {:db db}))
+
+(defn contributors-modal-save-click
+  [{:keys [db]}]
+  (actions4/close-modal-action {:db db}))
+
 (defn modal-dialog-alert-dismiss
   [{:keys [db]}]
   (actions4/close-modal-action {:db db}))

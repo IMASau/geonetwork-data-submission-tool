@@ -1901,6 +1901,26 @@
     {:template-id ::create-document-modal-form
      :variables   '{?form-id [:create_form]}}]])
 
+(defn collaborator-form
+  [{:keys [emails onRemoveClick onAddClick]}]
+  (let [items (map (fn [label] {:value (gensym) :label label}) emails)]
+    [:div
+     [ui-controls/FormGroup
+      {:label   "Collaborators"
+       :toolTip "New users will need to create an account before you can add them as a collaborator"}
+      [ui-controls/SimpleSelectionList
+       {:key           key
+        :items         items
+        :disabled      false
+        :getLabel      (ui-controls/obj-path-getter ["label"])
+        :getValue      (ui-controls/obj-path-getter ["value"])
+        :onRemoveClick onRemoveClick}]
+      [ui-controls/TextAddField
+       {:buttonText  "Add"
+        :disabled    false
+        :placeholder "Email address"
+        :onAddClick  onAddClick}]]]))
+
 (defn contributors-modal
   [{:keys [uuid]}]
   [ui-controls/ModalDialog

@@ -909,8 +909,11 @@
          "Grid to Geographic converter"]]
 
        [m4/form-group
-        {:label    "Limits"
-         :toolTip  "Select the data's spatial extent on the map and the coordinates will be automatically populated."}
+        {:label     "Limits"
+         :form-id   [:form]
+         :data-path ["identificationInfo" "geographicElement" "boxes"]
+         :required  true
+         :toolTip   "Select the data's spatial extent on the map and the coordinates will be automatically populated."}
         [m4/selection-list-columns
          {:form-id            [:form]
           :data-path          ["identificationInfo" "geographicElement" "boxes"]
@@ -940,8 +943,10 @@
           :template-id :box/user-defined-entry-form}]]
 
        [m4/inline-form-group
-        {:label    "Coordinate Reference System"
-         :toolTip  "This field is required. Select a Coordinate Reference System related to the dataset."}
+        {:label     "Coordinate Reference System"
+         :form-id   [:form]
+         :data-path ["referenceSystemInfo" "crsCode"]
+         :toolTip   "This field is required. Select a Coordinate Reference System related to the dataset."}
         [m4/async-select-option-simple
          {:form-id     [:form]
           :data-path   ["referenceSystemInfo" "crsCode"]

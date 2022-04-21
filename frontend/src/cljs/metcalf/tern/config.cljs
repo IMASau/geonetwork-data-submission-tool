@@ -220,8 +220,7 @@
        'm4/terms-conditions                    {:view #'components4/terms-and-conditions}
        'm4/lodge-button                        {:view #'components4/lodge-button :init components4/lodge-button-settings}
        'm4/xml-export-link                     {:view #'components4/xml-export-link :init components4/xml-export-link-settings}
-       'm4/when-errors                         {:view #'components4/when-errors :init components4/when-errors-settings}
-       'm4/collaborator-form                   {:view #'components4/collaborator-form}})
+       'm4/when-errors                         {:view #'components4/when-errors :init components4/when-errors-settings}})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)

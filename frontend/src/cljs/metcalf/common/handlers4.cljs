@@ -452,8 +452,40 @@
   (actions4/close-modal-action {:db db}))
 
 (defn contributors-modal-save-click
-  [{:keys [db]}]
-  (actions4/close-modal-action {:db db}))
+  [{:keys [db]} [_ {:keys [form-id data-path field-paths emails uuid]
+                    :or   {field-paths #{[]}}}]]
+  (let [state0 (get-in db (utils4/as-path [form-id :state]))
+        logic (blocks4/postwalk rules4/apply-rules state0)
+        email-path (utils4/as-path [form-id :state (blocks4/block-path ["emails"])])
+        new-emails (blocks4/as-data (get-in db email-path))
+        share-emails (filter (fn [email] (not (some #{email} emails))) new-emails)
+        unshare-emails (filter (fn [email] (not (some #{email} new-emails))) emails)
+        share-url (get-in db [:app/document-data uuid :share_url])
+        unshare-url (get-in db [:app/document-data uuid :unshare_url])
+        share-fx (map
+                  (fn [email]
+                    [:app/post-data-fx
+                     {:url     share-url
+                      :data    {:email email}
+                      :resolve [::-contributors-modal-unshare-resolve uuid]}])
+                  share-emails)
+        unshare-fx (map
+                    (fn [email]
+                      [:app/post-data-fx
+                       {:url     unshare-url
+                        :data    {:email email}
+                        :resolve [::-contributors-modal-unshare-resolve uuid]}])
+                    unshare-emails)
+        contributors (get-in db [:app/document-data uuid :contributors])
+        contributors (filter (fn [{:keys [email]}] (some #{email} new-emails)) contributors)
+        contributors (concat contributors (map (fn [email] {:email email}) share-emails))]
+    (if (has-block-errors? logic data-path field-paths)
+      (actions4/touch-paths {:db db} form-id data-path field-paths)
+      (-> {:db db}
+          (assoc-in [:db :app/document-data uuid :contributors] contributors)
+          (update :fx concat share-fx)
+          (update :fx concat unshare-fx)
+          (actions4/close-modal-action)))))
 
 (defn modal-dialog-alert-dismiss
   [{:keys [db]}]

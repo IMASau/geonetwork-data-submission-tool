@@ -985,6 +985,9 @@
               "xpath": "gex:geographicElement",
               "keep": false,
               "type": "array",
+              "rules": [
+                "requiredField"
+              ],
               "items": {
                 "xpath": "gex:geographicElement",
                 "type": "object",

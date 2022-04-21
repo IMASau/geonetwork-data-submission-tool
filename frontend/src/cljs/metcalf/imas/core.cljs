@@ -16,7 +16,6 @@
 (when-let [ele (.getElementById js/document "Content")]
   (when (-> @app-db :page :name nil?)
     (rf/dispatch-sync [::init-db (js->clj (aget js/window "payload") :keywordize-keys true)])
-    (js/console.log (js->clj (aget js/window "payload") :keywordize-keys true))
     (router/start! {:iref   app-db
                     :path   [:page :tab]
                     :->hash (fnil name "")

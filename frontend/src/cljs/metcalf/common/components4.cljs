@@ -1904,8 +1904,10 @@
 (def contributors-modal-template
   '[:div
     [m4/form-group
-     {:label   "Collaborators"
-      :toolTip "New users will need to create an account before you can add them as a collaborator"}
+     {:form-id   ?form-id
+      :data-path ["emails"]
+      :label     "Collaborators"
+      :toolTip   "New users will need to create an account before you can add them as a collaborator"}
      [m4/selection-list-values
       {:form-id    ?form-id
        :data-path  ["emails"]}]
@@ -1924,7 +1926,7 @@
       :onClear  #(rf/dispatch [::contributors-modal-clear-click])
       :onSave   #(rf/dispatch [::contributors-modal-save-click {:form-id     [:contributors_form]
                                                                 :data-path   []
-                                                                :field-paths []
+                                                                :field-paths [["emails"]]
                                                                 :emails      emails
                                                                 :uuid        uuid}])
       :canSave  true

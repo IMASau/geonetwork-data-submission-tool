@@ -130,7 +130,8 @@ def dashboard(request):
                 "type": "object",
                 "properties": {
                     "emails": {
-                        "type": "array"
+                        "type": "array",
+                        "rules": ["validContributors"]
                     }
                 }
             }

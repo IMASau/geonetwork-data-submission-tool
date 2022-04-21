@@ -168,7 +168,8 @@
        "generateCitation"               rules4/generate-citation
        "uploadTitleFromName"            rules4/uploads-title-from-name
        "duplicateParameters"            rules4/tern-duplicate-parameters
-       "parameterUnitUserDefined"       rules4/tern-parameter-unit-user-defined})
+       "parameterUnitUserDefined"       rules4/tern-parameter-unit-user-defined
+       "validContributors"              rules4/valid-contributors})
 (set! low-code4/component-registry
       {'m4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
        'm4/async-list-option-picker            {:view #'components4/async-list-option-picker :init components4/async-list-option-picker-settings}

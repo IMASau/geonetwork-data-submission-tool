@@ -124,6 +124,17 @@ def dashboard(request):
                 }
             }
         },
+        "contributors_form": {
+            "data": {},
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "emails": {
+                        "type": "array"
+                    }
+                }
+            }
+        },
         "page": {"name": request.resolver_match.url_name}})
     return render(request, "imas/app.html", {"payload": smart_text(payload)})
 

@@ -6,12 +6,13 @@
   (case (get-in payload [:page :name])
 
     "Dashboard"
-    (let [{:keys [context create_form page]} payload]
+    (let [{:keys [context create_form contributors_form page]} payload]
       (-> {:db {:modal/stack []
                 :context     context
                 :page        page}
            :fx [[:ui/setup-blueprint]]}
           (actions4/init-create-form-action create_form)
+          (actions4/init-contributors-form-action contributors_form)
           (actions4/load-dashboard-document-data payload)))
 
     "Edit"

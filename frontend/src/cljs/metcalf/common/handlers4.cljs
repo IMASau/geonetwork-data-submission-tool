@@ -359,10 +359,11 @@
        :message (str "Unexpected " status " error creating document")})))
 
 (defn document-teaser-share-click
-  [{:keys [db]} [_ uuid]]
+  [{:keys [db]} [_ uuid emails]]
   (-> (actions4/open-modal-action {:db db} {:type :modal.type/contributors-modal :uuid uuid})
       (update :db dissoc :contributors-modal/saving?)
-      (actions4/get-document-data-action uuid)))
+      (actions4/get-document-data-action uuid)
+      (actions4/set-data-action [:contributors_form] ["emails"] emails)))
 
 (defn -get-document-data-action
   [{:keys [db]} [_ uuid {:keys [status body]}]]

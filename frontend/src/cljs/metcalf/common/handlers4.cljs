@@ -383,23 +383,22 @@
           (update :fx conj [:app/post-data-fx
                             {:url     url
                              :data    {:email email}
-                             :resolve [::-contributors-modal-share-resolve uuid]}])))))
+                             :resolve [::-contributors-modal-share-resolve uuid email]}])))))
 
 (defn -contributors-modal-share-resolve
-  [{:keys [db]} [_ uuid {:keys [status body]}]]
-  (let [{:keys [contributors-modal/saving?]} db]
+  [{:keys [db]} [_ uuid email {:keys [status body]}]]
+  (let [contributors (get-in db [:app/document-data uuid :contributors])
+        contributors-fallback (filter (fn [contributor] (not= (:email contributor) email)) contributors)]
     (cond
-      (not saving?) {}
 
       (= status 200)
       (-> {:db db}
-          (update :db dissoc :contributors-modal/saving?)
           (actions4/get-document-data-action uuid))
 
-      (= status 400)
+      :else
       (-> {:db db}
-          (update :db dissoc :contributors-modal/saving?)
           (actions4/get-document-data-action uuid)
+          (assoc-in [:db :app/document-data uuid :contributors] contributors-fallback)
           (actions4/open-modal-action {:type :modal.type/alert :message (string/join ". " (mapcat val (js->clj body)))})))))
 
 (defn contributors-modal-unshare-click
@@ -467,7 +466,7 @@
                     [:app/post-data-fx
                      {:url     share-url
                       :data    {:email email}
-                      :resolve [::-contributors-modal-unshare-resolve uuid]}])
+                      :resolve [::-contributors-modal-share-resolve uuid email]}])
                   share-emails)
         unshare-fx (map
                     (fn [email]

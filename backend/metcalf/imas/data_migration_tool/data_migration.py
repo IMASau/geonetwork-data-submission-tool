@@ -232,11 +232,19 @@ def creative_commons(value):
             'other': True
         }
 
-def online_methods(value):
-    return [{
-        'title': v.get('name'),
-        'url': v.get('uri') if not v.get('uri') in ["XXX", "XXXx"] else None
-    } for v in value] if value != None else None
+def tern_steps(value):
+    if value == None:
+        return None
+    else:
+        steps = []
+        for step in value:
+            name = step.get('name', '')
+            description = step.get('description', '')
+            if len(name) > 0 and len(description) > 0:
+                steps.append(name + ':\n' + description)
+            else:
+                steps.append(name + description)
+        return steps
 
 def data_sources(value):
     return [{
@@ -427,7 +435,7 @@ functions = {
     'creativeCommons': creative_commons,
     'list': lambda value: [value],
     'filter': lambda value, args: value if value not in args.get('matches') else None,
-    'onlineMethods': online_methods,
+    'tern_steps': tern_steps,
     'dataSources': data_sources,
     'boxes': boxes,
     'citedResponsibleParty': cited_responsible_party,

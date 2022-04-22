@@ -40,8 +40,8 @@
 	},
 	{
 		"src": ["resourceLineage", "processStep"],
-		"dst": ["resourceLineage", "onlineMethods"],
-		"fn": "onlineMethods"
+		"dst": ["resourceLineage", "steps"],
+		"fn": "tern_steps"
 	},
 	{
 		"src": ["dataSources"],

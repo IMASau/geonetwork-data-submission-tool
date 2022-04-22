@@ -35,7 +35,7 @@ def configure_backend_data(apps, schema_editor):
     mt.save()
     # Create data feeds
     datafeeds = [
-
+        'load_document_categories',
     ]
     for idx, name in enumerate(datafeeds):
         df, _ = DataFeed.objects.get_or_create(pk=str(idx + 1))

@@ -199,6 +199,11 @@
   [s form-payload]
   (assoc-in s [:db :create_form] (logic4/massage-form form-payload)))
 
+(defn init-contributors-form-action
+  "Initialise the contributors form based on payload passed from server"
+  [s form-payload]
+  (assoc-in s [:db :contributors_form] (logic4/massage-form form-payload)))
+
 (defn create-document-action
   "Send a POST request to create a document.  Server response is dispatched."
   [s url data]

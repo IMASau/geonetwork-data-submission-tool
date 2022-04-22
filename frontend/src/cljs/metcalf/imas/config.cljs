@@ -162,7 +162,8 @@
        "maintFreq"               rules4/maint-freq
        "firstCommaLast"          rules4/first-comma-last
        "validOrcid"              rules4/valid-ordid-uri
-       "validURL"                rules4/valid-url})
+       "validURL"                rules4/valid-url
+       "validContributors"       rules4/valid-contributors})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)
@@ -225,8 +226,7 @@
        'm4/text-add-button                     {:view #'components4/text-add-button :init components4/text-add-button-settings}
        'm4/upload-files                        {:view #'components4/imas-upload-files :init components4/imas-upload-files-settings}
        ;'m4/simple-list                         {:view #'components4/simple-list :init components4/simple-list-settings}
-       'm4/add-clone-person                    {:view #'imas-components/add-clone-person :init imas-components/add-clone-person-settings}
-       'm4/collaborator-form                   {:view #'components4/collaborator-form}})
+       'm4/add-clone-person                    {:view #'imas-components/add-clone-person :init imas-components/add-clone-person-settings}})
 
 (def edit-templates
   '{:data-identification

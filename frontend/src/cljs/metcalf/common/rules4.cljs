@@ -625,3 +625,11 @@
         label (get data label)]
     (assoc-in block [:content dest :props :value]
               (str breadcrumb (when breadcrumb " | ") label))))
+
+(defn valid-contributors
+  [block]
+  (let [emails (blocks4/as-data block)
+        all-valid? (reduce (fn [acc val] (and acc (re-matches #"^[a-zA-Z0-9.! #$%&'*+\/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" val))) true emails)]
+    (cond-> block
+      (not all-valid?)
+      (update-in [:props :errors] conj "All emails must be valid"))))

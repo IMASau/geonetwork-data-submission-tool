@@ -168,7 +168,8 @@
        "generateCitation"               rules4/generate-citation
        "uploadTitleFromName"            rules4/uploads-title-from-name
        "duplicateParameters"            rules4/tern-duplicate-parameters
-       "parameterUnitUserDefined"       rules4/tern-parameter-unit-user-defined})
+       "parameterUnitUserDefined"       rules4/tern-parameter-unit-user-defined
+       "validContributors"              rules4/valid-contributors})
 (set! low-code4/component-registry
       {'m4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
        'm4/async-list-option-picker            {:view #'components4/async-list-option-picker :init components4/async-list-option-picker-settings}
@@ -220,8 +221,7 @@
        'm4/terms-conditions                    {:view #'components4/terms-and-conditions}
        'm4/lodge-button                        {:view #'components4/lodge-button :init components4/lodge-button-settings}
        'm4/xml-export-link                     {:view #'components4/xml-export-link :init components4/xml-export-link-settings}
-       'm4/when-errors                         {:view #'components4/when-errors :init components4/when-errors-settings}
-       'm4/collaborator-form                   {:view #'components4/collaborator-form}})
+       'm4/when-errors                         {:view #'components4/when-errors :init components4/when-errors-settings}})
 
 ; Specs intended for use with when-data :pred
 (s/def :m4/empty-list? empty?)

@@ -78,7 +78,7 @@
 	{
 		"src": ["identificationInfo", "dataParameters"],
 		"dst": ["identificationInfo", "keywordsParametersUnits", "keywords"],
-		"fn": "platform"
+		"fn": "tern_parametersUnits"
 	},
 	{
 		"src": ["identificationInfo", "horizontalResolution"],

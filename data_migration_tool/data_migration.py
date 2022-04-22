@@ -110,29 +110,37 @@ def role(value):
     except:
         return {'Identifier': value}
 
-def parameter(value):
-    return [{
-        'label': v.get('platform_term'),
-        'description': v.get('platform_termDefinition'),
-        'uri': v.get('platform_vocabularyTermURL') if v.get('platform_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
-        'source': v.get('platform_vocabularyVersion')
-    } for v in value]
+def tern_parameters_units(value):
+    if value == None:
+        return None
+    else:
+        parameters_units = []
 
-def platform(value):
-    return [{
-        'parameter': {
-            'label': v.get('longName_term'),
-            'description': v.get('longName_termDefinition'),
-            'uri': v.get('longName_vocabularyTermURL') if v.get('longName_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
-            'source': v.get('longName_vocabularyVersion')
-        },
-        'unit': {
-            'label': v.get('unit_term'),
-            'uri': v.get('unit_vocabularyTermURL') if v.get('unit_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
-            'source': v.get('unit_vocabularyVersion')
-        },
-        'uri' : str(uuid.uuid4())
-    } for v in value] if value != None else None
+        for parameter_unit in value:
+            parameter_label =  coalesce(parameter_unit.get('longName_term'), '')
+            parameter_description =  parameter_unit.get('longName_termDefinition')
+            parameter_source =  parameter_unit.get('longName_vocabularyVersion')
+            parameter_uri =  parameter_unit.get('longName_vocabularyTermURL') if parameter_unit.get('longName_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else str(uuid.uuid4())
+            unit_label =  coalesce(parameter_unit.get('unit_term'), '')
+            unit_source =  parameter_unit.get('unit_vocabularyVersion')
+            unit_uri =  parameter_unit.get('unit_vocabularyTermURL') if parameter_unit.get('longName_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else str(uuid.uuid4())
+
+            if len(parameter_label) > 0 and len(unit_label) > 0:
+                parameters_units.append({
+                    'parameter': {
+                        'label': parameter_label,
+                        'description': parameter_description,
+                        'uri': parameter_uri,
+                        'source': parameter_source
+                    },
+                    'unit': {
+                        'label': unit_label,
+                        'uri': unit_uri,
+                        'source': unit_source
+                    },
+                    'uri' : str(uuid.uuid4())
+                })
+        return parameters_units
 
 def instrument(value):
     return [{
@@ -457,8 +465,7 @@ functions = {
     'protocol': protocol,
     'role': role,
     'uuid': lambda value: value or str(uuid.uuid4()),
-    'parameter': parameter,
-    'platform': platform,
+    'tern_parametersUnits': tern_parameters_units,
     'instrument': instrument,
     'keywordsTheme': keywordsTheme,
     'keywordsThemeAnzsrc': keywordsThemeAnzsrc,

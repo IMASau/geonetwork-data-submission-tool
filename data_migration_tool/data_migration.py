@@ -100,7 +100,10 @@ def role(value):
         'Description': 'Party who has an interest in the resource or the use of the resource'},
         {'UUID': '4122989f-f824-4d4a-8a29-10bd3541c17e',
         'Identifier': 'user',
-        'Description': 'Party who uses the resource'}
+        'Description': 'Party who uses the resource'},
+        {'UUID': '6511df52-a5ff-42da-8788-34dcad38ccc8',
+        'Identifier': 'pointOfContact',
+        'Description': 'Party who can be contacted for acquiring knowledge about or acquisition of the resource'}
     ]
     try:
         return next(v for v in roles if v['Identifier'] == value) if isinstance(value, str) else value
@@ -346,7 +349,42 @@ def additional_publications(value):
     } for v in value] if value != None else None
 
 def point_of_contact(value):
-    return cited_responsible_party(value)
+    return [{
+        'role': role('pointOfContact'),
+        'organisation': {
+            'address_locality': coalesce(v.get('organisation', {}).get('address_locality'), v.get('address', {}).get('city')),
+            'street_address': coalesce(v.get('organisation', {}).get('street_address'), v.get('address', {}).get('deliveryPoint')),
+            'postcode': coalesce(v.get('organisation', {}).get('postcode'), v.get('address', {}).get('postalCode')),
+            'country': coalesce(v.get('organisation', {}).get('country'), v.get('address', {}).get('country')),
+            'address_region': coalesce(v.get('organisation', {}).get('address_region'), v.get('address', {}).get('administrativeArea')),
+            'full_address_line': coalesce(v.get('organisation', {}).get('full_address_line'), full_address_line(v.get('address'))),
+            'name': coalesce(v.get('organisation', {}).get('name'), v.get('organisationName')),
+            'uri': coalesce(v.get('organisation', {}).get('uri'), str(uuid.uuid4())),
+            'isUserDefined': coalesce(v.get('organisation', {}).get('isUserDefined'), v.get('isUserAdded')),
+            'email': coalesce(v.get('organisation', {}).get('email'), None), #TODO
+            'userAddedCategory': coalesce(v.get('organisation', {}).get('userAddedCategory'), None), #TODO
+            'date_modified': coalesce(v.get('organisation', {}).get('date_modified'), None), #TODO
+            'display_name': coalesce(v.get('organisation', {}).get('display_name'), v.get('organisationName')),
+            'is_dissolved': coalesce(v.get('organisation', {}).get('is_dissolved'), None), #TODO
+            'date_created': coalesce(v.get('organisation', {}).get('date_created'), None) #TODO
+        },
+        'contact': {
+            'canonical_name': coalesce(v.get('contact', {}).get('canonical_name'), v.get('individualName')),
+            'orcid': coalesce(v.get('contact', {}).get('orcid'), v.get('orcid')),
+            'email': coalesce(v.get('contact', {}).get('email'), v.get('electronicMailAddress')),
+            'isUserDefined': coalesce(v.get('contact', {}).get('isUserDefined'), v.get('isUserAdded')),
+            'surname': coalesce(v.get('contact', {}).get('surname'), v.get('familyName')),
+            'given_name': coalesce(v.get('contact', {}).get('given_name'), v.get('givenName')),
+            'name': coalesce(v.get('contact', {}).get('name'), name(v)),
+            'uri': coalesce(v.get('contact', {}).get('uri'), str(uuid.uuid4())),
+            'userAddedCategory': coalesce(v.get('contact', {}).get('userAddedCategory'), None), #TODO
+            'date_modified': coalesce(v.get('contact', {}).get('date_modified'), None), #TODO
+            'date_created': coalesce(v.get('contact', {}).get('date_created'), None) #TODO
+        },
+        'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
+        'isUserDefined': coalesce(v.get('isUserDefined'), v.get('isUserAdded')),
+        'partyType': coalesce(v.get('partyType'), party_type(v))
+    } for v in value] if value != None else None
 
 def keywords_additional(value):
     return value.get('keywordsAdditional', {}).get('keywords') or ((value.get('keywordsThemeExtra', {}).get('keywords', []) + value.get('keywordsTaxonExtra', {}).get('keywords', [])) if value != None else None)

@@ -254,8 +254,8 @@ def tern_steps(value):
 def data_sources(value):
     return [{
         'transferOptions': {
-            'description': coalesce(v.get('transferOptions', {}).get('description'), v.get('description')),
-            'name': coalesce(v.get('transferOptions', {}).get('name'), v.get('name')),
+            'description': coalesce(v.get('transferOptions', {}).get('description'), v.get('name')),
+            'name': coalesce(v.get('transferOptions', {}).get('name'), v.get('description')),
             'protocol': coalesce(v.get('transferOptions', {}).get('protocol'), protocol(v.get('protocol'))),
             'linkage': coalesce(v.get('transferOptions', {}).get('linkage'), v.get('url'))
         },

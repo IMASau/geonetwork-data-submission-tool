@@ -134,6 +134,7 @@ def tern_parameters_units(value):
                     },
                     'uri' : str(uuid.uuid4())
                 })
+        
         return parameters_units
 
 def instrument(value):
@@ -144,6 +145,29 @@ def instrument(value):
         'uri': v.get('instrument_vocabularyTermURL') if v.get('instrument_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
         'source': v.get('instrument_vocabularyVersion')
     } for v in value] if value != None else None
+
+def tern_platforms(value):
+    if value == None:
+        return None
+    else:
+        platforms = []
+
+        for platform in value:
+            label =  coalesce(platform.get('platform_term'), '')
+            description =  platform.get('platform_termDefinition')
+            source =  platform.get('platform_vocabularyVersion')
+            uri =  platform.get('platform_vocabularyTermURL') if platform.get('platform_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else str(uuid.uuid4())
+
+            if len(label) > 0:
+                platforms.append({
+                    'userAddedCategory': 'platform',
+                    'label': label,
+                    'description': description,
+                    'uri': uri,
+                    'source': source
+                })
+
+        return platforms
 
 def keywordsTheme(value):
     return [{
@@ -462,6 +486,7 @@ functions = {
     'uuid': lambda value: value or str(uuid.uuid4()),
     'tern_parametersUnits': tern_parameters_units,
     'instrument': instrument,
+    'tern_platforms': tern_platforms,
     'keywordsTheme': keywordsTheme,
     'keywordsThemeAnzsrc': keywordsThemeAnzsrc,
     'keywordsHorizontal': keywordsHorizontal,

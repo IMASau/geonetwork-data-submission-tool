@@ -134,6 +134,7 @@ def tern_parameters_units(value):
                     },
                     'uri' : str(uuid.uuid4())
                 })
+        
         return parameters_units
 
 def instrument(value):
@@ -144,6 +145,29 @@ def instrument(value):
         'uri': v.get('instrument_vocabularyTermURL') if v.get('instrument_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
         'source': v.get('instrument_vocabularyVersion')
     } for v in value] if value != None else None
+
+def tern_platforms(value):
+    if value == None:
+        return None
+    else:
+        platforms = []
+
+        for platform in value:
+            label =  coalesce(platform.get('platform_term'), '')
+            description =  platform.get('platform_termDefinition')
+            source =  platform.get('platform_vocabularyVersion')
+            uri =  platform.get('platform_vocabularyTermURL') if platform.get('platform_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else str(uuid.uuid4())
+
+            if len(label) > 0:
+                platforms.append({
+                    'userAddedCategory': 'platform',
+                    'label': label,
+                    'description': description,
+                    'uri': uri,
+                    'source': source
+                })
+
+        return platforms
 
 def keywordsTheme(value):
     return [{
@@ -272,9 +296,9 @@ def data_sources(value):
             'street_address': 'Building 1019, 80 Meiers Rd',
             'date_created': '2020-01-29T10:48:55.728149',
             'uri': 'https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66',
-            'display_name': 'Terrestrial Ecosystem Research Network - UQ Long Pocket',
-            'site_uri': 'https://w3id.org/tern/resources/fa56a1ed-ec38-4294-90ae-ab203a25d5ad',
-            'country': 'Australia'
+	        'display_name': 'Terrestrial Ecosystem Research Network - UQ Long Pocket',
+	        'site_uri': 'https://w3id.org/tern/resources/fa56a1ed-ec38-4294-90ae-ab203a25d5ad',
+	        'country': 'Australia'
         },
         'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
         'isUserDefined': coalesce(v.get('transferOptions', {}).get('isUserDefined'), True)
@@ -462,6 +486,7 @@ functions = {
     'uuid': lambda value: value or str(uuid.uuid4()),
     'tern_parametersUnits': tern_parameters_units,
     'instrument': instrument,
+    'tern_platforms': tern_platforms,
     'keywordsTheme': keywordsTheme,
     'keywordsThemeAnzsrc': keywordsThemeAnzsrc,
     'keywordsHorizontal': keywordsHorizontal,

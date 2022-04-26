@@ -142,7 +142,7 @@ def instrument(value):
         'serial': v.get('serialNumber'),
         'label': v.get('instrument_term'),
         'description': v.get('instrument_termDefinition'),
-        'uri': v.get('instrument_vocabularyTermURL') if v.get('instrument_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else None,
+        'uri': v.get('instrument_vocabularyTermURL') if v.get('instrument_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else str(uuid.uuid4()),
         'source': v.get('instrument_vocabularyVersion')
     } for v in value] if value != None else None
 

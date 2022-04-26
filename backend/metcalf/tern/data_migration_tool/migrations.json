@@ -62,8 +62,7 @@
 	},
 	{
 		"src": ["identificationInfo", "useLimitations"],
-		"dst": ["identificationInfo", "otherConstraints"],
-		"fn": "otherConstraints"
+		"dst": ["identificationInfo", "additionalConstraints", "constraints"]
 	},
 	{
 		"src": ["identificationInfo", "keywordsTheme", "keywords"],

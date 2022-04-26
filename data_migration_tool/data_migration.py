@@ -142,6 +142,30 @@ def tern_parameters_units(value):
                 })
         return parameters_units
 
+def tern_platforms(value):
+    if value == None:
+        return None
+    else:
+        platforms = []
+
+        for platform in value:
+
+            label =  coalesce(platform.get('platform_term'), '')
+            description =  platform.get('platform_termDefinition')
+            source =  platform.get('platform_vocabularyVersion')
+            uri =  platform.get('platform_vocabularyTermURL') if platform.get('platform_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else str(uuid.uuid4())
+
+            if len(label) > 0:
+                platforms.append({
+                    'isUserDefined': True,
+                    'userAddedCategory': 'platform',
+                    'label': label,
+                    'source': source,
+                    'description': description,
+                    'uri': uri,
+                })
+        return platforms
+
 def instrument(value):
     return [{
         'serial': v.get('serialNumber'),
@@ -466,6 +490,7 @@ functions = {
     'role': role,
     'uuid': lambda value: value or str(uuid.uuid4()),
     'tern_parametersUnits': tern_parameters_units,
+    'tern_platforms': tern_platforms,
     'instrument': instrument,
     'keywordsTheme': keywordsTheme,
     'keywordsThemeAnzsrc': keywordsThemeAnzsrc,

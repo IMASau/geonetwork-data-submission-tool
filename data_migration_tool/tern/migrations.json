@@ -81,6 +81,11 @@
 		"fn": "tern_parametersUnits"
 	},
 	{
+		"src": ["identificationInfo", "dataParameters"],
+		"dst": ["identificationInfo", "keywordsPlatform", "keywords"],
+		"fn": "tern_platforms"
+	},
+	{
 		"src": ["identificationInfo", "horizontalResolution"],
 		"dst": ["identificationInfo", "keywordsHorizontal", "keywords"],
 		"fn": "keywordsHorizontal"

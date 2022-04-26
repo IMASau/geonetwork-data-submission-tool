@@ -169,22 +169,6 @@ def tern_platforms(value):
 
         return platforms
 
-def keywordsTheme(value):
-    return [{
-        # 'breadcrumb': TODO,
-        'label': f'https://gcmd.earthdata.nasa.gov/kms/concept/{v}',
-        'uri': f'https://gcmd.earthdata.nasa.gov/kms/concept/{v}',
-        # 'broader_concept': TODO
-    } if isinstance(v, str) else v for v in value] if value != None else None
-
-def keywordsThemeAnzsrc(value):
-    return [{
-        # 'breadcrumb': TODO,
-        'label': v,
-        'uri': v,
-        # 'broader_concept': TODO
-    } if isinstance(v, str) else v for v in value] if value != None else None
-
 def keywordsHorizontal(value):
     return {
         # 'breadcrumb': TODO,
@@ -487,8 +471,8 @@ functions = {
     'tern_parametersUnits': tern_parameters_units,
     'instrument': instrument,
     'tern_platforms': tern_platforms,
-    'keywordsTheme': keywordsTheme,
-    'keywordsThemeAnzsrc': keywordsThemeAnzsrc,
+    'tern_keywordsTheme': lambda value: [{'label': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}", 'uri': f"https://gcmdservices.gsfc.nasa.gov/kms/concept/{v}"} if isinstance(v, str) else v for v in value],
+    'tern_keywordsThemeAnzsrc': lambda value: [{'label': v, 'uri': v} if isinstance(v, str) else v for v in value],
     'keywordsHorizontal': keywordsHorizontal,
     'keywordsTemporal': keywordsTemporal,
     'distributor': distributor,

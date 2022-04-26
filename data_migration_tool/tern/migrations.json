@@ -67,7 +67,7 @@
 	{
 		"src": ["identificationInfo", "keywordsTheme", "keywords"],
 		"dst": ["identificationInfo", "keywordsTheme", "keywords"],
-		"fn": "keywordsTheme"
+		"fn": "tern_keywordsTheme"
 	},
 	{
 		"src": ["identificationInfo", "dataParameters"],
@@ -174,7 +174,7 @@
 	{
 		"src": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
 		"dst": ["identificationInfo", "keywordsThemeAnzsrc", "keywords"],
-		"fn": "keywordsThemeAnzsrc"
+		"fn": "tern_keywordsThemeAnzsrc"
 	},
 	{
 		"src": ["identificationInfo", "maintenanceAndUpdateFrequency"],

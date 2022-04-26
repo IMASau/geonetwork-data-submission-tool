@@ -260,19 +260,21 @@ def data_sources(value):
             'linkage': coalesce(v.get('transferOptions', {}).get('linkage'), v.get('url'))
         },
         'distributor': {
+            'email': 'esupport@tern.org.au',
             'is_dissolved': 'false',
-            'name': 'TERN Ecosystem Processes - UQ Long Pocket',
+            'telephone': '+61 7 3365 9097',
+            'name': 'Terrestrial Ecosystem Research Network',
             'full_address_line': 'Building 1019, 80 Meiers Rd, Indooroopilly, QLD, Australia, 4068',
             'postcode': '4068',
             'address_region': 'QLD',
             'address_locality': 'Indooroopilly',
-            'date_modified': '2021-05-14T05:18:27.281Z',
+            'date_modified': '2021-02-12T07:20:44.102Z',
             'street_address': 'Building 1019, 80 Meiers Rd',
-            'date_created': '2021-05-14T03:33:48.260Z',
-            'uri': 'https://w3id.org/tern/resources/8f2acf9f-3cf2-48c7-b911-ed1b1113932e',
-            'display_name': 'TERN Ecosystem Processes - UQ Long Pocket',
-            'site_uri': 'https://w3id.org/tern/resources/fa56a1ed-ec38-4294-90ae-ab203a25d5ad',
-            'country': 'Australia'
+            'date_created': '2020-01-29T10:48:55.728149',
+            'uri': 'https://w3id.org/tern/resources/a083902d-d821-41be-b663-1d7cb33eea66',
+	        'display_name': 'Terrestrial Ecosystem Research Network - UQ Long Pocket',
+	        'site_uri': 'https://w3id.org/tern/resources/fa56a1ed-ec38-4294-90ae-ab203a25d5ad',
+	        'country': 'Australia'
         },
         'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
         'isUserDefined': coalesce(v.get('transferOptions', {}).get('isUserDefined'), True)

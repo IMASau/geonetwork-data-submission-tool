@@ -14,12 +14,6 @@ def parse_num(value):
     except:
         return value
 
-def other_constraints(value):
-    return [
-            "TERN services are provided on an \"as-is\" and \"as available\" basis. Users use any TERN services at their discretion and risk.\n            They will be solely responsible for any damage or loss whatsoever that results from such use including use of any data obtained through TERN and any analysis performed using the TERN infrastructure.\n            <br />Web links to and from external, third party websites should not be construed as implying any relationships with and/or endorsement of the external site or its content by TERN.\n            <br /><br />Please advise any work or publications that use this data via the online form at https://www.tern.org.au/research-publications/#reporting",
-            "Please cite this dataset as {Author} ({PublicationYear}). {Title}. {Version, as appropriate}. Terrestrial Ecosystem Research Network. Dataset. {Identifier}.\n            "
-        ]
-
 def protocol(value):
     protocols = [
         {'label': 'HTTP',
@@ -459,7 +453,6 @@ functions = {
     'fullAddressLine': full_address_line,
     'name': name,
     'partyType': party_type,
-    'otherConstraints': other_constraints,
     'true': lambda value: True,
     'join': lambda value: ("\n".join(list(filter(None, value))) if isinstance(value, list) else value) if value != None else None,
     'protocol': protocol,

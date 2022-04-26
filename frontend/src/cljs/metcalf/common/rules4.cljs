@@ -293,8 +293,11 @@
                            (not= r (sort r)))]
     (cond-> block
       out-of-order?
-      (update-in [:content field1 :props :errors] conj
-                 (str "Must be after " (cljs-time/humanize-date (cljs-time/value-to-date d0)))))))
+      (update-in [:content field1 :props]
+                 (fn [props]
+                   (-> props
+                       (update :errors conj (str "Must be after " (cljs-time/humanize-date (cljs-time/value-to-date d0))))
+                       (assoc :show-errors? true)))))))
 
 (defn date-before-today
   "Date must be historic, ie before current date"

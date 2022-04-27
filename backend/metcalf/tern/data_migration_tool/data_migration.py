@@ -474,20 +474,20 @@ def aodn_data_parameters(value):
                 'isUserDefined': True,
             } if len(longName) > 0 else None
             unit_term = {
-                'Name': longName,
-                'URI': coalesce(data_parameter.get('unit_term', {}).get('URI'), data_parameter.get('longName', {}).get('vocabularyTermURL'), str(uuid.uuid4())),
+                'Name': unit,
+                'URI': coalesce(data_parameter.get('unit_term', {}).get('URI'), data_parameter.get('unit', {}).get('vocabularyTermURL'), str(uuid.uuid4())),
                 'isUserDefined': True,
-            } if len(longName) > 0 else None
+            } if len(unit) > 0 else None
             instrument_term = {
-                'Name': longName,
-                'URI': coalesce(data_parameter.get('instrument_term', {}).get('URI'), data_parameter.get('longName', {}).get('vocabularyTermURL'), str(uuid.uuid4())),
+                'Name': instrument,
+                'URI': coalesce(data_parameter.get('instrument_term', {}).get('URI'), data_parameter.get('instrument', {}).get('vocabularyTermURL'), str(uuid.uuid4())),
                 'isUserDefined': True,
-            } if len(longName) > 0 else None
+            } if len(instrument) > 0 else None
             platform_term = {
-                'Name': longName,
-                'URI': coalesce(data_parameter.get('platform_term', {}).get('URI'), data_parameter.get('longName', {}).get('vocabularyTermURL'), str(uuid.uuid4())),
+                'Name': platform,
+                'URI': coalesce(data_parameter.get('platform_term', {}).get('URI'), data_parameter.get('platform', {}).get('vocabularyTermURL'), str(uuid.uuid4())),
                 'isUserDefined': True,
-            } if len(longName) > 0 else None
+            } if len(platform) > 0 else None
 
             data_parameters.append({
                 'longName_term': longName_term,

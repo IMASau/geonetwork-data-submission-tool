@@ -147,5 +147,9 @@
 	{
 		"src": ["supportingResources"],
 		"dst": ["identificationInfo", "supportingResources"]
+	},
+	{
+		"src": ["noteForDataManager"],
+		"dst": ["noteForDataManager"]
 	}
 ]

@@ -143,5 +143,9 @@
 	{
 		"src": ["identificationInfo", "useLimitations"],
 		"dst": ["identificationInfo", "useLimitations"]
+	},
+	{
+		"src": ["supportingResources"],
+		"dst": ["identificationInfo", "supportingResources"]
 	}
 ]

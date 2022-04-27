@@ -89,11 +89,6 @@
 		"dst": ["identificationInfo", "credits"]
 	},
     {
-		"src": ["identificationInfo", "dataParameters"],
-		"dst": ["identificationInfo", "dataParameters"],
-		"fn": "imas_dataParameters"
-	},
-    {
 		"src": ["identificationInfo", "creativeCommons"],
 		"dst": ["identificationInfo", "creativeCommons"],
 		"fn": "creativeCommons"
@@ -144,5 +139,10 @@
 		"src": ["identificationInfo", "geographicElement", "boxes"],
 		"dst": ["identificationInfo", "extents", "geographicElement"],
 		"fn": "boxes"
+	},
+    {
+		"src": ["identificationInfo", "dataParameters"],
+		"dst": ["identificationInfo", "dataParameters"],
+		"fn": "aodn_dataParameters"
 	}
 ]

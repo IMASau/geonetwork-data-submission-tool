@@ -94,11 +94,6 @@
 		"fn": "creativeCommons"
 	},
 	{
-		"src": ["identificationInfo", "useLimitation"],
-		"dst": ["identificationInfo", "useLimitations"],
-		"fn": "list"
-	},
-	{
 		"src": ["identificationInfo", "supplementalInformation"],
 		"dst": ["identificationInfo", "supplementalInformation"]
 	},
@@ -144,5 +139,9 @@
 		"src": ["identificationInfo", "dataParameters"],
 		"dst": ["identificationInfo", "dataParameters"],
 		"fn": "aodn_dataParameters"
+	},
+	{
+		"src": ["identificationInfo", "useLimitations"],
+		"dst": ["identificationInfo", "useLimitations"]
 	}
 ]

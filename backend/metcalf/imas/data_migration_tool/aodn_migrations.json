@@ -1,0 +1,160 @@
+[
+	{
+		"src": ["identificationInfo", "title"],
+		"dst": ["identificationInfo", "title"]
+	},
+	{
+		"src": ["identificationInfo", "dateCreation"],
+		"dst": ["identificationInfo", "dateCreation"]
+	},
+	{
+		"src": ["identificationInfo", "status"],
+		"dst": ["identificationInfo", "status"],
+		"fn": "status"
+	},
+	{
+		"src": ["identificationInfo", "topicCategory"],
+		"dst": ["identificationInfo", "topicCategories"],
+		"fn": "topicCategories"
+	},
+	{
+		"src": ["identificationInfo", "maintenanceAndUpdateFrequency"],
+		"dst": ["identificationInfo", "maintenanceAndUpdateFrequency"]
+	},
+	{
+		"src": ["identificationInfo", "abstract"],
+		"dst": ["identificationInfo", "abstract"]
+	},
+	{
+		"src": ["identificationInfo", "keywordsTheme", "keywords"],
+		"dst": ["identificationInfo", "keywordsTheme", "keywords"],
+		"fn": "imas_keywordsTheme"
+	},
+	{
+		"src": ["identificationInfo", "keywordsThemeExtra", "keywords"],
+		"dst": ["identificationInfo", "keywordsThemeExtra", "keywords"]
+	},
+	{
+		"src": ["identificationInfo", "keywordsTaxonExtra", "keywords"],
+		"dst": ["identificationInfo", "keywordsTaxonExtra", "keywords"]
+	},
+	{
+		"src": ["identificationInfo", "beginPosition"],
+		"dst": ["identificationInfo", "extents", "beginPosition"]
+	},
+	{
+		"src": ["identificationInfo", "endPosition"],
+		"dst": ["identificationInfo", "extents", "endPosition"]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement"],
+		"dst": ["identificationInfo", "extents", "hasGeographicCoverage"],
+		"fn": "exists"
+	},
+	{
+		"src": ["identificationInfo", "verticalElement", "hasVerticalExtent"],
+		"dst": ["identificationInfo", "extents", "hasVerticalExtent"]
+	},
+    {
+		"src": ["identificationInfo", "verticalElement", "verticalCRS"],
+		"dst": ["identificationInfo", "extents", "verticalElement", "verticalCRS"],
+		"fn": "verticalCRS"
+	},
+	{
+		"src": ["identificationInfo", "verticalElement", "minimumValue"],
+		"dst": ["identificationInfo", "extents", "verticalElement", "minimumValue"],
+        "fn": "parseNum"
+	},
+    {
+		"src": ["identificationInfo", "verticalElement", "maximumValue"],
+		"dst": ["identificationInfo", "extents", "verticalElement", "maximumValue"],
+        "fn": "parseNum"
+	},
+	{
+		"src": ["dataQualityInfo", "statement"],
+		"dst": ["resourceLineage", "statement"]
+	},
+	{
+		"src": ["identificationInfo", "pointOfContact"],
+		"dst": ["pointOfContact"],
+		"fn": "imas_pointOfContact"
+	},
+	{
+		"src": ["identificationInfo", "citedResponsibleParty"],
+		"dst": ["identificationInfo", "citedResponsibleParty"],
+		"fn": "imas_citedResponsibleParty"
+	},
+	{
+		"src": ["identificationInfo", "credit"],
+		"dst": ["identificationInfo", "credits"]
+	},
+    {
+		"src": ["identificationInfo", "creativeCommons"],
+		"dst": ["identificationInfo", "creativeCommons"],
+		"fn": "creativeCommons"
+	},
+	{
+		"src": ["identificationInfo", "supplementalInformation"],
+		"dst": ["identificationInfo", "supplementalInformation"]
+	},
+	{
+		"src": ["identificationInfo", "supplementalInformation"],
+		"dst": ["identificationInfo", "supplementalInformationExport"],
+		"fn": "join"
+	},
+	{
+		"src": ["distributionInfo", "distributionFormat", "name"],
+		"dst": ["distributionInfo", "distributionFormat", "title"]
+	},
+	{
+		"src": ["distributionInfo", "distributionFormat", "version"],
+		"dst": ["distributionInfo", "distributionFormat", "edition"]
+	},
+	{
+		"src": ["fileIdentifier"],
+		"dst": ["fileIdentifier"]
+	},
+	{
+		"src": ["identificationInfo", "dateCreation"],
+		"dst": ["identificationInfo", "datePublication"]
+	},
+	{
+		"src": ["attachments"],
+		"dst": ["attachments"]
+	},
+	{
+		"src": ["identificationInfo", "samplingFrequency"],
+		"dst": ["identificationInfo", "samplingFrequency"]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "hasGeographicCoverage"],
+		"dst": ["identificationInfo", "extents", "hasGeographicCoverage"]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "boxes"],
+		"dst": ["identificationInfo", "extents", "geographicElement"],
+		"fn": "boxes"
+	},
+    {
+		"src": ["identificationInfo", "dataParameters"],
+		"dst": ["identificationInfo", "dataParameters"],
+		"fn": "aodn_dataParameters"
+	},
+	{
+		"src": ["identificationInfo", "useLimitations"],
+		"dst": ["identificationInfo", "useLimitations"]
+	},
+	{
+		"src": ["supportingResources"],
+		"dst": ["identificationInfo", "supportingResources"]
+	},
+	{
+		"src": ["noteForDataManager"],
+		"dst": ["noteForDataManager"]
+	},
+	{
+		"src": ["attachments"],
+		"dst": ["attachments"],
+		"fn": "aodn_attachments"
+	}
+]

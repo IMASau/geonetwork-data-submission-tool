@@ -52,11 +52,6 @@
 		"fn": "exists"
 	},
 	{
-		"src": ["identificationInfo", "geographicElement"],
-		"dst": ["identificationInfo", "extents", "geographicElement"],
-		"fn": "imas_geographicElement"
-	},
-	{
 		"src": ["identificationInfo", "verticalElement", "hasVerticalExtent"],
 		"dst": ["identificationInfo", "extents", "hasVerticalExtent"]
 	},
@@ -140,5 +135,14 @@
 	{
 		"src": ["identificationInfo", "samplingFrequency"],
 		"dst": ["identificationInfo", "samplingFrequency"]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "hasGeographicCoverage"],
+		"dst": ["identificationInfo", "extents", "hasGeographicCoverage"]
+	},
+	{
+		"src": ["identificationInfo", "geographicElement", "boxes"],
+		"dst": ["identificationInfo", "extents", "geographicElement"],
+		"fn": "boxes"
 	}
 ]

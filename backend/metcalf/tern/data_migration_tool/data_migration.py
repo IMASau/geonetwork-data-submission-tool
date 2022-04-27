@@ -295,6 +295,7 @@ def boxes(value):
         'eastBoundLongitude': v.get('eastBoundLongitude'),
         'westBoundLongitude': v.get('westBoundLongitude'),
         'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
+        'isUserDefined': True
     } for v in value] if value != None else None
 
 def full_address_line(value):

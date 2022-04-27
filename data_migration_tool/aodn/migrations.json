@@ -151,5 +151,10 @@
 	{
 		"src": ["noteForDataManager"],
 		"dst": ["noteForDataManager"]
+	},
+	{
+		"src": ["attachments"],
+		"dst": ["attachments"],
+		"fn": "aodn_attachments"
 	}
 ]

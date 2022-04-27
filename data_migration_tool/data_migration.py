@@ -502,6 +502,38 @@ def aodn_data_parameters(value):
             
         return data_parameters
 
+def aodn_attachments(value):
+    if value == None:
+        return None
+    else:
+        attachments = []
+        
+        for attachment in value:
+            id = coalesce(attachment.get('id'))
+            file = coalesce(attachment.get('file'))
+            name = coalesce(attachment.get('name'))
+            delete_url = coalesce(attachment.get('delete_url'))
+            created = coalesce(attachment.get('created'))
+            modified = coalesce(attachment.get('modified'))
+
+            if id == None and delete_url != None:
+                id = int(re.search(r"\/(\d+)\/$", delete_url).group(1))
+            if file != None:
+                file = re.search(r"\/media.+", file).group(0)
+            if delete_url != None:
+                delete_url = re.search(r"\/delete.+", delete_url).group(0)
+
+            attachments.append({
+                'id': id,
+                'file': file,
+                'name': name,
+                'delete_url': delete_url,
+                'created': created,
+                'modified': modified
+            })
+        
+        return attachments
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -542,7 +574,8 @@ functions = {
     'imas_pointOfContact': imas_point_of_contact,
     'imas_citedResponsibleParty': imas_cited_responsible_party,
     'imas_dataParameters': imas_data_parameters,
-    'aodn_dataParameters': aodn_data_parameters
+    'aodn_dataParameters': aodn_data_parameters,
+    'aodn_attachments': aodn_attachments
 }
 
 def get_data_at_path(data, path):

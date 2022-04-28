@@ -411,15 +411,18 @@
         (update-in [:content "otherConstraints"] required-field (:required props)))))
 
 (defn end-position
-  "End position is required if the status is ongoing"
-  [identificationInfo]
-  (let [value (get-in identificationInfo [:content "status" :props :value])
-        props (if (contains? #{"onGoing" "planned"} value)
-                {:required false :disabled true :value nil}
-                {:required true})]
-    (-> identificationInfo
-        (update-in [:content "endPosition" :props] merge props)
-        (update-in [:content "endPosition"] required-field (:required props)))))
+  "End position is required if the status is completed"
+  [block]
+  (let [status (blocks4/as-data (get-in block (blocks4/block-path ["status"])))
+        dep-path (blocks4/block-path ["extents" "endPosition"])]
+    (if (contains? #{"completed"} status)
+      (-> block
+          (assoc-in (conj dep-path :props :required) true)
+          (update-in dep-path required-field true))
+      (-> block
+          (assoc-in (conj dep-path :props :disabled) true)
+          (update-in (conj dep-path :props) dissoc :value)
+          (update-in dep-path dissoc :content)))))
 
 (defn maint-freq
   [identificationInfo]

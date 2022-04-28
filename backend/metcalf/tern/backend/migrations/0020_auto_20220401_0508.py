@@ -49,7 +49,7 @@ def gcmd_keywords_with_breadcrumb_info(apps):
     } for k in keywords]
 
 def anzsrc_keywords_with_breadcrumb_info(apps):
-    AnzsrcKeyword = apps.get_model('backend', 'ScienceKeyword')
+    AnzsrcKeyword = apps.get_model('backend', 'AnzsrcKeyword')
     keywords = AnzsrcKeyword.objects.all()
     return [{
         'label': keyword_to_label(k),

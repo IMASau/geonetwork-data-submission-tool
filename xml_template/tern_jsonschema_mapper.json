@@ -348,6 +348,12 @@
         },
         {
           "dateOrder": {
+            "field0": "beginPosition",
+            "field1": "dateCreation"
+          }
+        },
+        {
+          "dateOrder": {
             "field0": "endPosition",
             "field1": "dateCreation"
           }

@@ -78,6 +78,13 @@ class MetadataTemplateAdmin(admin.ModelAdmin):
     readonly_fields = ['created', 'modified']
 
 
+class UserInterfaceTemplateAdmin(admin.ModelAdmin):
+    list_display = ['name', 'file', 'site', 'notes']
+    list_filter = ['archived', 'site', 'created', 'modified']
+    ordering = ['modified']
+    readonly_fields = ['created', 'modified']
+
+
 class MetadataTemplateMapperAdmin(admin.ModelAdmin):
     list_display = ['name', 'file', 'site', 'notes']
     list_filter = ['archived', 'site', 'created', 'modified']
@@ -279,6 +286,7 @@ class RoleCodeAdmin(admin.ModelAdmin):
 admin.site.register(models.Institution, InstitutionAdmin)
 admin.site.register(models.Document, DocumentAdmin)
 admin.site.register(models.DataFeed, DataFeedAdmin)
+admin.site.register(models.UserInterfaceTemplate, UserInterfaceTemplateAdmin)
 admin.site.register(models.MetadataTemplateMapper, MetadataTemplateMapperAdmin)
 admin.site.register(models.MetadataTemplate, MetadataTemplateAdmin)
 admin.site.register(models.DocumentAttachment, DocumentAttachmentAdmin)

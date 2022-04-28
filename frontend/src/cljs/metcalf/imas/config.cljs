@@ -1307,7 +1307,6 @@
       [:p "The Data Manager will be notified of your submission and will be in contact
               if any further information is required. Once approved, your data will be archived
               for discovery in the " [m4/portal-link] "."]
-      [:p "How complete is your data?"]
       [m4/note-for-data-manager
        {:form-id   [:form]
         :data-path ["noteForDataManager"]}]

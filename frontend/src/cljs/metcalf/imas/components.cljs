@@ -22,13 +22,17 @@
 
 (defn note-for-data-manager
   [config]
-  (let [{:keys [document]} @(rf/subscribe [:subs/get-context])
+  (let [{:keys [form-id data-path]} config
+        {:keys [document]} @(rf/subscribe [:subs/get-context])
         value @(rf/subscribe [::components4/get-block-data config])]
     [:div
      {:style {:padding-top    5
               :padding-bottom 5}}
      (if (= "Draft" (:status document))
-       [components4/form-group config
+       [components4/form-group
+        {:form-id form-id
+         :data-path data-path
+         :label "Include a note for the data manager"}
         [components4/textarea-field config]]
        (when-not (string/blank? value)
          [:div

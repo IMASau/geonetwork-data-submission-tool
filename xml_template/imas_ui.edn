@@ -1,0 +1,1136 @@
+{:low-code/templates
+ {:data-identification
+  [:div
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["identificationInfo" "title"]
+     ;                ["identificationInfo" "dateCreation"]
+     ;                ["identificationInfo" "topicCategory"]
+     ;                ["identificationInfo" "status"]
+     ;                ["identificationInfo" "maintenanceAndUpdateFrequency"]]}]
+   [:h2 "1. Data Identification"]
+   [m4/form-group
+    {:form-id    [:form]
+     :data-path  ["identificationInfo" "title"]
+     :helperText "Clear and concise description of the content of the resource"}
+    [m4/input-field
+     {:form-id   [:form]
+      :data-path ["identificationInfo" "title"]}]]
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "dateCreation"]
+     :label     "Date of record creation"}
+    [m4/date-field2
+     {:form-id   [:form]
+      :data-path ["identificationInfo" "dateCreation"]}]]
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "topicCategories"]
+     :label     "Topic Categories"}
+    [m4/simple-list-option-picker
+     {:form-id     [:form]
+      :data-path   ["identificationInfo" "topicCategories"]
+      :value-path  ["value"]
+      :label-path  ["label"]
+      :placeholder "Please select"
+      :options     [{"value" "biota"
+                     "label" "biota"}
+                    {"value" "climatologyMeteorologyAtmosphere"
+                     "label" "climatology/meteorology/atmosphere"}
+                    {"value" "oceans"
+                     "label" "oceans"}
+                    {"value" "geoscientificInformation"
+                     "label" "geoscientificInformation"}
+                    {"value" "inlandWater"
+                     "label" "inlandWater"}]}]
+    [m4/selection-list-simple
+     {:form-id    [:form]
+      :data-path  ["identificationInfo" "topicCategories"]
+      :value-path ["value"]
+      :label-path ["label"]}]]
+
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "status"]
+     :label     "Status"}
+    [m4/select-value
+     {:form-id    [:form]
+      :data-path  ["identificationInfo" "status"]
+      :value-path ["value"]
+      :label-path ["label"]
+      :options    [{"value" "onGoing" "label" "ongoing"}
+                   {"value" "planned" "label" "planned"}
+                   {"value" "completed" "label" "completed"}]}]]
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "maintenanceAndUpdateFrequency"]
+     :label     "Maintenance and Update Frequency"}
+    [m4/select-value
+     {:form-id    [:form]
+      :data-path  ["identificationInfo" "maintenanceAndUpdateFrequency"]
+      :value-path ["value"]
+      :label-path ["label"]
+      :options    [{"value" "continually" "label" "Continually"}
+                   {"value" "daily" "label" "Daily"}
+                   {"value" "weekly" "label" "Weekly"}
+                   {"value" "fortnightly" "label" "Fortnightly"}
+                   {"value" "monthly" "label" "Monthly"}
+                   {"value" "quarterly" "label" "Quarterly"}
+                   {"value" "biannually" "label" "Twice each year"}
+                   {"value" "annually" "label" "Annually"}
+                   {"value" "asNeeded" "label" "As required"}
+                   {"value" "irregular" "label" "Irregular"}
+                   {"value" "notPlanned" "label" "None planned"}
+                   {"value" "unknown" "label" "Unknown"}
+                   {"value" "periodic" "label" "Periodic"}
+                   {"value" "semimonthly" "label" "Twice a month"}
+                   {"value" "biennially" "label" "Every 2 years"}]}]]]
+
+  :what
+  [:div
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["identificationInfo" "abstract"]]}]
+   [:h2 "2. What"]
+   [m4/form-group
+    {:form-id    [:form]
+     :data-path  ["identificationInfo" "abstract"]
+     :helperText "Describe the content of the resource; e.g. what information was collected, how was it collected, brief statement about the purpose of the study"}
+    [m4/textarea-field
+     {:form-id     [:form]
+      :data-path   ["identificationInfo" "abstract"]
+      :placeholder nil
+      :rows        3}]]
+
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "keywordsTheme" "keywords"]
+     :required  true
+     :label     "Research theme keywords"}
+
+    [:div "Select up to 12 research theme keywords describing your data"]
+
+    [m4/selection-list-breadcrumb
+     {:form-id         [:form]
+      :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
+      :label-path      ["label"]
+      :value-path      ["uri"]
+      :breadcrumb-path ["breadcrumb"]}]
+
+    [m4/async-list-option-picker-breadcrumb
+     {:form-id         [:form]
+      :data-path       ["identificationInfo" "keywordsTheme" "keywords"]
+      :uri             "/api/keywords_with_breadcrumb_info"
+      :placeholder     "Search for keywords"
+      :label-path      ["label"]
+      :value-path      ["uri"]
+      :breadcrumb-path ["breadcrumb"]}]]
+
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "keywordsGeoExtent" "keywords"]
+     :label     "Geographic Extent keywords"}
+    [m4/selection-list-breadcrumb
+     {:form-id         [:form]
+      :data-path       ["identificationInfo" "keywordsGeoExtent" "keywords"]
+      :label-path      ["label"]
+      :value-path      ["uri"]
+      :breadcrumb-path ["breadcrumb"]}]
+    [m4/async-list-option-picker-breadcrumb
+     {:form-id         [:form]
+      :data-path       ["identificationInfo" "keywordsGeoExtent" "keywords"]
+      :uri             "/api/geoextents_with_breadcrumb_info"
+      :placeholder     "Search for keywords"
+      :label-path      ["label"]
+      :value-path      ["uri"]
+      :breadcrumb-path ["breadcrumb"]}]]
+
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]
+     :label     "Additional theme keywords"}
+    [:div "Enter your own additional theme keywords as required and click + to add"]
+    [m4/selection-list-values
+     {:form-id   [:form]
+      :data-path ["identificationInfo" "keywordsThemeExtra" "keywords"]}]
+    [m4/text-add-button
+     {:form-id     [:form]
+      :data-path   ["identificationInfo" "keywordsThemeExtra" "keywords"]
+      :button-text "Add"}]]
+
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]
+     :label     "Taxon keywords"}
+    [:div "Add any taxon names describing your data and click + to add"]
+    [m4/selection-list-values
+     {:form-id   [:form]
+      :data-path ["identificationInfo" "keywordsTaxonExtra" "keywords"]}]
+    [m4/text-add-button
+     {:form-id     [:form]
+      :data-path   ["identificationInfo" "keywordsTaxonExtra" "keywords"]
+      :button-text "Add"}]]]
+
+  :when
+  [:div
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["identificationInfo" "beginPosition"]
+     ;                ["identificationInfo" "endPosition"]
+     ;                ["identificationInfo" "samplingFrequency"]]}]
+   [:h2 "3. When was the data acquired?"]
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "extents" "beginPosition"]
+     :label     "Start date"}
+    [m4/date-field2
+     {:form-id   [:form]
+      :data-path ["identificationInfo" "extents" "beginPosition"]}]]
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "extents" "endPosition"]
+     :label     "End date"}
+    [m4/date-field2
+     {:form-id   [:form]
+      :data-path ["identificationInfo" "extents" "endPosition"]}]]]
+
+  :where
+  [:div
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["identificationInfo" "geographicElement" "boxes"]
+     ;                ["identificationInfo" "verticalElement" "minimumValue"]
+     ;                ["identificationInfo" "verticalElement" "maximumValue"]]}]
+   [:h2 "4. Where"]
+   [:h3 "Geographic Coverage"]
+   [m4/checkbox-field
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "extents" "hasGeographicCoverage"]
+     :label     "Does data have a geographic coverage?"}]
+   [:div.row
+    [:div.col-sm-6
+       ;; FIXME add toggle for satellite imagery.
+     [m4/boxmap-field
+      {:form-id    [:form]
+       :data-path  ["identificationInfo" "extents" "geographicElement"]
+       :value-path ["uri"]
+       :added-path ["isUserDefined"]}]]
+    [:div.col-sm-6
+
+     [m4/when-data
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "extents" "geographicElement"]
+       :pred      :m4/empty-list?}
+      [:p "Specify the location(s) of this study."]]
+
+     [:div.SelectionTableStyle
+      [m4/selection-list-columns
+       {:form-id             [:form]
+        :data-path           ["identificationInfo" "extents" "geographicElement"]
+        :value-path          ["uri"]
+        :added-path          ["isUserDefined"]
+        :columns             [{:columnHeader "North" :label-path ["northBoundLatitude"] :flex 1}
+                              {:columnHeader "East" :label-path ["eastBoundLongitude"] :flex 1}
+                              {:columnHeader "South" :label-path ["southBoundLatitude"] :flex 1}
+                              {:columnHeader "West" :label-path ["westBoundLongitude"] :flex 1}]
+        :placeholder-record? true
+        :select-snapshot?    true
+        :random-uuid-value?  true}]
+      [m4/list-add-button
+       {:form-id            [:form]
+        :data-path          ["identificationInfo" "extents" "geographicElement"]
+        :button-text        "Add location"
+        :value-path         ["uri"]
+        :random-uuid-value? true
+        :added-path         ["isUserDefined"]}]]
+
+     [m4/list-edit-dialog2
+      {:form-id     [:form]
+       :data-path   ["identificationInfo" "extents" "geographicElement"]
+       :title       "Bounding box"
+       :template-id :box/user-defined-entry-form
+       :field-paths [["northBoundLatitude"]
+                     ["eastBoundLongitude"]
+                     ["southBoundLatitude"]
+                     ["westBoundLongitude"]]}]]]
+   [:h3 "Vertical Coverage"]
+   [m4/checkbox-field
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "extents" "hasVerticalExtent"]
+     :label     "Does data have a vertical coverage?"}]
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "extents" "verticalElement" "verticalCRS"]
+     :label     "Vertical type"}
+    [m4/select-option-simple
+     {:form-id     [:form]
+      :data-path   ["identificationInfo" "extents" "verticalElement" "verticalCRS"]
+      :value-path  ["identifier"]
+      :label-path  ["label"]
+      :placeholder "Please select"
+      :options     [{"label"      "Depth (distance below mean sea level)"
+                     "name"       "MSL depth"
+                     "identifier" "EPSG::5715"}
+                    {"label"      "Altitude (height above mean sea level)"
+                     "name"       "MSL height"
+                     "identifier" "EPSG::5714"}]}]]
+   [m4/form-group
+    {:form-id    [:form]
+     :data-path  ["identificationInfo" "extents" "verticalElement" "minimumValue"]
+     :label      "Minimum"
+     :helperText "Shallowest depth / lowest altitude"}
+    [m4/numeric-input-field
+     {:form-id   [:form]
+      :data-path ["identificationInfo" "extents" "verticalElement" "minimumValue"]
+      :class     "wauto"}]]
+   [m4/form-group
+    {:form-id    [:form]
+     :data-path  ["identificationInfo" "extents" "verticalElement" "maximumValue"]
+     :label      "Maximum"
+     :helperText "Deepest depth / highest altitude"}
+    [m4/numeric-input-field
+     {:form-id   [:form]
+      :data-path ["identificationInfo" "extents" "verticalElement" "maximumValue"]
+      :class     "wauto"}]]]
+
+  :box/user-defined-entry-form
+  [:div
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "northBoundLatitude"]
+     :label     "North"}
+    [m4/numeric-input-field
+     {:form-id   ?form-id
+      :data-path [?data-path "northBoundLatitude"]}]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "eastBoundLongitude"]
+     :label     "East"}
+    [m4/numeric-input-field
+     {:form-id   ?form-id
+      :data-path [?data-path "eastBoundLongitude"]}]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "southBoundLatitude"]
+     :label     "South"}
+    [m4/numeric-input-field
+     {:form-id   ?form-id
+      :data-path [?data-path "southBoundLatitude"]}]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "westBoundLongitude"]
+     :label     "West"}
+    [m4/numeric-input-field
+     {:form-id   ?form-id
+      :data-path [?data-path "westBoundLongitude"]}]]]
+
+  :how
+  [:div
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["resourceLineage" "lineage"]]}]
+     ; [:h2 "5: How"]
+   [m4/form-group
+    {:form-id    [:form]
+     :data-path  ["resourceLineage" "statement"]
+     :label      "Methodological information"
+     :helperText "Provide a brief statement of the methods used for collection of the
+                     data, can include information regarding sampling equipment (collection hardware),
+                     procedures, and precision/resolution of data collected."}
+    [m4/textarea-field
+     {:form-id   [:form]
+      :data-path ["resourceLineage" "statement"]
+      :rows      6}]]]
+
+  :who
+  [:div
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["identificationInfo" "citedResponsibleParty"]
+     ;                ["identificationInfo" "pointOfContact"]]}]
+   [:h2 "6. Who"]
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["pointOfContact"]
+     :label     "Point of contact for dataset"}
+
+    [:div.SelectionTableStyle
+     [m4/selection-list-columns
+      {:form-id             [:form]
+       :data-path           ["pointOfContact"]
+       :columns             [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
+                             {:flex 2 :label-path ["organisation" "name"] :columnHeader "Organisation"}
+                             {:flex 1 :label-path ["role"] :columnHeader "Role"}]
+       :placeholder-record? true
+       :value-path          ["uri"]
+       :added-path          ["isUserDefined"]
+       :select-snapshot?    true
+       :random-uuid-value?  true}]]
+
+    [m4/add-clone-person
+     {:form-id            [:form]
+      :data-path          ["pointOfContact"]
+      :source-path        ["identificationInfo" "citedResponsibleParty"]
+      :button-text        "Add person"
+      :value-path         ["uri"]
+      :label-path         ["contact" "name"]
+      :random-uuid-value? true
+      :added-path         ["isUserDefined"]}]
+
+    [m4/list-edit-dialog2
+     {:form-id     [:form]
+      :data-path   ["pointOfContact"]
+      :title       "Person"
+      :template-id :party-person/user-defined-entry-form
+      :field-paths [["role"]
+                    ["contact" "name"]
+                    ["contact" "orcid2"]
+                    ["organisation" "name"]
+                    ["contact" "email"]]}]]
+
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "citedResponsibleParty"]
+     :label     "Responsible parties for creating dataset"}
+
+    [:div.SelectionTableStyle
+     [m4/selection-list-columns
+      {:form-id             [:form]
+       :data-path           ["identificationInfo" "citedResponsibleParty"]
+       :columns             [{:flex 1 :label-path ["contact" "name"] :columnHeader "Contact name"}
+                             {:flex 2 :label-path ["organisation" "name"] :columnHeader "Organisation"}
+                             {:flex 1 :label-path ["role"] :columnHeader "Role"}]
+       :placeholder-record? true
+       :value-path          ["uri"]
+       :added-path          ["isUserDefined"]
+       :select-snapshot?    true
+       :random-uuid-value?  true}]]
+
+    [m4/add-clone-person
+     {:form-id            [:form]
+      :data-path          ["identificationInfo" "citedResponsibleParty"]
+      :source-path        ["pointOfContact"]
+      :button-text        "Add person"
+      :value-path         ["uri"]
+      :label-path         ["contact" "name"]
+      :random-uuid-value? true
+      :added-path         ["isUserDefined"]}]
+
+    [m4/list-edit-dialog2
+     {:form-id     [:form]
+      :data-path   ["identificationInfo" "citedResponsibleParty"]
+      :title       "Person"
+      :template-id :party-person/user-defined-entry-form
+      :field-paths [["role"]
+                    ["contact" "name"]
+                    ["contact" "orcid2"]
+                    ["organisation" "name"]
+                    ["contact" "email"]]}]]
+
+   [:h3 "Other credits"]
+   [:div "Acknowledge the contribution of any funding schemes or organisations."]
+   [m4/selection-list-values
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "credits"]}]
+
+   [m4/value-list-add-button
+    {:form-id     [:form]
+     :data-path   ["identificationInfo" "credits"]
+     :button-text "Add credit"}]
+
+   [m4/list-edit-dialog2
+    {:form-id     [:form]
+     :data-path   ["identificationInfo" "credits"]
+     :title       "Credit"
+     :template-id :credit/edit-form
+     :field-paths [[]]}]]
+
+  :credit/edit-form
+  [:div
+   [m4/form-group
+    {:form-id   ?form-id
+     :data-path ?data-path
+     :label     "Credit"}
+    [m4/textarea-field
+     {:form-id   ?form-id
+      :data-path ?data-path
+      :rows      5}]]]
+
+  :party-person/user-defined-entry-form
+  [:div
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "role"]
+     :label     "Role"}
+    [m4/select-value
+     {:form-id    ?form-id
+      :data-path  [?data-path "role"]
+      :label-path ["label"]
+      :value-path ["value"]
+      :options    [{"value" "author" "label" "Author"}
+                   {"value" "custodian" "label" "Custodian"}
+                   {"value" "distributor" "label" "Distributor"}
+                   {"value" "originator" "label" "Originator"}
+                   {"value" "owner" "label" "Owner"}
+                   {"value" "pointOfContact" "label" "Point of contact"}
+                   {"value" "principalInvestigator" "label" "Principal investigator"}
+                   {"value" "processor" "label" "Processor"}
+                   {"value" "publisher" "label" "Publisher"}
+                   {"value" "resourceProvider" "label" "Resource Provider"}
+                   {"value" "user" "label" "User"}
+                     ;{"value" "coAuthor" "label" "Co-Author"}
+                     ;{"value" "collaborator" "label" "Collaborator"}
+                     ;{"value" "contributor" "label" "Contributor"}
+                     ;{"value" "editor" "label" "Editor"}
+                     ;{"value" "funder" "label" "Funder"}
+                     ;{"value" "mediator" "label" "Mediator"}
+                     ;{"value" "rightsHolder" "label" "Rights Holder"}
+                     ;{"value" "sponsor" "label" "Sponsor"}
+                     ;{"value" "stakeholder" "label" "Stakeholder"}
+                   ]}]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "contact" "name"]
+     :label     "Contact name"}
+    [m4/input-field
+     {:form-id     ?form-id
+      :data-path   [?data-path "contact" "name"]
+      :placeholder "Last name, First name"}]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "contact" "orcid2"]
+     :label     "ORCID ID"}
+    [m4/input-field
+     {:form-id     ?form-id
+      :data-path   [?data-path "contact" "orcid2"]
+      :placeholder "https://orcid.org/XXXX-XXXX-XXXX-XXXX"}]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "organisation"]
+     :label     "Organisation"}
+    [m4/async-simple-item-option-picker
+     {:form-id     ?form-id
+      :data-path   ?data-path
+      :data-mapper [{:get-path ["prefLabel"] :set-path ["organisation" "name"]}
+                    {:get-path ["deliveryPoint"] :set-path ["contact" "deliveryPoint"]}
+                    {:get-path ["deliveryPoint2"] :set-path ["contact" "deliveryPoint2"]}
+                    {:get-path ["city"] :set-path ["contact" "city"]}
+                    {:get-path ["administrativeArea"] :set-path ["contact" "administrativeArea"]}
+                    {:get-path ["postalCode"] :set-path ["contact" "postalCode"]}
+                    {:get-path ["country"] :set-path ["contact" "country"]}]
+      :uri         "/api/institution/"
+      :label-path  ["prefLabel"]
+      :value-path  ["uri"]
+      :placeholder "Search for an organisation"}]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "organisation" "name"]
+     :label     "Organisation Name"}
+    [m4/textarea-field
+     {:form-id   ?form-id
+      :data-path [?data-path "organisation" "name"]
+      :rows      2}]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "contact" "deliveryPoint"]
+     :label     "Postal address"}
+    [m4/input-field
+     {:form-id     ?form-id
+      :data-path   [?data-path "contact" "deliveryPoint"]
+      :placeholder "Street address"}]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "contact" "deliveryPoint2"]}
+    [m4/input-field
+     {:form-id     ?form-id
+      :data-path   [?data-path "contact" "deliveryPoint2"]
+      :placeholder ""}]]
+
+   [m4/inline-form-group
+    {}
+    [:div {:style {:display               "grid"
+                   :grid-column-gap       "1em"
+                   :grid-template-columns "1fr 1fr"}}
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "city"]}
+      [m4/input-field
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "city"]
+        :placeholder "City"}]]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "administrativeArea"]}
+      [m4/input-field
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "administrativeArea"]
+        :placeholder "State / territory"}]]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "postalCode"]}
+      [m4/input-field
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "postalCode"]
+        :placeholder "Post code"}]]
+     [m4/form-group
+      {:form-id   ?form-id
+       :data-path [?data-path "contact" "country"]}
+      [m4/input-field
+       {:form-id     ?form-id
+        :data-path   [?data-path "contact" "country"]
+        :placeholder "Country"}]]]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "contact" "email"]
+     :label     "Email address"}
+    [m4/input-field
+     {:form-id   ?form-id
+      :data-path [?data-path "contact" "email"]}]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "contact" "phone"]
+     :label     "Phone"}
+    [m4/input-field
+     {:form-id   ?form-id
+      :data-path [?data-path "contact" "phone"]}]]]
+
+  :about
+  [:div
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["identificationInfo" "dataParameters"]
+     ;                ["identificationInfo" "creativeCommons"]
+     ;                ["identificationInfo" "otherConstraints"]
+     ;                ["identificationInfo" "useLimitations"]
+     ;                ["identificationInfo" "supplementalInformation"]
+     ;                ["supportingResources"]
+     ;                ["distributionInfo" "distributionFormat" "name"]
+     ;                ["distributionInfo" "distributionFormat" "version"]]}]
+   [:h2 "7: About Dataset"]
+   [:h4 "Data parameters"]
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "dataParameters"]}
+    [:div.SelectionTableStyle
+
+     [m4/selection-list-columns
+      {:form-id             [:form]
+       :data-path           ["identificationInfo" "dataParameters"]
+       :value-path          ["uri"]
+       :added-path          ["isUserDefined"]
+       :random-uuid-value?  true
+       :placeholder-record? true
+       :select-snapshot?    true
+       :columns             [{:columnHeader "Name" :flex 1 :label-path ["longName_term" "Name"]}
+                             {:columnHeader "Units" :flex 1 :label-path ["unit_term" "Name"]}
+                             {:columnHeader "Instrument" :flex 1 :label-path ["instrument_term" "Name"]}
+                             {:columnHeader "Platform" :flex 1 :label-path ["platform_term" "Name"]}]}]
+     [m4/list-add-button
+      {:form-id            [:form]
+       :data-path          ["identificationInfo" "dataParameters"]
+       :button-text        "Add data parameter"
+       :value-path         ["uri"]
+       :random-uuid-value? true
+       :added-path         ["isUserDefined"]}]]]
+
+   [m4/list-edit-dialog2
+    {:form-id     [:form]
+     :data-path   ["identificationInfo" "dataParameters"]
+     :field-paths [["longName_term"]
+                   ["unit_term"]]
+     :title       "Data parameter"
+     :template-id :data-parameter/user-defined-entry-form}]
+
+   [:h4 "Resource constraints"]
+   [m4/form-group
+    {:form-id    [:form]
+     :data-path  ["identificationInfo" "creativeCommons"]
+     :helperText [:span "Learn more about which license is right for you at "
+                  [:a {:href   "https://creativecommons.org/choose/"
+                       :target "_blank"}
+                   "Creative Commons"]]
+     :label      "License"}
+    [m4/select-option-simple
+     {:form-id    [:form]
+      :data-path  ["identificationInfo" "creativeCommons"]
+      :value-path ["value"]
+      :label-path ["label"]
+      :options    [{"label" "Creative Commons Attribution 4.0 International License"
+                    "value" "CC-BY"}
+                   {"label" "Creative Commons Attribution-NonCommercial 4.0 International License"
+                    "value" "CC-BY-NC"}
+                   {"label" "Other constraints"
+                    "value" "OTHER"
+                    "other" true}]}]]
+
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "otherConstraints"]
+     :label     "Additional license requirements"}
+    [m4/input-field
+     {:form-id     [:form]
+      :data-path   ["identificationInfo" "otherConstraints"]
+      :placeholder "Enter additional license requirements"}]]
+
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "useLimitations"]
+     :label     "Use limitations"}
+    [m4/selection-list-values
+     {:form-id   [:form]
+      :data-path ["identificationInfo" "useLimitations"]}]
+    [m4/text-add-button
+     {:form-id     [:form]
+      :data-path   ["identificationInfo" "useLimitations"]
+      :button-text "Add"}]]
+   [m4/list-edit-dialog2
+    {:form-id     [:form]
+     :data-path   ["identificationInfo" "useLimitations"]
+     :title       "Use limitation"
+     :template-id :useLimitations/user-defined-entry-form
+     :field-paths [[]]}]
+
+   [:h4 "Supplemental information"]
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "supplementalInformation"]
+     :label     "Publications associated with the dataset"}
+    [:div.SelectionTableStyle
+     [m4/selection-list-values
+      {:form-id   [:form]
+       :data-path ["identificationInfo" "supplementalInformation"]}]
+     [m4/list-add-button
+      {:form-id     [:form]
+       :data-path   ["identificationInfo" "supplementalInformation"]
+       :button-text "Add associated publication"}]]]
+   [m4/list-edit-dialog2
+    {:form-id     [:form]
+     :data-path   ["identificationInfo" "supplementalInformation"]
+     :title       "Add supporting resource"
+     :template-id :supplementalInformation/user-defined-entry-form
+     :field-paths [[]]}]
+
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["identificationInfo" "supportingResources"]
+     :label     "Supplemental resources with hyperlinks"}
+    [:div.SelectionTableStyle
+     [m4/selection-list-columns
+      {:form-id          [:form]
+       :data-path        ["identificationInfo" "supportingResources"]
+       :value-path       ["url"]
+       :columns          [{:columnHeader "Title" :label-path ["name"] :flex 1}
+                          {:columnHeader "URL" :label-path ["url"] :flex 1}]
+       :select-snapshot? true}]
+     [m4/list-add-button
+      {:form-id     [:form]
+       :data-path   ["identificationInfo" "supportingResources"]
+       :button-text "Add supplemental resource"}]]]
+   [m4/list-edit-dialog2
+    {:form-id     [:form]
+     :data-path   ["identificationInfo" "supportingResources"]
+     :title       "Add supporting resource"
+     :template-id :supportingResources/user-defined-entry-form
+     :field-paths [["name"]
+                   ["url"]]}]
+
+   [:h4 "Distribution"]
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["distributionInfo" "distributionFormat" "title"]
+     :label     "Data file format"}
+    [m4/input-field
+     {:form-id     [:form]
+      :data-path   ["distributionInfo" "distributionFormat" "title"]
+      :placeholder "e.g. Microsoft Excel, CSV, NetCDF"}]]
+   [m4/form-group
+    {:form-id   [:form]
+     :data-path ["distributionInfo" "distributionFormat" "edition"]
+     :label     "Data file format date/version"}
+    [m4/input-field
+     {:form-id     [:form]
+      :data-path   ["distributionInfo" "distributionFormat" "edition"]
+      :placeholder "Date format date or version if applicable"}]]]
+
+  :useLimitations/user-defined-entry-form
+  [:div
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "name"]
+     :label     "Title"}
+    [m4/textarea-field
+     {:form-id   ?form-id
+      :data-path ?data-path}]]]
+
+  :supplementalInformation/user-defined-entry-form
+  [:div
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path ?data-path
+     :label     "Title"}
+    [m4/textarea-field
+     {:form-id   ?form-id
+      :data-path ?data-path}]]]
+
+  :supportingResources/user-defined-entry-form
+  [:div
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "name"]
+     :label     "Title"}
+    [m4/input-field
+     {:form-id   ?form-id
+      :data-path [?data-path "name"]}]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "url"]
+     :label     "URL"}
+    [m4/input-field
+     {:form-id   ?form-id
+      :data-path [?data-path "url"]}]]]
+
+    ;:test/long-name
+    ;[:div "Setting longName."]
+
+  :parameter-name/user-defined-entry-form
+  [:div
+   [m4/form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "Name"]}
+    [m4/input-field
+     {:form-id     ?form-id
+      :data-path   [?data-path "Name"]
+      :placeholder "Name in dataset"}]]]
+
+  :parameter-unit/user-defined-entry-form
+  [:div
+   [m4/form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "Name"]}
+    [m4/input-field
+     {:form-id     ?form-id
+      :data-path   [?data-path "Name"]
+      :placeholder "Name in dataset"}]]]
+
+  :parameter-instrument/user-defined-entry-form
+  [:div
+   [m4/form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "Name"]}
+    [m4/input-field
+     {:form-id     ?form-id
+      :data-path   [?data-path "Name"]
+      :placeholder "Name in dataset"}]]]
+
+  :parameter-platform/user-defined-entry-form
+  [:div
+   [m4/form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "Name"]}
+    [m4/input-field
+     {:form-id   ?form-id
+      :data-path [?data-path "Name"]
+      :placeholder "Name in dataset"}]]]
+
+  :data-parameter/user-defined-entry-form
+  [:div
+
+   [m4/form-group
+    {:form-id    ?form-id
+     :data-path  [?data-path "longName_term"]
+     :label      "Name"
+     :added-path ["isUserDefined"]}
+    [:div.bp3-control-group
+     [:div.bp3-fill
+      [m4/async-select-option-breadcrumb
+       {:form-id         ?form-id
+        :data-path       [?data-path "longName_term"]
+        :uri             "/api/parametername"
+        :label-path      ["Name"]
+        :value-path      ["URI"]
+        :breadcrumb-path ["breadcrumbs"]
+        :placeholder     "Select..."}]]
+     [m4/item-dialog-button
+      {:form-id            ?form-id
+       :data-path          [?data-path "longName_term"]
+       :value-path         ["URI"]
+       :random-uuid-value? true
+       :added-path         ["isUserDefined"]}]]
+
+    [m4/edit-dialog2
+     {:form-id     ?form-id
+      :data-path   [?data-path "longName_term"]
+      :title       "Define a custom parameter name"
+      :template-id :parameter-name/user-defined-entry-form
+      :field-paths [["Name"]]}]]
+
+   [m4/form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "name"]}
+    [m4/input-field
+     {:form-id     ?form-id
+      :data-path   [?data-path "name"]
+      :placeholder "Name in dataset (optional)"}]]
+
+   [m4/form-group
+    {:form-id    ?form-id
+     :data-path  [?data-path "unit_term"]
+     :label      "Unit"
+     :added-path ["isUserDefined"]}
+    [:div.bp3-control-group
+     [:div.bp3-fill
+      [m4/async-select-option-simple
+       {:form-id     ?form-id
+        :data-path   [?data-path "unit_term"]
+        :uri         "/api/parameterunit"
+        :label-path  ["Name"]
+        :value-path  ["URI"]
+        :placeholder "Select..."}]]
+     [m4/item-dialog-button
+      {:form-id            ?form-id
+       :data-path          [?data-path "unit_term"]
+       :value-path         ["URI"]
+       :random-uuid-value? true
+       :added-path         ["isUserDefined"]}]]
+    [m4/edit-dialog2
+     {:form-id     ?form-id
+      :data-path   [?data-path "unit_term"]
+      :field-paths [["Name"]]
+      :title       "Define a custom parameter unit"
+      :template-id :parameter-unit/user-defined-entry-form}]]
+
+   [m4/form-group
+    {:form-id    ?form-id
+     :data-path  [?data-path "instrument_term"]
+     :label      "Instrument"
+     :added-path ["isUserDefined"]}
+    [:div.bp3-control-group
+     [:div.bp3-fill
+      [m4/async-select-option-breadcrumb
+       {:form-id         ?form-id
+        :data-path       [?data-path "instrument_term"]
+        :uri             "/api/parameterinstrument"
+        :label-path      ["Name"]
+        :value-path      ["URI"]
+        :breadcrumb-path ["breadcrumbs"]
+        :placeholder     "Select..."}]]
+     [m4/item-dialog-button
+      {:form-id            ?form-id
+       :data-path          [?data-path "instrument_term"]
+       :value-path         ["URI"]
+       :random-uuid-value? true
+       :added-path         ["isUserDefined"]}]]
+    [m4/edit-dialog2
+     {:form-id     ?form-id
+      :data-path   [?data-path "instrument_term"]
+      :field-paths [["Name"]]
+      :title       "Define a custom parameter instrument"
+      :template-id :parameter-instrument/user-defined-entry-form}]]
+
+   [m4/form-group
+    {:form-id    ?form-id
+     :data-path  [?data-path "platform_term"]
+     :label      "Platform"
+     :added-path ["isUserDefined"]}
+    [:div.bp3-control-group
+     [:div.bp3-fill
+      [m4/async-select-option-breadcrumb
+       {:form-id         ?form-id
+        :data-path       [?data-path "platform_term"]
+        :uri             "/api/parameterplatform"
+        :label-path      ["Name"]
+        :value-path      ["URI"]
+        :breadcrumb-path ["breadcrumbs"]
+        :placeholder     "Select..."}]]
+     [m4/item-dialog-button
+      {:form-id            ?form-id
+       :data-path          [?data-path "platform_term"]
+       :text               "Browse"
+       :value-path         ["URI"]
+       :random-uuid-value? true
+       :added-path         ["isUserDefined"]}]]
+    [m4/edit-dialog2
+     {:form-id     ?form-id
+      :data-path   [?data-path "platform_term"]
+      :field-paths [["Name"]]
+      :title       "Define a custom parameter platform"
+      :template-id :parameter-platform/user-defined-entry-form}]]]
+
+  :upload
+  [:div
+     ; [m4/page-errors
+     ;  {:form-id    [:form]
+     ;   :data-path  []
+     ;   :data-paths [["attachments"]]}]
+   [:h2 "8: Data sources"]
+     ; #_[m3/UploadData
+     ;    {:attachments-path [:form :fields :attachments]}]
+
+   [m4/form-group
+    {:label     "Upload data"
+     :form-id   [:form]
+     :data-path ["attachments"]}
+    [m4/upload-files
+     {:form-id    [:form]
+      :data-path  ["attachments"]
+      :value-path ["file"]
+      :placeholder
+      [:div.bp3-non-ideal-state
+       [:h4.bp3-heading "Drop file here or click to upload"]
+       [:div "Max file size 100 MB"]]}]]
+
+   [m4/form-group
+    {:label     "Link to data services"
+     :form-id   [:form]
+     :data-path ["distributionInfo" "transferOptions"]}
+    [:div.SelectionTableStyle
+     [m4/selection-list-columns
+      {:form-id             [:form]
+       :data-path           ["distributionInfo" "transferOptions"]
+       :value-path          ["linkage"]
+       :placeholder-record? true
+       :select-snapshot?    true
+       :columns             [{:columnHeader "Protocol" :label-path ["protocol"] :flex 2}
+                             {:columnHeader "Server" :label-path ["linkage"] :flex 2}
+                             {:columnHeader "Name" :label-path ["name"] :flex 1}]}]]
+
+    [m4/list-add-button
+     {:form-id     [:form]
+      :data-path   ["distributionInfo" "transferOptions"]
+      :button-text "Add data service"
+      :value-path  ["linkage"]}]
+
+    [m4/list-edit-dialog2
+     {:form-id     [:form]
+      :data-path   ["distributionInfo" "transferOptions"]
+      :value-path  ["linkage"]
+      :title       "Data Source"
+      :template-id :transferOptions/user-defined-entry-form
+      :field-paths [["description"]
+                    ["protocol"]]}]]]
+
+  :transferOptions/user-defined-entry-form
+  [:div
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "description"]
+     :label     "Title"}
+    [m4/input-field
+     {:form-id   ?form-id
+      :data-path [?data-path "description"]}]]
+
+   [m4/inline-form-group
+    {:form-id   [:form]
+     :data-path [?data-path "protocol"]
+     :label     "Protocol"}
+    [m4/select-value
+     {:form-id    [:form]
+      :data-path  [?data-path "protocol"]
+      :value-path ["value"]
+      :label-path ["label"]
+      :options    [{"value" "OGC:WMS-1.3.0-http-get-map" "label" "OGC Web Map Service (WMS)"}
+                   {"value" "OGC:WFS-1.0.0-http-get-capabilities" "label" "OGC Web Feature Service (WFS)"}
+                   {"value" "WWW:LINK-1.0-http--downloaddata" "label" "Other/unknown"}]}]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "linkage"]
+     :label     "URL"}
+    [m4/input-field
+     {:form-id   ?form-id
+      :data-path [?data-path "linkage"]}]]
+
+   [m4/inline-form-group
+    {:form-id   ?form-id
+     :data-path [?data-path "name"]
+     :label     "Layer"}
+    [m4/input-field
+     {:form-id   ?form-id
+      :data-path [?data-path "name"]}]]]
+
+  :lodge
+  [:div
+   [:h2 "9: Lodge Metadata Draft"]
+   [:div.lodge-section
+    [:p "Are you finished? Use this page to lodge your completed metadata record."]
+    [:p "Any difficulties?  Please contact " [m4/mailto-data-manager-link]]
+    [:p "The Data Manager will be notified of your submission and will be in contact
+              if any further information is required. Once approved, your data will be archived
+              for discovery in the " [m4/portal-link] "."]
+    [m4/note-for-data-manager
+     {:form-id   [:form]
+      :data-path ["noteForDataManager"]}]
+    [m4/checkbox-field
+     {:form-id [:form]
+      :data-path ["doiRequested"]
+      :label "Check if you would like a DOI minted for this dataset"}]
+    [m4/lodge-button {:form-id [:form]}]
+    [m4/lodge-status-info {:form-id [:form]}]
+    [:div.user-export
+     [:p [:strong "Want to keep a personal copy of your metadata record?"]]
+     [:p
+      [m4/xml-export-link {:label "Click here"}]
+      " to generate an XML version of your metadata submission. "
+      "The file generated includes all of the details you have provided under the
+        tabs, but not files you have uploaded."]
+     [:p
+      "Please note: this XML file is not the recommended way to share your metadata.
+        We want you to submit your data via 'lodging' the information.
+        This permits multi-user access via the portal in a more friendly format."]]]]}
+
+ :low-code/edit-tabs
+ [{:id         :data-identification
+   :text       "Identification"
+   :data-paths [["identificationInfo" "title"]
+                ["identificationInfo" "dateCreation"]
+                ["identificationInfo" "topicCategories"]
+                ["identificationInfo" "status"]
+                ["identificationInfo" "maintenanceAndUpdateFrequency"]]}
+  {:id         :what
+   :text       "What"
+   :data-paths [["identificationInfo" "abstract"]
+                ["identificationInfo" "keywordsTheme"]]}
+  {:id         :when
+   :text       "When"
+   :data-paths [["identificationInfo" "extents" "beginPosition"]
+                ["identificationInfo" "extents" "endPosition"]]}
+  {:id         :where
+   :text       "Where"
+   :data-paths [["identificationInfo" "extents" "geographicElement"]
+                ["identificationInfo" "extents" "verticalElement"]]}
+  {:id         :how
+   :text       "How"
+   :data-paths [["resourceLineage" "statement"]]}
+  {:id         :who
+   :text       "Who"
+   :data-paths [["pointOfContact"]
+                ["identificationInfo" "citedResponsibleParty"]]}
+  {:id         :about
+   :text       "About"
+   :data-paths [["identificationInfo" "creativeCommons"]]}
+  {:id         :upload
+   :text       "Data sources"
+   :data-paths []}
+  {:id         :lodge
+   :text       "Lodge"
+   :data-paths []}]}

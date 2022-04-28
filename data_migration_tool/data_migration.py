@@ -295,6 +295,7 @@ def boxes(value):
         'eastBoundLongitude': v.get('eastBoundLongitude'),
         'westBoundLongitude': v.get('westBoundLongitude'),
         'uri': coalesce(v.get('uri'), str(uuid.uuid4())),
+        'isUserDefined': True
     } for v in value] if value != None else None
 
 def full_address_line(value):
@@ -455,6 +456,84 @@ def imas_data_parameters(value):
         'parameterDescription': v.get('parameterDescription')
     } for v in value] if value != None else None
 
+def aodn_data_parameters(value):
+    if value == None:
+        return None
+    else:
+        data_parameters = []
+
+        for data_parameter in value:
+            longName = coalesce(data_parameter.get('longName_term', {}).get('Name'), data_parameter.get('longName', {}).get('term'), '')
+            unit = coalesce(data_parameter.get('unit_term', {}).get('Name'), data_parameter.get('unit', {}).get('term'), '')
+            instrument = coalesce(data_parameter.get('instrument_term', {}).get('Name'), data_parameter.get('instrument', {}).get('term'), '')
+            platform =coalesce(data_parameter.get('platform_term', {}).get('Name'), data_parameter.get('platform', {}).get('term'), '')
+
+            longName_term = {
+                'Name': longName,
+                'URI': coalesce(data_parameter.get('longName_term', {}).get('URI'), data_parameter.get('longName', {}).get('vocabularyTermURL'), str(uuid.uuid4())),
+                'isUserDefined': True,
+            } if len(longName) > 0 else None
+            unit_term = {
+                'Name': unit,
+                'URI': coalesce(data_parameter.get('unit_term', {}).get('URI'), data_parameter.get('unit', {}).get('vocabularyTermURL'), str(uuid.uuid4())),
+                'isUserDefined': True,
+            } if len(unit) > 0 else None
+            instrument_term = {
+                'Name': instrument,
+                'URI': coalesce(data_parameter.get('instrument_term', {}).get('URI'), data_parameter.get('instrument', {}).get('vocabularyTermURL'), str(uuid.uuid4())),
+                'isUserDefined': True,
+            } if len(instrument) > 0 else None
+            platform_term = {
+                'Name': platform,
+                'URI': coalesce(data_parameter.get('platform_term', {}).get('URI'), data_parameter.get('platform', {}).get('vocabularyTermURL'), str(uuid.uuid4())),
+                'isUserDefined': True,
+            } if len(platform) > 0 else None
+
+            data_parameters.append({
+                'longName_term': longName_term,
+                'unit_term': unit_term,
+                'instrument_term': instrument_term,
+                'platform_term': platform_term,
+                'name': data_parameter.get('name'),
+                'uri': coalesce(data_parameter.get('uri'), str(uuid.uuid4())),
+                'isUserDefined': True,
+                'parameterDescription': data_parameter.get('parameterDescription')
+            })
+            
+        return data_parameters
+
+def aodn_attachments(value):
+    if value == None:
+        return None
+    else:
+        attachments = []
+        
+        for attachment in value:
+            id = coalesce(attachment.get('id'))
+            file = coalesce(attachment.get('file'))
+            name = coalesce(attachment.get('name'))
+            delete_url = coalesce(attachment.get('delete_url'))
+            created = coalesce(attachment.get('created'))
+            modified = coalesce(attachment.get('modified'))
+
+            if id == None and delete_url != None:
+                id = int(re.search(r"\/(\d+)\/$", delete_url).group(1))
+            if file != None:
+                file = re.search(r"\/media.+", file).group(0)
+            if delete_url != None:
+                delete_url = re.search(r"\/delete.+", delete_url).group(0)
+
+            attachments.append({
+                'id': id,
+                'file': file,
+                'name': name,
+                'delete_url': delete_url,
+                'created': created,
+                'modified': modified
+            })
+        
+        return attachments
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -494,7 +573,9 @@ functions = {
     'imas_geographicElement': imas_geographic_element,
     'imas_pointOfContact': imas_point_of_contact,
     'imas_citedResponsibleParty': imas_cited_responsible_party,
-    'imas_dataParameters': imas_data_parameters
+    'imas_dataParameters': imas_data_parameters,
+    'aodn_dataParameters': aodn_data_parameters,
+    'aodn_attachments': aodn_attachments
 }
 
 def get_data_at_path(data, path):

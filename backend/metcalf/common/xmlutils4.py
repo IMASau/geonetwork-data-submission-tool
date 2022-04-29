@@ -419,7 +419,8 @@ def extract_user_defined(data: dict, path="$", acc: list = None) -> list:
                         filterval = item.get(prop)
                         break
                 else:
-                    raise KeyError(f'DUMA expects either uri or url keys to be present; path: {path}|{k}')
+                    logger.warn(f'DUMA expects either uri or url keys to be present; path: {path}|{k}')
+                    continue
                 filter = f'{k}[?(@.{filterkey}=="{filterval}")]'
                 acc = extract_user_defined(item, path=f"{path}.{filter}", acc=acc)
         else:

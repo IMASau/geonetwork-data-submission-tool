@@ -119,19 +119,27 @@ def tern_parameters_units(value):
             unit_source =  parameter_unit.get('unit_vocabularyVersion')
             unit_uri =  parameter_unit.get('unit_vocabularyTermURL') if parameter_unit.get('longName_vocabularyTermURL') != 'http://linkeddata.tern.org.au/XXX' else str(uuid.uuid4())
 
-            if len(parameter_label) > 0 and len(unit_label) > 0:
+            parameter = {
+                'label': parameter_label,
+                'description': parameter_description,
+                'uri': parameter_uri,
+                'source': parameter_source
+                } if len(parameter_label) > 0 else None
+            
+            unit = {
+                'label': unit_label,
+                'uri': unit_uri,
+                'source': unit_source
+                } if len(unit_label) > 0 else {
+                'label': 'Unitless',
+                'uri': 'http://qudt.org/vocab/unit/UNITLESS',
+                'source': None
+                } if parameter else None
+
+            if parameter or unit:
                 parameters_units.append({
-                    'parameter': {
-                        'label': parameter_label,
-                        'description': parameter_description,
-                        'uri': parameter_uri,
-                        'source': parameter_source
-                    },
-                    'unit': {
-                        'label': unit_label,
-                        'uri': unit_uri,
-                        'source': unit_source
-                    },
+                    'parameter': parameter,
+                    'unit': unit,
                     'uri' : str(uuid.uuid4())
                 })
         

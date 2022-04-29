@@ -1569,7 +1569,7 @@
         "endPosition": {
           "!docstring": "When2",
           "xpath": "mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:endPosition",
-          "deleteWhenEmpty": true,
+          "deleteWhenEmpty": false,
           "keep": false,
           "type": "string"
         },

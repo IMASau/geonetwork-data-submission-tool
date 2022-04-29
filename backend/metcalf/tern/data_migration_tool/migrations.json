@@ -12,14 +12,12 @@
 		"dst": ["noteForDataManager"]
 	},
     {
-		"src": [],
-		"dst": ["systemCreationDate"],
-		"fn": "todo"
+		"src": ["identificationInfo", "dateCreation"],
+		"dst": ["systemCreationDate"]
 	},
 	{
-		"src": [],
-		"dst": ["systemRevisionDate"],
-		"fn": "todo"
+		"src": ["identificationInfo", "dateRevision"],
+		"dst": ["systemRevisionDate"]
 	},
 	{
 		"src": [],

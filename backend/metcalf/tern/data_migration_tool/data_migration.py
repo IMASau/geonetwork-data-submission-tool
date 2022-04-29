@@ -180,23 +180,6 @@ def keywordsHorizontal(value):
 def keywordsTemporal(value):
     return keywordsHorizontal(value)
 
-def distributor(value):
-    return {
-        'is_dissolved': 'false',
-        'name': 'TERN Ecosystem Processes - UQ Long Pocket',
-        'full_address_line': 'Building 1019, 80 Meiers Rd, Indooroopilly, QLD, Australia, 4068',
-        'postcode': '4068',
-        'address_region': 'QLD',
-        'address_locality': 'Indooroopilly',
-        'date_modified': '2021-05-14T05:18:27.281Z',
-        'street_address': 'Building 1019, 80 Meiers Rd',
-        'date_created': '2021-05-14T03:33:48.260Z',
-        'uri': 'https://w3id.org/tern/resources/8f2acf9f-3cf2-48c7-b911-ed1b1113932e',
-        'display_name': 'TERN Ecosystem Processes - UQ Long Pocket',
-        'site_uri': 'https://w3id.org/tern/resources/fa56a1ed-ec38-4294-90ae-ab203a25d5ad',
-        'country': 'Australia'
-    }
-
 def vertical_crs(value):
     crs = [
         {
@@ -584,7 +567,6 @@ functions = {
     'tern_keywordsThemeAnzsrc': lambda value: [{'label': v, 'uri': v} if isinstance(v, str) else v for v in value],
     'keywordsHorizontal': keywordsHorizontal,
     'keywordsTemporal': keywordsTemporal,
-    'distributor': distributor,
     'keywordsAdditional': keywords_additional,
     'topicCategories': lambda value: [{'label': value, 'value': value}] if isinstance(value, str) else value,
     'status': lambda value: value if value != 'complete' else 'completed',

@@ -1768,9 +1768,9 @@
         },
         "doi": {
           "!docstring": "Lodge4",
-          "xpath": "mri:citation/cit:CI_Citation/cit:identifier/mcc:MD_Identifier/mcc:code",
+          "xpath": "mri:citation/cit:CI_Citation/cit:identifier",
           "keep": false,
-          "valueChild": "gcx:Anchor",
+          "valueChild": "mcc:MD_Identifier/mcc:code/gcx:Anchor",
           "attributes": {
             "text": {
               "function": "write_doi"

@@ -48,7 +48,8 @@
 	},
 	{
 		"src": ["attachments"],
-		"dst": ["attachments"]
+		"dst": ["attachments"],
+		"fn": "tern_attachments"
 	},
 	{
 		"src": ["dataQualityInfo", "methods"],

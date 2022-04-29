@@ -534,6 +534,36 @@ def aodn_attachments(value):
         
         return attachments
 
+def tern_attachments(value):
+    if value == None:
+        return None
+    else:
+        attachments = []
+        
+        for attachment in value:
+            id = coalesce(attachment.get('id'))
+            file = coalesce(attachment.get('file'))
+            name = coalesce(attachment.get('name'))
+            delete_url = coalesce(attachment.get('delete_url'))
+            created = coalesce(attachment.get('created'))
+            modified = coalesce(attachment.get('modified'))
+            title = coalesce(attachment.get('title'), file)
+
+            if id == None and delete_url != None:
+                id = int(re.search(r"\/(\d+)\/$", delete_url).group(1))
+
+            attachments.append({
+                'id': id,
+                'file': file,
+                'name': name,
+                'delete_url': delete_url,
+                'created': created,
+                'modified': modified,
+                'title': title
+            })
+        
+        return attachments
+
 functions = {
     'todo': lambda value: None,
     'capitalize': lambda value: value.capitalize(),
@@ -575,7 +605,8 @@ functions = {
     'imas_citedResponsibleParty': imas_cited_responsible_party,
     'imas_dataParameters': imas_data_parameters,
     'aodn_dataParameters': aodn_data_parameters,
-    'aodn_attachments': aodn_attachments
+    'aodn_attachments': aodn_attachments,
+    'tern_attachments': tern_attachments
 }
 
 def get_data_at_path(data, path):

@@ -169,7 +169,8 @@
        "uploadTitleFromName"            rules4/uploads-title-from-name
        "duplicateParameters"            rules4/tern-duplicate-parameters
        "parameterUnitUserDefined"       rules4/tern-parameter-unit-user-defined
-       "validContributors"              rules4/valid-contributors})
+       "validContributors"              rules4/valid-contributors
+       "requiredFieldInChildren"          rules4/required-field-in-children})
 (set! low-code4/component-registry
       {'m4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
        'm4/async-list-option-picker            {:view #'components4/async-list-option-picker :init components4/async-list-option-picker-settings}
@@ -672,7 +673,7 @@
 
        [m4/form-group
         {:form-id      [:form]
-         :data-path    ["identificationInfo" "keywordsParametersUnits"]
+         :data-path    ["identificationInfo" "keywordsParametersUnits" "keywords"]
          :show-errors? true}
         [:div.SelectionListItemColoured
          [m4/selection-list-columns

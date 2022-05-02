@@ -1296,12 +1296,14 @@
           "properties": {
             "keywords": {
               "xpath": "mri:keyword",
+              "rules": [{"requiredFieldInChildren": {"field-paths": [["unit"]]}}],
               "type": "array",
               "items": {
                 "type": "object",
                 "xpath": "mri:keyword",
                 "properties": {
                   "parameter": {
+                    "rules": ["requiredField"],
                     "type": "object",
                     "export": false,
                     "properties": {
@@ -1348,6 +1350,7 @@
                   "unit": {
                     "!docstring": "What9",
                     "xpath": ".",
+                    "rules": ["requiredField"],
                     "type": "object",
                     "properties": {
                       "label": {

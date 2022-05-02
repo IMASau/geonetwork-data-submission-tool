@@ -636,3 +636,9 @@
     (cond-> block
       (not all-valid?)
       (update-in [:props :errors] conj "All emails must be valid"))))
+
+(defn required-field-in-children
+  [block {:keys [field-paths]}]
+  (let [children (blocks4/as-data block)
+        valid-children (map (fn [child] ) children)]
+    block))

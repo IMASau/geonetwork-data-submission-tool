@@ -130,11 +130,7 @@ def tern_parameters_units(value):
                 'label': unit_label,
                 'uri': unit_uri,
                 'source': unit_source
-                } if len(unit_label) > 0 else {
-                'label': 'Unitless',
-                'uri': 'http://qudt.org/vocab/unit/UNITLESS',
-                'source': None
-                } if parameter else None
+                } if len(unit_label) > 0 else None
 
             if parameter or unit:
                 parameters_units.append({

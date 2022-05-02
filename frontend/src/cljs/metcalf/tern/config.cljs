@@ -661,8 +661,10 @@
      [m4/expanding-control {:label "Parameters" :required true}
 
       [m4/form-group
-       {:label "Select a measured parameter, e.g. vegetation height"
-        :toolTip "Select Parameters (observable properties) in the dataset from the predefined list. If the required parameter is not available, you can click the ‘Add’ button to define a new parameter. All new entries will be reviewed prior to publication."}
+       {:label     "Select a measured parameter, e.g. vegetation height"
+        :toolTip   "Select Parameters (observable properties) in the dataset from the predefined list. If the required parameter is not available, you can click the ‘Add’ button to define a new parameter. All new entries will be reviewed prior to publication."
+        :form-id   [:form]
+        :data-path ["identificationInfo" "keywordsParametersUnits" "keywords"]}
 
        [m4/list-add-button
         {:form-id            [:form]

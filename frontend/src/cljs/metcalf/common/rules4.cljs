@@ -640,5 +640,9 @@
 (defn required-field-in-children
   [block {:keys [field-paths]}]
   (let [children (blocks4/as-data block)
-        valid-children (map (fn [child] ) children)]
-    block))
+        invalid-children? (some boolean (for [path field-paths
+                                              child children]
+                                          (contains? empty-values (get-in child path))))]
+    (cond-> block
+      invalid-children?
+      (update-in [:props :errors] conj "One or more entries have errors"))))

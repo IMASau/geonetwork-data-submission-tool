@@ -415,10 +415,6 @@
   [block {:keys [dep-path val-path]}]
   (let [status (blocks4/as-data (get-in block (blocks4/block-path val-path)))
         dep-path (blocks4/block-path dep-path)]
-    (js/console.log "end-position")
-    (js/console.log status)
-    (js/console.log dep-path)
-    (js/console.log block)
     (if (contains? #{"completed"} status)
       (-> block
           (assoc-in (conj dep-path :props :required) true)

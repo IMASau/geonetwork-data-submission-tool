@@ -339,7 +339,12 @@
       "xpath": "mdb:identificationInfo/mri:MD_DataIdentification",
       "rules": [
         "maintFreq",
-        "endPosition",
+        {
+          "endPosition": {
+          "dep-path": ["endPosition"],
+          "val-path": ["status"]
+          }
+        },
         {
           "dateOrder": {
             "field0": "beginPosition",

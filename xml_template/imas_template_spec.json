@@ -53,7 +53,12 @@
       "xpath": "mdb:identificationInfo/mri:MD_DataIdentification",
       "rules": [
         "maintFreq",
-        "endPosition",
+        {
+          "endPosition": {
+          "dep-path": ["extents", "endPosition"],
+          "val-path": ["status"]
+          }
+        },
         {
           "stringConcat": {
             "from-array": "supplementalInformation",

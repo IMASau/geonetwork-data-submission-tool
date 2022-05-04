@@ -1898,7 +1898,12 @@
        [:div.SelectionListItemColoured.Inverted
         [m4/selection-list-values
          {:form-id   [:form]
-          :data-path ["resourceLineage" "steps"]}]]]]]
+          :data-path ["resourceLineage" "steps"]}]]]
+      [m4/list-edit-dialog
+       {:form-id     [:form]
+        :data-path   ["resourceLineage" "steps"]
+        :title       "Data creation step"
+        :template-id :data-creation-step/user-defined-entry-form}]]]
 
     :method-doc/user-defined-entry-form
     [:div
@@ -1918,6 +1923,16 @@
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "url"]}]]]
+    
+    :data-creation-step/user-defined-entry-form
+    [:div
+     [m4/inline-form-group
+      {:form-id   ?form-id
+       :data-path ?data-path
+       :label     "Step"}
+      [m4/textarea-field
+       {:form-id   ?form-id
+        :data-path ?data-path}]]]
 
     :quality
     [:div

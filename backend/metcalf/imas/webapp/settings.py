@@ -111,6 +111,7 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "bootstrap3",
+    "captcha",
 ]
 
 LOGGING = {
@@ -206,3 +207,5 @@ USE_TERN_STORAGE = False
 USE_TERN_AUTH = False
 
 
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+ACCOUNT_SIGNUP_FORM_CLASS = 'metcalf.imas.frontend.forms.MySignupForm'

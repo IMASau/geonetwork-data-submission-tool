@@ -146,7 +146,7 @@ export function getReactSelectComponents({Option}) {
     }
 }
 
-export function AsyncSelectField({value, loadOptions, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange, onBlur}) {
+export function AsyncSelectField({value, loadOptions, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange, onBlur, noOptionsMessage}) {
     const defaultOptions = !disabled
     const isAdded = getAdded ? getAdded(value): false;
     return (
@@ -160,6 +160,7 @@ export function AsyncSelectField({value, loadOptions, hasError, disabled, placeh
             placeholder={placeholder}
             onChange={(value) => onChange(value)}
             onBlur={() => onBlur ? onBlur(): null}
+            noOptionsMessage={() => noOptionsMessage ? noOptionsMessage() : "No options"}
             isClearable={true}
             isDisabled={disabled}
             defaultOptions={defaultOptions}
@@ -180,6 +181,7 @@ AsyncSelectField.propTypes = {
     Option: PropTypes.func.isRequired,
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,
+    noOptionsMessage: PropTypes.func,
 }
 
 export function SelectField({value, options, hasError, disabled, placeholder, getLabel, getValue, getAdded, Option, onChange, onBlur}) {
@@ -287,6 +289,34 @@ AsyncSimpleSelectField.propTypes = {
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,
     getAdded: PropTypes.func,
+    noOptionsMessage: PropTypes.func,
+}
+
+export function AsyncAddSelectField(args) {
+    const {onAdd, disabled} = args
+    return (
+        <AsyncSimpleSelectField
+            {...args}
+            noOptionsMessage={() => (
+                <span>
+                    <span>No matches for the search term – </span>
+                    <button className="SelectFieldAction" onClick={() => onAdd ? onAdd() : null} disabled={!onAdd || disabled}>[Add one]</button>
+                </span>)}
+        />
+    );
+}
+
+AsyncAddSelectField.propTypes = {
+    value: PropTypes.object,
+    loadOptions: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    getAdded: PropTypes.func,
+    onAdd: PropTypes.func,
 }
 
 export function BreadcrumbSelectField(args) {

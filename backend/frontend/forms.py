@@ -1,4 +1,6 @@
 from django import forms
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 
 from backend.models import DocumentAttachment
 
@@ -13,3 +15,18 @@ class DocumentAttachmentForm(forms.ModelForm):
     class Meta:
         model = DocumentAttachment
         fields = ('document', 'name', 'file')
+
+class MySignupForm(forms.Form):
+
+    captcha = ReCaptchaField(
+            widget=ReCaptchaV2Checkbox(
+                attrs={
+                        'data-theme': 'light',  # default=light
+                        'data-size': 'normal',  # default=normal
+                },
+            ),
+    )
+    field_order = ['email', 'username', 'password1', 'password2', 'captcha']
+
+    def signup(self, request, user):
+        pass 

@@ -158,6 +158,7 @@ INSTALLED_APPS = (
     'backend',
     'frontend',
     'bootstrap3',
+    'captcha',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -247,3 +248,8 @@ try:
 except ImportError:
     pass
 
+
+# RECAPTCHA_PUBLIC_KEY = ''
+# RECAPTCHA_PRIVATE_KEY = ''
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error'] # Remove when recaptcha keys are added
+ACCOUNT_SIGNUP_FORM_CLASS = 'frontend.forms.MySignupForm'

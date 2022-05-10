@@ -80,15 +80,3 @@
 .SelectionListItemColoured.Inverted .SelectionListAddedItem {
     background-color: #99ffcc24;
 }
-
-.SelectFieldAction {
-    background: none;
-    border: none;
-    padding: 0;
-    color: #069;
-    cursor: pointer;
-}
-
-.SelectFieldAction:hover {
-    text-decoration: underline;
-}

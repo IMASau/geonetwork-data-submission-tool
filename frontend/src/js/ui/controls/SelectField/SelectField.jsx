@@ -368,6 +368,34 @@ AsyncBreadcrumbSelectField.propTypes = {
     getValue: PropTypes.func.isRequired,
     getLabel: PropTypes.func.isRequired,
     getBreadcrumb: PropTypes.func.isRequired,
+    noOptionsMessage: PropTypes.func,
+}
+
+export function AsyncBreadcrumbAddSelectField(args) {
+    const {onAdd, disabled} = args
+    return (
+        <AsyncBreadcrumbSelectField
+            {...args}
+            noOptionsMessage={() => (
+                <span>
+                    <span>No matches for the search term – </span>
+                    <button className="SelectFieldAction" onClick={() => onAdd ? onAdd() : null} disabled={!onAdd || disabled}>[Add one]</button>
+                </span>)}
+        />
+    );
+}
+
+AsyncBreadcrumbAddSelectField.propTypes = {
+    value: PropTypes.object,
+    loadOptions: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
+    hasError: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    getValue: PropTypes.func.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    getBreadcrumb: PropTypes.func.isRequired,
+    onAdd: PropTypes.func,
 }
 
 export function TableSelectField(args) {

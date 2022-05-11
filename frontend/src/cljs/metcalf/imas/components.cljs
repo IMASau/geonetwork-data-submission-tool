@@ -92,7 +92,8 @@
 
 (defn add-clone-person
   [config]
-  (let [{:keys [button-text source-path label-path]} config
+  (let [props @(rf/subscribe [::components4/get-block-props config])
+        {:keys [disabled is-hidden button-text label-path]} props
         options @(rf/subscribe [::components4/get-unique-contacts (assoc config :value-path label-path)])
         option-items (if options
                        (map
@@ -106,9 +107,11 @@
                       :onClick #(rf/dispatch [::components4/list-add-with-defaults-click-handler3 config])}
                      {:divider true}]
                     option-items)]
-    [components4/dropdown-menu
-     {:text       button-text
-      :placement  "right"
-      :menu-items menu-items
-      :class      "bp3-button bp3-intent-primary"
-      :on-click   (when (empty? option-items) #(rf/dispatch [::components4/list-add-with-defaults-click-handler3 config]))}]))
+    (when-not is-hidden
+      [components4/dropdown-menu
+       {:disabled   disabled
+        :text       button-text
+        :placement  "right"
+        :menu-items menu-items
+        :class      "bp3-button bp3-intent-primary"
+        :on-click   (when (empty? option-items) #(rf/dispatch [::components4/list-add-with-defaults-click-handler3 config]))}])))

@@ -1154,7 +1154,7 @@
      [m4/form-group
       {:form-id    ?form-id
        :data-path  [?data-path "instrument_term"]
-       :label      "Instrument"
+       :label      "Instrument (Optional)"
        :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill
@@ -1182,7 +1182,7 @@
      [m4/form-group
       {:form-id    ?form-id
        :data-path  [?data-path "platform_term"]
-       :label      "Platform"
+       :label      "Platform (Optional)"
        :added-path ["isUserDefined"]}
       [:div.bp3-control-group
        [:div.bp3-fill

@@ -2325,9 +2325,10 @@
         :onChange #(rf/dispatch [:metcalf.common.components4/value-changed config %])}])))
 
 (defn dropdown-menu
-  [{:keys [text icon placement menu-items class on-click]}]
+  [{:keys [disabled text icon placement menu-items class on-click]}]
   [ui-controls/DropdownMenu
-   {:text      text
+   {:disabled  disabled
+    :text      text
     :icon      icon
     :placement placement
     :className class

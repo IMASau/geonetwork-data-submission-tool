@@ -11,22 +11,35 @@ function MenuItem(menuItem, index) {
 	: <BPCore.Menu.Item key={index} text={text} icon={icon} onClick={onClick}/>;
 }
 
-export function DropdownMenu({text, icon, placement, className, menuItems, onClick}) {
+export function DropdownMenu({disabled, text, icon, placement, className, menuItems, onClick}) {
 	return onClick
-	? <BPCore.Button icon={icon} text={text} className={className} onClick={onClick}/>
+	? <BPCore.Button
+		disabled={disabled}
+		icon={icon}
+		text={text}
+		className={className}
+		onClick={onClick}
+	/>
 	: (
 		<BPCore.Popover
+			disabled={disabled}
 			content={<BPCore.Menu>
 				{menuItems.map((menuItem, index) => MenuItem(menuItem, index))}
 			</BPCore.Menu>}
 			placement={placement}
 		>
-			<BPCore.Button icon={icon} text={text} className={className}/>
+			<BPCore.Button
+				disabled={disabled}
+				icon={icon}
+				text={text}
+				className={className}
+			/>
 		</BPCore.Popover>
 	);
 }
 
 DropdownMenu.propTypes = {
+	disabled: PropTypes.bool,
     text: PropTypes.string.isRequired,
     icon: PropTypes.string,
 	placement: PropTypes.string,

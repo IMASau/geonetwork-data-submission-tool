@@ -1052,7 +1052,7 @@
       [m4/input-field
        {:form-id     ?form-id
         :data-path   [?data-path "Name"]
-        :placeholder "Name in dataset"}]]]
+        :placeholder "Custom parameter"}]]]
 
     :parameter-unit/user-defined-entry-form
     [:div
@@ -1062,7 +1062,7 @@
       [m4/input-field
        {:form-id     ?form-id
         :data-path   [?data-path "Name"]
-        :placeholder "Name in dataset"}]]]
+        :placeholder "Custom unit"}]]]
 
     :parameter-instrument/user-defined-entry-form
     [:div
@@ -1072,7 +1072,7 @@
       [m4/input-field
        {:form-id     ?form-id
         :data-path   [?data-path "Name"]
-        :placeholder "Name in dataset"}]]]
+        :placeholder "Custom instrument"}]]]
 
     :parameter-platform/user-defined-entry-form
     [:div
@@ -1082,7 +1082,7 @@
       [m4/input-field
        {:form-id   ?form-id
         :data-path [?data-path "Name"]
-        :placeholder "Name in dataset"}]]]
+        :placeholder "Custom platform"}]]]
 
     :data-parameter/user-defined-entry-form
     [:div

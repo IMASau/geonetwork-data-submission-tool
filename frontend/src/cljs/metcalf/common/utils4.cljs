@@ -80,7 +80,7 @@
 (defn js-params [m]
   (let [o (js-obj)]
     (doseq [[k v] m]
-      (gobject/set o (gstring/urlEncode (name k)) (gstring/urlEncode v)))
+      (gobject/set o (gstring/urlEncode (name k)) v))
     o))
 
 (defn append-params-from-map

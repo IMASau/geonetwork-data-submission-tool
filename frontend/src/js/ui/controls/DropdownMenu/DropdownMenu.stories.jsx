@@ -17,6 +17,7 @@ export const Example = FieldTemplate.bind({});
 Example.args = {
     text: "Add",
     icon: "add",
+    onClick: null,
     menuItems: [
         {
             text: "Create a new person",

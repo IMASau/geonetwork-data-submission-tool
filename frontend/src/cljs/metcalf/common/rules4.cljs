@@ -646,3 +646,9 @@
     (cond-> block
       invalid-children?
       (update-in [:props :errors] conj "One or more entries have errors"))))
+
+(defn tern-derive-org-name [block]
+  (let [{:strs [street_address address_locality address_region postcode country]} (blocks4/as-data block)
+        filtered (remove (partial contains? empty-values)
+                         [street_address address_locality address_region postcode country])]
+    (assoc-in block [:content "full_address_line" :props :value] (string/join ", " filtered))))

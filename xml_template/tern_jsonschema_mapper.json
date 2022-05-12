@@ -575,10 +575,9 @@
                     }
                   },
                   "full_address_line": {
-                    "!docstring": "Who13 / Who14",
+                    "!docstring": "Who13 / Who14 -- required field but derived automatically",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
                     "type": "string",
-                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -642,7 +641,10 @@
                   "userAddedCategory": {},
                   "isUserDefined": {}
                 },
-                "rules": ["requiredField"]
+                "rules": [
+                  "requiredField",
+                  "orgDerivedName"
+                ]
               },
               "contact": {
                 "!docstring": "Who3",
@@ -816,9 +818,8 @@
                     }
                   },
                   "full_address_line": {
-                    "!docstring": "Who13 / Who14",
+                    "!docstring": "Who13 / Who14 -- required field but derived automatically",
                     "xpath": "cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:deliveryPoint[1]",
-                    "rules": ["requiredField"],
                     "keep": false,
                     "valueChild": "gco:CharacterString"
                   },
@@ -871,7 +872,10 @@
                   },
                   "isUserDefined": {}
                 },
-                "rules": ["requiredField"]
+                "rules": [
+                  "requiredField",
+                  "orgDerivedName"
+                ]
               },
               "contact": {
                 "!docstring": "Who3",

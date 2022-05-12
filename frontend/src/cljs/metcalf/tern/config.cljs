@@ -170,7 +170,8 @@
        "duplicateParameters"            rules4/tern-duplicate-parameters
        "parameterUnitUserDefined"       rules4/tern-parameter-unit-user-defined
        "validContributors"              rules4/valid-contributors
-       "requiredFieldInChildren"          rules4/required-field-in-children})
+       "orgDerivedName"                 rules4/tern-derive-org-name
+       "requiredFieldInChildren"        rules4/required-field-in-children})
 (set! low-code4/component-registry
       {'m4/async-simple-item-option-picker     {:view #'components4/async-simple-item-option-picker :init components4/async-simple-item-option-picker-settings}
        'm4/async-list-option-picker            {:view #'components4/async-list-option-picker :init components4/async-list-option-picker-settings}
@@ -1737,9 +1738,11 @@
       {:form-id   ?form-id
        :data-path [?data-path "full_address_line"]
        :label     "Campus/Sitename"}
+      [:i.bp3-text-muted "Site name will be generated based on provided address information:"]
       [m4/input-field
        {:form-id   ?form-id
-        :data-path [?data-path "full_address_line"]}]]
+        :data-path [?data-path "full_address_line"]
+        :disabled  true}]]
 
      [m4/form-group
       {:form-id   ?form-id

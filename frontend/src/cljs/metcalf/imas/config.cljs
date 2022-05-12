@@ -245,6 +245,7 @@
      [m4/form-group
       {:form-id    [:form]
        :data-path  ["identificationInfo" "title"]
+       :label      "Title"
        :helperText "Clear and concise description of the content of the resource"}
       [m4/input-field
        {:form-id   [:form]
@@ -285,7 +286,7 @@
      [m4/form-group
       {:form-id   [:form]
        :data-path ["identificationInfo" "status"]
-       :label     "Status"}
+       :label     "Status of data"}
       [m4/select-value
        {:form-id    [:form]
         :data-path  ["identificationInfo" "status"]
@@ -329,6 +330,7 @@
      [m4/form-group
       {:form-id    [:form]
        :data-path  ["identificationInfo" "abstract"]
+       :label      "Abstract"
        :helperText "Describe the content of the resource; e.g. what information was collected, how was it collected, brief statement about the purpose of the study"}
       [m4/textarea-field
        {:form-id     [:form]
@@ -569,7 +571,7 @@
      ;  {:form-id    [:form]
      ;   :data-path  []
      ;   :data-paths [["resourceLineage" "lineage"]]}]
-     ; [:h2 "5: How"]
+     [:h2 "5: How"]
      [m4/form-group
       {:form-id    [:form]
        :data-path  ["resourceLineage" "statement"]
@@ -1235,6 +1237,7 @@
       {:label     "Link to data services"
        :form-id   [:form]
        :data-path ["distributionInfo" "transferOptions"]}
+      [:p "Please note: This is intended for advanced users only"]
       [:div.SelectionTableStyle
        [m4/selection-list-columns
         {:form-id             [:form]
@@ -1242,14 +1245,14 @@
          :value-path          ["linkage"]
          :placeholder-record? true
          :select-snapshot?    true
-         :columns             [{:columnHeader "Protocol" :label-path ["protocol"] :flex 2}
-                               {:columnHeader "Server" :label-path ["linkage"] :flex 2}
+         :columns             [{:columnHeader "Title" :label-path ["description"] :flex 2}
+                               {:columnHeader "URL" :label-path ["linkage"] :flex 2}
                                {:columnHeader "Name" :label-path ["name"] :flex 1}]}]]
 
       [m4/list-add-button
        {:form-id     [:form]
         :data-path   ["distributionInfo" "transferOptions"]
-        :button-text "Add data service"
+        :button-text "Add new"
         :value-path  ["linkage"]}]
 
       [m4/list-edit-dialog2

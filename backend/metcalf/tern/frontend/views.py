@@ -496,6 +496,9 @@ def save(request, uuid, update_number):
         draft.doiRequested = identificationInfo.get('doiRequested', False)
         # update dateSubmitted; it will eventually be "correct":
         data["identificationInfo"]["dateSubmitted"] = datetime.date.today().isoformat()
+        # and publication date, if not specified, should be the submission date:
+        data["identificationInfo"]["datePublication"] = data["identificationInfo"].get("datePublication") \
+            or data["identificationInfo"]["dateSubmitted"]
         data["systemRevisionDate"] = datetime.date.today().isoformat()
         draft.save()
 

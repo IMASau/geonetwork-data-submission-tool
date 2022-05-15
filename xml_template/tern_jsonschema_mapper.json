@@ -1608,18 +1608,18 @@
           "!docstring": "About1",
           "keep": false,
           "type": "object",
-          "xpath": "mri:resourceConstraints/mco:MD_LegalConstraints",
+          "export": false,
           "properties": {
             "constraints": {
               "keep": false,
+              "export": false,
               "type": "array",
-              "xpath": "mco:otherConstraints",
               "container": "mco:otherConstraints[last()]",
               "items": {
                 "type": "string",
+                "export": false,
                 "keep": false,
                 "append": true,
-                "xpath": "mco:otherConstraints",
                 "valueChild": "gco:CharacterString"
               }
             }
@@ -1964,6 +1964,14 @@
       {
         "template_xpath": "/mdb:MD_Metadata/mdb:distributionInfo[not(mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource[normalize-space(cit:protocol/gco:CharacterString)=\"WWW:DOWNLOAD-1.0-http--download\"])]",
         "data_path": "dataSources"
+      }
+    ],
+    [
+      "generateAdditionalResourceConstraints",
+      {
+        "template_xpath": "/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints[last()]",
+        "value_xpath": "gco:CharacterString",
+        "data_path": "identificationInfo.additionalConstraints.constraints"
       }
     ]
   ]

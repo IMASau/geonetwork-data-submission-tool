@@ -1,6 +1,7 @@
-from django import forms
 from captcha.fields import ReCaptchaField
-from captcha.widgets import ReCaptchaV2Checkbox
+from captcha.widgets import ReCaptchaV3
+from django import forms
+from django.conf import settings
 
 from metcalf.imas.backend.models import DocumentAttachment
 
@@ -20,17 +21,19 @@ class DocumentAttachmentForm(forms.ModelForm):
         model = DocumentAttachment
         fields = ('document', 'name', 'file')
 
+
 class MySignupForm(forms.Form):
- 
+
     captcha = ReCaptchaField(
-            widget=ReCaptchaV2Checkbox(
-                attrs={
-                        'data-theme': 'light',  # default=light
-                        'data-size': 'normal',  # default=normal
-                },
-            ),
+        label='',
+        widget=ReCaptchaV3(),
     )
-    field_order = ['email', 'username', 'password1', 'password2', 'captcha']
- 
+    # Work-around in testing mode; see
+    # https://github.com/torchbox/django-recaptcha/issues/157#issuecomment-406301677=
+    if getattr(settings, "DEBUG", False):
+        captcha.clean = lambda x: True
+
+    field_order = ['email', 'username', 'password1', 'password2',]
+
     def signup(self, request, user):
         pass

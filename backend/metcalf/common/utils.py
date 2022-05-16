@@ -41,5 +41,6 @@ def create_export_xml_string(doc, uuid):
         handlers={
             "generateParameterUnitKeywords": xmlutils5.export2_generateParameterKeywords_handler,
             "generateDatasourceDistributions": xmlutils5.export2_generateDatasourceDistributions_handler,
+            "generateAdditionalResourceConstraints": xmlutils5.export2_generateAdditionalResourceConstraints_handler,
         })
     return etree.tostring(xml)

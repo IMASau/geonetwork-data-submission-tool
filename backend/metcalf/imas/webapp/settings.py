@@ -112,6 +112,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "bootstrap3",
     "captcha",
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 LOGGING = {
@@ -182,11 +183,19 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
+# We require emails to be verified before we allow any site use -- to
+# help cut down on spam behaviour observed
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# Custom signup form, to include Recaptcha widgets
+ACCOUNT_SIGNUP_FORM_CLASS = 'metcalf.imas.frontend.forms.MySignupForm'
+# Recaptcha v3 threshold (based off
+# https://recaptcha-demo.appspot.com/recaptcha-v3-request-scores.php I
+# am 90% human, so 80% seems reasonable):
+RECAPTCHA_REQUIRED_SCORE = 0.5
 
 SITE_ID = 1
-
-ACCOUNT_EMAIL_REQUIRED = True
 
 GMAPS_API_KEY = ""
 
@@ -208,4 +217,3 @@ USE_TERN_AUTH = False
 
 
 SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
-ACCOUNT_SIGNUP_FORM_CLASS = 'metcalf.imas.frontend.forms.MySignupForm'

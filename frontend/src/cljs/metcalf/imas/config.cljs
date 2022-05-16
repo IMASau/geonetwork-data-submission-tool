@@ -1247,7 +1247,7 @@
          :select-snapshot?    true
          :columns             [{:columnHeader "Title" :label-path ["description"] :flex 2}
                                {:columnHeader "URL" :label-path ["linkage"] :flex 2}
-                               {:columnHeader "Name" :label-path ["name"] :flex 1}]}]]
+                               {:columnHeader "Layer" :label-path ["name"] :flex 1}]}]]
 
       [m4/list-add-button
        {:form-id     [:form]

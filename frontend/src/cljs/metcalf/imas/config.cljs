@@ -1262,7 +1262,9 @@
         :title       "Data Source"
         :template-id :transferOptions/user-defined-entry-form
         :field-paths [["description"]
-                      ["protocol"]]}]]]
+                      ["protocol"]
+                      ["linkage"]
+                      ["name"]]}]]]
 
     :transferOptions/user-defined-entry-form
     [:div

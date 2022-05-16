@@ -112,6 +112,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "bootstrap3",
     "captcha",
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 LOGGING = {

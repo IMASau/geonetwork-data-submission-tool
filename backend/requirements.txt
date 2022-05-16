@@ -8,6 +8,7 @@ Pillow==8.3.2
 django-allauth==0.45.0
 django-recaptcha==3.0.0
 django-bootstrap3==15.0.0
+django-cleanup==6.0.0
 django-filter==2.4.0
 django-fsm-admin==1.2.4
 django-fsm==2.7.1

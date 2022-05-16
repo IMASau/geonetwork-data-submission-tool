@@ -189,6 +189,10 @@ ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # Custom signup form, to include Recaptcha widgets
 ACCOUNT_SIGNUP_FORM_CLASS = 'metcalf.imas.frontend.forms.MySignupForm'
+# Recaptcha v3 threshold (based off
+# https://recaptcha-demo.appspot.com/recaptcha-v3-request-scores.php I
+# am 90% human, so 80% seems reasonable):
+RECAPTCHA_REQUIRED_SCORE = 0.5
 
 SITE_ID = 1
 

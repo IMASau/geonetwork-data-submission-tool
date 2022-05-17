@@ -497,7 +497,7 @@
                         (assoc-in [:props :disabled] true)
                         (assoc-in [:props :value] nil)))
         title-block (if protocol-selected?
-                      title-block
+                      (assoc-in title-block [:props :placeholder] "e.g. Map of sampling sites")
                       (-> title-block
                           (assoc-in [:props :disabled] true)
                           (assoc-in [:props :value] nil)))

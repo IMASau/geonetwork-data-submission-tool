@@ -766,7 +766,10 @@
                 "!docstring": "DataSource5",
                 "xpath": "cit:CI_OnlineResource/cit:name",
                 "valueChild": "gco:CharacterString",
-                "type": "string"
+                "type": "string",
+                "rules": [
+                  "requiredField"
+                ]
               },
               "description": {
                 "!docstring": "DataSource2",

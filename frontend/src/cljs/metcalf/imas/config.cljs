@@ -1247,7 +1247,7 @@
          :select-snapshot?    true
          :columns             [{:columnHeader "Title" :label-path ["description"] :flex 2}
                                {:columnHeader "URL" :label-path ["linkage"] :flex 2}
-                               {:columnHeader "Name" :label-path ["name"] :flex 1}]}]]
+                               {:columnHeader "Layer" :label-path ["name"] :flex 1}]}]]
 
       [m4/list-add-button
        {:form-id     [:form]
@@ -1262,7 +1262,9 @@
         :title       "Data Source"
         :template-id :transferOptions/user-defined-entry-form
         :field-paths [["description"]
-                      ["protocol"]]}]]]
+                      ["protocol"]
+                      ["linkage"]
+                      ["name"]]}]]]
 
     :transferOptions/user-defined-entry-form
     [:div

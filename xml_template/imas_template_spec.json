@@ -695,16 +695,16 @@
       }
     },
     "distributionInfo": {
-      "xpath": "mdb:distributionInfo",
+      "xpath": "mdb:distributionInfo/mrd:MD_Distribution",
       "type": "object",
       "properties": {
         "distributionFormat": {
-          "xpath": "mrd:MD_Distribution/mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation",
+          "xpath": "mrd:distributionFormat",
           "type": "object",
           "properties": {
             "title": {
               "!docstring": "About9",
-              "xpath": "cit:title",
+              "xpath": "mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title",
               "keep": false,
               "rules": [
                 {
@@ -716,7 +716,7 @@
             },
             "edition": {
               "!docstring": "About10",
-              "xpath": "cit:edition",
+              "xpath": "mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:edition",
               "keep": false,
               "rules": [
                 {
@@ -730,13 +730,13 @@
         },
         "transferOptions": {
           "!docstring": "Uses a special handler for export",
-          "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine",
+          "xpath": "mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine",
           "type": "array",
           "keep": false,
           "export": false,
           "deleteWhenEmpty": false,
           "items": {
-            "xpath": "mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine",
+            "xpath": "mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine",
             "type": "object",
             "deleteWhenEmpty": false,
             "rules": [
@@ -1049,6 +1049,13 @@
           }
         ]
       ]
+    ],
+    [
+      "remove_element",
+      {
+        "data_path": "distributionInfo",
+        "node_xpath": "/mdb:MD_Metadata/mdb:distributionInfo"
+      }
     ]
   ]
 }

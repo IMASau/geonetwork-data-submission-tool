@@ -3,6 +3,7 @@ import copy
 import uuid
 import math
 
+import metcalf.common.spec4 as spec4
 import metcalf.common.xmlutils4 as xmlutils4
 
 
@@ -227,7 +228,10 @@ def export2_remove_element_handler(data, xml_node, xml_kwargs, xform, **kwargs):
     assert data_path is not None, "data_path must be set"
     assert node_xpath is not None, "node_xpath must be set"
     hit, value = get_dotted_path(data, data_path)
-    if not hit:
+    # hit refers to a complete data path, but it's possible to have
+    # null values (eg, deleting an input field entry resulting in a ''
+    # value):
+    if not hit or not any(spec4.iter_vals(value)):
         nodes = xml_node.xpath(node_xpath, **xml_kwargs)
         for node in nodes:
             node.getparent().remove(node)
@@ -280,6 +284,10 @@ def export2_append_items_handler(data, xml_node, spec, xml_kwargs, handlers, xfo
     for node in template_nodes:
         node.getparent().remove(node)
 
+    # special-case clean-up if there was no data; delete back up to mrd:transferOptions
+    if not values:
+        transferOptions = mount_node.getparent()
+        transferOptions.getparent().remove(transferOptions)
 
 def export2_generateParameterKeywords_handler(data, xml_node, spec, xml_kwargs, handlers, xform):
     """

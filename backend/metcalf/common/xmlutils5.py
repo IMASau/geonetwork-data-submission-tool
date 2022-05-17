@@ -259,13 +259,14 @@ def export2_append_items_handler(data, xml_node, spec, xml_kwargs, handlers, xfo
     assert len(mount_nodes) == 1, 'mount_xpath must match one node, %s found' % len(mount_nodes)
     assert len(template_nodes) > 0, 'template_xpath must match at least one node'
 
-    template = template_nodes[0]
+    mount_node = mount_nodes[0]
+    template = copy.deepcopy(template_nodes[0])
 
     if hit:
         items_spec = get_spec_path(spec, data_path.split('.'))['items']
         for value in values:
             element = copy.deepcopy(template)
-            mount_nodes[0].append(element)
+            mount_node.append(element)
             item_xforms = xform[2:]
             for item_xform in item_xforms:
                 export2_xform(

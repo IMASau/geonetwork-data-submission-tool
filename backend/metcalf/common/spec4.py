@@ -35,6 +35,18 @@ def prewalk(f, form):
     return walk(partial(prewalk, f), lambda x: x, f(form))
 
 
+def iter_vals(d):
+    if isinstance(d, dict):
+        for v in iter_vals(list(d.values())):
+            yield v
+    elif isinstance(d, list):
+        for vs in d:
+            for v in iter_vals(vs):
+                yield v
+    else:
+        yield d
+
+
 def is_ref(schema):
     return '$ref' in schema
 

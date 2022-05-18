@@ -519,6 +519,14 @@
                                                    :file     (first acceptedFiles)
                                                    :config   config}))))
 
+(def blacklisted-attachment-extensions
+  #{"exe" "php"})
+
+(defn get-extension
+  [file]
+  (let [splits (string/split (.-name file) ".")]
+    (if (> (count splits) 1) (last splits) "")))
+
 (defn upload-files-drop
   [{:keys [db]} [_ config data]]
   (let [{:keys [acceptedFiles rejectedFiles]} data
@@ -536,13 +544,34 @@
                              (str (.-name file) " (" msg ")")))
                          rejectedFiles)
         doc-uuid (get-in db [:context :document :uuid])
-        upload-url (get-in db [:upload_form :url])]
-    (if (seq file-errors)
+        upload-url (get-in db [:upload_form :url])
+        blacklisted-files (filter #(blacklisted-attachment-extensions (get-extension %)) acceptedFiles)]
+    (cond
+      (seq blacklisted-files)
+      (actions4/open-modal-action
+       {:db db}
+       {:type    :modal.type/alert
+        :message (let [extensions (distinct (map get-extension blacklisted-files))
+                       plurality? (> (count extensions) 1)]
+                  (str "File type" (if plurality? "s" "")  " "
+                       (let [last-extension (str "'." (last extensions) "'")
+                             rest-extensions (apply str (interpose ", " (map #(str "'." % "'") (drop-last extensions))))]
+                         (if plurality?
+                           (str
+                            rest-extensions
+                            (if (= (count extensions) 2) "" ",")
+                            " and " last-extension)
+                           last-extension))
+                       " " (if plurality? "are" "is") " not permitted. Add files to a .zip archive and try again."))})
+
+      (seq file-errors)
       (actions4/open-modal-action
        {:db db}
        {:type    :modal.type/alert
         :message (apply str "Unable to upload: "
                         (interpose ", " file-errors))})
+      
+      :else
       (reduce (fn [s file]
                 (actions4/upload-attachment s {:doc-uuid doc-uuid
                                                :url      upload-url

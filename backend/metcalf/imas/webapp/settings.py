@@ -35,6 +35,8 @@ DATABASES = {
 
 METCALF_FROM_EMAIL = ""
 
+BLACKLISTED_ATTACHMENT_EXTENSIONS = ["exe", "php"]
+
 TIME_ZONE = "Australia/Hobart"
 
 LANGUAGE_CODE = "en-us"

@@ -124,7 +124,7 @@
 (rf/reg-sub ::subs4/get-form-state subs4/get-form-state)
 (rf/reg-sub :app/contributors-modal-props subs4/contributors-modal-props)
 (rf/reg-sub :app/get-dashboard-props subs3/get-dashboard-props)
-(rf/reg-sub :app/get-progress-bar-props :<- [::subs4/get-form-state [:form]] subs3/get-progress-props)
+(rf/reg-sub :app/get-progress-bar-props :<- [::subs4/get-form-state [:form]] imas-subs/get-progress-props-imas)
 (rf/reg-sub :subs/get-app-root-modal-props subs4/get-modal-props)
 (rf/reg-sub :subs/get-app-root-page-name subs4/get-page-name)
 (rf/reg-sub :subs/get-attachments subs3/get-attachments)

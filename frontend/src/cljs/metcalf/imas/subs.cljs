@@ -101,3 +101,12 @@
                            (not (some #{(get-in contact value-path)} existing-contacts)))
                          source)]
     unique-contacts))
+
+(defn get-progress-props-imas
+  [form-state _]
+  (let [{:progress/keys [fields errors empty]}
+        (:progress/score form-state)
+        can-submit? (= errors 0)]
+    (when (pos-int? fields)
+      {:can-submit? can-submit?
+       :value       (/ (- fields empty) fields)})))

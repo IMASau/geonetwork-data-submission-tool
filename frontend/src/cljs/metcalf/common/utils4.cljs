@@ -273,3 +273,12 @@
   (or select-mode
       (when added-path :added-only)
       :all-items))
+
+(defn list-items
+  "Comma-separates list of strings"
+  [items]
+  (str
+   (apply str (interpose ", " (drop-last items)))
+   (when (> (count items) 2) ",")
+   (when (> (count items) 1) " and ")
+   (last items)))

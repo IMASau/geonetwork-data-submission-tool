@@ -551,18 +551,10 @@
       (actions4/open-modal-action
        {:db db}
        {:type    :modal.type/alert
-        :message (let [extensions (distinct (map get-extension blacklisted-files))
-                       plurality? (> (count extensions) 1)]
-                  (str "File type" (if plurality? "s" "")  " "
-                       (let [last-extension (str "'." (last extensions) "'")
-                             rest-extensions (apply str (interpose ", " (map #(str "'." % "'") (drop-last extensions))))]
-                         (if plurality?
-                           (str
-                            rest-extensions
-                            (if (= (count extensions) 2) "" ",")
-                            " and " last-extension)
-                           last-extension))
-                       " " (if plurality? "are" "is") " not permitted. Add files to a .zip archive and try again."))})
+        :message  (str
+                   "File types "
+                   (utils4/list-items (map #(str "." %) blacklisted-attachment-extensions))
+                   " are not permitted. Add files to a .zip archive and try again.")})
 
       (seq file-errors)
       (actions4/open-modal-action

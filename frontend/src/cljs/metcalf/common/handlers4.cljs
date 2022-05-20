@@ -192,10 +192,12 @@
         (actions4/del-item-action form-id data-path idx))))
 
 (defn imas-upload-files-remove-click
-  [{:keys [db]} [_ ctx idx]]
-  (let [{:keys [form-id data-path]} ctx]
-    (-> {:db db}
-        (actions4/del-item-action form-id data-path idx))))
+  [{:keys [db]} [_ config idx]]
+  (let [{:keys [form-id data-path]} config
+        path (utils4/as-path [form-id :state (blocks4/block-path (conj data-path idx "delete_url"))])
+        delete-url (blocks4/as-data (get-in db path))]
+    (actions4/delete-attachment {:db db} {:url delete-url
+                                          :config config})))
 
 (defn selection-list-reorder
   [{:keys [db]} [_ ctx src-idx dst-idx]]
@@ -573,3 +575,16 @@
       (actions4/open-modal-action {:db db}
                                   {:type    :modal.type/alert
                                    :message (str status ": Error uploading file")}))))
+
+(defn -delete-attachment
+  "Deletes attachment from form once deletion process has completed"
+  [{:keys [db]} [_ config {:keys [status body]}]]
+  (js/console.log "handler2")
+  (let [{:keys [form-id data-path value-path]} config]
+    (case status
+      200 (actions4/open-modal-action {:db db}
+                                      {:type    :modal.type/alert
+                                       :message (str status ": Success!")}) ; TODO: Delete item
+      (actions4/open-modal-action {:db db}
+                                  {:type    :modal.type/alert
+                                   :message (str status ": Error deleting file")}))))

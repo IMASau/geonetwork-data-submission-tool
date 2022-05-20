@@ -103,6 +103,7 @@
 (rf/reg-event-fx :metcalf.imas.core/init-db imas-handlers/init-db)
 (rf/reg-event-fx ::components4/upload-files-drop handlers4/upload-files-drop)
 (rf/reg-event-fx :metcalf.common.actions4/-upload-attachment handlers4/-upload-attachment)
+(rf/reg-event-fx :metcalf.common.actions4/-delete-attachment handlers4/-delete-attachment)
 (rf/reg-fx ::fx3/post fx3/post)
 (rf/reg-fx ::fx3/post-json-data fx3/post-json-data)
 (rf/reg-fx ::fx3/set-location-href fx3/set-location-href)

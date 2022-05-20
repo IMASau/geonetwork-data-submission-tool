@@ -264,10 +264,10 @@
   "POST attachment to server and dispatches response, assuming
    it is one of my uploads (ie data-path is a list not an object).
    Uses uploaded filename as name in payload."
-  [s {:keys [config url]}]
+  [s {:keys [config url idx]}]
   (update s :fx conj [:app/delete-multipart-form
                       {:url     url
-                       :resolve [::-delete-attachment config]}]))
+                       :resolve [::-delete-attachment config idx]}]))
 
 (defn set-data-action-from-mapper
   "Set data using data-mapper.  Runs genkey on updated blocks."

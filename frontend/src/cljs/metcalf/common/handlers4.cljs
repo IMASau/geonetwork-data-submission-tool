@@ -196,8 +196,9 @@
   (let [{:keys [form-id data-path]} config
         path (utils4/as-path [form-id :state (blocks4/block-path (conj data-path idx "delete_url"))])
         delete-url (blocks4/as-data (get-in db path))]
-    (actions4/delete-attachment {:db db} {:url delete-url
-                                          :config config})))
+    (actions4/delete-attachment {:db db} {:url    delete-url
+                                          :config config
+                                          :idx    idx})))
 
 (defn selection-list-reorder
   [{:keys [db]} [_ ctx src-idx dst-idx]]
@@ -578,13 +579,10 @@
 
 (defn -delete-attachment
   "Deletes attachment from form once deletion process has completed"
-  [{:keys [db]} [_ config {:keys [status body]}]]
-  (js/console.log "handler2")
-  (let [{:keys [form-id data-path value-path]} config]
+  [{:keys [db]} [_ config idx {:keys [status]}]]
+  (let [{:keys [form-id data-path]} config]
     (case status
-      200 (actions4/open-modal-action {:db db}
-                                      {:type    :modal.type/alert
-                                       :message (str status ": Success!")}) ; TODO: Delete item
+      200 (actions4/del-item-action {:db db} form-id data-path idx) ; TODO: Delete item
       (actions4/open-modal-action {:db db}
                                   {:type    :modal.type/alert
                                    :message (str status ": Error deleting file")}))))

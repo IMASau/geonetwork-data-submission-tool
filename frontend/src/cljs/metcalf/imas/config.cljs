@@ -110,6 +110,7 @@
 (rf/reg-fx :app/get-json-fx (utils4/promise-fx utils4/get-json))
 (rf/reg-fx :app/post-data-fx (utils4/promise-fx utils4/post-json))
 (rf/reg-fx :app/post-multipart-form (utils4/promise-fx utils4/post-multipart-form))
+(rf/reg-fx :app/delete-multipart-form (utils4/promise-fx utils4/delete-multipart-form))
 (rf/reg-fx :ui/setup-blueprint ui-controls/setup-blueprint)
 (rf/reg-sub ::components4/create-document-modal-can-save? subs4/create-document-modal-can-save?)
 (rf/reg-sub ::components4/get-block-data subs4/form-state-signal subs4/get-block-data-sub)
